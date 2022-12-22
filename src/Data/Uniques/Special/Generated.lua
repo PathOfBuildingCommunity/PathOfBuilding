@@ -333,6 +333,13 @@ local powerChargeMods = {
 
 local precursorsEmblem = {
 [[Precursor's Emblem
+{variant:1}Topaz Ring
+{variant:2}Sapphire Ring
+{variant:3}Ruby Ring
+{variant:4}Two-Stone Ring (Cold/Lightning)
+{variant:5}Two-Stone Ring (Fire/Lightning)
+{variant:6}Two-Stone Ring (Fire/Cold)
+{variant:7}Prismatic Ring
 League: Delve
 Source: Vendor Recipe
 Variant: Topaz Ring
@@ -352,13 +359,6 @@ for _, type in ipairs({ { prefix = "Endurance - ", mods = enduranceChargeMods },
 	end
 end
 table.insert(precursorsEmblem, [[Selected Variant: 1
-{variant:1}Topaz Ring
-{variant:2}Sapphire Ring
-{variant:3}Ruby Ring
-{variant:4}Two-Stone Ring (Cold/Lightning)
-{variant:5}Two-Stone Ring (Fire/Lightning)
-{variant:6}Two-Stone Ring (Fire/Cold)
-{variant:7}Prismatic Ring
 Has Alt Variant: true
 Has Alt Variant Two: true
 Has Alt Variant Three: true
@@ -398,6 +398,51 @@ for _, type in ipairs({ enduranceChargeMods, frenzyChargeMods, powerChargeMods }
 	end
 end
 table.insert(data.uniques.generated, table.concat(precursorsEmblem, "\n"))
+
+local balanceOfTerrorMods = {
+	["Vulnerability: Double Damage"] = "(6-10)% chance to deal Double Damage if you've cast Vulnerability in the past 10 seconds",
+	["Vulnerability: Unaffected by Bleeding"] = "You are Unaffected by Bleeding if you've cast Vulnerability in the past 10 seconds",
+	["Enfeeble: Critical Strike Multiplier"] = "+(30-40)% to Critical Strike Multiplier if you've cast Enfeeble in the past 10 seconds",
+	["Enfeeble: Take no Extra Crit Damage"] = "Take no Extra Damage from Critical Strikes if you've cast Enfeeble in the past 10 seconds",
+	["Despair: Immune to Curses"] = "Immune to Curses if you've cast Despair in the past 10 seconds",
+	["Despair: Inflict Withered"] = "Inflict Withered for 2 seconds on Hit if you've cast Despair in the past 10 seconds",
+	["Punishment: Immune to Reflected Damage"] = "Immune to Reflected Damage if you've cast Punishment in the past 10 seconds",
+	["Punishment: Intimidate"] = "Intimidate Enemies on Hit if you've cast Punishment in the past 10 seconds",
+	["Frostbite: Cold Exposure"] = "Cold Exposure on Hit if you've cast Frostbite in the past 10 seconds",
+	["Frostbite: Unaffected by Freeze"] = "You are Unaffected by Freeze if you've cast Frostbite in the past 10 seconds",
+	["Flammability: Fire Exposure"] = "Inflict Fire Exposure on Hit if you've cast Flammability in the past 10 seconds",
+	["Flammability: Unaffected by Ignite"] = "You are Unaffected by Ignite if you've cast Flammability in the past 10 seconds",
+	["Conductivity: Lightning Exposure"] = "Inflict Lightning Exposure on Hit if you've cast Conductivity in the past 10 seconds",
+	["Conductivity: Unaffected by Shock"] = "You are Unaffected by Shock if you've cast Conductivity in the past 10 seconds",
+	["Elemental Weakness: Immune to Exposure"] = "Immune to Exposure if you've cast Elemental Weakness in the past 10 seconds",
+	["Elemental Weakness: Physical Damage as a Random Element"] = "Gain (30-40)% of Physical Damage as a Random Element if you've cast Elemental Weakness in the past 10 seconds",
+	["Temporal Chains: Cooldown Recovery Rate"] = "(20-25)% increased Cooldown Recovery Rate if you've cast Temporal Chains in the past 10 seconds",
+	["Temporal Chains: Action Speed"] = "Action Speed cannot be Slowed below Base Value if you've cast Temporal Chains in the past 10 seconds",
+}
+
+local balanceOfTerror = {
+	"The Balance of Terror",
+	"Cobalt Jewel",
+	"League: Sanctum",
+	"Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}",
+	"Has Alt Variant: true",
+	"Limited to: 1",
+	"LevelReq: 56",
+}
+
+for name, _ in pairs(balanceOfTerrorMods) do
+	table.insert(balanceOfTerror, "Variant: "..name)
+end
+
+table.insert(balanceOfTerror, "+(10-15)% to all Elemental Resistances")
+
+local index = 1
+for _, line in pairs(balanceOfTerrorMods) do
+	table.insert(balanceOfTerror, "{variant:"..index.."}"..line)
+	index = index + 1
+end
+
+table.insert(data.uniques.generated, table.concat(balanceOfTerror, "\n"))
 
 local skinOfTheLords = {
 	"Skin of the Lords",

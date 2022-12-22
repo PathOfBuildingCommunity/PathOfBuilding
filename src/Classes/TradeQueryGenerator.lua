@@ -10,7 +10,7 @@ local m_max = math.max
 
 -- TODO generate these from data files
 local itemCategoryTags = {
-    ["Ring"] = { ["ring"] = true },
+    ["Ring"] = { ["ring"] = true, ["ring_can_roll_minion_modifiers"] = true },
     ["Amulet"] = { ["amulet"] = true },
     ["Belt"] = { ["belt"] = true },
     ["Chest"] = { ["body_armour"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
@@ -18,8 +18,8 @@ local itemCategoryTags = {
     ["Gloves"] = { ["gloves"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
     ["Boots"] = { ["boots"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
     ["Quiver"] = { ["quiver"] = true },
-    ["Shield"] = { ["shield"] = true, ["focus"] = true, ["energy_shield"] = true, ["dex_shield"] = true, ["str_shield"] = true, ["str_int_shield"] = true, ["dex_int_shield"] = true, ["str_dex_shield"] = true },
-    ["1HWeapon"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true, ["sword"] = true, ["rapier"] = true, ["mace"] = true, ["sceptre"] = true, ["dagger"] = true, ["rune_dagger"] = true, ["wand"] = true, ["claw"] = true },
+    ["Shield"] = { ["shield"] = true, ["focus"] = true, ["energy_shield"] = true, ["dex_shield"] = true, ["str_shield"] = true, ["str_int_shield"] = true, ["dex_int_shield"] = true, ["str_dex_shield"] = true, ["focus_can_roll_minion_modifiers"] = true },
+    ["1HWeapon"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true, ["sword"] = true, ["rapier"] = true, ["mace"] = true, ["sceptre"] = true, ["dagger"] = true, ["rune_dagger"] = true, ["wand"] = true, ["claw"] = true, ["weapon_can_roll_minion_modifiers"] = true },
     ["2HWeapon"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true, ["bow"] = true,  ["axe"] = true, ["sword"] = true, ["mace"] = true, ["2h_sword"] = true, ["2h_axe"] = true, ["2h_mace"] = true },
     ["AbyssJewel"] = { ["default"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
     ["BaseJewel"] = { ["default"] = true, ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true },
@@ -44,7 +44,6 @@ for i, curInfluenceInfo in ipairs(itemLib.influenceInfo) do
     hasInfluenceModIds[i] = "pseudo.pseudo_has_" .. string.lower(curInfluenceInfo.display) .. "_influence"
 end
 
-
 -- This is not a complete list as most mods get caught with the find "Local" check, or don't overlap with non-local mods so we don't care. Some groups
 -- are also shared between local and non-local mods, so a group only approach is not viable.
 local localOnlyModGroups = {
@@ -56,6 +55,14 @@ local localOnlyModGroups = {
     ["DefencesPercentAndStunRecovery"] = true,
     ["LocalAttributeRequirements"] = true,
     ["DefencesPercentSuffix"] = true
+}
+
+-- slots that allow eldritch mods (non-unique only)
+local eldritchModSlots = {
+    ["Body Armour"] = true,
+    ["Helmet"] = true,
+    ["Gloves"] = true,
+    ["Boots"] = true
 }
 
 local MAX_FILTERS = 35
@@ -134,15 +141,15 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 
             -- Special cases
             local specialCaseData = { }
-            if statOrder == 1953 then
+            if statOrder == 1956 then
                 specialCaseData.overrideModLine = "+#% Chance to Block"
                 modLine = modLine .. " (Shields)"
-            elseif statOrder == 1876 then
+            elseif statOrder == 1881 then
                 specialCaseData.overrideModLineSingular = "You can apply an additional Curse"
                 if modLine == specialCaseData.overrideModLineSingular then
                     modLine = "You can apply 1 additional Curses"
                 end
-            elseif statOrder == 1510 then
+            elseif statOrder == 1512 then
                 specialCaseData.overrideModLineSingular = "Bow Attacks fire an additional Arrow"
                 if modLine == specialCaseData.overrideModLineSingular then
                     modLine = "Bow Attacks fire 1 additional Arrows"
@@ -369,8 +376,8 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
                 goto continue
             end
 
-            -- Test with a value halfway between the min and max available for this mod in this slot. Note that this can generate slightly different values for the same mod as implicit vs explicit.
-            local modValue = math.ceil((entry[self.calcContext.itemCategory].max - entry[self.calcContext.itemCategory].min) / 2 + entry[self.calcContext.itemCategory].min)
+            -- Test with a value halfway (or configured default Item Affix Quality) between the min and max available for this mod in this slot. Note that this can generate slightly different values for the same mod as implicit vs explicit.
+            local modValue = math.ceil((entry[self.calcContext.itemCategory].max - entry[self.calcContext.itemCategory].min) * ( main.defaultItemAffixQuality or 0.5 ) + entry[self.calcContext.itemCategory].min)
             local modValueStr = (entry.sign and entry.sign or "") .. tostring(modValue)
 
             -- Apply override text for special cases
@@ -574,7 +581,7 @@ function TradeQueryGeneratorClass:FinishQuery()
     self.calcContext.testItem:BuildAndParseRaw()
 
     local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or originalOutput.TotalDPS or 0) - (self.calcContext.baseDPS or 0)
+    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0))) - (self.calcContext.baseDPS or 0)
 
     -- Restore global cache full DPS
     GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
@@ -648,8 +655,17 @@ function TradeQueryGeneratorClass:FinishQuery()
         }
     end
 
+    local errMsg = nil
+    if #queryTable.query.stats[1].filters == 0 then
+        -- No mods to filter
+        errMsg = "Could not generate search, found no mods to search for"
+        if GlobalCache.numActiveSkillInFullDPS == 0 then
+            errMsg = "Could not generate search, change active skill or enable FullDPS on some skills"
+        end
+    end
+
     local queryJson = dkjson.encode(queryTable)
-    self.requesterCallback(self.requesterContext, queryJson)
+    self.requesterCallback(self.requesterContext, queryJson, errMsg)
 
     -- Close blocker popup
     main:ClosePopup()
@@ -661,22 +677,21 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 
     local controls = { }
     local options = { }
-    local popupHeight = 143
+    local popupHeight = 97
 
     local isJewelSlot = slot.slotName:find("Jewel") ~= nil
     local isAbyssalJewelSlot = slot.slotName:find("Abyssal") ~= nil
     local isAmuletSlot = slot.slotName == "Amulet"
+    local isEldritchModSlot = eldritchModSlots[slot.slotName] == true
 
     controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, -40, 30, 18, "Corrupted Mods:", function(state) end)
     controls.includeCorrupted.state = (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 
-    controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",controls.includeCorrupted,"BOTTOMRIGHT"}, 0, 5, 18, "Eldritch Mods:", function(state) end)
-    controls.includeEldritch.state = (self.lastIncludeEldritch == nil or self.lastIncludeEldritch == true)
-
-    controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
-    controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
+    -- removing checkbox until synthesis mods are supported
+    --controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
+    --controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
     
-    local lastItemAnchor = controls.includeSynthesis
+    local lastItemAnchor = controls.includeCorrupted
     local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
     
     if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
@@ -692,6 +707,14 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
         controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
 
         lastItemAnchor = controls.includeTalisman
+        popupHeight = popupHeight + 23
+    end
+
+    if isEldritchModSlot then
+        controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Eldritch Mods:", function(state) end)
+        controls.includeEldritch.state = (self.lastIncludeEldritch == true)
+
+        lastItemAnchor = controls.includeEldritch
         popupHeight = popupHeight + 23
     end
 

@@ -251,9 +251,9 @@ Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
+Viridian Jewel
 Variant: Pre 3.16.0
 Variant: Current
-Viridian Jewel
 League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
@@ -393,6 +393,37 @@ Crimson Jewel
 Radius: Large
 50% increased Effect of non-Keystone Passive Skills in Radius
 Notable Passive Skills in Radius grant nothing
+]],[[
+Immutable Force
+Crimson Jewel
+Limited to: 1
+(500-1000)% increased Stun and Block Recovery
+]],[[
+Firesong
+Crimson Jewel
++(10-15)% to Fire Resistance
+Modifiers to Ignite Duration on you apply to all Elemental Ailments
+]],[[
+Stormshroud
+Viridian Jewel
++(10-15)% to Lightning Resistance
+Modifiers to Chance to Avoid being Shocked apply to all Elemental Ailments
+]],[[
+Witchbane
+Cobalt Jewel
++(5-15) to Intelligence
+When you Kill an Enemy Cursed with a Non-Aura Hex, become Immune to
+Curses for remaining Hex Duration
+]],[[
+Rational Doctrine
+Cobalt Jewel
+Source: Drops from unique{Synthete Nightmare} in normal{The Cortex} (Uber)
+You have Consecrated Ground around you while
+stationary if Strength is your highest Attribute
+25% chance to create Profane Ground on Critical
+Strike if Intelligence is your highest Attribute
+Effects of Consecrated Ground you create Linger for 4 seconds
+Effects of Profane Ground you create Linger for 4 seconds
 ]],[[
 Nadir Mode
 Cobalt Jewel
@@ -1251,9 +1282,9 @@ Radius: Medium
 {variant:2}With at least 40 Dexterity in Radius, each Spectral Throw Projectile gains 5% increased Damage each time it Hits.
 ]],[[
 Sudden Ignition
+Viridian Jewel
 Variant: Pre 3.16.0
 Variant: Current
-Viridian Jewel
 Source: No longer obtainable
 Limited to: 1
 Radius: Medium

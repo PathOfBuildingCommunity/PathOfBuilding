@@ -3862,6 +3862,73 @@ skills["ShrapnelTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "One explosion hitting",
+		},
+		{
+			name = "Average explosions hitting",
+		},
+		{
+			name = "All explosions hitting",
+		},
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillPart = activeSkill.skillPart
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local function hitChance(enemyRadius, areaDamageRadius, areaSpreadRadius) -- not to be confused with attack hit chance
+			local damagingAreaRadius = areaDamageRadius + enemyRadius - 1	-- radius where area damage can land to hit the enemy;
+			-- -1 because of two assumptions: PoE coordinates are integers and damage is not registered if the two areas only share a point or vertex. If either is not correct, then -1 is not needed.
+			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
+		end
+		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local waveRadius = output.AreaOfEffectRadiusSecondary
+		local fullRadius = output.AreaOfEffectRadius
+		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
+		output.OverlapChance = overlapChance * 100
+		local smallExplosionsPerTrap = skillModList:Sum("BASE", skillCfg, "SmallExplosions")
+		output.SmallExplosionsPerTrap = smallExplosionsPerTrap
+		if breakdown then
+			breakdown.OverlapChance = { }
+			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
+		end
+		local dpsMultiplier = 1
+		if skillPart == 2 then
+			dpsMultiplier = 1 + smallExplosionsPerTrap * overlapChance
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= 1 + ^7small explosions^8 * ^7overlap chance^8")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= 1 +^7 %d^8 *^7 %.2f^8", smallExplosionsPerTrap, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+			end
+		elseif skillPart == 3 then
+			dpsMultiplier = 1 + smallExplosionsPerTrap
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= 1 +^7 %d (small explosions)", dpsMultiplier))
+			end
+		end
+		if dpsMultiplier ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
+		end
+	end,
+	statMap = {
+		["shrapnel_trap_number_of_secondary_explosions"] = {
+			mod("SmallExplosions", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		trap = true,
@@ -7188,6 +7255,9 @@ skills["Reave"] = {
 		["reave_area_of_effect_+%_final_per_stage"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveStage" }),
 		},
+		["reave_additional_max_stacks"] = {
+			mod("Multiplier:ReaveMaxStages", "BASE", nil),
+		}
 	},
 	baseFlags = {
 		attack = true,
@@ -7718,8 +7788,9 @@ skills["PhysCascadeTrap"] = {
 		local wavePulseRate = incFrequency * moreFrequency / baseInterval
 		skillData.hitTimeOverride = 1 / wavePulseRate
 		output.WavePulseRate = wavePulseRate
+		local incDuration = (1 + skillModList:Sum("INC", skillCfg, "Duration") / 100)
 		local moreDuration = skillModList:More(skillCfg, "Duration")
-		local duration = output.Duration
+		local duration = skillData.duration * incDuration * moreDuration
 		local pulses = math.floor(duration * wavePulseRate)
 		output.PulsesPerTrap = pulses
 		local effectiveDuration = pulses / wavePulseRate
@@ -7741,8 +7812,8 @@ skills["PhysCascadeTrap"] = {
 			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
 			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
 			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
-			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 + ^7%d^8 - 1) ^ 2 / ^7%d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
-			t_insert(breakdown.OverlapChance, s_format("^8= ^7%.3f^8%%", overlapChance * 100))
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
 			breakdown.WavePulseRate = { }
 			t_insert(breakdown.WavePulseRate, "Pulse rate:")
 			t_insert(breakdown.WavePulseRate, s_format("%.2f ^8(base pulse rate)", 1 / baseInterval))
@@ -7751,16 +7822,22 @@ skills["PhysCascadeTrap"] = {
 			t_insert(breakdown.WavePulseRate, s_format("= %.2f^8/s", wavePulseRate))
 			breakdown.PulsesPerTrap = { }
 			t_insert(breakdown.PulsesPerTrap, "Pulses per trap:")
-			t_insert(breakdown.PulsesPerTrap, s_format("%.3f ^8(skill duration)", duration))
+			t_insert(breakdown.PulsesPerTrap, s_format("%.3f ^8(unrounded skill duration)", duration))
 			t_insert(breakdown.PulsesPerTrap, s_format("* %.2f ^8(pulse rate)", wavePulseRate))
 			t_insert(breakdown.PulsesPerTrap, s_format("= %.2f ^8pulses", duration * wavePulseRate))
 			t_insert(breakdown.PulsesPerTrap, "^8rounded down")
 			t_insert(breakdown.PulsesPerTrap, s_format("= %d ^8pulses", pulses))
-			t_insert(breakdown.PulsesPerTrap, s_format("^8Next breakpoint: %d%% increased Trap Throwing Speed / %d%% increased Duration", math.ceil(100 * (incFrequency * (pulses + 1) / (duration * wavePulseRate) - incFrequency)), math.ceil(100 * ((pulses + 1) / wavePulseRate / skillData.duration / moreDuration  - output.DurationMod / moreDuration ))))
-			t_insert(breakdown.PulsesPerTrap, s_format("^8Previous breakpoint: %d%% reduced Trap Throwing Speed / %d%% reduced Duration", -math.ceil(100 * (incFrequency * pulses / (duration * wavePulseRate) - incFrequency) - 1), -math.ceil(100 * (pulses / wavePulseRate / skillData.duration - output.DurationMod - 0.01) * moreDuration)))
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Next breakpoint: %d%% increased Trap Throwing Speed / %d%% increased Duration",
+					math.ceil(100 * ((pulses + 1) * baseInterval / (duration * moreFrequency) - incFrequency)),
+					math.ceil(100 * ((pulses + 1) / (wavePulseRate * skillData.duration * moreDuration) - incDuration))
+			))
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Previous breakpoint: %d%% reduced Trap Throwing Speed / %d%% reduced Duration",
+					-math.ceil(100 * (pulses * baseInterval / (duration * moreFrequency) - incFrequency) - 1),
+					-math.ceil(100 * (pulses / (wavePulseRate * skillData.duration * moreDuration) - incDuration) - 1)
+			))
 			breakdown.AverageActiveTraps = { }
 			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
-			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 / ^7%.2f^8 (pulses / pulse rate = effective skill duration)", pulses, wavePulseRate))
+			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 /^7 %.2f^8 (pulses / pulse rate = effective skill duration)", pulses, wavePulseRate))
 			t_insert(breakdown.AverageActiveTraps, s_format("/ %.2f ^8(cooldown)", cooldown))
 			t_insert(breakdown.AverageActiveTraps, s_format("= %.2f traps", averageActiveTraps))
 		end
@@ -7772,22 +7849,22 @@ skills["PhysCascadeTrap"] = {
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
 				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7maximum waves^8 * ^7overlap chance^8")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d^8 * ^7%.2f^8", maxWaves, overlapChance))
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.2f^8", maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
 			end
 		elseif skillPart == 3 then
 			dpsMultiplier = maxWaves
 			if breakdown then
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d (maximum waves)", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d (maximum waves)", dpsMultiplier))
 			end
 		elseif skillPart == 4 then
 			dpsMultiplier = averageActiveTraps
 			if breakdown then
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.2f (average active traps)", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f (average active traps)", dpsMultiplier))
 			end
 		elseif skillPart == 5 then
 			dpsMultiplier = averageActiveTraps * maxWaves * overlapChance
@@ -7795,8 +7872,8 @@ skills["PhysCascadeTrap"] = {
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
 				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves^8 * ^7overlap chance^8")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.2f^8 * ^7%d^8 * ^7%.2f", averageActiveTraps, maxWaves, overlapChance))
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f^8 *^7 %d^8 *^7 %.2f", averageActiveTraps, maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
 			end
 		elseif skillPart == 6 then
 			dpsMultiplier = averageActiveTraps * maxWaves
@@ -7804,8 +7881,8 @@ skills["PhysCascadeTrap"] = {
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
 				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.2f^8 * ^7%d", averageActiveTraps, maxWaves))
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f^8 *^7 %d", averageActiveTraps, maxWaves))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
 			end
 		end
 		if dpsMultiplier ~= 1 then

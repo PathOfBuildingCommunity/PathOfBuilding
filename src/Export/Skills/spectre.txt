@@ -1128,11 +1128,10 @@ skills["MonsterChanceToTemporalChainsOnHit1"] = {
 		"buff_time_passed_+%_other_than_temporal_chains",
 		"curse_effect_+%_final_vs_players",
 		"temporal_chains_action_speed_+%_vs_rare_or_unique_final",
-		"base_curse_skill_doom_gain_per_minute_if_cast_yourself",
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 5000, 0, -20, -40, -50, -10, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[1] = { 5000, 0, -20, -40, -50, -10, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 
@@ -1177,11 +1176,10 @@ skills["DelveMonsterEnfeebleOnHit"] = {
 		"accuracy_rating_+%",
 		"enfeeble_damage_+%_final",
 		"enfeeble_damage_+%_vs_rare_or_unique_final",
-		"base_curse_skill_doom_gain_per_minute_if_cast_yourself",
 		"base_deal_no_damage",
 	},
 	levels = {
-		[8] = { 9700, 4, -13, -24, -12, 600, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
+		[8] = { 9700, 4, -13, -24, -12, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { }, },
 	},
 }
 
@@ -1214,7 +1212,6 @@ skills["MonsterVulnerabilityOnHit1"] = {
     },
     constantStats = {
         { "receive_bleeding_chance_%_when_hit_by_attack", 25 },
-        { "base_curse_skill_doom_gain_per_minute_if_cast_yourself", 600 },
     },
     stats = {
         "base_skill_effect_duration",
