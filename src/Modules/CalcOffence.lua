@@ -4382,7 +4382,7 @@ function calcs.offence(env, actor, activeSkill)
 		local usedSkillBestDps = 0
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
-			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Attack] and band(triggerSkill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) then
+			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Attack] and not triggerSkill.skillTypes[SkillType.Totem] and not triggerSkill.skillTypes[SkillType.SummonsTotem] and band(triggerSkill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) then
 				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
 				local uuid = cacheSkillUUID(triggerSkill)
 				if not GlobalCache.cachedData[calcMode][uuid] then
