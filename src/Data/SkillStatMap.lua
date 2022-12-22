@@ -187,6 +187,9 @@ return {
 ["support_cast_on_mana_spent"] = {
 	skill("triggeredByManaSpent", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
+["support_cast_on_damage_taken"] = {
+	skill("triggeredByDamageTaken", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
 ["display_mirage_warriors_no_spirit_strikes"] = {
 	skill("triggeredBySaviour", true, { type = "SkillType", skillType = SkillType.Attack } ),
 },
@@ -925,10 +928,10 @@ return {
 	mod("EnemyFreezeDuration", "INC", nil),
 },
 ["base_elemental_status_ailment_duration_+%"] = {
-	mod("EnemyElementalAilmentDuration", "INC", nil), 
+	mod("EnemyElementalAilmentDuration", "INC", nil),
 },
 ["base_all_ailment_duration_+%"] = {
-	mod("EnemyAilmentDuration", "INC", nil), 
+	mod("EnemyAilmentDuration", "INC", nil),
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
@@ -1000,8 +1003,8 @@ return {
 	flag("IronWill"),
 },
 ["deal_no_elemental_damage"] = {
-	flag("DealNoFire"), 
-	flag("DealNoCold"), 
+	flag("DealNoFire"),
+	flag("DealNoCold"),
 	flag("DealNoLightning"),
 },
 ["base_deal_no_chaos_damage"] = {
@@ -1708,7 +1711,7 @@ return {
 	mod("AdditionalCooldownUses", "BASE", nil)
 },
 ["kill_enemy_on_hit_if_under_10%_life"] = {
-	mod("CullPercent", "MAX", nil), 
+	mod("CullPercent", "MAX", nil),
 	value = 10
 },
 ["spell_cast_time_added_to_cooldown_if_triggered"] = {
