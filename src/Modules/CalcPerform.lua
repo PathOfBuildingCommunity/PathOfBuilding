@@ -2732,8 +2732,8 @@ function calcs.perform(env, avoidCache)
 		end
 		
 		output.TriggerRateCap = triggerRate
-		output.SourceTriggerRate = 1 / focusTotalCD
-		output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.TriggerRateCap)
+		output.SkillTriggerRate = 1 / focusTotalCD
+		output.ServerTriggerRate = m_min(output.SkillTriggerRate, output.TriggerRateCap)
 		
 		if breakdown then
 			if triggeredCD then
@@ -2769,28 +2769,24 @@ function calcs.perform(env, avoidCache)
 					s_format("= %.3f ^8per second", triggerRate),
 				}		
 			end	
-			breakdown.SimData = {
-					s_format("%.2f ^8(focus base cooldown)", skillFocus.levels[1].cooldown),
-					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrFocus),
-					s_format("+ %.2f ^8(skills are only triggered on activation thus we add focus duration)", focusDuration),
-					s_format("= %.2f ^8(effective skill cooldown for trigger purposes)", focusTotalCD),
-					"",
-					s_format("%.3f casts per second ^8(Assuming player uses focus exactly when its cooldown of %.2fs expires)", 1 / focusTotalCD, focusTotalCD)
-				}
-			breakdown.ServerTriggerRate = {
-					s_format("%.3f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
-				}
-			
+			breakdown.SkillTriggerRate = {
+				s_format("%.2f ^8(focus base cooldown)", skillFocus.levels[1].cooldown),
+				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrFocus),
+				s_format("+ %.2f ^8(skills are only triggered on activation thus we add focus duration)", focusDuration),
+				s_format("= %.2f ^8(effective skill cooldown for trigger purposes)", focusTotalCD),
+				"",
+				s_format("%.3f casts per second ^8(Assuming player uses focus exactly when its cooldown of %.2fs expires)", 1 / focusTotalCD, focusTotalCD)
+			}
 		end
 
 		-- Account for Trigger-related INC/MORE modifiers
 		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 		env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
 		env.player.mainSkill.skillData.triggerSource = source
-		env.player.mainSkill.infoMessage = "Assuming perfect focus reuse"
+		env.player.mainSkill.infoMessage = "Assuming perfect focus Re-Use"
 		env.player.mainSkill.infoTrigger = triggerName
 		env.player.mainSkill.skillFlags.dontDisplay = true
-		
+		env.player.mainSkill.skillFlags.globalTrigger = true
 	elseif env.player.mainSkill.skillData.triggeredWhileChannelling and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 	--Cast While Channeling Special Handling
 	local spellCount = {}
@@ -2854,8 +2850,7 @@ function calcs.perform(env, avoidCache)
 		
 		local simBreakdown = nil
 		output.TriggerRateCap = m_min(1 / effCDTriggeredSkill, triggerRateOfTrigger)
-		output.SourceTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, triggerRateOfTrigger, icdr)
-		output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.TriggerRateCap)
+		output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, triggerRateOfTrigger, icdr)
 		
 		if breakdown then
 			if triggeredCD or cooldownOverride then
@@ -2901,21 +2896,21 @@ function calcs.perform(env, avoidCache)
 			end
 			
 			t_insert(breakdown.TriggerRateCap, "Trigger rate:")
-			t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f ^8(trigger rate adjusted for cooldown of triggered skill)", 1 / output.ServerTriggerRate))
-			t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8 %s casts per second", output.ServerTriggerRate, triggeredName))
+			t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f ^8(trigger rate adjusted for cooldown of triggered skill)", 1 / output.TriggerRateCap))
+			t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8 %s casts per second", output.TriggerRateCap, triggeredName))
 			
-			breakdown.SourceTriggerRate = {
+			breakdown.SkillTriggerRate = {
 				s_format("%.2f ^8(%s triggers per second)", triggerRateOfTrigger, triggerName),
-				s_format("/ %.2f ^8(simulated impact of linked spells)", (triggerRateOfTrigger / output.SourceTriggerRate) or 1),
-				s_format("= %.2f ^8%s casts per second", output.SourceTriggerRate, triggeredName),
+				s_format("/ %.2f ^8(simulated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
+				s_format("= %.2f ^8%s casts per second", output.SkillTriggerRate, triggeredName),
 				"",
 				"Simulation Breakdown",
 				s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 			}
 			
 			if simBreakdown.extraSimInfo then
-				t_insert(breakdown.SourceTriggerRate, "")
-				t_insert(breakdown.SourceTriggerRate, simBreakdown.extraSimInfo)
+				t_insert(breakdown.SkillTriggerRate, "")
+				t_insert(breakdown.SkillTriggerRate, simBreakdown.extraSimInfo)
 			end
 			breakdown.SimData = {
 				rowList = { },
@@ -2944,9 +2939,9 @@ function calcs.perform(env, avoidCache)
 		
 		-- Account for Trigger-related INC/MORE modifiers
 		env.player.mainSkill.skillFlags.dontDisplay = true
-		output.Speed = output.ServerTriggerRate
 		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 		env.player.mainSkill.skillData.triggered = true
+		env.player.mainSkill.skillFlags.globalTrigger = true
 		env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
 		env.player.mainSkill.skillData.triggerSource = source
 		env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
