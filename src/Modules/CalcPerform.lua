@@ -2965,6 +2965,7 @@ function calcs.perform(env, avoidCache)
 		local triggeredSkillCond = nil
 		local assumingEveryHitKills = nil
 		local uuid = nil
+		local triggerOnUse = nil
 		local function slotMatch(env, skill)
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
@@ -2977,6 +2978,9 @@ function calcs.perform(env, avoidCache)
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Claw) > 0 and skill ~= env.player.mainSkill 
 				end
+			elseif (uniqueTriggerName == "The Rippling Thoughts" or uniqueTriggerName == "The Surging Thoughts") and env.player.mainSkill.activeEffect.grantedEffect.name == "Storm Cascade" then
+				spellCount = nil
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Atziri's Rule" then
 				--Atziri's rule The judgement staff is an item that grants Queen's Demand skill that can trigger other skills from the same item
 				env.player.mainSkill.skillData.triggeredByUnique = nil
@@ -2992,6 +2996,10 @@ function calcs.perform(env, avoidCache)
 					env.player.mainSkill.disableReason = "This skill is requires you to be phasing"
 					skip = true
 				end
+			elseif uniqueTriggerName == "Replica Eternity Shroud" or uniqueTriggerName == "Shroud of the Lightless" then
+				source = env.player.mainSkill
+				spellCount = nil
+				env.player.mainSkill.skillFlags.globalTrigger = true
 			elseif uniqueTriggerName == "Limbsplit" or uniqueTriggerName == "The Cauteriser" then
 				triggerName = "Gore Shockwave"
 				spellCount = nil
@@ -3003,6 +3011,7 @@ function calcs.perform(env, avoidCache)
 			elseif uniqueTriggerName == "Lioneye's Paws" or uniqueTriggerName == "Replica Lioneye's Paws" then
 				--cooldown taken from wiki
 				env.player.mainSkill.skillData.cooldown = 1
+				triggerOnUse = true
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Moonbender's Wing" then
@@ -3023,11 +3032,17 @@ function calcs.perform(env, avoidCache)
 				triggerName = "Bone Nova"
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
-			elseif uniqueTriggerName == "Mark of the Elder" or uniqueTriggerName == "Mark of the Shaper" or uniqueTriggerName == "Sporeguard" or uniqueTriggerName == "Rigwald's Crest" or uniqueTriggerName == "Jorrhast's Blacksteel" or uniqueTriggerName == "Ashcaller" or uniqueTriggerName == "Arakaali's Fang" then
+			elseif  uniqueTriggerName == "Rigwald's Crest" or uniqueTriggerName == "Jorrhast's Blacksteel" or uniqueTriggerName == "Ashcaller" then
+				env.player.mainSkill.skillData.sourceRateIsFinal = true
+				assumingEveryHitKills = true
+				spellCount = nil
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+			elseif uniqueTriggerName == "Arakaali's Fang" or uniqueTriggerName == "Sporeguard" or uniqueTriggerName == "Mark of the Elder" or uniqueTriggerName == "Mark of the Shaper" then
 				assumingEveryHitKills = true
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Poet's Pen" then
+				triggerOnUse = true
 				triggerSkillCond = function(env, skill) 
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill 
 				end
@@ -3035,6 +3050,7 @@ function calcs.perform(env, avoidCache)
 					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell] 
 				end
 			elseif uniqueTriggerName == "Maloney's Mechanism" then
+				triggerOnUse = true
 				local _, _, uniqueTriggerName = env.player.itemList[env.player.mainSkill.slotName].modSource:find(".*:.*:(.*),.*")
 				local isReplica = uniqueTriggerName:match("Replica.")
 				triggerName = uniqueTriggerName
@@ -3047,6 +3063,7 @@ function calcs.perform(env, avoidCache)
 					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.RangedAttack]
 				end
 			elseif uniqueTriggerName == "Asenath's Chant" then
+				triggerOnUse = true
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill
 				end
@@ -3116,6 +3133,7 @@ function calcs.perform(env, avoidCache)
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoC and slotMatch(env, skill) end
 			elseif env.player.mainSkill.skillData.triggeredByMeleeKill then
 				if modDB:Flag(nil, "Condition:KilledRecently") then
+					assumingEveryHitKills = true
 					triggerSkillCond = function(env, skill)
 						return skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill ~= env.player.mainSkill and slotMatch(env, skill)
 					end
@@ -3252,7 +3270,7 @@ function calcs.perform(env, avoidCache)
 					end
 					
 					--Accuracy and crit chance
-					if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData["CACHE"][uuid] then
+					if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData["CACHE"][uuid] and not triggerOnUse then
 						local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance					
 						trigRate = trigRate * (sourceHitChance or 0) / 100
 						if breakdown then
