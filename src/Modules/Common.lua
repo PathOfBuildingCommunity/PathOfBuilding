@@ -26,9 +26,19 @@ common.xml = require("xml")
 common.base64 = require("base64")
 common.sha1 = require("sha1")
 
--- Uncomment if you need to perform in-depth profiling
-profiler = require("lua-profiler")
+-- Try to load a library return nil if failed. https://stackoverflow.com/questions/34965863/lua-require-fallback-error-handling
+function prequire(...)
+    local status, lib = pcall(require, ...)
+    if(status) then return lib end
+    return nil
+end
+
+profiler = prequire("lua-profiler")
 profiling = false
+
+if launch.devMode and profiler == nil then
+	ConPrintf("Unable to Load Profiler")
+end
 
 -- Class library
 common.classes = { }
