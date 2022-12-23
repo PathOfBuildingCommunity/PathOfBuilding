@@ -257,7 +257,7 @@ This file contains:
 - A table containing information about the profiling
   - File, function and line are the file that a given function that was executed in and what line the function definition is on
   - Time and % are the time spent executing code within a function and its percentage relative to the total time spent
-  - # Is the number of times the function was called
+  - \# Is the number of times the function was called
 - ~ is displayed if time spent executing is less than 0.0001
 
 Here is an example table that could be generated
@@ -266,7 +266,7 @@ Here is an example table that could be generated
 -------------------------------------------------------------------------------------------------------------------------------------
 | FILE                          : FUNCTION                                        : LINE     : TIME        : %        : #           |
 -------------------------------------------------------------------------------------------------------------------------------------
-| ...ers\\******\Documents\GitHub\: Anon                                            :     104  : 0.4770      : 93.5     :           2 |
+| ...ers\******\Documents\GitHub\: Anon                                            :     104  : 0.4770      : 93.5     :           2 |
 | Modules/Main                  : Anon                                            :     263  : 0.4770      : 93.5     :           2 |
 | Modules/Build                 : CallMode                                        :     906  : 0.4730      : 92.7     :           2 |
 | Classes/TreeTab               : Draw                                            :     178  : 0.4360      : 85.5     :           2 |
@@ -316,7 +316,7 @@ Here is an example table that could be generated
 | Modules/Main                  : GetProperty                                     :     139  : ~           : ~        :           4 |
 | Modules/Build                 : GetProperty                                     :     544  : ~           : ~        :          26 |
 | Modules/Build                 : GetProperty                                     :     491  : ~           : ~        :           2 |
-| ...ers\\******\Documents\GitHub\: Anon                                            :     166  : ~           : ~        :           1 |
+| ...ers\******\Documents\GitHub\: Anon                                            :     166  : ~           : ~        :           1 |
 | Modules/Build                 : IsEnabled                                       :     120  : ~           : ~        :           2 |
 | Classes/EditControl           : GetProperty                                     :      62  : ~           : ~        :          84 |
 | Modules/Build                 : GetProperty                                     :     487  : ~           : ~        :           2 |
@@ -327,7 +327,7 @@ Here is an example table that could be generated
 | Classes/Control               : SetAnchor                                       :      42  : ~           : ~        :           2 |
 | Classes/PassiveTreeView       : screenToTree                                    :     182  : ~           : ~        :           2 |
 | Modules/Build                 : RefreshSkillSelectControls                      :    1174  : ~           : ~        :           2 |
-| ...ers\\******\Documents\GitHub\: Anon                                            :     134  : ~           : ~        :           1 |
+| ...ers\******\Documents\GitHub\: Anon                                            :     134  : ~           : ~        :           1 |
 | Modules/Common                : wipeTable                                       :     420  : ~           : ~        :          16 |
 | Modules/Main                  : CallMode                                        :     418  : ~           : ~        :           2 |
 | Classes/DropDownControl       : SelByValue                                      :     122  : ~           : ~        :           2 |
