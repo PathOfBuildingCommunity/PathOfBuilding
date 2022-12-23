@@ -138,7 +138,7 @@ function launch:OnKeyDown(key, doubleClick)
 		local before = collectgarbage("count")
 		collectgarbage("collect")
 		ConPrintf("%dkB => %dkB", before, collectgarbage("count"))
-	elseif key == "PAUSE" and self.devMode then
+	elseif key == "PAUSE" and self.devMode and profiler then
 		if profiling then
 			profiler.stop()
 			profiler.report("profiler.log")
