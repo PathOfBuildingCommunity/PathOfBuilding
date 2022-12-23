@@ -393,7 +393,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 			output.EffectiveRateOfTrigger = output.EffectiveRateOfTrigger.rates[1].rate
 		end
 	else
-		output.EffectiveRateOfTrigger = data.misc.ServerTickRate / m_ceil( triggerCD / icdr * data.misc.ServerTickRate)
+		output.EffectiveRateOfTrigger = data.misc.ServerTickRate / m_ceil( (triggerCD or triggeredCD) / icdr * data.misc.ServerTickRate)
 		env.player.mainSkill.skillFlags.globalTrigger = true
 	end
 	
@@ -419,7 +419,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 				local skillName = (source and source.activeEffect.grantedEffect.name) or (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name
 				
 				if env.player.mainSkill.skillData.triggeredByBrand then
-					t_insert(breakdown.SkillTriggerRate, 1, s_format("%.2f ^8(%s activations per second)", dualwieldAPS, source.activeEffect.grantedEffect.name))
+					breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s activations per second)", dualwieldAPS, source.activeEffect.grantedEffect.name)
 				else
 					if not sourceAPS then
 						breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", output.EffectiveRateOfTrigger, skillName)
@@ -3162,9 +3162,11 @@ function calcs.perform(env, avoidCache)
 				env.player.mainSkill.skillFlags.globalTrigger = true
 				source = env.player.mainSkill
 				spellCount = nil
+				trigRate = nil
 			elseif env.player.mainSkill.skillData.triggeredByBrand and not env.player.mainSkill.skillFlags.minion then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
 				env.player.mainSkill.skillFlags.globalTrigger = true
+				env.player.mainSkill.skillData.sourceRateIsFinal = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end
 				
 				for _, skill in ipairs(env.player.activeSkillList) do
