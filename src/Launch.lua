@@ -138,6 +138,15 @@ function launch:OnKeyDown(key, doubleClick)
 		local before = collectgarbage("count")
 		collectgarbage("collect")
 		ConPrintf("%dkB => %dkB", before, collectgarbage("count"))
+	elseif key == "PAUSE" and self.devMode then
+		if profiling then
+			profiler.stop()
+			profiler.report("profiler.log")
+			profiling = false
+		else
+			profiler.start()
+			profiling = true
+		end
 	elseif key == "u" and IsKeyDown("CTRL") then
 		if not self.devMode then
 			self:CheckForUpdate()

@@ -27,7 +27,8 @@ common.base64 = require("base64")
 common.sha1 = require("sha1")
 
 -- Uncomment if you need to perform in-depth profiling
--- profiler = require("lua-profiler")
+profiler = require("lua-profiler")
+profiling = false
 
 -- Class library
 common.classes = { }
