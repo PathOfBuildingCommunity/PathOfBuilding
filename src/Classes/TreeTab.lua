@@ -31,11 +31,6 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self:SetCompareSpec(1)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
-	
-	self.tradeQueryRequests = new("TradeQueryRequests", self)
-	table.insert(main.onFrameFuncs, function()
-		self.tradeQueryRequests:ProcessQueue()
-	end)
 
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
