@@ -255,9 +255,9 @@ Pressing pause will start and stop the profiler depending upon if profiling is a
 This file contains:
 - Total time spent executing (Top of File)
 - A table containing information about the profiling
-       - File, function and line are the file that a given function that was executed in and what line the function definition is on
-       - Time and % are the time spent executing code within a function and its percentage relative to the total time spent
-       - # Is the number of times the function was called
+  - File, function and line are the file that a given function that was executed in and what line the function definition is on
+  - Time and % are the time spent executing code within a function and its percentage relative to the total time spent
+  - # Is the number of times the function was called
 - ~ is displayed if time spent executing is less than 0.0001
 
 Here is an example table that could be generated
