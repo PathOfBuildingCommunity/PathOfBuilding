@@ -151,6 +151,11 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
                 if modLine == specialCaseData.overrideModLineSingular then
                     modLine = "Bow Attacks fire 1 additional Arrows"
                 end
+            elseif statOrder == 1509 then
+                specialCaseData.overrideModLineSingular = "Projectiles Pierce an additional Target"
+                if modLine == specialCaseData.overrideModLineSingular then
+                    modLine = "Projectiles Pierce 1 additional Target"
+                end
             end
 
             -- If this is the first tier for this mod, find matching trade mod and init the entry
