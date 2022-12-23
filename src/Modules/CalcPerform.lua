@@ -2736,7 +2736,6 @@ function calcs.perform(env, avoidCache)
 		
 		output.TriggerRateCap = triggerRate
 		output.SkillTriggerRate = 1 / focusTotalCD
-		output.ServerTriggerRate = m_min(output.SkillTriggerRate, output.TriggerRateCap)
 		
 		if breakdown then
 			if triggeredCD then
@@ -2784,11 +2783,10 @@ function calcs.perform(env, avoidCache)
 
 		-- Account for Trigger-related INC/MORE modifiers
 		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-		env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
 		env.player.mainSkill.skillData.triggerSource = source
 		env.player.mainSkill.infoMessage = "Assuming perfect focus Re-Use"
 		env.player.mainSkill.infoTrigger = triggerName
-		env.player.mainSkill.skillFlags.dontDisplay = true
+		env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
 		env.player.mainSkill.skillFlags.globalTrigger = true
 	elseif env.player.mainSkill.skillData.triggeredWhileChannelling and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 	--Cast While Channeling Special Handling
@@ -2941,12 +2939,11 @@ function calcs.perform(env, avoidCache)
 		end
 		
 		-- Account for Trigger-related INC/MORE modifiers
-		env.player.mainSkill.skillFlags.dontDisplay = true
 		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
 		env.player.mainSkill.skillData.triggered = true
 		env.player.mainSkill.skillFlags.globalTrigger = true
-		env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
 		env.player.mainSkill.skillData.triggerSource = source
+		env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
 		env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
 		env.player.mainSkill.infoMessage = triggerName .."'s Trigger: ".. source.activeEffect.grantedEffect.name
 		env.player.infoTrigger = env.player.mainSkill.infoTrigger or triggerName
@@ -2989,7 +2986,7 @@ function calcs.perform(env, avoidCache)
 					--self trigger
 					source = env.player.mainSkill
 					spellCount = nil
-					env.player.mainSkill.skillFlags.dontDisplay = true
+					env.player.mainSkill.skillFlags.globalTrigger = true
 				else
 					env.player.mainSkill.skillFlags.disable = true
 					env.player.mainSkill.disableReason = "This skill is requires you to be phasing"
@@ -3162,12 +3159,12 @@ function calcs.perform(env, avoidCache)
 			elseif env.player.mainSkill.skillData.triggerCounterAttack then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
 				--Self trigger
-				env.player.mainSkill.skillFlags.dontDisplay = true
+				env.player.mainSkill.skillFlags.globalTrigger = true
 				source = env.player.mainSkill
 				spellCount = nil
 			elseif env.player.mainSkill.skillData.triggeredByBrand and not env.player.mainSkill.skillFlags.minion then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
-				env.player.mainSkill.skillFlags.dontDisplay = true
+				env.player.mainSkill.skillFlags.globalTrigger = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end
 				
 				for _, skill in ipairs(env.player.activeSkillList) do
@@ -3185,7 +3182,7 @@ function calcs.perform(env, avoidCache)
 			elseif env.player.mainSkill.skillData.triggeredOnDeath then
 				env.player.mainSkill.skillData.triggered = true
 				env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
-				env.player.mainSkill.skillFlags.dontDisplay = true
+				env.player.mainSkill.skillFlags.globalTrigger = true
 				skip = true
 			else
 				skip = true

@@ -4485,7 +4485,6 @@ function calcs.offence(env, actor, activeSkill)
 		local usedSkillBestDps = 0
 		local sourceAPS = 0
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
-		activeSkill.skillFlags.dontDisplay = true
 		
 		for _, triggerSkill in ipairs(actor.activeSkillList) do
 			local triggered = triggerSkill.skillData.triggeredByUnique or triggerSkill.skillData.triggered or triggerSkill.skillTypes[SkillType.InbuiltTrigger] or triggerSkill.skillTypes[SkillType.Triggered]
