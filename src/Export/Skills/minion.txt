@@ -82,6 +82,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
+#addskillTypes Melee Multistrikeable
 #skill RockGolemSlam Slam
 #flags attack melee area
 #mods
