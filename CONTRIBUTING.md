@@ -250,7 +250,7 @@ as well as some familiarity with build tools such as [CMake](https://cmake.org).
 ## Using the inbuilt profiler
 The profiler is found at https://github.com/charlesmallah/lua-profiler and is a profiler written entirely in lua under a MIT license.
 
-Pressing pause will start and stop the profiler depending upon if profiling is active. This isn't very precise and has very wide scope so if you want to profile a certain section of code more precisely you can also call profiler.start() and profiler.stop() at the start and end of code block you want to profile. Then calling profile.report() will then generate a report containing the profiling information in a file called "profiler.log" in the src folder.
+Pressing pause will start and stop the profiler depending upon if profiling is active. This isn't very precise and has very wide scope so if you want to profile a certain section of code you can also call profiler.start() and profiler.stop() at the start and end of code block you want to profile. Then calling profile.report(fileName) will generate a file in the src folder with the profiling data. This file is called the name given to function or if none are given it is called "profiler.log".
 
 This file contains:
 - Total time spent executing
