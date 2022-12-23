@@ -3152,9 +3152,12 @@ function calcs.perform(env, avoidCache)
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill end
 			elseif env.player.mainSkill.skillData.triggeredByCurseOnHit then
+				triggerName = "Hextouch"
 				spellCount = nil
+				env.player.mainSkill.skillFlags.globalTrigger = true
+				env.player.mainSkill.skillData.sourceRateIsFinal = true
 				triggerSkillCond = function(env, skill)
-					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot
+					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and slotMatch(env, skill)
 				end
 			elseif env.player.mainSkill.skillData.triggerCounterAttack then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
