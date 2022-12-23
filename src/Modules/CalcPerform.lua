@@ -398,7 +398,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	end
 	
 	if breakdown then
-		t_insert(breakdown.EffectiveRateOfTrigger, #breakdown.EffectiveRateOfTrigger-1, s_format("= %.2f ^8(Effective Trigger rate of Trigger)", output.EffectiveRateOfTrigger))
+		t_insert(breakdown.EffectiveRateOfTrigger, output.EffectiveRateOfTrigger == 0 and #breakdown.EffectiveRateOfTrigger+1 or #breakdown.EffectiveRateOfTrigger-1, s_format("= %.2f ^8(Effective Trigger rate of Trigger)", output.EffectiveRateOfTrigger))
 	end
 		
 	--If spell count is missing the skill likely comes from a unique and /or triggers it self
