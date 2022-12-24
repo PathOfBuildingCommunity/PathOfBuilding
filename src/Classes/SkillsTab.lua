@@ -108,7 +108,10 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 
 	-- Socket group list
 	self.controls.groupList = new("SkillListControl", { "TOPLEFT", self, "TOPLEFT" }, 20, 54, 360, 300, self)
-	self.controls.groupTip = new("LabelControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 0, 8, 0, 14, 
+	self.controls.forumCopy = new("ButtonControl", {"TOPLEFT", self.controls.groupList, "BOTTOMLEFT"}, 0, 4, 90, 18, "Forum Copy", function()
+		self:ForumCopy()
+	end)
+	self.controls.groupTip = new("LabelControl", { "TOPLEFT", self.controls.forumCopy, "BOTTOMLEFT" }, 0, 8, 0, 14, 
 [[
 ^7Usage Tips:
 - You can copy/paste socket groups using Ctrl+C and Ctrl+V.
@@ -120,7 +123,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 
 	-- Gem options
 	local optionInputsX = 170
-	local optionInputsY = 45
+	local optionInputsY = 75
 	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 0, optionInputsY + 50, 360, 156, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
@@ -1213,6 +1216,47 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 			))
 		end
 	end
+end
+
+function SkillsTabClass:ForumCopy()
+	local forumText = ""
+	for _, skillSetId in ipairs(self.skillSetOrderList) do
+		local skillSet = self.skillSets[skillSetId]
+		for _, socketGroup in ipairs(skillSet.socketGroupList) do
+			local skillText = ""
+			if socketGroup.label and socketGroup.label:match("%S") then
+				skillText = skillText .. "Label: " .. socketGroup.label .. "\r\n"
+			end
+			if socketGroup.slot then
+				skillText = skillText .. "Slot: " .. socketGroup.slot .. "\r\n"
+			end
+			for _, gemInstance in ipairs(socketGroup.gemList) do
+				local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
+				local forumColor
+				if grantedEffect.color == 1 then
+					forumColor = "cc5555" -- Red
+				elseif grantedEffect.color == 2 then
+					forumColor = "55dd55" -- Green
+				elseif grantedEffect.color == 3 then
+					forumColor = "6677ff" -- Blue
+				else
+					forumColor = "dddddd" -- White(ish)
+				end
+				local forumQualityId = ""
+				if gemInstance.qualityId == "Alternate1" then
+					forumQualityId = "Anomalous "
+				elseif gemInstance.qualityId == "Alternate2" then
+					forumQualityId = "Divergent "
+				elseif gemInstance.qualityId == "Alternate3" then
+					forumQualityId = "Phantasmal "
+				end
+				skillText = skillText .. string.format('[b][span color="#%s"]%s[/b]%s[/span] %d/%d %s\r\n', 
+					forumColor, forumQualityId, gemInstance.nameSpec, gemInstance.level, gemInstance.quality, gemInstance.enabled and "" or "DISABLED")
+			end
+			forumText = forumText .. skillText  .. "\r\n"
+		end
+	end
+	Copy(forumText)
 end
 
 function SkillsTabClass:CreateUndoState()
