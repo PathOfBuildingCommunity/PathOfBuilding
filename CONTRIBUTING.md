@@ -9,6 +9,7 @@
 6. [Keeping your fork up to date](#keeping-your-fork-up-to-date)
 7. [Path of Building development tutorials](#path-of-building-development-tutorials)
 8. [Exporting GGPK data from Path of Exile](#exporting-ggpk-data-from-path-of-exile)
+9. [Using inbuilt profiler](#Using the inbuilt profiler)
 
 ## Reporting bugs
 
@@ -130,9 +131,17 @@ It is recommended to use it over the built-in Lua plugins.
 Please note that EmmyLua is not available for other editors based on Visual Studio Code,
 such as [VSCodium](https://vscodium.com) or [Eclipse Theia](https://theia-ide.org) but can be built from source if needed.
 
-Note that you will need to have java installed to use emmyLua, and have either the JAVA_HOME environment variable correctly setup or have the path to java added to the `settings.json` file. Example:
+Note that you will need to have [Java](https://www.java.com/) installed to use emmyLua, and have either the JAVA_HOME environment variable correctly set up or have the path to java added to the `settings.json` file. Example:
 
 ```"emmylua.java.home": "C:/Program Files (x86)/Java/jre1.8.0_201/"```
+
+To do this in VSCode find the Java installation folder on your computer as displayed above.
+1. Navigate to extensions inside VSCode
+2. Click the cog icon next to EmmyLua -> Extension Settings
+3. Find "Java: Home" -> Edit settings
+4. Place the directory address between the quotes
+5. File -> Save
+
 
 ### Visual Studio Code
 
@@ -245,3 +254,100 @@ as well as some familiarity with build tools such as [CMake](https://cmake.org).
 4. Paste the path to `Content.ggpk` (or, for Steam users, `C:\Program Files (x86)\Steam\steamapps\common\Path of Exile`) into the text box in the top left, and hit `Enter` to read the GGPK. If successful, you will see a list of the data tables in the GGPK file. Note: This will not work on the GGPK from the torrent file released before league launches, as it contains no `Data` section.
 5. Click `Scripts >>` to show the list of available export scripts. Double-clicking a script will run it, and the box to the right will show any output from the script.
 6. If you run into any errors, update the code in `./src/Export` as necessary and try again.
+
+## Using the inbuilt profiler
+The profiler is found at https://github.com/charlesmallah/lua-profiler and is written entirely in lua under a MIT license.
+
+Pressing pause will start and stop the profiler depending upon if profiling is active. This isn't very precise and has very wide scope so if you want to profile a certain section of code you can also call profiler.start() and profiler.stop() at the start and end of code block you want to profile. Then calling profile.report(fileName) will generate a file in the src folder with the profiling data. This file is called the name given to function or if none are given it is called "profiler.log".
+
+This file contains:
+- Total time spent executing
+- A table containing information about the profiling
+  - File, function and line are the file that a given function was executed in and the line of the function definition
+  - Time and % are the time spent executing code within a function and its percentage relative to the total time spent
+  - \# Is the number of times the function was called
+- ~ is displayed if function execution time is less than 0.0001
+
+Here is an example table that could be generated
+```
+> Total time: 0.510000 s
+-------------------------------------------------------------------------------------------------------------------------------------
+| FILE                          : FUNCTION                                        : LINE     : TIME        : %        : #           |
+-------------------------------------------------------------------------------------------------------------------------------------
+| ...ers\*****\Documents\GitHub\: Anon                                            :     104  : 0.4770      : 93.5     :           2 |
+| Modules/Main                  : Anon                                            :     263  : 0.4770      : 93.5     :           2 |
+| Modules/Build                 : CallMode                                        :     906  : 0.4730      : 92.7     :           2 |
+| Classes/TreeTab               : Draw                                            :     178  : 0.4360      : 85.5     :           2 |
+| Classes/PassiveTreeView       : Draw                                            :      97  : 0.4240      : 83.1     :           2 |
+| Classes/Control               : IsMouseInBounds                                 :      91  : 0.4150      : 81.4     :           5 |
+| Classes/Control               : GetProperty                                     :      83  : 0.4080      : 80.0     :          26 |
+| Classes/PassiveTreeView       : renderConnector                                 :     378  : 0.2400      : 47.1     :        5256 |
+| Classes/PassiveTreeView       : DrawAsset                                       :     751  : 0.0720      : 14.1     :        9532 |
+| Classes/PassiveTreeView       : treeToScreen                                    :     178  : 0.0550      : 10.8     :       27020 |
+| Classes/ControlHost           : DrawControls                                    :      85  : 0.0260      : 5.1      :          12 |
+| Classes/Control               : GetSize                                         :      79  : 0.0230      : 4.5      :        1624 |
+| Classes/PassiveTreeView       : setConnectorColor                               :     363  : 0.0210      : 4.1      :        5884 |
+| Classes/PassiveTreeView       : renderGroup                                     :     333  : 0.0160      : 3.1      :        1222 |
+| Classes/Control               : IsShown                                         :      83  : 0.0120      : 2.4      :         201 |
+| Classes/PassiveTreeView       : getState                                        :     366  : 0.0100      : 2.0      :        5256 |
+| Classes/ControlHost           : ProcessControlsInput                            :      32  : 0.0100      : 2.0      :           6 |
+| Classes/ControlHost           : GetMouseOverControl                             :      24  : 0.0090      : 1.8      :          22 |
+| Classes/Control               : GetProperty                                     :      34  : 0.0070      : 1.4      :        3794 |
+| Classes/EditControl           : IsMouseOver                                     :     114  : 0.0060      : 1.2      :           8 |
+| Classes/DropDownControl       : IsMouseOver                                     :     160  : 0.0050      : 1.0      :          18 |
+| Classes/CheckBoxControl       : IsMouseOver                                     :      14  : 0.0030      : 0.6      :           6 |
+| Classes/ScrollBarControl      : IsMouseOver                                     :      70  : 0.0030      : 0.6      :          27 |
+| Modules/Build                 : GetProperty                                     :     141  : 0.0020      : 0.4      :          99 |
+| Classes/DropDownControl       : CheckDroppedWidth                               :     467  : 0.0020      : 0.4      :          10 |
+| Modules/Common                : __index                                         :      77  : 0.0010      : 0.2      :         306 |
+| Modules/Build                 : GetProperty                                     :     596  : 0.0010      : 0.2      :          18 |
+| Classes/TextListControl       : IsMouseOver                                     :      18  : 0.0010      : 0.2      :           1 |
+-------------------------------------------------------------------------------------------------------------------------------------
+| Modules/Main                  : GetProperty                                     :     111  : ~           : ~        :          16 |
+| Classes/TextListControl       : GetProperty                                     :      10  : ~           : ~        :          10 |
+| Classes/PassiveSpec           : CountAllocNodes                                 :     468  : ~           : ~        :          99 |
+| ...ments\GitHub\PathOfBuilding: stop                                            :     225  : ~           : ~        :           1 |
+| Modules/Build                 : GetProperty                                     :     133  : ~           : ~        :          33 |
+| Modules/Build                 : GetProperty                                     :     532  : ~           : ~        :          26 |
+| Modules/Build                 : GetProperty                                     :     499  : ~           : ~        :           2 |
+| Classes/SearchHost            : IsSearchActive                                  :      68  : ~           : ~        :          32 |
+| Classes/DropDownControl       : GetDropCount                                    :      92  : ~           : ~        :          16 |
+| Modules/Main                  : DrawArrow                                       :     921  : ~           : ~        :          12 |
+| Modules/Build                 : GetProperty                                     :     483  : ~           : ~        :           2 |
+| Modules/Main                  : GetProperty                                     :     154  : ~           : ~        :           3 |
+| Modules/Main                  : Anon                                            :     405  : ~           : ~        :           1 |
+| Classes/TradeQuery            : onFrameFunc                                     :      42  : ~           : ~        :           2 |
+| Classes/TradeQueryRequests    : ProcessQueue                                    :      21  : ~           : ~        :           2 |
+| Classes/LabelControl          : GetProperty                                     :       9  : ~           : ~        :          37 |
+| Modules/Main                  : GetProperty                                     :     143  : ~           : ~        :           4 |
+| Modules/Build                 : GetProperty                                     :     503  : ~           : ~        :           2 |
+| Modules/Main                  : GetProperty                                     :     139  : ~           : ~        :           4 |
+| Modules/Build                 : GetProperty                                     :     544  : ~           : ~        :          26 |
+| Modules/Build                 : GetProperty                                     :     491  : ~           : ~        :           2 |
+| ...ers\*****\Documents\GitHub\: Anon                                            :     166  : ~           : ~        :           1 |
+| Modules/Build                 : IsEnabled                                       :     120  : ~           : ~        :           2 |
+| Classes/EditControl           : GetProperty                                     :      62  : ~           : ~        :          84 |
+| Modules/Build                 : GetProperty                                     :     487  : ~           : ~        :           2 |
+| Modules/Build                 : GetProperty                                     :     495  : ~           : ~        :           2 |
+| Modules/Build                 : GetProperty                                     :     479  : ~           : ~        :           2 |
+| Modules/Build                 : IsEnabled                                       :     126  : ~           : ~        :           2 |
+| Classes/ButtonControl         : IsMouseOver                                     :      30  : ~           : ~        :          64 |
+| Classes/Control               : SetAnchor                                       :      42  : ~           : ~        :           2 |
+| Classes/PassiveTreeView       : screenToTree                                    :     182  : ~           : ~        :           2 |
+| Modules/Build                 : RefreshSkillSelectControls                      :    1174  : ~           : ~        :           2 |
+| ...ers\*****\Documents\GitHub\: Anon                                            :     134  : ~           : ~        :           1 |
+| Modules/Common                : wipeTable                                       :     420  : ~           : ~        :          16 |
+| Modules/Main                  : CallMode                                        :     418  : ~           : ~        :           2 |
+| Classes/DropDownControl       : SelByValue                                      :     122  : ~           : ~        :           2 |
+| Classes/ItemsTab              : GetSocketAndJewelForNodeID                      :    1248  : ~           : ~        :          84 |
+| Classes/Control               : IsEnabled                                       :      34  : ~           : ~        :          54 |
+| Classes/Control               : IsEnabled                                       :      87  : ~           : ~        :          54 |
+| Classes/ScrollBarControl      : SetContentDimension                             :      24  : ~           : ~        :          14 |
+| Classes/EditControl           : UpdateScrollBars                                :     201  : ~           : ~        :           4 |
+| Classes/UndoHandler           : ResetUndo                                       :      19  : ~           : ~        :           2 |
+| Classes/DropDownControl       : SetList                                         :     458  : ~           : ~        :           6 |
+| Classes/EditControl           : CreateUndoState                                 :     737  : ~           : ~        :           2 |
+| Classes/EditControl           : SetText                                         :      90  : ~           : ~        :           2 |
+| Modules/Common                : copyTable                                       :     351  : ~           : ~        :           2 |
+-------------------------------------------------------------------------------------------------------------------------------------
+```
