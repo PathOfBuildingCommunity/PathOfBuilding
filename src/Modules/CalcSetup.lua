@@ -778,25 +778,21 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif item.name:match("Kalandra's Touch") then
-					local otherRingList = {}
-					if slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId] then
-						local item = build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]
-						otherRingList = copyTable(item.modList or item.slotModList[slot.slotNum])
-					elseif slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId] then
-						local item = build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId]
-						otherRingList = copyTable(item.modList or item.slotModList[slot.slotNum])
-					end
-					for index, mod in ipairs(otherRingList) do
-						modLib.setSource(mod, item.modSource)
-						for _, tag in ipairs(mod) do
-							if tag.type == "SocketedIn" then
-								otherRingList[index] = nil
-								break
+					local otherRing = (slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]) or (slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId])
+					if not otherRing.name:match("Kalandra's Touch") then
+						local otherRingList = otherRing and copyTable(otherRing.modList or otherRing.slotModList[slot.slotNum])
+						for index, mod in ipairs(otherRingList) do
+							modLib.setSource(mod, item.modSource)
+							for _, tag in ipairs(mod) do
+								if tag.type == "SocketedIn" then
+									otherRingList[index] = nil
+									break
+								end
 							end
 						end
+						env.itemModDB:ScaleAddList(otherRingList, scale)
 					end
 					env.itemModDB:ScaleAddList(srcList, scale)
-					env.itemModDB:ScaleAddList(otherRingList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
