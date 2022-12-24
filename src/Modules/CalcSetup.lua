@@ -780,7 +780,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				elseif item.name:match("Kalandra's Touch") then
 					local otherRing = (slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]) or (slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId])
 					if not otherRing.name:match("Kalandra's Touch") then
-						local otherRingList = otherRing and copyTable(otherRing.modList or otherRing.slotModList[slot.slotNum])
+						local otherRingList = otherRing and copyTable(otherRing.modList or otherRing.slotModList[slot.slotNum]) or {}
 						for index, mod in ipairs(otherRingList) do
 							modLib.setSource(mod, item.modSource)
 							for _, tag in ipairs(mod) do
