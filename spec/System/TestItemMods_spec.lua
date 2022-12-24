@@ -187,7 +187,7 @@ describe("TetsItemMods", function()
         local genericRingInt = build.calcsTab.mainOutput.Int
 
         build.itemsTab:CreateDisplayItemFromRaw([[Kalandra's Touch
-        Iron Ring
+        Ring
         League: Kalandra
         Implicits: 0
         Reflects your other Ring
