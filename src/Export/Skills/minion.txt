@@ -9,7 +9,7 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
-#addskillTypes DamageOverTime
+#addSkillTypes DamageOverTime
 #skill SandstormChaosElementalSummoned Chaos Aura
 #flags spell duration area
 #baseMod skill("dotIsArea", true)
@@ -82,7 +82,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
-#addskillTypes Melee Multistrikeable
+#addSkillTypes Melee Multistrikeable
 #skill RockGolemSlam Slam
 #flags attack melee area
 #mods

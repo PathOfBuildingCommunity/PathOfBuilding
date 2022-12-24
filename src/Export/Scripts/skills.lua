@@ -173,9 +173,9 @@ directiveTable.noGem = function(state, args, out)
 	state.noGem = true
 end
 
--- #addskillTypes <flag>[ <flag>[...]]
+-- #addSkillTypes <flag>[ <flag>[...]]
 -- skill types to be added to the skillTypes flags for this active skill
-directiveTable.addskillTypes = function(state, args, out)
+directiveTable.addSkillTypes = function(state, args, out)
 	state.addSkillTypes = {}
 	for flag in args:gmatch("%a+") do
 		table.insert(state.addSkillTypes, flag)
