@@ -4518,7 +4518,7 @@ function calcs.offence(env, actor, activeSkill)
 			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
 			newSkill.skillData.triggered = true
 			
-			-- Calcualte trigger rate
+			-- Calculate trigger rate
 			local triggerCD = activeSkill.skillData.cooldown
 			local triggeredCD = newSkill.skillData.cooldown
 			local triggerDuration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)

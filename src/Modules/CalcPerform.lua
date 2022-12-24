@@ -415,11 +415,11 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 					s_format("Simulation Duration: %.2f", simBreakdown.simTime),
 				}
 				
-				local dualwieldAPS = (sourceAPS and dualWield and sourceAPS*2) or sourceAPS or 1 / triggerCD / icdr
+				local dualWieldAPS = (sourceAPS and dualWield and sourceAPS*2) or sourceAPS or 1 / triggerCD / icdr
 				local skillName = (source and source.activeEffect.grantedEffect.name) or (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name
 				
 				if env.player.mainSkill.skillData.triggeredByBrand then
-					breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s activations per second)", dualwieldAPS, source.activeEffect.grantedEffect.name)
+					breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s activations per second)", dualWieldAPS, source.activeEffect.grantedEffect.name)
 				else
 					if not sourceAPS then
 						breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", output.EffectiveRateOfTrigger, skillName)
@@ -2720,7 +2720,7 @@ function calcs.perform(env, avoidCache)
 		
 		-- Skills trigger only on activation 
 		-- Next possible activation will be duration + cooldown
-		-- cooldown is in miliseconds
+		-- cooldown is in milliseconds
 		local skillFocus = env.data.skills["Focus"]
 		local focusDuration = (skillFocus.constantStats[1][2] / 1000)
 		local focusCD = (skillFocus.levels[1].cooldown / icdrFocus)
@@ -3154,12 +3154,12 @@ function calcs.perform(env, avoidCache)
 				trigRate = nil
 				globalTrigger = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByDamageTaken and slotMatch(env, skill) end
-			elseif env.player.mainSkill.skillData.triggeredByStuned then
-				triggerChance = env.player.mainSkill.skillData.triggeredByStuned
+			elseif env.player.mainSkill.skillData.triggeredByStunned then
+				triggerChance = env.player.mainSkill.skillData.triggeredByStunned
 				triggerName = "Cast on stunned"
 				trigRate = nil
 				globalTrigger = true
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByStuned and slotMatch(env, skill) end
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByStunned and slotMatch(env, skill) end
 			elseif env.player.mainSkill.skillData.triggeredBySpellSlinger then
 				spellCount = nil
 				triggerSkillCond = function(env, skill)
