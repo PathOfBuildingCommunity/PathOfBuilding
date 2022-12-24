@@ -777,7 +777,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							env.itemModDB:ScaleAddMod(mod, scale)
 						end
 					end
-				elseif item.name == "Kalandra's Touch, Iron Ring" then
+				elseif item.name == "Kalandra's Touch, Ring" then
 					if slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId] then
 						local item = build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]
 						srcList = copyTable(item.modList or item.slotModList[slot.slotNum])
