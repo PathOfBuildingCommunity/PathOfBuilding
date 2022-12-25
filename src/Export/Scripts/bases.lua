@@ -102,7 +102,7 @@ directiveTable.base = function(state, args, out)
 		out:write(tag, ' = true, ')
 	end
 	out:write('},\n')
-	local influencePrefix = state.influenceBaseTag --baseItemType.BaseType:gsub(".+/Abstract(.+)", "%1"):gsub("OneHand(.+)", "%1"):gsub("TwoHand(.+)", "2h_%1"):gsub("(%l)(%u)", "%1_%2"):lower()
+	local influencePrefix = state.influenceBaseTag
 	if influencePrefix then
 		out:write('\tinfluenceTags = { ')
 		for i, influenceSuffix in ipairs({ "shaper", "elder", "adjudicator", "basilisk", "crusader", "eyrie", "cleansing", "tangle" }) do
