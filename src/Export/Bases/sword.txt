@@ -16,7 +16,7 @@ local itemBases = ...
 
 #type One Handed Sword
 #subType Thrusting
-#influenceBaseTag rapier
+#influenceBaseTag sword
 #baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier
 
 #type Two Handed Sword
