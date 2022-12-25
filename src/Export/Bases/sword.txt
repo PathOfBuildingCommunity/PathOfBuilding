@@ -4,6 +4,7 @@ local itemBases = ...
 #type One Handed Sword
 #socketLimit 3
 #baseTags weapon onehand sword one_hand_weapon
+#influenceBaseTag sword
 
 #baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword
 
@@ -15,12 +16,14 @@ local itemBases = ...
 
 #type One Handed Sword
 #subType Thrusting
+#influenceBaseTag rapier
 #baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier
 
 #type Two Handed Sword
 #subType
 #socketLimit 6
-#baseTags weapon twohand sword two_hand_weapon 2h_sword
+#baseTags weapon twohand sword two_hand_weapon
+#influenceBaseTag 2h_sword
 #baseMatch Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword
 
 #forceHide true

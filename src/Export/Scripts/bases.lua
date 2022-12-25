@@ -20,6 +20,10 @@ directiveTable.baseTags = function(state, args, out)
 	end
 end
 
+directiveTable.influenceBaseTag = function(state, args, out)
+	state.influenceBaseTag = args
+end
+
 directiveTable.forceShow = function(state, args, out)
 	state.forceShow = (args == "true")
 end
@@ -95,9 +99,18 @@ directiveTable.base = function(state, args, out)
 		combinedTags[tag.Id] = tag.Id
 	end
 	for _, tag in pairs(combinedTags) do
-		out:write('["', tag, '"] = true, ')
+		out:write(tag, ' = true, ')
 	end
 	out:write('},\n')
+	local influencePrefix = state.influenceBaseTag --baseItemType.BaseType:gsub(".+/Abstract(.+)", "%1"):gsub("OneHand(.+)", "%1"):gsub("TwoHand(.+)", "2h_%1"):gsub("(%l)(%u)", "%1_%2"):lower()
+	if influencePrefix then
+		out:write('\tinfluenceTags = { ')
+		for i, influenceSuffix in ipairs({ "shaper", "elder", "adjudicator", "basilisk", "crusader", "eyrie", "cleansing", "tangle" }) do
+			if i ~= 1 then out:write(", ") end
+			out:write(influenceSuffix, ' = "', influencePrefix .. "_" .. influenceSuffix, '"')
+		end
+		out:write(' },\n')
+	end
 	local movementPenalty
 	local implicitLines = { }
 	local implicitModTypes = { }

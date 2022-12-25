@@ -451,16 +451,7 @@ function ItemClass:ParseRaw(raw)
 						self.enchantments = data.enchantments[self.base.type]
 					end
 					self.corruptible = self.base.type ~= "Flask"
-					self.influenceTags = { }
-					for _, influenceTag in ipairs(influenceInfo) do
-						self.influenceTags[influenceTag.key] = { }
-						for tag, _ in pairs(self.base.tags) do
-							if tag ~= "default" then
-								t_insert(self.influenceTags[influenceTag.key], tag..'_'..influenceTag.key)
-							end
-						end
-					end
-					self.canBeInfluenced = self.influenceTags
+					self.canBeInfluenced = self.base.influenceTags ~= nil
 					self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
 					self.requirements.str = self.base.req.str or 0
 					self.requirements.dex = self.base.req.dex or 0
@@ -669,14 +660,10 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 	local weight = 0
 	if self.base then
 		local function HasInfluenceTag(key)
-			if self.influenceTags then
+			if self.base.influenceTags then
 				for _, curInfluenceInfo in ipairs(influenceInfo) do
-					if self[curInfluenceInfo.key] then
-						for _, tag in ipairs(self.influenceTags[curInfluenceInfo.key]) do
-							if tag == key then
-								return true
-							end
-						end
+					if self[curInfluenceInfo.key] and self.base.influenceTags[curInfluenceInfo.key] == key then
+						return true
 					end
 				end
 			end
