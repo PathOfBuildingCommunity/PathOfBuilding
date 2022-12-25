@@ -4,6 +4,10 @@
 return {
 	["Explicit"] = {
 		["94_LocalIncreaseSocketedColdGemLevel"] = {
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1645459191", 
@@ -13,10 +17,14 @@ return {
 				["min"] = 1, 
 				["max"] = 2, 
 			}, 
+			["Staff"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["Staff"] = {
+			["Dagger"] = {
 				["min"] = 1, 
 				["max"] = 2, 
 			}, 
@@ -1928,19 +1936,27 @@ return {
 			}, 
 		}, 
 		["93_LocalIncreaseSocketedFireGemLevel"] = {
+			["Boots"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_339179093", 
 				["text"] = "# to Level of Socketed Fire Gems", 
 			}, 
-			["Boots"] = {
-				["min"] = 2, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
 				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["2HWeapon"] = {
+			["Dagger"] = {
 				["min"] = 1, 
 				["max"] = 2, 
 			}, 
@@ -3083,19 +3099,27 @@ return {
 			["sign"] = "", 
 		}, 
 		["95_LocalIncreaseSocketedLightningGemLevel"] = {
+			["Boots"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_4043416969", 
 				["text"] = "# to Level of Socketed Lightning Gems", 
 			}, 
-			["Boots"] = {
-				["min"] = 2, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
 				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["2HWeapon"] = {
+			["Dagger"] = {
 				["min"] = 1, 
 				["max"] = 2, 
 			}, 
@@ -38905,19 +38929,27 @@ return {
 			["sign"] = "", 
 		}, 
 		["96_LocalIncreaseSocketedChaosGemLevel"] = {
+			["Boots"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_2675603254", 
 				["text"] = "# to Level of Socketed Chaos Gems", 
 			}, 
-			["Boots"] = {
-				["min"] = 2, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 2, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
 				["max"] = 2, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
-			["2HWeapon"] = {
+			["Dagger"] = {
 				["min"] = 1, 
 				["max"] = 2, 
 			}, 
