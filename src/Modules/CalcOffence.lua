@@ -1839,7 +1839,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		if env.mode_buffs then
 			-- Iterative over all the active skills to account for exerted attacks provided by warcries
-			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Channel] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
+			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Triggered] and not activeSkill.skillTypes[SkillType.Channel] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.grantedEffect.name == "Ancestral Cry" and activeSkill.skillTypes[SkillType.MeleeSingleTarget] and not globalOutput.AncestralCryCalculated then
 						globalOutput.AncestralCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2465,15 +2465,15 @@ function calcs.offence(env, actor, activeSkill)
 								-- Default to using the current damage type 
 								local elementUsed = damageType
 								if isElemental[damageType] then
-									resist = m_min(enemyDB:Sum("BASE", nil, damageType.."Resist", "ElementalResist") * calcLib.mod(enemyDB, nil, damageType.."Resist", "ElementalResist"), data.misc.EnemyMaxResist)
+									resist = m_min(enemyDB:Sum("BASE", nil, damageType.."Resist", "ElementalResist") * m_max(calcLib.mod(enemyDB, nil, damageType.."Resist", "ElementalResist"), 0), data.misc.EnemyMaxResist)
 									takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
 								elseif damageType == "Chaos" then
-									resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
+									resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * m_max(calcLib.mod(enemyDB, nil, "ChaosResist"), 0), data.misc.EnemyMaxResist)
 								end
 								-- Find the lowest resist of all the elements and use that if it's lower
 								for _, eleDamageType in ipairs(dmgTypeList) do
 									if isElemental[eleDamageType] and useThisResist(eleDamageType) and damageType ~= eleDamageType then
-										local currentElementResist = m_min(enemyDB:Sum("BASE", nil, eleDamageType.."Resist", "ElementalResist") * calcLib.mod(enemyDB, nil, eleDamageType.."Resist", "ElementalResist"), data.misc.EnemyMaxResist)
+										local currentElementResist = m_min(enemyDB:Sum("BASE", nil, eleDamageType.."Resist", "ElementalResist") * m_max(calcLib.mod(enemyDB, nil, eleDamageType.."Resist", "ElementalResist"), 0), data.misc.EnemyMaxResist)
 										-- If it's explicitly lower, then use the resist and update which element we're using to account for penetration
 										if resist > currentElementResist then
 											resist = currentElementResist
@@ -2494,7 +2494,7 @@ function calcs.offence(env, actor, activeSkill)
 									resist = env.player.output[damageType.."Resist"]
 								else
 									local base = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
-									resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
+									resist = base * m_max(calcLib.mod(enemyDB, nil, damageType.."Resist"), 0)
 								end
 								pen = skillModList:Sum("BASE", cfg, damageType.."Penetration", "ElementalPenetration")
 								takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
