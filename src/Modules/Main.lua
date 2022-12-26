@@ -55,6 +55,13 @@ function main:Init()
 	self.buildPath = self.defaultBuildPath
 	MakeDir(self.buildPath)
 
+	if launch.devMode and IsKeyDown("CTRL") then
+		self.rebuildModCache = true
+	elseif not launch.headlessMode then
+		-- Load mod cache
+		LoadModule("Data/ModCache", modLib.parseModCache)
+	end
+
 	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
 		self.allowTreeDownload = true
 	end
@@ -97,11 +104,8 @@ function main:Init()
 		end
 	end
 
-	if launch.devMode and IsKeyDown("CTRL") then
+	if self.rebuildModCache then
 		self:RebuildModCache()
-	elseif not launch.headlessMode then
-		-- Load mod cache
-		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
 
 	self.sharedItemList = { }
