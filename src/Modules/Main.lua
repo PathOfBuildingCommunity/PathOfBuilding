@@ -57,7 +57,7 @@ function main:Init()
 
 	if launch.devMode and IsKeyDown("CTRL") then
 		-- If modLib.parseMod doesn't find a cache entry it generates it.
-		-- Not loading pregenerated cache causes it to be rebuilt
+		-- Not loading pre-generated cache causes it to be rebuilt
 		self.saveNewModCache = true
 	elseif not launch.continuousIntegrationMode then -- Forces regeneration of modCache if ran from CI
 		-- Load mod cache
