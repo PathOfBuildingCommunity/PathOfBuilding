@@ -9,7 +9,7 @@
 6. [Keeping your fork up to date](#keeping-your-fork-up-to-date)
 7. [Path of Building development tutorials](#path-of-building-development-tutorials)
 8. [Exporting GGPK data from Path of Exile](#exporting-ggpk-data-from-path-of-exile)
-9. [Using inbuilt profiler](#Using the inbuilt profiler)
+9. [Using the inbuilt profiler](#Using-the-inbuilt-profiler)
 
 ## Reporting bugs
 
