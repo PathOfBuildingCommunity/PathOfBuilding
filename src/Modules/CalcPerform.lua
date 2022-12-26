@@ -80,7 +80,7 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 		end
 	end
 	
-	local modActionCooldown = m_max((triggeredCD or 0) + (output.addsCastTime or 0), ((triggerCD or 0) / icdr ))
+	local modActionCooldown = m_max((triggeredCD or 0) / icdr + (output.addsCastTime or 0), ((triggerCD or 0) / icdr ))
 	
 	-- Do not apply cooldown reduction to cooldown overrides
 	if cooldownOverride then
@@ -91,8 +91,7 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	
 	if env.player.mainSkill.skillData.triggeredByBrand then
-		extraICDRNeeded = m_ceil(((triggeredCD or 0) - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
-		triggerCD = triggerCD / icdr -- divide by icdr to cancel out multiplication above - only used for breakdowns from now on
+		extraICDRNeeded = m_ceil(((triggeredCD or 0) / icdr - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	end
 	
 	local extraCSIncNeeded = nil
@@ -108,6 +107,7 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 			extraICDRNeeded = nil
 		end
 	end
+	
 	local triggerRate = m_huge
 	if rateCapAdjusted ~= 0 then
 		triggerRate = 1 / rateCapAdjusted
@@ -176,7 +176,7 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 					t_insert(breakdown.TriggerRateCap, 10, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
 				end
 				if env.player.mainSkill.skillData.triggeredByBrand then
-					breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", triggerCD, triggerName)
+					breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
 					breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", env.player.mainSkill.triggeredBy.activationFreqMore)
 					t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", env.player.mainSkill.triggeredBy.activationFreqInc))
 				end
@@ -231,7 +231,7 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 						t_insert(breakdown.TriggerRateCap, 12, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
 					end
 					if env.player.mainSkill.skillData.triggeredByBrand then
-						breakdown.TriggerRateCap[5] = s_format("%.2f ^8(base activation cooldown of %s)", triggerCD, triggerName)
+						breakdown.TriggerRateCap[5] = s_format("%.2f ^8(base activation cooldown of %s)", env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
 						breakdown.TriggerRateCap[6] = s_format("/ %.2f ^8(more activation frequency)", env.player.mainSkill.triggeredBy.activationFreqMore)
 						t_insert(breakdown.TriggerRateCap, 6 , s_format("/ %.2f ^8(increased activation frequency)", env.player.mainSkill.triggeredBy.activationFreqInc))
 					end
@@ -283,7 +283,7 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 					t_insert(breakdown.TriggerRateCap, 10, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
 				end
 				if env.player.mainSkill.skillData.triggeredByBrand then
-					breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", triggerCD, triggerName)
+					breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
 					breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", env.player.mainSkill.triggeredBy.activationFreqMore)
 					t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", env.player.mainSkill.triggeredBy.activationFreqInc))
 				end
@@ -378,8 +378,10 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	output.TriggerRateCap, icdr, triggerCD, triggeredCD = getTriggerRateCap(env, breakdown, output, minion)
 	
 	if env.player.mainSkill.skillData.sourceRateIsFinal then
-		output.EffectiveRateOfTrigger = sourceAPS
-		env.player.mainSkill.skillFlags.globalTrigger = true
+		if not output.EffectiveRateOfTrigger then
+			output.EffectiveRateOfTrigger = sourceAPS
+			env.player.mainSkill.skillFlags.globalTrigger = true
+		end
 	elseif sourceAPS ~= nil then
 		if sourceAPS == 0 then
 			output.EffectiveRateOfTrigger = 0
@@ -397,7 +399,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 		env.player.mainSkill.skillFlags.globalTrigger = true
 	end
 	
-	if breakdown then
+	if breakdown and not env.player.mainSkill.skillData.sourceRateIsFinal then
 		t_insert(breakdown.EffectiveRateOfTrigger, output.EffectiveRateOfTrigger == 0 and #breakdown.EffectiveRateOfTrigger+1 or #breakdown.EffectiveRateOfTrigger-1, s_format("= %.2f ^8(Effective Trigger rate of Trigger)", output.EffectiveRateOfTrigger))
 	end
 		
@@ -3186,7 +3188,6 @@ function calcs.perform(env, avoidCache)
 				trigRate = nil
 			elseif env.player.mainSkill.skillData.triggeredByBrand and not env.player.mainSkill.skillFlags.minion then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
-				env.player.mainSkill.skillFlags.globalTrigger = true
 				env.player.mainSkill.skillData.sourceRateIsFinal = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end
 				
@@ -3202,6 +3203,7 @@ function calcs.perform(env, avoidCache)
 				trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore 
 				env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
 				env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
+				output.EffectiveRateOfTrigger = trigRate
 			elseif env.player.mainSkill.skillData.triggeredOnDeath then
 				env.player.mainSkill.skillData.triggered = true
 				env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
@@ -3241,12 +3243,23 @@ function calcs.perform(env, avoidCache)
 					actor.mainSkill.skillData.triggered = true
 					
 					if breakdown then
-						breakdown.EffectiveRateOfTrigger = {}
-						if trigRate then
-							if assumingEveryHitKills then
-								t_insert(breakdown.EffectiveRateOfTrigger, "Assuming every attack kills")
+						if env.player.mainSkill.skillData.triggeredByBrand then
+							breakdown.EffectiveRateOfTrigger = {
+								s_format("%.2f ^8(base activation cooldown of %s)", env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName),
+								s_format("* %.2f ^8(more activation frequency)", env.player.mainSkill.triggeredBy.activationFreqMore),
+								s_format("* %.2f ^8(increased activation frequency)", env.player.mainSkill.triggeredBy.activationFreqInc),
+								s_format("= %.2f ^8(activation rate of %s)", trigRate, env.player.mainSkill.triggeredBy.mainSkill.activeEffect.grantedEffect.name),
+								"",
+								s_format("%.2f ^8(adjusted for server tick rate)", data.misc.ServerTickRate / m_ceil( env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency / env.player.mainSkill.triggeredBy.activationFreqMore / env.player.mainSkill.triggeredBy.activationFreqInc * data.misc.ServerTickRate)),
+							}
+						else
+							breakdown.EffectiveRateOfTrigger = {}
+							if trigRate then
+								if assumingEveryHitKills then
+									t_insert(breakdown.EffectiveRateOfTrigger, "Assuming every attack kills")
+								end
+								t_insert(breakdown.EffectiveRateOfTrigger, s_format("%.2f ^8(%s attack rate)", trigRate, source.activeEffect.grantedEffect.name))
 							end
-							t_insert(breakdown.EffectiveRateOfTrigger, s_format("%.2f ^8(%s attack rate)", trigRate, source.activeEffect.grantedEffect.name))
 						end
 					end
 					
