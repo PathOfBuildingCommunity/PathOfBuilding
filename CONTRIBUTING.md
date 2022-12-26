@@ -306,7 +306,6 @@ Here is an example table that could be generated
 | Modules/Main                  : GetProperty                                     :     111  : ~           : ~        :          16 |
 | Classes/TextListControl       : GetProperty                                     :      10  : ~           : ~        :          10 |
 | Classes/PassiveSpec           : CountAllocNodes                                 :     468  : ~           : ~        :          99 |
-| ...ments\GitHub\PathOfBuilding: stop                                            :     225  : ~           : ~        :           1 |
 | Modules/Build                 : GetProperty                                     :     133  : ~           : ~        :          33 |
 | Modules/Build                 : GetProperty                                     :     532  : ~           : ~        :          26 |
 | Modules/Build                 : GetProperty                                     :     499  : ~           : ~        :           2 |
