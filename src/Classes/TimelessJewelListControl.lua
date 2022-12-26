@@ -188,7 +188,7 @@ Implicits: 0
 {variant:13}1% increased Minion Attack and Cast Speed per 10 Devotion
 {variant:14}Minions have +60 to Accuracy Rating per 10 Devotion
 {variant:15}Regenerate 0.6 Mana per Second per 10 Devotion
-{variant:16}1% reduced Cost of Skills per 10 Devotion
+{variant:16}1% reduced Mana Cost of Skills per 10 Devotion
 {variant:17}1% increased effect of Non-Curse Auras per 10 Devotion
 {variant:18}3% increased Defences from Equipped Shield per 10 Devotion
 Passives in radius are Conquered by the Templars
