@@ -39,9 +39,9 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.pbLeagueIndex = 1
 
 	self.tradeQueryRequests = new("TradeQueryRequests", self)
-	table.insert(main.onFrameFuncs, function()
+	main.onFrameFuncs["TradeQueryRequests"] = function()
 		self.tradeQueryRequests:ProcessQueue()
-	end)
+	end
 
     -- set 
     self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
@@ -185,7 +185,9 @@ end
 -- Opens the item pricing popup
 function TradeQueryClass:PriceItem()
 	self.tradeQueryGenerator = new("TradeQueryGenerator", self)
-
+	main.onFrameFuncs["TradeQueryGenerator"] = function()
+        self.tradeQueryGenerator:OnFrame()
+    end
 	-- Count number of rows to render
 	local row_count = 3 + #baseSlots
 	-- Count sockets

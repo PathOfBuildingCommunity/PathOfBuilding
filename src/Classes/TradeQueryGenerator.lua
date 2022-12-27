@@ -77,9 +77,6 @@ local TradeQueryGeneratorClass = newClass("TradeQueryGenerator", function(self, 
     self.itemsTab = queryTab.itemsTab
     self.calcContext = { }
 
-    table.insert(main.onFrameFuncs, function()
-        self:OnFrame()
-    end)
 end)
 
 local function fetchStats()
