@@ -107,7 +107,7 @@ directiveTable.base = function(state, args, out)
 		out:write('\tinfluenceTags = { ')
 		for i, influenceSuffix in ipairs({ "shaper", "elder", "adjudicator", "basilisk", "crusader", "eyrie", "cleansing", "tangle" }) do
 			if i ~= 1 then out:write(", ") end
-			out:write(influenceSuffix, ' = "', influencePrefix .. "_" .. influenceSuffix, '"')
+			out:write(influenceSuffix, ' = "', influencePrefix, "_", influenceSuffix, '"')
 		end
 		out:write(' },\n')
 	end
