@@ -230,7 +230,7 @@ Limited to: 3
 Variant: Pre 2.5.0
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Current - Elemental Damage
 Variant: Current - Chance to avoid Ailments
 Variant: Current - Min Frenzy Charge
 {variant:1}5% increased Elemental Damage per Grand Spectrum
