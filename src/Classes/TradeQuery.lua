@@ -43,8 +43,8 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 		self.tradeQueryRequests:ProcessQueue()
 	end)
 
-    -- set 
-    self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	-- set 
+	self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 end)
 
