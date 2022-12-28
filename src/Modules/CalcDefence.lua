@@ -971,6 +971,7 @@ function calcs.defence(env, actor)
 			enemyDamage = enemyDamage + (enemyDB:Sum("BASE", enemyCfg, (damageType.."Min")) + enemyDB:Sum("BASE", enemyCfg, (damageType.."Max"))) / 2
 			
 			output[damageType.."EnemyPen"] = enemyPen
+			output[damageType.."EnemyDamageMult"] = enemyDamageMult
 			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
 			output[damageType.."EnemyDamage"] = enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
@@ -2349,6 +2350,8 @@ function calcs.defence(env, actor)
 			return receivedDamageSum
 		end
 
+		local enemyDamageMult = output[damageType .."EnemyDamageMult"]
+
 		if partMin == m_huge then
 			output[damageType.."MaximumHitTaken"] = m_huge
 		elseif useConversionSmoothing then
@@ -2363,9 +2366,9 @@ function calcs.defence(env, actor)
 			local finalPassRatio = output[damageType.."TotalHitPool"] / takenHitFromDamage(onePass)
 			local finalPass = onePass * finalPassRatio
 
-			output[damageType.."MaximumHitTaken"] = round(finalPass)
+			output[damageType.."MaximumHitTaken"] = round(finalPass / enemyDamageMult)
 		else
-			output[damageType.."MaximumHitTaken"] = round(partMin)
+			output[damageType.."MaximumHitTaken"] = round(partMin / enemyDamageMult)
 		end
 
 		if breakdown then
@@ -2383,7 +2386,7 @@ function calcs.defence(env, actor)
 			for damageConvertedType, convertPercent in pairs(actor.damageShiftTable[damageType]) do
 				if convertPercent > 0 then
 					local convertedDamage = output[damageType.."MaximumHitTaken"] * convertPercent / 100
-					local multi = damageMultiplierForType(convertedDamage, damageConvertedType)
+					local multi = damageMultiplierForType(convertedDamage, damageConvertedType) * enemyDamageMult
 					t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
 						type = s_format("%d%% as %s", convertPercent, damageConvertedType),
 						pool = s_format("%d", output[damageConvertedType.."TotalHitPool"]),
@@ -2393,13 +2396,18 @@ function calcs.defence(env, actor)
 					})
 				end
 			end
-			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Total Pool: %d", output[damageType.."TotalHitPool"]))
-			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Taken Mult: %.3f",  output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"]))
+
+			local takenMult = output[damageType.."TotalHitPool"] / output[damageType.."MaximumHitTaken"] / enemyDamageMult
+
+			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("%d (total pool)", output[damageType.."TotalHitPool"]))
+			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("/ %.2f (modifiers to damage taken)", takenMult))
+			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("/ %.2f (modifiers to enemy damage)", enemyDamageMult))
+
 			if useConversionSmoothing then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Approximate maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("You would take %d damage from such a hit.", takenHitFromDamage(output[damageType.."MaximumHitTaken"])))
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("= %d (approximate)", output[damageType.."MaximumHitTaken"]))
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("You would take %d damage from such a hit.", takenHitFromDamage(output[damageType.."MaximumHitTaken"] * enemyDamageMult)))
 			else
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("Maximum hit you can take: %d", output[damageType.."MaximumHitTaken"]))
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("= %d", output[damageType.."MaximumHitTaken"]))
 			end
 		end
 	end
