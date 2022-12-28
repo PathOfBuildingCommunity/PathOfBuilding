@@ -43,8 +43,8 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 		self.tradeQueryRequests:ProcessQueue()
 	end
 
-    -- set 
-    self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	-- set 
+	self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 end)
 
@@ -186,8 +186,8 @@ end
 function TradeQueryClass:PriceItem()
 	self.tradeQueryGenerator = new("TradeQueryGenerator", self)
 	main.onFrameFuncs["TradeQueryGenerator"] = function()
-        self.tradeQueryGenerator:OnFrame()
-    end
+		self.tradeQueryGenerator:OnFrame()
+	end
 	-- Count number of rows to render
 	local row_count = 3 + #baseSlots
 	-- Count sockets

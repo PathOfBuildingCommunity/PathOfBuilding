@@ -10,8 +10,8 @@ local dkjson = require "dkjson"
 local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, tradeQuery, rateLimiter)
 	self.maxFetchPerSearch = 10
 	self.tradeQuery = tradeQuery
-    self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter")
-    self.requestQueue = {
+	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter")
+	self.requestQueue = {
 		["search"] = {},
 		["fetch"] = {},
 	}
