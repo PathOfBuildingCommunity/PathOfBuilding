@@ -5,6 +5,8 @@
 --
 
 local m_random = math.random
+local m_min = math.min
+local m_max = math.max
 local t_concat = table.concat
 
 local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build)
@@ -18,6 +20,36 @@ end)
 function TimelessJewelListControlClass:Draw(viewPort, noTooltip)
 	self.noTooltip = noTooltip
 	self.ListControl.Draw(self, viewPort)
+end
+
+function TimelessJewelListControlClass:SetHighlightColor(index, value)
+	if not self.highlightIndex or not self.selIndex then
+		return false
+	end
+	local isHighlighted = m_min(self.selIndex, self.highlightIndex) <= index and m_max(self.selIndex, self.highlightIndex) >= index
+
+	if isHighlighted then
+		if self.selIndex == index or self.highlightIndex == index then
+			SetDrawColor(1, 0.5, 0)
+		else
+			SetDrawColor(1, 1, 0)
+		end
+
+		return true
+	end
+
+	return false
+end
+
+function TimelessJewelListControlClass:OverrideSelectIndex(index)
+	if IsKeyDown("SHIFT") and self.selIndex then
+		self.highlightIndex = index
+		return true
+	else
+		self.highlightIndex = nil
+	end
+
+	return false
 end
 
 function TimelessJewelListControlClass:GetRowValue(column, index, data)
@@ -60,7 +92,7 @@ end
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
 		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. self.sharedList.socket.keystone .. "]\n"
-		local variant = self.sharedList.conqueror .. "\n"
+		local variant = self.sharedList.conqueror.label .. "\n"
 		local itemData = [[
 Elegant Hubris ]] .. label .. [[
 Timeless Jewel
