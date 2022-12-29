@@ -398,18 +398,21 @@ function ItemClass:ParseRaw(raw)
 					if data.itemBases[self.name] then
 						baseName = self.name
 					else
+						local bestMatch = {length = -1}
 						-- Partial match (magic items with affixes)
 						for itemBaseName, baseData in pairs(data.itemBases) do
 							local s, e = self.name:find(itemBaseName, 1, true)
-							if s then
-								-- Set the base name if it isn't there, or we found a better match, so replace it
-								if (baseName and string.len(self.namePrefix) > string.len(self.name:sub(1, s - 1)))
-										or baseName == nil then
-									self.namePrefix = self.name:sub(1, s - 1)
-									self.nameSuffix = self.name:sub(e + 1)
-									baseName = itemBaseName
-								end
+							if s and e and (e-s > bestMatch.length) then
+								bestMatch.match = itemBaseName
+								bestMatch.length = e-s
+								bestMatch.e = e
+								bestMatch.s = s
 							end
+						end
+						if bestMatch.match then
+							self.namePrefix = self.name:sub(1, bestMatch.s - 1)
+							self.nameSuffix = self.name:sub(bestMatch.e + 1)
+							baseName = bestMatch.match
 						end
 					end
 					if not baseName then
