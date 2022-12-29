@@ -298,77 +298,179 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 	return triggerRate, icdr, triggerCD, triggeredCD
 end
 
--- Calculate Trigger Rate
--- This is achieved by simulating a 100 second cast rotation
-function calcMultiSpellRotationImpact(env, skillRotation, sourceAPS, icdr)
-	local SIM_TIME = 100.0
-	local TIME_STEP = 0.0001
-	local index = 1
-	local time = 0
-	local tick = 0
-	local currTick = 0
-	local next_trigger = 0
-	local trigger_increment = 1 / sourceAPS
-	local wasted = 0
-	
-	for _, skill in ipairs(skillRotation) do 
-		skill.next_trig = 0
-		skill.count = 0
-		skill.cd = skill.cdOverride or ((skill.cd or 0) / icdr) + (skill.addsCastTime or 0)
-	end
-	
-	while time < SIM_TIME do
-		local currIndex = index
-	
-		if time >= next_trigger then
-			while skillRotation[index].next_trig > time do
-				index = (index % #skillRotation) + 1
-				if index == currIndex then
-					wasted = wasted + 1
-					-- Triggers are free from the server tick so cooldown starts at current time
-					next_trigger = time + trigger_increment
-					break
-				end
+function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
+	local SIMU_RESOLUTION = 32
+	-- the breaking points are values in attacks per second
+	local function quick_sim(env, skills, sourceRate, icdr)
+		local Activation = {}
+		function Activation:new(skill)
+			a = {skill = skill, delta_time = 0, time = 0, count = 0}
+			setmetatable(a, self)
+			self.__index = self
+			return a
+		end
+		function Activation:time_ready()
+			-- returns the time when the skill is ready
+			return self.time + self.skill.cd
+		end
+		function Activation:activate()
+			-- activate the skill at the given time, update the activation
+			self.delta_time = time - self.time
+			self.time = time
+			self.count = self.count + 1
+		end
+		
+		local State = {}
+		function State:new(skills)
+			s = {activations = {}, time = 0, current_activation = 0}
+			for _, skill in ipairs(skills) do
+				t_insert(s.activations, Activation:new(skill))
 			end
-
-			if skillRotation[index].next_trig <= time then
-				skillRotation[index].count = skillRotation[index].count + 1
-				-- Cooldown starts at the beginning of current tick
-				skillRotation[index].next_trig = currTick + skillRotation[index].cd
-				local tempTick = tick
-
-				while skillRotation[index].next_trig > tempTick do
-					tempTick = tempTick + (1/data.misc.ServerTickRate)
-				end
-				-- Cooldown ends at the start of the next tick. Price is right rules.
-				skillRotation[index].next_trig = tempTick
-				index = (index % #skillRotation) + 1
-				next_trigger = time + trigger_increment
+			setmetatable(s, self)
+			self.__index = self
+			return s
+		end
+		function State:iter()
+			-- iterate over all activations in order
+			local idx = self.current_activation
+			local count = #self.activations
+			return function()
+				local current = idx
+				idx = (idx + 1) % count
+				return self.activations[current]
 			end
 		end
-		-- Increment time by smallest reasonable amount to attempt to hit every trigger event and every server tick. Frees attacks from the server tick. 
-		time = time + TIME_STEP
-		-- Keep track of the server tick as the trigger cooldown is still bound by it
-		if tick < time then
-			currTick = tick
-			tick = tick + (1/data.misc.ServerTickRate)
+		function State:iter_time_ready()
+			-- iterate over all activations and the time at which each skill is ready
+			local att = 1/sourceRate
+			local time_penalty = self.time + att
+			local iter = self:iter()
+			return function()
+				local activation = iter()
+				if activation then
+					-- the time until the skill is ready
+					local time_ready = activation:time_ready()
+					-- wait for the next attack
+					time_ready = m_ceil(time_ready / att) * att
+					-- wait until the attack rotation is ready
+					time_ready = m_max(time_ready, time_penalty)
+					return time_ready, activation
+				end
+			end
+		end
+		function State:get_nearest_ready()
+			-- Returns the next activation and the time until the skill is ready
+			local nearest_time = 0
+			local nearest_activation = nil
+			for time_ready, activation in self:iter_time_ready() do
+				if nearest_activation == nil or time_ready < nearest_time then
+					nearest_time = time_ready
+					nearest_activation = activation
+				end
+			end
+			return nearest_time, nearest_activation
+		end
+		function State:activate()
+			-- Activates the activation nearest to ready
+			time, nearestActivation = self:get_nearest_ready()
+			-- round up time to the next server tick
+			time =  m_ceil(time / data.misc.ServerTickTime) * data.misc.ServerTickTime
+			self.time = time
+			if nearestActivation then
+				nearestActivation:activate(time)
+				for i, activation in ipairs(self.activations) do
+					if nearestActivation.skill == activation.skill and nearestActivation.delta_time == activation.delta_time then
+						self.current_activation = i
+						break
+					end
+				end
+			end
+			return nearestActivation
+		end
+		function State:move_next_round()
+			-- Move to the next round of activations.
+			local initial_activation = self.activations[self.current_activation]
+			local is_initial = true
+			local activationsCount = #self.activations + 1
+			while (self:activate() ~= nil) and (is_initial or self.activations[self.current_activation].skill ~= initial_activation.skill and self.activations[self.current_activation].delta_time ~= initial_activation.delta_time) do
+				self.current_activation = (self.current_activation + 1) % activationsCount -- Skips one skill in the rotation.
+				is_initial = false
+			end
+		end
+		function State:any()
+			for activation in self:iter() do
+				if activation.count == 0 then
+					return true
+				end
+			end
+			return false
+		end
+		
+		local rates = {}
+		local skillCount = #skills
+		for i = 1, skillCount, 1 do
+			local state = State:new(skills)
+			state.current_activation = i
+			local count = SIMU_RESOLUTION + 1
+			repeat
+				state:move_next_round()
+				count = count-1
+			until(not (count > 0 or state:any()))
+			for i = 1, skillCount, 1 do
+				local avgRate = state.activations[i].time ~= 0 and (state.activations[i].count / state.activations[i].time) or 0
+				rates[i] = (rates[i] or 0) + avgRate
+			end
+		end		
+		for i = 1, skillCount, 1 do
+			rates[i] = rates[i] / skillCount
+		end
+		return rates
+	end
+	-- breaking point, where the trigger time is only constrained by the attack speed
+	-- the region tt0 is a slope
+	local tt0_br = 0
+	-- breaking points, where the cooldown times of some skills are awaited
+	local tt1_brs = {}
+	local tt1_smallest_br = m_huge
+	for _, skill in ipairs(skills) do
+		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / icdr) + (skill.addsCastTime or 0), triggerCD)
+		if skill.cd > triggerCD then
+			local br = #skills / m_ceil(skill.cd / data.misc.ServerTickTime) * data.misc.ServerTickTime
+			t_insert(tt1_brs, br)
+			tt1_smallest_br = m_min(tt1_smallest_br, br)
 		end
 	end
-
-	local mainRate = 0
-	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
-	if wasted > 0 then
-		trigRateTable.extraSimInfo = "Wasted trigger opportunities exist. Increasing your ICDR may fix this."
-	else
-		trigRateTable.extraSimInfo = "Good Job! There are no wasted trigger opportunities"
+	for _, skill in ipairs(skills) do
+		-- the breaking point, where the trigger time is only constrained by the cooldown time
+		-- before this its its either tt0 or tt1, depending on the skills
+		-- after this the trigger time depends on resonance with the attack speed
+		tt2_br = #skills / (m_ceil(skill.cd / data.misc.ServerTickTime) * data.misc.ServerTickTime) * .8
+		-- the breaking point where the the attack speed is so high, that the affect of resonance is negligible
+		tt3_br = #skills / (m_ceil(skill.cd / data.misc.ServerTickTime) * data.misc.ServerTickTime) * 8
+		-- classify in tt region the attack rate is in
+		if sourceRate >= tt3_br then
+			skill.rate = 1/ (m_ceil(skill.cd / data.misc.ServerTickTime) * data.misc.ServerTickTime)
+		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
+			local rates = quick_sim(env, skills, sourceRate, icdr)
+			for i, rate in ipairs(rates) do
+				skills[i].rate = rate
+			end
+			break
+		elseif sourceRate >= tt0_br then
+			skill.rate = sourceRate / #skills
+		else
+			skill.rate = 0
+		end
 	end
-	for _, sd in ipairs(skillRotation) do
+	
+	local mainRate
+	local trigRateTable = { simRes = SIMU_RESOLUTION, rates = {}, }
+	for _, sd in ipairs(skills) do
 		if cacheSkillUUID(env.player.mainSkill) == sd.uuid or env.minion and cacheSkillUUID(env.minion.mainSkill) == sd.uuid then
-			mainRate = sd.count / SIM_TIME
+			mainRate = sd.rate
 		end
-		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.count / SIM_TIME })
+		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.rate })
 	end
-
 	return mainRate, trigRateTable
 end
 
@@ -377,44 +479,28 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	local icdr, triggerCD, triggeredCD
 	output.TriggerRateCap, icdr, triggerCD, triggeredCD = getTriggerRateCap(env, breakdown, output, minion)
 	
-	if env.player.mainSkill.skillData.sourceRateIsFinal then
-		if not output.EffectiveRateOfTrigger then
-			output.EffectiveRateOfTrigger = sourceAPS
-			env.player.mainSkill.skillFlags.globalTrigger = true
-		end
-	elseif sourceAPS ~= nil then
-		if sourceAPS == 0 then
-			output.EffectiveRateOfTrigger = 0
-		else
-			_, output.EffectiveRateOfTrigger, wasted = calcMultiSpellRotationImpact(env, {{ cd = (triggerCD or triggeredCD) / icdr }}, sourceAPS, icdr)
-			if breakdown then
-				t_insert(breakdown.EffectiveRateOfTrigger, s_format("/ %.2f ^8(estimated impact of source rate and trigger cooldown alignment)", m_max(sourceAPS / output.EffectiveRateOfTrigger.rates[1].rate, 1)))
-				t_insert(breakdown.EffectiveRateOfTrigger, "")
-				t_insert(breakdown.EffectiveRateOfTrigger, output.EffectiveRateOfTrigger.extraSimInfo)
-			end
-			output.EffectiveRateOfTrigger = output.EffectiveRateOfTrigger.rates[1].rate
-		end
+	if sourceAPS ~= nil then
+		output.EffectiveSourceRate = sourceAPS
 	else
-		output.EffectiveRateOfTrigger = data.misc.ServerTickRate / m_ceil( (triggerCD or triggeredCD) / icdr * data.misc.ServerTickRate)
+		output.EffectiveSourceRate = data.misc.ServerTickRate / m_ceil( (triggerCD or triggeredCD) / icdr * data.misc.ServerTickRate)
 		env.player.mainSkill.skillFlags.globalTrigger = true
 	end
 	
 	if breakdown and not env.player.mainSkill.skillData.sourceRateIsFinal then
-		t_insert(breakdown.EffectiveRateOfTrigger, output.EffectiveRateOfTrigger == 0 and #breakdown.EffectiveRateOfTrigger+1 or #breakdown.EffectiveRateOfTrigger-1, s_format("= %.2f ^8(Effective Trigger rate of Trigger)", output.EffectiveRateOfTrigger))
+		t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Effective Trigger rate of Trigger)", output.EffectiveSourceRate))
 	end
 		
 	--If spell count is missing the skill likely comes from a unique and /or triggers it self
 	if spellCount and not env.minion then
-		if output.EffectiveRateOfTrigger ~= 0 then
-			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, output.EffectiveRateOfTrigger, icdr)
+		if output.EffectiveSourceRate ~= 0 then
+			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS, icdr, (triggerCD or triggeredCD) / icdr)
 			if breakdown then
 				breakdown.SkillTriggerRate = {
-					s_format("%.2f ^8(effective trigger rate of trigger)", output.EffectiveRateOfTrigger),
-					s_format("/ %.2f ^8(simulated impact of linked spells)", m_max(output.EffectiveRateOfTrigger / output.SkillTriggerRate, 1)),
+					s_format("%.2f ^8(Effective source rate)", output.EffectiveSourceRate),
+					s_format("/ %.2f ^8(Calculated impact of linked spells)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
 					s_format("= %.2f ^8per second", output.SkillTriggerRate),
 					"",
-					"Simulation Breakdown",
-					s_format("Simulation Duration: %.2f", simBreakdown.simTime),
+					s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
 				}
 				
 				local dualWieldAPS = (sourceAPS and dualWield and sourceAPS*2) or sourceAPS or 1 / triggerCD / icdr
@@ -424,7 +510,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 					breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s activations per second)", dualWieldAPS, source.activeEffect.grantedEffect.name)
 				else
 					if not sourceAPS then
-						breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", output.EffectiveRateOfTrigger, skillName)
+						breakdown.SkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", output.EffectiveSourceRate, skillName)
 					end
 				end
 				if simBreakdown.extraSimInfo then
@@ -447,7 +533,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 					end
 		
 					local row = {
-						rate = rateData.rate,
+						rate = round(rateData.rate, 2),
 						skillName = t[1],
 						slotName = t[2],
 						gemIndex = t[3],
@@ -464,9 +550,8 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 			output.SkillTriggerRate = 0
 		end
 	else
-		output.SkillTriggerRate = output.EffectiveRateOfTrigger
+		output.SkillTriggerRate = output.EffectiveSourceRate
 	end
-
 	return output.SkillTriggerRate
 end
 
@@ -2870,7 +2955,7 @@ function calcs.perform(env, avoidCache)
 		
 		local simBreakdown = nil
 		output.TriggerRateCap = m_min(1 / effCDTriggeredSkill, triggerRateOfTrigger)
-		output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, triggerRateOfTrigger, icdr)
+		output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, 1, icdr, adjTriggerInterval)
 		
 		if breakdown then
 			if triggeredCD or cooldownOverride then
@@ -2921,11 +3006,10 @@ function calcs.perform(env, avoidCache)
 			
 			breakdown.SkillTriggerRate = {
 				s_format("%.2f ^8(%s triggers per second)", triggerRateOfTrigger, triggerName),
-				s_format("/ %.2f ^8(simulated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
+				s_format("/ %.2f ^8(Calculated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
 				s_format("= %.2f ^8%s casts per second", output.SkillTriggerRate, triggeredName),
 				"",
-				"Simulation Breakdown",
-				s_format("Simulation Duration: %.2f", simBreakdown.simTime),
+				s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
 			}
 			
 			if simBreakdown.extraSimInfo then
@@ -2948,7 +3032,7 @@ function calcs.perform(env, avoidCache)
 				end
 	
 				local row = {
-					rate = rateData.rate,
+					rate = round(rateData.rate,2),
 					skillName = t[1],
 					slotName = t[2],
 					gemIndex = t[3],
@@ -3220,7 +3304,7 @@ function calcs.perform(env, avoidCache)
 				trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore 
 				env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
 				env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
-				output.EffectiveRateOfTrigger = trigRate
+				output.EffectiveSourceRate = trigRate
 			elseif env.player.mainSkill.skillData.triggeredOnDeath then
 				env.player.mainSkill.skillData.triggered = true
 				env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
@@ -3261,7 +3345,7 @@ function calcs.perform(env, avoidCache)
 					
 					if breakdown then
 						if env.player.mainSkill.skillData.triggeredByBrand then
-							breakdown.EffectiveRateOfTrigger = {
+							breakdown.EffectiveSourceRate = {
 								s_format("%.2f ^8(base activation cooldown of %s)", env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName),
 								s_format("* %.2f ^8(more activation frequency)", env.player.mainSkill.triggeredBy.activationFreqMore),
 								s_format("* %.2f ^8(increased activation frequency)", env.player.mainSkill.triggeredBy.activationFreqInc),
@@ -3270,12 +3354,12 @@ function calcs.perform(env, avoidCache)
 								s_format("%.2f ^8(adjusted for server tick rate)", data.misc.ServerTickRate / m_ceil( env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency / env.player.mainSkill.triggeredBy.activationFreqMore / env.player.mainSkill.triggeredBy.activationFreqInc * data.misc.ServerTickRate)),
 							}
 						else
-							breakdown.EffectiveRateOfTrigger = {}
+							breakdown.EffectiveSourceRate = {}
 							if trigRate then
 								if assumingEveryHitKills then
-									t_insert(breakdown.EffectiveRateOfTrigger, "Assuming every attack kills")
+									t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
 								end
-								t_insert(breakdown.EffectiveRateOfTrigger, s_format("%.2f ^8(%s attack rate)", trigRate, source.activeEffect.grantedEffect.name))
+								t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s attack rate)", trigRate, source.activeEffect.grantedEffect.name))
 							end
 						end
 					end
@@ -3285,7 +3369,7 @@ function calcs.perform(env, avoidCache)
 						local dualWield = false
 						trigRate, dualWield = calcDualWieldImpact(env, trigRate, source.skillData.doubleHitsWhenDualWielding)
 						if dualWield and breakdown then
-							t_insert(breakdown.EffectiveRateOfTrigger, 2, "/ 2 ^8(due to dual wielding)")
+							t_insert(breakdown.EffectiveSourceRate, 2, "/ 2 ^8(due to dual wielding)")
 						end
 					end
 					
@@ -3295,7 +3379,7 @@ function calcs.perform(env, avoidCache)
 						trigRate = trigRate * unleashDpsMult
 						env.player.mainSkill.skillFlags.HasSeals = true
 						if breakdown then
-							t_insert(breakdown.EffectiveRateOfTrigger, s_format("x %.2f ^8(multiplier from Unleash)", unleashDpsMult))
+							t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f ^8(multiplier from Unleash)", unleashDpsMult))
 						end
 					end
 					
@@ -3304,13 +3388,13 @@ function calcs.perform(env, avoidCache)
 						local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance					
 						trigRate = trigRate * (sourceHitChance or 0) / 100
 						if breakdown then
-							t_insert(breakdown.EffectiveRateOfTrigger, s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
+							t_insert(breakdown.EffectiveSourceRate, s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
 						end
 						if (actor.mainSkill.skillData.triggeredByCospris or actor.mainSkill.skillData.triggeredByCoC or triggerName == "Law of the Wilds") and GlobalCache.cachedData["CACHE"][uuid] then
 							local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 							trigRate = trigRate * (sourceCritChance or 0) / 100
 							if breakdown then
-								t_insert(breakdown.EffectiveRateOfTrigger, s_format("x %.2f%% ^8(%s effective crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name))
+								t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(%s effective crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name))
 							end
 						end
 					end
@@ -3321,16 +3405,16 @@ function calcs.perform(env, avoidCache)
 						local repeats = 1 + source.skillModList:Sum("BASE", nil, "RepeatCount")
 						trigRate = trigRate / repeats
 						if breakdown and repeats > 1 then
-							t_insert(breakdown.EffectiveRateOfTrigger, s_format("/%d ^8(repeated attacks/casts do not count as they don't use mana)", repeats))
+							t_insert(breakdown.EffectiveSourceRate, s_format("/%d ^8(repeated attacks/casts do not count as they don't use mana)", repeats))
 						end
 					end
 					--Trigger chance
 					if triggerChance and trigRate then
 						trigRate = trigRate * triggerChance / 100
-						if breakdown and breakdown.EffectiveRateOfTrigger then
-							t_insert(breakdown.EffectiveRateOfTrigger, s_format("x %.2f%% ^8(chance to trigger)", triggerChance))
+						if breakdown and breakdown.EffectiveSourceRate then
+							t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to trigger)", triggerChance))
 						elseif breakdown then
-							breakdown.EffectiveRateOfTrigger = {
+							breakdown.EffectiveSourceRate = {
 								s_format("%.2f ^8(adjusted trigger rate)", trigRate),
 								s_format("x %.2f%% ^8(chance to trigger)", triggerChance),
 							}

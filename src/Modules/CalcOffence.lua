@@ -4532,38 +4532,19 @@ function calcs.offence(env, actor, activeSkill)
 				triggerRateCap = 1 / modActionCooldown
 			end
 			
-			local BreakdownEffectiveRateOfTrigger = {}
-			local EffectiveRateOfTrigger
+			local BreakdownEffectiveSourceRate = {}
+			local EffectiveSourceRate = sourceAPS
 			local BreakdownSkillTriggerRate = {}
 			local SkillTriggerRate
 			local BreakdownSimData
 			local simBreakdown
 			
-			if sourceAPS == 0 then
-				EffectiveRateOfTrigger = 0
-				SkillTriggerRate = {
-					s_format("The trigger needs to be triggered for any skill to be triggered."),
-				}
-			else
-				_, EffectiveRateOfTrigger = calcMultiSpellRotationImpact(env, {{ cd = effectiveTriggerCD }}, sourceAPS, icdrSkill)
-				if breakdown then
-					BreakdownEffectiveRateOfTrigger = {
-						s_format("%.2f ^8(%s attack rate)", sourceAPS, newSkill.activeEffect.grantedEffect.name),
-						s_format("/ %.2f ^8(estimated impact of source rate and trigger cooldown alignment)", m_max(sourceAPS / EffectiveRateOfTrigger.rates[1].rate, 1)),
-						s_format("= %.2f ^8(Effective Trigger rate of Trigger)", EffectiveRateOfTrigger.rates[1].rate),
-						"",
-						EffectiveRateOfTrigger.extraSimInfo,
-					}
-				end
-				EffectiveRateOfTrigger = EffectiveRateOfTrigger.rates[1].rate
-			end
-			
-			if output.EffectiveRateOfTrigger ~= 0 then
-				SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(activeSkill), cd = triggeredCD }}, EffectiveRateOfTrigger, icdrSkill)
+			if EffectiveSourceRate ~= 0 then
+				SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(activeSkill), cd = triggeredCD }}, EffectiveSourceRate, icdrSkill)
 				if breakdown then
 					BreakdownSkillTriggerRate = {
-						s_format("%.2f ^8(effective trigger rate of trigger)", EffectiveRateOfTrigger),
-						s_format("/ %.2f ^8(simulated impact of linked spells)", m_max(EffectiveRateOfTrigger / SkillTriggerRate, 1)),
+						s_format("%.2f ^8(effective trigger rate of trigger)", EffectiveSourceRate),
+						s_format("/ %.2f ^8(simulated impact of linked spells)", m_max(EffectiveSourceRate / SkillTriggerRate, 1)),
 						s_format("= %.2f ^8per second", SkillTriggerRate),
 						"",
 						"Simulation Breakdown",
@@ -4572,7 +4553,7 @@ function calcs.offence(env, actor, activeSkill)
 					
 					local skillName = "Tawhoa's Chosen"
 
-					BreakdownSkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", EffectiveRateOfTrigger, skillName)
+					BreakdownSkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", EffectiveSourceRate, skillName)
 					
 					if simBreakdown.extraSimInfo then
 						t_insert(BreakdownSkillTriggerRate, "")
@@ -4614,15 +4595,15 @@ function calcs.offence(env, actor, activeSkill)
 
 			-- Make any necessary corrections to output
 			env.player.output.ManaCost = 0
-			env.player.output.Speed = EffectiveRateOfTrigger
+			env.player.output.Speed = EffectiveSourceRate
 			env.player.output.TriggerRateCap = triggerRateCap
-			env.player.output.EffectiveRateOfTrigger = EffectiveRateOfTrigger
+			env.player.output.EffectiveSourceRate = EffectiveSourceRate
 			env.player.output.SkillTriggerRate = SkillTriggerRate
 			
 			-- Re-link over the breakdown (if present)
 			if newEnv.player.breakdown then
 				newEnv.player.breakdown.SkillTriggerRate = BreakdownSkillTriggerRate
-				newEnv.player.breakdown.EffectiveRateOfTrigger = BreakdownEffectiveRateOfTrigger
+				newEnv.player.breakdown.EffectiveSourceRate = BreakdownEffectiveSourceRate
 				if triggeredCD then
 					newEnv.player.breakdown.TriggerRateCap = {
 						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
