@@ -92,7 +92,7 @@ end
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
 		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. self.sharedList.socket.keystone .. "]\n"
-		local variant = self.sharedList.conqueror.id .. "\n"
+		local variant = self.sharedList.conqueror.id == 1 and 1 or (self.sharedList.conqueror.id - 1) .. "\n"
 		local itemData = [[
 Elegant Hubris ]] .. label .. [[
 Timeless Jewel

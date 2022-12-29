@@ -790,33 +790,33 @@ function TreeTabClass:FindTimelessJewel()
 	local conquerorTypes = {
 		[1] = {
 			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_doryani", "explicit.pseudo_timeless_jewel_xibaqua", "explicit.pseudo_timeless_jewel_ahuana" } },
-			{ label = "Doryani (Corrupted Soul)", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_doryani" } },
-			{ label = "Xibaqua (Divine Flesh)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_xibaqua" } },
-			{ label = "Ahuana (Immortal Ambition)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_ahuana" } }
+			{ label = "Doryani (Corrupted Soul)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_doryani" } },
+			{ label = "Xibaqua (Divine Flesh)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_xibaqua" } },
+			{ label = "Ahuana (Immortal Ambition)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_ahuana" } }
 		},
 		[2] = {
 			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_kaom", "explicit.pseudo_timeless_jewel_rakiata", "explicit.pseudo_timeless_jewel_akoya" } },
-			{ label = "Kaom (Strength of Blood)", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_kaom" } },
-			{ label = "Rakiata (Tempered by War)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_rakiata" } },
-			{ label = "Akoya (Chainbreaker)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_akoya" } }
+			{ label = "Kaom (Strength of Blood)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_kaom" } },
+			{ label = "Rakiata (Tempered by War)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_rakiata" } },
+			{ label = "Akoya (Chainbreaker)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_akoya" } }
 		},
 		[3] = {
 			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_asenath", "explicit.pseudo_timeless_jewel_nasima", "explicit.pseudo_timeless_jewel_balbala" } },
-			{ label = "Asenath (Dance with Death)", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_asenath" } },
-			{ label = "Nasima (Second Sight)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_nasima" } },
-			{ label = "Balbala (The Traitor)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_balbala" } }
+			{ label = "Asenath (Dance with Death)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_asenath" } },
+			{ label = "Nasima (Second Sight)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_nasima" } },
+			{ label = "Balbala (The Traitor)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_balbala" } }
 		},
 		[4] = {
 			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_avarius", "explicit.pseudo_timeless_jewel_dominus", "explicit.pseudo_timeless_jewel_maxarius" } },
-			{ label = "Avarius (Power of Purpose)", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_avarius" } },
-			{ label = "Dominus (Inner Conviction)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_dominus" } },
-			{ label = "Maxarius (Transcendence)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_maxarius" } }
+			{ label = "Avarius (Power of Purpose)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_avarius" } },
+			{ label = "Dominus (Inner Conviction)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_dominus" } },
+			{ label = "Maxarius (Transcendence)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_maxarius" } }
 		},
 		[5] = {
 			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_cadiro", "explicit.pseudo_timeless_jewel_victario", "explicit.pseudo_timeless_jewel_caspiro" } },
-			{ label = "Cadiro (Supreme Decadence)", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_cadiro" } },
-			{ label = "Victario (Supreme Grandstanding)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_victario" } },
-			{ label = "Caspiro (Supreme Ostentation)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_caspiro" } }
+			{ label = "Cadiro (Supreme Decadence)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_cadiro" } },
+			{ label = "Victario (Supreme Grandstanding)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_victario" } },
+			{ label = "Caspiro (Supreme Ostentation)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_caspiro" } }
 		}
 	}
 	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
