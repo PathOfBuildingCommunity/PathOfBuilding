@@ -56,8 +56,10 @@ function main:Init()
 	MakeDir(self.buildPath)
 
 	if launch.devMode and IsKeyDown("CTRL") then
-		self.rebuildModCache = true
-	elseif not launch.headlessMode then
+		-- If modLib.parseMod doesn't find a cache entry it generates it.
+		-- Not loading pre-generated cache causes it to be rebuilt
+		self.saveNewModCache = true
+	elseif not launch.continuousIntegrationMode then -- Forces regeneration of modCache if ran from CI
 		-- Load mod cache
 		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
@@ -103,9 +105,9 @@ function main:Init()
 			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
 	end
-
-	if self.rebuildModCache then
-		self:RebuildModCache()
+	
+	if self.saveNewModCache then
+		self:SaveModCache()
 	end
 
 	self.sharedItemList = { }
@@ -215,7 +217,7 @@ the "Releases" section of the GitHub page.]])
 	self.onFrameFuncs = { }
 end
 
-function main:RebuildModCache()
+function main:SaveModCache()
 	-- Update mod cache
 	local out = io.open("Data/ModCache.lua", "w")
 	out:write('local c=...')
