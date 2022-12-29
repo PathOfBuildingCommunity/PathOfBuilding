@@ -1231,17 +1231,6 @@ function SkillsTabClass:ForumCopy()
 				skillText = skillText .. "Slot: " .. socketGroup.slot .. "\r\n"
 			end
 			for _, gemInstance in ipairs(socketGroup.gemList) do
-				local grantedEffect = gemInstance.grantedEffect or gemInstance.gemData.grantedEffect
-				local forumColor
-				if grantedEffect.color == 1 then
-					forumColor = "cc5555" -- Red
-				elseif grantedEffect.color == 2 then
-					forumColor = "55dd55" -- Green
-				elseif grantedEffect.color == 3 then
-					forumColor = "6677ff" -- Blue
-				else
-					forumColor = "dddddd" -- White(ish)
-				end
 				local forumQualityId = ""
 				if gemInstance.qualityId == "Alternate1" then
 					forumQualityId = "Anomalous "
@@ -1251,7 +1240,7 @@ function SkillsTabClass:ForumCopy()
 					forumQualityId = "Phantasmal "
 				end
 				skillText = skillText .. string.format('[b][span color="#%s"]%s[/b]%s[/span] %d/%d %s\r\n', 
-					forumColor, forumQualityId, gemInstance.nameSpec, gemInstance.level, gemInstance.quality, gemInstance.enabled and "" or "DISABLED")
+				gemInstance.color:gsub("%^x",""), forumQualityId, gemInstance.nameSpec, gemInstance.level, gemInstance.quality, gemInstance.enabled and "" or "DISABLED")
 			end
 			forumText = forumText .. skillText  .. "\r\n"
 		end
