@@ -258,7 +258,7 @@ function ListClass:Draw(viewPort, noTooltip)
 				end
 				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
 			end
-			if (not self.SetHighlightColor or not self:SetHighlightColor(index, value)) then
+			if not self.SetHighlightColor or not self:SetHighlightColor(index, value) then
 				SetDrawColor(1, 1, 1)
 			end
 			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
@@ -342,7 +342,7 @@ function ListClass:OnKeyDown(key, doubleClick)
 			end
 		end
 
-		if (self:SelectIndex(newSelect)) then
+		if self:SelectIndex(newSelect) then
 			if (self.isMutable or self.dragTargetList) and self:IsShown() then
 				self.selCX = cursorX
 				self.selCY = cursorY

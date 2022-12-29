@@ -42,7 +42,7 @@ function TimelessJewelListControlClass:SetHighlightColor(index, value)
 end
 
 function TimelessJewelListControlClass:OverrideSelectIndex(index)
-	if (IsKeyDown("SHIFT") and self.selIndex) then
+	if IsKeyDown("SHIFT") and self.selIndex then
 		self.highlightIndex = index
 		return true
 	else
