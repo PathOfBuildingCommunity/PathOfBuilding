@@ -68,6 +68,9 @@ function main:Init()
 		self.allowTreeDownload = true
 	end
 
+	self.sharedItemList = { }
+	self.sharedItemSetList = { }
+
 	self.inputEvents = { }
 	self.popups = { }
 	self.tooltipLines = { }
@@ -148,9 +151,6 @@ function main:Init()
 	if self.saveNewModCache then
 		self:SaveModCache()
 	end
-
-	self.sharedItemList = { }
-	self.sharedItemSetList = { }
 
 	self.anchorMain = new("Control", nil, 4, 0, 0, 0)
 	self.anchorMain.y = function()
