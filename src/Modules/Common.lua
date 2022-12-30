@@ -12,6 +12,7 @@ local m_abs = math.abs
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
+local m_ceil = math.ceil
 local s_format = string.format
 local s_char = string.char
 local b_rshift = bit.rshift
@@ -816,3 +817,8 @@ function string:split(sep)
 	return fields
 end
 
+-- Ceil function with optional base parameter
+function ceil(x, base)
+	base = base or 1
+	return base * m_ceil(x/base)
+end

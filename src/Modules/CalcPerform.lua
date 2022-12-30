@@ -299,7 +299,7 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 end
 
 function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
-	local SIMU_RESOLUTION = 32
+	local SIM_RESOLUTION = 2
 	-- the breaking points are values in attacks per second
 	local function quick_sim(env, skills, sourceRate, icdr)
 		local Activation = {}
@@ -351,7 +351,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 					-- the time until the skill is ready
 					local time_ready = activation:time_ready()
 					-- wait for the next attack
-					time_ready = m_ceil(time_ready / att) * att
+					time_ready = ceil(time_ready, att)
 					-- wait until the attack rotation is ready
 					time_ready = m_max(time_ready, time_penalty)
 					return time_ready, activation
@@ -374,7 +374,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 			-- Activates the activation nearest to ready
 			time, nearestActivation = self:get_nearest_ready()
 			-- round up time to the next server tick
-			time =  m_ceil(time / data.misc.ServerTickTime) * data.misc.ServerTickTime
+			time = ceil(time, data.misc.ServerTickTime)
 			self.time = time
 			if nearestActivation then
 				nearestActivation:activate(time)
@@ -411,7 +411,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		for i = 1, skillCount, 1 do
 			local state = State:new(skills)
 			state.current_activation = i
-			local count = SIMU_RESOLUTION + 1
+			local count = SIM_RESOLUTION + 1
 			repeat
 				state:move_next_round()
 				count = count-1
@@ -434,7 +434,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 	for _, skill in ipairs(skills) do
 		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / icdr) + (skill.addsCastTime or 0), triggerCD)
 		if skill.cd > triggerCD then
-			local br = #skills / m_ceil(skill.cd / data.misc.ServerTickTime) * data.misc.ServerTickTime
+			local br = #skills / ceil(skill.cd, data.misc.ServerTickTime)
 			t_insert(tt1_brs, br)
 			tt1_smallest_br = m_min(tt1_smallest_br, br)
 		end
@@ -443,12 +443,12 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		-- the breaking point, where the trigger time is only constrained by the cooldown time
 		-- before this its its either tt0 or tt1, depending on the skills
 		-- after this the trigger time depends on resonance with the attack speed
-		tt2_br = #skills / (m_ceil(skill.cd / data.misc.ServerTickTime) * data.misc.ServerTickTime) * .8
+		tt2_br = #skills / ceil(skill.cd, data.misc.ServerTickTime) * .8
 		-- the breaking point where the the attack speed is so high, that the affect of resonance is negligible
-		tt3_br = #skills / (m_ceil(skill.cd / data.misc.ServerTickTime) * data.misc.ServerTickTime) * 8
+		tt3_br = #skills / ceil(skill.cd, data.misc.ServerTickTime) * 8
 		-- classify in tt region the attack rate is in
 		if sourceRate >= tt3_br then
-			skill.rate = 1/ (m_ceil(skill.cd / data.misc.ServerTickTime) * data.misc.ServerTickTime)
+			skill.rate = 1/ ceil(skill.cd, data.misc.ServerTickTime)
 		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
 			quick_sim(env, skills, sourceRate, icdr)
 			break
@@ -460,7 +460,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 	end
 	
 	local mainRate
-	local trigRateTable = { simRes = SIMU_RESOLUTION, rates = {}, }
+	local trigRateTable = { simRes = SIM_RESOLUTION, rates = {}, }
 	for _, sd in ipairs(skills) do
 		if cacheSkillUUID(env.player.mainSkill) == sd.uuid or env.minion and cacheSkillUUID(env.minion.mainSkill) == sd.uuid then
 			mainRate = sd.rate
