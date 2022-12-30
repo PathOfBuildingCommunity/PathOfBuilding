@@ -370,6 +370,16 @@ Implicits: 1
 {variant:3}Recover 5% of Life on Kill
 {variant:3}Gain Adrenaline for 3 seconds on kill
 ]],[[
+Original Sin
+Amethyst Ring
+League: Sanctum
+Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
+LevelReq: 52
+Implicits: 1
+{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+All Elemental Damage Converted to Chaos Damage
+Nearby Enemies' Chaos Resistance is 0
+]],[[
 Doedre's Damning
 Paua Ring
 Variant: Pre 3.19.0
@@ -377,7 +387,7 @@ Variant: Current
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {variant:1}{tags:jewellery_attribute}+(5-10) to Intelligence
-{variant:2}{tags:jewellery_attribute}+(5-20) to Intelligence 
+{variant:2}{tags:jewellery_attribute}+(5-20) to Intelligence
 {variant:1}{tags:jewellery_resistance}+5% to all Elemental Resistances
 {variant:2}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
 {variant:1}{tags:mana}Gain 5 Mana per Enemy Killed
@@ -395,7 +405,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 {tags:mana}+(20-30) to maximum Mana
 {variant:1,2}{tags:jewellery_attribute}+(5-10) to Intelligence
-{variant:3,4}{tags:jewellery_attribute}+(5-20) to Intelligence 
+{variant:3,4}{tags:jewellery_attribute}+(5-20) to Intelligence
 {variant:1,2}{tags:jewellery_resistance}+5% to all Elemental Resistances
 {variant:3,4}{tags:jewellery_resistance}+(5-20)% to all Elemental Resistances
 {variant:1,2}{tags:mana}Gain 5 Mana per Enemy Killed
@@ -499,7 +509,7 @@ Implicits: 1
 {tags:mana}(20-40)% increased Mana Regeneration Rate
 Minions have 15% increased maximum Life
 Minions have 10% increased Area of Effect
-350 Physical Damage taken on Minion Death
+{tags:physical}350 Physical Damage taken on Minion Death
 ]],[[
 Anathema
 Moonstone Ring
