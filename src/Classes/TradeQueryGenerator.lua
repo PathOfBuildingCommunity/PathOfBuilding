@@ -10,33 +10,33 @@ local m_max = math.max
 
 -- TODO generate these from data files
 local itemCategoryTags = {
-    ["Ring"] = { ["ring"] = true, ["ring_can_roll_minion_modifiers"] = true },
-    ["Amulet"] = { ["amulet"] = true },
-    ["Belt"] = { ["belt"] = true },
-    ["Chest"] = { ["body_armour"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
-    ["Helmet"] = { ["helmet"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
-    ["Gloves"] = { ["gloves"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
-    ["Boots"] = { ["boots"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
-    ["Quiver"] = { ["quiver"] = true },
-    ["Shield"] = { ["shield"] = true, ["focus"] = true, ["energy_shield"] = true, ["dex_shield"] = true, ["str_shield"] = true, ["str_int_shield"] = true, ["dex_int_shield"] = true, ["str_dex_shield"] = true, ["focus_can_roll_minion_modifiers"] = true },
-    ["1HWeapon"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true, ["sword"] = true, ["rapier"] = true, ["mace"] = true, ["sceptre"] = true, ["attack_dagger"] = true, ["dagger"] = true, ["rune_dagger"] = true, ["wand"] = true, ["claw"] = true, ["weapon_can_roll_minion_modifiers"] = true },
-    ["2HWeapon"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true, ["bow"] = true,  ["axe"] = true, ["sword"] = true, ["mace"] = true, ["2h_sword"] = true, ["2h_axe"] = true, ["2h_mace"] = true },
-    ["1HAxe"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true},
-    ["1HSword"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["sword"] = true, ["rapier"] = true },
-    ["1HMace"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["mace"] = true, ["sceptre"] = true },
-    ["Dagger"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["attack_dagger"] = true, ["dagger"] = true, ["rune_dagger"] = true },
-    ["Wand"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["wand"] = true, ["weapon_can_roll_minion_modifiers"] = true },
-    ["Claw"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["claw"] = true },
-    ["Staff"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true },
-    ["Bow"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["bow"] = true },
-    ["2HAxe"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["axe"] = true, ["2h_axe"] = true },
-    ["2HSword"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["sword"] = true, ["2h_sword"] = true },
-    ["2HMace"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["mace"] = true, ["2h_mace"] = true },
-    ["FishingRod"] = { ["fishing_rod"] = true },
-    ["AbyssJewel"] = { ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
-    ["BaseJewel"] = { ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true },
-    ["AnyJewel"] = { ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
-    ["Flask"] = { ["flask"] = true, ["hybrid_flask"] = true, ["utility_flask"] = true, ["mana_flask"] = true, ["life_flask"] = true, ["expedition_flask"] = true, ["critical_utility_flask"] = true }
+	["Ring"] = { ["ring"] = true, ["ring_can_roll_minion_modifiers"] = true },
+	["Amulet"] = { ["amulet"] = true },
+	["Belt"] = { ["belt"] = true },
+	["Chest"] = { ["body_armour"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
+	["Helmet"] = { ["helmet"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
+	["Gloves"] = { ["gloves"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
+	["Boots"] = { ["boots"] = true, ["str_armour"] = true, ["dex_armour"] = true, ["int_armour"] = true, ["str_int_armour"] = true, ["str_dex_armour"] = true, ["str_dex_int_armour"] = true },
+	["Quiver"] = { ["quiver"] = true },
+	["Shield"] = { ["shield"] = true, ["focus"] = true, ["energy_shield"] = true, ["dex_shield"] = true, ["str_shield"] = true, ["str_int_shield"] = true, ["dex_int_shield"] = true, ["str_dex_shield"] = true, ["focus_can_roll_minion_modifiers"] = true },
+	["1HWeapon"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true, ["sword"] = true, ["rapier"] = true, ["mace"] = true, ["sceptre"] = true, ["attack_dagger"] = true, ["dagger"] = true, ["rune_dagger"] = true, ["wand"] = true, ["claw"] = true, ["weapon_can_roll_minion_modifiers"] = true },
+	["2HWeapon"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true, ["bow"] = true,  ["axe"] = true, ["sword"] = true, ["mace"] = true, ["2h_sword"] = true, ["2h_axe"] = true, ["2h_mace"] = true },
+	["1HAxe"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["axe"] = true},
+	["1HSword"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["sword"] = true, ["rapier"] = true },
+	["1HMace"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["mace"] = true, ["sceptre"] = true },
+	["Dagger"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["attack_dagger"] = true, ["dagger"] = true, ["rune_dagger"] = true },
+	["Wand"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["wand"] = true, ["weapon_can_roll_minion_modifiers"] = true },
+	["Claw"] = { ["weapon"] = true, ["one_hand_weapon"] = true, ["onehand"] = true, ["claw"] = true },
+	["Staff"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["staff"] = true, ["attack_staff"] = true, ["warstaff"] = true },
+	["Bow"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["bow"] = true },
+	["2HAxe"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["axe"] = true, ["2h_axe"] = true },
+	["2HSword"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["sword"] = true, ["2h_sword"] = true },
+	["2HMace"] = { ["weapon"] = true, ["two_hand_weapon"] = true, ["twohand"] = true, ["mace"] = true, ["2h_mace"] = true },
+	["FishingRod"] = { ["fishing_rod"] = true },
+	["AbyssJewel"] = { ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
+	["BaseJewel"] = { ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true },
+	["AnyJewel"] = { ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
+	["Flask"] = { ["flask"] = true, ["hybrid_flask"] = true, ["utility_flask"] = true, ["mana_flask"] = true, ["life_flask"] = true, ["expedition_flask"] = true, ["critical_utility_flask"] = true }
 }
 
 local tradeStatCategoryIndices = {
@@ -119,10 +119,10 @@ local function canModSpawnForItemCategory(mod, tags)
 end
 
 function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
-    for modId, mod in pairs(mods) do
-        if modId:find("HellscapeDownside") ~= nil then -- skip scourge downsides, they often don't follow standard parsing rules, and should basically never be beneficial anyways
-            goto continue
-        end
+	for modId, mod in pairs(mods) do
+		if modId:find("HellscapeDownside") ~= nil then -- skip scourge downsides, they often don't follow standard parsing rules, and should basically never be beneficial anyways
+			goto continue
+		end
 
 		for index, modLine in ipairs(mod) do
 			if modLine:find("Grants Level") then -- skip mods that grant skills, as they will often be overwhelmingly powerful but don't actually fit into the build
@@ -133,27 +133,27 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 			local modType = (mod.type == "Prefix" or mod.type == "Suffix") and "Explicit" or mod.type
 			if modType == "ScourgeUpside" then modType = "Scourge" end
 
-            -- Special cases
-            local specialCaseData = { }
-            if statOrder == 1956 then
-                specialCaseData.overrideModLine = "+#% Chance to Block"
-                modLine = modLine .. " (Shields)"
-            elseif statOrder == 1881 then
-                specialCaseData.overrideModLineSingular = "You can apply an additional Curse"
-                if modLine == specialCaseData.overrideModLineSingular then
-                    modLine = "You can apply 1 additional Curses"
-                end
-            elseif statOrder == 1512 then
-                specialCaseData.overrideModLineSingular = "Bow Attacks fire an additional Arrow"
-                if modLine == specialCaseData.overrideModLineSingular then
-                    modLine = "Bow Attacks fire 1 additional Arrows"
-                end
-            elseif statOrder == 1509 then
-                specialCaseData.overrideModLineSingular = "Projectiles Pierce an additional Target"
-                if modLine == specialCaseData.overrideModLineSingular then
-                    modLine = "Projectiles Pierce 1 additional Target"
-                end
-            end
+			-- Special cases
+			local specialCaseData = { }
+			if statOrder == 1956 then
+				specialCaseData.overrideModLine = "+#% Chance to Block"
+				modLine = modLine .. " (Shields)"
+			elseif statOrder == 1881 then
+				specialCaseData.overrideModLineSingular = "You can apply an additional Curse"
+				if modLine == specialCaseData.overrideModLineSingular then
+					modLine = "You can apply 1 additional Curses"
+				end
+			elseif statOrder == 1512 then
+				specialCaseData.overrideModLineSingular = "Bow Attacks fire an additional Arrow"
+				if modLine == specialCaseData.overrideModLineSingular then
+					modLine = "Bow Attacks fire 1 additional Arrows"
+				end
+			elseif statOrder == 1509 then
+				specialCaseData.overrideModLineSingular = "Projectiles Pierce an additional Target"
+				if modLine == specialCaseData.overrideModLineSingular then
+					modLine = "Projectiles Pierce 1 additional Target"
+				end
+			end
 
 			-- If this is the first tier for this mod, find matching trade mod and init the entry
 			if not self.modData[modType] then
@@ -161,34 +161,34 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 				goto continue
 			end
 
-            local uniqueIndex = tostring(statOrder).."_"..mod.group
-            if self.modData[modType][uniqueIndex] == nil then
-                local tradeMod = nil
+			local uniqueIndex = tostring(statOrder).."_"..mod.group
+			if self.modData[modType][uniqueIndex] == nil then
+				local tradeMod = nil
 
-                -- Try to match to a local mod fallback to global if no match
-                if mod.group:match("Local") then
-                    local matchLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
-                    for _, entry in pairs(tradeQueryStatsParsed.localResults[tradeStatCategoryIndices[modType]].entries) do
-                        if entry.text:gsub("[#()0-9%-%+%.]","") == matchLocalStr then
-                            tradeMod = entry
-                            specialCaseData.overrideModLine = entry.text:sub(1,-9)
-                            break
-                        end
-                    end
-                end
-                if tradeMod == nil then
-                    local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
-                    for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
-                        if entry.text:gsub("[#()0-9%-%+%.]","") == matchStr then
-                            tradeMod = entry
-                            break
-                        end
-                    end
-                end
-                if tradeMod == nil then
-                    logToFile("Unable to match %s mod: %s", modType, modLine)
-                    goto nextModLine
-                end
+				-- Try to match to a local mod fallback to global if no match
+				if mod.group:match("Local") then
+					local matchLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
+					for _, entry in pairs(tradeQueryStatsParsed.localResults[tradeStatCategoryIndices[modType]].entries) do
+						if entry.text:gsub("[#()0-9%-%+%.]","") == matchLocalStr then
+							tradeMod = entry
+							specialCaseData.overrideModLine = entry.text:sub(1,-9)
+							break
+						end
+					end
+				end
+				if tradeMod == nil then
+					local matchStr = modLine:gsub("[#()0-9%-%+%.]","")
+					for _, entry in ipairs(tradeQueryStatsParsed.result[tradeStatCategoryIndices[modType]].entries) do
+						if entry.text:gsub("[#()0-9%-%+%.]","") == matchStr then
+							tradeMod = entry
+							break
+						end
+					end
+				end
+				if tradeMod == nil then
+					logToFile("Unable to match %s mod: %s", modType, modLine)
+					goto nextModLine
+				end
 
 				self.modData[modType][uniqueIndex] = { tradeMod = tradeMod, specialCaseData = specialCaseData }
 			end
@@ -272,23 +272,23 @@ function TradeQueryGeneratorClass:InitMods()
 	tradeStats:gsub("\n", " ")
 	local tradeQueryStatsParsed = dkjson.decode(tradeStats)
 
-    -- Create second table only containing local mods this should speedup generation slightly
-    tradeQueryStatsParsed.localResults = { }
-    for modTypeId, modType in ipairs(tradeQueryStatsParsed.result) do
-        tradeQueryStatsParsed.localResults[modTypeId] = { label = modType.label, entries = { } }
-        for modId, mod in ipairs(modType.entries) do
-            if mod.text:match("(Local)") then
-                tradeQueryStatsParsed.localResults[modTypeId].entries[modId] = mod
-            end
-        end
-    end
+	-- Create second table only containing local mods this should speedup generation slightly
+	tradeQueryStatsParsed.localResults = { }
+	for modTypeId, modType in ipairs(tradeQueryStatsParsed.result) do
+		tradeQueryStatsParsed.localResults[modTypeId] = { label = modType.label, entries = { } }
+		for modId, mod in ipairs(modType.entries) do
+			if mod.text:match("(Local)") then
+				tradeQueryStatsParsed.localResults[modTypeId].entries[modId] = mod
+			end
+		end
+	end
 
-    -- explicit, corrupted, scourge, and jewel mods
-    self:GenerateModData(data.itemMods.Item, tradeQueryStatsParsed)
-    self:GenerateModData(data.veiledMods, tradeQueryStatsParsed)
-    self:GenerateModData(data.itemMods.Jewel, tradeQueryStatsParsed)
-    self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed)
-    self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed)
+	-- explicit, corrupted, scourge, and jewel mods
+	self:GenerateModData(data.itemMods.Item, tradeQueryStatsParsed)
+	self:GenerateModData(data.veiledMods, tradeQueryStatsParsed)
+	self:GenerateModData(data.itemMods.Jewel, tradeQueryStatsParsed)
+	self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed)
+	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed)
 
 	-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
 	for baseName, entry in pairs(data.itemBases) do
@@ -456,110 +456,110 @@ function TradeQueryGeneratorClass:OnFrame()
 end
 
 function TradeQueryGeneratorClass:StartQuery(slot, options)
-    -- Figure out what type of item we're searching for
-    local existingItem = self.itemsTab.items[slot.selItemId]
-    local testItemType = existingItem and existingItem.baseName or "Unset Amulet"
-    local itemCategoryQueryStr
-    local itemCategory
-    -- trade site item codes https://pastebin.com/3W7hT9BE
-    if slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
-        if existingItem then
-            if existingItem.type == "Shield" then
-                itemCategoryQueryStr = "armour.shield"
-                itemCategory = "Shield"
-            elseif existingItem.type == "Quiver" then
-                itemCategoryQueryStr = "armour.quiver"
-                itemCategory = "Quiver"
-            elseif existingItem.type == "Bow" then
-                itemCategoryQueryStr = "weapon.bow"
-                itemCategory = "Bow"
-            elseif existingItem.type == "Staff" then
-                itemCategoryQueryStr = "weapon.staff"
-                itemCategory = "Staff"
-            elseif existingItem.type == "Two Handed Sword" then
-                itemCategoryQueryStr = "weapon.twosword"
-                itemCategory = "2HSword"
-            elseif existingItem.type == "Two Handed Axe" then
-                itemCategoryQueryStr = "weapon.twoaxe"
-                itemCategory = "2HAxe"
-            elseif existingItem.type == "Two Handed Mace" then
-                itemCategoryQueryStr = "weapon.twomace"
-                itemCategory = "2HMace"
-            elseif existingItem.type == "Fishing Rod" then
-                itemCategoryQueryStr = "weapon.rod"
-                itemCategory = "FishingRod"
-            elseif existingItem.type == "One Handed Sword" then
-                itemCategoryQueryStr = "weapon.onesword"
-                itemCategory = "1HSword"
-            elseif existingItem.type == "One Handed Axe" then
-                itemCategoryQueryStr = "weapon.oneaxe"
-                itemCategory = "1HAxe"
-            elseif existingItem.type == "One Handed Mace" or existingItem.type == "Sceptre" then
-                itemCategoryQueryStr = "weapon.onemace"
-                itemCategory = "1HMace"
-            elseif existingItem.type == "Wand" then
-                itemCategoryQueryStr = "weapon.wand"
-                itemCategory = "Wand"
-            elseif existingItem.type == "Dagger" then
-                itemCategoryQueryStr = "weapon.dagger"
-                itemCategory = "Dagger"
-            elseif existingItem.type == "Claw" then
-                itemCategoryQueryStr = "weapon.claw"
-                itemCategory = "Claw"
-            elseif existingItem.type:find("Two Handed") ~= nil then
-                itemCategoryQueryStr = "weapon.twomelee"
-                itemCategory = "2HWeapon"
-            elseif existingItem.type:find("One Handed") ~= nil then
-                itemCategoryQueryStr = "weapon.one"
-                itemCategory = "1HWeapon"
-            else
-                logToFile("'%s' is not supported for weighted trade query generation", existingItem.type)
-                return
-            end
-        else
-            -- Item does not exist in this slot so assume 1H weapon
-            itemCategoryQueryStr = "weapon.one"
-            itemCategory = "1HWeapon"
-        end
-    elseif slot.slotName == "Body Armour" then
-        itemCategoryQueryStr = "armour.chest"
-        itemCategory = "Chest"
-    elseif slot.slotName == "Helmet" then
-        itemCategoryQueryStr = "armour.helmet"
-        itemCategory = "Helmet"
-    elseif slot.slotName == "Gloves" then
-        itemCategoryQueryStr = "armour.gloves"
-        itemCategory = "Gloves"
-    elseif slot.slotName == "Boots" then
-        itemCategoryQueryStr = "armour.boots"
-        itemCategory = "Boots"
-    elseif slot.slotName == "Amulet" then
-        itemCategoryQueryStr = "accessory.amulet"
-        itemCategory = "Amulet"
-    elseif slot.slotName == "Ring 1" or slot.slotName == "Ring 2" then
-        itemCategoryQueryStr = "accessory.ring"
-        itemCategory = "Ring"
-    elseif slot.slotName == "Belt" then
-        itemCategoryQueryStr = "accessory.belt"
-        itemCategory = "Belt"
-    elseif slot.slotName:find("Abyssal") ~= nil then
-        itemCategoryQueryStr = "jewel.abyss"
-        itemCategory = "AbyssJewel"
-    elseif slot.slotName:find("Jewel") ~= nil then
-        itemCategoryQueryStr = "jewel"
-        itemCategory = options.jewelType .. "Jewel"
-        if itemCategory == "AbyssJewel" then
-            itemCategoryQueryStr = "jewel.abyss"
-        elseif itemCategory == "BaseJewel" then
-            itemCategoryQueryStr = "jewel.base"
-        end
-    elseif slot.slotName:find("Flask") ~= nil then
-        itemCategoryQueryStr = "flask"
-        itemCategory = "Flask"
-    else
-        logToFile("'%s' is not supported for weighted trade query generation", existingItem and existingItem.type or "n/a")
-        return
-    end
+	-- Figure out what type of item we're searching for
+	local existingItem = self.itemsTab.items[slot.selItemId]
+	local testItemType = existingItem and existingItem.baseName or "Unset Amulet"
+	local itemCategoryQueryStr
+	local itemCategory
+	-- trade site item codes https://pastebin.com/3W7hT9BE
+	if slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
+		if existingItem then
+			if existingItem.type == "Shield" then
+				itemCategoryQueryStr = "armour.shield"
+				itemCategory = "Shield"
+			elseif existingItem.type == "Quiver" then
+				itemCategoryQueryStr = "armour.quiver"
+				itemCategory = "Quiver"
+			elseif existingItem.type == "Bow" then
+				itemCategoryQueryStr = "weapon.bow"
+				itemCategory = "Bow"
+			elseif existingItem.type == "Staff" then
+				itemCategoryQueryStr = "weapon.staff"
+				itemCategory = "Staff"
+			elseif existingItem.type == "Two Handed Sword" then
+				itemCategoryQueryStr = "weapon.twosword"
+				itemCategory = "2HSword"
+			elseif existingItem.type == "Two Handed Axe" then
+				itemCategoryQueryStr = "weapon.twoaxe"
+				itemCategory = "2HAxe"
+			elseif existingItem.type == "Two Handed Mace" then
+				itemCategoryQueryStr = "weapon.twomace"
+				itemCategory = "2HMace"
+			elseif existingItem.type == "Fishing Rod" then
+				itemCategoryQueryStr = "weapon.rod"
+				itemCategory = "FishingRod"
+			elseif existingItem.type == "One Handed Sword" then
+				itemCategoryQueryStr = "weapon.onesword"
+				itemCategory = "1HSword"
+			elseif existingItem.type == "One Handed Axe" then
+				itemCategoryQueryStr = "weapon.oneaxe"
+				itemCategory = "1HAxe"
+			elseif existingItem.type == "One Handed Mace" or existingItem.type == "Sceptre" then
+				itemCategoryQueryStr = "weapon.onemace"
+				itemCategory = "1HMace"
+			elseif existingItem.type == "Wand" then
+				itemCategoryQueryStr = "weapon.wand"
+				itemCategory = "Wand"
+			elseif existingItem.type == "Dagger" then
+				itemCategoryQueryStr = "weapon.dagger"
+				itemCategory = "Dagger"
+			elseif existingItem.type == "Claw" then
+				itemCategoryQueryStr = "weapon.claw"
+				itemCategory = "Claw"
+			elseif existingItem.type:find("Two Handed") ~= nil then
+				itemCategoryQueryStr = "weapon.twomelee"
+				itemCategory = "2HWeapon"
+			elseif existingItem.type:find("One Handed") ~= nil then
+				itemCategoryQueryStr = "weapon.one"
+				itemCategory = "1HWeapon"
+			else
+				logToFile("'%s' is not supported for weighted trade query generation", existingItem.type)
+				return
+			end
+		else
+			-- Item does not exist in this slot so assume 1H weapon
+			itemCategoryQueryStr = "weapon.one"
+			itemCategory = "1HWeapon"
+		end
+	elseif slot.slotName == "Body Armour" then
+		itemCategoryQueryStr = "armour.chest"
+		itemCategory = "Chest"
+	elseif slot.slotName == "Helmet" then
+		itemCategoryQueryStr = "armour.helmet"
+		itemCategory = "Helmet"
+	elseif slot.slotName == "Gloves" then
+		itemCategoryQueryStr = "armour.gloves"
+		itemCategory = "Gloves"
+	elseif slot.slotName == "Boots" then
+		itemCategoryQueryStr = "armour.boots"
+		itemCategory = "Boots"
+	elseif slot.slotName == "Amulet" then
+		itemCategoryQueryStr = "accessory.amulet"
+		itemCategory = "Amulet"
+	elseif slot.slotName == "Ring 1" or slot.slotName == "Ring 2" then
+		itemCategoryQueryStr = "accessory.ring"
+		itemCategory = "Ring"
+	elseif slot.slotName == "Belt" then
+		itemCategoryQueryStr = "accessory.belt"
+		itemCategory = "Belt"
+	elseif slot.slotName:find("Abyssal") ~= nil then
+		itemCategoryQueryStr = "jewel.abyss"
+		itemCategory = "AbyssJewel"
+	elseif slot.slotName:find("Jewel") ~= nil then
+		itemCategoryQueryStr = "jewel"
+		itemCategory = options.jewelType .. "Jewel"
+		if itemCategory == "AbyssJewel" then
+			itemCategoryQueryStr = "jewel.abyss"
+		elseif itemCategory == "BaseJewel" then
+			itemCategoryQueryStr = "jewel.base"
+		end
+	elseif slot.slotName:find("Flask") ~= nil then
+		itemCategoryQueryStr = "flask"
+		itemCategory = "Flask"
+	else
+		logToFile("'%s' is not supported for weighted trade query generation", existingItem and existingItem.type or "n/a")
+		return
+	end
 
 	-- Create a temp item for the slot with no mods
 	local itemRawStr = "Rarity: RARE\nStat Tester\n" .. testItemType
@@ -647,9 +647,9 @@ function TradeQueryGeneratorClass:FinishQuery()
 	-- Restore global cache full DPS
 	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
 
-    -- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
-    -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-    local minWeight = currentDPSDiff * 0.5
+	-- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
+	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
+	local minWeight = currentDPSDiff * 0.5
 
 	-- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
