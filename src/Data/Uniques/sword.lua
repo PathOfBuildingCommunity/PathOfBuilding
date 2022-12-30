@@ -449,7 +449,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.16.0
 Variant: Current
 League: Breach
-Requires Level 69
+LevelReq: 69
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
