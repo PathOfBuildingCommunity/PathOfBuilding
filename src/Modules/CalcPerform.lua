@@ -322,7 +322,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		
 		local State = {}
 		function State:new(skills)
-			s = {activations = {}, time = 0, current_activation = 0}
+			s = {activations = {}, time = 0, current_activation = 1}
 			for _, skill in ipairs(skills) do
 				t_insert(s.activations, Activation:new(skill))
 			end
@@ -333,7 +333,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		function State:iter()
 			-- iterate over all activations in order
 			local idx = self.current_activation
-			local count = #self.activations
+			local count = #self.activations + 1
 			return function()
 				local current = idx
 				idx = (idx + 1) % count
