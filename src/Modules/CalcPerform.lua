@@ -422,9 +422,8 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 			end
 		end		
 		for i = 1, skillCount, 1 do
-			rates[i] = rates[i] / skillCount
+			skills[i].rate = rates[i] / skillCount
 		end
-		return rates
 	end
 	-- breaking point, where the trigger time is only constrained by the attack speed
 	-- the region tt0 is a slope
@@ -451,10 +450,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		if sourceRate >= tt3_br then
 			skill.rate = 1/ (m_ceil(skill.cd / data.misc.ServerTickTime) * data.misc.ServerTickTime)
 		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
-			local rates = quick_sim(env, skills, sourceRate, icdr)
-			for i, rate in ipairs(rates) do
-				skills[i].rate = rate
-			end
+			quick_sim(env, skills, sourceRate, icdr)
 			break
 		elseif sourceRate >= tt0_br then
 			skill.rate = sourceRate / #skills
