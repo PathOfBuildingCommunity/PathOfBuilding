@@ -2022,7 +2022,7 @@ return {
 	{
 		{ format = colorCodes.LIFE.."Life:" },
 		{ format = colorCodes.MANA.."Mana:" },
-		{ format = colorCodes.ES.."EnergyShield:" },
+		{ format = colorCodes.ES.."Energy Shield:" },
 	},
 	{ label = "Recoup Max.", haveOutput = "anyRecoup", 
 		{ format = "{0:output:LifeRecoupRecoveryMax}",
