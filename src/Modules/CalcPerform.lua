@@ -467,6 +467,9 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		end
 		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.rate })
 	end
+	if not mainRate then
+		mainRate = trigRateTable.rates[1].rate
+	end
 	return mainRate, trigRateTable
 end
 

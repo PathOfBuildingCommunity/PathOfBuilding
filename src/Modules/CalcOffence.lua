@@ -4540,15 +4540,14 @@ function calcs.offence(env, actor, activeSkill)
 			local simBreakdown
 			
 			if EffectiveSourceRate ~= 0 then
-				SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(activeSkill), cd = triggeredCD }}, EffectiveSourceRate, icdrSkill)
+				SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(usedSkill), cd = triggeredCD }}, EffectiveSourceRate, icdrSkill, effectiveTriggerCD)
 				if breakdown then
 					BreakdownSkillTriggerRate = {
 						s_format("%.2f ^8(effective trigger rate of trigger)", EffectiveSourceRate),
 						s_format("/ %.2f ^8(simulated impact of linked spells)", m_max(EffectiveSourceRate / SkillTriggerRate, 1)),
 						s_format("= %.2f ^8per second", SkillTriggerRate),
 						"",
-						"Simulation Breakdown",
-						s_format("Simulation Duration: %.2f", simBreakdown.simTime),
+						s_format("^8(Calculation Resolution: %.2f)", simBreakdown.simRes),
 					}
 					
 					local skillName = "Tawhoa's Chosen"
@@ -4595,7 +4594,7 @@ function calcs.offence(env, actor, activeSkill)
 
 			-- Make any necessary corrections to output
 			env.player.output.ManaCost = 0
-			env.player.output.Speed = EffectiveSourceRate
+			env.player.output.Speed = SkillTriggerRate
 			env.player.output.TriggerRateCap = triggerRateCap
 			env.player.output.EffectiveSourceRate = EffectiveSourceRate
 			env.player.output.SkillTriggerRate = SkillTriggerRate
