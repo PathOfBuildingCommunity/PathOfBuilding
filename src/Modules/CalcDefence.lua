@@ -1695,10 +1695,10 @@ function calcs.defence(env, actor)
 
 		end
 		if DamageIn["cycles"] == 1 then
-			DamageIn["TrackLifeLoss"] = DamageIn["TrackLifeLoss"] or false
+			DamageIn["TrackPoolLoss"] = DamageIn["TrackPoolLoss"] or false
 			DamageIn["TrackLifeLossOverTime"] = DamageIn["TrackLifeLossOverTime"] or false
 		else
-			DamageIn["TrackLifeLoss"] = false
+			DamageIn["TrackPoolLoss"] = false
 			DamageIn["TrackLifeLossOverTime"] = false
 		end
 		DamageIn["WardBypass"] = DamageIn["WardBypass"] or modDB:Sum("BASE", nil, "WardBypass") or 0
@@ -1735,8 +1735,8 @@ function calcs.defence(env, actor)
 						Damage[damageType] = Damage[damageType] - tempDamage
 					end
 					-- frost shield and soul link does not count as you taking damage
-					if DamageIn["TrackLifeLoss"] then
-						output[damageType.."LifeLossLost"] = output[damageType.."LifeLossLost"] + Damage[damageType]
+					if DamageIn["TrackPoolLoss"] then
+						output[damageType.."PoolLost"] = output[damageType.."PoolLost"] + Damage[damageType]
 					end
 					if aegis[damageType] > 0 then
 						local tempDamage = m_min(Damage[damageType], aegis[damageType])
@@ -1965,9 +1965,9 @@ function calcs.defence(env, actor)
 		end
 		-- recoup initialisation
 		if output["anyRecoup"] > 0 then
-			DamageIn["TrackLifeLoss"] = true
+			DamageIn["TrackPoolLoss"] = true
 			for _, damageType in ipairs(dmgTypeList) do
-				output[damageType.."LifeLossLost"] = 0
+				output[damageType.."PoolLost"] = 0
 			end
 		end
 		-- taken over time degen initialisation
@@ -1978,7 +1978,7 @@ function calcs.defence(env, actor)
 		end
 		averageAvoidChance = averageAvoidChance / 5
 		output["ConfiguredDamageChance"] = 100 * (blockEffect * suppressionEffect * (1 - averageAvoidChance / 100))
-		output["NumberOfMitigatedDamagingHits"] = (output["ConfiguredDamageChance"] ~= 100 or DamageIn["TrackLifeLoss"] or DamageIn["TrackLifeLossOverTime"]) and numberOfHitsToDie(DamageIn) or output["NumberOfDamagingHits"]
+		output["NumberOfMitigatedDamagingHits"] = (output["ConfiguredDamageChance"] ~= 100 or DamageIn["TrackPoolLoss"] or DamageIn["TrackLifeLossOverTime"]) and numberOfHitsToDie(DamageIn) or output["NumberOfDamagingHits"]
 		if breakdown then
 			breakdown["ConfiguredDamageChance"] = {
 				s_format("%.2f ^8(chance for block to fail)", 1 - BlockChance)
@@ -2088,9 +2088,9 @@ function calcs.defence(env, actor)
 		local totalDamage = 0
 		local totalElementalDamage = 0
 		for _, damageType in ipairs(dmgTypeList) do
-			totalDamage = totalDamage + output[damageType.."LifeLossLost"]
+			totalDamage = totalDamage + output[damageType.."PoolLost"]
 			if isElemental[damageType] then
-				totalElementalDamage = totalElementalDamage + output[damageType.."LifeLossLost"]
+				totalElementalDamage = totalElementalDamage + output[damageType.."PoolLost"]
 			end
 		end
 		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
@@ -2101,8 +2101,8 @@ function calcs.defence(env, actor)
 				output["Total"..recoupType.."RecoupRecovery"] = output["Total"..recoupType.."RecoupRecovery"] + output["Elemental"..recoupType.."Recoup"] / 100 * totalElementalDamage
 			end
 			for _, damageType in ipairs(dmgTypeList) do
-				if (output[damageType..recoupType.."Recoup"] or 0) > 0 and output[damageType.."LifeLossLost"] > 0 then
-					output["Total"..recoupType.."RecoupRecovery"] = output["Total"..recoupType.."RecoupRecovery"] + output[damageType..recoupType.."Recoup"] / 100 * output[damageType.."LifeLossLost"]
+				if (output[damageType..recoupType.."Recoup"] or 0) > 0 and output[damageType.."PoolLost"] > 0 then
+					output["Total"..recoupType.."RecoupRecovery"] = output["Total"..recoupType.."RecoupRecovery"] + output[damageType..recoupType.."Recoup"] / 100 * output[damageType.."PoolLost"]
 				end
 			end
 			output[recoupType.."RecoupRecoveryMax"] = output["Total"..recoupType.."RecoupRecovery"] / recoupTime
@@ -2124,7 +2124,7 @@ function calcs.defence(env, actor)
 					multipleTypes = multipleTypes + 1
 				end
 				for _, damageType in ipairs(dmgTypeList) do
-					if (output[damageType..recoupType.."Recoup"] or 0) > 0 and output[damageType.."LifeLossLost"] > 0 then
+					if (output[damageType..recoupType.."Recoup"] or 0) > 0 and output[damageType.."PoolLost"] > 0 then
 						if multipleTypes > 0 then
 							t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format(""))
 						end
