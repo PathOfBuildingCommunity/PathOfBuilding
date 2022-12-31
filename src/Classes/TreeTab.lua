@@ -1031,6 +1031,7 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.jewelType = value
 		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
 		controls.conquerorSelect.selIndex = 1
+		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
 		controls.nodeSelect.selIndex = 1
 		buildMods()
 		updateSearchList("", false)
