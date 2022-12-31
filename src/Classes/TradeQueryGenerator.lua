@@ -764,9 +764,6 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		lastItemAnchor = controls.influence2
 		popupHeight = popupHeight + 46
 	end
-    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, statWeights[1].label)
-    controls.sortStatLabel = new("LabelControl", {"RIGHT",controls.sortStatType,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
-    popupHeight = popupHeight + 23
 
 	-- Add max price limit selection dropbox
 	local currencyTable = {
