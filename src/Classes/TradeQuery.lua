@@ -27,7 +27,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.resultTbl = { }
 	self.sortedResultTbl = { }
 	self.itemIndexTbl = { }
-	
+
 	-- default set of trade item sort selection
 	self.pbItemSortSelectionIndex = 1
 	self.pbCurrencyConversion = { }
@@ -420,10 +420,8 @@ on trade site to work on other leagues and realms)]]
 	main:OpenPopup(pane_width, pane_height, "Trader", self.controls)
 end
 
--- Method to SetStatWeights
+-- Popup to set stat weight multipliers for sorting
 function TradeQueryClass:SetStatWeights()
-	--self.requesterCallback = callback
-    --self.requesterContext = context
 
     local controls = { }
     local statList = { }
