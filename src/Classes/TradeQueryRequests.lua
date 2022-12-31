@@ -7,7 +7,7 @@
 local dkjson = require "dkjson"
 
 ---@class TradeQueryRequests
-local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, tradeQuery, rateLimiter)
+local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, rateLimiter)
 	self.maxFetchPerSearch = 10
 	self.tradeQuery = tradeQuery
 	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter")
@@ -57,10 +57,10 @@ end
 ---@param query string
 ---@param callback fun(items:table, errMsg:string)
 ---@param params table @ params = { callbackQueryId = fun(queryId:string) }
-function TradeQueryRequestsClass:SearchWithQuery(league, query, callback, params)
+function TradeQueryRequestsClass:SearchWithQuery(realm, league, query, callback, params)
 	params = params or {}
 	--ConPrintf("Query json: %s", query)
-	self:PerformSearch(league, query, function(response, errMsg)
+	self:PerformSearch(realm, league, query, function(response, errMsg)
 		if params.callbackQueryId and response and response.id then
 			params.callbackQueryId(response.id)
 		end
@@ -76,7 +76,7 @@ end
 ---@param league string
 ---@param query string
 ---@param callback fun(response:table, errMsg:string)
-function TradeQueryRequestsClass:PerformSearch(league, query, callback)
+function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 	table.insert(self.requestQueue["search"], {
 		url = "https://www.pathofexile.com/api/trade/search/"..league:gsub(" ", "+"),
 		body = query,
@@ -184,8 +184,7 @@ function TradeQueryRequestsClass:SearchWithURL(urlEditControl, callback)
 		if errMsg then
 			return callback(nil, errMsg)
 		end
-		urlEditControl:SetText("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbRealm .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId)
-		self:SearchWithQuery(self.tradeQuery.pbLeague, query, callback)
+		self:SearchWithQuery(realm, league, query, callback)
 	end)
 end
 
@@ -193,7 +192,7 @@ end
 ---@param queryId string
 ---@param league string
 ---@param callback fun(query:string, errMsg:string)
-function TradeQueryRequestsClass:FetchSearchQuery(queryId, callback)
+function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callback)
 	local url = "https://www.pathofexile.com/api/trade/search/" .. self.tradeQuery.pbRealm .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId
 	table.insert(self.requestQueue["search"], {
 		url = url,
@@ -216,7 +215,7 @@ end
 ---@param queryId string
 ---@param callback fun(query:string, errMsg:string)
 ---@see TradeQueryRequests#FetchSearchQuery
-function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
+function TradeQueryRequestsClass:FetchSearchQueryHTML(realm, league, queryId, callback)
 	if main.POESESSID == "" then
 		return callback(nil, "Please provide your POESESSID")
 	end

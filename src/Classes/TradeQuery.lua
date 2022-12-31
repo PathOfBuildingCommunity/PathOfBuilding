@@ -38,7 +38,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.pbRealmIndex = 1
 	self.pbLeagueIndex = 1
 
-	self.tradeQueryRequests = new("TradeQueryRequests", self)
+	self.tradeQueryRequests = new("TradeQueryRequests")
 	main.onFrameFuncs["TradeQueryRequests"] = function()
 		self.tradeQueryRequests:ProcessQueue()
 	end
@@ -480,7 +480,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 			end
 			self.pbSortSelectionIndex = 1
 			context.controls["priceButton"..context.str_cnt].label = "Searching..."
-			self.tradeQueryRequests:SearchWithQuery(self.pbLeague, query, 
+			self.tradeQueryRequests:SearchWithQuery(self.pbRealm, self.pbLeague, query, 
 				function(items, errMsg)
 					if errMsg then
 						self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
