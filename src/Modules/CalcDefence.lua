@@ -1404,7 +1404,8 @@ function calcs.defence(env, actor)
 	-- Prevented life loss taken over 4 seconds (and Petrified Blood)
 	do
 		output["preventedLifeLoss"] = modDB:Sum("BASE", nil, "LifeLossPrevented")
-		output["preventedLifeLossBelowHalf"] = (1 - output["preventedLifeLoss"] / 100) * modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
+		local inititalLifeLossBelowHalfPrevented = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
+		output["preventedLifeLossBelowHalf"] = (1 - output["preventedLifeLoss"] / 100) * inititalLifeLossBelowHalfPrevented
 		local portionLife = 1
 		if not env.configInput["conditionLowLife"] then
 			--portion of life that is lowlife
@@ -1420,16 +1421,25 @@ function calcs.defence(env, actor)
 			if output["preventedLifeLoss"] ~= 0 then
 				t_insert(breakdown["preventedLifeLossTotal"], s_format("%.2f ^8(portion taken over 4 seconds instead)", output["preventedLifeLoss"] / 100))
 			end
-			if portionLife ~= 1 then
-				if output["preventedLifeLoss"] ~= 0 then
+			if output["preventedLifeLossBelowHalf"] ~= 0 then
+				if portionLife ~= 1 then
+					if output["preventedLifeLoss"] ~= 0 then
+						t_insert(breakdown["preventedLifeLossTotal"], s_format(""))
+					end
+					t_insert(breakdown["preventedLifeLossTotal"], s_format("%s%.2f ^8(initial portion taken by petrified blood)", output["preventedLifeLoss"] ~= 0 and "+ " or "", inititalLifeLossBelowHalfPrevented / 100))
+					if output["preventedLifeLoss"] ~= 0 then
+						t_insert(breakdown["preventedLifeLossTotal"], s_format("* %.2f ^8(portion not already taken over time)", (1 - output["preventedLifeLoss"] / 100)))
+					end
+					t_insert(breakdown["preventedLifeLossTotal"], s_format("* %.2f ^8(portion of life on low life)", portionLife))
+					t_insert(breakdown["preventedLifeLossTotal"], s_format("= %.2f ^8(final portion taken by petrified blood)", output["preventedLifeLossBelowHalf"] * portionLife / 100))
 					t_insert(breakdown["preventedLifeLossTotal"], s_format(""))
+				else
+					t_insert(breakdown["preventedLifeLossTotal"], s_format("%s%.2f ^8(%sportion taken by petrified blood)", output["preventedLifeLoss"] ~= 0 and "+ " or "", inititalLifeLossBelowHalfPrevented / 100, output["preventedLifeLoss"] ~= 0 and "initial " or ""))
+					if output["preventedLifeLoss"] ~= 0 then
+						t_insert(breakdown["preventedLifeLossTotal"], s_format("* %.2f ^8(portion not already taken over time)", (1 - output["preventedLifeLoss"] / 100)))
+						t_insert(breakdown["preventedLifeLossTotal"], s_format("= %.2f ^8(final portion taken by petrified blood)", output["preventedLifeLossBelowHalf"] / 100))
+					end
 				end
-				t_insert(breakdown["preventedLifeLossTotal"], s_format("%.2f ^8(initial portion taken by petrified blood)", output["preventedLifeLossBelowHalf"] / 100))
-				t_insert(breakdown["preventedLifeLossTotal"], s_format("* %.2f ^8(portion of life on low life)", portionLife))
-				t_insert(breakdown["preventedLifeLossTotal"], s_format("= %.2f ^8(final portion taken by petrified blood)", output["preventedLifeLossBelowHalf"] * portionLife / 100))
-				t_insert(breakdown["preventedLifeLossTotal"], s_format(""))
-			elseif output["preventedLifeLossBelowHalf"] ~= 0 then
-				t_insert(breakdown["preventedLifeLossTotal"], s_format("%.2f ^8(portion taken by petrified blood)", output["preventedLifeLossBelowHalf"] / 100))
 			end
 			t_insert(breakdown["preventedLifeLossTotal"], s_format("%.2f ^8(portion taken from life)", 1 - output["preventedLifeLossTotal"] / 100))
 		end
