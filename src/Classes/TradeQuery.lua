@@ -258,9 +258,27 @@ You can click this button to enter your POESESSID.
 	
 	-- Stat sort popup button
 	self.statSortSelectionList = { }
+	t_insert(self.statSortSelectionList,  {
+		label = "Full DPS",
+		stat = "FullDPS",
+		weightMult = 1.0,
+	})
+	t_insert(self.statSortSelectionList,  {
+		label = "Effective Hit Pool",
+		stat = "TotalEHP",
+		weightMult = 0.5,
+	})
 	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, "^7Sort Calc By:", function()
 		self:SetStatWeights()
 	end)
+	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
+		tooltip:AddLine(16, "Currently sorting by:")
+		for _, stat in ipairs(self.statSortSelectionList) do
+			tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
+		end
+	end
 
 ^2Session Mode^7
 - Requires POESESSID.
@@ -441,29 +459,30 @@ function TradeQueryClass:SetStatWeights()
 				end
 				return controls[stat.label.."Slider"].tooltip.realDraw(self, x, y, width, height, viewPort)
 			end
-			if stat.label == "Full DPS" then
-				controls[stat.label.."Slider"]:SetVal(1.0)
-				statList[stat.stat].weightMult = 1.0
-			elseif stat.label == "Effective Hit Pool" then
-				controls[stat.label.."Slider"]:SetVal(0.49)
-				statList[stat.stat].weightMult = 0.49
-			end
 			lastItemAnchor = { controls[stat.label.."SliderLabel"], controls[stat.label.."Slider"], controls[stat.label.."SliderValue"] }
 			popupHeight = popupHeight + 21
 		end
+	end
+	
+	for _, stat in ipairs(self.statSortSelectionList) do
+		controls[stat.label.."Slider"]:SetVal(stat.weightMult == 1 and 1 or stat.weightMult - 0.01)
+		statList[stat.stat].weightMult = stat.weightMult
 	end
 
 	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Save", function()
 		main:ClosePopup()
 		
-		-- this needs to save the weights somewhere, maybe the XML?
+		-- this needs to save the weights somewhere, maybe the XML? its not nessesary but possibly useful QoL
 		local statSortSelectionList = {}
 		for stat, statTable in pairs(statList) do
 			if statTable.weightMult > 0 then
 				t_insert(statSortSelectionList, statTable)
 			end
 		end
-		self.statSortSelectionList = statSortSelectionList
+		if (#statSortSelectionList) > 0 then
+			--THIS SHOULD REALLY GIVE A WARNING NOT JUST USE PREVIOUS
+			self.statSortSelectionList = statSortSelectionList
+		end
     end)
 	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 45, -10, 80, 20, "Cancel", function()
 		main:ClosePopup()
