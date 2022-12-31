@@ -371,6 +371,19 @@ end
 function TradeQueryClass:SetCurrencyConversionButton()
 	local currencyLabel = "Update Currency Conversion Rates"
 	self.pbFileTimestampDiff[self.controls.league.selIndex] = nil
+	if self.pbLeague == nil then
+		return
+	end
+	if self.pbRealm ~= "pc" then
+		self.controls.updateCurrencyConversion.label = "Currency Rates are not available"
+		self.controls.updateCurrencyConversion.enabled = false
+		self.controls.updateCurrencyConversion.tooltipFunc = function(tooltip)
+			tooltip:Clear()
+			tooltip:AddLine(16, "Currency Conversion rates are pulled from PoE Ninja")
+			tooltip:AddLine(16, "The data is only available for the PC realm.")
+		end
+		return
+	end
 	local values_file = io.open("../"..self.pbLeague.."_currency_values.json", "r")
 	if values_file then
 		local lines = values_file:read "*a"
