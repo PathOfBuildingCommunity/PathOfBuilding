@@ -402,7 +402,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 				logToFile("Failed to test %s mod: %s", self.calcContext.itemCategory, modLine)
 			end
 
-            local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
+			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
 			local meanStatDiff = 0
 			for _, statTable in ipairs(self.calcContext.options.statWeights) do
 				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
@@ -412,10 +412,10 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 				end
 			end
 			meanStatDiff = meanStatDiff - (self.calcContext.baseStatValue or 0)
-            if meanStatDiff > 0.01 then
-                table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
-                self.alreadyWeightedMods[entry.tradeMod.id] = true
-            end
+			if meanStatDiff > 0.01 then
+				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
+				self.alreadyWeightedMods[entry.tradeMod.id] = true
+			end
 
 			local now = GetTime()
 			if now - start > 50 then
@@ -528,9 +528,9 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 
-    -- Calculate base output with a blank item
-    local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
-    local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
+	-- Calculate base output with a blank item
+	local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
+	local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
 	local compStatValue = 0
 	for _, statTable in ipairs(options.statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
@@ -541,19 +541,19 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	end
 
 	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
-    self.modWeights = { }
-    self.alreadyWeightedMods = { }
+	self.modWeights = { }
+	self.alreadyWeightedMods = { }
 
-    self.calcContext = {
-        itemCategoryQueryStr = itemCategoryQueryStr,
-        itemCategory = itemCategory,
-        testItem = testItem,
-        baseStatValue = compStatValue,
-        calcFunc = calcFunc,
-        options = options,
-        slot = slot,
-        globalCacheUseFullDPS = storedGlobalCacheDPSView
-    }
+	self.calcContext = {
+		itemCategoryQueryStr = itemCategoryQueryStr,
+		itemCategory = itemCategory,
+		testItem = testItem,
+		baseStatValue = compStatValue,
+		calcFunc = calcFunc,
+		options = options,
+		slot = slot,
+		globalCacheUseFullDPS = storedGlobalCacheDPSView
+	}
 
 	-- OnFrame will pick this up and begin the work
 	self.calcContext.co = coroutine.create(self.ExecuteQuery)
@@ -583,23 +583,23 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 end
 
 function TradeQueryGeneratorClass:FinishQuery()
-    -- Calc original item Stats without anoint or enchant, and use that diff as a basis for default min sum.
-    local originalItem = self.itemsTab.items[self.calcContext.slot.selItemId]
-    self.calcContext.testItem.explicitModLines = { }
-    if originalItem then
-        for _, modLine in ipairs(originalItem.explicitModLines) do
-            table.insert(self.calcContext.testItem.explicitModLines, modLine)
-        end
-        for _, modLine in ipairs(originalItem.scourgeModLines) do
-            table.insert(self.calcContext.testItem.explicitModLines, modLine)
-        end
-        for _, modLine in ipairs(originalItem.implicitModLines) do
-            table.insert(self.calcContext.testItem.explicitModLines, modLine)
-        end
-    end
-    self.calcContext.testItem:BuildAndParseRaw()
+	-- Calc original item Stats without anoint or enchant, and use that diff as a basis for default min sum.
+	local originalItem = self.itemsTab.items[self.calcContext.slot.selItemId]
+	self.calcContext.testItem.explicitModLines = { }
+	if originalItem then
+		for _, modLine in ipairs(originalItem.explicitModLines) do
+			table.insert(self.calcContext.testItem.explicitModLines, modLine)
+		end
+		for _, modLine in ipairs(originalItem.scourgeModLines) do
+			table.insert(self.calcContext.testItem.explicitModLines, modLine)
+		end
+		for _, modLine in ipairs(originalItem.implicitModLines) do
+			table.insert(self.calcContext.testItem.explicitModLines, modLine)
+		end
+	end
+	self.calcContext.testItem:BuildAndParseRaw()
 
-    local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
+	local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
 	local currentStatDiff = 0
 	for _, statTable in ipairs(self.calcContext.options.statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
@@ -613,14 +613,14 @@ function TradeQueryGeneratorClass:FinishQuery()
 	-- Restore global cache full DPS
 	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
 
-    -- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
-    -- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-    local minWeight = currentStatDiff * 0.7
+	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
+	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
+	local minWeight = currentStatDiff * 0.7
 
-    -- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
-    table.sort(self.modWeights, function(a, b)
-        return a.meanStatDiff > b.meanStatDiff
-    end)
+	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
+	table.sort(self.modWeights, function(a, b)
+		return a.meanStatDiff > b.meanStatDiff
+	end)
 
 	-- Generate trade query str and open in browser
 	local filters = 0
@@ -699,8 +699,8 @@ function TradeQueryGeneratorClass:FinishQuery()
 end
 
 function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callback)
-    self.requesterCallback = callback
-    self.requesterContext = context
+	self.requesterCallback = callback
+	self.requesterContext = context
 
 	local controls = { }
 	local options = { }
