@@ -73,19 +73,21 @@ end)
 
 function ListClass:SelectIndex(index)
 	self.selValue = self.list[index]
-	if self.selValue then
-		if self.OverrideSelectIndex and self:OverrideSelectIndex(index) then
-			return false
-		end
-		self.selIndex = index
-		local width, height = self:GetSize()
-		if self.scroll then
-			self.controls.scrollBarV:SetContentDimension(#self.list * self.rowHeight, height - 4)
-			self.controls.scrollBarV:ScrollIntoView((index - 2) * self.rowHeight, self.rowHeight * 3)
-		end
-		if self.OnSelect then
-			self:OnSelect(self.selIndex, self.selValue)
-		end
+	if not self.selValue then
+		return false
+	end
+
+	if self.OverrideSelectIndex and self:OverrideSelectIndex(index) then
+		return false
+	end
+	self.selIndex = index
+	local width, height = self:GetSize()
+	if self.scroll then
+		self.controls.scrollBarV:SetContentDimension(#self.list * self.rowHeight, height - 4)
+		self.controls.scrollBarV:ScrollIntoView((index - 2) * self.rowHeight, self.rowHeight * 3)
+	end
+	if self.OnSelect then
+		self:OnSelect(self.selIndex, self.selValue)
 	end
 
 	return true
