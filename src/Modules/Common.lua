@@ -816,3 +816,17 @@ function string:split(sep)
 	return fields
 end
 
+
+function urlEncode(str)
+	local charToHex = function(c)
+		return s_format("%%%02X", string.byte(c))
+	end
+	return str:gsub("([^%w_%-.~])", charToHex)
+end
+
+function urlDecode(str)
+	local hexToChar = function(x)
+		return s_char(tonumber(x, 16))
+	end
+	return str:gsub("%%(%x%x)", hexToChar)
+end

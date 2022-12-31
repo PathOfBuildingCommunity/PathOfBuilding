@@ -78,7 +78,7 @@ end
 ---@param callback fun(response:table, errMsg:string)
 function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 	table.insert(self.requestQueue["search"], {
-		url = "https://www.pathofexile.com/api/trade/search/"..league:gsub(" ", "+"),
+		url = self:buildUrl("https://www.pathofexile.com/api/trade/search", realm, league),
 		body = query,
 		callback = function(response, errMsg)
 			if errMsg and not errMsg:find("Response code: 400") then
@@ -206,7 +206,7 @@ end
 ---@param league string
 ---@param callback fun(query:string, errMsg:string)
 function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callback)
-	local url = "https://www.pathofexile.com/api/trade/search/" .. self.tradeQuery.pbRealm .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId
+	local url = self:buildUrl("https://www.pathofexile.com/api/trade/search", realm, league, queryId)
 	table.insert(self.requestQueue["search"], {
 		url = url,
 		callback = function(response, errMsg)
@@ -233,8 +233,7 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(realm, league, queryId, ca
 		return callback(nil, "Please provide your POESESSID")
 	end
 	local header = "Cookie: POESESSID=" .. main.POESESSID
-	-- the league doesn't affect query so we set it to Standard as it doesn't change
-	launch:DownloadPage("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbRealm .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId,
+	launch:DownloadPage(self:buildUrl("https://www.pathofexile.com/trade/search", realm, league, queryId),
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
@@ -337,3 +336,19 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 	)
 end
 
+--- Build search and trade URLs with proper encoding
+---@param root string
+---@param realm string
+---@param league string
+---@param queryId string
+function TradeQueryRequestsClass:buildUrl(root, realm, league, queryId)
+	local result = root
+	if realm and realm ~='pc' then
+		result = result .. "/" .. realm
+	end	
+	result = result .. "/" .. league
+	if queryId then
+		result = result .. "/" .. queryId
+	end
+	return result	
+end

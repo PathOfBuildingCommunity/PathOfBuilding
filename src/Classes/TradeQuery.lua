@@ -154,7 +154,7 @@ function TradeQueryClass:PullPoENinjaCurrencyConversion(league)
 		self.pbCurrencyConversion[league] = { }
 		self.lastCurrencyConversionRequest = now
 		launch:DownloadPage(
-			"https://poe.ninja/api/data/CurrencyRates?league=" .. league:gsub(" ", "+"),	
+			"https://poe.ninja/api/data/CurrencyRates?league=" .. urlEncode(league),	
 			function(response, errMsg)
 				if errMsg then
 					self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
@@ -215,7 +215,7 @@ function TradeQueryClass:PriceItem()
 	local top_pane_alignment_width = 0
 	local top_pane_alignment_height = 8
 	-- Row spacing reference is now the name, which is a smaller font than the total height
-	local pane_height = (top_pane_alignment_height + row_height) * row_count - 4*row_count + 50
+	local pane_height = (top_pane_alignment_height + row_height) * row_count - 4*row_count + 55
 	local pane_width = 850
 	local cnt = 1
 
@@ -224,7 +224,7 @@ function TradeQueryClass:PriceItem()
 		local itemSet = self.itemsTab.itemSets[itemSetId]
 		t_insert(newItemList, itemSet.title or "Default")
 	end
-	self.controls.setSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, 16, 15, 200, 20, newItemList, function(index, value)
+	self.controls.setSelect = new("DropDownControl", {"TOPLEFT", nil, "TOPLEFT"}, 16, 19, 188, 20, newItemList, function(index, value)
 		self.itemsTab:SetActiveItemSet(self.itemsTab.itemSetOrderList[index])
 		self.itemsTab:AddUndoState()
 	end)
@@ -233,7 +233,7 @@ function TradeQueryClass:PriceItem()
 		return #self.itemsTab.itemSetOrderList > 1
 	end
 
-	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "BOTTOMLEFT"}, 0, 4, 200, row_height, function() return main.POESESSID ~= "" and "Change POESESSID" or colorCodes.WARNING.."Missing POESESSID" end, function()
+	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "BOTTOMLEFT"}, 0, 4, 188, row_height, function() return main.POESESSID ~= "" and "^2Session Mode" or colorCodes.WARNING.."No Session Mode" end, function()
 		local poesessid_controls = {}
 		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, main.POESESSID, nil, "%X", 32)
 		poesessid_controls.sessionInput:SetProtected(true)
@@ -250,6 +250,21 @@ function TradeQueryClass:PriceItem()
 		end)
 		main:OpenPopup(364, 72, "Change session ID", poesessid_controls)
 	end)
+	self.controls.poesessidButton.tooltipText = [[
+The Trader feature supports two modes of operation depending on the POESESSID availability.
+You can click this button to enter your POESESSID.
+
+^2Session Mode^7
+- Requires POESESSID.
+- You can search, compare, and quickly import items without leaving Path of Building.
+- You can generate and perform searches for the private leagues you are participating.
+
+^xFF9922No Session Mode^7
+- Doesn't require POESESSID.
+- You cannot search and compare items in Path of Building.
+- You can generate weighted search URLs but have to visit the trade site and manually import items.
+- You can only generate weighted searches for public leagues. (Generated searches can be modified
+on trade site to work on other leagues and realms)]]
 
 	-- Item sort dropdown
 	self.sortSelectionList = {
@@ -258,7 +273,7 @@ function TradeQueryClass:PriceItem()
 		"Highest DPS",
 		"DPS / Price",
 	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, self.sortSelectionList, function(index, value)
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
 	end)
 	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
@@ -516,6 +531,12 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 			else
 				self:SetNotice(context.controls.pbNotice, "")
 			end
+			if main.POESESSID == nil or main.POESESSID == "" then
+				local url = self.tradeQueryRequests:buildUrl("https://www.pathofexile.com/trade/search", self.pbRealm, self.pbLeague)
+				url = url .. "?q=" .. urlEncode(query)
+				controls["uri"..context.str_cnt]:SetText(url, true)
+				return
+			end
 			self.pbSortSelectionIndex = 1
 			context.controls["priceButton"..context.str_cnt].label = "Searching..."
 			self.tradeQueryRequests:SearchWithQuery(self.pbRealm, self.pbLeague, query, 
@@ -533,19 +554,36 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 				end,
 				{
 					callbackQueryId = function(queryId)
-						controls["uri"..context.str_cnt]:SetText("https://www.pathofexile.com/trade/search/".. self.pbRealm .. self.pbLeague:gsub(" ", "+") .."/".. queryId)
+						local url = self.tradeQueryRequests:buildUrl("https://www.pathofexile.com/trade/search", self.pbRealm, self.pbLeague, queryId)
+						controls["uri"..context.str_cnt]:SetText(url, true)
 					end
 				}
 			)
 		end)
 	end)
-	controls["bestButton"..str_cnt].enabled = function() return main.POESESSID ~= "" end
+	-- controls["bestButton"..str_cnt].enabled = function() return main.POESESSID ~= "" end
 	controls["bestButton"..str_cnt].shown = function() return not self.resultTbl[str_cnt] end
-	controls["bestButton"..str_cnt].tooltipText = "Creates a weighted search to find the highest DPS items for this slot.  This requires a valid session ID."
-	controls["uri"..str_cnt] = new("EditControl", {"TOPLEFT",controls["bestButton"..str_cnt],"TOPRIGHT"}, 8, 0, 518, row_height, nil, nil, "^%C\t\n", nil, nil, nil)
+	controls["bestButton"..str_cnt].tooltipText = "Creates a weighted search to find the highest DPS items for this slot."
+	controls["uri"..str_cnt] = new("EditControl", {"TOPLEFT",controls["bestButton"..str_cnt],"TOPRIGHT"}, 8, 0, 518, row_height, nil, nil, "^%C\t\n", nil, function(buf)
+		local subpath = buf:match("https://www.pathofexile.com/trade/search/(.+)$") or ""
+		local paths = {}
+		for path in subpath:gmatch("[^/]+") do
+			table.insert(paths, path)
+		end
+		controls["uri"..str_cnt].validURL = #paths == 2 or #paths == 3
+		if controls["uri"..str_cnt].validURL then
+			activeSlotRef.pbURL = buf
+		elseif buf == "" then
+			activeSlotRef.pbURL = ""
+		end
+		if not activeSlotRef and slotTbl.ref then
+			self.itemsTab.activeItemSet[slotTbl.ref] = { pbURL = "" }
+			activeSlotRef = self.itemsTab.activeItemSet[slotTbl.ref]
+		end
+	end, nil)
 	controls["uri"..str_cnt]:SetPlaceholder("Paste trade URL here...")
 	if activeSlotRef and activeSlotRef.pbURL ~= "" and activeSlotRef.pbURL ~= nil then
-		controls["uri"..str_cnt]:SetText(activeSlotRef.pbURL)
+		controls["uri"..str_cnt]:SetText(activeSlotRef.pbURL, true)
 	end
 	controls["uri"..str_cnt].tooltipFunc = function(tooltip)
 		tooltip:Clear()
@@ -568,18 +606,18 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 			end)
 		end)
 	controls["priceButton"..str_cnt].enabled = function()
-		local validURL = controls["uri"..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/')
-		if not activeSlotRef and slotTbl.ref then
-			self.itemsTab.activeItemSet[slotTbl.ref] = { pbURL = "" }
-			activeSlotRef = self.itemsTab.activeItemSet[slotTbl.ref]
-		end
-		if validURL then
-			activeSlotRef.pbURL = controls["uri"..str_cnt].buf
-		elseif controls["uri"..str_cnt].buf == "" then
-			activeSlotRef.pbURL = ""
-		end
+		local poesessidAvailable = main.POESESSID and main.POESESSID ~= ""
+		local validURL = controls["uri"..str_cnt].validURL
 		local isSearching = controls["priceButton"..str_cnt].label == "Searching..."
-		return validURL and not isSearching
+		return poesessidAvailable and validURL and not isSearching
+	end
+	controls["priceButton"..str_cnt].tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		if not main.POESESSID or main.POESESSID == "" then
+			tooltip:AddLine(16, "You must set your POESESSID to use search feature")
+		elseif not controls["uri"..str_cnt].validURL then
+			tooltip:AddLine(16, "Enter a valid trade URL")
+		end
 	end
 	local clampItemIndex = function(index)
 		return m_min(m_max(index or 1, 1), self.sortedResultTbl[str_cnt] and #self.sortedResultTbl[str_cnt] or 1)
