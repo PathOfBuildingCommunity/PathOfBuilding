@@ -425,46 +425,62 @@ function TradeQueryClass:SetStatWeights()
 
     local controls = { }
     local statList = { }
-    local popupHeight = 70
-	local lastItemAnchor = { new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 760, 5, 0, 16, ""), new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 940, 5, 0, 16, ""), new("LabelControl", { "TOPLEFT", nil, "TOPLEFT" }, 1100, 5, 0, 16, "") }
+	local sliderController = { index = 1 }
+    local popupHeight = 285
 	
+	controls.ListControl = new("TradeStatWeightMultiplierListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 45, 400, 200, statList, sliderController)
 	
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
-			statList[stat.stat] = {
-				label = stat.label,
-				stat = stat.stat,
-				transform = stat.transform,
-				weightMult = 0,
-			}
-			controls[stat.label.."SliderLabel"] = new("LabelControl", { "TOPLEFT", lastItemAnchor[1], "BOTTOMLEFT" }, 0, 5, 0, 16, "^7"..stat.label..":")
-			controls[stat.label.."Slider"] = new("SliderControl", { "TOPLEFT", lastItemAnchor[2], "BOTTOMLEFT" }, 0, 5, 150, 16, function(value)
-				if value == 0 then
-					controls[stat.label.."SliderValue"].label = "^7Disabled"
-					statList[stat.stat].weightMult = 0
-				else
-					controls[stat.label.."SliderValue"].label = s_format("^7%.2f", 0.01 + value * 0.99)
-					statList[stat.stat].weightMult = 0.01 + value * 0.99
-				end
-			end)
-			controls[stat.label.."SliderValue"] = new("LabelControl", { "TOPLEFT", lastItemAnchor[3], "BOTTOMLEFT" }, 0, 5, 0, 16, "^7Disabled")
-			controls[stat.label.."Slider"].tooltip.realDraw = controls[stat.label.."Slider"].tooltip.Draw
-			controls[stat.label.."Slider"].tooltip.Draw = function(self, x, y, width, height, viewPort)
-				local sliderOffsetX = round(184 * (1 - controls[stat.label.."Slider"].val))
-				local tooltipWidth, tooltipHeight = self:GetSize()
-				if main.screenW >= 1338 - sliderOffsetX then
-					return controls[stat.label.."Slider"].tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
-				end
-				return controls[stat.label.."Slider"].tooltip.realDraw(self, x, y, width, height, viewPort)
-			end
-			lastItemAnchor = { controls[stat.label.."SliderLabel"], controls[stat.label.."Slider"], controls[stat.label.."SliderValue"] }
-			popupHeight = popupHeight + 21
+			t_insert(statList, { 
+				label = stat.label.." :        ".."0", 
+				stat = {
+					label = stat.label,
+					stat = stat.stat,
+					transform = stat.transform,
+					weightMult = 0,
+				}
+			})
 		end
 	end
 	
-	for _, stat in ipairs(self.statSortSelectionList) do
-		controls[stat.label.."Slider"]:SetVal(stat.weightMult == 1 and 1 or stat.weightMult - 0.01)
-		statList[stat.stat].weightMult = stat.weightMult
+	controls.SliderLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 20, 0, 16, "^7"..statList[1].stat.label..":")
+	controls.Slider = new("SliderControl", { "TOPLEFT", controls.SliderLabel, "TOPRIGHT" }, 20, 0, 150, 16, function(value)
+		if value == 0 then
+			controls.SliderValue.label = "^7Disabled"
+			statList[sliderController.index].stat.weightMult = 0
+			statList[sliderController.index].label = statList[sliderController.index].stat.label.." :        "..s_format("%d", 0)
+		else
+			controls.SliderValue.label = s_format("^7%.2f", 0.01 + value * 0.99)
+			statList[sliderController.index].stat.weightMult = 0.01 + value * 0.99
+			statList[sliderController.index].label = statList[sliderController.index].stat.label.." :        "..s_format("%.2f", 0.01 + value * 0.99)
+		end
+	end)
+	controls.SliderValue = new("LabelControl", { "TOPLEFT", controls.Slider, "TOPRIGHT" }, 20, 0, 0, 16, "^7Disabled")
+	controls.Slider.tooltip.realDraw = controls.Slider.tooltip.Draw
+	controls.Slider.tooltip.Draw = function(self, x, y, width, height, viewPort)
+		local sliderOffsetX = round(184 * (1 - controls.Slider.val))
+		local tooltipWidth, tooltipHeight = self:GetSize()
+		if main.screenW >= 1338 - sliderOffsetX then
+			return controls[stat.label.."Slider"].tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
+		end
+		return controls.Slider.tooltip.realDraw(self, x, y, width, height, viewPort)
+	end
+	sliderController.SliderLabel = controls.SliderLabel
+	sliderController.Slider = controls.Slider
+	sliderController.SliderValue = controls.SliderValue
+
+	
+	for _, statBase in ipairs(self.statSortSelectionList) do
+		for _, stat in ipairs(statList) do
+			if stat.stat.stat == statBase.stat then
+				stat.stat.weightMult = statBase.weightMult
+				stat.label = statBase.label.." :        "..s_format("%.2f", statBase.weightMult)
+				if statList[sliderController.index].stat.stat == statBase.stat then
+					controls.Slider:SetVal(statBase.weightMult == 1 and 1 or statBase.weightMult - 0.01)	
+				end
+			end
+		end
 	end
 
 	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Save", function()
@@ -473,8 +489,8 @@ function TradeQueryClass:SetStatWeights()
 		-- this needs to save the weights somewhere, maybe the XML? its not nessesary but possibly useful QoL
 		local statSortSelectionList = {}
 		for stat, statTable in pairs(statList) do
-			if statTable.weightMult > 0 then
-				t_insert(statSortSelectionList, statTable)
+			if statTable.stat.weightMult > 0 then
+				t_insert(statSortSelectionList, statTable.stat)
 			end
 		end
 		if (#statSortSelectionList) > 0 then
