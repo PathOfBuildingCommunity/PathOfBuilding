@@ -298,31 +298,33 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 	return triggerRate, icdr, triggerCD, triggeredCD
 end
 
+-- Calcualte the impact other skills and source rate to trigger cooldown alighnement have on the trigger rate
+-- for more details regarding the implementation see comments of #4599 and #5428
 function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 	local SIM_RESOLUTION = 2
 	-- the breaking points are values in attacks per second
-	local function quick_sim(env, skills, sourceRate, icdr)
+	local function quickSim(env, skills, sourceRate)
 		local Activation = {}
 		function Activation:new(skill)
-			a = {skill = skill, delta_time = 0, time = 0, count = 0}
+			a = {skill = skill, deltaTime = 0, time = 0, count = 0}
 			setmetatable(a, self)
 			self.__index = self
 			return a
 		end
-		function Activation:time_ready()
+		function Activation:timeReady()
 			-- returns the time when the skill is ready
 			return self.time + self.skill.cd
 		end
 		function Activation:activate()
 			-- activate the skill at the given time, update the activation
-			self.delta_time = time - self.time
+			self.deltaTime = time - self.time
 			self.time = time
 			self.count = self.count + 1
 		end
 		
 		local State = {}
 		function State:new(skills)
-			s = {activations = {}, time = 0, current_activation = 1}
+			s = {activations = {}, time = 0, currentActivation = 1}
 			for _, skill in ipairs(skills) do
 				t_insert(s.activations, Activation:new(skill))
 			end
@@ -332,7 +334,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		end
 		function State:iter()
 			-- iterate over all activations in order
-			local idx = self.current_activation
+			local idx = self.currentActivation
 			local count = #self.activations
 			local i = 0
 			return function()
@@ -344,64 +346,64 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 				end
 			end
 		end
-		function State:iter_time_ready()
+		function State:iterTimeReady()
 			-- iterate over all activations and the time at which each skill is ready
 			local att = 1/sourceRate
-			local time_penalty = self.time + att
+			local timePenalty = self.time + att
 			local iter = self:iter()
 			return function()
 				local activation = iter()
 				if activation then
 					-- the time until the skill is ready
-					local time_ready = activation:time_ready()
+					local timeReady = activation:timeReady()
 					-- wait for the next attack
-					time_ready = ceil(time_ready, att)
+					timeReady = ceil(timeReady, att)
 					-- wait until the attack rotation is ready
-					time_ready = m_max(time_ready, time_penalty)
-					return time_ready, activation
+					timeReady = m_max(timeReady, timePenalty)
+					return timeReady, activation
 				end
 			end
 		end
-		function State:get_nearest_ready()
+		function State:getNearestReady()
 			-- Returns the next activation and the time until the skill is ready
-			local nearest_time = 0
-			local nearest_activation = nil
-			for time_ready, activation in self:iter_time_ready() do
-				if nearest_activation == nil or time_ready < nearest_time then
-					nearest_time = time_ready
-					nearest_activation = activation
+			local nearestTime = 0
+			local nearestActivation = nil
+			for timeReady, activation in self:iterTimeReady() do
+				if nearestActivation == nil or timeReady < nearestTime then
+					nearestTime = timeReady
+					nearestActivation = activation
 				end
 			end
-			return nearest_time, nearest_activation
+			return nearestTime, nearestActivation
 		end
 		function State:activate()
 			-- Activates the activation nearest to ready
-			time, nearestActivation = self:get_nearest_ready()
+			time, nearestActivation = self:getNearestReady()
 			-- round up time to the next server tick
 			time = ceil(time, data.misc.ServerTickTime)
 			self.time = time
 			if nearestActivation then
 				nearestActivation:activate(time)
 				for i, activation in ipairs(self.activations) do
-					if nearestActivation.skill == activation.skill and nearestActivation.delta_time == activation.delta_time then
-						self.current_activation = i
+					if nearestActivation.skill == activation.skill and nearestActivation.deltaTime == activation.deltaTime then
+						self.currentActivation = i
 						break
 					end
 				end
 			end
 			return nearestActivation
 		end
-		function State:move_next_round()
+		function State:moveNextRound()
 			-- Move to the next round of activations.
-			local initial_activation = self.activations[self.current_activation]
+			local initial_activation = self.activations[self.currentActivation]
 			local is_initial = true
 			local activationsCount = #self.activations
-			while (self:activate() ~= nil) and (is_initial or self.activations[self.current_activation].skill ~= initial_activation.skill and self.activations[self.current_activation].delta_time ~= initial_activation.delta_time) do
-				self.current_activation = (self.current_activation % activationsCount) + 1 -- Skips one skill in the rotation.
+			while (self:activate() ~= nil) and (is_initial or self.activations[self.currentActivation].skill ~= initial_activation.skill and self.activations[self.currentActivation].deltaTime ~= initial_activation.deltaTime) do
+				self.currentActivation = (self.currentActivation % activationsCount) + 1 -- Skips one skill in the rotation.
 				is_initial = false
 			end
 		end
-		function State:any()
+		function State:anyUntriggered()
 			for activation in self:iter() do
 				if activation.count == 0 then
 					return true
@@ -414,12 +416,13 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		local skillCount = #skills
 		for i = 1, skillCount, 1 do
 			local state = State:new(skills)
-			state.current_activation = i
+			state.currentActivation = i
 			local count = SIM_RESOLUTION + 1
 			repeat
-				state:move_next_round()
+				state:moveNextRound()
 				count = count-1
-			until(not (count > 0 or state:any()))
+			until(not (count > 0 or state:anyUntriggered()))
+			
 			for i = 1, skillCount, 1 do
 				local avgRate = state.activations[i].time ~= 0 and (state.activations[i].count / state.activations[i].time) or 0
 				rates[i] = (rates[i] or 0) + avgRate
@@ -432,6 +435,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 	-- breaking point, where the trigger time is only constrained by the attack speed
 	-- the region tt0 is a slope
 	local tt0_br = 0
+	
 	-- breaking points, where the cooldown times of some skills are awaited
 	local tt1_brs = {}
 	local tt1_smallest_br = m_huge
@@ -454,7 +458,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		if sourceRate >= tt3_br then
 			skill.rate = 1/ ceil(skill.cd, data.misc.ServerTickTime)
 		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
-			quick_sim(env, skills, sourceRate, icdr)
+			quickSim(env, skills, sourceRate, icdr)
 			break
 		elseif sourceRate >= tt0_br then
 			skill.rate = sourceRate / #skills
