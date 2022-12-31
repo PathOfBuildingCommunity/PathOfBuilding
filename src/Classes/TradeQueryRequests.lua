@@ -178,9 +178,22 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 end
 
 ---@param callback fun(items:table, errMsg:string)
-function TradeQueryRequestsClass:SearchWithURL(urlEditControl, callback)
-	local _, queryId = urlEditControl.buf:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
-	self:FetchSearchQueryHTML(queryId, function(query, errMsg)
+function TradeQueryRequestsClass:SearchWithURL(url, callback)
+	local subpath = url:match("https://www.pathofexile.com/trade/search/(.+)$")
+	local paths = {}
+	for path in subpath:gmatch("[^/]+") do
+		table.insert(paths, path)
+	end
+	if #paths < 2 or #paths > 3 then
+		return callback(nil, "Invalid URL")
+	end
+	local realm, league, queryId
+	if #paths == 3 then
+		realm = paths[1]
+	end
+	league = paths[#paths-1]
+	queryId = paths[#paths]
+	self:FetchSearchQueryHTML(realm, league, queryId, function(query, errMsg)
 		if errMsg then
 			return callback(nil, errMsg)
 		end
