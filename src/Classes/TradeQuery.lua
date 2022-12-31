@@ -37,6 +37,10 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.pbRealm = ""
 	self.pbRealmIndex = 1
 	self.pbLeagueIndex = 1
+	-- table holding all realm/league pairs. (allLeagues[realm] = [league.id,...])
+	self.allLeagues = {}
+	-- realm id-text table to pair realm name with API parameter
+	self.realmIds = {}
 
 	self.tradeQueryRequests = new("TradeQueryRequests")
 	main.onFrameFuncs["TradeQueryRequests"] = function()
@@ -280,9 +284,44 @@ function TradeQueryClass:PriceItem()
 		tooltip:AddLine(16, "Acceptable Range is: 1 to 10")
 	end
 
+	-- Realm selection
+	self.controls.realmLabel = new("LabelControl", {"TOPLEFT", self.controls.setSelect, "TOPRIGHT"}, 18, 0, 20, 16, "^7Realm:")
+	self.controls.realm = new("DropDownControl", {"TOPLEFT", self.controls.realmLabel, "TOPRIGHT"}, 6, 0, 150, 18, self.realmDropList, function(index, value)
+		self.pbRealmIndex = index
+		self.pbRealm = self.realmIds[value]
+		local function setLeagueDropList()
+			self.itemsTab.leagueDropList = copyTable(self.allLeagues[self.pbRealm])
+			self.controls.league:SetList(self.itemsTab.leagueDropList)
+			-- invalidate selIndex to trigger select function call in the SetSel
+			self.controls.league.selIndex = nil
+			self.controls.league:SetSel(self.pbLeagueIndex)
+			self:SetCurrencyConversionButton()
+		end
+		if self.allLeagues[self.pbRealm] then
+			setLeagueDropList()
+		else
+			self.tradeQueryRequests:FetchLeagues(self.pbRealm, function(leagues, errMsg)
+				if errMsg then
+					self:SetNotice("Error while fetching league list: "..errMsg)
+					return
+				end
+				local sorted_leagues = { }
+				for _, league in ipairs(leagues) do
+					if league ~= "Standard" and league ~= "Hardcore" then
+						t_insert(sorted_leagues, league)
+					end
+				end
+				t_insert(sorted_leagues, "Standard")
+				t_insert(sorted_leagues, "Hardcore")
+				self.allLeagues[self.pbRealm] = sorted_leagues
+				setLeagueDropList()
+			end)
+		end
+	end)
+
 	-- League selection
-	self.controls.leagueLabel = new("LabelControl", {"TOPLEFT", self.controls.setSelect, "TOPRIGHT"}, 8, 0, 20, 16, "^7League:")
-	self.controls.league = new("DropDownControl", {"TOPLEFT", self.controls.leagueLabel, "TOPRIGHT"}, 8, 0, 150, 18, self.itemsTab.leagueDropList, function(index, value)
+	self.controls.leagueLabel = new("LabelControl", {"TOPRIGHT", self.controls.realmLabel, "TOPRIGHT"}, 0, 24, 20, 16, "^7League:")
+	self.controls.league = new("DropDownControl", {"TOPLEFT", self.controls.leagueLabel, "TOPRIGHT"}, 6, 0, 150, 18, self.itemsTab.leagueDropList, function(index, value)
 		self.pbLeagueIndex = index
 		self.pbLeague = value
 		self:SetCurrencyConversionButton()
@@ -292,15 +331,9 @@ function TradeQueryClass:PriceItem()
 		return #self.itemsTab.leagueDropList > 1
 	end
 
-	-- Realm selection
-	local realmDropList = { "PC", "Xbox", "Sony" }
-	self.controls.realmLabel = new("LabelControl", {"TOPLEFT", self.controls.leagueLabel, "TOPLEFT"}, 8, 24, 20, 16, "^7Realm:")
-	self.controls.realm = new("DropDownControl", {"TOPLEFT", self.controls.realmLabel, "TOPRIGHT"}, 8, 0, 150, 18, realmDropList, function(index, value)
-		self.pbRealmIndex = index
-		self.pbRealm = value:lower() .. "/"
-		if value == "PC" then self.pbRealm = "" end
-	end)
-	self.controls.realm:SetSel(self.pbRealmIndex)
+if  self.pbRealm == "" then
+		self:UpdateRealms()
+	end
 
 	-- Individual slot rows
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT"}
@@ -332,14 +365,6 @@ function TradeQueryClass:PriceItem()
 	end)
 	self.controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, -8, -16, 300, 16, "")
 	main:OpenPopup(pane_width, pane_height, "Trader", self.controls)
-
-	if #self.itemsTab.leagueDropList == 0 then
-		self:PullLeagueList()
-	else
-		self.controls.league:SelByValue(self.pbLeague)
-		self.pbLeague = self.itemsTab.leagueDropList[self.controls.league.selIndex]
-		self:SetCurrencyConversionButton()
-	end
 end
 
 -- Method to update the Currency Conversion button label
@@ -634,4 +659,56 @@ function TradeQueryClass:GetTotalPriceString()
 		text = text:sub(1, -3)
 	end
 	return text
+end
+
+-- Method to update realms and leagues
+function TradeQueryClass:UpdateRealms()
+	local function setRealmDropList()
+		self.realmDropList = {}
+		for realm, _ in pairs(self.realmIds) do
+			-- place PC as the first entry
+			if realm == "PC" then
+				t_insert(self.realmDropList, 1, realm)
+			else
+				t_insert(self.realmDropList, realm)
+			end
+		end
+		self.controls.realm:SetList(self.realmDropList)
+		-- invalidate selIndex to trigger select function call in the SetSel
+		-- DropDownControl doesn't check if the inner list has changed so selecting the first item doesn't count as an update after list refresh
+		self.controls.realm.selIndex = nil
+		self.controls.realm:SetSel(self.pbRealmIndex)
+	end
+
+	if main.POESESSID and main.POESESSID ~= "" then
+		-- Fetch from trade page using POESESSID, includes private leagues
+		ConPrintf("Fetching realms and leagues using POESESSID")
+		self.tradeQueryRequests:FetchRealmsAndLeaguesHTML(function(data, errMsg)
+			if errMsg then
+				self:SetNotice("Error while fetching league list: "..errMsg)
+				return
+			end
+			local leagues = data.leagues
+			self.allLeagues = {}
+			for _, value in ipairs(leagues) do
+				if not self.allLeagues[value.realm] then self.allLeagues[value.realm] = {} end
+				t_insert(self.allLeagues[value.realm], value.id)
+			end
+			self.realmIds = {}
+			for _, value in pairs(data.realms) do
+				self.realmIds[value.text] = value.id
+			end
+			setRealmDropList()
+
+		end)
+	else
+		-- Fallback to static list
+		ConPrintf("Using static realms list")
+		self.realmIds = {
+			["PC"]   = "pc",
+			["PS4"]  = "sony",
+			["Xbox"] = "xbox",
+		}
+		setRealmDropList()
+	end
 end

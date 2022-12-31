@@ -265,3 +265,75 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(realm, league, queryId, ca
 		end,
 		{header = header})
 end
+
+--- Fetches the list of all available leagues using HTML parsing
+--- This should get all leagues, including the ones that are not available through API
+---
+--- example output:
+--- result = {
+--- 	leagues = [
+--- 		{
+--- 			"id": "Sanctum",
+--- 			"realm": "pc",
+--- 			"text": "Sanctum"
+--- 		},
+---		],
+--- 	realms = [
+---			{
+---			    "id": "sony",
+---			    "text": "PS4"
+---			},
+--- 	]
+--- }
+---@param callback fun(result:table, errMsg:string)
+function TradeQueryRequestsClass:FetchRealmsAndLeaguesHTML(callback)
+	if main.POESESSID == "" then
+		return callback(nil, "Please provide your POESESSID")
+	end
+	local header = "Cookie: POESESSID=" .. main.POESESSID
+	launch:DownloadPage(
+		"https://www.pathofexile.com/trade",
+		function(response, errMsg)
+			if errMsg then
+				return callback(nil, errMsg)
+			end
+			-- full json state obj from HTML
+			local dataStr = response.body:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
+			if not dataStr then
+				return callback(nil, "JSON object not found on the page.")
+			end
+			local data, _, err = dkjson.decode(dataStr)
+			if err then
+				return callback(nil, "Failed to parse JSON object. ".. err)
+			end
+			callback({leagues = data.leagues, realms = data.realms}, errMsg)
+		end,
+		{header = header}
+	)
+end
+
+--- Fetches the list of all available leagues using poe API
+---@param realm string
+---@param callback fun(query:table, errMsg:string)
+function TradeQueryRequestsClass:FetchLeagues(realm, callback)
+	launch:DownloadPage(
+		"https://api.pathofexile.com/leagues?compact=1&realm=" .. realm,
+		function(response, errMsg)
+			if errMsg then
+				return callback(nil, errMsg)
+			end
+			local json_data = dkjson.decode(response.body)
+			if not json_data or json_data.error then
+				errMsg = json_data and json_data.error or "Failed to get leagues"
+			end
+			local leagues = {}
+				for _, value in pairs(json_data) do
+					if not value.id:find("SSF") then
+						table.insert(leagues, value.id)
+					end
+				end
+			callback(leagues, errMsg)
+		end
+	)
+end
+
