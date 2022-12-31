@@ -792,10 +792,19 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf) end)
 	controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, 5, 0, 150, 18, currencyDropdownNames, function(index, value) end)
 	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "Max Price:")
+	lastItemAnchor = controls.maxPrice
 	popupHeight = popupHeight + 23
 	
-    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, statWeights[1].label)
+    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, #statWeights < 2 and statWeights[1].label or "Multiple Stats")
     controls.sortStatLabel = new("LabelControl", {"RIGHT",controls.sortStatType,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
+	controls.sortStatType.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
+		tooltip:AddLine(16, "Currently sorting by:")
+		for _, stat in ipairs(statWeights) do
+			tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
+		end
+	end
     popupHeight = popupHeight + 23
 
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Execute", function()
