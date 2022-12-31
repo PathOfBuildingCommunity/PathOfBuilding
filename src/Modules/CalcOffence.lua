@@ -3714,7 +3714,7 @@ function calcs.offence(env, actor, activeSkill)
 			local durationBase = data.misc.IgniteDurationBase
 
 			local durationMod = m_max(calcLib.mod(skillModList, dotCfg, "EnemyIgniteDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration", "SkillAndDamagingAilmentDuration") * calcLib.mod(enemyDB, nil, "SelfIgniteDuration", "SelfAilmentDuration", "SelfElementalAilmentDuration"), 0)
-			globalOutput.IgniteDuration = durationBase * durationMod / rateMod * ailmentDurationMult
+			globalOutput.IgniteDuration = durationBase * durationMod / rateMod / ailmentDurationMult
 
 			globalOutput.IgniteDuration = globalOutput.IgniteDuration > data.misc.IgniteMinDuration and globalOutput.IgniteDuration or 0
 			local igniteStacks = 1
@@ -4028,7 +4028,7 @@ function calcs.offence(env, actor, activeSkill)
 					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration", "EnemyElementalAilmentDuration", "EnemyAilmentDuration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfElementalAilmentDuration", "SelfAilmentDuration")
 					local moreDur = skillModList:More(cfg, "Enemy"..ailment.."Duration", "EnemyElementalAilmentDuration", "EnemyAilmentDuration") * enemyDB:More(nil, "Self"..ailment.."Duration", "SelfElementalAilmentDuration", "SelfAilmentDuration")
 
-					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur * ailmentDurationMult
+					output[ailment.."Duration"] = ailmentData[ailment].duration * (1 + incDur / 100) * moreDur / ailmentDurationMult
 					output[ailment.."EffectMod"] = calcLib.mod(skillModList, cfg, "Enemy"..ailment.."Effect")
 
 					if breakdown then
