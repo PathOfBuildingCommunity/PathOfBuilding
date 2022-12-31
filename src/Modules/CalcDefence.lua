@@ -2085,22 +2085,62 @@ function calcs.defence(env, actor)
 	
 	-- recoup
 	if output["anyRecoup"] > 0 then
-		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
-		output["TotalLifeRecoupRecovery"] = 0
-		output["TotalManaRecoupRecovery"] = 0
-		output["TotalEnergyShieldRecoupRecovery"] = 0
+		local totalDamage = 0
+		local totalElementalDamage = 0
 		for _, damageType in ipairs(dmgTypeList) do
-			output["TotalLifeRecoupRecovery"] = output["TotalLifeRecoupRecovery"] + (output["LifeRecoup"] + output[damageType.."LifeRecoup"]) / 100 * output[damageType.."LifeLossLost"]
-			output["TotalManaRecoupRecovery"] = output["TotalManaRecoupRecovery"] + output["ManaRecoup"] / 100 * output[damageType.."LifeLossLost"]
-			output["TotalEnergyShieldRecoupRecovery"] = output["TotalEnergyShieldRecoupRecovery"] + (output["EnergyShieldRecoup"] + (isElemental[damageType] and output["ElementalEnergyShieldRecoup"] or 0)) / 100 * output[damageType.."LifeLossLost"]
+			totalDamage = totalDamage + output[damageType.."LifeLossLost"]
+			if isElemental[damageType] then
+				totalElementalDamage = totalElementalDamage + output[damageType.."LifeLossLost"]
+			end
 		end
+		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
 		local recoupTime = modDB:Flag(nil, "3SecondRecoup") and 3 or 4
-		output["LifeRecoupRecoveryMax"] = output["TotalLifeRecoupRecovery"] / recoupTime
-		output["LifeRecoupRecoveryAvg"] = output["TotalLifeRecoupRecovery"] / (output["EHPsurvivalTime"] + recoupTime)
-		output["ManaRecoupRecoveryMax"] = output["TotalManaRecoupRecovery"] / recoupTime
-		output["ManaRecoupRecoveryAvg"] = output["TotalManaRecoupRecovery"] / (output["EHPsurvivalTime"] + recoupTime)
-		output["EnergyShieldRecoupRecoveryMax"] = output["TotalEnergyShieldRecoupRecovery"] / recoupTime
-		output["EnergyShieldRecoupRecoveryAvg"] = output["TotalEnergyShieldRecoupRecovery"] / (output["EHPsurvivalTime"] + recoupTime)
+		for _, recoupType in ipairs(recoupTypeList) do
+			output["Total"..recoupType.."RecoupRecovery"] = (output[recoupType.."Recoup"] or 0) / 100 * totalDamage
+			if (output["Elemental"..recoupType.."Recoup"] or 0) > 0 and totalElementalDamage > 0 then
+				output["Total"..recoupType.."RecoupRecovery"] = output["Total"..recoupType.."RecoupRecovery"] + output["Elemental"..recoupType.."Recoup"] / 100 * totalElementalDamage
+			end
+			for _, damageType in ipairs(dmgTypeList) do
+				if (output[damageType..recoupType.."Recoup"] or 0) > 0 and output[damageType.."LifeLossLost"] > 0 then
+					output["Total"..recoupType.."RecoupRecovery"] = output["Total"..recoupType.."RecoupRecovery"] + output[damageType..recoupType.."Recoup"] / 100 * output[damageType.."LifeLossLost"]
+				end
+			end
+			output[recoupType.."RecoupRecoveryMax"] = output["Total"..recoupType.."RecoupRecovery"] / recoupTime
+			output[recoupType.."RecoupRecoveryAvg"] = output["Total"..recoupType.."RecoupRecovery"] / (output["EHPsurvivalTime"] + recoupTime)
+			if breakdown then
+				local multipleTypes = 0
+				breakdown[recoupType.."RecoupRecoveryMax"] = { }
+				if (output[recoupType.."Recoup"] or 0) > 0 then
+					t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format("%d ^8(total damage taken during ehp calcs)", totalDamage))
+					t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format("* %.2f ^8(percent of damage recouped)", output[recoupType.."Recoup"] / 100))
+					multipleTypes = multipleTypes + 1
+				end
+				if (output["Elemental"..recoupType.."Recoup"] or 0) > 0 and totalElementalDamage > 0 then
+					if multipleTypes > 0 then
+						t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format(""))
+					end
+					t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format("%s%d ^8(total elemental damage taken during ehp calcs)", multipleTypes > 0 and "+" or "", totalDamage))
+					t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format("* %.2f ^8(percent of damage recouped)", output["Elemental"..recoupType.."Recoup"] / 100))
+					multipleTypes = multipleTypes + 1
+				end
+				for _, damageType in ipairs(dmgTypeList) do
+					if (output[damageType..recoupType.."Recoup"] or 0) > 0 and output[damageType.."LifeLossLost"] > 0 then
+						if multipleTypes > 0 then
+							t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format(""))
+						end
+						t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format("%s%d ^8(total %s damage taken during ehp calcs)", multipleTypes > 0 and "+" or "", totalDamage, damageType))
+						t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format("* %.2f ^8(percent of damage recouped)", output[damageType..recoupType.."Recoup"] / 100))
+						multipleTypes = multipleTypes + 1
+					end
+				end
+				t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format("= %d ^8(total damage recoup amount)", output["Total"..recoupType.."RecoupRecovery"]))
+				breakdown[recoupType.."RecoupRecoveryAvg"] = copyTable(breakdown[recoupType.."RecoupRecoveryMax"])
+				t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format("/ %.2f ^8(over %d seconds)", recoupTime, recoupTime))
+				t_insert(breakdown[recoupType.."RecoupRecoveryMax"], s_format("= %.2f per second ^8", output[recoupType.."RecoupRecoveryMax"]))
+				t_insert(breakdown[recoupType.."RecoupRecoveryAvg"], s_format("/ %.2f ^8(total time of the recoup (survival time + %d seconds))", (output["EHPsurvivalTime"] + recoupTime), recoupTime))
+				t_insert(breakdown[recoupType.."RecoupRecoveryAvg"], s_format("= %.2f per second ^8", output[recoupType.."RecoupRecoveryAvg"]))
+			end
+		end
 	end
 	
 	-- petrified blood "degen"
@@ -2140,13 +2180,13 @@ function calcs.defence(env, actor)
 			output["showNetRecoup"] = true
 			if breakdown then
 				breakdown["netLifeRecoupAndLossLostOverTimeMax"] = {
-					s_format("%d ^8(total life recouped per second)", output["LifeRecoupRecoveryMax"]),
-					s_format("- %d ^8(total life taken over time per second)", output["LifeLossLostMax"]),
+					s_format("%.2f ^8(total life recouped per second)", output["LifeRecoupRecoveryMax"]),
+					s_format("- %.2f ^8(total life taken over time per second)", output["LifeLossLostMax"]),
 					s_format("= %.2f per second", output["netLifeRecoupAndLossLostOverTimeMax"]),
 				}
 				breakdown["netLifeRecoupAndLossLostOverTimeAvg"] = {
-					s_format("%d ^8(total life recouped per second)", output["LifeRecoupRecoveryAvg"]),
-					s_format("- %d ^8(total life taken over time per second)", output["LifeLossLostAvg"]),
+					s_format("%.2f ^8(total life recouped per second)", output["LifeRecoupRecoveryAvg"]),
+					s_format("- %.2f ^8(total life taken over time per second)", output["LifeLossLostAvg"]),
 					s_format("= %.2f per second", output["netLifeRecoupAndLossLostOverTimeAvg"]),
 				}
 			end
