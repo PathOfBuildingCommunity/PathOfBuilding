@@ -568,6 +568,8 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 			local item = new("Item", self.resultTbl[str_cnt][pb_index].item_string)
 			tooltip:Clear()
 			self.itemsTab:AddItemTooltip(tooltip, item, self)
+			tooltip:AddSeparator(10)
+			tooltip:AddLine(16, string.format("^7Price: %s %s", self.resultTbl[str_cnt][pb_index].amount, self.resultTbl[str_cnt][pb_index].currency))
 		end
 	controls["importButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["resultDropdown"..str_cnt],"TOPRIGHT"}, 8, 0, 100, row_height, "Import Item", function()
 		self.itemsTab:CreateDisplayItemFromRaw(self.resultTbl[str_cnt][self.itemIndexTbl[str_cnt]].item_string)
