@@ -822,3 +822,9 @@ function ceil(x, base)
 	base = base or 1
 	return base * m_ceil(x/base)
 end
+
+-- Ceil function with optional base parameter
+function floor(x, base)
+	base = base or 1
+	return base * m_floor(x/base)
+end

@@ -333,11 +333,15 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		function State:iter()
 			-- iterate over all activations in order
 			local idx = self.current_activation
-			local count = #self.activations + 1
+			local count = #self.activations
+			local i = 0
 			return function()
-				local current = idx
-				idx = (idx + 1) % count
-				return self.activations[current]
+				if i < count then
+					i = i + 1
+					local current = idx
+					idx = (idx % count) + 1
+					return self.activations[current]
+				end
 			end
 		end
 		function State:iter_time_ready()
@@ -391,9 +395,9 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 			-- Move to the next round of activations.
 			local initial_activation = self.activations[self.current_activation]
 			local is_initial = true
-			local activationsCount = #self.activations + 1
+			local activationsCount = #self.activations
 			while (self:activate() ~= nil) and (is_initial or self.activations[self.current_activation].skill ~= initial_activation.skill and self.activations[self.current_activation].delta_time ~= initial_activation.delta_time) do
-				self.current_activation = (self.current_activation + 1) % activationsCount -- Skips one skill in the rotation.
+				self.current_activation = (self.current_activation % activationsCount) + 1 -- Skips one skill in the rotation.
 				is_initial = false
 			end
 		end
@@ -445,7 +449,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		-- after this the trigger time depends on resonance with the attack speed
 		tt2_br = #skills / ceil(skill.cd, data.misc.ServerTickTime) * .8
 		-- the breaking point where the the attack speed is so high, that the affect of resonance is negligible
-		tt3_br = #skills / ceil(skill.cd, data.misc.ServerTickTime) * 8
+		tt3_br = #skills / floor(skill.cd, data.misc.ServerTickTime) * 8
 		-- classify in tt region the attack rate is in
 		if sourceRate >= tt3_br then
 			skill.rate = 1/ ceil(skill.cd, data.misc.ServerTickTime)
