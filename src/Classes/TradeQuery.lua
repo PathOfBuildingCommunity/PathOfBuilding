@@ -623,7 +623,7 @@ end
 function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 	local newTbl = {}
 	-- Stat Value
-	if self.pbSortSelectionIndex <= 2 then
+	if self.pbItemSortSelectionIndex <= 2 then
 		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
 		local storedFullDPS = GlobalCache.useFullDPS
