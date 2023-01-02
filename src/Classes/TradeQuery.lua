@@ -589,7 +589,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	controls["uri"..str_cnt].tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		if controls["uri"..str_cnt].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil then
-			tooltip:AddLine(16, "Control + click to open in web-browser or click 'Price Item' to do it in PoB")
+			tooltip:AddLine(16, "Control + click to open in web-browser")
 		end
 	end
 	controls["priceButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["uri"..str_cnt],"TOPRIGHT"}, 8, 0, 100, row_height, "Price Item",
