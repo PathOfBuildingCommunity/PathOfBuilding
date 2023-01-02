@@ -602,9 +602,9 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 				if errMsg then
 					self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
 				else
+					self:SetNotice(controls.pbNotice, "")
 					self.resultTbl[str_cnt] = items
 					self:UpdateControlsWithItems(slotTbl, str_cnt)
-					self:SetNotice(controls.pbNotice, "")
 				end
 				controls["priceButton"..str_cnt].label = "Price Item"
 			end)
