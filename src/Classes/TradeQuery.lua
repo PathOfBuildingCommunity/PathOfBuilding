@@ -243,6 +243,7 @@ function TradeQueryClass:PriceItem()
 			main.POESESSID = poesessid_controls.sessionInput.buf
 			main:ClosePopup()
 			main:SaveSettings()
+			self:UpdateRealms()
 		end)
 		poesessid_controls.save.enabled = function() return #poesessid_controls.sessionInput.buf == 32 or poesessid_controls.sessionInput.buf == "" end
 		poesessid_controls.cancel = new("ButtonControl", {"TOPLEFT", poesessid_controls.sessionInput, "TOP"}, 8, 24, 90, row_height, "Cancel", function()
