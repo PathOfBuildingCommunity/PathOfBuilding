@@ -131,7 +131,7 @@ function TradeQueryClass:ConvertCurrencyToChaos(currency, amount)
 		return m_ceil(amount)
 	else
 		ConPrintf("Unhandled Currency Conversion: '" .. currency:lower() .. "'")
-		return m_ceil(amount)
+		return nil
 	end
 end
 
@@ -266,16 +266,24 @@ You can click this button to enter your POESESSID.
 - You can generate weighted search URLs but have to visit the trade site and manually import items.
 - You can only generate weighted searches for public leagues. (Generated searches can be modified
 on trade site to work on other leagues and realms)]]
-
+	self.sortModes = {
+		DPS = "DPS",
+		DPSPRICE = "DPS / Price",
+		PRICEASC = "Price (Lowest)",
+		WEIGHT = "Weighted Sum",
+	}
 	-- Item sort dropdown
 	self.sortSelectionList = {
-		"Default",
-		"Price",
-		"Highest DPS",
-		"DPS / Price",
+		self.sortModes.DPS,
+		self.sortModes.DPSPRICE,
+		self.sortModes.PRICEASC,
+		self.sortModes.WEIGHT,
 	}
 	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
+		for index, _ in pairs(self.resultTbl) do
+			self:UpdateControlsWithItems({name = baseSlots[index]}, index)
+		end
 	end)
 	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
 	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
@@ -451,7 +459,17 @@ end
 
 -- Method to update controls after a search is completed
 function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
-	self.sortedResultTbl[index] = self:SortFetchResults(slotTbl, index)
+	local sortMode = self.sortSelectionList[self.pbSortSelectionIndex]
+	local sortedItems, errMsg = self:SortFetchResults(slotTbl, index, sortMode)
+	if errMsg == "MissingConversionRates" then
+		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to DPS sort.")
+		sortedItems, errMsg = self:SortFetchResults(slotTbl, index, self.sortModes.DPS)
+	end
+	if errMsg then
+		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
+		return
+	end
+	self.sortedResultTbl[index] = sortedItems
 	self.itemIndexTbl[index] = 1
 	self.controls["priceButton"..index].tooltipText = "Sorted by " .. self.sortSelectionList[self.pbSortSelectionIndex]
 	local pb_index = self.sortedResultTbl[index][1].index
@@ -466,6 +484,7 @@ function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 		local item = new("Item", self.resultTbl[index][pb_index].item_string)
 		table.insert(dropdownLabels, colorCodes[item.rarity]..item.name)
 	end
+	self.controls["resultDropdown"..index].selIndex = 1
 	self.controls["resultDropdown"..index]:SetList(dropdownLabels)
 end
 
@@ -480,46 +499,81 @@ function TradeQueryClass:SetFetchResultReturn(slotIndex, index)
 	end
 end
 
--- Method to sort the fetched results
-function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
-	local newTbl = {}
-	if self.pbSortSelectionIndex == 1 then
-		for index, tbl in pairs(self.resultTbl[trade_index]) do
-			t_insert(newTbl, { outputAttr = index, index = index })
-		end
-		return newTbl
-	end
-	if self.pbSortSelectionIndex > 2 then
-		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
+function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
+	local function getDpsTable()
+		local out = {}
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
-		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
+		local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
 			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot, output.CombinedAvg))
-			if self.pbSortSelectionIndex == 4 then
-				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
-				--print(tbl.amount, tbl.currency, item.name)
-				if chaosAmount > 0 then
-					t_insert(newTbl, { outputAttr = newDPS / chaosAmount, index = index })
-				end
-			else
-				if tbl.amount > 0 then
-					t_insert(newTbl, { outputAttr = newDPS, index = index })
-				end
-			end
+			out[index] = newDPS
 		end
-		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	else
-		for index, tbl in pairs(self.resultTbl[trade_index]) do
+		return out
+	end
+	local function getPriceTable()
+		local out = {}
+		local pricedItems = self:addChaosEquivalentPriceToItems(self.resultTbl[trade_index])
+		if pricedItems == nil then
+			return nil
+		end
+		for index, tbl in pairs(pricedItems) do
 			local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
 			if chaosAmount > 0 then
-				t_insert(newTbl, { outputAttr = chaosAmount, index = index })
+				out[index] = chaosAmount
 			end
 		end
+		return out
+	end
+	local newTbl = {}
+	if mode == self.sortModes.WEIGHT then
+		for index, _ in pairs(self.resultTbl[trade_index]) do
+			t_insert(newTbl, { outputAttr = index, index = index })
+		end
+		return newTbl
+	elseif mode == self.sortModes.DPS  then
+		local dpsTable = getDpsTable()
+		for index, dps in pairs(dpsTable) do
+			t_insert(newTbl, { outputAttr = dps, index = index })
+		end
+		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
+	elseif mode == self.sortModes.DPSPRICE then
+		local dpsTable = getDpsTable()
+		local priceTable = getPriceTable()
+		if priceTable == nil then
+			return nil, "MissingConversionRates"
+		end
+		for index, dps in pairs(dpsTable) do
+			t_insert(newTbl, { outputAttr = dps / priceTable[index], index = index })
+		end
+		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
+	elseif mode == self.sortModes.PRICEASC then
+		local priceTable = getPriceTable()
+		if priceTable == nil then
+			return nil, "MissingConversionRates"
+		end
+		for index, price in pairs(priceTable) do
+			t_insert(newTbl, { outputAttr = price, index = index })
+		end
 		table.sort(newTbl, function(a,b) return a.outputAttr < b.outputAttr end)
+	else
+		return nil, "InvalidSort"
 	end
 	return newTbl
+end
+
+--- Convert item prices to chaos equivalent using poeninja data, returns nil if fails to convert any
+function TradeQueryClass:addChaosEquivalentPriceToItems(items)
+	local outputItems = copyTable(items)
+	for _, item in ipairs(outputItems) do
+		local chaosAmount = self:ConvertCurrencyToChaos(item.currency, item.amount)
+		if chaosAmount == nil then
+			return nil
+		end
+		item.chaosEquivalent = chaosAmount
+	end
+	return outputItems
 end
 
 
@@ -602,9 +656,9 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 				if errMsg then
 					self:SetNotice(controls.pbNotice, "Error: " .. errMsg)
 				else
+					self:SetNotice(controls.pbNotice, "")
 					self.resultTbl[str_cnt] = items
 					self:UpdateControlsWithItems(slotTbl, str_cnt)
-					self:SetNotice(controls.pbNotice, "")
 				end
 				controls["priceButton"..str_cnt].label = "Price Item"
 			end)
