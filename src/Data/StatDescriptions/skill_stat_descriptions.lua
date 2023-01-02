@@ -12010,7 +12010,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Deals up to {0}% more Damage to closer targets"
+					text="Deals up to {0}% more Damage with Hits to closer targets"
 				},
 				[2]={
 					[1]={
@@ -12023,7 +12023,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Deals up to {0}% less Damage to closer targets"
+					text="Deals up to {0}% less Damage with Hits to closer targets"
 				}
 			}
 		},
@@ -17340,7 +17340,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Damage against Enemies on Low Life"
+					text="{0}% more Damage with Hits and Ailments against Enemies on Low Life"
 				},
 				[2]={
 					[1]={
@@ -17357,7 +17357,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Damage against Enemies on Low Life"
+					text="{0}% less Damage with Hits and Ailments against Enemies on Low Life"
 				}
 			}
 		},
@@ -21232,7 +21232,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% more Damage against Burning Enemies"
+					text="{0}% more Damage with Hits and Ailments against Burning Enemies"
 				},
 				[2]={
 					[1]={
@@ -21245,7 +21245,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Damage against Burning Enemies"
+					text="{0}% less Damage with Hits and Ailments  against Burning Enemies"
 				}
 			}
 		},
@@ -34012,7 +34012,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Buff grants Culling Strike with Cleave\nBuff grants {0}% more Cleave Area of Effect\nBuff grants {1}% more Cleave Damage to Enemies that are on Low Life"
+					text="Buff grants Culling Strike with Cleave\nBuff grants {0}% more Cleave Area of Effect\nBuff grants {1}% more Cleave Damage with Hits and Ailments to Enemies that are on Low Life"
 				}
 			}
 		},

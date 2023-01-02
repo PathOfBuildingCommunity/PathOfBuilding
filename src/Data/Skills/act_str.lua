@@ -1880,7 +1880,7 @@ skills["ConsecratedPath"] = {
 	castTime = 1,
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 	},
 	baseFlags = {
@@ -3312,11 +3312,16 @@ skills["FrozenLegion"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["frozen_legion_%_chance_to_summon_additional_statue"] = {
+			mod("FrozenLegionExtraStatueChance", "BASE", nil)
+		}
+	},
 	baseFlags = {
 		spell = true,
-		attack = true,
-		area = true,
-		melee = true,
+	},
+	baseMods = {
+		mod("FrozenLegionMaxStatues", "BASE", 6),
 	},
 	qualityStats = {
 		Default = {
@@ -3393,8 +3398,67 @@ skills["FrozenSweep"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "1 charge",
+		},
+		{
+			name = "Wait for max charges",
+		},
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local t_insert = table.insert
+		local s_format = string.format
+		local parentSkill
+		local m_ceil = math.ceil
+		local m_max = math.max
+		activeSkill.skillData.showAverage = false
+		activeSkill.skillFlags.showAverage = false
+		activeSkill.skillFlags.notAverage = true	
+		
+		for _, skill in ipairs(activeSkill.actor.activeSkillList) do
+			if skill.activeEffect.grantedEffect.name == "Frozen Legion" and activeSkill.actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
+				parentSkill = skill
+				break
+			end
+		end
+
+		if parentSkill.skillModList:Flag(parentSkill.skillCfg, "DisableSkill") and not parentSkill.skillModList:Flag(parentSkill.skillCfg, "EnableSkill") then
+			return
+		end
+
+		activeSkill.skillData.cooldown = parentSkill.skillData.cooldown
+		local cooldownOverride = parentSkill.skillModList:Override(parentSkill.skillCfg, "CooldownRecovery")
+		local cooldown = cooldownOverride or (parentSkill.skillData.cooldown + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(parentSkill.skillModList, parentSkill.skillCfg, "CooldownRecovery"))
+		output.Cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+
+		local extraStatueChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
+		local maxStatues = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "AdditionalCooldownUses")
+		
+		local statuesWaitedFor
+		local dpsMultiplier = extraStatueChance
+
+		if activeSkill.skillPart == 1 then
+			statuesWaitedFor = 1
+		elseif activeSkill.skillPart == 2 then
+			statuesWaitedFor = maxStatues
+		end
+		activeSkill.skillData.averageBurstHits = statuesWaitedFor + extraStatueChance / 100
+		dpsMultiplier = 1 + extraStatueChance / statuesWaitedFor / 100
+		if breakdown then
+			breakdown.SkillDPSMultiplier = {}
+			t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+			t_insert(breakdown.SkillDPSMultiplier, "^8= extra statue chance / statues waited for")
+			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d%%^8 / ^7%.2f", extraStatueChance, statuesWaitedFor))
+			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
+		end
+		if dpsMultiplier ~= 1 then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
+		end
+	end,
 	baseFlags = {
-		spell = true,
 		attack = true,
 		area = true,
 		melee = true,
@@ -3822,7 +3886,7 @@ skills["GroundSlam"] = {
 	castTime = 1,
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 	},
 	baseFlags = {
@@ -3917,7 +3981,7 @@ skills["VaalGroundSlam"] = {
 	castTime = 1,
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 		["vaal_skill_exertable"] = {
 		},
@@ -5390,6 +5454,7 @@ skills["VaalMoltenStrike"] = {
 		"show_number_of_projectiles",
 		"molten_strike_projectiles_chain_when_impacting_ground",
 		"global_always_hit",
+		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, attackSpeedMultiplier = -30, soulPreventionDuration = 3, baseMultiplier = 0.7, damageEffectiveness = 0.7, skillUseStorage = 3, soulCost = 15, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -8402,6 +8467,7 @@ skills["VaalVolcanicFissure"] = {
 		"is_area_damage",
 		"show_number_of_projectiles",
 		"projectiles_not_offset",
+		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
 		[1] = { 8, attackSpeedMultiplier = -20, soulPreventionDuration = 6, baseMultiplier = 1.5, damageEffectiveness = 1.5, skillUseStorage = 1, soulCost = 25, levelRequirement = 12, statInterpolation = { 1, }, },

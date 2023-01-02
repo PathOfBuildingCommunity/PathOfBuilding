@@ -574,12 +574,12 @@ LevelReq: 52
 -- Boots: Armour/Evasion
 [[
 Beacon of Madness
-Variant: Two-Toned Boots (Armour/Evasion)
-Variant: Two-Toned Boots (Armour/Energy Shield)
-Variant: Two-Toned Boots (Evasion/Energy Shield)
 {variant:1}Two-Toned Boots (Armour/Evasion)
 {variant:2}Two-Toned Boots (Armour/Energy Shield)
 {variant:3}Two-Toned Boots (Evasion/Energy Shield)
+Variant: Two-Toned Boots (Armour/Evasion)
+Variant: Two-Toned Boots (Armour/Energy Shield)
+Variant: Two-Toned Boots (Evasion/Energy Shield)
 League: Delirium
 Implicits: 3
 {variant:1}+(8-12)% to Fire and Cold Resistances
@@ -874,10 +874,10 @@ Triggers Level 20 Corpse Walk when Equipped
 {variant:2}For each nearby corpse, 1% increased Movement Speed
 ]],[[
 Dance of the Offered
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Shackled Boots
 {variant:2}Carnal Boots
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Opening normal{Thunder Coffer} in normal{Conduit of Lightning}
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}

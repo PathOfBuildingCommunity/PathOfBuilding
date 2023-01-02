@@ -662,6 +662,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Applies DPS multiplier based on seals count
 		output.SealCooldown = skillModList:Sum("BASE", skillCfg, "SealGainFrequency") / calcLib.mod(skillModList, skillCfg, "SealGainFrequency")
 		output.SealMax = skillModList:Sum("BASE", skillCfg, "SealCount")
+		output.AverageBurstHits = output.SealMax
 		output.TimeMaxSeals = output.SealCooldown * output.SealMax
 
 		if not skillData.hitTimeOverride then
@@ -1324,7 +1325,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	-- account for Sacrificial Zeal
 	-- Note: Sacrificial Zeal grants Added Spell Physical Damage equal to 25% of the Skill's Mana Cost, and causes you to take Physical Damage over Time, for 4 seconds
-	if skillModList:Flag(nil, "Condition:SacrificialZeal") then
+	if skillModList:Flag(nil, "Condition:SacrificialZeal") and output.ManaHasCost then
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
@@ -1529,10 +1530,15 @@ function calcs.offence(env, actor, activeSkill)
 
 	local storedMainHandAccuracy = nil
 	local storedSustainedTraumaBreakdown = { }
+	-- Calculate how often you hit (speed, accuracy, block, etc)
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
-		
+
+		if skillData.averageBurstHits then
+			output.AverageBurstHits = skillData.averageBurstHits
+		end
+
 		-- Calculate hit chance 
 		output.Accuracy = m_max(0, calcLib.val(skillModList, "Accuracy", cfg))
 		if breakdown then
@@ -1849,6 +1855,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.QuantityMultiplier = quantityMultiplier
 	end
 
+	--Calculate damage (exerts, crits, ruthless, DPS, etc)
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown
@@ -1865,7 +1872,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		if env.mode_buffs then
 			-- Iterative over all the active skills to account for exerted attacks provided by warcries
-			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Channel] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
+			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Triggered] and not activeSkill.skillTypes[SkillType.Channel] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.grantedEffect.name == "Ancestral Cry" and activeSkill.skillTypes[SkillType.MeleeSingleTarget] and not globalOutput.AncestralCryCalculated then
 						globalOutput.AncestralCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2188,14 +2195,14 @@ function calcs.offence(env, actor, activeSkill)
 		--Calculates the max number of fuses you can sustain
 		--Does not take into account mines or traps
 		if activeSkill.activeEffect.grantedEffect.name == "Explosive Arrow" and activeSkill.skillPart == 2 then
-			local hitRate = m_floor(output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod * (skillData.dpsMultiplier or 1)) + 1
+			local hitRate = output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod * (skillData.dpsMultiplier or 1)
 			if skillFlags.totem then
 				local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 				hitRate = hitRate * activeTotems
 			end
 			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 			local skillMax = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ExplosiveArrowMaxFuseCount")
-			local maximum = m_min(hitRate * duration, skillMax)
+			local maximum = m_min(m_floor(hitRate * duration) + 1, skillMax)
 			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
 			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
 			globalOutput.MaxExplosiveArrowFuseCalculated = maximum
@@ -2213,6 +2220,12 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			local critOverride = skillModList:Override(cfg, "CritChance")
 			local baseCrit = critOverride or source.CritChance or 0
+
+			local baseCritFromMainHand = skillModList:Flag(cfg, "BaseCritFromMainHand")
+			if baseCritFromMainHand then
+				baseCrit = actor.weaponData1.CritChance
+			end
+
 			if critOverride == 100 then
 				output.PreEffectiveCritChance = 100
 				output.CritChance = 100
@@ -2242,10 +2255,11 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if breakdown and output.CritChance ~= baseCrit then
 					breakdown.CritChance = { }
+					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or ""
 					if base ~= 0 then
-						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base)", baseCrit, base))
+						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base%s)", baseCrit, base, baseCritFromMainHandStr))
 					else
-						t_insert(breakdown.CritChance, s_format("%g ^8(base)", baseCrit + base))
+						t_insert(breakdown.CritChance, s_format("%g ^8(base%s)", baseCrit + base, baseCritFromMainHandStr))
 					end
 					if inc ~= 0 then
 						t_insert(breakdown.CritChance, s_format("x %.2f", 1 + inc/100).." ^8(increased/reduced)")
@@ -2327,16 +2341,20 @@ function calcs.offence(env, actor, activeSkill)
 			output.DoubleDamageChance = m_max(output.DoubleDamageChance - output.TripleDamageChance * output.DoubleDamageChance / 100, 0)
 		end
 		output.DoubleDamageEffect = 1 + output.DoubleDamageChance / 100
-		output.ScaledDamageEffect = output.ScaledDamageEffect * output.DoubleDamageEffect	
+		output.ScaledDamageEffect = output.ScaledDamageEffect * output.DoubleDamageEffect
+
+		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
+
 		-- Calculate culling DPS
 		local criticalCull = skillModList:Max(cfg, "CriticalCullPercent") or 0
 		if criticalCull > 0 then
-			criticalCull = criticalCull * (output.CritChance / 100)
+			criticalCull = m_min(criticalCull, criticalCull * (1 - (1 - output.CritChance / 100) ^ hitRate))
 		end
 		local regularCull = skillModList:Max(cfg, "CullPercent") or 0
 		local maxCullPercent = m_max(criticalCull, regularCull)
 		globalOutput.CullPercent = maxCullPercent
 		globalOutput.CullMultiplier = 100 / (100 - globalOutput.CullPercent)
+
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
@@ -2480,15 +2498,15 @@ function calcs.offence(env, actor, activeSkill)
 								-- Default to using the current damage type 
 								local elementUsed = damageType
 								if isElemental[damageType] then
-									resist = m_min(enemyDB:Sum("BASE", nil, damageType.."Resist", "ElementalResist") * calcLib.mod(enemyDB, nil, damageType.."Resist", "ElementalResist"), data.misc.EnemyMaxResist)
+									resist = m_min(enemyDB:Sum("BASE", nil, damageType.."Resist", "ElementalResist") * m_max(calcLib.mod(enemyDB, nil, damageType.."Resist", "ElementalResist"), 0), data.misc.EnemyMaxResist)
 									takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
 								elseif damageType == "Chaos" then
-									resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
+									resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * m_max(calcLib.mod(enemyDB, nil, "ChaosResist"), 0), data.misc.EnemyMaxResist)
 								end
 								-- Find the lowest resist of all the elements and use that if it's lower
 								for _, eleDamageType in ipairs(dmgTypeList) do
 									if isElemental[eleDamageType] and useThisResist(eleDamageType) and damageType ~= eleDamageType then
-										local currentElementResist = m_min(enemyDB:Sum("BASE", nil, eleDamageType.."Resist", "ElementalResist") * calcLib.mod(enemyDB, nil, eleDamageType.."Resist", "ElementalResist"), data.misc.EnemyMaxResist)
+										local currentElementResist = m_min(enemyDB:Sum("BASE", nil, eleDamageType.."Resist", "ElementalResist") * m_max(calcLib.mod(enemyDB, nil, eleDamageType.."Resist", "ElementalResist"), 0), data.misc.EnemyMaxResist)
 										-- If it's explicitly lower, then use the resist and update which element we're using to account for penetration
 										if resist > currentElementResist then
 											resist = currentElementResist
@@ -2509,7 +2527,7 @@ function calcs.offence(env, actor, activeSkill)
 									resist = env.player.output[damageType.."Resist"]
 								else
 									local base = resist + enemyDB:Sum("BASE", nil, "ElementalResist")
-									resist = base * calcLib.mod(enemyDB, nil, damageType.."Resist")
+									resist = base * m_max(calcLib.mod(enemyDB, nil, damageType.."Resist"), 0)
 								end
 								pen = skillModList:Sum("BASE", cfg, damageType.."Penetration", "ElementalPenetration")
 								takenInc = takenInc + enemyDB:Sum("INC", cfg, "ElementalDamageTaken")
@@ -2517,7 +2535,7 @@ function calcs.offence(env, actor, activeSkill)
 								resist = enemyDB:Sum("BASE", nil, damageType.."Resist")
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
-							resist = m_max(m_min(resist, data.misc.EnemyMaxResist), data.misc.ResistFloor)
+							resist = m_max(m_min(enemyDB:Override(nil, damageType.."Resist") or resist, data.misc.EnemyMaxResist), data.misc.ResistFloor)
 						end
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
@@ -2664,8 +2682,6 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod("Condition:"..highestType.."IsHighestDamageType", "FLAG", true, "Config")
 		end
 
-		local hitRate = output.HitChance / 100 * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1)
-
 		-- Calculate leech
 		local function getLeechInstances(amount, total)
 			if total == 0 then
@@ -2718,6 +2734,9 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
+		globalOutput.AverageBurstHits = output.AverageBurstHits or 1
+		globalOutput.AverageBurstDamage = output.AverageDamage * globalOutput.AverageBurstHits or 0
+		globalOutput.ShowBurst = globalOutput.AverageBurstHits > 1
 		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * (skillData.dpsMultiplier or 1) * quantityMultiplier
 		if breakdown then
 			if output.CritEffect ~= 1 then
@@ -2740,6 +2759,13 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.AverageDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 				t_insert(breakdown.AverageDamage, s_format("= %.1f", output.AverageDamage))
 			end
+		end
+		if globalBreakdown and globalOutput.AverageBurstDamage > 0 then
+			globalBreakdown.AverageBurstDamage = { }		
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(number of hits)", globalOutput.AverageBurstHits))
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f", globalOutput.AverageBurstDamage))
 		end
 		
 		
@@ -2984,6 +3010,7 @@ function calcs.offence(env, actor, activeSkill)
 	skillFlags.igniteCanStack = skillModList:Flag(skillCfg, "IgniteCanStack")
 	skillFlags.igniteToChaos = skillModList:Flag(skillCfg, "IgniteToChaos")
 	skillFlags.impale = false
+	--Calculate ailments and debuffs (poison, bleed, ignite, impale, exposure, etc)
 	for _, pass in ipairs(passList) do
 		globalOutput, globalBreakdown = output, breakdown
 		local source, output, cfg, breakdown = pass.source, pass.output, pass.cfg, pass.breakdown

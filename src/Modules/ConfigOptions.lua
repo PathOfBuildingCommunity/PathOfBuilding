@@ -115,7 +115,7 @@ return {
 		modList:NewMod("Condition:MinionsCreatedRecently", "FLAG", true, "Config")
 	end },
 	{ var = "igniteMode", type = "list", label = "Ailment calculation mode:", tooltip = "Controls how the base damage for applying Ailments is calculated:\n\tAverage: damage is based on the average application, including both crits and non-crits\n\tCrits Only: damage is based solely on Ailments inflicted with crits", list = {{val="AVERAGE",label="Average"},{val="CRIT",label="Crits Only"}} },
-	{ var = "physMode", type = "list", label = "Random element mode:", ifFlag = "randomPhys", tooltip = "Controls how modifiers which choose a random element will function.\n\tAverage: Modifiers will grant one third of their value to ^xB97123Fire^7, ^x3F6DB3Cold^7, and ^xADAA47Lightning ^7simultaneously\n\t^xB97123Fire ^7/ ^x3F6DB3Cold ^7/ ^xADAA47Lightning^7: Modifiers will grant their full value as the specified element\nIf a modifier chooses between just two elements, the full value can only be given as those two elements.", list = {{val="AVERAGE",label="Average"},{val="Fire",label="^xB97123Fire"},{val="Cold",label="^x3F6DB3Cold"},{val="Lightning",label="^xADAA47Lightning"}} },
+	{ var = "physMode", type = "list", label = "Random element mode:", ifFlag = "randomPhys", tooltip = "Controls how modifiers which choose a random element will function.\n\tAverage: Modifiers will grant one third of their value to ^xB97123Fire^7, ^x3F6DB3Cold^7, and ^xADAA47Lightning ^7simultaneously\n\t^xB97123Fire ^7/ ^x3F6DB3Cold ^7/ ^xADAA47Lightning^7: Modifiers will grant their full value as the specified element\nIf a modifier chooses between just two elements, the full value can only be given as those two elements.", list = {{val="AVERAGE",label="Average"},{val="FIRE",label="^xB97123Fire"},{val="COLD",label="^x3F6DB3Cold"},{val="LIGHTNING",label="^xADAA47Lightning"}} },
 	{ var = "lifeRegenMode", type = "list", label = "^xE05030Life ^7regen calculation mode:", tooltip = "Controls how ^xE05030life ^7regeneration is calculated:\n\tMinimum: does not include burst regen\n\tAverage: includes burst regen, averaged based on uptime\n\tBurst: includes full burst regen", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="FULL",label="Burst"}}, apply = function(val, modList, enemyModList)
 		if val == "AVERAGE" then
 			modList:NewMod("Condition:LifeRegenBurstAvg", "FLAG", true, "Config")
@@ -481,12 +481,6 @@ Huge sets the radius to 11.
 	{ var = "enemyHasLessCurseEffectOnSelf", type = "list", label = "Less effect of Curses on enemy:", tooltip = "'Hexwarded'", list = {{val=0,label="None"},{val=25,label="25% (Low tier)"},{val=40,label="40% (Mid tier)"},{val=60,label="60% (High tier)"}}, apply = function(val, modList, enemyModList)	
 		if val ~= 0 then
 			enemyModList:NewMod("CurseEffectOnSelf", "MORE", -val, "Config")
-		end
-	end },
-	{ var = "enemyCanAvoidPoisonBlindBleed", type = "list", label = "Enemy avoid Poison / Blind / Bleed:", tooltip = "'Impervious'", list = {{val=0,label="None"},{val=25,label="25% (Low tier)"},{val=45,label="45% (Mid tier)"},{val=65,label="65% (High tier)"}}, apply = function(val, modList, enemyModList)
-		if val ~= 0 then
-			enemyModList:NewMod("AvoidPoison", "BASE", val, "Config")
-			enemyModList:NewMod("AvoidBleed", "BASE", val, "Config")
 		end
 	end },
 	{ var = "enemyHasResistances", type = "list", label = "Enemy has Elemental / ^xD02090Chaos ^7Resist:", tooltip = "'Resistant'", list = {{val=0,label="None"},{val="LOW",label="20% / 15% (Low tier)"},{val="MID",label="30% / 20% (Mid tier)"},{val="HIGH",label="40% / 25% (High tier)"}}, apply = function(val, modList, enemyModList)

@@ -779,7 +779,6 @@ skills["SupportCastWhileChannellingTriggered"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 		},
 		["support_cast_while_channelling_triggered_skill_non_damaging_ailment_effect_+%"] = {
-			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 			mod("EnemyChillEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 			mod("EnemyShockEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 			mod("EnemyFreezeEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
@@ -1327,7 +1326,7 @@ skills["SupportCursedGround"] = {
 	color = 3,
 	support = true,
 	requireSkillTypes = { SkillType.Hex, SkillType.AppliesCurse, },
-	addSkillTypes = { SkillType.PreventHexTransfer, },
+	addSkillTypes = { SkillType.TotemsAreBallistae, },
 	excludeSkillTypes = { SkillType.Aura, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
@@ -2439,7 +2438,7 @@ skills["SupportHexBloom"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Hex, SkillType.AppliesCurse, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.Aura, SkillType.PreventHexTransfer, },
+	excludeSkillTypes = { SkillType.Aura, SkillType.TotemsAreBallistae, },
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
@@ -3678,7 +3677,7 @@ skills["SupportMinionDefensiveStance"] = {
 			mod("MinionModifier", "LIST", { mod = mod("DamageTaken", "MORE", nil) }),
 		},
 		["support_minion_defensive_stance_minion_damage_+%_final_against_enemies_near_you"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "MeatShieldEnemyNearYou" }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "Condition", var = "MeatShieldEnemyNearYou" }),
 		},
 		["minion_block_%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("BlockChance", "BASE", nil) }),

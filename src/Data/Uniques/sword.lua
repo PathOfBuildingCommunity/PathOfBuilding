@@ -449,6 +449,7 @@ Variant: Pre 3.0.0
 Variant: Pre 3.16.0
 Variant: Current
 League: Breach
+LevelReq: 69
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
@@ -462,10 +463,10 @@ Minions have +29% to Chaos Resistance
 Minions Leech 5% of Damage as Life against Poisoned Enemies
 ]],[[
 Story of the Vaal
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Variscite Blade
 {variant:2}Gemstone Sword
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Opening normal{Fireproof Chest} in normal{Crucible of Flame}
 Upgrade: Upgrades to unique{Fate of the Vaal} via currency{Vial of Fate}
