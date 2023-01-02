@@ -71,6 +71,98 @@ function TradeQueryRequestsClass:SearchWithQuery(realm, league, query, callback,
 	end)
 end
 
+---Performs search and fetches results, adjusting the query weight and repeating
+---the search to fetch more items when the search cap (10k items) is reached
+---@param league string
+---@param query string
+---@param callback fun(items:table, errMsg:string)
+---@param params table @ params = { callbackQueryId = fun(queryId:string) }
+function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, query, callback, params)
+	params = params or {}
+	local previousSearchId = nil
+	local previousSearchItemIds = nil
+	local previousSearchItems = nil
+	-- Limit recursion to prevent potential loops
+	-- Each repeat is a leap of 10k items, normally we shouldn't need more than 1-2 steps anyways
+	local maxRecursion = 5
+	local currentRecursion = 0
+	local function performSearchCallback(response, errMsg)
+		currentRecursion = currentRecursion + 1
+		if params.callbackQueryId and response and response.id then
+			params.callbackQueryId(response.id)
+		end
+		if errMsg then
+			return callback(nil, errMsg)
+		end
+		if response.total < 10000  or currentRecursion >= maxRecursion then
+			-- Search not clipped or max recursion reached, fetch results and finalize
+			if previousSearchItems and self.maxFetchPerSearch > response.total then
+				-- Not enough items in the last search, fill results from previous search
+				self:FetchResults(response.result, response.id, function(items, errMsg)
+					if errMsg then
+						return callback(nil, errMsg)
+					end
+					local fetchedItemIds = {}
+					for _, value in pairs(items) do
+						table.insert(fetchedItemIds, value.id)
+					end
+					for _, value in pairs(previousSearchItems) do
+						if #items >= self.maxFetchPerSearch then
+							break
+						end
+						if not isValueInTable(fetchedItemIds, value.id) then
+							table.insert(items, value)
+							table.insert(fetchedItemIds, value.id)
+						end
+					end
+					local fillCount = self.maxFetchPerSearch - #items
+					if fillCount > 0 then
+						-- fill with previous search results
+						local unfetchedItemIds = {}
+						for _, value in pairs(previousSearchItemIds) do
+							if #unfetchedItemIds >= fillCount then
+								break
+							end
+							if not isValueInTable(fetchedItemIds, value) then
+								table.insert(unfetchedItemIds, value)
+							end
+						end
+						self:FetchResults(unfetchedItemIds, previousSearchId, function(newItems, errMsg)
+							if errMsg then
+								return callback(nil, errMsg)
+							end
+							items = tableConcat(items, newItems)
+							callback(items, errMsg)
+						end)
+					else
+						callback(items, errMsg)
+					end
+				end)
+			else
+				-- Search not clipped and result count satisfy maxFetchPerSearch, proceed normally
+				self:FetchResults(response.result, response.id,  callback)
+			end
+		else
+			-- Search clipped, fetch highest weight item, update query weight and repeat search
+			previousSearchItemIds = response.result
+			previousSearchId = response.id
+			local firstResultBatch = {unpack(response.result, 1, math.min(#response.result, 10))}
+			self:FetchResults(firstResultBatch, response.id, function(items, errMsg)
+				if errMsg then
+					return callback(nil, errMsg)
+				end
+				previousSearchItems = items
+				local highestWeight = items[1].weight
+				local queryJson = dkjson.decode(query)
+				queryJson.query.stats[1].value.min = highestWeight
+				query = dkjson.encode(queryJson)
+				self:PerformSearch(realm, league, query, performSearchCallback)
+			end)
+		end
+	end
+	self:PerformSearch(realm, league, query, performSearchCallback)
+end
+
 ---Perform search and run callback function on returned item hashes.
 ---Item info has to be fetched separately 
 ---@param league string
@@ -137,7 +229,7 @@ function TradeQueryRequestsClass:FetchResults(itemHashes, queryId, callback)
 				table.insert(items, item)
 			end
 			-- finished fetching item blocks
-			if #items == quantity_found then
+			if #items >= quantity_found then
 				callback(items)
 			end
 		end)
@@ -170,6 +262,8 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					currency = trade_entry.listing.price.currency,
 					item_string = common.base64.decode(trade_entry.item.extended.text),
 					whisper = trade_entry.listing.whisper,
+					weight = trade_entry.item.pseudoMods[1]:match("Sum: (.+)"),
+					id = trade_entry.id
 				})
 			end
 			return callback(items)
