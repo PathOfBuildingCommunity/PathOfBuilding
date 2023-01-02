@@ -816,3 +816,15 @@ function string:split(sep)
 	self:gsub(pattern, function(c) fields[#fields+1] = c end)
 	return fields
 end
+
+-- Ceil function with optional base parameter
+function ceil_b(x, base)
+	base = base or 1
+	return base * m_ceil(x/base)
+end
+
+-- Ceil function with optional base parameter
+function floor_b(x, base)
+	base = base or 1
+	return base * m_floor(x/base)
+end

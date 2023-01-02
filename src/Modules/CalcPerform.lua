@@ -380,7 +380,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD)
 			-- Activates the activation nearest to ready
 			time, nearestActivation = self:getNearestReady()
 			-- round up time to the next server tick
-			time = data.misc.ServerTickTime * m_ceil(time / data.misc.ServerTickTime)
+			time = ceil_b(time, data.misc.ServerTickTime)
 			self.time = time
 			if nearestActivation then
 				nearestActivation:activate(time)
@@ -442,7 +442,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD)
 	for _, skill in ipairs(skills) do
 		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / skill.icdr) + (skill.addsCastTime or 0), triggerCD)
 		if skill.cd > triggerCD then
-			local br = #skills / (data.misc.ServerTickTime * m_ceil(skill.cd / data.misc.ServerTickTime))
+			local br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime)
 			t_insert(tt1_brs, br)
 			tt1_smallest_br = m_min(tt1_smallest_br, br)
 		end
@@ -451,12 +451,12 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD)
 		-- the breaking point, where the trigger time is only constrained by the cooldown time
 		-- before this its its either tt0 or tt1, depending on the skills
 		-- after this the trigger time depends on resonance with the attack speed
-		tt2_br = #skills / (data.misc.ServerTickTime * m_ceil(skill.cd / data.misc.ServerTickTime)) * .8
+		tt2_br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime) * .8
 		-- the breaking point where the the attack speed is so high, that the affect of resonance is negligible
-		tt3_br = #skills / (data.misc.ServerTickTime * m_floor(skill.cd / data.misc.ServerTickTime)) * 8
+		tt3_br = #skills / floor_b(skill.cd, data.misc.ServerTickTime) * 8
 		-- classify in tt region the attack rate is in
 		if sourceRate >= tt3_br then
-			skill.rate = 1/ (data.misc.ServerTickTime * m_ceil(skill.cd / data.misc.ServerTickTime))
+			skill.rate = 1/ ceil_b(skill.cd, data.misc.ServerTickTime)
 		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
 			quickSim(env, skills, sourceRate)
 			break
