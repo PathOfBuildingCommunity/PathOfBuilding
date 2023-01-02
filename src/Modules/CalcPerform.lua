@@ -357,7 +357,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 					-- the time until the skill is ready
 					local timeReady = activation:timeReady()
 					-- wait for the next attack
-					timeReady = ceil(timeReady, att)
+					timeReady = att * m_ceil(timeReady / att)
 					-- wait until the attack rotation is ready
 					timeReady = m_max(timeReady, timePenalty)
 					return timeReady, activation
@@ -380,7 +380,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 			-- Activates the activation nearest to ready
 			time, nearestActivation = self:getNearestReady()
 			-- round up time to the next server tick
-			time = ceil(time, data.misc.ServerTickTime)
+			time = data.misc.ServerTickTime * m_ceil(time / data.misc.ServerTickTime)
 			self.time = time
 			if nearestActivation then
 				nearestActivation:activate(time)
@@ -442,7 +442,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 	for _, skill in ipairs(skills) do
 		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / icdr) + (skill.addsCastTime or 0), triggerCD)
 		if skill.cd > triggerCD then
-			local br = #skills / ceil(skill.cd, data.misc.ServerTickTime)
+			local br = #skills / (data.misc.ServerTickTime * m_ceil(skill.cd / data.misc.ServerTickTime))
 			t_insert(tt1_brs, br)
 			tt1_smallest_br = m_min(tt1_smallest_br, br)
 		end
@@ -451,12 +451,12 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		-- the breaking point, where the trigger time is only constrained by the cooldown time
 		-- before this its its either tt0 or tt1, depending on the skills
 		-- after this the trigger time depends on resonance with the attack speed
-		tt2_br = #skills / ceil(skill.cd, data.misc.ServerTickTime) * .8
+		tt2_br = #skills / (data.misc.ServerTickTime * m_ceil(skill.cd / data.misc.ServerTickTime)) * .8
 		-- the breaking point where the the attack speed is so high, that the affect of resonance is negligible
-		tt3_br = #skills / floor(skill.cd, data.misc.ServerTickTime) * 8
+		tt3_br = #skills / (data.misc.ServerTickTime * m_floor(skill.cd / data.misc.ServerTickTime)) * 8
 		-- classify in tt region the attack rate is in
 		if sourceRate >= tt3_br then
-			skill.rate = 1/ ceil(skill.cd, data.misc.ServerTickTime)
+			skill.rate = 1/ (data.misc.ServerTickTime * m_ceil(skill.cd / data.misc.ServerTickTime))
 		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
 			quickSim(env, skills, sourceRate, icdr)
 			break
@@ -500,11 +500,11 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	--If spell count is missing the skill likely comes from a unique and /or triggers it self
 	if spellCount and not env.minion then
 		if output.EffectiveSourceRate ~= 0 then
-			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, sourceAPS, icdr, (triggerCD or triggeredCD) / icdr)
+			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, output.EffectiveSourceRate, icdr, (triggerCD or triggeredCD) / icdr)
 			if breakdown then
 				breakdown.SkillTriggerRate = {
 					s_format("%.2f ^8(Effective source rate)", output.EffectiveSourceRate),
-					s_format("/ %.2f ^8(Calculated impact of linked spells)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
+					s_format("/ %.2f ^8(Estimated impact of linked spells)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
 					s_format("= %.2f ^8per second", output.SkillTriggerRate),
 					"",
 					s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
@@ -3013,7 +3013,7 @@ function calcs.perform(env, avoidCache)
 			
 			breakdown.SkillTriggerRate = {
 				s_format("%.2f ^8(%s triggers per second)", triggerRateOfTrigger, triggerName),
-				s_format("/ %.2f ^8(Calculated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
+				s_format("/ %.2f ^8(Estimated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
 				s_format("= %.2f ^8%s casts per second", output.SkillTriggerRate, triggeredName),
 				"",
 				s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
