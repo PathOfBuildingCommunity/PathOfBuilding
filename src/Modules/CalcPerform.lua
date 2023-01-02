@@ -300,7 +300,7 @@ end
 
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
-function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
+function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD)
 	local SIM_RESOLUTION = 2
 	-- the breaking points are values in attacks per second
 	local function quickSim(env, skills, sourceRate)
@@ -440,7 +440,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 	local tt1_brs = {}
 	local tt1_smallest_br = m_huge
 	for _, skill in ipairs(skills) do
-		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / icdr) + (skill.addsCastTime or 0), triggerCD)
+		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / skill.icdr) + (skill.addsCastTime or 0), triggerCD)
 		if skill.cd > triggerCD then
 			local br = #skills / (data.misc.ServerTickTime * m_ceil(skill.cd / data.misc.ServerTickTime))
 			t_insert(tt1_brs, br)
@@ -458,7 +458,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 		if sourceRate >= tt3_br then
 			skill.rate = 1/ (data.misc.ServerTickTime * m_ceil(skill.cd / data.misc.ServerTickTime))
 		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
-			quickSim(env, skills, sourceRate, icdr)
+			quickSim(env, skills, sourceRate)
 			break
 		elseif sourceRate >= tt0_br then
 			skill.rate = sourceRate / #skills
@@ -494,13 +494,13 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	end
 	
 	if breakdown and not env.player.mainSkill.skillData.sourceRateIsFinal then
-		t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Effective Trigger rate of Trigger)", output.EffectiveSourceRate))
+		t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Effective source rate)", output.EffectiveSourceRate))
 	end
 		
 	--If spell count is missing the skill likely comes from a unique and /or triggers it self
 	if spellCount and not env.minion then
 		if output.EffectiveSourceRate ~= 0 then
-			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, output.EffectiveSourceRate, icdr, (triggerCD or triggeredCD) / icdr)
+			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, output.EffectiveSourceRate, (triggerCD or triggeredCD) / icdr)
 			if breakdown then
 				breakdown.SkillTriggerRate = {
 					s_format("%.2f ^8(Effective source rate)", output.EffectiveSourceRate),
@@ -603,6 +603,17 @@ local function getUniqueItemTriggerName(skill)
 		local _, _, uniqueTriggerName = skill.socketGroup.source:find(".*:.*:(.*),.*")
 		return uniqueTriggerName
 	end
+end
+
+local function packageSkillDataForSimulation(skill)
+	local addsCastTime = nil
+	if skill.skillModList:Flag(skill.skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
+		baseCastTime = skill.skillData.castTimeOverride or skill.activeEffect.grantedEffect.castTime or 1
+		local inc = skill.skillModList:Sum("INC", skill.skillCfg, "Speed")
+		local more = skill.skillModList:More(skill.skillCfg, "Speed")
+		addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
+	end
+	return { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = addsCastTime, icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery")}
 end
 
 -- Merge an instance of a buff, taking the highest value of each modifier
@@ -2913,14 +2924,7 @@ function calcs.perform(env, avoidCache)
 			source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 		end
 		if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
-			local addsCastTime = nil
-			if skill.skillModList:Flag(skill.skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
-				baseCastTime = skill.skillData.castTimeOverride or skill.activeEffect.grantedEffect.castTime or 1
-				local inc = skill.skillModList:Sum("INC", skill.skillCfg, "Speed")
-				local more = skill.skillModList:More(skill.skillCfg, "Speed")
-				addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
-			end
-			t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = addsCastTime})
+			t_insert(spellCount, packageSkillDataForSimulation(skill))
 		end
 	end
 	if not source or #spellCount < 1 then
@@ -2962,7 +2966,7 @@ function calcs.perform(env, avoidCache)
 		
 		local simBreakdown = nil
 		output.TriggerRateCap = m_min(1 / effCDTriggeredSkill, triggerRateOfTrigger)
-		output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, triggerRateOfTrigger, icdr, 0)
+		output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, triggerRateOfTrigger, 0)
 		
 		if breakdown then
 			if triggeredCD or cooldownOverride then
@@ -3201,7 +3205,7 @@ function calcs.perform(env, avoidCache)
 						end
 					end
 					if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
-						t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery") })
+						t_insert(spellCount, packageSkillDataForSimulation(skill))
 					end
 				end
 			elseif env.player.mainSkill.skillData.triggeredByManaSpent then
@@ -3330,14 +3334,7 @@ function calcs.perform(env, avoidCache)
 						source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate)
 					end
 					if triggeredSkillCond and triggeredSkillCond(env,skill) and spellCount ~= nil then
-						local addsCastTime = nil
-						if skill.skillModList:Flag(skill.skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
-							baseCastTime = skill.skillData.castTimeOverride or skill.activeEffect.grantedEffect.castTime or 1
-							local inc = skill.skillModList:Sum("INC", skill.skillCfg, "Speed")
-							local more = skill.skillModList:More(skill.skillCfg, "Speed")
-							addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
-						end
-						t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = addsCastTime})
+						t_insert(spellCount, packageSkillDataForSimulation(skill))
 					end
 				end
 			end
@@ -3366,7 +3363,7 @@ function calcs.perform(env, avoidCache)
 								if assumingEveryHitKills then
 									t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
 								end
-								t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s attack rate)", trigRate, source.activeEffect.grantedEffect.name))
+								t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, source.activeEffect.grantedEffect.name, source.useCastRate and "cast rate" or "attack rate"))
 							end
 						end
 					end
