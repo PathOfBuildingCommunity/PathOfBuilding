@@ -402,12 +402,12 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 				logToFile("Failed to test %s mod: %s", self.calcContext.itemCategory, modLine)
 			end
 
-			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-			local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot,output.CombinedAvg)) or 0) - (self.calcContext.baseDPS or 0)
-			if meanDPSDiff > 0.01 then
-				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
-				self.alreadyWeightedMods[entry.tradeMod.id] = true
-			end
+            local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
+            local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDotDPS,output.CombinedDPS)) or 0) - (self.calcContext.baseDPS or 0)
+            if meanDPSDiff > 0.01 then
+                table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
+                self.alreadyWeightedMods[entry.tradeMod.id] = true
+            end
 
 			local now = GetTime()
 			if now - start > 50 then
@@ -520,10 +520,10 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 
-	-- Calculate base output with a blank item
-	local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
-	local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
-	local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDot or 0, baseOutput.CombinedAvg or 0))
+    -- Calculate base output with a blank item
+    local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
+    local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
+    local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDotDPS or 0, baseOutput.CombinedDPS or 0))
 
 	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
 	self.modWeights = { }
@@ -584,8 +584,8 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 	self.calcContext.testItem:BuildAndParseRaw()
 
-	local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-	local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0))) - (self.calcContext.baseDPS or 0)
+    local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
+    local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDotDPS or 0, originalOutput.CombinedDPS or 0))) - (self.calcContext.baseDPS or 0)
 
 	-- Restore global cache full DPS
 	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
