@@ -544,7 +544,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 			end
 			self.pbSortSelectionIndex = 1
 			context.controls["priceButton"..context.str_cnt].label = "Searching..."
-			self.tradeQueryRequests:SearchWithQuery(self.pbRealm, self.pbLeague, query, 
+			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query, 
 				function(items, errMsg)
 					if errMsg then
 						self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
@@ -740,7 +740,7 @@ function TradeQueryClass:UpdateRealms()
 		ConPrintf("Fetching realms and leagues using POESESSID")
 		self.tradeQueryRequests:FetchRealmsAndLeaguesHTML(function(data, errMsg)
 			if errMsg then
-				self:SetNotice("Error while fetching league list: "..errMsg)
+				self:SetNotice(self.controls.pbNotice, "Error while fetching league list: "..errMsg)
 				return
 			end
 			local leagues = data.leagues
