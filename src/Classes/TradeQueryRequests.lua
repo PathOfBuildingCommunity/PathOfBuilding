@@ -154,7 +154,7 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 				previousSearchItems = items
 				local highestWeight = items[1].weight
 				local queryJson = dkjson.decode(query)
-				queryJson.query.stats[1].value.min = highestWeight
+				queryJson.query.stats[1].value.min = (tonumber(highestWeight) + queryJson.query.stats[1].value.min) / 2
 				query = dkjson.encode(queryJson)
 				self:PerformSearch(realm, league, query, performSearchCallback)
 			end)
