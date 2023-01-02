@@ -347,7 +347,7 @@ on trade site to work on other leagues and realms)]]
 		return #self.itemsTab.leagueDropList > 1
 	end
 
-if  self.pbRealm == "" then
+	if  self.pbRealm == "" then
 		self:UpdateRealms()
 	end
 
