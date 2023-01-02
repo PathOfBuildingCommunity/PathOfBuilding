@@ -281,6 +281,9 @@ on trade site to work on other leagues and realms)]]
 	}
 	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
+		for index, _ in pairs(self.resultTbl) do
+			self:UpdateControlsWithItems({name = baseSlots[index]}, index)
+		end
 	end)
 	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
 	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
