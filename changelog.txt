@@ -29,7 +29,7 @@ VERSION[2.25.0][2023/01/03]
 * Update tree to 3.20.1 (QuickStick123)
 
 --- Fixed Crashes ---
-* Fix crash when deleting a gem level (Paliak)
+* Fix crash when deleting gem level (Paliak)
 * Fix crash when clicking sort options in node power (meepen)
 
 --- User Interface ---

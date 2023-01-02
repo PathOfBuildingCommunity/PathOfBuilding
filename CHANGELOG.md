@@ -35,7 +35,7 @@
 - Add sanctum unique drop locations [\#5414](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5414) ([QuickStick123](https://github.com/QuickStick123))
 - Update tree to 3.20.1 [\#5457](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5457) ([QuickStick123](https://github.com/QuickStick123))
 ### Fixed Crashes
-- Fix crash when deleting a gem level [\#5479](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5479) ([Paliak](https://github.com/Paliak))
+- Fix crash when deleting gem level [\#5479](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5479) ([Paliak](https://github.com/Paliak))
 - Fix crash when clicking sort options in node power [\#5504](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5504) ([meepen](https://github.com/meepen))
 ### User Interface
 - Change the unique list to only display currently obtainable uniques instead of any source [\#5491](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5491) ([Regisle](https://github.com/Regisle))
