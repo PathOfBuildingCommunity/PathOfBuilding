@@ -1,20 +1,20 @@
-VERSION[2.25.0][2023/01/02]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.25.0][2023/01/03]
 
+--- Implemented Enhancements ---
 * Apply enemy damage multiplier to max hit taken (deathbeam)
 * Add button to generate a trade link for Timeless Jewels (meepen)
 * PoB Trader
-* Add ability to generate weighted search URL without the need for POESESSID (Dullson)
-* Add support for Private Leagues (Dullson)
-* Add support for Sony and Xbox realms (Nostrademous)
-* Sort Trade league name dropdown so temporary leagues appear at the top of the list (Nostrademous)
-* Automatically adjust weighted search to prevent result clipping (Dullson)
-* Add support to change the sorting mode on already-fetched items (Dullson)
-* Improve item pricer error handling (Dullson)
-* Temporarily remove Synthesis mods until they are properly supported (Dolmur)
-* Remove Eldritch mods checkbox from bases that are unable to roll Eldritch mods (Dolmur)
-* Display item price at the bottom of the item tooltip (Dullson)
-* Use default item affix quality to generate mod weightings (Regisle)
+	* Add ability to generate weighted search URL without the need for POESESSID (Dullson)
+	* Add support for Private Leagues (Dullson)
+	* Add support for Sony and Xbox realms (Nostrademous)
+	* Sort Trade league name dropdown so temporary leagues appear at the top of the list (Nostrademous)
+	* Automatically adjust weighted search to prevent result clipping (Dullson)
+	* Add support to change the sorting mode on already-fetched items (Dullson)
+	* Improve item pricer error handling (Dullson)
+	* Temporarily remove Synthesis mods until they are properly supported (Dolmur)
+	* Remove Eldritch mods checkbox from bases that are unable to roll Eldritch mods (Dolmur)
+	* Display item price at the bottom of the item tooltip (Dullson)
+	* Use default item affix quality to generate mod weightings (Regisle)
 * Add option for to select any conqueror Keystone for Timeless jewels search (Regisle)
 * Add support for Mutewind Pennant Warcry mod (andrewbelu)
 * Add support for Phantasmal Reave radius (andrewbelu)
@@ -27,14 +27,17 @@ VERSION[2.25.0][2023/01/02]
 * Increased flask effect works on Silver Flask to scale Onslaught effect (Fabere456)
 * Add sanctum unique drop locations (QuickStick123)
 * Update tree to 3.20.1 (QuickStick123)
+
 --- Fixed Crashes ---
 * Fix crash when deleting a gem level (Paliak)
 * Fix crash when clicking sort options in node power (meepen)
+
 --- User Interface ---
 * Change the unique list to only display currently obtainable uniques instead of any source (Regisle)
 * Fix odd edit behaviour with the POESESSID input box (Wires77)
 * Fix Timeless Jewel tree radius effect not appearing on jewels added through "Find Timeless Jewel" UI (LocalIdentity)
 * Remove duplicate bleed/poison config option (QuickStick123)
+
 --- Fixed Bugs ---
 * PoB Trader memory leak (Dullson)
 * Max fuse calculation for Explosive Arrow (Lilylicious)
@@ -64,8 +67,6 @@ VERSION[2.25.0][2023/01/02]
 * Missing name on elemental damage Grand Spectrum variant (deathbeam)
 * Frenzy Charges and Onslaught only counting one stat instead of two for Wilma's Requital (LocalIdentity)
 * Level requirement for United in Dream (LocalIdentity)
---- Other changes ---
-* Clarified instructions for adding EmmyLua to VSCode (blahblahdrugs)
 
 VERSION[2.24.0][2022/12/14]
 
