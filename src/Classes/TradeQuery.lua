@@ -530,7 +530,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 				item:BuildAndParseRaw()
 			end
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
-			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot, output.CombinedAvg))
+			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS or 0, m_max(output.TotalDotDPS or 0, output.CombinedDPS or 0))
 			out[index] = newDPS
 		end
 		GlobalCache.useFullDPS = storedFullDPS
