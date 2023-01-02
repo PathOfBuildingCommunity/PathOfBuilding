@@ -27,13 +27,13 @@ common.base64 = require("base64")
 common.sha1 = require("sha1")
 
 -- Try to load a library return nil if failed. https://stackoverflow.com/questions/34965863/lua-require-fallback-error-handling
-function prequire(...)
+function prerequire(...)
     local status, lib = pcall(require, ...)
     if(status) then return lib end
     return nil
 end
 
-profiler = prequire("lua-profiler")
+profiler = prerequire("lua-profiler")
 profiling = false
 
 if launch.devMode and profiler == nil then
@@ -816,3 +816,17 @@ function string:split(sep)
 	return fields
 end
 
+
+function urlEncode(str)
+	local charToHex = function(c)
+		return s_format("%%%02X", string.byte(c))
+	end
+	return str:gsub("([^%w_%-.~])", charToHex)
+end
+
+function urlDecode(str)
+	local hexToChar = function(x)
+		return s_char(tonumber(x, 16))
+	end
+	return str:gsub("%%(%x%x)", hexToChar)
+end

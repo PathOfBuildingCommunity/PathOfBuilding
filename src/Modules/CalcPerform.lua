@@ -947,7 +947,8 @@ local function doActorMisc(env, actor)
 			else
 				effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
 			end
-			modDB:NewMod("Speed", "INC", effect, "Onslaught")
+			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Attack)
+			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Cast)
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
@@ -1291,10 +1292,6 @@ function calcs.perform(env, avoidCache)
 			if activeSkill.skillData.supportBonechill then
 				hasGuaranteedBonechill = true
 			end
-		end
-		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") then
-			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
-			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		if activeSkill.skillFlags.warcry and not modDB:Flag(nil, "AlreadyGlobalWarcryCooldown") then
 			local cooldown = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData)
@@ -2029,6 +2026,10 @@ function calcs.perform(env, avoidCache)
 					t_insert(curses, curse)	
 				end
 			end
+		end
+		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") then
+			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
+			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion

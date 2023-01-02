@@ -68,6 +68,47 @@ function main:Init()
 		self.allowTreeDownload = true
 	end
 
+	self.sharedItemList = { }
+	self.sharedItemSetList = { }
+
+	self.inputEvents = { }
+	self.popups = { }
+	self.tooltipLines = { }
+
+	self.gameAccounts = { }
+
+	self.buildSortMode = "NAME"
+	self.connectionProtocol = 0
+	self.nodePowerTheme = "RED/BLUE"
+	self.showThousandsSeparators = true
+	self.thousandsSeparator = ","
+	self.decimalSeparator = "."
+	self.defaultItemAffixQuality = 0.5
+	self.showTitlebarName = true
+	self.showWarnings = true
+	self.slotOnlyTooltips = true
+	self.POESESSID = ""
+
+	local ignoreBuild
+	if arg[1] then
+		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
+			if not isSuccess then
+				self:SetMode("BUILD", false, data)
+			else
+				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
+				self:SetMode("BUILD", false, "Imported Build", xmlText)
+				self.newModeChangeToTree = true
+			end
+		end)
+		arg[1] = nil -- Protect against downloading again this session.
+		ignoreBuild = true
+	end
+
+	if not ignoreBuild then
+		self:SetMode("BUILD", false, "Unnamed build")
+	end
+	self:LoadSettings(ignoreBuild)
+
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
 
@@ -78,6 +119,7 @@ function main:Init()
 			local newItem = new("Item", "Rarity: Unique\n"..raw)
 			if newItem.base then
 				newItem:NormaliseQuality()
+				newItem:BuildAndParseRaw()
 				self.uniqueDB.list[newItem.name] = newItem
 			elseif launch.devMode then
 				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
@@ -109,9 +151,6 @@ function main:Init()
 	if self.saveNewModCache then
 		self:SaveModCache()
 	end
-
-	self.sharedItemList = { }
-	self.sharedItemSetList = { }
 
 	self.anchorMain = new("Control", nil, 4, 0, 0, 0)
 	self.anchorMain.y = function()
@@ -175,44 +214,6 @@ of using one of the installers. If that is the case,
 please reinstall using one of the installers from
 the "Releases" section of the GitHub page.]])
 	end
-
-	self.inputEvents = { }
-	self.popups = { }
-	self.tooltipLines = { }
-
-	self.gameAccounts = { }
-
-	self.buildSortMode = "NAME"
-	self.connectionProtocol = 0
-	self.nodePowerTheme = "RED/BLUE"
-	self.showThousandsSeparators = true
-	self.thousandsSeparator = ","
-	self.decimalSeparator = "."
-	self.defaultItemAffixQuality = 0.5
-	self.showTitlebarName = true
-	self.showWarnings = true
-	self.slotOnlyTooltips = true
-	self.POESESSID = ""
-
-	local ignoreBuild
-	if arg[1] then
-		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
-			if not isSuccess then
-				self:SetMode("BUILD", false, data)
-			else
-				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
-				self:SetMode("BUILD", false, "Imported Build", xmlText)
-				self.newModeChangeToTree = true
-			end
-		end)
-		arg[1] = nil -- Protect against downloading again this session.
-		ignoreBuild = true
-	end
-
-	if not ignoreBuild then
-		self:SetMode("BUILD", false, "Unnamed build")
-	end
-	self:LoadSettings(ignoreBuild)
 
 	self.onFrameFuncs = { }
 end

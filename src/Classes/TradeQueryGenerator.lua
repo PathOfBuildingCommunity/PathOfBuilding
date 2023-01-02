@@ -105,6 +105,13 @@ local function stripInfluenceSuffix(key)
 end
 
 local function canModSpawnForItemCategory(mod, tags)
+	-- Synthesis modifiers have an empty weightKey (i.e., = {}). This was stripped from
+	-- client side back in league 3.10. Web-based Synthesis approximate use "stale" info.
+	-- To consider Synthesis mods we have to assume each mod can exist on any item base
+	-- Will be enabled when we have a mapping of mods to base types
+	--if mod.type == "Synthesis" then
+		-- return true
+	--end
 	for i, key in ipairs(mod.weightKey) do
 		local influenceStrippedKey = stripInfluenceSuffix(key)
 		if key ~= "default" and mod.affix:find("Elevated") ~= nil and tags[influenceStrippedKey] == true then
@@ -423,7 +430,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 			end
 
 			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-			local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDot,output.CombinedAvg)) or 0) - (self.calcContext.baseDPS or 0)
+			local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDotDPS,output.CombinedDPS)) or 0) - (self.calcContext.baseDPS or 0)
 			if meanDPSDiff > 0.01 then
 				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
 				self.alreadyWeightedMods[entry.tradeMod.id] = true
@@ -580,7 +587,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	-- Calculate base output with a blank item
 	local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
 	local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
-	local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDot or 0, baseOutput.CombinedAvg or 0))
+	local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDotDPS or 0, baseOutput.CombinedDPS or 0))
 
 	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
 	self.modWeights = { }
@@ -642,7 +649,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	self.calcContext.testItem:BuildAndParseRaw()
 
 	local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-	local currentDPSDiff =  (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0))) - (self.calcContext.baseDPS or 0)
+	local currentDPSDiff = (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDotDPS or 0, originalOutput.CombinedDPS or 0))) - (self.calcContext.baseDPS or 0)
 
 	-- Restore global cache full DPS
 	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
@@ -664,7 +671,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 				type_filters = {
 					filters = {
 						category = { option = self.calcContext.itemCategoryQueryStr },
-						rarity = {  option = "nonunique" }
+						rarity = { option = "nonunique" }
 					}
 				}
 			},
@@ -823,7 +830,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 	for _, currency in ipairs(currencyTable) do
 		table.insert(currencyDropdownNames, currency.name)
 	end
-	controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf)  end)
+	controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf) end)
 	controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, 5, 0, 150, 18, currencyDropdownNames, function(index, value) end)
 	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "Max Price:")
 	popupHeight = popupHeight + 23
