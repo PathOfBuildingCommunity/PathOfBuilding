@@ -298,7 +298,7 @@ local function getTriggerRateCap(env, breakdown, output, minion)
 	return triggerRate, icdr, triggerCD, triggeredCD
 end
 
--- Calcualte the impact other skills and source rate to trigger cooldown alighnement have on the trigger rate
+-- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
 function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 	local SIM_RESOLUTION = 2
@@ -403,7 +403,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 				is_initial = false
 			end
 		end
-		function State:anyUntriggered()
+		function State:anyNonTriggered()
 			for activation in self:iter() do
 				if activation.count == 0 then
 					return true
@@ -421,7 +421,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, icdr, triggerCD)
 			repeat
 				state:moveNextRound()
 				count = count-1
-			until(not (count > 0 or state:anyUntriggered()))
+			until(not (count > 0 or state:anyNonTriggered()))
 			
 			for i = 1, skillCount, 1 do
 				local avgRate = state.activations[i].time ~= 0 and (state.activations[i].count / state.activations[i].time) or 0
