@@ -74,6 +74,7 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("LuckyHits", "FLAG", true, "Base", { type = "Condition", var = "LuckyHits" })
 	modDB:NewMod("Convergence", "FLAG", true, "Base", { type = "Condition", var = "Convergence" })
 	modDB:NewMod("PhysicalDamageReduction", "BASE", -15, "Base", { type = "Condition", var = "Crushed" })
+	modDB:NewMod("CritChanceCap", "BASE", 100, "Base")
 	modDB.conditions["Buffed"] = env.mode_buffs
 	modDB.conditions["Combat"] = env.mode_combat
 	modDB.conditions["Effective"] = env.mode_effective
@@ -423,7 +424,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("TotemLightningResist", "BASE", 40, "Base")
 		modDB:NewMod("TotemChaosResist", "BASE", 20, "Base")
 		modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
-		modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
+		modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
+		modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
 		modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 		modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
@@ -776,22 +778,20 @@ function calcs.initEnv(build, mode, override, specEnv)
 							env.itemModDB:ScaleAddMod(mod, scale)
 						end
 					end
-				elseif item.name == "Kalandra's Touch, Iron Ring" then
-					if slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId] then
-						local item = build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]
-						srcList = copyTable(item.modList or item.slotModList[slot.slotNum])
-					elseif slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId] then
-						local item = build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId]
-						srcList = copyTable(item.modList or item.slotModList[slot.slotNum])
-					end
-					for index, mod in ipairs(srcList) do
-						modLib.setSource(mod, item.modSource)
-						for _, tag in ipairs(mod) do
-							if tag.type == "SocketedIn" then
-								srcList[index] = nil
-								break
+				elseif item.name:match("Kalandra's Touch") then
+					local otherRing = (slotName == "Ring 1" and build.itemsTab.items[build.itemsTab.orderedSlots[59].selItemId]) or (slotName == "Ring 2" and build.itemsTab.items[build.itemsTab.orderedSlots[58].selItemId])
+					if otherRing and not otherRing.name:match("Kalandra's Touch") then
+						local otherRingList = otherRing and copyTable(otherRing.modList or otherRing.slotModList[slot.slotNum]) or {}
+						for index, mod in ipairs(otherRingList) do
+							modLib.setSource(mod, item.modSource)
+							for _, tag in ipairs(mod) do
+								if tag.type == "SocketedIn" then
+									otherRingList[index] = nil
+									break
+								end
 							end
 						end
+						env.itemModDB:ScaleAddList(otherRingList, scale)
 					end
 					env.itemModDB:ScaleAddList(srcList, scale)
 				else
@@ -1213,7 +1213,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 			
 			-- Check for enabled energy blade to see if we need to regenerate everything.
-			if not modDB.conditions["AffectedByEnergyBlade"] then
+			if not modDB.conditions["AffectedByEnergyBlade"] and socketGroup.enabled and socketGroup.slotEnabled then
 				for _, gemInstance in ipairs(socketGroup.gemList) do
 					local grantedEffect = gemInstance.gemData and gemInstance.gemData.grantedEffect or gemInstance.grantedEffect
 					if grantedEffect and not grantedEffect.support and gemInstance.enabled and grantedEffect.name == "Energy Blade" then
@@ -1241,8 +1241,28 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for _, activeSkill in pairs(env.player.activeSkillList) do
 			calcs.buildActiveSkillModList(env, activeSkill)
 		end
+	else
+		-- Wipe skillData and readd required data the rest of the data will be added by the rest of code this stops iterative calculations on skillData not being reset
+		for _, activeSkill in pairs(env.player.activeSkillList) do
+			local skillData = copyTable(activeSkill.skillData, true)
+			activeSkill.skillData = { }
+			for _, value in ipairs(env.modDB:List(activeSkill.skillCfg, "SkillData")) do
+				activeSkill.skillData[value.key] = value.value
+			end
+			for _, value in ipairs(activeSkill.skillModList:List(activeSkill.skillCfg, "SkillData")) do
+				activeSkill.skillData[value.key] = value.value
+			end
+			-- These mods were modified with special expressions in buildActiveSkillModList() use old one to avoid more calculations
+			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
+			activeSkill.skillData.cooldown = skillData.cooldown
+			activeSkill.skillData.CritChance = skillData.CritChance
+			activeSkill.skillData.attackTime = skillData.attackTime
+			activeSkill.skillData.totemLevel = skillData.totemLevel
+			activeSkill.skillData.damageEffectiveness = skillData.damageEffectiveness
+			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
+		end
 	end
-	
+
 	-- Merge Requirements Tables
 	env.requirementsTable = tableConcat(env.requirementsTableItems, env.requirementsTableGems)
 

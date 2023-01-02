@@ -116,7 +116,7 @@ Variant: Current
 LevelReq: 20
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength
-{variant:1}10% reduced Chance to Block Attacks and Spells
+{variant:1}10% reduced Chance to Block Attack and Spell Damage
 {tags:physical}(15-25)% increased Global Physical Damage
 {tags:critical}You take 30% reduced Extra Damage from Critical Strikes
 {tags:life}+(30-40) to maximum Life

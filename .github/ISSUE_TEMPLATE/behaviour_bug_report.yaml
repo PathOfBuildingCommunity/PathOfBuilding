@@ -1,6 +1,6 @@
-name: Bug report
-description: Create a bug report to help us improve
-labels: [bug]
+name: Behaviour bug report
+description: Create a bug report to help us fix incorrectly behaviour or logic
+labels: ["bug:behaviour"]
 body:
   - type: markdown
     attributes:
@@ -21,33 +21,39 @@ body:
       options:
         - label: I've checked for duplicate issues by using the search function of the [issue tracker](https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues)
           required: true
+  - type: checkboxes
+    id: validity
+    attributes:
+      label: Check for support
+      options: 
+        - label: I've checked that the behaviour is supposed to be supported. If it isn't please open a feature request instead (Red text is a feature request).
+          required: true
   - type: textarea
     id: expected
     attributes:
-      label: What is the expected behaviour/value?
+      label: What is the behaviour ingame?
       description: Please write a clear and concise description of what should happen.
-      placeholder: E.g. When I'm clicking on [...], I expect [...].
+      placeholder: E.g. Ingame something behaves in a certain way. e.g. curse priority, auras disabled by mod, skills triggered in a certain way, etc.
     validations:
       required: true
   - type: textarea
     id: actual
     attributes:
-      label: What is the actual behaviour/value?
+      label: What is the behaviour in Path of Building?
       description: Please write a clear and concise description of what actually happens.
-      placeholder: E.g. When I'm hovering over [...], PoB displays [...].
+      placeholder: E.g. In Path of Building something behaves incorrectly e.g. incorrect curse priority, auras not disabled by mod, skill not triggered correctly, etc.
     validations:
       required: true
   - type: textarea
-    id: alternatives
+    id: steps
     attributes:
       label: How to reproduce the issue
       description: Please provide step-by-step instructions.
       placeholder: |
         E.g.
-        1. Select [...] as main skill.
-        2. Switch to the items tab.
-        3. Remove the main skill group.
-        4. [...].
+        1. Add [...] skill.
+        2. Switch to the calcs tab.
+        3. See incorrect [...] applied.
     validations:
       required: false
   - type: textarea
@@ -63,7 +69,7 @@ body:
     id: context
     attributes:
       label: Screenshots
-      description: If you receive an error or experience graphical bugs, include one or multiple screenshots. GIFs or short videos are also okay, if the bug cannot be displayed in a still image.
-      placeholder: In this text area, you can attach files directly or link to them if they're hosted elsewhere instead.
+      description: Always provide screenshots of the problematic behaviours if possible. GIFs or short videos are also okay, if the bug cannot be displayed in a still image.
+      placeholder: In this text area, you can attach files/images (copy paste) directly, or link to them if they're hosted elsewhere instead.
     validations:
       required: false

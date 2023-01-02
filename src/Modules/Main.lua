@@ -55,9 +55,11 @@ function main:Init()
 	self.buildPath = self.defaultBuildPath
 	MakeDir(self.buildPath)
 
-	if launch.devMode and IsKeyDown("CTRL")  then
-		self:RebuildModCache()
-	elseif not launch.headlessMode then
+	if launch.devMode and IsKeyDown("CTRL") then
+		-- If modLib.parseMod doesn't find a cache entry it generates it.
+		-- Not loading pre-generated cache causes it to be rebuilt
+		self.saveNewModCache = true
+	elseif not launch.continuousIntegrationMode then -- Forces regeneration of modCache if ran from CI
 		-- Load mod cache
 		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
@@ -65,6 +67,47 @@ function main:Init()
 	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
 		self.allowTreeDownload = true
 	end
+
+	self.sharedItemList = { }
+	self.sharedItemSetList = { }
+
+	self.inputEvents = { }
+	self.popups = { }
+	self.tooltipLines = { }
+
+	self.gameAccounts = { }
+
+	self.buildSortMode = "NAME"
+	self.connectionProtocol = 0
+	self.nodePowerTheme = "RED/BLUE"
+	self.showThousandsSeparators = true
+	self.thousandsSeparator = ","
+	self.decimalSeparator = "."
+	self.defaultItemAffixQuality = 0.5
+	self.showTitlebarName = true
+	self.showWarnings = true
+	self.slotOnlyTooltips = true
+	self.POESESSID = ""
+
+	local ignoreBuild
+	if arg[1] then
+		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
+			if not isSuccess then
+				self:SetMode("BUILD", false, data)
+			else
+				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
+				self:SetMode("BUILD", false, "Imported Build", xmlText)
+				self.newModeChangeToTree = true
+			end
+		end)
+		arg[1] = nil -- Protect against downloading again this session.
+		ignoreBuild = true
+	end
+
+	if not ignoreBuild then
+		self:SetMode("BUILD", false, "Unnamed build")
+	end
+	self:LoadSettings(ignoreBuild)
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
@@ -76,6 +119,7 @@ function main:Init()
 			local newItem = new("Item", "Rarity: Unique\n"..raw)
 			if newItem.base then
 				newItem:NormaliseQuality()
+				newItem:BuildAndParseRaw()
 				self.uniqueDB.list[newItem.name] = newItem
 			elseif launch.devMode then
 				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
@@ -103,9 +147,10 @@ function main:Init()
 			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
 	end
-
-	self.sharedItemList = { }
-	self.sharedItemSetList = { }
+	
+	if self.saveNewModCache then
+		self:SaveModCache()
+	end
 
 	self.anchorMain = new("Control", nil, 4, 0, 0, 0)
 	self.anchorMain.y = function()
@@ -170,48 +215,10 @@ please reinstall using one of the installers from
 the "Releases" section of the GitHub page.]])
 	end
 
-	self.inputEvents = { }
-	self.popups = { }
-	self.tooltipLines = { }
-
-	self.gameAccounts = { }
-
-	self.buildSortMode = "NAME"
-	self.connectionProtocol = 0
-	self.nodePowerTheme = "RED/BLUE"
-	self.showThousandsSeparators = true
-	self.thousandsSeparator = ","
-	self.decimalSeparator = "."
-	self.defaultItemAffixQuality = 0.5
-	self.showTitlebarName = true
-	self.showWarnings = true
-	self.slotOnlyTooltips = true
-	self.POESESSID = ""
-
-	local ignoreBuild
-	if arg[1] then
-		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
-			if not isSuccess then
-				self:SetMode("BUILD", false, data)
-			else
-				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
-				self:SetMode("BUILD", false, "Imported Build", xmlText)
-				self.newModeChangeToTree = true
-			end
-		end)
-		arg[1] = nil -- Protect against downloading again this session.
-		ignoreBuild = true
-	end
-
-	if not ignoreBuild then
-		self:SetMode("BUILD", false, "Unnamed build")
-	end
-	self:LoadSettings(ignoreBuild)
-
 	self.onFrameFuncs = { }
 end
 
-function main:RebuildModCache()
+function main:SaveModCache()
 	-- Update mod cache
 	local out = io.open("Data/ModCache.lua", "w")
 	out:write('local c=...')

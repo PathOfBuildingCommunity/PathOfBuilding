@@ -9,8 +9,10 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
+#addSkillTypes DamageOverTime
 #skill SandstormChaosElementalSummoned Chaos Aura
 #flags spell duration area
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill FireElementalFlameRedSummoned Immolate
@@ -80,6 +82,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
+#addSkillTypes Melee Multistrikeable
 #skill RockGolemSlam Slam
 #flags attack melee area
 #mods
@@ -202,7 +205,7 @@ skills["MinionInstability"] = {
 		area = true,
 		fire = true,
 	},
-	skillTypes = { [10] = true, },
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
 	baseMods = {
 		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
 		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
@@ -311,10 +314,11 @@ skills["InfernalLegion"] = {
 
 #skill ReaperConsumeMinionForBuff Consume
 #flags spell
-#baseMod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
-#baseMod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
-#baseMod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
-#baseMod skill("buffAllies", true),
+#baseMod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod skill("buffAllies", true)
+#mods
 
 #skill MPWExpeditionSummonedArbalestProjectile Projectile Attack
 #flags attack projectile

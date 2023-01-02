@@ -224,7 +224,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 
 	-- All items list
 	if main.portraitMode then
-		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.controls.specButton,"BOTTOMRIGHT"}, 0, 20, 360, 308, self, true)
+		self.controls.itemList = new("ItemListControl", {"TOPRIGHT",self.lastSlot,"BOTTOMRIGHT"}, 0, 0, 360, 308, self, true)
 	else
 		self.controls.itemList = new("ItemListControl", {"TOPLEFT",self.controls.setManage,"TOPRIGHT"}, 20, 20, 360, 308, self, true)
 	end
@@ -1240,7 +1240,7 @@ function ItemsTabClass:UpdateSockets()
 	end
 
 	if main.portraitMode then
-		self.controls.itemList:SetAnchor("TOPRIGHT",self.controls.specButton,"BOTTOMRIGHT", 0, 40)
+		self.controls.itemList:SetAnchor("TOPRIGHT",self.lastSlot,"BOTTOMRIGHT", 0, 40)
 	end
 end
 
@@ -1716,8 +1716,11 @@ function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	newItem:BuildAndParseRaw()
 
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
+	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	local outputBase = calcFunc({ repSlotName = slotName, repItem = self.displayItem }, {})
 	local outputNew = calcFunc({ repSlotName = slotName, repItem = newItem }, {})
+	GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, "\nAdding this mod will give: ")	
 end
 
@@ -2119,8 +2122,11 @@ function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
 		header = "^7"..actionText.." nothing will give you: "
 	end
 	local calcFunc = self.build.calcsTab:GetMiscCalculator()
+	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	local outputBase = calcFunc({ repSlotName = "Amulet", repItem = self.displayItem }, {})
 	local outputNew = calcFunc({ repSlotName = "Amulet", repItem = self:anointItem(node) }, {})
+	GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
 	if node and numChanges == 0 then
 		tooltip:AddLine(14, "^7"..actionText.." "..node.dn.." changes nothing.")
