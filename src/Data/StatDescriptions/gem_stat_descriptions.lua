@@ -8621,7 +8621,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Damage to Close Range Enemies"
+					text="{0}% increased Damage with Hits to Close Range Enemies"
 				}
 			}
 		},
@@ -15167,7 +15167,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Minions from Supported Skills deal {0}% more Damage to Enemies that are Near you"
+					text="Minions from Supported Skills deal {0}% more Damage with Hits and Ailments to Enemies that are Near you"
 				},
 				[2]={
 					[1]={
@@ -15180,7 +15180,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Minions from Supported Skills deal {0}% less Damage to Enemies that are Near you"
+					text="Minions from Supported Skills deal {0}% less Damage with Hits and Ailments to Enemies that are Near you"
 				}
 			}
 		},

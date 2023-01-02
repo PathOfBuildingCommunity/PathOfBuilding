@@ -112,7 +112,7 @@ local skillTypes = {
 	"Microtransaction",
 	"OwnerCannotUse",
 	"ProjectilesNotFired",
-	"PreventHexTransfer",
+	"TotemsAreBallistae",
 }
 
 local wellShitIGotThoseWrong = {

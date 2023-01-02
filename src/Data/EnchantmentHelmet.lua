@@ -1005,12 +1005,12 @@ return {
 		["MERCILESS"] = {
 			"25% increased Flame Surge Damage",
 			"60% increased Flame Surge Critical Strike Chance",
-			"40% increased Flame Surge Damage against Burning Enemies",
+			"40% increased Flame Surge Damage with Hits and Ailments against Burning Enemies",
 		},
 		["ENDGAME"] = {
 			"40% increased Flame Surge Damage",
 			"90% increased Flame Surge Critical Strike Chance",
-			"60% increased Flame Surge Damage against Burning Enemies",
+			"60% increased Flame Surge Damage with Hits and Ailments against Burning Enemies",
 		},
 	},
 	["Flame Wall"] = {
