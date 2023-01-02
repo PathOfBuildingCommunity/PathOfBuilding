@@ -740,7 +740,7 @@ function TradeQueryClass:UpdateRealms()
 		ConPrintf("Fetching realms and leagues using POESESSID")
 		self.tradeQueryRequests:FetchRealmsAndLeaguesHTML(function(data, errMsg)
 			if errMsg then
-				self:SetNotice("Error while fetching league list: "..errMsg)
+				self:SetNotice(self.controls.pbNotice, "Error while fetching league list: "..errMsg)
 				return
 			end
 			local leagues = data.leagues
