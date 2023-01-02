@@ -562,7 +562,6 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 			)
 		end)
 	end)
-	-- controls["bestButton"..str_cnt].enabled = function() return main.POESESSID ~= "" end
 	controls["bestButton"..str_cnt].shown = function() return not self.resultTbl[str_cnt] end
 	controls["bestButton"..str_cnt].tooltipText = "Creates a weighted search to find the highest DPS items for this slot."
 	controls["uri"..str_cnt] = new("EditControl", {"TOPLEFT",controls["bestButton"..str_cnt],"TOPRIGHT"}, 8, 0, 518, row_height, nil, nil, "^%C\t\n", nil, function(buf)
