@@ -334,6 +334,10 @@ on trade site to work on other leagues and realms)]]
 			end)
 		end
 	end)
+	self.controls.realm:SetSel(self.pbRealmIndex)
+	self.controls.realm.enabled = function()
+		return self.realmDropList and #self.realmDropList > 1
+	end
 
 	-- League selection
 	self.controls.leagueLabel = new("LabelControl", {"TOPRIGHT", self.controls.realmLabel, "TOPRIGHT"}, 0, 24, 20, 16, "^7League:")
