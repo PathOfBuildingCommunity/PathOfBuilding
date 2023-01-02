@@ -2962,7 +2962,7 @@ function calcs.perform(env, avoidCache)
 		
 		local simBreakdown = nil
 		output.TriggerRateCap = m_min(1 / effCDTriggeredSkill, triggerRateOfTrigger)
-		output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, 1, icdr, adjTriggerInterval)
+		output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, triggerRateOfTrigger, icdr, 0)
 		
 		if breakdown then
 			if triggeredCD or cooldownOverride then
