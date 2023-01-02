@@ -298,6 +298,9 @@ Trade Weighted Sum - Displays the order retrieved from trade]]
 	-- Use Enchant in DPS sorting
 	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, row_height, "Include Enchants:", function(state)
 		self.enchantInSort = state
+		for index, _ in pairs(self.resultTbl) do
+			self:UpdateControlsWithItems({name = baseSlots[index]}, index)
+		end
 	end)
 	self.controls.enchantInSort.tooltipText = "This includes enchants in sorting that occurs after trade results have been retrieved"
 
