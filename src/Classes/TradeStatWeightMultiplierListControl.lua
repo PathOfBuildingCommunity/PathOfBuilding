@@ -1,7 +1,7 @@
 -- Path of Building
 --
 -- Class: Trade Stat Weight Multiplier List Control
--- Specialized UI element for listing and modifing Trade Stat Weight Multipliers.
+-- Specialized UI element for listing and modifying Trade Stat Weight Multipliers.
 --
 
 local TradeStatWeightMultiplierListControlClass = newClass("TradeStatWeightMultiplierListControl", "ListControl", function(self, anchor, x, y, width, height, list, indexController)
