@@ -305,29 +305,17 @@ on trade site to work on other leagues and realms)]]
 			tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
 		end
 	end
-
-^2Session Mode^7
-- Requires POESESSID.
-- You can search, compare, and quickly import items without leaving Path of Building.
-- You can generate and perform searches for the private leagues you are participating.
-
-^xFF9922No Session Mode^7
-- Doesn't require POESESSID.
-- You cannot search and compare items in Path of Building.
-- You can generate weighted search URLs but have to visit the trade site and manually import items.
-- You can only generate weighted searches for public leagues. (Generated searches can be modified
-on trade site to work on other leagues and realms)]]
 	self.sortModes = {
-		DPS = "DPS",
-		DPS_PRICE = "DPS / Price",
-		PRICE_ASCENDING = "Price (Lowest)",
-		WEIGHT = "Weighted Sum",
+		StatValue = "(Highest) Stat Value",
+		StatValuePRICE = "Stat Value / Price",
+		PRICE = "(Lowest) Price",
+		WEIGHT = "(Highest) Weighted Sum",
 	}
 	-- Item sort dropdown
-	self.sortSelectionList = {
-		self.sortModes.DPS,
-		self.sortModes.DPS_PRICE,
-		self.sortModes.PRICE_ASCENDING,
+	self.itemSortSelectionList = {
+		self.sortModes.StatValue,
+		self.sortModes.StatValuePRICE,
+		self.sortModes.PRICE,
 		self.sortModes.WEIGHT,
 	}
 	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",self.controls.StatWeightMultipliersButton,"BOTTOMRIGHT"}, 0, 4, 154, 18, self.itemSortSelectionList, function(index, value)
@@ -587,12 +575,13 @@ end
 
 -- Method to update controls after a search is completed
 function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
-	local sortMode = self.sortSelectionList[self.pbSortSelectionIndex]
+	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(slotTbl, index, sortMode)
 	if errMsg == "MissingConversionRates" then
-		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to DPS sort.")
-		sortedItems, errMsg = self:SortFetchResults(slotTbl, index, self.sortModes.DPS)
-	elseif errMsg then
+		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to Stat Value sort.")
+		sortedItems, errMsg = self:SortFetchResults(slotTbl, index, self.sortModes.StatValue)
+	end
+	if errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
 		return
 	else
@@ -630,15 +619,9 @@ function TradeQueryClass:SetFetchResultReturn(slotIndex, index)
 end
 
 -- Method to sort the fetched results
--- 1 Highest Stat Value
--- 2 Stat Value / Price
--- 3 Lowest Price
--- 4 Highest Trade Weight
-function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
-	local newTbl = {}
-	-- Stat Value
-	if self.pbItemSortSelectionIndex <= 2 then
-		local slot = slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name]
+function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
+	local function getStatValueTable()
+		local out = {}
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
 		local storedFullDPS = GlobalCache.useFullDPS
 		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
@@ -649,23 +632,14 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 			local newStatValue = 0
 			for _, statTable in ipairs(self.statSortSelectionList) do
 				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-					newStatValue = newStatValue + m_max(output.TotalDPS or 0, m_max(output.TotalDotDPS or 0, output.CombinedDPS or 0)) * statTable.weightMult
+					newStatValue = newStatValue + m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0)) * statTable.weightMult
 				else
 					newStatValue = newStatValue + ( output[statTable.stat] or 0 ) * statTable.weightMult
 				end
 			end
-			-- Stat Value / Price
-			if self.pbItemSortSelectionIndex == 2 then
-				local chaosAmount = self:ConvertCurrencyToChaos(tbl.currency, tbl.amount)
-				if chaosAmount > 0 then
-					t_insert(newTbl, { outputAttr = newStatValue / chaosAmount, index = index })
-				end
-			else
-				if tbl.amount > 0 then
-					t_insert(newTbl, { outputAttr = newStatValue, index = index })
-				end
-			end
+			out[index] = newStatValue
 		end
+		GlobalCache.useFullDPS = storedFullDPS
 		return out
 	end
 	local function getPriceTable()
@@ -688,23 +662,23 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 			t_insert(newTbl, { outputAttr = index, index = index })
 		end
 		return newTbl
-	elseif mode == self.sortModes.DPS  then
-		local dpsTable = getDpsTable()
-		for index, dps in pairs(dpsTable) do
-			t_insert(newTbl, { outputAttr = dps, index = index })
+	elseif mode == self.sortModes.StatValue  then
+		local StatValueTable = getStatValueTable()
+		for index, statValue in pairs(StatValueTable) do
+			t_insert(newTbl, { outputAttr = statValue, index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.DPS_PRICE then
-		local dpsTable = getDpsTable()
+	elseif mode == self.sortModes.StatValuePRICE then
+		local StatValueTable = getStatValueTable()
 		local priceTable = getPriceTable()
 		if priceTable == nil then
 			return nil, "MissingConversionRates"
 		end
-		for index, dps in pairs(dpsTable) do
-			t_insert(newTbl, { outputAttr = dps / priceTable[index], index = index })
+		for index, statValue in pairs(StatValueTable) do
+			t_insert(newTbl, { outputAttr = statValue / priceTable[index], index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.PRICE_ASCENDING then
+	elseif mode == self.sortModes.PRICE then
 		local priceTable = getPriceTable()
 		if priceTable == nil then
 			return nil, "MissingConversionRates"
@@ -777,7 +751,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 		end)
 	end)
 	controls["bestButton"..str_cnt].shown = function() return not self.resultTbl[str_cnt] end
-	controls["bestButton"..str_cnt].tooltipText = "Creates a weighted search to find the highest DPS items for this slot."
+	controls["bestButton"..str_cnt].tooltipText = "Creates a weighted search to find the highest Stat Value items for this slot."
 	controls["uri"..str_cnt] = new("EditControl", {"TOPLEFT",controls["bestButton"..str_cnt],"TOPRIGHT"}, 8, 0, 518, row_height, nil, nil, "^%C\t\n", nil, function(buf)
 		local subpath = buf:match("https://www.pathofexile.com/trade/search/(.+)$") or ""
 		local paths = {}
