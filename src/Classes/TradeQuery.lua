@@ -269,6 +269,18 @@ function TradeQueryClass:PriceItem()
 	self.controls.poesessidButton.tooltipText = [[
 The Trader feature supports two modes of operation depending on the POESESSID availability.
 You can click this button to enter your POESESSID.
+
+^2Session Mode^7
+- Requires POESESSID.
+- You can search, compare, and quickly import items without leaving Path of Building.
+- You can generate and perform searches for the private leagues you are participating.
+
+^xFF9922No Session Mode^7
+- Doesn't require POESESSID.
+- You cannot search and compare items in Path of Building.
+- You can generate weighted search URLs but have to visit the trade site and manually import items.
+- You can only generate weighted searches for public leagues. (Generated searches can be modified
+on trade site to work on other leagues and realms)]]
 	
 	-- Stat sort popup button
 	self.statSortSelectionList = { }
@@ -282,7 +294,7 @@ You can click this button to enter your POESESSID.
 		stat = "TotalEHP",
 		weightMult = 0.5,
 	})
-	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 15, 100, 18, "^7Sort Calc By:", function()
+	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, "^7Sort Calc By:", function()
 		self:SetStatWeights()
 	end)
 	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
