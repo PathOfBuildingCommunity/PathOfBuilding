@@ -59,6 +59,20 @@ end })
 local globalOutput = nil
 local globalBreakdown = nil
 
+local function IsTriggered(skillData)
+	return skillData.triggeredWhileChannelling 
+		or skillData.triggeredByCoC
+		or skillData.triggeredByMeleeKill
+		or skillData.triggeredByCospris
+		or skillData.triggeredByMjolner
+		or skillData.triggeredByUnique
+		or skillData.triggeredByFocus
+		or skillData.triggeredByCraft
+		or skillData.triggeredByManaSpent
+		or skillData.triggeredByParentAttack
+		or skillData.triggeredWhenHexEnds
+end
+
 -- Calculate min/max damage for the given damage type
 local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags, convDst)
 	local skillModList = activeSkill.skillModList
@@ -262,6 +276,7 @@ end
 function calcSkillCooldown(skillModList, skillCfg, skillData)
 	local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
 	local cooldown = cooldownOverride or (skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(skillModList, skillCfg, "CooldownRecovery"))
+	-- TODO: Do not round to tick rate for skills that store multiple uses!
 	cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	return cooldown
 end
@@ -390,7 +405,8 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("initialFunc")
 
-	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
+
+	local isTriggered = IsTriggered(skillData)
 	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
@@ -4406,7 +4422,6 @@ function calcs.offence(env, actor, activeSkill)
 			local repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
 			local useSpeed = 1
 			local timeType
-			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
 			if skillFlags.trap or skillFlags.mine then
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
 				local cooldown = output.TrapCooldown or output.Cooldown
@@ -4420,7 +4435,7 @@ function calcs.offence(env, actor, activeSkill)
 				timeType = "full unleash"
 			else
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.Speed > 0 and output.Speed or 1 / output.Cooldown) or output.Speed) / repeats
-				timeType = isTriggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
+				timeType = IsTriggered(skillData) and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
 			end
 
 			output[usedResource.."PerSecondHasCost"] = true

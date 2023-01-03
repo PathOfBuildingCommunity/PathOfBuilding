@@ -39,7 +39,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 end
 
 -- Calculate Trigger Rate Cap accounting for ICDR
-local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, focus, minion)
+local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, focus, minion, storesMultipleUses)
 	local icdr = 1
 	local cooldownOverride = false
 	if focus then
@@ -54,8 +54,13 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 	end
 
 	local modActionCooldown = cooldownOverride or (baseActionCooldown / icdr)
-	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
+	local rateCapAdjusted = modActionCooldown
+	local extraICDRNeeded = 0
+	if not storesMultipleUses then
+		rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
+	end
+
 	if breakdown then
 		if cooldownOverride then
 			if minion then
@@ -73,18 +78,30 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 				s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
 			}
 		else
-			breakdown.ActionTriggerRate = {
-				s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
-				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-				s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
-				s_format(""),
-				s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
-				s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
-				s_format(""),
-				s_format("Trigger rate:"),
-				s_format("1 / %.3f", rateCapAdjusted),
-				s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
-			}
+			if storesMultipleUses then
+				breakdown.ActionTriggerRate = {
+					s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+					s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+					s_format(""),
+					s_format("Trigger rate:"),
+					s_format("1 / %.3f", rateCapAdjusted),
+					s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
+				}
+			else
+				breakdown.ActionTriggerRate = {
+					s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+					s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+					s_format(""),
+					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+					s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
+					s_format(""),
+					s_format("Trigger rate:"),
+					s_format("1 / %.3f", rateCapAdjusted),
+					s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
+				}
+			end
 		end
 	end
 	return 1 / rateCapAdjusted
@@ -3093,6 +3110,65 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
+	-- Doom Blast (from Impending Doom)
+	if env.player.mainSkill.skillData.triggeredWhenHexEnds and not env.player.mainSkill.skillFlags.minion then
+		local spellCount = {}
+		local source = nil
+		local hexCastRate = 0
+		local trigRate = 0
+		for _, skill in ipairs(env.player.activeSkillList) do
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			if skill.skillTypes[SkillType.Hex] and (match1 or match2) then
+				source, hexCastRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+			if skill.skillData.triggeredWhenHexEnds and (match1 or match2) then
+				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, next_trig = 0, count = 0 })
+			end
+		end
+		if not source or #spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredWhenHexEnds = nil
+			env.player.mainSkill.infoMessage = "No Triggering Hex Found"
+			env.player.mainSkill.infoTrigger = ""
+		else
+			env.player.mainSkill.skillData.triggered = true
+
+			local vixen_trigger_cap = modDB:Flag(nil, "VixenTriggerCap")
+			if vixen_trigger_cap then
+				local maxVixenTriggerRate = getTriggerActionTriggerRate(0.25, env)
+
+				if hexCastRate > maxVixenTriggerRate then
+					hexCastRate = hexCastRate - m_ceil(hexCastRate - maxVixenTriggerRate)
+				end
+			end
+
+			-- Set trigger rate
+			local overlaps = env.player.mainSkill.skillPart
+			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown, false, false, true)
+			output.SourceTriggerRate = hexCastRate * overlaps
+			output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
+			if breakdown then
+				breakdown.SourceTriggerRate = {
+					s_format("%.2f ^8(%s %s)", hexCastRate, vixen_trigger_cap and "Vixen's Entrapment" or source.activeEffect.grantedEffect.name, vixen_trigger_cap and "trigger rate" or "casts per second"),
+					s_format("* %.2f ^8(overlaps)", overlaps),
+					s_format("= %.2f ^8per second", output.SourceTriggerRate),
+				}
+				-- Adjust for server tick rate
+				breakdown.ServerTriggerRate = {
+					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = output.ServerTriggerRate
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "Triggering Hex: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = "DoomBlast"
+		end
+	end
+	
+	
 	-- Triggered by parent attack
 	if env.minion and env.player.mainSkill.minion then
 		if env.minion.mainSkill.skillData.triggeredByParentAttack then

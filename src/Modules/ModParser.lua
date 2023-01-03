@@ -3643,6 +3643,9 @@ local specialModList = {
 	["every 8 seconds, gain avatar of fire for 4 seconds"] = {
 		flag("Condition:HaveVulconus"),
 	},
+	["trigger socketed curse spell when you cast a curse spell, with a ([%d%.]+) second cooldown"] = {
+		flag("Condition:HaveVixensEntrapment"),
+	},
 	["modifiers to attributes instead apply to omniscience"] = { flag("Omniscience") },
 	["attribute requirements can be satisfied by (%d+)%% of omniscience"] = function(num) return {
 		mod("OmniAttributeRequirements", "INC", num),

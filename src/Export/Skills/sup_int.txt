@@ -356,8 +356,18 @@ local skills, mod, flag, skill = ...
 
 #skill ViciousHexExplosion
 #flags spell area
+	parts = {
+		{
+			name = "No Overlap",
+		},
+		{
+			name = "1 Overlap",
+		},
+		{
+			name = "2 Overlaps",
+		},
+	},
 #baseMod skill("radius", 20)
-#baseMod skill("showAverage", true)
 #mods
 
 #skill SupportIncreasedAreaOfEffect
