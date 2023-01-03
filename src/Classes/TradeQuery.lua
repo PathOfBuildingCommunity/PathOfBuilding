@@ -647,7 +647,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index)
 			local newStatValue = 0
 			for _, statTable in ipairs(self.statSortSelectionList) do
 				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-					newStatValue = newStatValue + m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0)) * statTable.weightMult
+					newStatValue = newStatValue + m_max(output.TotalDPS or 0, m_max(output.TotalDotDPS or 0, output.CombinedDPS or 0)) * statTable.weightMult
 				else
 					newStatValue = newStatValue + ( output[statTable.stat] or 0 ) * statTable.weightMult
 				end
