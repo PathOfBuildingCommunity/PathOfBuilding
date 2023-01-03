@@ -402,16 +402,17 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 				logToFile("Failed to test %s mod: %s", self.calcContext.itemCategory, modLine)
 			end
 
+			local baseOutput = self.calcContext.baseOutput
 			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
 			local meanStatDiff = 0
 			for _, statTable in ipairs(self.calcContext.options.statWeights) do
 				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-					meanStatDiff = meanStatDiff + m_max(output.TotalDPS or 0, m_max(output.TotalDotDPS or 0, output.CombinedDPS or 0)) * statTable.weightMult
+					meanStatDiff = meanStatDiff + m_max((output.TotalDPS or 0) / (baseOutput.TotalDPS or 0), m_max((output.TotalDotDPS or 0) / (baseOutput.TotalDotDPS or 0), (output.CombinedDPS or 0) / (baseOutput.CombinedDPS or 0))) * statTable.weightMult
 				else
-					meanStatDiff = meanStatDiff + ( output[statTable.stat] or 0 ) * statTable.weightMult
+					meanStatDiff = meanStatDiff + ( output[statTable.stat] or 0 ) / ( baseOutput[statTable.stat] or 0 ) * statTable.weightMult
 				end
 			end
-			meanStatDiff = meanStatDiff - (self.calcContext.baseStatValue or 0)
+			meanStatDiff = meanStatDiff * 1000 - (self.calcContext.baseStatValue or 0)
 			if meanStatDiff > 0.01 then
 				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
 				self.alreadyWeightedMods[entry.tradeMod.id] = true
@@ -530,15 +531,18 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 
 	-- Calculate base output with a blank item
 	local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
-	local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
+	local baseOutput = calcFunc({ })
+	local baseItemOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
 	local compStatValue = 0
 	for _, statTable in ipairs(options.statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-			compStatValue = compStatValue + m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDotDPS or 0, baseOutput.CombinedDPS or 0)) * statTable.weightMult
+			compStatValue = compStatValue + m_max((baseItemOutput.TotalDPS or 0) / (baseOutput.TotalDPS or 0), m_max((baseItemOutput.TotalDotDPS or 0) / (baseOutput.TotalDotDPS or 0), (baseItemOutput.CombinedDPS or 0) / (baseOutput.CombinedDPS or 0))) * statTable.weightMult
 		else
-			compStatValue = compStatValue + (baseOutput[statTable.stat] or 0) * statTable.weightMult
+			compStatValue = compStatValue + (baseItemOutput[statTable.stat] or 0) / ( baseOutput[statTable.stat] or 0 ) * statTable.weightMult
 		end
 	end
+	-- make weights more human readable
+	compStatValue = compStatValue * 1000
 
 	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
 	self.modWeights = { }
@@ -548,6 +552,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		itemCategoryQueryStr = itemCategoryQueryStr,
 		itemCategory = itemCategory,
 		testItem = testItem,
+		baseOutput = baseOutput,
 		baseStatValue = compStatValue,
 		calcFunc = calcFunc,
 		options = options,
@@ -599,16 +604,17 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 	self.calcContext.testItem:BuildAndParseRaw()
 
+	local baseOutput = self.calcContext.baseOutput
 	local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
 	local currentStatDiff = 0
 	for _, statTable in ipairs(self.calcContext.options.statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-			currentStatDiff = currentStatDiff + m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDotDPS or 0, originalOutput.CombinedDPS or 0)) * statTable.weightMult
+			currentStatDiff = currentStatDiff + m_max((originalOutput.TotalDPS or 0) / (baseOutput.TotalDPS or 0), m_max((originalOutput.TotalDotDPS or 0) / (baseOutput.TotalDotDPS or 0), (originalOutput.CombinedDPS or 0) / (baseOutput.CombinedDPS or 0))) * statTable.weightMult
 		else
-			currentStatDiff = currentStatDiff + ( originalOutput[statTable.stat] or 0 ) * statTable.weightMult
+			currentStatDiff = currentStatDiff + ( originalOutput[statTable.stat] or 0 ) / ( baseOutput[statTable.stat] or 0 ) * statTable.weightMult
 		end
 	end
-	currentStatDiff = currentStatDiff - (self.calcContext.baseStatValue or 0)
+	currentStatDiff = currentStatDiff * 1000 - (self.calcContext.baseStatValue or 0)
 
 	-- Restore global cache full DPS
 	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
