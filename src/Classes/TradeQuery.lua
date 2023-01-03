@@ -492,7 +492,7 @@ function TradeQueryClass:SetStatWeights()
 	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Save", function()
 		main:ClosePopup()
 		
-		-- this needs to save the weights somewhere, maybe the XML? its not nessesary but possibly useful QoL
+		-- this needs to save the weights somewhere, maybe the XML? its not necessary but possibly useful QoL
 		local statSortSelectionList = {}
 		for stat, statTable in pairs(statList) do
 			if statTable.stat.weightMult > 0 then
