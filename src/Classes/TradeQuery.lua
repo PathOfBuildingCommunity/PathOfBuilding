@@ -439,7 +439,7 @@ function TradeQueryClass:SetStatWeights()
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
 			t_insert(statList, { 
-				label = stat.label.." :        ".."0", 
+				label = "0      :  "..stat.label, 
 				stat = {
 					label = stat.label,
 					stat = stat.stat,
@@ -455,11 +455,11 @@ function TradeQueryClass:SetStatWeights()
 		if value == 0 then
 			controls.SliderValue.label = "^7Disabled"
 			statList[sliderController.index].stat.weightMult = 0
-			statList[sliderController.index].label = statList[sliderController.index].stat.label.." :        "..s_format("%d", 0)
+			statList[sliderController.index].label = s_format("%d      :  ", 0)..statList[sliderController.index].stat.label
 		else
 			controls.SliderValue.label = s_format("^7%.2f", 0.01 + value * 0.99)
 			statList[sliderController.index].stat.weightMult = 0.01 + value * 0.99
-			statList[sliderController.index].label = statList[sliderController.index].stat.label.." :        "..s_format("%.2f", 0.01 + value * 0.99)
+			statList[sliderController.index].label = s_format("%.2f :  ", 0.01 + value * 0.99)..statList[sliderController.index].stat.label
 		end
 	end)
 	controls.SliderValue = new("LabelControl", { "TOPLEFT", controls.Slider, "TOPRIGHT" }, 20, 0, 0, 16, "^7Disabled")
@@ -481,7 +481,7 @@ function TradeQueryClass:SetStatWeights()
 		for _, stat in ipairs(statList) do
 			if stat.stat.stat == statBase.stat then
 				stat.stat.weightMult = statBase.weightMult
-				stat.label = statBase.label.." :        "..s_format("%.2f", statBase.weightMult)
+				stat.label = s_format("%.2f :  ", statBase.weightMult)..statBase.label
 				if statList[sliderController.index].stat.stat == statBase.stat then
 					controls.Slider:SetVal(statBase.weightMult == 1 and 1 or statBase.weightMult - 0.01)	
 				end
