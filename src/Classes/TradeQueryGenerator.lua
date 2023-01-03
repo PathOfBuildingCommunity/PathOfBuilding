@@ -406,7 +406,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 			local meanStatDiff = 0
 			for _, statTable in ipairs(self.calcContext.options.statWeights) do
 				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-					meanStatDiff = meanStatDiff + m_max(output.TotalDPS or 0, m_max(output.TotalDot or 0, output.CombinedAvg or 0)) * statTable.weightMult
+					meanStatDiff = meanStatDiff + m_max(output.TotalDPS or 0, m_max(output.TotalDotDPS or 0, output.CombinedDPS or 0)) * statTable.weightMult
 				else
 					meanStatDiff = meanStatDiff + ( output[statTable.stat] or 0 ) * statTable.weightMult
 				end
@@ -534,7 +534,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	local compStatValue = 0
 	for _, statTable in ipairs(options.statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-			compStatValue = compStatValue + m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDot or 0, baseOutput.CombinedAvg or 0)) * statTable.weightMult
+			compStatValue = compStatValue + m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDotDPS or 0, baseOutput.CombinedDPS or 0)) * statTable.weightMult
 		else
 			compStatValue = compStatValue + (baseOutput[statTable.stat] or 0) * statTable.weightMult
 		end
@@ -603,7 +603,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	local currentStatDiff = 0
 	for _, statTable in ipairs(self.calcContext.options.statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-			currentStatDiff = currentStatDiff + m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDot or 0, originalOutput.CombinedAvg or 0)) * statTable.weightMult
+			currentStatDiff = currentStatDiff + m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDotDPS or 0, originalOutput.CombinedDPS or 0)) * statTable.weightMult
 		else
 			currentStatDiff = currentStatDiff + ( originalOutput[statTable.stat] or 0 ) * statTable.weightMult
 		end
