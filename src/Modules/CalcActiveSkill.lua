@@ -457,6 +457,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if level.cooldown then
 				activeSkill.skillData.cooldown = level.cooldown
 			end
+			if level.storedUses then
+				activeSkill.skillData.storedUses = level.storedUses
+			end
 		end
 	end
 
@@ -486,6 +489,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 	if level.cooldown then
 		activeSkill.skillData.cooldown = level.cooldown
+	end
+	if level.storedUses then
+		activeSkill.skillData.storedUses = level.storedUses
 	end
 	
 	-- Add extra modifiers from other sources

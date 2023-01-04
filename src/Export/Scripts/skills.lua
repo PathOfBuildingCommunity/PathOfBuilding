@@ -366,7 +366,7 @@ directiveTable.skill = function(state, args, out)
 			level.extra.soulCost = levelRow.VaalSouls
 		end
 		if levelRow.StoredUses ~= 0 then
-			level.extra.StoredUses = levelRow.StoredUses
+			level.extra.storedUses = levelRow.StoredUses
 		end
 		if levelRow.VaalStoredUses ~= 0 then
 			level.extra.skillUseStorage = levelRow.VaalStoredUses

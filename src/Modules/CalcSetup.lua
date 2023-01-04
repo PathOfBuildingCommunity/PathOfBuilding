@@ -1266,6 +1266,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			-- These mods were modified with special expressions in buildActiveSkillModList() use old one to avoid more calculations
 			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
 			activeSkill.skillData.cooldown = skillData.cooldown
+			activeSkill.skillData.storedUses = skillData.storedUses
 			activeSkill.skillData.CritChance = skillData.CritChance
 			activeSkill.skillData.attackTime = skillData.attackTime
 			activeSkill.skillData.totemLevel = skillData.totemLevel
