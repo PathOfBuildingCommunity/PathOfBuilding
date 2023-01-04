@@ -3141,16 +3141,16 @@ function calcs.perform(env, avoidCache)
 					hexCastRate = hexCastRate - m_ceil(hexCastRate - maxVixenTriggerRate)
 				end
 			end
-
+			
 			-- Set trigger rate
-			local overlaps = env.player.mainSkill.skillPart
+			local hits_per_cast = env.player.mainSkill.skillPart == 2 and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or 1
 			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown, false, false, true)
-			output.SourceTriggerRate = hexCastRate * overlaps
+			output.SourceTriggerRate = hexCastRate * hits_per_cast
 			output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
 			if breakdown then
 				breakdown.SourceTriggerRate = {
 					s_format("%.2f ^8(%s %s)", hexCastRate, vixen_trigger_cap and "Vixen's Entrapment" or source.activeEffect.grantedEffect.name, vixen_trigger_cap and "trigger rate" or "casts per second"),
-					s_format("* %.2f ^8(overlaps)", overlaps),
+					s_format("* %.2f ^8(hits per cast from overlaps)", hits_per_cast),
 					s_format("= %.2f ^8per second", output.SourceTriggerRate),
 				}
 				-- Adjust for server tick rate

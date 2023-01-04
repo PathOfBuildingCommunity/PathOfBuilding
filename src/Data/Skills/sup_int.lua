@@ -2807,14 +2807,12 @@ skills["ViciousHexExplosion"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "No Overlap",
+			name = "No Overlaps",
 		},
 		{
-			name = "1 Overlap",
-		},
-		{
-			name = "2 Overlaps",
-		},
+			name = "Overlaps (# hits per cast)",
+			stages = true,
+		}
 	},
 	baseFlags = {
 		spell = true,

@@ -158,7 +158,7 @@ Vixen's Entrapment
 Embroidered Gloves
 Requires Level 36, 54 Int
 Implicits: 0
-Trigger Socketed Curse Spells when you cast a Curse
+Trigger Socketed Curse Spell when you Cast a Curse Spell, with a 0.25 second Cooldown
 +(50-90) to maximum Energy Shield
 0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
 You can apply an additional Curse
