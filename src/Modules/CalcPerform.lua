@@ -39,7 +39,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 end
 
 -- Calculate Trigger Rate Cap accounting for ICDR
-local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, focus, minion, storesMultipleUses)
+local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, focus, minion)
 	local icdr = 1
 	local cooldownOverride = false
 	if focus then
@@ -54,13 +54,8 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 	end
 
 	local modActionCooldown = cooldownOverride or (baseActionCooldown / icdr)
-	local rateCapAdjusted = modActionCooldown
-	local extraICDRNeeded = 0
-	if not storesMultipleUses then
-		rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-		extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
-	end
-
+	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	if breakdown then
 		if cooldownOverride then
 			if minion then
@@ -78,30 +73,18 @@ local function getTriggerActionTriggerRate(baseActionCooldown, env, breakdown, f
 				s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
 			}
 		else
-			if storesMultipleUses then
-				breakdown.ActionTriggerRate = {
-					s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
-					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-					s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
-					s_format(""),
-					s_format("Trigger rate:"),
-					s_format("1 / %.3f", rateCapAdjusted),
-					s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
-				}
-			else
-				breakdown.ActionTriggerRate = {
-					s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
-					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-					s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
-					s_format(""),
-					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
-					s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
-					s_format(""),
-					s_format("Trigger rate:"),
-					s_format("1 / %.3f", rateCapAdjusted),
-					s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
-				}
-			end
+			breakdown.ActionTriggerRate = {
+				s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
+				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+				s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+				s_format(""),
+				s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+				s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
+				s_format(""),
+				s_format("Trigger rate:"),
+				s_format("1 / %.3f", rateCapAdjusted),
+				s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
+			}
 		end
 	end
 	return 1 / rateCapAdjusted
@@ -3141,10 +3124,40 @@ function calcs.perform(env, avoidCache)
 					hexCastRate = hexCastRate - m_ceil(hexCastRate - maxVixenTriggerRate)
 				end
 			end
+
+			-- Doom Blast stores three uses. If we assume that the spell is triggered again before all three
+			-- charges have been restored, we can ignore the rate cap imposed on other skills (there are no breakpoints).
+			-- That is why we have separated this piece of code rather than calling getTriggerActionTriggerRate().
+			local baseActionCooldown = env.player.mainSkill.skillData.cooldown
+			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+			local cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
+			local modActionCooldown = cooldownOverride or (baseActionCooldown / icdr)
+			if breakdown then
+				if cooldownOverride then
+					env.player.mainSkill.skillFlags.hasOverride = true
+					breakdown.ActionTriggerRate = {
+						s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
+						s_format(""),
+						s_format("Trigger rate:"),
+						s_format("1 / %.3f", modActionCooldown),
+						s_format("= %.2f ^8per second", 1 / modActionCooldown),
+						}
+				else
+					breakdown.ActionTriggerRate = {
+						s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+						s_format(""),
+						s_format("Trigger rate:"),
+						s_format("1 / %.3f", modActionCooldown),
+						s_format("= %.2f ^8per second", 1 / modActionCooldown),
+						}
+				end
+			end
 			
 			-- Set trigger rate
 			local hits_per_cast = env.player.mainSkill.skillPart == 2 and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or 1
-			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown, false, false, true)
+			output.ActionTriggerRate = 1 / modActionCooldown
 			output.SourceTriggerRate = hexCastRate * hits_per_cast
 			output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
 			if breakdown then
