@@ -59,7 +59,7 @@ end })
 local globalOutput = nil
 local globalBreakdown = nil
 
-local function IsTriggered(skillData)
+local function isTriggered(skillData)
 	return skillData.triggeredWhileChannelling 
 		or skillData.triggeredByCoC
 		or skillData.triggeredByMeleeKill
@@ -406,8 +406,8 @@ function calcs.offence(env, actor, activeSkill)
 	runSkillFunc("initialFunc")
 
 
-	local isTriggered = IsTriggered(skillData)
-	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
+	local triggered = isTriggered(skillData)
+	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or triggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
 	end
@@ -2932,7 +2932,7 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
 			}
-		elseif isTriggered then
+		elseif triggered then
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(trigger rate)", output.Speed),
@@ -2954,7 +2954,7 @@ function calcs.offence(env, actor, activeSkill)
 			local rateType = "cast"
 			if isAttack then
 				rateType = "attack"
-			elseif isTriggered then
+			elseif triggered then
 				rateType = "trigger"
 			end
 			breakdown.PvpTotalDPS = {
@@ -4435,7 +4435,7 @@ function calcs.offence(env, actor, activeSkill)
 				timeType = "full unleash"
 			else
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.Speed > 0 and output.Speed or 1 / output.Cooldown) or output.Speed) / repeats
-				timeType = IsTriggered(skillData) and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
+				timeType = isTriggered(skillData) and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
 			end
 
 			output[usedResource.."PerSecondHasCost"] = true

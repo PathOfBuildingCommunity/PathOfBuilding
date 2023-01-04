@@ -3095,21 +3095,18 @@ function calcs.perform(env, avoidCache)
 
 	-- Doom Blast (from Impending Doom)
 	if env.player.mainSkill.skillData.triggeredWhenHexEnds and not env.player.mainSkill.skillFlags.minion then
-		local spellCount = {}
 		local source = nil
 		local hexCastRate = 0
-		local trigRate = 0
+
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			if skill.skillTypes[SkillType.Hex] and (match1 or match2) then
-				source, hexCastRate = findTriggerSkill(env, skill, source, trigRate)
-			end
-			if skill.skillData.triggeredWhenHexEnds and (match1 or match2) then
-				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, next_trig = 0, count = 0 })
+				source, hexCastRate = findTriggerSkill(env, skill, source, hexCastRate)
 			end
 		end
-		if not source or #spellCount < 1 then
+
+		if not source then
 			env.player.mainSkill.skillData.triggeredWhenHexEnds = nil
 			env.player.mainSkill.infoMessage = "No Triggering Hex Found"
 			env.player.mainSkill.infoTrigger = ""
@@ -3130,29 +3127,17 @@ function calcs.perform(env, avoidCache)
 			-- That is why we have separated this piece of code rather than calling getTriggerActionTriggerRate().
 			local baseActionCooldown = env.player.mainSkill.skillData.cooldown
 			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
-			local cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
-			local modActionCooldown = cooldownOverride or (baseActionCooldown / icdr)
+			local modActionCooldown = baseActionCooldown / icdr
 			if breakdown then
-				if cooldownOverride then
-					env.player.mainSkill.skillFlags.hasOverride = true
-					breakdown.ActionTriggerRate = {
-						s_format("%.2f ^8(hard override of cooldown of triggered skill)", cooldownOverride),
-						s_format(""),
-						s_format("Trigger rate:"),
-						s_format("1 / %.3f", modActionCooldown),
-						s_format("= %.2f ^8per second", 1 / modActionCooldown),
-						}
-				else
-					breakdown.ActionTriggerRate = {
-						s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
-						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-						s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
-						s_format(""),
-						s_format("Trigger rate:"),
-						s_format("1 / %.3f", modActionCooldown),
-						s_format("= %.2f ^8per second", 1 / modActionCooldown),
-						}
-				end
+				breakdown.ActionTriggerRate = {
+					s_format("%.2f ^8(base cooldown of triggered skill)", baseActionCooldown),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+					s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+					s_format(""),
+					s_format("Trigger rate:"),
+					s_format("1 / %.3f", modActionCooldown),
+					s_format("= %.2f ^8per second", 1 / modActionCooldown),
+				}
 			end
 			
 			-- Set trigger rate
@@ -3166,7 +3151,7 @@ function calcs.perform(env, avoidCache)
 					s_format("* %.2f ^8(hits per cast from overlaps)", hits_per_cast),
 					s_format("= %.2f ^8per second", output.SourceTriggerRate),
 				}
-				-- Adjust for server tick rate
+				
 				breakdown.ServerTriggerRate = {
 					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
 				}
