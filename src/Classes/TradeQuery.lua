@@ -472,7 +472,7 @@ function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 	end
 
 	self.sortedResultTbl[index] = sortedItems
-	self.itemIndexTbl[index] = 1
+	self.itemIndexTbl[index] = self.sortedResultTbl[index][1].index
 	self.controls["priceButton"..index].tooltipText = "Sorted by " .. self.sortSelectionList[self.pbSortSelectionIndex]
 	local pb_index = self.sortedResultTbl[index][1].index
 	self.totalPrice[index] = {
