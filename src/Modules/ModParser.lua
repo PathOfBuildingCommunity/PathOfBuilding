@@ -956,7 +956,7 @@ local preFlagList = {
 	["^skills used by traps [hgd][ae][via][enl] "] = { keywordFlags = KeywordFlag.Trap },
 	["^skills which throw traps [hgd][ae][via][enl] "] = { keywordFlags = KeywordFlag.Trap },
 	["^skills used by mines [hgd][ae][via][enl] "] = { keywordFlags = KeywordFlag.Mine },
-	["^skills which throw mines [hgd][ae][via][enl] "] = { keywordFlags = KeywordFlag.Trap },
+	["^skills which throw mines [hgd][ae][via][enl] "] = { keywordFlags = KeywordFlag.Mine },
 	-- Local damage
 	["^attacks with this weapon "] = { tagList = { { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack } } },
 	["^attacks with this weapon [hd][ae][va][el] "] = { tagList = { { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack } } },
