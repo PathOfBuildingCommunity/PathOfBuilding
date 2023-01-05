@@ -217,7 +217,21 @@ function TradeQueryClass:PriceItem()
 	-- Row spacing reference is now the name, which is a smaller font than the total height
 	local pane_height = (top_pane_alignment_height + row_height) * row_count - 4*row_count + 55
 	local pane_width = 850
-	local cnt = 1
+
+	local slotTables = {}
+	for _, slotName in ipairs(baseSlots) do
+		t_insert(slotTables, {name = slotName})
+	end
+	local activeSocketList = { }
+	for nodeId, slot in pairs(self.itemsTab.sockets) do
+		if not slot.inactive then
+			t_insert(activeSocketList, nodeId)
+		end
+	end
+	table.sort(activeSocketList)
+	for _, nodeId in ipairs(activeSocketList) do
+		t_insert(slotTables, {name = self.itemsTab.sockets[nodeId].label, ref = nodeId})
+	end
 
 	local newItemList = { }
 	for index, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
@@ -282,7 +296,7 @@ on trade site to work on other leagues and realms)]]
 	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
 		for index, _ in pairs(self.resultTbl) do
-			self:UpdateControlsWithItems({name = baseSlots[index]}, index)
+			self:UpdateControlsWithItems(slotTables[index], index)
 		end
 	end)
 	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
@@ -362,25 +376,11 @@ on trade site to work on other leagues and realms)]]
 	if  self.pbRealm == "" then
 		self:UpdateRealms()
 	end
-
 	-- Individual slot rows
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT"}
-	for _, slotName in ipairs(baseSlots) do
-		self:PriceItemRowDisplay(cnt, {name = slotName}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..cnt], "BOTTOMLEFT"}
-		cnt = cnt + 1
-	end
-	local activeSocketList = { }
-	for nodeId, slot in pairs(self.itemsTab.sockets) do
-		if not slot.inactive then
-			t_insert(activeSocketList, nodeId)
-		end
-	end
-	table.sort(activeSocketList)
-	for _, nodeId in pairs(activeSocketList) do
-		self:PriceItemRowDisplay(cnt, {name = self.itemsTab.sockets[nodeId].label, ref = nodeId}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..cnt], "BOTTOMLEFT"}
-		cnt = cnt + 1
+	for index, slotTbl in pairs(slotTables) do
+		self:PriceItemRowDisplay(index, slotTbl, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..index], "BOTTOMLEFT"}
 	end
 	self.controls.fullPrice = new("LabelControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "")
 	self.controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
