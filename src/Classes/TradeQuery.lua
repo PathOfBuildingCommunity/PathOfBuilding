@@ -464,11 +464,13 @@ function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 	if errMsg == "MissingConversionRates" then
 		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to DPS sort.")
 		sortedItems, errMsg = self:SortFetchResults(slotTbl, index, self.sortModes.DPS)
-	end
-	if errMsg then
+	elseif errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
 		return
+	else
+		self:SetNotice(self.controls.pbNotice, "")
 	end
+
 	self.sortedResultTbl[index] = sortedItems
 	self.itemIndexTbl[index] = 1
 	self.controls["priceButton"..index].tooltipText = "Sorted by " .. self.sortSelectionList[self.pbSortSelectionIndex]
