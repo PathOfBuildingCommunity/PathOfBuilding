@@ -3320,9 +3320,6 @@ skills["FrozenLegion"] = {
 	baseFlags = {
 		spell = true,
 	},
-	baseMods = {
-		mod("FrozenLegionMaxStatues", "BASE", 6),
-	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -3434,7 +3431,7 @@ skills["FrozenSweep"] = {
 		activeSkill.skillData.hitTimeOverride = output.Cooldown
 
 		local extraStatueChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
-		local maxStatues = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "AdditionalCooldownUses")
+		local maxStatues = parentSkill.skillData.storedUses + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "AdditionalCooldownUses")
 		
 		local statuesWaitedFor
 		local dpsMultiplier = extraStatueChance
