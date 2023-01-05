@@ -949,6 +949,18 @@ function calcs.offence(env, actor, activeSkill)
 			}
 		end
 	end
+	if skillData.storedUses then
+		local baseUses = skillData.storedUses
+		local additionalUses = skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses")
+		output.StoredUses = baseUses + additionalUses
+		if breakdown then
+			breakdown.StoredUses = { s_format("%d ^8(skill use%s)", baseUses, baseUses == 1 and "" or "s" ) }
+			if additionalUses ~= 0 then
+				t_insert(breakdown.StoredUses, s_format("+ %d ^8(additional use%s)", additionalUses, additionalUses == 1 and "" or "s"))
+				t_insert(breakdown.StoredUses, s_format("= %d ^8(total use%s)", output.StoredUses, output.StoredUses == 1 and "" or "s"))
+			end
+		end
+	end
 	if skillFlags.mine then
 		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "MineLayingTime")
 		local timeMod = calcLib.mod(skillModList, skillCfg, "SkillMineThrowingTime")
