@@ -350,6 +350,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if skillTypes[SkillType.Chaos] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Chaos)
 	end
+	if skillTypes[SkillType.Physical] then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Physical)
+	end
 	if skillFlags.weapon1Attack and band(activeSkill.weapon1Flags, ModFlag.Bow) ~= 0 then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Bow)
 	end
