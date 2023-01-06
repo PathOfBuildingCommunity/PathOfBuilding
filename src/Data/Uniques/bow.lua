@@ -510,7 +510,7 @@ Variant: Current
 {variant:3}100% of Lightning Damage Converted to Chaos Damage
 {variant:1,2}10% chance to Shock
 Your Chaos Damage can Shock
-{variant:2}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
+{variant:2,3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
 {variant:2,3}+40% to Maximum Effect of Shock
 ]],[[
 Windripper
