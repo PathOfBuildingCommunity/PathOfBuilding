@@ -1482,6 +1482,8 @@ skills["SupportCurseOnHitCurse"] = {
 	statMap = {
 		["curse_triggered_by_hextouch"] = {
 			skill("triggeredByCurseOnHit", true),
+			mod("ManaCost", "MORE", nil),
+			value = -100,
 		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
@@ -1611,6 +1613,8 @@ skills["SupportCurseOnHitCursePlus"] = {
 	statMap = {
 		["curse_triggered_by_hextouch"] = {
 			skill("triggeredByCurseOnHit", true),
+			mod("ManaCost", "MORE", nil),
+			value = -100,
 		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
