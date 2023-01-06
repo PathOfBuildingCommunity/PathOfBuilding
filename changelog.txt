@@ -72,7 +72,7 @@ VERSION[2.25.0][2023/01/03]
 * Seismic Trap and Lightning Spire Trap not rounding to server ticks for wave count calculation (Edvinas-Smita)
 * Missing Physical tag to Heartbound Loop (ProphetLamb)
 * Wording on Sandstorm Visage mods (QuickStick123)
-* Remove Legacy Crystalised Omniscience from the unique list as it no longer exists (QuickStick123)
+* Remove Legacy Crystallised Omniscience from the unique list as it no longer exists (QuickStick123)
 * Damage multipliers to exerts also applying to triggered skills (Paliak)
 * More than 100% reduced resistances causing negative res to turn positive (QuickStick123)
 * Militant Faith mod using "Skill Cost" instead of "Mana Cost" (Regisle)

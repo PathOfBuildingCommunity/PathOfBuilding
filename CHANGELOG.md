@@ -81,7 +81,7 @@
 - Seismic Trap and Lightning Spire Trap not rounding to server ticks for wave count calculation [\#5395](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5395) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
 - Missing Physical tag to Heartbound Loop [\#5416](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5416) ([ProphetLamb](https://github.com/ProphetLamb))
 - Wording on Sandstorm Visage mods [\#5425](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5425) ([QuickStick123](https://github.com/QuickStick123))
-- Remove Legacy Crystalised Omniscience from the unique list as it no longer exists [\#5447](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5447) ([QuickStick123](https://github.com/QuickStick123))
+- Remove Legacy Crystallised Omniscience from the unique list as it no longer exists [\#5447](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5447) ([QuickStick123](https://github.com/QuickStick123))
 - Damage multipliers to exerts also applying to triggered skills [\#5446](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5446) ([Paliak](https://github.com/Paliak))
 - More than 100% reduced resistances causing negative res to turn positive [\#5458](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5458) ([QuickStick123](https://github.com/QuickStick123))
 - Militant Faith mod using "Skill Cost" instead of "Mana Cost" [\#5460](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5460) ([Regisle](https://github.com/Regisle))
