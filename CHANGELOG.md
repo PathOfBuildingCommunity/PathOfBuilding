@@ -1,5 +1,24 @@
 # Changelog
 
+## [v2.25.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.25.1) (2023/01/06)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.25.0...v2.25.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Crashes
+- Fix crash caused by item stuck on cursor when dragging [\#5550](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5550) ([Paliak](https://github.com/Paliak))
+- Fix crash when using Whispering Ice with trigger support [\#5547](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5547) ([Paliak](https://github.com/Paliak))
+- Fix crash caused by loading shared items too early [\#5543](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5543) ([QuickStick123](https://github.com/QuickStick123))
+### Fixed Bugs
+- Fixing Timeless jewels not working correctly when added via the "Find Timeless Jewel" UI [\#5522](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5522) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Atziri's Mirror's drop source [\#5524](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5524) ([pHiney](https://github.com/pHiney))
+- Fix Blood Sacrament incorrect scaling when setting to stages more than 1 [\#5551](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5551) ([dreais](https://github.com/dreais))
+- Fix Spell Suppression mastery not working with Acrobatics Keystone [\#5528](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5528) ([Paliak](https://github.com/Paliak))
+- Fix magic utility flask effect not scaling Onslaught from Silver Flasks [\#5519](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5519) ([deathbeam](https://github.com/deathbeam))
+
+
 ## [v2.25.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.25.0) (2023/01/03)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.24.0...v2.25.0)
