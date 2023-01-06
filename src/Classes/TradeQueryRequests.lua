@@ -7,7 +7,7 @@
 local dkjson = require "dkjson"
 
 ---@class TradeQueryRequests
-local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, tradeQuery, rateLimiter)
+local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, rateLimiter)
 	self.maxFetchPerSearch = 10
 	self.tradeQuery = tradeQuery
 	self.rateLimiter = rateLimiter or new("TradeQueryRateLimiter")
@@ -57,10 +57,10 @@ end
 ---@param query string
 ---@param callback fun(items:table, errMsg:string)
 ---@param params table @ params = { callbackQueryId = fun(queryId:string) }
-function TradeQueryRequestsClass:SearchWithQuery(league, query, callback, params)
+function TradeQueryRequestsClass:SearchWithQuery(realm, league, query, callback, params)
 	params = params or {}
 	--ConPrintf("Query json: %s", query)
-	self:PerformSearch(league, query, function(response, errMsg)
+	self:PerformSearch(realm, league, query, function(response, errMsg)
 		if params.callbackQueryId and response and response.id then
 			params.callbackQueryId(response.id)
 		end
@@ -71,14 +71,106 @@ function TradeQueryRequestsClass:SearchWithQuery(league, query, callback, params
 	end)
 end
 
+---Performs search and fetches results, adjusting the query weight and repeating
+---the search to fetch more items when the search cap (10k items) is reached
+---@param league string
+---@param query string
+---@param callback fun(items:table, errMsg:string)
+---@param params table @ params = { callbackQueryId = fun(queryId:string) }
+function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, query, callback, params)
+	params = params or {}
+	local previousSearchId = nil
+	local previousSearchItemIds = nil
+	local previousSearchItems = nil
+	-- Limit recursion to prevent potential loops
+	-- Each repeat is a leap of 10k items, normally we shouldn't need more than 1-2 steps anyways
+	local maxRecursion = 5
+	local currentRecursion = 0
+	local function performSearchCallback(response, errMsg)
+		currentRecursion = currentRecursion + 1
+		if params.callbackQueryId and response and response.id then
+			params.callbackQueryId(response.id)
+		end
+		if errMsg then
+			return callback(nil, errMsg)
+		end
+		if response.total < 10000  or currentRecursion >= maxRecursion then
+			-- Search not clipped or max recursion reached, fetch results and finalize
+			if previousSearchItems and self.maxFetchPerSearch > response.total then
+				-- Not enough items in the last search, fill results from previous search
+				self:FetchResults(response.result, response.id, function(items, errMsg)
+					if errMsg then
+						return callback(nil, errMsg)
+					end
+					local fetchedItemIds = {}
+					for _, value in pairs(items) do
+						table.insert(fetchedItemIds, value.id)
+					end
+					for _, value in pairs(previousSearchItems) do
+						if #items >= self.maxFetchPerSearch then
+							break
+						end
+						if not isValueInTable(fetchedItemIds, value.id) then
+							table.insert(items, value)
+							table.insert(fetchedItemIds, value.id)
+						end
+					end
+					local fillCount = self.maxFetchPerSearch - #items
+					if fillCount > 0 then
+						-- fill with previous search results
+						local unfetchedItemIds = {}
+						for _, value in pairs(previousSearchItemIds) do
+							if #unfetchedItemIds >= fillCount then
+								break
+							end
+							if not isValueInTable(fetchedItemIds, value) then
+								table.insert(unfetchedItemIds, value)
+							end
+						end
+						self:FetchResults(unfetchedItemIds, previousSearchId, function(newItems, errMsg)
+							if errMsg then
+								return callback(nil, errMsg)
+							end
+							items = tableConcat(items, newItems)
+							callback(items, errMsg)
+						end)
+					else
+						callback(items, errMsg)
+					end
+				end)
+			else
+				-- Search not clipped and result count satisfy maxFetchPerSearch, proceed normally
+				self:FetchResults(response.result, response.id,  callback)
+			end
+		else
+			-- Search clipped, fetch highest weight item, update query weight and repeat search
+			previousSearchItemIds = response.result
+			previousSearchId = response.id
+			local firstResultBatch = {unpack(response.result, 1, math.min(#response.result, 10))}
+			self:FetchResults(firstResultBatch, response.id, function(items, errMsg)
+				if errMsg then
+					return callback(nil, errMsg)
+				end
+				previousSearchItems = items
+				local highestWeight = items[1].weight
+				local queryJson = dkjson.decode(query)
+				queryJson.query.stats[1].value.min = (tonumber(highestWeight) + queryJson.query.stats[1].value.min) / 2
+				query = dkjson.encode(queryJson)
+				self:PerformSearch(realm, league, query, performSearchCallback)
+			end)
+		end
+	end
+	self:PerformSearch(realm, league, query, performSearchCallback)
+end
+
 ---Perform search and run callback function on returned item hashes.
 ---Item info has to be fetched separately 
 ---@param league string
 ---@param query string
 ---@param callback fun(response:table, errMsg:string)
-function TradeQueryRequestsClass:PerformSearch(league, query, callback)
+function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 	table.insert(self.requestQueue["search"], {
-		url = "https://www.pathofexile.com/api/trade/search/"..league:gsub(" ", "+"),
+		url = self:buildUrl("https://www.pathofexile.com/api/trade/search", realm, league),
 		body = query,
 		callback = function(response, errMsg)
 			if errMsg and not errMsg:find("Response code: 400") then
@@ -137,7 +229,7 @@ function TradeQueryRequestsClass:FetchResults(itemHashes, queryId, callback)
 				table.insert(items, item)
 			end
 			-- finished fetching item blocks
-			if #items == quantity_found then
+			if #items >= quantity_found then
 				callback(items)
 			end
 		end)
@@ -170,6 +262,8 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					currency = trade_entry.listing.price.currency,
 					item_string = common.base64.decode(trade_entry.item.extended.text),
 					whisper = trade_entry.listing.whisper,
+					weight = trade_entry.item.pseudoMods[1]:match("Sum: (.+)"),
+					id = trade_entry.id
 				})
 			end
 			return callback(items)
@@ -178,14 +272,26 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 end
 
 ---@param callback fun(items:table, errMsg:string)
-function TradeQueryRequestsClass:SearchWithURL(urlEditControl, callback)
-	local _, queryId = urlEditControl.buf:match("https://www.pathofexile.com/trade/search/(.+)/(.+)$")
-	self:FetchSearchQueryHTML(queryId, function(query, errMsg)
+function TradeQueryRequestsClass:SearchWithURL(url, callback)
+	local subpath = url:match("https://www.pathofexile.com/trade/search/(.+)$")
+	local paths = {}
+	for path in subpath:gmatch("[^/]+") do
+		table.insert(paths, path)
+	end
+	if #paths < 2 or #paths > 3 then
+		return callback(nil, "Invalid URL")
+	end
+	local realm, league, queryId
+	if #paths == 3 then
+		realm = paths[1]
+	end
+	league = paths[#paths-1]
+	queryId = paths[#paths]
+	self:FetchSearchQueryHTML(realm, league, queryId, function(query, errMsg)
 		if errMsg then
 			return callback(nil, errMsg)
 		end
-		urlEditControl:SetText("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbRealm .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId)
-		self:SearchWithQuery(self.tradeQuery.pbLeague, query, callback)
+		self:SearchWithQuery(realm, league, query, callback)
 	end)
 end
 
@@ -193,8 +299,8 @@ end
 ---@param queryId string
 ---@param league string
 ---@param callback fun(query:string, errMsg:string)
-function TradeQueryRequestsClass:FetchSearchQuery(queryId, callback)
-	local url = "https://www.pathofexile.com/api/trade/search/" .. self.tradeQuery.pbRealm .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId
+function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callback)
+	local url = self:buildUrl("https://www.pathofexile.com/api/trade/search", realm, league, queryId)
 	table.insert(self.requestQueue["search"], {
 		url = url,
 		callback = function(response, errMsg)
@@ -216,13 +322,12 @@ end
 ---@param queryId string
 ---@param callback fun(query:string, errMsg:string)
 ---@see TradeQueryRequests#FetchSearchQuery
-function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
+function TradeQueryRequestsClass:FetchSearchQueryHTML(realm, league, queryId, callback)
 	if main.POESESSID == "" then
 		return callback(nil, "Please provide your POESESSID")
 	end
 	local header = "Cookie: POESESSID=" .. main.POESESSID
-	-- the league doesn't affect query so we set it to Standard as it doesn't change
-	launch:DownloadPage("https://www.pathofexile.com/trade/search/" .. self.tradeQuery.pbRealm .. self.tradeQuery.pbLeague:gsub(" ", "+") .. "/" .. queryId,
+	launch:DownloadPage(self:buildUrl("https://www.pathofexile.com/trade/search", realm, league, queryId),
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
@@ -252,4 +357,92 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(queryId, callback)
 			callback(queryStr, errMsg)
 		end,
 		{header = header})
+end
+
+--- Fetches the list of all available leagues using HTML parsing
+--- This should get all leagues, including the ones that are not available through API
+---
+--- example output:
+--- result = {
+--- 	leagues = [
+--- 		{
+--- 			"id": "Sanctum",
+--- 			"realm": "pc",
+--- 			"text": "Sanctum"
+--- 		},
+---		],
+--- 	realms = [
+---			{
+---			    "id": "sony",
+---			    "text": "PS4"
+---			},
+--- 	]
+--- }
+---@param callback fun(result:table, errMsg:string)
+function TradeQueryRequestsClass:FetchRealmsAndLeaguesHTML(callback)
+	if main.POESESSID == "" then
+		return callback(nil, "Please provide your POESESSID")
+	end
+	local header = "Cookie: POESESSID=" .. main.POESESSID
+	launch:DownloadPage(
+		"https://www.pathofexile.com/trade",
+		function(response, errMsg)
+			if errMsg then
+				return callback(nil, errMsg)
+			end
+			-- full json state obj from HTML
+			local dataStr = response.body:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
+			if not dataStr then
+				return callback(nil, "JSON object not found on the page.")
+			end
+			local data, _, err = dkjson.decode(dataStr)
+			if err then
+				return callback(nil, "Failed to parse JSON object. ".. err)
+			end
+			callback({leagues = data.leagues, realms = data.realms}, errMsg)
+		end,
+		{header = header}
+	)
+end
+
+--- Fetches the list of all available leagues using poe API
+---@param realm string
+---@param callback fun(query:table, errMsg:string)
+function TradeQueryRequestsClass:FetchLeagues(realm, callback)
+	launch:DownloadPage(
+		"https://api.pathofexile.com/leagues?compact=1&realm=" .. realm,
+		function(response, errMsg)
+			if errMsg then
+				return callback(nil, errMsg)
+			end
+			local json_data = dkjson.decode(response.body)
+			if not json_data or json_data.error then
+				errMsg = json_data and json_data.error or "Failed to get leagues"
+			end
+			local leagues = {}
+				for _, value in pairs(json_data) do
+					if not value.id:find("SSF") then
+						table.insert(leagues, value.id)
+					end
+				end
+			callback(leagues, errMsg)
+		end
+	)
+end
+
+--- Build search and trade URLs with proper encoding
+---@param root string
+---@param realm string
+---@param league string
+---@param queryId string
+function TradeQueryRequestsClass:buildUrl(root, realm, league, queryId)
+	local result = root
+	if realm and realm ~='pc' then
+		result = result .. "/" .. realm
+	end	
+	result = result .. "/" .. league
+	if queryId then
+		result = result .. "/" .. queryId
+	end
+	return result	
 end

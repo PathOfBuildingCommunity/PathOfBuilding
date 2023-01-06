@@ -1,3 +1,87 @@
+VERSION[2.25.1][2023/01/06]
+
+--- Fixed Crashes ---
+* Fix crash caused by item stuck on cursor when dragging (Paliak)
+* Fix crash when using Whispering Ice with trigger support (Paliak)
+* Fix crash caused by loading shared items too early (QuickStick123)
+
+--- Fixed Bugs ---
+* Fixing Timeless jewels not working correctly when added via the "Find Timeless Jewel" UI (QuickStick123)
+* Fix Atziri's Mirror's drop source (pHiney)
+* Fix Blood Sacrament incorrect scaling when setting to stages more than 1 (dreais)
+* Fix Spell Suppression mastery not working with Acrobatics Keystone (Paliak)
+* Fix magic utility flask effect not scaling Onslaught from Silver Flasks (deathbeam)
+
+VERSION[2.25.0][2023/01/03]
+
+--- Implemented Enhancements ---
+* Apply enemy damage multiplier to max hit taken (deathbeam)
+* Add button to generate a trade link for Timeless Jewels (meepen)
+* PoB Trader
+	* Add ability to generate weighted search URL without the need for POESESSID (Dullson)
+	* Add support for Private Leagues (Dullson)
+	* Add support for Sony and Xbox realms (Nostrademous)
+	* Sort Trade league name dropdown so temporary leagues appear at the top of the list (Nostrademous)
+	* Automatically adjust weighted search to prevent result clipping (Dullson)
+	* Add support to change the sorting mode on already-fetched items (Dullson)
+	* Improve item pricer error handling (Dullson)
+	* Temporarily remove Synthesis mods until they are properly supported (Dolmur)
+	* Remove Eldritch mods checkbox from bases that are unable to roll Eldritch mods (Dolmur)
+	* Display item price at the bottom of the item tooltip (Dullson)
+	* Use default item affix quality to generate mod weightings (Regisle)
+* Add option for to select any conqueror Keystone for Timeless jewels search (Regisle)
+* Add support for Mutewind Pennant Warcry mod (andrewbelu)
+* Add support for Phantasmal Reave radius (andrewbelu)
+* Add support for Sandstorm Visage crit mod (andrewbelu)
+* Add Support for Frozen Sweep DPS and burst damage (Lilylicious)
+* Add support for Original Sin (QuickStick123)
+* Add support for Progenesis and show the amount recouped (Regisle)
+* Add support for Rotting Legion missing Zombie mod (andrewbelu)
+* Critical strike cull chance now uses hit rate to determine DPS gain (andrewbelu)
+* Increased flask effect works on Silver Flask to scale Onslaught effect (Fabere456)
+* Add sanctum unique drop locations (QuickStick123)
+* Update tree to 3.20.1 (QuickStick123)
+
+--- Fixed Crashes ---
+* Fix crash when deleting gem level (Paliak)
+* Fix crash when clicking sort options in node power (meepen)
+
+--- User Interface ---
+* Change the unique list to only display currently obtainable uniques instead of any source (Regisle)
+* Fix odd edit behaviour with the POESESSID input box (Wires77)
+* Fix Timeless Jewel tree radius effect not appearing on jewels added through "Find Timeless Jewel" UI (LocalIdentity)
+* Remove duplicate bleed/poison config option (QuickStick123)
+
+--- Fixed Bugs ---
+* PoB Trader memory leak (Dullson)
+* Max fuse calculation for Explosive Arrow (Lilylicious)
+* Minion-specific mods not being included as mods for weighted search (Dolmur)
+* Item pricing mod calculation does now use DPS instead of average damage (Urganot)
+* Minion-specific mods granting their effect to all Minions (QuickStick123)
+* Session IDs not saving separately per imported account (Wires77)
+* Missing skillType tags from minion skills (Paliak)
+* Wither on hit from Balance of Terror (deathbeam)
+* Sort by Full DPS not working on anoints and appearing in other locations (QuickStick123)
+* Kalandra's Touch not working (QuickStick123)
+* Long loading times from modCache not being used during startup (QuickStick123)
+* Issue parsing certain item bases (Paliak)
+* Unique Armour/Evasion/ES/DPS tooltip being different to added item (QuickStick123)
+* Energy Blade not getting disabled when removing the gem (QuickStick123)
+* Divergent Cast while Channeling incorrectly adding "More" damage (LocalIdentity)
+* Rotgut variant mods (LocalIdentity)
+* Seismic Trap and Lightning Spire Trap not rounding to server ticks for wave count calculation (Edvinas-Smita)
+* Missing Physical tag to Heartbound Loop (ProphetLamb)
+* Wording on Sandstorm Visage mods (QuickStick123)
+* Remove Legacy Crystallised Omniscience from the unique list as it no longer exists (QuickStick123)
+* Damage multipliers to exerts also applying to triggered skills (Paliak)
+* More than 100% reduced resistances causing negative res to turn positive (QuickStick123)
+* Militant Faith mod using "Skill Cost" instead of "Mana Cost" (Regisle)
+* Implicit mods on Kalandra's Touch not applying (Paliak)
+* Singular element modes not working with phys as random element dropdown box (QuickStick123)
+* Missing name on elemental damage Grand Spectrum variant (deathbeam)
+* Frenzy Charges and Onslaught only counting one stat instead of two for Wilma's Requital (LocalIdentity)
+* Level requirement for United in Dream (LocalIdentity)
+
 VERSION[2.24.0][2022/12/14]
 
 --- Implemented Enhancements ---

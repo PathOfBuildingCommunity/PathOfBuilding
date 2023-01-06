@@ -483,7 +483,7 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("DamageTaken", "MORE", nil) }),
 		},
 		["support_minion_defensive_stance_minion_damage_+%_final_against_enemies_near_you"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "MeatShieldEnemyNearYou" }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "Condition", var = "MeatShieldEnemyNearYou" }),
 		},
 		["minion_block_%"] = {
 			mod("MinionModifier", "LIST", { mod = mod("BlockChance", "BASE", nil) }),

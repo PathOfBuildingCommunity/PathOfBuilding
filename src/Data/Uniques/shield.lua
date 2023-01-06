@@ -201,7 +201,7 @@ Blood Magic
 [[
 Atziri's Mirror
 Golden Buckler
-Upgrade: No longer obtainable
+Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0

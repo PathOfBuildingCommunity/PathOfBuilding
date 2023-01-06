@@ -112,7 +112,7 @@ local skillTypes = {
 	"Microtransaction",
 	"OwnerCannotUse",
 	"ProjectilesNotFired",
-	"PreventHexTransfer",
+	"TotemsAreBallistae",
 }
 
 local wellShitIGotThoseWrong = {
@@ -173,6 +173,15 @@ directiveTable.noGem = function(state, args, out)
 	state.noGem = true
 end
 
+-- #addSkillTypes <flag>[ <flag>[...]]
+-- skill types to be added to the skillTypes flags for this active skill
+directiveTable.addSkillTypes = function(state, args, out)
+	state.addSkillTypes = {}
+	for flag in args:gmatch("%a+") do
+		table.insert(state.addSkillTypes, flag)
+	end
+end
+
 -- #skill <GrantedEffectId> [<Display name>]
 -- Initialises the skill data and emits the skill header
 directiveTable.skill = function(state, args, out)
@@ -215,6 +224,8 @@ directiveTable.skill = function(state, args, out)
 	local statMap = { }
 	skill.stats = { }
 	skill.constantStats = { }
+	skill.addSkillTypes = state.addSkillTypes
+	state.addSkillTypes = nil
 	out:write('\tcolor = ', granted.Attribute, ',\n')
 	if granted.GrantedEffectStatSets.BaseEffectiveness ~= 1 then
 		out:write('\tbaseEffectiveness = ', granted.GrantedEffectStatSets.BaseEffectiveness, ',\n')
@@ -278,6 +289,11 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tskillTypes = { ')
 		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
 			out:write('[', mapAST(type), '] = true, ')
+		end
+		if skill.addSkillTypes then
+			for _, type in ipairs(skill.addSkillTypes) do
+				out:write('[SkillType.', type , '] = true, ')
+			end
 		end
 		out:write('},\n')
 		if granted.ActiveSkill.MinionSkillTypes[1] then

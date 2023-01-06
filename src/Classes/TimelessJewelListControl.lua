@@ -5,6 +5,8 @@
 --
 
 local m_random = math.random
+local m_min = math.min
+local m_max = math.max
 local t_concat = table.concat
 
 local TimelessJewelListControlClass = newClass("TimelessJewelListControl", "ListControl", function(self, anchor, x, y, width, height, build)
@@ -18,6 +20,36 @@ end)
 function TimelessJewelListControlClass:Draw(viewPort, noTooltip)
 	self.noTooltip = noTooltip
 	self.ListControl.Draw(self, viewPort)
+end
+
+function TimelessJewelListControlClass:SetHighlightColor(index, value)
+	if not self.highlightIndex or not self.selIndex then
+		return false
+	end
+	local isHighlighted = m_min(self.selIndex, self.highlightIndex) <= index and m_max(self.selIndex, self.highlightIndex) >= index
+
+	if isHighlighted then
+		if self.selIndex == index or self.highlightIndex == index then
+			SetDrawColor(1, 0.5, 0)
+		else
+			SetDrawColor(1, 1, 0)
+		end
+
+		return true
+	end
+
+	return false
+end
+
+function TimelessJewelListControlClass:OverrideSelectIndex(index)
+	if IsKeyDown("SHIFT") and self.selIndex then
+		self.highlightIndex = index
+		return true
+	else
+		self.highlightIndex = nil
+	end
+
+	return false
 end
 
 function TimelessJewelListControlClass:GetRowValue(column, index, data)
@@ -60,7 +92,7 @@ end
 function TimelessJewelListControlClass:OnSelClick(index, data, doubleClick)
 	if doubleClick and self.list[index].label:match("B2B2B2") == nil then
 		local label = "[" .. data.seed .. "; " .. data.total.. "; " .. self.sharedList.socket.keystone .. "]\n"
-		local variant = self.sharedList.conqueror .. "\n"
+		local variant = self.sharedList.conqueror.id == 1 and 1 or (self.sharedList.conqueror.id - 1) .. "\n"
 		local itemData = [[
 Elegant Hubris ]] .. label .. [[
 Timeless Jewel
@@ -70,7 +102,7 @@ Limited to: 1
 Variant: Cadiro (Supreme Decadence)
 Variant: Victario (Supreme Grandstanding)
 Variant: Caspiro (Supreme Ostentation)
-Selected Variant:  ]] .. variant .. [[
+Selected Variant:  ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned ]] .. data.seed .. [[ coins to commemorate Cadiro
@@ -89,7 +121,7 @@ Limited to: 1
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
 Variant: Ahuana (Immortal Ambition)
-Selected Variant: ]] .. variant .. [[
+Selected Variant: ]] .. variant .. "\n" ..[[
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of ]] .. data.seed .. [[ sacrificed in the name of Doryani
@@ -108,7 +140,7 @@ Limited to: 1
 Variant: Kaom (Strength of Blood)
 Variant: Rakiata (Tempered by War)
 Variant: Akoya (Chainbreaker)
-Selected Variant: ]] .. variant .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over ]] .. data.seed .. [[ warriors under Kaom
@@ -127,7 +159,7 @@ Limited to: 1
 Variant: Asenath (Dance with Death)
 Variant: Nasima (Second Sight)
 Variant: Balbala (The Traitor)
-Selected Variant: ]] .. variant .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Denoted service of ]] .. data.seed .. [[ dekhara in the akhara of Asenath
@@ -168,7 +200,7 @@ Variant: Mana Regen
 Variant: Skill Cost
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
-Selected Variant: ]] .. variant .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Selected Alt Variant: ]] .. altVariant .. "\n" .. [[
 Selected Alt Variant Two: ]] .. altVariant2 .. "\n" .. [[
 Radius: Large

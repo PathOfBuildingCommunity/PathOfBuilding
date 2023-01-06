@@ -1209,17 +1209,25 @@ local function doActorMisc(env, actor)
 			for item in pairs(env.flasks) do
 				if item.baseName:match("Silver Flask") then
 					onslaughtFromFlask = true
-					if flaskEffectInc < (item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")) / 100 then 
-						flaskEffectInc =  (item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")) / 100
+
+					local curFlaskEffectInc = item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")
+					if item.rarity == "MAGIC" then
+						curFlaskEffectInc = curFlaskEffectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+					end
+
+					if flaskEffectInc < curFlaskEffectInc / 100 then 
+						flaskEffectInc = curFlaskEffectInc / 100
 					end
 				end
 			end
+			local onslaughtEffectInc = modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100
 			if onslaughtFromFlask then
-				effect = m_floor(20 * (1 + flaskEffectInc + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
+				effect = m_floor(20 * (1 + flaskEffectInc + onslaughtEffectInc))
 			else
-				effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
+				effect = m_floor(20 * (1 + onslaughtEffectInc))
 			end
-			modDB:NewMod("Speed", "INC", effect, "Onslaught")
+			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Attack)
+			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Cast)
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
@@ -1563,10 +1571,6 @@ function calcs.perform(env, avoidCache)
 			if activeSkill.skillData.supportBonechill then
 				hasGuaranteedBonechill = true
 			end
-		end
-		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") then
-			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
-			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		if activeSkill.skillFlags.warcry and not modDB:Flag(nil, "AlreadyGlobalWarcryCooldown") then
 			local cooldown = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData)
@@ -2284,6 +2288,10 @@ function calcs.perform(env, avoidCache)
 					t_insert(curses, curse)	
 				end
 			end
+		end
+		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") then
+			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
+			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion
