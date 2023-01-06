@@ -3115,7 +3115,8 @@ function calcs.perform(env, avoidCache)
 
 			local vixen_trigger_cap = modDB:Flag(nil, "VixenTriggerCap")
 			if vixen_trigger_cap then
-				local maxVixenTriggerRate = getTriggerActionTriggerRate(0.25, env)
+				local curseTriggerCooldown = env.player.modDB:Sum("BASE", nil, "TriggerCurseOnCurseCooldown")
+				local maxVixenTriggerRate = getTriggerActionTriggerRate(curseTriggerCooldown, env)
 
 				if hexCastRate > maxVixenTriggerRate then
 					hexCastRate = hexCastRate - m_ceil(hexCastRate - maxVixenTriggerRate)
