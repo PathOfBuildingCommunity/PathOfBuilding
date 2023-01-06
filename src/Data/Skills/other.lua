@@ -363,7 +363,7 @@ skills["BloodSacramentUnique"] = {
 	end,
 	statMap = {
 		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage" }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage" }),
 			div = 100,
 		},
 		["flameblast_damage_+%_final_per_10_life_reserved"] = {
