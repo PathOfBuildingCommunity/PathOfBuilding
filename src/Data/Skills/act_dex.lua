@@ -396,7 +396,7 @@ skills["ArtilleryBallista"] = {
 	name = "Artillery Ballista",
 	color = 2,
 	description = "Summons a ballista totem that propels a sequence of fiery arrows into the air. The arrows impact the ground in a line, each dealing area damage to enemies around it. Requires a Bow.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.AttackInPlaceIsDefault] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.TotemsAreBallistae] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -1044,6 +1044,7 @@ skills["VaalChargedAttack"] = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
 		"global_always_hit",
+		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 30, attackSpeedMultiplier = 220, soulPreventionDuration = 3, baseMultiplier = 2.24, cooldown = 0.5, damageEffectiveness = 2.24, skillUseStorage = 1, soulCost = 30, levelRequirement = 28, statInterpolation = { 3, 3, 1, }, },
@@ -1990,6 +1991,7 @@ skills["VaalCausticArrow"] = {
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
 		"always_pierce",
 		"global_always_hit",
+		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
 		[1] = { 16.666667039196, attackSpeedMultiplier = -30, soulPreventionDuration = 8, baseMultiplier = 2.8, damageEffectiveness = 2.8, skillUseStorage = 2, soulCost = 20, levelRequirement = 1, statInterpolation = { 3, }, },
@@ -4128,7 +4130,7 @@ skills["FlamethrowerTrap"] = {
 	end,
 	statMap = {
 		["flamethrower_trap_damage_+%_final_vs_burning_enemies"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
 		},
 	},
 	baseFlags = {
@@ -7993,7 +7995,7 @@ skills["ShrapnelBallista"] = {
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Summons a ballista totem that fires multiple arrows with extreme force, breaking them apart into shrapnel. Enemies can be hit by multiple arrows from the same attack. Requires a Bow.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.Physical] = true, [SkillType.TotemsAreBallistae] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -8083,7 +8085,7 @@ skills["SiegeBallista"] = {
 	name = "Siege Ballista",
 	color = 2,
 	description = "Summons a ballista totem that attacks with piercing arrows. Requires a Bow.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.AttackInPlaceIsDefault] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.TotemsAreBallistae] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -9426,6 +9428,7 @@ skills["VaalSnappingAdder"] = {
 		"vaal_venom_gyre_instantly_capture_maximum_projectiles",
 		"projectiles_are_not_fired",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
+		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
 		[1] = { baseMultiplier = 1.25, soulPreventionDuration = 8, damageEffectiveness = 1.25, skillUseStorage = 1, soulCost = 30, levelRequirement = 12, },

@@ -398,7 +398,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee area duration
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 	},
 #baseMod skill("radius", 23)
@@ -635,7 +635,7 @@ local skills, mod, flag, skill = ...
 
 #skill FrozenLegion
 #flags spell
-statMap = {
+	statMap = {
 		["frozen_legion_%_chance_to_summon_additional_statue"] = {
 			mod("FrozenLegionExtraStatueChance", "BASE", nil)
 		}
@@ -673,10 +673,7 @@ statMap = {
 		if parentSkill.skillModList:Flag(parentSkill.skillCfg, "DisableSkill") and not parentSkill.skillModList:Flag(parentSkill.skillCfg, "EnableSkill") then
 			return
 		end
-		
-		activeSkill.activeEffect.grantedEffect.castTime = 0
-		parentSkill.activeEffect.grantedEffect.castTime = 0
-		
+
 		activeSkill.skillData.cooldown = parentSkill.skillData.cooldown
 		local cooldownOverride = parentSkill.skillModList:Override(parentSkill.skillCfg, "CooldownRecovery")
 		local cooldown = cooldownOverride or (parentSkill.skillData.cooldown + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(parentSkill.skillModList, parentSkill.skillCfg, "CooldownRecovery"))
@@ -751,7 +748,7 @@ statMap = {
 #flags attack melee area
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 	},
 #baseMod skill("radius", 35)
@@ -761,7 +758,7 @@ statMap = {
 #flags attack melee area
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 		["vaal_skill_exertable"] = {
 		},

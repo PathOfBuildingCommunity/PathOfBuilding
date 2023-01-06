@@ -55,9 +55,57 @@ function main:Init()
 	self.buildPath = self.defaultBuildPath
 	MakeDir(self.buildPath)
 
+	if launch.devMode and IsKeyDown("CTRL") then
+		-- If modLib.parseMod doesn't find a cache entry it generates it.
+		-- Not loading pre-generated cache causes it to be rebuilt
+		self.saveNewModCache = true
+	elseif not launch.continuousIntegrationMode then -- Forces regeneration of modCache if ran from CI
+		-- Load mod cache
+		LoadModule("Data/ModCache", modLib.parseModCache)
+	end
+
 	if launch.devMode and IsKeyDown("CTRL") and IsKeyDown("SHIFT") then
 		self.allowTreeDownload = true
 	end
+
+
+	self.inputEvents = { }
+	self.popups = { }
+	self.tooltipLines = { }
+
+	self.gameAccounts = { }
+
+	self.buildSortMode = "NAME"
+	self.connectionProtocol = 0
+	self.nodePowerTheme = "RED/BLUE"
+	self.showThousandsSeparators = true
+	self.thousandsSeparator = ","
+	self.decimalSeparator = "."
+	self.defaultItemAffixQuality = 0.5
+	self.showTitlebarName = true
+	self.showWarnings = true
+	self.slotOnlyTooltips = true
+	self.POESESSID = ""
+
+	local ignoreBuild
+	if arg[1] then
+		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
+			if not isSuccess then
+				self:SetMode("BUILD", false, data)
+			else
+				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
+				self:SetMode("BUILD", false, "Imported Build", xmlText)
+				self.newModeChangeToTree = true
+			end
+		end)
+		arg[1] = nil -- Protect against downloading again this session.
+		ignoreBuild = true
+	end
+
+	if not ignoreBuild then
+		self:SetMode("BUILD", false, "Unnamed build")
+	end
+	self:LoadSettings(ignoreBuild)
 
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
@@ -69,6 +117,7 @@ function main:Init()
 			local newItem = new("Item", "Rarity: Unique\n"..raw)
 			if newItem.base then
 				newItem:NormaliseQuality()
+				newItem:BuildAndParseRaw()
 				self.uniqueDB.list[newItem.name] = newItem
 			elseif launch.devMode then
 				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
@@ -96,12 +145,9 @@ function main:Init()
 			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
 	end
-
-	if launch.devMode and IsKeyDown("CTRL") then
-		self:RebuildModCache()
-	elseif not launch.headlessMode then
-		-- Load mod cache
-		LoadModule("Data/ModCache", modLib.parseModCache)
+	
+	if self.saveNewModCache then
+		self:SaveModCache()
 	end
 
 	self.sharedItemList = { }
@@ -170,48 +216,12 @@ please reinstall using one of the installers from
 the "Releases" section of the GitHub page.]])
 	end
 
-	self.inputEvents = { }
-	self.popups = { }
-	self.tooltipLines = { }
-
-	self.gameAccounts = { }
-
-	self.buildSortMode = "NAME"
-	self.connectionProtocol = 0
-	self.nodePowerTheme = "RED/BLUE"
-	self.showThousandsSeparators = true
-	self.thousandsSeparator = ","
-	self.decimalSeparator = "."
-	self.defaultItemAffixQuality = 0.5
-	self.showTitlebarName = true
-	self.showWarnings = true
-	self.slotOnlyTooltips = true
-	self.POESESSID = ""
-
-	local ignoreBuild
-	if arg[1] then
-		buildSites.DownloadBuild(arg[1], nil, function(isSuccess, data)
-			if not isSuccess then
-				self:SetMode("BUILD", false, data)
-			else
-				local xmlText = Inflate(common.base64.decode(data:gsub("-","+"):gsub("_","/")))
-				self:SetMode("BUILD", false, "Imported Build", xmlText)
-				self.newModeChangeToTree = true
-			end
-		end)
-		arg[1] = nil -- Protect against downloading again this session.
-		ignoreBuild = true
-	end
-
-	if not ignoreBuild then
-		self:SetMode("BUILD", false, "Unnamed build")
-	end
-	self:LoadSettings(ignoreBuild)
+	self:LoadSharedItems()
 
 	self.onFrameFuncs = { }
 end
 
-function main:RebuildModCache()
+function main:SaveModCache()
 	-- Update mod cache
 	local out = io.open("Data/ModCache.lua", "w")
 	out:write('local c=...')
@@ -462,34 +472,6 @@ function main:LoadSettings(ignoreBuild)
 						}
 					end
 				end
-			elseif node.elem == "SharedItems" then
-				for _, child in ipairs(node) do
-					if child.elem == "Item" then
-						local rawItem = { raw = "" }
-						for _, subChild in ipairs(child) do
-							if type(subChild) == "string" then
-								rawItem.raw = subChild
-							end
-						end
-						local newItem = new("Item", rawItem.raw)
-						t_insert(self.sharedItemList, newItem)
-					elseif child.elem == "ItemSet" then
-						local sharedItemSet = { title = child.attrib.title, slots = { } }
-						for _, grandChild in ipairs(child) do
-							if grandChild.elem == "Item" then
-								local rawItem = { raw = "" }
-								for _, subChild in ipairs(grandChild) do
-									if type(subChild) == "string" then
-										rawItem.raw = subChild
-									end
-								end
-								local newItem = new("Item", rawItem.raw)
-								sharedItemSet.slots[grandChild.attrib.slotName] = newItem
-							end
-						end
-						t_insert(self.sharedItemSetList, sharedItemSet)
-					end
-				end
 			elseif node.elem == "Misc" then
 				if node.attrib.buildSortMode then
 					self.buildSortMode = node.attrib.buildSortMode
@@ -547,6 +529,49 @@ function main:LoadSettings(ignoreBuild)
 				end
 				if node.attrib.invertSliderScrollDirection then
 					self.invertSliderScrollDirection = node.attrib.invertSliderScrollDirection == "true"
+				end
+			end
+		end
+	end
+end
+
+function main:LoadSharedItems()
+	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
+	if not setXML then
+		return true
+	elseif setXML[1].elem ~= "PathOfBuilding" then
+		launch:ShowErrMsg("^1Error parsing 'Settings.xml': 'PathOfBuilding' root element missing")
+		return true
+	end
+	for _, node in ipairs(setXML[1]) do
+		if type(node) == "table" then
+			if node.elem == "SharedItems" then
+				for _, child in ipairs(node) do
+					if child.elem == "Item" then
+						local rawItem = { raw = "" }
+						for _, subChild in ipairs(child) do
+							if type(subChild) == "string" then
+								rawItem.raw = subChild
+							end
+						end
+						local newItem = new("Item", rawItem.raw)
+						t_insert(self.sharedItemList, newItem)
+					elseif child.elem == "ItemSet" then
+						local sharedItemSet = { title = child.attrib.title, slots = { } }
+						for _, grandChild in ipairs(child) do
+							if grandChild.elem == "Item" then
+								local rawItem = { raw = "" }
+								for _, subChild in ipairs(grandChild) do
+									if type(subChild) == "string" then
+										rawItem.raw = subChild
+									end
+								end
+								local newItem = new("Item", rawItem.raw)
+								sharedItemSet.slots[grandChild.attrib.slotName] = newItem
+							end
+						end
+						t_insert(self.sharedItemSetList, sharedItemSet)
+					end
 				end
 			end
 		end

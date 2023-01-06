@@ -665,7 +665,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 			slot.count:SetText(gemInstance.count)
 		end
-		gemInstance.level = tonumber(buf) or self.displayGroup.gemList[index].defaultLevel or self.defaultGemLevel or 20
+		gemInstance.level = tonumber(buf) or self.displayGroup.gemList[index].defaultLevel or self:ProcessGemLevel(gemInstance.gemData) or 20
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true

@@ -284,17 +284,13 @@ Extra Gore
 ]],[[
 Crystallised Omniscience
 Onyx Amulet
-Variant: Pre 3.19.0
-Variant: Current
 Source: Drops from unique{The Searing Exarch}
 Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Modifiers to Attributes instead Apply to Omniscience
-{variant:1}+1% to All Elemental Resistances per 10 Omniscience
-{variant:1}Penetrate 1% Elemental Resistances per 10 Omniscience
-{variant:2}+1% to All Elemental Resistances per 15 Omniscience
-{variant:2}Penetrate 1% Elemental Resistances per 15 Omniscience
++1% to All Elemental Resistances per 15 Omniscience
+Penetrate 1% Elemental Resistances per 15 Omniscience
 Attribute Requirements can be satisfied by (15-25)% of Omniscience
 ]],[[
 Daresso's Salute

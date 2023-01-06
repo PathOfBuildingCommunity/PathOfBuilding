@@ -1,5 +1,5 @@
-name: Application Bug report
-description: Create a bug report to help us fix an issue in path of building
+name: Application bug report
+description: Create a bug report to help us fix an issue in Path of Building
 labels: [bug]
 body:
   - type: markdown

@@ -1880,7 +1880,7 @@ skills["ConsecratedPath"] = {
 	castTime = 1,
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 	},
 	baseFlags = {
@@ -3321,8 +3321,16 @@ skills["FrozenLegion"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["frozen_legion_%_chance_to_summon_additional_statue"] = {
+			mod("FrozenLegionExtraStatueChance", "BASE", nil)
+		}
+	},
 	baseFlags = {
 		spell = true,
+	},
+	baseMods = {
+		mod("FrozenLegionMaxStatues", "BASE", 6),
 	},
 	qualityStats = {
 		Default = {
@@ -3334,14 +3342,6 @@ skills["FrozenLegion"] = {
 		Alternate2 = {
 			{ "frozen_legion_%_chance_to_summon_additional_statue", 1 },
 		},
-	},
-	baseMods = {
-		mod("FrozenLegionMaxStatues", "BASE", 6)
-	},
-	statMap = {
-		["frozen_legion_%_chance_to_summon_additional_statue"] = {
-			mod("FrozenLegionExtraStatueChance", "BASE", nil)
-		}
 	},
 	constantStats = {
 		{ "ring_of_ice_placement_distance", 28 },
@@ -3407,33 +3407,6 @@ skills["FrozenSweep"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	baseFlags = {
-		attack = true,
-		area = true,
-		melee = true,
-	},
-	baseMods = {
-		skill("radius", 25),
-	},
-	qualityStats = {
-		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-	},
-	constantStats = {
-		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
-		{ "skill_disabled_unless_cloned", 1 },
-	},
-	stats = {
-		"is_area_damage",
-		"base_skill_show_average_damage_instead_of_dps",
-	},
 	parts = {
 		{
 			name = "1 charge",
@@ -3462,7 +3435,7 @@ skills["FrozenSweep"] = {
 		if parentSkill.skillModList:Flag(parentSkill.skillCfg, "DisableSkill") and not parentSkill.skillModList:Flag(parentSkill.skillCfg, "EnableSkill") then
 			return
 		end
-		
+
 		activeSkill.skillData.cooldown = parentSkill.skillData.cooldown
 		local cooldownOverride = parentSkill.skillModList:Override(parentSkill.skillCfg, "CooldownRecovery")
 		local cooldown = cooldownOverride or (parentSkill.skillData.cooldown + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(parentSkill.skillModList, parentSkill.skillCfg, "CooldownRecovery"))
@@ -3494,6 +3467,33 @@ skills["FrozenSweep"] = {
 			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
 		end
 	end,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	baseMods = {
+		skill("radius", 25),
+	},
+	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
+		{ "skill_disabled_unless_cloned", 1 },
+	},
+	stats = {
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+	},
 	levels = {
 		[1] = { damageEffectiveness = 1.7, attackSpeedMultiplier = -30, baseMultiplier = 1.7, levelRequirement = 39, },
 		[2] = { damageEffectiveness = 1.76, attackSpeedMultiplier = -30, baseMultiplier = 1.758, levelRequirement = 41, },
@@ -3895,7 +3895,7 @@ skills["GroundSlam"] = {
 	castTime = 1,
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 	},
 	baseFlags = {
@@ -3990,7 +3990,7 @@ skills["VaalGroundSlam"] = {
 	castTime = 1,
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "AtCloseRange" })
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 		["vaal_skill_exertable"] = {
 		},
@@ -5463,6 +5463,7 @@ skills["VaalMoltenStrike"] = {
 		"show_number_of_projectiles",
 		"molten_strike_projectiles_chain_when_impacting_ground",
 		"global_always_hit",
+		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, attackSpeedMultiplier = -30, soulPreventionDuration = 3, baseMultiplier = 0.7, damageEffectiveness = 0.7, skillUseStorage = 3, soulCost = 15, levelRequirement = 1, statInterpolation = { 3, 3, }, },
@@ -8475,6 +8476,7 @@ skills["VaalVolcanicFissure"] = {
 		"is_area_damage",
 		"show_number_of_projectiles",
 		"projectiles_not_offset",
+		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
 		[1] = { 8, attackSpeedMultiplier = -20, soulPreventionDuration = 6, baseMultiplier = 1.5, damageEffectiveness = 1.5, skillUseStorage = 1, soulCost = 25, levelRequirement = 12, statInterpolation = { 1, }, },

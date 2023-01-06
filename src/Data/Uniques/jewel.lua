@@ -230,7 +230,7 @@ Limited to: 3
 Variant: Pre 2.5.0
 Variant: Pre 3.0.0
 Variant: Pre 3.10.0
-Variant: Current
+Variant: Current - Elemental Damage
 Variant: Current - Chance to avoid Ailments
 Variant: Current - Min Frenzy Charge
 {variant:1}5% increased Elemental Damage per Grand Spectrum
@@ -1994,7 +1994,7 @@ Implicits: 0
 {variant:14}1% increased Minion Attack and Cast Speed per 10 Devotion
 {variant:15}Minions have +60 to Accuracy Rating per 10 Devotion
 {variant:16}Regenerate 0.6 Mana per Second per 10 Devotion
-{variant:17}1% reduced Cost of Skills per 10 Devotion
+{variant:17}1% reduced Mana Cost of Skills per 10 Devotion
 {variant:18}1% increased effect of Non-Curse Auras per 10 Devotion
 {variant:19}3% increased Defences from Equipped Shield per 10 Devotion
 Passives in radius are Conquered by the Templars
