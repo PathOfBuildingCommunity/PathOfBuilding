@@ -3504,7 +3504,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.duration = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
+					local resist = m_min((enemyDB:Override(nil, "ChaosResist") or enemyDB:Sum("BASE", nil, "ChaosResist")) * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -3760,7 +3760,7 @@ function calcs.offence(env, actor, activeSkill)
 				local effMult = 1
 				if env.mode_effective then
 					if skillModList:Flag(cfg, "IgniteToChaos") then
-						local resist = m_min(enemyDB:Sum("BASE", nil, "ChaosResist") * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
+						local resist = m_min((enemyDB:Override(nil, "ChaosResist") or enemyDB:Sum("BASE", nil, "ChaosResist")) * calcLib.mod(enemyDB, nil, "ChaosResist"), data.misc.EnemyMaxResist)
 						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -3769,7 +3769,7 @@ function calcs.offence(env, actor, activeSkill)
 							globalBreakdown.IgniteEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore)
 						end
 					else
-						local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist") * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
+						local resist = m_min((enemyDB:Override(nil, "FireResist", "ElementalResist") or enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist")) * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
 						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -3790,7 +3790,7 @@ function calcs.offence(env, actor, activeSkill)
 				local groundMult = m_max(skillModList:Max(nil, "IgniteDpsAsBurningGround") or 0, enemyDB:Max(nil, "IgniteDpsAsBurningGround") or 0)
 				if groundMult > 0 then
 					-- Always use fire eff multi
-					local resist = m_min(enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist") * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
+					local resist = m_min((enemyDB:Override(nil, "FireResist", "ElementalResist") or enemyDB:Sum("BASE", nil, "FireResist", "ElementalResist")) * calcLib.mod(enemyDB, nil, "FireResist", "ElementalResist"), data.misc.EnemyMaxResist)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					local fireEffMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
