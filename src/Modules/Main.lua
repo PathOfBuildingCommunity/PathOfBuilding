@@ -68,8 +68,6 @@ function main:Init()
 		self.allowTreeDownload = true
 	end
 
-	self.sharedItemList = { }
-	self.sharedItemSetList = { }
 
 	self.inputEvents = { }
 	self.popups = { }
@@ -152,6 +150,9 @@ function main:Init()
 		self:SaveModCache()
 	end
 
+	self.sharedItemList = { }
+	self.sharedItemSetList = { }
+
 	self.anchorMain = new("Control", nil, 4, 0, 0, 0)
 	self.anchorMain.y = function()
 		return self.screenH - 4
@@ -214,6 +215,8 @@ of using one of the installers. If that is the case,
 please reinstall using one of the installers from
 the "Releases" section of the GitHub page.]])
 	end
+
+	self:LoadSharedItems()
 
 	self.onFrameFuncs = { }
 end
@@ -469,34 +472,6 @@ function main:LoadSettings(ignoreBuild)
 						}
 					end
 				end
-			elseif node.elem == "SharedItems" then
-				for _, child in ipairs(node) do
-					if child.elem == "Item" then
-						local rawItem = { raw = "" }
-						for _, subChild in ipairs(child) do
-							if type(subChild) == "string" then
-								rawItem.raw = subChild
-							end
-						end
-						local newItem = new("Item", rawItem.raw)
-						t_insert(self.sharedItemList, newItem)
-					elseif child.elem == "ItemSet" then
-						local sharedItemSet = { title = child.attrib.title, slots = { } }
-						for _, grandChild in ipairs(child) do
-							if grandChild.elem == "Item" then
-								local rawItem = { raw = "" }
-								for _, subChild in ipairs(grandChild) do
-									if type(subChild) == "string" then
-										rawItem.raw = subChild
-									end
-								end
-								local newItem = new("Item", rawItem.raw)
-								sharedItemSet.slots[grandChild.attrib.slotName] = newItem
-							end
-						end
-						t_insert(self.sharedItemSetList, sharedItemSet)
-					end
-				end
 			elseif node.elem == "Misc" then
 				if node.attrib.buildSortMode then
 					self.buildSortMode = node.attrib.buildSortMode
@@ -554,6 +529,49 @@ function main:LoadSettings(ignoreBuild)
 				end
 				if node.attrib.invertSliderScrollDirection then
 					self.invertSliderScrollDirection = node.attrib.invertSliderScrollDirection == "true"
+				end
+			end
+		end
+	end
+end
+
+function main:LoadSharedItems()
+	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
+	if not setXML then
+		return true
+	elseif setXML[1].elem ~= "PathOfBuilding" then
+		launch:ShowErrMsg("^1Error parsing 'Settings.xml': 'PathOfBuilding' root element missing")
+		return true
+	end
+	for _, node in ipairs(setXML[1]) do
+		if type(node) == "table" then
+			if node.elem == "SharedItems" then
+				for _, child in ipairs(node) do
+					if child.elem == "Item" then
+						local rawItem = { raw = "" }
+						for _, subChild in ipairs(child) do
+							if type(subChild) == "string" then
+								rawItem.raw = subChild
+							end
+						end
+						local newItem = new("Item", rawItem.raw)
+						t_insert(self.sharedItemList, newItem)
+					elseif child.elem == "ItemSet" then
+						local sharedItemSet = { title = child.attrib.title, slots = { } }
+						for _, grandChild in ipairs(child) do
+							if grandChild.elem == "Item" then
+								local rawItem = { raw = "" }
+								for _, subChild in ipairs(grandChild) do
+									if type(subChild) == "string" then
+										rawItem.raw = subChild
+									end
+								end
+								local newItem = new("Item", rawItem.raw)
+								sharedItemSet.slots[grandChild.attrib.slotName] = newItem
+							end
+						end
+						t_insert(self.sharedItemSetList, sharedItemSet)
+					end
 				end
 			end
 		end

@@ -937,15 +937,22 @@ local function doActorMisc(env, actor)
 			for item in pairs(env.flasks) do
 				if item.baseName:match("Silver Flask") then
 					onslaughtFromFlask = true
-					if flaskEffectInc < (item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")) / 100 then 
-						flaskEffectInc =  (item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")) / 100
+
+					local curFlaskEffectInc = item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")
+					if item.rarity == "MAGIC" then
+						curFlaskEffectInc = curFlaskEffectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+					end
+
+					if flaskEffectInc < curFlaskEffectInc / 100 then 
+						flaskEffectInc = curFlaskEffectInc / 100
 					end
 				end
 			end
+			local onslaughtEffectInc = modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100
 			if onslaughtFromFlask then
-				effect = m_floor(20 * (1 + flaskEffectInc + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
+				effect = m_floor(20 * (1 + flaskEffectInc + onslaughtEffectInc))
 			else
-				effect = m_floor(20 * (1 + modDB:Sum("INC", nil, "OnslaughtEffect", "BuffEffectOnSelf") / 100))
+				effect = m_floor(20 * (1 + onslaughtEffectInc))
 			end
 			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Attack)
 			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Cast)
@@ -1423,7 +1430,7 @@ function calcs.perform(env, avoidCache)
 			activeSkill.skillData.triggered = true
 			local spellCount, quality = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
-				local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == activeSkill.socketGroup.slot
+				local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == activeSkill.socketGroup.slot
 				local match2 = not skill.activeEffect.grantedEffect.fromItem and skill.socketGroup == activeSkill.socketGroup
 				if skill.skillData.triggeredByBrand and (match1 or match2) then
 					spellCount = spellCount + 1
@@ -2954,7 +2961,7 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
@@ -3006,7 +3013,7 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			if skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
@@ -3055,7 +3062,7 @@ function calcs.perform(env, avoidCache)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			if skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and (match1 or match2) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
