@@ -1,3 +1,17 @@
+VERSION[2.25.1][2023/01/06]
+
+--- Fixed Crashes ---
+* Fix crash caused by item stuck on cursor when dragging (Paliak)
+* Fix crash when using Whispering Ice with trigger support (Paliak)
+* Fix crash caused by loading shared items too early (QuickStick123)
+
+--- Fixed Bugs ---
+* Fixing Timeless jewels not working correctly when added via the "Find Timeless Jewel" UI (QuickStick123)
+* Fix Atziri's Mirror's drop source (pHiney)
+* Fix Blood Sacrament incorrect scaling when setting to stages more than 1 (dreais)
+* Fix Spell Suppression mastery not working with Acrobatics Keystone (Paliak)
+* Fix magic utility flask effect not scaling Onslaught from Silver Flasks (deathbeam)
+
 VERSION[2.25.0][2023/01/03]
 
 --- Implemented Enhancements ---
@@ -58,7 +72,7 @@ VERSION[2.25.0][2023/01/03]
 * Seismic Trap and Lightning Spire Trap not rounding to server ticks for wave count calculation (Edvinas-Smita)
 * Missing Physical tag to Heartbound Loop (ProphetLamb)
 * Wording on Sandstorm Visage mods (QuickStick123)
-* Remove Legacy Crystalised Omniscience from the unique list as it no longer exists (QuickStick123)
+* Remove Legacy Crystallised Omniscience from the unique list as it no longer exists (QuickStick123)
 * Damage multipliers to exerts also applying to triggered skills (Paliak)
 * More than 100% reduced resistances causing negative res to turn positive (QuickStick123)
 * Militant Faith mod using "Skill Cost" instead of "Mana Cost" (Regisle)
