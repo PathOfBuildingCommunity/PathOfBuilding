@@ -1018,6 +1018,15 @@ local preFlagList = {
 	["^enemies (%a+) by you have "] = function(cond)
 		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true }
 	end,
+	["^while a pinnacle atlas boss is in your presence, enemies you've hit recently have "] = function(cond)
+		return { playerTagList = { { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } }, applyToEnemy = true }
+	end,
+	["^while a unique enemy is in your presence, enemies you've hit recently have "] = function(cond)
+		return { playerTagList = { { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" } }, applyToEnemy = true }
+	end,
+	["^enemies you've hit recently have "] = function(cond)
+		return { playerTag = { type = "Condition", var = "HitRecently" }, applyToEnemy = true }
+	end, 
 	["^hits against enemies (%a+) by you have "] = function(cond)
 		return { tag = { type = "ActorCondition", actor = "enemy", var = cond:gsub("^%a", string.upper) } }
 	end,
@@ -4723,13 +4732,12 @@ local function parseMod(line, order)
 		elseif misc.addToMinion then
 			-- Minion modifiers
 			for i, effectMod in ipairs(modList) do
-				local tagList = { misc.playerTag }
+				local tagList = { misc.playerTag, misc.addToMinionTag }
 				if misc.playerTagList then
-					for i, tag in ipairs(misc.playerTagList) do
-						tagList[i] = tag
+					for _, tag in ipairs(misc.playerTagList) do
+						t_insert(tagList, tag)
 					end
 				end
-				t_insert(tagList, misc.addToMinionTag)
 				modList[i] = mod("MinionModifier", "LIST", { mod = effectMod }, unpack(tagList))
 			end
 		elseif misc.addToSkill then
@@ -4739,12 +4747,18 @@ local function parseMod(line, order)
 			end
 		elseif misc.applyToEnemy then
 			for i, effectMod in ipairs(modList) do
+				local tagList = { misc.playerTag }
+				if misc.playerTagList then
+					for _, tag in ipairs(misc.playerTagList) do
+						t_insert(tagList, tag)
+					end
+				end
 				local newMod = effectMod
 				if effectMod[1] and type(effectMod) == "table" and misc.actorEnemy then
 					newMod = copyTable(effectMod)
 					newMod[1]["actor"] = "enemy"
 				end
-				modList[i] = mod("EnemyModifier", "LIST", { mod = newMod })
+				modList[i] = mod("EnemyModifier", "LIST", { mod = newMod }, unpack(tagList))
 			end
 		end
 	end
