@@ -4732,7 +4732,9 @@ local function parseMod(line, order)
 		elseif misc.addToMinion then
 			-- Minion modifiers
 			for i, effectMod in ipairs(modList) do
-				local tagList = { misc.playerTag, misc.addToMinionTag }
+				local tagList = { }
+				if misc.playerTag then t_insert(tagList, misc.playerTag) end
+				if misc.addToMinionTag then t_insert(tagList, misc.addToMinionTag) end
 				if misc.playerTagList then
 					for _, tag in ipairs(misc.playerTagList) do
 						t_insert(tagList, tag)
@@ -4747,7 +4749,8 @@ local function parseMod(line, order)
 			end
 		elseif misc.applyToEnemy then
 			for i, effectMod in ipairs(modList) do
-				local tagList = { misc.playerTag }
+				local tagList = { }
+				if misc.playerTag then t_insert(tagList, misc.playerTag) end
 				if misc.playerTagList then
 					for _, tag in ipairs(misc.playerTagList) do
 						t_insert(tagList, tag)
