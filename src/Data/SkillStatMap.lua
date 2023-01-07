@@ -1651,6 +1651,9 @@ return {
 ["curse_maximum_doom"] = {
 	mod("MaxDoom", "BASE", nil),
 },
+["triggered_vicious_hex_explosion"] = {
+	skill("triggeredWhenHexEnds", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
 -- Aura
 ["non_curse_aura_effect_+%"] = {
 	mod("AuraEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),

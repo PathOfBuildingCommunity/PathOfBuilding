@@ -2911,157 +2911,253 @@ function calcs.perform(env, avoidCache)
 		env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
 		env.player.mainSkill.skillFlags.globalTrigger = true
 	elseif env.player.mainSkill.skillData.triggeredWhileChannelling and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
-	--Cast While Channeling Special Handling
-	local spellCount = {}
-	local trigRate = 0
-	local source = nil
-	local triggerName = "Cast While Channeling"
-	for _, skill in ipairs(env.player.activeSkillList) do
-		local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
-		local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-		local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-		if skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and (match1 or match2) and not triggered then
-			source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+		--Cast While Channeling Special Handling
+		local spellCount = {}
+		local trigRate = 0
+		local source = nil
+		local triggerName = "Cast While Channeling"
+		for _, skill in ipairs(env.player.activeSkillList) do
+			local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			if skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and (match1 or match2) and not triggered then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
+				t_insert(spellCount, packageSkillDataForSimulation(skill))
+			end
 		end
-		if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
-			t_insert(spellCount, packageSkillDataForSimulation(skill))
-		end
-	end
-	if not source or #spellCount < 1 then
-		env.player.mainSkill.skillData.triggered = nil
-		env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
-		env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
-		env.player.mainSkill.infoTrigger = ""
-	else
-		local triggeredName = env.player.mainSkill.activeEffect.grantedEffect.name or "Triggered"
-		
-		if env.player.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
-			local baseCastTime = env.player.mainSkill.skillData.castTimeOverride or env.player.mainSkill.activeEffect.grantedEffect.castTime or 1
-			local inc = env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed")
-			local more = env.player.mainSkill.skillModList:More(env.player.mainSkill.skillCfg, "Speed")
-			output.addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
-			env.player.mainSkill.skillFlags.addsCastTime = true
+		if not source or #spellCount < 1 then
+			env.player.mainSkill.skillData.triggered = nil
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
+			env.player.mainSkill.infoTrigger = ""
+		else
+			local triggeredName = env.player.mainSkill.activeEffect.grantedEffect.name or "Triggered"
+			
+			if env.player.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
+				local baseCastTime = env.player.mainSkill.skillData.castTimeOverride or env.player.mainSkill.activeEffect.grantedEffect.castTime or 1
+				local inc = env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed")
+				local more = env.player.mainSkill.skillModList:More(env.player.mainSkill.skillCfg, "Speed")
+				output.addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
+				env.player.mainSkill.skillFlags.addsCastTime = true
+				if breakdown then
+					breakdown.AddedCastTime = {
+						s_format("%.2f ^8(base cast time of %s)", baseCastTime, triggeredName),
+						s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
+						s_format("%.2f ^8(more/less)", more),
+						s_format("= %.2f ^8cast time", output.addsCastTime)
+					}
+				end
+			end
+			
+			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+			local adjTriggerInterval = m_ceil(source.skillData.triggerTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			local triggerRateOfTrigger = 1/adjTriggerInterval
+			local triggeredCD = env.player.mainSkill.skillData.cooldown
+			local cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
+			
+			if cooldownOverride then
+				env.player.mainSkill.skillFlags.hasOverride = true
+			end
+			
+			local triggeredTotalCooldown = (cooldownOverride or ((triggeredCD or 0.0) / icdr)) + (output.addsCastTime or 0)
+			local effCDTriggeredSkill = m_ceil(triggeredTotalCooldown * triggerRateOfTrigger) / triggerRateOfTrigger
+			
+			local simBreakdown = nil
+			output.TriggerRateCap = m_min(1 / effCDTriggeredSkill, triggerRateOfTrigger)
+			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, triggerRateOfTrigger, 0)
+			
 			if breakdown then
-				breakdown.AddedCastTime = {
-					s_format("%.2f ^8(base cast time of %s)", baseCastTime, triggeredName),
-					s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
-					s_format("%.2f ^8(more/less)", more),
-					s_format("= %.2f ^8cast time", output.addsCastTime)
+				if triggeredCD or cooldownOverride then
+					breakdown.TriggerRateCap = {
+						s_format("Cast While Channeling triggers %s every %.2fs while channeling %s ", triggeredName, source.skillData.triggerTime, source.activeEffect.grantedEffect.name),
+						s_format("%.3f ^8(adjusted for server tick rate)", adjTriggerInterval),
+						"",
+						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD or 0),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of triggered skill)", ((triggeredCD or 0) / icdr) +  (output.addsCastTime or 0)),
+						"",
+					}
+					if cooldownOverride ~= nil then
+						breakdown.TriggerRateCap[4] = s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName)
+					end
+					if output.addsCastTime then
+						t_insert(breakdown.TriggerRateCap, 5, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
+					end
+				else
+					breakdown.TriggerRateCap = {
+						s_format("Cast While Channeling triggers %s every %.2fs while channeling %s ", triggeredName, source.skillData.triggerTime, source.activeEffect.grantedEffect.name),
+						s_format("%.3f ^8(adjusted for server tick rate)", adjTriggerInterval),
+						"",
+						triggeredName .. " has no base cooldown or cooldown override",
+						"",
+					}
+					if output.addsCastTime then
+						t_insert(breakdown.TriggerRateCap, 5, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
+						t_insert(breakdown.TriggerRateCap, 6,s_format("= %.4f ^8(final cooldown of triggered skill)", output.addsCastTime))
+					end
+				end
+				
+				local timeAboveLastBreakPoint = triggeredTotalCooldown + adjTriggerInterval - effCDTriggeredSkill
+				
+				if triggeredCD and triggeredTotalCooldown > adjTriggerInterval and timeAboveLastBreakPoint < (triggeredCD / icdr) then
+					t_insert(breakdown.TriggerRateCap, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", ((((triggeredCD / icdr) / ((triggeredCD / icdr) - timeAboveLastBreakPoint)) - 1) * 100)))
+					t_insert(breakdown.TriggerRateCap,"")
+				end
+				
+				if output.addsCastTime and triggeredTotalCooldown > adjTriggerInterval and timeAboveLastBreakPoint < output.addsCastTime then
+					t_insert(breakdown.TriggerRateCap, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", (((output.addsCastTime / (output.addsCastTime - timeAboveLastBreakPoint )) - 1) * 100)))
+					t_insert(breakdown.TriggerRateCap,"")
+				end
+				
+				t_insert(breakdown.TriggerRateCap, "Trigger rate:")
+				t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f ^8(trigger rate adjusted for cooldown of triggered skill)", 1 / output.TriggerRateCap))
+				t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8 %s casts per second", output.TriggerRateCap, triggeredName))
+				
+				breakdown.SkillTriggerRate = {
+					s_format("%.2f ^8(%s triggers per second)", triggerRateOfTrigger, triggerName),
+					s_format("/ %.2f ^8(Estimated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
+					s_format("= %.2f ^8%s casts per second", output.SkillTriggerRate, triggeredName),
+					"",
+					s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
 				}
+				
+				if simBreakdown.extraSimInfo then
+					t_insert(breakdown.SkillTriggerRate, "")
+					t_insert(breakdown.SkillTriggerRate, simBreakdown.extraSimInfo)
+				end
+				breakdown.SimData = {
+					rowList = { },
+					colList = {
+						{ label = "Rate", key = "rate" },
+						{ label = "Skill Name", key = "skillName" },
+						{ label = "Slot Name", key = "slotName" },
+						{ label = "Gem Index", key = "gemIndex" },
+					},
+				}
+				for _, rateData in ipairs(simBreakdown.rates) do
+					local t = { }
+					for str in string.gmatch(rateData.name, "([^_]+)") do
+						t_insert(t, str)
+					end
+		
+					local row = {
+						rate = round(rateData.rate,2),
+						skillName = t[1],
+						slotName = t[2],
+						gemIndex = t[3],
+					}
+					t_insert(breakdown.SimData.rowList, row)
+				end
+			end
+			
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggered = true
+			env.player.mainSkill.skillFlags.globalTrigger = true
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
+			env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
+			env.player.mainSkill.infoMessage = triggerName .."'s Trigger: ".. source.activeEffect.grantedEffect.name
+			env.player.infoTrigger = env.player.mainSkill.infoTrigger or triggerName
+		end
+	elseif env.player.mainSkill.skillData.triggeredWhenHexEnds and not env.player.mainSkill.skillFlags.minion then --Doom Blast
+		local source = nil
+		local hexCastRate = 0
+
+		for _, skill in ipairs(env.player.activeSkillList) do
+			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+			if skill.skillTypes[SkillType.Hex] and (match1 or match2) then
+				source, hexCastRate = findTriggerSkill(env, skill, source, hexCastRate)
 			end
 		end
 		
-		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
-		local adjTriggerInterval = m_ceil(source.skillData.triggerTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
-		local triggerRateOfTrigger = 1/adjTriggerInterval
-		local triggeredCD = env.player.mainSkill.skillData.cooldown
-		local cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
-		
-		if cooldownOverride then
-			env.player.mainSkill.skillFlags.hasOverride = true
+		if not source then
+			env.player.mainSkill.skillData.triggeredWhenHexEnds = nil
+			env.player.mainSkill.infoMessage = "No Triggering Hex Found"
+			env.player.mainSkill.infoTrigger = ""
+		else
+			env.player.mainSkill.skillData.triggered = true
+			-- Doom Blast stores three uses. If we assume that the spell is triggered again before all three
+			-- charges have been restored, we can ignore the rate cap imposed on other skills (there are no breakpoints).
+			local triggeredCD = env.player.mainSkill.skillData.cooldown
+			local triggerCD = source.skillData.triggeredByCurseOnCurse and source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
+			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+			local modActionCooldown = m_max((triggeredCD or 0) / icdr, ((triggerCD or 0) / icdr ))
+			output.TriggerRateCap = 1 / modActionCooldown
+			local rateCapAdjusted
+			local extraICDRNeeded
+			
+			if source.skillData.triggeredByCurseOnCurse then
+				rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+				extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
+				
+				if rateCapAdjusted ~= 0 then
+					output.TriggerRateCap = 1 / rateCapAdjusted
+				end
+				if hexCastRate > output.TriggerRateCap then
+					hexCastRate = hexCastRate - m_ceil(hexCastRate - output.TriggerRateCap)
+				end
+			end
+
+			if breakdown then
+				if triggerCD then
+					breakdown.TriggerRateCap = {
+						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
+						"",
+						s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
+						"",
+						s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
+						"",
+						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						"",
+						"Trigger rate:",
+						s_format("1 / %.3f", rateCapAdjusted),
+						s_format("= %.2f ^8per second", output.TriggerRateCap),
+					}
+				else
+					breakdown.TriggerRateCap = {
+						s_format("%.2f ^8(base cooldown of Doom Blast)", triggeredCD),
+						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
+						"",
+						"Trigger rate based on Doom Blast cooldown",
+						"",
+						"Trigger rate:",
+						s_format("1 / %.3f", modActionCooldown),
+						s_format("= %.2f ^8per second", 1 / modActionCooldown),
+					}
+				end
+				if extraICDRNeeded then
+					t_insert(breakdown.TriggerRateCap, triggerCD and 10 or 8, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded))
+				end
+			end	
+
+			-- Set trigger rate
+			local hits_per_cast = env.player.mainSkill.skillPart == 2 and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or 1
+			output.EffectiveSourceRate = hexCastRate * hits_per_cast
+			output.SkillTriggerRate = calcMultiSpellRotationImpact(env, {packageSkillDataForSimulation(env.player.mainSkill)}, hexCastRate, 0) * hits_per_cast
+			if breakdown then
+				breakdown.EffectiveSourceRate = {
+					s_format("%.2f ^8(%s casts per second)", hexCastRate, source.activeEffect.grantedEffect.name),
+					s_format("* %.2f ^8(hits per cast from overlaps)", hits_per_cast),
+					s_format("= %.2f ^8per second", hexCastRate * hits_per_cast),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "Triggering Hex: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = "DoomBlast"
 		end
-		
-		local triggeredTotalCooldown = (cooldownOverride or ((triggeredCD or 0.0) / icdr)) + (output.addsCastTime or 0)
-		local effCDTriggeredSkill = m_ceil(triggeredTotalCooldown * triggerRateOfTrigger) / triggerRateOfTrigger
-		
-		local simBreakdown = nil
-		output.TriggerRateCap = m_min(1 / effCDTriggeredSkill, triggerRateOfTrigger)
-		output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, triggerRateOfTrigger, 0)
-		
-		if breakdown then
-			if triggeredCD or cooldownOverride then
-				breakdown.TriggerRateCap = {
-					s_format("Cast While Channeling triggers %s every %.2fs while channeling %s ", triggeredName, source.skillData.triggerTime, source.activeEffect.grantedEffect.name),
-					s_format("%.3f ^8(adjusted for server tick rate)", adjTriggerInterval),
-					"",
-					s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD or 0),
-					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-					s_format("= %.4f ^8(final cooldown of triggered skill)", ((triggeredCD or 0) / icdr) +  (output.addsCastTime or 0)),
-					"",
-				}
-				if cooldownOverride ~= nil then
-					breakdown.TriggerRateCap[4] = s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName)
-				end
-				if output.addsCastTime then
-					t_insert(breakdown.TriggerRateCap, 5, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
-				end
-			else
-				breakdown.TriggerRateCap = {
-					s_format("Cast While Channeling triggers %s every %.2fs while channeling %s ", triggeredName, source.skillData.triggerTime, source.activeEffect.grantedEffect.name),
-					s_format("%.3f ^8(adjusted for server tick rate)", adjTriggerInterval),
-					"",
-					triggeredName .. " has no base cooldown or cooldown override",
-					"",
-				}
-				if output.addsCastTime then
-					t_insert(breakdown.TriggerRateCap, 5, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
-					t_insert(breakdown.TriggerRateCap, 6,s_format("= %.4f ^8(final cooldown of triggered skill)", output.addsCastTime))
-				end
-			end
-			
-			local timeAboveLastBreakPoint = triggeredTotalCooldown + adjTriggerInterval - effCDTriggeredSkill
-			
-			if triggeredCD and triggeredTotalCooldown > adjTriggerInterval and timeAboveLastBreakPoint < (triggeredCD / icdr) then
-				t_insert(breakdown.TriggerRateCap, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", ((((triggeredCD / icdr) / ((triggeredCD / icdr) - timeAboveLastBreakPoint)) - 1) * 100)))
-				t_insert(breakdown.TriggerRateCap,"")
-			end
-			
-			if output.addsCastTime and triggeredTotalCooldown > adjTriggerInterval and timeAboveLastBreakPoint < output.addsCastTime then
-				t_insert(breakdown.TriggerRateCap, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", (((output.addsCastTime / (output.addsCastTime - timeAboveLastBreakPoint )) - 1) * 100)))
-				t_insert(breakdown.TriggerRateCap,"")
-			end
-			
-			t_insert(breakdown.TriggerRateCap, "Trigger rate:")
-			t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f ^8(trigger rate adjusted for cooldown of triggered skill)", 1 / output.TriggerRateCap))
-			t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8 %s casts per second", output.TriggerRateCap, triggeredName))
-			
-			breakdown.SkillTriggerRate = {
-				s_format("%.2f ^8(%s triggers per second)", triggerRateOfTrigger, triggerName),
-				s_format("/ %.2f ^8(Estimated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
-				s_format("= %.2f ^8%s casts per second", output.SkillTriggerRate, triggeredName),
-				"",
-				s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
-			}
-			
-			if simBreakdown.extraSimInfo then
-				t_insert(breakdown.SkillTriggerRate, "")
-				t_insert(breakdown.SkillTriggerRate, simBreakdown.extraSimInfo)
-			end
-			breakdown.SimData = {
-				rowList = { },
-				colList = {
-					{ label = "Rate", key = "rate" },
-					{ label = "Skill Name", key = "skillName" },
-					{ label = "Slot Name", key = "slotName" },
-					{ label = "Gem Index", key = "gemIndex" },
-				},
-			}
-			for _, rateData in ipairs(simBreakdown.rates) do
-				local t = { }
-				for str in string.gmatch(rateData.name, "([^_]+)") do
-					t_insert(t, str)
-				end
-	
-				local row = {
-					rate = round(rateData.rate,2),
-					skillName = t[1],
-					slotName = t[2],
-					gemIndex = t[3],
-				}
-				t_insert(breakdown.SimData.rowList, row)
-			end
-		end
-		
-		-- Account for Trigger-related INC/MORE modifiers
-		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-		env.player.mainSkill.skillData.triggered = true
-		env.player.mainSkill.skillFlags.globalTrigger = true
-		env.player.mainSkill.skillData.triggerSource = source
-		env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
-		env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
-		env.player.mainSkill.infoMessage = triggerName .."'s Trigger: ".. source.activeEffect.grantedEffect.name
-		env.player.infoTrigger = env.player.mainSkill.infoTrigger or triggerName
-	end
 	elseif not env.player.mainSkill.skillFlags.disable then
 		local uniqueTriggerName = getUniqueItemTriggerName(env.player.mainSkill)
 		local triggerName = uniqueTriggerName
@@ -3086,7 +3182,6 @@ function calcs.perform(env, avoidCache)
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			return (match1 or match2)
 		end
-		ConPrintf(uniqueTriggerName or "nil")
 		if uniqueTriggerName then
 			env.player.mainSkill.skillData.triggeredByUnique = true
 			if uniqueTriggerName == "Law of the Wilds" then
