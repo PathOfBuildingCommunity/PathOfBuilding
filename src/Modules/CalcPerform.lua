@@ -512,42 +512,46 @@ local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output,
 	
 	--If spell count is missing the skill likely comes from a unique and /or triggers it self
 	if output.EffectiveSourceRate ~= 0 then
-		output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount or {packageSkillDataForSimulation(env.player.mainSkill)}, output.EffectiveSourceRate, (triggerCD or triggeredCD or 0) / icdr)
-		if breakdown and spellCount then
-			breakdown.SkillTriggerRate = {
-				s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (env.player.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
-				s_format("/ %.2f ^8(Estimated impact of linked spells)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
-				s_format("= %.2f ^8per second", output.SkillTriggerRate),
-				"",
-				s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
-			}
-
-			if simBreakdown.extraSimInfo then
-				t_insert(breakdown.SkillTriggerRate, "")
-				t_insert(breakdown.SkillTriggerRate, simBreakdown.extraSimInfo)
-			end
-			breakdown.SimData = {
-				rowList = { },
-				colList = {
-					{ label = "Rate", key = "rate" },
-					{ label = "Skill Name", key = "skillName" },
-					{ label = "Slot Name", key = "slotName" },
-					{ label = "Gem Index", key = "gemIndex" },
-				},
-			}
-			for _, rateData in ipairs(simBreakdown.rates) do
-				local t = { }
-				for str in string.gmatch(rateData.name, "([^_]+)") do
-					t_insert(t, str)
-				end
-	
-				local row = {
-					rate = round(rateData.rate, 2),
-					skillName = t[1],
-					slotName = t[2],
-					gemIndex = t[3],
+		if env.player.mainSkill.skillFlags.globalTrigger and not spellCount then
+			output.SkillTriggerRate = output.EffectiveSourceRate
+		else
+			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount or {packageSkillDataForSimulation(env.player.mainSkill)}, output.EffectiveSourceRate, (triggerCD or triggeredCD or 0) / icdr)
+			if breakdown and spellCount then
+				breakdown.SkillTriggerRate = {
+					s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (env.player.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
+					s_format("/ %.2f ^8(Estimated impact of linked spells)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
+					s_format("= %.2f ^8per second", output.SkillTriggerRate),
+					"",
+					s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
 				}
-				t_insert(breakdown.SimData.rowList, row)
+	
+				if simBreakdown.extraSimInfo then
+					t_insert(breakdown.SkillTriggerRate, "")
+					t_insert(breakdown.SkillTriggerRate, simBreakdown.extraSimInfo)
+				end
+				breakdown.SimData = {
+					rowList = { },
+					colList = {
+						{ label = "Rate", key = "rate" },
+						{ label = "Skill Name", key = "skillName" },
+						{ label = "Slot Name", key = "slotName" },
+						{ label = "Gem Index", key = "gemIndex" },
+					},
+				}
+				for _, rateData in ipairs(simBreakdown.rates) do
+					local t = { }
+					for str in string.gmatch(rateData.name, "([^_]+)") do
+						t_insert(t, str)
+					end
+		
+					local row = {
+						rate = round(rateData.rate, 2),
+						skillName = t[1],
+						slotName = t[2],
+						gemIndex = t[3],
+					}
+					t_insert(breakdown.SimData.rowList, row)
+				end
 			end
 		end
 	else
@@ -3128,8 +3132,6 @@ function calcs.perform(env, avoidCache)
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Moonbender's Wing" then
 				triggerName = "Lightning Warp"
-				--cooldown taken from wiki
-				env.player.mainSkill.skillData.cooldown = 1
 				spellCount = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Ngamahu's Flame" then
