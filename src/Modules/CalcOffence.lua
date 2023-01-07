@@ -2731,6 +2731,11 @@ function calcs.offence(env, actor, activeSkill)
 			output.ManaOnKill = not skillModList:Flag(cfg, "CannotGainMana") and (m_floor(skillModList:Sum("BASE", cfg, "ManaOnKill"))) or 0
 		end
 
+		-- Enemy Regeneration Rate
+		output.EnemyLifeRegen = enemyDB:Sum("INC", cfg, "LifeRegen")
+		output.EnemyManaRegen = enemyDB:Sum("INC", cfg, "ManaRegen")
+		output.EnemyEnergyShieldRegen = enemyDB:Sum("INC", cfg, "EnergyShieldRegen")
+
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
