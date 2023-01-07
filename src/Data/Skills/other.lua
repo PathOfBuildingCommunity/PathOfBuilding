@@ -3229,6 +3229,7 @@ skills["SupportTriggerSpellOnSkillUse"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	constantStats = {
@@ -3277,29 +3278,27 @@ skills["AvianTornado"] = {
 		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
 }
-
 skills["SupportTriggerSpellOnSkillUse"] = {
-	name = "Trigger Craft",
-	hidden = true,
-	color = 4,
-	support = true,
-	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
-	isTrigger = true,
-	statDescriptionScope = "gem_stat_descriptions",
-	fromItem = true,
-	constantStats = {
-		{ "spell_has_trigger_from_crafted_item_mod", 1 },
-	},
-	stats = {
-	},
-	levels = {
-		[1] = { cooldown = 8, levelRequirement = 1, manaMultiplier = 150, },
-		[2] = { cooldown = 4, levelRequirement = 1, manaMultiplier = 150, },
-	},
+       name = "Trigger Craft",
+       hidden = true,
+       color = 4,
+       support = true,
+       requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+       addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+       excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+       isTrigger = true,
+       statDescriptionScope = "gem_stat_descriptions",
+       fromItem = true,
+       constantStats = {
+               { "spell_has_trigger_from_crafted_item_mod", 1 },
+       },
+       stats = {
+       },
+       levels = {
+               [1] = { cooldown = 8, levelRequirement = 1, manaMultiplier = 150, },
+               [2] = { cooldown = 4, levelRequirement = 1, manaMultiplier = 150, },
+       },
 }
-
 skills["Unhinge"] = {
 	name = "Unhinge",
 	hidden = true,
@@ -3444,5 +3443,26 @@ skills["VoidShot"] = {
 	},
 	levels = {
 		[20] = { damageEffectiveness = 0.65, baseMultiplier = 0.65, levelRequirement = 70, },
+	},
+}
+skills["SupportUniqueCastCurseOnCurse"] = {
+	name = "Vixen's Entrapment",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.AppliesCurse, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	constantStats = {
+		{ "cast_when_cast_curse_%", 100 },
+	},
+	stats = {
+		"cannot_cast_curses",
+	},
+	levels = {
+		[1] = { cooldown = 0.25, levelRequirement = 0, },
 	},
 }

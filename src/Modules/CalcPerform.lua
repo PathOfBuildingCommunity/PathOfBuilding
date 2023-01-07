@@ -3076,11 +3076,13 @@ function calcs.perform(env, avoidCache)
 		local assumingEveryHitKills = nil
 		local uuid = nil
 		local triggerOnUse = nil
+		local useCastRate = false
 		local function slotMatch(env, skill)
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			return (match1 or match2)
 		end
+		ConPrintf(uniqueTriggerName or "nil")
 		if uniqueTriggerName then
 			env.player.mainSkill.skillData.triggeredByUnique = true
 			if uniqueTriggerName == "Law of the Wilds" then
@@ -3180,6 +3182,12 @@ function calcs.perform(env, avoidCache)
 				triggeredSkillCond = function(env, skill) 
 					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell]
 				end
+			elseif uniqueTriggerName == "Vixen's Entrapment" then
+				triggerSkillCond = function(env, skill)
+					return skill.skillTypes[SkillType.Hex] and skill ~= env.player.mainSkill
+				end
+				spellCount = nil
+				useCastRate = true
 			elseif uniqueTriggerName == "Queen's Demand" then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
 				env.player.mainSkill.skillData.sourceRateIsFinal = true
@@ -3197,7 +3205,7 @@ function calcs.perform(env, avoidCache)
 							else
 								trigRate = 1 / skill.activeEffect.grantedEffect.castTime
 							end
-							source.useCastRate = true
+							useCastRate = true
 						end
 					end
 					if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
@@ -3207,14 +3215,7 @@ function calcs.perform(env, avoidCache)
 			elseif env.player.mainSkill.skillData.triggeredByManaSpent then
 				triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance")
 				triggerName = "Kitava's Thirst"
-				local addsCastTime = nil
-				if env.player.mainSkill.skillModList:Flag(env.player.mainSkill.skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
-					baseCastTime = env.player.mainSkill.skillData.castTimeOverride or env.player.mainSkill.activeEffect.grantedEffect.castTime or 1
-					local inc = env.player.mainSkill.skillModList:Sum("INC", skill.skillCfg, "Speed")
-					local more = env.player.mainSkill.skillModList:More(env.player.mainSkill.skillCfg, "Speed")
-					addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
-				end
-				spellCount = {{ uuid = cacheSkillUUID(env.player.mainSkill), cd = env.player.mainSkill.skillData.cooldown, cdOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery"), addsCastTime = addsCastTime}}
+				spellCount = nil
 				triggerSkillCond = function(env, skill) return not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredByManaSpent end
 			elseif env.player.mainSkill.skillData.triggeredByMjolner then
 				triggerSkillCond = function(env, skill)
@@ -3356,7 +3357,7 @@ function calcs.perform(env, avoidCache)
 								if assumingEveryHitKills then
 									t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
 								end
-								t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, source.activeEffect.grantedEffect.name, source.useCastRate and "cast rate" or "attack rate"))
+								t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, source.activeEffect.grantedEffect.name, useCastRate and "cast rate" or "attack rate"))
 							end
 						end
 					end

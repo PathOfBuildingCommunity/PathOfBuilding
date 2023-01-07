@@ -913,3 +913,8 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area
 	fromItem = true,
 #mods
+
+#skill SupportUniqueCastCurseOnCurse Vixen's Entrapment
+#flags spell curse
+	fromItem = true,
+#mods
