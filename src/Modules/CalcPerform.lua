@@ -3141,10 +3141,13 @@ function calcs.perform(env, avoidCache)
 
 			-- Set trigger rate
 			local hits_per_cast = env.player.mainSkill.skillPart == 2 and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or 1
-			output.EffectiveSourceRate = hexCastRate * hits_per_cast
+			output.EffectiveSourceRate = hexCastRate
 			output.SkillTriggerRate = calcMultiSpellRotationImpact(env, {packageSkillDataForSimulation(env.player.mainSkill)}, hexCastRate, 0) * hits_per_cast
 			if breakdown then
 				breakdown.EffectiveSourceRate = {
+					s_format("%.2f ^8(%s casts per second)", hexCastRate, source.activeEffect.grantedEffect.name),
+				}
+				breakdown.SkillTriggerRate = {
 					s_format("%.2f ^8(%s casts per second)", hexCastRate, source.activeEffect.grantedEffect.name),
 					s_format("* %.2f ^8(hits per cast from overlaps)", hits_per_cast),
 					s_format("= %.2f ^8per second", hexCastRate * hits_per_cast),
