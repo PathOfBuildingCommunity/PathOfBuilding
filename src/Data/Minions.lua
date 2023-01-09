@@ -423,8 +423,6 @@ minions["UniqueAnimatedWeapon"] = {
 		"DancingDervishCycloneChannelled",
 	},
 	modList = {
-		-- UniqueAnimateWeaponAura [disable_weapons = 1]
-		-- UniqueAnimateWeaponAura [has_onslaught = 1]
 	},
 }
 

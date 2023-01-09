@@ -40,13 +40,16 @@ skills["SandstormChaosElementalSummoned"] = {
 	color = 4,
 	baseEffectiveness = 6.1421999931335,
 	incrementalEffectiveness = 0.052099999040365,
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
 		spell = true,
 		duration = true,
 		area = true,
+	},
+	baseMods = {
+		skill("dotIsArea", true),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 5000 },
@@ -486,7 +489,7 @@ skills["RockGolemSlam"] = {
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 0,
-	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -1210,7 +1213,7 @@ skills["MinionInstability"] = {
 		area = true,
 		fire = true,
 	},
-	skillTypes = { [10] = true, },
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
 	baseMods = {
 		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
 		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
@@ -1420,6 +1423,31 @@ skills["GASummonReaperComboLeftSlash"] = {
 	levels = {
 		[1] = { 1, levelRequirement = 28, statInterpolation = { 2, }, },
 		[2] = { 60, levelRequirement = 80, statInterpolation = { 2, }, },
+	},
+}
+skills["ReaperConsumeMinionForBuff"] = {
+	name = "Consume",
+	hidden = true,
+	color = 4,
+	skillTypes = { },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+	},
+	baseMods = {
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 20) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" }),
+		skill("buffAllies", true),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 6000 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cooldown = 25, levelRequirement = 0, },
 	},
 }
 skills["MPWExpeditionSummonedArbalestProjectile"] = {

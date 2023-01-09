@@ -59,6 +59,7 @@ Bow Knockback at Close Range
 The Crimson Storm
 Steelwood Bow
 League: Betrayal
+Source: Drops from unique{Fortification Leaders} in normal{Safehouses}
 Variant: Crit Multi while Rare/Unique Nearby (Pre 3.17.0)
 Variant: Attack Speed while Rare/Unique Nearby (Pre 3.17.0)
 Variant: Damage per Power Charge (Pre 3.17.0)
@@ -118,7 +119,6 @@ Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 Darkscorn
 Assassin Bow
 League: Legion
-Source: Drops from Maraketh Legion
 Variant: Pre 1.2.0
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
@@ -201,9 +201,9 @@ Implicits: 2
 (10-14)% increased Attack Speed
 {variant:1,2,3}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
-{variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of an Element
-{variant:4}Gain 100% of Bow Physical Damage as Extra Damage of an Element
-{variant:5}Gain 100% of Bow Physical Damage as Extra Damage of each Element
+{variant:1,2,3}Gain 110% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:4}Gain 100% of Weapon Physical Damage as Extra Damage of a random Element
+{variant:5}Gain 100% of Weapon Physical Damage as Extra Damage of each Element
 ]],[[
 Doomfletch's Prism
 Royal Bow
@@ -221,8 +221,8 @@ Implicits: 2
 (10-14)% increased Attack Speed
 {variant:1,2,3}(30-40)% increased Critical Strike Chance
 60% increased Mana Regeneration Rate
-{variant:1,2,3}Gain 110% of Bow Physical Damage as Extra Damage of each Element
-{variant:4}Gain 100% of Bow Physical Damage as Extra Damage of each Element
+{variant:1,2,3}Gain 110% of Weapon Physical Damage as Extra Damage of each Element
+{variant:4}Gain 100% of Weapon Physical Damage as Extra Damage of each Element
 ]],[[
 The Gluttonous Tide
 Citadel Bow
@@ -236,7 +236,8 @@ Lose all Frenzy Charges on reaching Maximum Frenzy Charges to make the next Bow 
 ]],[[
 Hopeshredder
 Ranger Bow
-Source: Drops from unique{The Elder} (Tier 6+)
+Elder Item
+Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
 Variant: Current
 Requires Level 60, 212 Dex
@@ -249,7 +250,6 @@ Adds (130-150) to (270-300) Cold Damage
 0.5% of Attack Damage Leeched as Life per Frenzy Charge
 {variant:1}400 Cold Damage taken per second per Frenzy Charge while moving
 {variant:2}200 Cold Damage taken per second per Frenzy Charge while moving
-Elder Item
 ]],[[
 Infractem
 Decimation Bow
@@ -278,6 +278,7 @@ Decimation Bow
 Variant: Pre 3.17.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 53, 170 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
@@ -306,6 +307,7 @@ Adds 1 to 3 Physical Damage to Attacks per 25 Dexterity
 Replica Iron Commander
 Death Bow
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 32, 107 Dex
 Implicits: 1
 (30-50)% increased Critical Strike Chance
@@ -322,14 +324,17 @@ Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 66, 212 Dex
 Implicits: 2
 {variant:2}(6-12)% increased Elemental Damage with Attack Skills
-{variant:3,4,5}(20-24)% increased Elemental Damage with Attack Skills
+{variant:3,4,5,6}(20-24)% increased Elemental Damage with Attack Skills
 {variant:1,2,3,4}(150-175)% increased Physical Damage
 {variant:5}(90-105)% increased Physical Damage
-Adds (6-12) to (20-32) Physical Damage
+{variant:6}(180-200)% increased Physical Damage
+{variant:1,2,3,4,5}Adds (6-12) to (20-32) Physical Damage
+{variant:6}Adds (7-14) to (24-34) Physical Damage
 (10-20)% increased Attack Speed
 +(80-100) to maximum Mana
 Hits can't be Evaded
@@ -377,17 +382,18 @@ Requires Level 5, 26 Dex
 {variant:1}50% less Damage
 {variant:2}40% less Damage
 {variant:3}30% less Damage
-{variant:2,3}+2 Mana gained for each Enemy hit by Attacks
+{variant:2,3}Gain 2 Mana per Enemy Hit with Attacks
 ]],[[
 Replica Quill Rain
 Short Bow
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 5, 26 Dex
 Socketed Gems are Supported by Level 1 Arrow Nova
 +(10-20) to Dexterity
 100% increased Physical Damage
 (25-30)% increased Attack Speed
-+2 Mana gained for each Enemy hit by Attacks
+Gain 2 Mana per Enemy Hit with Attacks
 (50-100)% increased Projectile Speed
 +(25-50) to Accuracy Rating
 ]],[[
@@ -399,7 +405,6 @@ Variant: Pre 3.5.0
 Variant: Pre 3.11.0
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 64, 212 Dex
 {variant:4,5,6}Socketed Gems are Supported by Level 20 Greater Volley
 {variant:1}(50-70)% increased Physical Damage
 {variant:2,3}(40-50)% increased Physical Damage
@@ -425,12 +430,12 @@ Requires Level 18, 71 Dex
 Implicits: 1
 {variant:2,3}+(15-25)% to Global Critical Strike Multiplier
 (60-80)% increased Physical Damage
-{variant:1,2}(20-40)% increased Elemental Damage with Attack Skills
-{variant:3}(60-80)% increased Elemental Damage with Attack Skills
 {variant:1,2}(4-8)% increased Attack Speed
 {variant:1,2}Skills Chain +1 times
 {variant:3}Skills Chain +2 times
 30% increased Projectile Speed
+{variant:1,2}(20-40)% increased Elemental Damage with Attack Skills
+{variant:3}(60-80)% increased Elemental Damage with Attack Skills
 ]],[[
 Silverbranch
 Crude Bow
@@ -442,7 +447,7 @@ Requires Level 2
 {variant:2}(80-100)% increased Physical Damage
 10% increased Attack Speed
 +30 to Accuracy Rating
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
 ]],[[
 Silverbough
 Crude Bow
@@ -454,11 +459,10 @@ Requires Level 36
 Adds (15-25) to (50-60) Physical Damage
 10% increased Attack Speed
 +30 to Accuracy Rating
-+10 Mana gained on Kill
+Gain 10 Mana per Enemy Killed
 ]],[[
 Slivertongue
 Harbinger Bow
-Source: Drops from unique{Guardian of the Hydra}
 Variant: Pre 3.5.0
 Variant: Pre 3.17.0
 Variant: Current
@@ -497,15 +501,17 @@ Adds 1 to 85 Lightning Damage
 Voltaxic Rift
 Spine Bow
 Variant: Pre 3.9.0
+Variant: Pre 3.20.0
 Variant: Current
-Requires Level 64, 212 Dex
-Adds 1 to (275-325) Lightning Damage
+{variant:1,2}Adds 1 to (275-325) Lightning Damage
+{variant:3}Adds 1 to (600-750) Lightning Damage
 (10-15)% increased Attack Speed
-60% of Lightning Damage Converted to Chaos Damage
-10% Chance to Shock
+{variant:1,2}60% of Lightning Damage Converted to Chaos Damage
+{variant:3}100% of Lightning Damage Converted to Chaos Damage
+{variant:1,2}10% chance to Shock
 Your Chaos Damage can Shock
-{variant:2}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
-{variant:2}+40% to maximum Effect of Shock
+{variant:2,3}Hits with this Weapon Shock Enemies as though dealing 300% more Damage
+{variant:2,3}+40% to Maximum Effect of Shock
 ]],[[
 Windripper
 Imperial Bow
@@ -536,6 +542,7 @@ Implicits: 2
 Replica Windripper
 Imperial Bow
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 66, 212 Dex
 Implicits: 1
 (20-24)% increased Elemental Damage with Attack Skills
@@ -553,7 +560,7 @@ Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
 Requires Level 23, 80 Dex
 (70-90)% increased Physical Damage
-+(20-30) Life gained on Killing Ignited Enemies
+Gain (20-30) Life per Ignited Enemy Killed
 Gain 20% of Physical Damage as Extra Fire Damage
 10% chance to Ignite
 ]],[[

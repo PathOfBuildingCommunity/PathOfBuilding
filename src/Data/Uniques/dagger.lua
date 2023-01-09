@@ -17,15 +17,17 @@ Adds 1 to 59 Chaos Damage
 Bino's Kitchen Knife
 Slaughter Knife
 Variant: Pre 2.2.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 65, 81 Dex, 117 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
-30% increased Damage over Time
-Adds (50-60) to (120-140) Physical Damage
+{variant:1,2}30% increased Damage over Time
+{variant:1,2}Adds (50-60) to (120-140) Physical Damage
+{variant:3}Adds (140-155) to (210-235) Physical Damage
 (40-50)% increased Critical Strike Chance
 {variant:1}+(10-15)% to Global Critical Strike Multiplier
-{variant:2}+(15-25)% to Global Critical Strike Multiplier
+{variant:2,3}+(15-25)% to Global Critical Strike Multiplier
 +(8-12)% to Chaos Resistance
 On Killing a Poisoned Enemy, nearby Enemies are Poisoned
 and nearby Allies Regenerate 200 Life per second
@@ -48,6 +50,7 @@ Extra Gore
 Replica Bloodplay
 Stiletto
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 15, 30 Dex, 30 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -69,6 +72,7 @@ Deal no Elemental Damage
 Replica Cold Iron Point
 Ezomyte Dagger
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 62, 95 Dex, 131 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -94,20 +98,26 @@ Implicits: 1
 Divinarius
 Imperial Skean
 League: Legion
-Source: Drops from Templar Legion
 Variant: Pre 3.7.0
+Variant: Pre 3.20.0
 Variant: Current
 Requires Level 66, 95 Dex, 131 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
-(50-70)% increased Spell Damage
-{variant:1}+10 Life gained on Kill
-{variant:2}+30 Life gained on Kill
-{variant:1}+5 Mana gained on Kill
-{variant:2}+10 Mana gained on Kill
-10% increased Area of Effect of Area Skills
+{variant:1,2}(50-70)% increased Spell Damage
+{variant:3}(150-200)% increased Spell Damage
+{variant:1}Gain 10 Life per Enemy Killed
+{variant:2}Gain 30 Life per Enemy Killed
+{variant:3}Gain (100-200) Life per Enemy Killed
+{variant:1}Gain 5 Mana per Enemy Killed
+{variant:2}Gain 10 Mana per Enemy Killed
+{variant:3}Gain (50-100) Mana per Enemy Killed
+{variant:1,2}10% increased Area of Effect
+{variant:3}30% increased Area of Effect
 {variant:2}(125-175)% increased Critical Strike Chance for Spells if you've Killed Recently
+{variant:3}(200-250)% increased Critical Strike Chance for Spells if you've Killed Recently
 {variant:2}+(40-60)% to Critical Strike Multiplier for Spells if you haven't Killed Recently
+{variant:3}+(60-100)% to Critical Strike Multiplier for Spells if you haven't Killed Recently
 ]],[[
 Goredrill
 Skinning Knife
@@ -170,6 +180,7 @@ Royal Skean
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 50, 71 Dex, 102 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -185,6 +196,7 @@ Implicits: 1
 The Hidden Blade
 Ambusher
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 60, 113 Dex, 113 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -201,7 +213,7 @@ Variant: Current
 Requires Level 64, 76 Dex, 149 Int
 Implicits: 1
 50% increased Global Critical Strike Chance
-5% Additional Chance to Block while Dual Wielding
++5% Chance to Block Attack Damage while Dual Wielding
 {variant:1}(180-210)% increased Physical Damage
 {variant:2}(210-240)% increased Physical Damage
 {variant:3}(250-270)% increased Physical Damage
@@ -220,7 +232,7 @@ Implicits: 1
 (80-100)% increased Physical Damage
 Adds 12 to 24 Physical Damage
 +25 to Strength
-+10 Life gained for each Enemy hit by your Attacks
+Gain 10 Life per Enemy Hit with Attacks
 ]],[[
 Taproot
 Ambusher
@@ -243,8 +255,8 @@ Variant: Current
 Requires Level 20, 31 Dex, 45 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
-{variant:2}20% additional Chance to Block while Dual Wielding
-{variant:1,3}12% additional Chance to Block while Dual Wielding
+{variant:2}+20% Chance to Block Attack Damage while Dual Wielding
+{variant:1,3}+12% Chance to Block Attack Damage while Dual Wielding
 (80-100)% increased Physical Damage
 +(10-20) to Dexterity
 Adds 3 to 30 Lightning Damage
@@ -254,6 +266,7 @@ Adds 3 to 30 Lightning Damage
 Replica Ungil's Gauche
 Boot Knife
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 20, 31 Dex, 45 Int
 Implicits: 1
 30% increased Global Critical Strike Chance
@@ -268,7 +281,6 @@ Vulconus
 Demon Dagger
 Variant: Pre 3.5.0
 Variant: Current
-Source: Drops from unique{The Enslaver} (Tier 11+)
 Requires Level 68, 76 Dex, 149 Int
 Implicits: 1
 40% increased Global Critical Strike Chance 

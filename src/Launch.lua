@@ -138,6 +138,15 @@ function launch:OnKeyDown(key, doubleClick)
 		local before = collectgarbage("count")
 		collectgarbage("collect")
 		ConPrintf("%dkB => %dkB", before, collectgarbage("count"))
+	elseif key == "PAUSE" and self.devMode and profiler then
+		if profiling then
+			profiler.stop()
+			profiler.report("profiler.log")
+			profiling = false
+		else
+			profiler.start()
+			profiling = true
+		end
 	elseif key == "u" and IsKeyDown("CTRL") then
 		if not self.devMode then
 			self:CheckForUpdate()
@@ -232,20 +241,32 @@ function launch:RegisterSubScript(id, callback)
 	end
 end
 
-function launch:DownloadPage(url, callback, cookies)
-	-- Download the given page in the background, and calls the provided callback function when done:
-	-- callback(pageText, errMsg)
+---Download the given page in the background, and calls the provided callback function when done:
+---@param url string
+---@param callback fun(response:table, errMsg:string) @ response = { header, body }
+---@param params table @ params = { header, body }
+function launch:DownloadPage(url, callback, params)
+	params = params or {}
 	local script = [[
-		local url, cookies, connectionProtocol, proxyURL = ...
+		local url, requestHeader, requestBody, connectionProtocol, proxyURL = ...
+		local responseHeader = ""
+		local responseBody = ""
 		ConPrintf("Downloading page at: %s", url)
 		local curl = require("lcurl.safe")
-		local page = ""
 		local easy = curl.easy()
+		if requestHeader then
+			local header = {}
+			for s in requestHeader:gmatch("[^\r\n]+") do
+    			table.insert(header, s)
+			end
+			easy:setopt(curl.OPT_HTTPHEADER, header)
+		end
 		easy:setopt_url(url)
 		easy:setopt(curl.OPT_USERAGENT, "Path of Building/]]..self.versionNumber..[[")
 		easy:setopt(curl.OPT_ACCEPT_ENCODING, "")
-		if cookies then
-			easy:setopt(curl.OPT_COOKIE, cookies)
+		if requestBody then
+			easy:setopt(curl.OPT_POST, true)
+			easy:setopt(curl.OPT_POSTFIELDS, requestBody)
 		end
 		if connectionProtocol then
 			easy:setopt(curl.OPT_IPRESOLVE, connectionProtocol)
@@ -253,8 +274,12 @@ function launch:DownloadPage(url, callback, cookies)
 		if proxyURL then
 			easy:setopt(curl.OPT_PROXY, proxyURL)
 		end
+		easy:setopt_headerfunction(function(data)
+			responseHeader = responseHeader .. data
+			return true
+		end)
 		easy:setopt_writefunction(function(data)
-			page = page..data
+			responseBody = responseBody .. data
 			return true
 		end)
 		local _, error = easy:perform()
@@ -265,21 +290,19 @@ function launch:DownloadPage(url, callback, cookies)
 			errMsg = error:msg()
 		elseif code ~= 200 then
 			errMsg = "Response code: "..code
-		elseif #page == 0 then
+		elseif #responseBody == 0 then
 			errMsg = "No data returned"
 		end
 		ConPrintf("Download complete. Status: %s", errMsg or "OK")
-		if errMsg then
-			return nil, errMsg
-		else
-			return page
-		end
+		return responseHeader, responseBody, errMsg
 	]]
-	local id = LaunchSubScript(script, "", "ConPrintf", url, cookies, self.connectionProtocol, self.proxyURL)
+	local id = LaunchSubScript(script, "", "ConPrintf", url, params.header, params.body, self.connectionProtocol, self.proxyURL)
 	if id then
 		self.subScripts[id] = {
 			type = "DOWNLOAD",
-			callback = callback
+			callback = function(responseHeader, responseBody, errMsg)
+				callback({header=responseHeader, body=responseBody}, errMsg)
+			end
 		}
 	end
 end

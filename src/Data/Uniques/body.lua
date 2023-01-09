@@ -22,8 +22,8 @@ Implicits: 0
 {variant:1}Adds 2 to 4 Physical Damage to Attacks
 {variant:1}+(12-20) to maximum Life
 {variant:2}+(30-60) to maximum Life
-{variant:1}−2 Physical Damage taken from Attacks
-{variant:2}−(10-15) Physical Damage taken from Attacks
+{variant:1}-2 Physical Damage taken from Attacks
+{variant:2}-(10-15) Physical Damage taken from Attacks
 {variant:1}40% of Melee Physical Damage taken reflected to Attacker
 {variant:2}1000% of Melee Physical Damage taken reflected to Attacker
 ]],[[
@@ -35,18 +35,17 @@ Implicits: 0
 Adds 2 to 4 Physical Damage to Attacks
 +2000 to Armour
 +(12-20) to maximum Life
-−2 Physical Damage taken from Attacks
+-2 Physical Damage taken from Attacks
 40% of Melee Physical Damage taken reflected to Attacker
 ]],[[
 The Brass Dome
 Gladiator Plate
-Source: Drops from unique{Guardian of the Minotaur}
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
 {variant:1}(600-650)% increased Armour
 {variant:2}(350-400)% increased Armour
-{variant:1}30% reduced Chance to Block Attacks and Spells
+{variant:1}30% reduced Chance to Block Attack and Spell Damage
 {variant:1}10% reduced Movement Speed
 {variant:1}50% increased Shock Duration on You
 Take no Extra Damage from Critical Strikes
@@ -91,6 +90,7 @@ Sadist Garb
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
+Source: Drops from unique{The Maven}
 Implicits: 0
 Grants Level 20 Unhinge Skill
 (40-60)% more Critical Strike Chance while Insane
@@ -104,9 +104,9 @@ Golden Plate
 Implicits: 0
 (10-15)% increased Quantity of Items found
 (30-50)% increased Rarity of Items found
-−10% to Fire Resistance
+-10% to Fire Resistance
 +(20-30)% to Cold Resistance
-−20% to Lightning Resistance
+-20% to Lightning Resistance
 20% reduced Movement Speed
 30% reduced Strength Requirement
 ]],[[
@@ -123,6 +123,7 @@ Has no Sockets
 Replica Kaom's Heart
 Glorious Plate
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Has no Sockets
 (30-40)% increased Lightning Damage
@@ -163,7 +164,6 @@ Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10
 Perfidy
 Glorious Plate
 League: Delirium
-Source: Drops from the Simulacrum Encounter
 Has Alt Variant: true
 Variant: War Banner
 Variant: Dread Banner
@@ -187,7 +187,7 @@ Implicits: 0
 {variant:2}25% reduced Chaos Damage taken over time
 25% increased Light Radius
 Chaos Damage taken does not bypass Energy Shield
-{variant:1}−10 Chaos Damage taken
+{variant:1}-10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
 ]],
 -- Body: Evasion
@@ -205,8 +205,8 @@ Implicits: 0
 Cannot be Ignited
 {variant:1,2}(10-15)% increased Physical Damage with Ranged Weapons
 {variant:3}(75-150)% increased Physical Damage with Ranged Weapons
-{variant:1,2}−(5-7) Physical Damage taken from Attack Hits
-{variant:3}−(30-60)Physical Damage taken from Attack Hits
+{variant:1,2}-(5-7) Physical Damage taken from Attack Hits
+{variant:3}-(30-60)Physical Damage taken from Attack Hits
 ]],[[
 Briskwrap
 {variant:1,2,3}Strapped Leather
@@ -259,14 +259,17 @@ Implicits: 0
 Cospri's Will
 Assassin's Garb
 Variant: Pre 3.0.0
+Variant: Pre 3.20.0
 Variant: Current
 Implicits: 1
 3% increased Movement Speed
-(120-160)% increased Evasion Rating
-+(17-29)% to Chaos Resistance
+{variant:1,2}(120-160)% increased Evasion Rating
+{variant:3}(150-200)% increased Evasion Rating
+{variant:1,2}+(17-29)% to Chaos Resistance
+{variant:3}+(31-53)% to Chaos Resistance
 You can apply an additional Curse
 Your Hexes can affect Hexproof Enemies
-{variant:1}Poison Cursed Enemies on hit
+{variant:1,3}Poison Cursed Enemies on hit
 {variant:2}60% chance to Poison on Hit against Cursed Enemies
 ]],[[
 Foxshade
@@ -277,13 +280,13 @@ Variant: Current
 Implicits: 0
 +(20-30) to Dexterity
 {variant:1,2}Adds 5 to 12 Physical Damage to Attacks
-{variant:1}You gain 150 Evasion Rating when on Full Life
+{variant:1}+150 to Evasion Rating while on Full Life
 {variant:2}+500 to Evasion Rating while on Full Life
 {variant:3}+1000 to Evasion Rating while on Full Life
 (50-70)% increased Evasion Rating
 {variant:1,2}10% increased Movement Speed
-{variant:3}30% increased Movement Speed while on Full Life
-{variant:3}Damage of Enemies hitting you is Unlucky while you are on Full Life
+{variant:3}30% increased Movement Speed when on Full Life
+{variant:3}Damage of Enemies Hitting you is Unlucky while you are on Full Life
 ]],[[
 Fox's Fortune
 Wild Leather
@@ -329,8 +332,8 @@ Implicits: 0
 +30% to Fire Resistance
 {variant:1}20% less Damage taken if you have not been Hit Recently
 {variant:2}35% less Damage taken if you have not been Hit Recently
-{variant:1}50% increased Evasion if you have been Hit Recently
-{variant:2}100% increased Evasion if you have been Hit Recently
+{variant:1}50% increased Evasion Rating if you have been Hit Recently
+{variant:2}100% increased Evasion Rating if you have been Hit Recently
 ]],[[
 Queen of the Forest
 Destiny Leather
@@ -345,7 +348,7 @@ Implicits: 0
 +(11-25)% to Lightning Resistance
 25% reduced Movement Speed
 1% increased Movement Speed per 600 Evasion Rating, up to 75%
-−(50-40) Physical Damage taken from Hits by Animals
+-(50-40) Physical Damage taken from Hits by Animals
 ]],[[
 The Rat Cage
 Sharkskin Tunic
@@ -357,7 +360,7 @@ Implicits: 0
 (100-120)% increased Evasion Rating
 {variant:1,2}+(160-200) to maximum Life
 {variant:3}+(200-300) to maximum Life
-{variant:1}−5% to maximum Fire Resistance
+{variant:1}-5% to maximum Fire Resistance
 {variant:2}-50% to Fire Resistance
 15% increased Movement Speed
 {variant:1,2}20% increased Fire Damage taken
@@ -404,6 +407,7 @@ Acrobatics
 Replica Perfect Form
 Zodiac Leather
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Current
 Implicits: 0
@@ -425,9 +429,9 @@ Variant: Rhoa
 Variant: Snake
 Variant: Ursa
 Implicits: 0
-{variant:1}Grants level 20 Summon Bestial Rhoa Skill
-{variant:2}Grants level 20 Summon Bestial Snake Skill
-{variant:3}Grants level 20 Summon Bestial Ursa Skill
+{variant:1}Grants Level 20 Summon Bestial Rhoa Skill
+{variant:2}Grants Level 20 Summon Bestial Snake Skill
+{variant:3}Grants Level 20 Summon Bestial Ursa Skill
 +(300-400) to Accuracy Rating
 (130-150)% increased Evasion Rating
 +(90-100) to maximum Life
@@ -503,10 +507,9 @@ Variant: Pre 3.0.0
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 0
-{variant:1,2,3,4,5}Socketed Gems are Supported by level 15 Added Chaos Damage
+{variant:1,2,3,4,5}Socketed Gems are Supported by Level 15 Added Chaos Damage
 {variant:6}Socketed Gems are Supported by Level 29 Added Chaos Damage
 {variant:4,5}Socketed Gems Cost and Reserve Life instead of Mana
-{variant:6}Skills gain a Base Life cost equal to 100% of Base Mana Cost
 +(20-30) to Intelligence
 {variant:1}(125-150)% increased Energy Shield
 {variant:2}(180-220)% increased Energy Shield
@@ -515,6 +518,7 @@ Implicits: 0
 {variant:1,2,3}20% reduced maximum Life
 {variant:4,5,6}10% increased maximum Life
 {variant:1,2,3}Blood Magic
+{variant:6}Skills gain a Base Life Cost equal to 100% of Base Mana Cost
 ]],[[
 Dialla's Malefaction
 Sage's Robe
@@ -583,34 +587,25 @@ Nearby Allies' Action Speed cannot be modified to below base value
 Nearby Enemies cannot deal Critical Strikes
 ]],[[
 Infernal Mantle
-Widowsilk Robe
+{variant:1}Occultist's Vestment
+{variant:2,3,4,5}Widowsilk Robe
+Variant: Pre 2.0.0
 Variant: Pre 3.0.0
 Variant: Pre 3.14.0
 Variant: Pre 3.19.0
 Variant: Current
-Implicits: 0
-{variant:1,2,3}+1 to Level of Socketed Fire Gems
-{variant:4}+3 to Level of Socketed Fire Gems
-{variant:1,2,3}(25-35)% increased Fire Damage
-100% increased Global Critical Strike Chance
-{variant:1}(190-230)% increased Energy Shield
-{variant:2,3,4}(120-160)% increased Energy Shield
-15% of Fire Damage Converted to Chaos Damage
-{variant:1,4}100% increased Spell Damage taken when on Low Mana
-{variant:2}25% increased Spell Damage taken when on Low Mana
-{variant:3}15% increased Spell Damage taken when on Low Mana
-]],[[
-Infernal Mantle
-Occultist's Vestment
-Variant: Pre 2.0.0
 Implicits: 1
-(3-10)% increased Spell Damage
-+1 to Level of Socketed Fire Gems
-(25-35)% increased Fire Damage
+{variant:1}(3-10)% increased Spell Damage
+{variant:1,2,3,4}+1 to Level of Socketed Fire Gems
+{variant:5}+3 to Level of Socketed Fire Gems
+{variant:1,2,3,4}(25-35)% increased Fire Damage
 100% increased Global Critical Strike Chance
-(190-230)% increased Energy Shield
+{variant:1,2}(190-230)% increased Energy Shield
+{variant:3,4,5}(120-160)% increased Energy Shield
 15% of Fire Damage Converted to Chaos Damage
-100% increased Spell Damage taken when on Low Mana
+{variant:1,2,5}100% increased Spell Damage taken when on Low Mana
+{variant:3}25% increased Spell Damage taken when on Low Mana
+{variant:4}15% increased Spell Damage taken when on Low Mana
 ]],[[
 Shavronne's Wrappings
 Occultist's Vestment
@@ -645,15 +640,15 @@ Variant: Pre 3.16.0
 Variant: Pre 3.17.0
 Variant: Current
 Implicits: 0
-{variant:1,2}Socketed Gems are Supported by level 14 Spell Totem
-{variant:3,4,5}Socketed Gems are Supported by level 20 Spell Totem
+{variant:1,2}Socketed Gems are Supported by Level 14 Spell Totem
+{variant:3,4,5}Socketed Gems are Supported by Level 20 Spell Totem
 (20-25)% increased Spell Damage
 (100-120)% increased Energy Shield
 {variant:1}25% increased Totem Life
 {variant:2,3}50% increased Totem Life
 {variant:4,5}(20-30)% increased Totem Life
 {variant:1,2,3,4}+1 to maximum number of Summoned Totems
-Inflicts a random Hex on you when your Totems die, with 80% more Effect
+Inflicts a random Hex on you when your Totems die
 ]],[[
 Tabula Rasa
 Simple Robe
@@ -720,6 +715,13 @@ Implicits: 0
 {variant:1}25% chance to create Consecrated Ground when you Block
 {variant:2}50% chance to create Consecrated Ground when you Block
 {variant:3,4}100% chance to create Consecrated Ground when you Block
+]],[[
+Ghostwrithe
+Silken Vest
++(100-200) to maximum Energy Shield
++(50-100) to maximum Life
++50% to Chaos Resistance
+50% of Maximum Life Converted to Energy Shield
 ]],
 -- Body: Armour/Evasion
 [[
@@ -765,7 +767,7 @@ You gain an Endurance Charge on Kill
 {variant:2}You gain Onslaught for 2 seconds per Endurance Charge when Hit
 {variant:3,4,5}You gain Onslaught for 5 seconds per Endurance Charge when Hit
 {variant:3,4}(60-100)% increased Onslaught Effect
-{variant:5}100% increased Onslaught Effect 
+{variant:5}100% increased Onslaught Effect
 ]],[[
 Farrul's Fur
 Triumphant Lamellar
@@ -782,6 +784,7 @@ You have Phasing while you have Cat's Stealth
 Replica Farrul's Fur
 Triumphant Lamellar
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (100-150)% increased Armour and Evasion
 +(80-100) to maximum Life
@@ -803,9 +806,9 @@ Implicits: 0
 {variant:2}+(200-240) to maximum Life
 {variant:3}+(240-300) to maximum Life
 {variant:1,2}+(20-40)% to Cold Resistance
-{variant:1}2% of Life Regenerated per second
-{variant:2}5% of Life Regenerated per second
-{variant:3}10% of Life Regenerated per second
+{variant:1}Regenerate 2% of Life per second
+{variant:2}Regenerate 5% of Life per second
+{variant:3}Regenerate 10% of Life per second
 15% increased Character Size
 Spell Skills deal no Damage
 Your Spells are disabled
@@ -819,7 +822,7 @@ Implicits: 0
 Adds 1 to (20-30) Lightning Damage to Attacks
 (90-120)% increased Armour and Evasion
 +(60-80) to maximum Life
-−60% to Lightning Resistance
+-60% to Lightning Resistance
 {variant:1}40% of Physical Damage from Hits taken as Lightning Damage
 {variant:2}30% of Physical Damage from Hits taken as Lightning Damage
 {variant:3}50% of Physical Damage from Hits taken as Lightning Damage
@@ -852,15 +855,16 @@ Implicits: 0
 {variant:1,2}+10% to all Elemental Resistances
 {variant:3,4,5}+15% to all Elemental Resistances
 {variant:1,2,3,4}Gain an Endurance Charge when you take a Critical Strike
-{variant:5}Gain up to Maximum Endurance Charge when you take a Critical Strike
+{variant:5}Gain up to maximum Endurance Charges when you take a Critical Strike
 {variant:1,2,3}Regenerate 2% of Life per Second while on Low Life
-Share Endurance Charges with nearby party members
-{variant:5}Your nearby party members' maximum Endurance Charges are equal to yours.
+{variant:1,2,3,4}Share Endurance Charges with nearby party members
+{variant:5}Your nearby party members maximum Endurance Charges is equal to yours
 {variant:4}Regenerate 2% of Life per second if you have been Hit Recently
 ]],[[
 Replica Ambu's Charge
 Crusader Chainmail
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (180-220)% increased Armour and Energy Shield
 +(60-80) to maximum Life
@@ -921,7 +925,7 @@ Implicits: 0
 +(50-75)% to Cold Resistance
 Cannot be Chilled
 {variant:1,2}150% increased Chill Duration on Enemies
-{variant:3}20% chance to Freeze Enemies for 1 second when Hit
+{variant:3}20% chance to Freeze Enemies for 1 second when they Hit you
 ]],[[
 Crystal Vault
 Latticed Ringmail
@@ -1010,6 +1014,7 @@ Adds (4-10) to (14-36) Physical Damage to Attacks
 Replica Loreweave
 Elegant Ringmail
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Has 6 Sockets
 +(8-24) to all Attributes
@@ -1036,6 +1041,7 @@ Socketed Gems are Supported by Level 1 Meat Shield
 Sporeguard
 Saint's Hauberk
 League: Blight
+Source: Drops in Blighted Maps
 Implicits: 0
 Trigger Level 10 Contaminate when you Kill an Enemy
 (200-250)% increased Armour and Energy Shield
@@ -1048,7 +1054,6 @@ This item can be anointed by Cassia
 Voll's Protector
 Holy Chainmail
 League: Legion
-Source: Drops from Templar Legion
 Variant: Pre 3.7.0
 Variant: Current
 Implicits: 0
@@ -1101,9 +1106,8 @@ Implicits: 0
 {variant:1,2}+(90-110) to maximum Mana
 {variant:3,4,5}+(100-150) to maximum Mana
 {variant:1,2}(40-50)% increased Mana Regeneration Rate
-{variant:1}When hit, 10% of Damage is taken from Mana before Life
-{variant:3,4}10% of Damage is taken from Mana before Life
-{variant:3,4,5}1% of Mana Regenerated per second
+{variant:3,4,5}Regenerate 1% of Mana per second
+{variant:1,3,4}10% of Damage is taken from Mana before Life
 Mind Over Matter
 ]],[[
 Dendrobate
@@ -1119,6 +1123,7 @@ Socketed Gems are Supported by Level 10 Chance to Poison
 The Eternity Shroud
 Blood Raiment
 Shaper Item
+Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Implicits: 0
 Trigger Level 20 Glimpse of Eternity when Hit
@@ -1130,8 +1135,10 @@ Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Shaper Item
 ]],[[
 Replica Eternity Shroud
 Blood Raiment
+Shaper Item
 Elder Item
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 Trigger Level 20 Shade Form when Hit
 (100-150)% increased Evasion and Energy Shield
@@ -1143,6 +1150,7 @@ Hits ignore Enemy Monster Chaos Resistance if all Equipped Items are Elder Items
 Expedition's End
 Sentinel Jacket
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 0
 (100-150)% increased Evasion and Energy Shield
 (5-10)% increased maximum Life
@@ -1178,8 +1186,8 @@ Implicits: 1
 {variant:2,3}+(60-80) to maximum Life
 {variant:1,2}1% increased Movement Speed per Frenzy Charge
 {variant:3}4% increased Movement Speed per Frenzy Charge
-{variant:1}Regenerate (15.0-20.0) Life per second per Endurance Charge
-{variant:2}Regenerate (20.0-30.0) Life per second per Endurance Charge
+{variant:1}Regenerate (15-20) Life per second per Endurance Charge
+{variant:2}Regenerate (20-30) Life per second per Endurance Charge
 {variant:3}Regenerate 75 Life per second per Endurance Charge
 {variant:1,2}100% increased Endurance, Frenzy and Power Charge Duration
 {variant:3}(100-200)% increased Endurance, Frenzy and Power Charge Duration
@@ -1187,6 +1195,7 @@ Implicits: 1
 Replica Restless Ward
 Carnal Armour
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +(20-25) to maximum Mana
 (220-250)% increased Evasion and Energy Shield
@@ -1194,7 +1203,7 @@ Implicits: 1
 6% increased Movement Speed per Frenzy Charge
 -2 to Maximum Endurance Charges
 -2 to Maximum Frenzy Charges
-Regenerate (100.0-140.0) Life per second per Endurance Charge
+Regenerate (100-140) Life per second per Endurance Charge
 ]],[[
 Saqawal's Nest
 Blood Raiment
@@ -1211,7 +1220,7 @@ Aspect of the Avian also grants Avian's Might and Avian's Flight to nearby Allie
 Shroud of the Lightless
 Carnal Armour
 League: Abyss
-Source: Drops from Abyssal Liches
+Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: Two Abyssal Sockets (Pre 3.12.0)
 Variant: One Abyssal Socket (Pre 3.12.0)
 Variant: Two Abyssal Sockets (Current)
@@ -1232,13 +1241,14 @@ Implicits: 1
 Replica Shroud of the Lightless
 Carnal Armour
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
 +(20-25) to maximum Mana
 Has 6 Abyssal Sockets
 ]],[[
 Stasis Prison
 Carnal Armour
-Source: Drops in Uber Timeless Conflict
+Source: Drops in Unrelenting Domain of Timeless Conflict
 Implicits: 1
 +(20-25) to maximum Mana
 (140-160)% increased Evasion and Energy Shield
@@ -1277,6 +1287,7 @@ Socketed Gems have 45% increased Reservation Efficiency
 The Admiral
 Varnished Coat
 League: Heist
+Source: Drops from unique{Admiral Darnaw} in normal{Contract: Death to Darnaw}
 Implicits: 0
 +(30-40) to Intelligence
 (100-140)% increased Evasion and Energy Shield
@@ -1318,12 +1329,13 @@ Implicits: 1
 {variant:5,6,8}+(90-100) to Maximum Energy Shield
 {variant:14,15,17}+(70-80) to Maximum Energy Shield
 +(20-24)% to all Elemental Resistances
-+100 Life Gained on Kill
-+100 Mana Gained on Kill
+Gain 100 Life per Enemy Killed
+Gain 100 Mana per Enemy Killed
 ]],[[
 Shadowstitch
 Sacrificial Garb
 League: Incursion
+Source: Double Corrupting Sacrificial Garb
 Variant: Pre 3.10.0
 Variant: Current
 Implicits: 0

@@ -97,14 +97,36 @@ function calcs.createActiveSkill(activeEffect, supportList, actor, socketGroup, 
 
 	-- Process support skills
 	activeSkill.effectList = { activeEffect }
-	for _, supportEffect in ipairs(supportList) do
+	local rejectedSupportsIndices = {}
+
+	for index, supportEffect in ipairs(supportList) do
 		-- Pass 1: Add skill types from compatible supports
 		if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
 			for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
 				activeSkill.skillTypes[skillType] = true
 			end
+		else
+			t_insert(rejectedSupportsIndices, index)
 		end
 	end
+
+	-- loop over rejected supports until none are added.
+	-- Makes sure that all skillType flags that should be added are added regardless of support gem order in group
+	local notAddedNewSupport = true
+	repeat
+		notAddedNewSupport = true
+		for index, supportEffectIndex in ipairs(rejectedSupportsIndices) do
+			local supportEffect = supportList[supportEffectIndex]
+			if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
+				notAddedNewSupport = false
+				rejectedSupportsIndices[index] = nil
+				for _, skillType in pairs(supportEffect.grantedEffect.addSkillTypes) do
+					activeSkill.skillTypes[skillType] = true
+				end
+			end
+		end
+	until (notAddedNewSupport)
+	
 	for _, supportEffect in ipairs(supportList) do
 		-- Pass 2: Add all compatible supports
 		if calcLib.canGrantedEffectSupportActiveSkill(supportEffect.grantedEffect, activeSkill) then
@@ -127,7 +149,7 @@ end
 -- Copy an Active Skill
 function calcs.copyActiveSkill(env, mode, skill)
 	local newSkill = calcs.createActiveSkill(skill.activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
-	local newEnv, _, _, _ = calcs.initEnv(env.build, mode)
+	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 	calcs.buildActiveSkillModList(newEnv, newSkill)
 	newSkill.skillModList = new("ModList", newSkill.baseSkillModList)
 	if newSkill.minion then
@@ -304,7 +326,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if skillTypes[SkillType.Aura] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Aura)
 	end
-	if skillTypes[SkillType.Hex] or skillTypes[SkillType.Mark] then
+	if skillTypes[SkillType.AppliesCurse] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Curse)
 	end
 	if skillTypes[SkillType.Warcry] then
@@ -327,6 +349,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 	if skillTypes[SkillType.Chaos] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Chaos)
+	end
+	if skillTypes[SkillType.Physical] then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Physical)
 	end
 	if skillFlags.weapon1Attack and band(activeSkill.weapon1Flags, ModFlag.Bow) ~= 0 then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Bow)
@@ -637,7 +662,6 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					applyNotPlayer = effectTag.applyNotPlayer,
 					applyMinions = effectTag.applyMinions,
 					modList = { },
-					unscalableModList = { },
 				}
 				if skillModList[i].source == activeGrantedEffect.modSource then
 					-- Inherit buff configuration from the active skill
@@ -650,7 +674,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				t_insert(activeSkill.buffList, buff)
 			end
 			local match = false
-			local modList = effectTag.unscalable and buff.unscalableModList or buff.modList
+			local modList = buff.modList
 			for d = 1, #modList do
 				local destMod = modList[d]
 				if modLib.compareModParams(skillModList[i], destMod) and (destMod.type == "BASE" or destMod.type == "INC") then

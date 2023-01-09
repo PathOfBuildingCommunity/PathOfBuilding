@@ -89,6 +89,7 @@ itemBases["Two-Stone Ring"] = {
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
+	hidden = true,
 	tags = { ring = true, twostonering = true, default = true, },
 	implicit = "+(12-16)% to Cold and Lightning Resistances",
 	implicitModTypes = { { "elemental", "cold", "lightning", "resistance" }, },
@@ -96,6 +97,7 @@ itemBases["Two-Stone Ring"] = {
 }
 itemBases["Two-Stone Ring"] = {
 	type = "Ring",
+	hidden = true,
 	tags = { ring = true, twostonering = true, default = true, },
 	implicit = "+(12-16)% to Fire and Cold Resistances",
 	implicitModTypes = { { "elemental", "fire", "cold", "resistance" }, },

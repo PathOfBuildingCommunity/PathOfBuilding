@@ -69,7 +69,7 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 		self.controls.requirement = new("DropDownControl", {"LEFT",self.controls.sort,"BOTTOMLEFT"}, 0, 11, 179, 18, { "Any requirements", "Current level", "Current attributes", "Current useable" }, function(index, value)
 			self.listBuildFlag = true
 		end)
-		self.controls.obtainable = new("DropDownControl", {"LEFT",self.controls.requirement,"RIGHT"}, 2, 0, 179, 18, { "Any item", "Obtainable", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item"}, function(index, value)
+		self.controls.obtainable = new("DropDownControl", {"LEFT",self.controls.requirement,"RIGHT"}, 2, 0, 179, 18, { "Obtainable", "Any source", "Unobtainable", "Vendor Recipe", "Upgraded", "Boss Item", "Corruption"}, function(index, value)
 			self.listBuildFlag = true
 		end)
 	end
@@ -114,16 +114,18 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			return false
 		end
 	end
-	if self.dbType == "UNIQUE" and self.controls.obtainable.selIndex > 1 then
+	if self.dbType == "UNIQUE" and self.controls.obtainable.selIndex ~= 2 then
 		local source = item.source or ""
 		local obtainable = not (source == "No longer obtainable")
-		if (self.controls.obtainable.selIndex == 2 and not obtainable) or (self.controls.obtainable.selIndex == 3 and obtainable) then
+		if (self.controls.obtainable.selIndex == 1 and not obtainable) or (self.controls.obtainable.selIndex == 3 and obtainable) then
 			return false
 		elseif (self.controls.obtainable.selIndex == 4 and not (source == "Vendor Recipe")) then
 			return false
 		elseif (self.controls.obtainable.selIndex == 5 and not (string.match(source, "Upgraded from"))) then
 			return false
 		elseif (self.controls.obtainable.selIndex == 6 and not (string.match(source, "Drops from unique"))) then
+			return false
+		elseif (self.controls.obtainable.selIndex == 7 and not (string.match(source, "Vaal Orb"))) then
 			return false
 		end
 	end
@@ -223,6 +225,8 @@ function ItemDBClass:ListBuilder()
 	if self.sortDetail and self.sortDetail.stat then -- stat-based
 		local start = GetTime()
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator(self.build)
+		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		for itemIndex, item in ipairs(list) do
 			item.measuredPower = 0
 			for slotName, slot in pairs(self.itemsTab.slots) do
@@ -242,6 +246,7 @@ function ItemDBClass:ListBuilder()
 				start = now
 			end
 		end
+		GlobalCache.useFullDPS = storedGlobalCacheDPSView
 	end
 
 	table.sort(list, function(a, b)

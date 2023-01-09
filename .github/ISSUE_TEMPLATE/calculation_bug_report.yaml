@@ -1,0 +1,75 @@
+name: Calculation bug report
+description: Create a bug report to help us fix incorrect calculations
+labels: ["bug:calculation"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for reporting an issue.
+        Please try to fill in as much of the form below as you're able to. Some of the fields marked with an asterisk (*) are required.
+  - type: checkboxes
+    id: version
+    attributes:
+      label: Check version
+      options:
+        - label: I'm running the latest version of Path of Building and I've verified this by checking the [changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/blob/master/CHANGELOG.md)
+          required: true
+  - type: checkboxes
+    id: duplicates
+    attributes:
+      label: Check for duplicates
+      options:
+        - label: I've checked for duplicate issues by using the search function of the [issue tracker](https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues)
+          required: true
+  - type: checkboxes
+    id: validity
+    attributes:
+      label: Check for support
+      options:
+        - label: I've checked that the calculation is supposed to be supported. If it isn't please open a feature request instead (Red text is a feature request).
+          required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: What is the value from the calculation ingame?
+      description: Please write a clear and concise description of what should happen.
+      placeholder: E.g. Ingame when I [...] and use [...] I believe it should be calculated as [...] and so the value is [...].
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: What is the value from the calculation in Path of Building?
+      description: Please write a clear and concise description of what actually happens.
+      placeholder: E.g. In Path of Building when I [...] and use [...] Path of Building calculates it as [...] and produces the incorrect value [...].
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: How to reproduce the issue
+      description: Please provide step-by-step instructions.
+      placeholder: |
+        E.g.
+        1. Select [...] as the main skill.
+        2. Apply [...] buff.
+        3. See incorrect [...].
+    validations:
+      required: false
+  - type: textarea
+    id: build_code
+    attributes:
+      label: Character build code
+      description: Always provide a build code that exhibits the bug you want to report, even if it is not specific to a particular build. This helps us greatly to reproduce bugs faster.
+      placeholder: This can be either a code copied from the "Import/Export Build" tab or a link to a shared build.
+      render: shell
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Screenshots
+      description: Always provide screenshots of the problematic calculations if possible. GIFs or short videos are also okay, if the bug cannot be displayed in a still image.
+      placeholder: In this text area, you can attach files/images (copy paste) directly, or link to them if they're hosted elsewhere instead.
+    validations:
+      required: false

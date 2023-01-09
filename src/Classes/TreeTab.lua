@@ -11,7 +11,11 @@ local t_concat = table.concat
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
+local m_abs = math.abs
 local s_format = string.format
+local s_gsub = string.gsub
+local s_byte = string.byte
+local dkjson = require "dkjson"
 
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
@@ -27,6 +31,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self:SetCompareSpec(1)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
+
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self.build.modFlag = true
@@ -482,12 +487,12 @@ function TreeTabClass:OpenExportPopup()
 	controls.shrink = new("ButtonControl", nil, -90, 70, 140, 20, "Shrink with PoEURL", function()
 		controls.shrink.enabled = false
 		controls.shrink.label = "Shrinking..."
-		launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(page, errMsg)
+		launch:DownloadPage("http://poeurl.com/shrink.php?url="..treeLink, function(response, errMsg)
 			controls.shrink.label = "Done"
-			if errMsg or not page:match("%S") then
+			if errMsg or not response.body:match("%S") then
 				main:OpenMessagePopup("PoEURL Shortener", "Failed to get PoEURL link. Try again later.")
 			else
-				treeLink = "http://poeurl.com/"..page
+				treeLink = "http://poeurl.com/"..response.body
 				controls.edit:SetText(treeLink)
 				popup:SelectControl(controls.edit)
 			end
@@ -607,7 +612,7 @@ function TreeTabClass:TogglePowerReport(caller)
 	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, main.portraitMode and "BOTTOMLEFT" or "TOPRIGHT")
 	self.controls.powerReportList.shown = self.showPowerReport
 
-	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and im unsure how to quantify numerically
+	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and I'm unsure how to quantify numerically
 	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.
 	if currentStat and currentStat.stat then
 		self.controls.powerReportList.label = "Click to focus node on tree"
@@ -784,29 +789,34 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	local conquerorTypes = {
 		[1] = {
-			{ label = "Doryani (Corrupted Soul)", id = 1 },
-			{ label = "Xibaqua (Divine Flesh)", id = 2 },
-			{ label = "Ahuana (Immortal Ambition)", id = 3 }
+			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_doryani", "explicit.pseudo_timeless_jewel_xibaqua", "explicit.pseudo_timeless_jewel_ahuana" } },
+			{ label = "Doryani (Corrupted Soul)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_doryani" } },
+			{ label = "Xibaqua (Divine Flesh)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_xibaqua" } },
+			{ label = "Ahuana (Immortal Ambition)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_ahuana" } }
 		},
 		[2] = {
-			{ label = "Kaom (Strength of Blood)", id = 1 },
-			{ label = "Rakiata (Tempered by War)", id = 2 },
-			{ label = "Akoya (Chainbreaker)", id = 3 }
+			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_kaom", "explicit.pseudo_timeless_jewel_rakiata", "explicit.pseudo_timeless_jewel_akoya" } },
+			{ label = "Kaom (Strength of Blood)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_kaom" } },
+			{ label = "Rakiata (Tempered by War)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_rakiata" } },
+			{ label = "Akoya (Chainbreaker)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_akoya" } }
 		},
 		[3] = {
-			{ label = "Asenath (Dance with Death)", id = 1 },
-			{ label = "Nasima (Second Sight)", id = 2 },
-			{ label = "Balbala (The Traitor)", id = 3 }
+			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_asenath", "explicit.pseudo_timeless_jewel_nasima", "explicit.pseudo_timeless_jewel_balbala" } },
+			{ label = "Asenath (Dance with Death)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_asenath" } },
+			{ label = "Nasima (Second Sight)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_nasima" } },
+			{ label = "Balbala (The Traitor)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_balbala" } }
 		},
 		[4] = {
-			{ label = "Avarius (Power of Purpose)", id = 1 },
-			{ label = "Dominus (Inner Conviction)", id = 2 },
-			{ label = "Maxarius (Transcendence)", id = 3 }
+			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_avarius", "explicit.pseudo_timeless_jewel_dominus", "explicit.pseudo_timeless_jewel_maxarius" } },
+			{ label = "Avarius (Power of Purpose)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_avarius" } },
+			{ label = "Dominus (Inner Conviction)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_dominus" } },
+			{ label = "Maxarius (Transcendence)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_maxarius" } }
 		},
 		[5] = {
-			{ label = "Cadiro (Supreme Decadence)", id = 1 },
-			{ label = "Victario (Supreme Grandstanding)", id = 2 },
-			{ label = "Caspiro (Supreme Ostentation)", id = 3 }
+			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_cadiro", "explicit.pseudo_timeless_jewel_victario", "explicit.pseudo_timeless_jewel_caspiro" } },
+			{ label = "Cadiro (Supreme Decadence)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_cadiro" } },
+			{ label = "Victario (Supreme Grandstanding)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_victario" } },
+			{ label = "Caspiro (Supreme Ostentation)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_caspiro" } }
 		}
 	}
 	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
@@ -1021,6 +1031,7 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.jewelType = value
 		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
 		controls.conquerorSelect.selIndex = 1
+		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
 		controls.nodeSelect.selIndex = 1
 		buildMods()
 		updateSearchList("", false)
@@ -1475,7 +1486,82 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 250, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 275, 438, 200, self.build)
 
-	controls.searchButton = new("ButtonControl", nil, -90, 485, 80, 20, "Search", function()
+	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
+		local seedTrades = {}
+		local startRow = controls.searchResults.selIndex or 1
+		local endRow = startRow + m_floor(10 / (#timelessData.sharedResults.conqueror.tradeId))
+		if controls.searchResults.highlightIndex then
+			startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
+			endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
+		end
+
+		local seedCount = m_min(#timelessData.searchResults - startRow, endRow - startRow) + 1
+		-- update if not highlighted already
+
+		local prevSearch = controls.searchTradeButton.lastSearch
+		if prevSearch and prevSearch[1] == startRow and prevSearch[2] == seedCount then
+			startRow = endRow + 1
+			if (startRow > #timelessData.searchResults) then
+				return
+			end
+			seedCount = m_min(#timelessData.searchResults - startRow + 1, seedCount)
+			endRow = startRow + seedCount - 1
+		end
+		controls.searchResults.selIndex = startRow
+		controls.searchResults.highlightIndex = endRow
+
+		controls.searchTradeButton.lastSearch = {startRow, seedCount}
+
+		for i = startRow, startRow + seedCount - 1 do
+			local result = timelessData.searchResults[i]
+
+			for _, tradeId in ipairs(timelessData.sharedResults.conqueror.tradeId) do
+				t_insert(seedTrades, {
+					id = tradeId,
+					value = {
+						min = result.seed,
+						max = result.seed
+					},
+					disabled = false
+				})
+			end
+		end
+
+		local search = {
+			query = {
+				status = {
+					option = "online"
+				},
+				stats = {
+					{
+						filters = seedTrades,
+						type = "count",
+						value = {
+							min = 1
+						}
+					}
+				}
+			},
+			sort = {
+				price = "asc"
+			}
+		}
+
+		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+			return s_format("%%%02X", s_byte(a))
+		end)))
+
+		controls.searchTradeButton.label = "Copy Next Trade URL"
+	end)
+	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
+
+	local width = 80
+	local divider = 10
+	local buttons = 3
+	local totalWidth = m_floor(width * buttons + divider * (buttons - 1))
+	local buttonX = -totalWidth / 2 + width / 2
+
+	controls.searchButton = new("ButtonControl", nil, buttonX, 485, width, 20, "Search", function()
 		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
 			local radiusNodes = treeData.nodes[timelessData.jewelSocket.id].nodesInRadius[3] -- large radius around timelessData.jewelSocket.id
 			local allocatedNodes = { }
@@ -1676,7 +1762,7 @@ function TreeTabClass:FindTimelessJewel()
 			wipeTable(timelessData.searchResults)
 			wipeTable(timelessData.sharedResults)
 			timelessData.sharedResults.type = timelessData.jewelType
-			timelessData.sharedResults.conqueror = timelessData.conquerorType.id
+			timelessData.sharedResults.conqueror = timelessData.conquerorType
 			timelessData.sharedResults.socket = timelessData.jewelSocket
 			timelessData.sharedResults.desiredNodes = desiredNodes
 			local function formatSearchValue(input)
@@ -1737,15 +1823,22 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 			t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
+			controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0		
+			controls.searchTradeButton.lastSearch = nil
+			controls.searchTradeButton.label = "Copy Trade URL"
+			controls.searchResults.highlightIndex = nil
+			controls.searchResults.selIndex = 1
 		end
 	end)
-	controls.resetButton = new("ButtonControl", nil, 0, 485, 80, 20, "Reset", function()
+	controls.resetButton = new("ButtonControl", nil, buttonX + (width + divider), 485, width, 20, "Reset", function()
 		updateSearchList("", true)
 		updateSearchList("", false)
 		wipeTable(timelessData.searchResults)
+		controls.searchTradeButton.enabled = false
 	end)
-	controls.closeButton = new("ButtonControl", nil, 90, 485, 80, 20, "Cancel", function()
+	controls.closeButton = new("ButtonControl", nil, buttonX + (width + divider) * 2, 485, width, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
+
 	main:OpenPopup(910, 517, "Find a Timeless Jewel", controls)
 end

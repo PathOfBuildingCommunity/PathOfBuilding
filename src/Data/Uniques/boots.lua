@@ -68,6 +68,7 @@ Gore Footprints
 Replica Red Trail
 Titan Greaves
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68, 120 Str
 (60-80)% increased Armour
 +(60-70) to maximum Life
@@ -109,16 +110,15 @@ Stormcharger
 Plated Greaves
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level: 23, 44 Str
 +(1-50)% to Lightning Resistance 
 {variant:1}20% increased Movement Speed
 {variant:2}(1-40)% increased Movement Speed
 {variant:1}30% of Physical Damage Converted to Lightning Damage
-{variant:2}Unaffected by Shocked Ground
 {variant:1}50% increased Duration of Lightning Ailments
 {variant:2}(1-100)% increased Duration of Lightning Ailments
 {variant:1}(15-25)% increased Effect of Lightning Ailments
 {variant:2}(1-50)% increased Effect of Lightning Ailments
+{variant:2}Unaffected by Shocked Ground
 ]],[[
 Torchoak Step
 Antique Greaves
@@ -138,7 +138,6 @@ Reinforced Greaves
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 33, 60 Str
 (50-80)% increased Armour
 +(10-15)% to all Elemental Resistances
 {variant:1}10% increased Movement Speed
@@ -146,19 +145,28 @@ Requires Level 33, 60 Str
 {variant:3}20% increased Movement Speed
 {variant:1}10% increased Elemental Damage
 {variant:2}(10-20)% increased Elemental Damage
+You can apply an additional Curse
 {variant:3}50% increased Area of Effect of Hex Skills
-Enemies can have 1 additional Curse
 ]],[[
 Windshriek
 Reinforced Greaves
 Source: No longer obtainable
-Requires Level 60, 60 Str
+LevelReq: 60
 (200-250)% increased Armour
 +(10-15)% to all Elemental Resistances
 25% increased Movement Speed
 (10-20)% increased Elemental Damage
-Enemies can have 1 additional Curse
+You can apply an additional Curse
 60% increased Area of Effect of Hex Skills
+]],[[
+Dawnstrider
+Vaal Greaves
+Source: Drops from unique{The Searing Exarch}
++(80-100) to maximum Life
+30% increased Movement Speed
+100% increased Effect of Buffs your Ancestor Totems grant while Active
+Buffs from Active Ancestor Totems Linger for 4 seconds
+Maximum 1 Buff from an Active Ancestor Totem at a time
 ]],
 -- Boots: Evasion
 [[
@@ -212,12 +220,12 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 22, 42 Dex
-{variant:1,2}Socketed Gems are Supported by level 11 Trap
-{variant:3}Socketed Gems are Supported by level 15 Trap
+{variant:1,2}Socketed Gems are Supported by Level 11 Trap
+{variant:3}Socketed Gems are Supported by Level 15 Trap
 (160-200)% increased Evasion Rating
 {variant:1,2}+(35-45) to maximum Life
-(14-18)% increased Trap Throwing Speed
 {variant:2,3}15% increased Movement Speed
+(14-18)% increased Trap Throwing Speed
 {variant:1}30% increased Movement Speed for 9 seconds on Throwing a Trap
 {variant:2,3}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
@@ -309,6 +317,7 @@ Enemies Cannot Leech Life From You
 Temptation Step
 Shagreen Boots
 League: Ultimatum
+Source: Drops from unique{The Trialmaster}
 Requires Level 55, 97 Dex
 (170-250)% increased Evasion Rating
 +(19-29)% to Chaos Resistance
@@ -336,6 +345,7 @@ Requires Level 55, 97 Dex
 Replica Three-step Assault
 Shagreen Boots
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 55, 97 Dex
 +(25-35) to Dexterity
 (20-40)% increased Evasion Rating
@@ -349,17 +359,16 @@ Goathide Boots
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 12, 26 Dex
 +15 to Dexterity
 +15 to Intelligence
 (100-150)% increased Evasion Rating
-{variant:1}30% increased Movement Speed when on Low Life
-{variant:3}(10-20)% increased Movement Speed when on Low Life
-{variant:3}Quicksilver Flasks you Use also apply to nearby Allies
 {variant:2}15% increased Movement Speed
 {variant:3}(10-20)% increased Movement Speed
-{variant:2}You and nearby allies have 10% increased Movement Speed
+{variant:1}30% increased Movement Speed when on Low Life
+{variant:3}(10-20)% increased Movement Speed when on Low Life
 {variant:1,2}(5-10)% of Damage taken Recouped as Mana
+{variant:2}10% increased Movement Speed for you and nearby Allies
+{variant:3}Quicksilver Flasks you Use also apply to nearby Allies
 ]],
 -- Boots: Energy Shield
 [[
@@ -380,6 +389,7 @@ Requires Level 22, 42 Int
 Replica Bones of Ullr
 Silk Slippers
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 22, 42 Int
 (40-60)% increased Energy Shield
 +20 to maximum Life
@@ -435,6 +445,7 @@ your maximum number of Power Charges
 Replica Inya's Epiphany
 Arcanist Slippers
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 61, 119 Int
 (5-8)% increased Intelligence
 +(50-70) to maximum Life
@@ -478,8 +489,8 @@ Requires Level 32, 54 Int
 {variant:3,4}15% increased Movement Speed
 {variant:1,2}35% increased Movement Speed when on Full Life
 {variant:3,4}20% increased Movement Speed when on Full Life
-{variant:1,2,3}(10-15)% increased Stun Recovery
-{variant:4}(150-200)% increased Stun Recovery
+{variant:1,2,3}(10-15)% increased Stun and Block Recovery
+{variant:4}(150-200)% increased Stun and Block Recovery
 ]],[[
 Shavronne's Gambit
 Scholar Boots
@@ -493,9 +504,9 @@ Requires Level 32, 54 Int
 {variant:2}15% increased Movement Speed
 {variant:1}35% increased Movement Speed when on Full Life
 {variant:2}20% increased Movement Speed when on Full Life
-{variant:1}2% of Energy Shield regenerated per second while on Low Life
-{variant:2}1% of Energy Shield regenerated per second
-(10-15)% increased Stun Recovery
+{variant:1}Regenerate 2% of Energy Shield per second while on Low Life
+{variant:2}Regenerate 1% of Energy Shield per second
+(10-15)% increased Stun and Block Recovery
 ]],[[
 Skyforth
 Sorcerer Boots
@@ -520,7 +531,7 @@ Requires Level 67, 123 Int
 30% increased Movement Speed
 20% increased Movement Speed on Shocked Ground
 50% increased Damage on Burning Ground
-2% of Life Regenerated Per Second on Chilled Ground
+Regenerate 2% of Life per second on Chilled Ground
 Unaffected by Desecrated Ground
 ]],[[
 Wanderlust
@@ -536,7 +547,6 @@ Velvet Slippers
 Variant: Pre 1.0.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 9, 21 Int
 {variant:1,2}+(5-10) to Strength
 {variant:3}+(5-30) to Strength
 {variant:1,2}+(5-10) to Dexterity
@@ -553,7 +563,7 @@ Requires Level 9, 21 Int
 Greedtrap
 Velvet Slippers
 Source: No longer obtainable
-Requires Level 52, 21 Int
+LevelReq: 52
 +(5-10) to Strength
 +(5-10) to Dexterity
 +(5-10) to Intelligence
@@ -564,14 +574,13 @@ Requires Level 52, 21 Int
 -- Boots: Armour/Evasion
 [[
 Beacon of Madness
-Variant: Two-Toned Boots (Armour/Evasion)
-Variant: Two-Toned Boots (Armour/Energy Shield)
-Variant: Two-Toned Boots (Evasion/Energy Shield)
 {variant:1}Two-Toned Boots (Armour/Evasion)
 {variant:2}Two-Toned Boots (Armour/Energy Shield)
 {variant:3}Two-Toned Boots (Evasion/Energy Shield)
+Variant: Two-Toned Boots (Armour/Evasion)
+Variant: Two-Toned Boots (Armour/Energy Shield)
+Variant: Two-Toned Boots (Evasion/Energy Shield)
 League: Delirium
-Source: Drops from the Simulacrum Encounter
 Implicits: 3
 {variant:1}+(8-12)% to Fire and Cold Resistances
 {variant:2}+(8-12)% to Fire and Lightning Resistances
@@ -602,35 +611,24 @@ Requires Level 65, 62 Str, 62 Dex
 {variant:3}10% increased Evasion Rating per Frenzy Charge
 ]],[[
 Dusktoe
-Ironscale Boots
+{variant:1}Leatherscale Boots
+{variant:2,3,4}Ironscale Boots
+Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 18, 19 Str, 19 Dex
-{variant:1,2}(40-60)% increased Armour and Evasion
-{variant:3}(60-100)% increased Armour and Evasion
-{variant:1}+(10-20) to maximum Life
-{variant:2}+(20-30) to maximum Life
-{variant:1}+(10-20) to maximum Mana
-{variant:1,2}15% increased Movement Speed
-{variant:3}20% increased Movement Speed
-{variant:1,2}50% increased Stun and Block Recovery
+{variant:1,2,3}(40-60)% increased Armour and Evasion
+{variant:4}(60-100)% increased Armour and Evasion
+{variant:1,2}+(10-20) to maximum Life
+{variant:3}+(20-30) to maximum Life
+{variant:1,2}+(10-20) to maximum Mana
+{variant:1,2,3}15% increased Movement Speed
+{variant:4}20% increased Movement Speed
+{variant:1,2,3}50% increased Stun and Block Recovery
 20% reduced Light Radius
-{variant:2}Adds (15-20) to (25-30) Chaos Damage to Spells and Attacks while using a Flask
-{variant:3}Adds (30-40) to (50-60) Chaos Damage to Spells and Attacks while using a Flask
-+50% to Chaos Resistance while using a Flask
-]],[[
-Dusktoe
-Leatherscale Boots
-Variant: Pre 2.0.0
-Requires Level 18, 19 Str, 19 Dex
-(40-60)% increased Armour and Evasion
-+(10-20) to maximum Life
-+(10-20) to maximum Mana
-15% increased Movement Speed
-50% increased Stun Recovery
-20% reduced Light Radius
-+50% to Chaos Resistance while using a Flask
+{variant:3}Adds (15-20) to (25-30) Chaos Damage to Spells and Attacks during any Flask Effect
+{variant:4}Adds (30-40) to (50-60) Chaos Damage to Spells and Attacks during any Flask Effect
++50% to Chaos Resistance during any Flask Effect
 ]],[[
 Duskblight
 Ironscale Boots
@@ -650,6 +648,7 @@ Requires Level 40, 19 Str, 19 Dex
 ]],[[
 Legacy of Fury
 Wyrmscale Boots
+Source: Drops from unique{The Maven}
 Variant: Pre 3.17.0
 Variant: Current
 League: Ritual
@@ -662,10 +661,21 @@ Requires Level 69, 48 Str, 48 Dex
 (30-50)% increased Effect of Scorch
 (30-40)% chance when you Kill a Scorched Enemy to Burn Each surrounding Enemy for 4 seconds, dealing 8% of the Killed Enemy's Life as Fire Damage per second
 ]],[[
+Annihilation's Approach
+Dragonscale Boots
+Source: Drops from unique{The Searing Exarch} (Uber)
+Grants Level 20 Approaching Flames Skill
+(60-100)% increased Armour and Evasion
+30% increased Movement Speed
+Cannot be Chilled
+Cannot be Frozen
+Take 10000 Fire Damage per Second while Flame-Touched
+Gain Adrenaline when you become Flame-Touched
+Lose Adrenaline when you cease to be Flame-Touched
+]],[[
 Lioneye's Paws
 Bronzescale Boots
 League: Legion
-Source: Drops from Eternal Legion
 Variant: Pre 3.7.0
 Variant: Current
 Requires Level 30, 30 Str, 30 Dex
@@ -681,6 +691,7 @@ Adds 12 to 24 Fire Damage to Attacks
 Replica Lioneye's Paws
 Bronzescale Boots
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 30, 30 Str, 30 Dex
 Trigger Level 5 Toxic Rain when you Attack with a Bow
 +(40-60) to Strength
@@ -714,8 +725,8 @@ Grants Level 20 Aspect of the Avian Skill
 (100-150)% increased Armour and Evasion
 (20-30)% increased Movement Speed
 +(-2-2) seconds to Avian's Flight Duration
-100 Life Regenerated per Second while you have Avian's Flight
-12 Mana Regenerated per Second while you have Avian's Flight
+Regenerate 100 Life per Second while you have Avian's Flight
+Regenerate 12 Mana per Second while you have Avian's Flight
 ]],
 -- Boots: Armour/Energy Shield
 [[
@@ -723,7 +734,7 @@ Alberon's Warpath
 Soldier Boots
 Variant: Pre 3.19.0
 Variant: Current
-Requires Level 49, 47 Str, 47 Int
+(15-18)% increased Strength
 Adds 1 to 80 Chaos Damage to Attacks
 +(180-220) to Armour
 {variant:1}+(9-12)% to Chaos Resistance
@@ -731,15 +742,14 @@ Adds 1 to 80 Chaos Damage to Attacks
 {variant:1}20% increased Movement Speed
 {variant:2}25% increased Movement Speed
 {variant:1}+1 to Maximum number of Skeletons
-{variant:2}Skeleton Warriors are Permanent Minions and Follow you
-(15-18)% increased Strength
+{variant:2}Summoned Skeleton Warriors are Permanent and Follow you
 ]],[[
 Replica Alberon's Warpath
 Soldier Boots
 Variant: Pre 3.19.0
 Variant: Current
 League: Heist
-Requires Level 49, 47 Str, 47 Int
+Source: Steal from a unique{Curio Display} during a Grand Heist
 (15-18)% increased Strength
 +(180-220) to Armour
 {variant:1}+(9-12)% to Chaos Resistance
@@ -792,13 +802,15 @@ Riveted Boots
 Variant: Pre 3.19.0
 Variant: Current
 Requires Level 36, 35 Str, 35 Int
-+(15-25)% to Cold Resistance 
-+(15-25)% to Chaos Resistance 
-{variant:1}20% increased Movement Speed 
-{variant:2}30% increased Movement Speed 
-{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary 
-{variant:2}Your minimum Frenzy, Endurance and Power Charges are equal to your maximum while you are Stationary
++(15-25)% to Cold Resistance
++(15-25)% to Chaos Resistance
+{variant:1}20% increased Movement Speed
+{variant:2}30% increased Movement Speed
+{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
 Lose all Frenzy, Endurance, and Power Charges when you Move
+{variant:2}Minimum Endurance Charges equal to Maximum while stationary
+{variant:2}Minimum Frenzy Charges equal to Maximum while stationary
+{variant:2}Minimum Power Charges equal to Maximum while stationary
 ]],[[
 Wake of Destruction
 Mesh Boots
@@ -808,7 +820,7 @@ Variant: Current
 Requires Level 28, 28 Str, 28 Int
 Adds 1 to 120 Lightning Damage to Attacks
 (20-60)% increased Armour and Energy Shield
-+(10-20) Life gained on Kill
+Gain (10-20) Life per Enemy Killed
 {variant:2,3}15% increased Movement Speed
 {variant:1,2}10% Chance to Cause Monsters to Flee
 {variant:3}Drops Shocked Ground while moving, lasting 2 seconds
@@ -825,7 +837,7 @@ Requires Level 41, 40 Dex, 40 Int
 {variant:1}+(60-80) to maximum Energy Shield
 {variant:2}+(120-150) to maximum Energy Shield
 {variant:3}+(80-100) to maximum Energy Shield
-20% increased Physical Damage
+20% increased Global Physical Damage
 {variant:1}20% increased Movement Speed
 {variant:2,3}25% increased Movement Speed
 +(20-30)% to Lightning Resistance
@@ -835,13 +847,13 @@ Unaffected by Shocked Ground
 Bubonic Trail
 Murder Boots
 League: Abyss
-Source: Drops from Abyssal Liches
+Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: One Abyssal Socket
 Variant: Two Abyssal Sockets
 Requires Level 69, 82 Dex, 42 Int
 {variant:1}Has 1 Abyssal Socket
 {variant:2}Has 2 Abyssal Sockets
-Triggers level 20 Death Walk when Equipped
+Triggers Level 20 Death Walk when Equipped
 (4-6)% increased maximum Life
 30% increased Movement Speed
 10% increased Damage for each type of Abyssal Jewel affecting you
@@ -858,15 +870,16 @@ Triggers Level 20 Corpse Walk when Equipped
 25% increased Movement Speed
 {variant:1}(20-40)% increased Damage if you have Consumed a corpse Recently
 {variant:1}For each nearby corpse, Regenerate 0.25% Life per second, up to 3%
+{variant:2}For each nearby corpse, Regenerate 8.00 Life per Second
 {variant:2}For each nearby corpse, 1% increased Movement Speed
-{variant:2}For each nearby corpse, Regenerate 8 Life per Second
 ]],[[
 Dance of the Offered
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Shackled Boots
 {variant:2}Carnal Boots
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
+Source: Opening normal{Thunder Coffer} in normal{Conduit of Lightning}
 Upgrade: Upgrades to unique{Omeyocan} via currency{Vial of the Ritual}
 {variant:1}Requires Level 34, 34 Dex, 34 Int
 {variant:2}Requires Level 55, 52 Dex, 52 Int
@@ -911,13 +924,13 @@ Fugitive Boots
 Source: Drops from unique{The Eater of Worlds}
 Requires Level 70, 56 Dex, 76 Int
 Implicits: 1
-+(13–17)% to Chaos Resistance
-+(80–100) to maximum Life
++(13-17)% to Chaos Resistance
++(80-100) to maximum Life
 30% increased Movement Speed
 You gain 3 Grasping Vines when you take a Critical Strike
 Nearby stationary Enemies gain a Grasping Vine every 0.5 seconds
 All Damage inflicts Poison against Enemies affected by at least 3 Grasping Vines
-You take (30–50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
+You take (30-50)% reduced Extra Damage from Critical Strikes by Poisoned Enemies
 ]],[[
 Nomic's Storm
 Strapped Boots
@@ -939,6 +952,7 @@ The Stampede
 Assassin's Boots
 Requires Level 63, 62 Dex, 62 Int
 League: Blight
+Source: Drops in Blighted Maps
 (100-150)% increased Evasion and Energy Shield
 (30-40)% increased Stun and Block Recovery
 Travel Skills have (50-80)% increased Cooldown Recovery Speed
@@ -949,6 +963,7 @@ This item can be anointed by Cassia
 Replica Stampede
 Assassin's Boots
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 63, 62 Dex, 62 Int
 (100-150)% increased Evasion and Energy Shield
 (30-40)% increased Stun and Block Recovery
@@ -980,10 +995,11 @@ Requires Level 59, 27 Dex, 27 Int
 20% increased Movement Speed
 (10-20)% increased Movement Speed while Ignited
 +25% chance to be Ignited
-(75-125) Life Regenerated per second while Ignited
+Regenerate (75-125) Life per second while Ignited
 ]],[[
 Voidwalker
 Murder Boots
+Shaper Item
 Source: Drops from unique{The Shaper}
 Variant: Pre 3.0.0
 Variant: Current
@@ -996,12 +1012,12 @@ You have Phasing if you've Killed Recently
 {variant:1}Projectiles Pierce all Targets while you have Phasing
 {variant:2}Projectiles Pierce 5 additional Targets while you have Phasing
 Celestial Footprints
-Shaper Item
 ]],[[
 Replica Voidwalker
 Murder Boots
 Shaper Item
 League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 69, 82 Dex, 42 Int
 +(30-50) to Dexterity
 (140-180)% increased Evasion and Energy Shield
@@ -1017,8 +1033,8 @@ Olroth's Charge
 Runic Sollerets
 League: Expedition
 Requires Level 48, 37 Str, 37 Dex, 37 Int
-(50–80)% increased Ward
-(30–50)% slower Restoration of Ward
+(50-80)% increased Ward
+(30-50)% slower Restoration of Ward
 20% increased Movement Speed
 Gain Adrenaline for 3 seconds when Ward Breaks
 ]],

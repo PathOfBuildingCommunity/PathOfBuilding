@@ -19,6 +19,8 @@
 -- :OnSelCopy(index, value)  [Called when Ctrl+C is pressed while a list value is selected]
 -- :OnSelDelete(index, value)  [Called when backspace or delete is pressed while a list value is selected]
 -- :OnSelKeyDown(index, value)  [Called when any other key is pressed while a list value is selected]
+-- :OverrideSelectIndex(index) [Called when an index is selected, return true to prevent default action]
+-- :SetHighlightColor(index, value) [Called when querying if a row is highlighted by parent element class]
 --
 local ipairs = ipairs
 local t_insert = table.insert
@@ -71,17 +73,24 @@ end)
 
 function ListClass:SelectIndex(index)
 	self.selValue = self.list[index]
-	if self.selValue then
-		self.selIndex = index
-		local width, height = self:GetSize()
-		if self.scroll then
-			self.controls.scrollBarV:SetContentDimension(#self.list * self.rowHeight, height - 4)
-			self.controls.scrollBarV:ScrollIntoView((index - 2) * self.rowHeight, self.rowHeight * 3)
-		end
-		if self.OnSelect then
-			self:OnSelect(self.selIndex, self.selValue)
-		end
+	if not self.selValue then
+		return false
 	end
+
+	if self.OverrideSelectIndex and self:OverrideSelectIndex(index) then
+		return false
+	end
+	self.selIndex = index
+	local width, height = self:GetSize()
+	if self.scroll then
+		self.controls.scrollBarV:SetContentDimension(#self.list * self.rowHeight, height - 4)
+		self.controls.scrollBarV:ScrollIntoView((index - 2) * self.rowHeight, self.rowHeight * 3)
+	end
+	if self.OnSelect then
+		self:OnSelect(self.selIndex, self.selValue)
+	end
+
+	return true
 end
 
 function ListClass:GetColumnProperty(column, property)
@@ -251,7 +260,9 @@ function ListClass:Draw(viewPort, noTooltip)
 				end
 				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
 			end
-			SetDrawColor(1, 1, 1)
+			if not self.SetHighlightColor or not self:SetHighlightColor(index, value) then
+				SetDrawColor(1, 1, 1)
+			end
 			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 		end
 		if self.colLabels then
@@ -313,28 +324,14 @@ function ListClass:OnKeyDown(key, doubleClick)
 		return
 	end
 	if key == "LEFTBUTTON" then
-		self.selValue = nil
-		self.selIndex = nil
+		local newSelect = nil
 		local x, y = self:GetPos()
 		local cursorX, cursorY = GetCursorPos()
 		local rowRegion = self:GetRowRegion()
 		if cursorX >= x + rowRegion.x and cursorY >= y + rowRegion.y and cursorX < x + rowRegion.x + rowRegion.width and cursorY < y + rowRegion.y + rowRegion.height then
 			local index = math.floor((cursorY - y - rowRegion.y + self.controls.scrollBarV.offset) / self.rowHeight) + 1
-			self.selValue = self.list[index]
-			if self.selValue then
-				self.selIndex = index
-				if (self.isMutable or self.dragTargetList) and self:IsShown() then
-					self.selCX = cursorX
-					self.selCY = cursorY
-					self.selDragging = true
-					self.selDragActive = false
-				end
-				if self.OnSelect then
-					self:OnSelect(self.selIndex, self.selValue)
-				end
-				if self.OnSelClick then
-					self:OnSelClick(self.selIndex, self.selValue, doubleClick)
-				end
+			if self.list[index] then
+				newSelect = index
 			end
 		else
 			for colIndex, column in ipairs(self.colList) do
@@ -344,6 +341,18 @@ function ListClass:OnKeyDown(key, doubleClick)
 				if self:GetColumnProperty(column, "sortable") and mOver and self.ReSort then
 					self:ReSort(colIndex)
 				end
+			end
+		end
+
+		if self:SelectIndex(newSelect) then
+			if (self.isMutable or self.dragTargetList) and self:IsShown() then
+				self.selCX = cursorX
+				self.selCY = cursorY
+				self.selDragging = true
+				self.selDragActive = false
+			end
+			if self.OnSelClick then
+				self:OnSelClick(self.selIndex, self.selValue, doubleClick)
 			end
 		end
 	elseif #self.list > 0 and not self.selDragActive then
@@ -407,7 +416,7 @@ function ListClass:OnKeyUp(key)
 					end
 					t_insert(self.list, self.selDragIndex, self.selValue)
 					if self.OnOrderChange then
-						self:OnOrderChange()
+						self:OnOrderChange(self.selIndex, self.selDragIndex)
 					end
 					self.selValue = nil
 				elseif self.dragTarget then

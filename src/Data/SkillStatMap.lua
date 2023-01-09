@@ -413,6 +413,9 @@ return {
 ["elusive_effect_+%"] = {
 	mod("ElusiveEffect", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 },
+["blind_effect_+%"] = {
+	mod("BlindEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Vaal Blade Flurry" }),
+},
 ["cannot_be_stunned_while_leeching"] = {
 	mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Leeching"}),
 },
@@ -453,12 +456,19 @@ return {
 ["base_spell_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
 },
+["base_cooldown_modifier_ms"] = {
+	mod("CooldownRecovery", "BASE", nil),
+	div = 1000,
+},
 ["additional_weapon_base_attack_time_ms"] = {
 	mod("Speed", "BASE", nil, ModFlag.Attack),
 	div = 1000,
 },
 ["warcry_speed_+%"] = {
 	mod("WarcrySpeed", "INC", nil, 0, KeywordFlag.Warcry),
+},
+["display_this_skill_cooldown_does_not_recover_during_buff"] = {
+	flag("NoCooldownRecoveryInDuration"),
 },
 -- AoE
 ["base_skill_area_of_effect_+%"] = {
@@ -728,6 +738,9 @@ return {
 ["active_skill_damage_+%_final_when_cast_on_frostbolt"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 },
+["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+},
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
 	mod("PhysicalDamageGainAsLightning", "BASE", nil),
@@ -860,6 +873,9 @@ return {
 ["shock_effect_+%"] = {
 	mod("EnemyShockEffect", "INC", nil),
 },
+["active_skill_shock_effect_+%_final"] = {
+	mod("EnemyShockEffect", "MORE", nil),
+},
 ["non_damaging_ailment_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
 	mod("EnemyShockEffect", "INC", nil),
@@ -909,24 +925,10 @@ return {
 	mod("EnemyFreezeDuration", "INC", nil),
 },
 ["base_elemental_status_ailment_duration_+%"] = {
-	mod("EnemyIgniteDuration", "INC", nil), 
-	mod("EnemyShockDuration", "INC", nil), 
-	mod("EnemyChillDuration", "INC", nil), 
-	mod("EnemyFreezeDuration", "INC", nil),
-	mod("EnemyScorchDuration", "INC", nil),
-	mod("EnemyBrittleDuration", "INC", nil),
-	mod("EnemySapDuration", "INC", nil),
+	mod("EnemyElementalAilmentDuration", "INC", nil), 
 },
 ["base_all_ailment_duration_+%"] = {
-	mod("EnemyBleedDuration", "INC", nil), 
-	mod("EnemyPoisonDuration", "INC", nil), 
-	mod("EnemyIgniteDuration", "INC", nil), 
-	mod("EnemyShockDuration", "INC", nil), 
-	mod("EnemyChillDuration", "INC", nil), 
-	mod("EnemyFreezeDuration", "INC", nil),
-	mod("EnemyScorchDuration", "INC", nil),
-	mod("EnemyBrittleDuration", "INC", nil),
-	mod("EnemySapDuration", "INC", nil),
+	mod("EnemyAilmentDuration", "INC", nil), 
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
@@ -1018,6 +1020,20 @@ return {
 	flag("ChaosCanFreeze"),
 },
 ["all_damage_can_shock"] = {
+	flag("PhysicalCanShock"),
+	flag("ColdCanShock"),
+	flag("FireCanShock"),
+	flag("ChaosCanShock"),
+},
+["all_damage_can_ignite_freeze_shock"] = {
+	flag("PhysicalCanIgnite"),
+	flag("LightningCanIgnite"),
+	flag("ColdCanIgnite"),
+	flag("ChaosCanIgnite"),
+	flag("PhysicalCanFreeze"),
+	flag("LightningCanFreeze"),
+	flag("FireCanFreeze"),
+	flag("ChaosCanFreeze"),
 	flag("PhysicalCanShock"),
 	flag("ColdCanShock"),
 	flag("FireCanShock"),
@@ -1661,6 +1677,10 @@ return {
 },
 ["banner_area_of_effect_+%_per_stage"] = {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+},
+["banner_additional_base_duration_per_stage_ms"] = {
+	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
+	div = 1000,
 },
 -- Other
 ["triggered_skill_damage_+%"] = {
