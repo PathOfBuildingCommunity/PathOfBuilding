@@ -4546,7 +4546,7 @@ function calcs.offence(env, actor, activeSkill)
 			local simBreakdown
 			
 			if EffectiveSourceRate ~= 0 then
-				SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(usedSkill), cd = triggeredCD }}, EffectiveSourceRate, icdrSkill, effectiveTriggerCD)
+				SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(usedSkill), cd = triggeredCD }}, EffectiveSourceRate, effectiveTriggerCD)
 				if breakdown then
 					BreakdownSkillTriggerRate = {
 						s_format("%.2f ^8(effective trigger rate of trigger)", EffectiveSourceRate),
