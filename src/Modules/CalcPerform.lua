@@ -1491,7 +1491,7 @@ function calcs.perform(env, avoidCache)
 	end
 
 	-- Merge flask modifiers
-	if env.mode_combat then
+	if env.mode_combat and (env.mode ~= "CALCS" or env.flasksActive) then -- Don't merge flasks for the calcs tab if they are marked as not active
 		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
 		local flaskBuffs = { }
 		local flaskConditions = {}

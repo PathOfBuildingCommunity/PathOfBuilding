@@ -317,6 +317,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.configPlaceholder = build.configTab.placeholder
 		env.calcsInput = build.calcsTab.input
 		env.mode = mode
+		env.flasksActive = env.calcsInput.flasksActive
 		env.spec = override.spec or build.spec
 		env.classId = env.spec.curClassId
 
