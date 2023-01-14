@@ -88,6 +88,19 @@ Queen's Demand can Trigger Level 20 Storm of Judgement
 Cannot be Stunned
 Damage cannot be Reflected
 ]],[[
+The Winds of Fate
+Foul Staff
+League: Sanctum
+Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+(700-800)% increased Physical Damage
++100% to Global Critical Strike Multiplier
+75% of Physical Damage converted to a random Element
+25% of Physical Damage Converted to Chaos Damage
+Maximum Critical Strike Chance is 50%
+Non-Critical Strikes deal no Damage
+]],[[
 The Blood Thorn
 Gnarled Branch
 Variant: Pre 2.6.0
@@ -453,12 +466,12 @@ Requires Level 49, 85 Str, 85 Int
 Implicits: 2
 {variant:1}+18% Chance to Block Attack Damage while wielding a Staff
 {variant:2}+20% Chance to Block Attack Damage while wielding a Staff
+Socketed Gems fire 4 additional Projectiles
+Socketed Gems fire Projectiles in a Nova
 +(15-20) to All Attributes
 +(5-7)% to All Elemental Resistances
 (60-100)% increased Projectile Damage
 20% increased Light Radius
-Socketed Gems fire 4 additional Projectiles
-Socketed Gems fire Projectiles in a Nova
 ]],[[
 Soulwrest
 Ezomyte Staff

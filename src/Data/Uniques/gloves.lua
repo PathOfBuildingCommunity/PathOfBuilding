@@ -805,10 +805,10 @@ Raise Zombie does not require a Corpse
 Your Raised Zombies count as Corpses
 ]],[[
 Architect's Hand
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Strapped Mitts
 {variant:2}Ambush Mitts
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Opening normal{Fortified Casket} in normal{Defense Research Lab}
 Upgrade: Upgrades to unique{Slavedriver's Hand} via currency{Vial of Dominance}
@@ -990,6 +990,14 @@ Requires Level 67, 51 Dex, 51 Int
 {variant:1,2,3}10% increased Stun Duration on Enemies
 {variant:1,2,3}100% increased Duration of Lightning Ailments
 {variant:4}100% increased Effect of Lightning Ailments
+]],[[
+Entropic Devastation
+Assassin's Mitts
+Source: Drops from unique{The Shaper} (Uber)
+Grants Call of Steel
+(100-150)% increased Evasion and Energy Shield
+(30-50)% increased Effect of Impales inflicted with Spells
+Critical Strikes with Spells inflict Impale
 ]],
 -- Gloves: Ward
 [[

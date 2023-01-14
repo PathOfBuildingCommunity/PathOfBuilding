@@ -36,6 +36,16 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill TouchOfFire
+#flags spell
+	fromItem = true,
+	statMap = {
+		["display_touch_of_fire"] = {
+			flag("FlameTouched", { type = "GlobalEffect", effectType = "Buff" })
+		}
+	},
+#mods
+
 #skill SupportTriggerSpellOnBowAttack Asenath's Chant
 	fromItem = true,
 #mods
@@ -144,14 +154,14 @@ local skills, mod, flag, skill = ...
 	end,
 	statMap = {
 		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage" }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage" }),
 			div = 100,
 		},
 		["flameblast_damage_+%_final_per_10_life_reserved"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }),
 		},
 		["flameblast_ailment_damage_+%_final_per_10_life_reserved"] = {
-			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }),
 		},
 	},
 #mods
@@ -189,6 +199,11 @@ local skills, mod, flag, skill = ...
 			mod("ColdAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
+#mods
+
+#skill UniqueEnchantmentOfInfernoOnCrit
+#flags spell area hit
+	fromItem = true,
 #mods
 
 #skill TriggeredConsecrate Consecrate
@@ -373,6 +388,11 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	fromItem = true,
 #baseMod skill("radius", 24)
+#mods
+
+#skill FieryImpactHeistMaceImplicit
+#flags attack area melee
+	fromItem = true,
 #mods
 
 #skill AtziriUniqueStaffFlameblast
@@ -599,7 +619,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredShockedGround
 #flags spell area duration
 	fromItem = true,
-#baseMod mod("ShockedGroundBase", "BASE", 15)
+#baseMod mod("ShockedGroundEffect", "BASE", 15)
 #mods
 
 #skill ChannelledSnipe
@@ -850,14 +870,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportTriggerSpellOnSkillUse Trigger Craft
+	fromItem = true,
+#mods
+
 #skill AvianTornado
 #flags spell projectile duration
 	fromItem = true,
 #baseMod skill("showAverage", true)
-#mods
-
-#skill SupportTriggerSpellOnSkillUse Trigger Craft
-	fromItem = true,
 #mods
 
 #skill Unhinge
@@ -886,15 +906,5 @@ local skills, mod, flag, skill = ...
 
 #skill VoidShot
 #flags attack projectile area
-	fromItem = true,
-#mods
-
-#skill UniqueEnchantmentOfInfernoOnCrit
-#flags spell area hit
-	fromItem = true,
-#mods
-
-#skill FieryImpactHeistMaceImplicit
-#flags attack area melee
 	fromItem = true,
 #mods

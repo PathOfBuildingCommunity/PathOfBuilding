@@ -205,6 +205,7 @@ local skillMap = {
 	["EnergyBlade"] = "Energy Blade",
 	["Tornado"] = "Tornado",
 	["TornadoShot"] = "Tornado Shot",
+	["VolcanicFissure"] = "Volcanic Fissure",
 }
 
 local bySkill = { }

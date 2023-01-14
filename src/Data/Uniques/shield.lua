@@ -201,7 +201,7 @@ Blood Magic
 [[
 Atziri's Mirror
 Golden Buckler
-Upgrade: No longer obtainable
+Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Pre 3.0.0
 Variant: Pre 3.17.0
@@ -389,10 +389,10 @@ Implicits: 1
 -- Shield: Energy Shield
 [[
 Apep's Slumber
-Variant: Pre 3.14.0
-Variant: Current
 {variant:1}Ancient Spirit Shield
 {variant:2}Vaal Spirit Shield
+Variant: Pre 3.14.0
+Variant: Current
 League: Incursion
 Source: Opening normal{Grove Vessel} in normal{Toxic Grove}
 Upgrade: Upgrades to unique{Apep's Supremacy} via currency{Vial of Awakening}

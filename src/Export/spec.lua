@@ -3472,6 +3472,41 @@ return {
 			refTo="",
 			type="Int",
 			width=90
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
 		}
 	},
 	FlavourText={
@@ -7185,6 +7220,22 @@ return {
 	RecipeUnlockObjects={
 	},
 	RelativeImportanceConstants={
+	},
+	ReminderText={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=350
+		},
+		[2]={
+			list=false,
+			name="Text",
+			refTo="",
+			type="String",
+			width=1000
+		}
 	},
 	RitualBalancePerLevel={
 	},
