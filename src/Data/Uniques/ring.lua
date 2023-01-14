@@ -364,7 +364,7 @@ Implicits: 1
 {variant:2}{tags:jewellery_defense}}+(260-300) to Armour
 {variant:2}{tags:life}+(40-50) to maximum Life
 {variant:1,2}{tags:jewellery_resistance}+(15-20)% to Chaos Resistance
-{variant:1,2}{tags:attack,life,physical_damage}(0.6-0.8)% of Physical Attack Damage Leeched as Life
+{variant:1,2}{tags:attack,life}(0.6-0.8)% of Physical Attack Damage Leeched as Life
 {variant:1}You gain Onslaught for 2 seconds on Kill
 {variant:2}You gain Onslaught for 4 seconds on Kill
 {variant:3}Recover 5% of Life on Kill
@@ -534,7 +534,7 @@ Implicits: 1
 {variant:1}{tags:speed}5% increased Movement Speed
 {variant:2}{tags:speed}(5-10)% increased Movement Speed
 {variant:1}25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
-{variant:1}0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
+{variant:1}{tags:life}0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
 {variant:2}Steal Power, Frenzy, and Endurance Charges on Hit
 Total Recovery per second from Life Leech is Doubled
 ]],[[
@@ -569,7 +569,7 @@ Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {variant:3}Grants Level 10 Enduring Cry Skill
 {tags:jewellery_attribute}+(10-20) to Strength
-{variant:1}{tags:attack,life,physical_damage}0.4% of Physical Attack Damage Leeched as Life
+{variant:1}{tags:attack,life}0.4% of Physical Attack Damage Leeched as Life
 {variant:2}{tags:attack,life}Gain (2-4) Life per Enemy Hit with Attacks
 +1 to Maximum Endurance Charge
 ]],[[
@@ -946,7 +946,7 @@ Implicits: 1
 {tags:critical}{variant:2}+(10-15)% to Global Critical Strike Multiplier
 {tags:critical}{variant:3}+(15-25)% to Global Critical Strike Multiplier
 {tags:mana}+(40-60) to maximum Mana
-{tags:attack,mana,physical_damage}0.4% of Physical Attack Damage Leeched as Mana
+{tags:attack,mana}0.4% of Physical Attack Damage Leeched as Mana
 Gain a Power Charge on non-Critical Strike
 Lose all Power Charges on Critical Strike
 ]],[[

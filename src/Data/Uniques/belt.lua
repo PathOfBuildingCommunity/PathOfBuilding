@@ -50,7 +50,7 @@ Implicits: 2
 {variant:3,4}{tags:jewellery_defense}+(60-80) to maximum Energy Shield
 {tags:jewellery_defense}+(60-70) to maximum Energy Shield
 {tags:mana}+(45-55) to maximum Mana
-{variant:1}{tags:attack,mana,physical_damage}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
+{variant:1}{tags:attack,mana}0.2% of Physical Attack Damage Leeched as Mana per Power Charge
 {variant:2,3}Chill Effect and Freeze Duration on you are based on 65% of Energy Shield
 {variant:4}Chill Effect and Freeze Duration on you are based on 100% of Energy Shield
 {variant:1}{tags:attack,jewellery_elemental}(20-30)% increased Elemental Damage with Attack Skills
@@ -226,8 +226,8 @@ Implicits: 1
 {variant:1,3,4,5,7,8}{tags:jewellery_resistance}+(30-35)% to Fire Resistance
 {variant:1,2,4,5,6,8}{tags:jewellery_resistance}+(30-35)% to Cold Resistance
 {variant:1,2,3,5,6,7}{tags:jewellery_resistance}+(30-35)% to Lightning Resistance
-{variant:1}{tags:life,physical_damage}0.2% of Physical Damage Leeched as Life
-{variant:5}{tags:life,physical_damage}0.6% of Physical Damage Leeched as Life
+{variant:1}{tags:life}0.2% of Physical Damage Leeched as Life
+{variant:5}{tags:life}0.6% of Physical Damage Leeched as Life
 {variant:2}{tags:life}0.2% of Fire Damage Leeched as Life
 {variant:6}{tags:life}0.6% of Fire Damage Leeched as Life
 {variant:3}{tags:life}0.2% of Cold Damage Leeched as Life
@@ -291,7 +291,7 @@ Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
 {tags:attack,physical_damage}Adds 5 to 10 Physical Damage to Attacks
 {tags:life}+(20-40) to maximum Life
-{tags:attack,life,physical_damage}0.2% of Physical Attack Damage Leeched as Life
+{tags:attack,life}0.2% of Physical Attack Damage Leeched as Life
 50% increased Flask Charges gained during any Flask Effect
 {tags:mana}50% increased Mana Regeneration Rate during any Flask Effect
 ]],[[
@@ -656,7 +656,7 @@ Implicits: 1
 {tags:physical_damage}(12-24)% increased Global Physical Damage
 {tags:life}+(60-80) to maximum Life
 {tags:jewellery_resistance}+(25-40)% to Cold Resistance
-{tags:attack,life,physical_damage}0.4% of Physical Attack Damage Leeched as Life
+{tags:attack,life}0.4% of Physical Attack Damage Leeched as Life
 60% increased Flask Effect Duration
 30% reduced Flask Charges gained during any Flask Effect
 {tags:chaos_damage,life}200% of Life Leech applies to enemies as Chaos Damage
@@ -839,10 +839,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {variant:1}{tags:jewellery_resistance}+(10-20)% to Cold Resistance
 {variant:2}{tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{variant:1}{tags:attack,life,physical_damage}0.4% of Physical Attack Damage Leeched as Life
-{variant:2}{tags:attack,life,physical_damage}2% of Physical Attack Damage Leeched as Life
-{variant:1}{tags:attack,mana,physical_damage}0.4% of Physical Attack Damage Leeched as Mana
-{variant:2}{tags:attack,mana,physical_damage}2% of Physical Attack Damage Leeched as Mana
+{variant:1}{tags:attack,life}0.4% of Physical Attack Damage Leeched as Life
+{variant:2}{tags:attack,life}2% of Physical Attack Damage Leeched as Life
+{variant:1}{tags:attack,mana}0.4% of Physical Attack Damage Leeched as Mana
+{variant:2}{tags:attack,mana}2% of Physical Attack Damage Leeched as Mana
 {variant:2}(500-1000)% increased total Recovery per second from Life Leech
 {variant:2}(500-1000)% increased total Recovery per second from Mana Leech
 ]],

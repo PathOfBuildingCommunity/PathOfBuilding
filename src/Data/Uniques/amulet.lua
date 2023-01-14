@@ -277,7 +277,7 @@ Implicits: 1
 {tags:life}{variant:1}25% reduced maximum Life
 {tags:jewellery_defense}{variant:1}25% reduced maximum Energy Shield
 {tags:jewellery_resistance}+(10-20)% to all Elemental Resistances
-{tags:attack,life,physical_damage}(1.2-2)% of Physical Attack Damage Leeched as Life
+{tags:attack,life}(1.2-2)% of Physical Attack Damage Leeched as Life
 {tags:life}{variant:2}(30-40)% increased Damage while Leeching
 {tags:life}{variant:2}50% increased Life Leeched per second
 Extra Gore
@@ -552,7 +552,7 @@ Implicits: 1
 {variant:1,2}{tags:critical}+(23-28)% to Global Critical Strike Multiplier
 {variant:3}{tags:critical}+(25-50)% to Global Critical Strike Multiplier
 {variant:3}Bow Attacks have Culling Strike
-{variant:1,2}{tags:attack,life,physical_damage}(0.8-1)% of Physical Attack Damage Leeched as Life
+{variant:1,2}{tags:attack,life}(0.8-1)% of Physical Attack Damage Leeched as Life
 {variant:1}Precision has 50% less Reservation
 {variant:2,3}{tags:mana}Precision has 100% increased Mana Reservation Efficiency
 ]],[[
@@ -908,7 +908,7 @@ Variant: Current
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+25% to Cold Resistance
-{tags:mana,physical_damage,attack}{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
+{tags:mana,attack}{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
 {tags:life}Minions have (10-15)% increased maximum Life
 {variant:1,2,3}{tags:speed}Minions have (10-15)% increased Movement Speed
 {variant:4}Minions convert 50% of Physical Damage to Cold Damage
