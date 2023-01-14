@@ -118,13 +118,13 @@ League: Ritual
 Source: Purchase from Ritual Reward
 Requires Level 49
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
 Enemies Ignited by you take Chaos Damage instead of Fire Damage from Ignite
 Withered does not expire on Enemies Ignited by you
-{tags:chaos,jewellery_resistance}+(20-25)% to Fire and Chaos Resistances
+{tags:jewellery_resistance}+(20-25)% to Fire and Chaos Resistances
 ]],[[
 Blackheart
 Iron Ring
@@ -312,17 +312,17 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:chaos_damage}Adds (15-20) to (21-30) Chaos Damage
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}{tags:mana}Herald of Agony has (60-80)% increased Mana Reservation Efficiency
 {variant:2}{tags:mana}Herald of Agony has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:chaos_damage}(40-60)% increased Chaos Damage while affected by Herald of Agony
 {variant:4}Herald of Agony has (70-100)% increased Buff Effect
 {variant:5}Herald of Agony has (40-60)% increased Buff Effect
 {variant:6}Agony Crawler deals (70-100)% increased Damage
-{variant:7}{tags:chaos,jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
+{variant:7}{tags:jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
 ]],[[
 Circle of Regret
 Topaz Ring
@@ -358,12 +358,12 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 46
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1,2}{tags:attack}+(300-350) to Accuracy Rating
 {variant:1}{tags:jewellery_defense}+(60-80) to Armour
 {variant:2}{tags:jewellery_defense}}+(260-300) to Armour
 {variant:2}{tags:life}+(40-50) to maximum Life
-{variant:1,2}{tags:chaos,jewellery_resistance}+(15-20)% to Chaos Resistance
+{variant:1,2}{tags:jewellery_resistance}+(15-20)% to Chaos Resistance
 {variant:1,2}{tags:attack,life,physical_damage}(0.6-0.8)% of Physical Attack Damage Leeched as Life
 {variant:1}You gain Onslaught for 2 seconds on Kill
 {variant:2}You gain Onslaught for 4 seconds on Kill
@@ -376,7 +376,7 @@ League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
 LevelReq: 52
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 All Elemental Damage Converted to Chaos Damage
 Nearby Enemies' Chaos Resistance is 0
 ]],[[
@@ -720,7 +720,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 69
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}{tags:life}15% reduced maximum Life
 {variant:2}{tags:life}10% reduced maximum Life
 {variant:3}{tags:life}(5-10)% reduced maximum Life
@@ -729,7 +729,7 @@ Implicits: 1
 {variant:2}{tags:jewellery_defense}10% reduced maximum Energy Shield
 {variant:3}{tags:jewellery_defense}(5-10)% reduced maximum Energy Shield
 {variant:4}{tags:jewellery_defense}25% reduced maximum Energy Shield
-{tags:chaos,jewellery_resistance}+(40-50)% to Chaos Resistance
+{tags:jewellery_resistance}+(40-50)% to Chaos Resistance
 {variant:1,2,3}{tags:chaos_damage,physical_damage}Gain 20% of Physical Damage as Extra Chaos Damage
 {variant:4}{tags:chaos_damage,physical_damage}Gain (40-60)% of Physical Damage as Extra Chaos Damage
 ]],[[
@@ -1336,9 +1336,9 @@ Has 1 Socket
 {tags:jewellery_attribute}+(15-25) to all Attributes
 {tags:life}Regenerate 15 Life per second for each Uncorrupted Item Equipped
 {tags:mana}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
-{variant:1,12}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:2,13}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:3,14}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:1,12}{crafted}{tags:jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:2,13}{crafted}{tags:jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:3,14}{crafted}{tags:jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
 {variant:4,15}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
 {variant:5,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
 {variant:6,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence

@@ -229,8 +229,8 @@ Requires Level 28
 Implicits: 1
 (15-25)% increased Global Defences
 +(20-30) to maximum Energy Shield
-+(15-30)% to Fire Resistance
-+(15-30)% to Lightning Resistance
+{tags:jewellery_resistance}+(15-30)% to Fire Resistance
+{tags:jewellery_resistance}+(15-30)% to Lightning Resistance
 {variant:1}30% slower start of Energy Shield Recharge during any Flask Effect
 {variant:2}50% slower start of Energy Shield Recharge during any Flask Effect
 {variant:1}400% increased Energy Shield Recharge Rate during any Flask Effect
@@ -246,7 +246,7 @@ Implicits: 1
 Grants Level 10 Gluttony of Elements Skill
 {tags:attack,chaos_damage}Adds 19-43 Chaos Damage to Attacks
 {tags:jewellery_resistance}-(10-5)% to all Elemental Resistances
-{tags:chaos,jewellery_resistance}+(17-29)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-29)% to Chaos Resistance
 Corrupted
 ]],[[
 Bloodgrip
@@ -289,7 +289,7 @@ Requires Level 61
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 Modifiers to Attributes instead Apply to Omniscience
-+1% to All Elemental Resistances per 15 Omniscience
+{tags:jewellery_resistance}+1% to All Elemental Resistances per 15 Omniscience
 Penetrate 1% Elemental Resistances per 15 Omniscience
 Attribute Requirements can be satisfied by (15-25)% of Omniscience
 ]],[[
@@ -361,7 +361,7 @@ Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 30% increased Rarity of Items found
-{tags:chaos,jewellery_resistance}+60% to Chaos Resistance
+{tags:jewellery_resistance}+60% to Chaos Resistance
 Cannot be Stunned
 {tags:jewellery_defense,life}20% of Maximum Life Converted to Energy Shield
 ]],[[
@@ -634,7 +634,7 @@ Implicits: 1
 {variant:2}{tags:jewellery_resistance}+(20-25)% to Fire Resistance
 {variant:3}{tags:jewellery_resistance}+(20-25)% to Cold Resistance
 {variant:4}{tags:jewellery_resistance}+(20-25)% to Lightning Resistance
-{variant:5}{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{variant:5}{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}Vulnerability has no Reservation if Cast as an Aura
 {variant:2}Flammability has no Reservation if Cast as an Aura
 {variant:3}Frostbite has no Reservation if Cast as an Aura
@@ -718,7 +718,7 @@ Requires Level 48
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Strength and Dexterity
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:chaos,jewellery_resistance}+(23-31)% to Chaos Resistance
+{tags:jewellery_resistance}+(23-31)% to Chaos Resistance
 {variant:1}{tags:caster}(10-15)% increased Effect of your Curses
 {variant:2}{tags:caster}(5-10)% increased Effect of your Curses
 {variant:1,3}(10-15)% increased effect of Non-Curse Auras from your Skills
@@ -986,7 +986,7 @@ Requires Level 54
 Implicits: 1
 {tags:life}Regenerate (2-4) Life per second
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:chaos,jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
+{tags:jewellery_resistance}Minions have (-17-17)% to Chaos Resistance
 Summon Raging Spirit has (20-30)% increased Duration
 {variant:1}Summoned Raging Spirits deal (60-80)% increased Damage
 {variant:2}Summoned Raging Spirits deal (25-40)% increased Damage
@@ -1007,8 +1007,8 @@ Grants Level 10 Purity of Elements Skill
 {variant:3}{tags:jewellery_attribute}+(10-20) to all Attributes
 {tags:life}+(20-40) to maximum Life
 {variant:1}5% chance to avoid Elemental Ailments
-{variant:2}+5% to all Elemental Resistances
-{variant:3}+(5-10)% to all Elemental Resistances
+{variant:2}{tags:jewellery_resistance}+5% to all Elemental Resistances
+{variant:3}{tags:jewellery_resistance}+(5-10)% to all Elemental Resistances
 ]],[[
 Ungil's Harmony
 Turquoise Amulet
@@ -1034,7 +1034,7 @@ Socketed Support Gems can also Support Skills from your Body Armour
 {tags:jewellery_resistance}+(-30-30)% to Fire Resistance
 {tags:jewellery_resistance}+(-30-30)% to Cold Resistance
 {tags:jewellery_resistance}+(-30-30)% to Lightning Resistance
-{tags:chaos,jewellery_resistance}+(-23-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(-23-23)% to Chaos Resistance
 ]],[[
 Victario's Acuity
 Turquoise Amulet
@@ -1043,7 +1043,7 @@ Requires Level 16
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 {tags:jewellery_resistance}+(30-40)% to Lightning Resistance
-{tags:chaos,jewellery_resistance}+(8-10)% to Chaos Resistance
+{tags:jewellery_resistance}+(8-10)% to Chaos Resistance
 10% chance to gain a Frenzy Charge on Kill
 10% chance to gain a Power Charge on Kill
 {tags:speed}5% increased Projectile Speed per Frenzy Charge
