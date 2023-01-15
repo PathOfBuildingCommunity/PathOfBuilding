@@ -146,7 +146,7 @@ Implicits: 1
 {variant:1,2,3,4,5}10% reduced Stun and Block Recovery
 {variant:6,7,8,9}Nearby Enemies grant 25% increased Flask Charges
 {variant:1,2,3,4,5}Nearby Enemies have 10% reduced Stun and Block Recovery
-{tags:critical}{variant:10,11,12,13,14,15,16}Hits against Nearby Enemies have 50% increased Critical Strike Chance
+{variant:10,11,12,13,14,15,16}{tags:critical}Hits against Nearby Enemies have 50% increased Critical Strike Chance
 {variant:17}{tags:jewellery_defense}(15-20)% increased Global Defences
 {variant:1}Anger has no Reservation
 {variant:2}Determination has no Reservation
@@ -274,12 +274,12 @@ Requires Level 20
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 {tags:jewellery_attribute}+(20-40) to all Attributes
-{tags:life}{variant:1}25% reduced maximum Life
-{tags:jewellery_defense}{variant:1}25% reduced maximum Energy Shield
+{variant:1}{tags:life}25% reduced maximum Life
+{variant:1}{tags:jewellery_defense}25% reduced maximum Energy Shield
 {tags:jewellery_resistance}+(10-20)% to all Elemental Resistances
 {tags:attack,life}(1.2-2)% of Physical Attack Damage Leeched as Life
-{tags:life}{variant:2}(30-40)% increased Damage while Leeching
-{tags:life}{variant:2}50% increased Life Leeched per second
+{variant:2}{tags:life}(30-40)% increased Damage while Leeching
+{variant:2}{tags:life}50% increased Life Leeched per second
 Extra Gore
 ]],[[
 Crystallised Omniscience
@@ -488,7 +488,7 @@ Implicits: 1
 {tags:caster,life}Lose (10-15) Life per Enemy Hit with Spells
 {tags:attack,life}Lose (20-25) Life per Enemy Hit with Attacks
 Skills Chain +1 times
-{tags:speed}{variant:2}(30-40)% increased Projectile Speed
+{variant:2}{tags:speed}(30-40)% increased Projectile Speed
 {variant:1}{tags:chaos_damage}Projectiles gain (15-20)% of Non-Chaos Damage as extra Chaos Damage per Chain
 {variant:2}{tags:chaos_damage}Projectiles that have Chained gain (20-35)% of Non-Chaos Damage as extra Chaos Damage
 ]],[[
@@ -677,8 +677,8 @@ Requires Level 24
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_attribute}+(20-30) to Strength
-{tags:attack,speed}{variant:1}(15-20)% increased Attack Speed
-{tags:attack,speed}{variant:2}(5-10)% increased Attack Speed
+{variant:1}{tags:attack,speed}(15-20)% increased Attack Speed
+{variant:2}{tags:attack,speed}(5-10)% increased Attack Speed
 {tags:attack}+100 to Accuracy Rating
 {variant:2}30% increased Projectile Damage
 {tags:speed}30% increased Projectile Speed
@@ -737,15 +737,15 @@ Requires Level 40
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:attack}+(80-120) to Accuracy Rating
-{tags:critical}{variant:1,2,3}+(140-160)% to Global Critical Strike Multiplier
-{tags:critical}{variant:4,5}+(210-240)% to Global Critical Strike Multiplier
+{variant:1,2,3}{tags:critical}+(140-160)% to Global Critical Strike Multiplier
+{variant:4,5}{tags:critical}+(210-240)% to Global Critical Strike Multiplier
 {tags:jewellery_defense}+(80-100) to Evasion Rating
 (10-15)% increased Light Radius
 {variant:1,2}Non-critical strikes deal 25% Damage
 {variant:3,4}Non-critical strikes deal 40% Damage
-{tags:critical}{variant:1}60% less Critical Strike Chance
-{tags:critical}{variant:2}50% less Critical Strike Chance
-{tags:critical}{variant:3,4,5}40% less Critical Strike Chance
+{variant:1}{tags:critical}60% less Critical Strike Chance
+{variant:2}{tags:critical}50% less Critical Strike Chance
+{variant:3,4,5}{tags:critical}40% less Critical Strike Chance
 {variant:1,2,3,4}Your Critical Strikes have Culling Strike
 {variant:5}Critical Strikes have Culling Strike
 ]],[[
@@ -908,7 +908,7 @@ Variant: Current
 Implicits: 1
 {tags:mana}(20-30)% increased Mana Regeneration Rate
 {tags:jewellery_resistance}+25% to Cold Resistance
-{tags:mana,attack}{variant:1,2}0.2% of Physical Attack Damage Leeched as Mana
+{variant:1,2}{tags:mana,attack}0.2% of Physical Attack Damage Leeched as Mana
 {tags:life}Minions have (10-15)% increased maximum Life
 {variant:1,2,3}{tags:speed}Minions have (10-15)% increased Movement Speed
 {variant:4}Minions convert 50% of Physical Damage to Cold Damage
@@ -1017,8 +1017,8 @@ Variant: Current
 Requires Level 23
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
-{tags:critical}{variant:1}100% increased Global Critical Strike Chance
-{tags:critical}{variant:2}(250-350)% increased Global Critical Strike Chance
+{variant:1}{tags:critical}100% increased Global Critical Strike Chance
+{variant:2}{tags:critical}(250-350)% increased Global Critical Strike Chance
 {tags:life}+(30-50) to maximum Life
 {tags:mana}+(30-50) to maximum Mana
 40% increased Stun and Block Recovery
