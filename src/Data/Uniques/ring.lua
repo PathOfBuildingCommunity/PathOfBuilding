@@ -517,7 +517,7 @@ LevelReq: 49
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:caster}(10-15)% increased Cast Speed
+{tags:caster,speed}(10-15)% increased Cast Speed
 (10-20)% chance to gain a Power Charge when you Cast a Curse Spell
 Your Curse Limit is equal to your maximum Power Charges
 ]],[[
@@ -765,8 +765,8 @@ Has 1 Socket
 {variant:2,3}Socketed Golem Skills have 20% increased Attack and Cast Speed
 {tags:attack,physical_damage}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
-{variant:1}(1-2)% increased Movement Speed
-{variant:2}(3-5)% increased Movement Speed
+{variant:1}{tags:speed}(1-2)% increased Movement Speed
+{variant:2}{tags:speed}(3-5)% increased Movement Speed
 {variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
 {variant:2,3}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 ]],[[
@@ -1203,7 +1203,7 @@ Has 1 Socket
 {variant:6}Socketed Vaal Skills grant Elusive when Used
 {variant:7}You have Tailwind if you've used a Socketed Vaal Skill Recently
 {variant:8}Socketed Vaal Skills have 60% increased Area of Effect
-{variant:9}Socketed Vaal Skills have 80% increased Projectile Speed
+{variant:9}{tags:speed}Socketed Vaal Skills have 80% increased Projectile Speed
 {variant:10}Socketed Vaal Skills have 80% increased Skill Effect Duration
 {variant:11}Socketed Vaal Skills have 30% reduced Soul Gain Prevention Duration
 {variant:12}Damage with Hits from Socketed Vaal Skills is Lucky

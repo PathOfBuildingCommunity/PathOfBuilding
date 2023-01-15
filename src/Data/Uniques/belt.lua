@@ -425,7 +425,7 @@ Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 {variant:5,15}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
 {variant:6,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
 {variant:7,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
-{variant:8,18}{crafted}(7-12)% increased Trap Throwing Speed
+{variant:8,18}{crafted}{tags:speed}(7-12)% increased Trap Throwing Speed
 {variant:9,19}{crafted}{tags:jewellery_defense}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
 {variant:10,20}{crafted}Your Critical Strike Chance is Lucky while Focused
 ]],[[

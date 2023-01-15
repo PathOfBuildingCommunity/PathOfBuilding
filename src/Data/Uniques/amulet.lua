@@ -459,7 +459,7 @@ Implicits: 1
 {tags:caster,speed}(10-15)% increased Cast Speed
 (10-15)% increased Area of Effect
 {variant:1}{tags:caster}Enemies Cursed by you are Hindered with 25% reduced Movement Speed if 25% of Curse Duration expired
-{variant:2}{tags:caster}Enemies Cursed by you are Hindered with 30% reduced Movement Speed if 25% of Curse Duration expired
+{variant:2}{tags:caster}Enemies Cursed by you are Hindered if 25% of Curse Duration expired
 {tags:caster}Your Curses have 25% increased Effect if 50% of Curse Duration expired
 {variant:1}{tags:caster}Enemies Cursed by you take 25% increased Damage if 75% of Curse Duration expired
 {variant:2}{tags:caster}Enemies Cursed by you take 35% increased Damage if 75% of Curse Duration expired
@@ -964,8 +964,8 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {variant:1}+15% Chance to Block Spell Damage
 {variant:2,3}+(12-15)% Chance to Block Spell Damage
-{variant:1,2}{tags:caster}(10-15)% increased Cast Speed
-{variant:3}{tags:caster}(15-20)% increased Cast Speed
+{variant:1,2}{tags:caster,speed}(10-15)% increased Cast Speed
+{variant:3}{tags:caster,speed}(15-20)% increased Cast Speed
 {variant:1,2}{tags:mana}+(30-50) to maximum Mana
 {variant:3}{tags:mana}+(40-70) to maximum Mana
 ]],[[
