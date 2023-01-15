@@ -530,6 +530,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.invertSliderScrollDirection then
 					self.invertSliderScrollDirection = node.attrib.invertSliderScrollDirection == "true"
 				end
+				if node.attrib.disableDevAutoSave then
+					self.disableDevAutoSave = node.attrib.disableDevAutoSave == "true"
+				end
 			end
 		end
 	end
@@ -629,6 +632,7 @@ function main:SaveSettings()
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
 		POESESSID = self.POESESSID,
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
+		disableDevAutoSave = tostring(self.disableDevAutoSave),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -782,6 +786,15 @@ function main:OpenOptionsPopup()
 	end)
 	controls.invertSliderScrollDirection.tooltipText = "Default scroll direction is:\nScroll Up = Move right\nScroll Down = Move left"
 	controls.invertSliderScrollDirection.state = self.invertSliderScrollDirection
+	
+	if launch.devMode then
+		nextRow()
+		controls.disableDevAutoSave = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Disable Dev AutoSave:", function(state)
+			self.disableDevAutoSave = state
+		end)
+		controls.disableDevAutoSave.tooltipText = "Do not Autosave builds while on Dev branch"
+		controls.disableDevAutoSave.state = self.disableDevAutoSave
+	end
 
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
@@ -797,6 +810,7 @@ function main:OpenOptionsPopup()
 	local initialShowWarnings = self.showWarnings
 	local initialSlotOnlyTooltips = self.slotOnlyTooltips
 	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
+	local initialDisableDevAutoSave = self.disableDevAutoSave
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -838,6 +852,7 @@ function main:OpenOptionsPopup()
 		self.showWarnings = initialShowWarnings
 		self.slotOnlyTooltips = initialSlotOnlyTooltips
 		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
+		self.disableDevAutoSave = initialDisableDevAutoSave
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
