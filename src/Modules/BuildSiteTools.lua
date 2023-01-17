@@ -9,6 +9,10 @@ buildSites = { }
 -- Import/Export websites list used in dropdowns
 buildSites.websiteList = {
 	{
+		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/.+", regexURL = "pobb%.in/(.+)%s*$", downloadURL = "pobb.in/pob/%1",
+		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
+	},
+	{
 		label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1",
 		codeOut = "", postUrl = "https://pastebin.com/api/api_post.php", postFields = "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="
 	},
@@ -17,10 +21,6 @@ buildSites.websiteList = {
 	{
 		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1",
 		codeOut = "", postUrl = "https://poe.ninja/pob/api/api_post.php", postFields = "api_paste_code="
-	},
-	{
-		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/.+", regexURL = "pobb%.in/(.+)%s*$", downloadURL = "pobb.in/pob/%1",
-		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
 	},
 }
 
