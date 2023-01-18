@@ -82,8 +82,10 @@ function ItemClass:ParseRaw(raw)
 	end
 	local mode = "WIKI"
 	local l = 1
+	local itemClass
 	if self.rawLines[l] then
 		if self.rawLines[l]:match("^Item Class:") then
+			itemClass = self.rawLines[l]:gsub("^Item Class: %s+", "%1")
 			l = l + 1 -- Item class is already determined by the base type
 		end
 		local rarity = self.rawLines[l]:match("^Rarity: (%a+)")
@@ -116,7 +118,7 @@ function ItemClass:ParseRaw(raw)
 		end
 
 		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal or Unidentified item to get the base
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) then
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) or self.name:match("Energy Blade") then
 			l = l + 1
 		end
 	end
@@ -395,6 +397,9 @@ function ItemClass:ParseRaw(raw)
 				local baseName
 				if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
 					-- Exact match (affix-less magic and normal items)
+					if self.name:match("Energy Blade") then -- Special handling for energy blade base.
+						self.name = itemClass:match("One Hand") and "Energy Blade One Handed" or "Energy Blade Two Handed"
+					end
 					if data.itemBases[self.name] then
 						baseName = self.name
 					else
