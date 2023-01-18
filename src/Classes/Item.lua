@@ -397,7 +397,7 @@ function ItemClass:ParseRaw(raw)
 				local baseName
 				if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
 					-- Exact match (affix-less magic and normal items)
-					if self.name:match("Energy Blade") then -- Special handling for energy blade base.
+					if self.name:match("Energy Blade") and itemClass then -- Special handling for energy blade base.
 						self.name = itemClass:match("One Hand") and "Energy Blade One Handed" or "Energy Blade Two Handed"
 					end
 					if data.itemBases[self.name] then
