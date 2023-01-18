@@ -712,7 +712,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB.conditions["AffectedByEnergyBlade"] then
-					local type = env.player.itemList[slotName] and env.player.itemList[slotName].weaponData and env.player.itemList[slotName].weaponData[1].type
+					local previousItem = env.player.itemList[slotName]
+					local type = previousItem and previousItem.weaponData and previousItem.weaponData[1].type
 					local info = env.data.weaponTypeInfo[type]
 					if info and type ~= "Bow" then
 						local name = info.oneHand and "Energy Blade One Handed" or "Energy Blade Two Handed"
@@ -738,6 +739,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 						item:NormaliseQuality()
 						item:BuildAndParseRaw()
+						item.sockets = previousItem.sockets
+						item.abyssalSocketCount = previousItem.abyssalSocketCount
 						env.player.itemList[slotName] = item
 					else
 						env.itemModDB:ScaleAddList(srcList, scale)
