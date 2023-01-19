@@ -385,12 +385,12 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 end
 
 -- Process active skill
-function calcs.buildActiveSkill(env, mode, skill, usedByMirageArcher)
+function calcs.buildActiveSkill(env, mode, skill, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			fullEnv.player.mainSkill = activeSkill
-			fullEnv.player.mainSkill.skillData.usedByMirageArcher = usedByMirageArcher
+			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[cacheSkillUUID(activeSkill)]
 			calcs.perform(fullEnv)
 			return
 		end

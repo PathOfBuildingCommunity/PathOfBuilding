@@ -745,6 +745,7 @@ function calcs.offence(env, actor, activeSkill)
 		if activeSkill.minion and activeSkill.minion.minionData.limit then
 			output.ActiveMinionLimit = m_floor(calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
 		end
+		output.SummonedMinionsPerCast = m_floor(calcLib.val(skillModList, "MinionPerCastCount", skillCfg))
 	end
 	if skillFlags.chaining then
 		if skillModList:Flag(skillCfg, "CannotChain") then
@@ -4405,7 +4406,215 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	
+	-- Self hit dmg calcs
+	do
+		local totalTakenAs = activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAsLightning","PhysicalDamageTakenAsCold","PhysicalDamageTakenAsFire","PhysicalDamageTakenAsChaos") / 100
+		local function applyDmgTakenConversion(sourceType, baseDmg)
+			local damageBreakdown = {}
+			local totalDamageTaken = 0
+			for _, damageType in ipairs(dmgTypeList) do
+				local damageTakenAs = 1
+				
+				if damageType ~= sourceType then
+					damageTakenAs = (activeSkill.skillModList:Sum("BASE", nil, sourceType.."DamageTakenAs"..damageType) or 0) / 100
+				else
+					damageTakenAs = math.max(1 - totalTakenAs, 0)
+				end
+			
+				if damageTakenAs ~= 0 then
+					if(totalTakenAs > 1) then
+						damageTakenAs = damageTakenAs / totalTakenAs
+					end
+					local damage = baseDmg * damageTakenAs
+					
+					local baseTakenInc = activeSkill.skillModList:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+					local baseTakenMore = activeSkill.skillModList:More(nil, "DamageTaken", damageType.."DamageTaken","DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
+					if (damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") then
+						baseTakenInc = baseTakenInc + activeSkill.skillModList:Sum("INC", nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
+						baseTakenMore = baseTakenMore * activeSkill.skillModList:More(nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
+					end
+					local damageTakenMods = math.max((1 + baseTakenInc / 100) * baseTakenMore, 0)
+					local reduction = activeSkill.skillModList:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
+					local resist = activeSkill.skillModList:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
+					local armourReduct = 0
+					local resMult = 1 - resist / 100
+					local reductMult = 1
+			
+					local percentOfArmourApplies = math.min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
+					if percentOfArmourApplies > 0 then
+						local effArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
+						local effDamage = damage * resMult
+						armourReduct = round(effArmour ~= 0 and damage * resMult ~= 0 and (effArmour / (effArmour + effDamage * 5) * 100) or 0)
+						armourReduct = math.min(output.DamageReductionMax, armourReduct)
+					end
+					reductMult = (1 - math.max(math.min(output.DamageReductionMax, armourReduct + reduction), 0) / 100) * damageTakenMods
+					local combinedMult = resMult * reductMult
+					local finalDamage = damage * combinedMult
+					totalDamageTaken = totalDamageTaken + finalDamage
+			
+					if breakdown then
+						t_insert(damageBreakdown, damageType.." Damage Taken")
+						t_insert(damageBreakdown, s_format("^8=^7 %d^8 (Base Damage) * ^7%.2f^8 (Damage taken as %s)", baseDmg, damageTakenAs, damageType))
+						t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage) * ^7%.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
+						t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage taken)", finalDamage, damageType))
+					end
+				end
+			end
+			return damageBreakdown, totalDamageTaken
+		end
+		
+		-- Handler functions for self hit items (not skills)
+		local itemNameToHandler = {
+			["Heartbound Loop"] = function(activeSkill, output, breakdown)
+				local dmgType, dmgVal
+				for _, value in ipairs(activeSkill.skillModList:List(nil, "HeartBoundLoopSelfDamage")) do
+					dmgVal = (dmgVal or 0) + value.baseDamage
+					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2)
+				end
+				if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" and dmgType and dmgMult then
+					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
+					t_insert(dmgBreakdown, 1, s_format("HeartBound Loop base damage: %d", dmgVal))
+					t_insert(dmgBreakdown, s_format("Total HeartBound Loop Damage taken per cast/attack: %.2f ", totalDmgTaken))
+					return dmgBreakdown, totalDmgTaken
+				end
+			end,
+			["Eye of Innocence"] = function(activeSkill, output, breakdown)
+				local dmgType, dmgVal
+				for _, value in ipairs(activeSkill.skillModList:List(nil, "EyeOfInnocenceSelfDamage")) do
+					dmgVal = value.baseDamage
+					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2)
+					break -- Only one mod of this kind is expected here
+				end
+				if activeSkill.skillFlags.ignite and dmgType and dmgVal then
+					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
+					t_insert(dmgBreakdown, 1, s_format("Eye of Innocence base damage: %d", dmgVal))
+					t_insert(dmgBreakdown, s_format("Total Eye of Innocence Damage taken per cast/attack: %.2f ", totalDmgTaken))
+					return dmgBreakdown, totalDmgTaken
+				end
+			end,
+			["Scold's Bridle"] = function(activeSkill, output, breakdown)
+				local dmgType, dmgMult
+				for _, value in ipairs(activeSkill.skillModList:List(nil, "ScoldsBridleSelfDamage")) do
+					dmgMult = value.dmgMult
+					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2)
+					break -- Only one mod of this kind is expected here
+				end
+				if output.ManaHasCost and dmgType and dmgMult then
+					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, (output.ManaCost or 0) * dmgMult/100)
+					t_insert(dmgBreakdown, 1, s_format("Scold's Bridle base damage: %d(Mana Cost) * %d%% = %.2f", (output.ManaCost or 0), dmgMult, (output.ManaCost or 0) * dmgMult/100))
+					t_insert(dmgBreakdown, s_format("Total Scold's Bridle Damage taken per cast/attack: %.2f ", totalDmgTaken))
+					return dmgBreakdown, totalDmgTaken
+				end
+			end
+		}
+		
+		for _, sourceFunc in pairs(itemNameToHandler) do
+			local selfHitBreakdown, dmgTaken = sourceFunc(activeSkill, output, breakdown)
+			if dmgTaken then
+				output.SelfHitDamage = (output.SelfHitDamage or 0) + dmgTaken
+			end
+			if breakdown and selfHitBreakdown then
+				breakdown.SelfHitDamage = breakdown.SelfHitDamage or {}
+				for _, line in ipairs(selfHitBreakdown) do
+					t_insert(breakdown.SelfHitDamage, line)
+				end
+				t_insert(breakdown.SelfHitDamage, "")
+			end
+		end
+		
+		-- Special handling for self hit skills
+		-- These need to be handled higher up in this file usin runFuncs for correct DPS calcs
+		for selfHitSkill, displayName in pairs({["BSDamageTaken"] = "Boneshatter", ["FRDamageTaken"] = "Forbidden Rite"}) do
+			if output[selfHitSkill] then
+				output.SelfHitDamage = (output.SelfHitDamage or 0) + output[selfHitSkill]
+			end
+			if breakdown and breakdown[selfHitSkill] then
+				breakdown.SelfHitDamage = breakdown.SelfHitDamage or {}
+				for _, line in ipairs(breakdown[selfHitSkill]) do
+					t_insert(breakdown.SelfHitDamage, line)
+				end
+				t_insert(breakdown.SelfHitDamage, "")
+			end
+		end
+		
+		if breakdown and breakdown.SelfHitDamage then
+			breakdown.SelfHitDamage[#breakdown.SelfHitDamage] = nil -- Remove new line at the end
+		end
+		
+		if not env.player.mainSkill.skillData.limitedProcessing then
+			local cwdtGroups = {}
+			local skillToSelfHitOutput = { ["Boneshatter"] = "BSDamageTaken" ,["Forbidden Rite"] = "FRDamageTaken" }
+			local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
+			local totalDmgPerRound = 0
+			for index, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
+				local dmgPerSkill = {}
+				local dmgFromThisGroup = 0
+				local CWDTthreshold
+				local isCurrentGroup = false
+				for _, skill in ipairs(socketGroup.displaySkillListCalcs or {}) do
+					if skill.skillData.triggeredByDamageTaken then
+						CWDTthreshold = skill.skillData.triggeredByDamageTaken
+						if env.player.mainSkill == skill then
+							isCurrentGroup = true
+						end
+						local uuid = cacheSkillUUID(skill)
+						if not GlobalCache.cachedData[calcMode][uuid] then
+							calcs.buildActiveSkill(env, calcMode, skill, {[uuid] = true})
+						end
+						if GlobalCache.cachedData[calcMode][uuid] then
+							local skill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
+							local output = GlobalCache.cachedData[calcMode][uuid].Env.player.output
+							local skillname = skill.activeEffect.grantedEffect.name
+							if skill.activeEffect.grantedEffect["initialFunc"] or
+								skill.activeEffect.grantedEffect["preSkillTypeFunc"] or
+								skill.activeEffect.grantedEffect["preDamageFunc"] or
+								skill.activeEffect.grantedEffect["preDotFunc"] then
+								local dmgtaken =  output[skillToSelfHitOutput[skillname]]
+								if dmgtaken then
+									t_insert(dmgPerSkill, {skillname, dmgtaken})
+									dmgFromThisGroup = dmgFromThisGroup + dmgtaken
+								end
+								ConPrintf(skillname)
+							else
+								local totalDamage
+								for _, sourceFunc in pairs(itemNameToHandler) do
+									local _, dmgtaken = sourceFunc(skill, output)
+									if dmgtaken then
+										totalDamage = (totalDamage or 0) + dmgtaken
+									end
+								end
+								if totalDamage then
+									t_insert(dmgPerSkill, {skillname, totalDamage})
+									dmgFromThisGroup = dmgFromThisGroup + dmgTaken
+								end
+							end
+						end
+					end
+				end
+				if #dmgPerSkill > 0 then
+					totalDmgPerRound = totalDmgPerRound + dmgFromThisGroup
+					cwdtGroups[isCurrentGroup and "current" or socketGroup.slot or tostring(index)] = {["threshold"] = CWDTthreshold, ["dmgPerSkill"] = dmgPerSkill, ["totalDamage"] = dmgFromThisGroup}
+				end
+			end
 
+			if totalDmgPerRound > 0 then
+				actor.mainSkill.skillFlags.loopCapable = true
+				if breakdown then
+					breakdown.LoopRate = { }
+					if cwdtGroups["current"].totalDamage > 0 then
+						t_insert(breakdown.LoopRate, s_format("This group provides %d damage every cycle", cwdtGroups["current"].totalDamage))
+					end
+					if totalDmgPerRound >= cwdtGroups["current"].threshold then
+						t_insert(breakdown.LoopRate, "Total self damage per round is sufficient to trigger this group")
+					end
+					output.LoopRate = "?"
+				end
+				
+			end
+		end
+	end
+	
 	-- The Saviour
 	if activeSkill.activeEffect.grantedEffect.name == "Reflection" then
 		local usedSkill = nil

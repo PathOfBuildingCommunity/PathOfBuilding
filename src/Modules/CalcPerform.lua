@@ -2750,7 +2750,7 @@ function calcs.perform(env, avoidCache)
 
 	-- Mirage Archer Support
 	-- This creates and populates env.player.mainSkill.mirage table
-	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillData.usedByMirageArcher then
+	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillData.limitedProcessing then
 		local usedSkill = nil
 		local uuid = cacheSkillUUID(env.player.mainSkill)
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
@@ -2760,7 +2760,7 @@ function calcs.perform(env, avoidCache)
 			usedSkill = env.player.mainSkill
 		else
 			if not GlobalCache.cachedData[calcMode][uuid] then
-				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, true)
+				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, {[uuid] = true})
 			end
 
 			if GlobalCache.cachedData[calcMode][uuid] and not avoidCache then
