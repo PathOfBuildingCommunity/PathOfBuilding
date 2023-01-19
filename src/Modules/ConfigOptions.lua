@@ -1633,7 +1633,7 @@ Some of the allocation changes are done automatically when boss is set to Uber
 
 Shaper Ball: Allocating Cosmic Wounds increases the penetration to 40% and adds 2 projectiles
 Shaper Slam: Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged
-Sirus Meteor: Ealier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50%
+Sirus Meteor: Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50%
 Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  
 	i.e. Hits before death should be more than 3 to survive]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Exarch Ball",label="Exarch Ball"},{val="Sirus Meteor",label="Sirus Meteor"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
 		--reset to empty
