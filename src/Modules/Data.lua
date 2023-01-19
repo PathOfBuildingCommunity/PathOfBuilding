@@ -479,9 +479,9 @@ data.misc = { -- magic numbers
 	BrandAttachmentRangeBase = 30,
 	ProjectileDistanceCap = 150,
 	-- Expected values to calculate EHP
-	stdBossDPSMult = 4 / 4.25,
-	pinnacleBossDPSMult = 8 / 4.25,
-	pinnacleBossPen = 25 / 5,
+	stdBossDPSMult = 4 / 4.40,
+	pinnacleBossDPSMult = 8 / 4.40,
+	pinnacleBossPen = 15 / 5,
 	uberBossDPSMult = 10 / 4.25,
 	uberBossPen = 40 / 5,
 	-- ehp helper function magic numbers
@@ -509,6 +509,13 @@ data.bossSkills = {
 	["Shaper Slam"] = {
 		damageMult =  15.2,
 		speed = 3510
+	},
+	["Exarch Ball"] = {
+		damageMult =  11.58,
+		speed = 1000
+	},
+	["Sirus Meteor"] = {
+		damageMult =  11.81
 	},
 	["Maven Memory Game"] = {
 		damageMult =  24.69

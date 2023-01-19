@@ -1514,7 +1514,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 4), true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 2.5), true)
 
 			local defaultPen = ""
 			build.configTab.varControls['enemyPhysicalOverwhelm']:SetPlaceholder(defaultPen, true)
@@ -1545,7 +1545,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 4), true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 2.5), true)
 
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
@@ -1629,10 +1629,13 @@ Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal m
 Fill in the exact damage numbers if more precision is needed
 
 Caveats for certain skills are below
+Some of the allocation changes are done automatically when boss is set to Uber
 
 Shaper Ball: Allocating Cosmic Wounds increases the penetration to 40% and adds 2 projectiles
 Shaper Slam: Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged
-Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  i.e. Hits before death should be >= 4 to survive]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
+Sirus Meteor: Ealier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50%
+Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  
+	i.e. Hits before death should be more than 3 to survive]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Exarch Ball",label="Exarch Ball"},{val="Sirus Meteor",label="Sirus Meteor"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
 		--reset to empty
 		if not (val == "None") then
 			local defaultDamage = ""
@@ -1667,20 +1670,55 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
 			end
 
-			build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
+			if build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber" then
+				build.configTab.varControls['enemyColdPen']:SetPlaceholder(40, true)
+			else
+				build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
+			end
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Ball"].speed, true)
 			build.configTab.varControls['enemyDamageType'].enabled = false
 			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
 			build.configTab.input['enemyDamageType'] = "SpellProjectile"
 		elseif val == "Shaper Slam" then
 			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
+				if build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber" then
+					build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult * 2), true)
+				else
+					build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
+				end
 			end
 			build.configTab.varControls['enemyDamageType'].enabled = false
 			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
 			build.configTab.input['enemyDamageType'] = "Melee"
 
 			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Slam"].speed, true)
+		elseif val == "Exarch Ball" then
+			if build.configTab.enemyLevel then
+				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Exarch Ball"].damageMult), true)
+			end
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
+			build.configTab.input['enemyDamageType'] = "SpellProjectile"
+
+			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Exarch Ball"].speed, true)
+			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
+		elseif val == "Sirus Meteor" then
+			if build.configTab.enemyLevel then
+				if build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber" then
+					build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
+					build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult), true)
+					build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult), true)
+					build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult), true)
+				else
+					build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
+					build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
+					build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
+					build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
+				end
+			end
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
+			build.configTab.input['enemyDamageType'] = "Spell"
 		elseif val == "Maven Memory Game" then
 			if build.configTab.enemyLevel then
 				local defaultEleDamage = round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
