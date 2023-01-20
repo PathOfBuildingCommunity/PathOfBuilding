@@ -497,12 +497,25 @@ data.misc = { -- magic numbers
 	PvpNonElemental2 = 90,
 }
 
+data.bossSkillsList = {
+	{val="None",label="None"},
+	{val="Uber Atziri Flameblast", label="Uber Atziri Flameblast"},
+	{val="Shaper Ball", label="Shaper Ball"},
+	{val="Shaper Slam", label="Shaper Slam"},
+	{val="Elder Slam", label="Elder Slam"},
+	{val="Sirus Meteor", label="Sirus Meteor"},
+	{val="Exarch Ball", label="Exarch Ball"},
+	{val="Eater Beam", label="Eater Beam"},
+	{val="Maven Fireball", label="Maven Fireball"},
+	{val="Maven Memory Game", label="Maven Memory Game"}
+}
+
 -- These are hardcoded estimates but should really be exported
 -- damage mult is approx (min + max) damage divided by 1537.4
 data.bossSkills = {
 	["Uber Atziri Flameblast"] = {
 		DamageType = "Spell",
-		DamageMults = {
+		DamageMultipliers = {
 			Fire = 3.48 * 10.9
 		},
 		DamagePenetrations = {
@@ -513,7 +526,7 @@ data.bossSkills = {
 	},
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
-		DamageMults = {
+		DamageMultipliers = {
 			Cold = 9.17
 		},
 		DamagePenetrations = {
@@ -526,34 +539,34 @@ data.bossSkills = {
 	},
 	["Shaper Slam"] = {
 		DamageType = "Melee",
-		DamageMults = {
+		DamageMultipliers = {
 			Physical = 15.2
 		},
-		UberDamageMult = 2.0,
+		UberDamageMultiplier = 2.0,
 		speed = 3510
 	},
 	["Elder Slam"] = {
 		DamageType = "Melee",
-		DamageMults = {
+		DamageMultipliers = {
 			Physical = 15.2
 		},
-		UberDamageMult = 2.0,
+		UberDamageMultiplier = 2.0,
 		speed = 3510
 	},
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
-		DamageMults = {
+		DamageMultipliers = {
 			--base phys converted 25% each
 			Physical = 47.24 / 4,
 			Lightning = 47.24 / 4,
 			Fire = 47.24 / 4,
 			Chaos = 47.24 / 4
 		},
-		UberDamageMult = 1.5
+		UberDamageMultiplier = 1.5
 	},
 	["Exarch Ball"] = {
 		DamageType = "SpellProjectile",
-		DamageMults = {
+		DamageMultipliers = {
 			Fire = 11.58
 		},
 		speed = 1000,
@@ -561,7 +574,7 @@ data.bossSkills = {
 	},
 	["Eater Beam"] = {
 		DamageType = "Spell",
-		DamageMults = {
+		DamageMultipliers = {
 			Lightning = 15.13
 		},
 		speed = 1000,
@@ -569,10 +582,10 @@ data.bossSkills = {
 	},
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
-		DamageMults = {
+		DamageMultipliers = {
 			Fire = 10.09
-		},,
-		UberDamageMult = 2.0,
+		},
+		UberDamageMultiplier = 2.0,
 		DamagePenetrations = {
 			FirePen = ""
 		},
@@ -584,7 +597,7 @@ data.bossSkills = {
 	},
 	["Maven Memory Game"] = {
 		DamageType = "Melee",
-		DamageMults = {
+		DamageMultipliers = {
 			--base phys converted 33.33% each
 			Lightning = 74.07 / 3,
 			Cold = 74.07 / 3,

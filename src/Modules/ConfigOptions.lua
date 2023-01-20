@@ -1635,7 +1635,7 @@ Shaper Ball: Allocating Cosmic Wounds increases the penetration to 40% and adds 
 Shaper Slam: Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged
 Sirus Meteor: Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50%
 Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  
-	i.e. Hits before death should be more than 3 to survive]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Elder Slam",label="Elder Slam"},{val="Sirus Meteor",label="Sirus Meteor"},{val="Exarch Ball",label="Exarch Ball"},{val="Eater Beam",label="Eater Beam"},{val="Maven Fireball",label="Maven Fireball"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
+	i.e. Hits before death should be more than 3 to survive]], list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
 		if not (val == "None") then
 			local bossData = data.bossSkills[val]
 			local isUber = build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber"
@@ -1646,9 +1646,9 @@ Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither 
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
 			
-			for damageType, damageMult in pairs(bossData.DamageMults) do
-				if isUber and bossData.UberDamageMult then
-					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * damageMult * bossData.UberDamageMult), true)
+			for damageType, damageMult in pairs(bossData.DamageMultipliers) do
+				if isUber and bossData.UberDamageMultiplier then
+					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * damageMult * bossData.UberDamageMultiplier), true)
 				else
 					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * damageMult), true)
 				end
