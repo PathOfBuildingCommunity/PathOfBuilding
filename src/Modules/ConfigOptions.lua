@@ -1635,100 +1635,55 @@ Shaper Ball: Allocating Cosmic Wounds increases the penetration to 40% and adds 
 Shaper Slam: Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged
 Sirus Meteor: Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50%
 Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  
-	i.e. Hits before death should be more than 3 to survive]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Exarch Ball",label="Exarch Ball"},{val="Sirus Meteor",label="Sirus Meteor"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
-		--reset to empty
+	i.e. Hits before death should be more than 3 to survive]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Elder Slam",label="Elder Slam"},{val="Sirus Meteor",label="Sirus Meteor"},{val="Exarch Ball",label="Exarch Ball"},{val="Eater Beam",label="Eater Beam"},{val="Maven Fireball",label="Maven Fireball"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
 		if not (val == "None") then
+			local bossData = data.bossSkills[val]
+			local isUber = build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber"
 			local defaultDamage = ""
 			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
+			
+			for damageType, damageMult in pairs(bossData.DamageMults) do
+				if isUber and bossData.UberDamageMult then
+					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * damageMult * bossData.UberDamageMult), true)
+				else
+					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * damageMult), true)
+				end
+			end
 
 			local defaultPen = ""
 			build.configTab.varControls['enemyPhysicalOverwhelm']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+			
+			if bossData.DamagePenetrations then
+				for penType, pen in pairs(bossData.DamagePenetrations) do
+					if isUber and bossData.UberDamagePenetrations and bossData.UberDamagePenetrations[penType] then
+						build.configTab.varControls['enemy'..penType]:SetPlaceholder(bossData.UberDamagePenetrations[penType], true)
+					else
+						build.configTab.varControls['enemy'..penType]:SetPlaceholder(pen, true)
+					end
+				end
+			end
+			
+			if bossData.DamageType then
+				build.configTab.varControls['enemyDamageType']:SelByValue(bossData.DamageType, "val")
+				build.configTab.input['enemyDamageType'] = bossData.DamageType
+			end
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			
+			if bossData.speed then
+				build.configTab.varControls['enemySpeed']:SetPlaceholder(bossData.speed, true)
+			end
+			if bossData.critChance then
+				build.configTab.varControls['enemyCritChance']:SetPlaceholder(bossData.critChance, true)
+			end
 		else
 			build.configTab.varControls['enemyDamageType'].enabled = true
-		end
-
-		if val == "Uber Atziri Flameblast" then
-			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Uber Atziri Flameblast"].damageMult), true)
-				build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
-				build.configTab.varControls['enemyDamageType'].enabled = false
-				build.configTab.input['enemyDamageType'] = "Spell"
-			end
-			build.configTab.varControls['enemyFirePen']:SetPlaceholder(10, true)
-
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Uber Atziri Flameblast"].speed, true)
-			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
-		elseif val == "Shaper Ball" then
-			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
-			end
-
-			if build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber" then
-				build.configTab.varControls['enemyColdPen']:SetPlaceholder(40, true)
-			else
-				build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
-			end
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Ball"].speed, true)
-			build.configTab.varControls['enemyDamageType'].enabled = false
-			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
-			build.configTab.input['enemyDamageType'] = "SpellProjectile"
-		elseif val == "Shaper Slam" then
-			if build.configTab.enemyLevel then
-				if build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber" then
-					build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult * 2), true)
-				else
-					build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
-				end
-			end
-			build.configTab.varControls['enemyDamageType'].enabled = false
-			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
-			build.configTab.input['enemyDamageType'] = "Melee"
-
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Slam"].speed, true)
-		elseif val == "Exarch Ball" then
-			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Exarch Ball"].damageMult), true)
-			end
-			build.configTab.varControls['enemyDamageType'].enabled = false
-			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
-			build.configTab.input['enemyDamageType'] = "SpellProjectile"
-
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Exarch Ball"].speed, true)
-			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
-		elseif val == "Sirus Meteor" then
-			if build.configTab.enemyLevel then
-				if build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber" then
-					build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
-					build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult), true)
-					build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult), true)
-					build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult), true)
-				else
-					build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
-					build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
-					build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
-					build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Sirus Meteor"].damageMult * 1.5), true)
-				end
-			end
-			build.configTab.varControls['enemyDamageType'].enabled = false
-			build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
-			build.configTab.input['enemyDamageType'] = "Spell"
-		elseif val == "Maven Memory Game" then
-			if build.configTab.enemyLevel then
-				local defaultEleDamage = round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
-				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultEleDamage, true)
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultEleDamage, true)
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultEleDamage, true)
-			end
-			build.configTab.varControls['enemyDamageType'].enabled = false
-			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
-			build.configTab.input['enemyDamageType'] = "Melee"
 		end
 	end },
 	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
