@@ -498,19 +498,6 @@ data.misc = { -- magic numbers
 	PvpNonElemental2 = 90,
 }
 
-data.bossSkillsList = {
-	{val="None",label="None"},
-	{val="Uber Atziri Flameblast", label="Uber Atziri Flameblast"},
-	{val="Shaper Ball", label="Shaper Ball"},
-	{val="Shaper Slam", label="Shaper Slam"},
-	{val="Elder Slam", label="Elder Slam"},
-	{val="Sirus Meteor", label="Sirus Meteor"},
-	{val="Exarch Ball", label="Exarch Ball"},
-	{val="Eater Beam", label="Eater Beam"},
-	{val="Maven Fireball", label="Maven Fireball"},
-	{val="Maven Memory Game", label="Maven Memory Game"}
-}
-
 -- These are hardcoded estimates but should really be exported
 -- damage mult is approx (min + max) damage divided by 1537.4
 data.bossSkills = {
@@ -536,7 +523,8 @@ data.bossSkills = {
 		UberDamagePenetrations = {
 			ColdPen = 40
 		},
-		speed = 1400
+		speed = 1400,
+		tooltip = "Allocating Cosmic Wounds increases the penetration to 40% and adds 2 projectiles"
 	},
 	["Shaper Slam"] = {
 		DamageType = "Melee",
@@ -544,7 +532,8 @@ data.bossSkills = {
 			Physical = 15.2
 		},
 		UberDamageMultiplier = 2.0,
-		speed = 3510
+		speed = 3510,
+		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged"
 	},
 	["Elder Slam"] = {
 		DamageType = "Melee",
@@ -552,7 +541,8 @@ data.bossSkills = {
 			Physical = 15.2
 		},
 		UberDamageMultiplier = 2.0,
-		speed = 3510
+		speed = 3510,
+		tooltip = "SKILL CURRENTLY MISSING, USING SHAPER SLAM"
 	},
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
@@ -563,7 +553,8 @@ data.bossSkills = {
 			Fire = 47.24 / 4,
 			Chaos = 47.24 / 4
 		},
-		UberDamageMultiplier = 1.5
+		UberDamageMultiplier = 1.5,
+		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50%"
 	},
 	["Exarch Ball"] = {
 		DamageType = "SpellProjectile",
@@ -571,7 +562,8 @@ data.bossSkills = {
 			Fire = 11.58
 		},
 		speed = 1000,
-		critChance = 0
+		critChance = 0,
+		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase"
 	},
 	["Eater Beam"] = {
 		DamageType = "Spell",
@@ -579,7 +571,8 @@ data.bossSkills = {
 			Lightning = 15.13
 		},
 		speed = 1000,
-		critChance = 0
+		critChance = 0,
+		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for atleast 30%"
 	},
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
@@ -594,7 +587,8 @@ data.bossSkills = {
 			FirePen = 30
 		},
 		speed = 3000,
-		critChance = 0
+		critChance = 0,
+		tooltip = "Allocating Throw the Gauntlet doubles the damage and causes the fireball to have 30 firePen"
 	},
 	["Maven Memory Game"] = {
 		DamageType = "Melee",
@@ -603,9 +597,52 @@ data.bossSkills = {
 			Lightning = 74.07 / 3,
 			Cold = 74.07 / 3,
 			Fire = 74.07 / 3
-		}
+		},
+		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
 	}
 }
+
+data.bossSkillsList = {
+	{ val = "None", label = "None" },
+	{ val = "Uber Atziri Flameblast", label = "Uber Atziri Flameblast" },
+	{ val = "Shaper Ball", label = "Shaper Ball" },
+	{ val = "Shaper Slam", label = "Shaper Slam" },
+	{ val = "Elder Slam", label = "Elder Slam" },
+	{ val = "Sirus Meteor", label = "Sirus Meteor" },
+	{ val = "Exarch Ball", label = "Exarch Ball" },
+	{ val = "Eater Beam", label = "Eater Beam" },
+	{ val = "Maven Fireball", label = "Maven Fireball" },
+	{ val = "Maven Memory Game", label = "Maven Memory Game" }
+}
+
+
+data.bossSkillsTooltip = [[
+Used to fill in defaults for specific boss skills if the boss config is not set
+
+Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 85)
+Fill in the exact damage numbers if more precision is needed
+
+Caveats for certain skills are below
+Some of the allocation changes are done automatically when boss is set to Uber
+]]
+-- autogeneration of skill list is currently disabled becouse it messes with the order
+--[[ 
+for bossSkillName, bossSkillData in pairs(data.bossSkills) do
+	t_insert(data.bossSkillsList, {val = bossSkillName, label = bossSkillName})
+	if bossSkillData.tooltip then
+		data.bossSkillsTooltip = data.bossSkillsTooltip.."\n"..bossSkillName..": "..bossSkillData.tooltip
+	end
+end
+--]]
+-- replacement for above to preserve order
+for _, bossSkill in ipairs(data.bossSkillsList) do
+	if bossSkill.val ~= "None" then
+		if data.bossSkills[bossSkill.val].tooltip then
+			data.bossSkillsTooltip = data.bossSkillsTooltip.."\n"..bossSkill.val..": "..data.bossSkills[bossSkill.val].tooltip
+		end
+	end
+end
+
 
 -- Misc data tables
 LoadModule("Data/Misc", data)
