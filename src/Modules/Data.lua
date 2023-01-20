@@ -501,16 +501,21 @@ data.misc = { -- magic numbers
 -- These are hardcoded estimates but should really be exported
 -- damage mult is approx (min + max) damage divided by 1537.4
 data.bossSkills = {
-	["Uber Atziri Flameblast"] = {
+	["Atziri Flameblast"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
 			Fire = 3.48 * 10.9
 		},
 		DamagePenetrations = {
+			FirePen = ""
+		},
+		UberDamagePenetrations = {
 			FirePen = 10
 		},
 		speed = 2500 * 10,
-		critChance = 0
+		critChance = 0,
+		earlierUber = true,
+		tooltip = "The Uber variant has 10 fire pen (Applied on pinnacle not just uber)"
 	},
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
@@ -605,7 +610,7 @@ data.bossSkills = {
 -- auto generation of skill list using boss skills above, is currently disabled because it messes with the order
 data.bossSkillsList = {
 	{ val = "None", label = "None" },
-	{ val = "Uber Atziri Flameblast", label = "Uber Atziri Flameblast" },
+	{ val = "Atziri Flameblast", label = "Atziri Flameblast" },
 	{ val = "Shaper Ball", label = "Shaper Ball" },
 	{ val = "Shaper Slam", label = "Shaper Slam" },
 	{ val = "Elder Slam", label = "Elder Slam" },
