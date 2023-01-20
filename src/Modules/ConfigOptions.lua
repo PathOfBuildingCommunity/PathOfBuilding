@@ -1622,20 +1622,7 @@ Uber Pinnacle Boss adds the following modifiers:
 	{ var = "enemyBlockChance", type = "integer", label = "Enemy Block Chance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("BlockChance", "BASE", val, "Config")
 	end },
-	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = [[
-Used to fill in defaults for specific boss skills if the boss config is not set
-
-Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 85)
-Fill in the exact damage numbers if more precision is needed
-
-Caveats for certain skills are below
-Some of the allocation changes are done automatically when boss is set to Uber
-
-Shaper Ball: Allocating Cosmic Wounds increases the penetration to 40% and adds 2 projectiles
-Shaper Slam: Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged
-Sirus Meteor: Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50%
-Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  
-	i.e. Hits before death should be more than 3 to survive]], list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
+	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = data.bossSkillsTooltip, list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
 		if not (val == "None") then
 			local bossData = data.bossSkills[val]
 			local isUber = build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber"

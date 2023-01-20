@@ -8,6 +8,7 @@ LoadModule("Data/Global")
 
 local m_min = math.min
 local m_max = math.max
+local t_insert = table.insert
 local t_concat = table.concat
 
 local skillTypes = {
