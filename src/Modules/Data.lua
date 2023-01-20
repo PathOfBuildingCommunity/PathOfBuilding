@@ -572,7 +572,7 @@ data.bossSkills = {
 		},
 		speed = 1000,
 		critChance = 0,
-		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for atleast 30%"
+		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for at least 30%"
 	},
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
@@ -602,6 +602,7 @@ data.bossSkills = {
 	}
 }
 
+-- auto generation of skill list using boss skills above, is currently disabled because it messes with the order
 data.bossSkillsList = {
 	{ val = "None", label = "None" },
 	{ val = "Uber Atziri Flameblast", label = "Uber Atziri Flameblast" },
@@ -625,7 +626,7 @@ Fill in the exact damage numbers if more precision is needed
 Caveats for certain skills are below
 Some of the allocation changes are done automatically when boss is set to Uber
 ]]
--- autogeneration of skill list is currently disabled becouse it messes with the order
+-- auto generation of skill list using boss skills above, is currently disabled because it messes with the order
 --[[ 
 for bossSkillName, bossSkillData in pairs(data.bossSkills) do
 	t_insert(data.bossSkillsList, {val = bossSkillName, label = bossSkillName})
