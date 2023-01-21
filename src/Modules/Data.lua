@@ -620,34 +620,11 @@ data.bossSkillsList = {
 	{ val = "Maven Fireball", label = "Maven Fireball" },
 	{ val = "Maven Memory Game", label = "Maven Memory Game" }
 }
-
-
-data.bossSkillsTooltip = [[
-Used to fill in defaults for specific boss skills if the boss config is not set
-
-Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 85)
-Fill in the exact damage numbers if more precision is needed
-
-Caveats for certain skills are below
-Some of the allocation changes are done automatically when boss is set to Uber
-]]
--- auto generation of skill list using boss skills above, is currently disabled because it messes with the order
 --[[ 
 for bossSkillName, bossSkillData in pairs(data.bossSkills) do
 	t_insert(data.bossSkillsList, {val = bossSkillName, label = bossSkillName})
-	if bossSkillData.tooltip then
-		data.bossSkillsTooltip = data.bossSkillsTooltip.."\n"..bossSkillName..": "..bossSkillData.tooltip
-	end
 end
 --]]
--- replacement for above to preserve order
-for _, bossSkill in ipairs(data.bossSkillsList) do
-	if bossSkill.val ~= "None" then
-		if data.bossSkills[bossSkill.val].tooltip then
-			data.bossSkillsTooltip = data.bossSkillsTooltip.."\n"..bossSkill.val..": "..data.bossSkills[bossSkill.val].tooltip
-		end
-	end
-end
 
 
 -- Misc data tables

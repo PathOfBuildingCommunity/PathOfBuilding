@@ -42,6 +42,22 @@ local function banditTooltip(tooltip, mode, index, value)
 	end
 end
 
+local function bossSkillsTooltip(tooltip, mode, index, value)
+	local applyModes = { BODY = true, HOVER = true }
+	tooltip:Clear()
+	if applyModes[mode] then
+		tooltip:AddLine(14, [[
+^7Used to fill in defaults for specific boss skills if the boss config is not set
+
+Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 85)
+^7Fill in the exact damage numbers if more precision is needed
+]])
+		if value.val ~= "None" then
+			tooltip:AddLine(14, '^7'..value.val..": "..data.bossSkills[value.val].tooltip)
+		end
+	end
+end
+
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
@@ -1622,7 +1638,7 @@ Uber Pinnacle Boss adds the following modifiers:
 	{ var = "enemyBlockChance", type = "integer", label = "Enemy Block Chance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("BlockChance", "BASE", val, "Config")
 	end },
-	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = data.bossSkillsTooltip, list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
+	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltipFunc = bossSkillsTooltip, list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
 		if not (val == "None") then
 			local bossData = data.bossSkills[val]
 			local isUber = build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber"
