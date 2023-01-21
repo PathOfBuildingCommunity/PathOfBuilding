@@ -502,7 +502,7 @@ data.misc = { -- magic numbers
 -- damage mult is level 84 damage divided by 822, maximum has minimum subtracted from it and is divided by 100
 -- math is included for damage mults becouse not exported and calculated by hand so easier to update/fix
 data.bossSkills = {
-	-- POEDB AtziriFlameblastEmpowered
+	-- poeDB AtziriFlameblastEmpowered
 	["Atziri Flameblast"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
@@ -519,7 +519,7 @@ data.bossSkills = {
 		earlierUber = true,
 		tooltip = "The Uber variant has 10 fire pen (Applied on Pinnacle And Uber)"
 	},
-	-- POEDB AtlasBossAcceleratingProjectiles
+	-- poeDB AtlasBossAcceleratingProjectiles
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
@@ -534,7 +534,7 @@ data.bossSkills = {
 		speed = 1400,
 		tooltip = "Allocating Cosmic Wounds increases the penetration to 40% (Applied on Uber) and adds 2 projectiles"
 	},
-	-- POEDB AtlasBossFlickerSlam
+	-- poeDB AtlasBossFlickerSlam
 	["Shaper Slam"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
@@ -542,10 +542,10 @@ data.bossSkills = {
 		},
 		UberDamageMultiplier = 2.0,
 		speed = 3510,
-		critChance = 1, -- actualy 0.5% but not enough precision
+		critChance = 1, -- actually 0.5% but not enough precision
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage (Applied on Uber) and cannot be blocked or dodged"
 	},
-	-- skill misisng, using shaper slam
+	-- skill missing, using shaper slam
 	["Elder Slam"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
@@ -553,10 +553,10 @@ data.bossSkills = {
 		},
 		UberDamageMultiplier = 2.0,
 		speed = 3510,
-		critChance = 1, -- actualy 0.5% but not enough precision
+		critChance = 1, -- actually 0.5% but not enough precision
 		tooltip = "SKILL CURRENTLY MISSING, USING SHAPER SLAM"
 	},
-	-- POEDB AtlasExileOrionCircleMazeBlast3
+	-- poeDB AtlasExileOrionCircleMazeBlast3
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
@@ -569,7 +569,7 @@ data.bossSkills = {
 		UberDamageMultiplier = 1.5,
 		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
 	},
-	-- POEDB CleansingFireWall
+	-- poeDB CleansingFireWall
 	["Exarch Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
@@ -579,7 +579,7 @@ data.bossSkills = {
 		critChance = 0,
 		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase"
 	},
-	-- POEDB GSConsumeBossDisintegrateBeam
+	-- poeDB GSConsumeBossDisintegrateBeam
 	["Eater Beam"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
@@ -589,7 +589,7 @@ data.bossSkills = {
 		critChance = 0,
 		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for at least 30%"
 	},
-	-- POEDB MavenSuperFireProjectileImpact
+	-- poeDB MavenSuperFireProjectileImpact
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
@@ -606,7 +606,7 @@ data.bossSkills = {
 		critChance = 0,
 		tooltip = "Allocating Throw the Gauntlet doubles the damage (Applied on Uber) and causes the fireball to have 30 firePen (Applied on Uber)"
 	},
-	-- POEDB MavenMemoryGame
+	-- poeDB MavenMemoryGame
 	["Maven Memory Game"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
