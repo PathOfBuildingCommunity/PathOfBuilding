@@ -249,12 +249,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.input[varData.var] = varData.list[varData.defaultIndex].val
 					control.selIndex = varData.defaultIndex
 				end
-				if varData.hideIfInvalid then
-					control.hideIfInvalid = true
-				end
 			end
 
-			if not control.hideIfInvalid then
+			if not varData.hideIfInvalid then
 				local innerShown = control.shown
 				control.shown = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
