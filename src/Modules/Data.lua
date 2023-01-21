@@ -500,7 +500,7 @@ data.misc = { -- magic numbers
 
 -- These are hardcoded estimates but should really be exported
 -- damage mult is level 84 damage divided by 822, maximum has minimum subtracted from it and is divided by 100
--- math is included for damage mults becouse not exported and calculated by hand so easier to update/fix
+-- math is included for damage mults because not exported and calculated by hand so easier to update/fix
 data.bossSkills = {
 	-- poeDB AtziriFlameblastEmpowered
 	["Atziri Flameblast"] = {
