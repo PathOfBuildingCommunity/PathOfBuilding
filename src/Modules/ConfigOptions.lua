@@ -49,8 +49,8 @@ local function bossSkillsTooltip(tooltip, mode, index, value)
 		tooltip:AddLine(14, [[
 ^7Used to fill in defaults for specific boss skills if the boss config is not set
 
-Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 85)
-^7Fill in the exact damage numbers if more precision is needed
+Bosses' damage is modified by roll range configuration, defaulted at a 70% roll, at the normal monster level for your character level (capped at 85)
+Fill in the exact damage numbers if more precision is needed
 ]])
 		if value.val ~= "None" then
 			tooltip:AddLine(14, '^7'..value.val..": "..data.bossSkills[value.val].tooltip)
@@ -1652,11 +1652,12 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
 			
+			local rollRangeMult = m_min(m_max(build.configTab.input['enemyDamageRollRange'] or build.configTab.varControls['enemyDamageRollRange'].placeholder, 0), 100)
 			for damageType, damageMult in pairs(bossData.DamageMultipliers) do
 				if isUber and bossData.UberDamageMultiplier then
-					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * damageMult * bossData.UberDamageMultiplier), true)
+					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * (damageMult[1] + rollRangeMult * damageMult[2]) * bossData.UberDamageMultiplier), true)
 				else
-					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * damageMult), true)
+					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * (damageMult[1] + rollRangeMult * damageMult[2])), true)
 				end
 			end
 
@@ -1688,10 +1689,13 @@ Uber Pinnacle Boss adds the following modifiers:
 			if bossData.critChance then
 				build.configTab.varControls['enemyCritChance']:SetPlaceholder(bossData.critChance, true)
 			end
+			
+			modList:NewMod("BossSkillActive", "FLAG", true, "Config")
 		else
 			build.configTab.varControls['enemyDamageType'].enabled = true
 		end
 	end },
+	{ var = "enemyDamageRollRange", type = "integer", label = "Skill Roll Range %:", ifFlag = "BossSkillActive", tooltip = "The percentage of the rollrange the enemy hits for \n eg at 100% the enemy deals its maximum damage", defaultPlaceholderState = 70 },
 	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
 	{ var = "enemyMultiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier percent:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)

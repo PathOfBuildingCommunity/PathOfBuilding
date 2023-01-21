@@ -499,12 +499,14 @@ data.misc = { -- magic numbers
 }
 
 -- These are hardcoded estimates but should really be exported
--- damage mult is approx (min + max) damage divided by 1537.4
+-- damage mult is level 84 damage divided by 822, maximum has minimum subtracted from it and is divided by 100
+-- math is included for damage mults becouse not exported and calculated by hand so easier to update/fix
 data.bossSkills = {
+	-- POEDB AtziriFlameblastEmpowered
 	["Atziri Flameblast"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Fire = 3.48 * 10.9
+			Fire = { 2.945 * 10.9, (4.418 - 2.945) * 10.9 / 100 }
 		},
 		DamagePenetrations = {
 			FirePen = ""
@@ -515,12 +517,13 @@ data.bossSkills = {
 		speed = 2500 * 10,
 		critChance = 0,
 		earlierUber = true,
-		tooltip = "The Uber variant has 10 fire pen (Applied on pinnacle not just uber)"
+		tooltip = "The Uber variant has 10 fire pen (Applied on Pinnacle And Uber)"
 	},
+	-- POEDB AtlasBossAcceleratingProjectiles
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Cold = 9.17
+			Cold = { 6.86, (10.29 - 6.86) / 100 }
 		},
 		DamagePenetrations = {
 			ColdPen = 25
@@ -529,60 +532,68 @@ data.bossSkills = {
 			ColdPen = 40
 		},
 		speed = 1400,
-		tooltip = "Allocating Cosmic Wounds increases the penetration to 40% and adds 2 projectiles"
+		tooltip = "Allocating Cosmic Wounds increases the penetration to 40% (Applied on Uber) and adds 2 projectiles"
 	},
+	-- POEDB AtlasBossFlickerSlam
 	["Shaper Slam"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
-			Physical = 15.2
+			Physical = { 3.617 * 3, (5.425 - 3.617) * 3 / 100 }
 		},
 		UberDamageMultiplier = 2.0,
 		speed = 3510,
-		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged"
+		critChance = 1, -- actualy 0.5% but not enough precision
+		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage (Applied on Uber) and cannot be blocked or dodged"
 	},
+	-- skill misisng, using shaper slam
 	["Elder Slam"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
-			Physical = 15.2
+			Physical = { 3.617 * 3, (5.425 - 3.617) * 3 / 100 }
 		},
 		UberDamageMultiplier = 2.0,
 		speed = 3510,
+		critChance = 1, -- actualy 0.5% but not enough precision
 		tooltip = "SKILL CURRENTLY MISSING, USING SHAPER SLAM"
 	},
+	-- POEDB AtlasExileOrionCircleMazeBlast3
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
 			--base phys converted 25% each
-			Physical = 47.24 / 4,
-			Lightning = 47.24 / 4,
-			Fire = 47.24 / 4,
-			Chaos = 47.24 / 4
+			Physical = { 26.512 / 4, (39.768 - 26.512) / 4 / 100 },
+			Lightning = { 26.512 / 4, (39.768 - 26.512) / 4 / 100 },
+			Fire = { 26.512 / 4, (39.768 - 26.512) / 4 / 100 },
+			Chaos = { 26.512 / 4, (39.768 - 26.512) / 4 / 100 }
 		},
 		UberDamageMultiplier = 1.5,
-		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50%"
+		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
 	},
+	-- POEDB CleansingFireWall
 	["Exarch Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Fire = 11.58
+			Fire = { 8.664, (12.996 - 8.664) / 100 }
 		},
 		speed = 1000,
 		critChance = 0,
 		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase"
 	},
+	-- POEDB GSConsumeBossDisintegrateBeam
 	["Eater Beam"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Lightning = 15.13
+			Lightning = { 7.074, (21.224 - 7.074) / 100 }
 		},
 		speed = 1000,
 		critChance = 0,
 		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for at least 30%"
 	},
+	-- POEDB MavenSuperFireProjectileImpact
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Fire = 10.09
+			Fire = { 7.546, (11.319 - 7.546) / 100 }
 		},
 		UberDamageMultiplier = 2.0,
 		DamagePenetrations = {
@@ -593,15 +604,16 @@ data.bossSkills = {
 		},
 		speed = 3000,
 		critChance = 0,
-		tooltip = "Allocating Throw the Gauntlet doubles the damage and causes the fireball to have 30 firePen"
+		tooltip = "Allocating Throw the Gauntlet doubles the damage (Applied on Uber) and causes the fireball to have 30 firePen (Applied on Uber)"
 	},
+	-- POEDB MavenMemoryGame
 	["Maven Memory Game"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
 			--base phys converted 33.33% each
-			Lightning = 74.07 / 3,
-			Cold = 74.07 / 3,
-			Fire = 74.07 / 3
+			Lightning = { 51.790 / 3, (77.685 - 51.790) / 3 / 100 },
+			Cold = { 51.790 / 3, (77.685 - 51.790) / 3 / 100 },
+			Fire = { 51.790 / 3, (77.685 - 51.790) / 3 / 100 }
 		},
 		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
 	}
