@@ -105,7 +105,7 @@ return {
 		},
 		speed = 3000,
 		critChance = 0,
-		tooltip = "Allocating Throw the Gauntlet doubles the damage (Applied on Uber) and causes the fireball to have 30 ^1Fire^7 penetration (Applied on Uber)"
+		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^1Fire^7 penetration (Applied on Uber)"
 	},
 	-- poeDB MavenMemoryGame
 	["Maven Memory Game"] = {
