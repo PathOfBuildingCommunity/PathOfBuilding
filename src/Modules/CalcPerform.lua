@@ -2979,7 +2979,7 @@ function calcs.perform(env, avoidCache)
 		else
 			env.player.mainSkill.skillData.triggered = true
 			local uuid = cacheSkillUUID(source)
-			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].Speed
+			local sourceAPS = GlobalCache.cachedData["CACHE"][uuid].SpeedWithoutUptime
 
 			-- Get action trigger rate
 			trigRate = calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
