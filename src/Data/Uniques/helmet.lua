@@ -497,7 +497,7 @@ Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 (8-10)% increased Cast Speed
 (200-250)% increased Energy Shield
 Avoid interruption from Stuns while Casting
-Base Critical Strike Chance of Spells is the Critical Strike Chance of Main Hand Weapon
+Base Spell Critical Strike Chance of Spells is equal to that of Main Hand Weapon
 Cannot deal Critical Strikes with Attacks
 ]],[[
 Flamesight
