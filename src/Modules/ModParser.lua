@@ -710,6 +710,7 @@ local modNameList = {
 	["adrenaline"] = "Condition:Adrenaline",
 	["elusive"] = "Condition:CanBeElusive",
 	["onslaught"] = "Condition:Onslaught",
+	["rampage"] = "Condition:Rampage",
 	["phasing"] = "Condition:Phasing",
 	["unholy might"] = "Condition:UnholyMight",
 }
@@ -2726,6 +2727,7 @@ local specialModList = {
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
+	["rampage"] = { flag("Condition:Rampage") },
 	["unholy might"] = { flag("Condition:UnholyMight") },
 	["elusive"] = { flag("Condition:CanBeElusive") },
 	["adrenaline"] = { flag("Condition:Adrenaline") },
@@ -4028,6 +4030,7 @@ local costTypes = appendMod(resourceTypes, "Cost")
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
+	["rampage"] = "Condition:Rampage",
 	["adrenaline"] = "Condition:Adrenaline",
 	["elusive"] = "Condition:CanBeElusive",
 	["fortify"] = "Condition:Fortified",
