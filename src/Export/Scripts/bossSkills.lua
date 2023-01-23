@@ -23,7 +23,7 @@ directiveTable.boss = function(state, args, out)
 		monsterId = args
 	end
 	local bossData = dat("MonsterVarieties"):GetRow("Id", monsterId)
-	state.boss = { displayName = displayName, damageRange = 20, damageMult = bossData.DamageMultiplier, critChance = m_ceil(bossData.CriticalStrikeChance / 100) }
+	state.boss = { displayName = displayName, damageRange = bossData.Type.DamageSpread, damageMult = bossData.DamageMultiplier, critChance = m_ceil(bossData.CriticalStrikeChance / 100) }
 	if earlierUber == "true" then
 		state.boss.earlierUber = true
 	end
