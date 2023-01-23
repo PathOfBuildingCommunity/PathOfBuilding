@@ -510,7 +510,7 @@ data.bossSkillsList = {
 	{ val = "Exarch Ball", label = "Exarch Ball" },
 	{ val = "Eater Beam", label = "Eater Beam" },
 	{ val = "Maven Fireball", label = "Maven Fireball" },
-	{ val = "Maven Memory Game", label = "Maven Memory Game" }
+	{ val = "Maven MemoryGame", label = "Maven Memory Game" }
 }
 --[[ 
 for bossSkillName, bossSkillData in pairs(data.bossSkills) do
