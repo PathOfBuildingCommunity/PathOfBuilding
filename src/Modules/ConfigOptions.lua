@@ -50,10 +50,9 @@ local function bossSkillsTooltip(tooltip, mode, index, value)
 ^7Used to fill in defaults for specific boss skills if the boss config is not set
 
 Bosses' damage is modified by roll range configuration, defaulted at a 70% roll, at the normal monster level for your character level (capped at 85)
-Fill in the exact damage numbers if more precision is needed
-]])
+Fill in the exact damage numbers if more precision is needed]])
 		if value.val ~= "None" then
-			tooltip:AddLine(14, '^7'..value.val..": "..data.bossSkills[value.val].tooltip)
+			tooltip:AddLine(14, '\n^7'..value.val..": "..data.bossSkills[value.val].tooltip)
 		end
 	end
 end

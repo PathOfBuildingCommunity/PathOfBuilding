@@ -18,7 +18,7 @@ return {
 		speed = 2500 * 10,
 		critChance = 0,
 		earlierUber = true,
-		tooltip = "The Uber variant has 10 ^1Fire^7 penetration (Applied on Pinnacle And Uber)"
+		tooltip = "The Uber variant has 10 "..colourCodes.FIRE.."Fire^7 penetration (Applied on Pinnacle And Uber)"
 	},
 	-- poeDB AtlasBossAcceleratingProjectiles
 	["Shaper Ball"] = {
@@ -105,7 +105,7 @@ return {
 		},
 		speed = 3000,
 		critChance = 0,
-		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^1Fire^7 penetration (Applied on Uber)"
+		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 "..colourCodes.FIRE.."Fire^7 penetration (Applied on Uber)"
 	},
 	-- poeDB MavenMemoryGame
 	["Maven Memory Game"] = {
