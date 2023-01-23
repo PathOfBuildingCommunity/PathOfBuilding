@@ -19,7 +19,7 @@ return {
 		speed = 25000,
 		critChance = 0,
 		earlierUber = true,
-		tooltip = "The Uber variant has 10 "..colourCodes.FIRE.."Fire^7 penetration (Applied on Pinnacle And Uber)"
+		tooltip = "The Uber variant has 10 ^xB97123Fire^7 penetration (Applied on Pinnacle And Uber)"
 	},
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
@@ -88,7 +88,7 @@ return {
 		},
 		speed = 3000,
 		critChance = 1,
-		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 "..colourCodes.FIRE.."Fire^7 penetration (Applied on Uber)"
+		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)"
 	},
 	["Maven MemoryGame"] = {
 		DamageType = "Melee",
