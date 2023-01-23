@@ -1492,6 +1492,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder("", true)
 		elseif val == "Boss" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("AilmentThreshold", "MORE", 488, "Boss")
@@ -1521,6 +1523,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder("", true)
 		elseif val == "Pinnacle" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1550,6 +1554,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
+
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder(data.misc.pinnacleBossEvasion, true)
 		elseif val == "Uber" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1580,6 +1586,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.uberBossPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.uberBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
+
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder(data.misc.pinnacleBossEvasion, true)
 		end
 	end },
 	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 80% Less Damage", apply = function(val, modList, enemyModList)

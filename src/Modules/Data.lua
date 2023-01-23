@@ -495,6 +495,9 @@ data.misc = { -- magic numbers
 	PvpElemental2 = 150,
 	PvpNonElemental1 = 0.57,
 	PvpNonElemental2 = 90,
+	-- Pinnacle boss evasion
+	-- Shaper | Elder | Sirus | Exarch | Eater | Maven | Venarius
+	pinnacleBossEvasion = (11156 + 11156 + 8388 + 12582 + 8388 + 8388 + 8388) / 7
 }
 
 data.bossSkills = {
