@@ -8,33 +8,31 @@ local m_ceil = math.ceil
 local m_min = math.min
 local m_max = math.max
 
--- these should be exported
 local rarityDamageMult = {
-	--Unique = 1.7 * 0.67
+	--Unique = (1 + dat("Mods"):GetRow("Id", "MonsterUnique5").Stat1Value[1] / 100) * (1 - dat("Mods"):GetRow("Id", "MonsterUnique8").Stat1Value[1] / 100)
 }
 
 local directiveTable = {}
 
--- #boss [<Display name>] <MonsterId>
+-- #boss [<Display name>] <MonsterId> <earlierUber>
 -- Initialises the boss
 directiveTable.boss = function(state, args, out)
-	local displayName, monsterId = args:match("(%w+) (.+)")
+	local displayName, monsterId, earlierUber = args:match("(%w+) (.+) (%w+)")
 	if not displayName then
 		displayName = args
 		monsterId = args
 	end
-	state.boss = { displayName = displayName }
-end
-
--- #bossData <Damage mult> <crit chance> <damage range> <monster rarity> <earlierUber>
--- Initialises the  boss data
-directiveTable.bossData = function(state, args, out)
-	local damageMult, critChance, damageRange, rarity, earlierUber = args:match("(%d+) (%d+) (%d+) (%w+) (%d+)")
-	state.boss.damageMult = damageMult
-	state.boss.critChance = m_ceil(critChance / 100)
-	state.boss.damageRange = damageRange
-	state.boss.rarity = rarity
-	state.boss.earlierUber = (earlierUber == "1")
+	local bossData = dat("MonsterVarieties"):GetRow("Id", monsterId)
+	state.boss = { displayName = displayName, damageRange = 20, damageMult = bossData.DamageMultiplier, critChance = m_ceil(bossData.CriticalStrikeChance / 100) }
+	if earlierUber == "true" then
+		state.boss.earlierUber = true
+	end
+	for _, mod in ipairs(bossData.Mods) do
+		if mod.Id == "MonsterMapBoss" then
+			state.boss.rarity = "Unique"
+			break
+		end
+	end
 end
 
 -- #skill [<Display name>] <GrantedEffectId> <UberGrantedEffectId>
