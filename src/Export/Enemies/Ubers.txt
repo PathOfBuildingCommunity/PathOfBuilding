@@ -1,0 +1,14 @@
+-- Path of Building
+--
+-- Boss Data
+-- Boss data (c) Grinding Gear Games
+--
+local bosses = ...
+
+#boss SynthesisVenarius Venarius
+#boss AtlasInvadersConsumeBoss EaterOfWorlds
+#boss AtlasInvadersCleansingBoss SearingExarch
+#boss TheMaven Maven
+#boss AtlasExiles5 Sirus
+#boss TheShaperBoss Shaper
+#boss TheElder Elder
