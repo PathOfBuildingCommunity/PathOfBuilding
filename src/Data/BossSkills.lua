@@ -17,7 +17,7 @@ return {
 			FirePen = 10
 		},
 		speed = 12500,
-		Uberspeed = 25000,
+		UberSpeed = 25000,
 		critChance = 0,
 		earlierUber = true,
 		tooltip = "The Uber variant has 10 ^xB97123Fire^7 penetration (Applied on Pinnacle And Uber)"
@@ -43,7 +43,7 @@ return {
 		},
 		UberDamageMultiplier = 1.6666666666667,
 		speed = 3510,
-		Uberspeed = 1755,
+		UberSpeed = 1755,
 		critChance = 0,
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
 	},

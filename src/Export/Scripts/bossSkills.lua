@@ -43,8 +43,8 @@ local function calcSkillDamage(state)
 	local ExtraDamageMult = { 1, 1 }
 	for i, levelIndex  in ipairs({baseDamage[grantedId].index, baseDamage[grantedId].uberIndex}) do
 		local statsPerLevel = skill.statsPerLevel[levelIndex]
-		for j, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
-			if additonalStat.Id == "active_skill_damage_+%_final" then
+		for j, additionalStat in ipairs(statsPerLevel.AdditionalStats) do
+			if additionalStat.Id == "active_skill_damage_+%_final" then
 				ExtraDamageMult[i] = 1 + statsPerLevel.AdditionalStatsValues[j] / 100
 				break
 			end
@@ -69,8 +69,8 @@ local function calcSkillDamage(state)
 		end
 		if baseDamage[grantedId].Physical and physConversions[1] ~= 0 then
 			local damageRange = (baseDamage[grantedId].Physical[2] == 0) and (boss.damageRange / 100) or baseDamage[grantedId].Physical[2] / 100
-			local calcedMult = baseDamage[grantedId].Physical[1] * physConversions[1] * state.SkillExtraDamageMult * ExtraDamageMult[1] * boss.damageMult / 100 * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1)
-			state.DamageData["PhysicalDamageMultMin"], state.DamageData["PhysicalDamageMultMax"] = calcedMult * ( 1 - damageRange ), calcedMult * ( 1 + damageRange )
+			local damageMult = baseDamage[grantedId].Physical[1] * physConversions[1] * state.SkillExtraDamageMult * ExtraDamageMult[1] * boss.damageMult / 100 * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1)
+			state.DamageData["PhysicalDamageMultMin"], state.DamageData["PhysicalDamageMultMax"] = damageMult * ( 1 - damageRange ), damageMult * ( 1 + damageRange )
 		end
 		for i, damageType in ipairs({"Lightning", "Cold", "Fire", "Chaos"}) do
 			if baseDamage[grantedId][damageType] or (baseDamage[grantedId].Physical and physConversions[i + 1] ~= 0) then
@@ -78,14 +78,14 @@ local function calcSkillDamage(state)
 				state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = 0, 0
 				if baseDamage[grantedId][damageType] then
 					local damageRange = (baseDamage[grantedId][damageType][2] == 0) and (boss.damageRange / 100) or baseDamage[grantedId][damageType][2] / 100
-					local calcedMult = baseDamage[grantedId][damageType][1] * damageMult
-					state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = calcedMult * ( 1 - damageRange ), calcedMult * ( 1 + damageRange )
+					local damageMult = baseDamage[grantedId][damageType][1] * damageMult
+					state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = damageMult * ( 1 - damageRange ), damageMult * ( 1 + damageRange )
 				end
 				if baseDamage[grantedId].Physical and physConversions[i + 1] ~= 0 then
 					local damageRange = (baseDamage[grantedId].Physical[2] == 0) and (boss.damageRange / 100) or baseDamage[grantedId].Physical[2] / 100
-					local calcedMult = (baseDamage[grantedId].Physical[1] * physConversions[i + 1]) * damageMult
-					state.DamageData[damageType.."DamageMultMin"] = state.DamageData[damageType.."DamageMultMin"] + calcedMult * ( 1 - damageRange )
-					state.DamageData[damageType.."DamageMultMax"] = state.DamageData[damageType.."DamageMultMax"] + calcedMult * ( 1 + damageRange )
+					local damageMult = (baseDamage[grantedId].Physical[1] * physConversions[i + 1]) * damageMult
+					state.DamageData[damageType.."DamageMultMin"] = state.DamageData[damageType.."DamageMultMin"] + damageMult * ( 1 - damageRange )
+					state.DamageData[damageType.."DamageMultMax"] = state.DamageData[damageType.."DamageMultMax"] + damageMult * ( 1 + damageRange )
 				end
 			end
 		end
@@ -131,20 +131,20 @@ local function calcSkillDamage(state)
 			physConversions = { m_max(1 - totalConversions / 100, 0), physConversions[2] / conversionDivisor, physConversions[3] / conversionDivisor, physConversions[4] / conversionDivisor, physConversions[5] / conversionDivisor }
 		end
 		if (baseDamages["minPhysical1"] or baseDamages["maxPhysical1"]) and physConversions[1] ~= 0 then
-			local calcedMult = physConversions[1] * state.SkillExtraDamageMult * ExtraDamageMult[1] * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1) --  * boss.damageMult / 100
-			state.DamageData["PhysicalDamageMultMin"], state.DamageData["PhysicalDamageMultMax"] = calcedMult * (baseDamages["minPhysical1"] or 0), calcedMult * (baseDamages["maxPhysical1"] or 0)
+			local damageMult = physConversions[1] * state.SkillExtraDamageMult * ExtraDamageMult[1] * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1) --  * boss.damageMult / 100
+			state.DamageData["PhysicalDamageMultMin"], state.DamageData["PhysicalDamageMultMax"] = damageMult * (baseDamages["minPhysical1"] or 0), damageMult * (baseDamages["maxPhysical1"] or 0)
 		end
 		for i, damageType in ipairs({"Lightning", "Cold", "Fire", "Chaos"}) do
 			if (baseDamages["min"..damageType.."1"] or baseDamages["max"..damageType.."1"]) or ((baseDamages["minPhysical1"] or baseDamages["maxPhysical1"]) and physConversions[i + 1] ~= 0) then
-				local calcedMult = state.SkillExtraDamageMult * ExtraDamageMult[1] * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1) --  * boss.damageMult / 100
+				local damageMult = state.SkillExtraDamageMult * ExtraDamageMult[1] * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1) --  * boss.damageMult / 100
 				state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = 0, 0
 				if (baseDamages["min"..damageType.."1"] or baseDamages["max"..damageType.."1"]) then
-					state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = calcedMult * (baseDamages["min"..damageType.."1"] or 0), calcedMult * (baseDamages["max"..damageType.."1"] or 0)
+					state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = damageMult * (baseDamages["min"..damageType.."1"] or 0), damageMult * (baseDamages["max"..damageType.."1"] or 0)
 				end
 				if (baseDamages["minPhysical1"] or baseDamages["maxPhysical1"]) and physConversions[i + 1] ~= 0 then
-					calcedMult = calcedMult * physConversions[i + 1]
-					state.DamageData[damageType.."DamageMultMin"] = state.DamageData[damageType.."DamageMultMin"] + calcedMult * (baseDamages["minPhysical1"] or 0)
-					state.DamageData[damageType.."DamageMultMax"] = state.DamageData[damageType.."DamageMultMax"] + calcedMult * (baseDamages["maxPhysical1"] or 0)
+					damageMult = damageMult * physConversions[i + 1]
+					state.DamageData[damageType.."DamageMultMin"] = state.DamageData[damageType.."DamageMultMin"] + damageMult * (baseDamages["minPhysical1"] or 0)
+					state.DamageData[damageType.."DamageMultMax"] = state.DamageData[damageType.."DamageMultMax"] + damageMult * (baseDamages["maxPhysical1"] or 0)
 				end
 			end
 		end
@@ -201,41 +201,41 @@ local function getStat(state, stat)
 	elseif stat == "Penetration" then
 		DamageData["PhysOverwhelm"], DamageData["PhysUberOverwhelm"], DamageData["LightningPen"], DamageData["LightningUberPen"], DamageData["ColdPen"], DamageData["ColdUberPen"], DamageData["FirePen"], DamageData["FireUberPen"], DamageData["ChaosPen"], DamageData["ChaosUberPen"] = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 		for level, statsPerLevel in ipairs(skill.statsPerLevel) do
-			for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
-				if additonalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
+			for i, additionalStat in ipairs(statsPerLevel.AdditionalStats) do
+				if additionalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
 					DamageData["Lightning"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additonalStat.Id == "base_reduce_enemy_cold_resistance_%" then
+				elseif additionalStat.Id == "base_reduce_enemy_cold_resistance_%" then
 					DamageData["Cold"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additonalStat.Id == "base_reduce_enemy_fire_resistance_%" then
+				elseif additionalStat.Id == "base_reduce_enemy_fire_resistance_%" then
 					DamageData["Fire"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additonalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
+				elseif additionalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
 					DamageData["Chaos"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
 				end
 			end
 		end
 		if boss.earlierUber then
 			local statsPerLevel = skill.statsPerLevelUber[2]
-			for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
-				if additonalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
+			for i, additionalStat in ipairs(statsPerLevel.AdditionalStats) do
+				if additionalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
 					DamageData["LightningUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additonalStat.Id == "base_reduce_enemy_cold_resistance_%" then
+				elseif additionalStat.Id == "base_reduce_enemy_cold_resistance_%" then
 					DamageData["ColdUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additonalStat.Id == "base_reduce_enemy_fire_resistance_%" then
+				elseif additionalStat.Id == "base_reduce_enemy_fire_resistance_%" then
 					DamageData["FireUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additonalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
+				elseif additionalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
 					DamageData["ChaosUberPen"] = statsPerLevel.AdditionalStatsValues[i]
 				end
 			end
 		elseif skill.statsPerLevel2 then 
 			for level, statsPerLevel in ipairs(skill.statsPerLevel2) do
-				for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
-					if additonalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
+				for i, additionalStat in ipairs(statsPerLevel.AdditionalStats) do
+					if additionalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
 						DamageData["Lightning"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-					elseif additonalStat.Id == "base_reduce_enemy_cold_resistance_%" then
+					elseif additionalStat.Id == "base_reduce_enemy_cold_resistance_%" then
 						DamageData["Cold"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-					elseif additonalStat.Id == "base_reduce_enemy_fire_resistance_%" then
+					elseif additionalStat.Id == "base_reduce_enemy_fire_resistance_%" then
 						DamageData["Fire"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-					elseif additonalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
+					elseif additionalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
 						DamageData["Chaos"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
 					end
 				end
@@ -257,11 +257,11 @@ local function getStat(state, stat)
 			if level > 2 then
 				break
 			end
-			for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
-				if additonalStat.Id == "active_skill_attack_speed_+%_final" then
+			for i, additionalStat in ipairs(statsPerLevel.AdditionalStats) do
+				if additionalStat.Id == "active_skill_attack_speed_+%_final" then
 					speedMult[level] = 100 + statsPerLevel.AdditionalStatsValues[i]
 					break
-				elseif additonalStat.Id == "active_skill_cast_speed_+%_final" then
+				elseif additionalStat.Id == "active_skill_cast_speed_+%_final" then
 					speedMult[level] = 100 + statsPerLevel.AdditionalStatsValues[i]
 					break
 				end
@@ -395,7 +395,7 @@ directiveTable.skill = function(state, args, out)
 		out:write(',\n		speed = ', speed)
 	end
 	if uberSpeed and uberSpeed ~= 700 then
-		out:write(',\n		Uberspeed = ', uberSpeed)
+		out:write(',\n		UberSpeed = ', uberSpeed)
 	end
 	local critChance = statsPerLevel[1].AttackCritChance
 	if critChance or boss.critChance then
