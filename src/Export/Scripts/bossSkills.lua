@@ -18,7 +18,7 @@ local baseDamage = {
 }
 
 -- exports and calculates the damage multipliers of the skill
--- min and max damage equal to damage delt divided by base monster damage at that level
+-- min and max damage equal to damage dealt divided by base monster damage at that level
 -- also provides the UberDamageMultiplier if the skill does more in uber form
 local function calcSkillDamage(state)
 	local monsterLevel = 84
