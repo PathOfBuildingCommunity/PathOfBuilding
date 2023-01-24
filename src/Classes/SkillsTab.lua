@@ -606,9 +606,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			return
 		end
 		local gemInstance = self.displayGroup.gemList[index]
-		if gemInstance and gemId == gemInstance.gemId then
-			return
-		else
+		if not gemInstance then
 			if not gemId then
 				return
 			end
@@ -631,6 +629,8 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 			slot.enableGlobal2.state = true
 			slot.count:SetText(gemInstance.count)
+		elseif gemId == gemInstance.gemId then
+			return
 		end
 		gemInstance.gemId = gemId
 		gemInstance.skillId = nil

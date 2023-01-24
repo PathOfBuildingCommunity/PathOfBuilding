@@ -246,10 +246,6 @@ function GemSelectClass:UpdateSortCache()
 	-- Check for nil because some fields may not be populated, default to 0
 	local baseDPS = (dpsField == "FullDPS" and calcBase[dpsField] ~= nil and calcBase[dpsField]) or (calcBase.Minion and calcBase.Minion.CombinedDPS) or (calcBase[dpsField] ~= nil and calcBase[dpsField]) or 0
 
-	local savedGemList = {}
-	for i, gemInstance in ipairs(self.skillsTab.displayGroup.gemList) do
-		savedGemList[i] = copyTable(gemInstance, true)
-	end
 	for gemId, gemData in pairs(self.gems) do
 		sortCache.dps[gemId] = baseDPS
 		-- Ignore gems that don't support the active skill
@@ -280,9 +276,6 @@ function GemSelectClass:UpdateSortCache()
 			else
 				gemList[self.index] = nil
 			end
-			for i, gemInstance in ipairs(savedGemList) do
-				self.skillsTab.displayGroup.gemList[i] = copyTable(gemInstance, true)
-			end			
 			-- Check for nil because some fields may not be populated, default to 0
 			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
