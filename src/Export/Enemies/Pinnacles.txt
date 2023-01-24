@@ -12,3 +12,23 @@ local bosses = ...
 #boss AtlasExiles5 Sirus
 #boss TheShaperBoss Shaper
 #boss TheElder Elder
+
+#boss AtlasInvadersBlackStarBoss BlackStar
+#boss AtlasInvadersDoomBoss InfiniteHunger
+
+#boss Atziri Atziri
+
+#boss AtlasBossPhoenix Phoenix
+#boss AtlasBossHydra Hydra
+#boss AtlasBossMinotaur Minotaur
+#boss AtlasBossChimera Chimera
+
+#boss ElderGuardian1 Enslaver
+#boss ElderGuardian2 Eradicator
+#boss ElderGuardian3 Constrictor
+#boss ElderGuardian4 Purifier
+
+#boss AtlasExiles1 Baran
+#boss AtlasExiles2 Veritania
+#boss AtlasExiles3 AlHezmin
+#boss AtlasExiles4 Drox
