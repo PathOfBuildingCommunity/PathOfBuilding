@@ -12,6 +12,191 @@ local rarityDamageMult = {
 	--Unique = (1 + dat("Mods"):GetRow("Id", "MonsterUnique5").Stat1Value[1] / 100) * (1 - dat("Mods"):GetRow("Id", "MonsterUnique8").Stat1Value[1] / 100)
 }
 
+-- exports and calculates the damage multipliers of the skill
+-- min and max damage equal to damage delt divided by base monster damage at that level
+-- also provides the UberDamageMultiplier if the skill does more in uber form
+local function calcSkillDamage(state)
+	local monsterBaseDamage = { 821.73 }
+	local monsterLevel = 1
+	local baseDamage = {
+		AtziriFlameblast = { Fire = { 1210.408, 0 } },
+		AtlasBossAcceleratingProjectiles = { Cold = { 3523.578, 0 } },
+		AtlasBossFlickerSlam = { Physical = { 1857.932, 0 }, ExtraDamageMult = 3.0, SkillUberDamageMult = 200 },
+		AtlasExileOrionCircleMazeBlast3 = { Physical = { 18154.481, 0 }, SkillUberDamageMult = 150 },
+		CleansingFireWall = { Fire = { 3422.505, 20 } },
+		GSConsumeBossDisintegrateBeam = { Lightning = { 3875.279, 50 } },
+		MavenSuperFireProjectileImpact = { Fire = { 5167.038, 0 }, SkillUberDamageMult = 200 },
+		MavenMemoryGame = { Physical = { 35464.223, 0 } },
+	}
+	local skill = state.skill
+	local boss = state.boss
+	local physConversions = { 1, 0, 0, 0, 0 }
+	for i, constStat in ipairs(skill.GrantedEffectStatSets.ConstantStats) do
+		if constStat.Id == "skill_physical_damage_%_to_convert_to_lightning" then
+			physConversions[2] = skill.GrantedEffectStatSets.ConstantStatsValues[i]
+		elseif constStat.Id == "skill_physical_damage_%_to_convert_to_cold" then
+			physConversions[3] = skill.GrantedEffectStatSets.ConstantStatsValues[i]
+		elseif constStat.Id == "skill_physical_damage_%_to_convert_to_fire" then
+			physConversions[4] = skill.GrantedEffectStatSets.ConstantStatsValues[i]
+		elseif constStat.Id == "skill_physical_damage_%_to_convert_to_chaos" then
+			physConversions[5] = skill.GrantedEffectStatSets.ConstantStatsValues[i]
+		end
+	end
+	local grantedId = skill.grantedId
+	if not baseDamage[grantedId] and baseDamage[skill.grantedId2] then
+		grantedId = skill.grantedId2
+	end
+	if baseDamage[grantedId].Physical then
+		local totalConversions = physConversions[2] + physConversions[3] + physConversions[4] + physConversions[5]
+		local conversionDivisor = m_max(totalConversions, 100)
+		physConversions = { m_max(1 - totalConversions / 100, 0), physConversions[2] / conversionDivisor, physConversions[3] / conversionDivisor, physConversions[4] / conversionDivisor, physConversions[5] / conversionDivisor }
+	end
+	if baseDamage[grantedId].Physical and physConversions[1] ~= 0 then
+		local damageRange = (baseDamage[grantedId].Physical[2] == 0) and (boss.damageRange / 100) or baseDamage[grantedId].Physical[2] / 100
+		local calcedMult = baseDamage[grantedId].Physical[1] * physConversions[1] * state.SkillExtraDamageMult * (baseDamage[grantedId].ExtraDamageMult or 1) * boss.damageMult / 100 * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1)
+		state.DamageData["PhysicalDamageMultMin"], state.DamageData["PhysicalDamageMultMax"] = calcedMult * ( 1 - damageRange ), calcedMult * ( 1 + damageRange )
+	end
+	for i, damageType in ipairs({"Lightning", "Cold", "Fire", "Chaos"}) do
+		if baseDamage[grantedId][damageType] or (baseDamage[grantedId].Physical and physConversions[i + 1] ~= 0) then
+			local damageMult = state.SkillExtraDamageMult * (baseDamage[grantedId].ExtraDamageMult or 1) * boss.damageMult / 100 * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1)
+			state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = 0, 0
+			if baseDamage[grantedId][damageType] then
+				local damageRange = (baseDamage[grantedId][damageType][2] == 0) and (boss.damageRange / 100) or baseDamage[grantedId][damageType][2] / 100
+				local calcedMult = baseDamage[grantedId][damageType][1] * damageMult
+				state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = calcedMult * ( 1 - damageRange ), calcedMult * ( 1 + damageRange )
+			end
+			if baseDamage[grantedId].Physical and physConversions[i + 1] ~= 0 then
+				local damageRange = (baseDamage[grantedId].Physical[2] == 0) and (boss.damageRange / 100) or baseDamage[grantedId].Physical[2] / 100
+				local calcedMult = (baseDamage[grantedId].Physical[1] * physConversions[i + 1]) * damageMult
+				state.DamageData[damageType.."DamageMultMin"] = state.DamageData[damageType.."DamageMultMin"] + calcedMult * ( 1 - damageRange )
+				state.DamageData[damageType.."DamageMultMax"] = state.DamageData[damageType.."DamageMultMax"] + calcedMult * ( 1 + damageRange )
+			end
+		end
+	end
+	if baseDamage[grantedId].SkillUberDamageMult then
+		state.DamageData.SkillUberDamageMult = baseDamage[grantedId].SkillUberDamageMult
+	end
+end
+
+-- exports non-damage stats
+-- possible stats: DamageType, Penetration, Speed
+local function getStat(state, stat)
+	local DamageData = state.DamageData
+	local skill = state.skill
+	local boss = state.boss
+	if stat == "DamageType" then
+		local DamageType = "Melee"
+		for _, skillType in ipairs(skill.skillData.ActiveSkill.SkillTypes) do
+			if skillType.Id == "Spell" then
+				if DamageType == "Projectile" then
+					DamageType = "SpellProjectile"
+				else
+					DamageType = "Spell"
+				end
+			elseif skillType.Id  == "Projectile" then
+				if DamageType == "Spell" then
+					DamageType = "SpellProjectile"
+				else
+					DamageType = "Projectile"
+				end
+			end
+		end
+		if DamageType == "Melee" then
+			for _, implicitStat in ipairs(skill.GrantedEffectStatSets.ImplicitStats) do
+				if implicitStat.Id  == "base_is_projectile" then
+					DamageType = "Projectile"
+					break
+				end
+			end
+		end
+		return DamageType
+	elseif stat == "Penetration" then
+		DamageData["PhysOverwhelm"], DamageData["PhysUberOverwhelm"], DamageData["LightningPen"], DamageData["LightningUberPen"], DamageData["ColdPen"], DamageData["ColdUberPen"], DamageData["FirePen"], DamageData["FireUberPen"], DamageData["ChaosPen"], DamageData["ChaosUberPen"] = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+		for level, statsPerLevel in ipairs(skill.statsPerLevel) do
+			for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
+				if additonalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
+					DamageData["Lightning"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
+				elseif additonalStat.Id == "base_reduce_enemy_cold_resistance_%" then
+					DamageData["Cold"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
+				elseif additonalStat.Id == "base_reduce_enemy_fire_resistance_%" then
+					DamageData["Fire"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
+				elseif additonalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
+					DamageData["Chaos"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
+				end
+			end
+		end
+		if boss.earlierUber then
+			local statsPerLevel = skill.statsPerLevelUber[2]
+			for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
+				if additonalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
+					DamageData["LightningUberPen"] = statsPerLevel.AdditionalStatsValues[i]
+				elseif additonalStat.Id == "base_reduce_enemy_cold_resistance_%" then
+					DamageData["ColdUberPen"] = statsPerLevel.AdditionalStatsValues[i]
+				elseif additonalStat.Id == "base_reduce_enemy_fire_resistance_%" then
+					DamageData["FireUberPen"] = statsPerLevel.AdditionalStatsValues[i]
+				elseif additonalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
+					DamageData["ChaosUberPen"] = statsPerLevel.AdditionalStatsValues[i]
+				end
+			end
+		elseif skill.statsPerLevel2 then 
+			for level, statsPerLevel in ipairs(skill.statsPerLevel2) do
+				for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
+					if additonalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
+						DamageData["Lightning"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
+					elseif additonalStat.Id == "base_reduce_enemy_cold_resistance_%" then
+						DamageData["Cold"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
+					elseif additonalStat.Id == "base_reduce_enemy_fire_resistance_%" then
+						DamageData["Fire"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
+					elseif additonalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
+						DamageData["Chaos"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
+					end
+				end
+			end
+		end
+		DamageData["PhysOverwhelm"] = (DamageData["PhysOverwhelm"] == 0) and (DamageData["PhysUberOverwhelm"] ~= 0 and "" or DamageData["PhysOverwhelm"]) or DamageData["PhysOverwhelm"]
+		for _, damageType in ipairs({"Lightning", "Cold", "Fire"}) do
+			DamageData[damageType.."Pen"] = (DamageData[damageType.."Pen"] == 0) and (DamageData[damageType.."UberPen"] ~= 0 and "" or DamageData[damageType.."Pen"]) or DamageData[damageType.."Pen"]
+		end
+		return (DamageData["PhysOverwhelm"] ~= 0 or DamageData["LightningPen"] ~= 0 or DamageData["ColdPen"] ~= 0 or DamageData["FirePen"] ~= 0)
+	elseif stat == "Speed" then
+		local speed = skill.skillData.CastTime
+		local uberSpeed
+		if skill.skillDataUber then
+			uberSpeed = skill.skillDataUber.CastTime
+		end
+		local speedMult = { 0, 0 }
+		for level, statsPerLevel in ipairs(skill.statsPerLevel) do
+			if level > 2 then
+				break
+			end
+			for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
+				if additonalStat.Id == "active_skill_attack_speed_+%_final" then
+					speedMult[level] = 100 + statsPerLevel.AdditionalStatsValues[i]
+				elseif additonalStat.Id == "active_skill_cast_speed_+%_final" then
+					speedMult[level] = 100 + statsPerLevel.AdditionalStatsValues[i]
+				end
+			end
+		end
+		if skill.speedMult then
+			speed = speed * skill.speedMult / 10000
+			if uberSpeed then
+				uberSpeed = uberSpeed * skill.speedMult / 10000
+			end
+		end
+		if speedMult[1] ~= 0 then
+			if speedMult[1] ~= speedMult[2] then
+				return tonumber(m_ceil(speed / speedMult[1] * 100)), tonumber(m_ceil(speed / speedMult[2] * 100))
+			end
+			speed = speed / speedMult[1] * 100
+			uberSpeed = uberSpeed / speedMult[1] * 100
+		end
+		if uberSpeed then
+			return tonumber(m_ceil(speed)), tonumber(m_ceil(uberSpeed))
+		end
+		return tonumber(m_ceil(speed))
+	end
+end
+
 local directiveTable = {}
 
 -- #boss [<Display name>] <MonsterId> <earlierUber>
@@ -35,188 +220,60 @@ directiveTable.boss = function(state, args, out)
 	end
 end
 
--- #skill [<Display name>] <GrantedEffectId> <GrantedEffectId2>
--- Initialises the skill data and emits the skill header
+-- #skill [<Display name>] [<GrantedEffectId>]
+-- optional#  <GrantedEffectId2> <GrantedEffectIdUber> <SkillExtraDamageMult> <speedMult>
+-- Initialises and emits the skill data
 directiveTable.skill = function(state, args, out)
-	local displayName, grantedId, grantedId2 = args:match("(%w+) (%w+) (%w+)")
+	local displayName, grantedId = args:match("(%w+) (%w+)")
 	if not grantedId then
-		displayName, grantedId = args:match("(%w+) (%w+)")
-	end
-	local DamageType = "Melee"
-	local skillData = dat("GrantedEffects"):GetRow("Id", grantedId)
-	for _, skillType in ipairs(skillData.ActiveSkill.SkillTypes) do
-		if skillType.Id == "Spell" then
-			if DamageType == "Projectile" then
-				DamageType = "SpellProjectile"
-			else
-				DamageType = "Spell"
-			end
-		elseif skillType.Id  == "Projectile" then
-			if DamageType == "Spell" then
-				DamageType = "SpellProjectile"
-			else
-				DamageType = "Projectile"
-			end
-		end
-	end
-	local GrantedEffectStatSets = dat("GrantedEffectStatSets"):GetRow("Id", grantedId)
-	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffect", skillData)
-	if DamageType == "Melee" then
-		for _, implicitStat in ipairs(GrantedEffectStatSets.ImplicitStats) do
-			if implicitStat.Id  == "base_is_projectile" then
-				DamageType = "Projectile"
-				break
-			end
-		end
-	end
-	state.skill = { displayName = displayName, DamageType = DamageType, GrantedEffectStatSets = GrantedEffectStatSets, statsPerLevel = statsPerLevel }
-	if grantedId2 then
-		state.skill.statsPerLevel2 = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffect", dat("GrantedEffects"):GetRow("Id", grantedId2))
-	end
-	out:write('	["', state.boss.displayName, " ", displayName, '"] = {\n')
-end
-
--- #skillData <SkillExtraDamageMult> <SkillUberDamageMult> <speed> <critChance> 
--- <PhysDamageMult> <PhysDamageRange> <LightningDamageMult> ... <ChaosDamageMult> <ChaosDamageRange>
--- Emits the skill modifiers
-directiveTable.skillData = function(state, args, out)
-	local DamageData = {}
-	local SkillExtraDamageMult, SkillUberDamageMult, speed, critChance
-	SkillExtraDamageMult, SkillUberDamageMult, speed, critChance = args:match("(%d+) (%d+) (%d+) (%d+)")
-	if args:match("phys") then
-		DamageData["PhysDamageMult"], DamageData["PhysDamageRange"] = args:match("phys{(%d+) (%d+)}")
-	else
-		DamageData["PhysDamageMult"], DamageData["PhysDamageRange"] =  0, 0
-	end
-	if args:match("lightning") then
-		DamageData["LightningDamageMult"], DamageData["LightningDamageRange"] = args:match("lightning{(%d+) (%d+)}")
-	else
-		DamageData["LightningDamageMult"], DamageData["LightningDamageRange"] = 0, 0
-	end
-	if args:match("cold") then
-		DamageData["ColdDamageMult"], DamageData["ColdDamageRange"] = args:match("cold{(%d+) (%d+)}")
-	else
-		DamageData["ColdDamageMult"], DamageData["ColdDamageRange"] = 0, 0
-	end
-	if args:match("fire") then
-		DamageData["FireDamageMult"], DamageData["FireDamageRange"] = args:match("fire{(%d+) (%d+)}")
-	else
-		DamageData["FireDamageMult"], DamageData["FireDamageRange"] = 0, 0
-	end
-	if args:match("chaos") then
-		DamageData["ChaosDamageMult"], DamageData["ChaosDamageRange"] = args:match("chaos{(%d+) (%d+)}")
-	else
-		DamageData["ChaosDamageMult"], DamageData["ChaosDamageRange"] = 0, 0
-	end
-	DamageData["PhysOverwhelm"], DamageData["PhysUberOverwhelm"], DamageData["PhysToLightning"], DamageData["PhysToCold"], DamageData["PhysToFire"], DamageData["PhysToChaos"], DamageData["LightningPen"], DamageData["LightningUberPen"], DamageData["ColdPen"], DamageData["ColdUberPen"], DamageData["FirePen"], DamageData["FireUberPen"], DamageData["ChaosPen"], DamageData["ChaosUberPen"] = 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
-	local skill = state.skill
-	for i, constStat in ipairs(skill.GrantedEffectStatSets.ConstantStats) do
-		if constStat.Id == "skill_physical_damage_%_to_convert_to_lightning" then
-			DamageData["PhysToLightning"] = skill.GrantedEffectStatSets.ConstantStatsValues[i]
-		elseif constStat.Id == "skill_physical_damage_%_to_convert_to_cold" then
-			DamageData["PhysToCold"] = skill.GrantedEffectStatSets.ConstantStatsValues[i]
-		elseif constStat.Id == "skill_physical_damage_%_to_convert_to_fire" then
-			DamageData["PhysToFire"] = skill.GrantedEffectStatSets.ConstantStatsValues[i]
-		elseif constStat.Id == "skill_physical_damage_%_to_convert_to_chaos" then
-			DamageData["PhysToChaos"] = skill.GrantedEffectStatSets.ConstantStatsValues[i]
-		end
-	end
-	for level, statsPerLevel in ipairs(skill.statsPerLevel) do
-		for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
-			if additonalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
-				DamageData["Lightning"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-			elseif additonalStat.Id == "base_reduce_enemy_cold_resistance_%" then
-				DamageData["Cold"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-			elseif additonalStat.Id == "base_reduce_enemy_fire_resistance_%" then
-				DamageData["Fire"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-			elseif additonalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
-				DamageData["Chaos"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-			end
-		end
+		displayName, grantedId = args
 	end
 	local boss = state.boss
-	if boss.earlierUber then
-		local statsPerLevel = skill.statsPerLevel2[2]
-		for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
-			if additonalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
-				DamageData["LightningUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-			elseif additonalStat.Id == "base_reduce_enemy_cold_resistance_%" then
-				DamageData["ColdUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-			elseif additonalStat.Id == "base_reduce_enemy_fire_resistance_%" then
-				DamageData["FireUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-			elseif additonalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
-				DamageData["ChaosUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-			end
-		end
-	elseif skill.statsPerLevel2 then 
-		for level, statsPerLevel in ipairs(skill.statsPerLevel2) do
-			for i, additonalStat in ipairs(statsPerLevel.AdditionalStats) do
-				if additonalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
-					DamageData["Lightning"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additonalStat.Id == "base_reduce_enemy_cold_resistance_%" then
-					DamageData["Cold"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additonalStat.Id == "base_reduce_enemy_fire_resistance_%" then
-					DamageData["Fire"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additonalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
-					DamageData["Chaos"..(level > 1 and "Uber" or "").."Pen"] = statsPerLevel.AdditionalStatsValues[i]
-				end
-			end
-		end
+	local skill = {}
+	local skillData = dat("GrantedEffects"):GetRow("Id", grantedId)
+	local GrantedEffectStatSets = dat("GrantedEffectStatSets"):GetRow("Id", grantedId)
+	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffect", skillData)
+	skill = { skillData = skillData, displayName = displayName, GrantedEffectStatSets = GrantedEffectStatSets, statsPerLevel = statsPerLevel, grantedId = grantedId }
+	state.skill = skill
+	local grantedId2 = args:match("GrantedEffectId2 = (%w+),")
+	if grantedId2 then
+		skill.skillData2 = dat("GrantedEffects"):GetRow("Id", grantedId2)
+		skill.statsPerLevel2 = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffect", skill.skillData2)
+		skill.grantedId2 = grantedId2
 	end
-	-- cleanup/precompute some data
-	for ind, val in pairs(DamageData) do
-		DamageData[ind] = tonumber(val)
+	local grantedIdUber = args:match("GrantedEffectIdUber = (%w+),")
+	if grantedIdUber then
+		skill.skillDataUber = dat("GrantedEffects"):GetRow("Id", grantedIdUber)
+		skill.statsPerLevelUber = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffect", skill.skillDataUber)
+		skill.grantedIdUber = grantedIdUber
 	end
-	DamageData["PhysOverwhelm"] = (DamageData["PhysOverwhelm"] == 0) and (DamageData["PhysUberOverwhelm"] ~= 0 and "" or DamageData["PhysOverwhelm"]) or DamageData["PhysOverwhelm"]
-	for _, damageType in ipairs({"Lightning", "Cold", "Fire"}) do
-		DamageData[damageType.."Pen"] = (DamageData[damageType.."Pen"] == 0) and (DamageData[damageType.."UberPen"] ~= 0 and "" or DamageData[damageType.."Pen"]) or DamageData[damageType.."Pen"]
-	end
-	SkillExtraDamageMult = SkillExtraDamageMult == "0" and 1 or  SkillExtraDamageMult / 100
-	speed = (speed == "700") and 0 or tonumber(speed)
-	critChance = (critChance == "0") and ((boss.critChance ~= 5) and boss.critChance or 0) or ((critChance == "500") and 0 or m_ceil(critChance / 100))
+	state.SkillExtraDamageMult = args:match("ExtraDamageMult = (%d+),")
+	state.SkillExtraDamageMult = state.SkillExtraDamageMult and (state.SkillExtraDamageMult / 100) or 1
+	local DamageData = {}
+	state.DamageData = DamageData
+	calcSkillDamage(state)
 	-- output
-	if skill.DamageType then
-		out:write('		DamageType = "', skill.DamageType,'",\n')
-	end
-	if DamageData.PhysDamageMult == 0 and DamageData.LightningDamageMult == 0 and DamageData.ColdDamageMult == 0 and DamageData.FireDamageMult == 0 and DamageData.ChaosDamageMult == 0 then
-		print("error skill: "..skill.displayName.." has no damage")
-	end
+	out:write('	["', boss.displayName, " ", displayName, '"] = {\n')
+	out:write('		DamageType = "', getStat(state, "DamageType"),'",\n')
 	out:write('		DamageMultipliers = {\n')
 	local dCount = 0
-	local physConversions = { 1, 0, 0, 0, 0 }
-	if DamageData.PhysDamageMult ~= 0 then
-		local totalConversions = DamageData.PhysToLightning + DamageData.PhysToCold + DamageData.PhysToFire + DamageData.PhysToChaos
-		physConversions = { m_max(1 - totalConversions / 100, 0), DamageData.PhysToLightning / m_max(totalConversions, 100), DamageData.PhysToCold / m_max(totalConversions, 100), DamageData.PhysToFire / m_max(totalConversions, 100), DamageData.PhysToChaos / m_max(totalConversions, 100) }
-	end
-	if DamageData.PhysDamageMult ~= 0 and physConversions[1] ~= 0 then
-		dCount = dCount + 1
-		local damageRange = (DamageData.PhysDamageRange == 0) and (boss.damageRange / 100) or DamageData.PhysDamageRange / 100
-		local calcedMult = DamageData.PhysDamageMult / 1000 * physConversions[1] * SkillExtraDamageMult * boss.damageMult / 100 * (rarityDamageMult[boss.rarity] or 1)
-		local MultMin, MultMax =  calcedMult * ( 1 - damageRange ), calcedMult * damageRange * 2 / 100
-		out:write('			Physical = { ', MultMin, ', ', MultMax, ' }')
-	else
-		DamageData["PhysOverwhelm"] = 0
-	end
-	for i, damageType in ipairs({"Lightning", "Cold", "Fire", "Chaos"}) do
-		if DamageData[damageType.."DamageMult"] ~= 0 or physConversions[i + 1] ~= 0 then
+	for i, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
+		if DamageData[damageType.."DamageMultMin"] then
 			dCount = dCount + 1
-			local damageRange = (DamageData[damageType.."DamageRange"] == 0) and (boss.damageRange / 100) or DamageData[damageType.."DamageRange"] / 100
-			local calcedMult = (DamageData[damageType.."DamageMult"] / 1000 + DamageData.PhysDamageMult / 1000 * physConversions[i + 1]) * SkillExtraDamageMult * boss.damageMult / 100 * (rarityDamageMult[boss.rarity] or 1)
-			local MultMin, MultMax =  calcedMult * ( 1 - damageRange ), calcedMult * damageRange * 2 / 100
-			out:write(dCount > 1 and ',\n' or '', '			', damageType, ' = { ', MultMin, ', ', MultMax, ' }')
-		else
-			DamageData[damageType.."Pen"] = 0
-			DamageData[damageType.."UberPen"] = 0
+			out:write(dCount > 1 and ',\n' or '', '			', damageType, ' = { ', DamageData[damageType.."DamageMultMin"], ', ', (DamageData[damageType.."DamageMultMax"] - DamageData[damageType.."DamageMultMin"]) / 100, ' }')
 		end
 	end
-	out:write('\n		}')
-	if SkillUberDamageMult ~= "0" then
-		out:write(',\n		UberDamageMultiplier = ', (1 + SkillUberDamageMult / 100))
+	if dCount == 0 then
+		print("error skill: "..skill.displayName.." has no damage")
 	end
-	if DamageData["PhysOverwhelm"] ~= 0 or DamageData["LightningPen"] ~= 0 or DamageData["ColdPen"] ~= 0 or DamageData["FirePen"] ~= 0 then
+	out:write('\n		}')
+	if DamageData.SkillUberDamageMult then
+		out:write(',\n		UberDamageMultiplier = ', (DamageData.SkillUberDamageMult / 100))
+	end
+	if getStat(state, "Penetration") then
 		out:write(',\n		DamagePenetrations = {\n')
 		dCount = 0
-		for i, penType in ipairs({"PhysOverwhelm", "LightningPen", "ColdPen", "FirePen"}) do
+		for _, penType in ipairs({"PhysOverwhelm", "LightningPen", "ColdPen", "FirePen"}) do
 			if DamageData[penType] ~= 0 then
 				dCount = dCount + 1
 				out:write(dCount > 1 and ',\n' or '', '			', penType, ' = ', (DamageData[penType] == "" and '""' or DamageData[penType]))
@@ -226,7 +283,7 @@ directiveTable.skillData = function(state, args, out)
 		if DamageData["PhysUberOverwhelm"] ~= 0 or DamageData["LightningUberPen"] ~= 0 or DamageData["ColdUberPen"] ~= 0 or DamageData["FireUberPen"] ~= 0 then
 			out:write(',\n		UberDamagePenetrations = {\n')
 			dCount = 0
-			for i, penType in ipairs({"PhysUberOverwhelm", "LightningUberPen", "ColdUberPen", "FireUberPen"}) do
+			for _, penType in ipairs({"PhysUberOverwhelm", "LightningUberPen", "ColdUberPen", "FireUberPen"}) do
 				if DamageData[penType] ~= 0 then
 					dCount = dCount + 1
 					out:write(dCount > 1 and ',\n' or '', '			', penType:gsub("Uber", ""), ' = ', DamageData[penType])
@@ -235,13 +292,18 @@ directiveTable.skillData = function(state, args, out)
 			out:write('\n		}')
 		end
 	end
-	if speed ~= 0 then
+	skill.speedMult = args:match("speedMult = (%d+),")
+	local speed, uberSpeed = getStat(state, "Speed")
+	if speed and speed ~= 700 then
 		out:write(',\n		speed = ', speed)
 	end
-	if critChance ~= 0 then
-		if critChance == 1000 then
-			out:write(',\n		critChance = 0')
-		else
+	if uberSpeed and uberSpeed ~= 700 then
+		out:write(',\n		Uberspeed = ', uberSpeed)
+	end
+	local critChance = statsPerLevel[1].AttackCritChance
+	if critChance or boss.critChance then
+		critChance = critChance and (m_ceil(critChance / 100)) or boss.critChance
+		if critChance ~= 5 then
 			out:write(',\n		critChance = ', critChance)
 		end
 	end
