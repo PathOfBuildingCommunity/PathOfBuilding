@@ -41,7 +41,7 @@ return {
 		DamageMultipliers = {
 			Physical = { 10.852802745427, 0.054264013727137 }
 		},
-		UberDamageMultiplier = 2,
+		UberDamageMultiplier = 1.6666666666667,
 		speed = 3510,
 		Uberspeed = 1755,
 		critChance = 0,
