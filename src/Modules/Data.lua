@@ -985,6 +985,30 @@ for _, minion in pairs(data.minions) do
 	end
 end
 
+-- Load bosses
+function meanMults (bosstable)
+	local count = 0
+	local totalarmour = 0
+	local totalevasion = 0
+	for _, boss in pairs(bosstable) do
+		count = count + 1
+		totalarmour = totalarmour + boss.armourMult
+		totalevasion = totalevasion + boss.evasionMult
+	end
+	return totalarmour/count, totalevasion/count
+end
+
+data.pinnacles = { }
+LoadModule("Data/Pinnacles", data.pinnacles)
+local armourmean, evasionmean = meanMults(data.pinnacles)
+data.pinnacles.ArmourMult = armourmean
+data.pinnacles.EvasionMult = evasionmean
+data.ubers = { }
+LoadModule("Data/Ubers", data.ubers)
+local armourmean, evasionmean = meanMults(data.ubers)
+data.ubers.ArmourMult = armourmean
+data.ubers.EvasionMult = evasionmean
+
 -- Item bases
 data.itemBases = { }
 for _, type in pairs(itemTypes) do
