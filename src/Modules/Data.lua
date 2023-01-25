@@ -988,26 +988,26 @@ end
 -- Load bosses
 function meanMults (bosstable)
 	local count = 0
-	local totalarmour = 0
-	local totalevasion = 0
+	local armourTotal = 0
+	local evasionTotal = 0
 	for _, boss in pairs(bosstable) do
 		count = count + 1
-		totalarmour = totalarmour + boss.armourMult
-		totalevasion = totalevasion + boss.evasionMult
+		armourTotal = armourTotal + boss.armourMult
+		evasionTotal = evasionTotal + boss.evasionMult
 	end
-	return totalarmour/count, totalevasion/count
+	return armourTotal/count, evasionTotal/count
 end
 
 data.pinnacles = { }
 LoadModule("Data/Pinnacles", data.pinnacles)
-local armourmean, evasionmean = meanMults(data.pinnacles)
-data.pinnacles.ArmourMult = armourmean
-data.pinnacles.EvasionMult = evasionmean
+local armourMean, evasionMean = meanMults(data.pinnacles)
+data.pinnacles.ArmourMult = armourMean
+data.pinnacles.EvasionMult = evasionMean
 data.ubers = { }
 LoadModule("Data/Ubers", data.ubers)
-local armourmean, evasionmean = meanMults(data.ubers)
-data.ubers.ArmourMult = armourmean
-data.ubers.EvasionMult = evasionmean
+local armourMean, evasionMean = meanMults(data.ubers)
+data.ubers.ArmourMult = armourMean
+data.ubers.EvasionMult = evasionMean
 
 -- Item bases
 data.itemBases = { }
