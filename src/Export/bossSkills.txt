@@ -5,7 +5,7 @@
 --
 return {
 #boss Atziri Metadata/Monsters/Atziri/Atziri true
-#skill Flameblast AtziriFlameblast, GrantedEffectIdUber = AtziriFlameblastEmpowered, ExtraDamageMult = 120, stages = 10,
+#skill Flameblast AtziriFlameblast, GrantedEffectIdUber = AtziriFlameblastEmpowered, stages = 10,
 #tooltip "The Uber variant has 10 ^xB97123Fire^7 penetration (Applied on Pinnacle And Uber)"
 #boss Shaper Metadata/Monsters/AtlasBosses/TheShaperBoss false
 #skill Ball AtlasBossAcceleratingProjectiles
@@ -19,11 +19,11 @@ return {
 #skill Ball CleansingFireWall, speedMult = 4545, 
 #tooltip "Spawns 8-18 waves of balls depending on which fight and which ball phase"
 #boss Eater Metadata/Monsters/AtlasInvaders/ConsumeMonsters/ConsumeBoss false
-#skill Beam GSConsumeBossDisintegrateBeam, ExtraDamageMult = 280,
+#skill Beam GSConsumeBossDisintegrateBeam
 #tooltip "Allocating Insatiable Appetite causes the beam to always shock for at least 30%"
 #boss Maven Metadata/Monsters/MavenBoss/TheMaven false
 #skill Fireball MavenSuperFireProjectile, GrantedEffectId2 = MavenSuperFireProjectileImpact,
 #tooltip "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)"
-#skill MemoryGame MavenMemoryGame, ExtraDamageMult = 242,
+#skill MemoryGame MavenMemoryGame
 #tooltip "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
 }

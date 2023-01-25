@@ -1682,7 +1682,9 @@ Uber Pinnacle Boss adds the following modifiers:
 			end
 			build.configTab.varControls['enemyDamageType'].enabled = false
 			
-			if bossData.speed then
+			if isUber and bossData.UberSpeed then
+				build.configTab.varControls['enemySpeed']:SetPlaceholder(bossData.UberSpeed, true)
+			elseif bossData.speed then
 				build.configTab.varControls['enemySpeed']:SetPlaceholder(bossData.speed, true)
 			end
 			if bossData.critChance then

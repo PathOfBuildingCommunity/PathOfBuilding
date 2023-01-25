@@ -8,7 +8,7 @@ return {
 	["Atziri Flameblast"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Fire = { 36.577064290943, 0.18288532145471 }
+			Fire = { 38.38694233004, 0.1919347116502 }
 		},
 		DamagePenetrations = {
 			FirePen = ""
@@ -25,7 +25,7 @@ return {
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Cold = { 7.8176045084001, 0.039088022542 }
+			Cold = { 7.8162715738591, 0.039081357869296 }
 		},
 		DamagePenetrations = {
 			ColdPen = 25
@@ -55,14 +55,14 @@ return {
 			Fire = { 7.5521663411379, 0.037757366455464 },
 			Chaos = { 7.5521663411379, 0.037757366455464 }
 		},
-		UberDamageMultiplier = 1.5,
+		UberDamageMultiplier = 1.52,
 		speed = 1500,
 		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
 	},
 	["Exarch Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Fire = { 9.7484340769409, 0.048720348789248 }
+			Fire = { 9.9997143457054, 0.049998571728527 }
 		},
 		speed = 1000,
 		critChance = 0,
@@ -71,7 +71,7 @@ return {
 	["Eater Beam"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Lightning = { 8.3085374552451, 0.14699720113126 }
+			Lightning = { 8.150499014741, 0.16300998029482 }
 		},
 		speed = 2500,
 		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for at least 30%"
@@ -79,9 +79,9 @@ return {
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Fire = { 8.5962264150943, 0.035817610062893 }
+			Fire = { 8.6507490526477, 0.043253745263238 }
 		},
-		UberDamageMultiplier = 2,
+		UberDamageMultiplier = 2.01,
 		DamagePenetrations = {
 			FirePen = ""
 		},
@@ -94,9 +94,9 @@ return {
 	["Maven MemoryGame"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
-			Lightning = { 19.647153039832, 0.098235765199161 },
-			Cold = { 19.647153039832, 0.098235765199161 },
-			Fire = { 19.647153039832, 0.098235765199161 }
+			Lightning = { 20.078996163919, 0.1003949808196 },
+			Cold = { 20.078996163919, 0.1003949808196 },
+			Fire = { 20.078996163919, 0.1003949808196 }
 		},
 		speed = 7500,
 		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"

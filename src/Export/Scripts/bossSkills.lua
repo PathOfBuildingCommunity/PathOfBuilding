@@ -7,14 +7,24 @@ local rarityDamageMult = {
 }
 local monsterBaseDamage = { 1.59, 4.9899997711182, 5.5599999427795, 6.1599998474121, 6.8099999427795, 7.5, 8.2299995422363, 9, 9.8199996948242, 10.699999809265, 11.619999885559, 12.60000038147, 13.640000343323, 14.739999771118, 15.909999847412, 17.139999389648, 18.450000762939, 19.829999923706, 21.290000915527, 22.840000152588, 24.469999313354, 26.190000534058, 28.010000228882, 29.940000534058, 31.959999084473, 34.110000610352, 36.360000610352, 38.75, 41.259998321533, 43.909999847412, 46.700000762939, 49.650001525879, 52.75, 56.009998321533, 59.450000762939, 63.080001831055, 66.889999389648, 70.910003662109, 75.129997253418, 79.580001831055, 84.26000213623, 89.180000305176, 94.349998474121, 99.800003051758, 105.51999664307, 111.5299987793, 117.86000061035, 124.5, 131.49000549316, 138.83000183105, 146.5299987793, 154.63000488281, 163.13999938965, 172.07000732422, 181.44999694824, 191.30000305176, 201.63000488281, 212.47999572754, 223.86999511719, 235.83000183105, 248.36999511719, 261.5299987793, 275.32998657227, 289.82000732422, 305.01000976562, 320.94000244141, 337.64999389648, 355.17999267578, 373.54998779297, 392.80999755859, 413.01000976562, 434.17999267578, 456.36999511719, 479.61999511719, 504, 529.53997802734, 556.29998779297, 584.34997558594, 613.72998046875, 644.5, 676.75, 710.52001953125, 745.89001464844, 782.94000244141, 821.72998046875, 862.35998535156, 904.90002441406, 949.44000244141, 996.07000732422, 1044.8900146484, 1096, 1149.5, 1205.5, 1264.1099853516, 1325.4499511719, 1389.6400146484, 1456.8199462891, 1527.1199951172, 1600.6800537109, 1677.6400146484, 1758.1700439453, }
 local baseDamage = {
-	AtziriFlameblast = { index = 1, uberIndex = 2 },
-	AtlasBossAcceleratingProjectiles = { index = 1, uberIndex = 2 },
-	AtlasBossFlickerSlam = { index = 1, uberIndex = 2, oldMethod = true, Physical = { 1769.847, 0 } },
+	AtziriFlameblast = { index = 1, uberIndex = 2, oldMethod = true },
+	AtlasBossAcceleratingProjectiles = { index = 1, uberIndex = 2, oldMethod = true },
+	AtlasBossFlickerSlam = { index = 1, uberIndex = 2, oldMethod = true },
 	AtlasExileOrionCircleMazeBlast3 = { index = 4, uberIndex = 5 },
-	CleansingFireWall = { index = 1 },
-	GSConsumeBossDisintegrateBeam = { index = 1 },
-	MavenSuperFireProjectileImpact = { index = 1, uberIndex = 2 },
-	MavenMemoryGame = { index = 1 },
+	CleansingFireWall = { index = 1, oldMethod = true },
+	GSConsumeBossDisintegrateBeam = { index = 1, oldMethod = true },
+	MavenSuperFireProjectileImpact = { index = 1, uberIndex = 2, oldMethod = true },
+	MavenMemoryGame = { index = 1, oldMethod = true },
+}
+local oldMethod = {
+	AtziriFlameblast = { Fire = { 1210.408, 0 } },
+	AtlasBossAcceleratingProjectiles = { Cold = { 3358.0288, 0 } },
+	AtlasBossFlickerSlam = { Physical = { 1769.847, 0 } },
+	AtlasExileOrionCircleMazeBlast3 = { Physical = { 18154.481, 0 }, SkillUberDamageMult = 152 },
+	CleansingFireWall = { Fire = { 3304.677, 20 } },
+	GSConsumeBossDisintegrateBeam = { Lightning = { 3735.061, 50 } },
+	MavenSuperFireProjectileImpact = { Fire = { 4955.383, 0 }, SkillUberDamageMult = 201 },
+	MavenMemoryGame = { Physical = { 34505.376, 0 } },
 }
 
 -- exports and calculates the damage multipliers of the skill
@@ -62,28 +72,28 @@ local function calcSkillDamage(state)
 	end
 	-- old method with hardcoded values (Still used for Shaper Slam)
 	if baseDamage[grantedId].oldMethod then
-		if baseDamage[grantedId].Physical then
+		if oldMethod[grantedId].Physical then
 			local totalConversions = physConversions[2] + physConversions[3] + physConversions[4] + physConversions[5]
 			local conversionDivisor = m_max(totalConversions, 100)
 			physConversions = { m_max(1 - totalConversions / 100, 0), physConversions[2] / conversionDivisor, physConversions[3] / conversionDivisor, physConversions[4] / conversionDivisor, physConversions[5] / conversionDivisor }
 		end
-		if baseDamage[grantedId].Physical and physConversions[1] ~= 0 then
-			local damageRange = (baseDamage[grantedId].Physical[2] == 0) and (boss.damageRange / 100) or baseDamage[grantedId].Physical[2] / 100
-			local damageMult = baseDamage[grantedId].Physical[1] * physConversions[1] * state.SkillExtraDamageMult * ExtraDamageMult[1] * boss.damageMult / 100 * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1)
+		if oldMethod[grantedId].Physical and physConversions[1] ~= 0 then
+			local damageRange = (oldMethod[grantedId].Physical[2] == 0) and (boss.damageRange / 100) or oldMethod[grantedId].Physical[2] / 100
+			local damageMult = oldMethod[grantedId].Physical[1] * physConversions[1] * state.SkillExtraDamageMult * ExtraDamageMult[1] * boss.damageMult / 100 * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1)
 			state.DamageData["PhysicalDamageMultMin"], state.DamageData["PhysicalDamageMultMax"] = damageMult * ( 1 - damageRange ), damageMult * ( 1 + damageRange )
 		end
 		for i, damageType in ipairs({"Lightning", "Cold", "Fire", "Chaos"}) do
-			if baseDamage[grantedId][damageType] or (baseDamage[grantedId].Physical and physConversions[i + 1] ~= 0) then
+			if oldMethod[grantedId][damageType] or (oldMethod[grantedId].Physical and physConversions[i + 1] ~= 0) then
 				local damageMult = state.SkillExtraDamageMult * ExtraDamageMult[1] * boss.damageMult / 100 * (rarityDamageMult[boss.rarity] or 1) / (monsterBaseDamage[monsterLevel] or 1)
 				state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = 0, 0
-				if baseDamage[grantedId][damageType] then
-					local damageRange = (baseDamage[grantedId][damageType][2] == 0) and (boss.damageRange / 100) or baseDamage[grantedId][damageType][2] / 100
-					local damageMult = baseDamage[grantedId][damageType][1] * damageMult
+				if oldMethod[grantedId][damageType] then
+					local damageRange = (oldMethod[grantedId][damageType][2] == 0) and (boss.damageRange / 100) or oldMethod[grantedId][damageType][2] / 100
+					local damageMult = oldMethod[grantedId][damageType][1] * damageMult
 					state.DamageData[damageType.."DamageMultMin"], state.DamageData[damageType.."DamageMultMax"] = damageMult * ( 1 - damageRange ), damageMult * ( 1 + damageRange )
 				end
-				if baseDamage[grantedId].Physical and physConversions[i + 1] ~= 0 then
-					local damageRange = (baseDamage[grantedId].Physical[2] == 0) and (boss.damageRange / 100) or baseDamage[grantedId].Physical[2] / 100
-					local damageMult = (baseDamage[grantedId].Physical[1] * physConversions[i + 1]) * damageMult
+				if oldMethod[grantedId].Physical and physConversions[i + 1] ~= 0 then
+					local damageRange = (oldMethod[grantedId].Physical[2] == 0) and (boss.damageRange / 100) or oldMethod[grantedId].Physical[2] / 100
+					local damageMult = (oldMethod[grantedId].Physical[1] * physConversions[i + 1]) * damageMult
 					state.DamageData[damageType.."DamageMultMin"] = state.DamageData[damageType.."DamageMultMin"] + damageMult * ( 1 - damageRange )
 					state.DamageData[damageType.."DamageMultMax"] = state.DamageData[damageType.."DamageMultMax"] + damageMult * ( 1 + damageRange )
 				end
@@ -91,6 +101,9 @@ local function calcSkillDamage(state)
 		end
 		if ExtraDamageMult[1] ~= ExtraDamageMult[2] then
 			state.DamageData.SkillUberDamageMult = 100 * ExtraDamageMult[2] / ExtraDamageMult[1]
+		end
+		if oldMethod[grantedId].SkillUberDamageMult then
+			state.DamageData.SkillUberDamageMult = oldMethod[grantedId].SkillUberDamageMult
 		end
 	else
 		-- new method
@@ -160,7 +173,7 @@ local function calcSkillDamage(state)
 			end
 			SkillUberDamageMult = (SkillUberDamageMult / (monsterBaseDamage[uberMonsterLevel] or 1)) / (SkillDamageMult / (monsterBaseDamage[monsterLevel] or 1))
 			if SkillUberDamageMult > 1.15 or SkillUberDamageMult < 0.85 then
-				state.DamageData.SkillUberDamageMult = m_ceil(SkillUberDamageMult * 10 - 1) * 10
+				state.DamageData.SkillUberDamageMult = m_ceil(SkillUberDamageMult * 100)
 			end
 		end
 	end
