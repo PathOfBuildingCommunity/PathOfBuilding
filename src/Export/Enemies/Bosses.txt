@@ -5,13 +5,13 @@
 --
 local bosses = ...
 
-#boss SynthesisVenarius Venarius
-#boss AtlasInvadersConsumeBoss EaterOfWorlds
-#boss AtlasInvadersCleansingBoss SearingExarch
-#boss TheMaven Maven
-#boss AtlasExiles5 Sirus
-#boss TheShaperBoss Shaper
-#boss TheElder Elder
+#boss SynthesisVenarius Venarius {Uber}
+#boss AtlasInvadersConsumeBoss EaterOfWorlds {Uber}
+#boss AtlasInvadersCleansingBoss SearingExarch {Uber}
+#boss TheMaven Maven {Uber}
+#boss AtlasExiles5 Sirus {Uber}
+#boss TheShaperBoss Shaper {Uber}
+#boss TheElder Elder {Uber}
 
 #boss AtlasInvadersBlackStarBoss BlackStar
 #boss AtlasInvadersDoomBoss InfiniteHunger

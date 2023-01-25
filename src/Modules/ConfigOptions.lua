@@ -1556,8 +1556,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 
-			local defaultArmour = round(data.monsterArmourTable[defaultLevel] * (1 + data.pinnacles.ArmourMult/100))
-			local defaultEvasion = round(data.monsterEvasionTable[defaultLevel] * (1 + data.pinnacles.EvasionMult/100))
+			local defaultArmour = round(data.monsterArmourTable[defaultLevel] * (1 + data.bossStats.PinnacleArmourMean/100))
+			local defaultEvasion = round(data.monsterEvasionTable[defaultLevel] * (1 + data.bossStats.PinnacleEvasionMean/100))
 			build.configTab.varControls['enemyArmour']:SetPlaceholder(defaultArmour, true)
 			build.configTab.varControls['enemyEvasion']:SetPlaceholder(defaultEvasion, true)
 		elseif val == "Uber" then
@@ -1590,8 +1590,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.uberBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
 
-			local defaultArmour = round(data.monsterArmourTable[defaultLevel] * (1 + data.ubers.ArmourMult/100))
-			local defaultEvasion = round(data.monsterEvasionTable[defaultLevel] * (1 + data.ubers.EvasionMult/100))
+			local defaultArmour = round(data.monsterArmourTable[defaultLevel] * (1 + data.bossStats.UberArmourMean/100))
+			local defaultEvasion = round(data.monsterEvasionTable[defaultLevel] * (1 + data.bossStats.UberArmourMean/100))
 			build.configTab.varControls['enemyArmour']:SetPlaceholder(defaultArmour, true)
 			build.configTab.varControls['enemyEvasion']:SetPlaceholder(defaultEvasion, true)
 		end

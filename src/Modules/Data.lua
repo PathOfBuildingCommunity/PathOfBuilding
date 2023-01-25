@@ -986,28 +986,35 @@ for _, minion in pairs(data.minions) do
 end
 
 -- Load bosses
-function meanMults (bosstable)
-	local count = 0
-	local armourTotal = 0
-	local evasionTotal = 0
-	for _, boss in pairs(bosstable) do
-		count = count + 1
-		armourTotal = armourTotal + boss.armourMult
-		evasionTotal = evasionTotal + boss.evasionMult
+data.bosses = { }
+LoadModule("Data/Bosses", data.bosses)
+
+local count = 0
+local uberCount = 0
+
+local armourTotal = 0
+local evasionTotal = 0
+
+local uberArmourTotal = 0
+local uberEvasionTotal = 0
+
+for _, boss in pairs(data.bosses) do
+	if boss.isUber then
+		uberCount = uberCount + 1
+		uberArmourTotal = uberArmourTotal + boss.armourMult
+		uberEvasionTotal = uberEvasionTotal + boss.evasionMult
 	end
-	return armourTotal/count, evasionTotal/count
+	count = count + 1
+	armourTotal = armourTotal + boss.armourMult
+	evasionTotal = evasionTotal + boss.evasionMult
 end
 
-data.pinnacles = { }
-LoadModule("Data/Pinnacles", data.pinnacles)
-local armourMean, evasionMean = meanMults(data.pinnacles)
-data.pinnacles.ArmourMult = armourMean
-data.pinnacles.EvasionMult = evasionMean
-data.ubers = { }
-LoadModule("Data/Ubers", data.ubers)
-local armourMean, evasionMean = meanMults(data.ubers)
-data.ubers.ArmourMult = armourMean
-data.ubers.EvasionMult = evasionMean
+data.bossStats = {
+	PinnacleArmourMean=armourTotal/count,
+	PinnacleEvasionMean=evasionTotal/count,
+	UberArmourMean=uberArmourTotal/uberCount,
+	UberEvasionMean=uberEvasionTotal/uberCount
+}
 
 -- Item bases
 data.itemBases = { }
