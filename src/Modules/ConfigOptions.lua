@@ -1493,8 +1493,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
 
-			build.configTab.varControls['enemyEvasionMult']:SetPlaceholder("", true)
-			build.configTab.varControls['enemyArmourMult']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyArmour']:SetPlaceholder(data.monsterArmourTable[defaultLevel], true)
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder(data.monsterEvasionTable[defaultLevel], true)
 		elseif val == "Boss" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("AilmentThreshold", "MORE", 488, "Boss")
@@ -1525,8 +1525,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
 
-			build.configTab.varControls['enemyEvasionMult']:SetPlaceholder("", true)
-			build.configTab.varControls['enemyArmourMult']:SetPlaceholder("", true)
+			build.configTab.varControls['enemyArmour']:SetPlaceholder(data.monsterArmourTable[defaultLevel], true)
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder(data.monsterEvasionTable[defaultLevel], true)
 		elseif val == "Pinnacle" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1556,8 +1556,10 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 
-			build.configTab.varControls['enemyEvasionMult']:SetPlaceholder(round(data.pinnacles.EvasionMult), true)
-			build.configTab.varControls['enemyArmourMult']:SetPlaceholder(round(data.pinnacles.ArmourMult), true)
+			local defaultArmour = round(data.monsterArmourTable[defaultLevel] * (1 + data.pinnacles.ArmourMult/100))
+			local defaultEvasion = round(data.monsterEvasionTable[defaultLevel] * (1 + data.pinnacles.EvasionMult/100))
+			build.configTab.varControls['enemyArmour']:SetPlaceholder(defaultArmour, true)
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder(defaultEvasion, true)
 		elseif val == "Uber" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1588,8 +1590,10 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.uberBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
 
-			build.configTab.varControls['enemyEvasionMult']:SetPlaceholder(round(data.ubers.EvasionMult), true)
-			build.configTab.varControls['enemyArmourMult']:SetPlaceholder(round(data.ubers.ArmourMult), true)
+			local defaultArmour = round(data.monsterArmourTable[defaultLevel] * (1 + data.ubers.ArmourMult/100))
+			local defaultEvasion = round(data.monsterEvasionTable[defaultLevel] * (1 + data.ubers.EvasionMult/100))
+			build.configTab.varControls['enemyArmour']:SetPlaceholder(defaultArmour, true)
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder(defaultEvasion, true)
 		end
 	end },
 	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 80% Less Damage", apply = function(val, modList, enemyModList)
@@ -1632,12 +1636,11 @@ Uber Pinnacle Boss adds the following modifiers:
 	{ var = "enemyBlockChance", type = "integer", label = "Enemy Block Chance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("BlockChance", "BASE", val, "Config")
 	end },
-	{ var = "enemyEvasionMult", type = "count", label = "Enemy Base Evasion Multiplier:", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Evasion", "MORE", val, "Boss")
-		-- enemyModList:NewMod("Evasion", "OVERRIDE", val, "Config")
+	{ var = "enemyEvasion", type = "count", label = "Enemy Base Evasion:", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Evasion", "BASE", val, "Config")
 	end },
-	{ var = "enemyArmourMult", type = "count", label = "Enemy Base Armour Multiplier:", apply = function(val, modList, enemyModList)
-		enemyModList:NewMod("Armour", "MORE", val, "Boss")
+	{ var = "enemyArmour", type = "count", label = "Enemy Base Armour:", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Armour", "BASE", val, "Config")
 	end },
 	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = [[
 Used to fill in defaults for specific boss skills if the boss config is not set
