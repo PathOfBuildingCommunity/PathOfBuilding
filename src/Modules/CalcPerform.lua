@@ -3600,6 +3600,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			end
 			totemMod.name = totemModName
 			modDB:AddMod(totemMod)
+		end
 	end
 	if allyBuffs["extraAura"] then
 		for _, buff in pairs(allyBuffs["extraAura"]) do
