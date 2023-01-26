@@ -2007,7 +2007,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						local mult = (1 + inc / 100) * more
 						if modDB:Flag(nil, "AlliesAurasCannotAffectSelf") or not allyBuffs["Aura"] or not allyBuffs["Aura"][buff.name] or allyBuffs["Aura"][buff.name].effectMult / 100 <= mult then
 							activeSkill.buffSkill = true
-							affectedByAura[env.player] = true
+							modDB.conditions["AffectedByAura"] = true
 							if buff.name:sub(1,4) == "Vaal" then
 								modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
 							end
@@ -2025,8 +2025,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							local mult = (1 + inc / 100) * more
 							if not allyBuffs["Aura"] or  not allyBuffs["Aura"][buff.name] or allyBuffs["Aura"][buff.name].effectMult / 100 <= mult then
 								activeSkill.minionBuffSkill = true
-								affectedByAura[env.minion] = true
 								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								env.minion.modDB.conditions["AffectedByAura"] = true
 								local srcList = new("ModList")
 								srcList:ScaleAddList(buff.modList, mult)
 								srcList:ScaleAddList(extraAuraModList, mult)
@@ -2253,7 +2253,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		for auraName, aura in pairs(allyBuffs["Aura"]) do
 			local auraNameCompressed = auraName:gsub(" ","")
 			if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..auraNameCompressed] then
-				affectedByAura[env.player] = true
+				modDB.conditions["AffectedByAura"] = true
 				if auraName:sub(1,4) == "Vaal" then
 					modDB.conditions["AffectedBy"..auraName:sub(6):gsub(" ","")] = true
 				end
@@ -2263,7 +2263,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				mergeBuff(srcList, buffs, auraName)
 			end
 			if env.minion and not env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] then
-				affectedByAura[env.minion] = true
+				env.minion.modDB.conditions["AffectedByAura"] = true
 				env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] = true
 				local srcList = new("ModList")
 				srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
