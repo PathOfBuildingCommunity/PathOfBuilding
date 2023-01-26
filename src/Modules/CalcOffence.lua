@@ -4524,7 +4524,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		
 		-- Special handling for self hit skills
-		-- These need to be handled higher up in this file usin runFuncs for correct DPS calcs
+		-- These need to be handled higher up in this file using runFuncs for correct DPS calcs
 		for selfHitSkill, displayName in pairs({["BSDamageTaken"] = "Boneshatter", ["FRDamageTaken"] = "Forbidden Rite"}) do
 			if output[selfHitSkill] then
 				output.SelfHitDamage = (output.SelfHitDamage or 0) + output[selfHitSkill]
@@ -4565,27 +4565,26 @@ function calcs.offence(env, actor, activeSkill)
 						if GlobalCache.cachedData[calcMode][uuid] then
 							local skill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 							local output = GlobalCache.cachedData[calcMode][uuid].Env.player.output
-							local skillname = skill.activeEffect.grantedEffect.name
+							local skillName = skill.activeEffect.grantedEffect.name
 							if skill.activeEffect.grantedEffect["initialFunc"] or
 								skill.activeEffect.grantedEffect["preSkillTypeFunc"] or
 								skill.activeEffect.grantedEffect["preDamageFunc"] or
 								skill.activeEffect.grantedEffect["preDotFunc"] then
-								local dmgtaken =  output[skillToSelfHitOutput[skillname]]
-								if dmgtaken then
-									t_insert(dmgPerSkill, {skillname, dmgtaken})
-									dmgFromThisGroup = dmgFromThisGroup + dmgtaken
+								local dmgTaken =  output[skillToSelfHitOutput[skillName]]
+								if dmgTaken then
+									t_insert(dmgPerSkill, {skillName, dmgTaken})
+									dmgFromThisGroup = dmgFromThisGroup + dmgTaken
 								end
-								ConPrintf(skillname)
 							else
 								local totalDamage
 								for _, sourceFunc in pairs(itemNameToHandler) do
-									local _, dmgtaken = sourceFunc(skill, output)
-									if dmgtaken then
-										totalDamage = (totalDamage or 0) + dmgtaken
+									local _, dmgTaken = sourceFunc(skill, output)
+									if dmgTaken then
+										totalDamage = (totalDamage or 0) + dmgTaken
 									end
 								end
 								if totalDamage then
-									t_insert(dmgPerSkill, {skillname, totalDamage})
+									t_insert(dmgPerSkill, {skillName, totalDamage})
 									dmgFromThisGroup = dmgFromThisGroup + dmgTaken
 								end
 							end
