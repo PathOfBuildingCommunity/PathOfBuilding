@@ -51,36 +51,30 @@ local function packageSkillDataForSimulation(skill)
 end
 
 -- Calculate Trigger Rate Cap accounting for ICDR and trigger cooldown
-local function getTriggerRateCap(env, breakdown, output)
+local function getTriggerRateCap(env, actor)
 	local icdr = 1
 	local cooldownOverride = false
+	local output = actor.output
+	local breakdown = actor.breakdown
 	
-	if env.minion then
-		icdr = calcLib.mod(env.minion.mainSkill.skillModList, env.minion.mainSkill.skillCfg, "CooldownRecovery")
-		cooldownOverride = env.minion.mainSkill.skillModList:Override(env.minion.mainSkill.skillCfg, "CooldownRecovery")
-		-- minions can't use trigger gems
-		triggeredCD = env.minion.mainSkill.skillData.cooldown	
-	else
-		icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
-		cooldownOverride = env.player.mainSkill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
-		
-		triggerCD = (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown)
-		triggeredCD = env.player.mainSkill.skillData.cooldown
-	end	
+	local icdr = calcLib.mod(actor.mainSkill.skillModList, actor.mainSkill.skillCfg, "CooldownRecovery")
+	local cooldownOverride = actor.mainSkill.skillModList:Override(actor.mainSkill.skillCfg, "CooldownRecovery")
+	local triggerCD = (actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown)
+	local triggeredCD = actor.mainSkill.skillData.cooldown
 	
-	if env.player.mainSkill.skillData.triggeredByBrand then
-		triggerCD = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency / env.player.mainSkill.triggeredBy.activationFreqMore / env.player.mainSkill.triggeredBy.activationFreqInc
+	if actor.mainSkill.skillData.triggeredByBrand then
+		triggerCD = actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency / actor.mainSkill.triggeredBy.activationFreqMore / actor.mainSkill.triggeredBy.activationFreqInc
 		triggerCD = triggerCD * icdr -- cancels out division by icdr lower, brand activation rate is not affected by icdr
 	end
 	
-	local triggeredName = (env.player.mainSkill.activeEffect.grantedEffect.name and env.player.mainSkill.activeEffect.grantedEffect and env.player.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
-	local triggerName = (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or "Trigger"
-	if env.player.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
-		local base = env.player.mainSkill.skillData.castTimeOverride or env.player.mainSkill.activeEffect.grantedEffect.castTime or 1
-		local inc = env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed")
-		local more = env.player.mainSkill.skillModList:More(env.player.mainSkill.skillCfg, "Speed")
+	local triggeredName = (actor.mainSkill.activeEffect.grantedEffect and actor ~= env.minion and actor.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
+	local triggerName = (actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name) or "Trigger"
+	if actor.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
+		local base = actor.mainSkill.skillData.castTimeOverride or actor.mainSkill.activeEffect.grantedEffect.castTime or 1
+		local inc = actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "Speed")
+		local more = actor.mainSkill.skillModList:More(actor.mainSkill.skillCfg, "Speed")
 		output.addsCastTime = base / round((1 + inc/100) * more, 2)
-		env.player.mainSkill.skillFlags.addsCastTime = true
+		actor.mainSkill.skillFlags.addsCastTime = true
 		if breakdown then
 			breakdown.AddedCastTime = {
 				s_format("%.2f ^8(base cast time of %s)", base, triggeredName),
@@ -101,7 +95,7 @@ local function getTriggerRateCap(env, breakdown, output)
 	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	
-	if env.player.mainSkill.skillData.triggeredByBrand then
+	if actor.mainSkill.skillData.triggeredByBrand then
 		extraICDRNeeded = m_ceil(((triggeredCD or 0) / icdr - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	end
 	
@@ -164,7 +158,7 @@ local function getTriggerRateCap(env, breakdown, output)
 					s_format("= %.2f ^8per second", triggerRate),
 				}
 			else
-				env.player.mainSkill.skillFlags.hasOverride = true
+				actor.mainSkill.skillFlags.hasOverride = true
 				breakdown.TriggerRateCap = {
 					s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName),
 					"",
@@ -180,16 +174,16 @@ local function getTriggerRateCap(env, breakdown, output)
 					s_format("1 / %.3f", rateCapAdjusted),
 					s_format("= %.2f ^8per second", triggerRate),
 				}
-				if extraICDRNeeded and not env.player.mainSkill.skillData.triggeredByBrand then
+				if extraICDRNeeded and not actor.mainSkill.skillData.triggeredByBrand then
 					t_insert(breakdown.TriggerRateCap, 10, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded))
 				end
 				if extraCSIncNeeded then
 					t_insert(breakdown.TriggerRateCap, 10, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
 				end
-				if env.player.mainSkill.skillData.triggeredByBrand then
-					breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
-					breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", env.player.mainSkill.triggeredBy.activationFreqMore)
-					t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", env.player.mainSkill.triggeredBy.activationFreqInc))
+				if actor.mainSkill.skillData.triggeredByBrand then
+					breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
+					breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore)
+					t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc))
 				end
 				if output.addsCastTime then
 					t_insert(breakdown.TriggerRateCap, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
@@ -241,10 +235,10 @@ local function getTriggerRateCap(env, breakdown, output)
 					if extraCSIncNeeded then
 						t_insert(breakdown.TriggerRateCap, 12, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
 					end
-					if env.player.mainSkill.skillData.triggeredByBrand then
-						breakdown.TriggerRateCap[5] = s_format("%.2f ^8(base activation cooldown of %s)", env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
-						breakdown.TriggerRateCap[6] = s_format("/ %.2f ^8(more activation frequency)", env.player.mainSkill.triggeredBy.activationFreqMore)
-						t_insert(breakdown.TriggerRateCap, 6 , s_format("/ %.2f ^8(increased activation frequency)", env.player.mainSkill.triggeredBy.activationFreqInc))
+					if actor.mainSkill.skillData.triggeredByBrand then
+						breakdown.TriggerRateCap[5] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
+						breakdown.TriggerRateCap[6] = s_format("/ %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore)
+						t_insert(breakdown.TriggerRateCap, 6 , s_format("/ %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc))
 					end
 					if output.addsCastTime then
 						t_insert(breakdown.TriggerRateCap, 3, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
@@ -287,16 +281,16 @@ local function getTriggerRateCap(env, breakdown, output)
 					s_format("1 / %.3f", rateCapAdjusted),
 					s_format("= %.2f ^8per second", triggerRate),
 				}
-				if extraICDRNeeded and not env.player.mainSkill.skillData.triggeredByBrand then
+				if extraICDRNeeded and not actor.mainSkill.skillData.triggeredByBrand then
 					t_insert(breakdown.TriggerRateCap, 10, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded))
 				end
 				if extraCSIncNeeded then
 					t_insert(breakdown.TriggerRateCap, 10, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
 				end
-				if env.player.mainSkill.skillData.triggeredByBrand then
-					breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
-					breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", env.player.mainSkill.triggeredBy.activationFreqMore)
-					t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", env.player.mainSkill.triggeredBy.activationFreqInc))
+				if actor.mainSkill.skillData.triggeredByBrand then
+					breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
+					breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore)
+					t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc))
 				end
 				if output.addsCastTime then
 					t_insert(breakdown.TriggerRateCap, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
@@ -311,7 +305,7 @@ end
 
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
-function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD)
+function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 	local SIM_RESOLUTION = 2
 	-- the breaking points are values in attacks per second
 	local function quickSim(env, skills, sourceRate)
@@ -481,7 +475,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD)
 	local mainRate
 	local trigRateTable = { simRes = SIM_RESOLUTION, rates = {}, }
 	for _, sd in ipairs(skills) do
-		if cacheSkillUUID(env.player.mainSkill) == sd.uuid or env.minion and cacheSkillUUID(env.minion.mainSkill) == sd.uuid then
+		if cacheSkillUUID(actor.mainSkill) == sd.uuid then
 			mainRate = sd.rate
 		end
 		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.rate })
@@ -493,32 +487,35 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD)
 end
 
 -- Calculate the actual Trigger rate of active skill causing the trigger
-local function calcActualTriggerRate(env, source, sourceAPS, spellCount, output, breakdown)
+local function calcActualTriggerRate(env, source, sourceAPS, triggeredSkills, actor)
 	local icdr, triggerCD, triggeredCD
-	output.TriggerRateCap, icdr, triggerCD, triggeredCD = getTriggerRateCap(env, breakdown, output)
+	local output = actor.output
+	local breakdown = actor.breakdown
+	
+	output.TriggerRateCap, icdr, triggerCD, triggeredCD = getTriggerRateCap(env, actor)
 	
 	if sourceAPS ~= nil then
 		output.EffectiveSourceRate = sourceAPS
 	else
 		output.EffectiveSourceRate = data.misc.ServerTickRate / m_ceil( (triggerCD or triggeredCD or 0) / icdr * data.misc.ServerTickRate)
-		env.player.mainSkill.skillFlags.globalTrigger = true
+		actor.mainSkill.skillFlags.globalTrigger = true
 	end
 	
-	if breakdown and not env.player.mainSkill.skillData.sourceRateIsFinal then
+	if breakdown and not actor.mainSkill.skillData.sourceRateIsFinal then
 		t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Effective source rate)", output.EffectiveSourceRate))
 	end
 	
-	local skillName = (source and source.activeEffect.grantedEffect.name) or (env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name
+	local skillName = (source and source.activeEffect.grantedEffect.name) or (actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name) or actor.mainSkill.activeEffect.grantedEffect.name
 	
 	--If spell count is missing the skill likely comes from a unique and /or triggers it self
 	if output.EffectiveSourceRate ~= 0 then
-		if env.player.mainSkill.skillFlags.globalTrigger and not spellCount then
+		if actor.mainSkill.skillFlags.globalTrigger and not triggeredSkills then
 			output.SkillTriggerRate = output.EffectiveSourceRate
 		else
-			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount or {packageSkillDataForSimulation(env.player.mainSkill)}, output.EffectiveSourceRate, (triggerCD or triggeredCD or 0) / icdr)
-			if breakdown and spellCount then
+			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill)}, output.EffectiveSourceRate, (triggerCD or triggeredCD or 0) / icdr, actor)
+			if breakdown and triggeredSkills then
 				breakdown.SkillTriggerRate = {
-					s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (env.player.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
+					s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
 					s_format("/ %.2f ^8(Estimated impact of linked spells)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
 					s_format("= %.2f ^8per second", output.SkillTriggerRate),
 					"",
@@ -2912,7 +2909,7 @@ function calcs.perform(env, avoidCache)
 		env.player.mainSkill.skillFlags.globalTrigger = true
 	elseif env.player.mainSkill.skillData.triggeredWhileChannelling and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 		--Cast While Channeling Special Handling
-		local spellCount = {}
+		local triggeredSkills = {}
 		local trigRate = 0
 		local source = nil
 		local triggerName = "Cast While Channeling"
@@ -2924,10 +2921,10 @@ function calcs.perform(env, avoidCache)
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
-				t_insert(spellCount, packageSkillDataForSimulation(skill))
+				t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
 			end
 		end
-		if not source or #spellCount < 1 then
+		if not source or #triggeredSkills < 1 then
 			env.player.mainSkill.skillData.triggered = nil
 			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
 			env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
@@ -2966,7 +2963,7 @@ function calcs.perform(env, avoidCache)
 			
 			local simBreakdown = nil
 			output.TriggerRateCap = m_min(1 / effCDTriggeredSkill, triggerRateOfTrigger)
-			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, spellCount, triggerRateOfTrigger, 0)
+			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, triggeredSkills, triggerRateOfTrigger, 0)
 			
 			if breakdown then
 				if triggeredCD or cooldownOverride then
@@ -3165,7 +3162,7 @@ function calcs.perform(env, avoidCache)
 		local uniqueTriggerName = getUniqueItemTriggerName(env.player.mainSkill)
 		local triggerName = uniqueTriggerName
 		local skip = false
-		local spellCount = {}
+		local triggeredSkills = {}
 		local trigRate = nil
 		local source = nil
 		local triggerChance = env.player.mainSkill.activeEffect and env.player.mainSkill.activeEffect.srcInstance and env.player.mainSkill.activeEffect.srcInstance.triggerChance
@@ -3188,12 +3185,12 @@ function calcs.perform(env, avoidCache)
 		if uniqueTriggerName then
 			env.player.mainSkill.skillData.triggeredByUnique = true
 			if uniqueTriggerName == "Law of the Wilds" then
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Claw) > 0 and skill ~= env.player.mainSkill 
 				end
 			elseif (uniqueTriggerName == "The Rippling Thoughts" or uniqueTriggerName == "The Surging Thoughts") and env.player.mainSkill.activeEffect.grantedEffect.name == "Storm Cascade" then
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Atziri's Rule" then
 				--Atziri's rule The judgement staff is an item that grants Queen's Demand skill that can trigger other skills from the same item
@@ -3203,7 +3200,7 @@ function calcs.perform(env, avoidCache)
 				if modDB:Flag(nil, "Condition:Phasing") then
 					--self trigger
 					source = env.player.mainSkill
-					spellCount = nil
+					triggeredSkills = nil
 					env.player.mainSkill.skillFlags.globalTrigger = true
 				else
 					env.player.mainSkill.skillFlags.disable = true
@@ -3212,46 +3209,46 @@ function calcs.perform(env, avoidCache)
 				end
 			elseif uniqueTriggerName == "Replica Eternity Shroud" or uniqueTriggerName == "Shroud of the Lightless" then
 				source = env.player.mainSkill
-				spellCount = nil
+				triggeredSkills = nil
 				env.player.mainSkill.skillFlags.globalTrigger = true
 			elseif uniqueTriggerName == "Limbsplit" or uniqueTriggerName == "The Cauteriser" then
 				triggerName = "Gore Shockwave"
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Duskblight" then
 				triggerName = "Stalking Pustule"
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Lioneye's Paws" or uniqueTriggerName == "Replica Lioneye's Paws" then
 				--cooldown taken from wiki
 				env.player.mainSkill.skillData.cooldown = 1
 				triggerOnUse = true
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Moonbender's Wing" then
 				triggerName = "Lightning Warp"
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Ngamahu's Flame" then
 				triggerName = "Molten Burst"
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Cameria's Avarice" then
 				triggerName = "Icicle Burst"
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Uul-Netol's Embrace" then
 				triggerName = "Bone Nova"
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif  uniqueTriggerName == "Rigwald's Crest" or uniqueTriggerName == "Jorrhast's Blacksteel" or uniqueTriggerName == "Ashcaller" then
 				env.player.mainSkill.skillData.sourceRateIsFinal = true
 				assumingEveryHitKills = true
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Arakaali's Fang" or uniqueTriggerName == "Sporeguard" or uniqueTriggerName == "Mark of the Elder" or uniqueTriggerName == "Mark of the Shaper" then
 				assumingEveryHitKills = true
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
 			elseif uniqueTriggerName == "Poet's Pen" then
 				triggerOnUse = true
@@ -3286,7 +3283,7 @@ function calcs.perform(env, avoidCache)
 				triggerSkillCond = function(env, skill)
 					return skill.skillTypes[SkillType.Hex] and skill ~= env.player.mainSkill
 				end
-				spellCount = nil
+				triggeredSkills = nil
 				useCastRate = true
 			elseif uniqueTriggerName == "Queen's Demand" then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
@@ -3309,13 +3306,13 @@ function calcs.perform(env, avoidCache)
 						end
 					end
 					if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
-						t_insert(spellCount, packageSkillDataForSimulation(skill))
+						t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
 					end
 				end
 			elseif env.player.mainSkill.skillData.triggeredByManaSpent then
 				triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance")
 				triggerName = "Kitava's Thirst"
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredByManaSpent end
 			elseif env.player.mainSkill.skillData.triggeredByMjolner then
 				triggerSkillCond = function(env, skill)
@@ -3358,7 +3355,7 @@ function calcs.perform(env, avoidCache)
 				output = actor.output
 				breakdown = actor.breakdown
 				minion = true
-				spellCount = {{ uuid = cacheSkillUUID(actor.mainSkill), cd = actor.mainSkill.skillData.cooldown}}
+				triggeredSkills = {{ uuid = cacheSkillUUID(actor.mainSkill), cd = actor.mainSkill.skillData.cooldown}}
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill end
 			elseif env.player.mainSkill.skillData.triggeredByDamageTaken then
 				triggerName = "Cast When Damage Taken"
@@ -3370,17 +3367,17 @@ function calcs.perform(env, avoidCache)
 				globalTrigger = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByStunned and slotMatch(env, skill) end
 			elseif env.player.mainSkill.skillData.triggeredBySpellSlinger then
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill)
 					local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
 					return isWandAttack and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredBySpellSlinger
 				end
 			elseif env.player.mainSkill.skillData.triggerMarkOnRareOrUnique then
-				spellCount = nil
+				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill end
 			elseif env.player.mainSkill.skillData.triggeredByCurseOnHit then
 				triggerName = "Hextouch"
-				spellCount = nil
+				triggeredSkills = nil
 				env.player.mainSkill.skillFlags.globalTrigger = true
 				env.player.mainSkill.skillData.sourceRateIsFinal = true
 				triggerSkillCond = function(env, skill)
@@ -3391,7 +3388,7 @@ function calcs.perform(env, avoidCache)
 				--Self trigger
 				env.player.mainSkill.skillFlags.globalTrigger = true
 				source = env.player.mainSkill
-				spellCount = nil
+				triggeredSkills = nil
 			elseif env.player.mainSkill.skillData.triggeredByBrand and not env.player.mainSkill.skillFlags.minion then
 				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
 				env.player.mainSkill.skillData.sourceRateIsFinal = true
@@ -3427,12 +3424,12 @@ function calcs.perform(env, avoidCache)
 					if triggerSkillCond and triggerSkillCond(env, skill) and not triggered then
 						source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate or 0)
 					end
-					if triggeredSkillCond and triggeredSkillCond(env,skill) and spellCount ~= nil then
-						t_insert(spellCount, packageSkillDataForSimulation(skill))
+					if triggeredSkillCond and triggeredSkillCond(env,skill) and triggeredSkills ~= nil then
+						t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
 					end
 				end
 			end
-			if ((spellCount ~= nil and #spellCount > 0) or not spellCount) then
+			if ((triggeredSkills ~= nil and #triggeredSkills > 0) or not triggeredSkills) then
 				if not source and not globalTrigger then
 					actor.mainSkill.skillData.triggered = nil
 					actor.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
@@ -3519,7 +3516,7 @@ function calcs.perform(env, avoidCache)
 						end
 					end
 					
-					actor.mainSkill.skillData.triggerRate = calcActualTriggerRate(env, source, trigRate, spellCount, output, breakdown)
+					actor.mainSkill.skillData.triggerRate = calcActualTriggerRate(env, source, trigRate, triggeredSkills, actor)
 					
 					-- Account for Trigger-related INC/MORE modifiers
 					output.Speed = actor.mainSkill.skillData.triggerRate
