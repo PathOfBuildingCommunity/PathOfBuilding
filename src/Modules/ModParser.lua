@@ -3540,11 +3540,11 @@ local specialModList = {
 	["deal no chaos damage"] = { flag("DealNoChaos") },
 	["deal no damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos"), flag("DealNoPhysical") },
 	["you can't deal damage with skills yourself"] = {
-		flag("DealNoLightning", { type = "SkillType", skillType = SkillType.Minion, neg = true }, { type = "SkillType", skillType = SkillType.SummonsTotem, neg = true }, { type = "SkillType", skillType = SkillType.RemoteMined, neg = true }, { type = "SkillType", skillType = SkillType.Trapped, neg = true } ),
-		flag("DealNoCold", 		{ type = "SkillType", skillType = SkillType.Minion, neg = true }, { type = "SkillType", skillType = SkillType.SummonsTotem, neg = true }, { type = "SkillType", skillType = SkillType.RemoteMined, neg = true }, { type = "SkillType", skillType = SkillType.Trapped, neg = true } ),
-		flag("DealNoFire", 		{ type = "SkillType", skillType = SkillType.Minion, neg = true }, { type = "SkillType", skillType = SkillType.SummonsTotem, neg = true }, { type = "SkillType", skillType = SkillType.RemoteMined, neg = true }, { type = "SkillType", skillType = SkillType.Trapped, neg = true } ),
-		flag("DealNoChaos", 	{ type = "SkillType", skillType = SkillType.Minion, neg = true }, { type = "SkillType", skillType = SkillType.SummonsTotem, neg = true }, { type = "SkillType", skillType = SkillType.RemoteMined, neg = true }, { type = "SkillType", skillType = SkillType.Trapped, neg = true } ),
-		flag("DealNoPhysical", 	{ type = "SkillType", skillType = SkillType.Minion, neg = true }, { type = "SkillType", skillType = SkillType.SummonsTotem, neg = true }, { type = "SkillType", skillType = SkillType.RemoteMined, neg = true }, { type = "SkillType", skillType = SkillType.Trapped, neg = true } )
+		flag("DealNoLightning", { type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }),
+		flag("DealNoCold", 		{ type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }),
+		flag("DealNoFire", 		{ type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }),
+		flag("DealNoChaos", 	{ type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }),
+		flag("DealNoPhysical", 	{ type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true })
 	},
 	["deal no non%-elemental damage"] = { flag("DealNoPhysical"), flag("DealNoChaos") },
 	["deal no non%-lightning damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
