@@ -3124,9 +3124,10 @@ function calcs.offence(env, actor, activeSkill)
 			return sourceHitDmg, sourceCritDmg
 		end
 
+		-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
 		local function calcAilmentDamage(type, sourceCritChance, sourceHitDmg, sourceCritDmg)
-			-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
 			local chanceOnHit, chanceOnCrit = output[type.."ChanceOnHit"], output[type.."ChanceOnCrit"]
+			-- Use sourceCritChance to factor in chance a critical ailment is present
 			local chanceFromHit = chanceOnHit * (1 - sourceCritChance / 100)
 			local chanceFromCrit = chanceOnCrit * sourceCritChance / 100
 			local chance = chanceFromHit + chanceFromCrit
@@ -3150,7 +3151,8 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdownChance, "Combined chance:")
 					t_insert(breakdownChance, s_format("%d x (1 - %.4f) ^8(chance from non-crits)", chanceOnHit, output.CritChance/100))
 					t_insert(breakdownChance, s_format("+ %d x %.4f ^8(chance from crits)", chanceOnCrit, output.CritChance/100))
-					t_insert(breakdownChance, s_format("= %.2f", chance))
+					local chancePerHit = chanceOnHit * (1 - output.CritChance / 100) + chanceOnCrit * output.CritChance / 100
+					t_insert(breakdownChance, s_format("= %.2f", chancePerHit))
 				end
 			end
 			if breakdown and baseVal > 0 then
@@ -3643,6 +3645,8 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.IgniteFire = { damageTypes = { } }
 				breakdown.IgniteChaos = { damageTypes = { } }
 			end
+
+			globalOutput.IgniteChancePerHit = output.IgniteChanceOnHit * (1 - output.CritChance / 100) + output.IgniteChanceOnCrit * output.CritChance / 100
 
 			-- For ignites we will be using a weighted average calculation
 			local maxStacks = 1
