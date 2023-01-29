@@ -150,7 +150,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Cast Speed"
+					text="Grants {0}% increased Cast Speed"
 				},
 				[2]={
 					[1]={
@@ -163,7 +163,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Cast Speed"
+					text="Grants {0}% reduced Cast Speed"
 				}
 			}
 		},
@@ -2483,7 +2483,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Attack Speed"
+					text="Grants {0}% increased Attack Speed"
 				},
 				[2]={
 					[1]={
@@ -2496,7 +2496,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Attack Speed"
+					text="Grants {0}% reduced Attack Speed"
 				}
 			}
 		},

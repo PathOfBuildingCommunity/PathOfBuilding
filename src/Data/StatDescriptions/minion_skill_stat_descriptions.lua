@@ -3073,6 +3073,10 @@ return {
 						[1]={
 							[1]=1,
 							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
 						}
 					},
 					text="Summons {0} Skeleton Warrior"
@@ -3082,15 +3086,46 @@ return {
 						[1]={
 							[1]=2,
 							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
 						}
 					},
 					text="Summons {0} Skeleton Warriors"
+				},
+				[3]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
+					},
+					text="Summons {0} Skeleton Soldiers"
+				},
+				[4]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
+					},
+					text="Summons {0} Skeleton Soldiers"
 				}
 			}
 		},
 		name="melee_skeletons_to_summon",
 		stats={
-			[1]="number_of_melee_skeletons_to_summon"
+			[1]="number_of_melee_skeletons_to_summon",
+			[2]="skeletons_are_vaal"
 		}
 	},
 	[102]={
@@ -9216,6 +9251,7 @@ return {
 	["shock_duration_+%"]=38,
 	["shock_effect_+%"]=34,
 	["shock_effect_+%_with_critical_strikes"]=251,
+	["skeletons_are_vaal"]=101,
 	["skill_cold_damage_%_to_convert_to_fire"]=61,
 	["skill_effect_and_damaging_ailment_duration_+%"]=252,
 	["skill_effect_duration_+%"]=136,
