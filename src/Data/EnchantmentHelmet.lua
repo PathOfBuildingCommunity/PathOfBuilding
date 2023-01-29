@@ -2582,7 +2582,7 @@ return {
 			"30% increased Summon Reaper Cooldown Recovery Rate",
 		},
 	},
-	["Summon Skeleton"] = {
+	["Summon Skeletons"] = {
 		["MERCILESS"] = {
 			"Skeletons deal 25% increased Damage",
 			"20% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
