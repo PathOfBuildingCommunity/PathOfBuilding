@@ -1099,7 +1099,7 @@ Requires Level 37, 42 Str, 42 Int
 {variant:1,2}(10-15)% increased Cold Damage
 {variant:1,2}(10-15)% increased Lightning Damage
 {variant:1}+(100-150) to maximum Mana
-{variant:2}+(100-120) to maximum Mana
+{variant:2,3}+(100-120) to maximum Mana
 {variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
 {variant:3}Gain (10-15)% of Maximum Mana as Extra Maximum Energy Shield
 Enemies Cannot Leech Mana From You
