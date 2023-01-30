@@ -3432,7 +3432,7 @@ function calcs.perform(env, avoidCache)
 					end
 					
 					--Dual wield
-					if trigRate and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Damage] or source.skillTypes[SkillType.Attack]) then
+					if trigRate and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Damage] or source.skillTypes[SkillType.Attack]) and not isGlobalTrigger(source) then
 						local dualWield = false
 						trigRate, dualWield = calcDualWieldImpact(env, trigRate, source.skillData.doubleHitsWhenDualWielding)
 						if dualWield and breakdown then
