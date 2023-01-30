@@ -4472,11 +4472,11 @@ function calcs.offence(env, actor, activeSkill)
 					dmgVal = (dmgVal or 0) + value.baseDamage
 					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2)
 				end
-				if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" and dmgType and dmgMult then
+				if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" and dmgType and dmgVal then
 					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
 					t_insert(dmgBreakdown, 1, s_format("HeartBound Loop base damage: %d", dmgVal))
-					t_insert(dmgBreakdown, s_format("Total HeartBound Loop Damage taken per cast/attack: %.2f ", totalDmgTaken))
-					return dmgBreakdown, totalDmgTaken
+					t_insert(dmgBreakdown, s_format("Total HeartBound Loop Damage taken per cast/attack: %.2f * %d(minions per cast) = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
+					return dmgBreakdown, totalDmgTaken * output.SummonedMinionsPerCast
 				end
 			end,
 			["Eye of Innocence"] = function(activeSkill, output, breakdown)
@@ -4540,77 +4540,6 @@ function calcs.offence(env, actor, activeSkill)
 		
 		if breakdown and breakdown.SelfHitDamage then
 			breakdown.SelfHitDamage[#breakdown.SelfHitDamage] = nil -- Remove new line at the end
-		end
-		
-		if not env.player.mainSkill.skillData.limitedProcessing then
-			local cwdtGroups = {}
-			local skillToSelfHitOutput = { ["Boneshatter"] = "BSDamageTaken" ,["Forbidden Rite"] = "FRDamageTaken" }
-			local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
-			local totalDmgPerRound = 0
-			for index, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
-				local dmgPerSkill = {}
-				local dmgFromThisGroup = 0
-				local CWDTthreshold
-				local isCurrentGroup = false
-				for _, skill in ipairs(socketGroup.displaySkillListCalcs or {}) do
-					if skill.skillData.triggeredByDamageTaken then
-						CWDTthreshold = skill.skillData.triggeredByDamageTaken
-						if env.player.mainSkill == skill then
-							isCurrentGroup = true
-						end
-						local uuid = cacheSkillUUID(skill)
-						if not GlobalCache.cachedData[calcMode][uuid] then
-							calcs.buildActiveSkill(env, calcMode, skill, {[uuid] = true})
-						end
-						if GlobalCache.cachedData[calcMode][uuid] then
-							local skill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
-							local output = GlobalCache.cachedData[calcMode][uuid].Env.player.output
-							local skillName = skill.activeEffect.grantedEffect.name
-							if skill.activeEffect.grantedEffect["initialFunc"] or
-								skill.activeEffect.grantedEffect["preSkillTypeFunc"] or
-								skill.activeEffect.grantedEffect["preDamageFunc"] or
-								skill.activeEffect.grantedEffect["preDotFunc"] then
-								local dmgTaken =  output[skillToSelfHitOutput[skillName]]
-								if dmgTaken then
-									t_insert(dmgPerSkill, {skillName, dmgTaken})
-									dmgFromThisGroup = dmgFromThisGroup + dmgTaken
-								end
-							else
-								local totalDamage
-								for _, sourceFunc in pairs(itemNameToHandler) do
-									local _, dmgTaken = sourceFunc(skill, output)
-									if dmgTaken then
-										totalDamage = (totalDamage or 0) + dmgTaken
-									end
-								end
-								if totalDamage then
-									t_insert(dmgPerSkill, {skillName, totalDamage})
-									dmgFromThisGroup = dmgFromThisGroup + dmgTaken
-								end
-							end
-						end
-					end
-				end
-				if #dmgPerSkill > 0 then
-					totalDmgPerRound = totalDmgPerRound + dmgFromThisGroup
-					cwdtGroups[isCurrentGroup and "current" or socketGroup.slot or tostring(index)] = {["threshold"] = CWDTthreshold, ["dmgPerSkill"] = dmgPerSkill, ["totalDamage"] = dmgFromThisGroup}
-				end
-			end
-
-			if totalDmgPerRound > 0 then
-				actor.mainSkill.skillFlags.loopCapable = true
-				if breakdown then
-					breakdown.LoopRate = { }
-					if cwdtGroups["current"].totalDamage > 0 then
-						t_insert(breakdown.LoopRate, s_format("This group provides %d damage every cycle", cwdtGroups["current"].totalDamage))
-					end
-					if totalDmgPerRound >= cwdtGroups["current"].threshold then
-						t_insert(breakdown.LoopRate, "Total self damage per round is sufficient to trigger this group")
-					end
-					output.LoopRate = "?"
-				end
-				
-			end
 		end
 	end
 	

@@ -486,7 +486,6 @@ return {
 	{ label = "Eff. Source Rate", flag = "triggered", notFlag = "focused", notFlag = "globalTrigger", { format = "{2:output:EffectiveSourceRate}", { breakdown = "EffectiveSourceRate" } }, },
 	{ label = "Skill Trigger Rate", flag = "triggered", notFlag = "focused", { format = "{2:output:SkillTriggerRate}", { breakdown = "SkillTriggerRate" }, { breakdown = "SimData" }, }, },
 	{ label = "Skill Trigger Rate", flagList = {"triggered", "focused"}, { format = "{2:output:SkillTriggerRate}", { breakdown = "SkillTriggerRate" }, { breakdown = "SimData" }, { modName = "FocusCooldownRecovery", modType = "INC", cfg = "skill", }, }, },
-	{ label = "Estimated loop Rate", flag = "loopCapable", { format = "{output:LoopRate}", { breakdown = "LoopRate" }, { modName = "EyeOfInnocenceSelfDamage"}, { modName = "HeartBoundLoopSelfDamage" }, { modName = "ScoldsBridleSelfDamage" }, }, },
 	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },
 } }
 } },
