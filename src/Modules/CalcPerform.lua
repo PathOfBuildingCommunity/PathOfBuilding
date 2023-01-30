@@ -8,6 +8,7 @@ local calcs = ...
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
+local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
@@ -52,12 +53,10 @@ end
 
 -- Calculate Trigger Rate Cap accounting for ICDR and trigger cooldown
 local function getTriggerRateCap(env, actor)
-	local icdr = 1
-	local cooldownOverride = false
 	local output = actor.output
 	local breakdown = actor.breakdown
 	
-	local icdr = calcLib.mod(actor.mainSkill.skillModList, actor.mainSkill.skillCfg, "CooldownRecovery")
+	local icdr = calcLib.mod(actor.mainSkill.skillModList, actor.mainSkill.skillCfg, "CooldownRecovery") or 1
 	local cooldownOverride = actor.mainSkill.skillModList:Override(actor.mainSkill.skillCfg, "CooldownRecovery")
 	local triggerCD = (actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown)
 	local triggeredCD = actor.mainSkill.skillData.cooldown
@@ -85,12 +84,7 @@ local function getTriggerRateCap(env, actor)
 		end
 	end
 	
-	local modActionCooldown = m_max((triggeredCD or 0) / icdr + (output.addsCastTime or 0), ((triggerCD or 0) / icdr ))
-	
-	-- Do not apply cooldown reduction to cooldown overrides
-	if cooldownOverride then
-		modActionCooldown = m_max( cooldownOverride + (output.addsCastTime or 0), (triggerCD or 0) / icdr )
-	end
+	local modActionCooldown = cooldownOverride or m_max((triggeredCD or 0) / icdr + (output.addsCastTime or 0), ((triggerCD or 0) / icdr ))
 	
 	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
@@ -146,49 +140,20 @@ local function getTriggerRateCap(env, actor)
 				breakdown.TriggerRateCap[1] = s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName)
 			end
 		elseif cooldownOverride then
-			if minion then
-				env.minion.mainSkill.skillFlags.hasOverride = true
-				breakdown.TriggerRateCap = {
-					s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName),
-					"",
-					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
-					"",
-					"Trigger rate:",
-					s_format("1 / %.3f", rateCapAdjusted),
-					s_format("= %.2f ^8per second", triggerRate),
-				}
-			else
-				actor.mainSkill.skillFlags.hasOverride = true
-				breakdown.TriggerRateCap = {
-					s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName),
-					"",
-					s_format("%.2f ^8(base cooldown of %s)", triggerCD, triggerName),
-					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-					s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
-					"",
-					s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
-					"",
-					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
-					"",
-					"Trigger rate:",
-					s_format("1 / %.3f", rateCapAdjusted),
-					s_format("= %.2f ^8per second", triggerRate),
-				}
-				if extraICDRNeeded and not actor.mainSkill.skillData.triggeredByBrand then
-					t_insert(breakdown.TriggerRateCap, 10, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded))
-				end
-				if extraCSIncNeeded then
-					t_insert(breakdown.TriggerRateCap, 10, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
-				end
-				if actor.mainSkill.skillData.triggeredByBrand then
-					breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
-					breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore)
-					t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc))
-				end
-				if output.addsCastTime then
-					t_insert(breakdown.TriggerRateCap, 2, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
-					t_insert(breakdown.TriggerRateCap, 4, s_format("= %.4f ^8(final cooldown of %s)", ((triggeredCD or 0) / icdr) + (output.addsCastTime or 0), triggeredName))
-				end
+			breakdown.TriggerRateCap = {
+				s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName),
+				"",
+				s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+				"",
+				"Trigger rate:",
+				s_format("1 / %.3f", rateCapAdjusted),
+				s_format("= %.2f ^8per second", triggerRate),
+			}
+			actor.mainSkill.skillFlags.hasOverride = true
+			if actor.mainSkill.skillData.triggeredByBrand then
+				breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
+				breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore)
+				t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc))
 			end
 		else
 			if triggeredCD ~= nil then
@@ -306,6 +271,7 @@ end
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
 function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
+	local actor = actor or env.player
 	local SIM_RESOLUTION = 2
 	-- the breaking points are values in attacks per second
 	local function quickSim(env, skills, sourceRate)
@@ -445,7 +411,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 	local tt1_brs = {}
 	local tt1_smallest_br = m_huge
 	for _, skill in ipairs(skills) do
-		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1)) + (skill.addsCastTime or 0), triggerCD)
+		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD)
 		if skill.cd > triggerCD then
 			local br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime)
 			t_insert(tt1_brs, br)
@@ -2948,7 +2914,7 @@ function calcs.perform(env, avoidCache)
 				end
 			end
 			
-			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery") or 1
 			local adjTriggerInterval = m_ceil(source.skillData.triggerTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			local triggerRateOfTrigger = 1/adjTriggerInterval
 			local triggeredCD = env.player.mainSkill.skillData.cooldown
@@ -2958,7 +2924,7 @@ function calcs.perform(env, avoidCache)
 				env.player.mainSkill.skillFlags.hasOverride = true
 			end
 			
-			local triggeredTotalCooldown = (cooldownOverride or ((triggeredCD or 0.0) / icdr)) + (output.addsCastTime or 0)
+			local triggeredTotalCooldown = cooldownOverride or (((triggeredCD or 0.0) / icdr) + (output.addsCastTime or 0))
 			local effCDTriggeredSkill = m_ceil(triggeredTotalCooldown * triggerRateOfTrigger) / triggerRateOfTrigger
 			
 			local simBreakdown = nil
@@ -2978,6 +2944,8 @@ function calcs.perform(env, avoidCache)
 					}
 					if cooldownOverride ~= nil then
 						breakdown.TriggerRateCap[4] = s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName)
+						t_remove(breakdown.TriggerRateCap, 5)
+						t_remove(breakdown.TriggerRateCap, 5)
 					end
 					if output.addsCastTime then
 						t_insert(breakdown.TriggerRateCap, 5, s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime))
@@ -3009,7 +2977,7 @@ function calcs.perform(env, avoidCache)
 				end
 				
 				t_insert(breakdown.TriggerRateCap, "Trigger rate:")
-				t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f ^8(trigger rate adjusted for cooldown of triggered skill)", 1 / output.TriggerRateCap))
+				t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f ^8(trigger rate adjusted for triggering interval)", 1 / output.TriggerRateCap))
 				t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8 %s casts per second", output.TriggerRateCap, triggeredName))
 				
 				breakdown.SkillTriggerRate = {
