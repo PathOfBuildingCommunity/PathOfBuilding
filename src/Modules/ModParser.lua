@@ -3539,6 +3539,13 @@ local specialModList = {
 	["deal no elemental damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire") },
 	["deal no chaos damage"] = { flag("DealNoChaos") },
 	["deal no damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos"), flag("DealNoPhysical") },
+	["you can't deal damage with skills yourself"] = {
+		flag("DealNoLightning", { type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }),
+		flag("DealNoCold", 		{ type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }),
+		flag("DealNoFire", 		{ type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }),
+		flag("DealNoChaos", 	{ type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }),
+		flag("DealNoPhysical", 	{ type = "SkillType", skillTypeList = {SkillType.Minion, SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true })
+	},
 	["deal no non%-elemental damage"] = { flag("DealNoPhysical"), flag("DealNoChaos") },
 	["deal no non%-lightning damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
 	["deal no non%-physical damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
