@@ -3166,11 +3166,9 @@ function calcs.perform(env, avoidCache)
 		local trigRate = nil
 		local source = nil
 		local triggerChance = env.player.mainSkill.activeEffect and env.player.mainSkill.activeEffect.srcInstance and env.player.mainSkill.activeEffect.srcInstance.triggerChance
-		local globalTrigger = false
 		local actor = env.player
 		local output = output
 		local breakdown = breakdown
-		local minion = false
 		local triggerSkillCond = nil
 		local triggeredSkillCond = nil
 		local assumingEveryHitKills = nil
@@ -3182,81 +3180,93 @@ function calcs.perform(env, avoidCache)
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			return (match1 or match2)
 		end
+		local function isGlobalTrigger(skill)
+			local name = getUniqueItemTriggerName(skill)
+			if name == "The Hidden Blade" or
+				name == "Replica Eternity Shroud" or
+				name == "Shroud of the Lightless" or 
+				skill.skillData.triggeredByDamageTaken or
+				skill.skillData.triggeredByStunned or
+				skill.skillData.triggeredByCurseOnHit or
+				skill.skillData.triggerCounterAttack or
+				skill.skillData.triggeredOnDeath then
+				return true
+			end
+			return false
+		end
 		if uniqueTriggerName then
-			env.player.mainSkill.skillData.triggeredByUnique = true
+			actor.mainSkill.skillData.triggeredByUnique = true
 			if uniqueTriggerName == "Law of the Wilds" then
 				triggeredSkills = nil
 				triggerSkillCond = function(env, skill)
-					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Claw) > 0 and skill ~= env.player.mainSkill 
+					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Claw) > 0 and skill ~= actor.mainSkill 
 				end
-			elseif (uniqueTriggerName == "The Rippling Thoughts" or uniqueTriggerName == "The Surging Thoughts") and env.player.mainSkill.activeEffect.grantedEffect.name == "Storm Cascade" then
+			elseif (uniqueTriggerName == "The Rippling Thoughts" or uniqueTriggerName == "The Surging Thoughts") and actor.mainSkill.activeEffect.grantedEffect.name == "Storm Cascade" then
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Atziri's Rule" then
 				--Atziri's rule The judgement staff is an item that grants Queen's Demand skill that can trigger other skills from the same item
-				env.player.mainSkill.skillData.triggeredByUnique = nil
+				actor.mainSkill.skillData.triggeredByUnique = nil
 				skip = true
 			elseif uniqueTriggerName == "The Hidden Blade" then
 				if modDB:Flag(nil, "Condition:Phasing") then
 					--self trigger
-					source = env.player.mainSkill
+					source = actor.mainSkill
 					triggeredSkills = nil
-					env.player.mainSkill.skillFlags.globalTrigger = true
 				else
-					env.player.mainSkill.skillFlags.disable = true
-					env.player.mainSkill.disableReason = "This skill is requires you to be phasing"
+					actor.mainSkill.skillFlags.disable = true
+					actor.mainSkill.disableReason = "This skill is requires you to be phasing"
 					skip = true
 				end
 			elseif uniqueTriggerName == "Replica Eternity Shroud" or uniqueTriggerName == "Shroud of the Lightless" then
-				source = env.player.mainSkill
+				source = actor.mainSkill
 				triggeredSkills = nil
-				env.player.mainSkill.skillFlags.globalTrigger = true
 			elseif uniqueTriggerName == "Limbsplit" or uniqueTriggerName == "The Cauteriser" then
 				triggerName = "Gore Shockwave"
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Duskblight" then
 				triggerName = "Stalking Pustule"
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Lioneye's Paws" or uniqueTriggerName == "Replica Lioneye's Paws" then
 				--cooldown taken from wiki
-				env.player.mainSkill.skillData.cooldown = 1
+				actor.mainSkill.skillData.cooldown = 1
 				triggerOnUse = true
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Moonbender's Wing" then
 				triggerName = "Lightning Warp"
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Ngamahu's Flame" then
 				triggerName = "Molten Burst"
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Cameria's Avarice" then
 				triggerName = "Icicle Burst"
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Uul-Netol's Embrace" then
 				triggerName = "Bone Nova"
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif  uniqueTriggerName == "Rigwald's Crest" or uniqueTriggerName == "Jorrhast's Blacksteel" or uniqueTriggerName == "Ashcaller" then
-				env.player.mainSkill.skillData.sourceRateIsFinal = true
+				actor.mainSkill.skillData.sourceRateIsFinal = true
 				assumingEveryHitKills = true
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Arakaali's Fang" or uniqueTriggerName == "Sporeguard" or uniqueTriggerName == "Mark of the Elder" or uniqueTriggerName == "Mark of the Shaper" then
 				assumingEveryHitKills = true
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= env.player.mainSkill end
+				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Poet's Pen" then
 				triggerOnUse = true
 				triggerSkillCond = function(env, skill) 
-					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= env.player.mainSkill 
+					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 and skill ~= actor.mainSkill 
 				end
 				triggeredSkillCond = function(env, skill) 
-					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell] 
+					return skill.skillData.triggeredByUnique and actor.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell] 
 				end
 			elseif uniqueTriggerName == "Maloney's Mechanism" then
 				triggerOnUse = true
@@ -3266,31 +3276,31 @@ function calcs.perform(env, avoidCache)
 				triggerSkillCond = function(env, skill)
 					local attack = skill.skillTypes[SkillType.Attack] and (band(skill.skillCfg.flags, ModFlag.Bow) > 0) and not isReplica
 					local spell = skill.skillTypes[SkillType.Spell] and isReplica
-					return (attack or spell) and skill ~= env.player.mainSkill
+					return (attack or spell) and skill ~= actor.mainSkill
 				end
 				triggeredSkillCond = function(env, skill) 
-					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.RangedAttack]
+					return skill.skillData.triggeredByUnique and actor.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.RangedAttack]
 				end
 			elseif uniqueTriggerName == "Asenath's Chant" then
 				triggerOnUse = true
 				triggerSkillCond = function(env, skill)
-					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= env.player.mainSkill
+					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= actor.mainSkill
 				end
 				triggeredSkillCond = function(env, skill) 
-					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell]
+					return skill.skillData.triggeredByUnique and actor.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell]
 				end
 			elseif uniqueTriggerName == "Vixen's Entrapment" then
 				triggerSkillCond = function(env, skill)
-					return skill.skillTypes[SkillType.Hex] and skill ~= env.player.mainSkill
+					return skill.skillTypes[SkillType.Hex] and skill ~= actor.mainSkill
 				end
 				triggeredSkills = nil
 				useCastRate = true
 			elseif uniqueTriggerName == "Queen's Demand" then
-				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
-				env.player.mainSkill.skillData.sourceRateIsFinal = true
+				triggerName = actor.mainSkill.activeEffect.grantedEffect.name
+				actor.mainSkill.skillData.sourceRateIsFinal = true
 				triggerSkillCond = function(env, skill) return skill.activeEffect.grantedEffect.name == uniqueTriggerName end
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end
-			elseif env.player.mainSkill.skillData.triggeredByCraft then
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByUnique and actor.mainSkill.socketGroup.slot == skill.socketGroup.slot end
+			elseif actor.mainSkill.skillData.triggeredByCraft then
 				triggerName = "Crafted Trigger"
 				for _, skill in ipairs(env.player.activeSkillList) do
 					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or  skill.skillTypes[SkillType.Triggered]
@@ -3309,41 +3319,41 @@ function calcs.perform(env, avoidCache)
 						t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
 					end
 				end
-			elseif env.player.mainSkill.skillData.triggeredByManaSpent then
-				triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance")
+			elseif actor.mainSkill.skillData.triggeredByManaSpent then
+				triggerChance = actor.modDB:Sum("BASE", nil, "KitavaTriggerChance")
 				triggerName = "Kitava's Thirst"
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredByManaSpent end
-			elseif env.player.mainSkill.skillData.triggeredByMjolner then
+				triggerSkillCond = function(env, skill) return not skill.skillTypes[SkillType.Triggered] and skill ~= actor.mainSkill and not skill.skillData.triggeredByManaSpent end
+			elseif actor.mainSkill.skillData.triggeredByMjolner then
 				triggerSkillCond = function(env, skill)
-					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill
+					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= actor.mainSkill
 				end
 				triggeredSkillCond = function(env, skill)
-					return skill.skillData.triggeredByMjolner and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot
+					return skill.skillData.triggeredByMjolner and actor.mainSkill.socketGroup.slot == skill.socketGroup.slot
 				end
-			elseif env.player.mainSkill.skillData.triggeredByCospris then
+			elseif actor.mainSkill.skillData.triggeredByCospris then
 				triggerSkillCond = function(env, skill)
-					return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= env.player.mainSkill
+					return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= actor.mainSkill
 				end
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCospris and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCospris and actor.mainSkill.socketGroup.slot == skill.socketGroup.slot end
 			else
 				--Tawhoa's Chosen is Handled in CalcOffence
-				if (triggerName or uniqueTriggerName) and not env.player.mainSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
+				if (triggerName or uniqueTriggerName) and not actor.mainSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
 					ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. (triggerName or uniqueTriggerName))
 				end
-				env.player.mainSkill.skillData.triggeredByUnique = nil
+				actor.mainSkill.skillData.triggeredByUnique = nil
 				skip = true
 			end
 		else
-			if env.player.mainSkill.skillData.triggeredByCoC then
+			if actor.mainSkill.skillData.triggeredByCoC then
 				triggerName = "Cast On Critical Strike"
-				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill and slotMatch(env, skill) end
+				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and skill ~= actor.mainSkill and slotMatch(env, skill) end
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoC and slotMatch(env, skill) end
-			elseif env.player.mainSkill.skillData.triggeredByMeleeKill then
+			elseif actor.mainSkill.skillData.triggeredByMeleeKill then
 				if modDB:Flag(nil, "Condition:KilledRecently") then
 					assumingEveryHitKills = true
 					triggerSkillCond = function(env, skill)
-						return skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill ~= env.player.mainSkill and slotMatch(env, skill)
+						return skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill ~= actor.mainSkill and slotMatch(env, skill)
 					end
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByMeleeKill and slotMatch(env, skill) end
 				else
@@ -3354,63 +3364,56 @@ function calcs.perform(env, avoidCache)
 				actor = env.minion
 				output = actor.output
 				breakdown = actor.breakdown
-				minion = true
 				triggeredSkills = {{ uuid = cacheSkillUUID(actor.mainSkill), cd = actor.mainSkill.skillData.cooldown}}
-				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill end
-			elseif env.player.mainSkill.skillData.triggeredByDamageTaken then
+				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end
+			elseif actor.mainSkill.skillData.triggeredByDamageTaken then
 				triggerName = "Cast When Damage Taken"
-				globalTrigger = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByDamageTaken and slotMatch(env, skill) end
-			elseif env.player.mainSkill.skillData.triggeredByStunned then
-				triggerChance = env.player.mainSkill.skillData.triggeredByStunned
+			elseif actor.mainSkill.skillData.triggeredByStunned then
+				triggerChance = actor.mainSkill.skillData.triggeredByStunned
 				triggerName = "Cast on stunned"
-				globalTrigger = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByStunned and slotMatch(env, skill) end
-			elseif env.player.mainSkill.skillData.triggeredBySpellSlinger then
+			elseif actor.mainSkill.skillData.triggeredBySpellSlinger then
 				triggeredSkills = nil
 				triggerSkillCond = function(env, skill)
 					local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
-					return isWandAttack and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredBySpellSlinger
+					return isWandAttack and not skill.skillTypes[SkillType.Triggered] and skill ~= actor.mainSkill and not skill.skillData.triggeredBySpellSlinger
 				end
-			elseif env.player.mainSkill.skillData.triggerMarkOnRareOrUnique then
+			elseif actor.mainSkill.skillData.triggerMarkOnRareOrUnique then
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill end
-			elseif env.player.mainSkill.skillData.triggeredByCurseOnHit then
+				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= actor.mainSkill end
+			elseif actor.mainSkill.skillData.triggeredByCurseOnHit then
 				triggerName = "Hextouch"
 				triggeredSkills = nil
-				env.player.mainSkill.skillFlags.globalTrigger = true
-				env.player.mainSkill.skillData.sourceRateIsFinal = true
+				actor.mainSkill.skillData.sourceRateIsFinal = true
 				triggerSkillCond = function(env, skill)
-					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and slotMatch(env, skill)
+					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and skill ~= actor.mainSkill and slotMatch(env, skill)
 				end
-			elseif env.player.mainSkill.skillData.triggerCounterAttack then
-				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
-				--Self trigger
-				env.player.mainSkill.skillFlags.globalTrigger = true
-				source = env.player.mainSkill
+			elseif actor.mainSkill.skillData.triggerCounterAttack then
+				triggerName = actor.mainSkill.activeEffect.grantedEffect.name
+				source = actor.mainSkill
 				triggeredSkills = nil
-			elseif env.player.mainSkill.skillData.triggeredByBrand and not env.player.mainSkill.skillFlags.minion then
-				triggerName = env.player.mainSkill.activeEffect.grantedEffect.name
-				env.player.mainSkill.skillData.sourceRateIsFinal = true
+			elseif actor.mainSkill.skillData.triggeredByBrand and not actor.mainSkill.skillFlags.minion then
+				triggerName = actor.mainSkill.activeEffect.grantedEffect.name
+				actor.mainSkill.skillData.sourceRateIsFinal = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end
 				
 				for _, skill in ipairs(env.player.activeSkillList) do
 					if skill.activeEffect.grantedEffect.name == "Arcanist Brand" then
-						env.player.mainSkill.triggeredBy.mainSkill = skill
+						actor.mainSkill.triggeredBy.mainSkill = skill
 						break
 					end
 				end
-				source = env.player.mainSkill.triggeredBy.mainSkill
-				local activationFreqInc = (100 + env.player.mainSkill.triggeredBy.mainSkill.skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")) / 100
-				local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(cfg, "BrandActivationFrequency")
-				trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore 
-				env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
-				env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
+				source = actor.mainSkill.triggeredBy.mainSkill
+				local activationFreqInc = (100 + actor.mainSkill.triggeredBy.mainSkill.skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")) / 100
+				local activationFreqMore = actor.mainSkill.triggeredBy.mainSkill.skillModList:More(cfg, "BrandActivationFrequency")
+				trigRate = actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore 
+				actor.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
+				actor.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
 				output.EffectiveSourceRate = trigRate
-			elseif env.player.mainSkill.skillData.triggeredOnDeath then
-				env.player.mainSkill.skillData.triggered = true
-				env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
-				env.player.mainSkill.skillFlags.globalTrigger = true
+			elseif actor.mainSkill.skillData.triggeredOnDeath then
+				actor.mainSkill.skillData.triggered = true
+				actor.mainSkill.infoMessage = actor.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
 				skip = true
 			else
 				skip = true
@@ -3421,7 +3424,7 @@ function calcs.perform(env, avoidCache)
 			if triggeredSkillCond or triggerSkillCond then
 				for _, skill in ipairs(env.player.activeSkillList) do
 					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
-					if triggerSkillCond and triggerSkillCond(env, skill) and not triggered then
+					if triggerSkillCond and triggerSkillCond(env, skill) and (not triggered or isGlobalTrigger(skill)) then
 						source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate or 0)
 					end
 					if triggeredSkillCond and triggeredSkillCond(env,skill) and triggeredSkills ~= nil then
@@ -3430,7 +3433,8 @@ function calcs.perform(env, avoidCache)
 				end
 			end
 			if ((triggeredSkills ~= nil and #triggeredSkills > 0) or not triggeredSkills) then
-				if not source and not globalTrigger then
+				actor.mainSkill.skillFlags.globalTrigger = isGlobalTrigger(actor.mainSkill)
+				if not source and not actor.mainSkill.skillFlags.globalTrigger then
 					actor.mainSkill.skillData.triggered = nil
 					actor.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
 					actor.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
@@ -3439,14 +3443,14 @@ function calcs.perform(env, avoidCache)
 					actor.mainSkill.skillData.triggered = true
 					
 					if breakdown then
-						if env.player.mainSkill.skillData.triggeredByBrand then
+						if actor.mainSkill.skillData.triggeredByBrand then
 							breakdown.EffectiveSourceRate = {
-								s_format("%.2f ^8(base activation cooldown of %s)", env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName),
-								s_format("* %.2f ^8(more activation frequency)", env.player.mainSkill.triggeredBy.activationFreqMore),
-								s_format("* %.2f ^8(increased activation frequency)", env.player.mainSkill.triggeredBy.activationFreqInc),
-								s_format("= %.2f ^8(activation rate of %s)", trigRate, env.player.mainSkill.triggeredBy.mainSkill.activeEffect.grantedEffect.name),
+								s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName),
+								s_format("* %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore),
+								s_format("* %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc),
+								s_format("= %.2f ^8(activation rate of %s)", trigRate, actor.mainSkill.triggeredBy.mainSkill.activeEffect.grantedEffect.name),
 								"",
-								s_format("%.2f ^8(adjusted for server tick rate)", data.misc.ServerTickRate / m_ceil( env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency / env.player.mainSkill.triggeredBy.activationFreqMore / env.player.mainSkill.triggeredBy.activationFreqInc * data.misc.ServerTickRate)),
+								s_format("%.2f ^8(adjusted for server tick rate)", data.misc.ServerTickRate / m_ceil( actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency / actor.mainSkill.triggeredBy.activationFreqMore / actor.mainSkill.triggeredBy.activationFreqInc * data.misc.ServerTickRate)),
 							}
 						else
 							breakdown.EffectiveSourceRate = {}
@@ -3472,7 +3476,7 @@ function calcs.perform(env, avoidCache)
 					if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
 						local unleashDpsMult = GlobalCache.cachedData["CACHE"][uuid].ActiveSkill.skillData.dpsMultiplier or 1
 						trigRate = trigRate * unleashDpsMult
-						env.player.mainSkill.skillFlags.HasSeals = true
+						actor.mainSkill.skillFlags.HasSeals = true
 						if breakdown then
 							t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f ^8(multiplier from Unleash)", unleashDpsMult))
 						end
@@ -3496,7 +3500,7 @@ function calcs.perform(env, avoidCache)
 					
 					--Special handling for Kitava's Thirst
 					-- Repeated hits do not consume mana and do not trigger Kitava's thirst
-					if env.player.mainSkill.skillData.triggeredByManaSpent then
+					if actor.mainSkill.skillData.triggeredByManaSpent then
 						local repeats = 1 + source.skillModList:Sum("BASE", nil, "RepeatCount")
 						trigRate = trigRate / repeats
 						if breakdown and repeats > 1 then
@@ -3520,17 +3524,17 @@ function calcs.perform(env, avoidCache)
 					
 					-- Account for Trigger-related INC/MORE modifiers
 					output.Speed = actor.mainSkill.skillData.triggerRate
-					addTriggerIncMoreMods(env.player.mainSkill, source or env.player.mainSkill)
-					triggerName = triggerName or ((env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name) or env.player.mainSkill.activeEffect.grantedEffect.name)
-					if source and source ~= env.player.mainSkill then
+					addTriggerIncMoreMods(actor.mainSkill, source or actor.mainSkill)
+					triggerName = triggerName or ((actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name) or actor.mainSkill.activeEffect.grantedEffect.name)
+					if source and source ~= actor.mainSkill then
 						actor.mainSkill.skillData.triggerSource = source
 						actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
-						actor.mainSkill.infoMessage = triggerName .. ( minion and "'s attack Trigger: " or "'s Trigger: ") .. source.activeEffect.grantedEffect.name
+						actor.mainSkill.infoMessage = triggerName .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: ") .. source.activeEffect.grantedEffect.name
 					else
 						actor.mainSkill.infoMessage = triggerName .. " Trigger"
 					end
 	
-					actor.mainSkill.infoTrigger = env.player.mainSkill.infoTrigger or triggerName
+					actor.mainSkill.infoTrigger = actor.mainSkill.infoTrigger or triggerName
 				end
 			end
 		end
