@@ -91598,7 +91598,7 @@ return {
 							[2]=1
 						}
 					},
-					text="Summon an additional Skeleton Warrior with Summon Skeleton"
+					text="Summon an additional Skeleton with Summon Skeletons"
 				},
 				[2]={
 					limit={
@@ -91607,7 +91607,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Summon {0} additional Skeleton Warriors with Summon Skeleton"
+					text="Summon {0} additional Skeleton with Summon Skeletons"
 				}
 			}
 		},
@@ -102438,7 +102438,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Summoned Skeleton Warriors wield a copy of this Weapon while in your Main Hand"
+					text="Summoned Skeleton Warriors and Soldiers wield this Weapon while in your Main Hand"
 				}
 			}
 		},
@@ -102460,7 +102460,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Summoned Skeleton Warriors deal Triple Damage with this\nWeapon if you've Hit with this Weapon Recently"
+					text="Summoned Skeleton Warriors and Soldiers deal Triple Damage with this\nWeapon if you've Hit with this Weapon Recently"
 				}
 			}
 		},
@@ -112822,7 +112822,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Base Critical Strike Chance of Spells is the Critical Strike Chance of Main Hand Weapon"
+					text="Base Spell Critical Strike Chance of Spells is equal to that of Main Hand Weapon"
 				}
 			}
 		},
@@ -209012,7 +209012,7 @@ return {
 							[2]=1
 						}
 					},
-					text="20% chance to Summon an additional Skeleton Warrior with Summon Skeleton"
+					text="20% chance to Summon an additional Skeleton with Summon Skeletons"
 				},
 				[2]={
 					limit={
@@ -209021,7 +209021,7 @@ return {
 							[2]=2
 						}
 					},
-					text="40% chance to Summon an additional Skeleton Warrior with Summon Skeleton"
+					text="40% chance to Summon an additional Skeleton with Summon Skeletons"
 				},
 				[3]={
 					limit={
@@ -209030,7 +209030,7 @@ return {
 							[2]=3
 						}
 					},
-					text="60% chance to Summon an additional Skeleton Warrior with Summon Skeleton"
+					text="60% chance to Summon an additional Skeleton with Summon Skeletons"
 				},
 				[4]={
 					limit={
@@ -209039,7 +209039,7 @@ return {
 							[2]=4
 						}
 					},
-					text="80% chance to Summon an additional Skeleton Warrior with Summon Skeleton"
+					text="80% chance to Summon an additional Skeleton with Summon Skeletons"
 				},
 				[5]={
 					limit={
@@ -209048,7 +209048,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Summon an additional Skeleton Warrior with Summon Skeleton"
+					text="Summon an additional Skeleton with Summon Skeletons"
 				}
 			}
 		},
@@ -209066,7 +209066,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% chance to Summon an additional Skeleton Warrior with Summon Skeleton"
+					text="{0}% chance to Summon an additional Skeleton with Summon Skeletons"
 				}
 			}
 		},

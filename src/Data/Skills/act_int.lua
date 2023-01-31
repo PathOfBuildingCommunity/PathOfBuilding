@@ -11116,6 +11116,7 @@ skills["VaalSummonSkeletons"] = {
 		"base_number_of_skeletons_allowed",
 		"display_minion_monster_level",
 		"cannot_cancel_skill_before_contact_point",
+		"skeletons_are_vaal",
 	},
 	levels = {
 		[1] = { 14, 2, 0, 17, 10, soulPreventionDuration = 10, skillUseStorage = 1, soulCost = 50, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, },

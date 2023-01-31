@@ -497,7 +497,7 @@ Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 (8-10)% increased Cast Speed
 (200-250)% increased Energy Shield
 Avoid interruption from Stuns while Casting
-Base Critical Strike Chance of Spells is the Critical Strike Chance of Main Hand Weapon
+Base Spell Critical Strike Chance of Spells is equal to that of Main Hand Weapon
 Cannot deal Critical Strikes with Attacks
 ]],[[
 Flamesight
@@ -1099,7 +1099,7 @@ Requires Level 37, 42 Str, 42 Int
 {variant:1,2}(10-15)% increased Cold Damage
 {variant:1,2}(10-15)% increased Lightning Damage
 {variant:1}+(100-150) to maximum Mana
-{variant:2}+(100-120) to maximum Mana
+{variant:2,3}+(100-120) to maximum Mana
 {variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
 {variant:3}Gain (10-15)% of Maximum Mana as Extra Maximum Energy Shield
 Enemies Cannot Leech Mana From You

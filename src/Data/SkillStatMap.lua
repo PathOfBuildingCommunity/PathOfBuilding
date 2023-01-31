@@ -1648,7 +1648,7 @@ return {
 	mod("Duration", "INC", nil, 0, KeywordFlag.Curse),
 },
 ["curse_cast_speed_+%"] = {
-	mod("Speed", "INC", nil),
+	mod("Speed", "INC", nil, ModFlag.Cast),
 },
 -- Hex
 ["curse_maximum_doom"] = {
