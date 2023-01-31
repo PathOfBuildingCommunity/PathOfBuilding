@@ -86,7 +86,7 @@ local function getTriggerRateCap(env, actor)
 	
 	local modActionCooldown = cooldownOverride or m_max((triggeredCD or 0) / icdr + (output.addsCastTime or 0), ((triggerCD or 0) / icdr ))
 	
-	local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+	local rateCapAdjusted = actor.mainSkill.skillData.ignoresTickRate and modActionCooldown or m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 	local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 	
 	if actor.mainSkill.skillData.triggeredByBrand then
@@ -143,7 +143,7 @@ local function getTriggerRateCap(env, actor)
 			breakdown.TriggerRateCap = {
 				s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName),
 				"",
-				s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+				(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 				"",
 				"Trigger rate:",
 				s_format("1 / %.3f", rateCapAdjusted),
@@ -164,7 +164,7 @@ local function getTriggerRateCap(env, actor)
 						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
 						"",
-						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 						"",
 						"Trigger rate:",
 						s_format("1 / %.3f", rateCapAdjusted),
@@ -188,7 +188,7 @@ local function getTriggerRateCap(env, actor)
 						"",
 						s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
 						"",
-						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 						"",
 						"Trigger rate:",
 						s_format("1 / %.3f", rateCapAdjusted),
@@ -217,7 +217,7 @@ local function getTriggerRateCap(env, actor)
 						"",
 						s_format("Trigger rate based on %s cooldown", triggeredName),
 						"",
-						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 						"",
 						"Trigger rate:",
 						s_format("1 / %.3f", rateCapAdjusted),
@@ -240,7 +240,7 @@ local function getTriggerRateCap(env, actor)
 					"",
 					s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
 					"",
-					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+					(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 					"",
 					"Trigger rate:",
 					s_format("1 / %.3f", rateCapAdjusted),
@@ -478,7 +478,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, triggeredSkills, ac
 		if actor.mainSkill.skillFlags.globalTrigger and not triggeredSkills then
 			output.SkillTriggerRate = output.EffectiveSourceRate
 		else
-			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill)}, output.EffectiveSourceRate, (triggerCD or triggeredCD or 0) / icdr, actor)
+			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
 			if breakdown and triggeredSkills then
 				breakdown.SkillTriggerRate = {
 					s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
@@ -2838,7 +2838,7 @@ function calcs.perform(env, avoidCache)
 					"",
 					s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
 					"",
-					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+					(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 					"",
 					"Trigger rate:",
 					s_format("1 / %.3f", rateCapAdjusted),
@@ -2852,7 +2852,7 @@ function calcs.perform(env, avoidCache)
 					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
 					s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdrSkill),
 					"",
-					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+					(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 					"",
 					"Trigger rate:",
 					s_format("1 / %.3f", rateCapAdjusted),
@@ -3367,6 +3367,7 @@ function calcs.perform(env, avoidCache)
 			elseif actor.mainSkill.skillData.triggeredByBrand and not actor.mainSkill.skillFlags.minion then
 				triggerName = actor.mainSkill.activeEffect.grantedEffect.name
 				actor.mainSkill.skillData.sourceRateIsFinal = true
+				actor.mainSkill.skillData.ignoresTickRate = true
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end
 				
 				for _, skill in ipairs(env.player.activeSkillList) do
@@ -3419,9 +3420,7 @@ function calcs.perform(env, avoidCache)
 								s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName),
 								s_format("* %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore),
 								s_format("* %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc),
-								s_format("= %.2f ^8(activation rate of %s)", trigRate, actor.mainSkill.triggeredBy.mainSkill.activeEffect.grantedEffect.name),
-								"",
-								s_format("%.2f ^8(adjusted for server tick rate)", data.misc.ServerTickRate / m_ceil( actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency / actor.mainSkill.triggeredBy.activationFreqMore / actor.mainSkill.triggeredBy.activationFreqInc * data.misc.ServerTickRate)),
+								s_format("= %.2f ^8(activation rate of %s)", trigRate, actor.mainSkill.triggeredBy.mainSkill.activeEffect.grantedEffect.name)
 							}
 						else
 							breakdown.EffectiveSourceRate = {}
