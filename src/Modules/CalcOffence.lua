@@ -1072,7 +1072,9 @@ function calcs.offence(env, actor, activeSkill)
 
 		if mirageActiveSkill then
 			local cooldown = calcSkillCooldown(mirageActiveSkill.skillModList, mirageActiveSkill.skillCfg, mirageActiveSkill.skillData)
-
+			
+			skillCfg.skillCond["usedByMirage"] = true
+			
 			-- Non-channelled skills only attack once, disregard attack rate
 			if not activeSkill.skillTypes[SkillType.Channel] then
 				skillData.timeOverride = 1
@@ -4481,7 +4483,9 @@ function calcs.offence(env, actor, activeSkill)
 			else
 				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
 			end
-
+			
+			newSkill.skillCfg.skillCond["usedByMirage"] = true
+			
 			-- Recalculate the offensive/defensive aspects of this new skill
 			newEnv.player.mainSkill = newSkill
 			calcs.perform(newEnv)
