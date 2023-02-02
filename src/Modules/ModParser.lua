@@ -650,6 +650,7 @@ local modNameList = {
 	["to cause poison"] = "PoisonChance",
 	["to poison on hit"] = "PoisonChance",
 	["poison duration"] = { "EnemyPoisonDuration" },
+	["poison duration on you"] = "SelfPoisonDuration",
 	["duration of poisons you inflict"] = { "EnemyPoisonDuration" },
 	["to cause bleeding"] = "BleedChance",
 	["to cause bleeding on hit"] = "BleedChance",
@@ -657,6 +658,7 @@ local modNameList = {
 	["to inflict bleeding on hit"] = "BleedChance",
 	["bleed duration"] = { "EnemyBleedDuration" },
 	["bleeding duration"] = { "EnemyBleedDuration" },
+	["bleed duration on you"] = "SelfBleedDuration",
 	-- Misc modifiers
 	["movement speed"] = "MovementSpeed",
 	["attack, cast and movement speed"] = { "Speed", "MovementSpeed" },
@@ -1013,6 +1015,9 @@ local preFlagList = {
 	["^enemies (%a+) by "] = function(cond)
 		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true }
 	end,
+	["^enemies (%a+) by you have "] = function(cond)
+		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true }
+	end,
 	["^hits against enemies (%a+) by you have "] = function(cond)
 		return { tag = { type = "ActorCondition", actor = "enemy", var = cond:gsub("^%a", string.upper) } }
 	end,
@@ -1353,6 +1358,7 @@ local modTagList = {
 	["during effect of any mana flask"] = { tag = { type = "Condition", var = "UsingManaFlask" } },
 	["during effect of any life flask"] = { tag = { type = "Condition", var = "UsingLifeFlask" } },
 	["if you've used a life flask in the past 10 seconds"] = { tag = { type = "Condition", var = "UsingLifeFlask" } },
+	["if you've used a mana flask in the past 10 seconds"] = { tag = { type = "Condition", var = "UsingLifeFlask" } },
 	["during effect of any life or mana flask"] = { tag = { type = "Condition", varList = { "UsingManaFlask", "UsingLifeFlask" } } },
 	["while on consecrated ground"] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
 	["on burning ground"] = { tag = { type = "Condition", var = "OnBurningGround" } },
