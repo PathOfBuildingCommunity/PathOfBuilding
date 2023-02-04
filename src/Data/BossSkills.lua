@@ -98,7 +98,7 @@ return {
 			Cold = { 34.763635149472, 0.17381817574736 },
 			Fire = { 34.763635149472, 0.17381817574736 }
 		},
-		UberDamageMultiplier = 0.010086206896552,
+		UberDamageMultiplier = 1.0086206896552,
 		speed = 7500,
 		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
 	},

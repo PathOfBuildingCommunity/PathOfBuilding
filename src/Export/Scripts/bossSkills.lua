@@ -111,7 +111,7 @@ local function calcSkillDamage(state)
 		if oldMethod[grantedId].SkillUberDamageMult then
 			state.DamageData.SkillUberDamageMult = oldMethod[grantedId].SkillUberDamageMult * (baseDamage[grantedId].mapBoss and (monsterMapDifficultyMult[85] / monsterMapDifficultyMult[84]) or 1)
 		elseif baseDamage[grantedId].mapBoss then
-			state.DamageData.SkillUberDamageMult = (monsterMapDifficultyMult[85] / monsterMapDifficultyMult[84])
+			state.DamageData.SkillUberDamageMult = 100 * (monsterMapDifficultyMult[85] / monsterMapDifficultyMult[84])
 		end
 		
 	else
