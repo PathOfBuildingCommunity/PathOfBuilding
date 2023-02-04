@@ -8,7 +8,7 @@ return {
 	["Atziri Flameblast"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Fire = { 38.38694233004, 0.1919347116502 }
+			Fire = { 57.29394377618, 0.2864697188809 }
 		},
 		DamagePenetrations = {
 			FirePen = ""
@@ -25,7 +25,7 @@ return {
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Cold = { 7.8162715738591, 0.039081357869296 }
+			Cold = { 11.666076975909, 0.058330384879546 }
 		},
 		DamagePenetrations = {
 			ColdPen = 25
@@ -50,10 +50,10 @@ return {
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Physical = { 7.5521663411379, 0.037757366455464 },
-			Lightning = { 7.5521663411379, 0.037757366455464 },
-			Fire = { 7.5521663411379, 0.037757366455464 },
-			Chaos = { 7.5521663411379, 0.037757366455464 }
+			Physical = { 11.2718900614, 0.056354278291738 },
+			Lightning = { 11.2718900614, 0.056354278291738 },
+			Fire = { 11.2718900614, 0.056354278291738 },
+			Chaos = { 11.2718900614, 0.056354278291738 }
 		},
 		UberDamageMultiplier = 1.52,
 		speed = 1500,
@@ -62,7 +62,7 @@ return {
 	["Exarch Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Fire = { 9.9997143457054, 0.049998571728527 }
+			Fire = { 14.924946784635, 0.074624733923175 }
 		},
 		speed = 1000,
 		critChance = 0,
@@ -71,7 +71,7 @@ return {
 	["Eater Beam"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Lightning = { 8.150499014741, 0.16300998029482 }
+			Lightning = { 12.164923902598, 0.24329847805197 }
 		},
 		speed = 2500,
 		tooltip = "Allocating Insatiable Appetite causes the beam to always shock for at least 30%"
@@ -79,9 +79,9 @@ return {
 	["Maven Fireball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Fire = { 8.6507490526477, 0.043253745263238 }
+			Fire = { 14.977416270256, 0.074887081351278 }
 		},
-		UberDamageMultiplier = 2.01,
+		UberDamageMultiplier = 2.0273275862069,
 		DamagePenetrations = {
 			FirePen = ""
 		},
@@ -94,10 +94,11 @@ return {
 	["Maven MemoryGame"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
-			Lightning = { 20.078996163919, 0.1003949808196 },
-			Cold = { 20.078996163919, 0.1003949808196 },
-			Fire = { 20.078996163919, 0.1003949808196 }
+			Lightning = { 34.763635149472, 0.17381817574736 },
+			Cold = { 34.763635149472, 0.17381817574736 },
+			Fire = { 34.763635149472, 0.17381817574736 }
 		},
+		UberDamageMultiplier = 0.010086206896552,
 		speed = 7500,
 		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
 	},
