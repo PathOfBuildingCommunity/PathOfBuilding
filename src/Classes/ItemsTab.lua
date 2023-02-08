@@ -971,31 +971,6 @@ function ItemsTabClass:Save(xml)
 		}
 		item:BuildAndParseRaw(true)
 		t_insert(child, item.raw)
-		local id = #item.buffModLines + 1
-		for _, modLine in ipairs(item.enchantModLines) do
-			if modLine.range then
-				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
-			end
-			id = id + 1
-		end
-		for _, modLine in ipairs(item.scourgeModLines) do
-			if modLine.range then
-				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
-			end
-			id = id + 1
-		end
-		for _, modLine in ipairs(item.implicitModLines) do
-			if modLine.range then
-				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
-			end
-			id = id + 1
-		end
-		for _, modLine in ipairs(item.explicitModLines) do
-			if modLine.range then
-				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
-			end
-			id = id + 1
-		end
 		t_insert(xml, child)
 	end
 	for _, itemSetId in ipairs(self.itemSetOrderList) do
