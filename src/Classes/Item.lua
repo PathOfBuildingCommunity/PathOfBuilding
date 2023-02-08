@@ -311,65 +311,36 @@ function ItemClass:ParseRaw(raw)
 							end
 						end
 					end
-				elseif specName == "Selected Alt Variant" then
-					self.variantAlt = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Name" then
-					-- item varaints have changed, find same variant
-					if self.variantList[self.variantAlt] ~= specVal then
-						for i, variantName in ipairs(self.variantList) do
-							if variantName == specVal then
-								self.variantAlt = i
-								break
-							end
+				elseif specName == "Selected Variant Last Legacy Variant" then
+					local curVariantName = self.variantList[self.variant]
+					while self.variant ~= 1 and self.variantList[self.variant - 1] ~= specVal and self.variantList[self.variant - 1]:match(curVariantName) do
+						self.variant = self.variant - 1
+					end
+				elseif specName:match("Selected Alt Variant") then
+					local altVariantNumber = ""
+					for _, AltVariant in ipairs({{"2", " Two"}, {"3", " Three"}, {"4", " Four"}, {"5", " Five"}}) do
+						if specName:match(AltVariant[2]) then
+							altVariantNumber = AltVariant[1]
+							break
 						end
 					end
-				elseif specName == "Selected Alt Variant Two" then
-					self.variantAlt2 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Two Name" then
-					-- item varaints have changed, find same variant
-					if self.variantList[self.variantAlt2] ~= specVal then
-						for i, variantName in ipairs(self.variantList) do
-							if variantName == specVal then
-								self.variantAlt2 = i
-								break
+					if specName:match("Name") then
+						-- item varaints have changed, find same variant
+						if self.variantList[self["variantAlt"..altVariantNumber]] ~= specVal then
+							for i, variantName in ipairs(self.variantList) do
+								if variantName == specVal then
+									self["variantAlt"..altVariantNumber] = i
+									break
+								end
 							end
 						end
-					end
-				elseif specName == "Selected Alt Variant Three" then
-					self.variantAlt3 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Three Name" then
-					-- item varaints have changed, find same variant
-					if self.variantList[self.variantAlt3] ~= specVal then
-						for i, variantName in ipairs(self.variantList) do
-							if variantName == specVal then
-								self.variantAlt3 = i
-								break
-							end
+					elseif specName:match("Last Legacy Variant") then
+						local curVariantName = self.variantList[self["variantAlt"..altVariantNumber]]
+						while self["variantAlt"..altVariantNumber] ~= 1 and self.variantList[self["variantAlt"..altVariantNumber] - 1] ~= specVal and self.variantList[self["variantAlt"..altVariantNumber] - 1]:match(curVariantName) do
+							self["variantAlt"..altVariantNumber] = self["variantAlt"..altVariantNumber] - 1
 						end
-					end
-				elseif specName == "Selected Alt Variant Four" then
-					self.variantAlt4 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Four Name" then
-					-- item varaints have changed, find same variant
-					if self.variantList[self.variantAlt4] ~= specVal then
-						for i, variantName in ipairs(self.variantList) do
-							if variantName == specVal then
-								self.variantAlt4 = i
-								break
-							end
-						end
-					end
-				elseif specName == "Selected Alt Variant Five" then
-					self.variantAlt5 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Five Name" then
-					-- item varaints have changed, find same variant
-					if self.variantList[self.variantAlt5] ~= specVal then
-						for i, variantName in ipairs(self.variantList) do
-							if variantName == specVal then
-								self.variantAlt5 = i
-								break
-							end
-						end
+					else
+						self["variantAlt"..altVariantNumber] = tonumber(specVal)
 					end
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
@@ -972,6 +943,10 @@ function ItemClass:BuildRaw(cullVariants)
 		t_insert(rawLines, "Selected Variant: " .. self.variant)
 		if cullVariantsTemplate and self.variantList[#self.variantList] ~= "Current" then
 			t_insert(rawLines, "Selected Variant Name: " .. self.variantList[self.variant])
+			if not self.variantList[self.variant]:match(" %(Pre ") then
+				local lastVariant = self.variant ~= 1 and (self.variantList[self.variant - 1]:match(self.variantList[self.variant]) and self.variantList[self.variant - 1] or self.variantList[self.variant]) or self.variantList[self.variant]
+				t_insert(rawLines, "Selected Variant Last Legacy Variant: " .. lastVariant)
+			end
 		end
 
 		for _, baseLine in pairs(self.baseLines) do
@@ -983,6 +958,10 @@ function ItemClass:BuildRaw(cullVariants)
 				t_insert(rawLines, "Selected Alt Variant" .. AltVariant[2] .. ": " .. self["variantAlt" .. AltVariant[1]])
 				if cullVariantsTemplate and self.variantList[#self.variantList] ~= "Current" then
 					t_insert(rawLines, "Selected Alt Variant" .. AltVariant[2] .. " Name: " .. self.variantList[self["variantAlt" .. AltVariant[1]]])
+					if not self.variantList[self["variantAlt" .. AltVariant[1]]]:match(" %(Pre ") then
+						local lastVariant = self["variantAlt" .. AltVariant[1]] ~= 1 and (self.variantList[self["variantAlt" .. AltVariant[1]] - 1]:match(self.variantList[self["variantAlt" .. AltVariant[1]]]) and self.variantList[self["variantAlt" .. AltVariant[1]] - 1] or self.variantList[self["variantAlt" .. AltVariant[1]]]) or self.variantList[self["variantAlt" .. AltVariant[1]]]
+						t_insert(rawLines, "Selected Alt Variant" .. AltVariant[2] .. " Last Legacy Variant: " .. lastVariant)
+					end
 				end
 			else
 				break
