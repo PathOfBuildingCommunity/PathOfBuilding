@@ -302,7 +302,7 @@ function ItemClass:ParseRaw(raw)
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
 				elseif specName == "Selected Variant Name" then
-					-- item varaints have changed, find same variant
+					-- item variants have changed, find same variant
 					if self.variantList[self.variant] ~= specVal then
 						for i, variantName in ipairs(self.variantList) do
 							if variantName == specVal then
@@ -325,7 +325,7 @@ function ItemClass:ParseRaw(raw)
 						end
 					end
 					if specName:match("Name") then
-						-- item varaints have changed, find same variant
+						-- item variants have changed, find same variant
 						if self.variantList[self["variantAlt"..altVariantNumber]] ~= specVal then
 							for i, variantName in ipairs(self.variantList) do
 								if variantName == specVal then
@@ -629,9 +629,9 @@ function ItemClass:ParseRaw(raw)
 	-- rebuild mods list from template item
 	if culledVariantsTemplate then
 		if #self.implicitModLines > 0 then
-			local replacerModline = self.implicitModLines
+			local replacerModLine = self.implicitModLines
 			self.implicitModLines = copyTable(culledVariantsTemplate.implicitModLines)
-			for _, modLine in ipairs(replacerModline) do
+			for _, modLine in ipairs(replacerModLine) do
 				local modLineFound = false
 				for _, modLine2 in ipairs(self.implicitModLines) do
 					if modLine.line == modLine2.line then
@@ -649,9 +649,9 @@ function ItemClass:ParseRaw(raw)
 			self.implicitModLines = copyTable(culledVariantsTemplate.implicitModLines)
 		end
 		if #self.explicitModLines > 0 then
-			local replacerModline = self.explicitModLines
+			local replacerModLine = self.explicitModLines
 			self.explicitModLines = copyTable(culledVariantsTemplate.explicitModLines)
-			for _, modLine in ipairs(replacerModline) do
+			for _, modLine in ipairs(replacerModLine) do
 				local modLineFound = false
 				for _, modLine2 in ipairs(self.explicitModLines) do
 					if modLine.line == modLine2.line then
