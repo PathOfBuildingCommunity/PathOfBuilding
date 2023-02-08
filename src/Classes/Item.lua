@@ -301,16 +301,76 @@ function ItemClass:ParseRaw(raw)
 					self.hasAltVariant5 = true
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
+				elseif specName == "Selected Variant Name" then
+					-- item varaints have changed, find same variant
+					if self.variantList[self.variant] ~= specVal then
+						for i, variantName in ipairs(self.variantList) do
+							if variantName == specVal then
+								self.variant = i
+								break
+							end
+						end
+					end
 				elseif specName == "Selected Alt Variant" then
 					self.variantAlt = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Name" then
+					-- item varaints have changed, find same variant
+					if self.variantList[self.variantAlt] ~= specVal then
+						for i, variantName in ipairs(self.variantList) do
+							if variantName == specVal then
+								self.variantAlt = i
+								break
+							end
+						end
+					end
 				elseif specName == "Selected Alt Variant Two" then
 					self.variantAlt2 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Two Name" then
+					-- item varaints have changed, find same variant
+					if self.variantList[self.variantAlt2] ~= specVal then
+						for i, variantName in ipairs(self.variantList) do
+							if variantName == specVal then
+								self.variantAlt2 = i
+								break
+							end
+						end
+					end
 				elseif specName == "Selected Alt Variant Three" then
 					self.variantAlt3 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Three Name" then
+					-- item varaints have changed, find same variant
+					if self.variantList[self.variantAlt3] ~= specVal then
+						for i, variantName in ipairs(self.variantList) do
+							if variantName == specVal then
+								self.variantAlt3 = i
+								break
+							end
+						end
+					end
 				elseif specName == "Selected Alt Variant Four" then
 					self.variantAlt4 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Four Name" then
+					-- item varaints have changed, find same variant
+					if self.variantList[self.variantAlt4] ~= specVal then
+						for i, variantName in ipairs(self.variantList) do
+							if variantName == specVal then
+								self.variantAlt4 = i
+								break
+							end
+						end
+					end
 				elseif specName == "Selected Alt Variant Five" then
 					self.variantAlt5 = tonumber(specVal)
+				elseif specName == "Selected Alt Variant Five Name" then
+					-- item varaints have changed, find same variant
+					if self.variantList[self.variantAlt5] ~= specVal then
+						for i, variantName in ipairs(self.variantList) do
+							if variantName == specVal then
+								self.variantAlt5 = i
+								break
+							end
+						end
+					end
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -910,29 +970,23 @@ function ItemClass:BuildRaw(cullVariants)
 			end
 		end
 		t_insert(rawLines, "Selected Variant: " .. self.variant)
+		if cullVariantsTemplate and self.variantList[#self.variantList] ~= "Current" then
+			t_insert(rawLines, "Selected Variant Name: " .. self.variantList[self.variant])
+		end
 
 		for _, baseLine in pairs(self.baseLines) do
 			writeModLine(baseLine)
 		end
-		if self.hasAltVariant then
-			t_insert(rawLines, "Has Alt Variant: true")
-			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
-		end
-		if self.hasAltVariant2 then
-			t_insert(rawLines, "Has Alt Variant Two: true")
-			t_insert(rawLines, "Selected Alt Variant Two: " .. self.variantAlt2)
-		end
-		if self.hasAltVariant3 then
-			t_insert(rawLines, "Has Alt Variant Three: true")
-			t_insert(rawLines, "Selected Alt Variant Three: " .. self.variantAlt3)
-		end
-		if self.hasAltVariant4 then
-			t_insert(rawLines, "Has Alt Variant Four: true")
-			t_insert(rawLines, "Selected Alt Variant Four: " .. self.variantAlt4)
-		end
-		if self.hasAltVariant5 then
-			t_insert(rawLines, "Has Alt Variant Five: true")
-			t_insert(rawLines, "Selected Alt Variant Five: " .. self.variantAlt5)
+		for _, AltVariant in ipairs({{"", ""}, {"2", " Two"}, {"3", " Three"}, {"4", " Four"}, {"5", " Five"}}) do
+			if self["hasAltVariant" .. AltVariant[1]] then
+				t_insert(rawLines, "Has Alt Variant" .. AltVariant[2] .. ": true")
+				t_insert(rawLines, "Selected Alt Variant" .. AltVariant[2] .. ": " .. self["variantAlt" .. AltVariant[1]])
+				if cullVariantsTemplate and self.variantList[#self.variantList] ~= "Current" then
+					t_insert(rawLines, "Selected Alt Variant" .. AltVariant[2] .. " Name: " .. self.variantList[self["variantAlt" .. AltVariant[1]]])
+				end
+			else
+				break
+			end
 		end
 	end
 	if self.quality then
