@@ -138,6 +138,7 @@ function ItemClass:ParseRaw(raw)
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
+	local culledVariantsTemplate = nil
 
 	local function processInfluenceLine(line)
 		for i, curInfluenceInfo in ipairs(influenceInfo) do
@@ -245,12 +246,17 @@ function ItemClass:ParseRaw(raw)
 					if not self.variantList then
 						self.variantList = { }
 					end
-					-- This has to be kept for backwards compatibility
-					local ver, name = specVal:match("{([%w_]+)}(.+)")
-					if ver then
-						t_insert(self.variantList, name)
+					if specVal == "RebuildCulledVariants" and main.uniqueDB.list[self.name..", "..self.baseName] then
+						culledVariantsTemplate = main.uniqueDB.list[self.name..", "..self.baseName]
+						self.variantList = copyTable(culledVariantsTemplate.variantList)
 					else
-						t_insert(self.variantList, specVal)
+						-- This has to be kept for backwards compatibility
+						local ver, name = specVal:match("{([%w_]+)}(.+)")
+						if ver then
+							t_insert(self.variantList, name)
+						else
+							t_insert(self.variantList, specVal)
+						end
 					end
 				elseif specName == "Talisman Tier" then
 					self.talismanTier = tonumber(specVal)
@@ -589,6 +595,47 @@ function ItemClass:ParseRaw(raw)
 			self.requirements.level = self.base.req.level
 		end
 	end
+	-- rebuild mods list from template item
+	if culledVariantsTemplate then
+		if #self.implicitModLines > 0 then
+			local replacerModline = self.implicitModLines
+			self.implicitModLines = copyTable(culledVariantsTemplate.implicitModLines)
+			for _, modLine in ipairs(replacerModline) do
+				local modLineFound = false
+				for _, modLine2 in ipairs(self.implicitModLines) do
+					if modLine.line == modLine2.line then
+						modLine2.range = modLine.range
+						modLineFound = true
+						break
+					end
+				end
+				if not modLineFound then
+					t_insert(self.implicitModLines, modLine)
+				end
+			end
+		else
+			self.implicitModLines = culledVariantsTemplate.implicitModLines
+		end
+		if #self.explicitModLines > 0 then
+			local replacerModline = self.explicitModLines
+			self.explicitModLines = copyTable(culledVariantsTemplate.explicitModLines)
+			for _, modLine in ipairs(replacerModline) do
+				local modLineFound = false
+				for _, modLine2 in ipairs(self.explicitModLines) do
+					if modLine.line == modLine2.line then
+						modLine2.range = modLine.range
+						modLineFound = true
+						break
+					end
+				end
+				if not modLineFound then
+					t_insert(self.explicitModLines, modLine)
+				end
+			end
+		else
+			self.explicitModLines = culledVariantsTemplate.explicitModLines
+		end
+	end
 	self.affixLimit = 0
 	if self.crafted then
 		if not self.affixes then 
@@ -711,8 +758,9 @@ function ItemClass:CheckIfModIsDelve(mod)
 end
 
 
-function ItemClass:BuildRaw()
+function ItemClass:BuildRaw(cullVariants)
 	local rawLines = { }
+	local cullVariantsTemplate = nil
 	t_insert(rawLines, "Rarity: " .. self.rarity)
 	if self.title then
 		t_insert(rawLines, self.title)
@@ -773,7 +821,24 @@ function ItemClass:BuildRaw()
 	if self.itemLevel then
 		t_insert(rawLines, "Item Level: " .. self.itemLevel)
 	end
-	local function writeModLine(modLine)
+	local function variantValid(variantList)
+		for varId in pairs(variantList) do
+			if self.variant == varId then
+				return true
+			end
+			for _, AltVariant in ipairs({"", "2", "3", "4", "5"}) do
+				if self["hasAltVariant"..AltVariant] then
+					if self["variantAlt"..AltVariant] == varId then
+						return true
+					end
+				else
+					break
+				end
+			end
+		end
+		return false
+	end
+	local function writeModLine(modLine, modLineType)
 		local line = modLine.line
 		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
 			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
@@ -804,6 +869,19 @@ function ItemClass:BuildRaw()
 			for varId in pairs(modLine.variantList) do
 				varSpec = (varSpec and varSpec .. "," or "") .. varId
 			end
+			if cullVariantsTemplate then
+				if not variantValid(modLine.variantList) and ((not modLine.range) or modLine.range == main.defaultItemAffixQuality) then
+					if modLineType == "implicit" or modLineType == "explicit" then
+						for _, templateLine in ipairs(cullVariantsTemplate[modLineType.."ModLines"]) do
+							if templateLine.line == modLine.line then
+								return
+							end
+						end
+					else
+						return
+					end
+				end
+			end
 			line = "{variant:" .. varSpec .. "}" .. line
 		end
 		if modLine.modTags and #modLine.modTags > 0 then
@@ -812,13 +890,18 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, line)
 	end
 	if self.variantList then
-		for _, variantName in ipairs(self.variantList) do
-			t_insert(rawLines, "Variant: " .. variantName)
+		if cullVariants and main.uniqueDB.list[self.title..", "..self.baseName] then
+			t_insert(rawLines, "Variant: " .. "RebuildCulledVariants")
+			cullVariantsTemplate = main.uniqueDB.list[self.title..", "..self.baseName]
+		else
+			for _, variantName in ipairs(self.variantList) do
+				t_insert(rawLines, "Variant: " .. variantName)
+			end
 		end
 		t_insert(rawLines, "Selected Variant: " .. self.variant)
 
 		for _, baseLine in pairs(self.baseLines) do
-			writeModLine(baseLine)
+			writeModLine(baseLine, "baseLine")
 		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
@@ -868,19 +951,19 @@ function ItemClass:BuildRaw()
 	end
 	t_insert(rawLines, "Implicits: " .. (#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
 	for _, modLine in ipairs(self.enchantModLines) do
-		writeModLine(modLine)
+		writeModLine(modLine, "enchant")
 	end
 	for _, modLine in ipairs(self.scourgeModLines) do
-		writeModLine(modLine)
+		writeModLine(modLine, "scourge")
 	end
 	for _, modLine in ipairs(self.classRequirementModLines) do
-		writeModLine(modLine)
+		writeModLine(modLine, "classRequirement")
 	end
 	for _, modLine in ipairs(self.implicitModLines) do
-		writeModLine(modLine)
+		writeModLine(modLine, "implicit")
 	end
 	for _, modLine in ipairs(self.explicitModLines) do
-		writeModLine(modLine)
+		writeModLine(modLine, "explicit")
 	end
 	if self.split then
 		t_insert(rawLines, "Split")
@@ -894,8 +977,8 @@ function ItemClass:BuildRaw()
 	return table.concat(rawLines, "\n")
 end
 
-function ItemClass:BuildAndParseRaw()
-	local raw = self:BuildRaw()
+function ItemClass:BuildAndParseRaw(cullVariants)
+	local raw = self:BuildRaw(cullVariants)
 	self:ParseRaw(raw)
 end
 

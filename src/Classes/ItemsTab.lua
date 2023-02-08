@@ -969,7 +969,7 @@ function ItemsTabClass:Save(xml)
 				variantAlt5 = item.variantAlt5 and tostring(item.variantAlt5)
 			} 
 		}
-		item:BuildAndParseRaw()
+		item:BuildAndParseRaw(true)
 		t_insert(child, item.raw)
 		local id = #item.buffModLines + 1
 		for _, modLine in ipairs(item.enchantModLines) do
