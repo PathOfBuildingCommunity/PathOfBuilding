@@ -821,6 +821,24 @@ function ItemClass:BuildRaw(cullVariants)
 	if self.itemLevel then
 		t_insert(rawLines, "Item Level: " .. self.itemLevel)
 	end
+	local function templateItemMatchesCurrent()
+		if not main.uniqueDB.list[self.title..", "..self.baseName] or (#self.variantList ~= #main.uniqueDB.list[self.title..", "..self.baseName].variantList) then
+			return false
+		end
+		local templateItem = main.uniqueDB.list[self.title..", "..self.baseName]
+		for _, modLineType in ipairs({"enchant", "scourge", "classRequirement", "implicit", "explicit"}) do
+			if #self[modLineType.."ModLines"] ~= #templateItem[modLineType.."ModLines"] then
+				return false
+			end
+			for i, modLine in ipairs(self[modLineType.."ModLines"]) do
+				if templateItem[modLineType.."ModLines"][i].line ~= modLine.line then
+					return false
+				end
+			end
+		end
+		cullVariantsTemplate = templateItem
+		return true
+	end
 	local function variantValid(variantList)
 		for varId in pairs(variantList) do
 			if self.variant == varId then
@@ -838,7 +856,7 @@ function ItemClass:BuildRaw(cullVariants)
 		end
 		return false
 	end
-	local function writeModLine(modLine, modLineType)
+	local function writeModLine(modLine)
 		local line = modLine.line
 		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
 			line = "{range:" .. round(modLine.range, 3) .. "}" .. line
@@ -871,15 +889,7 @@ function ItemClass:BuildRaw(cullVariants)
 			end
 			if cullVariantsTemplate then
 				if not variantValid(modLine.variantList) and ((not modLine.range) or modLine.range == main.defaultItemAffixQuality) then
-					if modLineType == "implicit" or modLineType == "explicit" then
-						for _, templateLine in ipairs(cullVariantsTemplate[modLineType.."ModLines"]) do
-							if templateLine.line == modLine.line then
-								return
-							end
-						end
-					else
-						return
-					end
+					return
 				end
 			end
 			line = "{variant:" .. varSpec .. "}" .. line
@@ -890,9 +900,8 @@ function ItemClass:BuildRaw(cullVariants)
 		t_insert(rawLines, line)
 	end
 	if self.variantList then
-		if cullVariants and main.uniqueDB.list[self.title..", "..self.baseName] then
+		if cullVariants and templateItemMatchesCurrent() then
 			t_insert(rawLines, "Variant: " .. "RebuildCulledVariants")
-			cullVariantsTemplate = main.uniqueDB.list[self.title..", "..self.baseName]
 		else
 			for _, variantName in ipairs(self.variantList) do
 				t_insert(rawLines, "Variant: " .. variantName)
@@ -901,7 +910,7 @@ function ItemClass:BuildRaw(cullVariants)
 		t_insert(rawLines, "Selected Variant: " .. self.variant)
 
 		for _, baseLine in pairs(self.baseLines) do
-			writeModLine(baseLine, "baseLine")
+			writeModLine(baseLine)
 		end
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
@@ -951,19 +960,19 @@ function ItemClass:BuildRaw(cullVariants)
 	end
 	t_insert(rawLines, "Implicits: " .. (#self.enchantModLines + #self.implicitModLines + #self.scourgeModLines))
 	for _, modLine in ipairs(self.enchantModLines) do
-		writeModLine(modLine, "enchant")
+		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.scourgeModLines) do
-		writeModLine(modLine, "scourge")
+		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.classRequirementModLines) do
-		writeModLine(modLine, "classRequirement")
+		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.implicitModLines) do
-		writeModLine(modLine, "implicit")
+		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.explicitModLines) do
-		writeModLine(modLine, "explicit")
+		writeModLine(modLine)
 	end
 	if self.split then
 		t_insert(rawLines, "Split")
