@@ -605,6 +605,7 @@ function ItemClass:ParseRaw(raw)
 				for _, modLine2 in ipairs(self.implicitModLines) do
 					if modLine.line == modLine2.line then
 						modLine2.range = modLine.range
+						modLine2.valueScalar = modLine.valueScalar
 						modLineFound = true
 						break
 					end
@@ -614,7 +615,7 @@ function ItemClass:ParseRaw(raw)
 				end
 			end
 		else
-			self.implicitModLines = culledVariantsTemplate.implicitModLines
+			self.implicitModLines = copyTable(culledVariantsTemplate.implicitModLines)
 		end
 		if #self.explicitModLines > 0 then
 			local replacerModline = self.explicitModLines
@@ -624,6 +625,7 @@ function ItemClass:ParseRaw(raw)
 				for _, modLine2 in ipairs(self.explicitModLines) do
 					if modLine.line == modLine2.line then
 						modLine2.range = modLine.range
+						modLine2.valueScalar = modLine.valueScalar
 						modLineFound = true
 						break
 					end
@@ -633,7 +635,7 @@ function ItemClass:ParseRaw(raw)
 				end
 			end
 		else
-			self.explicitModLines = culledVariantsTemplate.explicitModLines
+			self.explicitModLines = copyTable(culledVariantsTemplate.explicitModLines)
 		end
 	end
 	self.affixLimit = 0
