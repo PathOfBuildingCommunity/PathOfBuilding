@@ -193,7 +193,7 @@ end
 
 function ItemListClass:OnSelCopy(index, itemId)
 	local item = self.itemsTab.items[itemId]
-	Copy(item:BuildRaw():gsub("\n", "\r\n"))
+	Copy(item:BuildRaw(true):gsub("\n", "\r\n"))
 end
 
 function ItemListClass:OnSelDelete(index, itemId)
