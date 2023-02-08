@@ -38,7 +38,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- Load build file
 	self.xmlSectionList = { }
 	self.spectreList = { }
-	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
+	self.timelessData = { jewelType = { }, conquerorType = { }, devotionVariant1 = 1, devotionVariant2 = 1, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
 	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
@@ -805,6 +805,8 @@ function buildMode:Load(xml, fileName)
 			self.timelessData.conquerorType = {
 				id = tonumber(child.attrib.conquerorTypeId)
 			}
+			self.timelessData.devotionVariant1 = tonumber(child.attrib.devotionVariant1) or 1
+			self.timelessData.devotionVariant2 = tonumber(child.attrib.devotionVariant2) or 1
 			self.timelessData.jewelSocket = {
 				id = tonumber(child.attrib.jewelSocketId)
 			}
@@ -882,6 +884,8 @@ function buildMode:Save(xml)
 		attrib = {
 			jewelTypeId = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.id),
 			conquerorTypeId = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.id),
+			devotionVariant1 = tostring(self.timelessData.devotionVariant1),
+			devotionVariant2 = tostring(self.timelessData.devotionVariant2),
 			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
 			fallbackWeightModeIdx = next(self.timelessData.fallbackWeightMode) and tostring(self.timelessData.fallbackWeightMode.idx),
 			socketFilter = self.timelessData.socketFilter and "true",
