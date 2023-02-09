@@ -692,7 +692,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				end
-				-- if goes through an entire iteration without handeling an unhandled Item Disabler, just take the first one
+				-- if goes through an entire iteration without handling an unhandled Item Disabler, just take the first one
 				if stalemateBreaker then
 					for slot, itemData in pairs(unhandledItemDisablers) do
 						if slot ~= "size" then
