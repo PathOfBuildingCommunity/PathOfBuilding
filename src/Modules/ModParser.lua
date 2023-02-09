@@ -3521,6 +3521,12 @@ local specialModList = {
 	["added small passive skills have (%d+)%% increased effect"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelIncEffect", value = num }) } end,
 	["this jewel's socket has (%d+)%% increased effect per allocated passive skill between it and your class' starting location"] = function(num) return { mod("JewelData", "LIST", { key = "jewelIncEffectFromClassStart", value = num }) } end,
 	-- Misc
+	["can't use chest armour"] = { mod("CantUseBody", "Flag", 1, { type = "DisablesItem", slotName = "Body Armour" }) },
+	--["can't use helmets"] = { mod("CantUseHelmet", "Flag", 1, { type = "DisablesItem", slotName = "Helmet" }) }, -- this one doesnt work due to being on a passive?
+	["can't use helmet"] = { mod("CantUseHelmet", "Flag", 1, { type = "DisablesItem", slotName = "Helmet" }) }, -- this is to allow for custom mod without saying the other is parsed
+	["can't use other rings"] = { mod("CantUseRightRing", "Flag", 1, { type = "DisablesItem", slotName = "Ring 2" }, { type = "SlotNumber", num = 1 }), mod("CantUseLeftRing", "Flag", 1, { type = "DisablesItem", slotName = "Ring 1" }, { type = "SlotNumber", num = 2 }) },
+	["uses both hand slots"] = { mod("CantUseRightWeapon", "Flag", 1, { type = "DisablesItem", slotName = "Weapon 2" }, { type = "SlotNumber", num = 1 }), mod("CantUseLeftWeapon", "Flag", 1, { type = "DisablesItem", slotName = "Weapon 1" }, { type = "SlotNumber", num = 2 }) },
+	["can't use flask in fifth slot"] = { mod("CantUseFifthFlask", "Flag", 1, { type = "DisablesItem", slotName = "Flask 5" }) },
 	["boneshatter has (%d+)%% chance to grant %+1 trauma"] = function(num) return { mod("ExtraTrauma", "BASE", num, { type = "SkillName", skillName = "Boneshatter" }) } end,
 	["your minimum frenzy, endurance and power charges are equal to your maximum while you are stationary"] = {
 		flag("MinimumFrenzyChargesIsMaximumFrenzyCharges", {type = "Condition", var = "Stationary" }),
