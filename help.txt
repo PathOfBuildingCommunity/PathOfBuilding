@@ -55,7 +55,7 @@ p	Toggle node power
 ctrl+d	Toggle stat diff display
 PGUP/PGDN/MWHEEL	Zoom in/out (hold with shift to increase amount of zoom x 3)
 ctrl+LMB	Zoom in on mouse cursor position
-hold shift	Enable "path trace mode" (show shortest path to mouse-overed-node)
+hold shift	Enable "path trace mode" (nodes highlighted will be added to a path which will be allocated when the final node is clicked on the tree)
 
 Developer Use
 
