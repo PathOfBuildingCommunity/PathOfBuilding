@@ -4061,14 +4061,6 @@ local specialModList = {
 	["grants %+(%d+)%% to lightning resistance per (%d+)%% quality"] = function(num, _, div) return { mod("LightningResist", "BASE", num, { type = "Multiplier", var = "QualityOn{SlotName}", div = tonumber(div) }) } end,
 	["%+(%d+)%% to quality"] = function(num) return { mod("Quality", "BASE", num) } end,
 	["infernal blow debuff deals an additional (%d+)%% of damage per charge"] = function(num) return { mod("DebuffEffect", "BASE", num, { type = "SkillName", skillName = "Infernal Blow" }) } end,
-	-- Display-only modifiers
-	["extra gore"] = { },
-	["prefixes:"] = { },
-	["suffixes:"] = { },
-	["while your passive skill tree connects to a class' starting location, you gain:"] = { },
-	["socketed lightning spells [hd][ae][va][el] (%d+)%% increased spell damage if triggered"] = { },
-	["manifeste?d? dancing dervishe?s? disables both weapon slots"] = { },
-	["manifeste?d? dancing dervishe?s? dies? when rampage ends"] = { },
 	-- Legion modifiers
 	["bathed in the blood of (%d+) sacrificed in the name of (.+)"] =  function(num, _, name)
 		return { mod("JewelData", "LIST",
@@ -4086,7 +4078,15 @@ local specialModList = {
 		return { mod("JewelData", "LIST",
 				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["passives in radius are conquered by the (%D+)"] = { },
-	["historic"] = { },
+	["historic"] = { mod("Historic", "Flag", 1) },
+	-- Display-only modifiers
+	["extra gore"] = { },
+	["prefixes:"] = { },
+	["suffixes:"] = { },
+	["while your passive skill tree connects to a class' starting location, you gain:"] = { },
+	["socketed lightning spells [hd][ae][va][el] (%d+)%% increased spell damage if triggered"] = { },
+	["manifeste?d? dancing dervishe?s? disables both weapon slots"] = { },
+	["manifeste?d? dancing dervishe?s? dies? when rampage ends"] = { },
 	["survival"] = { },
 	["you can have two different banners at the same time"] = { },
 	["can have a second enchantment modifier"] = { },
