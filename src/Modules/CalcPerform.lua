@@ -3201,7 +3201,8 @@ function calcs.perform(env, avoidCache)
 				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and skill ~= actor.mainSkill end
 			elseif uniqueTriggerName == "Lioneye's Paws" or uniqueTriggerName == "Replica Lioneye's Paws" then
-				--cooldown taken from wiki
+				-- Due to the way the triggerExtraSkill function in mod parser works this trigger does not use the custom trigger skill (RainOfArrowsOnAttackingWithBow)
+				-- the normal verison is used here instead. The stats are the same but the normal version does not have cooldown.
 				actor.mainSkill.skillData.cooldown = 1
 				triggerOnUse = true
 				triggeredSkills = nil
