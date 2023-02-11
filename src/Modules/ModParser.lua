@@ -595,6 +595,7 @@ local modNameList = {
 	["cast speed"] = { "Speed", flags = ModFlag.Cast },
 	["warcry speed"] = { "WarcrySpeed", keywordFlags = KeywordFlag.Warcry },
 	["attack and cast speed"] = "Speed",
+	["dps"] = "DPS",
 	-- Elemental ailments
 	["to shock"] = "EnemyShockChance",
 	["shock chance"] = "EnemyShockChance",
