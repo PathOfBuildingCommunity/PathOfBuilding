@@ -479,7 +479,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, triggeredSkills, ac
 			output.SkillTriggerRate = output.EffectiveSourceRate
 		else
 			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
-			if breakdown and triggeredSkills then
+			if breakdown and triggeredSkills and #triggeredSkills > 1 then
 				breakdown.SkillTriggerRate = {
 					s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
 					s_format("/ %.2f ^8(Estimated impact of linked spells)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),

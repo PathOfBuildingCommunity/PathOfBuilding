@@ -655,7 +655,7 @@ end
 -- Generate a UUID for a skill
 function cacheSkillUUID(skill)
 	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
-	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
+	local strSlotName = (skill.socketGroup and skill.socketGroup.slot and skill.socketGroup.slot:upper() or "NO_SLOT"):gsub("%s+", "") -- strip spaces
 	local indx = 1
 	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.srcInstance then
 		for idx, gem in ipairs(skill.socketGroup.gemList) do
