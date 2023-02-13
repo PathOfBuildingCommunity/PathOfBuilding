@@ -500,7 +500,7 @@ return {
 	}, },
 	{ label = "Crit Chance", notFlag = "attack", { format = "{2:output:CritChance}%", 
 		{ breakdown = "CritChance" }, 
-		{ label = "Player modifiers", modName = "CritChance", cfg = "skill" }, 
+		{ label = "Player modifiers", modName = {"CritChance", "SpellSkillsCannotDealCriticalStrikesExceptOnFinalRepeat", "SpellSkillsAlwaysDealCriticalStrikesOnFinalRepeat"}, cfg = "skill" }, 
 		{ label = "Enemy modifiers", modName = "SelfCritChance", enemy = true }, 
 	}, },
 	{ label = "Crit Multiplier", notFlag = "attack", { format = "x {2:output:CritMultiplier}", 

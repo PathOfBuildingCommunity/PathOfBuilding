@@ -4740,9 +4740,7 @@ skills["SupportMulticast"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 		["support_spell_echo_final_repeat_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
-			--Average out over the casts
-			div = 3
+			mod("RepeatFinalDamage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		}
 	},
 	baseMods = {
@@ -4828,13 +4826,11 @@ skills["SupportSpellEchoPlus"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 		["spell_echo_plus_chance_double_damage_%_final"] = {
-			mod("DoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
-			div = 2,
+			mod("RepeatFinalDoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		},
 	},
 	baseMods = {
 		flag("Condition:HaveSpellEcho"),
-		mod("DoubleDamageChance", "BASE", -3, ModFlag.Spell, 0, { type = "Condition", var = "HaveGreaterSpellEcho" }),
 	},
 	qualityStats = {
 		Default = {

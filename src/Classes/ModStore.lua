@@ -292,6 +292,9 @@ function ModStoreClass:EvalMod(mod, cfg)
 					mult = m_min(mult, limit)
 				end
 			end
+			if tag.invert and mult ~= 0 then
+				mult = 1 / mult
+			end
 			if type(value) == "table" then
 				value = copyTable(value)
 				if value.mod then

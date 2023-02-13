@@ -660,6 +660,18 @@ Huge sets the radius to 11.
 	{ var = "waitForMaxSeals", type = "check", label = "Do you wait for Max Unleash Seals?", ifFlag = "HasSeals", apply = function(val, modList, enemyModList)
 		modList:NewMod("UseMaxUnleash", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "repeatMode", type = "list", label = "Repeat Mode", ifCond = "alwaysFinalRepeat", list = {
+		{val="NONE",label="None"},
+		{val="AVERAGE",label="Average"},
+		{val="FINAL",label="Final only"},
+		{val="FINAL_DPS",label="Final (all hits use final)"}
+	}, defaultIndex = 2, apply = function(val, modList, enemyModList)
+		if val == "AVERAGE" then
+			modList:NewMod("Condition:averageRepeat", "FLAG", true, "Config")
+		elseif val == "FINAL" or val == "FINAL_DPS" then
+			modList:NewMod("Condition:alwaysFinalRepeat", "FLAG", true, "Config")
+		end
+	end },
 	{ var = "overrideBloodCharges", type = "count", label = "# of Blood Charges (if not maximum):", ifMult = "BloodCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("BloodCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
