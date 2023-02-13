@@ -384,7 +384,7 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["multistrike_area_of_effect_+%_per_repeat"] = {
-			mod("AreaOfEffect", "INC", nil)
+			mod("RepeatPerRepeatAreaOfEffect", "INC", nil)
 		}
 	},
 #baseMod flag("SupportedByMultistrike")
