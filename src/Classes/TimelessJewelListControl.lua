@@ -180,8 +180,8 @@ Timeless Jewel
 League: Legion
 Requires Level: 20
 Limited to: 1
-Has Alt Variant: true
-Has Alt Variant Two: true
+Has Alt Variant: (5,19)
+Has Alt Variant Two: (5,19)
 Variant: Avarius (Power of Purpose)
 Variant: Dominus (Inner Conviction)
 Variant: Maxarius (Transcendence)

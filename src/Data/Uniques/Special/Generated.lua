@@ -52,26 +52,29 @@ local getVeiledMods = function (veiledPool, baseType, specificType1, specificTyp
 end
 
 local paradoxicaMods = getVeiledMods("base", "weapon", "one_hand_weapon")
+local paradoxicaPrefixLength = 1
+for index, mod in pairs(paradoxicaMods) do
+	if (mod.veiledName:match("%(Prefix%) "))then
+		paradoxicaPrefixLength = paradoxicaPrefixLength + 1 
+	elseif (mod.veiledName == "(Suffix) Double Damage Chance") then
+		table.remove(paradoxicaMods, index)
+	end
+end
+
 local paradoxica = {
 	"Paradoxica",
 	"Vaal Rapier",
 	"League: Betrayal",
-	"Source: Drops from unique{Intervention Leaders} in normal{Safehouses}",
-	"Has Alt Variant: true",
-	"Selected Variant: 4",
-	"Selected Alt Variant: 16"
+	"Source: Drops from unique{Intervention Leaders} in normal{Safehouses}"
 }
-
-for index, mod in pairs(paradoxicaMods) do
-	if (mod.veiledName == "(Suffix) Double Damage Chance") then
-		table.remove(paradoxicaMods, index)
-	end
-end
 
 for index, mod in pairs(paradoxicaMods) do
 	table.insert(paradoxica, "Variant: "..mod.veiledName)
 end
 
+table.insert(paradoxica, "Selected Variant: 4")
+table.insert(paradoxica, "Has Alt Variant: ("..tostring(paradoxicaPrefixLength)..","..tostring(#paradoxicaMods)..")")
+table.insert(paradoxica, "Selected Alt Variant: 16")
 table.insert(paradoxica, "Requires Level 66, 212 Dex")
 table.insert(paradoxica, "Implicits: 1")
 table.insert(paradoxica, "+25% to Global Critical Strike Multiplier")
@@ -86,20 +89,25 @@ table.insert(paradoxica, "Attacks with this Weapon deal Double Damage")
 table.insert(data.uniques.generated, table.concat(paradoxica, "\n"))
 
 local caneOfKulemakMods = getVeiledMods("catarina", "weapon", "staff", "two_hand_weapon")
+local caneOfKulemakPrefixLength = 0
+for index, mod in pairs(caneOfKulemakMods) do
+	if (mod.veiledName:match("%(Prefix%) "))then
+		caneOfKulemakPrefixLength = caneOfKulemakPrefixLength + 1 
+	end
+end
 local caneOfKulemak = {
 	"Cane of Kulemak",
 	"Serpentine Staff",
-	"Source: Drops from unique{Catarina, Master of Undeath}",
-	"Has Alt Variant: true",
-	"Has Alt Variant Two: true",
-	"Selected Variant: 1",
-	"Selected Alt Variant: 20"
+	"Source: Drops from unique{Catarina, Master of Undeath}"
 }
-
 for index, mod in pairs(caneOfKulemakMods) do
 	table.insert(caneOfKulemak, "Variant: "..mod.veiledName)
 end
 
+table.insert(caneOfKulemak, "Selected Variant: 20")
+table.insert(caneOfKulemak, "Has Alt Variant: (1,"..tostring(caneOfKulemakPrefixLength)..")")
+table.insert(caneOfKulemak, "Selected Alt Variant: 1")
+table.insert(caneOfKulemak, "Has Alt Variant Two: ("..tostring(caneOfKulemakPrefixLength + 1)..","..#caneOfKulemakMods..")")
 table.insert(caneOfKulemak, "Requires Level 68, 85 Str, 85 Int")
 table.insert(caneOfKulemak, "Implicits: 1")
 table.insert(caneOfKulemak, "+20% Chance to Block Attack Damage while wielding a Staff")
@@ -119,16 +127,16 @@ local replicaParadoxica = {
 	"Vaal Rapier",
 	"League: Heist",
 	"Source: Steal from a unique{Curio Display} during a Grand Heist",
-	"Has Alt Variant: true",
-	"Has Alt Variant Two: true",
-	"Has Alt Variant Three: true",
-	"Has Alt Variant Four: true",
-	"Has Alt Variant Five: true",
 	"Selected Variant: 1",
+	"Has Alt Variant: true",
 	"Selected Alt Variant: 2",
+	"Has Alt Variant Two: true",
 	"Selected Alt Variant Two: 3",
+	"Has Alt Variant Three: true",
 	"Selected Alt Variant Three: 25",
+	"Has Alt Variant Four: true",
 	"Selected Alt Variant Four: 27",
+	"Has Alt Variant Five: true",
 	"Selected Alt Variant Five: 34"
 }
 
@@ -149,20 +157,27 @@ end
 table.insert(data.uniques.generated, table.concat(replicaParadoxica, "\n"))
 
 local queensHungerMods = getVeiledMods("base", "body_armour", "int_armour")
+local queensHungerPrefixLength = 1
+for index, mod in pairs(queensHungerMods) do
+	if (mod.veiledName:match("%(Prefix%) "))then
+		queensHungerPrefixLength = queensHungerPrefixLength + 1 
+	end
+end
 local queensHunger = {
 	"The Queen's Hunger",
 	"Vaal Regalia",
 	"League: Betrayal",
-	"Source: Drops from unique{Catarina, Master of Undeath}",
-	"Has Alt Variant: true",
-	"Selected Variant: 1",
-	"Selected Alt Variant: 24"
+	"Source: Drops from unique{Catarina, Master of Undeath}"
 }
 
 for index, mod in pairs(queensHungerMods) do
 	table.insert(queensHunger, "Variant: "..mod.veiledName)
 end
 
+
+table.insert(queensHunger, "Selected Variant: 1")
+table.insert(queensHunger, "Has Alt Variant: ("..tostring(queensHungerPrefixLength)..","..tostring(#queensHungerMods)..")")
+table.insert(queensHunger, "Selected Alt Variant: 24")
 table.insert(queensHunger, "Requires Level 68, 194 Int")
 table.insert(queensHunger, "Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds")
 table.insert(queensHunger, "Offering Skills Triggered this way also affect you")
@@ -351,6 +366,7 @@ Variant: Two-Stone Ring (Fire/Cold)
 Variant: Prismatic Ring]]
 }
 
+local precursorsEmblemTotalMods = 7 * 3 * 2 + 5 * 3
 for _, type in ipairs({ { prefix = "Endurance - ", mods = enduranceChargeMods }, { prefix = "Frenzy - ", mods = frenzyChargeMods }, { prefix = "Power - ", mods = powerChargeMods } }) do
 	for tier, mods in ipairs(type.mods) do
 		for desc, mod in pairs(mods) do
@@ -358,11 +374,11 @@ for _, type in ipairs({ { prefix = "Endurance - ", mods = enduranceChargeMods },
 		end
 	end
 end
-table.insert(precursorsEmblem, [[Selected Variant: 1
-Has Alt Variant: true
-Has Alt Variant Two: true
-Has Alt Variant Three: true
-LevelReq: 49
+table.insert(precursorsEmblem, "Selected Variant: 1")
+table.insert(precursorsEmblem, "Has Alt Variant: (8,"..tostring(precursorsEmblemTotalMods + 8)..")")
+table.insert(precursorsEmblem, "Has Alt Variant Two: (8,"..tostring(precursorsEmblemTotalMods + 8)..")")
+table.insert(precursorsEmblem, "Has Alt Variant Three: (8,"..tostring(precursorsEmblemTotalMods + 8)..")")
+table.insert(precursorsEmblem, [[LevelReq: 49
 Implicits: 7
 {tags:jewellery_resistance}{variant:1}+(20-30)% to Lightning Resistance
 {tags:jewellery_resistance}{variant:2}+(20-30)% to Cold Resistance

@@ -1736,8 +1736,8 @@ League: Legion
 Source: Drops from Templar Legion
 Requires Level: 20
 Limited to: 1 Historic
-Has Alt Variant: true
-Has Alt Variant Two: true
+Has Alt Variant: (5,19)
+Has Alt Variant Two: (5,19)
 Selected Variant: 1
 Variant: Avarius (Power of Purpose)
 Variant: Dominus (Inner Conviction)

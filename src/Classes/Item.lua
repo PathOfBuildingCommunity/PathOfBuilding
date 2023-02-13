@@ -129,6 +129,7 @@ function ItemClass:ParseRaw(raw)
 	self.implicitModLines = { }
 	self.explicitModLines = { }
 	local implicitLines = 0
+	self.variantNameList = nil
 	self.variantList = nil
 	self.prefixes = { }
 	self.suffixes = { }
@@ -242,15 +243,16 @@ function ItemClass:ParseRaw(raw)
 				elseif specName == "Limited to" and self.type == "Jewel" then
 					self.limit = tonumber(specVal)
 				elseif specName == "Variant" then
-					if not self.variantList then
-						self.variantList = { }
+					if not self.variantNameList then
+						self.variantNameList = { }
+						self.variantList = self.variantList or { Base = { } }
 					end
 					-- This has to be kept for backwards compatibility
 					local ver, name = specVal:match("{([%w_]+)}(.+)")
 					if ver then
-						t_insert(self.variantList, name)
+						t_insert(self.variantNameList, name)
 					else
-						t_insert(self.variantList, specVal)
+						t_insert(self.variantNameList, specVal)
 					end
 				elseif specName == "Talisman Tier" then
 					self.talismanTier = tonumber(specVal)
@@ -283,28 +285,37 @@ function ItemClass:ParseRaw(raw)
 					importedLevelReq = tonumber(specVal)
 				elseif specName == "LevelReq" then
 					self.requirements.level = tonumber(specVal)
-				elseif specName == "Has Alt Variant" then
-					self.hasAltVariant = true
-				elseif specName == "Has Alt Variant Two" then
-					self.hasAltVariant2 = true
-				elseif specName == "Has Alt Variant Three" then
-					self.hasAltVariant3 = true
-				elseif specName == "Has Alt Variant Four" then
-					self.hasAltVariant4 = true
-				elseif specName == "Has Alt Variant Five" then
-					self.hasAltVariant5 = true
+				elseif specName:match("Has Alt Variant") then
+					local variantName = specName == "Has Alt Variant" and "One" or specName:gsub("Has Alt Variant ","")
+					self.variantList = self.variantList or { Base = { } }
+					self.variantList[variantName] = {}
+					if specVal:match("%(%d+,%d+%)") then
+						local variantRange1, variantRange2
+						for i in specVal:gmatch("%d+") do
+							if variantRange1 then
+								variantRange2 = tonumber(i)
+							else
+								variantRange1 = tonumber(i)
+							end
+						end
+						if variantRange1 <= variantRange2 then
+							self.variantList[variantName].range = {variantRange1, variantRange2}
+							self.variantList[variantName].list = {}
+							local i = variantRange1
+							while i <= variantRange2 and self.variantNameList do
+								t_insert(self.variantList[variantName].list, self.variantNameList[i])
+								i = i + 1
+							end
+						end
+					end
 				elseif specName == "Selected Variant" then
-					self.variant = tonumber(specVal)
-				elseif specName == "Selected Alt Variant" then
-					self.variantAlt = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Two" then
-					self.variantAlt2 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Three" then
-					self.variantAlt3 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Four" then
-					self.variantAlt4 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Five" then
-					self.variantAlt5 = tonumber(specVal)
+					self.variantList = self.variantList or { Base = { } }
+					self.variantList.Base.value = tonumber(specVal)
+				elseif specName:match("Selected Alt Variant") then
+					local variantName = specName == "Selected Alt Variant" and "One" or specName:gsub("Selected Alt Variant ","")
+					if self.variantList[variantName] then
+						self.variantList[variantName].value = tonumber(specVal)
+					end
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -380,11 +391,11 @@ function ItemClass:ParseRaw(raw)
 			end
 			if not specName or foundExplicit or foundImplicit then
 				local varSpec = line:match("{variant:([%d,]+)}")
-				local variantList
+				local variantNameList
 				if varSpec then
-					variantList = { }
+					variantNameList = { }
 					for varId in varSpec:gmatch("%d+") do
-						variantList[tonumber(varId)] = true
+						variantNameList[tonumber(varId)] = true
 					end
 				end
 				if line:gsub("({variant:[%d,]+})", "") == "Two-Toned Boots" then
@@ -426,8 +437,8 @@ function ItemClass:ParseRaw(raw)
 					end
 					self.name = self.name:gsub(" %(.+%)","")
 				end
-				if self.variant and variantList then
-					if variantList[self.variant] then
+				if self.variantList and variantNameList then
+					if variantNameList[self.variantList.Base.value] then
 						baseName = line:gsub("Synthesised ",""):gsub("{variant:([%d,]+)}", "")
 					end
 				elseif not baseName then
@@ -536,7 +547,7 @@ function ItemClass:ParseRaw(raw)
 
 				if data.itemBases[line] then
 					self.baseLines = self.baseLines or { }
-					self.baseLines[line] = { line = line, variantList = variantList }
+					self.baseLines[line] = { line = line, variantNameList = variantNameList }
 				end
 
 				local modLines
@@ -552,7 +563,7 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.explicitModLines
 				end
 				if modList then
-					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or main.defaultItemAffixQuality), valueScalar = catalystScalar })
+					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantNameList = variantNameList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or main.defaultItemAffixQuality), valueScalar = catalystScalar })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -567,12 +578,12 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned") and not (self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type))) then
-						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
+						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantNameList = variantNameList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
+					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantNameList = variantNameList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 				end
 			end
 		end
@@ -631,22 +642,22 @@ function ItemClass:ParseRaw(raw)
 		end
 	end
 	self.abyssalSocketCount = 0
-	if self.variantList then
-		self.variant = m_min(#self.variantList, self.variant or #self.variantList)
-		if self.hasAltVariant then
-			self.variantAlt = m_min(#self.variantList, self.variantAlt or #self.variantList)
+	if self.variantNameList then
+		local lowestRange = nil
+		for _, variant in pairs(self.variantList) do
+			variant.value = m_min(#self.variantNameList, variant.value or #self.variantNameList)
+			if variant.range then
+				lowestRange = m_min(variant.range[1], lowestRange or variant.range[1])
+			end
 		end
-		if self.hasAltVariant2 then
-			self.variantAlt2 = m_min(#self.variantList, self.variantAlt2 or #self.variantList)
-		end
-		if self.hasAltVariant3 then
-			self.variantAlt3 = m_min(#self.variantList, self.variantAlt3 or #self.variantList)
-		end
-		if self.hasAltVariant4 then
-			self.variantAlt4 = m_min(#self.variantList, self.variantAlt4 or #self.variantList)
-		end
-		if self.hasAltVariant5 then
-			self.variantAlt5 = m_min(#self.variantList, self.variantAlt5 or #self.variantList)
+		if lowestRange and lowestRange > 1 then
+			self.variantList.Base.range = {1, lowestRange - 1}
+			self.variantList.Base.list = {}
+			local i = 1
+			while i <= lowestRange - 1 do
+				t_insert(self.variantList.Base.list, self.variantNameList[i])
+				i = i + 1
+			end
 		end
 	end
 	if not self.quality then
@@ -799,9 +810,9 @@ function ItemClass:BuildRaw()
 		if modLine.synthesis then
 			line = "{synthesis}" .. line
 		end
-		if modLine.variantList then
+		if modLine.variantNameList then
 			local varSpec
-			for varId in pairs(modLine.variantList) do
+			for varId in pairs(modLine.variantNameList) do
 				varSpec = (varSpec and varSpec .. "," or "") .. varId
 			end
 			line = "{variant:" .. varSpec .. "}" .. line
@@ -811,34 +822,20 @@ function ItemClass:BuildRaw()
 		end
 		t_insert(rawLines, line)
 	end
-	if self.variantList then
-		for _, variantName in ipairs(self.variantList) do
+	if self.variantNameList then
+		for _, variantName in ipairs(self.variantNameList) do
 			t_insert(rawLines, "Variant: " .. variantName)
 		end
-		t_insert(rawLines, "Selected Variant: " .. self.variant)
+		t_insert(rawLines, "Selected Variant: " .. self.variantList.Base.value)
 
 		for _, baseLine in pairs(self.baseLines) do
 			writeModLine(baseLine)
 		end
-		if self.hasAltVariant then
-			t_insert(rawLines, "Has Alt Variant: true")
-			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
-		end
-		if self.hasAltVariant2 then
-			t_insert(rawLines, "Has Alt Variant Two: true")
-			t_insert(rawLines, "Selected Alt Variant Two: " .. self.variantAlt2)
-		end
-		if self.hasAltVariant3 then
-			t_insert(rawLines, "Has Alt Variant Three: true")
-			t_insert(rawLines, "Selected Alt Variant Three: " .. self.variantAlt3)
-		end
-		if self.hasAltVariant4 then
-			t_insert(rawLines, "Has Alt Variant Four: true")
-			t_insert(rawLines, "Selected Alt Variant Four: " .. self.variantAlt4)
-		end
-		if self.hasAltVariant5 then
-			t_insert(rawLines, "Has Alt Variant Five: true")
-			t_insert(rawLines, "Selected Alt Variant Five: " .. self.variantAlt5)
+		for variantName, variant in pairs(self.variantList) do
+			if variantName ~= "Base" then
+				t_insert(rawLines, "Has Alt Variant"..(variantName and (" "..variantName) or "")..": "..(variant.range and ("("..tostring(variant.range[1])..","..tostring(variant.range[2])..")") or "true"))
+				t_insert(rawLines, "Selected Alt Variant"..(variantName and (" "..variantName) or "")..": " .. variant.value)
+			end
 		end
 	end
 	if self.quality then
@@ -964,13 +961,13 @@ function ItemClass:Craft()
 end
 
 function ItemClass:CheckModLineVariant(modLine)
-	return not modLine.variantList 
-		or modLine.variantList[self.variant]
-		or (self.hasAltVariant and modLine.variantList[self.variantAlt])
-		or (self.hasAltVariant2 and modLine.variantList[self.variantAlt2])
-		or (self.hasAltVariant3 and modLine.variantList[self.variantAlt3])
-		or (self.hasAltVariant4 and modLine.variantList[self.variantAlt4])
-		or (self.hasAltVariant5 and modLine.variantList[self.variantAlt5])
+	local valid = not modLine.variantNameList
+	if modLine.variantNameList then
+		for _, variant in pairs(self.variantList) do
+			valid = valid or modLine.variantNameList[variant.value]
+		end
+	end
+	return valid
 end
 
 -- Return the name of the slot this item is equipped in
