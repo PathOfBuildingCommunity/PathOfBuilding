@@ -2558,7 +2558,8 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 			for i, mod in pairs(self.displayItem.affixes) do
 				if self.displayItem:GetModSpawnWeight(mod) > 0 and sourceId:lower() == mod.type:lower() then
 					local modLabel = table.concat(mod, "/")
-					if not groupIndexes[mod.group] then
+					local group = mod.group:gsub("PinnaclePresence", ""):gsub("UniquePresence", "")
+					if not groupIndexes[group] then
 						t_insert(modList, {})
 						t_insert(modGroups, {
 							label = modLabel,
@@ -2566,12 +2567,9 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 							modListIndex = #modList,
 							defaultOrder = i,
 						})
-						groupIndexes[mod.group] = #modGroups
-					--elseif mod[1].len() < modGroups[groupIndexes[mod.group] ].mod[1].len() then
-					--	modGroups[groupIndexes[mod.group]].label = modLabel
-					--	modGroups[groupIndexes[mod.group]].mod = mod
+						groupIndexes[group] = #modGroups
 					end
-					t_insert(modList[groupIndexes[mod.group]], {
+					t_insert(modList[groupIndexes[group]], {
 						label = modLabel,
 						mod = mod,
 						affixType = mod.type,
@@ -2598,17 +2596,35 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				table.sort(modList[i], function(a, b)
 					local modA = a.mod
 					local modB = b.mod
-					for i = 1, m_max(#modA, #modB) do
-						if not modA[i] then
-							return true
-						elseif not modB[i] then
+					if modA.group ~= modB.group then
+						if modA.group:match("PinnaclePresence") then
 							return false
-						elseif modA.statOrder[i] ~= modB.statOrder[i] then
-							return modA.statOrder[i] < modB.statOrder[i]
+						elseif modB.group:match("PinnaclePresence") then
+							return true
+						elseif modA.group:match("UniquePresence") then
+							return false
+						else
+							return true
+						end
+					end
+					for j = 1, m_max(#modA, #modB) do
+						if not modA[j] then
+							return true
+						elseif not modB[j] then
+							return false
+						elseif modA.statOrder[j] ~= modB.statOrder[j] then
+							return modA.statOrder[j] < modB.statOrder[j]
+						else
+							local modAVal = tonumber(modA[j]:match("[%d%.]+"))
+							local modBVal = tonumber(modB[j]:match("[%d%.]+"))
+							return modAVal < modBVal
 						end
 					end
 					return modA.level > modB.level
 				end)
+			end
+			for i, _ in pairs(modGroups) do
+				modGroups[i].label = modList[modGroups[i].modListIndex][1].label
 			end
 		elseif sourceId == "SYNTHESIS" then
 			for i, mod in pairs(self.displayItem.affixes) do
