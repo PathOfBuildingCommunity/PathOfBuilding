@@ -336,7 +336,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				local y = (dropIndex - 1) * lineHeight - scrollBar.offset
 				-- highlight background if hovered
 				if index == self.hoverSel then
-					SetDrawColor(0.5, 0.4, 0.3)
+					SetDrawColor(0.33, 0.33, 0.33)
 					DrawImage(nil, 0, y, width - 4, lineHeight)
 				end
 				-- highlight font color if hovered or selected
@@ -346,7 +346,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 					SetDrawColor(0.66, 0.66, 0.66)
 				end
 				-- draw actual item label with search match highlight if available
-				local label = StripEscapes(type(listVal) == "table" and listVal.label or listVal)
+				local label = type(listVal) == "table" and listVal.label or listVal
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
