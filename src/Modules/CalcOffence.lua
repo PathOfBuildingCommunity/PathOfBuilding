@@ -629,6 +629,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 	output.Repeats = 1 + (skillModList:Sum("BASE", skillCfg, "RepeatCount") or 0)
 	if output.Repeats > 1 then
+		output.RepeatCount = output.Repeats
 		-- handle all the multipliers from Repeats
 		if env.configInput.repeatMode ~= "NONE" then
 			for i, value in ipairs(skillModList:Tabulate("INC", skillCfg, "RepeatFinalAreaOfEffect")) do
