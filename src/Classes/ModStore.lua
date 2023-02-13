@@ -47,8 +47,12 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
 		local subMod = scaledMod
-		if type(scaledMod.value) == "table" and scaledMod.value.mod then
-			subMod = scaledMod.value.mod
+		if type(scaledMod.value) == "table" then
+			if scaledMod.value.mod then
+				subMod = scaledMod.value.mod
+			elseif scaledMod.value.keyOfScaledMod then
+				scaledMod.value[scaledMod.value.keyOfScaledMod] = round(scaledMod.value[scaledMod.value.keyOfScaledMod] * scale, 2)
+			end
 		end
 		if type(subMod.value) == "number" then
 			local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil

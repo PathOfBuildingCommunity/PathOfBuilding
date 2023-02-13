@@ -899,3 +899,80 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area
 	fromItem = true,
 #mods
+
+skills["EnemyExplode"] = {
+	name = "On Kill Monster Explosion",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	castTime = 0,
+	parts = {
+		{
+			name = "This Source Only",
+		},
+		{
+			name = "This Source Only, Ignoring Chance",
+		},
+		{
+			name = "Average Of All Sources",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		output.ExplodeChance = 0
+		if activeSkill.skillPart == 1 then
+			local explodeSource = activeSkill.activeEffect.srcInstance.explodeSource
+			local sourceModList = explodeSource.baseModList or explodeSource.finalModList
+			local explodeModList = {}
+			sourceModList:ListInternal(activeSkill.skillModList, explodeModList, activeSkill.skillCfg, activeSkill.skillCfg.flags, activeSkill.skillCfg.keywordFlags, activeSkill.skillCfg.source, "ExplodeMod")
+			for _, explodeMod in ipairs(explodeModList) do
+				local chance = explodeMod.chance
+				for type, amount in pairs(explodeMod.amounts) do
+					activeSkill.skillData[type.."ExplodePercentage"] = amount
+				end
+				output.ExplodeChance = 1 - ((1 - output.ExplodeChance) * (1 - chance))
+			end
+		elseif activeSkill.skillPart == 2 then
+			local explodeSource = activeSkill.activeEffect.srcInstance.explodeSource
+			local sourceModList = explodeSource.baseModList or explodeSource.finalModList
+			local explodeModList = {}
+			sourceModList:ListInternal(activeSkill.skillModList, explodeModList, activeSkill.skillCfg, activeSkill.skillCfg.flags, activeSkill.skillCfg.keywordFlags, activeSkill.skillCfg.source, "ExplodeMod")
+			for _, explodeMod in ipairs(explodeModList) do
+				for type, amount in pairs(explodeMod.amounts) do
+					activeSkill.skillData[type.."ExplodePercentage"] = amount
+				end
+			end
+			output.ExplodeChance = 1
+		else
+			local typeAmountChances = { }
+			for _, explodeMod in ipairs(activeSkill.skillModList:List(activeSkill.skillCfg, "ExplodeMod")) do
+				local chance = explodeMod.chance
+				for type, amount in pairs(explodeMod.amounts) do
+					activeSkill.skillData[type.."ExplodePercentage"] = amount * chance
+					typeAmountChances[type..amount] = chance
+				end
+			end
+			for _, chance in pairs(typeAmountChances) do
+				output.ExplodeChance = 1 - ((1 - output.ExplodeChance) * (1 - chance))
+			end
+		end
+		output.ExplodeChance = output.ExplodeChance * 100
+	end,
+	baseMods = {
+		skill("radius", 22),
+		skill("showAverage", true, { type = "SkillPart", skillPart = 1 }),
+	},
+	baseFlags = {
+		area = true,
+		monsterExplode = true
+	},
+	stats = {
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"display_skill_deals_secondary_damage",
+		"damage_cannot_be_reflected",
+		"skill_can_add_multiple_charges_per_action",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 0, baseMultiplier = 1, levelRequirement = 1, }
+	}
+}

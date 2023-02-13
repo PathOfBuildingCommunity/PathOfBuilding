@@ -588,6 +588,25 @@ function triangular(n)
 	return n * (n + 1) / 2
 end
 
+--- Removes all insignificant zeros in each occurrence of a floating point representation in a string
+--- Use before changing decimal separator
+---@param string string
+---@return string
+function dropInsignificantZerosInString(string)
+	local rebuilt = ""
+	for numPart, notNumpart in string:gmatch("([%d%.]+)([^%d]*)") do
+		local sub, _ = numPart:gsub("^(%d*)%.(%d-)0+$", function(integer, decimals)
+			if decimals:len() > 0 then
+				return integer.."."..decimals
+			else
+				return integer
+			end
+		end)
+		rebuilt = rebuilt .. sub .. notNumpart
+	end
+	return rebuilt
+end
+
 -- Formats "1234.56" -> "1,234.5"
 function formatNumSep(str)
 	return string.gsub(str, "(%^?x?%x?%x?%x?%x?%x?%x?-?%d+%.?%d+)", function(m)

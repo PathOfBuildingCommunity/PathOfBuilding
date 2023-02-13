@@ -137,6 +137,10 @@ function calcs.buildModListForNode(env, node)
 		end
 	end
 
+	if modList:Flag(nil, "CanExplode") then
+		t_insert(env.explodeSources, node)
+	end
+
 	return modList
 end
 
@@ -357,6 +361,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.grantedSkills = { }
 		env.grantedSkillsNodes = { }
 		env.grantedSkillsItems = { }
+		env.explodeSources = { }
 		env.flasks = { }
 
 		-- tree based
@@ -606,6 +611,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 					grantedSkill.slotName = slotName
 					t_insert(env.grantedSkillsItems, grantedSkill)
 				end
+			end
+			if item and item.baseModList and item.baseModList:Flag(nil, "CanExplode") then
+				t_insert(env.explodeSources, item)
 			end
 			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
 				item = nil
@@ -1048,6 +1056,49 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				end
+				build.skillsTab:ProcessSocketGroup(group)
+			end
+
+			if #env.explodeSources ~= 0 then
+				-- Check if a matching group already exists
+				local group
+				for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+					if socketGroup.source == "Explode" then
+						group = socketGroup
+						break
+					end
+				end
+				if not group then
+					-- Create a new group for this skill
+					group = { label = "On Kill Monster Explosion", enabled = true, gemList = { }, source = "Explode", noSupports = true }
+					t_insert(build.skillsTab.socketGroupList, group)
+				end
+				-- Update the group
+				group.explodeSources = env.explodeSources
+				local gemsBySource = { }
+				for _, gem in ipairs(group.gemList) do
+					if gem.explodeSource then
+						gemsBySource[gem.explodeSource.modSource or gem.explodeSource.id] = gem
+					end
+				end
+				wipeTable(group.gemList)
+				for _, explodeSource in ipairs(env.explodeSources) do
+					local activeGemInstance
+					if gemsBySource[explodeSource.modSource or explodeSource.id] then
+						activeGemInstance = gemsBySource[explodeSource.modSource or explodeSource.id]
+					else
+						activeGemInstance = {
+							skillId = "EnemyExplode",
+							quality = 0,
+							enabled = true,
+							level = 1,
+							triggered = true,
+							explodeSource = explodeSource,
+						}
+					end
+					t_insert(group.gemList, activeGemInstance)
+				end
+				markList[group] = true
 				build.skillsTab:ProcessSocketGroup(group)
 			end
 
