@@ -2624,7 +2624,7 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 				end)
 			end
 			for i, _ in pairs(modGroups) do
-				modGroups[i].label = modList[modGroups[i].modListIndex][1].label
+				modGroups[i].label = modList[modGroups[i].modListIndex][1].label:gsub("%([%d%.]+%-[%d%.]+%)", "#"):gsub("[%d%.]+", "#")
 			end
 		elseif sourceId == "SYNTHESIS" then
 			for i, mod in pairs(self.displayItem.affixes) do
