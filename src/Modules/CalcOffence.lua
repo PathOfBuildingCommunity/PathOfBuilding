@@ -662,7 +662,7 @@ function calcs.offence(env, actor, activeSkill)
 				local modValue = mod.value
 				DamageFinalMoreValueTotal = DamageFinalMoreValueTotal * (1 + modValue / 100)
 				DamageMoreValueTotal = DamageMoreValueTotal + modValue
-				if env.configInput.repeatMode == "AVERAGE" then
+				if env.configInput.repeatMode == "AVERAGE" and not skillModList:Flag(nil, "OnlyFinalRepeat") then
 					modValue = modValue / output.Repeats
 				end
 				skillModList:NewMod("Damage", "MORE", modValue, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
@@ -702,6 +702,11 @@ function calcs.offence(env, actor, activeSkill)
 			if env.configInput.repeatMode == "AVERAGE" then
 				if lastMod then
 					skillModList:NewMod("Damage", "MORE", (DamageMoreValueTotal / output.Repeats + 100) / (1 + DamageFinalMoreValueTotal / output.Repeats / 100) - 100, lastMod.source, lastMod.flags, lastMod.keywordFlags, unpack(lastMod))
+				end
+			end
+			if skillModList:Flag(nil, "FinalRepeatSumsDamage") then
+				for i, value in ipairs(skillModList:Tabulate("FLAG", skillCfg, "FinalRepeatSumsDamage")) do
+					skillModList:NewMod("Damage", "MORE", (100 * output.Repeats + DamageFinalMoreValueTotal) / (1 + DamageFinalMoreValueTotal / 100) - 100, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
 				end
 			end
 		end
@@ -1900,7 +1905,7 @@ function calcs.offence(env, actor, activeSkill)
 		
 		-- Other Misc DPS multipliers (like custom source)
 		skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", cfg, "DPS") / 100 ) * skillModList:More(cfg, "DPS")
-		if env.configInput.repeatMode == "FINAL" then
+		if env.configInput.repeatMode == "FINAL" or skillModList:Flag(nil, "OnlyFinalRepeat") then
 			skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
 		end
 	end
