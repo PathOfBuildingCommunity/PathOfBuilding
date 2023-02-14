@@ -961,8 +961,8 @@ Implicits: 1
 Has 1 Socket
 Socketed Gems are Supported by Level 20 Blasphemy
 Curse Auras from Socketed Skills also affect you
-{variant:1}{tags:caster}Socketed Curse Gems have 100% increased Mana Reservation Efficiency
-{variant:2}{tags:caster}Socketed Curse Gems have 80% increased Reservation Efficiency
+{variant:1}Socketed Curse Gems have 50% increased Reservation Efficiency
+{variant:2}Socketed Curse Gems have 80% increased Reservation Efficiency
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:caster}20% reduced Effect of Curses on you
 (15-25)% increased Damage with Hits and Ailments against Cursed Enemies
