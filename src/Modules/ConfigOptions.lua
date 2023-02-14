@@ -587,12 +587,12 @@ Huge sets the radius to 11.
 			modList:NewMod("ExtraCurse", "LIST", { skillId = "Despair", level = val, applyToPlayer = true, configCurse = true })
 		end
 	end },
-	{ var = "playerCursedWithElementalWeakness", type = "count", label = "Elemental Weakness:", tooltip = "Sets the level of Elemental Weakness to apply to the player.\nIn mid tier maps, 'of Elemental Weakness' applies level 10.\nIn high tier maps, 'of Elemental Weakness' applies level 15.", saveShown = true, defaultPlaceholderState = 10, defaultHidden = true, removeBox = true, apply = function(val, modList, enemyModList, build)
+	{ var = "playerCursedWithElementalWeakness", type = "count", label = "Elemental Weakness:", tooltip = "Sets the level of Elemental Weakness to apply to the player.", saveShown = true, defaultPlaceholderState = 1, defaultHidden = true, removeBox = true, apply = function(val, modList, enemyModList, build)
 		if build.configTab.varControls['playerCursedWithElementalWeakness'].shown then
 			modList:NewMod("ExtraCurse", "LIST", { skillId = "ElementalWeakness", level = val, applyToPlayer = true, configCurse = true })
 		end
 	end },
-	{ var = "playerCursedWithEnfeeble", type = "count", label = "Enfeeble:", tooltip = "Sets the level of Enfeeble to apply to the player.\nIn mid tier maps, 'of Enfeeblement' applies level 10.\nIn high tier maps, 'of Enfeeblement' applies level 15.", saveShown = true, defaultPlaceholderState = 10, defaultHidden = true, removeBox = true, apply = function(val, modList, enemyModList, build)
+	{ var = "playerCursedWithEnfeeble", type = "count", label = "Enfeeble:", tooltip = "Sets the level of Enfeeble to apply to the player.", saveShown = true, defaultPlaceholderState = 1, defaultHidden = true, removeBox = true, apply = function(val, modList, enemyModList, build)
 		if build.configTab.varControls['playerCursedWithEnfeeble'].shown then
 			modList:NewMod("ExtraCurse", "LIST", { skillId = "Enfeeble", level = val, applyToPlayer = true, configCurse = true })
 		end
@@ -622,12 +622,12 @@ Huge sets the radius to 11.
 			modList:NewMod("ExtraCurse", "LIST", { skillId = "Punishment", level = val, applyToPlayer = true, configCurse = true })
 		end
 	end },
-	{ var = "playerCursedWithTemporalChains", type = "count", label = "Temporal Chains:", tooltip = "Sets the level of Temporal Chains to apply to the player.\nIn mid tier maps, 'of Temporal Chains' applies level 10.\nIn high tier maps, 'of Temporal Chains' applies level 15.", saveShown = true, defaultPlaceholderState = 10, defaultHidden = true, removeBox = true, apply = function(val, modList, enemyModList, build)
+	{ var = "playerCursedWithTemporalChains", type = "count", label = "Temporal Chains:", tooltip = "Sets the level of Temporal Chains to apply to the player.", saveShown = true, defaultPlaceholderState = 1, defaultHidden = true, removeBox = true, apply = function(val, modList, enemyModList, build)
 		if build.configTab.varControls['playerCursedWithTemporalChains'].shown then
 			modList:NewMod("ExtraCurse", "LIST", { skillId = "TemporalChains", level = val, applyToPlayer = true, configCurse = true })
 		end
 	end },
-	{ var = "playerCursedWithVulnerability", type = "count", label = "Vulnerability:", tooltip = "Sets the level of Vulnerability to apply to the player.\nIn mid tier maps, 'of Vulnerability' applies level 10.\nIn high tier maps, 'of Vulnerability' applies level 15.", saveShown = true, defaultPlaceholderState = 10, defaultHidden = true, removeBox = true, apply = function(val, modList, enemyModList, build)
+	{ var = "playerCursedWithVulnerability", type = "count", label = "Vulnerability:", tooltip = "Sets the level of Vulnerability to apply to the player.", saveShown = true, defaultPlaceholderState = 1, defaultHidden = true, removeBox = true, apply = function(val, modList, enemyModList, build)
 		if build.configTab.varControls['playerCursedWithVulnerability'].shown then
 			modList:NewMod("ExtraCurse", "LIST", { skillId = "Vulnerability", level = val, applyToPlayer = true, configCurse = true })
 		end
