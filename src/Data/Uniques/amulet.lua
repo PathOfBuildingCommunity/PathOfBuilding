@@ -562,6 +562,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
+Variant: Current
 LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -672,7 +673,7 @@ Karui Charge
 Jade Amulet
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 24
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
