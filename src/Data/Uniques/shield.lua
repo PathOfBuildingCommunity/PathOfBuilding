@@ -931,8 +931,9 @@ Variant: Pre 2.6.0
 Variant: Pre 3.19.0
 Variant: Current
 LevelReq: 40
-Implicits: 1
-+4% to all Elemental Resistances
+Implicits: 2
+{variant:1}+8% to all Elemental Resistances
+{variant:2,3,4,5}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
 +(100-150) to maximum Life
 {variant:1,2,3,4}50% reduced Freeze Duration on you
