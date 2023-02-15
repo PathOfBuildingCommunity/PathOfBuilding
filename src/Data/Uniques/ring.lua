@@ -917,7 +917,7 @@ Has 1 Socket
 {variant:1}Socketed Gems are Supported by Level 12 Lesser Multiple Projectiles
 {variant:2}Socketed Golem Skills have 25% chance to Taunt on Hit
 {variant:1}Socketed Gems are Supported by Level 17 Increased Minion Damage
-{variant:2}{tags:life}Socketed Golem Skills have Minions Regenerate 5% Life per second
+{variant:2}Socketed Golem Skills have Minions Regenerate 5% Life per second
 ]],[[
 Rigwald's Crest
 Two-Stone Ring
