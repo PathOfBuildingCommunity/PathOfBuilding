@@ -1536,6 +1536,7 @@ local modTagList = {
 	["against poisoned enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Poisoned" } },
 	["you inflict on poisoned enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Poisoned" } },
 	["to poisoned enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Poisoned" } },
+	["poisoned by you"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Poisoned" } },
 	["against enemies affected by (%d+) or more poisons"] = function(num) return { tag = { type = "MultiplierThreshold", actor = "enemy", var = "PoisonStack", threshold = num } } end,
 	["against enemies affected by at least (%d+) poisons"] = function(num) return { tag = { type = "MultiplierThreshold", actor = "enemy", var = "PoisonStack", threshold = num } } end,
 	["against hindered enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "Hindered" } },
