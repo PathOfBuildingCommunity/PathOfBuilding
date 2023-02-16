@@ -1322,7 +1322,6 @@ Variant: Lightning and Chaos Resistances
 Variant: Strength and Dexterity
 Variant: Dexterity and Intelligence
 Variant: Strength and Intelligence
-Variant: Effect of non-Damaging Ailments
 Variant: Focus Shock Nearby Enemies
 Variant: Minimum Frenzy Charges
 Variant: Minimum Power Charges
@@ -1332,21 +1331,35 @@ Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
 {variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
-{variant:13,14,15,16,17,18,19,20,21,22}Socketed Gems have 20% reduced Reservation Efficiency
+{variant:13,14,15,16,17,18,19,20,21}Socketed Gems have 20% reduced Reservation Efficiency
 {tags:jewellery_attribute}+(15-25) to all Attributes
 {tags:life}Regenerate 15 Life per second for each Uncorrupted Item Equipped
 {tags:mana}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
-{variant:1,12}{crafted}{tags:jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:2,13}{crafted}{tags:jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:3,14}{crafted}{tags:jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:4,15}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
-{variant:5,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
-{variant:6,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
-{variant:7,18}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
-{variant:8,19}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
-{variant:9,20}{crafted}+1 to Minimum Frenzy Charges
-{variant:10,21}{crafted}+1 to Minimum Power Charges
-{variant:11,22}{crafted}+1 to Minimum Endurance Charges
+{variant:1}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:4}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
+{variant:5}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
+{variant:6}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
+{variant:7}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
+{variant:8}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
+{variant:9}{crafted}+1 to Minimum Frenzy Charges
+{variant:10}{crafted}+1 to Minimum Power Charges
+{variant:11}{crafted}+1 to Minimum Endurance Charges
+{variant:12}{tags:chaos,jewellery_resistance}+(16-20)% to Fire and Chaos Resistances
+{variant:13}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
+{variant:14}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
+{variant:15}{tags:jewellery_attribute}+(31-35) to Strength and Dexterity
+{variant:16}{tags:jewellery_attribute}+(31-35) to Dexterity and Intelligence
+{variant:17}{tags:jewellery_attribute}+(31-35) to Strength and Intelligence
+{variant:18}Shock nearby Enemies for 4 Seconds when you Focus
+{variant:18}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:19}+1 to Minimum Frenzy Charges
+{variant:19}(3-4)% chance to gain a Frenzy Charge on Kill
+{variant:20}+1 to Minimum Power Charges
+{variant:20}(3-4)% chance to gain a Power Charge on Kill
+{variant:21}+1 to Minimum Endurance Charges
+{variant:21}(3-4)% chance to gain a Endurance Charge on Kill
 ]],[[
 Voideye
 Unset Ring
