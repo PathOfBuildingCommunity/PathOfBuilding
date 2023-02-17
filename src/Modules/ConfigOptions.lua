@@ -660,7 +660,7 @@ Huge sets the radius to 11.
 	{ var = "waitForMaxSeals", type = "check", label = "Do you wait for Max Unleash Seals?", ifFlag = "HasSeals", apply = function(val, modList, enemyModList)
 		modList:NewMod("UseMaxUnleash", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "overrideBloodCharges", type = "count", label = "# of Blood Charges (if not maximum):", ifMult = "BloodCharge", apply = function(val, modList, enemyModList)
+	{ var = "overrideBloodCharges", type = "countAllowZero", label = "# of Blood Charges (if not maximum):", ifMult = "BloodCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("BloodCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "minionsUsePowerCharges", type = "check", label = "Do your Minions use Power Charges?", ifFlag = "haveMinion", apply = function(val, modList, enemyModList)
