@@ -268,15 +268,15 @@ You can click this button to enter your POESESSID.
 on trade site to work on other leagues and realms)]]
 	self.sortModes = {
 		DPS = "DPS",
-		DPSPRICE = "DPS / Price",
-		PRICEASC = "Price (Lowest)",
+		DPS_PRICE = "DPS / Price",
+		PRICE_ASCENDING = "Price (Lowest)",
 		WEIGHT = "Weighted Sum",
 	}
 	-- Item sort dropdown
 	self.sortSelectionList = {
 		self.sortModes.DPS,
-		self.sortModes.DPSPRICE,
-		self.sortModes.PRICEASC,
+		self.sortModes.DPS_PRICE,
+		self.sortModes.PRICE_ASCENDING,
 		self.sortModes.WEIGHT,
 	}
 	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, self.sortSelectionList, function(index, value)
@@ -538,7 +538,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 			t_insert(newTbl, { outputAttr = dps, index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.DPSPRICE then
+	elseif mode == self.sortModes.DPS_PRICE then
 		local dpsTable = getDpsTable()
 		local priceTable = getPriceTable()
 		if priceTable == nil then
@@ -548,7 +548,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 			t_insert(newTbl, { outputAttr = dps / priceTable[index], index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.PRICEASC then
+	elseif mode == self.sortModes.PRICE_ASCENDING then
 		local priceTable = getPriceTable()
 		if priceTable == nil then
 			return nil, "MissingConversionRates"
