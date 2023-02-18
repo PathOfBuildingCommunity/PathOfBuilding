@@ -2615,8 +2615,8 @@ function ItemsTabClass:AddImplicitToDisplayItem()
 						elseif modA.statOrder[j] ~= modB.statOrder[j] then
 							return modA.statOrder[j] < modB.statOrder[j]
 						else
-							local modAVal = tonumber(modA[j]:match("[%d%.]+"))
-							local modBVal = tonumber(modB[j]:match("[%d%.]+"))
+							local modAVal = tonumber(a.defaultOrder:match("%d+$"))
+							local modBVal = tonumber(b.defaultOrder:match("%d+$"))
 							return modAVal < modBVal
 						end
 					end
