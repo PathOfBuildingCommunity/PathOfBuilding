@@ -151,6 +151,9 @@ function SkillListClass:OnHoverKeyUp(key)
 		elseif key == "RIGHTBUTTON" then
 			if IsKeyDown("CTRL") then
 				item.includeInFullDPS = not item.includeInFullDPS
+				if item == self.skillsTab.displayGroup then
+					self.skillsTab:SetDisplayGroup(item)
+				end
 				self.skillsTab:AddUndoState()
 				self.skillsTab.build.buildFlag = true
 			else
@@ -163,6 +166,9 @@ function SkillListClass:OnHoverKeyUp(key)
 			end
 		elseif key == "LEFTBUTTON" and IsKeyDown("CTRL") then
 			item.enabled = not item.enabled
+			if item == self.skillsTab.displayGroup then
+				self.skillsTab:SetDisplayGroup(item)
+			end
 			self.skillsTab:AddUndoState()
 			self.skillsTab.build.buildFlag = true
 		end
