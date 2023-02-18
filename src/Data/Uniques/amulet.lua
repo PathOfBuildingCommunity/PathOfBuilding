@@ -1109,7 +1109,8 @@ Implicits: 1
 {variant:1}{tags:caster,speed}(8-12)% increased Cast Speed
 {variant:2}{tags:caster,speed}(10-15)% increased Cast Speed
 {variant:3}{tags:caster,speed}(10-25)% increased Cast Speed
-{tags:speed}12% increased Movement Speed
+{variant:1}{tags:speed}12% increased Movement Speed
+{variant:2,3}{tags:speed}(10-15)% increased Movement Speed
 {variant:1}(8-12)% reduced Skill Effect Duration
 {variant:2}(10-15)% reduced Skill Effect Duration
 {variant:3}(10-20)% reduced Skill Effect Duration
