@@ -387,7 +387,7 @@ Martyr's Crown
 Vine Circlet
 Source: No longer obtainable
 Variant: Pre 3.0.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 52
 {variant:1}+(260-300) to maximum Energy Shield
 {variant:2}+(170-210) to maximum Energy Shield
@@ -757,7 +757,7 @@ Deidbellow
 Gilded Sallet
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 33, 38 Str, 38 Dex
 +(20-30) to Strength
 +(20-30) to Dexterity
