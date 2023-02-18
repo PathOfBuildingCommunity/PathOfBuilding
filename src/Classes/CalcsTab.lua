@@ -84,6 +84,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 					TempStoreCastSpeed = 0
 					TempStoreAttackSpeed = 0
 					TempStorePhysicalDamageReduction = 0
+					TempStoreMovementSpeed = 0
 
 					ExportAuraString = ""
 
@@ -158,7 +159,8 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 									ExportAuraString = ExportAuraString .. (t[1] .. " Projectile Speed\n")
 								else
 									if (string.find(t[2], "Movement Speed")) then
-										ExportAuraString = ExportAuraString .. (t[1] .. " Movement Speed\n")
+										local NewString = string.gsub(t[1], "%% increased", "")
+										TempStoreMovementSpeed = TempStoreMovementSpeed + tonumber(NewString)
 									else
 										if (string.find(t[3], "Attack")) then
 											local NewString = string.gsub(t[1], "%% increased", "")
@@ -382,6 +384,10 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 					end
 					TempStoreAttackSpeed = TempStoreAttackSpeed + TempStoreSpeed
 					TempStoreCastSpeed = TempStoreCastSpeed + TempStoreSpeed
+					
+					if (tonumber(TempStoreMovementSpeed) ~= 0) then
+						ExportAuraString = ExportAuraString .. (TempStoreMovementSpeed .. "% increased Movement Speed\n")
+					end
 					if (tonumber(TempStoreDamage) ~= 0) then
 						print("asdf")
 						ExportAuraString = ExportAuraString .. (TempStoreDamage .. "% increased Damage\n")    --increased damage is additive
