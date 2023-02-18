@@ -1396,7 +1396,7 @@ local modTagList = {
 	["if you[' ]h?a?ve hit with your off hand weapon recently"] = { tagList = { { type = "Condition", var = "HitRecentlyWithWeapon" }, { type = "Condition", var = "DualWielding" } } },
 	["if you[' ]h?a?ve hit a cursed enemy recently"] = { tagList = { { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "Cursed" } } },
 	["when you or your totems hit an enemy with a spell"] = { tag = { type = "Condition", varList = { "HitSpellRecently","TotemsHitSpellRecently" } }, },
-	["on hits? with spells?"] = { tag = { type = "Condition", var = "HitSpellRecently" },
+	["on hits? with spells?"] = { tag = { type = "Condition", var = "HitSpellRecently" } },
 	["if you[' ]h?a?ve crit recently"] = { tag = { type = "Condition", var = "CritRecently" } },
 	["if you[' ]h?a?ve dealt a critical strike recently"] = { tag = { type = "Condition", var = "CritRecently" } },
 	["when you deal a critical strike"] = { tag = { type = "Condition", var = "CritRecently" } },
