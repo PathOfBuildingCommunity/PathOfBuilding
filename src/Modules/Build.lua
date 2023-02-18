@@ -38,7 +38,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- Load build file
 	self.xmlSectionList = { }
 	self.spectreList = { }
-	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
+	self.timelessData = { jewelType = { }, conquerorType = { }, devotionVariant1 = 1, devotionVariant2 = 1, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
 	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
@@ -139,51 +139,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		end
 	end
 	self.controls.pointDisplay.width = function(control)
-		local PointsUsed, AscUsed = self.spec:CountAllocNodes()
-		local bandit = self.calcsTab.mainOutput.ExtraPoints or 0 
-		local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + bandit, 8, 1, 1, "", ""
-		local acts = { 
-			[1] = { level = 1, questPoints = 0 }, 
-			[2] = { level = 12, questPoints = 2 }, 
-			[3] = { level = 22, questPoints = 3 + bandit }, 
-			[4] = { level = 32, questPoints = 5 + bandit },
-			[5] = { level = 40, questPoints = 6 + bandit },
-			[6] = { level = 44, questPoints = 8 + bandit },
-			[7] = { level = 50, questPoints = 11 + bandit },
-			[8] = { level = 54, questPoints = 14 + bandit },
-			[9] = { level = 60, questPoints = 17 + bandit },
-			[10] = { level = 64, questPoints = 19 + bandit },
-			[11] = { level = 67, questPoints = 22 + bandit }
-		}
-				
-		-- loop for how much quest skillpoints are used with the progress
-		while currentAct < 11 and PointsUsed + 1 - acts[currentAct].questPoints > acts[currentAct + 1].level do
-			currentAct = currentAct + 1
-		end
-
-		-- bandits notification; when considered and in calculation after act 2
-		if currentAct <= 2 and bandit ~= 0 then
-			bandit = 0
-		end
-		
-		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
-		levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
-		
-		-- Ascendency points for lab
-		-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
-		local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
-		local strAct = "Endgame"
-		if levelreq >= 33 and levelreq < 55 then labSuggest = labstr[1]
-		elseif levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2]
-		elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
-		elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
-		if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
-		
-		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
-		control.req = "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
-		
-		if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
-		if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
+		control.str, control.req = self:EstimatePlayerProgress()
 		return DrawStringWidth(16, "FIXED", control.str) + 8
 	end
 	self.controls.pointDisplay.Draw = function(control)
@@ -749,6 +705,54 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.abortSave = false
 end
 
+function buildMode:EstimatePlayerProgress()
+	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
+	local bandit = self.calcsTab.mainOutput.ExtraPoints or 0 
+	local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + bandit, 8, 1, 1, "", ""
+	local acts = { 
+		[1] = { level = 1, questPoints = 0 }, 
+		[2] = { level = 12, questPoints = 2 }, 
+		[3] = { level = 22, questPoints = 3 + bandit }, 
+		[4] = { level = 32, questPoints = 5 + bandit },
+		[5] = { level = 40, questPoints = 6 + bandit },
+		[6] = { level = 44, questPoints = 8 + bandit },
+		[7] = { level = 50, questPoints = 11 + bandit },
+		[8] = { level = 54, questPoints = 14 + bandit },
+		[9] = { level = 60, questPoints = 17 + bandit },
+		[10] = { level = 64, questPoints = 19 + bandit },
+		[11] = { level = 67, questPoints = 22 + bandit }
+	}
+			
+	-- loop for how much quest skillpoints are used with the progress
+	while currentAct < 11 and PointsUsed + 1 - acts[currentAct].questPoints > acts[currentAct + 1].level do
+		currentAct = currentAct + 1
+	end
+
+	-- bandits notification; when considered and in calculation after act 2
+	if currentAct <= 2 and bandit ~= 0 then
+		bandit = 0
+	end
+	
+	-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
+	levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
+	
+	-- Ascendency points for lab
+	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
+	local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
+	local strAct = "Endgame"
+	if levelreq >= 33 and levelreq < 55 then labSuggest = labstr[1]
+	elseif levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2]
+	elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
+	elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
+	if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
+	
+	if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
+	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
+	self.Act = strAct
+	
+	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax), "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
+end
+
 function buildMode:CanExit(mode)
 	if not self.unsaved then
 		return true
@@ -805,6 +809,8 @@ function buildMode:Load(xml, fileName)
 			self.timelessData.conquerorType = {
 				id = tonumber(child.attrib.conquerorTypeId)
 			}
+			self.timelessData.devotionVariant1 = tonumber(child.attrib.devotionVariant1) or 1
+			self.timelessData.devotionVariant2 = tonumber(child.attrib.devotionVariant2) or 1
 			self.timelessData.jewelSocket = {
 				id = tonumber(child.attrib.jewelSocketId)
 			}
@@ -882,6 +888,8 @@ function buildMode:Save(xml)
 		attrib = {
 			jewelTypeId = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.id),
 			conquerorTypeId = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.id),
+			devotionVariant1 = tostring(self.timelessData.devotionVariant1),
+			devotionVariant2 = tostring(self.timelessData.devotionVariant2),
 			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
 			fallbackWeightModeIdx = next(self.timelessData.fallbackWeightMode) and tostring(self.timelessData.fallbackWeightMode.idx),
 			socketFilter = self.timelessData.socketFilter and "true",

@@ -679,7 +679,7 @@ The Dancing Duo
 Reaver Sword
 Source: No longer obtainable
 Variant: Pre 3.11.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
 {variant:2}60% increased Global Accuracy Rating
