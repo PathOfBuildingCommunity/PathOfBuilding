@@ -503,8 +503,6 @@ function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 	end
 	self.controls["resultDropdown"..index].selIndex = 1
 	self.controls["resultDropdown"..index]:SetList(dropdownLabels)
-	self.itemIndexTbl[index] = self.sortedResultTbl[index][1].index
-	self:SetFetchResultReturn(index, self.itemIndexTbl[index])
 end
 
 -- Method to set the current result return in the pane based of an index
