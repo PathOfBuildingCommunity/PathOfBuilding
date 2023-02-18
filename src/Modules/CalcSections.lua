@@ -1269,13 +1269,12 @@ return {
 		{ modName = "EnemyKnockbackDistance", cfg = "weapon2" },
 	}, },
 	{ label = "Maximum Rage", haveOutput = "MaximumRage", { format = "{0:output:MaximumRage}", { modName = "MaximumRage" },	}, },
-	{ label = "Rage Regen", haveOutput = "RageRegen", { format = "{2:output:RageRegen}",
-		{ breakdown = "RageRegen" },
-		{ modName = "RageRegen" },
-	}, },
 	{ label = "Inc. Item Quantity", { format = "{0:mod:1}%", { modName = "LootQuantity", modType = "INC", cfg = "skill" }, }, },
 	{ label = "Inc. Item Rarity", { format = "{0:mod:1}%", { modName = "LootRarity", modType = "INC", cfg = "skill" }, }, },
 	{ label = "Culling Strike", haveOutput = "CullPercent", { format = "{0:output:CullPercent}%", { modName = { "CullPercent", "CriticalCullPercent" }, cfg = "skill" } } },
+	{ label = "Enemy Life Regen", haveOutput = "EnemyLifeRegen", { format =  "{0:output:EnemyLifeRegen}%", { modName = "LifeRegen", modType = "INC", enemy = true }, }, },
+	{ label = "Enemy Mana Regen", haveOutput = "EnemyManaRegen", { format =  "{0:output:EnemyManaRegen}%", { modName = "ManaRegen", modType = "INC", enemy = true }, }, },
+	{ label = "Enemy ES Regen", haveOutput = "EnemyEnergyShieldRegen", { format =  "{0:output:EnemyEnergyShieldRegen}%", { modName = "EnergyShieldRegen", modType = "INC", enemy = true }, }, },
 } }
 } },
 --misc

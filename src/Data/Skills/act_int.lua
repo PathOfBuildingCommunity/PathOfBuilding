@@ -4599,10 +4599,16 @@ skills["FrostBomb"] = {
 	end,
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
-			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frost Bomb" }),
 		},
 		["frost_bomb_damage_+%_final_per_100ms_duration"] = {
 			skill("frostBombDamagePer100ms", nil),
+		},
+		["life_regeneration_rate_+%"] = {
+			mod("LifeRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frost Bomb" }),
+		},
+		["energy_shield_regeneration_rate_+%"] = {
+			mod("EnergyShieldRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frost Bomb" }),
 		},
 	},
 	baseFlags = {

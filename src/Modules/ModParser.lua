@@ -1020,6 +1020,15 @@ local preFlagList = {
 	["^enemies (%a+) by you have "] = function(cond)
 		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true }
 	end,
+	["^while a pinnacle atlas boss is in your presence, enemies you've hit recently have "] = function(cond)
+		return { playerTagList = { { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } }, applyToEnemy = true }
+	end,
+	["^while a unique enemy is in your presence, enemies you've hit recently have "] = function(cond)
+		return { playerTagList = { { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" } }, applyToEnemy = true }
+	end,
+	["^enemies you've hit recently have "] = function(cond)
+		return { playerTag = { type = "Condition", var = "HitRecently" }, applyToEnemy = true }
+	end, 
 	["^hits against enemies (%a+) by you have "] = function(cond)
 		return { tag = { type = "ActorCondition", actor = "enemy", var = cond:gsub("^%a", string.upper) } }
 	end,
@@ -2518,6 +2527,7 @@ local specialModList = {
 	["your shocks can increase damage taken by up to a maximum of (%d+)%%"] = function(num) return { mod("ShockMax", "OVERRIDE", num) } end,
 	["%+(%d+)%% to maximum effect of shock"] = function(num) return { mod("ShockMax", "BASE", num) } end,
 	["your elemental damage can shock"] = { flag("ColdCanShock"), flag("FireCanShock") },
+	["your fire damage can shock"] = { flag("FireCanShock") },
 	["all y?o?u?r? ?damage can freeze"] = { flag("PhysicalCanFreeze"), flag("LightningCanFreeze"), flag("FireCanFreeze"), flag("ChaosCanFreeze") },
 	["all damage with maces and sceptres inflicts chill"] =  { mod("EnemyModifier", "LIST", { mod = flag("Condition:Chilled") }, { type = "Condition", var = "UsingMace" }) },
 	["your cold damage can ignite"] = { flag("ColdCanIgnite") },
@@ -2533,6 +2543,7 @@ local specialModList = {
 	["your physical damage can chill"] = { flag("PhysicalCanChill") },
 	["your physical damage can shock"] = { flag("PhysicalCanShock") },
 	["your physical damage can freeze"] = { flag("PhysicalCanFreeze") },
+	["your lightning damage can freeze"] = { flag("LightningCanFreeze") },
 	["you always ignite while burning"] = { mod("EnemyIgniteChance", "BASE", 100, { type = "Condition", var = "Burning" }) },
 	["critical strikes do not a?l?w?a?y?s?i?n?h?e?r?e?n?t?l?y? freeze"] = { flag("CritsDontAlwaysFreeze") },
 	["cannot inflict elemental ailments"] = {
@@ -4733,13 +4744,14 @@ local function parseMod(line, order)
 		elseif misc.addToMinion then
 			-- Minion modifiers
 			for i, effectMod in ipairs(modList) do
-				local tagList = { misc.playerTag }
+				local tagList = { }
+				if misc.playerTag then t_insert(tagList, misc.playerTag) end
+				if misc.addToMinionTag then t_insert(tagList, misc.addToMinionTag) end
 				if misc.playerTagList then
-					for i, tag in ipairs(misc.playerTagList) do
-						tagList[i] = tag
+					for _, tag in ipairs(misc.playerTagList) do
+						t_insert(tagList, tag)
 					end
 				end
-				t_insert(tagList, misc.addToMinionTag)
 				modList[i] = mod("MinionModifier", "LIST", { mod = effectMod }, unpack(tagList))
 			end
 		elseif misc.addToSkill then
@@ -4749,12 +4761,19 @@ local function parseMod(line, order)
 			end
 		elseif misc.applyToEnemy then
 			for i, effectMod in ipairs(modList) do
+				local tagList = { }
+				if misc.playerTag then t_insert(tagList, misc.playerTag) end
+				if misc.playerTagList then
+					for _, tag in ipairs(misc.playerTagList) do
+						t_insert(tagList, tag)
+					end
+				end
 				local newMod = effectMod
 				if effectMod[1] and type(effectMod) == "table" and misc.actorEnemy then
 					newMod = copyTable(effectMod)
 					newMod[1]["actor"] = "enemy"
 				end
-				modList[i] = mod("EnemyModifier", "LIST", { mod = newMod })
+				modList[i] = mod("EnemyModifier", "LIST", { mod = newMod }, unpack(tagList))
 			end
 		end
 	end
