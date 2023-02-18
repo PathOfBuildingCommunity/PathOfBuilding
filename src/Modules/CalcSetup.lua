@@ -588,7 +588,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item and item.grantedSkills then
 				-- Find skills granted by this item
 				for _, skill in ipairs(item.grantedSkills) do
+					local skillData = env.data.skills[skill.skillId]
 					local grantedSkill = copyTable(skill)
+					grantedSkill.nameSpec = skillData and skillData.name or nil
 					grantedSkill.sourceItem = item
 					grantedSkill.slotName = slotName
 					t_insert(env.grantedSkillsItems, grantedSkill)
@@ -922,6 +924,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				group.sourceNode = grantedSkill.sourceNode
 				local activeGemInstance = group.gemList[1] or {
 					skillId = grantedSkill.skillId,
+					nameSpec = grantedSkill.nameSpec,
 					quality = 0,
 					enabled = true,
 				}
