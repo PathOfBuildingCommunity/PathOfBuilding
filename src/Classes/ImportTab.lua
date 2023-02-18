@@ -584,6 +584,17 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.controls.characterLevel:SetText(charData.level)
+	self.build:EstimatePlayerProgress()
+	local resistancePenaltyIndex = 3
+	if self.build.Act then -- Estimate resistance penalty setting based on act progression estimate
+		if type(self.build.Act) == "string" and self.build.Act == "Endgame" then resistancePenaltyIndex = 3
+		elseif type(self.build.Act) == "number" then 
+			if self.build.Act < 5 then resistancePenaltyIndex = 1
+			elseif self.build.Act > 5 and self.build.Act < 11 then resistancePenaltyIndex = 2
+			elseif self.build.Act > 10 then resistancePenaltyIndex = 3 end
+		end
+	end
+	self.build.configTab.varControls["resistancePenalty"]:SetSel(resistancePenaltyIndex)
 	self.build.buildFlag = true
 	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class, charData.league))
 end
