@@ -1008,12 +1008,13 @@ local function doActorMisc(env, actor)
 				inc = inc + modDB:Sum("INC", nil, "NightbladeSupportedElusiveEffect")
 			end
 			inc = inc + maxSkillInc
-			output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			local elusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			output.ElusiveEffectMod = elusiveEffectMod / 2
 			-- if we want the max skill to not be noted as its own breakdown table entry, comment out below
 			modDB:NewMod("ElusiveEffect", "INC", maxSkillInc, "Max Skill Effect")
 			-- Override elusive effect if set.
 			if modDB:Override(nil, "ElusiveEffect") then
-				output.ElusiveEffectMod = m_min(modDB:Override(nil, "ElusiveEffect"), output.ElusiveEffectMod)
+				output.ElusiveEffectMod = m_min(modDB:Override(nil, "ElusiveEffect"), elusiveEffectMod)
 			end
 			local effect = output.ElusiveEffectMod / 100
 			condList["Elusive"] = true
