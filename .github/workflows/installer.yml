@@ -1,0 +1,21 @@
+name: Create new installer
+on:
+  release:
+    types: [published]
+jobs:
+  release:
+    runs-on: windows-latest
+    steps:
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                repository: 'PathOfBuildingCommunity/PathOfBuilding-Installer'
+                ref: 'master'
+                ssh-key: '${{ secrets.POB_INSTALLER_KEY }}'
+            - name: Create installer
+              run: 'python3 make_release.py'
+            - name: Upload artifact
+              run: >
+                echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token;
+                gh release upload ${{ github.event.release.tag_name }} (Get-ChildItem Dist -File).FullName --clobber -R ${{ github.repository }};
+

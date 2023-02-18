@@ -1,0 +1,2567 @@
+-- Path of Building
+--
+-- Active Intelligence skill gems
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill Arc
+#flags spell chaining
+	statMap = {
+		["arc_damage_+%_final_for_each_remaining_chain"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
+		},
+	},
+#mods
+
+#skill VaalArcChain
+#flags spell chaining
+	statMap = {
+		["arc_damage_+%_final_for_each_remaining_chain"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
+		},
+	},
+#baseMod flag("Condition:CanBeLucky", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill ArcaneCloak
+#flags spell duration
+	statMap = {
+		["arcane_cloak_damage_absorbed_%"] = {
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["arcane_cloak_consume_%_of_mana"] = {
+			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
+			div = 100,
+		},
+		["arcane_cloak_gain_%_of_consumed_mana_as_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard" }),
+			div = 100,
+		},
+	},
+#baseMod mod("GuardAbsorbLimit", "BASE", 1, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true })
+#mods
+
+#skill ArcticBreath
+#flags spell area projectile duration
+#baseMod skill("radius", 12)
+#baseMod skill("dotIsArea", true)
+#mods
+
+#skill CataclysmSigil
+#flags spell area duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+#baseMod skill("radius", 22)
+#baseMod skill("radiusSecondary", 8)
+#mods
+
+#skill AssassinsMark
+#flags spell curse duration mark
+	statMap = {
+		["enemy_additional_critical_strike_multiplier_against_self"] = {
+			mod("SelfCritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_additional_critical_strike_chance_against_self"] = {
+			mod("SelfCritChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			div = 100,
+		},
+		["life_granted_when_killed"] = {
+			mod("SelfLifeOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["mana_granted_when_killed"] = {
+			mod("SelfManaOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#mods
+
+#skill BallLightning
+#flags spell projectile
+	parts = {
+		{
+			name = "One Bolt",
+		},
+		{
+			name = "All Bolts in Range",
+		}
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillFlags = activeSkill.skillFlags
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local superchance = (skillModList:Sum("BASE", skillCfg, "ball_lightning_superball_%_chance") or 0) / 100
+		output.SuperchargePct = superchance * 100
+		local dpsMultiplier = 0
+		if activeSkill.skillPart == 1 then
+			-- Compute DPS changes as if we get exactly 1 strike per ball.
+			if superchance > 0 then
+				dpsMultiplier = 1 + 0.5 * superchance
+				if breakdown then
+					local breakdownDpsMult = {}
+					t_insert(breakdownDpsMult, "Average DPS multiplier")
+					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7super chance^8) + 1.5 * (1 - ^7super chance^8)"))
+					t_insert(breakdownDpsMult, s_format("^8= 1 *^7 %d%%^8 + 1.5 *^7 %d%%^8", superchance * 100, 100 - superchance * 100))
+					t_insert(breakdownDpsMult, s_format("^7=^7 %.3f", dpsMultiplier))
+					breakdown.SkillDPSMultiplier = breakdownDpsMult
+				end
+			else
+				dpsMultiplier = 1
+			end
+		elseif activeSkill.skillPart == 2 then
+			-- Compute DPS changes accounting for all strikes in range.
+
+			-- What's the bolt strike proc rate? Note that the interval is not
+			-- considered to be a cooldown, so it is unaffected by CDR mods.
+			local secsPerStrike = skillData.strikeInterval
+			-- How many total bolt strikes proc per ball, ignoring whether the
+			-- enemy is in range? We assume that the first strike is at the end
+			-- of the first interval, based on Kitava self-poison testing (no
+			-- recorded examples of getting 14 self poison stacks with multiple
+			-- people testing).
+			local durationSecs = skillData.duration
+			local maxStrikes = math.floor(durationSecs / secsPerStrike)
+			-- How fast does the ball travel?
+			local baseBallDistPerSec = skillData.projectileSpeed
+			local incSpeedMult, moreSpeedMult = calcLib.mods(skillModList, skillCfg, "ProjectileSpeed")
+			local netSpeedMult = incSpeedMult * moreSpeedMult
+			local ballDistPerSec = baseBallDistPerSec * netSpeedMult
+			local ballDistPerStrike = ballDistPerSec * secsPerStrike
+			-- How many times does the ball proc a bolt strike while it is in
+			-- range of the enemy?
+			for isSuperballAsInt = 0, 1 do
+				local isSuperball = isSuperballAsInt > 0
+				if isSuperball and superchance == 0 then
+					break
+				end
+				local enemyRadius = 0 -- for now, we will be conservative and assume no enemy radius
+				local baseStrikeRadius = output.AreaOfEffectRadius
+				local strikeRadius = baseStrikeRadius
+				if isSuperball then
+					strikeRadius = round(strikeRadius * math.sqrt(1.5))
+				end
+				local castDist = 0
+				if skillCfg.skillDist then
+					-- Advanced users can specify exactly the standoff distance
+					-- they'll use against single-target bosses.
+					castDist = skillCfg.skillDist
+				elseif skillFlags.triggered then
+					-- Cyclone is the most common trigger skill, and players who
+					-- aren't min-maxing their playstyle will tend to just
+					-- cyclone back and forth across the boss instead of
+					-- hovering at the optimal range. For simplicity, let's
+					-- assume they tend to be an average of 1 normal bolt strike
+					-- radius away as they do this.
+					castDist = math.floor(baseStrikeRadius / 2)
+				else
+					-- Be nice and assume hand-casters are at the optimal
+					-- distance for normal bolt strikes.
+					castDist = baseStrikeRadius
+				end
+				local firstStrikeIdxThatHits =
+					math.max(1,  -- 1 not 0 here: strike seems to happen at the end of the interval, not start
+						     math.ceil((castDist - strikeRadius) / ballDistPerStrike))
+				local lastStrikeIdxThatHits = math.floor(math.min(data.misc.ProjectileDistanceCap, castDist + strikeRadius) / ballDistPerStrike)
+				local numStrikes = math.max(0, math.min(maxStrikes, lastStrikeIdxThatHits + 1 - firstStrikeIdxThatHits))
+				lastStrikeIdxThatHits = firstStrikeIdxThatHits + numStrikes - 1
+
+				local effNumStrikes
+				if isSuperball then
+					effNumStrikes = numStrikes * superchance
+					dpsMultiplier = dpsMultiplier + effNumStrikes * 1.5
+				else
+					effNumStrikes = numStrikes * (1 - superchance)
+					dpsMultiplier = dpsMultiplier + effNumStrikes
+				end
+
+				if breakdown then
+					local breakdownHits = {}
+					local ballsName
+					if superchance > 0 then
+						t_insert(breakdownHits, "Applicable to all balls:")
+					end
+					t_insert(breakdownHits, s_format("^8Balls travel at^7 %.2f^8 units/sec.", ballDistPerSec))
+					t_insert(breakdownHits, s_format("^8Lightning bolts strike all nearby enemies every^7 %.2f^8 seconds (^7%.2f^8 strikes/sec).", secsPerStrike, 1 / secsPerStrike))
+					t_insert(breakdownHits, s_format("^8Balls travel^7 %.2f^8 units between each bolt strike.", ballDistPerStrike))
+					t_insert(breakdownHits, s_format("^8Assumes balls are cast^7 %d^8 units from the enemy.", castDist))
+					if superchance > 0 then
+						if isSuperball then
+							t_insert(breakdownHits, "Applicable to supercharged balls only:")
+						else
+							t_insert(breakdownHits, "Applicable to normal balls only:")
+						end
+					end
+					t_insert(breakdownHits, s_format("^8Balls can strike enemies up to^7 %d^8 units away from themselves.", strikeRadius))
+					t_insert(breakdownHits, s_format("^8The first strike is at^7 %.2f^8 seconds after it is cast, when the ball is^7 %d^8 units from the cast point.", firstStrikeIdxThatHits * secsPerStrike, firstStrikeIdxThatHits * ballDistPerStrike))
+					t_insert(breakdownHits, s_format("^8The last strike is at^7 %.2f^8 seconds after it is cast, when the ball is^7 %d^8 units from the cast point.", lastStrikeIdxThatHits * secsPerStrike, lastStrikeIdxThatHits * ballDistPerStrike))
+					if superchance > 0 then
+						if isSuperball then
+							t_insert(breakdownHits, s_format("^8Balls have a(n)^7 %.1f%%^8 chance to be supercharged.", superchance * 100))
+						else
+							t_insert(breakdownHits, s_format("^8Balls have a(n)^7 %.1f%%^8 chance to be normal.", 100 - superchance * 100))
+						end
+					end
+					if isSuperball then
+						output.SuperchargedHitsPerCast = effNumStrikes
+						breakdown.SuperchargedHitsPerCast = breakdownHits
+					else
+						output.NormalHitsPerCast = effNumStrikes
+						breakdown.NormalHitsPerCast = breakdownHits
+					end
+				end
+			end
+			if breakdown then
+				if (dpsMultiplier ~= 1) and (superchance > 0) then
+					local breakdownDpsMult = {}
+					t_insert(breakdownDpsMult, "Average DPS multiplier")
+					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7normal hits/cast^8) + 1.5 * (^7super hits/cast^8)"))
+					t_insert(breakdownDpsMult, s_format("^8= 1 *^7 %.3f^8 + 1.5 *^7 %.3f^8", output.NormalHitsPerCast, output.SuperchargedHitsPerCast))
+					t_insert(breakdownDpsMult, s_format("^8=^7 %.3f", dpsMultiplier))
+					breakdown.SkillDPSMultiplier = breakdownDpsMult
+				end
+			end
+		end
+		if dpsMultiplier ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
+		end
+	end,
+	statMap = {
+		["ball_lightning_superball_%_chance"] = {
+			mod("ball_lightning_superball_%_chance", "BASE", nil)
+		},
+	},
+#baseMod skill("radius", 18)
+#baseMod skill("strikeInterval", 0.15)
+#baseMod skill("projectileSpeed", 48)
+#baseMod skill("duration", 2)
+#mods
+
+#skill DarkRitual
+#flags spell duration area
+	preSkillTypeFunc = function(activeSkill, output)
+		local curseCount = 0
+		for _, skill in ipairs(activeSkill.actor.activeSkillList) do
+			if skill.socketGroup == activeSkill.socketGroup and skill.skillModList:GetCondition("AppliedByBane") then
+				curseCount = curseCount + 1
+				if curseCount == output.EnemyCurseLimit then
+					break
+				end
+			end
+		end
+		activeSkill.skillModList:NewMod("Multiplier:CurseApplied", "BASE", curseCount, "Base")
+	end,
+	statMap = {
+		["dark_ritual_damage_+%_final_per_curse_applied"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "CurseApplied" }),
+		},
+		["dark_ritual_skill_effect_duration_+%_per_curse_applied"] = {
+			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseApplied" }),
+		},
+		["apply_linked_curses_with_dark_ritual"] = {
+		},
+		["cannot_cast_curses"] = {
+		},
+		["display_linked_curse_effect_+%_final"] = {
+		},
+		["support_bane_curse_effect_+%_final"] = {
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 21)
+#mods
+
+#skill SupportDarkRitual Bane
+	statMap = {
+		["apply_linked_curses_with_dark_ritual"] = {
+			flag("Condition:AppliedByBane"),
+		},
+		["support_bane_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
+	},
+#mods
+
+#skill Ember
+#flags spell area projectile
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * output.ProjectileCount
+		end
+	end,
+#baseMod skill("radius", 16)
+#baseMod skill("radiusLabel", "Minimum Range:")
+#baseMod skill("radiusSecondary", 22)
+#baseMod skill("radiusSecondaryLabel", "Maximum Range:")
+#mods
+
+#skill Blight
+#flags spell duration area
+	parts = {
+		{
+			name = "Manual Stacks",
+			stages = true,
+		},
+		{
+			name = "Maximum Sustainable Stacks",
+		},
+	},
+	statMap = {
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
+#baseMod mod("Damage", "MORE", 100, 0, 0, { type = "Multiplier", var = "BlightStageAfterFirst" })
+#baseMod skill("debuff", true)
+#baseMod skill("debuffSecondary", true)
+#baseMod skill("radius", 26)
+#mods
+
+#skill VaalBlight
+#flags spell duration area
+	statMap = {
+		["hinder_enemy_chaos_damage_taken_+%"] = {
+			mod("ChaosDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Hinder" }),
+		},
+		["display_max_blight_stacks"] = {
+			mod("Multiplier:BlightMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
+#baseMod skill("radius", 20)
+#mods
+
+#skill CorpseWarp
+#flags spell area
+	parts = {
+		{
+			name = "Self Explosion",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 1 then
+			local skillData = activeSkill.skillData
+			if activeSkill.skillFlags.totem then
+				skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+				skillData.FireBonusMax = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+			else
+				skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
+				skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
+			end
+		end
+	end,
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["corpse_warp_area_of_effect_+%_final_when_consuming_corpse"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 14)
+#mods
+
+#skill BoneOffering
+#flags spell duration
+	statMap = {
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["monster_base_block_%"] = {
+			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_spell_block_%"] = {
+			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["minion_recover_X_life_on_block"] = {
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
+#mods
+
+#skill SigilRecall
+#flags spell
+	statMap = {
+		["recall_sigil_target_search_range_+%"] = {
+			mod("BrandAttachmentRange", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#mods
+
+#skill Clarity
+#flags spell aura area
+	statMap = {
+		["base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+		["damage_+%_on_full_mana"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullMana" }, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["flask_mana_to_recover_+%"] = {
+			mod("FlaskManaRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill VaalClarity
+#flags spell aura area duration
+	statMap = {
+		["no_mana_cost"] = {
+			mod("ManaCost", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true}),
+			value = -100,
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill ColdSnap
+#flags spell area
+#baseMod skill("showAverage", false)
+#baseMod skill("radius", 16)
+#baseMod skill("dotIsArea", true)
+#mods
+
+#skill VaalColdSnap
+#flags spell area duration
+#baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 20)
+#baseMod skill("radiusLabel", "Initial Area:")
+#baseMod skill("radiusSecondary", 36)
+#baseMod skill("radiusSecondaryLabel", "Final Area:")
+#mods
+
+#skill Conductivity
+#flags spell curse area duration hex
+	statMap = {
+		["base_lightning_damage_resistance_%"] = {
+			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_shocked_%"] = {
+			mod("SelfShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_self_shock_duration_-%"] = {
+			mod("SelfShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			div = -1,
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
+#skill Contagion
+#flags spell area duration
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 17)
+#mods
+
+#skill ConversionTrap
+#flags spell duration trap
+	statMap = {
+		["conversation_trap_converted_enemy_damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) } )
+		}
+	},
+#mods
+
+#skill Convocation
+#flags spell duration
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+	},
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
+#mods
+
+#skill Disintegrate
+#flags spell area
+	statMap = {
+		["disintegrate_damage_+%_final_per_intensity"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
+		},
+		["disintegrate_base_radius_+_per_intensify"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
+		},
+	},
+#baseMod skill("radius", 10)
+#mods
+
+#skill DarkPact
+#flags spell area
+	parts = {
+		{
+			name = "Cast on Player",
+		},
+		{
+			name = "Cast on Skeleton",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local life
+		if activeSkill.skillPart == 1 then
+			if activeSkill.skillFlags.totem then
+				life = output.TotemLife
+			else
+				life = output.Life
+			end
+		else
+			life = activeSkill.skillData.skeletonLife or 0
+		end
+		local add = life * activeSkill.skillData.lifeDealtAsChaos / 100
+		activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
+		activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
+	end,
+	statMap = {
+		["skeletal_chains_aoe_%_health_dealt_as_chaos_damage"] = {
+			skill("lifeDealtAsChaos", nil),
+		},
+		["skeletal_chains_no_minions_radius_+"] = {
+			skill("radiusExtra", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["skeletal_chains_no_minions_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 }),
+		},
+	},
+#baseMod skill("radius", 26)
+#mods
+
+#skill Despair
+#flags spell curse area duration hex
+	statMap = {
+		["degen_effect_+%"] = {
+			mod("DamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_chaos_damage_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["minimum_added_chaos_damage_taken"] = {
+			mod("SelfChaosMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["maximum_added_chaos_damage_taken"] = {
+			mod("SelfChaosMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
+#skill Discharge
+#flags spell area
+	statMap = {
+		["area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge"] = {
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
+			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
+		},
+		["active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil,  ModFlag.Ailment),
+		},
+	},
+#baseMod skill("radius", 30)
+#mods
+
+#skill Discipline
+#flags spell aura area
+	statMap = {
+		["energy_shield_recharge_rate_+%"] = {
+			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_energy_shield"] = {
+			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["damage_+%_on_full_energy_shield"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield" }, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["energy_shield_delay_-%"] = {
+			mod("EnergyShieldRechargeFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		}
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill VaalDiscipline
+#flags spell aura area duration
+	statMap = {
+		["energy_shield_recharge_not_delayed_by_damage"] = {
+			mod("EnergyShieldRechargeNotDelayedByDamage", "DUMMY", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill DivineTempest
+#flags spell area
+	parts = {
+		{
+			name = "Channelling",
+			area = false,
+		},
+		{
+			name = "Release",
+			area = true,
+			stages = true,
+		},
+	},
+	statMap = {
+		["divine_tempest_damage_+%_final_while_channelling"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["divine_tempest_hit_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
+		},
+		["divine_tempest_ailment_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:DivineIreMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 38)
+#mods
+
+#skill ElementalWeakness
+#flags spell curse area duration hex
+	statMap = {
+		["base_resist_all_elements_%"] = {
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["self_elemental_status_duration_-%"] = {
+			mod("SelfElementalAilmentDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1
+		}
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
+#skill EnergyBlade
+#flags spell
+	statMap = {
+		["storm_blade_energy_shield_+%_final"] = {
+			mod("EnergyShield", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_minimum_lightning_damage_from_es_%"] = {
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+		["storm_blade_maximum_lightning_damage_from_es_%"] = {
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 100,
+		},
+		["storm_blade_damage_+%_final_with_two_hand_weapon"] = {
+			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_minimum_lightning_damage"] = {
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_maximum_lightning_damage"] = {
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_quality_local_critical_strike_chance_+%"] = {
+			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_quality_chance_to_shock_%"] = {
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["storm_blade_quality_attack_lightning_damage_%_to_convert_to_chaos"] = {
+			mod("LightningDamageConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#mods
+
+#skill Enfeeble
+#flags spell curse area duration hex
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
+#skill EssenceDrain
+#flags spell projectile duration
+#baseMod skill("debuff", true)
+#baseMod skill("showAverage", true)
+#baseMod skill("radius", 8)
+#mods
+
+#skill EyeOfWinter
+#flags spell projectile
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "EyeOfWinterRamp"), "Skill:EyeOfWinter", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+	end,
+	statMap = {
+		["freezing_pulse_damage_+%_final_at_long_range"] = {
+			mod("EyeOfWinterRamp", "BASE", nil)
+		},
+	},
+#mods
+
+#skill Fireball
+#flags spell projectile
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
+#baseMod skill("radius", 9)
+#mods
+
+#skill VaalFireballSpiralNova
+#flags spell projectile
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
+#baseMod skill("radius", 9)
+#mods
+
+#skill Firestorm
+#flags spell area duration
+	parts = {
+		{
+			name = "First Impact",
+		},
+		{
+			name = "Subsequent Impacts",
+		},
+	},
+	statMap = {
+		["firestorm_initial_impact_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 })
+		},
+		["firestorm_initial_impact_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
+		},
+	},
+#baseMod skill("showAverage", false, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 22)
+#baseMod skill("radiusLabel", "Area in which fireballs fall:")
+#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
+#mods
+
+#skill FlameDash
+#flags spell area duration
+	statMap = {
+		["flame_dash_burning_damage_+%_final"] = {
+			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
+		}
+	},
+#baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround")
+#mods
+
+#skill Firewall
+#flags spell area duration
+	parts = {
+		{
+			name = "Primary Debuff",
+			area = true,
+		},
+		{
+			name = "Secondary Debuff",
+			area = false,
+		},
+	},
+	statMap = {
+		["base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 1 }),
+			div = 60,
+		},
+		["secondary_base_fire_damage_to_deal_per_minute"] = {
+			skill("FireDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
+		},
+		["wall_maximum_length"] = {
+			skill("radius", nil),
+		},
+		["firewall_applies_%_fire_exposure"] = {
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+		},
+		["flame_wall_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil, ModFlag.Projectile, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Flame Wall", effectCond = "FlameWallAddedDamage" }),
+		},
+		["flame_wall_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil, ModFlag.Projectile, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Flame Wall", effectCond = "FlameWallAddedDamage" }),
+		}
+	},
+#baseMod skill("radiusLabel", "Flame Wall Length:")
+#baseMod skill("dotIsArea", true)
+#baseMod skill("buffAllies", true)
+#mods
+
+#skill FlameWhip
+#flags spell area duration
+	statMap = {
+		["flame_whip_damage_+%_final_vs_burning_enemies"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
+		},
+		["active_skill_base_area_length_+"] = {
+			mod("AreaOfEffect", "BASE", nil),
+		},
+		["flame_surge_ignite_damage_as_burning_ground_damage_%"] = {
+			mod("IgniteDpsAsBurningGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#baseMod skill("radius", 30)
+#mods
+
+#skill Flameblast
+#flags spell area
+	statMap = {
+		["charged_blast_spell_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+		},
+		["flameblast_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["flameblast_maximum_stages"] = {
+			mod("Multiplier:FlameblastMaxStages", "BASE", nil),
+		},
+		["flameblast_area_+%_final_per_stage"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+		},
+		["vaal_flameblast_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+		},
+	},
+#baseMod skill("radius", 2)
+#baseMod skill("showAverage", true)
+#mods
+
+#skill VaalFlameblast
+#flags spell area
+	statMap = {
+		["charged_blast_spell_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+		["flameblast_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+		["vaal_flameblast_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "VaalFlameblastStage" }),
+		},
+	},
+#baseMod mod("Multiplier:VaalFlameblastMaxStages", "BASE", 15)
+#baseMod skill("radius", 35)
+#mods
+
+#skill Flammability
+#flags spell curse area duration hex
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_ignited_%"] = {
+			mod("SelfIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_self_ignite_duration_-%"] = {
+			mod("SelfIgniteDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1,
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
+#skill FleshOffering
+#flags spell duration
+	statMap = {
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
+#mods
+
+#skill ForbiddenRite
+#flags spell projectile area
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Primary Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local add
+		local t_insert = table.insert
+		local s_format = string.format
+		local basetakenFlat = activeSkill.skillModList:Sum("BASE", nil, "DamageTaken", "ChaosDamageTaken", "DamageTakenWhenHit", "ChaosDamageTakenWhenHit")
+		local baseTakenInc = activeSkill.skillModList:Sum("INC", nil, "DamageTaken", "ChaosDamageTaken", "DamageTakenWhenHit", "ChaosDamageTakenWhenHit")
+		local baseTakenMore = activeSkill.skillModList:More(nil, "DamageTaken", "ChaosDamageTaken","DamageTakenWhenHit", "ChaosDamageTakenWhenHit")
+		local chaosDamageTaken = math.max((1 + baseTakenInc / 100) * baseTakenMore, 0)
+		local chaosFlat = floor(round(basetakenFlat * chaosDamageTaken), 0)
+		if activeSkill.skillFlags.totem then
+			life = output.TotemLife
+			energyShield = output.TotemEnergyShield
+			chaosResistance = output.TotemChaosResist
+		else
+			life = output.Life
+			energyShield = output.EnergyShield
+			chaosResistance = output.ChaosResist
+		end
+		add = life * activeSkill.skillData.lifeDealtAsChaos + energyShield * activeSkill.skillData.energyShieldDealtAsChaos
+		SelfDamageTakenLife = floor(round(life * activeSkill.skillData.SelfDamageTakenLife) * (100 - chaosResistance) / 100 * chaosDamageTaken)
+		SelfDamageTakenES = floor(round(energyShield * activeSkill.skillData.SelfDamageTakenES) * (100 - chaosResistance) / 100 * chaosDamageTaken)
+		activeSkill.skillData.ChaosMin = activeSkill.skillData.ChaosMin + add
+		activeSkill.skillData.ChaosMax = activeSkill.skillData.ChaosMax + add
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (output.ProjectileCount + 1)
+		end
+		if breakdown then
+			local FRDamageTaken = {}
+			t_insert(FRDamageTaken, "Damage Taken per Cast")
+			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Life) *^7 %d%%^8 (of Life taken as Chaos Damage)", life, activeSkill.skillData.SelfDamageTakenLife * 100))
+			if energyShield ~= 0 then
+				t_insert(FRDamageTaken, s_format("^8+^7 %d^8 (ES) *^7 %d%%^8 (of ES taken as Chaos Damage)", energyShield, activeSkill.skillData.SelfDamageTakenES * 100))
+			end
+			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Chaos Damage) *^7 %d%%^8 (Chaos Resistance)", life * activeSkill.skillData.SelfDamageTakenLife + energyShield * activeSkill.skillData.SelfDamageTakenES, chaosResistance))
+			if chaosFlat ~= 0 then
+				t_insert(FRDamageTaken, s_format("^8 -^7 %d^8 (Flat Damage reduction)", -basetakenFlat))
+			end
+			if chaosDamageTaken ~= 1 then
+				t_insert(FRDamageTaken, s_format("^8 *^7 %.2f^8 (Damage taken Multiplier)", chaosDamageTaken))
+			end
+			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Damage taken)", SelfDamageTakenLife + SelfDamageTakenES + chaosFlat))
+			breakdown.FRDamageTaken = FRDamageTaken
+		end
+		output.FRDamageTaken = SelfDamageTakenLife + SelfDamageTakenES + chaosFlat
+	end,
+	statMap = {
+		["skill_base_chaos_damage_%_maximum_life"] = {
+			skill("lifeDealtAsChaos", nil),
+			div = 100,
+		},
+		["skill_base_chaos_damage_%_maximum_energy_shield"] = {
+			skill("energyShieldDealtAsChaos", nil),
+			div = 100,
+		},
+		["base_skill_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil),
+		},
+		["soulfeast_take_%_maximum_life_as_chaos_damage"] = {
+			skill("SelfDamageTakenLife", nil),
+			div = 100,
+		},
+		["soulfeast_take_%_maximum_energy_shield_as_chaos_damage"] = {
+			skill("SelfDamageTakenES", nil),
+			div = 100,
+		},
+	},
+#baseMod skill("radius", 8)
+#mods
+
+#skill FreezingPulse
+#flags spell projectile
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillModList:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "FreezingPulseRamp"), "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
+		activeSkill.skillModList:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
+	end,
+	statMap = {
+		["freezing_pulse_damage_+%_final_at_long_range"] = {
+			mod("FreezingPulseRamp", "BASE", nil)
+		},
+		["display_what_freezing_pulse_does"] = {
+		},
+	},
+#mods
+
+#skill FrostBomb
+#flags spell area duration
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillData.frostBombDamagePer100ms * duration, "Skill:FrostBomb", ModFlag.Hit)
+	end,
+	statMap = {
+		["base_cold_damage_resistance_%"] = {
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+		},
+		["frost_bomb_damage_+%_final_per_100ms_duration"] = {
+			skill("frostBombDamagePer100ms", nil),
+		},
+	},
+#baseMod skill("debuffSecondary", true)
+#baseMod skill("radius", 24)
+#mods
+
+#skill FrostGlobe
+#flags spell area duration
+	statMap = {
+		["frost_globe_additional_spell_base_critical_strike_chance_per_stage"] = {
+			mod("CritChance", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "FrostShieldStage", limitVar = "FrostShieldMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 100,
+		},
+		["energy_shield_lost_per_minute"] = {
+			mod("EnergyShieldDegen", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "FrostShieldStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+			div = 60,
+		},
+		["frost_globe_absorb_damage_%_enemy_in_bubble"] = {
+			mod("FrostGlobeDamageMitigation", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "EnemyInFrostGlobe" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+		},
+		["frost_globe_absorb_damage_%_enemy_outside_bubble"] = {
+			mod("FrostGlobeDamageMitigation", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "EnemyInFrostGlobe", neg = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+		},
+		["frost_globe_health_per_stage"] = {
+			mod("FrostGlobeHealth", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrostShieldStage", limitVar = "FrostShieldMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
+		},
+		["frost_globe_max_stages"] = {
+			mod("Multiplier:FrostShieldMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("radius", 22)
+#mods
+
+#skill FrostWall
+#flags spell duration
+#mods
+
+#skill Frostbite
+#flags spell curse area duration hex
+	statMap = {
+		["base_cold_damage_resistance_%"] = {
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_frozen_%"] = {
+			mod("SelfFreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["base_self_freeze_duration_-%"] = {
+			mod("SelfFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+			mult = -1,
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#mods
+
+#skill GalvanicField
+#flags spell duration chaining
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
+	end,
+	parts = {
+		{
+			name = "Single Target",
+		},
+		{
+			name = "Multi Target",
+		}
+	},
+	statMap = {
+		["skill_buff_grants_shock_duration_+%"] = {
+			mod("EnemyShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["galvanic_field_damage_+%_final_per_5%_increased_damage_taken_from_shock"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
+		},
+		["galvanic_field_radius_+_per_10%_increased_damage_taken_from_shock"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ShockEffect", div = 10, actor = "enemy" }),
+		},
+		["galvanic_field_retargeting_delay_ms"] = {
+			skill("repeatFrequency", nil, { type = "SkillPart", skillPart = 1 }),
+			div = 1000,
+		},
+		["base_galvanic_field_beam_delay_ms"] = {
+			skill("repeatFrequency", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 1000,
+		},
+	},
+#baseMod skill("radius", 19)
+#mods
+
+#skill IceDash
+#flags spell area hit
+	statMap = {
+		["ice_dash_cooldown_recovery_per_nearby_normal_or_magic_enemy"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique", neg = true }),
+		},
+		["ice_dash_cooldown_recovery_per_nearby_rare_or_unique_enemy"] = {
+			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }),
+		},
+	},
+#baseMod skill("showAverage", true)
+#baseMod skill("radius", 20)
+#baseMod skill("radiusLabel", "Area of initial explosion:")
+#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondaryLabel", "Area of Chilled Ground:")
+#mods
+
+#skill FrostBolt
+#flags spell projectile
+	statMap = {
+		["frostbolt_projectile_speed_+%_final"] = {
+			mod("ProjectileSpeed", "MORE", nil),
+		},
+	},
+#mods
+
+#skill GlacialCascade
+#flags spell area
+	parts = {
+		{
+			name = "Initial Bursts",
+		},
+		{
+			name = "Final Burst",
+		},
+	},
+	statMap = {
+		["glacial_cascade_final_spike_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 12)
+#baseMod mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill WaterSphere
+#flags spell duration area
+	parts = {
+		{
+			name = "Frozen",
+		},
+		{
+			name = "Shocked",
+		},
+		{
+			name = "Frozen & Shocked",
+		}
+	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HydroSphereFrequency") / 100)
+	end,
+	statMap = {
+		["skill_physical_damage_%_to_convert_to_cold"] = {
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("SkillPhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["water_sphere_cold_lightning_exposure_%"] = {
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
+			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" } ),
+		},
+		["hydro_sphere_base_pulse_frequency_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["hydro_sphere_pulse_frequency_+%"] = {
+			mod("HydroSphereFrequency", "INC", nil),
+		},
+		["water_sphere_does_weird_conversion_stuff"] = {
+		},
+	},
+#baseMod skill("radius", 23)
+#mods
+
+#skill DoomBlast
+#flags spell area
+	statMap = {
+		["hexblast_hit_damage_+%_final_if_hexed"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
+		},
+		["hexblast_ailment_damage_+%_final_if_hexed"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
+		},
+		["chaos_damage_resisted_by_lowest_resistance"] = {
+			flag("ChaosDamageUsesLowestResistance"),
+		},
+	},
+	parts = {
+		{
+			name = "Target",
+			area = false,
+		},
+		{
+			name = "Explosion",
+			area = true,
+		},
+	},
+#baseMod skill("radius", 29)
+#baseMod skill("showAverage", true)
+#mods
+
+#skill HeraldOfThunder
+#flags cast duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HeraldStormFrequency") / 100)
+	end,
+	statMap = {
+		["herald_of_thunder_lightning_damage_+%"] = {
+			mod("LightningDamage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["spell_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["spell_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["attack_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["attack_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["herald_of_thunder_bolt_base_frequency"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["skill_buff_grants_damage_+%"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("radius", 32)
+#baseMod skill("showAverage", false)
+#mods
+
+#skill IceNova
+#flags spell area
+	statMap = {
+		["damage_+%_vs_chilled_enemies"] = {
+			mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" }),
+		},
+	},
+#baseMod skill("radius", 30)
+#mods
+
+#skill VaalIceNova
+#flags spell area
+#baseMod skill("radius", 26)
+#mods
+
+#skill IceSpear
+#flags spell projectile
+	parts = {
+		{
+			name = "First Form, 1 Projectile",
+		},
+		{
+			name = "Second Form, 1 Projectile",
+		},
+		{
+			name = "First Form, All Projectiles",
+		},
+		{
+			name = "Second Form, All Projectiles",
+		},
+	},
+	statMap = {
+		["ice_spear_second_form_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
+		},
+		["ice_spear_second_form_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * output.ProjectileCount
+		end
+	end,
+#baseMod mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
+#mods
+
+#skill ColdProjectileMine
+#flags spell projectile mine
+	statMap = {
+		["cold_projectile_mine_enemy_critical_strike_chance_+%_against_self"] = {
+			mod("SelfCritChance", "INC", nil, 0, 0, { type = "Limit", limit = 500 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+		},
+	},
+#mods
+
+#skill ExpandingFireCone
+#flags spell area
+	parts = {
+		{
+			name = "Channelling",
+			stages = true,
+		},
+		{
+			name = "Release",
+			stages = true,
+		},
+	},
+	statMap = {
+		["grant_expanding_fire_cone_release_ignite_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "SkillPart", skillPart = 2 }),
+		},
+		["expanding_fire_cone_release_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["flamethrower_damage_+%_per_stage_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "IncinerateStage" }),
+		},
+		["expanding_fire_cone_radius_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "IncinerateStage", limitVar = "IncinerateRadiusLimit", limitTotal = true }),
+		},
+		["expanding_fire_cone_final_wave_always_ignite"] = {
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			value = 100,
+		},
+		["expanding_fire_cone_radius_limit"] = {
+			mod("Multiplier:IncinerateRadiusLimit", "BASE", nil),
+		},
+		["expanding_fire_cone_maximum_number_of_stages"] = {
+			mod("Multiplier:IncinerateMaxStages", "BASE", nil),
+		},
+		["quality_display_incinerate_is_gem_hit"] = {
+			--Display Only
+		},
+		["quality_display_incinerate_is_gem_ingite"] = {
+			--Display Only
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 25)
+#baseMod skill("radiusLabel", "Flame Length:")
+#baseMod skill("radiusSecondary", 20)
+#baseMod skill("radiusSecondaryLabel", "Flame Width:")
+#mods
+
+#skill ClusterBurst
+#flags attack projectile area
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Explosions",
+			area = true,
+		},
+	},
+	statMap = {
+		["kinetic_blast_projectiles_gain_%_aoe_after_forking"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "StatThreshold", stat = "ForkedCount", threshold = 1 }),
+		},
+	},
+#baseMod skill("radius", 14)
+#mods
+
+#skill KineticBolt
+#flags attack projectile
+	statMap = {
+		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
+			flag("SpellDamageAppliesToAttacks"),
+			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
+		},
+		["cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
+			flag("CastSpeedAppliesToAttacks"),
+			mod("ImprovedCastSpeedAppliesToAttacks", "MAX", nil)
+		},
+		["mana_gain_per_target"] = {
+			mod("ManaOnHit", "BASE", nil),
+		},
+	},
+#mods
+
+#skill LightningTowerTrap
+#flags spell trap duration area
+	parts = {
+		{
+			name = "One wave hitting",
+		},
+		{
+			name = "Average waves hitting configured size enemy",
+		},
+		{
+			name = "All waves hitting",
+		},
+		{
+			name = "Average active traps, one wave",
+		},
+		{
+			name = "Average active traps, average waves",
+		},
+		{
+			name = "Average active traps, all waves",
+		},
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillPart = activeSkill.skillPart
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		-- seemingly the only mechanical difference with seismic trap - this one does not scale it's total radius with AoE modifiers
+		output.AreaOfEffectRadius = skillData.radius
+		if breakdown then
+			breakdown.AreaOfEffectRadius = {"Targeting area of this skill is not affected by Area of Effect modifiers."}
+		end
+
+		local baseInterval = skillData.repeatInterval
+		local incFrequency = (1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency") / 100)
+		local moreFrequency = skillModList:More(skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency")
+		local wavePulseRate = incFrequency * moreFrequency / baseInterval
+		skillData.hitTimeOverride = 1 / wavePulseRate
+		output.WavePulseRate = wavePulseRate
+		local incDuration = (1 + skillModList:Sum("INC", skillCfg, "Duration") / 100)
+		local moreDuration = skillModList:More(skillCfg, "Duration")
+		local duration = skillData.duration * incDuration * moreDuration
+		local pulses = math.floor(duration * wavePulseRate)
+		output.PulsesPerTrap = pulses
+		local effectiveDuration = pulses / wavePulseRate
+		local cooldown = output.TrapCooldown
+		local averageActiveTraps = effectiveDuration / cooldown
+		output.AverageActiveTraps = averageActiveTraps
+		local function hitChance(enemyRadius, areaDamageRadius, areaSpreadRadius) -- not to be confused with attack hit chance
+			local damagingAreaRadius = areaDamageRadius + enemyRadius - 1	-- radius where area damage can land to hit the enemy;
+			-- -1 because of two assumptions: PoE coordinates are integers and damage is not registered if the two areas only share a point or vertex. If either is not correct, then -1 is not needed.
+			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
+		end
+		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local waveRadius = output.AreaOfEffectRadiusSecondary
+		local fullRadius = output.AreaOfEffectRadius
+		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
+		output.OverlapChance = overlapChance * 100
+		if breakdown then
+			breakdown.OverlapChance = { }
+			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
+			breakdown.WavePulseRate = { }
+			t_insert(breakdown.WavePulseRate, "Pulse rate:")
+			t_insert(breakdown.WavePulseRate, s_format("%.2f ^8(base pulse rate)", 1 / baseInterval))
+			t_insert(breakdown.WavePulseRate, s_format("* %.2f ^8(increased/reduced pulse frequency)", incFrequency))
+			t_insert(breakdown.WavePulseRate, s_format("* %.2f ^8(more/less pulse frequency)", moreFrequency))
+			t_insert(breakdown.WavePulseRate, s_format("= %.2f^8/s", wavePulseRate))
+			breakdown.PulsesPerTrap = { }
+			t_insert(breakdown.PulsesPerTrap, "Pulses per trap:")
+			t_insert(breakdown.PulsesPerTrap, s_format("%.3f ^8(unrounded skill duration)", duration))
+			t_insert(breakdown.PulsesPerTrap, s_format("* %.2f ^8(pulse rate)", wavePulseRate))
+			t_insert(breakdown.PulsesPerTrap, s_format("= %.2f ^8pulses", duration * wavePulseRate))
+			t_insert(breakdown.PulsesPerTrap, "^8rounded down")
+			t_insert(breakdown.PulsesPerTrap, s_format("= %d ^8pulses", pulses))
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Next breakpoint: %d%% increased Trap Throwing Speed / %d%% increased Duration",
+					math.ceil(100 * ((pulses + 1) * baseInterval / (duration * moreFrequency) - incFrequency)),
+					math.ceil(100 * ((pulses + 1) / (wavePulseRate * skillData.duration * moreDuration) - incDuration))
+			))
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Previous breakpoint: %d%% reduced Trap Throwing Speed / %d%% reduced Duration",
+					-math.ceil(100 * (pulses * baseInterval / (duration * moreFrequency) - incFrequency) - 1),
+					-math.ceil(100 * (pulses / (wavePulseRate * skillData.duration * moreDuration) - incDuration) - 1)
+			))
+			breakdown.AverageActiveTraps = { }
+			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
+			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 /^7 %.2f^8 (pulses / pulse rate = effective skill duration)", pulses, wavePulseRate))
+			t_insert(breakdown.AverageActiveTraps, s_format("/ %.2f ^8(cooldown)", cooldown))
+			t_insert(breakdown.AverageActiveTraps, s_format("= %.2f traps", averageActiveTraps))
+		end
+		local maxWaves = skillModList:Sum("BASE", skillCfg, "MaximumWaves")
+		local dpsMultiplier = 1
+		if skillPart == 2 then
+			dpsMultiplier = maxWaves * overlapChance
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7maximum waves^8 * ^7overlap chance^8")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.2f^8", maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+			end
+		elseif skillPart == 3 then
+			dpsMultiplier = maxWaves
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d (maximum waves)", dpsMultiplier))
+			end
+		elseif skillPart == 4 then
+			dpsMultiplier = averageActiveTraps
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f (average active traps)", dpsMultiplier))
+			end
+		elseif skillPart == 5 then
+			dpsMultiplier = averageActiveTraps * maxWaves * overlapChance
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves^8 * ^7overlap chance^8")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f^8 *^7 %d^8 *^7 %.2f", averageActiveTraps, maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+			end
+		elseif skillPart == 6 then
+			dpsMultiplier = averageActiveTraps * maxWaves
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f^8 *^7 %d", averageActiveTraps, maxWaves))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+			end
+		end
+		if dpsMultiplier ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
+		end
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {},
+		["lightning_tower_trap_base_interval_duration_ms"] = {
+			skill("repeatInterval", nil),
+			div = 1000,
+		},
+		["lightning_tower_trap_number_of_beams"] = {
+			mod("MaximumWaves", "BASE", nil),
+		},
+	},
+#baseMod skill("radius", 24)
+#baseMod skill("radiusLabel", "Targeting Area:")
+#baseMod skill("radiusSecondary", 10)
+#baseMod skill("radiusSecondaryLabel", "Impact Area:")
+#mods
+
+#skill LightningConduit
+#flags spell
+	statMap = {
+		["energy_release_damage_+%_final_per_5%_increased_damage_taken_from_shock_on_target"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
+		},
+	},
+#baseMod skill("radius", 60)
+#baseMod skill("radiusLabel", "Targeting range:")
+#mods
+
+#skill LightningTendrilsChannelled
+#flags spell area
+	parts = {
+		{
+			name = "Normal pulse",
+		},
+		{
+			name = "Stronger pulse",
+		},
+	},
+	statMap = {
+		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 22)
+#mods
+
+#skill LightningTrap
+#flags spell trap projectile
+#mods
+
+#skill VaalLightningTrap
+#flags spell trap projectile duration
+	statMap = {
+		["shocked_ground_base_magnitude_override"] = {
+			mod("ShockedGroundEffect", "BASE", nil)
+		},
+	},
+#mods
+
+#skill LightningWarp
+#flags spell area duration
+#baseMod skill("radius", 16)
+#mods
+
+#skill VaalLightningWarpInstant
+#flags spell area duration
+#baseMod skill("radius", 16)
+#mods
+
+#skill MagmaOrb
+#flags spell projectile area chaining
+#baseMod skill("radius", 14)
+#mods
+
+#skill DamageOverTimeAura
+#flags spell aura area
+	statMap = {
+		["delirium_aura_damage_over_time_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["delirium_skill_effect_duration_+%"] = {
+			mod("Duration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_ailment_damage_+%"] = {
+			mod("Damage", "INC", nil, ModFlag.Ailment, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill Manabond
+#flags spell area arcane
+	statMap = {
+		["mana_void_gain_%_missing_unreserved_mana_as_base_lightning_damage"] = {
+			mod("Multiplier:ManabondUnreservedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }),
+			div = 100,
+		},
+	},
+#baseMod skill("radius", 18)
+#baseMod skill("radiusLabel", "Circle area:")
+#baseMod skill("radiusSecondary", 23)
+#baseMod skill("radiusSecondaryLabel", "Rectangle area:")
+#baseMod mod("LightningMin", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
+#baseMod mod("LightningMax", "BASE", 1, 0, 0, { type = "Multiplier", var = "ManabondUnreservedMana" })
+#mods
+
+#skill OrbOfStorms
+#flags spell chaining duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed")
+	end,
+	statMap = {
+		["orb_of_storms_base_bolt_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+	},
+#baseMod skill("radius", 28)
+#mods
+
+#skill MagmaSigil
+#flags spell area duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+	parts = {
+		{
+			name = "Energy Explosion",
+			stages = true,
+		},
+		{
+			name = "Max Explosion per Brand",
+		},
+		{
+			name = "Max Stages Energy Pulsing",
+		},
+	},
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
+		},
+		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
+		},
+		["penance_brand_additional_descriptions_boolean"] = {
+		},
+	},
+#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
+#baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 })
+#baseMod skill("radius", 8)
+#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" })
+#baseMod mod("Multiplier:PenanceBrandMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 })
+#mods
+
+#skill PowerSiphon
+#flags attack projectile
+#mods
+
+#skill VaalPowerSiphon
+#flags attack projectile
+#baseMod flag("OneShotProj")
+#mods
+
+#skill Sanctify
+#flags spell area duration
+	parts = {
+		{
+			name = "Initial hit",
+		},
+		{
+			name = "Shockwave",
+		},
+	},
+	statMap = {
+		["sanctify_wave_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("radius", 18)
+#baseMod skill("radiusSecondary", 50)
+#mods
+
+#skill Purity
+#flags spell aura area
+	statMap = {
+		["base_maximum_fire_damage_resistance_%"] = {
+			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_cold_damage_resistance_%"] = {
+			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_lightning_damage_resistance_%"] = {
+			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_resist_all_elements_%"] = {
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["reduce_enemy_elemental_resistance_%"] = {
+			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["immune_to_status_ailments"] = {
+			--Display only
+		},
+	},
+#baseMod skill("radius", 40)
+#baseMod mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
+#mods
+
+#skill LightningResistAura
+#flags spell aura area
+	statMap = {
+		["base_lightning_damage_resistance_%"] = {
+			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_lightning_damage_resistance_%"] = {
+			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_avoid_shock_%"] = {
+			mod("AvoidShock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_reduce_enemy_lightning_resistance_%"] = {
+			mod("LightningPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill LightningImpurity
+#flags spell aura area duration
+	statMap = {
+		["hits_ignore_my_lightning_resistance"] = {
+			flag("SelfIgnoreLightningResistance", { type = "GlobalEffect", effectType = "AuraDebuff" })
+		},
+		["base_maximum_lightning_damage_resistance_%"] = {
+			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_immune_to_shock"] = {
+			--Display only
+		},
+	},
+#baseMod mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
+#mods
+
+#skill MortarBarrageMine
+#flags spell area projectile mine
+	statMap = {
+		["mortar_barrage_mine_minimum_added_fire_damage_taken"] = {
+			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+		},
+		["mortar_barrage_mine_maximum_added_fire_damage_taken"] = {
+			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+		},
+		["mortar_barrage_mine_minimum_added_fire_damage_taken_limit"] = {
+			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Pyroclast Mine Limit" }),
+		},
+		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
+			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Pyroclast Mine Limit" }),
+		},
+		["damage_+%_if_firing_atleast_7_projectiles"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "StatThreshold", stat = "ProjectileCount", threshold = 7 }),
+		},
+	},
+#baseMod skill("radius", 20)
+#baseMod skill("radiusLabel", "Area of initial explosion:")
+#baseMod skill("radiusSecondary", 26)
+#baseMod skill("radiusSecondaryLabel", "Area in which projectiles will land:")
+#baseMod skill("radiusTertiary", 12)
+#baseMod skill("radiusTertiaryLabel", "Area of projectile explosions:")
+#mods
+
+#skill RaiseSpectre
+#flags spell minion spectre duration
+	minionList = {
+	},
+	statMap = {
+		["accuracy_rating"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", nil) })
+		},
+		["raised_spectre_level"] = {
+			skill("minionLevel", nil),
+		},
+	},
+#mods
+
+#skill RaiseZombie
+#flags spell minion
+	minionList = {
+		"RaisedZombie",
+	},
+	statMap = {
+		["zombie_slam_cooldown_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0, { type = "SkillId", skillId = "ZombieSlam" }) }),
+		},
+		["zombie_slam_area_of_effect_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillId", skillId = "ZombieSlam" }) }),
+		},
+	},
+#mods
+
+#skill RighteousFire
+#flags spell area
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillFlags.totem then
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * activeSkill.skillData.RFLifeMultiplier + output.TotemEnergyShield * activeSkill.skillData.RFESMultiplier
+		else
+			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.Life * activeSkill.skillData.RFLifeMultiplier + output.EnergyShield * activeSkill.skillData.RFESMultiplier
+		end
+	end,
+	statMap = {
+		["righteous_fire_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_nonlethal_fire_damage_%_of_maximum_life_taken_per_minute"] = {
+			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 6000,
+		},
+		["base_nonlethal_fire_damage_%_of_maximum_energy_shield_taken_per_minute"] = {
+			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 6000,
+		},
+		["spell_damage_+%"] = {
+			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["base_righteous_fire_%_of_max_life_to_deal_to_nearby_per_minute"] = {
+			skill("RFLifeMultiplier", nil),
+			div = 6000,
+		},
+		["base_righteous_fire_%_of_max_energy_shield_to_deal_to_nearby_per_minute"] = {
+			skill("RFESMultiplier", nil),
+			div = 6000,
+		},
+	},
+#baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 18)
+#mods
+
+#skill VaalRighteousFire
+#flags spell area
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillFlags.totem then
+			activeSkill.skillData.FireDot = output.TotemLife * activeSkill.skillData.percentSacrificed * activeSkill.skillData.RFMultiplier
+		else
+			activeSkill.skillData.FireDot = (output.Life + output.EnergyShield) * activeSkill.skillData.percentSacrificed * activeSkill.skillData.RFMultiplier
+		end
+	end,
+	statMap = {
+		["vaal_righteous_fire_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["vaal_righteous_fire_life_and_es_%_as_damage_per_second"] = {
+			skill("RFMultiplier", nil),
+			div = 100,
+		},
+		["vaal_righteous_fire_life_and_es_%_to_lose_on_use"] = {
+			skill("percentSacrificed", nil),
+			div = 100,
+		}
+	},
+#baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 30)
+#mods
+
+#skill FireBeam
+#flags spell duration
+	parts = {
+		{
+			name = "Manual Stages",
+			stages = true,
+		},
+		{
+			name = "Maximum Sustainable Stages",
+		},
+	},
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
+		},
+		["fire_beam_additional_stack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
+			base = 100
+		},
+		["display_max_fire_beam_stacks"] = {
+			mod("Multiplier:ScorchingRayMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
+#baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 })
+#baseMod flag("DotCanStackAsTotems")
+#mods
+
+#skill ShockNova
+#flags spell area
+	parts = {
+		{
+			name = "Ring",
+		},
+		{
+			name = "Nova",
+		},
+	},
+	statMap = {
+		["shock_nova_ring_chance_to_shock_+%"] =  {
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["shock_nova_ring_shocks_as_if_dealing_damage_+%_final"] = {
+			mod("ShockAsThoughDealing", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
+#baseMod skill("radius", 26)
+#mods
+
+#skill CircleOfPower
+#flags spell area duration
+	statMap = {
+		["circle_of_power_skill_cost_mana_cost_+%"] = {
+			mod("ManaCost", "INC", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_min_added_lightning_per_stage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limitVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limitVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_max_added_lightning_per_stage"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SigilOfPowerStage", limitVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "SigilOfPowerStage", limitVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_enemy_damage_+%_final_at_max_stages"] = {
+ 			mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", actor = "enemy", var = "SigilOfPowerStage", thresholdVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Debuff", effectName = "Sigil of Power" }),
+ 		},
+		["spell_damage_+%"] = {
+			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["base_chance_to_shock_%_from_skill"] = {
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "SigilOfPowerStage", threshold = 1 }, { type = "GlobalEffect", effectType = "Buff", effectName = "Sigil of Power" }),
+		},
+		["circle_of_power_max_stages"] = {
+			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["quality_display_circle_of_power_is_gem"] = {
+        },
+	},
+#baseMod skill("radius", 30)
+#baseMod skill("buffAllies", true)
+#mods
+
+#skill IceSiphonTrap
+#flags spell trap duration
+	statMap = {
+		["skill_life_regeneration_per_minute_per_affected_enemy"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "Multiplier", var = "EnemyAffectedBySiphoningTrap", limit = 10 }),
+			div = 60,
+		},
+		["skill_mana_regeneration_per_minute_per_affected_enemy"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "Multiplier", var = "EnemyAffectedBySiphoningTrap", limit = 10 }),
+			div = 60,
+		},
+		["skill_life_regeneration_per_minute_with_at_least_1_affected_enemy"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "MultiplierThreshold", threshold = 1, var = "EnemyAffectedBySiphoningTrap" }),
+			div = 60,
+		},
+		["skill_mana_regeneration_per_minute_with_at_least_1_affected_enemy"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "MultiplierThreshold", threshold = 1, var = "EnemyAffectedBySiphoningTrap" }),
+			div = 60,
+		},
+		["skill_energy_shield_regeneration_%_per_minute_per_affected_enemy"] = {
+			mod("EnergyShieldRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "SiphoningTrapSiphoning" }, { type = "MultiplierThreshold", threshold = 1, var = "EnemyAffectedBySiphoningTrap" }),
+			div = 60,
+		},
+	},
+#mods
+
+#skill Soulrend
+#flags spell projectile duration
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 10)
+#mods
+
+#skill Spark
+#flags spell projectile duration
+#mods
+
+#skill VaalSparkSpiralNova
+#flags spell projectile duration
+#mods
+
+#skill Spellslinger
+#flags spell
+	statMap = {
+		["spellslinger_mana_reservation"] = {
+		},
+	},
+#mods
+
+#skill SupportSpellslinger
+	statMap = {
+		["gain_%_of_base_wand_damage_as_added_spell_damage"] = {
+			skill("gainPercentBaseWandDamage", nil),
+		},
+		["support_spellslinger_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
+		},
+		["spellslinger_trigger_on_wand_attack_%"] = {
+		},
+	},
+#baseMod flag("Condition:SupportedBySpellslinger")
+#baseMod skill("showAverage", true)
+#mods
+
+#skill BrandSupport
+#flags spell duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+#mods
+
+#skill SupportBrandSupport
+	addFlags = {
+		brand = true,
+	},
+	statMap = {
+		["support_brand_damage_+%_final"] = {
+			mod("TriggeredDamage", "MORE", nil),
+		},
+		["support_brand_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["trigger_brand_support_hit_damage_+%_final_vs_branded_enemy"] = {
+			mod("TriggeredDamage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
+		},
+	},
+	addSkillTypes = { SkillType.Brand, },
+#baseMod skill("triggeredByBrand", true)
+#mods
+
+#skill SpiritOffering
+#flags spell duration
+	statMap = {
+		["spirit_offering_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["spirit_offering_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
+#mods
+
+#skill ConduitSigil
+#flags spell area duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+#baseMod skill("radius", 9)
+#mods
+
+#skill LightningExplosionMine
+#flags spell area mine
+	statMap = {
+		["lightning_explosion_mine_aura_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "Limit", limit = 150 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+		},
+	},
+#baseMod skill("radius", 20)
+#mods
+
+#skill Stormbind
+#flags spell area duration
+	parts = {
+		{
+			name = "Unimproved",
+		},
+		{
+			name = "1 Improvement",
+		},
+		{
+			name = "2 Improvements",
+		},
+		{
+			name = "3 Improvements",
+		},
+	},
+	statMap = {
+		["rune_paint_damage_+%_final_per_rune_level"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["rune_paint_area_of_effect_+%_final_per_rune_level"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["rune_paint_area_of_effect_+%_per_rune_level"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["active_skill_quality_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["rune_paint_max_rune_level"] = {
+		},
+	},
+#baseMod mod("Multiplier:RuneLevel", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 2, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod skill("radius", 16)
+#mods
+
+#skill SummonReaper
+#flags spell minion
+	minionList = {
+		"SummonedReaper",
+	},
+	statMap = {
+		["bleed_on_hit_with_attacks_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("BleedChance", "BASE", nil, ModFlag.Attack) })
+		},
+		["non_reaper_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["non_reaper_minion_maximum_life_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
+#skill RuneBlast
+#flags spell
+#mods
+
+#skill StormBurstNew
+#flags spell area duration
+	parts = {
+		{
+			name = "1 Orb Tick"
+		},
+		{
+			name = "Max Channelled Orbs"
+		}
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local duration = activeSkill.skillData.duration * output.DurationMod
+			-- duration * 10 / (jump * 10), instead of duration / jump to avoid floating point issues
+			local jumpPeriod = activeSkill.skillData.repeatFrequency * 10
+			-- additional 1 tick upon spawn of orb
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (1 + math.floor(duration * 10 / jumpPeriod))
+		end
+	end,
+	statMap = {
+		["storm_burst_zap_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 2 }),
+		},
+		["display_storm_burst_jump_time_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["storm_burst_new_damage_+%_final_per_remaining_teleport_zap"] = {
+		},
+	},
+#baseMod skill("radius", 16)
+#baseMod skill("radiusSecondary", 22)
+#mods
+
+#skill StormCall
+#flags spell area duration
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+#baseMod skill("radius", 20)
+#mods
+
+#skill VaalStormCall
+#flags spell area duration
+#baseMod skill("radius", 16)
+#baseMod skill("radiusLabel", "Initial Lightning tether area:")
+#baseMod skill("radiusSecondary", 40)
+#baseMod skill("radiusSecondaryLabel", "Final Lightning Strike area:")
+#mods
+
+#skill SummonBoneGolem
+#flags spell minion golem
+	minionList = {
+		"SummonedCarrionGolem",
+	},
+	statMap = {
+		["bone_golem_grants_minion_minimum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil) }, 0, 0, { type = "SkillType", skillType = SkillType.Golem, neg = true }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["bone_golem_grants_minion_maximum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil) }, 0, 0, { type = "SkillType", skillType = SkillType.Golem, neg = true }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["bone_golem_damage_+%_final_per_non_golem_minion_nearby"] = {
+			mod("MinionModifier", "LIST", { type = "SummonedCarrionGolem", mod = mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "NearbyNonGolemMinion", limit = 50, limitTotal = true }) }),
+		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveCarrionGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonChaosGolem
+#flags spell minion golem
+	minionList = {
+		"SummonedChaosGolem",
+	},
+	statMap = {
+		["chaos_golem_grants_additional_physical_damage_reduction_%"] = {
+			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonRelic
+#flags spell minion
+	minionList = {
+		"HolyLivingRelic",
+	},
+	statMap = {
+		["base_number_of_relics_allowed"] = {
+			mod("ActiveHolyRelicLimit", "BASE", nil)
+		},
+		["holy_relic_cooldown_recovery_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil) }),
+		},
+		["holy_relic_nova_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Boon", effectCond = "HolyRelicBoonActive" }),
+			div = 60,
+		},
+		["holy_relic_nova_minion_life_regeneration_rate_per_second"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Holy Relic's Minion Boon", effectCond = "HolyRelicBoonActive", applyNotPlayer = true, applyMinions = true })
+		},
+	},
+#mods
+
+#skill SummonLightningGolem
+#flags spell minion golem
+	minionList = {
+		"SummonedLightningGolem",
+	},
+	statMap = {
+		["lightning_golem_grants_attack_and_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveLightningGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonRagingSpirit
+#flags spell minion duration
+	minionList = {
+		"SummonedRagingSpirit",
+	},
+#mods
+
+#skill SummonSkeletons
+#flags spell minion duration
+	minionList = {
+		"RaisedSkeleton",
+		"RaisedSkeletonCaster",
+		"RaisedSkeletonArcher",
+	},
+	statMap = {
+		["damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
+		},
+	},
+#mods
+
+#skill VaalSummonSkeletons
+#flags spell minion duration
+	minionList = {
+		"RaisedSkeleton",
+		"RaisedSkeletonCaster",
+		"RaisedSkeletonArcher",
+	},
+	statMap = {
+		["damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) })
+		},
+	},
+#mods
+
+#skill BlackHole
+#flags spell area duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
+		 / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoidSphereFrequency") / 100)
+	end,
+	statMap = {
+		["blackhole_pulse_frequency_+%"] = {
+			mod("VoidSphereFrequency", "INC", nil),
+		},
+		["base_blackhole_tick_rate_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+	},
+#baseMod skill("radius", 38)
+#mods
+
+#skill Skitterbots
+#flags spell minion
+	minionList = {
+		"SkitterbotCold",
+		"SkitterbotLightning",
+	},
+	statMap = {
+		["skitterbots_trap_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Mine, KeywordFlag.Trap), { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod skill("radius", 30)
+#mods
+
+#skill TempestShield
+#flags spell duration chaining
+	statMap = {
+		["shield_spell_block_%"] = {
+			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["skill_display_buff_grants_shock_immunity"] = {
+			--Display only
+		}
+	},
+#baseMod mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+#mods
+
+#skill VoltaxicBurst
+#flags spell area nova duration
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("Damage", "INC", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "VoltaxicDurationIncDamage") * duration, "Skill:VoltaxicBurst")
+	end,
+	statMap = {
+		["voltaxic_burst_hit_and_ailment_damage_+%_final_per_stack"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "VoltaxicWaitingStages" }),
+		},
+	},
+#baseMod skill("radius", 22)
+#mods
+
+#skill FrostBoltNova
+#flags spell area duration forceInstant
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
+	statMap = {
+		["active_skill_damage_+%_when_cast_on_frostbolt"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+		},
+	},
+#baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 20)
+#mods
+
+#skill Purge
+#flags spell area duration
+	statMap = {
+		["purge_expose_resist_%_matching_highest_element_damage"] = {
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Cold Exposure", effectCond = "WaveOfConvictionColdExposureActive" }),
+			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure", effectCond = "WaveOfConvictionLightningExposureActive" }),
+		},
+	},
+#mods
+
+#skill FrostFury
+#flags spell projectile area duration
+	parts = {
+		{
+			name = "Channelling",
+			stages = true,
+		},
+		{
+			name = "Idle",
+			stages = true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		local rateMod = (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "HitRate", "Speed") / 100)
+		local mult = activeSkill.skillModList:More(activeSkill.skillCfg, "HitRate")
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / rateMod / mult
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["frost_fury_fire_speed_+%_per_stage"] = {
+			mod("HitRate", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst" }),
+		},
+		["frost_fury_max_number_of_stages"] = {
+			mod("Multiplier:WinterOrbMaxStages", "BASE", nil),
+		},
+		["frost_fury_base_fire_interval_ms"] = {
+			skill("repeatFrequency", nil),
+			div = 1000,
+		},
+		["frost_fury_duration_+%_per_stage"] = {
+			mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "WinterOrbStageAfterFirst" }),
+		},
+		["frost_fury_fire_speed_+%_final_while_channelling"] = {
+			mod("HitRate", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["display_frost_fury_additive_cast_speed_modifiers_apply_to_fire_speed"] = {
+		},
+	},
+#baseMod skill("radius", 16)
+#mods
+
+#skill ImmolationSigil
+#flags spell area duration brand
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["immolation_brand_burn_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }),
+		},
+		["winter_brand_max_number_of_stages"] = {
+			mod("Multiplier:WintertideBrandMaxStages", "BASE", nil),
+		},
+		["active_skill_brands_allowed_on_enemy_+"] = {
+			mod("BrandsAttachedLimit", "BASE", nil),
+		},
+	},
+#baseMod skill("radius", 20)
+#mods
+
+#skill Wither
+#flags spell area duration
+	statMap = {
+		["base_skill_effect_duration"] = {
+		},
+		["active_skill_withered_base_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
+		},
+		["chaos_damage_taken_+%"] = {
+			flag("Condition:CanWither"),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Withered" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 18)
+#mods
+
+#skill Wrath
+#flags spell aura area
+	statMap = {
+		["wrath_aura_spell_lightning_damage_+%_final"] = {
+			mod("LightningDamage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill SpellDamageAura
+#flags spell aura area
+	statMap = {
+		["spell_damage_aura_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["skill_buff_grant_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["life_regeneration_rate_per_minute_%"] = {
+			mod("LifeRegenPercent", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill SoulLink
+#flags spell duration
+#mods
+
+#skill DestructiveLink
+#flags spell duration
+#mods

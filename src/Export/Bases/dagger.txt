@@ -1,0 +1,13 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Dagger
+#baseTags weapon onehand attack_dagger dagger one_hand_weapon
+#socketLimit 3
+#baseMatch BaseType Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractDagger
+
+#type Dagger
+#subType Rune
+#baseTags weapon onehand dagger one_hand_weapon rune_dagger
+#socketLimit 3
+#baseMatch BaseType Metadata/Items/Weapons/OneHandWeapons/Daggers/AbstractRuneDagger

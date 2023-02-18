@@ -1,0 +1,910 @@
+-- Path of Building
+--
+-- Other active skills
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill RepeatingShockwave
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill AnimateGuardianWeapon
+#flags spell minion duration
+	fromItem = true,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+	statMap = {
+		["active_skill_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["attack_minimum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+		["attack_maximum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
+	},
+#mods
+
+#skill TouchOfFire
+#flags spell
+	fromItem = true,
+	statMap = {
+		["display_touch_of_fire"] = {
+			flag("FlameTouched", { type = "GlobalEffect", effectType = "Buff" })
+		}
+	},
+#mods
+
+#skill SupportTriggerSpellOnBowAttack Asenath's Chant
+	fromItem = true,
+#mods
+
+#skill BirdAspect
+#flags cast duration
+	fromItem = true,
+	statMap = {
+		["chance_to_deal_double_damage_%"] = {
+			mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
+		},
+		["minion_movement_speed_+%"] = {
+		},
+	},
+#baseMod skill("buffMinions", true)
+#mods
+
+#skill CatAspect
+#flags cast duration
+	fromItem = true,
+	statMap = {
+		["skill_buff_grants_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" }),
+		},
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }),
+		},
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Agility", effectCond = "CatsAgilityActive" }),
+		},
+	},
+#mods
+
+#skill CrabAspect
+#flags cast
+	fromItem = true,
+	statMap = {
+		["physical_damage_reduction_%_per_crab_aspect_stack"] = {
+			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "Multiplier", var = "CrabBarrier" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["max_crab_aspect_stacks"] = {
+			mod("CrabBarriersMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
+#skill SpiderAspect
+#flags cast duration
+	fromItem = true,
+	statMap = {
+		["base_damage_taken_+%"] = {
+			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Spider's Web" })
+		},
+		["spider_aspect_max_web_count"] = {
+			mod("Multiplier:SpiderWebApplyStackMax", "BASE", nil),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("stackCount", 1, { type = "Multiplier", var = "SpiderWebApplyStack", limitVar = "SpiderWebApplyStackMax" })
+#mods
+
+#skill SupportBloodMagicUniquePrismGuardian Blood Magic
+	fromItem = true,
+#mods
+
+#noGem
+#skill BloodOffering
+#flags spell duration
+	fromItem = true,
+	statMap = {
+		["damage_+%"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["blood_offering_%_of_life_to_lose"] = {
+			mod("Multiplier:BloodOfferingLifeSacrificed", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "PerStat", stat = "LifeUnreserved", actor = "parent" }),
+			div = 100,
+		},
+		["blood_offering_%_of_lost_life_to_regenerate_as_life_per_second"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
+			mod("Multiplier:BloodOfferingBaseRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "BloodOfferingLifeSacrificed" }),
+			div = 100,
+		},
+		["blood_offering_life_regenerated_+%_final_per_corpse"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingBaseRegen"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5 }),
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }, { type = "Multiplier", var = "BloodOfferingBaseRegen"},  { type = "Multiplier", var = "CorpseConsumedRecently", limit = 5, actor="parent" }),
+			div = 100,
+		},
+	},
+#baseMod skill("buffMinions", true)
+#baseMod skill("buffNotPlayer", true)
+#mods
+
+#skill BloodSacramentUnique
+#baseMod skill("radius", 5)
+#baseMod mod("Multiplier:BloodSacramentMaxStages", "BASE", 33)
+#flags spell area
+	fromItem = true,
+	initialFunc = function(activeSkill, output)
+		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
+		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or math.huge
+		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
+		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPerStage", "BASE", lifeReserved, "Blood Sacrament")
+	end,
+	statMap = {
+		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage" }),
+			div = 100,
+		},
+		["flameblast_damage_+%_final_per_10_life_reserved"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }),
+		},
+		["flameblast_ailment_damage_+%_final_per_10_life_reserved"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }),
+		},
+	},
+#mods
+
+#noGem
+#skill BoneArmour
+#flags duration spell
+	fromTree = true,
+	statMap = {
+		["quick_guard_damage_absorbed_%"] = {
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+		},
+		["quick_guard_damage_absorb_limit"] = {
+			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
+		},
+	},
+#baseMod mod("AvoidBleed", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Guard" })
+#mods
+
+#skill TriggeredBoneNova
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill BrandDetonate
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill ColdAegis
+#flags spell
+	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("ColdAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
+#skill UniqueEnchantmentOfInfernoOnCrit
+#flags spell area hit
+	fromItem = true,
+#mods
+
+#skill TriggeredConsecrate Consecrate
+#flags spell duration area
+	fromItem = true,
+#mods
+
+#skill CreateFungalGroundOnKill
+#flags duration area
+	fromItem = true,
+#mods
+
+#skill CorpseWalk
+#flags area
+	fromItem = true,
+#mods
+
+#skill SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike Cospri's Malice
+	fromItem = true,
+#mods
+
+#skill TriggeredSummonLesserShrine
+#flags spell duration
+	fromItem = true,
+#mods
+
+#noGem
+#skill ChaosDegenAuraUnique
+#flags spell aura area
+	fromItem = true,
+#baseMod skill("dotIsArea", true)
+#baseMod skill("radius", 30)
+#mods
+
+#skill DeathWalk
+#flags cast area
+	fromItem = true,
+#baseMod skill("explodeCorpse", true)
+#baseMod skill("showAverage", true)
+#mods
+
+#skill DeathWish
+#flags spell area
+	fromItem = true,
+	parts = {
+		{
+			name = "Channelling",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Minion Explosion",
+			spell = false,
+			cast = true,
+			stages = true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local skillData = activeSkill.skillData
+			skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
+		end
+	end,
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 2 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 2 }),
+		},
+		["death_wish_attack_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["death_wish_cast_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["death_wish_movement_speed_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["death_wish_hit_and_ailment_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "DeathWishStage" }, { type = "SkillPart", skillPart = 2 }),
+		},
+		["death_wish_max_stages"] = {
+			mod("Multiplier:DeathWishMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+	#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+	#baseMod skill("radius", 10, { type = "SkillPart", skillPart = 2 })
+	#baseMod skill("buffMinions", true)
+	#baseMod skill("buffNotPlayer", true)
+#mods
+
+#skill Melee Default Attack
+#flags attack melee projectile
+#mods
+
+#skill MeleeUseContactPoint Default Attack
+#flags attack melee projectile
+#mods
+
+#skill GemDetonateMines
+#flags spell
+#mods
+
+#noGem
+#skill TouchOfGod
+#flags attack area melee
+	fromItem = true,
+#mods
+
+#skill ElementalAegis
+#flags spell
+	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("ElementalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
+#skill SupportElementalPenetration Elemental Penetration
+	fromItem = true,
+#mods
+
+#skill OnHitWhileCursedTriggeredCurseNova
+#flags spell projectile duration
+	fromItem = true,
+	parts = {
+		{
+			name = "Convert to fire",
+		},
+		{
+			name = "Convert to cold",
+		},
+		{
+			name = "Convert to lightning",
+		},
+	},
+	#baseMod mod("SkillPhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
+	#baseMod mod("SkillPhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
+	#baseMod mod("SkillPhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 3 })
+#mods
+
+#skill EmbraceMadness
+#flags spell
+	fromItem = true,
+#mods
+
+#noGem
+#skill Envy
+#flags spell aura area
+	fromItem = true,
+	statMap = {
+		["attack_minimum_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_maximum_added_chaos_damage"] = {
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_minimum_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_maximum_added_chaos_damage"] = {
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill FireAegis
+#flags spell
+	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("FireAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
+#skill FireBurstOnHit
+#flags spell area
+	fromItem = true,
+#baseMod skill("radius", 24)
+#mods
+
+#skill FieryImpactHeistMaceImplicit
+#flags attack area melee
+	fromItem = true,
+#mods
+
+#skill AtziriUniqueStaffFlameblast
+#flags spell area
+	fromItem = true,
+#baseMod skill("triggerSource", "Queen's Demand")
+#mods
+
+#skill Focus
+#mods
+
+#skill SupportTriggerSpellFromHelmet Focus
+	fromItem = true,
+#mods
+
+#skill CreateSmokeCloud
+#flags spell
+	fromItem = true,
+#mods
+
+#noGem
+#skill VaalAuraElementalDamageHealing
+#flags spell aura area duration
+	fromItem = true,
+	statMap = {
+		["immune_to_curses"] = {
+			--Display Only
+		},
+	},
+#baseMod skill("radius", 40)
+#baseMod mod("AvoidCurse", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
+#mods
+
+#skill GoreShockwave
+#flags attack area melee
+	fromItem = true,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.timeOverride = output.Cooldown
+	end,
+#mods
+
+#skill SupportGreaterSpellEcho Greater Spell Echo
+	fromItem = true,
+	statMap = {
+		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+		},
+	},
+#baseMod flag("Condition:HaveGreaterSpellEcho")
+#baseMod mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true })
+#baseMod mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true })
+#mods
+
+#skill IcestormUniqueStaff12
+#flags spell area duration
+	fromItem = true,
+#baseMod skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 })
+#baseMod skill("radius", 22)
+#baseMod skill("radiusSecondary", 16)
+#mods
+
+#skill TriggeredIcicleNova
+#flags attack projectile
+#baseMod skill("showAverage", true)
+	fromItem = true,
+#mods
+
+#skill MerveilWarp
+#flags spell area duration
+	fromItem = true,
+#mods
+
+#skill CatsStealthTriggeredIntimidatingCry
+#flags warcry area duration
+	fromItem = true,
+	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("IntimidatingExertedAttacks", "BASE", nil),
+		},
+		["intimidating_cry_enemy_phys_reduction_%_penalty_vs_hit_per_5_MP"] = {
+			mod("IntimidatingPDRPer5MP", "BASE", nil),
+		},
+	},
+#baseMod skill("radius", 60)
+#mods
+
+#skill SupportCastOnManaSpent Kitava's Thirst
+	fromItem = true,
+#mods
+
+#skill LightningAegis
+#flags spell
+	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("LightningAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
+#skill LightningSpell
+#flags spell area
+	fromItem = true,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
+#mods
+
+#skill SupportTriggerBowSkillOnBowAttack Maloney's Mechanism
+	fromItem = true,
+#mods
+
+#skill UniqueAnimateWeapon
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"UniqueAnimatedWeapon",
+	},
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	statMap = {
+		["attack_damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, ModFlag.Attack) }),
+		},
+		["attack_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", nil, ModFlag.Attack) }),
+		},
+	},
+#baseMod mod("DisableWeapons", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("Condition:Onslaught", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod skill("minionLevel", 59)
+#mods
+
+#skill SupportUniqueMjolnerLightningSpellsCastOnHit Mjolner
+	fromItem = true,
+#mods
+
+#skill TriggeredMoltenStrike
+#flags attack projectile area
+	fromItem = true,
+#mods
+
+#skill PhysicalAegis
+#flags spell
+	fromItem = true,
+	statMap = {
+		["aegis_unique_shield_max_value"] = {
+			mod("PhysicalAegisValue", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+#mods
+
+#skill SupportTriggerSpellOnAttack Poet's Pen
+	fromItem = true,
+#mods
+
+#skill Portal
+#flags spell
+#mods
+
+#skill QueensDemand
+	fromItem = true,
+#mods
+
+#skill PrimalAegis
+	fromTree = true,
+#mods
+
+#skill TriggeredSummonSpider
+#flags spell minion duration
+	fromItem = true,
+	minionList = {
+		"SpiderMinion",
+	},
+	statMap = {
+		["summoned_spider_grants_attack_speed_+%"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "RaisedSpider" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Raised Spider" }),
+		},
+		["summoned_spider_grants_poison_damage_+%"] = {
+			mod("Damage", "INC", nil, 0, KeywordFlag.Poison, { type = "Multiplier", var = "RaisedSpider" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Raised Spider" }),
+		},
+	},
+#mods
+
+#skill UniqueMirageWarriors
+#flags spell duration minion
+	fromItem = true,
+	statMap = {
+		["skill_used_by_mirage_warrior_damage_+%_final"] = {
+			mod("SaviourMirageWarriorLessDamage", "BASE", nil),
+		},
+		["maximum_number_of_mirage_warriors"] = {
+			mod("SaviourMirageWarriorMaxCount", "BASE", nil),
+		},
+	},
+#mods
+
+#skill ShadeForm
+#flags spell duration
+	fromItem = true,
+#mods
+
+#skill ShieldShatter
+#flags spell area
+	fromItem = true,
+	statMap = {
+		["spell_minimum_base_physical_damage_per_shield_quality"] = {
+			skill("PhysicalMin", nil, { type = "Multiplier", var = "QualityOnWeapon 2" }),
+		},
+		["spell_maximum_base_physical_damage_per_shield_quality"] = {
+			skill("PhysicalMax", nil, { type = "Multiplier", var = "QualityOnWeapon 2" }),
+		},
+		["buff_added_spell_minimum_base_physical_damage_per_shield_quality"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "QualityOnWeapon 2" }, { type = "Condition", var = "BlockedRecently"}, { type = "GlobalEffect", effectType = "Buff"}),
+		},
+		["buff_added_spell_maximum_base_physical_damage_per_shield_quality"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "QualityOnWeapon 2" }, { type = "Condition", var = "BlockedRecently"}, { type = "GlobalEffect", effectType = "Buff"}),
+		},
+	},
+#baseMod skill("showAverage", true)
+#mods
+
+#skill TriggeredShockedGround
+#flags spell area duration
+	fromItem = true,
+#baseMod mod("ShockedGroundEffect", "BASE", 15)
+#mods
+
+#skill ChannelledSnipe
+#flags attack projectile
+	fromItem = true,
+	initialFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
+	end,
+#mods
+
+#skill ChannelledSnipeSupport
+	fromItem = true,
+#baseMod flag("TriggeredBySnipe")
+#mods
+
+#skill SummonEssenceSpirits
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"SummonedEssenceSpirit",
+	},
+#mods
+
+#skill SpiritBurst
+#flags spell projectile
+	fromItem = true,
+#baseMod skill("showAverage", true)
+#mods
+
+#skill VolatileDeadChaos
+#flags spell
+	fromItem = true,
+	statMap = {
+		["volatile_dead_core_explosion_radius_+"] = {
+			skill("radius", "BASE", nil),
+		},
+	},
+#mods
+
+#skill StormCascadeTriggered
+#flags spell area
+	fromItem = true,
+#mods
+
+#skill AtziriUniqueStaffStormCall
+#flags spell area
+	fromItem = true,
+#baseMod skill("triggerSource", "Queen's Demand")
+#mods
+
+#skill SummonArbalists
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"SummonedArbalists",
+	},
+#mods
+
+#skill SummonBeastialRhoa
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"RhoaUniqueSummoned",
+	},
+	statMap = {
+		["base_number_of_beast_minions_allowed"] = {
+			mod("ActiveBeastMinionLimit", "BASE", nil),
+		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonBeastialSnake
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"SnakeSpitUniqueSummoned",
+	},
+	statMap = {
+		["base_number_of_beast_minions_allowed"] = {
+			mod("ActiveBeastMinionLimit", "BASE", nil),
+		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonBeastialUrsa
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"DropBearUniqueSummoned",
+	},
+	statMap = {
+		["base_number_of_beast_minions_allowed"] = {
+			mod("ActiveBeastMinionLimit", "BASE", nil),
+		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveBestialMinion", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill CursePillar
+#flags duration
+	fromItem = true,
+#mods
+
+#skill SupportCursePillarTriggerCurses Doedre's Effigy
+	fromItem = true,
+#baseMod skill("manaReservationPercent", 0)
+#mods
+
+#skill SummonHarbingerOfTheArcaneUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfBrutalityUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfDirectionsUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfFocusUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfStormsUber
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfTimeUber
+#flags spell minion
+	fromItem = true,
+#baseMod mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Greater Harbinger of Time", modCond = "GreaterHarbingerOfTime" })
+#baseMod skill("buffMinions", true)
+#mods
+
+#skill SummonHarbingerOfTheArcane
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfBrutality
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfDirections
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfFocus
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfStorms
+#flags spell minion
+	fromItem = true,
+#mods
+
+#skill SummonHarbingerOfTime
+#flags spell minion
+	fromItem = true,
+#baseMod mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" })
+#baseMod skill("buffMinions", true)
+#mods
+
+#skill TriggeredSummonGhostOnKill Triggered Summon Phantasm
+#flags spell minion
+	fromItem = true,
+	minionList = {
+		"SummonedPhantasm",
+	},
+	statMap = {
+		["base_number_of_support_ghosts_allowed"] = {
+			mod("ActivePhantasmLimit", "BASE", nil),
+		},
+	},
+#mods
+
+#skill SummonRigwaldsPack
+#flags spell minion duration
+	fromItem = true,
+	minionList = {
+		"SummonedSpectralWolf",
+	},
+	statMap = {
+		["spectral_wolf_grants_attack_minimum_added_physical_damage"] = {
+			mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+		["spectral_wolf_grants_attack_maximum_added_physical_damage"] = {
+			mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "Multiplier", var = "SpectralWolfCount" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Spectral Wolf" }),
+		},
+		["modifiers_to_claw_critical_strike_chance_apply_minion_critical_strike_chance"] = {
+			flag("ClawCritChanceAppliesToMinions"),
+		},
+		["modifiers_to_claw_critical_strike_multiplier_apply_minion_critical_strike_multiplier"] = {
+			flag("ClawCritMultiplierAppliesToMinions"),
+		},
+	},
+#mods
+
+#skill SummonTauntingContraption
+#flags spell minion duration
+	fromItem = true,
+#mods
+
+#skill SummonVoidSphere Summon Volatile Anomaly
+#flags spell area duration
+	fromItem = true,
+#baseMod skill("dotIsArea", true)
+#mods
+
+#skill SummonMirageChieftain
+#flags spell duration
+	fromTree = true,
+#mods
+
+#skill TentacleSmash
+#flags attack area
+	fromItem = true,
+#mods
+
+#skill VampiricIcon
+#flags spell
+	fromItem = true,
+	statMap = {
+		["vampiric_icon_max_bleeding_beam_targets"] = {
+			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
+		["skill_life_regeneration_per_minute_per_affected_enemy"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+		["vampiric_icon_bleeding_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#mods
+
+#skill SupportTriggerSpellOnSkillUse Trigger Craft
+	fromItem = true,
+#mods
+
+#skill AvianTornado
+#flags spell projectile duration
+	fromItem = true,
+#baseMod skill("showAverage", true)
+#mods
+
+#skill Unhinge
+#flags spell
+	fromItem = true,
+#mods
+
+#skill HiddenBlade
+#flags attack projectile
+	fromItem = true,
+#mods
+
+#skill VaalBreach
+#flags spell
+#mods
+
+#skill VoidGaze
+#flags spell duration
+	fromItem = true,
+	statMap = {
+		["base_chaos_damage_resistance_%"] = {
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+		},
+	},
+#mods
+
+#skill VoidShot
+#flags attack projectile area
+	fromItem = true,
+#mods

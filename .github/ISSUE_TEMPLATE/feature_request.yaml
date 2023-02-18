@@ -1,0 +1,48 @@
+name: Feature request
+description: Suggest an idea for this project
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for suggesting a feature.
+        Please try to fill in as much of the form below as you're able to. Some of the fields marked with an asterisk (*) are required.
+  - type: checkboxes
+    id: duplicates
+    attributes:
+      label: Check for duplicates
+      options:
+        - label: I've checked for duplicate issues by using the search function of the [issue tracker](https://github.com/PathOfBuildingCommunity/PathOfBuilding/issues)
+          required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: Is your feature request related to a problem?
+      description: Please write a clear and concise description of what the problem is.
+      placeholder: E.g. I'd like to be able to do [...], but there currently is no support for [...].
+    validations:
+      required: true
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: Please write a clear and concise description of what you want to happen.
+      placeholder: E.g. When I'm creating a new item, there should be an option to [...].
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Describe alternatives you've considered
+      description: Please write a clear and concise description of any alternative solutions or features you've considered.
+      placeholder: Currently, the same functionality can be achieved by combining [...] with [...].
+    validations:
+      required: false
+  - type: textarea
+    id: context
+    attributes:
+      label: Additional context
+      description: Add any other context or screenshots about the feature request here.
+      placeholder: In this text area, you can attach files/images (copy paste) directly, or link to them if they're hosted elsewhere instead.
+    validations:
+      required: false

@@ -1,0 +1,128 @@
+-- Path of Building
+--
+-- Minion Data
+-- Monster data (c) Grinding Gear Games
+--
+local minions, mod = ...
+
+#monster Metadata/Monsters/RaisedZombies/RaisedZombieStandard RaisedZombie
+#limit ActiveZombieLimit
+#emit
+
+#monster Metadata/Monsters/ChaosElemental/ChaosElementalSummoned SummonedChaosGolem
+#limit ActiveGolemLimit
+#emit
+
+#monster Metadata/Monsters/FireElemental/FireElementalSummoned SummonedFlameGolem
+#limit ActiveGolemLimit
+#emit
+
+#monster Metadata/Monsters/IceElemental/IceElementalSummoned SummonedIceGolem
+#limit ActiveGolemLimit
+#emit
+
+#monster Metadata/Monsters/LightningGolem/LightningGolemSummoned SummonedLightningGolem
+#limit ActiveGolemLimit
+#emit
+
+#monster Metadata/Monsters/RockGolem/RockGolemSummoned SummonedStoneGolem
+#limit ActiveGolemLimit
+#emit
+
+#monster Metadata/Monsters/SummonedSkull/SummonedSkull SummonedRagingSpirit
+#limit ActiveRagingSpiritLimit
+#emit
+
+#monster Metadata/Monsters/SummonedSkull/SpectralSummonedSkull SummonedEssenceSpirit
+#mod mod("Condition:FullLife", "FLAG", true)
+#emit
+
+#monster Metadata/Monsters/Lion/SummonedSpectralWolf SummonedSpectralWolf
+#limit ActiveWolfLimit
+#emit
+
+#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonStandard RaisedSkeleton
+#limit ActiveSkeletonLimit
+#emit
+
+#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonSpellcaster1Army RaisedSkeletonCaster
+#limit ActiveSkeletonLimit
+#skill SkeletonMinionProjectileFire
+#skill SkeletonMinionProjectileLightning
+#emit
+
+#monster Metadata/Monsters/RaisedSkeletons/RaisedSkeletonRanged1Army RaisedSkeletonArcher
+#limit ActiveSkeletonLimit
+#emit
+
+#monster Metadata/Monsters/Clone/RangerClone Clone
+#emit
+
+#monster Metadata/Monsters/SummonedSpider/SummonedSpider SpiderMinion
+#limit ActiveSpiderLimit
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/AnimatedWeapon AnimatedWeapon
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/AnimatedArmour AnimatedArmour
+#mod mod("Speed", "MORE", 10, ModFlag.Attack, 0, { type = "Condition", var = "DualWielding" })
+#mod mod("BlockChance", "BASE", 15, 0, 0, { type = "Condition", var = "DualWielding" })
+#emit
+
+#monster Metadata/Monsters/IcyRagingSpirit/IcyRagingSpirit IcyRagingSpirit
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/UniqueAnimatedWeapon UniqueAnimatedWeapon
+#emit
+
+#monster Metadata/Monsters/SummonedPhantasm/SummonedPhantasm SummonedPhantasm
+#limit ActivePhantasmLimit
+#emit
+
+#monster Metadata/Monsters/SpiderPlated/HeraldOfAgonySpiderPlated HeraldOfAgonySpiderPlated
+#mod mod("Condition:FullLife", "FLAG", true)
+#emit
+
+#monster Metadata/Monsters/Axis/AxisEliteSoldierHeraldOfLight AxisEliteSoldierHeraldOfLight
+#limit ActiveSentinelOfPurityLimit
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/HolyLivingRelic HolyLivingRelic
+#limit ActiveHolyRelicLimit
+#emit
+
+#monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlow AxisEliteSoldierDominatingBlow
+#emit
+
+#monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudge AbsolutionTemplarJudge
+#emit
+
+#monster Metadata/Monsters/Rhoas/RhoaUniqueSummoned RhoaUniqueSummoned
+#limit ActiveBeastMinionLimit
+#emit
+
+#monster Metadata/Monsters/Snake/SnakeSpitUniqueSummoned SnakeSpitUniqueSummoned
+#limit ActiveBeastMinionLimit
+#emit
+
+#monster Metadata/Monsters/DropBear/DropBearUniqueSummoned DropBearUniqueSummoned
+#limit ActiveBeastMinionLimit
+#emit
+
+#monster Metadata/Monsters/BoneGolem/BoneGolem SummonedCarrionGolem
+#limit ActiveGolemLimit
+#emit
+
+#monster Metadata/Monsters/Skitterbot/SkitterbotCold SkitterbotCold
+#emit
+
+#monster Metadata/Monsters/Skitterbot/SkitterbotLightning SkitterbotLightning
+#emit
+
+#monster Metadata/Monsters/SummonedReaper/SummonedReaper SummonedReaper
+#emit
+
+#monster Metadata/Monsters/LeagueExpedition/Arbalest/SummonedArbalest SummonedArbalists
+#limit ActiveArbalistLimit
+#emit

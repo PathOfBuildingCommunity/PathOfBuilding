@@ -1,0 +1,28 @@
+name: Push beta branch
+on: 
+  schedule:
+    - cron: '0 0 * * 5'
+  push:
+    branches:
+      - 'master'
+  workflow_dispatch:
+jobs:
+  push-beta:
+    runs-on: ubuntu-22.04
+    steps:
+            - name: Set line endings
+              run: git config --global core.autocrlf true
+            - name: Checkout
+              uses: actions/checkout@v3
+              with:
+                ref: 'dev'
+            - name: Configure bot user
+              run: |
+                git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+                git config --global user.name "github-actions[bot]"
+            - name: Update manifest.xml
+              run: python3 update_manifest.py --quiet --in-place
+            - name: Push to beta branch
+              run: |
+                  git commit -am "Weekly beta release" --allow-empty --author="github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>"
+                  git push origin HEAD:beta --force

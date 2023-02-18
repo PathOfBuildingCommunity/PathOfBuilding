@@ -1,0 +1,40 @@
+name: 'spellcheck'
+
+on:
+  pull_request:
+    branches: [ dev ]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Branch, tag or SHA to checkout
+        default: dev
+        required: false
+
+jobs:
+  spellcheck:
+    runs-on: ubuntu-latest
+    env: 
+      CONFIG_URL:  https://raw.githubusercontent.com/Nightblade/pob-dict/main
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ inputs.ref }}
+
+      - name: Fetch config file and dictionaries
+        run: |
+          curl --silent --show-error --parallel --remote-name-all \
+            ${{ env.CONFIG_URL }}/cspell.json \
+            ${{ env.CONFIG_URL }}/pob-dict.txt \
+            ${{ env.CONFIG_URL }}/poe-dict.txt \
+            ${{ env.CONFIG_URL }}/ignore-dict.txt \
+            ${{ env.CONFIG_URL }}/extra-en-dict.txt
+
+      - name: Run cspell
+        uses: streetsidesoftware/cspell-action@v2.4.0
+        with:
+          files: '**' # needed as workaround for non-incremental runs (overrides in config still work ok)
+          config: "cspell.json"
+          incremental_files_only: ${{ github.event_name != 'workflow_dispatch' }}
+

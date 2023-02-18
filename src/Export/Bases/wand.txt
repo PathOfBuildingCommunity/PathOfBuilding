@@ -1,0 +1,22 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Wand
+#baseTags weapon onehand wand ranged one_hand_weapon
+#socketLimit 3
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/Wands/Wand[ME]?%d+
+
+#type Wand
+#baseTags weapon onehand wand ranged one_hand_weapon weapon_can_roll_minion_modifiers
+#socketLimit 3
+#base Metadata/Items/Weapons/OneHandWeapons/Wands/WandAtlas1
+
+#type Wand
+#baseTags weapon onehand wand ranged one_hand_weapon weapon_can_roll_minion_modifiers
+#socketLimit 3
+#base Metadata/Items/Weapons/OneHandWeapons/Wands/WandMinion1
+
+#type Wand
+#baseTags weapon onehand wand ranged one_hand_weapon weapon_can_roll_minion_modifiers
+#socketLimit 3
+#base Metadata/Items/Weapons/OneHandWeapons/Wands/WandMinion2

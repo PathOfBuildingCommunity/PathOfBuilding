@@ -1,0 +1,60 @@
+name: Release next version
+on:
+  workflow_dispatch:
+      inputs:
+          releaseVersion:
+              description: 'Version number to use for this release'
+              required: true
+              default: '2.x.x'
+          releaseNoteUrl:
+              description: 'Enter the location of edited release notes to use'
+              required: false
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+            - name: Checkout
+              uses: actions/checkout@v2.4.0
+              with:
+                ref: 'dev'
+            - name: Generate Release notes
+              if: ${{ github.event.inputs.releaseNoteUrl == '' }}
+              run: >
+                echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token;
+                gh release view $(basename $(gh release create v${{ github.event.inputs.releaseVersion }} --title "Release ${{ github.event.inputs.releaseVersion }}" --draft --generate-notes)) > temp_change.md
+            - name: Use existing Release notes
+              if: ${{ github.event.inputs.releaseNoteUrl != '' }}
+              run: >
+                echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token;
+                gh release view $(basename ${{ github.event.inputs.releaseNoteUrl }}) > temp_change.md
+            - name: Tweak changelogs
+              run: >
+                sed -i '1,8d' temp_change.md;
+                sed -i '1h;1d;$!H;$!d;G' temp_change.md;
+                sed -i -re 's/\*\*Full Changelog\*\*: (.*)/\[Full Changelog\]\(\1\)\n/' temp_change.md;
+                sed -i '/## New Contributors/,$d' temp_change.md;
+                sed -i -re 's/^\*(.*)\sby\s@(.*)\sin\s(.*\/pull\/)(.*)/-\1 [\\#\4](\3\4) ([\2](https:\/\/github.com\/\2))/' temp_change.md;
+                sed -i 's/\[Quotae/\[Quote_a/' temp_change.md;
+                sed -i 's/\[learn2draw/\[Lexy/' temp_change.md;
+                sed -i 's/\[Voronoff/\[Tom Clancy Is Dead/' temp_change.md;
+                sed -i 's/\[PJacek/\[TPlant/' temp_change.md;
+                cp temp_change.md changelog_temp.txt;
+                cat CHANGELOG.md | sed '1d' >> temp_change.md;
+                printf "# Changelog\n\n## [v${{ github.event.inputs.releaseVersion }}](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v${{ github.event.inputs.releaseVersion }}) ($(date +'%Y/%m/%d'))\n\n" | cat - temp_change.md > CHANGELOG.md;
+
+                sed -i -re 's/^- (.*) \[.*\) \(\[(.*)\]\(.*/* \1 (\2)/' changelog_temp.txt;
+                echo "VERSION[${{ github.event.inputs.releaseVersion }}][`date +'%Y/%m/%d'`]" | cat - changelog_temp.txt | sed '2,3d' | sed -re 's/^### (.*)\r/--- \1 ---/' | sed -e '/^##.*/,+1 d' | cat - changelog.txt > changelog_new.txt;
+                rm temp_change.md;
+                rm changelog_temp.txt;
+                mv changelog_new.txt changelog.txt
+            - name: Create Pull Request
+              uses: peter-evans/create-pull-request@v3.8.0
+              with:
+                  draft: true
+                  title: Release ${{ github.event.inputs.releaseVersion }}
+                  branch: release-${{ github.event.inputs.releaseVersion }}
+                  body: |
+                      Draft release of ${{ github.event.inputs.releaseVersion }}.
+
+                      Edits will be made as necessary to prepare the codebase for release.
+                  commit-message: 'Prepare release ${{ github.event.inputs.releaseVersion }}'

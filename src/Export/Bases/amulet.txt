@@ -1,0 +1,23 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Amulet
+#baseTags amulet
+
+#baseMatch Metadata/Items/Amulets/Amulet%d+
+#baseMatch Metadata/Items/Amulet/AmuletAtlas%d+
+#forceShow true
+#baseMatch Metadata/Items/Amulets/AmuletE%d+
+#forceShow false
+#base Metadata/Items/Amulet/AmuletVictor1
+
+#subType Talisman
+#baseMatch Metadata/Items/Amulets/Talismans/Talisman
+#forceShow true
+#base Metadata/Items/Amulets/Talismans/Talisman2_6_1 Avian Twins Talisman (Fire-To-Cold)
+#base Metadata/Items/Amulets/Talismans/Talisman2_6_2 Avian Twins Talisman (Fire-To-Lightning)
+#base Metadata/Items/Amulets/Talismans/Talisman2_6_3 Avian Twins Talisman (Cold-To-Lightning)
+#base Metadata/Items/Amulets/Talismans/Talisman2_6_4 Avian Twins Talisman (Cold-To-Fire)
+#base Metadata/Items/Amulets/Talismans/Talisman2_6_5 Avian Twins Talisman (Lightning-To-Cold)
+#base Metadata/Items/Amulets/Talismans/Talisman3_6_1 Monkey Paw Talisman (Power)
+#base Metadata/Items/Amulets/Talismans/Talisman3_6_2 Monkey Paw Talisman (Frenzy)

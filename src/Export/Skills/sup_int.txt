@@ -1,0 +1,761 @@
+-- Path of Building
+--
+-- Intelligence support gems
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill SupportAddedChaosDamage
+#mods
+
+#skill SupportAddedChaosDamagePlus
+#mods
+
+#skill SupportAddedLightningDamage
+#mods
+
+#skill SupportAddedLightningDamagePlus
+#mods
+
+#skill SupportArcaneSurge
+	statMap = {
+		["support_arcane_surge_mana_regeneration_rate_+%"] = {
+			mod("ManaRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
+		},
+		["support_arcane_surge_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
+		},
+		["support_arcane_surge_spell_damage_+%_final_while_you_have_arcane_surge"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Condition", var = "AffectedByArcaneSurge" }),
+		},
+	},
+#mods
+
+#skill SupportArchmage
+	statMap = {
+		["manaweave_cost_equals_%_unreserved_mana"] = {
+			skill("baseManaCostIsAtLeastPercentUnreservedMana", nil),
+		},
+		["manaweave_added_lightning_damage_%_cost_if_payable"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			div = 100,
+		},
+		["manaweave_added_cold_damage_%_cost_if_payable"] = {
+			mod("ColdMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			mod("ColdMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill SupportBlasphemy
+	statMap = {
+		["curse_apply_as_aura"] = {
+		},
+		["support_blasphemy_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportBlasphemyPlus
+	statMap = {
+		["curse_apply_as_aura"] = {
+		},
+		["support_blasphemy_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportBonechill
+#baseMod skill("supportBonechill", true)
+	statMap = {
+		["support_bonechill_cold_damage_+%_final"] = {
+			mod("ColdDamage", "MORE", nil),
+		},
+		["support_chills_also_grant_cold_damage_taken_+%_equal_to_slow_amount"] = {
+		},
+		["support_chilling_areas_also_grant_cold_damage_taken_+%_equal_to_slow_amount"] = {
+		},
+	},
+#mods
+
+#skill SupportCastOnStunned
+#mods
+
+#skill SupportCastWhileChannelling
+	statMap = {
+		["cast_while_channelling_time_ms"] = {
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
+			div = 1000,
+		},
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
+		},
+	},
+#mods
+
+#skill SupportCastWhileChannellingTriggered
+	statMap = {
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+		},
+		["support_cast_while_channelling_triggered_skill_non_damaging_ailment_effect_+%"] = {
+			mod("EnemyChillEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+			mod("EnemyShockEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+			mod("EnemyFreezeEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+			mod("EnemyScorchEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+			mod("EnemyBrittleEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+			mod("EnemySapEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+		},
+	},
+#mods
+
+#skill SupportCastWhileChannellingPlus
+	statMap = {
+		["cast_while_channelling_time_ms"] = {
+			skill("triggerTime", nil, { type = "SkillType", skillType = SkillType.Channel } ),
+			div = 1000,
+		},
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
+		},
+	},
+#mods
+
+#skill SupportCastWhileChannellingTriggeredPlus
+	statMap = {
+		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
+		},
+	},
+#mods
+
+#skill SupportChanceToIgnite
+	statMap = {
+		["support_chance_to_ignite_fire_damage_+%_final"] = {
+			mod("FireDamage", "MORE", nil),
+		},
+		["ignites_apply_fire_resistance_+"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" }),
+		},
+	},
+#mods
+
+#skill SupportChargedMines
+	statMap = {
+		["mine_throwing_speed_+%_per_frenzy_charge"] = {
+			mod("MineLayingSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+		},
+		["mine_critical_strike_chance_+%_per_power_charge"] = {
+			mod("CritChance", "INC", nil, 0, KeywordFlag.Mine, { type = "Multiplier", var = "PowerCharge" }),
+		},
+		["mine_projectile_speed_+%_per_frenzy_charge"] = {
+			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" })
+		},
+	},
+#mods
+
+#skill SupportConcentratedEffect
+	statMap = {
+		["support_concentrated_effect_skill_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["support_area_concentrate_area_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Area),
+		},
+	},
+#mods
+
+#skill SupportControlledDestruction
+	statMap = {
+		["support_controlled_destruction_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+		["support_controlled_destruction_critical_strike_chance_+%_final"] = {
+			mod("CritChance", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportControlledDestructionPlus
+	statMap = {
+		["support_controlled_destruction_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+		["support_controlled_destruction_critical_strike_chance_+%_final"] = {
+			mod("CritChance", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportCursedGround
+#mods
+
+#skill SupportCurseOnHit
+	statMap = {
+		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
+		},
+		["support_hextouch_curse_effect_+%_final"] = {
+		},
+	},
+#mods
+
+#skill SupportCurseOnHitCurse
+	statMap = {
+		["support_hextouch_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportCurseOnHitPlus
+	statMap = {
+		["support_hextouch_curse_effect_+%_final"] = {
+		},
+	},
+#mods
+
+#skill SupportCurseOnHitCursePlus
+	statMap = {
+		["support_hextouch_curse_effect_+%_final"] = {
+			mod("CurseEffect", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportMinionFocusFire
+	statMap = {
+		["deathmark_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["support_minion_focus_fire_damage_+%_final_vs_focussed_target"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
+		},
+		["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
+		},
+		["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
+		},
+	},
+#mods
+
+#skill MinionFocusFire
+	statMap = {
+		["resist_all_%"] = {
+			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
+			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
+		},
+	},
+#mods
+
+#skill SupportDecay
+#mods
+
+#skill SupportEfficacy
+	statMap = {
+		["support_efficacy_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+		["support_efficacy_damage_over_time_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Dot),
+		},
+	},
+#mods
+
+#skill SupportElementalFocus
+	statMap = {
+		["support_gem_elemental_damage_+%_final"] = {
+			mod("ElementalDamage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportElementalFocusPlus
+	statMap = {
+		["support_gem_elemental_damage_+%_final"] = {
+			mod("ElementalDamage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportElementalProliferation
+	statMap = {
+		["damage_+%_vs_enemies_per_freeze_shock_ignite"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
+			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
+			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
+		}
+	},
+#mods
+
+#skill SupportEnergyShieldLeech
+	statMap = {
+		["support_energy_shield_leech_damage_+%_on_full_energy_shield_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "FullEnergyShield" }),
+		},
+		["support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "LeechingEnergyShield" }),
+		},
+		["maximum_energy_shield_leech_amount_per_leech_+%"] = {
+			mod("MaxEnergyShieldLeechRate", "INC", nil)
+		}
+	},
+#mods
+
+#skill SupportAdditionalXP
+#mods
+
+#skill SupportAdditionalXPPlus
+#mods
+
+#skill SupportFasterCast
+#mods
+
+#skill SupportMinionOffensiveStance
+	statMap = {
+		["support_minion_offensive_stance_minion_damage_+%_final_while_you_have_puppet_master"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "FeedingFrenzyActive" }),
+		},
+	},
+#mods
+
+#skill SupportHexBloom
+#mods
+
+#skill SupportRemoteMine2
+	addFlags = {
+		mine = true,
+	},
+	statMap = {
+		["support_remote_mine_2_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_remote_mine_2_chance_to_deal_double_damage_%_against_enemies_near_mines"] = {
+			mod("SelfDoubleDamageChance", "BASE", nil, 0, 0, { type = "Limit", limit = 100 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "High-Impact Mine", effectStackVar = "ActiveMineCount" }),
+		},
+	},
+#mods
+
+#skill SupportIgniteProliferation
+	statMap = {
+		["support_ignite_prolif_ignite_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite),
+		},
+	},
+#mods
+
+#skill SupportImmolation
+#mods
+
+#skill ViciousHexSupport
+#flags spell area chaos hex
+#mods
+
+#skill ViciousHexExplosion
+#flags spell area
+#baseMod skill("radius", 20)
+#baseMod skill("showAverage", true)
+#mods
+
+#skill SupportIncreasedAreaOfEffect
+#mods
+
+#skill SupportIncreasedAreaOfEffectPlus
+	statMap = {
+		["inc_aoe_plus_more_area_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Area),
+		},
+	},
+#mods
+
+#skill SupportIncreasedCriticalDamage
+#mods
+
+#skill SupportIncreasedCriticalStrikes
+#mods
+
+#skill SupportBurningMinions
+	statMap = {
+		["minion_fire_damage_%_of_maximum_life_taken_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life" }, { type = "GlobalEffect", effectType = "Buff" }) }),
+			div = 6000,
+		},
+		["support_minion_instability_minion_base_fire_area_damage_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:InfernalLegionBaseDamage", "BASE", nil) }),
+			div = 60,
+			mod("ExtraMinionSkill", "LIST", { skillId = "InfernalLegion" }),
+		},
+		["minion_burning_damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot) }),
+		},
+		["minion_fire_damage_taken_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("FireDamageTaken", "INC", nil) }),
+		}
+	},
+#mods
+
+#skill SupportStormBarrier
+	statMap = {
+		["support_storm_barrier_skill_type_damage_taken_when_hit_+%_final"] = {
+			mod("PhysicalDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "PhysicalInfusion" }),
+			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "FireInfusion" }),
+			mod("ColdDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "ColdInfusion" }),
+			mod("LightningDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "LightningInfusion" }),
+			mod("ChaosDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infused Channelling", modCond = "ChaosInfusion" }),
+		},
+		["support_storm_barrier_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_storm_barrier_skill_type_damage_+%_final"] = {
+			mod("Condition:HavePhysicalInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
+			mod("Condition:HaveFireInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
+			mod("Condition:HaveColdInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
+			mod("Condition:HaveLightningInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
+			mod("Condition:HaveChaosInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
+		},
+		["infusion_grants_life_regeneration_rate_per_minute_%"] = {
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
+			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
+			div = 60
+		},
+		["infusion_effect_+%"] = {
+			mod("InfusionEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod flag("Condition:PhysicalInfusion", { type = "SkillType", skillType = SkillType.Physical })
+#baseMod flag("Condition:FireInfusion", { type = "SkillType", skillType = SkillType.Fire })
+#baseMod flag("Condition:ColdInfusion", { type = "SkillType", skillType = SkillType.Cold })
+#baseMod flag("Condition:LightningInfusion", { type = "SkillType", skillType = SkillType.Lightning })
+#baseMod flag("Condition:ChaosInfusion", { type = "SkillType", skillType = SkillType.Chaos })
+#mods
+
+#skill SupportOnslaughtOnSlayingShockedEnemy
+	statMap = {
+		["support_innervate_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "InnervationActive" }),
+		},
+		["support_innervate_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Innervation", effectCond = "InnervationActive" }),
+		},
+	},
+#mods
+
+#skill SupportHandcastSpellBoost
+	statMap = {
+		["support_spell_boost_area_damage_+%_final_per_charge"] = {
+			mod("Damage", "MORE", nil, ModFlag.Area, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
+		},
+		["support_spell_boost_area_of_effect_+%_final_per_charge"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
+		},
+	},
+#mods
+
+#skill SupportItemRarity
+#mods
+
+#skill SupportLightningPenetration
+#mods
+
+#skill SupportLightningPenetrationPlus
+#mods
+
+#skill SupportMinionDefensiveStance
+	statMap = {
+		["support_minion_defensive_stance_minion_damage_taken_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DamageTaken", "MORE", nil) }),
+		},
+		["support_minion_defensive_stance_minion_damage_+%_final_against_enemies_near_you"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "Condition", var = "MeatShieldEnemyNearYou" }),
+		},
+		["minion_block_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("BlockChance", "BASE", nil) }),
+		}
+	},
+#mods
+
+#skill SupportMinefield
+	statMap = {
+		["support_minefield_mine_throwing_speed_+%_final"] = {
+			mod("MineLayingSpeed", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportMinionDamage
+	statMap = {
+		["support_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+		["minion_chance_to_deal_double_damage_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }),
+		},
+		["minion_ailment_damage_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, KeywordFlag.Ailment) }),
+		},
+	},
+#mods
+
+#skill SupportMinionDamagePlus
+	statMap = {
+		["support_minion_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		},
+	},
+#mods
+
+#skill SupportMinionLife
+	statMap = {
+		["support_minion_maximum_life_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
+		},
+		["minion_life_regeneration_rate_per_minute_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
+			div = 60
+		},
+		["minion_damage_+%_on_full_life"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
+		},
+	},
+#mods
+
+#skill SupportMinionSpeed
+#mods
+
+#skill SupportSummonElementalResistances
+	statMap = {
+		["support_minion_totem_resistance_elemental_damage_+%_final"] = {
+			mod("MinionModifier", "LIST", { mod = mod("ElementalDamage", "MORE", nil) }),
+		},
+		["minion_life_leech_from_elemental_damage_permyriad"] = {
+			mod("MinionModifier", "LIST", { mod = mod("FireDamageLeech", "BASE", nil) }),
+			mod("MinionModifier", "LIST", { mod = mod("LightningDamageLeech", "BASE", nil) }),
+			mod("MinionModifier", "LIST", { mod = mod("ColdDamageLeech", "BASE", nil) }),
+			div = 100
+		},
+		["minions_inflict_exposure_on_hit_%_chance"] = {
+		},
+	},
+#mods
+
+#skill SupportOvercharge
+	statMap = {
+		["support_pure_shock_shock_as_though_damage_+%_final"] = {
+			mod("ShockAsThoughDealing", "MORE", nil),
+		},
+		["support_pure_shock_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["shock_effect_+%_with_critical_strikes"] = {
+			mod("EnemyShockEffect", "INC", nil),
+		},
+	},
+#mods
+
+#skill SupportPhysicalToLightning
+	statMap = {
+		["enemies_you_shock_take_%_increased_physical_damage"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Shocked" }),
+		},
+	},
+#mods
+
+#skill SupportProjectileIntensity
+	statMap = {
+		["additional_projectiles_per_intensity"] = {
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
+		},
+		["support_greater_projectile_intensity_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile),
+		},
+		["greater_projectile_intensity_projectile_damage_+%_final_per_intensity"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "Multiplier", var = "Intensity" , limitVar = "IntensityLimit" }),
+		},
+	},
+#mods
+
+#skill SupportPowerChargeOnCrit
+	statMap = {
+		["support_power_charge_on_crit_damage_+%_final_per_power_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+		},
+	},
+#mods
+
+#skill SupportRemoteMine
+	addFlags = {
+		mine = true,
+	},
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Mineable }),
+		},
+		["support_gem_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportSpellCascade
+	statMap = {
+		["support_spell_cascade_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["support_spell_cascade_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportSpellCascadePlus
+	statMap = {
+		["support_spell_cascade_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["support_spell_cascade_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportMulticast
+	statMap = {
+		["support_echo_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_multicast_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+		["support_spell_echo_final_repeat_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+			--Average out over the casts
+			div = 3
+		}
+	},
+#baseMod flag("Condition:HaveSpellEcho")
+#mods
+
+#skill SupportSpellEchoPlus
+	statMap = {
+		["support_echo_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["support_multicast_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+		["spell_echo_plus_chance_double_damage_%_final"] = {
+			mod("DoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+			div = 2,
+		},
+	},
+#baseMod flag("Condition:HaveSpellEcho")
+#baseMod mod("DoubleDamageChance", "BASE", -3, ModFlag.Spell, 0, { type = "Condition", var = "HaveGreaterSpellEcho" })
+#mods
+
+#skill SupportSummonGhostOnKill
+	addFlags = {
+		minion = true,
+	},
+	addMinionList = {
+		"SummonedPhantasm"
+	},
+	statMap = {
+		["base_number_of_support_ghosts_allowed"] = {
+			mod("ActivePhantasmLimit", "BASE", nil),
+		},
+		["damage_+%_for_non_minions"] = {
+			-- mod("Damage", "INC", nil, 0, 0, {type = "Actor"})
+		},
+		["phantasm_minimum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
+		},
+		["phantasm_maximum_added_physical_damage_to_grant"] = {
+			mod("PhysicalMax", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
+		}
+	},
+#mods
+
+#skill SupportRapidActivation
+	statMap = {
+		["support_rapid_activation_brand_activation_rate_+%_final"] = {
+			mod("BrandActivationFrequency", "MORE", nil),
+		},
+		["support_rapid_activation_brand_skill_only_primary_duration_+%_final"] = {
+			mod("PrimaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
+		},
+		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
+			mod("SecondaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
+		},
+		["from_quality_brand_activation_rate_+%_final_if_75%_attached_duration_expired"] = {
+			mod("BrandActivationFrequency", "MORE", nil, 0, 0, {type = "Condition", var = "BrandLastQuarter"})
+		},
+	},
+#mods
+
+#skill SupportTrinity
+	statMap = {
+		["elemental_damage_+%_final_per_5_lowest_resonance"] = {
+			mod("ElementalDamage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ResonanceCount", div = 5 }),
+		},
+		["damage_penetrates_%_elemental_resistances_while_all_resonance_is_25"] = {
+			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "MultiplierThreshold", var = "ResonanceCount", threshold = 25 }),
+		},
+	},
+#mods
+
+#skill SupportAilments
+	statMap = {
+		["support_unbound_ailments_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
+		},
+		["base_damage_+%_while_an_ailment_on_you"] = {
+			mod("Damage", "INC", nil, 0, 0, {type = "Condition", varList = { "Frozen","Chilled","Shocked","Ignited","Scorched","Brittle","Sapped","Poisoned","Bleeding" }})
+		}
+	},
+#mods
+
+#skill SupportUnboundAilmentsPlus
+	statMap = {
+		["support_unbound_ailments_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
+		},
+	},
+#mods
+
+#skill SupportHandcastAnticipation
+	statMap = {
+		["support_anticipation_rapid_fire_count"] = {
+			mod("SealCount", "BASE", nil),
+		},
+		["support_anticipation_charge_gain_interval_ms"] = {
+			mod("SealGainFrequency", "BASE", nil),
+			div = 1000,
+		},
+		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
+			mod("SealRepeatPenalty", "MORE", nil),
+		},
+	},
+#baseMod flag("HasSeals")
+#mods
+
+#skill SupportUnleashPlus
+	statMap = {
+		["support_anticipation_rapid_fire_count"] = {
+			mod("SealCount", "BASE", nil),
+		},
+		["support_anticipation_charge_gain_interval_ms"] = {
+			mod("SealGainFrequency", "BASE", nil),
+			div = 1000,
+		},
+		["support_spell_rapid_fire_repeat_use_damage_+%_final"] = {
+			mod("SealRepeatPenalty", "MORE", nil),
+		},
+	},
+#baseMod flag("HasSeals")
+#mods

@@ -1,0 +1,532 @@
+-- Path of Building
+--
+-- Strength support gems
+-- Skill data (c) Grinding Gear Games
+--
+local skills, mod, flag, skill = ...
+
+#skill SupportAddedFireDamage
+#mods
+
+#skill SupportAddedFireDamagePlus
+#mods
+
+#skill SupportSpiritStrike
+	statMap = {
+		["support_spirit_strike_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportAncestralCallPlus
+	statMap = {
+		["support_spirit_strike_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportBehead
+	statMap = {
+		["support_executioner_damage_vs_enemies_on_low_life_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" })
+		},
+	},
+#mods
+
+#skill SupportBloodMagic
+#mods
+
+#skill SupportBloodthirst
+	statMap = {
+		["support_blood_thirst_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["blood_price_gain_%_maximum_life_as_added_physical_damage_with_weapons_while_on_low_life"] = {
+			mod("PhysicalMin", "BASE", nil, ModFlag.Weapon, 0, { type = "PercentStat", stat = "Life", percent = 1 }, { type = "Condition", var = "LowLife"}),
+			mod("PhysicalMax", "BASE", nil, ModFlag.Weapon, 0, { type = "PercentStat", stat = "Life", percent = 1 }, { type = "Condition", var = "LowLife"}),
+		},
+	},
+#mods
+
+#skill SupportBloodlust
+	statMap = {
+		["support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies"] = {
+			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding" }),
+		},
+	},
+#mods
+
+#skill SupportBrutality
+	statMap = {
+		["support_brutality_physical_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportBrutalityPlus
+	statMap = {
+		["support_brutality_physical_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportIncreasedBurningDamage
+	statMap = {
+		["support_burning_damage_+%_final"] = {
+			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
+		},
+	},
+#mods
+
+#skill SupportBurningDamagePlus
+	statMap = {
+		["support_burning_damage_+%_final"] = {
+			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
+		},
+	},
+#mods
+
+#skill SupportCastOnMeleeKill
+	statMap = {
+		["support_cast_on_melee_kill_spell_damage_+%_final"] = {
+		},
+	},
+#mods
+
+#skill SupportCastOnMeleeKillTriggered
+	statMap = {
+		["support_cast_on_melee_kill_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell),
+		},
+	},
+#mods
+
+#skill SupportCastOnDamageTaken
+	statMap = {
+		["cast_on_damage_taken_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportChanceToBleed
+	statMap = {
+		["support_chance_to_bleed_bleeding_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed),
+		},
+	},
+#mods
+
+#skill SupportColdToFire
+#mods
+
+#skill SupportCruelty
+	statMap = {
+		["support_cruelty_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit),
+		},
+		["hits_grant_cruelty"] = {
+			mod("Damage", "MORE", 1, ModFlag.Dot, 0, { type = "Multiplier", var = "Cruelty" }),
+		},
+	},
+#baseMod flag("Cruelty")
+#mods
+
+#skill SupportMeleeDamageOnFullLife
+	statMap = {
+		["support_damage_while_on_full_life_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "FullLife" }),
+		},
+	},
+#mods
+
+#skill SupportAuraDuration
+	statMap = {
+		["support_aura_duration_base_buff_duration"] = {
+			skill("auraDuration", nil),
+			div = 1000,
+		},
+	},
+#mods
+
+#skill SupportEarthbreaker
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_ancestor_slam_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_ancestor_slam_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["ancestor_totem_grants_owner_area_of_effect_+%_with_melee_skills"] = {
+			mod("AreaOfEffect", "INC", nil, ModFlag.Melee),
+		},
+	},
+#mods
+
+#skill SupportWeaponElementalDamage
+	statMap = {
+		["support_attack_skills_elemental_damage_+%_final"] = {
+			mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Attack),
+		},
+	},
+#mods
+
+#skill SupportWeaponElementalDamagePlus
+	statMap = {
+		["support_attack_skills_elemental_damage_+%_final"] = {
+			mod("ElementalDamage", "MORE", nil, 0, KeywordFlag.Attack),
+		},
+	},
+#mods
+
+#skill SupportAdditionalLevel
+#mods
+
+#skill SupportAdditionalLevelPlus
+#mods
+
+#skill EnduranceChargeOnMeleeStun
+	statMap = {
+		["endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
+		},
+		["damage_+%_if_lost_endurance_charge_in_past_8_seconds"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" }),
+		}
+	},
+#mods
+
+#skill SupportMortalConviction
+	statMap = {
+		["base_skill_no_reservation"] = {
+		},
+	},
+#baseMod skill("manaReservationFlat", 0)
+#baseMod skill("lifeReservationFlat", 0)
+#baseMod skill("manaReservationPercent", 0)
+#baseMod skill("lifeReservationPercent", 0)
+#mods
+
+#skill SupportFirePenetration
+#mods
+
+#skill SupportFirePenetrationPlus
+#mods
+
+#skill AncestralSlamSupport
+	statMap = {
+		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
+			mod("FistOfWarHitMultiplier", "BASE", nil, ModFlag.Melee),
+		},
+		["support_ancestral_slam_big_hit_ailment_damage_+%_final"] = {
+			mod("FistOfWarAilmentMultiplier", "BASE", nil, bit.band(ModFlag.Melee, ModFlag.Ailment)),
+		},
+		["ancestral_slam_interval_duration"] = {
+			mod("FistOfWarCooldown", "BASE", nil),
+			div = 1000,
+		},
+		["ancestral_slam_stun_threshold_reduction_+%"] = {
+			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack),
+			mult = -1,
+		},
+	},
+#mods
+
+#skill SupportFortify
+	statMap = {
+		["support_fortify_melee_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Melee),
+		},
+		["support_fortify_ailment_damage_+%_final_from_melee_hits"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment)),
+		},
+		["fortify_effect_+%"] = {
+			mod("FortifyEffectOnSelf", "INC", nil)
+		},
+		["overwhelm_%_physical_damage_reduction_while_max_fortification"] = {
+			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Hit, 0, { type = "Condition", var = "HaveMaximumFortification"}),
+			mult = -1,
+		},
+	},
+#mods
+
+#skill SupportGenerosity
+	statMap = {
+		["aura_cannot_affect_self"] = {
+			skill("auraCannotAffectSelf", true),
+		},
+	},
+#mods
+
+#skill SupportGenerosityPlus
+	statMap = {
+		["aura_cannot_affect_self"] = {
+			skill("auraCannotAffectSelf", true),
+		},
+	},
+#mods
+
+#skill SupportIncreasedDuration
+#mods
+
+#skill SupportIronGrip
+#mods
+
+#skill SupportIronWill
+#mods
+
+#skill SupportItemQuantity
+#mods
+
+#skill SupportKnockback
+#mods
+
+#skill SupportReducedDuration
+	statMap = {
+		["support_reduced_duration_skill_effect_duration_+%_final"] = {
+			mod("Duration", "MORE", nil),
+		},
+		["support_reduced_duration_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportLifeGainOnHit
+#mods
+
+#skill SupportLifeLeech
+	statMap = {
+		["maximum_life_leech_amount_per_leech_+%"] = {
+			mod("MaxLifeLeechRate", "INC", nil)
+		}
+	},
+#mods
+
+#skill SupportLifetap
+	statMap = {
+		["support_lifetap_damage_+%_final_while_buffed"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "Lifetap" }),
+		},
+	},
+#mods
+
+#skill SupportMaim
+	statMap = {
+		["support_maim_chance_physical_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil),
+		},
+		["support_maimed_enemies_physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }),
+		},
+		["chance_to_bleed_on_hit_%_vs_maimed"] = {
+			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Maimed" })
+		}
+	},
+#mods
+
+#skill SupportMeleePhysicalDamage
+	statMap = {
+		["support_melee_physical_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee),
+		},
+		["support_melee_physical_damage_poison_and_bleeding_damage_+%_final_from_melee_hits"] = {
+			mod("Damage", "MORE", nil, ModFlag.MeleeHit, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison)),
+		},
+		["support_melee_physical_damage_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+	},
+#mods
+
+#skill SupportMeleePhysicalDamagePlus
+	statMap = {
+		["support_melee_physical_damage_+%_final"] = {
+			mod("PhysicalDamage", "MORE", nil, ModFlag.Melee),
+		},
+		["support_melee_physical_damage_poison_and_bleeding_damage_+%_final_from_melee_hits"] = {
+			mod("Damage", "MORE", nil, ModFlag.MeleeHit, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison)),
+		},
+		["support_melee_physical_damage_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+	},
+#mods
+
+#skill SupportMeleeSplash
+#mods
+
+#skill SupportMeleeSplashPlus
+#mods
+
+#skill SupportMultistrike
+	statMap = {
+		["multistrike_damage_+%_final_on_first_repeat"] = {
+			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("Damage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
+		},
+		["multistrike_damage_+%_final_on_second_repeat"] = {
+		},
+		["support_multiple_attack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Attack),
+		},
+		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
+		},
+		["multistrike_area_of_effect_+%_per_repeat"] = {
+			mod("AreaOfEffect", "INC", nil)
+		}
+	},
+#baseMod flag("SupportedByMultistrike")
+#mods
+
+#skill SupportMultistrikePlus
+	statMap = {
+		["multistrike_damage_+%_final_on_first_repeat"] = {
+		},
+		["multistrike_damage_+%_final_on_second_repeat"] = {
+		},
+		["multistrike_damage_+%_final_on_third_repeat"] = {
+			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("Damage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
+			div = 2,
+		},
+		["support_multiple_attack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Attack),
+		},
+		["support_multiple_attacks_melee_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
+		},
+	},
+#mods
+
+#skill SupportMultiTotem
+	statMap = {
+		["support_additional_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportPulverise
+	statMap = {
+		["support_pulverise_melee_area_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.Melee, ModFlag.Area)),
+		},
+		["support_pulverise_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+	},
+#mods
+
+#skill SupportRage
+	statMap = {
+		["support_rage_gain_rage_on_melee_hit_cooldown_ms"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff", effectName = "Rage" } ),
+		},
+		["attack_minimum_added_physical_damage_with_at_least_10_rage"] = {
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
+		},
+		["attack_maximum_added_physical_damage_with_at_least_10_rage"] = {
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "MultiplierThreshold", var = "Rage", threshold = 10 })
+		},
+		["attack_minimum_added_physical_damage_per_10_rage"] = {
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
+		},
+		["attack_maximum_added_physical_damage_per_10_rage"] = {
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
+		},
+		["attack_speed_+%_with_atleast_20_rage"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 20 })
+		}
+	},
+#mods
+
+#skill SupportRangedAttackTotem
+	addFlags = {
+		totem = true,
+		ballista = true,
+	},
+	statMap = {
+		["support_attack_totem_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack),
+		},
+		["support_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportReducedMana
+	statMap = {
+		["elemental_damage_+%_final_per_righteous_charge"] = {
+			mod("ElementalDamage", "MORE", nil, 0, 0, { type = "Multiplier", var = "InspirationCharge" }),
+		},
+		["critical_strike_chance_+%_per_righteous_charge"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "InspirationCharge" }),
+		},
+	},
+#mods
+
+#skill SupportRuthless
+	statMap = {
+		["support_ruthless_big_hit_stun_base_duration_override_ms"] = {
+			skill("baseStunDuration", nil),
+			div = 1000,
+		},
+		["support_ruthless_big_hit_max_count"] = {
+			mod("RuthlessBlowMaxCount", "BASE", nil),
+		},
+		["support_ruthless_big_hit_damage_+%_final"] = {
+			mod("RuthlessBlowHitMultiplier", "BASE", nil, ModFlag.Melee),
+		},
+		["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"] = {
+			mod("RuthlessBlowBleedMultiplier", "BASE", nil, ModFlag.Melee),
+		},
+	},
+#mods
+
+#skill SupportBluntWeapon
+	statMap = {
+		["support_blunt_chance_to_trigger_shockwave_on_hit_%"] = {
+		},
+		["supported_skill_can_only_use_mace_and_staff"] = {
+		},
+	},
+#mods
+
+#skill SupportBluntWeaponShockwave
+#flags attack melee area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
+#mods
+
+#skill SupportSpellTotem
+	addFlags = {
+		totem = true,
+	},
+	statMap = {
+		["support_spell_totem_cast_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, ModFlag.Cast),
+		},
+		["support_totem_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportStun
+#mods
+
+#skill SupportUrgentOrders
+#mods

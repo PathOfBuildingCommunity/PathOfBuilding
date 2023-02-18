@@ -1,0 +1,28 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type One Handed Sword
+#socketLimit 3
+#baseTags weapon onehand sword one_hand_weapon
+
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/OneHandSword
+
+#base Metadata/items/Weapons/OneHandWeapons/OneHandSwords/OneHandSwordC
+
+#forceHide true
+#base Metadata/Items/Weapons/OneHandWeapons/OneHandSwords/StormBladeOneHand
+#forceHide false
+
+#type One Handed Sword
+#subType Thrusting
+#baseMatch Metadata/Items/Weapons/OneHandWeapons/OneHandThrustingSwords/Rapier
+
+#type Two Handed Sword
+#subType
+#socketLimit 6
+#baseTags weapon twohand sword two_hand_weapon
+#baseMatch Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/TwoHandSword
+
+#forceHide true
+#base Metadata/Items/Weapons/TwoHandWeapons/TwoHandSwords/StormBladeTwoHand
+#forceHide false
