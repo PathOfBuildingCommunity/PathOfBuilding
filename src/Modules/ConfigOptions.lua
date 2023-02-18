@@ -681,7 +681,7 @@ Huge sets the radius to 11.
 	{ var = "minionsOverrideEnduranceCharges", type = "count", label = "# of Endurance Charges (if not maximum):", ifFlag = "haveMinion", ifOption = "minionsUseEnduranceCharges", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("EnduranceCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" }) }, "Config")
 	end },
-	{ var = "multiplierRampage", type = "count", label = "# of Rampage Kills:", tooltip = "Rampage grants the following, up to 1000 stacks:\n\t1% increased Movement Speed per 20 Rampage\n\t2% increased Damage per 20 Rampage\nYou lose Rampage if you do not get a Kill within 5 seconds.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierRampage", type = "count", label = "# of Rampage Kills:", ifFlag = "Condition:Rampage", tooltip = "Rampage grants the following, up to 1000 stacks:\n\t1% increased Movement Speed per 20 Rampage\n\t2% increased Damage per 20 Rampage\nYou lose Rampage if you do not get a Kill within 5 seconds.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Rampage", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierSoulEater", type = "count", label = "# of Soul Eater Stacks:", ifFlag = "Condition:CanHaveSoulEater", tooltip = "Soul Eater grants the following\n\t5% increased attack speed\n\t5% increased cast speed\n\t1% increased character size per stack.", apply = function(val, modList, enemyModList)
