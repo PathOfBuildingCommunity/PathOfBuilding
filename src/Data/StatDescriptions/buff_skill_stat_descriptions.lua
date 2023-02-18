@@ -149,9 +149,9 @@ return {
 				}
 			}
 		},
-		name="critical_strike_chance_incr",
+		name="grants_critical_strike_chance_incr",
 		stats={
-			[1]="critical_strike_chance_+%"
+			[1]="skill_buff_grants_critical_strike_chance_+%"
 		}
 	},
 	[7]={
@@ -1382,7 +1382,6 @@ return {
 	["cannot_recover_above_low_life_except_flasks"]=29,
 	["critical_link_grants_accuracy_rating_+%"]=21,
 	["critical_link_grants_base_critical_strike_multiplier_+"]=22,
-	["critical_strike_chance_+%"]=6,
 	["damage_taken_goes_to_mana_%"]=23,
 	["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"]=24,
 	["display_critical_link_overrides_main_hand_critical_strike_chance"]=25,
@@ -1407,6 +1406,7 @@ return {
 	["skill_buff_effect_+%"]=37,
 	["skill_buff_grants_attack_and_cast_speed_+%"]=38,
 	["skill_buff_grants_chance_to_freeze_%"]=39,
+	["skill_buff_grants_critical_strike_chance_+%"]=6,
 	["skill_buff_grants_damage_+%"]=40,
 	["skill_buff_grants_shock_duration_+%"]=41,
 	["skill_display_buff_grants_shock_immunity"]=42,

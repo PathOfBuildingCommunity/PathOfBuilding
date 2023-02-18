@@ -116,7 +116,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 	end
 	if self.dbType == "UNIQUE" and self.controls.obtainable.selIndex ~= 2 then
 		local source = item.source or ""
-		local obtainable = not (source == "No longer obtainable")
+		local obtainable = not (source == "No longer obtainable" or (item.league and item.league == "Race Events"))
 		if (self.controls.obtainable.selIndex == 1 and not obtainable) or (self.controls.obtainable.selIndex == 3 and obtainable) then
 			return false
 		elseif (self.controls.obtainable.selIndex == 4 and not (source == "Vendor Recipe")) then

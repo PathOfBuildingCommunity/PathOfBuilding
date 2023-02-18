@@ -1280,16 +1280,16 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["base_chance_to_shock_%_from_skill"] = {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
 		["minimum_added_lightning_damage_from_skill"] = {
-			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
 		["maximum_added_lightning_damage_from_skill"] = {
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
 		["skill_buff_grants_attack_and_cast_speed_+%"] = {
-			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" })
 		},
 	},
 #baseMod skill("radius", 15)

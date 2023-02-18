@@ -853,7 +853,7 @@ Growing Agony
 Viridian Jewel
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Limited to: 1
 Radius: Medium
 {variant:1}(4-12)% increased Damage over Time
@@ -965,7 +965,7 @@ Crimson Jewel
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.3.0
-Variant: Pre 3.17.0
+Variant: Current
 Limited to: 2
 Radius: Medium
 {variant:1}(4-12)% increased Global Physical Damage
@@ -1056,7 +1056,7 @@ Steel Spirit
 Viridian Jewel
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Radius: Medium
 {variant:1}(6-10)% increased Projectile Damage
 {variant:2}(7-10)% increased Projectile Damage
