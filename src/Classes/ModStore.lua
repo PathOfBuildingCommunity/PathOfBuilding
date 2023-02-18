@@ -51,7 +51,7 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 			subMod = scaledMod.value.mod
 		end
 		if type(subMod.value) == "number" then
-			local precision = (subMod.div and log(subMod.div, 10)) or ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
+			local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
 			if precision then
 				subMod.value = floor(subMod.value * scale, precision)
 			else
@@ -254,14 +254,14 @@ function ModStoreClass:EvalMod(mod, cfg)
 	local function calcValue(mod, value, mult, tag, limitTarget)
 		local limitTotal
 		if tag.limit or tag.limitVar then
-			local limit = tag.limit or limitTarget:GetMultiplier(tag.limitVar, cfg)
+			local limit = tag.limit or (limitTarget and limitTarget:GetMultiplier(tag.limitVar, cfg)) or self:GetMultiplier(tag.limitVar, cfg)
 			if tag.limitTotal then
 				limitTotal = limit
 			else
 				mult = m_min(mult, limit)
 			end
 		end
-		local precision = (mod.div and log(mod.div, 10)) or ((data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type])) or ((m_floor(value) ~= value) and data.defaultHighPrecision) or nil
+		local precision = ((data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type])) or ((m_floor(value) ~= value) and data.defaultHighPrecision) or nil
 		if precision then
 			value = floor(value * mult + (tag.base or 0), precision)
 		else
@@ -355,12 +355,12 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if not tag.continuous then mult = m_floor(base / (tag.div or 1) + 0.001) end
 			if type(value) == "table" then
 				if value.mod and value.mod.value then
-					value.mod.value = calcValue(value.mod, value.mod.value, mult, tag, limitTarget)
+					value.mod.value = calcValue(value.mod, value.mod.value, mult, tag, nil)
 				elseif value.value then
-					value.value = calcValue(mod, value.value, mult, tag, limitTarget)
+					value.value = calcValue(mod, value.value, mult, tag, nil)
 				end
 			else
-				value = calcValue(mod, value, mult, tag, limitTarget)
+				value = calcValue(mod, value, mult, tag, nil)
 			end
 		elseif tag.type == "PercentStat" then
 			local base
