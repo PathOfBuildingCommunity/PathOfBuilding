@@ -2635,11 +2635,12 @@ function calcs.perform(env, avoidCache)
 
 			-- Make a copy of this skill so we can add new modifiers to the copy affected by Mirage Archers
 			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
-
+			
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Speed", "MORE", moreAttackSpeed, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-
+			newSkill.skillCfg.skillCond["usedByMirage"] = true
+			
 			env.player.mainSkill.mirage = { }
 			env.player.mainSkill.mirage.count = mirageCount
 			env.player.mainSkill.mirage.name = usedSkill.activeEffect.grantedEffect.name
