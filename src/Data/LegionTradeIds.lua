@@ -1,4 +1,4 @@
--- These are manualy input, as they are unique mods they are hard to grab from trade
+-- These are manually input, as they are unique mods they are hard to grab from trade
 -- The ones for keystones could easily be generated from the names, but the devotion ones cannot
 
 return {
