@@ -17,61 +17,61 @@ This file contains a list of shortcuts, and other misc things PoB has
 
 General Shortcuts:
 
-ctrl+1	Jump to tree tab
-ctrl+2	Jump to skills tab
-ctrl+3	Jump to items tab
-ctrl+4	Jump to calcs tab
-ctrl+5	Jump to config tab
-ctrl+6	Jump to notes tab
-ctrl+i	Jump to import tab
-ctrl+a	Select all
-ctrl+c	Copy
-ctrl+f	Show find/search box (e.g. unique item / tree)
-ctrl+n	New build (in build selection menu)
-ctrl+s	Save build to file
-ctrl+u	Check for update
-ctrl+v or RMB	Paste
-ctrl+w or mouse4	Close Build (gives save prompt if unsaved)
-ctrl+x	Cut
-ctrl+y	Redo
-ctrl+z	Undo
-ctrl+BSP/DEL	Faster text delete
-ctrl+ +/-/0	Zoom in/out/reset
+Ctrl + 1	Jump to tree tab
+Ctrl + 2	Jump to skills tab
+Ctrl + 3	Jump to items tab
+Ctrl + 4	Jump to calcs tab
+Ctrl + 5	Jump to config tab
+Ctrl + 6	Jump to notes tab
+Ctrl + I	Jump to import tab
+Ctrl + A	Select all
+Ctrl + C	Copy
+Ctrl + F	Show find / search box (e.g. unique item / tree)
+Ctrl + N	New build (in build selection menu)
+Ctrl + S	Save build to file
+Ctrl + U	Check for update
+Ctrl + V or RMB	Paste
+Ctrl + W or Mouse 4	Close Build (gives save prompt if unsaved)
+Ctrl + X	Cut
+Ctrl + Y	Redo
+Ctrl + Z	Undo
+Ctrl + BSP / DEL	Faster text delete
+Ctrl + + /-/0	Zoom in / Out / Reset
 F1	Open item/gem/etc in poewiki.net
 F2	Rename item, set, etc.
-e	On an equipped item will open it on the edit menu on the right.
-ctrl+LMB	Enable/disable gems
-ctrl+RMB	Enable/disable gems from Full DPS
-mouse4/5	Undo/Redo path respectively (in build selection menu)
-shift	while scrolling on a slider makes it 5 times faster
-ctrl	while scrolling on a slider makes it 5 times slower
+E	On an equipped item will open it on the edit menu on the right.
+Ctrl + LMB	Enable / disable gems
+Ctrl + RMB	Enable / disable gems from Full DPS
+Mouse 4/5	Undo / Redo path respectively (in build selection menu)
+Shift	While scrolling on a slider makes it 5 times faster
+Ctrl	While scrolling on a slider makes it 5 times slower
 
 When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
 
 Passive Tree Shortcuts:
 
-ctrl	Hide tooltips while held
-p	Toggle node power
-ctrl+d	Toggle stat diff display
-PGUP/PGDN/MWHEEL	Zoom in/out (hold with shift to increase amount of zoom x 3)
-ctrl+LMB	Zoom in on mouse cursor position
-hold shift	Enable "path trace mode" (nodes highlighted will be added to a path which will be allocated when the final node is clicked on the tree)
+Ctrl	Hide tooltips while held
+P	Toggle node power
+Ctrl + D	Toggle stat diff display
+PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase amount of zoom x 3)
+Ctrl + LMB	Zoom in on mouse cursor position
+Hold Shift	Enable "path trace mode" (nodes highlighted will be added to a path which will be allocated when the final node is clicked on the tree)
 
 Developer Use
 
 General Shortcuts:
 
-ctrl+`	Toggle console (console supports most standard editing shortcuts)
-pause	Toggle profiling
+Ctrl + `	Toggle console (console supports most standard editing shortcuts)
+Pause	Toggle profiling
 DEV[ ]
 DEV[Developer Mode Shortcuts:]
 DEV[ ]
-DEV[ctrl	Rebuild mod cache (hold key during reload/refresh)]
-DEV[ctrl+shift	Allow tree download]
-DEV[alt	Show advanced mod breakdown/passing]
+DEV[Ctrl	Rebuild mod cache (hold key during reload / refresh)]
+DEV[Ctrl + Shift	Allow tree download]
+DEV[Alt	Show advanced mod breakdown / passing]
 DEV[F5	Restart]
 DEV[F6	Run garbage collector]
-DEV[shift	Copy export xml to clipboard (hold key during export)]
+DEV[Shift	Copy export xml to clipboard (hold key during export)]
 
 ---[Other Notable Things][5]
 
