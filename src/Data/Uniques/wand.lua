@@ -80,7 +80,7 @@ Corona Solaris
 Crystal Wand
 Source: No longer obtainable
 Variant: Pre 3.10.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 63, 146 Int
 Implicits: 1
 (29-33)% increased Spell Damage

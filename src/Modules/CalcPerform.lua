@@ -982,7 +982,8 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "Adrenaline") then
 			local effectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
 			modDB:NewMod("Damage", "INC", m_floor(100 * effectMod), "Adrenaline")
-			modDB:NewMod("Speed", "INC", m_floor(25 * effectMod), "Adrenaline")
+			modDB:NewMod("Speed", "INC", m_floor(25 * effectMod), "Adrenaline", ModFlag.Attack)
+			modDB:NewMod("Speed", "INC", m_floor(25 * effectMod), "Adrenaline", ModFlag.Cast)
 			modDB:NewMod("MovementSpeed", "INC", m_floor(25 * effectMod), "Adrenaline")
 			modDB:NewMod("PhysicalDamageReduction", "BASE", m_floor(10 * effectMod), "Adrenaline")
 		end
@@ -997,7 +998,8 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("AvoidFreeze", "BASE", 100, "Her Embrace")
 			modDB:NewMod("AvoidChill", "BASE", 100, "Her Embrace")
 			modDB:NewMod("AvoidIgnite", "BASE", 100, "Her Embrace")
-			modDB:NewMod("Speed", "INC", 20, "Her Embrace")
+			modDB:NewMod("Speed", "INC", 20, "Her Embrace", ModFlag.Attack)
+			modDB:NewMod("Speed", "INC", 20, "Her Embrace", ModFlag.Cast)
 			modDB:NewMod("MovementSpeed", "INC", 20, "Her Embrace")
 		end
 		if modDB:Flag(nil, "Condition:PhantasmalMight") then
@@ -1010,12 +1012,13 @@ local function doActorMisc(env, actor)
 				inc = inc + modDB:Sum("INC", nil, "NightbladeSupportedElusiveEffect")
 			end
 			inc = inc + maxSkillInc
-			output.ElusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			local elusiveEffectMod = (1 + inc / 100) * modDB:More(nil, "ElusiveEffect", "BuffEffectOnSelf") * 100
+			output.ElusiveEffectMod = elusiveEffectMod / 2
 			-- if we want the max skill to not be noted as its own breakdown table entry, comment out below
 			modDB:NewMod("ElusiveEffect", "INC", maxSkillInc, "Max Skill Effect")
 			-- Override elusive effect if set.
 			if modDB:Override(nil, "ElusiveEffect") then
-				output.ElusiveEffectMod = m_min(modDB:Override(nil, "ElusiveEffect"), output.ElusiveEffectMod)
+				output.ElusiveEffectMod = m_min(modDB:Override(nil, "ElusiveEffect"), elusiveEffectMod)
 			end
 			local effect = output.ElusiveEffectMod / 100
 			condList["Elusive"] = true
@@ -1186,7 +1189,8 @@ function calcs.perform(env, avoidCache)
 		env.minion.modDB:NewMod("LightningResist", "BASE", env.minion.minionData.lightningResist, "Base")
 		env.minion.modDB:NewMod("ChaosResist", "BASE", env.minion.minionData.chaosResist, "Base")
 		env.minion.modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
-		env.minion.modDB:NewMod("Speed", "INC", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
+		env.minion.modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
+		env.minion.modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
 		env.minion.modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
 		env.minion.modDB:NewMod("PhysicalDamageReduction", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
 		env.minion.modDB:NewMod("ElementalResist", "BASE", 4, "Base", { type = "Multiplier", var = "EnduranceCharge" })
@@ -1280,12 +1284,20 @@ function calcs.perform(env, avoidCache)
 
 	-- Merge flask modifiers
 	if env.mode_combat then
-		local effectInc = modDB:Sum("INC", nil, "FlaskEffect")
+		local effectInc = modDB:Sum("INC", {actor = "player"}, "FlaskEffect")
+		local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicUtilityFlaskEffect")
+		local effectIncNonPlayer = modDB:Sum("INC", nil, "FlaskEffect")
+		local effectIncMagicNonPlayer = modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
 		local flaskBuffs = { }
 		local flaskConditions = {}
 		local flaskBuffsPerBase = {}
+		local flaskBuffsNonPlayer = {}
+		local flaskBuffsPerBaseNonPlayer = {}
+		local flasksApplyToMinion = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")
+		local quickSilverAppliesToAllies = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies")
 		for item in pairs(env.flasks) do
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
+			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			flaskConditions["UsingFlask"] = true
 			if item.baseName:match("Hybrid Flask") then
 				flaskConditions["UsingLifeFlask"] = true
@@ -1295,19 +1307,28 @@ function calcs.perform(env, avoidCache)
 			end
 
 			local flaskEffectInc = item.flaskData.effectInc
+			local flaskEffectIncNonPlayer = flaskEffectInc
 			if item.rarity == "MAGIC" and not (flaskConditions["UsingLifeFlask"] or flaskConditions["UsingManaFlask"]) then
-				flaskEffectInc = flaskEffectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+				flaskEffectInc = flaskEffectInc + effectIncMagic
+				flaskEffectIncNonPlayer = effectIncNonPlayer + effectIncMagicNonPlayer
 			end
 
 			-- Avert thine eyes, lest they be forever scarred
 			-- I have no idea how to determine which buff is applied by a given flask, 
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
 			local effectMod = 1 + (effectInc + flaskEffectInc) / 100
+			local effectModNonPlayer = 1 + (effectIncNonPlayer + flaskEffectIncNonPlayer) / 100
 			if item.buffModList[1] then
 				local srcList = new("ModList")
 				srcList:ScaleAddList(item.buffModList, effectMod)
 				mergeBuff(srcList, flaskBuffs, item.baseName)
 				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], item.baseName)
+				if (flasksApplyToMinion or quickSilverAppliesToAllies) then
+					srcList = new("ModList")
+					srcList:ScaleAddList(item.buffModList, effectModNonPlayer)
+					mergeBuff(srcList, flaskBuffsNonPlayer, item.baseName)
+					mergeBuff(srcList, flaskBuffsPerBaseNonPlayer[item.baseName], item.baseName)
+				end
 			end
 			if item.modList[1] then
 				local srcList = new("ModList")
@@ -1323,6 +1344,12 @@ function calcs.perform(env, avoidCache)
 				end
 				mergeBuff(srcList, flaskBuffs, key)
 				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
+				if (flasksApplyToMinion or quickSilverAppliesToAllies) then
+					srcList = new("ModList")
+					srcList:ScaleAddList(item.modList, effectModNonPlayer)
+					mergeBuff(srcList, flaskBuffsNonPlayer, key)
+					mergeBuff(srcList, flaskBuffsPerBaseNonPlayer[item.baseName], key)
+				end
 			end
 		end
 		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
@@ -1334,20 +1361,20 @@ function calcs.perform(env, avoidCache)
 			end
 		end
 		if env.minion then
-			if modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion") then
+			if flasksApplyToMinion then
 				local minionModDB = env.minion.modDB
 				for flaskCond, status in pairs(flaskConditions) do
 					minionModDB.conditions[flaskCond] = status
 				end
-				for _, buffModList in pairs(flaskBuffs) do
+				for _, buffModList in pairs(flaskBuffsNonPlayer) do
 					minionModDB:AddList(buffModList)
 				end
 			else -- Not all flasks apply to minions. Check if some flasks need to be selectively applied
-				if modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies") and flaskBuffsPerBase["Quicksilver Flask"] then 
+				if quickSilverAppliesToAllies and flaskBuffsPerBaseNonPlayer["Quicksilver Flask"] then 
 					local minionModDB = env.minion.modDB
 					minionModDB.conditions["UsingQuicksilverFlask"] = flaskConditions["UsingQuicksilverFlask"]
 					minionModDB.conditions["UsingFlask"] = flaskConditions["UsingFlask"]
-					for _, buffModList in pairs(flaskBuffsPerBase["Quicksilver Flask"]) do
+					for _, buffModList in pairs(flaskBuffsPerBaseNonPlayer["Quicksilver Flask"]) do
 						minionModDB:AddList(buffModList)
 					end
 				end
@@ -2697,11 +2724,12 @@ function calcs.perform(env, avoidCache)
 
 			-- Make a copy of this skill so we can add new modifiers to the copy affected by Mirage Archers
 			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
-
+			
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Speed", "MORE", moreAttackSpeed, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
-
+			newSkill.skillCfg.skillCond["usedByMirage"] = true
+			
 			env.player.mainSkill.mirage = { }
 			env.player.mainSkill.mirage.count = mirageCount
 			env.player.mainSkill.mirage.name = usedSkill.activeEffect.grantedEffect.name

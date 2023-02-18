@@ -513,6 +513,8 @@ function ModStoreClass:EvalMod(mod, cfg)
 				else
 					match = target:GetCondition(tag.var, cfg)
 				end
+			elseif tag.actor and cfg and tag.var == nil and tag.varList == nil and tag.actor == cfg.actor then
+				match = true
 			end
 			if tag.neg then
 				match = not match

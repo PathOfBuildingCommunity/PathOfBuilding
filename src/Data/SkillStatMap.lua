@@ -1623,7 +1623,7 @@ return {
 	mod("Duration", "INC", nil, 0, KeywordFlag.Curse),
 },
 ["curse_cast_speed_+%"] = {
-	mod("Speed", "INC", nil),
+	mod("Speed", "INC", nil, ModFlag.Cast),
 },
 -- Hex
 ["curse_maximum_doom"] = {
@@ -1701,7 +1701,7 @@ return {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 1 }, { type = "Multiplier", var = "RemovableFrenzyCharge", limit = 1 }, { type = "Multiplier", var = "RemovablePowerCharge", limit = 1 }),
 },
 ["support_added_cooldown_count_if_not_instant"] = {
-	mod("AdditionalCooldownUses", "BASE", nil)
+	mod("AdditionalCooldownUses", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Instant, neg = true })
 },
 ["kill_enemy_on_hit_if_under_10%_life"] = {
 	mod("CullPercent", "MAX", nil), 
