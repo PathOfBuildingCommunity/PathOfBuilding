@@ -6512,7 +6512,7 @@ skills["AccuracyAndCritsAura"] = {
 		["accuracy_rating"] = {
 			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["critical_strike_chance_+%"] = {
+		["skill_buff_grants_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["auras_grant_damage_+%_to_you_and_your_allies"] = {
@@ -6543,7 +6543,7 @@ skills["AccuracyAndCritsAura"] = {
 	},
 	stats = {
 		"accuracy_rating",
-		"critical_strike_chance_+%",
+		"skill_buff_grants_critical_strike_chance_+%",
 		"active_skill_base_radius_+",
 		"base_deal_no_damage",
 	},

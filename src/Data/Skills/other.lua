@@ -179,7 +179,7 @@ skills["CatAspect"] = {
 	castTime = 0,
 	fromItem = true,
 	statMap = {
-		["critical_strike_chance_+%"] = {
+		["skill_buff_grants_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" }),
 		},
 		["attack_speed_+%_granted_from_skill"] = {
@@ -194,7 +194,7 @@ skills["CatAspect"] = {
 		duration = true,
 	},
 	constantStats = {
-		{ "critical_strike_chance_+%", 100 },
+		{ "skill_buff_grants_critical_strike_chance_+%", 100 },
 		{ "avoid_damage_%", 15 },
 		{ "stealth_+%", 100 },
 		{ "attack_speed_+%_granted_from_skill", 10 },

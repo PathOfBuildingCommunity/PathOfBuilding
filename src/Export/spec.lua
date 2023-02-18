@@ -5432,14 +5432,14 @@ return {
 		},
 		[2]={
 			list=false,
-			name="LifePercentMore",
+			name="LifePercentIncrease",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[3]={
 			list=false,
-			name="DamagePercentMore",
+			name="DamagePercentIncrease",
 			refTo="",
 			type="Int",
 			width=150

@@ -3808,7 +3808,7 @@ skills["VaalGlacialHammer"] = {
 		},
 	},
 	constantStats = {
-		{ "skill_physical_damage_%_to_convert_to_cold", 60 },
+		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
 		{ "base_chance_to_freeze_%", 25 },
 		{ "cold_ailment_duration_+%", 35 },
 		{ "melee_range_+", 2 },
