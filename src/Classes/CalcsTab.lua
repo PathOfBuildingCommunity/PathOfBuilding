@@ -13,16 +13,16 @@ local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
 	{ label = "Buffed", buffMode = "BUFFED" },
 	{ label = "In Combat", buffMode = "COMBAT" },
-	{ label = "Effective DPS", buffMode = "EFFECTIVE" } 
+	{ label = "Effective DPS", buffMode = "EFFECTIVE" }
 }
 
 function mysplit (inputstr, sep)
 	if sep == nil then
-			sep = "%s"
+		sep = "%s"
 	end
 	local t={}
 	for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
-			table.insert(t, str)
+		table.insert(t, str)
 	end
 	return t
 end
@@ -46,390 +46,407 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 
 	-- Special section for skill/mode selection
 	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
-		{ label = "Socket Group", { controlName = "mainSocketGroup", 
-			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
-				self.input.skill_number = index 
-				self:AddUndoState()
-				self.build.buildFlag = true
-			end) {
-				tooltipFunc = function(tooltip, mode, index, value)
-					local socketGroup = self.build.skillsTab.socketGroupList[index]
-					if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
-						self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
-					end
-				end
-			}
+		{ label = "Socket Group", { controlName = "mainSocketGroup",
+									control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value)
+										self.input.skill_number = index
+										self:AddUndoState()
+										self.build.buildFlag = true
+									end) {
+										tooltipFunc = function(tooltip, mode, index, value)
+											local socketGroup = self.build.skillsTab.socketGroupList[index]
+											if socketGroup and tooltip:CheckForUpdate(socketGroup, self.build.outputRevision) then
+												self.build.skillsTab:AddSocketGroupTooltip(tooltip, socketGroup)
+											end
+										end
+									}
 		}, },
-		
-		
-				{
 
-			label = "Auras", {controlName = "AuraExport",
-			control = new("ButtonControl", nil, 0, 0, 100, 16,"Export Aura Jewel", function()
+		{
+			label = "Auras",
+			{
+				controlName = "AuraExport",
+				control = new("ButtonControl", nil, 0, 0, 100, 16, "Export Aura Jewel", function()
 
-				FireAttackMin = 0
-				FireAttackMax = 0
-				FireSpellMin = 0
-				FireSpellMax = 0
-				LightningMin = 0
-				LightningMax = 0
-				LightningMinSmite = 0
-				LightningMaxSmite = 0
+					FireAttackMin = 0
+					FireAttackMax = 0
+					FireSpellMin = 0
+					FireSpellMax = 0
+					LightningMin = 0
+					LightningMax = 0
+					LightningMinSmite = 0
+					LightningMaxSmite = 0
 
-				LightningMinVaalSmite = 0
-				LightningMaxVaalSmite = 0
+					LightningMinVaalSmite = 0
+					LightningMaxVaalSmite = 0
 
-				TempStoreDamage = 0
-				TempStoreSpeed = 0
-				TempStoreCastSpeed = 0
-				TempStoreAttackSpeed = 0
-				TempStorePhysicalDamageReduction = 0
+					TempStoreDamage = 0
+					TempStoreSpeed = 0
+					TempStoreCastSpeed = 0
+					TempStoreAttackSpeed = 0
+					TempStorePhysicalDamageReduction = 0
 
-				ExportAuraString = ""
+					ExportAuraString = ""
 
-				ExportAuraString = ExportAuraString .. "Aura Bot\n"
-				ExportAuraString = ExportAuraString ..  "Prismatic Jewel\n"
+					ExportAuraString = ExportAuraString .. "Aura Bot\n"
+					ExportAuraString = ExportAuraString .. "Prismatic Jewel\n"
 
-				for i = 1, _G.GlobalArrayLen do
-					t = mysplit(_G.GlobalArray[i],":")
-					--print(t[1])
+					for i = 1, _G.GlobalArrayLen do
+						t = mysplit(_G.GlobalArray[i], ":")
+						--print(t[1])
 
 
 
-					if(string.find(t[2],"Fire Max")) then
-						if(string.find(t[3],"Spell"))then
-							--print(t[1])
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							FireSpellMax = NewString2
-							--print(NewString2)
-						else
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							FireAttackMax = NewString2
+						if (string.find(t[2], "Fire Max")) then
+							if (string.find(t[3], "Spell")) then
+								--print(t[1])
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								FireSpellMax = NewString2
+								--print(NewString2)
+							else
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								FireAttackMax = NewString2
+							end
 						end
-					end
-					if(string.find(t[2],"Fire Min")) then
-						if(string.find(t[3],"Spell"))then
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							FireSpellMin = NewString2
-						else
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							FireAttackMin = NewString2
+						if (string.find(t[2], "Fire Min")) then
+							if (string.find(t[3], "Spell")) then
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								FireSpellMin = NewString2
+							else
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								FireAttackMin = NewString2
+							end
 						end
-					end
-					if(string.find(t[2],"Damage"))then
-						if(t[3] == "0")then
-								if(string.find(t[2],"Cold"))then
-									if(string.find(t[2],"Gain As"))then
+						if (string.find(t[2], "Damage")) then
+							if (t[3] == "0") then
+								if (string.find(t[2], "Cold")) then
+									if (string.find(t[2], "Gain As")) then
 										local NewString = string.gsub(t[1], " base", "")
-										local NewString2 = string.gsub(NewString,"+", "")
+										local NewString2 = string.gsub(NewString, "+", "")
 										ExportAuraString = ExportAuraString .. ("Gain " .. NewString2 .. "% of Physical Damage as extra Cold Damage\n")
 									else
 										ExportAuraString = ExportAuraString .. (t[1] .. " Cold Damage\n")
 									end
 								else
-									if(string.find(t[2],"Double"))then
+									if (string.find(t[2], "Double")) then
 										ExportAuraString = ExportAuraString .. ("10% More Damage\n") --avian 20% double damage half the time, 10% more damage?
 									else
-										if(string.find(t[2],"Reduction"))then
+										if (string.find(t[2], "Reduction")) then
 										else
-											if(string.find(t[2],"Avoid"))then
+											if (string.find(t[2], "Avoid")) then
 											else
-											local NewString = string.gsub(t[1], "%% increased", "")
-											print(NewString)
-											TempStoreDamage = TempStoreDamage +  tonumber(NewString)
-										end
-									end--reduction
-								end--Double Damage
-							end--Cold Damage
-						end--no type in flag
-					end--Damage Generic
+												local NewString = string.gsub(t[1], "%% increased", "")
+												print(NewString)
+												TempStoreDamage = TempStoreDamage + tonumber(NewString)
+											end
+										end--reduction
+									end--Double Damage
+								end--Cold Damage
+							end--no type in flag
+						end--Damage Generic
 
 
-					if(string.find(t[2],"Speed"))then
-						if(string.find(t[2],"Action Speed"))then
-							local NewString = string.gsub(t[1], "%% increased", "")
-							ExportAuraString = ExportAuraString .. (t[1] .. " Action Speed\n") 
-						else
-						if(string.find(t[2],"Projectile Speed"))then
-							ExportAuraString = ExportAuraString .. (t[1] .. " Projectile Speed\n") 
-						else
-						if(string.find(t[2],"Movement Speed"))then
-						else
-						if(string.find(t[3],"Attack"))then
-							local NewString = string.gsub(t[1], "%% increased", "")
-							TempStoreAttackSpeed = TempStoreAttackSpeed +  tonumber(NewString)
-						else
-						if(string.find(t[3],"Cast"))then
-							local NewString = string.gsub(t[1], "%% increased", "")
-							TempStoreCastSpeed = TempStoreCastSpeed +  tonumber(NewString)
-						else
-							local NewString = string.gsub(t[1], "%% increased", "")
-							TempStoreSpeed = TempStoreSpeed +  tonumber(NewString)
-							end
-							end
-							end
-							end
-						end
-					end
-
-
-					if(string.find(t[2],"Impale Effect"))then
-						ExportAuraString = ExportAuraString .. (t[1] .. " Impale Effect\n")
-					end
-
-					if(string.find(t[2],"Lightning Min"))then
-						if(t[3] == "Attack")then--check for wrath
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							LightningMin = NewString2
-						else
-							if(string.find(t[4],"Vaal")) then
-								local NewString = string.gsub(t[1], " base", "")
-								local NewString2 = string.gsub(NewString,"+", "")
-								LightningMinVaalSmite = NewString2
+						if (string.find(t[2], "Speed")) then
+							if (string.find(t[2], "Action Speed")) then
+								local NewString = string.gsub(t[1], "%% increased", "")
+								ExportAuraString = ExportAuraString .. (t[1] .. " Action Speed\n")
 							else
-								local NewString = string.gsub(t[1], " base", "")
-								local NewString2 = string.gsub(NewString,"+", "")
-								LightningMinSmite = NewString2
-							end
-						end
-					end
-
-					if(string.find(t[2],"Lightning Max"))then
-						if(t[3] == "Attack")then--check for wrath
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							LightningMax = NewString2
-						else
-							if(string.find(t[4],"Vaal")) then
-								local NewString = string.gsub(t[1], " base", "")
-								local NewString2 = string.gsub(NewString,"+", "")
-								LightningMaxVaalSmite = NewString2
-							else
-								local NewString = string.gsub(t[1], " base", "")
-								local NewString2 = string.gsub(NewString,"+", "")
-								LightningMaxSmite = NewString2
-							end
-						end
-					end
-
-					if(string.find(t[2],"Damage"))then
-						if(t[3] == "Spell")then
-							if(string.find(t[2],"Lightning Damage"))then
-								ExportAuraString = ExportAuraString .. (t[1] .. " Spell Lightning Damage\n")--Wrath Damage
-							else
-								ExportAuraString = ExportAuraString .. (t[1] .. " Spell Damage\n")--Zealotry Damage
-							end
-						end
-					end
-
-					if(string.find(t[2],"Crit Chance"))then
-						if(string.find(t[3],"Spell"))then
-							ExportAuraString = ExportAuraString .. (t[1] .. " Spell Critical Strike Chance\n")--zealotry
-						else
-							ExportAuraString = ExportAuraString .. (t[1] .. " Critical Strike Chance\n")--precision
-						end
-					end
-
-					if(string.find(t[2],"Accuracy"))then
-						local NewString = string.gsub(t[1], " base", "")
-						ExportAuraString = ExportAuraString .. (NewString .. " to Accuracy Rating\n")
-					end
-
-					if(string.find(t[2],"Fire Resist"))then
-						if(string.find(t[2],"Max"))then
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Maximum Fire Resistance\n")--Max Fire Res
-						else
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Fire Resistance\n")--Fire Res
-						end
-					end
-
-					if(string.find(t[2],"Cold Resist"))then
-						if(string.find(t[2],"Max"))then
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Maximum Cold Resistance\n")--Max Cold Res
-						else
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Cold Resistance\n")--Fire Res
-						end
-					end
-
-					if(string.find(t[2],"Lightning Resist"))then
-						if(string.find(t[2],"Max"))then
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Maximum Lightning Resistance\n")--Max Fire Res
-						else
-							local NewString = string.gsub(t[1], " base", "")
-							local NewString2 = string.gsub(NewString,"+", "")
-							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Lightning Resistance\n")--Fire Res
-						end
-					end
-
-					if(string.find(t[2],"Elemental Resist"))then
-						local NewString = string.gsub(t[1], " base", "")
-						local NewString2 = string.gsub(NewString,"+", "")
-						ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to all Elemental Resistances\n")--Fire Res
-					end
-
-					if(string.find(t[2],"Mana Regen"))then --Clarity
-						local NewString = string.gsub(t[1], " base", "")
-						local NewString2 = string.gsub(NewString,"+", "")
-						ExportAuraString = ExportAuraString .. ("Regenerate " .. NewString2 .. " Mana per second\n")
-					end
-
-					if(string.find(t[2],"Life Regen"))then --Vitality
-						local NewString = string.gsub(t[1], " base", "")
-						local NewString2 = string.gsub(NewString,"+", "")
-						ExportAuraString = ExportAuraString .. ("Regenerate " .. NewString2 .. " Life per second\n")
-					end
-
-					if(string.find(t[2],"Armour"))then
-						if(string.find(t[2],"And Evasion"))then --Defiance Banner
-							ExportAuraString = ExportAuraString .. (t[1] .. " Armour and Evasion\n")
-						else
-							if string.find(t[2],"Evasion Gain As")then --alt determination
-							local NewString = string.gsub(t[1], " base", "")
-							ExportAuraString = ExportAuraString .. "you and nearby allies gain " .. (NewString .. "% of evasion rating as extra armour\n")
-							else
-								if (string.find(t[1],"more"))then--first effect determination
-									ExportAuraString = ExportAuraString .. (t[1] .. " Armour\n")--Determination First Effect
+								if (string.find(t[2], "Projectile Speed")) then
+									ExportAuraString = ExportAuraString .. (t[1] .. " Projectile Speed\n")
 								else
-									local NewString = string.gsub(t[1], " base", "")
-									ExportAuraString = ExportAuraString .. (NewString .. " to Armour\n")--Determination Second Effect
+									if (string.find(t[2], "Movement Speed")) then
+										ExportAuraString = ExportAuraString .. (t[1] .. " Movement Speed\n")
+									else
+										if (string.find(t[3], "Attack")) then
+											local NewString = string.gsub(t[1], "%% increased", "")
+											TempStoreAttackSpeed = TempStoreAttackSpeed + tonumber(NewString)
+										else
+											if (string.find(t[3], "Cast")) then
+												local NewString = string.gsub(t[1], "%% increased", "")
+												TempStoreCastSpeed = TempStoreCastSpeed + tonumber(NewString)
+											else
+												local NewString = string.gsub(t[1], "%% increased", "")
+												TempStoreSpeed = TempStoreSpeed + tonumber(NewString)
+											end
+										end
+									end
 								end
 							end
 						end
-					end
 
-					if(string.find(t[2],"Energy Shield"))then --Discipline Hander
-						if(string.find(t[2],"Recharge"))then--Second part of discipline
-							if(string.find(t[2],"Not Delayed By Damage"))then--Vaal Disc
-								--do nothing for vaal disc
-							else
-								ExportAuraString = ExportAuraString .. (t[1] .. " Energy Shield Recharge Rate\n")
-							end
-						else--first part of discipline
-							local NewString = string.gsub(t[1], " base", "")
-							ExportAuraString = ExportAuraString .. (NewString .. " to maximum Energy Shield\n")--Discipline Second Effect
+						if (string.find(t[2], "Impale Effect")) then
+							ExportAuraString = ExportAuraString .. (t[1] .. " Impale Effect\n")
 						end
-					end
 
-					if(string.find(t[2],"Evasion"))then --Grace Handler
-						if(string.find(t[2],"Armour"))then
-							--dodge armour case
-						else --Grace Handlers
-							if (string.find(t[1],"more"))then--first effect Grace
-								ExportAuraString = ExportAuraString .. (t[1] .. " Evasion\n")--Grace First Effect
+						if (string.find(t[2], "Lightning Min")) then
+							if (t[3] == "Attack") then
+								--check for wrath
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								LightningMin = NewString2
+							else
+								if (string.find(t[4], "Vaal")) then
+									local NewString = string.gsub(t[1], " base", "")
+									local NewString2 = string.gsub(NewString, "+", "")
+									LightningMinVaalSmite = NewString2
+								else
+									local NewString = string.gsub(t[1], " base", "")
+									local NewString2 = string.gsub(NewString, "+", "")
+									LightningMinSmite = NewString2
+								end
+							end
+						end
+
+						if (string.find(t[2], "Lightning Max")) then
+							if (t[3] == "Attack") then
+								--check for wrath
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								LightningMax = NewString2
+							else
+								if (string.find(t[4], "Vaal")) then
+									local NewString = string.gsub(t[1], " base", "")
+									local NewString2 = string.gsub(NewString, "+", "")
+									LightningMaxVaalSmite = NewString2
+								else
+									local NewString = string.gsub(t[1], " base", "")
+									local NewString2 = string.gsub(NewString, "+", "")
+									LightningMaxSmite = NewString2
+								end
+							end
+						end
+
+						if (string.find(t[2], "Damage")) then
+							if (t[3] == "Spell") then
+								if (string.find(t[2], "Lightning Damage")) then
+									ExportAuraString = ExportAuraString .. (t[1] .. " Spell Lightning Damage\n")--Wrath Damage
+								else
+									ExportAuraString = ExportAuraString .. (t[1] .. " Spell Damage\n")--Zealotry Damage
+								end
+							end
+						end
+
+						if (string.find(t[2], "Enemy Crit Chance")) then
+							--Defiance Banner Reduced Critical strike chance for Enemies
+							ExportAuraString = ExportAuraString .. "Nearby Enemies have "
+							ExportAuraString = ExportAuraString .. (t[1] .. " Critical Strike Chance\n")
+							goto continue
+						end
+
+						if (string.find(t[2], "Crit Chance")) then
+							if (string.find(t[3], "Spell")) then
+								ExportAuraString = ExportAuraString .. (t[1] .. " Spell Critical Strike Chance\n")--zealotry
+							else
+								ExportAuraString = ExportAuraString .. (t[1] .. " Critical Strike Chance\n")--precision
+							end
+						end
+
+						if (string.find(t[2], "Accuracy")) then
+							local NewString = string.gsub(t[1], " base", "")
+							ExportAuraString = ExportAuraString .. (NewString .. " to Accuracy Rating\n")
+						end
+
+						if (string.find(t[2], "Fire Resist")) then
+							if (string.find(t[2], "Max")) then
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Maximum Fire Resistance\n")--Max Fire Res
 							else
 								local NewString = string.gsub(t[1], " base", "")
-								ExportAuraString = ExportAuraString .. (NewString .. " to Evasion\n")--Grace Second Effect
+								local NewString2 = string.gsub(NewString, "+", "")
+								ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Fire Resistance\n")--Fire Res
 							end
 						end
+
+						if (string.find(t[2], "Cold Resist")) then
+							if (string.find(t[2], "Max")) then
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Maximum Cold Resistance\n")--Max Cold Res
+							else
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Cold Resistance\n")--Fire Res
+							end
+						end
+
+						if (string.find(t[2], "Lightning Resist")) then
+							if (string.find(t[2], "Max")) then
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Maximum Lightning Resistance\n")--Max Fire Res
+							else
+								local NewString = string.gsub(t[1], " base", "")
+								local NewString2 = string.gsub(NewString, "+", "")
+								ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to Lightning Resistance\n")--Fire Res
+							end
+						end
+
+						if (string.find(t[2], "Elemental Resist")) then
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString, "+", "")
+							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% to all Elemental Resistances\n")--Fire Res
+						end
+
+						if (string.find(t[2], "Mana Regen")) then
+							--Clarity
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString, "+", "")
+							ExportAuraString = ExportAuraString .. ("Regenerate " .. NewString2 .. " Mana per second\n")
+						end
+
+						if (string.find(t[2], "Life Regen")) then
+							--Vitality
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString, "+", "")
+							ExportAuraString = ExportAuraString .. ("Regenerate " .. NewString2 .. " Life per second\n")
+						end
+
+						if (string.find(t[2], "Armour")) then
+							if (string.find(t[2], "And Evasion")) then
+								--Defiance Banner
+								ExportAuraString = ExportAuraString .. (t[1] .. " Armour and Evasion\n")
+							else
+								if string.find(t[2], "Evasion Gain As") then
+									--alt determination
+									local NewString = string.gsub(t[1], " base", "")
+									ExportAuraString = ExportAuraString .. "you and nearby allies gain " .. (NewString .. "% of evasion rating as extra armour\n")
+								else
+									if (string.find(t[1], "more")) then
+										--first effect determination
+										ExportAuraString = ExportAuraString .. (t[1] .. " Armour\n")--Determination First Effect
+									else
+										local NewString = string.gsub(t[1], " base", "")
+										ExportAuraString = ExportAuraString .. (NewString .. " to Armour\n")--Determination Second Effect
+									end
+								end
+							end
+						end
+
+						if (string.find(t[2], "Energy Shield")) then
+							--Discipline Hander
+							if (string.find(t[2], "Recharge")) then
+								--Second part of discipline
+								if (string.find(t[2], "Not Delayed By Damage")) then
+									--Vaal Disc
+									--do nothing for vaal disc
+								else
+									ExportAuraString = ExportAuraString .. (t[1] .. " Energy Shield Recharge Rate\n")
+								end
+							else
+								--first part of discipline
+								local NewString = string.gsub(t[1], " base", "")
+								ExportAuraString = ExportAuraString .. (NewString .. " to maximum Energy Shield\n")--Discipline Second Effect
+							end
+						end
+
+						if (string.find(t[2], "Evasion")) then
+							--Grace Handler
+							if (string.find(t[2], "Armour")) then
+								--dodge armour case
+							else
+								--Grace Handlers
+								if (string.find(t[1], "more")) then
+									--first effect Grace
+									ExportAuraString = ExportAuraString .. (t[1] .. " Evasion\n")--Grace First Effect
+								else
+									local NewString = string.gsub(t[1], " base", "")
+									ExportAuraString = ExportAuraString .. (NewString .. " to Evasion\n")--Grace Second Effect
+								end
+							end
+						end
+
+						if (string.find(t[2], "Evade Chance")) then
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString, "+", "")
+							ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% Chance to Evade\n")--Vaal Grace
+						end
+
+						if (string.find(t[2], "Physical Damage Reduction")) then
+							local NewString = string.gsub(t[1], " base", "")
+							local NewString2 = string.gsub(NewString, "+", "")
+							print(NewString2)
+							TempStorePhysicalDamageReduction = TempStorePhysicalDamageReduction + tonumber(NewString2)
+						end
+
+						:: continue ::
+					end--For Loop End
+
+
+
+					if (tonumber(TempStorePhysicalDamageReduction) ~= 0) then
+						ExportAuraString = ExportAuraString .. ("+" .. TempStorePhysicalDamageReduction .. "% Physical Damage Reduction\n")    --increased damage is additive
 					end
-
-					if(string.find(t[2],"Evade Chance"))then
-						local NewString = string.gsub(t[1], " base", "")
-						local NewString2 = string.gsub(NewString,"+", "")
-						ExportAuraString = ExportAuraString .. ("+" .. NewString2 .. "% Chance to Evade\n")--Vaal Grace
+					TempStoreAttackSpeed = TempStoreAttackSpeed + TempStoreSpeed
+					TempStoreCastSpeed = TempStoreCastSpeed + TempStoreSpeed
+					if (tonumber(TempStoreDamage) ~= 0) then
+						print("asdf")
+						ExportAuraString = ExportAuraString .. (TempStoreDamage .. "% increased Damage\n")    --increased damage is additive
 					end
-
-					if(string.find(t[2],"Physical Damage Reduction"))then
-						local NewString = string.gsub(t[1], " base", "")
-						local NewString2 = string.gsub(NewString,"+", "")
-						print(NewString2)
-						TempStorePhysicalDamageReduction = TempStorePhysicalDamageReduction + tonumber(NewString2)
+					if (tonumber(TempStoreAttackSpeed) ~= 0) then
+						ExportAuraString = ExportAuraString .. (TempStoreAttackSpeed .. "% increased Attack Speed\n")
 					end
+					if (tonumber(TempStoreCastSpeed) ~= 0) then
+						ExportAuraString = ExportAuraString .. (TempStoreCastSpeed .. "% increased Cast Speed\n")
+					end
+					if (tonumber(LightningMaxSmite) ~= 0) then
+						ExportAuraString = ExportAuraString .. (LightningMinSmite .. " to " .. LightningMaxSmite .. " added Lightning Damage\n")
+					end
+					if (tonumber(LightningMaxVaalSmite) ~= 0) then
+						ExportAuraString = ExportAuraString .. (LightningMinVaalSmite .. " to " .. LightningMaxVaalSmite .. " added Lightning Damage\n")
+					end
+					if (tonumber(LightningMax) ~= 0) then
+						ExportAuraString = ExportAuraString .. (LightningMin .. " to " .. LightningMax .. " Additional Lightning Damage with Attacks\n")
+					end
+					if (tonumber(FireAttackMax) ~= 0) then
+						ExportAuraString = ExportAuraString .. (FireAttackMin .. " to " .. FireAttackMax .. " Additional Fire Damage with Attacks\n")
+					end
+					if (tonumber(FireSpellMax) ~= 0) then
+						ExportAuraString = ExportAuraString .. (FireSpellMin .. " to " .. FireSpellMax .. " Additional Fire Damage with Spells\n")
+					end
+					Copy(ExportAuraString)
+					print(ExportAuraString)
+
+					FireSpellMin = 0
+					FireSpellMax = 0
+					LightningMin = 0
+					LightningMinSmite = 0
+					TempStoreAttackSpeed = 0
+					TempStoreCastSpeed = 0
+					TempStoreSpeed = 0
+					TempStorePhysicalDamageReduction = 0
 
 
-			
 
-
-
-
-				end--For Loop End
-
-				
-				
-				if(tonumber(TempStorePhysicalDamageReduction) ~= 0)then
-					ExportAuraString = ExportAuraString .. ("+" .. TempStorePhysicalDamageReduction .. "% Physical Damage Reduction\n")	--increased damage is additive
-				end
-				TempStoreAttackSpeed = TempStoreAttackSpeed + TempStoreSpeed
-				TempStoreCastSpeed = TempStoreCastSpeed + TempStoreSpeed
-				if(tonumber(TempStoreDamage) ~= 0)then
-					print("asdf")
-					ExportAuraString = ExportAuraString .. (TempStoreDamage .. "% increased Damage\n")	--increased damage is additive
-				end
-				if(tonumber(TempStoreAttackSpeed) ~= 0)then
-					ExportAuraString = ExportAuraString ..(TempStoreAttackSpeed .. "% increased Attack Speed\n")
-				end
-				if(tonumber(TempStoreCastSpeed) ~= 0)then
-					ExportAuraString = ExportAuraString ..(TempStoreCastSpeed .. "% increased Cast Speed\n")
-				end
-				if(tonumber(LightningMaxSmite) ~= 0)then
-					ExportAuraString = ExportAuraString .. (LightningMinSmite .. " to " .. LightningMaxSmite .. " added Lightning Damage\n")
-				end
-				if(tonumber(LightningMaxVaalSmite) ~= 0)then
-					ExportAuraString = ExportAuraString .. (LightningMinVaalSmite .. " to " .. LightningMaxVaalSmite .. " added Lightning Damage\n")
-				end
-				if(tonumber(LightningMax) ~= 0)then
-					ExportAuraString = ExportAuraString .. (LightningMin .. " to " .. LightningMax .. " Additional Lightning Damage with Attacks\n")
-				end
-				if(tonumber(FireAttackMax) ~= 0)then
-					ExportAuraString = ExportAuraString .. (FireAttackMin .. " to " .. FireAttackMax .. " Additional Fire Damage with Attacks\n")
-				end
-				if(tonumber(FireSpellMax) ~= 0)then
-					ExportAuraString = ExportAuraString .. (FireSpellMin .. " to " .. FireSpellMax .. " Additional Fire Damage with Spells\n")
-				end
-				Copy(ExportAuraString)
-				print(ExportAuraString)
-				
-				FireSpellMin = 0
-				FireSpellMax = 0
-				LightningMin = 0
-				LightningMinSmite = 0
-				TempStoreAttackSpeed = 0
-				TempStoreCastSpeed = 0
-				TempStoreSpeed = 0
-				TempStorePhysicalDamageReduction = 0
-
-
-				
 					--local a = require("CalcBreakdownControl.lua")
-				--print(a.GlobalArray[0])
+					--print(a.GlobalArray[0])
 
-				--print(myArray[0])
-				--self:OpenExportJewelPopup()
-			--	local sectionData = LoadModule("Modules/CalcSections")
-			--	for _, section in ipairs(sectionData) do
-			--		self:NewSection(unpack(section))
-			--	end
+					--print(myArray[0])
+					--self:OpenExportJewelPopup()
+					--	local sectionData = LoadModule("Modules/CalcSections")
+					--	for _, section in ipairs(sectionData) do
+					--		self:NewSection(unpack(section))
+					--	end
 
-			--breakdown = SkillBuffs
-			--section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
-			--self.calcsTab:SetDisplayStat(mOverComp, true)
-			--self.controls.breakdown = new("CalcBreakdownControl", self)
-			--self:SelectControl(self.controls.breakdown)
-			--self.controls.breakdown:SetBreakdownData()
+					--breakdown = SkillBuffs
+					--section.controls.mode:SelByValue(self.input.misc_buffMode, "buffMode")
+					--self.calcsTab:SetDisplayStat(mOverComp, true)
+					--self.controls.breakdown = new("CalcBreakdownControl", self)
+					--self:SelectControl(self.controls.breakdown)
+					--self.controls.breakdown:SetBreakdownData()
 
-			--self.displayData = displayData
-			--self.displayPinned = pin
+					--self.displayData = displayData
+					--self.displayPinned = pin
 
-			--self.controls.breakdown:SetBreakdownData(displayData, pin)
-			--print(self.displayData)
-			--Copy(displayData)
+					--self.controls.breakdown:SetBreakdownData(displayData, pin)
+					--print(self.displayData)
+					--Copy(displayData)
 			end)
-		} },
+			}
+		},
 		
 		
 		{ label = "Active Skill", { controlName = "mainSkill", 
@@ -511,7 +528,7 @@ The stats in the sidebar are always shown in Effective DPS mode, regardless of t
 Unbuffed: No auras, buffs, or other support skills or effects will apply. This is equivalent to standing in town.
 Buffed: Aura and buff skills apply. This is equivalent to standing in your hideout with auras and buffs turned on.
 In Combat: Charges and combat buffs such as Onslaught will also apply. This will show your character sheet stats in combat.
-Effective DPS: Curses and enemy properties (such as resistances and status conditions) will also apply. This estimates your true DPS.]]) 
+Effective DPS: Curses and enemy properties (such as resistances and status conditions) will also apply. This estimates your true DPS.]])
 		}, },
 		{ label = "Aura and Buff Skills", flag = "buffs", textSize = 12, { format = "{output:BuffList}", { breakdown = "SkillBuffs" } }, },
 		{ label = "Combat Buffs", flag = "combat", textSize = 12, { format = "{output:CombatList}" }, },
@@ -816,7 +833,7 @@ function CalcsTabClass:BuildOutput()
 		self.controls.breakdown:SetBreakdownData()
 		self.controls.breakdown:SetBreakdownData(self.displayData, self.displayPinned)
 	end
-	
+
 	-- Retrieve calculator functions
 	self.nodeCalculator = { self.calcs.getNodeCalculator(self.build) }
 	self.miscCalculator = { self.calcs.getMiscCalculator(self.build) }
@@ -890,11 +907,11 @@ function CalcsTabClass:PowerBuilder()
 					node.power.offence = (output.CombinedDPS - calcBase.CombinedDPS) / calcBase.CombinedDPS
 				end
 				node.power.defence = (output.LifeUnreserved - calcBase.LifeUnreserved) / m_max(3000, calcBase.Life) +
-								(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
-								((output.EnergyShieldRecoveryCap or output.EnergyShield) - (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) / m_max(3000, (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) +
-								(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
-								(output.LifeRegen - calcBase.LifeRegen) / 500 +
-								(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
+						(output.Armour - calcBase.Armour) / m_max(10000, calcBase.Armour) +
+						((output.EnergyShieldRecoveryCap or output.EnergyShield) - (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) / m_max(3000, (calcBase.EnergyShieldRecoveryCap or calcBase.EnergyShield)) +
+						(output.Evasion - calcBase.Evasion) / m_max(10000, calcBase.Evasion) +
+						(output.LifeRegen - calcBase.LifeRegen) / 500 +
+						(output.EnergyShieldRegen - calcBase.EnergyShieldRegen) / 1000
 				if node.path and not node.ascendancyName then
 					newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 					newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
