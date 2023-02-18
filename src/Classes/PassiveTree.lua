@@ -11,6 +11,8 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
+local m_floor = math.floor
+local m_ceil = math.ceil
 local m_pi = math.pi
 local m_rad = math.rad
 local m_sin = math.sin
@@ -127,44 +129,31 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self.orbitAnglesByOrbit[orbit] = self:CalcOrbitAngles(skillsInOrbit)
 	end
 
-	if versionNum >= 3.19 then
-		local treeTextOLD
-		local treeFileOLD = io.open("TreeData/".. "3_18" .."/tree.lua", "r")
-		if treeFileOLD then
-			treeTextOLD = treeFileOLD:read("*a")
-			treeFileOLD:close()
-		end
-		local temp = {}
-		for k, v in pairs(assert(loadstring(treeTextOLD))()) do
-			temp[k] = v
-		end
-		self.assets = temp.assets
-		self.skillSprites = self.sprites
-	end
-	ConPrintf("Loading passive tree assets...")
-	for name, data in pairs(self.assets) do
-		self:LoadImage(name..".png", cdnRoot..(data[0.3835] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
-	end
+	local maxZoomLevel = self.imageZoomLevels[#self.imageZoomLevels]
 
+	ConPrintf("Loading passive tree sprites...")
 	-- Load sprite sheets and build sprite map
+	self.sprites = self.sprites or self.skillSprites -- renamed in 3.19
 	self.spriteMap = { }
 	local spriteSheets = { }
-	for type, data in pairs(self.skillSprites) do
+	for type, data in pairs(self.sprites) do
+		self.spriteMap[type] = {}
 		local maxZoom = data[#data]
 		if versionNum >= 3.19 then
-			maxZoom = data[0.3835] or data[1]
+			maxZoom = data[maxZoomLevel] or data[1]
 		end
 		local sheet = spriteSheets[maxZoom.filename]
 		if not sheet then
 			sheet = { }
-			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, "CLAMP")--, "MIPMAP")
+			local loadImageFlags = "CLAMP"
+			-- nil here means "wrap", which we rely on for tiling the background
+			if type == "background" then loadImageFlags = nil end
+			self:LoadImage(versionNum >= 3.16 and maxZoom.filename:gsub("%?%x+$",""):gsub(".*/","") or maxZoom.filename:gsub("%?%x+$",""), versionNum >= 3.16 and maxZoom.filename or "https://web.poecdn.com"..(self.imageRoot or "/image/")..(versionNum >= 3.08 and "passive-skill/" or "build-gen/passive-skill-sprite/")..maxZoom.filename, sheet, loadImageFlags)
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
-			end
-			self.spriteMap[name][type] = {
+			self.spriteMap[type][name] = {
+				debugId = type.."."..name,
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
@@ -173,6 +162,31 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				[3] = (coords.x + coords.w) / sheet.width,
 				[4] = (coords.y + coords.h) / sheet.height
 			}
+		end
+	end
+
+	if versionNum < 3.19 then
+		ConPrintf("Loading pre-3.19 passive tree assets and normalizing to sprite maps...")
+		-- Prior to 3.19, many images that are now handles as sprites were instead
+		-- loaded as "assets". We normalize old tree assets as if they were full-sheet sprites
+		for name, data in pairs(self.assets) do
+			self:LoadImage(name..".png", cdnRoot..(data[maxZoomLevel] or data[1]), data, not name:match("[OL][ri][bn][ie][tC]") and "ASYNC" or nil)--, not name:match("[OL][ri][bn][ie][tC]") and "MIPMAP" or nil)
+
+			local type = self:InferAssetSpriteType(name)
+			if type ~= nil then	
+				if not self.spriteMap[type] then
+					self.spriteMap[type] = { }
+				end
+				self.spriteMap[type][name] = {
+					handle = data.handle,
+					width = data.width,
+					height = data.height,
+					[1] = 0,
+					[2] = 0,
+					[3] = 1,
+					[4] = 1,
+				}
+			end
 		end
 	end
 
@@ -189,10 +203,10 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			spriteSheets[maxZoom.filename] = sheet
 		end
 		for name, coords in pairs(maxZoom.coords) do
-			if not self.spriteMap[name] then
-				self.spriteMap[name] = { }
+			if not self.spriteMap[type] then
+				self.spriteMap[type] = { }
 			end
-			self.spriteMap[name][type] = {
+			self.spriteMap[type][name] = {
 				handle = sheet.handle,
 				width = coords.w,
 				height = coords.h,
@@ -385,6 +399,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 
 	-- Pregenerate the polygons for the node connector lines
+	self:PregenerateOrbitConnectorArcs()
 	self.connectors = { }
 	for _, node in pairs(self.nodes) do
 		for _, otherId in pairs(node.out or {}) do
@@ -398,10 +413,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				and node.ascendancyName == other.ascendancyName
 				and not node.isProxy and not other.isProxy
 				and not node.group.isProxy and not node.group.isProxy then
-					local connectors = self:BuildConnector(node, other)
-					t_insert(self.connectors, connectors[1])
-					if connectors[2] then
-						t_insert(self.connectors, connectors[2])
+					local connectors = self:BuildConnectors(node, other)
+					for _, connector in ipairs(connectors) do
+						t_insert(self.connectors, connector)
 					end
 			end
 		end
@@ -484,11 +498,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 
 		-- Assign node artwork assets
-		node.sprites = self.spriteMap[node.icon]
-		if not node.sprites then
-			--error("missing sprite "..node.icon)
-			node.sprites = { }
-		end
+		node.sprites = self:MakeNodeSprites(node.type, node.icon)
 
 		self:ProcessStats(node)
 	end
@@ -496,6 +506,45 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Late load the Generated data so we can take advantage of a tree existing
 	buildTreeDependentUniques(self)
 end)
+
+function string:contains(searchTerm)
+	return self:find(searchTerm, 1, true) ~= nil
+end
+
+function string:startswith(searchTerm)
+    return self:sub(1, #searchTerm) == searchTerm
+end
+
+-- Given a pre-3.19 asset name, infers which 3.19+ sprite type it would appear under in more recent trees.
+-- Used to normalize pre-3.19 assets into a 3.19-like spriteMap
+--
+-- nil return implies that we don't care about this sprite type
+function PassiveTreeClass:InferAssetSpriteType(name)
+	if name:startswith("Background") then
+		return "background"
+	elseif name:startswith("Classes") then
+		return "ascendancyBackground"
+	elseif name:startswith("Ascendancy") or name:startswith("Ascendency") then -- Yes, some assets have this typo
+		return "ascendancy"
+	elseif name:startswith("PSStartNode") or name:startswith("center") then
+		return "startNode"
+	elseif name:startswith("PSGroupBackground") or name:startswith("GroupBackground") then
+		return "groupBackground"
+	-- Careful, some "frame" assets start with "JewelSocket" - check for "JewelSocketActive" first
+	elseif name:startswith("JewelSocketActive") then
+		return "jewel"
+	elseif name:contains("Frame") or name:startswith("JewelSocket") then
+		return "frame"
+	elseif name:startswith("Line") or name:startswith("Orbit") or name:startswith("PSLine") then
+		return "line"
+	elseif name:contains("JewelCircle") then
+		return "jewelRadius"
+	elseif name == "PassiveMasteryConnectedButton" then
+		return "masteryActiveSelected" -- yes, not "masteryConnected"
+	end
+
+	return nil -- We doesn't use other asset types
+end
 
 function PassiveTreeClass:ProcessStats(node)
 	node.modKey = ""
@@ -571,17 +620,30 @@ function PassiveTreeClass:ProcessStats(node)
 	end
 end
 
+function PassiveTreeClass:MakeNodeSprites(type, icon)
+	local activeSpriteType = type:lower().."Active"
+	local inactiveSpriteType = type:lower().."Inactive"
+
+	return {
+		mastery = self.spriteMap.mastery and self.spriteMap.mastery[icon] or nil,
+		active = self.spriteMap[activeSpriteType] and self.spriteMap[activeSpriteType][icon] or nil,
+		inactive = self.spriteMap[inactiveSpriteType] and self.spriteMap[inactiveSpriteType][icon] or nil
+	}
+end
+
 -- Common processing code for nodes (used for both real tree nodes and subgraph nodes)
 function PassiveTreeClass:ProcessNode(node)
 	-- Assign node artwork assets
 	if node.type == "Mastery" and node.masteryEffects then
-		node.masterySprites = { activeIcon = self.spriteMap[node.activeIcon], inactiveIcon = self.spriteMap[node.inactiveIcon], activeEffectImage = self.spriteMap[node.activeEffectImage] }
+		node.masterySprites = {
+			activeIcon = self.spriteMap.masteryActiveSelected[node.activeIcon],
+			activeEffectImage = self.spriteMap.masteryActiveEffect[node.activeEffectImage],
+			connectedIcon = self.spriteMap.masteryConnected[node.inactiveIcon],
+			inactiveIcon = self.spriteMap.masteryInactive[node.inactiveIcon]
+		}
+		node.sprites = self:MakeNodeSprites(node.type, "Art/2DArt/SkillIcons/passives/MasteryBlank.png")
 	else
-		node.sprites = self.spriteMap[node.icon]
-	end
-	if not node.sprites then
-		--error("missing sprite "..node.icon)
-		node.sprites = self.spriteMap["Art/2DArt/SkillIcons/passives/MasteryBlank.png"]
+		node.sprites = self:MakeNodeSprites(node.type, node.icon)
 	end
 	node.overlay = self.nodeOverlay[node.type]
 	if node.overlay then
@@ -627,110 +689,194 @@ function PassiveTreeClass:LoadImage(imgName, url, data, ...)
 	data.width, data.height = data.handle:ImageSize()
 end
 
--- Generate the quad used to render the line between the two given nodes
-function PassiveTreeClass:BuildConnector(node1, node2)
+function prettyPrintSprite(sprite)
+	if sprite.debugId then
+		ConPrintf("[sprite %s w=%d h=%d tc=%f,%f,%f,%f]", sprite.debugId, sprite.width, sprite.height, unpack(sprite))
+	else
+		ConPrintf("[sprite w=%d h=%d tc=%f,%f,%f,%f]", sprite.width, sprite.height, unpack(sprite))
+	end
+end
+
+function PassiveTreeClass:PregenerateOrbitConnectorArcs()
+	-- Connectors for nodes that share a group/orbit are rendered by taking a sprite of a
+	-- 90 degree arc, dividing it up into 16 quad segments that run along the arc, using
+	-- rotating/mirroring to expand to 64 quad segments covering the whole orbit, and
+	-- rendering a subset of them based on the arc angle between the two nodes in question.
+	-- The two endpoint segments are clipped if they don't line up exactly with the endpoint
+	-- nodes.
+	--
+	-- Rendering the arc in segments like this rather than just clipping the whole arc sprite
+	-- is necessary because the arcs for different orbits overlap in the sprite sheet (as of
+    -- 3.19) - the arcs on the sprite sheet have the same center but different radii.
+	--
+	-- This function pregenerates zero-centered versions of all the quad segments for each
+	-- (orbit, connectorState) tuple. Each segment contains a treeQuad (in (0,0)-centered
+	-- tree coordinates) and a tcQuad (in texture coordinates of the sprite).
+	local segmentsPerOrbit = 64
+	assert(segmentsPerOrbit % 4 == 0, "segmentsPerOrbit must be aligned on 90 degree quadrant boundaries")
+	local segmentAngles = self:CalcOrbitAngles(segmentsPerOrbit)
+
+	-- Our quad segments aren't infinitely thin, so our quads need to be a bit thicker than
+	-- the arc artwork to ensure they pick up everything even in the middles of the quads.
+	--
+	-- Note that this causes our texture coordinates to slightly exceed the boundaries of the
+	-- sprite for segments near the edge of the sprite. We assume that there is enough space
+	-- at the boundaries of the sprite in the sprite sheet to allow for this (or, for older
+    -- tree versions where the arcs have individual images instead of sprite sheets, we allow
+    -- this because SimpleGraphics will render transparency for textureCoordinates outside of
+	-- texture coordinates [0, 1] x [0, 1]).
+	--
+	-- In theory, there shouldn't need to be any inner slop factor, and the outer one should
+	-- only need to be ~1.002 (1 / m_cos(m_pi / segmentsPerOrbit)). In practice, we can't render
+	-- .002px at a time, so we use much higher slop factors to allow for rendering/float imprecision.
+	local outerRadiusSlopFactor = 1.1
+	local innerRadiusSlopFactor = 0.8
+
+	self.orbitConnectorArcs = {}
+	self.orbitConnectorSegmentsPerOrbit = segmentsPerOrbit
+	for orbit, treeRadius in ipairs(self.orbitRadii) do
+		if self.skillsPerOrbit[orbit] < 2 then goto continue end
+		
+		-- Calculations of radius and arc thickness must all based on the "Normal" sprite
+		-- The "Active" sprite has a different width/height, but the actual artwork is
+		-- still relative to the "Normal" radius; the calculations must be synced between
+		-- the states to avoid the lines shifting around as they change state.
+		local normalArcSprite = self.spriteMap.line["Orbit"..(orbit - 1).."Normal"]
+		local normalLineSprite = self.spriteMap.line.LineConnectorNormal
+
+		local arcThickness = normalLineSprite.height
+		local treeArcThickness = arcThickness * 1.33
+		local treeOuterRadius = (treeRadius + (treeArcThickness / 2)) * outerRadiusSlopFactor
+		local treeInnerRadius = (treeRadius - (treeArcThickness / 2)) * innerRadiusSlopFactor
+
+		-- Be careful - the arc sprites are squares, but their sprite sheets aren't, so
+		-- in sprite texture coordinates, tcWidth ~= tcHeight
+		local tcWidth = normalArcSprite[3] - normalArcSprite[1]
+		local tcWidthRelativeArcThickness = (tcWidth / normalArcSprite.width) * arcThickness
+		local tcHeight = normalArcSprite[4] - normalArcSprite[2]
+		local tcHeightRelativeArcThickness = (tcHeight / normalArcSprite.height) * arcThickness
+		-- We assume that:
+		--   * The arc is drawn equally thick in the straight line and arc sprites
+		--   * The outer edge of the arc is drawn right up against the border of the arc
+		--     sprite, ie, the center of the arc is offset (arcThickness / 2) into the sprite
+		local tcWidthRelativeCenterRadius = tcWidth - (tcWidthRelativeArcThickness / 2)
+		local tcWidthRelativeOuterRadius = (tcWidthRelativeCenterRadius + (tcWidthRelativeArcThickness / 2)) * outerRadiusSlopFactor
+		local tcWidthRelativeInnerRadius = (tcWidthRelativeCenterRadius - (tcWidthRelativeArcThickness / 2)) * innerRadiusSlopFactor
+		local tcHeightRelativeCenterRadius = tcHeight - (tcHeightRelativeArcThickness / 2)
+		local tcHeightRelativeOuterRadius = (tcHeightRelativeCenterRadius + (tcHeightRelativeArcThickness / 2)) * outerRadiusSlopFactor
+		local tcHeightRelativeInnerRadius = (tcHeightRelativeCenterRadius - (tcHeightRelativeArcThickness / 2)) * innerRadiusSlopFactor
+
+		self.orbitConnectorArcs[orbit] = {}
+		for _, state in ipairs({ "Active", "Intermediate", "Normal" }) do
+			local spriteName = "Orbit"..(orbit - 1)..state
+			local sprite = self.spriteMap.line[spriteName]
+			
+			local tcCenterX, tcCenterY = sprite[3], sprite[4] -- bottom-right of sprite
+			
+			local segments = {}
+			for segmentIndex, segmentStartAngle in ipairs(segmentAngles) do
+				local segmentEndAngle = segmentAngles[(segmentIndex % segmentsPerOrbit) + 1]
+				local angleDelta = (segmentEndAngle - segmentStartAngle) % (2 * m_pi)
+
+				-- Quadrants 2 and 4 get mirrored compared to 1 and 3 to avoid visual seams at the
+				-- quadrant boundaries (the arc sprites aren't rotationally tileable)
+				local tcStartAngle, tcEndAngle
+				if (segmentIndex < segmentsPerOrbit / 4) or (segmentIndex >= segmentsPerOrbit / 2 and segmentIndex < segmentsPerOrbit * 3 / 2) then
+					tcStartAngle = segmentStartAngle % (m_pi / 2) + m_pi
+					tcEndAngle = tcStartAngle + angleDelta
+				else
+					tcStartAngle = (m_pi / 2 - segmentStartAngle) % (m_pi / 2) + m_pi + angleDelta
+					tcEndAngle = tcStartAngle - angleDelta
+				end
+				-- The sprite only contains the top-left quadrant of the circle, which corresponds
+				-- to [m_pi, 3/2 * m_pi] as-rendered
+				assert (tcStartAngle >= m_pi and tcStartAngle <= 3 * m_pi / 2, "invalid tcStartAngle "..tcStartAngle)
+				assert (tcEndAngle >= m_pi and tcEndAngle <= 3 * m_pi / 2, "invalid tcEndAngle "..tcEndAngle..", treeStartAngle="..segmentStartAngle)
+				
+				local treeStartAngle = -segmentStartAngle + m_pi
+				local treeEndAngle = -segmentEndAngle + m_pi
+
+				local segment = {
+					treeQuad = {
+						[1] = m_sin(treeStartAngle) * treeOuterRadius,
+						[2] = m_cos(treeStartAngle) * treeOuterRadius,
+						[3] = m_sin(treeStartAngle) * treeInnerRadius,
+						[4] = m_cos(treeStartAngle) * treeInnerRadius,
+						[5] = m_sin(treeEndAngle) * treeOuterRadius,
+						[6] = m_cos(treeEndAngle) * treeOuterRadius,
+						[7] = m_sin(treeEndAngle) * treeInnerRadius,
+						[8] = m_cos(treeEndAngle) * treeInnerRadius
+					},
+					tcQuad = {
+						[1] = tcCenterX + m_sin(tcStartAngle) * tcWidthRelativeOuterRadius,
+						[2] = tcCenterY + m_cos(tcStartAngle) * tcHeightRelativeOuterRadius,
+						[3] = tcCenterX + m_sin(tcStartAngle) * tcWidthRelativeInnerRadius,
+						[4] = tcCenterY + m_cos(tcStartAngle) * tcHeightRelativeInnerRadius,
+						[5] = tcCenterX + m_sin(tcEndAngle) * tcWidthRelativeOuterRadius,
+						[6] = tcCenterY + m_cos(tcEndAngle) * tcHeightRelativeOuterRadius,
+						[7] = tcCenterX + m_sin(tcEndAngle) * tcWidthRelativeInnerRadius,
+						[8] = tcCenterY + m_cos(tcEndAngle) * tcHeightRelativeInnerRadius
+					}
+				}
+				t_insert(segments, segment)
+			end
+			self.orbitConnectorArcs[orbit][state] = {
+				sprite = sprite,
+				segments = segments
+			}
+		end
+		::continue::
+	end
+end
+
+-- Generate the quad(s) used to render the line between the two given nodes
+function PassiveTreeClass:BuildConnectors(node1, node2)
 	local connector = {
 		ascendancyName = node1.ascendancyName,
 		nodeId1 = node1.id,
 		nodeId2 = node2.id,
-		c = { } -- This array will contain the quad's data: 1-8 are the vertex coordinates, 9-16 are the texture coordinates
-				-- Only the texture coords are filled in at this time; the vertex coords need to be converted from tree-space to screen-space first
-				-- This will occur when the tree is being drawn; .vert will map line state (Normal/Intermediate/Active) to the correct tree-space coordinates 
 	}
 	if node1.g == node2.g and node1.o == node2.o then
-		-- Nodes are in the same orbit of the same group
-		-- Calculate the starting angle (node1.angle) and arc angle
-		if node1.angle > node2.angle then
-			node1, node2 = node2, node1
+		-- Nodes are in the same orbit of the same group, build an arc connector
+		connector.arc = {
+			orbit = node1.o + 1,
+			centerX = node1.group.x,
+			centerY = node1.group.y,
+		}
+
+		-- Convert oidx to arc segment
+		local startAngle = self.orbitAnglesByOrbit[node1.o + 1][node1.oidx + 1]
+		local endAngle = self.orbitAnglesByOrbit[node1.o + 1][node2.oidx + 1]
+
+		-- Always use the shorter direction
+		if (startAngle - endAngle) % (2 * m_pi) <= m_pi then
+			startAngle, endAngle = endAngle, startAngle
 		end
-		local arcAngle = node2.angle - node1.angle
-		if arcAngle >= m_pi then
-			node1, node2 = node2, node1
-			arcAngle = m_pi * 2 - arcAngle
-		end
-		if arcAngle <= m_pi then
-			-- Angle is less than 180 degrees, draw an arc
-			-- If our arc is greater than 90 degrees, we will need 2 arcs because our orbit assets are at most 90 degree arcs see below
-			-- The calling class already handles adding a second connector object in the return table if provided and omits it if nil
-			-- Establish a nil secondConnector to populate in the case that we need a second arc (>90 degree orbit)
-			local secondConnector
-			if arcAngle > (m_pi / 2) then
-				-- Angle is greater than 90 degrees.
-				-- The default behavior for a given arcAngle is to place the arc at the center point between two nodes and clip the excess
-				-- If we need a second arc of any size, we should shift the arcAngle to 25% of the distance between the nodes instead of 50%
-				arcAngle = arcAngle / 2
-				-- clone the original connector table to ensure same functionality for both of the necessary connectors
-				secondConnector = copyTableSafe(connector)
-				-- And then ask the BuildArc function to create a connector that is a mirror of the provided arcAngle
-				-- Provide the second connector as a parameter to store the mirrored arc
-				self:BuildArc(arcAngle, node1, secondConnector, true)
-			end
-			-- generate the primary arc -- this arcAngle may have been modified if we have determined that a second arc is necessary for this orbit
-			self:BuildArc(arcAngle, node1, connector)
-			return { connector, secondConnector }
-		end
+
+		-- startSegment > endSegment is normal; when rendering, it will wrap around
+		connector.arc.startSegment = m_ceil(startAngle * self.orbitConnectorSegmentsPerOrbit / (2 * m_pi))
+		connector.arc.endSegment = m_floor(endAngle * self.orbitConnectorSegmentsPerOrbit / (2 * m_pi))
+
+		assert(connector.arc.startSegment >= 0 and connector.arc.startSegment < self.orbitConnectorSegmentsPerOrbit)
+		assert(connector.arc.endSegment >= 0 and connector.arc.endSegment < self.orbitConnectorSegmentsPerOrbit)
+	else
+		-- Nodes don't share a group/orbit, build a straight line connector
+		connector.type = "LineConnector"
+		-- This assumes the sprites for the different LineConnector states all have the same height.
+		local art = self.spriteMap.line.LineConnectorNormal
+		local vX, vY = node2.x - node1.x, node2.y - node1.y
+		local dist = m_sqrt(vX * vX + vY * vY)
+		local scale = art.height * 1.33 / dist
+		local nX, nY = vX * scale, vY * scale
+		connector.lineQuad = {
+			[1] = node1.x - nY, [2] = node1.y + nX,
+			[3] = node1.x + nY, [4] = node1.y - nX,
+			[5] = node2.x + nY, [6] = node2.y - nX,
+			[7] = node2.x - nY, [8] = node2.y + nX
+		}
 	end
 
-	-- Generate a straight line
-	connector.type = "LineConnector"
-	local art = self.assets.LineConnectorNormal
-	local vX, vY = node2.x - node1.x, node2.y - node1.y
-	local dist = m_sqrt(vX * vX + vY * vY)
-	local scale = art.height * 1.33 / dist
-	local nX, nY = vX * scale, vY * scale
-	local endS = dist / (art.width * 1.33)
-	connector[1], connector[2] = node1.x - nY, node1.y + nX
-	connector[3], connector[4] = node1.x + nY, node1.y - nX
-	connector[5], connector[6] = node2.x + nY, node2.y - nX
-	connector[7], connector[8] = node2.x - nY, node2.y + nX
-	connector.c[9], connector.c[10] = 0, 1
-	connector.c[11], connector.c[12] = 0, 0
-	connector.c[13], connector.c[14] = endS, 0
-	connector.c[15], connector.c[16] = endS, 1
-	connector.vert = { Normal = connector, Intermediate = connector, Active = connector }
 	return { connector }
-end
-
-function PassiveTreeClass:BuildArc(arcAngle, node1, connector, isMirroredArc)
-	connector.type = "Orbit" .. node1.o
-	-- This is an arc texture mapped onto a kite-shaped quad
-	-- Calculate how much the arc needs to be clipped by
-	-- Both ends of the arc will be clipped by this amount, so 90 degree arc angle = no clipping and 30 degree arc angle = 75 degrees of clipping
-	-- The clipping is accomplished by effectively moving the bottom left and top right corners of the arc texture towards the top left corner
-	-- The arc texture only shows 90 degrees of an arc, but some arcs must go for more than 90 degrees
-	-- Fortunately there's nowhere on the tree where we can't just show the middle 90 degrees and rely on the node artwork to cover the gaps :)
-	local clipAngle = m_pi / 4 - arcAngle / 2
-	local p = 1 - m_max(m_tan(clipAngle), 0)
-	local angle = node1.angle - clipAngle
-	if isMirroredArc then
-		-- The center of the mirrored angle should be positioned at 75% of the way between nodes.
-		angle = angle + arcAngle
-	end
-	connector.vert = { }
-	for _, state in pairs({ "Normal", "Intermediate", "Active" }) do
-		-- The different line states have differently-sized artwork, so the vertex coords must be calculated separately for each one
-		local art = self.assets[connector.type .. state]
-		local size = art.width * 2 * 1.33
-		local oX, oY = size * m_sqrt(2) * m_sin(angle + m_pi / 4), size * m_sqrt(2) * -m_cos(angle + m_pi / 4)
-		local cX, cY = node1.group.x + oX, node1.group.y + oY
-		local vert = { }
-		vert[1], vert[2] = node1.group.x, node1.group.y
-		vert[3], vert[4] = cX + (size * m_sin(angle) - oX) * p, cY + (size * -m_cos(angle) - oY) * p
-		vert[5], vert[6] = cX, cY
-		vert[7], vert[8] = cX + (size * m_cos(angle) - oX) * p, cY + (size * m_sin(angle) - oY) * p
-		if (isMirroredArc) then
-		-- Flip the quad's non-origin, non-center vertexes when drawing a mirrored arc so that the arc actually mirrored
-		-- This is required to prevent the connection of the 2 arcs appear to have a 'seam'
-			local temp1, temp2 = vert[3],vert[4]
-			vert[3],vert[4] = vert[7],vert[8]
-			vert[7],vert[8] = temp1, temp2
-		end
-		connector.vert[state] = vert
-	end
-	connector.c[9], connector.c[10] = 1, 1
-	connector.c[11], connector.c[12] = 0, p
-	connector.c[13], connector.c[14] = 0, 0
-	connector.c[15], connector.c[16] = p, 0
 end
 
 function PassiveTreeClass:CalcOrbitAngles(nodesInOrbit)
