@@ -5277,7 +5277,35 @@ return {
 			name="NextMod",
 			refTo="",
 			type="String",
-			width=150
+			width=220
+		},
+		[64]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[65]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[66]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[67]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=220
 		}
 	},
 	MonsterAdditionalMonsterDrops={
@@ -5328,35 +5356,35 @@ return {
 			name="BossLifePercentIncrease",
 			refTo="",
 			type="Int",
-			width=150
+			width=170
 		},
 		[3]={
 			list=false,
 			name="BossDamagePercentIncrease",
 			refTo="",
 			type="Int",
-			width=150
+			width=170
 		},
 		[4]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat1",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=240
 		},
 		[5]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat2",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=270
 		},
 		[6]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat3",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=240
 		},
 		[7]={
 			list=false,
@@ -5367,10 +5395,10 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat4",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=220
 		},
 		[9]={
 			list=false,
@@ -5381,10 +5409,10 @@ return {
 		},
 		[10]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat5",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=330
 		},
 		[11]={
 			list=false,
@@ -5404,30 +5432,58 @@ return {
 		},
 		[2]={
 			list=false,
-			name="LifePercentIncrease",
+			name="LifePercentMore",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[3]={
 			list=false,
-			name="DamagePercentIncrease",
+			name="DamagePercentMore",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[4]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat1",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=230
 		},
 		[5]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat2",
+			refTo="Stats",
 			type="Key",
+			width=250
+		},
+		[6]={
+			list=false,
+			name="Stat3",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="Stat3Value",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="Stat4",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="Stat4Value",
+			refTo="",
+			type="Int",
 			width=150
 		}
 	},
