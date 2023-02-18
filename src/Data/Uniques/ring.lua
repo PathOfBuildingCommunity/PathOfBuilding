@@ -144,7 +144,7 @@ Voidheart
 Iron Ring
 Source: No longer obtainable
 Variant: Pre 2.4.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 48
 Implicits: 1
 {tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
@@ -162,7 +162,7 @@ Bloodboil
 Coral Ring
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 24
 Implicits: 1
 {tags:life}+(20-30) to maximum Life

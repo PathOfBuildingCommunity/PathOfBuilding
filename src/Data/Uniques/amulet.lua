@@ -562,6 +562,7 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Pre 3.19.0
+Variant: Current
 LevelReq: 64
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -672,7 +673,7 @@ Karui Charge
 Jade Amulet
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 24
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
@@ -1109,7 +1110,8 @@ Implicits: 1
 {variant:1}{tags:caster,speed}(8-12)% increased Cast Speed
 {variant:2}{tags:caster,speed}(10-15)% increased Cast Speed
 {variant:3}{tags:caster,speed}(10-25)% increased Cast Speed
-{tags:speed}12% increased Movement Speed
+{variant:1}{tags:speed}12% increased Movement Speed
+{variant:2,3}{tags:speed}(10-15)% increased Movement Speed
 {variant:1}(8-12)% reduced Skill Effect Duration
 {variant:2}(10-15)% reduced Skill Effect Duration
 {variant:3}(10-20)% reduced Skill Effect Duration

@@ -595,6 +595,7 @@ local modNameList = {
 	["cast speed"] = { "Speed", flags = ModFlag.Cast },
 	["warcry speed"] = { "WarcrySpeed", keywordFlags = KeywordFlag.Warcry },
 	["attack and cast speed"] = "Speed",
+	["dps"] = "DPS",
 	-- Elemental ailments
 	["to shock"] = "EnemyShockChance",
 	["shock chance"] = "EnemyShockChance",
@@ -650,6 +651,7 @@ local modNameList = {
 	["to cause poison"] = "PoisonChance",
 	["to poison on hit"] = "PoisonChance",
 	["poison duration"] = { "EnemyPoisonDuration" },
+	["poison duration on you"] = "SelfPoisonDuration",
 	["duration of poisons you inflict"] = { "EnemyPoisonDuration" },
 	["to cause bleeding"] = "BleedChance",
 	["to cause bleeding on hit"] = "BleedChance",
@@ -657,6 +659,7 @@ local modNameList = {
 	["to inflict bleeding on hit"] = "BleedChance",
 	["bleed duration"] = { "EnemyBleedDuration" },
 	["bleeding duration"] = { "EnemyBleedDuration" },
+	["bleed duration on you"] = "SelfBleedDuration",
 	-- Misc modifiers
 	["movement speed"] = "MovementSpeed",
 	["attack, cast and movement speed"] = { "Speed", "MovementSpeed" },
@@ -682,7 +685,6 @@ local modNameList = {
 	-- Flask modifiers
 	["effect"] = "FlaskEffect",
 	["effect of flasks"] = "FlaskEffect",
-	["effect of flasks on you"] = "FlaskEffect",
 	["amount recovered"] = "FlaskRecovery",
 	["life recovered"] = "FlaskRecovery",
 	["life recovery from flasks used"] = "FlaskLifeRecovery",
@@ -710,6 +712,7 @@ local modNameList = {
 	["adrenaline"] = "Condition:Adrenaline",
 	["elusive"] = "Condition:CanBeElusive",
 	["onslaught"] = "Condition:Onslaught",
+	["rampage"] = "Condition:Rampage",
 	["phasing"] = "Condition:Phasing",
 	["arcane surge"] = "Condition:ArcaneSurge",
 	["unholy might"] = "Condition:UnholyMight",
@@ -1012,6 +1015,9 @@ local preFlagList = {
 		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true, modSuffix = "Taken" }
 	end,
 	["^enemies (%a+) by "] = function(cond)
+		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true }
+	end,
+	["^enemies (%a+) by you have "] = function(cond)
 		return { tag = { type = "Condition", var = cond:gsub("^%a", string.upper) }, applyToEnemy = true }
 	end,
 	["^hits against enemies (%a+) by you have "] = function(cond)
@@ -1356,6 +1362,7 @@ local modTagList = {
 	["during effect of any mana flask"] = { tag = { type = "Condition", var = "UsingManaFlask" } },
 	["during effect of any life flask"] = { tag = { type = "Condition", var = "UsingLifeFlask" } },
 	["if you've used a life flask in the past 10 seconds"] = { tag = { type = "Condition", var = "UsingLifeFlask" } },
+	["if you've used a mana flask in the past 10 seconds"] = { tag = { type = "Condition", var = "UsingManaFlask" } },
 	["during effect of any life or mana flask"] = { tag = { type = "Condition", varList = { "UsingManaFlask", "UsingLifeFlask" } } },
 	["while on consecrated ground"] = { tag = { type = "Condition", var = "OnConsecratedGround" } },
 	["when you create consecrated ground"] = { },
@@ -2442,9 +2449,7 @@ local specialModList = {
 		if itemSlotName == "main hand" then
 			targetItemSlotName = "Weapon 1"
 		end
-		return {
-			mod("LinkedSupport", "LIST", { targetSlotName = targetItemSlotName }, { type = "SocketedIn", slotName = "{SlotName}" }),
-		}
+		return { mod("LinkedSupport", "LIST", { targetSlotName = targetItemSlotName }) }
 	end,
 	["socketed hex curse skills are triggered by doedre's effigy when summoned"] = { mod("ExtraSupport", "LIST", { skillId = "SupportCursePillarTriggerCurses", level = 20 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["trigger level (%d+) (.+) every (%d+) seconds"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
@@ -2748,6 +2753,7 @@ local specialModList = {
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
+	["rampage"] = { flag("Condition:Rampage") },
 	["unholy might"] = { flag("Condition:UnholyMight") },
 	["elusive"] = { flag("Condition:CanBeElusive") },
 	["adrenaline"] = { flag("Condition:Adrenaline") },
@@ -2979,6 +2985,10 @@ local specialModList = {
 	["maximum (%d+) eaten souls"] = function(num) return { mod("SoulEaterMax", "OVERRIDE", num) } end,
 	["gain soul eater during any flask effect"] = { flag("Condition:CanHaveSoulEater", { type = "Condition", var = "UsingFlask" }) },
 	["gain soul eater for (%d+) seconds when you use a vaal skill"] = { flag("Condition:CanHaveSoulEater", { type = "Condition", var = "UsedVaalSkillRecently" }) },
+	["(%d+)%% increased attack and cast speed if you've killed recently"] = function(num) return { --This boot enchant gives a buff that applies both stats individually
+		mod("Speed", "INC", num, nil, ModFlag.Cast, { type = "Condition", var = "KilledRecently" }),
+		mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Condition", var = "KilledRecently" }),
+	} end,
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -3080,11 +3090,11 @@ local specialModList = {
 	["minions deal (%d+)%% increased damage while you are affected by a herald"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "ActorCondition", actor = "parent", var = "AffectedByHerald" }) }) } end,
 	["minions have (%d+)%% increased attack and cast speed while you are affected by a herald"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num, { type = "ActorCondition", actor = "parent", var = "AffectedByHerald" }) }) } end,
 	["minions have unholy might"] = { mod("MinionModifier", "LIST", { mod = flag("Condition:UnholyMight") }), },
-	["summoned skeleton warriors deal triple damage with this weapon if you've hit with this weapon recently"] = {
+	["summoned skeleton warriors a?n?d? ?s?o?l?d?i?e?r?s? ?deal triple damage with this weapon if you've hit with this weapon recently"] = {
 		mod("Dummy", "DUMMY", 1, { type = "Condition", var = "HitRecentlyWithWeapon" }), -- Make the Configuration option appear
 		mod("MinionModifier", "LIST", { mod = mod("TripleDamageChance", "BASE", 100, { type = "ActorCondition", actor = "parent", var = "HitRecentlyWithWeapon" }) }, { type = "SkillName", skillName = "Summon Skeleton" }),
 	},
-	["summoned skeleton warriors wield a copy of this weapon while in your main hand"] = { }, -- just make the mod blue, handled in CalcSetup
+	["summoned skeleton warriors a?n?d? ?s?o?l?d?i?e?r?s? ?wield a? ?c?o?p?y? ?o?f? ?this weapon while in your main hand"] = { }, -- just make the mod blue, handled in CalcSetup
 	["each summoned phantasm grants you phantasmal might"] = { flag("Condition:PhantasmalMight") },
 	["minions have (%d+)%% increased critical strike chance per maximum power charge you have"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", num, { type = "Multiplier", actor = "parent", var = "PowerChargeMax" }) }) } end,
 	["minions can hear the whispers for 5 seconds after they deal a critical strike"] = {
@@ -3524,11 +3534,11 @@ local specialModList = {
 	["only affects passives in massive ring"] = { mod("JewelData", "LIST", { key = "radiusIndex", value = 8 }) },
 	["primordial"] = { mod("Multiplier:PrimordialItem", "BASE", 1) },
 	["spectres have a base duration of (%d+) seconds"] = { mod("SkillData", "LIST", { key = "duration", value = 6 }, { type = "SkillName", skillName = "Raise Spectre" }) },
-	["flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num) } end,
-	["while a unique enemy is in your presence, flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }) } end,
-	["while a pinnacle atlas boss is in your presence, flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" }) } end,
-	["magic utility flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("MagicUtilityFlaskEffect", "INC", num) } end,
-	["flasks applied to you have (%d+)%% reduced effect"] = function(num) return { mod("FlaskEffect", "INC", -num) } end,
+	["flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "player"}) } end,
+	["while a unique enemy is in your presence, flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }, { type = "ActorCondition", actor = "player"}) } end,
+	["while a pinnacle atlas boss is in your presence, flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("FlaskEffect", "INC", num, { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" }, { type = "ActorCondition", actor = "player"}) } end,
+	["magic utility flasks applied to you have (%d+)%% increased effect"] = function(num) return { mod("MagicUtilityFlaskEffect", "INC", num, { type = "ActorCondition", actor = "player"}) } end,
+	["flasks applied to you have (%d+)%% reduced effect"] = function(num) return { mod("FlaskEffect", "INC", -num, { type = "ActorCondition", actor = "player"}) } end,
 	["adds (%d+) passive skills"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelNodeCount", value = num }) } end,
 	["1 added passive skill is a jewel socket"] = { mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = 1 }) },
 	["(%d+) added passive skills are jewel sockets"] = function(num) return { mod("JewelData", "LIST", { key = "clusterJewelSocketCount", value = num }) } end,
@@ -3566,6 +3576,13 @@ local specialModList = {
 	["deal no elemental damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire") },
 	["deal no chaos damage"] = { flag("DealNoChaos") },
 	["deal no damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos"), flag("DealNoPhysical") },
+	["you can't deal damage with skills yourself"] = {
+		flag("DealNoLightning", { type = "SkillType", skillTypeList = {SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }, {type = "Condition", var="usedByMirage", neg = true}),
+		flag("DealNoCold", 		{ type = "SkillType", skillTypeList = {SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }, {type = "Condition", var="usedByMirage", neg = true}),
+		flag("DealNoFire", 		{ type = "SkillType", skillTypeList = {SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }, {type = "Condition", var="usedByMirage", neg = true}),
+		flag("DealNoChaos", 	{ type = "SkillType", skillTypeList = {SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }, {type = "Condition", var="usedByMirage", neg = true}),
+		flag("DealNoPhysical", 	{ type = "SkillType", skillTypeList = {SkillType.SummonsTotem, SkillType.RemoteMined, SkillType.Trapped}, neg = true }, {type = "Condition", var="usedByMirage", neg = true})
+	},
 	["deal no non%-elemental damage"] = { flag("DealNoPhysical"), flag("DealNoChaos") },
 	["deal no non%-lightning damage"] = { flag("DealNoPhysical"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
 	["deal no non%-physical damage"] = { flag("DealNoLightning"), flag("DealNoCold"), flag("DealNoFire"), flag("DealNoChaos") },
@@ -3707,7 +3724,8 @@ local specialModList = {
 	["when you lose temporal chains you gain maximum rage"] = { flag("Condition:CanGainRage") },
 	["your critical strike multiplier is (%d+)%%"] = function(num) return { mod("CritMultiplier", "OVERRIDE", num) } end,
 	["base critical strike chance for attacks with weapons is ([%d%.]+)%%"] = function(num) return { mod("WeaponBaseCritChance", "OVERRIDE", num) } end,
-	["base critical strike chance of spells is the critical strike chance of y?o?u?r? ?main hand weapon"] = { flag("BaseCritFromMainHand", nil, ModFlag.Spell) },
+	["base critical strike chance of spells is the critical strike chance of y?o?u?r? ?main hand weapon"] = { flag("BaseCritFromMainHand", nil, ModFlag.Spell) }, -- old wordings
+	["base spell critical strike chance of spells is equal to that of main hand weapon"] = { flag("BaseCritFromMainHand", nil, ModFlag.Spell) },
 	["critical strike chance is (%d+)%% for hits with this weapon"] = function(num) return { mod("CritChance", "OVERRIDE", num, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) } end, 
 	["maximum critical strike chance is (%d+)%%"] = function(num) return {
 		mod("CritChanceCap", "OVERRIDE", num),
@@ -3792,7 +3810,7 @@ local specialModList = {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num, nil, { type = "Condition", var = "SacrificialZeal" }),
 	} end,
 	["minions attacks overwhelm (%d+)%% physical damage reduction"] = function(num) return {
-		mod("MinionModifier", "LIST", { mod = mod("EnemyPhysicalDamageReduction", "BASE", -num) })
+		mod("MinionModifier", "LIST", { mod = mod("EnemyPhysicalDamageReduction", "BASE", -num, { type = "SkillType", skillType = SkillType.Attack }) })
 	} end,
 	["focus has (%d+)%% increased cooldown recovery rate"] = function(num) return { mod("FocusCooldownRecovery", "INC", num, { type = "Condition", var = "Focused" }) } end,
 	["focus has (%d+)%% reduced cooldown recovery rate"] = function(num) return { mod("FocusCooldownRecovery", "INC", -num, { type = "Condition", var = "Focused" }) } end,
@@ -4056,6 +4074,7 @@ local costTypes = appendMod(resourceTypes, "Cost")
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
+	["rampage"] = "Condition:Rampage",
 	["adrenaline"] = "Condition:Adrenaline",
 	["elusive"] = "Condition:CanBeElusive",
 	["arcane surge"] = "Condition:ArcaneSurge",

@@ -333,12 +333,13 @@ return {
 		{ label = "Tvalue Override (ms)", modName = "MultiplierPvpTvalueOverride" }, 
 		{ label = "PvP Multiplier", modName = "MultiplierPvpDamage" }, 
 	}, },
-	{ label = "Skill DPS", flag = "notAverage", notFlag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
+	{ label = "Skill DPS", flag = "notAverage", notFlag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, { label = "DPS Multiplier", modName = "DPS" }, }, },
 	{ label = "Skill PvP DPS", flag = "notAveragePvP", { format = "{1:output:PvpTotalDPS}", { breakdown = "PvpTotalDPS" }, 
 		{ label = "Tvalue Override (ms)", modName = "MultiplierPvpTvalueOverride" }, 
-		{ label = "PvP Multiplier", modName = "MultiplierPvpDamage" }, 
+		{ label = "PvP Multiplier", modName = "MultiplierPvpDamage" },  
+		{ label = "DPS Multiplier", modName = "DPS" }, 
 	}, },
-	{ label = "Skill DPS", flag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, }, },
+	{ label = "Skill DPS", flag = "triggered", { format = "{1:output:TotalDPS}", { breakdown = "TotalDPS" }, { label = "DPS Multiplier", modName = "DPS" }, }, },
 } }
 } },
 { 3, "Warcries", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Exerting Warcries", data = {
@@ -884,11 +885,11 @@ return {
 } }
 } },
 { 1, "Ignite", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Ignite", data = {	
-	extra = "{0:output:IgniteChance}% {1:output:IgniteDPS} {2:output:IgniteDuration}s",
+	extra = "{0:output:IgniteChancePerHit}% {1:output:IgniteDPS} {2:output:IgniteDuration}s",
 	flag = "ignite",
 	{ label = "Max Ignite Stacks", flag = "igniteCanStack", { format = "{1:output:IgniteStacksMax}", { modName = "IgniteStacks" }, }, },
 	{ label = "Stack Potential", { format = "{2:output:IgniteStackPotential}", { breakdown = "IgniteStackPotential" } }},
-	{ label = "Chance to Ignite", { format = "{0:output:IgniteChance}%", 
+	{ label = "Chance to Ignite", { format = "{0:output:IgniteChancePerHit}%", 
 		{ breakdown = "MainHand.IgniteChance" }, 
 		{ breakdown = "OffHand.IgniteChance" },
 		{ breakdown = "IgniteChance" },

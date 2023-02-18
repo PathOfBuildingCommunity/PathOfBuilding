@@ -201,10 +201,10 @@ Blood Magic
 [[
 Atziri's Mirror
 Golden Buckler
-Upgrade: No longer obtainable
+Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Pre 3.0.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 1
 {variant:3}6% increased Movement Speed
 +(40-60) to Intelligence
@@ -257,7 +257,7 @@ War Buckler
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 1
 {variant:3}9% increased Movement Speed
 +1 to Level of Socketed Curse Gems
@@ -315,7 +315,7 @@ Painted Buckler
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 1
 {variant:3}6% increased Movement Speed
 (60-100)% increased Evasion Rating
@@ -925,18 +925,24 @@ Implicits: 2
 The Oak
 Plank Kite Shield
 Source: No longer obtainable
+Variant: Pre 1.1.0
+Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Pre 3.19.0
+Variant: Current
 LevelReq: 40
-Implicits: 1
-+4% to all Elemental Resistances
+Implicits: 2
+{variant:1}+8% to all Elemental Resistances
+{variant:2,3,4,5}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
 +(100-150) to maximum Life
-50% reduced Freeze Duration on you
-{variant:1}Regenerate 1% of Life per Second 
-{variant:2}Regenerate 3% of Life per Second
-{variant:1}Regenerate 5% of Life per Second while on Low Life
-{variant:2}Regenerate 3% of Life per Second while on Low Life
+{variant:1,2,3,4}50% reduced Freeze Duration on you
+{variant:5}80% reduced Freeze Duration on you
+{variant:3}Regenerate 1% of Life per Second 
+{variant:4,5}Regenerate 3% of Life per Second
+{variant:1,2}Regenerate 6% of Life per Second while on Low Life
+{variant:3}Regenerate 5% of Life per Second while on Low Life
+{variant:4,5}Regenerate 3% of Life per Second while on Low Life
 ]],[[
 The Unshattered Will
 Archon Kite Shield

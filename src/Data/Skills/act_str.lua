@@ -3808,7 +3808,7 @@ skills["VaalGlacialHammer"] = {
 		},
 	},
 	constantStats = {
-		{ "skill_physical_damage_%_to_convert_to_cold", 60 },
+		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
 		{ "base_chance_to_freeze_%", 25 },
 		{ "cold_ailment_duration_+%", 35 },
 		{ "melee_range_+", 2 },
@@ -6930,16 +6930,16 @@ skills["Smite"] = {
 	},
 	statMap = {
 		["base_chance_to_shock_%_from_skill"] = {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
 		["minimum_added_lightning_damage_from_skill"] = {
-			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
 		["maximum_added_lightning_damage_from_skill"] = {
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
 		["skill_buff_grants_attack_and_cast_speed_+%"] = {
-			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" })
 		},
 	},
 	baseFlags = {

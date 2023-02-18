@@ -672,7 +672,7 @@ Hrimnor's Dirge
 Sledgehammer
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 36, 62 Str
 Implicits: 2
 {variant:1}40% increased Stun Duration on Enemies

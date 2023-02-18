@@ -179,7 +179,7 @@ skills["CatAspect"] = {
 	castTime = 0,
 	fromItem = true,
 	statMap = {
-		["critical_strike_chance_+%"] = {
+		["skill_buff_grants_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Cat's Stealth", effectCond = "CatsStealthActive" }),
 		},
 		["attack_speed_+%_granted_from_skill"] = {
@@ -194,7 +194,7 @@ skills["CatAspect"] = {
 		duration = true,
 	},
 	constantStats = {
-		{ "critical_strike_chance_+%", 100 },
+		{ "skill_buff_grants_critical_strike_chance_+%", 100 },
 		{ "avoid_damage_%", 15 },
 		{ "stealth_+%", 100 },
 		{ "attack_speed_+%_granted_from_skill", 10 },
@@ -363,14 +363,14 @@ skills["BloodSacramentUnique"] = {
 	end,
 	statMap = {
 		["flameblast_hundred_times_radius_+_per_1%_life_reserved"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage" }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannelledLifeReservedPercentPerStage" }),
 			div = 100,
 		},
 		["flameblast_damage_+%_final_per_10_life_reserved"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }),
 		},
 		["flameblast_ailment_damage_+%_final_per_10_life_reserved"] = {
-			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }, { type = "Multiplier", var = "BloodSacramentStage" }),
+			mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "ChannelledLifeReservedPerStage", div = 10 }),
 		},
 	},
 	baseFlags = {
