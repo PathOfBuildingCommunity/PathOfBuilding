@@ -216,7 +216,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	-- Handle multipart skills
 	local activeGemParts = activeGrantedEffect.parts
-	if activeGemParts then
+	if activeGemParts and #activeGemParts > 1 then
 		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
 			activeEffect.srcInstance.skillPartCalcs = m_min(#activeGemParts, activeEffect.srcInstance.skillPartCalcs or 1)
 			activeSkill.skillPart = activeEffect.srcInstance.skillPartCalcs
