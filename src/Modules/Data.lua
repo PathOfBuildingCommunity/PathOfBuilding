@@ -526,25 +526,7 @@ do
 		UberEvasionMean = 100 + uberEvasionTotal / uberCount
 	}
 
-	data.bossSkills = LoadModule("Data/BossSkills")
-	-- auto generation of skill list using boss skills above, is currently disabled because it messes with the order
-	data.bossSkillsList = {
-		{ val = "None", label = "None" },
-		{ val = "Atziri Flameblast", label = "Atziri Flameblast" },
-		{ val = "Shaper Ball", label = "Shaper Ball" },
-		{ val = "Shaper Slam", label = "Shaper Slam" },
-		--{ val = "Elder Slam", label = "Elder Slam" },
-		{ val = "Sirus Meteor", label = "Sirus Meteor" },
-		{ val = "Exarch Ball", label = "Exarch Ball" },
-		{ val = "Eater Beam", label = "Eater Beam" },
-		{ val = "Maven Fireball", label = "Maven Fireball" },
-		{ val = "Maven MemoryGame", label = "Maven Memory Game" }
-	}
-	--[[ 
-	for bossSkillName, bossSkillData in pairs(data.bossSkills) do
-		t_insert(data.bossSkillsList, {val = bossSkillName, label = bossSkillName})
-	end
-	--]]
+	data.bossSkills, data.bossSkillsList = LoadModule("Data/BossSkills")
 
 	data.enemyIsBossTooltip = [[Bosses' damage is monster damage scaled to an average damage of their attacks
 This is divided by 4.40 to represent 4 damage types + some (40% as much) ^xD02090chaos

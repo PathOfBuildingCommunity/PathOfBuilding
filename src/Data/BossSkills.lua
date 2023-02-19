@@ -91,7 +91,7 @@ return {
 		speed = 3000,
 		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)"
 	},
-	["Maven MemoryGame"] = {
+	["Maven Memory Game"] = {
 		DamageType = "Melee",
 		DamageMultipliers = {
 			Lightning = { 34.763635149472, 0.17381817574736 },
@@ -102,4 +102,14 @@ return {
 		speed = 7500,
 		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
 	},
+},{
+    { val = "None", label = "None" },
+    { val = "Atziri Flameblast", label = "Atziri Flameblast" },
+    { val = "Shaper Ball", label = "Shaper Ball" },
+    { val = "Shaper Slam", label = "Shaper Slam" },
+    { val = "Sirus Meteor", label = "Sirus Meteor" },
+    { val = "Exarch Ball", label = "Exarch Ball" },
+    { val = "Eater Beam", label = "Eater Beam" },
+    { val = "Maven Fireball", label = "Maven Fireball" },
+    { val = "Maven Memory Game", label = "Maven Memory Game" }
 }

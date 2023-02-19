@@ -360,7 +360,12 @@ directiveTable.skills.skill = function(state, args, out)
 	if not grantedId then
 		displayName, grantedId = args
 	end
+	if displayName == "MemoryGame" then
+		displayName = "Memory Game"
+	end
 	local boss = state.boss
+	state.skillList = state.skillList or {}
+	table.insert(state.skillList, boss.displayName.." "..displayName)
 	local skill = {}
 	local skillData = dat("GrantedEffects"):GetRow("Id", grantedId)
 	local GrantedEffectStatSets = dat("GrantedEffectStatSets"):GetRow("Id", grantedId)
@@ -452,6 +457,18 @@ end
 	end
 	out:write('	},\n')
 	state.skill = nil
+end
+
+ -- #skillList
+ directiveTable.skills.skillList = function(state, args, out)
+	out:write('},{\n')
+	out:write('    { val = "None", label = "None" }')
+	for _, skillname in pairs(state.skillList) do
+		out:write(',\n    { val = "', skillname, '", label = "', skillname, '" }')
+	end
+	out:write('\n}')
+	state.boss = nil
+	state.skillList = nil
 end
 
 processTemplateFile("BossSkills", "Enemies/", "../Data/", directiveTable.skills)
