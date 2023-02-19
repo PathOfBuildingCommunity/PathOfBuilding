@@ -1454,31 +1454,8 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyRareOrUnique", type = "check", label = "Is the enemy Rare or Unique?", ifEnemyCond = "EnemyRareOrUnique", tooltip = "The enemy will automatically be considered to be Unique if they are a Boss,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", defaultIndex = 1, tooltip = [[
-Bosses' damage is monster damage scaled to an average damage of their attacks
-This is divided by 4.25 to represent 4 damage types + some ^xD02090chaos
-^7Fill in the exact damage numbers if more precision is needed
-
-Bosses' armour and evasion multiplier are calculated using the average of the boss type
-
-Standard Boss adds the following modifiers:
-	+40% to enemy Elemental Resistances
-	+25% to enemy ^xD02090Chaos Resistance
-	^794% of monster damage
-
-Guardian / Pinnacle Boss adds the following modifiers:
-	+50% to enemy Elemental Resistances
-	+30% to enemy ^xD02090Chaos Resistance
-	^7188% of monster damage
-	5% penetration
-
-Uber Pinnacle Boss adds the following modifiers:
-	+50% to enemy Elemental Resistances
-	+30% to enemy ^xD02090Chaos Resistance
-	^770% less to enemy Damage taken
-	235% of monster damage
-	8% penetration]], list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
-		--these defaults are here so that the placeholder gets reset correctly
+	{ var = "enemyIsBoss", type = "list", label = "Is the enemy a Boss?", defaultIndex = 1, tooltip = data.enemyIsBossTooltip, list = {{val="None",label="No"},{val="Boss",label="Standard Boss"},{val="Pinnacle",label="Guardian/Pinnacle Boss"},{val="Uber",label="Uber Pinnacle Boss"}}, apply = function(val, modList, enemyModList, build)
+		-- These defaults are here so that the placeholders get reset correctly
 		build.configTab.varControls['enemySpeed']:SetPlaceholder(700, true)
 		build.configTab.varControls['enemyCritChance']:SetPlaceholder(5, true)
 		build.configTab.varControls['enemyCritDamage']:SetPlaceholder(30, true)
@@ -1571,10 +1548,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 
-			local defaultArmour = round(data.monsterArmourTable[defaultLevel] * (1 + data.bossStats.PinnacleArmourMean/100))
-			local defaultEvasion = round(data.monsterEvasionTable[defaultLevel] * (1 + data.bossStats.PinnacleEvasionMean/100))
-			build.configTab.varControls['enemyArmour']:SetPlaceholder(defaultArmour, true)
-			build.configTab.varControls['enemyEvasion']:SetPlaceholder(defaultEvasion, true)
+			build.configTab.varControls['enemyArmour']:SetPlaceholder(round(data.monsterArmourTable[defaultLevel] * (data.bossStats.PinnacleArmourMean/100)), true)
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder(round(data.monsterEvasionTable[defaultLevel] * (data.bossStats.PinnacleEvasionMean/100)), true)
 		elseif val == "Uber" then
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1605,10 +1580,8 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.uberBossPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
 
-			local defaultArmour = round(data.monsterArmourTable[defaultLevel] * (1 + data.bossStats.UberArmourMean/100))
-			local defaultEvasion = round(data.monsterEvasionTable[defaultLevel] * (1 + data.bossStats.UberArmourMean/100))
-			build.configTab.varControls['enemyArmour']:SetPlaceholder(defaultArmour, true)
-			build.configTab.varControls['enemyEvasion']:SetPlaceholder(defaultEvasion, true)
+			build.configTab.varControls['enemyArmour']:SetPlaceholder(round(data.monsterArmourTable[defaultLevel] * (data.bossStats.UberArmourMean/100)), true)
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder(round(data.monsterEvasionTable[defaultLevel] * (data.bossStats.UberArmourMean/100)), true)
 		end
 	end },
 	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 80% Less Damage", apply = function(val, modList, enemyModList)

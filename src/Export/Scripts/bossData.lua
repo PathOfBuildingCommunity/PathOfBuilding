@@ -313,16 +313,32 @@ local function getStat(state, stat)
 	end
 end
 
-local directiveTable = {}
+local directiveTable = { monsters = {}, skills = {} }
 
--- #boss [<Display name>] <MonsterId> <earlierUber>
--- Initialises the boss
-directiveTable.boss = function(state, args, out)
-	local displayName, monsterId, earlierUber = args:match("(%w+) (.+) (%w+)")
+-- #boss [<Display name>] [<MonsterId>] <isUber>
+directiveTable.monsters.boss = function(state, args, out)
+	local displayName, monsterId, isUber = args:match("(%w+) (.+) {(%w+)}")
 	if not displayName then
-		displayName = args
-		monsterId = args
+		displayName, monsterId = args:match("(%w+) (.+)")
 	end
+
+    local monsterType = dat("MonsterTypes"):GetRow("Id", monsterId)
+    if not monsterType then
+		print("Invalid Type: "..monsterId)
+		return
+	end
+
+    out:write('bosses["', displayName, '"] = {\n')
+    out:write('\tarmourMult = ', monsterType.Armour, ',\n')
+    out:write('\tevasionMult = ', monsterType.Evasion, ',\n')
+    out:write('\tisUber = ', isUber and "true" or "false", ',\n')
+	out:write('}\n')
+end
+
+-- #boss [<Display name>] [<MonsterId>] <earlierUber>
+-- Initialises the boss
+directiveTable.skills.boss = function(state, args, out)
+	local displayName, monsterId, earlierUber = args:match("(%w+) (.+) (%w+)")
 	local bossData = dat("MonsterVarieties"):GetRow("Id", monsterId)
 	state.boss = { displayName = displayName, damageRange = bossData.Type.DamageSpread, damageMult = bossData.DamageMultiplier, critChance = m_ceil(bossData.CriticalStrikeChance / 100) }
 	if earlierUber == "true" then
@@ -339,7 +355,7 @@ end
 -- #skill [<Display name>] [<GrantedEffectId>]
 -- optional#  <GrantedEffectId2> <GrantedEffectIdUber> <SkillExtraDamageMult> <speedMult>
 -- Initialises and emits the skill data
-directiveTable.skill = function(state, args, out)
+directiveTable.skills.skill = function(state, args, out)
 	local displayName, grantedId = args:match("(%w+) (%w+)")
 	if not grantedId then
 		displayName, grantedId = args
@@ -430,7 +446,7 @@ directiveTable.skill = function(state, args, out)
 end
 
  -- #tooltip
- directiveTable.tooltip = function(state, args, out)
+ directiveTable.skills.tooltip = function(state, args, out)
 	if args then
 		out:write(',\n		tooltip = ', args,'\n')
 	end
@@ -438,6 +454,8 @@ end
 	state.skill = nil
 end
 
-processTemplateFile("bossSkills", "", "../Data/", directiveTable)
-
+processTemplateFile("BossSkills", "Enemies/", "../Data/", directiveTable.skills)
 print("Boss skill data exported.")
+processTemplateFile("Bosses", "Enemies/", "../Data/", directiveTable.monsters)
+print("Boss data exported.")
+
