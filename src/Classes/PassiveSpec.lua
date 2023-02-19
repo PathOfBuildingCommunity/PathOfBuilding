@@ -595,7 +595,7 @@ function PassiveSpecClass:SetNodeDistanceToClassStart(root)
 			end
 
 			-- Otherwise, record the distance to this node if it hasn't already been visited
-			if other.alloc and not nodeDistanceToRoot[other.id] then
+			if other.alloc and node.type ~= "Mastery" and other.type ~= "ClassStart" and other.type ~= "AscendClassStart" and not nodeDistanceToRoot[other.id] then
 				nodeDistanceToRoot[other.id] = curDist;
 
 				-- Add the other node to the end of the queue

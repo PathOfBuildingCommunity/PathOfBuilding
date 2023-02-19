@@ -217,7 +217,21 @@ function TradeQueryClass:PriceItem()
 	-- Row spacing reference is now the name, which is a smaller font than the total height
 	local pane_height = (top_pane_alignment_height + row_height) * row_count - 4*row_count + 55
 	local pane_width = 850
-	local cnt = 1
+
+	local slotTables = {}
+	for _, slotName in ipairs(baseSlots) do
+		t_insert(slotTables, {name = slotName})
+	end
+	local activeSocketList = { }
+	for nodeId, slot in pairs(self.itemsTab.sockets) do
+		if not slot.inactive then
+			t_insert(activeSocketList, nodeId)
+		end
+	end
+	table.sort(activeSocketList)
+	for _, nodeId in ipairs(activeSocketList) do
+		t_insert(slotTables, {name = self.itemsTab.sockets[nodeId].label, ref = nodeId})
+	end
 
 	local newItemList = { }
 	for index, itemSetId in ipairs(self.itemsTab.itemSetOrderList) do
@@ -268,21 +282,21 @@ You can click this button to enter your POESESSID.
 on trade site to work on other leagues and realms)]]
 	self.sortModes = {
 		DPS = "DPS",
-		DPSPRICE = "DPS / Price",
-		PRICEASC = "Price (Lowest)",
+		DPS_PRICE = "DPS / Price",
+		PRICE_ASCENDING = "Price (Lowest)",
 		WEIGHT = "Weighted Sum",
 	}
 	-- Item sort dropdown
 	self.sortSelectionList = {
 		self.sortModes.DPS,
-		self.sortModes.DPSPRICE,
-		self.sortModes.PRICEASC,
+		self.sortModes.DPS_PRICE,
+		self.sortModes.PRICE_ASCENDING,
 		self.sortModes.WEIGHT,
 	}
 	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, self.sortSelectionList, function(index, value)
 		self.pbSortSelectionIndex = index
 		for index, _ in pairs(self.resultTbl) do
-			self:UpdateControlsWithItems({name = baseSlots[index]}, index)
+			self:UpdateControlsWithItems(slotTables[index], index)
 		end
 	end)
 	self.controls.itemSortSelection.tooltipText = "Weighted Sum searches will always sort\nusing descending weighted sum."
@@ -362,25 +376,11 @@ on trade site to work on other leagues and realms)]]
 	if  self.pbRealm == "" then
 		self:UpdateRealms()
 	end
-
 	-- Individual slot rows
 	top_pane_alignment_ref = {"TOPLEFT", self.controls.poesessidButton, "BOTTOMLEFT"}
-	for _, slotName in ipairs(baseSlots) do
-		self:PriceItemRowDisplay(cnt, {name = slotName}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..cnt], "BOTTOMLEFT"}
-		cnt = cnt + 1
-	end
-	local activeSocketList = { }
-	for nodeId, slot in pairs(self.itemsTab.sockets) do
-		if not slot.inactive then
-			t_insert(activeSocketList, nodeId)
-		end
-	end
-	table.sort(activeSocketList)
-	for _, nodeId in pairs(activeSocketList) do
-		self:PriceItemRowDisplay(cnt, {name = self.itemsTab.sockets[nodeId].label, ref = nodeId}, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
-		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..cnt], "BOTTOMLEFT"}
-		cnt = cnt + 1
+	for index, slotTbl in pairs(slotTables) do
+		self:PriceItemRowDisplay(index, slotTbl, top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, row_height)
+		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..index], "BOTTOMLEFT"}
 	end
 	self.controls.fullPrice = new("LabelControl", nil, -3, pane_height - 58, pane_width - 256, row_height, "")
 	self.controls.close = new("ButtonControl", nil, 0, pane_height - 30, 90, row_height, "Done", function()
@@ -464,13 +464,15 @@ function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 	if errMsg == "MissingConversionRates" then
 		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to DPS sort.")
 		sortedItems, errMsg = self:SortFetchResults(slotTbl, index, self.sortModes.DPS)
-	end
-	if errMsg then
+	elseif errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
 		return
+	else
+		self:SetNotice(self.controls.pbNotice, "")
 	end
+
 	self.sortedResultTbl[index] = sortedItems
-	self.itemIndexTbl[index] = 1
+	self.itemIndexTbl[index] = self.sortedResultTbl[index][1].index
 	self.controls["priceButton"..index].tooltipText = "Sorted by " .. self.sortSelectionList[self.pbSortSelectionIndex]
 	local pb_index = self.sortedResultTbl[index][1].index
 	self.totalPrice[index] = {
@@ -538,7 +540,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 			t_insert(newTbl, { outputAttr = dps, index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.DPSPRICE then
+	elseif mode == self.sortModes.DPS_PRICE then
 		local dpsTable = getDpsTable()
 		local priceTable = getPriceTable()
 		if priceTable == nil then
@@ -548,7 +550,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 			t_insert(newTbl, { outputAttr = dps / priceTable[index], index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.PRICEASC then
+	elseif mode == self.sortModes.PRICE_ASCENDING then
 		local priceTable = getPriceTable()
 		if priceTable == nil then
 			return nil, "MissingConversionRates"

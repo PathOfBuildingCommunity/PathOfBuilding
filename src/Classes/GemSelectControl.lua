@@ -556,7 +556,11 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 			self.tooltip:AddLine(16, "^x7F7F7FReservation Override: ^7"..reservation)
 		end
 		if grantedEffectLevel.cooldown then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))
+			local string = string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown)
+			if grantedEffectLevel.storedUses and grantedEffectLevel.storedUses > 1 then
+				string = string .. string.format(" (%d uses)", grantedEffectLevel.storedUses)
+			end
+			self.tooltip:AddLine(16, string)
 		end
 	else
 		local reservation
@@ -587,7 +591,11 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 			self.tooltip:AddLine(16, string.format("^x7F7F7FSoul Gain Prevention: ^7%d sec", grantedEffectLevel.soulPreventionDuration))
 		end
 		if grantedEffectLevel.cooldown then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown))
+			local string = string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown)
+			if grantedEffectLevel.storedUses and grantedEffectLevel.storedUses > 1 then
+				string = string .. string.format(" (%d uses)", grantedEffectLevel.storedUses)
+			end
+			self.tooltip:AddLine(16, string)
 		end
 		if gemInstance.gemData.tags.attack then
 			if grantedEffectLevel.attackSpeedMultiplier then

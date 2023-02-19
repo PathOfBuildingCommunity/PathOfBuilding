@@ -1,0 +1,81 @@
+---[Help File][1]
+
+This file contains a list of shortcuts, and other misc things PoB has
+
+---[Contents][2]
+
+1. Intro
+2. Contents
+3. FAQ
+4. Hotkeys
+5. Other
+6. Timeless Jewels
+
+---[FAQ][3]
+
+---[Hotkeys][4]
+
+General Shortcuts:
+
+Ctrl + 1	Jump to tree tab
+Ctrl + 2	Jump to skills tab
+Ctrl + 3	Jump to items tab
+Ctrl + 4	Jump to calcs tab
+Ctrl + 5	Jump to config tab
+Ctrl + 6	Jump to notes tab
+Ctrl + I	Jump to import tab
+Ctrl + A	Select all
+Ctrl + C	Copy
+Ctrl + F	Show find / search box (e.g. unique item / tree)
+Ctrl + N	New build (in build selection menu)
+Ctrl + S	Save build to file
+Ctrl + U	Check for update
+Ctrl + V or RMB	Paste
+Ctrl + W or Mouse 4	Close Build (gives save prompt if unsaved)
+Ctrl + X	Cut
+Ctrl + Y	Redo
+Ctrl + Z	Undo
+Ctrl + BSP / DEL	Faster text delete
+Ctrl + + /-/0	Zoom in / Out / Reset
+F1	Open item/gem/etc in poewiki.net
+F2	Rename item, set, etc.
+E	On an equipped item will open it on the edit menu on the right.
+Ctrl + LMB	Enable / disable gems
+Ctrl + RMB	Enable / disable gems from Full DPS
+Mouse 4/5	Undo / Redo path respectively (in build selection menu)
+Shift	While scrolling on a slider makes it 5 times faster
+Ctrl	While scrolling on a slider makes it 5 times slower
+
+When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
+
+Passive Tree Shortcuts:
+
+Ctrl	Hide tooltips while held
+P	Toggle node power
+Ctrl + D	Toggle stat diff display
+PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase amount of zoom x 3)
+Ctrl + LMB	Zoom in on mouse cursor position
+Hold Shift	Enable "path trace mode" (nodes highlighted will be added to a path which will be allocated when the final node is clicked on the tree)
+
+Developer Use
+
+General Shortcuts:
+
+Ctrl + `	Toggle console (console supports most standard editing shortcuts)
+Pause	Toggle profiling
+DEV[ ]
+DEV[Developer Mode Shortcuts:]
+DEV[ ]
+DEV[Ctrl	Rebuild mod cache (hold key during reload / refresh)]
+DEV[Ctrl + Shift	Allow tree download]
+DEV[Alt	Show advanced mod breakdown / passing]
+DEV[F5	Restart]
+DEV[F6	Run garbage collector]
+DEV[Shift	Copy export xml to clipboard (hold key during export)]
+
+---[Other Notable Things][5]
+
+Adding ^ and then a number or hex code before text will change the colour of the text, eg ^^77 will make all text white
+
+---[Timeless Jewels][6]
+

@@ -988,6 +988,37 @@ for _, minion in pairs(data.minions) do
 	end
 end
 
+-- Load bosses
+data.bosses = { }
+LoadModule("Data/Bosses", data.bosses)
+
+local count = 0
+local uberCount = 0
+
+local armourTotal = 0
+local evasionTotal = 0
+
+local uberArmourTotal = 0
+local uberEvasionTotal = 0
+
+for _, boss in pairs(data.bosses) do
+	if boss.isUber then
+		uberCount = uberCount + 1
+		uberArmourTotal = uberArmourTotal + boss.armourMult
+		uberEvasionTotal = uberEvasionTotal + boss.evasionMult
+	end
+	count = count + 1
+	armourTotal = armourTotal + boss.armourMult
+	evasionTotal = evasionTotal + boss.evasionMult
+end
+
+data.bossStats = {
+	PinnacleArmourMean=armourTotal/count,
+	PinnacleEvasionMean=evasionTotal/count,
+	UberArmourMean=uberArmourTotal/uberCount,
+	UberEvasionMean=uberEvasionTotal/uberCount
+}
+
 -- Item bases
 data.itemBases = { }
 for _, type in pairs(itemTypes) do
