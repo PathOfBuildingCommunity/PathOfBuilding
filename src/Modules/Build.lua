@@ -1225,7 +1225,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
 					if activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stages then
 						controls.mainSkillStageCount.shown = true
-						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stagesMin or 1)
+						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stagesMin or 1)
 					end
 				end
 				if activeSkill.skillFlags.mine then
