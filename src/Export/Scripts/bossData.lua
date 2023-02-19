@@ -463,8 +463,8 @@ end
  directiveTable.skills.skillList = function(state, args, out)
 	out:write('},{\n')
 	out:write('    { val = "None", label = "None" }')
-	for _, skillname in pairs(state.skillList) do
-		out:write(',\n    { val = "', skillname, '", label = "', skillname, '" }')
+	for _, skillName in pairs(state.skillList) do
+		out:write(',\n    { val = "', skillName, '", label = "', skillName, '" }')
 	end
 	out:write('\n}')
 	state.boss = nil
