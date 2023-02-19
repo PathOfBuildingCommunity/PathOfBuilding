@@ -234,7 +234,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 		activeSkill.skillPartName = part.name
 		skillFlags.multiPart = #activeGemParts > 1
-	elseif activeEffect.srcInstance then
+	elseif activeEffect.srcInstance and not (activeEffect.gemData.secondaryGrantedEffect and activeEffect.gemData.secondaryGrantedEffect.parts and #activeEffect.gemData.secondaryGrantedEffect.parts > 1) then
 		activeEffect.srcInstance.skillPart = nil
 		activeEffect.srcInstance.skillPartCalcs = nil
 	end
