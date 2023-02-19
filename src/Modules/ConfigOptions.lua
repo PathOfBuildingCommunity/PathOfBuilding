@@ -1275,7 +1275,7 @@ Huge sets the radius to 11.
 	{ var = "conditionEnemyPoisoned", type = "check", label = "Is the enemy Poisoned?", ifEnemyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Poisoned", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "multiplierPoisonOnEnemy", type = "count", label = "# of Poison on enemy:", implyCond = "Poisoned", apply = function(val, modList, enemyModList)
+	{ var = "multiplierPoisonOnEnemy", type = "count", label = "# of Poison on enemy:", ifEnemyMult = "PoisonStack", implyCond = "Poisoned", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionSinglePoison", type = "check", label = "Cap to Single Poison on enemy?", ifCond = "SinglePoison", tooltip = "This is for low tolerance, but will limit you to only applying a single poison on the enemy", apply = function(val, modList, enemyModList)
