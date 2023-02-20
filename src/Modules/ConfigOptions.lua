@@ -42,6 +42,21 @@ local function banditTooltip(tooltip, mode, index, value)
 	end
 end
 
+local function bossSkillsTooltip(tooltip, mode, index, value)
+	local applyModes = { BODY = true, HOVER = true }
+	tooltip:Clear()
+	if applyModes[mode] then
+		tooltip:AddLine(14, [[
+^7Used to fill in defaults for specific boss skills if the boss config is not set
+
+Bosses' damage is modified by roll range configuration, defaulted at a 70% roll, at the normal monster level for your character level (capped at 85)
+Fill in the exact damage numbers if more precision is needed]])
+		if value.val ~= "None" then
+			tooltip:AddLine(14, '\n^7'..value.val..": "..data.bossSkills[value.val].tooltip)
+		end
+	end
+end
+
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
@@ -1551,7 +1566,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 4), true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 2.5), true)
 
 			local defaultPen = ""
 			build.configTab.varControls['enemyPhysicalOverwhelm']:SetPlaceholder(defaultPen, true)
@@ -1584,7 +1599,7 @@ Uber Pinnacle Boss adds the following modifiers:
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
-			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 4), true)
+			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(round(defaultDamage / 2.5), true)
 
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(data.misc.pinnacleBossPen, true)
@@ -1676,77 +1691,66 @@ Uber Pinnacle Boss adds the following modifiers:
 	{ var = "enemyArmour", type = "count", label = "Enemy Base Armour:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Armour", "BASE", val, "Config")
 	end },
-	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltip = [[
-Used to fill in defaults for specific boss skills if the boss config is not set
-
-Bosses' damage is assumed at a 2/3 roll, with no Atlas passives, at the normal monster level for your character level (capped at 85)
-Fill in the exact damage numbers if more precision is needed
-
-Caveats for certain skills are below
-
-Shaper Ball: Allocating Cosmic Wounds increases the penetration to 40% and adds 2 projectiles
-Shaper Slam: Cannot be Evaded.  Allocating Cosmic Wounds doubles the damage and cannot be blocked or dodged
-Maven Memory Game: Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  i.e. Hits before death should be >= 4 to survive]], list = {{val="None",label="None"},{val="Uber Atziri Flameblast",label="Uber Atziri Flameblast"},{val="Shaper Ball",label="Shaper Ball"},{val="Shaper Slam",label="Shaper Slam"},{val="Maven Memory Game",label="Maven Memory Game"}}, apply = function(val, modList, enemyModList, build)
-		--reset to empty
+	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltipFunc = bossSkillsTooltip, list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
 		if not (val == "None") then
+			local bossData = data.bossSkills[val]
+			local isUber = build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber"
+			if bossData.earlierUber and build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Pinnacle" then
+				isUber = true
+			end
 			local defaultDamage = ""
 			build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultDamage, true)
 			build.configTab.varControls['enemyChaosDamage']:SetPlaceholder(defaultDamage, true)
+			
+			local rollRangeMult = m_min(m_max(build.configTab.input['enemyDamageRollRange'] or build.configTab.varControls['enemyDamageRollRange'].placeholder, 0), 100)
+			for damageType, damageMult in pairs(bossData.DamageMultipliers) do
+				if isUber and bossData.UberDamageMultiplier then
+					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * (damageMult[1] + rollRangeMult * damageMult[2]) * bossData.UberDamageMultiplier), true)
+				else
+					build.configTab.varControls['enemy'..damageType..'Damage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * (damageMult[1] + rollRangeMult * damageMult[2])), true)
+				end
+			end
 
 			local defaultPen = ""
 			build.configTab.varControls['enemyPhysicalOverwhelm']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyLightningPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyColdPen']:SetPlaceholder(defaultPen, true)
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(defaultPen, true)
+			
+			if bossData.DamagePenetrations then
+				for penType, pen in pairs(bossData.DamagePenetrations) do
+					if isUber and bossData.UberDamagePenetrations and bossData.UberDamagePenetrations[penType] then
+						build.configTab.varControls['enemy'..penType]:SetPlaceholder(bossData.UberDamagePenetrations[penType], true)
+					else
+						build.configTab.varControls['enemy'..penType]:SetPlaceholder(pen, true)
+					end
+				end
+			end
+			
+			if bossData.DamageType then
+				build.configTab.varControls['enemyDamageType']:SelByValue(bossData.DamageType, "val")
+				build.configTab.input['enemyDamageType'] = bossData.DamageType
+			end
+			build.configTab.varControls['enemyDamageType'].enabled = false
+			
+			if isUber and bossData.UberSpeed then
+				build.configTab.varControls['enemySpeed']:SetPlaceholder(bossData.UberSpeed, true)
+			elseif bossData.speed then
+				build.configTab.varControls['enemySpeed']:SetPlaceholder(bossData.speed, true)
+			end
+			if bossData.critChance then
+				build.configTab.varControls['enemyCritChance']:SetPlaceholder(bossData.critChance, true)
+			end
+			
+			modList:NewMod("BossSkillActive", "FLAG", true, "Config")
 		else
 			build.configTab.varControls['enemyDamageType'].enabled = true
 		end
-
-		if val == "Uber Atziri Flameblast" then
-			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Uber Atziri Flameblast"].damageMult), true)
-				build.configTab.varControls['enemyDamageType']:SelByValue("Spell", "val")
-				build.configTab.varControls['enemyDamageType'].enabled = false
-				build.configTab.input['enemyDamageType'] = "Spell"
-			end
-			build.configTab.varControls['enemyFirePen']:SetPlaceholder(10, true)
-
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Uber Atziri Flameblast"].speed, true)
-			build.configTab.varControls['enemyCritChance']:SetPlaceholder(0, true)
-		elseif val == "Shaper Ball" then
-			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Ball"].damageMult), true)
-			end
-
-			build.configTab.varControls['enemyColdPen']:SetPlaceholder(25, true)
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Ball"].speed, true)
-			build.configTab.varControls['enemyDamageType'].enabled = false
-			build.configTab.varControls['enemyDamageType']:SelByValue("SpellProjectile", "val")
-			build.configTab.input['enemyDamageType'] = "SpellProjectile"
-		elseif val == "Shaper Slam" then
-			if build.configTab.enemyLevel then
-				build.configTab.varControls['enemyPhysicalDamage']:SetPlaceholder(round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Shaper Slam"].damageMult), true)
-			end
-			build.configTab.varControls['enemyDamageType'].enabled = false
-			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
-			build.configTab.input['enemyDamageType'] = "Melee"
-
-			build.configTab.varControls['enemySpeed']:SetPlaceholder(data.bossSkills["Shaper Slam"].speed, true)
-		elseif val == "Maven Memory Game" then
-			if build.configTab.enemyLevel then
-				local defaultEleDamage = round(data.monsterDamageTable[build.configTab.enemyLevel] * data.bossSkills["Maven Memory Game"].damageMult)
-				build.configTab.varControls['enemyLightningDamage']:SetPlaceholder(defaultEleDamage, true)
-				build.configTab.varControls['enemyColdDamage']:SetPlaceholder(defaultEleDamage, true)
-				build.configTab.varControls['enemyFireDamage']:SetPlaceholder(defaultEleDamage, true)
-			end
-			build.configTab.varControls['enemyDamageType'].enabled = false
-			build.configTab.varControls['enemyDamageType']:SelByValue("Melee", "val")
-			build.configTab.input['enemyDamageType'] = "Melee"
-		end
 	end },
+	{ var = "enemyDamageRollRange", type = "integer", label = "Enemy Skill Roll Range %:", ifFlag = "BossSkillActive", tooltip = "The percentage of the roll range the enemy hits for \n eg at 100% the enemy deals its maximum damage", defaultPlaceholderState = 70, hideIfInvalid = true },
 	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
 	{ var = "enemyMultiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier percent:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)

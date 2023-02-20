@@ -262,9 +262,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					control.selIndex = varData.defaultIndex
 				end
 			end
+			
 			if varData.defaultHidden then
 				control.shown = false
-			else
+			elseif not varData.hideIfInvalid then
 				local innerShown = control.shown
 				control.shown = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
@@ -291,6 +292,26 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						end
 					end
 	
+					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					if not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) then
+						tooltip:AddLine(14, "^1This config option is conditional with missing source and is invalid.")
+					end
+					return innerLabel
+				end
+
+				local innerTooltipFunc = control.tooltipFunc
+				control.tooltipFunc = function (tooltip, ...)
+					tooltip:Clear()
+
+					if innerTooltipFunc then
+						innerTooltipFunc(tooltip, ...)
+					else
+						local tooltipText = control:GetProperty("tooltipText")
+						if tooltipText then
+							tooltip:AddLine(14, tooltipText)
+						end
+					end
+
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
 					if not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) then
 						tooltip:AddLine(14, "^1This config option is conditional with missing source and is invalid.")
