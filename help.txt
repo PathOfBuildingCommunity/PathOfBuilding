@@ -46,7 +46,8 @@ Mouse 4/5	Undo / Redo path respectively (in build selection menu)
 Shift	While scrolling on a slider makes it 5 times faster
 Ctrl	While scrolling on a slider makes it 5 times slower
 
-When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
+When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot
+	and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
 
 Passive Tree Shortcuts:
 
@@ -55,7 +56,8 @@ P	Toggle node power
 Ctrl + D	Toggle stat diff display
 PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase amount of zoom x 3)
 Ctrl + LMB	Zoom in on mouse cursor position
-Hold Shift	Enable "path trace mode" (nodes highlighted will be added to a path which will be allocated when the final node is clicked on the tree)
+Hold Shift	Enable "path trace mode" 
+	(highlighted nodes will stay highlighted, and will be allocated when a node is clicked on the tree)
 
 Developer Use
 
@@ -78,4 +80,40 @@ DEV[Shift	Copy export xml to clipboard (hold key during export)]
 Adding ^ and then a number or hex code before text will change the colour of the text, eg ^^77 will make all text white
 
 ---[Timeless Jewels][6]
+
+Timeless jewels modify nodes in radius based off their seed, the same seed will apply the same changes to the same 
+    small/notable nodes so that is the umber you look for. The Conqueror (name on the jewel) only affects the keystone.
+  
+Path of Building has an inbuilt tool in the tree tab to search through seeds to find stats that would be good for your build
+clicking "Find Timeless Jewel" button on the bottom bar in the tree tab will open a UI that lets you:
+select which jewel type, which jewel socket to search for, and which conqueror from that jewel 
+    (any will just use the first conqueror if you add it to build, more on that later)
+
+The filter nodes option makes it only check nodes which are allocated when searching a jewel socket
+Next a node change/addition can be selected with the "search for node" dropdown, 
+    The values for the stats added are controlled by Primary/secondary (in the case of 2 stats from 1 node) node weights
+    If that type has already been added then moving those sliders will change the values
+    These values can also be edited directly in the "Desired Nodes" box
+    A minimum weight can be added for a node, this will filter results to only seeds with at least that much weight from those nodes
+        if minimum weight bar is at max, it will turn it into "required", this just means the node needs to showup at least once
+
+There are 2 different boxes these weights can be entered into, a basic one, and the "fallback" weights
+    if a node is in both it will only use the value from desired, the fallback ones can automatically be populated using
+    the fallback weight mode, select a method of determining the weights (a stat to sort by) and click generate
+    these can then be copied from the fallback nodes box to the desired nodes box if you want to generate a different type
+        eg. if you want to sort by combined dps and ehp, you generate one, copy it over and then generate the other
+
+Lastly is the search results box, this will list seeds from the best to the worst based on your search parameters
+    double clicking one will add the jewel with that seed and keystone to your build
+    clicking Copy trade URL will copy a few results to a trade link which can be pasted in your browser
+    doing this multiple times will copy later results incase the first one didn't show results
+    if you click 1 result and shift click another it will highlight multiple, you can then click "Copy trade URL" to search all of them
+
+Militant faith also has an option to select the other mods on the jewel
+
+Advanced tricks:
+    for Militant faith, if you don't want any nodes to change you can just sort by devotion, 
+        as unchanged nodes add devotion the ones with the most devotion will be the one with unchanged nodes
+	
+	
 
