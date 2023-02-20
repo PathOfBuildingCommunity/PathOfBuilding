@@ -13,7 +13,7 @@ for row in dat("MonsterMapDifficulty"):Rows() do
 end
 local baseDamage = {
 	AtziriFlameblast = { index = 1, uberIndex = 2, oldMethod = true },
-	AtlasBossAcceleratingProjectiles = { index = 1, uberIndex = 2, oldMethod = true },
+	AtlasBossAcceleratingProjectiles = { index = 1, uberIndex = 2 },
 	AtlasBossFlickerSlam = { index = 1, uberIndex = 2, oldMethod = true, attack = true },
 	AtlasExileOrionCircleMazeBlast3 = { index = 4, uberIndex = 5 },
 	CleansingFireWall = { index = 1, oldMethod = true },

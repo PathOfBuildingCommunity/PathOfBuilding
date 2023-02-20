@@ -25,7 +25,7 @@ return {
 	["Shaper Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
-			Cold = { 11.666076975909, 0.058330384879546 }
+			Cold = { 11.668066430448, 0.058340332152239 }
 		},
 		DamagePenetrations = {
 			ColdPen = 25
