@@ -304,73 +304,23 @@ holding Shift will put it in the second.]])
 		if not self.controls.displayItemVariant:IsShown() then
 			return 0
 		end
-		return (28 + 
-		(self.displayItem.hasAltVariant and 24 or 0) + 
-		(self.displayItem.hasAltVariant2 and 24 or 0) + 
-		(self.displayItem.hasAltVariant3 and 24 or 0) +
-		(self.displayItem.hasAltVariant4 and 24 or 0) + 
-		(self.displayItem.hasAltVariant5 and 24 or 0))
+		local val = 4
+		for _, variant in pairs(self.displayItem.variantList) do
+			val = val + 24
+		end
+		return val 
 	end)
 	self.controls.displayItemVariant = new("DropDownControl", {"TOPLEFT", self.controls.displayItemSectionVariant,"TOPLEFT"}, 0, 0, 300, 20, nil, function(index, value)
-		self.displayItem.variant = index
+		self.displayItem.variantList.Base.value = index
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 		self:UpdateDisplayItemRangeLines()
 	end)
 	self.controls.displayItemVariant.maxDroppedWidth = 1000
 	self.controls.displayItemVariant.shown = function()
-		return self.displayItem.variantList and #self.displayItem.variantList > 1
+		return self.displayItem.variantNameList and #self.displayItem.variantNameList > 1
 	end
-	self.controls.displayItemAltVariant = new("DropDownControl", {"TOPLEFT",self.controls.displayItemVariant,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
-		self.displayItem.variantAlt = index
-		self.displayItem:BuildAndParseRaw()
-		self:UpdateDisplayItemTooltip()
-		self:UpdateDisplayItemRangeLines()
-	end)
-	self.controls.displayItemAltVariant.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant.shown = function()
-		return self.displayItem.hasAltVariant
-	end
-	self.controls.displayItemAltVariant2 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
-		self.displayItem.variantAlt2 = index
-		self.displayItem:BuildAndParseRaw()
-		self:UpdateDisplayItemTooltip()
-		self:UpdateDisplayItemRangeLines()
-	end)
-	self.controls.displayItemAltVariant2.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant2.shown = function()
-		return self.displayItem.hasAltVariant2
-	end
-	self.controls.displayItemAltVariant3 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant2,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
-		self.displayItem.variantAlt3 = index
-		self.displayItem:BuildAndParseRaw()
-		self:UpdateDisplayItemTooltip()
-		self:UpdateDisplayItemRangeLines()
-	end)
-	self.controls.displayItemAltVariant3.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant3.shown = function()
-		return self.displayItem.hasAltVariant3
-	end
-	self.controls.displayItemAltVariant4 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant3,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
-		self.displayItem.variantAlt4 = index
-		self.displayItem:BuildAndParseRaw()
-		self:UpdateDisplayItemTooltip()
-		self:UpdateDisplayItemRangeLines()
-	end)
-	self.controls.displayItemAltVariant4.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant4.shown = function()
-		return self.displayItem.hasAltVariant4
-	end
-	self.controls.displayItemAltVariant5 = new("DropDownControl", {"TOPLEFT",self.controls.displayItemAltVariant4,"BOTTOMLEFT"}, 0, 4, 300, 20, nil, function(index, value)
-		self.displayItem.variantAlt5 = index
-		self.displayItem:BuildAndParseRaw()
-		self:UpdateDisplayItemTooltip()
-		self:UpdateDisplayItemRangeLines()
-	end)
-	self.controls.displayItemAltVariant5.maxDroppedWidth = 1000
-	self.controls.displayItemAltVariant5.shown = function()
-		return self.displayItem.hasAltVariant5
-	end
+	self.controls.displayItemVariant.variantControls = {}
 
 	-- Section: Sockets and Links
 	self.controls.displayItemSectionSockets = new("Control", {"TOPLEFT",self.controls.displayItemSectionVariant,"BOTTOMLEFT"}, 0, 0, 0, function()
@@ -866,27 +816,6 @@ function ItemsTabClass:Load(xml, dbFileName)
 		if node.elem == "Item" then
 			local item = new("Item", "")
 			item.id = tonumber(node.attrib.id)
-			item.variant = tonumber(node.attrib.variant)
-			if node.attrib.variantAlt then
-				item.hasAltVariant = true
-				item.variantAlt = tonumber(node.attrib.variantAlt)
-			end
-			if node.attrib.variantAlt2 then
-				item.hasAltVariant2 = true
-				item.variantAlt2 = tonumber(node.attrib.variantAlt2)
-			end
-			if node.attrib.variantAlt3 then
-				item.hasAltVariant3 = true
-				item.variantAlt3 = tonumber(node.attrib.variantAlt3)
-			end
-			if node.attrib.variantAlt4 then
-				item.hasAltVariant4 = true
-				item.variantAlt4 = tonumber(node.attrib.variantAlt4)
-			end
-			if node.attrib.variantAlt5 then
-				item.hasAltVariant5 = true
-				item.variantAlt5 = tonumber(node.attrib.variantAlt5)
-			end
 			for _, child in ipairs(node) do
 				if type(child) == "string" then
 					item:ParseRaw(child)
@@ -961,12 +890,6 @@ function ItemsTabClass:Save(xml)
 			elem = "Item", 
 			attrib = { 
 				id = tostring(id), 
-				variant = item.variant and tostring(item.variant), 
-				variantAlt = item.variantAlt and tostring(item.variantAlt), 
-				variantAlt2 = item.variantAlt2 and tostring(item.variantAlt2),
-				variantAlt3 = item.variantAlt3 and tostring(item.variantAlt3), 
-				variantAlt4 = item.variantAlt4 and tostring(item.variantAlt4), 
-				variantAlt5 = item.variantAlt5 and tostring(item.variantAlt5)
 			} 
 		}
 		item:BuildAndParseRaw()
@@ -1408,33 +1331,32 @@ function ItemsTabClass:SetDisplayItem(item)
 		self:UpdateDisplayItemTooltip()
 		self.snapHScroll = "RIGHT"
 
-		self.controls.displayItemVariant.list = item.variantList
-		self.controls.displayItemVariant.selIndex = item.variant
+		self.controls.displayItemVariant.list = item.variantList.Base.list or item.variantNameList
+		self.controls.displayItemVariant.selIndex = item.variantList.Base.value
 		self.controls.displayItemVariant:CheckDroppedWidth(true)
-		if item.hasAltVariant then
-			self.controls.displayItemAltVariant.list = item.variantList
-			self.controls.displayItemAltVariant.selIndex = item.variantAlt
-			self.controls.displayItemAltVariant:CheckDroppedWidth(true)
+		for variantControlName, variantControl in pairs(self.controls.displayItemVariant.variantControls) do
+			variantControl.shown = false
 		end
-		if item.hasAltVariant2 then
-			self.controls.displayItemAltVariant2.list = item.variantList
-			self.controls.displayItemAltVariant2.selIndex = item.variantAlt2
-			self.controls.displayItemAltVariant2:CheckDroppedWidth(true)
-		end
-		if item.hasAltVariant3 then
-			self.controls.displayItemAltVariant3.list = item.variantList
-			self.controls.displayItemAltVariant3.selIndex = item.variantAlt3
-			self.controls.displayItemAltVariant3:CheckDroppedWidth(true)
-		end
-		if item.hasAltVariant4 then
-			self.controls.displayItemAltVariant4.list = item.variantList
-			self.controls.displayItemAltVariant4.selIndex = item.variantAlt4
-			self.controls.displayItemAltVariant4:CheckDroppedWidth(true)
-		end
-		if item.hasAltVariant5 then
-			self.controls.displayItemAltVariant5.list = item.variantList
-			self.controls.displayItemAltVariant5.selIndex = item.variantAlt5
-			self.controls.displayItemAltVariant5:CheckDroppedWidth(true)
+		self.controls.displayItemVariant.lastControl = self.controls.displayItemVariant
+		for variantName, variant in pairs(item.variantList) do
+			if variantName ~= "Base" then
+				local list = variant.list or item.variantNameList
+				if not self.controls["displayItemAltVariant"..variantName] or self.controls["displayItemAltVariant"..variantName].list ~= list then
+					self.controls["displayItemAltVariant"..variantName] = new("DropDownControl", {"TOPLEFT",self.controls.displayItemVariant.lastControl,"BOTTOMLEFT"}, 0, 4, 300, 20, list, function(index, value)
+						self.displayItem.variantList[variantName].value = index + (variant.range and (variant.range[1] - 1) or 0)
+						self.displayItem:BuildAndParseRaw()
+						self:UpdateDisplayItemTooltip()
+						self:UpdateDisplayItemRangeLines()
+					end)
+					self.controls["displayItemAltVariant"..variantName].maxDroppedWidth = 1000
+					self.controls.displayItemVariant.variantControls["displayItemAltVariant"..variantName] = self.controls["displayItemAltVariant"..variantName]
+				else
+					self.controls["displayItemAltVariant"..variantName].shown = true
+				end
+				self.controls.displayItemVariant.lastControl = self.controls["displayItemAltVariant"..variantName]
+				self.controls["displayItemAltVariant"..variantName].selIndex = variant.value - (variant.range and (variant.range[1] - 1) or 0)
+				self.controls["displayItemAltVariant"..variantName]:CheckDroppedWidth(true)
+			end
 		end
 		self:UpdateSocketControls()
 		if item.crafted then
@@ -2840,11 +2762,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 
 	-- Special fields for database items
 	if dbMode then
-		if item.variantList then
-			if #item.variantList == 1 then
-				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[1])
+		if item.variantNameList then
+			if #item.variantNameList == 1 then
+				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantNameList[1])
 			else
-				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantList[item.variant].." ("..#item.variantList.." variants)")
+				tooltip:AddLine(16, "^xFFFF30Variant: "..item.variantNameList[item.variantList.Base.value].." ("..#item.variantNameList.." variants)")
 			end
 		end
 		if item.league then
