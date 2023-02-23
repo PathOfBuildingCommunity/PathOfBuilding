@@ -1491,6 +1491,7 @@ Uber Pinnacle Boss adds the following modifiers:
 
 			local defaultLevel = 83
 			build.configTab.varControls['enemyLevel']:SetPlaceholder("", true)
+			build.configTab:UpdateLevel()
 			if build.configTab.enemyLevel then
 				defaultLevel = build.configTab.enemyLevel
 			end
@@ -1523,6 +1524,7 @@ Uber Pinnacle Boss adds the following modifiers:
 
 			local defaultLevel = 83
 			build.configTab.varControls['enemyLevel']:SetPlaceholder("", true)
+			build.configTab:UpdateLevel()
 			if build.configTab.enemyLevel then
 				defaultLevel = build.configTab.enemyLevel
 			end
@@ -1556,6 +1558,7 @@ Uber Pinnacle Boss adds the following modifiers:
 
 			local defaultLevel = 84
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
+			build.configTab:UpdateLevel()
 			if build.configTab.enemyLevel then
 				defaultLevel = m_max(build.configTab.enemyLevel, defaultLevel)
 			end
@@ -1590,6 +1593,7 @@ Uber Pinnacle Boss adds the following modifiers:
 
 			local defaultLevel = 85
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
+			build.configTab:UpdateLevel()
 			if build.configTab.enemyLevel then
 				defaultLevel = m_max(build.configTab.enemyLevel, defaultLevel)
 			end
