@@ -679,6 +679,7 @@ function ImportTabClass:ImportItemsAndSkills(json)
 	self.build.itemsTab:AddUndoState()
 	self.build.skillsTab:AddUndoState()
 	self.build.characterLevel = charItemData.character.level
+	self.build.configTab:UpdateLevel()
 	self.build.controls.characterLevel:SetText(charItemData.character.level)
 	self.build.buildFlag = true
 	return charItemData.character -- For the wrapper
