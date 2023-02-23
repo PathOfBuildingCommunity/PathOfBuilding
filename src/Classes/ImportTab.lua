@@ -583,6 +583,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {})
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
+	self.build.configTab:UpdateLevel()
 	self.build.controls.characterLevel:SetText(charData.level)
 	self.build:EstimatePlayerProgress()
 	local resistancePenaltyIndex = 3
