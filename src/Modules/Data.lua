@@ -598,6 +598,7 @@ do
 	end
 	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
 end
+data.mapMods = LoadModule("Data/ModMap")
 
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
