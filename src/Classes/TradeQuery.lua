@@ -634,7 +634,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 				baseModSum = baseModSum + baseOutput[mod] or 0
 				newModSum = newModSum + newOutput[mod] or 0
 			end
-			return newModSum / (baseModSum ~= 0 and baseModSum or 1)
+			return newModSum / ((baseModSum ~= 0) and baseModSum or 1)
 		end
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
