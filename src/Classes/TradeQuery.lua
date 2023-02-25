@@ -624,15 +624,24 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local baseItemOutput = calcFunc({ })
+		local function ratioModSums(...)
+			local baseModSum = 0
+			local newModSum = 0
+			for _, mod in ipairs({ ... }) do
+				baseModSum = baseModSum + baseOutput[mod] or 0
+				newModSum = newModSum + newOutput[mod] or 0
+			end
+			return newModSum / (baseModSum ~= 0 and baseModSum or 1)
+		end
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
 			local newStatValue = 0
 			for _, statTable in ipairs(self.statSortSelectionList) do
 				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-					newStatValue = newStatValue + m_max((output.TotalDPS or 0) / (baseItemOutput.TotalDPS or 0), m_max((output.TotalDotDPS or 0) / (baseItemOutput.TotalDotDPS or 0), (output.CombinedDPS or 0) / (baseItemOutput.CombinedDPS or 0))) * statTable.weightMult
+					newStatValue = newStatValue + ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") * statTable.weightMult
 				else
-					newStatValue = newStatValue + ( output[statTable.stat] or 0 ) / ( baseItemOutput[statTable.stat] or 0 ) * statTable.weightMult
+					newStatValue = newStatValue + ratioModSums(statTable.stat) * statTable.weightMult
 				end
 			end
 			out[index] = newStatValue
