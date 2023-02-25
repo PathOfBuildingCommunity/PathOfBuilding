@@ -627,7 +627,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
-			out[index] = self.TradeQueryGeneratorClass.WeightedRatioOutputs(baseItemOutput, output, self.statSortSelectionList)
+			out[index] = self.tradeQueryGenerator.WeightedRatioOutputs(baseItemOutput, output, self.statSortSelectionList)
 		end
 		GlobalCache.useFullDPS = storedFullDPS
 		return out
