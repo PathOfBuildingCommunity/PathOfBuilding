@@ -125,7 +125,7 @@ local function canModSpawnForItemCategory(mod, tags)
 	return false
 end
 
-function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+local function WeightedRatioOutputs(baseOutput, newOutput, statWeights)
 	local meanStatDiff = 0
 	local function ratioModSums(...)
 		local baseModSum = 0
@@ -134,7 +134,7 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 			baseModSum = baseModSum + baseOutput[mod] or 0
 			newModSum = newModSum + newOutput[mod] or 0
 		end
-		return newModSum / (baseModSum ~= 0 and baseModSum or 1)
+		return newModSum / ((baseModSum ~= 0) and baseModSum or 1)
 	end
 	for _, statTable in ipairs(statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
@@ -424,7 +424,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 			end
 
 			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-			local meanStatDiff = self:WeightedRatioOutputs(self.calcContext.baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
+			local meanStatDiff = WeightedRatioOutputs(self.calcContext.baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 			if meanStatDiff > 0.01 then
 				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
 				self.alreadyWeightedMods[entry.tradeMod.id] = true
@@ -546,7 +546,7 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	local baseOutput = calcFunc({ })
 	local baseItemOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
 	-- make weights more human readable
-	local compStatValue = self:WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
+	local compStatValue = WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
 
 	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
 	self.modWeights = { }
@@ -609,7 +609,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	self.calcContext.testItem:BuildAndParseRaw()
 
 	local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-	local currentStatDiff = self:WeightedRatioOutputs(self.calcContext.baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
+	local currentStatDiff = WeightedRatioOutputs(self.calcContext.baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 
 	-- Restore global cache full DPS
 	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
