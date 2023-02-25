@@ -624,27 +624,10 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
 		local baseItemOutput = calcFunc({ })
-		local function ratioModSums(...)
-			local baseModSum = 0
-			local newModSum = 0
-			for _, mod in ipairs({ ... }) do
-				baseModSum = baseModSum + baseOutput[mod] or 0
-				newModSum = newModSum + newOutput[mod] or 0
-			end
-			return newModSum / ((baseModSum ~= 0) and baseModSum or 1)
-		end
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
-			local newStatValue = 0
-			for _, statTable in ipairs(self.statSortSelectionList) do
-				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-					newStatValue = newStatValue + ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") * statTable.weightMult
-				else
-					newStatValue = newStatValue + ratioModSums(statTable.stat) * statTable.weightMult
-				end
-			end
-			out[index] = newStatValue
+			out[index] = self.TradeQueryGeneratorClass.WeightedRatioOutputs(baseItemOutput, output, self.statSortSelectionList)
 		end
 		GlobalCache.useFullDPS = storedFullDPS
 		return out
