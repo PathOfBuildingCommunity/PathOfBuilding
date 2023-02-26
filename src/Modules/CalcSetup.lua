@@ -950,7 +950,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if socketGroup.slot == grantedSkill.slotName and not socketGroup.source then
 							-- Add all support gems to the skill's group
 							for _, gemInstance in ipairs(socketGroup.gemList) do
-								if gemInstance.gemData and gemInstance.gemData.grantedEffect.support then
+								if gemInstance.gemData and (gemInstance.gemData.grantedEffect.support or (gemInstance.gemData.secondaryGrantedEffect and gemInstance.gemData.secondaryGrantedEffect.support)) then
 									t_insert(group.gemList, gemInstance)
 								end
 							end

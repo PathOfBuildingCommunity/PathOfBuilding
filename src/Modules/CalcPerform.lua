@@ -3333,7 +3333,7 @@ function calcs.perform(env, avoidCache)
 					return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0 and skill ~= actor.mainSkill
 				end
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCospris and actor.mainSkill.socketGroup.slot == skill.socketGroup.slot end
-			else
+			elseif not (actor.mainSkill.activeEffect.grantedEffect.fromItem and actor.mainSkill.activeEffect.grantedEffect.hidden) then
 				--Tawhoa's Chosen is Handled in CalcOffence
 				if (triggerName or uniqueTriggerName) and not actor.mainSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
 					ConPrintf("[ERROR]: Unhandled Unique Trigger Name: " .. (triggerName or uniqueTriggerName))
@@ -3341,7 +3341,8 @@ function calcs.perform(env, avoidCache)
 				actor.mainSkill.skillData.triggeredByUnique = nil
 				skip = true
 			end
-		else
+		end
+		if not uniqueTriggerName or not skip then
 			if actor.mainSkill.skillData.triggeredByCoC then
 				triggerName = "Cast On Critical Strike"
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and skill ~= actor.mainSkill and slotMatch(env, skill) end
