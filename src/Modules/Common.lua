@@ -499,6 +499,27 @@ function tableConcat(t1,t2)
     return t3
 end
 
+--- Simple table value equality
+---@param t1 table
+---@param t2 table
+---@return boolean
+function tableDeepEquals(t1, t2)
+	if t1 == t2 then
+		return true
+	end
+	if not t1 or not t2 or #t1 ~= #t2 then
+		return false
+	end
+	for k, v1 in pairs(t1) do
+		local v2 = t2[k]
+		local typeV1 = type(v1)
+		if not (typeV1 == type(v2) and (typeV1 == "table" and tableDeepEquals(v1, v2) or v1 == v2)) then
+			return false
+		end
+	end
+	return true
+end
+
 -- Natural sort comparator
 function naturalSortCompare(a, b)
 	local aIndex, bIndex = 1, 1

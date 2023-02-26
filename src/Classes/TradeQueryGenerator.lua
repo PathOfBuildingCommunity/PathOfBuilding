@@ -34,6 +34,7 @@ local tradeStatCategoryIndices = {
 	["Eater"] = 3,
 	["Exarch"] = 3,
 	["Synthesis"] = 3,
+	["PassiveNode"] = 2,
 }
 
 local influenceSuffixes = { "_shaper", "_elder", "_adjudicator", "_basilisk", "_crusader", "_eyrie"}
@@ -140,7 +141,7 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 			end
 
 			local statOrder = modLine:find("Nearby Enemies have %-") ~= nil and mod.statOrder[index + 1] or mod.statOrder[index] -- hack to get minus res mods associated with the correct statOrder
-			local modType = (mod.type == "Prefix" or mod.type == "Suffix") and "Explicit" or mod.type
+			local modType = (mod.type == "Prefix" or mod.type == "Suffix") and (modId:find("AfflictionNotable") and "PassiveNode" or "Explicit") or mod.type
 			if modType == "ScourgeUpside" then modType = "Scourge" end
 
 			-- Special cases
@@ -257,6 +258,7 @@ function TradeQueryGeneratorClass:InitMods()
 		["Eater"] = { },
 		["Exarch"] = { },
 		["Synthesis"] = { },
+		["PassiveNode"] = { },
 	}
 
 	-- originates from: https://www.pathofexile.com/api/trade/data/stats
@@ -269,6 +271,13 @@ function TradeQueryGeneratorClass:InitMods()
 	self:GenerateModData(data.veiledMods, tradeQueryStatsParsed)
 	self:GenerateModData(data.itemMods.Jewel, tradeQueryStatsParsed)
 	self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed)
+	local clusterNotableMods = {}
+	for k, v in pairs(data.itemMods.JewelCluster) do
+		if k:find("AfflictionNotable") then
+			clusterNotableMods[k] = v
+		end
+	end
+	self:GenerateModData(clusterNotableMods, tradeQueryStatsParsed)
 
 	-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
 	for baseName, entry in pairs(data.itemBases) do
@@ -370,6 +379,27 @@ function TradeQueryGeneratorClass:InitMods()
 	queryModsFile:close()
 end
 
+function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+	local meanStatDiff = 0
+	local function ratioModSums(...)
+		local baseModSum = 0
+		local newModSum = 0
+		for _, mod in ipairs({ ... }) do
+			baseModSum = baseModSum + baseOutput[mod] or 0
+			newModSum = newModSum + newOutput[mod] or 0
+		end
+		return newModSum / (baseModSum ~= 0 and baseModSum or 1)
+	end
+	for _, statTable in ipairs(statWeights) do
+		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
+			meanStatDiff = meanStatDiff + ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") * statTable.weightMult
+		else
+			meanStatDiff = meanStatDiff + ratioModSums(statTable.stat) * statTable.weightMult
+		end
+	end
+	return meanStatDiff
+end
+
 function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 	local start = GetTime()
 	for _, entry in pairs(modsToTest) do
@@ -403,20 +433,12 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 			end
 
 			local baseOutput = self.calcContext.baseOutput
-			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-			local meanStatDiff = 0
-			for _, statTable in ipairs(self.calcContext.options.statWeights) do
-				if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-					meanStatDiff = meanStatDiff + m_max((output.TotalDPS or 0) / (baseOutput.TotalDPS or 0), m_max((output.TotalDotDPS or 0) / (baseOutput.TotalDotDPS or 0), (output.CombinedDPS or 0) / (baseOutput.CombinedDPS or 0))) * statTable.weightMult
-				else
-					meanStatDiff = meanStatDiff + ( output[statTable.stat] or 0 ) / ( baseOutput[statTable.stat] or 0 ) * statTable.weightMult
-				end
-			end
-			meanStatDiff = meanStatDiff * 1000 - (self.calcContext.baseStatValue or 0)
+			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, { nodeAlloc = true})
+			local meanStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 			if meanStatDiff > 0.01 then
 				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
-				self.alreadyWeightedMods[entry.tradeMod.id] = true
 			end
+			self.alreadyWeightedMods[entry.tradeMod.id] = true
 
 			local now = GetTime()
 			if now - start > 50 then
@@ -424,6 +446,37 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 				coroutine.yield()
 				start = now
 			end
+		end
+		::continue::
+	end
+end
+
+function TradeQueryGeneratorClass:GeneratePassiveNodeWeights(nodesToTest)
+	local start = GetTime()
+	for _, entry in pairs(nodesToTest) do
+		if self.alreadyWeightedMods[entry.tradeMod.id] ~= nil then
+			goto continue
+		end
+		
+		local nodeName = entry.tradeMod.text:match("1 Added Passive Skill is (.*)") or entry.tradeMod.text:match("Allocates (.*)")
+		if not nodeName then
+			goto continue
+		end
+		local node = self.itemsTab.build.spec.tree.clusterNodeMap[nodeName] or self.itemsTab.build.spec.tree.notableMap[nodeName]
+		
+		local baseOutput = self.calcContext.baseOutput
+		local output = self.calcContext.calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+		local meanStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
+		if meanStatDiff > 0.01 then
+			table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff, meanStatDiff = meanStatDiff, invert = false })
+		end
+		self.alreadyWeightedMods[entry.tradeMod.id] = true
+		
+		local now = GetTime()
+		if now - start > 50 then
+			-- Would be nice to update x/y progress on the popup here, but getting y ahead of time has a cost, and the visual seems to update on a significant delay anyways so it's not very useful
+			coroutine.yield()
+			start = now
 		end
 		::continue::
 	end
@@ -446,11 +499,23 @@ end
 
 function TradeQueryGeneratorClass:StartQuery(slot, options)
 	-- Figure out what type of item we're searching for
-	local existingItem = self.itemsTab.items[slot.selItemId]
+	local existingItem = slot and self.itemsTab.items[slot.selItemId]
 	local testItemType = existingItem and existingItem.baseName or "Unset Amulet"
 	local itemCategoryQueryStr
 	local itemCategory
-	if slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
+	local special = { }
+	if options.special then
+		if options.special.itemName == "Megalomaniac" then
+			special = {
+				queryFilters = {},
+				queryExtra = {
+					name = "Megalomaniac",
+					type = "Medium Cluster Jewel"
+				},
+				calcNodesInsteadOfMods = true,
+			}
+		end
+	elseif slot.slotName == "Weapon 2" or slot.slotName == "Weapon 1" then
 		if existingItem then
 			if existingItem.type == "Shield" then
 				itemCategoryQueryStr = "armour.shield"
@@ -525,24 +590,11 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		testItem[itemLib.influenceInfo[options.influence2 - 1].key] = true
 	end
 
-	-- Set global cache full DPS
-	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-
 	-- Calculate base output with a blank item
-	local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
-	local baseOutput = calcFunc({ })
-	local baseItemOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
-	local compStatValue = 0
-	for _, statTable in ipairs(options.statWeights) do
-		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-			compStatValue = compStatValue + m_max((baseItemOutput.TotalDPS or 0) / (baseOutput.TotalDPS or 0), m_max((baseItemOutput.TotalDotDPS or 0) / (baseOutput.TotalDotDPS or 0), (baseItemOutput.CombinedDPS or 0) / (baseOutput.CombinedDPS or 0))) * statTable.weightMult
-		else
-			compStatValue = compStatValue + (baseItemOutput[statTable.stat] or 0) / ( baseOutput[statTable.stat] or 0 ) * statTable.weightMult
-		end
-	end
+	local calcFunc, baseOutput = self.itemsTab.build.calcsTab:GetMiscCalculator()
+	local baseItemOutput = slot and calcFunc({ repSlotName = slot.slotName, repItem = testItem }, { nodeAlloc = true }) or baseOutput
 	-- make weights more human readable
-	compStatValue = compStatValue * 1000
+	local compStatValue = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
 
 	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
 	self.modWeights = { }
@@ -551,13 +603,13 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 	self.calcContext = {
 		itemCategoryQueryStr = itemCategoryQueryStr,
 		itemCategory = itemCategory,
+		special = special,
 		testItem = testItem,
 		baseOutput = baseOutput,
 		baseStatValue = compStatValue,
 		calcFunc = calcFunc,
 		options = options,
 		slot = slot,
-		globalCacheUseFullDPS = storedGlobalCacheDPSView
 	}
 
 	-- OnFrame will pick this up and begin the work
@@ -570,6 +622,10 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 end
 
 function TradeQueryGeneratorClass:ExecuteQuery()
+	if self.calcContext.special.calcNodesInsteadOfMods then
+		self:GeneratePassiveNodeWeights(self.modData.PassiveNode)
+		return
+	end
 	self:GenerateModWeights(self.modData["Explicit"])
 	self:GenerateModWeights(self.modData["Implicit"])
 	if self.calcContext.options.includeCorrupted then
@@ -589,7 +645,7 @@ end
 
 function TradeQueryGeneratorClass:FinishQuery()
 	-- Calc original item Stats without anoint or enchant, and use that diff as a basis for default min sum.
-	local originalItem = self.itemsTab.items[self.calcContext.slot.selItemId]
+	local originalItem = self.calcContext.slot and self.itemsTab.items[self.calcContext.slot.selItemId]
 	self.calcContext.testItem.explicitModLines = { }
 	if originalItem then
 		for _, modLine in ipairs(originalItem.explicitModLines) do
@@ -605,34 +661,25 @@ function TradeQueryGeneratorClass:FinishQuery()
 	self.calcContext.testItem:BuildAndParseRaw()
 
 	local baseOutput = self.calcContext.baseOutput
-	local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-	local currentStatDiff = 0
-	for _, statTable in ipairs(self.calcContext.options.statWeights) do
-		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-			currentStatDiff = currentStatDiff + m_max((originalOutput.TotalDPS or 0) / (baseOutput.TotalDPS or 0), m_max((originalOutput.TotalDotDPS or 0) / (baseOutput.TotalDotDPS or 0), (originalOutput.CombinedDPS or 0) / (baseOutput.CombinedDPS or 0))) * statTable.weightMult
-		else
-			currentStatDiff = currentStatDiff + ( originalOutput[statTable.stat] or 0 ) / ( baseOutput[statTable.stat] or 0 ) * statTable.weightMult
-		end
-	end
-	currentStatDiff = currentStatDiff * 1000 - (self.calcContext.baseStatValue or 0)
-
-	-- Restore global cache full DPS
-	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
-
-	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
-	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-	local minWeight = currentStatDiff * 0.7
-
+	local originalOutput = originalItem and self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, { nodeAlloc = true }) or baseOutput
+	local currentStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
+	
 	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
 		return a.meanStatDiff > b.meanStatDiff
 	end)
-
+	
+	-- A megalomaniac is not being compared to anything and the currentStatDiff will be 0, so just go for an arbitrary min weight - in this case triple the weight of the worst evaluated node.
+	local megalomaniacSpecialMinWeight = self.calcContext.special.itemName == "Megalomaniac" and self.modWeights[#self.modWeights] * 3
+	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
+	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
+	local minWeight = megalomaniacSpecialMinWeight or currentStatDiff * 0.7
+	
 	-- Generate trade query str and open in browser
 	local filters = 0
 	local queryTable = {
 		query = {
-			filters = {
+			filters = self.calcContext.special.queryFilters or {
 				type_filters = {
 					filters = {
 						category = { option = self.calcContext.itemCategoryQueryStr },
@@ -652,6 +699,10 @@ function TradeQueryGeneratorClass:FinishQuery()
 		sort = { ["statgroup.0"] = "desc" },
 		engine = "new"
 	}
+	
+	for k, v in pairs(self.calcContext.special.queryExtra or {}) do
+		queryTable.query[k] = v
+	end
 
 	local andFilters = { type = "and", filters = { } }
 
@@ -712,13 +763,14 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local options = { }
 	local popupHeight = 97
 
-	local isJewelSlot = slot.slotName:find("Jewel") ~= nil
-	local isAbyssalJewelSlot = slot.slotName:find("Abyssal") ~= nil
-	local isAmuletSlot = slot.slotName == "Amulet"
-	local isEldritchModSlot = eldritchModSlots[slot.slotName] == true
-
+	local isJewelSlot = slot and slot.slotName:find("Jewel") ~= nil
+	local isAbyssalJewelSlot = slot and slot.slotName:find("Abyssal") ~= nil
+	local isAmuletSlot = slot and slot.slotName == "Amulet"
+	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
+	
 	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, -40, 30, 18, "Corrupted Mods:", function(state) end)
-	controls.includeCorrupted.state = (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
+	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
+	controls.includeCorrupted.enabled = not context.slotTbl.alreadyCorrupted
 
 	-- removing checkbox until synthesis mods are supported
 	--controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
@@ -726,6 +778,10 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	
 	local lastItemAnchor = controls.includeCorrupted
 	local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
+	
+	if context.slotTbl.unique then
+		options.special = { itemName = context.slotTbl.slotName }
+	end
 	
 	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
 		controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Scourge Mods:", function(state) end)
@@ -758,7 +814,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 		lastItemAnchor = controls.jewelType
 		popupHeight = popupHeight + 23
-	elseif not isAbyssalJewelSlot then
+	elseif slot and not isAbyssalJewelSlot then
 		controls.influence1 = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
 		controls.influence1.selIndex = self.lastInfluence1 or 1
 		controls.influence1Label = new("LabelControl", {"RIGHT",controls.influence1,"LEFT"}, -5, 0, 0, 16, "Influence 1:")
@@ -801,8 +857,8 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	lastItemAnchor = controls.maxPrice
 	popupHeight = popupHeight + 23
 	
-    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, #statWeights < 2 and statWeights[1].label or "Multiple Stats")
-    controls.sortStatLabel = new("LabelControl", {"RIGHT",controls.sortStatType,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
+    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, #statWeights < 2 and statWeights[1].label or "^7Multiple Stats")
+    controls.sortStatLabel = new("LabelControl", {"RIGHT",controls.sortStatType,"LEFT"}, -5, 0, 0, 16, "^7Stat to Sort By:")
 	controls.sortStatType.tooltipFunc = function(tooltip)
 		tooltip:Clear()
 		tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
