@@ -3934,10 +3934,10 @@ return {
 		},
 		[12]={
 			list=false,
-			name="",
+			name="LifeLeech?",
 			refTo="",
 			type="Int",
-			width=50
+			width=70
 		},
 		[13]={
 			list=false,
@@ -3962,10 +3962,10 @@ return {
 		},
 		[16]={
 			list=false,
-			name="",
+			name="CooldownNotRecoverDuringActive",
 			refTo="",
 			type="Bool",
-			width=50
+			width=180
 		},
 		[17]={
 			list=true,
@@ -3983,10 +3983,10 @@ return {
 		},
 		[19]={
 			list=false,
-			name="",
-			refTo="",
+			name="MultiPartAchievement",
+			refTo="MultiPartAchievements",
 			type="Key",
-			width=40
+			width=150
 		},
 		[20]={
 			list=false,
@@ -5277,7 +5277,35 @@ return {
 			name="NextMod",
 			refTo="",
 			type="String",
-			width=150
+			width=220
+		},
+		[64]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[65]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[66]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[67]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=220
 		}
 	},
 	MonsterAdditionalMonsterDrops={
@@ -5328,35 +5356,35 @@ return {
 			name="BossLifePercentIncrease",
 			refTo="",
 			type="Int",
-			width=150
+			width=170
 		},
 		[3]={
 			list=false,
 			name="BossDamagePercentIncrease",
 			refTo="",
 			type="Int",
-			width=150
+			width=170
 		},
 		[4]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat1",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=240
 		},
 		[5]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat2",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=270
 		},
 		[6]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat3",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=240
 		},
 		[7]={
 			list=false,
@@ -5367,10 +5395,10 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat4",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=220
 		},
 		[9]={
 			list=false,
@@ -5381,10 +5409,10 @@ return {
 		},
 		[10]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat5",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=330
 		},
 		[11]={
 			list=false,
@@ -5418,16 +5446,44 @@ return {
 		},
 		[4]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat1",
+			refTo="Stats",
 			type="Key",
-			width=150
+			width=230
 		},
 		[5]={
 			list=false,
-			name="",
-			refTo="",
+			name="Stat2",
+			refTo="Stats",
 			type="Key",
+			width=250
+		},
+		[6]={
+			list=false,
+			name="Stat3",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="Stat3Value",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="Stat4",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="Stat4Value",
+			refTo="",
+			type="Int",
 			width=150
 		}
 	},
@@ -5747,10 +5803,10 @@ return {
 		},
 		[14]={
 			list=false,
-			name="",
+			name="ModelSizeMultiplier",
 			refTo="",
 			type="Int",
-			width=50
+			width=120
 		},
 		[15]={
 			list=false,
@@ -5796,10 +5852,10 @@ return {
 		},
 		[21]={
 			list=false,
-			name="",
+			name="ExperienceMultiplier",
 			refTo="",
 			type="Int",
-			width=50
+			width=120
 		},
 		[22]={
 			list=true,
@@ -5831,10 +5887,10 @@ return {
 		},
 		[26]={
 			list=false,
-			name="",
+			name="CriticalStrikeChance",
 			refTo="",
 			type="Int",
-			width=50
+			width=120
 		},
 		[27]={
 			list=false,
@@ -5859,7 +5915,7 @@ return {
 		},
 		[30]={
 			list=true,
-			name="",
+			name="ModsKeys2",
 			refTo="Mods",
 			type="Key",
 			width=200
@@ -6058,14 +6114,14 @@ return {
 			name="MonsterSegments",
 			refTo="MonsterSegments",
 			type="Key",
-			width=50
+			width=120
 		},
 		[59]={
 			list=false,
 			name="MonsterArmours",
 			refTo="MonsterArmours",
 			type="Key",
-			width=50
+			width=120
 		},
 		[60]={
 			list=false,
@@ -6125,7 +6181,7 @@ return {
 		},
 		[68]={
 			list=true,
-			name="",
+			name="MultiPartAchievements",
 			refTo="MultiPartAchievements",
 			type="Key",
 			width=150
@@ -6223,10 +6279,10 @@ return {
 		},
 		[82]={
 			list=false,
-			name="",
-			refTo="",
+			name="MonsterConditionalEffectPack",
+			refTo="MonsterConditionalEffectPacks",
 			type="Key",
-			width=50
+			width=150
 		},
 		[83]={
 			list=false,
@@ -6254,6 +6310,76 @@ return {
 			name="",
 			refTo="",
 			type="Bool",
+			width=50
+		},
+		[87]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[88]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[89]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[90]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[91]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[92]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[93]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[94]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[95]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[96]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
 			width=50
 		}
 	},

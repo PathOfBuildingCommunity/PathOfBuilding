@@ -8,6 +8,7 @@ LoadModule("Data/Global")
 
 local m_min = math.min
 local m_max = math.max
+local t_insert = table.insert
 local t_concat = table.concat
 
 local skillTypes = {
@@ -479,9 +480,9 @@ data.misc = { -- magic numbers
 	BrandAttachmentRangeBase = 30,
 	ProjectileDistanceCap = 150,
 	-- Expected values to calculate EHP
-	stdBossDPSMult = 4 / 4.25,
-	pinnacleBossDPSMult = 8 / 4.25,
-	pinnacleBossPen = 25 / 5,
+	stdBossDPSMult = 4 / 4.40,
+	pinnacleBossDPSMult = 8 / 4.40,
+	pinnacleBossPen = 15 / 5,
 	uberBossDPSMult = 10 / 4.25,
 	uberBossPen = 40 / 5,
 	-- ehp helper function magic numbers
@@ -497,23 +498,25 @@ data.misc = { -- magic numbers
 	PvpNonElemental2 = 90,
 }
 
-data.bossSkills = {
-	["Uber Atziri Flameblast"] = {
-		damageMult = 3.48 * 10.9,
-		speed = 2500 * 10
-	},
-	["Shaper Ball"] = {
-		damageMult =  9.17,
-		speed = 1400
-	},
-	["Shaper Slam"] = {
-		damageMult =  15.2,
-		speed = 3510
-	},
-	["Maven Memory Game"] = {
-		damageMult =  24.69
-	}
+data.bossSkills = LoadModule("Data/BossSkills")
+-- auto generation of skill list using boss skills above, is currently disabled because it messes with the order
+data.bossSkillsList = {
+	{ val = "None", label = "None" },
+	{ val = "Atziri Flameblast", label = "Atziri Flameblast" },
+	{ val = "Shaper Ball", label = "Shaper Ball" },
+	{ val = "Shaper Slam", label = "Shaper Slam" },
+	--{ val = "Elder Slam", label = "Elder Slam" },
+	{ val = "Sirus Meteor", label = "Sirus Meteor" },
+	{ val = "Exarch Ball", label = "Exarch Ball" },
+	{ val = "Eater Beam", label = "Eater Beam" },
+	{ val = "Maven Fireball", label = "Maven Fireball" },
+	{ val = "Maven MemoryGame", label = "Maven Memory Game" }
 }
+--[[ 
+for bossSkillName, bossSkillData in pairs(data.bossSkills) do
+	t_insert(data.bossSkillsList, {val = bossSkillName, label = bossSkillName})
+end
+--]]
 
 -- Misc data tables
 LoadModule("Data/Misc", data)
@@ -984,6 +987,37 @@ for _, minion in pairs(data.minions) do
 		mod.source = "Minion:"..minion.name
 	end
 end
+
+-- Load bosses
+data.bosses = { }
+LoadModule("Data/Bosses", data.bosses)
+
+local count = 0
+local uberCount = 0
+
+local armourTotal = 0
+local evasionTotal = 0
+
+local uberArmourTotal = 0
+local uberEvasionTotal = 0
+
+for _, boss in pairs(data.bosses) do
+	if boss.isUber then
+		uberCount = uberCount + 1
+		uberArmourTotal = uberArmourTotal + boss.armourMult
+		uberEvasionTotal = uberEvasionTotal + boss.evasionMult
+	end
+	count = count + 1
+	armourTotal = armourTotal + boss.armourMult
+	evasionTotal = evasionTotal + boss.evasionMult
+end
+
+data.bossStats = {
+	PinnacleArmourMean=armourTotal/count,
+	PinnacleEvasionMean=evasionTotal/count,
+	UberArmourMean=uberArmourTotal/uberCount,
+	UberEvasionMean=uberEvasionTotal/uberCount
+}
 
 -- Item bases
 data.itemBases = { }

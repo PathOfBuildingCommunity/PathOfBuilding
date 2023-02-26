@@ -116,7 +116,7 @@ Adds (3-6) to (33-66) Physical Damage
 Gain (66-99)% of Sword Physical Damage as Extra Fire Damage
 Gain Her Blessing for 3 seconds when you Ignite an Enemy
 33% chance to Blind nearby Enemies when gaining Her Blessing
-Cannot be Frozen, Chilled or Ignited with Her Blessing
+100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing
 20% increased Attack and Movement Speed with Her Blessing
 ]],[[
 Grelwood Shank
@@ -679,7 +679,7 @@ The Dancing Duo
 Reaver Sword
 Source: No longer obtainable
 Variant: Pre 3.11.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
 {variant:2}60% increased Global Accuracy Rating
