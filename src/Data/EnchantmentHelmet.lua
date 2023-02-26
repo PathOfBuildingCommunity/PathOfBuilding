@@ -2582,14 +2582,14 @@ return {
 			"30% increased Summon Reaper Cooldown Recovery Rate",
 		},
 	},
-	["Summon Skeleton"] = {
+	["Summon Skeletons"] = {
 		["MERCILESS"] = {
 			"Skeletons deal 25% increased Damage",
-			"20% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
+			"20% chance to Summon an additional Skeleton with Summon Skeletons",
 		},
 		["ENDGAME"] = {
 			"Skeletons deal 40% increased Damage",
-			"40% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
+			"40% chance to Summon an additional Skeleton with Summon Skeletons",
 		},
 	},
 	["Summon Skitterbots"] = {

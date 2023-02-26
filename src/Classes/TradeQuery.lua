@@ -303,7 +303,7 @@ on trade site to work on other leagues and realms)]]
 			self:UpdateControlsWithItems(row_idx)
 		end
 	end)
-	self.controls.itemSortSelection.tooltipText = 
+	self.controls.itemSortSelection.tooltipText =
 [[Weighted Sum searches will always sort using descending weighted sum
 Additional post filtering options can be done these include:
 Highest Stat Value - Sort from highest to lowest Stat Value change of equipping item
@@ -386,15 +386,10 @@ Highest Weight - Displays the order retrieved from trade]]
 	if  self.pbRealm == "" then
 		self:UpdateRealms()
 	end
-
 	-- Individual slot rows
-	local row_count = 0
-	top_pane_alignment_ref = {"TOPLEFT", self.controls.poesessidButton, "LEFT"}
+	local slotTables = {}
 	for _, slotName in ipairs(baseSlots) do
-		row_count = row_count + 1
-		self.slotTables[row_count] = { slotName = slotName }
-		self:PriceItemRowDisplay(row_count, top_pane_alignment_ref, row_vertical_padding, row_height)
-		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..row_count], "TOPLEFT"}
+		t_insert(slotTables, { slotName = slotName })
 	end
 	local activeSocketList = { }
 	for nodeId, slot in pairs(self.itemsTab.sockets) do
@@ -403,16 +398,19 @@ Highest Weight - Displays the order retrieved from trade]]
 		end
 	end
 	table.sort(activeSocketList)
-	for _, nodeId in pairs(activeSocketList) do
-		row_count = row_count + 1
-		self.slotTables[row_count] = { slotName = self.itemsTab.sockets[nodeId].label, nodeId = nodeId }
-		self:PriceItemRowDisplay(row_count, top_pane_alignment_ref, row_vertical_padding, row_height)
-		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..row_count], "TOPLEFT"}
+	for _, nodeId in ipairs(activeSocketList) do
+		t_insert(slotTables, { slotName = self.itemsTab.sockets[nodeId].label, nodeId = nodeId })
+	end
+	top_pane_alignment_ref = {"TOPLEFT", self.controls.poesessidButton, "LEFT"}
+	for index, slotTbl in pairs(slotTables) do
+		self.slotTables[index] = slotTbl
+		self:PriceItemRowDisplay(index, top_pane_alignment_ref, row_vertical_padding, row_height)
+		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..index], "TOPLEFT"}
 	end
 	
 	self.controls.otherTradesLabel = new("LabelControl", top_pane_alignment_ref, 0, row_height + row_vertical_padding, 100, 16, "^8Other trades:")
 	top_pane_alignment_ref[2] = self.controls.otherTradesLabel
-	row_count = row_count + 1
+	local row_count = #slotTables + 1
 	self.slotTables[row_count] = { slotName = "Megalomaniac", unique = true, alreadyCorrupted = true }
 	self:PriceItemRowDisplay(row_count, top_pane_alignment_ref, row_vertical_padding, row_height)
 	row_count = row_count + 1
@@ -447,8 +445,8 @@ function TradeQueryClass:SetStatWeights()
 	
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
-			t_insert(statList, { 
-				label = "0      :  "..stat.label, 
+			t_insert(statList, {
+				label = "0      :  "..stat.label,
 				stat = {
 					label = stat.label,
 					stat = stat.stat,
@@ -492,7 +490,7 @@ function TradeQueryClass:SetStatWeights()
 				stat.stat.weightMult = statBase.weightMult
 				stat.label = s_format("%.2f :  ", statBase.weightMult)..statBase.label
 				if statList[sliderController.index].stat.stat == statBase.stat then
-					controls.Slider:SetVal(statBase.weightMult == 1 and 1 or statBase.weightMult - 0.01)	
+					controls.Slider:SetVal(statBase.weightMult == 1 and 1 or statBase.weightMult - 0.01)
 				end
 			end
 		end
@@ -657,15 +655,17 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	if errMsg == "MissingConversionRates" then
 		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to Stat Value sort.")
 		sortedItems, errMsg = self:SortFetchResults(row_idx, self.sortModes.StatValue)
-	end
-	if errMsg then
+	elseif errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
 		return
+	else
+		self:SetNotice(self.controls.pbNotice, "")
 	end
+
 	self.sortedResultTbl[row_idx] = sortedItems
-	self.itemIndexTbl[row_idx] = 1
-	self.controls["priceButton".. row_idx].tooltipText = "Sorted by " .. self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local pb_index = self.sortedResultTbl[row_idx][1].index
+	self.itemIndexTbl[row_idx] = pb_index
+	self.controls["priceButton".. row_idx].tooltipText = "Sorted by " .. self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	self.totalPrice[row_idx] = {
 		currency = self.resultTbl[row_idx][pb_index].currency,
 		amount = self.resultTbl[row_idx][pb_index].amount,

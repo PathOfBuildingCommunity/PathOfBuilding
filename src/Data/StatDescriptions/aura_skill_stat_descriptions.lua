@@ -254,9 +254,9 @@ return {
 				}
 			}
 		},
-		name="critical_strike_chance_incr",
+		name="grants_critical_strike_chance_incr",
 		stats={
-			[1]="critical_strike_chance_+%"
+			[1]="skill_buff_grants_critical_strike_chance_+%"
 		}
 	},
 	[10]={
@@ -2259,7 +2259,6 @@ return {
 	["chill_and_freeze_duration_+%"]=54,
 	["cold_damage_taken_+%"]=55,
 	["create_consecrated_ground_on_hit_%_vs_rare_or_unique_enemy"]=56,
-	["critical_strike_chance_+%"]=9,
 	["damage_+%_if_changed_stances_recently"]=57,
 	["damage_+%_on_full_energy_shield"]=59,
 	["damage_+%_on_full_mana"]=58,
@@ -2299,6 +2298,7 @@ return {
 	["reduce_enemy_elemental_resistance_%"]=84,
 	["skill_aura_also_disables_non_blessing_mana_reservation_skills"]=85,
 	["skill_buff_grant_critical_strike_multiplier_+"]=86,
+	["skill_buff_grants_critical_strike_chance_+%"]=9,
 	["spell_critical_strike_chance_+%"]=87,
 	["spell_damage_aura_spell_damage_+%_final"]=88,
 	["spell_maximum_added_chaos_damage"]=89,

@@ -116,7 +116,7 @@ Adds (3-6) to (33-66) Physical Damage
 Gain (66-99)% of Sword Physical Damage as Extra Fire Damage
 Gain Her Blessing for 3 seconds when you Ignite an Enemy
 33% chance to Blind nearby Enemies when gaining Her Blessing
-Cannot be Frozen, Chilled or Ignited with Her Blessing
+100% chance to Avoid being Ignited, Chilled or Frozen with Her Blessing
 20% increased Attack and Movement Speed with Her Blessing
 ]],[[
 Grelwood Shank
@@ -206,8 +206,8 @@ Implicits: 1
 (14-18)% increased Attack Speed
 Unholy Might
 (20-25)% chance to inflict Withered for 2 seconds on Hit with this Weapon
-Summoned Skeleton Warriors wield a copy of this Weapon while in your Main Hand
-Summoned Skeleton Warriors deal Triple Damage with this
+Summoned Skeleton Warriors and Soldiers wield this Weapon while in your Main Hand
+Summoned Skeleton Warriors and Soldiers deal Triple Damage with this
 Weapon if you've Hit with this Weapon Recently
 ]],[[
 Lakishu's Blade
@@ -679,7 +679,7 @@ The Dancing Duo
 Reaver Sword
 Source: No longer obtainable
 Variant: Pre 3.11.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 2
 {variant:1}40% increased Global Accuracy Rating
 {variant:2}60% increased Global Accuracy Rating

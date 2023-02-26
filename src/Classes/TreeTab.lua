@@ -830,6 +830,24 @@ function TreeTabClass:FindTimelessJewel()
 	else
 		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
 	end
+	local devotionVariants = {
+		{ id = 1 , label = "Any" },
+		{ id = 2 , label = "Totem Damage",                    tradeId = "explicit.stat_2566390555" },
+		{ id = 3 , label = "Brand Damage",                    tradeId = "explicit.stat_2697019412" },
+		{ id = 4 , label = "Channelling Damage",              tradeId = "explicit.stat_970844066" },
+		{ id = 5 , label = "Area Damage",                     tradeId = "explicit.stat_1724614884" },
+		{ id = 6 , label = "Elemental Damage",                tradeId = "explicit.stat_3103189267" },
+		{ id = 7 , label = "Elemental Resistances",           tradeId = "explicit.stat_1910205563" },
+		{ id = 8 , label = "Effect of non-Damaging Ailments", tradeId = "explicit.stat_1810368194" },
+		{ id = 9 , label = "Elemental Ailment Duration",      tradeId = "explicit.stat_730530528" },
+		{ id = 10, label = "Duration of Curses",              tradeId = "explicit.stat_4235333770" },
+		{ id = 11, label = "Minion Attack and Cast Speed",    tradeId = "explicit.stat_3808469650" },
+		{ id = 12, label = "Minions Accuracy Rating",         tradeId = "explicit.stat_2830135449" },
+		{ id = 13, label = "Mana Regen",                      tradeId = "explicit.stat_2042813020" },
+		{ id = 14, label = "Skill Cost",                      tradeId = "explicit.stat_3293275880" },
+		{ id = 15, label = "Non-Curse Aura Effect",           tradeId = "explicit.stat_2585926696" },
+		{ id = 16, label = "Defences from Shield",            tradeId = "explicit.stat_2803981661" }
+	}
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
@@ -1026,9 +1044,21 @@ function TreeTabClass:FindTimelessJewel()
 		self.build.modFlag = true
 	end
 
+	controls.devotionSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 820, 25, 0, 16, "^7Devotion modifiers:")
+	controls.devotionSelectLabel.shown = timelessData.jewelType.id == 4
+	controls.devotionSelect1 = new("DropDownControl", { "TOP", controls.devotionSelectLabel, "BOTTOM" }, 0, 8, 200, 18, devotionVariants, function(index, value)
+		timelessData.devotionVariant1 = index
+	end)
+	controls.devotionSelect1.selIndex = timelessData.devotionVariant1
+	controls.devotionSelect2 = new("DropDownControl", { "TOP", controls.devotionSelect1, "BOTTOM" }, 0, 7, 200, 18, devotionVariants, function(index, value)
+		timelessData.devotionVariant2 = index
+	end)
+	controls.devotionSelect2.selIndex = timelessData.devotionVariant2
+
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 25, 0, 16, "^7Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelTypes, function(index, value)
 		timelessData.jewelType = value
+		controls.devotionSelectLabel.shown = value.id == 4
 		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
 		controls.conquerorSelect.selIndex = 1
 		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
@@ -1521,8 +1551,7 @@ function TreeTabClass:FindTimelessJewel()
 					value = {
 						min = result.seed,
 						max = result.seed
-					},
-					disabled = false
+					}
 				})
 			end
 		end
@@ -1547,6 +1576,20 @@ function TreeTabClass:FindTimelessJewel()
 			}
 		}
 
+		if timelessData.sharedResults.devotionVariant1.tradeId or timelessData.sharedResults.devotionVariant2.tradeId then
+			local devotionFilters = {}
+			if timelessData.sharedResults.devotionVariant1.tradeId then
+				t_insert(devotionFilters, { id = timelessData.sharedResults.devotionVariant1.tradeId })
+			end
+			if timelessData.sharedResults.devotionVariant2.tradeId then
+				t_insert(devotionFilters, { id = timelessData.sharedResults.devotionVariant2.tradeId })
+			end
+			t_insert(search.query.stats, {
+				filters = devotionFilters,
+				type = "and"
+			})
+		end
+
 		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
 			return s_format("%%%02X", s_byte(a))
 		end)))
@@ -1554,6 +1597,14 @@ function TreeTabClass:FindTimelessJewel()
 		controls.searchTradeButton.label = "Copy Next Trade URL"
 	end)
 	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
+	controls.searchTradeButton.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Click to generate and copy a trade URL for searching for jewels in this list.")
+		tooltip:AddLine(16, "^7Paste the URL in a web browser to search.")
+		tooltip:AddLine(16, "")
+		tooltip:AddLine(16, "^7You can click to select a row so that search begins from there.")
+		tooltip:AddLine(16, "^7After selecting a row You can also shift+click on another row to select a range of rows to search.")
+	end
 
 	local width = 80
 	local divider = 10
@@ -1763,6 +1814,8 @@ function TreeTabClass:FindTimelessJewel()
 			wipeTable(timelessData.sharedResults)
 			timelessData.sharedResults.type = timelessData.jewelType
 			timelessData.sharedResults.conqueror = timelessData.conquerorType
+			timelessData.sharedResults.devotionVariant1 = devotionVariants[timelessData.devotionVariant1]
+			timelessData.sharedResults.devotionVariant2 = devotionVariants[timelessData.devotionVariant2]
 			timelessData.sharedResults.socket = timelessData.jewelSocket
 			timelessData.sharedResults.desiredNodes = desiredNodes
 			local function formatSearchValue(input)

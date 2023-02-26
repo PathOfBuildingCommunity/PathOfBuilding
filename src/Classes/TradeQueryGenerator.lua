@@ -126,27 +126,6 @@ local function canModSpawnForItemCategory(mod, tags)
 	return false
 end
 
-function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
-	local meanStatDiff = 0
-	local function ratioModSums(...)
-		local baseModSum = 0
-		local newModSum = 0
-		for _, mod in ipairs({ ... }) do
-			baseModSum = baseModSum + baseOutput[mod] or 0
-			newModSum = newModSum + newOutput[mod] or 0
-		end
-		return newModSum / ((baseModSum ~= 0) and baseModSum or 1)
-	end
-	for _, statTable in ipairs(statWeights) do
-		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
-			meanStatDiff = meanStatDiff + ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") * statTable.weightMult
-		else
-			meanStatDiff = meanStatDiff + ratioModSums(statTable.stat) * statTable.weightMult
-		end
-	end
-	return meanStatDiff
-end
-
 function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 	for modId, mod in pairs(mods) do
 		if localOnlyModGroups[mod.group] == true or (modId:find("Local") ~= nil and modId:find("Socketed") == nil) then -- skip all local mods other than socket level mods
@@ -409,7 +388,7 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 			baseModSum = baseModSum + baseOutput[mod] or 0
 			newModSum = newModSum + newOutput[mod] or 0
 		end
-		return newModSum / (baseModSum ~= 0 and baseModSum or 1)
+		return newModSum / ((baseModSum ~= 0) and baseModSum or 1)
 	end
 	for _, statTable in ipairs(statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
@@ -680,7 +659,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	end
 	self.calcContext.testItem:BuildAndParseRaw()
 
-	local originalOutput = originalItem and self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, { nodeAlloc = true }) or baseOutput
+	local originalOutput = originalItem and self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, { nodeAlloc = true }) or self.calcContext.baseOutput
 	local currentStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 	
 	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more

@@ -102,7 +102,7 @@ Limited to: 1
 Variant: Cadiro (Supreme Decadence)
 Variant: Victario (Supreme Grandstanding)
 Variant: Caspiro (Supreme Ostentation)
-Selected Variant:  ]] .. variant .. [[
+Selected Variant:  ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Commissioned ]] .. data.seed .. [[ coins to commemorate Cadiro
@@ -121,7 +121,7 @@ Limited to: 1
 Variant: Doryani (Corrupted Soul)
 Variant: Xibaqua (Divine Flesh)
 Variant: Ahuana (Immortal Ambition)
-Selected Variant: ]] .. variant .. [[
+Selected Variant: ]] .. variant .. "\n" ..[[
 Radius: Large
 Implicits: 0
 {variant:1}Bathed in the blood of ]] .. data.seed .. [[ sacrificed in the name of Doryani
@@ -140,7 +140,7 @@ Limited to: 1
 Variant: Kaom (Strength of Blood)
 Variant: Rakiata (Tempered by War)
 Variant: Akoya (Chainbreaker)
-Selected Variant: ]] .. variant .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Commanded leadership over ]] .. data.seed .. [[ warriors under Kaom
@@ -159,7 +159,7 @@ Limited to: 1
 Variant: Asenath (Dance with Death)
 Variant: Nasima (Second Sight)
 Variant: Balbala (The Traitor)
-Selected Variant: ]] .. variant .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Denoted service of ]] .. data.seed .. [[ dekhara in the akhara of Asenath
@@ -169,10 +169,10 @@ Passives in radius are Conquered by the Maraketh
 Historic
 ]]
 		elseif self.sharedList.type.id == 4 then
-			local altVariant = m_random(4, 17)
-			local altVariant2 = m_random(4, 17)
+			local altVariant = self.sharedList.devotionVariant1.id ~= 1 and self.sharedList.devotionVariant1.id or m_random(2, 16)
+			local altVariant2 = self.sharedList.devotionVariant2.id ~= 1 and self.sharedList.devotionVariant2.id or m_random(2, 16)
 			if altVariant == altVariant2 then
-				altVariant = altVariant + 1
+				altVariant = altVariant % 15 + 2
 			end
 			itemData = [[
 Militant Faith ]] .. label .. [[
@@ -200,9 +200,9 @@ Variant: Mana Regen
 Variant: Skill Cost
 Variant: Non-Curse Aura Effect
 Variant: Defences from Shield
-Selected Variant: ]] .. variant .. [[
-Selected Alt Variant: ]] .. altVariant .. "\n" .. [[
-Selected Alt Variant Two: ]] .. altVariant2 .. "\n" .. [[
+Selected Variant: ]] .. variant .. "\n" .. [[
+Selected Alt Variant: ]] .. altVariant + 2 .. "\n" .. [[
+Selected Alt Variant Two: ]] .. altVariant2 + 2 .. "\n" .. [[
 Radius: Large
 Implicits: 0
 {variant:1}Carved to glorify ]] .. data.seed .. [[ new faithful converted by High Templar Avarius
