@@ -1205,9 +1205,9 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s %s",
 				gemInstance.color,
 				(gemInstance.grantedEffect and gemInstance.grantedEffect.name) or (gemInstance.gemData and gemInstance.gemData.name) or gemInstance.nameSpec,
-				activeEffect.srcInstance and activeEffect.srcInstance.level or activeEffect.level,
+				displayEffect.srcInstance and displayEffect.srcInstance.level or displayEffect.level,
 				displayEffect.level > gemInstance.level and colorCodes.MAGIC .. "+" .. (displayEffect.level - gemInstance.level) .. "^7" or "",
-				activeEffect.srcInstance and activeEffect.srcInstance.quality or activeEffect.quality,
+				displayEffect.srcInstance and displayEffect.srcInstance.quality or displayEffect.quality,
 				displayEffect.quality > gemInstance.quality and colorCodes.MAGIC .. "+" .. (displayEffect.quality - gemInstance.quality) .. "^7" or "",
 				reason
 			))
