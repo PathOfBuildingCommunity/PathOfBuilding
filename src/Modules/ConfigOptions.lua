@@ -1788,7 +1788,7 @@ Huge sets the radius to 11.
 			end
 			
 			modList:NewMod("BossSkillActive", "FLAG", true, "Config")
-			
+
 			-- boss specific mods
 			if val == "Atziri Flameblast" and isUber then
 				enemyModList:NewMod("Damage", "INC", 60, "Alluring Abyss Map Mod")
@@ -1817,7 +1817,7 @@ Huge sets the radius to 11.
 	
 	-- Section: Custom mods
 	{ section = "Custom Modifiers", col = 1 },
-	{ var = "customMods", type = "text", label = "",
+	{ var = "customMods", type = "text", label = "", doNotHighlight = true,
 		apply = function(val, modList, enemyModList, build)
 			for line in val:gmatch("([^\n]*)\n?") do
 				local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")

@@ -38,6 +38,9 @@ function CheckBoxClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0.33, 0.33, 0.33)
 	elseif mOver then
 		SetDrawColor(1, 1, 1)
+	elseif self.borderFunc then
+		r, g, b = self.borderFunc()
+		SetDrawColor(r, g, b)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)
 	end

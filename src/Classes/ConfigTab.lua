@@ -453,8 +453,23 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end
 			end
 
+			local innerShown = control.shown
+			if not varData.doNotHighlight then
+				control.borderFunc = function()
+					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local cur = self.input[varData.var]
+					local def = self:GetDefaultState(varData.var, type(cur))
+					if cur ~= nil and cur ~= def then
+						if not shown then
+							return 	0.753, 0.502, 0.502
+						end
+						return 	0.451, 0.576, 0.702
+					end
+					return 0.5, 0.5, 0.5
+				end
+			end
+
 			if not varData.hideIfInvalid then
-				local innerShown = control.shown
 				control.shown = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
 					local cur = self.input[varData.var]
