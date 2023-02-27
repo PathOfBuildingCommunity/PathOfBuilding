@@ -1792,21 +1792,45 @@ Huge sets the radius to 11.
 	
 	-- Section: Custom mods
 	{ section = "Custom Modifiers", col = 1 },
-	{ var = "customMods", type = "text", label = "", apply = function(val, modList, enemyModList)
-		for line in val:gmatch("([^\n]*)\n?") do
-			local mods, extra = modLib.parseMod(line)
+	{ var = "customMods", type = "text", label = "",
+		apply = function(val, modList, enemyModList, build)
+			for line in val:gmatch("([^\n]*)\n?") do
+				local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+				local mods, extra = modLib.parseMod(strippedLine)
 
-			if mods then
-				local source = "Custom"
-				for i = 1, #mods do
-					local mod = mods[i]
+				if mods and not extra then
+					local source = "Custom"
+					for i = 1, #mods do
+						local mod = mods[i]
 
-					if mod then
-						mod = modLib.setSource(mod, source)
-						modList:AddMod(mod)
+						if mod then
+							mod = modLib.setSource(mod, source)
+							modList:AddMod(mod)
+						end
 					end
 				end
 			end
-		end
-	end },
+		end,
+		inactiveText = function(val)
+			local inactiveText = ""
+			for line in val:gmatch("([^\n]*)\n?") do
+				local strippedLine = StripEscapes(line):gsub("^[%s?]+", ""):gsub("[%s?]+$", "")
+				local mods, extra = modLib.parseMod(strippedLine)
+				inactiveText = inactiveText .. ((mods and not extra) and colorCodes.MAGIC or colorCodes.UNSUPPORTED).. (IsKeyDown("ALT") and strippedLine or line) .. "\n"
+			end
+			return inactiveText
+		end,
+		tooltip = function(modList)
+			if not launch.devModeAlt then
+				return
+			end
+
+			local out
+			for _, mod in ipairs(modList) do
+				if mod.source == "Custom" then
+					out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+				end
+			end
+			return out
+		end},
 }
