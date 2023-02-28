@@ -911,8 +911,8 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["BloodCharge"] = output.BloodCharges
 
 	-- Process enemy modifiers 
-	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do
-		enemyDB:AddMod(value.mod)
+	for _, value in ipairs(modDB:Tabulate(nil, nil, "EnemyModifier")) do
+		enemyDB:AddMod(modLib.setSource(value.value.mod, value.value.mod.source or value.mod.source))
 	end
 
 	-- Add misc buffs/debuffs
