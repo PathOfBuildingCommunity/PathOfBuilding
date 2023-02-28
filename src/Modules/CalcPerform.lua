@@ -3479,6 +3479,15 @@ function calcs.perform(env, avoidCache)
 						end
 					end
 					
+					--Account for skills that can hit multiple times per use
+					if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillPartName:match("(.*)All(.*)Projectiles(.*)") and source.skillFlags.projectile then
+						local multiHitDpsMult = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.ProjectileCount or 1
+						trigRate = trigRate * multiHitDpsMult
+						if breakdown then
+							t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f ^8(%d projectiles hit)", multiHitDpsMult, multiHitDpsMult))
+						end
+					end
+					
 					--Accuracy and crit chance
 					if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData["CACHE"][uuid] and not triggerOnUse then
 						local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance					
