@@ -3480,7 +3480,7 @@ function calcs.perform(env, avoidCache)
 					end
 					
 					--Account for skills that can hit multiple times per use
-					if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillPartName:match("(.*)All(.*)Projectiles(.*)") and source.skillFlags.projectile then
+					if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillPartName and source.skillPartName:match("(.*)All(.*)Projectiles(.*)") and source.skillFlags.projectile then
 						local multiHitDpsMult = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.ProjectileCount or 1
 						trigRate = trigRate * multiHitDpsMult
 						if breakdown then
