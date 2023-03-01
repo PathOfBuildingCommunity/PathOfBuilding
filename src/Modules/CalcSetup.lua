@@ -712,7 +712,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB.conditions["AffectedByEnergyBlade"] then
-					local type = env.player.itemList[slotName] and env.player.itemList[slotName].weaponData and env.player.itemList[slotName].weaponData[1].type
+					local previousItem = env.player.itemList[slotName]
+					local type = previousItem and previousItem.weaponData and previousItem.weaponData[1].type
 					local info = env.data.weaponTypeInfo[type]
 					if info and type ~= "Bow" then
 						local name = info.oneHand and "Energy Blade One Handed" or "Energy Blade Two Handed"
@@ -738,6 +739,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 						item:NormaliseQuality()
 						item:BuildAndParseRaw()
+						item.sockets = previousItem.sockets
+						item.abyssalSocketCount = previousItem.abyssalSocketCount
 						env.player.itemList[slotName] = item
 					else
 						env.itemModDB:ScaleAddList(srcList, scale)
@@ -941,10 +944,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 				else
 					for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
 						-- Look for other groups that are socketed in the item
-						if socketGroup.slot == grantedSkill.slotName and not socketGroup.source then
+						if socketGroup.slot == grantedSkill.slotName and not socketGroup.source and socketGroup.enabled then
 							-- Add all support gems to the skill's group
 							for _, gemInstance in ipairs(socketGroup.gemList) do
-								if gemInstance.gemData and gemInstance.gemData.grantedEffect.support then
+								if gemInstance.gemData and (gemInstance.gemData.grantedEffect.support or (gemInstance.gemData.secondaryGrantedEffect and gemInstance.gemData.secondaryGrantedEffect.support)) then
 									t_insert(group.gemList, gemInstance)
 								end
 							end
@@ -1263,6 +1266,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			-- These mods were modified with special expressions in buildActiveSkillModList() use old one to avoid more calculations
 			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
 			activeSkill.skillData.cooldown = skillData.cooldown
+			activeSkill.skillData.storedUses = skillData.storedUses
 			activeSkill.skillData.CritChance = skillData.CritChance
 			activeSkill.skillData.attackTime = skillData.attackTime
 			activeSkill.skillData.totemLevel = skillData.totemLevel

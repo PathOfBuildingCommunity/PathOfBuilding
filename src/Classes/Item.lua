@@ -18,7 +18,7 @@ local catalystTags = {
 	{ "life", "mana", "resource" },
 	{ "caster" },
 	{ "jewellery_attribute", "attribute" },
-	{ "physical", "chaos" },
+	{ "physical_damage", "chaos_damage" },
 	{ "jewellery_resistance", "resistance" },
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },
@@ -82,8 +82,10 @@ function ItemClass:ParseRaw(raw)
 	end
 	local mode = "WIKI"
 	local l = 1
+	local itemClass
 	if self.rawLines[l] then
 		if self.rawLines[l]:match("^Item Class:") then
+			itemClass = self.rawLines[l]:gsub("^Item Class: %s+", "%1")
 			l = l + 1 -- Item class is already determined by the base type
 		end
 		local rarity = self.rawLines[l]:match("^Rarity: (%a+)")
@@ -116,7 +118,7 @@ function ItemClass:ParseRaw(raw)
 		end
 
 		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal or Unidentified item to get the base
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) then
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) or self.name:match("Energy Blade") then
 			l = l + 1
 		end
 	end
@@ -395,6 +397,9 @@ function ItemClass:ParseRaw(raw)
 				local baseName
 				if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
 					-- Exact match (affix-less magic and normal items)
+					if self.name:match("Energy Blade") and itemClass then -- Special handling for energy blade base.
+						self.name = itemClass:match("One Hand") and "Energy Blade One Handed" or "Energy Blade Two Handed"
+					end
 					if data.itemBases[self.name] then
 						baseName = self.name
 					else
@@ -1193,14 +1198,14 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			if self.base.flask.life then
 				flaskData.lifeBase = self.base.flask.life * (1 + self.quality / 100) * recoveryMod
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
-				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
+				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100)
 				flaskData.lifeTotal = flaskData.lifeInstant + flaskData.lifeGradual
 				flaskData.lifeAdditional = calcLocal(modList, "FlaskAdditionalLifeRecovery", "BASE", 0)
 			end
 			if self.base.flask.mana then
 				flaskData.manaBase = self.base.flask.mana * (1 + self.quality / 100) * recoveryMod
 				flaskData.manaInstant = flaskData.manaBase * flaskData.instantPerc / 100
-				flaskData.manaGradual = flaskData.manaBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
+				flaskData.manaGradual = flaskData.manaBase * (1 - flaskData.instantPerc / 100)
 				flaskData.manaTotal = flaskData.manaInstant + flaskData.manaGradual
 			end
 		else
