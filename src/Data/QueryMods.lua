@@ -2553,7 +2553,7 @@ return {
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
-				["id"] = "explicit.stat_1053326368", 
+				["id"] = "explicit.stat_1619168299", 
 				["text"] = "#% chance to Avoid being Chilled during Effect", 
 			}, 
 			["Flask"] = {
