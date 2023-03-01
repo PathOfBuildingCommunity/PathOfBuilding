@@ -803,7 +803,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		if i == 1 then
 			controls.sortStatLabel = new("LabelControl", {"RIGHT",lastItemAnchor,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
 		elseif i == 5 then
-			-- tooltips dont actualy work for labels
+			-- tooltips do not actually work for labels
 			lastItemAnchor.tooltipFunc = function(tooltip)
 				tooltip:Clear()
 				tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
