@@ -297,9 +297,9 @@ local frenzyChargeMods = {
 	[1] = {
 		["Gain on Hit"] = "10% chance to gain a Frenzy Charge on Hit",
 		["+1 Maximum"] = "+1 to Maximum Frenzy Charges",
-		["Flask Charge on Crit"] = "Gain a Flask Charge when you deal a Critical Strike while at maximum Frenzy Charges*",
+		["Flask Charge on Crit"] = "Gain a Flask Charge when you deal a Critical Strike while at maximum Frenzy Charges",
 		["Iron Reflexes"] = "You have Iron Reflexes while at maximum Frenzy Charges",
-		["Onslaught"] = "Gain Onslaught for 4 seconds on Hit while at maximum Frenzy Charges*",
+		["Onslaught"] = "Gain Onslaught for 4 seconds on Hit while at maximum Frenzy Charges",
 	},
 }
 

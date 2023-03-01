@@ -13,6 +13,7 @@ local t_remove = table.remove
 local m_max = math.max
 local m_min = math.min
 local m_ceil = math.ceil
+local s_format = string.format
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
@@ -28,7 +29,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	self.itemIndexTbl = { }
 
 	-- default set of trade item sort selection
-	self.pbSortSelectionIndex = 1
+	self.pbItemSortSelectionIndex = 1
 	self.pbCurrencyConversion = { }
 	self.currencyConversionTradeMap = { }
 	self.lastCurrencyConversionRequest = 0
@@ -280,21 +281,45 @@ You can click this button to enter your POESESSID.
 - You can generate weighted search URLs but have to visit the trade site and manually import items.
 - You can only generate weighted searches for public leagues. (Generated searches can be modified
 on trade site to work on other leagues and realms)]]
+	
+	-- Stat sort popup button
+	self.statSortSelectionList = { }
+	t_insert(self.statSortSelectionList,  {
+		label = "Full DPS",
+		stat = "FullDPS",
+		weightMult = 1.0,
+	})
+	t_insert(self.statSortSelectionList,  {
+		label = "Effective Hit Pool",
+		stat = "TotalEHP",
+		weightMult = 0.5,
+	})
+	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 150, 18, "^7Adjust search weights:", function()
+		self:SetStatWeights()
+	end)
+	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
+		tooltip:AddLine(16, "Currently sorting by:")
+		for _, stat in ipairs(self.statSortSelectionList) do
+			tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
+		end
+	end
 	self.sortModes = {
-		DPS = "DPS",
-		DPS_PRICE = "DPS / Price",
-		PRICE_ASCENDING = "Price (Lowest)",
-		WEIGHT = "Trade Weighted Sum",
+		StatValue = "(Highest) Stat Value",
+		StatValuePRICE = "Stat Value / Price",
+		PRICE = "(Lowest) Price",
+		WEIGHT = "(Highest) Weighted Sum",
 	}
 	-- Item sort dropdown
-	self.sortSelectionList = {
-		self.sortModes.DPS,
-		self.sortModes.DPS_PRICE,
-		self.sortModes.PRICE_ASCENDING,
+	self.itemSortSelectionList = {
+		self.sortModes.StatValue,
+		self.sortModes.StatValuePRICE,
+		self.sortModes.PRICE,
 		self.sortModes.WEIGHT,
 	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, self.sortSelectionList, function(index, value)
-		self.pbSortSelectionIndex = index
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",self.controls.StatWeightMultipliersButton,"BOTTOMRIGHT"}, 0, 4, 154, 18, self.itemSortSelectionList, function(index, value)
+		self.pbItemSortSelectionIndex = index
 		for index, _ in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(slotTables[index], index)
 		end
@@ -302,10 +327,10 @@ on trade site to work on other leagues and realms)]]
 	self.controls.itemSortSelection.tooltipText = 
 [[Weighted Sum searches will always sort using descending weighted sum
 Additional post filtering options can be done these include:
-DPS - Sort from highest to lowest DPS change of equipping item
-DPS / Price - Sorts from highest to lowest DPS per currency
-Price (Lowest) - Sorts from lowest to highest price of retrieved items
-Trade Weighted Sum - Displays the order retrieved from trade]]
+Highest Stat Value - Sort from highest to lowest Stat Value change of equipping item
+Highest Stat Value / Price - Sorts from highest to lowest Stat Value per currency
+Lowest Price - Sorts from lowest to highest price of retrieved items
+Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
 	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
 	
@@ -320,6 +345,7 @@ Trade Weighted Sum - Displays the order retrieved from trade]]
 
 	self.maxFetchPerSearchDefault = 2
 	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", self.controls.enchantInSort, "TOPLEFT"}, -8 - self.controls.enchantInSort.labelWidth, 0, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
+
 		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, 1), 10)
 		self.tradeQueryRequests.maxFetchPerSearch = 10 * self.maxFetchPages
 		self.controls.fetchCountEdit.focusValue = self.maxFetchPages
@@ -410,6 +436,91 @@ Trade Weighted Sum - Displays the order retrieved from trade]]
 	main:OpenPopup(pane_width, pane_height, "Trader", self.controls)
 end
 
+-- Popup to set stat weight multipliers for sorting
+function TradeQueryClass:SetStatWeights()
+
+    local controls = { }
+    local statList = { }
+	local sliderController = { index = 1 }
+    local popupHeight = 285
+	
+	controls.ListControl = new("TradeStatWeightMultiplierListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 45, 400, 200, statList, sliderController)
+	
+	for id, stat in pairs(data.powerStatList) do
+		if not stat.ignoreForItems and stat.label ~= "Name" then
+			t_insert(statList, { 
+				label = "0      :  "..stat.label, 
+				stat = {
+					label = stat.label,
+					stat = stat.stat,
+					transform = stat.transform,
+					weightMult = 0,
+				}
+			})
+		end
+	end
+	
+	controls.SliderLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 20, 0, 16, "^7"..statList[1].stat.label..":")
+	controls.Slider = new("SliderControl", { "TOPLEFT", controls.SliderLabel, "TOPRIGHT" }, 20, 0, 150, 16, function(value)
+		if value == 0 then
+			controls.SliderValue.label = "^7Disabled"
+			statList[sliderController.index].stat.weightMult = 0
+			statList[sliderController.index].label = s_format("%d      :  ", 0)..statList[sliderController.index].stat.label
+		else
+			controls.SliderValue.label = s_format("^7%.2f", 0.01 + value * 0.99)
+			statList[sliderController.index].stat.weightMult = 0.01 + value * 0.99
+			statList[sliderController.index].label = s_format("%.2f :  ", 0.01 + value * 0.99)..statList[sliderController.index].stat.label
+		end
+	end)
+	controls.SliderValue = new("LabelControl", { "TOPLEFT", controls.Slider, "TOPRIGHT" }, 20, 0, 0, 16, "^7Disabled")
+	controls.Slider.tooltip.realDraw = controls.Slider.tooltip.Draw
+	controls.Slider.tooltip.Draw = function(self, x, y, width, height, viewPort)
+		local sliderOffsetX = round(184 * (1 - controls.Slider.val))
+		local tooltipWidth, tooltipHeight = self:GetSize()
+		if main.screenW >= 1338 - sliderOffsetX then
+			return controls[stat.label.."Slider"].tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
+		end
+		return controls.Slider.tooltip.realDraw(self, x, y, width, height, viewPort)
+	end
+	sliderController.SliderLabel = controls.SliderLabel
+	sliderController.Slider = controls.Slider
+	sliderController.SliderValue = controls.SliderValue
+
+	
+	for _, statBase in ipairs(self.statSortSelectionList) do
+		for _, stat in ipairs(statList) do
+			if stat.stat.stat == statBase.stat then
+				stat.stat.weightMult = statBase.weightMult
+				stat.label = s_format("%.2f :  ", statBase.weightMult)..statBase.label
+				if statList[sliderController.index].stat.stat == statBase.stat then
+					controls.Slider:SetVal(statBase.weightMult == 1 and 1 or statBase.weightMult - 0.01)	
+				end
+			end
+		end
+	end
+
+	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Save", function()
+		main:ClosePopup()
+		
+		-- this needs to save the weights somewhere, maybe the XML? its not necessary but possibly useful QoL
+		local statSortSelectionList = {}
+		for stat, statTable in pairs(statList) do
+			if statTable.stat.weightMult > 0 then
+				t_insert(statSortSelectionList, statTable.stat)
+			end
+		end
+		if (#statSortSelectionList) > 0 then
+			--THIS SHOULD REALLY GIVE A WARNING NOT JUST USE PREVIOUS
+			self.statSortSelectionList = statSortSelectionList
+		end
+    end)
+	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 45, -10, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(420, popupHeight, "Stat Weight Multipliers", controls)
+end
+
+
 -- Method to update the Currency Conversion button label
 function TradeQueryClass:SetCurrencyConversionButton()
 	local currencyLabel = "Update Currency Conversion Rates"
@@ -474,12 +585,13 @@ end
 
 -- Method to update controls after a search is completed
 function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
-	local sortMode = self.sortSelectionList[self.pbSortSelectionIndex]
+	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(slotTbl, index, sortMode)
 	if errMsg == "MissingConversionRates" then
-		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to DPS sort.")
-		sortedItems, errMsg = self:SortFetchResults(slotTbl, index, self.sortModes.DPS)
-	elseif errMsg then
+		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to Stat Value sort.")
+		sortedItems, errMsg = self:SortFetchResults(slotTbl, index, self.sortModes.StatValue)
+	end
+	if errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
 		return
 	else
@@ -488,7 +600,7 @@ function TradeQueryClass:UpdateControlsWithItems(slotTbl, index)
 
 	self.sortedResultTbl[index] = sortedItems
 	self.itemIndexTbl[index] = self.sortedResultTbl[index][1].index
-	self.controls["priceButton"..index].tooltipText = "Sorted by " .. self.sortSelectionList[self.pbSortSelectionIndex]
+	self.controls["priceButton"..index].tooltipText = "Sorted by " .. self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local pb_index = self.sortedResultTbl[index][1].index
 	self.totalPrice[index] = {
 		currency = self.resultTbl[index][pb_index].currency,
@@ -516,13 +628,15 @@ function TradeQueryClass:SetFetchResultReturn(slotIndex, index)
 	end
 end
 
+-- Method to sort the fetched results
 function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
-	local function getDpsTable()
+	local function getStatValueTable()
 		local out = {}
 		local slotName = slotTbl.ref and "Jewel " .. tostring(slotTbl.ref) or slotTbl.name
 		local storedFullDPS = GlobalCache.useFullDPS
 		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-		local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
+		local calcFunc, calcBase = self.itemsTab.build.calcsTab:GetMiscCalculator()
+		local baseItemOutput = calcFunc({ })
 		for index, tbl in pairs(self.resultTbl[trade_index]) do
 			local item = new("Item", tbl.item_string)
 			if not self.enchantInSort then -- Calc item DPS without anoint or enchant as these can generally be added after.
@@ -530,8 +644,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 				item:BuildAndParseRaw()
 			end
 			local output = calcFunc({ repSlotName = slotName, repItem = item }, {})
-			local newDPS = GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS or 0, m_max(output.TotalDotDPS or 0, output.CombinedDPS or 0))
-			out[index] = newDPS
+			out[index] = self.tradeQueryGenerator.WeightedRatioOutputs(baseItemOutput, output, self.statSortSelectionList)
 		end
 		GlobalCache.useFullDPS = storedFullDPS
 		return out
@@ -556,23 +669,23 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 			t_insert(newTbl, { outputAttr = index, index = index })
 		end
 		return newTbl
-	elseif mode == self.sortModes.DPS  then
-		local dpsTable = getDpsTable()
-		for index, dps in pairs(dpsTable) do
-			t_insert(newTbl, { outputAttr = dps, index = index })
+	elseif mode == self.sortModes.StatValue  then
+		local StatValueTable = getStatValueTable()
+		for index, statValue in pairs(StatValueTable) do
+			t_insert(newTbl, { outputAttr = statValue, index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.DPS_PRICE then
-		local dpsTable = getDpsTable()
+	elseif mode == self.sortModes.StatValuePRICE then
+		local StatValueTable = getStatValueTable()
 		local priceTable = getPriceTable()
 		if priceTable == nil then
 			return nil, "MissingConversionRates"
 		end
-		for index, dps in pairs(dpsTable) do
-			t_insert(newTbl, { outputAttr = dps / priceTable[index], index = index })
+		for index, statValue in pairs(StatValueTable) do
+			t_insert(newTbl, { outputAttr = statValue / priceTable[index], index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.PRICE_ASCENDING then
+	elseif mode == self.sortModes.PRICE then
 		local priceTable = getPriceTable()
 		if priceTable == nil then
 			return nil, "MissingConversionRates"
@@ -607,7 +720,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 	local activeSlotRef = slotTbl.ref and self.itemsTab.activeItemSet[slotTbl.ref] or self.itemsTab.activeItemSet[slotTbl.name]
 	controls["name"..str_cnt] = new("LabelControl", top_pane_alignment_ref, top_pane_alignment_width, top_pane_alignment_height, 100, row_height-4, "^7"..slotTbl.name)
 	controls["bestButton"..str_cnt] = new("ButtonControl", {"TOPLEFT",controls["name"..str_cnt],"TOPLEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
-		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, function(context, query, errMsg)
+		self.tradeQueryGenerator:RequestQuery(slotTbl.ref and self.itemsTab.sockets[slotTbl.ref] or self.itemsTab.slots[slotTbl.name], { slotTbl = slotTbl, controls = controls, str_cnt = str_cnt }, self.statSortSelectionList, function(context, query, errMsg)
 			if errMsg then
 				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
 				return
@@ -620,7 +733,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 				controls["uri"..context.str_cnt]:SetText(url, true)
 				return
 			end
-			self.pbSortSelectionIndex = 1
+			self.pbItemSortSelectionIndex = 1
 			context.controls["priceButton"..context.str_cnt].label = "Searching..."
 			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query, 
 				function(items, errMsg)
@@ -645,7 +758,7 @@ function TradeQueryClass:PriceItemRowDisplay(str_cnt, slotTbl, top_pane_alignmen
 		end)
 	end)
 	controls["bestButton"..str_cnt].shown = function() return not self.resultTbl[str_cnt] end
-	controls["bestButton"..str_cnt].tooltipText = "Creates a weighted search to find the highest DPS items for this slot."
+	controls["bestButton"..str_cnt].tooltipText = "Creates a weighted search to find the highest Stat Value items for this slot."
 	controls["uri"..str_cnt] = new("EditControl", {"TOPLEFT",controls["bestButton"..str_cnt],"TOPRIGHT"}, 8, 0, 518, row_height, nil, nil, "^%C\t\n", nil, function(buf)
 		local subpath = buf:match("https://www.pathofexile.com/trade/search/(.+)$") or ""
 		local paths = {}

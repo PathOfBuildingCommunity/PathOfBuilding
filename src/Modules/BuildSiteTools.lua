@@ -9,19 +9,19 @@ buildSites = { }
 -- Import/Export websites list used in dropdowns
 buildSites.websiteList = {
 	{
-		label = "Pastebin.com", id = "Pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1",
-		codeOut = "", postUrl = "https://pastebin.com/api/api_post.php", postFields = "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="
+		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/.+", regexURL = "pobb%.in/(.+)%s*$", downloadURL = "pobb.in/pob/%1",
+		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
 	},
-	{ label = "PastebinP.com", id = "PastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
-	{ label = "Rentry.co", id = "Rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
 	{
 		label = "PoeNinja", id = "PoeNinja", matchURL = "poe%.ninja/pob/%w+", regexURL = "poe%.ninja/pob/(%w+)%s*$", downloadURL = "poe.ninja/pob/raw/%1",
 		codeOut = "", postUrl = "https://poe.ninja/pob/api/api_post.php", postFields = "api_paste_code="
 	},
 	{
-		label = "pobb.in", id = "POBBin", matchURL = "pobb%.in/.+", regexURL = "pobb%.in/(.+)%s*$", downloadURL = "pobb.in/pob/%1",
-		codeOut = "https://pobb.in/", postUrl = "https://pobb.in/pob/", postFields = ""
+		label = "Pastebin.com", id = "pastebin", matchURL = "pastebin%.com/%w+", regexURL = "pastebin%.com/(%w+)%s*$", downloadURL = "pastebin.com/raw/%1",
+		codeOut = "", postUrl = "https://pastebin.com/api/api_post.php", postFields = "api_dev_key=c4757f22e50e65e21c53892fd8e0a9ff&api_paste_private=1&api_option=paste&api_paste_code="
 	},
+	{ label = "PastebinP.com", id = "pastebinProxy", matchURL = "pastebinp%.com/%w+", regexURL = "pastebinp%.com/(%w+)%s*$", downloadURL = "pastebinp.com/raw/%1" },
+	{ label = "Rentry.co", id = "rentry", matchURL = "rentry%.co/%w+", regexURL = "rentry%.co/(%w+)%s*$", downloadURL = "rentry.co/paste/%1/raw" },
 }
 
 --- Uploads a PoB build code to a website
