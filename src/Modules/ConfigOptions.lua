@@ -1468,6 +1468,7 @@ Huge sets the radius to 11.
 
 			local defaultLevel = 83
 			build.configTab.varControls['enemyLevel']:SetPlaceholder("", true)
+			build.configTab:UpdateLevel()
 			if build.configTab.enemyLevel then
 				defaultLevel = build.configTab.enemyLevel
 			end
@@ -1500,6 +1501,7 @@ Huge sets the radius to 11.
 
 			local defaultLevel = 83
 			build.configTab.varControls['enemyLevel']:SetPlaceholder("", true)
+			build.configTab:UpdateLevel()
 			if build.configTab.enemyLevel then
 				defaultLevel = build.configTab.enemyLevel
 			end
@@ -1533,6 +1535,7 @@ Huge sets the radius to 11.
 
 			local defaultLevel = 84
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
+			build.configTab:UpdateLevel()
 			if build.configTab.enemyLevel then
 				defaultLevel = m_max(build.configTab.enemyLevel, defaultLevel)
 			end
@@ -1565,6 +1568,7 @@ Huge sets the radius to 11.
 
 			local defaultLevel = 85
 			build.configTab.varControls['enemyLevel']:SetPlaceholder(defaultLevel, true)
+			build.configTab:UpdateLevel()
 			if build.configTab.enemyLevel then
 				defaultLevel = m_max(build.configTab.enemyLevel, defaultLevel)
 			end
