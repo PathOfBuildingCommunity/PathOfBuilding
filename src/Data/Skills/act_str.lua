@@ -125,6 +125,9 @@ skills["AbyssalCry"] = {
 		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
 			mod("InfernalFireTakenPer5MP", "BASE", nil),
 		},
+		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -227,6 +230,11 @@ skills["InfernalCryOnHitExplosion"] = {
 		["One Handed Sword"] = true,
 	},
 	statDescriptionScope = "skill_stat_descriptions",
+	statMap = {
+		["triggered_by_infernal_cry"] = {
+			-- Display only
+		},
+	},
 	castTime = 1,
 	baseFlags = {
 		attack = true,

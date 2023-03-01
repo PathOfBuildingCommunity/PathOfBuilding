@@ -37,6 +37,9 @@ local skills, mod, flag, skill = ...
 		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
 			mod("InfernalFireTakenPer5MP", "BASE", nil),
 		},
+		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 60)
 #baseMod skill("radiusLabel", "Warcry area:")
@@ -46,6 +49,11 @@ local skills, mod, flag, skill = ...
 
 #skill InfernalCryOnHitExplosion
 #flags attack melee area
+	statMap = {
+		["triggered_by_infernal_cry"] = {
+			-- Display only
+		},
+	},
 #baseMod skill("showAverage", true)
 #mods
 

@@ -3418,6 +3418,10 @@ function calcs.perform(env, avoidCache)
 				actor.mainSkill.skillData.triggered = true
 				actor.mainSkill.infoMessage = actor.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
 				skip = true
+			elseif actor.mainSkill.activeEffect.grantedEffect.name == "Combust" then
+				triggerName = "Combust"
+				triggeredSkills = {packageSkillDataForSimulation(actor.mainSkill)}
+				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and skill ~= actor.mainSkill end
 			else
 				skip = true
 			end
@@ -3489,6 +3493,15 @@ function calcs.perform(env, avoidCache)
 						trigRate = trigRate * battleMageUptime / 100
 						if breakdown then
 							t_insert(breakdown.EffectiveSourceRate, s_format("x %d%% ^8(Battlemage's Cry uptime)", battleMageUptime))
+						end
+					end
+					
+					-- Infernal Cry uptime
+					if actor.mainSkill.activeEffect.grantedEffect.name == "Combust" and GlobalCache.cachedData["CACHE"][uuid] and source and source.skillTypes[SkillType.Melee] then
+						local InfernalUpTime = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.InfernalUpTimeRatio or 100
+						trigRate = trigRate * InfernalUpTime / 100
+						if breakdown then
+							t_insert(breakdown.EffectiveSourceRate, s_format("x %d%% ^8(Infernal Cry uptime)", InfernalUpTime))
 						end
 					end
 					
