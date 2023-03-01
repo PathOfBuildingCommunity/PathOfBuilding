@@ -569,9 +569,9 @@ end
 
 -- Formats "1234.56" -> "1,234.5"
 function formatNumSep(str)
-	return string.gsub(str, "(%^?%d?-?%d+%.?%d+)", function(m)
-		local colour = m:match("(%^%d)") or ""
-		local str = string.gsub(m, "(%^%d)", "")
+	return string.gsub(str, "(%^?x?%x?%x?%x?%x?%x?%x?-?%d+%.?%d+)", function(m)
+		local colour = m:match("(%^%d)") or m:match("(^x%x%x%x%x%x%x)") or ""
+		local str = m:gsub("(%^%d)", ""):gsub("(^x%x%x%x%x%x%x)", "")
 		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
 		if main.showThousandsSeparators then
 			integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
