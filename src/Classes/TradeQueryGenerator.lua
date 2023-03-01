@@ -187,7 +187,7 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 end
 
 
-function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesOverride)
+function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
 	if type(modId) == "string" and modId:find("HellscapeDownside") ~= nil then -- skip scourge downsides, they often don't follow standard parsing rules, and should basically never be beneficial anyways
 		goto continue
 	end
@@ -290,7 +290,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		end
 
 		-- Update the min and max values available for each item category
-		for category, _ in pairs(itemCategoriesOverride or itemCategoryTags) do
+		for category, _ in pairs(itemCategoriesOverride or itemCategoriesMask) do
 			if itemCategoriesOverride or canModSpawnForItemCategory(mod, category) then
 				if self.modData[modType][uniqueIndex][category] == nil then
 					self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999 }
@@ -314,9 +314,9 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 	::continue::
 end
 
-function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
+function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
 	for modId, mod in pairs(mods) do
-		self:ProcessMod(modId, mod, tradeQueryStatsParsed)
+		self:ProcessMod(modId, mod, tradeQueryStatsParsed, itemCategoriesMask, itemCategoriesOverride)
 	end
 end
 
@@ -357,12 +357,17 @@ function TradeQueryGeneratorClass:InitMods()
 	end
 
 	-- explicit, corrupted, scourge, and jewel mods
-	self:GenerateModData(data.itemMods.Item, tradeQueryStatsParsed)
-	self:GenerateModData(data.veiledMods, tradeQueryStatsParsed)
-	self:GenerateModData(data.itemMods.Jewel, tradeQueryStatsParsed)
-	self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed)
-	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed)
-	self:GenerateModData(data.masterMods, tradeQueryStatsParsed)
+	local regularItemMask = { }
+	for category, _ in pairs(itemCategoryTags) do
+		if category ~= "Flask" and category ~= "AbyssJewel" and category ~= "BaseJewel" and category ~= "AnyJewel" then
+			regularItemMask[category] = true
+		end
+	end
+	self:GenerateModData(data.itemMods.Item, tradeQueryStatsParsed, regularItemMask)
+	self:GenerateModData(data.veiledMods, tradeQueryStatsParsed, regularItemMask)
+	self:GenerateModData(data.itemMods.Jewel, tradeQueryStatsParsed, { ["BaseJewel"] = true, ["AnyJewel"] = true })
+	self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed, { ["AbyssJewel"] = true, ["AnyJewel"] = true })
+	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed, { ["Flask"] = true })
 
 	-- Special handling for essences
 	for _, essenceItem in pairs(data.essences) do
@@ -375,9 +380,12 @@ function TradeQueryGeneratorClass:InitMods()
 					end
 				end
 			end
-			self:ProcessMod(modId, data.itemMods.Item[modId], tradeQueryStatsParsed, itemCategoriesOverride)
+			self:ProcessMod(modId, data.itemMods.Item[modId], tradeQueryStatsParsed, regularItemMask, itemCategoriesOverride)
 		end
 	end
+
+	regularItemMask.Flask = true -- Update mask as flasks can have crafted mods.
+	self:GenerateModData(data.masterMods, tradeQueryStatsParsed, regularItemMask)
 
 	-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
 	for baseName, entry in pairs(data.itemBases) do
