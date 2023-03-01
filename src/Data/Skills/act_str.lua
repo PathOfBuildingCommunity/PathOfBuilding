@@ -943,6 +943,9 @@ skills["BattlemagesCry"] = {
 		["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"] = {
 			mod("BattlemageCritChancePer5MP", "BASE", nil),
 		},
+		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
+			-- Display only
+		},
 	},
 	baseFlags = {
 		area = true,
@@ -1030,6 +1033,14 @@ skills["BattlemagesCrySupport"] = {
 	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_divine_cry_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["triggered_by_divine_cry"] = {
+			skill("triggeredByBattleMageCry", true),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },

@@ -3391,6 +3391,10 @@ function calcs.perform(env, avoidCache)
 				triggerName = actor.mainSkill.activeEffect.grantedEffect.name
 				source = actor.mainSkill
 				triggeredSkills = nil
+			elseif actor.mainSkill.skillData.triggeredByBattleMageCry then
+				triggerName = "Battlemage's Cry"
+				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and skill ~= actor.mainSkill end
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBattleMageCry and slotMatch(env, skill) end
 			elseif actor.mainSkill.skillData.triggeredByBrand and not actor.mainSkill.skillFlags.minion then
 				triggerName = actor.mainSkill.activeEffect.grantedEffect.name
 				actor.mainSkill.skillData.sourceRateIsFinal = true
@@ -3476,6 +3480,15 @@ function calcs.perform(env, avoidCache)
 						actor.mainSkill.skillFlags.HasSeals = true
 						if breakdown then
 							t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f ^8(multiplier from Unleash)", unleashDpsMult))
+						end
+					end
+					
+					-- Battlemage's Cry uptime
+					if actor.mainSkill.skillData.triggeredByBattleMageCry and GlobalCache.cachedData["CACHE"][uuid] and source and source.skillTypes[SkillType.Melee] then
+						local battleMageUptime = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.BattlemageUpTimeRatio or 100
+						trigRate = trigRate * battleMageUptime / 100
+						if breakdown then
+							t_insert(breakdown.EffectiveSourceRate, s_format("x %d%% ^8(Battlemage's Cry uptime)", battleMageUptime))
 						end
 					end
 					
