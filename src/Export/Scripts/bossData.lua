@@ -6,14 +6,14 @@ local rarityDamageMult = {
 	Unique = (1 + dat("Mods"):GetRow("Id", "MonsterUnique5").Stat1Value[1] / 100),
 	UniqueAttack = (1 + dat("Mods"):GetRow("Id", "MonsterUnique5").Stat1Value[1] / 100) * (1 - dat("Mods"):GetRow("Id", "MonsterUnique8").Stat1Value[1] / 100)
 }
-local monsterBaseDamage = { 1.59, 4.9899997711182, 5.5599999427795, 6.1599998474121, 6.8099999427795, 7.5, 8.2299995422363, 9, 9.8199996948242, 10.699999809265, 11.619999885559, 12.60000038147, 13.640000343323, 14.739999771118, 15.909999847412, 17.139999389648, 18.450000762939, 19.829999923706, 21.290000915527, 22.840000152588, 24.469999313354, 26.190000534058, 28.010000228882, 29.940000534058, 31.959999084473, 34.110000610352, 36.360000610352, 38.75, 41.259998321533, 43.909999847412, 46.700000762939, 49.650001525879, 52.75, 56.009998321533, 59.450000762939, 63.080001831055, 66.889999389648, 70.910003662109, 75.129997253418, 79.580001831055, 84.26000213623, 89.180000305176, 94.349998474121, 99.800003051758, 105.51999664307, 111.5299987793, 117.86000061035, 124.5, 131.49000549316, 138.83000183105, 146.5299987793, 154.63000488281, 163.13999938965, 172.07000732422, 181.44999694824, 191.30000305176, 201.63000488281, 212.47999572754, 223.86999511719, 235.83000183105, 248.36999511719, 261.5299987793, 275.32998657227, 289.82000732422, 305.01000976562, 320.94000244141, 337.64999389648, 355.17999267578, 373.54998779297, 392.80999755859, 413.01000976562, 434.17999267578, 456.36999511719, 479.61999511719, 504, 529.53997802734, 556.29998779297, 584.34997558594, 613.72998046875, 644.5, 676.75, 710.52001953125, 745.89001464844, 782.94000244141, 821.72998046875, 862.35998535156, 904.90002441406, 949.44000244141, 996.07000732422, 1044.8900146484, 1096, 1149.5, 1205.5, 1264.1099853516, 1325.4499511719, 1389.6400146484, 1456.8199462891, 1527.1199951172, 1600.6800537109, 1677.6400146484, 1758.1700439453, }
+local monsterBaseDamage = { 4.9899997711182, 5.5599999427795, 6.1599998474121, 6.8099999427795, 7.5, 8.2299995422363, 9, 9.8199996948242, 10.699999809265, 11.619999885559, 12.60000038147, 13.640000343323, 14.739999771118, 15.909999847412, 17.139999389648, 18.450000762939, 19.829999923706, 21.290000915527, 22.840000152588, 24.469999313354, 26.190000534058, 28.010000228882, 29.940000534058, 31.959999084473, 34.110000610352, 36.360000610352, 38.75, 41.259998321533, 43.909999847412, 46.700000762939, 49.650001525879, 52.75, 56.009998321533, 59.450000762939, 63.080001831055, 66.889999389648, 70.910003662109, 75.129997253418, 79.580001831055, 84.26000213623, 89.180000305176, 94.349998474121, 99.800003051758, 105.51999664307, 111.5299987793, 117.86000061035, 124.5, 131.49000549316, 138.83000183105, 146.5299987793, 154.63000488281, 163.13999938965, 172.07000732422, 181.44999694824, 191.30000305176, 201.63000488281, 212.47999572754, 223.86999511719, 235.83000183105, 248.36999511719, 261.5299987793, 275.32998657227, 289.82000732422, 305.01000976562, 320.94000244141, 337.64999389648, 355.17999267578, 373.54998779297, 392.80999755859, 413.01000976562, 434.17999267578, 456.36999511719, 479.61999511719, 504, 529.53997802734, 556.29998779297, 584.34997558594, 613.72998046875, 644.5, 676.75, 710.52001953125, 745.89001464844, 782.94000244141, 821.72998046875, 862.35998535156, 904.90002441406, 949.44000244141, 996.07000732422, 1044.8900146484, 1096, 1149.5, 1205.5, 1264.1099853516, 1325.4499511719, 1389.6400146484, 1456.8199462891, 1527.1199951172, 1600.6800537109, 1677.6400146484, 1758.1700439453, }
 local monsterMapDifficultyMult = {}
 for row in dat("MonsterMapDifficulty"):Rows() do
 	monsterMapDifficultyMult[row.AreaLevel] = 1 + row.DamagePercentIncrease / 100
 end
 local baseDamage = {
-	AtziriFlameblast = { index = 1, uberIndex = 2, oldMethod = true },
-	AtlasBossAcceleratingProjectiles = { index = 1, uberIndex = 2, oldMethod = true },
+	AtziriFlameblastEmpowered = { index = 1, uberIndex = 2, mapBoss = true },
+	AtlasBossAcceleratingProjectiles = { index = 1, uberIndex = 2 },
 	AtlasBossFlickerSlam = { index = 1, uberIndex = 2, oldMethod = true, attack = true },
 	AtlasExileOrionCircleMazeBlast3 = { index = 4, uberIndex = 5 },
 	CleansingFireWall = { index = 1, oldMethod = true },
@@ -22,7 +22,7 @@ local baseDamage = {
 	MavenMemoryGame = { index = 1, oldMethod = true, mapBoss = true },
 }
 local oldMethod = {
-	AtziriFlameblast = { Fire = { 1210.408, 0 } },
+	AtziriFlameblastEmpowered = { Fire = { 1210.408, 0 } },
 	AtlasBossAcceleratingProjectiles = { Cold = { 3358.0288, 0 } },
 	AtlasBossFlickerSlam = { Physical = { 1769.847, 0 } },
 	AtlasExileOrionCircleMazeBlast3 = { Physical = { 18154.481, 0 }, SkillUberDamageMult = 152 },
@@ -74,7 +74,7 @@ local function calcSkillDamage(state)
 			break
 		end
 	end
-		ExtraDamageMult = { ExtraDamageMult[1] * (1 + stageMulti * (skill.stages - 1)), ExtraDamageMult[2] * (1 + stageMulti * (skill.stages - 1)) }
+		ExtraDamageMult = { ExtraDamageMult[1] * (1 + stageMulti * skill.stages), ExtraDamageMult[2] * (1 + stageMulti * skill.stages) }
 	end
 	-- old method with hardcoded values (Still used for Shaper Slam)
 	if baseDamage[grantedId].oldMethod then
@@ -83,7 +83,7 @@ local function calcSkillDamage(state)
 			local conversionDivisor = m_max(totalConversions, 100)
 			physConversions = { m_max(1 - totalConversions / 100, 0), physConversions[2] / conversionDivisor, physConversions[3] / conversionDivisor, physConversions[4] / conversionDivisor, physConversions[5] / conversionDivisor }
 		end
-		local baseDamageMult = state.SkillExtraDamageMult * ExtraDamageMult[1] * boss.damageMult / 100 * (rarityDamageMult[rarityType] or 1) * (baseDamage[grantedId].mapBoss and monsterMapDifficultyMult[84] or 1) / (monsterBaseDamage[monsterLevel] or 1)
+		local baseDamageMult = state.SkillExtraDamageMult * ExtraDamageMult[1] * boss.damageMult / 100 * (rarityDamageMult[rarityType] or 1) * (baseDamage[grantedId].mapBoss and monsterMapDifficultyMult[monsterLevel] or 1) / (monsterBaseDamage[monsterLevel - 1] or 1)
 		if oldMethod[grantedId].Physical and physConversions[1] ~= 0 then
 			local damageRange = (oldMethod[grantedId].Physical[2] == 0) and (boss.damageRange / 100) or oldMethod[grantedId].Physical[2] / 100
 			local damageMult = oldMethod[grantedId].Physical[1] * physConversions[1] * baseDamageMult
@@ -106,12 +106,11 @@ local function calcSkillDamage(state)
 			end
 		end
 		if ExtraDamageMult[1] ~= ExtraDamageMult[2] then
-			state.DamageData.SkillUberDamageMult = 100 * ExtraDamageMult[2] / ExtraDamageMult[1] * (baseDamage[grantedId].mapBoss and (monsterMapDifficultyMult[85] / monsterMapDifficultyMult[84]) or 1)
-		end
-		if oldMethod[grantedId].SkillUberDamageMult then
-			state.DamageData.SkillUberDamageMult = oldMethod[grantedId].SkillUberDamageMult * (baseDamage[grantedId].mapBoss and (monsterMapDifficultyMult[85] / monsterMapDifficultyMult[84]) or 1)
+			state.DamageData.SkillUberDamageMult = 100 * ExtraDamageMult[2] / ExtraDamageMult[1] * (baseDamage[grantedId].mapBoss and (monsterMapDifficultyMult[monsterLevel + 1] / monsterMapDifficultyMult[monsterLevel]) or 1)
+		elseif oldMethod[grantedId].SkillUberDamageMult then
+			state.DamageData.SkillUberDamageMult = oldMethod[grantedId].SkillUberDamageMult * (baseDamage[grantedId].mapBoss and (monsterMapDifficultyMult[monsterLevel + 1] / monsterMapDifficultyMult[monsterLevel]) or 1)
 		elseif baseDamage[grantedId].mapBoss then
-			state.DamageData.SkillUberDamageMult = 100 * (monsterMapDifficultyMult[85] / monsterMapDifficultyMult[84])
+			state.DamageData.SkillUberDamageMult = 100 * (monsterMapDifficultyMult[baseDamage[grantedId].uberMapBoss or (monsterLevel + 1)] / monsterMapDifficultyMult[monsterLevel])
 		end
 		
 	else
@@ -143,13 +142,13 @@ local function calcSkillDamage(state)
 				end
 			end
 		end
-		monsterLevel = skill.statsPerLevel[baseDamage[grantedId].index].PlayerLevelReq + 1
+		monsterLevel = skill.statsPerLevel[baseDamage[grantedId].index].PlayerLevelReq
 		if baseDamages["minPhysical1"] or baseDamages["maxPhysical1"] then
 			local totalConversions = physConversions[2] + physConversions[3] + physConversions[4] + physConversions[5]
 			local conversionDivisor = m_max(totalConversions, 100)
 			physConversions = { m_max(1 - totalConversions / 100, 0), physConversions[2] / conversionDivisor, physConversions[3] / conversionDivisor, physConversions[4] / conversionDivisor, physConversions[5] / conversionDivisor }
 		end
-		local baseDamageMult = state.SkillExtraDamageMult * ExtraDamageMult[1] * (rarityDamageMult[rarityType] or 1) * (baseDamage[grantedId].mapBoss and monsterMapDifficultyMult[84] or 1) / (monsterBaseDamage[monsterLevel] or 1) --  * boss.damageMult / 100
+		local baseDamageMult = state.SkillExtraDamageMult * ExtraDamageMult[1] * (rarityDamageMult[rarityType] or 1) * (baseDamage[grantedId].mapBoss and monsterMapDifficultyMult[monsterLevel] or 1) / (monsterBaseDamage[monsterLevel] or 1) --  * boss.damageMult / 100
 		if (baseDamages["minPhysical1"] or baseDamages["maxPhysical1"]) and physConversions[1] ~= 0 then
 			local damageMult = physConversions[1] * baseDamageMult
 			state.DamageData["PhysicalDamageMultMin"], state.DamageData["PhysicalDamageMultMax"] = damageMult * (baseDamages["minPhysical1"] or 0), damageMult * (baseDamages["maxPhysical1"] or 0)
@@ -171,14 +170,14 @@ local function calcSkillDamage(state)
 		if baseDamage[grantedId].uberIndex then
 			local SkillUberDamageMult = 0
 			local SkillDamageMult = 0
-			local uberMonsterLevel = skill.statsPerLevel[baseDamage[grantedId].uberIndex].PlayerLevelReq + 1
+			local uberMonsterLevel = skill.statsPerLevel[baseDamage[grantedId].uberIndex].PlayerLevelReq
 			for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
 				if (baseDamages["min"..damageType.."1"] or baseDamages["max"..damageType.."1"]) then
 					SkillDamageMult = SkillDamageMult + baseDamages["min"..damageType.."1"] or baseDamages["max"..damageType.."1"]
 					SkillUberDamageMult = SkillUberDamageMult + baseDamages["min"..damageType.."2"] or baseDamages["max"..damageType.."2"]
 				end
 			end
-			SkillUberDamageMult = (SkillUberDamageMult / (monsterBaseDamage[uberMonsterLevel] or 1)) / (SkillDamageMult / (monsterBaseDamage[monsterLevel] or 1)) * (baseDamage[grantedId].mapBoss and (monsterMapDifficultyMult[85] / monsterMapDifficultyMult[84]) or 1)
+			SkillUberDamageMult = (SkillUberDamageMult / (monsterBaseDamage[uberMonsterLevel] or 1)) / (SkillDamageMult / (monsterBaseDamage[monsterLevel] or 1)) * (baseDamage[grantedId].mapBoss and (monsterMapDifficultyMult[uberMonsterLevel] / monsterMapDifficultyMult[monsterLevel]) or 1)
 			if SkillUberDamageMult > 1.15 or SkillUberDamageMult < 0.85 then
 				state.DamageData.SkillUberDamageMult = m_ceil(SkillUberDamageMult * 100)
 			end
@@ -233,20 +232,7 @@ local function getStat(state, stat)
 				end
 			end
 		end
-		if boss.earlierUber then
-			local statsPerLevel = skill.statsPerLevelUber[2]
-			for i, additionalStat in ipairs(statsPerLevel.AdditionalStats) do
-				if additionalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
-					DamageData["LightningUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additionalStat.Id == "base_reduce_enemy_cold_resistance_%" then
-					DamageData["ColdUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additionalStat.Id == "base_reduce_enemy_fire_resistance_%" then
-					DamageData["FireUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-				elseif additionalStat.Id == "base_reduce_enemy_chaos_resistance_%" then
-					DamageData["ChaosUberPen"] = statsPerLevel.AdditionalStatsValues[i]
-				end
-			end
-		elseif skill.statsPerLevel2 then 
+		if skill.statsPerLevel2 then 
 			for level, statsPerLevel in ipairs(skill.statsPerLevel2) do
 				for i, additionalStat in ipairs(statsPerLevel.AdditionalStats) do
 					if additionalStat.Id == "base_reduce_enemy_lightning_resistance_%" then
@@ -313,16 +299,32 @@ local function getStat(state, stat)
 	end
 end
 
-local directiveTable = {}
+local directiveTable = { monsters = {}, skills = {} }
 
--- #boss [<Display name>] <MonsterId> <earlierUber>
--- Initialises the boss
-directiveTable.boss = function(state, args, out)
-	local displayName, monsterId, earlierUber = args:match("(%w+) (.+) (%w+)")
+-- #boss [<Display name>] [<MonsterId>] <isUber>
+directiveTable.monsters.boss = function(state, args, out)
+	local displayName, monsterId, isUber = args:match("(%w+) (.+) {(%w+)}")
 	if not displayName then
-		displayName = args
-		monsterId = args
+		displayName, monsterId = args:match("(%w+) (.+)")
 	end
+
+    local monsterType = dat("MonsterTypes"):GetRow("Id", monsterId)
+    if not monsterType then
+		print("Invalid Type: "..monsterId)
+		return
+	end
+
+    out:write('bosses["', displayName, '"] = {\n')
+    out:write('\tarmourMult = ', monsterType.Armour, ',\n')
+    out:write('\tevasionMult = ', monsterType.Evasion, ',\n')
+    out:write('\tisUber = ', isUber and "true" or "false", ',\n')
+	out:write('}\n')
+end
+
+-- #boss [<Display name>] [<MonsterId>] <earlierUber>
+-- Initialises the boss
+directiveTable.skills.boss = function(state, args, out)
+	local displayName, monsterId, earlierUber = args:match("(%w+) (.+) (%w+)")
 	local bossData = dat("MonsterVarieties"):GetRow("Id", monsterId)
 	state.boss = { displayName = displayName, damageRange = bossData.Type.DamageSpread, damageMult = bossData.DamageMultiplier, critChance = m_ceil(bossData.CriticalStrikeChance / 100) }
 	if earlierUber == "true" then
@@ -339,12 +341,17 @@ end
 -- #skill [<Display name>] [<GrantedEffectId>]
 -- optional#  <GrantedEffectId2> <GrantedEffectIdUber> <SkillExtraDamageMult> <speedMult>
 -- Initialises and emits the skill data
-directiveTable.skill = function(state, args, out)
+directiveTable.skills.skill = function(state, args, out)
 	local displayName, grantedId = args:match("(%w+) (%w+)")
 	if not grantedId then
 		displayName, grantedId = args
 	end
+	if displayName == "MemoryGame" then
+		displayName = "Memory Game"
+	end
 	local boss = state.boss
+	state.skillList = state.skillList or {}
+	table.insert(state.skillList, boss.displayName.." "..displayName)
 	local skill = {}
 	local skillData = dat("GrantedEffects"):GetRow("Id", grantedId)
 	local GrantedEffectStatSets = dat("GrantedEffectStatSets"):GetRow("Id", grantedId)
@@ -430,7 +437,7 @@ directiveTable.skill = function(state, args, out)
 end
 
  -- #tooltip
- directiveTable.tooltip = function(state, args, out)
+ directiveTable.skills.tooltip = function(state, args, out)
 	if args then
 		out:write(',\n		tooltip = ', args,'\n')
 	end
@@ -438,6 +445,20 @@ end
 	state.skill = nil
 end
 
-processTemplateFile("bossSkills", "", "../Data/", directiveTable)
+ -- #skillList
+ directiveTable.skills.skillList = function(state, args, out)
+	out:write('},{\n')
+	out:write('    { val = "None", label = "None" }')
+	for _, skillName in pairs(state.skillList) do
+		out:write(',\n    { val = "', skillName, '", label = "', skillName, '" }')
+	end
+	out:write('\n}')
+	state.boss = nil
+	state.skillList = nil
+end
 
+processTemplateFile("BossSkills", "Enemies/", "../Data/", directiveTable.skills)
 print("Boss skill data exported.")
+processTemplateFile("Bosses", "Enemies/", "../Data/", directiveTable.monsters)
+print("Boss data exported.")
+
