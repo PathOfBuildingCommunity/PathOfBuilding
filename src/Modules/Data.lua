@@ -438,6 +438,9 @@ data.highPrecisionMods = {
 	["ChaosDamageEnergyShieldLeech"] = {
 		["BASE"] = 2,
 	},
+	["SupportManaMultiplier"] = {
+		["MORE"] = 4,
+	}
 }
 
 data.misc = { -- magic numbers
