@@ -335,7 +335,7 @@ return {
 			}, 
 			["Amulet"] = {
 				["min"] = 3, 
-				["max"] = 26, 
+				["max"] = 34, 
 			}, 
 			["1HSword"] = {
 				["min"] = 9, 
@@ -363,7 +363,7 @@ return {
 			}, 
 			["Ring"] = {
 				["min"] = 3, 
-				["max"] = 22, 
+				["max"] = 34, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 3, 
@@ -414,8 +414,8 @@ return {
 		}, 
 		["1306_IncreasedLife"] = {
 			["Gloves"] = {
-				["min"] = 15, 
-				["max"] = 70, 
+				["min"] = 5, 
+				["max"] = 96, 
 			}, 
 			["Quiver"] = {
 				["min"] = 15, 
@@ -425,8 +425,8 @@ return {
 			}, 
 			["sign"] = "+", 
 			["Boots"] = {
-				["min"] = 15, 
-				["max"] = 70, 
+				["min"] = 5, 
+				["max"] = 96, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -434,8 +434,8 @@ return {
 				["text"] = "# to maximum Life", 
 			}, 
 			["Helmet"] = {
-				["min"] = 15, 
-				["max"] = 70, 
+				["min"] = 5, 
+				["max"] = 106, 
 			}, 
 			["Belt"] = {
 				["min"] = 15, 
@@ -446,7 +446,7 @@ return {
 				["max"] = 55, 
 			}, 
 			["Chest"] = {
-				["min"] = 15, 
+				["min"] = 5, 
 				["max"] = 129, 
 			}, 
 			["Amulet"] = {
@@ -454,8 +454,8 @@ return {
 				["max"] = 55, 
 			}, 
 			["Shield"] = {
-				["min"] = 15, 
-				["max"] = 109, 
+				["min"] = 5, 
+				["max"] = 116, 
 			}, 
 		}, 
 		["1306_LocalIncreasedArmourAndLife"] = {
@@ -673,6 +673,10 @@ return {
 				["text"] = "#% reduced Elemental Damage Taken while stationary", 
 			}, 
 			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 5, 
+				["max"] = 5, 
+			}, 
 		}, 
 		["340_SupportedByFortifyWeapon"] = {
 			["2HSword"] = {
@@ -734,20 +738,20 @@ return {
 				["max"] = 123.5, 
 			}, 
 			["1HSword"] = {
-				["min"] = 80.5, 
+				["min"] = 58, 
 				["max"] = 123.5, 
 			}, 
 			["1HMace"] = {
-				["min"] = 80.5, 
+				["min"] = 58, 
 				["max"] = 123.5, 
 			}, 
 			["sign"] = "", 
 			["Dagger"] = {
-				["min"] = 80.5, 
+				["min"] = 58, 
 				["max"] = 123.5, 
 			}, 
 			["Claw"] = {
-				["min"] = 80.5, 
+				["min"] = 58, 
 				["max"] = 123.5, 
 			}, 
 			["2HSword"] = {
@@ -760,7 +764,7 @@ return {
 				["text"] = "Adds # to # Chaos Damage (Local)", 
 			}, 
 			["Wand"] = {
-				["min"] = 80.5, 
+				["min"] = 58, 
 				["max"] = 123.5, 
 			}, 
 			["2HAxe"] = {
@@ -768,7 +772,7 @@ return {
 				["max"] = 123.5, 
 			}, 
 			["1HAxe"] = {
-				["min"] = 80.5, 
+				["min"] = 58, 
 				["max"] = 123.5, 
 			}, 
 			["2HWeapon"] = {
@@ -776,7 +780,7 @@ return {
 				["max"] = 123.5, 
 			}, 
 			["1HWeapon"] = {
-				["min"] = 80.5, 
+				["min"] = 58, 
 				["max"] = 123.5, 
 			}, 
 			["specialCaseData"] = {
@@ -810,7 +814,7 @@ return {
 				["text"] = "#% chance to Avoid Fire Damage from Hits", 
 			}, 
 			["Chest"] = {
-				["min"] = 8, 
+				["min"] = 6, 
 				["max"] = 10, 
 			}, 
 			["Quiver"] = {
@@ -832,7 +836,7 @@ return {
 		["1009_PhysicalDamage"] = {
 			["Gloves"] = {
 				["min"] = 1.5, 
-				["max"] = 8, 
+				["max"] = 9, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -840,7 +844,7 @@ return {
 				["text"] = "Adds # to # Physical Damage to Attacks", 
 			}, 
 			["Quiver"] = {
-				["min"] = 2, 
+				["min"] = 1.5, 
 				["max"] = 31, 
 			}, 
 			["specialCaseData"] = {
@@ -848,11 +852,11 @@ return {
 			["sign"] = "", 
 			["Amulet"] = {
 				["min"] = 1.5, 
-				["max"] = 20.5, 
+				["max"] = 24, 
 			}, 
 			["Ring"] = {
 				["min"] = 1.5, 
-				["max"] = 12, 
+				["max"] = 14, 
 			}, 
 		}, 
 		["1230_SpellCritMultiplierForJewel"] = {
@@ -949,8 +953,8 @@ return {
 		}, 
 		["1361_FireResistance"] = {
 			["Gloves"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 12, 
+				["max"] = 48, 
 			}, 
 			["2HMace"] = {
 				["min"] = 6, 
@@ -1005,8 +1009,8 @@ return {
 				["max"] = 48, 
 			}, 
 			["Boots"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 12, 
+				["max"] = 48, 
 			}, 
 			["Staff"] = {
 				["min"] = 6, 
@@ -1017,8 +1021,8 @@ return {
 				["max"] = 48, 
 			}, 
 			["Chest"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 12, 
+				["max"] = 48, 
 			}, 
 			["Claw"] = {
 				["min"] = 6, 
@@ -1029,8 +1033,8 @@ return {
 				["max"] = 48, 
 			}, 
 			["Helmet"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 12, 
+				["max"] = 48, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 6, 
@@ -1041,14 +1045,14 @@ return {
 				["max"] = 48, 
 			}, 
 			["Shield"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 12, 
+				["max"] = 48, 
 			}, 
 		}, 
 		["1751_LocalAccuracyRating"] = {
 			["1HSword"] = {
 				["min"] = 80, 
-				["max"] = 624, 
+				["max"] = 780, 
 			}, 
 			["Wand"] = {
 				["min"] = 80, 
@@ -1056,28 +1060,28 @@ return {
 			}, 
 			["2HMace"] = {
 				["min"] = 80, 
-				["max"] = 624, 
+				["max"] = 780, 
 			}, 
 			["Staff"] = {
 				["min"] = 80, 
-				["max"] = 624, 
+				["max"] = 780, 
 			}, 
 			["1HMace"] = {
 				["min"] = 80, 
-				["max"] = 624, 
+				["max"] = 780, 
 			}, 
 			["sign"] = "+", 
 			["Dagger"] = {
 				["min"] = 80, 
-				["max"] = 624, 
+				["max"] = 780, 
 			}, 
 			["Claw"] = {
 				["min"] = 80, 
-				["max"] = 624, 
+				["max"] = 780, 
 			}, 
 			["2HSword"] = {
 				["min"] = 80, 
-				["max"] = 624, 
+				["max"] = 780, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -1090,11 +1094,11 @@ return {
 			}, 
 			["2HAxe"] = {
 				["min"] = 80, 
-				["max"] = 624, 
+				["max"] = 780, 
 			}, 
 			["1HAxe"] = {
 				["min"] = 80, 
-				["max"] = 624, 
+				["max"] = 780, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 80, 
@@ -1396,6 +1400,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3846088475", 
 				["text"] = "Socketed Gems deal #% more Damage over Time", 
+			}, 
+			["Gloves"] = {
+				["min"] = 30, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -2145,12 +2153,64 @@ return {
 			}, 
 		}, 
 		["5302_DecayOnHit"] = {
+			["Claw"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HSword"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HMace"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 			["specialCaseData"] = {
+			}, 
+			["Bow"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HAxe"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Staff"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HSword"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3322709337", 
 				["text"] = "Your Hits inflict Decay, dealing 700 Chaos Damage per second for 8 seconds", 
+			}, 
+			["Wand"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HMace"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HAxe"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Dagger"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["367_DisplaySocketedGemsGetReducedReservation"] = {
@@ -2168,12 +2228,64 @@ return {
 			}, 
 		}, 
 		["549_FireBurstOnHit"] = {
+			["Claw"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HSword"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HMace"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 			["specialCaseData"] = {
+			}, 
+			["Bow"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HAxe"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Staff"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HSword"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1621470436", 
 				["text"] = "Cast Level 20 Fire Burst on Hit", 
+			}, 
+			["Wand"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HMace"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HAxe"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Dagger"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["5250_IncreasedDamagePerPowerCharge"] = {
@@ -2526,21 +2638,8 @@ return {
 			}, 
 		}, 
 		["1146_SpellAddedColdDamageTwoHand"] = {
-			["2HSword"] = {
-				["min"] = 21, 
-				["max"] = 69, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2469416729", 
-				["text"] = "Adds # to # Cold Damage to Spells", 
-			}, 
 			["2HMace"] = {
 				["min"] = 21, 
-				["max"] = 69, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 2, 
 				["max"] = 110.5, 
 			}, 
 			["specialCaseData"] = {
@@ -2548,10 +2647,27 @@ return {
 			["sign"] = "", 
 			["2HAxe"] = {
 				["min"] = 21, 
-				["max"] = 69, 
+				["max"] = 110.5, 
 			}, 
 			["Staff"] = {
 				["min"] = 2, 
+				["max"] = 110.5, 
+			}, 
+			["2HSword"] = {
+				["min"] = 21, 
+				["max"] = 110.5, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2469416729", 
+				["text"] = "Adds # to # Cold Damage to Spells", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2, 
+				["max"] = 110.5, 
+			}, 
+			["Bow"] = {
+				["min"] = 24.5, 
 				["max"] = 110.5, 
 			}, 
 		}, 
@@ -2597,7 +2713,7 @@ return {
 		}, 
 		["1199_CriticalStrikeChance"] = {
 			["Gloves"] = {
-				["min"] = 16, 
+				["min"] = 15, 
 				["max"] = 60, 
 			}, 
 			["tradeMod"] = {
@@ -2607,18 +2723,18 @@ return {
 			}, 
 			["Quiver"] = {
 				["min"] = 17, 
-				["max"] = 27, 
+				["max"] = 42, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Amulet"] = {
 				["min"] = 10, 
-				["max"] = 38, 
+				["max"] = 42, 
 			}, 
 			["Ring"] = {
 				["min"] = 10, 
-				["max"] = 25, 
+				["max"] = 26, 
 			}, 
 		}, 
 		["1268_LocalWardAndStunRecoveryPercent"] = {
@@ -3195,7 +3311,7 @@ return {
 		["1316_IncreasedMana"] = {
 			["Gloves"] = {
 				["min"] = 15, 
-				["max"] = 73, 
+				["max"] = 77, 
 			}, 
 			["2HMace"] = {
 				["min"] = 55, 
@@ -3263,11 +3379,11 @@ return {
 			}, 
 			["Chest"] = {
 				["min"] = 15, 
-				["max"] = 73, 
+				["max"] = 77, 
 			}, 
 			["Boots"] = {
 				["min"] = 15, 
-				["max"] = 73, 
+				["max"] = 77, 
 			}, 
 			["Belt"] = {
 				["min"] = 15, 
@@ -3275,7 +3391,7 @@ return {
 			}, 
 			["Helmet"] = {
 				["min"] = 15, 
-				["max"] = 73, 
+				["max"] = 77, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 40, 
@@ -3696,6 +3812,10 @@ return {
 				["id"] = "explicit.stat_4237190083", 
 				["text"] = "#% increased Mana Reservation Efficiency of Skills", 
 			}, 
+			["Chest"] = {
+				["min"] = 3, 
+				["max"] = 10, 
+			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
@@ -3704,7 +3824,7 @@ return {
 				["max"] = 14, 
 			}, 
 			["Helmet"] = {
-				["min"] = 4, 
+				["min"] = 3, 
 				["max"] = 14, 
 			}, 
 		}, 
@@ -4174,15 +4294,19 @@ return {
 			}, 
 			["Ring"] = {
 				["min"] = 8, 
-				["max"] = 22, 
+				["max"] = 25, 
 			}, 
 			["Amulet"] = {
 				["min"] = 8, 
-				["max"] = 38, 
+				["max"] = 41, 
 			}, 
 			["1HSword"] = {
 				["min"] = 10, 
 				["max"] = 38, 
+			}, 
+			["Quiver"] = {
+				["min"] = 25, 
+				["max"] = 41, 
 			}, 
 			["Wand"] = {
 				["min"] = 10, 
@@ -4636,7 +4760,7 @@ return {
 			}, 
 			["Amulet"] = {
 				["min"] = 3, 
-				["max"] = 26, 
+				["max"] = 34, 
 			}, 
 			["1HSword"] = {
 				["min"] = 9, 
@@ -4662,7 +4786,7 @@ return {
 			}, 
 			["Ring"] = {
 				["min"] = 3, 
-				["max"] = 22, 
+				["max"] = 34, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 3, 
@@ -4985,7 +5109,7 @@ return {
 		["1145_SpellAddedFireDamage"] = {
 			["1HSword"] = {
 				["min"] = 17.5, 
-				["max"] = 56, 
+				["max"] = 90.5, 
 			}, 
 			["Wand"] = {
 				["min"] = 2, 
@@ -4998,7 +5122,7 @@ return {
 			}, 
 			["Claw"] = {
 				["min"] = 17.5, 
-				["max"] = 56, 
+				["max"] = 90.5, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -5007,7 +5131,7 @@ return {
 			}, 
 			["1HAxe"] = {
 				["min"] = 17.5, 
-				["max"] = 56, 
+				["max"] = 90.5, 
 			}, 
 			["1HMace"] = {
 				["min"] = 2, 
@@ -5243,7 +5367,7 @@ return {
 			["sign"] = "+", 
 			["Belt"] = {
 				["min"] = 20, 
-				["max"] = 30, 
+				["max"] = 50, 
 			}, 
 		}, 
 		["1479_ManaGainPerTarget"] = {
@@ -5280,18 +5404,18 @@ return {
 			}, 
 			["Quiver"] = {
 				["min"] = 1.5, 
-				["max"] = 61.5, 
+				["max"] = 68, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Amulet"] = {
 				["min"] = 1.5, 
-				["max"] = 31, 
+				["max"] = 34, 
 			}, 
 			["Ring"] = {
 				["min"] = 1.5, 
-				["max"] = 31, 
+				["max"] = 34, 
 			}, 
 		}, 
 		["929_PercentageStrength"] = {
@@ -5525,7 +5649,7 @@ return {
 			}, 
 			["Shield"] = {
 				["min"] = 50, 
-				["max"] = 320, 
+				["max"] = 375, 
 			}, 
 			["Helmet"] = {
 				["min"] = 6, 
@@ -7167,17 +7291,25 @@ return {
 			}, 
 		}, 
 		["1530_ProjectileSpeed"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3759663284", 
 				["text"] = "#% increased Projectile Speed", 
 			}, 
-			["sign"] = "", 
 			["Quiver"] = {
 				["min"] = 10, 
-				["max"] = 46, 
+				["max"] = 52, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["1HWeapon"] = {
+				["min"] = 34, 
+				["max"] = 52, 
+			}, 
+			["Wand"] = {
+				["min"] = 34, 
+				["max"] = 52, 
 			}, 
 		}, 
 		["968_WeaponSpellDamageAddedAsChaos"] = {
@@ -8217,14 +8349,26 @@ return {
 			}, 
 		}, 
 		["1582_ReducedShockChance"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1871765599", 
 				["text"] = "#% chance to Avoid being Shocked", 
 			}, 
+			["Belt"] = {
+				["min"] = 35, 
+				["max"] = 60, 
+			}, 
+			["specialCaseData"] = {
+			}, 
 			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 35, 
+				["max"] = 60, 
+			}, 
+			["Boots"] = {
+				["min"] = 35, 
+				["max"] = 60, 
+			}, 
 		}, 
 		["1830_AddedLightningDamageWithWands"] = {
 			["tradeMod"] = {
@@ -8830,7 +8974,7 @@ return {
 			}, 
 			["Boots"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -8839,11 +8983,15 @@ return {
 			}, 
 			["Ring"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["Amulet"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
+			}, 
+			["Belt"] = {
+				["min"] = 13, 
+				["max"] = 58, 
 			}, 
 			["Bow"] = {
 				["min"] = 8, 
@@ -8879,7 +9027,7 @@ return {
 			}, 
 			["Chest"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["2HAxe"] = {
 				["min"] = 8, 
@@ -8891,7 +9039,7 @@ return {
 			}, 
 			["Helmet"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 8, 
@@ -8902,19 +9050,27 @@ return {
 				["max"] = 55, 
 			}, 
 			["Shield"] = {
-				["min"] = 15, 
-				["max"] = 30, 
+				["min"] = 13, 
+				["max"] = 58, 
 			}, 
 		}, 
 		["1664_FireDamageAsPortionOfDamage"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_369494213", 
 				["text"] = "Gain #% of Physical Damage as Extra Fire Damage", 
 			}, 
+			["Quiver"] = {
+				["min"] = 15, 
+				["max"] = 15, 
+			}, 
+			["specialCaseData"] = {
+			}, 
 			["sign"] = "", 
+			["Ring"] = {
+				["min"] = 10, 
+				["max"] = 10, 
+			}, 
 		}, 
 		["4446_AilmentDamage"] = {
 			["Quiver"] = {
@@ -9214,29 +9370,33 @@ return {
 			}, 
 			["Quiver"] = {
 				["min"] = 2, 
-				["max"] = 68.5, 
+				["max"] = 75.5, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Amulet"] = {
 				["min"] = 1.5, 
-				["max"] = 35, 
+				["max"] = 37.5, 
 			}, 
 			["Ring"] = {
 				["min"] = 1.5, 
-				["max"] = 35, 
+				["max"] = 37.5, 
 			}, 
 		}, 
 		["1277_PhysicalDamageReductionRating"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_809229260", 
 				["text"] = "# to Armour", 
 			}, 
+			["specialCaseData"] = {
+			}, 
 			["sign"] = "+", 
+			["Ring"] = {
+				["min"] = 80, 
+				["max"] = 300, 
+			}, 
 			["Belt"] = {
 				["min"] = 3, 
 				["max"] = 540, 
@@ -9787,7 +9947,7 @@ return {
 			}, 
 			["Amulet"] = {
 				["min"] = 9, 
-				["max"] = 16, 
+				["max"] = 34, 
 			}, 
 			["1HSword"] = {
 				["min"] = 9, 
@@ -9815,7 +9975,7 @@ return {
 			}, 
 			["Ring"] = {
 				["min"] = 9, 
-				["max"] = 16, 
+				["max"] = 34, 
 			}, 
 			["specialCaseData"] = {
 			}, 
@@ -10077,6 +10237,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1859937391", 
 				["text"] = "Socketed Gems gain #% of Physical Damage as extra Lightning Damage", 
+			}, 
+			["Helmet"] = {
+				["min"] = 50, 
+				["max"] = 50, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -10698,6 +10862,10 @@ return {
 				["id"] = "explicit.stat_2228892313", 
 				["text"] = "#% chance to Crush on Hit", 
 			}, 
+			["Amulet"] = {
+				["min"] = 15, 
+				["max"] = 25, 
+			}, 
 			["sign"] = "", 
 		}, 
 		["4346_ChanceToGainOnslaughtOnKillMaven"] = {
@@ -11287,6 +11455,10 @@ return {
 				["text"] = "#% increased Trap and Mine Throwing Speed", 
 			}, 
 			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 7, 
+				["max"] = 21, 
+			}, 
 		}, 
 		["1824_AddedLightningDamageWithBows"] = {
 			["tradeMod"] = {
@@ -12017,18 +12189,70 @@ return {
 			["sign"] = "+", 
 		}, 
 		["3308_PowerFrenzyOrEnduranceChargeOnKill"] = {
+			["2HMace"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
 			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Dagger"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
+			["Bow"] = {
+				["min"] = 16, 
+				["max"] = 16, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_498214257", 
 				["text"] = "#% chance to gain a Power, Frenzy or Endurance Charge on Kill", 
 			}, 
+			["1HAxe"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
 			["Amulet"] = {
 				["min"] = 3, 
 				["max"] = 10, 
 			}, 
-			["sign"] = "", 
+			["1HSword"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
+			["Wand"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
+			["Staff"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
+			["2HSword"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
+			["Claw"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
+			["2HAxe"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
+			["1HMace"] = {
+				["min"] = 16, 
+				["max"] = 16, 
+			}, 
 		}, 
 		["1298_EvasionEnergyShieldForJewel"] = {
 			["specialCaseData"] = {
@@ -12381,6 +12605,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_346351023", 
 				["text"] = "Socketed Gems have #% more Attack and Cast Speed", 
+			}, 
+			["Gloves"] = {
+				["min"] = 16, 
+				["max"] = 16, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -12756,26 +12984,30 @@ return {
 			}, 
 		}, 
 		["1500_MinionLife"] = {
-			["Chest"] = {
-				["min"] = 20, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 13, 
 				["max"] = 30, 
 			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_770672621", 
-				["text"] = "Minions have #% increased maximum Life", 
+			["Chest"] = {
+				["min"] = 13, 
+				["max"] = 30, 
 			}, 
-			["Belt"] = {
-				["min"] = 20, 
+			["Boots"] = {
+				["min"] = 13, 
 				["max"] = 30, 
 			}, 
 			["Helmet"] = {
 				["min"] = 21, 
 				["max"] = 35, 
 			}, 
-			["specialCaseData"] = {
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_770672621", 
+				["text"] = "Minions have #% increased maximum Life", 
 			}, 
-			["sign"] = "", 
 			["Ring"] = {
 				["min"] = 11, 
 				["max"] = 32, 
@@ -13225,18 +13457,22 @@ return {
 			["sign"] = "", 
 		}, 
 		["2980_WarcrySpeed"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1316278494", 
 				["text"] = "#% increased Warcry Speed", 
 			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
 			["Amulet"] = {
 				["min"] = 15, 
 				["max"] = 35, 
 			}, 
-			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 15, 
+				["max"] = 35, 
+			}, 
 		}, 
 		["1634_LocalWardAndStunRecoveryPercent"] = {
 			["specialCaseData"] = {
@@ -13249,32 +13485,36 @@ return {
 			["sign"] = "", 
 		}, 
 		["1147_SpellAddedLightningDamageTwoHand"] = {
-			["2HSword"] = {
-				["min"] = 30, 
-				["max"] = 90.5, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_2831165374", 
-				["text"] = "Adds # to # Lightning Damage to Spells", 
-			}, 
 			["2HMace"] = {
-				["min"] = 30, 
-				["max"] = 90.5, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 3.5, 
+				["min"] = 16.5, 
 				["max"] = 145, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["2HAxe"] = {
-				["min"] = 30, 
-				["max"] = 90.5, 
+				["min"] = 16.5, 
+				["max"] = 145, 
 			}, 
 			["Staff"] = {
 				["min"] = 3.5, 
+				["max"] = 145, 
+			}, 
+			["2HSword"] = {
+				["min"] = 16.5, 
+				["max"] = 145, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2831165374", 
+				["text"] = "Adds # to # Lightning Damage to Spells", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 3.5, 
+				["max"] = 145, 
+			}, 
+			["Bow"] = {
+				["min"] = 16.5, 
 				["max"] = 145, 
 			}, 
 		}, 
@@ -13512,6 +13752,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3374165039", 
 				["text"] = "#% increased Totem Placement speed", 
+			}, 
+			["Chest"] = {
+				["min"] = 21, 
+				["max"] = 45, 
 			}, 
 			["specialCaseData"] = {
 			}, 
@@ -16566,7 +16810,7 @@ return {
 			}, 
 			["Quiver"] = {
 				["min"] = 0.2, 
-				["max"] = 0.4, 
+				["max"] = 1, 
 			}, 
 			["specialCaseData"] = {
 			}, 
@@ -16903,7 +17147,7 @@ return {
 		}, 
 		["1131_LocalChaosDamageTwoHand"] = {
 			["2HMace"] = {
-				["min"] = 140.5, 
+				["min"] = 105, 
 				["max"] = 214.5, 
 			}, 
 			["specialCaseData"] = {
@@ -16911,15 +17155,15 @@ return {
 			}, 
 			["sign"] = "", 
 			["2HAxe"] = {
-				["min"] = 140.5, 
+				["min"] = 105, 
 				["max"] = 214.5, 
 			}, 
 			["Bow"] = {
-				["min"] = 140.5, 
+				["min"] = 105, 
 				["max"] = 214.5, 
 			}, 
 			["2HSword"] = {
-				["min"] = 140.5, 
+				["min"] = 105, 
 				["max"] = 214.5, 
 			}, 
 			["tradeMod"] = {
@@ -16932,7 +17176,7 @@ return {
 				["max"] = 214.5, 
 			}, 
 			["Staff"] = {
-				["min"] = 140.5, 
+				["min"] = 105, 
 				["max"] = 214.5, 
 			}, 
 			["1HAxe"] = {
@@ -16940,7 +17184,7 @@ return {
 				["max"] = 214.5, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 140.5, 
+				["min"] = 105, 
 				["max"] = 214.5, 
 			}, 
 			["1HWeapon"] = {
@@ -17189,7 +17433,7 @@ return {
 			}, 
 			["Amulet"] = {
 				["min"] = 10, 
-				["max"] = 69, 
+				["max"] = 76, 
 			}, 
 			["1HSword"] = {
 				["min"] = 20, 
@@ -17221,7 +17465,7 @@ return {
 			}, 
 			["Ring"] = {
 				["min"] = 10, 
-				["max"] = 69, 
+				["max"] = 76, 
 			}, 
 			["Helmet"] = {
 				["min"] = 41, 
@@ -17237,7 +17481,7 @@ return {
 			}, 
 			["Shield"] = {
 				["min"] = 10, 
-				["max"] = 69, 
+				["max"] = 76, 
 			}, 
 		}, 
 		["1221_LightningCritChanceForJewel"] = {
@@ -17950,12 +18194,64 @@ return {
 			["sign"] = "+", 
 		}, 
 		["527_GrantsEssenceMinion"] = {
+			["Claw"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HSword"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HMace"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 			["specialCaseData"] = {
+			}, 
+			["Bow"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HAxe"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Staff"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HSword"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_470688636", 
 				["text"] = "Triggers Level 20 Spectral Spirits when Equipped", 
+			}, 
+			["Wand"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HMace"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HAxe"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["1HWeapon"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
+			["Dagger"] = {
+				["min"] = 1, 
+				["max"] = 1, 
 			}, 
 		}, 
 		["1144_SpellAddedPhysicalDamage"] = {
@@ -18032,7 +18328,7 @@ return {
 			}, 
 			["Belt"] = {
 				["min"] = 5, 
-				["max"] = 15, 
+				["max"] = 17, 
 			}, 
 			["2HSword"] = {
 				["min"] = 5, 
@@ -18679,8 +18975,8 @@ return {
 		}, 
 		["1367_ColdResistance"] = {
 			["Gloves"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 6, 
+				["max"] = 48, 
 			}, 
 			["2HMace"] = {
 				["min"] = 6, 
@@ -18735,8 +19031,8 @@ return {
 				["max"] = 48, 
 			}, 
 			["Boots"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 6, 
+				["max"] = 48, 
 			}, 
 			["Staff"] = {
 				["min"] = 6, 
@@ -18747,8 +19043,8 @@ return {
 				["max"] = 48, 
 			}, 
 			["Chest"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 6, 
+				["max"] = 48, 
 			}, 
 			["Claw"] = {
 				["min"] = 6, 
@@ -18759,8 +19055,8 @@ return {
 				["max"] = 48, 
 			}, 
 			["Helmet"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 6, 
+				["max"] = 48, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 6, 
@@ -18771,8 +19067,8 @@ return {
 				["max"] = 48, 
 			}, 
 			["Shield"] = {
-				["min"] = 16, 
-				["max"] = 35, 
+				["min"] = 6, 
+				["max"] = 48, 
 			}, 
 		}, 
 		["100_PercentageStrengthMaven"] = {
@@ -19978,7 +20274,7 @@ return {
 			}, 
 			["sign"] = "", 
 			["Chest"] = {
-				["min"] = 6, 
+				["min"] = 5, 
 				["max"] = 10, 
 			}, 
 			["Shield"] = {
@@ -24169,20 +24465,8 @@ return {
 			["sign"] = "+", 
 		}, 
 		["6142_ImpaleEffect"] = {
-			["AnyJewel"] = {
-				["min"] = 3, 
-				["max"] = 6, 
-			}, 
-			["2HAxe"] = {
-				["min"] = 12, 
-				["max"] = 38, 
-			}, 
 			["2HMace"] = {
 				["min"] = 12, 
-				["max"] = 38, 
-			}, 
-			["Bow"] = {
-				["min"] = 25, 
 				["max"] = 38, 
 			}, 
 			["1HMace"] = {
@@ -24190,32 +24474,46 @@ return {
 				["max"] = 25, 
 			}, 
 			["sign"] = "", 
-			["Dagger"] = {
-				["min"] = 12, 
-				["max"] = 25, 
-			}, 
-			["Claw"] = {
-				["min"] = 12, 
-				["max"] = 25, 
-			}, 
-			["2HSword"] = {
+			["2HAxe"] = {
 				["min"] = 12, 
 				["max"] = 38, 
+			}, 
+			["AnyJewel"] = {
+				["min"] = 3, 
+				["max"] = 6, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_298173317", 
 				["text"] = "#% increased Impale Effect", 
 			}, 
-			["1HSword"] = {
-				["min"] = 12, 
-				["max"] = 25, 
-			}, 
 			["AbyssJewel"] = {
 				["min"] = 3, 
 				["max"] = 6, 
 			}, 
 			["1HAxe"] = {
+				["min"] = 12, 
+				["max"] = 25, 
+			}, 
+			["1HSword"] = {
+				["min"] = 12, 
+				["max"] = 25, 
+			}, 
+			["Staff"] = {
+				["min"] = 25, 
+				["max"] = 38, 
+			}, 
+			["2HSword"] = {
+				["min"] = 12, 
+				["max"] = 38, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["Dagger"] = {
+				["min"] = 12, 
+				["max"] = 25, 
+			}, 
+			["Claw"] = {
 				["min"] = 12, 
 				["max"] = 25, 
 			}, 
@@ -24227,7 +24525,9 @@ return {
 				["min"] = 12, 
 				["max"] = 25, 
 			}, 
-			["specialCaseData"] = {
+			["Bow"] = {
+				["min"] = 25, 
+				["max"] = 38, 
 			}, 
 		}, 
 		["6740_LocalAttackSpeedAndLocalItemQuality"] = {
@@ -24270,25 +24570,33 @@ return {
 			}, 
 		}, 
 		["1311_LifeRegeneration"] = {
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["AnyJewel"] = {
+				["min"] = 9, 
+				["max"] = 20, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3325883026", 
 				["text"] = "Regenerate # Life per second", 
 			}, 
-			["AnyJewel"] = {
-				["min"] = 9, 
-				["max"] = 20, 
-			}, 
 			["AbyssJewel"] = {
 				["min"] = 9, 
 				["max"] = 20, 
 			}, 
-			["specialCaseData"] = {
+			["Ring"] = {
+				["min"] = 1, 
+				["max"] = 64, 
 			}, 
-			["sign"] = "", 
 			["Chest"] = {
 				["min"] = 128.1, 
 				["max"] = 176, 
+			}, 
+			["Amulet"] = {
+				["min"] = 1, 
+				["max"] = 64, 
 			}, 
 			["Shield"] = {
 				["min"] = 128.1, 
@@ -24664,6 +24972,10 @@ return {
 				["text"] = "#% Chance to Block Spell Damage while on Low Life", 
 			}, 
 			["sign"] = "+", 
+			["Shield"] = {
+				["min"] = 15, 
+				["max"] = 15, 
+			}, 
 		}, 
 		["6679_LocalIncreasedPhysicalDamageAndImpaleChance"] = {
 			["1HSword"] = {
@@ -24990,33 +25302,37 @@ return {
 			["sign"] = "", 
 		}, 
 		["968_TwoHandWeaponSpellDamage"] = {
+			["2HMace"] = {
+				["min"] = 15, 
+				["max"] = 144, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["2HAxe"] = {
+				["min"] = 15, 
+				["max"] = 144, 
+			}, 
+			["Staff"] = {
+				["min"] = 15, 
+				["max"] = 164, 
+			}, 
 			["2HSword"] = {
-				["min"] = 37, 
-				["max"] = 99, 
+				["min"] = 15, 
+				["max"] = 144, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_2974417149", 
 				["text"] = "#% increased Spell Damage", 
 			}, 
-			["2HMace"] = {
-				["min"] = 37, 
-				["max"] = 99, 
-			}, 
 			["2HWeapon"] = {
 				["min"] = 15, 
 				["max"] = 164, 
 			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
-			["2HAxe"] = {
-				["min"] = 37, 
-				["max"] = 99, 
-			}, 
-			["Staff"] = {
+			["Bow"] = {
 				["min"] = 15, 
-				["max"] = 164, 
+				["max"] = 144, 
 			}, 
 		}, 
 		["1126_LightningGemCastSpeedForJewel"] = {
@@ -25561,7 +25877,7 @@ return {
 				["text"] = "Minions have #% increased Movement Speed", 
 			}, 
 			["Quiver"] = {
-				["min"] = 15, 
+				["min"] = 13, 
 				["max"] = 30, 
 			}, 
 			["specialCaseData"] = {
@@ -25749,36 +26065,36 @@ return {
 		["1386_LifeLeechLocalPermyriad"] = {
 			["1HSword"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["Wand"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["2HMace"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["Staff"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["1HMace"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["sign"] = "", 
 			["Dagger"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["Claw"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["2HSword"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -25787,23 +26103,23 @@ return {
 			}, 
 			["Bow"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["2HAxe"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["1HAxe"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["1HWeapon"] = {
 				["min"] = 0.2, 
-				["max"] = 1.2, 
+				["max"] = 1.3, 
 			}, 
 			["specialCaseData"] = {
 				["overrideModLine"] = "#% of Physical Attack Damage Leeched as Life", 
@@ -25872,14 +26188,18 @@ return {
 			["sign"] = "+", 
 		}, 
 		["1634_StunRecovery"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_2511217560", 
 				["text"] = "#% increased Stun and Block Recovery", 
 			}, 
+			["specialCaseData"] = {
+			}, 
 			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 20, 
+				["max"] = 34, 
+			}, 
 			["Belt"] = {
 				["min"] = 11, 
 				["max"] = 28, 
@@ -26403,8 +26723,8 @@ return {
 		}, 
 		["1147_SpellAddedLightningDamage"] = {
 			["1HSword"] = {
-				["min"] = 20, 
-				["max"] = 60.5, 
+				["min"] = 11, 
+				["max"] = 96.5, 
 			}, 
 			["Wand"] = {
 				["min"] = 2.5, 
@@ -26416,8 +26736,8 @@ return {
 				["max"] = 96.5, 
 			}, 
 			["Claw"] = {
-				["min"] = 20, 
-				["max"] = 60.5, 
+				["min"] = 11, 
+				["max"] = 96.5, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -26425,8 +26745,8 @@ return {
 				["text"] = "Adds # to # Lightning Damage to Spells", 
 			}, 
 			["1HAxe"] = {
-				["min"] = 20, 
-				["max"] = 60.5, 
+				["min"] = 11, 
+				["max"] = 96.5, 
 			}, 
 			["1HMace"] = {
 				["min"] = 2.5, 
@@ -26514,6 +26834,10 @@ return {
 				["text"] = "Adds # to # Fire Damage if you've Blocked Recently", 
 			}, 
 			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 80, 
+				["max"] = 80, 
+			}, 
 		}, 
 		["2277_IgniteChanceAndDamageMaven"] = {
 			["specialCaseData"] = {
@@ -26711,6 +27035,10 @@ return {
 				["id"] = "explicit.stat_2452998583", 
 				["text"] = "# to Level of Socketed Aura Gems", 
 			}, 
+			["Helmet"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
 			["sign"] = "+", 
 		}, 
 		["7608_MovementSkillsFortifyOnHitChance"] = {
@@ -26738,6 +27066,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3577248251", 
 				["text"] = "You and your Minions take #% reduced Reflected Damage", 
+			}, 
+			["Ring"] = {
+				["min"] = 40, 
+				["max"] = 40, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -26980,65 +27312,69 @@ return {
 			["sign"] = "+", 
 		}, 
 		["1198_SpellCriticalStrikeChance"] = {
-			["1HSword"] = {
-				["min"] = 30, 
-				["max"] = 69, 
-			}, 
-			["Claw"] = {
-				["min"] = 30, 
-				["max"] = 69, 
-			}, 
 			["2HMace"] = {
 				["min"] = 45, 
-				["max"] = 105, 
+				["max"] = 119, 
 			}, 
 			["specialCaseData"] = {
-			}, 
-			["1HMace"] = {
-				["min"] = 10, 
-				["max"] = 109, 
 			}, 
 			["sign"] = "", 
 			["Dagger"] = {
 				["min"] = 10, 
-				["max"] = 109, 
+				["max"] = 119, 
 			}, 
-			["Staff"] = {
-				["min"] = 10, 
-				["max"] = 109, 
-			}, 
-			["2HSword"] = {
-				["min"] = 45, 
-				["max"] = 105, 
+			["Claw"] = {
+				["min"] = 30, 
+				["max"] = 119, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_737908626", 
 				["text"] = "#% increased Critical Strike Chance for Spells", 
 			}, 
-			["2HAxe"] = {
-				["min"] = 45, 
-				["max"] = 105, 
+			["1HAxe"] = {
+				["min"] = 30, 
+				["max"] = 119, 
+			}, 
+			["1HSword"] = {
+				["min"] = 30, 
+				["max"] = 119, 
 			}, 
 			["Wand"] = {
 				["min"] = 10, 
-				["max"] = 109, 
+				["max"] = 119, 
 			}, 
-			["1HAxe"] = {
-				["min"] = 30, 
-				["max"] = 69, 
+			["Staff"] = {
+				["min"] = 10, 
+				["max"] = 119, 
+			}, 
+			["2HSword"] = {
+				["min"] = 45, 
+				["max"] = 119, 
+			}, 
+			["Bow"] = {
+				["min"] = 80, 
+				["max"] = 119, 
+			}, 
+			["1HMace"] = {
+				["min"] = 10, 
+				["max"] = 119, 
+			}, 
+			["2HAxe"] = {
+				["min"] = 45, 
+				["max"] = 119, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 10, 
-				["max"] = 109, 
+				["max"] = 119, 
 			}, 
 			["1HWeapon"] = {
 				["min"] = 10, 
-				["max"] = 109, 
+				["max"] = 119, 
 			}, 
 			["Shield"] = {
 				["min"] = 10, 
-				["max"] = 109, 
+				["max"] = 119, 
 			}, 
 		}, 
 		["3997_IncreaseProjectileAttackDamagePerAccuracy"] = {
@@ -27594,6 +27930,10 @@ return {
 				["text"] = "#% chance to gain a Power Charge when you Block", 
 			}, 
 			["sign"] = "", 
+			["Shield"] = {
+				["min"] = 25, 
+				["max"] = 25, 
+			}, 
 		}, 
 		["2236_CurseOnHitLevelVulnerabilityMod"] = {
 			["specialCaseData"] = {
@@ -27970,18 +28310,22 @@ return {
 			}, 
 		}, 
 		["1885_IncreasedLifeLeechRate"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_2633745731", 
 				["text"] = "#% increased total Recovery per second from Life Leech", 
 			}, 
+			["specialCaseData"] = {
+			}, 
+			["sign"] = "", 
+			["Amulet"] = {
+				["min"] = 150, 
+				["max"] = 150, 
+			}, 
 			["Ring"] = {
 				["min"] = 35, 
 				["max"] = 50, 
 			}, 
-			["sign"] = "", 
 		}, 
 		["7682_MinionAttackSpeedAndCastSpeed"] = {
 			["tradeMod"] = {
@@ -28352,6 +28696,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3835899275", 
 				["text"] = "Socketed Gems deal #% more Elemental Damage", 
+			}, 
+			["Helmet"] = {
+				["min"] = 30, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29004,7 +29352,7 @@ return {
 			}, 
 			["Quiver"] = {
 				["min"] = 0.2, 
-				["max"] = 0.5, 
+				["max"] = 1.3, 
 			}, 
 			["specialCaseData"] = {
 			}, 
@@ -29203,18 +29551,18 @@ return {
 			}, 
 			["Quiver"] = {
 				["min"] = 2, 
-				["max"] = 75.5, 
+				["max"] = 84, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Amulet"] = {
 				["min"] = 3, 
-				["max"] = 39.5, 
+				["max"] = 42, 
 			}, 
 			["Ring"] = {
 				["min"] = 3, 
-				["max"] = 39.5, 
+				["max"] = 42, 
 			}, 
 		}, 
 		["1286_LocalBaseArmourAndEvasionRating"] = {
@@ -29279,6 +29627,10 @@ return {
 				["id"] = "explicit.stat_3835551335", 
 				["text"] = "Cannot be Poisoned", 
 			}, 
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["3063_WrathAuraEffect"] = {
 			["1HMace"] = {
@@ -29325,14 +29677,14 @@ return {
 		}, 
 		["2688_ColdResistancePenetration"] = {
 			["2HMace"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 5, 
+				["max"] = 16, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Dagger"] = {
-				["min"] = 5, 
+				["min"] = 3, 
 				["max"] = 8, 
 			}, 
 			["AnyJewel"] = {
@@ -29349,52 +29701,52 @@ return {
 				["max"] = 1, 
 			}, 
 			["1HAxe"] = {
-				["min"] = 5, 
-				["max"] = 7, 
+				["min"] = 3, 
+				["max"] = 8, 
 			}, 
 			["Amulet"] = {
 				["min"] = 4, 
 				["max"] = 10, 
 			}, 
 			["1HSword"] = {
-				["min"] = 5, 
-				["max"] = 7, 
+				["min"] = 3, 
+				["max"] = 8, 
 			}, 
 			["Wand"] = {
-				["min"] = 5, 
+				["min"] = 3, 
 				["max"] = 8, 
 			}, 
 			["Staff"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 5, 
+				["max"] = 16, 
 			}, 
 			["2HSword"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 5, 
+				["max"] = 16, 
 			}, 
 			["Claw"] = {
-				["min"] = 5, 
-				["max"] = 7, 
+				["min"] = 3, 
+				["max"] = 8, 
 			}, 
 			["Bow"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 5, 
+				["max"] = 16, 
 			}, 
 			["1HMace"] = {
-				["min"] = 5, 
+				["min"] = 3, 
 				["max"] = 8, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 5, 
+				["max"] = 16, 
 			}, 
 			["1HWeapon"] = {
-				["min"] = 5, 
+				["min"] = 3, 
 				["max"] = 8, 
 			}, 
 			["2HAxe"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 5, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["2338_MinimumFrenzyChargesAndOnKillChance"] = {
@@ -29422,6 +29774,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_308309328", 
 				["text"] = "#% chance to Recover 10% of Mana when you use a Skill", 
+			}, 
+			["Amulet"] = {
+				["min"] = 10, 
+				["max"] = 10, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -29806,6 +30162,10 @@ return {
 				["text"] = "#% increased Mana Regeneration Rate while Shocked", 
 			}, 
 			["sign"] = "", 
+			["Boots"] = {
+				["min"] = 70, 
+				["max"] = 70, 
+			}, 
 		}, 
 		["341_AdditionalMinesPlacedSupported"] = {
 			["specialCaseData"] = {
@@ -29908,6 +30268,10 @@ return {
 				["text"] = "Damage Penetrates #% Elemental Resistances during any Flask Effect", 
 			}, 
 			["sign"] = "", 
+			["Belt"] = {
+				["min"] = 5, 
+				["max"] = 5, 
+			}, 
 		}, 
 		["3058_AngerAuraEffect"] = {
 			["Wand"] = {
@@ -30369,18 +30733,18 @@ return {
 		["1186_IncreasedCastSpeed"] = {
 			["2HMace"] = {
 				["min"] = 15, 
-				["max"] = 32, 
+				["max"] = 49, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["2HAxe"] = {
 				["min"] = 15, 
-				["max"] = 32, 
+				["max"] = 49, 
 			}, 
 			["Claw"] = {
 				["min"] = 10, 
-				["max"] = 21, 
+				["max"] = 32, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -30389,7 +30753,7 @@ return {
 			}, 
 			["1HAxe"] = {
 				["min"] = 10, 
-				["max"] = 21, 
+				["max"] = 32, 
 			}, 
 			["Amulet"] = {
 				["min"] = 5, 
@@ -30397,7 +30761,7 @@ return {
 			}, 
 			["1HSword"] = {
 				["min"] = 10, 
-				["max"] = 21, 
+				["max"] = 32, 
 			}, 
 			["Wand"] = {
 				["min"] = 5, 
@@ -30409,7 +30773,11 @@ return {
 			}, 
 			["2HSword"] = {
 				["min"] = 15, 
-				["max"] = 32, 
+				["max"] = 49, 
+			}, 
+			["Bow"] = {
+				["min"] = 32, 
+				["max"] = 49, 
 			}, 
 			["Dagger"] = {
 				["min"] = 5, 
@@ -30503,6 +30871,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1235873320", 
 				["text"] = "Socketed Gems deal #% more Damage while on Low Life", 
+			}, 
+			["Helmet"] = {
+				["min"] = 30, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -30739,7 +31111,7 @@ return {
 		["1372_LightningResistance"] = {
 			["Gloves"] = {
 				["min"] = 16, 
-				["max"] = 35, 
+				["max"] = 48, 
 			}, 
 			["2HMace"] = {
 				["min"] = 6, 
@@ -30795,7 +31167,7 @@ return {
 			}, 
 			["Boots"] = {
 				["min"] = 16, 
-				["max"] = 35, 
+				["max"] = 48, 
 			}, 
 			["Staff"] = {
 				["min"] = 6, 
@@ -30807,7 +31179,7 @@ return {
 			}, 
 			["Chest"] = {
 				["min"] = 16, 
-				["max"] = 35, 
+				["max"] = 48, 
 			}, 
 			["Claw"] = {
 				["min"] = 6, 
@@ -30819,7 +31191,7 @@ return {
 			}, 
 			["Helmet"] = {
 				["min"] = 16, 
-				["max"] = 35, 
+				["max"] = 48, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 6, 
@@ -30831,7 +31203,7 @@ return {
 			}, 
 			["Shield"] = {
 				["min"] = 16, 
-				["max"] = 35, 
+				["max"] = 48, 
 			}, 
 		}, 
 		["8034_PurityOfLightningReservation"] = {
@@ -31104,6 +31476,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1681904129", 
 				["text"] = "Socketed Gems have #% Critical Strike Chance", 
+			}, 
+			["Gloves"] = {
+				["min"] = 3.5, 
+				["max"] = 3.5, 
 			}, 
 			["sign"] = "+", 
 		}, 
@@ -31391,7 +31767,7 @@ return {
 		["1146_SpellAddedColdDamage"] = {
 			["1HSword"] = {
 				["min"] = 14.5, 
-				["max"] = 45.5, 
+				["max"] = 73.5, 
 			}, 
 			["Wand"] = {
 				["min"] = 1.5, 
@@ -31404,7 +31780,7 @@ return {
 			}, 
 			["Claw"] = {
 				["min"] = 14.5, 
-				["max"] = 45.5, 
+				["max"] = 73.5, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -31413,7 +31789,7 @@ return {
 			}, 
 			["1HAxe"] = {
 				["min"] = 14.5, 
-				["max"] = 45.5, 
+				["max"] = 73.5, 
 			}, 
 			["1HMace"] = {
 				["min"] = 1.5, 
@@ -31451,6 +31827,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_680068163", 
 				["text"] = "#% increased Stun Threshold", 
+			}, 
+			["Chest"] = {
+				["min"] = 31, 
+				["max"] = 60, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -31549,7 +31929,7 @@ return {
 		["1154_LocalIncreasedAttackSpeed"] = {
 			["1HSword"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["Wand"] = {
 				["min"] = 5, 
@@ -31557,28 +31937,28 @@ return {
 			}, 
 			["2HMace"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["Staff"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["1HMace"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
 			["Dagger"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["Claw"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["2HSword"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -31591,19 +31971,19 @@ return {
 			}, 
 			["2HAxe"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["1HAxe"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["1HWeapon"] = {
 				["min"] = 5, 
-				["max"] = 27, 
+				["max"] = 30, 
 			}, 
 			["specialCaseData"] = {
 				["overrideModLine"] = "#% increased Attack Speed", 
@@ -32228,7 +32608,7 @@ return {
 			}, 
 			["Amulet"] = {
 				["min"] = 3, 
-				["max"] = 26, 
+				["max"] = 34, 
 			}, 
 			["1HSword"] = {
 				["min"] = 9, 
@@ -32254,7 +32634,7 @@ return {
 			}, 
 			["Ring"] = {
 				["min"] = 3, 
-				["max"] = 22, 
+				["max"] = 34, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 3, 
@@ -32947,8 +33327,8 @@ return {
 		}, 
 		["2689_LightningResistancePenetration"] = {
 			["2HMace"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 9, 
+				["max"] = 16, 
 			}, 
 			["1HMace"] = {
 				["min"] = 5, 
@@ -32956,12 +33336,12 @@ return {
 			}, 
 			["sign"] = "", 
 			["2HAxe"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 9, 
+				["max"] = 16, 
 			}, 
 			["Bow"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 9, 
+				["max"] = 16, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -32974,7 +33354,7 @@ return {
 			}, 
 			["1HAxe"] = {
 				["min"] = 5, 
-				["max"] = 7, 
+				["max"] = 8, 
 			}, 
 			["Amulet"] = {
 				["min"] = 4, 
@@ -32982,19 +33362,19 @@ return {
 			}, 
 			["1HSword"] = {
 				["min"] = 5, 
-				["max"] = 7, 
+				["max"] = 8, 
 			}, 
 			["Wand"] = {
 				["min"] = 5, 
 				["max"] = 8, 
 			}, 
 			["Staff"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 9, 
+				["max"] = 16, 
 			}, 
 			["2HSword"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 9, 
+				["max"] = 16, 
 			}, 
 			["AnyJewel"] = {
 				["min"] = 1, 
@@ -33002,13 +33382,13 @@ return {
 			}, 
 			["Claw"] = {
 				["min"] = 5, 
-				["max"] = 7, 
+				["max"] = 8, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 9, 
+				["max"] = 16, 
 			}, 
 			["1HWeapon"] = {
 				["min"] = 5, 
@@ -33275,11 +33655,11 @@ return {
 			}, 
 			["sign"] = "", 
 			["Chest"] = {
-				["min"] = 6, 
+				["min"] = 4, 
 				["max"] = 10, 
 			}, 
 			["Shield"] = {
-				["min"] = 5, 
+				["min"] = 4, 
 				["max"] = 10, 
 			}, 
 		}, 
@@ -33494,18 +33874,22 @@ return {
 			["sign"] = "", 
 		}, 
 		["1282_EvasionRating"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_2144192055", 
 				["text"] = "# to Evasion Rating", 
 			}, 
-			["Ring"] = {
-				["min"] = 3, 
-				["max"] = 170, 
+			["specialCaseData"] = {
 			}, 
 			["sign"] = "+", 
+			["Ring"] = {
+				["min"] = 3, 
+				["max"] = 180, 
+			}, 
+			["Belt"] = {
+				["min"] = 36, 
+				["max"] = 180, 
+			}, 
 		}, 
 		["1146_TwoHandColdDamageWeaponPrefixAndFlat"] = {
 			["specialCaseData"] = {
@@ -33711,10 +34095,10 @@ return {
 			["sign"] = "", 
 			["Helmet"] = {
 				["min"] = 15, 
-				["max"] = 25, 
+				["max"] = 44, 
 			}, 
 			["Boots"] = {
-				["min"] = 31, 
+				["min"] = 23, 
 				["max"] = 50, 
 			}, 
 		}, 
@@ -34217,6 +34601,10 @@ return {
 			}, 
 		}, 
 		["1376_ChaosResistance"] = {
+			["Gloves"] = {
+				["min"] = 21, 
+				["max"] = 35, 
+			}, 
 			["2HMace"] = {
 				["min"] = 5, 
 				["max"] = 35, 
@@ -34245,6 +34633,14 @@ return {
 				["min"] = 5, 
 				["max"] = 35, 
 			}, 
+			["Belt"] = {
+				["min"] = 5, 
+				["max"] = 35, 
+			}, 
+			["1HMace"] = {
+				["min"] = 5, 
+				["max"] = 35, 
+			}, 
 			["1HSword"] = {
 				["min"] = 5, 
 				["max"] = 35, 
@@ -34257,6 +34653,14 @@ return {
 				["min"] = 5, 
 				["max"] = 35, 
 			}, 
+			["2HAxe"] = {
+				["min"] = 5, 
+				["max"] = 35, 
+			}, 
+			["Boots"] = {
+				["min"] = 21, 
+				["max"] = 35, 
+			}, 
 			["Staff"] = {
 				["min"] = 5, 
 				["max"] = 35, 
@@ -34265,8 +34669,8 @@ return {
 				["min"] = 5, 
 				["max"] = 35, 
 			}, 
-			["2HAxe"] = {
-				["min"] = 5, 
+			["Chest"] = {
+				["min"] = 21, 
 				["max"] = 35, 
 			}, 
 			["Claw"] = {
@@ -34277,8 +34681,8 @@ return {
 				["min"] = 5, 
 				["max"] = 35, 
 			}, 
-			["1HMace"] = {
-				["min"] = 5, 
+			["Helmet"] = {
+				["min"] = 21, 
 				["max"] = 35, 
 			}, 
 			["2HWeapon"] = {
@@ -34289,8 +34693,8 @@ return {
 				["min"] = 5, 
 				["max"] = 35, 
 			}, 
-			["Belt"] = {
-				["min"] = 5, 
+			["Shield"] = {
+				["min"] = 21, 
 				["max"] = 35, 
 			}, 
 		}, 
@@ -34320,6 +34724,10 @@ return {
 			["sign"] = "+", 
 		}, 
 		["1929_AttackerTakesDamageNoRange"] = {
+			["Boots"] = {
+				["min"] = 1, 
+				["max"] = 200, 
+			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3767873853", 
@@ -34327,22 +34735,22 @@ return {
 			}, 
 			["Shield"] = {
 				["min"] = 1, 
-				["max"] = 50, 
+				["max"] = 200, 
 			}, 
 			["Helmet"] = {
 				["min"] = 1, 
-				["max"] = 10, 
+				["max"] = 200, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Chest"] = {
 				["min"] = 1, 
-				["max"] = 50, 
+				["max"] = 200, 
 			}, 
 			["Belt"] = {
 				["min"] = 1, 
-				["max"] = 10, 
+				["max"] = 200, 
 			}, 
 		}, 
 		["1287_GlobalEvasionRatingPercent"] = {
@@ -34423,6 +34831,10 @@ return {
 				["id"] = "explicit.stat_583277599", 
 				["text"] = "Chill Nearby Enemies when you Block", 
 			}, 
+			["Shield"] = {
+				["min"] = 1, 
+				["max"] = 1, 
+			}, 
 		}, 
 		["1346_GlobalIncreasePhysicalSpellSkillGemLevel"] = {
 			["Wand"] = {
@@ -34465,7 +34877,7 @@ return {
 		["1151_IncreasedAttackSpeed"] = {
 			["Gloves"] = {
 				["min"] = 5, 
-				["max"] = 16, 
+				["max"] = 18, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -35067,14 +35479,26 @@ return {
 			}, 
 		}, 
 		["1579_ChanceToAvoidFreezeAndChill"] = {
-			["specialCaseData"] = {
-			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1514829491", 
 				["text"] = "#% chance to Avoid being Frozen", 
 			}, 
+			["Belt"] = {
+				["min"] = 39, 
+				["max"] = 60, 
+			}, 
+			["specialCaseData"] = {
+			}, 
 			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 39, 
+				["max"] = 60, 
+			}, 
+			["Boots"] = {
+				["min"] = 39, 
+				["max"] = 60, 
+			}, 
 		}, 
 		["3458_LocalLightningDamageAndPen"] = {
 			["specialCaseData"] = {
@@ -35128,14 +35552,14 @@ return {
 		}, 
 		["2687_FireResistancePenetration"] = {
 			["2HMace"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 7, 
+				["max"] = 16, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
 			["Dagger"] = {
-				["min"] = 5, 
+				["min"] = 4, 
 				["max"] = 8, 
 			}, 
 			["AnyJewel"] = {
@@ -35152,52 +35576,52 @@ return {
 				["max"] = 1, 
 			}, 
 			["1HAxe"] = {
-				["min"] = 5, 
-				["max"] = 7, 
+				["min"] = 4, 
+				["max"] = 8, 
 			}, 
 			["Amulet"] = {
 				["min"] = 4, 
 				["max"] = 10, 
 			}, 
 			["1HSword"] = {
-				["min"] = 5, 
-				["max"] = 7, 
+				["min"] = 4, 
+				["max"] = 8, 
 			}, 
 			["Wand"] = {
-				["min"] = 5, 
+				["min"] = 4, 
 				["max"] = 8, 
 			}, 
 			["Staff"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 7, 
+				["max"] = 16, 
 			}, 
 			["2HSword"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 7, 
+				["max"] = 16, 
 			}, 
 			["Claw"] = {
-				["min"] = 5, 
-				["max"] = 7, 
+				["min"] = 4, 
+				["max"] = 8, 
 			}, 
 			["Bow"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 7, 
+				["max"] = 16, 
 			}, 
 			["1HMace"] = {
-				["min"] = 5, 
+				["min"] = 4, 
 				["max"] = 8, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 10, 
-				["max"] = 15, 
+				["min"] = 7, 
+				["max"] = 16, 
 			}, 
 			["1HWeapon"] = {
-				["min"] = 5, 
+				["min"] = 4, 
 				["max"] = 8, 
 			}, 
 			["2HAxe"] = {
-				["min"] = 12, 
-				["max"] = 15, 
+				["min"] = 7, 
+				["max"] = 16, 
 			}, 
 		}, 
 		["1984_LocalIncreasedPhysicalDamageAndBlindChance"] = {
@@ -35607,7 +36031,7 @@ return {
 		["924_Intelligence"] = {
 			["Gloves"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["2HMace"] = {
 				["min"] = 15, 
@@ -35633,15 +36057,19 @@ return {
 			}, 
 			["Ring"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["Amulet"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
+			}, 
+			["Belt"] = {
+				["min"] = 28, 
+				["max"] = 58, 
 			}, 
 			["Boots"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["1HSword"] = {
 				["min"] = 15, 
@@ -35649,7 +36077,7 @@ return {
 			}, 
 			["Quiver"] = {
 				["min"] = 15, 
-				["max"] = 30, 
+				["max"] = 58, 
 			}, 
 			["Wand"] = {
 				["min"] = 8, 
@@ -35673,7 +36101,7 @@ return {
 			}, 
 			["Chest"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["1HAxe"] = {
 				["min"] = 15, 
@@ -35695,7 +36123,7 @@ return {
 			}, 
 			["Shield"] = {
 				["min"] = 15, 
-				["max"] = 30, 
+				["max"] = 58, 
 			}, 
 		}, 
 		["2164_PhysicalDamageTakenAsChaosUber"] = {
@@ -36044,7 +36472,7 @@ return {
 			}, 
 			["Shield"] = {
 				["min"] = 50, 
-				["max"] = 320, 
+				["max"] = 375, 
 			}, 
 			["Helmet"] = {
 				["min"] = 6, 
@@ -36567,7 +36995,16 @@ return {
 			}, 
 		}, 
 		["1524_AdditionalPierce"] = {
+			["Quiver"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
 			["Wand"] = {
+				["min"] = 2, 
+				["max"] = 2, 
+			}, 
+			["sign"] = "", 
+			["Bow"] = {
 				["min"] = 2, 
 				["max"] = 2, 
 			}, 
@@ -36576,24 +37013,19 @@ return {
 				["id"] = "explicit.stat_2067062068", 
 				["text"] = "Projectiles Pierce # additional Targets", 
 			}, 
+			["Boots"] = {
+				["min"] = 2, 
+				["max"] = 5, 
+			}, 
 			["2HWeapon"] = {
 				["min"] = 2, 
 				["max"] = 2, 
 			}, 
-			["Bow"] = {
-				["min"] = 2, 
-				["max"] = 2, 
-			}, 
-			["specialCaseData"] = {
-			}, 
-			["sign"] = "", 
 			["1HWeapon"] = {
 				["min"] = 2, 
 				["max"] = 2, 
 			}, 
-			["Boots"] = {
-				["min"] = 2, 
-				["max"] = 5, 
+			["specialCaseData"] = {
 			}, 
 		}, 
 		["1760_ShockChanceAndEffect"] = {
@@ -36692,7 +37124,7 @@ return {
 		["922_Strength"] = {
 			["Gloves"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["2HMace"] = {
 				["min"] = 8, 
@@ -36707,7 +37139,7 @@ return {
 			}, 
 			["Boots"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -36716,11 +37148,11 @@ return {
 			}, 
 			["Ring"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["Amulet"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["1HAxe"] = {
 				["min"] = 8, 
@@ -36736,7 +37168,7 @@ return {
 			}, 
 			["Quiver"] = {
 				["min"] = 15, 
-				["max"] = 30, 
+				["max"] = 58, 
 			}, 
 			["Wand"] = {
 				["min"] = 15, 
@@ -36760,7 +37192,7 @@ return {
 			}, 
 			["Chest"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["Belt"] = {
 				["min"] = 8, 
@@ -36772,7 +37204,7 @@ return {
 			}, 
 			["Helmet"] = {
 				["min"] = 8, 
-				["max"] = 55, 
+				["max"] = 58, 
 			}, 
 			["2HWeapon"] = {
 				["min"] = 8, 
@@ -36784,7 +37216,7 @@ return {
 			}, 
 			["Shield"] = {
 				["min"] = 15, 
-				["max"] = 30, 
+				["max"] = 58, 
 			}, 
 		}, 
 		["1113_LocalColdDamageRanged"] = {
@@ -36896,6 +37328,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1289910726", 
 				["text"] = "Socketed Gems deal # to # Added Fire Damage", 
+			}, 
+			["Gloves"] = {
+				["min"] = 200, 
+				["max"] = 200, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -37079,6 +37515,10 @@ return {
 			["2HSword"] = {
 				["min"] = 16, 
 				["max"] = 45, 
+			}, 
+			["Ring"] = {
+				["min"] = 12, 
+				["max"] = 15, 
 			}, 
 			["specialCaseData"] = {
 			}, 
@@ -37298,8 +37738,8 @@ return {
 		}, 
 		["968_WeaponSpellDamage"] = {
 			["1HSword"] = {
-				["min"] = 25, 
-				["max"] = 66, 
+				["min"] = 10, 
+				["max"] = 94, 
 			}, 
 			["1HMace"] = {
 				["min"] = 10, 
@@ -37311,8 +37751,8 @@ return {
 				["max"] = 109, 
 			}, 
 			["Claw"] = {
-				["min"] = 25, 
-				["max"] = 66, 
+				["min"] = 10, 
+				["max"] = 94, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -37324,8 +37764,8 @@ return {
 				["max"] = 109, 
 			}, 
 			["1HAxe"] = {
-				["min"] = 25, 
-				["max"] = 66, 
+				["min"] = 10, 
+				["max"] = 94, 
 			}, 
 			["specialCaseData"] = {
 			}, 
@@ -37420,6 +37860,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_280731498", 
 				["text"] = "#% increased Area of Effect", 
+			}, 
+			["Chest"] = {
+				["min"] = 25, 
+				["max"] = 25, 
 			}, 
 			["Staff"] = {
 				["min"] = 5, 
@@ -37761,8 +38205,8 @@ return {
 				["text"] = "# to maximum Energy Shield (Local)", 
 			}, 
 			["Shield"] = {
-				["min"] = 17, 
-				["max"] = 69, 
+				["min"] = 3, 
+				["max"] = 85, 
 			}, 
 			["Helmet"] = {
 				["min"] = 3, 
@@ -38337,21 +38781,8 @@ return {
 			}, 
 		}, 
 		["1145_SpellAddedFireDamageTwoHand"] = {
-			["2HSword"] = {
-				["min"] = 23.5, 
-				["max"] = 75.5, 
-			}, 
-			["tradeMod"] = {
-				["type"] = "explicit", 
-				["id"] = "explicit.stat_1133016593", 
-				["text"] = "Adds # to # Fire Damage to Spells", 
-			}, 
 			["2HMace"] = {
 				["min"] = 23.5, 
-				["max"] = 75.5, 
-			}, 
-			["2HWeapon"] = {
-				["min"] = 2.5, 
 				["max"] = 121.5, 
 			}, 
 			["specialCaseData"] = {
@@ -38359,10 +38790,27 @@ return {
 			["sign"] = "", 
 			["2HAxe"] = {
 				["min"] = 23.5, 
-				["max"] = 75.5, 
+				["max"] = 121.5, 
 			}, 
 			["Staff"] = {
 				["min"] = 2.5, 
+				["max"] = 121.5, 
+			}, 
+			["2HSword"] = {
+				["min"] = 23.5, 
+				["max"] = 121.5, 
+			}, 
+			["tradeMod"] = {
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1133016593", 
+				["text"] = "Adds # to # Fire Damage to Spells", 
+			}, 
+			["2HWeapon"] = {
+				["min"] = 2.5, 
+				["max"] = 121.5, 
+			}, 
+			["Bow"] = {
+				["min"] = 48.5, 
 				["max"] = 121.5, 
 			}, 
 		}, 
@@ -38962,6 +39410,10 @@ return {
 				["id"] = "explicit.stat_1871056256", 
 				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
 			}, 
+			["Chest"] = {
+				["min"] = 15, 
+				["max"] = 15, 
+			}, 
 			["sign"] = "", 
 		}, 
 		["1655_TrapCooldownRecoveryAndDuration"] = {
@@ -39251,6 +39703,10 @@ return {
 				["id"] = "explicit.stat_2764164760", 
 				["text"] = "You gain Onslaught for # seconds when Hit", 
 			}, 
+			["Chest"] = {
+				["min"] = 6, 
+				["max"] = 6, 
+			}, 
 			["sign"] = "", 
 		}, 
 		["1372_LightningResistancePhysTakenAsLightning"] = {
@@ -39441,6 +39897,10 @@ return {
 				["id"] = "explicit.stat_1783006896", 
 				["text"] = "#% chance to Avoid being Ignited", 
 			}, 
+			["Belt"] = {
+				["min"] = 43, 
+				["max"] = 60, 
+			}, 
 			["Quiver"] = {
 				["min"] = 51, 
 				["max"] = 80, 
@@ -39448,8 +39908,12 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["sign"] = "", 
+			["Helmet"] = {
+				["min"] = 43, 
+				["max"] = 60, 
+			}, 
 			["Boots"] = {
-				["min"] = 51, 
+				["min"] = 43, 
 				["max"] = 80, 
 			}, 
 		}, 
@@ -39731,21 +40195,21 @@ return {
 		}, 
 		["1705_MinionDamageOnWeapon"] = {
 			["2HMace"] = {
-				["min"] = 37, 
-				["max"] = 130, 
+				["min"] = 30, 
+				["max"] = 144, 
 			}, 
 			["1HMace"] = {
-				["min"] = 25, 
-				["max"] = 80, 
+				["min"] = 20, 
+				["max"] = 94, 
 			}, 
 			["sign"] = "", 
 			["2HAxe"] = {
-				["min"] = 37, 
-				["max"] = 130, 
+				["min"] = 30, 
+				["max"] = 144, 
 			}, 
 			["Bow"] = {
-				["min"] = 37, 
-				["max"] = 130, 
+				["min"] = 30, 
+				["max"] = 144, 
 			}, 
 			["tradeMod"] = {
 				["type"] = "explicit", 
@@ -39753,38 +40217,38 @@ return {
 				["text"] = "Minions deal #% increased Damage", 
 			}, 
 			["1HAxe"] = {
-				["min"] = 25, 
-				["max"] = 80, 
+				["min"] = 20, 
+				["max"] = 94, 
 			}, 
 			["1HSword"] = {
-				["min"] = 25, 
-				["max"] = 80, 
+				["min"] = 20, 
+				["max"] = 94, 
 			}, 
 			["Wand"] = {
 				["min"] = 10, 
 				["max"] = 109, 
 			}, 
 			["Staff"] = {
-				["min"] = 37, 
-				["max"] = 130, 
+				["min"] = 30, 
+				["max"] = 144, 
 			}, 
 			["2HSword"] = {
-				["min"] = 37, 
-				["max"] = 130, 
+				["min"] = 30, 
+				["max"] = 144, 
 			}, 
 			["specialCaseData"] = {
 			}, 
 			["Dagger"] = {
-				["min"] = 25, 
-				["max"] = 80, 
+				["min"] = 20, 
+				["max"] = 94, 
 			}, 
 			["Claw"] = {
-				["min"] = 25, 
-				["max"] = 80, 
+				["min"] = 20, 
+				["max"] = 94, 
 			}, 
 			["2HWeapon"] = {
-				["min"] = 37, 
-				["max"] = 130, 
+				["min"] = 30, 
+				["max"] = 144, 
 			}, 
 			["1HWeapon"] = {
 				["min"] = 10, 
@@ -39838,6 +40302,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_1718147982", 
 				["text"] = "#% increased Minion Accuracy Rating", 
+			}, 
+			["Helmet"] = {
+				["min"] = 13, 
+				["max"] = 30, 
 			}, 
 			["sign"] = "", 
 		}, 
@@ -40655,6 +41123,10 @@ return {
 				["text"] = "#% increased Effect of your Marks", 
 			}, 
 			["sign"] = "", 
+			["Quiver"] = {
+				["min"] = 25, 
+				["max"] = 25, 
+			}, 
 		}, 
 		["1255_LocalIncreasedPhysicalDamagePercentAndStun"] = {
 			["1HMace"] = {
@@ -40923,7 +41395,7 @@ return {
 			}, 
 			["Belt"] = {
 				["min"] = 11, 
-				["max"] = 35, 
+				["max"] = 39, 
 			}, 
 		}, 
 		["373_DisplaySupportedSkillsHaveAChanceToIgnite"] = {
@@ -41576,6 +42048,10 @@ return {
 				["type"] = "explicit", 
 				["id"] = "explicit.stat_3762784591", 
 				["text"] = "#% reduced Chaos Damage taken over time", 
+			}, 
+			["Chest"] = {
+				["min"] = 25, 
+				["max"] = 25, 
 			}, 
 			["sign"] = "", 
 		}, 
