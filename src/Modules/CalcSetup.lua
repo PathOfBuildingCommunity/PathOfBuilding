@@ -493,8 +493,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Initialise enemy modifier database
 		calcs.initModDB(env, enemyDB)
 		enemyDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.enemyLevel], "Base")
-		enemyDB:NewMod("Evasion", "BASE", env.data.monsterEvasionTable[env.enemyLevel], "Base")
-		enemyDB:NewMod("Armour", "BASE", env.data.monsterArmourTable[env.enemyLevel], "Base")
 
 		-- Add mods from the config tab
 		env.modDB:AddList(build.configTab.modList)
@@ -590,7 +588,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if item and item.grantedSkills then
 				-- Find skills granted by this item
 				for _, skill in ipairs(item.grantedSkills) do
+					local skillData = env.data.skills[skill.skillId]
 					local grantedSkill = copyTable(skill)
+					grantedSkill.nameSpec = skillData and skillData.name or nil
 					grantedSkill.sourceItem = item
 					grantedSkill.slotName = slotName
 					t_insert(env.grantedSkillsItems, grantedSkill)
@@ -712,7 +712,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				elseif (slotName == "Weapon 1" or slotName == "Weapon 2") and modDB.conditions["AffectedByEnergyBlade"] then
-					local type = env.player.itemList[slotName] and env.player.itemList[slotName].weaponData and env.player.itemList[slotName].weaponData[1].type
+					local previousItem = env.player.itemList[slotName]
+					local type = previousItem and previousItem.weaponData and previousItem.weaponData[1].type
 					local info = env.data.weaponTypeInfo[type]
 					if info and type ~= "Bow" then
 						local name = info.oneHand and "Energy Blade One Handed" or "Energy Blade Two Handed"
@@ -738,6 +739,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 						item:NormaliseQuality()
 						item:BuildAndParseRaw()
+						item.sockets = previousItem.sockets
+						item.abyssalSocketCount = previousItem.abyssalSocketCount
 						env.player.itemList[slotName] = item
 					else
 						env.itemModDB:ScaleAddList(srcList, scale)
@@ -924,6 +927,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				group.sourceNode = grantedSkill.sourceNode
 				local activeGemInstance = group.gemList[1] or {
 					skillId = grantedSkill.skillId,
+					nameSpec = grantedSkill.nameSpec,
 					quality = 0,
 					enabled = true,
 				}
@@ -940,10 +944,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 				else
 					for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
 						-- Look for other groups that are socketed in the item
-						if socketGroup.slot == grantedSkill.slotName and not socketGroup.source then
+						if socketGroup.slot == grantedSkill.slotName and not socketGroup.source and socketGroup.enabled then
 							-- Add all support gems to the skill's group
 							for _, gemInstance in ipairs(socketGroup.gemList) do
-								if gemInstance.gemData and gemInstance.gemData.grantedEffect.support then
+								if gemInstance.gemData and (gemInstance.gemData.grantedEffect.support or (gemInstance.gemData.secondaryGrantedEffect and gemInstance.gemData.secondaryGrantedEffect.support)) then
 									t_insert(group.gemList, gemInstance)
 								end
 							end
@@ -988,15 +992,22 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Below we re-order the socket group list in order to support modifiers introduced in 3.16
 		-- which allow a Shield (Weapon 2) to link to a Main Hand and an Amulet to link to a Body Armour
 		-- as we need their support gems and effects to be processed before we cross-link them to those slots
+		-- Store extra supports for other items that are linked
+		local crossLinkedSupportList = { }
+		local crossLinkedSupportGroups = {}
+		for _, mod in ipairs(env.modDB:Tabulate("LIST", nil, "LinkedSupport")) do
+			crossLinkedSupportList[mod.value.targetSlotName] = { }
+			crossLinkedSupportGroups[mod.mod.sourceSlot] = mod.value.targetSlotName
+		end
 		local indexOrder = { }
 		for index, socketGroup in pairs(build.skillsTab.socketGroupList) do
-			if socketGroup.slot == "Amulet" or socketGroup.slot == "Weapon 2" then
+			if crossLinkedSupportGroups[socketGroup.slot and socketGroup.slot:gsub(" Swap","")] then
 				t_insert(indexOrder, 1, index)
 			else
 				t_insert(indexOrder, index)
 			end
 		end
-		local crossLinkedSupportList = { }
+		
 		for _, index in ipairs(indexOrder) do
 			local socketGroup = build.skillsTab.socketGroupList[index]
 			local socketGroupSkillList = { }
@@ -1031,8 +1042,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				end
-				if crossLinkedSupportList[socketGroup.slot] then
-					for _, supportItem in ipairs(crossLinkedSupportList[socketGroup.slot]) do
+				if crossLinkedSupportList[groupCfg.slotName] then
+					for _, supportItem in ipairs(crossLinkedSupportList[groupCfg.slotName]) do
 						t_insert(supportList, supportItem)
 					end
 				end
@@ -1112,10 +1123,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 							processGrantedEffect(gemInstance.grantedEffect)
 						end
 						-- Store extra supports for other items that are linked
-						for _, value in ipairs(env.modDB:List(groupCfg, "LinkedSupport")) do
-							crossLinkedSupportList[value.targetSlotName] = { }
+						local targetGroup = crossLinkedSupportList[crossLinkedSupportGroups[groupCfg.slotName]]
+						if targetGroup then
 							for _, supportItem in ipairs(supportList) do
-								t_insert(crossLinkedSupportList[value.targetSlotName], supportItem)
+								t_insert(targetGroup, supportItem)
 							end
 						end
 					end
@@ -1255,6 +1266,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			-- These mods were modified with special expressions in buildActiveSkillModList() use old one to avoid more calculations
 			activeSkill.skillData.manaReservationPercent = skillData.manaReservationPercent
 			activeSkill.skillData.cooldown = skillData.cooldown
+			activeSkill.skillData.storedUses = skillData.storedUses
 			activeSkill.skillData.CritChance = skillData.CritChance
 			activeSkill.skillData.attackTime = skillData.attackTime
 			activeSkill.skillData.totemLevel = skillData.totemLevel

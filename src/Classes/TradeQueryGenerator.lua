@@ -7,6 +7,7 @@
 local dkjson = require "dkjson"
 local curl = require("lcurl.safe")
 local m_max = math.max
+local s_format = string.format
 
 -- TODO generate these from data files
 local itemCategoryTags = {
@@ -123,6 +124,27 @@ local function canModSpawnForItemCategory(mod, tags)
 		end
 	end
 	return false
+end
+
+function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+	local meanStatDiff = 0
+	local function ratioModSums(...)
+		local baseModSum = 0
+		local newModSum = 0
+		for _, mod in ipairs({ ... }) do
+			baseModSum = baseModSum + (baseOutput[mod] or 0)
+			newModSum = newModSum + (newOutput[mod] or 0)
+		end
+		return newModSum / ((baseModSum ~= 0) and baseModSum or 1)
+	end
+	for _, statTable in ipairs(statWeights) do
+		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
+			meanStatDiff = meanStatDiff + ratioModSums("TotalDPS", "TotalDotDPS", "CombinedDPS") * statTable.weightMult
+		else
+			meanStatDiff = meanStatDiff + ratioModSums(statTable.stat) * statTable.weightMult
+		end
+	end
+	return meanStatDiff
 end
 
 function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
@@ -403,9 +425,9 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 			end
 
 			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-			local meanDPSDiff = (GlobalCache.useFullDPS and output.FullDPS or m_max(output.TotalDPS, m_max(output.TotalDotDPS,output.CombinedDPS)) or 0) - (self.calcContext.baseDPS or 0)
-			if meanDPSDiff > 0.01 then
-				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanDPSDiff / modValue, meanDPSDiff = meanDPSDiff, invert = entry.sign == "-" and true or false })
+			local meanStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
+			if meanStatDiff > 0.01 then
+				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
 				self.alreadyWeightedMods[entry.tradeMod.id] = true
 			end
 
@@ -522,10 +544,12 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 
 	-- Calculate base output with a blank item
 	local calcFunc, _ = self.itemsTab.build.calcsTab:GetMiscCalculator()
-	local baseOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
-	local compDPS = GlobalCache.useFullDPS and baseOutput.FullDPS or m_max(baseOutput.TotalDPS or 0, m_max(baseOutput.TotalDotDPS or 0, baseOutput.CombinedDPS or 0))
+	local baseOutput = calcFunc({ })
+	local baseItemOutput = calcFunc({ repSlotName = slot.slotName, repItem = testItem }, {})
+	-- make weights more human readable
+	local compStatValue = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, baseItemOutput, options.statWeights) * 1000
 
-	-- Test each mod one at a time and cache the normalized DPS diff to use as weight
+	-- Test each mod one at a time and cache the normalized Stat (configured earlier) diff to use as weight
 	self.modWeights = { }
 	self.alreadyWeightedMods = { }
 
@@ -533,7 +557,8 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		itemCategoryQueryStr = itemCategoryQueryStr,
 		itemCategory = itemCategory,
 		testItem = testItem,
-		baseDPS = compDPS,
+		baseOutput = baseOutput,
+		baseStatValue = compStatValue,
 		calcFunc = calcFunc,
 		options = options,
 		slot = slot,
@@ -568,7 +593,7 @@ function TradeQueryGeneratorClass:ExecuteQuery()
 end
 
 function TradeQueryGeneratorClass:FinishQuery()
-	-- Calc original item DPS without anoint or enchant, and use that diff as a basis for default min sum.
+	-- Calc original item Stats without anoint or enchant, and use that diff as a basis for default min sum.
 	local originalItem = self.itemsTab.items[self.calcContext.slot.selItemId]
 	self.calcContext.testItem.explicitModLines = { }
 	if originalItem then
@@ -585,18 +610,18 @@ function TradeQueryGeneratorClass:FinishQuery()
 	self.calcContext.testItem:BuildAndParseRaw()
 
 	local originalOutput = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, {})
-	local currentDPSDiff = (GlobalCache.useFullDPS and originalOutput.FullDPS or m_max(originalOutput.TotalDPS or 0, m_max(originalOutput.TotalDotDPS or 0, originalOutput.CombinedDPS or 0))) - (self.calcContext.baseDPS or 0)
+	local currentStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, originalOutput, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 
 	-- Restore global cache full DPS
 	GlobalCache.useFullDPS = self.calcContext.globalCacheUseFullDPS
 
-	-- This DPS diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
+	-- This Stat diff value will generally be higher than the weighted sum of the same item, because the stats are all applied at once and can thus multiply off each other.
 	-- So apply a modifier to get a reasonable min and hopefully approximate that the query will start out with small upgrades.
-	local minWeight = currentDPSDiff * 0.5
+	local minWeight = currentStatDiff * 0.5
 
-	-- Sort by mean DPS diff rather than weight to more accurately prioritize stats that can contribute more
+	-- Sort by mean Stat diff rather than weight to more accurately prioritize stats that can contribute more
 	table.sort(self.modWeights, function(a, b)
-		return a.meanDPSDiff > b.meanDPSDiff
+		return a.meanStatDiff > b.meanStatDiff
 	end)
 
 	-- Generate trade query str and open in browser
@@ -675,7 +700,7 @@ function TradeQueryGeneratorClass:FinishQuery()
 	main:ClosePopup()
 end
 
-function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
+function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callback)
 	self.requesterCallback = callback
 	self.requesterContext = context
 
@@ -769,7 +794,31 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 	controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf) end)
 	controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, 5, 0, 150, 18, currencyDropdownNames, function(index, value) end)
 	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "Max Price:")
+	lastItemAnchor = controls.maxPrice
 	popupHeight = popupHeight + 23
+	
+	for i, stat in ipairs(statWeights) do
+		controls["sortStatType"..tostring(i)] = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, i == 1 and 5 or 3, 70, 16, i < (#statWeights < 6 and 10 or 5) and s_format("%.2f: %s", stat.weightMult, stat.label) or ("+ "..tostring(#statWeights - 4).." Additional Stats"))
+		lastItemAnchor = controls["sortStatType"..tostring(i)]
+		popupHeight = popupHeight + 19
+		if i == 1 then
+			controls.sortStatLabel = new("LabelControl", {"RIGHT",lastItemAnchor,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
+		elseif i == 5 then
+			-- tooltips do not actually work for labels
+			lastItemAnchor.tooltipFunc = function(tooltip)
+				tooltip:Clear()
+				tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
+				tooltip:AddLine(16, "Currently sorting by:")
+				for i, stat in ipairs(statWeights) do
+					if i > 4 then
+						tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
+					end
+				end
+			end
+			break
+		end
+	end
+	popupHeight = popupHeight + 4
 
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Execute", function()
 		main:ClosePopup()
@@ -807,6 +856,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, callback)
 			options.maxPrice = tonumber(controls.maxPrice.buf)
 			options.maxPriceType = currencyTable[controls.maxPriceType.selIndex].id
 		end
+		options.statWeights = statWeights
 
 		self:StartQuery(slot, options)
 	end)

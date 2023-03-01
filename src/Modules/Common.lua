@@ -342,7 +342,11 @@ function writeLuaTable(out, t, indent)
 		elseif type(v) == "string" then
 			out:write(qFmt(v))
 		else
-			out:write(tostring(v))
+			if v == math.huge then
+				out:write("math.huge")
+			else
+				out:write(tostring(v))
+			end
 		end
 		if i < #keyList then
 			out:write(',')
