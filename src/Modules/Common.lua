@@ -28,9 +28,9 @@ common.sha1 = require("sha1")
 
 -- Try to load a library return nil if failed. https://stackoverflow.com/questions/34965863/lua-require-fallback-error-handling
 function prerequire(...)
-    local status, lib = pcall(require, ...)
-    if(status) then return lib end
-    return nil
+	local status, lib = pcall(require, ...)
+	if(status) then return lib end
+	return nil
 end
 
 profiler = prerequire("lua-profiler")
@@ -495,12 +495,12 @@ end
 function tableConcat(t1,t2)
 	local t3 = {}
 	for i=1,#t1 do
-        t3[#t3+1] = t1[i]
-    end
-    for i=1,#t2 do
-        t3[#t3+1] = t2[i]
-    end
-    return t3
+		t3[#t3+1] = t1[i]
+	end
+	for i=1,#t2 do
+		t3[#t3+1] = t2[i]
+	end
+	return t3
 end
 
 -- Natural sort comparator
@@ -572,23 +572,23 @@ function formatNumSep(str)
 	return string.gsub(str, "(%^?%d?-?%d+%.?%d+)", function(m)
 		local colour = m:match("(%^%d)") or ""
 		local str = string.gsub(m, "(%^%d)", "")
-	    local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
-        if main.showThousandsSeparators then
-            integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
-            -- There will be leading separators if the number of digits are divisible by 3
-            -- This checks for their presence and removes them
-            -- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
-            if main.thousandsSeparator ~= "" then
-                local thousandsSeparator = string.find(integer, main.thousandsSeparator, 1, 2)
-                if thousandsSeparator and thousandsSeparator == 1 then
-                    integer = integer:sub(2)
-                end
-            end
-        else
-            integer = integer:reverse():gsub("(%d%d%d)", "%1"):reverse()
-        end
-        return colour..minus..integer..fraction:gsub("%.", main.decimalSeparator)
-    end)
+		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
+		if main.showThousandsSeparators then
+			integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
+			-- There will be leading separators if the number of digits are divisible by 3
+			-- This checks for their presence and removes them
+			-- Don't use patterns here because thousandsSeparator can be a pattern control character, and will crash if used
+			if main.thousandsSeparator ~= "" then
+				local thousandsSeparator = string.find(integer, main.thousandsSeparator, 1, 2)
+				if thousandsSeparator and thousandsSeparator == 1 then
+					integer = integer:sub(2)
+				end
+			end
+		else
+			integer = integer:reverse():gsub("(%d%d%d)", "%1"):reverse()
+		end
+		return colour..minus..integer..fraction:gsub("%.", main.decimalSeparator)
+	end)
 end
 
 function getFormatNumSep(dec)
@@ -650,11 +650,11 @@ function copyFile(srcName, dstName)
 end
 
 function zip(a, b)
-    local zipped = { }
+	local zipped = { }
 	for i, _ in pairs(a) do
 		table.insert(zipped, { a[i], b[i] })
-    end
-    return zipped
+	end
+	return zipped
 end
 
 -- Generate a UUID for a skill
