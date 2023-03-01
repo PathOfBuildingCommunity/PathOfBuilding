@@ -294,7 +294,7 @@ on trade site to work on other leagues and realms)]]
 		stat = "TotalEHP",
 		weightMult = 0.5,
 	})
-	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 100, 18, "^7Sort Calc By:", function()
+	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 150, 18, "^7Adjust search weights:", function()
 		self:SetStatWeights()
 	end)
 	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
