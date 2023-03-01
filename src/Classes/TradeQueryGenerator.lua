@@ -40,6 +40,36 @@ local itemCategoryTags = {
 	["Flask"] = { ["flask"] = true, ["hybrid_flask"] = true, ["utility_flask"] = true, ["mana_flask"] = true, ["life_flask"] = true, ["expedition_flask"] = true, ["critical_utility_flask"] = true }
 }
 
+local craftedCategoryTags = {
+	["Ring"] = { "Ring" },
+	["Amulet"] = { "Amulet" },
+	["Belt"] = { "Belt" },
+	["Chest"] = { "Body Armour" },
+	["Helmet"] = { "Helmet" },
+	["Gloves"] = { "Gloves" },
+	["Boots"] = { "Boots" },
+	["Quiver"] = { "Quiver" },
+	["Shield"] = { "Shield" },
+	["1HWeapon"] = { "One Handed Sword", "Thrusting One Handed Sword", "One Handed Axe", "One Handed Mace", "Dagger", "Wand", "Claw", "Sceptre" },
+	["2HWeapon"] = { "Fishing Rod", "Two Handed Sword", "Staff", "Two Handed Mace", "Two Handed Axe" },
+	["1HAxe"] = { "One Handed Axe" },
+	["1HSword"] = { "One Handed Sword", "Thrusting One Handed Sword" },
+	["1HMace"] = { "One Handed Mace", "Sceptre" },
+	["Dagger"] = { "Dagger" },
+	["Wand"] = { "Wand" },
+	["Claw"] = { "Claw" },
+	["Staff"] = { "Staff" },
+	["Bow"] = { "Bow" },
+	["2HAxe"] = { "Two Handed Axe" },
+	["2HSword"] = { "Two Handed Sword" },
+	["2HMace"] = { "Two Handed Mace" },
+	["FishingRod"] = { "Fishing Rod" },
+	["AbyssJewel"] = { "Jewel" },
+	["BaseJewel"] = { "Jewel" },
+	["AnyJewel"] = { "Jewel" },
+	["Flask"] = { "Flask" }
+}
+
 local tradeStatCategoryIndices = {
 	["Explicit"] = 2,
 	["Implicit"] = 3,
@@ -113,14 +143,22 @@ local function canModSpawnForItemCategory(mod, tags)
 	--if mod.type == "Synthesis" then
 		-- return true
 	--end
-	for i, key in ipairs(mod.weightKey) do
-		local influenceStrippedKey = stripInfluenceSuffix(key)
-		if key ~= "default" and mod.affix:find("Elevated") ~= nil and tags[influenceStrippedKey] == true then
-			return true
-		elseif key ~= "default" and mod.type == "Corrupted" and tags[influenceStrippedKey] == true then
-			return true
-		elseif mod.weightVal[i] > 0 and tags[influenceStrippedKey] == true then
-			return true
+	if mod.types then -- handling for crafted mods
+		for _, key in ipairs(tags) do
+			if mod.types[key] then
+				return true
+			end
+		end
+	else
+		for i, key in ipairs(mod.weightKey) do
+			local influenceStrippedKey = stripInfluenceSuffix(key)
+			if key ~= "default" and mod.affix:find("Elevated") ~= nil and tags[influenceStrippedKey] == true then
+				return true
+			elseif key ~= "default" and mod.type == "Corrupted" and tags[influenceStrippedKey] == true then
+				return true
+			elseif mod.weightVal[i] > 0 and tags[influenceStrippedKey] == true then
+				return true
+			end
 		end
 	end
 	return false
@@ -149,7 +187,7 @@ end
 
 function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 	for modId, mod in pairs(mods) do
-		if modId:find("HellscapeDownside") ~= nil then -- skip scourge downsides, they often don't follow standard parsing rules, and should basically never be beneficial anyways
+		if type(modId) == "string" and modId:find("HellscapeDownside") ~= nil then -- skip scourge downsides, they often don't follow standard parsing rules, and should basically never be beneficial anyways
 			goto continue
 		end
 
@@ -252,7 +290,7 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 
 			-- Update the min and max values available for each item category
 			for category, tags in pairs(itemCategoryTags) do
-				if canModSpawnForItemCategory(mod, tags) then
+				if (mod.types and canModSpawnForItemCategory(mod, craftedCategoryTags[category])) or (not mod.types and canModSpawnForItemCategory(mod, tags)) then
 					if self.modData[modType][uniqueIndex][category] == nil then
 						self.modData[modType][uniqueIndex][category] = { min = 999999, max = -999999 }
 					end
@@ -318,6 +356,10 @@ function TradeQueryGeneratorClass:InitMods()
 	self:GenerateModData(data.itemMods.Jewel, tradeQueryStatsParsed)
 	self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed)
 	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed)
+	self:GenerateModData(data.masterMods, tradeQueryStatsParsed)
+
+	-- data.essences
+
 
 	-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
 	for baseName, entry in pairs(data.itemBases) do
