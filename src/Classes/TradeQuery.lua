@@ -282,70 +282,9 @@ You can click this button to enter your POESESSID.
 - You can only generate weighted searches for public leagues. (Generated searches can be modified
 on trade site to work on other leagues and realms)]]
 	
-	-- Stat sort popup button
-	self.statSortSelectionList = { }
-	t_insert(self.statSortSelectionList,  {
-		label = "Full DPS",
-		stat = "FullDPS",
-		weightMult = 1.0,
-	})
-	t_insert(self.statSortSelectionList,  {
-		label = "Effective Hit Pool",
-		stat = "TotalEHP",
-		weightMult = 0.5,
-	})
-	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 150, 18, "^7Adjust search weights:", function()
-		self:SetStatWeights()
-	end)
-	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
-		tooltip:AddLine(16, "Currently sorting by:")
-		for _, stat in ipairs(self.statSortSelectionList) do
-			tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
-		end
-	end
-	self.sortModes = {
-		StatValue = "(Highest) Stat Value",
-		StatValuePRICE = "Stat Value / Price",
-		PRICE = "(Lowest) Price",
-		WEIGHT = "(Highest) Weighted Sum",
-	}
-	-- Item sort dropdown
-	self.itemSortSelectionList = {
-		self.sortModes.StatValue,
-		self.sortModes.StatValuePRICE,
-		self.sortModes.PRICE,
-		self.sortModes.WEIGHT,
-	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",self.controls.StatWeightMultipliersButton,"BOTTOMRIGHT"}, 0, 4, 154, 18, self.itemSortSelectionList, function(index, value)
-		self.pbItemSortSelectionIndex = index
-		for index, _ in pairs(self.resultTbl) do
-			self:UpdateControlsWithItems(slotTables[index], index)
-		end
-	end)
-	self.controls.itemSortSelection.tooltipText = 
-[[Weighted Sum searches will always sort using descending weighted sum
-Additional post filtering options can be done these include:
-Highest Stat Value - Sort from highest to lowest Stat Value change of equipping item
-Highest Stat Value / Price - Sorts from highest to lowest Stat Value per currency
-Lowest Price - Sorts from lowest to highest price of retrieved items
-Highest Weight - Displays the order retrieved from trade]]
-	self.controls.itemSortSelection:SetSel(self.pbSortSelectionIndex)
-	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "^7Sort By:")
-	
-	-- Use Enchant in DPS sorting
-	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.itemSortSelection,"BOTTOMRIGHT"}, 0, 4, row_height, "Include Enchants:", function(state)
-		self.enchantInSort = state
-		for index, _ in pairs(self.resultTbl) do
-			self:UpdateControlsWithItems({name = baseSlots[index]}, index)
-		end
-	end)
-	self.controls.enchantInSort.tooltipText = "This includes enchants in sorting that occurs after trade results have been retrieved"
-
+-- Fetches Box
 	self.maxFetchPerSearchDefault = 2
-	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", self.controls.enchantInSort, "TOPLEFT"}, -8 - self.controls.enchantInSort.labelWidth, 0, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
-
+	self.controls.fetchCountEdit = new("EditControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -12, 19, 154, row_height, "", "Fetch Pages", "%D", 3, function(buf)
 		self.maxFetchPages = m_min(m_max(tonumber(buf) or self.maxFetchPerSearchDefault, 1), 10)
 		self.tradeQueryRequests.maxFetchPerSearch = 10 * self.maxFetchPages
 		self.controls.fetchCountEdit.focusValue = self.maxFetchPages
@@ -362,6 +301,67 @@ Highest Weight - Displays the order retrieved from trade]]
 		tooltip:AddLine(16, "Each page fetches up to 10 items.")
 		tooltip:AddLine(16, "Acceptable Range is: 1 to 10")
 	end
+
+	-- Stat sort popup button
+	self.statSortSelectionList = { }
+	t_insert(self.statSortSelectionList,  {
+		label = "Full DPS",
+		stat = "FullDPS",
+		weightMult = 1.0,
+	})
+	t_insert(self.statSortSelectionList,  {
+		label = "Effective Hit Pool",
+		stat = "TotalEHP",
+		weightMult = 0.5,
+	})
+	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", self.controls.fetchCountEdit, "BOTTOMRIGHT"}, 0, 4, 154, row_height, "^7Adjust search weights:", function()
+		self:SetStatWeights()
+	end)
+	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
+		tooltip:AddLine(16, "Currently sorting by:")
+		for _, stat in ipairs(self.statSortSelectionList) do
+			tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
+		end
+	end
+	self.sortModes = {
+		StatValue = "(Highest) Stat Value",
+		StatValuePrice = "Stat Value / Price",
+		Price = "(Lowest) Price",
+		Weight = "(Highest) Weighted Sum",
+	}
+	-- Item sort dropdown
+	self.itemSortSelectionList = {
+		self.sortModes.StatValue,
+		self.sortModes.StatValuePrice,
+		self.sortModes.Price,
+		self.sortModes.Weight,
+	}
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT",self.controls.StatWeightMultipliersButton,"TOPLEFT"}, -8, 0, 160, row_height, self.itemSortSelectionList, function(index, value)
+		self.pbItemSortSelectionIndex = index
+		for index, _ in pairs(self.resultTbl) do
+			self:UpdateControlsWithItems(slotTables[index], index)
+		end
+	end)
+	self.controls.itemSortSelection.tooltipText = 
+[[Weighted Sum searches will always sort using descending weighted sum
+Additional post filtering options can be done these include:
+Highest Stat Value - Sort from highest to lowest Stat Value change of equipping item
+Highest Stat Value / Price - Sorts from highest to lowest Stat Value per currency
+Lowest Price - Sorts from lowest to highest price of retrieved items
+Highest Weight - Displays the order retrieved from trade]]
+	self.controls.itemSortSelection:SetSel(self.pbItemSortSelectionIndex)
+	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16	, "^7Sort By:")
+	
+	-- Use Enchant in DPS sorting
+	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.fetchCountEdit,"TOPLEFT"}, -8, 0, row_height, "Include Enchants:", function(state)
+		self.enchantInSort = state
+		for index, _ in pairs(self.resultTbl) do
+			self:UpdateControlsWithItems({name = baseSlots[index]}, index)
+		end
+	end)
+	self.controls.enchantInSort.tooltipText = "This includes enchants in sorting that occurs after trade results have been retrieved"
 
 	-- Realm selection
 	self.controls.realmLabel = new("LabelControl", {"TOPLEFT", self.controls.setSelect, "TOPRIGHT"}, 18, 0, 20, 16, "^7Realm:")
@@ -664,7 +664,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 		return out
 	end
 	local newTbl = {}
-	if mode == self.sortModes.WEIGHT then
+	if mode == self.sortModes.Weight then
 		for index, _ in pairs(self.resultTbl[trade_index]) do
 			t_insert(newTbl, { outputAttr = index, index = index })
 		end
@@ -675,7 +675,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 			t_insert(newTbl, { outputAttr = statValue, index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.StatValuePRICE then
+	elseif mode == self.sortModes.StatValuePrice then
 		local StatValueTable = getStatValueTable()
 		local priceTable = getPriceTable()
 		if priceTable == nil then
@@ -685,7 +685,7 @@ function TradeQueryClass:SortFetchResults(slotTbl, trade_index, mode)
 			t_insert(newTbl, { outputAttr = statValue / priceTable[index], index = index })
 		end
 		table.sort(newTbl, function(a,b) return a.outputAttr > b.outputAttr end)
-	elseif mode == self.sortModes.PRICE then
+	elseif mode == self.sortModes.Price then
 		local priceTable = getPriceTable()
 		if priceTable == nil then
 			return nil, "MissingConversionRates"
