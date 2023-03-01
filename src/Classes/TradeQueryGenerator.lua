@@ -7,6 +7,7 @@
 local dkjson = require "dkjson"
 local curl = require("lcurl.safe")
 local m_max = math.max
+local s_format = string.format
 
 -- TODO generate these from data files
 local itemCategoryTags = {
@@ -795,17 +796,28 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	lastItemAnchor = controls.maxPrice
 	popupHeight = popupHeight + 23
 	
-    controls.sortStatType = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, #statWeights < 2 and statWeights[1].label or "Multiple Stats")
-    controls.sortStatLabel = new("LabelControl", {"RIGHT",controls.sortStatType,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
-	controls.sortStatType.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
-		tooltip:AddLine(16, "Currently sorting by:")
-		for _, stat in ipairs(statWeights) do
-			tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
+	for i, stat in ipairs(statWeights) do
+		controls["sortStatType"..tostring(i)] = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, i == 1 and 5 or 3, 70, 16, i < (#statWeights < 6 and 10 or 5) and s_format("%.2f: %s", stat.weightMult, stat.label) or ("+ "..tostring(#statWeights - 4).." Additional Stats"))
+		lastItemAnchor = controls["sortStatType"..tostring(i)]
+		popupHeight = popupHeight + 19
+		if i == 1 then
+			controls.sortStatLabel = new("LabelControl", {"RIGHT",lastItemAnchor,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
+		elseif i == 5 then
+			-- tooltips dont actualy work for labels
+			lastItemAnchor.tooltipFunc = function(tooltip)
+				tooltip:Clear()
+				tooltip:AddLine(16, "Sorts the weights by the stats selected multiplied by a value")
+				tooltip:AddLine(16, "Currently sorting by:")
+				for i, stat in ipairs(statWeights) do
+					if i > 4 then
+						tooltip:AddLine(16, s_format("%s: %.2f", stat.label, stat.weightMult))
+					end
+				end
+			end
+			break
 		end
 	end
-    popupHeight = popupHeight + 23
+	popupHeight = popupHeight + 4
 
 	controls.generateQuery = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Execute", function()
 		main:ClosePopup()

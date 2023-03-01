@@ -30,7 +30,7 @@ function TradeStatWeightMultiplierListControlClass:AddValueTooltip(tooltip, inde
 end
 
 function TradeStatWeightMultiplierListControlClass:OnSelClick(index, data, doubleClick)
-	if doubleClick and self.indexController.index ~= index then
+	if self.indexController.index ~= index then
 		self.indexController.index = index
 		self.indexController.SliderLabel.label = self.list[index].stat.label
 		self.indexController.Slider:SetVal(self.list[index].stat.weightMult == 1 and 1 or self.list[index].stat.weightMult - 0.01)
