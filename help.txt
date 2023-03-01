@@ -81,39 +81,38 @@ Adding ^ and then a number or hex code before text will change the colour of the
 
 ---[Timeless Jewels][6]
 
-Timeless jewels modify nodes in radius based off their seed, the same seed will apply the same changes to the same 
-    small/notable nodes so that is the umber you look for. The Conqueror (name on the jewel) only affects the keystone.
+Timeless jewels modify nodes in a radius based off their seed, the same seed will apply the same changes to the same 
+    small/notable nodes so that is the number you look for. The Conqueror (name on the jewel) only affects the keystone.
   
-Path of Building has an inbuilt tool in the tree tab to search through seeds to find stats that would be good for your build
-clicking "Find Timeless Jewel" button on the bottom bar in the tree tab will open a UI that lets you:
-select which jewel type, which jewel socket to search for, and which conqueror from that jewel 
-    (any will just use the first conqueror if you add it to build, more on that later)
+Path of Building has an inbuilt tool in the tree tab to search through seeds to find stats that would be good for your build.
+Clicking the "Find Timeless Jewel" button on the bottom bar in the tree tab will open a UI that lets you:
+Select which jewel type, which jewel socket to search for, and which conqueror from that jewel 
+    ("Any" will just use the first conqueror if you add it to build, more on that later)
 
-The filter nodes option makes it only check nodes which are allocated when searching a jewel socket
-Next a node change/addition can be selected with the "search for node" dropdown, 
-    The values for the stats added are controlled by Primary/secondary (in the case of 2 stats from 1 node) node weights
-    If that type has already been added then moving those sliders will change the values
+The filter nodes option makes it only check nodes that are allocated when searching a jewel socket.
+Next, a node change/addition can be selected with the "search for node" dropdown, 
+    The values for the stats added are controlled by primary/secondary (in the case of 2 stats from 1 node) node weights
+    If that type has already been added, then moving those sliders will change the values
     These values can also be edited directly in the "Desired Nodes" box
-    A minimum weight can be added for a node, this will filter results to only seeds with at least that much weight from those nodes
-        if minimum weight bar is at max, it will turn it into "required", this just means the node needs to showup at least once
+    A minimum weight can be added for a node. This will filter results to only seeds with at least that much weight from those nodes.
+    If the minimum weight bar is at max, it will turn it into "required", this just means the node needs to show up at least once
 
-There are 2 different boxes these weights can be entered into, a basic one, and the "fallback" weights
-    if a node is in both it will only use the value from desired, the fallback ones can automatically be populated using
-    the fallback weight mode, select a method of determining the weights (a stat to sort by) and click generate
-    these can then be copied from the fallback nodes box to the desired nodes box if you want to generate a different type
-        eg. if you want to sort by combined dps and ehp, you generate one, copy it over and then generate the other
+There are 2 different boxes these weights can be entered into, a basic one, and the "fallback" weights.
+    If a node is in both it will only use the value from desired. The fallback weights can automatically be populated by using
+    the fallback weight mode, selecting a method of determining the weights (a stat to sort by) and clicking generate.
+    These can then be copied from the fallback nodes box to the desired nodes box if you want to generate a different type
+        eg. If you want to sort by combined dps and ehp, you generate one, copy it over and then generate the other
 
-Lastly is the search results box, this will list seeds from the best to the worst based on your search parameters
-    double clicking one will add the jewel with that seed and keystone to your build
-    clicking Copy trade URL will copy a few results to a trade link which can be pasted in your browser
-    doing this multiple times will copy later results incase the first one didn't show results
-    if you click 1 result and shift click another it will highlight multiple, you can then click "Copy trade URL" to search all of them
+Lastly is the search results box. This will list seeds from the best to the worst based on your search parameters.
+    Double-clicking one will add the jewel with that seed and keystone to your build.
+    Clicking "Copy Trade URL" will copy a few results to a trade link which can be pasted into your browser.
+    Doing this multiple times will copy later results in case the first one didn't show results.
+    If you click 1 result and shift-click another it will highlight multiple, you can then click "Copy trade URL" to search all of them
 
-Militant faith also has an option to select the other mods on the jewel
+Militant Faith jewels also have the option to select the other mods on the jewel
 
 Advanced tricks:
-    for Militant faith, if you don't want any nodes to change you can just sort by devotion, 
-        as unchanged nodes add devotion the ones with the most devotion will be the one with unchanged nodes
+    For Militant Faith, if you don't want any nodes to change, you can just sort by devotion, as unchanged nodes add devotion the ones
+    with the most devotion will be the ones with unchanged nodes
 	
 	
-
