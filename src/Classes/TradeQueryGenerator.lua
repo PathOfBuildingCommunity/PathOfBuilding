@@ -131,8 +131,8 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 		local baseModSum = 0
 		local newModSum = 0
 		for _, mod in ipairs({ ... }) do
-			baseModSum = baseModSum + baseOutput[mod] or 0
-			newModSum = newModSum + newOutput[mod] or 0
+			baseModSum = baseModSum + (baseOutput[mod] or 0)
+			newModSum = newModSum + (newOutput[mod] or 0)
 		end
 		return newModSum / ((baseModSum ~= 0) and baseModSum or 1)
 	end
