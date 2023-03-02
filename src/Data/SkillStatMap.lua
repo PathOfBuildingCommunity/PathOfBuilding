@@ -557,6 +557,9 @@ return {
 ["modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration"] = {
 	skill("skillEffectAppliesToSoulGainPrevention", true),
 },
+["modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration"] = {
+	skill("skillEffectAppliesToSoulGainPrevention", true),
+},
 ["active_skill_quality_duration_+%_final"] = {
 	mod("Duration", "MORE", nil),
 },

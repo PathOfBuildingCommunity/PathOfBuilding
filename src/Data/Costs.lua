@@ -83,7 +83,7 @@ return {
 	[14] = {
 		Resource = "Soul",
 		Stat = " ",
-		ResourceString = "{0} Souls",
+		ResourceString = "{0} Souls Per Use",
 		Divisor = 1,
 	}
 }

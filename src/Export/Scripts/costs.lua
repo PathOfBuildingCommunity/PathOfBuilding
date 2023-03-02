@@ -23,7 +23,7 @@ do
 	out:write('\t[', costSize + 1, '] = {\n')
 	out:write('\t\tResource = "', "Soul", '",\n')
 	out:write('\t\tStat = ', '" "', ',\n')
-	out:write('\t\tResourceString = "', "{0} Souls", '",\n')
+	out:write('\t\tResourceString = "', "{0} Souls Per Use", '",\n')
 	out:write('\t\tDivisor = ', tostring(1), ',\n')
 	out:write('\t}\n')
 end
