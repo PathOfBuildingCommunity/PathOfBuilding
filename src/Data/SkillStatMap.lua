@@ -554,6 +554,12 @@ return {
 	mod("PrimaryDuration", "BASE", nil, 0, 0, { type = "Multiplier", var = "CorpseConsumedRecently", limit = 4 }),
 	div = 1000,
 },
+["modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration"] = {
+	skill("skillEffectAppliesToSoulGainPrevention", true),
+},
+["modifiers_to_buff_effect_duration_also_affect_soul_prevention_duration"] = {
+	skill("skillEffectAppliesToSoulGainPrevention", true),
+},
 ["active_skill_quality_duration_+%_final"] = {
 	mod("Duration", "MORE", nil),
 },

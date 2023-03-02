@@ -365,14 +365,14 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.PvPDamageMultiplier ~= 0 then
 			level.extra.PvPDamageMultiplier = levelRow.PvPDamageMultiplier
 		end
-		if levelRow.VaalSouls ~= 0 then
-			level.extra.soulCost = levelRow.VaalSouls
-		end
 		if levelRow.StoredUses ~= 0 then
 			level.extra.storedUses = levelRow.StoredUses
 		end
+		if levelRow.VaalSouls ~= 0 then
+			level.cost.Soul = levelRow.VaalSouls
+		end
 		if levelRow.VaalStoredUses ~= 0 then
-			level.extra.skillUseStorage = levelRow.VaalStoredUses
+			level.extra.vaalStoredUses = levelRow.VaalStoredUses
 		end
 		if levelRow.SoulGainPreventionDuration ~= 0 then
 			level.extra.soulPreventionDuration = levelRow.SoulGainPreventionDuration / 1000
