@@ -1495,28 +1495,37 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.fallbackWeightMode.idx = index
 	end)
 	controls.fallbackWeightsList.selIndex = timelessData.fallbackWeightMode.idx or 1
-	controls.fallbackWeightsButton = new("ButtonControl", { "LEFT", controls.fallbackWeightsList, "RIGHT" }, 5, 0, 66, 18, "Generate", setupFallbackWeights)
+	controls.fallbackWeightsButton = new("ButtonControl", { "LEFT", controls.fallbackWeightsList, "RIGHT" }, 5, 0, 66, 18, "Generate", function()
+		setupFallbackWeights()
+		controls.searchListFallbackButton.label = "^4Fallback Nodes"
+	end)
 	controls.fallbackWeightsButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Click this button to generate new fallback node weights, replacing your old ones.")
 	end
 
-	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "Desired Nodes", function()
-		controls.searchListFallback.shown = false
-		controls.searchListFallback.enabled = false
-		controls.searchList.shown = true
-		controls.searchList.enabled = true
+	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "^2Desired Nodes", function()
+		if controls.searchListFallback.shown then
+			controls.searchListFallback.shown = false
+			controls.searchListFallback.enabled = false
+			controls.searchList.shown = true
+			controls.searchList.enabled = true
+			controls.searchListButton.label = "^2Desired Nodes"
+			controls.searchListFallbackButton.label = "^7Fallback Nodes"
+		end
 	end)
 	controls.searchListButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7This contains a list of your desired nodes along with their primary, secondary, and minimum weights.")
 		tooltip:AddLine(16, "^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
 	end
-	controls.searchListFallbackButton = new("ButtonControl", { "LEFT", controls.searchListButton, "RIGHT" }, 5, 0, 110, 20, "Fallback Nodes", function()
+	controls.searchListFallbackButton = new("ButtonControl", { "LEFT", controls.searchListButton, "RIGHT" }, 5, 0, 110, 20, "^7Fallback Nodes", function()
 		controls.searchList.shown = false
 		controls.searchList.enabled = false
 		controls.searchListFallback.shown = true
 		controls.searchListFallback.enabled = true
+		controls.searchListButton.label = "^7Desired Nodes"
+		controls.searchListFallbackButton.label = "^2Fallback Nodes"
 	end)
 	controls.searchListFallbackButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
