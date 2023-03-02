@@ -1707,6 +1707,9 @@ return {
 ["support_added_cooldown_count_if_not_instant"] = {
 	mod("AdditionalCooldownUses", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Instant, neg = true })
 },
+["base_added_cooldown_count"] = {
+	mod("AdditionalCooldownUses", "BASE", nil)
+},
 ["kill_enemy_on_hit_if_under_10%_life"] = {
 	mod("CullPercent", "MAX", nil), 
 	value = 10
