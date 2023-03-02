@@ -3990,6 +3990,7 @@ skills["Flameblast"] = {
 	baseMods = {
 		skill("radius", 2),
 		skill("showAverage", true),
+		mod("PvpTvalueMultiplier", "MORE", 100, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 	},
 	qualityStats = {
 		Default = {

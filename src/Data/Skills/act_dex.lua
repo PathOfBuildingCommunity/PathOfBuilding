@@ -3016,6 +3016,7 @@ skills["DoubleStrike"] = {
 	},
 	baseMods = {
 		skill("dpsMultiplier", 2),
+		mod("PvpTvalueMultiplier", "MORE", -50),
 	},
 	qualityStats = {
 		Default = {
