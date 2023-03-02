@@ -945,9 +945,9 @@ local function doActorMisc(env, actor)
 				if item.baseName:match("Silver Flask") then
 					onslaughtFromFlask = true
 
-					local curFlaskEffectInc = item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")
+					local curFlaskEffectInc = item.flaskData.effectInc + modDB:Sum("INC", { actor = "player" }, "FlaskEffect")
 					if item.rarity == "MAGIC" then
-						curFlaskEffectInc = curFlaskEffectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+						curFlaskEffectInc = curFlaskEffectInc + modDB:Sum("INC", { actor = "player" }, "MagicUtilityFlaskEffect")
 					end
 
 					if flaskEffectInc < curFlaskEffectInc / 100 then 
