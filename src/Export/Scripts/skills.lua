@@ -362,6 +362,9 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000
 		end
+		if levelRow.PvPDamageMultiplier ~= 0 then
+			level.extra.PvPDamageMultiplier = levelRow.PvPDamageMultiplier
+		end
 		if levelRow.VaalSouls ~= 0 then
 			level.extra.soulCost = levelRow.VaalSouls
 		end

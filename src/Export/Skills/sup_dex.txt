@@ -25,7 +25,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill SupportArrowNovaPlus
@@ -34,7 +33,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill SupportBarrage Barrage Support
@@ -51,7 +49,6 @@ local skills, mod, flag, skill = ...
 		["skill_can_only_use_non_melee_weapons"] = {
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -20)
 #mods
 
 #skill SupportBlind
@@ -112,7 +109,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("triggeredOnDeath", true)
-#baseMod mod("PvpDamageMultiplier", "MORE", -75)
 #mods
 
 #skill SupportChain
@@ -121,7 +117,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill SupportChainPlus
@@ -130,7 +125,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill SupportChanceToFlee
@@ -170,7 +164,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -20)
 #mods
 
 #skill SupportColdPenetration
@@ -235,7 +228,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -60)
 #mods
 
 #skill SupportFork
@@ -260,7 +252,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill SupportGreaterMultipleProjectilesPlus
@@ -269,7 +260,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill SupportGreaterVolley
@@ -278,7 +268,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill SupportDamageAgainstChilled
@@ -316,7 +305,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -15)
 #mods
 
 #skill SupportChanceToPoison
@@ -360,7 +348,6 @@ local skills, mod, flag, skill = ...
 			mod("MirageArcherMaxCount", "BASE", 1),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -35)
 #mods
 
 #skill SupportMultiTrap
@@ -369,7 +356,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -20)
 #mods
 
 #skill SupportPuncturingWeapon
@@ -459,11 +445,9 @@ local skills, mod, flag, skill = ...
 			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Trappable }),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -60)
 #mods
 
 #skill SupportTrapCooldown
-#baseMod mod("PvpDamageMultiplier", "MORE", -15)
 #mods
 
 #skill SupportTrapAndMineDamage
@@ -550,7 +534,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -10)
 #mods
 
 #skill SupportChaosAttacks

@@ -111,7 +111,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill SupportChanceToBleed

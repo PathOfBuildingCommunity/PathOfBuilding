@@ -493,6 +493,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if level.storedUses then
 		activeSkill.skillData.storedUses = level.storedUses
 	end
+	if level.PvPDamageMultiplier then
+		skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, activeEffect.grantedEffect.modSource)
+	end
 	
 	-- Add extra modifiers from other sources
 	activeSkill.extraSkillModList = { }

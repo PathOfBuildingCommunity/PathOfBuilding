@@ -94,7 +94,6 @@ local skills, mod, flag, skill = ...
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -70)
 #mods
 
 #skill SupportCastWhileChannellingTriggered
@@ -111,7 +110,6 @@ local skills, mod, flag, skill = ...
 			mod("EnemySapEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -70)
 #mods
 
 #skill SupportCastWhileChannellingPlus
@@ -123,7 +121,6 @@ local skills, mod, flag, skill = ...
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -70)
 #mods
 
 #skill SupportCastWhileChannellingTriggeredPlus
@@ -132,7 +129,6 @@ local skills, mod, flag, skill = ...
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -70)
 #mods
 
 #skill SupportChanceToIgnite
@@ -341,7 +337,6 @@ local skills, mod, flag, skill = ...
 			mod("SelfDoubleDamageChance", "BASE", nil, 0, 0, { type = "Limit", limit = 100 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "High-Impact Mine", effectStackVar = "ActiveMineCount" }),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -60)
 #mods
 
 #skill SupportIgniteProliferation
@@ -491,7 +486,6 @@ local skills, mod, flag, skill = ...
 			mod("MineLayingSpeed", "MORE", nil),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -50)
 #mods
 
 #skill SupportMinionDamage
@@ -606,7 +600,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -60)
 #mods
 
 #skill SupportSpellCascade
@@ -618,7 +611,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -20)
 #mods
 
 #skill SupportSpellCascadePlus
@@ -630,7 +622,6 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -20)
 #mods
 
 #skill SupportMulticast
@@ -705,7 +696,6 @@ local skills, mod, flag, skill = ...
 			mod("BrandActivationFrequency", "MORE", nil, 0, 0, {type = "Condition", var = "BrandLastQuarter"})
 		},
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -45)
 #mods
 
 #skill SupportTrinity
@@ -752,7 +742,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("HasSeals")
-#baseMod mod("PvpDamageMultiplier", "MORE", -40)
 #mods
 
 #skill SupportUnleashPlus
@@ -769,5 +758,4 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("HasSeals")
-#baseMod mod("PvpDamageMultiplier", "MORE", -40)
 #mods

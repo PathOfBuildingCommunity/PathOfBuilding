@@ -402,7 +402,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 23)
-#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill CorruptingFever
@@ -1211,7 +1210,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 35)
-#baseMod mod("PvpDamageMultiplier", "MORE", -40)
 #mods
 
 #skill RejuvenationTotem
@@ -1259,7 +1257,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "End Circle area:")
 #baseMod skill("radiusTertiary", 8)
 #baseMod skill("radiusTertiaryLabel", "Charging area:")
-#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill ShockwaveTotem
@@ -1355,7 +1352,6 @@ preDamageFunc = function(activeSkill, output)
 	end
 end,
 #baseMod skill("radius", 20)
-#baseMod mod("PvpDamageMultiplier", "MORE", -20)
 #mods
 
 #skill QuickGuard
@@ -1498,7 +1494,6 @@ end,
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		}
 	},
-#baseMod mod("PvpDamageMultiplier", "MORE", -40)
 #mods
 
 #skill VigilantStrike
