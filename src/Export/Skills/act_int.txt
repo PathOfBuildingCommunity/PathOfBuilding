@@ -12,6 +12,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
 		},
 	},
+#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill VaalArcChain
@@ -22,6 +23,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("Condition:CanBeLucky", { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill ArcaneCloak
@@ -248,6 +250,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("strikeInterval", 0.15)
 #baseMod skill("projectileSpeed", 48)
 #baseMod skill("duration", 2)
+#baseMod mod("PvpDamageMultiplier", "MORE", -40)
 #mods
 
 #skill DarkRitual
@@ -754,6 +757,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 9)
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill VaalFireballSpiralNova
@@ -769,6 +773,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 9)
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill Firestorm
@@ -1032,6 +1037,7 @@ local skills, mod, flag, skill = ...
 		["display_what_freezing_pulse_does"] = {
 		},
 	},
+#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill FrostBomb
@@ -1185,6 +1191,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 12)
 #baseMod mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("PvpDamageMultiplier", "MORE", -25)
 #mods
 
 #skill WaterSphere
@@ -1413,6 +1420,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 14)
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill KineticBolt
@@ -1647,6 +1655,7 @@ local skills, mod, flag, skill = ...
 #skill MagmaOrb
 #flags spell projectile area chaining
 #baseMod skill("radius", 14)
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill DamageOverTimeAura
@@ -1729,6 +1738,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 8)
 #baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" })
 #baseMod mod("Multiplier:PenanceBrandMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod mod("PvpDamageMultiplier", "MORE", -70)
 #mods
 
 #skill PowerSiphon
@@ -1845,6 +1855,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Area in which projectiles will land:")
 #baseMod skill("radiusTertiary", 12)
 #baseMod skill("radiusTertiaryLabel", "Area of projectile explosions:")
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill RaiseSpectre
@@ -2066,6 +2077,7 @@ local skills, mod, flag, skill = ...
 		["spellslinger_mana_reservation"] = {
 		},
 	},
+#baseMod mod("PvpDamageMultiplier", "MORE", -50)
 #mods
 
 #skill SupportSpellslinger
@@ -2081,6 +2093,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod flag("Condition:SupportedBySpellslinger")
 #baseMod skill("showAverage", true)
+#baseMod mod("PvpDamageMultiplier", "MORE", -50)
 #mods
 
 #skill BrandSupport
@@ -2088,6 +2101,7 @@ local skills, mod, flag, skill = ...
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
+#baseMod mod("PvpDamageMultiplier", "MORE", -70)
 #mods
 
 #skill SupportBrandSupport
@@ -2107,6 +2121,7 @@ local skills, mod, flag, skill = ...
 	},
 	addSkillTypes = { SkillType.Brand, },
 #baseMod skill("triggeredByBrand", true)
+#baseMod mod("PvpDamageMultiplier", "MORE", -70)
 #mods
 
 #skill SpiritOffering

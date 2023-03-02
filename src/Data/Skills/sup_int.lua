@@ -708,6 +708,9 @@ skills["SupportCastWhileChannelling"] = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -70),
+	},
 	qualityStats = {
 		Default = {
 			{ "channelled_skill_damage_+%", 0.5 },
@@ -786,6 +789,9 @@ skills["SupportCastWhileChannellingTriggered"] = {
 			mod("EnemyBrittleEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 			mod("EnemySapEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 		},
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -70),
 	},
 	qualityStats = {
 		Default = {
@@ -866,6 +872,9 @@ skills["SupportCastWhileChannellingPlus"] = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -70),
+	},
 	qualityStats = {
 		Default = {
 			{ "channelled_skill_damage_+%", 0.5 },
@@ -912,6 +921,9 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 		},
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -70),
 	},
 	qualityStats = {
 		Default = {
@@ -2520,6 +2532,9 @@ skills["SupportRemoteMine2"] = {
 			mod("SelfDoubleDamageChance", "BASE", nil, 0, 0, { type = "Limit", limit = 100 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "High-Impact Mine", effectStackVar = "ActiveMineCount" }),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -60),
+	},
 	qualityStats = {
 		Default = {
 			{ "mine_laying_speed_+%", 0.5 },
@@ -3760,6 +3775,9 @@ skills["SupportMinefield"] = {
 			mod("MineLayingSpeed", "MORE", nil),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -50),
+	},
 	qualityStats = {
 		Default = {
 			{ "mine_laying_speed_+%", 0.5 },
@@ -4519,6 +4537,9 @@ skills["SupportRemoteMine"] = {
 			mod("Damage", "MORE", nil),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -60),
+	},
 	qualityStats = {
 		Default = {
 			{ "mine_laying_speed_+%", 0.5 },
@@ -4606,6 +4627,9 @@ skills["SupportSpellCascade"] = {
 			mod("Damage", "MORE", nil),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -20),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
@@ -4686,6 +4710,9 @@ skills["SupportSpellCascadePlus"] = {
 		["support_spell_cascade_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -20),
 	},
 	qualityStats = {
 		Default = {
@@ -4989,6 +5016,9 @@ skills["SupportRapidActivation"] = {
 			mod("BrandActivationFrequency", "MORE", nil, 0, 0, {type = "Condition", var = "BrandLastQuarter"})
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -45),
+	},
 	qualityStats = {
 		Default = {
 			{ "sigil_repeat_frequency_+%", 0.25 },
@@ -5278,6 +5308,7 @@ skills["SupportHandcastAnticipation"] = {
 	},
 	baseMods = {
 		flag("HasSeals"),
+		mod("PvpDamageMultiplier", "MORE", -40),
 	},
 	qualityStats = {
 		Default = {
@@ -5366,6 +5397,7 @@ skills["SupportUnleashPlus"] = {
 	},
 	baseMods = {
 		flag("HasSeals"),
+		mod("PvpDamageMultiplier", "MORE", -40),
 	},
 	qualityStats = {
 		Default = {

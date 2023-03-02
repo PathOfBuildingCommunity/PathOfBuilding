@@ -408,6 +408,7 @@ skills["ArtilleryBallista"] = {
 	},
 	baseMods = {
 		flag("OneShotProj"),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -601,6 +602,9 @@ skills["BearTrap"] = {
 		cast = true,
 		trap = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -1878,6 +1882,7 @@ skills["PoisonArrow"] = {
 		skill("radiusSecondary", 12),
 		skill("dotIsArea", true),
 		flag("dotIsCausticGround"),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -1968,6 +1973,7 @@ skills["VaalCausticArrow"] = {
 		skill("radiusSecondary", 12),
 		skill("dotIsArea", true),
 		flag("dotIsCausticGround"),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -2323,6 +2329,7 @@ skills["CorpseEruption"] = {
 	baseMods = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 15),
+		mod("PvpDamageMultiplier", "MORE", -40),
 	},
 	qualityStats = {
 		Default = {
@@ -2455,6 +2462,7 @@ skills["Cyclone"] = {
 	},
 	baseMods = {
 		skill("radius", 11),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -2579,6 +2587,7 @@ skills["VaalCyclone"] = {
 	},
 	baseMods = {
 		skill("radius", 24),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -3640,6 +3649,7 @@ skills["ExplosiveArrow"] = {
 		skill("radius", 15),
 		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStageAfterFirst" }),
+		mod("PvpDamageMultiplier", "MORE", -50),
 	},
 	qualityStats = {
 		Default = {
@@ -4236,6 +4246,9 @@ skills["FlickerStrike"] = {
 		attack = true,
 		melee = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -7444,6 +7457,9 @@ skills["Riposte"] = {
 		attack = true,
 		melee = true,
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -60),
+	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%", 1 },
@@ -9130,6 +9146,9 @@ skills["TornadoShot"] = {
 		attack = true,
 		projectile = true,
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -30),
+	},
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 1 },
@@ -9601,6 +9620,7 @@ skills["VolatileDead"] = {
 	baseMods = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 15),
+		mod("PvpDamageMultiplier", "MORE", -80),
 	},
 	qualityStats = {
 		Default = {
@@ -9689,6 +9709,9 @@ skills["WhirlingBlades"] = {
 	baseFlags = {
 		attack = true,
 		melee = true,
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {

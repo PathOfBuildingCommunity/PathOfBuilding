@@ -1891,6 +1891,7 @@ skills["ConsecratedPath"] = {
 	},
 	baseMods = {
 		skill("radius", 23),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -6366,6 +6367,7 @@ skills["Reckoning"] = {
 	},
 	baseMods = {
 		skill("radius", 35),
+		mod("PvpDamageMultiplier", "MORE", -40),
 	},
 	qualityStats = {
 		Default = {
@@ -6734,6 +6736,7 @@ skills["NewShieldCharge"] = {
 		skill("radiusSecondaryLabel", "End Circle area:"),
 		skill("radiusTertiary", 8),
 		skill("radiusTertiaryLabel", "Charging area:"),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -7192,6 +7195,7 @@ end,
 	},
 	baseMods = {
 		skill("radius", 20),
+		mod("PvpDamageMultiplier", "MORE", -20),
 	},
 	qualityStats = {
 		Default = {
@@ -8071,6 +8075,9 @@ skills["Vengeance"] = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -40),
 	},
 	qualityStats = {
 		Default = {

@@ -83,6 +83,7 @@ local skills, mod, flag, skill = ...
 #skill ArtilleryBallista
 #flags attack projectile area totem ballista
 #baseMod flag("OneShotProj")
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill Barrage
@@ -121,6 +122,7 @@ local skills, mod, flag, skill = ...
 			mod("TrapMineDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 	},
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill BladeBlast
@@ -350,6 +352,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondary", 12)
 #baseMod skill("dotIsArea", true)
 #baseMod flag("dotIsCausticGround")
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill VaalCausticArrow
@@ -358,6 +361,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondary", 12)
 #baseMod skill("dotIsArea", true)
 #baseMod flag("dotIsCausticGround")
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill ImpactingSteelReload
@@ -448,6 +452,7 @@ local skills, mod, flag, skill = ...
 		end
 	end,
 #baseMod skill("radius", 15)
+#baseMod mod("PvpDamageMultiplier", "MORE", -40)
 #mods
 
 #skill Cyclone
@@ -481,6 +486,7 @@ local skills, mod, flag, skill = ...
 		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
 #baseMod skill("radius", 11)
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill VaalCyclone
@@ -505,6 +511,7 @@ local skills, mod, flag, skill = ...
 		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
 #baseMod skill("radius", 24)
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill QuickDodge
@@ -713,6 +720,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 15)
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
 #baseMod mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStageAfterFirst" })
+#baseMod mod("PvpDamageMultiplier", "MORE", -50)
 #mods
 
 #skill ExplosiveConcoction
@@ -884,6 +892,7 @@ local skills, mod, flag, skill = ...
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill VaalFlickerStrike
@@ -1410,6 +1419,7 @@ local skills, mod, flag, skill = ...
 
 #skill Riposte
 #flags attack melee
+#baseMod mod("PvpDamageMultiplier", "MORE", -60)
 #mods
 
 #skill ScourgeArrow
@@ -1765,6 +1775,7 @@ local skills, mod, flag, skill = ...
 
 #skill TornadoShot
 #flags attack projectile
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill BoneLance
@@ -1831,6 +1842,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 15)
+#baseMod mod("PvpDamageMultiplier", "MORE", -80)
 #mods
 
 #skill WhirlingBlades
@@ -1840,6 +1852,7 @@ local skills, mod, flag, skill = ...
 			mod("Evasion", "INC", nil, 0, 0, { type = "Condition", var = "Moving" } )
 		},
 	},
+#baseMod mod("PvpDamageMultiplier", "MORE", -30)
 #mods
 
 #skill WildStrike

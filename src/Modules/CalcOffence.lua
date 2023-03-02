@@ -2830,7 +2830,7 @@ function calcs.offence(env, actor, activeSkill)
 					PvpTvalue = 1
 				end
 			end
-			local PvpMultiplier = (env.configInput.multiplierPvpDamage or 100) / 100
+			local PvpMultiplier = skillModList:More(cfg, "PvpDamageMultiplier")
 			
 			local PvpNonElemental1 = data.misc.PvpNonElemental1
 			local PvpNonElemental2 = data.misc.PvpNonElemental2
@@ -2864,7 +2864,7 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.AverageHit, PvpTvalue,  PvpNonElemental2, PvpNonElemental1, PvpTvalue, PvpNonElemental2, percentageNonElemental, portionNonElemental))
 				t_insert(breakdown.PvpAverageHit, s_format("(%.1f / (%.2f * %.1f)) ^ %.2f * %.2f * %.1f * %.2f = %.1f", output.AverageHit, PvpTvalue,  PvpElemental2, PvpElemental1, PvpTvalue, PvpElemental2, percentageElemental, portionElemental))
 				t_insert(breakdown.PvpAverageHit, s_format("(portionNonElemental + portionElemental) * PvP multiplier"))
-				t_insert(breakdown.PvpAverageHit, s_format("(%.1f + %.1f) * %.1f", portionNonElemental, portionElemental, PvpMultiplier))
+				t_insert(breakdown.PvpAverageHit, s_format("(%.1f + %.1f) * %g", portionNonElemental, portionElemental, PvpMultiplier))
 				t_insert(breakdown.PvpAverageHit, s_format("= %.1f", output.PvpAverageHit))
 				if isAttack then
 					breakdown.PvpAverageDamage = { }

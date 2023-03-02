@@ -24,6 +24,9 @@ skills["Arc"] = {
 		spell = true,
 		chaining = true,
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -25),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_chance_to_shock_%", 0.5 },
@@ -114,6 +117,7 @@ skills["VaalArcChain"] = {
 	},
 	baseMods = {
 		flag("Condition:CanBeLucky", { type = "GlobalEffect", effectType = "Buff" }),
+		mod("PvpDamageMultiplier", "MORE", -25),
 	},
 	qualityStats = {
 		Default = {
@@ -729,6 +733,7 @@ skills["BallLightning"] = {
 		skill("strikeInterval", 0.15),
 		skill("projectileSpeed", 48),
 		skill("duration", 2),
+		mod("PvpDamageMultiplier", "MORE", -40),
 	},
 	qualityStats = {
 		Default = {
@@ -3385,6 +3390,7 @@ skills["Fireball"] = {
 	},
 	baseMods = {
 		skill("radius", 9),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -3480,6 +3486,7 @@ skills["VaalFireballSpiralNova"] = {
 	},
 	baseMods = {
 		skill("radius", 9),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -4521,6 +4528,9 @@ skills["FreezingPulse"] = {
 		spell = true,
 		projectile = true,
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -25),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_projectile_speed_+%", 2 },
@@ -5294,6 +5304,7 @@ skills["GlacialCascade"] = {
 	baseMods = {
 		skill("radius", 12),
 		mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("PvpDamageMultiplier", "MORE", -25),
 	},
 	qualityStats = {
 		Default = {
@@ -6246,6 +6257,7 @@ skills["ClusterBurst"] = {
 	},
 	baseMods = {
 		skill("radius", 14),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -7174,6 +7186,7 @@ skills["MagmaOrb"] = {
 	},
 	baseMods = {
 		skill("radius", 14),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -7563,6 +7576,7 @@ skills["MagmaSigil"] = {
 		skill("radius", 8),
 		skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
 		mod("Multiplier:PenanceBrandMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		mod("PvpDamageMultiplier", "MORE", -70),
 	},
 	qualityStats = {
 		Default = {
@@ -8206,6 +8220,7 @@ skills["MortarBarrageMine"] = {
 		skill("radiusSecondaryLabel", "Area in which projectiles will land:"),
 		skill("radiusTertiary", 12),
 		skill("radiusTertiaryLabel", "Area of projectile explosions:"),
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -9353,6 +9368,9 @@ skills["Spellslinger"] = {
 	baseFlags = {
 		spell = true,
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -50),
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -9434,6 +9452,7 @@ skills["SupportSpellslinger"] = {
 	baseMods = {
 		flag("Condition:SupportedBySpellslinger"),
 		skill("showAverage", true),
+		mod("PvpDamageMultiplier", "MORE", -50),
 	},
 	qualityStats = {
 		Default = {
@@ -9512,6 +9531,9 @@ skills["BrandSupport"] = {
 		spell = true,
 		duration = true,
 		brand = true,
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -70),
 	},
 	qualityStats = {
 		Default = {
@@ -9607,6 +9629,7 @@ skills["SupportBrandSupport"] = {
 	addSkillTypes = { SkillType.Brand, },
 	baseMods = {
 		skill("triggeredByBrand", true),
+		mod("PvpDamageMultiplier", "MORE", -70),
 	},
 	qualityStats = {
 		Default = {

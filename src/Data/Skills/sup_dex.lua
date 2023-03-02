@@ -211,6 +211,9 @@ skills["SupportArrowNova"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -25),
+	},
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
@@ -296,6 +299,9 @@ skills["SupportArrowNovaPlus"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -25),
+	},
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
@@ -361,6 +367,9 @@ skills["SupportBarrage"] = {
 		},
 		["skill_can_only_use_non_melee_weapons"] = {
 		},
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -20),
 	},
 	qualityStats = {
 		Default = {
@@ -840,6 +849,7 @@ skills["SupportCastOnDeath"] = {
 	},
 	baseMods = {
 		skill("triggeredOnDeath", true),
+		mod("PvpDamageMultiplier", "MORE", -75),
 	},
 	qualityStats = {
 		Default = {
@@ -919,6 +929,9 @@ skills["SupportChain"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -30),
+	},
 	qualityStats = {
 		Default = {
 			{ "chaining_range_+%", 0.5 },
@@ -994,6 +1007,9 @@ skills["SupportChainPlus"] = {
 		["support_chain_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit),
 		},
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -30),
 	},
 	qualityStats = {
 		Default = {
@@ -1282,6 +1298,9 @@ skills["SupportClusterTrap"] = {
 		["support_clustertrap_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -20),
 	},
 	qualityStats = {
 		Default = {
@@ -1889,6 +1908,9 @@ skills["SupportFocusedBallista"] = {
 			mod("Damage", "MORE", nil),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -60),
+	},
 	qualityStats = {
 		Default = {
 			{ "totem_damage_+%", 0.5 },
@@ -2090,6 +2112,9 @@ skills["SupportGreaterMultipleProjectiles"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -25),
+	},
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
@@ -2168,6 +2193,9 @@ skills["SupportGreaterMultipleProjectilesPlus"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -25),
+	},
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
@@ -2216,6 +2244,9 @@ skills["SupportGreaterVolley"] = {
 		["support_greater_volley_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -25),
 	},
 	qualityStats = {
 		Default = {
@@ -2528,6 +2559,9 @@ skills["SupportLesserMultipleProjectiles"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -15),
+	},
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
@@ -2838,6 +2872,9 @@ skills["SupportGemMirageArcher"] = {
 			mod("MirageArcherMaxCount", "BASE", 1),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -35),
+	},
 	qualityStats = {
 		Default = {
 			{ "attack_damage_+%", 0.5 },
@@ -2917,6 +2954,9 @@ skills["SupportMultiTrap"] = {
 		["support_multithrow_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -20),
 	},
 	qualityStats = {
 		Default = {
@@ -3721,6 +3761,9 @@ skills["SupportTrap"] = {
 			skill("showAverage", true, { type = "SkillType", skillType = SkillType.Trappable }),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -60),
+	},
 	qualityStats = {
 		Default = {
 			{ "trap_throwing_speed_+%", 0.5 },
@@ -3796,6 +3839,9 @@ skills["SupportTrapCooldown"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -15),
+	},
 	qualityStats = {
 		Default = {
 			{ "trap_damage_+%", 0.5 },
@@ -4300,6 +4346,9 @@ skills["SupportParallelProjectiles"] = {
 		["support_parallel_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
 		},
+	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -10),
 	},
 	qualityStats = {
 		Default = {

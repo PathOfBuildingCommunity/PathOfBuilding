@@ -939,6 +939,9 @@ skills["SupportCastOnDamageTaken"] = {
 			mod("Damage", "MORE", nil),
 		},
 	},
+	baseMods = {
+		mod("PvpDamageMultiplier", "MORE", -25),
+	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%", 0.5 },
