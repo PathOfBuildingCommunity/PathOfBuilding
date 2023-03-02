@@ -1455,8 +1455,8 @@ skills["VaalAuraElementalDamageHealing"] = {
 		"immune_to_curses",
 	},
 	levels = {
-		[1] = { soulPreventionDuration = 14, storedUses = 1, cooldown = 0.5, skillUseStorage = 1, soulCost = 100, levelRequirement = 1, },
-		[20] = { soulPreventionDuration = 14, storedUses = 1, cooldown = 0.5, skillUseStorage = 1, soulCost = 100, levelRequirement = 1, },
+		[1] = { storedUses = 1, soulPreventionDuration = 14, skillUseStorage = 1, cooldown = 0.5, levelRequirement = 1, cost = { Soul = 100, }, },
+		[20] = { storedUses = 1, soulPreventionDuration = 14, skillUseStorage = 1, cooldown = 0.5, levelRequirement = 1, cost = { Soul = 100, }, },
 	},
 }
 skills["GoreShockwave"] = {
@@ -3055,7 +3055,7 @@ skills["SummonRigwaldsPack"] = {
 	},
 	levels = {
 		[10] = { 100, 3, 6, levelRequirement = 55, statInterpolation = { 1, 1, 1, }, },
-		[25] = { 100, 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, 1, }, },
+		[25] = { 8, 16, levelRequirement = 78, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SummonTauntingContraption"] = {
@@ -3339,16 +3339,16 @@ skills["VaalBreach"] = {
 		"cannot_cancel_skill_before_contact_point",
 	},
 	levels = {
-		[1] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
-		[2] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
-		[3] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
-		[4] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
-		[5] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
-		[6] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
-		[7] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
-		[8] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
-		[9] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
-		[10] = { soulPreventionDuration = 40, skillUseStorage = 1, soulCost = 100, levelRequirement = 10, },
+		[1] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[2] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[3] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[4] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[5] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[6] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[7] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[8] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[9] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
+		[10] = { skillUseStorage = 1, soulPreventionDuration = 40, levelRequirement = 10, cost = { Soul = 100, }, },
 	},
 }
 skills["VoidGaze"] = {

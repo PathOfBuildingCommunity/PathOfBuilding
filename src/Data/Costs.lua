@@ -80,4 +80,10 @@ return {
 		ResourceString = "{0}% Energy Shield per second",
 		Divisor = 60,
 	},
+	[14] = {
+		Resource = "Soul",
+		Stat = " ",
+		ResourceString = "{0} Souls",
+		Divisor = 1,
+	}
 }

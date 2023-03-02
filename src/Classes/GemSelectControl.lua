@@ -581,11 +581,8 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		if cost then
 			self.tooltip:AddLine(16, "^x7F7F7FCost: ^7"..cost)
 		end
-		if grantedEffectLevel.soulCost then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FSouls Per Use: ^7%d", grantedEffectLevel.soulCost))
-		end
 		if grantedEffectLevel.skillUseStorage then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FCan Store ^7%d ^x7F7F7FUse (%d Souls)", grantedEffectLevel.skillUseStorage, grantedEffectLevel.skillUseStorage * grantedEffectLevel.soulCost))
+			self.tooltip:AddLine(16, string.format("^x7F7F7FCan Store ^7%d ^x7F7F7FUse (%d Souls)", grantedEffectLevel.skillUseStorage, grantedEffectLevel.skillUseStorage * grantedEffectLevel.cost.Soul))
 		end
 		if grantedEffectLevel.soulPreventionDuration then
 			self.tooltip:AddLine(16, string.format("^x7F7F7FSoul Gain Prevention: ^7%d sec", grantedEffectLevel.soulPreventionDuration))

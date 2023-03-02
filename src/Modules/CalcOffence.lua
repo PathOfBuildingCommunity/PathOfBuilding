@@ -1227,6 +1227,22 @@ function calcs.offence(env, actor, activeSkill)
 				}
 			end
 		end
+		durationBase = (skillData.soulPreventionDuration or 0)
+		if durationBase > 0 then
+			local durationMod = skillData.skillEffectAppliesToSoulGainPrevention and calcLib.mod(skillModList, skillCfg, "Duration", "SkillAndDamagingAilmentDuration", "SoulGainPreventionDuration") or calcLib.mod(skillModList, skillCfg, "SoulGainPreventionDuration")
+			durationMod = m_max(durationMod, 0)
+			output.SoulGainPreventionDuration = durationBase * durationMod
+			output.SoulGainPreventionDuration = m_max(m_ceil(output.SoulGainPreventionDuration * data.misc.ServerTickRate), 1) / data.misc.ServerTickRate
+			if breakdown and output.SoulGainPreventionDuration ~= durationBase then
+				breakdown.SoulGainPreventionDuration = {
+					s_format("%.2fs ^8(base)", durationBase),
+					s_format("x %.4f ^8(duration modifier)", durationMod),
+					s_format("rounded up to nearest server tick"),
+					s_format("= %.3fs", output.SoulGainPreventionDuration),
+				}
+			end
+		end
+		
 	end
 
 	-- Skill uptime
@@ -1267,6 +1283,7 @@ function calcs.offence(env, actor, activeSkill)
 		["Mana"] = { type = "Mana", upfront = true, percent = false, text = "mana", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 		["Life"] = { type = "Life", upfront = true, percent = false, text = "life", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 		["ES"] = { type = "ES", upfront = true, percent = false, text = "ES", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
+		["Soul"] = { type = "Soul", upfront = true, percent = false, unaffectedByGenericCostMults = true, text = "soul", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 		["Rage"] = { type = "Rage", upfront = true, percent = false, text = "rage", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 		["ManaPercent"] = { type = "Mana", upfront = true, percent = true, text = "mana", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 		["LifePercent"] = { type = "Life", upfront = true, percent = true, text = "life", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
@@ -1309,6 +1326,13 @@ function calcs.offence(env, actor, activeSkill)
 				val.baseCost = val.baseCost + costs[manaType].baseCost * portion
 				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * portion
 			end
+		elseif val.type == "Rage" then
+			if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
+				val.baseCost = val.baseCost + costs.Soul.baseCost
+				val.baseCostNoMult = val.baseCostNoMult + costs.Soul.baseCostNoMult
+				costs.Soul.baseCost = 0
+				costs.Soul.baseCostNoMult = 0
+			end
 		end
 	end
 	for resource, val in pairs(costs) do
@@ -1318,15 +1342,26 @@ function calcs.offence(env, actor, activeSkill)
 		local dec = val.upfront and 0 or 2
 		local costName = resource.."Cost"
 		local mult = 1
-		for _, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "SupportManaMultiplier")) do
-			mult = m_floor(mult * (100 + value.mod.value)) / 100
+		local more = 1
+		local inc = 0
+		if not val.unaffectedByGenericCostMults then
+			for _, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "SupportManaMultiplier")) do
+				mult = m_floor(mult * (100 + value.mod.value)) / 100
+			end
+			more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
+			inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
+			output[costName] = m_floor(val.baseCost * mult + val.baseCostNoMult)
+			output[costName] = m_max(0, (1 + inc / 100) * output[costName])
+			output[costName] = m_max(0, more * output[costName])
+			output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
+		else
+			more = skillModList:More(skillCfg, val.type.."Cost")
+			inc = skillModList:Sum("INC", skillCfg, val.type.."Cost")
+			output[costName] = m_floor(val.baseCost + val.baseCostNoMult)
+			output[costName] = m_max(0, (1 + inc / 100) * output[costName])
+			output[costName] = m_max(0, more * output[costName])
+			output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
 		end
-		local more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
-		local inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-		output[costName] = m_floor(val.baseCost * mult + val.baseCostNoMult)
-		output[costName] = m_max(0, (1 + inc / 100) * output[costName])
-		output[costName] = m_max(0, more * output[costName])
-		output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
 		if breakdown and hasCost then
 			breakdown[costName] = {
 				s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
