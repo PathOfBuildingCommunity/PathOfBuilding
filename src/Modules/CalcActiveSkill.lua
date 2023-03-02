@@ -457,6 +457,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if level.cooldown then
 				activeSkill.skillData.cooldown = level.cooldown
 			end
+			if level.PvPDamageMultiplier then
+				skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, skillEffect.grantedEffect.modSource)
+			end
 			if level.storedUses then
 				activeSkill.skillData.storedUses = level.storedUses
 			end
