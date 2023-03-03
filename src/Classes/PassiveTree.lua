@@ -51,7 +51,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
 
-	self.legion = LoadModule("Data/LegionPassives")
+	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
 
 	MakeDir("TreeData")
 
