@@ -204,6 +204,7 @@ if settingsStatList then
 		end
 		for _, stat in ipairs(statGroup) do
 			if stat.displayStat or stat.minionDisplayStat or stat.extraSaveStat then
+				local found = false
 				for _, statGroup2 in ipairs(StatList) do
 					for _, stat2 in ipairs(statGroup2) do
 						if stat2.label == stat.label then
@@ -214,8 +215,12 @@ if settingsStatList then
 							stat2.minionDisplayStat = stat.minionDisplayStat
 							stat2.extraSaveStat = stat.extraSaveStat
 							stat = stat2
+							found = true
 							break
 						end
+					end
+					if found then
+						break
 					end
 				end
 				if stat.displayStat then
