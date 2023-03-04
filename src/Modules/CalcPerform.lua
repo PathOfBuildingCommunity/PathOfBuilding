@@ -1505,9 +1505,33 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
+	-- flask breakdown
+	local effectInc = modDB:Sum("INC", {actor = "player"}, "FlaskEffect")
+	if breakdown then
+		local chargesGenerated = modDB:Sum("BASE", nil, "FlaskChargesGenerated")
+		local usedFlasks = 0
+		for i, v in pairs(env.flasks) do
+			if v then
+				usedFlasks = usedFlasks + 1
+			end
+		end
+
+		local chargesGeneratedPerFlask = modDB:Sum("BASE", nil, "FlaskChargesGeneratedPerEmptyFlask") * (5 - usedFlasks)
+		local totalChargesGenerated = chargesGenerated + chargesGeneratedPerFlask
+		local utilityChargesGenerated = modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
+		local lifeChargesGenerated = modDB:Sum("BASE", nil, "LifeFlaskChargesGenerated")
+		local manaChargesGenerated = modDB:Sum("BASE", nil, "ManaFlaskChargesGenerated")
+
+		output.FlaskEffect = effectInc
+		output.FlaskChargeGen = totalChargesGenerated
+		output.LifeFlaskChargeGen = totalChargesGenerated + lifeChargesGenerated
+		output.ManaFlaskChargeGen = totalChargesGenerated + manaChargesGenerated
+		output.UtilityFlaskChargeGen = totalChargesGenerated + utilityChargesGenerated
+		output.FlaskChargeOnCritChance = m_min(100, modDB:Sum("BASE", nil, "FlaskChargeOnCritChance"))
+	end
+
 	-- Merge flask modifiers
 	if env.mode_combat then
-		local effectInc = modDB:Sum("INC", {actor = "player"}, "FlaskEffect")
 		local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicUtilityFlaskEffect")
 		local effectIncNonPlayer = modDB:Sum("INC", nil, "FlaskEffect")
 		local effectIncMagicNonPlayer = modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
@@ -1518,6 +1542,7 @@ function calcs.perform(env, avoidCache)
 		local flaskBuffsPerBaseNonPlayer = {}
 		local flasksApplyToMinion = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")
 		local quickSilverAppliesToAllies = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies")
+
 		for item in pairs(env.flasks) do
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
