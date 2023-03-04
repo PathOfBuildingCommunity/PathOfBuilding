@@ -171,24 +171,54 @@ local StatList = {
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true, displayStat = true },
 		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function(v,o) return not o.ChaosInoculation end, overCapStat = "ChaosResistOverCap", displayStat = true },
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true, displayStat = true },
-		{ label = "Chaos Resistance", val = "Immune", labelStat = "ChaosResist", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end, displayStat = true },
+		{ label = " Chaos Resistance", val = "Immune", labelStat = "ChaosResist", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end, displayStat = true },
 	}, {
 		{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end, displayStat = true },
+		{ stat = "QuantityMultiplier", label = "Quantity Multiplier", fmt = "+d%%" },
+		{ stat = "StoredUses", label = "Stored Uses", fmt = "d" },
+		{ stat = "Duration", label = "Skill Duration", fmt = ".2f", flag = "duration" },
+		{ stat = "DurationSecondary", label = "Secondary Duration", fmt = ".2f", flag = "duration" },
+		{ stat = "AuraDuration", label = "Aura Duration", fmt = ".2f" },
+		{ stat = "ReserveDuration", label = "Reserve Duration", fmt = ".2f" },
+		{ stat = "SoulGainPreventionDuration", label = "Soul Gain Prevent.", fmt = ".2f" },
+		{ stat = "SustainableTrauma", label = "Sustainable Trauma", fmt = "d" },
+		{ stat = "ProjectileCount", label = "Projectile Count", fmt = "d", flag = "projectile" },
+		{ stat = "PierceCountString", label = "Pierce Count", fmt = "d" },
+		{ stat = "ForkCountString", label = "Fork Count", fmt = "d" },
+		{ stat = "ChainMaxString", label = "Max Chain Count", fmt = "d" },
+		{ stat = "ProjectileSpeedMod", label = "Proj. Speed Mod", fmt = ".2f", flag = "projectile" },
+		{ stat = "BounceCount", label = "Bounces Count", fmt = "d", flag = "bounce" },
+		{ stat = "AuraEffectMod", label = "Aura Effect Mod", fmt = ".2f" },
+		{ stat = "CurseEffectMod", label = "Curse Effect Mod", fmt = ".2f" },
 	}, {
 		{ stat = "FullDPS", label = "Full DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true, displayStat = true },
 		{ stat = "FullDotDPS", label = "Full Dot DPS", fmt = ".1f", color = colorCodes.CURRENCY, compPercent = true, condFunc = function (v) return v >= data.misc.DotDpsCap end, warnFunc = function (v) return "Full Dot DPS exceeds in game limit" end, displayStat = true },
 	}, {
 		{ stat = "SkillDPS", label = "Skill DPS", condFunc = function() return true end, displayStat = true },
 	}, {
-		{ stat = "PowerCharges", extraSaveStat = true },
-		{ stat = "PowerChargesMax", extraSaveStat = true },
-		{ stat = "FrenzyCharges", extraSaveStat = true },
-		{ stat = "FrenzyChargesMax", extraSaveStat = true },
-		{ stat = "EnduranceCharges", extraSaveStat = true },
-		{ stat = "EnduranceChargesMax", extraSaveStat = true },
-		{ stat = "ActiveTotemLimit", extraSaveStat = true },
+		{ stat = "PowerCharges", label = "Power Charges", extraSaveStat = true },
+		{ stat = "PowerChargesMax", label = "Power Charges Max", extraSaveStat = true },
+		{ stat = "FrenzyCharges", label = "Frenzy Charges", extraSaveStat = true },
+		{ stat = "FrenzyChargesMax", label = "Frenzy Charges Max", extraSaveStat = true },
+		{ stat = "EnduranceCharges", label = "Endurance Charges", extraSaveStat = true },
+		{ stat = "EnduranceChargesMax", label = "Endurance Charges Max", extraSaveStat = true },
+		{ stat = "ActiveTotemLimit", label = "Active Totem Limit", extraSaveStat = true },
 	}
 }
+
+--[[
+-- method for generating a copy for settings
+main.displayStatList = copyTable(StatList)
+for _, statGroup in ipairs(main.displayStatList) do
+	for _, stat in ipairs(statGroup) do
+		for k, v in pairs(stat) do
+			if not (k == "label" or k == "displayStat" or k == "minionDisplayStat" or k == "extraSaveStat") then
+				stat[k] = nil
+			end
+		end
+	end
+end
+--]]
 
 local displayStats = {}
 local minionDisplayStats = {}
