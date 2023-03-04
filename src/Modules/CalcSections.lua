@@ -1283,7 +1283,7 @@ return {
 	{ label = "Enemy ES Regen", haveOutput = "EnemyEnergyShieldRegen", { format =  "{0:output:EnemyEnergyShieldRegen}%", { modName = "EnergyShieldRegen", modType = "INC", enemy = true }, }, },
 } }
 } },
---misc
+-- attributes/resists
 { 1, "Attributes", 2, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "Attributes", data = {
 	extra = colorCodes.STRENGTH.."{0:output:Str}^7, "..colorCodes.DEXTERITY.."{0:output:Dex}^7, "..colorCodes.INTELLIGENCE.."{0:output:Int}^7, "..colorCodes.RARE.."{0:output:Omni}",
 	{ label = "Strength", { format = "{0:output:Str}", { breakdown = "Str" }, { modName = "Str" }, }, },
@@ -1296,8 +1296,8 @@ return {
 	{ notFlag = "minionSkill", label = "Omni. Required", haveOutput = "Omni", { format = "{output:ReqOmniString}", { breakdown = "ReqOmni" }, }, },
 } }
 } },
---defence
-{ 1, "Life", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Life", data = {
+-- primary defenses
+{ 1, "Life", 2, colorCodes.LIFE, {{ defaultCollapsed = false, label = "Life", data = {
 	extra = "{0:output:LifeUnreserved}/{0:output:Life}",
 	{ label = "Base from Gear", { format = "{0:mod:1}", { modName = "Life", modType = "BASE", modSource = "Item" }, }, },
 	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = "Life", modType = "INC", modSource = "Tree" }, }, },
@@ -1356,7 +1356,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "Mana", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Mana", data = {
+{ 1, "Mana", 2, colorCodes.MANA, {{ defaultCollapsed = false, label = "Mana", data = {
 	extra = "{0:output:ManaUnreserved}/{0:output:Mana}",
 	notFlag = "minionSkill",
 	{ label = "Base from Gear", { format = "{0:mod:1}", { modName = "Mana", modType = "BASE", modSource = "Item" }, }, },
@@ -1381,7 +1381,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "EnergyShield", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Energy Shield", data = {
+{ 1, "EnergyShield", 2, colorCodes.ES, {{ defaultCollapsed = false, label = "Energy Shield", data = {
 	extra = "{0:output:EnergyShield}",
 	{ label = "Base from Armours", { format = "{0:output:Gear:EnergyShield}", { breakdown = "EnergyShield", gearOnly = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "EnergyShield", modType = "BASE" }, }, },
@@ -1418,7 +1418,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "Ward", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Ward", data = {
+{ 1, "Ward", 2, colorCodes.WARD, {{ defaultCollapsed = false, label = "Ward", data = {
 	extra = "{0:output:Ward}",
 	{ label = "Base from Armours", { format = "{0:output:Gear:Ward}", { breakdown = "Ward", gearOnly = true }, }, },
 	{ label = "Global Base", { format = "{0:mod:1}", { modName = "Ward", modType = "BASE" }, }, },
@@ -1432,80 +1432,14 @@ return {
 	}, },
 } }
 } },
-{ 1, "Rage", 2, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Rage", data = {
-	extra = "{0:output:Rage}",
-	{ label = "Total", { format = "{0:output:Rage}", }, },
-	{ label = "Maximum Rage", { format = "{0:output:MaximumRage}", { modName = "MaximumRage", modType = "BASE" }, }, },
-	{ label = "Increased Regen", { format = "{0:output:RageRegenInc}%", { modName = "RageRegen", modType = "INC" }, }, },
-	{ label = "Regen", { format = "{1:output:RageRegenRecovery} ({1:output:RageRegenPercent}%)", 
-		{ breakdown = "RageRegenRecovery" }, 
-		{ label = "Sources", modName = { "RageRegen", "RageRegenPercent", "RageDegen", "RageDegenPercent", "RageRecovery" }, modType = "BASE" },
-		{ label = "Increased Rage Regeneration Rate", modName = { "RageRegen" }, modType = "INC" },
-		{ label = "More Rage Regeneration Rate", modName = { "RageRegen" }, modType = "MORE" },
-		{ label = "Recovery modifiers", modName = "RageRecoveryRate" },
-	}, },
-} }
-} },
-{ 1, "Armour", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Armour", data = {
-	extra = "{0:output:Armour}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Armour}", { breakdown = "Armour", gearOnly = true }, }, },
-	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Armour", "ArmourAndEvasion" }, modType = "BASE" }, }, },
-	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree", }, }, },
-	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
-	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
-	{ label = "Total", { format = "{0:output:Armour}", { breakdown = "Armour" }, }, },
-	{ label = "Armour Defense", haveOutput = "RawArmourDefense", { format = "{0:output:RawArmourDefense}%", { modName = "ArmourDefense" }, }, },
-	{ label = "Phys. Dmg. Reduct", { format = "{0:output:PhysicalDamageReduction}%", 
-		{ breakdown = "PhysicalDamageReduction" },
-		{ modName = { "PhysicalDamageReduction", "PhysicalDamageReductionWhenHit", "ArmourDoesNotApplyToPhysicalDamageTaken", "DamageReductionMax" } }, 
-	}, },
-	{ label = "Fire Dmg. Reduct", haveOutput = "FireDamageReduction", { format = "{0:output:FireDamageReduction}%", 
-		{ breakdown = "FireDamageReduction" },
-		{ modName = { "ArmourAppliesToFireDamageTaken", "SelfIgnoreFireResistance", "DamageReductionMax" } }, 
-	}, },
-	{ label = "Cold Dmg. Reduct", haveOutput = "ColdDamageReduction", { format = "{0:output:ColdDamageReduction}%", 
-		{ breakdown = "ColdDamageReduction" },
-		{ modName = { "ArmourAppliesToColdDamageTaken", "SelfIgnoreColdResistance", "DamageReductionMax" } }, 
-	}, },
-	{ label = "Light. Dmg. Reduct", haveOutput = "LightningDamageReduction", { format = "{0:output:LightningDamageReduction}%", 
-		{ breakdown = "LightningDamageReduction" },
-		{ modName = { "ArmourAppliesToLightningDamageTaken", "SelfIgnoreLightningResistance", "DamageReductionMax" } }, 
-	}, },
-} }
-} },
-{ 1, "Evasion", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Evasion", data = {
-	extra = "{0:output:Evasion}",
-	{ label = "Base from Armours", { format = "{0:output:Gear:Evasion}", { breakdown = "Evasion", gearOnly = true }, }, },
-	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "BASE" }, }, },
-	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree" }, }, },
-	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
-	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
-	{ label = "Total", { format = "{0:output:Evasion}", { breakdown = "Evasion" }, }, },
-	{ label = "Evade Chance", haveOutput = "dontSplitEvade", { format = "{0:output:EvadeChance}%", 
-	  { breakdown = "EvadeChance" },
-    { label = "Player modifiers", modName = { "CannotEvade", "EvadeChance", "MeleeEvadeChance", "ProjectileEvadeChance" } },
-	  { label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
-	}, },
-	 { label = "Melee Evade Ch.", haveOutput = "splitEvade", { format = "{0:output:MeleeEvadeChance}%", 
-	    { breakdown = "MeleeEvadeChance" },
-	    { label = "Player modifiers", modName = { "CannotEvade", "EvadeChance", "MeleeEvadeChance" } },
-	    { label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
-	}, },
-	{ label = "Proj. Evade Ch.", haveOutput = "splitEvade", { format = "{0:output:ProjectileEvadeChance}%", 
-	    { breakdown = "ProjectileEvadeChance" },
-	    { label = "Player modifiers", modName = { "CannotEvade", "EvadeChance", "ProjectileEvadeChance" } },
-	    { label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
-	}, },
-	{ label = "Effect of Blind", haveOutput = "BlindEffectMod", { format = "{0:output:BlindEffectMod}%", { breakdown = "BlindEffectMod" }, { modName = { "BlindEffect", "BuffEffectOnSelf" }, }, } },
-} }
-} },
+-- secondary defenses
 { 1, "Resist", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Resists", data = {
 	extra = colorCodes.FIRE.."{0:output:FireResist}+{0:output:FireResistOverCap}^7/"..colorCodes.COLD.."{0:output:ColdResist}+{0:output:ColdResistOverCap}^7/"..colorCodes.LIGHTNING.."{0:output:LightningResist}+{0:output:LightningResistOverCap}",
 	{ label = "Fire Resist", { format = "{0:output:FireResist}% (+{0:output:FireResistOverCap}%)",
-		{ breakdown = "FireResist" }, 
+		{ breakdown = "FireResist" },
 		{ modName = { "FireResistMax", "ElementalResistMax", "FireResist", "ElementalResist" }, },
 	}, },
-	{ label = "Cold Resist", { format = "{0:output:ColdResist}% (+{0:output:ColdResistOverCap}%)", 
+	{ label = "Cold Resist", { format = "{0:output:ColdResist}% (+{0:output:ColdResistOverCap}%)",
 		{ breakdown = "ColdResist" },
 		{ modName = { "ColdResistMax", "ElementalResistMax", "ColdResist", "ElementalResist" }, },
 	}, },
@@ -1515,11 +1449,72 @@ return {
 	}, },
 	{ label = "Chaos Resist", { format = "{0:output:ChaosResist}% (+{0:output:ChaosResistOverCap}%)",
 		{ breakdown = "ChaosResist" },
-		{ modName = { "ChaosResistMax", "ChaosResist" }, }, 
+		{ modName = { "ChaosResistMax", "ChaosResist" }, },
 	}, },
 } }
 } },
-{ 1, "Block", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Block", data = {
+{ 1, "Armour", 3, colorCodes.ARMOUR, {{ defaultCollapsed = false, label = "Armour", data = {
+	extra = "{0:output:Armour}",
+	{ label = "Base from Armours", { format = "{0:output:Gear:Armour}", { breakdown = "Armour", gearOnly = true }, }, },
+	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Armour", "ArmourAndEvasion" }, modType = "BASE" }, }, },
+	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree", }, }, },
+	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
+	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
+	{ label = "Total", { format = "{0:output:Armour}", { breakdown = "Armour" }, }, },
+	{ label = "Armour Defense", haveOutput = "RawArmourDefense", { format = "{0:output:RawArmourDefense}%", { modName = "ArmourDefense" }, }, },
+	{ label = "Phys. Dmg. Reduct", { format = "{0:output:PhysicalDamageReduction}%",
+		{ breakdown = "PhysicalDamageReduction" },
+		{ modName = { "PhysicalDamageReduction", "PhysicalDamageReductionWhenHit", "ArmourDoesNotApplyToPhysicalDamageTaken", "DamageReductionMax" } },
+	}, },
+	{ label = "Fire Dmg. Reduct", haveOutput = "FireDamageReduction", { format = "{0:output:FireDamageReduction}%",
+		{ breakdown = "FireDamageReduction" },
+		{ modName = { "ArmourAppliesToFireDamageTaken", "SelfIgnoreFireResistance", "DamageReductionMax" } },
+	}, },
+	{ label = "Cold Dmg. Reduct", haveOutput = "ColdDamageReduction", { format = "{0:output:ColdDamageReduction}%",
+		{ breakdown = "ColdDamageReduction" },
+		{ modName = { "ArmourAppliesToColdDamageTaken", "SelfIgnoreColdResistance", "DamageReductionMax" } },
+	}, },
+	{ label = "Light. Dmg. Reduct", haveOutput = "LightningDamageReduction", { format = "{0:output:LightningDamageReduction}%",
+		{ breakdown = "LightningDamageReduction" },
+		{ modName = { "ArmourAppliesToLightningDamageTaken", "SelfIgnoreLightningResistance", "DamageReductionMax" } },
+	}, },
+} }
+} },
+{ 1, "Evasion", 3, colorCodes.EVASION, {{ defaultCollapsed = false, label = "Evasion", data = {
+	extra = "{0:output:Evasion}",
+	{ label = "Base from Armours", { format = "{0:output:Gear:Evasion}", { breakdown = "Evasion", gearOnly = true }, }, },
+	{ label = "Global Base", { format = "{0:mod:1}", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "BASE" }, }, },
+	{ label = "Inc. from Tree", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion" }, modType = "INC", modSource = "Tree" }, }, },
+	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
+	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
+	{ label = "Total", { format = "{0:output:Evasion}", { breakdown = "Evasion" }, }, },
+	{ label = "Evade Chance", haveOutput = "dontSplitEvade", { format = "{0:output:EvadeChance}%",
+	  { breakdown = "EvadeChance" },
+    { label = "Player modifiers", modName = { "CannotEvade", "EvadeChance", "MeleeEvadeChance", "ProjectileEvadeChance" } },
+	  { label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
+	}, },
+	 { label = "Melee Evade Ch.", haveOutput = "splitEvade", { format = "{0:output:MeleeEvadeChance}%",
+	    { breakdown = "MeleeEvadeChance" },
+	    { label = "Player modifiers", modName = { "CannotEvade", "EvadeChance", "MeleeEvadeChance" } },
+	    { label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
+	}, },
+	{ label = "Proj. Evade Ch.", haveOutput = "splitEvade", { format = "{0:output:ProjectileEvadeChance}%",
+	    { breakdown = "ProjectileEvadeChance" },
+	    { label = "Player modifiers", modName = { "CannotEvade", "EvadeChance", "ProjectileEvadeChance" } },
+	    { label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
+	}, },
+	{ label = "Effect of Blind", haveOutput = "BlindEffectMod", { format = "{0:output:BlindEffectMod}%", { breakdown = "BlindEffectMod" }, { modName = { "BlindEffect", "BuffEffectOnSelf" }, }, } },
+} }
+} },
+{ 1, "DamageAvoidance", 3, colorCodes.DEFENCE, { { defaultCollapsed = false, label = "Damage Avoidance", data = {
+	{ label = "Avoid All Dmg Ch.", haveOutput = "AvoidAllDamageFromHitsChance", { format = "{0:output:AvoidAllDamageFromHitsChance}%", { modName = "AvoidAllDamageFromHitsChance" }, }, },
+	{ label = "Avoid Physical Ch.", haveOutput = "AvoidPhysicalDamageChance", { format = "{0:output:AvoidPhysicalDamageChance}%", { modName = "AvoidPhysicalDamageChance" }, }, },
+	{ label = "Avoid Lightning Ch.", haveOutput = "AvoidLightningDamageChance", { format = "{0:output:AvoidLightningDamageChance}%", { modName = "AvoidLightningDamageChance" }, }, },
+	{ label = "Avoid Cold Chance", haveOutput = "AvoidColdDamageChance", { format = "{0:output:AvoidColdDamageChance}%", { modName = "AvoidColdDamageChance" }, }, },
+	{ label = "Avoid Fire Chance", haveOutput = "AvoidFireDamageChance", { format = "{0:output:AvoidFireDamageChance}%", { modName = "AvoidFireDamageChance" }, }, },
+	{ label = "Avoid Chaos Chance", haveOutput = "AvoidChaosDamageChance", { format = "{0:output:AvoidChaosDamageChance}%", { modName = "AvoidChaosDamageChance" }, }, },
+	{ label = "Avoid Proj Ch.", haveOutput = "AvoidProjectilesChance", { format = "{0:output:AvoidProjectilesChance}%", { modName = "AvoidProjectilesChance" }, }, },
+} }, { defaultCollapsed = false, label = "Block", data = {
 	extra = "{0:output:BlockChance}%/{0:output:SpellBlockChance}%",
 	{ label = "Block Chance", { format = "{0:output:BlockChance}% (+{0:output:BlockChanceOverCap}%)",
 		{ breakdown = "BlockChance" },
@@ -1533,14 +1528,45 @@ return {
 		{ breakdown = "BlockEffect" }, 
 		{ modName = { "BlockEffect" }, },
 	}, },
-} }, { defaultCollapsed = true, label = "Gain on Block", data = {
-	extra = "{0:output:LifeOnBlock}/{0:output:ManaOnBlock}/{0:output:EnergyShieldOnBlock}/{0:output:EnergyShieldOnSpellBlock}",
-	{ label = "Life on Block", { format = "{0:output:LifeOnBlock}", { modName = "LifeOnBlock" }, }, },
-	{ label = "Mana on Block", { format = "{0:output:ManaOnBlock}", { modName = "ManaOnBlock" }, }, },
-	{ label = "ES on Block", { format = "{0:output:EnergyShieldOnBlock}", { modName = "EnergyShieldOnBlock" }, }, },
-	{ label = "ES on Spell Block", { format = "{0:output:EnergyShieldOnSpellBlock}", { modName = "EnergyShieldOnSpellBlock" }, }, },
+	{ label = "Life on Block", haveOutput = "LifeOnBlock", { format = "{0:output:LifeOnBlock}", { modName = "LifeOnBlock" }, }, },
+	{ label = "Mana on Block", haveOutput = "ManaOnBlock", { format = "{0:output:ManaOnBlock}", { modName = "ManaOnBlock" }, }, },
+	{ label = "ES on Block", haveOutput = "EnergyShieldOnBlock", { format = "{0:output:EnergyShieldOnBlock}", { modName = "EnergyShieldOnBlock" }, }, },
+	{ label = "ES on Spell Block", haveOutput = "EnergyShieldOnSpellBlock", { format = "{0:output:EnergyShieldOnSpellBlock}", { modName = "EnergyShieldOnSpellBlock" }, }, },
+} }, { defaultCollapsed = false, label = "Dodge", data = {
+	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
+	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)",
+		{ breakdown = "AttackDodgeChance" },
+		{ modName = "AttackDodgeChance" },
+	}, },
+	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}% (+{0:output:SpellDodgeChanceOverCap}%)",
+		{ breakdown = "SpellDodgeChance" },
+		{ modName = { "SpellDodgeChanceMax", "SpellDodgeChance" }, },
+	}, },
+} },
+{ defaultCollapsed = false, label = "Spell Suppression", data = {
+	extra = "{0:output:SpellSuppressionChance}%",
+	{ label = "Suppression Ch.", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
+	{ label = "Suppression Effect", { format = "{0:output:SpellSuppressionEffect}%", { modName = "SpellSuppressionEffect" }, }, },
+	{ label = "Life on Suppression", haveOutput = "LifeOnSuppress", { format = "{0:output:LifeOnSuppress}", { modName = "LifeOnSuppress" }, }, },
+	{ label = "ES on Suppression", haveOutput = "EnergyShieldOnSuppress", { format = "{0:output:EnergyShieldOnSuppress}", { modName = "EnergyShieldOnSuppress" }, }, },
 } },
 } },
+-- misc resources
+{ 1, "Rage", 3, colorCodes.RAGE, {{ defaultCollapsed = true, label = "Rage", data = {
+	extra = "{0:output:Rage}",
+	{ label = "Total", { format = "{0:output:Rage}", }, },
+	{ label = "Maximum Rage", { format = "{0:output:MaximumRage}", { modName = "MaximumRage", modType = "BASE" }, }, },
+	{ label = "Increased Regen", { format = "{0:output:RageRegenInc}%", { modName = "RageRegen", modType = "INC" }, }, },
+	{ label = "Regen", { format = "{1:output:RageRegenRecovery} ({1:output:RageRegenPercent}%)",
+		{ breakdown = "RageRegenRecovery" },
+		{ label = "Sources", modName = { "RageRegen", "RageRegenPercent", "RageDegen", "RageDegenPercent", "RageRecovery" }, modType = "BASE" },
+		{ label = "Increased Rage Regeneration Rate", modName = { "RageRegen" }, modType = "INC" },
+		{ label = "More Rage Regeneration Rate", modName = { "RageRegen" }, modType = "MORE" },
+		{ label = "Recovery modifiers", modName = "RageRecoveryRate" },
+	}, },
+} }
+} },
+-- misc defense
 { 1, "MiscDefences", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {
 	{ label = "Movement Speed", { format = "x {2:output:EffectiveMovementSpeedMod}", { breakdown = "EffectiveMovementSpeedMod" }, { modName = "MovementSpeed" }, }, },
 	{ label = "Effect of Elusive", haveOutput = "ElusiveEffectMod", { format = "{0:output:ElusiveEffectMod}%", { breakdown = "ElusiveEffectMod" }, { modName = { "ElusiveEffect", "BuffEffectOnSelf", "NightbladeSupportedElusiveEffect" }, }, } },
@@ -1560,14 +1586,6 @@ return {
 		{ breakdown = "BlockDuration" },
 		{ modName = { "StunDuration", "StunRecovery", "BlockRecovery" }, }, 
 	}, },
-} }, { defaultCollapsed = false, label = "Damage Avoidance", data = {
-	{ label = "Avoid All Dmg Ch.", haveOutput = "AvoidAllDamageFromHitsChance", { format = "{0:output:AvoidAllDamageFromHitsChance}%", { modName = "AvoidAllDamageFromHitsChance" }, }, },
-	{ label = "Avoid Physical Ch.", haveOutput = "AvoidPhysicalDamageChance", { format = "{0:output:AvoidPhysicalDamageChance}%", { modName = "AvoidPhysicalDamageChance" }, }, },
-	{ label = "Avoid Lightning Ch.", haveOutput = "AvoidLightningDamageChance", { format = "{0:output:AvoidLightningDamageChance}%", { modName = "AvoidLightningDamageChance" }, }, },
-	{ label = "Avoid Cold Chance", haveOutput = "AvoidColdDamageChance", { format = "{0:output:AvoidColdDamageChance}%", { modName = "AvoidColdDamageChance" }, }, },
-	{ label = "Avoid Fire Chance", haveOutput = "AvoidFireDamageChance", { format = "{0:output:AvoidFireDamageChance}%", { modName = "AvoidFireDamageChance" }, }, },
-	{ label = "Avoid Chaos Chance", haveOutput = "AvoidChaosDamageChance", { format = "{0:output:AvoidChaosDamageChance}%", { modName = "AvoidChaosDamageChance" }, }, },
-	{ label = "Avoid Proj Ch.", haveOutput = "AvoidProjectilesChance", { format = "{0:output:AvoidProjectilesChance}%", { modName = "AvoidProjectilesChance" }, }, },
 } }, { defaultCollapsed = true, label = "Other Avoidance", data = {
 	{ label = "Blind Avoid Ch.", haveOutput = "BlindAvoidChance", { format = "{0:output:BlindAvoidChance}%", { modName = "AvoidBlind" }, }, },
 	{ label = "Shock Avoid Ch.", haveOutput = "ShockAvoidChance", { format = "{0:output:ShockAvoidChance}%", { modName = { "AvoidShock", "AvoidElementalAilments", "AvoidAilments" } }, }, },
@@ -1601,24 +1619,9 @@ return {
 	{ label = "Scorch Effect", { format = "{1:output:SelfScorchEffect}%", { modName = "SelfScorchEffect" }, }, },
 	{ label = "Bleed Effect", { format = "{1:output:SelfBleedEffect}%", { modName = "SelfBleedEffect" }, }, },
 	{ label = "Poison Effect", { format = "{1:output:SelfPoisonEffect}%", { modName = "SelfPoisonEffect" }, }, },
-} }, { defaultCollapsed = false, label = "Dodge", data = {
-	extra = "{0:output:AttackDodgeChance}%/{0:output:SpellDodgeChance}%",
-	{ label = "Dodge Chance", { format = "{0:output:AttackDodgeChance}% (+{0:output:AttackDodgeChanceOverCap}%)",
-		{ breakdown = "AttackDodgeChance" },
-		{ modName = "AttackDodgeChance" }, 
-	}, },
-	{ label = "Spell Ddg. Chance", { format = "{0:output:SpellDodgeChance}% (+{0:output:SpellDodgeChanceOverCap}%)",
-		{ breakdown = "SpellDodgeChance" },
-		{ modName = { "SpellDodgeChanceMax", "SpellDodgeChance" }, },
-	}, },
-} }, { defaultCollapsed = false, label = "Spell Suppression", data = {
-	extra = "{0:output:SpellSuppressionChance}%",
-	{ label = "Suppression Ch.", { format = "{0:output:SpellSuppressionChance}% (+{0:output:SpellSuppressionChanceOverCap}%)", { modName = "SpellSuppressionChance" }, }, },
-	{ label = "Suppression Effect", { format = "{0:output:SpellSuppressionEffect}%", { modName = "SpellSuppressionEffect" }, }, },
-	{ label = "ES on Suppression", haveOutput = "EnergyShieldOnSuppress", { format = "{0:output:EnergyShieldOnSuppress}", { modName = "EnergyShieldOnSuppress" }, }, },
-	{ label = "Life on Suppression", haveOutput = "LifeOnSuppress", { format = "{0:output:LifeOnSuppress}", { modName = "LifeOnSuppress" }, }, },
 } },
 } },
+-- damage taken
 { 3, "DamageTaken", 1, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Damage Taken", data = {
 	colWidth = 95,
 	{
