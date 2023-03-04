@@ -1214,6 +1214,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 				end
 				if statData.warnFunc and statVal and ((statData.condFunc and statData.condFunc(statVal, actor.output)) or not statData.condFunc) then
 					local v = statData.warnFunc(statVal, actor.output)
+					if v and self.calcsTab.mainEnv.minion == actor then
+						v = "Minion "..v
+					end
 					if v then
 						InsertIfNew(self.controls.warnings.lines, v)
 					end
