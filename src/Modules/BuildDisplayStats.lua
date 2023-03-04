@@ -123,13 +123,12 @@ local StatList = {
 		{ stat = "Mana", label = "Total Mana", fmt = "d", color = colorCodes.MANA, compPercent = true, displayStat = true },
 		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", color = colorCodes.MANA, fmt = "d%%", displayStat = true },
 		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", color = colorCodes.MANA, condFunc = function(v,o) return v < o.Mana end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Mana is negative" end, displayStat = true },
-		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", color = colorCodes.MANA, condFunc = function(v,o) return v < 100 end, displayStat = true },
+		{ stat = "ManaUnreservedPercent", label = " Unreserved Mana", fmt = "d%%", color = colorCodes.MANA, condFunc = function(v,o) return v < 100 end, displayStat = true },
 		{ stat = "ManaRegenRecovery", label = "Mana Regen", fmt = ".1f", color = colorCodes.MANA, displayStat = true },
 		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", color = colorCodes.MANA, compPercent = true, displayStat = true },
 		{ stat = "ManaLeechGainPerHit", label = "Mana Leech/Gain per Hit", fmt = ".1f", color = colorCodes.MANA, compPercent = true, displayStat = true },
 	}, {
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true, displayStat = true, minionDisplayStat = true },
-		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
 		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", color = colorCodes.ES, fmt = "d", condFunc = function(v,o) return o.CappingES end, displayStat = true },
 		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", color = colorCodes.ES, fmt = "d%%", displayStat = true },
 		{ stat = "EnergyShieldRegenRecovery", label = "Energy Shield Regen", color = colorCodes.ES, fmt = ".1f", displayStat = true, minionDisplayStat = true },
@@ -227,6 +226,29 @@ local extraSaveStats = {}
 local statCount = 0
 local settingsStatList = main.displayStatList
 if settingsStatList then
+	-- first add all the missing stats that should be saved to extraSaveStats
+	for _, statGroup in ipairs(StatList) do
+		for _, stat in ipairs(statGroup) do
+			if stat.displayStat or stat.minionDisplayStat or stat.extraSaveStat then
+				local found = false
+				for _, statGroup2 in ipairs(settingsStatList) do
+					for _, stat2 in ipairs(statGroup2) do
+						if stat2.label == stat.label then
+							found = true
+							break
+						end
+					end
+					if found then
+						break
+					end
+				end
+				if not found then
+					t_insert(extraSaveStats, stat.stat)
+				end
+			end
+		end
+	end
+	-- then add all the stats from settings
 	for _, statGroup in ipairs(settingsStatList) do
 		if statCount > 0 then
 			t_insert(displayStats, { })
@@ -241,9 +263,9 @@ if settingsStatList then
 							for k, v in pairs(stat) do
 								stat2[k] = v
 							end
+							stat2.extraSaveStat = stat2.extraSaveStat or stat2.displayStat or stat2.minionDisplayStat
 							stat2.displayStat = stat.displayStat
 							stat2.minionDisplayStat = stat.minionDisplayStat
-							stat2.extraSaveStat = stat.extraSaveStat
 							stat = stat2
 							found = true
 							break
@@ -251,6 +273,12 @@ if settingsStatList then
 					end
 					if found then
 						break
+					end
+				end
+				if stat.extraSaveStat then
+					stat.extraSaveStat = nil
+					if not (stat.displayStat or stat.minionDisplayStat) then
+						t_insert(extraSaveStats, stat.stat)
 					end
 				end
 				if stat.displayStat then
@@ -261,10 +289,6 @@ if settingsStatList then
 				if stat.minionDisplayStat then
 					stat.minionDisplayStat = nil
 					t_insert(minionDisplayStats, stat)
-				end
-				if stat.extraSaveStat then
-					stat.extraSaveStat = nil
-					t_insert(extraSaveStats, stat.stat)
 				end
 			end
 		end
