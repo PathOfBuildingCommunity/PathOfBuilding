@@ -1894,9 +1894,9 @@ Huge sets the radius to 11.
 				if additionalStats then
 					for k, v in pairs(additionalStats) do
 						if tostring(v) == "flag" then
-							enemyModList:NewMod(k, "FLAG", true, "BossSkillAddtionalData")
+							enemyModList:NewMod(k, "FLAG", true, "BossSkillAdditionalData")
 						else
-							enemyModList:NewMod(k, "BASE", v, "BossSkillAddtionalData")
+							enemyModList:NewMod(k, "BASE", v, "BossSkillAdditionalData")
 						end
 					end
 				end

@@ -309,8 +309,8 @@ local function getStat(state, stat)
 			return tonumber(m_ceil(speed)), tonumber(m_ceil(uberSpeed))
 		end
 		return tonumber(m_ceil(speed))
-	elseif "AddtionalStats" then
-		local AddtionalStats = { base = { count = 0 }, uber = { count = 0 } }
+	elseif "AdditionalStats" then
+		local AdditionalStats = { base = { count = 0 }, uber = { count = 0 } }
 		for level, statsPerLevel in ipairs(skill.statsPerLevel) do
 			if level > 2 then
 				break
@@ -318,38 +318,38 @@ local function getStat(state, stat)
 			for i, additionalStat in ipairs(statsPerLevel.AdditionalStats) do
 				if additionalStat.Id == "global_reduce_enemy_block_%" then
 					if level == 1 then
-						AddtionalStats.base.reduceEnemyBlock = statsPerLevel.AdditionalStatsValues[i]
-						AddtionalStats.base.count = AddtionalStats.base.count + 1
+						AdditionalStats.base.reduceEnemyBlock = statsPerLevel.AdditionalStatsValues[i]
+						AdditionalStats.base.count = AdditionalStats.base.count + 1
 					else
-						AddtionalStats.uber.reduceEnemyBlock = statsPerLevel.AdditionalStatsValues[i]
-						AddtionalStats.uber.count = AddtionalStats.uber.count + 1
+						AdditionalStats.uber.reduceEnemyBlock = statsPerLevel.AdditionalStatsValues[i]
+						AdditionalStats.uber.count = AdditionalStats.uber.count + 1
 					end
 				elseif additionalStat.Id == "reduce_enemy_dodge_%" then
 					if level == 1 then
-						AddtionalStats.base.reduceEnemyDodge = statsPerLevel.AdditionalStatsValues[i]
-						AddtionalStats.base.count = AddtionalStats.base.count + 1
+						AdditionalStats.base.reduceEnemyDodge = statsPerLevel.AdditionalStatsValues[i]
+						AdditionalStats.base.count = AdditionalStats.base.count + 1
 					else
-						AddtionalStats.uber.reduceEnemyDodge = statsPerLevel.AdditionalStatsValues[i]
-						AddtionalStats.uber.count = AddtionalStats.uber.count + 1
+						AdditionalStats.uber.reduceEnemyDodge = statsPerLevel.AdditionalStatsValues[i]
+						AdditionalStats.uber.count = AdditionalStats.uber.count + 1
 					end
 				end
 			end
 			for _, additionalStat in ipairs(statsPerLevel.AdditionalBooleanStats) do
 				if additionalStat.Id == "global_always_hit" then
 					if level == 1 then
-						AddtionalStats.base.CannotBeEvaded = '"flag"'
-						AddtionalStats.base.count = AddtionalStats.base.count + 1
+						AdditionalStats.base.CannotBeEvaded = '"flag"'
+						AdditionalStats.base.count = AdditionalStats.base.count + 1
 					else
-						AddtionalStats.uber.CannotBeEvaded = '"flag"'
-						AddtionalStats.uber.count = AddtionalStats.uber.count + 1
+						AdditionalStats.uber.CannotBeEvaded = '"flag"'
+						AdditionalStats.uber.count = AdditionalStats.uber.count + 1
 					end
 				end
 			end
 		end
-		if AddtionalStats.base.count == 0 and AddtionalStats.uber.count == 0 then
+		if AdditionalStats.base.count == 0 and AdditionalStats.uber.count == 0 then
 			return nil
 		end
-		return AddtionalStats
+		return AdditionalStats
 	end
 end
 
@@ -488,7 +488,7 @@ directiveTable.skills.skill = function(state, args, out)
 	if boss.earlierUber then
 		out:write(',\n		earlierUber = true')
 	end
-	local additionalStats = getStat(state, "AddtionalStats")
+	local additionalStats = getStat(state, "AdditionalStats")
 	if additionalStats then
 		out:write(',\n		additionalStats = {')
 		if additionalStats.base.count > 0 then
