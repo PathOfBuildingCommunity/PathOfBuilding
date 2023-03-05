@@ -2307,7 +2307,7 @@ function calcs.buildDefenceEstimations(env, actor)
 		-- block effect
 		if damageCategoryConfig == "Melee" then
 			BlockChance = output.BlockChance / 100
-		else
+		elseif damageCategoryConfig ~= "Untyped" then
 			BlockChance = output[damageCategoryConfig.."BlockChance"] / 100
 		end
 		-- unlucky config to lower the value of block, dodge, evade etc for ehp
@@ -2415,13 +2415,14 @@ function calcs.buildDefenceEstimations(env, actor)
 			if averageAvoidChance > 0 then
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - averageAvoidChance / 100))
 			end
-			t_insert(breakdown["ConfiguredDamageChance"], s_format("= %.1f%% ^8(of damage taken from a%s hit)", output["ConfiguredDamageChance"], (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig))
+			t_insert(breakdown["ConfiguredDamageChance"], s_format("= %.1f%% ^8(of damage taken from a%s hit)", output["ConfiguredDamageChance"], (damageCategoryConfig == "Average" and "n " or (damageCategoryConfig == "Untyped" and "n " or " "))..damageCategoryConfig))
 		end
 	end
 	
 	-- chance to not be hit breakdown
 	do
 		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
+		output.UntypedNotHitChance = 100 - (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
 		output["TotalNumberOfHits"] = output["NumberOfMitigatedDamagingHits"] / (1 - output["ConfiguredNotHitChance"] / 100)
 		if breakdown then
 			breakdown.ConfiguredNotHitChance = { }
@@ -2459,7 +2460,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			if worstOf > 1 then
 				t_insert(breakdown["ConfiguredNotHitChance"], s_format("unlucky worst of %d", worstOf))
 			end
-			t_insert(breakdown["ConfiguredNotHitChance"], s_format("= %d%% ^8(chance to be hit by a%s hit)", 100 - output.ConfiguredNotHitChance, (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig))
+			t_insert(breakdown["ConfiguredNotHitChance"], s_format("= %d%% ^8(chance to be hit by a%s hit)", 100 - output.ConfiguredNotHitChance, (damageCategoryConfig == "Average" and "n " or (damageCategoryConfig == "Untyped" and "n " or " ") )..damageCategoryConfig))
 			breakdown["TotalNumberOfHits"] = {
 				s_format("%.2f ^8(Number of mitigated hits)", output["NumberOfMitigatedDamagingHits"]),
 				s_format("/ %.2f ^8(Chance to even be hit)", 1 - output["ConfiguredNotHitChance"] / 100),

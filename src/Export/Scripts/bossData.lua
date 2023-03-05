@@ -16,8 +16,8 @@ local baseDamage = {
 	AtlasBossAcceleratingProjectiles = { index = 1, uberIndex = 2 },
 	AtlasBossFlickerSlam = { index = 1, uberIndex = 2, oldMethod = true, attack = true },
 	AtlasExileOrionCircleMazeBlast3 = { index = 4, uberIndex = 5 },
-	CleansingFireWall = { index = 1, oldMethod = true },
-	GSConsumeBossDisintegrateBeam = { index = 1, oldMethod = true },
+	CleansingFireWall = { index = 1, oldMethod = true, spell = true },
+	GSConsumeBossDisintegrateBeam = { index = 1, oldMethod = true, spell = true },
 	MavenSuperFireProjectileImpact = { index = 1, uberIndex = 2, oldMethod = true, mapBoss = true },
 	MavenMemoryGame = { index = 1, oldMethod = true, mapBoss = true },
 }
@@ -192,7 +192,7 @@ local function getStat(state, stat)
 	local skill = state.skill
 	local boss = state.boss
 	if stat == "DamageType" then
-		local DamageType = "Melee"
+		local DamageType = "Untyped"
 		for _, skillType in ipairs(skill.skillData.ActiveSkill.SkillTypes) do
 			if skillType.Id == "Spell" then
 				if DamageType == "Projectile" then
@@ -208,11 +208,24 @@ local function getStat(state, stat)
 				end
 			end
 		end
-		if DamageType == "Melee" then
+		if DamageType == "Untyped" then
 			for _, implicitStat in ipairs(skill.GrantedEffectStatSets.ImplicitStats) do
 				if implicitStat.Id  == "base_is_projectile" then
 					DamageType = "Projectile"
 					break
+				end
+			end
+			local grantedId = skill.grantedId
+			if not baseDamage[grantedId] and baseDamage[skill.grantedId2] then
+				grantedId = skill.grantedId2
+			end
+			if baseDamage[grantedId].attack and DamageType == "Untyped" then
+				DamageType = "Melee"
+			elseif baseDamage[grantedId].spell then
+				if DamageType == "Untyped" then
+					DamageType = "Spell"
+				else
+					DamageType = "SpellProjectile"
 				end
 			end
 		end

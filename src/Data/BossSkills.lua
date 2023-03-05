@@ -92,7 +92,7 @@ return {
 		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)"
 	},
 	["Maven Memory Game"] = {
-		DamageType = "Melee",
+		DamageType = "Untyped",
 		DamageMultipliers = {
 			Lightning = { 34.763635149472, 0.17381817574736 },
 			Cold = { 34.763635149472, 0.17381817574736 },
