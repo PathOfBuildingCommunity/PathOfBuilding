@@ -45,6 +45,13 @@ return {
 		speed = 3510,
 		UberSpeed = 1755,
 		critChance = 0,
+		additionalStats = {
+			uber = {
+				reduceEnemyBlock = 1000,
+				CannotBeEvaded = "flag",
+				reduceEnemyDodge = 1000
+			}
+		},
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
 	},
 	["Sirus Meteor"] = {

@@ -1993,9 +1993,15 @@ return {
 	}
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
 	extra = "{0:output:TotalEHP}",
-	{ label = "Unmitigated %", { format = "{0:output:ConfiguredDamageChance}%", { breakdown = "ConfiguredDamageChance" }, }, },
+	{ label = "Unmitigated %", { format = "{0:output:ConfiguredDamageChance}%", 
+		{ breakdown = "ConfiguredDamageChance" }, 
+		{ label = "Enemy modifiers", modName = { "reduceEnemyBlock" }, enemy = true },
+	}, },
 	{ label = "Mitigated hits", { format = "{2:output:NumberOfMitigatedDamagingHits}", }, },
-	{ label = "Enemy miss chance", { format = "{0:output:ConfiguredNotHitChance}%", { breakdown = "ConfiguredNotHitChance" }, }, },
+	{ label = "Enemy miss chance", { format = "{0:output:ConfiguredNotHitChance}%", 
+		{ breakdown = "ConfiguredNotHitChance" }, 
+		{ label = "Enemy modifiers", modName = { "CannotBeEvaded", "reduceEnemyDodge" }, enemy = true },
+	}, },
 	{ label = "Hits before death", { format = "{2:output:TotalNumberOfHits}", { breakdown = "TotalNumberOfHits" }}, },
 	{ label = "Effective Hit Pool",{ format = "{0:output:TotalEHP}", { breakdown = "TotalEHP" }, },},
 	{ label = "Time before death",{ format = "{2:output:EHPsurvivalTime}s", 

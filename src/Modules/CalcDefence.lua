@@ -753,7 +753,7 @@ function calcs.defence(env, actor)
 			output.EnergyShieldRecoveryCap = output.EnergyShield or 0
 		end
 
-		if modDB:Flag(nil, "CannotEvade") then
+		if modDB:Flag(nil, "CannotEvade") or enemyDB:Flag(nil, "CannotBeEvaded") then
 			output.EvadeChance = 0
 			output.MeleeEvadeChance = 0
 			output.ProjectileEvadeChance = 0
@@ -878,14 +878,16 @@ function calcs.defence(env, actor)
 	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 
 	-- Dodge
-	local baseDodgeChance = 0
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
 	local attackDodgeChanceMax = data.misc.DodgeChanceCap
 	local spellDodgeChanceMax = modDB:Override(nil, "SpellDodgeChanceMax") or modDB:Sum("BASE", nil, "SpellDodgeChanceMax")
+	local enemyReduceDodgeChance = enemyDB:Sum("BASE", nil, "reduceEnemyDodge") or 0
 
 	output.AttackDodgeChance = m_min(totalAttackDodgeChance, attackDodgeChanceMax)
+	output.EffectiveAttackDodgeChance = m_min(m_max(totalAttackDodgeChance - enemyReduceDodgeChance, 0), attackDodgeChanceMax)
 	output.SpellDodgeChance = m_min(totalSpellDodgeChance, spellDodgeChanceMax)
+	output.EffectiveSpellDodgeChance = m_min(m_max(totalSpellDodgeChance - enemyReduceDodgeChance, 0), spellDodgeChanceMax)
 	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
 		output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
 		output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
@@ -895,12 +897,12 @@ function calcs.defence(env, actor)
 
 	if breakdown then
 		breakdown.AttackDodgeChance = {
-			"Base: "..baseDodgeChance.."%",
+			"Base: "..totalAttackDodgeChance.."%",
 			"Max: "..attackDodgeChanceMax.."%",
 			"Total: "..output.AttackDodgeChance+output.AttackDodgeChanceOverCap.."%",
 		}
 		breakdown.SpellDodgeChance = {
-			"Base: "..baseDodgeChance.."%",
+			"Base: "..totalSpellDodgeChance.."%",
 			"Max: "..spellDodgeChanceMax.."%",
 			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
 		}
@@ -2310,6 +2312,7 @@ function calcs.buildDefenceEstimations(env, actor)
 		elseif damageCategoryConfig ~= "Untyped" then
 			BlockChance = output[damageCategoryConfig.."BlockChance"] / 100
 		end
+		BlockChance = m_max(BlockChance - enemyDB:Sum("BASE", nil, "reduceEnemyBlock"), 0)
 		-- unlucky config to lower the value of block, dodge, evade etc for ehp
 		if worstOf > 1 then
 			BlockChance = BlockChance * BlockChance

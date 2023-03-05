@@ -1889,6 +1889,18 @@ Huge sets the radius to 11.
 			if val == "Atziri Flameblast" and isUber then
 				enemyModList:NewMod("Damage", "INC", 60, "Alluring Abyss Map Mod")
 			end
+			if bossData.additionalStats then
+				local additionalStats = isUber and bossData.additionalStats.uber or bossData.additionalStats.base
+				if additionalStats then
+					for k, v in pairs(additionalStats) do
+						if tostring(v) == "flag" then
+							enemyModList:NewMod(k, "FLAG", true, "BossSkillAddtionalData")
+						else
+							enemyModList:NewMod(k, "BASE", v, "BossSkillAddtionalData")
+						end
+					end
+				end
+			end
 		else
 			build.configTab.varControls['enemyDamageType'].enabled = true
 		end
