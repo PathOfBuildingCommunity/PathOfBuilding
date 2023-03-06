@@ -1662,8 +1662,8 @@ function calcs.defence(env, actor)
 	end
 	
 	-- helper function that reduces pools according to damage taken
-	---@param poolTable table
-	---@param damageTable table
+	---@param poolTable table special pool values to use. Can be nil. Values from output are used if this is not provided or a value for some key in this is nil.
+	---@param damageTable table damage table after all the relevant reductions
 	---@return table pools reduced by damage
 	local function reducePoolsByDamage(poolTable, damageTable)
 		local poolTbl = poolTable or { }
@@ -1807,6 +1807,7 @@ function calcs.defence(env, actor)
 			LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime
 		}
 	end
+	output.reducePoolsByDamage = reducePoolsByDamage
 	
 	-- helper function that iteratively reduces pools until life hits 0 to determine the number of hits it would take with given damage to die
 	local function numberOfHitsToDie(DamageIn)
@@ -2639,8 +2640,12 @@ function calcs.defence(env, actor)
 			t_insert(breakdown[damageType.."MaximumHitTaken"], "^8Maximum hit is calculated in reverse -")
 			t_insert(breakdown[damageType.."MaximumHitTaken"], "^8from health pools, via damage reductions, to the max hit:")
 			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("%d ^8(used pool)", fullTaken))
-			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("/ %.2f ^8(modifiers to damage taken)", fullMulti))
-			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("/ %.2f ^8(modifiers to enemy damage)", enemyDamageMult))
+			if round(fullMulti, 2) ~= 1 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("/ %.2f ^8(modifiers to damage taken)", fullMulti))
+			end
+			if enemyDamageMult ~= 1 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("/ %.2f ^8(modifiers to enemy damage)", enemyDamageMult))
+			end
 			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("= %.0f ^8maximum survivable enemy damage%s", finalMaxHit, useConversionSmoothing and " (approximate)" or ""))
 			
 			local poolsRemaining = reducePoolsByDamage(nil, takenDamages)
@@ -2664,6 +2669,7 @@ function calcs.defence(env, actor)
 				output.Ward and output.Ward > 0 and s_format("\t%d Ward", output.Ward) or nil,
 				output.EnergyShieldRecoveryCap ~= poolsRemaining.EnergyShield and output.EnergyShieldRecoveryCap and output.EnergyShieldRecoveryCap > 0 and s_format("\t%d "..colorCodes.ES.."Energy Shield ^7(%d remaining)", output.EnergyShieldRecoveryCap - poolsRemaining.EnergyShield, poolsRemaining.EnergyShield) or nil,
 				output.ManaUnreserved ~= poolsRemaining.Mana and output.ManaUnreserved and output.ManaUnreserved > 0 and s_format("\t%d ^x7A7AFFMana ^7(%d remaining)", output.ManaUnreserved - poolsRemaining.Mana, poolsRemaining.Mana) or nil,
+				poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime > 0 and s_format("\t%d ^xE05A3ALife Loss Prevented", poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime) or nil,
 				s_format("\t%d ^xE05A3ALife ^7(%d remaining)", output.LifeRecoverable - poolsRemaining.Life, poolsRemaining.Life)
 			})
 			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("^8Such a hit would drain the following:"))
