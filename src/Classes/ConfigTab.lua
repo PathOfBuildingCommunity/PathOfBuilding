@@ -478,14 +478,9 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self:DrawControls(viewPort)
 end
 
-function ConfigTabClass:BuildModList()
-	local modList = new("ModList")
-	self.modList = modList
-	local enemyModList = new("ModList")
-	self.enemyModList = enemyModList
+function ConfigTabClass:UpdateLevel()
 	local input = self.input
 	local placeholder = self.placeholder
-	--enemy level handled here because it's needed to correctly set boss stats
 	if input.enemyLevel and input.enemyLevel > 0 then
 		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
 	elseif placeholder.enemyLevel and placeholder.enemyLevel > 0 then
@@ -493,6 +488,16 @@ function ConfigTabClass:BuildModList()
 	else
 		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, self.build.characterLevel)
 	end
+end
+
+function ConfigTabClass:BuildModList()
+	local modList = new("ModList")
+	self.modList = modList
+	local enemyModList = new("ModList")
+	self.enemyModList = enemyModList
+	local input = self.input
+	local placeholder = self.placeholder
+	self:UpdateLevel() -- enemy level handled here because it's needed to correctly set boss stats
 	for _, varData in ipairs(varList) do
 		if varData.apply then
 			if varData.type == "check" then

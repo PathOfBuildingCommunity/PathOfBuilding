@@ -572,6 +572,7 @@ local skills, mod, flag, skill = ...
 #skill DoubleStrike
 #flags attack melee
 #baseMod skill("dpsMultiplier", 2)
+#baseMod mod("PvpTvalueMultiplier", "MORE", -50)
 #mods
 
 #skill VaalDoubleStrike

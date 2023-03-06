@@ -273,7 +273,7 @@ on trade site to work on other leagues and realms)]]
 		stat = "TotalEHP",
 		weightMult = 0.5,
 	})
-	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -pane_margins_horizontal, pane_margins_vertical, 100, row_height, "^7Sort Calc By:", function()
+	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -pane_margins_horizontal, pane_margins_vertical, 150, row_height, "^7Adjust search weights", function()
 		self:SetStatWeights()
 	end)
 	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
@@ -297,7 +297,7 @@ on trade site to work on other leagues and realms)]]
 		self.sortModes.PRICE,
 		self.sortModes.WEIGHT,
 	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", self.controls.StatWeightMultipliersButton, "TOPRIGHT"}, 0, row_height + row_vertical_padding, 154, row_height, self.itemSortSelectionList, function(index, value)
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", self.controls.StatWeightMultipliersButton, "TOPRIGHT"}, 0, row_height + row_vertical_padding, 150, row_height, self.itemSortSelectionList, function(index, value)
 		self.pbItemSortSelectionIndex = index
 		for row_idx, _ in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(row_idx)
@@ -655,7 +655,8 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	if errMsg == "MissingConversionRates" then
 		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to Stat Value sort.")
 		sortedItems, errMsg = self:SortFetchResults(row_idx, self.sortModes.StatValue)
-	elseif errMsg then
+	end
+	if errMsg then
 		self:SetNotice(self.controls.pbNotice, "Error: " .. errMsg)
 		return
 	else

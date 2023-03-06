@@ -541,9 +541,11 @@ local function doActorAttribsPoolsConditions(env, actor)
 			condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
 		
 			condList["DexHigherThanInt"] = output.Dex > output.Int
+			condList["StrHigherThanInt"] = output.Str > output.Int
+			condList["IntHigherThanDex"] = output.Int > output.Dex
 			condList["StrHigherThanDex"] = output.Str > output.Dex
 			condList["IntHigherThanStr"] = output.Int > output.Str
-			condList["StrHigherThanInt"] = output.Str > output.Int
+			condList["DexHigherThanStr"] = output.Dex > output.Str
 
 			condList["StrHighestAttribute"] = output.Str >= output.Dex and output.Str >= output.Int
 			condList["IntHighestAttribute"] = output.Int >= output.Str and output.Int >= output.Dex
@@ -594,17 +596,22 @@ local function doActorAttribsPoolsConditions(env, actor)
 			if breakdown then
 				breakdown["Omni"] = breakdown.simple(nil, nil, output["Omni"], "Omni")
 			end
-      
-      local stats = { output.Str, output.Dex, output.Int }
-      table.sort(stats)
-      output.LowestAttribute = stats[1]
-      condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
 
-			output.LowestAttribute = m_min(output.Str, output.Dex, output.Int)
+			local stats = { output.Str, output.Dex, output.Int }
+			table.sort(stats)
+			output.LowestAttribute = stats[1]
+			condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
+		
 			condList["DexHigherThanInt"] = output.Dex > output.Int
+			condList["StrHigherThanInt"] = output.Str > output.Int
+			condList["IntHigherThanDex"] = output.Int > output.Dex
 			condList["StrHigherThanDex"] = output.Str > output.Dex
 			condList["IntHigherThanStr"] = output.Int > output.Str
-			condList["StrHigherThanInt"] = output.Str > output.Int
+			condList["DexHigherThanStr"] = output.Dex > output.Str
+
+			condList["StrHighestAttribute"] = output.Str >= output.Dex and output.Str >= output.Int
+			condList["IntHighestAttribute"] = output.Int >= output.Str and output.Int >= output.Dex
+			condList["DexHighestAttribute"] = output.Dex >= output.Str and output.Dex >= output.Int
 		end
 	end
 
@@ -938,9 +945,9 @@ local function doActorMisc(env, actor)
 				if item.baseName:match("Silver Flask") then
 					onslaughtFromFlask = true
 
-					local curFlaskEffectInc = item.flaskData.effectInc + modDB:Sum("INC", nil, "FlaskEffect")
+					local curFlaskEffectInc = item.flaskData.effectInc + modDB:Sum("INC", { actor = "player" }, "FlaskEffect")
 					if item.rarity == "MAGIC" then
-						curFlaskEffectInc = curFlaskEffectInc + modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+						curFlaskEffectInc = curFlaskEffectInc + modDB:Sum("INC", { actor = "player" }, "MagicUtilityFlaskEffect")
 					end
 
 					if flaskEffectInc < curFlaskEffectInc / 100 then 
