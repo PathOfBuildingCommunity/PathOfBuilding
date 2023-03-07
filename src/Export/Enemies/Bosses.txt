@@ -5,30 +5,30 @@
 --
 local bosses = ...
 
-#boss SynthesisVenarius Venarius {Uber}
-#boss AtlasInvadersConsumeBoss EaterOfWorlds {Uber}
-#boss AtlasInvadersCleansingBoss SearingExarch {Uber}
-#boss TheMaven Maven {Uber}
-#boss AtlasExiles5 Sirus {Uber}
-#boss TheShaperBoss Shaper {Uber}
-#boss TheElder Elder {Uber}
+#boss Venarius SynthesisVenarius {Uber}
+#boss EaterOfWorlds AtlasInvadersConsumeBoss {Uber}
+#boss SearingExarch AtlasInvadersCleansingBoss {Uber}
+#boss Maven TheMaven {Uber}
+#boss Sirus AtlasExiles5 {Uber}
+#boss Shaper TheShaperBoss {Uber}
+#boss Elder TheElder {Uber}
 
-#boss AtlasInvadersBlackStarBoss BlackStar
-#boss AtlasInvadersDoomBoss InfiniteHunger
+#boss BlackStar AtlasInvadersBlackStarBoss
+#boss InfiniteHunger AtlasInvadersDoomBoss
 
 #boss Atziri Atziri
 
-#boss AtlasBossPhoenix Phoenix
-#boss AtlasBossHydra Hydra
-#boss AtlasBossMinotaur Minotaur
-#boss AtlasBossChimera Chimera
+#boss Phoenix AtlasBossPhoenix
+#boss Hydra AtlasBossHydra
+#boss Minotaur AtlasBossMinotaur
+#boss Chimera AtlasBossChimera
 
-#boss ElderGuardian1 Enslaver
-#boss ElderGuardian2 Eradicator
-#boss ElderGuardian3 Constrictor
-#boss ElderGuardian4 Purifier
+#boss Enslaver ElderGuardian1
+#boss Eradicator ElderGuardian2
+#boss Constrictor ElderGuardian3
+#boss Purifier ElderGuardian4
 
-#boss AtlasExiles1 Baran
-#boss AtlasExiles2 Veritania
-#boss AtlasExiles3 AlHezmin
-#boss AtlasExiles4 Drox
+#boss Baran AtlasExiles1
+#boss Veritania AtlasExiles2
+#boss AlHezmin AtlasExiles3
+#boss Drox AtlasExiles4

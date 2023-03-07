@@ -464,6 +464,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					activeSkill.triggeredBy = skillEffect
 				end
 			end
+			if level.PvPDamageMultiplier then
+				skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, skillEffect.grantedEffect.modSource)
+			end
 			if level.storedUses then
 				activeSkill.skillData.storedUses = level.storedUses
 			end
@@ -499,6 +502,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	end
 	if level.storedUses then
 		activeSkill.skillData.storedUses = level.storedUses
+	end
+	if level.soulPreventionDuration then
+		activeSkill.skillData.soulPreventionDuration = level.soulPreventionDuration
+	end
+	if level.PvPDamageMultiplier then
+		skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, activeEffect.grantedEffect.modSource)
 	end
 	
 	-- Add extra modifiers from other sources

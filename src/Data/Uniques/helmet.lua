@@ -1,4 +1,5 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
+
 return {
 -- Helmet: Armour
 [[
