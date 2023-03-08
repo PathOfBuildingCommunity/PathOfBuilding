@@ -59,7 +59,7 @@ end
 
 local function mapAffixDropDownFunction(val, modList, enemyModList, build)
 	if val ~= "NONE" then
-		local affixData = data.mapMods.AffixData[val]
+		local affixData = data.mapMods.AffixData[val] or {}
 		if affixData.apply then
 			if affixData.type == "check" then
 				affixData.apply(var, modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
