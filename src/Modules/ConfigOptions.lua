@@ -57,33 +57,18 @@ Fill in the exact damage numbers if more precision is needed]])
 	end
 end
 
-local function mapAffixDropDownFunction(val, modList, enemyModList, build, dropDown, followingDropDown)
-	if val == "NONE" and followingDropDown and build.configTab.varControls[followingDropDown].list[build.configTab.varControls[followingDropDown].selIndex].val ~= "NONE" then
-		--[[ this is disabled becouse it causes weird things to happen
-		val = build.configTab.varControls[followingDropDown].list[build.configTab.varControls[followingDropDown].selIndex].val
-		build.configTab.varControls[dropDown].selIndex = build.configTab.varControls[followingDropDown].selIndex
-		build.configTab.varControls[followingDropDown].selIndex = 1
-		--]]
-		modList:NewMod("CONFIG_"..dropDown.."Active", "FLAG", true, "Config")
-	end
+local function mapAffixDropDownFunction(val, modList, enemyModList, build)
 	if val ~= "NONE" then
-		if val.type == "check" and val.apply then
-			val.apply(var, modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
-		elseif val.type == "list" then
-			build.configTab.varControls[dropDown..'List'].list = val.list
-			build.configTab.varControls[dropDown..'List'].tooltipText = val.tooltip
-			if val.apply then
-				val.apply(build.configTab.varControls[dropDown..'List'].list[build.configTab.varControls[dropDown..'List'].selIndex].val, modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
+		local affixData = data.mapMods.AffixData[val]
+		if affixData.apply then
+			if affixData.type == "check" then
+				affixData.apply(var, modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
+			elseif affixData.type == "list" then
+				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
+			elseif affixData.type == "count" then
+				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
 			end
-			modList:NewMod("CONFIG_"..dropDown.."ListActive", "FLAG", true, "Config")
-		elseif val.type == "count" then
-			build.configTab.varControls[dropDown..'Count'].tooltipText = val.tooltip
-			if val.apply then
-				val.apply((build.configTab.input[dropDown..'Count'] or 0), modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
-			end
-			modList:NewMod("CONFIG_"..dropDown.."CountActive", "FLAG", true, "Config")
 		end
-		modList:NewMod("CONFIG_"..dropDown.."Active", "FLAG", true, "Config")
 	end
 end
 
@@ -520,48 +505,17 @@ Huge sets the radius to 11.
 		modList:NewMod("Multiplier:Sextant", "BASE", m_min(val, 5), "Config")
 	end },
 	{ var = "multiplierMapModEffect", type = "count", label = "% increased effect of map mods" },
+	{ var = "multiplierMapModTier", type = "list", label = "Map Tier", list = { {val = "HIGH", label = "red"}, {val = "MED", label = "yellow"}, {val = "LOW", label = "white"} } },
 	{ label = "Map Prefix Modifiers:" },
-	{ var = "Prefix1", type = "list", label = "Prefix 1", list = data.mapMods.Prefix, apply = function(val, modList, enemyModList, build)
-		mapAffixDropDownFunction(val, modList, enemyModList, build, "Prefix1", "Prefix2")
-	end },
-	{ var = "Prefix1List", type = "list", label = "Prefix1List", ifFlag = "CONFIG_Prefix1ListActive", list = { {val = "NONE", label = "None"} } },
-	{ var = "Prefix1Count", type = "count", label = "Prefix1Count", ifFlag = "CONFIG_Prefix1CountActive" },
-	{ var = "Prefix2", type = "list", label = "Prefix 2", ifFlag = "CONFIG_Prefix1Active", list = data.mapMods.Prefix, apply = function(val, modList, enemyModList, build)
-		mapAffixDropDownFunction(val, modList, enemyModList, build, "Prefix2", "Prefix3")
-	end },
-	{ var = "Prefix2List", type = "list", label = "Prefix2List", ifFlag = "CONFIG_Prefix2ListActive", list = { {val = "NONE", label = "None"} } },
-	{ var = "Prefix2Count", type = "count", label = "Prefix2Count", ifFlag = "CONFIG_Prefix2CountActive" },
-	{ var = "Prefix3", type = "list", label = "Prefix 3", ifFlag = "CONFIG_Prefix2Active", list = data.mapMods.Prefix, apply = function(val, modList, enemyModList, build)
-		mapAffixDropDownFunction(val, modList, enemyModList, build, "Prefix3", "Prefix4")
-	end },
-	{ var = "Prefix3List", type = "list", label = "Prefix3List", ifFlag = "CONFIG_Prefix3ListActive", list = { {val = "NONE", label = "None"} } },
-	{ var = "Prefix3Count", type = "count", label = "Prefix3Count", ifFlag = "CONFIG_Prefix3CountActive" },
-	{ var = "Prefix4", type = "list", label = "Prefix 4", ifFlag = "CONFIG_Prefix3Active", list = data.mapMods.Prefix, apply = function(val, modList, enemyModList, build)
-		mapAffixDropDownFunction(val, modList, enemyModList, build, "Prefix4")
-	end },
-	{ var = "Prefix4List", type = "list", label = "Prefix4List", ifFlag = "CONFIG_Prefix4ListActive", list = { {val = "NONE", label = "None"} } },
-	{ var = "Prefix4Count", type = "count", label = "Prefix4Count", ifFlag = "CONFIG_Prefix4CountActive" },
+	{ var = "MapPrefix1", type = "list", label = "Prefix 1", list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefix2", type = "list", label = "Prefix 2", list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefix3", type = "list", label = "Prefix 3", list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefix4", type = "list", label = "Prefix 4", list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
 	{ label = "Map Suffix Modifiers:" },
-	{ var = "Suffix1", type = "list", label = "Suffix 1", list = data.mapMods.Suffix, apply = function(val, modList, enemyModList, build)
-		mapAffixDropDownFunction(val, modList, enemyModList, build, "Suffix1", "Suffix2")
-	end },
-	{ var = "Suffix1List", type = "list", label = "Suffix1List", ifFlag = "CONFIG_Suffix1ListActive", list = { {val = "NONE", label = "None"} } },
-	{ var = "Suffix1Count", type = "count", label = "Suffix1Count", ifFlag = "CONFIG_Suffix1CountActive" },
-	{ var = "Suffix2", type = "list", label = "Suffix 2", ifFlag = "CONFIG_Suffix1Active", list = data.mapMods.Suffix, apply = function(val, modList, enemyModList, build)
-		mapAffixDropDownFunction(val, modList, enemyModList, build, "Suffix2", "Suffix3")
-	end },
-	{ var = "Suffix2List", type = "list", label = "Suffix2List", ifFlag = "CONFIG_Suffix2ListActive", list = { {val = "NONE", label = "None"} } },
-	{ var = "Suffix2Count", type = "count", label = "Suffix2Count", ifFlag = "CONFIG_Suffix2CountActive" },
-	{ var = "Suffix3", type = "list", label = "Suffix 3", ifFlag = "CONFIG_Suffix2Active", list = data.mapMods.Suffix, apply = function(val, modList, enemyModList, build)
-		mapAffixDropDownFunction(val, modList, enemyModList, build, "Suffix3", "Suffix4")
-	end },
-	{ var = "Suffix3List", type = "list", label = "Suffix3List", ifFlag = "CONFIG_Suffix3ListActive", list = { {val = "NONE", label = "None"} } },
-	{ var = "Suffix3Count", type = "count", label = "Suffix3Count", ifFlag = "CONFIG_Suffix3CountActive" },
-	{ var = "Suffix4", type = "list", label = "Suffix 4", ifFlag = "CONFIG_Suffix3Active", list = data.mapMods.Suffix, apply = function(val, modList, enemyModList, build)
-		mapAffixDropDownFunction(val, modList, enemyModList, build, "Suffix4")
-	end },
-	{ var = "Suffix4List", type = "list", label = "Suffix4List", ifFlag = "CONFIG_Suffix4ListActive", list = { {val = "NONE", label = "None"} } },
-	{ var = "Suffix4Count", type = "count", label = "Suffix4Count", ifFlag = "CONFIG_Suffix4CountActive" },
+	{ var = "MapSuffix1", type = "list", label = "Suffix 1", list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffix2", type = "list", label = "Suffix 2", list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffix3", type = "list", label = "Suffix 3", list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffix4", type = "list", label = "Suffix 4", list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
