@@ -6,126 +6,123 @@ return {
 		-- defensive prefixes
 		["Armoured"] = { 
 			type = "list",
-			tooltip = "'Armoured'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = {20, 30, 40}
-				enemyModList:NewMod("PhysicalDamageReduction", "BASE", map[val] * mapModEffect, "Map mod Armoured")
+			label = "Enemy Physical Damage reduction:",
+			tooltipLines = { "+%d%% Monster Physical Damage Reduction" },
+			values = {20, 30, 40},
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageReduction", "BASE", values[val] * mapModEffect, "Map mod Armoured")
 			end 
 		},
 		["Hexproof"] = {
 			type = "check",
-			tooltip = "'Hexproof'",
-			apply = function(val, modList, enemyModList, mapModEffect)
+			label = "Enemy is Hexproof?",
+			tooltipLines = { "Monsters are Hexproof" },
+			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("Hexproof", "FLAG", true, "Map mod Hexproof")
 			end 
 		},
 		["Hexwarded"] = {
 			type = "list",
-			tooltip = "'Hexwarded'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = {25, 40, 60}
-				enemyModList:NewMod("CurseEffectOnSelf", "MORE", -map[val] * mapModEffect, "Map mod Hexwarded")
+			label = "Less effect of Curses on enemy:",
+			tooltipLines = { "%d%% less effect of Curses on Monsters" },
+			values = {25, 40, 60},
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("CurseEffectOnSelf", "MORE", -values[val] * mapModEffect, "Map mod Hexwarded")
 			end
 		},
 		["Resistant"] = {
 			type = "list",
-			tooltip = "'Resistant'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {20, 15},  {30, 20}, {40, 25} }
-				enemyModList:NewMod("ElementalResist", "BASE", map[val][1] * mapModEffect, "Map mod Resistant")
-				enemyModList:NewMod("ChaosResist", "BASE", map[val][2] * mapModEffect, "Map mod Resistant")
+			label = "Enemy has Elemental / ^xD02090Chaos ^7Resist:",
+			tooltipLines = { "+%d%% Monster Elemental Resistances", "+%d%% Monster Chaos Resistance" },
+			values = { {20, 15}, {30, 20}, {40, 25} },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("ElementalResist", "BASE", values[val][1] * mapModEffect, "Map mod Resistant")
+				enemyModList:NewMod("ChaosResist", "BASE", values[val][2] * mapModEffect, "Map mod Resistant")
 			end
 		},
 		["Unwavering"] = {
 			type = "count",
-			tooltip = "'Unwavering'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {15, 19}, {20, 24}, {25, 30} }
-				-- Low tier: 15–19% / Mid tier: 20–24% / High tier: 25–30%"
+			tooltipLines = { "(%d to %d)%% more Monster Life", "Monsters cannot be Stunned" },
+			values = { { {15, 19} }, { {20, 24} }, { {25, 30} } },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
 				enemyModList:NewMod("AvoidStun", "BASE", 100, "Map mod Unwavering")
-				enemyModList:NewMod("Life", "MORE", map[val][2] * mapModEffect, "Map mod Unwavering")
+				enemyModList:NewMod("Life", "MORE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod Unwavering")
 			end
 		},
 		["Fecund"] = {
 			type = "count",
-			tooltip = "'Fecund'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {20, 29}, {30, 39}, {40, 49} }
-				-- Low tier: 20–29% / Mid tier: 30–39% / High tier: 40–49%"
-				enemyModList:NewMod("Life", "MORE", map[val][2] * mapModEffect, "Map mod Fecund")
+			tooltipLines = { "(%d to %d)%% more Monster Life" },
+			values = { {20, 29}, {30, 39}, {40, 49} },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("Life", "MORE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Fecund")
 			end
 		},
 		["Unstoppable"] = {
 			type = "check",
-			tooltip = "'Unstoppable'",
-			apply = function(val, modList, enemyModList, mapModEffect)
+			tooltipLines = { "Monsters cannot be Taunted", "Monsters' Action Speed cannot be modified to below base value" },
+			apply = function(val, mapModEffect, modList, enemyModList)
 				-- MISSING: Monsters cannot be Taunted
 				enemyModList:NewMod("MinimumActionSpeed", "MAX", 100, "Map mod Unstoppable")
 			end 
 		},
 		["Impervious"] = {
 			type = "list",
-			tooltip = "'Impervious'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { 20, 35, 50 }
-				enemyModList:NewMod("AvoidPoison", "BASE", map[val] * mapModEffect, "Map mod Impervious")
-				enemyModList:NewMod("AvoidImpale", "BASE", map[val] * mapModEffect, "Map mod Impervious")
-				enemyModList:NewMod("AvoidBleed", "BASE", map[val] * mapModEffect, "Map mod Impervious")
+			tooltipLines = { "Monsters have a %d%% chance to avoid Poison, Impale, and Bleeding" },
+			values = { 20, 35, 50 },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("AvoidPoison", "BASE", values[val] * mapModEffect, "Map mod Impervious")
+				enemyModList:NewMod("AvoidImpale", "BASE", values[val] * mapModEffect, "Map mod Impervious")
+				enemyModList:NewMod("AvoidBleed", "BASE", values[val] * mapModEffect, "Map mod Impervious")
 			end
 		},
 		["Oppressive"] = {
 			type = "list",
-			tooltip = "'Oppressive'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { 30, 45, 60 }
-				enemyModList:NewMod("SpellSuppressionChance", "BASE", map[val] * mapModEffect, "Map mod Oppressive")
+			tooltipLines = { },
+			values = { 30, 45, 60 },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("SpellSuppressionChance", "BASE", values[val] * mapModEffect, "Map mod Oppressive")
 			end
 		},
 		["Buffered"] = {
 			type = "count",
-			tooltip = "'Buffered'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {20, 29}, {30, 39}, {40, 49} }
-				-- Low tier: 20–29% / Mid tier: 30–39% / High tier: 40–49%"
-				enemyModList:NewMod("LifeGainAsEnergyShield", "BASE", map[val][2] * mapModEffect, "Map mod Buffered")
+			tooltipLines = { },
+			values = { {20, 29}, {30, 39}, {40, 49} },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("LifeGainAsEnergyShield", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Buffered")
 			end
 		},
 		["Titan's"] = {}, -- Unique Boss has 25|30|35% increased Life / Unique Boss has 45|55|70% increased Area of Effect
 		-- offensive prefixes
 		["Savage"] = {
 			type = "count",
-			tooltip = "'Savage'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {14, 17}, {18, 21}, {22, 25} }
-				-- Low tier: 14–17% / Mid tier: 18–21% / High tier: 22–25%"
-				enemyModList:NewMod("Damage", "INC", map[val][2] * mapModEffect, "Map mod Savage")
+			tooltipLines = { "(%d to %d)%% increased Monster Damage" },
+			values = { {14, 17}, {18, 21}, {22, 25} },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("Damage", "INC", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Savage")
 			end
 		},
 		["Burning"] = {
 			type = "count",
-			tooltip = "'Burning'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {50, 69}, {70, 89}, {90, 110} } 
-				-- Low tier: 50–69% / Mid tier: 70–89% / High tier: 90–110%"
-				enemyModList:NewMod("PhysicalDamageGainAsFire", "BASE", map[val][2] * mapModEffect, "Map mod Burning")
+			tooltipLines = { "Monsters deal (%d to %d)%% extra Physical Damage as Fire" },
+			values = { {50, 69}, {70, 89}, {90, 110} },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsFire", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Burning")
 			end
 		},
 		["Freezing"] = {
 			type = "count",
-			tooltip = "'Freezing'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {50, 69}, {70, 89}, {90, 110} } 
-				-- Low tier: 50–69% / Mid tier: 70–89% / High tier: 90–110%"
-				enemyModList:NewMod("PhysicalDamageGainAsCold", "BASE", map[val][2] * mapModEffect, "Map mod Freezing")
+			tooltipLines = { "Monsters deal (%d to %d)%% extra Physical Damage as Cold" },
+			values = { {50, 69}, {70, 89}, {90, 110} },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsCold", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Freezing")
 			end
 		},
 		["Shocking"] = {
 			type = "count",
-			tooltip = "'Shocking'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {50, 69}, {70, 89}, {90, 110} } 
-				-- Low tier: 50–69% / Mid tier: 70–89% / High tier: 90–110%"
-				enemyModList:NewMod("PhysicalDamageGainAsLightning", "BASE", map[val][2] * mapModEffect, "Map mod Shocking")
+			tooltipLines = { "Monsters deal (%d to %d)%% extra Physical Damage as Lightning" },
+			values = { {50, 69}, {70, 89}, {90, 110} },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsLightning", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Shocking")
 			end
 		},
 		["Fleet"] = {}, --(15–20)|(20–25)|(25–30)% increased Monster Movement Speed / (20–25)|(25–35)|(35–45)% increased Monster Attack Speed / 0% increased Monster Cast Speed
@@ -139,108 +136,109 @@ return {
 		-- suffixes
 		["of Balance"] = {
 			type = "check",
-			tooltip = "'of Balance'",
-			apply = function(val, modList, enemyModList, mapModEffect)
+			label = "Player has Elemental Equilibrium?",
+			tooltipLines = { },
+			apply = function(val, mapModEffect, modList, enemyModList)
 				-- Players cannot inflict Exposure
 				-- modList:NewMod("Keystone", "LIST", "Elemental Equilibrium", "Map mod of Balance") -- OLD MOD
 			end
 		},
 		["of Congealment"] = {
 			type = "check",
-			tooltip = "'of Congealment'",
-			apply = function(val, modList, enemyModList, mapModEffect)
+			label = "Cannot Leech ^xE05030Life ^7/ ^x7070FFMana?",
+			tooltipLines = { "Cannot Leech from Monsters" },
+			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Map mod of Congealment")
 				enemyModList:NewMod("CannotLeechManaFromSelf", "FLAG", true, "Map mod of Congealment")
 			end
 		},
 		["of Drought"] = {
 			type = "list",
-			tooltip = "'of Drought'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = {30, 40, 50}
-				modList:NewMod("FlaskChargesGained", "INC", -map[val] * mapModEffect, "Map mod of Drought")
+			label = "Gains reduced Flask Charges:",
+			tooltipLines = { "Players gain %d%% reduced Flask Charges" },
+			values = {30, 40, 50},
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("FlaskChargesGained", "INC", -values[val] * mapModEffect, "Map mod of Drought")
 			end
 		},
 		["of Exposure"] = {
 			type = "count",
-			tooltip = "'of Exposure'\nMid tier: 5-8%\nHigh tier: 9-12%",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {0, 0}, {5, 8}, {9, 12} }
-				-- Mid tier: 5-8% / High tier: 9-12%"
-				if map[val] ~= 0 then
-					modList:NewMod("FireResistMax", "BASE", -map[val][2] * mapModEffect, "Map mod of Exposure")
-					modList:NewMod("ColdResistMax", "BASE", -map[val][2] * mapModEffect, "Map mod of Exposure")
-					modList:NewMod("LightningResistMax", "BASE", -map[val][2] * mapModEffect, "Map mod of Exposure")
-					modList:NewMod("ChaosResistMax", "BASE", -map[val][2] * mapModEffect, "Map mod of Exposure")
+			label = "-X% maximum Resistances:",
+			tooltip = "Mid tier: 5-8%\nHigh tier: 9-12%",
+			tooltipLines = { "minus (%d to %d)%% maximum Player Resistances" },
+			values = { {0, 0}, {5, 8}, {9, 12} },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				if map[val][2] ~= 0 then
+					local roll = (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect
+					modList:NewMod("FireResistMax", "BASE", -roll, "Map mod of Exposure")
+					modList:NewMod("ColdResistMax", "BASE", -roll, "Map mod of Exposure")
+					modList:NewMod("LightningResistMax", "BASE", -roll, "Map mod of Exposure")
+					modList:NewMod("ChaosResistMax", "BASE", -roll, "Map mod of Exposure")
 				end
 			end
 		},
 		["of Impotence"] = {
 			type = "list",
-			tooltip = "'of Impotence'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = {15, 20, 25}
-				modList:NewMod("AreaOfEffect", "MORE", -map[val] * mapModEffect, "Map mod of Impotence")
+			label = "Less Area of Effect:",
+			tooltipLines = { "Players have %d%% less Area of Effect" },
+			values = {15, 20, 25},
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("AreaOfEffect", "MORE", -values[val] * mapModEffect, "Map mod of Impotence")
 			end
 		},
 		["of Insulation"] = {
 			type = "list",
-			tooltip = "'of Insulation'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = {30, 50, 70}
-				enemyModList:NewMod("AvoidElementalAilments", "BASE", map[val] * mapModEffect, "Map mod of Insulation")
-			end
-		},
-		["Impervious"] = {
-			type = "list",
-			tooltip = "'Impervious'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = {20, 35, 50}
-				enemyModList:NewMod("AvoidPoison", "BASE", map[val] * mapModEffect, "Map mod Impervious")
-				enemyModList:NewMod("AvoidBleed", "BASE", map[val] * mapModEffect, "Map mod Impervious")
+			label = "Enemy avoid Elemental Ailments:",
+			tooltipLines = { "Monsters have %d%% chance to Avoid Elemental Ailments" },
+			values = {30, 50, 70},
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("AvoidElementalAilments", "BASE", values[val] * mapModEffect, "Map mod of Insulation")
 			end
 		},
 		["of Miring"] = {
 			type = "list",
-			tooltip = "'of Miring'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = {30, 40, 50}
+			label = "Unlucky Dodge / Enemy has inc. Accuracy:",
+			tooltipLines = { "Monsters have %d%% increased Accuracy Rating", "Players have minus %d%% to amount of Suppressed Spell Damage Prevented" },
+			values = { {10, 30}, {15, 40}, {20, 50} },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
 				-- modList:NewMod("DodgeChanceIsUnlucky", "FLAG", true, "Map mod of Miring") -- OLD MOD
 				-- Players have -10|15|20% to amount of Suppressed Spell Damage Prevented
-				enemyModList:NewMod("Accuracy", "INC", map[val] * mapModEffect, "Map mod of Miring")
+				enemyModList:NewMod("Accuracy", "INC", values[val][2] * mapModEffect, "Map mod of Miring")
 			end
 		},
 		["of Rust"] = {
 			type = "list",
-			tooltip = "'of Rust'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {20, 20}, {30, 25}, {40, 30} }
-				modList:NewMod("BlockChance", "INC", -map[val][1] * mapModEffect, "Map mod of Rust")
-				modList:NewMod("Armour", "MORE", -map[val][2] * mapModEffect, "Map mod of Rust")
+			label = "Reduced Block Chance / less Armour:",
+			tooltipLines = { "Players have %d%% less Armour", "Players have %d%% reduced Chance to Block" },
+			values = { {20, 20}, {30, 25}, {40, 30} },
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("BlockChance", "INC", -values[val][1] * mapModEffect, "Map mod of Rust")
+				modList:NewMod("Armour", "MORE", -values[val][2] * mapModEffect, "Map mod of Rust")
 			end
 		},
 		["of Skirmishing"] = {
 			-- old map mod, doesnt exist anymore?
 			type = "check",
-			tooltip = "'of Skirmishing'", 
-			apply = function(val, modList, enemyModList, mapModEffect)
+			tooltipLines = { },
+			apply = function(val, mapModEffect, modList, enemyModList)
 				modList:NewMod("Keystone", "LIST", "Point Blank", "Map mod of Skirmishing")
 			end
 		},
 		["of Smothering"] = {
 			type = "list",
-			tooltip = "'of Smothering'",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = {20, 40, 60}
-				modList:NewMod("LifeRecoveryRate", "MORE", -map[val] * mapModEffect, "Map mod of Smothering")
-				modList:NewMod("EnergyShieldRecoveryRate", "MORE", -map[val] * mapModEffect, "Map mod of Smothering")
+			label = "Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield:",
+			tooltipLines = { "Players have %d%% less Recovery Rate of Life and Energy Shield" },
+			values = {20, 40, 60},
+			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("LifeRecoveryRate", "MORE", -values[val] * mapModEffect, "Map mod of Smothering")
+				modList:NewMod("EnergyShieldRecoveryRate", "MORE", -values[val] * mapModEffect, "Map mod of Smothering")
 			end
 		},
 		["of Stasis"] = {
 			type = "check",
 			label = "Cannot Regen ^xE05030Life^7, ^x7070FFMana ^7or ^x88FFFFES?", 
-			tooltip = "'of Stasis'", 
-			apply = function(val, modList, enemyModList, mapModEffect)
+			tooltipLines = { "Players cannot Regenerate Life, Mana or Energy Shield" },
+			apply = function(val, mapModEffect, modList, enemyModList)
 				modList:NewMod("NoLifeRegen", "FLAG", true, "Map mod of Stasis")
 				modList:NewMod("NoEnergyShieldRegen", "FLAG", true, "Map mod of Stasis")
 				modList:NewMod("NoManaRegen", "FLAG", true, "Map mod of Stasis")
@@ -248,11 +246,10 @@ return {
 		},
 		["of Toughness"] = {
 			type = "count",
-			tooltip = "'of Toughness'\nLow tier: 25-30%\nMid tier: 31-35%\nHigh tier: 36-40%",
-			apply = function(val, modList, enemyModList, mapModEffect)
-				local map = { {25, 30}, {31, 35}, {36, 40} } 
-				-- Low tier: 25-30% / Mid tier: 31-35% / High tier: 36-40%"
-				enemyModList:NewMod("SelfCritMultiplier", "INC", -map[val][2] * mapModEffect, "Map mod of Toughness")
+			tooltipLines = { "Monsters take (%d to %d)%% reduced Extra Damage from Critical Strikes" },
+			values = { {25, 30}, {31, 35}, {36, 40} },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("SelfCritMultiplier", "INC", -(values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod of Toughness")
 			end
 		},
 		["of Fatigue"] = {}, -- Players have 20|30|40% less Cooldown Recovery Rate
@@ -302,25 +299,24 @@ return {
 	},
 	Prefix = {
 		{ val = "NONE", label = "None" },
-		{ val = "Armoured", label = "Enemy Physical Damage reduction:" },
-		{ val = "Hexproof", label = "Enemy is Hexproof?" },
-		{ val = "Hexwarded", label = "Less effect of Curses on enemy:" },
-		{ val = "Resistant", label = "Enemy has Elemental / ^xD02090Chaos ^7Resist:" },
-		{ val = "Savage", label = "Enemy has increased Damage" },
+		{ val = "Armoured", label = "Enemy Phys D R" .. "                                Physical Damage reduction".."Armoured" },
+		{ val = "Hexproof", label = "Enemy is Hexproof?" .. "                                ".."Hexproof" },
+		{ val = "Hexwarded", label = "Less Curse effect" .. "                                of Curses on enemy".."Hexwarded" },
+		{ val = "Resistant", label = "Enemy Resist" .. "                                has Elemental / Chaos".."Resistant" },
+		{ val = "Impervious", label = "avoid Poison and Bleed:" .. "                                Enemy ".."Impervious" },
+		{ val = "Savage", label = "Enemy Inc Damage" .. "                                has increased Damage".."Savage" },
 	},
 	Suffix = {
 		{ val = "NONE", label = "None" },
-		{ val = "of Balance", label = "Player has Elemental Equilibrium?" }, 
-		{ val = "of Congealment", label = "Cannot Leech ^xE05030Life ^7/ ^x7070FFMana?" },
-		{ val = "of Drought", label = "Gains reduced Flask Charges:" },
-		{ val = "of Exposure", label = "-X% maximum Resistances:" },
-		{ val = "of Impotence", label = "Less Area of Effect:" },
-		{ val = "of Insulation", label = "Enemy avoid Elemental Ailments:" },
-		{ val = "Impervious", label = "Enemy avoid Poison and Bleed:" },
-		{ val = "of Miring", label = "Unlucky Dodge / Enemy has inc. Accuracy:" },
-		{ val = "of Rust", label = "Reduced Block Chance / less Armour:" },
-		{ val = "of Smothering", label = "Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield:" },
-		{ val = "of Stasis", label = "Cannot Regen ^xE05030Life^7, ^x7070FFMana ^7or ^x88FFFFES?" },
-		{ val = "of Toughness", label = "Enemy takes red. Extra Crit Damage:" },
+		{ val = "of Congealment", label = "Cannot Leech" .."                                Life / Mana".."of Congealment" },
+		{ val = "of Drought", label = "reduced Flask Charges" .. "                                Gains".."of Drought" },
+		{ val = "of Exposure", label = "-X% maximum Res" .. "                                Resistances".."of Exposure" },
+		{ val = "of Impotence", label = "Less Area of Effect:" .. "                                ".."of Impotence" },
+		{ val = "of Insulation", label = "avoid Elemental Ailments:" .. "                                Enemy".."of Impotence" },
+		{ val = "of Miring", label = "Enemy has inc. Accuracy: / Players have to amount of Suppressed Spell Damage Prevented" .. "                                ".."of Miring" },
+		{ val = "of Rust", label = "Reduced Block Chance / less Armour:" .. "                                ".."of Rust" },
+		{ val = "of Smothering", label = "Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield:" .. "                                ".."of Smothering" },
+		{ val = "of Stasis", label = "Cannot Regen" .. "                                Life, Mana or ES".."of Stasis" },
+		{ val = "of Toughness", label = "Enemy takes red. Extra Crit Damage:" .. "                                ".."of Toughness" },
 	},
 }
