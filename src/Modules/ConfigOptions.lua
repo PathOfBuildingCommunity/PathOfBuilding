@@ -6,6 +6,7 @@
 
 local m_min = math.min
 local m_max = math.max
+local s_format = string.format
 
 local function applyPantheonDescription(tooltip, mode, index, value)
 	tooltip:Clear()
@@ -70,16 +71,59 @@ local function FullLifeTooltip(tooltip)
 	tooltip:AddLine(14, 'but you can use this option to force it if necessary.')
 end
 
+local function mapAffixTooltip(tooltip, mode, index, value)
+	tooltip:Clear()
+	if value.val == "NONE" then
+		return
+	end
+	local applyModes = { BODY = true, HOVER = true }
+	if applyModes[mode] then
+		tooltip:AddLine(14, '^7'..value.val)
+		local affixData = data.mapMods.AffixData[value.val] or {}
+		if #affixData.tooltipLines > 0 then
+			if affixData.type == "check" then
+				for _, line in ipairs(affixData.tooltipLines) do
+					tooltip:AddLine(14, '^7'..line)
+				end
+			elseif affixData.type == "list" then
+				for i, tier in ipairs({"Low", "Med", "High"}) do
+					tooltip:AddLine(16, '^7'..tier..": ")
+					for j, line in ipairs(affixData.tooltipLines) do
+						local modValue = (#affixData.tooltipLines > 1) and affixData.values[i][j] or affixData.values[i]
+						if modValue == nil then
+							tooltip:AddLine(14, '   ^7'..line)
+						elseif modValue ~= 0 then
+							tooltip:AddLine(14, '   ^7'..s_format(line, modValue))
+						end
+					end
+				end
+			elseif affixData.type == "count" then
+				for i, tier in ipairs({"Low", "Med", "High"}) do
+					tooltip:AddLine(16, '^7'..tier..": ")
+					for j, line in ipairs(affixData.tooltipLines) do
+						local modValue = {(#affixData.tooltipLines > 1) and (affixData.values[i][j] and affixData.values[i][j][1] or nil) or affixData.values[i][1], (#affixData.tooltipLines > 1) and (affixData.values[i][j] and affixData.values[i][j][2] or nil) or affixData.values[i][2]}
+						if modValue[2] == nil then
+							tooltip:AddLine(14, '   ^7'..line)
+						elseif modValue[2] ~= 0 then
+							tooltip:AddLine(14, '   ^7'..s_format(line, modValue[1], modValue[2]))
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
 local function mapAffixDropDownFunction(val, modList, enemyModList, build)
 	if val ~= "NONE" then
 		local affixData = data.mapMods.AffixData[val] or {}
 		if affixData.apply then
 			if affixData.type == "check" then
-				affixData.apply(var, modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
+				affixData.apply(var, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), modList, enemyModList)
 			elseif affixData.type == "list" then
-				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
+				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
 			elseif affixData.type == "count" then
-				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), modList, enemyModList, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100))
+				affixData.apply(4 - (build.configTab.varControls['multiplierMapModTier'].selIndex or 1), 100, (1 + (build.configTab.input['multiplierMapModEffect'] or 0)/100), affixData.values, modList, enemyModList)
 			end
 		end
 	end
@@ -529,15 +573,15 @@ Huge sets the radius to 11.
 	{ var = "multiplierMapModEffect", type = "count", label = "% increased effect of map mods" },
 	{ var = "multiplierMapModTier", type = "list", label = "Map Tier", list = { {val = "HIGH", label = "red"}, {val = "MED", label = "yellow"}, {val = "LOW", label = "white"} } },
 	{ label = "Map Prefix Modifiers:" },
-	{ var = "MapPrefix1", type = "list", label = "Prefix 1", list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix2", type = "list", label = "Prefix 2", list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix3", type = "list", label = "Prefix 3", list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
-	{ var = "MapPrefix4", type = "list", label = "Prefix 4", list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefix1", type = "list", label = "Prefix 1", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefix2", type = "list", label = "Prefix 2", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefix3", type = "list", label = "Prefix 3", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
+	{ var = "MapPrefix4", type = "list", label = "Prefix 4", tooltipFunc = mapAffixTooltip, list = data.mapMods.Prefix, apply = mapAffixDropDownFunction },
 	{ label = "Map Suffix Modifiers:" },
-	{ var = "MapSuffix1", type = "list", label = "Suffix 1", list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix2", type = "list", label = "Suffix 2", list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix3", type = "list", label = "Suffix 3", list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
-	{ var = "MapSuffix4", type = "list", label = "Suffix 4", list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffix1", type = "list", label = "Suffix 1", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffix2", type = "list", label = "Suffix 2", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffix3", type = "list", label = "Suffix 3", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
+	{ var = "MapSuffix4", type = "list", label = "Suffix 4", tooltipFunc = mapAffixTooltip, list = data.mapMods.Suffix, apply = mapAffixDropDownFunction },
 	{ label = "Unique Map Modifiers:" },
 	{ var = "PvpScaling", type = "check", label = "PvP damage scaling in effect", tooltip = "'Hall of Grandmasters'", apply = function(val, modList, enemyModList)
 		modList:NewMod("HasPvpScaling", "FLAG", true, "Config")
