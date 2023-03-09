@@ -217,7 +217,7 @@ return {
 			end
 		},
 		["of Skirmishing"] = {
-			-- old map mod, doesnt exist anymore?
+			-- old map mod, doesn't exist anymore?
 			type = "check",
 			tooltipLines = { },
 			apply = function(val, mapModEffect, modList, enemyModList)
