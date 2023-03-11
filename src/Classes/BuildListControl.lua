@@ -164,9 +164,14 @@ function BuildListClass:GetRowValue(column, index, build)
 	if column == 1 then
 		local label
 		if build.folderName then
-			label = ">> " .. build.folderName
+			label = "^8>> ^7" .. build.folderName
 		else
-			label = build.buildName or "?"
+			local relativeLabel = ""
+			for _, segment in ipairs(string.sub(build.relativePath, 1, -2):split("/")) do
+				relativeLabel = relativeLabel .. "^8>> " .. segment .. " "
+			end
+			relativeLabel = relativeLabel .. (relativeLabel ~= "" and ">> ^7" or "")
+			label = relativeLabel .. build.buildName or "?"
 		end
 		if self.cutBuild and self.cutBuild.buildName == build.buildName and self.cutBuild.folderName == build.folderName then
 			return "^xC0B0B0"..label

@@ -144,12 +144,15 @@ function listMode:GetDestName(subPath, fileName)
 	return main.buildPath..subPath..destName
 end
 
-function listMode:BuildList()
-	wipeTable(self.list)
+function listMode:BuildList(recursePath)
+	recursePath = recursePath or ""
+	if recursePath == "" then
+		wipeTable(self.list)
+	end
 	local filterList = main.filterBuildList or ""
 	local handle = nil
 	if filterList ~= "" then
-		handle = NewFileSearch(main.buildPath..self.subPath.."*"..filterList.."*.xml")
+		handle = NewFileSearch(main.buildPath..self.subPath..recursePath.."*"..filterList.."*.xml")
 	else
 		handle = NewFileSearch(main.buildPath..self.subPath.."*.xml")
 	end
@@ -157,8 +160,9 @@ function listMode:BuildList()
 		local fileName = handle:GetFileName()
 		local build = { }
 		build.fileName = fileName
-		build.subPath = self.subPath
-		build.fullFileName = main.buildPath..self.subPath..fileName
+		build.subPath = self.subPath..recursePath
+		build.relativePath = recursePath
+		build.fullFileName = main.buildPath..self.subPath..recursePath..fileName
 		build.modified = handle:GetFileModifiedTime()
 		build.buildName = fileName:gsub("%.xml$","")
 		local fileHnd = io.open(build.fullFileName, "r")
@@ -180,19 +184,36 @@ function listMode:BuildList()
 			break
 		end
 	end
-	handle = NewFileSearch(main.buildPath..self.subPath.."*", true)
-	while handle do
-		local folderName = handle:GetFileName()
-		t_insert(self.list, { 
-			folderName = folderName, 
-			subPath = self.subPath,
-			fullFileName = main.buildPath..self.subPath..folderName,
-		})
-		if not handle:NextFile() then
-			break
+	handle = NewFileSearch(main.buildPath..self.subPath..recursePath.."*", true)
+	if filterList ~= "" then
+		while handle do
+			local folderName = handle:GetFileName()
+			--[[t_insert(self.list, {
+				folderName = folderName,
+				subPath = self.subPath,
+				fullFileName = main.buildPath..self.subPath..folderName,
+			})]]
+			self:BuildList(recursePath..folderName.."/")
+			if not handle:NextFile() then
+				break
+			end
+		end
+	else
+		while handle do
+			local folderName = handle:GetFileName()
+			t_insert(self.list, {
+				folderName = folderName,
+				subPath = self.subPath,
+				fullFileName = main.buildPath..self.subPath..folderName,
+			})
+			if not handle:NextFile() then
+				break
+			end
 		end
 	end
-	self:SortList()
+	if recursePath == "" then
+		self:SortList()
+	end
 end
 
 function listMode:SortList()
