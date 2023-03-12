@@ -872,10 +872,10 @@ function string:matchOrPattern(pattern)
 		return finalPatterns
 	end
 	local patterns = generateOrPatterns(pattern)
-    for pattern, _ in pairs(patterns) do
-        if self:match(pattern) then
-            return true
-        end
-    end
+	for pattern, _ in pairs(patterns) do
+		if self:match(pattern) then
+			return true
+		end
+	end
 	return false
 end
