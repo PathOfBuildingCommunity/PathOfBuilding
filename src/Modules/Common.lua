@@ -839,11 +839,6 @@ end
 
 function string:matchOrPattern(pattern)
 	local function generateOrPatterns(pattern)
-		local _, leftBracketCount = pattern:gsub("%(","")
-		local _, rightBracketCount = pattern:gsub("%)","")
-		if leftBracketCount ~= rightBracketCount then
-			return { }
-		end
 		local subGroups = {}
 		local index = 1
 		for subGroup in pattern:gmatch("%b()") do

@@ -142,25 +142,29 @@ function ItemDBClass:DoesItemMatchFilters(item)
 		local found = false
 		local mode = self.controls.searchMode.selIndex
 		if mode == 1 or mode == 2 then
-			if item.name:lower():matchOrPattern(searchStr) then
+			local err, match = PCall(string.matchOrPattern, item.name:lower(), searchStr)
+			if not err and match then
 				found = true
 			end
 		end
 		if mode == 1 or mode == 3 then
 			for _, line in pairs(item.enchantModLines) do
-				if line.line:lower():matchOrPattern(searchStr) then
+				local err, match = PCall(string.matchOrPattern, line.line:lower(), searchStr)
+				if not err and match then
 					found = true
 					break
 				end
 			end
 			for _, line in pairs(item.implicitModLines) do
-				if line.line:lower():matchOrPattern(searchStr) then
+				local err, match = PCall(string.matchOrPattern, line.line:lower(), searchStr)
+				if not err and match then
 					found = true
 					break
 				end
 			end
 			for _, line in pairs(item.explicitModLines) do
-				if line.line:lower():matchOrPattern(searchStr) then
+				local err, match = PCall(string.matchOrPattern, line.line:lower(), searchStr)
+				if not err and match then
 					found = true
 					break
 				end
@@ -168,7 +172,8 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			if not found then
 				searchStr = searchStr:gsub(" ","")
 				for i, mod in ipairs(item.baseModList) do
-					if mod.name:lower():matchOrPattern(searchStr) then
+					local err, match = PCall(string.matchOrPattern, mod.name:lower(), searchStr)
+					if not err and match then
 						found = true
 						break
 					end
