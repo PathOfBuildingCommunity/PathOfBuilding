@@ -805,7 +805,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 
 	local function search(haystack, need)
 		for i=#need, 1, -1 do
-			if haystack:match(need[i]) then
+			if haystack:matchOrPattern(need[i]) then
 				table.remove(need, i)
 			end
 		end
