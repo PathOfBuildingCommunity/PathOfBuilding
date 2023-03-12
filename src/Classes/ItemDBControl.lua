@@ -137,7 +137,7 @@ function ItemDBClass:DoesItemMatchFilters(item)
 			return false
 		end
 	end
-	local searchStr = self.controls.search.buf:lower()
+	local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 	if searchStr:match("%S") then
 		local found = false
 		local mode = self.controls.searchMode.selIndex
