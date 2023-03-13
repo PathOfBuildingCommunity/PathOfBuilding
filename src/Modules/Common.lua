@@ -841,39 +841,39 @@ function string:matchOrPattern(pattern)
 	local function generateOrPatterns(pattern)
 		local subGroups = {}
 		local index = 1
+		-- find and call generate patterns on all subGroups
 		for subGroup in pattern:gmatch("%b()") do
-			local subGroupDetails = { }
 			local open, close = pattern:find(subGroup, (subGroups[index] and subGroups[index].close or 1), true)
-			subGroupDetails.open = open
-			subGroupDetails.close = close
-			subGroupDetails.patterns = generateOrPatterns(subGroup:sub(2,-2))
-			t_insert(subGroups, subGroupDetails)
+			t_insert(subGroups, { open = open, close = close, patterns = generateOrPatterns(subGroup:sub(2,-2)) })
 			index = index + 1
 		end
 
-		local patterns = { pattern:sub(1, (subGroups[1] and subGroups[1].open or 0) - 1) }
+		-- generate complete patterns from the subGroup patterns
+		local generatedPatterns = { pattern:sub(1, (subGroups[1] and subGroups[1].open or 0) - 1) }
 		for i, subGroup in ipairs(subGroups) do
 			local regularNextString = pattern:sub(subGroup.close + 1, (subGroups[i+1] and subGroups[i+1].open or 0) - 1)
 			local tempPatterns = {}
-			for _, subPattern in ipairs(patterns) do
-				for subGroupPattern, _ in pairs(subGroup.patterns) do
+			for _, subPattern in ipairs(generatedPatterns) do
+				for subGroupPattern in pairs(subGroup.patterns) do
 					t_insert(tempPatterns, subPattern..subGroupPattern..regularNextString)
 				end
 			end
-			patterns = tempPatterns
+			generatedPatterns = tempPatterns
 		end
 
-		local finalPatterns = { }
-		for _, generatedPattern in ipairs(patterns) do
-			for subPattern in generatedPattern:gmatch("[^|]+") do
-				finalPatterns[subPattern] = true -- store string as key to avoid duplicates.
+		-- apply | operators
+		local orPatterns = { }
+		for _, generatedPattern in ipairs(generatedPatterns) do
+			for orPattern in generatedPattern:gmatch("[^|]+") do
+				orPatterns[orPattern] = true -- store string as key to avoid duplicates.
 			end
 		end
-		return finalPatterns
+		return orPatterns
 	end
-	local patterns = generateOrPatterns(pattern)
-	for pattern, _ in pairs(patterns) do
-		if self:match(pattern) then
+
+	local orPatterns = generateOrPatterns(pattern)
+	for orPattern in pairs(orPatterns) do
+		if self:match(orPattern) then
 			return true
 		end
 	end
