@@ -48,6 +48,188 @@ function calcs.armourReduction(armour, raw)
 	return round(calcs.armourReductionF(armour, raw))
 end
 
+---Calculates the taken damages from enemy outgoing damage
+---@param rawDamage number raw incoming damage number, after enemy damage multiplier
+---@param damageType string type of incoming damage - it will be converted (taken as) from this type if applicable
+---@param actor table actor (with output and modDB) for which to calculate the damage
+---@return number, table sum of damages and a table of taken damage parts
+function calcs.takenHitFromDamage(rawDamage, damageType, actor)
+	local output = actor.output
+	local modDB = actor.modDB
+	local function damageMitigationMultiplierForType(damage, type)
+		local totalResistMult = output[type .."ResistTakenHitMulti"]
+		local effectiveAppliedArmour = output[type .."EffectiveAppliedArmour"]
+		local armourDRPercent = calcs.armourReductionF(effectiveAppliedArmour, damage * totalResistMult)
+		local flatDRPercent = modDB:Flag(nil, "SelfIgnore".."Base".. type .."DamageReduction") and 0 or output["Base".. type .."DamageReductionWhenHit"] or output["Base".. type .."DamageReduction"]
+		local totalDRPercent = m_min(output.DamageReductionMax, armourDRPercent + flatDRPercent)
+		local enemyOverwhelmPercent = modDB:Flag(nil, "SelfIgnore".. type .."DamageReduction") and 0 or output[type .."EnemyOverwhelm"]
+		local totalDRMulti = 1 - m_max(m_min(output.DamageReductionMax, totalDRPercent - enemyOverwhelmPercent), 0) / 100
+		return totalResistMult * totalDRMulti
+	end
+	local receivedDamageSum = 0
+	local damages = { }
+	for damageConvertedType, convertPercent in pairs(actor.damageShiftTable[damageType]) do
+		local takenFlat = output[damageConvertedType.."takenFlat"]
+		if convertPercent > 0 or takenFlat ~= 0 then
+			local convertedDamage = rawDamage * convertPercent / 100
+			local reducedDamage = round(m_max(convertedDamage * damageMitigationMultiplierForType(convertedDamage, damageConvertedType) + takenFlat, 0) * output[damageType .."AfterReductionTakenHitMulti"])
+			receivedDamageSum = receivedDamageSum + reducedDamage
+			damages[damageConvertedType] = (reducedDamage > 0 or convertPercent > 0) and reducedDamage or nil
+		end
+	end
+	return receivedDamageSum, damages
+end
+
+---Helper function that reduces pools according to damage taken
+---@param poolTable table special pool values to use. Can be nil. Values from actor output are used if this is not provided or a value for some key in this is nil.
+---@param damageTable table damage table after all the relevant reductions
+---@param actor table actor (with output and modDB) for which to calculate the pools
+---@return table pools reduced by damage
+function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
+	local output = actor.output
+	local modDB = actor.modDB
+	local poolTbl = poolTable or { }
+	local frostShield = poolTbl.FrostShieldLife or output.FrostShieldLife or 0
+	local soulLink = poolTbl.SoulLink or output.SoulLink or 0
+	
+	local PoolsLost = poolTbl.PoolsLost or { }
+	local aegis = poolTbl.Aegis
+	if not aegis then
+		aegis = {
+			shared = output.sharedAegis or 0,
+			sharedElemental = output.sharedElementalAegis or 0
+		}
+		for damageType in pairs(damageTable) do
+			aegis[damageType] = output[damageType.."Aegis"] or 0
+		end
+	end
+	local guard = poolTbl.Guard
+	if not guard then
+		guard = { shared = output.sharedGuardAbsorb or 0 }
+		for damageType in pairs(damageTable) do
+			guard[damageType] = output[damageType.."GuardAbsorb"] or 0
+		end
+	end
+	
+	local ward = poolTbl.Ward or output.Ward or 0
+	local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
+	
+	local energyShield = poolTbl.EnergyShield or output.EnergyShieldRecoveryCap
+	local mana = poolTbl.Mana or output.ManaUnreserved or 0
+	local life = poolTbl.Life or output.LifeRecoverable or 0
+	local LifeLossLostOverTime = poolTbl.LifeLossLostOverTime or 0
+	local LifeBelowHalfLossLostOverTime = poolTbl.LifeBelowHalfLossLostOverTime or 0
+	
+	for damageType, damage in pairs(damageTable) do
+		local damageRemainder = damage
+		if frostShield > 0 then
+			local tempDamage = m_min(damageRemainder * output.FrostShieldDamageMitigation / 100, frostShield)
+			frostShield = frostShield - tempDamage
+			damageRemainder = damageRemainder - tempDamage
+		end
+		-- soul link is not implemented for now
+		if soulLink > 0 then
+			local tempDamage = m_min(damageRemainder * output.SoulLinkMitigation / 100, soulLink)
+			soulLink = soulLink - tempDamage
+			damageRemainder = damageRemainder - tempDamage
+		end
+		-- frost shield and soul link does not count as you taking damage
+		PoolsLost[damageType] = (PoolsLost[damageType] or 0) + damageRemainder
+		if aegis[damageType] > 0 then
+			local tempDamage = m_min(damageRemainder, aegis[damageType])
+			aegis[damageType] = aegis[damageType] - tempDamage
+			damageRemainder = damageRemainder - tempDamage
+		end
+		if isElemental[damageType] and aegis.sharedElemental > 0 then
+			local tempDamage = m_min(damageRemainder, aegis.sharedElemental)
+			aegis.sharedElemental = aegis.sharedElemental - tempDamage
+			damageRemainder = damageRemainder - tempDamage
+		end
+		if aegis.shared > 0 then
+			local tempDamage = m_min(damageRemainder, aegis.shared)
+			aegis.shared = aegis.shared - tempDamage
+			damageRemainder = damageRemainder - tempDamage
+		end
+		if guard[damageType] > 0 then
+			local tempDamage = m_min(damageRemainder * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
+			guard[damageType] = guard[damageType] - tempDamage
+			damageRemainder = damageRemainder - tempDamage
+		end
+		if guard.shared > 0 then
+			local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, guard.shared)
+			guard.shared = guard.shared - tempDamage
+			damageRemainder = damageRemainder - tempDamage
+		end
+		if ward > 0 then
+			local tempDamage = m_min(damageRemainder * (1 - (modDB:Sum("BASE", nil, "WardBypass") or 0) / 100), ward)
+			ward = ward - tempDamage
+			damageRemainder = damageRemainder - tempDamage
+		end
+		local esBypass = output[damageType.."EnergyShieldBypass"] or 0
+		if energyShield > 0 and (not modDB:Flag(nil, "EnergyShieldProtectsMana")) and (esBypass) < 100 then
+			local tempDamage = m_min(damageRemainder * (1 - esBypass / 100), energyShield)
+			energyShield = energyShield - tempDamage
+			damageRemainder = damageRemainder - tempDamage
+		end
+		if (output.sharedMindOverMatter + output[damageType.."MindOverMatter"]) > 0 then
+			local MoMDamage = damageRemainder * m_min(output.sharedMindOverMatter + output[damageType.."MindOverMatter"], 100) / 100
+			if modDB:Flag(nil, "EnergyShieldProtectsMana") and energyShield > 0 and esBypass < 100 then
+				local tempDamage = m_min(MoMDamage * (1 - esBypass / 100), energyShield)
+				energyShield = energyShield - tempDamage
+				MoMDamage = MoMDamage - tempDamage
+				local tempDamage2 = m_min(MoMDamage, mana)
+				mana = mana - tempDamage2
+				damageRemainder = damageRemainder - tempDamage - tempDamage2
+			elseif mana > 0 then
+				local tempDamage = m_min(MoMDamage, mana)
+				mana = mana - tempDamage
+				damageRemainder = damageRemainder - tempDamage
+			end
+		end
+		if output.preventedLifeLossTotal > 0 then
+			if output.preventedLifeLossBelowHalf ~= 0 then
+				local lifeOverLowLife = m_max(life - output.Life * data.misc.LowPoolThreshold, 0)
+				local preventPercent = output.preventedLifeLoss / 100
+				local poolAboveLow = lifeOverLowLife / (1 - preventPercent)
+				local damageToSplit = m_min(damageRemainder, poolAboveLow)
+				local lostLife = damageToSplit * (1 - preventPercent)
+				local preventedLoss = damageToSplit * preventPercent
+				damageRemainder = damageRemainder - damageToSplit
+				LifeLossLostOverTime = LifeLossLostOverTime + preventedLoss
+				life = life - lostLife
+				
+				if life <= output.Life * data.misc.LowPoolThreshold then
+					local unspecificallyLowLifePreventedDamage = damageRemainder * preventPercent
+					LifeLossLostOverTime = LifeLossLostOverTime + unspecificallyLowLifePreventedDamage
+					damageRemainder = damageRemainder - unspecificallyLowLifePreventedDamage
+					local specificallyLowLifePreventedDamage = damageRemainder * modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100
+					LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime + specificallyLowLifePreventedDamage
+					damageRemainder = damageRemainder - specificallyLowLifePreventedDamage
+				end
+			else
+				local tempDamage = damageRemainder * output.preventedLifeLoss / 100
+				LifeLossLostOverTime = LifeLossLostOverTime + tempDamage
+				damageRemainder = damageRemainder - tempDamage
+			end
+		end
+		life = life - damageRemainder
+	end
+	
+	return {
+		FrostShieldLife = frostShield,
+		SoulLink = soulLink,
+		Aegis = aegis,
+		Guard = guard,
+		PoolsLost = PoolsLost,
+		Ward = restoreWard,
+		EnergyShield = energyShield,
+		Mana = mana,
+		Life = life,
+		LifeLossLostOverTime = LifeLossLostOverTime,
+		LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime
+	}
+end
+
 -- Performs all defensive calculations
 function calcs.defence(env, actor)
 	local modDB = actor.modDB
@@ -1160,18 +1342,19 @@ function calcs.defence(env, actor)
 		local reduction = modDB:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
 		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."EnemyPen"]
 		local enemyOverwhelm = modDB:Flag(nil, "SelfIgnore"..damageType.."DamageReduction") and 0 or output[damageType.."EnemyOverwhelm"]
-		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		local damage = output[damageType.."TakenDamage"]
 		local armourReduct = 0
 		local percentOfArmourApplies = m_min((not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
 		local effectiveAppliedArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
 		local resMult = 1 - (resist - enemyPen) / 100
 		local reductMult = 1
+		local takenFlat = modDB:Sum("BASE", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks")
 		elseif damageCategoryConfig == "Average" then
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
+		output[damageType.."takenFlat"] = takenFlat
 		if percentOfArmourApplies > 0 then
 			armourReduct = calcs.armourReduction(effectiveAppliedArmour, damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
@@ -1661,154 +1844,6 @@ function calcs.defence(env, actor)
 		end
 	end
 	
-	-- helper function that reduces pools according to damage taken
-	---@param poolTable table special pool values to use. Can be nil. Values from output are used if this is not provided or a value for some key in this is nil.
-	---@param damageTable table damage table after all the relevant reductions
-	---@return table pools reduced by damage
-	local function reducePoolsByDamage(poolTable, damageTable)
-		local poolTbl = poolTable or { }
-		local frostShield = poolTbl.FrostShieldLife or output.FrostShieldLife or 0
-		local soulLink = poolTbl.SoulLink or output.SoulLink or 0
-		
-		local PoolsLost = poolTbl.PoolsLost or { }
-		local aegis = poolTbl.Aegis
-		if not aegis then
-			aegis = {
-				shared = output.sharedAegis or 0,
-				sharedElemental = output.sharedElementalAegis or 0
-			}
-			for damageType in pairs(damageTable) do
-				aegis[damageType] = output[damageType.."Aegis"] or 0
-			end
-		end
-		local guard = poolTbl.Guard
-		if not guard then
-			guard = { shared = output.sharedGuardAbsorb or 0 }
-			for damageType in pairs(damageTable) do
-				guard[damageType] = output[damageType.."GuardAbsorb"] or 0
-			end
-		end
-		
-		local ward = poolTbl.Ward or output.Ward or 0
-		local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
-		
-		local energyShield = poolTbl.EnergyShield or output.EnergyShieldRecoveryCap
-		local mana = poolTbl.Mana or output.ManaUnreserved or 0
-		local life = poolTbl.Life or output.LifeRecoverable or 0
-		local LifeLossLostOverTime = poolTbl.LifeLossLostOverTime or 0
-		local LifeBelowHalfLossLostOverTime = poolTbl.LifeBelowHalfLossLostOverTime or 0
-		
-		for damageType, damage in pairs(damageTable) do
-			local damageRemainder = damage
-			if frostShield > 0 then
-				local tempDamage = m_min(damageRemainder * output.FrostShieldDamageMitigation / 100, frostShield)
-				frostShield = frostShield - tempDamage
-				damageRemainder = damageRemainder - tempDamage
-			end
-			-- soul link is not implemented for now
-			if soulLink > 0 then
-				local tempDamage = m_min(damageRemainder * output.SoulLinkMitigation / 100, soulLink)
-				soulLink = soulLink - tempDamage
-				damageRemainder = damageRemainder - tempDamage
-			end
-			-- frost shield and soul link does not count as you taking damage
-			PoolsLost[damageType] = (PoolsLost[damageType] or 0) + damageRemainder
-			if aegis[damageType] > 0 then
-				local tempDamage = m_min(damageRemainder, aegis[damageType])
-				aegis[damageType] = aegis[damageType] - tempDamage
-				damageRemainder = damageRemainder - tempDamage
-			end
-			if isElemental[damageType] and aegis.sharedElemental > 0 then
-				local tempDamage = m_min(damageRemainder, aegis.sharedElemental)
-				aegis.sharedElemental = aegis.sharedElemental - tempDamage
-				damageRemainder = damageRemainder - tempDamage
-			end
-			if aegis.shared > 0 then
-				local tempDamage = m_min(damageRemainder, aegis.shared)
-				aegis.shared = aegis.shared - tempDamage
-				damageRemainder = damageRemainder - tempDamage
-			end
-			if guard[damageType] > 0 then
-				local tempDamage = m_min(damageRemainder * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
-				guard[damageType] = guard[damageType] - tempDamage
-				damageRemainder = damageRemainder - tempDamage
-			end
-			if guard.shared > 0 then
-				local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, guard.shared)
-				guard.shared = guard.shared - tempDamage
-				damageRemainder = damageRemainder - tempDamage
-			end
-			if ward > 0 then
-				local tempDamage = m_min(damageRemainder * (1 - (modDB:Sum("BASE", nil, "WardBypass") or 0) / 100), ward)
-				ward = ward - tempDamage
-				damageRemainder = damageRemainder - tempDamage
-			end
-			local esBypass = output[damageType.."EnergyShieldBypass"] or 0
-			if energyShield > 0 and (not modDB:Flag(nil, "EnergyShieldProtectsMana")) and (esBypass) < 100 then
-				local tempDamage = m_min(damageRemainder * (1 - esBypass / 100), energyShield)
-				energyShield = energyShield - tempDamage
-				damageRemainder = damageRemainder - tempDamage
-			end
-			if (output.sharedMindOverMatter + output[damageType.."MindOverMatter"]) > 0 then
-				local MoMDamage = damageRemainder * m_min(output.sharedMindOverMatter + output[damageType.."MindOverMatter"], 100) / 100
-				if modDB:Flag(nil, "EnergyShieldProtectsMana") and energyShield > 0 and esBypass < 100 then
-					local tempDamage = m_min(MoMDamage * (1 - esBypass / 100), energyShield)
-					energyShield = energyShield - tempDamage
-					MoMDamage = MoMDamage - tempDamage
-					local tempDamage2 = m_min(MoMDamage, mana)
-					mana = mana - tempDamage2
-					damageRemainder = damageRemainder - tempDamage - tempDamage2
-				elseif mana > 0 then
-					local tempDamage = m_min(MoMDamage, mana)
-					mana = mana - tempDamage
-					damageRemainder = damageRemainder - tempDamage
-				end
-			end
-			if output.preventedLifeLossTotal > 0 then
-				if output.preventedLifeLossBelowHalf ~= 0 then
-					local lifeOverLowLife = m_max(life - output.Life * data.misc.LowPoolThreshold, 0)
-					local preventPercent = output.preventedLifeLoss / 100
-					local poolAboveLow = lifeOverLowLife / (1 - preventPercent)
-					local damageToSplit = m_min(damageRemainder, poolAboveLow)
-					local lostLife = damageToSplit * (1 - preventPercent)
-					local preventedLoss = damageToSplit * preventPercent
-					damageRemainder = damageRemainder - damageToSplit
-					LifeLossLostOverTime = LifeLossLostOverTime + preventedLoss
-					life = life - lostLife
-					
-					if life <= output.Life * data.misc.LowPoolThreshold then
-						local unspecificallyLowLifePreventedDamage = damageRemainder * preventPercent
-						LifeLossLostOverTime = LifeLossLostOverTime + unspecificallyLowLifePreventedDamage
-						damageRemainder = damageRemainder - unspecificallyLowLifePreventedDamage
-						local specificallyLowLifePreventedDamage = damageRemainder * modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100
-						LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime + specificallyLowLifePreventedDamage
-						damageRemainder = damageRemainder - specificallyLowLifePreventedDamage
-					end
-				else
-					local tempDamage = damageRemainder * output.preventedLifeLoss / 100
-					LifeLossLostOverTime = LifeLossLostOverTime + tempDamage
-					damageRemainder = damageRemainder - tempDamage
-				end
-			end
-			life = life - damageRemainder
-		end
-		
-		return {
-			FrostShieldLife = frostShield,
-			SoulLink = soulLink,
-			Aegis = aegis,
-			Guard = guard,
-			PoolsLost = PoolsLost,
-			Ward = restoreWard,
-			EnergyShield = energyShield,
-			Mana = mana,
-			Life = life,
-			LifeLossLostOverTime = LifeLossLostOverTime,
-			LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime
-		}
-	end
-	output.reducePoolsByDamage = reducePoolsByDamage
-	
 	-- helper function that iteratively reduces pools until life hits 0 to determine the number of hits it would take with given damage to die
 	local function numberOfHitsToDie(DamageIn)
 		local numHits = 0
@@ -1879,7 +1914,7 @@ function calcs.defence(env, actor)
 				poolTable.Mana = m_min(poolTable.Mana + DamageIn.ManaWhenHit * (gainMult - 1), gainMult * (output.ManaUnreserved or 0))
 				poolTable.EnergyShield = m_min(poolTable.EnergyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
 			end
-			poolTable = reducePoolsByDamage(poolTable, Damage)
+			poolTable = calcs.reducePoolsByDamage(poolTable, Damage, actor)
 			if poolTable.Life > 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
 				return m_huge
 			end
@@ -2493,45 +2528,23 @@ function calcs.defence(env, actor)
 		end
 	end
 
-	local function damageMultiplierForType(damage, ofType)
-		local totalResistMult = output[ofType .."ResistTakenHitMulti"]
-		local effectiveAppliedArmour = output[ofType .."EffectiveAppliedArmour"]
-		local armourDRPercent = calcs.armourReductionF(effectiveAppliedArmour, damage * totalResistMult)
-		local flatDRPercent = modDB:Flag(nil, "SelfIgnore".."Base".. ofType .."DamageReduction") and 0 or output["Base".. ofType .."DamageReductionWhenHit"] or output["Base".. ofType .."DamageReduction"]
-		local totalDRPercent = m_min(output.DamageReductionMax, armourDRPercent + flatDRPercent)
-		local enemyOverwhelmPercent = modDB:Flag(nil, "SelfIgnore".. ofType .."DamageReduction") and 0 or output[ofType .."EnemyOverwhelm"]
-		local totalDRMulti = 1 - m_max(m_min(output.DamageReductionMax, totalDRPercent - enemyOverwhelmPercent), 0) / 100
-		local totalTakenMulti = output[ofType .."AfterReductionTakenHitMulti"]
-		return totalResistMult * totalDRMulti * totalTakenMulti
-	end
-
 	for _, damageType in ipairs(dmgTypeList) do
 		local partMin = m_huge
 		local poolMax = 0
 		local useConversionSmoothing = false
-		local function takenHitFromDamage(rawDamage)
-			local receivedDamageSum = 0
-			local damages = { }
-			for damageConvertedType, convertPercent in pairs(actor.damageShiftTable[damageType]) do
-				if convertPercent > 0 then
-					local convertedDamage = rawDamage * convertPercent / 100
-					local reducedDamage = convertedDamage * damageMultiplierForType(convertedDamage, damageConvertedType)
-					receivedDamageSum = receivedDamageSum + reducedDamage
-					damages[damageConvertedType] = reducedDamage
-				end
-			end
-			return receivedDamageSum, damages
-		end
 		for _, damageConvertedType in ipairs(dmgTypeList) do
 			local convertPercent = actor.damageShiftTable[damageType][damageConvertedType]
-			if convertPercent > 0 then
+			local takenFlat = output[damageConvertedType.."takenFlat"]
+			if convertPercent > 0 or takenFlat ~= 0 then
 				local hitTaken = 0
 				local effectiveAppliedArmour = output[damageConvertedType.."EffectiveAppliedArmour"]
 				local damageConvertedMulti = convertPercent / 100
 				local totalHitPool = output[damageConvertedType.."TotalHitPool"]
+				local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"]
 
 				if effectiveAppliedArmour == 0 and convertPercent == 100 then	-- use a simpler calculation for no armour DR
-					hitTaken = totalHitPool / damageConvertedMulti / output[damageConvertedType.."BaseTakenHitMult"]
+					local drMulti = output[damageType.."ResistTakenHitMulti"] * (1 - output[damageType.."DamageReduction"] / 100)
+					hitTaken = m_max(totalHitPool / damageConvertedMulti / drMulti - takenFlat, 0) / totalTakenMulti
 				else
 					-- get relevant raw reductions and reduction modifiers
 					local totalResistMult = output[damageConvertedType.."ResistTakenHitMulti"]
@@ -2540,34 +2553,33 @@ function calcs.defence(env, actor)
 					local flatDR = reductionPercent / 100
 					local enemyOverwhelmPercent = modDB:Flag(nil, "SelfIgnore"..damageConvertedType.."DamageReduction") and 0 or output[damageConvertedType.."EnemyOverwhelm"]
 
-					local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"]
-
 					-- We know the damage and armour calculation chain. The important part for max hit calculations is:
 					-- 		dmgAfterRes = RAW * DamageConvertedMulti * ResistanceMulti
 					-- 		armourDR = AppliedArmour / (AppliedArmour + 5 * dmgAfterRes)
 					-- 		totalDR = max(min(armourDR + FlatDR, MaxReduction) - Overwhelm, 0)	-- min and max is complicated to actually math out so skip caps first and tack it on later. Result should be close enough
 					-- 		dmgReceived = dmgAfterRes * (1 - totalDR)
-					-- 		damageTaken = dmgReceived * TakenMulti
+					-- 		damageTaken = (dmgReceived + takenFlat) * TakenMulti
 					-- If we consider damageTaken to be the total hit pool of the actor, we can go backwards in the chain until we find the max hit - the RAW damage.
 					-- Unfortunately the above is slightly simplified and is missing a line that *really* complicates stuff for exact calculations:
 					--		damageTaken = damageTakenAsPhys + damageTakenAsFire + damageTakenAsCold + damageTakenAsLightning + damageTakenAsChaos
 					-- Trying to solve that for RAW might require solving a polynomial equation of 6th degree, so this solution settles for solving the parts independently and then approximating the final result
 					--
 					-- To solve only one part the above can be expressed as this:
-					--		5 * (1 - FlatDR + Overwhelm) * TakenMulti * ResistanceMulti * ResistanceMulti * DamageConvertedMulti * DamageConvertedMulti * RAW * RAW + ((Overwhelm - FlatDR) * AppliedArmour * TakenMulti - 5 * damageTaken) * ResistanceMulti * DamageConvertedMulti * RAW - damageTaken * AppliedArmour = 0
+					--		5 * (1 - FlatDR + Overwhelm) * TakenMulti * ResistanceMulti * ResistanceMulti * DamageConvertedMulti * DamageConvertedMulti * RAW * RAW + ((Overwhelm - FlatDR) * AppliedArmour * TakenMulti - 5 * (damageTaken - takenFlat * TakenMulti)) * ResistanceMulti * DamageConvertedMulti * RAW - (damageTaken - takenFlat * TakenMulti) * AppliedArmour = 0
 					-- Which means that
 					-- 		RAW = [quadratic]
 
 					local resistXConvert = totalResistMult * damageConvertedMulti
 					local a = 5 * (1 - flatDR + enemyOverwhelmPercent / 100) * totalTakenMulti * resistXConvert * resistXConvert
-					local b = ((enemyOverwhelmPercent / 100 - flatDR) * effectiveAppliedArmour * totalTakenMulti - 5 * totalHitPool) * resistXConvert
-					local c = -effectiveAppliedArmour * totalHitPool
+					local b = ((enemyOverwhelmPercent / 100 - flatDR) * effectiveAppliedArmour * totalTakenMulti - 5 * (totalHitPool - takenFlat * totalTakenMulti)) * resistXConvert
+					local c = -effectiveAppliedArmour * (totalHitPool - takenFlat * totalTakenMulti)
 
 					local RAW = (m_sqrt(b * b - 4 * a * c) - b) / (2 * a)
 
 					-- tack on some caps
-					local overwhelmedReductionMulti = 1 - (output.DamageReductionMax - enemyOverwhelmPercent) / 100
-					hitTaken = m_floor(m_max(m_min(RAW, totalHitPool / damageConvertedMulti / totalTakenMulti / totalResistMult / overwhelmedReductionMulti), totalHitPool / damageConvertedMulti / totalTakenMulti / totalResistMult))
+					local noDRMaxHit = totalHitPool / damageConvertedMulti / totalResistMult / totalTakenMulti * (1 - takenFlat * totalTakenMulti / totalHitPool)
+					local maxDRMaxHit = noDRMaxHit / (1 - (output.DamageReductionMax - enemyOverwhelmPercent) / 100)
+					hitTaken = m_floor(m_max(m_min(RAW, maxDRMaxHit), noDRMaxHit))
 					useConversionSmoothing = useConversionSmoothing or convertPercent ~= 100
 				end
 				poolMax = m_max(poolMax, totalHitPool)
@@ -2584,7 +2596,7 @@ function calcs.defence(env, actor)
 			-- this just reduces deviation from what the result should be
 			local noSmoothing = partMin
 			-- this sqrt pass could be repeated multiple times and each time it would produce a more accurate result.
-			local noSmoothingFullTaken, noSmoothingDamages = takenHitFromDamage(noSmoothing)
+			local noSmoothingFullTaken, noSmoothingDamages = calcs.takenHitFromDamage(noSmoothing, damageType, actor)
 			local firstPassRatio = noSmoothingFullTaken / poolMax
 			for partType, partTaken in pairs(noSmoothingDamages) do
 				firstPassRatio = m_max(firstPassRatio, partTaken / output[partType.."TotalHitPool"])
@@ -2593,7 +2605,7 @@ function calcs.defence(env, actor)
 			-- this finishing pass is special because it:
 			--	1) inverts the behaviour of misreporting - instead of over reporting it under reports, so players don't try to tank something they can't
 			--	2) near the worst case scenarios of previous smoothing ratios this *magically* makes calculations near exact. In average case scenarios it still helps.
-			local onePassFullTaken, onePassDamages = takenHitFromDamage(onePass)
+			local onePassFullTaken, onePassDamages = calcs.takenHitFromDamage(onePass, damageType, actor)
 			local finalPassRatio = onePassFullTaken / poolMax
 			for partType, partTaken in pairs(onePassDamages) do
 				finalPassRatio = m_max(finalPassRatio, partTaken / output[partType.."TotalHitPool"])
@@ -2619,7 +2631,7 @@ function calcs.defence(env, actor)
 				},
 			}
 			
-			local fullTaken, takenDamages = takenHitFromDamage(finalMaxHit * enemyDamageMult)
+			local fullTaken, takenDamages = calcs.takenHitFromDamage(finalMaxHit * enemyDamageMult, damageType, actor)
 			fullTaken = fullTaken == fullTaken and fullTaken or 0
 			
 			for takenType, takenAmt in pairs(takenDamages) do
@@ -2648,7 +2660,7 @@ function calcs.defence(env, actor)
 			end
 			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("= %.0f ^8maximum survivable enemy damage%s", finalMaxHit, useConversionSmoothing and " (approximate)" or ""))
 			
-			local poolsRemaining = reducePoolsByDamage(nil, takenDamages)
+			local poolsRemaining = calcs.reducePoolsByDamage(nil, takenDamages, actor)
 			local poolRemainingStrings = {
 				output.FrostShieldLife and output.FrostShieldLife > 0 and s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.FrostShieldLife, poolsRemaining.FrostShieldLife) or nil,
 				output.sharedAegis and output.sharedAegis > 0 and s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared) or nil,

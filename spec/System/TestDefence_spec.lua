@@ -85,9 +85,8 @@ describe("TestDefence", function()
     end)
     
     -- a small helper function to calculate damage taken from limited test parameters
-    local function takenHitFromDamage(damage, armour, resMulti, takenMulti, overwhelmDecimal)
-        local armourDR = 1 - (math.min(armour / (armour + 5 * damage * resMulti), 0.9) - overwhelmDecimal)
-        return round(damage * resMulti * armourDR * takenMulti)
+    local function takenHitFromTypeMaxHit(type, enemyDamageMulti)
+        return build.calcsTab.calcs.takenHitFromDamage(build.calcsTab.calcsOutput[type.."MaximumHitTaken"] * (enemyDamageMulti or 1), type, build.calcsTab.calcsEnv.player)
     end
     
     it("progenesis and petrified blood", function()
@@ -267,7 +266,8 @@ describe("TestDefence", function()
         assert.are.equals(13000, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
         assert.are.equals(10000, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
         
-        local poolsRemaining = build.calcsTab.calcsOutput.reducePoolsByDamage(nil, { Fire = takenHitFromDamage(build.calcsTab.calcsOutput.FireMaximumHitTaken * 0.8, 0, 0.1, 0.25, 0) })
+        local _, takenDamages = takenHitFromTypeMaxHit("Fire", 0.8)
+        local poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, poolsRemaining.EnergyShield)
         assert.are.equals(0, poolsRemaining.Life)
         assert.are.equals(120, poolsRemaining.LifeLossLostOverTime)
@@ -282,7 +282,7 @@ describe("TestDefence", function()
         " -- hit of 2000 on 10000 armour results in 50% DR which reduces the damage to 1000 - total HP
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.PhysicalMaximumHitTaken, 10000, 1, 1, 0))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Physical"))
         assert.are.equals(625, build.calcsTab.calcsOutput.FireMaximumHitTaken)
         assert.are.equals(625, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
         assert.are.equals(625, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
@@ -294,7 +294,7 @@ describe("TestDefence", function()
         " -- hit of 5000 on 100000 armour results in 80% DR which reduces the damage to 1000 - total HP
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.PhysicalMaximumHitTaken, 100000, 1, 1, 0))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Physical"))
         assert.are.equals(625, build.calcsTab.calcsOutput.FireMaximumHitTaken)
         assert.are.equals(625, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
         assert.are.equals(625, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
@@ -306,7 +306,7 @@ describe("TestDefence", function()
         " -- 90% DR cap
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.PhysicalMaximumHitTaken, 1000000000, 1, 1, 0))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Physical"))
         assert.are.equals(625, build.calcsTab.calcsOutput.FireMaximumHitTaken)
         assert.are.equals(625, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
         assert.are.equals(625, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
@@ -319,7 +319,7 @@ describe("TestDefence", function()
         build.configTab.input.enemyPhysicalOverwhelm = 15 -- should result 75% DR
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.PhysicalMaximumHitTaken, 1000000000, 1, 1, 0.15))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Physical"))
         assert.are.equals(625, build.calcsTab.calcsOutput.FireMaximumHitTaken)
         assert.are.equals(625, build.calcsTab.calcsOutput.ColdMaximumHitTaken)
         assert.are.equals(625, build.calcsTab.calcsOutput.LightningMaximumHitTaken)
@@ -334,9 +334,9 @@ describe("TestDefence", function()
         build.configTab:BuildModList()
         runCallback("OnFrame")
         assert.are.equals(1000, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.FireMaximumHitTaken, 10000, 1, 1, 0))
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.ColdMaximumHitTaken, 10000, 1, 1, 0))
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.LightningMaximumHitTaken, 10000, 1, 1, 0))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Fire"))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Cold"))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Lightning"))
         assert.are.equals(625, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 
         build.configTab.input.customMods = "\z
@@ -350,9 +350,9 @@ describe("TestDefence", function()
         build.configTab:BuildModList()
         runCallback("OnFrame")
         assert.are.equals(1000, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.FireMaximumHitTaken, 10000, 0.5, 1, 0))
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.ColdMaximumHitTaken, 10000, 0.5, 1, 0))
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.LightningMaximumHitTaken, 10000, 0.5, 1, 0))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Fire"))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Cold"))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Lightning"))
         assert.are.equals(625, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 
         build.configTab.input.customMods = "\z
@@ -367,19 +367,11 @@ describe("TestDefence", function()
         build.configTab:BuildModList()
         runCallback("OnFrame")
         assert.are.equals(2000, build.calcsTab.calcsOutput.PhysicalMaximumHitTaken)
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.FireMaximumHitTaken, 10000, 0.5, 0.5, 0))
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.ColdMaximumHitTaken, 10000, 0.5, 0.5, 0))
-        assert.are.equals(1000, takenHitFromDamage(build.calcsTab.calcsOutput.LightningMaximumHitTaken, 10000, 0.5, 0.5, 0))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Fire"))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Cold"))
+        assert.are.equals(1000, takenHitFromTypeMaxHit("Lightning"))
         assert.are.equals(1250, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
     end)
-
-    -- a bigger helper function to calculate damage taken from limited test parameters
-    local function takenHitFromDamageWithConversion(damage, conversionMulti, armourFrom, armourTo, resMultiFrom, resMultiTo, takenMultiFrom, takenMultiTo)
-        local armourDRFrom = 1 - (math.min(armourFrom / (armourFrom + 5 * damage * conversionMulti * resMultiFrom), 0.9))
-        local armourDRTo = 1 - (math.min(armourTo / (armourTo + 5 * damage * (1 - conversionMulti) * resMultiTo), 0.9))
-        local damage1, damage2 = damage * (1 - conversionMulti) * resMultiTo * armourDRTo * takenMultiTo, damage * conversionMulti * resMultiFrom * armourDRFrom * takenMultiFrom
-        return round(damage1 + damage2), damage1, damage2
-    end
     
     local function withinTenPercent(value, otherValue)
         local ratio = otherValue / value
@@ -396,7 +388,7 @@ describe("TestDefence", function()
         "
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        assert.is.not_false(withinTenPercent(1000, takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.PhysicalMaximumHitTaken, 0.5, 0, 0, 1, 0.1, 0.25, 0.25)))
+        assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Physical")))
 
         build.configTab.input.customMods = "\z
         +940 to maximum life\n\z
@@ -409,8 +401,8 @@ describe("TestDefence", function()
         "
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        assert.is.not_false(withinTenPercent(1000, takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.PhysicalMaximumHitTaken, 0.5, 0, 0, 1, 0.1, 0.25, 0.25)))
-        assert.is.not_false(withinTenPercent(1000, takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.ColdMaximumHitTaken, 0.5, 0, 0, 0.1, 0.1, 0.25, 0.25)))
+        assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Physical")))
+        assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Cold")))
 
         build.configTab.input.customMods = "\z
         +940 to maximum life\n\z
@@ -422,8 +414,8 @@ describe("TestDefence", function()
         "
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        assert.is.not_false(withinTenPercent(1000, takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.PhysicalMaximumHitTaken, 0.5, 0, 10000, 1, 0.5, 1, 1)))
-        assert.is.not_false(withinTenPercent(1000, takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.ColdMaximumHitTaken, 0.5, 10000, 10000, 0.5, 0.5, 1, 1)))
+        assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Physical")))
+        assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Cold")))
 
         build.configTab.input.customMods = "\z
         +940 to maximum life\n\z
@@ -436,8 +428,8 @@ describe("TestDefence", function()
         "
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        assert.is.not_false(withinTenPercent(1000, takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.PhysicalMaximumHitTaken, 0.5, 0, 10000, 1, 0.5, 1, 0.5)))
-        assert.is.not_false(withinTenPercent(1000, takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.ColdMaximumHitTaken, 0.5, 10000, 10000, 0.5, 0.5, 1, 0.5)))
+        assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Physical")))
+        assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Cold")))
     end)
     
     it("damage conversion to different size pools", function()
@@ -453,8 +445,8 @@ describe("TestDefence", function()
         "   -- Small amount of conversion into a smaller pool leads to the higher pool damage type (lightning) draining it's own excess pool (mana), and then joining back on the shared pools (life)
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        local _, LDamage, CDamage = takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.LightningMaximumHitTaken, 0.1, 10000, 10000, 0.5, 0.5, 1, 1)
-        local poolsRemaining = build.calcsTab.calcsOutput.reducePoolsByDamage(nil, { Lightning = LDamage, Cold = CDamage })
+        local _, takenDamages = takenHitFromTypeMaxHit("Lightning")
+        local poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Mana))
         assert.are.not_false(poolsRemaining.Life / 100 < 0.1)
         
@@ -469,8 +461,8 @@ describe("TestDefence", function()
         "   -- This is a case where cold damage drains the whole life pool and lightning damage drains the entire mana pool, leaving nothing
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        _, LDamage, CDamage = takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.LightningMaximumHitTaken, 0.2, 10000, 10000, 0.5, 0.5, 1, 1)
-        poolsRemaining = build.calcsTab.calcsOutput.reducePoolsByDamage(nil, { Lightning = LDamage, Cold = CDamage })
+        _, takenDamages = takenHitFromTypeMaxHit("Lightning")
+        poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Life))
         assert.are.equals(0, round(poolsRemaining.Mana))
     
@@ -485,8 +477,8 @@ describe("TestDefence", function()
         "   -- Any extra mana in this case will not help and be left over after death, since life hits 0 from the cold damage alone
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        _, LDamage, CDamage = takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.LightningMaximumHitTaken, 0.2, 10000, 10000, 0.5, 0.5, 1, 1)
-        poolsRemaining = build.calcsTab.calcsOutput.reducePoolsByDamage(nil, { Lightning = LDamage, Cold = CDamage })
+        _, takenDamages = takenHitFromTypeMaxHit("Lightning")
+        poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Life))
         assert.are.equals(1000, round(poolsRemaining.Mana))
         
@@ -502,8 +494,8 @@ describe("TestDefence", function()
         "   -- With inverted conversion amounts the behaviour of converting into a bigger pool should be exactly the same as converting into a lower one.
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        _, CDamage, LDamage = takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.ColdMaximumHitTaken, 0.9, 10000, 10000, 0.5, 0.5, 1, 1)
-        poolsRemaining = build.calcsTab.calcsOutput.reducePoolsByDamage(nil, { Lightning = LDamage, Cold = CDamage })
+        _, takenDamages = takenHitFromTypeMaxHit("Cold")
+        poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Mana))
         assert.are.not_false(poolsRemaining.Life / 100 < 0.1)
     
@@ -518,8 +510,8 @@ describe("TestDefence", function()
         "
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        _, CDamage, LDamage = takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.ColdMaximumHitTaken, 0.8, 10000, 10000, 0.5, 0.5, 1, 1)
-        poolsRemaining = build.calcsTab.calcsOutput.reducePoolsByDamage(nil, { Lightning = LDamage, Cold = CDamage })
+        _, takenDamages = takenHitFromTypeMaxHit("Cold")
+        poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Life))
         assert.are.equals(0, round(poolsRemaining.Mana))
     
@@ -534,8 +526,8 @@ describe("TestDefence", function()
         "
         build.configTab:BuildModList()
         runCallback("OnFrame")
-        _, CDamage, LDamage = takenHitFromDamageWithConversion(build.calcsTab.calcsOutput.ColdMaximumHitTaken, 0.8, 10000, 10000, 0.5, 0.5, 1, 1)
-        poolsRemaining = build.calcsTab.calcsOutput.reducePoolsByDamage(nil, { Lightning = LDamage, Cold = CDamage })
+        _, takenDamages = takenHitFromTypeMaxHit("Cold")
+        poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Life))
         assert.are.equals(1000, round(poolsRemaining.Mana))
     end)
