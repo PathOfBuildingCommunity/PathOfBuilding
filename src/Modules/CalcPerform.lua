@@ -608,9 +608,9 @@ local function doActorAttribsPoolsConditions(env, actor)
 			if breakdown then
 				breakdown["Omni"] = breakdown.simple(nil, nil, output["Omni"], "Omni")
 			end
-      
-      local stats = { output.Str, output.Dex, output.Int }
-      table.sort(stats)
+
+			local stats = { output.Str, output.Dex, output.Int }
+			table.sort(stats)
 			output.LowestAttribute = stats[1]
 			condList["TwoHighestAttributesEqual"] = stats[2] == stats[3]
 		
@@ -3419,7 +3419,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
 		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
-	
+
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
 	if not fullDPSSkipEHP then
