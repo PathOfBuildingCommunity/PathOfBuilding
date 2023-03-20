@@ -217,7 +217,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						GlobalCache.noCache = nil
 					end
 					fullEnv.player.mainSkill = activeSkill
-					calcs.perform(fullEnv, true)
+					calcs.perform(fullEnv, true, (GlobalCache.numActiveSkillInFullDPS ~= 1))
 					usedEnv = fullEnv
 					GlobalCache.noCache = forceCache
 				end
