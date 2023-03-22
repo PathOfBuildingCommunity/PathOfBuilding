@@ -407,6 +407,7 @@ end
 table.insert(data.uniques.generated, table.concat(precursorsEmblem, "\n"))
 
 local balanceOfTerrorMods = {
+	["None"] = "",
 	["Vulnerability: Double Damage"] = "(6-10)% chance to deal Double Damage if you've cast Vulnerability in the past 10 seconds",
 	["Vulnerability: Unaffected by Bleeding"] = "You are Unaffected by Bleeding if you've cast Vulnerability in the past 10 seconds",
 	["Enfeeble: Critical Strike Multiplier"] = "+(30-40)% to Critical Strike Multiplier if you've cast Enfeeble in the past 10 seconds",
@@ -434,7 +435,7 @@ local balanceOfTerror = {
 	"Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}",
 	"Has Alt Variant: true",
 	"Has Alt Variant Two: true",
-	"Selected Alt Variant Two: 0",
+	"Selected Alt Variant Two: 1",
 	"Limited to: 1",
 	"LevelReq: 56",
 }
