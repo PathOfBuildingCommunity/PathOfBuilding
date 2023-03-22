@@ -634,6 +634,9 @@ local abbreviateModId = function(string)
 	gsub("EnergyShield", "ES"))
 end
 
+-- adding a blank variant to account for changes made in 3.20.1
+table.insert(voranasMarch, "Variant: None")
+
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
 		local variantName = abbreviateModId(mod.Id):gsub("^[Purity Of ]*%u%l+", "%1:"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
