@@ -433,6 +433,8 @@ local balanceOfTerror = {
 	"League: Sanctum",
 	"Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}",
 	"Has Alt Variant: true",
+	"Has Alt Variant Two: true",
+	"Selected Alt Variant Two: 0",
 	"Limited to: 1",
 	"LevelReq: 56",
 }
