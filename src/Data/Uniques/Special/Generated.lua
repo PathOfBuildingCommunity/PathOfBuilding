@@ -612,8 +612,10 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Has Alt Variant: true
 Has Alt Variant Two: true
-Selected Variant: 1
-Selected Alt Variant: 2
+Has Alt Variant Three: true
+Selected Variant: 10
+Selected Alt Variant Two: 11
+Selected Alt Variant Three: 13
 ]]
 }
 
