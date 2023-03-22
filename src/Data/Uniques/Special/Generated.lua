@@ -613,7 +613,8 @@ Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbo
 Has Alt Variant: true
 Has Alt Variant Two: true
 Has Alt Variant Three: true
-Selected Variant: 10
+Selected Variant: 24
+Selected Alt Variant: 10
 Selected Alt Variant Two: 11
 Selected Alt Variant Three: 13
 ]]
