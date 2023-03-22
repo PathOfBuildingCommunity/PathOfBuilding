@@ -188,11 +188,6 @@ function listMode:BuildList(recursePath)
 	if filterList ~= "" then
 		while handle do
 			local folderName = handle:GetFileName()
-			--[[t_insert(self.list, {
-				folderName = folderName,
-				subPath = self.subPath,
-				fullFileName = main.buildPath..self.subPath..folderName,
-			})]]
 			self:BuildList(recursePath..folderName.."/")
 			if not handle:NextFile() then
 				break

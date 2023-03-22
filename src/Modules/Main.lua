@@ -374,7 +374,7 @@ function main:OnFrame()
 		local strWidth = DrawStringWidth(16, "VAR", self.showDragText)
 		SetDrawLayer(20, 0)
 		SetDrawColor(0.15, 0.15, 0.15, 0.75)
-		DrawImage(nil, cursorX, cursorY - 8, strWidth + 2, 18)
+		DrawImage(nil, cursorX, cursorY - 8, strWidth + 2, 16 * select(2, self.showDragText:gsub('\n', '\n')) + 2)
 		SetDrawColor(1, 1, 1)
 		DrawString(cursorX + 1, cursorY - 7, "LEFT", 16, "VAR", self.showDragText)
 		self.showDragText = nil
