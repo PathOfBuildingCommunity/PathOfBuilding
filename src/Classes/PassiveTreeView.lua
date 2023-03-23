@@ -440,7 +440,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local searchWords = {}
 			for matchstring, v in search:gmatch('"([^"]*)"') do
 				searchWords[#searchWords+1] = matchstring
-				search = search:gsub('"'..matchstring..'"', "")
+				search = search:gsub('"'..matchstring:gsub("([%(%)])", "%%%1")..'"', "")
 			end
 			for matchstring, v in search:gmatch("(%S*)") do
 				if matchstring:match("%S") ~= nil then
