@@ -2296,6 +2296,7 @@ skills["CorpseEruption"] = {
 			name = "Corpse Explosion",
 			spell = false,
 			cast =  true,
+			projectile = false,
 		},
 	},
 	statMap = {
