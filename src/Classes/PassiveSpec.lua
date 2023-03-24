@@ -301,7 +301,7 @@ function PassiveSpecClass:EncodeURL(prefix)
 	local masteryNodeIds = {}
 
 	for id, node in pairs(self.allocNodes) do
-		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 then
+		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 and nodeCount < 255 then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
 			nodeCount = nodeCount + 1
