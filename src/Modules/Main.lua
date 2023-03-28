@@ -1226,12 +1226,12 @@ do
 				t_insert(wrapTable, str:sub(lineStart, -1))
 				break
 			end
+			lastBreak = s - 1
+			lastSpace = e + 1
 			if DrawStringWidth(height, "VAR", str:sub(lineStart, s - 1)) > width then
 				t_insert(wrapTable, str:sub(lineStart, lastBreak))
 				lineStart = lastSpace
 			end
-			lastBreak = s - 1
-			lastSpace = e + 1
 		end
 		return wrapTable
 	end
