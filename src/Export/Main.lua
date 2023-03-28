@@ -172,8 +172,25 @@ function main:Init()
 	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()
 	end)
+	
+	self.controls.scriptAll = new("ButtonControl", nil, 270, 10, 100, 18, "Run All", function()
+		do -- run stat desc first
+			local errMsg = PLoadModule("Scripts/".."statdesc"..".lua")
+			if errMsg then
+				print(errMsg)
+			end
+		end
+		for _, script in ipairs(self.scriptList) do
+			if script ~= "statdesc" then
+				local errMsg = PLoadModule("Scripts/"..script..".lua")
+				if errMsg then
+					print(errMsg)
+				end
+			end
+		end
+	end)
 
-	self.controls.scriptList = new("ScriptListControl", nil, 270, 10, 100, 300) {
+	self.controls.scriptList = new("ScriptListControl", nil, 270, 35, 100, 300) {
 		shown = function()
 			return not self.curDatFile
 		end
