@@ -139,5 +139,244 @@ writeMods("../Data/ModVeiled.lua", function(mod)
 	return mod.Domain == 28 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
 
+local directiveTable = { }
+
+local function validMapModWeight(weight, weightIndex, mod)
+	return weight ~= 0 and (mod.SpawnTags[weightIndex].Id == "default" or mod.SpawnTags[weightIndex].Id == "low_tier_map" or mod.SpawnTags[weightIndex].Id == "mid_tier_map" or mod.SpawnTags[weightIndex].Id == "top_tier_map")
+end
+
+directiveTable.setup = function(state, args, out)
+	out:write('return {\n')
+	out:write('\tAffixData = {\n')
+	state.mods = {}
+	state.modsOrdered = {}
+end
+
+directiveTable.modStart = function(state, args, out)
+	local name = args:match('%(([^%)]+)%)')
+	state.mods[name] = true
+	
+	local mod = {}
+	local modData = {}
+	for _, m in pairs(dat("Mods"):GetRowList("Name", name)) do
+		if (m.Domain == 5 and (m.GenerationType == 1 or m.GenerationType == 2)) then
+			for i, weight in ipairs(m.SpawnWeights) do
+				if validMapModWeight(weight, i, m) then
+					mod = m
+					if m.SpawnTags[i].Id == "mid_tier_map" and #modData == 0 then
+						if name == "of Stasis" then
+							table.insert(modData, m)
+							break
+						else
+							modData[1] = "low"
+						end
+					end
+					table.insert(modData, m)
+				end
+			end
+		end
+	end
+	local stats, orders = describeMod(mod)
+	
+	local affixType = mod.GenerationType == 1 and "Prefix" or (mod.GenerationType == 2 and "Suffix" or " other")
+	local modType = #modData == 1 and "check" or "list"
+	local oldLabel = args:match('oldLabel%(([^%)]+)%)') or ""
+	local oldToolTip = args:match('oldToolTip%(([^%)]+)%)') or ""
+	local label = args:match('label%(([^%)]+)%)') or ""
+	local tooltipLines = copyTable(stats)
+	local keywords = {}
+	
+	do
+		for i, line in ipairs(tooltipLines) do
+			if line:match("%(%d+%-%d+%)") or line:match("%(%-%d+%-%-%d+%)") then
+				modType = "count"
+			end
+			tooltipLines[i] = line:gsub("%%", "%%%%"):gsub("%(%-%d+%-%-%d+%)", "minus %(%%d to %%d%)"):gsub("%(%d+%-%d+%)", "%(%%d to %%d%)"):gsub("%d+", "%%d"):gsub("%-%%d", "minus %%d")
+			for substring in tooltipLines[i]:gmatch("%S+") do
+				substring = substring:gsub("%(%%d to %%d%)", ""):gsub("%%d", ""):gsub("%%", ""):gsub("minus ", ""):gsub("%+", ""):gsub("%(", ""):gsub("%)", "")
+				ConPrintf(substring)
+				if not label:match(substring) and not name:match(substring) then
+					table.insert(keywords, substring)
+				end
+			end
+		end
+	end
+	
+	local values = {}
+	
+	do
+		local offset = 0
+		for i, modDataValue in ipairs(modData) do
+			if modDataValue == "low" then
+				if #stats > 1 then
+					values[i] = {}
+					for j, _ in ipairs(stats) do
+						values[i][j] = modType == "count" and { 0, 0 } or 0
+					end
+				else
+					values[i - offset] = modType == "count" and { 0, 0 } or 0
+				end
+			else
+				if #stats > 1 then
+					offset = 0
+					for j, _ in ipairs(stats) do
+						local value = modDataValue["Stat"..tostring(j+3).."Value"]
+						if value[1] == value[2] then
+							value = value[1]
+						end
+						if value ~= 1 and not (modType == "check" and value == 100) then
+							values[i] = values[i] or {}
+							values[i][j - offset] = value
+						else
+							offset = offset + 1
+							if #stats - offset == 1 then
+								local value = modDataValue["Stat"..tostring(j+4).."Value"]
+								if value[1] == value[2] then
+									value = value[1]
+								end
+								if value ~= 1 and not (modType == "check" and value == 100) then
+									values[i] = { value }
+								end
+								break
+							end
+						end
+					end
+				else
+					local value = modDataValue.Stat4Value
+					if value[1] == value[2] then
+						value = value[1]
+					end
+					if value ~= 1 and not (modType == "check" and value == 100) then
+						values[i - offset] = value
+					else
+						offset = offset + 1
+					end
+				end
+			end
+		end
+	end
+	
+	out:write('\t\t["', name, '"] = {\n')
+	out:write('\t\t\ttype = "', modType, '",\n')
+	if oldLabel ~= "" then
+		out:write('\t\t\tlabel = "', oldLabel, '",\n')
+		if oldToolTip ~= "" then
+			out:write('\t\t\ttooltip = "', oldToolTip, '",\n')
+		end
+	end
+	if #tooltipLines ~= 0 then
+		out:write('\t\t\ttooltipLines = { ')
+		for i, line in ipairs(tooltipLines) do
+			out:write('"', line, i < #tooltipLines and '", ' or '"')
+		end
+		out:write(' },\n')
+	end
+	if #values ~= 0 then
+		if type(values[1]) == "table" then
+			out:write('\t\t\tvalues = { ')
+			for i, value in ipairs(values) do
+				if type(value) == "table" and type(value[1]) == "table" then
+					out:write('{ ')
+					for j, value2 in ipairs(value) do
+						out:write((j == 1 and '{ ' or ', { '), type(value2) == "table" and table.concat(value2, ', '):gsub("%-", "") or value2, ' }')
+					end
+					out:write(' }, ')
+				else
+					out:write((i == 1 and '{ ' or ', { '), type(value) == "table" and table.concat(value, ', '):gsub("%-", "") or value, ' }')
+				end
+			end
+			out:write(' },\n')
+		else
+			out:write('\t\t\tvalues = { ', table.concat(values, ', '):gsub("%-", ""), ' },\n')
+		end
+	end
+	out:write('\t\t\tapply = function(val, ', modType == "count" and 'rollRange, mapModEffect, values' or (modType == "list" and 'mapModEffect, values' or 'mapModEffect'), ', modList, enemyModList)\n')
+	
+	if not args:match('disabled') then
+		table.insert(state.modsOrdered, {affixType = affixType, name = name, label = label, keywords = keywords})
+	end
+end
+
+directiveTable.modEnd = function(state, args, out)
+	out:write('\t\t\tend\n')
+	out:write('\t\t},\n')
+end
+
+directiveTable.modList = function(state, args, out)
+	local newMods = { Prefix = {}, Suffix = {}, other = {} }
+	for mod in dat("Mods"):Rows() do
+		if not state.mods[mod.Name] and (mod.Domain == 5 and (mod.GenerationType == 1 or mod.GenerationType == 2)) then
+			local stats, orders = describeMod(mod)
+			local affixType = mod.GenerationType == 1 and "Prefix" or (mod.GenerationType == 2 and "Suffix" or " other")
+			if newMods[affixType][mod.Name] then
+				table.insert(newMods[affixType][mod.Name], { mod, stats, orders })
+			else
+				if #orders > 0 then
+					local hasWeight = false
+					for i, weight in ipairs(mod.SpawnWeights) do
+						if validMapModWeight(weight, i, mod) then
+							hasWeight = true
+							break
+						end
+					end
+					if hasWeight and not stats[1]:match("Players are Cursed with") then
+						newMods[affixType][mod.Name] = { { mod, stats, orders } }
+					end
+				else
+					--print("Mod '"..mod.Id.."' has no stats")
+				end
+			end
+		end
+	end
+	for _, affixType in ipairs({"Prefix", "Suffix"}) do
+		out:write('\t\t-- other ', affixType, 'es\n')
+		for modName, modArr in pairs(newMods[affixType]) do
+			local mod, stats, orders = modArr[1][1], modArr[1][2], modArr[1][3]
+			out:write('\t\t["', modName, '"] = { ')
+			for _, subMod in ipairs(modArr) do
+				local weights = {}
+				local valid = false
+				for i, weight in ipairs(subMod[1].SpawnWeights) do
+					if validMapModWeight(weight, i, mod)  then
+						valid = true
+						weights[subMod[1].SpawnTags[i].Id] = weight
+					end
+				end
+				if valid then
+					--out:write('weightKey = { ')
+					for tag, _ in pairs(weights) do
+						out:write('["', tag, '"] = { ')
+					end
+					--out:write('affixID = "', subMod[1].Id, '", ')
+					out:write('"', table.concat(subMod[2], '", "'), '", ')
+					out:write('weightVal = { ')
+					for _, weight in pairs(weights) do
+						out:write('"', weight, '", ')
+					end
+					out:write('}, }, ')
+				end
+			end
+			if #stats.modTags ~= 0 then
+				out:write('modTags = { ', stats.modTags, ' }, ')
+			end
+			out:write('},\n')
+		end
+	end
+	out:write('\t},\n')
+	for _, affixType in ipairs({"Prefix", "Suffix"}) do
+		out:write('\t', affixType, ' = {\n')
+		out:write('\t\t{ val = "NONE", label = "None" },\n')
+		for _, mod in ipairs(state.modsOrdered) do
+			if mod.affixType == affixType then
+				out:write('\t\t{ val = "', mod.name, '", label = "', mod.label, '                                 ', table.concat(mod.keywords, ' '), ' ', mod.name, '" },\n')
+			end
+		end
+		out:write('\t},\n')
+	end
+	out:write('}')
+end
+
+processTemplateFile("ModMap", "", "../Data/", directiveTable)
+
 
 print("Mods exported.")
