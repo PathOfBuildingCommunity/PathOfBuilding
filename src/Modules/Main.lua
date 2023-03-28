@@ -919,23 +919,39 @@ function main:OpenAboutPopup()
 		end
 	end
 	local helpList = { }
-	local helpName = launch.devMode and "../help.txt" or "help.txt"
-	local helpFile = io.open(helpName, "r")
-	if helpFile then
-		helpFile:close()
-		for line in io.lines(helpName) do
-			local title, titleIndex = line:match("^---%[(.+)%]%[(.+)%]$")
-			if title then
-				if #helpList > 0 then
-					t_insert(helpList, { height = 10 })
-				end
-				t_insert(helpList, { height = 18, "^7"..title.." ("..titleIndex..")" })
-			else
-				local dev = line:match("^DEV%[(.+)%]$")
-				if not ( dev and not launch.devMode ) then
-					line = (dev or line)
-					local outdent, indent = line:match("(.*)\t+(.*)")
-					t_insert(helpList, { height = 12, "^7"..(outdent or line), "^7"..(indent or "") })
+	do
+		local helpName = launch.devMode and "../help.txt" or "help.txt"
+		local helpFile = io.open(helpName, "r")
+		if helpFile then
+			helpFile:close()
+			for line in io.lines(helpName) do
+				local title, titleIndex = line:match("^---%[(.+)%]%[(.+)%]$")
+				if title then
+					if #helpList > 0 then
+						t_insert(helpList, { height = 10 })
+					end
+					t_insert(helpList, { height = 18, "^7"..title.." ("..titleIndex..")" })
+				else
+					local dev = line:match("^DEV%[(.+)%]$")
+					if not ( dev and not launch.devMode ) then
+						line = (dev or line)
+						local outdent, indent = line:match("(.*)\t+(.*)")
+						if outdent then
+							local indentLines = self:WrapString(indent, 12, 500)
+							if #indentLines > 1 then
+								for i, indentLine in ipairs(indentLines) do
+									t_insert(helpList, { height = 12, (i == 1 and outdent or " "), "^7"..indentLine })
+								end
+							else
+								t_insert(helpList, { height = 12, "^7"..outdent, "^7"..indent })
+							end
+						else
+							local Lines = self:WrapString(line, 12, 610)
+							for i, line2 in ipairs(Lines) do
+								t_insert(helpList, { height = 12, "^7"..(i > 1 and "    " or "")..line2 })
+							end
+						end
+					end
 				end
 			end
 		end
