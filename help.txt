@@ -78,7 +78,7 @@ DEV[Shift	Copy export xml to clipboard (hold key during export)]
 
 ---[Other Notable Things][5]
 
-Adding ^ and then a number or hex code before text will change the colour of the text, eg ^^77 will make proceeding text white until the next colour marker is set
+Adding ^ and then a number or hex code before text will change the colour of the text, eg ^^77 will make the following text white until the next colour marker is set.
 
 ---[Timeless Jewels][6]
 
