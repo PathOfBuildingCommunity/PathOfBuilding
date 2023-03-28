@@ -1222,13 +1222,13 @@ do
 				s = #str + 1
 				e = #str + 1
 			end
-			if DrawStringWidth(height, "VAR", str:sub(lineStart, s - 1)) > width then
-				t_insert(wrapTable, str:sub(lineStart, lastBreak))
-				lineStart = lastSpace
-			end
 			if s > #str then
 				t_insert(wrapTable, str:sub(lineStart, -1))
 				break
+			end
+			if DrawStringWidth(height, "VAR", str:sub(lineStart, s - 1)) > width then
+				t_insert(wrapTable, str:sub(lineStart, lastBreak))
+				lineStart = lastSpace
 			end
 			lastBreak = s - 1
 			lastSpace = e + 1
