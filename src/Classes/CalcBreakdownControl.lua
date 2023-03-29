@@ -420,7 +420,11 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					desc = (tag.actor and (tag.actor:sub(1,1):upper()..tag.actor:sub(2).." ") or "").."Condition: "..(tag.neg and "Not " or "")..self:FormatVarNameOrList(tag.var, tag.varList)
 				elseif tag.type == "Multiplier" then
 					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(row.mod.value).." ") or baseVal
-					desc = base.."per "..(tag.div and (tag.div.." ") or "")..self:FormatVarNameOrList(tag.var, tag.varList)
+					if tag.continuous then
+						desc = (tag.div and (100 / tag.div) or "100").."% "..self:FormatVarNameOrList(tag.var, tag.varList)
+					else
+						desc = base.."per "..(tag.div and (tag.div.." ") or "")..self:FormatVarNameOrList(tag.var, tag.varList)
+					end
 					baseVal = ""
 				elseif tag.type == "PerStat" then
 					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(row.mod.value).." ") or baseVal

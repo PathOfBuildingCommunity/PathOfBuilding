@@ -190,13 +190,10 @@ skills["ArcaneCloak"] = {
 			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["arcane_cloak_consume_%_of_mana"] = {
-			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
-			div = 100,
+			mod("Multiplier:ArcaneCloakPercentConsumedMana", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["arcane_cloak_gain_%_of_consumed_mana_as_lightning_damage"] = {
-			mod("LightningMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard" }),
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard" }),
-			div = 100,
+			mod("Multiplier:PercentConsumedManaAsLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 	},
 	baseFlags = {
@@ -204,7 +201,9 @@ skills["ArcaneCloak"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("GuardAbsorbLimit", "BASE", 1, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
+		mod("GuardAbsorbLimit", "BASE", 1, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "Multiplier", var = "ArcaneCloakPercentConsumedMana", div = 100, continuous = true }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
+		mod("LightningMin", "BASE", 1, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "Multiplier", var = "ArcaneCloakPercentConsumedMana", div = 100, continuous = true }, { type = "Multiplier", var = "PercentConsumedManaAsLightning", div = 100, continuous = true }, { type = "GlobalEffect", effectType = "Guard" }),
+		mod("LightningMax", "BASE", 1, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "Multiplier", var = "ArcaneCloakPercentConsumedMana", div = 100, continuous = true }, { type = "Multiplier", var = "PercentConsumedManaAsLightning", div = 100, continuous = true }, { type = "GlobalEffect", effectType = "Guard" }),
 	},
 	qualityStats = {
 		Default = {

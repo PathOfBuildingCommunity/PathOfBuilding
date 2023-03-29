@@ -53,8 +53,7 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 		if type(subMod.value) == "number" then
 			local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
 			if precision then
-				local power = 10 ^ precision
-				subMod.value = math.floor(subMod.value * scale * power) / power
+				subMod.value = floor(subMod.value * scale, precision)
 			else
 				subMod.value = m_modf(round(subMod.value * scale, 2))
 			end
@@ -252,6 +251,28 @@ function ModStoreClass:GetStat(stat, cfg)
 end
 
 function ModStoreClass:EvalMod(mod, cfg)
+	local function calcValue(mod, value, mult, tag, limitTarget)
+		local limitTotal
+		if tag.limit or tag.limitVar then
+			local limit = tag.limit or (limitTarget and limitTarget:GetMultiplier(tag.limitVar, cfg)) or self:GetMultiplier(tag.limitVar, cfg)
+			if tag.limitTotal then
+				limitTotal = limit
+			else
+				mult = m_min(mult, limit)
+			end
+		end
+		local precision = ((data.highPrecisionMods[mod.name] and data.highPrecisionMods[mod.name][mod.type])) or ((m_floor(value) ~= value) and data.defaultHighPrecision) or nil
+		if precision then
+			value = floor(value * mult + (tag.base or 0), precision)
+		else
+			value = m_modf(round(value * mult + (tag.base or 0), 2))
+		end
+		if limitTotal then
+			value = m_min(value, limitTotal)
+		end
+		return value
+	end
+
 	local value = mod.value
 	for _, tag in ipairs(mod) do
 		if tag.type == "Multiplier" then
@@ -282,34 +303,16 @@ function ModStoreClass:EvalMod(mod, cfg)
 			else
 				base = target:GetMultiplier(tag.var, cfg)
 			end
-			local mult = m_floor(base / (tag.div or 1) + 0.0001)
-			local limitTotal
-			if tag.limit or tag.limitVar then
-				local limit = tag.limit or limitTarget:GetMultiplier(tag.limitVar, cfg)
-				if tag.limitTotal then
-					limitTotal = limit
-				else
-					mult = m_min(mult, limit)
-				end
-			end
+			local mult = base / (tag.div or 1)
+			if not tag.continuous then mult = m_floor(base / (tag.div or 1) + 0.001) end
 			if type(value) == "table" then
-				value = copyTable(value)
-				if value.mod then
-					value.mod.value = value.mod.value * mult + (tag.base or 0)
-					if limitTotal then
-						value.mod.value = m_min(value.mod.value, limitTotal)
-					end
-				else
-					value.value = value.value * mult + (tag.base or 0)
-					if limitTotal then
-						value.value = m_min(value.value, limitTotal)
-					end
+				if value.mod and value.mod.value then
+					value.mod.value = calcValue(value.mod, value.mod.value, mult, tag, limitTarget)
+				elseif value.value then
+					value.value = calcValue(mod, value.value, mult, tag, limitTarget)
 				end
 			else
-				value = value * mult + (tag.base or 0)
-				if limitTotal then
-					value = m_min(value, limitTotal)
-				end
+				value = calcValue(mod, value, mult, tag, limitTarget)
 			end
 		elseif tag.type == "MultiplierThreshold" then
 			local target = self
@@ -348,34 +351,16 @@ function ModStoreClass:EvalMod(mod, cfg)
 			else
 				base = target:GetStat(tag.stat, cfg)
 			end
-			local mult = m_floor(base / (tag.div or 1) + 0.0001)
-			local limitTotal
-			if tag.limit or tag.limitVar then
-				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
-				if tag.limitTotal then
-					limitTotal = limit
-				else
-					mult = m_min(mult, limit)
-				end 
-			end
+			local mult = base / (tag.div or 1)
+			if not tag.continuous then mult = m_floor(base / (tag.div or 1) + 0.001) end
 			if type(value) == "table" then
-				value = copyTable(value)
-				if value.mod then
-					value.mod.value = value.mod.value * mult + (tag.base or 0)
-					if limitTotal then
-						value.mod.value = m_min(value.mod.value, limitTotal)
-					end
-				else
-					value.value = value.value * mult + (tag.base or 0)
-					if limitTotal then
-						value.value = m_min(value.value, limitTotal)
-					end
+				if value.mod and value.mod.value then
+					value.mod.value = calcValue(value.mod, value.mod.value, mult, tag, nil)
+				elseif value.value then
+					value.value = calcValue(mod, value.value, mult, tag, nil)
 				end
 			else
-				value = value * mult + (tag.base or 0)
-				if limitTotal then
-					value = m_min(value, limitTotal)
-				end
+				value = calcValue(mod, value, mult, tag, nil)
 			end
 		elseif tag.type == "PercentStat" then
 			local base
