@@ -443,19 +443,23 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 
 	-- Controls: Side bar
 	self.anchorSideBar = new("Control", nil, 4, 36, 0, 0)
-	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 134, 20, "Import/Export Build", function()
+	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 148, 20, "Import/Export Build", function()
 		self.viewMode = "IMPORT"
 	end)
 	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
-	self.controls.modeNotes = new("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 58, 20, "Notes", function()
+	self.controls.modeNotes = new("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 148, 20, "Notes", function()
 		self.viewMode = "NOTES"
 	end)
 	self.controls.modeNotes.locked = function() return self.viewMode == "NOTES" end
-	self.controls.modeConfig = new("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
+	self.controls.modeParty = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 148, 20, "Party", function()
+		self.viewMode = "PARTY"
+	end)
+	self.controls.modeParty.locked = function() return self.viewMode == "PARTY" end
+	self.controls.modeConfig = new("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 26, 148, 20, "Configuration", function()
 		self.viewMode = "CONFIG"
 	end)
 	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
-	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
+	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 52, 72, 20, "Tree", function()
 		self.viewMode = "TREE"
 	end)
 	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
@@ -472,7 +476,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
 	-- Skills
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 54, 300, 16, "^7Main Skill:")
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 80, 300, 16, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
