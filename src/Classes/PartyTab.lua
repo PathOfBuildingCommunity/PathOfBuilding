@@ -412,7 +412,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 				for line2 in line:gmatch("([^|]*)|?") do
 					t_insert(modStrings, line2)
 				end
-				local tags = nil -- modStrings[7], should be done with a mdofified version of "PartyTabClass:ParseTags" where conditions check vs the party and check that the ones in the build are NOT true, such that your effects override the supports
+				local tags = nil -- modStrings[7], should be done with a modified version of "PartyTabClass:ParseTags" where conditions check vs the party and check that the ones in the build are NOT true, such that your effects override the supports
 				list:NewMod(modStrings[3], modStrings[4], tonumber(modStrings[1]), "Party"..modStrings[2], ModFlag[modStrings[5]] or 0, KeywordFlag[modStrings[6]] or 0, tags)
 			end
 		end
@@ -464,12 +464,9 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 					keywordFlags = KeywordFlag[modStrings[6]] or 0,
 				}
 				local modType, Tags = self:ParseTags(modStrings[7], currentModType)
-				ConPrintf("---")
-				ConPrintTable(Tags)
 				for _, tag in ipairs(Tags) do
 					t_insert(mod, tag)
 				end
-				ConPrintTable(mod)
 				currentModType = modType
 				if not list[modType] then
 					list[modType] = {}

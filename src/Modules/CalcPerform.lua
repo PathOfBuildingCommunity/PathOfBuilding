@@ -2036,10 +2036,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
 						local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")
 						local mult = (1 + inc / 100) * more
-						local newModlist = new("ModList")
-						newModlist:AddList(buff.modList)
-						newModlist:AddList(extraAuraModList)
-						buffExports["Aura"][buff.name] = { effectMult = mult, modList = newModlist }
+						local newModList = new("ModList")
+						newModList:AddList(buff.modList)
+						newModList:AddList(extraAuraModList)
+						buffExports["Aura"][buff.name] = { effectMult = mult, modList = newModList }
 					end
 					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						activeSkill.totemBuffSkill = true
@@ -3688,8 +3688,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
 	
-	-- Export modifiers to enemy conditons and stats for party tab
-	if env.build.partyTab.enableExportBuffs then
+	-- Export modifiers to enemy conditions and stats for party tab
+	if env.build.partyTab.enableExportBuffs and false then -- disabled for now
 		for k, v in pairs(enemyDB.mods) do
 			if k:find("Condition") and not k:find("Party") then
 				buffExports["EnemyConditions"][k] = true
@@ -3700,8 +3700,6 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				for k2, v2 in ipairs(v) do
 					if not v2.party and v2.value ~= 0 and v2.source ~= "EnemyConfig" and not v2.source:find("Delirious") and not (v2[1] and v2[1].effectType == "Curse") then
 						if not v2[1] or ((v2[1].type ~= "Condition" or (enemyDB.mods["Condition:"..v2[1].var] and enemyDB.mods["Condition:"..v2[1].var][1].value)) and (v2[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v2[1].var] and enemyDB.mods["Multiplier:"..v2[1].var][1].value))) then
-							--ConPrintf(k)
-							--ConPrintTable(v2)
 							buffExports["EnemyMods"][k] = v2
 						end
 					end
