@@ -3689,7 +3689,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	end
 	
 	-- Export modifiers to enemy conditions and stats for party tab
-	if env.build.partyTab.enableExportBuffs and false then -- disabled for now
+	if env.build.partyTab.enableExportBuffs then
+		--[[  -- disabled for now
 		for k, v in pairs(enemyDB.mods) do
 			if k:find("Condition") and not k:find("Party") then
 				buffExports["EnemyConditions"][k] = true
@@ -3706,6 +3707,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				end
 			end
 		end
+		--]]
 		env.build.partyTab:setBuffExports(buffExports)
 	end
 
