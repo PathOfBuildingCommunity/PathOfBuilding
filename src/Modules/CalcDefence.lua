@@ -468,7 +468,7 @@ function calcs.defence(env, actor)
 				output.splitEvade = true
 			else
 				output.EvadeChance = output.MeleeEvadeChance
-				output.dontSplitEvade = true
+				output.noSplitEvade = true
 			end
 			if breakdown then
 				breakdown.EvadeChance = {

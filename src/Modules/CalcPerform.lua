@@ -2853,7 +2853,7 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "Weapon-Crafted Triggering Skill Found"
 			env.player.mainSkill.infoTrigger = triggerName
-			env.player.mainSkill.skillFlags.dontDisplay = true
+			env.player.mainSkill.skillFlags.noDisplay = true
 		end
 	end
 
@@ -2911,7 +2911,7 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.infoMessage = "Focus Triggering Skill Found"
 			env.player.mainSkill.infoTrigger = triggerName
-			env.player.mainSkill.skillFlags.dontDisplay = true
+			env.player.mainSkill.skillFlags.noDisplay = true
 		end
 	end
 
@@ -3124,7 +3124,7 @@ function calcs.perform(env, avoidCache)
 			env.player.mainSkill.infoMessage = "CwC Triggering Skill: " .. source.activeEffect.grantedEffect.name
 			env.player.mainSkill.infoTrigger = "CwC"
 
-			env.player.mainSkill.skillFlags.dontDisplay = true
+			env.player.mainSkill.skillFlags.noDisplay = true
 		end
 	end
 
