@@ -108,7 +108,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 				self.processedInput["Aura"] = {}
 			end
 			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
-				self.controls.editCurses:SetText("") --curses dont play nicly with append atm, need to fix
+				self.controls.editCurses:SetText("") --curses do not play nicely with append atm, need to fix
 				wipeTable(self.processedInput["Curse"])
 				self.processedInput["Curse"] = {}
 			end
