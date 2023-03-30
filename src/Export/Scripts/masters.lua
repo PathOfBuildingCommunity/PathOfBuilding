@@ -59,8 +59,8 @@ for _, craft in ipairs(dat("CraftingBenchOptions"):GetRowList("IsDisabled", fals
 		for _, category in ipairs(craft.ItemCategories) do
 			for _, itemClass in ipairs(category.ItemClasses) do
 				if uniqueTypes[itemClassMap[itemClass.Id]] ~= itemClassMap[itemClass.Id] then
-					out:write('["', itemClass.Id, '"] = true, ')
 					uniqueTypes[itemClassMap[itemClass.Id]] = itemClassMap[itemClass.Id]
+					out:write('["', itemClassMap[itemClass.Id], '"] = true, ')
 				end
 			end
 		end
