@@ -22,7 +22,7 @@
 #modStart (Fecund) disabled
 				enemyModList:NewMod("Life", "MORE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Fecund")
 #modEnd
-#modStart (Unstoppable) disabled
+#modStart (Unstoppable) label(Enemy Cannot Be Slowed)
 				-- MISSING: Monsters cannot be Taunted
 				enemyModList:NewMod("MinimumActionSpeed", "MAX", 100, "Map mod Unstoppable")
 #modEnd
@@ -45,13 +45,13 @@
 #modStart (Savage) label(Enemy Inc Damage)
 				enemyModList:NewMod("Damage", "INC", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Savage")
 #modEnd
-#modStart (Burning) disabled
+#modStart (Burning) label(Enemy Phys As Fire)
 				enemyModList:NewMod("PhysicalDamageGainAsFire", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Burning")
 #modEnd
-#modStart (Freezing) disabled
+#modStart (Freezing) label(Enemy Phys As Cold)
 				enemyModList:NewMod("PhysicalDamageGainAsCold", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Freezing")
 #modEnd
-#modStart (Shocking) disabled
+#modStart (Shocking) label(Enemy Phys As Lightning)
 				enemyModList:NewMod("PhysicalDamageGainAsLightning", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Shocking")
 #modEnd
 #modStart (Fleet) label(Enemy Inc Speed)
