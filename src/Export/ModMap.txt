@@ -38,6 +38,8 @@
 				enemyModList:NewMod("LifeGainAsEnergyShield", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Buffered")
 #modEnd
 #modStart (Titan's) disabled
+				enemyModList:NewMod("Life", "MORE", values[val][1] * mapModEffect, "Map mod Titan's", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("AreaOfEffect", "INC", values[val][2] * mapModEffect, "Map mod Titan's", { type = "Condition", var = "RareOrUnique" })
 #modEnd
 		-- offensive prefixes
 #modStart (Savage) label(Enemy Inc Damage)
@@ -52,7 +54,9 @@
 #modStart (Shocking) disabled
 				enemyModList:NewMod("PhysicalDamageGainAsLightning", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Shocking")
 #modEnd
-#modStart (Fleet) disabled
+#modStart (Fleet) label(Enemy Inc Speed)
+				-- attack and cast is the same so applying it once, movespeed does not matter
+				enemyModList:NewMod("Speed", "INC", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100) * mapModEffect, "Map mod Fleet")
 #modEnd
 #modStart (Conflagrating) disabled
 #modEnd
@@ -60,7 +64,9 @@
 #modEnd
 #modStart (Empowered) disabled
 #modEnd
-#modStart (Overlord's) disabled
+#modStart (Overlord's) label(Boss Inc Damage / Speed)
+				enemyModList:NewMod("Damage", "INC", values[val][1] * mapModEffect, "Map mod Overlord's", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("Speed", "INC", values[val][2] * mapModEffect, "Map mod Overlord's", { type = "Condition", var = "RareOrUnique" })
 #modEnd
 		-- reflect prefixes
 #modStart (Punishing) disabled
@@ -75,6 +81,7 @@
 #modStart (of Congealment) oldLabel(Cannot Leech ^xE05030Life ^7/ ^x7070FFMana?) label(Cannot Leech)
 				enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Map mod of Congealment")
 				enemyModList:NewMod("CannotLeechManaFromSelf", "FLAG", true, "Map mod of Congealment")
+				--missing cannot leech es?
 #modEnd
 #modStart (of Drought) oldLabel(Gains reduced Flask Charges:) label(reduced Flask Charges)
 				modList:NewMod("FlaskChargesGained", "INC", -values[val] * mapModEffect, "Map mod of Drought")
@@ -96,7 +103,7 @@
 #modEnd
 #modStart (of Miring) oldLabel(Unlucky Dodge / Enemy has inc. Accuracy:) label(Enemy has inc. Accuracy: / Players have to amount of Suppressed Spell Damage Prevented)
 				-- modList:NewMod("DodgeChanceIsUnlucky", "FLAG", true, "Map mod of Miring") -- OLD MOD
-				-- Players have -10|15|20% to amount of Suppressed Spell Damage Prevented
+				modList:NewMod("SpellSuppressionEffect", "BASE", -values[val][1] * mapModEffect, "Map mod of Miring")
 				enemyModList:NewMod("Accuracy", "INC", values[val][2] * mapModEffect, "Map mod of Miring")
 #modEnd
 #modStart (of Rust) oldLabel(Reduced Block Chance / less Armour:) label(Reduced Block Chance / less Armour:)
@@ -115,19 +122,24 @@
 #modStart (of Toughness) label(Enemy takes red. Extra Crit Damage:)
 				enemyModList:NewMod("SelfCritMultiplier", "INC", -(values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod of Toughness")
 #modEnd
-#modStart (of Fatigue) disabled
+#modStart (of Fatigue) label(Less Cooldown Recovery)
+				modList:NewMod("CooldownRecovery", "MORE", -values[val] * mapModEffect, "Map mod of Fatigue")
 #modEnd
 #modStart (of Transience) disabled
 #modEnd
-#modStart (of Doubt) disabled
+#modStart (of Doubt) label(Reduced Aura Effect)
+				modList:NewMod("AuraEffect", "INC", -values[val] * mapModEffect, "Map mod of Doubt", { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true })
 #modEnd
-#modStart (of Imprecision) disabled
+#modStart (of Imprecision) label(Less Accuracy)
+				modList:NewMod("Accuracy", "MORE", -values[val] * mapModEffect, "Map mod of Imprecision")
 #modEnd
 #modStart (of Blinding) disabled
 				--SHOULD THIS BE SUPPORTED? (as a flag to make "are you blinded" show on config?)
 #modEnd
 #modStart (of Venom) disabled
 #modEnd
-#modStart (of Deadliness) disabled
+#modStart (of Deadliness) label(Enemy Critical Strike)
+				enemyModList:NewMod("CritChance", "INC", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod of Deadliness")
+				enemyModList:NewMod("CritMultiplier", "BASE", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100) * mapModEffect, "Map mod of Deadliness")
 #modEnd
 #modList

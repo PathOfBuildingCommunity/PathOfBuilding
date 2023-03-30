@@ -96,6 +96,8 @@ return {
 			tooltipLines = { "Unique Boss has %d%% increased Life", "Unique Boss has %d%% increased Area of Effect" },
 			values = { { 25, 45 }, { 30, 55 }, { 35, 70 } },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("Life", "MORE", values[val][1] * mapModEffect, "Map mod Titan's", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("AreaOfEffect", "INC", values[val][2] * mapModEffect, "Map mod Titan's", { type = "Condition", var = "RareOrUnique" })
 			end
 		},
 		-- offensive prefixes
@@ -136,6 +138,8 @@ return {
 			tooltipLines = { "(%d to %d)%% increased Monster Movement Speed", "(%d to %d)%% increased Monster Attack Speed", "(%d to %d)%% increased Monster Cast Speed" },
 			values = { { { 15, 20 }, { 20, 25 }, { 20, 25 } }, { { 20, 25 }, { 25, 35 }, { 25, 35 } }, { { 25, 30 }, { 35, 45 }, { 35, 45 } },  },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				-- attack and cast is the same so applying it once, movespeed does not matter
+				enemyModList:NewMod("Speed", "INC", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100) * mapModEffect, "Map mod Fleet")
 			end
 		},
 		["Conflagrating"] = {
@@ -163,6 +167,8 @@ return {
 			tooltipLines = { "Unique Boss deals %d%% increased Damage", "Unique Boss has %d%% increased Attack and Cast Speed" },
 			values = { { 15, 20 }, { 20, 25 }, { 25, 30 } },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("Damage", "INC", values[val][1] * mapModEffect, "Map mod Overlord's", { type = "Condition", var = "RareOrUnique" })
+				enemyModList:NewMod("Speed", "INC", values[val][2] * mapModEffect, "Map mod Overlord's", { type = "Condition", var = "RareOrUnique" })
 			end
 		},
 		-- reflect prefixes
@@ -197,6 +203,7 @@ return {
 			apply = function(val, mapModEffect, modList, enemyModList)
 				enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Map mod of Congealment")
 				enemyModList:NewMod("CannotLeechManaFromSelf", "FLAG", true, "Map mod of Congealment")
+				--missing cannot leech es?
 			end
 		},
 		["of Drought"] = {
@@ -249,7 +256,7 @@ return {
 			values = { { 10, 30 }, { 15, 40 }, { 20, 50 } },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
 				-- modList:NewMod("DodgeChanceIsUnlucky", "FLAG", true, "Map mod of Miring") -- OLD MOD
-				-- Players have -10|15|20% to amount of Suppressed Spell Damage Prevented
+				modList:NewMod("SpellSuppressionEffect", "BASE", -values[val][1] * mapModEffect, "Map mod of Miring")
 				enemyModList:NewMod("Accuracy", "INC", values[val][2] * mapModEffect, "Map mod of Miring")
 			end
 		},
@@ -296,6 +303,7 @@ return {
 			tooltipLines = { "Players have %d%% less Cooldown Recovery Rate" },
 			values = { 20, 30, 40 },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("CooldownRecovery", "MORE", -values[val] * mapModEffect, "Map mod of Fatigue")
 			end
 		},
 		["of Transience"] = {
@@ -310,6 +318,7 @@ return {
 			tooltipLines = { "Players have %d%% reduced effect of Non-Curse Auras from Skills" },
 			values = { 25, 40, 60 },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("AuraEffect", "INC", -values[val] * mapModEffect, "Map mod of Doubt", { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true })
 			end
 		},
 		["of Imprecision"] = {
@@ -317,6 +326,7 @@ return {
 			tooltipLines = { "Players have %d%% less Accuracy Rating" },
 			values = { 15, 20, 25 },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
+				modList:NewMod("Accuracy", "MORE", -values[val] * mapModEffect, "Map mod of Imprecision")
 			end
 		},
 		["of Blinding"] = {
@@ -337,6 +347,8 @@ return {
 			tooltipLines = { "Monsters have (%d to %d)%% increased Critical Strike Chance", "+(%d to %d)%% to Monster Critical Strike Multiplier" },
 			values = { { { 160, 200 }, { 30, 35 } }, { { 260, 300 }, { 36, 40 } }, { { 360, 400 }, { 41, 45 } },  },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("CritChance", "INC", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod of Deadliness")
+				enemyModList:NewMod("CritMultiplier", "BASE", (values[val][2][1] + (values[val][2][2] - values[val][2][1]) * rollRange / 100) * mapModEffect, "Map mod of Deadliness")
 			end
 		},
 		-- other Prefixes
@@ -385,6 +397,8 @@ return {
 		{ val = "Resistant", label = "Enemy Resist                                 Monster Chaos Resistance Monster Elemental Resistances Resistant" },
 		{ val = "Impervious", label = "avoid Poison and Bleed:                                 Monsters have chance to Poison, Impale, Bleeding Impervious" },
 		{ val = "Savage", label = "Enemy Inc Damage                                 to increased Monster Savage" },
+		{ val = "Fleet", label = "Enemy Inc Speed                                 to increased Monster Movement to increased Monster Attack to increased Monster Cast Fleet" },
+		{ val = "Overlord's", label = "Boss Inc Damage / Speed                                 Unique deals increased Unique has increased Attack and Cast Overlord's" },
 	},
 	Suffix = {
 		{ val = "NONE", label = "None" },
@@ -398,5 +412,9 @@ return {
 		{ val = "of Smothering", label = "Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield:                                 Players have less of Smothering" },
 		{ val = "of Stasis", label = "Cannot Regen                                 Players cannot Regenerate Life, Mana or Energy Shield of Stasis" },
 		{ val = "of Toughness", label = "Enemy takes red. Extra Crit Damage:                                 Monsters to reduced from Critical Strikes of Toughness" },
+		{ val = "of Fatigue", label = "Less Cooldown Recovery                                 Players have less Rate of Fatigue" },
+		{ val = "of Doubt", label = "Reduced Aura Effect                                 Players have reduced effect Non-Curse Auras from Skills of Doubt" },
+		{ val = "of Imprecision", label = "Less Accuracy                                 Players have less Rating of Imprecision" },
+		{ val = "of Deadliness", label = "Enemy Critical Strike                                 Monsters have to increased Chance to to Monster Multiplier of Deadliness" },
 	},
 }

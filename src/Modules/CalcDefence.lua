@@ -719,7 +719,7 @@ function calcs.defence(env, actor)
 	end
 	
 	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
-	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", weaponsCfg, "SpellSuppressionEffect")
+	output.SpellSuppressionEffect = m_max(data.misc.SuppressionEffect + modDB:Sum("BASE", weaponsCfg, "SpellSuppressionEffect"), 0)
 	
 	if env.mode_effective and modDB:Flag(weaponsCfg, "SpellSuppressionChanceIsUnlucky") then
 		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
@@ -2285,7 +2285,7 @@ function calcs.buildDefenceEstimations(env, actor)
 	
 	-- survival time
 	do
-		output.enemySkillTime = env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700
+		output.enemySkillTime = (env.configInput.enemySpeed or env.configPlaceholder.enemySpeed or 700) / (1 + enemyDB:Sum("INC", nil, "Speed") / 100)
 		local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
 		output.enemySkillTime = output.enemySkillTime / 1000 / enemyActionSpeed
 		output["EHPsurvivalTime"] = output["TotalNumberOfHits"] * output.enemySkillTime
