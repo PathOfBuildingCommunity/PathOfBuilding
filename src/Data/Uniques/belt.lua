@@ -197,12 +197,14 @@ Stygian Vise
 League: Abyss
 Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: Pre 3.11.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
 Has 1 Abyssal Socket
 Has 1 Abyssal Socket
 {variant:1}50% increased Effect of Socketed Abyss Jewels
 {variant:2}75% increased Effect of Socketed Abyss Jewels
+{variant:3}(50-100)% increased Effect of Socketed Abyss Jewels
 ]],[[
 Doryani's Invitation
 Heavy Belt

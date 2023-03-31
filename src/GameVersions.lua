@@ -7,7 +7,7 @@ liveTargetVersion = "3_0"
 -- Skill tree versions
 ---Added for convenient indexing of skill tree versions.
 ---@type string[]
-treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12", "3_13", "3_14", "3_15", "3_16", "3_17", "3_18", "3_19", "3_20", }
+treeVersionList = { "2_6", "3_6", "3_7", "3_8", "3_9", "3_10", "3_11", "3_12", "3_13", "3_14", "3_15", "3_16", "3_17", "3_18", "3_19", "3_20", "3_21", }
 --- Always points to the latest skill tree version.
 latestTreeVersion = treeVersionList[#treeVersionList]
 ---Tree version where multiple skill trees per build were introduced to PoBC.
@@ -94,5 +94,10 @@ treeVersions = {
 		display = "3.20",
 		num = 3.20,
 		url = "https://www.pathofexile.com/passive-skill-tree/3.20.0/",
+	},
+	["3_21"] = {
+		display = "3.21",
+		num = 3.21,
+		url = "https://www.pathofexile.com/passive-skill-tree/3.21.0/",
 	},
 }

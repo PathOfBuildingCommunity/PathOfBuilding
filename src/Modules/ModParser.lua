@@ -3033,8 +3033,9 @@ local specialModList = {
 	["totems gain %+(%d+)%% to (%w+) resistance"] = function(_, num, resistance) return { mod("Totem"..firstToUpper(resistance).."Resist", "BASE", num) } end,
 	["totems gain %+(%d+)%% to all elemental resistances"] = function(_, num) return { mod("TotemElementalResist", "BASE", num) } end,
 	-- Minions
-	["your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
+	["your strength is added to your minions"] = { flag("StrengthAddedToMinions") },
 	["half of your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
+	["minion's accuracy rating is equal to yours"] = { flag("MinionAccuracyEqualsAccuracy") },
 	["minions created recently have (%d+)%% increased attack and cast speed"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", var = "MinionsCreatedRecently" }) } end,
 	["minions created recently have (%d+)%% increased movement speed"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num) }, { type = "Condition", var = "MinionsCreatedRecently" }) } end,
 	["minions poison enemies on hit"] = { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", 100) }) },
@@ -3199,6 +3200,7 @@ local specialModList = {
 	["arrows gain damage as they travel farther, dealing up to (%d+)%% increased damage with hits to targets"] = function(num) return { mod("Damage", "INC", num, nil, bor(ModFlag.Bow, ModFlag.Hit), { type = "DistanceRamp", ramp = { {35,0},{70,1} } }) } end,
 	["arrows gain critical strike chance as they travel farther, up to (%d+)%% increased critical strike chance"] = function(num) return { mod("CritChance", "INC", num, nil, ModFlag.Bow, { type = "DistanceRamp", ramp = { {35,0},{70,1} } }) } end,
 	["projectiles deal (%d+)%% increased damage with hits to targets at the start of their movement, reducing to (%d+)%% as they travel farther"] = function(num) return { mod("Damage", "INC", num, nil, bor(ModFlag.Attack, ModFlag.Projectile), { type = "DistanceRamp", ramp = {{35,1},{70,0}} }) } end,
+	["(%d+)%% increased bonuses gained from equipped quiver"] = function(num) return {mod("EffectOfBonusesFromQuiver", "INC", num)} end,
 	-- Leech/Gain on Hit/Kill
 	["cannot leech life"] = { flag("CannotLeechLife") },
 	["cannot leech mana"] = { flag("CannotLeechMana") },
@@ -3591,6 +3593,7 @@ local specialModList = {
 	["marauder: melee skills have (%d+)%% increased area of effect"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "Condition", var = "ConnectedToMarauderStart" }, { type = "SkillType", skillType = SkillType.Melee }) } end,
 	["intelligence provides no bonus to energy shield"] = { flag("NoIntBonusToES") },
 	["intelligence provides no inherent bonus to energy shield"] = { flag("NoIntBonusToES") },
+	["gain accuracy rating equal to your intelligence"] = { mod("Accuracy", "BASE", 1, { type = "PerStat", stat = "Int" }) },
 	["intelligence is added to accuracy rating with wands"] = { mod("Accuracy", "BASE", 1, nil, ModFlag.Wand, { type = "PerStat", stat = "Int" }) },
 	["dexterity's accuracy bonus instead grants %+(%d+) to accuracy rating per dexterity"] = function(num) return { mod("DexAccBonusOverride", "OVERRIDE", num ) } end,
 	["cannot recover energy shield to above armour"] = { flag("ArmourESRecoveryCap") },

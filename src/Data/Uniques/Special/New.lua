@@ -22,6 +22,11 @@ Regenerate (227.2-227.9) Life per second
 100% increased Stun and Block Recovery
 Reserves 8% of Nearby Enemy Monsters' Life
 ]],
+[[
+Widowhail
+Crude Bow
+(183-225)% increased bonuses gained from Equipped Quiver
+]]
 -- Reworked
 
 }
