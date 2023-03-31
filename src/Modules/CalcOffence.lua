@@ -2418,7 +2418,10 @@ function calcs.offence(env, actor, activeSkill)
 		local maxCullPercent = m_max(criticalCull, regularCull)
 		globalOutput.CullPercent = maxCullPercent
 		globalOutput.CullMultiplier = 100 / (100 - globalOutput.CullPercent)
-
+		
+		--Calculate reservation DPS
+		globalOutput.ReservationDpsMultiplier = 100 / (100 - enemyDB:Sum("BASE", nil, "LifeReservationPercent"))
+		
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
@@ -4698,5 +4701,6 @@ function calcs.offence(env, actor, activeSkill)
 
 	bestCull = m_max(bestCull, output.CullMultiplier)
 	output.CullingDPS = output.CombinedDPS * (bestCull - 1)
-	output.CombinedDPS = output.CombinedDPS * bestCull
+	output.ReservationDPS = output.CombinedDPS * (output.ReservationDpsMultiplier - 1)
+	output.CombinedDPS = output.CombinedDPS * bestCull * output.ReservationDpsMultiplier
 end

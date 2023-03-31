@@ -554,15 +554,22 @@ Enemies Frozen by you take 20% increased Damage
 +(90-120) Energy Shield gained on Killing a Shocked Enemy
 ]],[[
 Xoph's Inception
-Bone Bow
+{variant:1}Bone Bow
+{variant:2}Citadel Bow
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
 Requires Level 23, 80 Dex
-(70-90)% increased Physical Damage
-Gain (20-30) Life per Ignited Enemy Killed
+{variant:1}(70-90)% increased Physical Damage
+{variant:2}(160-190)% increased Physical Damage
+{variant:1}Gain (20-30) Life per Ignited Enemy Killed
+{variant:2}Gain (200-300) Life per Ignited Enemy Killed
 Gain 20% of Physical Damage as Extra Fire Damage
 10% chance to Ignite
+{variant:2}Projectiles Pierce all Burning Enemies
+{variant:2}Arrows deal 30 to 50 Added Fire Damage for each time they've Pierced
 ]],[[
 Xoph's Nurture
 Citadel Bow
