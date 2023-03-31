@@ -1478,9 +1478,9 @@ return {
 		{ breakdown = "LightningDamageReduction" },
 		{ modName = { "ArmourAppliesToLightningDamageTaken", "SelfIgnoreLightningResistance", "DamageReductionMax" } },
 	}, },
-	{ label = "Chaos. Dmg. Reduct", haveOutput = "ChaosDamageReduction", { format = "{0:output:ChaosDamageReduction}%",
+	{ label = "Chaos Dmg. Reduct", haveOutput = "ChaosDamageReduction", { format = "{0:output:ChaosDamageReduction}%",
 		{ breakdown = "ChaosDamageReduction" },
-		{ modName = { "ArmourAppliesToChaosDamageTaken", "DamageReductionMax" } },
+		{ modName = { "ArmourAppliesToChaosDamageTaken", "SelfIgnoreChaosResistance", "DamageReductionMax" } },
 	}, },
 } }
 } },
