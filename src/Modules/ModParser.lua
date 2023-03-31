@@ -2573,7 +2573,12 @@ local specialModList = {
 	["your elemental damage can shock"] = { flag("ColdCanShock"), flag("FireCanShock") },
 	["your fire damage can shock"] = { flag("FireCanShock") },
 	["all y?o?u?r? ?damage can freeze"] = { flag("PhysicalCanFreeze"), flag("LightningCanFreeze"), flag("FireCanFreeze"), flag("ChaosCanFreeze") },
-	["all damage with maces and sceptres inflicts chill"] =  { mod("EnemyModifier", "LIST", { mod = flag("Condition:Chilled") }, { type = "Condition", var = "UsingMace" }) },
+	["all damage with maces and sceptres inflicts chill"] =  { 
+		flag("PhysicalCanChill", { type = "Condition", var = "UsingMace" }),
+		flag("LightningCanChill", { type = "Condition", var = "UsingMace" }),
+		flag("FireCanChill", { type = "Condition", var = "UsingMace" }),
+		flag("ChaosCanChill", { type = "Condition", var = "UsingMace" })
+	},
 	["your cold damage can ignite"] = { flag("ColdCanIgnite") },
 	["your lightning damage can ignite"] = { flag("LightningCanIgnite") },
 	["your fire damage can shock but not ignite"] = { flag("FireCanShock"), flag("FireCannotIgnite") },
