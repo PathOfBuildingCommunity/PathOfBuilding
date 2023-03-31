@@ -368,20 +368,25 @@ Implicits: 0
 {variant:3}100% of Fire Damage from Hits taken as Physical Damage
 ]],[[
 The Snowblind Grace
-Coronal Leather
+{variant:1,2}Coronal Leather
+{variant:3}Zodiac Leather
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 0
 {variant:1}10% chance to Suppress Spell Damage
 {variant:2}20% chance to Suppress Spell Damage
-+(30-40) to Dexterity
+{variant:1,2}+(30-40) to Dexterity
+{variant:3}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
-{variant:2}(80-100)% increased Evasion Rating
+{variant:2,3}(80-100)% increased Evasion Rating
 +(40-60) to maximum Life
-25% increased Arctic Armour Buff Effect
+{variant:1,2}25% increased Arctic Armour Buff Effect
+{variant:3}50% increased Arctic Armour Buff Effect
+{variant:3}Arctic Armour has no Reservation
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
 {variant:2}Evasion Rating is increased by Overcapped Cold Resistance
 ]],[[
@@ -390,18 +395,21 @@ Zodiac Leather
 League: Breach
 Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul}
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 0
+{variant:3}+50% chance to Suppress Spell Damage
 {variant:1}(5-10)% increased Dexterity
 {variant:2}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
 {variant:2}(80-100)% increased Evasion Rating
+{variant:3}(150-200)% increased Evasion Rating
 {variant:1}+(50-80) to maximum Life
 {variant:2}+(70-100) to maximum Life
 -30% to Cold Resistance
-Arctic Armour has no Reservation
+{variant:1,2}Arctic Armour has no Reservation
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
-{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
+{variant:2,3}Evasion Rating is increased by Overcapped Cold Resistance
 Acrobatics
 ]],[[
 Replica Perfect Form

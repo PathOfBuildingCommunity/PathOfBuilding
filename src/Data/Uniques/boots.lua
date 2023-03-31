@@ -40,27 +40,39 @@ Requires Level 68, 120 Str
 30% increased Movement Speed
 ]],[[
 The Infinite Pursuit
-Goliath Greaves
+{variant:1}Goliath Greaves
+{variant:1}Titan Greaves
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{The Red Trail} using currency{Blessing of Uul-Netol}
 Requires Level 54, 95 Str
-+(30-60) to maximum Life
+{variant:1}+(30-60) to maximum Life
 20% increased Movement Speed
 Moving while Bleeding doesn't cause you to take extra Damage
-15% increased Movement Speed while Bleeding
+{variant:1}15% increased Movement Speed while Bleeding
+{variant:2}20% increased Movement Speed while Bleeding
+{variant:2}Bleeding on you expires 75% slower while Moving
+{variant:2}Cannot be Stunned while Bleeding
+{variant:2}Cannot be Poisoned while Bleeding
 50% chance to be inflicted with Bleeding when Hit by an Attack
 ]],[[
 The Red Trail
 Titan Greaves
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Upgraded from unique{The Infinite Pursuit} using currency{Blessing of Uul-Netol}
 Requires Level 68, 120 Str
-(60-80)% increased Armour
-+(50-70) to maximum Life
+{variant:1}(60-80)% increased Armour
+{variant:2}(60-100)% increased Armour
+{variant:1}+(50-70) to maximum Life
+{variant:2}+(60-100) to maximum Life
 25% increased Movement Speed
 Gain a Frenzy Charge on Hit while Bleeding
-15% increased Movement Speed while Bleeding
+{variant:1}15% increased Movement Speed while Bleeding
+{variant:2}30% increased Movement Speed
 10% additional Physical Damage Reduction while stationary
 50% chance to be inflicted with Bleeding when Hit by an Attack
 Gore Footprints

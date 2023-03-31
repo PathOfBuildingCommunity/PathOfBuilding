@@ -429,17 +429,22 @@ Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{United in Dream} using currency{Blessing of Chayula}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 League: Breach
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3}40% increased Global Accuracy Rating
-+(10-20) to all Attributes
-Minions deal (20-30)% increased Damage
-Minions have +17% to Chaos Resistance
+{variant:2,3,4}40% increased Global Accuracy Rating
+{variant:1,2,3}+(10-20) to all Attributes
+{variant:1,2,3}Minions deal (20-30)% increased Damage
+{variant:4}Grants Level 25 Envy Skill
+{variant:1,2,3}Minions have +17% to Chaos Resistance
+{variant:4}Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
 {variant:3}Minions have 60% chance to Poison Enemies on Hit
-Minions Recover 20% of Life on Killing a Poisoned Enemy
+{variant:4}Minions have 60% chance to inflict Withered on Hit
+{variant:1,2,3}Minions Recover 20% of Life on Killing a Poisoned Enemy
+{variant:4}Minions have +5% to Critical Strike Multiplier per Withered Debuff on Enemy
 ]],[[
 United in Dream
 Cutlass
@@ -447,20 +452,22 @@ Source: Upgraded from unique{Severed in Sleep} using currency{Blessing of Chayul
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 League: Breach
 LevelReq: 69
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
-{variant:2,3,4}40% increased Global Accuracy Rating
+{variant:2,3,4,5}40% increased Global Accuracy Rating
 {variant:1,2,3}Grants Level 15 Envy Skill
-{variant:4}Grants Level 25 Envy Skill
+{variant:4,5}Grants Level 25 Envy Skill
 {variant:1,2,3}Minions deal (30-40)% increased Damage
 {variant:4}Minions deal (60-80)% increased Damage
 Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit
-{variant:3,4}Minions have 60% chance to Poison Enemies on Hit
-Minions Leech 5% of Damage as Life against Poisoned Enemies
+{variant:3,4,5}Minions have 60% chance to Poison Enemies on Hit
+{variant:1,2,3,4}Minions Leech 5% of Damage as Life against Poisoned Enemies
+{variant:5}Minions Recover 10% of Life on Killing a Poisoned Enemy
 ]],[[
 Story of the Vaal
 {variant:1}Variscite Blade

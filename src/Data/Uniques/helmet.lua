@@ -67,32 +67,41 @@ Cannot Evade Enemy Attacks
 Cannot be Stunned
 ]],[[
 The Formless Flame
-Siege Helmet
+{variant:1,2}Siege Helmet
+{variant:3}Royal Burgonet 
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xoph}
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 48, 101 Str
-+(100-120) to Armour
-+(40-50) to maximum Life
--20 Fire Damage taken when Hit
+{variant:1,2}+(100-120) to Armour
+{variant:3}(80-120)% increased Armour
+{variant:1,2}+(40-50) to maximum Life
+{variant:1,2}-20 Fire Damage taken when Hit
+{variant:3}-(100-200) Fire Damage taken from Hits
 {variant:1}Armour is increased by Uncapped Fire Resistance
-{variant:2}Armour is increased by Overcapped Fire Resistance
+{variant:2,3}Armour is increased by Overcapped Fire Resistance
+{variant:3}-30% to Fire Resistance
 ]],[[
 The Formless Inferno
 Royal Burgonet
 League: Breach
 Source: Upgraded from unique{The Formless Flame} using currency{Blessing of Xoph}
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 65, 148 Str
-(80-120)% increased Armour
-+(40-50) to maximum Life
+{variant:1,2}(80-120)% increased Armour
+{variant:1,2}+(40-50) to maximum Life
+{variant:3}+(60-100) to maximum Life
 -30% to Fire Resistance
-8% of Physical Damage from Hits taken as Fire Damage
+{variant:1,2}8% of Physical Damage from Hits taken as Fire Damage
 {variant:1}Armour is increased by Uncapped Fire Resistance
 {variant:2}Armour is increased by Overcapped Fire Resistance
+{variant:3}Minion Life is increased by Overcapped Fire Resistance
+{variant:3}Socketed Skills are supported by level 30 Infernal Legion
 ]],[[
 Echoes of Creation
 Shaper Item
