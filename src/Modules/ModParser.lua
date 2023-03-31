@@ -2534,7 +2534,7 @@ local specialModList = {
 	} end,
 	["gain (%d+)%% of weapon physical damage as extra damage of an? r?a?n?d?o?m? ?element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num, nil, ModFlag.Weapon) } end,
 	["gain (%d+)%% of physical damage as extra damage of a random element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num ) } end,
-	["gain (%d+)%% of physical damage as a random element if you've cast (.+) in the past (%d+) seconds"] = function(num, _, curse) return { mod("PhysicalDamageGainAsRandom", "BASE", num, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }) } end,
+	["gain (%d+)%% of physical damage as a random element if you've cast (.-) in the past (%d+) seconds"] = function(num, _, curse) return { mod("PhysicalDamageGainAsRandom", "BASE", num, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }) } end,
 	["gain (%d+)%% of physical damage as extra damage of a random element while you are ignited"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num, { type = "Condition", var = "Ignited" }) } end,
 	["(%d+)%% of physical damage from hits with this weapon is converted to a random element"] = function(num) return { mod("PhysicalDamageConvertToRandom", "BASE", num ) } end,
 	["(%d+)%% of physical damage converted to a random element"] = function(num) return { mod("PhysicalDamageConvertToRandom", "BASE", num ) } end,
@@ -2927,7 +2927,7 @@ local specialModList = {
 	["warcries have infinite power"] = { flag("WarcryInfinitePower") },
 	["(%d+)%% chance to inflict corrosion on hit with attacks"] = { flag("Condition:CanCorrode") },
 	["(%d+)%% chance to inflict withered for (%d+) seconds on hit"] = { flag("Condition:CanWither") },
-	["inflict withered for (%d+) seconds on hit if you've cast (.+) in the past (%d+) seconds"] = function (_, _, curse) return { flag("Condition:CanWither", { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }) } end,
+	["inflict withered for (%d+) seconds on hit if you've cast (.-) in the past (%d+) seconds"] = function (_, _, curse) return { flag("Condition:CanWither", { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }) } end,
 	["(%d+)%% chance to inflict withered for (%d+) seconds on hit with this weapon"] = { flag("Condition:CanWither") },
 	["(%d+)%% chance to inflict withered for two seconds on hit if there are (%d+) or fewer withered debuffs on enemy"] = { flag("Condition:CanWither") },
 	["inflict withered for (%d+) seconds on hit with this weapon"] = { flag("Condition:CanWither") },
@@ -2965,7 +2965,7 @@ local specialModList = {
 	["nearby enemies have lightning exposure while you are affected by herald of thunder"] = {
 		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }, { type = "Condition", var = "AffectedByHeraldofThunder" }),
 	},
-	["i?n?f?l?i?c?t? ?(.+) exposure on hit if you've cast (.+) in the past (%d+) seconds"] = function (_, exposureType, curse) return {
+	["i?n?f?l?i?c?t? ?(%a-) exposure on hit if you've cast (.-) in the past (%d+) seconds"] = function (_, exposureType, curse) return {
 		mod("EnemyModifier", "LIST", { mod = mod(exposureType:gsub("^%l", string.upper).."Exposure", "BASE", -10) }, nil,  ModFlag.Hit, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }, { type = "Condition", var = "Effective" })
 	} end,
 	["inflict fire, cold and lightning exposure on nearby enemies when used"] = {
@@ -3399,10 +3399,10 @@ local specialModList = {
 	["immun[ei]t?y? to ignite during f?l?a?s?k? ?effect"] = { mod("AvoidIgnite", "BASE", 100, { type = "Condition", var = "UsingFlask" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["immun[ei]t?y? to bleeding during f?l?a?s?k? ?effect"] = { mod("AvoidBleed", "BASE", 100, { type = "Condition", var = "UsingFlask" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["immun[ei]t?y? to curses during f?l?a?s?k? ?effect"] = { mod("AvoidCurse", "BASE", 100, { type = "Condition", var = "UsingFlask" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
-	["you are unaffected by (.+) if you've cast (.+) in the past (%d+) seconds"] = function (_, ailment, curse) return {
+	["you are unaffected by (.+) if you've cast (.-) in the past (%d+) seconds"] = function (_, ailment, curse) return {
 		mod("Self"..ailment:gsub("^%l", string.upper).."Effect", "MORE", -100, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }, { type = "GlobalEffect", effectType = "Global", unscalable = true })
 	} end,
-	["immun[ei]t?y? to (%a-)s? if you've cast (.+) in the past (%d+) seconds"] = function (_, ailment, curse) return {
+	["immun[ei]t?y? to (%a-)s? if you've cast (.-) in the past (%d+) seconds"] = function (_, ailment, curse) return {
 		mod("Avoid"..ailment:gsub("^%l", string.upper), "BASE", 100, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") }, { type = "GlobalEffect", effectType = "Global", unscalable = true })
 	} end,
 	["when you kill an enemy affected by a non%-aura hex, become immune to curses for remaining hex duration"] = { -- typo / old wording change
@@ -3426,6 +3426,9 @@ local specialModList = {
 	["the effect of chill on you is reversed"] = { flag("SelfChillEffectIsReversed") },
 	["your movement speed is (%d+)%% of its base value"] = function(num) return { mod("MovementSpeed", "OVERRIDE", num / 100) } end,
 	["action speed cannot be modified to below (%d+)%% base value"] = function(num) return { mod("MinimumActionSpeed", "MAX", num) } end,
+	["action speed cannot be slowed below base value if you've cast (.-) in the past (%d+) seconds"] = function (_, curse) return {
+		mod("MinimumActionSpeed", "MAX", 100, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") })
+	} end,
 	["armour also applies to lightning damage taken from hits"] = { mod("ArmourAppliesToLightningDamageTaken", "BASE", 100), },
 	["lightning resistance does not affect lightning damage taken"] = { flag("SelfIgnoreLightningResistance") },
 	["(%d+)%% increased maximum life and reduced fire resistance"] = function(num) return {
@@ -3480,7 +3483,7 @@ local specialModList = {
 	["with a murderous eye jewel socketed, intimidate enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "HaveMurderousEyeJewelIn{SlotName}" }) },
 	["enemies taunted by your warcries are intimidated"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated", { type = "Condition", var = "Taunted" }) }, { type = "Condition", var = "UsedWarcryRecently" }) },
 	["intimidate enemies for (%d+) seconds on block while holding a shield"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "Condition", var = "BlockedRecently" }, { type = "Condition", var = "UsingShield" }) },
-	["intimidate enemies on hit if you've cast (.+) in the past (%d+) seconds"] = function (_, curse) return {
+	["intimidate enemies on hit if you've cast (.-) in the past (%d+) seconds"] = function (_, curse) return {
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, nil,  ModFlag.Hit, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") })
 	} end,
 	["intimidate enemies for (%d+) seconds on hit with attacks while at maximum endurance charges"] = { 
@@ -3991,7 +3994,7 @@ local specialModList = {
 		mod("LifeRegenPercent", "BASE", tonumber(percent) / num, { type = "Condition", var = "LifeRegenBurstAvg" }),
 	} end,
 	["take no extra damage from critical strikes"] = { mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
-	["take no extra damage from critical strikes if you've cast (.+) in the past (%d+) seconds"] = function (_, curse) return {
+	["take no extra damage from critical strikes if you've cast (.-) in the past (%d+) seconds"] = function (_, curse) return {
 		mod("ReduceCritExtraDamage", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", var = "SelfCast"..curse:gsub("^%l", string.upper):gsub(" %l", string.upper):gsub(" ", "") })
 	} end,
 	["take no extra damage from critical strikes if you have a magic ring in left slot"] = { 
