@@ -1332,11 +1332,6 @@ local modTagList = {
 		{ type = "StatThreshold", stat = "EvasionOnBody Armour", threshold = 1},
 		{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1},
 		{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1} } },
-	["if equipped helmet, body armour, gloves, and boots all have evasion rating"] = { tagList = { 
-		{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1},
-		{ type = "StatThreshold", stat = "EvasionOnBody Armour", threshold = 1},
-		{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1},
-		{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1} } },
 	-- Player status conditions
 	["wh[ie][ln]e? on low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["on reaching low life"] = { tag = { type = "Condition", var = "LowLife" } },
