@@ -656,10 +656,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- checks if it disables another slot
 						for _, tag in ipairs(mod) do
 							if tag.type == "DisablesItem" then
-								unhandledItemDisablers[slotName] = unhandledItemDisablers[slotName] and unhandledItemDisablers[slotName] or {}
+								unhandledItemDisablers[slotName] = unhandledItemDisablers[slotName] or {}
 								t_insert(unhandledItemDisablers[slotName], tag.slotName)
 								unhandledItemDisablers.size = unhandledItemDisablers.size + 1
-								itemDisabled[tag.slotName] = itemDisabled[tag.slotName] and itemDisabled[tag.slotName] or { size = 0}
+								itemDisabled[tag.slotName] = itemDisabled[tag.slotName] or { size = 0 }
 								itemDisabled[tag.slotName][slotName] = true
 								itemDisabled[tag.slotName].size = itemDisabled[tag.slotName].size + 1
 								break
@@ -668,7 +668,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 			end
-			while unhandledItemDisablers.size > 0 do
+			while next(nilunhandledItemDisablers) != nil do
 				local stalemateBreaker = true
 				for slot, itemData in pairs(unhandledItemDisablers) do
 					if slot ~= "size" then
