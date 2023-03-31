@@ -1069,7 +1069,7 @@ Implicits: 1
 {tags:mana}(10-20)% increased maximum Mana
 {variant:1}Critical Strike Chance is increased by Lightning Resistance
 {variant:2}Critical Strike Chance is increased by Overcapped Lightning Resistance
-{variant:3}50% increased Lightning Damage
+{variant:3}{tags:jewellery_elemental}50% increased Lightning Damage
 {variant:3}Lightning Damage with Non-Critical Strikes is Lucky
 ]],[[
 Choir of the Storm
