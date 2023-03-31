@@ -888,7 +888,7 @@ local function doActorMisc(env, actor)
 		modDB:NewMod("WarcryPower", "OVERRIDE", 999999, "Warcries have infinite power")
 	end
 	output.BloodCharges = m_min(modDB:Override(nil, "BloodCharges") or output.BloodChargesMax, output.BloodChargesMax)
-	output.SpiritCharges = m_min(modDB:Override(nil, "SpiritCharges") or output.SpiritChargesMax, output.SpiritChargesMax)
+	output.SpiritCharges = m_min(modDB:Override(nil, "SpiritCharges") or 0, output.SpiritChargesMax)
 
 	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
 	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
