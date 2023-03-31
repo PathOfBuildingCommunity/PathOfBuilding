@@ -31,9 +31,9 @@ body:
   - type: textarea
     id: expected
     attributes:
-      label: What is the value from the calculation ingame?
+      label: What is the value from the calculation in-game?
       description: Please write a clear and concise description of what should happen.
-      placeholder: E.g. Ingame when I [...] and use [...] I believe it should be calculated as [...] and so the value is [...].
+      placeholder: E.g. In-game when I [...] and use [...] I believe it should be calculated as [...] and so the value is [...].
     validations:
       required: true
   - type: textarea

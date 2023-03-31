@@ -486,7 +486,7 @@ return {
 	{ label = "Skill Trigger Rate", flag = "triggered", notFlag = "focused", { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, { breakdown = "SimData" }, }, },
 	{ label = "Skill Trigger Rate", flagList = {"triggered", "focused"}, { format = "{2:output:SourceTriggerRate}", { breakdown = "SourceTriggerRate" }, { breakdown = "SimData" }, { modName = "FocusCooldownRecovery", modType = "INC", cfg = "skill", }, }, },
 	{ label = "Adj. Trigger Rate", flag = "triggered", { format = "{2:output:ServerTriggerRate}",  { breakdown = "ServerTriggerRate" }, }, },
-	{ label = "Eff. Trigger Rate", flag = "triggered", notFlag = "dontDisplay", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
+	{ label = "Eff. Trigger Rate", flag = "triggered", notFlag = "noDisplay", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },
 } }
 } },
@@ -1481,7 +1481,7 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Evasion", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
 	{ label = "Total", { format = "{0:output:Evasion}", { breakdown = "Evasion" }, }, },
-	{ label = "Evade Chance", haveOutput = "dontSplitEvade", { format = "{0:output:EvadeChance}%", 
+	{ label = "Evade Chance", haveOutput = "noSplitEvade", { format = "{0:output:EvadeChance}%", 
 	  { breakdown = "EvadeChance" },
     { label = "Player modifiers", modName = { "CannotEvade", "EvadeChance", "MeleeEvadeChance", "ProjectileEvadeChance" } },
 	  { label = "Enemy modifiers", modName = { "Accuracy", "HitChance" }, enemy = true },
