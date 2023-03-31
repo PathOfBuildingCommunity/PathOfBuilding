@@ -2703,7 +2703,8 @@ local specialModList = {
 	["chance to avoid being shocked applies to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") }, -- typo / old wording change
 	["modifiers to chance to avoid being shocked apply to all elemental ailments"] = { flag("ShockAvoidAppliesToElementalAilments") },
 	["modifiers to chance to suppress spell damage also apply to chance to avoid elemental ailments at (%d+)%% of their value"] = function(num) return {
-		mod("SpellSuppressionToAilmentPercent", "BASE", num)
+		mod("SpellSuppressionAppliesToAilmentAvoidancePercent", "BASE", num),
+		flag("SpellSuppressionAppliesToAilmentAvoidance")
 	} end,
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
