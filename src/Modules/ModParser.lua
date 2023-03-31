@@ -884,7 +884,8 @@ local modFlagList = {
 	["from equipped gloves and boots"] = { tag = { type = "SlotName", slotNameList = { "Gloves", "Boots" } } },
 	["from equipped helmet and gloves"] = { tag = { type = "SlotName", slotNameList = { "Helmet", "Gloves" } } },
 	["from equipped helmet and boots"] = { tag = { type = "SlotName", slotNameList = { "Helmet", "Boots" } } },
-	["from equipped helmet"] = { tag = { type = "SlotName", slotNameList = { "Helmet" } } },
+	["from equipped helmet"] = { tag = { type = "SlotName", slotName = "Helmet" } },
+	["from equipped body armour"] = { tag = { type = "SlotName", slotName = "Body Armour" } },
 	["from body armour"] = { tag = { type = "SlotName", slotName = "Body Armour" } },
 	["from your body armour"] = { tag = { type = "SlotName", slotName = "Body Armour" } },
 }
@@ -2777,6 +2778,14 @@ local specialModList = {
 			{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1},
 			{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1},
 			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1}
+		)
+	} end,
+	["+(%d+)%% chance to suppress spell damage if equipped helmet, body armour, gloves, and boots all have evasion rating"] = function(num) return {
+		mod("SpellSuppressionChance", "BASE", tonumber(num),
+			{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1},
+			{ type = "StatThreshold", stat = "EvasionOnBody Armour", threshold = 1},
+			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1},
+			{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1}
 		)
 	} end,
 	["evasion rating is doubled against projectile attacks"] = { mod("ProjectileEvasion", "MORE", 100) },
