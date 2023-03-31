@@ -317,7 +317,7 @@ directiveTable.skill = function(state, args, out)
 			out:write('\tcannotBeSupported = true,\n')
 		end
 	end
-	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffect", granted)
+	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffectStatSets", granted.GrantedEffectStatSets)
 	for indx, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
 		local statRow = statsPerLevel[indx]
 		local level = { extra = { }, statInterpolation = { }, cost = { } }
