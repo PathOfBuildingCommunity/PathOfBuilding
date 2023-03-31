@@ -1331,6 +1331,11 @@ local modTagList = {
 		{ type = "StatThreshold", stat = "EvasionOnBody Armour", threshold = 1},
 		{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1},
 		{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1} } },
+	["if equipped helmet, body armour, gloves, and boots all have evasion rating"] = { tagList = { 
+		{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1},
+		{ type = "StatThreshold", stat = "EvasionOnBody Armour", threshold = 1},
+		{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1},
+		{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1} } },
 	-- Player status conditions
 	["wh[ie][ln]e? on low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["on reaching low life"] = { tag = { type = "Condition", var = "LowLife" } },
@@ -1537,6 +1542,7 @@ local modTagList = {
 	["if you detonated a mine recently"] = { tag = { type = "Condition", var = "DetonatedMinesRecently" } },
 	["if you[' ]h?a?ve detonated a mine recently"] = { tag = { type = "Condition", var = "DetonatedMinesRecently" } },
 	["if energy shield recharge has started recently"] = { tag = { type = "Condition", var = "EnergyShieldRechargeRecently" } },
+	["if energy shield recharge has started in the past 2 seconds"] = { tag = { type = "Condition", var = "EnergyShieldRechargePastTwoSec" } },
 	["when cast on frostbolt"] = { tag = { type = "Condition", var = "CastOnFrostbolt" } },
 	["branded enemy's"] = { tag = { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 } },
 	["to enemies they're attached to"] = { tag = { type = "MultiplierThreshold", var = "BrandsAttachedToEnemy", threshold = 1 } },
@@ -2954,6 +2960,10 @@ local specialModList = {
 		mod("LifeRegen", "BASE", 1 / interval * duration, { type = "Condition", var = "LifeRegenBurstAvg" }, { type = "PercentStat", stat = "Armour", percent = percent }),
 		mod("LifeRegen", "BASE", 1, { type = "Condition", var = "LifeRegenBurstFull" }, { type = "PercentStat", stat = "Evasion", percent = percent }),
 		mod("LifeRegen", "BASE", 1 / interval * duration, { type = "Condition", var = "LifeRegenBurstAvg" }, { type = "PercentStat", stat = "Evasion", percent = percent }),
+	} end,
+	["every (%d+) seconds, regenerate energy shield equal to (%d+)%% of evasion rating over (%d+) second"] = function (interval, percent, duration) return {
+		mod("EnergyShieldRegen", "BASE", 1, { type = "Condition", var = "LifeRegenBurstFull" }, { type = "PercentStat", stat = "Evasion", percent = percent }),
+		mod("EnergyShieldRegen", "BASE", 1 / interval * duration, { type = "Condition", var = "LifeRegenBurstAvg" }, { type = "PercentStat", stat = "Evasion", percent = percent }),
 	} end,
 	["fire skills have a (%d+)%% chance to apply fire exposure on hit"] = function(num) return { mod("FireExposureChance", "BASE", num) } end,
 	["cold skills have a (%d+)%% chance to apply cold exposure on hit"] = function(num) return { mod("ColdExposureChance", "BASE", num) } end,
