@@ -407,7 +407,6 @@ end
 table.insert(data.uniques.generated, table.concat(precursorsEmblem, "\n"))
 
 local balanceOfTerrorMods = {
-	["None"] = "",
 	["Vulnerability: Double Damage"] = "(6-10)% chance to deal Double Damage if you've cast Vulnerability in the past 10 seconds",
 	["Vulnerability: Unaffected by Bleeding"] = "You are Unaffected by Bleeding if you've cast Vulnerability in the past 10 seconds",
 	["Enfeeble: Critical Strike Multiplier"] = "+(30-40)% to Critical Strike Multiplier if you've cast Enfeeble in the past 10 seconds",
@@ -440,13 +439,16 @@ local balanceOfTerror = {
 	"LevelReq: 56",
 }
 
+-- adding a blank variant for 3 mod jewels
+table.insert(balanceOfTerror, "Variant: None")
+
 for name, _ in pairs(balanceOfTerrorMods) do
 	table.insert(balanceOfTerror, "Variant: "..name)
 end
 
 table.insert(balanceOfTerror, "+(10-15)% to all Elemental Resistances")
 
-local index = 1
+local index = 2
 for _, line in pairs(balanceOfTerrorMods) do
 	table.insert(balanceOfTerror, "{variant:"..index.."}"..line)
 	index = index + 1
@@ -594,6 +596,9 @@ Prismatic Jewel
 Source: Drops from unique{The Elder} or unique{The Elder} (Uber)
 Has Alt Variant: true
 Has Alt Variant Two: true
+Selected Variant: 5
+Selected Alt Variant: 30
+Selected Alt Variant Two: 1
 ]]
 }
 
@@ -636,6 +641,7 @@ end
 
 -- adding a blank variant to account for changes made in 3.20.1
 table.insert(voranasMarch, "Variant: None")
+table.insert(watchersEye, "Variant: None")
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
@@ -674,9 +680,9 @@ Has no Sockets
 Triggers Level 20 Summon Arbalists when Equipped
 25% increased Movement Speed]])
 
-local indexWatchersEye = 1
+local indexWatchersEye = 2
 local indexSublimeVision = 1
-local indexVoranasMarch = 1
+local indexVoranasMarch = 2
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
 		if watchersEyeLegacyMods[mod.Id] then
