@@ -885,6 +885,17 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
+	
+	local spellSupressToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSupressionToAilmentPercent") or 0) / 100
+	if spellSupressToAilmentPercent > 0 then
+		-- Ancestral Vision
+		for _, value in ipairs(modDB:Tabulate("BASE",  weaponsCfg, "SpellSuppressionChance")) do
+			local mod = copyTable(value.mod)
+			mod.name = "AvoidElementalAilments"
+			mod.value = mod.value * spellSupressToAilmentPercent
+			modDB:AddMod(mod)
+		end
+	end
 
 	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
 		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments"), 100)
