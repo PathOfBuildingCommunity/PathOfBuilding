@@ -3409,3 +3409,26 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+-- Rime Sentinel
+minions["Metadata/Monsters/Guardians/GuardianLightning_Blue"] = {
+	name = "Rime Sentinel",
+	life = 1.8,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 85,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"GuardianTriggerCascade1",
+		"GuardianTriggerCascade2",
+		"SpellNovaIceRibbons",
+		"GuardianTriggerCascade3",
+	},
+	modList = {
+	},
+}
