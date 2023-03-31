@@ -139,12 +139,12 @@ function DropDownClass:GetSelValue(key)
 	return self.list[self.selIndex][key]
 end
 
-function DropDownClass:SetSel(newSel, dontCallSelFunc)
+function DropDownClass:SetSel(newSel, noCallSelFunc)
 	newSel = m_max(1, m_min(self:GetDropCount(), newSel))
 	newSel = self:DropIndexToListIndex(newSel)
 	if newSel and newSel ~= self.selIndex then
 		self.selIndex = newSel
-		if not dontCallSelFunc and self.selFunc then
+		if not noCallSelFunc and self.selFunc then
 			self.selFunc(newSel, self.list[newSel])
 		end
 	end

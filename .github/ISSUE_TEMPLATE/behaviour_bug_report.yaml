@@ -31,9 +31,9 @@ body:
   - type: textarea
     id: expected
     attributes:
-      label: What is the behaviour ingame?
+      label: What is the behaviour in-game?
       description: Please write a clear and concise description of what should happen.
-      placeholder: E.g. Ingame something behaves in a certain way. e.g. curse priority, auras disabled by mod, skills triggered in a certain way, etc.
+      placeholder: E.g. In-game something behaves in a certain way. e.g. curse priority, auras disabled by mod, skills triggered in a certain way, etc.
     validations:
       required: true
   - type: textarea

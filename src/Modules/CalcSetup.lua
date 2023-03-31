@@ -1009,7 +1009,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if crossLinkedSupportGroups[socketGroup.slot and socketGroup.slot:gsub(" Swap","")] then
 				t_insert(indexOrder, 1, index)
 			else
-				t_insert(indexOrder, index)
+				t_insert(indexOrder, 1, index)
 			end
 		end
 		

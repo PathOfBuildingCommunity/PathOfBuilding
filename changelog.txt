@@ -423,7 +423,7 @@ VERSION[2.20.0][2022/08/16]
 * Force rebuild to initialise boss presets and remove phys fallback (Regisle)
 * Remove parsing for Tawhoa, Forest's Strength as it is not implemented (Lilylicious)
 * Selected Mastery Tree Upconversion Error (Nostrademous)
-* Set skillset to nil instead of removing it from table and reordering it (deathbeam)
+* Set skillSet to nil instead of removing it from table and reordering it (deathbeam)
 * Build did not save on generating a build code (talkmill)
 * Multistrike damage calculation with skills which have bow and melee Tag (Sinured)
 * Guaranteed ailments were not using correct values (Lilylicious)

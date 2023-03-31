@@ -719,6 +719,9 @@ skills["BallLightning"] = {
 		["ball_lightning_superball_%_chance"] = {
 			mod("ball_lightning_superball_%_chance", "BASE", nil)
 		},
+		["ball_lightning_projectile_speed_and_hit_frequency_+%_final"] = {
+			mod("ProjectileSpeed", "MORE", nil)
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -727,7 +730,7 @@ skills["BallLightning"] = {
 	baseMods = {
 		skill("radius", 18),
 		skill("strikeInterval", 0.15),
-		skill("projectileSpeed", 48),
+		skill("projectileSpeed", 40),
 		skill("duration", 2),
 	},
 	qualityStats = {
