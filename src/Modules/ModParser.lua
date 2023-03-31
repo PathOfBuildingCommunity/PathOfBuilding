@@ -1304,6 +1304,7 @@ local modTagList = {
 	["equipped bow"] = { tag = { type = "Condition", var = "UsingBow" } },
 	["if equipped ([%a%s]+) has an ([%a%s]+) modifier"] = function (_, itemSlotName, conditionSubstring) return { tag = { type = "ItemCondition", var = conditionSubstring, itemSlot = itemSlotName } } end,
 	["if both equipped ([%a%s]+) have ([%a%s]+) modifiers"] = function (_, itemSlotName, conditionSubstring) return { tag = { type = "ItemCondition", var = conditionSubstring, itemSlot = itemSlotName:sub(1, #itemSlotName - 1), allSlots = true } } end,
+	["if there are no ([%a%s]+) modifiers on equipped ([%a%s]+)"] = function (_, conditionSubstring, itemSlotName) return { tag = { type = "ItemCondition", var = conditionSubstring, itemSlot = itemSlotName, neg = true } } end,
 	["with a normal item equipped"] = { tag = { type = "MultiplierThreshold", var = "NormalItem", threshold = 1 } },
 	["with a magic item equipped"] = { tag = { type = "MultiplierThreshold", var = "MagicItem", threshold = 1 } },
 	["with a rare item equipped"] = { tag = { type = "MultiplierThreshold", var = "RareItem", threshold = 1 } },

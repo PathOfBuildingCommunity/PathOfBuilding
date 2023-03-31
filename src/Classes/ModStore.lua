@@ -525,7 +525,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 		elseif tag.type == "ItemCondition" then
 			local match = false
 			local searchCond = tag.var
-			local itemSlot = tag.itemSlot:gsub("^%l", string.upper)
+			local itemSlot = tag.itemSlot:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
 			local bCheckAllAppropriateSlots = tag.allSlots
 			if searchCond and itemSlot then
 				if bCheckAllAppropriateSlots then
