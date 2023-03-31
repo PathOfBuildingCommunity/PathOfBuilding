@@ -63,6 +63,24 @@ function ItemClass:ResetInfluence()
 	end
 end
 
+-- Iterate over modifiers to see if specific substring is found (for conditional checking)
+function ItemClass:FindModifierSubstring(substring)
+	local modLines = {}
+
+	-- merge various modifier lines into one table
+	for k,v in pairs(self.enchantModLines) do modLines[k] = v end
+	for k,v in pairs(self.scourgeModLines) do modLines[k] = v end
+	for k,v in pairs(self.implicitModLines) do modLines[k] = v end
+	for k,v in pairs(self.explicitModLines) do modLines[k] = v end
+
+	for _,v in pairs(modLines) do
+		if v.line:lower():find(substring:lower()) and not v.line:lower():find(substring:lower() .. " modifier") then
+			return true
+		end
+	end
+	return false
+end
+
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw)
 	self.raw = raw
