@@ -977,11 +977,13 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Cast)
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
 		end
-		if not modDB.conditions["AffectedByArcaneSurge"] and modDB:Flag(nil, "Condition:ArcaneSurge") then --add arcane surge if skill didn't add it first and we have a source
-			local effect = 1 + modDB:Sum("INC", nil, "ArcaneSurgeEffect", "BuffEffectOnSelf") / 100
+		if modDB.conditions["AffectedByArcaneSurge"] or modDB:Flag(nil, "Condition:ArcaneSurge") then
 			modDB.conditions["AffectedByArcaneSurge"] = true
-			modDB:NewMod("ManaRegen", "INC", effect * 30, "Arcane Surge")
-			modDB:NewMod("Damage", "MORE", effect * 10, "Arcane Surge", ModFlag.Spell)
+			local effect = 1 + modDB:Sum("INC", nil, "ArcaneSurgeEffect", "BuffEffectOnSelf") / 100
+			modDB:NewMod("ManaRegen", "INC", (modDB:Max(nil, "ArcaneSurgeManaRegen") or 30) * effect, "Arcane Surge")
+			modDB:NewMod("Speed", "INC", (modDB:Max(nil, "ArcaneSurgeCastSpeed") or 10) * effect, "Arcane Surge", ModFlag.Spell)
+			local arcaneSurgeDamage = modDB:Max(nil, "ArcaneSurgeDamage") or 0
+			if arcaneSurgeDamage ~= 0 then modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) end
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
 			local effect = m_floor(75 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
