@@ -2727,6 +2727,7 @@ function calcs.offence(env, actor, activeSkill)
 		for _, damageType in ipairs(dmgTypeList) do
 			if output[damageType.."HitAverage"] > 0 then
 				local portion = output[damageType.."HitAverage"] / totalHitAvg * 100
+				skillModList:NewMod("Condition:"..damageType.."HasDamage", "FLAG", true, "Config")
 				if output[damageType.."HitAverage"] > output[highestType.."HitAverage"] then
 					highestType = damageType
 				end
