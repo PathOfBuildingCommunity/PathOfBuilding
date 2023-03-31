@@ -6,7 +6,7 @@ data.uniques.new = {
 
 -- New
 [[
-El'Abin'S Visage
+El'Abin's Visage
 Fencer Helm
 +(20-30) to Strength
 +(20-30) to Dexterity
