@@ -6,11 +6,13 @@ return {
 Abberath's Horn
 Goat's Horn
 Variant: Pre 2.3.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 6, 29 Int
-Implicits: 2
+Implicits: 3
 {variant:1}(9-12)% increased Spell Damage
 {variant:2}(10-14)% increased Spell Damage
+{variant:3}Adds (1-2) to (3-4) Fire Damage to Spells and Attacks
 (20-30)% increased Fire Damage
 Adds (4-6) to (8-12) Fire Damage to Spells
 (40-60)% increased Global Critical Strike Chance
@@ -225,14 +227,16 @@ Spiraled Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.11.0
 Variant: Pre 3.19.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 24, 83 Int
-Implicits: 2
+Implicits: 3
 {variant:1}(10-14)% increased Spell Damage
 {variant:2,3,4}(15-19)% increased Spell Damage
+{variant:5}Adds (1-2) to (9-11) Lightning Damage to Spells and Attacks
 {variant:1,2}+1 to Level of Socketed Gems
-{variant:3,4}+2 to Level of Socketed Gems
-{variant:4}Socketed Gems are Supported by Level 10 Arcane Surge
+{variant:3,4,5}+2 to Level of Socketed Gems
+{variant:4,5}Socketed Gems are Supported by Level 10 Arcane Surge
 Socketed Gems are Supported by Level 10 Spell Echo
 {variant:4}Socketed Gems are Supported by Level 10 Controlled Destruction
 +(10-30) to Intelligence
@@ -283,10 +287,12 @@ Tornado Wand
 Elder Item
 Source: Drops from unique{The Elder}
 Variant: Pre 3.4.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 65, 212 Int
-Implicits: 1
-(35-39)% increased Spell Damage
+Implicits: 2
+{variant:1,2}(35-39)% increased Spell Damage
+{variant:3}Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks
 (30-40)% increased Spell Damage
 Adds (26-35) to (95-105) Lightning Damage to Spells
 +(6-10)% to Critical Strike Multiplier per Power Charge
@@ -294,7 +300,7 @@ Adds (26-35) to (95-105) Lightning Damage to Spells
 +2% Chance to Block Spell Damage per Power Charge
 Adds 3 to 9 Lightning Damage to Spells per Power Charge
 {variant:1}400 Lightning Damage taken per second per Power Charge if you've dealt a Critical Strike Recently
-{variant:2}200 Lightning Damage taken per second per Power Charge if your Skills have dealt a Critical Strike Recently
+{variant:2,3}200 Lightning Damage taken per second per Power Charge if your Skills have dealt a Critical Strike Recently
 ]],[[
 Storm Prison
 {variant:1,2}Carved Wand
@@ -306,7 +312,7 @@ Requires Level 12, 47 Int
 Implicits: 3
 {variant:1}(9-13)% increased Spell Damage
 {variant:2}(11-15)% increased Spell Damage
-{variant:3}(15-19)% increased Spell Damage
+{variant:3}Adds (1-2) to (9-11) Lightning Damage to Spells and Attacks
 (40-60)% increased Physical Damage
 Adds 1 to (35-45) Lightning Damage
 (15-25)% increased Mana Regeneration Rate
@@ -324,7 +330,7 @@ Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Requires Level 24, 83 Int
 Implicits: 2
 {variant:1}(15-19)% increased Spell Damage
-{variant:2}(38-42)% increased Spell Damage
+{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:1}(10-15)% increased Cast Speed
 50% chance to gain a Power Charge on Killing a Frozen Enemy
 {variant:1}Adds 10 to 20 Cold Damage to Spells per Power Charge
@@ -343,7 +349,7 @@ Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Requires Level 65, 212 Int
 Implicits: 1
 {variant:1}(35-39)% increased Spell Damage
-{variant:2}(38-42)% increased Spell Damage
+{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:1,2}(10-15)% increased Cast Speed
 {variant:3}(10-20)% increased Cast Speed
 {variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
@@ -365,7 +371,7 @@ Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 65, 212 Int
 Implicits: 1
 {variant:1}(35-39)% increased Spell Damage
-{variant:2}(38-42)% increased Spell Damage
+{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 (15-25)% increased Cast Speed
 Lose all Power Charges on reaching Maximum Power Charges
 Gain a Frenzy Charge on reaching Maximum Power Charges
