@@ -15,8 +15,8 @@ itemBases["Goat's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "(10-14)% increased Spell Damage",
-	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
+	implicit = "Adds (1-2) to (3-4) Fire Damage to Spells and Attacks",
+	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "fire", "attack", "caster" }, },
 	weapon = { PhysicalMin = 9, PhysicalMax = 16, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 6, int = 29, },
 }
