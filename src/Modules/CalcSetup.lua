@@ -644,7 +644,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		
 		if not env.configInput.ignoreItemDisablers then
 			local itemDisabled = {}
-			local unhandledItemDisablers = { size = 1}
+			local unhandledItemDisablers = { }
 			if modDB:Flag(nil, "CanNotUseHelm") then
 				itemDisabled["Helmet"] = { disabled = true, size = 1 }
 			end
@@ -658,7 +658,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 							if tag.type == "DisablesItem" then
 								unhandledItemDisablers[slotName] = unhandledItemDisablers[slotName] or {}
 								t_insert(unhandledItemDisablers[slotName], tag.slotName)
-								unhandledItemDisablers.size = unhandledItemDisablers.size + 1
 								itemDisabled[tag.slotName] = itemDisabled[tag.slotName] or { size = 0 }
 								itemDisabled[tag.slotName][slotName] = true
 								itemDisabled[tag.slotName].size = itemDisabled[tag.slotName].size + 1
@@ -668,52 +667,44 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 			end
-			while next(nilunhandledItemDisablers) != nil do
+			while next(unhandledItemDisablers) ~= nil do
 				local stalemateBreaker = true
 				for slot, itemData in pairs(unhandledItemDisablers) do
-					if slot ~= "size" then
-						if not itemDisabled[slot] then
-							for _, slot2 in ipairs(unhandledItemDisablers[slot]) do
-								if unhandledItemDisablers[slot2] then
-									for _, slot3 in ipairs(unhandledItemDisablers[slot2]) do
-										itemDisabled[slot3][slot2] = nil
-										itemDisabled[slot3].size = itemDisabled[slot3].size - 1
-										if itemDisabled[slot3].size == 0 then
-											itemDisabled[slot3] = nil
-										end
+					if not itemDisabled[slot] then
+						for _, slot2 in ipairs(unhandledItemDisablers[slot]) do
+							if unhandledItemDisablers[slot2] then
+								for _, slot3 in ipairs(unhandledItemDisablers[slot2]) do
+									itemDisabled[slot3][slot2] = nil
+									itemDisabled[slot3].size = itemDisabled[slot3].size - 1
+									if itemDisabled[slot3].size == 0 then
+										itemDisabled[slot3] = nil
 									end
-									unhandledItemDisablers[slot2] = nil
-									unhandledItemDisablers.size = unhandledItemDisablers.size - 1
 								end
-							end						
-							unhandledItemDisablers[slot] = nil
-							unhandledItemDisablers.size = unhandledItemDisablers.size - 1
-							stalemateBreaker = false
-						end
+								unhandledItemDisablers[slot2] = nil
+							end
+						end						
+						unhandledItemDisablers[slot] = nil
+						stalemateBreaker = false
 					end
 				end
 				-- if goes through an entire iteration without handling an unhandled Item Disabler, just take the first one
 				if stalemateBreaker then
 					for slot, itemData in pairs(unhandledItemDisablers) do
-						if slot ~= "size" then
-							for _, slot2 in ipairs(unhandledItemDisablers[slot]) do
-								if unhandledItemDisablers[slot2] then
-									for _, slot3 in ipairs(unhandledItemDisablers[slot2]) do
-										itemDisabled[slot3][slot2] = nil
-										itemDisabled[slot3].size = itemDisabled[slot3].size - 1
-										if itemDisabled[slot3].size == 0 then
-											itemDisabled[slot3] = nil
-										end
+						for _, slot2 in ipairs(unhandledItemDisablers[slot]) do
+							if unhandledItemDisablers[slot2] then
+								for _, slot3 in ipairs(unhandledItemDisablers[slot2]) do
+									itemDisabled[slot3][slot2] = nil
+									itemDisabled[slot3].size = itemDisabled[slot3].size - 1
+									if itemDisabled[slot3].size == 0 then
+										itemDisabled[slot3] = nil
 									end
-									unhandledItemDisablers[slot2] = nil
-									unhandledItemDisablers.size = unhandledItemDisablers.size - 1
 								end
-							end						
-							unhandledItemDisablers[slot] = nil
-							break
-						end
+								unhandledItemDisablers[slot2] = nil
+							end
+						end						
+						unhandledItemDisablers[slot] = nil
+						break
 					end
-					unhandledItemDisablers.size = unhandledItemDisablers.size - 1
 				end
 			end
 			for slot, _ in pairs(itemDisabled) do
