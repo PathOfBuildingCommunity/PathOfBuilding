@@ -25,13 +25,16 @@ League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{The Surrender} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
-{variant:2}+(30-40) to maximum Life
-(120-160)% increased Armour
+{variant:2,3}+(30-40) to maximum Life
+{variant:1,2}(120-160)% increased Armour
+{variant:3}100% increased Armour
 +(50-70) to maximum Life
 +6% Chance to Block
-+1000 Armour if you've Blocked Recently
+{variant:1,2}+1000 Armour if you've Blocked Recently
+{variant:3}+(1500-3000) Armour if you've Blocked Recently
 Permanently Intimidate Enemies on Block
 ]],[[
 The Surrender
@@ -39,15 +42,18 @@ Ezomyte Tower Shield
 League: Breach
 Source: Upgraded from unique{The Anticipation} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
-{variant:2}+(30-40) to maximum Life
+{variant:2,3}+(30-40) to maximum Life
 Grants Level 30 Reckoning Skill
-(130-170)% increased Armour
+{variant:1,2}(130-170)% increased Armour
+{variant:3}(165-205)% increased Armour
 +(65-80) to maximum Life
-Recover 250 Life when you Block
+{variant:1,2}Recover 250 Life when you Block
+{variant:3}Recover (250-500) Life when you Block
 +6% Chance to Block
-+1500 Armour if you've Blocked Recently
+{variant:1,2}+1500 Armour if you've Blocked Recently
 ]],[[
 Chernobog's Pillar
 Ebony Tower Shield
@@ -469,17 +475,23 @@ Implicits: 2
 {variant:4}Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%
 ]],[[
 Esh's Mirror
-Thorium Spirit Shield
+{variant:1}Thorium Spirit Shield
+{variant:2}Vaal Spirit Shield
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Esh's Visage} using currency{Blessing of Esh}
-Implicits: 0
+Implicits: 1
+{variant:2}(5-10)% increased Spell Damage
 +(20-30) to Intelligence
-(80-100)% increased Energy Shield
-+(40-70) to maximum Life
+{variant:1}(80-100)% increased Energy Shield
+{variant:2}(170-230)% increased Energy Shield
+{variant:1}+(70-100) to maximum Life
 +(35-40)% to Lightning Resistance
+{variant:2}Shocks you inflict spread to other Enemies within a Radius of 12
 Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently
-Shock Reflection
+{variant:1}Shock Reflection
 ]],[[
 Esh's Visage
 Vaal Spirit Shield

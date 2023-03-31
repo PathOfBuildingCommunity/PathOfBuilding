@@ -241,7 +241,7 @@ function main:Init()
 		self:SetCurrentCol()
 	end)
 	
-	self.controls.filter = new("EditControl", nil, 270, 0, 300, 18, nil, "^8Filter") {
+	self.controls.filter = new("EditControl", nil, 270, 0, 800, 18, nil, "^8Filter") {
 		y = function()
 			return self.editSpec and 240 or 30
 		end,

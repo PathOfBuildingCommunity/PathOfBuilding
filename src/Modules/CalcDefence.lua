@@ -468,7 +468,7 @@ function calcs.defence(env, actor)
 				output.splitEvade = true
 			else
 				output.EvadeChance = output.MeleeEvadeChance
-				output.dontSplitEvade = true
+				output.noSplitEvade = true
 			end
 			if breakdown then
 				breakdown.EvadeChance = {
@@ -883,6 +883,17 @@ function calcs.defence(env, actor)
 			if value.mod.value ~= 100 then -- immunity or cannot be ailments don't apply as they have been changed to be unique
 				value.mod.name = "AvoidElementalAilments"
 			end
+		end
+	end
+	
+	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
+		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100
+		-- Ancestral Vision
+		for _, value in ipairs(modDB:Tabulate("BASE",  weaponsCfg, "SpellSuppressionChance")) do
+			local mod = copyTable(value.mod)
+			mod.name = "AvoidElementalAilments"
+			mod.value = mod.value * spellSuppressionToAilmentPercent
+			modDB:AddMod(mod)
 		end
 	end
 

@@ -481,7 +481,7 @@
 - Force rebuild to initialise boss presets and remove phys fallback [\#4615](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4615) ([Regisle](https://github.com/Regisle))
 - Stop pretending Tawhoa is implemented [\#4732](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4732) ([Lilylicious](https://github.com/Lilylicious))
 - Selected Mastery Tree Upconversion Error [\#4765](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4765) ([Nostrademous](https://github.com/Nostrademous))
-- Set skillset to nil instead of removing it from table and reordering it [\#4772](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4772) ([deathbeam](https://github.com/deathbeam))
+- Set skillSet to nil instead of removing it from table and reordering it [\#4772](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4772) ([deathbeam](https://github.com/deathbeam))
 - Build did not save on generating a build code [\#4623](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4623) ([talkmill](https://github.com/talkmill))
 - Multistrike damage calculation with skills which have bow and melee Tag [\#4740](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4740) ([Sinured](https://github.com/Sinured))
 - Guaranteed ailments were not using correct values [\#4790](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4790) ([Lilylicious](https://github.com/Lilylicious))

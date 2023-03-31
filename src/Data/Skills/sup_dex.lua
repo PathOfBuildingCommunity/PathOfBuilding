@@ -504,6 +504,14 @@ skills["SupportBlockReduction"] = {
 	addSkillTypes = { SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["global_reduce_enemy_block_%"] = {
+			mod("reduceEnemyBlock", "BASE", nil, 0, 0)
+		},
+		["support_reduce_enemy_block_and_spell_block_%"] = {
+			mod("reduceEnemyBlock", "BASE", nil, 0, 0)
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "global_reduce_enemy_block_%", 0.25 },
