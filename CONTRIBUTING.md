@@ -62,7 +62,9 @@ The easiest way to make and test changes is by setting up a development installa
 
        git clone -b dev https://github.com/PathOfBuildingCommunity/PathOfBuilding.git
 
-2. Go to the actual folder on your computer where you cloned path of building. (E.G. C:/XX/GitHub/PathOfBuilding/runtime/)
+2. Go to the actual folder on your computer where you cloned Path of Building. (e.g. C:/XX/GitHub/PathOfBuilding/runtime/)
+
+       cd PathOfBuilding
 
 3. Start Path of Building from the repository by running `./runtime/Path{space}of{space}Building.exe`.
 
