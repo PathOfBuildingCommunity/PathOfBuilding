@@ -11,6 +11,7 @@ Viridian Jewel
 +(5-10) to Dexterity
 Modifiers to Chance to Suppress Spell Damage also apply to Chance to Avoid Elemental Ailments at 50% of their Value
 ]],
+[[
 El'Abin's Visage
 Fencer Helm
 +(20-30) to Strength
