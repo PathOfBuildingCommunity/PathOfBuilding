@@ -1066,10 +1066,10 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {variant:1,2}Trigger Level 12 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_attribute}+(10-15) to all Attributes
+{variant:3}{tags:jewellery_elemental}50% increased Lightning Damage
 {tags:mana}(10-20)% increased maximum Mana
 {variant:1}Critical Strike Chance is increased by Lightning Resistance
 {variant:2}Critical Strike Chance is increased by Overcapped Lightning Resistance
-{variant:3}{tags:jewellery_elemental}50% increased Lightning Damage
 {variant:3}Lightning Damage with Non-Critical Strikes is Lucky
 ]],[[
 Choir of the Storm
