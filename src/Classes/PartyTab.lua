@@ -26,15 +26,15 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.lastEnableExportBuffs = true
 	self.showColorCodes = false
 
-	local notesDesc = [[^7Party stuff	DO NOT EDIT ANY BOXES UNLESS YOU KNOW WHAT YOU ARE DOING, use copy/paste instead, or import
-	To import a build that build must have been saved with Enable Export ticked
+	local notesDesc = [[^7DO NOT EDIT ANY BOXES UNLESS YOU KNOW WHAT YOU ARE DOING, use copy/paste instead, or import
+	To import a build, you must export that build with "Export Support" ticked
 	The Strongest Aura applies, but your curses override the supports regardless of strength
 	]]
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
 	self.controls.notesDesc.width = function()
 		return self.width / 2 - 16
 	end
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, 16, "^7To import a build, enter code here: (NOT URL)")
+	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, 16, "^7Enter a build code below: (NOT URL)")
 	
 	local importCodeHandle = function (buf)
 		self.importCodeSite = nil
