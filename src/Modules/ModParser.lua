@@ -649,6 +649,7 @@ local modNameList = {
 	["elemental ailment duration on you"] = "SelfElementalAilmentDuration",
 	["duration of ailments you inflict"] = "EnemyAilmentDuration",
 	["duration of ailments inflicted"] = "EnemyAilmentDuration",
+	["duration of ailments inflicted on you"] = "SelfAilmentDuration",
 	-- Other ailments
 	["to poison"] = "PoisonChance",
 	["to cause poison"] = "PoisonChance",
