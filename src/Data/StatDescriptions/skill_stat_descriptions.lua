@@ -21309,7 +21309,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% less Damage with Hits and Ailments  against Burning Enemies"
+					text="{0}% less Damage with Hits and Ailments against Burning Enemies"
 				}
 			}
 		},
