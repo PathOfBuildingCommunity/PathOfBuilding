@@ -489,9 +489,9 @@ Implicits: 1
 {variant:2}(170-230)% increased Energy Shield
 {variant:1}+(70-100) to maximum Life
 +(35-40)% to Lightning Resistance
+{variant:2}Shocks you inflict spread to other Enemies within a Radius of 12
 Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently
 {variant:1}Shock Reflection
-{variant:2}Shocks you inflict spread to other Enemies within a Radius of 12
 ]],[[
 Esh's Visage
 Vaal Spirit Shield

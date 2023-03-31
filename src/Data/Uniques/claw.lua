@@ -172,11 +172,11 @@ Implicits: 3
 {variant:1,2,3}(10-15)% increased Attack Speed
 {variant:4}(8-12)% increased Dexterity
 {variant:4}(8-12)% increased Intelligence
+{variant:4}Recover 1% of Life on Kill
 {variant:1,2}Adds 1 to 3 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:3}Adds 1 to 5 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:4}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Dexterity
 {variant:4}5% increased Critical Strike Chance per 25 Intelligence
-{variant:4}Recover 1% of Life on Kill
 ]],[[
 Hand of Wisdom and Action
 Imperial Claw
