@@ -279,15 +279,17 @@ Ornament of the East
 Gut Ripper
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}Grants 21 Life per Enemy Hit
-{variant:2,3}Grants 44 Life per Enemy Hit
+{variant:2,3,4}Grants 44 Life per Enemy Hit
 +1 to Level of Socketed Dexterity Gems
 {variant:3}Socketed Gems are Supported by Level 10 Faster Attacks
+{variant:4}Socketed Gems are Supported by Level 15 Faster Attacks
 {variant:1,2}(100-120)% increased Physical Damage
-{variant:3}(160-180)% increased Physical Damage
+{variant:3,4}(160-180)% increased Physical Damage
 (10-15)% increased Attack Speed
 25% increased Stun and Block Recovery
 Hits can't be Evaded
