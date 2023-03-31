@@ -168,7 +168,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
+		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), latestTreeVersion)
 		newSpec:BuildClusterJewelGraphs()
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
 		self:SetActiveSpec(self.activeSpec + 1)
