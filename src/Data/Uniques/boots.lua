@@ -41,7 +41,7 @@ Requires Level 68, 120 Str
 ]],[[
 The Infinite Pursuit
 {variant:1}Goliath Greaves
-{variant:1}Titan Greaves
+{variant:2}Titan Greaves
 Variant: Pre 3.21.0
 Variant: Current
 League: Breach

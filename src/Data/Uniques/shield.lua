@@ -487,7 +487,7 @@ Implicits: 1
 +(20-30) to Intelligence
 {variant:1}(80-100)% increased Energy Shield
 {variant:2}(170-230)% increased Energy Shield
-{variant:1}+(40-70) to maximum Life
+{variant:1}+(70-100) to maximum Life
 +(35-40)% to Lightning Resistance
 Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently
 {variant:1}Shock Reflection

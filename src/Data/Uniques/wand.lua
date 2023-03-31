@@ -347,9 +347,9 @@ Variant: Current
 League: Breach
 Source: Upgraded from unique{Tulborn} using currency{Blessing of Tul}
 Requires Level 65, 212 Int
-Implicits: 1
-{variant:1}(35-39)% increased Spell Damage
-{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
+Implicits: 2
+{variant:1,2}(35-39)% increased Spell Damage
+{variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 {variant:1,2}(10-15)% increased Cast Speed
 {variant:3}(10-20)% increased Cast Speed
 {variant:1}50% chance to gain a Power Charge on Killing a Frozen Enemy
@@ -369,7 +369,7 @@ Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 65, 212 Int
-Implicits: 1
+Implicits: 2
 {variant:1}(35-39)% increased Spell Damage
 {variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
 (15-25)% increased Cast Speed

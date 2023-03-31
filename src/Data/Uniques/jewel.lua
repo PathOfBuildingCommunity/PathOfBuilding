@@ -270,8 +270,8 @@ League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
-{variant:1}Gain 5% of Cold Damage as Extra Chaos Damage
-{variant:2}Gain (6-10)% of Cold Damage as Extra Chaos Damage
+{variant:1,2}Gain 5% of Cold Damage as Extra Chaos Damage
+{variant:3}Gain (6-10)% of Cold Damage as Extra Chaos Damage
 {variant:1}Passives granting Cold Resistance or all Elemental Resistances in Radius
 {variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
 {variant:2}Passives granting Cold Resistance or all Elemental Resistances in Radius
