@@ -1011,15 +1011,19 @@ Lightpoacher
 Great Crown
 League: Abyss
 Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
-Variant: One Abyssal Socket
-Variant: Two Abyssal Sockets
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
+Variant: One Abyssal Socket (Pre 3.21.0)
+Variant: Two Abyssal Sockets (Pre 3.21.0)
+Variant: One Abyssal Socket (Current)
+Variant: Two Abyssal Sockets (Current)
+{variant:1,3}Has 1 Abyssal Socket
+{variant:2,4}Has 2 Abyssal Sockets
 Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge
 +(10-15)% to all Elemental Resistances
-Recover (4-5)% of Life when a Spirit Charge expires or is consumed
-(15-20)% chance to gain a Spirit Charge on Kill
+{variant:1,2}Recover (4-5)% of Life when a Spirit Charge expires or is consumed
+{variant:1,2}(15-20)% chance to gain a Spirit Charge on Kill
+{variant:3,4}100% chance to gain a Spirit Charge on Kill
 +1 to Maximum Spirit Charges per Abyss Jewel affecting you
+{variant:3,4}Gain 5% of Physical Damage as Extra Damage of each Element per Spirit Charge
 ]],[[
 Malachai's Vision
 Praetor Crown

@@ -773,10 +773,14 @@ Hypnotic Eye Jewel
 ]],[[
 Tecrod's Gaze
 Murderous Eye Jewel
+Variant: Pre 3.21.0
+Variant: Current
 Requires Level 40
 +(10-20) to Strength
-20% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 100%
-+10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +50%
+{variant:1}20% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 100%
+{variant:2}40% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 200%
+{variant:1}+10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +50%
+{variant:2}+20% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +100%
 ]],[[
 Ulaman's Gaze
 Searching Eye Jewel
