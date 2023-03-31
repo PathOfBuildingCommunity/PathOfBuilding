@@ -79,8 +79,8 @@ Requires Level 48, 101 Str
 {variant:1,2}+(100-120) to Armour
 {variant:3}(80-120)% increased Armour
 {variant:1,2}+(40-50) to maximum Life
-{variant:1,2}-20 Fire Damage taken when Hit
-{variant:3}-(100-200) Fire Damage taken when Hit
+{variant:1,2}-20 Fire Damage taken from Hits
+{variant:3}-(100-200) Fire Damage taken from Hits
 {variant:1}Armour is increased by Uncapped Fire Resistance
 {variant:2,3}Armour is increased by Overcapped Fire Resistance
 {variant:3}-30% to Fire Resistance

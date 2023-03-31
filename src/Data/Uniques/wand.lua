@@ -201,7 +201,7 @@ Variant: Pre 2.6.0
 Variant: Pre 3.21.0
 Variant: Current
 Requires Level 65, 212 Int
-Implicits: 2
+Implicits: 3
 {variant:1}(16-19)% increased Spell Damage
 {variant:2,3}(35-39)% increased Spell Damage
 {variant:4}(33-37)% increased Spell Damage
@@ -249,7 +249,7 @@ Variant: Current
 League: Ultimatum
 Source: Drops from unique{The Trialmaster}
 Requires Level 24, 83 Int
-Implicits: 1
+Implicits: 2
 {variant:1}(15-19)% increased Spell Damage
 {variant:2}(17-21)% increased Spell Damage
 Grants Level 1 Blood Sacrament Skill

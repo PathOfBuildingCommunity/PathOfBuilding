@@ -435,9 +435,9 @@ League: Breach
 Implicits: 2
 {variant:1}18% increased Global Accuracy Rating
 {variant:2,3,4}40% increased Global Accuracy Rating
+{variant:4}Grants Level 25 Envy Skill
 {variant:1,2,3}+(10-20) to all Attributes
 {variant:1,2,3}Minions deal (20-30)% increased Damage
-{variant:4}Grants Level 25 Envy Skill
 {variant:1,2,3}Minions have +17% to Chaos Resistance
 {variant:4}Minions have +29% to Chaos Resistance
 {variant:1,2}Minions Poison Enemies on Hit

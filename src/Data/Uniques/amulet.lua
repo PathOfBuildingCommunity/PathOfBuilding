@@ -506,8 +506,8 @@ Implicits: 1
 {tags:jewellery_resistance}+(35-40)% to Cold Resistance
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
-60% increased Damage if you've Frozen an Enemy Recently
 {variant:2}Freezes you inflict spread to other Enemies with a Radius of 12
+60% increased Damage if you've Frozen an Enemy Recently
 ]],[[
 The Pandemonius
 Jade Amulet
