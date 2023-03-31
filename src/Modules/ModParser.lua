@@ -863,6 +863,8 @@ local modFlagList = {
 	["with brand skills"] = { tag = { type = "SkillType", skillType = SkillType.Brand } },
 	["for stance skills"] = { tag = { type = "SkillType", skillType = SkillType.Stance } },
 	["of stance skills"] = { tag = { type = "SkillType", skillType = SkillType.Stance } },
+	["mark skills"] = { tag = { type = "SkillType", skillType = SkillType.Mark } },
+	["of mark skills"] = { tag = { type = "SkillType", skillType = SkillType.Mark } },
 	["with skills that cost life"] = { tag = { type = "StatThreshold", stat = "LifeCost", threshold = 1 } },
 	["minion"] = { addToMinion = true },
 	["zombie"] = { addToMinion = true, addToMinionTag = { type = "SkillName", skillName = "Raise Zombie" } },
