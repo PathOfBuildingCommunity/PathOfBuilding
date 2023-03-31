@@ -433,9 +433,14 @@ local balanceOfTerror = {
 	"League: Sanctum",
 	"Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}",
 	"Has Alt Variant: true",
+	"Has Alt Variant Two: true",
+	"Selected Alt Variant Two: 1",
 	"Limited to: 1",
 	"LevelReq: 56",
 }
+
+-- adding a blank variant for 3 mod jewels
+table.insert(balanceOfTerror, "Variant: None")
 
 for name, _ in pairs(balanceOfTerrorMods) do
 	table.insert(balanceOfTerror, "Variant: "..name)
@@ -443,7 +448,7 @@ end
 
 table.insert(balanceOfTerror, "+(10-15)% to all Elemental Resistances")
 
-local index = 1
+local index = 2
 for _, line in pairs(balanceOfTerrorMods) do
 	table.insert(balanceOfTerror, "{variant:"..index.."}"..line)
 	index = index + 1
@@ -591,6 +596,9 @@ Prismatic Jewel
 Source: Drops from unique{The Elder} or unique{The Elder} (Uber)
 Has Alt Variant: true
 Has Alt Variant Two: true
+Selected Variant: 5
+Selected Alt Variant: 30
+Selected Alt Variant Two: 1
 ]]
 }
 
@@ -612,8 +620,11 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Has Alt Variant: true
 Has Alt Variant Two: true
-Selected Variant: 1
-Selected Alt Variant: 2
+Has Alt Variant Three: true
+Selected Variant: 24
+Selected Alt Variant: 10
+Selected Alt Variant Two: 11
+Selected Alt Variant Three: 13
 ]]
 }
 
@@ -627,6 +638,10 @@ local abbreviateModId = function(string)
 	gsub("Multiplier", "Mult"):
 	gsub("EnergyShield", "ES"))
 end
+
+-- adding a blank variant to account for changes made in 3.20.1
+table.insert(voranasMarch, "Variant: None")
+table.insert(watchersEye, "Variant: None")
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
@@ -665,9 +680,9 @@ Has no Sockets
 Triggers Level 20 Summon Arbalists when Equipped
 25% increased Movement Speed]])
 
-local indexWatchersEye = 1
+local indexWatchersEye = 2
 local indexSublimeVision = 1
-local indexVoranasMarch = 1
+local indexVoranasMarch = 2
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
 		if watchersEyeLegacyMods[mod.Id] then
