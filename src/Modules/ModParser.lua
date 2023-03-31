@@ -882,6 +882,7 @@ local modFlagList = {
 	["global"] = { tag = { type = "Global" } },
 	["from equipped shield"] = { tag = { type = "SlotName", slotName = "Weapon 2" } },
 	["from equipped gloves and boots"] = { tag = { type = "SlotName", slotNameList = { "Gloves", "Boots" } } },
+	["from equipped boots and gloves"] = { tag = { type = "SlotName", slotNameList = { "Gloves", "Boots" } } },
 	["from equipped helmet and gloves"] = { tag = { type = "SlotName", slotNameList = { "Helmet", "Gloves" } } },
 	["from equipped helmet and boots"] = { tag = { type = "SlotName", slotNameList = { "Helmet", "Boots" } } },
 	["from equipped helmet"] = { tag = { type = "SlotName", slotName = "Helmet" } },
@@ -1314,6 +1315,16 @@ local modTagList = {
 	["if all equipped items are corrupted"] = { tag = { type = "MultiplierThreshold", var = "NonCorruptedItem", threshold = 0, upper = true } },
 	["if equipped shield has at least (%d+)%% chance to block"] = function(num) return { tag = { type = "StatThreshold", stat = "ShieldBlockChance", threshold = num } } end,
 	["if you have (%d+) primordial items socketed or equipped"] = function(num) return { tag = { type = "MultiplierThreshold", var = "PrimordialItem", threshold = num } } end,
+	["if equipped helmet, body armour, gloves, and boots all have armour"] = { tagList = { 
+		{ type = "StatThreshold", stat = "ArmourOnHelmet", threshold = 1},
+		{ type = "StatThreshold", stat = "ArmourOnBody Armour", threshold = 1},
+		{ type = "StatThreshold", stat = "ArmourOnGloves", threshold = 1},
+		{ type = "StatThreshold", stat = "ArmourOnBoots", threshold = 1} } },
+	["if equipped helmet, body armour, gloves, and boots all have evasion rating"] = { tagList = { 
+		{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1},
+		{ type = "StatThreshold", stat = "EvasionOnBody Armour", threshold = 1},
+		{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1},
+		{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1} } },
 	-- Player status conditions
 	["wh[ie][ln]e? on low life"] = { tag = { type = "Condition", var = "LowLife" } },
 	["on reaching low life"] = { tag = { type = "Condition", var = "LowLife" } },
@@ -2780,14 +2791,6 @@ local specialModList = {
 			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1}
 		)
 	} end,
-	["+(%d+)%% chance to suppress spell damage if equipped helmet, body armour, gloves, and boots all have evasion rating"] = function(num) return {
-		mod("SpellSuppressionChance", "BASE", tonumber(num),
-			{ type = "StatThreshold", stat = "EvasionOnHelmet", threshold = 1},
-			{ type = "StatThreshold", stat = "EvasionOnBody Armour", threshold = 1},
-			{ type = "StatThreshold", stat = "EvasionOnGloves", threshold = 1},
-			{ type = "StatThreshold", stat = "EvasionOnBoots", threshold = 1}
-		)
-	} end,
 	["evasion rating is doubled against projectile attacks"] = { mod("ProjectileEvasion", "MORE", 100) },
 	["evasion rating is doubled against melee attacks"] = { mod("MeleeEvasion", "MORE", 100) },
 	["+(%d+)%% chance to suppress spell damage for each dagger you're wielding"] = function(num) return {
@@ -3452,6 +3455,9 @@ local specialModList = {
 	["stun threshold is based on (%d+)%% of your mana instead of life"] = function(num) return {
 		flag("StunThresholdBasedOnManaInsteadOfLife"),
 		mod("StunThresholdManaPercent", "BASE", num),
+	} end,
+	["(%d+)%% increased armour per second you've been stationary, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
+		mod("Armour", "INC", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit / num) }, { type = "Condition", var = "Stationary" }),
 	} end,
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
