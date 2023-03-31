@@ -1540,8 +1540,8 @@ function PassiveSpecClass:CreateUndoState()
 	}
 end
 
-function PassiveSpecClass:RestoreUndoState(state)
-	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.masteryEffects, state.treeVersion)
+function PassiveSpecClass:RestoreUndoState(state, treeVersion)
+	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.masteryEffects, treeVersion or state.treeVersion)
 	self:SetWindowTitleWithBuildClass()
 end
 
