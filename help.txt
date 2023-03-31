@@ -8,7 +8,7 @@ This file contains a list of shortcuts, and other misc things PoB has
 2. Contents
 3. FAQ
 4. Hotkeys
-5. Other
+5. Other Notable Things
 6. Timeless Jewels
 
 ---[FAQ][3]
@@ -43,11 +43,12 @@ E	On an equipped item will open it on the edit menu on the right.
 Ctrl + LMB	Enable / disable gems
 Ctrl + RMB	Enable / disable gems from Full DPS
 Mouse 4/5	Undo / Redo path respectively (in build selection menu)
-Shift	While scrolling on a slider makes it 5 times faster
-Ctrl	While scrolling on a slider makes it 5 times slower
+Shift	While scrolling on a slider makes it 5* times faster
+Ctrl	While scrolling on a slider makes it 5* times slower
+* default of 5, some scroll bars have more or less extreme modifiers to scroll speed
 
 When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot
-	and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
+    and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
 
 Passive Tree Shortcuts:
 
@@ -77,16 +78,15 @@ DEV[Shift	Copy export xml to clipboard (hold key during export)]
 
 ---[Other Notable Things][5]
 
-Adding ^ and then a number or hex code before text will change the colour of the text, eg ^^77 will make all text white
+Adding ^ and then a number or hex code before text will change the colour of the text, eg ^^77 will make the following text white until the next colour marker is set.
 
 ---[Timeless Jewels][6]
 
-Timeless jewels modify nodes in a radius based off their seed, the same seed will apply the same changes to the same 
-    small/notable nodes so that is the number you look for. The Conqueror (name on the jewel) only affects the keystone.
-  
+Timeless jewels modify nodes in a radius based off their seed, the same seed will apply the same changes to the same small/notable nodes so that is the number you look for. The Conqueror (name on the jewel) only affects the keystone.
+
 Path of Building has an inbuilt tool in the tree tab to search through seeds to find stats that would be good for your build.
 Clicking the "Find Timeless Jewel" button on the bottom bar in the tree tab will open a UI that lets you:
-Select which jewel type, which jewel socket to search for, and which conqueror from that jewel 
+Select which jewel type, which jewel socket to search for, and which conqueror from that jewel
     ("Any" will just use the first conqueror if you add it to build, more on that later)
 
 The filter nodes option makes it only check nodes that are allocated when searching a jewel socket.
@@ -112,7 +112,6 @@ Lastly is the search results box. This will list seeds from the best to the wors
 Militant Faith jewels also have the option to select the other mods on the jewel
 
 Advanced tricks:
-    For Militant Faith, if you don't want any nodes to change, you can just sort by devotion, as unchanged nodes add devotion the ones
-    with the most devotion will be the ones with unchanged nodes
+    For Militant Faith, if you don't want any nodes to change, you can just sort by devotion. As unchanged nodes add devotion, the ones with the most devotion will be the ones with unchanged nodes
 	
 	

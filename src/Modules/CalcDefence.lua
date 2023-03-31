@@ -60,76 +60,6 @@ function calcs.defence(env, actor)
 	-- Action Speed
 	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
 
-	-- Resistances
-	output["PhysicalResist"] = 0
-
-	-- Highest Maximum Elemental Resistance for Melding of the Flesh
-	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
-		local highestResistMax = 0;
-		local highestResistMaxType = "";
-		for _, elem in ipairs(resistTypeList) do
-			local resistMax = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
-			if resistMax > highestResistMax and isElemental[elem] then
-				highestResistMax = resistMax;
-				highestResistMaxType = elem;
-			end
-		end
-		for _, elem in ipairs(resistTypeList) do
-			if isElemental[elem] then
-				modDB:NewMod(elem.."ResistMax", "OVERRIDE", highestResistMax, highestResistMaxType.." Melding of the Flesh");
-			end
-		end
-	end
-	
-	for _, elem in ipairs(resistTypeList) do
-		local min, max, total, totemTotal, totemMax
-		min = data.misc.ResistFloor
-		max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
-		total = modDB:Override(nil, elem.."Resist")
-		totemMax = modDB:Override(nil, "Totem"..elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, "Totem"..elem.."ResistMax", isElemental[elem] and "TotemElementalResistMax"))
-		totemTotal = modDB:Override(nil, "Totem"..elem.."Resist")
-		if not total then
-			local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
-			total = base * m_max(calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist"), 0)
-		end
-		if not totemTotal then
-			local base = modDB:Sum("BASE", nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
-			totemTotal = base * m_max(calcLib.mod(modDB, nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist"), 0)
-		end
-		
-		-- Fractional resistances are truncated
-		total = m_modf(total)
-		totemTotal = m_modf(totemTotal)
-		min = m_modf(min)
-		max = m_modf(max)
-		totemMax = m_modf(totemMax)
-		
-		local final = m_max(m_min(total, max), min)
-		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
-
-		output[elem.."Resist"] = final
-		output[elem.."ResistTotal"] = total
-		output[elem.."ResistOverCap"] = m_max(0, total - max)
-		output[elem.."ResistOver75"] = m_max(0, final - 75)
-		output["Missing"..elem.."Resist"] = m_max(0, max - final)
-		output["Totem"..elem.."Resist"] = totemFinal
-		output["Totem"..elem.."ResistTotal"] = totemTotal
-		output["Totem"..elem.."ResistOverCap"] = m_max(0, totemTotal - totemMax)
-		output["MissingTotem"..elem.."Resist"] = m_max(0, totemMax - totemFinal)
-		if breakdown then
-			breakdown[elem.."Resist"] = {
-				"Min: "..min.."%",
-				"Max: "..max.."%",
-				"Total: "..total.."%",
-			}
-			breakdown["Totem"..elem.."Resist"] = {
-				"Min: "..min.."%",
-				"Max: "..totemMax.."%",
-				"Total: "..totemTotal.."%",
-			}
-		end
-	end
-
 	-- Damage Reduction
 	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
 	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
@@ -489,6 +419,76 @@ function calcs.defence(env, actor)
 					s_format("Approximate projectile evade chance: %d%%", output.ProjectileEvadeChance),
 				}
 			end
+		end
+	end
+
+	-- Resistances
+	output["PhysicalResist"] = 0
+
+	-- Highest Maximum Elemental Resistance for Melding of the Flesh
+	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
+		local highestResistMax = 0;
+		local highestResistMaxType = "";
+		for _, elem in ipairs(resistTypeList) do
+			local resistMax = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+			if resistMax > highestResistMax and isElemental[elem] then
+				highestResistMax = resistMax;
+				highestResistMaxType = elem;
+			end
+		end
+		for _, elem in ipairs(resistTypeList) do
+			if isElemental[elem] then
+				modDB:NewMod(elem.."ResistMax", "OVERRIDE", highestResistMax, highestResistMaxType.." Melding of the Flesh");
+			end
+		end
+	end
+	
+	for _, elem in ipairs(resistTypeList) do
+		local min, max, total, totemTotal, totemMax
+		min = data.misc.ResistFloor
+		max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+		total = modDB:Override(nil, elem.."Resist")
+		totemMax = modDB:Override(nil, "Totem"..elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, "Totem"..elem.."ResistMax", isElemental[elem] and "TotemElementalResistMax"))
+		totemTotal = modDB:Override(nil, "Totem"..elem.."Resist")
+		if not total then
+			local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
+			total = base * m_max(calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist"), 0)
+		end
+		if not totemTotal then
+			local base = modDB:Sum("BASE", nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
+			totemTotal = base * m_max(calcLib.mod(modDB, nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist"), 0)
+		end
+		
+		-- Fractional resistances are truncated
+		total = m_modf(total)
+		totemTotal = m_modf(totemTotal)
+		min = m_modf(min)
+		max = m_modf(max)
+		totemMax = m_modf(totemMax)
+		
+		local final = m_max(m_min(total, max), min)
+		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
+
+		output[elem.."Resist"] = final
+		output[elem.."ResistTotal"] = total
+		output[elem.."ResistOverCap"] = m_max(0, total - max)
+		output[elem.."ResistOver75"] = m_max(0, final - 75)
+		output["Missing"..elem.."Resist"] = m_max(0, max - final)
+		output["Totem"..elem.."Resist"] = totemFinal
+		output["Totem"..elem.."ResistTotal"] = totemTotal
+		output["Totem"..elem.."ResistOverCap"] = m_max(0, totemTotal - totemMax)
+		output["MissingTotem"..elem.."Resist"] = m_max(0, totemMax - totemFinal)
+		if breakdown then
+			breakdown[elem.."Resist"] = {
+				"Min: "..min.."%",
+				"Max: "..max.."%",
+				"Total: "..total.."%",
+			}
+			breakdown["Totem"..elem.."Resist"] = {
+				"Min: "..min.."%",
+				"Max: "..totemMax.."%",
+				"Total: "..totemTotal.."%",
+			}
 		end
 	end
 

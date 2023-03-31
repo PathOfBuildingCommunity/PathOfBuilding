@@ -92072,7 +92072,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Summon {0} additional Skeleton with Summon Skeletons"
+					text="Summon {0} additional Skeletons with Summon Skeletons"
 				}
 			}
 		},
