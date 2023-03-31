@@ -2724,6 +2724,9 @@ local specialModList = {
 		flag("CritsDontAlwaysFreeze"),
 		flag("CritsDontAlwaysShock"),
 	},
+	["critical strikes do not inherently ignite"] = {
+		flag("CritsDontAlwaysIgnite")
+	},
 	["always scorch while affected by anger"] = { mod("EnemyScorchChance", "BASE", 100, { type = "Condition", var = "AffectedByAnger" }) },
 	["always inflict brittle while affected by hatred"] = {	mod("EnemyBrittleChance", "BASE", 100, { type = "Condition", var = "AffectedByHatred" }) },
 	["always sap while affected by wrath"] = { mod("EnemySapChance", "BASE", 100, { type = "Condition", var = "AffectedByWrath" }) },
@@ -2952,6 +2955,7 @@ local specialModList = {
 	["nearby enemies have malediction"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMalediction") }) },
 	["elemental damage you deal with hits is resisted by lowest elemental resistance instead"] = { flag("ElementalDamageUsesLowestResistance") },
 	["you take (%d+) chaos damage per second for 3 seconds on kill"] = function(num) return { mod("ChaosDegen", "BASE", num, { type = "Condition", var = "KilledLast3Seconds" }) } end,
+	["regenerate (%d+) life per second for each (%d+)%% uncapped fire resistance"] = function(num, percent) return { mod("LifeRegen", "BASE", num, { type = "PerStat", stat = "FireResistTotal", div = 1 / percent }) } end,
 	["regenerate (%d+) life over 1 second for each spell you cast"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "CastLast1Seconds" }) } end,
 	["and nearby allies regenerate (%d+) life per second"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "KilledPoisonedLast2Seconds" }) } end,
 	["(%d+)%% increased life regeneration rate"] = function(num) return { mod("LifeRegen", "INC", num) } end,
