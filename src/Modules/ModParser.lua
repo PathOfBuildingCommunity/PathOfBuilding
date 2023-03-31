@@ -3032,7 +3032,7 @@ local specialModList = {
 	["totems gain %+(%d+)%% to (%w+) resistance"] = function(_, num, resistance) return { mod("Totem"..firstToUpper(resistance).."Resist", "BASE", num) } end,
 	["totems gain %+(%d+)%% to all elemental resistances"] = function(_, num) return { mod("TotemElementalResist", "BASE", num) } end,
 	-- Minions
-	["your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
+	["your strength is added to your minions"] = { flag("StrengthAddedToMinions") },
 	["half of your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
 	["minions created recently have (%d+)%% increased attack and cast speed"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", var = "MinionsCreatedRecently" }) } end,
 	["minions created recently have (%d+)%% increased movement speed"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num) }, { type = "Condition", var = "MinionsCreatedRecently" }) } end,
