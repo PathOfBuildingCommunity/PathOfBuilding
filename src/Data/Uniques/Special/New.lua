@@ -5,7 +5,11 @@
 data.uniques.new = {
 
 -- New
-
+[[
+Widowhail
+Crude Bow
+(183-225)% increased bonuses gained from Equipped Quiver
+]]
 -- Reworked
 
 }
