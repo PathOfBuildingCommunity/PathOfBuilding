@@ -424,6 +424,7 @@ local modNameList = {
 	["maximum blitz charges"] = "BlitzChargesMax",
 	["maximum number of crab barriers"] = "CrabBarriersMax",
 	["maximum blood charges"] = "BloodChargesMax",
+	["maximum spirit charges"] = "SpiritChargesMax",
 	["charge duration"] = "ChargeDuration",
 	-- On hit/kill/leech effects
 	["life gained on kill"] = "LifeOnKill",
@@ -1101,6 +1102,7 @@ local modTagList = {
 	["per frenzy charge"] = { tag = { type = "Multiplier", var = "FrenzyCharge" } },
 	["per endurance charge"] = { tag = { type = "Multiplier", var = "EnduranceCharge" } },
 	["per siphoning charge"] = { tag = { type = "Multiplier", var = "SiphoningCharge" } },
+	["per spirit charge"] = { tag = { type = "Multiplier", var = "SpiritCharge" } },
 	["per challenger charge"] = { tag = { type = "Multiplier", var = "ChallengerCharge" } },
 	["per gale force"] = { tag = { type = "Multiplier", var = "GaleForce" } },
 	["per intensity"] = { tag = { type = "Multiplier", var = "Intensity" } },
@@ -2538,6 +2540,11 @@ local specialModList = {
 		mod("PhysicalDamageGainAsLightning", "BASE", num, nil, ModFlag.Weapon),
 		mod("PhysicalDamageGainAsCold", "BASE", num, nil, ModFlag.Weapon),
 		mod("PhysicalDamageGainAsFire", "BASE", num, nil, ModFlag.Weapon),
+	} end,
+	["gain (%d+)%% of physical damage as extra damage of each element per spirit charge"] = function(num) return {
+		mod("PhysicalDamageGainAsLightning", "BASE", num, { type = "Multiplier", var = "SpiritCharge" }),
+		mod("PhysicalDamageGainAsCold", "BASE", num, { type = "Multiplier", var = "SpiritCharge" }),
+		mod("PhysicalDamageGainAsFire", "BASE", num, { type = "Multiplier", var = "SpiritCharge" }),
 	} end,
 	["gain (%d+)%% of weapon physical damage as extra damage of an? r?a?n?d?o?m? ?element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num, nil, ModFlag.Weapon) } end,
 	["gain (%d+)%% of physical damage as extra damage of a random element"] = function(num) return { mod("PhysicalDamageGainAsRandom", "BASE", num ) } end,
