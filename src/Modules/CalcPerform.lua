@@ -1185,7 +1185,7 @@ function calcs.perform(env, avoidCache)
 		end
 		env.minion.modDB:NewMod("Evasion", "BASE", round((30 + env.minion.level * 5) * 1.03 ^ env.minion.level), "Base")
 		if modDB:Flag(nil, "MinionAccuracyEqualsAccuracy") then
-			env.minion.modDB:NewMod("Accuracy", "BASE", round(calcLib.val(modDB, "Accuracy")), "Player")
+			env.minion.modDB:NewMod("Accuracy", "BASE", calcLib.val(modDB, "Accuracy") + calcLib.val(modDB, "Dex") * (modDB:Override(nil, "DexAccBonusOverride") or data.misc.AccuracyPerDexBase), "Player")
 		else
 			env.minion.modDB:NewMod("Accuracy", "BASE", round((17 + env.minion.level / 2) * (env.minion.minionData.accuracy or 1) * 1.03 ^ env.minion.level), "Base")
 		end
