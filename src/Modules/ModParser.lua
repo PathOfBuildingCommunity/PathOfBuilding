@@ -1895,6 +1895,16 @@ local specialModList = {
 	["defend with (%d+)%% of armour while not on low energy shield"] = function(num) return {
 		mod("ArmourDefense", "MAX", num - 100, "Armour and Energy Shield Mastery", { type = "Condition", var = "LowEnergyShield", neg = true }),
 	} end,
+	["(%d+)%% increased armour and energy shield from equipped body armour if equipped gloves, helmet and boots all have armour and energy shield"] = function(num) return {
+		mod("Body ArmourESAndArmour", "INC", num,  
+			{ type = "StatThreshold", stat = "ArmourOnGloves", threshold = 1},
+			{ type = "StatThreshold", stat = "EnergyShieldOnGloves", threshold = 1},
+			{ type = "StatThreshold", stat = "ArmourOnHelmet", threshold = 1},
+			{ type = "StatThreshold", stat = "EnergyShieldOnHelmet", threshold = 1},
+			{ type = "StatThreshold", stat = "ArmourOnBoots", threshold = 1},
+			{ type = "StatThreshold", stat = "EnergyShieldOnBoots", threshold = 1}
+		)
+	} end,
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
