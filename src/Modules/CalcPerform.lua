@@ -495,13 +495,25 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 		if actor.mainSkill.skillFlags.hit and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
 			condList["HitRecently"] = true
+			if actor.mainSkill.skillFlags.spell then
+				condList["HitSpellRecently"] = true
+			end
 		end
 		if actor.mainSkill.skillFlags.totem then
 			condList["HaveTotem"] = true
 			condList["SummonedTotemRecently"] = true
+			if actor.mainSkill.skillFlags.hit then
+				condList["TotemsHitRecently"] = true
+				if actor.mainSkill.skillFlags.spell then
+					condList["TotemsSpellHitRecently"] = true
+				end
+			end
 		end
 		if actor.mainSkill.skillFlags.mine then
 			condList["DetonatedMinesRecently"] = true
+		end
+		if actor.mainSkill.skillFlags.trap then
+			condList["TriggeredTrapsRecently"] = true
 		end
 		if modDB:Sum("BASE", nil, "EnemyScorchChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CanInflictScorch"] = true
@@ -915,8 +927,8 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["SpiritCharge"] = output.SpiritCharges
 
 	-- Process enemy modifiers 
-	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do
-		enemyDB:AddMod(value.mod)
+	for _, value in ipairs(modDB:Tabulate(nil, nil, "EnemyModifier")) do
+		enemyDB:AddMod(modLib.setSource(value.value.mod, value.value.mod.source or value.mod.source))
 	end
 
 	-- Add misc buffs/debuffs
@@ -968,6 +980,14 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Attack)
 			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Cast)
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
+		end
+		if modDB.conditions["AffectedByArcaneSurge"] or modDB:Flag(nil, "Condition:ArcaneSurge") then
+			modDB.conditions["AffectedByArcaneSurge"] = true
+			local effect = 1 + modDB:Sum("INC", nil, "ArcaneSurgeEffect", "BuffEffectOnSelf") / 100
+			modDB:NewMod("ManaRegen", "INC", (modDB:Max(nil, "ArcaneSurgeManaRegen") or 30) * effect, "Arcane Surge")
+			modDB:NewMod("Speed", "INC", (modDB:Max(nil, "ArcaneSurgeCastSpeed") or 10) * effect, "Arcane Surge", ModFlag.Spell)
+			local arcaneSurgeDamage = modDB:Max(nil, "ArcaneSurgeDamage") or 0
+			if arcaneSurgeDamage ~= 0 then modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) end
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
 			local effect = m_floor(75 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
@@ -1509,9 +1529,33 @@ function calcs.perform(env, avoidCache)
 		end
 	end
 
+	-- flask breakdown
+	local effectInc = modDB:Sum("INC", {actor = "player"}, "FlaskEffect")
+	if breakdown then
+		local chargesGenerated = modDB:Sum("BASE", nil, "FlaskChargesGenerated")
+		local usedFlasks = 0
+		for i, v in pairs(env.flasks) do
+			if v then
+				usedFlasks = usedFlasks + 1
+			end
+		end
+
+		local chargesGeneratedPerFlask = modDB:Sum("BASE", nil, "FlaskChargesGeneratedPerEmptyFlask") * (5 - usedFlasks)
+		local totalChargesGenerated = chargesGenerated + chargesGeneratedPerFlask
+		local utilityChargesGenerated = modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
+		local lifeChargesGenerated = modDB:Sum("BASE", nil, "LifeFlaskChargesGenerated")
+		local manaChargesGenerated = modDB:Sum("BASE", nil, "ManaFlaskChargesGenerated")
+
+		output.FlaskEffect = effectInc
+		output.FlaskChargeGen = totalChargesGenerated
+		output.LifeFlaskChargeGen = totalChargesGenerated + lifeChargesGenerated
+		output.ManaFlaskChargeGen = totalChargesGenerated + manaChargesGenerated
+		output.UtilityFlaskChargeGen = totalChargesGenerated + utilityChargesGenerated
+		output.FlaskChargeOnCritChance = m_min(100, modDB:Sum("BASE", nil, "FlaskChargeOnCritChance"))
+	end
+
 	-- Merge flask modifiers
 	if env.mode_combat then
-		local effectInc = modDB:Sum("INC", {actor = "player"}, "FlaskEffect")
 		local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicUtilityFlaskEffect")
 		local effectIncNonPlayer = modDB:Sum("INC", nil, "FlaskEffect")
 		local effectIncMagicNonPlayer = modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
@@ -1522,6 +1566,7 @@ function calcs.perform(env, avoidCache)
 		local flaskBuffsPerBaseNonPlayer = {}
 		local flasksApplyToMinion = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")
 		local quickSilverAppliesToAllies = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies")
+
 		for item in pairs(env.flasks) do
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}

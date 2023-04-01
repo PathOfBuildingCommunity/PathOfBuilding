@@ -245,10 +245,10 @@ skills["SupportArcaneSurge"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_arcane_surge_mana_regeneration_rate_+%"] = {
-			mod("ManaRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
+			mod("ArcaneSurgeManaRegen", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge", unscalable = true }),
 		},
 		["support_arcane_surge_spell_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
+			mod("ArcaneSurgeCastSpeed", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge", unscalable = true }),
 		},
 		["support_arcane_surge_spell_damage_+%_final_while_you_have_arcane_surge"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Condition", var = "AffectedByArcaneSurge" }),
