@@ -63,9 +63,44 @@ function ItemClass:ResetInfluence()
 	end
 end
 
+-- Special function to store unique instances of modifier on specific item slots
+-- that require special handling for ItemConditions. Only called if line #102 is
+-- uncommented
+local specialModifierFoundList = {}
+function getTagBasedModifiers(tagName, itemSlotName)
+	local tagname = tagName:lower()
+	local slotname = itemSlotName:lower():gsub(" ", "_")
+	for k,v in pairs(data.itemMods.Item) do
+		for _,tag in ipairs(v.modTags) do
+			if tag:lower() == tagname then
+				local found = false
+				for _,wk in ipairs(v.weightKey) do
+					if wk == slotname or #wk == 0 then
+						for _, dv in ipairs(v) do
+							if dv:lower():find(tagname) then
+								found = true
+								break
+							end
+						end
+						if not found and not foundList[k] then
+							specialModifierFoundList[k] = true
+							ConPrintf("ENTRY: %s", k)
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
 -- Iterate over modifiers to see if specific substring is found (for conditional checking)
-function ItemClass:FindModifierSubstring(substring)
+function ItemClass:FindModifierSubstring(substring, itemslotname)
 	local modLines = {}
+
+	-- The commented out line below is used at GGPK updates to check if any new modifiers
+	-- have been identified that need to be added to the manually maintained special modifier
+	-- pool in Data.lua (data.itemTagSpecial table)
+	--getTagBasedModifiers(substring, itemslotname)
 
 	-- merge various modifier lines into one table
 	for k,v in pairs(self.enchantModLines) do modLines[k] = v end
@@ -76,6 +111,13 @@ function ItemClass:FindModifierSubstring(substring)
 	for _,v in pairs(modLines) do
 		if v.line:lower():find(substring:lower()) and not v.line:lower():find(substring:lower() .. " modifier") then
 			return true
+		end
+		if data.itemTagSpecial[substring:lower()] and data.itemTagSpecial[substring:lower()][itemslotname:lower()] then
+			for _, specialMod in ipairs(data.itemTagSpecial[substring:lower()][itemslotname:lower()]) do
+				if v.line:lower():find(specialMod:lower()) then
+					return true
+				end
+			end
 		end
 	end
 	return false
