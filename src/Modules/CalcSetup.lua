@@ -572,6 +572,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
 		local items = {}
+		local jewelLimits = {}
 		for _, slot in pairs(build.itemsTab.orderedSlots) do
 			local slotName = slot.slotName
 			local item
@@ -607,32 +608,44 @@ function calcs.initEnv(build, mode, override, specEnv)
 				-- Slot is a jewel socket, check if socket is allocated
 				if not env.allocNodes[slot.nodeId] then
 					item = nil
-				elseif item and item.jewelRadiusIndex then
-					-- Jewel has a radius, add it to the list
-					local funcList = item.jewelData.funcList or { { type = "Self", func = function(node, out, data)
-						-- Default function just tallies all stats in radius
-						if node then
-							for _, stat in pairs({"Str","Dex","Int"}) do
-								data[stat] = (data[stat] or 0) + out:Sum("BASE", nil, stat)
-							end
+				elseif item then
+					item.jewelData.limitDisabled = nil
+					if item.limit and not env.configInput.ignoreJewelLimits then
+						local limitKey = item.base.subType == "Timeless" and "Historic" or item.title
+						if jewelLimits[limitKey] and jewelLimits[limitKey] >= item.limit then
+							item.jewelData.limitDisabled = true
+							item = nil
+						else
+							jewelLimits[limitKey] = (jewelLimits[limitKey] or 0) + 1
 						end
-					end } }
-					for _, func in ipairs(funcList) do
-						local node = env.spec.nodes[slot.nodeId]
-						t_insert(env.radiusJewelList, {
-							nodes = node.nodesInRadius and node.nodesInRadius[item.jewelRadiusIndex] or { },
-							func = func.func,
-							type = func.type,
-							item = item,
-							nodeId = slot.nodeId,
-							attributes = node.attributesInRadius and node.attributesInRadius[item.jewelRadiusIndex] or { },
-							data = { }
-						})
-						if func.type ~= "Self" and node.nodesInRadius then
-							-- Add nearby unallocated nodes to the extra node list
-							for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
-								if not env.allocNodes[nodeId] then
-									env.extraRadiusNodeList[nodeId] = env.spec.nodes[nodeId]
+					end
+					if item and item.jewelRadiusIndex then
+						-- Jewel has a radius, add it to the list
+						local funcList = item.jewelData.funcList or { { type = "Self", func = function(node, out, data)
+							-- Default function just tallies all stats in radius
+							if node then
+								for _, stat in pairs({"Str","Dex","Int"}) do
+									data[stat] = (data[stat] or 0) + out:Sum("BASE", nil, stat)
+								end
+							end
+						end } }
+						for _, func in ipairs(funcList) do
+							local node = env.spec.nodes[slot.nodeId]
+							t_insert(env.radiusJewelList, {
+								nodes = node.nodesInRadius and node.nodesInRadius[item.jewelRadiusIndex] or { },
+								func = func.func,
+								type = func.type,
+								item = item,
+								nodeId = slot.nodeId,
+								attributes = node.attributesInRadius and node.attributesInRadius[item.jewelRadiusIndex] or { },
+								data = { }
+							})
+							if func.type ~= "Self" and node.nodesInRadius then
+								-- Add nearby unallocated nodes to the extra node list
+								for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
+									if not env.allocNodes[nodeId] then
+										env.extraRadiusNodeList[nodeId] = env.spec.nodes[nodeId]
+									end
 								end
 							end
 						end
