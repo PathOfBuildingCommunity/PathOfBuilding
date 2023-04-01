@@ -3598,6 +3598,10 @@ local specialModList = {
 	["intimidate enemies for (%d+) seconds on hit with attacks while at maximum endurance charges"] = { 
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }, { type = "Condition", var = "HitRecently" })
 	},
+	["nearby enemies are intimidated while you have rage"] = {
+		-- MultiplierThreshold is on RageStacks because Rage is only set in CalcPerform if Condition:CanGainRage is true, Bear's Girdle does not flag CanGainRage
+		mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "MultiplierThreshold", var = "RageStack", threshold = 1 })
+	},
 	-- Flasks
 	["flasks do not apply to you"] = { flag("FlasksDoNotApplyToPlayer") },
 	["flasks apply to your zombies and spectres"] = { flag("FlasksApplyToMinion", { type = "SkillName", skillNameList = { "Raise Zombie", "Raise Spectre" } }) },
