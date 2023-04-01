@@ -1361,6 +1361,10 @@ local modTagList = {
 	["wh[ie][ln]e? not on full energy shield"] = { tag = { type = "Condition", var = "FullEnergyShield", neg = true } },
 	["wh[ie][ln]e? you have energy shield"] = { tag = { type = "Condition", var = "HaveEnergyShield" } },
 	["wh[ie][ln]e? you have no energy shield"] = { tag = { type = "Condition", var = "HaveEnergyShield", neg = true } },
+	["if you have reserved life and mana"] = { tagList = {
+		{ type = "StatThreshold", stat = "LifeReserved", threshold = 0, upper = false },
+		{ type = "StatThreshold", stat = "ManaReserved", threshold = 0, upper = false },
+	} },
 	["if you have energy shield"] = { tag = { type = "Condition", var = "HaveEnergyShield" } },
 	["while stationary"] = { tag = { type = "Condition", var = "Stationary" } },
 	["while moving"] = { tag = { type = "Condition", var = "Moving" } },
