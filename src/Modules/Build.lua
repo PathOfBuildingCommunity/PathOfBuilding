@@ -45,6 +45,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
 	self.pantheonMinorGod = "None"
+	self.placeholder = true
 	if buildXML then
 		if self:LoadDB(buildXML, "Unnamed build") then
 			self:CloseBuild()
@@ -164,6 +165,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
+		self.placeholder = buf == ''
 	end)
 	self.controls.characterLevel:SetText(tostring(self.characterLevel))
 	self.controls.characterLevel.tooltipFunc = function(tooltip)
@@ -739,6 +741,15 @@ function buildMode:EstimatePlayerProgress()
 	-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
 	levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
 	
+	self.lastAllocated = self.lastAllocated or -1
+	
+	if (self.placeholder or self.placeholder == nil) and self.lastAllocated ~= PointsUsed then
+		self.characterLevel = levelreq
+		self.controls.characterLevel:SetText(tostring(self.characterLevel))
+	end
+	
+	self.lastAllocated = PointsUsed
+
 	-- Ascendency points for lab
 	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
 	local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
@@ -795,6 +806,7 @@ function buildMode:Load(xml, fileName)
 		self.viewMode = xml.attrib.viewMode
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
+	self.placeholder = xml.attrib.placeholder == "true"
 	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
@@ -838,6 +850,7 @@ function buildMode:Save(xml)
 		pantheonMajorGod = self.configTab.input.pantheonMajorGod,
 		pantheonMinorGod = self.configTab.input.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
+		placeholder = tostring(self.placeholder)
 	}
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
