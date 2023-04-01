@@ -182,41 +182,49 @@ function breakdown.critDot(dotMulti, critMulti, dotChance, critChance)
 	return out
 end		
 		
-function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur)
+function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur, instantLeechProportion, hitRate)
 	local out = { }
 	if actor.mainSkill.skillData.showAverage then
 		if instant > 0 then
-			t_insert(out, s_format("Instant Leech: %.1f", instant))
+			if instantLeechProportion ~= 1 then 
+				t_insert(out, s_format("Instant Leech: %.1f ^8(%d%% x %d)", instant, instantLeechProportion * 100, dur * pool * data.misc.LeechRateBase))
+			else
+				t_insert(out, s_format("Instant Leech: %.1f", instant))
+			end
 		end
 		if instances > 0 then
 			t_insert(out, "Total leeched per instance:")
 			t_insert(out, s_format("%d ^8(size of leech destination pool)", pool))
-			t_insert(out, "x 0.02 ^8(base leech rate is 2% per second)")
+			t_insert(out, s_format("x %.2f ^8(base leech rate is %d%% per second)", data.misc.LeechRateBase, 100 * data.misc.LeechRateBase))
 			local rateMod = calcLib.mod(modDB, skillCfg, rate)
 			if rateMod ~= 1 then
 				t_insert(out, s_format("x %.2f ^8(leech rate modifier)", rateMod))
 			end
 			t_insert(out, s_format("x %.2fs ^8(instance duration)", dur))
-			t_insert(out, s_format("= %.1f", pool * 0.02 * rateMod * dur))
+			t_insert(out, s_format("= %.1f", pool * data.misc.LeechRateBase * rateMod * dur))
 		end
 	else
 		if instantRate > 0 then
-			t_insert(out, s_format("Instant Leech per hit: %.1f", instant))
-			t_insert(out, s_format("Instant Leech per second: %.1f", instantRate))
+			if instantLeechProportion ~= 1 then 
+				t_insert(out, s_format("Instant Leech: %.1f ^8(%d%% x %d)", instant, instantLeechProportion * 100, dur * pool * data.misc.LeechRateBase))
+			else
+				t_insert(out, s_format("Instant Leech: %.1f", instant))
+			end
+			t_insert(out, s_format("Instant Leech per second: %.1f ^8(%d x %.2f)", instantRate, instant, hitRate))
 		end
 		if instances > 0 then
 			t_insert(out, "Rate per instance:")
 			t_insert(out, s_format("%d ^8(size of leech destination pool)", pool))
-			t_insert(out, "x 0.02 ^8(base leech rate is 2% per second)")
+			t_insert(out, s_format("x %.2f ^8(base leech rate is %d%% per second)", data.misc.LeechRateBase, 100 * data.misc.LeechRateBase))
 			local rateMod = calcLib.mod(modDB, skillCfg, rate)
 			if rateMod ~= 1 then
 				t_insert(out, s_format("x %.2f ^8(leech rate modifier)", rateMod))
 			end
-			t_insert(out, s_format("= %.1f ^8per second", pool * 0.02 * rateMod))
+			t_insert(out, s_format("= %.1f ^8per second", pool * data.misc.LeechRateBase * rateMod))
 			t_insert(out, "Maximum leech rate against one target:")
-			t_insert(out, s_format("%.1f", pool * 0.02 * rateMod))
-			t_insert(out, s_format("x %.1f ^8(average instances)", instances))
-			local total = pool * 0.02 * rateMod * instances
+			t_insert(out, s_format("%.1f", pool * data.misc.LeechRateBase * rateMod))
+			t_insert(out, s_format("x %.2f ^8(average instances)", instances))
+			local total = pool * data.misc.LeechRateBase * rateMod * instances
 			t_insert(out, s_format("= %.1f ^8per second", total))
 			if total <= max then
 				t_insert(out, s_format("Time to reach max: %.1fs", dur))
