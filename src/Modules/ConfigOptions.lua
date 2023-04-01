@@ -1124,6 +1124,13 @@ Huge sets the radius to 11.
 	{ var = "multiplierCastLast8Seconds", type = "count", label = "How many spells cast in the last 8 seconds?", ifMult = "CastLast8Seconds", tooltip = "Only non-instant spells you cast count", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:CastLast8Seconds", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionSuppressedRecently", type = "check", label = "Have you Suppressed Recently?", ifCond = "SuppressedRecently", tooltip = "This applies -10% ^xB97123Fire^7, ^x3F6DB3Cold^7, and ^xADAA47Lightning ^7Resistance to the enemy.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:SuppressedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "multiplierHitsSuppressedRecently", type = "count", label = "# of Hits Suppressed Recently:", ifMult = "HitsSuppressedRecently", implyCond = "SuppressedRecently", tooltip = "This also implies that you have Suppressed Recently.", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:HitsSuppressedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+		modList:NewMod("Condition:SuppressedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionUsedFireSkillRecently", type = "check", label = "Have you used a ^xB97123Fire ^7Skill Recently?", ifCond = "UsedFireSkillRecently", implyCond = "UsedSkillRecently", tooltip = "This also implies that you have used a Skill Recently.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsedFireSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
@@ -1297,6 +1304,9 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionEnemyCursed", type = "check", label = "Is the enemy Cursed?", ifEnemyCond = "Cursed", tooltip = "The enemy will automatically be considered to be Cursed if you have at least one curse enabled,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Cursed", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyStunned", type = "check", label = "Is the enemy Stunned?", ifEnemyCond = "Stunned", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:Stunned", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyBleeding", type = "check", label = "Is the enemy Bleeding?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Bleeding", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
