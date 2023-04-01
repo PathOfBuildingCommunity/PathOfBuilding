@@ -743,7 +743,7 @@ function buildMode:EstimatePlayerProgress()
 	
 	self.lastAllocated = self.lastAllocated or -1
 	
-	if (self.placeholder or self.placeholder == nil) and self.lastAllocated ~= PointsUsed then
+	if self.placeholder and self.lastAllocated ~= PointsUsed then
 		self.characterLevel = levelreq
 		self.controls.characterLevel:SetText(tostring(self.characterLevel))
 	end
