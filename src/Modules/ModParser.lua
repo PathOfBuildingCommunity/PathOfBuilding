@@ -2617,6 +2617,9 @@ local specialModList = {
 	["critical strikes penetrate (%d+)%% of enemy elemental resistances while affected by zealotry"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike" }, { type = "Condition", var = "AffectedByZealotry" }) } end,
 	["attack critical strikes ignore enemy monster elemental resistances"] = { flag("IgnoreElementalResistances", { type = "Condition", var = "CriticalStrike" }, { type = "SkillType", skillType = SkillType.Attack }) },
 	["([%+%-]%d+)%% to critical strike multiplier if you've shattered an enemy recently"] = function(num) return { mod("CritMultiplier", "BASE", num, { type = "Condition", var = "ShatteredEnemyRecently" }) } end,
+	["enemies poisoned by you cannot deal critical strikes"] = { mod("enemyCritChance", "OVERRIDE", 0, { type = "ActorCondition", actor = "enemy", var = "Poisoned" }) },
+	["marked enemy cannot deal critical strikes"] =  { mod("enemyCritChance", "OVERRIDE", 0, {type = "ActorCondition", actor = "enemy", var = "Marked" }) },
+	["hits against you cannot be critical strikes if you've been stunned recently"] =  { mod("enemyCritChance", "OVERRIDE", 0, {type = "Condition", var = "StunnedRecently" }) },
 	-- Generic Ailments
 	["enemies take (%d+)%% increased damage for each type of ailment you have inflicted on them"] = function(num) return {
 		mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
