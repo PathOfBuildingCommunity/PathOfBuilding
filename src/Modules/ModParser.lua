@@ -483,7 +483,7 @@ local modNameList = {
 	["totem duration"] = "TotemDuration",
 	["maximum number of summoned totems"] = "ActiveTotemLimit",
 	["maximum number of summoned totems."] = "ActiveTotemLimit", -- Mark plz
-	["maximum number of summoned ballista totems"] = { "ActiveBallistaLimit", tag = { type = "SkillType", skillType = SkillType.RangedAttack } },
+	["maximum number of summoned ballista totems"] = { "ActiveBallistaLimit", tag = { type = "SkillType", skillType = SkillType.TotemsAreBallistae } },
 	["trap throwing speed"] = "TrapThrowingSpeed",
 	["trap and mine throwing speed"] = { "TrapThrowingSpeed", "MineLayingSpeed" },
 	["trap trigger area of effect"] = "TrapTriggerAreaOfEffect",
