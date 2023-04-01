@@ -188,9 +188,9 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		end
 		if output.preventedLifeLossTotal > 0 then
 			if output.preventedLifeLossBelowHalf ~= 0 then
-				local lifeOverLowLife = m_max(life - output.Life * data.misc.LowPoolThreshold, 0)
+				local lifeOverHalfLife = m_max(life - output.Life * 0.5, 0)
 				local preventPercent = output.preventedLifeLoss / 100
-				local poolAboveLow = lifeOverLowLife / (1 - preventPercent)
+				local poolAboveLow = lifeOverHalfLife / (1 - preventPercent)
 				local damageToSplit = m_min(damageRemainder, poolAboveLow)
 				local lostLife = damageToSplit * (1 - preventPercent)
 				local preventedLoss = damageToSplit * preventPercent
@@ -198,7 +198,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 				LifeLossLostOverTime = LifeLossLostOverTime + preventedLoss
 				life = life - lostLife
 				
-				if life <= output.Life * data.misc.LowPoolThreshold then
+				if life <= output.Life * 0.5 then
 					local unspecificallyLowLifePreventedDamage = damageRemainder * preventPercent
 					LifeLossLostOverTime = LifeLossLostOverTime + unspecificallyLowLifePreventedDamage
 					damageRemainder = damageRemainder - unspecificallyLowLifePreventedDamage
@@ -1593,7 +1593,7 @@ function calcs.defence(env, actor)
 		local portionLife = 1
 		if not env.configInput["conditionLowLife"] then
 			--portion of life that is lowlife
-			portionLife = m_min(output.Life * data.misc.LowPoolThreshold / output.LifeRecoverable, 1)
+			portionLife = m_min(output.Life * 0.5 / output.LifeRecoverable, 1)
 			output["preventedLifeLossTotal"] = output["preventedLifeLoss"] + output["preventedLifeLossBelowHalf"] * portionLife
 		else
 			output["preventedLifeLossTotal"] = output["preventedLifeLoss"] + output["preventedLifeLossBelowHalf"]
@@ -2488,12 +2488,12 @@ function calcs.defence(env, actor)
 	for _, damageType in ipairs(dmgTypeList) do
 		-- base + petrified blood
 		if output.preventedLifeLossTotal > 0 then
-			local lowLife = output.Life * data.misc.LowPoolThreshold
+			local halfLife = output.Life * 0.5
 			local recoverable = output.LifeRecoverable
 			if not env.configInput.conditionLowLife then
 				local belowHalf = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100
-				local aboveLow = m_max(recoverable - lowLife, 0)
-				output[damageType.."TotalPool"] = output[damageType.."TotalPool"] - recoverable + aboveLow / (1 - output.preventedLifeLoss / 100) + m_min(recoverable, lowLife) / (1 - belowHalf) / (1 - output.preventedLifeLoss / 100)
+				local aboveLow = m_max(recoverable - halfLife, 0)
+				output[damageType.."TotalPool"] = output[damageType.."TotalPool"] - recoverable + aboveLow / (1 - output.preventedLifeLoss / 100) + m_min(recoverable, halfLife) / (1 - belowHalf) / (1 - output.preventedLifeLoss / 100)
 			else
 				output[damageType.."TotalPool"] = output[damageType.."TotalPool"] - recoverable + recoverable / (1 - output.preventedLifeLossTotal / 100)
 			end
