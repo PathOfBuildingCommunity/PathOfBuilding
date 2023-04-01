@@ -188,7 +188,11 @@ function main:Init()
 				end
 			end
 		end
-	end)
+	end) {
+		shown = function()
+			return not self.curDatFile
+		end
+	}
 
 	self.controls.scriptList = new("ScriptListControl", nil, 270, 35, 100, 300) {
 		shown = function()
