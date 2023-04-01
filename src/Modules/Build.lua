@@ -354,6 +354,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ProjectileEvadeChance", label = "Projectile Evade Chance", fmt = "d%%", color = colorCodes.EVASION, condFunc = function(v,o) return v > 0 and o.MeleeEvadeChance ~= o.ProjectileEvadeChance end },
 		{ },
 		{ stat = "Armour", label = "Armour", fmt = "d", compPercent = true },
+		{ stat = "ProjectileArmour", label="Projectile Armour", fmt = "d", condFunc = function(v,o) return o.Armour ~= o.ProjectileArmour end },
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%", condFunc = function() return true end },
 		{ },

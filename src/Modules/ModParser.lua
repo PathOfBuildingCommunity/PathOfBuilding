@@ -1895,6 +1895,9 @@ local specialModList = {
 	["defend with (%d+)%% of armour while not on low energy shield"] = function(num) return {
 		mod("ArmourDefense", "MAX", num - 100, "Armour and Energy Shield Mastery", { type = "Condition", var = "LowEnergyShield", neg = true }),
 	} end,
+	["defend with (%d+)%% of armour against projectile attacks"] = function(num) return {
+		mod("ProjectileArmour", "MORE", num - 100, "Armour and Evasion Mastery"),
+	} end,
 	["(%d+)%% increased armour and energy shield from equipped body armour if equipped gloves, helmet and boots all have armour and energy shield"] = function(num) return {
 		mod("Body ArmourESAndArmour", "INC", num,  
 			{ type = "StatThreshold", stat = "ArmourOnGloves", threshold = 1},
