@@ -813,7 +813,7 @@ function buildMode:Load(xml, fileName)
 		self.viewMode = xml.attrib.viewMode
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
-	self.characterLevelAutoMode = xml.attrib.placeholder == "true"
+	self.characterLevelAutoMode = xml.attrib.characterLevelAutoMode == "true"
 	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
@@ -857,7 +857,7 @@ function buildMode:Save(xml)
 		pantheonMajorGod = self.configTab.input.pantheonMajorGod,
 		pantheonMinorGod = self.configTab.input.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
-		placeholder = tostring(self.characterLevelAutoMode)
+		characterLevelAutoMode = tostring(self.characterLevelAutoMode)
 	}
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
