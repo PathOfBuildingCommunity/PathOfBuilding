@@ -1516,6 +1516,7 @@ local modTagList = {
 	["for each time you[' ]h?a?ve warcried recently"] = { tag = { type = "Multiplier", var = "WarcryUsedRecently" } },
 	["when you warcry"] = { tag = { type = "Condition", var = "UsedWarcryRecently" } },
 	["if you[' ]h?a?ve warcried in the past 8 seconds"] = { tag = { type = "Condition", var = "UsedWarcryInPast8Seconds" } },
+	["for each second you've been affected by a warcry buff, up to a maximum of (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "AffectedByWarcryBuffDuration", limit = num, limitTotal = true } } end,
 	["for each of your mines detonated recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "MineDetonatedRecently", limit = num, limitTotal = true } } end,
 	["for each mine detonated recently, up to (%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "MineDetonatedRecently", limit = num, limitTotal = true } } end,
 	["for each mine detonated recently, up to (%d+)%% per second"] = function(num) return { tag = { type = "Multiplier", var = "MineDetonatedRecently", limit = num, limitTotal = true } } end,
