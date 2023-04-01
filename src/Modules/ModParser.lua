@@ -1589,6 +1589,9 @@ local modTagList = {
 	["while insane"] = { tag = { type = "Condition", var = "Insane" } },
 	["while you have defiance"] = { tag = { type = "MultiplierThreshold", var = "Defiance", threshold = 1 } },
 	["while affected by glorious madness"] = { tag = { type = "Condition", var = "AffectedByGloriousMadness" } },
+	["if you have reserved life and mana"] = { tagList = { 
+		{ type = "StatThreshold", stat = "LifeReserved", threshold = 1},
+		{ type = "StatThreshold", stat = "ManaReserved", threshold = 1} } },
 	-- Enemy status conditions
 	["at close range"] = { tag = { type = "Condition", var = "AtCloseRange" } },
 	["against rare and unique enemies"] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
