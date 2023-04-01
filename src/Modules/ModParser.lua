@@ -2852,7 +2852,9 @@ local specialModList = {
 	["y?o?u?r? ?chance to suppress spell damage is lucky"] = { flag("SpellSuppressionChanceIsLucky") },
 	["y?o?u?r? ?chance to suppress spell damage is unlucky"] = { flag("SpellSuppressionChanceIsUnlucky") },
 	["prevent %+(%d+)%% of suppressed spell damage"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num) } end,
-	["prevent %+(%d+)%% of suppressed spell damage per hit suppressed recently"] = function(num) return { mod("SpellSuppressionEffect", "BASE", num, { type = "Multiplier", var = "HitsSuppressedRecently" }) } end,
+	["prevent %+(%d+)%% of suppressed spell damage per hit suppressed recently"] = function(num) return {
+	    mod("SpellSuppressionEffect", "BASE", num, { type = "Multiplier", var = "HitsSuppressedRecently" })
+	} end,
 	["inflict fire, cold and lightning exposure on enemies when you suppress their spell damage"] = {
 	    mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }, { type = "Condition", var = "SuppressedRecently" }),
 	    mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", -10) }, { type = "Condition", var = "Effective" }, { type = "Condition", var = "SuppressedRecently" }),
