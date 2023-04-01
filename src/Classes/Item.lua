@@ -68,16 +68,16 @@ end
 -- uncommented
 local specialModifierFoundList = {}
 function getTagBasedModifiers(tagName, itemSlotName)
-	local tagname = tagName:lower()
-	local slotname = itemSlotName:lower():gsub(" ", "_")
+	local tag_name = tagName:lower()
+	local slot_name = itemSlotName:lower():gsub(" ", "_")
 	for k,v in pairs(data.itemMods.Item) do
 		for _,tag in ipairs(v.modTags) do
-			if tag:lower() == tagname then
+			if tag:lower() == tag_name then
 				local found = false
 				for _,wk in ipairs(v.weightKey) do
-					if wk == slotname or #wk == 0 then
+					if wk == slot_name or #wk == 0 then
 						for _, dv in ipairs(v) do
-							if dv:lower():find(tagname) then
+							if dv:lower():find(tag_name) then
 								found = true
 								break
 							end
@@ -94,13 +94,13 @@ function getTagBasedModifiers(tagName, itemSlotName)
 end
 
 -- Iterate over modifiers to see if specific substring is found (for conditional checking)
-function ItemClass:FindModifierSubstring(substring, itemslotname)
+function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	local modLines = {}
 
 	-- The commented out line below is used at GGPK updates to check if any new modifiers
 	-- have been identified that need to be added to the manually maintained special modifier
 	-- pool in Data.lua (data.itemTagSpecial table)
-	--getTagBasedModifiers(substring, itemslotname)
+	--getTagBasedModifiers(substring, itemSlotName)
 
 	-- merge various modifier lines into one table
 	for k,v in pairs(self.enchantModLines) do modLines[k] = v end
@@ -112,8 +112,8 @@ function ItemClass:FindModifierSubstring(substring, itemslotname)
 		if v.line:lower():find(substring:lower()) and not v.line:lower():find(substring:lower() .. " modifier") then
 			return true
 		end
-		if data.itemTagSpecial[substring:lower()] and data.itemTagSpecial[substring:lower()][itemslotname:lower()] then
-			for _, specialMod in ipairs(data.itemTagSpecial[substring:lower()][itemslotname:lower()]) do
+		if data.itemTagSpecial[substring:lower()] and data.itemTagSpecial[substring:lower()][itemSlotName:lower()] then
+			for _, specialMod in ipairs(data.itemTagSpecial[substring:lower()][itemSlotName:lower()]) do
 				if v.line:lower():find(specialMod:lower()) then
 					return true
 				end
