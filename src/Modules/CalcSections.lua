@@ -1464,6 +1464,7 @@ return {
 	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "INC" }, }, },
 	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Armour", "ArmourAndEvasion", "Defences" }, modType = "MORE" }, }, },
 	{ label = "Total", { format = "{0:output:Armour}", { breakdown = "Armour" }, }, },
+	{ label = "Total for Proj", haveOutput = "ProjectileArmour", { format = "{0:output:ProjectileArmour}", { modName = "ProjectileArmour" }, }, },
 	{ label = "Armour Defense", haveOutput = "RawArmourDefense", { format = "{0:output:RawArmourDefense}%", { modName = "ArmourDefense" }, }, },
 	{ label = "Phys. Dmg. Reduct", { format = "{0:output:PhysicalDamageReduction}%",
 		{ breakdown = "PhysicalDamageReduction" },

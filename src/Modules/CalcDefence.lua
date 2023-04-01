@@ -362,7 +362,10 @@ function calcs.defence(env, actor)
 		end
 		output.EnergyShield = modDB:Override(nil, "EnergyShield") or m_max(round(energyShield), 0)
 		output.Armour = m_max(round(armour), 0)
-		output.ProjectileArmour = m_max(round(armour * calcLib.mod(modDB, nil, "ProjectileArmour")), 0)
+		local projectileArmour = m_max(round(armour * calcLib.mod(modDB, nil, "ProjectileArmour")), 0)
+		if output.Armour ~= projectileArmour then
+			output.ProjectileArmour = projectileArmour
+		end
 		output.ArmourDefense = (modDB:Max(nil, "ArmourDefense") or 0) / 100
 		output.RawArmourDefense = output.ArmourDefense > 0 and ((1 + output.ArmourDefense) * 100) or nil
 		output.Evasion = m_max(round(evasion), 0)
@@ -1184,7 +1187,13 @@ function calcs.defence(env, actor)
 		local damage = output[damageType.."TakenDamage"]
 		local armourReduct = 0
 		local percentOfArmourApplies = m_min((not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
-		local effectiveAppliedArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
+		local effectiveAppliedArmour = 0
+		local effectiveAppliedNonProjArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
+		if damageCategoryConfig == "Projectile" and output.ProjectileArmour ~= nil then
+			effectiveAppliedArmour = (output.ProjectileArmour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
+		else
+			effectiveAppliedArmour = effectiveAppliedNonProjArmour
+		end
 		local resMult = 1 - (resist - enemyPen) / 100
 		local reductMult = 1
 		if damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" then
@@ -1193,6 +1202,7 @@ function calcs.defence(env, actor)
 			takenFlat = takenFlat + modDB:Sum("BASE", nil, "DamageTakenFromAttacks", damageType.."DamageTakenFromAttacks") / 2
 		end
 		if percentOfArmourApplies > 0 then
+			nonProjArmourReduct = calcs.armourReduction(effectiveAppliedNonProjArmour, damage * resMult)
 			armourReduct = calcs.armourReduction(effectiveAppliedArmour, damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
 		end
@@ -1210,7 +1220,12 @@ function calcs.defence(env, actor)
 				if percentOfArmourApplies ~= 100 then
 					t_insert(breakdown[damageType.."DamageReduction"], s_format("%d%% percent of armour applies", percentOfArmourApplies))
 				end
-				t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
+				if damageCategoryConfig == "Projectile" and output.ProjectileArmour ~= nil then
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", nonProjArmourReduct))
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("Add. Reduct. from Armour for Proj.: %d%%", armourReduct - nonProjArmourReduct))
+				else
+					t_insert(breakdown[damageType.."DamageReduction"], s_format("Reduction from Armour: %d%%", armourReduct))
+				end
 			end
 			if reduction ~= 0 then
 				t_insert(breakdown[damageType.."DamageReduction"], s_format("Base %s Damage Reduction: %d%%", damageType, reduction))
