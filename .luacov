@@ -1,5 +1,0 @@
-exclude = {
-    "Data/.+$",
-    "runtime/.+$",
-    "TreeData/.+$"
-}
