@@ -3373,6 +3373,7 @@ local specialModList = {
 	["cannot block while you have no energy shield"] = { flag("CannotBlockAttacks", { type = "Condition", var = "HaveEnergyShield", neg = true }), flag("CannotBlockSpells", { type = "Condition", var = "HaveEnergyShield", neg = true }) },
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
 	["cannot block spells"] = { flag("CannotBlockSpells") },
+	["monsters cannot block your attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotBlockAttacks") }) },
 	["damage from blocked hits cannot bypass energy shield"] = { flag("BlockedDamageDoesntBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["damage from unblocked hits always bypasses energy shield"] = { flag("UnblockedDamageDoesBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["recover (%d+) life when you block"] = function(num) return { mod("LifeOnBlock", "BASE", num) } end,
