@@ -495,13 +495,25 @@ local function doActorAttribsPoolsConditions(env, actor)
 		end
 		if actor.mainSkill.skillFlags.hit and not actor.mainSkill.skillFlags.trap and not actor.mainSkill.skillFlags.mine and not actor.mainSkill.skillFlags.totem then
 			condList["HitRecently"] = true
+			if actor.mainSkill.skillFlags.spell then
+				condList["HitSpellRecently"] = true
+			end
 		end
 		if actor.mainSkill.skillFlags.totem then
 			condList["HaveTotem"] = true
 			condList["SummonedTotemRecently"] = true
+			if actor.mainSkill.skillFlags.hit then
+				condList["TotemsHitRecently"] = true
+				if actor.mainSkill.skillFlags.spell then
+					condList["TotemsSpellHitRecently"] = true
+				end
+			end
 		end
 		if actor.mainSkill.skillFlags.mine then
 			condList["DetonatedMinesRecently"] = true
+		end
+		if actor.mainSkill.skillFlags.trap then
+			condList["TriggeredTrapsRecently"] = true
 		end
 		if modDB:Sum("BASE", nil, "EnemyScorchChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CanInflictScorch"] = true
@@ -968,6 +980,14 @@ local function doActorMisc(env, actor)
 			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Attack)
 			modDB:NewMod("Speed", "INC", effect, "Onslaught", ModFlag.Cast)
 			modDB:NewMod("MovementSpeed", "INC", effect, "Onslaught")
+		end
+		if modDB.conditions["AffectedByArcaneSurge"] or modDB:Flag(nil, "Condition:ArcaneSurge") then
+			modDB.conditions["AffectedByArcaneSurge"] = true
+			local effect = 1 + modDB:Sum("INC", nil, "ArcaneSurgeEffect", "BuffEffectOnSelf") / 100
+			modDB:NewMod("ManaRegen", "INC", (modDB:Max(nil, "ArcaneSurgeManaRegen") or 30) * effect, "Arcane Surge")
+			modDB:NewMod("Speed", "INC", (modDB:Max(nil, "ArcaneSurgeCastSpeed") or 10) * effect, "Arcane Surge", ModFlag.Spell)
+			local arcaneSurgeDamage = modDB:Max(nil, "ArcaneSurgeDamage") or 0
+			if arcaneSurgeDamage ~= 0 then modDB:NewMod("Damage", "MORE", arcaneSurgeDamage * effect, "Arcane Surge", ModFlag.Spell) end
 		end
 		if modDB:Flag(nil, "Fanaticism") and actor.mainSkill and actor.mainSkill.skillFlags.selfCast then
 			local effect = m_floor(75 * (1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100))
