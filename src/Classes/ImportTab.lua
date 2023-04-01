@@ -580,9 +580,10 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {})
+	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {}, latestTreeVersion)
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
+	self.build.characterLevelAutoMode = false
 	self.build.configTab:UpdateLevel()
 	self.build.controls.characterLevel:SetText(charData.level)
 	self.build:EstimatePlayerProgress()

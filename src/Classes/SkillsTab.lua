@@ -369,13 +369,13 @@ function SkillsTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			-- Old format, initialize skill sets if needed
-			if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
-				self.skillSetOrderList = { 1 }
+			if not self.skillSetOrderList[1] then
+				self.skillSetOrderList[1] = 1
 				self:NewSkillSet(1)
 			end
+			self:LoadSkill(node, 1)
 		end
 
-		self:LoadSkill(node, 1)
 		if node.elem == "SkillSet" then
 			local skillSet = self:NewSkillSet(tonumber(node.attrib.id))
 			skillSet.title = node.attrib.title
@@ -1246,7 +1246,7 @@ function SkillsTabClass:RestoreUndoState(state)
 		self.skillSets[k] = v
 	end
 	wipeTable(self.skillSetOrderList)
-	for k, v in pairs(state.skillSetOrderList) do
+	for k, v in ipairs(state.skillSetOrderList) do
 		self.skillSetOrderList[k] = v
 	end
 	self:SetActiveSkillSet(state.activeSkillSetId)
@@ -1285,8 +1285,8 @@ end
 -- Changes the active skill set
 function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	-- Initialize skill sets if needed
-	if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
-		self.skillSetOrderList = { 1 }
+	if not self.skillSetOrderList[1] then
+		self.skillSetOrderList[1] = 1
 		self:NewSkillSet(1)
 	end
 

@@ -191,6 +191,9 @@ function CalcSectionClass:FormatStr(str, actor, colData)
 			if sectionData.modSource then
 				modCfg.source = sectionData.modSource
 			end
+			if sectionData.actor then
+				modCfg.actor = sectionData.actor
+			end
 			local modVal
 			local modStore = (sectionData.enemy and actor.enemy.modDB) or (sectionData.cfg and actor.mainSkill.skillModList) or actor.modDB
 			if type(sectionData.modName) == "table" then

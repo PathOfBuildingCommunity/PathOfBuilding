@@ -63,6 +63,7 @@ colorCodes.LIFE = colorCodes.MARAUDER
 colorCodes.MANA = colorCodes.WITCH
 colorCodes.ES = colorCodes.SOURCE
 colorCodes.WARD = colorCodes.RARE
+colorCodes.ARMOUR = colorCodes.NORMAL
 colorCodes.EVASION = colorCodes.POSITIVE
 colorCodes.RAGE = colorCodes.WARNING
 colorCodes.PHYS = colorCodes.NORMAL

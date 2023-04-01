@@ -60,84 +60,6 @@ function calcs.defence(env, actor)
 	-- Action Speed
 	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
 
-	-- Resistances
-	output["PhysicalResist"] = 0
-
-	-- Highest Maximum Elemental Resistance for Melding of the Flesh
-	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
-		local highestResistMax = 0;
-		local highestResistMaxType = "";
-		for _, elem in ipairs(resistTypeList) do
-			local resistMax = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
-			if resistMax > highestResistMax and isElemental[elem] then
-				highestResistMax = resistMax;
-				highestResistMaxType = elem;
-			end
-		end
-		for _, elem in ipairs(resistTypeList) do
-			if isElemental[elem] then
-				modDB:NewMod(elem.."ResistMax", "OVERRIDE", highestResistMax, highestResistMaxType.." Melding of the Flesh");
-			end
-		end
-	end
-	
-	for _, elem in ipairs(resistTypeList) do
-		local min, max, total, totemTotal, totemMax
-		min = data.misc.ResistFloor
-		max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
-		total = modDB:Override(nil, elem.."Resist")
-		totemMax = modDB:Override(nil, "Totem"..elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, "Totem"..elem.."ResistMax", isElemental[elem] and "TotemElementalResistMax"))
-		totemTotal = modDB:Override(nil, "Totem"..elem.."Resist")
-		if not total then
-			local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
-			total = base * m_max(calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist"), 0)
-		end
-		if not totemTotal then
-			local base = modDB:Sum("BASE", nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
-			totemTotal = base * m_max(calcLib.mod(modDB, nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist"), 0)
-		end
-		
-		-- Fractional resistances are truncated
-		total = m_modf(total)
-		totemTotal = m_modf(totemTotal)
-		min = m_modf(min)
-		max = m_modf(max)
-		totemMax = m_modf(totemMax)
-		
-		local final = m_max(m_min(total, max), min)
-		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
-
-		output[elem.."Resist"] = final
-		output[elem.."ResistTotal"] = total
-		output[elem.."ResistOverCap"] = m_max(0, total - max)
-		output[elem.."ResistOver75"] = m_max(0, final - 75)
-		output["Missing"..elem.."Resist"] = m_max(0, max - final)
-		output["Totem"..elem.."Resist"] = totemFinal
-		output["Totem"..elem.."ResistTotal"] = totemTotal
-		output["Totem"..elem.."ResistOverCap"] = m_max(0, totemTotal - totemMax)
-		output["MissingTotem"..elem.."Resist"] = m_max(0, totemMax - totemFinal)
-		if breakdown then
-			breakdown[elem.."Resist"] = {
-				"Min: "..min.."%",
-				"Max: "..max.."%",
-				"Total: "..total.."%",
-			}
-			breakdown["Totem"..elem.."Resist"] = {
-				"Min: "..min.."%",
-				"Max: "..totemMax.."%",
-				"Total: "..totemTotal.."%",
-			}
-		end
-	end
-
-	-- Damage Reduction
-	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
-	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
-	for _, damageType in ipairs(dmgTypeList) do
-		output["Base"..damageType.."DamageReduction"] = m_min(m_max(0, modDB:Sum("BASE", nil, damageType.."DamageReduction")), output.DamageReductionMax)
-		output["Base"..damageType.."DamageReductionWhenHit"] = m_min(m_max(0, output["Base"..damageType.."DamageReduction"] + modDB:Sum("BASE", nil, damageType.."DamageReductionWhenHit")), output.DamageReductionMax)
-	end
-
 	-- Block
 	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
 	output.BlockChanceOverCap = 0
@@ -230,7 +152,7 @@ function calcs.defence(env, actor)
 		local gearArmour = 0
 		local gearEvasion = 0
 		local slotCfg = wipeTable(tempTable1)
-		for _, slot in pairs({"Helmet","Body Armour","Gloves","Boots","Weapon 2","Weapon 3"}) do
+		for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
 			local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
 			if armourData then
 				slotCfg.slotName = slot
@@ -277,7 +199,11 @@ function calcs.defence(env, actor)
 							})
 						end
 					else
-						energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences")
+						if slot == "Body Armour" then
+							energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences", "Body ArmourESAndArmour")
+						else	
+							energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences")
+						end
 						gearEnergyShield = gearEnergyShield + energyShieldBase
 						if breakdown then
 							breakdown.slot(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences")
@@ -290,7 +216,11 @@ function calcs.defence(env, actor)
 					if slot == "Body Armour" and modDB:Flag(nil, "Unbreakable") then
 						armourBase = armourBase * 2
 					end
-					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences")
+					if slot == "Body Armour" then
+						armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", "Body ArmourESAndArmour")
+					else
+						armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences")
+					end
 					gearArmour = gearArmour + armourBase
 					if breakdown then
 						breakdown.slot(slot, nil, slotCfg, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences")
@@ -468,7 +398,7 @@ function calcs.defence(env, actor)
 				output.splitEvade = true
 			else
 				output.EvadeChance = output.MeleeEvadeChance
-				output.dontSplitEvade = true
+				output.noSplitEvade = true
 			end
 			if breakdown then
 				breakdown.EvadeChance = {
@@ -492,6 +422,85 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	-- Resistances
+	output["PhysicalResist"] = 0
+
+	-- Highest Maximum Elemental Resistance for Melding of the Flesh
+	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
+		local highestResistMax = 0;
+		local highestResistMaxType = "";
+		for _, elem in ipairs(resistTypeList) do
+			local resistMax = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+			if resistMax > highestResistMax and isElemental[elem] then
+				highestResistMax = resistMax;
+				highestResistMaxType = elem;
+			end
+		end
+		for _, elem in ipairs(resistTypeList) do
+			if isElemental[elem] then
+				modDB:NewMod(elem.."ResistMax", "OVERRIDE", highestResistMax, highestResistMaxType.." Melding of the Flesh");
+			end
+		end
+	end
+	
+	for _, elem in ipairs(resistTypeList) do
+		local min, max, total, totemTotal, totemMax
+		min = data.misc.ResistFloor
+		max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+		total = modDB:Override(nil, elem.."Resist")
+		totemMax = modDB:Override(nil, "Totem"..elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, "Totem"..elem.."ResistMax", isElemental[elem] and "TotemElementalResistMax"))
+		totemTotal = modDB:Override(nil, "Totem"..elem.."Resist")
+		if not total then
+			local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
+			total = base * m_max(calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist"), 0)
+		end
+		if not totemTotal then
+			local base = modDB:Sum("BASE", nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
+			totemTotal = base * m_max(calcLib.mod(modDB, nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist"), 0)
+		end
+		
+		-- Fractional resistances are truncated
+		total = m_modf(total)
+		totemTotal = m_modf(totemTotal)
+		min = m_modf(min)
+		max = m_modf(max)
+		totemMax = m_modf(totemMax)
+		
+		local final = m_max(m_min(total, max), min)
+		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
+
+		output[elem.."Resist"] = final
+		output[elem.."ResistTotal"] = total
+		output[elem.."ResistOverCap"] = m_max(0, total - max)
+		output[elem.."ResistOver75"] = m_max(0, final - 75)
+		output["Missing"..elem.."Resist"] = m_max(0, max - final)
+		output["Totem"..elem.."Resist"] = totemFinal
+		output["Totem"..elem.."ResistTotal"] = totemTotal
+		output["Totem"..elem.."ResistOverCap"] = m_max(0, totemTotal - totemMax)
+		output["MissingTotem"..elem.."Resist"] = m_max(0, totemMax - totemFinal)
+		if breakdown then
+			breakdown[elem.."Resist"] = {
+				"Min: "..min.."%",
+				"Max: "..max.."%",
+				"Total: "..total.."%",
+			}
+			breakdown["Totem"..elem.."Resist"] = {
+				"Min: "..min.."%",
+				"Max: "..totemMax.."%",
+				"Total: "..totemTotal.."%",
+			}
+		end
+	end
+
+	-- Damage Reduction
+	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
+	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
+	for _, damageType in ipairs(dmgTypeList) do
+		output["Base"..damageType.."DamageReduction"] = m_min(m_max(0, modDB:Sum("BASE", nil, damageType.."DamageReduction")), output.DamageReductionMax)
+		output["Base"..damageType.."DamageReductionWhenHit"] = m_min(m_max(0, output["Base"..damageType.."DamageReduction"] + modDB:Sum("BASE", nil, damageType.."DamageReductionWhenHit")), output.DamageReductionMax)
+	end
+
+	-- Spell Suppression
 	local weaponsCfg = {
 		flags = bit.bor(env.player.weaponData1 and env.player.weaponData1.type and ModFlag[env.player.weaponData1.type] or 0, env.player.weaponData2 and env.player.weaponData2.type and ModFlag[env.player.weaponData2.type] or 0)
 	}
@@ -883,6 +892,17 @@ function calcs.defence(env, actor)
 			if value.mod.value ~= 100 then -- immunity or cannot be ailments don't apply as they have been changed to be unique
 				value.mod.name = "AvoidElementalAilments"
 			end
+		end
+	end
+	
+	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
+		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100
+		-- Ancestral Vision
+		for _, value in ipairs(modDB:Tabulate("BASE",  weaponsCfg, "SpellSuppressionChance")) do
+			local mod = copyTable(value.mod)
+			mod.name = "AvoidElementalAilments"
+			mod.value = mod.value * spellSuppressionToAilmentPercent
+			modDB:AddMod(mod)
 		end
 	end
 

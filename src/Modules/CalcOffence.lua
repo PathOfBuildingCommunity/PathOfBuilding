@@ -105,7 +105,7 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 	-- Combine modifiers
 	local modNames = damageStatsForTypes[typeFlags]
 	local inc = 1 + skillModList:Sum("INC", cfg, unpack(modNames)) / 100
-	local more = m_floor(skillModList:More(cfg, unpack(modNames)) * 100 + 0.50000001) / 100
+	local more = skillModList:More(cfg, unpack(modNames))
 	local moreMinDamage = skillModList:More(cfg, "Min"..damageType.."Damage")
 	local moreMaxDamage = skillModList:More(cfg, "Max"..damageType.."Damage")
 
@@ -1634,7 +1634,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		--enemy block chance
-		output.enemyBlockChance = m_min(m_max((enemyDB:Sum("BASE", cfg, "BlockChance") or 0), 0), 100)
+		output.enemyBlockChance = m_max(m_min((enemyDB:Sum("BASE", cfg, "BlockChance") or 0), 100) - skillModList:Sum("BASE", cfg, "reduceEnemyBlock"), 0)
 		output.HitChance = output.AccuracyHitChance * (1 - output.enemyBlockChance / 100)
 		if output.enemyBlockChance > 0 and not isAttack then
 			globalOutput.enemyHasSpellBlock = true
@@ -2412,7 +2412,10 @@ function calcs.offence(env, actor, activeSkill)
 		local maxCullPercent = m_max(criticalCull, regularCull)
 		globalOutput.CullPercent = maxCullPercent
 		globalOutput.CullMultiplier = 100 / (100 - globalOutput.CullPercent)
-
+		
+		--Calculate reservation DPS
+		globalOutput.ReservationDpsMultiplier = 100 / (100 - enemyDB:Sum("BASE", nil, "LifeReservationPercent"))
+		
 		-- Calculate base hit damage
 		for _, damageType in ipairs(dmgTypeList) do
 			local damageTypeMin = damageType.."Min"
@@ -2721,6 +2724,7 @@ function calcs.offence(env, actor, activeSkill)
 		for _, damageType in ipairs(dmgTypeList) do
 			if output[damageType.."HitAverage"] > 0 then
 				local portion = output[damageType.."HitAverage"] / totalHitAvg * 100
+				skillModList:NewMod("Condition:"..damageType.."HasDamage", "FLAG", true, "Config")
 				if output[damageType.."HitAverage"] > output[highestType.."HitAverage"] then
 					highestType = damageType
 				end
@@ -4262,7 +4266,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		local inc = skillModList:Sum("INC", dotCfg, "Damage", "ChaosDamage")
-		local more = round(skillModList:More(dotCfg, "Damage", "ChaosDamage"), 2)
+		local more = skillModList:More(dotCfg, "Damage", "ChaosDamage")
 		local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", "ChaosDotMultiplier")
 		output.DecayDPS = skillData.decay * (1 + inc/100) * more * (1 + mult/100) * effMult
 		output.DecayDuration = 8 * debuffDurationMult
@@ -4299,7 +4303,7 @@ function calcs.offence(env, actor, activeSkill)
 				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			end
 			local inc = modDB:Sum("INC", dotTypeCfg, "Damage", "FireDamage", "ElementalDamage")
-			local more = round(modDB:More(dotTypeCfg, "Damage", "FireDamage", "ElementalDamage"), 2)
+			local more = modDB:More(dotTypeCfg, "Damage", "FireDamage", "ElementalDamage")
 			local mult = modDB:Sum("BASE", dotTypeCfg, "DotMultiplier", "FireDotMultiplier")
 			local total = baseDropsBurningGround * (1 + inc/100) * more * (1 + mult/100) * effMult
 			if not output.BurningGroundDPS or output.BurningGroundDPS < total then
@@ -4375,7 +4379,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			local inc = skillModList:Sum("INC", dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
-			local more = round(skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil), 2)
+			local more = skillModList:More(dotTypeCfg, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil)
 			local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", damageType.."DotMultiplier")
 			local aura = activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillTypes[SkillType.RemoteMined] and calcLib.mod(skillModList, dotTypeCfg, "AuraEffect")
 			local total = baseVal * (1 + inc/100) * more * (1 + mult/100) * (aura or 1) * effMult
@@ -4994,5 +4998,6 @@ function calcs.offence(env, actor, activeSkill)
 
 	bestCull = m_max(bestCull, output.CullMultiplier)
 	output.CullingDPS = output.CombinedDPS * (bestCull - 1)
-	output.CombinedDPS = output.CombinedDPS * bestCull
+	output.ReservationDPS = output.CombinedDPS * (output.ReservationDpsMultiplier - 1)
+	output.CombinedDPS = output.CombinedDPS * bestCull * output.ReservationDpsMultiplier
 end

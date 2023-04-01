@@ -592,6 +592,7 @@ holding Shift will put it in the second.]])
 			return self.displayItem and self.displayItem.crafted and self.displayItem.clusterJewel
 		end
 	}
+	
 	self.controls.displayItemClusterJewelNodeCountLabel = new("LabelControl", {"TOPLEFT",self.controls.displayItemClusterJewelSkill,"BOTTOMLEFT"}, 0, 7, 0, 14, "^7Added Passives:")
 	self.controls.displayItemClusterJewelNodeCount = new("SliderControl", {"LEFT",self.controls.displayItemClusterJewelNodeCountLabel,"RIGHT"}, 2, 0, 150, 20, function(val)
 		local divVal = self.controls.displayItemClusterJewelNodeCount:GetDivVal()
@@ -710,7 +711,7 @@ holding Shift will put it in the second.]])
 
 					-- Comparison
 					tooltip:AddSeparator(14)
-					self:AppendAnointTooltip(tooltip, node, "Allocating")
+					self:AppendAddedNotableTooltip(tooltip, node)
 
 					-- Information of for this notable appears
 					local clusterInfo = self.build.data.clusterJewelInfoForNotable[notableName]
@@ -2130,6 +2131,21 @@ function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
 	if node and numChanges == 0 then
 		tooltip:AddLine(14, "^7"..actionText.." "..node.dn.." changes nothing.")
+	end
+end
+
+---Appends tooltip with information about added notable passive node if it would be allocated.
+---@param tooltip table @The tooltip to append into
+---@param node table @The passive tree node that will be added
+function ItemsTabClass:AppendAddedNotableTooltip(tooltip, node)
+	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
+	local outputNew = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+	GlobalCache.useFullDPS = storedGlobalCacheDPSView
+	local numChanges = self.build:AddStatComparesToTooltip(tooltip, calcBase, outputNew, "^7Allocating "..node.dn.." will give you: ")
+	if numChanges == 0 then
+		tooltip:AddLine(14, "^7Allocating "..node.dn.." changes nothing.")
 	end
 end
 
