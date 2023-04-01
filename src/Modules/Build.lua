@@ -160,12 +160,18 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
+	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 50, 20, self.placeholder and "Auto" or "Manual", function()
+		self.placeholder = not self.placeholder
+		self.controls.levelScalingButton.label = self.placeholder and "Auto" or "Manual"
+		self.recalcAdaptiveLevel = true
+	end)
+	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, 8, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
 		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
-		self.placeholder = buf == ''
+		self.placeholder = false
+		self.controls.levelScalingButton.label = "Manual"
 	end)
 	self.controls.characterLevel:SetText(tostring(self.characterLevel))
 	self.controls.characterLevel.tooltipFunc = function(tooltip)
@@ -743,9 +749,10 @@ function buildMode:EstimatePlayerProgress()
 	
 	self.lastAllocated = self.lastAllocated or -1
 	
-	if self.placeholder and self.lastAllocated ~= PointsUsed then
+	if self.placeholder and (self.lastAllocated ~= PointsUsed or self.recalcAdaptiveLevel) then
 		self.characterLevel = levelreq
 		self.controls.characterLevel:SetText(tostring(self.characterLevel))
+		self.recalcAdaptiveLevel = false
 	end
 	
 	self.lastAllocated = PointsUsed
