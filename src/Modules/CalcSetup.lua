@@ -568,9 +568,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
 	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
 	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
-
+	
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
+		local items = {}
 		for _, slot in pairs(build.itemsTab.orderedSlots) do
 			local slotName = slot.slotName
 			local item
@@ -638,6 +639,62 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 				end
 			end
+			items[slotName] = item
+		end
+
+		if not env.configInput.ignoreItemDisablers then
+			local itemDisabled = {}
+			local itemDisablers = {}
+			if modDB:Flag(nil, "CanNotUseHelm") then
+				itemDisabled["Helmet"] = { disabled = true, size = 1 }
+			end
+			for _, slot in pairs(build.itemsTab.orderedSlots) do
+				local slotName = slot.slotName
+				if items[slotName] then
+					local srcList = items[slotName].modList or items[slotName].slotModList[slot.slotNum]
+					for _, mod in ipairs(srcList) do
+						-- checks if it disables another slot
+						for _, tag in ipairs(mod) do
+							if tag.type == "DisablesItem" then
+								itemDisablers[slotName] = tag.slotName
+								itemDisabled[tag.slotName] = slotName
+								break
+							end
+						end
+					end
+				end
+			end
+			local visited = {}
+			local trueDisabled = {}
+			for slot in pairs(itemDisablers) do
+				if not visited[slot] then
+					-- find chain start
+					local curChain = { slot = true }
+					while itemDisabled[slot] do
+						slot = itemDisabled[slot]
+						if curChain[slot] then break end -- detect cycles
+						curChain[slot] = true
+					end
+
+					-- step through the chain of disabled items, disabling every other one
+					repeat
+						visited[slot] = true
+						slot = itemDisablers[slot]
+						if not slot then break end
+						visited[slot] = true
+						trueDisabled[slot] = true
+						slot = itemDisablers[slot]
+					until(not slot or visited[slot])
+				end
+			end
+			for slot in pairs(trueDisabled) do
+				items[slot] = nil
+			end
+		end
+		
+		for _, slot in pairs(build.itemsTab.orderedSlots) do
+			local slotName = slot.slotName
+			local item = items[slotName]
 			if item and item.type == "Flask" then
 				if slot.active then
 					env.flasks[item] = true

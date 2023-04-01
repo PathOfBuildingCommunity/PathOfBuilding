@@ -155,6 +155,7 @@ return {
 	{ var = "EVBypass", type = "check", label = "Disable Emperor's Vigilance Bypass", ifCond = "EVBypass", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EVBypass", "FLAG", true, "Config")
 	end },
+	{ var = "ignoreItemDisablers", type = "check", label = "Don't disable items", tooltip = "Ignore the effects of things which disable items, like Bringer of Rain" },
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
