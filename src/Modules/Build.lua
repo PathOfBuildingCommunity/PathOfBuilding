@@ -45,7 +45,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
 	self.pantheonMinorGod = "None"
-	self.placeholder = true
+	self.characterLevelAutoMode = true
 	if buildXML then
 		if self:LoadDB(buildXML, "Unnamed build") then
 			self:CloseBuild()
@@ -160,9 +160,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 50, 20, self.placeholder and "Auto" or "Manual", function()
-		self.placeholder = not self.placeholder
-		self.controls.levelScalingButton.label = self.placeholder and "Auto" or "Manual"
+	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 50, 20, self.characterLevelAutoMode and "Auto" or "Manual", function()
+		self.characterLevelAutoMode = not self.characterLevelAutoMode
+		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
 		self.recalcAdaptiveLevel = true
 	end)
 	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, 8, 0, 106, 20, "", "Level", "%D", 3, function(buf)
@@ -170,10 +170,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
-		self.placeholder = false
+		self.characterLevelAutoMode = false
 		self.controls.levelScalingButton.label = "Manual"
 	end)
-	self.controls.characterLevel:SetText(tostring(self.characterLevel))
+	self.controls.characterLevel:SetText(self.characterLevel)
 	self.controls.characterLevel.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.characterLevel) then
 			tooltip:AddLine(16, "Experience multiplier:")
@@ -745,13 +745,13 @@ function buildMode:EstimatePlayerProgress()
 	end
 	
 	-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
-	levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
+	levelreq = m_min(math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level), 100)
 	
 	self.lastAllocated = self.lastAllocated or -1
 	
-	if self.placeholder and (self.lastAllocated ~= PointsUsed or self.recalcAdaptiveLevel) then
+	if self.characterLevelAutoMode and (self.lastAllocated ~= PointsUsed or self.recalcAdaptiveLevel) then
 		self.characterLevel = levelreq
-		self.controls.characterLevel:SetText(tostring(self.characterLevel))
+		self.controls.characterLevel:SetText(self.characterLevel)
 		self.recalcAdaptiveLevel = false
 	end
 	
@@ -813,7 +813,7 @@ function buildMode:Load(xml, fileName)
 		self.viewMode = xml.attrib.viewMode
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
-	self.placeholder = xml.attrib.placeholder == "true"
+	self.characterLevelAutoMode = xml.attrib.placeholder == "true"
 	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
@@ -857,7 +857,7 @@ function buildMode:Save(xml)
 		pantheonMajorGod = self.configTab.input.pantheonMajorGod,
 		pantheonMinorGod = self.configTab.input.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
-		placeholder = tostring(self.placeholder)
+		placeholder = tostring(self.characterLevelAutoMode)
 	}
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
