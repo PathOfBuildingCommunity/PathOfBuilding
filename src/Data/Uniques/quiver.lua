@@ -243,7 +243,7 @@ Saemus' Gift
 {variant:2}Feathered Arrow Quiver
 Variant: Pre 3.17.0
 Variant: Current
-Requires Level 20
+Requires Level 45
 Implicits: 2
 {variant:1}(20-30)% increased Critical Strike Chance with Bows
 {variant:2}(20-30)% increased Projectile Speed
