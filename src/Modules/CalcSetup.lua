@@ -641,10 +641,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 			items[slotName] = item
 		end
-		
+
 		if not env.configInput.ignoreItemDisablers then
 			local itemDisabled = {}
-			local unhandledItemDisablers = { }
+			local itemDisablers = {}
 			if modDB:Flag(nil, "CanNotUseHelm") then
 				itemDisabled["Helmet"] = { disabled = true, size = 1 }
 			end
@@ -656,58 +656,38 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- checks if it disables another slot
 						for _, tag in ipairs(mod) do
 							if tag.type == "DisablesItem" then
-								unhandledItemDisablers[slotName] = unhandledItemDisablers[slotName] or {}
-								t_insert(unhandledItemDisablers[slotName], tag.slotName)
-								itemDisabled[tag.slotName] = itemDisabled[tag.slotName] or { size = 0 }
-								itemDisabled[tag.slotName][slotName] = true
-								itemDisabled[tag.slotName].size = itemDisabled[tag.slotName].size + 1
+								itemDisablers[slotName] = tag.slotName
+								itemDisabled[tag.slotName] = slotName
 								break
 							end
 						end
 					end
 				end
 			end
-			while next(unhandledItemDisablers) ~= nil do
-				local stalemateBreaker = true
-				for slot, itemData in pairs(unhandledItemDisablers) do
-					if not itemDisabled[slot] then
-						for _, slot2 in ipairs(unhandledItemDisablers[slot]) do
-							if unhandledItemDisablers[slot2] then
-								for _, slot3 in ipairs(unhandledItemDisablers[slot2]) do
-									itemDisabled[slot3][slot2] = nil
-									itemDisabled[slot3].size = itemDisabled[slot3].size - 1
-									if itemDisabled[slot3].size == 0 then
-										itemDisabled[slot3] = nil
-									end
-								end
-								unhandledItemDisablers[slot2] = nil
-							end
-						end						
-						unhandledItemDisablers[slot] = nil
-						stalemateBreaker = false
+			local visited = {}
+			local trueDisabled = {}
+			for slot in pairs(itemDisablers) do
+				if not visited[slot] then
+					-- find chain start
+					local curChain = { slot = true }
+					while itemDisabled[slot] do
+						slot = itemDisabled[slot]
+						if curChain[slot] then break end -- detect cycles
+						curChain[slot] = true
 					end
-				end
-				-- if goes through an entire iteration without handling an unhandled Item Disabler, just take the first one
-				if stalemateBreaker then
-					for slot, itemData in pairs(unhandledItemDisablers) do
-						for _, slot2 in ipairs(unhandledItemDisablers[slot]) do
-							if unhandledItemDisablers[slot2] then
-								for _, slot3 in ipairs(unhandledItemDisablers[slot2]) do
-									itemDisabled[slot3][slot2] = nil
-									itemDisabled[slot3].size = itemDisabled[slot3].size - 1
-									if itemDisabled[slot3].size == 0 then
-										itemDisabled[slot3] = nil
-									end
-								end
-								unhandledItemDisablers[slot2] = nil
-							end
-						end						
-						unhandledItemDisablers[slot] = nil
-						break
-					end
+
+					-- step through the chain of disabled items, disabling every other one
+					repeat
+						visited[slot] = true
+						slot = itemDisablers[slot]
+						if not slot then break end
+						visited[slot] = true
+						trueDisabled[slot] = true
+						slot = itemDisablers[slot]
+					until(not slot or visited[slot])
 				end
 			end
-			for slot, _ in pairs(itemDisabled) do
+			for slot in pairs(trueDisabled) do
 				items[slot] = nil
 			end
 		end
