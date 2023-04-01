@@ -611,27 +611,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 				elseif item then
 					item.jewelData.limitDisabled = nil
 					if item.limit and not env.configInput.ignoreJewelLimits then
-						if jewelLimits[item.title] and jewelLimits[item.title] >= item.limit then
+						local limitKey = item.base.subType == "Timeless" and "Historic" or item.title
+						if jewelLimits[limitKey] and jewelLimits[limitKey] >= item.limit then
 							item.jewelData.limitDisabled = true
 							item = nil
 						else
-							jewelLimits[item.title] = (jewelLimits[item.title] or 0) + 1
-						end
-					-- Handle historic jewels
-					elseif item.type == "Jewel" and item.base.subType == "Timeless" and not env.configInput.ignoreJewelLimits then
-						local isHistoric = false
-						for _, mod in ipairs(item.modList) do
-							if mod.name == "Historic" then
-								isHistoric = true
-								break
-							end
-						end
-						if isHistoric then
-							if jewelLimits["Historic"] then
-								item.jewelData.limitDisabled = true
-								item = nil
-							end
-							jewelLimits["Historic"] = 1
+							jewelLimits[limitKey] = (jewelLimits[limitKey] or 0) + 1
 						end
 					end
 					if item and item.jewelRadiusIndex then

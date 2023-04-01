@@ -4078,7 +4078,7 @@ local specialModList = {
 		return { mod("JewelData", "LIST",
 				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["passives in radius are conquered by the (%D+)"] = { },
-	["historic"] = { mod("Historic", "Flag", 1) },
+	["historic"] = { },
 	-- Display-only modifiers
 	["extra gore"] = { },
 	["prefixes:"] = { },
