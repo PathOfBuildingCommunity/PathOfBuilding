@@ -369,13 +369,13 @@ function SkillsTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			-- Old format, initialize skill sets if needed
-			if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
-				self.skillSetOrderList = { 1 }
+			if not self.skillSetOrderList[1] then
+				self.skillSetOrderList[1] = 1
 				self:NewSkillSet(1)
 			end
+			self:LoadSkill(node, 1)
 		end
 
-		self:LoadSkill(node, 1)
 		if node.elem == "SkillSet" then
 			local skillSet = self:NewSkillSet(tonumber(node.attrib.id))
 			skillSet.title = node.attrib.title
@@ -1205,9 +1205,9 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s %s",
 				gemInstance.color,
 				(gemInstance.grantedEffect and gemInstance.grantedEffect.name) or (gemInstance.gemData and gemInstance.gemData.name) or gemInstance.nameSpec,
-				displayEffect.level,
+				displayEffect.srcInstance and displayEffect.srcInstance.level or displayEffect.level,
 				displayEffect.level > gemInstance.level and colorCodes.MAGIC .. "+" .. (displayEffect.level - gemInstance.level) .. "^7" or "",
-				displayEffect.quality,
+				displayEffect.srcInstance and displayEffect.srcInstance.quality or displayEffect.quality,
 				displayEffect.quality > gemInstance.quality and colorCodes.MAGIC .. "+" .. (displayEffect.quality - gemInstance.quality) .. "^7" or "",
 				reason
 			))
@@ -1246,7 +1246,7 @@ function SkillsTabClass:RestoreUndoState(state)
 		self.skillSets[k] = v
 	end
 	wipeTable(self.skillSetOrderList)
-	for k, v in pairs(state.skillSetOrderList) do
+	for k, v in ipairs(state.skillSetOrderList) do
 		self.skillSetOrderList[k] = v
 	end
 	self:SetActiveSkillSet(state.activeSkillSetId)
@@ -1285,8 +1285,8 @@ end
 -- Changes the active skill set
 function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	-- Initialize skill sets if needed
-	if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
-		self.skillSetOrderList = { 1 }
+	if not self.skillSetOrderList[1] then
+		self.skillSetOrderList[1] = 1
 		self:NewSkillSet(1)
 	end
 

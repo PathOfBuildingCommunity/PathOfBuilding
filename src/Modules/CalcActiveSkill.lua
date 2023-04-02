@@ -216,7 +216,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	-- Handle multipart skills
 	local activeGemParts = activeGrantedEffect.parts
-	if activeGemParts then
+	if activeGemParts and #activeGemParts > 1 then
 		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
 			activeEffect.srcInstance.skillPartCalcs = m_min(#activeGemParts, activeEffect.srcInstance.skillPartCalcs or 1)
 			activeSkill.skillPart = activeEffect.srcInstance.skillPartCalcs
@@ -234,6 +234,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		end
 		activeSkill.skillPartName = part.name
 		skillFlags.multiPart = #activeGemParts > 1
+	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+		activeEffect.srcInstance.skillPart = nil
+		activeEffect.srcInstance.skillPartCalcs = nil
 	end
 
 	if (skillTypes[SkillType.RequiresShield] or skillFlags.shieldAttack) and not activeSkill.summonSkill and (not activeSkill.actor.itemList["Weapon 2"] or activeSkill.actor.itemList["Weapon 2"].type ~= "Shield") then
@@ -350,6 +353,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if skillTypes[SkillType.Chaos] then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Chaos)
 	end
+	if skillTypes[SkillType.Physical] then
+		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Physical)
+	end
 	if skillFlags.weapon1Attack and band(activeSkill.weapon1Flags, ModFlag.Bow) ~= 0 then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Bow)
 	end
@@ -451,6 +457,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if level.cooldown then
 				activeSkill.skillData.cooldown = level.cooldown
 			end
+			if level.PvPDamageMultiplier then
+				skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, skillEffect.grantedEffect.modSource)
+			end
+			if level.storedUses then
+				activeSkill.skillData.storedUses = level.storedUses
+			end
 		end
 	end
 
@@ -481,6 +493,15 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if level.cooldown then
 		activeSkill.skillData.cooldown = level.cooldown
 	end
+	if level.storedUses then
+		activeSkill.skillData.storedUses = level.storedUses
+	end
+	if level.soulPreventionDuration then
+		activeSkill.skillData.soulPreventionDuration = level.soulPreventionDuration
+	end
+	if level.PvPDamageMultiplier then
+		skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, activeEffect.grantedEffect.modSource)
+	end
 	
 	-- Add extra modifiers from other sources
 	activeSkill.extraSkillModList = { }
@@ -501,6 +522,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			skillModList:NewMod("Multiplier:ActiveMineCount", "BASE", activeSkill.activeMineCount, "Base")
 			env.enemy.modDB.multipliers["ActiveMineCount"] = m_max(activeSkill.activeMineCount or 0, env.enemy.modDB.multipliers["ActiveMineCount"] or 0)
 		end
+	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+		activeEffect.srcInstance.skillMineCountCalcs = nil
+		activeEffect.srcInstance.skillMineCount = nil
 	end
 	
 	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages") > 0 then
@@ -514,6 +538,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", m_min(limit - 1, activeSkill.activeStageCount), "Base")
 			end
 		end
+	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+		activeEffect.srcInstance.skillStageCountCalcs = nil
+		activeEffect.srcInstance.skillStageCount = nil
 	end
 
 	-- Extract skill data
@@ -583,6 +610,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					end
 					minion.itemSet = env.build.itemsTab.itemSets[activeEffect.srcInstance.skillMinionItemSet]
 				end
+			elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+				activeEffect.srcInstance.skillMinionItemSetCalcs = nil
+				activeEffect.srcInstance.skillMinionItemSet = nil
 			end
 			if activeSkill.skillData.minionUseBowAndQuiver and env.player.weaponData1.type == "Bow" then
 				minion.weaponData1 = env.player.weaponData1
@@ -622,6 +652,13 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				end
 			end
 		end
+	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+		activeEffect.srcInstance.skillMinionCalcs = nil
+		activeEffect.srcInstance.skillMinion = nil
+		activeEffect.srcInstance.skillMinionItemSetCalcs = nil
+		activeEffect.srcInstance.skillMinionItemSet = nil
+		activeEffect.srcInstance.skillMinionSkill = nil
+		activeEffect.srcInstance.skillMinionSkillCalcs = nil
 	end
 
 	-- Separate global effect modifiers (mods that can affect defensive stats or other skills)

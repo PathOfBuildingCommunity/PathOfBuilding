@@ -580,10 +580,23 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {})
+	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {}, latestTreeVersion)
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
+	self.build.characterLevelAutoMode = false
+	self.build.configTab:UpdateLevel()
 	self.build.controls.characterLevel:SetText(charData.level)
+	self.build:EstimatePlayerProgress()
+	local resistancePenaltyIndex = 3
+	if self.build.Act then -- Estimate resistance penalty setting based on act progression estimate
+		if type(self.build.Act) == "string" and self.build.Act == "Endgame" then resistancePenaltyIndex = 3
+		elseif type(self.build.Act) == "number" then 
+			if self.build.Act < 5 then resistancePenaltyIndex = 1
+			elseif self.build.Act > 5 and self.build.Act < 11 then resistancePenaltyIndex = 2
+			elseif self.build.Act > 10 then resistancePenaltyIndex = 3 end
+		end
+	end
+	self.build.configTab.varControls["resistancePenalty"]:SetSel(resistancePenaltyIndex)
 	self.build.buildFlag = true
 	main:SetWindowTitleSubtext(string.format("%s (%s, %s, %s)", self.build.buildName, charData.name, charData.class, charData.league))
 end
@@ -667,12 +680,13 @@ function ImportTabClass:ImportItemsAndSkills(json)
 	self.build.itemsTab:AddUndoState()
 	self.build.skillsTab:AddUndoState()
 	self.build.characterLevel = charItemData.character.level
+	self.build.configTab:UpdateLevel()
 	self.build.controls.characterLevel:SetText(charItemData.character.level)
 	self.build.buildFlag = true
 	return charItemData.character -- For the wrapper
 end
 
-local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC" }
+local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [10] = "RELIC" }
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
 
 function ImportTabClass:ImportItem(itemData, slotName)

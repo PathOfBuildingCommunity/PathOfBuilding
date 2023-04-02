@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: Staff
@@ -426,7 +426,7 @@ Realm Ender
 Iron Staff
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 40, 35 Str, 35 Int
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff

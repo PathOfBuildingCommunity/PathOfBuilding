@@ -95,7 +95,7 @@ local skillMap = {
 	["IceGolem"] = "Summon Ice Golem",
 	["LightningGolem"] = "Summon Lightning Golem",
 	["StoneGolem"] = "Summon Stone Golem",
-	["Skeleton"] = "Summon Skeleton",
+	["Skeleton"] = "Summon Skeletons",
 	["Bladefall"] = "Bladefall",
 	["BlastRain"] = "Blast Rain",
 	["ChargedAttack"] = "Blade Flurry",
@@ -203,9 +203,11 @@ local skillMap = {
 	["SpectralHelix"] = "Spectral Helix",
 	["DefianceBanner"] = "Defiance Banner",
 	["EnergyBlade"] = "Energy Blade",
-	["Tornado"] = "Tornado",
 	["TornadoShot"] = "Tornado Shot",
+	["Tornado"] = "Tornado",
 	["VolcanicFissure"] = "Volcanic Fissure",
+	["Table Charge"] = "Shield Charge",
+	["Flame Dash"] = "Flame Dash",
 }
 
 local bySkill = { }
@@ -222,20 +224,31 @@ for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 10)) do
 						break
 					end
 				end
+				if activeSkill.Id:match("vaal") then -- Vaal Blade Vortex missing the vaal tag
+					isVaal = true
+				end
 				if not isVaal and activeSkill.DisplayName ~= "" then
 					skill = activeSkill.DisplayName
 					break
 				end
 			end
 		end
-		if not skill then
-			for id, name in pairs(skillMap) do
-				if mod.Id:match(id) then
+		if skill == nil then
+			skill = ""
+		end
+		for id, name in pairs(skillMap) do
+			local i, j = string.find(mod.Id, id)
+			if(j ~= nil) then
+				if string.len(skill) < (j - i) then
 					skill = name
-					break
 				end
 			end
 		end
+		
+		if skillMap[skill] ~= nil then
+			skill = skillMap[skill]
+		end
+
 		local stats, orders = describeMod(mod)
 		if not skill or not stats[1] then
 			printf("%s\n%s", mod.Id, stats[1])

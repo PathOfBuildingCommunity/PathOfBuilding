@@ -28,7 +28,7 @@ local skills, mod, flag, skill = ...
 #flags spell duration
 	statMap = {
 		["arcane_cloak_damage_absorbed_%"] = {
-			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["arcane_cloak_consume_%_of_mana"] = {
 			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
@@ -243,10 +243,13 @@ local skills, mod, flag, skill = ...
 		["ball_lightning_superball_%_chance"] = {
 			mod("ball_lightning_superball_%_chance", "BASE", nil)
 		},
+		["ball_lightning_projectile_speed_and_hit_frequency_+%_final"] = {
+			mod("ProjectileSpeed", "MORE", nil)
+		},
 	},
 #baseMod skill("radius", 18)
 #baseMod skill("strikeInterval", 0.15)
-#baseMod skill("projectileSpeed", 48)
+#baseMod skill("projectileSpeed", 40)
 #baseMod skill("duration", 2)
 #mods
 
@@ -885,6 +888,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 2)
 #baseMod skill("showAverage", true)
+#baseMod mod("PvpTvalueMultiplier", "MORE", 100, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" })
 #mods
 
 #skill VaalFlameblast
@@ -1042,10 +1046,16 @@ local skills, mod, flag, skill = ...
 	end,
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
-			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
+			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frost Bomb" }),
 		},
 		["frost_bomb_damage_+%_final_per_100ms_duration"] = {
 			skill("frostBombDamagePer100ms", nil),
+		},
+		["life_regeneration_rate_+%"] = {
+			mod("LifeRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frost Bomb" }),
+		},
+		["energy_shield_regeneration_rate_+%"] = {
+			mod("EnergyShieldRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frost Bomb" }),
 		},
 	},
 #baseMod skill("debuffSecondary", true)
@@ -1119,7 +1129,7 @@ local skills, mod, flag, skill = ...
 			mod("EnemyShockDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["galvanic_field_damage_+%_final_per_5%_increased_damage_taken_from_shock"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "ShockEffect", div = 5, actor = "enemy" }),
 		},
 		["galvanic_field_radius_+_per_10%_increased_damage_taken_from_shock"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ShockEffect", div = 10, actor = "enemy" }),

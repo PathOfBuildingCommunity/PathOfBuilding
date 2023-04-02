@@ -317,7 +317,8 @@ directiveTable.skill = function(state, args, out)
 			out:write('\tcannotBeSupported = true,\n')
 		end
 	end
-	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffect", granted)
+	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffectStatSets", granted.GrantedEffectStatSets)
+	local statMapOrder = {}
 	for indx, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
 		local statRow = statsPerLevel[indx]
 		local level = { extra = { }, statInterpolation = { }, cost = { } }
@@ -362,11 +363,17 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.Cooldown and levelRow.Cooldown ~= 0 then
 			level.extra.cooldown = levelRow.Cooldown / 1000
 		end
+		if levelRow.PvPDamageMultiplier ~= 0 then
+			level.extra.PvPDamageMultiplier = levelRow.PvPDamageMultiplier
+		end
+		if levelRow.StoredUses ~= 0 then
+			level.extra.storedUses = levelRow.StoredUses
+		end
 		if levelRow.VaalSouls ~= 0 then
-			level.extra.soulCost = levelRow.VaalSouls
+			level.cost.Soul = levelRow.VaalSouls
 		end
 		if levelRow.VaalStoredUses ~= 0 then
-			level.extra.skillUseStorage = levelRow.VaalStoredUses
+			level.extra.vaalStoredUses = levelRow.VaalStoredUses
 		end
 		if levelRow.SoulGainPreventionDuration ~= 0 then
 			level.extra.soulPreventionDuration = levelRow.SoulGainPreventionDuration / 1000
@@ -374,14 +381,30 @@ directiveTable.skill = function(state, args, out)
 		level.statInterpolation = statRow.StatInterpolations
 		local resolveInterpolation = false
 		local injectConstantValuesIntoEachLevel = false
+		local statMapOrderIndex = 1
 		for i, stat in ipairs(statRow.FloatStats) do
 			if not statMap[stat.Id] then
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
+				if indx == 1 then
+					table.insert(statMapOrder, stat.Id)
+				else
+					print(displayName .. ": stat missing from earlier levels: ".. stat.Id)
+				end
+			elseif statMapOrder[statMapOrderIndex] ~= stat.Id then
+				-- add missing stats
+				while statMapOrderIndex < #statMapOrder and statMapOrder[statMapOrderIndex] ~= stat.Id do
+					table.insert(level, 0)
+					if #level.statInterpolation < #statMapOrder then
+						table.insert(level.statInterpolation, statMapOrderIndex, "0")
+					end
+					statMapOrderIndex = statMapOrderIndex + 1
+				end
 			end
+			statMapOrderIndex = statMapOrderIndex + 1
 			if resolveInterpolation then
 				table.insert(level, statRow.BaseResolvedValues[i])
-				level.statInterpolation[i] = 1
+				level.statInterpolation[statMapOrderIndex] = 1
 			else
 				table.insert(level, statRow.FloatStatsValues[i] / math.max(statRow.InterpolationBases[i].Value, 0.00001) )
 			end
@@ -391,7 +414,22 @@ directiveTable.skill = function(state, args, out)
 				if not statMap[stat.Id] then
 					statMap[stat.Id] = #skill.stats + #skill.constantStats + 1
 					table.insert(skill.stats, { id = stat.Id })
+					if indx == 1 then
+						table.insert(statMapOrder, stat.Id)
+					else
+						print(displayName .. ": stat missing from earlier levels: ".. stat.Id)
+					end
+				elseif statMapOrder[statMapOrderIndex] ~= stat.Id then
+					-- add missing stats
+					while statMapOrderIndex < #statMapOrder and statMapOrder[statMapOrderIndex] ~= stat.Id do
+						table.insert(level, 0)
+						if #level.statInterpolation < #statMapOrder then
+							table.insert(level.statInterpolation, statMapOrderIndex, "0")
+						end
+						statMapOrderIndex = statMapOrderIndex + 1
+					end
 				end
+				statMapOrderIndex = statMapOrderIndex + 1
 				table.insert(level, granted.GrantedEffectStatSets.ConstantStatsValues[i])
 				table.insert(level.statInterpolation, #statRow.FloatStats + 1, 1)
 			end
@@ -400,7 +438,22 @@ directiveTable.skill = function(state, args, out)
 			if not statMap[stat.Id] then
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
+				if indx == 1 then
+					table.insert(statMapOrder, stat.Id)
+				else
+					print(displayName .. ": stat missing from earlier levels: ".. stat.Id)
+				end
+			elseif statMapOrder[statMapOrderIndex] ~= stat.Id then
+				-- add missing stats
+				while statMapOrderIndex < #statMapOrder and statMapOrder[statMapOrderIndex] ~= stat.Id do
+					table.insert(level, 0)
+					if #level.statInterpolation < #statMapOrder then
+						table.insert(level.statInterpolation, statMapOrderIndex, "0")
+					end
+					statMapOrderIndex = statMapOrderIndex + 1
+				end
 			end
+			statMapOrderIndex = statMapOrderIndex + 1
 			table.insert(level, statRow.AdditionalStatsValues[i])
 		end
 		for i, stat in ipairs(statRow.AdditionalBooleanStats) do

@@ -270,11 +270,13 @@ return {
 			"25% increased Blade Vortex Spell Damage",
 			"20% increased Blade Vortex Duration",
 			"16% increased Blade Vortex Area of Effect",
+			"Blade Vortex has +2% to Critical Strike Multiplier for each blade",
 		},
 		["ENDGAME"] = {
 			"40% increased Blade Vortex Spell Damage",
 			"30% increased Blade Vortex Duration",
 			"24% increased Blade Vortex Area of Effect",
+			"Blade Vortex has +3% to Critical Strike Multiplier for each blade",
 		},
 	},
 	["Bladefall"] = {
@@ -2582,14 +2584,14 @@ return {
 			"30% increased Summon Reaper Cooldown Recovery Rate",
 		},
 	},
-	["Summon Skeleton"] = {
+	["Summon Skeletons"] = {
 		["MERCILESS"] = {
 			"Skeletons deal 25% increased Damage",
-			"20% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
+			"20% chance to Summon an additional Skeleton with Summon Skeletons",
 		},
 		["ENDGAME"] = {
 			"Skeletons deal 40% increased Damage",
-			"40% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
+			"40% chance to Summon an additional Skeleton with Summon Skeletons",
 		},
 	},
 	["Summon Skitterbots"] = {
@@ -2722,14 +2724,6 @@ return {
 			"Unearth Spawns corpses with +5 Level",
 			"40% increased Unearth Damage",
 			"12% increased Unearth Cast Speed",
-		},
-	},
-	["Vaal Blade Vortex"] = {
-		["MERCILESS"] = {
-			"Blade Vortex has +2% to Critical Strike Multiplier for each blade",
-		},
-		["ENDGAME"] = {
-			"Blade Vortex has +3% to Critical Strike Multiplier for each blade",
 		},
 	},
 	["Vampiric Link"] = {

@@ -468,59 +468,71 @@ function calcs.buildOutput(build, mode)
 		end
 
 		env.conditionsUsed = { }
-		env.multipliersUsed = { }
-		env.minionConditionsUsed = { }
 		env.enemyConditionsUsed = { }
+		env.minionConditionsUsed = { }
+		env.multipliersUsed = { }
 		env.enemyMultipliersUsed = { }
-		local function addCond(out, var, mod)
+		env.perStatsUsed = { }
+		env.enemyPerStatsUsed = { }
+		env.tagTypesUsed = { }
+		env.modsUsed = { }
+		local function addTo(out, var, mod)
+			-- Do not count Base mods as mods being actually used as they are only used as descriptors for mods
+			if mod.source == "Base" then
+				return
+			end
 			if not out[var] then
 				out[var] = { }
 			end
 			t_insert(out[var], mod)
 		end
-		local function addCondTag(out, tag, mod)
+		local function addVarTag(out, tag, mod)
 			if tag.varList then
 				for _, var in ipairs(tag.varList) do
-					addCond(out, var, mod)
+					addTo(out, var, mod)
 				end
 			else
-				addCond(out, tag.var, mod)
+				addTo(out, tag.var, mod)
 			end
 		end
-		local function addMult(out, var, mod)
-			if not out[var] then
-				out[var] = { }
-			end
-			t_insert(out[var], mod)
-		end
-		local function addMultTag(out, tag, mod)
+		local function addStatTag(out, tag, mod)
 			if tag.varList then
-				for _, var in ipairs(tag.varList) do
-					addMult(out, var, mod)
+				for _, var in ipairs(tag.statList) do
+					addTo(out, var, mod)
 				end
-			else
-				addMult(out, tag.var, mod)
+			elseif tag.stat then
+				addTo(out, tag.stat, mod)
 			end
 		end
 		local function addModTags(actor, mod)
+			addTo(env.modsUsed, mod.name, mod)
 			for _, tag in ipairs(mod) do
+				addTo(env.tagTypesUsed, tag.type, mod)
 				if tag.type == "IgnoreCond" then
 					break
 				elseif tag.type == "Condition" then
 					if actor == env.player then
-						addCondTag(env.conditionsUsed, tag, mod)
+						addVarTag(env.conditionsUsed, tag, mod)
 					else
-						addCondTag(env.minionConditionsUsed, tag, mod)
+						addVarTag(env.minionConditionsUsed, tag, mod)
 					end
 				elseif tag.type == "ActorCondition" and tag.actor == "enemy" then
-					addCondTag(env.enemyConditionsUsed, tag, mod)
+					addVarTag(env.enemyConditionsUsed, tag, mod)
 				elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 					if not tag.actor then
 						if actor == env.player then
-							addMultTag(env.multipliersUsed, tag, mod)
+							addVarTag(env.multipliersUsed, tag, mod)
 						end
 					elseif tag.actor == "enemy" then
-						addMultTag(env.enemyMultipliersUsed, tag, mod)
+						addVarTag(env.enemyMultipliersUsed, tag, mod)
+					end
+				elseif tag.type == "PerStat" or tag.type == "StatThreshold" then
+					if not tag.actor then
+						if actor == env.player then
+							addStatTag(env.perStatsUsed, tag, mod)
+						end
+					elseif tag.actor == "enemy" then
+						addStatTag(env.enemyPerStatsUsed, tag, mod)
 					end
 				end
 			end
@@ -536,6 +548,12 @@ function calcs.buildOutput(build, mode)
 			for _, mod in ipairs(activeSkill.baseSkillModList) do
 				addModTags(env.player, mod)
 			end
+			for _, mod in ipairs(activeSkill.skillModList) do
+				addTo(env.modsUsed, mod.name, mod)
+				for _, tag in ipairs(mod) do
+					addTo(env.tagTypesUsed, tag.type, mod)
+				end
+			end
 			if activeSkill.minion then
 				for _, activeSkill in pairs(activeSkill.minion.activeSkillList) do
 					for _, mod in ipairs(activeSkill.baseSkillModList) do
@@ -550,10 +568,10 @@ function calcs.buildOutput(build, mode)
 					if tag.type == "IgnoreCond" then
 						break
 					elseif tag.type == "Condition" then
-						addCondTag(env.enemyConditionsUsed, tag, mod)
+						addVarTag(env.enemyConditionsUsed, tag, mod)
 					elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 						if not tag.actor then
-							addMultTag(env.enemyMultipliersUsed, tag, mod)
+							addVarTag(env.enemyMultipliersUsed, tag, mod)
 						end
 					end
 				end
@@ -611,6 +629,9 @@ function calcs.buildOutput(build, mode)
 		end
 		if build.calcsTab.mainEnv.multipliersUsed["BloodCharge"] then
 			t_insert(combatList, s_format("%d Blood Charges", output.BloodCharges))
+		end
+		if build.calcsTab.mainEnv.multipliersUsed["SpiritCharge"] then
+			t_insert(combatList, s_format("%d Spirit Charges", output.SpiritCharges))
 		end
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			t_insert(combatList, "Cruelty")

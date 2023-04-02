@@ -128,30 +128,22 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 14)
 	parts = {
 		{
-			name = "1 Blade",
+			name = "Blade Hits Per Cast",
+			stages = true,
 		},
 		{
-			name = "3 Blades",
-		},
-		{
-			name = "6 Blades",
-		},
-		{
-			name = "10 Blades",
-		},
-		{
-			name = "40 Blades",
-		},
-		{
-			name = "50 Blades",
+			name = "Blade Hits Per Sec",
+			stages = true,
 		},
 	},
-#baseMod skill("dpsMultiplier", 1, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("dpsMultiplier", 6, { type = "SkillPart", skillPart = 3 })
-#baseMod skill("dpsMultiplier", 10, { type = "SkillPart", skillPart = 4 })
-#baseMod skill("dpsMultiplier", 40, { type = "SkillPart", skillPart = 5 })
-#baseMod skill("dpsMultiplier", 50, { type = "SkillPart", skillPart = 6 })
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * activeSkill.skillData.dpsBaseMultiplier
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = 1
+		end
+	end,
+#baseMod mod("Multiplier:BladeBlastMaxStages", "BASE", 900, 0, 0)
+#baseMod skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastStage" })
 #mods
 
 #skill BladeTrap
@@ -428,6 +420,7 @@ local skills, mod, flag, skill = ...
 			name = "Corpse Explosion",
 			spell = false,
 			cast =  true,
+			projectile = false,
 		},
 	},
 	statMap = {
@@ -572,6 +565,7 @@ local skills, mod, flag, skill = ...
 #skill DoubleStrike
 #flags attack melee
 #baseMod skill("dpsMultiplier", 2)
+#baseMod mod("PvpTvalueMultiplier", "MORE", -50)
 #mods
 
 #skill VaalDoubleStrike
@@ -1265,7 +1259,7 @@ local skills, mod, flag, skill = ...
 		["accuracy_rating"] = {
 			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["critical_strike_chance_+%"] = {
+		["skill_buff_grants_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["auras_grant_damage_+%_to_you_and_your_allies"] = {

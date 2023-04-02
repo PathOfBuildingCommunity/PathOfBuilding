@@ -1,0 +1,29 @@
+-- Path of Building
+--
+-- Boss Skill Presets
+-- Boss Skill data (c) Grinding Gear Games
+--
+return {
+#boss Atziri Metadata/Monsters/Atziri/Atziri true
+#skill Flameblast AtziriFlameblastEmpowered, stages = 10,
+#tooltip "The Uber variant has 10 ^xB97123Fire^7 penetration (Applied on Pinnacle And Uber)"
+#boss Shaper Metadata/Monsters/AtlasBosses/TheShaperBoss false
+#skill Ball AtlasBossAcceleratingProjectiles
+#tooltip "Allocating Cosmic Wounds increases the penetration to 40% (Applied on Uber) and adds 2 projectiles"
+#skill Slam AtlasBossFlickerSlam, speedMult = 8775,
+#tooltip "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
+#boss Sirus Metadata/Monsters/AtlasExiles/AtlasExile5 false
+#skill Meteor AtlasExileOrionCircleMazeBlast3
+#tooltip "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
+#boss Exarch Metadata/Monsters/AtlasInvaders/CleansingMonsters/CleansingBoss false
+#skill Ball CleansingFireWall, speedMult = 4545, 
+#tooltip "Spawns 8-18 waves of balls depending on which fight and which ball phase"
+#boss Eater Metadata/Monsters/AtlasInvaders/ConsumeMonsters/ConsumeBoss false
+#skill Beam GSConsumeBossDisintegrateBeam
+#tooltip "Allocating Insatiable Appetite causes the beam to always shock for at least 30%"
+#boss Maven Metadata/Monsters/MavenBoss/TheMaven false
+#skill Fireball MavenSuperFireProjectile, GrantedEffectId2 = MavenSuperFireProjectileImpact,
+#tooltip "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)"
+#skill MemoryGame MavenMemoryGame
+#tooltip "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
+#skillList

@@ -1,4 +1,5 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
+
 return {
 -- Helmet: Armour
 [[
@@ -66,32 +67,41 @@ Cannot Evade Enemy Attacks
 Cannot be Stunned
 ]],[[
 The Formless Flame
-Siege Helmet
+{variant:1,2}Siege Helmet
+{variant:3}Royal Burgonet 
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{The Formless Inferno} using currency{Blessing of Xoph}
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 48, 101 Str
-+(100-120) to Armour
-+(40-50) to maximum Life
--20 Fire Damage taken when Hit
+{variant:1,2}+(100-120) to Armour
+{variant:3}(80-120)% increased Armour
+{variant:1,2}+(40-50) to maximum Life
+{variant:3}-30% to Fire Resistance
+{variant:1,2}-20 Fire Damage taken from Hits
+{variant:3}-(100-200) Fire Damage taken from Hits
 {variant:1}Armour is increased by Uncapped Fire Resistance
-{variant:2}Armour is increased by Overcapped Fire Resistance
+{variant:2,3}Armour is increased by Overcapped Fire Resistance
 ]],[[
 The Formless Inferno
 Royal Burgonet
 League: Breach
 Source: Upgraded from unique{The Formless Flame} using currency{Blessing of Xoph}
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 65, 148 Str
-(80-120)% increased Armour
-+(40-50) to maximum Life
+{variant:3}Socketed Gems are supported by level 30 Infernal Legion
+{variant:1,2}(80-120)% increased Armour
+{variant:1,2}+(40-50) to maximum Life
+{variant:3}+(60-100) to maximum Life
 -30% to Fire Resistance
-8% of Physical Damage from Hits taken as Fire Damage
+{variant:1,2}8% of Physical Damage from Hits taken as Fire Damage
 {variant:1}Armour is increased by Uncapped Fire Resistance
 {variant:2}Armour is increased by Overcapped Fire Resistance
+{variant:3}Minion Life is increased by Overcapped Fire Resistance
 ]],[[
 Echoes of Creation
 Shaper Item
@@ -387,7 +397,7 @@ Martyr's Crown
 Vine Circlet
 Source: No longer obtainable
 Variant: Pre 3.0.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 52
 {variant:1}+(260-300) to maximum Energy Shield
 {variant:2}+(170-210) to maximum Energy Shield
@@ -412,9 +422,8 @@ Variant: Strength and Intelligence Pre 3.16.0
 Variant: Mine Laying Speed Pre 3.16.0
 Variant: Focus Spell Trigger Pre 3.16.0
 Variant: Focus Ailment Duration Pre 3.16.0
-Variant: Strength and Quality
-Variant: Dexterity and Quality
-Variant: Intelligence and Quality
+Variant: Avoid Elemental Damage Pre 3.16.0
+Variant: Focus Ailment Duration Pre 3.19.0
 Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
@@ -424,26 +433,40 @@ Variant: Strength and Intelligence
 Variant: Mine Laying Speed
 Variant: Focus Spell Trigger
 Variant: Focus Ailment Duration
+Variant: Avoid Elemental Damage
 +1 to Level of Socketed Gems
-{variant:1,2,3,4,5,6,7,8,9,10,12}Socketed Gems have 40% increased Mana Reservation Efficiency
-{variant:13,14,15,16,17,18,19,20,21,22,23,24}Socketed Gems have 25% increased Reservation Efficiency
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13}Socketed Gems have 40% increased Mana Reservation Efficiency
+{variant:14,15,16,17,18,19,20,21,22,23,24}Socketed Gems have 25% increased Reservation Efficiency
 Trigger Level 15 Feast of Flesh every 5 seconds
 (180-220)% increased Energy Shield
 10% chance for Energy Shield Recharge to start when you use a Skill
 Eldritch Battery
-{variant:1,13}{crafted}+(10-25) to Strength
-{variant:2,14}{crafted}+(10-25) to Dexterity
-{variant:3,15}{crafted}+(10-25) to Intelligence
-{variant:1,2,3,13,14,15}{crafted}+(7-18)% to Quality
-{variant:4,16}{crafted}+(8-15)% to Fire and Chaos Resistances
-{variant:5,17}{crafted}+(8-15)% to Cold and Chaos Resistances
-{variant:6,18}{crafted}+(8-15)% to Lightning and Chaos Resistances
-{variant:7,19}{crafted}+(6-17) to Strength and Dexterity
-{variant:8,20}{crafted}+(6-17) to Dexterity and Intelligence
-{variant:9,21}{crafted}+(6-17) to Strength and Intelligence
-{variant:10,22}{crafted}(7-12)% increased Mine Laying Speed
-{variant:11,23}{crafted}Trigger Socketed Spells when you Focus
-{variant:12,24}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
+{variant:1}{crafted}+(10-25) to Strength
+{variant:2}{crafted}+(10-25) to Dexterity
+{variant:3}{crafted}+(10-25) to Intelligence
+{variant:1,2,3}{crafted}+(7-18)% to Quality
+{variant:4}{crafted}+(8-15)% to Fire and Chaos Resistances
+{variant:5}{crafted}+(8-15)% to Cold and Chaos Resistances
+{variant:6}{crafted}+(8-15)% to Lightning and Chaos Resistances
+{variant:7}{crafted}+(6-17) to Strength and Dexterity
+{variant:8}{crafted}+(6-17) to Dexterity and Intelligence
+{variant:9}{crafted}+(6-17) to Strength and Intelligence
+{variant:10}{crafted}(7-12)% increased Mine Laying Speed
+{variant:11}{crafted}Trigger Socketed Spells when you Focus
+{variant:12}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
+{variant:13}{crafted}(6-9)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
+{variant:14}(161-180)% increased Duration of Ailments you inflict while Focused
+{variant:15}+(16-20)% to Fire and Chaos Resistances
+{variant:16}+(16-20)% to Cold and Chaos Resistances
+{variant:17}+(16-20)% to Lightning and Chaos Resistances
+{variant:18}+(31-35) to Strength and Dexterity
+{variant:19}+(31-35) to Dexterity and Intelligence
+{variant:20}+(31-35) to Strength and Intelligence
+{variant:21}(14-16)% increased Mine Laying Speed
+{variant:22}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
+{variant:22}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:23}(81-90)% increased Duration of Ailments you inflict while Focused
+{variant:24}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
 ]],[[
 Wilma's Requital
 Solaris Circlet 
@@ -497,7 +520,7 @@ Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 (8-10)% increased Cast Speed
 (200-250)% increased Energy Shield
 Avoid interruption from Stuns while Casting
-Base Critical Strike Chance of Spells is the Critical Strike Chance of Main Hand Weapon
+Base Spell Critical Strike Chance of Spells is equal to that of Main Hand Weapon
 Cannot deal Critical Strikes with Attacks
 ]],[[
 Flamesight
@@ -757,7 +780,7 @@ Deidbellow
 Gilded Sallet
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 33, 38 Str, 38 Dex
 +(20-30) to Strength
 +(20-30) to Dexterity
@@ -988,15 +1011,19 @@ Lightpoacher
 Great Crown
 League: Abyss
 Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
-Variant: One Abyssal Socket
-Variant: Two Abyssal Sockets
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
+Variant: One Abyssal Socket (Pre 3.21.0)
+Variant: Two Abyssal Sockets (Pre 3.21.0)
+Variant: One Abyssal Socket (Current)
+Variant: Two Abyssal Sockets (Current)
+{variant:1,3}Has 1 Abyssal Socket
+{variant:2,4}Has 2 Abyssal Sockets
 Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge
 +(10-15)% to all Elemental Resistances
-Recover (4-5)% of Life when a Spirit Charge expires or is consumed
-(15-20)% chance to gain a Spirit Charge on Kill
+{variant:1,2}Recover (4-5)% of Life when a Spirit Charge expires or is consumed
+{variant:1,2}(15-20)% chance to gain a Spirit Charge on Kill
+{variant:3,4}100% chance to gain a Spirit Charge on Kill
 +1 to Maximum Spirit Charges per Abyss Jewel affecting you
+{variant:3,4}Gain 5% of Physical Damage as Extra Damage of each Element per Spirit Charge
 ]],[[
 Malachai's Vision
 Praetor Crown
@@ -1099,7 +1126,7 @@ Requires Level 37, 42 Str, 42 Int
 {variant:1,2}(10-15)% increased Cold Damage
 {variant:1,2}(10-15)% increased Lightning Damage
 {variant:1}+(100-150) to maximum Mana
-{variant:2}+(100-120) to maximum Mana
+{variant:2,3}+(100-120) to maximum Mana
 {variant:2}Gain (5-10)% of Maximum Mana as Extra Maximum Energy Shield
 {variant:3}Gain (10-15)% of Maximum Mana as Extra Maximum Energy Shield
 Enemies Cannot Leech Mana From You
