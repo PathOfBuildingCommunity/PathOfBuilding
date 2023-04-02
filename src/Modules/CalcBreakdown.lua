@@ -108,13 +108,18 @@ function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, red
 	return out
 end
 
-function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sourceRes, useRes)
+function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sourceRes, useRes, invertChance)
 	local out = { }
 	local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
+	local resistLabel = resistForm
+
+	if invertChance ~= 0 then
+		resistLabel = "average inverted "..resistForm
+	end
 	if sourceRes and sourceRes ~= damageType then
-		t_insert(out, s_format("Enemy %s: %d%% ^8(%s)", resistForm, resist, sourceRes))
+		t_insert(out, s_format("Enemy %s: %d%% ^8(%s)", resistLabel, resist, sourceRes))
 	elseif resist ~= 0 then
-		t_insert(out, s_format("Enemy %s: %d%%", resistForm, resist))
+		t_insert(out, s_format("Enemy %s: %d%%", resistLabel, resist))
 	end
 	if pen ~= 0 or not useRes then
 		t_insert(out, "Effective resistance:")
