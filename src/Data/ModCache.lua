@@ -6781,7 +6781,7 @@ c["Adds 21 to 38 Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="FireMin",type
 c["140% increased Critical Strike Chance for Spells"]={{[1]={flags=2,keywordFlags=0,name="CritChance",type="INC",value=140}},nil}
 c["10% increased Attack and Cast Speed if you've summoned a Totem Recently"]={{[1]={[1]={type="Condition",var="SummonedTotemRecently"},flags=0,keywordFlags=0,name="Speed",type="INC",value=10}},nil}
 c["150% increased Evasion and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EvasionAndEnergyShield",type="INC",value=150}},nil}
-c["Minions' Accuracy Rating is equal to yours"]={nil,"Minions' Accuracy Rating is equal to yours "}
+c["Minions' Accuracy Rating is equal to yours"]={{[1]={flags=0,keywordFlags=0,name="MinionAccuracyEqualsAccuracy",type="FLAG",value=true}},nil}
 c["Eye Gouger Vaal Claw"]={nil,"Eye Gouger Vaal Claw "}
 c["+27 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=27}},nil}
 c["Eye Gouger"]={nil,"Eye Gouger "}

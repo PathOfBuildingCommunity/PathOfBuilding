@@ -26,7 +26,7 @@
 <!-- Release notes generated using configuration in .github/release.yml at dev -->
 
 ## What's Changed
-### New to Path of Building
+### Implemented Enhancements
 - Apply enemy damage multiplier to max hit taken [\#5424](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5424) ([deathbeam](https://github.com/deathbeam))
 - Add button to generate a trade link for Timeless Jewels [\#5402](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5402) ([meepen](https://github.com/meepen))
 - PoB Trader
