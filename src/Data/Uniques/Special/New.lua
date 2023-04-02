@@ -43,6 +43,18 @@ Crude Bow
 (183-225)% increased bonuses gained from Equipped Quiver
 ]],
 [[
+Soulbound
+Paua Ring
+LevelReq: 44
+Implicits: 1
++(20-30) to maximum Mana
++18 to all Attributes
+Link Skills have 13% increased Cast Speed
+Link Skills have 13% increased Skill Effect Duration
+Linked Targets Cannot Die for 2 seconds after you Die
+Lose no Experience when you die because a Linked target died
+]],
+[[
 Tainted Pact
 Coral Amulet
 Implicits: 1
