@@ -30,11 +30,26 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	To import a build, you must export that build with "Export Support" ticked
 	The Strongest Aura applies, but your curses override the supports regardless of strength
 	]]
+	
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
 	self.controls.notesDesc.width = function()
-		return self.width / 2 - 16
+		local width = self.width / 2 - 16
+		if width ~= self.controls.notesDesc.lastWidth then
+			self.controls.notesDesc.lastWidth = width
+			self.controls.notesDesc.label = table.concat(main:WrapString(notesDesc, 16, width - 50), "\n")
+		end
+		return width
 	end
 	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, 16, "^7Enter a build code below: (NOT URL)")
+	self.controls.importCodeHeader.y = function()
+		local lineCount = 1
+		for i = 1, #self.controls.notesDesc.label do
+			local c = self.controls.notesDesc.label:sub(i, i)
+			if c == '\n' then lineCount = lineCount + 1 end
+		end
+
+		return (lineCount - 2) * 16
+	end
 	
 	local importCodeHandle = function (buf)
 		self.importCodeSite = nil
