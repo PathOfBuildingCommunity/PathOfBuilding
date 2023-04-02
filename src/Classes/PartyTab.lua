@@ -367,6 +367,9 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 end
 
 function PartyTabClass:ParseTags(line, currentModType) -- should parse this correctly instead of string match
+	if not line then
+		return "none", {}
+	end
 	local extraTags = {}
 	local modType = currentModType
 	for line2 in line:gmatch("([^,]*),?") do
