@@ -3968,7 +3968,7 @@ local specialModList = {
 	["you count as dual wielding while you are unencumbered"] = { flag("Condition:DualWielding", { type = "Condition", var = "Unencumbered" }) },
 	["dual wielding does not inherently grant chance to block attack damage"] = { flag("Condition:NoInherentBlock") },
 	["inherent attack speed bonus from dual wielding is doubled while wielding two claws"] = {
-	    mod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWieldingClaws" })
+	    flag("Condition:DoubledInherentSpeed", { type = "Condition", var = "DualWieldingClaws" })
 	},
 	["(%d+)%% reduced enemy chance to block sword attacks"] = function(num) return { mod("reduceEnemyBlock", "BASE", num, nil, ModFlag.Sword) } end,
 	["you do not inherently take less damage for having fortification"] = { flag("Condition:NoFortificationMitigation") },
