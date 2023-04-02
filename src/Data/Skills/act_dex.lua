@@ -691,36 +691,28 @@ skills["BladeBlast"] = {
 	castTime = 0.5,
 	parts = {
 		{
-			name = "1 Blade",
+			name = "Blade Hits Per Cast",
+			stages = true,
 		},
 		{
-			name = "3 Blades",
-		},
-		{
-			name = "6 Blades",
-		},
-		{
-			name = "10 Blades",
-		},
-		{
-			name = "40 Blades",
-		},
-		{
-			name = "50 Blades",
+			name = "Blade Hits Per Sec",
+			stages = true,
 		},
 	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * activeSkill.skillData.dpsBaseMultiplier
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = 1
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
 		skill("radius", 14),
-		skill("dpsMultiplier", 1, { type = "SkillPart", skillPart = 1 }),
-		skill("dpsMultiplier", 3, { type = "SkillPart", skillPart = 2 }),
-		skill("dpsMultiplier", 6, { type = "SkillPart", skillPart = 3 }),
-		skill("dpsMultiplier", 10, { type = "SkillPart", skillPart = 4 }),
-		skill("dpsMultiplier", 40, { type = "SkillPart", skillPart = 5 }),
-		skill("dpsMultiplier", 50, { type = "SkillPart", skillPart = 6 }),
+		mod("Multiplier:BladeBlastMaxStages", "BASE", 900, 0, 0),
+		skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastStage" }),
 	},
 	qualityStats = {
 		Default = {
