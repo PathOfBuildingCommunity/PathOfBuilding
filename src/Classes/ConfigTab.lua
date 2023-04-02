@@ -136,6 +136,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 			end
 
+			if varData.inactiveText then
+				control.inactiveText = varData.inactiveText
+			end
+
 			local shownFuncs = {}
 			control.shown = function()
 				for _, shownFunc in ipairs(shownFuncs) do
@@ -150,7 +154,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			control.tooltipText = function()
 				local out
 				for i, tooltipFunc in ipairs(tooltipFuncs) do
-					local curTooltipText = type(tooltipFunc) == "string" and tooltipFunc or tooltipFunc()
+					local curTooltipText = type(tooltipFunc) == "string" and tooltipFunc or tooltipFunc(self.modList)
 					if curTooltipText then
 						out = (out and out .. "\n" or "") .. curTooltipText
 					end
