@@ -3232,7 +3232,7 @@ function calcs.perform(env, avoidCache)
 		local triggerOnUse = nil
 		local useCastRate = false
 		local function slotMatch(env, skill)
-			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+			local match1 = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 			return (match1 or match2)
 		end
