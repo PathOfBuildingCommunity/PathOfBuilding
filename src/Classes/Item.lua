@@ -135,6 +135,9 @@ function ItemClass:ParseRaw(raw)
 	self.prefixes = { }
 	self.suffixes = { }
 	self.requirements = { }
+	self.requirements.str = 0
+	self.requirements.dex = 0
+	self.requirements.int = 0
 	local importedLevelReq
 	local flaskBuffLines
 	local deferJewelRadiusIndexAssignment
@@ -1352,9 +1355,9 @@ function ItemClass:BuildModList()
 		self.requirements.dexMod = 0
 		self.requirements.intMod = 0
 	else
-		self.requirements.strMod = m_floor((self.requirements.str or 0 + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
-		self.requirements.dexMod = m_floor((self.requirements.dex or 0 + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
-		self.requirements.intMod = m_floor((self.requirements.int or 0 + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
+		self.requirements.strMod = m_floor((self.requirements.str + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
+		self.requirements.dexMod = m_floor((self.requirements.dex + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
+		self.requirements.intMod = m_floor((self.requirements.int + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
 	end
 	self.grantedSkills = { }
 	for _, skill in ipairs(baseList:List(nil, "ExtraSkill")) do
