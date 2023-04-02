@@ -239,10 +239,14 @@ Gain 7 Life per Enemy Hit with Attacks
 {variant:2}Arrows Fork
 ]],[[
 Saemus' Gift
-Spike-Point Arrow Quiver
+{variant:1}Spike-Point Arrow Quiver
+{variant:2}Feathered Arrow Quiver
+Variant: Pre 3.17.0
+Variant: Current
 Requires Level 45
-Implicits: 1
-(20-30)% increased Critical Strike Chance with Bows
+Implicits: 2
+{variant:1}(20-30)% increased Critical Strike Chance with Bows
+{variant:2}(20-30)% increased Projectile Speed
 +(30-40) to Dexterity
 (8-12)% increased Cast Speed
 +(30-60) to maximum Life

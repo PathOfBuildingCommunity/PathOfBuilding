@@ -927,8 +927,8 @@ local function doActorMisc(env, actor)
 	modDB.multipliers["SpiritCharge"] = output.SpiritCharges
 
 	-- Process enemy modifiers 
-	for _, value in ipairs(modDB:List(nil, "EnemyModifier")) do
-		enemyDB:AddMod(value.mod)
+	for _, value in ipairs(modDB:Tabulate(nil, nil, "EnemyModifier")) do
+		enemyDB:AddMod(modLib.setSource(value.value.mod, value.value.mod.source or value.mod.source))
 	end
 
 	-- Add misc buffs/debuffs
@@ -1219,7 +1219,7 @@ function calcs.perform(env, avoidCache)
 		env.minion.modDB:NewMod("ColdResist", "BASE", env.minion.minionData.coldResist, "Base")
 		env.minion.modDB:NewMod("LightningResist", "BASE", env.minion.minionData.lightningResist, "Base")
 		env.minion.modDB:NewMod("ChaosResist", "BASE", env.minion.minionData.chaosResist, "Base")
-		env.minion.modDB:NewMod("CritChance", "INC", 40, "Base", { type = "Multiplier", var = "PowerCharge" })
+		env.minion.modDB:NewMod("CritChance", "INC", 50, "Base", { type = "Multiplier", var = "PowerCharge" })
 		env.minion.modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Attack, { type = "Multiplier", var = "FrenzyCharge" })
 		env.minion.modDB:NewMod("Speed", "INC", 4, "Base", ModFlag.Cast, { type = "Multiplier", var = "FrenzyCharge" })
 		env.minion.modDB:NewMod("Damage", "MORE", 4, "Base", { type = "Multiplier", var = "FrenzyCharge" })
