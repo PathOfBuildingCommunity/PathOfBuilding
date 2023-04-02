@@ -6,6 +6,15 @@ data.uniques.new = {
 
 -- New
 [[
+Stormseeker
+Ambush Mitts
++54 to maximum Energy Shield
++56 to maximum Mana
+86% increased Effect of Chill you inflict while Leeching Mana
+87% increased Effect of Shocks you inflict while Leeching Energy Shield
+Unaffected by Chill while Leeching Mana
+Unaffected by Shock while Leeching Energy Shield
+]],[[
 Ancestral Vision
 Viridian Jewel
 +(5-10) to Dexterity
