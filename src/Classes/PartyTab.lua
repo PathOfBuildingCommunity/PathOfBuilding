@@ -52,7 +52,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return (lineCount - 2) * 16
 	end
 	
-	local clearInputBufs = function()
+	local clearInputText = function()
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
 			self.controls.editAuras:SetText("")
 			wipeTable(self.processedInput["Aura"])
@@ -119,7 +119,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 	
 		if self.controls.importCodeApplication.selIndex == 1 then
-			clearInputBufs()
+			clearInputText()
 		else
 			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
 				wipeTable(self.processedInput["Aura"])
@@ -203,7 +203,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.importCodeApplication = new("DropDownControl", {"LEFT",self.controls.importCodeDestination,"RIGHT"}, 8, 0, 160, 20, { "Replace", "Append", "Clear" })
 	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeApplication,"RIGHT"}, 8, 0, 160, 20, "Import", function()
 		if self.controls.importCodeApplication.selIndex == 3 then
-			clearInputBufs()
+			clearInputText()
 			wipeTable(self.enemyModList)
 			self.enemyModList = new("ModList")
 			self.build.buildFlag = true 
