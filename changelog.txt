@@ -1,11 +1,11 @@
-VERSION[2.26.0][2023/04/02]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.26.0][2023/04/03]
 
+--- 3.21 Changes ---
 * Add 3.21 tree (Regisle)
-* Add support for new mods on the tree by (@madinsane, @Paliak, @QuickStick123, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5827, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5723, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5829, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5655, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5559, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/1006
-* Add support for many mods on 3.21 Masteries by (@Lilylicious, @Peechey, @cardbeard, @dbjorge, @MoonOverMira, @QuickStick123) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5814, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5834, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5825, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5833, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5840, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5841, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5830, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5818, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5803, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5808, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5843, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5842, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5846, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5828
-* Add support for new 3.21 Uniques by (@Paliak, @PJacek, @QuickStick123) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5805, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5809, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5811, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5849, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5850, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5844
-* Add support for mods on uniques that were changed in 3.21 patch notes by (@QuickStick123, @ifnjeff) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5817, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5806
+* Add support for new mods on the tree (madinsane, Paliak, QuickStick123, LocalIdentity)
+* Add support for many mods on 3.21 Masteries (Lilylicious, Peechey, cardbeard, dbjorge, MoonOverMira, QuickStick123)
+* Add support for new 3.21 Uniques (Paliak, TPlant, QuickStick123)
+* Add support for mods on uniques that were changed in 3.21 patch notes (QuickStick123, ifnjeff)
 * Update Timeless Jewels to work with 3.21 tree (LocalIdentity)
 
 --- Implemented Enhancements ---
@@ -43,6 +43,7 @@ VERSION[2.26.0][2023/04/02]
 
 --- User Interface ---
 * Hide config options that can be hidden by default behind conditions (deathbeam)
+* Improve eHP breakdown to show greater detail (Edvinas-Smita)
 * Recolor mods in the 'Custom Modifiers' box to show if they are parsed or not (deathbeam)
 * Properly sort and group Eldritch mods in the item crafter (Regisle)
 * Show uptime for "Enduring" Life and Mana flasks (deathbeam)
@@ -54,7 +55,6 @@ VERSION[2.26.0][2023/04/02]
 * Add support to display coloured text in dropdowns (deathbeam)
 * Allow setting Blood Charges to 0 (Paliak)
 
-* Fix/improve some EHP / max hit stuff: (Edvinas-Smita)
 * Fix punctuation error in Trauma calculation message (Ivniinvi)
 * Fix minor colour codes and number formatting errors in tooltips (QuickStick123)
 * Fix Enabled and FullDPS checkboxes not updating when mouse shortcuts are used (Dullson)
@@ -64,7 +64,7 @@ VERSION[2.26.0][2023/04/02]
 
 --- Accuracy Improvements ---
 
-* Update wording on many uniques by (@QuickStick123, ) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5655, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5684, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5624, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5623
+* Update wording on many uniques (QuickStick123)
 * Update Watcher's Eye Dodge mods to Suppress mods (deathbeam)
 * Update Vessel of Vinktar to have correct mod values (DavidBindloss)
 
