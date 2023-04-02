@@ -1903,7 +1903,9 @@ function calcs.defence(env, actor)
 			Ward = ward,
 			EnergyShield = output.EnergyShieldRecoveryCap,
 			Mana = output.ManaUnreserved or 0,
-			Life = output.LifeRecoverable or 0
+			Life = output.LifeRecoverable or 0,
+			LifeLossLostOverTime = output.LifeLossLostOverTime or 0,
+			LifeBelowHalfLossLostOverTime = output.LifeBelowHalfLossLostOverTime or 0,
 		}
 		
 		if DamageIn["cycles"] == 1 then
@@ -2697,11 +2699,11 @@ function calcs.defence(env, actor)
 				t_insert(poolRemainingStrings, output[takenType.."GuardAbsorb"] and output[takenType.."GuardAbsorb"] > 0 and s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output[takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]) or nil)
 			end
 			poolRemainingStrings = tableConcat(poolRemainingStrings, {
-				output.Ward and output.Ward > 0 and s_format("\t%d Ward", output.Ward) or nil,
+				output.Ward and output.Ward > 0 and s_format("\t%d "..colorCodes.WARD.."Ward", output.Ward) or nil,
 				output.EnergyShieldRecoveryCap ~= poolsRemaining.EnergyShield and output.EnergyShieldRecoveryCap and output.EnergyShieldRecoveryCap > 0 and s_format("\t%d "..colorCodes.ES.."Energy Shield ^7(%d remaining)", output.EnergyShieldRecoveryCap - poolsRemaining.EnergyShield, poolsRemaining.EnergyShield) or nil,
-				output.ManaUnreserved ~= poolsRemaining.Mana and output.ManaUnreserved and output.ManaUnreserved > 0 and s_format("\t%d ^x7A7AFFMana ^7(%d remaining)", output.ManaUnreserved - poolsRemaining.Mana, poolsRemaining.Mana) or nil,
-				poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime > 0 and s_format("\t%d ^xE05A3ALife Loss Prevented", poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime) or nil,
-				s_format("\t%d ^xE05A3ALife ^7(%d remaining)", output.LifeRecoverable - poolsRemaining.Life, poolsRemaining.Life)
+				output.ManaUnreserved ~= poolsRemaining.Mana and output.ManaUnreserved and output.ManaUnreserved > 0 and s_format("\t%d "..colorCodes.MANA.."Mana ^7(%d remaining)", output.ManaUnreserved - poolsRemaining.Mana, poolsRemaining.Mana) or nil,
+				poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime > 0 and s_format("\t%d "..colorCodes.LIFE.."Life ^7Loss Prevented", poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime) or nil,
+				s_format("\t%d "..colorCodes.LIFE.."Life ^7(%d remaining)", output.LifeRecoverable - poolsRemaining.Life, poolsRemaining.Life)
 			})
 			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("^8Such a hit would drain the following:"))
 			for _, str in ipairs(poolRemainingStrings) do
