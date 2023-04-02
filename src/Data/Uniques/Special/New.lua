@@ -41,6 +41,16 @@ Reserves 8% of Nearby Enemy Monsters' Life
 Widowhail
 Crude Bow
 (183-225)% increased bonuses gained from Equipped Quiver
+]],
+[[
+Tainted Pact
+Coral Amulet
+Implicits: 1
+Regenerate (2-4) Life per second
++(20-30) to Strength
+(2.54-2.56)% of Physical Attack Damage Leeched as Life
+(1.35-1.48)% of Physical Attack Damage Leeched as Mana
+Taking Chaos Damage over Time heals you instead while Leeching Life
 ]]
 -- Reworked
 
