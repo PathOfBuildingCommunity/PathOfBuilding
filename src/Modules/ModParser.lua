@@ -3794,6 +3794,12 @@ local specialModList = {
 	["flasks gain (%d+) charges? per second if you've hit a unique enemy recently"] = function(num) return {
 		mod("FlaskChargesGenerated", "BASE", num, { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" })
 	} end,
+	["effect is not removed when unreserved mana is filled"] = {
+		flag("ManaFlaskEffectNotRemoved")
+	},
+	["life flask effects are not removed when unreserved life is filled"] = {
+		flag("LifeFlaskEffectNotRemoved")
+	},
 	-- Jewels
 	["passives in radius of ([%a%s']+) can be allocated without being connected to your tree"] = function(_, name) return {
 		mod("JewelData", "LIST", { key = "impossibleEscapeKeystone", value = name }),
