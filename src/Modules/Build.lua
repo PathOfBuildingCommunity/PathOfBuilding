@@ -783,7 +783,7 @@ function buildMode:CanExit(mode)
 end
 
 function buildMode:Shutdown()
-	if launch.devMode and self.targetVersion and not self.abortSave then
+	if launch.devMode and (not main.disableDevAutoSave) and self.targetVersion and not self.abortSave then
 		if self.dbFileName then
 			self:SaveDBFile()
 		elseif self.unsaved then		
