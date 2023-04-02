@@ -6,6 +6,15 @@ data.uniques.new = {
 
 -- New
 [[
+Stormseeker
+Ambush Mitts
++54 to maximum Energy Shield
++56 to maximum Mana
+86% increased Effect of Chill you inflict while Leeching Mana
+87% increased Effect of Shocks you inflict while Leeching Energy Shield
+Unaffected by Chill while Leeching Mana
+Unaffected by Shock while Leeching Energy Shield
+]],[[
 Ancestral Vision
 Viridian Jewel
 +(5-10) to Dexterity
@@ -44,6 +53,16 @@ Link Skills have 13% increased Cast Speed
 Link Skills have 13% increased Skill Effect Duration
 Linked Targets Cannot Die for 2 seconds after you Die
 Lose no Experience when you die because a Linked target died
+]],
+[[
+Tainted Pact
+Coral Amulet
+Implicits: 1
+Regenerate (2-4) Life per second
++(20-30) to Strength
+(2.54-2.56)% of Physical Attack Damage Leeched as Life
+(1.35-1.48)% of Physical Attack Damage Leeched as Mana
+Taking Chaos Damage over Time heals you instead while Leeching Life
 ]]
 -- Reworked
 
