@@ -4149,7 +4149,7 @@ c["Adds 45 to 100 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="Physical
 c["Vaal Blade League: Perandus"]={nil,"Vaal Blade League: Perandus "}
 c["+15% chance to Suppress Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="SpellSuppressionChance",type="BASE",value=15}},nil}
 c["+88% to Critical Strike Multiplier with One Handed Melee Weapons"]={{[1]={flags=335544324,keywordFlags=0,name="CritMultiplier",type="BASE",value=88}},nil}
-c["10% chance to Poison on Hit with Spell Damage"]={{[1]={[1]={type="Condition",var="HitSpellRecently"},flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=10}},"   Damage "}
+c["10% chance to Poison on Hit with Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="PoisonChance",type="BASE",value=10}},nil}
 c["Requires Class Shadow Allocates Soul Drinker if you have the matching modifier on Forbidden Flame"]={nil,"Requires Class Shadow Allocates Soul Drinker if you have the matching modifier on Forbidden Flame "}
 c["0.5% of Spell Damage Leeched as Life if Equipped Shield has at least 30% Chance to Block"]={{[1]={[1]={stat="ShieldBlockChance",threshold=30,type="StatThreshold"},flags=2,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=0.5}},nil}
 c["+40 to Evasion Rating"]={{[1]={flags=0,keywordFlags=0,name="Evasion",type="BASE",value=40}},nil}
@@ -5670,7 +5670,7 @@ c["Projectiles Pierce 2 additional Targets"]={{[1]={flags=0,keywordFlags=0,name=
 c["Imperial Buckler Evasion: 506"]={nil,"Imperial Buckler Evasion: 506 "}
 c["Solaris Circlet Variant: Pre 3.19.0"]={nil,"Solaris Circlet Variant: Pre 3.19.0 "}
 c["Tornado Wand Imbued Wand"]={nil,"Wand Imbued Wand "}
-c["20% chance to Poison on Hit with Spell Damage"]={{[1]={[1]={type="Condition",var="HitSpellRecently"},flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=20}},"   Damage "}
+c["20% chance to Poison on Hit with Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="PoisonChance",type="BASE",value=20}},nil}
 c["to surrounding targets while wielding a Mace"]={nil,"to surrounding targets while wielding a Mace "}
 c["Aura Skills other than Vitality are Disabled"]={{[1]={[1]={skillType=43,type="SkillType"},flags=0,keywordFlags=0,name="DisableSkill",type="FLAG",value=true},[2]={[1]={skillId="Vitality",type="SkillId"},flags=0,keywordFlags=0,name="EnableSkill",type="FLAG",value=true}},nil}
 c["6 to 60 Lightning Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LightningMin",type="BASE",value=6},[2]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=60}},nil}
@@ -5921,7 +5921,7 @@ c["50% reduced Damage when on Low Life"]={{[1]={[1]={type="Condition",var="LowLi
 c["Rustic Sash League: Heist"]={nil,"Rustic Sash League: Heist "}
 c["Desert Brigandine"]={nil,"Desert Brigandine "}
 c["Enemies you inflict Bleeding on grant 1% increased Flask Charges"]={nil,"Enemies you inflict Bleeding on grant 1% increased Flask Charges "}
-c["15% chance to Poison on Hit with Spell Damage"]={{[1]={[1]={type="Condition",var="HitSpellRecently"},flags=0,keywordFlags=0,name="PoisonChance",type="BASE",value=15}},"   Damage "}
+c["15% chance to Poison on Hit with Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="PoisonChance",type="BASE",value=15}},nil}
 c["Requires Class Templar Allocates Unwavering Faith if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Templar Allocates Unwavering Faith if you have the matching modifier on Forbidden Flesh "}
 c["Silken Hood League: Bestiary"]={nil,"Silken Hood League: Bestiary "}
 c["Silken Hood"]={nil,"Silken Hood "}
@@ -10081,7 +10081,7 @@ c["40% chance to gain a Frenzy Charge for each enemy you hit with a Critical Str
 c["Socketed Gems are Supported by Level 10 Concentrated Effect"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportConcentratedEffect"}},[2]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10}}},nil}
 c["6 to 12 Added Physical Damage with Bow Attacks"]={{[1]={flags=131076,keywordFlags=0,name="PhysicalMin",type="BASE",value=6},[2]={flags=131076,keywordFlags=0,name="PhysicalMax",type="BASE",value=12}},nil}
 c["Socketed Gems are Supported by Level 1 Concentrated Effect"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1,skillId="SupportConcentratedEffect"}},[2]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=1}}},nil}
-c["8% chance to Knock Enemies Back on Hit with Spell Damage"]={{[1]={[1]={type="Condition",var="HitSpellRecently"},flags=0,keywordFlags=0,name="Damage",type="BASE",value=8}}," to Knock Enemies Back   "}
+c["8% chance to Knock Enemies Back on Hit with Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="EnemyKnockbackChance",type="BASE",value=8}},nil}
 c["60% increased Cost of Skills for each 200 total Mana Spent Recently"]={{[1]={[1]={div=200,type="Multiplier",var="ManaSpentRecently"},flags=0,keywordFlags=0,name="Cost",type="INC",value=60}},nil}
 c["Adds 20 to 35 Cold Damage to Spells and Attacks"]={{[1]={flags=0,keywordFlags=196608,name="ColdMin",type="BASE",value=20},[2]={flags=0,keywordFlags=196608,name="ColdMax",type="BASE",value=35}},nil}
 c["+54% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="BASE",value=54}},nil}
