@@ -2596,11 +2596,11 @@ function calcs.offence(env, actor, activeSkill)
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
 						end
-						local invertChance = skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance")
+						local invertChance = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance"), 1), 0)
 						if not isElemental[damageType] then
 							invertChance = 0
 						end
-						if invertChance then
+						if invertChance > 0 then
 							-- resist = (1 - invertChance) * resist + invertChance * (-1 * resist)
 							resist = resist - 2 * invertChance * resist
 						end
