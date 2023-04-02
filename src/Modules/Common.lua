@@ -570,8 +570,11 @@ end
 -- Formats "1234.56" -> "1,234.5"
 function formatNumSep(str)
 	return string.gsub(str, "(%^?x?%x?%x?%x?%x?%x?%x?-?%d+%.?%d+)", function(m)
-		local colour = m:match("(%^%d)") or m:match("(^x%x%x%x%x%x%x)") or ""
-		local str = m:gsub("(%^%d)", ""):gsub("(^x%x%x%x%x%x%x)", "")
+		local colour = m:match("(^x%x%x%x%x%x%x)") or m:match("(%^%d)") or ""
+		local str = m:gsub("(^x%x%x%x%x%x%x)", "") or m:gsub("(%^%d)", "")
+		if str == "" or (colour == "" and m:match("%^")) then  -- return if we have an invalid color code or a completely stripped number.
+			return m
+		end
 		local x, y, minus, integer, fraction = str:find("(-?)(%d+)(%.?%d*)")
 		if main.showThousandsSeparators then
 			integer = integer:reverse():gsub("(%d%d%d)", "%1"..main.thousandsSeparator):reverse()
