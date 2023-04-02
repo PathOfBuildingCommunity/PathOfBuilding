@@ -1,5 +1,129 @@
 # Changelog
 
+## [v2.26.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.26.0) (2023/04/02)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.25.1...v2.26.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### 3.21 Changes
+- Add 3.21 tree [\#5799](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5799) ([Regisle](https://github.com/Regisle))
+* Add support for new mods on the tree by (@madinsane, @Paliak, @QuickStick123, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5827, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5723, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5829, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5655, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5559, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/1006
+* Add support for many mods on 3.21 Masteries by (@Lilylicious, @Peechey, @cardbeard, @dbjorge, @MoonOverMira, @QuickStick123) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5814, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5834, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5825, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5833, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5840, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5841, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5830, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5818, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5803, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5808, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5843, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5842, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5846, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5828
+* Add support for new 3.21 Uniques by (@Paliak, @PJacek, @QuickStick123) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5805, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5809, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5811, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5849, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5850, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5844
+* Add support for mods on uniques that were changed in 3.21 patch notes by (@QuickStick123, @ifnjeff) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5817, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5806
+- Update Timeless Jewels to work with 3.21 tree [\#5848](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5848) ([LocalIdentity](https://github.com/LocalIdentity))
+
+### Implemented Enhancements
+- Add a Help section [\#4629](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4629) ([Regisle](https://github.com/Regisle))
+- Add support for automatic character levels based on allocated nodes [\#5837](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5837) ([Lilylicious](https://github.com/Lilylicious))
+- Allow Trade to weight by multiple stats [\#5507](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5507) ([Regisle](https://github.com/Regisle))
+- Enable searching for Militant Faith devotion modifiers [\#5661](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5661) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Change pobb.in to be the default build code exporter [\#5603](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5603) ([QuickStick123](https://github.com/QuickStick123))
+- Automatically apply Arcane Surge granted to you via items or nodes on the tree [\#4541](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4541) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for skill uses [\#5537](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5537) ([QuickStick123](https://github.com/QuickStick123))
+- Add new boss skills, auto-apply uber changes if set to uber, and update non-uber pen/chaos mix [\#5612](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5612) ([Regisle](https://github.com/Regisle))
+- Automatically estimate resistance penalty on import [\#5671](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5671) ([Paliak](https://github.com/Paliak))
+- Update boss Armour/Evasion values and add override fields to config [\#5620](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5620) ([ybbat](https://github.com/ybbat))
+- Allow for custom mod DPS multiplier (e.g 35% More DPS) [\#5670](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5670) ([Regisle](https://github.com/Regisle))
+- Change Elusive to use average value by default instead of max [\#5564](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5564) ([deathbeam](https://github.com/deathbeam))
+- Implement "You can't deal Damage with Skills yourself" mod from Ancestral Bond [\#5638](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5638) ([Paliak](https://github.com/Paliak))
+- Add support for more mods on Precusor's emblem [\#5566](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5566) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for Enemy regen and Sanctum x can y [\#5565](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5565) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for Non-Aura cost no Life/Mana while Focused [\#5725](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5725) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for Cat's Stealth avoid damage [\#5728](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5728) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for Cane of Kulemak unveiled mods scaler [\#5685](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5685) ([Regisle](https://github.com/Regisle))
+- Add support for additional cooldowns on Mirror/Blink arrow [\#5740](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5740) ([QuickStick123](https://github.com/QuickStick123))
+- Automatically apply PvP multipliers to skills [\#5739](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5739) ([Regisle](https://github.com/Regisle))
+- Add support for Vaal skills Soul cost and soul gain prevention [\#5742](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5742) ([Regisle](https://github.com/Regisle))
+- Add support for Block chance reduction [\#5774](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5774) ([Regisle](https://github.com/Regisle))
+- Add support for mods that disable other item slots [\#5664](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5664) ([Regisle](https://github.com/Regisle))
+- Add support for Jewel limits [\#5666](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5666) ([Regisle](https://github.com/Regisle))
+
+### Fixed Crashes
+- Fix crash on import when an Abyss Jewel was socketed in a weapon swap weapon [\#5601](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5601) ([Paliak](https://github.com/Paliak))
+- Fix issue in PoB Trader caused by sorting mode change [\#5552](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5552) ([Dullson](https://github.com/Dullson))
+- Fix not being able to save trees with more than 254 nodes allocated [\#5781](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5781) ([QuickStick123](https://github.com/QuickStick123))
+- Fix crash caused by very long lines on items without spaces [\#5785](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5785) ([Paliak](https://github.com/Paliak))
+- Fix crash when viewing Pantheon reduced enemy Life Regen [\#5731](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5731) ([Paliak](https://github.com/Paliak))
+
+### User Interface
+- Hide config options that can be hidden by default behind conditions [\#5712](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5712) ([deathbeam](https://github.com/deathbeam))
+- Recolor mods in the 'Custom Modifiers' box to show if they are parsed or not [\#5720](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5720) ([deathbeam](https://github.com/deathbeam))
+- Properly sort and group Eldritch mods in the item crafter [\#5677](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5677) ([Regisle](https://github.com/Regisle))
+- Show uptime for "Enduring" Life and Mana flasks [\#5853](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5853) ([deathbeam](https://github.com/deathbeam))
+- Make race uniques not show up as obtainable [\#5656](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5656) ([Regisle](https://github.com/Regisle))
+- Update Trader, Item weight and sorting to use percentage change rather than absolute [\#5525](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5525) ([Regisle](https://github.com/Regisle))
+- Change Blade Blast to user-configurable stages [\#5793](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5793) ([Regisle](https://github.com/Regisle))
+- Add flask breakdown to Calcs tab [\#5749](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5749) ([deathbeam](https://github.com/deathbeam))
+- Colourise and group defensive calc sections [\#5753](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5753) ([deathbeam](https://github.com/deathbeam))
+- Add support to display coloured text in dropdowns [\#5681](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5681) ([deathbeam](https://github.com/deathbeam))
+- Allow setting Blood Charges to 0 [\#5690](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5690) ([Paliak](https://github.com/Paliak))
+
+- Fix/improve some EHP / max hit stuff: [\#5756](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5756) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Fix punctuation error in Trauma calculation message [\#5574](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5574) ([Ivniinvi](https://github.com/Ivniinvi))
+- Fix minor colour codes and number formatting errors in tooltips [\#5733](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5733) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Enabled and FullDPS checkboxes not updating when mouse shortcuts are used [\#5589](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5589) ([Dullson](https://github.com/Dullson))
+- Fix Summon Skeletons enchant not appearing in filtered list [\#5643](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5643) ([Wires77](https://github.com/Wires77))
+- Fix inconsistent display of additional quality and gem levels in skill group tooltip for inactive gems [\#5715](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5715) ([Paliak](https://github.com/Paliak))
+- Fix cluster jewel notable compare tooltip when crafting a cluster [\#5777](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5777) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+
+### Accuracy Improvements
+
+* Update wording on many uniques by (@QuickStick123, ) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5655, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5684, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5624, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5623
+- Update Watcher's Eye Dodge mods to Suppress mods [\#5562](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5562) ([deathbeam](https://github.com/deathbeam))
+- Update Vessel of Vinktar to have correct mod values [\#5800](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5800) ([DavidBindloss](https://github.com/DavidBindloss))
+
+- Fix a variety of incorrect catalyst scaling [\#4467](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4467) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Voltaxic missing shock effect mod [\#5561](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5561) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix missing Mana on Mindspiral [\#5616](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5616) ([QuickStick123](https://github.com/QuickStick123))
+- Fix missing variant on Replica Hyrri's Truth [\#5687](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5687) ([QuickStick123](https://github.com/QuickStick123))
+- Fix values of mods on Devouring Diadem [\#5567](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5567) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Vorana's March missing a fourth modifier slot [\#5776](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5776) ([hexeaktivitat](https://github.com/hexeaktivitat))
+- Fix base for Saemus' gift [\#5836](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5836) ([Lilylicious](https://github.com/Lilylicious))
+- Fix Entropic Devastion not having Shaper influence [\#5816](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5816) ([QuickStick123](https://github.com/QuickStick123))
+- Fix support for Mace/Scepter chill Mastery node [\#5798](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5798) ([moojustice1](https://github.com/moojustice1))
+- Fix range values for Point Blank / Far shot distances [\#5655](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5655) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Foil search to correctly assign foil to Voidborn uniques [\#5599](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5599) ([Regisle](https://github.com/Regisle))
+- Fix mods incorrectly applying when wielding fishing rod [\#5691](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5691) ([QuickStick123](https://github.com/QuickStick123))
+- Fix group disable not disabling support gems and two-part skills not applying support part to linked groups [\#5719](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5719) ([Paliak](https://github.com/Paliak))
+- Fix Hex Master not modifying the duration of Curses to be infinite [\#5705](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5705) ([Paliak](https://github.com/Paliak))
+- Fix tree version being out of date when importing character profile into an old tree [\#5768](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5768) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Fire Exposure/Action speed mod on Balance of Terror [\#5794](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5794) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Adrenaline, Her Embrace and Boot Enchant with Wilma's Requital [\#5630](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5630) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Minion overwhelm mastery incorrectly applying to spells [\#5672](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5672) ([Paliak](https://github.com/Paliak))
+- Fix Galvanic Field shock effect scaling all damage instead of only hits [\#5692](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5692) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix ignite chance display [\#5645](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5645) ([raylu](https://github.com/raylu))
+- Fix player-specific flask mods incorrectly applying to Minions [\#5326](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5326) ([Paliak](https://github.com/Paliak))
+- Fix buff effect scaling guard absorption rate [\#5727](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5727) ([QuickStick123](https://github.com/QuickStick123))
+- Fix local flask duration affecting the total amount recovered [\#5726](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5726) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Strength adding to Minions mod only applying at half value [\#5804](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5804) ([cardbeard](https://github.com/cardbeard))
+- Fix Projectile modifiers incorrectly applying to Cremation Corpse Explosion damage, [\#5780](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5780) ([CapnJack22](https://github.com/CapnJack22))
+- Fix Rational Doctrine not working while using Crystallised Omniscience [\#5710](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5710) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Double/Triple Damage calculations [\#5730](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5730) ([QuickStick123](https://github.com/QuickStick123))
+- Add missing "Damage" tag to some golem skills [\#5639](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5639) ([Paliak](https://github.com/Paliak))
+- Fix Ball Lightning Projectile Speed [\#5746](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5746) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix incorrect profane ground numbers [\#5815](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5815) ([QuickStick123](https://github.com/QuickStick123))
+- Fix flask conditions for using Life and Mana flasks [\#5854](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5854) ([deathbeam](https://github.com/deathbeam))
+- Fix Follow Through not applying to poison [\#5722](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5722) ([Paliak](https://github.com/Paliak))
+- Stop Vaal Smite and Smite auras from stacking [\#5611](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5611) ([Paliak](https://github.com/Paliak))
+- Fix skill type tags for maximum Ballista Totem mods [\#5577](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5577) ([bobanobahoba](https://github.com/bobanobahoba))
+- Fix enemy negative resistance not being capped for DoT damage [\#5660](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5660) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Fix Vaal Lightning Strike damage effectiveness being off by 1 level [\#5760](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5760) ([Regisle](https://github.com/Regisle))
+
+### Fixed Bugs
+- Fix imported characters missing Voidborn uniques [\#5650](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5650) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Energy Blade not importing from PoE.ninja and on copy paste [\#5607](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5607) ([QuickStick123](https://github.com/QuickStick123))
+- Fix enemy level getting out of sync due to updating later than expected [\#5709](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5709) ([QuickStick123](https://github.com/QuickStick123))
+- Fix incorrect variable causing gem sorting to occur far too often [\#5763](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5763) ([Paliak](https://github.com/Paliak))
+- Fix skill sets sometimes being deleted after deleting the first one [\#5765](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5765) ([deathbeam](https://github.com/deathbeam))
+- Fix socket group linking not working on weapon swap and generalize socket group linking code [\#5600](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5600) ([Paliak](https://github.com/Paliak))
+- Fix Energy Blade not working with socketed Abyssal jewels [\#5608](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5608) ([QuickStick123](https://github.com/QuickStick123))
+- Fix more multipliers on Skill damage being incorrectly rounded. [\#5758](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5758) ([QuickStick123](https://github.com/QuickStick123))
+- Prevent pathing through class starts for Split Personality [\#5651](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5651) ([Paliak](https://github.com/Paliak))
+
+
 ## [v2.25.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.25.1) (2023/01/06)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.25.0...v2.25.1)
