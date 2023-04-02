@@ -1571,12 +1571,13 @@ function calcs.perform(env, avoidCache)
 			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
 			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
 			flaskConditions["UsingFlask"] = true
-			if item.baseName:match("Hybrid Flask") then
+			if item.base.flask.life then
 				flaskConditions["UsingLifeFlask"] = true
-				flaskConditions["UsingManaFlask"] = true
-			else
-				flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
 			end
+			if item.base.flask.mana then
+				flaskConditions["UsingManaFlask"] = true
+			end
+			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
 
 			local flaskEffectInc = item.flaskData.effectInc
 			local flaskEffectIncNonPlayer = flaskEffectInc
