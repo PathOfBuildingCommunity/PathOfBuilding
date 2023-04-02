@@ -72,7 +72,7 @@ function calcs.takenHitFromDamage(rawDamage, damageType, actor)
 		local takenFlat = output[damageConvertedType.."takenFlat"]
 		if convertPercent > 0 or takenFlat ~= 0 then
 			local convertedDamage = rawDamage * convertPercent / 100
-			local reducedDamage = round(m_max(convertedDamage * damageMitigationMultiplierForType(convertedDamage, damageConvertedType) + takenFlat, 0) * output[damageType .."AfterReductionTakenHitMulti"])
+			local reducedDamage = round(m_max(convertedDamage * damageMitigationMultiplierForType(convertedDamage, damageConvertedType) + takenFlat, 0) * output[damageConvertedType .."AfterReductionTakenHitMulti"])
 			receivedDamageSum = receivedDamageSum + reducedDamage
 			damages[damageConvertedType] = (reducedDamage > 0 or convertPercent > 0) and reducedDamage or nil
 		end
