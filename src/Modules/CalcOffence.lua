@@ -2660,14 +2660,14 @@ function calcs.offence(env, actor, activeSkill)
 						else
 							lifeLeech = skillModList:Sum("BASE", cfg, "DamageLeech", "DamageLifeLeech", damageType.."DamageLifeLeech", isElemental[damageType] and "ElementalDamageLifeLeech" or nil) + enemyDB:Sum("BASE", cfg, "SelfDamageLifeLeech") / 100
 						end
-						if not (noLifeLeech or ghostReaver) then				
+						if not (noLifeLeech or ghostReaver) then
 							if lifeLeech > 0 then
 								lifeLeechTotal = lifeLeechTotal + damageTypeHitAvg * lifeLeech / 100
 							end
 						end
 						if not noEnergyShieldLeech then
 							local energyShieldLeech = skillModList:Sum("BASE", cfg, "DamageEnergyShieldLeech", damageType.."DamageEnergyShieldLeech", isElemental[damageType] and "ElementalDamageEnergyShieldLeech" or nil) + enemyDB:Sum("BASE", cfg, "SelfDamageEnergyShieldLeech") / 100
-							if ghostReaver then 							
+							if ghostReaver then
 								energyShieldLeech = energyShieldLeech + lifeLeech
 							end
 							if energyShieldLeech > 0 then
