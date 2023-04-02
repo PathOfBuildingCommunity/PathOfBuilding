@@ -1903,7 +1903,7 @@ local specialModList = {
 		mod("ArmourAppliesToColdDamageTaken", "BASE", num),
 		mod("ArmourAppliesToLightningDamageTaken", "BASE", num),
 	} end,
-	["(%d+)%% of armour also applies to chaos damage from hits"] = function(num) return { mod("ArmourAppliesToChaosDamageTaken", "BASE", num) } end,
+	["(%d+)%% of armour also applies to chaos damage taken from hits"] = function(num) return { mod("ArmourAppliesToChaosDamageTaken", "BASE", num) } end,
 	["maximum damage reduction for any damage type is (%d+)%%"] = function(num) return { mod("DamageReductionMax", "OVERRIDE", num) } end,
 	["gain additional elemental damage reduction equal to half your chaos resistance"] = { 
 		mod("FireDamageReduction", "BASE", 1, { type = "PerStat", stat = "ChaosResist", div = 2 }),

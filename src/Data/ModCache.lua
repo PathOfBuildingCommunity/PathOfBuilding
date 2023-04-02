@@ -4168,7 +4168,7 @@ c["+2 Accuracy Rating per 2 Intelligence"]={{[1]={[1]={div=2,stat="Int",type="Pe
 c["Adds 74 to 171 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=74},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=171}},nil}
 c["+203 to maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=203}},nil}
 c["30% increased Fire Damage if you have used a Cold Skill Recently"]={{[1]={[1]={type="Condition",var="UsedColdSkillRecently"},flags=0,keywordFlags=0,name="FireDamage",type="INC",value=30}},nil}
-c["10% of Armour also applies to Chaos Damage taken from Hits"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=10}},"  also applies to Chaos Damage taken from Hits "}
+c["10% of Armour also applies to Chaos Damage taken from Hits"]={{[1]={flags=0,keywordFlags=0,name="ArmourAppliesToChaosDamageTaken",type="BASE",value=10}},nil}
 c["+(20-30)% to Cold Resistance"]={nil,"+(20-30)% to Cold Resistance "}
 c["1 Added Passive Skill is Gladiatorial Combat"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Gladiatorial Combat"}},nil}
 c["1 Added Passive Skill is Deep Cuts"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Deep Cuts"}},nil}
