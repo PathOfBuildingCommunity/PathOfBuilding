@@ -1631,6 +1631,10 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		--enemy block chance
 		output.enemyBlockChance = m_max(m_min((enemyDB:Sum("BASE", cfg, "BlockChance") or 0), 100) - skillModList:Sum("BASE", cfg, "reduceEnemyBlock"), 0)
+		if enemyDB:Flag(nil, "CannotBlockAttacks") and isAttack then
+			output.enemyBlockChance = 0
+		end
+
 		output.HitChance = output.AccuracyHitChance * (1 - output.enemyBlockChance / 100)
 		if output.enemyBlockChance > 0 and not isAttack then
 			globalOutput.enemyHasSpellBlock = true

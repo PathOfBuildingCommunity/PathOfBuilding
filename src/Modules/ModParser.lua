@@ -1183,6 +1183,7 @@ local modTagList = {
 	["for each time you've blocked in the past 10 seconds"] = { tag = { type = "Multiplier", var =  "BlockedPast10Sec" } },
 	["per enemy killed by you or your totems recently"] = { tag = { type = "Multiplier", varList = { "EnemyKilledRecently","EnemyKilledByTotemsRecently" } } },
 	["per nearby enemy, up to %+?(%d+)%%"] = function(num) return { tag = { type = "Multiplier", var = "NearbyEnemies", limit = num, limitTotal = true } } end,
+	["per enemy in close range"] = { tagList = { { type = "Condition", var = "AtCloseRange" }, { type = "Multiplier", var = "NearbyEnemies" } } },
 	["to you and allies"] = { },
 	["per red socket"] = { tag = { type = "Multiplier", var = "RedSocketIn{SlotName}" } },
 	["per green socket on main hand weapon"] = { tag = { type = "Multiplier", var = "GreenSocketInWeapon 1" } },
@@ -1661,6 +1662,7 @@ local modTagList = {
 	["against enemies affected by (%d+) spider's webs"] = function(num) return { tag = { type = "MultiplierThreshold", actor = "enemy", var = "Spider's WebStack", threshold = num } } end,
 	["against enemies on consecrated ground"] = { tag = { type = "ActorCondition", actor = "enemy", var = "OnConsecratedGround" } },
 	["if (%d+)%% of curse duration expired"] = function(num) return { tag = { type = "MultiplierThreshold", actor = "enemy", var = "CurseExpired", threshold = num } } end,
+	["against enemies with (%w+) exposure"] = function(element) return { tag = { type = "ActorCondition", actor = "enemy", var = "Has"..(firstToUpper(element).."Exposure") } } end,
 	-- Enemy multipliers
 	["per freeze, shock [ao][nr]d? ignite on enemy"] = { tag = { type = "Multiplier", var = "FreezeShockIgniteOnEnemy" } },
 	["per poison affecting enemy"] = { tag = { type = "Multiplier", actor = "enemy", var = "PoisonStack" } },
@@ -3413,6 +3415,7 @@ local specialModList = {
 	["cannot block while you have no energy shield"] = { flag("CannotBlockAttacks", { type = "Condition", var = "HaveEnergyShield", neg = true }), flag("CannotBlockSpells", { type = "Condition", var = "HaveEnergyShield", neg = true }) },
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
 	["cannot block spells"] = { flag("CannotBlockSpells") },
+	["monsters cannot block your attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotBlockAttacks") }) },
 	["damage from blocked hits cannot bypass energy shield"] = { flag("BlockedDamageDoesntBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["damage from unblocked hits always bypasses energy shield"] = { flag("UnblockedDamageDoesBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["recover (%d+) life when you block"] = function(num) return { mod("LifeOnBlock", "BASE", num) } end,
@@ -3648,6 +3651,10 @@ local specialModList = {
 	} end,
 	["intimidate enemies for (%d+) seconds on hit with attacks while at maximum endurance charges"] = { 
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }, { type = "Condition", var = "HitRecently" })
+	},
+	["nearby enemies are intimidated while you have rage"] = {
+		-- MultiplierThreshold is on RageStacks because Rage is only set in CalcPerform if Condition:CanGainRage is true, Bear's Girdle does not flag CanGainRage
+		mod("EnemyModifier", "LIST", { mod = flag("Condition:Intimidated") }, { type = "MultiplierThreshold", var = "RageStack", threshold = 1 })
 	},
 	-- Flasks
 	["flasks do not apply to you"] = { flag("FlasksDoNotApplyToPlayer") },
