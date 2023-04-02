@@ -505,7 +505,9 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 	local isMark
 	local currentModType = "Unknown"
 	for line in buf:gmatch("([^\n]*)\n?") do
-		if mode == "CurseLimit" and line ~= "" then
+		if line ~= "---" and line:match("%-%-%-") then
+			-- comment but not dividor, skip the line
+		elseif mode == "CurseLimit" and line ~= "" then
 			list.limit = tonumber(line)
 			mode = "Name"
 		elseif mode == "Name" and line ~= "" then
@@ -586,7 +588,7 @@ function PartyTabClass:exportBuffs(buffType)
 	if self.buffExports[buffType].ConvertedToText then
 		return self.buffExports[buffType].string
 	end
-	local buf = ((buffType == "Curse") and (tostring(self.buffExports["CurseLimit"]))) or ""
+	local buf = ((buffType == "Curse") and ("--- Curse Limit ---" .. tostring(self.buffExports["CurseLimit"]))) or ""
 	for buffName, buff in pairs(self.buffExports[buffType]) do
 		if #buf > 0 then
 			buf = buf.."\n"
