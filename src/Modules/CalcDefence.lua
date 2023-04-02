@@ -1685,7 +1685,7 @@ function calcs.defence(env, actor)
 			manatext = manatext.." + non-bypassed energy shield"
 			if output.MinimumBypass > 0 then
 				local manaProtected = output.EnergyShieldRecoveryCap / (1 - output.MinimumBypass / 100) * (output.MinimumBypass / 100)
-				sourcePool = m_max(sourcePool - manaProtected, 0) + m_min(sourcePool, manaProtected) / (output.MinimumBypass / 100)
+				sourcePool = m_max(sourcePool - manaProtected, -output.LifeRecoverable) + m_min(sourcePool + output.LifeRecoverable, manaProtected) / (output.MinimumBypass / 100)
 			else 
 				sourcePool = sourcePool + output.EnergyShieldRecoveryCap
 			end
@@ -1725,7 +1725,7 @@ function calcs.defence(env, actor)
 				manatext = manatext.." + non-bypassed energy shield"
 				if output[damageType.."EnergyShieldBypass"] > 0 then
 					local manaProtected = output.EnergyShieldRecoveryCap / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
-					sourcePool = m_max(sourcePool - manaProtected, 0) + m_min(sourcePool, manaProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
+					sourcePool = m_max(sourcePool - manaProtected, -output.LifeRecoverable) + m_min(sourcePool + output.LifeRecoverable, manaProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
 				else 
 					sourcePool = sourcePool + output.EnergyShieldRecoveryCap
 				end
