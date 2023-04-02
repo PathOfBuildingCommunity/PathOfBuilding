@@ -131,3 +131,7 @@ Only the highest aura will apply, so if you and the support both run the same au
 Your curses will always apply before the supports though, so even if theres is a higher effect yours will be applied instead
 
 For now Enemy conditions and Modifiers are not exported but can be imported if its saved in the XML
+
+Advanced info:
+    The format for the data is the name of the skill, the %increased effect and then the mods that are applied
+	the mods are done similar to the style from modlib, where it the value applied, the "source" of the mod, the modname, the type added (eg base/inc), the flags, the keywordflags, and then any other tags
