@@ -4714,7 +4714,6 @@ function calcs.offence(env, actor, activeSkill)
 				local uuid = cacheSkillUUID(triggerSkill)
 				if not GlobalCache.cachedData[calcMode][uuid] then
 					calcs.buildActiveSkill(env, calcMode, triggerSkill)
-					env.dontCache = true
 				end
 				
 				if GlobalCache.cachedData[calcMode][uuid] and GlobalCache.cachedData[calcMode][uuid].Speed then
