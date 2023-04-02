@@ -919,6 +919,7 @@ function calcs.defence(env, actor)
 		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
 	output.CurseEffectOnSelf = modDB:More(nil, "CurseEffectOnSelf") * (100 + modDB:Sum("INC", nil, "CurseEffectOnSelf"))
+	output.ExposureEffectOnSelf = modDB:More(nil, "ExposureEffectOnSelf") * (100 + modDB:Sum("INC", nil, "ExposureEffectOnSelf"))
 
 	-- Ailment duration on self
 	output.DebuffExpirationRate = modDB:Sum("BASE", nil, "SelfDebuffExpirationRate")

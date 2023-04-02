@@ -2601,6 +2601,11 @@ function calcs.offence(env, actor, activeSkill)
 								pen = skillModList:Sum("BASE", cfg, "ChaosPenetration")
 							end
 						end
+						local invertChance = m_max(m_min(skillModList:Sum("CHANCE", cfg, "HitsInvertEleResChance"), 1), 0)
+						if isElemental[damageType] and invertChance > 0 then
+							-- resist = (1 - invertChance) * resist + invertChance * (-1 * resist)
+							resist = resist - 2 * invertChance * resist
+						end
 						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or sourceRes
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
@@ -2626,10 +2631,10 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType) and skillModList:Flag(cfg, isElemental[damageType] and "CannotElePenIgnore" or nil) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, useRes, invertChance)
 						elseif pass == 2 and breakdown and (effMult ~= 1 or sourceRes ~= damageType) then
 							t_insert(breakdown[damageType], s_format("x %.3f ^8(effective DPS modifier)", effMult))
-							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes)
+							breakdown[damageType.."EffMult"] = breakdown.effMult(damageType, resist, pen, takenInc, effMult, takenMore, sourceRes, useRes, invertChance)
 						end
 					end
 					if pass == 2 and breakdown then
@@ -2645,7 +2650,7 @@ function calcs.offence(env, actor, activeSkill)
 							end
 						end
 					else
-						if not noLifeLeech then				
+						if not noLifeLeech then
 							local lifeLeech
 							if skillModList:Flag(nil, "LifeLeechBasedOnChaosDamage") then
 								if damageType == "Chaos" then
