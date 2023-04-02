@@ -24,10 +24,11 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.lastContentEnemyCond = ""
 	self.lastContentEnemyMods = ""
 	self.lastEnableExportBuffs = true
-	self.showColorCodes = false
+	
+	local partyDestinations = { "All", "Aura", "Curse", "EnemyConditions", "EnemyMods" }
 
-	local notesDesc = [[^7DO NOT EDIT ANY BOXES UNLESS YOU KNOW WHAT YOU ARE DOING, use copy/paste instead, or import
-	To import a build, you must export that build with "Export Support" ticked
+	local notesDesc = [[^7Do not edit any boxes unless you know what you are doing, use copy/paste or import instead
+	To import a build, you must export that build with "Export Support" ticked after it has been saved
 	The Strongest Aura applies, but your curses override the supports regardless of strength
 	]]
 	
@@ -98,35 +99,29 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			return
 		end
 	
-		if self.controls.importCodeMode2.selIndex == 1 then
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
+		if self.controls.importCodeApplication.selIndex == 1 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
 				self.controls.editAuras:SetText("")
 				wipeTable(self.processedInput["Aura"])
 				self.processedInput["Aura"] = {}
 			end
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
 				self.controls.editCurses:SetText("")
 				wipeTable(self.processedInput["Curse"])
 				self.processedInput["Curse"] = {}
 			end
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
 				self.controls.enemyCond:SetText("")
 			end
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 5 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyMods" then
 				self.controls.enemyMods:SetText("")
 			end
-			if self.controls.importCodeMode2.selIndex == 3 then
-				wipeTable(self.enemyModList)
-				self.enemyModList = new("ModList")
-				self.build.buildFlag = true 
-				return
-			end
 		else
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
 				wipeTable(self.processedInput["Aura"])
 				self.processedInput["Aura"] = {}
 			end
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
 				self.controls.editCurses:SetText("") --curses do not play nicely with append atm, need to fix
 				wipeTable(self.processedInput["Curse"])
 				self.processedInput["Curse"] = {}
@@ -146,33 +141,33 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		-- Load data
 		for _, node in ipairs(dbXML[1]) do
 			if type(node) == "table" and node.elem == "Party" then
-				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
+				if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
 					if #self.controls.editAuras.buf > 0 then
 						node[5].attrib.string = self.controls.editAuras.buf.."\n"..node[5].attrib.string
 					end
 					self.controls.editAuras:SetText(node[5].attrib.string)
 					self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
 				end
-				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
+				if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
 					if #self.controls.editCurses.buf > 0 then
 						node[6].attrib.string = self.controls.editCurses.buf.."\n"..node[6].attrib.string
 					end
 					self.controls.editCurses:SetText(node[6].attrib.string)
 					self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
 				end
-				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 then
+				if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
 					if #self.controls.enemyCond.buf > 0 then
 						node[7].attrib.string = self.controls.enemyCond.buf.."\n"..node[7].attrib.string
 					end
 					self.controls.enemyCond:SetText(node[7].attrib.string)
 				end
-				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 5 then
+				if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyMods" then
 					if #self.controls.enemyMods.buf > 0 then
 						node[8].attrib.string = self.controls.enemyMods.buf.."\n"..node[8].attrib.string
 					end
 					self.controls.enemyMods:SetText(node[8].attrib.string)
 				end
-				if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 or self.controls.importCodeMode.selIndex == 5 then
+				if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyMods" then
 					wipeTable(self.enemyModList)
 					self.enemyModList = new("ModList")
 					self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
@@ -197,27 +192,27 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "All", "Aura", "Curse", "EnemyConditions", "EnemyMods" })
-	self.controls.importCodeMode.enabled = function()
+	self.controls.importCodeDestination = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, partyDestinations)
+	self.controls.importCodeDestination.enabled = function()
 		return self.importCodeValid
 	end
-	self.controls.importCodeMode2 = new("DropDownControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 8, 0, 160, 20, { "Replace", "Append", "Clear" })
-	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode2,"RIGHT"}, 8, 0, 160, 20, "Import", function()
-		if self.controls.importCodeMode2.selIndex == 3 then
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
+	self.controls.importCodeApplication = new("DropDownControl", {"LEFT",self.controls.importCodeDestination,"RIGHT"}, 8, 0, 160, 20, { "Replace", "Append", "Clear" })
+	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeApplication,"RIGHT"}, 8, 0, 160, 20, "Import", function()
+		if self.controls.importCodeApplication.selIndex == 3 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
 				self.controls.editAuras:SetText("")
 				wipeTable(self.processedInput["Aura"])
 				self.processedInput["Aura"] = {}
 			end
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
 				self.controls.editCurses:SetText("")
 				wipeTable(self.processedInput["Curse"])
 				self.processedInput["Curse"] = {}
 			end
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
 				self.controls.enemyCond:SetText("")
 			end
-			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 5 then
+			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyMods" then
 				self.controls.enemyMods:SetText("")
 			end
 			wipeTable(self.enemyModList)
@@ -245,10 +240,10 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		finishImport()
 	end)
 	self.controls.importCodeGo.label = function()
-		return self.controls.importCodeMode2.selIndex == 3 and "Clear" or "Import"
+		return self.controls.importCodeApplication.selIndex == 3 and "Clear" or "Import"
 	end
 	self.controls.importCodeGo.enabled = function()
-		return (self.importCodeValid and not self.importCodeFetching) or self.controls.importCodeMode2.selIndex == 3
+		return (self.importCodeValid and not self.importCodeFetching) or self.controls.importCodeApplication.selIndex == 3
 	end
 	self.controls.importCodeGo.x = function()
 		return (self.width > 1350) and 8 or (-328)
@@ -267,7 +262,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		wipeTable(self.enemyModList)
 		self.processedInput = { Aura = {}, Curse = {} }
 		self.enemyModList = new("ModList")
-		if self.controls.importCodeMode2.selIndex ~= 3 then
+		if self.controls.importCodeApplication.selIndex ~= 3 then
 			self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
 			self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
 			self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
@@ -276,11 +271,11 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.build.buildFlag = true 
 	end)
 	self.controls.rebuild.label = function()
-		return self.controls.importCodeMode2.selIndex == 3 and "Remove effects" or "Rebuild All"
+		return self.controls.importCodeApplication.selIndex == 3 and "Remove effects" or "Rebuild All"
 	end
-	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have changed since loading the build or importing"
+	self.controls.rebuild.tooltip = "^7Reparse all the inputs incase they have changed since loading the build or importing"
 
-	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.importCodeMode,"TOPLEFT"}, 0, 40, 150, 16, "^7Auras")
+	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.importCodeDestination,"TOPLEFT"}, 0, 40, 150, 16, "^7Auras")
 	self.controls.editAurasLabel.y = function()
 		return (self.width > 1350) and 40 or 68
 	end
@@ -427,7 +422,8 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 			or self.lastEnableExportBuffs ~= self.enableExportBuffs)
 end
 
-function PartyTabClass:ParseTags(line, currentModType) -- should parse this correctly instead of string match
+function PartyTabClass:ParseTags(line, currentModType)
+	 -- should parse this correctly instead of string match
 	if not line then
 		return "none", {}
 	end
@@ -491,8 +487,12 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 				for line2 in line:gmatch("([^|]*)|?") do
 					t_insert(modStrings, line2)
 				end
-				local tags = nil -- modStrings[7], should be done with a modified version of "PartyTabClass:ParseTags" where conditions check vs the party and check that the ones in the build are NOT true, such that your effects override the supports
-				list:NewMod(modStrings[3], modStrings[4], tonumber(modStrings[1]), "Party"..modStrings[2], ModFlag[modStrings[5]] or 0, KeywordFlag[modStrings[6]] or 0, tags)
+				if #modStrings >= 7 then
+					-- should be done with a modified version of "PartyTabClass:ParseTags" where conditions check vs the party
+					-- and check that the ones in the build are NOT true, such that your effects override the supports
+					local tags = nil -- modStrings[7]
+					list:NewMod(modStrings[3], modStrings[4], tonumber(modStrings[1]), "Party"..modStrings[2], ModFlag[modStrings[5]] or 0, KeywordFlag[modStrings[6]] or 0, tags)
+				end
 			end
 		end
 	end
@@ -506,7 +506,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 	local currentModType = "Unknown"
 	for line in buf:gmatch("([^\n]*)\n?") do
 		if line ~= "---" and line:match("%-%-%-") then
-			-- comment but not dividor, skip the line
+			-- comment but not divider, skip the line
 		elseif mode == "CurseLimit" and line ~= "" then
 			list.limit = tonumber(line)
 			mode = "Name"
@@ -536,38 +536,40 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 				for line2 in line:gmatch("([^|]*)|?") do
 					t_insert(modStrings, line2)
 				end
-				local mod = {
-					value = (modStrings[1] == "true" and true) or tonumber(modStrings[1]) or 0,
-					source = modStrings[2],
-					name = modStrings[3],
-					type = modStrings[4],
-					flags = ModFlag[modStrings[5]] or 0,
-					keywordFlags = KeywordFlag[modStrings[6]] or 0,
-				}
-				local modType, Tags = self:ParseTags(modStrings[7], currentModType)
-				for _, tag in ipairs(Tags) do
-					t_insert(mod, tag)
-				end
-				currentModType = modType
-				if not list[modType] then
-					list[modType] = {}
-					list[modType][currentName] = {
-						modList = new("ModList"),
-						effectMult = currentEffect
+				if #modStrings >= 4 then
+					local mod = {
+						value = (modStrings[1] == "true" and true) or tonumber(modStrings[1]) or 0,
+						source = modStrings[2],
+						name = modStrings[3],
+						type = modStrings[4],
+						flags = ModFlag[modStrings[5]] or 0,
+						keywordFlags = KeywordFlag[modStrings[6]] or 0,
 					}
-					if isMark then
-						list[modType][currentName].isMark = true
+					local modType, Tags = self:ParseTags(modStrings[7], currentModType)
+					for _, tag in ipairs(Tags) do
+						t_insert(mod, tag)
 					end
-				elseif not list[modType][currentName] then
-					list[modType][currentName] = {
-						modList = new("ModList"),
-						effectMult = currentEffect
-					}
-					if isMark then
-						list[modType][currentName].isMark = true
+					currentModType = modType
+					if not list[modType] then
+						list[modType] = {}
+						list[modType][currentName] = {
+							modList = new("ModList"),
+							effectMult = currentEffect
+						}
+						if isMark then
+							list[modType][currentName].isMark = true
+						end
+					elseif not list[modType][currentName] then
+						list[modType][currentName] = {
+							modList = new("ModList"),
+							effectMult = currentEffect
+						}
+						if isMark then
+							list[modType][currentName].isMark = true
+						end
 					end
+					list[modType][currentName].modList:AddMod(mod)
 				end
-				list[modType][currentName].modList:AddMod(mod)
 			end
 		end
 	end
