@@ -62,6 +62,24 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 
 		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
+		local urlText = buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
+		if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
+			local nested_url = urlText:gsub(".*[?&]q=([^&]+).*", "%1")
+			urlText = UrlDecode(nested_url)
+		end
+
+		for j=1,#buildSites.websiteList do
+			if urlText:match(buildSites.websiteList[j].matchURL) then
+				self.controls.importCodeIn.text = urlText
+				self.importCodeValid = true
+				self.importCodeDetail = colorCodes.POSITIVE.."URL is valid ("..buildSites.websiteList[j].label..")"
+				self.importCodeSite = j
+				if buf ~= urlText then
+					self.controls.importCodeIn:SetText(urlText, false)
+				end
+				return
+			end
+		end
 
 		local xmlText = Inflate(common.base64.decode(buf:gsub("-","+"):gsub("_","/")))
 		if not xmlText then
@@ -75,26 +93,12 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.importCodeXML = xmlText
 	end
 	
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle)
-	self.controls.importCodeIn.width = function()
-		return (self.width > 880) and 328 or (self.width / 2 - 100)
-	end
-	self.controls.importCodeIn.enterFunc = function()
-		if self.importCodeValid then
-			self.controls.importCodeGo.onClick()
+	local finishImport = function()
+		if not self.importCodeValid or self.importCodeFetching then
+			return
 		end
-	end
-	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 8, 0, 0, 16)
-	self.controls.importCodeState.label = function()
-		return self.importCodeDetail or ""
-	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "All", "Aura", "Curse", "EnemyConditions", "EnemyMods" })
-	self.controls.importCodeMode.enabled = function()
-		return self.importCodeValid
-	end
-	self.controls.importCodeMode2 = new("DropDownControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 8, 0, 160, 20, { "Replace", "Append", "Clear" })
-	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode2,"RIGHT"}, 8, 0, 160, 20, "Import", function()
-		if self.controls.importCodeMode2.selIndex == 1 or self.controls.importCodeMode2.selIndex == 3 then
+	
+		if self.controls.importCodeMode2.selIndex == 1 then
 			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
 				self.controls.editAuras:SetText("")
 				wipeTable(self.processedInput["Aura"])
@@ -127,9 +131,6 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 				wipeTable(self.processedInput["Curse"])
 				self.processedInput["Curse"] = {}
 			end
-		end
-		if self.importCodeSite and not self.importCodeXML then
-			return
 		end
 		
 		-- Parse the XML
@@ -181,7 +182,67 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 				break
 			end
 		end
-		
+	end
+	
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle)
+	self.controls.importCodeIn.width = function()
+		return (self.width > 880) and 328 or (self.width / 2 - 100)
+	end
+	self.controls.importCodeIn.enterFunc = function()
+		if self.importCodeValid then
+			self.controls.importCodeGo.onClick()
+		end
+	end
+	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 8, 0, 0, 16)
+	self.controls.importCodeState.label = function()
+		return self.importCodeDetail or ""
+	end
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "All", "Aura", "Curse", "EnemyConditions", "EnemyMods" })
+	self.controls.importCodeMode.enabled = function()
+		return self.importCodeValid
+	end
+	self.controls.importCodeMode2 = new("DropDownControl", {"LEFT",self.controls.importCodeMode,"RIGHT"}, 8, 0, 160, 20, { "Replace", "Append", "Clear" })
+	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeMode2,"RIGHT"}, 8, 0, 160, 20, "Import", function()
+		if self.controls.importCodeMode2.selIndex == 3 then
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 2 then
+				self.controls.editAuras:SetText("")
+				wipeTable(self.processedInput["Aura"])
+				self.processedInput["Aura"] = {}
+			end
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 3 then
+				self.controls.editCurses:SetText("")
+				wipeTable(self.processedInput["Curse"])
+				self.processedInput["Curse"] = {}
+			end
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 4 then
+				self.controls.enemyCond:SetText("")
+			end
+			if self.controls.importCodeMode.selIndex == 1 or self.controls.importCodeMode.selIndex == 5 then
+				self.controls.enemyMods:SetText("")
+			end
+			wipeTable(self.enemyModList)
+			self.enemyModList = new("ModList")
+			self.build.buildFlag = true 
+			return
+		end
+		local importCodeFetching = false
+		if self.importCodeSite and not self.importCodeXML then
+			self.importCodeFetching = true
+			local selectedWebsite = buildSites.websiteList[self.importCodeSite]
+			buildSites.DownloadBuild(self.controls.importCodeIn.buf, selectedWebsite, function(isSuccess, data)
+				self.importCodeFetching = false
+				if not isSuccess then
+					self.importCodeDetail = colorCodes.NEGATIVE..data
+					self.importCodeValid = false
+				else
+					importCodeHandle(data)
+					finishImport()
+				end
+			end)
+			return
+		end
+
+		finishImport()
 	end)
 	self.controls.importCodeGo.label = function()
 		return self.controls.importCodeMode2.selIndex == 3 and "Clear" or "Import"
