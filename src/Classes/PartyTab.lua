@@ -41,7 +41,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 		return width
 	end
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, 16, "^7Enter a build code below: (NOT URL)")
+	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, 16, "^7Enter a build code/URL below:")
 	self.controls.importCodeHeader.y = function()
 		local lineCount = 1
 		for i = 1, #self.controls.notesDesc.label do
