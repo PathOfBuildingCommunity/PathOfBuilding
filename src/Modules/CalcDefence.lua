@@ -776,7 +776,6 @@ function calcs.defence(env, actor)
 	-- recoup
 	do
 		output["anyRecoup"] = 0
-		local quickRecoup = modDB:Flag(nil, "3SecondRecoup")
 		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
 		for _, recoupType in ipairs(recoupTypeList) do
 			local baseRecoup = modDB:Sum("BASE", nil, recoupType.."Recoup")
@@ -787,10 +786,10 @@ function calcs.defence(env, actor)
 					breakdown[recoupType.."Recoup"] = {
 						s_format("%d%% ^8(base)", baseRecoup),
 						s_format("* %.2f ^8(recovery rate modifier)", output[recoupType.."RecoveryRateMod"]),
-						s_format("= %.1f%% over %d seconds", output[recoupType.."Recoup"], quickRecoup and 3 or 4)
+						s_format("= %.1f%% over %d seconds", output[recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
 					}
 				else
-					breakdown[recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[recoupType.."Recoup"], quickRecoup and 3 or 4) }
+					breakdown[recoupType.."Recoup"] = { s_format("%d%% over %d seconds", output[recoupType.."Recoup"], (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
 				end
 			end
 		end
@@ -807,10 +806,10 @@ function calcs.defence(env, actor)
 				breakdown.ElementalEnergyShieldRecoup = {
 					s_format("%d%% ^8(base)", ElementalEnergyShieldRecoup),
 					s_format("* %.2f ^8(recovery rate modifier)", output.EnergyShieldRecoveryRateMod),
-					s_format("= %.1f%% over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4)
+					s_format("= %.1f%% over %d seconds", output.ElementalEnergyShieldRecoup, (modDB:Flag(nil, "3SecondEnergyShieldRecoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
 				}
 			else
-				breakdown.ElementalEnergyShieldRecoup = { s_format("%d%% over %d seconds", output.ElementalEnergyShieldRecoup, quickRecoup and 3 or 4) }
+				breakdown.ElementalEnergyShieldRecoup = { s_format("%d%% over %d seconds", output.ElementalEnergyShieldRecoup, (modDB:Flag(nil, "3SecondEnergyShieldRecoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
 			end
 		end
 		
@@ -823,10 +822,10 @@ function calcs.defence(env, actor)
 					breakdown[damageType.."LifeRecoup"] = {
 						s_format("%d%% ^8(base)", LifeRecoup),
 						s_format("* %.2f ^8(recovery rate modifier)", output.LifeRecoveryRateMod),
-						s_format("= %.1f%% over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4)
+						s_format("= %.1f%% over %d seconds", output[damageType.."LifeRecoup"], (modDB:Flag(nil, "3SecondLifeRecoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4)
 					}
 				else
-					breakdown[damageType.."LifeRecoup"] = { s_format("%d%% over %d seconds", output[damageType.."LifeRecoup"], quickRecoup and 3 or 4) }
+					breakdown[damageType.."LifeRecoup"] = { s_format("%d%% over %d seconds", output[damageType.."LifeRecoup"], (modDB:Flag(nil, "3SecondLifeRecoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4) }
 				end
 			end
 		end
@@ -920,6 +919,7 @@ function calcs.defence(env, actor)
 		breakdown.LightRadiusMod = breakdown.mod(modDB, nil, "LightRadius")
 	end
 	output.CurseEffectOnSelf = modDB:More(nil, "CurseEffectOnSelf") * (100 + modDB:Sum("INC", nil, "CurseEffectOnSelf"))
+	output.ExposureEffectOnSelf = modDB:More(nil, "ExposureEffectOnSelf") * (100 + modDB:Sum("INC", nil, "ExposureEffectOnSelf"))
 
 	-- Ailment duration on self
 	output.DebuffExpirationRate = modDB:Sum("BASE", nil, "SelfDebuffExpirationRate")
@@ -969,8 +969,8 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = (env.configInput["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100)
-		local enemyCritDamage = env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0
+		local enemyCritChance = m_max(m_min((modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100 + enemyDB:Sum("INC", nil, "CritChance") / 100), 100), 0)
+		local enemyCritDamage = m_max((env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0) + enemyDB:Sum("BASE", nil, "CritMultiplier"), 0)
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		local enemyCfg = {keywordFlags = bit.bnot(KeywordFlag.MatchAll)} -- Match all keywordFlags parameter for enemy min-max damage mods
 		for _, damageType in ipairs(dmgTypeList) do
@@ -2124,8 +2124,8 @@ function calcs.defence(env, actor)
 			end
 		end
 		local recoupTypeList = {"Life", "Mana", "EnergyShield"}
-		local recoupTime = modDB:Flag(nil, "3SecondRecoup") and 3 or 4
 		for _, recoupType in ipairs(recoupTypeList) do
+			local recoupTime = (modDB:Flag(nil, "3Second"..recoupType.."Recoup") or modDB:Flag(nil, "3SecondRecoup")) and 3 or 4
 			output["Total"..recoupType.."RecoupRecovery"] = (output[recoupType.."Recoup"] or 0) / 100 * totalDamage
 			if (output["Elemental"..recoupType.."Recoup"] or 0) > 0 and totalElementalDamage > 0 then
 				output["Total"..recoupType.."RecoupRecovery"] = output["Total"..recoupType.."RecoupRecovery"] + output["Elemental"..recoupType.."Recoup"] / 100 * totalElementalDamage

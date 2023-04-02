@@ -138,6 +138,13 @@ return {
 			modList:NewMod("Condition:LifeRegenBurstFull", "FLAG", true, "Config")
 		end
 	end },
+	{ var = "resourceGainMode", type = "list", label = "Resource gain calculation mode:", ifCond = "AverageResourceGain", defaultIndex = 2, tooltip = "Controls how resource on hit/kill is calculated:\n\tMinimum: does not include chances\n\tAverage: includes chance gains, averaged based on uptime\n\tMaximum: treats all chances as certain", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="MAX",label="Maximum"}}, apply = function(val, modList, enemyModList)
+		if val == "AVERAGE" then
+			modList:NewMod("Condition:AverageResourceGain", "FLAG", true, "Config")
+		elseif val == "MAX" then
+			modList:NewMod("Condition:MaxResourceGain", "FLAG", true, "Config")
+		end
+	end },
 	{ var = "EHPUnluckyWorstOf", type = "list", label = "EHP calc unlucky:", tooltip = "Sets the EHP calc to pretend its unlucky and reduce the effects of random events", list = {{val=1,label="Average"},{val=2,label="Unlucky"},{val=4,label="Very Unlucky"}} },
 	{ var = "DisableEHPGainOnBlock", type = "check", label = "Disable EHP gain on block:", tooltip = "Sets the EHP calc to not apply gain on block effects"},
 	{ var = "armourCalculationMode", type = "list", label = "Armour calculation mode:", tooltip = "Controls how Defending with Double Armour is calculated:\n\tMinimum: never Defend with Double Armour\n\tAverage: Damage Reduction from Defending with Double Armour is proportional to chance\n\tMaximum: always Defend with Double Armour\nThis setting has no effect if you have 100% chance to Defend with Double Armour.", list = {{val="MIN",label="Minimum"},{val="AVERAGE",label="Average"},{val="MAX",label="Maximum"}}, apply = function(val, modList, enemyModList)
@@ -744,6 +751,9 @@ Huge sets the radius to 11.
 	{ var = "buffAdrenaline", type = "check", label = "Do you have Adrenaline?", tooltip = "This will enable the Adrenaline buff, which grants:\n\t100% increased Damage\n\t25% increased Attack, Cast and Movement Speed\n\t10% additional Physical Damage Reduction", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Adrenaline", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionChangedStanceLastSecond", type = "check", label = "Changed Stance in the last 1s?", ifCond = "StanceChangeLastSecond", tooltip = "'Changing Stance' occurs by activating a Stance skill while it's toggled on", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:StanceChangeLastSecond", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "buffAlchemistsGenius", type = "check", label = "Do you have Alchemist's Genius?", ifFlag = "Condition:CanHaveAlchemistGenius", tooltip = "This will enable the Alchemist's Genius buff:\n20% increased Flask Charges gained\n10% increased effect of Flasks", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AlchemistsGenius", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanHaveAlchemistGenius" })
 	end },
@@ -984,6 +994,9 @@ Huge sets the radius to 11.
 	{ var = "conditionStunnedEnemyRecently", type = "check", label = "Have you Stunned an enemy Recently?", ifCond = "StunnedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:StunnedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionStunnedRecently", type = "check", label = "Have you been Stunned Recently?", ifCond = "StunnedRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:StunnedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "multiplierPoisonAppliedRecently", type = "count", label = "# of Poisons applied Recently:", ifMult = "PoisonAppliedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PoisonAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1119,13 +1132,19 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:CastSpellRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("Condition:UsedSkillRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierNonInstantSpellCastRecently", type = "count", label = "# of Non-Instant Spells Cast Recently:", ifMult = "NonInstantSpellCastRecently", implyCond = "CastSpellRecently", tooltip = "Only the number of different spells you cast count", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:NonInstantSpellCastRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "conditionStunnedWhileCastingRecently", type = "check", label = "Stunned while Casting Recently?", ifCond = "StunnedWhileCastingRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:StunnedWhileCastingRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionCastLast1Seconds", type = "check", label = "Have you Cast a Spell in the last second?", ifCond = "CastLast1Seconds", implyCond = "CastSpellRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CastLast1Seconds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierCastLast8Seconds", type = "count", label = "How many spells cast in the last 8 seconds?", ifMult = "CastLast8Seconds", tooltip = "Only non-instant spells you cast count", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:CastLast8Seconds", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "conditionSuppressedRecently", type = "check", label = "Have you Suppressed Recently?", ifCond = "SuppressedRecently", tooltip = "This applies -10% ^xB97123Fire^7, ^x3F6DB3Cold^7, and ^xADAA47Lightning ^7Resistance to the enemy.", apply = function(val, modList, enemyModList)
+	{ var = "conditionSuppressedRecently", type = "check", label = "Have you Suppressed Recently?", ifCond = "SuppressedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SuppressedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierHitsSuppressedRecently", type = "count", label = "# of Hits Suppressed Recently:", ifMult = "HitsSuppressedRecently", implyCond = "SuppressedRecently", tooltip = "This also implies that you have Suppressed Recently.", apply = function(val, modList, enemyModList)
@@ -1474,6 +1493,9 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionEnemyOnConsecratedGround", type = "check", label = "Is the enemy on Consecrated Ground?", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyHaveEnergyShield", type = "check", label = "Does the enemy have ^x88FFFFEnergy Shield^7?", ifEnemyCond = "HaveEnergyShield", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:HaveEnergyShield", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyOnProfaneGround", type = "check", label = "Is the enemy on Profane Ground?", ifFlag = "Condition:CreateProfaneGround", tooltip = "Enemies on Profane Ground receive the following modifiers:\n\t-10% to all Resistances\n\t100% increased chance to be Critically Hit", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:OnProfaneGround", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
