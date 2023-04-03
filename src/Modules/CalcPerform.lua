@@ -1560,8 +1560,16 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 
-	-- flask breakdown
 	local effectInc = modDB:Sum("INC", {actor = "player"}, "FlaskEffect")
+	local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicUtilityFlaskEffect")
+	local effectIncNonPlayer = modDB:Sum("INC", nil, "FlaskEffect")
+	local effectIncMagicNonPlayer = modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+	local flasksApplyToMinion = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")
+	local quickSilverAppliesToAllies = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies")
+	local flaskTotalRateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
+	local flaskDurInc = modDB:Sum("INC", nil, "FlaskDuration")
+
+	-- flask breakdown
 	if breakdown then
 		local chargesGenerated = modDB:Sum("BASE", nil, "FlaskChargesGenerated")
 		local usedFlasks = 0
@@ -1586,63 +1594,79 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	end
 
 	-- Merge flask modifiers
-	if env.mode_combat then
-		local effectIncMagic = modDB:Sum("INC", {actor = "player"}, "MagicUtilityFlaskEffect")
-		local effectIncNonPlayer = modDB:Sum("INC", nil, "FlaskEffect")
-		local effectIncMagicNonPlayer = modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
+	local function calcFlaskRecovery(type, item)
+		local out = {}
+		local lType = type:lower()
+
+		if not item.flaskData[lType.."EffectNotRemoved"] and not modDB:Flag(nil, type.."FlaskEffectNotRemoved") then
+			return out
+		end
+
+		local name = item.name
+		local base = item.flaskData[lType.."Base"]
+		local dur = item.flaskData.duration
+		local instPerc = item.flaskData.instantPerc
+		local flaskRecInc = modDB:Sum("INC", nil, "Flask"..type.."Recovery")
+		local flaskRecMore = modDB:More(nil, "Flask"..type.."Recovery")
+		local flaskRateInc = modDB:Sum("INC", nil, "Flask"..type.."RecoveryRate")
+		local flaskTotal = base * (1 - instPerc / 100) * (1 + flaskRecInc / 100) * flaskRecMore * (1 + flaskDurInc / 100)
+		local flaskDur = dur * (1 + flaskDurInc / 100) / (1 + flaskTotalRateInc / 100) / (1 + flaskRateInc / 100)
+
+		t_insert(out, modLib.createMod(type.."Recovery", "BASE", flaskTotal / flaskDur, name))
+
+		if (modDB:Flag(nil, type.."FlaskAppliesToEnergyShield")) then
+			t_insert(out, modLib.createMod("EnergyShieldRecovery", "BASE", flaskTotal / flaskDur, name))
+		end
+
+		if (modDB:Flag(nil, type.."FlaskAppliesToLife")) then
+			t_insert(out, modLib.createMod("LifeRecovery", "BASE", flaskTotal / flaskDur, name))
+		end
+
+		return out
+	end
+
+	local function mergeFlasks(flasks, onlyRecovery)
 		local flaskBuffs = { }
 		local flaskConditions = {}
 		local flaskBuffsPerBase = {}
 		local flaskBuffsNonPlayer = {}
 		local flaskBuffsPerBaseNonPlayer = {}
-		local flasksApplyToMinion = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")
-		local quickSilverAppliesToAllies = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies")
 
-		for item in pairs(env.flasks) do
-			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
-			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
-			flaskConditions["UsingFlask"] = true
-			if item.base.flask.life then
-				flaskConditions["UsingLifeFlask"] = true
-			end
-			if item.base.flask.mana then
-				flaskConditions["UsingManaFlask"] = true
-			end
-			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
-
-			local flaskEffectInc = item.flaskData.effectInc
-			local flaskEffectIncNonPlayer = flaskEffectInc
-			if item.rarity == "MAGIC" and not (flaskConditions["UsingLifeFlask"] or flaskConditions["UsingManaFlask"]) then
+		local function calcFlaskMods(item, baseName, buffModList, modList)
+			local flaskEffectInc = effectInc + item.flaskData.effectInc
+			local flaskEffectIncNonPlayer = effectIncNonPlayer + flaskEffectInc
+			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
 				flaskEffectInc = flaskEffectInc + effectIncMagic
 				flaskEffectIncNonPlayer = effectIncNonPlayer + effectIncMagicNonPlayer
 			end
+			local effectMod = 1 + (flaskEffectInc) / 100
+			local effectModNonPlayer = 1 + (flaskEffectIncNonPlayer) / 100
 
 			-- Avert thine eyes, lest they be forever scarred
-			-- I have no idea how to determine which buff is applied by a given flask, 
+			-- I have no idea how to determine which buff is applied by a given flask,
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
-			local effectMod = 1 + (effectInc + flaskEffectInc) / 100
-			local effectModNonPlayer = 1 + (effectIncNonPlayer + flaskEffectIncNonPlayer) / 100
-			if item.buffModList[1] then
+			if buffModList[1] then
 				local srcList = new("ModList")
-				srcList:ScaleAddList(item.buffModList, effectMod)
-				mergeBuff(srcList, flaskBuffs, item.baseName)
-				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], item.baseName)
+				srcList:ScaleAddList(buffModList, effectMod)
+				mergeBuff(srcList, flaskBuffs, baseName)
+				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], baseName)
 				if (flasksApplyToMinion or quickSilverAppliesToAllies) then
 					srcList = new("ModList")
-					srcList:ScaleAddList(item.buffModList, effectModNonPlayer)
-					mergeBuff(srcList, flaskBuffsNonPlayer, item.baseName)
-					mergeBuff(srcList, flaskBuffsPerBaseNonPlayer[item.baseName], item.baseName)
+					srcList:ScaleAddList(buffModList, effectModNonPlayer)
+					mergeBuff(srcList, flaskBuffsNonPlayer, baseName)
+					mergeBuff(srcList, flaskBuffsPerBaseNonPlayer[item.baseName], baseName)
 				end
 			end
-			if item.modList[1] then
+
+			if modList[1] then
 				local srcList = new("ModList")
-				srcList:ScaleAddList(item.modList, effectMod)
+				srcList:ScaleAddList(modList, effectMod)
 				local key
 				if item.rarity == "UNIQUE" then
 					key = item.title
 				else
 					key = ""
-					for _, mod in ipairs(item.modList) do
+					for _, mod in ipairs(modList) do
 						key = key .. modLib.formatModParams(mod) .. "&"
 					end
 				end
@@ -1650,10 +1674,34 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
 				if (flasksApplyToMinion or quickSilverAppliesToAllies) then
 					srcList = new("ModList")
-					srcList:ScaleAddList(item.modList, effectModNonPlayer)
+					srcList:ScaleAddList(modList, effectModNonPlayer)
 					mergeBuff(srcList, flaskBuffsNonPlayer, key)
 					mergeBuff(srcList, flaskBuffsPerBaseNonPlayer[item.baseName], key)
 				end
+			end
+		end
+
+		for item in pairs(flasks) do
+			flaskBuffsPerBase[item.baseName] = flaskBuffsPerBase[item.baseName] or {}
+			flaskBuffsPerBaseNonPlayer[item.baseName] = flaskBuffsPerBaseNonPlayer[item.baseName] or {}
+			flaskConditions["UsingFlask"] = true
+			flaskConditions["Using"..item.baseName:gsub("%s+", "")] = true
+			if item.base.flask.life then
+				flaskConditions["UsingLifeFlask"] = true
+			end
+			if item.base.flask.mana then
+				flaskConditions["UsingManaFlask"] = true
+			end
+
+			if onlyRecovery then
+				if item.base.flask.life then
+					calcFlaskMods(item, "LifeFlask", calcFlaskRecovery("Life", item), {})
+				end
+				if item.base.flask.mana then
+					calcFlaskMods(item, "ManaFlask", calcFlaskRecovery("Mana", item), {})
+				end
+			else
+				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 			end
 		end
 		if not modDB:Flag(nil, "FlasksDoNotApplyToPlayer") then
@@ -1674,7 +1722,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					minionModDB:AddList(buffModList)
 				end
 			else -- Not all flasks apply to minions. Check if some flasks need to be selectively applied
-				if quickSilverAppliesToAllies and flaskBuffsPerBaseNonPlayer["Quicksilver Flask"] then 
+				if quickSilverAppliesToAllies and flaskBuffsPerBaseNonPlayer["Quicksilver Flask"] then
 					local minionModDB = env.minion.modDB
 					minionModDB.conditions["UsingQuicksilverFlask"] = flaskConditions["UsingQuicksilverFlask"]
 					minionModDB.conditions["UsingFlask"] = flaskConditions["UsingFlask"]
@@ -1686,8 +1734,14 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 
-	-- Merge keystones again to catch any that were added by flasks
-	mergeKeystones(env)
+	if env.mode_combat then
+		-- This needs to be done in 2 steps to account for effects affecting life recovery from flasks
+		-- For example Sorrow of the Divine and buffs (like flask recovery watchers eye)
+		mergeFlasks(env.flasks, false)
+
+		-- Merge keystones again to catch any that were added by flasks
+		mergeKeystones(env)
+	end
 
 	-- Calculate attributes and life/mana pools
 	doActorAttribsConditions(env, env.player)
@@ -2337,6 +2391,12 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				end
 			end
 		end
+	end
+
+	if env.mode_combat then
+		-- This needs to be done in 2 steps to account for effects affecting life recovery from flasks
+		-- For example Sorrow of the Divine and buffs (like flask recovery watchers eye)
+		mergeFlasks(env.flasks, true)
 	end
 
 	-- Check for extra curses
