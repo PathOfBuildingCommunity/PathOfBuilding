@@ -68,7 +68,7 @@ end
 -- uncommented
 local specialModifierFoundList = {}
 local inverseModifierFoundList = {}
-function getTagBasedModifiers(tagName, itemSlotName)
+local function getTagBasedModifiers(tagName, itemSlotName)
 	local tag_name = tagName:lower()
 	local slot_name = itemSlotName:lower():gsub(" ", "_")
 	-- iterate all the item modifiers
