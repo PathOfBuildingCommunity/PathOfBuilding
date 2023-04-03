@@ -1660,19 +1660,6 @@ function calcs.perform(env, avoidCache)
 
 	-- Calculate attributes and life/mana pools
 	doActorAttribsPoolsConditions(env, env.player)
-	if env.minion then
-		for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
-			if not value.type or env.minion.type == value.type then
-				env.minion.modDB:AddMod(value.mod)
-			end
-		end
-		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
-			if env.spec.tree.keystoneMap[name] then
-				env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
-			end
-		end
-		doActorAttribsPoolsConditions(env, env.minion)
-	end
 
 	-- Calculate skill life and mana reservations
 	env.player.reserved_LifeBase = 0
@@ -1778,9 +1765,6 @@ function calcs.perform(env, avoidCache)
 	
 	-- Set the life/mana reservations
 	doActorLifeManaReservation(env.player)
-	if env.minion then
-		doActorLifeManaReservation(env.minion)
-	end
 
 	-- Process attribute requirements
 	do
@@ -3423,6 +3407,19 @@ function calcs.perform(env, avoidCache)
 	calcs.offence(env, env.player, env.player.mainSkill)
 
 	if env.minion then
+		for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
+			if not value.type or env.minion.type == value.type then
+				env.minion.modDB:AddMod(value.mod)
+			end
+		end
+		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
+			if env.spec.tree.keystoneMap[name] then
+				env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+			end
+		end
+		doActorAttribsPoolsConditions(env, env.minion)
+		doActorLifeManaReservation(env.minion)
+
 		calcs.defence(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
