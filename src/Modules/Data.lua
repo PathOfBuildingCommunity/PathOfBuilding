@@ -615,7 +615,6 @@ data.itemTagSpecial = {
 			"Zealot's Oath",
 			-- Special Cases
 			"Cannot Leech",
-			"Damage taken Recouped as",
 		},
 	},
 	["evasion"] = {
@@ -624,6 +623,21 @@ data.itemTagSpecial = {
 			"chance to Evade",
 			-- Unique
 			"Cannot Evade",
+		},
+	},
+}
+data.itemTagSpecialExclusionPattern = {
+	["life"] = {
+		["body armour"] = {
+			"increased Damage while Leeching Life",
+			"Life as Physical Damage",
+			"Life as Extra Maximum Energy Shield",
+			"maximum Life as Fire Damage",
+			"when on Full Life",
+		},
+	},
+	["evasion"] = {
+		["ring"] = {
 		},
 	},
 }

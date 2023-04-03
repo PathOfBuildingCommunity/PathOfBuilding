@@ -536,15 +536,15 @@ function ModStoreClass:EvalMod(mod, cfg)
 					if itemSlot1 and itemSlot1.name:match("Kalandra's Touch") then itemSlot1 = itemSlot2 end
 					if itemSlot2 and itemSlot2.name:match("Kalandra's Touch") then itemSlot2 = itemSlot1 end
 					if itemSlot1 then
-						match1 = itemSlot1:FindModifierSubstring(searchCond, itemSlot)
+						match1 = itemSlot1:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
 					end
 					if itemSlot2 then
-						match2 = itemSlot2:FindModifierSubstring(searchCond, itemSlot)
+						match2 = itemSlot2:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
 					end
 					match = match1 and match2
 				else
 					if self.actor.itemList[itemSlot] then
-						match = self.actor.itemList[itemSlot]:FindModifierSubstring(searchCond, itemSlot)
+						match = self.actor.itemList[itemSlot]:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
 					end
 				end
 			end
