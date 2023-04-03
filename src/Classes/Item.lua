@@ -64,7 +64,7 @@ function ItemClass:ResetInfluence()
 end
 
 -- Special function to store unique instances of modifier on specific item slots
--- that require special handling for ItemConditions. Only called if line #102 is
+-- that require special handling for ItemConditions. Only called if line #224 is
 -- uncommented
 local specialModifierFoundList = {}
 local inverseModifierFoundList = {}
