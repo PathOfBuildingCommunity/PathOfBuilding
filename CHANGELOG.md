@@ -1,5 +1,13 @@
 # Changelog
 
+## [v2.26.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.26.1) (2023/01/03)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.25.0...v2.25.1)
+
+## What's Changed
+### Fixed Crashes
+- Fix crash with Petrified Blood and eHP ([QuickStick123](https://github.com/QuickStick123))
+
 ## [v2.26.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.26.0) (2023/04/03)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.25.1...v2.26.0)

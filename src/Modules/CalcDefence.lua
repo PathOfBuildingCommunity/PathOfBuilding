@@ -1906,6 +1906,7 @@ function calcs.defence(env, actor)
 			Life = output.LifeRecoverable or 0,
 			LifeLossLostOverTime = output.LifeLossLostOverTime or 0,
 			LifeBelowHalfLossLostOverTime = output.LifeBelowHalfLossLostOverTime or 0,
+			PoolsLost = { }
 		}
 		
 		if DamageIn["cycles"] == 1 then
