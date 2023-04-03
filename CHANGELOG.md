@@ -4,15 +4,11 @@
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.26.1...v2.26.2)
 
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
-
 ## What's Changed
-### User Interface
-- Fix mastery choices overlapping when they had multiple lines [\#5873](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5873) ([Wires77](https://github.com/Wires77))
 ### Fixed Bugs
+- Fix mastery choices overlapping when they had multiple lines [\#5873](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5873) ([Wires77](https://github.com/Wires77))
 - Fix gems in the Squire counting multiple times [\#5878](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5878) ([Wires77](https://github.com/Wires77))
 - Fix skill stages not being editable in some cases [\#5877](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5877) ([QuickStick123](https://github.com/QuickStick123))
-### Other changes
 - Fix issue calculating defences based on overcapped resistances [\#5869](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5869) ([Regisle](https://github.com/Regisle))
 - Fix Widowhail increased bonuses calculation [\#5861](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5861) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
 - Fix max-hit with 100% taken as conversion [\#5865](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5865) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
