@@ -1214,6 +1214,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- Store extra supports for other items that are linked
 						local targetGroup = crossLinkedSupportList[crossLinkedSupportGroups[groupCfg.slotName]]
 						if targetGroup then
+							wipeTable(targetGroup)
 							for _, supportItem in ipairs(supportList) do
 								t_insert(targetGroup, supportItem)
 							end
