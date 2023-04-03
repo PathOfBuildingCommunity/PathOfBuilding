@@ -14,7 +14,6 @@ local PassiveMasteryControlClass = newClass("PassiveMasteryControl", "ListContro
 	self.list = list or { }
 	-- automagical width
 	for j=1,#list do
-		list[j].label = list[j].label:gsub("\n", " ")
 		width = m_max(width, DrawStringWidth(16, "VAR", list[j].label) + 5)
 	end
 	self.ListControl(anchor, x, y, width, height, 16, false, false, self.list)
