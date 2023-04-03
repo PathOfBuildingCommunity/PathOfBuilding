@@ -1,3 +1,8 @@
+VERSION[2.26.1][2023/04/03]
+
+--- Fixed Crashes ---
+* Fix crash with Petrified Blood and eHP (QuickStick123)
+
 VERSION[2.26.0][2023/04/03]
 
 --- 3.21 Changes ---
