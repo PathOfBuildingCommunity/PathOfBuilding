@@ -57,6 +57,19 @@ Fill in the exact damage numbers if more precision is needed]])
 	end
 end
 
+local function LowLifeTooltip(tooltip)
+	tooltip:Clear()
+	tooltip:AddLine(14, 'You will automatically be considered to be on Low ^xE05030Life ^7if you have at least '..100 - data.misc.LowLifePercentage..'% ^xE05030Life ^7reserved')
+	tooltip:AddLine(14, 'but you can use this option to force it if necessary.')
+end
+
+local function FullLifeTooltip(tooltip)
+	tooltip:Clear()
+	tooltip:AddLine(14, 'You will automatically be considered to be on Full ^xE05030Life ^7if you have at least '..data.misc.FullLifePercentage..'% ^xE05030Life ^7unreserved.')
+	tooltip:AddLine(14, 'You will automatically be considered to be on Full ^xE05030Life ^7if you have Chaos Inoculation,')
+	tooltip:AddLine(14, 'but you can use this option to force it if necessary.')
+end
+
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
@@ -102,10 +115,10 @@ return {
 	{ var = "conditionInsane", type = "check", label = "Are you insane?", ifCond = "Insane", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Insane", "FLAG", true, "Config")
 	end },
-	{ var = "conditionFullLife", type = "check", label = "Are you always on Full ^xE05030Life?", ifCond = "FullLife", tooltip = "You will automatically be considered to be on Full ^xE05030Life ^7if you have Chaos Inoculation,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionFullLife", type = "check", label = "Are you always on Full ^xE05030Life?", ifCond = "FullLife", tooltipFunc = FullLifeTooltip, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FullLife", "FLAG", true, "Config")
 	end },
-	{ var = "conditionLowLife", type = "check", label = "Are you always on Low ^xE05030Life?", ifCond = "LowLife", tooltip = "You will automatically be considered to be on Low ^xE05030Life ^7if you have at least 50% ^xE05030life ^7reserved,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
+	{ var = "conditionLowLife", type = "check", label = "Are you always on Low ^xE05030Life?", ifCond = "LowLife", tooltipFunc = LowLifeTooltip, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LowLife", "FLAG", true, "Config")
 	end },
 	{ var = "conditionFullMana", type = "check", label = "Are you always on Full ^x7070FFMana?", ifCond = "FullMana", apply = function(val, modList, enemyModList)

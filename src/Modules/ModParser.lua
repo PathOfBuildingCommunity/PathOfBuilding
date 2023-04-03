@@ -3172,7 +3172,8 @@ local specialModList = {
 		mod("ShrineBuff", "LIST", { mod = mod("Life", "INC", 20) }),
 		mod("ShrineBuff", "LIST", { mod = mod("AreaOfEffect", "INC", 20) })
 	},
-	-- 
+	["you count as on low life while at (%d+)%% of maximum life or below"] = function(num) return { mod("LowLifePercentage", "BASE", num) } end,
+	["you count as on full life while at (%d+)%% of maximum life or above"] = function(num) return { mod("FullLifePercentage", "BASE", num) } end,
 	["(%d+)%% more maximum life if you have at least (%d+) life masteries allocated"] = function(num, _, thresh) return {
 		mod("Life", "MORE", num, { type = "MultiplierThreshold", var = "AllocatedLifeMastery", threshold = tonumber(thresh) }),
 	} end,

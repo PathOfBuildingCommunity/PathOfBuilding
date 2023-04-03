@@ -674,8 +674,21 @@ local function doActorAttribsPoolsConditions(env, actor)
 		modDB:ScaleAddList({ value.mod }, calcLib.mod(modDB, nil, "BuffEffectOnSelf", "ShrineBuffEffect"))
 	end
 
-	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
 	-- Life/mana pools
+	local lowLifePerc = modDB:Sum("BASE", nil, "LowLifePercentage")
+	if lowLifePerc > 0 then
+		data.misc.LowLifePercentage = lowLifePerc
+	else
+		data.misc.LowLifePercentage = 50.0
+	end
+	local fullLifePerc = modDB:Sum("BASE", nil, "FullLifePercentage")
+	if fullLifePerc > 0 then
+		data.misc.FullLifePercentage = fullLifePerc
+	else
+		data.misc.FullLifePercentage = 100.0
+	end
+
+	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
 	if output.ChaosInoculation then
 		output.Life = 1
 		condList["FullLife"] = true
@@ -742,8 +755,11 @@ local function doActorLifeManaReservation(actor)
 			output[pool.."ReservedPercent"] = m_min(reserved / max * 100, 100)
 			output[pool.."Unreserved"] = max - reserved
 			output[pool.."UnreservedPercent"] = (max - reserved) / max * 100
-			if (max - reserved) / max <= data.misc.LowPoolThreshold then
+			if (max - reserved) / max <= (pool == "Life" and data.misc.LowLifePercentage / 100.0 or data.misc.LowPoolThreshold) then
 				condList["Low"..pool] = true
+			end
+			if (max - reserved) / max >= (pool == "Life" and data.misc.FullLifePercentage / 100.0 or 1.0) then
+				condList["Full"..pool] = true
 			end
 		else
 			reserved = 0
