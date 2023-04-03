@@ -532,7 +532,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	local noPotentialStage = true
 	if activeEffect.grantedEffect.parts then
 		for _, part in ipairs(activeEffect.grantedEffect.parts) do
-			if part.stages then noPotentialStage = false end
+			if part.stages then 
+				noPotentialStage = false
+				break
+			end
 		end
 	end
 
