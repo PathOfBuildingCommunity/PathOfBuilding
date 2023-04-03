@@ -73,7 +73,7 @@ Variant: Minion Attack and Cast Speed (Pre 3.17.0)
 Variant: Double Damage (Pre 3.17.0)
 Variant: Double Damage while Focused (Pre 3.17.0)
 Variant: Socketed Spell Trigger (Pre 3.17.0)
-Variant: Pre 3.17.0 [14]
+Variant: Pre 3.17.0
 Variant: Crit Multi while Rare/Unique Nearby (Current)
 Variant: Attack Speed while Rare/Unique Nearby (Current)
 Variant: Damage per Power Charge (Current)
@@ -119,28 +119,28 @@ Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 {variant:11}{crafted}(4-12)% chance to deal Double Damage
 {variant:12}{crafted}(13-36)% chance to deal Double Damage while Focused
 {variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
-{variant:15}+(54-60)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
-{variant:16}(27-30)% increased Attack Speed while a Rare or Unique Enemy is Nearby
-{variant:17}(7-8)% increased Damage per Power Charge
-{variant:18}(7-8)% increased Damage per Frenzy Charge
-{variant:19}(7-8)% increased Damage per Endurance Charge
-{variant:20}+(311-350) to Accuracy Rating
-{variant:20}+(25-28) to Strength and Dexterity
-{variant:21}(18-22)% increased Attack Speed
-{variant:21}+(25-28) to Dexterity and Intelligence
-{variant:22}(28-32)% increased Critical Strike Chance
-{variant:22}+(25-28) to Strength and Intelligence
-{variant:23}(26-31)% increased Cast Speed
-{variant:23}15% chance to gain Arcane Surge when you Kill an Enemy
-{variant:24}Minions have (34-38)% increased Attack Speed
-{variant:24}Minions have (34-38)% increased Cast Speed
-{variant:25}(12-14)% chance to deal Double Damage
-{variant:26}(36-40)% chance to deal Double Damage while Focused
-{variant:27}Trigger a Socketed Spell when you Use a Skill, with a 4 second Cooldown
-{variant:27}Spells Triggered this way have 150% more Cost
-{variant:28}+(24-28)% to Fire Damage over Time Multiplier
-{variant:29}+(24-28)% to Physical Damage over Time Multiplier
-{variant:30}+(24-28)% to Chaos Damage over Time Multiplier
+{variant:15}{crafted}+(54-60)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
+{variant:16}{crafted}(27-30)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:17}{crafted}(7-8)% increased Damage per Power Charge
+{variant:18}{crafted}(7-8)% increased Damage per Frenzy Charge
+{variant:19}{crafted}(7-8)% increased Damage per Endurance Charge
+{variant:20}{crafted}+(311-350) to Accuracy Rating
+{variant:20}{crafted}+(25-28) to Strength and Dexterity
+{variant:21}{crafted}(18-22)% increased Attack Speed
+{variant:21}{crafted}+(25-28) to Dexterity and Intelligence
+{variant:22}{crafted}(28-32)% increased Critical Strike Chance
+{variant:22}{crafted}+(25-28) to Strength and Intelligence
+{variant:23}{crafted}(26-31)% increased Cast Speed
+{variant:23}{crafted}15% chance to gain Arcane Surge when you Kill an Enemy
+{variant:24}{crafted}Minions have (34-38)% increased Attack Speed
+{variant:24}{crafted}Minions have (34-38)% increased Cast Speed
+{variant:25}{crafted}(12-14)% chance to deal Double Damage
+{variant:26}{crafted}(36-40)% chance to deal Double Damage while Focused
+{variant:27}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 4 second Cooldown
+{variant:27}{crafted}Spells Triggered this way have 150% more Cost
+{variant:28}{crafted}+(24-28)% to Fire Damage over Time Multiplier
+{variant:29}{crafted}+(24-28)% to Physical Damage over Time Multiplier
+{variant:30}{crafted}+(24-28)% to Chaos Damage over Time Multiplier
 ]],[[
 Darkscorn
 Assassin Bow

@@ -427,15 +427,15 @@ Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 {variant:8}{crafted}(7-12)% increased Trap Throwing Speed
 {variant:9}{crafted}{tags:jewellery_defense}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
 {variant:10,19}{crafted}Your Critical Strike Chance is Lucky while Focused
-{variant:11}{tags:chaos,jewellery_resistance}+(16-20)% to Fire and Chaos Resistances
-{variant:12}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:13}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:14}{tags:jewellery_attribute}+(31-35) to Strength and Dexterity
-{variant:15}{tags:jewellery_attribute}+(31-35) to Dexterity and Intelligence
-{variant:16}{tags:jewellery_attribute}+(31-35) to Strength and Intelligence
-{variant:17}(14-16)% increased Trap Throwing Speed
-{variant:18}{tags:jewellery_defense}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
-{variant:19}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:11}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Fire and Chaos Resistances
+{variant:12}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
+{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
+{variant:14}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Dexterity
+{variant:15}{crafted}{tags:jewellery_attribute}+(31-35) to Dexterity and Intelligence
+{variant:16}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Intelligence
+{variant:17}{crafted}(14-16)% increased Trap Throwing Speed
+{variant:18}{crafted}{tags:jewellery_defense}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:19}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
 ]],[[
 Immortal Flesh
 Leather Belt

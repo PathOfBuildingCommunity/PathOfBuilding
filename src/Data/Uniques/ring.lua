@@ -1346,20 +1346,20 @@ Has 1 Socket
 {variant:9}{crafted}+1 to Minimum Frenzy Charges
 {variant:10}{crafted}+1 to Minimum Power Charges
 {variant:11}{crafted}+1 to Minimum Endurance Charges
-{variant:12}{tags:chaos,jewellery_resistance}+(16-20)% to Fire and Chaos Resistances
-{variant:13}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
-{variant:14}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
-{variant:15}{tags:jewellery_attribute}+(31-35) to Strength and Dexterity
-{variant:16}{tags:jewellery_attribute}+(31-35) to Dexterity and Intelligence
-{variant:17}{tags:jewellery_attribute}+(31-35) to Strength and Intelligence
-{variant:18}Shock nearby Enemies for 4 Seconds when you Focus
-{variant:18}Focus has (5-8)% increased Cooldown Recovery Rate
-{variant:19}+1 to Minimum Frenzy Charges
-{variant:19}(3-4)% chance to gain a Frenzy Charge on Kill
-{variant:20}+1 to Minimum Power Charges
-{variant:20}(3-4)% chance to gain a Power Charge on Kill
-{variant:21}+1 to Minimum Endurance Charges
-{variant:21}(3-4)% chance to gain a Endurance Charge on Kill
+{variant:12}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Fire and Chaos Resistances
+{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
+{variant:14}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
+{variant:15}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Dexterity
+{variant:16}{crafted}{tags:jewellery_attribute}+(31-35) to Dexterity and Intelligence
+{variant:17}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Intelligence
+{variant:18}{crafted}Shock nearby Enemies for 4 Seconds when you Focus
+{variant:18}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:19}{crafted}+1 to Minimum Frenzy Charges
+{variant:19}{crafted}(3-4)% chance to gain a Frenzy Charge on Kill
+{variant:20}{crafted}+1 to Minimum Power Charges
+{variant:20}{crafted}(3-4)% chance to gain a Power Charge on Kill
+{variant:21}{crafted}+1 to Minimum Endurance Charges
+{variant:21}{crafted}(3-4)% chance to gain a Endurance Charge on Kill
 ]],[[
 Voideye
 Unset Ring
