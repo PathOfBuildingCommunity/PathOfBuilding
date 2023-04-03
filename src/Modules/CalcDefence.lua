@@ -2564,7 +2564,7 @@ function calcs.defence(env, actor)
 				local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"]
 
 				if effectiveAppliedArmour == 0 and convertPercent == 100 then	-- use a simpler calculation for no armour DR
-					local drMulti = output[damageType.."ResistTakenHitMulti"] * (1 - output[damageType.."DamageReduction"] / 100)
+					local drMulti = output[damageConvertedType.."ResistTakenHitMulti"] * (1 - output[damageConvertedType.."DamageReduction"] / 100)
 					hitTaken = m_max(totalHitPool / damageConvertedMulti / drMulti - takenFlat, 0) / totalTakenMulti
 				else
 					-- get relevant raw reductions and reduction modifiers
