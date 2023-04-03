@@ -5,7 +5,7 @@
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="04ad6b4381c4d4735c4aba0715dc5980405f4255" />
+	<File name="changelog.txt" part="default" sha1="ebd2e55282bd9ab6439d911cc8b3422d50be18f4" />
 	<File name="help.txt" part="default" sha1="96c2fa6f9e031207a3fa9f298a3d64d56f3c853c" />
 	<File name="LICENSE.md" part="default" sha1="eacedd00e9707defe051bd7151466d223376afa6" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />

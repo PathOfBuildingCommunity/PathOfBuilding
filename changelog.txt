@@ -1,9 +1,11 @@
 VERSION[2.26.2][2023/04/03]
 
 * Fix mastery choices overlapping when they had multiple lines (Wires77)
+* Fix gems in the Squire counting multiple times (Wires77)
 * Fix skill stages not being editable in some cases (QuickStick123)
 * Fix Widowhail increased bonuses calculation (Edvinas-Smita)
 * Fix max-hit with 100% taken as conversion (Edvinas-Smita)
+* Fix issue calculating defences based on overcapped resistances (Regisle)
 * Fix Formless Inferno not increasing minion life properly (Wires77)
 
 VERSION[2.26.1][2023/04/03]
