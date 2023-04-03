@@ -171,7 +171,7 @@ function getTagBasedModifiers(tagName, itemSlotName)
 								end
 								if not found_2 and not inverseModifierFoundList[k] then
 									inverseModifierFoundList[k] = true
-									ConPrintf("[%s] appers in desc but not in tags. [%s] %s", tag_name, k, dv)
+									ConPrintf("[%s] appears in desc but not in tags. [%s] %s", tag_name, k, dv)
 									break
 								end
 							end
@@ -205,7 +205,7 @@ function getTagBasedModifiers(tagName, itemSlotName)
 						end
 						if not found_2 and not inverseModifierFoundList[k] then
 							inverseModifierFoundList[k] = true
-							ConPrintf("[%s] appers in desc but not in tags. [%s] %s", tag_name, k, dv)
+							ConPrintf("[%s] appears in desc but not in tags. [%s] %s", tag_name, k, dv)
 						end
 					end
 				end
