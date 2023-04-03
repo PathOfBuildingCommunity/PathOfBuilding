@@ -381,11 +381,7 @@ function calcs.defence(env, actor)
 							})
 						end
 					else
-						if slot == "Body Armour" then
-							energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences", "Body ArmourESAndArmour")
-						else	
-							energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences")
-						end
+						energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences", slot.."ESAndArmour")
 						gearEnergyShield = gearEnergyShield + energyShieldBase
 						if breakdown then
 							breakdown.slot(slot, nil, slotCfg, energyShieldBase, nil, "EnergyShield", "Defences")
@@ -398,11 +394,7 @@ function calcs.defence(env, actor)
 					if slot == "Body Armour" and modDB:Flag(nil, "Unbreakable") then
 						armourBase = armourBase * 2
 					end
-					if slot == "Body Armour" then
-						armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", "Body ArmourESAndArmour")
-					else
-						armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences")
-					end
+					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
 					if breakdown then
 						breakdown.slot(slot, nil, slotCfg, armourBase, nil, "Armour", "ArmourAndEvasion", "Defences")
