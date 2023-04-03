@@ -430,6 +430,33 @@ describe("TestDefence", function()
         runCallback("OnFrame")
         assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Physical")))
         assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Cold")))
+        
+        build.configTab.input.customMods = "\z
+        +940 to maximum life\n\z
+        +10000 to armour\n\z
+        +110% to fire resistance\n\z
+        Armour applies to Fire, Cold and Lightning Damage taken from Hits instead of Physical Damage\n\z
+        100% of cold damage taken as fire\n\z
+        50% of lightning damage taken as fire\n\z
+        50% less fire damage taken\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+        assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Physical")))
+        assert.is.not_false(withinTenPercent(1000, takenHitFromTypeMaxHit("Cold")))
+    
+        build.configTab.input.customMods = "\z
+        +99 to energy shield\n\z
+        100% less attributes\n\z
+        +60% to all elemental resistances\n\z
+        25% of Elemental Damage from Hits taken as Chaos Damage\n\z
+        Chaos Inoculation\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+        local _, takenDamages = takenHitFromTypeMaxHit("Cold")
+        local poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
+        assert.are.equals(0, round(poolsRemaining.Life))
     end)
     
     it("damage conversion to different size pools", function()
