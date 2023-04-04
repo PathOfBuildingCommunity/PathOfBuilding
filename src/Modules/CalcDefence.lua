@@ -192,7 +192,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 			local preventPercent = output.preventedLifeLoss / 100
 			local poolAboveLow = lifeOverHalfLife / (1 - preventPercent)
 			local preventBelowHalfPercent = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100
-			local damageThatLifeCanStillTake = poolAboveLow + m_min(life, halfLife) / (1 - preventBelowHalfPercent) / (1 - output.preventedLifeLoss / 100)
+			local damageThatLifeCanStillTake = poolAboveLow + m_max(m_min(life, halfLife), 0) / (1 - preventBelowHalfPercent) / (1 - output.preventedLifeLoss / 100)
 			local overkillDamage = damageThatLifeCanStillTake < damageRemainder and damageRemainder - damageThatLifeCanStillTake or 0
 			if overkillDamage ~= 0 then
 				damageRemainder = damageThatLifeCanStillTake
