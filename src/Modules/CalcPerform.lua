@@ -3522,11 +3522,14 @@ function calcs.perform(env, avoidCache)
 						end
 					end
 					
+					actor.mainSkill.skillData.ignoresTickRate = source.skillData.storedUses ~= nil
+					
 					--Account for source unleash
 					if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
 						local unleashDpsMult = GlobalCache.cachedData["CACHE"][uuid].ActiveSkill.skillData.dpsMultiplier or 1
 						trigRate = trigRate * unleashDpsMult
 						actor.mainSkill.skillFlags.HasSeals = true
+						actor.mainSkill.skillData.ignoresTickRate = true
 						if breakdown then
 							t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f ^8(multiplier from Unleash)", unleashDpsMult))
 						end
