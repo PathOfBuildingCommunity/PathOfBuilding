@@ -192,22 +192,26 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 				local preventPercent = output.preventedLifeLoss / 100
 				local poolAboveLow = lifeOverHalfLife / (1 - preventPercent)
 				local damageToSplit = m_min(damageRemainder, poolAboveLow)
-				local lostLife = damageToSplit * (1 - preventPercent)
-				local preventedLoss = damageToSplit * preventPercent
+				local maximumPrevent = preventPercent * life -- cap to avoid preventing negative life aka dead.
+				local preventedLoss = m_min(damageToSplit * preventPercent, maximumPrevent)
+				local lostLife = damageToSplit - preventedLoss
 				damageRemainder = damageRemainder - damageToSplit
 				LifeLossLostOverTime = LifeLossLostOverTime + preventedLoss
 				life = life - lostLife
 				
 				if life <= output.Life * 0.5 then
-					local unspecificallyLowLifePreventedDamage = damageRemainder * preventPercent
+					local maximumPrevent = preventPercent * life -- cap to avoid preventing negative life aka dead.
+					local unspecificallyLowLifePreventedDamage = m_min(damageRemainder * preventPercent, maximumPrevent)
 					LifeLossLostOverTime = LifeLossLostOverTime + unspecificallyLowLifePreventedDamage
 					damageRemainder = damageRemainder - unspecificallyLowLifePreventedDamage
-					local specificallyLowLifePreventedDamage = damageRemainder * modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100
+					local specificallyLowLifePreventedDamage = m_min(damageRemainder * modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100, maximumPrevent)
 					LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime + specificallyLowLifePreventedDamage
 					damageRemainder = damageRemainder - specificallyLowLifePreventedDamage
 				end
 			else
-				local tempDamage = damageRemainder * output.preventedLifeLoss / 100
+				local preventPercent = output.preventedLifeLoss / 100
+				local maximumPrevent = preventPercent * life -- cap to avoid preventing negative life aka dead.
+				local tempDamage = m_min(damageRemainder * preventPercent, maximumPrevent)
 				LifeLossLostOverTime = LifeLossLostOverTime + tempDamage
 				damageRemainder = damageRemainder - tempDamage
 			end
