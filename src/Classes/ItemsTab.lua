@@ -536,27 +536,21 @@ holding Shift will put it in the second.]])
 
 	-- Section: Item Quality
 	self.controls.displayItemSectionQuality = new("Control", {"TOPLEFT",self.controls.displayItemSectionInfluence,"BOTTOMLEFT"}, 0, 0, 0, function()
-		return (self.controls.displayItemQuality:IsShown() and self.controls.displayItemQualitySlider:IsShown()) and 28 or 0
+		return (self.controls.displayItemQuality:IsShown() and self.controls.displayItemQualityEdit:IsShown()) and 28 or 0
 	end)
 	self.controls.displayItemQuality = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionQuality,"TOPRIGHT"}, -4, 0, 0, 16, "^7Quality:")
 	self.controls.displayItemQuality.shown = function()
-		return (self.displayItem and (not self.controls.displayItemCatalyst:IsShown()))
+		return (self.displayItem and (not self.controls.displayItemCatalyst:IsShown() or self.controls.displayItem.base.type ~= "Quiver"))
 	end
 
-	self.controls.displayItemQualitySlider = new("SliderControl", {"LEFT",self.controls.displayItemQuality,"RIGHT"}, 8, 0, 200, 20, function(val)
-        self.displayItem.quality = round(val * 100) -- unsure what a sensible max quality value might be
+	self.controls.displayItemQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemQuality,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
+		self.displayItem.quality = tonumber(buf)
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 	end)
-	self.controls.displayItemQualitySlider.shown = function()
+	self.controls.displayItemQualityEdit.shown = function()
 		return (self.displayItem and (not self.controls.displayItemCatalyst:IsShown()))
 	end
-	self.controls.displayItemQualitySlider.tooltipFunc = function(tooltip, val)
-		local quality = round(val * 100)
-		tooltip:Clear()
-		tooltip:AddLine(16, "^7Quality: "..quality.."%")
-	end
-
 
 	-- Section: Catalysts
 	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionQuality,"BOTTOMLEFT"}, 0, 0, 0, function()
