@@ -540,7 +540,7 @@ holding Shift will put it in the second.]])
 	end)
 	self.controls.displayItemQuality = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionQuality,"TOPRIGHT"}, -4, 0, 0, 16, "^7Quality:")
 	self.controls.displayItemQuality.shown = function()
-		return (self.displayItem and (not self.controls.displayItemCatalyst:IsShown() or self.controls.displayItem.base.type ~= "Quiver"))
+		return self.displayItem and (not self.controls.displayItemCatalyst:IsShown() or self.controls.displayItem.base.type ~= "Quiver")
 	end
 
 	self.controls.displayItemQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemQuality,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
@@ -549,7 +549,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 	end)
 	self.controls.displayItemQualityEdit.shown = function()
-		return (self.displayItem and (not self.controls.displayItemCatalyst:IsShown()))
+		return self.displayItem.quality and (not self.controls.displayItemCatalyst:IsShown())
 	end
 
 	-- Section: Catalysts
