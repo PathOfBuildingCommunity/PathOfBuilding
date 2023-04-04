@@ -5,6 +5,14 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill GuardianTriggerCascade1 Cascade
+#flags
+#mods
+
+#skill SpellNovaIceRibbons Ice Ribbons
+#flags area duration spell
+#mods
+
 #skill GAAtlasInvadersCleansingFodder2Slam Slam
 #flags attack
 #mods

@@ -67,6 +67,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Guardians/GuardianFire
 #spectre Metadata/Monsters/Guardians/GuardianFire_BlueMaps
 #spectre Metadata/Monsters/Guardians/GuardianLightning
+#spectre Metadata/Monsters/Guardians/GuardianLightning_Blue
 -- Gut flayer
 #spectre Metadata/Monsters/HalfSkeleton/HalfSkeleton
 -- Solar Guard
