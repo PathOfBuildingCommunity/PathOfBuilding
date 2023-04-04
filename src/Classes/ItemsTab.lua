@@ -1475,6 +1475,7 @@ function ItemsTabClass:SetDisplayItem(item)
 		end
 		self.controls.displayItemInfluence:SetSel(influence1, true) -- Don't call the selection function for the first influence dropdown as the second dropdown isn't properly set yet.
 		self.controls.displayItemInfluence2:SetSel(influence2) -- The selection function for the second dropdown properly handles everything for both dropdowns
+		self.controls.displayItemQualityEdit:SetText(item.quality)
 		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1)
 		if item.catalystQuality then
 			self.controls.displayItemCatalystQualitySlider.val = m_min(item.catalystQuality / 20, 1)
