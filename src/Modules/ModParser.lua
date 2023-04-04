@@ -4102,6 +4102,10 @@ local specialModList = {
 	["skills gain a base life cost equal to (%d+)%% of base mana cost"] = function(num) return { 
 		mod("ManaCostAsLifeCost", "BASE", num),
 	} end,
+    ["skills cost life instead of (%d+)%% of mana cost"] = function(num) return {
+        mod("HybridManaAndLifeCost_Life", "BASE", num),
+        mod("HybridManaAndLifeCost_Mana", "BASE", 100 - num),
+    } end,
 	["hits overwhelm (%d+)%% of physical damage reduction while you have sacrificial zeal"] = function(num) return {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num, nil, { type = "Condition", var = "SacrificialZeal" }),
 	} end,
