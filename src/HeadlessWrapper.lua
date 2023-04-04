@@ -62,7 +62,7 @@ function DrawStringCursorIndex(height, font, text, cursorX, cursorY)
 	return 0
 end
 function StripEscapes(text)
-	return text:gsub("^%d",""):gsub("^x%x%x%x%x%x%x","")
+	return text:gsub("%^%d",""):gsub("%^x%x%x%x%x%x%x","")
 end
 function GetAsyncCount()
 	return 0

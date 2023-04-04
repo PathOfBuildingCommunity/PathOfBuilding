@@ -135,6 +135,9 @@ function ItemClass:ParseRaw(raw)
 	self.prefixes = { }
 	self.suffixes = { }
 	self.requirements = { }
+	self.requirements.str = 0
+	self.requirements.dex = 0
+	self.requirements.int = 0
 	local importedLevelReq
 	local flaskBuffLines
 	local deferJewelRadiusIndexAssignment
@@ -1201,12 +1204,14 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100)
 				flaskData.lifeTotal = flaskData.lifeInstant + flaskData.lifeGradual
 				flaskData.lifeAdditional = calcLocal(modList, "FlaskAdditionalLifeRecovery", "BASE", 0)
+				flaskData.lifeEffectNotRemoved = calcLocal(baseList, "LifeFlaskEffectNotRemoved", "FLAG", 0)
 			end
 			if self.base.flask.mana then
 				flaskData.manaBase = self.base.flask.mana * (1 + self.quality / 100) * recoveryMod
 				flaskData.manaInstant = flaskData.manaBase * flaskData.instantPerc / 100
 				flaskData.manaGradual = flaskData.manaBase * (1 - flaskData.instantPerc / 100)
 				flaskData.manaTotal = flaskData.manaInstant + flaskData.manaGradual
+				flaskData.manaEffectNotRemoved = calcLocal(baseList, "ManaFlaskEffectNotRemoved", "FLAG", 0)
 			end
 		else
 			-- Utility flask
@@ -1352,9 +1357,9 @@ function ItemClass:BuildModList()
 		self.requirements.dexMod = 0
 		self.requirements.intMod = 0
 	else
-		self.requirements.strMod = m_floor((self.requirements.str or 0 + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
-		self.requirements.dexMod = m_floor((self.requirements.dex or 0 + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
-		self.requirements.intMod = m_floor((self.requirements.int or 0 + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
+		self.requirements.strMod = m_floor((self.requirements.str + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
+		self.requirements.dexMod = m_floor((self.requirements.dex + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
+		self.requirements.intMod = m_floor((self.requirements.int + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
 	end
 	self.grantedSkills = { }
 	for _, skill in ipairs(baseList:List(nil, "ExtraSkill")) do
