@@ -883,7 +883,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				elseif item.type == "Quiver" and ((not slot.slotName:match("Swap") and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId] and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId].name:match("Widowhail"))
 													or (build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId] and build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId].name:match("Widowhail"))) then
 					local WidowHailBaseMods = not slot.slotName:match("Swap") and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId].baseModList or build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId].baseModList
-					scale = scale * (WidowHailBaseMods:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100
+					scale = scale * (1 + (WidowHailBaseMods:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
 					env.itemModDB:ScaleAddList(srcList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
@@ -926,6 +926,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if item.shaper or item.elder then
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 					end
+					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
 				end
 			end
 		end
@@ -1213,6 +1214,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- Store extra supports for other items that are linked
 						local targetGroup = crossLinkedSupportList[crossLinkedSupportGroups[groupCfg.slotName]]
 						if targetGroup then
+							wipeTable(targetGroup)
 							for _, supportItem in ipairs(supportList) do
 								t_insert(targetGroup, supportItem)
 							end

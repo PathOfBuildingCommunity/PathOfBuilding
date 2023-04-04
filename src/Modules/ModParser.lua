@@ -468,6 +468,11 @@ local modNameList = {
 	["maximum total recovery per second from mana leech"] = "MaxManaLeechRate",
 	["maximum total mana recovery per second from leech"] = "MaxManaLeechRate",
 	["maximum total life, mana and energy shield recovery per second from leech"] = { "MaxLifeLeechRate", "MaxManaLeechRate", "MaxEnergyShieldLeechRate" },
+	["life and mana leech is instant"] = { "InstantManaLeech", "InstantLifeLeech" },
+	["life leech is instant"] = { "InstantLifeLeech" },
+	["mana leech is instant"] = { "InstantManaLeech" },
+	["energy shield leech is instant"] = { "InstantEnergyShieldLeech" },
+	["leech is instant"] = { "InstantEnergyShieldLeech", "InstantManaLeech", "InstantLifeLeech" },
 	["to impale enemies on hit"] = "ImpaleChance",
 	["to impale on spell hit"] = { "ImpaleChance", flags = ModFlag.Spell },
 	["impale effect"] = "ImpaleEffect",
@@ -1153,6 +1158,26 @@ local modTagList = {
 	["for each corrupted item equipped"] = { tag = { type = "Multiplier", var = "CorruptedItem" } },
 	["for each equipped corrupted item"] = { tag = { type = "Multiplier", var = "CorruptedItem" } },
 	["for each uncorrupted item equipped"] = { tag = { type = "Multiplier", var = "NonCorruptedItem" } },
+	["per equipped claw"] = { tag = { type = "Multiplier", var = "ClawItem" } },
+	["per equipped dagger"] = { tag = { type = "Multiplier", var = "DaggerItem" } },
+	["per equipped axe"] = { tag = { type = "Multiplier", var = "AxeItem" } },
+	["per equipped ring"] = { tag = { type = "Multiplier", var = "RingItem" } },
+	["per equipped flask"] = { tag = { type = "Multiplier", var = "FlaskItem" } },
+	["per equipped sword"] = { tag = { type = "Multiplier", var = "SwordItem" } },
+	["per equipped jewel"] = { tag = { type = "Multiplier", var = "JewelItem" } },
+	["per equipped mace"] = { tag = { type = "Multiplier", var = "MaceItem" } },
+	["per equipped sceptre"] = { tag = { type = "Multiplier", var = "SceptreItem" } },
+	["per equipped wand"] = { tag = { type = "Multiplier", var = "WandItem" } },
+	["per claw"] = { tag = { type = "Multiplier", var = "ClawItem" } },
+	["per dagger"] = { tag = { type = "Multiplier", var = "DaggerItem" } },
+	["per axe"] = { tag = { type = "Multiplier", var = "AxeItem" } },
+	["per ring"] = { tag = { type = "Multiplier", var = "RingItem" } },
+	["per flask"] = { tag = { type = "Multiplier", var = "FlaskItem" } },
+	["per sword"] = { tag = { type = "Multiplier", var = "SwordItem" } },
+	["per jewel"] = { tag = { type = "Multiplier", var = "JewelItem" } },
+	["per mace"] = { tag = { type = "Multiplier", var = "MaceItem" } },
+	["per sceptre"] = { tag = { type = "Multiplier", var = "SceptreItem" } },
+	["per wand"] = { tag = { type = "Multiplier", var = "WandItem" } },
 	["per abyssa?l? jewel affecting you"] = { tag = { type = "Multiplier", var = "AbyssJewel" } },
 	["for each herald b?u?f?f?s?k?i?l?l? ?affecting you"] = { tag = { type = "Multiplier", var = "Herald" } },
 	["for each of your aura or herald skills affecting you"] = { tag = { type = "Multiplier", varList = { "Herald", "AuraAffectingSelf" } } },
@@ -1465,7 +1490,7 @@ local modTagList = {
 	["if you[' ]h?a?ve hit with your off hand weapon recently"] = { tagList = { { type = "Condition", var = "HitRecentlyWithWeapon" }, { type = "Condition", var = "DualWielding" } } },
 	["if you[' ]h?a?ve hit a cursed enemy recently"] = { tagList = { { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "Cursed" } } },
 	["when you or your totems hit an enemy with a spell"] = { tag = { type = "Condition", varList = { "HitSpellRecently","TotemsHitSpellRecently" } }, },
-	["on hits? with spells?"] = { tag = { type = "Condition", var = "HitSpellRecently" } },
+	["on hit with spells"] = { tag = { type = "Condition", var = "HitSpellRecently" } },
 	["if you[' ]h?a?ve crit recently"] = { tag = { type = "Condition", var = "CritRecently" } },
 	["if you[' ]h?a?ve dealt a critical strike recently"] = { tag = { type = "Condition", var = "CritRecently" } },
 	["when you deal a critical strike"] = { tag = { type = "Condition", var = "CritRecently" } },
@@ -1878,7 +1903,7 @@ local specialModList = {
 		mod("ArmourAppliesToColdDamageTaken", "BASE", num),
 		mod("ArmourAppliesToLightningDamageTaken", "BASE", num),
 	} end,
-	["(%d+)%% of armour also applies to chaos damage from hits"] = function(num) return { mod("ArmourAppliesToChaosDamageTaken", "BASE", num) } end,
+	["(%d+)%% of armour also applies to chaos damage taken from hits"] = function(num) return { mod("ArmourAppliesToChaosDamageTaken", "BASE", num) } end,
 	["maximum damage reduction for any damage type is (%d+)%%"] = function(num) return { mod("DamageReductionMax", "OVERRIDE", num) } end,
 	["gain additional elemental damage reduction equal to half your chaos resistance"] = { 
 		mod("FireDamageReduction", "BASE", 1, { type = "PerStat", stat = "ChaosResist", div = 2 }),
@@ -2376,9 +2401,9 @@ local specialModList = {
 		mod("EnemyShockChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 	},
 	["attacks with this weapon deal double damage to chilled enemies"] = { mod("DoubleDamageChance", "BASE", 100, nil, ModFlag.Hit, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) },
-	["life leech from hits with this weapon applies instantly"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }) },
-	["life leech from hits with this weapon is instant"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }) },
-	["gain life from leech instantly from hits with this weapon"] = { flag("InstantLifeLeech", { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) },
+	["life leech from hits with this weapon applies instantly"] = { mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) }, 
+	["life leech from hits with this weapon is instant"] = { mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }) },
+	["gain life from leech instantly from hits with this weapon"] = { mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }) },
 	["instant recovery"] = {  mod("FlaskInstantRecovery", "BASE", 100) },
 	["(%d+)%% of recovery applied instantly"] = function(num) return { mod("FlaskInstantRecovery", "BASE", num) } end,
 	["has no attribute requirements"] = { flag("NoAttributeRequirements") },
@@ -3192,7 +3217,7 @@ local specialModList = {
 	-- Minions
 	["your strength is added to your minions"] = { flag("StrengthAddedToMinions") },
 	["half of your strength is added to your minions"] = { flag("HalfStrengthAddedToMinions") },
-	["minion's accuracy rating is equal to yours"] = { flag("MinionAccuracyEqualsAccuracy") },
+	["minions' accuracy rating is equal to yours"] = { flag("MinionAccuracyEqualsAccuracy") },
 	["minions created recently have (%d+)%% increased attack and cast speed"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", num) }, { type = "Condition", var = "MinionsCreatedRecently" }) } end,
 	["minions created recently have (%d+)%% increased movement speed"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", num) }, { type = "Condition", var = "MinionsCreatedRecently" }) } end,
 	["minions poison enemies on hit"] = { mod("MinionModifier", "LIST", { mod = mod("PoisonChance", "BASE", 100) }) },
@@ -3362,14 +3387,38 @@ local specialModList = {
 	-- Leech/Gain on Hit/Kill
 	["cannot leech life"] = { flag("CannotLeechLife") },
 	["cannot leech mana"] = { flag("CannotLeechMana") },
-	["cannot leech when on low life"] = { flag("CannotLeechLife", { type = "Condition", var = "LowLife" }), flag("CannotLeechMana", { type = "Condition", var = "LowLife" }) },
-	["cannot leech life from critical strikes"] = { flag("CannotLeechLife", { type = "Condition", var = "CriticalStrike" }) },
-	["leech applies instantly on critical strike"] = { flag("InstantLifeLeech", { type = "Condition", var = "CriticalStrike" }), flag("InstantManaLeech", { type = "Condition", var = "CriticalStrike" }) },
-	["gain life and mana from leech instantly on critical strike"] = { flag("InstantLifeLeech", { type = "Condition", var = "CriticalStrike" }), flag("InstantManaLeech", { type = "Condition", var = "CriticalStrike" }) },
-	["leech applies instantly during f?l?a?s?k? ?effect"] = { flag("InstantLifeLeech", { type = "Condition", var = "UsingFlask" }), flag("InstantManaLeech", { type = "Condition", var = "UsingFlask" }) },
-	["gain life and mana from leech instantly during f?l?a?s?k? ?effect"] = { flag("InstantLifeLeech", { type = "Condition", var = "UsingFlask" }), flag("InstantManaLeech", { type = "Condition", var = "UsingFlask" }) },
-	["life and mana leech are instant during f?l?a?s?k? ?effect"] = { flag("InstantLifeLeech", { type = "Condition", var = "UsingFlask" }), flag("InstantManaLeech", { type = "Condition", var = "UsingFlask" }) },
-	["life and mana leech from critical strikes are instant"] = { flag("InstantLifeLeech", { type = "Condition", var = "CriticalStrike" }), flag("InstantManaLeech", { type = "Condition", var = "CriticalStrike" }) },
+	["cannot leech when on low life"] = {
+		flag("CannotLeechLife", { type = "Condition", var = "LowLife" }),
+		flag("CannotLeechMana", { type = "Condition", var = "LowLife" })
+	},
+	["cannot leech life from critical strikes"] = {	flag("CannotLeechLife", { type = "Condition", var = "CriticalStrike" }) },
+	["leech applies instantly on critical strike"] = {
+		mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "CriticalStrike" }),
+		mod("InstantManaLeech", "BASE", 100, { type = "Condition", var = "CriticalStrike" }),
+		mod("InstantEnergyShieldLeech", "BASE", 100, { type = "Condition", var = "CriticalStrike" })
+	},
+	["gain life and mana from leech instantly on critical strike"] = { 
+		mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "CriticalStrike" }),
+		mod("InstantManaLeech", "BASE", 100, { type = "Condition", var = "CriticalStrike" }),
+		mod("InstantEnergyShieldLeech", "BASE", 100, { type = "Condition", var = "CriticalStrike" })
+	},
+	["leech applies instantly during f?l?a?s?k? ?effect"] = { 
+		mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "UsingFlask" }), 
+		mod("InstantManaLeech", "BASE", 100, { type = "Condition", var = "UsingFlask" }),
+		mod("InstantEnergyShieldLeech", "BASE", 100, { type = "Condition", var = "UsingFlask" })
+	},
+	["gain life and mana from leech instantly during f?l?a?s?k? ?effect"] = { 
+		mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "UsingFlask" }), 
+		mod("InstantManaLeech", "BASE", 100, { type = "Condition", var = "UsingFlask" })
+	},
+	["life and mana leech are instant during f?l?a?s?k? ?effect"] = { 
+		mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "UsingFlask" }), 
+		mod("InstantManaLeech", "BASE", 100, { type = "Condition", var = "UsingFlask" })
+	},
+	["life and mana leech from critical strikes are instant"] = { 
+		mod("InstantLifeLeech", "BASE", 100, { type = "Condition", var = "CriticalStrike" }),
+		mod("InstantManaLeech", "BASE", 100, { type = "Condition", var = "CriticalStrike" })
+	},
 	["with 5 corrupted items equipped: life leech recovers based on your chaos damage instead"] = { flag("LifeLeechBasedOnChaosDamage", { type = "MultiplierThreshold", var = "CorruptedItem", threshold = 5 }) },
 	["you have vaal pact if you've dealt a critical strike recently"] = { mod("Keystone", "LIST", "Vaal Pact", { type = "Condition", var = "CritRecently" }) },
 	["you have vaal pact while at maximum endurance charges"] = { mod("Keystone", "LIST", "Vaal Pact", { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }) },
@@ -3745,6 +3794,12 @@ local specialModList = {
 	["flasks gain (%d+) charges? per second if you've hit a unique enemy recently"] = function(num) return {
 		mod("FlaskChargesGenerated", "BASE", num, { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" })
 	} end,
+	["effect is not removed when unreserved mana is filled"] = {
+		flag("ManaFlaskEffectNotRemoved")
+	},
+	["life flask effects are not removed when unreserved life is filled"] = {
+		flag("LifeFlaskEffectNotRemoved")
+	},
 	-- Jewels
 	["passives in radius of ([%a%s']+) can be allocated without being connected to your tree"] = function(_, name) return {
 		mod("JewelData", "LIST", { key = "impossibleEscapeKeystone", value = name }),
