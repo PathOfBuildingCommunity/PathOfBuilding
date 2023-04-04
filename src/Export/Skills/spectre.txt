@@ -5,6 +5,10 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill SpellNovaFireRibbons Fire Ribbons
+#flags area duration spell
+#mods
+
 #skill ElementalStrikeVaalColossus
 #flags are attack melee projectile
 #mods

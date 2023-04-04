@@ -6,6 +6,33 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["SpellNovaFireRibbons"] = {
+	name = "Fire Ribbons",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.333300113678,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		area = true,
+		duration = true,
+		spell = true,
+	},
+	constantStats = {
+		{ "cast_on_trigger_cascade_event_%", 100 },
+		{ "active_skill_area_of_effect_radius_+%_final", -70 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
 skills["ElementalStrikeVaalColossus"] = {
 	name = "Wild Strike",
 	hidden = true,

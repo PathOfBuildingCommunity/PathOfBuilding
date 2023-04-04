@@ -65,6 +65,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Grappler/GrapplerLabyrinth
 -- Ribbon
 #spectre Metadata/Monsters/Guardians/GuardianFire
+#spectre Metadata/Monsters/Guardians/GuardianFire2_
 #spectre Metadata/Monsters/Guardians/GuardianFire_BlueMaps
 #spectre Metadata/Monsters/Guardians/GuardianLightning
 #spectre Metadata/Monsters/Guardians/GuardianLightning_Blue
