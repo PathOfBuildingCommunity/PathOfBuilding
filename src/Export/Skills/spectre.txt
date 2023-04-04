@@ -13,10 +13,6 @@ local skills, mod, flag, skill = ...
 #flags are attack melee projectile
 #mods
 
-#skill GuardianTriggerCascade1 Cascade
-#flags
-#mods
-
 #skill SpellNovaIceRibbons Ice Ribbons
 #flags area duration spell
 #mods

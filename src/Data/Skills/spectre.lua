@@ -73,29 +73,6 @@ skills["ElementalStrikeVaalColossus"] = {
 		[1] = { levelRequirement = 1, },
 	},
 }
-skills["GuardianTriggerCascade1"] = {
-	name = "Cascade",
-	hidden = true,
-	color = 4,
-	skillTypes = { [SkillType.Triggerable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 2.5,
-	baseFlags = {
-	},
-	constantStats = {
-		{ "trigger_cascade_number_of_spikes", 4 },
-		{ "trigger_cascade_behaviour_variation", 3 },
-		{ "trigger_cascade_target_variation", 1 },
-		{ "trigger_cascade_A", 10 },
-		{ "trigger_cascade_angle", 90 },
-	},
-	stats = {
-		"trigger_cascade_use_contact_points",
-	},
-	levels = {
-		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 6, },
-	},
-}
 skills["SpellNovaIceRibbons"] = {
 	name = "Ice Ribbons",
 	hidden = true,
