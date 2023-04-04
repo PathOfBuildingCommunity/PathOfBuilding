@@ -6,6 +6,107 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["DelveQiongqiSlam"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["DelveQiongqiSlash"] = {
+	name = "Slash",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 75 },
+		{ "active_skill_attack_speed_+%_final", -35 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 40, baseMultiplier = 1.5, storedUses = 1, cooldown = 6, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 40, baseMultiplier = 1.5, storedUses = 1, cooldown = 6, levelRequirement = 20, statInterpolation = { 2, }, },
+		[3] = { 40, baseMultiplier = 1.5, storedUses = 1, cooldown = 6, levelRequirement = 21, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 1.5, storedUses = 1, cooldown = 6, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
+skills["DelveFlamethrowerLeftToRight"] = {
+	name = "Flamethrower",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.6110999584198,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Fire] = true, [SkillType.Damage] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 3,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "ground_fire_art_variation", 5 },
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -50 },
+		{ "active_skill_area_of_effect_radius_+%_final", -35 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_fire_damage_to_deal_per_minute",
+		"active_skill_ignite_damage_+%_final",
+		"is_area_damage",
+		"cannot_stun",
+		"always_ignite",
+	},
+	levels = {
+		[1] = { 0.40000000596046, 0.60000002384186, 66.666668156783, 500, storedUses = 1, levelRequirement = 1, cooldown = 12, statInterpolation = { 3, 3, 3, 2, }, },
+		[2] = { 0.40000000596046, 0.60000002384186, 66.666668156783, 740, storedUses = 1, levelRequirement = 67, cooldown = 12, statInterpolation = { 3, 3, 3, 2, }, },
+		[3] = { 0.40000000596046, 0.60000002384186, 66.666668156783, 740, storedUses = 1, levelRequirement = 68, cooldown = 12, statInterpolation = { 3, 3, 3, 2, }, },
+		[4] = { 0.40000000596046, 0.60000002384186, 66.666668156783, 740, storedUses = 1, levelRequirement = 83, cooldown = 12, statInterpolation = { 3, 3, 3, 2, }, },
+	},
+}
+skills["DelveMeleeFire"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	stats = {
+		"physical_damage_%_to_add_as_fire",
+		"action_attack_or_cast_time_uses_animation_length",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { 10, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 100, levelRequirement = 83, statInterpolation = { 2, }, },
+	},
+}
 skills["SpellNovaFireRibbons"] = {
 	name = "Fire Ribbons",
 	hidden = true,

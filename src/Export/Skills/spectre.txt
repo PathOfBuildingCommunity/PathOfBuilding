@@ -5,6 +5,22 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill DelveQiongqiSlam Slam
+#flags attack
+#mods
+
+#skill DelveQiongqiSlash Slash
+#flags attack
+#mods
+
+#skill DelveFlamethrowerLeftToRight Flamethrower
+#flags spell area
+#mods
+
+#skill DelveMeleeFire Default Attack
+#flags attack melee projectile
+#mods
+
 #skill SpellNovaFireRibbons Fire Ribbons
 #flags area duration spell
 #mods

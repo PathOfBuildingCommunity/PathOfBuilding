@@ -1552,6 +1552,29 @@ minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+minions["Metadata/Monsters/LeagueDelve/QiongqiChampionSpectre"] = {
+	name = "Gorgol",
+	life = 3.6,
+	armour = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.31,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 11,
+	accuracy = 1,
+	skillList = {
+		"DelveMeleeFire",
+		"DelveFlamethrowerLeftToRight",
+		"DelveFlamethrowerRightToLeft",
+		"DelveQiongqiSlash",
+		"DelveQiongqiSlam",
+	},
+	modList = {
+	},
+}
 -- Hellion
 minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	name = "Dune Hellion",
