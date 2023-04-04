@@ -2511,6 +2511,26 @@ minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrikeWeaver"] = {
+	name = "Deadly Tarantula",
+	life = 2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.72,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+		"MonsterFlickerStrike",
+	},
+	modList = {
+	},
+}
 -- Statue
 minions["Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear"] = {
 	name = "Towering Figment",

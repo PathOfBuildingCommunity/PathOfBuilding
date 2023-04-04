@@ -154,6 +154,7 @@ local minions, mod = ...
 -- Spider
 #spectre Metadata/Monsters/Spiders/SpiderThornFlickerStrike
 #spectre Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike
+#spectre Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrikeWeaver
 -- Statue
 #spectre Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear
 #spectre Metadata/Monsters/Statue/StoneStatueMaleBow
