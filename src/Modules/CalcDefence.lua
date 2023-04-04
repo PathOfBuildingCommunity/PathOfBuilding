@@ -187,38 +187,43 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 			end
 		end
 		if output.preventedLifeLossTotal > 0 then
+			local halfLife = output.Life * 0.5
+			local lifeOverHalfLife = m_max(life - halfLife, 0)
+			local preventPercent = output.preventedLifeLoss / 100
+			local poolAboveLow = lifeOverHalfLife / (1 - preventPercent)
+			local preventBelowHalfPercent = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100
+			local damageThatLifeCanStillTake = poolAboveLow + m_min(life, halfLife) / (1 - preventBelowHalfPercent) / (1 - output.preventedLifeLoss / 100)
+			local overkillDamage = damageThatLifeCanStillTake < damageRemainder and damageRemainder - damageThatLifeCanStillTake or 0
+			if overkillDamage ~= 0 then
+				damageRemainder = damageThatLifeCanStillTake
+			end
 			if output.preventedLifeLossBelowHalf ~= 0 then
-				local lifeOverHalfLife = m_max(life - output.Life * 0.5, 0)
-				local preventPercent = output.preventedLifeLoss / 100
-				local poolAboveLow = lifeOverHalfLife / (1 - preventPercent)
 				local damageToSplit = m_min(damageRemainder, poolAboveLow)
-				local maximumPrevent = preventPercent * life -- cap to avoid preventing negative life aka dead.
-				local preventedLoss = m_min(damageToSplit * preventPercent, maximumPrevent)
-				local lostLife = damageToSplit - preventedLoss
+				local lostLife = damageToSplit * (1 - preventPercent)
+				local preventedLoss = damageToSplit * preventPercent
 				damageRemainder = damageRemainder - damageToSplit
 				LifeLossLostOverTime = LifeLossLostOverTime + preventedLoss
 				life = life - lostLife
-				
-				if life <= output.Life * 0.5 then
-					local maximumPrevent = preventPercent * life -- cap to avoid preventing negative life aka dead.
-					local unspecificallyLowLifePreventedDamage = m_min(damageRemainder * preventPercent, maximumPrevent)
+				if life <= halfLife then
+					local unspecificallyLowLifePreventedDamage = damageRemainder * preventPercent
 					LifeLossLostOverTime = LifeLossLostOverTime + unspecificallyLowLifePreventedDamage
 					damageRemainder = damageRemainder - unspecificallyLowLifePreventedDamage
-					local specificallyLowLifePreventedDamage = m_min(damageRemainder * modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100, maximumPrevent)
+					local specificallyLowLifePreventedDamage = damageRemainder * preventBelowHalfPercent
 					LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime + specificallyLowLifePreventedDamage
 					damageRemainder = damageRemainder - specificallyLowLifePreventedDamage
 				end
 			else
-				local preventPercent = output.preventedLifeLoss / 100
-				local maximumPrevent = preventPercent * life -- cap to avoid preventing negative life aka dead.
-				local tempDamage = m_min(damageRemainder * preventPercent, maximumPrevent)
+				local tempDamage = damageRemainder * output.preventedLifeLoss / 100
 				LifeLossLostOverTime = LifeLossLostOverTime + tempDamage
 				damageRemainder = damageRemainder - tempDamage
+			end
+			if overkillDamage ~= 0 then
+				life = life - overkillDamage
 			end
 		end
 		life = life - damageRemainder
 	end
-	
+
 	return {
 		FrostShieldLife = frostShield,
 		SoulLink = soulLink,
