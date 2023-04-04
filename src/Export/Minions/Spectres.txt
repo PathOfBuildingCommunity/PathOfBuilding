@@ -219,6 +219,8 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
 -- Ravenous Mishapen
 #spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre
+-- Ravenous Macerator
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite2_Spectre_
 -- Aurid Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre
 -- Ruins Hellion

@@ -3366,6 +3366,36 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spe
 	modList = {
 	},
 }
+-- Ravenous Macerator
+minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite2_Spectre_"] = {
+	name = "Ravenous Macerator",
+	life = 3.15,
+	armour = 1,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.93,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 26,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EAAHellscapeFleshElite2Combo1",
+		"EAAHellscapeFleshElite2Combo2",
+		"GAHellscapeFleshElite2Melee1",
+		"GAHellscapeFleshElite2Melee2",
+		"GAHellscapeFleshElite2Combo1Cleave",
+		"GAHellscapeFleshElite2Combo1Slam",
+		"GAHellscapeFleshElite2Combo2Slam1",
+		"GAHellscapeFleshElite2Combo2Slam2",
+		"GAHellscapeFleshElite2Combo2Slam3",
+	},
+	modList = {
+	},
+}
 -- Aurid Synthete
 minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 	name = "Aurid Synthete",
