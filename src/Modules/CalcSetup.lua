@@ -450,7 +450,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("SelfCurseLimit", "BASE", 1, "Base")
 		modDB:NewMod("SocketedCursesHexLimitValue", "BASE", 1, "Base")
 		modDB:NewMod("ProjectileCount", "BASE", 1, "Base")
-		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" })
+		modDB:NewMod("Speed", "MORE", 10, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentSpeed", neg = true })
+		modDB:NewMod("Speed", "MORE", 20, "Base", ModFlag.Attack, { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "DoubledInherentSpeed"})
 		modDB:NewMod("BlockChance", "BASE", 15, "Base", { type = "Condition", var = "DualWielding" }, { type = "Condition", var = "NoInherentBlock", neg = true})
 		modDB:NewMod("Damage", "MORE", 200, "Base", 0, KeywordFlag.Bleed, { type = "ActorCondition", actor = "enemy", var = "Moving" }, { type = "Condition", var = "NoExtraBleedDamageToMovingEnemy", neg = true })
 		modDB:NewMod("Condition:BloodStance", "FLAG", true, "Base", { type = "Condition", var = "SandStance", neg = true })
@@ -519,6 +520,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
+	local allocatedLifeMasteryCount = env.spec.allocatedLifeMasteryCount
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -529,6 +531,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 					nodes[node.id] = node
 					if node.type == "Mastery" then
 						allocatedMasteryCount = allocatedMasteryCount + 1
+						if node.name == "Life" then
+							allocatedLifeMasteryCount = allocatedLifeMasteryCount + 1
+						end
 
 						if not allocatedMasteryTypes[node.name] then
 							allocatedMasteryTypes[node.name] = 1
@@ -551,6 +556,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 				elseif override.removeNodes[node] then
 					if node.type == "Mastery" then
 						allocatedMasteryCount = allocatedMasteryCount - 1
+						if node.name == "Life" then
+							allocatedLifeMasteryCount = allocatedLifeMasteryCount + 1
+						end
 
 						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
 						if allocatedMasteryTypes[node.name] == 0 then
@@ -570,6 +578,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
 	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
 	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
+	modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedLifeMasteryCount)
 	
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
@@ -876,7 +885,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				elseif item.type == "Quiver" and ((not slot.slotName:match("Swap") and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId] and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId].name:match("Widowhail"))
 													or (build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId] and build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId].name:match("Widowhail"))) then
 					local WidowHailBaseMods = not slot.slotName:match("Swap") and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId].baseModList or build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId].baseModList
-					scale = scale * (WidowHailBaseMods:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100
+					scale = scale * (1 + (WidowHailBaseMods:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
 					env.itemModDB:ScaleAddList(srcList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
@@ -919,6 +928,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if item.shaper or item.elder then
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 					end
+					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
 				end
 			end
 		end
@@ -1206,6 +1216,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- Store extra supports for other items that are linked
 						local targetGroup = crossLinkedSupportList[crossLinkedSupportGroups[groupCfg.slotName]]
 						if targetGroup then
+							wipeTable(targetGroup)
 							for _, supportItem in ipairs(supportList) do
 								t_insert(targetGroup, supportItem)
 							end

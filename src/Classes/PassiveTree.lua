@@ -327,6 +327,9 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 					if not self.masteryEffects[effect.effect] then
 						self.masteryEffects[effect.effect] = { id = effect.effect, sd = effect.stats }
 						self:ProcessStats(self.masteryEffects[effect.effect])
+					else
+						-- Copy multiline stats from an earlier ProcessStats call
+						effect.stats = self.masteryEffects[effect.effect].sd
 					end
 				end
 			end
