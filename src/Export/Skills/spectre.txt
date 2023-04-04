@@ -5,6 +5,14 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill GAAtlasInvadersCleansingFodder2Slam Slam
+#flags attack
+#mods
+
+#skill GAAtlasInvadersCleansingFodder2SlamBig Big Slam
+#flags attack
+#mods
+
 #skill AxisCasterGlacialCascade
 #flags spell area
 #baseMod skill("radius", 12)

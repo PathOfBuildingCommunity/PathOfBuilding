@@ -6,6 +6,54 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["GAAtlasInvadersCleansingFodder2Slam"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 75 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { -30, baseMultiplier = 1.15, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 1.15, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 20, baseMultiplier = 1.15, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 175, baseMultiplier = 1.15, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
+skills["GAAtlasInvadersCleansingFodder2SlamBig"] = {
+	name = "Big Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 75 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { -30, baseMultiplier = 1.35, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 1.35, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 20, baseMultiplier = 1.35, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 175, baseMultiplier = 1.35, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
 skills["AxisCasterGlacialCascade"] = {
 	name = "Glacial Cascade",
 	hidden = true,

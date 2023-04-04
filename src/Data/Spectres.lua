@@ -3433,3 +3433,26 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+-- Minotaur
+minions["Metadata/Monsters/AtlasInvaders/CleansingMonsters/CleansingFodder2"] = {
+	name = "Molten Minotaur",
+	life = 3.36,
+	armour = 1,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.68,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 18,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MeleeAtAnimationSpeedFire",
+		"GAAtlasInvadersCleansingFodder2Slam",
+		"GAAtlasInvadersCleansingFodder2SlamBig",
+	},
+	modList = {
+	},
+}
