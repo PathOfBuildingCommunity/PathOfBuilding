@@ -36,7 +36,15 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AxisFlammability
-#flags area duration spell
+#flags area duration spell curse
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_ignited_%"] = {
+			mod("SelfIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill BanditExplosiveArrowAtAnimationSpeed Explosive Arrow
