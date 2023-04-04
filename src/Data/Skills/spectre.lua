@@ -6,6 +6,46 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["ElementalStrikeVaalColossus"] = {
+	name = "Wild Strike",
+	hidden = true,
+	color = 2,
+	description = "Your melee weapon strikes enemies, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave. It will avoid choosing the same element twice in a row.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Lightning] = true, [SkillType.Cold] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Chains] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.RandomElement] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		are = true,
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "elemental_strike_physical_damage_%_to_convert", 60 },
+		{ "number_of_chains", 2 },
+		{ "fixed_projectile_spread", 70 },
+	},
+	stats = {
+		"always_pierce",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
 skills["GuardianTriggerCascade1"] = {
 	name = "Cascade",
 	hidden = true,

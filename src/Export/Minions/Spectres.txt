@@ -145,6 +145,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion
 #spectre Metadata/Monsters/Skeletons/SkeletonBowKnightElemental
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalLargeSword2
 #spectre Metadata/Monsters/SkeletonCannon/SkeletonCannon1
 -- Snake
 #spectre Metadata/Monsters/Snake/SnakeMeleeSpit

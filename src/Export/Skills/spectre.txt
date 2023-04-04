@@ -5,6 +5,10 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill ElementalStrikeVaalColossus
+#flags are attack melee projectile
+#mods
+
 #skill GuardianTriggerCascade1 Cascade
 #flags
 #mods

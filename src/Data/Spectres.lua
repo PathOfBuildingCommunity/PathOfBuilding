@@ -2362,6 +2362,27 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalLargeSword2"] = {
+	name = "Vaal Gargantuan",
+	life = 2.7,
+	energyShield = 0.12,
+	armour = 0.7,
+	fireResist = 37,
+	coldResist = 37,
+	lightningResist = 37,
+	chaosResist = 0,
+	damage = 3.24,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 15,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"ElementalStrikeVaalColossus",
+	},
+	modList = {
+	},
+}
 minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
 	name = "Bone Husk",
 	life = 2.07,
