@@ -1,11 +1,10 @@
-VERSION[2.26.3][2023/04/04]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.26.3][2023/04/05]
 
+--- Fixed Bugs ---
 * Fix several Minion buffs not being calculated correctly (Wires77)
 * Fix level-up stats from appearing on tooltips (Lilylicious)
---- Other changes ---
 * Fix MoM and Prevented Life loss effect interaction (Edvinas-Smita)
-* Stop life loss prevention occurring on overkill damage resulting in undesired breakpoint behaviour (QuickStick123)
+* Fix life loss prevention occurring on overkill damage resulting in undesired breakpoint behaviour (QuickStick123)
 * Fix Ghost Reaver and Mines Leech not working (QuickStick123)
 * Fix mod values on Betrayal uniques (dshebib)
 
