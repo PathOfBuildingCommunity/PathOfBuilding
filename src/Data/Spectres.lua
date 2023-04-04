@@ -1575,6 +1575,31 @@ minions["Metadata/Monsters/LeagueDelve/QiongqiChampionSpectre"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/LeagueDelve/QiongqiChampionSpikedSpectre_"] = {
+	name = "Gorgol Alpha",
+	life = 3.6,
+	armour = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.31,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 11,
+	accuracy = 1,
+	skillList = {
+		"DelveMeleeFire",
+		"DelveFlamethrowerLeftToRight",
+		"DelveFlamethrowerRightToLeft",
+		"DelveQiongqiSlash",
+		"DelveQiongqiSlam",
+		"EmptyActionQiongqiSpiked",
+		"DelveQiongqiTornado",
+	},
+	modList = {
+	},
+}
 -- Hellion
 minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	name = "Dune Hellion",

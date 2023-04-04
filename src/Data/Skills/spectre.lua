@@ -6,6 +6,27 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["DelveQiongqiTornado"] = {
+	name = "Tornado",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		area = true,
+		attack = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 75 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
 skills["DelveQiongqiSlam"] = {
 	name = "Slam",
 	hidden = true,

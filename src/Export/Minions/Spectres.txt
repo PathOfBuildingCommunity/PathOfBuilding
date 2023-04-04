@@ -98,6 +98,7 @@ local minions, mod = ...
 -- Delve League
 #spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite
 #spectre Metadata/Monsters/LeagueDelve/QiongqiChampionSpectre
+#spectre Metadata/Monsters/LeagueDelve/QiongqiChampionSpikedSpectre_
 -- Hellion
 #spectre Metadata/Monsters/Lion/LionDesertSkinPuncture
 #spectre Metadata/Monsters/Lion/LionWolf3Champion

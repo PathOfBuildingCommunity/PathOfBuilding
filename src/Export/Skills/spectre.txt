@@ -5,6 +5,10 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill DelveQiongqiTornado Tornado
+#flags area attack
+#mods
+
 #skill DelveQiongqiSlam Slam
 #flags attack
 #mods
