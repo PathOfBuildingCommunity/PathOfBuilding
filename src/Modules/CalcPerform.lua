@@ -3387,7 +3387,7 @@ function calcs.perform(env, avoidCache)
 				skip = true
 			end
 		end
-		if not uniqueTriggerName or not skip then
+		if not skip and not (triggerSkillCond or triggeredSkillCond or source) then
 			if actor.mainSkill.skillData.triggeredByCoC then
 				triggerName = "Cast On Critical Strike"
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and skill ~= actor.mainSkill and slotMatch(env, skill) end
