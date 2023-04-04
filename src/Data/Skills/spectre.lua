@@ -77,6 +77,35 @@ skills["AxisDoubleStrikeTrigger"] = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 2, },
 	},
 }
+skills["AxisFlammability"] = {
+	name = "Flammability",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0.85000002384186,
+	description = "Curses all targets in an area, lowering their fire resistance and giving them a chance to be ignited when hit.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	baseFlags = {
+		area = true,
+		duration = true,
+		spell = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 6000 },
+		{ "chance_to_be_ignited_%", 25 },
+		{ "active_skill_area_of_effect_radius_+%_final", 9 },
+	},
+	stats = {
+		"base_fire_damage_resistance_%",
+	},
+	levels = {
+		[1] = { -20, storedUses = 1, levelRequirement = 10, cooldown = 10, statInterpolation = { 1, }, },
+		[2] = { -25, storedUses = 1, levelRequirement = 41, cooldown = 10, statInterpolation = { 1, }, },
+		[3] = { -30, storedUses = 1, levelRequirement = 58, cooldown = 10, statInterpolation = { 1, }, },
+		[4] = { -40, storedUses = 1, levelRequirement = 71, cooldown = 10, statInterpolation = { 1, }, },
+	},
+}
 skills["BanditExplosiveArrowAtAnimationSpeed"] = {
 	name = "Explosive Arrow",
 	hidden = true,

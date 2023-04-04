@@ -15,6 +15,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2)
 #mods
 
+#skill AxisFlammability
+#flags area duration spell
+#mods
+
 #skill BanditExplosiveArrowAtAnimationSpeed Explosive Arrow
 #flags cast projectile area duration
 	statMap = {

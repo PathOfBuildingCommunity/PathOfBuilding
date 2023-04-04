@@ -59,6 +59,30 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
+minions["Metadata/Monsters/Axis/AxisCasterGuardGravicius"] = {
+	name = "Blackguard Firemage",
+	life = 2.7,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 0.79,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Wand",
+	weaponType2 = "Shield",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AxisFlammability",
+	},
+	modList = {
+		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
+		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
+	},
+}
 minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
 	name = "Lunarsworn Wintermage",
 	life = 0.9,
