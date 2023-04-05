@@ -144,6 +144,7 @@ function ItemClass:ParseRaw(raw)
 	local deferJewelRadiusIndexAssignment
 	local gameModeStage = "FINDIMPLICIT"
 	local foundExplicit, foundImplicit
+	local culledVariantsTemplate = nil
 
 	local function processInfluenceLine(line)
 		for i, curInfluenceInfo in ipairs(influenceInfo) do
@@ -251,12 +252,17 @@ function ItemClass:ParseRaw(raw)
 					if not self.variantList then
 						self.variantList = { }
 					end
-					-- This has to be kept for backwards compatibility
-					local ver, name = specVal:match("{([%w_]+)}(.+)")
-					if ver then
-						t_insert(self.variantList, name)
+					if specVal == "RebuildCulledVariants" and main.uniqueDB.list[self.name..", "..self.baseName] then
+						culledVariantsTemplate = main.uniqueDB.list[self.name..", "..self.baseName]
+						self.variantList = copyTable(culledVariantsTemplate.variantList)
 					else
-						t_insert(self.variantList, specVal)
+						-- This has to be kept for backwards compatibility
+						local ver, name = specVal:match("{([%w_]+)}(.+)")
+						if ver then
+							t_insert(self.variantList, name)
+						else
+							t_insert(self.variantList, specVal)
+						end
 					end
 				elseif specName == "Talisman Tier" then
 					self.talismanTier = tonumber(specVal)
@@ -301,16 +307,47 @@ function ItemClass:ParseRaw(raw)
 					self.hasAltVariant5 = true
 				elseif specName == "Selected Variant" then
 					self.variant = tonumber(specVal)
-				elseif specName == "Selected Alt Variant" then
-					self.variantAlt = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Two" then
-					self.variantAlt2 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Three" then
-					self.variantAlt3 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Four" then
-					self.variantAlt4 = tonumber(specVal)
-				elseif specName == "Selected Alt Variant Five" then
-					self.variantAlt5 = tonumber(specVal)
+				elseif specName == "Selected Variant Name" then
+					-- item variants have changed, find same variant
+					if self.variantList[self.variant] ~= specVal then
+						for i, variantName in ipairs(self.variantList) do
+							if variantName == specVal then
+								self.variant = i
+								break
+							end
+						end
+					end
+				elseif specName == "Selected Variant Last Legacy Variant" then
+					local curVariantName = self.variantList[self.variant]
+					while self.variant ~= 1 and self.variantList[self.variant - 1] ~= specVal and self.variantList[self.variant - 1]:match(curVariantName) do
+						self.variant = self.variant - 1
+					end
+				elseif specName:match("Selected Alt Variant") then
+					local altVariantNumber = ""
+					for _, AltVariant in ipairs({{"2", " Two"}, {"3", " Three"}, {"4", " Four"}, {"5", " Five"}}) do
+						if specName:match(AltVariant[2]) then
+							altVariantNumber = AltVariant[1]
+							break
+						end
+					end
+					if specName:match("Name") then
+						-- item variants have changed, find same variant
+						if self.variantList[self["variantAlt"..altVariantNumber]] ~= specVal then
+							for i, variantName in ipairs(self.variantList) do
+								if variantName == specVal then
+									self["variantAlt"..altVariantNumber] = i
+									break
+								end
+							end
+						end
+					elseif specName:match("Last Legacy Variant") then
+						local curVariantName = self.variantList[self["variantAlt"..altVariantNumber]]
+						while self["variantAlt"..altVariantNumber] ~= 1 and self.variantList[self["variantAlt"..altVariantNumber] - 1] ~= specVal and self.variantList[self["variantAlt"..altVariantNumber] - 1]:match(curVariantName) do
+							self["variantAlt"..altVariantNumber] = self["variantAlt"..altVariantNumber] - 1
+						end
+					else
+						self["variantAlt"..altVariantNumber] = tonumber(specVal)
+					end
 				elseif specName == "Has Variants" or specName == "Selected Variants" then
 					-- Need to skip this line for backwards compatibility
 					-- with builds that used an old Watcher's Eye implementation
@@ -603,6 +640,49 @@ function ItemClass:ParseRaw(raw)
 			self.requirements.level = self.base.req.level
 		end
 	end
+	-- rebuild mods list from template item
+	if culledVariantsTemplate then
+		if #self.implicitModLines > 0 then
+			local replacerModLine = self.implicitModLines
+			self.implicitModLines = copyTable(culledVariantsTemplate.implicitModLines)
+			for _, modLine in ipairs(replacerModLine) do
+				local modLineFound = false
+				for _, modLine2 in ipairs(self.implicitModLines) do
+					if modLine.line == modLine2.line then
+						modLine2.range = modLine.range
+						modLine2.valueScalar = modLine.valueScalar
+						modLineFound = true
+						break
+					end
+				end
+				if not modLineFound then
+					t_insert(self.implicitModLines, modLine)
+				end
+			end
+		else
+			self.implicitModLines = copyTable(culledVariantsTemplate.implicitModLines)
+		end
+		if #self.explicitModLines > 0 then
+			local replacerModLine = self.explicitModLines
+			self.explicitModLines = copyTable(culledVariantsTemplate.explicitModLines)
+			for _, modLine in ipairs(replacerModLine) do
+				local modLineFound = false
+				for _, modLine2 in ipairs(self.explicitModLines) do
+					if modLine.line == modLine2.line then
+						modLine2.range = modLine.range
+						modLine2.valueScalar = modLine.valueScalar
+						modLineFound = true
+						break
+					end
+				end
+				if not modLineFound then
+					t_insert(self.explicitModLines, modLine)
+				end
+			end
+		else
+			self.explicitModLines = copyTable(culledVariantsTemplate.explicitModLines)
+		end
+	end
 	self.affixLimit = 0
 	if self.crafted then
 		if not self.affixes then 
@@ -725,8 +805,9 @@ function ItemClass:CheckIfModIsDelve(mod)
 end
 
 
-function ItemClass:BuildRaw()
+function ItemClass:BuildRaw(cullVariants)
 	local rawLines = { }
+	local cullVariantsTemplate = nil
 	t_insert(rawLines, "Rarity: " .. self.rarity)
 	if self.title then
 		t_insert(rawLines, self.title)
@@ -787,6 +868,41 @@ function ItemClass:BuildRaw()
 	if self.itemLevel then
 		t_insert(rawLines, "Item Level: " .. self.itemLevel)
 	end
+	local function templateItemMatchesCurrent()
+		if not main.uniqueDB.list[self.title..", "..self.baseName] or (#self.variantList ~= #main.uniqueDB.list[self.title..", "..self.baseName].variantList) then
+			return false
+		end
+		local templateItem = main.uniqueDB.list[self.title..", "..self.baseName]
+		for _, modLineType in ipairs({"enchant", "scourge", "classRequirement", "implicit", "explicit"}) do
+			if #self[modLineType.."ModLines"] ~= #templateItem[modLineType.."ModLines"] then
+				return false
+			end
+			for i, modLine in ipairs(self[modLineType.."ModLines"]) do
+				if templateItem[modLineType.."ModLines"][i].line ~= modLine.line then
+					return false
+				end
+			end
+		end
+		cullVariantsTemplate = templateItem
+		return true
+	end
+	local function variantValid(variantList)
+		for varId in pairs(variantList) do
+			if self.variant == varId then
+				return true
+			end
+			for _, AltVariant in ipairs({"", "2", "3", "4", "5"}) do
+				if self["hasAltVariant"..AltVariant] then
+					if self["variantAlt"..AltVariant] == varId then
+						return true
+					end
+				else
+					break
+				end
+			end
+		end
+		return false
+	end
 	local function writeModLine(modLine)
 		local line = modLine.line
 		if modLine.range and line:match("%(%-?[%d%.]+%-%-?[%d%.]+%)") then
@@ -821,6 +937,11 @@ function ItemClass:BuildRaw()
 			for varId in pairs(modLine.variantList) do
 				varSpec = (varSpec and varSpec .. "," or "") .. varId
 			end
+			if cullVariantsTemplate then
+				if not variantValid(modLine.variantList) and ((not modLine.range) or modLine.range == main.defaultItemAffixQuality) then
+					return
+				end
+			end
 			line = "{variant:" .. varSpec .. "}" .. line
 		end
 		if modLine.modTags and #modLine.modTags > 0 then
@@ -829,33 +950,39 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, line)
 	end
 	if self.variantList then
-		for _, variantName in ipairs(self.variantList) do
-			t_insert(rawLines, "Variant: " .. variantName)
+		if cullVariants and templateItemMatchesCurrent() then
+			t_insert(rawLines, "Variant: " .. "RebuildCulledVariants")
+		else
+			for _, variantName in ipairs(self.variantList) do
+				t_insert(rawLines, "Variant: " .. variantName)
+			end
 		end
 		t_insert(rawLines, "Selected Variant: " .. self.variant)
+		if cullVariantsTemplate and self.variantList[#self.variantList] ~= "Current" then
+			t_insert(rawLines, "Selected Variant Name: " .. self.variantList[self.variant])
+			if not self.variantList[self.variant]:match(" %(Pre ") then
+				local lastVariant = self.variant ~= 1 and (self.variantList[self.variant - 1]:match(self.variantList[self.variant]) and self.variantList[self.variant - 1] or self.variantList[self.variant]) or self.variantList[self.variant]
+				t_insert(rawLines, "Selected Variant Last Legacy Variant: " .. lastVariant)
+			end
+		end
 
 		for _, baseLine in pairs(self.baseLines) do
 			writeModLine(baseLine)
 		end
-		if self.hasAltVariant then
-			t_insert(rawLines, "Has Alt Variant: true")
-			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
-		end
-		if self.hasAltVariant2 then
-			t_insert(rawLines, "Has Alt Variant Two: true")
-			t_insert(rawLines, "Selected Alt Variant Two: " .. self.variantAlt2)
-		end
-		if self.hasAltVariant3 then
-			t_insert(rawLines, "Has Alt Variant Three: true")
-			t_insert(rawLines, "Selected Alt Variant Three: " .. self.variantAlt3)
-		end
-		if self.hasAltVariant4 then
-			t_insert(rawLines, "Has Alt Variant Four: true")
-			t_insert(rawLines, "Selected Alt Variant Four: " .. self.variantAlt4)
-		end
-		if self.hasAltVariant5 then
-			t_insert(rawLines, "Has Alt Variant Five: true")
-			t_insert(rawLines, "Selected Alt Variant Five: " .. self.variantAlt5)
+		for _, AltVariant in ipairs({{"", ""}, {"2", " Two"}, {"3", " Three"}, {"4", " Four"}, {"5", " Five"}}) do
+			if self["hasAltVariant" .. AltVariant[1]] then
+				t_insert(rawLines, "Has Alt Variant" .. AltVariant[2] .. ": true")
+				t_insert(rawLines, "Selected Alt Variant" .. AltVariant[2] .. ": " .. self["variantAlt" .. AltVariant[1]])
+				if cullVariantsTemplate and self.variantList[#self.variantList] ~= "Current" then
+					t_insert(rawLines, "Selected Alt Variant" .. AltVariant[2] .. " Name: " .. self.variantList[self["variantAlt" .. AltVariant[1]]])
+					if not self.variantList[self["variantAlt" .. AltVariant[1]]]:match(" %(Pre ") then
+						local lastVariant = self["variantAlt" .. AltVariant[1]] ~= 1 and (self.variantList[self["variantAlt" .. AltVariant[1]] - 1]:match(self.variantList[self["variantAlt" .. AltVariant[1]]]) and self.variantList[self["variantAlt" .. AltVariant[1]] - 1] or self.variantList[self["variantAlt" .. AltVariant[1]]]) or self.variantList[self["variantAlt" .. AltVariant[1]]]
+						t_insert(rawLines, "Selected Alt Variant" .. AltVariant[2] .. " Last Legacy Variant: " .. lastVariant)
+					end
+				end
+			else
+				break
+			end
 		end
 	end
 	if self.quality then
@@ -914,8 +1041,8 @@ function ItemClass:BuildRaw()
 	return table.concat(rawLines, "\n")
 end
 
-function ItemClass:BuildAndParseRaw()
-	local raw = self:BuildRaw()
+function ItemClass:BuildAndParseRaw(cullVariants)
+	local raw = self:BuildRaw(cullVariants)
 	self:ParseRaw(raw)
 end
 
