@@ -200,7 +200,7 @@ function GemSelectClass:UpdateSortCache()
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
 		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
 		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
-		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
+		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerGemType == self.skillsTab.showSupportGemTypes then
 		return
 	end
 

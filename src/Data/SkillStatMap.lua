@@ -1479,7 +1479,7 @@ return {
 	mod("ActiveTotemLimit", "BASE", nil),
 },
 ["attack_skills_additional_ballista_totems_allowed"] = {
-	mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.RangedAttack }),
+	mod("ActiveTotemLimit", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.TotemsAreBallistae }),
 },
 ["base_number_of_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),
