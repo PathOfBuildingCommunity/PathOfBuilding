@@ -99,6 +99,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite
 #spectre Metadata/Monsters/LeagueDelve/QiongqiChampionSpectre
 #spectre Metadata/Monsters/LeagueDelve/QiongqiChampionSpikedSpectre_
+#spectre Metadata/Monsters/MineBat/MineBatAbyssLargeSpectre
 -- Hellion
 #spectre Metadata/Monsters/Lion/LionDesertSkinPuncture
 #spectre Metadata/Monsters/Lion/LionWolf3Champion

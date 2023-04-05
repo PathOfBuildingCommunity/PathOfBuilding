@@ -1600,6 +1600,29 @@ minions["Metadata/Monsters/LeagueDelve/QiongqiChampionSpikedSpectre_"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/MineBat/MineBatAbyssLargeSpectre"] = {
+	name = "Wellwing Matriarch",
+	life = 3,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AbyssMineBatWhirlingBlades",
+		"AbyssBatLargeScreech",
+		"AbyssBatLargeScreechGeometrySpell",
+		"AbyssBatTeleportSlam",
+	},
+	modList = {
+	},
+}
 -- Hellion
 minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	name = "Dune Hellion",

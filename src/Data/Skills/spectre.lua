@@ -6,6 +6,91 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["AbyssBatTeleportSlam"] = {
+	name = "Teleport Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Damage] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 3.75,
+	baseFlags = {
+		attack = true,
+	},
+	baseMods = {
+		mod("BleedChance", "BASE", 100),
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", -25 },
+	},
+	stats = {
+		"is_area_damage",
+		"global_bleed_on_hit",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.75, cooldown = 4, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 1, },
+	},
+}
+skills["AbyssBatLargeScreech"] = {
+	name = "Screech",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.44999998807907,
+	incrementalEffectiveness = 0.035999998450279,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.2,
+	baseFlags = {
+		area = true,
+		spell = true,
+		duartion = true,
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"active_skill_area_of_effect_radius_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.25, 0.5, 0.5, 0.75, -10, critChance = 5, storedUses = 1, cooldown = 2.5, levelRequirement = 3, statInterpolation = { 3, 3, 3, 3, 1, }, },
+		[2] = { 0.30000001192093, 0.60000002384186, 1.25, 1.8799999952316, critChance = 5, storedUses = 1, cooldown = 2.5, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, }, },
+	},
+}
+skills["AbyssMineBatWhirlingBlades"] = {
+	name = "Whirling Blades",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.7332999706268,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
+	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.859,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 6000 },
+		{ "monster_flurry", 1 },
+		{ "ground_caustic_art_variation", 2 },
+	},
+	stats = {
+		"whirling_blades_base_ground_chaos_damage_to_deal_per_minute",
+		"cast_time_overrides_attack_duration",
+		"ignores_proximity_shield",
+	},
+	levels = {
+		[1] = { 16.666667039196, baseMultiplier = 0.6, cooldown = 6, damageEffectiveness = 0.6, storedUses = 1, levelRequirement = 68, statInterpolation = { 3, }, },
+	},
+}
 skills["DelveQiongqiTornado"] = {
 	name = "Tornado",
 	hidden = true,

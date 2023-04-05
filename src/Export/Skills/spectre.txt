@@ -5,6 +5,19 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill AbyssBatTeleportSlam Teleport Slam
+#flags attack
+#baseMod mod("BleedChance", "BASE", 100)
+#mods
+
+#skill AbyssBatLargeScreech Screech
+#flags area spell duartion
+#mods
+
+#skill AbyssMineBatWhirlingBlades
+#flags attack melee
+#mods
+
 #skill DelveQiongqiTornado Tornado
 #flags area attack
 #mods
