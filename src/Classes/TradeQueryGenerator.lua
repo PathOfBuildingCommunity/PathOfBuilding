@@ -203,20 +203,20 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 
 		-- Special cases
 		local specialCaseData = { }
-		if statOrder == 1956 then
+		if statOrder == 1971 then
 			specialCaseData.overrideModLine = "+#% Chance to Block"
 			modLine = modLine .. " (Shields)"
-		elseif statOrder == 1881 then
+		elseif statOrder == 1896 then
 			specialCaseData.overrideModLineSingular = "You can apply an additional Curse"
 			if modLine == specialCaseData.overrideModLineSingular then
 				modLine = "You can apply 1 additional Curses"
 			end
-		elseif statOrder == 1512 then
+		elseif statOrder == 1527 then
 			specialCaseData.overrideModLineSingular = "Bow Attacks fire an additional Arrow"
 			if modLine == specialCaseData.overrideModLineSingular then
 				modLine = "Bow Attacks fire 1 additional Arrows"
 			end
-		elseif statOrder == 1509 then
+		elseif statOrder == 1524 then
 			specialCaseData.overrideModLineSingular = "Projectiles Pierce an additional Target"
 			if modLine == specialCaseData.overrideModLineSingular then
 				modLine = "Projectiles Pierce 1 additional Target"
