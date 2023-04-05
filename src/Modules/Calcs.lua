@@ -412,22 +412,24 @@ function calcs.buildOutput(build, mode)
 			calcs.buildActiveSkill(env, "CACHE", skill)
 		end
 		if GlobalCache.cachedData["CACHE"][uuid] then
-			local EB = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
+			output.EnergyShieldProtectsMana = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
 			for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
 				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
 				if cachedCost then
-					if EB and costResource == "ManaCost" then --Handling for mana cost warnings with EB allocated
-						output.EnergyShieldProtectsMana = true
-						output[costResource.."Warning"] = output[costResource.."Warning"] or (((output[pool] or 0) + (output["EnergyShield"] or 0)) < cachedCost)
-					else
-						output[costResource.."Warning"] = output[costResource.."Warning"] or ((output[pool] or 0) < cachedCost) -- defaulting to 0 to avoid crashing
+					local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
+					if totalPool < cachedCost then
+						output[costResource.."Warning"] = output[costResource.."Warning"] or {}
+						t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
 					end
 				end
 			end
 			for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["ManaUnreservedPercent"] = "ManaPercentCost"}) do
 				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
 				if cachedCost then
-					output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or ((output[pool] or 0) < cachedCost)
+					if (output[pool] or 0) < cachedCost then
+						output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or {}
+						t_insert(output[costResource.."PercentCostWarning"], skill.activeEffect.grantedEffect.name)
+					end
 				end
 			end
 		end

@@ -1404,13 +1404,21 @@ function buildMode:AddDisplayStatList(statList, actor)
 	end
 	for pool, warningFlag in pairs({["Life"] = "LifeCostWarning", ["Mana"] = "ManaCostWarning", ["Rage"] = "RageCostWarning", ["Energy Shield"] = "ESCostWarning"}) do
 		if actor.output[warningFlag] then
-			local line = "You do not have enough "..(actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool).." to use a Selected Skill"
+			local line = "You do not have enough "..(actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool).." to use: "
+			for _, skill in ipairs(actor.output[warningFlag]) do
+				line = line..skill..", "
+			end
+			line = line:sub(1, -3)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
 	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentCostWarning", ["Unreserved Mana"] = "ManaPercentCostPercentCostWarning"}) do
 		if actor.output[warningFlag] then
-			local line = "You do not have enough ".. pool .."% to use a Selected Skill"
+			local line = "You do not have enough ".. pool .."% to use: "
+			for _, skill in ipairs(actor.output[warningFlag]) do
+				line = line..skill..", "
+			end
+			line = line:sub(1, -3)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
