@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Boots: Armour
@@ -40,27 +40,39 @@ Requires Level 68, 120 Str
 30% increased Movement Speed
 ]],[[
 The Infinite Pursuit
-Goliath Greaves
+{variant:1}Goliath Greaves
+{variant:2}Titan Greaves
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{The Red Trail} using currency{Blessing of Uul-Netol}
 Requires Level 54, 95 Str
-+(30-60) to maximum Life
+{variant:1}+(30-60) to maximum Life
 20% increased Movement Speed
 Moving while Bleeding doesn't cause you to take extra Damage
-15% increased Movement Speed while Bleeding
+{variant:1}15% increased Movement Speed while Bleeding
+{variant:2}20% increased Movement Speed while Bleeding
+{variant:2}Bleeding on you expires 75% slower while Moving
+{variant:2}Cannot be Stunned while Bleeding
+{variant:2}Cannot be Poisoned while Bleeding
 50% chance to be inflicted with Bleeding when Hit by an Attack
 ]],[[
 The Red Trail
 Titan Greaves
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Upgraded from unique{The Infinite Pursuit} using currency{Blessing of Uul-Netol}
 Requires Level 68, 120 Str
-(60-80)% increased Armour
-+(50-70) to maximum Life
+{variant:1}(60-80)% increased Armour
+{variant:2}(60-100)% increased Armour
+{variant:1}+(50-70) to maximum Life
+{variant:2}+(60-100) to maximum Life
 25% increased Movement Speed
 Gain a Frenzy Charge on Hit while Bleeding
-15% increased Movement Speed while Bleeding
+{variant:1}15% increased Movement Speed while Bleeding
+{variant:2}30% increased Movement Speed
 10% additional Physical Damage Reduction while stationary
 50% chance to be inflicted with Bleeding when Hit by an Attack
 Gore Footprints
@@ -848,15 +860,20 @@ Bubonic Trail
 Murder Boots
 League: Abyss
 Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
-Variant: One Abyssal Socket
-Variant: Two Abyssal Sockets
+Variant: One Abyssal Socket (Pre 3.21.0)
+Variant: Two Abyssal Sockets (Pre 3.21.0)
+Variant: One Abyssal Socket (Current)
+Variant: Two Abyssal Sockets (Current)
 Requires Level 69, 82 Dex, 42 Int
-{variant:1}Has 1 Abyssal Socket
-{variant:2}Has 2 Abyssal Sockets
+{variant:1,3}Has 1 Abyssal Socket
+{variant:2,4}Has 2 Abyssal Sockets
 Triggers Level 20 Death Walk when Equipped
-(4-6)% increased maximum Life
-30% increased Movement Speed
-10% increased Damage for each type of Abyssal Jewel affecting you
+{variant:1,2}(4-6)% increased maximum Life
+{variant:1,2}30% increased Movement Speed
+{variant:3,4}(24-32)% increased Movement Speed while affected by a Magic Abyss Jewel
+{variant:1,2}10% increased Damage for each type of Abyssal Jewel affecting you
+{variant:3,4}(40-60)% reduced Duration of Elemental Ailments on You while affected by a Rare Abyss Jewel
+{variant:3,4}(16-24)% increased Reservation Efficiency while affected by a Unique Abyss Jewel
 ]],[[
 Corpsewalker
 Carnal Boots

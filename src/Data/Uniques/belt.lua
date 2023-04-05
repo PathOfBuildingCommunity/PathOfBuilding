@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Belt
@@ -197,12 +197,14 @@ Stygian Vise
 League: Abyss
 Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: Pre 3.11.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
 Has 1 Abyssal Socket
 Has 1 Abyssal Socket
 {variant:1}50% increased Effect of Socketed Abyss Jewels
 {variant:2}75% increased Effect of Socketed Abyss Jewels
+{variant:3}(50-100)% increased Effect of Socketed Abyss Jewels
 ]],[[
 Doryani's Invitation
 Heavy Belt
@@ -400,34 +402,42 @@ Variant: Pre 3.11.0 (Strength and Intelligence)
 Variant: Pre 3.11.0 (Trap Throwing Speed)
 Variant: Pre 3.11.0 (Energy Shield Regen)
 Variant: Pre 3.11.0 (Lucky Crit Chance while Focused)
-Variant: Current (Life Regen)
-Variant: Current (Fire and Chaos Resistances)
-Variant: Current (Cold and Chaos Resistances)
-Variant: Current (Light and Chaos Resistances)
-Variant: Current (Strength and Dexterity)
-Variant: Current (Dexterity and Intelligence)
-Variant: Current (Strength and Intelligence)
-Variant: Current (Trap Throwing Speed)
-Variant: Current (Energy Shield Regen)
-Variant: Current (Lucky Crit Chance while Focused)
+Variant: Fire and Chaos Resistances (Current)
+Variant: Cold and Chaos Resistances (Current)
+Variant: Lightning and Chaos Resistances (Current)
+Variant: Strength and Dexterity (Current)
+Variant: Dexterity and Intelligence (Current)
+Variant: Strength and Intelligence (Current)
+Variant: Trap Throwing Speed (Current)
+Variant: Energy Shield Regen (Current)
+Variant: Lucky Crit Chance while Focused (Current)
 LevelReq: 60
 Implicits: 1
 {tags:life}+(25-40) to maximum Life
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
 Chill nearby Enemies when you Focus, causing 30% reduced Action Speed
 {variant:1,2,3,4,5,6,7,8,9,10}Focus has (15-25)% increased Cooldown Recovery Rate
-{variant:11,12,13,14,15,16,17,18,19,20}Focus has (30-50)% increased Cooldown Recovery Rate
+{variant:11,12,13,14,15,16,17,18,19}Focus has (30-50)% increased Cooldown Recovery Rate
 (50-70)% increased Damage with Hits and Ailments against Chilled Enemies
-{variant:1,11}{crafted}{tags:life}Regenerate 2% of Life per second during any Flask Effect
-{variant:2,12}{crafted}{tags:jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:3,13}{crafted}{tags:jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:4,14}{crafted}{tags:jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:5,15}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
-{variant:6,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
-{variant:7,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
-{variant:8,18}{crafted}{tags:speed}(7-12)% increased Trap Throwing Speed
-{variant:9,19}{crafted}{tags:jewellery_defense}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
-{variant:10,20}{crafted}Your Critical Strike Chance is Lucky while Focused
+{variant:1}{crafted}{tags:life}Regenerate 2% of Life per second during any Flask Effect
+{variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:4}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:5}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
+{variant:6}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
+{variant:7}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
+{variant:8}{crafted}(7-12)% increased Trap Throwing Speed
+{variant:9}{crafted}{tags:jewellery_defense}Regenerate 120 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:10,19}{crafted}Your Critical Strike Chance is Lucky while Focused
+{variant:11}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Fire and Chaos Resistances
+{variant:12}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
+{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
+{variant:14}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Dexterity
+{variant:15}{crafted}{tags:jewellery_attribute}+(31-35) to Dexterity and Intelligence
+{variant:16}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Intelligence
+{variant:17}{crafted}(14-16)% increased Trap Throwing Speed
+{variant:18}{crafted}{tags:jewellery_defense}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:19}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
 ]],[[
 Immortal Flesh
 Leather Belt

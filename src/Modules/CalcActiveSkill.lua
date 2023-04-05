@@ -457,6 +457,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			if level.cooldown then
 				activeSkill.skillData.cooldown = level.cooldown
 			end
+			if level.PvPDamageMultiplier then
+				skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, skillEffect.grantedEffect.modSource)
+			end
 			if level.storedUses then
 				activeSkill.skillData.storedUses = level.storedUses
 			end
@@ -493,6 +496,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if level.storedUses then
 		activeSkill.skillData.storedUses = level.storedUses
 	end
+	if level.soulPreventionDuration then
+		activeSkill.skillData.soulPreventionDuration = level.soulPreventionDuration
+	end
+	if level.PvPDamageMultiplier then
+		skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, activeEffect.grantedEffect.modSource)
+	end
 	
 	-- Add extra modifiers from other sources
 	activeSkill.extraSkillModList = { }
@@ -518,6 +527,18 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeEffect.srcInstance.skillMineCount = nil
 	end
 	
+
+	-- Determine if it possible to have a stage on this skill based upon skill parts.
+	local noPotentialStage = true
+	if activeEffect.grantedEffect.parts then
+		for _, part in ipairs(activeEffect.grantedEffect.parts) do
+			if part.stages then 
+				noPotentialStage = false
+				break
+			end
+		end
+	end
+
 	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages") > 0 then
 		skillFlags.multiStage = true
 		activeSkill.activeStageCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount)
@@ -529,7 +550,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", m_min(limit - 1, activeSkill.activeStageCount), "Base")
 			end
 		end
-	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+	elseif noPotentialStage and activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
 		activeEffect.srcInstance.skillStageCountCalcs = nil
 		activeEffect.srcInstance.skillStageCount = nil
 	end

@@ -28,6 +28,55 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	
 	self:BuildModList()
 
+	local function implyCond(varData)
+		local mainEnv = self.build.calcsTab.mainEnv
+		if self.input[varData.var] then
+			if varData.implyCondList then
+				for _, implyCond in ipairs(varData.implyCondList) do
+					if (implyCond and mainEnv.conditionsUsed[implyCond]) then
+						return true
+					end
+				end
+			end
+			if (varData.implyCond and mainEnv.conditionsUsed[varData.implyCond]) or
+			   (varData.implyMinionCond and mainEnv.minionConditionsUsed[varData.implyMinionCond]) or
+			   (varData.implyEnemyCond and mainEnv.enemyConditionsUsed[varData.implyEnemyCond]) then
+				return true
+			end
+		end
+
+		return false
+	end
+
+	local function listOrSingleIfOption(ifOption, ifFunc)
+		return function()
+			if type(ifOption) == "table" then
+				for _, ifOpt in ipairs(ifOption) do
+					if ifFunc(ifOpt) then
+						return true
+					end
+				end
+			end
+			return ifFunc(ifOption)
+		end
+	end
+
+	local function listOrSingleIfTooltip(ifOption, ifFunc)
+		return function()
+			if type(ifOption) == "table" then
+				local out
+				for _, ifOpt in ipairs(ifOption) do
+					local curTooltipText = ifFunc(ifOpt)
+					if curTooltipText then
+						out = (out and out .. "\n" or "").. curTooltipText
+					end
+				end
+				return out
+			end
+			return ifFunc(ifOption)
+		end
+	end
+
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
@@ -86,152 +135,291 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			else 
 				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 			end
+
+			if varData.inactiveText then
+				control.inactiveText = varData.inactiveText
+			end
+
+			local shownFuncs = {}
+			control.shown = function()
+				for _, shownFunc in ipairs(shownFuncs) do
+					if not shownFunc() then
+						return false
+					end
+				end
+				return true
+			end
+
+			local tooltipFuncs = {}
+			control.tooltipText = function()
+				local out
+				for i, tooltipFunc in ipairs(tooltipFuncs) do
+					local curTooltipText = type(tooltipFunc) == "string" and tooltipFunc or tooltipFunc(self.modList)
+					if curTooltipText then
+						out = (out and out .. "\n" or "") .. curTooltipText
+					end
+				end
+				return out
+			end
+
+			if varData.tooltip then
+				t_insert(tooltipFuncs, varData.tooltip)
+			end
+
 			if varData.ifNode then
-				control.shown = function()
-					if self.build.spec.allocNodes[varData.ifNode] then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifNode, function(ifOption)
+					if self.build.spec.allocNodes[ifOption] then
 						return true
 					end
-					local node = self.build.spec.nodes[varData.ifNode]
+					local node = self.build.spec.nodes[ifOption]
 					if node and node.type == "Keystone" then
 						return self.build.calcsTab.mainEnv.keystonesAdded[node.dn]
 					end
-				end
-				control.tooltipText = function()
-					return "This option is specific to '"..self.build.spec.nodes[varData.ifNode].dn.."'."..(varData.tooltip and "\n"..varData.tooltip or "")
-				end
-			elseif varData.ifOption then
-				control.shown = function()
-					return self.input[varData.ifOption]
-				end
-				control.tooltipText = varData.tooltip
-			elseif varData.ifCond or varData.ifMinionCond or varData.ifEnemyCond then
-				control.shown = function()
-					local mainEnv = self.build.calcsTab.mainEnv
-					if self.input[varData.var] then
-						if varData.implyCondList then
-							for _, implyCond in ipairs(varData.implyCondList) do
-								if (implyCond and mainEnv.conditionsUsed[implyCond]) then
-									return true
-								end
-							end
-						end
-						if (varData.implyCond and mainEnv.conditionsUsed[varData.implyCond]) or
-						   (varData.implyMinionCond and mainEnv.minionConditionsUsed[varData.implyMinionCond]) or
-						   (varData.implyEnemyCond and mainEnv.enemyConditionsUsed[varData.implyEnemyCond]) then
-							return true
-						end
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifNode, function(ifOption)
+					return "This option is specific to '"..self.build.spec.nodes[ifOption].dn.."'."
+				end))
+			end
+			if varData.ifOption then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifOption, function(ifOption)
+					return self.input[ifOption]
+				end))
+			end
+			if varData.ifCond then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifCond, function(ifOption)
+					if implyCond(varData) then
+						return true
 					end
-					if varData.ifCond then
-						return mainEnv.conditionsUsed[varData.ifCond]
-					elseif varData.ifMinionCond then
-						return mainEnv.minionConditionsUsed[varData.ifMinionCond]
-					else
-						return mainEnv.enemyConditionsUsed[varData.ifEnemyCond]
+					return self.build.calcsTab.mainEnv.conditionsUsed[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifCond, function(ifOption)
+					if not launch.devModeAlt then
+						return
 					end
-				end
-				control.tooltipText = function()
-					if launch.devModeAlt then
-						local out = varData.tooltip or ""
-						local list
-						if varData.ifCond then
-							list = self.build.calcsTab.mainEnv.conditionsUsed[varData.ifCond]
-						elseif varData.ifMinionCond then
-							list = self.build.calcsTab.mainEnv.minionConditionsUsed[varData.ifMinionCond]
-						else
-							list = self.build.calcsTab.mainEnv.enemyConditionsUsed[varData.ifEnemyCond]
-						end
-						for _, mod in ipairs(list) do
-							out = (#out > 0 and out.."\n" or out) .. modLib.formatMod(mod) .. "|" .. mod.source
-						end
+					local out
+					local mods = self.build.calcsTab.mainEnv.conditionsUsed[ifOption]
+					if not mods then
 						return out
-					else
-						return varData.tooltip
 					end
-				end
-			elseif varData.ifMult or varData.ifEnemyMult then
-				control.shown = function()
-					local mainEnv = self.build.calcsTab.mainEnv
-					if self.input[varData.var] then
-						if varData.implyCondList then
-							for _, implyCond in ipairs(varData.implyCondList) do
-								if (implyCond and mainEnv.conditionsUsed[implyCond]) then
-									return true
-								end
-							end
-						end
-						if (varData.implyCond and mainEnv.conditionsUsed[varData.implyCond]) or
-						   (varData.implyMinionCond and mainEnv.minionConditionsUsed[varData.implyMinionCond]) or
-						   (varData.implyEnemyCond and mainEnv.enemyConditionsUsed[varData.implyEnemyCond]) then
-							return true
-						end
+					for _, mod in ipairs(mods) do
+						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
 					end
-					if varData.ifMult then
-						return mainEnv.multipliersUsed[varData.ifMult]
-					else
-						return mainEnv.enemyMultipliersUsed[varData.ifEnemyMult]
+					return out
+				end))
+			end
+			if varData.ifMinionCond then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifMinionCond, function(ifOption)
+					if implyCond(varData) then
+						return true
 					end
-				end
-				control.tooltipText = function()
-					if launch.devModeAlt then
-						local out = varData.tooltip or ""
-						for _, mod in ipairs(self.build.calcsTab.mainEnv.multipliersUsed[varData.ifMult]) do
-							out = (#out > 0 and out.."\n" or out) .. modLib.formatMod(mod) .. "|" .. mod.source
-						end
+					return self.build.calcsTab.mainEnv.minionConditionsUsed[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifMinionCond, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out
+					local mods = self.build.calcsTab.mainEnv.minionConditionsUsed[ifOption]
+					if not mods then
 						return out
-					else
-						return varData.tooltip
 					end
-				end
-			elseif varData.ifFlag then
-				control.shown = function()
+					for _, mod in ipairs(mods) do
+						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+					end
+					return out
+				end))
+			end
+			if varData.ifEnemyCond then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifEnemyCond, function(ifOption)
+					if implyCond(varData) then
+						return true
+					end
+					return self.build.calcsTab.mainEnv.enemyConditionsUsed[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifEnemyCond, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out
+					local mods = self.build.calcsTab.mainEnv.enemyConditionsUsed[ifOption]
+					if not mods then
+						return out
+					end
+					for _, mod in ipairs(mods) do
+						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+					end
+					return out
+				end))
+			end
+			if varData.ifMult then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifMult, function(ifOption)
+					if implyCond(varData) then
+						return true
+					end
+					return self.build.calcsTab.mainEnv.multipliersUsed[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifMult, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out
+					local mods = self.build.calcsTab.mainEnv.multipliersUsed[ifOption]
+					if not mods then
+						return out
+					end
+					for _, mod in ipairs(mods) do
+						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+					end
+					return out
+				end))
+			end
+			if varData.ifEnemyMult then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifEnemyMult, function(ifOption)
+					if implyCond(varData) then
+						return true
+					end
+					return self.build.calcsTab.mainEnv.enemyMultipliersUsed[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifEnemyMult, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out
+					local mods = self.build.calcsTab.mainEnv.enemyMultipliersUsed[ifOption]
+					if not mods then
+						return out
+					end
+					for _, mod in ipairs(mods) do
+						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+					end
+					return out
+				end))
+			end
+			if varData.ifStat then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifStat, function(ifOption)
+					if implyCond(varData) then
+						return true
+					end
+					return self.build.calcsTab.mainEnv.perStatsUsed[ifOption] or self.build.calcsTab.mainEnv.enemyMultipliersUsed[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifStat, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out
+					local mods = self.build.calcsTab.mainEnv.perStatsUsed[ifOption]
+					if mods then
+						for _, mod in ipairs(mods) do
+							out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+						end
+					end
+					local mods2 = self.build.calcsTab.mainEnv.enemyMultipliersUsed[ifOption]
+					if mods2 then
+						for _, mod in ipairs(mods2) do
+							out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+						end
+					end
+					return out
+				end))
+			end
+			if varData.ifEnemyStat then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifEnemyStat, function(ifOption)
+					if implyCond(varData) then
+						return true
+					end
+					return self.build.calcsTab.mainEnv.enemyPerStatsUsed[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifEnemyStat, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out
+					local mods = self.build.calcsTab.mainEnv.enemyPerStatsUsed[ifOption]
+					if not mods then
+						return out
+					end
+					for _, mod in ipairs(mods) do
+						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+					end
+					return out
+				end))
+			end
+			if varData.ifTagType then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifTagType, function(ifOption)
+					if implyCond(varData) then
+						return true
+					end
+					return self.build.calcsTab.mainEnv.tagTypesUsed[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifTagType, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out
+					local mods = self.build.calcsTab.mainEnv.tagTypesUsed[ifOption]
+					if not mods then
+						return out
+					end
+					for _, mod in ipairs(mods) do
+						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+					end
+					return out
+				end))
+			end
+			if varData.ifFlag then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifFlag, function(ifOption)
 					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
 					local skillFlags = self.build.calcsTab.mainEnv.player.mainSkill.skillFlags
 					-- Check both the skill mods for flags and flags that are set via calcPerform
-					return skillFlags[varData.ifFlag] or skillModList:Flag(nil, varData.ifFlag)
-				end
-				control.tooltipText = varData.tooltip
-			elseif varData.ifMod then
-				control.shown = function()
-					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
-					return skillModList:Sum(varData.ifModType or "BASE", nil, varData.ifMod) > 0
-				end
-				control.tooltipText = varData.tooltip
-			elseif varData.ifSkill or varData.ifSkillList then
-				control.shown = function()
-					if varData.ifSkillList then
-						for _, skillName in ipairs(varData.ifSkillList) do
-							if self.build.calcsTab.mainEnv.skillsUsed[skillName] then
-								return true
-							end
-						end
-					else
-						return self.build.calcsTab.mainEnv.skillsUsed[varData.ifSkill]
+					return skillFlags[ifOption] or skillModList:Flag(nil, ifOption)
+				end))
+			end
+			if varData.ifMod then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifMod, function(ifOption)
+					if implyCond(varData) then
+						return true
 					end
-				end
-				control.tooltipText = varData.tooltip
-			elseif varData.ifSkillFlag or varData.ifSkillFlagList then
-				control.shown = function()
-					if varData.ifSkillFlagList then
-						for _, skillFlag in ipairs(varData.ifSkillFlagList) do
-							for _, activeSkill in ipairs(self.build.calcsTab.mainEnv.player.activeSkillList) do
-								if activeSkill.skillFlags[skillFlag] then
-									return true
-								end
-							end
-						end
-					else
-						-- print(ipairs(self.build.calcsTab.mainEnv.skillsUsed))
-						for _, activeSkill in ipairs(self.build.calcsTab.mainEnv.player.activeSkillList) do
-							if activeSkill.skillFlags[varData.ifSkillFlag] then
-								return true
-							end
+					return self.build.calcsTab.mainEnv.modsUsed[ifOption]
+				end))
+				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifMod, function(ifOption)
+					if not launch.devModeAlt then
+						return
+					end
+					local out
+					local mods = self.build.calcsTab.mainEnv.modsUsed[ifOption]
+					if not mods then
+						return out
+					end
+					for _, mod in ipairs(mods) do
+						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+					end
+					return out
+				end))
+			end
+			if varData.ifSkill then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
+					return self.build.calcsTab.mainEnv.skillsUsed[ifOption]
+				end))
+			end
+			if varData.ifSkillFlag then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkillFlag, function(ifOption)
+					for _, activeSkill in ipairs(self.build.calcsTab.mainEnv.player.activeSkillList) do
+						if activeSkill.skillFlags[ifOption] then
+							return true
 						end
 					end
 					return false
-				end
-				control.tooltipText = varData.tooltip
-			else
-				control.tooltipText = varData.tooltip
+				end))
+			end
+			if varData.ifSkillData then
+				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkillData, function(ifOption)
+					for _, activeSkill in ipairs(self.build.calcsTab.mainEnv.player.activeSkillList) do
+						if activeSkill.skillData[ifOption] then
+							return true
+						end
+					end
+					return false
+				end))
 			end
 			if varData.tooltipFunc then
 				control.tooltipFunc = varData.tooltipFunc
@@ -273,7 +461,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						innerTooltipFunc(tooltip, ...)
 					else
 						local tooltipText = control:GetProperty("tooltipText")
-						if tooltipText then
+						if tooltipText and tooltipText ~= '' then
 							tooltip:AddLine(14, tooltipText)
 						end
 					end
@@ -478,14 +666,9 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	self:DrawControls(viewPort)
 end
 
-function ConfigTabClass:BuildModList()
-	local modList = new("ModList")
-	self.modList = modList
-	local enemyModList = new("ModList")
-	self.enemyModList = enemyModList
+function ConfigTabClass:UpdateLevel()
 	local input = self.input
 	local placeholder = self.placeholder
-	--enemy level handled here because it's needed to correctly set boss stats
 	if input.enemyLevel and input.enemyLevel > 0 then
 		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, input.enemyLevel)
 	elseif placeholder.enemyLevel and placeholder.enemyLevel > 0 then
@@ -493,6 +676,16 @@ function ConfigTabClass:BuildModList()
 	else
 		self.enemyLevel = m_min(data.misc.MaxEnemyLevel, self.build.characterLevel)
 	end
+end
+
+function ConfigTabClass:BuildModList()
+	local modList = new("ModList")
+	self.modList = modList
+	local enemyModList = new("ModList")
+	self.enemyModList = enemyModList
+	local input = self.input
+	local placeholder = self.placeholder
+	self:UpdateLevel() -- enemy level handled here because it's needed to correctly set boss stats
 	for _, varData in ipairs(varList) do
 		if varData.apply then
 			if varData.type == "check" then

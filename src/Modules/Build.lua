@@ -45,6 +45,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
 	self.pantheonMinorGod = "None"
+	self.characterLevelAutoMode = true
 	if buildXML then
 		if self:LoadDB(buildXML, "Unnamed build") then
 			self:CloseBuild()
@@ -159,13 +160,23 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
-		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
+	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 50, 20, self.characterLevelAutoMode and "Auto" or "Manual", function()
+		self.characterLevelAutoMode = not self.characterLevelAutoMode
+		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
+		self.recalcAdaptiveLevel = true
 		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.characterLevel:SetText(tostring(self.characterLevel))
+	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, 8, 0, 106, 20, "", "Level", "%D", 3, function(buf)
+		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
+		self.configTab:BuildModList()
+		self.modFlag = true
+		self.buildFlag = true
+		self.characterLevelAutoMode = false
+		self.controls.levelScalingButton.label = "Manual"
+	end)
+	self.controls.characterLevel:SetText(self.characterLevel)
 	self.controls.characterLevel.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.characterLevel) then
 			tooltip:AddLine(16, "Experience multiplier:")
@@ -267,6 +278,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "MirageDPS", label = "Total Mirage DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
+		{ stat = "ReservationDPS", label = "Reservation DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.ReservationDPS or 0) > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and ( o.showTotalDotDPS or ( v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS ) ) end },
 		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
@@ -289,6 +301,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ESPercentPerSecondCost", label = "ES Cost per second", fmt = ".2f%%", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPercentPerSecondHasCost end },
 		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RageHasCost end },
 		{ stat = "RagePerSecondCost", label = "Rage Cost per second", fmt = ".2f", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RagePerSecondHasCost end },
+		{ stat = "SoulCost", label = "Soul Cost", fmt = "d", color = colorCodes.RAGE, pool = "Soul", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.SoulHasCost end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
 		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end, warnFunc = function(v) return "You do not meet the Strength requirement" end },
@@ -399,6 +412,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
+		{ stat = "ReservationDPS", label = "Reservation DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.ReservationDPS or 0) > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "Life", label = "Total Life", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
@@ -734,8 +748,18 @@ function buildMode:EstimatePlayerProgress()
 	end
 	
 	-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
-	levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
+	levelreq = m_min(math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level), 100)
 	
+	self.lastAllocated = self.lastAllocated or -1
+	
+	if self.characterLevelAutoMode and (self.lastAllocated ~= PointsUsed or self.recalcAdaptiveLevel) then
+		self.characterLevel = levelreq
+		self.controls.characterLevel:SetText(self.characterLevel)
+		self.recalcAdaptiveLevel = false
+	end
+	
+	self.lastAllocated = PointsUsed
+
 	-- Ascendency points for lab
 	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
 	local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
@@ -762,7 +786,7 @@ function buildMode:CanExit(mode)
 end
 
 function buildMode:Shutdown()
-	if launch.devMode and self.targetVersion and not self.abortSave then
+	if launch.devMode and (not main.disableDevAutoSave) and self.targetVersion and not self.abortSave then
 		if self.dbFileName then
 			self:SaveDBFile()
 		elseif self.unsaved then		
@@ -792,6 +816,7 @@ function buildMode:Load(xml, fileName)
 		self.viewMode = xml.attrib.viewMode
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
+	self.characterLevelAutoMode = xml.attrib.characterLevelAutoMode == "true"
 	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
@@ -835,6 +860,7 @@ function buildMode:Save(xml)
 		pantheonMajorGod = self.configTab.input.pantheonMajorGod,
 		pantheonMinorGod = self.configTab.input.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
+		characterLevelAutoMode = tostring(self.characterLevelAutoMode)
 	}
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })

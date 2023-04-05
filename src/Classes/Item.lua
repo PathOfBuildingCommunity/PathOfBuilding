@@ -130,11 +130,15 @@ function ItemClass:ParseRaw(raw)
 	self.scourgeModLines = { }
 	self.implicitModLines = { }
 	self.explicitModLines = { }
+	self.crucibleModLines = { }
 	local implicitLines = 0
 	self.variantList = nil
 	self.prefixes = { }
 	self.suffixes = { }
 	self.requirements = { }
+	self.requirements.str = 0
+	self.requirements.dex = 0
+	self.requirements.int = 0
 	local importedLevelReq
 	local flaskBuffLines
 	local deferJewelRadiusIndexAssignment
@@ -317,6 +321,8 @@ function ItemClass:ParseRaw(raw)
 					self.crafted = true
 				elseif specName == "Scourge" then
 					self.scourge = true
+				elseif specName == "Crucible" then
+					self.crucible = true
 				elseif specName == "Implicit" then
 					self.implicit = true
 				elseif specName == "Prefix" then
@@ -483,6 +489,7 @@ function ItemClass:ParseRaw(raw)
 				local enchant = line:match(" %(enchant%)")
 				local classReq = line:find("Requires Class")
 				local scourge = line:match("{scourge}") or line:match(" %(scourge%)")
+				local crucible = line:match("{crucible}") or line:match(" %(crucible%)")
 				local crafted = line:match("{crafted}") or line:match(" %(crafted%)") or enchant
 				local custom = line:match("{custom}")
 				local modTagsText = line:match("{tags:([^}]*)}") or ''
@@ -496,13 +503,13 @@ function ItemClass:ParseRaw(raw)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)",""):gsub(" %(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)","")
+				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)",""):gsub(" %(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)",""):gsub(" %(crucible%)", "")
 				local catalystScalar = getCatalystScalar(self.catalyst, modTags, self.catalystQuality)
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
-					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)",""):gsub(" ?%(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)","")
+					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)",""):gsub(" ?%(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)",""):gsub(" %(crucible%)", "")
 					local combLine = line.." "..nextLine
 					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
 					modList, extra = modLib.parseMod(rangedLine or combLine, true)
@@ -544,11 +551,13 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.classRequirementModLines
 				elseif implicit or (not crafted and #self.enchantModLines + #self.scourgeModLines + #self.implicitModLines < implicitLines) then
 					modLines = self.implicitModLines
+				elseif crucible then
+					modLines = self.crucibleModLines
 				else
 					modLines = self.explicitModLines
 				end
 				if modList then
-					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or main.defaultItemAffixQuality), valueScalar = catalystScalar })
+					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crucible = crucible, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or main.defaultItemAffixQuality), valueScalar = catalystScalar })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -563,12 +572,12 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned") and not (self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type))) then
-						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
+						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crucible = crucible, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
+					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crucible = crucible, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 				end
 			end
 		end
@@ -779,6 +788,9 @@ function ItemClass:BuildRaw()
 		if modLine.scourge then
 			line = "{scourge}" .. line
 		end
+		if modLine.crucible then
+			line = "{crucible}" .. line
+		end
 		if modLine.fractured then
 			line = "{fractured}" .. line
 		end
@@ -872,6 +884,9 @@ function ItemClass:BuildRaw()
 		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.explicitModLines) do
+		writeModLine(modLine)
+	end
+	for _, modLine in ipairs(self.crucibleModLines) do
 		writeModLine(modLine)
 	end
 	if self.split then
@@ -1188,12 +1203,14 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100)
 				flaskData.lifeTotal = flaskData.lifeInstant + flaskData.lifeGradual
 				flaskData.lifeAdditional = calcLocal(modList, "FlaskAdditionalLifeRecovery", "BASE", 0)
+				flaskData.lifeEffectNotRemoved = calcLocal(baseList, "LifeFlaskEffectNotRemoved", "FLAG", 0)
 			end
 			if self.base.flask.mana then
 				flaskData.manaBase = self.base.flask.mana * (1 + self.quality / 100) * recoveryMod
 				flaskData.manaInstant = flaskData.manaBase * flaskData.instantPerc / 100
 				flaskData.manaGradual = flaskData.manaBase * (1 - flaskData.instantPerc / 100)
 				flaskData.manaTotal = flaskData.manaInstant + flaskData.manaGradual
+				flaskData.manaEffectNotRemoved = calcLocal(baseList, "ManaFlaskEffectNotRemoved", "FLAG", 0)
 			end
 		else
 			-- Utility flask
@@ -1334,14 +1351,17 @@ function ItemClass:BuildModList()
 	for _, modLine in ipairs(self.explicitModLines) do
 		processModLine(modLine)
 	end
+	for _, modLine in ipairs(self.crucibleModLines) do
+		processModLine(modLine)
+	end
 	if calcLocal(baseList, "NoAttributeRequirements", "FLAG", 0) then
 		self.requirements.strMod = 0
 		self.requirements.dexMod = 0
 		self.requirements.intMod = 0
 	else
-		self.requirements.strMod = m_floor((self.requirements.str or 0 + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
-		self.requirements.dexMod = m_floor((self.requirements.dex or 0 + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
-		self.requirements.intMod = m_floor((self.requirements.int or 0 + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
+		self.requirements.strMod = m_floor((self.requirements.str + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
+		self.requirements.dexMod = m_floor((self.requirements.dex + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
+		self.requirements.intMod = m_floor((self.requirements.int + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
 	end
 	self.grantedSkills = { }
 	for _, skill in ipairs(baseList:List(nil, "ExtraSkill")) do

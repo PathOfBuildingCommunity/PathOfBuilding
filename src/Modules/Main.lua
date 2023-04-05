@@ -530,6 +530,9 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.invertSliderScrollDirection then
 					self.invertSliderScrollDirection = node.attrib.invertSliderScrollDirection == "true"
 				end
+				if node.attrib.disableDevAutoSave then
+					self.disableDevAutoSave = node.attrib.disableDevAutoSave == "true"
+				end
 			end
 		end
 	end
@@ -629,6 +632,7 @@ function main:SaveSettings()
 		slotOnlyTooltips = tostring(self.slotOnlyTooltips),
 		POESESSID = self.POESESSID,
 		invertSliderScrollDirection = tostring(self.invertSliderScrollDirection),
+		disableDevAutoSave = tostring(self.disableDevAutoSave),
 	} })
 	local res, errMsg = common.xml.SaveXMLFile(setXML, self.userPath.."Settings.xml")
 	if not res then
@@ -782,6 +786,15 @@ function main:OpenOptionsPopup()
 	end)
 	controls.invertSliderScrollDirection.tooltipText = "Default scroll direction is:\nScroll Up = Move right\nScroll Down = Move left"
 	controls.invertSliderScrollDirection.state = self.invertSliderScrollDirection
+	
+	if launch.devMode then
+		nextRow()
+		controls.disableDevAutoSave = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Disable Dev AutoSave:", function(state)
+			self.disableDevAutoSave = state
+		end)
+		controls.disableDevAutoSave.tooltipText = "Do not Autosave builds while on Dev branch"
+		controls.disableDevAutoSave.state = self.disableDevAutoSave
+	end
 
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
@@ -797,6 +810,7 @@ function main:OpenOptionsPopup()
 	local initialShowWarnings = self.showWarnings
 	local initialSlotOnlyTooltips = self.slotOnlyTooltips
 	local initialInvertSliderScrollDirection = self.invertSliderScrollDirection
+	local initialDisableDevAutoSave = self.disableDevAutoSave
 
 	-- last line with buttons has more spacing
 	nextRow(1.5)
@@ -838,6 +852,7 @@ function main:OpenOptionsPopup()
 		self.showWarnings = initialShowWarnings
 		self.slotOnlyTooltips = initialSlotOnlyTooltips
 		self.invertSliderScrollDirection = initialInvertSliderScrollDirection
+		self.disableDevAutoSave = initialDisableDevAutoSave
 		main:ClosePopup()
 	end)
 	nextRow(1.5)
@@ -919,23 +934,39 @@ function main:OpenAboutPopup()
 		end
 	end
 	local helpList = { }
-	local helpName = launch.devMode and "../help.txt" or "help.txt"
-	local helpFile = io.open(helpName, "r")
-	if helpFile then
-		helpFile:close()
-		for line in io.lines(helpName) do
-			local title, titleIndex = line:match("^---%[(.+)%]%[(.+)%]$")
-			if title then
-				if #helpList > 0 then
-					t_insert(helpList, { height = 10 })
-				end
-				t_insert(helpList, { height = 18, "^7"..title.." ("..titleIndex..")" })
-			else
-				local dev = line:match("^DEV%[(.+)%]$")
-				if not ( dev and not launch.devMode ) then
-					line = (dev or line)
-					local outdent, indent = line:match("(.*)\t+(.*)")
-					t_insert(helpList, { height = 12, "^7"..(outdent or line), "^7"..(indent or "") })
+	do
+		local helpName = launch.devMode and "../help.txt" or "help.txt"
+		local helpFile = io.open(helpName, "r")
+		if helpFile then
+			helpFile:close()
+			for line in io.lines(helpName) do
+				local title, titleIndex = line:match("^---%[(.+)%]%[(.+)%]$")
+				if title then
+					if #helpList > 0 then
+						t_insert(helpList, { height = 10 })
+					end
+					t_insert(helpList, { height = 18, "^7"..title.." ("..titleIndex..")" })
+				else
+					local dev = line:match("^DEV%[(.+)%]$")
+					if not ( dev and not launch.devMode ) then
+						line = (dev or line)
+						local outdent, indent = line:match("(.*)\t+(.*)")
+						if outdent then
+							local indentLines = self:WrapString(indent, 12, 500)
+							if #indentLines > 1 then
+								for i, indentLine in ipairs(indentLines) do
+									t_insert(helpList, { height = 12, (i == 1 and outdent or " "), "^7"..indentLine })
+								end
+							else
+								t_insert(helpList, { height = 12, "^7"..outdent, "^7"..indent })
+							end
+						else
+							local Lines = self:WrapString(line, 12, 610)
+							for i, line2 in ipairs(Lines) do
+								t_insert(helpList, { height = 12, "^7"..(i > 1 and "    " or "")..line2 })
+							end
+						end
+					end
 				end
 			end
 		end
@@ -1222,16 +1253,16 @@ do
 				s = #str + 1
 				e = #str + 1
 			end
-			if DrawStringWidth(height, "VAR", str:sub(lineStart, s - 1)) > width then
-				t_insert(wrapTable, str:sub(lineStart, lastBreak))
-				lineStart = lastSpace
-			end
 			if s > #str then
 				t_insert(wrapTable, str:sub(lineStart, -1))
 				break
 			end
 			lastBreak = s - 1
 			lastSpace = e + 1
+			if DrawStringWidth(height, "VAR", str:sub(lineStart, s - 1)) > width then
+				t_insert(wrapTable, str:sub(lineStart, lastBreak))
+				lineStart = lastSpace
+			end
 		end
 		return wrapTable
 	end

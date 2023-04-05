@@ -200,7 +200,7 @@ function GemSelectClass:UpdateSortCache()
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
 		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
 		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
-		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
+		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerGemType == self.skillsTab.showSupportGemTypes then
 		return
 	end
 
@@ -581,21 +581,18 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		if cost then
 			self.tooltip:AddLine(16, "^x7F7F7FCost: ^7"..cost)
 		end
-		if grantedEffectLevel.soulCost then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FSouls Per Use: ^7%d", grantedEffectLevel.soulCost))
-		end
-		if grantedEffectLevel.skillUseStorage then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FCan Store ^7%d ^x7F7F7FUse (%d Souls)", grantedEffectLevel.skillUseStorage, grantedEffectLevel.skillUseStorage * grantedEffectLevel.soulCost))
-		end
-		if grantedEffectLevel.soulPreventionDuration then
-			self.tooltip:AddLine(16, string.format("^x7F7F7FSoul Gain Prevention: ^7%d sec", grantedEffectLevel.soulPreventionDuration))
-		end
 		if grantedEffectLevel.cooldown then
 			local string = string.format("^x7F7F7FCooldown Time: ^7%.2f sec", grantedEffectLevel.cooldown)
 			if grantedEffectLevel.storedUses and grantedEffectLevel.storedUses > 1 then
 				string = string .. string.format(" (%d uses)", grantedEffectLevel.storedUses)
 			end
 			self.tooltip:AddLine(16, string)
+		end
+		if grantedEffectLevel.vaalStoredUses then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FCan Store ^7%d ^x7F7F7FUse (%d Souls)", grantedEffectLevel.vaalStoredUses, grantedEffectLevel.vaalStoredUses * grantedEffectLevel.cost.Soul))
+		end
+		if grantedEffectLevel.soulPreventionDuration then
+			self.tooltip:AddLine(16, string.format("^x7F7F7FSoul Gain Prevention: ^7%d sec", grantedEffectLevel.soulPreventionDuration))
 		end
 		if gemInstance.gemData.tags.attack then
 			if grantedEffectLevel.attackSpeedMultiplier then

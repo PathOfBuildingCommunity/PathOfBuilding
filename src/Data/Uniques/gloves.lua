@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Gloves: Armour
@@ -994,6 +994,7 @@ Requires Level 67, 51 Dex, 51 Int
 Entropic Devastation
 Assassin's Mitts
 Source: Drops from unique{The Shaper} (Uber)
+Shaper Item
 Grants Call of Steel
 (100-150)% increased Evasion and Energy Shield
 (30-50)% increased Effect of Impales inflicted with Spells

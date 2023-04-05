@@ -168,7 +168,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
+		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), latestTreeVersion)
 		newSpec:BuildClusterJewelGraphs()
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
 		self:SetActiveSpec(self.activeSpec + 1)
@@ -789,34 +789,34 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	local conquerorTypes = {
 		[1] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_doryani", "explicit.pseudo_timeless_jewel_xibaqua", "explicit.pseudo_timeless_jewel_ahuana" } },
-			{ label = "Doryani (Corrupted Soul)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_doryani" } },
-			{ label = "Xibaqua (Divine Flesh)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_xibaqua" } },
-			{ label = "Ahuana (Immortal Ambition)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_ahuana" } }
+			{ label = "Any", id = 1 },
+			{ label = "Doryani (Corrupted Soul)", id = 2 },
+			{ label = "Xibaqua (Divine Flesh)", id = 3 },
+			{ label = "Ahuana (Immortal Ambition)", id = 4 }
 		},
 		[2] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_kaom", "explicit.pseudo_timeless_jewel_rakiata", "explicit.pseudo_timeless_jewel_akoya" } },
-			{ label = "Kaom (Strength of Blood)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_kaom" } },
-			{ label = "Rakiata (Tempered by War)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_rakiata" } },
-			{ label = "Akoya (Chainbreaker)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_akoya" } }
+			{ label = "Any", id = 1 },
+			{ label = "Kaom (Strength of Blood)", id = 2 },
+			{ label = "Rakiata (Tempered by War)", id = 3 },
+			{ label = "Akoya (Chainbreaker)", id = 4 }
 		},
 		[3] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_asenath", "explicit.pseudo_timeless_jewel_nasima", "explicit.pseudo_timeless_jewel_balbala" } },
-			{ label = "Asenath (Dance with Death)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_asenath" } },
-			{ label = "Nasima (Second Sight)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_nasima" } },
-			{ label = "Balbala (The Traitor)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_balbala" } }
+			{ label = "Any", id = 1 },
+			{ label = "Asenath (Dance with Death)", id = 2 },
+			{ label = "Nasima (Second Sight)", id = 3 },
+			{ label = "Balbala (The Traitor)", id = 4 }
 		},
 		[4] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_avarius", "explicit.pseudo_timeless_jewel_dominus", "explicit.pseudo_timeless_jewel_maxarius" } },
-			{ label = "Avarius (Power of Purpose)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_avarius" } },
-			{ label = "Dominus (Inner Conviction)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_dominus" } },
-			{ label = "Maxarius (Transcendence)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_maxarius" } }
+			{ label = "Any", id = 1 },
+			{ label = "Avarius (Power of Purpose)", id = 2 },
+			{ label = "Dominus (Inner Conviction)", id = 3 },
+			{ label = "Maxarius (Transcendence)", id = 4 }
 		},
 		[5] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_cadiro", "explicit.pseudo_timeless_jewel_victario", "explicit.pseudo_timeless_jewel_caspiro" } },
-			{ label = "Cadiro (Supreme Decadence)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_cadiro" } },
-			{ label = "Victario (Supreme Grandstanding)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_victario" } },
-			{ label = "Caspiro (Supreme Ostentation)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_caspiro" } }
+			{ label = "Any", id = 1 },
+			{ label = "Cadiro (Supreme Decadence)", id = 2 },
+			{ label = "Victario (Supreme Grandstanding)", id = 3 },
+			{ label = "Caspiro (Supreme Ostentation)", id = 4 }
 		}
 	}
 	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
@@ -832,21 +832,21 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	local devotionVariants = {
 		{ id = 1 , label = "Any" },
-		{ id = 2 , label = "Totem Damage",                    tradeId = "explicit.stat_2566390555" },
-		{ id = 3 , label = "Brand Damage",                    tradeId = "explicit.stat_2697019412" },
-		{ id = 4 , label = "Channelling Damage",              tradeId = "explicit.stat_970844066" },
-		{ id = 5 , label = "Area Damage",                     tradeId = "explicit.stat_1724614884" },
-		{ id = 6 , label = "Elemental Damage",                tradeId = "explicit.stat_3103189267" },
-		{ id = 7 , label = "Elemental Resistances",           tradeId = "explicit.stat_1910205563" },
-		{ id = 8 , label = "Effect of non-Damaging Ailments", tradeId = "explicit.stat_1810368194" },
-		{ id = 9 , label = "Elemental Ailment Duration",      tradeId = "explicit.stat_730530528" },
-		{ id = 10, label = "Duration of Curses",              tradeId = "explicit.stat_4235333770" },
-		{ id = 11, label = "Minion Attack and Cast Speed",    tradeId = "explicit.stat_3808469650" },
-		{ id = 12, label = "Minions Accuracy Rating",         tradeId = "explicit.stat_2830135449" },
-		{ id = 13, label = "Mana Regen",                      tradeId = "explicit.stat_2042813020" },
-		{ id = 14, label = "Skill Cost",                      tradeId = "explicit.stat_3293275880" },
-		{ id = 15, label = "Non-Curse Aura Effect",           tradeId = "explicit.stat_2585926696" },
-		{ id = 16, label = "Defences from Shield",            tradeId = "explicit.stat_2803981661" }
+		{ id = 2 , label = "Totem Damage" },
+		{ id = 3 , label = "Brand Damage" },
+		{ id = 4 , label = "Channelling Damage" },
+		{ id = 5 , label = "Area Damage" },
+		{ id = 6 , label = "Elemental Damage" },
+		{ id = 7 , label = "Elemental Resistances" },
+		{ id = 8 , label = "Effect of non-Damaging Ailments" },
+		{ id = 9 , label = "Elemental Ailment Duration" },
+		{ id = 10, label = "Duration of Curses" },
+		{ id = 11, label = "Minion Attack and Cast Speed" },
+		{ id = 12, label = "Minions Accuracy Rating" },
+		{ id = 13, label = "Mana Regen" },
+		{ id = 14, label = "Skill Cost" },
+		{ id = 15, label = "Non-Curse Aura Effect" },
+		{ id = 16, label = "Defences from Shield" }
 	}
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
@@ -1519,7 +1519,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
 		local seedTrades = {}
 		local startRow = controls.searchResults.selIndex or 1
-		local endRow = startRow + m_floor(10 / (#timelessData.sharedResults.conqueror.tradeId))
+		local endRow = startRow + m_floor(10 / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
 		if controls.searchResults.highlightIndex then
 			startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
 			endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
@@ -1545,7 +1545,13 @@ function TreeTabClass:FindTimelessJewel()
 		for i = startRow, startRow + seedCount - 1 do
 			local result = timelessData.searchResults[i]
 
-			for _, tradeId in ipairs(timelessData.sharedResults.conqueror.tradeId) do
+			local conquerorKeystoneTradeIds = data.timelessJewelTradeIDs[timelessData.jewelType.id].keystone
+			local conquerorTradeIds = { conquerorKeystoneTradeIds[1], conquerorKeystoneTradeIds[2], conquerorKeystoneTradeIds[3] }
+			if timelessData.sharedResults.conqueror.id > 1 then
+				conquerorTradeIds = { conquerorKeystoneTradeIds[timelessData.sharedResults.conqueror.id - 1] }
+			end
+			
+			for _, tradeId in ipairs(conquerorTradeIds) do
 				t_insert(seedTrades, {
 					id = tradeId,
 					value = {
@@ -1576,13 +1582,13 @@ function TreeTabClass:FindTimelessJewel()
 			}
 		}
 
-		if timelessData.sharedResults.devotionVariant1.tradeId or timelessData.sharedResults.devotionVariant2.tradeId then
+		if (timelessData.sharedResults.devotionVariant1.id > 1) or (timelessData.sharedResults.devotionVariant2.id > 1) then
 			local devotionFilters = {}
-			if timelessData.sharedResults.devotionVariant1.tradeId then
-				t_insert(devotionFilters, { id = timelessData.sharedResults.devotionVariant1.tradeId })
+			if timelessData.sharedResults.devotionVariant1.id > 1 then
+				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant1.id - 1] })
 			end
-			if timelessData.sharedResults.devotionVariant2.tradeId then
-				t_insert(devotionFilters, { id = timelessData.sharedResults.devotionVariant2.tradeId })
+			if timelessData.sharedResults.devotionVariant2.id > 1 then
+				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant2.id - 1] })
 			end
 			t_insert(search.query.stats, {
 				filters = devotionFilters,

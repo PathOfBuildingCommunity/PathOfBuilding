@@ -86,6 +86,7 @@ table.insert(paradoxica, "Attacks with this Weapon deal Double Damage")
 table.insert(data.uniques.generated, table.concat(paradoxica, "\n"))
 
 local caneOfKulemakMods = getVeiledMods("catarina", "weapon", "staff", "two_hand_weapon")
+local caneOfKulemakMinUnveiledModifierMagnitudes, caneOfKulemakMaxUnveiledModifierMagnitudes = 60, 90
 local caneOfKulemak = {
 	"Cane of Kulemak",
 	"Serpentine Staff",
@@ -103,10 +104,16 @@ end
 table.insert(caneOfKulemak, "Requires Level 68, 85 Str, 85 Int")
 table.insert(caneOfKulemak, "Implicits: 1")
 table.insert(caneOfKulemak, "+20% Chance to Block Attack Damage while wielding a Staff")
-table.insert(caneOfKulemak, "(60-90)% increased Unveiled Modifier magnitudes")
+table.insert(caneOfKulemak, "("..caneOfKulemakMinUnveiledModifierMagnitudes.."-"..caneOfKulemakMaxUnveiledModifierMagnitudes..")% increased Unveiled Modifier magnitudes")
 
 for index, mod in pairs(caneOfKulemakMods) do
 	for _, value in pairs(mod.veiledLines) do
+		local minValue, maxValue = value:match("%((%d+)%-(%d+)%)")
+		if minValue then
+			value = value:gsub("%(%d+%-%d+%)", "%("..tostring(math.floor(minValue*(100 + caneOfKulemakMinUnveiledModifierMagnitudes) / 100)).."%-"..tostring(math.floor(maxValue*(100 + caneOfKulemakMaxUnveiledModifierMagnitudes) / 100)).."%)")
+		elseif value == "+2 to Level of Socketed Support Gems" then
+			value = "+3 to Level of Socketed Support Gems"
+		end
 		table.insert(caneOfKulemak, "{variant:"..index.."}"..value.."")
 	end
 end
@@ -426,9 +433,14 @@ local balanceOfTerror = {
 	"League: Sanctum",
 	"Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}",
 	"Has Alt Variant: true",
+	"Has Alt Variant Two: true",
+	"Selected Alt Variant Two: 1",
 	"Limited to: 1",
 	"LevelReq: 56",
 }
+
+-- adding a blank variant for 3 mod jewels
+table.insert(balanceOfTerror, "Variant: None")
 
 for name, _ in pairs(balanceOfTerrorMods) do
 	table.insert(balanceOfTerror, "Variant: "..name)
@@ -436,7 +448,7 @@ end
 
 table.insert(balanceOfTerror, "+(10-15)% to all Elemental Resistances")
 
-local index = 1
+local index = 2
 for _, line in pairs(balanceOfTerrorMods) do
 	table.insert(balanceOfTerror, "{variant:"..index.."}"..line)
 	index = index + 1
@@ -584,6 +596,9 @@ Prismatic Jewel
 Source: Drops from unique{The Elder} or unique{The Elder} (Uber)
 Has Alt Variant: true
 Has Alt Variant Two: true
+Selected Variant: 5
+Selected Alt Variant: 30
+Selected Alt Variant Two: 1
 ]]
 }
 
@@ -605,8 +620,11 @@ League: Expedition
 Source: Drops from unique{Olroth, Origin of the Fall} in normal{Expedition Logbook}
 Has Alt Variant: true
 Has Alt Variant Two: true
-Selected Variant: 1
-Selected Alt Variant: 2
+Has Alt Variant Three: true
+Selected Variant: 24
+Selected Alt Variant: 10
+Selected Alt Variant Two: 11
+Selected Alt Variant Three: 13
 ]]
 }
 
@@ -620,6 +638,10 @@ local abbreviateModId = function(string)
 	gsub("Multiplier", "Mult"):
 	gsub("EnergyShield", "ES"))
 end
+
+-- adding a blank variant to account for changes made in 3.20.1
+table.insert(voranasMarch, "Variant: None")
+table.insert(watchersEye, "Variant: None")
 
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
@@ -658,9 +680,9 @@ Has no Sockets
 Triggers Level 20 Summon Arbalists when Equipped
 25% increased Movement Speed]])
 
-local indexWatchersEye = 1
+local indexWatchersEye = 2
 local indexSublimeVision = 1
-local indexVoranasMarch = 1
+local indexVoranasMarch = 2
 for _, mod in ipairs(data.uniqueMods["Watcher's Eye"]) do
 	if not (mod.Id:match("^SublimeVision") or mod.Id:match("^SummonArbalist")) then
 		if watchersEyeLegacyMods[mod.Id] then

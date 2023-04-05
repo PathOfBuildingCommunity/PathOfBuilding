@@ -55,6 +55,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBlockReduction
+	statMap = {
+		["global_reduce_enemy_block_%"] = {
+			mod("reduceEnemyBlock", "BASE", nil, 0, 0)
+		},
+		["support_reduce_enemy_block_and_spell_block_%"] = {
+			mod("reduceEnemyBlock", "BASE", nil, 0, 0)
+		},
+	},
 #mods
 
 #skill SupportCastOnCrit

@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: Claw
@@ -153,22 +153,30 @@ Implicits: 3
 {variant:5,6}Ghost Reaver
 ]],[[
 Hand of Thought and Motion
-Blinder
+{variant:1,2,3}Blinder
+{variant:4}Imperial Claw
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Hand of Wisdom and Action} using currency{Blessing of Esh}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 22, 41 Dex, 41 Int
-Implicits: 2
+Implicits: 3
 {variant:1}Grants 10 Life per Enemy Hit
 {variant:2,3}Grants 12 Life per Enemy Hit
-(20-25)% increased Elemental Damage with Attack Skills
-Adds 1 to (50-60) Lightning Damage
-(10-15)% increased Attack Speed
+{variant:4}Grants 46 Life per Enemy Hit
+{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
+{variant:1,2,3}Adds 1 to (50-60) Lightning Damage
+{variant:1,2,3}(10-15)% increased Attack Speed
+{variant:4}(8-12)% increased Dexterity
+{variant:4}(8-12)% increased Intelligence
+{variant:4}Recover 1% of Life on Kill
 {variant:1,2}Adds 1 to 3 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:3}Adds 1 to 5 Lightning Damage to Attacks with this Weapon per 10 Intelligence
+{variant:4}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Dexterity
+{variant:4}5% increased Critical Strike Chance per 25 Intelligence
 ]],[[
 Hand of Wisdom and Action
 Imperial Claw
@@ -176,16 +184,18 @@ League: Breach
 Source: Upgraded from unique{Hand of Thought and Motion} using currency{Blessing of Esh}
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}Grants 25 Life per Enemy Hit
-{variant:2,3}Grants 46 Life per Enemy Hit
-(20-25)% increased Elemental Damage with Attack Skills
+{variant:2,3,4}Grants 46 Life per Enemy Hit
+{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
+{variant:4}1% of Attack Damage Leeched as Life
 (8-12)% increased Dexterity
 (8-12)% increased Intelligence
 {variant:1,2}Adds 1 to 6 Lightning Damage to Attacks with this Weapon per 10 Intelligence
-{variant:3}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Intelligence
+{variant:3,4}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 1% increased Attack Speed per 25 Dexterity
 ]],[[
 Izaro's Dilemma
@@ -269,15 +279,17 @@ Ornament of the East
 Gut Ripper
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 46, 80 Dex, 80 Int
 Implicits: 2
 {variant:1}Grants 21 Life per Enemy Hit
-{variant:2,3}Grants 44 Life per Enemy Hit
+{variant:2,3,4}Grants 44 Life per Enemy Hit
 +1 to Level of Socketed Dexterity Gems
 {variant:3}Socketed Gems are Supported by Level 10 Faster Attacks
+{variant:4}Socketed Gems are Supported by Level 15 Faster Attacks
 {variant:1,2}(100-120)% increased Physical Damage
-{variant:3}(160-180)% increased Physical Damage
+{variant:3,4}(160-180)% increased Physical Damage
 (10-15)% increased Attack Speed
 25% increased Stun and Block Recovery
 Hits can't be Evaded

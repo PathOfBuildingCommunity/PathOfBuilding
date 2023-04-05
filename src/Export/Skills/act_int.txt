@@ -243,10 +243,13 @@ local skills, mod, flag, skill = ...
 		["ball_lightning_superball_%_chance"] = {
 			mod("ball_lightning_superball_%_chance", "BASE", nil)
 		},
+		["ball_lightning_projectile_speed_and_hit_frequency_+%_final"] = {
+			mod("ProjectileSpeed", "MORE", nil)
+		},
 	},
 #baseMod skill("radius", 18)
 #baseMod skill("strikeInterval", 0.15)
-#baseMod skill("projectileSpeed", 48)
+#baseMod skill("projectileSpeed", 40)
 #baseMod skill("duration", 2)
 #mods
 
@@ -885,6 +888,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 2)
 #baseMod skill("showAverage", true)
+#baseMod mod("PvpTvalueMultiplier", "MORE", 100, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" })
 #mods
 
 #skill VaalFlameblast
