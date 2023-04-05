@@ -128,6 +128,11 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeHeatMap = new("CheckBoxControl", { "LEFT", self.controls.findTimelessJewel, "RIGHT" }, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
+		
+		if state == false then 
+			self.showPowerReport = false 
+			self:TogglePowerReport()
+		end
 	end)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
