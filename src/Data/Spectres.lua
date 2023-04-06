@@ -1623,6 +1623,27 @@ minions["Metadata/Monsters/MineBat/MineBatAbyssLargeSpectre"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Spiders/DelveSpiderPacksMotherSpectre"] = {
+	name = "Azurite Widow",
+	life = 3.6,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.28,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 18,
+	accuracy = 1,
+	skillList = {
+		"DelveMeleeCold",
+		"DelveSpiderProjectile",
+		"DelveSpiderWeb",
+		"SSMDelveSpidersOnDamageTaken",
+	},
+	modList = {
+	},
+}
 -- Hellion
 minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	name = "Dune Hellion",

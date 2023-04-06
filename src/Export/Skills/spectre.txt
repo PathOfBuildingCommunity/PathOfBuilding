@@ -5,6 +5,14 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill DelveMeleeCold
+#flags attack melee projectile
+#mods
+
+#skill DelveSpiderProjectile Projectile
+#flags spell projectile
+#mods
+
 #skill AbyssBatTeleportSlam Teleport Slam
 #flags attack
 #baseMod mod("BleedChance", "BASE", 100)
