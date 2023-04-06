@@ -75,7 +75,7 @@ function PassiveTreeViewClass:Load(xml, fileName)
 	end
 	if xml.attrib.searchStr then
 		self.searchStr = xml.attrib.searchStr
-		self.searchStrSaved = xml.attrib.searchStrSaved
+		self.searchStrSaved = xml.attrib.searchStr
 	end
 	if xml.attrib.showHeatMap then
 		self.showHeatMap = xml.attrib.showHeatMap == "true"
