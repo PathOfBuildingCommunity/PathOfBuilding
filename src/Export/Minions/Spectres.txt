@@ -240,3 +240,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit
 -- Minotaur
 #spectre Metadata/Monsters/AtlasInvaders/CleansingMonsters/CleansingFodder2
+--Raised Zombie
+#spectre Metadata/Monsters/RaisedZombies/RaisedZombieStandard

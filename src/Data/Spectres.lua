@@ -3692,3 +3692,26 @@ minions["Metadata/Monsters/AtlasInvaders/CleansingMonsters/CleansingFodder2"] = 
 	modList = {
 	},
 }
+--Raised Zombie
+minions["Metadata/Monsters/RaisedZombies/RaisedZombieStandard"] = {
+	name = "Raised Zombie",
+	life = 3.75,
+	armour = 0.7,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1.65,
+	damageSpread = 0.4,
+	attackTime = 1.17,
+	attackRange = 11,
+	accuracy = 3.4,
+	skillList = {
+		"Melee",
+		"ZombieSlam",
+	},
+	modList = {
+		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
+		-- RaiseZombieStunThreshold [stun_threshold_+% = 30]
+	},
+}
