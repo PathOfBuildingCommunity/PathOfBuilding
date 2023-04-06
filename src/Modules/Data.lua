@@ -215,7 +215,7 @@ data.weaponTypeInfo = {
 	["One Handed Axe"] = { oneHand = true, melee = true, flag = "Axe" },
 	["One Handed Mace"] = { oneHand = true, melee = true, flag = "Mace" },
 	["One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword" },
-	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "One Handed Mace" },
+	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "Sceptre" },
 	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword", label = "One Handed Sword" },
 	["Fishing Rod"] = { oneHand = false, melee = true, flag = "Fishing" },
 	["Two Handed Axe"] = { oneHand = false, melee = true, flag = "Axe" },
