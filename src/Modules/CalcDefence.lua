@@ -89,8 +89,17 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local output = actor.output
 	local modDB = actor.modDB
 	local poolTbl = poolTable or { }
-	local frostShield = poolTbl.FrostShieldLife or output.FrostShieldLife or 0
-	local soulLink = poolTbl.SoulLink or output.SoulLink or 0
+	
+	local alliesTakenBeforeYou = poolTbl.alliesTakenBeforeYou
+	if not alliesTakenBeforeYou then
+		alliesTakenBeforeYou = {}
+		if output.FrostShieldLife then
+			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
+		end
+		if output.SoulLink then
+			alliesTakenBeforeYou["soulLink"] = { remaining = output.SoulLink, percent = output.SoulLinkMitigation / 100 }
+		end
+	end
 	
 	local PoolsLost = poolTbl.PoolsLost or { }
 	local aegis = poolTbl.Aegis
@@ -122,18 +131,16 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	
 	for damageType, damage in pairs(damageTable) do
 		local damageRemainder = damage
-		if frostShield > 0 then
-			local tempDamage = m_min(damageRemainder * output.FrostShieldDamageMitigation / 100, frostShield)
-			frostShield = frostShield - tempDamage
-			damageRemainder = damageRemainder - tempDamage
+		for _, allyValues in pairs(alliesTakenBeforeYou) do
+			if not allyValues.damageType or allyValues.damageType == damageType then
+				if allyValues.remaining > 0 then
+					local tempDamage = m_min(damageRemainder * allyValues.percent, allyValues.remaining)
+					allyValues.remaining = allyValues.remaining - tempDamage
+					damageRemainder = damageRemainder - tempDamage
+				end
+			end
 		end
-		-- soul link is not implemented for now
-		if soulLink > 0 then
-			local tempDamage = m_min(damageRemainder * output.SoulLinkMitigation / 100, soulLink)
-			soulLink = soulLink - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		end
-		-- frost shield and soul link does not count as you taking damage
+		-- frost shield / soul link / other taken before you does not count as you taking damage
 		PoolsLost[damageType] = (PoolsLost[damageType] or 0) + damageRemainder
 		if aegis[damageType] > 0 then
 			local tempDamage = m_min(damageRemainder, aegis[damageType])
@@ -225,8 +232,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	end
 
 	return {
-		FrostShieldLife = frostShield,
-		SoulLink = soulLink,
+		alliesTakenBeforeYou = alliesTakenBeforeYou,
 		Aegis = aegis,
 		Guard = guard,
 		PoolsLost = PoolsLost,
@@ -1982,9 +1988,12 @@ function calcs.buildDefenceEstimations(env, actor)
 			aegis[damageType] = output[damageType.."Aegis"] or 0
 			guard[damageType] = output[damageType.."GuardAbsorb"] or 0
 		end
+		local alliesTakenBeforeYou = {}
+		if output.FrostShieldLife then
+			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
+		end
 		local poolTable = {
-			FrostShieldLife = output.FrostShieldLife or 0,
-			SoulLink = 0,	-- soul link is not implemented for now
+			alliesTakenBeforeYou = alliesTakenBeforeYou,
 			Aegis = aegis,
 			Guard = guard,
 			Ward = ward,
@@ -2753,7 +2762,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			
 			local poolsRemaining = calcs.reducePoolsByDamage(nil, takenDamages, actor)
 			local poolRemainingStrings = {
-				output.FrostShieldLife and output.FrostShieldLife > 0 and s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.FrostShieldLife, poolsRemaining.FrostShieldLife) or nil,
+				output.FrostShieldLife and output.FrostShieldLife > 0 and s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.alliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.alliesTakenBeforeYou["frostShield"].remaining) or nil,
 				output.sharedAegis and output.sharedAegis > 0 and s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared) or nil,
 			}
 			local receivedElemental = false
