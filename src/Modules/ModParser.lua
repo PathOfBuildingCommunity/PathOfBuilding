@@ -4013,7 +4013,7 @@ local specialModList = {
 		flag("Condition:CanGainRage", { type = "Condition", varList = { "UsingAxe", "UsingSword" } }),
 	},
 	["regenerate (%d+) rage per second for every (%d+) life recovery per second from regeneration"] = function(num, _, div) return { 
-		mod("RageRegen", "BASE", num, {type = "PerStat", stat = "LifeRegen", div = tonumber(div) }),
+		mod("RageRegen", "BASE", num, {type = "PercentStat", stat = "LifeRegen", percent = tonumber(num/div*100) }),
 		flag("Condition:CanGainRage"),
 	} end,
 	["when you lose temporal chains you gain maximum rage"] = { flag("Condition:CanGainRage") },
