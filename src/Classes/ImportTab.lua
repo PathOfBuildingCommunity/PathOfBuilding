@@ -834,6 +834,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	item.classRequirementModLines = { }
 	item.implicitModLines = { }
 	item.explicitModLines = { }
+	item.crucibleModLines = { }
 	if itemData.enchantMods then
 		for _, line in ipairs(itemData.enchantMods) do
 			for line in line:gmatch("[^\n]+") do
@@ -871,6 +872,14 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
 				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
+			end
+		end
+	end
+	if itemData.crucibleMods then
+		for _, line in ipairs(itemData.crucibleMods) do
+			for line in line:gmatch("[^\n]+") do
+				local modList, extra = modLib.parseMod(line)
+				t_insert(item.crucibleModLines, { line = line, extra = extra, mods = modList or { } })
 			end
 		end
 	end

@@ -25,12 +25,7 @@ Steps:
 
 ## GGPK Data updates
 
-Updating data from the GGPK uses the PoB exporter (see CONTRIBUTING.md#exporting-ggpk-data-from-path-of-exile), followed by some manual tweaks that haven't been fixed in a script, yet.
-
-Steps:
-1. Run each script in the Exporter in order
-2. Revert the following changes similar to the linked examples:
-    - [Make sure the description of a keystone isn't removed](src/Data/LegionPassives.lua#L3911-L3915)
+Updating data from the GGPK uses the PoB exporter (see CONTRIBUTING.md#exporting-ggpk-data-from-path-of-exile).  Run each script in order, then check the differences in data to make sure nothing is missing that is expected.
 
 ## Skill tree updates
 
