@@ -563,6 +563,7 @@ holding Shift will put it in the second.]])
 			self.displayItem.catalyst = index - 1
 			if not self.displayItem.catalystQuality then
 				self.displayItem.catalystQuality = 20
+				self.controls.displayItemCatalystQualityEdit:SetText(self.displayItem.catalystQuality)
 			end
 			if self.displayItem.crafted then
 				for i = 1, self.displayItem.affixLimit do
@@ -577,8 +578,8 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemCatalyst.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and (self.displayItem.base.type == "Amulet" or self.displayItem.base.type == "Ring" or self.displayItem.base.type == "Belt")
 	end
-	self.controls.displayItemCatalystQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT",true}, 8, 0, 200, 20, function(buf)
-		self.displayItem.catalystQuality = round(buf * 20)
+	self.controls.displayItemCatalystQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
+		self.displayItem.catalystQuality = tonumber(buf)
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
