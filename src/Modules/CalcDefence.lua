@@ -102,7 +102,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		if output.TotalTotemLife then
 			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
 		end
-		-- soul link isnt implemented yet
+		-- soul link is not implemented yet
 		if output.SoulLink then
 			alliesTakenBeforeYou["soulLink"] = { remaining = output.SoulLink, percent = output.SoulLinkMitigation / 100 }
 		end
