@@ -502,8 +502,8 @@ data.misc = { -- magic numbers
 	PvpNonElemental1 = 0.57,
 	PvpNonElemental2 = 90,
 	-- Life Scaling Mastery
-	LowLifePercentage = 50,
-	FullLifePercentage = 100,
+	LowLifePercentage = 0.5,
+	FullLifePercentage = 1.0,
 }
 
 -- Load bosses
