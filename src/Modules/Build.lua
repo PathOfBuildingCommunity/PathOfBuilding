@@ -164,6 +164,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.characterLevelAutoMode = not self.characterLevelAutoMode
 		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
 		self.recalcAdaptiveLevel = true
+		self.configTab:BuildModList()
+		self.modFlag = true
+		self.buildFlag = true
 	end)
 	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, 8, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
