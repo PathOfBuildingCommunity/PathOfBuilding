@@ -6,6 +6,36 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["FireballTaowuDash"] = {
+	name = "Fireball",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 6.1999998092651,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Unleashes a ball of fire towards a target which explodes, damaging nearby foes.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.2,
+	baseFlags = {
+		area = true,
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "active_skill_ignite_damage_+%_final", 150 },
+		{ "active_skill_area_of_effect_radius_+%_final", 300 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"always_ignite",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
 skills["DelveMeleeCold"] = {
 	name = "Default Attack",
 	hidden = true,

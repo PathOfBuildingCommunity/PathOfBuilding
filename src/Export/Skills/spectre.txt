@@ -5,6 +5,10 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill FireballTaowuDash Fireball
+#flags area spell projectile
+#mods
+
 #skill DelveMeleeCold
 #flags attack melee projectile
 #mods

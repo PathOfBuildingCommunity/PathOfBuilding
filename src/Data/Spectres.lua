@@ -1644,6 +1644,35 @@ minions["Metadata/Monsters/Spiders/DelveSpiderPacksMotherSpectre"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/LeagueDelve/TaowuChampionSpectre"] = {
+	name = "Turong",
+	life = 3.6,
+	energyShield = 0.2,
+	armour = 0.5,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.31,
+	damageSpread = 0.2,
+	attackTime = 1.335,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"DelveMeleeFire",
+		"EmptyActionAttackTaowuDash",
+		"FireballTaowuDash",
+		"FireballTaowuCombo",
+		"AddBuffToTargetDelveDarkZone",
+		"DelveTaowuSlash",
+		"EmptyActionAttackTaowuDashSwipe",
+		"DelveTaowuDashAttack",
+		"DelveTaowuBackwardsSlash",
+		"WalkEmergeDelveWetaUpForward",
+	},
+	modList = {
+	},
+}
 -- Hellion
 minions["Metadata/Monsters/Lion/LionDesertSkinPuncture"] = {
 	name = "Dune Hellion",
