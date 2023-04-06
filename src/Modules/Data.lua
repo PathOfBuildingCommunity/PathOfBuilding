@@ -600,6 +600,48 @@ do
 	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
 end
 
+-- Manually seeded modifier tag against item slot table for Mastery Item Condition based modifiers
+-- Data is informed by getTagBasedModifiers() located in Item.lua
+data.itemTagSpecial = {
+	["life"] = {
+		["body armour"] = {
+			-- Keystone
+			"Blood Magic",
+			"Eternal Youth",
+			"Ghost Reaver",
+			"Mind Over Matter",
+			"The Agnostic",
+			"Vaal Pact",
+			"Zealot's Oath",
+			-- Special Cases
+			"Cannot Leech",
+		},
+	},
+	["evasion"] = {
+		["ring"] = {
+			-- Delve
+			"chance to Evade",
+			-- Unique
+			"Cannot Evade",
+		},
+	},
+}
+data.itemTagSpecialExclusionPattern = {
+	["life"] = {
+		["body armour"] = {
+			"increased Damage while Leeching Life",
+			"Life as Physical Damage",
+			"Life as Extra Maximum Energy Shield",
+			"maximum Life as Fire Damage",
+			"when on Full Life",
+		},
+	},
+	["evasion"] = {
+		["ring"] = {
+		},
+	},
+}
+
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
 
