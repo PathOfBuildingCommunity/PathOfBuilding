@@ -776,7 +776,7 @@ function buildMode:EstimatePlayerProgress()
 	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
 	self.Act = strAct
 	
-	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax), "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - extra .. "\Extra Skillpoints: " .. extra .. labSuggest
+	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax), "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - extra .. "\nExtra Skillpoints: " .. extra .. labSuggest
 end
 
 function buildMode:CanExit(mode)
