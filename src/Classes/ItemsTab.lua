@@ -554,7 +554,7 @@ holding Shift will put it in the second.]])
 
 	-- Section: Catalysts
 	self.controls.displayItemSectionCatalyst = new("Control", {"TOPLEFT",self.controls.displayItemSectionQuality,"BOTTOMLEFT"}, 0, 0, 0, function()
-		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualitySlider:IsShown()) and 28 or 0
+		return (self.controls.displayItemCatalyst:IsShown() or self.controls.displayItemCatalystQualityEdit:IsShown()) and 28 or 0
 	end)
 	self.controls.displayItemCatalyst = new("DropDownControl", {"TOPLEFT",self.controls.displayItemSectionCatalyst,"TOPRIGHT"}, 0, 0, 250, 20,
 		{"Catalyst","Abrasive (Attack)","Accelerating (Speed)","Fertile (Life & Mana)","Imbued (Caster)","Intrinsic (Attribute)","Noxious (Physical & Chaos Damage)",
@@ -577,8 +577,8 @@ holding Shift will put it in the second.]])
 	self.controls.displayItemCatalyst.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and (self.displayItem.base.type == "Amulet" or self.displayItem.base.type == "Ring" or self.displayItem.base.type == "Belt")
 	end
-	self.controls.displayItemCatalystQualitySlider = new("SliderControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT",true}, 8, 0, 200, 20, function(val)
-		self.displayItem.catalystQuality = round(val * 20)
+	self.controls.displayItemCatalystQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemCatalyst,"RIGHT",true}, 8, 0, 200, 20, function(buf)
+		self.displayItem.catalystQuality = round(buf * 20)
 		if self.displayItem.crafted then
 			for i = 1, self.displayItem.affixLimit do
 				-- Force affix selectors to update
@@ -589,13 +589,8 @@ holding Shift will put it in the second.]])
 		self.displayItem:BuildAndParseRaw()
 		self:UpdateDisplayItemTooltip()
 	end)
-	self.controls.displayItemCatalystQualitySlider.shown = function()
+	self.controls.displayItemCatalystQualityEdit.shown = function()
 		return self.displayItem and (self.displayItem.crafted or self.displayItem.hasModTags) and self.displayItem.catalyst and self.displayItem.catalyst > 0
-	end
-	self.controls.displayItemCatalystQualitySlider.tooltipFunc = function(tooltip, val)
-		local quality = round(val * 20)
-		tooltip:Clear()
-		tooltip:AddLine(16, "^7Quality: "..quality.."%")
 	end
 
 	-- Section: Cluster Jewel
@@ -1478,9 +1473,9 @@ function ItemsTabClass:SetDisplayItem(item)
 		self.controls.displayItemQualityEdit:SetText(item.quality)
 		self.controls.displayItemCatalyst:SetSel((item.catalyst or 0) + 1)
 		if item.catalystQuality then
-			self.controls.displayItemCatalystQualitySlider.val = m_min(item.catalystQuality / 20, 1)
+			self.controls.displayItemCatalystQualityEdit.buf = m_min(item.catalystQuality / 20, 1)
 		else
-			self.controls.displayItemCatalystQualitySlider.val = 1
+			self.controls.displayItemCatalystQualityEdit.buf = 1
 		end
 		self:UpdateCustomControls()
 		self:UpdateDisplayItemRangeLines()
