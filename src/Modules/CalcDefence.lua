@@ -96,6 +96,12 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		if output.FrostShieldLife then
 			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
 		end
+		if output.TotalSpectreLife then
+			alliesTakenBeforeYou["specters"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
+		end
+		if output.TotalTotemLife then
+			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
+		end
 		if output.SoulLink then
 			alliesTakenBeforeYou["soulLink"] = { remaining = output.SoulLink, percent = output.SoulLinkMitigation / 100 }
 		end
@@ -1900,8 +1906,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 	end
 	
-	-- Frost Shield
+	-- taken from allies before you, eg. frost shield
 	do
+		-- frost shield
 		output["FrostShieldLife"] = modDB:Sum("BASE", nil, "FrostGlobeHealth")
 		output["FrostShieldDamageMitigation"] = modDB:Sum("BASE", nil, "FrostGlobeDamageMitigation")
 		
@@ -1915,6 +1922,19 @@ function calcs.buildDefenceEstimations(env, actor)
 				s_format("= %d", lifeProtected),
 			}
 		end
+		
+		-- from specters
+		output["SpectreAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromSpectresBeforeYou")
+		if output["SpectreAllyDamageMitigation"] ~= 0 then
+			output["TotalSpectreLife"] = modDB:Sum("BASE", nil, "TotalSpectreLife")
+		end
+		
+		-- from totems
+		output["TotemAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromTotemsBeforeYou")
+		if output["TotemAllyDamageMitigation"] ~= 0 then
+			output["TotalTotemLife"] = modDB:Sum("BASE", nil, "TotalTotemLife")
+		end
+		
 	end
 	
 	-- Vaal Arctic Armour
@@ -1991,6 +2011,12 @@ function calcs.buildDefenceEstimations(env, actor)
 		local alliesTakenBeforeYou = {}
 		if output.FrostShieldLife then
 			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
+		end
+		if output.TotalSpectreLife then
+			alliesTakenBeforeYou["specters"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
+		end
+		if output.TotalTotemLife then
+			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
 		end
 		local poolTable = {
 			alliesTakenBeforeYou = alliesTakenBeforeYou,
@@ -2621,10 +2647,21 @@ function calcs.buildDefenceEstimations(env, actor)
 				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - GuardAbsorbRate / 100)
 			end
 		end
+		-- from allies before you
 		-- frost shield
 		if output["FrostShieldLife"] > 0 then
 			local poolProtected = output["FrostShieldLife"] / (output["FrostShieldDamageMitigation"] / 100) * (1 - output["FrostShieldDamageMitigation"] / 100)
 			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["FrostShieldDamageMitigation"] / 100)
+		end
+		-- spectres
+		if output["TotalSpectreLife"] and output["TotalSpectreLife"] > 0 then
+			local poolProtected = output["TotalSpectreLife"] / (output["SpectreAllyDamageMitigation"] / 100) * (1 - output["SpectreAllyDamageMitigation"] / 100)
+			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["SpectreAllyDamageMitigation"] / 100)
+		end
+		-- totems
+		if output["TotalTotemLife"] and output["TotalTotemLife"] > 0 then
+			local poolProtected = output["TotalTotemLife"] / (output["TotemAllyDamageMitigation"] / 100) * (1 - output["TotemAllyDamageMitigation"] / 100)
+			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["TotemAllyDamageMitigation"] / 100)
 		end
 	end
 
@@ -2763,6 +2800,8 @@ function calcs.buildDefenceEstimations(env, actor)
 			local poolsRemaining = calcs.reducePoolsByDamage(nil, takenDamages, actor)
 			local poolRemainingStrings = {
 				output.FrostShieldLife and output.FrostShieldLife > 0 and s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.alliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.alliesTakenBeforeYou["frostShield"].remaining) or nil,
+				output.TotalSpectreLife and output.TotalSpectreLife > 0 and s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.alliesTakenBeforeYou["specters"].remaining, poolsRemaining.alliesTakenBeforeYou["specters"].remaining) or nil,
+				output.TotalTotemLife and output.TotalTotemLife > 0 and s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.alliesTakenBeforeYou["totems"].remaining, poolsRemaining.alliesTakenBeforeYou["totems"].remaining) or nil,
 				output.sharedAegis and output.sharedAegis > 0 and s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared) or nil,
 			}
 			local receivedElemental = false

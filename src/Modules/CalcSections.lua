@@ -1937,6 +1937,18 @@ return {
 			{ modName = { "FrostGlobeHealth", "FrostGlobeDamageMitigation" } },
 		},
 	},
+	{ label = "Spectre Ally", haveOutput = "TotalSpectreLife",
+		{ format = "{0:output:TotalSpectreLife}",
+			{ breakdown = "TotalSpectreLife" },
+			{ modName = { "TotalSpectreLife", "takenFromSpectresBeforeYou" } },
+		},
+	},
+	{ label = "Totem Ally", haveOutput = "TotalTotemLife",
+		{ format = "{0:output:TotalTotemLife}",
+			{ breakdown = "TotalTotemLife" },
+			{ modName = { "TotalTotemLife", "takenFromTotemsBeforeYou" } },
+		},
+	},
 	{ label = "Hits before death",{ format = "{2:output:NumberOfDamagingHits}", },
 	}
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
