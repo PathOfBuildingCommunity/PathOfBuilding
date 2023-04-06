@@ -29,6 +29,15 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	
 	self:BuildModList()
 
+	self.toggleConfigs = false
+	self.controls.toggleConfigs = new("ButtonControl", { "TOPLEFT", self, "TOPLEFT" }, 8, 5, 200, 20, function()
+		-- dynamic text
+		return self.toggleConfigs and "Show Only Applicable Configs" or "Show Ineligible Configurations"
+	end, function()
+		self.toggleConfigs = not self.toggleConfigs
+	end)
+	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self.controls.toggleConfigs, "TOPLEFT" }, -10, 15, 0, 0, "")
+
 	local function implyCond(varData)
 		local mainEnv = self.build.calcsTab.mainEnv
 		if self.input[varData.var] then
@@ -78,10 +87,37 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		end
 	end
 
+	local function tableContains(tab, val)
+		for index, value in ipairs(tab) do
+			if value == val then
+				return true
+			end
+		end
+		return false
+	end
+	-- configOption var names in this table will be shown regardless of eligibility when self.toggleConfigs == true
+	local toggleVars = {
+		"TotemsSummoned",
+		"conditionEnemyBleeding",
+		"conditionEnemyBurning",
+		"conditionEnemyDebilitated",
+		"conditionEnemyFrozen",
+		"conditionEnemyIgnited",
+		"conditionEnemyMaimed",
+		"conditionEnemyMoving",
+		"conditionEnemyOnConsecratedGround",
+		"conditionShockEffect",
+		"detonateDeadCorpseLife",
+		"meleeDistance",
+		"multiplierPoisonOnEnemy",
+		"projectileDistance",
+		"skillChainCount",
+		"warcryMode"
+	}
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
+			lastSection = new("SectionControl", {"TOPLEFT",self.controls.sectionAnchor,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
 			lastSection.height = function(self)
@@ -133,7 +169,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 					self.build.buildFlag = true
 				end, 16)
-			else 
+			else
 				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 			end
 
@@ -141,10 +177,11 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control.inactiveText = varData.inactiveText
 			end
 
+			local override = function() return false end
 			local shownFuncs = {}
 			control.shown = function()
 				for _, shownFunc in ipairs(shownFuncs) do
-					if not shownFunc() then
+					if not shownFunc() and not override() then
 						return false
 					end
 				end
@@ -165,6 +202,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 			if varData.tooltip then
 				t_insert(tooltipFuncs, varData.tooltip)
+			end
+
+			if tableContains(toggleVars, varData.var) then
+				override = function() return self.toggleConfigs end
 			end
 
 			if varData.ifNode then
