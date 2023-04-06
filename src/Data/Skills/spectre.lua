@@ -122,7 +122,7 @@ skills["AbyssBatLargeScreech"] = {
 	baseFlags = {
 		area = true,
 		spell = true,
-		duartion = true,
+		duration = true,
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",

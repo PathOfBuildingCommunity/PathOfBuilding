@@ -23,7 +23,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AbyssBatLargeScreech Screech
-#flags area spell duartion
+#flags area spell duration
 #mods
 
 #skill AbyssMineBatWhirlingBlades
