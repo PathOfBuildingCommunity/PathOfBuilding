@@ -90,7 +90,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local modDB = actor.modDB
 	local poolTbl = poolTable or { }
 	
-	local alliesTakenBeforeYou = poolTbl.alliesTakenBeforeYou
+	local alliesTakenBeforeYou = poolTbl.AlliesTakenBeforeYou
 	if not alliesTakenBeforeYou then
 		alliesTakenBeforeYou = {}
 		if output.FrostShieldLife then
@@ -102,6 +102,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		if output.TotalTotemLife then
 			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
 		end
+		-- soul link isnt implemented yet
 		if output.SoulLink then
 			alliesTakenBeforeYou["soulLink"] = { remaining = output.SoulLink, percent = output.SoulLinkMitigation / 100 }
 		end
@@ -238,7 +239,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	end
 
 	return {
-		alliesTakenBeforeYou = alliesTakenBeforeYou,
+		AlliesTakenBeforeYou = alliesTakenBeforeYou,
 		Aegis = aegis,
 		Guard = guard,
 		PoolsLost = PoolsLost,
@@ -2019,7 +2020,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
 		end
 		local poolTable = {
-			alliesTakenBeforeYou = alliesTakenBeforeYou,
+			AlliesTakenBeforeYou = alliesTakenBeforeYou,
 			Aegis = aegis,
 			Guard = guard,
 			Ward = ward,
@@ -2066,7 +2067,9 @@ function calcs.buildDefenceEstimations(env, actor)
 				poolTable.EnergyShield = m_min(poolTable.EnergyShield + DamageIn.EnergyShieldWhenHit * (gainMult - 1), gainMult * output.EnergyShieldRecoveryCap)
 			end
 			poolTable = calcs.reducePoolsByDamage(poolTable, Damage, actor)
-			if poolTable.Life > 0 and damageTotal >= maxDamage then -- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
+			
+			-- If still living and the amount of damage exceeds maximum threshold we survived infinite number of hits.
+			if poolTable.Life > 0 and damageTotal >= maxDamage then
 				return m_huge
 			end
 			if DamageIn.GainWhenHit and poolTable.Life > 0 then
@@ -2799,9 +2802,9 @@ function calcs.buildDefenceEstimations(env, actor)
 			
 			local poolsRemaining = calcs.reducePoolsByDamage(nil, takenDamages, actor)
 			local poolRemainingStrings = {
-				output.FrostShieldLife and output.FrostShieldLife > 0 and s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.alliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.alliesTakenBeforeYou["frostShield"].remaining) or nil,
-				output.TotalSpectreLife and output.TotalSpectreLife > 0 and s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.alliesTakenBeforeYou["specters"].remaining, poolsRemaining.alliesTakenBeforeYou["specters"].remaining) or nil,
-				output.TotalTotemLife and output.TotalTotemLife > 0 and s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.alliesTakenBeforeYou["totems"].remaining, poolsRemaining.alliesTakenBeforeYou["totems"].remaining) or nil,
+				output.FrostShieldLife and output.FrostShieldLife > 0 and s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining) or nil,
+				output.TotalSpectreLife and output.TotalSpectreLife > 0 and s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["specters"].remaining, poolsRemaining.AlliesTakenBeforeYou["specters"].remaining) or nil,
+				output.TotalTotemLife and output.TotalTotemLife > 0 and s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.AlliesTakenBeforeYou["totems"].remaining, poolsRemaining.AlliesTakenBeforeYou["totems"].remaining) or nil,
 				output.sharedAegis and output.sharedAegis > 0 and s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared) or nil,
 			}
 			local receivedElemental = false
