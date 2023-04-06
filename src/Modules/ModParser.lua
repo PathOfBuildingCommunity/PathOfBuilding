@@ -2338,6 +2338,9 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", -num) }, { type = "Condition", var = "Phasing" }),
 	} end,
 	-- Saboteur
+	["hits have (%d+)%% chance to deal (%d+)%% more area damage"] = function (num, _, more) return {
+		mod("Damage", "MORE", (num*more/100), nil, bor(ModFlag.Area, ModFlag.Hit))
+	} end,
 	["immun[ei]t?y? to ignite and shock"] = {
 		mod("AvoidIgnite", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 		mod("AvoidShock", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
