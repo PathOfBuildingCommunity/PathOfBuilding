@@ -790,6 +790,7 @@ local modFlagList = {
 	["for spell damage"] = { flags = ModFlag.Spell },
 	["with spell damage"] = { flags = ModFlag.Spell },
 	["with spells"] = { keywordFlags = KeywordFlag.Spell },
+	["with triggered spells"] = { keywordFlags = KeywordFlag.Spell, tag = { type = "SkillType", skillType = SkillType.Triggered } },
 	["by spells"] = { keywordFlags = KeywordFlag.Spell },
 	["by your spells"] = { keywordFlags = KeywordFlag.Spell },
 	["with attacks"] = { keywordFlags = KeywordFlag.Attack },
