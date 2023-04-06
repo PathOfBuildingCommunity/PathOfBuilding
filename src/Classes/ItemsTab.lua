@@ -540,7 +540,7 @@ holding Shift will put it in the second.]])
 	end)
 	self.controls.displayItemQuality = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionQuality,"TOPRIGHT"}, -4, 0, 0, 16, "^7Quality:")
 	self.controls.displayItemQuality.shown = function()
-		return self.displayItem and self.displayItem.quality
+		return self.displayItem and self.displayItem.quality and (self.controls.displayItem.base.type ~= "Ring" or self.controls.displayItem.base.type ~= "Belt" or self.controls.displayItem.base.type ~= "Quiver" or self.controls.displayItem.base.type ~= "Jewel" or self.controls.displayItem.base.type ~= "Amulet")
 	end
 
 	self.controls.displayItemQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemQuality,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
@@ -549,7 +549,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 	end)
 	self.controls.displayItemQualityEdit.shown = function()
-		return self.displayItem and self.displayItem.quality and ((not self.controls.displayItemCatalyst:IsShown()) or self.controls.displayItem.base.type ~= "Quiver" or self.controls.displayItem.base.type ~= "Jewel")
+		return self.displayItem and self.displayItem.quality and (self.controls.displayItem.base.type ~= "Ring" or self.controls.displayItem.base.type ~= "Belt" or self.controls.displayItem.base.type ~= "Quiver" or self.controls.displayItem.base.type ~= "Jewel" or self.controls.displayItem.base.type ~= "Amulet")
 	end
 
 	-- Section: Catalysts
