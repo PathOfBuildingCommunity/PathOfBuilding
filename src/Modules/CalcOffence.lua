@@ -2640,46 +2640,38 @@ function calcs.offence(env, actor, activeSkill)
 					if pass == 2 and breakdown then
 						t_insert(breakdown[damageType], s_format("= %d to %d", damageTypeHitMin, damageTypeHitMax))
 					end
-					
+
 					-- Beginning of Leech Calculation for this DamageType
+					local lifeLeech = 0
+					local energyShieldLeech = 0
+					local manaLeech = 0
 					if skillFlags.mine or skillFlags.trap or skillFlags.totem then
-						if not noLifeLeech then
-							local lifeLeech = skillModList:Sum("BASE", cfg, "DamageLifeLeechToPlayer")
-							if lifeLeech > 0 then
-								lifeLeechTotal = lifeLeechTotal + damageTypeHitAvg * lifeLeech / 100
-							end
-						end
+						lifeLeech = skillModList:Sum("BASE", cfg, "DamageLifeLeechToPlayer")
 					else
-						local lifeLeech
 						if skillModList:Flag(nil, "LifeLeechBasedOnChaosDamage") then
-							if damageType == "Chaos" then
-								lifeLeech = skillModList:Sum("BASE", cfg, "DamageLeech", "DamageLifeLeech", "PhysicalDamageLifeLeech", "LightningDamageLifeLeech", "ColdDamageLifeLeech", "FireDamageLifeLeech", "ChaosDamageLifeLeech", "ElementalDamageLifeLeech") + enemyDB:Sum("BASE", cfg, "SelfDamageLifeLeech") / 100
+								if damageType == "Chaos" then
+									lifeLeech = skillModList:Sum("BASE", cfg, "DamageLeech", "DamageLifeLeech", "PhysicalDamageLifeLeech", "LightningDamageLifeLeech", "ColdDamageLifeLeech", "FireDamageLifeLeech", "ChaosDamageLifeLeech", "ElementalDamageLifeLeech") + enemyDB:Sum("BASE", cfg, "SelfDamageLifeLeech") / 100
+								end
 							else
-								lifeLeech = 0
+								lifeLeech = skillModList:Sum("BASE", cfg, "DamageLeech", "DamageLifeLeech", damageType.."DamageLifeLeech", isElemental[damageType] and "ElementalDamageLifeLeech" or nil) + enemyDB:Sum("BASE", cfg, "SelfDamageLifeLeech") / 100
 							end
-						else
-							lifeLeech = skillModList:Sum("BASE", cfg, "DamageLeech", "DamageLifeLeech", damageType.."DamageLifeLeech", isElemental[damageType] and "ElementalDamageLifeLeech" or nil) + enemyDB:Sum("BASE", cfg, "SelfDamageLifeLeech") / 100
-						end
-						if not (noLifeLeech or ghostReaver) then
-							if lifeLeech > 0 then
-								lifeLeechTotal = lifeLeechTotal + damageTypeHitAvg * lifeLeech / 100
-							end
-						end
-						if not noEnergyShieldLeech then
-							local energyShieldLeech = skillModList:Sum("BASE", cfg, "DamageEnergyShieldLeech", damageType.."DamageEnergyShieldLeech", isElemental[damageType] and "ElementalDamageEnergyShieldLeech" or nil) + enemyDB:Sum("BASE", cfg, "SelfDamageEnergyShieldLeech") / 100
-							if ghostReaver then
-								energyShieldLeech = energyShieldLeech + lifeLeech
-							end
-							if energyShieldLeech > 0 then
-								energyShieldLeechTotal = energyShieldLeechTotal + damageTypeHitAvg * energyShieldLeech / 100
-							end
-						end
-						if not noManaLeech then
-							local manaLeech = skillModList:Sum("BASE", cfg, "DamageLeech", "DamageManaLeech", damageType.."DamageManaLeech", isElemental[damageType] and "ElementalDamageManaLeech" or nil) + enemyDB:Sum("BASE", cfg, "SelfDamageManaLeech") / 100
-							if manaLeech > 0 then
-								manaLeechTotal = manaLeechTotal + damageTypeHitAvg * manaLeech / 100
-							end
-						end
+						energyShieldLeech = skillModList:Sum("BASE", cfg, "DamageEnergyShieldLeech", damageType.."DamageEnergyShieldLeech", isElemental[damageType] and "ElementalDamageEnergyShieldLeech" or nil) + enemyDB:Sum("BASE", cfg, "SelfDamageEnergyShieldLeech") / 100
+						manaLeech = skillModList:Sum("BASE", cfg, "DamageLeech", "DamageManaLeech", damageType.."DamageManaLeech", isElemental[damageType] and "ElementalDamageManaLeech" or nil) + enemyDB:Sum("BASE", cfg, "SelfDamageManaLeech") / 100
+					end
+
+					if ghostReaver and not noLifeLeech then
+						energyShieldLeech = energyShieldLeech + lifeLeech
+						lifeLeech = 0
+					end
+
+					if lifeLeech > 0 and not noLifeLeech then
+						lifeLeechTotal = lifeLeechTotal + damageTypeHitAvg * lifeLeech / 100
+					end
+					if manaLeech > 0 and not noManaLeech then
+						manaLeechTotal = manaLeechTotal + damageTypeHitAvg * manaLeech / 100
+					end
+					if energyShieldLeech > 0 and not noEnergyShieldLeech  then
+						energyShieldLeechTotal = energyShieldLeechTotal + damageTypeHitAvg * energyShieldLeech / 100
 					end
 				else
 					if breakdown then

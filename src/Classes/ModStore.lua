@@ -522,6 +522,38 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if not match then
 				return
 			end
+		elseif tag.type == "ItemCondition" then
+			local match = false
+			local searchCond = tag.var
+			local itemSlot = tag.itemSlot:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
+			local bCheckAllAppropriateSlots = tag.allSlots
+			if searchCond and itemSlot then
+				if bCheckAllAppropriateSlots then
+					local match1 = false
+					local match2 = false
+					local itemSlot1 = self.actor.itemList[itemSlot .. " 1"]
+					local itemSlot2 = self.actor.itemList[itemSlot .. " 2"]
+					if itemSlot1 and itemSlot1.name:match("Kalandra's Touch") then itemSlot1 = itemSlot2 end
+					if itemSlot2 and itemSlot2.name:match("Kalandra's Touch") then itemSlot2 = itemSlot1 end
+					if itemSlot1 then
+						match1 = itemSlot1:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
+					end
+					if itemSlot2 then
+						match2 = itemSlot2:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
+					end
+					match = match1 and match2
+				else
+					if self.actor.itemList[itemSlot] then
+						match = self.actor.itemList[itemSlot]:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
+					end
+				end
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
+				return
+			end
 		elseif tag.type == "SocketedIn" then
 			if not cfg or (not tag.slotName and not tag.keyword and not tag.socketColor) then
 				return

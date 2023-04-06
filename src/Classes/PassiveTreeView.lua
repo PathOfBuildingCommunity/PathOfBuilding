@@ -75,9 +75,6 @@ function PassiveTreeViewClass:Load(xml, fileName)
 	if xml.attrib.searchStr then
 		self.searchStr = xml.attrib.searchStr
 	end
-	if xml.attrib.showHeatMap then
-		self.showHeatMap = xml.attrib.showHeatMap == "true"
-	end
 	if xml.attrib.showStatDifferences then
 		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
 	end
@@ -89,7 +86,6 @@ function PassiveTreeViewClass:Save(xml)
 		zoomX = tostring(self.zoomX),
 		zoomY = tostring(self.zoomY),
 		searchStr = self.searchStr,
-		showHeatMap = tostring(self.showHeatMap),
 		showStatDifferences = tostring(self.showStatDifferences),
 	}
 end

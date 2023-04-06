@@ -1360,6 +1360,9 @@ local modTagList = {
 	["while unarmed"] = { tag = { type = "Condition", var = "Unarmed" } },
 	["while you are unencumbered"] = { tag = { type = "Condition", var = "Unencumbered" } },
 	["equipped bow"] = { tag = { type = "Condition", var = "UsingBow" } },
+	["if equipped ([%a%s]+) has an ([%a%s]+) modifier"] = function (_, itemSlotName, conditionSubstring) return { tag = { type = "ItemCondition", var = conditionSubstring, itemSlot = itemSlotName } } end,
+	["if both equipped ([%a%s]+) have ([%a%s]+) modifiers"] = function (_, itemSlotName, conditionSubstring) return { tag = { type = "ItemCondition", var = conditionSubstring, itemSlot = itemSlotName:sub(1, #itemSlotName - 1), allSlots = true } } end,
+	["if there are no ([%a%s]+) modifiers on equipped ([%a%s]+)"] = function (_, conditionSubstring, itemSlotName) return { tag = { type = "ItemCondition", var = conditionSubstring, itemSlot = itemSlotName, neg = true } } end,
 	["with a normal item equipped"] = { tag = { type = "MultiplierThreshold", var = "NormalItem", threshold = 1 } },
 	["with a magic item equipped"] = { tag = { type = "MultiplierThreshold", var = "MagicItem", threshold = 1 } },
 	["with a rare item equipped"] = { tag = { type = "MultiplierThreshold", var = "RareItem", threshold = 1 } },
@@ -3172,8 +3175,8 @@ local specialModList = {
 		mod("ShrineBuff", "LIST", { mod = mod("Life", "INC", 20) }),
 		mod("ShrineBuff", "LIST", { mod = mod("AreaOfEffect", "INC", 20) })
 	},
-	["you count as on low life while at (%d+)%% of maximum life or below"] = function(num) return { mod("LowLifePercentage", "BASE", num) } end,
-	["you count as on full life while at (%d+)%% of maximum life or above"] = function(num) return { mod("FullLifePercentage", "BASE", num) } end,
+	["you count as on low (%a+) while at (%d+)%% of maximum life or below"] = function(_, resourceType, numStr) return { mod("Low"..resourceType:gsub("^%l", string.upper).."Percentage", "BASE", tonumber(numStr) / 100.0) } end,
+	["you count as on full (%a+) while at (%d+)%% of maximum life or above"] = function(_, resourceType, numStr) return { mod("Full"..resourceType:gsub("^%l", string.upper).."Percentage", "BASE", tonumber(numStr) / 100.0) } end,
 	["(%d+)%% more maximum life if you have at least (%d+) life masteries allocated"] = function(num, _, thresh) return {
 		mod("Life", "MORE", num, { type = "MultiplierThreshold", var = "AllocatedLifeMastery", threshold = tonumber(thresh) }),
 	} end,
