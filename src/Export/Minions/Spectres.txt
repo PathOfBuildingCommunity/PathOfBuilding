@@ -8,7 +8,7 @@ local minions, mod = ...
 -- Blackguard
 #spectre Metadata/Monsters/Axis/AxisCaster
 #spectre Metadata/Monsters/Axis/AxisCasterArc
-#spectre Metadata/Monsters/Axis/AxisCasterGuardGravicius
+#spectre Metadata/Monsters/Axis/AxisCasterGuardFlamability
 #spectre Metadata/Monsters/Axis/AxisCasterLunaris
 #spectre Metadata/Monsters/Axis/AxisEliteSoldier3Champion
 #spectre Metadata/Monsters/Axis/AxisExperimenter

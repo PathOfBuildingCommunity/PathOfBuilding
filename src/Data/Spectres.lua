@@ -59,9 +59,9 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
-minions["Metadata/Monsters/Axis/AxisCasterGuardGravicius"] = {
+minions["Metadata/Monsters/Axis/AxisCasterGuardFlamability"] = {
 	name = "Blackguard Firemage",
-	life = 2.7,
+	life = 0.9,
 	energyShield = 0.2,
 	fireResist = 0,
 	coldResist = 0,
