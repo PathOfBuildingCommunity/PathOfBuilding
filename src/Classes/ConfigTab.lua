@@ -32,7 +32,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.toggleConfigs = false
 	self.controls.toggleConfigs = new("ButtonControl", { "TOPLEFT", self, "TOPLEFT" }, 8, 5, 200, 20, function()
 		-- dynamic text
-		return self.toggleConfigs and "Show Only Applicable Configs" or "Show Ineligible Configurations"
+		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show Ineligible Configurations"
 	end, function()
 		self.toggleConfigs = not self.toggleConfigs
 	end)
