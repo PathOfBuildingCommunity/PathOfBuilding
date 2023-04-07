@@ -1949,6 +1949,12 @@ return {
 			{ modName = { "TotalTotemLife", "takenFromTotemsBeforeYou" } },
 		},
 	},
+	{ label = "Vaal Rejuv. Totem", haveOutput = "TotalVaalRejuvenationTotemLife",
+		{ format = "{0:output:TotalVaalRejuvenationTotemLife}",
+			{ breakdown = "TotalVaalRejuvenationTotemLife" },
+			{ modName = { "TotalVaalRejuvenationTotemLife", "takenFromVaalRejuvenationTotemsBeforeYou", "takenFromTotemsBeforeYou" } },
+		},
+	},
 	{ label = "Hits before death",{ format = "{2:output:NumberOfDamagingHits}", },
 	}
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {
