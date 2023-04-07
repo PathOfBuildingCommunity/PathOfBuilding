@@ -1735,9 +1735,6 @@ local skills, mod, flag, skill = ...
 		["impacting_steel_secondary_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
 		},
-		["splitting_steel_area_+%_final_after_splitting"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
-		},
 	},
 #baseMod flag("NoAdditionalProjectiles")
 #mods

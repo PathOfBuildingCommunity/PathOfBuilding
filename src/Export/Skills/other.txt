@@ -626,19 +626,6 @@ local skills, mod, flag, skill = ...
 #baseMod mod("ShockedGroundEffect", "BASE", 15)
 #mods
 
-#skill ChannelledSnipe
-#flags attack projectile
-	fromItem = true,
-	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
-	end,
-#mods
-
-#skill ChannelledSnipeSupport
-	fromItem = true,
-#baseMod flag("TriggeredBySnipe")
-#mods
-
 #skill SummonEssenceSpirits
 #flags spell minion
 	fromItem = true,
