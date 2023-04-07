@@ -57,6 +57,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.zoomY = 0
 
 	self.searchStr = ""
+	self.searchStrSaved = ""
 	self.searchStrCached = ""
 	self.searchStrResults = {}
 	self.showStatDifferences = true
@@ -74,6 +75,7 @@ function PassiveTreeViewClass:Load(xml, fileName)
 	end
 	if xml.attrib.searchStr then
 		self.searchStr = xml.attrib.searchStr
+		self.searchStrSaved = xml.attrib.searchStr
 	end
 	if xml.attrib.showStatDifferences then
 		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
@@ -81,6 +83,7 @@ function PassiveTreeViewClass:Load(xml, fileName)
 end
 
 function PassiveTreeViewClass:Save(xml)
+	self.searchStrSaved = self.searchStr
 	xml.attrib = {
 		zoomLevel = tostring(self.zoomLevel),
 		zoomX = tostring(self.zoomX),
