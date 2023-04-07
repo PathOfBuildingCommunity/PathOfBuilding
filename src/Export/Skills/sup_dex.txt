@@ -375,14 +375,6 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill SupportOnslaught
-	statMap = {
-		["attack_and_cast_speed_+%_during_onslaught"] = {
-			mod("Speed", "INC", nil, 0, 0, {type = "Condition", var = "Onslaught"})
-		}
-	},
-#mods
-
 #skill SupportPierce
 	statMap = {
 		["support_pierce_projectile_damage_+%_final"] = {
