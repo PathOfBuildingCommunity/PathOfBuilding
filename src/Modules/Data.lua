@@ -501,9 +501,12 @@ data.misc = { -- magic numbers
 	PvpElemental2 = 150,
 	PvpNonElemental1 = 0.57,
 	PvpNonElemental2 = 90,
-	-- Life Scaling Mastery
-	LowLifePercentage = 0.5,
-	FullLifePercentage = 1.0,
+	-- Some magic numbers can change, but need to be here in order to be used in ConfigOptions (e.g. in tooltips)
+	configurable = {
+		-- Life Scaling Mastery
+		LowLifePercentage = 0.5,
+		FullLifePercentage = 1.0,
+	}
 }
 
 -- Load bosses
