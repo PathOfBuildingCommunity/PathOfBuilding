@@ -481,7 +481,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-skill VaalDomination
+#skill VaalDomination
 #flags attack melee duration minion
 #mods
 

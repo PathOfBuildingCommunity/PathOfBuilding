@@ -1986,3 +1986,7 @@ local skills, mod, flag, skill = ...
 #skill ChannelledSnipeSupport
 #baseMod flag("TriggeredBySnipe")
 #mods
+
+#skill QuickstepHardMode
+#flags movement travel
+#mods

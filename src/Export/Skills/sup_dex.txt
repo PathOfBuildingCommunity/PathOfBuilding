@@ -541,3 +541,6 @@ local skills, mod, flag, skill = ...
 
 #skill SupportManaforgedArrows
 #mods
+
+#skill SupportMomentum
+#mods
