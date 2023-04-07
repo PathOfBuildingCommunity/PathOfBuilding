@@ -256,7 +256,7 @@ function GemSelectClass:UpdateSortCache()
 				oldGem = copyTable(gemList[self.index], true)
 			else
 				gemList[self.index] = {
-					level = gemData.defaultLevel,
+					level = gemData.naturalMaxLevel,
 					qualityId = self:GetQualityType(gemId),
 					quality = self.skillsTab.defaultGemQuality or 0,
 					enabled = true,
@@ -430,7 +430,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 					oldGem = copyTable(gemList[self.index], true)
 				else
 					gemList[self.index] = {
-						level = gemData.defaultLevel,
+						level = gemData.naturalMaxLevel,
 						qualityId = self:GetQualityType(self.list[self.hoverSel]),
 						quality = self.skillsTab.defaultGemQuality or 0,
 						enabled = true,
@@ -539,7 +539,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		self.tooltip:AddLine(16, string.format("^x7F7F7FLevel: ^7%d%s%s",
 			gemInstance.level, 
 			((displayInstance.level > gemInstance.level) and " (" .. colorCodes.MAGIC .. "+" .. (displayInstance.level - gemInstance.level) .. "^7)") or ((displayInstance.level < gemInstance.level) and " (" .. colorCodes.WARNING .. "-" .. (gemInstance.level - displayInstance.level) .. "^7)") or "",
-			(gemInstance.level >= gemInstance.gemData.defaultLevel) and " (Max)" or ""
+			(gemInstance.level >= gemInstance.gemData.naturalMaxLevel) and " (Max)" or ""
 		))
 	end
 	if grantedEffect.support then
