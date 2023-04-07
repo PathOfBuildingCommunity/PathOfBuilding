@@ -869,9 +869,6 @@ local skills, mod, flag, skill = ...
 #skill FlickerStrike
 #flags attack melee duration
 	statMap = {
-		["flicker_strike_more_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack),
-		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["flicker_strike_buff_movement_speed_+%"] = {
@@ -882,6 +879,15 @@ local skills, mod, flag, skill = ...
 
 #skill VaalFlickerStrike
 #flags attack melee duration
+	statMap = {
+		["active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment)),
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+#baseMod flag("OnlyFinalRepeat")
+#baseMod flag("FinalRepeatSumsDamage")
 #mods
 
 #skill Frenzy

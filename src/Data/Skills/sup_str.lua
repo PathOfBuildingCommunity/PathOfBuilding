@@ -3209,10 +3209,12 @@ skills["SupportMultistrike"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
-			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Damage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
+			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		},
 		["multistrike_damage_+%_final_on_second_repeat"] = {
+			mod("RepeatTwoDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("RepeatTwoDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),
@@ -3222,7 +3224,7 @@ skills["SupportMultistrike"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["multistrike_area_of_effect_+%_per_repeat"] = {
-			mod("AreaOfEffect", "INC", nil)
+			mod("RepeatPerRepeatAreaOfEffect", "INC", nil)
 		}
 	},
 	baseMods = {
@@ -3305,13 +3307,16 @@ skills["SupportMultistrikePlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["multistrike_damage_+%_final_on_first_repeat"] = {
+			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+			mod("RepeatOneDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		},
 		["multistrike_damage_+%_final_on_second_repeat"] = {
+			mod("RepeatTwoDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("RepeatTwoDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["multistrike_damage_+%_final_on_third_repeat"] = {
-			mod("Damage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
-			mod("Damage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
-			div = 2,
+			mod("RepeatThreeDamage", "MORE", nil, nil, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
+			mod("RepeatThreeDamage", "MORE", nil, nil, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
 		["support_multiple_attack_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Attack),

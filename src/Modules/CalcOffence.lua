@@ -640,6 +640,91 @@ function calcs.offence(env, actor, activeSkill)
 		-- Applies DPS multiplier based on projectile count
 		skillData.dpsMultiplier = skillModList:Sum("BASE", skillCfg, "ProjectileCount")
 	end
+	output.Repeats = 1 + (skillModList:Sum("BASE", skillCfg, "RepeatCount") or 0)
+	if output.Repeats > 1 then
+		output.RepeatCount = output.Repeats
+		-- handle all the multipliers from Repeats
+		if env.configInput.repeatMode ~= "NONE" then
+			for i, value in ipairs(skillModList:Tabulate("INC", skillCfg, "RepeatFinalAreaOfEffect")) do
+				local mod = value.mod
+				local modValue = mod.value
+				if env.configInput.repeatMode == "AVERAGE" then
+					modValue = modValue / output.Repeats
+				end
+				skillModList:NewMod("AreaOfEffect", "INC", modValue, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+			for i, value in ipairs(skillModList:Tabulate("INC", skillCfg, "RepeatPerRepeatAreaOfEffect")) do
+				local mod = value.mod
+				local modValue = mod.value * (output.Repeats - 1)
+				if env.configInput.repeatMode == "AVERAGE" then
+					modValue = modValue / 2
+				end
+				skillModList:NewMod("AreaOfEffect", "INC", modValue, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+			for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "RepeatFinalDoubleDamageChance")) do
+				local mod = value.mod
+				local modValue = mod.value
+				if env.configInput.repeatMode == "AVERAGE" then
+					modValue = modValue / output.Repeats
+				end
+				skillModList:NewMod("DoubleDamageChance", "BASE", modValue, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+			local DamageFinalMoreValueTotal = 1
+			local DamageMoreValueTotal = 0
+			for i, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "RepeatFinalDamage")) do
+				local mod = value.mod
+				local modValue = mod.value
+				DamageFinalMoreValueTotal = DamageFinalMoreValueTotal * (1 + modValue / 100)
+				DamageMoreValueTotal = DamageMoreValueTotal + modValue
+				if env.configInput.repeatMode == "AVERAGE" and not skillModList:Flag(nil, "OnlyFinalRepeat") then
+					modValue = modValue / output.Repeats
+				end
+				skillModList:NewMod("Damage", "MORE", modValue, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+			for i, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "RepeatPerRepeatDamage")) do
+				local mod = value.mod
+				local modValue = mod.value * (output.Repeats - 1)
+				if env.configInput.repeatMode == "AVERAGE" then
+					if DamageFinalMoreValueTotal ~= 1 then
+						-- sum from 0 to num Repeats the damage each one does, multiplied by the other repeat multipliers,
+						-- divide the total by the average other repeat multipliers and divide by number of repeats
+						-- eg greater echo with 20Q div echo is (100 + 130 + 160 + 190*1.6)/1.15/4 - 100 = 50.87% more damage
+						modValue = ((100 + mod.value * (output.Repeats - 2) / 2) * (output.Repeats - 1) + (100 + mod.value * (output.Repeats - 1)) * DamageFinalMoreValueTotal) / (output.Repeats + DamageMoreValueTotal / 100) - 100
+					else
+						modValue = modValue / 2
+					end
+				end
+				skillModList:NewMod("Damage", "MORE", modValue, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
+			
+			local lastMod = nil
+			DamageFinalMoreValueTotal = DamageMoreValueTotal
+			for _, repeatCount in ipairs({{2, "One"}, {3, "Two"}, {4, "Three"}}) do
+				if repeatCount[1] > output.Repeats then
+					break
+				elseif env.configInput.repeatMode == "AVERAGE" then
+					for i, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "Repeat"..repeatCount[2].."Damage")) do
+						DamageMoreValueTotal = DamageMoreValueTotal + value.mod.value
+						lastMod = value.mod
+					end
+				elseif repeatCount[1] == output.Repeats then
+					for i, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "Repeat"..repeatCount[2].."Damage")) do
+						skillModList:NewMod("Damage", "MORE", value.mod.value, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+					end
+				end
+			end
+			if env.configInput.repeatMode == "AVERAGE" then
+				if lastMod then
+					skillModList:NewMod("Damage", "MORE", (DamageMoreValueTotal / output.Repeats + 100) / (1 + DamageFinalMoreValueTotal / output.Repeats / 100) - 100, lastMod.source, lastMod.flags, lastMod.keywordFlags, unpack(lastMod))
+				end
+			end
+			if skillModList:Flag(nil, "FinalRepeatSumsDamage") then
+				for i, value in ipairs(skillModList:Tabulate("FLAG", skillCfg, "FinalRepeatSumsDamage")) do
+					skillModList:NewMod("Damage", "MORE", (100 * output.Repeats + DamageFinalMoreValueTotal) / (1 + DamageFinalMoreValueTotal / 100) - 100, value.mod.source, value.mod.flags, value.mod.keywordFlags, unpack(value.mod))
+				end
+			end
+		end
+	end
 	if skillData.gainPercentBaseWandDamage then
 		local mult = skillData.gainPercentBaseWandDamage / 100
 		if actor.weaponData1.type == "Wand" and actor.weaponData2.type == "Wand" then
@@ -1728,7 +1813,7 @@ function calcs.offence(env, actor, activeSkill)
 				baseTime = skillData.castTimeOverride or activeSkill.activeEffect.grantedEffect.castTime or 1
 			end
 			local more = skillModList:More(cfg, "Speed")
-			output.Repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
+			output.Repeats = globalOutput.Repeats or 1
 
 			--Calculates the max number of trauma stacks you can sustain
 			if activeSkill.activeEffect.grantedEffect.name == "Boneshatter" then
@@ -1887,6 +1972,9 @@ function calcs.offence(env, actor, activeSkill)
 		
 		-- Other Misc DPS multipliers (like custom source)
 		skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", cfg, "DPS") / 100 ) * skillModList:More(cfg, "DPS")
+		if env.configInput.repeatMode == "FINAL" or skillModList:Flag(nil, "OnlyFinalRepeat") then
+			skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
+		end
 	end
 	if breakdown then
 		breakdown.SustainableTrauma = storedSustainedTraumaBreakdown
@@ -2286,6 +2374,33 @@ function calcs.offence(env, actor, activeSkill)
 			output.CritMultiplier = 0
 			output.BonusCritDotMultiplier = 0
 			output.CritEffect = 1
+		elseif skillModList:Flag(cfg, "SpellSkillsCannotDealCriticalStrikesExceptOnFinalRepeat") then
+			if (output.Repeats or 1) == 1 then
+				output.PreEffectiveCritChance = 0
+				output.CritChance = 0
+				output.CritMultiplier = 0
+				output.BonusCritDotMultiplier = 0
+				output.CritEffect = 1
+			elseif skillModList:Flag(cfg, "SpellSkillsAlwaysDealCriticalStrikesOnFinalRepeat") then
+				if env.configInput.repeatMode == "None" then
+					output.PreEffectiveCritChance = 0
+					output.CritChance = 0
+				elseif env.configInput.repeatMode == "AVERAGE" then
+					output.PreEffectiveCritChance = 100 / output.Repeats
+					output.CritChance = 100 / output.Repeats
+					if breakdown then
+						breakdown.CritChance = { 
+							s_format("100%%"),
+							s_format("/ %d ^8(number of repeats)", output.Repeats),
+							s_format("= %.2f%% average critical strike chance", output.CritChance)
+						}
+					end
+				else
+					output.PreEffectiveCritChance = 100
+					output.CritChance = 100
+				end
+			--else -- this shouldn't ever be a case but leaving this here if someone wants to implement it
+			end
 		else
 			local critOverride = skillModList:Override(cfg, "CritChance")
 			local baseCrit = critOverride or source.CritChance or 0
@@ -2354,6 +2469,8 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 			end
+		end
+		if not output.CritEffect then
 			if skillModList:Flag(cfg, "NoCritMultiplier") then
 				output.CritMultiplier = 1
 			else
@@ -3308,10 +3425,10 @@ function calcs.offence(env, actor, activeSkill)
 			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "EnemyAilmentDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration", "SelfAilmentDuration") / calcLib.mod(enemyDB, dotCfg, "BleedExpireRate")
 			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
 			globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
-			local bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / output.Time) / maxStacks
+			local bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / output.Time * skillData.dpsMultiplier) / maxStacks
 			local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 			if skillFlags.totem then
-				bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / output.Time) * activeTotems / maxStacks
+				bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / output.Time * skillData.dpsMultiplier) * activeTotems / maxStacks
 			end
 			bleedStacks = configStacks > 0 and m_min(bleedStacks, configStacks / maxStacks) or bleedStacks
 			globalOutput.BleedStackPotential = bleedStacks
@@ -3322,11 +3439,14 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("%.2f ^8(chance to hit)", output.HitChance / 100),
 					s_format("* (%.2f / %.2f) ^8(BleedDuration / Attack Time)", globalOutput.BleedDuration, output.Time),
 				}
-					if skillFlags.totem then
-						t_insert(globalBreakdown.BleedStackPotential, s_format("* %d ^8(active number of totems)", activeTotems))
-					end
-					t_insert(globalBreakdown.BleedStackPotential,s_format("/ %d ^8(max number of stacks)", maxStacks))
-					t_insert(globalBreakdown.BleedStackPotential,s_format("= %.2f", globalOutput.BleedStackPotential))
+				if skillData.dpsMultiplier ~= 1 then
+					t_insert(globalBreakdown.BleedStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+				end
+				if skillFlags.totem then
+					t_insert(globalBreakdown.BleedStackPotential, s_format("* %d ^8(active number of totems)", activeTotems))
+				end
+				t_insert(globalBreakdown.BleedStackPotential,s_format("/ %d ^8(max number of stacks)", maxStacks))
+				t_insert(globalBreakdown.BleedStackPotential,s_format("= %.2f", globalOutput.BleedStackPotential))
 			end
 
 			for sub_pass = 1, 2 do
@@ -3741,17 +3861,20 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.IgniteDuration = globalOutput.IgniteDuration > data.misc.IgniteMinDuration and globalOutput.IgniteDuration or 0
 			local igniteStacks = 1
 			if not skillData.triggeredOnDeath then
-				igniteStacks = (globalOutput.IgniteDuration / output.Time) / maxStacks
+				igniteStacks = (globalOutput.IgniteDuration / output.Time * skillData.dpsMultiplier) / maxStacks
 			end
 			globalOutput.IgniteStackPotential = igniteStacks
 			if globalBreakdown then
 				globalBreakdown.IgniteStackPotential = {
 					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 					s_format(""),
-					s_format("(%.2f / %.2f) ^8(IgniteDuration / Cast Time)", globalOutput.IgniteDuration, output.Time),
-					s_format("/ %d ^8(max number of stacks)", maxStacks),
-					s_format("= %.2f", globalOutput.IgniteStackPotential),
+					s_format("(%.2f / %.2f) ^8(IgniteDuration / Cast Time)", globalOutput.IgniteDuration, output.Time)
 				}
+				if skillData.dpsMultiplier ~= 1 then
+					t_insert(globalBreakdown.IgniteStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+				end
+				t_insert(globalBreakdown.IgniteStackPotential, s_format("/ %d ^8(max number of stacks)", maxStacks))
+				t_insert(globalBreakdown.IgniteStackPotential, s_format("= %.2f", globalOutput.IgniteStackPotential))
 			end
 
 			for sub_pass = 1, 2 do
@@ -4471,7 +4594,7 @@ function calcs.offence(env, actor, activeSkill)
 				usedResource = "ES"
 			end
 			
-			local repeats = 1 + (skillModList:Sum("BASE", cfg, "RepeatCount") or 0)
+			local repeats = output.Repeats or 1
 			local useSpeed = 1
 			local timeType
 			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
