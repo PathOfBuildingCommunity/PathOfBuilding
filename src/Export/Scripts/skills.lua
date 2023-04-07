@@ -113,6 +113,7 @@ local skillTypes = {
 	"OwnerCannotUse",
 	"ProjectilesNotFired",
 	"TotemsAreBallistae",
+	"SkillGrantedBySupport",
 }
 
 local wellShitIGotThoseWrong = {
