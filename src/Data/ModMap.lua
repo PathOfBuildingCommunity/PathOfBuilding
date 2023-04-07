@@ -168,7 +168,7 @@ return {
 			tooltipLines = { "minus (%d to %d)%% maximum Player Resistances" },
 			values = { {0, 0}, {5, 8}, {9, 12} },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
-				if map[val][2] ~= 0 then
+				if values[val][2] ~= 0 then
 					local roll = (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect
 					modList:NewMod("FireResistMax", "BASE", -roll, "Map mod of Exposure")
 					modList:NewMod("ColdResistMax", "BASE", -roll, "Map mod of Exposure")
