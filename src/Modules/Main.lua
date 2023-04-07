@@ -701,6 +701,9 @@ function main:OpenOptionsPopup()
 		controls.buildPath:SetText(self.buildPath)
 	end
 	controls.buildPath.tooltipText = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
+	controls.buildPathButton = new("ButtonControl", { "LEFT", controls.buildPath, "RIGHT" }, -defaultLabelSpacingPx, 0, 40, 18, "Open", function()
+		os.execute('explorer '..controls.buildPath.buf:gsub("/","\\"))
+	end)
 
 	nextRow()
 	controls.nodePowerTheme = new("DropDownControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, {
