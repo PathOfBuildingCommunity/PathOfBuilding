@@ -48,8 +48,8 @@ function calcLib.validateGemLevel(gemInstance)
 			gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
 		end
 	end
-	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.defaultLevel then
-		gemInstance.level = gemInstance.gemData.defaultLevel
+	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.naturalMaxLevel then
+		gemInstance.level = gemInstance.gemData.naturalMaxLevel
 	end
 	if not grantedEffect.levels[gemInstance.level] then
 		-- That failed, so just grab any level

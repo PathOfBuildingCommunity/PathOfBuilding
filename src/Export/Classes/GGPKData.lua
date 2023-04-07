@@ -190,6 +190,12 @@ function GGPKClass:GetNeededFiles()
 		"Data/MonsterMapBossDifficulty.dat",
 		"Data/ReminderText.dat",
 		"Data/Projectiles.dat",
+		"Data/AnimateWeaponUniques.dat",
+		"Data/ItemExperienceTypes.dat",
+		"Data/WeaponPassiveSkills.dat",
+		"Data/WeaponPassiveTreeBalancePerItemLevel.dat",
+		"Data/WeaponPassiveTreeUniqueBaseTypes.dat",
+		"Data/CrucibleTags.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
