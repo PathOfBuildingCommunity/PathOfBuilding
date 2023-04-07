@@ -4227,9 +4227,6 @@ skills["FlickerStrike"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["flicker_strike_more_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack),
-		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["flicker_strike_buff_movement_speed_+%"] = {
@@ -4326,10 +4323,21 @@ skills["VaalFlickerStrike"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment)),
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		duration = true,
+	},
+	baseMods = {
+		flag("OnlyFinalRepeat"),
+		flag("FinalRepeatSumsDamage"),
 	},
 	qualityStats = {
 		Default = {

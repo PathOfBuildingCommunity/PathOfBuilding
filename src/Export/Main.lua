@@ -375,7 +375,7 @@ function main:InitGGPK()
 	else
 		local now = GetTime()
 		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
-		if ggpkPath and (ggpkPath:match("%.ggpk") or ggpkPath:match("steamapps[/\\].+[/\\]Path of Exile")) then
+		if ggpkPath then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		elseif self.datSource.datFilePath then
