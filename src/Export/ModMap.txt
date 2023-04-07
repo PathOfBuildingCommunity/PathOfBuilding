@@ -1,0 +1,133 @@
+-- Item data (c) Grinding Gear Games
+
+#setup
+		-- defensive prefixes
+#modStart (Armoured) oldLabel(Enemy Physical Damage reduction:) label(Enemy Phys D R)
+				enemyModList:NewMod("PhysicalDamageReduction", "BASE", values[val] * mapModEffect, "Map mod Armoured")
+#modEnd
+#modStart (Hexproof) oldLabel(Enemy is Hexproof?) label(Enemy is Hexproof?)
+				enemyModList:NewMod("Hexproof", "FLAG", true, "Map mod Hexproof")
+#modEnd
+#modStart (Hexwarded) oldLabel(Less effect of Curses on enemy:) label(Less Curse effect)
+				enemyModList:NewMod("CurseEffectOnSelf", "MORE", -values[val] * mapModEffect, "Map mod Hexwarded")
+#modEnd
+#modStart (Resistant) oldLabel(Enemy has Elemental / ^xD02090Chaos ^7Resist:) label(Enemy Resist)
+				enemyModList:NewMod("ElementalResist", "BASE", values[val][2] * mapModEffect, "Map mod Resistant")
+				enemyModList:NewMod("ChaosResist", "BASE", values[val][1] * mapModEffect, "Map mod Resistant")
+#modEnd
+#modStart (Unwavering) disabled
+				enemyModList:NewMod("AvoidStun", "BASE", 100, "Map mod Unwavering")
+				enemyModList:NewMod("Life", "MORE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod Unwavering")
+#modEnd
+#modStart (Fecund) disabled
+				enemyModList:NewMod("Life", "MORE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Fecund")
+#modEnd
+#modStart (Unstoppable) disabled
+				-- MISSING: Monsters cannot be Taunted
+				enemyModList:NewMod("MinimumActionSpeed", "MAX", 100, "Map mod Unstoppable")
+#modEnd
+#modStart (Impervious) label(avoid Poison and Bleed:)
+				enemyModList:NewMod("AvoidPoison", "BASE", values[val] * mapModEffect, "Map mod Impervious")
+				enemyModList:NewMod("AvoidImpale", "BASE", values[val] * mapModEffect, "Map mod Impervious")
+				enemyModList:NewMod("AvoidBleed", "BASE", values[val] * mapModEffect, "Map mod Impervious")
+#modEnd
+#modStart (Oppressive) disabled
+				enemyModList:NewMod("SpellSuppressionChance", "BASE", values[val] * mapModEffect, "Map mod Oppressive")
+#modEnd
+#modStart (Buffered) disabled
+				enemyModList:NewMod("LifeGainAsEnergyShield", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Buffered")
+#modEnd
+#modStart (Titan's) disabled
+#modEnd
+		-- offensive prefixes
+#modStart (Savage) label(Enemy Inc Damage)
+				enemyModList:NewMod("Damage", "INC", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Savage")
+#modEnd
+#modStart (Burning) disabled
+				enemyModList:NewMod("PhysicalDamageGainAsFire", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Burning")
+#modEnd
+#modStart (Freezing) disabled
+				enemyModList:NewMod("PhysicalDamageGainAsCold", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Freezing")
+#modEnd
+#modStart (Shocking) disabled
+				enemyModList:NewMod("PhysicalDamageGainAsLightning", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Shocking")
+#modEnd
+#modStart (Fleet) disabled
+#modEnd
+#modStart (Conflagrating) disabled
+#modEnd
+#modStart (Impaling) disabled
+#modEnd
+#modStart (Empowered) disabled
+#modEnd
+#modStart (Overlord's) disabled
+#modEnd
+		-- reflect prefixes
+#modStart (Punishing) disabled
+#modEnd
+#modStart (Mirrored) disabled
+#modEnd
+		-- suffixes
+#modStart (of Balance) oldLabel(Player has Elemental Equilibrium?) disabled
+				-- Players cannot inflict Exposure
+				-- modList:NewMod("Keystone", "LIST", "Elemental Equilibrium", "Map mod of Balance") -- OLD MOD
+#modEnd
+#modStart (of Congealment) oldLabel(Cannot Leech ^xE05030Life ^7/ ^x7070FFMana?) label(Cannot Leech)
+				enemyModList:NewMod("CannotLeechLifeFromSelf", "FLAG", true, "Map mod of Congealment")
+				enemyModList:NewMod("CannotLeechManaFromSelf", "FLAG", true, "Map mod of Congealment")
+#modEnd
+#modStart (of Drought) oldLabel(Gains reduced Flask Charges:) label(reduced Flask Charges)
+				modList:NewMod("FlaskChargesGained", "INC", -values[val] * mapModEffect, "Map mod of Drought")
+#modEnd
+#modStart (of Exposure) oldLabel(-X% maximum Resistances:) oldToolTip(Mid tier: 5-8%\nHigh tier: 9-12%) label(-X% maximum Res)
+				if values[val][2] ~= 0 then
+					local roll = (values[val][2] + (values[val][1] - values[val][2]) * rollRange / 100) * mapModEffect
+					modList:NewMod("FireResistMax", "BASE", -roll, "Map mod of Exposure")
+					modList:NewMod("ColdResistMax", "BASE", -roll, "Map mod of Exposure")
+					modList:NewMod("LightningResistMax", "BASE", -roll, "Map mod of Exposure")
+					modList:NewMod("ChaosResistMax", "BASE", -roll, "Map mod of Exposure")
+				end
+#modEnd
+#modStart (of Impotence) oldLabel(Less Area of Effect:) label(Less Area of Effect:)
+				modList:NewMod("AreaOfEffect", "MORE", -values[val] * mapModEffect, "Map mod of Impotence")
+#modEnd
+#modStart (of Insulation) oldLabel(Enemy avoid Elemental Ailments:) label(avoid Elemental Ailments:)
+				enemyModList:NewMod("AvoidElementalAilments", "BASE", values[val] * mapModEffect, "Map mod of Insulation")
+#modEnd
+#modStart (of Miring) oldLabel(Unlucky Dodge / Enemy has inc. Accuracy:) label(Enemy has inc. Accuracy: / Players have to amount of Suppressed Spell Damage Prevented)
+				-- modList:NewMod("DodgeChanceIsUnlucky", "FLAG", true, "Map mod of Miring") -- OLD MOD
+				-- Players have -10|15|20% to amount of Suppressed Spell Damage Prevented
+				enemyModList:NewMod("Accuracy", "INC", values[val][2] * mapModEffect, "Map mod of Miring")
+#modEnd
+#modStart (of Rust) oldLabel(Reduced Block Chance / less Armour:) label(Reduced Block Chance / less Armour:)
+				modList:NewMod("BlockChance", "INC", -values[val][1] * mapModEffect, "Map mod of Rust")
+				modList:NewMod("Armour", "MORE", -values[val][2] * mapModEffect, "Map mod of Rust")
+#modEnd
+#modStart (of Smothering) oldLabel(Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield:) label(Less Recovery Rate of ^xE05030Life ^7and ^x88FFFFEnergy Shield:)
+				modList:NewMod("LifeRecoveryRate", "MORE", -values[val] * mapModEffect, "Map mod of Smothering")
+				modList:NewMod("EnergyShieldRecoveryRate", "MORE", -values[val] * mapModEffect, "Map mod of Smothering")
+#modEnd
+#modStart (of Stasis) oldLabel(Cannot Regen ^xE05030Life^7, ^x7070FFMana ^7or ^x88FFFFES?) label(Cannot Regen)
+				modList:NewMod("NoLifeRegen", "FLAG", true, "Map mod of Stasis")
+				modList:NewMod("NoEnergyShieldRegen", "FLAG", true, "Map mod of Stasis")
+				modList:NewMod("NoManaRegen", "FLAG", true, "Map mod of Stasis")
+#modEnd
+#modStart (of Toughness) label(Enemy takes red. Extra Crit Damage:)
+				enemyModList:NewMod("SelfCritMultiplier", "INC", -(values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod of Toughness")
+#modEnd
+#modStart (of Fatigue) disabled
+#modEnd
+#modStart (of Transience) disabled
+#modEnd
+#modStart (of Doubt) disabled
+#modEnd
+#modStart (of Imprecision) disabled
+#modEnd
+#modStart (of Blinding) disabled
+				--SHOULD THIS BE SUPPORTED? (as a flag to make "are you blinded" show on config?)
+#modEnd
+#modStart (of Venom) disabled
+#modEnd
+#modStart (of Deadliness) disabled
+#modEnd
+#modList
