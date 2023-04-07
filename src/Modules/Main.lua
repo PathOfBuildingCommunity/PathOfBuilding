@@ -702,7 +702,8 @@ function main:OpenOptionsPopup()
 	end
 	controls.buildPath.tooltipText = "Overrides the default save location for builds.\nThe default location is: '"..self.defaultBuildPath.."'"
 	controls.buildPathButton = new("ButtonControl", { "LEFT", controls.buildPath, "RIGHT" }, -defaultLabelSpacingPx, 0, 40, 18, "Open", function()
-		os.execute('explorer '..controls.buildPath.buf:gsub("/","\\"))
+		local path = controls.buildPath.buf ~= '' and controls.buildPath.buf:gsub("/","\\") or self.defaultBuildPath:gsub("/","\\")
+		os.execute('explorer '..path)
 	end)
 
 	nextRow()
