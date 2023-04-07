@@ -2028,6 +2028,11 @@ local skills, mod, flag, skill = ...
 
 #skill VampiricLink
 #flags spell duration
+	statMap = {
+		["remora_link_grants_damage_+%_when_on_full_life"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "Condition", var = "FullLife" })
+		},
+	},
 #mods
 
 #skill ChannelledSnipe

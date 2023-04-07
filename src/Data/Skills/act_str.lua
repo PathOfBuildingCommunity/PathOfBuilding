@@ -3296,6 +3296,9 @@ skills["FlameLink"] = {
 		["flame_link_maximum_fire_damage"] = {
 			mod("FireMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
+		["flame_link_grants_chance_to_ignite_%"] = {
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -5952,6 +5955,9 @@ skills["ProtectiveLink"] = {
 	statMap = {
 		["bulwark_link_grants_recover_X_life_on_block"] = {
 			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["bulwark_link_grants_stun_threshold_+%"] = {
+			mod("StunThreshold", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
 	},
 	baseFlags = {
