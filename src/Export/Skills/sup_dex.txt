@@ -538,3 +538,6 @@ local skills, mod, flag, skill = ...
 
 #skill SupportChaosAttacks
 #mods
+
+#skill SupportManaforgedArrows
+#mods

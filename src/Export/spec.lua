@@ -1,4 +1,6 @@
 return {
+	AbyssBossLifeScalingPerLevel={
+	},
 	AbyssObjects={
 	},
 	AbyssRegions={
@@ -25,6 +27,8 @@ return {
 	AchievementSetsDisplay={
 	},
 	Achievements={
+	},
+	ActiveSettings={
 	},
 	ActiveSkillTargetTypes={
 	},
@@ -187,7 +191,7 @@ return {
 		},
 		[21]={
 			list=true,
-			name="",
+			name="SecondarySkillSpecificStat",
 			refTo="Stats",
 			type="Key",
 			width=400
@@ -670,6 +674,8 @@ return {
 			width=270
 		}
 	},
+	AlternateTreeArt={
+	},
 	AlternateTreePassiveSizes={
 	},
 	AlternateTreeVersions={
@@ -721,6 +727,43 @@ return {
 			refTo="",
 			type="UInt",
 			width=200
+		}
+	},
+	AnimateWeaponUniques={
+		[1]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=200
+		},
+		[2]={
+			list=false,
+			name="VisualIdentity",
+			refTo="ItemVisualIdentity",
+			type="Key",
+			width=200
+		},
+		[3]={
+			list=false,
+			name="ItemClass",
+			refTo="ItemClasses",
+			type="Key",
+			width=200
+		},
+		[4]={
+			list=false,
+			name="MinLevelReq",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="NextEntry",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	AnimatedObjectFlags={
@@ -1177,6 +1220,8 @@ return {
 	},
 	AtlasInfluenceSets={
 	},
+	AtlasMemoryLine={
+	},
 	AtlasModTiers={
 	},
 	AtlasMods={
@@ -1326,7 +1371,11 @@ return {
 			width=150
 		}
 	},
+	BattlePassRewardTypes={
+	},
 	BattlePassRewards={
+	},
+	BattlePassTracks={
 	},
 	BattlePasses={
 	},
@@ -1341,6 +1390,8 @@ return {
 	BestiaryGroups={
 	},
 	BestiaryNets={
+	},
+	BestiaryRecipeCategories={
 	},
 	BestiaryRecipeComponent={
 	},
@@ -1384,6 +1435,8 @@ return {
 	},
 	BeyondDemons={
 	},
+	BeyondFactions={
+	},
 	BindableVirtualKeys={
 	},
 	BlightBalancePerLevel={
@@ -1426,11 +1479,15 @@ return {
 	},
 	Bloodlines={
 	},
+	BreachArtVariations={
+	},
 	BreachBossLifeScalingPerLevel={
 	},
 	BreachElement={
 	},
 	BreachstoneUpgrades={
+	},
+	Breachstones={
 	},
 	BuffCategories={
 	},
@@ -2162,6 +2219,8 @@ return {
 	},
 	CharacterAudioEvents={
 	},
+	CharacterEventTextAudio={
+	},
 	CharacterPanelDescriptionModes={
 	},
 	CharacterPanelStatContexts={
@@ -2219,6 +2278,8 @@ return {
 	ChestItemTemplates={
 	},
 	Chests={
+	},
+	ClientLakeDifficulty={
 	},
 	ClientLeagueAction={
 	},
@@ -2362,6 +2423,12 @@ return {
 	CooldownBypassTypes={
 	},
 	CooldownGroups={
+	},
+	CoreLeagues={
+	},
+	CorpseSinkVariations={
+	},
+	CosmeticsEquipPanelMode={
 	},
 	CostTypes={
 		[1]={
@@ -2588,6 +2655,43 @@ return {
 	},
 	CraftingBenchSortCategories={
 	},
+	CraftingBenchSpecificOptionId={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	CraftingBenchUnlockCategories={
 		[1]={
 			list=false,
@@ -2627,13 +2731,25 @@ return {
 			width=130
 		}
 	},
+	CrucibleEndgameMonsterPacks={
+	},
+	CrucibleLifeScalingPerLevel={
+	},
+	CruciblePlayerClassOffsets={
+	},
+	CrucibleTags={
+	},
 	CurrencyItems={
 	},
 	CurrencyStashTabLayout={
 	},
+	CurrencyUseEffects={
+	},
 	CurrencyUseTypes={
 	},
 	CustomLeagueMods={
+	},
+	CustomLeagueTemplate={
 	},
 	DaemonSpawningData={
 	},
@@ -2646,6 +2762,8 @@ return {
 	DamageParticleEffectTypes={
 	},
 	DamageParticleEffects={
+	},
+	DamageWhenHitEffects={
 	},
 	Dances={
 	},
@@ -2797,6 +2915,8 @@ return {
 	},
 	DelveRewardTierConstants={
 	},
+	DelveRobotVariations={
+	},
 	DelveRooms={
 	},
 	DelveStashTabLayout={
@@ -2846,6 +2966,10 @@ return {
 	DropModifiers={
 	},
 	DropPool={
+	},
+	DropReplacementCustomReplacements={
+	},
+	DropReplacementCustomTargets={
 	},
 	EclipseMods={
 	},
@@ -3399,6 +3523,27 @@ return {
 	ExpeditionTerrainFeatures={
 	},
 	ExperienceLevels={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="UInt",
+			width=150
+		}
 	},
 	ExplodingStormBuffs={
 	},
@@ -3535,7 +3680,11 @@ return {
 			width=150
 		}
 	},
+	GameLogos={
+	},
 	GameObjectTasks={
+	},
+	GameObjectTasksFromStats={
 	},
 	GameStats={
 	},
@@ -3617,6 +3766,10 @@ return {
 	GiftWrapArtVariations={
 	},
 	GlobalAudioConfig={
+	},
+	GoldActScaling={
+	},
+	GoldConstants={
 	},
 	Grandmasters={
 	},
@@ -3759,7 +3912,7 @@ return {
 			list=false,
 			name="PlayerLevelReq",
 			refTo="",
-			type="Int",
+			type="Float",
 			width=100
 		},
 		[4]={
@@ -4070,7 +4223,7 @@ return {
 			list=false,
 			name="PlayerLevelReq",
 			refTo="",
-			type="Int",
+			type="Float",
 			width=90
 		},
 		[4]={
@@ -4210,7 +4363,13 @@ return {
 	},
 	Harbingers={
 	},
+	HardModeExtraContentChances={
+	},
 	HarvestColours={
+	},
+	HarvestCraftCostScalingByBasetype={
+	},
+	HarvestCraftFilters={
 	},
 	HarvestCraftOptionIcons={
 	},
@@ -4226,6 +4385,8 @@ return {
 	},
 	HarvestInfrastructureCategories={
 	},
+	HarvestLifeScalingPerLevel={
+	},
 	HarvestMetaCraftingOptions={
 	},
 	HarvestObjects={
@@ -4235,6 +4396,8 @@ return {
 	HarvestPlantBoosterFamilies={
 	},
 	HarvestPlantBoosters={
+	},
+	HarvestSeedItems={
 	},
 	HarvestSeedTypes={
 	},
@@ -4336,6 +4499,10 @@ return {
 	},
 	HellscapePassives={
 	},
+	HideoutCraftingBenchDoodads={
+	},
+	HideoutCraftingBenchInterfaceVisuals={
+	},
 	HideoutDoodadCategory={
 	},
 	HideoutDoodadTags={
@@ -4353,7 +4520,17 @@ return {
 	},
 	HideoutRarity={
 	},
+	HideoutStashDoodads={
+	},
+	HideoutWaypointDoodads={
+	},
 	Hideouts={
+	},
+	HudEnergyShieldVisuals={
+	},
+	HudLifeVisuals={
+	},
+	HudVisualsFromStat={
 	},
 	ImpactSoundData={
 	},
@@ -4457,6 +4634,17 @@ return {
 			width=150
 		}
 	},
+	ItemExperienceTypes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=270
+		}
+	},
+	ItemFrameType={
+	},
 	ItemNoteCode={
 	},
 	ItemSetNames={
@@ -4535,6 +4723,8 @@ return {
 			width=150
 		}
 	},
+	ItemVisualReplacement={
+	},
 	ItemisedVisualEffect={
 	},
 	JobAssassinationSpawnerGroups={
@@ -4575,6 +4765,16 @@ return {
 	},
 	Labyrinths={
 	},
+	LakeBossLifeScalingPerLevel={
+	},
+	LakeMetaOptions={
+	},
+	LakeMetaOptionsUnlockText={
+	},
+	LakeRoomCompletion={
+	},
+	LakeRooms={
+	},
 	Languages={
 	},
 	LeagueCategory={
@@ -4584,6 +4784,10 @@ return {
 	LeagueFlags={
 	},
 	LeagueInfo={
+	},
+	LeagueInfoPanelVersions={
+	},
+	LeagueProgressQuestFlags={
 	},
 	LeagueQuestFlags={
 	},
@@ -4596,6 +4800,8 @@ return {
 	LegionBalancePerLevel={
 	},
 	LegionChestCounts={
+	},
+	LegionChestTypes={
 	},
 	LegionChests={
 	},
@@ -4684,6 +4890,8 @@ return {
 	},
 	MeleeTrails={
 	},
+	MemoryLineType={
+	},
 	MetamorphLifeScalingPerLevel={
 	},
 	MetamorphosisMetaMonsters={
@@ -4702,6 +4910,8 @@ return {
 	},
 	MicroMigrationData={
 	},
+	MicrotransactionAppliedInventoryItemArtVariations={
+	},
 	MicrotransactionCategory={
 	},
 	MicrotransactionCategoryId={
@@ -4712,13 +4922,31 @@ return {
 	},
 	MicrotransactionCombineFormula={
 	},
+	MicrotransactionConditionalApparitionEventType={
+	},
+	MicrotransactionConditionalApparitionEvents={
+	},
+	MicrotransactionConditionalApparitionOrientation={
+	},
+	MicrotransactionConditionalApparitionPosition={
+	},
+	MicrotransactionConditionalApparitions={
+	},
 	MicrotransactionCursorVariations={
+	},
+	MicrotransactionEquippedIconVariations={
 	},
 	MicrotransactionFireworksVariations={
 	},
 	MicrotransactionGemCategory={
 	},
 	MicrotransactionJewelVariations={
+	},
+	MicrotransactionObjectEffects={
+	},
+	MicrotransactionOnKillConditions={
+	},
+	MicrotransactionOnKillEffects={
 	},
 	MicrotransactionPeriodicCharacterEffectVariations={
 	},
@@ -4871,7 +5099,7 @@ return {
 			name="Stat1",
 			refTo="Stats",
 			type="Key",
-			width=200
+			width=400
 		},
 		[6]={
 			list=false,
@@ -6451,6 +6679,8 @@ return {
 	},
 	NPCShopSellPriceType={
 	},
+	NPCShops={
+	},
 	NPCTalk={
 	},
 	NPCTalkCategory={
@@ -6484,6 +6714,8 @@ return {
 	Notifications={
 	},
 	OldMapStashTabLayout={
+	},
+	OnHitEffectTarget={
 	},
 	OnKillAchievements={
 	},
@@ -6659,6 +6891,8 @@ return {
 		}
 	},
 	PantheonSouls={
+	},
+	PassiveJewelArt={
 	},
 	PassiveJewelRadii={
 		[1]={
@@ -7277,6 +7511,14 @@ return {
 	},
 	PlayerConditions={
 	},
+	PlayerTradeWhisperFormats={
+	},
+	PortalAudio={
+	},
+	PortalAudioEvents={
+	},
+	PreloadFromStats={
+	},
 	PreloadGroups={
 	},
 	PreloadPriorities={
@@ -7563,6 +7805,8 @@ return {
 	},
 	Rarity={
 	},
+	RarityMask={
+	},
 	Realms={
 	},
 	RecipeUnlockDisplay={
@@ -7570,6 +7814,10 @@ return {
 	RecipeUnlockObjects={
 	},
 	RelativeImportanceConstants={
+	},
+	RelicInventoryLayout={
+	},
+	RelicItemEffectVariations={
 	},
 	ReminderText={
 		[1]={
@@ -7597,9 +7845,13 @@ return {
 	},
 	RitualSpawnPatterns={
 	},
+	RogueExileLifeScalingPerLevel={
+	},
 	RogueExiles={
 	},
 	RuleSets={
+	},
+	Rulesets={
 	},
 	RunicCircles={
 	},
@@ -7609,7 +7861,35 @@ return {
 	},
 	SafehouseCraftingSpreeCurrencies={
 	},
+	SafehouseCraftingSpreeType={
+	},
 	SalvageBoxes={
+	},
+	SanctumAirlocks={
+	},
+	SanctumDeferredRewardDisplayCategories={
+	},
+	SanctumEffectTriggers={
+	},
+	SanctumFloors={
+	},
+	SanctumFodderLifeScalingPerLevel={
+	},
+	SanctumImmediateEffectType={
+	},
+	SanctumLifeScalingPerLevel={
+	},
+	SanctumPersistentEffectCategories={
+	},
+	SanctumPersistentEffectFamily={
+	},
+	SanctumPersistentEffects={
+	},
+	SanctumRoomTypes={
+	},
+	SanctumRooms={
+	},
+	SanctumSelectionDisplayOverride={
 	},
 	ScarabTypes={
 	},
@@ -7685,6 +7965,8 @@ return {
 	},
 	ShrineSounds={
 	},
+	ShrineVisualArtVariations={
+	},
 	Shrines={
 	},
 	SigilDisplay={
@@ -7695,20 +7977,22 @@ return {
 	},
 	SkillGemInfo={
 	},
+	SkillGemLevelUpEffects={
+	},
 	SkillGems={
 		[1]={
 			list=false,
 			name="BaseItemType",
 			refTo="BaseItemTypes",
 			type="Key",
-			width=360
+			width=460
 		},
 		[2]={
 			list=false,
 			name="GrantedEffect",
 			refTo="GrantedEffects",
 			type="Key",
-			width=210
+			width=300
 		},
 		[3]={
 			list=false,
@@ -7736,7 +8020,7 @@ return {
 			name="Tags",
 			refTo="GemTags",
 			type="Key",
-			width=500
+			width=600
 		},
 		[7]={
 			list=false,
@@ -7757,7 +8041,7 @@ return {
 			name="Description",
 			refTo="",
 			type="String",
-			width=300
+			width=500
 		},
 		[10]={
 			list=false,
@@ -7856,6 +8140,13 @@ return {
 			refTo="",
 			type="Int",
 			width=100
+		},
+		[24]={
+			list=false,
+			name="GemLevelProgression",
+			refTo="ItemExperienceTypes",
+			type="Key",
+			width=150
 		}
 	},
 	SkillMineVariations={
@@ -7896,6 +8187,8 @@ return {
 	SkillTotems={
 	},
 	SkillTrapVariations={
+	},
+	SkillWeaponEffects={
 	},
 	SocketNotches={
 	},
@@ -7939,6 +8232,10 @@ return {
 	},
 	SpectreOverrides={
 	},
+	StampChoice={
+	},
+	StampFamily={
+	},
 	StartingPassiveSkills={
 	},
 	StashId={
@@ -7954,6 +8251,8 @@ return {
 	StatSemantics={
 	},
 	StatSets={
+	},
+	StatVisuals={
 	},
 	Stats={
 		[1]={
@@ -7993,73 +8292,73 @@ return {
 		},
 		[6]={
 			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=50
-		},
-		[7]={
-			list=false,
 			name="Name",
 			refTo="",
 			type="String",
 			width=300
 		},
-		[8]={
+		[7]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[9]={
+		[8]={
 			list=false,
 			name="Virtual",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[10]={
+		[9]={
 			list=false,
 			name="Main Hand Stat",
 			refTo="Stats",
 			type="ShortKey",
 			width=350
 		},
-		[11]={
+		[10]={
 			list=false,
 			name="Off Hand Stat",
 			refTo="Stats",
 			type="ShortKey",
 			width=350
 		},
-		[12]={
+		[11]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[13]={
+		[12]={
 			list=false,
 			name="Hash",
 			refTo="",
 			type="UInt",
 			width=80
 		},
-		[14]={
+		[13]={
 			list=true,
 			name="Skills",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[15]={
+		[14]={
 			list=false,
 			name="PassiveCategory",
 			refTo="PassiveSkillStatCategories",
 			type="Key",
 			width=110
+		},
+		[15]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		},
 		[16]={
 			list=false,
@@ -8070,24 +8369,70 @@ return {
 		},
 		[17]={
 			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=50
-		},
-		[18]={
-			list=false,
 			name="IsScalable",
 			refTo="",
 			type="Bool",
 			width=70
 		},
-		[19]={
+		[18]={
 			list=true,
 			name="ContextFlags",
 			refTo="VirtualStatContextFlags",
 			type="Key",
 			width=130
+		},
+		[19]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[20]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[21]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=360
+		}
+	},
+	StatsAffectingGeneration={
+		[1]={
+			list=false,
+			name="",
+			refTo="Stats",
+			type="Key",
+			width=440
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
+	StatsFromSkillStats={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	StrDexIntMissionExtraRequirement={
@@ -8382,6 +8727,8 @@ return {
 	},
 	TerrainPlugins={
 	},
+	TieredMicrotransactions={
+	},
 	Tips={
 	},
 	Topologies={
@@ -8396,11 +8743,17 @@ return {
 	},
 	TradeMarketCategoryStyleFlag={
 	},
+	TradeMarketImplicitModDisplay={
+	},
+	TradeMarketIndexItemAs={
+	},
 	TreasureHunterMissions={
 	},
 	TriggerBeam={
 	},
 	TriggerSpawners={
+	},
+	TryTheNewLeagueVersions={
 	},
 	Tutorial={
 	},
@@ -8413,6 +8766,8 @@ return {
 	UltimatumEncounters={
 	},
 	UltimatumItemisedRewards={
+	},
+	UltimatumMapModifiers={
 	},
 	UltimatumModifierTypes={
 	},
@@ -8487,6 +8842,159 @@ return {
 	WeaponDamageScaling={
 	},
 	WeaponImpactSoundData={
+	},
+	WeaponPassiveSkills={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=300
+		},
+		[2]={
+			list=false,
+			name="Variant",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="ModsKey",
+			refTo="Mods",
+			type="Key",
+			width=450
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="ArtFilepath",
+			refTo="",
+			type="String",
+			width=450
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
+	},
+	WeaponPassiveTreeBalancePerItemLevel={
+		[1]={
+			list=false,
+			name="ItemLevel",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
+	WeaponPassiveTreeUniqueBaseTypes={
+		[1]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=500
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
 	},
 	WeaponSoundTypes={
 	},

@@ -755,3 +755,9 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod flag("HasSeals")
 #mods
+
+#skill SupportPrismaticBurst
+#mods
+
+#skill PrismaticBurst
+#mods

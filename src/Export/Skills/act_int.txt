@@ -799,6 +799,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
 #mods
 
+#skill VaalFirestorm
+#flags spell area duration
+#mods
+
 #skill FlameDash
 #flags spell area duration
 	statMap = {
