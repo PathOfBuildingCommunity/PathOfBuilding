@@ -403,7 +403,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("initialFunc")
 
-	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
+	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack or skillData.triggeredByManaPercentSpent
 	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
@@ -1476,6 +1476,19 @@ function calcs.offence(env, actor, activeSkill)
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+	end
+
+	-- account for Manaforged Arrows
+	if skillData.triggeredByManaPercentSpent and skillData.triggerSource then
+		local reqManaCostMulti = skillData.TriggerSkillManaSpentMultiRequirement
+		local uuid = cacheSkillUUID(skillData.triggerSource)
+		if GlobalCache.cachedData["CACHE"][uuid] then
+			local cachedTriggerData = GlobalCache.cachedData["CACHE"][uuid]
+			local manaThreshold = output.ManaCost * reqManaCostMulti
+			local manaSpendPerSec = cachedTriggerData.ManaCost * cachedTriggerData.Speed
+			local dpsMultiplier = m_min(manaSpendPerSec / manaThreshold, skillData.triggerRate)
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
+		end
 	end
 
 	runSkillFunc("preDamageFunc")
@@ -4597,7 +4610,7 @@ function calcs.offence(env, actor, activeSkill)
 			local repeats = output.Repeats or 1
 			local useSpeed = 1
 			local timeType
-			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
+			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack or skillData.triggeredByManaPercentSpent
 			if skillFlags.trap or skillFlags.mine then
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
 				local cooldown = output.TrapCooldown or output.Cooldown
