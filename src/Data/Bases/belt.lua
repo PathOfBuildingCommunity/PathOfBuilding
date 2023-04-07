@@ -46,14 +46,14 @@ itemBases["Studded Belt"] = {
 }
 itemBases["Micro-Distillery Belt"] = {
 	type = "Belt",
-	tags = { belt = true, default = true, },
+	tags = { experimental_base = true, default = true, belt = true, },
 	implicit = "Flasks applied to you have 20% increased Effect\nCan't use Flask in Fifth Slot",
 	implicitModTypes = { {  }, {  }, },
 	req = { level = 24, },
 }
 itemBases["Mechalarm Belt"] = {
 	type = "Belt",
-	tags = { belt = true, default = true, },
+	tags = { experimental_base = true, default = true, belt = true, },
 	implicit = "Trigger Level 20 Summon Taunting Contraption when you use a Flask",
 	implicitModTypes = { {  }, },
 	req = { level = 56, },
