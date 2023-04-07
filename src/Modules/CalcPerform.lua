@@ -1915,9 +1915,18 @@ function calcs.perform(env, avoidCache)
 							inc = inc + skillModList:Sum("INC", skillCfg, "AuraEffect")
 						end
 						
+						local scale = (1 + inc / 100) * more
 						local playerCurse = copyTable(curse, true)
 						playerCurse.modList = new("ModList")
-						playerCurse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						if modDB:Flag(nil, "IgnoreElemResistFromCurses") then
+							for _, mod in ipairs(buff.modList) do
+								if not mod.name:lower():match("[efcl][lio][erlg][medh][et]?n?[ti]?[an]?[lg]?resist") then
+									playerCurse.modList:ScaleAddMod(mod, scale)
+								end
+							end
+						else
+							playerCurse.modList:ScaleAddList(buff.modList, scale)
+						end
 						t_insert(playerCurses, playerCurse)
 					end
 				end
@@ -2074,25 +2083,32 @@ function calcs.perform(env, avoidCache)
 					modScale = (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:More(nil, "CurseEffectOnSelf")
 				end
 				
-				local curseModList = new("ModList")
-				for _, mod in ipairs(gemModList) do
-					for _, tag in ipairs(mod) do
-						if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
-							curseModList:ScaleAddMod(mod, modScale)
-							break
-						end
-					end
-				end
 				local curse = {
 					name = grantedEffect.name,
 					fromPlayer = (dest == curses),
 					priority = determineCursePriority(grantedEffect.name),
-					modList = curseModList,
 					ignoreHexLimit = value.ignoreHexLimit or value.configCurse,
 					configCurse = value.configCurse,
 					mark = grantedEffect.baseFlags.mark
 				}
-				if value.applyToPlayer and ( ((modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof")) or curse.mark or curse.configCurse ) then
+				
+				local onPlayerCurse = value.applyToPlayer and ( ((modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof")) or curse.mark or curse.configCurse )
+				local curseResistFilter = onPlayerCurse and modDB:Flag(nil, "IgnoreElemResistFromCurses")
+				
+				curse.modList = new("ModList")
+				for _, mod in ipairs(gemModList) do
+					if curseResistFilter and mod.name:lower():match("[efcl][lio][erlg][medh][et]?n?[ti]?[an]?[lg]?resist") then
+						break
+					end
+					for _, tag in ipairs(mod) do
+						if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
+							curse.modList:ScaleAddMod(mod, modScale)
+							break
+						end
+					end
+				end
+				
+				if onPlayerCurse then
 					modDB.conditions["Cursed"] = true
 					modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
 					t_insert(playerCurses, curse)

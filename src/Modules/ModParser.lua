@@ -2985,6 +2985,7 @@ local specialModList = {
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["curse auras from socketed skills also affect you"] = { flag("CurseAurasAlsoAffectYou", { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["hexes applied by socketed curse skills are reflected back to you"] = { flag("HexesAreReflectedToYou", { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["your elemental resistances cannot be lowered by curses"] = { flag("IgnoreElemResistFromCurses") },
 	["(%d+)%% increased effect of non%-curse auras from your skills on enemies"] = function(num) return {
 		mod("DebuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
 		mod("AuraEffect", "INC", num, { type = "SkillName", skillName = "Death Aura" }),
