@@ -762,9 +762,6 @@ local function doActorLifeManaReservation(actor)
 			if (max - reserved) / max <= (lowPerc > 0 and lowPerc or data.misc.LowPoolThreshold) then
 				condList["Low"..pool] = true
 			end
-			if (max - reserved) / max >= (fullPerc > 0 and fullPerc or 1.0) then
-				condList["Full"..pool] = true
-			end
 		else
 			reserved = 0
 		end
