@@ -3289,6 +3289,14 @@ skills["FlameLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, [SkillType.Fire] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["flame_link_minimum_fire_damage"] = {
+			mod("FireMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["flame_link_maximum_fire_damage"] = {
+			mod("FireMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -5941,6 +5949,11 @@ skills["ProtectiveLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["bulwark_link_grants_recover_X_life_on_block"] = {
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
