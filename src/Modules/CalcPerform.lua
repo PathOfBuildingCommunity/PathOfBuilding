@@ -21,21 +21,19 @@ local band = bit.band
 
 
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
-local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
+local function findTriggerSkill(env, skill, source, triggerRate, comparer)
+	local comparer = comparer or function(uuid)
+		local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+		return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
+	end
+	
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
 		calcs.buildActiveSkill(env, "CACHE", skill)
 	end
 
-	if GlobalCache.cachedData["CACHE"][uuid] then
-		-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-		local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
-		local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
-
-		if ((not source and cachedSpeed) or (cachedSpeed and cachedSpeed > triggerRate)) and 
-			((reqManaCost and cachedManaCost and cachedManaCost >= reqManaCost) or not reqManaCost) then
-			return skill, GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
-		end
+	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid) then
+		return skill, GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
 	end
 	return source, triggerRate, source and cacheSkillUUID(source)
 end
@@ -3234,23 +3232,23 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			env.player.mainSkill.infoTrigger = "DoomBlast"
 		end
 	elseif not env.player.mainSkill.skillFlags.disable then
-		local uniqueTriggerName = getUniqueItemTriggerName(env.player.mainSkill)
-		local triggerName = uniqueTriggerName
-		local skip = false
-		local triggeredSkills = {}
-		local trigRate = nil
-		local source = nil
+		local uniqueTriggerName = getUniqueItemTriggerName(env.player.mainSkill) 	-- Name of the unique item if trigger is specific to a unique
+		local triggerName = uniqueTriggerName										-- Name of the trigger. Some triggers change this later on.
+		local skip = false															-- Whether or not trigger processing should be skipped
+		local triggeredSkills = {}													-- Table of the skills triggered by the trigger. Some triggers set this to null to indicate that they're self triggers.
+		local trigRate = nil														-- First it holds the source rate then its modified.
+		local source = nil															-- Trigger source
 		local triggerChance = env.player.mainSkill.activeEffect and env.player.mainSkill.activeEffect.srcInstance and env.player.mainSkill.activeEffect.srcInstance.triggerChance
-		local actor = env.player
-		local output = output
-		local breakdown = breakdown
-		local triggerSkillCond = nil
-		local triggeredSkillCond = nil
-		local assumingEveryHitKills = nil
-		local uuid = nil
-		local triggerOnUse = nil
-		local useCastRate = false
-		local requiredManaCost = nil
+		local actor = env.player													-- Actor that triggered the trigger
+		local output = output														-- Convinience variable when using other actors
+		local breakdown = breakdown									
+		local triggerSkillCond = nil												-- Function that takes in a skill and determines whether it's compatible with a trigger
+		local triggeredSkillCond = nil												-- Simillar to above but for triggered skills
+		local assumingEveryHitKills = nil											-- It's easier to assume all hits kill for some triggers
+		local uuid = nil															
+		local triggerOnUse = nil													-- Triggered on use. Ignores accuracy and some other pre processing below
+		local useCastRate = false													-- Cast/Attack switch for display
+		local comparer = nil														-- Comparison function for use in findTriggerSkill. Defualt is defined inside findTriggerSkill.
 		local function slotMatch(env, skill)
 			local match1 = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
@@ -3399,7 +3397,13 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			elseif uniqueTriggerName == "Kitava's Thirst" then
 				triggerChance = actor.modDB:Sum("BASE", nil, "KitavaTriggerChance")
 				triggerName = "Kitava's Thirst"
-				requiredManaCost = actor.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
+				local requiredManaCost = actor.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
+				comparer = function(uuid)
+					ConPrintf("here")
+					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
+					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
+				end
 				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) return not skill.skillTypes[SkillType.Triggered] and skill ~= actor.mainSkill end
 			elseif actor.mainSkill.skillData.triggeredByMjolner then
@@ -3512,12 +3516,12 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			end
 		end
 		if not skip then
-			--find trigger skill and triggered skills
+			-- Find trigger skill and triggered skills
 			if triggeredSkillCond or triggerSkillCond then
 				for _, skill in ipairs(env.player.activeSkillList) do
 					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
 					if triggerSkillCond and triggerSkillCond(env, skill) and (not triggered or isGlobalTrigger(skill)) then
-						source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate or 0, requiredManaCost)
+						source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, comparer)
 					end
 					if triggeredSkillCond and triggeredSkillCond(env,skill) and triggeredSkills ~= nil then
 						t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
@@ -3562,7 +3566,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						end
 					end
 					
-					actor.mainSkill.skillData.ignoresTickRate = source.skillData.storedUses ~= nil
+					actor.mainSkill.skillData.ignoresTickRate = source and source.skillData.storedUses ~= nil
 					
 					--Account for source unleash
 					if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
