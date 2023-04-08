@@ -928,7 +928,7 @@ Implicits: 2
 {variant:4}+(20-30)% to all Elemental Resistances
 {variant:1}+5% to all maximum Resistances
 {variant:2,3,4}+4% to all maximum Resistances
-Cannot Block Attacks
+Cannot Block Attack Damage
 ]],[[
 Springleaf
 Plank Kite Shield

@@ -54,6 +54,7 @@ local formList = {
 	["^gains? ([%d%.]+)%% of"] = "GAIN",
 	["^gain ([%d%.]+)"] = "GAIN",
 	["^grants ([%d%.]+)"] = "GRANTS",
+	["^removes? ([%d%.]+)%% of"] = "REMOVES",
 	["^gain %+(%d+)%% to"] = "GAIN",
 	["^you lose ([%d%.]+)"] = "LOSE",
 	["^loses? ([%d%.]+)%% of"] = "LOSE",
@@ -3483,7 +3484,9 @@ local specialModList = {
 	["cannot block"] = { flag("CannotBlockAttacks"), flag("CannotBlockSpells") },
 	["cannot block while you have no energy shield"] = { flag("CannotBlockAttacks", { type = "Condition", var = "HaveEnergyShield", neg = true }), flag("CannotBlockSpells", { type = "Condition", var = "HaveEnergyShield", neg = true }) },
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
+	["cannot block attack damage"] = { flag("CannotBlockAttacks") },
 	["cannot block spells"] = { flag("CannotBlockSpells") },
+	["cannot block spell damage"] = { flag("CannotBlockSpells") },
 	["monsters cannot block your attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotBlockAttacks") }) },
 	["damage from blocked hits cannot bypass energy shield"] = { flag("BlockedDamageDoesntBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["damage from unblocked hits always bypasses energy shield"] = { flag("UnblockedDamageDoesBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
@@ -4952,6 +4955,11 @@ local function parseMod(line, order)
 		modType = "BASE"
 		modSuffix, line = scan(line, suffixTypes, true)
 	elseif modForm == "GRANTS" then
+		modType = "BASE"
+		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
+		modSuffix, line = scan(line, suffixTypes, true)
+	elseif modForm == "REMOVES" then
+		modValue = -modValue
 		modType = "BASE"
 		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
 		modSuffix, line = scan(line, suffixTypes, true)
