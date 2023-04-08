@@ -25,6 +25,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 25)
 #mods
 
+#skill VaalAbsolution
+#flags spell minion duration area
+#mods
+
 #skill AbyssalCry
 #flags warcry area duration
 	statMap = {
@@ -494,6 +498,10 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) } )
 		}
 	},
+#mods
+
+#skill VaalDomination
+#flags attack melee duration minion
 #mods
 
 #skill PuresteelBanner
@@ -1242,6 +1250,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 10)
 #mods
 
+#skill VaalRejuvenationTotem
+#flags spell aura totem area duration
+#mods
+
 #skill SearingBond
 #flags spell totem duration
 #mods
@@ -1405,6 +1417,10 @@ end,
 	},
 #baseMod skill("radius", 25)
 #baseMod skill("debuff", true)
+#mods
+
+#skill VaalReap
+#flags spell area duration
 #mods
 
 #skill ShieldCrush

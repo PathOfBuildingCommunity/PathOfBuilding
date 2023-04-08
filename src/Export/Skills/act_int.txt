@@ -799,6 +799,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
 #mods
 
+#skill VaalFirestorm
+#flags spell area duration
+#mods
+
 #skill FlameDash
 #flags spell area duration
 	statMap = {
@@ -1425,7 +1429,7 @@ local skills, mod, flag, skill = ...
 			flag("SpellDamageAppliesToAttacks"),
 			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
 		},
-		["cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
+		["active_skill_cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
 			flag("CastSpeedAppliesToAttacks"),
 			mod("ImprovedCastSpeedAppliesToAttacks", "MAX", nil)
 		},
@@ -1619,6 +1623,10 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+		["lightning_tendrils_channelled_larger_pulse_always_crit"] = {
+			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			base = 100
 		},
 	},
 #baseMod skill("radius", 22)

@@ -608,10 +608,74 @@ local function mergeKeystones(env)
 	end
 end
 
--- Calculate attributes and life/mana pools, and set conditions
+local function doActorLifeMana(actor)
+	local modDB = actor.modDB
+	local output = actor.output
+	local breakdown = actor.breakdown
+	local condList = modDB.conditions
+
+	-- This is hacky, but currently the only way to bring data into ConfigOptions for dynamically updated tooltips
+	local lowLifePerc = modDB:Sum("BASE", nil, "LowLifePercentage")
+	data.misc.configurable.LowLifePercentage = 100.0 * (lowLifePerc > 0 and lowLifePerc or data.misc.LowPoolThreshold)
+	local fullLifePerc = modDB:Sum("BASE", nil, "FullLifePercentage")
+	data.misc.configurable.FullLifePercentage = 100.0 * (fullLifePerc > 0 and fullLifePerc or 1.0)
+
+	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
+	-- Life/mana pools
+	if output.ChaosInoculation then
+		output.Life = 1
+		condList["FullLife"] = true
+	else
+		local base = modDB:Sum("BASE", nil, "Life")
+		local inc = modDB:Sum("INC", nil, "Life")
+		local more = modDB:More(nil, "Life")
+		local conv = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield")
+		output.Life = m_max(round(base * (1 + inc/100) * more * (1 - conv/100)), 1)
+		if breakdown then
+			if inc ~= 0 or more ~= 1 or conv ~= 0 then
+				breakdown.Life = { }
+				breakdown.Life[1] = s_format("%g ^8(base)", base)
+				if inc ~= 0 then
+					t_insert(breakdown.Life, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
+				end
+				if more ~= 1 then
+					t_insert(breakdown.Life, s_format("x %.2f ^8(more/less)", more))
+				end
+				if conv ~= 0 then
+					t_insert(breakdown.Life, s_format("x %.2f ^8(converted to Energy Shield)", 1 - conv/100))
+				end
+				t_insert(breakdown.Life, s_format("= %g", output.Life))
+			end
+		end
+	end
+	local manaConv = modDB:Sum("BASE", nil, "ManaConvertToArmour")
+	output.Mana = round(calcLib.val(modDB, "Mana") * (1 - manaConv / 100))
+	local base = modDB:Sum("BASE", nil, "Mana")
+	local inc = modDB:Sum("INC", nil, "Mana")
+	local more = modDB:More(nil, "Mana")
+	if breakdown then
+		if inc ~= 0 or more ~= 1 or manaConv ~= 0 then
+			breakdown.Mana = { }
+			breakdown.Mana[1] = s_format("%g ^8(base)", base)
+			if inc ~= 0 then
+				t_insert(breakdown.Mana, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
+			end
+			if more ~= 1 then
+				t_insert(breakdown.Mana, s_format("x %.2f ^8(more/less)", more))
+			end
+			if manaConv ~= 0 then
+				t_insert(breakdown.Mana, s_format("x %.2f ^8(converted to Armour)", 1 - manaConv/100))
+			end
+			t_insert(breakdown.Mana, s_format("= %g", output.Mana))
+		end
+	end
+	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
+end
+
+-- Calculate attributes, and set conditions
 ---@param env table
 ---@param actor table
-local function doActorAttribsPoolsConditions(env, actor)
+local function doActorAttribsConditions(env, actor)
 	local modDB = actor.modDB
 	local output = actor.output
 	local breakdown = actor.breakdown
@@ -901,56 +965,7 @@ local function doActorAttribsPoolsConditions(env, actor)
 		modDB:ScaleAddList({ value.mod }, calcLib.mod(modDB, nil, "BuffEffectOnSelf", "ShrineBuffEffect"))
 	end
 
-	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
-	-- Life/mana pools
-	if output.ChaosInoculation then
-		output.Life = 1
-		condList["FullLife"] = true
-	else
-		local base = modDB:Sum("BASE", nil, "Life")
-		local inc = modDB:Sum("INC", nil, "Life")
-		local more = modDB:More(nil, "Life")
-		local conv = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield")
-		output.Life = m_max(round(base * (1 + inc/100) * more * (1 - conv/100)), 1)
-		if breakdown then
-			if inc ~= 0 or more ~= 1 or conv ~= 0 then
-				breakdown.Life = { }
-				breakdown.Life[1] = s_format("%g ^8(base)", base)
-				if inc ~= 0 then
-					t_insert(breakdown.Life, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
-				end
-				if more ~= 1 then
-					t_insert(breakdown.Life, s_format("x %.2f ^8(more/less)", more))
-				end
-				if conv ~= 0 then
-					t_insert(breakdown.Life, s_format("x %.2f ^8(converted to Energy Shield)", 1 - conv/100))
-				end
-				t_insert(breakdown.Life, s_format("= %g", output.Life))
-			end
-		end
-	end
-	local manaConv = modDB:Sum("BASE", nil, "ManaConvertToArmour")
-	output.Mana = round(calcLib.val(modDB, "Mana") * (1 - manaConv / 100))
-	local base = modDB:Sum("BASE", nil, "Mana")
-	local inc = modDB:Sum("INC", nil, "Mana")
-	local more = modDB:More(nil, "Mana")
-	if breakdown then
-		if inc ~= 0 or more ~= 1 or manaConv ~= 0 then
-			breakdown.Mana = { }
-			breakdown.Mana[1] = s_format("%g ^8(base)", base)
-			if inc ~= 0 then
-				t_insert(breakdown.Mana, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
-			end
-			if more ~= 1 then
-				t_insert(breakdown.Mana, s_format("x %.2f ^8(more/less)", more))
-			end
-			if manaConv ~= 0 then
-				t_insert(breakdown.Mana, s_format("x %.2f ^8(converted to Armour)", 1 - manaConv/100))
-			end
-			t_insert(breakdown.Mana, s_format("= %g", output.Mana))
-		end
-	end
-	output.LowestOfMaximumLifeAndMaximumMana = m_min(output.Life, output.Mana)
+	doActorLifeMana(actor)
 end
 
 -- Calculate life/mana reservation
@@ -964,12 +979,14 @@ local function doActorLifeManaReservation(actor)
 		local max = output[pool]
 		local reserved
 		if max > 0 then
+			local lowPerc = modDB:Sum("BASE", nil, "Low" .. pool .. "Percentage")
+			local fullPerc = modDB:Sum("BASE", nil, "Full" .. pool .. "Percentage")
 			reserved = (actor["reserved_"..pool.."Base"] or 0) + m_ceil(max * (actor["reserved_"..pool.."Percent"] or 0) / 100)
 			output[pool.."Reserved"] = m_min(reserved, max)
 			output[pool.."ReservedPercent"] = m_min(reserved / max * 100, 100)
 			output[pool.."Unreserved"] = max - reserved
 			output[pool.."UnreservedPercent"] = (max - reserved) / max * 100
-			if (max - reserved) / max <= data.misc.LowPoolThreshold then
+			if (max - reserved) / max <= (lowPerc > 0 and lowPerc or data.misc.LowPoolThreshold) then
 				condList["Low"..pool] = true
 			end
 		else
@@ -1390,16 +1407,19 @@ end
 -- 2. Initialises minion skills
 -- 3. Initialises the main skill's minion, if present
 -- 4. Merges flask effects
--- 5. Sets conditions and calculates attributes and life/mana pools (doActorAttribsPoolsConditions)
+-- 5. Sets conditions and calculates attributes (doActorAttribsConditions)
+-- 6. Calculates life and mana (doActorLifeMana)
 -- 6. Calculates reservations
 -- 7. Sets life/mana reservation (doActorLifeManaReservation)
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env, avoidCache)
+function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	local avoidCache = avoidCache or false
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
+	
+	local fullDPSSkipEHP = fullDPSSkipEHP or false
 
 	-- Merge keystone modifiers
 	env.keystonesAdded = { }
@@ -1869,7 +1889,21 @@ function calcs.perform(env, avoidCache)
 	mergeKeystones(env)
 
 	-- Calculate attributes and life/mana pools
-	doActorAttribsPoolsConditions(env, env.player)
+	doActorAttribsConditions(env, env.player)
+	doActorLifeMana(env.player)
+	if env.minion then
+		for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
+			if not value.type or env.minion.type == value.type then
+				env.minion.modDB:AddMod(value.mod)
+			end
+		end
+		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
+			if env.spec.tree.keystoneMap[name] then
+				env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+			end
+		end
+		doActorAttribsConditions(env, env.minion)
+	end
 
 	-- Calculate skill life and mana reservations
 	env.player.reserved_LifeBase = 0
@@ -2813,7 +2847,7 @@ function calcs.perform(env, avoidCache)
 
 			-- Make a copy of this skill so we can add new modifiers to the copy affected by Mirage Archers
 			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
-			
+
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Speed", "MORE", moreAttackSpeed, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
@@ -3808,23 +3842,19 @@ function calcs.perform(env, avoidCache)
 
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
+	if not fullDPSSkipEHP then
+		calcs.buildDefenceEstimations(env, env.player)
+	end
 	calcs.offence(env, env.player, env.player.mainSkill)
 
 	if env.minion then
-		for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
-			if not value.type or env.minion.type == value.type then
-				env.minion.modDB:AddMod(value.mod)
-			end
-		end
-		for _, name in ipairs(env.minion.modDB:List(nil, "Keystone")) do
-			if env.spec.tree.keystoneMap[name] then
-				env.minion.modDB:AddList(env.spec.tree.keystoneMap[name].modList)
-			end
-		end
-		doActorAttribsPoolsConditions(env, env.minion)
+		doActorLifeMana(env.minion)
 		doActorLifeManaReservation(env.minion)
 
 		calcs.defence(env, env.minion)
+		if not fullDPSSkipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
+			calcs.buildDefenceEstimations(env, env.minion)
+		end
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
 

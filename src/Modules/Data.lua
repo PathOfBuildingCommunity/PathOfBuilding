@@ -215,7 +215,7 @@ data.weaponTypeInfo = {
 	["One Handed Axe"] = { oneHand = true, melee = true, flag = "Axe" },
 	["One Handed Mace"] = { oneHand = true, melee = true, flag = "Mace" },
 	["One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword" },
-	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "One Handed Mace" },
+	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "Sceptre" },
 	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword", label = "One Handed Sword" },
 	["Fishing Rod"] = { oneHand = false, melee = true, flag = "Fishing" },
 	["Two Handed Axe"] = { oneHand = false, melee = true, flag = "Axe" },
@@ -501,6 +501,12 @@ data.misc = { -- magic numbers
 	PvpElemental2 = 150,
 	PvpNonElemental1 = 0.57,
 	PvpNonElemental2 = 90,
+	-- Some magic numbers can change, but need to be here in order to be used in ConfigOptions (e.g. in tooltips)
+	configurable = {
+		-- Life Scaling Mastery
+		LowLifePercentage = 0.5,
+		FullLifePercentage = 1.0,
+	}
 }
 
 -- Load bosses
@@ -599,6 +605,48 @@ do
 	end
 	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
 end
+
+-- Manually seeded modifier tag against item slot table for Mastery Item Condition based modifiers
+-- Data is informed by getTagBasedModifiers() located in Item.lua
+data.itemTagSpecial = {
+	["life"] = {
+		["body armour"] = {
+			-- Keystone
+			"Blood Magic",
+			"Eternal Youth",
+			"Ghost Reaver",
+			"Mind Over Matter",
+			"The Agnostic",
+			"Vaal Pact",
+			"Zealot's Oath",
+			-- Special Cases
+			"Cannot Leech",
+		},
+	},
+	["evasion"] = {
+		["ring"] = {
+			-- Delve
+			"chance to Evade",
+			-- Unique
+			"Cannot Evade",
+		},
+	},
+}
+data.itemTagSpecialExclusionPattern = {
+	["life"] = {
+		["body armour"] = {
+			"increased Damage while Leeching Life",
+			"Life as Physical Damage",
+			"Life as Extra Maximum Energy Shield",
+			"maximum Life as Fire Damage",
+			"when on Full Life",
+		},
+	},
+	["evasion"] = {
+		["ring"] = {
+		},
+	},
+}
 
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
@@ -1009,7 +1057,7 @@ for gemId, gem in pairs(data.gems) do
 		gem.grantedEffect,
 		gem.secondaryGrantedEffect
 	}
-	gem.defaultLevel = gem.defaultLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
+	gem.naturalMaxLevel = gem.naturalMaxLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
 end
 
 -- Load minions

@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.26.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.26.3) (2023/04/05)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.26.2...v2.26.3)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix several Minion buffs not being calculated correctly [\#5894](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5894) ([Wires77](https://github.com/Wires77))
+- Fix level-up stats from appearing on tooltips [\#5891](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5891) ([Lilylicious](https://github.com/Lilylicious))
+- Fix MoM and Prevented Life loss effect interaction [\#5908](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5908) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Fix life loss prevention occurring on overkill damage resulting in undesired breakpoint behaviour [\#5910](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5910) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Ghost Reaver and Mines Leech not working [\#5888](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5888) ([QuickStick123](https://github.com/QuickStick123))
+- Fix mod values on Betrayal uniques [\#5772](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5772) ([dshebib](https://github.com/dshebib))
+
+
 ## [v2.26.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.26.2) (2023/04/03)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.26.1...v2.26.2)
@@ -29,7 +45,7 @@
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.25.1...v2.26.0)
 
 <!-- Release notes generated using configuration in .github/release.yml at dev -->
-
+\
 ## What's Changed
 ### 3.21 Changes
 - Add 3.21 tree [\#5799](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5799) ([Regisle](https://github.com/Regisle))

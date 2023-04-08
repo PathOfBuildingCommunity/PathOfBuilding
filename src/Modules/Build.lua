@@ -45,7 +45,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
 	self.pantheonMinorGod = "None"
-	self.characterLevelAutoMode = true
+	self.characterLevelAutoMode = main.defaultCharLevel == 1 or main.defaultCharLevel == nil
 	if buildXML then
 		if self:LoadDB(buildXML, "Unnamed build") then
 			self:CloseBuild()
@@ -164,6 +164,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.characterLevelAutoMode = not self.characterLevelAutoMode
 		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
 		self.recalcAdaptiveLevel = true
+		self.configTab:BuildModList()
+		self.modFlag = true
+		self.buildFlag = true
 	end)
 	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, 8, 0, 106, 20, "", "Level", "%D", 3, function(buf)
 		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
@@ -926,6 +929,7 @@ function buildMode:ResetModFlags()
 	self.notesTab.modFlag = false
 	self.configTab.modFlag = false
 	self.treeTab.modFlag = false
+	self.treeTab.searchFlag = false
 	self.spec.modFlag = false
 	self.skillsTab.modFlag = false
 	self.itemsTab.modFlag = false
@@ -1043,7 +1047,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 
@@ -1402,13 +1406,21 @@ function buildMode:AddDisplayStatList(statList, actor)
 	end
 	for pool, warningFlag in pairs({["Life"] = "LifeCostWarning", ["Mana"] = "ManaCostWarning", ["Rage"] = "RageCostWarning", ["Energy Shield"] = "ESCostWarning"}) do
 		if actor.output[warningFlag] then
-			local line = "You do not have enough "..(actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool).." to use a Selected Skill"
+			local line = "You do not have enough "..(actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool).." to use: "
+			for _, skill in ipairs(actor.output[warningFlag]) do
+				line = line..skill..", "
+			end
+			line = line:sub(1, -3)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
 	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentCostWarning", ["Unreserved Mana"] = "ManaPercentCostPercentCostWarning"}) do
 		if actor.output[warningFlag] then
-			local line = "You do not have enough ".. pool .."% to use a Selected Skill"
+			local line = "You do not have enough ".. pool .."% to use: "
+			for _, skill in ipairs(actor.output[warningFlag]) do
+				line = line..skill..", "
+			end
+			line = line:sub(1, -3)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end

@@ -54,6 +54,7 @@ colorCodes = {
 	BRITTLEBG = "^x00122b",
 	SAPBG = "^x261500",
 	SCOURGE = "^xFF6E25",
+	CRUCIBLE = "^xFFA500",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
@@ -282,6 +283,7 @@ SkillType = {
 	OwnerCannotUse = 123,
 	ProjectilesNotFired = 124,
 	TotemsAreBallistae = 125,
+	SkillGrantedBySupport = 126,
 }
 
 GlobalCache = { 
