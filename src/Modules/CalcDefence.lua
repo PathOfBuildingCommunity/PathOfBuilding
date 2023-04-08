@@ -239,7 +239,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	}
 end
 
--- Performs all defensive calculations
+-- Performs all ingame and related defensive calculations
 function calcs.defence(env, actor)
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
@@ -1152,6 +1152,16 @@ function calcs.defence(env, actor)
 	for _, ailment in ipairs(data.ailmentTypeList) do
 		output["Self"..ailment.."Effect"] = calcLib.mod(modDB, nil, "Self"..ailment.."Effect") * (modDB:Flag(nil, "Condition:"..ailment.."edSelf") and calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect") or calcLib.mod(enemyDB, nil, "Enemy"..ailment.."Effect")) * 100
 	end
+end
+
+-- Performs all extra defensive calculations ( eg EHP, maxHit )
+function calcs.buildDefenceEstimations(env, actor)
+	local modDB = actor.modDB
+	local enemyDB = actor.enemy.modDB
+	local output = actor.output
+	local breakdown = actor.breakdown
+
+	local condList = modDB.conditions
 
 	--Enemy damage input and modifications
 	do
@@ -1618,7 +1628,7 @@ function calcs.defence(env, actor)
 	-- Life Recoverable
 	output.LifeRecoverable = output.LifeUnreserved
 	if env.configInput["conditionLowLife"] then
-		output.LifeRecoverable = m_min(output.Life * data.misc.LowPoolThreshold, output.LifeUnreserved)
+		output.LifeRecoverable = m_min(output.Life * data.misc.configurable.LowLifePercentage, output.LifeUnreserved)
 		if output.LifeRecoverable < output.LifeUnreserved then
 			output.CappingLife = true
 		end

@@ -738,6 +738,9 @@ function TradeQueryGeneratorClass:FinishQuery()
 		for _, modLine in ipairs(originalItem.implicitModLines) do
 			table.insert(self.calcContext.testItem.explicitModLines, modLine)
 		end
+		for _, modLine in ipairs(originalItem.crucibleModLines) do
+			table.insert(self.calcContext.testItem.explicitModLines, modLine)
+		end
 	end
 	self.calcContext.testItem:BuildAndParseRaw()
 

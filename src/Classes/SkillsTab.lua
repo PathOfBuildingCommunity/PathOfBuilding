@@ -637,7 +637,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:ProcessSocketGroup(self.displayGroup)
 		-- New gems need to be constrained by ProcessGemLevel
 		gemInstance.level = self:ProcessGemLevel(gemInstance.gemData)
-		gemInstance.defaultLevel = gemInstance.level
+		gemInstance.naturalMaxLevel = gemInstance.level
 		-- Gem changed, update the list and default the quality id
 		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 		slot.qualityId:SelByValue(qualityId or "Default", "type")
@@ -665,7 +665,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 			slot.count:SetText(gemInstance.count)
 		end
-		gemInstance.level = tonumber(buf) or self.displayGroup.gemList[index].defaultLevel or self:ProcessGemLevel(gemInstance.gemData) or 20
+		gemInstance.level = tonumber(buf) or self.displayGroup.gemList[index].naturalMaxLevel or self:ProcessGemLevel(gemInstance.gemData) or 20
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -1002,19 +1002,19 @@ end
 
 function SkillsTabClass:ProcessGemLevel(gemData)
 	local grantedEffect = gemData.grantedEffect
-	local defaultLevel = grantedEffect.defaultLevel or gemData.defaultLevel or 1
+	local naturalMaxLevel = gemData.naturalMaxLevel
 	if self.defaultGemLevel == "awakenedMaximum" then
-		return defaultLevel + 1
+		return naturalMaxLevel + 1
 	elseif self.defaultGemLevel == "corruptedMaximum" then
 		if grantedEffect.plusVersionOf then
-			return defaultLevel
+			return naturalMaxLevel
 		else
-			return defaultLevel + 1
+			return naturalMaxLevel + 1
 		end
 	elseif self.defaultGemLevel == "normalMaximum" then
-		return defaultLevel
+		return naturalMaxLevel
 	else -- self.defaultGemLevel == "characterLevel"
-		local maxGemLevel = defaultLevel
+		local maxGemLevel = naturalMaxLevel
 		if not grantedEffect.levels[maxGemLevel] then
 			maxGemLevel = #grantedEffect.levels
 		end
@@ -1035,7 +1035,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	for _, gemInstance in ipairs(socketGroup.gemList) do
 		gemInstance.color = "^8"
 		gemInstance.nameSpec = gemInstance.nameSpec or ""
-		local prevDefaultLevel = gemInstance.gemData and gemInstance.gemData.defaultLevel or (gemInstance.new and 20)
+		local prevDefaultLevel = gemInstance.gemData and gemInstance.gemData.naturalMaxLevel or (gemInstance.new and 20)
 		gemInstance.gemData, gemInstance.grantedEffect = nil
 		if gemInstance.gemId then
 			-- Specified by gem ID
@@ -1090,9 +1090,9 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			else
 				gemInstance.color = colorCodes.NORMAL
 			end
-			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.defaultLevel ~= prevDefaultLevel then
-				gemInstance.level = gemInstance.gemData.defaultLevel
-				gemInstance.defaultLevel = gemInstance.level
+			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.naturalMaxLevel ~= prevDefaultLevel then
+				gemInstance.level = gemInstance.gemData.naturalMaxLevel
+				gemInstance.naturalMaxLevel = gemInstance.level
 			end
 			calcLib.validateGemLevel(gemInstance)
 			if gemInstance.gemData then

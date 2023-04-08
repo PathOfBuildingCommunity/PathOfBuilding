@@ -64,6 +64,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill VaalAnimateWeapon
+#flags spell minion duration
+#mods
+
 #skill ArcticArmour
 #flags spell duration
 	statMap = {
@@ -78,6 +82,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+#mods
+
+#skill VaalArcticArmour
+#flags spell duration
 #mods
 
 #skill ArtilleryBallista
@@ -869,9 +877,6 @@ local skills, mod, flag, skill = ...
 #skill FlickerStrike
 #flags attack melee duration
 	statMap = {
-		["flicker_strike_more_attack_speed_+%_final"] = {
-			mod("Speed", "MORE", nil, ModFlag.Attack),
-		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["flicker_strike_buff_movement_speed_+%"] = {
@@ -882,6 +887,15 @@ local skills, mod, flag, skill = ...
 
 #skill VaalFlickerStrike
 #flags attack melee duration
+	statMap = {
+		["active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment)),
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+#baseMod flag("OnlyFinalRepeat")
+#baseMod flag("FinalRepeatSumsDamage")
 #mods
 
 #skill Frenzy
@@ -1091,6 +1105,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 23)
 #mods
 
+#skill VaalIceShot
+#flags attack projectile area duration
+#mods
+
 #skill IceTrap
 #flags spell trap area
 #baseMod skill("radius", 18)
@@ -1164,6 +1182,10 @@ local skills, mod, flag, skill = ...
 			mod("PierceCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
+#mods
+
+#skill VaalLightningArrow
+#flags attack projectile
 #mods
 
 #skill VaalLightningStrike
@@ -1713,9 +1735,6 @@ local skills, mod, flag, skill = ...
 		["impacting_steel_secondary_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
 		},
-		["splitting_steel_area_+%_final_after_splitting"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
-		},
 	},
 #baseMod flag("NoAdditionalProjectiles")
 #mods
@@ -1955,4 +1974,19 @@ local skills, mod, flag, skill = ...
 
 #skill VampiricLink
 #flags spell duration
+#mods
+
+#skill ChannelledSnipe
+#flags attack projectile
+	initialFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
+	end,
+#mods
+
+#skill ChannelledSnipeSupport
+#baseMod flag("TriggeredBySnipe")
+#mods
+
+#skill QuickstepHardMode
+#flags movement travel
 #mods

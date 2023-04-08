@@ -387,6 +387,12 @@ local function doActorLifeMana(actor)
 	local breakdown = actor.breakdown
 	local condList = modDB.conditions
 
+	-- This is hacky, but currently the only way to bring data into ConfigOptions for dynamically updated tooltips
+	local lowLifePerc = modDB:Sum("BASE", nil, "LowLifePercentage")
+	data.misc.configurable.LowLifePercentage = 100.0 * (lowLifePerc > 0 and lowLifePerc or data.misc.LowPoolThreshold)
+	local fullLifePerc = modDB:Sum("BASE", nil, "FullLifePercentage")
+	data.misc.configurable.FullLifePercentage = 100.0 * (fullLifePerc > 0 and fullLifePerc or 1.0)
+
 	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
 	-- Life/mana pools
 	if output.ChaosInoculation then
@@ -746,12 +752,14 @@ local function doActorLifeManaReservation(actor)
 		local max = output[pool]
 		local reserved
 		if max > 0 then
+			local lowPerc = modDB:Sum("BASE", nil, "Low" .. pool .. "Percentage")
+			local fullPerc = modDB:Sum("BASE", nil, "Full" .. pool .. "Percentage")
 			reserved = (actor["reserved_"..pool.."Base"] or 0) + m_ceil(max * (actor["reserved_"..pool.."Percent"] or 0) / 100)
 			output[pool.."Reserved"] = m_min(reserved, max)
 			output[pool.."ReservedPercent"] = m_min(reserved / max * 100, 100)
 			output[pool.."Unreserved"] = max - reserved
 			output[pool.."UnreservedPercent"] = (max - reserved) / max * 100
-			if (max - reserved) / max <= data.misc.LowPoolThreshold then
+			if (max - reserved) / max <= (lowPerc > 0 and lowPerc or data.misc.LowPoolThreshold) then
 				condList["Low"..pool] = true
 			end
 		else
@@ -1179,10 +1187,12 @@ end
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env, avoidCache)
+function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	local avoidCache = avoidCache or false
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
+	
+	local fullDPSSkipEHP = fullDPSSkipEHP or false
 
 	-- Merge keystone modifiers
 	env.keystonesAdded = { }
@@ -2728,7 +2738,7 @@ function calcs.perform(env, avoidCache)
 
 			-- Make a copy of this skill so we can add new modifiers to the copy affected by Mirage Archers
 			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
-			
+
 			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
 			newSkill.skillModList:NewMod("Speed", "MORE", moreAttackSpeed, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
@@ -3428,6 +3438,9 @@ function calcs.perform(env, avoidCache)
 
 	-- Defence/offence calculations
 	calcs.defence(env, env.player)
+	if not fullDPSSkipEHP then
+		calcs.buildDefenceEstimations(env, env.player)
+	end
 	calcs.offence(env, env.player, env.player.mainSkill)
 
 	if env.minion then
@@ -3435,6 +3448,9 @@ function calcs.perform(env, avoidCache)
 		doActorLifeManaReservation(env.minion)
 
 		calcs.defence(env, env.minion)
+		if not fullDPSSkipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
+			calcs.buildDefenceEstimations(env, env.minion)
+		end
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
 

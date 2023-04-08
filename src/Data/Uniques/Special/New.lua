@@ -63,6 +63,12 @@ Regenerate (2-4) Life per second
 (2.54-2.56)% of Physical Attack Damage Leeched as Life
 (1.35-1.48)% of Physical Attack Damage Leeched as Mana
 Taking Chaos Damage over Time heals you instead while Leeching Life
+]],
+[[
+Bloodnotch
+Crimson Jewel
+Limited to: 1
+55% of Damage Taken from Stunning Hits is Recovered as Life
 ]]
 -- Reworked
 

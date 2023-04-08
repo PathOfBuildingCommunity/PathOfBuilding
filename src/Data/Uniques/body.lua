@@ -148,7 +148,7 @@ Implicits: 0
 (8-12)% Chance to Block Attack Damage
 (80-100)% increased Armour
 10% reduced Movement Speed
-Cannot Block Spells
+Cannot Block Spell Damage
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
 The Iron Fortress
