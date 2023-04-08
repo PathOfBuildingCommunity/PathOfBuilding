@@ -1,6 +1,6 @@
 VERSION[2.27.0][2023/04/08]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
+--- Implemented Enhancements ---
 * 3.21 game data update (Nostrademous)
 * Add crucible modifier parsing support (Nostrademous)
 * Add support for mods conditional on the modifiers of other equipped items (Nostrademous)
@@ -14,17 +14,20 @@ VERSION[2.27.0][2023/04/08]
 * Add support for Saboteur Ascendancy (Peechey)
 * Add support for "Skills Cost Life instead of 30% of Mana" Mastery (Nostrademous)
 * Prompt for saving after altering the passive search string (Lilylicious)
+
 --- User Interface ---
 * Limit separators to non-alphanumeric (Lilylicious)
+
 --- Fixed Bugs ---
 * Fix default state validation for lists and color labels (deathbeam)
 * Fix tree data bug related to recovery mastery (QuickStick123)
 * Fix issue where Sceptres and One Handed Maces were considered the same weapon type (Peechey)
 * Fix Reverberation Rod to add back Controlled Destruction (chx)
 * Fix Kaom's Spirit rage regen calculation behaviour (Ribel38)
+
 --- Other changes ---
 * Improve EHP calculation performance when using full DPS (Regisle)
-* Fix a few uniques for 3.21 (QuickStick123)
+* Update a few uniques for 3.21 (QuickStick123)
 
 VERSION[2.26.3][2023/04/05]
 

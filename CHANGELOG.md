@@ -8,30 +8,30 @@
 
 ## What's Changed
 ### New to Path of Building
-- 3.21 game data update [\#5966](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5966) ([Nostrademous](https://github.com/Nostrademous))
-- Add crucible modifier parsing support [\#5823](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5823) ([Nostrademous](https://github.com/Nostrademous))
-- Add support for mods conditional on the modifiers of other equipped items [\#5819](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5819) ([Nostrademous](https://github.com/Nostrademous))
-- Add Bloodnotch [\#5927](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5927) ([QuickStick123](https://github.com/QuickStick123))
-- Set level mode to manual if default level is above 1 [\#5920](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5920) ([Lilylicious](https://github.com/Lilylicious))
-- Hide the power report on loading a build and unchecking "Show node power" [\#5932](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5932) ([Lilylicious](https://github.com/Lilylicious))
-- Add skill names to cost warnings [\#5931](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5931) ([Paliak](https://github.com/Paliak))
-- Add support for new Low Life and Full Life Masteries [\#5904](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5904) ([Nostrademous](https://github.com/Nostrademous))
-- Add support for Warcry Mastery [\#5955](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5955) ([Peechey](https://github.com/Peechey))
-- Add support for repeat-based modifiers [\#5676](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5676) ([Regisle](https://github.com/Regisle))
-- Add support for Saboteur Ascendancy [\#5954](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5954) ([Peechey](https://github.com/Peechey))
-- Add support for "Skills Cost Life instead of 30% of Mana" Mastery [\#5913](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5913) ([Nostrademous](https://github.com/Nostrademous))
-- Prompt for saving after altering the passive search string [\#5930](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5930) ([Lilylicious](https://github.com/Lilylicious))
+- 3.21 game data update [\#5966](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5966) ([Nostrademous](https://github.com/Nostrademous))
+- Add crucible modifier parsing support [\#5823](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5823) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for mods conditional on the modifiers of other equipped items [\#5819](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5819) ([Nostrademous](https://github.com/Nostrademous))
+- Add Bloodnotch [\#5927](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5927) ([QuickStick123](https://github.com/QuickStick123))
+- Set level mode to manual if default level is above 1 [\#5920](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5920) ([Lilylicious](https://github.com/Lilylicious))
+- Hide the power report on loading a build and unchecking "Show node power" [\#5932](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5932) ([Lilylicious](https://github.com/Lilylicious))
+- Add skill names to cost warnings [\#5931](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5931) ([Paliak](https://github.com/Paliak))
+- Add support for new Low Life and Full Life Masteries [\#5904](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5904) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for Warcry Mastery [\#5955](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5955) ([Peechey](https://github.com/Peechey))
+- Add support for repeat-based modifiers [\#5676](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5676) ([Regisle](https://github.com/Regisle))
+- Add support for Saboteur Ascendancy [\#5954](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5954) ([Peechey](https://github.com/Peechey))
+- Add support for "Skills Cost Life instead of 30% of Mana" Mastery [\#5913](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5913) ([Nostrademous](https://github.com/Nostrademous))
+- Prompt for saving after altering the passive search string [\#5930](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5930) ([Lilylicious](https://github.com/Lilylicious))
 ### User Interface
-- Limit separators to non-alphanumeric [\#5922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5922) ([Lilylicious](https://github.com/Lilylicious))
+- Limit separators to non-alphanumeric [\#5922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5922) ([Lilylicious](https://github.com/Lilylicious))
 ### Fixed Bugs
-- Fix default state validation for lists and color labels [\#5618](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5618) ([deathbeam](https://github.com/deathbeam))
-- Fix tree data bug related to recovery mastery [\#5964](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5964) ([QuickStick123](https://github.com/QuickStick123))
-- Fix issue where Sceptres and One Handed Maces were considered the same weapon type [\#5942](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5942) ([Peechey](https://github.com/Peechey))
-- Fix Reverberation Rod to add back Controlled Destruction [\#5941](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5941) ([chx](https://github.com/chx))
-- Fix Kaom's Spirit rage regen calculation behaviour [\#5951](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5951) ([Ribel38](https://github.com/Ribel38))
+- Fix default state validation for lists and color labels [\#5618](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5618) ([deathbeam](https://github.com/deathbeam))
+- Fix tree data bug related to recovery mastery [\#5964](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5964) ([QuickStick123](https://github.com/QuickStick123))
+- Fix issue where Sceptres and One Handed Maces were considered the same weapon type [\#5942](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5942) ([Peechey](https://github.com/Peechey))
+- Fix Reverberation Rod to add back Controlled Destruction [\#5941](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5941) ([chx](https://github.com/chx))
+- Fix Kaom's Spirit rage regen calculation behaviour [\#5951](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5951) ([Ribel38](https://github.com/Ribel38))
 ### Other changes
-- Improve EHP calculation performance when using full DPS [\#5773](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5773) ([Regisle](https://github.com/Regisle))
-- Fix a few uniques for 3.21 [\#5971](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5971) ([QuickStick123](https://github.com/QuickStick123))
+- Improve EHP calculation performance when using full DPS [\#5773](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5773) ([Regisle](https://github.com/Regisle))
+- Update a few uniques for 3.21 [\#5971](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5971) ([QuickStick123](https://github.com/QuickStick123))
 
 
 ## [v2.26.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.26.3) (2023/04/05)
