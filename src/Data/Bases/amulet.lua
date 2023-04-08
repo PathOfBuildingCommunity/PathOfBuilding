@@ -110,14 +110,14 @@ itemBases["Seaglass Amulet"] = {
 }
 itemBases["Astrolabe Amulet"] = {
 	type = "Amulet",
-	tags = { not_for_sale = true, experimental_base = true, default = true, amulet = true, },
+	tags = { not_for_sale = true, default = true, amulet = true, },
 	implicit = "Implicit Modifiers Cannot Be Changed\nHas Elder, Shaper and all Conqueror Influences",
 	implicitModTypes = { {  }, {  }, },
 	req = { level = 69, },
 }
 itemBases["Simplex Amulet"] = {
 	type = "Amulet",
-	tags = { not_for_sale = true, experimental_base = true, default = true, amulet = true, },
+	tags = { not_for_sale = true, default = true, amulet = true, },
 	implicit = "-1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n25% increased Explicit Modifier magnitudes",
 	implicitModTypes = { {  }, {  }, {  }, {  }, },
 	req = { level = 24, },

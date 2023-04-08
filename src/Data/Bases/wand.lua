@@ -15,8 +15,8 @@ itemBases["Goat's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "Adds (1-2) to (3-4) Fire Damage to Spells and Attacks",
-	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "fire", "attack", "caster" }, },
+	implicit = "(10-14)% increased Spell Damage",
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 9, PhysicalMax = 16, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 6, int = 29, },
 }
@@ -33,8 +33,8 @@ itemBases["Quartz Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "Adds (2-3) to (4-7) Cold Damage to Spells and Attacks",
-	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "cold", "attack", "caster" }, },
+	implicit = "(18-22)% increased Spell Damage",
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 14, PhysicalMax = 27, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 18, int = 65, },
 }
@@ -42,8 +42,8 @@ itemBases["Spiraled Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "Adds (1-2) to (9-11) Lightning Damage to Spells and Attacks",
-	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "lightning", "attack", "caster" }, },
+	implicit = "(15-19)% increased Spell Damage",
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 12, PhysicalMax = 37, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 24, int = 83, },
 }
@@ -69,8 +69,8 @@ itemBases["Faun's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "Adds (5-10) to (11-13) Fire Damage to Spells and Attacks",
-	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "fire", "attack", "caster" }, },
+	implicit = "(20-24)% increased Spell Damage",
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 26, PhysicalMax = 48, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 35, int = 116, },
 }
@@ -87,17 +87,17 @@ itemBases["Crystal Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "Adds (4-8) to (10-12) Cold Damage to Spells and Attacks",
-	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "cold", "attack", "caster" }, },
+	implicit = "(29-33)% increased Spell Damage",
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 28, PhysicalMax = 52, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 45, int = 146, },
 }
-itemBases["Coiled Wand"] = {
+itemBases["Serpent Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "Adds (1-2) to (22-24) Lightning Damage to Spells and Attacks",
-	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "lightning", "attack", "caster" }, },
+	implicit = "(26-30)% increased Spell Damage",
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 21, PhysicalMax = 64, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 49, int = 158, },
 }
@@ -123,8 +123,8 @@ itemBases["Demon's Horn"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "Adds (18-36) to (53-59) Fire Damage to Spells and Attacks",
-	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "fire", "attack", "caster" }, },
+	implicit = "(31-35)% increased Spell Damage",
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 38, PhysicalMax = 71, CritChanceBase = 7, AttackRateBase = 1.2, Range = 120, },
 	req = { level = 56, int = 179, },
 }
@@ -141,8 +141,8 @@ itemBases["Opal Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { top_tier_base_item_type = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "Adds (14-29) to (42-47) Cold Damage to Spells and Attacks",
-	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "cold", "attack", "caster" }, },
+	implicit = "(38-42)% increased Spell Damage",
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 65, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 62, int = 212, },
 }
@@ -150,8 +150,8 @@ itemBases["Tornado Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
 	tags = { top_tier_base_item_type = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
-	implicit = "Adds (3-5) to (70-82) Lightning Damage to Spells and Attacks",
-	implicitModTypes = { { "elemental_damage", "caster_damage", "damage", "elemental", "lightning", "attack", "caster" }, },
+	implicit = "(35-39)% increased Spell Damage",
+	implicitModTypes = { { "caster_damage", "damage", "caster" }, },
 	weapon = { PhysicalMin = 25, PhysicalMax = 75, CritChanceBase = 7, AttackRateBase = 1.3, Range = 120, },
 	req = { level = 65, int = 212, },
 }
@@ -176,7 +176,7 @@ itemBases["Profane Wand"] = {
 itemBases["Assembler Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { ranged = true, not_for_sale = true, onehand = true, wand = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 16, PhysicalMax = 30, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
@@ -185,7 +185,7 @@ itemBases["Assembler Wand"] = {
 itemBases["Congregator Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { ranged = true, not_for_sale = true, onehand = true, wand = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 25, PhysicalMax = 46, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
@@ -194,7 +194,7 @@ itemBases["Congregator Wand"] = {
 itemBases["Accumulator Wand"] = {
 	type = "Wand",
 	socketLimit = 3,
-	tags = { ranged = true, not_for_sale = true, onehand = true, wand = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { not_for_sale = true, onehand = true, wand = true, weapon = true, ranged = true, one_hand_weapon = true, default = true, },
 	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 29, PhysicalMax = 54, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },

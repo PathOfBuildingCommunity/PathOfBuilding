@@ -175,14 +175,14 @@ itemBases["Two-Stone Ring (Fire/Cold)"] = {
 }
 itemBases["Cogwork Ring"] = {
 	type = "Ring",
-	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	tags = { ring = true, not_for_sale = true, default = true, },
 	implicit = "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	req = { level = 24, },
 }
 itemBases["Geodesic Ring"] = {
 	type = "Ring",
-	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	tags = { ring = true, not_for_sale = true, default = true, },
 	implicit = "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	req = { level = 24, },

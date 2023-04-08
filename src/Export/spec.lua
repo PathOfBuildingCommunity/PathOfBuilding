@@ -1669,59 +1669,59 @@ return {
 		},
 		[27]={
 			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=40
-		},
-		[28]={
-			list=false,
 			name="MinStat",
 			refTo="Stats",
 			type="Key",
 			width=180
 		},
-		[29]={
+		[28]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=40
 		},
-		[30]={
+		[29]={
 			list=false,
 			name="UIStackMode",
 			refTo="",
 			type="Int",
 			width=80
 		},
-		[31]={
+		[30]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=50
 		},
-		[32]={
+		[31]={
 			list=false,
 			name="IsSkillBuff",
 			refTo="",
 			type="Bool",
 			width=70
 		},
-		[33]={
+		[32]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
 			width=50
 		},
-		[34]={
+		[33]={
 			list=true,
 			name="",
 			refTo="",
 			type="Int",
 			width=150
+		},
+		[34]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		},
 		[35]={
 			list=false,
@@ -1734,50 +1734,50 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Bool",
-			width=50
+			type="Key",
+			width=150
 		},
 		[37]={
 			list=false,
 			name="",
 			refTo="",
-			type="Key",
-			width=150
-		},
-		[38]={
-			list=false,
-			name="",
-			refTo="",
 			type="Bool",
 			width=50
 		},
-		[39]={
+		[38]={
 			list=true,
 			name="Stats2",
 			refTo="Stats",
 			type="Key",
 			width=250
 		},
-		[40]={
+		[39]={
 			list=true,
 			name="GrantedFlags",
 			refTo="Stats",
 			type="Key",
 			width=250
 		},
-		[41]={
+		[40]={
 			list=true,
 			name="GrantedStats",
 			refTo="Stats",
 			type="Key",
 			width=450
 		},
-		[42]={
+		[41]={
 			list=true,
 			name="ConditionStats",
 			refTo="Stats",
 			type="Key",
 			width=150
+		},
+		[42]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
 		},
 		[43]={
 			list=false,
@@ -1808,13 +1808,6 @@ return {
 			width=50
 		},
 		[47]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=50
-		},
-		[48]={
 			list=false,
 			name="",
 			refTo="Stats",
