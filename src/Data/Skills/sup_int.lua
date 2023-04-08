@@ -5435,6 +5435,7 @@ skills["SupportPrismaticBurst"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["trigger_prismatic_burst_on_hit_%_chance"] = {
+			-- Display only
 		},
 	},
 	qualityStats = {
@@ -5519,9 +5520,6 @@ skills["PrismaticBurst"] = {
 			name = "Lightning",
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 	statMap = {
 		["prismatic_burst_unchosen_type_damage_-100%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),
