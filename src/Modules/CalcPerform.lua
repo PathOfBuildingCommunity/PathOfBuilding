@@ -3250,6 +3250,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		local uuid = nil
 		local triggerOnUse = nil
 		local useCastRate = false
+		local requiredManaCost = nil
 		local function slotMatch(env, skill)
 			local match1 = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
@@ -3395,11 +3396,12 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
 					end
 				end
-			elseif actor.mainSkill.skillData.triggeredByManaSpent then
+			elseif uniqueTriggerName == "Kitava's Thirst" then
 				triggerChance = actor.modDB:Sum("BASE", nil, "KitavaTriggerChance")
 				triggerName = "Kitava's Thirst"
+				requiredManaCost = actor.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return not skill.skillTypes[SkillType.Triggered] and skill ~= actor.mainSkill and not skill.skillData.triggeredByManaSpent end
+				triggerSkillCond = function(env, skill) return not skill.skillTypes[SkillType.Triggered] and skill ~= actor.mainSkill end
 			elseif actor.mainSkill.skillData.triggeredByMjolner then
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and skill ~= actor.mainSkill
@@ -3515,7 +3517,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				for _, skill in ipairs(env.player.activeSkillList) do
 					local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
 					if triggerSkillCond and triggerSkillCond(env, skill) and (not triggered or isGlobalTrigger(skill)) then
-						source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate or 0)
+						source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate or 0, requiredManaCost)
 					end
 					if triggeredSkillCond and triggeredSkillCond(env,skill) and triggeredSkills ~= nil then
 						t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
