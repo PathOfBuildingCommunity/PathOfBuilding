@@ -744,9 +744,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "TriggeredBySnipe") and activeSkill.skillTypes[SkillType.Triggerable] then
-		skillModList:NewMod("Damage", "MORE", 165, "Config", ModFlag.Hit, { type = "Multiplier", var = "SnipeStage" } )
-		skillModList:NewMod("Damage", "MORE", 120, "Config", ModFlag.Ailment, { type = "Multiplier", var = "SnipeStage" } )
+	--Snipe doesn't grab the max stages multiplier from the gem when granted by Assailum so we add it back here
+	if skillModList:Flag(nil, "TriggeredByAssailum") and activeSkill.skillTypes[SkillType.Triggerable] then
+		skillModList:NewMod("Multiplier:SnipeStagesMax", "BASE", 6, "Snipe Max Stages", { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 	end
 	if skillModList:Sum("BASE", nil, "CritMultiplierAppliesToDegen") > 0 then
 		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "CritMultiplier")) do

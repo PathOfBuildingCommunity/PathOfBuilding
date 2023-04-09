@@ -385,7 +385,7 @@ return {
 	end },
 	{ label = "Snipe:", ifSkill = "Snipe" },
 	{ var = "configSnipeStages", type = "count", label = "# of Snipe stages:", ifSkill = "Snipe", tooltip = "Sets the number of stages reached before releasing Snipe.", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:SnipeStage", "BASE", m_min(val, 6), "Config")
+		modList:NewMod("Multiplier:SnipeStage", "BASE", val, "Config")
 	end },
 	{ label = "Trinity Support:", ifSkill = "Trinity" },
 	{ var = "configResonanceCount", type = "count", label = "Lowest Resonance Count:", ifSkill = "Trinity", tooltip = "Sets the amount of resonance on the lowest element.", apply = function(val, modList, enemyModList)
