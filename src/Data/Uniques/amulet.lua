@@ -28,6 +28,18 @@ Implicits: 1
 {variant:1}{tags:physical_damage}Reflects 200 to 250 Physical Damage to Attackers on Block
 {variant:2,3,4}{tags:physical_damage}Reflects 240 to 300 Physical Damage to Attackers on Block
 ]],[[
+Bloodsoaked Medallion
+Amber Amulet
+Item Level: 75
+Requires Level 49
++(20-30) to Strength
+(40-50)% increased Global Critical Strike Chance
++(50-70) to maximum Life
++(17-29)% to Chaos Resistance
+Every 10 seconds:
+Gain 2% of Life per Enemy Hit with Attacks for 5 seconds
+Gain 5% of Life per Enemy Killed for 5 seconds
+]],[[  
 Araku Tiki
 Coral Amulet
 Variant: Pre 3.19.0
@@ -997,6 +1009,15 @@ Summon Raging Spirit has (20-30)% increased Duration
 {variant:1}{tags:life}Summoned Raging Spirits have (80-100)% increased maximum Life
 {variant:2}{tags:life}Summoned Raging Spirits have (25-40)% increased maximum Life
 {tags:chaos_damage}Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damage
+]],[[
+Tainted Pact
+Coral Amulet
+Implicits: 1
+Regenerate (2-4) Life per second
++(20-30) to Strength
+(2-3)% of Physical Attack Damage Leeched as Life
+(1-1.5)% of Physical Attack Damage Leeched as Mana
+Taking Chaos Damage over Time heals you instead while Leeching Life
 ]],[[
 Tear of Purity
 Lapis Amulet

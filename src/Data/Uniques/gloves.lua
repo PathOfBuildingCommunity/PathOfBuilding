@@ -590,6 +590,14 @@ Socketed Gems are Supported by Level 5 Concentrated Effect
 4% reduced Mana Cost per Endurance Charge
 Gain Rampage while at Maximum Endurance Charges
 Lose all Endurance Charges when Rampage ends
+]],[[
+Tanu Ahi
+Wyrmscale Gauntlets
+(8-12)% increased Attack Speed
+(100-150)% increased Armour and Evasion
+(2-3)% of Physical Attack Damage Leeched as Life
+10% chance to gain Adrenaline for 2 Seconds when Leech is removed by Filling Unreserved Life
+10% chance to gain Onslaught for 4 Seconds when Leech is removed by Filling Unreserved Life
 ]],
 -- Gloves: Armour/Energy Shield
 [[
@@ -781,6 +789,15 @@ Requires Level 45, 35 Dex, 35 Int
 Enemies take 4% increased Elemental Damage from your Hits for
 each Withered you have inflicted on them
 Your Hits cannot Penetrate or ignore Elemental Resistances
+]],[[
+Stormseeker
+Ambush Mitts
++(40-60) to maximum Energy Shield
++(40-60) to maximum Mana
+(60-100)% increased Effect of Chill you inflict while Leeching Mana
+(60-100)% increased Effect of Shocks you inflict while Leeching Energy Shield
+Unaffected by Chill while Leeching Mana
+Unaffected by Shock while Leeching Energy Shield
 ]],[[
 Algor Mortis
 Carnal Mitts
