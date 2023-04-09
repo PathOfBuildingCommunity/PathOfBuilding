@@ -3562,7 +3562,7 @@ local specialModList = {
 	["nearby enemies are blinded while physical aegis is not depleted"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Blinded") }, { type = "Condition", var = "PhysicalAegisDepleted", neg = true }) },
 	["armour is increased by uncapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistTotal", div = 1 }) },
 	["armour is increased by overcapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistOverCap", div = 1 }) },
-	["minion life is increased by overcapped fire resistance"] = { mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1, { type = "PerStat", stat = "FireResistOverCap", div = 1, actor = "parent" }) }) },
+	["minion life is increased by t?h?e?i?r? ?overcapped fire resistance"] = { mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1, { type = "PerStat", stat = "FireResistOverCap", div = 1 }) }) },
 	["evasion rating is increased by uncapped cold resistance"] = { mod("Evasion", "INC", 1, { type = "PerStat", stat = "ColdResistTotal", div = 1 }) },
 	["evasion rating is increased by overcapped cold resistance"] = { mod("Evasion", "INC", 1, { type = "PerStat", stat = "ColdResistOverCap", div = 1 }) },
 	["reflects (%d+) physical damage to melee attackers"] = { },

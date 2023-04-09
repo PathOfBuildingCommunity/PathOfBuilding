@@ -322,6 +322,7 @@ Adds 1 to (35-45) Lightning Damage
 Tulborn
 {variant:1}Spiraled Wand
 {variant:2}Opal Wand
+Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
 League: Breach
@@ -329,14 +330,15 @@ Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{Tulfall} using currency{Blessing of Tul}
 Requires Level 24, 83 Int
 Implicits: 2
-{variant:1}(15-19)% increased Spell Damage
-{variant:2}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
-{variant:1}(10-15)% increased Cast Speed
-50% chance to gain a Power Charge on Killing a Frozen Enemy
-{variant:1}Adds 10 to 20 Cold Damage to Spells per Power Charge
-{variant:2}Adds (120-140) to (150-170) Cold Damage to Spells
+{variant:1,2}(15-19)% increased Spell Damage
+{variant:3}Adds (14-29) to (42-47) Cold Damage to Spells and Attacks
+{variant:1,2}(10-15)% increased Cast Speed
+{variant:3}Adds (120-140) to (150-170) Cold Damage to Spells
+{variant:1,2}50% chance to gain a Power Charge on Killing a Frozen Enemy
+{variant:3}Gain a Power Charge on Killing a Frozen Enemy
+{variant:1,2}Adds 10 to 20 Cold Damage to Spells per Power Charge
+{variant:3}Cold Exposure you inflict applies an extra -12% to Cold Resistance
 +(20-25) Mana gained on Killing a Frozen Enemy
-{variant:2}Cold Exposure you inflict applies an extra -12% to Cold Resistance
 ]],[[
 Tulfall
 {variant:1,2}Tornado Wand

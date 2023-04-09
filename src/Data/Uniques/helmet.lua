@@ -101,7 +101,7 @@ Requires Level 65, 148 Str
 {variant:1,2}8% of Physical Damage from Hits taken as Fire Damage
 {variant:1}Armour is increased by Uncapped Fire Resistance
 {variant:2}Armour is increased by Overcapped Fire Resistance
-{variant:3}Minion Life is increased by Overcapped Fire Resistance
+{variant:3}Minion Life is increased by their Overcapped Fire Resistance
 ]],[[
 Echoes of Creation
 Shaper Item
