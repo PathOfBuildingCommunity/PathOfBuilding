@@ -541,17 +541,35 @@ Tombfist
 Steelscale Gauntlets
 League: Abyss
 Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
-Variant: Pre 3.6.0 One Abyssal Socket
-Variant: Pre 3.6.0 Two Abyssal Sockets
-Variant: Current One Abyssal Socket
-Variant: Current Two Abyssal Sockets
-Requires Level: 36, 29 Str, 29 Int
-{variant:1,3}Has 1 Abyssal Socket
-{variant:2,4}Has 2 Abyssal Sockets
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 3
+Selected Alt Variant: 5
+Selected Alt Variant Two: 6
+Selected Alt Variant Three: 9
+Variant: Pre 3.6.0
+Variant: Pre 3.21.0
+Variant: Current
+Variant: One Abyssal Socket
+Variant: Two Abyssal Socket
+Variant: Murderous: Intimidate
+Variant: Murderous: Fortify
+Variant: Murderous: Rage
+Variant: Searching: Maim
+Variant: Searching: Blind
+Variant: Searching: Onslaught
+{variant:5}Has 1 Abyssal Socket
+{variant:4}Has 2 Abyssal Sockets
 {variant:1,2}(6-10)% increased Attack Speed
-(4-6)% increased maximum Life
-With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks
-With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
+{variant:3}(5-10)% increased Attack Speed
+{variant:1,2}(4-6)% increased maximum Life
+{variant:6}With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks
+{variant:7}With a Murderous Eye Jewel Socketed, Melee Hits have 25% chance to Fortify
+{variant:8}With a Murderous Eye Jewel Socketed, Melee Attacks grant 1 Rage on Hit, no more than once every second
+{variant:9}With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
+{variant:10}With a Searching Eye Jewel Socketed, Blind Enemies for 4 seconds on Hit with Attacks
+{variant:11}With a Searching Eye Jewel Socketed, Attacks have 25% chance to grant Onslaught On Kill
 ]],[[
 Vaal Caress
 Bronzescale Gauntlets
