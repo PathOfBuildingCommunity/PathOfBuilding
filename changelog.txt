@@ -1,3 +1,23 @@
+VERSION[2.27.2][2023/04/09]
+
+--- Implemented Enhancements ---
+* Add support for Prismatic Burst (Wires77)
+
+--- Fixed Crashes ---
+* Fix crash in the Trader from not having jewel data (Regisle)
+
+--- User Interface ---
+* Correct display of max mana leech rate breakdown (Lilylicious)
+* Fix crucible item colour (QuickStick123)
+
+--- Fixed Bugs ---
+* Fix Flasks incorrectly having "Cannot Leech" on them (Wires77)
+* Fix + to level of active skill gem mods not working (LocalIdentity)
+* Fix Formless Inferno, Uul-Netol's Kiss and Tulborn (QuickStick123)
+* Fix Absolution Enchant Parsing (LocalIdentity)
+* Fix Snipe Support + update Assailum (LocalIdentity)
+
+
 VERSION[2.27.0][2023/04/08]
 
 --- Implemented Enhancements ---
