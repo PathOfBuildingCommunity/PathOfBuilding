@@ -1670,7 +1670,7 @@ skills["SupportAdditionalQuality"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["supported_active_skill_gem_quality_%"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
+			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
 		},
 	},
 	qualityStats = {
@@ -1710,7 +1710,7 @@ skills["SupportAdditionalQualityPlus"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["supported_active_skill_gem_quality_%"] = {
-			mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "quality", value = nil }),
+			mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = nil }),
 		},
 	},
 	qualityStats = {
