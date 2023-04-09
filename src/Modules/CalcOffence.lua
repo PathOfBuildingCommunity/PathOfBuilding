@@ -744,9 +744,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "TriggeredBySnipe") and activeSkill.skillTypes[SkillType.Triggerable] then
-		skillModList:NewMod("Damage", "MORE", 165, "Config", ModFlag.Hit, { type = "Multiplier", var = "SnipeStage" } )
-		skillModList:NewMod("Damage", "MORE", 120, "Config", ModFlag.Ailment, { type = "Multiplier", var = "SnipeStage" } )
+	--Snipe doesn't grab the max stages multiplier from the gem when granted by Assailum so we add it back here
+	if skillModList:Flag(nil, "TriggeredByAssailum") and activeSkill.skillTypes[SkillType.Triggerable] then
+		skillModList:NewMod("Multiplier:SnipeStagesMax", "BASE", 6, "Snipe Max Stages", { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 	end
 	if skillModList:Sum("BASE", nil, "CritMultiplierAppliesToDegen") > 0 then
 		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "CritMultiplier")) do
@@ -1410,6 +1410,17 @@ function calcs.offence(env, actor, activeSkill)
 				local portion = skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
 				val.baseCost = val.baseCost + costs[manaType].baseCost * portion
 				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * portion
+			elseif skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") > 0 then -- Life/Mana mastery
+				local life_portion = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") / 100
+				local mana_portion = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Mana") / 100
+				val.baseCost = val.baseCost + (costs[manaType].baseCost / mana_portion) * life_portion
+				val.baseCostNoMult = val.baseCostNoMult + (costs[manaType].baseCostNoMult / mana_portion) * life_portion
+			end
+		elseif val.type == "Mana" then
+			if skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Mana") > 0 then -- Life/Mana mastery
+				local portion = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Mana") / 100
+				val.baseCost = val.baseCost * portion
+				val.baseCostNoMult = val.baseCostNoMult * portion
 			end
 		elseif val.type == "Rage" then
 			if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge

@@ -250,7 +250,7 @@ itemBases["Diamond Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 6, chargesUsed = 20, chargesMax = 40, buff = { "100% increased Global Critical Strike Chance", "Cannot Leech Mana" }, },
+	flask = { duration = 6, chargesUsed = 20, chargesMax = 40, buff = { "100% increased Global Critical Strike Chance" }, },
 	req = { level = 27, },
 }
 itemBases["Ruby Flask"] = {
@@ -258,7 +258,7 @@ itemBases["Ruby Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+50% to Fire Resistance", "Cannot Leech Mana", "20% less Fire Damage taken" }, },
+	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+50% to Fire Resistance", "20% less Fire Damage taken" }, },
 	req = { level = 18, },
 }
 itemBases["Sapphire Flask"] = {
@@ -266,7 +266,7 @@ itemBases["Sapphire Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+50% to Cold Resistance", "Cannot Leech Mana", "20% less Cold Damage taken" }, },
+	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+50% to Cold Resistance", "20% less Cold Damage taken" }, },
 	req = { level = 18, },
 }
 itemBases["Topaz Flask"] = {
@@ -274,7 +274,7 @@ itemBases["Topaz Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+50% to Lightning Resistance", "Cannot Leech Mana", "20% less Lightning Damage taken" }, },
+	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+50% to Lightning Resistance", "20% less Lightning Damage taken" }, },
 	req = { level = 18, },
 }
 itemBases["Granite Flask"] = {
@@ -282,7 +282,7 @@ itemBases["Granite Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "+1500 to Armour", "Cannot Leech Mana" }, },
+	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "+1500 to Armour" }, },
 	req = { level = 27, },
 }
 itemBases["Quicksilver Flask"] = {
@@ -290,7 +290,7 @@ itemBases["Quicksilver Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "40% increased Movement Speed", "Cannot Leech Mana" }, },
+	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "40% increased Movement Speed" }, },
 	req = { level = 4, },
 }
 itemBases["Amethyst Flask"] = {
@@ -298,7 +298,7 @@ itemBases["Amethyst Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 6.5, chargesUsed = 35, chargesMax = 65, buff = { "+35% to Chaos Resistance", "Cannot Leech Mana" }, },
+	flask = { duration = 6.5, chargesUsed = 35, chargesMax = 65, buff = { "+35% to Chaos Resistance" }, },
 	req = { level = 18, },
 }
 itemBases["Quartz Flask"] = {
@@ -306,7 +306,7 @@ itemBases["Quartz Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "+10% chance to Suppress Spell Damage", "Cannot Leech Mana", "Phasing" }, },
+	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "+10% chance to Suppress Spell Damage", "Phasing" }, },
 	req = { level = 27, },
 }
 itemBases["Jade Flask"] = {
@@ -314,7 +314,7 @@ itemBases["Jade Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "+1500 to Evasion Rating", "Cannot Leech Mana" }, },
+	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "+1500 to Evasion Rating" }, },
 	req = { level = 27, },
 }
 itemBases["Basalt Flask"] = {
@@ -323,7 +323,7 @@ itemBases["Basalt Flask"] = {
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicit = "Taunts nearby Enemies on use",
 	implicitModTypes = { { "flask" }, },
-	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "Cannot Leech Mana", "20% more Armour" }, },
+	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "20% more Armour" }, },
 	req = { level = 27, },
 }
 itemBases["Aquamarine Flask"] = {
@@ -332,7 +332,7 @@ itemBases["Aquamarine Flask"] = {
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicit = "Creates Chilled Ground on Use",
 	implicitModTypes = { { "flask" }, },
-	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "Cannot Leech Mana", "60% reduced Effect of Freeze on you" }, },
+	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "60% reduced Effect of Freeze on you" }, },
 	req = { level = 27, },
 }
 itemBases["Stibnite Flask"] = {
@@ -341,7 +341,7 @@ itemBases["Stibnite Flask"] = {
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicit = "Creates a Smoke Cloud on Use",
 	implicitModTypes = { { "flask" }, },
-	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "Cannot Leech Mana", "20% more Evasion Rating" }, },
+	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "20% more Evasion Rating" }, },
 	req = { level = 27, },
 }
 itemBases["Sulphur Flask"] = {
@@ -350,7 +350,7 @@ itemBases["Sulphur Flask"] = {
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicit = "Creates Consecrated Ground on Use",
 	implicitModTypes = { { "flask" }, },
-	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "40% increased Damage", "Cannot Leech Mana" }, },
+	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "40% increased Damage" }, },
 	req = { level = 27, },
 }
 itemBases["Silver Flask"] = {
@@ -358,7 +358,7 @@ itemBases["Silver Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 6, chargesUsed = 40, chargesMax = 60, buff = { "" }, },
+	flask = { duration = 6, chargesUsed = 40, chargesMax = 60, buff = { "Onslaught" }, },
 	req = { level = 27, },
 }
 itemBases["Bismuth Flask"] = {
@@ -366,7 +366,7 @@ itemBases["Bismuth Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 8.5, chargesUsed = 15, chargesMax = 40, buff = { "+35% to all Elemental Resistances", "Cannot Leech Mana" }, },
+	flask = { duration = 8.5, chargesUsed = 15, chargesMax = 40, buff = { "+35% to all Elemental Resistances" }, },
 	req = { level = 8, },
 }
 itemBases["Gold Flask"] = {
@@ -374,7 +374,7 @@ itemBases["Gold Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 5, chargesUsed = 60, chargesMax = 80, buff = { "30% increased Rarity of Items found", "Cannot Leech Mana" }, },
+	flask = { duration = 5, chargesUsed = 60, chargesMax = 80, buff = { "30% increased Rarity of Items found" }, },
 	req = { level = 27, },
 }
 itemBases["Corundum Flask"] = {
@@ -382,7 +382,7 @@ itemBases["Corundum Flask"] = {
 	subType = "Utility",
 	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
-	flask = { duration = 7.5, chargesUsed = 20, chargesMax = 50, buff = { "Cannot Leech Mana", "30% increased Stun Threshold" }, },
+	flask = { duration = 7.5, chargesUsed = 20, chargesMax = 50, buff = { "30% increased Stun Threshold", "Cannot be Stunned if you've been Stunned during Effect" }, },
 	req = { level = 27, },
 }
 itemBases["Iron Flask"] = {
@@ -391,6 +391,6 @@ itemBases["Iron Flask"] = {
 	tags = { flask = true, utility_flask = true, not_for_sale = true, expedition_flask = true, default = true, },
 	implicit = "Restores Ward on use",
 	implicitModTypes = { { "flask" }, },
-	flask = { duration = 5, chargesUsed = 40, chargesMax = 60, buff = { "+200 to Ward", "Cannot Leech Mana" }, },
+	flask = { duration = 5, chargesUsed = 40, chargesMax = 60, buff = { "+200 to Ward" }, },
 	req = { level = 27, },
 }

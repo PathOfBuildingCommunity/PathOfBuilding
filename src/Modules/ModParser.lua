@@ -54,6 +54,7 @@ local formList = {
 	["^gains? ([%d%.]+)%% of"] = "GAIN",
 	["^gain ([%d%.]+)"] = "GAIN",
 	["^grants ([%d%.]+)"] = "GRANTS",
+	["^removes? ([%d%.]+)%% of"] = "REMOVES",
 	["^gain %+(%d+)%% to"] = "GAIN",
 	["^you lose ([%d%.]+)"] = "LOSE",
 	["^loses? ([%d%.]+)%% of"] = "LOSE",
@@ -312,6 +313,7 @@ local modNameList = {
 	["to avoid projectiles"] = "AvoidProjectilesChance",
 	["to avoid being stunned"] = "AvoidStun",
 	["to avoid interruption from stuns while casting"] = "AvoidInterruptStun",
+	["to ignore stuns while casting"] = "AvoidInterruptStun",
 	["to avoid being shocked"] = "AvoidShock",
 	["to avoid being frozen"] = "AvoidFreeze",
 	["to avoid being chilled"] = "AvoidChill",
@@ -535,6 +537,7 @@ local modNameList = {
 	["soul gain prevention duration"] = "SoulGainPreventionDuration",
 	["aspect of the spider debuff duration"] = { "Duration", tag = { type = "SkillName", skillName = "Aspect of the Spider" } },
 	["fire trap burning ground duration"] = { "Duration", tag = { type = "SkillName", skillName = "Fire Trap" } },
+	["sentinel of absolution duration"] = { "SecondaryDuration", tag = { type = "SkillName", skillName = "Absolution" } },
 	["cooldown recovery"] = "CooldownRecovery",
 	["cooldown recovery speed"] = "CooldownRecovery",
 	["cooldown recovery rate"] = "CooldownRecovery",
@@ -790,6 +793,7 @@ local modFlagList = {
 	["for spell damage"] = { flags = ModFlag.Spell },
 	["with spell damage"] = { flags = ModFlag.Spell },
 	["with spells"] = { keywordFlags = KeywordFlag.Spell },
+	["with triggered spells"] = { keywordFlags = KeywordFlag.Spell, tag = { type = "SkillType", skillType = SkillType.Triggered } },
 	["by spells"] = { keywordFlags = KeywordFlag.Spell },
 	["by your spells"] = { keywordFlags = KeywordFlag.Spell },
 	["with attacks"] = { keywordFlags = KeywordFlag.Attack },
@@ -1402,6 +1406,7 @@ local modTagList = {
 	["while stationary"] = { tag = { type = "Condition", var = "Stationary" } },
 	["while moving"] = { tag = { type = "Condition", var = "Moving" } },
 	["while channelling"] = { tag = { type = "Condition", var = "Channelling" } },
+	["while channelling snipe"] = { tag = { type = "Condition", var = "Channelling" } },
 	["after channelling for (%d+) seconds?"] = function(num) return { tag = { type = "MultiplierThreshold", var = "ChannellingTime", threshold = num } } end,
 	["if you've been channelling for at least (%d+) seconds?"] = function(num) return { tag = { type = "MultiplierThreshold", var = "ChannellingTime", threshold = num } } end,
 	["if you've inflicted exposure recently"] = { tag = { type = "Condition", var = "AppliedExposureRecently" } },
@@ -1947,7 +1952,7 @@ local specialModList = {
 	["defend with (%d+)%% of armour while not on low energy shield"] = function(num) return {
 		mod("ArmourDefense", "MAX", num - 100, "Armour and Energy Shield Mastery", { type = "Condition", var = "LowEnergyShield", neg = true }),
 	} end,
-	["(%d+)%% increased armour and energy shield from equipped body armour if equipped gloves, helmet and boots all have armour and energy shield"] = function(num) return {
+	["(%d+)%% increased armour and energy shield from equipped body armour if equipped helmet, gloves and boots all have armour and energy shield"] = function(num) return {
 		mod("Body ArmourESAndArmour", "INC", num,  
 			{ type = "StatThreshold", stat = "ArmourOnGloves", threshold = 1},
 			{ type = "StatThreshold", stat = "EnergyShieldOnGloves", threshold = 1},
@@ -2341,6 +2346,9 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", -num) }, { type = "Condition", var = "Phasing" }),
 	} end,
 	-- Saboteur
+	["hits have (%d+)%% chance to deal (%d+)%% more area damage"] = function (num, _, more) return {
+		mod("Damage", "MORE", (num*more/100), nil, bor(ModFlag.Area, ModFlag.Hit))
+	} end,
 	["immun[ei]t?y? to ignite and shock"] = {
 		mod("AvoidIgnite", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 		mod("AvoidShock", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
@@ -2433,11 +2441,11 @@ local specialModList = {
 	["([%+%-]%d+) to level of socketed gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["([%+%-]%d+) to level of socketed ([%a%- ]+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["([%+%-]%d+)%% to quality of socketed gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "all", key = "quality", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
-	["([%+%-]%d+)%% to quality of all skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "quality", value = num }) } end,
+	["([%+%-]%d+)%% to quality of all skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = num }) } end,
 	["([%+%-]%d+)%% to quality of socketed ([%a%- ]+) gems"] = function(num, _, type) return { mod("GemProperty", "LIST", { keyword = type, key = "quality", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
-	["([%+%-]%d+) to level of active socketed skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
-	["([%+%-]%d+) to level of socketed active skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
-	["([%+%-]%d+) to level of socketed active skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
+	["([%+%-]%d+) to level of active socketed skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
+	["([%+%-]%d+) to level of socketed active skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
+	["([%+%-]%d+) to level of socketed active skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
 	["socketed gems fire an additional projectile"] = { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", 1) }, { type = "SocketedIn", slotName = "{SlotName}" }) },
 	["socketed gems fire (%d+) additional projectiles"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("ProjectileCount", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed gems reserve no mana"] = { mod("ManaReserved", "MORE", -100, { type = "SocketedIn", slotName = "{SlotName}" }) },
@@ -2458,10 +2466,13 @@ local specialModList = {
 	["socketed gems gain (%d+)%% of physical damage as extra lightning damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}" }) } end,
 	["socketed red gems get (%d+)%% physical damage as extra fire damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "strength" }) } end,
 	["socketed non%-channelling bow skills are triggered by snipe"] = {
-		mod("ExtraSkillMod", "LIST", { mod = flag("TriggeredBySnipe") },  { type = "SocketedIn", slotName = "{SlotName}", keyword = "bow" }, { type = "SkillType", skillType = SkillType.Triggerable }),
+		mod("ExtraSkillMod", "LIST", { mod = flag("TriggeredByAssailum") },  { type = "SocketedIn", slotName = "{SlotName}", keyword = "bow" }, { type = "SkillType", skillType = SkillType.Triggerable }),
 		mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "showAverage", value = true }) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "bow" }, { type = "SkillType", skillType = SkillType.Triggerable }),
 		mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "triggered", value = 1 }) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "bow" }, { type = "SkillType", skillType = SkillType.Triggerable }),
 	},
+	["grants level (%d+) snipe skill"] = function(num) return {
+		mod("ExtraSupport", "LIST", { skillId = "ChannelledSnipeSupport", level = num }, { type = "SocketedIn", slotName = "{SlotName}" })	}
+	end,
 	["socketed triggered bow skills deal (%d+)%% less damage"] = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("Damage", "MORE", -num) }, { type = "SocketedIn", slotName = "{SlotName}", keyword = "bow" }, { type = "SkillType", skillType = SkillType.Triggerable }) } end,
 	["socketed vaal skills require (%d+)%% less souls per use"]  = function(num) return { mod("ExtraSkillMod", "LIST", { mod = mod("SoulCost", "MORE", -num) }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Vaal }) } end,
 	["hits from socketed vaal skills ignore enemy monster resistances"]  = {
@@ -2472,21 +2483,21 @@ local specialModList = {
 	["socketed vaal skills grant elusive when used"] = { flag("Condition:CanBeElusive") },
 	["damage with hits from socketed vaal skills is lucky"]  = { mod("ExtraSkillMod", "LIST", { mod = flag("LuckyHits") }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType = SkillType.Vaal }) },
 	-- Global gem modifiers
-	["([%+%-]%d+) to level of all minion skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "minion", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all physical spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "physical", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all physical skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "physical", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all lightning spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "lightning", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all lightning skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "lightning", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all cold spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "cold", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all cold skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "cold", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all fire spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "fire", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all fire skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "fire", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all chaos spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "chaos", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all chaos skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "chaos", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all strength skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "strength", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all dexterity skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "dexterity", "active_skill" }, key = "level", value = num }) } end,
-	["([%+%-]%d+) to level of all intelligence skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "intelligence", "active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all minion skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "minion", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all physical spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "physical", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all physical skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "physical", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all lightning spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "lightning", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all lightning skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "lightning", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all cold spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "cold", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all cold skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "cold", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all fire spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "fire", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all fire skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "fire", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all chaos spell skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "spell", "chaos", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all chaos skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "chaos", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all strength skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "strength", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all dexterity skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "dexterity", "grants_active_skill" }, key = "level", value = num }) } end,
+	["([%+%-]%d+) to level of all intelligence skill gems"] = function(num) return { mod("GemProperty", "LIST", { keywordList = { "intelligence", "grants_active_skill" }, key = "level", value = num }) } end,
 	["([%+%-]%d+) to level of all (.+) gems"] = function(num, _, skill)
 		if gemIdLookup[skill] then
 			return { mod("GemProperty", "LIST", {keyword = skill, key = "level", value = num }) }
@@ -2494,7 +2505,7 @@ local specialModList = {
 		local wordList = {}
 		for tag in skill:gmatch("%w+") do
 			if tag == "skill" then
-				tag = "active_skill"
+				tag = "grants_active_skill"
 			end
 			table.insert(wordList, tag)
 		end
@@ -3478,7 +3489,9 @@ local specialModList = {
 	["cannot block"] = { flag("CannotBlockAttacks"), flag("CannotBlockSpells") },
 	["cannot block while you have no energy shield"] = { flag("CannotBlockAttacks", { type = "Condition", var = "HaveEnergyShield", neg = true }), flag("CannotBlockSpells", { type = "Condition", var = "HaveEnergyShield", neg = true }) },
 	["cannot block attacks"] = { flag("CannotBlockAttacks") },
+	["cannot block attack damage"] = { flag("CannotBlockAttacks") },
 	["cannot block spells"] = { flag("CannotBlockSpells") },
+	["cannot block spell damage"] = { flag("CannotBlockSpells") },
 	["monsters cannot block your attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotBlockAttacks") }) },
 	["damage from blocked hits cannot bypass energy shield"] = { flag("BlockedDamageDoesntBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["damage from unblocked hits always bypasses energy shield"] = { flag("UnblockedDamageDoesBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
@@ -3554,7 +3567,7 @@ local specialModList = {
 	["nearby enemies are blinded while physical aegis is not depleted"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Blinded") }, { type = "Condition", var = "PhysicalAegisDepleted", neg = true }) },
 	["armour is increased by uncapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistTotal", div = 1 }) },
 	["armour is increased by overcapped fire resistance"] = { mod("Armour", "INC", 1, { type = "PerStat", stat = "FireResistOverCap", div = 1 }) },
-	["minion life is increased by overcapped fire resistance"] = { mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1, { type = "PerStat", stat = "FireResistOverCap", div = 1, actor = "parent" }) }) },
+	["minion life is increased by t?h?e?i?r? ?overcapped fire resistance"] = { mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 1, { type = "PerStat", stat = "FireResistOverCap", div = 1 }) }) },
 	["evasion rating is increased by uncapped cold resistance"] = { mod("Evasion", "INC", 1, { type = "PerStat", stat = "ColdResistTotal", div = 1 }) },
 	["evasion rating is increased by overcapped cold resistance"] = { mod("Evasion", "INC", 1, { type = "PerStat", stat = "ColdResistOverCap", div = 1 }) },
 	["reflects (%d+) physical damage to melee attackers"] = { },
@@ -4015,6 +4028,7 @@ local specialModList = {
 	},
 	["warcry skills' cooldown time is (%d+) seconds"] = function(num) return { mod("CooldownRecovery", "OVERRIDE", num, nil, 0, KeywordFlag.Warcry) } end,
 	["warcry skills have (%+%d+) seconds to cooldown"] = function(num) return { mod("CooldownRecovery", "BASE", num, nil, 0, KeywordFlag.Warcry) } end,
+	["stance skills have (%+%d+) seconds to cooldown"] = function(num) return { mod("CooldownRecovery", "BASE", num, nil, { type = "SkillType", skillType = SkillType.Stance }) } end,
 	["using warcries is instant"] = { flag("InstantWarcry") },
 	["attacks with axes or swords grant (%d+) rage on hit, no more than once every second"] = {
 		flag("Condition:CanGainRage", { type = "Condition", varList = { "UsingAxe", "UsingSword" } }),
@@ -4113,6 +4127,10 @@ local specialModList = {
 	["skills gain a base life cost equal to (%d+)%% of base mana cost"] = function(num) return { 
 		mod("ManaCostAsLifeCost", "BASE", num),
 	} end,
+    ["skills cost life instead of (%d+)%% of mana cost"] = function(num) return {
+        mod("HybridManaAndLifeCost_Life", "BASE", num),
+        mod("HybridManaAndLifeCost_Mana", "BASE", 100 - num),
+    } end,
 	["hits overwhelm (%d+)%% of physical damage reduction while you have sacrificial zeal"] = function(num) return {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num, nil, { type = "Condition", var = "SacrificialZeal" }),
 	} end,
@@ -4194,6 +4212,8 @@ local specialModList = {
 	["lightning spire trap strikes an additional area"] = { mod("MaximumWaves", "BASE", 1, { type = "SkillName", skillName = "Lightning Spire Trap" }) },
 	["explosive trap causes (%d+) additional smaller explosions"] = function(num) return { mod("SmallExplosions", "BASE", num, { type = "SkillName", skillName = "Explosive Trap" }) } end,
 	["frozen sweep deals (%d+)%% increased damage"] = function(num) return { mod("Damage", "INC", num, { type = "SkillName", skillName = "Frozen Sweep" }) } end,
+	["(%d+)%% increased attack speed with snipe"] = function(num) return { mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "SkillName", skillName = "Snipe" }) } end,
+	["%+(%d+) to maximum snipe stages"] = function(num) return { mod("Multiplier:SnipeStagesMax", "BASE", num, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }) } end,
 	-- Alternate Quality
 	["quality does not increase physical damage"] = { mod("AlternateQualityWeapon", "BASE", 1) },
 	["(%d+)%% increased critical strike chance per 4%% quality"] = function(num) return { mod("AlternateQualityLocalCritChancePer4Quality", "INC", num) } end,
@@ -4942,6 +4962,11 @@ local function parseMod(line, order)
 		modType = "BASE"
 		modSuffix, line = scan(line, suffixTypes, true)
 	elseif modForm == "GRANTS" then
+		modType = "BASE"
+		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
+		modSuffix, line = scan(line, suffixTypes, true)
+	elseif modForm == "REMOVES" then
+		modValue = -modValue
 		modType = "BASE"
 		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
 		modSuffix, line = scan(line, suffixTypes, true)

@@ -129,7 +129,7 @@ function GemSelectClass:BuildList(buf)
 							local negateTag = tagName:sub(1, 1) == "-"
 							if negateTag then tagName = tagName:sub(2) end
 							if tagName == "active" then
-								tagName = "active_skill"
+								tagName = "grants_active_skill"
 							elseif tagName == "int" then
 								tagName = "intelligence"
 							elseif tagName == "str" then
@@ -156,7 +156,7 @@ function GemSelectClass:BuildList(buf)
 					-- Name matching above failed, so lets use searchTerm to look for the tagName
 					-- aura:cold is now illogical and can't work (:aura:cold is the way to do it)
 					if searchTerm == "active" then
-						searchTerm = "active_skill"
+						searchTerm = "grants_active_skill"
 					elseif searchTerm == "int" then
 						searchTerm = "intelligence"
 					elseif searchTerm == "str" then

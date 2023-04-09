@@ -69,22 +69,27 @@ Requires Level 68, 120 Str
 {variant:2}(60-100)% increased Armour
 {variant:1}+(50-70) to maximum Life
 {variant:2}+(60-100) to maximum Life
-25% increased Movement Speed
+{variant:1}25% increased Movement Speed
+{variant:2}30% increased Movement Speed
 Gain a Frenzy Charge on Hit while Bleeding
 {variant:1}15% increased Movement Speed while Bleeding
-{variant:2}30% increased Movement Speed
 10% additional Physical Damage Reduction while stationary
 50% chance to be inflicted with Bleeding when Hit by an Attack
 Gore Footprints
 ]],[[
 Replica Red Trail
 Titan Greaves
+Variant: Pre 3.21.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68, 120 Str
-(60-80)% increased Armour
-+(60-70) to maximum Life
-25% increased Movement Speed
+{variant:1}(60-80)% increased Armour
+{variant:2}(60-100)% increased Armour
+{variant:1}+(50-70) to maximum Life
+{variant:2}+(60-100) to maximum Life
+{variant:1}25% increased Movement Speed
+{variant:2}30% increased Movement Speed
 Gain a Power Charge on Hit while Poisoned
 +30% to Chaos Resistance while stationary
 15% increased Movement Speed while Poisoned
