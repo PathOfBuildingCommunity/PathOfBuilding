@@ -374,10 +374,10 @@ Implicits: 1
 {variant:2}(230-270)% increased Physical Damage
 15% reduced Attack Speed
 {variant:1}25% chance to Curse Enemies with Vulnerability on Hit
-{variant:2}100% chance to Curse Enemies with Vulnerability on Hit
+{variant:2}Curse Enemies with Vulnerability on Hit
 {variant:1}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
 {variant:2}Exerted Attacks deal 200% increased Damage
-{variant:2}Exerted Attacks always Knockback
+{variant:2}Exerted Attacks Knock Enemies Back on Hit
 ]],[[
 Uul-Netol's Embrace
 Vaal Axe
