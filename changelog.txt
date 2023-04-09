@@ -4,7 +4,7 @@ VERSION[2.27.2][2023/04/09]
 * Add support for Prismatic Burst (Wires77)
 * Fix crucible item colour (QuickStick123)
 * Fix + to level of active skill gem mods not working (LocalIdentity)
-* Fix formless inferno, Uul-Netol's Kiss and tulborn (QuickStick123)
+* Fix Formless Inferno, Uul-Netol's Kiss and Tulborn (QuickStick123)
 * Fix Absolution Enchant Parsing (LocalIdentity)
 * Fix Snipe Support + update Assailum (LocalIdentity)
 
