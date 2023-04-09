@@ -595,8 +595,8 @@ Cloth Belt
 LevelReq: 40
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
-+(20-40)to Dexterity
-+(40-60)  to maximum Mana
++(20-40) to Dexterity
++(40-60) to maximum Mana
 (10-7)% reduced Flask Charges used
 Flasks you Use apply to Linked Targets
 ]],[[

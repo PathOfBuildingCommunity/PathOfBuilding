@@ -30,8 +30,8 @@ Implicits: 1
 ]],[[
 Bloodsoaked Medallion
 Amber Amulet
-Item Level: 75
-Requires Level 49
+LevelReq: 49
+Implicits: 1
 +(20-30) to Strength
 (40-50)% increased Global Critical Strike Chance
 +(50-70) to maximum Life
