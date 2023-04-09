@@ -1,5 +1,28 @@
 # Changelog
 
+## [v2.27.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.27.2) (2023/04/09)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.27.0...v2.27.2)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add support for Prismatic Burst [\#5969](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5969) ([Wires77](https://github.com/Wires77))
+### Fixed Crashes
+- Fix crash in the Trader from not having jewel data [\#5990](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5990) ([Regisle](https://github.com/Regisle))
+### User Interface
+- Correct display of max mana leech rate breakdown [\#5945](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5945) ([Lilylicious](https://github.com/Lilylicious))
+- Fix crucible item colour [\#5989](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5989) ([QuickStick123](https://github.com/QuickStick123))
+### Other changes
+- Fix Flasks incorrectly having "Cannot Leech" on them [\#5981](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5981) ([Wires77](https://github.com/Wires77))
+- Fix + to level of active skill gem mods not working [\#5982](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5982) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix formless inferno, Uul-Netol's Kiss and tulborn [\#5995](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5995) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Absolution Enchant Parsing [\#5980](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5980) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Snipe Support + update Assailum [\#5979](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5979) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.27.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.27.0) (2023/04/08)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.26.3...v2.27.0)
