@@ -3240,15 +3240,15 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		local source = nil															-- Trigger source
 		local triggerChance = env.player.mainSkill.activeEffect and env.player.mainSkill.activeEffect.srcInstance and env.player.mainSkill.activeEffect.srcInstance.triggerChance
 		local actor = env.player													-- Actor that triggered the trigger
-		local output = output														-- Convinience variable when using other actors
+		local output = output														-- Convenience variable when using other actors
 		local breakdown = breakdown									
 		local triggerSkillCond = nil												-- Function that takes in a skill and determines whether it's compatible with a trigger
-		local triggeredSkillCond = nil												-- Simillar to above but for triggered skills
+		local triggeredSkillCond = nil												-- Similar to above but for triggered skills
 		local assumingEveryHitKills = nil											-- It's easier to assume all hits kill for some triggers
 		local uuid = nil															
 		local triggerOnUse = nil													-- Triggered on use. Ignores accuracy and some other pre processing below
 		local useCastRate = false													-- Cast/Attack switch for display
-		local comparer = nil														-- Comparison function for use in findTriggerSkill. Defualt is defined inside findTriggerSkill.
+		local comparer = nil														-- Comparison function for use in findTriggerSkill. Default is defined inside findTriggerSkill.
 		local function slotMatch(env, skill)
 			local match1 = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
