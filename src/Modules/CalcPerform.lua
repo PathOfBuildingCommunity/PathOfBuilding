@@ -3230,13 +3230,13 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			local manaforgeCD = getTriggerDefaultCooldown(env.player.mainSkill.supportList, "SupportManaforgedArrows")
 
 			trigRate = icdr / manaforgeCD
-			output.SourceTriggerRate = trigRate
-			output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
 			if breakdown then
 				local modActionCooldown = manaforgeCD / icdr
 				local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 				local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
 				breakdown.SimData = {
+					s_format("Smaller of:"),
+					s_format(""),
 					s_format("%.2f ^8(base cooldown of manaforge trigger)", manaforgeCD),
 					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 					s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
@@ -3244,23 +3244,9 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
 					s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
 					s_format(""),
-					s_format("Trigger rate:"),
+					s_format("Manaforge Arrow Support trigger rate:"),
 					s_format("1 / %.3f", rateCapAdjusted),
 					s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
-				}
-				breakdown.ServerTriggerRate = {
-					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
-				}
-			end
-
-			-- Account for chance to trigger
-			local manaforgeTriggerChance = 100.0
-			trigRate = output.ServerTriggerRate * manaforgeTriggerChance / 100.0
-			if breakdown then
-				breakdown.Speed = {
-					s_format("%.2fs ^8(adjusted trigger rate)", output.ServerTriggerRate),
-					s_format("x %.2f%% ^8(manaforge trigger chance)", manaforgeTriggerChance),
-					s_format("= %.2f ^8per second", trigRate),
 				}
 			end
 
