@@ -3975,9 +3975,6 @@ skills["SupportBluntWeaponShockwave"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 	baseFlags = {
 		attack = true,
 		melee = true,

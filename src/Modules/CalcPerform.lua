@@ -3511,6 +3511,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				triggerName = "Prismatic Burst"
 				triggeredSkills = {packageSkillDataForSimulation(actor.mainSkill)}
 				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and skill ~= actor.mainSkill end
+			elseif actor.mainSkill.activeEffect.grantedEffect.name == "Shockwave" then
+				triggerName = "Shockwave"
+				triggeredSkills = {packageSkillDataForSimulation(actor.mainSkill)}
+				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and skill ~= actor.mainSkill end
 			else
 				skip = true
 			end
