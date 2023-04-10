@@ -22,7 +22,7 @@ local band = bit.band
 
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
 local function findTriggerSkill(env, skill, source, triggerRate, comparer)
-	local comparer = comparer or function(uuid)
+	local comparer = comparer or function(uuid, source, triggerRate)
 		local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
 		return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
 	end
@@ -32,7 +32,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 		calcs.buildActiveSkill(env, "CACHE", skill)
 	end
 
-	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid) then
+	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid, source, triggerRate) then
 		return skill, GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
 	end
 	return source, triggerRate, source and cacheSkillUUID(source)
@@ -3398,8 +3398,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				triggerChance = actor.modDB:Sum("BASE", nil, "KitavaTriggerChance")
 				triggerName = "Kitava's Thirst"
 				local requiredManaCost = actor.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
-				comparer = function(uuid)
-					ConPrintf("here")
+				comparer = function(uuid, source, triggerRate)
 					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
 					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
 					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
