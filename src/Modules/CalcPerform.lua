@@ -22,7 +22,7 @@ local band = bit.band
 local function findTriggerSkill(env, skill, source, triggerRate, reqManaCost)
 	local uuid = cacheSkillUUID(skill)
 	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
-		calcs.buildActiveSkill(env, "CACHE", skill, true)
+		calcs.buildActiveSkill(env, "CACHE", skill)
 	end
 
 	if GlobalCache.cachedData["CACHE"][uuid] then
@@ -3209,7 +3209,22 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredByManaPercentSpent and band(skill.skillCfg.flags, ModFlag.Bow) > 0 then
-				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+				local uuid = cacheSkillUUID(skill)
+				if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
+					calcs.buildActiveSkill(env, "CACHE", skill)
+				end
+
+				if GlobalCache.cachedData["CACHE"][uuid] then
+					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
+					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
+					local ManaSpendRate = cachedSpeed * cachedManaCost
+
+					if ((not source and ManaSpendRate) or (ManaSpendRate and ManaSpendRate > trigRate)) then
+						source = skill
+						trigRate = ManaSpendRate
+					end
+				end
 			end
 			if skill.skillData.triggeredByManaPercentSpent and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
 				spellCount = spellCount + 1
