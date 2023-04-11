@@ -3200,6 +3200,81 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 
+	-- Manaforged Arrows
+	if env.player.mainSkill.skillData.triggeredByManaPercentSpent and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked then
+		local triggerName = "MfA"
+		local spellCount = 0
+		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredByManaPercentSpent and band(skill.skillCfg.flags, ModFlag.Bow) > 0 then
+				local uuid = cacheSkillUUID(skill)
+				if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
+					calcs.buildActiveSkill(env, "CACHE", skill)
+				end
+
+				if GlobalCache.cachedData["CACHE"][uuid] then
+					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
+					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
+					local ManaSpendRate = cachedSpeed * cachedManaCost
+
+					if ((not source and ManaSpendRate) or (ManaSpendRate and ManaSpendRate > trigRate)) then
+						source = skill
+						trigRate = ManaSpendRate
+					end
+				end
+			end
+			if skill.skillData.triggeredByManaPercentSpent and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
+				spellCount = spellCount + 1
+			end
+		end
+
+		if not source or spellCount < 1 then
+			env.player.mainSkill.skillData.triggeredByManaPercentSpent = nil
+			env.player.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
+		else
+			env.player.mainSkill.skillData.triggered = true
+
+			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown)
+
+			-- Get action trigger rate
+			local manaforgeCD = getTriggerDefaultCooldown(env.player.mainSkill.supportList, "SupportManaforgedArrows")
+
+			trigRate = icdr / manaforgeCD
+			if breakdown then
+				local modActionCooldown = manaforgeCD / icdr
+				local rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+				local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
+				breakdown.SimData = {
+					s_format("Smaller of:"),
+					s_format(""),
+					s_format("%.2f ^8(base cooldown of manaforge trigger)", manaforgeCD),
+					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
+					s_format("= %.4f ^8(final cooldown of trigger)", modActionCooldown),
+					s_format(""),
+					s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+					s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded),
+					s_format(""),
+					s_format("Manaforge Arrow Support trigger rate:"),
+					s_format("1 / %.3f", rateCapAdjusted),
+					s_format("= %.2f ^8per second", 1 / rateCapAdjusted),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = trigRate
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "Manaforge Triggering Skill: " .. source.activeEffect.grantedEffect.name
+			env.player.mainSkill.infoTrigger = triggerName
+		end
+	end
+
+
 	-- Triggered by parent attack
 	if env.minion and env.player.mainSkill.minion then
 		if env.minion.mainSkill.skillData.triggeredByParentAttack then

@@ -403,7 +403,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("initialFunc")
 
-	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
+	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack or skillData.triggeredByManaPercentSpent
 	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
@@ -1487,6 +1487,40 @@ function calcs.offence(env, actor, activeSkill)
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+	end
+
+	-- account for Manaforged Arrows
+	if skillData.triggeredByManaPercentSpent and skillData.triggerSource then
+		local reqManaCostMulti = skillData.TriggerSkillManaSpentMultiRequirement
+		local uuid = cacheSkillUUID(skillData.triggerSource)
+		if GlobalCache.cachedData["CACHE"][uuid] then
+			local cachedTriggerData = GlobalCache.cachedData["CACHE"][uuid]
+			local manaThreshold = output.ManaCost * reqManaCostMulti
+			local manaSpendPerSec = cachedTriggerData.ManaCost * cachedTriggerData.Speed
+			local manaSpendTriggerRate = manaSpendPerSec / manaThreshold
+			output.SourceTriggerRate = manaSpendTriggerRate
+			local trigRate = m_min(manaSpendTriggerRate, skillData.triggerRate)
+			-- Account for chance to trigger
+			local manaforgeTriggerChance = 100.0
+			trigRate = trigRate * manaforgeTriggerChance / 100.0
+			if breakdown then
+				t_insert(breakdown.SimData, s_format(""))
+				t_insert(breakdown.SimData, s_format("and"))
+				t_insert(breakdown.SimData, s_format(""))
+				t_insert(breakdown.SimData, s_format("(%d ^8(trigger mana cost)", cachedTriggerData.ManaCost))
+				t_insert(breakdown.SimData, s_format("x %.2f) ^8(trigger attack speed)", cachedTriggerData.Speed))
+				t_insert(breakdown.SimData, s_format("/ (%d ^8(triggered skill mana cost)", output.ManaCost))
+				t_insert(breakdown.SimData, s_format("x %.2f) ^8(manaforge skill multiplier)", reqManaCostMulti))
+				t_insert(breakdown.SimData, s_format(""))
+				t_insert(breakdown.SimData, s_format("Trigger Skill Mana-spending trigger rate:"))
+				t_insert(breakdown.SimData, s_format("= %.2f ^8per second", manaSpendTriggerRate))
+				breakdown.ServerTriggerRate = {
+					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
+				}
+			end
+			activeSkill.skillData.triggerRate = trigRate
+			output.ServerTriggerRate = trigRate
+		end
 	end
 
 	runSkillFunc("preDamageFunc")
@@ -4608,7 +4642,7 @@ function calcs.offence(env, actor, activeSkill)
 			local repeats = output.Repeats or 1
 			local useSpeed = 1
 			local timeType
-			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
+			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack or skillData.triggeredByManaPercentSpent
 			if skillFlags.trap or skillFlags.mine then
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
 				local cooldown = output.TrapCooldown or output.Cooldown
