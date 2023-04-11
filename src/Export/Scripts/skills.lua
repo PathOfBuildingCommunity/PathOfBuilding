@@ -624,22 +624,8 @@ for skillGem in dat("SkillGems"):Rows() do
 		out:write('\t\treqStr = ', skillGem.Str, ',\n')
 		out:write('\t\treqDex = ', skillGem.Dex, ',\n')
 		out:write('\t\treqInt = ', skillGem.Int, ',\n')
-		local levelProgressionId = skillGem.GemLevelProgression.Id
-		local naturalMaxLevel = 1
-		if levelProgressionId == "GemProgressionSingleLevel" then
-			naturalMaxLevel = 1
-		elseif levelProgressionId == "GemProgressionExceptional" then
-			naturalMaxLevel = 3
-		elseif levelProgressionId == "GemProgressionExceptionalPlus" then
-			naturalMaxLevel = 4
-		elseif levelProgressionId == "GemProgressionBloodAndSand" or levelProgressionId == "GemProgressionBrandRecall"  then
-			naturalMaxLevel = 6
-		elseif levelProgressionId:find("Plus") then
-			naturalMaxLevel = 5
-		else
-			naturalMaxLevel = 20
-		end
-		out:write('\t\tnaturalMaxLevel = ', naturalMaxLevel, ',\n')
+		local naturalMaxLevel = #dat("ItemExperiencePerLevel"):GetRowList("ItemExperienceType", skillGem.GemLevelProgression)
+		out:write('\t\tnaturalMaxLevel = ', naturalMaxLevel > 0 and naturalMaxLevel or 1, ',\n')
 		out:write('\t},\n')
 	end
 end
