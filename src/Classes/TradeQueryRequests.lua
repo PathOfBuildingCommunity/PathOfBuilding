@@ -393,7 +393,8 @@ function TradeQueryRequestsClass:FetchRealmsAndLeaguesHTML(callback)
 			-- full json state obj from HTML
 			local dataStr = response.body:match('require%(%["main"%].+ t%((.+)%);}%);}%);')
 			if not dataStr then
-				return callback(nil, "JSON object not found on the page.")
+				main.POESESSID = ""
+				return callback(nil, "Invalid POESESSID.")
 			end
 			local data, _, err = dkjson.decode(dataStr)
 			if err then
