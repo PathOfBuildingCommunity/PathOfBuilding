@@ -3215,6 +3215,8 @@ local specialModList = {
 		mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Condition", var = "KilledRecently" }),
 	} end,
 	["gain adrenaline for 1 second when you change stance"] = { flag("Condition:Adrenaline", { type = "Condition", var = "StanceChangeLastSecond" }) },
+	["with a searching eye jewel socketed, maim enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Maimed", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
+	["with a searching eye jewel socketed, blind enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Blinded", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -4039,6 +4041,7 @@ local specialModList = {
 		flag("Condition:CanGainRage"),
 	} end,
 	["when you lose temporal chains you gain maximum rage"] = { flag("Condition:CanGainRage") },
+	["with a murderous eye jewel socketed, melee attacks grant (%d+) rage on hit, no more than once every second"] = { flag("Condition:CanGainRage", { type = "Condition", var = "HaveMurderousEyeJewelIn{SlotName}" }) },
 	["your critical strike multiplier is (%d+)%%"] = function(num) return { mod("CritMultiplier", "OVERRIDE", num) } end,
 	["base critical strike chance for attacks with weapons is ([%d%.]+)%%"] = function(num) return { mod("WeaponBaseCritChance", "OVERRIDE", num) } end,
 	["base critical strike chance of spells is the critical strike chance of y?o?u?r? ?main hand weapon"] = { flag("BaseCritFromMainHand", nil, ModFlag.Spell) }, -- old wordings
