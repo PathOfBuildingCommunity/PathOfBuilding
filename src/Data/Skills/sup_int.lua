@@ -2758,6 +2758,11 @@ skills["ViciousHexSupport"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Triggered, SkillType.InbuiltTrigger, SkillType.Aura, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["trigger_vicious_hex_explosion_when_curse_ends"] = {
+			-- Display only
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },

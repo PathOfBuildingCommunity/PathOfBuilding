@@ -366,6 +366,11 @@ local skills, mod, flag, skill = ...
 
 #skill ViciousHexSupport
 #flags spell area chaos hex
+	statMap = {
+		["trigger_vicious_hex_explosion_when_curse_ends"] = {
+			-- Display only
+		},
+	},
 #mods
 
 #skill ViciousHexExplosion
