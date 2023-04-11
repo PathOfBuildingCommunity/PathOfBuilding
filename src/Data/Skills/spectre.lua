@@ -6184,6 +6184,15 @@ skills["CrucibleIceStormTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.67,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+	end,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		area = true,
 		spell = true,

@@ -1226,6 +1226,15 @@ skills["MonsterVulnerabilityOnHit1"] = {
 
 #skill CrucibleIceStormTrap Ice Storm
 #flags area spell duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+	end,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000,
+		},
+	},
 #mods
 
 #skill MMSPyromaniacIceMortar Ice Mortar
