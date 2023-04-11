@@ -246,6 +246,13 @@ Requires Level 22, 42 Dex
 {variant:1}30% increased Movement Speed for 9 seconds on Throwing a Trap
 {variant:2,3}15% increased Movement Speed for 9 seconds on Throwing a Trap
 ]],[[
+Orbala's Stand
+Eelskin Boots 
+(100-150)% increased Evasion Rating
+(20-30)% increased Movement Speed
+Cannot be Stunned by Suppressed Spell Damage
+Debilitate Enemies for 4 Seconds when you Suppress their Spell Damage
+]],[[
 Doryani's Delusion
 Slink Boots
 League: Delve

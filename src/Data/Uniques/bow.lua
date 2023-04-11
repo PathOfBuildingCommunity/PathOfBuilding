@@ -487,6 +487,10 @@ Adds (15-25) to (50-60) Physical Damage
 +30 to Accuracy Rating
 Gain 10 Mana per Enemy Killed
 ]],[[
+Widowhail
+Crude Bow
+(150-250)% increased bonuses gained from Equipped Quiver
+]],[[
 Slivertongue
 Harbinger Bow
 Variant: Pre 3.5.0
