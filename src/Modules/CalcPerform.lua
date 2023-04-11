@@ -3651,7 +3651,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							local manaSpentThreshold = triggeredManaCost * actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold
 							local sourceManaCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.ManaCost or 0
 							if sourceManaCost > 0 then
-								trigRate = manaSpentThreshold / (trigRate * sourceManaCost)
+								trigRate = (trigRate * sourceManaCost) / manaSpentThreshold
 								if breakdown then
 									t_insert(breakdown.EffectiveSourceRate, s_format("* %.2f ^8(Mana cost of trigger source)", sourceManaCost))
 									t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Mana spent per second)", (GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Speed * sourceManaCost)))
@@ -3660,8 +3660,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 									t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Manaforged threshold multiplier)", actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold))
 									t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
 									t_insert(breakdown.EffectiveSourceRate, s_format(""))
-									t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
-									t_insert(breakdown.EffectiveSourceRate, s_format("/ %.2f ^8(Mana spent per second)", (GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Speed * sourceManaCost)))
+									t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Mana spent per second)", (GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Speed * sourceManaCost)))
+									t_insert(breakdown.EffectiveSourceRate, s_format("/ %.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
 								end
 							else
 								trigRate = 0

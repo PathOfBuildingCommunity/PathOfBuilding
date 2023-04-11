@@ -4378,6 +4378,7 @@ skills["SupportManaforgedArrows"] = {
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Attack, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	weaponTypes = {
 		["Bow"] = true,
