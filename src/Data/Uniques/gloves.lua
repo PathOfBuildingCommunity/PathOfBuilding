@@ -559,8 +559,8 @@ Variant: Murderous: Rage
 Variant: Searching: Maim
 Variant: Searching: Blind
 Variant: Searching: Onslaught
-{variant:5}Has 1 Abyssal Socket
-{variant:4}Has 2 Abyssal Sockets
+{variant:4}Has 1 Abyssal Socket
+{variant:5}Has 2 Abyssal Sockets
 {variant:1,2}(6-10)% increased Attack Speed
 {variant:3}(5-10)% increased Attack Speed
 {variant:1,2}(4-6)% increased maximum Life

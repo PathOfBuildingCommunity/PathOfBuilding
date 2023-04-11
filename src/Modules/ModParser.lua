@@ -3214,6 +3214,8 @@ local specialModList = {
 		mod("Speed", "INC", num, nil, ModFlag.Attack, { type = "Condition", var = "KilledRecently" }),
 	} end,
 	["gain adrenaline for 1 second when you change stance"] = { flag("Condition:Adrenaline", { type = "Condition", var = "StanceChangeLastSecond" }) },
+	["with a searching eye jewel socketed, maim enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Maimed", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
+	["with a searching eye jewel socketed, blind enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Blinded", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
 	["traps and mines deal (%d+) to (%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
