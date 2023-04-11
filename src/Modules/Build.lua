@@ -38,13 +38,14 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	-- Load build file
 	self.xmlSectionList = { }
 	self.spectreList = { }
-	self.timelessData = { jewelType = { }, conquerorType = { }, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
+	self.timelessData = { jewelType = { }, conquerorType = { }, devotionVariant1 = 1, devotionVariant2 = 1, jewelSocket = { }, fallbackWeightMode = { }, searchList = "", searchListFallback = "", searchResults = { }, sharedResults = { } }
 	self.viewMode = "TREE"
 	self.characterLevel = m_min(m_max(main.defaultCharLevel or 1, 1), 100)
 	self.targetVersion = liveTargetVersion
 	self.bandit = "None"
 	self.pantheonMajorGod = "None"
 	self.pantheonMinorGod = "None"
+	self.characterLevelAutoMode = main.defaultCharLevel == 1 or main.defaultCharLevel == nil
 	if buildXML then
 		if self:LoadDB(buildXML, "Unnamed build") then
 			self:CloseBuild()
@@ -139,51 +140,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		end
 	end
 	self.controls.pointDisplay.width = function(control)
-		local PointsUsed, AscUsed = self.spec:CountAllocNodes()
-		local bandit = self.calcsTab.mainOutput.ExtraPoints or 0 
-		local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + bandit, 8, 1, 1, "", ""
-		local acts = { 
-			[1] = { level = 1, questPoints = 0 }, 
-			[2] = { level = 12, questPoints = 2 }, 
-			[3] = { level = 22, questPoints = 3 + bandit }, 
-			[4] = { level = 32, questPoints = 5 + bandit },
-			[5] = { level = 40, questPoints = 6 + bandit },
-			[6] = { level = 44, questPoints = 8 + bandit },
-			[7] = { level = 50, questPoints = 11 + bandit },
-			[8] = { level = 54, questPoints = 14 + bandit },
-			[9] = { level = 60, questPoints = 17 + bandit },
-			[10] = { level = 64, questPoints = 19 + bandit },
-			[11] = { level = 67, questPoints = 22 + bandit }
-		}
-				
-		-- loop for how much quest skillpoints are used with the progress
-		while currentAct < 11 and PointsUsed + 1 - acts[currentAct].questPoints > acts[currentAct + 1].level do
-			currentAct = currentAct + 1
-		end
-
-		-- bandits notification; when considered and in calculation after act 2
-		if currentAct <= 2 and bandit ~= 0 then
-			bandit = 0
-		end
-		
-		-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
-		levelreq = math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level)
-		
-		-- Ascendency points for lab
-		-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
-		local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
-		local strAct = "Endgame"
-		if levelreq >= 33 and levelreq < 55 then labSuggest = labstr[1]
-		elseif levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2]
-		elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
-		elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
-		if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
-		
-		control.str = string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax)
-		control.req = "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
-		
-		if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
-		if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
+		control.str, control.req = self:EstimatePlayerProgress()
 		return DrawStringWidth(16, "FIXED", control.str) + 8
 	end
 	self.controls.pointDisplay.Draw = function(control)
@@ -203,13 +160,23 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 			SetDrawLayer(nil, 0)
 		end
 	end
-	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 106, 20, "", "Level", "%D", 3, function(buf)
-		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
+	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 50, 20, self.characterLevelAutoMode and "Auto" or "Manual", function()
+		self.characterLevelAutoMode = not self.characterLevelAutoMode
+		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
+		self.recalcAdaptiveLevel = true
 		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
 	end)
-	self.controls.characterLevel:SetText(tostring(self.characterLevel))
+	self.controls.characterLevel = new("EditControl", {"LEFT",self.controls.levelScalingButton,"RIGHT"}, 8, 0, 106, 20, "", "Level", "%D", 3, function(buf)
+		self.characterLevel = m_min(m_max(tonumber(buf) or 1, 1), 100)
+		self.configTab:BuildModList()
+		self.modFlag = true
+		self.buildFlag = true
+		self.characterLevelAutoMode = false
+		self.controls.levelScalingButton.label = "Manual"
+	end)
+	self.controls.characterLevel:SetText(self.characterLevel)
 	self.controls.characterLevel.tooltipFunc = function(tooltip)
 		if tooltip:CheckForUpdate(self.characterLevel) then
 			tooltip:AddLine(16, "Experience multiplier:")
@@ -311,6 +278,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "MirageDPS", label = "Total Mirage DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v > 0 end },
 		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
+		{ stat = "ReservationDPS", label = "Reservation DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.ReservationDPS or 0) > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and ( o.showTotalDotDPS or ( v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS ) ) end },
 		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
@@ -333,6 +301,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ESPercentPerSecondCost", label = "ES Cost per second", fmt = ".2f%%", color = colorCodes.ES, compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ESPercentPerSecondHasCost end },
 		{ stat = "RageCost", label = "Rage Cost", fmt = "d", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RageHasCost end },
 		{ stat = "RagePerSecondCost", label = "Rage Cost per second", fmt = ".2f", color = colorCodes.RAGE, pool = "Rage", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.RagePerSecondHasCost end },
+		{ stat = "SoulCost", label = "Soul Cost", fmt = "d", color = colorCodes.RAGE, pool = "Soul", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.SoulHasCost end },
 		{ },
 		{ stat = "Str", label = "Strength", color = colorCodes.STRENGTH, fmt = "d" },
 		{ stat = "ReqStr", label = "Strength Required", color = colorCodes.STRENGTH, fmt = "d", lowerIsBetter = true, condFunc = function(v,o) return v > o.Str end, warnFunc = function(v) return "You do not meet the Strength requirement" end },
@@ -443,6 +412,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale" },
 		{ stat = "WithImpaleDPS", label = "Total DPS inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "CullingDPS", label = "Culling DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.CullingDPS or 0) > 0 end },
+		{ stat = "ReservationDPS", label = "Reservation DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.ReservationDPS or 0) > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "Life", label = "Total Life", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
@@ -749,6 +719,64 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.abortSave = false
 end
 
+function buildMode:EstimatePlayerProgress()
+	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
+	local bandit = self.calcsTab.mainOutput.ExtraPoints or 0 
+	local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + bandit, 8, 1, 1, "", ""
+	local acts = { 
+		[1] = { level = 1, questPoints = 0 }, 
+		[2] = { level = 12, questPoints = 2 }, 
+		[3] = { level = 22, questPoints = 3 + bandit }, 
+		[4] = { level = 32, questPoints = 5 + bandit },
+		[5] = { level = 40, questPoints = 6 + bandit },
+		[6] = { level = 44, questPoints = 8 + bandit },
+		[7] = { level = 50, questPoints = 11 + bandit },
+		[8] = { level = 54, questPoints = 14 + bandit },
+		[9] = { level = 60, questPoints = 17 + bandit },
+		[10] = { level = 64, questPoints = 19 + bandit },
+		[11] = { level = 67, questPoints = 22 + bandit }
+	}
+			
+	-- loop for how much quest skillpoints are used with the progress
+	while currentAct < 11 and PointsUsed + 1 - acts[currentAct].questPoints > acts[currentAct + 1].level do
+		currentAct = currentAct + 1
+	end
+
+	-- bandits notification; when considered and in calculation after act 2
+	if currentAct <= 2 and bandit ~= 0 then
+		bandit = 0
+	end
+	
+	-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
+	levelreq = m_min(math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level), 100)
+	
+	self.lastAllocated = self.lastAllocated or -1
+	
+	if self.characterLevelAutoMode and (self.lastAllocated ~= PointsUsed or self.recalcAdaptiveLevel) then
+		self.characterLevel = levelreq
+		self.controls.characterLevel:SetText(self.characterLevel)
+		self.recalcAdaptiveLevel = false
+	end
+	
+	self.lastAllocated = PointsUsed
+
+	-- Ascendency points for lab
+	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
+	local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
+	local strAct = "Endgame"
+	if levelreq >= 33 and levelreq < 55 then labSuggest = labstr[1]
+	elseif levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2]
+	elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
+	elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
+	if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
+	
+	if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
+	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
+	self.Act = strAct
+	
+	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax), "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
+end
+
 function buildMode:CanExit(mode)
 	if not self.unsaved then
 		return true
@@ -758,7 +786,7 @@ function buildMode:CanExit(mode)
 end
 
 function buildMode:Shutdown()
-	if launch.devMode and self.targetVersion and not self.abortSave then
+	if launch.devMode and (not main.disableDevAutoSave) and self.targetVersion and not self.abortSave then
 		if self.dbFileName then
 			self:SaveDBFile()
 		elseif self.unsaved then		
@@ -788,6 +816,7 @@ function buildMode:Load(xml, fileName)
 		self.viewMode = xml.attrib.viewMode
 	end
 	self.characterLevel = tonumber(xml.attrib.level) or 1
+	self.characterLevelAutoMode = xml.attrib.characterLevelAutoMode == "true"
 	for _, diff in pairs({ "bandit", "pantheonMajorGod", "pantheonMinorGod" }) do
 		self[diff] = xml.attrib[diff] or "None"
 	end
@@ -805,6 +834,8 @@ function buildMode:Load(xml, fileName)
 			self.timelessData.conquerorType = {
 				id = tonumber(child.attrib.conquerorTypeId)
 			}
+			self.timelessData.devotionVariant1 = tonumber(child.attrib.devotionVariant1) or 1
+			self.timelessData.devotionVariant2 = tonumber(child.attrib.devotionVariant2) or 1
 			self.timelessData.jewelSocket = {
 				id = tonumber(child.attrib.jewelSocketId)
 			}
@@ -829,6 +860,7 @@ function buildMode:Save(xml)
 		pantheonMajorGod = self.configTab.input.pantheonMajorGod,
 		pantheonMinorGod = self.configTab.input.pantheonMinorGod,
 		mainSocketGroup = tostring(self.mainSocketGroup),
+		characterLevelAutoMode = tostring(self.characterLevelAutoMode)
 	}
 	for _, id in ipairs(self.spectreList) do
 		t_insert(xml, { elem = "Spectre", attrib = { id = id } })
@@ -882,6 +914,8 @@ function buildMode:Save(xml)
 		attrib = {
 			jewelTypeId = next(self.timelessData.jewelType) and tostring(self.timelessData.jewelType.id),
 			conquerorTypeId = next(self.timelessData.conquerorType) and tostring(self.timelessData.conquerorType.id),
+			devotionVariant1 = tostring(self.timelessData.devotionVariant1),
+			devotionVariant2 = tostring(self.timelessData.devotionVariant2),
 			jewelSocketId = next(self.timelessData.jewelSocket) and tostring(self.timelessData.jewelSocket.id),
 			fallbackWeightModeIdx = next(self.timelessData.fallbackWeightMode) and tostring(self.timelessData.fallbackWeightMode.idx),
 			socketFilter = self.timelessData.socketFilter and "true",
@@ -897,6 +931,7 @@ function buildMode:ResetModFlags()
 	self.notesTab.modFlag = false
 	self.configTab.modFlag = false
 	self.treeTab.modFlag = false
+	self.treeTab.searchFlag = false
 	self.spec.modFlag = false
 	self.skillsTab.modFlag = false
 	self.itemsTab.modFlag = false
@@ -1014,7 +1049,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 
@@ -1215,9 +1250,9 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 						t_insert(controls.mainSkillPart.list, { val = i, label = part.name })
 					end
 					controls.mainSkillPart.selIndex = activeEffect.srcInstance["skillPart"..suffix] or 1
-					if activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stages then
+					if activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stages then
 						controls.mainSkillStageCount.shown = true
-						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[activeEffect.srcInstance["skillPart"..suffix]].stagesMin or 1)
+						controls.mainSkillStageCount.buf = tostring(activeEffect.srcInstance["skillStageCount"..suffix] or activeEffect.grantedEffect.parts[controls.mainSkillPart.selIndex].stagesMin or 1)
 					end
 				end
 				if activeSkill.skillFlags.mine then
@@ -1373,13 +1408,21 @@ function buildMode:AddDisplayStatList(statList, actor)
 	end
 	for pool, warningFlag in pairs({["Life"] = "LifeCostWarning", ["Mana"] = "ManaCostWarning", ["Rage"] = "RageCostWarning", ["Energy Shield"] = "ESCostWarning"}) do
 		if actor.output[warningFlag] then
-			local line = "You do not have enough "..(actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool).." to use a Selected Skill"
+			local line = "You do not have enough "..(actor.output.EnergyShieldProtectsMana and pool == "Mana" and "Energy Shield and Mana" or pool).." to use: "
+			for _, skill in ipairs(actor.output[warningFlag]) do
+				line = line..skill..", "
+			end
+			line = line:sub(1, -3)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
 	for pool, warningFlag in pairs({["Unreserved life"] = "LifePercentCostPercentCostWarning", ["Unreserved Mana"] = "ManaPercentCostPercentCostWarning"}) do
 		if actor.output[warningFlag] then
-			local line = "You do not have enough ".. pool .."% to use a Selected Skill"
+			local line = "You do not have enough ".. pool .."% to use: "
+			for _, skill in ipairs(actor.output[warningFlag]) do
+				line = line..skill..", "
+			end
+			line = line:sub(1, -3)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end

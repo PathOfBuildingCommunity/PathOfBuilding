@@ -1,3 +1,212 @@
+VERSION[2.27.2][2023/04/09]
+
+--- Implemented Enhancements ---
+* Add support for Prismatic Burst (Wires77)
+
+--- Fixed Crashes ---
+* Fix crash in the Trader from not having jewel data (Regisle)
+
+--- User Interface ---
+* Correct display of max mana leech rate breakdown (Lilylicious)
+* Fix crucible item colour (QuickStick123)
+
+--- Fixed Bugs ---
+* Fix Flasks incorrectly having "Cannot Leech" on them (Wires77)
+* Fix + to level of active skill gem mods not working (LocalIdentity)
+* Fix Formless Inferno, Uul-Netol's Kiss and Tulborn (QuickStick123)
+* Fix Absolution Enchant Parsing (LocalIdentity)
+* Fix Snipe Support + update Assailum (LocalIdentity)
+
+
+VERSION[2.27.0][2023/04/08]
+
+--- Implemented Enhancements ---
+* 3.21 game data update (Nostrademous)
+* Add crucible modifier parsing support (Nostrademous)
+* Add support for mods conditional on the modifiers of other equipped items (Nostrademous)
+* Add Bloodnotch (QuickStick123)
+* Set level mode to manual if default level is above 1 (Lilylicious)
+* Hide the power report on loading a build and unchecking "Show node power" (Lilylicious)
+* Add skill names to cost warnings (Paliak)
+* Add support for new Low Life and Full Life Masteries (Nostrademous)
+* Add support for Warcry Mastery (Peechey)
+* Add support for repeat-based modifiers (Regisle)
+* Add support for Saboteur Ascendancy (Peechey)
+* Add support for "Skills Cost Life instead of 30% of Mana" Mastery (Nostrademous)
+* Prompt for saving after altering the passive search string (Lilylicious)
+
+--- User Interface ---
+* Limit separators to non-alphanumeric (Lilylicious)
+
+--- Fixed Bugs ---
+* Fix default state validation for lists and color labels (deathbeam)
+* Fix tree data bug related to recovery mastery (QuickStick123)
+* Fix issue where Sceptres and One Handed Maces were considered the same weapon type (Peechey)
+* Fix Reverberation Rod to add back Controlled Destruction (chx)
+* Fix Kaom's Spirit rage regen calculation behaviour (Ribel38)
+
+--- Other changes ---
+* Improve EHP calculation performance when using full DPS (Regisle)
+* Update a few uniques for 3.21 (QuickStick123)
+
+VERSION[2.26.3][2023/04/05]
+
+--- Fixed Bugs ---
+* Fix several Minion buffs not being calculated correctly (Wires77)
+* Fix level-up stats from appearing on tooltips (Lilylicious)
+* Fix MoM and Prevented Life loss effect interaction (Edvinas-Smita)
+* Fix life loss prevention occurring on overkill damage resulting in undesired breakpoint behaviour (QuickStick123)
+* Fix Ghost Reaver and Mines Leech not working (QuickStick123)
+* Fix mod values on Betrayal uniques (dshebib)
+
+VERSION[2.26.2][2023/04/03]
+
+* Fix mastery choices overlapping when they had multiple lines (Wires77)
+* Fix gems in the Squire counting multiple times (Wires77)
+* Fix skill stages not being editable in some cases (QuickStick123)
+* Fix Widowhail increased bonuses calculation (Edvinas-Smita)
+* Fix max-hit with 100% taken as conversion (Edvinas-Smita)
+* Fix issue calculating defences based on overcapped resistances (Regisle)
+* Fix Formless Inferno not increasing minion life properly (Wires77)
+
+VERSION[2.26.1][2023/04/03]
+
+--- Fixed Crashes ---
+* Fix crash with Petrified Blood and eHP (QuickStick123)
+
+VERSION[2.26.0][2023/04/03]
+
+--- 3.21 Changes ---
+* Add 3.21 tree (Regisle)
+* Add support for new mods on the tree (madinsane, Paliak, QuickStick123, LocalIdentity)
+* Add support for many mods on 3.21 Masteries (Lilylicious, Peechey, cardbeard, dbjorge, MoonOverMira, QuickStick123)
+* Add support for new 3.21 Uniques (Paliak, TPlant, QuickStick123)
+* Add support for mods on uniques that were changed in 3.21 patch notes (QuickStick123, ifnjeff)
+* Update Timeless Jewels to work with 3.21 tree (LocalIdentity)
+
+--- Implemented Enhancements ---
+* Add a Help section (Regisle)
+* Add support for automatic character levels based on allocated nodes (Lilylicious)
+* Allow Trade to weight by multiple stats (Regisle)
+* Enable searching for Militant Faith devotion modifiers (Edvinas-Smita)
+* Change pobb.in to be the default build code exporter (QuickStick123)
+* Automatically apply Arcane Surge granted to you via items or nodes on the tree (QuickStick123)
+* Add support for skill uses (QuickStick123)
+* Add new boss skills, auto-apply uber changes if set to uber, and update non-uber pen/chaos mix (Regisle)
+* Automatically estimate resistance penalty on import (Paliak)
+* Update boss Armour/Evasion values and add override fields to config (ybbat)
+* Allow for custom mod DPS multiplier (e.g 35% More DPS) (Regisle)
+* Change Elusive to use average value by default instead of max (deathbeam)
+* Implement "You can't deal Damage with Skills yourself" mod from Ancestral Bond (Paliak)
+* Add support for more mods on Precursor's emblem (QuickStick123)
+* Add support for Enemy regen and Sanctum x can y (QuickStick123)
+* Add support for Non-Aura cost no Life/Mana while Focused (QuickStick123)
+* Add support for Cat's Stealth avoid damage (QuickStick123)
+* Add support for Cane of Kulemak unveiled mods scaler (Regisle)
+* Add support for additional cooldowns on Mirror/Blink arrow (QuickStick123)
+* Automatically apply PvP multipliers to skills (Regisle)
+* Add support for Vaal skills Soul cost and soul gain prevention (Regisle)
+* Add support for Block chance reduction (Regisle)
+* Add support for mods that disable other item slots (Regisle)
+* Add support for Jewel limits (Regisle)
+
+--- Fixed Crashes ---
+* Fix crash on import when an Abyss Jewel was socketed in a weapon swap weapon (Paliak)
+* Fix issue in PoB Trader caused by sorting mode change (Dullson)
+* Fix not being able to save trees with more than 254 nodes allocated (QuickStick123)
+* Fix crash caused by very long lines on items without spaces (Paliak)
+* Fix crash when viewing Pantheon reduced enemy Life Regen (Paliak)
+
+--- User Interface ---
+* Hide config options that can be hidden by default behind conditions (deathbeam)
+* Improve eHP breakdown to show greater detail (Edvinas-Smita)
+* Recolor mods in the 'Custom Modifiers' box to show if they are parsed or not (deathbeam)
+* Properly sort and group Eldritch mods in the item crafter (Regisle)
+* Show uptime for "Enduring" Life and Mana flasks (deathbeam)
+* Make race uniques not show up as obtainable (Regisle)
+* Update Trader, Item weight and sorting to use percentage change rather than absolute (Regisle)
+* Change Blade Blast to user-configurable stages (Regisle)
+* Add flask breakdown to Calcs tab (deathbeam)
+* Colourise and group defensive calc sections (deathbeam)
+* Add support to display coloured text in dropdowns (deathbeam)
+* Allow setting Blood Charges to 0 (Paliak)
+
+* Fix punctuation error in Trauma calculation message (Ivniinvi)
+* Fix minor colour codes and number formatting errors in tooltips (QuickStick123)
+* Fix Enabled and FullDPS checkboxes not updating when mouse shortcuts are used (Dullson)
+* Fix Summon Skeletons enchant not appearing in filtered list (Wires77)
+* Fix inconsistent display of additional quality and gem levels in skill group tooltip for inactive gems (Paliak)
+* Fix cluster jewel notable compare tooltip when crafting a cluster (Edvinas-Smita)
+
+--- Accuracy Improvements ---
+
+* Update wording on many uniques (QuickStick123)
+* Update Watcher's Eye Dodge mods to Suppress mods (deathbeam)
+* Update Vessel of Vinktar to have correct mod values (DavidBindloss)
+
+* Fix eHP calculation when using Eldritch Battery + Mind Over Matter + Corrupted Soul (Regisle)
+* Fix a variety of incorrect catalyst scaling (QuickStick123)
+* Fix Voltaxic missing shock effect mod (LocalIdentity)
+* Fix missing Mana on Mindspiral (QuickStick123)
+* Fix missing variant on Replica Hyrri's Truth (QuickStick123)
+* Fix values of mods on Devouring Diadem (LocalIdentity)
+* Fix Vorana's March missing a fourth modifier slot (hexeaktivitat)
+* Fix base for Saemus' gift (Lilylicious)
+* Fix Entropic Devastation not having Shaper influence (QuickStick123)
+* Fix support for Mace/Scepter chill Mastery node (moojustice1)
+* Fix range values for Point Blank / Far shot distances (QuickStick123)
+* Fix Foil search to correctly assign foil to Voidborn uniques (Regisle)
+* Fix mods incorrectly applying when wielding fishing rod (QuickStick123)
+* Fix group disable not disabling support gems and two-part skills not applying support part to linked groups (Paliak)
+* Fix Hex Master not modifying the duration of Curses to be infinite (Paliak)
+* Fix tree version being out of date when importing character profile into an old tree (QuickStick123)
+* Fix Fire Exposure/Action speed mod on Balance of Terror (QuickStick123)
+* Fix Adrenaline, Her Embrace and Boot Enchant with Wilma's Requital (LocalIdentity)
+* Fix Minion overwhelm mastery incorrectly applying to spells (Paliak)
+* Fix Galvanic Field shock effect scaling all damage instead of only hits (LocalIdentity)
+* Fix ignite chance display (raylu)
+* Fix player-specific flask mods incorrectly applying to Minions (Paliak)
+* Fix buff effect scaling guard absorption rate (QuickStick123)
+* Fix local flask duration affecting the total amount recovered (QuickStick123)
+* Fix Strength adding to Minions mod only applying at half value (cardbeard)
+* Fix Projectile modifiers incorrectly applying to Cremation Corpse Explosion damage, (CapnJack22)
+* Fix Rational Doctrine not working while using Crystallised Omniscience (QuickStick123)
+* Fix Double/Triple Damage calculations (QuickStick123)
+* Add missing "Damage" tag to some golem skills (Paliak)
+* Fix Ball Lightning Projectile Speed (LocalIdentity)
+* Fix incorrect profane ground numbers (QuickStick123)
+* Fix flask conditions for using Life and Mana flasks (deathbeam)
+* Fix Follow Through not applying to poison (Paliak)
+* Stop Vaal Smite and Smite auras from stacking (Paliak)
+* Fix skill type tags for maximum Ballista Totem mods (bobanobahoba)
+* Fix enemy negative resistance not being capped for DoT damage (Edvinas-Smita)
+* Fix Vaal Lightning Strike damage effectiveness being off by 1 level (Regisle)
+
+--- Fixed Bugs ---
+* Fix imported characters missing Voidborn uniques (QuickStick123)
+* Fix Energy Blade not importing from PoE.ninja and on copy paste (QuickStick123)
+* Fix enemy level getting out of sync due to updating later than expected (QuickStick123)
+* Fix incorrect variable causing gem sorting to occur far too often (Paliak)
+* Fix skill sets sometimes being deleted after deleting the first one (deathbeam)
+* Fix socket group linking not working on weapon swap and generalize socket group linking code (Paliak)
+* Fix Energy Blade not working with socketed Abyssal jewels (QuickStick123)
+* Fix more multipliers on Skill damage being incorrectly rounded. (QuickStick123)
+* Prevent pathing through class starts for Split Personality (Paliak)
+
+VERSION[2.25.1][2023/01/06]
+
+--- Fixed Crashes ---
+* Fix crash caused by item stuck on cursor when dragging (Paliak)
+* Fix crash when using Whispering Ice with trigger support (Paliak)
+* Fix crash caused by loading shared items too early (QuickStick123)
+
+--- Fixed Bugs ---
+* Fixing Timeless jewels not working correctly when added via the "Find Timeless Jewel" UI (QuickStick123)
+* Fix Atziri's Mirror's drop source (pHiney)
+* Fix Blood Sacrament incorrect scaling when setting to stages more than 1 (dreais)
+* Fix Spell Suppression mastery not working with Acrobatics Keystone (Paliak)
+* Fix magic utility flask effect not scaling Onslaught from Silver Flasks (deathbeam)
+
 VERSION[2.25.0][2023/01/03]
 
 --- Implemented Enhancements ---
@@ -58,7 +267,7 @@ VERSION[2.25.0][2023/01/03]
 * Seismic Trap and Lightning Spire Trap not rounding to server ticks for wave count calculation (Edvinas-Smita)
 * Missing Physical tag to Heartbound Loop (ProphetLamb)
 * Wording on Sandstorm Visage mods (QuickStick123)
-* Remove Legacy Crystalised Omniscience from the unique list as it no longer exists (QuickStick123)
+* Remove Legacy Crystallised Omniscience from the unique list as it no longer exists (QuickStick123)
 * Damage multipliers to exerts also applying to triggered skills (Paliak)
 * More than 100% reduced resistances causing negative res to turn positive (QuickStick123)
 * Militant Faith mod using "Skill Cost" instead of "Mana Cost" (Regisle)
@@ -409,7 +618,7 @@ VERSION[2.20.0][2022/08/16]
 * Force rebuild to initialise boss presets and remove phys fallback (Regisle)
 * Remove parsing for Tawhoa, Forest's Strength as it is not implemented (Lilylicious)
 * Selected Mastery Tree Upconversion Error (Nostrademous)
-* Set skillset to nil instead of removing it from table and reordering it (deathbeam)
+* Set skillSet to nil instead of removing it from table and reordering it (deathbeam)
 * Build did not save on generating a build code (talkmill)
 * Multistrike damage calculation with skills which have bow and melee Tag (Sinured)
 * Guaranteed ailments were not using correct values (Lilylicious)

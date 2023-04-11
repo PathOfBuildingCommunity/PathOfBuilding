@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: Staff
@@ -426,7 +426,7 @@ Realm Ender
 Iron Staff
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 40, 35 Str, 35 Int
 Implicits: 2
 {variant:1}+12% Chance to Block Attack Damage while wielding a Staff
@@ -581,6 +581,19 @@ Implicits: 1
 +18% Chance to Block Attack Damage while wielding a Staff
 Grants Level 20 Brandsurge Skill
 Brand Skills have (50-100)% increased Duration
+]],[[
+The Geomantic Gyre
+Highborn Staff
+League: Crucible
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+Has 1 Socket
+(150-200)% increased Spell Damage
+(80-120)% increased Critical Strike Chance for Spells
++(150-200) to maximum Mana
+Gain 150 Life per Enemy Killed
+Has a Crucible Passive Skill Tree with only Support Passive Skills
+Crucible Passive Skill Tree is removed if this Modifier is removed
 ]],[[
 Xirgil's Crank
 Coiled Staff

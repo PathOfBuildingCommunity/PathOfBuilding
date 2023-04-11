@@ -18,7 +18,7 @@ local catalystTags = {
 	{ "life", "mana", "resource" },
 	{ "caster" },
 	{ "jewellery_attribute", "attribute" },
-	{ "physical", "chaos" },
+	{ "physical_damage", "chaos_damage" },
 	{ "jewellery_resistance", "resistance" },
 	{ "jewellery_defense", "defences" },
 	{ "jewellery_elemental" ,"elemental_damage" },
@@ -63,6 +63,199 @@ function ItemClass:ResetInfluence()
 	end
 end
 
+-- Special function to store unique instances of modifier on specific item slots
+-- that require special handling for ItemConditions. Only called if line #224 is
+-- uncommented
+local specialModifierFoundList = {}
+local inverseModifierFoundList = {}
+local function getTagBasedModifiers(tagName, itemSlotName)
+	local tag_name = tagName:lower()
+	local slot_name = itemSlotName:lower():gsub(" ", "_")
+	-- iterate all the item modifiers
+	for k,v in pairs(data.itemMods.Item) do
+		-- iterate across the modifier tags for each modifier
+		for _,tag in ipairs(v.modTags) do
+			-- if tag matches the tag_name we are investigating
+			if tag:lower() == tag_name then
+				local found = false
+				-- if there is a valid weightKey table
+				if #v.weightKey > 0 then
+					for _,wk in ipairs(v.weightKey) do
+						-- and it matches the slot_name of the item we are investigating
+						if wk == slot_name then
+							for _, dv in ipairs(v) do
+								-- and the modifier description contains the tag_name keyword
+								if dv:lower():find(tag_name) then
+									found = true
+									break
+								else
+									local excluded = false
+									if data.itemTagSpecial[tagName] and data.itemTagSpecial[tagName][itemSlotName] then
+										for _, specialMod in ipairs(data.itemTagSpecial[tagName][itemSlotName]) do
+											if dv:lower():find(specialMod:lower()) then
+												exclude = true
+												break
+											end
+										end
+									end
+									if exclude then
+										found = true
+										break
+									end
+								end
+							end
+							if not found and not specialModifierFoundList[k] then
+								specialModifierFoundList[k] = true
+								ConPrintf("[%s] [%s] ENTRY: %s", tagName, itemSlotName, k)
+							end
+						end
+					end
+				else
+					for _, dv in ipairs(v) do
+						if dv:lower():find(tag_name) then
+							found = true
+							break
+						else
+							local excluded = false
+							if data.itemTagSpecial[tagName] and data.itemTagSpecial[tagName][itemSlotName] then
+								for _, specialMod in ipairs(data.itemTagSpecial[tagName][itemSlotName]) do
+									if dv:lower():find(specialMod:lower()) then
+										exclude = true
+										break
+									end
+								end
+							end
+							if exclude then
+								found = true
+								break
+							end
+						end
+					end
+					if not found and not specialModifierFoundList[k] then
+						specialModifierFoundList[k] = true
+						ConPrintf("[%s] ENTRY: %s", tagName, k)
+					end
+				end
+			end
+		end
+		for _, dv in ipairs(v) do
+			if dv:lower():find(tag_name) then
+				local found_2 = false
+				if #v.weightKey > 0 then
+					for _,wk in ipairs(v.weightKey) do
+						if wk == slot_name then
+							-- this is useless if the modTags = { } (is empty)
+							if #v.modTags > 0 then
+								for _,tag in ipairs(v.modTags) do
+									if tag:lower() == tag_name then
+										found_2 = true
+										break
+									else
+										local excluded = false
+										-- if we have an exclusion pattern list for that tagName and itemSlotName
+										if data.itemTagSpecialExclusionPattern[tagName] and data.itemTagSpecialExclusionPattern[tagName][itemSlotName] then
+											-- iterate across the exclusion patterns
+											for _, specialMod in ipairs(data.itemTagSpecialExclusionPattern[tagName][itemSlotName]) do
+												-- and if the description matches pattern exclude it
+												if dv:lower():find(specialMod:lower()) then
+													excluded = true
+													break
+												end
+											end
+										end
+										if excluded then
+											found_2 = true
+											break
+										end
+									end
+								end
+								if not found_2 and not inverseModifierFoundList[k] then
+									inverseModifierFoundList[k] = true
+									ConPrintf("[%s] appears in desc but not in tags. [%s] %s", tag_name, k, dv)
+									break
+								end
+							end
+						end
+					end
+				else
+					-- this is useless if the modTags = { } (is empty)
+					if #v.modTags > 0 then
+						for _,tag in ipairs(v.modTags) do
+							if tag:lower() == tag_name then
+								found_2 = true
+								break
+							else
+								local excluded = false
+								-- if we have an exclusion pattern list for that tagName and itemSlotName
+								if data.itemTagSpecialExclusionPattern[tagName] and data.itemTagSpecialExclusionPattern[tagName][itemSlotName] then
+									-- iterate across the exclusion patterns
+									for _, specialMod in ipairs(data.itemTagSpecialExclusionPattern[tagName][itemSlotName]) do
+										-- and if the description matches pattern exclude it
+										if dv:lower():find(specialMod:lower()) then
+											excluded = true
+											break
+										end
+									end
+								end
+								if excluded then
+									found_2 = true
+									break
+								end
+							end
+						end
+						if not found_2 and not inverseModifierFoundList[k] then
+							inverseModifierFoundList[k] = true
+							ConPrintf("[%s] appears in desc but not in tags. [%s] %s", tag_name, k, dv)
+						end
+					end
+				end
+			end
+		end
+	end
+end
+
+-- Iterate over modifiers to see if specific substring is found (for conditional checking)
+function ItemClass:FindModifierSubstring(substring, itemSlotName)
+	local modLines = {}
+
+	-- The commented out line below is used at GGPK updates to check if any new modifiers
+	-- have been identified that need to be added to the manually maintained special modifier
+	-- pool in Data.lua (data.itemTagSpecial and data.itemTagSpecialExclusionPattern tables)
+	--getTagBasedModifiers(substring, itemSlotName)
+
+	-- merge various modifier lines into one table
+	for k,v in pairs(self.enchantModLines) do modLines[k] = v end
+	for k,v in pairs(self.scourgeModLines) do modLines[k] = v end
+	for k,v in pairs(self.implicitModLines) do modLines[k] = v end
+	for k,v in pairs(self.explicitModLines) do modLines[k] = v end
+	for k,v in pairs(self.crucibleModLines) do modLines[k] = v end
+
+	for _,v in pairs(modLines) do
+		if v.line:lower():find(substring) and not v.line:lower():find(substring .. " modifier") then
+			local excluded = false
+			if data.itemTagSpecialExclusionPattern[substring] and data.itemTagSpecialExclusionPattern[substring][itemSlotName] then
+				for _, specialMod in ipairs(data.itemTagSpecialExclusionPattern[substring][itemSlotName]) do
+					if v.line:lower():find(specialMod:lower()) then
+						excluded = true
+						break
+					end
+				end
+			end
+			if not excluded then
+				return true
+			end
+		end
+		if data.itemTagSpecial[substring] and data.itemTagSpecial[substring][itemSlotName] then
+			for _, specialMod in ipairs(data.itemTagSpecial[substring][itemSlotName]) do
+				if v.line:lower():find(specialMod:lower()) then
+					return true
+				end
+			end
+		end
+	end
+	return false
+end
+
 -- Parse raw item data and extract item name, base type, quality, and modifiers
 function ItemClass:ParseRaw(raw)
 	self.raw = raw
@@ -82,8 +275,10 @@ function ItemClass:ParseRaw(raw)
 	end
 	local mode = "WIKI"
 	local l = 1
+	local itemClass
 	if self.rawLines[l] then
 		if self.rawLines[l]:match("^Item Class:") then
+			itemClass = self.rawLines[l]:gsub("^Item Class: %s+", "%1")
 			l = l + 1 -- Item class is already determined by the base type
 		end
 		local rarity = self.rawLines[l]:match("^Rarity: (%a+)")
@@ -95,7 +290,7 @@ function ItemClass:ParseRaw(raw)
 			if self.rarity == "UNIQUE" then
 				-- Hack for relics
 				for _, line in ipairs(self.rawLines) do
-					if line == "Foil Unique" then
+					if line:find("Foil Unique") then
 						self.rarity = "RELIC"
 						break
 					end
@@ -116,7 +311,7 @@ function ItemClass:ParseRaw(raw)
 		end
 
 		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal or Unidentified item to get the base
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) then
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) or self.name:match("Energy Blade") then
 			l = l + 1
 		end
 	end
@@ -128,11 +323,15 @@ function ItemClass:ParseRaw(raw)
 	self.scourgeModLines = { }
 	self.implicitModLines = { }
 	self.explicitModLines = { }
+	self.crucibleModLines = { }
 	local implicitLines = 0
 	self.variantList = nil
 	self.prefixes = { }
 	self.suffixes = { }
 	self.requirements = { }
+	self.requirements.str = 0
+	self.requirements.dex = 0
+	self.requirements.int = 0
 	local importedLevelReq
 	local flaskBuffLines
 	local deferJewelRadiusIndexAssignment
@@ -315,6 +514,8 @@ function ItemClass:ParseRaw(raw)
 					self.crafted = true
 				elseif specName == "Scourge" then
 					self.scourge = true
+				elseif specName == "Crucible" then
+					self.crucible = true
 				elseif specName == "Implicit" then
 					self.implicit = true
 				elseif specName == "Prefix" then
@@ -395,6 +596,9 @@ function ItemClass:ParseRaw(raw)
 				local baseName
 				if self.rarity == "NORMAL" or self.rarity == "MAGIC" then
 					-- Exact match (affix-less magic and normal items)
+					if self.name:match("Energy Blade") and itemClass then -- Special handling for energy blade base.
+						self.name = itemClass:match("One Hand") and "Energy Blade One Handed" or "Energy Blade Two Handed"
+					end
 					if data.itemBases[self.name] then
 						baseName = self.name
 					else
@@ -487,6 +691,7 @@ function ItemClass:ParseRaw(raw)
 				local enchant = line:match(" %(enchant%)")
 				local classReq = line:find("Requires Class")
 				local scourge = line:match("{scourge}") or line:match(" %(scourge%)")
+				local crucible = line:match("{crucible}") or line:match(" %(crucible%)")
 				local crafted = line:match("{crafted}") or line:match(" %(crafted%)") or enchant
 				local custom = line:match("{custom}")
 				local modTagsText = line:match("{tags:([^}]*)}") or ''
@@ -500,13 +705,13 @@ function ItemClass:ParseRaw(raw)
 					foundImplicit = true
 					gameModeStage = "IMPLICIT"
 				end
-				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)",""):gsub(" %(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)","")
+				line = line:gsub("%b{}", ""):gsub(" %(fractured%)",""):gsub(" %(crafted%)",""):gsub(" %(implicit%)",""):gsub(" %(enchant%)",""):gsub(" %(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)",""):gsub(" %(crucible%)", "")
 				local catalystScalar = getCatalystScalar(self.catalyst, modTags, self.catalystQuality)
 				local rangedLine = itemLib.applyRange(line, 1, catalystScalar)
 				local modList, extra = modLib.parseMod(rangedLine or line)
 				if (not modList or extra) and self.rawLines[l+1] then
 					-- Try to combine it with the next line
-					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)",""):gsub(" ?%(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)","")
+					local nextLine = self.rawLines[l+1]:gsub("%b{}", ""):gsub(" ?%(fractured%)",""):gsub(" ?%(crafted%)",""):gsub(" ?%(implicit%)",""):gsub(" ?%(enchant%)",""):gsub(" ?%(scourge%)",""):gsub(" %(exarch%)",""):gsub(" %(eater%)",""):gsub(" %(synthesis%)",""):gsub(" %(crucible%)", "")
 					local combLine = line.." "..nextLine
 					rangedLine = itemLib.applyRange(combLine, 1, catalystScalar)
 					modList, extra = modLib.parseMod(rangedLine or combLine, true)
@@ -548,11 +753,13 @@ function ItemClass:ParseRaw(raw)
 					modLines = self.classRequirementModLines
 				elseif implicit or (not crafted and #self.enchantModLines + #self.scourgeModLines + #self.implicitModLines < implicitLines) then
 					modLines = self.implicitModLines
+				elseif crucible then
+					modLines = self.crucibleModLines
 				else
 					modLines = self.explicitModLines
 				end
 				if modList then
-					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or main.defaultItemAffixQuality), valueScalar = catalystScalar })
+					t_insert(modLines, { line = line, extra = extra, modList = modList, modTags = modTags, variantList = variantList, scourge = scourge, crucible = crucible, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit, range = rangedLine and (tonumber(rangeSpec) or main.defaultItemAffixQuality), valueScalar = catalystScalar })
 					if mode == "GAME" then
 						if gameModeStage == "FINDIMPLICIT" then
 							gameModeStage = "IMPLICIT"
@@ -567,12 +774,12 @@ function ItemClass:ParseRaw(raw)
 					end
 				elseif mode == "GAME" then
 					if gameModeStage == "IMPLICIT" or gameModeStage == "EXPLICIT" or (gameModeStage == "FINDIMPLICIT" and (not data.itemBases[line]) and not (self.name == line) and not line:find("Two%-Toned") and not (self.base and (line == self.base.type or self.base.subType and line == self.base.subType .. " " .. self.base.type))) then
-						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
+						t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crucible = crucible, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 					elseif gameModeStage == "FINDEXPLICIT" then
 						gameModeStage = "DONE"
 					end
 				elseif foundExplicit then
-					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
+					t_insert(modLines, { line = line, extra = line, modList = { }, modTags = { }, variantList = variantList, scourge = scourge, crucible = crucible, crafted = crafted, custom = custom, fractured = fractured, exarch = exarch, eater = eater, synthesis = synthesis, implicit = implicit })
 				end
 			end
 		end
@@ -787,6 +994,9 @@ function ItemClass:BuildRaw()
 		if modLine.scourge then
 			line = "{scourge}" .. line
 		end
+		if modLine.crucible then
+			line = "{crucible}" .. line
+		end
 		if modLine.fractured then
 			line = "{fractured}" .. line
 		end
@@ -880,6 +1090,9 @@ function ItemClass:BuildRaw()
 		writeModLine(modLine)
 	end
 	for _, modLine in ipairs(self.explicitModLines) do
+		writeModLine(modLine)
+	end
+	for _, modLine in ipairs(self.crucibleModLines) do
 		writeModLine(modLine)
 	end
 	if self.split then
@@ -1193,15 +1406,17 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			if self.base.flask.life then
 				flaskData.lifeBase = self.base.flask.life * (1 + self.quality / 100) * recoveryMod
 				flaskData.lifeInstant = flaskData.lifeBase * flaskData.instantPerc / 100
-				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
+				flaskData.lifeGradual = flaskData.lifeBase * (1 - flaskData.instantPerc / 100)
 				flaskData.lifeTotal = flaskData.lifeInstant + flaskData.lifeGradual
 				flaskData.lifeAdditional = calcLocal(modList, "FlaskAdditionalLifeRecovery", "BASE", 0)
+				flaskData.lifeEffectNotRemoved = calcLocal(baseList, "LifeFlaskEffectNotRemoved", "FLAG", 0)
 			end
 			if self.base.flask.mana then
 				flaskData.manaBase = self.base.flask.mana * (1 + self.quality / 100) * recoveryMod
 				flaskData.manaInstant = flaskData.manaBase * flaskData.instantPerc / 100
-				flaskData.manaGradual = flaskData.manaBase * (1 - flaskData.instantPerc / 100) * (1 + durationInc / 100)
+				flaskData.manaGradual = flaskData.manaBase * (1 - flaskData.instantPerc / 100)
 				flaskData.manaTotal = flaskData.manaInstant + flaskData.manaGradual
+				flaskData.manaEffectNotRemoved = calcLocal(baseList, "ManaFlaskEffectNotRemoved", "FLAG", 0)
 			end
 		else
 			-- Utility flask
@@ -1342,14 +1557,17 @@ function ItemClass:BuildModList()
 	for _, modLine in ipairs(self.explicitModLines) do
 		processModLine(modLine)
 	end
+	for _, modLine in ipairs(self.crucibleModLines) do
+		processModLine(modLine)
+	end
 	if calcLocal(baseList, "NoAttributeRequirements", "FLAG", 0) then
 		self.requirements.strMod = 0
 		self.requirements.dexMod = 0
 		self.requirements.intMod = 0
 	else
-		self.requirements.strMod = m_floor((self.requirements.str or 0 + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
-		self.requirements.dexMod = m_floor((self.requirements.dex or 0 + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
-		self.requirements.intMod = m_floor((self.requirements.int or 0 + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
+		self.requirements.strMod = m_floor((self.requirements.str + calcLocal(baseList, "StrRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "StrRequirement", "INC", 0) / 100))
+		self.requirements.dexMod = m_floor((self.requirements.dex + calcLocal(baseList, "DexRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "DexRequirement", "INC", 0) / 100))
+		self.requirements.intMod = m_floor((self.requirements.int + calcLocal(baseList, "IntRequirement", "BASE", 0)) * (1 + calcLocal(baseList, "IntRequirement", "INC", 0) / 100))
 	end
 	self.grantedSkills = { }
 	for _, skill in ipairs(baseList:List(nil, "ExtraSkill")) do

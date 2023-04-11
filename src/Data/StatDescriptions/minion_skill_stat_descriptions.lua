@@ -3073,6 +3073,10 @@ return {
 						[1]={
 							[1]=1,
 							[2]=1
+						},
+						[2]={
+							[1]=0,
+							[2]=0
 						}
 					},
 					text="Summons {0} Skeleton Warrior"
@@ -3082,15 +3086,46 @@ return {
 						[1]={
 							[1]=2,
 							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
 						}
 					},
 					text="Summons {0} Skeleton Warriors"
+				},
+				[3]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
+					},
+					text="Summons {0} Skeleton Soldiers"
+				},
+				[4]={
+					limit={
+						[1]={
+							[1]=2,
+							[2]="#"
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
+					},
+					text="Summons {0} Skeleton Soldiers"
 				}
 			}
 		},
 		name="melee_skeletons_to_summon",
 		stats={
-			[1]="number_of_melee_skeletons_to_summon"
+			[1]="number_of_melee_skeletons_to_summon",
+			[2]="skeletons_are_vaal"
 		}
 	},
 	[102]={
@@ -3426,19 +3461,11 @@ return {
 							[2]=0
 						},
 						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
 							[1]=1,
 							[2]=99
 						}
 					},
-					text="Minion's Projectiles have {3}% chance to Return to them from final target"
+					text="Minion's Projectiles have {1}% chance to Return to them"
 				},
 				[2]={
 					limit={
@@ -3447,161 +3474,19 @@ return {
 							[2]=0
 						},
 						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=0,
-							[2]=0
-						},
-						[4]={
 							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Return to them from final target"
-				},
-				[3]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=1,
-							[2]=99
-						},
-						[4]={
-							[1]=0,
-							[2]=0
-						}
-					},
-					text="Minion's Projectiles have {2}% chance to Return to them"
-				},
-				[4]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=100,
-							[2]="#"
-						},
-						[4]={
-							[1]="#",
 							[2]="#"
 						}
 					},
 					text="Minion's Projectiles Return to them"
 				},
-				[5]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=1,
-							[2]=99
-						},
-						[4]={
-							[1]=1,
-							[2]=99
-						}
-					},
-					text="Minion's Projectiles have {2}% chance to Return to them, +{3}% chance from a final target"
-				},
-				[6]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]=1,
-							[2]=99
-						},
-						[4]={
-							[1]=100,
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Return to them from final target, and have {2}% chance to Return at end of flight"
-				},
-				[7]={
+				[3]={
 					limit={
 						[1]={
 							[1]="!",
 							[2]=0
 						},
 						[2]={
-							[1]=0,
-							[2]=0
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						},
-						[4]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Return to them from final target"
-				},
-				[8]={
-					limit={
-						[1]={
-							[1]=0,
-							[2]=0
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						},
-						[4]={
-							[1]="#",
-							[2]="#"
-						}
-					},
-					text="Minion's Projectiles Return to them at end of flight"
-				},
-				[9]={
-					limit={
-						[1]={
-							[1]="!",
-							[2]=0
-						},
-						[2]={
-							[1]="!",
-							[2]=0
-						},
-						[3]={
-							[1]="#",
-							[2]="#"
-						},
-						[4]={
 							[1]="#",
 							[2]="#"
 						}
@@ -3613,9 +3498,7 @@ return {
 		name="return",
 		stats={
 			[1]="projectiles_return",
-			[2]="projectiles_return_if_no_hit_object",
-			[3]="projectile_return_%_chance",
-			[4]="projectiles_chance_to_return_%_from_final_target"
+			[2]="projectile_return_%_chance"
 		}
 	},
 	[117]={
@@ -8362,6 +8245,99 @@ return {
 		lang={
 			English={
 				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Minions have {0}% increased Attack Speed per Momentum"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Minions have {0}% reduced Attack Speed per Momentum"
+				}
+			}
+		},
+		name="momentum_attack_speed",
+		stats={
+			[1]="support_momentum_attack_speed_+%_per_stack"
+		}
+	},
+	[282]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="milliseconds_to_seconds_1dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						},
+						[3]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="When Minions reach {2} Momentum, they lose all Momentum and gain Swiftness for a Base Duration of {0} seconds"
+				}
+			}
+		},
+		name="momentum_buff_duration",
+		stats={
+			[1]="support_momentum_base_buff_duration_ms",
+			[2]="support_momentum_buff_duration_ms",
+			[3]="support_momentum_max_stacks"
+		}
+	},
+	[283]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Minions gain 1 Momentum when they Attack\nMinions gain 1 Momentum every {0} seconds while Channelling an Attack\nMinions lose all Momentum if they Move"
+				}
+			}
+		},
+		name="momentum_generation",
+		stats={
+			[1]="support_momentum_stack_while_channelling_base_ms",
+			[2]="support_momentum_stack_while_channelling_ms"
+		}
+	},
+	[284]={
+		lang={
+			English={
+				[1]={
 					[1]={
 						k="milliseconds_to_seconds",
 						v=1
@@ -8385,7 +8361,7 @@ return {
 			[1]="support_overpowered_base_duration_ms"
 		}
 	},
-	[282]={
+	[285]={
 		lang={
 			English={
 				[1]={
@@ -8413,7 +8389,7 @@ return {
 			[1]="support_parallel_projectile_number_of_points_per_side"
 		}
 	},
-	[283]={
+	[286]={
 		lang={
 			English={
 				[1]={
@@ -8445,7 +8421,7 @@ return {
 			[1]="support_parallel_projectiles_damage_+%_final"
 		}
 	},
-	[284]={
+	[287]={
 		lang={
 			English={
 				[1]={
@@ -8477,7 +8453,7 @@ return {
 			[1]="support_power_charge_on_crit_damage_+%_final_per_power_charge"
 		}
 	},
-	[285]={
+	[288]={
 		lang={
 			English={
 				[1]={
@@ -8509,7 +8485,7 @@ return {
 			[1]="support_pulverise_area_of_effect_+%_final"
 		}
 	},
-	[286]={
+	[289]={
 		lang={
 			English={
 				[1]={
@@ -8541,7 +8517,7 @@ return {
 			[1]="support_pulverise_attack_speed_+%_final"
 		}
 	},
-	[287]={
+	[290]={
 		lang={
 			English={
 				[1]={
@@ -8573,7 +8549,7 @@ return {
 			[1]="support_pulverise_melee_area_damage_+%_final"
 		}
 	},
-	[288]={
+	[291]={
 		lang={
 			English={
 				[1]={
@@ -8605,7 +8581,7 @@ return {
 			[1]="support_pure_shock_damage_+%_final"
 		}
 	},
-	[289]={
+	[292]={
 		lang={
 			English={
 				[1]={
@@ -8637,7 +8613,7 @@ return {
 			[1]="support_pure_shock_shock_as_though_damage_+%_final"
 		}
 	},
-	[290]={
+	[293]={
 		lang={
 			English={
 				[1]={
@@ -8656,7 +8632,7 @@ return {
 			[1]="support_reduce_enemy_block_and_spell_block_%"
 		}
 	},
-	[291]={
+	[294]={
 		lang={
 			English={
 				[1]={
@@ -8688,7 +8664,7 @@ return {
 			[1]="support_reduced_duration_skill_effect_duration_+%_final"
 		}
 	},
-	[292]={
+	[295]={
 		lang={
 			English={
 				[1]={
@@ -8720,7 +8696,7 @@ return {
 			[2]="support_scion_onslaught_on_unique_hit_duration_ms"
 		}
 	},
-	[293]={
+	[296]={
 		lang={
 			English={
 				[1]={
@@ -8757,7 +8733,7 @@ return {
 			[3]="virtual_support_scion_onslaught_on_killing_blow_duration_ms"
 		}
 	},
-	[294]={
+	[297]={
 		lang={
 			English={
 				[1]={
@@ -8776,7 +8752,7 @@ return {
 			[1]="support_slashing_damage_+%_final_from_distance"
 		}
 	},
-	[295]={
+	[298]={
 		lang={
 			English={
 				[1]={
@@ -8808,7 +8784,7 @@ return {
 			[1]="support_spell_echo_final_repeat_damage_+%_final"
 		}
 	},
-	[296]={
+	[299]={
 		lang={
 			English={
 				[1]={
@@ -8848,7 +8824,7 @@ return {
 			[1]="support_unbound_ailments_ailment_damage_+%_final"
 		}
 	},
-	[297]={
+	[300]={
 		lang={
 			English={
 				[1]={
@@ -8884,7 +8860,7 @@ return {
 			[1]="support_withered_base_duration_ms"
 		}
 	},
-	[298]={
+	[301]={
 		lang={
 			English={
 				[1]={
@@ -8903,7 +8879,7 @@ return {
 			[1]="trap_critical_strike_multiplier_+_per_power_charge"
 		}
 	},
-	[299]={
+	[302]={
 		lang={
 			English={
 				[1]={
@@ -8935,7 +8911,7 @@ return {
 			[1]="trap_throwing_speed_+%_per_frenzy_charge"
 		}
 	},
-	[300]={
+	[303]={
 		lang={
 			English={
 				[1]={
@@ -8971,7 +8947,7 @@ return {
 			[1]="withered_on_hit_chance_%"
 		}
 	},
-	[301]={
+	[304]={
 		lang={
 			English={
 				[1]={
@@ -9206,16 +9182,15 @@ return {
 	["projectile_damage_+%_vs_nearby_enemies"]=247,
 	["projectile_number_to_split"]=114,
 	["projectile_return_%_chance"]=116,
-	["projectiles_chance_to_return_%_from_final_target"]=116,
 	["projectiles_pierce_all_targets_in_x_range"]=248,
 	["projectiles_return"]=116,
-	["projectiles_return_if_no_hit_object"]=116,
 	["recover_%_life_when_stunning_an_enemy_permyriad"]=249,
 	["reduce_enemy_chaos_resistance_%"]=250,
 	["reduce_enemy_elemental_resistance_%"]=111,
 	["shock_duration_+%"]=38,
 	["shock_effect_+%"]=34,
 	["shock_effect_+%_with_critical_strikes"]=251,
+	["skeletons_are_vaal"]=101,
 	["skill_cold_damage_%_to_convert_to_fire"]=61,
 	["skill_effect_and_damaging_ailment_duration_+%"]=252,
 	["skill_effect_duration_+%"]=136,
@@ -9279,53 +9254,59 @@ return {
 	["support_minion_instability_minion_base_fire_area_damage_per_minute"]=278,
 	["support_minion_totem_resistance_elemental_damage_+%_final"]=279,
 	["support_minion_use_focussed_target"]=280,
+	["support_momentum_attack_speed_+%_per_stack"]=281,
+	["support_momentum_base_buff_duration_ms"]=282,
+	["support_momentum_buff_duration_ms"]=282,
+	["support_momentum_max_stacks"]=282,
+	["support_momentum_stack_while_channelling_base_ms"]=283,
+	["support_momentum_stack_while_channelling_ms"]=283,
 	["support_multicast_cast_speed_+%_final"]=7,
 	["support_multiple_attack_damage_+%_final"]=123,
 	["support_multiple_attacks_melee_attack_speed_+%_final"]=122,
 	["support_multiple_projectile_damage_+%_final"]=51,
 	["support_multithrow_damage_+%_final"]=129,
-	["support_overpowered_base_duration_ms"]=281,
-	["support_parallel_projectile_number_of_points_per_side"]=282,
-	["support_parallel_projectiles_damage_+%_final"]=283,
+	["support_overpowered_base_duration_ms"]=284,
+	["support_parallel_projectile_number_of_points_per_side"]=285,
+	["support_parallel_projectiles_damage_+%_final"]=286,
 	["support_phys_proj_attack_damage_bleeing_and_poison_damage_+%_final_from_projectile_hits"]=139,
 	["support_poison_poison_damage_+%_final"]=86,
-	["support_power_charge_on_crit_damage_+%_final_per_power_charge"]=284,
+	["support_power_charge_on_crit_damage_+%_final_per_power_charge"]=287,
 	["support_projectile_attack_physical_damage_+%_final"]=140,
 	["support_projectile_attack_speed_+%_final"]=141,
-	["support_pulverise_area_of_effect_+%_final"]=285,
-	["support_pulverise_attack_speed_+%_final"]=286,
-	["support_pulverise_melee_area_damage_+%_final"]=287,
-	["support_pure_shock_damage_+%_final"]=288,
-	["support_pure_shock_shock_as_though_damage_+%_final"]=289,
+	["support_pulverise_area_of_effect_+%_final"]=288,
+	["support_pulverise_attack_speed_+%_final"]=289,
+	["support_pulverise_melee_area_damage_+%_final"]=290,
+	["support_pure_shock_damage_+%_final"]=291,
+	["support_pure_shock_shock_as_though_damage_+%_final"]=292,
 	["support_rapid_decay_damage_over_time_+%_final"]=82,
-	["support_reduce_enemy_block_and_spell_block_%"]=290,
-	["support_reduced_duration_skill_effect_duration_+%_final"]=291,
+	["support_reduce_enemy_block_and_spell_block_%"]=293,
+	["support_reduced_duration_skill_effect_duration_+%_final"]=294,
 	["support_remote_mine_2_damage_+%_final"]=126,
 	["support_ruthless_big_hit_damage_+%_final"]=165,
 	["support_ruthless_big_hit_max_count"]=164,
 	["support_ruthless_big_hit_stun_base_duration_override_ms"]=167,
 	["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"]=166,
-	["support_scion_onslaught_for_3_seconds_on_hitting_unique_enemy_%_chance"]=292,
-	["support_scion_onslaught_on_killing_blow_%_chance"]=293,
-	["support_scion_onslaught_on_killing_blow_duration_ms"]=293,
-	["support_scion_onslaught_on_unique_hit_duration_ms"]=292,
-	["support_slashing_damage_+%_final_from_distance"]=294,
-	["support_spell_echo_final_repeat_damage_+%_final"]=295,
+	["support_scion_onslaught_for_3_seconds_on_hitting_unique_enemy_%_chance"]=295,
+	["support_scion_onslaught_on_killing_blow_%_chance"]=296,
+	["support_scion_onslaught_on_killing_blow_duration_ms"]=296,
+	["support_scion_onslaught_on_unique_hit_duration_ms"]=295,
+	["support_slashing_damage_+%_final_from_distance"]=297,
+	["support_spell_echo_final_repeat_damage_+%_final"]=298,
 	["support_split_projectile_damage_+%_final"]=132,
 	["support_totem_damage_+%_final"]=127,
 	["support_trap_and_mine_damage_+%_final"]=154,
 	["support_trigger_link_damage_+%_final"]=44,
-	["support_unbound_ailments_ailment_damage_+%_final"]=296,
+	["support_unbound_ailments_ailment_damage_+%_final"]=299,
 	["support_void_manipulation_chaos_damage_+%_final"]=157,
-	["support_withered_base_duration_ms"]=297,
+	["support_withered_base_duration_ms"]=300,
 	["throw_traps_in_circle_radius"]=5,
-	["trap_critical_strike_multiplier_+_per_power_charge"]=298,
+	["trap_critical_strike_multiplier_+_per_power_charge"]=301,
 	["trap_throwing_speed_+%"]=152,
-	["trap_throwing_speed_+%_per_frenzy_charge"]=299,
+	["trap_throwing_speed_+%_per_frenzy_charge"]=302,
 	["virtual_number_of_forks_for_projectiles_final"]=115,
 	["virtual_number_of_wolves_allowed"]=97,
-	["virtual_support_scion_onslaught_on_killing_blow_duration_ms"]=293,
+	["virtual_support_scion_onslaught_on_killing_blow_duration_ms"]=296,
 	["weapon_elemental_damage_+%"]=71,
-	["withered_on_hit_chance_%"]=300,
-	["withered_on_hit_for_2_seconds_%_chance"]=301
+	["withered_on_hit_chance_%"]=303,
+	["withered_on_hit_for_2_seconds_%_chance"]=304
 }

@@ -32,14 +32,17 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2)
 #mods
 
+#addSkillTypes Damage
 #skill IceElementalSpearSummoned Ice Spear
 #flags spell projectile
 #mods
 
+#addSkillTypes Damage
 #skill LightningGolemArcSummoned Storm Orb
 #flags spell projectile duration
 #mods
 
+#addSkillTypes Damage Multicastable 
 #skill MonsterProjectileSpellLightningGolemSummoned Lightning Projectile
 #flags spell projectile
 #mods

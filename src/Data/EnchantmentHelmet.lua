@@ -4,12 +4,12 @@
 return {
 	["Absolution"] = {
 		["MERCILESS"] = {
-			"20% increased Absolution Duration",
+			"20% increased Sentinel of Absolution Duration",
 			"8% increased Absolution Cast Speed",
 			"Summoned Sentinels of Absolution have 16% increased Area of Effect",
 		},
 		["ENDGAME"] = {
-			"30% increased Absolution Duration",
+			"30% increased Sentinel of Absolution Duration",
 			"12% increased Absolution Cast Speed",
 			"Summoned Sentinels of Absolution have 24% increased Area of Effect",
 		},
@@ -270,11 +270,13 @@ return {
 			"25% increased Blade Vortex Spell Damage",
 			"20% increased Blade Vortex Duration",
 			"16% increased Blade Vortex Area of Effect",
+			"Blade Vortex has +2% to Critical Strike Multiplier for each blade",
 		},
 		["ENDGAME"] = {
 			"40% increased Blade Vortex Spell Damage",
 			"30% increased Blade Vortex Duration",
 			"24% increased Blade Vortex Area of Effect",
+			"Blade Vortex has +3% to Critical Strike Multiplier for each blade",
 		},
 	},
 	["Bladefall"] = {
@@ -2051,11 +2053,11 @@ return {
 	},
 	["Rejuvenation Totem"] = {
 		["MERCILESS"] = {
-			"Gain 10% of Rejuvenation Totem Life Regeneration as extra Mana Regeneration",
+			"Rejuvenation Totem also grants Mana Regeneration equal to 10% of its Life Regeneration",
 			"30% increased Rejuvenation Totem Aura Effect",
 		},
 		["ENDGAME"] = {
-			"Gain 15% of Rejuvenation Totem Life Regeneration as extra Mana Regeneration",
+			"Rejuvenation Totem also grants Mana Regeneration equal to 15% of its Life Regeneration",
 			"45% increased Rejuvenation Totem Aura Effect",
 		},
 	},
@@ -2272,6 +2274,17 @@ return {
 		["ENDGAME"] = {
 			"30% increased Smoke Mine Duration",
 			"Smoke Mine grants additional 30% increased Movement Speed",
+		},
+	},
+	["Snipe"] = {
+		["MERCILESS"] = {
+			"10% increased Attack Speed with Snipe",
+			"35% chance to Avoid being Stunned while Channelling Snipe",
+		},
+		["ENDGAME"] = {
+			"+1 to maximum Snipe Stages",
+			"15% increased Attack Speed with Snipe",
+			"50% chance to Avoid being Stunned while Channelling Snipe",
 		},
 	},
 	["Sniper's Mark"] = {
@@ -2582,14 +2595,14 @@ return {
 			"30% increased Summon Reaper Cooldown Recovery Rate",
 		},
 	},
-	["Summon Skeleton"] = {
+	["Summon Skeletons"] = {
 		["MERCILESS"] = {
 			"Skeletons deal 25% increased Damage",
-			"20% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
+			"20% chance to Summon an additional Skeleton with Summon Skeletons",
 		},
 		["ENDGAME"] = {
 			"Skeletons deal 40% increased Damage",
-			"40% chance to Summon an additional Skeleton Warrior with Summon Skeleton",
+			"40% chance to Summon an additional Skeleton with Summon Skeletons",
 		},
 	},
 	["Summon Skitterbots"] = {
@@ -2722,14 +2735,6 @@ return {
 			"Unearth Spawns corpses with +5 Level",
 			"40% increased Unearth Damage",
 			"12% increased Unearth Cast Speed",
-		},
-	},
-	["Vaal Blade Vortex"] = {
-		["MERCILESS"] = {
-			"Blade Vortex has +2% to Critical Strike Multiplier for each blade",
-		},
-		["ENDGAME"] = {
-			"Blade Vortex has +3% to Critical Strike Multiplier for each blade",
 		},
 	},
 	["Vampiric Link"] = {

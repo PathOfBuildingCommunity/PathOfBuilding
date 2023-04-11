@@ -76,7 +76,7 @@ Implicits: 1
 {variant:2,3}{tags:life}1% of Damage Leeched as Life against Shocked Enemies
 {variant:1}{tags:mana}1% of Damage Leeched as Mana against Shocked Enemies
 {variant:2}{tags:mana}1% of Damage Leeched as Mana against Frozen Enemies
-{variant:3}1% of Damage Leeched as Energy Shield against Frozen Enemies
+{variant:3}{tags:jewellery_defense}1% of Damage Leeched as Energy Shield against Frozen Enemies
 ]],[[
 Berek's Pass
 Two-Stone Ring
@@ -118,23 +118,23 @@ League: Ritual
 Source: Purchase from Ritual Reward
 Requires Level 49
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {tags:jewellery_elemental}+(8-12)% to Fire Damage over Time Multiplier
 50% reduced Ignite Duration on Enemies
 (10-15)% chance to Ignite
 Enemies Ignited by you take Chaos Damage instead of Fire Damage from Ignite
 Withered does not expire on Enemies Ignited by you
-{tags:chaos,jewellery_resistance}+(20-25)% to Fire and Chaos Resistances
+{tags:jewellery_resistance}+(20-25)% to Fire and Chaos Resistances
 ]],[[
 Blackheart
 Iron Ring
 Variant: Pre 3.19.0
 Variant: Current
 Implicits: 1
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{variant:1}{tags:physical}5% increased Global Physical Damage
-{variant:1}{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
-{variant:2}{tags:attack,chaos}Adds (10-15) to (20-25) Chaos Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
+{variant:1}{tags:physical_damage}5% increased Global Physical Damage
+{variant:1}{tags:attack,chaos_damage}Adds 1 to 3 Chaos Damage to Attacks
+{variant:2}{tags:attack,chaos_damage}Adds (10-15) to (20-25) Chaos Damage to Attacks
 {variant:1}{tags:life}+(20-30) to maximum Life
 {variant:1}{tags:life}Regenerate (2-4) Life per second
 {variant:2}{tags:life}Regenerate (10-15) Life per second
@@ -144,12 +144,12 @@ Voidheart
 Iron Ring
 Source: No longer obtainable
 Variant: Pre 2.4.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 48
 Implicits: 1
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{tags:physical}5% increased Global Physical Damage
-{tags:attack,chaos}Adds 1 to 3 Chaos Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
+{tags:physical_damage}5% increased Global Physical Damage
+{tags:attack,chaos_damage}Adds 1 to 3 Chaos Damage to Attacks
 {tags:life}+(20-30) to maximum Life
 {tags:life}Regenerate (2-4) Life per second
 10% chance to Cause Monsters to Flee
@@ -162,7 +162,7 @@ Bloodboil
 Coral Ring
 Source: No longer obtainable
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Current
 Requires Level 24
 Implicits: 1
 {tags:life}+(20-30) to maximum Life
@@ -170,8 +170,8 @@ Implicits: 1
 {variant:2}{tags:jewellery_elemental,attack}Adds (12-15) to (25-30) Fire Damage to Attacks
 {tags:life}+(20-40) to maximum Life
 {tags:jewellery_resistance}+(10-15)% to Cold Resistance
-{variant:1}{tags:jewellery_elemental}45% reduced Effect of Chill on You
-{variant:2}{tags:jewellery_elemental}75% reduced Effect of Chill on You
+{variant:1}45% reduced Effect of Chill on You
+{variant:2}75% reduced Effect of Chill on You
 {variant:1}100% increased Ignite Duration on You
 {variant:2}{tags:speed}10% increased Movement Speed while Ignited
 ]],[[
@@ -199,7 +199,7 @@ Has 1 Socket
 {variant:2}+3 to Level of Socketed Golem Gems
 {variant:1}Socketed Gems are Supported by Level 15 Concentrated Effect
 {variant:2}25% increased Effect of Buffs granted by Socketed Golem Skills
-{variant:2}{tags:jewellery_defense}Socketed Golem Skills gain 20% of Maximum Life as Extra Maximum Energy Shield
+{variant:2}Socketed Golem Skills gain 20% of Maximum Life as Extra Maximum Energy Shield
 {variant:1}{tags:caster}(10-25)% increased Spell Damage
 {variant:2}{tags:caster}(20-25)% increased Spell Damage
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
@@ -238,8 +238,8 @@ Variant: Fire Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Strength
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Fire Damage
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
-{variant:1}Herald of Ash has (60-80)% increased Mana Reservation Efficiency
-{variant:2}Herald of Ash has (30-40)% increased Mana Reservation Efficiency
+{variant:1}{tags:mana}Herald of Ash has (60-80)% increased Mana Reservation Efficiency
+{variant:2}{tags:mana}Herald of Ash has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Fire Damage while affected by Herald of Ash
 {variant:4}Herald of Ash has (70-100)% increased Buff Effect
 {variant:5}Herald of Ash has (40-60)% increased Buff Effect
@@ -264,8 +264,8 @@ Variant: Cold Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Dexterity
 {tags:jewellery_elemental}Adds (20-25) to (26-35) Cold Damage
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{variant:1}Herald of Ice has (60-80)% increased Mana Reservation Efficiency
-{variant:2}Herald of Ice has (30-40)% increased Mana Reservation Efficiency
+{variant:1}{tags:mana}Herald of Ice has (60-80)% increased Mana Reservation Efficiency
+{variant:2}{tags:mana}Herald of Ice has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Cold Damage while affected by Herald of Ice
 {variant:4}Herald of Ice has (70-100)% increased Buff Effect
 {variant:5}Herald of Ice has (40-60)% increased Buff Effect
@@ -286,13 +286,13 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Sentinel Damage
 Variant: Damage Reduction
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
-{tags:physical}Adds (8-10) to (13-15) Physical Damage
+{tags:physical_damage}Adds (8-10) to (13-15) Physical Damage
 {tags:jewellery_defense}+(350-400) to Armour
-{variant:1}Herald of Purity has (60-80)% increased Mana Reservation Efficiency
-{variant:2}Herald of Purity has (30-40)% increased Mana Reservation Efficiency
-{variant:3}{tags:physical}(40-60)% increased Physical Damage while affected by Herald of Purity
+{variant:1}{tags:mana}Herald of Purity has (60-80)% increased Mana Reservation Efficiency
+{variant:2}{tags:mana}Herald of Purity has (30-40)% increased Mana Reservation Efficiency
+{variant:3}{tags:physical_damage}(40-60)% increased Physical Damage while affected by Herald of Purity
 {variant:4}Herald of Purity has (70-100)% increased Buff Effect
 {variant:5}Herald of Purity has (40-60)% increased Buff Effect
 {variant:6}Sentinels of Purity deal (70-100)% increased Damage
@@ -312,17 +312,17 @@ Variant: Buff Effect (Pre 3.11.0)
 Variant: Buff Effect (Current)
 Variant: Agony Damage
 Variant: Chaos Resistance
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {fractured}{tags:jewellery_attribute}+(10-20) to all Attributes
-{tags:chaos}Adds (15-20) to (21-30) Chaos Damage
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
-{variant:1}Herald of Agony has (60-80)% increased Mana Reservation Efficiency
-{variant:2}Herald of Agony has (30-40)% increased Mana Reservation Efficiency
-{variant:3}{tags:chaos}(40-60)% increased Chaos Damage while affected by Herald of Agony
+{tags:chaos_damage}Adds (15-20) to (21-30) Chaos Damage
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
+{variant:1}{tags:mana}Herald of Agony has (60-80)% increased Mana Reservation Efficiency
+{variant:2}{tags:mana}Herald of Agony has (30-40)% increased Mana Reservation Efficiency
+{variant:3}{tags:chaos_damage}(40-60)% increased Chaos Damage while affected by Herald of Agony
 {variant:4}Herald of Agony has (70-100)% increased Buff Effect
 {variant:5}Herald of Agony has (40-60)% increased Buff Effect
 {variant:6}Agony Crawler deals (70-100)% increased Damage
-{variant:7}{tags:chaos,jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
+{variant:7}{tags:jewellery_resistance}+(31-43)% to Chaos Resistance while affected by Herald of Agony
 ]],[[
 Circle of Regret
 Topaz Ring
@@ -342,8 +342,8 @@ Variant: Lightning Resistance
 {fractured}{tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:jewellery_elemental}Adds 1 to (48-60) Lightning Damage
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
-{variant:1}Herald of Thunder has (60-80)% increased Mana Reservation Efficiency
-{variant:2}Herald of Thunder has (30-40)% increased Mana Reservation Efficiency
+{variant:1}{tags:mana}Herald of Thunder has (60-80)% increased Mana Reservation Efficiency
+{variant:2}{tags:mana}Herald of Thunder has (30-40)% increased Mana Reservation Efficiency
 {variant:3}{tags:jewellery_elemental}(40-60)% increased Lightning Damage while affected by Herald of Thunder
 {variant:4}Herald of Thunder has (70-100)% increased Buff Effect
 {variant:5}Herald of Thunder has (40-60)% increased Buff Effect
@@ -358,13 +358,13 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 46
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1,2}{tags:attack}+(300-350) to Accuracy Rating
 {variant:1}{tags:jewellery_defense}+(60-80) to Armour
 {variant:2}{tags:jewellery_defense}}+(260-300) to Armour
 {variant:2}{tags:life}+(40-50) to maximum Life
-{variant:1,2}{tags:chaos,jewellery_resistance}+(15-20)% to Chaos Resistance
-{variant:1,2}{tags:attack,life,physical}(0.6-0.8)% of Physical Attack Damage Leeched as Life
+{variant:1,2}{tags:jewellery_resistance}+(15-20)% to Chaos Resistance
+{variant:1,2}{tags:attack,life}(0.6-0.8)% of Physical Attack Damage Leeched as Life
 {variant:1}You gain Onslaught for 2 seconds on Kill
 {variant:2}You gain Onslaught for 4 seconds on Kill
 {variant:3}Recover 5% of Life on Kill
@@ -376,7 +376,7 @@ League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond} while unique{The Original Scripture} is active in the normal{Relic Altar}
 LevelReq: 52
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 All Elemental Damage Converted to Chaos Damage
 Nearby Enemies' Chaos Resistance is 0
 ]],[[
@@ -415,6 +415,17 @@ Implicits: 1
 {variant:2,3}{tags:caster}(15-25)% increased Effect of your Curses
 {variant:4}{tags:caster}(10-15)% increased Effect of your Curses
 ]],[[
+Soulbound
+Paua Ring
+LevelReq: 44
+Implicits: 1
+{tags:mana}+(20-30) to maximum Mana
+{tags:jewellery_attribute}+(10-20) to all Attributes
+Link Skills have (10-15)% increased Cast Speed
+Link Skills have (10-15)% increased Skill Effect Duration
+Linked Targets Cannot Die for 2 seconds after you Die
+Lose no Experience when you die because a Linked target died
+]],[[
 Dream Fragments
 Sapphire Ring
 Variant: Pre 2.6.0
@@ -440,8 +451,8 @@ Implicits: 1
 {variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
 {variant:2,3,4}{tags:jewellery_elemental}(30-40)% increased Fire Damage
 {tags:caster,speed}(5-10)% increased Cast Speed
-{variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2,3,4}{tags:jewellery_elemental}10% chance to Ignite
+{variant:1}5% chance to Ignite
+{variant:2,3,4}10% chance to Ignite
 You can inflict an additional Ignite on an Enemy
 {variant:1}Your Critical Strikes do not deal extra Damage
 {variant:1}{tags:jewellery_elemental}Ignited Enemies Burn 80% slower
@@ -507,9 +518,9 @@ Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:life}Regenerate (10-15) Life per second
 {tags:mana}(20-40)% increased Mana Regeneration Rate
-Minions have 15% increased maximum Life
+{tags:life}Minions have 15% increased maximum Life
 Minions have 10% increased Area of Effect
-{tags:physical}350 Physical Damage taken on Minion Death
+{tags:physical_damage}350 Physical Damage taken on Minion Death
 ]],[[
 Anathema
 Moonstone Ring
@@ -517,7 +528,7 @@ LevelReq: 49
 Implicits: 1
 {tags:jewellery_defense}+(15-25) to maximum Energy Shield
 {tags:jewellery_attribute}+(30-40) to Intelligence
-{tags:caster}(10-15)% increased Cast Speed
+{tags:caster,speed}(10-15)% increased Cast Speed
 (10-20)% chance to gain a Power Charge when you Cast a Curse Spell
 Your Curse Limit is equal to your maximum Power Charges
 ]],[[
@@ -534,7 +545,7 @@ Implicits: 1
 {variant:1}{tags:speed}5% increased Movement Speed
 {variant:2}{tags:speed}(5-10)% increased Movement Speed
 {variant:1}25% chance to Steal Power, Frenzy, and Endurance Charges on Hit
-{variant:1}0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
+{variant:1}{tags:life}0.5% of Damage Leeched as Life while you have at least 5 total Endurance, Frenzy and Power Charges
 {variant:2}Steal Power, Frenzy, and Endurance Charges on Hit
 Total Recovery per second from Life Leech is Doubled
 ]],[[
@@ -552,7 +563,7 @@ Iron Ring
 Requires Level: 49
 Implicits: 1
 League: Blight
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Dexterity
 25% chance to Poison on Hit
 {tags:chaos}(40-60)% increased Damage with Poison
@@ -569,7 +580,7 @@ Implicits: 1
 {tags:life}+(20-30) to maximum Life
 {variant:3}Grants Level 10 Enduring Cry Skill
 {tags:jewellery_attribute}+(10-20) to Strength
-{variant:1}{tags:attack,life,physical}0.4% of Physical Attack Damage Leeched as Life
+{variant:1}{tags:attack,life}0.4% of Physical Attack Damage Leeched as Life
 {variant:2}{tags:attack,life}Gain (2-4) Life per Enemy Hit with Attacks
 +1 to Maximum Endurance Charge
 ]],[[
@@ -623,7 +634,7 @@ Variant: Pre 2.6.0
 Variant: Current
 Requires Level 24
 Implicits: 1
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {variant:1}(10-20)% increased Damage
 {variant:2}(10-30)% increased Damage
 {variant:1}{tags:jewellery_attribute}+(10-20) to all Attributes
@@ -644,7 +655,7 @@ Implicits: 2
 {tags:jewellery_resistance}+10% to all Elemental Resistances
 {tags:speed}(6-8)% increased Movement Speed when on Low Life
 31% increased Light Radius
-{tags:chaos,jewellery_defense,life}+(20-25)% Chaos Resistance when on Low Life
+{tags:chaos,jewellery_resistance}+(20-25)% Chaos Resistance when on Low Life
 While on Low Life, Enemies are Unlucky when Damaging you
 ]],[[
 Malachai's Artifice
@@ -690,7 +701,7 @@ Elder Item
 Source: Drops from unique{The Elder} (Uber)
 Requires Level 80
 Implicits: 1
-{tags:attack,physical}Adds (3-4) to (10-14) Physical Damage to Attacks
+{tags:attack,physical_damage}Adds (3-4) to (10-14) Physical Damage to Attacks
 {tags:jewellery_elemental,attack}Adds (26-32) to (42-48) Cold Damage to Attacks
 {tags:jewellery_defense}(6-10)% increased maximum Energy Shield
 {tags:life}(6-10)% increased maximum Life
@@ -720,7 +731,7 @@ Variant: Pre 3.19.0
 Variant: Current
 Requires Level 69
 Implicits: 1
-{tags:chaos,jewellery_resistance}+(17-23)% to Chaos Resistance
+{tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1}{tags:life}15% reduced maximum Life
 {variant:2}{tags:life}10% reduced maximum Life
 {variant:3}{tags:life}(5-10)% reduced maximum Life
@@ -729,9 +740,9 @@ Implicits: 1
 {variant:2}{tags:jewellery_defense}10% reduced maximum Energy Shield
 {variant:3}{tags:jewellery_defense}(5-10)% reduced maximum Energy Shield
 {variant:4}{tags:jewellery_defense}25% reduced maximum Energy Shield
-{tags:chaos,jewellery_resistance}+(40-50)% to Chaos Resistance
-{variant:1,2,3}{tags:chaos,physical}Gain 20% of Physical Damage as Extra Chaos Damage
-{variant:4}{tags:chaos,physical}Gain (40-60)% of Physical Damage as Extra Chaos Damage
+{tags:jewellery_resistance}+(40-50)% to Chaos Resistance
+{variant:1,2,3}{tags:chaos_damage,physical_damage}Gain 20% of Physical Damage as Extra Chaos Damage
+{variant:4}{tags:chaos_damage,physical_damage}Gain (40-60)% of Physical Damage as Extra Chaos Damage
 ]],[[
 Mokou's Embrace
 Ruby Ring
@@ -742,13 +753,13 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
 {variant:1}{tags:jewellery_elemental}(15-25)% increased Fire Damage
 {tags:jewellery_resistance}+(25-40)% to Cold Resistance
-{variant:1}{tags:jewellery_elemental}(5-10)% chance to Ignite
+{variant:1}(5-10)% chance to Ignite
 {variant:1}{tags:attack,speed}20% increased Attack Speed while Ignited
 {variant:2}{tags:attack,speed}(25-40)% increased Attack Speed while Ignited
 {variant:1}{tags:caster,speed}20% increased Cast Speed while Ignited
 {variant:2}{tags:caster,speed}(25-40)% increased Cast Speed while Ignited
-{tags:jewellery_elemental}+25% chance to be Ignited
-{variant:2}{tags:jewellery_elemental}All Damage Taken from Hits can Ignite you
++25% chance to be Ignited
+{variant:2}All Damage Taken from Hits can Ignite you
 ]],[[
 Mutewind Seal
 Unset Ring
@@ -762,11 +773,11 @@ Has 1 Socket
 {variant:1}+2 to Level of Socketed Golem Gems
 {variant:2,3}+3 to Level of Socketed Golem Gems
 {variant:1}Socketed Gems are Supported by Level 13 Faster Attacks
-{variant:2,3}{tags:attack,caster,speed}Socketed Golem Skills have 20% increased Attack and Cast Speed
-{tags:attack,physical}Adds (5-10) to (11-15) Physical Damage to Attacks
+{variant:2,3}Socketed Golem Skills have 20% increased Attack and Cast Speed
+{tags:attack,physical_damage}Adds (5-10) to (11-15) Physical Damage to Attacks
 {tags:attack,speed}(5-10)% increased Attack Speed
-{variant:1}(1-2)% increased Movement Speed
-{variant:2}(3-5)% increased Movement Speed
+{variant:1}{tags:speed}(1-2)% increased Movement Speed
+{variant:2}{tags:speed}(3-5)% increased Movement Speed
 {variant:1}Socketed Gems are Supported by Level 16 Increased Minion Speed
 {variant:2,3}Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill
 ]],[[
@@ -785,8 +796,8 @@ Implicits: 1
 {variant:3}{tags:jewellery_elemental,attack,caster}Adds (20-25) to (30-35) Fire Damage to Spells and Attacks
 {variant:1}{tags:life}Gain (4-5) Life for each Ignited Enemy hit with Attacks
 15% increased Ignite Duration on Enemies
-{variant:1}{tags:jewellery_elemental}5% chance to Ignite
-{variant:2,3}{tags:jewellery_elemental}10% chance to Ignite
+{variant:1}5% chance to Ignite
+{variant:2,3}10% chance to Ignite
 {variant:2,3}{tags:life}Recover (20-30) Life when you Ignite an Enemy
 ]],[[
 The Pariah
@@ -917,7 +928,7 @@ Has 1 Socket
 {variant:1}Socketed Gems are Supported by Level 12 Lesser Multiple Projectiles
 {variant:2}Socketed Golem Skills have 25% chance to Taunt on Hit
 {variant:1}Socketed Gems are Supported by Level 17 Increased Minion Damage
-{variant:2}{tags:life}Socketed Golem Skills have Minions Regenerate 5% Life per second
+{variant:2}Socketed Golem Skills have Minions Regenerate 5% Life per second
 ]],[[
 Rigwald's Crest
 Two-Stone Ring
@@ -942,11 +953,11 @@ Requires Level 60
 Implicits: 1
 {tags:critical}(20-30)% increased Global Critical Strike Chance
 {tags:attack}+333 to Accuracy Rating
-{tags:critical}{variant:1}+(10-20)% to Global Critical Strike Multiplier
-{tags:critical}{variant:2}+(10-15)% to Global Critical Strike Multiplier
-{tags:critical}{variant:3}+(15-25)% to Global Critical Strike Multiplier
+{variant:1}{tags:critical}+(10-20)% to Global Critical Strike Multiplier
+{variant:2}{tags:critical}+(10-15)% to Global Critical Strike Multiplier
+{variant:3}{tags:critical}+(15-25)% to Global Critical Strike Multiplier
 {tags:mana}+(40-60) to maximum Mana
-{tags:attack,mana,physical}0.4% of Physical Attack Damage Leeched as Mana
+{tags:attack,mana}0.4% of Physical Attack Damage Leeched as Mana
 Gain a Power Charge on non-Critical Strike
 Lose all Power Charges on Critical Strike
 ]],[[
@@ -961,8 +972,8 @@ Implicits: 1
 Has 1 Socket
 Socketed Gems are Supported by Level 20 Blasphemy
 Curse Auras from Socketed Skills also affect you
-{variant:1}{tags:caster}Socketed Curse Gems have 100% increased Mana Reservation Efficiency
-{variant:2}{tags:caster}Socketed Curse Gems have 80% increased Reservation Efficiency
+{variant:1}Socketed Curse Gems have 50% increased Reservation Efficiency
+{variant:2}Socketed Curse Gems have 80% increased Reservation Efficiency
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:caster}20% reduced Effect of Curses on you
 (15-25)% increased Damage with Hits and Ailments against Cursed Enemies
@@ -1049,10 +1060,10 @@ Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {tags:jewellery_elemental}(20-30)% increased Lightning Damage
-{tags:jewellery_elemental}(10-15)% chance to Shock
+(10-15)% chance to Shock
 Herald of Thunder also creates a storm when you Shock an Enemy
 Herald of Thunder's Storms Hit Enemies with (30-50)% increased Frequency
-Take 250 Lightning Damage when Herald of Thunder Hits an Enemy
+{tags:jewellery_elemental}Take 250 Lightning Damage when Herald of Thunder Hits an Enemy
 ]],[[
 The Taming
 Prismatic Ring
@@ -1069,10 +1080,10 @@ Implicits: 1
 {variant:2}{tags:jewellery_resistance}+(20-30)% to all Elemental Resistances
 {variant:1}{tags:jewellery_elemental}15% increased Elemental Damage
 {variant:2}{tags:jewellery_elemental}30% increased Elemental Damage
-{variant:1}{tags:jewellery_elemental}5% chance to Freeze, Shock and Ignite
-{variant:2}{tags:jewellery_elemental}10% chance to Freeze, Shock and Ignite
-{variant:1}{tags:jewellery_elemental}10% increased Damage per Freeze, Shock and Ignite on Enemy
-{variant:2}{tags:jewellery_elemental}20% increased Damage with Hits and Ailments per Freeze, Shock and Ignite on Enemy
+{variant:1}5% chance to Freeze, Shock and Ignite
+{variant:2}10% chance to Freeze, Shock and Ignite
+{variant:1}10% increased Damage per Freeze, Shock and Ignite on Enemy
+{variant:2}20% increased Damage with Hits and Ailments per Freeze, Shock and Ignite on Enemy
 ]],[[
 Tasalio's Sign
 Sapphire Ring
@@ -1082,15 +1093,15 @@ Variant: Current
 Requires Level 20
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Cold Resistance
-{variant:1}{tags:attack,jewellery_elemental,physical}Adds 10 to 15 Physical Damage to Attacks against Frozen Enemies
+{variant:1}{tags:attack,jewellery_elemental,physical_damage}Adds 10 to 15 Physical Damage to Attacks against Frozen Enemies
 {variant:2}{tags:jewellery_elemental}Adds 40 to 60 Cold Damage against Chilled Enemies
 {variant:1}{tags:jewellery_elemental,attack}Adds (5-6) to (7-9) Cold Damage to Attacks
 {variant:2}{tags:jewellery_elemental,attack,caster}Adds (7-10) to (15-20) Cold Damage to Spells and Attacks
 {tags:jewellery_defense}+(200-300) to Evasion Rating
 {variant:1}20% reduced Chill Duration on You
 {variant:2}50% chance to Avoid being Chilled
-{variant:1}{tags:jewellery_elemental}5% chance to Freeze
-{variant:2}{tags:jewellery_elemental}10% chance to Freeze
+{variant:1}5% chance to Freeze
+{variant:2}10% chance to Freeze
 ]],[[
 Replica Tasalio's Sign
 Sapphire Ring
@@ -1203,7 +1214,7 @@ Has 1 Socket
 {variant:6}Socketed Vaal Skills grant Elusive when Used
 {variant:7}You have Tailwind if you've used a Socketed Vaal Skill Recently
 {variant:8}Socketed Vaal Skills have 60% increased Area of Effect
-{variant:9}Socketed Vaal Skills have 80% increased Projectile Speed
+{variant:9}{tags:speed}Socketed Vaal Skills have 80% increased Projectile Speed
 {variant:10}Socketed Vaal Skills have 80% increased Skill Effect Duration
 {variant:11}Socketed Vaal Skills have 30% reduced Soul Gain Prevention Duration
 {variant:12}Damage with Hits from Socketed Vaal Skills is Lucky
@@ -1258,9 +1269,9 @@ Implicits: 1
 {tags:mana}+(20-40) to maximum Mana
 {variant:1,2}{tags:life}0.2% of Damage Leeched as Life against Shocked Enemies
 {variant:3}{tags:life}1% of Damage Leeched as Life against Shocked Enemies
-{variant:1}{tags:jewellery_elemental}5% chance to Shock
-{variant:2}{tags:jewellery_elemental}10% chance to Shock
-{variant:3}{tags:jewellery_elemental}25% chance to Shock
+{variant:1}5% chance to Shock
+{variant:2}10% chance to Shock
+{variant:3}25% chance to Shock
 ]],[[
 Valyrium
 Moonstone Ring
@@ -1281,10 +1292,10 @@ Iron Ring
 Requires Level: 49
 Implicits: 1
 League: Blight
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
 {tags:jewellery_attribute}+(20-30) to Strength
 {tags:attack,physical}25% chance to cause Bleeding on Hit
-{tags:attack,physical}(40-60)% increased Damage with Bleeding
+{tags:attack,physical_damage}(40-60)% increased Damage with Bleeding
 You are Chilled while you are Bleeding
 Non-Chilled Enemies you inflict Bleeding on are Chilled
 Bleeding Enemies you Kill with Hits Shatter
@@ -1322,7 +1333,6 @@ Variant: Lightning and Chaos Resistances
 Variant: Strength and Dexterity
 Variant: Dexterity and Intelligence
 Variant: Strength and Intelligence
-Variant: Effect of non-Damaging Ailments
 Variant: Focus Shock Nearby Enemies
 Variant: Minimum Frenzy Charges
 Variant: Minimum Power Charges
@@ -1332,21 +1342,35 @@ Implicits: 1
 Has 1 Socket
 +5 to Level of Socketed Aura Gems
 {variant:1,2,3,4,5,6,7,8,9,10,11}Socketed Gems have 20% reduced Mana Reservation Efficiency
-{variant:13,14,15,16,17,18,19,20,21,22}Socketed Gems have 20% reduced Reservation Efficiency
+{variant:13,14,15,16,17,18,19,20,21}Socketed Gems have 20% reduced Reservation Efficiency
 {tags:jewellery_attribute}+(15-25) to all Attributes
 {tags:life}Regenerate 15 Life per second for each Uncorrupted Item Equipped
 {tags:mana}-2 to Total Mana Cost of Skills for each Corrupted Item Equipped
-{variant:1,12}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
-{variant:2,13}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
-{variant:3,14}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
-{variant:4,15}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
-{variant:5,16}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
-{variant:6,17}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
-{variant:7,18}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
-{variant:8,19}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
-{variant:9,20}{crafted}+1 to Minimum Frenzy Charges
-{variant:10,21}{crafted}+1 to Minimum Power Charges
-{variant:11,22}{crafted}+1 to Minimum Endurance Charges
+{variant:1}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Fire and Chaos Resistances
+{variant:2}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Cold and Chaos Resistances
+{variant:3}{crafted}{tags:chaos,jewellery_resistance}+(8-15)% to Lightning and Chaos Resistances
+{variant:4}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Dexterity
+{variant:5}{crafted}{tags:jewellery_attribute}+(6-17) to Dexterity and Intelligence
+{variant:6}{crafted}{tags:jewellery_attribute}+(6-17) to Strength and Intelligence
+{variant:7}{crafted}(11-30)% increased Effect of non-Damaging Ailments on Enemies
+{variant:8}{crafted}Shock nearby Enemies for (2-4) Seconds when you Focus
+{variant:9}{crafted}+1 to Minimum Frenzy Charges
+{variant:10}{crafted}+1 to Minimum Power Charges
+{variant:11}{crafted}+1 to Minimum Endurance Charges
+{variant:12}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Fire and Chaos Resistances
+{variant:13}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Cold and Chaos Resistances
+{variant:14}{crafted}{tags:chaos,jewellery_resistance}+(16-20)% to Lightning and Chaos Resistances
+{variant:15}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Dexterity
+{variant:16}{crafted}{tags:jewellery_attribute}+(31-35) to Dexterity and Intelligence
+{variant:17}{crafted}{tags:jewellery_attribute}+(31-35) to Strength and Intelligence
+{variant:18}{crafted}Shock nearby Enemies for 4 Seconds when you Focus
+{variant:18}{crafted}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:19}{crafted}+1 to Minimum Frenzy Charges
+{variant:19}{crafted}(3-4)% chance to gain a Frenzy Charge on Kill
+{variant:20}{crafted}+1 to Minimum Power Charges
+{variant:20}{crafted}(3-4)% chance to gain a Power Charge on Kill
+{variant:21}{crafted}+1 to Minimum Endurance Charges
+{variant:21}{crafted}(3-4)% chance to gain a Endurance Charge on Kill
 ]],[[
 Voideye
 Unset Ring
@@ -1369,8 +1393,8 @@ The Warden's Brand
 Iron Ring
 Requires Level 30
 Implicits: 1
-{tags:attack,physical}Adds 1 to 4 Physical Damage to Attacks
-{tags:attack,physical}Adds (5-15) to (25-50) Physical Damage to Attacks
+{tags:attack,physical_damage}Adds 1 to 4 Physical Damage to Attacks
+{tags:attack,physical_damage}Adds (5-15) to (25-50) Physical Damage to Attacks
 {tags:attack,speed}30% reduced Attack Speed
 15% chance to gain a Frenzy Charge when you Stun an Enemy
 ]],[[
@@ -1384,7 +1408,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(30-50) to Strength
 {tags:attack}(20-25)% increased Melee Damage
 30% chance to Avoid being Stunned
-{tags:speed}20% less Attack Speed
+{tags:attack,speed}20% less Attack Speed
 Strike Skills also target the previous location they were Used
 ]],[[
 Call of the Void

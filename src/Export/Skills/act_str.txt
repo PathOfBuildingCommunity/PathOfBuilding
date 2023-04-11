@@ -25,6 +25,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 25)
 #mods
 
+#skill VaalAbsolution
+#flags spell minion duration area
+#mods
+
 #skill AbyssalCry
 #flags warcry area duration
 	statMap = {
@@ -477,6 +481,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill VaalDomination
+#flags attack melee duration minion
+#mods
+
 #skill PuresteelBanner
 #flags spell
 	statMap = {
@@ -637,7 +645,6 @@ local skills, mod, flag, skill = ...
 			mod("FrozenLegionExtraStatueChance", "BASE", nil)
 		}
 	},
-#baseMod mod("FrozenLegionMaxStatues", "BASE", 6)
 #mods
 
 #skill FrozenSweep
@@ -678,7 +685,7 @@ local skills, mod, flag, skill = ...
 		activeSkill.skillData.hitTimeOverride = output.Cooldown
 
 		local extraStatueChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
-		local maxStatues = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionMaxStatues") + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "AdditionalCooldownUses")
+		local maxStatues = parentSkill.skillData.storedUses + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "AdditionalCooldownUses")
 		
 		local statuesWaitedFor
 		local dpsMultiplier = extraStatueChance
@@ -944,7 +951,7 @@ local skills, mod, flag, skill = ...
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["molten_shell_damage_absorbed_%"] = {
-			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["molten_shell_damage_absorb_limit_%_of_armour"] = {
 			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
@@ -975,7 +982,7 @@ local skills, mod, flag, skill = ...
 			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["molten_shell_damage_absorbed_%"] = {
-			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["molten_shell_damage_absorb_limit_%_of_armour"] = {
 			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "PerStat", stat = "Armour", limitVar = "GuardAbsorbMax", limitTotal = true }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
@@ -1224,6 +1231,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 10)
 #mods
 
+#skill VaalRejuvenationTotem
+#flags spell aura totem area duration
+#mods
+
 #skill SearingBond
 #flags spell totem duration
 #mods
@@ -1280,16 +1291,16 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["base_chance_to_shock_%_from_skill"] = {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
 		["minimum_added_lightning_damage_from_skill"] = {
-			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
 		["maximum_added_lightning_damage_from_skill"] = {
-			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
 		["skill_buff_grants_attack_and_cast_speed_+%"] = {
-			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" })
 		},
 	},
 #baseMod skill("radius", 15)
@@ -1363,7 +1374,7 @@ end,
 			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
 		},
 		["quick_guard_damage_absorbed_%"] = {
-			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["quick_guard_damage_absorb_limit"] = {
 			mod("GuardAbsorbLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
@@ -1387,6 +1398,10 @@ end,
 	},
 #baseMod skill("radius", 25)
 #baseMod skill("debuff", true)
+#mods
+
+#skill VaalReap
+#flags spell area duration
 #mods
 
 #skill ShieldCrush

@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Shield: Armour
@@ -25,13 +25,16 @@ League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{The Surrender} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
-{variant:2}+(30-40) to maximum Life
-(120-160)% increased Armour
+{variant:2,3}+(30-40) to maximum Life
+{variant:1,2}(120-160)% increased Armour
+{variant:3}100% increased Armour
 +(50-70) to maximum Life
 +6% Chance to Block
-+1000 Armour if you've Blocked Recently
+{variant:1,2}+1000 Armour if you've Blocked Recently
+{variant:3}+(1500-3000) Armour if you've Blocked Recently
 Permanently Intimidate Enemies on Block
 ]],[[
 The Surrender
@@ -39,15 +42,18 @@ Ezomyte Tower Shield
 League: Breach
 Source: Upgraded from unique{The Anticipation} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.0.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
-{variant:2}+(30-40) to maximum Life
+{variant:2,3}+(30-40) to maximum Life
 Grants Level 30 Reckoning Skill
-(130-170)% increased Armour
+{variant:1,2}(130-170)% increased Armour
+{variant:3}(165-205)% increased Armour
 +(65-80) to maximum Life
-Recover 250 Life when you Block
+{variant:1,2}Recover 250 Life when you Block
+{variant:3}Recover (250-500) Life when you Block
 +6% Chance to Block
-+1500 Armour if you've Blocked Recently
+{variant:1,2}+1500 Armour if you've Blocked Recently
 ]],[[
 Chernobog's Pillar
 Ebony Tower Shield
@@ -204,7 +210,7 @@ Golden Buckler
 Source: No longer obtainable
 Variant: Pre 2.0.0
 Variant: Pre 3.0.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 1
 {variant:3}6% increased Movement Speed
 +(40-60) to Intelligence
@@ -257,7 +263,7 @@ War Buckler
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 1
 {variant:3}9% increased Movement Speed
 +1 to Level of Socketed Curse Gems
@@ -315,7 +321,7 @@ Painted Buckler
 Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.0.0
-Variant: Pre 3.17.0
+Variant: Current
 Implicits: 1
 {variant:3}6% increased Movement Speed
 (60-100)% increased Evasion Rating
@@ -425,6 +431,12 @@ Bitterbind Point
 Titanium Spirit Shield
 League: Betrayal
 Source: Drops from unique{Catarina, Master of Undeath}
+Variant: Fire and Cold Damage (Pre 3.14)
+Variant: Cold and Lightning Damage (Pre 3.14)
+Variant: Fire and Lightning Damage (Pre 3.14)
+Variant: Energy Shield and Life (Pre 3.14)
+Variant: Armour during Soul Gain Prevention (Pre 3.14)
+Variant: Level of Socketed Support Gems (Pre 3.14)
 Variant: Fire and Cold Damage
 Variant: Cold and Lightning Damage
 Variant: Fire and Lightning Damage
@@ -447,6 +459,17 @@ Your Raised Spectres also gain Arcane Surge when you do
 {variant:4}{crafted}+(10-28) to maximum Life
 {variant:5}{crafted}+(500-3000) to Armour during Soul Gain Prevention
 {variant:6}{crafted}+(1-2) to Level of Socketed Support Gems
+{variant:7}Adds (14-16) to (20-22) Fire Damage
+{variant:7}Adds (14-16) to (20-22) Cold Damage
+{variant:8}Adds (14-16) to (20-22) Cold Damage
+{variant:8}Adds (14-16) to (20-22) Lightning Damage
+{variant:9}Adds (14-16) to (20-22) Fire Damage
+{variant:9}Adds (14-16) to (20-22) Lightning Damage
+{variant:10}(24-28)% increased Energy Shield
+{variant:10}+(19-22) to maximum Life
+{variant:11}+(3201-4000) to Armour during Soul Gain Prevention
+{variant:12}+2 to Level of Socketed Support Gems
+{variant:12}+(5-8)% to Quality of Socketed Support Gems
 ]],[[
 Brinerot Flag
 Tarnished Spirit Shield
@@ -469,17 +492,23 @@ Implicits: 2
 {variant:4}Warcries grant Arcane Surge to you and Allies, with 10% increased effect per 5 power, up to 50%
 ]],[[
 Esh's Mirror
-Thorium Spirit Shield
+{variant:1}Thorium Spirit Shield
+{variant:2}Vaal Spirit Shield
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Esh's Visage} using currency{Blessing of Esh}
-Implicits: 0
+Implicits: 1
+{variant:2}(5-10)% increased Spell Damage
 +(20-30) to Intelligence
-(80-100)% increased Energy Shield
-+(40-70) to maximum Life
+{variant:1}(80-100)% increased Energy Shield
+{variant:2}(170-230)% increased Energy Shield
+{variant:1}+(70-100) to maximum Life
 +(35-40)% to Lightning Resistance
+{variant:2}Shocks you inflict spread to other Enemies within a Radius of 12
 Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently
-Shock Reflection
+{variant:1}Shock Reflection
 ]],[[
 Esh's Visage
 Vaal Spirit Shield
@@ -899,7 +928,7 @@ Implicits: 2
 {variant:4}+(20-30)% to all Elemental Resistances
 {variant:1}+5% to all maximum Resistances
 {variant:2,3,4}+4% to all maximum Resistances
-Cannot Block Attacks
+Cannot Block Attack Damage
 ]],[[
 Springleaf
 Plank Kite Shield
@@ -925,18 +954,24 @@ Implicits: 2
 The Oak
 Plank Kite Shield
 Source: No longer obtainable
+Variant: Pre 1.1.0
+Variant: Pre 2.0.0
 Variant: Pre 2.6.0
-Variant: Pre 3.17.0
+Variant: Pre 3.19.0
+Variant: Current
 LevelReq: 40
-Implicits: 1
-+4% to all Elemental Resistances
+Implicits: 2
+{variant:1}+8% to all Elemental Resistances
+{variant:2,3,4,5}+4% to all Elemental Resistances
 (80-120)% increased Armour and Energy Shield
 +(100-150) to maximum Life
-50% reduced Freeze Duration on you
-{variant:1}Regenerate 1% of Life per Second 
-{variant:2}Regenerate 3% of Life per Second
-{variant:1}Regenerate 5% of Life per Second while on Low Life
-{variant:2}Regenerate 3% of Life per Second while on Low Life
+{variant:1,2,3,4}50% reduced Freeze Duration on you
+{variant:5}80% reduced Freeze Duration on you
+{variant:3}Regenerate 1% of Life per Second 
+{variant:4,5}Regenerate 3% of Life per Second
+{variant:1,2}Regenerate 6% of Life per Second while on Low Life
+{variant:3}Regenerate 5% of Life per Second while on Low Life
+{variant:4,5}Regenerate 3% of Life per Second while on Low Life
 ]],[[
 The Unshattered Will
 Archon Kite Shield

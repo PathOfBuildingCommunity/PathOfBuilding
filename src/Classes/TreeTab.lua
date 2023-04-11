@@ -120,6 +120,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
+		self.searchFlag = buf ~= self.viewer.searchStrSaved
 	end)
 	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
@@ -128,6 +129,11 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeHeatMap = new("CheckBoxControl", { "LEFT", self.controls.findTimelessJewel, "RIGHT" }, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
+		
+		if state == false then 
+			self.showPowerReport = false 
+			self:TogglePowerReport()
+		end
 	end)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
@@ -168,7 +174,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
+		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), latestTreeVersion)
 		newSpec:BuildClusterJewelGraphs()
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
 		self:SetActiveSpec(self.activeSpec + 1)
@@ -789,34 +795,34 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	local conquerorTypes = {
 		[1] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_doryani", "explicit.pseudo_timeless_jewel_xibaqua", "explicit.pseudo_timeless_jewel_ahuana" } },
-			{ label = "Doryani (Corrupted Soul)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_doryani" } },
-			{ label = "Xibaqua (Divine Flesh)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_xibaqua" } },
-			{ label = "Ahuana (Immortal Ambition)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_ahuana" } }
+			{ label = "Any", id = 1 },
+			{ label = "Doryani (Corrupted Soul)", id = 2 },
+			{ label = "Xibaqua (Divine Flesh)", id = 3 },
+			{ label = "Ahuana (Immortal Ambition)", id = 4 }
 		},
 		[2] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_kaom", "explicit.pseudo_timeless_jewel_rakiata", "explicit.pseudo_timeless_jewel_akoya" } },
-			{ label = "Kaom (Strength of Blood)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_kaom" } },
-			{ label = "Rakiata (Tempered by War)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_rakiata" } },
-			{ label = "Akoya (Chainbreaker)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_akoya" } }
+			{ label = "Any", id = 1 },
+			{ label = "Kaom (Strength of Blood)", id = 2 },
+			{ label = "Rakiata (Tempered by War)", id = 3 },
+			{ label = "Akoya (Chainbreaker)", id = 4 }
 		},
 		[3] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_asenath", "explicit.pseudo_timeless_jewel_nasima", "explicit.pseudo_timeless_jewel_balbala" } },
-			{ label = "Asenath (Dance with Death)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_asenath" } },
-			{ label = "Nasima (Second Sight)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_nasima" } },
-			{ label = "Balbala (The Traitor)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_balbala" } }
+			{ label = "Any", id = 1 },
+			{ label = "Asenath (Dance with Death)", id = 2 },
+			{ label = "Nasima (Second Sight)", id = 3 },
+			{ label = "Balbala (The Traitor)", id = 4 }
 		},
 		[4] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_avarius", "explicit.pseudo_timeless_jewel_dominus", "explicit.pseudo_timeless_jewel_maxarius" } },
-			{ label = "Avarius (Power of Purpose)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_avarius" } },
-			{ label = "Dominus (Inner Conviction)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_dominus" } },
-			{ label = "Maxarius (Transcendence)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_maxarius" } }
+			{ label = "Any", id = 1 },
+			{ label = "Avarius (Power of Purpose)", id = 2 },
+			{ label = "Dominus (Inner Conviction)", id = 3 },
+			{ label = "Maxarius (Transcendence)", id = 4 }
 		},
 		[5] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_cadiro", "explicit.pseudo_timeless_jewel_victario", "explicit.pseudo_timeless_jewel_caspiro" } },
-			{ label = "Cadiro (Supreme Decadence)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_cadiro" } },
-			{ label = "Victario (Supreme Grandstanding)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_victario" } },
-			{ label = "Caspiro (Supreme Ostentation)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_caspiro" } }
+			{ label = "Any", id = 1 },
+			{ label = "Cadiro (Supreme Decadence)", id = 2 },
+			{ label = "Victario (Supreme Grandstanding)", id = 3 },
+			{ label = "Caspiro (Supreme Ostentation)", id = 4 }
 		}
 	}
 	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
@@ -830,6 +836,24 @@ function TreeTabClass:FindTimelessJewel()
 	else
 		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
 	end
+	local devotionVariants = {
+		{ id = 1 , label = "Any" },
+		{ id = 2 , label = "Totem Damage" },
+		{ id = 3 , label = "Brand Damage" },
+		{ id = 4 , label = "Channelling Damage" },
+		{ id = 5 , label = "Area Damage" },
+		{ id = 6 , label = "Elemental Damage" },
+		{ id = 7 , label = "Elemental Resistances" },
+		{ id = 8 , label = "Effect of non-Damaging Ailments" },
+		{ id = 9 , label = "Elemental Ailment Duration" },
+		{ id = 10, label = "Duration of Curses" },
+		{ id = 11, label = "Minion Attack and Cast Speed" },
+		{ id = 12, label = "Minions Accuracy Rating" },
+		{ id = 13, label = "Mana Regen" },
+		{ id = 14, label = "Skill Cost" },
+		{ id = 15, label = "Non-Curse Aura Effect" },
+		{ id = 16, label = "Defences from Shield" }
+	}
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
 		if socketData.isJewelSocket then
@@ -1026,9 +1050,21 @@ function TreeTabClass:FindTimelessJewel()
 		self.build.modFlag = true
 	end
 
+	controls.devotionSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 820, 25, 0, 16, "^7Devotion modifiers:")
+	controls.devotionSelectLabel.shown = timelessData.jewelType.id == 4
+	controls.devotionSelect1 = new("DropDownControl", { "TOP", controls.devotionSelectLabel, "BOTTOM" }, 0, 8, 200, 18, devotionVariants, function(index, value)
+		timelessData.devotionVariant1 = index
+	end)
+	controls.devotionSelect1.selIndex = timelessData.devotionVariant1
+	controls.devotionSelect2 = new("DropDownControl", { "TOP", controls.devotionSelect1, "BOTTOM" }, 0, 7, 200, 18, devotionVariants, function(index, value)
+		timelessData.devotionVariant2 = index
+	end)
+	controls.devotionSelect2.selIndex = timelessData.devotionVariant2
+
 	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 25, 0, 16, "^7Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelTypes, function(index, value)
 		timelessData.jewelType = value
+		controls.devotionSelectLabel.shown = value.id == 4
 		controls.conquerorSelect.list = conquerorTypes[timelessData.jewelType.id]
 		controls.conquerorSelect.selIndex = 1
 		timelessData.conquerorType = conquerorTypes[timelessData.jewelType.id][1]
@@ -1489,7 +1525,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
 		local seedTrades = {}
 		local startRow = controls.searchResults.selIndex or 1
-		local endRow = startRow + m_floor(10 / (#timelessData.sharedResults.conqueror.tradeId))
+		local endRow = startRow + m_floor(10 / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
 		if controls.searchResults.highlightIndex then
 			startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
 			endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
@@ -1515,14 +1551,19 @@ function TreeTabClass:FindTimelessJewel()
 		for i = startRow, startRow + seedCount - 1 do
 			local result = timelessData.searchResults[i]
 
-			for _, tradeId in ipairs(timelessData.sharedResults.conqueror.tradeId) do
+			local conquerorKeystoneTradeIds = data.timelessJewelTradeIDs[timelessData.jewelType.id].keystone
+			local conquerorTradeIds = { conquerorKeystoneTradeIds[1], conquerorKeystoneTradeIds[2], conquerorKeystoneTradeIds[3] }
+			if timelessData.sharedResults.conqueror.id > 1 then
+				conquerorTradeIds = { conquerorKeystoneTradeIds[timelessData.sharedResults.conqueror.id - 1] }
+			end
+			
+			for _, tradeId in ipairs(conquerorTradeIds) do
 				t_insert(seedTrades, {
 					id = tradeId,
 					value = {
 						min = result.seed,
 						max = result.seed
-					},
-					disabled = false
+					}
 				})
 			end
 		end
@@ -1547,6 +1588,20 @@ function TreeTabClass:FindTimelessJewel()
 			}
 		}
 
+		if (timelessData.sharedResults.devotionVariant1.id > 1) or (timelessData.sharedResults.devotionVariant2.id > 1) then
+			local devotionFilters = {}
+			if timelessData.sharedResults.devotionVariant1.id > 1 then
+				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant1.id - 1] })
+			end
+			if timelessData.sharedResults.devotionVariant2.id > 1 then
+				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant2.id - 1] })
+			end
+			t_insert(search.query.stats, {
+				filters = devotionFilters,
+				type = "and"
+			})
+		end
+
 		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
 			return s_format("%%%02X", s_byte(a))
 		end)))
@@ -1554,6 +1609,14 @@ function TreeTabClass:FindTimelessJewel()
 		controls.searchTradeButton.label = "Copy Next Trade URL"
 	end)
 	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
+	controls.searchTradeButton.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Click to generate and copy a trade URL for searching for jewels in this list.")
+		tooltip:AddLine(16, "^7Paste the URL in a web browser to search.")
+		tooltip:AddLine(16, "")
+		tooltip:AddLine(16, "^7You can click to select a row so that search begins from there.")
+		tooltip:AddLine(16, "^7After selecting a row You can also shift+click on another row to select a range of rows to search.")
+	end
 
 	local width = 80
 	local divider = 10
@@ -1763,6 +1826,8 @@ function TreeTabClass:FindTimelessJewel()
 			wipeTable(timelessData.sharedResults)
 			timelessData.sharedResults.type = timelessData.jewelType
 			timelessData.sharedResults.conqueror = timelessData.conquerorType
+			timelessData.sharedResults.devotionVariant1 = devotionVariants[timelessData.devotionVariant1]
+			timelessData.sharedResults.devotionVariant2 = devotionVariants[timelessData.devotionVariant2]
 			timelessData.sharedResults.socket = timelessData.jewelSocket
 			timelessData.sharedResults.desiredNodes = desiredNodes
 			local function formatSearchValue(input)

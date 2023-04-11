@@ -217,7 +217,7 @@ itemBases["Maraketh Bow"] = {
 itemBases["Hedron Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { two_hand_weapon = true, default = true, not_for_sale = true, ranged = true, weapon = true, experimental_base = true, twohand = true, bow = true, },
 	implicit = "Adds (40-48) to (60-72) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	weapon = { PhysicalMin = 9, PhysicalMax = 13, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
@@ -226,7 +226,7 @@ itemBases["Hedron Bow"] = {
 itemBases["Foundry Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { two_hand_weapon = true, default = true, not_for_sale = true, ranged = true, weapon = true, experimental_base = true, twohand = true, bow = true, },
 	implicit = "Adds (70-84) to (110-124) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	weapon = { PhysicalMin = 13, PhysicalMax = 20, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },
@@ -235,7 +235,7 @@ itemBases["Foundry Bow"] = {
 itemBases["Solarine Bow"] = {
 	type = "Bow",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, ranged = true, weapon = true, default = true, twohand = true, bow = true, },
+	tags = { two_hand_weapon = true, default = true, not_for_sale = true, ranged = true, weapon = true, experimental_base = true, twohand = true, bow = true, },
 	implicit = "Adds (105-116) to (160-172) Fire Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "fire", "attack" }, },
 	weapon = { PhysicalMin = 16, PhysicalMax = 24, CritChanceBase = 5.5, AttackRateBase = 1.3, Range = 120, },

@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Body: Armour
@@ -148,7 +148,7 @@ Implicits: 0
 (8-12)% Chance to Block Attack Damage
 (80-100)% increased Armour
 10% reduced Movement Speed
-Cannot Block Spells
+Cannot Block Spell Damage
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
 The Iron Fortress
@@ -368,20 +368,25 @@ Implicits: 0
 {variant:3}100% of Fire Damage from Hits taken as Physical Damage
 ]],[[
 The Snowblind Grace
-Coronal Leather
+{variant:1,2}Coronal Leather
+{variant:3}Zodiac Leather
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Perfect Form} using currency{Blessing of Tul}
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 0
 {variant:1}10% chance to Suppress Spell Damage
 {variant:2}20% chance to Suppress Spell Damage
-+(30-40) to Dexterity
+{variant:1,2}+(30-40) to Dexterity
+{variant:3}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
-{variant:2}(80-100)% increased Evasion Rating
+{variant:2,3}(80-100)% increased Evasion Rating
 +(40-60) to maximum Life
-25% increased Arctic Armour Buff Effect
+{variant:1,2}25% increased Arctic Armour Buff Effect
+{variant:3}50% increased Arctic Armour Buff Effect
+{variant:3}Arctic Armour has no Reservation
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
 {variant:2}Evasion Rating is increased by Overcapped Cold Resistance
 ]],[[
@@ -390,18 +395,21 @@ Zodiac Leather
 League: Breach
 Source: Upgraded from unique{The Snowblind Grace} using currency{Blessing of Tul}
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 0
+{variant:3}+50% chance to Suppress Spell Damage
 {variant:1}(5-10)% increased Dexterity
 {variant:2}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
 {variant:2}(80-100)% increased Evasion Rating
+{variant:3}(150-200)% increased Evasion Rating
 {variant:1}+(50-80) to maximum Life
 {variant:2}+(70-100) to maximum Life
 -30% to Cold Resistance
-Arctic Armour has no Reservation
+{variant:1,2}Arctic Armour has no Reservation
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
-{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
+{variant:2,3}Evasion Rating is increased by Overcapped Cold Resistance
 Acrobatics
 ]],[[
 Replica Perfect Form
@@ -896,6 +904,14 @@ Armour also applies to Lightning Damage taken from Hits
 Lightning Resistance does not affect Lightning Damage taken
 Nearby Enemies have Lightning Resistance equal to yours
 ]],[[
+The Fourth Vow
+Devout Chainmail
+Physical Damage taken bypasses Energy Shield
+(150-250)% increased Armour and Energy Shield
++(17-29)% to Chaos Resistance
+Regenerate 3% of Life per second
+Armour also applies to Chaos Damage taken from Hits
+]],[[
 Geofri's Sanctuary
 Elegant Ringmail
 Variant: Pre 2.6.0
@@ -1223,20 +1239,27 @@ League: Abyss
 Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
 Variant: Two Abyssal Sockets (Pre 3.12.0)
 Variant: One Abyssal Socket (Pre 3.12.0)
+Variant: Two Abyssal Sockets (Pre 3.21.0)
+Variant: One Abyssal Socket (Pre 3.21.0)
+Variant: Three Abyssal Sockets (Current)
 Variant: Two Abyssal Sockets (Current)
 Variant: One Abyssal Socket (Current)
 Implicits: 1
 +(20-25) to maximum Mana
-{variant:1,3}Has 2 Abyssal Sockets
-{variant:2,4}Has 1 Abyssal Socket
+{variant:5}Has 3 Abyssal Sockets
+{variant:1,3,6}Has 2 Abyssal Sockets
+{variant:2,4,7}Has 1 Abyssal Socket
 {variant:1,2}Socketed Gems are Supported by Level 20 Elemental Penetration
 {variant:3,4}Socketed Gems are Supported by Level 25 Elemental Penetration
 20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill
 (160-180)% increased Evasion and Energy Shield
-(6-10)% increased maximum Life
-(9-15)% increased maximum Mana
-1% increased Maximum Life per Abyss Jewel affecting you
-1% increased Maximum Mana per Abyss Jewel affecting you
+{variant:1,2,3,4}(6-10)% increased maximum Life
+{variant:1,2,3,4}(9-15)% increased maximum Mana
+{variant:1,2,3,4}1% increased Maximum Life per Abyss Jewel affecting you
+{variant:5,6,7}3% increased Maximum Life per Abyss Jewel affecting you
+{variant:1,2,3,4}1% increased Maximum Mana per Abyss Jewel affecting you
+{variant:5,6,7}3% increased Maximum Mana per Abyss Jewel affecting you
+{variant:5,6,7}Penetrate 4% Elemental Resistances per Abyss Jewel affecting you
 ]],[[
 Replica Shroud of the Lightless
 Carnal Armour
