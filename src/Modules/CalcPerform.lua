@@ -1952,9 +1952,16 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						local scale = (1 + inc / 100) * more
 						local playerCurse = copyTable(curse, true)
 						playerCurse.modList = new("ModList")
-						if modDB:Flag(nil, "IgnoreElemResistFromCurses") then
+						local curseFilters = modDB:List(nil, "CurseModFilter")
+						if curseFilters then
 							for _, mod in ipairs(buff.modList) do
-								if not mod.name:lower():match("[efcl][lio][erlg][medh][et]?n?[ti]?[an]?[lg]?resist") then
+								local match = false
+								for _, filter in ipairs(curseFilters) do
+									if mod.name:lower():match(filter.pattern) then
+										match = true
+									end
+								end
+								if not match then
 									playerCurse.modList:ScaleAddMod(mod, scale)
 								end
 							end
@@ -2127,12 +2134,16 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				}
 				
 				local onPlayerCurse = value.applyToPlayer and ( ((modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof")) or curse.mark or curse.configCurse )
-				local curseResistFilter = onPlayerCurse and modDB:Flag(nil, "IgnoreElemResistFromCurses")
+				local curseResistFilter = onPlayerCurse and modDB:List(nil, "CurseModFilter")
 				
 				curse.modList = new("ModList")
 				for _, mod in ipairs(gemModList) do
-					if curseResistFilter and mod.name:lower():match("[efcl][lio][erlg][medh][et]?n?[ti]?[an]?[lg]?resist") then
-						break
+					if curseResistFilter then
+						for _, filter in ipairs(curseResistFilter) do
+							if mod.name:lower():match(filter.pattern) then
+								goto skip
+							end
+						end
 					end
 					for _, tag in ipairs(mod) do
 						if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
@@ -2140,6 +2151,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							break
 						end
 					end
+					::skip::
 				end
 				
 				if onPlayerCurse then
