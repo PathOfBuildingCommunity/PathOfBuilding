@@ -201,7 +201,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local burningGroundSource = ""
 	local causticGroundSource = ""
 	
-	-- calc defences extra part should only run on the last skill of fulldps
+	-- calc defences extra part should only run on the last skill of FullDPS
 	local numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
