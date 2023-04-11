@@ -3514,6 +3514,11 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				triggerName = "Shockwave"
 				triggeredSkills = {packageSkillDataForSimulation(actor.mainSkill)}
 				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and skill ~= actor.mainSkill end
+			elseif actor.mainSkill.skillData.triggeredByManaforged and not env.player.mainSkill.skillData.limitedProcessing and not avoidCache then
+				triggerName = "Manaforged"
+				triggeredSkills = nil
+				triggerOnUse = true
+				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 and skill ~= actor.mainSkill end
 			else
 				skip = true
 			end
@@ -3634,6 +3639,36 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							t_insert(breakdown.EffectiveSourceRate, s_format("/%d ^8(repeated attacks/casts do not count as they don't use mana)", repeats))
 						end
 					end
+					
+					-- Handling for mana spending rate for Manaforged Arrows Support
+					if actor.mainSkill.skillData.triggeredByManaforged and trigRate > 0 then
+						local triggeredUUID = cacheSkillUUID(actor.mainSkill)
+						if not GlobalCache.cachedData["CACHE"][triggeredUUID] then
+							calcs.buildActiveSkill(env, "CACHE", actor.mainSkill, {[triggeredUUID] = true})
+						end
+						local triggeredManaCost = GlobalCache.cachedData["CACHE"][triggeredUUID].Env.player.output.ManaCost or 0
+						if triggeredManaCost > 0 then 
+							local manaSpentThreshold = triggeredManaCost * actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold
+							local sourceManaCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.ManaCost or 0
+							if sourceManaCost > 0 then
+								trigRate = manaSpentThreshold / (trigRate * sourceManaCost)
+								if breakdown then
+									t_insert(breakdown.EffectiveSourceRate, s_format("* %.2f ^8(Mana cost of trigger source)", sourceManaCost))
+									t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Mana spent per second)", (GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Speed * sourceManaCost)))
+									t_insert(breakdown.EffectiveSourceRate, s_format(""))
+									t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Mana Cost of triggered)", triggeredManaCost))
+									t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Manaforged threshold multiplier)", actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold))
+									t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
+									t_insert(breakdown.EffectiveSourceRate, s_format(""))
+									t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
+									t_insert(breakdown.EffectiveSourceRate, s_format("/ %.2f ^8(Mana spent per second)", (GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Speed * sourceManaCost)))
+								end
+							else
+								trigRate = 0
+							end
+						end
+					end
+					
 					--Trigger chance
 					if triggerChance and trigRate then
 						trigRate = trigRate * triggerChance / 100
