@@ -1203,6 +1203,7 @@ Radius: Medium
 ]],[[
 Ancestral Vision
 Viridian Jewel
+Limited to: 1
 +(5-10) to Dexterity
 Modifiers to Chance to Suppress Spell Damage also apply to Chance to Avoid Elemental Ailments at 50% of their Value
 ]],

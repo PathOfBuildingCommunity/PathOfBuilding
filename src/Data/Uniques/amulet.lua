@@ -32,10 +32,10 @@ Bloodsoaked Medallion
 Amber Amulet
 LevelReq: 49
 Implicits: 1
-+(20-30) to Strength
-(40-50)% increased Global Critical Strike Chance
-+(50-70) to maximum Life
-+(17-29)% to Chaos Resistance
+{tags:jewellery_attribute}+(20-30) to Strength
+{tags:critical}(40-50)% increased Global Critical Strike Chance
+{tags:life}+(50-70) to maximum Life
+{tags:jewellery_resistance}+(17-29)% to Chaos Resistance
 Every 10 seconds:
 Gain 2% of Life per Enemy Hit with Attacks for 5 seconds
 Gain 5% of Life per Enemy Killed for 5 seconds
@@ -1013,10 +1013,10 @@ Summon Raging Spirit has (20-30)% increased Duration
 Tainted Pact
 Coral Amulet
 Implicits: 1
-Regenerate (2-4) Life per second
-+(20-30) to Strength
-(2-3)% of Physical Attack Damage Leeched as Life
-(1-1.5)% of Physical Attack Damage Leeched as Mana
+{tags:life}Regenerate (2-4) Life per second
+{tags:jewellery_attribute}+(20-30) to Strength
+{tags:attack,life}(2-3)% of Physical Attack Damage Leeched as Life
+{tags:mana,attack}(1-1.5)% of Physical Attack Damage Leeched as Mana
 Taking Chaos Damage over Time heals you instead while Leeching Life
 ]],[[
 Tear of Purity

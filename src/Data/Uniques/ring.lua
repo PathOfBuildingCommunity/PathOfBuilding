@@ -419,8 +419,8 @@ Soulbound
 Paua Ring
 LevelReq: 44
 Implicits: 1
-+(20-30) to maximum Mana
-+(10-20) to all Attributes
+{tags:mana}+(20-30) to maximum Mana
+{tags:jewellery_attribute}+(10-20) to all Attributes
 Link Skills have (10-15)% increased Cast Speed
 Link Skills have (10-15)% increased Skill Effect Duration
 Linked Targets Cannot Die for 2 seconds after you Die
