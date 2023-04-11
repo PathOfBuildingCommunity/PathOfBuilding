@@ -301,7 +301,7 @@ end
 ---@param league string
 ---@param callback fun(query:string, errMsg:string)
 function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callback)
-	local url = self:buildUrl(self.hostName .. "trade/search", realm, league, queryId)
+	local url = self:buildUrl(self.hostName .. "api/trade/search", realm, league, queryId)
 	table.insert(self.requestQueue["search"], {
 		url = url,
 		callback = function(response, errMsg)
