@@ -6173,3 +6173,79 @@ skills["MonsterVulnerabilityOnHit1"] = {
         [3] = { 9200, 1, 31, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
     },
 }
+
+skills["CrucibleIceStormTrap"] = {
+	name = "Ice Storm",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.6000000238419,
+	incrementalEffectiveness = 0.050000000745058,
+	description = "Flaming bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.67,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+	end,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000,
+		},
+	},
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+		{ "fire_storm_fireball_delay_ms", 300 },
+		{ "firestorm_base_area_of_effect_+%", -75 },
+		{ "base_trap_duration", 10000 },
+		{ "trap_variation", 4 },
+		{ "trap_throwing_speed_+%", -66 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+		"base_skill_is_trapped",
+		"is_trap",
+		"ignores_trap_and_mine_cooldown_limit",
+	},
+	levels = {
+		[1] = { 0.40000000596046, 0.60000002384186, critChance = 5, storedUses = 1, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["MMSPyromaniacIceMortar"] = {
+	name = "Ice Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.5,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		area = true,
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "projectile_spread_radius", 10 },
+		{ "spell_maximum_action_distance_+%", -40 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
