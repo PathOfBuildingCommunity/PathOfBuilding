@@ -200,6 +200,18 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	local igniteSource = ""
 	local burningGroundSource = ""
 	local causticGroundSource = ""
+	
+	-- calc defences extra part should only run on the last skill of FullDPS
+	local numActiveSkillInFullDPS = 0
+	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
+			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
+			if enabled then
+				numActiveSkillInFullDPS = numActiveSkillInFullDPS + 1
+			end
+		end
+	end
+	
 	GlobalCache.numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
@@ -217,7 +229,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						GlobalCache.noCache = nil
 					end
 					fullEnv.player.mainSkill = activeSkill
-					calcs.perform(fullEnv, true, (GlobalCache.numActiveSkillInFullDPS ~= 1))
+					calcs.perform(fullEnv, true, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
 					usedEnv = fullEnv
 					GlobalCache.noCache = forceCache
 				end

@@ -582,6 +582,19 @@ Implicits: 1
 Grants Level 20 Brandsurge Skill
 Brand Skills have (50-100)% increased Duration
 ]],[[
+The Geomantic Gyre
+Highborn Staff
+League: Crucible
+Implicits: 1
++18% Chance to Block Attack Damage while wielding a Staff
+Has 1 Socket
+(150-200)% increased Spell Damage
+(80-120)% increased Critical Strike Chance for Spells
++(150-200) to maximum Mana
+Gain 150 Life per Enemy Killed
+Has a Crucible Passive Skill Tree with only Support Passive Skills
+Crucible Passive Skill Tree is removed if this Modifier is removed
+]],[[
 Xirgil's Crank
 Coiled Staff
 Source: Drops in The Lord's Labyrinth

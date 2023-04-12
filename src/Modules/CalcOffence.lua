@@ -263,8 +263,15 @@ end
 function calcSkillCooldown(skillModList, skillCfg, skillData)
 	local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
 	local cooldown = cooldownOverride or (skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(skillModList, skillCfg, "CooldownRecovery"))
-	cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-	return cooldown
+	-- If a skill can store extra uses and has a cooldown, it doesn't round the cooldown value to server ticks
+	local rounded = false
+	if (skillData.storedUses and skillData.storedUses > 1) or (skillData.VaalStoredUses and skillData.VaalStoredUses > 1) or skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses") > 0 then
+		return cooldown, rounded
+	else
+		cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		rounded = true
+		return cooldown, rounded
+	end
 end
 
 local function calcWarcryCastTime(skillModList, skillCfg, actor)
@@ -744,9 +751,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
-	if skillModList:Flag(nil, "TriggeredBySnipe") and activeSkill.skillTypes[SkillType.Triggerable] then
-		skillModList:NewMod("Damage", "MORE", 165, "Config", ModFlag.Hit, { type = "Multiplier", var = "SnipeStage" } )
-		skillModList:NewMod("Damage", "MORE", 120, "Config", ModFlag.Ailment, { type = "Multiplier", var = "SnipeStage" } )
+	--Snipe doesn't grab the max stages multiplier from the gem when granted by Assailum so we add it back here
+	if skillModList:Flag(nil, "TriggeredByAssailum") and activeSkill.skillTypes[SkillType.Triggerable] then
+		skillModList:NewMod("Multiplier:SnipeStagesMax", "BASE", 6, "Snipe Max Stages", { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 	end
 	if skillModList:Sum("BASE", nil, "CritMultiplierAppliesToDegen") > 0 then
 		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "CritMultiplier")) do
@@ -1025,14 +1032,17 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TrapTriggerRadius = breakdown.area(data.misc.TrapTriggerRadiusBase, areaMod, output.TrapTriggerRadius, incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint)
 		end
 	elseif skillData.cooldown then
-		output.Cooldown = calcSkillCooldown(skillModList, skillCfg, skillData)
+		local cooldown, rounded = calcSkillCooldown(skillModList, skillCfg, skillData)
+		output.Cooldown = cooldown
 		if breakdown then
 			breakdown.Cooldown = {
 				s_format("%.2fs ^8(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
-				"rounded up to nearest server tick",
-				s_format("= %.3fs", output.Cooldown)
 			}
+			if rounded then
+				t_insert(breakdown.Cooldown, s_format("rounded up to nearest server tick"))
+			end
+			t_insert(breakdown.Cooldown, s_format("= %.3fs", output.Cooldown))
 		end
 	end
 	if skillData.storedUses then
@@ -1491,6 +1501,40 @@ function calcs.offence(env, actor, activeSkill)
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+	end
+
+	-- account for Manaforged Arrows
+	if skillData.triggeredByManaPercentSpent and skillData.triggerSource then
+		local reqManaCostMulti = skillData.TriggerSkillManaSpentMultiRequirement
+		local uuid = cacheSkillUUID(skillData.triggerSource)
+		if GlobalCache.cachedData["CACHE"][uuid] then
+			local cachedTriggerData = GlobalCache.cachedData["CACHE"][uuid]
+			local manaThreshold = output.ManaCost * reqManaCostMulti
+			local manaSpendPerSec = cachedTriggerData.ManaCost * cachedTriggerData.Speed
+			local manaSpendTriggerRate = manaSpendPerSec / manaThreshold
+			output.SourceTriggerRate = manaSpendTriggerRate
+			local trigRate = m_min(manaSpendTriggerRate, skillData.triggerRate)
+			-- Account for chance to trigger
+			local manaforgeTriggerChance = 100.0
+			trigRate = trigRate * manaforgeTriggerChance / 100.0
+			if breakdown then
+				t_insert(breakdown.SimData, s_format(""))
+				t_insert(breakdown.SimData, s_format("and"))
+				t_insert(breakdown.SimData, s_format(""))
+				t_insert(breakdown.SimData, s_format("(%d ^8(trigger mana cost)", cachedTriggerData.ManaCost))
+				t_insert(breakdown.SimData, s_format("x %.2f) ^8(trigger attack speed)", cachedTriggerData.Speed))
+				t_insert(breakdown.SimData, s_format("/ (%d ^8(triggered skill mana cost)", output.ManaCost))
+				t_insert(breakdown.SimData, s_format("x %.2f) ^8(manaforge skill multiplier)", reqManaCostMulti))
+				t_insert(breakdown.SimData, s_format(""))
+				t_insert(breakdown.SimData, s_format("Trigger Skill Mana-spending trigger rate:"))
+				t_insert(breakdown.SimData, s_format("= %.2f ^8per second", manaSpendTriggerRate))
+				breakdown.ServerTriggerRate = {
+					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
+				}
+			end
+			activeSkill.skillData.triggerRate = trigRate
+			output.ServerTriggerRate = trigRate
+		end
 	end
 
 	runSkillFunc("preDamageFunc")

@@ -148,7 +148,7 @@ Implicits: 0
 (8-12)% Chance to Block Attack Damage
 (80-100)% increased Armour
 10% reduced Movement Speed
-Cannot Block Spells
+Cannot Block Spell Damage
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
 The Iron Fortress
@@ -903,6 +903,14 @@ Deal no Non-Lightning Damage
 Armour also applies to Lightning Damage taken from Hits
 Lightning Resistance does not affect Lightning Damage taken
 Nearby Enemies have Lightning Resistance equal to yours
+]],[[
+The Fourth Vow
+Devout Chainmail
+Physical Damage taken bypasses Energy Shield
+(150-250)% increased Armour and Energy Shield
++(17-29)% to Chaos Resistance
+Regenerate 3% of Life per second
+Armour also applies to Chaos Damage taken from Hits
 ]],[[
 Geofri's Sanctuary
 Elegant Ringmail
