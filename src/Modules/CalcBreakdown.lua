@@ -192,7 +192,7 @@ function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur, 
 	if actor.mainSkill.skillData.showAverage then
 		if instant > 0 then
 			if instantLeechProportion ~= 1 then 
-				t_insert(out, s_format("Instant Leech: %.1f ^8(%d%% x %.1f)", instant, instantLeechProportion * 100, dur * pool * data.misc.LeechRateBase))
+				t_insert(out, s_format("Instant Leech: %.1f ^8(%d%% x %.1f)", instant, instantLeechProportion * 100, dur * pool * data.misc.LeechRateBase / (1-instantLeechProportion)))
 			else
 				t_insert(out, s_format("Instant Leech: %.1f", instant))
 			end
@@ -211,7 +211,7 @@ function breakdown.leech(instant, instantRate, instances, pool, rate, max, dur, 
 	else
 		if instantRate > 0 then
 			if instantLeechProportion ~= 1 then 
-				t_insert(out, s_format("Instant Leech: %.1f ^8(%d%% x %.1f)", instant, instantLeechProportion * 100, dur * pool * data.misc.LeechRateBase))
+				t_insert(out, s_format("Instant Leech: %.1f ^8(%d%% x %.1f)", instant, instantLeechProportion * 100, dur * pool * data.misc.LeechRateBase / (1-instantLeechProportion)))
 			else
 				t_insert(out, s_format("Instant Leech: %.1f", instant))
 			end
