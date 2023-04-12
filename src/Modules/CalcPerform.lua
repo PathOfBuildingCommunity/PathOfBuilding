@@ -3456,7 +3456,9 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				triggerName = "Cast on stunned"
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByStunned and slotMatch(env, skill) end
 			elseif actor.mainSkill.skillData.triggeredBySpellSlinger then
+				triggerName = "Spellslinger"
 				triggeredSkills = nil
+				triggerOnUse = true
 				triggerSkillCond = function(env, skill)
 					local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
 					return isWandAttack and not skill.skillTypes[SkillType.Triggered] and skill ~= actor.mainSkill and not skill.skillData.triggeredBySpellSlinger
