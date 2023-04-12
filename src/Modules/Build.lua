@@ -23,6 +23,16 @@ local function InsertIfNew(t, val)
 	table.insert(t, val)
 end
 
+local function SplitString(input, delim)
+	local split = {}
+	if input then
+		for str in string.gmatch(input, "([^"..delim.."]+)") do
+			table.insert(split, str)
+		end
+	end
+	return split
+end
+
 function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.dbFileName = dbFileName
 	self.buildName = buildName
@@ -258,6 +268,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
 		{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return (o.CritChance or 0) > 0 end },
+		{ stat = "MainHand.Accuracy", label = "MH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end },
+		{ stat = "OffHand.Accuracy", label = "OH Accuracy", fmt = "d", condFunc = function(v,o) return o.PreciseTechnique end },
 		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", flag = "attack" },
 		{ stat = "HitChance", label = "Hit Chance", fmt = ".0f%%", condFunc = function(v,o) return o.enemyHasSpellBlock end },
 		{ stat = "TotalDPS", label = "Hit DPS", fmt = ".1f", compPercent = true, flag = "notAverage" },
@@ -1353,13 +1365,18 @@ end
 function buildMode:AddDisplayStatList(statList, actor)
 	local statBoxList = self.controls.statBox.list
 	for index, statData in ipairs(statList) do
+		-- allows access to output values that are one node deeper (statData.stat is a table e.g. output.MainHand.Accuracy vs output.Life)
+		local statSplit = SplitString(statData.stat, "%.")
 		if not statData.flag or actor.mainSkill.skillFlags[statData.flag] then
 			local labelColor = "^7"
-				if statData.color then
-					labelColor = statData.color
-				end
+			if statData.color then
+				labelColor = statData.color
+			end
 			if statData.stat then
 				local statVal = actor.output[statData.stat]
+				if statSplit[2] then
+					statVal = actor.output[statSplit[1]] and actor.output[statSplit[1]][statSplit[2]]
+				end
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
 					if statData.stat == "SkillDPS" then
