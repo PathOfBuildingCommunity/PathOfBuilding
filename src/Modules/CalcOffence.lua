@@ -277,9 +277,15 @@ end
 function calcSkillCooldown(skillModList, skillCfg, skillData)
 	local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
 	local cooldown = cooldownOverride or (skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(skillModList, skillCfg, "CooldownRecovery"))
-	-- TODO: Do not round to tick rate for skills that store multiple uses!
-	cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-	return cooldown
+	-- If a skill can store extra uses and has a cooldown, it doesn't round the cooldown value to server ticks
+	local rounded = false
+	if (skillData.storedUses and skillData.storedUses > 1) or (skillData.VaalStoredUses and skillData.VaalStoredUses > 1) or skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses") > 0 then
+		return cooldown, rounded
+	else
+		cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		rounded = true
+		return cooldown, rounded
+	end
 end
 
 local function calcWarcryCastTime(skillModList, skillCfg, actor)
@@ -1040,14 +1046,17 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TrapTriggerRadius = breakdown.area(data.misc.TrapTriggerRadiusBase, areaMod, output.TrapTriggerRadius, incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint)
 		end
 	elseif skillData.cooldown then
-		output.Cooldown = calcSkillCooldown(skillModList, skillCfg, skillData)
+		local cooldown, rounded = calcSkillCooldown(skillModList, skillCfg, skillData)
+		output.Cooldown = cooldown
 		if breakdown then
 			breakdown.Cooldown = {
 				s_format("%.2fs ^8(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
-				s_format("rounded up to nearest server tick"),
-				s_format("= %.3fs", output.Cooldown)
 			}
+			if rounded then
+				t_insert(breakdown.Cooldown, s_format("rounded up to nearest server tick"))
+			end
+			t_insert(breakdown.Cooldown, s_format("= %.3fs", output.Cooldown))
 		end
 	end
 	if skillData.storedUses then
