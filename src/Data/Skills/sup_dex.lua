@@ -4379,6 +4379,19 @@ skills["SupportManaforgedArrows"] = {
 		["Bow"] = true,
 	},
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_manaforged_arrows_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0),
+		},
+		["support_manaforged_arrows_damage_+%_final_per_mana_spent"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
+		},
+		["support_manaforged_arrows_mana_cost_%_threshold"] = {
+			skill("triggeredByManaPercentSpent", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("TriggerSkillManaSpentMultiRequirement", nil),
+			div = 100,
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "base_cooldown_speed_+%", 0.5 },

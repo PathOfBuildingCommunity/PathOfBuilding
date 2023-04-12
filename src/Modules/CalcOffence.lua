@@ -59,6 +59,21 @@ end })
 local globalOutput = nil
 local globalBreakdown = nil
 
+local function isTriggered(skillData)
+	return skillData.triggeredWhileChannelling 
+		or skillData.triggeredByCoC
+		or skillData.triggeredByMeleeKill
+		or skillData.triggeredByCospris
+		or skillData.triggeredByMjolner
+		or skillData.triggeredByUnique
+		or skillData.triggeredByFocus
+		or skillData.triggeredByCraft
+		or skillData.triggeredByManaSpent
+		or skillData.triggeredByManaPercentSpent
+		or skillData.triggeredByParentAttack
+		or skillData.triggeredWhenHexEnds
+end
+
 -- Calculate min/max damage for the given damage type
 local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags, convDst)
 	local skillModList = activeSkill.skillModList
@@ -262,8 +277,15 @@ end
 function calcSkillCooldown(skillModList, skillCfg, skillData)
 	local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
 	local cooldown = cooldownOverride or (skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(skillModList, skillCfg, "CooldownRecovery"))
-	cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-	return cooldown
+	-- If a skill can store extra uses and has a cooldown, it doesn't round the cooldown value to server ticks
+	local rounded = false
+	if (skillData.storedUses and skillData.storedUses > 1) or (skillData.VaalStoredUses and skillData.VaalStoredUses > 1) or skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses") > 0 then
+		return cooldown, rounded
+	else
+		cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		rounded = true
+		return cooldown, rounded
+	end
 end
 
 local function calcWarcryCastTime(skillModList, skillCfg, actor)
@@ -403,8 +425,8 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("initialFunc")
 
-	local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
-	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or isTriggered
+	local triggered = isTriggered(skillData)
+	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or triggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
 	end
@@ -1024,14 +1046,17 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TrapTriggerRadius = breakdown.area(data.misc.TrapTriggerRadiusBase, areaMod, output.TrapTriggerRadius, incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint)
 		end
 	elseif skillData.cooldown then
-		output.Cooldown = calcSkillCooldown(skillModList, skillCfg, skillData)
+		local cooldown, rounded = calcSkillCooldown(skillModList, skillCfg, skillData)
+		output.Cooldown = cooldown
 		if breakdown then
 			breakdown.Cooldown = {
 				s_format("%.2fs ^8(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
-				s_format("rounded up to nearest server tick"),
-				s_format("= %.3fs", output.Cooldown)
 			}
+			if rounded then
+				t_insert(breakdown.Cooldown, s_format("rounded up to nearest server tick"))
+			end
+			t_insert(breakdown.Cooldown, s_format("= %.3fs", output.Cooldown))
 		end
 	end
 	if skillData.storedUses then
@@ -1487,6 +1512,40 @@ function calcs.offence(env, actor, activeSkill)
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
+	end
+
+	-- account for Manaforged Arrows
+	if skillData.triggeredByManaPercentSpent and skillData.triggerSource then
+		local reqManaCostMulti = skillData.TriggerSkillManaSpentMultiRequirement
+		local uuid = cacheSkillUUID(skillData.triggerSource)
+		if GlobalCache.cachedData["CACHE"][uuid] then
+			local cachedTriggerData = GlobalCache.cachedData["CACHE"][uuid]
+			local manaThreshold = output.ManaCost * reqManaCostMulti
+			local manaSpendPerSec = cachedTriggerData.ManaCost * cachedTriggerData.Speed
+			local manaSpendTriggerRate = manaSpendPerSec / manaThreshold
+			output.SourceTriggerRate = manaSpendTriggerRate
+			local trigRate = m_min(manaSpendTriggerRate, skillData.triggerRate)
+			-- Account for chance to trigger
+			local manaforgeTriggerChance = 100.0
+			trigRate = trigRate * manaforgeTriggerChance / 100.0
+			if breakdown then
+				t_insert(breakdown.SimData, s_format(""))
+				t_insert(breakdown.SimData, s_format("and"))
+				t_insert(breakdown.SimData, s_format(""))
+				t_insert(breakdown.SimData, s_format("(%d ^8(trigger mana cost)", cachedTriggerData.ManaCost))
+				t_insert(breakdown.SimData, s_format("x %.2f) ^8(trigger attack speed)", cachedTriggerData.Speed))
+				t_insert(breakdown.SimData, s_format("/ (%d ^8(triggered skill mana cost)", output.ManaCost))
+				t_insert(breakdown.SimData, s_format("x %.2f) ^8(manaforge skill multiplier)", reqManaCostMulti))
+				t_insert(breakdown.SimData, s_format(""))
+				t_insert(breakdown.SimData, s_format("Trigger Skill Mana-spending trigger rate:"))
+				t_insert(breakdown.SimData, s_format("= %.2f ^8per second", manaSpendTriggerRate))
+				breakdown.ServerTriggerRate = {
+					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
+				}
+			end
+			activeSkill.skillData.triggerRate = trigRate
+			output.ServerTriggerRate = trigRate
+		end
 	end
 
 	runSkillFunc("preDamageFunc")
@@ -3121,7 +3180,7 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
 			}
-		elseif isTriggered then
+		elseif triggered then
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(trigger rate)", output.Speed),
@@ -3143,7 +3202,7 @@ function calcs.offence(env, actor, activeSkill)
 			local rateType = "cast"
 			if isAttack then
 				rateType = "attack"
-			elseif isTriggered then
+			elseif triggered then
 				rateType = "trigger"
 			end
 			breakdown.PvpTotalDPS = {
@@ -4608,7 +4667,6 @@ function calcs.offence(env, actor, activeSkill)
 			local repeats = output.Repeats or 1
 			local useSpeed = 1
 			local timeType
-			local isTriggered = skillData.triggeredWhileChannelling or skillData.triggeredByCoC or skillData.triggeredByMeleeKill or skillData.triggeredByCospris or skillData.triggeredByMjolner or skillData.triggeredByUnique or skillData.triggeredByFocus or skillData.triggeredByCraft or skillData.triggeredByManaSpent or skillData.triggeredByParentAttack
 			if skillFlags.trap or skillFlags.mine then
 				local preSpeed = output.TrapThrowingSpeed or output.MineLayingSpeed
 				local cooldown = output.TrapCooldown or output.Cooldown
@@ -4622,7 +4680,7 @@ function calcs.offence(env, actor, activeSkill)
 				timeType = "full unleash"
 			else
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.Speed > 0 and output.Speed or 1 / output.Cooldown) or output.Speed) / repeats
-				timeType = isTriggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
+				timeType = isTriggered(skillData) and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
 			end
 
 			output[usedResource.."PerSecondHasCost"] = true

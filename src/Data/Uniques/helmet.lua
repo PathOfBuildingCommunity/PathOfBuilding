@@ -145,6 +145,13 @@ Bleeding you inflict deals Damage 4% faster per Frenzy Charge
 Thrillsteel
 Barbute Helmet
 Onslaught
+]],[[
+Blood Price
+Reaver Helmet
+(20-30)% reduced maximum Life
+Regenerate (200-250) Life per second
+100% increased Stun and Block Recovery
+Nearby Enemy Monsters have at least 8% of Life Reserved
 ]],
 -- Helmet: Evasion
 [[
@@ -848,6 +855,16 @@ Requires Level 36, 42 Str, 42 Dex
 {variant:1,2}Minions Regenerate 2% Life per Second
 {variant:3}Minions have +25% Chance to Block Spell Damage
 {variant:3}Minions Recover 10% of their Life when they Block
+]],[[
+El'Abin's Visage
+Fencer Helm
+League: Crucible
++(20-30) to Strength
++(20-30) to Dexterity
+(80-120)% increased Armour and Evasion
+(15-25)% increased Rarity of Items found
+Has a Crucible Passive Skill Tree
+Crucible Passive Skill Tree is removed if this Modifier is removed
 ]],
 -- Helmet: Armour/Energy Shield
 [[

@@ -105510,7 +105510,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d}% to all maximum Resistances if Equipped Helmet, Body Armour, Gloves, and Boots all have Armour"
+					text="{0:+d}% to all maximum Elemental Resistances if Equipped Helmet, Body Armour, Gloves, and Boots all have Armour"
 				}
 			}
 		},

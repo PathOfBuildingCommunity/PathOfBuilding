@@ -2805,13 +2805,21 @@ skills["ViciousHexExplosion"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Chaos] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SkillGrantedBySupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "No Overlaps",
+		},
+		{
+			name = "Overlaps (# hits per cast)",
+			stages = true,
+		}
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
 		skill("radius", 20),
-		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {
@@ -5499,7 +5507,8 @@ skills["PrismaticBurst"] = {
 		["prismatic_burst_unchosen_type_damage_-100%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 3 } }),
-			mod("LightningDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } })
+			mod("LightningDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mult = -100,
 		},
 		["spell_damage_+%_per_10_int"] = {
 			skill("Damage", nil, { type = "PerStat", stat = "Int", div = 10 }),
