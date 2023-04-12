@@ -361,10 +361,10 @@ local skills, mod, flag, skill = ...
 			name = "No Overlaps",
 		},
 		{
-			name = "Overlaps",
+			name = "Overlaps (# hits per cast)",
 			stages = true,
 		}
-	}
+	},
 #baseMod skill("radius", 20)
 #mods
 
