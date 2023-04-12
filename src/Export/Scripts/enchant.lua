@@ -232,6 +232,22 @@ for _, mod in ipairs(dat("Mods"):GetRowList("GenerationType", 10)) do
 					break
 				end
 			end
+			for _, activeSkill in ipairs(dat("ActiveSkills"):GetRowList("SecondarySkillSpecificStat", stat)) do
+				local isVaal = false
+				for _, skillType in ipairs(activeSkill.SkillTypes) do
+					if skillType == 39 then
+						isVaal = true
+						break
+					end
+				end
+				if activeSkill.Id:match("vaal") then -- Vaal Blade Vortex missing the vaal tag
+					isVaal = true
+				end
+				if not isVaal and activeSkill.DisplayName ~= "" then
+					skill = activeSkill.DisplayName
+					break
+				end
+			end
 		end
 		if skill == nil then
 			skill = ""

@@ -283,6 +283,7 @@ SkillType = {
 	OwnerCannotUse = 123,
 	ProjectilesNotFired = 124,
 	TotemsAreBallistae = 125,
+	SkillGrantedBySupport = 126,
 }
 
 GlobalCache = { 

@@ -379,7 +379,7 @@ skills["CageSpiderSandSpark"] = {
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 2000 },
-		{ "base_projectile_speed_+%", -50 },
+		{ "base_projectile_speed_+%", -11 },
 		{ "cast_on_cyclone_contact_%", 100 },
 	},
 	stats = {
@@ -883,7 +883,7 @@ skills["GoatmanFireMagmaOrb"] = {
 	color = 3,
 	baseEffectiveness = 2.7778000831604,
 	incrementalEffectiveness = 0.035999998450279,
-	description = "Lob a fiery orb that explodes as it hits the ground. The skill chains, releasing another fiery orb that repeats this effect.",
+	description = "Lob a fiery orb that deals area damage as it hits the ground. The skill chains, bouncing forward to deal damage multiple times.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multicastable] = true, [SkillType.Chains] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.33,
@@ -1358,7 +1358,7 @@ skills["KaomWarriorMoltenStrike"] = {
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 0.69999998807907,
-	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
+	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will deal area attack damage to enemies where they land.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, [SkillType.Multistrikeable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -2036,7 +2036,7 @@ skills["MonsterIceShot"] = {
 	color = 2,
 	baseEffectiveness = 0.85000002384186,
 	description = "Fires an arrow that converts some physical damage to cold on its target and converts all physical damage to cold in a cone behind that target.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -2224,7 +2224,7 @@ skills["MonsterLightningArrow"] = {
 	color = 2,
 	baseEffectiveness = 1.0199999809265,
 	incrementalEffectiveness = 0.019999999552965,
-	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages nearby enemies.",
+	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages a number of surrounding enemies.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Lightning] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -2254,7 +2254,7 @@ skills["SkeletonArcherLightningArrow"] = {
 	color = 2,
 	baseEffectiveness = 1.0199999809265,
 	incrementalEffectiveness = 0.019999999552965,
-	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages nearby enemies.",
+	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages a number of surrounding enemies.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Lightning] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -2519,6 +2519,7 @@ skills["MonsterSpark"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 2000 },
 		{ "number_of_additional_projectiles", 1 },
+		{ "base_projectile_speed_+%", 25 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -2674,7 +2675,7 @@ skills["MotherOfFlamesMagmaOrb3"] = {
 	color = 3,
 	baseEffectiveness = 2.7778000831604,
 	incrementalEffectiveness = 0.035500001162291,
-	description = "Lob a fiery orb that explodes as it hits the ground. The skill chains, releasing another fiery orb that repeats this effect.",
+	description = "Lob a fiery orb that deals area damage as it hits the ground. The skill chains, bouncing forward to deal damage multiple times.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multicastable] = true, [SkillType.Chains] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
@@ -3409,6 +3410,7 @@ skills["SkeletonSpark"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 3500 },
 		{ "number_of_additional_projectiles", 2 },
+		{ "base_projectile_speed_+%", 25 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -3739,7 +3741,7 @@ skills["WickerManMoltenStrike"] = {
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 0.69999998807907,
-	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
+	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will deal area attack damage to enemies where they land.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, [SkillType.Multistrikeable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -6170,4 +6172,80 @@ skills["MonsterVulnerabilityOnHit1"] = {
     levels = {
         [3] = { 9200, 1, 31, levelRequirement = 1, statInterpolation = { 1, 1, 1, }, cost = { }, },
     },
+}
+
+skills["CrucibleIceStormTrap"] = {
+	name = "Ice Storm",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.6000000238419,
+	incrementalEffectiveness = 0.050000000745058,
+	description = "Flaming bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.67,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+	end,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000,
+		},
+	},
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+		{ "fire_storm_fireball_delay_ms", 300 },
+		{ "firestorm_base_area_of_effect_+%", -75 },
+		{ "base_trap_duration", 10000 },
+		{ "trap_variation", 4 },
+		{ "trap_throwing_speed_+%", -66 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+		"base_skill_is_trapped",
+		"is_trap",
+		"ignores_trap_and_mine_cooldown_limit",
+	},
+	levels = {
+		[1] = { 0.40000000596046, 0.60000002384186, critChance = 5, storedUses = 1, cooldown = 8, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["MMSPyromaniacIceMortar"] = {
+	name = "Ice Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.5,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		area = true,
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "projectile_spread_radius", 10 },
+		{ "spell_maximum_action_distance_+%", -40 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
 }

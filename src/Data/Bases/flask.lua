@@ -248,7 +248,7 @@ itemBases["Hallowed Hybrid Flask"] = {
 itemBases["Diamond Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 6, chargesUsed = 20, chargesMax = 40, buff = { "100% increased Global Critical Strike Chance" }, },
 	req = { level = 27, },
@@ -256,7 +256,7 @@ itemBases["Diamond Flask"] = {
 itemBases["Ruby Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+50% to Fire Resistance", "20% less Fire Damage taken" }, },
 	req = { level = 18, },
@@ -264,7 +264,7 @@ itemBases["Ruby Flask"] = {
 itemBases["Sapphire Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+50% to Cold Resistance", "20% less Cold Damage taken" }, },
 	req = { level = 18, },
@@ -272,7 +272,7 @@ itemBases["Sapphire Flask"] = {
 itemBases["Topaz Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "+50% to Lightning Resistance", "20% less Lightning Damage taken" }, },
 	req = { level = 18, },
@@ -280,7 +280,7 @@ itemBases["Topaz Flask"] = {
 itemBases["Granite Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "+1500 to Armour" }, },
 	req = { level = 27, },
@@ -288,7 +288,7 @@ itemBases["Granite Flask"] = {
 itemBases["Quicksilver Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "40% increased Movement Speed" }, },
 	req = { level = 4, },
@@ -296,7 +296,7 @@ itemBases["Quicksilver Flask"] = {
 itemBases["Amethyst Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 6.5, chargesUsed = 35, chargesMax = 65, buff = { "+35% to Chaos Resistance" }, },
 	req = { level = 18, },
@@ -304,7 +304,7 @@ itemBases["Amethyst Flask"] = {
 itemBases["Quartz Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "+10% chance to Suppress Spell Damage", "Phasing" }, },
 	req = { level = 27, },
@@ -312,7 +312,7 @@ itemBases["Quartz Flask"] = {
 itemBases["Jade Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 6, chargesUsed = 30, chargesMax = 60, buff = { "+1500 to Evasion Rating" }, },
 	req = { level = 27, },
@@ -320,16 +320,16 @@ itemBases["Jade Flask"] = {
 itemBases["Basalt Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicit = "Taunts nearby Enemies on use",
 	implicitModTypes = { { "flask" }, },
 	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "20% more Armour" }, },
-	req = { level = 40, },
+	req = { level = 27, },
 }
 itemBases["Aquamarine Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicit = "Creates Chilled Ground on Use",
 	implicitModTypes = { { "flask" }, },
 	flask = { duration = 8, chargesUsed = 20, chargesMax = 50, buff = { "60% reduced Effect of Freeze on you" }, },
@@ -338,33 +338,33 @@ itemBases["Aquamarine Flask"] = {
 itemBases["Stibnite Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicit = "Creates a Smoke Cloud on Use",
 	implicitModTypes = { { "flask" }, },
 	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "20% more Evasion Rating" }, },
-	req = { level = 40, },
+	req = { level = 27, },
 }
 itemBases["Sulphur Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicit = "Creates Consecrated Ground on Use",
 	implicitModTypes = { { "flask" }, },
 	flask = { duration = 8, chargesUsed = 40, chargesMax = 60, buff = { "40% increased Damage" }, },
-	req = { level = 35, },
+	req = { level = 27, },
 }
 itemBases["Silver Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 6, chargesUsed = 40, chargesMax = 60, buff = { "Onslaught" }, },
-	req = { level = 40, },
+	req = { level = 27, },
 }
 itemBases["Bismuth Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 8.5, chargesUsed = 15, chargesMax = 40, buff = { "+35% to all Elemental Resistances" }, },
 	req = { level = 8, },
@@ -372,15 +372,15 @@ itemBases["Bismuth Flask"] = {
 itemBases["Gold Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 5, chargesUsed = 60, chargesMax = 80, buff = { "30% increased Rarity of Items found" }, },
-	req = { level = 22, },
+	req = { level = 27, },
 }
 itemBases["Corundum Flask"] = {
 	type = "Flask",
 	subType = "Utility",
-	tags = { flask = true, utility_flask = true, not_for_sale = true, default = true, },
+	tags = { flask = true, utility_flask = true, default = true, },
 	implicitModTypes = { },
 	flask = { duration = 7.5, chargesUsed = 20, chargesMax = 50, buff = { "30% increased Stun Threshold", "Cannot be Stunned if you've been Stunned during Effect" }, },
 	req = { level = 27, },
@@ -392,5 +392,5 @@ itemBases["Iron Flask"] = {
 	implicit = "Restores Ward on use",
 	implicitModTypes = { { "flask" }, },
 	flask = { duration = 5, chargesUsed = 40, chargesMax = 60, buff = { "+200 to Ward" }, },
-	req = { level = 40, },
+	req = { level = 27, },
 }

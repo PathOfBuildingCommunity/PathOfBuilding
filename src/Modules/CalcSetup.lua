@@ -620,11 +620,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if not env.allocNodes[slot.nodeId] then
 					item = nil
 				elseif item then
-					item.jewelData.limitDisabled = nil
+					if item.jewelData then
+						item.jewelData.limitDisabled = nil
+					end
 					if item.limit and not env.configInput.ignoreJewelLimits then
 						local limitKey = item.base.subType == "Timeless" and "Historic" or item.title
 						if jewelLimits[limitKey] and jewelLimits[limitKey] >= item.limit then
-							item.jewelData.limitDisabled = true
+							if item.jewelData then
+								item.jewelData.limitDisabled = true
+							end
 							item = nil
 						else
 							jewelLimits[limitKey] = (jewelLimits[limitKey] or 0) + 1

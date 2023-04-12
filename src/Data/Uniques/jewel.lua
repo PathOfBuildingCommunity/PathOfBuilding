@@ -70,6 +70,11 @@ Source: No longer obtainable
 (4-6)% increased Strength
 (10-15)% reduced Intelligence
 ]],[[
+Bloodnotch
+Crimson Jewel
+Limited to: 1
+(40-60)% of Damage Taken from Stunning Hits is Recovered as Life
+]],[[
 Calamitous Visions
 Small Cluster Jewel
 League: Delirium
@@ -1195,6 +1200,12 @@ Radius: Medium
 {variant:2}With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill
 {variant:3}With at least 40 Intelligence in Radius, Cold Snap grants Power Charges instead of Frenzy Charges when Enemies die in it's Area
 {variant:3}With at least 40 Intelligence in Radius, Cold Snap Cooldown can be bypassed by Power Charges instead of Frenzy Charges
+]],[[
+Ancestral Vision
+Viridian Jewel
+Limited to: 1
++(5-10) to Dexterity
+Modifiers to Chance to Suppress Spell Damage also apply to Chance to Avoid Elemental Ailments at 50% of their Value
 ]],
 -- Jewel: Corrupted
 [[
