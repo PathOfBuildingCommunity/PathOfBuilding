@@ -6,7 +6,11 @@
 
 LoadModule("Data/Global")
 
+local m_min = math.min
+local m_max = math.max
 local m_floor = math.floor
+local t_insert = table.insert
+local t_concat = table.concat
 
 local skillTypes = {
 	"act_str",
