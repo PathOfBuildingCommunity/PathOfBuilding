@@ -2,28 +2,27 @@
 
 ## [v2.28.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.28.0) (2023/04/12)
 
-* @ha107642 made their first contribution in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5530
 <!-- Release notes generated using configuration in .github/release.yml at dev -->
 
 ## What's Changed
 ### Implemented Enhancements
-- Added support for Doom Blast (from Impending Doom) [\#5530](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5530) ([ha107642](https://github.com/ha107642))
-- Add support for Manaforged Arrows [\#5968](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5968) ([Nostrademous](https://github.com/Nostrademous))
-* Add support for 3.21 uniques by (@QuickStick123, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5999
-- Add Forged Frostbearer Spectre [\#6014](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6014) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Impending Doom + using it with Vixen's [\#5530](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5530) ([ha107642](https://github.com/ha107642))
+- Add support for Manaforged Arrows [\#5968](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5968) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for 3.21 uniques [\#5999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5999) ([QuickStick123](https://github.com/QuickStick123), [LocalIdentity](https://github.com/LocalIdentity))
+- Add Forged Frostbearer Spectre [\#6014](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6014) ([LocalIdentity](https://github.com/LocalIdentity))
 
 ### Fixed Bugs
-- Fix active skill mods applying to Impending Doom, Prismatic Burst, Predator and Shockwave [\#6015](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6015) ([QuickStick123](https://github.com/QuickStick123))
-- Fix Petrified Blood Low Life recoverable calculation [\#6005](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6005) ([QuickStick123](https://github.com/QuickStick123))
-- Fix Prismatic Burst not choosing 1 damage type for DPS [\#6022](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6022) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Chance to Bleed Support applying to Minions [\#5967](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5967) ([Peechey](https://github.com/Peechey))
-- Fix 'Damage per aura' mastery incorrectly working with some gems [\#6021](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6021) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix max res Armour Mastery incorrectly applying to max Chaos res [\#6026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6026) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Trader not calculating correct weights for hit pool [\#6010](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6010) ([Regisle](https://github.com/Regisle))
-- Fix chance to get flask charge on crit for flask breakdown [\#5856](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5856) ([deathbeam](https://github.com/deathbeam))
+- Fix active skill mods applying to Impending Doom, Prismatic Burst, Predator and Shockwave [\#6015](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6015) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Petrified Blood Low Life recoverable calculation [\#6005](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6005) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Prismatic Burst not choosing 1 damage type for DPS [\#6022](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6022) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Chance to Bleed Support applying to Minions [\#5967](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5967) ([Peechey](https://github.com/Peechey))
+- Fix 'Damage per aura' mastery incorrectly working with some gems [\#6021](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6021) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix max res Armour Mastery incorrectly applying to max Chaos res [\#6026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6026) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Trader not calculating correct weights for hit pool [\#6010](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6010) ([Regisle](https://github.com/Regisle))
+- Fix chance to get flask charge on crit for flask breakdown [\#5856](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5856) ([deathbeam](https://github.com/deathbeam))
 
 ### Accuracy Improvements
-* Update Tombfist to 3.21 by (@QuickStick123, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5998
+- Update Tombfist to 3.21 [\#5998](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5998) ([QuickStick123](https://github.com/QuickStick123), [LocalIdentity](https://github.com/LocalIdentity))
 
 
 ## [v2.27.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.27.2) (2023/04/09)
