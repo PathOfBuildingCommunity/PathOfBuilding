@@ -167,15 +167,15 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 
 			-- Special cases
 			local specialCaseData = { }
-			if statOrder == 1956 then
+			if statOrder == 2010 then
 				specialCaseData.overrideModLine = "+#% Chance to Block"
 				modLine = modLine .. " (Shields)"
-			elseif statOrder == 1881 then
+			elseif statOrder == 1931 then
 				specialCaseData.overrideModLineSingular = "You can apply an additional Curse"
 				if modLine == specialCaseData.overrideModLineSingular then
 					modLine = "You can apply 1 additional Curses"
 				end
-			elseif statOrder == 1512 then
+			elseif statOrder == 1560 then
 				specialCaseData.overrideModLineSingular = "Bow Attacks fire an additional Arrow"
 				if modLine == specialCaseData.overrideModLineSingular then
 					modLine = "Bow Attacks fire 1 additional Arrows"
