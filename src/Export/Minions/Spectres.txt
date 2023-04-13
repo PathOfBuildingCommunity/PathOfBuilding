@@ -226,3 +226,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple # MonsterChanceToTemporalChainsOnHit1
 -- Ancient Wraith
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit
+-- Forged Frostbearer
+#spectre Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac

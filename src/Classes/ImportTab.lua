@@ -879,7 +879,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		for _, line in ipairs(itemData.crucibleMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
-				t_insert(item.crucibleModLines, { line = line, extra = extra, mods = modList or { } })
+				t_insert(item.crucibleModLines, { line = line, extra = extra, mods = modList or { }, crucible = true })
 			end
 		end
 	end

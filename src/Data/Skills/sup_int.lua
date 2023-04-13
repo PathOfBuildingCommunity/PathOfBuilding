@@ -2805,13 +2805,21 @@ skills["ViciousHexExplosion"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Chaos] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SkillGrantedBySupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "No Overlaps",
+		},
+		{
+			name = "Overlaps (# hits per cast)",
+			stages = true,
+		}
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
 		skill("radius", 20),
-		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {
@@ -5406,6 +5414,10 @@ skills["SupportPrismaticBurst"] = {
 	excludeSkillTypes = { SkillType.Triggered, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["trigger_prismatic_burst_on_hit_%_chance"] = {
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -5477,7 +5489,40 @@ skills["PrismaticBurst"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Damage] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.RandomElement] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Cooldown] = true, [SkillType.SkillGrantedBySupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Fire",
+		},
+		{
+			name = "Cold",
+		},
+		{
+			name = "Lightning",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
+	statMap = {
+		["prismatic_burst_unchosen_type_damage_-100%_final"] = {
+			mod("FireDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),
+			mod("ColdDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 3 } }),
+			mod("LightningDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mult = -100,
+		},
+		["spell_damage_+%_per_10_int"] = {
+			skill("Damage", nil, { type = "PerStat", stat = "Int", div = 10 }),
+		},
+		["critical_strike_multiplier_+_if_dexterity_higher_than_intelligence"] = {
+			skill("CritMultiplier", nil, { type = "Condition", var = "DexHigherThanInt" }),
+		},
+		["area_of_effect_+%_per_50_strength"] = {
+			skill("Area", nil, { type = "PerStat", stat = "Str", div = 50 }),
+		},
+	},
 	baseFlags = {
+		spell = true,
+		area = true,
 	},
 	qualityStats = {
 		Default = {

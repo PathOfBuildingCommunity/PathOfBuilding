@@ -1,5 +1,87 @@
 # Changelog
 
+## [v2.28.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.28.0) (2023/04/12)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Implemented Enhancements
+- Add support for Impending Doom + using it with Vixen's [\#5530](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5530) ([ha107642](https://github.com/ha107642))
+- Add support for Manaforged Arrows [\#5968](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5968) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for 3.21 uniques [\#5999](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5999) ([QuickStick123](https://github.com/QuickStick123), [LocalIdentity](https://github.com/LocalIdentity))
+- Add Forged Frostbearer Spectre [\#6014](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6014) ([LocalIdentity](https://github.com/LocalIdentity))
+
+### Fixed Bugs
+- Fix active skill mods applying to Impending Doom, Prismatic Burst, Predator and Shockwave [\#6015](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6015) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Petrified Blood Low Life recoverable calculation [\#6005](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6005) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Prismatic Burst not choosing 1 damage type for DPS [\#6022](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6022) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Chance to Bleed Support applying to Minions [\#5967](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5967) ([Peechey](https://github.com/Peechey))
+- Fix 'Damage per aura' mastery incorrectly working with some gems [\#6021](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6021) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix max res Armour Mastery incorrectly applying to max Chaos res [\#6026](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6026) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Trader not calculating correct weights for hit pool [\#6010](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6010) ([Regisle](https://github.com/Regisle))
+- Fix chance to get flask charge on crit for flask breakdown [\#5856](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5856) ([deathbeam](https://github.com/deathbeam))
+
+### Accuracy Improvements
+- Update Tombfist to 3.21 [\#5998](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5998) ([QuickStick123](https://github.com/QuickStick123), [LocalIdentity](https://github.com/LocalIdentity))
+
+
+## [v2.27.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.27.2) (2023/04/09)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.27.0...v2.27.2)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add support for Prismatic Burst [\#5969](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5969) ([Wires77](https://github.com/Wires77))
+### Fixed Crashes
+- Fix crash in the Trader from not having jewel data [\#5990](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5990) ([Regisle](https://github.com/Regisle))
+### User Interface
+- Correct display of max mana leech rate breakdown [\#5945](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5945) ([Lilylicious](https://github.com/Lilylicious))
+- Fix crucible item colour [\#5989](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5989) ([QuickStick123](https://github.com/QuickStick123))
+### Other changes
+- Fix Flasks incorrectly having "Cannot Leech" on them [\#5981](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5981) ([Wires77](https://github.com/Wires77))
+- Fix + to level of active skill gem mods not working [\#5982](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5982) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Formless Inferno, Uul-Netol's Kiss and Tulborn [\#5995](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5995) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Absolution Enchant Parsing [\#5980](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5980) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Snipe Support + update Assailum [\#5979](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5979) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
+## [v2.27.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.27.0) (2023/04/08)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.26.3...v2.27.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- 3.21 game data update [\#5966](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5966) ([Nostrademous](https://github.com/Nostrademous))
+- Add crucible modifier parsing support [\#5823](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5823) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for mods conditional on the modifiers of other equipped items [\#5819](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5819) ([Nostrademous](https://github.com/Nostrademous))
+- Add Bloodnotch [\#5927](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5927) ([QuickStick123](https://github.com/QuickStick123))
+- Set level mode to manual if default level is above 1 [\#5920](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5920) ([Lilylicious](https://github.com/Lilylicious))
+- Hide the power report on loading a build and unchecking "Show node power" [\#5932](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5932) ([Lilylicious](https://github.com/Lilylicious))
+- Add skill names to cost warnings [\#5931](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5931) ([Paliak](https://github.com/Paliak))
+- Add support for new Low Life and Full Life Masteries [\#5904](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5904) ([Nostrademous](https://github.com/Nostrademous))
+- Add support for Warcry Mastery [\#5955](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5955) ([Peechey](https://github.com/Peechey))
+- Add support for repeat-based modifiers [\#5676](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5676) ([Regisle](https://github.com/Regisle))
+- Add support for Saboteur Ascendancy [\#5954](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5954) ([Peechey](https://github.com/Peechey))
+- Add support for "Skills Cost Life instead of 30% of Mana" Mastery [\#5913](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5913) ([Nostrademous](https://github.com/Nostrademous))
+- Prompt for saving after altering the passive search string [\#5930](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5930) ([Lilylicious](https://github.com/Lilylicious))
+### User Interface
+- Limit separators to non-alphanumeric [\#5922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5922) ([Lilylicious](https://github.com/Lilylicious))
+### Fixed Bugs
+- Fix default state validation for lists and color labels [\#5618](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5618) ([deathbeam](https://github.com/deathbeam))
+- Fix tree data bug related to recovery mastery [\#5964](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5964) ([QuickStick123](https://github.com/QuickStick123))
+- Fix issue where Sceptres and One Handed Maces were considered the same weapon type [\#5942](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5942) ([Peechey](https://github.com/Peechey))
+- Fix Reverberation Rod to add back Controlled Destruction [\#5941](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5941) ([chx](https://github.com/chx))
+- Fix Kaom's Spirit rage regen calculation behaviour [\#5951](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5951) ([Ribel38](https://github.com/Ribel38))
+### Other changes
+- Improve EHP calculation performance when using full DPS [\#5773](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5773) ([Regisle](https://github.com/Regisle))
+- Update a few uniques for 3.21 [\#5971](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5971) ([QuickStick123](https://github.com/QuickStick123))
+
+
 ## [v2.26.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.26.3) (2023/04/05)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.26.2...v2.26.3)

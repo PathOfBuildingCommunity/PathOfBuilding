@@ -5877,7 +5877,7 @@ skills["LancingSteel"] = {
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.dpsMultiplier = 1 + 0.4 * (output.ProjectileCount - 1)
+			activeSkill.skillData.dpsMultiplier = 1 + activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") * (output.ProjectileCount - 1)
 		end
 	end,
 	statMap = {
@@ -5886,6 +5886,9 @@ skills["LancingSteel"] = {
 		},
 		["lancing_steel_damage_+%_at_close_range"] = {
 			mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "DistanceRamp", ramp = {{10,1},{70,0}} }),
+		},
+		["lancing_steel_damage_+%_final_after_first_hit_on_target"] = {
+			mod("LancingSteelSubsequentDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } ),
 		},
 	},
 	baseFlags = {
@@ -10740,8 +10743,13 @@ skills["ChannelledSnipe"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
+		activeSkill.skillData.dpsMultiplier = 1 / math.min(math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1), activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStagesMax"))
 	end,
+	statMap = {
+		["snipe_max_stacks"] = {
+			mod("Multiplier:SnipeStagesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
