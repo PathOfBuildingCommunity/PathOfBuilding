@@ -786,7 +786,11 @@ function stringify(thing)
 		return ""..thing;
 	elseif type(thing) == 'table' then
 		local s = "{";
-		for k,v in pairs(thing) do
+		local keys = { }
+		for key in pairs(thing) do table.insert(keys, key) end
+		table.sort(keys)
+		for _, k in ipairs(keys) do
+			local v = thing[k]
 			s = s.."\n\t"
 			if type(k) == 'number' then
 				s = s.."["..k.."] = "
