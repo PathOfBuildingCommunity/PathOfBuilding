@@ -366,19 +366,19 @@ function TradeQueryGeneratorClass:InitMods()
 	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed, { ["Flask"] = true })
 
 	-- Special handling for essences
-	-- for _, essenceItem in pairs(data.essences) do
-	-- 	for tag, modId in pairs(essenceItem.mods) do
-	-- 		local itemCategoriesOverride = {} -- build a list of relevant categories.
-	-- 		for category, tags in pairs(craftedCategoryTags) do
-	-- 			for _, matchTag in pairs(tags) do
-	-- 				if tag == matchTag  then
-	-- 					itemCategoriesOverride[category] = tags
-	-- 				end
-	-- 			end
-	-- 		end
-	-- 		self:ProcessMod(modId, data.itemMods.Item[modId], tradeQueryStatsParsed, regularItemMask, itemCategoriesOverride)
-	-- 	end
-	-- end
+	for _, essenceItem in pairs(data.essences) do
+		for tag, modId in pairs(essenceItem.mods) do
+			local itemCategoriesOverride = {} -- build a list of relevant categories.
+			for category, tags in pairs(craftedCategoryTags) do
+				for _, matchTag in pairs(tags) do
+					if tag == matchTag  then
+						itemCategoriesOverride[category] = tags
+					end
+				end
+			end
+			self:ProcessMod(modId, data.itemMods.Item[modId], tradeQueryStatsParsed, regularItemMask, itemCategoriesOverride)
+		end
+	end
 
 	regularItemMask.Flask = true -- Update mask as flasks can have crafted mods.
 	self:GenerateModData(data.masterMods, tradeQueryStatsParsed, regularItemMask)
