@@ -380,8 +380,8 @@ function TradeQueryGeneratorClass:InitMods()
 	-- 	end
 	-- end
 
-	-- regularItemMask.Flask = true -- Update mask as flasks can have crafted mods.
-	-- self:GenerateModData(data.masterMods, tradeQueryStatsParsed, regularItemMask)
+	regularItemMask.Flask = true -- Update mask as flasks can have crafted mods.
+	self:GenerateModData(data.masterMods, tradeQueryStatsParsed, regularItemMask)
 
 	-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
 	for baseName, entry in pairs(data.itemBases) do
