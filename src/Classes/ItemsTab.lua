@@ -620,20 +620,21 @@ holding Shift will put it in the second.]])
 	for i = 1, 6 do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.displayItemSectionAffix
 		local drop, slider
-		local function verifyRange(range, index, drop)
+		local function verifyRange(range, index, drop) -- flips range if it will form discontinuous values
 			local priorMod = index - 1 > 0 and self.displayItem.affixes[drop.list[drop.selIndex].modList[index - 1]] or nil
 			local nextMod = index + 1 < #drop.list[drop.selIndex].modList and self.displayItem.affixes[drop.list[drop.selIndex].modList[index + 1]] or nil
-			local function flipRange(modA, modB) -- assume all pairs are incorrectly orientated.
-				local function getMinMax(mod) -- gets first range pair
+			local function flipRange(modA, modB) -- assumes all pairs are ordered the same
+				local function getMinMax(mod) -- gets first valid range from a mod
 					for _, line in ipairs(mod) do
 						local min, max = line:match("%((%d[%d%.]*)%-(%d[%d%.]*)%)")
 						if min and max then return tonumber(min), tonumber(max)	end
 					end
 				end
+
 				local minA, maxA = getMinMax(modA)
 				local minB, maxB = getMinMax(modB)
 				
-				if(minA and minB and maxA and maxB) then
+				if (minA and minB and maxA and maxB) then
 					if (minA < minB) then -- ascending
 						return minA + 1 == maxB
 					else -- descending
@@ -642,6 +643,7 @@ holding Shift will put it in the second.]])
 				end
 				return false
 			end
+			
 			if priorMod then
 				if flipRange(priorMod, self.displayItem.affixes[drop.list[drop.selIndex].modList[index]]) then
 					range = 1 - range
