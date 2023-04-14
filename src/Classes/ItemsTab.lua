@@ -620,6 +620,39 @@ holding Shift will put it in the second.]])
 	for i = 1, 6 do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.displayItemSectionAffix
 		local drop, slider
+		local function verifyRange(range, index, drop)
+			local priorMod = index - 1 > 0 and self.displayItem.affixes[drop.list[drop.selIndex].modList[index - 1]] or nil
+			local nextMod = index + 1 < #drop.list[drop.selIndex].modList and self.displayItem.affixes[drop.list[drop.selIndex].modList[index + 1]] or nil
+			local function flipRange(modA, modB) -- assume all pairs are incorrectly orientated.
+				local function getMinMax(mod) -- gets first range pair
+					for _, line in ipairs(mod) do
+						local min, max = line:match("%((%d[%d%.]*)%-(%d[%d%.]*)%)")
+						if min and max then return tonumber(min), tonumber(max)	end
+					end
+				end
+				local minA, maxA = getMinMax(modA)
+				local minB, maxB = getMinMax(modB)
+				
+				if(minA and minB and maxA and maxB) then
+					if (minA < minB) then -- ascending
+						return minA + 1 == maxB
+					else -- descending
+						return minA - 1 == maxB
+					end
+				end
+				return false
+			end
+			if priorMod then
+				if flipRange(priorMod, self.displayItem.affixes[drop.list[drop.selIndex].modList[index]]) then
+					range = 1 - range
+				end
+			elseif nextMod then
+				if flipRange(self.displayItem.affixes[drop.list[drop.selIndex].modList[index]], nextMod) then
+					range = 1 - range
+				end
+			end
+			return range
+		end
 		drop = new("DropDownControl", {"TOPLEFT",prev,"TOPLEFT"}, i==1 and 40 or 0, 0, 418, 20, nil, function(index, value)
 			local affix = { modId = "None" }
 			if value.modId then
@@ -629,7 +662,7 @@ holding Shift will put it in the second.]])
 				slider.divCount = #value.modList
 				local index, range = slider:GetDivVal()
 				affix.modId = value.modList[index]
-				affix.range = range
+				affix.range = verifyRange(range, index, drop)
 			end
 			self.displayItem[drop.outputTable][drop.outputIndex] = affix
 			self.displayItem:Craft()
@@ -753,7 +786,8 @@ holding Shift will put it in the second.]])
 			local affix = self.displayItem[drop.outputTable][drop.outputIndex]
 			local index, range = slider:GetDivVal()
 			affix.modId = drop.list[drop.selIndex].modList[index]
-			affix.range = range
+
+			affix.range = verifyRange(range, index, drop)
 			self.displayItem:Craft()
 			self:UpdateDisplayItemTooltip()
 		end)
