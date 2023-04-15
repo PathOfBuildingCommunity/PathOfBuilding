@@ -48,7 +48,6 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	for id, node in pairs(self.nodes) do
 		-- if the node is allocated and between the old and new tree has the same ID but does not share the same name, add to list of nodes to be ignored
 		if convert and previousTreeNodes[id] and self.build.spec.allocNodes[id] and node.name ~= previousTreeNodes[id].name then
-			previousTreeNodes[id].incompatible = true
 			self.ignoredNodes[id] = previousTreeNodes[id]
 		end
 		for _, otherId in ipairs(node.linkedId) do
@@ -266,7 +265,6 @@ function PassiveSpecClass:AllocateMasteryEffects(masteryEffects, xml)
 				end
 			else
 				-- if there is no effect/selection on the latest tree then we do not want to allocate the mastery
-				self.ignoredNodes[id] = self.allocNodes[id]
 				self.allocNodes[id] = nil
 				self.nodes[id].alloc = false
 			end
@@ -914,9 +912,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					node.reminderText = { "Tip: Right click to select a different effect" }
 					self.tree:ProcessStats(node)
 					self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-					if node.name == "Life Mastery" then
-						self.allocatedLifeMasteryCount = self.allocatedLifeMasteryCount + 1
-					end
 					if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
 						self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
 						self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1

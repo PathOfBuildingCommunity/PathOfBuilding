@@ -18,31 +18,6 @@ local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
 
--- on convert, add nodes that were deallocated to success popup
-local function addAffectedNodes(self, msg)
-	local sortedTable = { }
-	if self.build.spec.ignoredNodes and next(self.build.spec.ignoredNodes) then
-		for _, node in pairs(self.build.spec.ignoredNodes) do
-			if node.ascendancyName then
-				if node.incompatible then
-					t_insert(sortedTable, node.ascendancyName  .. ": " .. node.name .. " (incompatible)")
-				else
-					t_insert(sortedTable, node.ascendancyName  .. ": " .. node.name)
-				end
-			elseif node.incompatible then
-				t_insert(sortedTable, (node.name or node.dn) .. " (incompatible)")
-			elseif not node.allMasteryOptions then
-				t_insert(sortedTable, node.name)
-			else
-				t_insert(sortedTable, node.dn)
-			end
-		end
-		t_sort(sortedTable)
-		msg = msg .. "\n\n Total # of affected passives: " .. #sortedTable .. "\n\n" .. t_concat(sortedTable, "\n")
-	end
-	return msg
-end
-
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
 
@@ -205,9 +180,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
 		self:SetActiveSpec(self.activeSpec + 1)
 		self.modFlag = true
-		local msg = "The tree has been converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left."
-		msg = addAffectedNodes(self, msg)
-		main:OpenMessagePopup("Tree Converted", msg)
+		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
