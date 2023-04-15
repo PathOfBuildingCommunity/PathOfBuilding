@@ -56,32 +56,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	MakeDir("TreeData")
 
 	ConPrintf("Loading passive tree data for version '%s'...", treeVersions[treeVersion].display)
-	local treeText
-	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
-	if treeFile then
-		treeText = treeFile:read("*a")
-		treeFile:close()
-	else
-		ConPrintf("Downloading passive tree data...")
-		local page
-		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
-		if pageFile then
-			page = pageFile:read("*a")
-			pageFile:close()
-		else
-			page = getFile("https://www.pathofexile.com/passive-skill-tree")
-		end
-		local treeData = page:match("var passiveSkillTreeData = (%b{})")
-		if treeData then
-			treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
-			treeText = treeText .. "return tree"
-		else
-			treeText = "return " .. jsonToLua(page)
-		end
-		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
-		treeFile:write(treeText)
-		treeFile:close()
-	end
+	local treeText = self:GetTreeText(treeVersion)
 	for k, v in pairs(assert(loadstring(treeText))()) do
 		self[k] = v
 	end
@@ -499,6 +474,36 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	-- Late load the Generated data so we can take advantage of a tree existing
 	buildTreeDependentUniques(self)
 end)
+
+function PassiveTreeClass:GetTreeText(treeVersion)
+	local treeText
+	local treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "r")
+	if treeFile then
+		treeText = treeFile:read("*a")
+		treeFile:close()
+	else
+		ConPrintf("Downloading passive tree data...")
+		local page
+		local pageFile = io.open("TreeData/"..treeVersion.."/data.json", "r")
+		if pageFile then
+			page = pageFile:read("*a")
+			pageFile:close()
+		else
+			page = getFile("https://www.pathofexile.com/passive-skill-tree")
+		end
+		local treeData = page:match("var passiveSkillTreeData = (%b{})")
+		if treeData then
+			treeText = "local tree=" .. jsonToLua(page:match("var passiveSkillTreeData = (%b{})"))
+			treeText = treeText .. "return tree"
+		else
+			treeText = "return " .. jsonToLua(page)
+		end
+		treeFile = io.open("TreeData/"..treeVersion.."/tree.lua", "w")
+		treeFile:write(treeText)
+		treeFile:close()
+	end
+	return treeText
+end
 
 function PassiveTreeClass:ProcessStats(node)
 	node.modKey = ""

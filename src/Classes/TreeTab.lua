@@ -171,7 +171,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return self.showConvert
 	end
 	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
-		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
+		local newSpec = new("PassiveSpec", self.build, latestTreeVersion, self.specList[self.activeSpec or 1].treeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
 		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), latestTreeVersion)

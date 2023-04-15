@@ -13,20 +13,22 @@ local m_max = math.max
 local m_floor = math.floor
 local b_lshift = bit.lshift
 
-local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion)
+local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, previousVersion)
 	self.UndoHandler()
 
 	self.build = build
 
 	-- Initialise and build all tables
-	self:Init(treeVersion)
+	self:Init(treeVersion, previousVersion)
 
 	self:SelectClass(0)
 end)
 
-function PassiveSpecClass:Init(treeVersion)
+function PassiveSpecClass:Init(treeVersion, previousVersion)
 	self.treeVersion = treeVersion
 	self.tree = main:LoadTree(treeVersion)
+	local previousVersion = previousVersion
+	local previousTreeData
 
 	-- Make a local copy of the passive tree that we can modify
 	self.nodes = { }
@@ -39,7 +41,16 @@ function PassiveSpecClass:Init(treeVersion)
 			}, treeNode)
 		end
 	end
+	-- while converting, get previous tree data for comparing nodes
+	if previousVersion then
+		previousTreeData = assert(loadstring(self.build.spec.tree:GetTreeText(previousVersion)))()
+	end
 	for id, node in pairs(self.nodes) do
+		-- if the node is allocated and between the old and new tree has the same ID but does not share the same name, remove
+		if previousTreeData and previousTreeData.nodes[id] and node.name ~= previousTreeData.nodes[id].name and self.build.spec.allocNodes[id] then
+			self.build.spec.allocNodes[id] = nil
+		end
+
 		for _, otherId in ipairs(node.linkedId) do
 			t_insert(node.linked, self.nodes[otherId])
 		end
@@ -123,7 +134,7 @@ function PassiveSpecClass:Load(xml, dbFileName)
 		end
 		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, masteryEffects)
 	elseif url then
-		self:DecodeURL(url)
+		self:DecodeURL(url, xml)
 	end
 	self:ResetUndo()
 end
@@ -178,11 +189,22 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, m
 	end
 	self:ResetNodes()
 	self:SelectClass(classId)
+	-- move above setting allocNodes so we can compare mastery with selection
+	wipeTable(self.masterySelections)
+	for mastery, effect in pairs(masteryEffects) do
+		-- ignore ggg codes from profile import
+		if (tonumber(effect) < 65536) then
+			self.masterySelections[mastery] = effect
+		end
+	end
 	for _, id in pairs(hashList) do
 		local node = self.nodes[id]
 		if node then
-			node.alloc = true
-			self.allocNodes[id] = node
+			-- check to make sure the mastery node has a corresponding selection, if not do not allocate
+			if node.type ~= "Mastery" or (node.type == "Mastery" and self.masterySelections[id]) then
+				node.alloc = true
+				self.allocNodes[id] = node
+			end
 		else
 			t_insert(self.allocSubgraphNodes, id)
 		end
@@ -192,13 +214,6 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, m
 		if node then
 			node.alloc = true
 			self.allocNodes[id] = node
-		end
-	end
-	wipeTable(self.masterySelections)
-	for mastery, effect in pairs(masteryEffects) do
-		-- ignore ggg codes from profile import
-		if (tonumber(effect) < 65536) then
-			self.masterySelections[mastery] = effect
 		end
 	end
 	self:SelectAscendClass(ascendClassId)
@@ -218,33 +233,46 @@ function PassiveSpecClass:AllocateDecodedNodes(nodes, isCluster)
 	end
 end
 
-function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
+function PassiveSpecClass:AllocateMasteryEffects(masteryEffects, xml)
 	for i = 1, #masteryEffects - 1, 4 do
 		local effectId = masteryEffects:byte(i) * 256 + masteryEffects:byte(i + 1)
 		local id  = masteryEffects:byte(i + 2) * 256 + masteryEffects:byte(i + 3)
 
 		local effect = self.tree.masteryEffects[effectId]
-		self.allocNodes[id].sd = effect.sd
-		self.allocNodes[id].allMasteryOptions = false
-		self.allocNodes[id].reminderText = { "Tip: Right click to select a different effect" }
-		self.tree:ProcessStats(self.allocNodes[id])
-		self.masterySelections[id] = effectId
-		self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-		if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
-			self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
-			self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+		-- if the masteryEffect from the xml is not in the xml tree and the version is not the latest
+		-- reset PassiveSpec and try again in case the masteryEffect is in the latest tree
+		if not effect and self.treeVersion ~= latestTreeVersion then
+			self:Init(latestTreeVersion)
+			self:Load(xml)
 		else
-			local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
-			self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
-			if prevCount == 0 then
-				self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+			if effect then
+				self.allocNodes[id].sd = effect.sd
+				self.allocNodes[id].allMasteryOptions = false
+				self.allocNodes[id].reminderText = { "Tip: Right click to select a different effect" }
+				self.tree:ProcessStats(self.allocNodes[id])
+				self.masterySelections[id] = effectId
+				self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+				if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
+					self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
+					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+				else
+					local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
+					self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
+					if prevCount == 0 then
+						self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+					end
+				end
+			else
+				-- if there is no effect/selection on the latest tree then we do not want to allocate the mastery
+				self.allocNodes[id] = nil
+				self.nodes[id].alloc = false
 			end
 		end
 	end
 end
 
 -- Decode the given passive tree URL
-function PassiveSpecClass:DecodeURL(url)
+function PassiveSpecClass:DecodeURL(url, xml)
 	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
 	if not b or #b < 6 then
 		return "Invalid tree link (unrecognised format)"
@@ -285,7 +313,7 @@ function PassiveSpecClass:DecodeURL(url)
 	local masteryStart = clusterEnd + 1
 	local masteryEnd = masteryStart + (b:byte(masteryStart) * 4)
 	local masteryEffects = b:sub(masteryStart + 1, masteryEnd)
-	self:AllocateMasteryEffects(masteryEffects)
+	self:AllocateMasteryEffects(masteryEffects, xml)
 end
 
 -- Encodes the current spec into a URL, using the official skill tree's format
@@ -873,7 +901,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.nodes) do
 		if node.type == "Mastery" and self.masterySelections[id] then
 			local effect = self.tree.masteryEffects[self.masterySelections[id]]
-			if effect then
+			if effect and self.allocNodes[id] then
 				node.sd = effect.sd
 				node.allMasteryOptions = false
 				node.reminderText = { "Tip: Right click to select a different effect" }
