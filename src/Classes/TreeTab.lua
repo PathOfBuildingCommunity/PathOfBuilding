@@ -38,7 +38,7 @@ local function addAffectedNodes(self, msg)
 			end
 		end
 		t_sort(sortedTable)
-		msg = msg .. "\n\n Affected passives from previous version: \n" .. t_concat(sortedTable, "\n")
+		msg = msg .. "\n\n Total # of affected passives: " .. #sortedTable .. "\n\n" .. t_concat(sortedTable, "\n")
 	end
 	return msg
 end
