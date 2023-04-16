@@ -931,8 +931,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				else
 					self.nodes[id].alloc = false
 					self.allocNodes[id] = nil
-					-- grab the node of the spec being converted to display later to the user
-					-- self.ignoredNodes[id] = self.build.treeTab.specList[self.build.treeTab.activeSpec-1].nodes[id]
 					self.masterySelections[id] = nil
 				end
 			elseif node.type == "Mastery" then
