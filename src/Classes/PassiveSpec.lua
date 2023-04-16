@@ -8,27 +8,31 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local t_concat = table.concat
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local b_lshift = bit.lshift
 
-local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, previousVersion)
+local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, convert)
 	self.UndoHandler()
 
 	self.build = build
 
 	-- Initialise and build all tables
-	self:Init(treeVersion, previousVersion)
+	self:Init(treeVersion, convert)
 
 	self:SelectClass(0)
 end)
 
-function PassiveSpecClass:Init(treeVersion, previousVersion)
+function PassiveSpecClass:Init(treeVersion, convert)
 	self.treeVersion = treeVersion
 	self.tree = main:LoadTree(treeVersion)
-	local previousVersion = previousVersion
-	local previousTreeData
+	self.ignoredNodes = { }
+	local previousTreeNodes = { }
+	if convert then
+		previousTreeNodes = self.build.spec.nodes
+	end
 
 	-- Make a local copy of the passive tree that we can modify
 	self.nodes = { }
@@ -41,16 +45,12 @@ function PassiveSpecClass:Init(treeVersion, previousVersion)
 			}, treeNode)
 		end
 	end
-	-- while converting, get previous tree data for comparing nodes
-	if previousVersion then
-		previousTreeData = assert(loadstring(self.build.spec.tree:GetTreeText(previousVersion)))()
-	end
 	for id, node in pairs(self.nodes) do
-		-- if the node is allocated and between the old and new tree has the same ID but does not share the same name, remove
-		if previousTreeData and previousTreeData.nodes[id] and node.name ~= previousTreeData.nodes[id].name and self.build.spec.allocNodes[id] then
-			self.build.spec.allocNodes[id] = nil
+		-- if the node is allocated and between the old and new tree has the same ID but does not share the same name, add to list of nodes to be ignored
+		if convert and previousTreeNodes[id] and self.build.spec.allocNodes[id] and node.name ~= previousTreeNodes[id].name then
+			previousTreeNodes[id].incompatible = true
+			self.ignoredNodes[id] = previousTreeNodes[id]
 		end
-
 		for _, otherId in ipairs(node.linkedId) do
 			t_insert(node.linked, self.nodes[otherId])
 		end
@@ -204,6 +204,8 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, m
 			if node.type ~= "Mastery" or (node.type == "Mastery" and self.masterySelections[id]) then
 				node.alloc = true
 				self.allocNodes[id] = node
+			else
+				self.ignoredNodes[id] = node
 			end
 		else
 			t_insert(self.allocSubgraphNodes, id)
@@ -264,6 +266,7 @@ function PassiveSpecClass:AllocateMasteryEffects(masteryEffects, xml)
 				end
 			else
 				-- if there is no effect/selection on the latest tree then we do not want to allocate the mastery
+				self.ignoredNodes[id] = self.allocNodes[id]
 				self.allocNodes[id] = nil
 				self.nodes[id].alloc = false
 			end
@@ -899,32 +902,44 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	self.allocatedMasteryTypes = { }
 	self.allocatedMasteryTypeCount = 0
 	for id, node in pairs(self.nodes) do
-		if node.type == "Mastery" and self.masterySelections[id] then
-			local effect = self.tree.masteryEffects[self.masterySelections[id]]
-			if effect and self.allocNodes[id] then
-				node.sd = effect.sd
-				node.allMasteryOptions = false
-				node.reminderText = { "Tip: Right click to select a different effect" }
-				self.tree:ProcessStats(node)
-				self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-				if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
-					self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
-					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
-				else
-					local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
-					self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
-					if prevCount == 0 then
-						self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+		if self.ignoredNodes[id] and self.allocNodes[id] then
+			self.nodes[id].alloc = false
+			self.allocNodes[id] = nil
+		else
+			if node.type == "Mastery" and self.masterySelections[id] then
+				local effect = self.tree.masteryEffects[self.masterySelections[id]]
+				if effect and self.allocNodes[id] then
+					node.sd = effect.sd
+					node.allMasteryOptions = false
+					node.reminderText = { "Tip: Right click to select a different effect" }
+					self.tree:ProcessStats(node)
+					self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+					if node.name == "Life Mastery" then
+						self.allocatedLifeMasteryCount = self.allocatedLifeMasteryCount + 1
 					end
+					if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
+						self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
+						self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+					else
+						local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
+						self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
+						if prevCount == 0 then
+							self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+						end
+					end
+				-- if the tree doesn't recognize the mastery selection or if we have a selection on a mastery that isn't allocated
+				else
+					self.nodes[id].alloc = false
+					self.allocNodes[id] = nil
+					-- grab the node of the spec being converted to display later to the user
+					-- self.ignoredNodes[id] = self.build.treeTab.specList[self.build.treeTab.activeSpec-1].nodes[id]
+					self.masterySelections[id] = nil
 				end
-			else
-				self.nodes[id].alloc = false
-				self.allocNodes[id] = nil
+			elseif node.type == "Mastery" then
+				self:AddMasteryEffectOptionsToNode(node)
+			elseif node.type == "Notable" and node.alloc then
+				self.allocatedNotableCount = self.allocatedNotableCount + 1
 			end
-		elseif node.type == "Mastery" then
-			self:AddMasteryEffectOptionsToNode(node)
-		elseif node.type == "Notable" and node.alloc then
-			self.allocatedNotableCount = self.allocatedNotableCount + 1
 		end
 	end
 
@@ -1013,6 +1028,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				end
 				if prune then
 					self:DeallocSingleNode(depNode)
+					self.ignoredNodes[depNode.id] = depNode
 				end
 			end
 		end
