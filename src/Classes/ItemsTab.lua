@@ -2874,7 +2874,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			tooltip:AddLine(16, "^xFF5555Exclusive to: "..item.league)
 		end
 		if item.unreleased then
-			tooltip:AddLine(16, "^1Not yet available")
+			tooltip:AddLine(16, colorCodes.NEGATIVE.."Not yet available")
 		end
 		if item.source then
 			tooltip:AddLine(16, colorCodes.SOURCE.."Source: "..self:FormatItemSource(item.source))
@@ -3100,13 +3100,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			tooltip:AddSeparator(10)
 		end
 		if item.split then
-			tooltip:AddLine(16, "^1Split")
+			tooltip:AddLine(16, colorCodes.NEGATIVE.."Split")
 		end
 		if item.mirrored then
-			tooltip:AddLine(16, "^1Mirrored")
+			tooltip:AddLine(16, colorCodes.NEGATIVE.."Mirrored")
 		end
 		if item.corrupted then
-			tooltip:AddLine(16, "^1Corrupted")
+			tooltip:AddLine(16, colorCodes.NEGATIVE.."Corrupted")
 		end
 	end
 	tooltip:AddSeparator(14)

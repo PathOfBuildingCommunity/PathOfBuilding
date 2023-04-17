@@ -922,7 +922,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
 				end
 				if node.mods[i].extra then
-					modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
+					modStr = (modStr and modStr.."  " or "") .. colorCodes.NEGATIVE .. node.mods[i].extra
 				end
 				if modStr then
 					line = line .. "  " .. modStr
