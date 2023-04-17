@@ -734,8 +734,8 @@ function main:OpenOptionsPopup()
 			self.colorPositive = buf
 		end
 	end)
-	controls.colorPositiveLabel = new("LabelControl", { "RIGHT", controls.colorPositive, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex color for positive values:")
-	controls.colorPositive.tooltipText = "Overrides the default hex color for positive values in breakdowns. \nExpected format is 0x000000. " ..
+	controls.colorPositiveLabel = new("LabelControl", { "RIGHT", controls.colorPositive, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex colour for positive values:")
+	controls.colorPositive.tooltipText = "Overrides the default hex colour for positive values in breakdowns. \nExpected format is 0x000000. " ..
 		"The default value is " .. tostring(defaultColorCodes.POSITIVE:gsub('^(^)', '0')) .. ".\nIf updating while inside a build, please re-load the build after saving."
 
 	nextRow()
@@ -746,8 +746,8 @@ function main:OpenOptionsPopup()
 			self.colorNegative = buf
 		end
 	end)
-	controls.colorNegativeLabel = new("LabelControl", { "RIGHT", controls.colorNegative, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex color for negative values:")
-	controls.colorNegative.tooltipText = "Overrides the default hex color for negative values in breakdowns. \nExpected format is 0x000000. " ..
+	controls.colorNegativeLabel = new("LabelControl", { "RIGHT", controls.colorNegative, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex colour for negative values:")
+	controls.colorNegative.tooltipText = "Overrides the default hex colour for negative values in breakdowns. \nExpected format is 0x000000. " ..
 		"The default value is " .. tostring(defaultColorCodes.NEGATIVE:gsub('^(^)', '0')) .. ".\nIf updating while inside a build, please re-load the build after saving."
 
 	nextRow()
