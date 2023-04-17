@@ -2490,6 +2490,25 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
+		elseif sourceId == "CRUCIBLE" then
+			for i, mod in pairs(self.build.data.crucible) do
+				if self.displayItem:GetModSpawnWeight(mod) > 0 then
+					t_insert(modList, {
+						label = table.concat(mod, "/") .. " (Tier: " .. mod.tier .. ") - Node: " .. table.concat(mod.nodeLocation, "/"),
+						mod = mod,
+						affixType = mod.type,
+						type = "crucible",
+						defaultOrder = i,
+					})
+				end
+			end
+			table.sort(modList, function(a, b)
+				if a.affixType ~= b.affixType then
+					return a.affixType == "Spawn" and b.affixType == "Notable"
+				else
+					return a.defaultOrder < b.defaultOrder
+				end
+			end)
 		end
 	end
 	if self.displayItem.type ~= "Jewel" then
@@ -2503,6 +2522,9 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	end
 	if self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
+	end
+	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
+		t_insert(sourceList, { label = "Crucible", sourceId = "CRUCIBLE"})
 	end
 	if not self.displayItem.crafted then
 		t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
