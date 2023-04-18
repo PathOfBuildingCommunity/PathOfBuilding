@@ -2641,64 +2641,20 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		return item
 	end
 
-	controls.modSelectNode1Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Node 1:")
-	controls.modSelectNode1 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 555, 18, modList[1])
-	controls.modSelectNode1.tooltipFunc = function(tooltip, mode, index, value)
-		tooltip:Clear()
-		if mode ~= "OUT" and value and value ~= "None" then
-			for _, line in ipairs(value.mod) do
-				tooltip:AddLine(16, "^7"..line)
+	local y = 45
+	for i = 1,5 do
+		controls["modSelectNode"..i.."Label"] = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, y, 0, 16, "^7Node "..i..":")
+		controls["modSelectNode"..i] = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, y, 555, 18, modList[i])
+		controls["modSelectNode"..i].tooltipFunc = function(tooltip, mode, index, value)
+			tooltip:Clear()
+			if mode ~= "OUT" and value and value ~= "None" then
+				for _, line in ipairs(value.mod) do
+					tooltip:AddLine(16, "^7"..line)
+				end
+				self:AddModComparisonTooltip(tooltip, value.mod)
 			end
-			self:AddModComparisonTooltip(tooltip, value.mod)
 		end
-	end
-
-	controls.modSelectNode2Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 67, 0, 16, "^7Node 2:")
-	controls.modSelectNode2 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 67, 555, 18, modList[2])
-	controls.modSelectNode2.tooltipFunc = function(tooltip, mode, index, value)
-		tooltip:Clear()
-		if mode ~= "OUT" and value and value ~= "None" then
-			for _, line in ipairs(value.mod) do
-				tooltip:AddLine(16, "^7"..line)
-			end
-			self:AddModComparisonTooltip(tooltip, value.mod)
-		end
-	end
-
-	controls.modSelectNode3Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 89, 0, 16, "^7Node 3:")
-	controls.modSelectNode3 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 89, 555, 18, modList[3])
-	controls.modSelectNode3.tooltipFunc = function(tooltip, mode, index, value)
-		tooltip:Clear()
-		if mode ~= "OUT" and value and value ~= "None" then
-			for _, line in ipairs(value.mod) do
-				tooltip:AddLine(16, "^7"..line)
-			end
-			self:AddModComparisonTooltip(tooltip, value.mod)
-		end
-	end
-
-	controls.modSelectNode4Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 111, 0, 16, "^7Node 4:")
-	controls.modSelectNode4 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 111, 555, 18, modList[4])
-	controls.modSelectNode4.tooltipFunc = function(tooltip, mode, index, value)
-		tooltip:Clear()
-		if mode ~= "OUT" and value and value ~= "None" then
-			for _, line in ipairs(value.mod) do
-				tooltip:AddLine(16, "^7"..line)
-			end
-			self:AddModComparisonTooltip(tooltip, value.mod)
-		end
-	end
-
-	controls.modSelectNode5Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 133, 0, 16, "^7Node 5:")
-	controls.modSelectNode5 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 133, 555, 18, modList[5])
-	controls.modSelectNode5.tooltipFunc = function(tooltip, mode, index, value)
-		tooltip:Clear()
-		if mode ~= "OUT" and value and value ~= "None" then
-			for _, line in ipairs(value.mod) do
-				tooltip:AddLine(16, "^7"..line)
-			end
-			self:AddModComparisonTooltip(tooltip, value.mod)
-		end
+		y = y + 22
 	end
 	controls.save = new("ButtonControl", nil, -45, 157, 80, 20, "Add", function()
 		self:SetDisplayItem(addModifier())
