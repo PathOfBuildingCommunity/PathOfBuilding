@@ -1675,9 +1675,15 @@ end
 function ItemsTabClass:UpdateCustomControls()
 	local item = self.displayItem
 	local i = 1
+	local modLines = copyTable(item.explicitModLines)
+	if item.crucibleModLines and #item.crucibleModLines > 0 then
+		for _, line in ipairs(item.crucibleModLines) do
+			t_insert(modLines, line)
+		end
+	end
 	if item.rarity == "MAGIC" or item.rarity == "RARE" then
-		for index, modLine in ipairs(item.explicitModLines) do
-			if modLine.custom or modLine.crafted then
+		for index, modLine in ipairs(modLines) do
+			if modLine.custom or modLine.crafted or modLine.crucible then
 				local line = itemLib.formatModLine(modLine)
 				if line then
 					if not self.controls["displayItemCustomModifier"..i] then
@@ -1691,9 +1697,13 @@ function ItemsTabClass:UpdateCustomControls()
 						label = label:sub(1, DrawStringCursorIndex(16, "VAR", label, 310, 10)) .. "..."
 					end
 					self.controls["displayItemCustomModifier"..i].label = label
-					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and "^7Crafted:" or "^7Custom:"
+					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and "^7Crafted:" or modLine.crucible and "^7Crucible:" or "^7Custom:"
 					self.controls["displayItemCustomModifierRemove"..i].onClick = function()
-						t_remove(item.explicitModLines, index)
+						if index > #item.explicitModLines then
+							t_remove(item.crucibleModLines, index - #item.explicitModLines)
+						else
+							t_remove(item.explicitModLines, index)
+						end
 						item:BuildAndParseRaw()
 						local id = item.id
 						self:CreateDisplayItemFromRaw(item:BuildRaw())
