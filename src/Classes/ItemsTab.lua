@@ -807,6 +807,17 @@ holding Shift will put it in the second.]])
 		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")
 	end
 
+	-- Section: Crucible modifiers
+	self.controls.displayItemSectionCrucible = new("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT"}, 128, 0, 0, function()
+		return self.controls.displayItemAddCustom:IsShown() and 28 + self.displayItem.customCount * 22 or 0
+	end)
+	self.controls.displayItemAddCrucible = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCrucible,"TOPLEFT"}, 0, 0, 135, 20, "Add Crucible mod...", function()
+		self:AddCrucibleModifierToDisplayItem()
+	end)
+	self.controls.displayItemAddCrucible.shown = function()
+		return self.displayItem and (self.displayItem:GetPrimarySlot() == "Weapon 1" or self.displayItem.type == "Shield")
+	end
+
 	-- Section: Modifier Range
 	self.controls.displayItemSectionRange = new("Control", {"TOPLEFT",self.controls.displayItemSectionCustom,"BOTTOMLEFT"}, 0, 0, 0, function()
 		return self.displayItem.rangeLineList[1] and 28 or 0
@@ -2490,25 +2501,6 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 					return a.defaultOrder < b.defaultOrder
 				end
 			end)
-		elseif sourceId == "CRUCIBLE" then
-			for i, mod in pairs(self.build.data.crucible) do
-				if self.displayItem:GetModSpawnWeight(mod) > 0 then
-					t_insert(modList, {
-						label = table.concat(mod, "/") .. " (Tier: " .. mod.tier .. ") - Node: " .. table.concat(mod.nodeLocation, "/"),
-						mod = mod,
-						affixType = mod.type,
-						type = "crucible",
-						defaultOrder = i,
-					})
-				end
-			end
-			table.sort(modList, function(a, b)
-				if a.affixType ~= b.affixType then
-					return a.affixType == "Spawn" and b.affixType == "Notable"
-				else
-					return a.defaultOrder < b.defaultOrder
-				end
-			end)
 		end
 	end
 	if self.displayItem.type ~= "Jewel" then
@@ -2522,9 +2514,6 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	end
 	if self.displayItem.type ~= "Flask" then
 		t_insert(sourceList, { label = "Delve", sourceId = "DELVE"})
-	end
-	if self.displayItem.type ~= "Jewel" and self.displayItem.type ~= "Flask" then
-		t_insert(sourceList, { label = "Crucible", sourceId = "CRUCIBLE"})
 	end
 	if not self.displayItem.crafted then
 		t_insert(sourceList, { label = "Prefix", sourceId = "PREFIX" })
@@ -2585,6 +2574,134 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
+end
+
+-- Opens the crucible modifier popup
+function ItemsTabClass:AddCrucibleModifierToDisplayItem()
+	local controls = { }
+	local modList = {[1] = {"None"}, [2] = {"None"}, [3] = {"None"}, [4] = {"None"}, [5] = {"None"}}
+	---Mutates modList to contain mods from the specified source
+	---@param sourceId string @The crafting source id to build the list of mods for
+	local function buildMods(sourceId)
+		for i, mod in pairs(self.build.data.crucible) do
+			if self.displayItem:GetModSpawnWeight(mod) > 0 then
+				for _, location in ipairs(mod.nodeLocation) do
+					t_insert(modList[location], {
+						label = table.concat(mod, "/") .. " - Tier: " .. mod.tier,
+						mod = mod,
+						affixType = mod.type,
+						type = "crucible",
+						defaultOrder = i,
+					})
+				end
+			end
+		end
+		for _, tierList in ipairs(modList) do
+			table.sort(tierList, function(a, b)
+				if b ~= "None" then
+					if a.affixType ~= b.affixType then
+						return a.affixType == "Spawn" and b.affixType == "MergeOnly"
+					else
+						return a.defaultOrder < b.defaultOrder
+					end
+				end
+			end)
+		end
+
+	end
+	buildMods({ label = "Crucible", sourceId = "CRUCIBLE"})
+	local function addModifier()
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		local listMod = {
+			modList[1][controls.modSelectNode1.selIndex],
+			modList[2][controls.modSelectNode2.selIndex],
+			modList[3][controls.modSelectNode3.selIndex],
+			modList[4][controls.modSelectNode4.selIndex],
+			modList[5][controls.modSelectNode5.selIndex],
+		}
+		for _, nodeMod in ipairs(listMod) do
+			if nodeMod ~= "None" then
+				for _, line in ipairs(nodeMod.mod) do
+					t_insert(item.explicitModLines, { line = line, modTags = nodeMod.mod.modTags, [nodeMod.type] = true })
+				end
+			end
+		end
+		item:BuildAndParseRaw()
+		return item
+	end
+
+	controls.modSelectNode1Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 45, 0, 16, "^7Node 1:")
+	controls.modSelectNode1 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 45, 555, 18, modList[1])
+	controls.modSelectNode1.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value and value ~= "None" then
+			for _, line in ipairs(value.mod) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+			self:AddModComparisonTooltip(tooltip, value.mod)
+		end
+	end
+
+	controls.modSelectNode2Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 67, 0, 16, "^7Node 2:")
+	controls.modSelectNode2 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 67, 555, 18, modList[2])
+	controls.modSelectNode2.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value and value ~= "None" then
+			for _, line in ipairs(value.mod) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+			self:AddModComparisonTooltip(tooltip, value.mod)
+		end
+	end
+
+	controls.modSelectNode3Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 89, 0, 16, "^7Node 3:")
+	controls.modSelectNode3 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 89, 555, 18, modList[3])
+	controls.modSelectNode3.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value and value ~= "None" then
+			for _, line in ipairs(value.mod) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+			self:AddModComparisonTooltip(tooltip, value.mod)
+		end
+	end
+
+	controls.modSelectNode4Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 111, 0, 16, "^7Node 4:")
+	controls.modSelectNode4 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 111, 555, 18, modList[4])
+	controls.modSelectNode4.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value and value ~= "None" then
+			for _, line in ipairs(value.mod) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+			self:AddModComparisonTooltip(tooltip, value.mod)
+		end
+	end
+
+	controls.modSelectNode5Label = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 133, 0, 16, "^7Node 5:")
+	controls.modSelectNode5 = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 133, 555, 18, modList[5])
+	controls.modSelectNode5.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value and value ~= "None" then
+			for _, line in ipairs(value.mod) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+			self:AddModComparisonTooltip(tooltip, value.mod)
+		end
+	end
+	controls.save = new("ButtonControl", nil, -45, 157, 80, 20, "Add", function()
+		self:SetDisplayItem(addModifier())
+		main:ClosePopup()
+	end)
+	controls.save.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		self:AddItemTooltip(tooltip, addModifier())
+	end
+	controls.close = new("ButtonControl", nil, 45, 157, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(710, 185, "Add Crucible Modifier to Item", controls, "save")
 end
 
 -- Opens the custom Implicit popup
