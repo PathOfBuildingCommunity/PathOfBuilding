@@ -2601,6 +2601,7 @@ end
 function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 	local controls = { }
 	local modList = {[1] = {"None"}, [2] = {"None"}, [3] = {"None"}, [4] = {"None"}, [5] = {"None"}}
+	local itemModMap, nodeSelections = { }, { }
 	local function getLabelFromMod(mod)
 		local label = copyTable(mod)
 		for index, line in ipairs(mod) do
@@ -2608,11 +2609,20 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		end
 		return table.concat(label, "/")
 	end
-	---Mutates modList to contain mods from the specified source
-	---@param sourceId string @The crafting source id to build the list of mods for
-	local function buildMods(sourceId)
+	local function buildCrucibleMods()
 		for i, mod in pairs(self.build.data.crucible) do
 			if self.displayItem:GetModSpawnWeight(mod) > 0 then
+				-- item mod must match the whole mod, whether that's one line or two
+				if itemModMap[checkLineForAllocates(mod[1], self.build.spec.nodes)] and ((mod[2] and itemModMap[checkLineForAllocates(mod[2], self.build.spec.nodes)]) or not mod[2]) then
+					-- for multi nodes, if the first location is taken, use second
+					-- works for multi vs single node, ambiguous for multi vs multi (3,4 vs 3,4) but both mods load
+					if nodeSelections[mod.nodeLocation[1]] and mod.nodeLocation[2] then
+						nodeSelections[mod.nodeLocation[2]] = i
+					-- nodeSelections[nodeId] = defaultOrder, used later to match with sorted modList to get selIndex
+					else
+						nodeSelections[mod.nodeLocation[1]] = i
+					end
+				end
 				for _, location in ipairs(mod.nodeLocation) do
 					t_insert(modList[location], {
 						label = getLabelFromMod(mod) .. " - Tier: " .. mod.tier,
@@ -2635,12 +2645,11 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 				end
 			end)
 		end
-
 	end
-	buildMods({ label = "Crucible", sourceId = "CRUCIBLE"})
 	local function addModifier()
 		local item = new("Item", self.displayItem:BuildRaw())
 		item.id = self.displayItem.id
+		item.crucibleModLines = { }
 		local listMod = {
 			modList[1][controls.modSelectNode1.selIndex],
 			modList[2][controls.modSelectNode2.selIndex],
@@ -2658,7 +2667,11 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		item:BuildAndParseRaw()
 		return item
 	end
-
+	-- set up name map to know what modLines the item has as we build the mods out
+	for _, mod in ipairs(self.displayItem.crucibleModLines) do
+		itemModMap[mod.line] = true
+	end
+	buildCrucibleMods()
 	local y = 45
 	for i = 1,5 do
 		controls["modSelectNode"..i.."Label"] = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, y, 0, 16, "^7Node "..i..":")
@@ -2673,6 +2686,14 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 			end
 		end
 		y = y + 22
+	end
+	-- populate dropdowns with item mods
+	for nodeId, defaultOrder in pairs(nodeSelections) do
+		for index, mod in pairs(modList[nodeId]) do
+			if defaultOrder == mod.defaultOrder then
+				controls["modSelectNode"..nodeId].selIndex = index
+			end
+		end
 	end
 	controls.save = new("ButtonControl", nil, -45, 157, 80, 20, "Add", function()
 		self:SetDisplayItem(addModifier())
