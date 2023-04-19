@@ -147892,7 +147892,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Flasks you Use apply to Linked Targets"
+					text="Non-Unique Utility Flasks you Use apply to Linked Targets"
 				}
 			}
 		},
