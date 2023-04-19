@@ -2224,11 +2224,7 @@ local specialModList = {
 	-- Gladiator
 	["chance to block spell damage is equal to chance to block attack damage"] = { flag("SpellBlockChanceIsBlockChance") },
 	["maximum chance to block spell damage is equal to maximum chance to block attack damage"] = { flag("SpellBlockChanceMaxIsBlockChanceMax") },
-	["your counterattacks deal double damage"] = {
-		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Reckoning" }),
-		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Riposte" }),
-		mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillName = "Vengeance" }),
-	},
+	["your counterattacks deal double damage"] = { mod("DoubleDamageChance", "BASE", 100, { type = "SkillName", skillNameList = { "Reckoning", "Riposte", "Vengeance" } }) },
 	["attack damage is lucky if you[' ]h?a?ve blocked in the past (%d+) seconds"] = {
 		flag("LuckyHits", nil, ModFlag.Attack, { type = "Condition", var = "BlockedRecently" })
 	},
@@ -2323,7 +2319,7 @@ local specialModList = {
 	},
 	["regenerate (%d+)%% of energy shield over 2 seconds when you consume a corpse"] = function(num) return { mod("EnergyShieldRegenPercent", "BASE", num / 2, { type = "Condition", var = "ConsumedCorpseInPast2Sec" }) } end,
 	["regenerate (%d+)%% of mana over 2 seconds when you consume a corpse"] = function(num) return { mod("ManaRegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num / 2 }, { type = "Condition", var = "ConsumedCorpseInPast2Sec" }) } end,
-	["corpses you spawn have (%d+)%% increased maximum life"] = function(num) return {	mod("CorpseLife", "INC", num) } end,
+	["corpses you spawn have (%d+)%% increased maximum life"] = function(num) return { mod("CorpseLife", "INC", num) } end,
 	["corpses you spawn have (%d+)%% reduced maximum life"] = function(num) return { mod("CorpseLife", "INC", -num) } end,
 	-- Occultist
 	["when you kill an enemy, for each curse on that enemy, gain (%d+)%% of non%-chaos damage as extra chaos damage for 4 seconds"] = function(num) return {
@@ -2819,6 +2815,7 @@ local specialModList = {
 	["(%d+)%% chance to inflict brittle on enemies when you block their damage"] = function(num) return { mod("EnemyBrittleChance", "BASE", num) } end,
 	["(%d+)%% chance to inflict sap on enemies when you block their damage"] = function(num) return { mod("EnemySapChance", "BASE", num) } end,
 	["(%d+)%% chance to inflict scorch on enemies when you block their damage"] = function(num) return { mod("EnemyScorchChance", "BASE", num) } end,
+	["scorch enemies in close range when you block"] = { mod("EnemyScorchChance", "BASE", 100) },
 	["(%d+)%% chance to shock attackers for (%d+) seconds on block"] = { mod("ShockBase", "BASE", data.nonDamagingAilment["Shock"].default) },
 	["shock attackers for (%d+) seconds on block"]  = {
 		mod("ShockBase", "BASE", data.nonDamagingAilment["Shock"].default, { type = "Condition", var = "BlockedRecently" }),
@@ -4201,16 +4198,8 @@ local specialModList = {
 	} end,
 	["focus has (%d+)%% increased cooldown recovery rate"] = function(num) return { mod("FocusCooldownRecovery", "INC", num, { type = "Condition", var = "Focused" }) } end,
 	["focus has (%d+)%% reduced cooldown recovery rate"] = function(num) return { mod("FocusCooldownRecovery", "INC", -num, { type = "Condition", var = "Focused" }) } end,
-	["your counterattacks have (%d+)%% reduced cooldown recovery rate"] = function(num) return {
-		mod("CooldownRecovery", "INC", -num, { type = "SkillName", skillName = "Reckoning" }),
-		mod("CooldownRecovery", "INC", -num, { type = "SkillName", skillName = "Riposte" }),
-		mod("CooldownRecovery", "INC", -num, { type = "SkillName", skillName = "Vengeance" }),
-	} end,
-	["your counterattacks deal (%d+)%% more damage"] = function(num) return {
-		mod("Damage", "MORE", num, { type = "SkillName", skillName = "Reckoning" }),
-		mod("Damage", "MORE", num, { type = "SkillName", skillName = "Riposte" }),
-		mod("Damage", "MORE", num, { type = "SkillName", skillName = "Vengeance" }),
-	} end,
+	["your counterattacks have (%d+)%% reduced cooldown recovery rate"] = function(num) return { mod("CooldownRecovery", "INC", -num, { type = "SkillName", skillNameList = { "Reckoning", "Riposte", "Vengeance" } }) } end,
+	["your counterattacks deal (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, { type = "SkillName", skillNameList = { "Reckoning", "Riposte", "Vengeance" } }) } end,
 	["(%d+)%% chance to deal double damage with attacks if attack time is longer than 1 second"] = function(num) return { 
 		mod("DoubleDamageChance", "BASE", num, 0, 0, { type = "Condition", var = "OneSecondAttackTime" })
 	} end,
