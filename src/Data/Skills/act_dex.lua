@@ -8009,6 +8009,7 @@ skills["ShatteringSteel"] = {
 		"shattering_steel_hit_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed",
 		"base_is_projectile",
 		"no_additional_projectiles_if_no_steel_ammo",
+		"console_skill_dont_chase",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 50, attackSpeedMultiplier = -15, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 7, }, },
@@ -9198,6 +9199,7 @@ skills["ImpactingSteel"] = {
 		"projectiles_can_split_at_end_of_range",
 		"projectiles_can_split_from_terrain",
 		"base_is_projectile",
+		"console_skill_dont_chase",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 2, 0, damageEffectiveness = 0.7, baseMultiplier = 0.7, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },
