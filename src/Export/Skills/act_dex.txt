@@ -66,6 +66,21 @@ local skills, mod, flag, skill = ...
 
 #skill VaalAnimateWeapon
 #flags spell minion duration
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+	statMap = {
+		["base_movement_velocity_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }),
+		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:VaalAnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
+	},
 #mods
 
 #skill ArcticArmour
