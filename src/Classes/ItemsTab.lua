@@ -1748,7 +1748,7 @@ function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	local newItem = new("Item", self.displayItem:BuildRaw())
 	
 	for _, subMod in ipairs(mod) do
-		t_insert(newItem.crucibleModLines, { line = checkLineForAllocates(subMod, self), modTags = mod.modTags, [mod.type] = true })
+		t_insert(newItem.explicitModLines, { line = checkLineForAllocates(subMod, self.build.spec.nodes), modTags = mod.modTags, [mod.type] = true })
 	end
 
 	newItem:BuildAndParseRaw()
