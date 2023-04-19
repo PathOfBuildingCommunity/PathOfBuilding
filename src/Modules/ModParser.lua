@@ -2896,7 +2896,7 @@ local specialModList = {
 	} end,
 	["critical strikes with spells inflict impale"] = { mod("ImpaleChance", "BASE", 100, nil, ModFlag.Spell, { type = "Condition", var = "CriticalStrike" }) },
 	["(%d+)%% chance on hitting an enemy for all impales on that enemy to last for an additional hit"] = function(num) return { 
-		mod("ImpaleAddtionalDurationChance", "BASE", num)
+		mod("ImpaleAdditionalDurationChance", "BASE", num)
 	} end,
 	-- Poison and Bleed
 	["(%d+)%% increased damage with bleeding inflicted on poisoned enemies"] = function(num) return {
