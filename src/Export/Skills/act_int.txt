@@ -801,6 +801,17 @@ local skills, mod, flag, skill = ...
 
 #skill VaalFirestorm
 #flags spell area duration
+	statMap = {
+		["vaal_firestorm_gem_explosion_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0)
+		},
+	},
+#baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround")
+#baseMod skill("radius", 22)
+#baseMod skill("radiusLabel", "Area in which fireballs fall:")
+#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
 #mods
 
 #skill FlameDash
