@@ -1686,18 +1686,18 @@ function ItemsTabClass:UpdateCustomControls()
 			if modLine.custom or modLine.crafted or modLine.crucible then
 				local line = itemLib.formatModLine(modLine)
 				if line then
-					if not self.controls["displayItemCustomModifier"..i] then
-						self.controls["displayItemCustomModifier"..i] = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 55, i * 22 + 4, 0, 16)
-						self.controls["displayItemCustomModifierLabel"..i] = new("LabelControl", {"RIGHT",self.controls["displayItemCustomModifier"..i],"LEFT"}, -2, 0, 0, 16)
-						self.controls["displayItemCustomModifierRemove"..i] = new("ButtonControl", {"LEFT",self.controls["displayItemCustomModifier"..i],"RIGHT"}, 4, 0, 70, 20, "^7Remove")
+					if not self.controls["displayItemCustomModifierRemove"..i] then
+						self.controls["displayItemCustomModifierRemove"..i] = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 0, i * 22 + 4, 70, 20, "^7Remove")
+						self.controls["displayItemCustomModifier"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, 65, 0, 0, 16)
+						self.controls["displayItemCustomModifierLabel"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, 5, 0, 0, 16)
 					end
-					self.controls["displayItemCustomModifier"..i].shown = true
+					self.controls["displayItemCustomModifierRemove"..i].shown = true
 					local label = itemLib.formatModLine(modLine)
 					if DrawStringCursorIndex(16, "VAR", label, 330, 10) < #label then
 						label = label:sub(1, DrawStringCursorIndex(16, "VAR", label, 310, 10)) .. "..."
 					end
 					self.controls["displayItemCustomModifier"..i].label = label
-					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and "^7Crafted:" or modLine.crucible and "^7Crucible:" or "^7Custom:"
+					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and " ^7Crafted:" or modLine.crucible and "^7Crucible:" or " ^7Custom:"
 					self.controls["displayItemCustomModifierRemove"..i].onClick = function()
 						if index > #item.explicitModLines then
 							t_remove(item.crucibleModLines, index - #item.explicitModLines)
@@ -1715,8 +1715,8 @@ function ItemsTabClass:UpdateCustomControls()
 		end
 	end
 	item.customCount = i - 1
-	while self.controls["displayItemCustomModifier"..i] do
-		self.controls["displayItemCustomModifier"..i].shown = false
+	while self.controls["displayItemCustomModifierRemove"..i] do
+		self.controls["displayItemCustomModifierRemove"..i].shown = false
 		i = i + 1
 	end
 end
@@ -1733,12 +1733,22 @@ function ItemsTabClass:UpdateDisplayItemRangeLines()
 	end
 end
 
+local function checkLineForAllocates(line, nodes)
+	if nodes and string.match(line, "Allocates") then
+		local nodeId = tonumber(string.match(line, "%d+"))
+		if nodes[nodeId] then
+			return "Allocates "..nodes[nodeId].name
+		end
+	end
+	return line
+end
+
 function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	local slotName = self.displayItem:GetPrimarySlot()
 	local newItem = new("Item", self.displayItem:BuildRaw())
 	
 	for _, subMod in ipairs(mod) do
-		t_insert(newItem.explicitModLines, { line = subMod, modTags = mod.modTags, [mod.type] = true })
+		t_insert(newItem.crucibleModLines, { line = checkLineForAllocates(subMod, self), modTags = mod.modTags, [mod.type] = true })
 	end
 
 	newItem:BuildAndParseRaw()
@@ -2590,6 +2600,13 @@ end
 function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 	local controls = { }
 	local modList = {[1] = {"None"}, [2] = {"None"}, [3] = {"None"}, [4] = {"None"}, [5] = {"None"}}
+	local function getLabelFromMod(mod)
+		local label = copyTable(mod)
+		for index, line in ipairs(mod) do
+			label[index] = checkLineForAllocates(line, self.build.spec.nodes)
+		end
+		return table.concat(label, "/")
+	end
 	---Mutates modList to contain mods from the specified source
 	---@param sourceId string @The crafting source id to build the list of mods for
 	local function buildMods(sourceId)
@@ -2597,7 +2614,7 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 			if self.displayItem:GetModSpawnWeight(mod) > 0 then
 				for _, location in ipairs(mod.nodeLocation) do
 					t_insert(modList[location], {
-						label = table.concat(mod, "/") .. " - Tier: " .. mod.tier,
+						label = getLabelFromMod(mod) .. " - Tier: " .. mod.tier,
 						mod = mod,
 						affixType = mod.type,
 						type = "crucible",
@@ -2632,8 +2649,8 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		}
 		for _, nodeMod in ipairs(listMod) do
 			if nodeMod ~= "None" then
-				for _, line in ipairs(nodeMod.mod) do
-					t_insert(item.explicitModLines, { line = line, modTags = nodeMod.mod.modTags, [nodeMod.type] = true })
+				for index, line in ipairs(nodeMod.mod) do
+					t_insert(item.crucibleModLines, { line = checkLineForAllocates(line, self.build.spec.nodes), modTags = nodeMod.mod.modTags, [nodeMod.type] = true })
 				end
 			end
 		end
@@ -2649,7 +2666,7 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 			tooltip:Clear()
 			if mode ~= "OUT" and value and value ~= "None" then
 				for _, line in ipairs(value.mod) do
-					tooltip:AddLine(16, "^7"..line)
+					tooltip:AddLine(16, "^7"..checkLineForAllocates(line, self.build.spec.nodes))
 				end
 				self:AddModComparisonTooltip(tooltip, value.mod)
 			end
