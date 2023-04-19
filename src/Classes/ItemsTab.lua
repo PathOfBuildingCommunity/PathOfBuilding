@@ -797,8 +797,9 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Custom modifiers
+	-- if either Custom or Crucible mod buttons are shown, create the control for the list of mods
 	self.controls.displayItemSectionCustom = new("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT"}, 0, 0, 0, function()
-		return self.controls.displayItemAddCustom:IsShown() and 28 + self.displayItem.customCount * 22 or 0
+		return (self.controls.displayItemAddCustom:IsShown() or self.controls.displayItemAddCrucible:IsShown()) and 28 + self.displayItem.customCount * 22 or 0
 	end)
 	self.controls.displayItemAddCustom = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 0, 0, 120, 20, "Add modifier...", function()
 		self:AddCustomModifierToDisplayItem()
@@ -808,10 +809,10 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Crucible modifiers
-	self.controls.displayItemSectionCrucible = new("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT"}, 128, 0, 0, function()
-		return self.controls.displayItemAddCustom:IsShown() and 28 + self.displayItem.customCount * 22 or 0
-	end)
-	self.controls.displayItemAddCrucible = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCrucible,"TOPLEFT"}, 0, 0, 135, 20, "Add Crucible mod...", function()
+	-- if the Add modifier button is not shown, take its place, otherwise move it to the right of it
+	self.controls.displayItemAddCrucible = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, function()
+		return (self.controls.displayItemAddCustom:IsShown() and 128) or 0
+	end, 0, 150, 20, "Add Crucible mod...", function()
 		self:AddCrucibleModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCrucible.shown = function()
@@ -1681,7 +1682,7 @@ function ItemsTabClass:UpdateCustomControls()
 			t_insert(modLines, line)
 		end
 	end
-	if item.rarity == "MAGIC" or item.rarity == "RARE" then
+	if item.rarity == "MAGIC" or item.rarity == "RARE" or item.crucibleModLines then
 		for index, modLine in ipairs(modLines) do
 			if modLine.custom or modLine.crafted or modLine.crucible then
 				local line = itemLib.formatModLine(modLine)
