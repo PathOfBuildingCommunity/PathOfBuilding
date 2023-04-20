@@ -4474,7 +4474,7 @@ skills["SupportMomentum"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "MomentumStacks" }),
 		},
 		["support_momentum_movement_speed_+%_per_stack_removed"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "MomentumStacksRemoved" }),
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "MomentumStacksRemoved" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	qualityStats = {
