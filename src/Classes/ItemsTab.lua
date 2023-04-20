@@ -2614,32 +2614,17 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		for index, key in ipairs(mod.weightKey) do
 			keyMap[key] = index
 		end
-		-- special case for the unique staff
 		if self.displayItem.canHaveOnlySupportSkillsCrucibleTree then
-			if keyMap["crucible_unique_staff"] then
-				return true
-			end
-			return false
+			 return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0
 		end
-		-- special case for unique helmet
 		if self.displayItem.canHaveShieldCrucibleTree then
-			if (keyMap["crucible_unique_helmet"] and keyMap["shield"] and mod.weightVal[keyMap["crucible_unique_helmet"]] ~= 0 and mod.weightVal[keyMap["shield"]] ~= 0) or
-				(keyMap["crucible_unique_helmet"] and not keyMap["shield"] and mod.weightVal[keyMap["crucible_unique_helmet"]] ~= 0) or
-				(not keyMap["crucible_unique_helmet"] and keyMap["shield"] and mod.weightVal[keyMap["shield"]] ~= 0) or
-				self.displayItem:GetModSpawnWeight(mod) > 0 then
-				return true
-			end
-		-- all others and the unique sword
-		else
-			if self.displayItem.canHaveTwoHandedSwordCrucibleTree then
-				self.displayItem.base.tags["one_hand_weapon"] = nil
-				self.displayItem.base.tags["two_hand_weapon"] = true
-			end
-			if self.displayItem:GetModSpawnWeight(mod) > 0 then
-				return true
-			end
+			self.displayItem.base.tags["crucible_unique_helmet"] = true
+			self.displayItem.base.tags["shield"] = true
+		elseif self.displayItem.canHaveTwoHandedSwordCrucibleTree then
+			self.displayItem.base.tags["one_hand_weapon"] = nil
+			self.displayItem.base.tags["two_hand_weapon"] = true
 		end
-		return false
+		return self.displayItem:GetModSpawnWeight(mod) > 0
 	end
 	local function buildCrucibleMods()
 		for i, mod in pairs(self.build.data.crucible) do
