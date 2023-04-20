@@ -737,6 +737,12 @@ function ItemClass:ParseRaw(raw)
 					self.canHaveTwoEnchants = true
 					self.canHaveThreeEnchants = true
 					self.canHaveFourEnchants = true
+				elseif lineLower == "has a crucible passive skill tree with only support passive skills" then
+					self.canHaveOnlySupportSkillsCrucibleTree = true
+				elseif lineLower == "has a crucible passive skill tree" then
+					self.canHaveShieldCrucibleTree = true
+				elseif lineLower == "has a two handed sword crucible passive skill tree" then
+					self.canHaveTwoHandedSwordCrucibleTree = true
 				end
 
 				if data.itemBases[line] then
