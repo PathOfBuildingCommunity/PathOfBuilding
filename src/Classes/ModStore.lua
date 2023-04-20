@@ -342,6 +342,8 @@ function ModStoreClass:EvalMod(mod, cfg)
 			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
 			if tag.actor and self.actor[tag.actor] then
 				target = self.actor[tag.actor].modDB
+			elseif tag.from_enemy and self.actor.enemy then
+				target = self.actor.enemy.modDB
 			end
 			if tag.statList then
 				base = 0

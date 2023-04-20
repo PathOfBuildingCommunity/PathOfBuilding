@@ -2783,6 +2783,9 @@ local specialModList = {
 		mod("ShockBase", "BASE", data.nonDamagingAilment["Shock"].default, { type = "ActorCondition", actor = "enemy", var = "ChilledByYourHits" }),
 		mod("EnemyModifier", "LIST", { mod = flag("Condition:Shocked", { type = "Condition", var = "ChilledByYourHits" }) })
 	},
+	["enemies chilled by your hits lessen their damage dealt by half of chill effect"] = { 
+		mod("EnemyModifier", "LIST", { mod = mod("EnemyChillDamageReduction", "MAX", 1, { type = "PerStat", stat = "CurrentChill", from_enemy = true, div = 2 }, { type = "Condition", var = "ChilledByYourHits" })})
+	},
 	["cannot inflict ignite"] = { flag("CannotIgnite") },
 	["cannot inflict freeze or chill"] = { flag("CannotFreeze"), flag("CannotChill") },
 	["cannot inflict shock"] = { flag("CannotShock") },

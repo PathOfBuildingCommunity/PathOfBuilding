@@ -1185,6 +1185,21 @@ function calcs.buildDefenceEstimations(env, actor)
 		local enemyCritDamage = m_max((env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0) + enemyDB:Sum("BASE", nil, "CritMultiplier"), 0)
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		local enemyCfg = {keywordFlags = bit.bnot(KeywordFlag.MatchAll)} -- Match all keywordFlags parameter for enemy min-max damage mods
+
+		-- Enemy chill damage reduction, ex. Call of the Void
+		local chill_damage_reduction = 0
+		local chill_damage_reduction_source = nil
+		for _, value in ipairs(enemyDB:Tabulate("MAX", enemyCfg, "EnemyChillDamageReduction")) do
+			local val = enemyDB:EvalMod(value.mod, enemyCfg)
+			if val > chill_damage_reduction then
+				chill_damage_reduction = val
+				chill_damage_reduction_source = value.mod.source
+			end	
+		end
+		if chill_damage_reduction > 0 then
+			enemyDB:NewMod("Damage", "MORE", -chill_damage_reduction, chill_damage_reduction_source)
+		end
+
 		for _, damageType in ipairs(dmgTypeList) do
 			local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", isElemental[damageType] and "ElementalDamage" or nil) -- missing taunt from allies
 			local enemyDamage = tonumber(env.configInput["enemy"..damageType.."Damage"])
@@ -1201,10 +1216,10 @@ function calcs.buildDefenceEstimations(env, actor)
 			if enemyOverwhelm == nil then
 				enemyOverwhelm = tonumber(env.configPlaceholder["enemy"..damageType.."enemyOverwhelm"]) or 0
 			end
-			
+
 			-- Add min-max enemy damage from mods
 			enemyDamage = enemyDamage + (enemyDB:Sum("BASE", enemyCfg, (damageType.."Min")) + enemyDB:Sum("BASE", enemyCfg, (damageType.."Max"))) / 2
-			
+		
 			output[damageType.."EnemyPen"] = enemyPen
 			output[damageType.."EnemyDamageMult"] = enemyDamageMult
 			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
