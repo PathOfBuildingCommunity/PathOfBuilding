@@ -4288,6 +4288,10 @@ local specialModList = {
 	["can have a second enchantment modifier"] = { },
 	["can have (%d+) additional enchantment modifiers"] = { },
 	["this item can be anointed by cassia"] = { },
+	["has a crucible passive skill tree"] = { },
+	["has a two handed sword crucible passive skill tree"] = { },
+	["has a crucible passive skill tree with only support passive skills"] = { },
+	["crucible passive skill tree is removed if this modifier is removed"] = { },
 	["all sockets are white"] = { },
 	["every (%d+) seconds, regenerate (%d+)%% of life over one second"] = function (num, _, percent) return {
 		mod("LifeRegenPercent", "BASE", tonumber(percent), { type = "Condition", var = "LifeRegenBurstFull" }),

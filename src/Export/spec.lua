@@ -9800,7 +9800,7 @@ return {
 		},
 		[3]={
 			list=false,
-			name="ModsKey",
+			name="Mod",
 			refTo="Mods",
 			type="Key",
 			width=450
