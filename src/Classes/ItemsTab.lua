@@ -2610,16 +2610,23 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		return table.concat(label, "/")
 	end
 	local function itemCanHaveMod(mod)
+		local keyMap = { }
+		for index, key in ipairs(mod.weightKey) do
+			keyMap[key] = index
+		end
 		-- special case for the unique staff
 		if self.displayItem.canHaveOnlySupportSkillsCrucibleTree then
-			if mod.weightKey[1] == "crucible_unique_staff" then
+			if keyMap["crucible_unique_staff"] then
 				return true
 			end
 			return false
 		end
 		-- special case for unique helmet
 		if self.displayItem.canHaveShieldCrucibleTree then
-			if mod.weightKey[1] == "crucible_unique_helmet" or mod.weightKey[1] == "shield" or self.displayItem:GetModSpawnWeight(mod) > 0 then
+			if (keyMap["crucible_unique_helmet"] and keyMap["shield"] and mod.weightVal[keyMap["crucible_unique_helmet"]] ~= 0 and mod.weightVal[keyMap["shield"]] ~= 0) or
+				(keyMap["crucible_unique_helmet"] and not keyMap["shield"] and mod.weightVal[keyMap["crucible_unique_helmet"]] ~= 0) or
+				(not keyMap["crucible_unique_helmet"] and keyMap["shield"] and mod.weightVal[keyMap["shield"]] ~= 0) or
+				self.displayItem:GetModSpawnWeight(mod) > 0 then
 				return true
 			end
 		-- all others and the unique sword
