@@ -2618,11 +2618,10 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 			 return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0
 		end
 		if self.displayItem.canHaveShieldCrucibleTree then
-			self.displayItem.base.tags["crucible_unique_helmet"] = true
-			self.displayItem.base.tags["shield"] = true
+			return self.displayItem:GetModSpawnWeight(mod, { ["crucible_unique_helmet"] = true, ["shield"] = true }) > 0
 		elseif self.displayItem.canHaveTwoHandedSwordCrucibleTree then
 			self.displayItem.base.tags["one_hand_weapon"] = nil
-			self.displayItem.base.tags["two_hand_weapon"] = true
+			return self.displayItem:GetModSpawnWeight(mod, { ["two_hand_weapon"] = true }) > 0
 		end
 		return self.displayItem:GetModSpawnWeight(mod) > 0
 	end
