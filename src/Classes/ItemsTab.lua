@@ -816,7 +816,7 @@ holding Shift will put it in the second.]])
 		self:AddCrucibleModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCrucible.shown = function()
-		return self.displayItem and (self.displayItem:GetPrimarySlot() == "Weapon 1" or self.displayItem.type == "Shield")
+		return self.displayItem and (self.displayItem:GetPrimarySlot() == "Weapon 1" or self.displayItem.type == "Shield" or self.displayItem.canHaveShieldCrucibleTree)
 	end
 
 	-- Section: Modifier Range
@@ -2609,9 +2609,34 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		end
 		return table.concat(label, "/")
 	end
+	local function itemCanHaveMod(mod)
+		-- special case for the unique staff
+		if self.displayItem.canHaveOnlySupportSkillsCrucibleTree then
+			if mod.weightKey[1] == "crucible_unique_staff" then
+				return true
+			end
+			return false
+		end
+		-- special case for unique helmet
+		if self.displayItem.canHaveShieldCrucibleTree then
+			if mod.weightKey[1] == "crucible_unique_helmet" or mod.weightKey[1] == "shield" or self.displayItem:GetModSpawnWeight(mod) > 0 then
+				return true
+			end
+		-- all others and the unique sword
+		else
+			if self.displayItem.canHaveTwoHandedSwordCrucibleTree then
+				self.displayItem.base.tags["one_hand_weapon"] = nil
+				self.displayItem.base.tags["two_hand_weapon"] = true
+			end
+			if self.displayItem:GetModSpawnWeight(mod) > 0 then
+				return true
+			end
+		end
+		return false
+	end
 	local function buildCrucibleMods()
 		for i, mod in pairs(self.build.data.crucible) do
-			if self.displayItem:GetModSpawnWeight(mod) > 0 then
+			if itemCanHaveMod(mod) then
 				-- item mod must match the whole mod, whether that's one line or two
 				if itemModMap[checkLineForAllocates(mod[1], self.build.spec.nodes)] and ((mod[2] and itemModMap[checkLineForAllocates(mod[2], self.build.spec.nodes)]) or not mod[2]) then
 					-- for multi nodes, if the first location is taken, use second
