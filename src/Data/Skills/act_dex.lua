@@ -307,6 +307,21 @@ skills["VaalAnimateWeapon"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.ThresholdJewelProjectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ThresholdJewelRangedAttack] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.6,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+	statMap = {
+		["base_movement_velocity_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }),
+		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:VaalAnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
