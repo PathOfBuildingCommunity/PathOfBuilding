@@ -488,6 +488,22 @@ skills["VaalArcticArmour"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Cold] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["vaal_arctic_armour_damage_taken_+%_final_from_hits"] = {
+			mod("VaalArcticArmourMitigation", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["vaal_arctic_armour_number_of_hits_absorbed"] = {
+			mod("VaalArcticArmourMaxHits", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+		["base_energy_shield_regeneration_rate_per_minute"] = {
+			mod("EnergyShieldRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
