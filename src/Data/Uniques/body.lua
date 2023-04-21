@@ -417,18 +417,20 @@ Zodiac Leather
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 0
 {variant:1}(5-10)% increased Dexterity
-{variant:2}(10-15)% increased Dexterity
+{variant:2,3}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
 {variant:2}(80-100)% increased Evasion Rating
+{variant:3}(150-200)% increased Evasion Rating
 {variant:1}+(50-80) to maximum Life
-{variant:2}+(70-100) to maximum Life
+{variant:2,3}+(70-100) to maximum Life
 -30% to Cold Resistance
-Flesh and Stone has no Reservation
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
-{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
+{variant:2,3}Evasion Rating is increased by Overcapped Cold Resistance
+Flesh and Stone has no Reservation
 Hollow Palm Technique
 ]],[[
 Yriel's Fostering
