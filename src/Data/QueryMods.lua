@@ -2,6 +2,4395 @@
 -- Stat data (c) Grinding Gear Games
 
 return {
+	["Synthesis"] = {
+		["1634_SelfStatusAilmentDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1745952865", 
+				["text"] = "#% reduced Elemental Ailment Duration on you", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8415_PurityOfIceReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_139925400", 
+				["text"] = "Purity of Ice has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["962_PercentageDexterity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4139681126", 
+				["text"] = "#% increased Dexterity", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["960_PercentageAllAttributes"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3143208761", 
+				["text"] = "#% increased Attributes", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1519_MaximumManaOnKillPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1030153674", 
+				["text"] = "Recover #% of Mana on Kill", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2199_PhysicalDamageTakenAsFirePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3342989455", 
+				["text"] = "#% of Physical Damage from Hits taken as Fire Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1142_GlobalAddedColdDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2387423236", 
+				["text"] = "Adds # to # Cold Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5403_DamageVSAbyssMonsters"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3257279374", 
+				["text"] = "#% increased Damage with Hits and Ailments against Abyssal Monsters", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["938_SpellBlockPercentage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_561307714", 
+				["text"] = "#% Chance to Block Spell Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1557_AdditionalPierce"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2067062068", 
+				["text"] = "Projectiles Pierce # additional Targets", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["4233_DeterminationPhysicalDamageReduction"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1873457881", 
+				["text"] = "#% additional Physical Damage Reduction while affected by Determination", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1260_CriticalStrikeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3556824919", 
+				["text"] = "#% to Global Critical Strike Multiplier", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1405_LightningResistance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1671376347", 
+				["text"] = "#% to Lightning Resistance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1206_IncreasedAccuracyPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_624954515", 
+				["text"] = "#% increased Global Accuracy Rating", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3946_BleedingImmunity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1901158930", 
+				["text"] = "Bleeding cannot be inflicted on you", 
+			}, 
+		}, 
+		["4482_AttackImpaleChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3739863694", 
+				["text"] = "#% chance to Impale Enemies on Hit with Attacks", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1329_LocalEnergyShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3489782002", 
+				["text"] = "# to maximum Energy Shield", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8192_IncreasedAilmentEffectOnEnemies"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_782230869", 
+				["text"] = "#% increased Effect of Non-Damaging Ailments", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1153_GlobalAddedLightningDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1334060246", 
+				["text"] = "Adds # to # Lightning Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1366_ItemFoundRarityIncrease"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3917489142", 
+				["text"] = "#% increased Rarity of Items found", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1565_MovementVelocity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2250533757", 
+				["text"] = "#% increased Movement Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2282_FlammabilityOnHitLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_338121249", 
+				["text"] = "Curse Enemies with Flammability on Hit", 
+			}, 
+		}, 
+		["8727_SpellDamagePerMana"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3555662994", 
+				["text"] = "#% increased Spell Damage per 500 Maximum Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3110_CannotBePoisoned"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3835551335", 
+				["text"] = "Cannot be Poisoned", 
+			}, 
+		}, 
+		["1392_MaximumFireResistanceImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4095671657", 
+				["text"] = "#% to maximum Fire Resistance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1795_ChanceToShock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1538773178", 
+				["text"] = "#% chance to Shock", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1230_SpellCriticalStrikeChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_737908626", 
+				["text"] = "#% increased Critical Strike Chance for Spells", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6010_OnslaughtOnHit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2514424018", 
+				["text"] = "You gain Onslaught for # seconds on Hit", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8733_SpellDamagePer10Strength"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4249521944", 
+				["text"] = "#% increased Spell Damage per 16 Strength", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1693_MineLayingSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1896971621", 
+				["text"] = "#% increased Mine Throwing Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5654_EnemiesExplodeOnDeathPhysical"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1220361974", 
+				["text"] = "Enemies you Kill Explode, dealing #% of their Life as Physical Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["168_SocketedGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3828613551", 
+				["text"] = "#% to Quality of Socketed Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1597_PowerChargeOnCriticalStrikeChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3814876985", 
+				["text"] = "#% chance to gain a Power Charge on Critical Strike", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1949_BeltIncreasedFlaskDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3741323227", 
+				["text"] = "#% increased Flask Effect Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5036_AdditionalChanceToEvade"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2021058489", 
+				["text"] = "#% chance to Evade Attack Hits", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1350_MaximumManaIncreasePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2748665614", 
+				["text"] = "#% increased maximum Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6983_GlobalCriticalStrikeChanceCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4023723828", 
+				["text"] = "#% increased Global Critical Strike Chance if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["140_LocalIncreaseSocketedChaosGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2675603254", 
+				["text"] = "# to Level of Socketed Chaos Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8027_MinionAccuracyRating"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1718147982", 
+				["text"] = "#% increased Minion Accuracy Rating", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3115_ColdDamageAvoidance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3743375737", 
+				["text"] = "#% chance to Avoid Cold Damage from Hits", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1626_BurnDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1086147743", 
+				["text"] = "#% increased Ignite Duration on Enemies", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3028_DamagePerFrenzyCharge"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_902747843", 
+				["text"] = "#% increased Damage per Frenzy Charge", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1558_ArrowAdditionalPierce"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3423006863", 
+				["text"] = "Arrows Pierce an additional Target", 
+			}, 
+		}, 
+		["1159_IncreasedChaosDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_736967255", 
+				["text"] = "#% increased Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1151_LightningDamagePercentage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2231156303", 
+				["text"] = "#% increased Lightning Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8606_ShockEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2527686725", 
+				["text"] = "#% increased Effect of Shock", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["179_SocketedIntelligenceGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3174776455", 
+				["text"] = "#% to Quality of Socketed Intelligence Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2286_MeleeWeaponAndUnarmedRange"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2264295449", 
+				["text"] = "# to Melee Strike Range", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["955_DexterityImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3261801346", 
+				["text"] = "# to Dexterity", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1581_IncreasedMaximumPowerCharges"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_227523295", 
+				["text"] = "# to Maximum Power Charges", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1905_IncreasedPowerChargeDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3872306017", 
+				["text"] = "#% increased Power Charge Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1699_PhysicalAddedAsLightning"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_219391121", 
+				["text"] = "Gain #% of Physical Damage as Extra Lightning Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8413_PurityOfFireReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3003688066", 
+				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["147_LocalIncreaseSocketedMeleeGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_829382474", 
+				["text"] = "# to Level of Socketed Melee Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8418_PurityOfLightningReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3411256933", 
+				["text"] = "Purity of Lightning has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["145_LocalIncreaseSocketedProjectileGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2176571093", 
+				["text"] = "# to Level of Socketed Projectile Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2210_AdditionalBlock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2530372417", 
+				["text"] = "#% Chance to Block Attack Damage", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["4420_AttackDamagePerMana"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4134865890", 
+				["text"] = "#% increased Attack Damage per 500 Maximum Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8321_PhysicalDamageSpellSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1430255627", 
+				["text"] = "#% increased Physical Damage with Spell Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["129_LocalIncreaseSocketedStrengthGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_916797432", 
+				["text"] = "# to Level of Socketed Strength Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2201_PhysicalDamageTakenAsLightningPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_425242359", 
+				["text"] = "#% of Physical Damage from Hits taken as Lightning Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1473_AttackDamageManaLeech"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_350069479", 
+				["text"] = "#% of Attack Damage Leeched as Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1283_ReducedExtraDamageFromCrits"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3855016469", 
+				["text"] = "You take #% reduced Extra Damage from Critical Strikes", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1608_CannotBeShocked"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_491899612", 
+				["text"] = "Cannot be Shocked", 
+			}, 
+		}, 
+		["1610_AvoidElementalStatusAilments"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3005472710", 
+				["text"] = "#% chance to Avoid Elemental Ailments", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1989_ManaReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4237190083", 
+				["text"] = "#% increased Mana Reservation Efficiency of Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["963_PercentageIntelligence"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_656461285", 
+				["text"] = "#% increased Intelligence", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1010_MeleeDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1002362373", 
+				["text"] = "#% increased Melee Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["180_SocketedLightningGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1065580342", 
+				["text"] = "#% to Quality of Socketed Lightning Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1107_BowIncreasedPhysicalDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_402920808", 
+				["text"] = "#% increased Physical Damage with Bows", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1571_MaximumEnduranceCharges"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1515657623", 
+				["text"] = "# to Maximum Endurance Charges", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2316_FasterIgniteDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2443492284", 
+				["text"] = "Ignites you inflict deal Damage #% faster", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1198_BowIncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3759735052", 
+				["text"] = "#% increased Attack Speed with Bows", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5024_DoubleDamageChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1172810729", 
+				["text"] = "#% chance to deal Double Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1563_ProjectileSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3759663284", 
+				["text"] = "#% increased Projectile Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1270_ClawCriticalStrikeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2811834828", 
+				["text"] = "#% to Critical Strike Multiplier with Claws", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5338_CurseDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1435748744", 
+				["text"] = "Curse Skills have #% increased Skill Effect Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5038_GraceAdditionalChanceToEvade"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_969576725", 
+				["text"] = "#% chance to Evade Attack Hits while affected by Grace", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1995_PhysicalAttackDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3441651621", 
+				["text"] = "# Physical Damage taken from Attack Hits", 
+			}, 
+			["sign"] = "-", 
+		}, 
+		["1467_ManaLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3237948413", 
+				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1206_LocalAccuracyRatingIncrease"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_624954515", 
+				["text"] = "#% increased Global Accuracy Rating", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5153_ChillEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1793818220", 
+				["text"] = "#% increased Effect of Cold Ailments", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7073_IncreasedLifeCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3887484120", 
+				["text"] = "#% increased maximum Life if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5105_ChaosDamageSpellSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3761858151", 
+				["text"] = "#% increased Chaos Damage with Spell Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1576_MaximumFrenzyCharges"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4078695", 
+				["text"] = "# to Maximum Frenzy Charges", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1354_ManaRegeneration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_789117908", 
+				["text"] = "#% increased Mana Regeneration Rate", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1516_LifeGainedFromEnemyDeath"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3695891184", 
+				["text"] = "Gain # Life per Enemy Killed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["146_LocalIncreaseSocketedBowGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2027269580", 
+				["text"] = "# to Level of Socketed Bow Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8719_SpellsDoubleDamageChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2813626504", 
+				["text"] = "Spells have a #% chance to deal Double Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3813_DamageDuringFlaskEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2947215268", 
+				["text"] = "#% increased Damage during any Flask Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["4442_AddedLightningDamagePerIntelligence"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3390848861", 
+				["text"] = "Adds # to # Lightning Damage to Attacks with this Weapon per 10 Intelligence", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1580_MinimumPowerCharges"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1999711879", 
+				["text"] = "# to Minimum Power Charges", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2659_MinionElementalResistancesForJewel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1423639565", 
+				["text"] = "Minions have #% to all Elemental Resistances", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1530_ManaGainedFromEnemyDeath"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1368271171", 
+				["text"] = "Gain # Mana per Enemy Killed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1214_MaceIncreasedAccuracyRating"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3208450870", 
+				["text"] = "#% increased Accuracy Rating with Maces or Sceptres", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1217_WandIncreasedAccuracyRating"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2150183156", 
+				["text"] = "#% increased Accuracy Rating with Wands", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2392_EnergyShieldRegenerationPerMinute"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3594640492", 
+				["text"] = "Regenerate #% of Energy Shield per second", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1502_MaximumEnergyShieldLeechRate"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2013799819", 
+				["text"] = "#% increased Maximum total Energy Shield Recovery per second from Leech", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1119_WandIncreasedPhysicalDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2769075491", 
+				["text"] = "#% increased Physical Damage with Wands", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["968_AllDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2154246560", 
+				["text"] = "#% increased Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1443_ColdDamageLifeLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3999401129", 
+				["text"] = "#% of Cold Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8530_RemoveFreezeOnFlaskUse"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3296873305", 
+				["text"] = "Remove Chill and Freeze when you use a Flask", 
+			}, 
+		}, 
+		["1267_BowCriticalStrikeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1712221299", 
+				["text"] = "#% to Critical Strike Multiplier with Bows", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8534_RemoveIgniteOnFlaskUse"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1162425204", 
+				["text"] = "Remove Ignite and Burning when you use a Flask", 
+			}, 
+		}, 
+		["1409_ChaosResistance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2923486259", 
+				["text"] = "#% to Chaos Resistance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["7077_MovementVelocityCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2880601380", 
+				["text"] = "#% increased Movement Speed if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5175_ColdDamageSpellSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2186994986", 
+				["text"] = "#% increased Cold Damage with Spell Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1213_DaggerIncreasedAccuracyRating"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2054715690", 
+				["text"] = "#% increased Accuracy Rating with Daggers", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1738_MinionDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1589917703", 
+				["text"] = "Minions deal #% increased Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1321_LocalEvasionRatingIncreasePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2106365538", 
+				["text"] = "#% increased Evasion Rating", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2486_SpellDamagePer10Intelligence"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3961014595", 
+				["text"] = "#% increased Spell Damage per 16 Intelligence", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1560_AdditionalArrows"] = {
+			["specialCaseData"] = {
+				["overrideModLineSingular"] = "Bow Attacks fire an additional Arrow", 
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_742529963", 
+				["text"] = "Bow Attacks fire # additional Arrows", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3721_AnimateGuardianResistances"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2094281311", 
+				["text"] = "#% to Animated Guardian Elemental Resistances", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5400_IncreasedDamagePerPowerCharge"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2034658008", 
+				["text"] = "#% increased Damage per Power Charge", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1757_GlobalKnockbackChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_977908611", 
+				["text"] = "#% chance to Knock Enemies Back on hit", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["994_DamageWhileLeechingLife"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3591306273", 
+				["text"] = "#% increased Damage while Leeching Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["9063_VitalityReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3972739758", 
+				["text"] = "Vitality has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2703_GlobalChanceToBlindOnHit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2221570601", 
+				["text"] = "#% Global chance to Blind Enemies on hit", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1752_MaximumSpellBlockChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2388574377", 
+				["text"] = "#% to maximum Chance to Block Spell Damage", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["149_LocalIncreaseSocketedAuraLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2452998583", 
+				["text"] = "# to Level of Socketed Aura Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["6964_AttackDamageCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2347923784", 
+				["text"] = "#% increased Attack Damage if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1515_EnergyShieldGainPerTarget"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_211381198", 
+				["text"] = "Gain # Energy Shield per Enemy Hit with Attacks", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["49_HasXSockets"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4077843608", 
+				["text"] = "Has 1 Socket", 
+			}, 
+		}, 
+		["2728_LightningResistancePenetration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_818778753", 
+				["text"] = "Damage Penetrates #% Lightning Resistance", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8641_BrandAttachmentRange"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4223377453", 
+				["text"] = "#% increased Brand Attachment range", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["148_LocalIncreaseSocketedMinionGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3604946673", 
+				["text"] = "# to Level of Socketed Minion Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["4439_AddedFireDamagePerStrength"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1060540099", 
+				["text"] = "Adds # to # Fire Damage to Attacks with this Weapon per 10 Strength", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2434_VaalSkillDamageAffectsSkillDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3871212304", 
+				["text"] = "Increases and Reductions to Damage with Vaal Skills also apply to Non-Vaal Skills", 
+			}, 
+		}, 
+		["1647_AreaOfEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_280731498", 
+				["text"] = "#% increased Area of Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3947_ChanceToAvoidBleeding"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1618589784", 
+				["text"] = "#% chance to Avoid Bleeding", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5104_ChaosDamageAttackSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1959092146", 
+				["text"] = "#% increased Chaos Damage with Attack Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3742_CurseEffectConductivity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3395908304", 
+				["text"] = "#% increased Conductivity Curse Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5492_DeterminationReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_325889252", 
+				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1221_CastSpeedWithStaff"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2066542501", 
+				["text"] = "#% increased Cast Speed while wielding a Staff", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2203_PhysicalDamageTakenAsChaos"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4129825612", 
+				["text"] = "#% of Physical Damage from Hits taken as Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1644_BurnDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1175385867", 
+				["text"] = "#% increased Burning Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1822_GlobalFlaskLifeRecovery"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_821241191", 
+				["text"] = "#% increased Life Recovery from Flasks", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6571_FlatLightningDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_465051235", 
+				["text"] = "# Lightning Damage taken from Hits", 
+			}, 
+			["sign"] = "-", 
+		}, 
+		["2803_RecoverLifePercentOnBlock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2442647190", 
+				["text"] = "Recover #% of Life when you Block", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1797_AreaDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4251717817", 
+				["text"] = "#% increased Area Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1197_MaceIncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2515515064", 
+				["text"] = "#% increased Attack Speed with Maces or Sceptres", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5392_DamagePer15Strength"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4274080377", 
+				["text"] = "#% increased Damage per 100 Strength", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7031_ImmuneToCursesCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1954526925", 
+				["text"] = "Immune to Curses if Corrupted", 
+			}, 
+		}, 
+		["4532_BleedDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1459321413", 
+				["text"] = "#% increased Bleeding Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2535_TotemElementalResistances"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1809006367", 
+				["text"] = "Totems gain #% to all Elemental Resistances", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["922_SpellDamageSuppressed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4116705863", 
+				["text"] = "Prevent #% of Suppressed Spell Damage", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1618_AvoidStun"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4262448838", 
+				["text"] = "#% chance to Avoid being Stunned", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1005_SpellDamageWithShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1766142294", 
+				["text"] = "#% increased Spell Damage while holding a Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2006_DegenDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1101403182", 
+				["text"] = "#% reduced Damage taken from Damage Over Time", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1410_MaximumElementalResistanceImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_569299859", 
+				["text"] = "#% to all maximum Resistances", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["137_LocalIncreaseSocketedFireGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_339179093", 
+				["text"] = "# to Level of Socketed Fire Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["9000_ChilledGroundEffectEffectiveness"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3653191834", 
+				["text"] = "Unaffected by Chilled Ground", 
+			}, 
+		}, 
+		["1946_BeltReducedFlaskChargesUsed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_644456512", 
+				["text"] = "#% reduced Flask Charges used", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1195_ClawIncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1421645223", 
+				["text"] = "#% increased Attack Speed with Claws", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3334_HasOnslaught"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1520059289", 
+				["text"] = "Onslaught", 
+			}, 
+		}, 
+		["1352_AddedManaRegeneration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4291461939", 
+				["text"] = "Regenerate # Mana per second", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1211_StaffIncreasedAccuracyRating"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1617235962", 
+				["text"] = "#% increased Accuracy Rating with Staves", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1613_AvoidIgnite"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1783006896", 
+				["text"] = "#% chance to Avoid being Ignited", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1178_SpellAddedColdDamageTwoHand"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2469416729", 
+				["text"] = "Adds # to # Cold Damage to Spells", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1533_MinionLife"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_770672621", 
+				["text"] = "Minions have #% increased maximum Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1346_LifeRegenerationPercentPerEnduranceCharge"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_989800292", 
+				["text"] = "Regenerate #% of Life per second per Endurance Charge", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1403_MaximumLightningResistanceImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1011760251", 
+				["text"] = "#% to maximum Lightning Resistance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["7089_SpellDamageCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_374116820", 
+				["text"] = "#% increased Spell Damage if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2910_PoisonDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2011656677", 
+				["text"] = "#% increased Poison Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1218_IncreasedCastSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2891184298", 
+				["text"] = "#% increased Cast Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2806_DamageWhileLeeching"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_310246444", 
+				["text"] = "#% increased Damage while Leeching", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1313_LocalPhysicalDamageReductionRatingPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2866361420", 
+				["text"] = "#% increased Armour", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2330_SummonTotemCastSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3374165039", 
+				["text"] = "#% increased Totem Placement speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1101_MaceIncreasedPhysicalDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3774831856", 
+				["text"] = "#% increased Physical Damage with Maces or Sceptres", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3328_LightningPenetrationWeapon"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3301510262", 
+				["text"] = "Damage with Weapons Penetrates #% Lightning Resistance", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2585_ChaosDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_496011033", 
+				["text"] = "# Chaos Damage taken", 
+			}, 
+			["sign"] = "-", 
+		}, 
+		["2279_ConductivityOnHitLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_710372469", 
+				["text"] = "Curse Enemies with Conductivity on Hit", 
+			}, 
+		}, 
+		["1570_MinimumEnduranceCharges"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3706959521", 
+				["text"] = "# to Minimum Endurance Charges", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1112_SwordIncreasedPhysicalDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3814560373", 
+				["text"] = "#% increased Physical Damage with Swords", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1791_ChanceToFreeze"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2309614417", 
+				["text"] = "#% chance to Freeze", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1612_AvoidFreeze"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1514829491", 
+				["text"] = "#% chance to Avoid being Frozen", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["4232_ReducedPhysicalDamageTakenVsAbyssMonsters"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_287491423", 
+				["text"] = "#% additional Physical Damage Reduction against Abyssal Monsters", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1665_AvoidInterruptionWhileCasting"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1916706958", 
+				["text"] = "#% chance to Ignore Stuns while Casting", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1179_SpellAddedLightningDamageTwoHand"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2831165374", 
+				["text"] = "Adds # to # Lightning Damage to Spells", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6988_AllDamageCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_767196662", 
+				["text"] = "#% increased Damage if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7236_AddedManaRegenWithStaff"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1388668644", 
+				["text"] = "Regenerate # Mana per second while wielding a Staff", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1332_EnergyShieldDelay"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1782086450", 
+				["text"] = "#% faster start of Energy Shield Recharge", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6963_AttackAndCastSpeedCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_26867112", 
+				["text"] = "#% increased Attack and Cast Speed if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1131_FireDamagePercentage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3962278098", 
+				["text"] = "#% increased Fire Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1499_MaximumLifeLeechRate"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4118987751", 
+				["text"] = "#% increased Maximum total Life Recovery per second from Leech", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3114_FireDamageAvoidance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_42242677", 
+				["text"] = "#% chance to Avoid Fire Damage from Hits", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1220_CastSpeedWithShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1612163368", 
+				["text"] = "#% increased Cast Speed while holding a Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1903_IncreasedSpellDamagePerPowerCharge"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_827329571", 
+				["text"] = "#% increased Spell Damage per Power Charge", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1212_ClawIncreasedAccuracyRating"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1297965523", 
+				["text"] = "#% increased Accuracy Rating with Claws", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["130_LocalIncreaseSocketedDexterityGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2718698372", 
+				["text"] = "# to Level of Socketed Dexterity Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1888_EnduranceChargeDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1170174456", 
+				["text"] = "#% increased Endurance Charge Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1525_GainLifeOnBlock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_762600725", 
+				["text"] = "# Life gained when you Block", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8301_PhysicalDamageWithUnholyMight"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1609570656", 
+				["text"] = "#% increased Physical Damage while you have Unholy Might", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1089_ClawIncreasedPhysicalDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_635761691", 
+				["text"] = "#% increased Physical Damage with Claws", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["4479_AttacksBlindOnHitChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_318953428", 
+				["text"] = "#% chance to Blind Enemies on Hit with Attacks", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5814_FireDamagePerStrength"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2241902512", 
+				["text"] = "#% increased Fire Damage per 20 Strength", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1133_GlobalAddedFireDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_321077055", 
+				["text"] = "Adds # to # Fire Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5310_SpellCriticalMultiplierWithShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2311200892", 
+				["text"] = "#% to Critical Strike Multiplier for Spells while holding a Shield", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5311_SpellCriticalMultiplierWithStaff"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3629080637", 
+				["text"] = "#% to Critical Strike Multiplier for Spells while wielding a Staff", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["3195_SpectreDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3645693773", 
+				["text"] = "Spectres have #% increased Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1351_BaseManaRegeneration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3188455409", 
+				["text"] = "Regenerate #% of Mana per second", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1536_MinionMovementSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_174664100", 
+				["text"] = "Minions have #% increased Movement Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["4371_AdditionalCriticalStrikeChanceWithAttacks"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2572042788", 
+				["text"] = "Attacks have #% to Critical Strike Chance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1199_SwordIncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3293699237", 
+				["text"] = "#% increased Attack Speed with Swords", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1921_IncreasedManaLeechRate"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_690135178", 
+				["text"] = "#% increased total Recovery per second from Mana Leech", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3396_SkeletonDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3059357595", 
+				["text"] = "Skeletons deal #% increased Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2921_PoisonDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1290399200", 
+				["text"] = "#% increased Damage with Poison", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1140_ColdDamagePercentage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3291658075", 
+				["text"] = "#% increased Cold Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["4480_AttacksTauntOnHitChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_280213220", 
+				["text"] = "#% chance to Taunt Enemies on Hit with Attacks", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["178_SocketedFireGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3422008440", 
+				["text"] = "#% to Quality of Socketed Fire Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["171_SocketedAoEGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_768982451", 
+				["text"] = "#% to Quality of Socketed AoE Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1419_LifeLeechLocalPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3593843976", 
+				["text"] = "#% of Physical Attack Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2361_MovementSpeedWhilePhased"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3684879618", 
+				["text"] = "#% increased Movement Speed while Phasing", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1751_MaximumBlockChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4124805414", 
+				["text"] = "#% to maximum Chance to Block Attack Damage", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5827_FireDamageSpellSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_361162316", 
+				["text"] = "#% increased Fire Damage with Spell Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2280_CurseOnHitDespair"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2764915899", 
+				["text"] = "Curse Enemies with Despair on Hit", 
+			}, 
+		}, 
+		["1328_EnergyShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3489782002", 
+				["text"] = "# to maximum Energy Shield", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1160_GlobalAddedChaosDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3531280422", 
+				["text"] = "Adds # to # Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8736_SpellDamagePer16Strength"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4249521944", 
+				["text"] = "#% increased Spell Damage per 16 Strength", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8995_BurningGroundEffectEffectiveness"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1643688236", 
+				["text"] = "Unaffected by Burning Ground", 
+			}, 
+		}, 
+		["1177_SpellAddedFireDamageTwoHand"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1133016593", 
+				["text"] = "Adds # to # Fire Damage to Spells", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1623_ChillAndFreezeDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3485067555", 
+				["text"] = "#% increased Chill Duration on Enemies", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["9019_ShockedGroundEffectEffectiveness"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2234049899", 
+				["text"] = "Unaffected by Shocked Ground", 
+			}, 
+		}, 
+		["2913_PoisonOnHit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_795138349", 
+				["text"] = "#% chance to Poison on Hit", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1194_StaffIncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1394963553", 
+				["text"] = "#% increased Attack Speed with Staves", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1210_AxeIncreasedAccuracyRating"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2538120572", 
+				["text"] = "#% increased Accuracy Rating with Axes", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["4523_AilmentDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_690707482", 
+				["text"] = "#% increased Damage with Ailments", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["987_DegenerationDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_967627487", 
+				["text"] = "#% increased Damage over Time", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1007_PhysicalDamagePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1310194496", 
+				["text"] = "#% increased Global Physical Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5727_DisciplineEnergyShieldRegen"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_991194404", 
+				["text"] = "Regenerate #% of Energy Shield per Second while affected by Discipline", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1920_IncreasedLifeLeechRate"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2633745731", 
+				["text"] = "#% increased total Recovery per second from Life Leech", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3108_IncreasedAuraEffectDeterminationCorrupted"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3653400807", 
+				["text"] = "Determination has #% increased Aura Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["138_LocalIncreaseSocketedColdGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1645459191", 
+				["text"] = "# to Level of Socketed Cold Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["185_AbyssJewelEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1482572705", 
+				["text"] = "#% increased Effect of Socketed Abyss Jewels", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1177_SpellAddedFireDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1133016593", 
+				["text"] = "Adds # to # Fire Damage to Spells", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1362_ItemFoundQuantityIncrease"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_884586851", 
+				["text"] = "#% increased Quantity of Items found", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2773_AttackAndCastSpeedWithOnslaught"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2320884914", 
+				["text"] = "#% increased Attack and Cast Speed during Onslaught", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7071_IncreasedEnergyShieldCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1025108940", 
+				["text"] = "#% increased maximum Energy Shield if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1339_IncreasedLife"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3299347043", 
+				["text"] = "# to maximum Life", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1998_FlatFireDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_614758785", 
+				["text"] = "# Fire Damage taken from Hits", 
+			}, 
+			["sign"] = "-", 
+		}, 
+		["5309_SpellCriticalMultiplierWithDualWield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2349237916", 
+				["text"] = "#% to Critical Strike Multiplier for Spells while Dual Wielding", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["9064_VitalityReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3972739758", 
+				["text"] = "Vitality has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1338_EnergyShieldRecoveryRate"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_988575597", 
+				["text"] = "#% increased Energy Shield Recovery rate", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3327_FirePenetrationWeapon"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1123291426", 
+				["text"] = "Damage with Weapons Penetrates #% Fire Resistance", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1356_ManaRecoveryRate"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3513180117", 
+				["text"] = "#% increased Mana Recovery rate", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["9277_UnwaveringStance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1683578560", 
+				["text"] = "Unwavering Stance", 
+			}, 
+		}, 
+		["4339_ArmourEvasionWithFortify"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2962782530", 
+				["text"] = "# to Armour and Evasion Rating while Fortified", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5390_DamagePer15Dexterity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_342670903", 
+				["text"] = "#% increased Damage per 100 Dexterity", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1667_StunRecovery"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2511217560", 
+				["text"] = "#% increased Stun and Block Recovery", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5826_FireDamageAttackSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2468413380", 
+				["text"] = "#% increased Fire Damage with Attack Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1506_LifeGainPerTargetLocal"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_821021828", 
+				["text"] = "Grants # Life per Enemy Hit", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["172_SocketedAuraGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2276941637", 
+				["text"] = "#% to Quality of Socketed Aura Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1490_EnergyShieldLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_11106713", 
+				["text"] = "#% of Spell Damage Leeched as Energy Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5493_DeterminationReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_325889252", 
+				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1469_ManaLeechLocalPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3237948413", 
+				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1438_FireDamageLifeLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3848282610", 
+				["text"] = "#% of Fire Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1394_FireResistance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3372524247", 
+				["text"] = "#% to Fire Resistance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["4004_AddedColdDamagePerFrenzyCharge"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3648858570", 
+				["text"] = "# to # Added Cold Damage per Frenzy Charge", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2725_ElementalPenetration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2101383955", 
+				["text"] = "Damage Penetrates #% Elemental Resistances", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1606_CannotBeIgnited"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_331731406", 
+				["text"] = "Cannot be Ignited", 
+			}, 
+		}, 
+		["2654_MinionAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3375935924", 
+				["text"] = "Minions have #% increased Attack Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1205_IncreasedAccuracy"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_803737631", 
+				["text"] = "# to Accuracy Rating", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["3104_IncreasedAuraEffectGraceCorrupted"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_397427740", 
+				["text"] = "Grace has #% increased Aura Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1454_ElementalDamageLeechedAsLifePermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_720395808", 
+				["text"] = "#% of Elemental Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6573_LightningDamageSpellSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3935031607", 
+				["text"] = "#% increased Lightning Damage with Spell Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3116_LightningDamageAvoidance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2889664727", 
+				["text"] = "#% chance to Avoid Lightning Damage from Hits", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5974_EnduranceChargeIfHitRecently"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2894476716", 
+				["text"] = "Gain # Endurance Charge every second if you've been Hit Recently", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1335_EnergyShieldRegeneration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2339757871", 
+				["text"] = "#% increased Energy Shield Recharge Rate", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1600_FrenzyChargeOnHitChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2323242761", 
+				["text"] = "#% chance to gain a Frenzy Charge on Hit", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3745_CurseEffectFlammability"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_282417259", 
+				["text"] = "#% increased Flammability Curse Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1183_IncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_681332047", 
+				["text"] = "#% increased Attack Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1706_FireAddedAsChaos"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1599775597", 
+				["text"] = "Gain #% of Fire Damage as Extra Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3746_CurseEffectFrostbite"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1443215722", 
+				["text"] = "#% increased Frostbite Curse Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2252_LightRadius"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1263695895", 
+				["text"] = "#% increased Light Radius", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2348_CurseEffectiveness"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2353576063", 
+				["text"] = "#% increased Effect of your Curses", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1722_ConvertPhysicalToColdImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2133341901", 
+				["text"] = "#% of Physical Damage Converted to Cold Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2311_ItemDropsOnGuardianDeath"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3909846940", 
+				["text"] = "Item drops on Death if Equipped by an Animated Guardian", 
+			}, 
+		}, 
+		["1809_AttackAndCastSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2672805335", 
+				["text"] = "#% increased Attack and Cast Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1432_LifeLeechFromAttacksPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_141810208", 
+				["text"] = "#% of Attack Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1720_ConvertPhysicalToFireImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1533563525", 
+				["text"] = "#% of Physical Damage Converted to Fire Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1219_CastSpeedWithDualWield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2382196858", 
+				["text"] = "#% increased Cast Speed while Dual Wielding", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["131_LocalIncreaseSocketedIntelligenceGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1719423857", 
+				["text"] = "# to Level of Socketed Intelligence Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1200_WandIncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3720627346", 
+				["text"] = "#% increased Attack Speed with Wands", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["400_SocketedSkillsManaMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2865550257", 
+				["text"] = "Socketed Skill Gems get a #% Cost & Reservation Multiplier", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1264_DaggerCriticalStrikeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3998601568", 
+				["text"] = "#% to Critical Strike Multiplier with Daggers", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8412_PurityOfFireReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3003688066", 
+				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1179_SpellAddedLightningDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2831165374", 
+				["text"] = "Adds # to # Lightning Damage to Spells", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1341_MaximumLifeIncreasePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_983749596", 
+				["text"] = "#% increased maximum Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2737_ChanceToGainOnslaughtOnKill"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3023957681", 
+				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1890_FrenzyChargeDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3338298622", 
+				["text"] = "#% increased Frenzy Charge Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5284_SpellCriticalChanceWithShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_952509814", 
+				["text"] = "#% increased Critical Strike Chance for Spells while holding a Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["157_LocalIncreaseSocketedSupportGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4154259475", 
+				["text"] = "# to Level of Socketed Support Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1193_AxeIncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3550868361", 
+				["text"] = "#% increased Attack Speed with Axes", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8735_SpellDamagePer16Intelligence"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3961014595", 
+				["text"] = "#% increased Spell Damage per 16 Intelligence", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["181_SocketedMeleeGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1396421504", 
+				["text"] = "#% to Quality of Socketed Melee Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8508_ReflectDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3577248251", 
+				["text"] = "You and your Minions take #% reduced Reflected Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2377_FrenzyChargeOnKillChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1826802197", 
+				["text"] = "#% chance to gain a Frenzy Charge on Kill", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3748_CurseEffectVulnerability"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1065909420", 
+				["text"] = "#% increased Vulnerability Curse Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2375_EnduranceChargeOnKillChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1054322244", 
+				["text"] = "#% chance to gain an Endurance Charge on Kill", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["919_BlockPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2530372417", 
+				["text"] = "#% Chance to Block Attack Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3380_ZombieIncreasedDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2228518621", 
+				["text"] = "Raised Zombies deal #% increased Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["139_LocalIncreaseSocketedLightningGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4043416969", 
+				["text"] = "# to Level of Socketed Lightning Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1434_PhysicalDamageLifeLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3764265320", 
+				["text"] = "#% of Physical Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3900_PhysicalDamageRemovedFromManaBeforeLife"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3743438423", 
+				["text"] = "#% of Physical Damage is taken from Mana before Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1703_LightningAddedAsChaos"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2402136583", 
+				["text"] = "Gain #% of Lightning Damage as Extra Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["398_DisplaySocketedGemsGetReducedReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3289633055", 
+				["text"] = "Socketed Gems have #% increased Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1615_AvoidShock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1871765599", 
+				["text"] = "#% chance to Avoid being Shocked", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["144_IncreasedSocketedAoEGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2551600084", 
+				["text"] = "# to Level of Socketed AoE Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5796_FasterBleedDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3828375170", 
+				["text"] = "Bleeding you inflict deals Damage #% faster", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1624_ShockDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3668351662", 
+				["text"] = "#% increased Shock Duration on Enemies", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6572_LightningDamageAttackSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4208907162", 
+				["text"] = "#% increased Lightning Damage with Attack Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1611_AvoidChill"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3483999943", 
+				["text"] = "#% chance to Avoid being Chilled", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1000_SpellDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2974417149", 
+				["text"] = "#% increased Spell Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["175_SocketedColdGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1164882313", 
+				["text"] = "#% to Quality of Socketed Cold Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5283_SpellCriticalChanceWithDualWield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1218939541", 
+				["text"] = "#% increased Critical Strike Chance for Spells while Dual Wielding", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2200_PhysicalDamageTakenAsCold"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1871056256", 
+				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1743_ElementalDamagePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3141070085", 
+				["text"] = "#% increased Elemental Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7233_AddedManaRegenWithDualWield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1361343333", 
+				["text"] = "Regenerate # Mana per Second while Dual Wielding", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2379_PowerChargeOnKillChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2483795307", 
+				["text"] = "#% chance to gain a Power Charge on Kill", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["975_AttackDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2843214518", 
+				["text"] = "#% increased Attack Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["169_IncreaseSocketedSupportGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1328548975", 
+				["text"] = "#% to Quality of Socketed Support Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8712_AdditionalCriticalStrikeChanceWithSpells"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_791835907", 
+				["text"] = "#% to Spell Critical Strike Chance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1077_AxeIncreasedPhysicalDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2008219439", 
+				["text"] = "#% increased Physical Damage with Axes", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["173_SocketedBowGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3280600715", 
+				["text"] = "#% to Quality of Socketed Bow Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1625_ChillAndFreezeDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1073942215", 
+				["text"] = "#% increased Freeze Duration on Enemies", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1408_MaximumChaosResistanceImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1301765461", 
+				["text"] = "#% to maximum Chaos Resistance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1705_ColdAddedAsChaos"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2915373966", 
+				["text"] = "Gain #% of Cold Damage as Extra Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1265_MaceCriticalStrikeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_458899422", 
+				["text"] = "#% to Critical Strike Multiplier with Maces or Sceptres", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1271_StaffCriticalStrikeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1474913037", 
+				["text"] = "#% to Critical Strike Multiplier with Staves", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2726_FireResistancePenetration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2653955271", 
+				["text"] = "Damage Penetrates #% Fire Resistance", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1575_MinimumFrenzyCharges"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_658456881", 
+				["text"] = "# to Minimum Frenzy Charges", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1517_MaximumLifeOnKillPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2023107756", 
+				["text"] = "Recover #% of Life on Kill", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6978_LocalChanceToIntimidateOnHit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_78985352", 
+				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3046_EnemiesExplodeOnDeathPhysicalChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3295179224", 
+				["text"] = "Enemies you Kill have a #% chance to Explode, dealing a tenth of their maximum Life as Physical Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2939_DamagePerEnduranceCharge"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3515686789", 
+				["text"] = "#% increased Damage per Endurance Charge", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3118_UnholyMightOnKillPercentChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3562211447", 
+				["text"] = "#% chance to gain Unholy Might for 3 seconds on Kill", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2845_VaalSkillDuration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_547412107", 
+				["text"] = "#% increased Vaal Skill Effect Duration", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2241_ChanceToBleed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1923879260", 
+				["text"] = "Attacks have #% chance to cause Bleeding", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1003_SpellDamageWithStaff"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3496944181", 
+				["text"] = "#% increased Spell Damage while wielding a Staff", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1388_AllResistances"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2901986750", 
+				["text"] = "#% to all Elemental Resistances", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["923_ChanceToSuppressSpellsOld"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3680664274", 
+				["text"] = "#% chance to Suppress Spell Damage", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8416_PurityOfIceReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_139925400", 
+				["text"] = "Purity of Ice has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["174_SocketedChaosGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2062835769", 
+				["text"] = "#% to Quality of Socketed Chaos Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1512_ManaGainPerTarget"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_820939409", 
+				["text"] = "Gain # Mana per Enemy Hit with Attacks", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1964_AttackerTakesDamageNoRange"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3767873853", 
+				["text"] = "Reflects # Physical Damage to Melee Attackers", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1327_IncreasedEvasionRatingPerFrenzyCharge"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_660404777", 
+				["text"] = "#% increased Evasion Rating per Frenzy Charge", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1349_IncreasedMana"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1050105434", 
+				["text"] = "# to maximum Mana", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1709_LifeRegenerationRatePercentage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_836936635", 
+				["text"] = "Regenerate #% of Life per second", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["961_PercentageStrength"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_734614379", 
+				["text"] = "#% increased Strength", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3326_ColdPenetrationWeapon"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1211769158", 
+				["text"] = "Damage with Weapons Penetrates #% Cold Resistance", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1178_SpellAddedColdDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2469416729", 
+				["text"] = "Adds # to # Cold Damage to Spells", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1312_GlobalPhysicalDamageReductionRatingPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2866361420", 
+				["text"] = "#% increased Armour", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1006_SpellDamageWithDualWield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1678690824", 
+				["text"] = "#% increased Spell Damage while Dual Wielding", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8419_PurityOfLightningReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3411256933", 
+				["text"] = "Purity of Lightning has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2658_MinionLifeRegeneration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2479683456", 
+				["text"] = "Minions Regenerate #% of Life per second", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8320_PhysicalDamageAttackSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2266750692", 
+				["text"] = "#% increased Physical Damage with Attack Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["953_AllAttributes"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1379411836", 
+				["text"] = "# to all Attributes", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1526_GainManaOnBlock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2122183138", 
+				["text"] = "# Mana gained when you Block", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6087_GraceReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_900639351", 
+				["text"] = "Grace has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1658_IncreaseManaCostFlat"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3736589033", 
+				["text"] = "# to Total Mana Cost of Skills", 
+			}, 
+			["sign"] = "-", 
+		}, 
+		["1320_GlobalEvasionRatingPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2106365538", 
+				["text"] = "#% increased Evasion Rating", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1605_CannotBeFrozen"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_876831634", 
+				["text"] = "Cannot be Frozen", 
+			}, 
+		}, 
+		["1331_GlobalEnergyShieldPercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2482852589", 
+				["text"] = "#% increased maximum Energy Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["4312_AreaOfEffectIfStunnedEnemyRecently"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_430248187", 
+				["text"] = "#% increased Area of Effect if you have Stunned an Enemy Recently", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1700_PhysicalAddedAsChaos"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3319896421", 
+				["text"] = "Gain #% of Physical Damage as Extra Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2275_CurseOnHitLevelVulnerability"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3967845372", 
+				["text"] = "Curse Enemies with Vulnerability on Hit", 
+			}, 
+		}, 
+		["1758_ProjectileDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1839076647", 
+				["text"] = "#% increased Projectile Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1034_ChaosDamageOverTimeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4055307827", 
+				["text"] = "#% to Chaos Damage over Time Multiplier", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5172_FlatColdDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_261654754", 
+				["text"] = "# Cold Damage taken from Hits", 
+			}, 
+			["sign"] = "-", 
+		}, 
+		["1993_ReducedReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4237190083", 
+				["text"] = "#% increased Mana Reservation Efficiency of Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1508_LifeGainPerTarget"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2797971005", 
+				["text"] = "Gain # Life per Enemy Hit with Attacks", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["176_SocketedDexterityGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2877754099", 
+				["text"] = "#% to Quality of Socketed Dexterity Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8974_DamageWithTriggeredSpells"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3067892458", 
+				["text"] = "Triggered Spells deal #% increased Spell Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7218_RecoverManaPercentOnBlock"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3041288981", 
+				["text"] = "Recover #% of your maximum Mana when you Block", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["3303_AuraEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1880071428", 
+				["text"] = "#% increased effect of Non-Curse Auras from your Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1288_StunThresholdReduction"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1443060084", 
+				["text"] = "#% reduced Enemy Stun Threshold", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2909_BleedingDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1294118672", 
+				["text"] = "#% increased Damage with Bleeding", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1081_StaffIncreasedPhysicalDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3150705301", 
+				["text"] = "#% increased Physical Damage with Staves", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5174_ColdDamageAttackSkills"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_860668586", 
+				["text"] = "#% increased Cold Damage with Attack Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["954_StrengthImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4080418644", 
+				["text"] = "# to Strength", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["3743_CurseEffectElementalWeakness"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3348324479", 
+				["text"] = "#% increased Elemental Weakness Curse Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5613_IncreasedWeaponElementalDamagePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_387439868", 
+				["text"] = "#% increased Elemental Damage with Attack Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1269_WandCriticalStrikeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1241396104", 
+				["text"] = "#% to Critical Strike Multiplier with Wands", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["8542_RemoveShockOnFlaskUse"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_561861132", 
+				["text"] = "Remove Shock when you use a Flask", 
+			}, 
+		}, 
+		["8734_SpellDamagePer16Dexterity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2612056840", 
+				["text"] = "#% increased Spell Damage per 16 Dexterity", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1945_BeltIncreasedFlaskChargesGained"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1452809865", 
+				["text"] = "#% increased Flask Charges gained", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1196_DaggerIncreasedAttackSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2538566497", 
+				["text"] = "#% increased Attack Speed with Daggers", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1215_BowIncreasedAccuracyRating"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_169946467", 
+				["text"] = "#% increased Accuracy Rating with Bows", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["184_SocketedStrengthGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_122841557", 
+				["text"] = "#% to Quality of Socketed Strength Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["4485_AddedColdDamagePerDexterity"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_149574107", 
+				["text"] = "Adds # to # Cold Damage to Attacks with this Weapon per 10 Dexterity", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2655_MinionCastSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4000101551", 
+				["text"] = "Minions have #% increased Cast Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["6086_GraceReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_900639351", 
+				["text"] = "Grace has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2727_ColdResistancePenetration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3417711605", 
+				["text"] = "Damage Penetrates #% Cold Resistance", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1031_ColdDamageOverTimeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1950806024", 
+				["text"] = "#% to Cold Damage over Time Multiplier", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5391_DamagePer15Intelligence"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3966666111", 
+				["text"] = "#% increased Damage per 100 Intelligence", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["8765_SpellsHinderOnHitChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3002506763", 
+				["text"] = "#% chance to Hinder Enemies on Hit with Spells", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2283_FrostbiteOnHitLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_426847518", 
+				["text"] = "Curse Enemies with Frostbite on Hit", 
+			}, 
+		}, 
+		["5504_DisciplineReservation"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2081344089", 
+				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1630_StunDurationIncreasePercent"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2517001139", 
+				["text"] = "#% increased Stun Duration on Enemies", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7908_FortifyEffect"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_335507772", 
+				["text"] = "# to maximum Fortification", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1501_MaximumManaLeechRate"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_96977651", 
+				["text"] = "#% increased Maximum total Mana Recovery per second from Leech", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1450_ChaosDamageLifeLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_744082851", 
+				["text"] = "#% of Chaos Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5035_ChanceWhenHitForArmourToBeDoubled"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_327253797", 
+				["text"] = "#% chance to Defend with 200% of Armour", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1447_LightningDamageLifeLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_80079005", 
+				["text"] = "#% of Lightning Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1268_SwordCriticalStrikeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3114492047", 
+				["text"] = "#% to Critical Strike Multiplier with Swords", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2835_VaalSkillDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2257141320", 
+				["text"] = "#% increased Damage with Vaal Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1344_LifeRegeneration"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3325883026", 
+				["text"] = "Regenerate # Life per second", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2033_ReducedPhysicalDamageTaken"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3771516363", 
+				["text"] = "#% additional Physical Damage Reduction", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1616_ChanceToAvoidPoison"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4053951709", 
+				["text"] = "#% chance to Avoid being Poisoned", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7932_LifeAddedAsEnergyShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_67280387", 
+				["text"] = "Gain #% of Maximum Life as Extra Maximum Energy Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1398_MaximumColdResistanceImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3676141501", 
+				["text"] = "#% to maximum Cold Resistance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1231_CriticalStrikeChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_587431675", 
+				["text"] = "#% increased Global Critical Strike Chance", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1650_ManaCostReduction"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_474294393", 
+				["text"] = "#% reduced Mana Cost of Skills", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1266_AxeCriticalStrikeMultiplier"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4219746989", 
+				["text"] = "#% to Critical Strike Multiplier with Axes", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["5505_DisciplineReservationEfficiency"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2081344089", 
+				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2844_AdditionalVaalSoulOnKill"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1962922582", 
+				["text"] = "#% chance to gain an additional Vaal Soul on Kill", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2682_PhysicalDamageAddedAsRandomElement"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3753703249", 
+				["text"] = "Gain #% of Physical Damage as Extra Damage of a random Element", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1788_ChanceToIgnite"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1335054179", 
+				["text"] = "#% chance to Ignite", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1697_PhysicalAddedAsFire"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_369494213", 
+				["text"] = "Gain #% of Physical Damage as Extra Fire Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["2847_VaalSkillCriticalStrikeChance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3165492062", 
+				["text"] = "#% increased Vaal Skill Critical Strike Chance", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1348_LifeRecoveryRate"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3240073117", 
+				["text"] = "#% increased Life Recovery rate", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1692_TrapThrowSpeed"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_118398748", 
+				["text"] = "#% increased Trap Throwing Speed", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5797_FasterPoisonDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2907156609", 
+				["text"] = "Poisons you inflict deal Damage #% faster", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1417_LifeLeechPermyriad"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3593843976", 
+				["text"] = "#% of Physical Attack Damage Leeched as Life", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["183_SocketedProjectileGemQuality"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2428621158", 
+				["text"] = "#% to Quality of Socketed Projectile Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["3800_DamageAffectedByAuras"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1419713278", 
+				["text"] = "You and nearby Allies deal #% increased Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1216_SwordIncreasedAccuracyRating"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2090868905", 
+				["text"] = "#% increased Accuracy Rating with Swords", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1095_DaggerIncreasedPhysicalDamage"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3882531569", 
+				["text"] = "#% increased Physical Damage with Daggers", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["956_IntelligenceImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_328541901", 
+				["text"] = "# to Intelligence", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["3109_IncreasedAuraEffectDisciplineCorrupted"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_788317702", 
+				["text"] = "Discipline has #% increased Aura Effect", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["5285_SpellCriticalChanceWithStaff"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_140429540", 
+				["text"] = "#% increased Critical Strike Chance for Spells while wielding a Staff", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1727_PhysicalDamageConvertToChaosImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_490098963", 
+				["text"] = "#% of Physical Damage Converted to Chaos Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7080_AllElementalResistanceCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3731630482", 
+				["text"] = "#% to all Elemental Resistances if Corrupted", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["1724_ConvertPhysicalToLightningImplicit"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3240769289", 
+				["text"] = "#% of Physical Damage Converted to Lightning Damage", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["7234_AddedManaRegenWithShield"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3762868276", 
+				["text"] = "Regenerate # Mana per Second while holding a Shield", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["996_DamageWhileLeechingMana"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_1994684426", 
+				["text"] = "#% increased Damage while Leeching Mana", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1400_ColdResistance"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_4220027924", 
+				["text"] = "#% to Cold Resistance", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["132_LocalIncreaseSocketedGemLevel"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2843100721", 
+				["text"] = "# to Level of Socketed Gems", 
+			}, 
+			["sign"] = "+", 
+		}, 
+		["2277_CurseOnHitLevelElementalWeakness"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_2028847114", 
+				["text"] = "Curse Enemies with Elemental Weakness on Hit", 
+			}, 
+		}, 
+		["6989_DamageTakenCorruptedItem"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3309607228", 
+				["text"] = "#% reduced Damage taken if Corrupted", 
+			}, 
+			["sign"] = "", 
+		}, 
+		["1373_ExperienceIncrease"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["type"] = "implicit", 
+				["id"] = "implicit.stat_3666934677", 
+				["text"] = "#% increased Experience gain", 
+			}, 
+			["sign"] = "", 
+		}, 
+	}, 
 	["Explicit"] = {
 		["1713_ChaosDamageOverTimeTaken"] = {
 			["specialCaseData"] = {
@@ -26470,4393 +30859,2697 @@ return {
 			["sign"] = "", 
 		}, 
 	}, 
-	["Synthesis"] = {
-		["1634_SelfStatusAilmentDuration"] = {
+	["PassiveNode"] = {
+		["6904_AfflictionNotableSnaringSpirits"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1745952865", 
-				["text"] = "#% reduced Elemental Ailment Duration on you", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3319205340", 
+				["text"] = "1 Added Passive Skill is Snaring Spirits", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8415_PurityOfIceReservation"] = {
+		["6908_AfflictionNotableSpringBack"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_139925400", 
-				["text"] = "Purity of Ice has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3603695769", 
+				["text"] = "1 Added Passive Skill is Spring Back", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["962_PercentageDexterity"] = {
+		["6723_AfflictionNotableCryWolf"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4139681126", 
-				["text"] = "#% increased Dexterity", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1821748178", 
+				["text"] = "1 Added Passive Skill is Cry Wolf", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["960_PercentageAllAttributes"] = {
+		["6858_AfflictionNotablePrismaticCarapace"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3143208761", 
-				["text"] = "#% increased Attributes", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3492924480", 
+				["text"] = "1 Added Passive Skill is Prismatic Carapace", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1519_MaximumManaOnKillPercent"] = {
+		["6682_AfflictionNotableAssertDominance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1030153674", 
-				["text"] = "Recover #% of Mana on Kill", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4222265138", 
+				["text"] = "1 Added Passive Skill is Assert Dominance", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2199_PhysicalDamageTakenAsFirePercent"] = {
+		["6699_AfflictionNotableBroadside"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3342989455", 
-				["text"] = "#% of Physical Damage from Hits taken as Fire Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2205982416", 
+				["text"] = "1 Added Passive Skill is Broadside", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1142_GlobalAddedColdDamage"] = {
+		["6676_AfflictionNotableAntifreeze"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2387423236", 
-				["text"] = "Adds # to # Cold Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2622946553", 
+				["text"] = "1 Added Passive Skill is Antifreeze", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5403_DamageVSAbyssMonsters"] = {
+		["6790_AfflictionNotableGrimOath"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3257279374", 
-				["text"] = "#% increased Damage with Hits and Ailments against Abyssal Monsters", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2194205899", 
+				["text"] = "1 Added Passive Skill is Grim Oath", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["938_SpellBlockPercentage"] = {
+		["6678_AfflictionNotableArcaneAdept"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_561307714", 
-				["text"] = "#% Chance to Block Spell Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_393565679", 
+				["text"] = "1 Added Passive Skill is Arcane Adept", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1557_AdditionalPierce"] = {
+		["6907_AfflictionNotableSpikedConcoction"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2067062068", 
-				["text"] = "Projectiles Pierce # additional Targets", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3372255769", 
+				["text"] = "1 Added Passive Skill is Spiked Concoction", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["4233_DeterminationPhysicalDamageReduction"] = {
+		["6892_AfflictionNotableSecondSkin"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1873457881", 
-				["text"] = "#% additional Physical Damage Reduction while affected by Determination", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2773515950", 
+				["text"] = "1 Added Passive Skill is Second Skin", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1260_CriticalStrikeMultiplier"] = {
+		["6737_AfflictionNotableSelfControl"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3556824919", 
-				["text"] = "#% to Global Critical Strike Multiplier", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3025453294", 
+				["text"] = "1 Added Passive Skill is Self-Control", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1405_LightningResistance"] = {
+		["6787_AfflictionNotableGracefulExecution"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1671376347", 
-				["text"] = "#% to Lightning Resistance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1903496649", 
+				["text"] = "1 Added Passive Skill is Graceful Execution", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1206_IncreasedAccuracyPercent"] = {
+		["6808_AfflictionNotableInspiredOppression"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_624954515", 
-				["text"] = "#% increased Global Accuracy Rating", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3872380586", 
+				["text"] = "1 Added Passive Skill is Inspired Oppression", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3946_BleedingImmunity"] = {
+		["6685_AfflictionNotableBattleHardened"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1901158930", 
-				["text"] = "Bleeding cannot be inflicted on you", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4188581520", 
+				["text"] = "1 Added Passive Skill is Battle-Hardened", 
 			}, 
 		}, 
-		["4482_AttackImpaleChance"] = {
+		["6688_AfflictionNotableBlanketedSnow"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3739863694", 
-				["text"] = "#% chance to Impale Enemies on Hit with Attacks", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1085167979", 
+				["text"] = "1 Added Passive Skill is Blanketed Snow", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1329_LocalEnergyShield"] = {
+		["6877_AfflictionNotableRenewal"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3489782002", 
-				["text"] = "# to maximum Energy Shield", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3607300552", 
+				["text"] = "1 Added Passive Skill is Renewal", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["8192_IncreasedAilmentEffectOnEnemies"] = {
+		["6774_AfflictionNotableFireAttunement"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_782230869", 
-				["text"] = "#% increased Effect of Non-Damaging Ailments", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3188756614", 
+				["text"] = "1 Added Passive Skill is Fire Attunement", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1153_GlobalAddedLightningDamage"] = {
+		["6948_AfflictionNotableWarningCall"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1334060246", 
-				["text"] = "Adds # to # Lightning Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_578355556", 
+				["text"] = "1 Added Passive Skill is Warning Call", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1366_ItemFoundRarityIncrease"] = {
+		["6928_AfflictionNotableTitanicSwings"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3917489142", 
-				["text"] = "#% increased Rarity of Items found", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2930275641", 
+				["text"] = "1 Added Passive Skill is Titanic Swings", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1565_MovementVelocity"] = {
+		["6705_AfflictionNotableCalltotheSlaughter"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2250533757", 
-				["text"] = "#% increased Movement Speed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3317068522", 
+				["text"] = "1 Added Passive Skill is Call to the Slaughter", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2282_FlammabilityOnHitLevel"] = {
+		["6792_AfflictionNotableGuerillaTactics"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_338121249", 
-				["text"] = "Curse Enemies with Flammability on Hit", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1882129725", 
+				["text"] = "1 Added Passive Skill is Guerilla Tactics", 
 			}, 
 		}, 
-		["8727_SpellDamagePerMana"] = {
+		["6863_AfflictionNotablePureAgony"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3555662994", 
-				["text"] = "#% increased Spell Damage per 500 Maximum Mana", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1507409483", 
+				["text"] = "1 Added Passive Skill is Pure Agony", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3110_CannotBePoisoned"] = {
+		["6802_AfflictionNotableHolisticHealth"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3835551335", 
-				["text"] = "Cannot be Poisoned", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3667965781", 
+				["text"] = "1 Added Passive Skill is Holistic Health", 
 			}, 
 		}, 
-		["1392_MaximumFireResistanceImplicit"] = {
+		["6724_AfflictionNotableCultLeader"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4095671657", 
-				["text"] = "#% to maximum Fire Resistance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2026112251", 
+				["text"] = "1 Added Passive Skill is Cult-Leader", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1795_ChanceToShock"] = {
+		["6961_AfflictionNotableWrappedinFlame"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1538773178", 
-				["text"] = "#% chance to Shock", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_241783558", 
+				["text"] = "1 Added Passive Skill is Wrapped in Flame", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1230_SpellCriticalStrikeChance"] = {
+		["6844_AfflictionNotableOvershock"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_737908626", 
-				["text"] = "#% increased Critical Strike Chance for Spells", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3777170562", 
+				["text"] = "1 Added Passive Skill is Overshock", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["6010_OnslaughtOnHit"] = {
+		["6716_AfflictionNotableCompoundInjury"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2514424018", 
-				["text"] = "You gain Onslaught for # seconds on Hit", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4018305528", 
+				["text"] = "1 Added Passive Skill is Compound Injury", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8733_SpellDamagePer10Strength"] = {
+		["6916_AfflictionNotableStrikeLeader"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4249521944", 
-				["text"] = "#% increased Spell Damage per 16 Strength", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_282062371", 
+				["text"] = "1 Added Passive Skill is Strike Leader", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1693_MineLayingSpeed"] = {
+		["6738_AfflictionNotableDiseaseVector"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1896971621", 
-				["text"] = "#% increased Mine Throwing Speed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_183591019", 
+				["text"] = "1 Added Passive Skill is Disease Vector", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5654_EnemiesExplodeOnDeathPhysical"] = {
+		["6958_AfflictionNotableWishforDeath"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1220361974", 
-				["text"] = "Enemies you Kill Explode, dealing #% of their Life as Physical Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_608164368", 
+				["text"] = "1 Added Passive Skill is Wish for Death", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["168_SocketedGemQuality"] = {
+		["6875_AfflictionNotableRemarkable"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3828613551", 
-				["text"] = "#% to Quality of Socketed Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_691431951", 
+				["text"] = "1 Added Passive Skill is Remarkable", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1597_PowerChargeOnCriticalStrikeChance"] = {
+		["6815_AfflictionNotableLifefromDeath"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3814876985", 
-				["text"] = "#% chance to gain a Power Charge on Critical Strike", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2337273077", 
+				["text"] = "1 Added Passive Skill is Life from Death", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1949_BeltIncreasedFlaskDuration"] = {
+		["6669_AfflictionNotableAlchemist"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3741323227", 
-				["text"] = "#% increased Flask Effect Duration", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2912949210", 
+				["text"] = "1 Added Passive Skill is Alchemist", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5036_AdditionalChanceToEvade"] = {
+		["6837_AfflictionNotableNoWitnesses"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2021058489", 
-				["text"] = "#% chance to Evade Attack Hits", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1722480396", 
+				["text"] = "1 Added Passive Skill is No Witnesses", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1350_MaximumManaIncreasePercent"] = {
+		["6745_AfflictionNotableDragonHunter"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2748665614", 
-				["text"] = "#% increased maximum Mana", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1038955006", 
+				["text"] = "1 Added Passive Skill is Dragon Hunter", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["6983_GlobalCriticalStrikeChanceCorruptedItem"] = {
+		["6717_AfflictionNotableConfidentCombatant"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4023723828", 
-				["text"] = "#% increased Global Critical Strike Chance if Corrupted", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3930242735", 
+				["text"] = "1 Added Passive Skill is Confident Combatant", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["140_LocalIncreaseSocketedChaosGemLevel"] = {
+		["6951_AfflictionNotableWhispersofDeath"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2675603254", 
-				["text"] = "# to Level of Socketed Chaos Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_156080652", 
+				["text"] = "1 Added Passive Skill is Evil Eye", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["8027_MinionAccuracyRating"] = {
+		["6751_AfflictionNotableEndbringer"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1718147982", 
-				["text"] = "#% increased Minion Accuracy Rating", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2150878631", 
+				["text"] = "1 Added Passive Skill is Endbringer", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3115_ColdDamageAvoidance"] = {
+		["6767_AfflictionNotableFantheFlames"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3743375737", 
-				["text"] = "#% chance to Avoid Cold Damage from Hits", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2918755450", 
+				["text"] = "1 Added Passive Skill is Fan the Flames", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1626_BurnDuration"] = {
+		["6675_AfflictionNotableAncestralReach"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1086147743", 
-				["text"] = "#% increased Ignite Duration on Enemies", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3294884567", 
+				["text"] = "1 Added Passive Skill is Ancestral Reach", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3028_DamagePerFrenzyCharge"] = {
+		["6911_AfflictionNotableStoicFocus"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_902747843", 
-				["text"] = "#% increased Damage per Frenzy Charge", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1088949570", 
+				["text"] = "1 Added Passive Skill is Stoic Focus", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1558_ArrowAdditionalPierce"] = {
+		["6942_AfflictionNotableVictimMaker"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3423006863", 
-				["text"] = "Arrows Pierce an additional Target", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1936135020", 
+				["text"] = "1 Added Passive Skill is Victim Maker", 
 			}, 
 		}, 
-		["1159_IncreasedChaosDamage"] = {
+		["6957_AfflictionNotableWinterProwler"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_736967255", 
-				["text"] = "#% increased Chaos Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_755881431", 
+				["text"] = "1 Added Passive Skill is Winter Prowler", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1151_LightningDamagePercentage"] = {
+		["6765_AfflictionNotableEyetoEye"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2231156303", 
-				["text"] = "#% increased Lightning Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_392942015", 
+				["text"] = "1 Added Passive Skill is Eye to Eye", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8606_ShockEffect"] = {
+		["6953_AfflictionNotableWidespreadDestruction"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2527686725", 
-				["text"] = "#% increased Effect of Shock", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1678643716", 
+				["text"] = "1 Added Passive Skill is Widespread Destruction", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["179_SocketedIntelligenceGemQuality"] = {
+		["6829_AfflictionNotableMastertheFundamentals"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3174776455", 
-				["text"] = "#% to Quality of Socketed Intelligence Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3585232432", 
+				["text"] = "1 Added Passive Skill is Master the Fundamentals", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["2286_MeleeWeaponAndUnarmedRange"] = {
+		["6726_AfflictionNotableDarkDiscourse"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2264295449", 
-				["text"] = "# to Melee Strike Range", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_462115791", 
+				["text"] = "1 Added Passive Skill is Doedre's Spite", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["955_DexterityImplicit"] = {
+		["6898_AfflictionNotableShriekingBolts"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3261801346", 
-				["text"] = "# to Dexterity", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2783012144", 
+				["text"] = "1 Added Passive Skill is Shrieking Bolts", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1581_IncreasedMaximumPowerCharges"] = {
+		["6696_AfflictionNotableBornofChaos"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_227523295", 
-				["text"] = "# to Maximum Power Charges", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2449392400", 
+				["text"] = "1 Added Passive Skill is Born of Chaos", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1905_IncreasedPowerChargeDuration"] = {
+		["6689_AfflictionNotableBlastFreeze"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3872306017", 
-				["text"] = "#% increased Power Charge Duration", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_693808153", 
+				["text"] = "1 Added Passive Skill is Blast-Freeze", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1699_PhysicalAddedAsLightning"] = {
+		["6860_AfflictionNotablePrismaticHeart"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_219391121", 
-				["text"] = "Gain #% of Physical Damage as Extra Lightning Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2342448236", 
+				["text"] = "1 Added Passive Skill is Prismatic Heart", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8413_PurityOfFireReservationEfficiency"] = {
+		["6879_AfflictionNotableReplenishingPresence"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3003688066", 
-				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1496043857", 
+				["text"] = "1 Added Passive Skill is Replenishing Presence", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["147_LocalIncreaseSocketedMeleeGemLevel"] = {
+		["6763_AfflictionNotableExposureTherapy"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_829382474", 
-				["text"] = "# to Level of Socketed Melee Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_131358113", 
+				["text"] = "1 Added Passive Skill is Exposure Therapy", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["8418_PurityOfLightningReservation"] = {
+		["6769_AfflictionNotableFearsomeWarrior"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3411256933", 
-				["text"] = "Purity of Lightning has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3134222965", 
+				["text"] = "1 Added Passive Skill is Fearsome Warrior", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["145_LocalIncreaseSocketedProjectileGemLevel"] = {
+		["6805_AfflictionNotableHulkingCorpses"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2176571093", 
-				["text"] = "# to Level of Socketed Projectile Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3467711950", 
+				["text"] = "1 Added Passive Skill is Hulking Corpses", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["2210_AdditionalBlock"] = {
+		["6693_AfflictionNotableBloodscent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2530372417", 
-				["text"] = "#% Chance to Block Attack Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3967765261", 
+				["text"] = "1 Added Passive Skill is Bloodscent", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["4420_AttackDamagePerMana"] = {
+		["6796_AfflictionNotableHeavyHitter"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4134865890", 
-				["text"] = "#% increased Attack Damage per 500 Maximum Mana", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3640252904", 
+				["text"] = "1 Added Passive Skill is Heavy Hitter", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8321_PhysicalDamageSpellSkills"] = {
+		["6922_AfflictionNotableSurefootedStriker"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1430255627", 
-				["text"] = "#% increased Physical Damage with Spell Skills", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3410752193", 
+				["text"] = "1 Added Passive Skill is Surefooted Striker", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["129_LocalIncreaseSocketedStrengthGemLevel"] = {
+		["6711_AfflictionNotableClarityofPurpose"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_916797432", 
-				["text"] = "# to Level of Socketed Strength Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_684087686", 
+				["text"] = "1 Added Passive Skill is Clarity of Purpose", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["2201_PhysicalDamageTakenAsLightningPercent"] = {
+		["6798_AfflictionNotableHeraldry"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_425242359", 
-				["text"] = "#% of Physical Damage from Hits taken as Lightning Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3274270612", 
+				["text"] = "1 Added Passive Skill is Heraldry", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1473_AttackDamageManaLeech"] = {
+		["6932_AfflictionNotableUnspeakableGifts"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_350069479", 
-				["text"] = "#% of Attack Damage Leeched as Mana", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_729163974", 
+				["text"] = "1 Added Passive Skill is Unspeakable Gifts", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1283_ReducedExtraDamageFromCrits"] = {
+		["6934_AfflictionNotableUnwaveringFocus"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3855016469", 
-				["text"] = "You take #% reduced Extra Damage from Critical Strikes", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_367638058", 
+				["text"] = "1 Added Passive Skill is Unwavering Focus", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1608_CannotBeShocked"] = {
+		["6670_AfflictionNotableAncestralEcho"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_491899612", 
-				["text"] = "Cannot be Shocked", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_957679205", 
+				["text"] = "1 Added Passive Skill is Ancestral Echo", 
 			}, 
 		}, 
-		["1610_AvoidElementalStatusAilments"] = {
+		["6900_AfflictionNotableSkullbreaker"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3005472710", 
-				["text"] = "#% chance to Avoid Elemental Ailments", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_315697256", 
+				["text"] = "1 Added Passive Skill is Skullbreaker", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1989_ManaReservationEfficiency"] = {
+		["6940_AfflictionNotableViciousGuard"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4237190083", 
-				["text"] = "#% increased Mana Reservation Efficiency of Skills", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4054656914", 
+				["text"] = "1 Added Passive Skill is Vicious Guard", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["963_PercentageIntelligence"] = {
+		["6764_AfflictionNotableEyeoftheStorm"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_656461285", 
-				["text"] = "#% increased Intelligence", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3818661553", 
+				["text"] = "1 Added Passive Skill is Eye of the Storm", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1010_MeleeDamage"] = {
+		["6839_AfflictionNotableNumbingElixir"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1002362373", 
-				["text"] = "#% increased Melee Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1028754276", 
+				["text"] = "1 Added Passive Skill is Numbing Elixir", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["180_SocketedLightningGemQuality"] = {
+		["6734_AfflictionNotableUncompromising"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1065580342", 
-				["text"] = "#% to Quality of Socketed Lightning Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_382360671", 
+				["text"] = "1 Added Passive Skill is Uncompromising", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1107_BowIncreasedPhysicalDamage"] = {
+		["6880_AfflictionNotableRiotQueller"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_402920808", 
-				["text"] = "#% increased Physical Damage with Bows", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_254194892", 
+				["text"] = "1 Added Passive Skill is Riot Queller", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1571_MaximumEnduranceCharges"] = {
+		["6686_AfflictionNotableBattlefieldDominator"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1515657623", 
-				["text"] = "# to Maximum Endurance Charges", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1499057234", 
+				["text"] = "1 Added Passive Skill is Battlefield Dominator", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["2316_FasterIgniteDamage"] = {
+		["6715_AfflictionNotableCombatRhythm"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2443492284", 
-				["text"] = "Ignites you inflict deal Damage #% faster", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3122505794", 
+				["text"] = "1 Added Passive Skill is Combat Rhythm", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1198_BowIncreasedAttackSpeed"] = {
+		["6813_AfflictionNotableLastingImpression"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3759735052", 
-				["text"] = "#% increased Attack Speed with Bows", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_426715778", 
+				["text"] = "1 Added Passive Skill is Lasting Impression", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5024_DoubleDamageChance"] = {
+		["6719_AfflictionNotableConservationofEnergy"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1172810729", 
-				["text"] = "#% chance to deal Double Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2083777017", 
+				["text"] = "1 Added Passive Skill is Conservation of Energy", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1563_ProjectileSpeed"] = {
+		["6713_AfflictionNotableColdConduction"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3759663284", 
-				["text"] = "#% increased Projectile Speed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1274505521", 
+				["text"] = "1 Added Passive Skill is Cold Conduction", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1270_ClawCriticalStrikeMultiplier"] = {
+		["6917_AfflictionNotableStubbornStudent"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2811834828", 
-				["text"] = "#% to Critical Strike Multiplier with Claws", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2383914651", 
+				["text"] = "1 Added Passive Skill is Stubborn Student", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["5338_CurseDuration"] = {
+		["6794_AfflictionNotableHauntingShout"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1435748744", 
-				["text"] = "Curse Skills have #% increased Skill Effect Duration", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1080363357", 
+				["text"] = "1 Added Passive Skill is Haunting Shout", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5038_GraceAdditionalChanceToEvade"] = {
+		["6773_AfflictionNotableFettle"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_969576725", 
-				["text"] = "#% chance to Evade Attack Hits while affected by Grace", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1353571444", 
+				["text"] = "1 Added Passive Skill is Fettle", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1995_PhysicalAttackDamageTaken"] = {
+		["6797_AfflictionNotableExploitWeakness"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3441651621", 
-				["text"] = "# Physical Damage taken from Attack Hits", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_50129423", 
+				["text"] = "1 Added Passive Skill is Exploit Weakness", 
 			}, 
-			["sign"] = "-", 
 		}, 
-		["1467_ManaLeechPermyriad"] = {
+		["6757_AfflictionNotableEternalSuffering"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3237948413", 
-				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2144634814", 
+				["text"] = "1 Added Passive Skill is Eternal Suffering", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1206_LocalAccuracyRatingIncrease"] = {
+		["6707_AfflictionNotableCarefulHandling"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_624954515", 
-				["text"] = "#% increased Global Accuracy Rating", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_456502758", 
+				["text"] = "1 Added Passive Skill is Careful Handling", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5153_ChillEffect"] = {
+		["6888_AfflictionNotableSavageResponse"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1793818220", 
-				["text"] = "#% increased Effect of Cold Ailments", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4222635921", 
+				["text"] = "1 Added Passive Skill is Savage Response", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["7073_IncreasedLifeCorruptedItem"] = {
+		["6788_AfflictionNotableSublimeForm"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3887484120", 
-				["text"] = "#% increased maximum Life if Corrupted", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2251304016", 
+				["text"] = "1 Added Passive Skill is Sublime Form", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5105_ChaosDamageSpellSkills"] = {
+		["6779_AfflictionNotableFollowThrough"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3761858151", 
-				["text"] = "#% increased Chaos Damage with Spell Skills", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3984980429", 
+				["text"] = "1 Added Passive Skill is Follow-Through", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1576_MaximumFrenzyCharges"] = {
+		["6770_AfflictionNotableFeastofFlesh"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4078695", 
-				["text"] = "# to Maximum Frenzy Charges", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2396755365", 
+				["text"] = "1 Added Passive Skill is Feast of Flesh", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1354_ManaRegeneration"] = {
+		["6941_AfflictionNotableViciousSkewering"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_789117908", 
-				["text"] = "#% increased Mana Regeneration Rate", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_567971948", 
+				["text"] = "1 Added Passive Skill is Vicious Skewering", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1516_LifeGainedFromEnemyDeath"] = {
+		["6882_AfflictionNotableRoteReinforcement"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3695891184", 
-				["text"] = "Gain # Life per Enemy Killed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2478282326", 
+				["text"] = "1 Added Passive Skill is Rote Reinforcement", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["146_LocalIncreaseSocketedBowGemLevel"] = {
+		["6768_AfflictionNotableFasting"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2027269580", 
-				["text"] = "# to Level of Socketed Bow Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_37078857", 
+				["text"] = "1 Added Passive Skill is Fasting", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["8719_SpellsDoubleDamageChance"] = {
+		["6929_AfflictionNotableTouchofCruelty"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2813626504", 
-				["text"] = "Spells have a #% chance to deal Double Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2780712583", 
+				["text"] = "1 Added Passive Skill is Touch of Cruelty", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3813_DamageDuringFlaskEffect"] = {
+		["6956_AfflictionNotableWinterCommander"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2947215268", 
-				["text"] = "#% increased Damage during any Flask Effect", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_792262925", 
+				["text"] = "1 Added Passive Skill is Frantic Aspect", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["4442_AddedLightningDamagePerIntelligence"] = {
+		["6912_AfflictionNotableStormDrinker"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3390848861", 
-				["text"] = "Adds # to # Lightning Damage to Attacks with this Weapon per 10 Intelligence", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2087561637", 
+				["text"] = "1 Added Passive Skill is Storm Drinker", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1580_MinimumPowerCharges"] = {
+		["6673_AfflictionNotableAncestralMight"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1999711879", 
-				["text"] = "# to Minimum Power Charges", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3998316", 
+				["text"] = "1 Added Passive Skill is Ancestral Might", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["2659_MinionElementalResistancesForJewel"] = {
+		["6853_AfflictionNotablePreciseCommander"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1423639565", 
-				["text"] = "Minions have #% to all Elemental Resistances", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3860179422", 
+				["text"] = "1 Added Passive Skill is Destructive Aspect", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1530_ManaGainedFromEnemyDeath"] = {
+		["6743_AfflictionNotableDoedresGluttony"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1368271171", 
-				["text"] = "Gain # Mana per Enemy Killed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2695848124", 
+				["text"] = "1 Added Passive Skill is Doedre's Gluttony", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1214_MaceIncreasedAccuracyRating"] = {
+		["6920_AfflictionNotableSummerCommander"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3208450870", 
-				["text"] = "#% increased Accuracy Rating with Maces or Sceptres", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3881737087", 
+				["text"] = "1 Added Passive Skill is Mortifying Aspect", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1217_WandIncreasedAccuracyRating"] = {
+		["6862_AfflictionNotableProvocateur"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2150183156", 
-				["text"] = "#% increased Accuracy Rating with Wands", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_814369372", 
+				["text"] = "1 Added Passive Skill is Provocateur", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2392_EnergyShieldRegenerationPerMinute"] = {
+		["6668_AfflictionNotableAggressiveDefence"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3594640492", 
-				["text"] = "Regenerate #% of Energy Shield per second", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4154008618", 
+				["text"] = "1 Added Passive Skill is Aggressive Defence", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1502_MaximumEnergyShieldLeechRate"] = {
+		["6695_AfflictionNotableBodyguards"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2013799819", 
-				["text"] = "#% increased Maximum total Energy Shield Recovery per second from Leech", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_791125124", 
+				["text"] = "1 Added Passive Skill is Bodyguards", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1119_WandIncreasedPhysicalDamage"] = {
+		["6801_AfflictionNotableHitandRun"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2769075491", 
-				["text"] = "#% increased Physical Damage with Wands", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2665170385", 
+				["text"] = "1 Added Passive Skill is Hit and Run", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["968_AllDamage"] = {
+		["6938_AfflictionNotableVeteranDefender"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2154246560", 
-				["text"] = "#% increased Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_664010431", 
+				["text"] = "1 Added Passive Skill is Veteran Defender", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1443_ColdDamageLifeLeechPermyriad"] = {
+		["6830_AfflictionNotableMendersWellspring"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3999401129", 
-				["text"] = "#% of Cold Damage Leeched as Life", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4291434923", 
+				["text"] = "1 Added Passive Skill is Mender's Wellspring", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8530_RemoveFreezeOnFlaskUse"] = {
+		["6897_AfflictionNotableShiftingShadow"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3296873305", 
-				["text"] = "Remove Chill and Freeze when you use a Flask", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1476913894", 
+				["text"] = "1 Added Passive Skill is Shifting Shadow", 
 			}, 
 		}, 
-		["1267_BowCriticalStrikeMultiplier"] = {
+		["6927_AfflictionNotableThunderstruck"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1712221299", 
-				["text"] = "#% to Critical Strike Multiplier with Bows", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1741700339", 
+				["text"] = "1 Added Passive Skill is Thunderstruck", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["8534_RemoveIgniteOnFlaskUse"] = {
+		["6924_AfflictionNotableSurpriseSabotage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1162425204", 
-				["text"] = "Remove Ignite and Burning when you use a Flask", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3051562738", 
+				["text"] = "1 Added Passive Skill is Surprise Sabotage", 
 			}, 
 		}, 
-		["1409_ChaosResistance"] = {
+		["6894_AfflictionNotableSelfFulfillingProphecy"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2923486259", 
-				["text"] = "#% to Chaos Resistance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2644533453", 
+				["text"] = "1 Added Passive Skill is Self-Fulfilling Prophecy", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["7077_MovementVelocityCorruptedItem"] = {
+		["6690_AfflictionNotableBlessed"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2880601380", 
-				["text"] = "#% increased Movement Speed if Corrupted", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_775689239", 
+				["text"] = "1 Added Passive Skill is Blessed", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5175_ColdDamageSpellSkills"] = {
+		["6918_AfflictionNotableStudentofDecay"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2186994986", 
-				["text"] = "#% increased Cold Damage with Spell Skills", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3202667190", 
+				["text"] = "1 Added Passive Skill is Student of Decay", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1213_DaggerIncreasedAccuracyRating"] = {
+		["6702_AfflictionNotableBurdenProjection"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2054715690", 
-				["text"] = "#% increased Accuracy Rating with Daggers", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2008682345", 
+				["text"] = "1 Added Passive Skill is Burden Projection", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1738_MinionDamage"] = {
+		["6807_AfflictionNotableInsatiableKiller"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1589917703", 
-				["text"] = "Minions deal #% increased Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3904970959", 
+				["text"] = "1 Added Passive Skill is Insatiable Killer", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1321_LocalEvasionRatingIncreasePercent"] = {
+		["6855_AfflictionNotablePreciseRetaliation"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2106365538", 
-				["text"] = "#% increased Evasion Rating", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2335364359", 
+				["text"] = "1 Added Passive Skill is Precise Retaliation", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2486_SpellDamagePer10Intelligence"] = {
+		["6667_AfflictionNotableAgentofDestruction"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3961014595", 
-				["text"] = "#% increased Spell Damage per 16 Intelligence", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3122491961", 
+				["text"] = "1 Added Passive Skill is Agent of Destruction", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1560_AdditionalArrows"] = {
+		["6728_AfflictionNotableDarkMessenger"] = {
 			["specialCaseData"] = {
-				["overrideModLineSingular"] = "Bow Attacks fire an additional Arrow", 
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_742529963", 
-				["text"] = "Bow Attacks fire # additional Arrows", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3784610129", 
+				["text"] = "1 Added Passive Skill is Dark Messenger", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3721_AnimateGuardianResistances"] = {
+		["6886_AfflictionNotableSage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2094281311", 
-				["text"] = "#% to Animated Guardian Elemental Resistances", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_478147593", 
+				["text"] = "1 Added Passive Skill is Sage", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["5400_IncreasedDamagePerPowerCharge"] = {
+		["6952_AfflictionNotableWickedPall"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2034658008", 
-				["text"] = "#% increased Damage per Power Charge", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1616734644", 
+				["text"] = "1 Added Passive Skill is Wicked Pall", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1757_GlobalKnockbackChance"] = {
+		["6960_AfflictionNotableWoundAggravation"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_977908611", 
-				["text"] = "#% chance to Knock Enemies Back on hit", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_69078820", 
+				["text"] = "1 Added Passive Skill is Wound Aggravation", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["994_DamageWhileLeechingLife"] = {
+		["6766_AfflictionNotableFanofBlades"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3591306273", 
-				["text"] = "#% increased Damage while Leeching Life", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2484082827", 
+				["text"] = "1 Added Passive Skill is Fan of Blades", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["9063_VitalityReservation"] = {
+		["6828_AfflictionNotableMasterOfTheMaelstrom"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3972739758", 
-				["text"] = "Vitality has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_185592058", 
+				["text"] = "1 Added Passive Skill is Master of the Maelstrom", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2703_GlobalChanceToBlindOnHit"] = {
+		["6868_AfflictionNotablePurposefulHarbinger"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2221570601", 
-				["text"] = "#% Global chance to Blind Enemies on hit", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_507505131", 
+				["text"] = "1 Added Passive Skill is Purposeful Harbinger", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1752_MaximumSpellBlockChance"] = {
+		["6859_AfflictionNotablePrismaticDance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2388574377", 
-				["text"] = "#% to maximum Chance to Block Spell Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1149662934", 
+				["text"] = "1 Added Passive Skill is Prismatic Dance", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["149_LocalIncreaseSocketedAuraLevel"] = {
+		["6869_AfflictionNotableQuickandDeadly"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2452998583", 
-				["text"] = "# to Level of Socketed Aura Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2169345147", 
+				["text"] = "1 Added Passive Skill is Quick and Deadly", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["6964_AttackDamageCorruptedItem"] = {
+		["6795_AfflictionNotableHeartofIron"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2347923784", 
-				["text"] = "#% increased Attack Damage if Corrupted", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1483358825", 
+				["text"] = "1 Added Passive Skill is Heart of Iron", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1515_EnergyShieldGainPerTarget"] = {
+		["6834_AfflictionNotableMoltenOnesMark"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_211381198", 
-				["text"] = "Gain # Energy Shield per Enemy Hit with Attacks", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3875792669", 
+				["text"] = "1 Added Passive Skill is Molten One's Mark", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["49_HasXSockets"] = {
+		["6785_AfflictionNotableGladiatorialCombat"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4077843608", 
-				["text"] = "Has 1 Socket", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1543731719", 
+				["text"] = "1 Added Passive Skill is Gladiatorial Combat", 
 			}, 
 		}, 
-		["2728_LightningResistancePenetration"] = {
+		["6887_AfflictionNotableSapPsyche"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_818778753", 
-				["text"] = "Damage Penetrates #% Lightning Resistance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_715786975", 
+				["text"] = "1 Added Passive Skill is Sap Psyche", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8641_BrandAttachmentRange"] = {
+		["6721_AfflictionNotableCorrosiveElements"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4223377453", 
-				["text"] = "#% increased Brand Attachment range", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1777139212", 
+				["text"] = "1 Added Passive Skill is Corrosive Elements", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["148_LocalIncreaseSocketedMinionGemLevel"] = {
+		["6817_AfflictionNotableLiquidInspiration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3604946673", 
-				["text"] = "# to Level of Socketed Minion Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1094635162", 
+				["text"] = "1 Added Passive Skill is Liquid Inspiration", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["4439_AddedFireDamagePerStrength"] = {
+		["6821_AfflictionNotableMagnifier"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1060540099", 
-				["text"] = "Adds # to # Fire Damage to Attacks with this Weapon per 10 Strength", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2886441936", 
+				["text"] = "1 Added Passive Skill is Magnifier", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2434_VaalSkillDamageAffectsSkillDamage"] = {
+		["6700_AfflictionNotableBrushwithDeath"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3871212304", 
-				["text"] = "Increases and Reductions to Damage with Vaal Skills also apply to Non-Vaal Skills", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2900833792", 
+				["text"] = "1 Added Passive Skill is Brush with Death", 
 			}, 
 		}, 
-		["1647_AreaOfEffect"] = {
+		["6739_AfflictionNotableDisorientingDisplay"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_280731498", 
-				["text"] = "#% increased Area of Effect", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3206911230", 
+				["text"] = "1 Added Passive Skill is Disorienting Display", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3947_ChanceToAvoidBleeding"] = {
+		["6752_AfflictionNotableEnduringComposure"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1618589784", 
-				["text"] = "#% chance to Avoid Bleeding", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2043284086", 
+				["text"] = "1 Added Passive Skill is Enduring Composure", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5104_ChaosDamageAttackSkills"] = {
+		["6704_AfflictionNotableCalamitous"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1959092146", 
-				["text"] = "#% increased Chaos Damage with Attack Skills", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3359207393", 
+				["text"] = "1 Added Passive Skill is Calamitous", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3742_CurseEffectConductivity"] = {
+		["6771_AfflictionNotableFeastingFiends"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3395908304", 
-				["text"] = "#% increased Conductivity Curse Effect", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_383245807", 
+				["text"] = "1 Added Passive Skill is Feasting Fiends", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5492_DeterminationReservation"] = {
+		["6733_AfflictionNotableMiseryEverlasting"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_325889252", 
-				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3832665876", 
+				["text"] = "1 Added Passive Skill is Misery Everlasting", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1221_CastSpeedWithStaff"] = {
+		["6778_AfflictionNotableFlowofLife"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2066542501", 
-				["text"] = "#% increased Cast Speed while wielding a Staff", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2350430215", 
+				["text"] = "1 Added Passive Skill is Flow of Life", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2203_PhysicalDamageTakenAsChaos"] = {
+		["6852_AfflictionNotablePracticedCaster"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4129825612", 
-				["text"] = "#% of Physical Damage from Hits taken as Chaos Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3435403756", 
+				["text"] = "1 Added Passive Skill is Practiced Caster", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1644_BurnDamage"] = {
+		["6896_AfflictionNotableSetandForget"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1175385867", 
-				["text"] = "#% increased Burning Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1101250813", 
+				["text"] = "1 Added Passive Skill is Set and Forget", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1822_GlobalFlaskLifeRecovery"] = {
+		["6847_AfflictionNotablePeaceAmidstChaos"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_821241191", 
-				["text"] = "#% increased Life Recovery from Flasks", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1734275536", 
+				["text"] = "1 Added Passive Skill is Peace Amidst Chaos", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["6571_FlatLightningDamageTaken"] = {
+		["6926_AfflictionNotableThaumophage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_465051235", 
-				["text"] = "# Lightning Damage taken from Hits", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_177215332", 
+				["text"] = "1 Added Passive Skill is Thaumophage", 
 			}, 
-			["sign"] = "-", 
 		}, 
-		["2803_RecoverLifePercentOnBlock"] = {
+		["6806_AfflictionNotableImprovisor"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2442647190", 
-				["text"] = "Recover #% of Life when you Block", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_810219447", 
+				["text"] = "1 Added Passive Skill is Improvisor", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1797_AreaDamage"] = {
+		["6891_AfflictionNotableSealMender"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4251717817", 
-				["text"] = "#% increased Area Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_876846990", 
+				["text"] = "1 Added Passive Skill is Seal Mender", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1197_MaceIncreasedAttackSpeed"] = {
+		["6732_AfflictionNotableDeepCuts"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2515515064", 
-				["text"] = "#% increased Attack Speed with Maces or Sceptres", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_410939404", 
+				["text"] = "1 Added Passive Skill is Deep Cuts", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5392_DamagePer15Strength"] = {
+		["6881_AfflictionNotableRotResistant"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4274080377", 
-				["text"] = "#% increased Damage per 100 Strength", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_713945233", 
+				["text"] = "1 Added Passive Skill is Rot-Resistant", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["7031_ImmuneToCursesCorruptedItem"] = {
+		["6933_AfflictionNotableUntouchable"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1954526925", 
-				["text"] = "Immune to Curses if Corrupted", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2758966888", 
+				["text"] = "1 Added Passive Skill is Untouchable", 
 			}, 
 		}, 
-		["4532_BleedDuration"] = {
+		["6697_AfflictionNotableBrandLoyalty"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1459321413", 
-				["text"] = "#% increased Bleeding Duration", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3198006994", 
+				["text"] = "1 Added Passive Skill is Brand Loyalty", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2535_TotemElementalResistances"] = {
+		["6800_AfflictionNotableHibernator"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1809006367", 
-				["text"] = "Totems gain #% to all Elemental Resistances", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2294919888", 
+				["text"] = "1 Added Passive Skill is Hibernator", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["922_SpellDamageSuppressed"] = {
+		["6936_AfflictionNotableVastPower"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4116705863", 
-				["text"] = "Prevent #% of Suppressed Spell Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1996576560", 
+				["text"] = "1 Added Passive Skill is Vast Power", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1618_AvoidStun"] = {
+		["6836_AfflictionNotableNaturalVigour"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4262448838", 
-				["text"] = "#% chance to Avoid being Stunned", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_510654792", 
+				["text"] = "1 Added Passive Skill is Natural Vigour", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1005_SpellDamageWithShield"] = {
+		["6809_AfflictionNotableInsulated"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1766142294", 
-				["text"] = "#% increased Spell Damage while holding a Shield", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_212648555", 
+				["text"] = "1 Added Passive Skill is Insulated", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2006_DegenDamageTaken"] = {
+		["6906_AfflictionNotableSpecialReserve"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1101403182", 
-				["text"] = "#% reduced Damage taken from Damage Over Time", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4235300427", 
+				["text"] = "1 Added Passive Skill is Special Reserve", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1410_MaximumElementalResistanceImplicit"] = {
+		["6915_AfflictionNotableStreamlined"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_569299859", 
-				["text"] = "#% to all maximum Resistances", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1397498432", 
+				["text"] = "1 Added Passive Skill is Streamlined", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["137_LocalIncreaseSocketedFireGemLevel"] = {
+		["6791_AfflictionNotableGroundedCommander"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_339179093", 
-				["text"] = "# to Level of Socketed Fire Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1309218394", 
+				["text"] = "1 Added Passive Skill is Introspection", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["9000_ChilledGroundEffectEffectiveness"] = {
+		["6740_AfflictionNotableDisorientingWounds"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3653191834", 
-				["text"] = "Unaffected by Chilled Ground", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3351136461", 
+				["text"] = "1 Added Passive Skill is Disorienting Wounds", 
 			}, 
 		}, 
-		["1946_BeltReducedFlaskChargesUsed"] = {
+		["6890_AfflictionNotableScintillatingIdea"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_644456512", 
-				["text"] = "#% reduced Flask Charges used", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2589589781", 
+				["text"] = "1 Added Passive Skill is Scintillating Idea", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1195_ClawIncreasedAttackSpeed"] = {
+		["6680_AfflictionNotableArcanePyrotechnics"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1421645223", 
-				["text"] = "#% increased Attack Speed with Claws", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2043503530", 
+				["text"] = "1 Added Passive Skill is Arcane Pyrotechnics", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3334_HasOnslaught"] = {
+		["6804_AfflictionNotableHoundsMark"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1520059289", 
-				["text"] = "Onslaught", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_555800967", 
+				["text"] = "1 Added Passive Skill is Hound's Mark", 
 			}, 
 		}, 
-		["1352_AddedManaRegeneration"] = {
+		["6729_AfflictionNotableDartingMovements"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4291461939", 
-				["text"] = "Regenerate # Mana per second", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_846491278", 
+				["text"] = "1 Added Passive Skill is Darting Movements", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1211_StaffIncreasedAccuracyRating"] = {
+		["6872_AfflictionNotableRattlingBellow"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1617235962", 
-				["text"] = "#% increased Accuracy Rating with Staves", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4288473380", 
+				["text"] = "1 Added Passive Skill is Rattling Bellow", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1613_AvoidIgnite"] = {
+		["6722_AfflictionNotableCremator"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1783006896", 
-				["text"] = "#% chance to Avoid being Ignited", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1153801980", 
+				["text"] = "1 Added Passive Skill is Cremator", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1178_SpellAddedColdDamageTwoHand"] = {
+		["6902_AfflictionNotableSmitetheWeak"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2469416729", 
-				["text"] = "Adds # to # Cold Damage to Spells", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_540300548", 
+				["text"] = "1 Added Passive Skill is Smite the Weak", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1533_MinionLife"] = {
+		["6947_AfflictionNotableWardbreaker"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_770672621", 
-				["text"] = "Minions have #% increased maximum Life", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2454339320", 
+				["text"] = "1 Added Passive Skill is Forbidden Words", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1346_LifeRegenerationPercentPerEnduranceCharge"] = {
+		["6760_AfflictionNotableExpendability"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_989800292", 
-				["text"] = "Regenerate #% of Life per second per Endurance Charge", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2020075345", 
+				["text"] = "1 Added Passive Skill is Expendability", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1403_MaximumLightningResistanceImplicit"] = {
+		["6944_AfflictionNotableVitalFocus"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1011760251", 
-				["text"] = "#% to maximum Lightning Resistance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2134141047", 
+				["text"] = "1 Added Passive Skill is Vital Focus", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["7089_SpellDamageCorruptedItem"] = {
+		["6818_AfflictionNotableLowTolerance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_374116820", 
-				["text"] = "#% increased Spell Damage if Corrupted", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3989400244", 
+				["text"] = "1 Added Passive Skill is Low Tolerance", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2910_PoisonDuration"] = {
+		["6735_AfflictionNotableDevastator"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2011656677", 
-				["text"] = "#% increased Poison Duration", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3711553948", 
+				["text"] = "1 Added Passive Skill is Devastator", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1218_IncreasedCastSpeed"] = {
+		["6935_AfflictionNotableUnwaveringlyEvil"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2891184298", 
-				["text"] = "#% increased Cast Speed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2788982914", 
+				["text"] = "1 Added Passive Skill is Unwaveringly Evil", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2806_DamageWhileLeeching"] = {
+		["6663_AfflictionNotableAdrenaline"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_310246444", 
-				["text"] = "#% increased Damage while Leeching", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4022743870", 
+				["text"] = "1 Added Passive Skill is Adrenaline", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1313_LocalPhysicalDamageReductionRatingPercent"] = {
+		["6750_AfflictionNotableEmpoweredEnvoy"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2866361420", 
-				["text"] = "#% increased Armour", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2032453153", 
+				["text"] = "1 Added Passive Skill is Empowered Envoy", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2330_SummonTotemCastSpeed"] = {
+		["6776_AfflictionNotableLordofDrought"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3374165039", 
-				["text"] = "#% increased Totem Placement speed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2055715585", 
+				["text"] = "1 Added Passive Skill is Lord of Drought", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1101_MaceIncreasedPhysicalDamage"] = {
+		["6698_AfflictionNotableBrewedforPotency"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3774831856", 
-				["text"] = "#% increased Physical Damage with Maces or Sceptres", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3250272113", 
+				["text"] = "1 Added Passive Skill is Brewed for Potency", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3328_LightningPenetrationWeapon"] = {
+		["6930_AfflictionNotableToweringThreat"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3301510262", 
-				["text"] = "Damage with Weapons Penetrates #% Lightning Resistance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3536778624", 
+				["text"] = "1 Added Passive Skill is Towering Threat", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2585_ChaosDamageTaken"] = {
+		["6950_AfflictionNotableWeightAdvantage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_496011033", 
-				["text"] = "# Chaos Damage taken", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2244243943", 
+				["text"] = "1 Added Passive Skill is Weight Advantage", 
 			}, 
-			["sign"] = "-", 
 		}, 
-		["2279_ConductivityOnHitLevel"] = {
+		["6674_AfflictionNotableAncestralPreservation"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_710372469", 
-				["text"] = "Curse Enemies with Conductivity on Hit", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3746703776", 
+				["text"] = "1 Added Passive Skill is Ancestral Preservation", 
 			}, 
 		}, 
-		["1570_MinimumEnduranceCharges"] = {
+		["6889_AfflictionNotableSavourtheMoment"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3706959521", 
-				["text"] = "# to Minimum Endurance Charges", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3539175001", 
+				["text"] = "1 Added Passive Skill is Savour the Moment", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1112_SwordIncreasedPhysicalDamage"] = {
+		["6873_AfflictionNotableRazeandPillage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3814560373", 
-				["text"] = "#% increased Physical Damage with Swords", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1038897629", 
+				["text"] = "1 Added Passive Skill is Raze and Pillage", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1791_ChanceToFreeze"] = {
+		["6730_AfflictionNotableDeadlyRepartee"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2309614417", 
-				["text"] = "#% chance to Freeze", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1013470938", 
+				["text"] = "1 Added Passive Skill is Deadly Repartee", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1612_AvoidFreeze"] = {
+		["6943_AfflictionNotableVileReinvigoration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1514829491", 
-				["text"] = "#% chance to Avoid being Frozen", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_647201233", 
+				["text"] = "1 Added Passive Skill is Vile Reinvigoration", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["4232_ReducedPhysicalDamageTakenVsAbyssMonsters"] = {
+		["6845_AfflictionNotableOverwhelmingMalice"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_287491423", 
-				["text"] = "#% additional Physical Damage Reduction against Abyssal Monsters", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_770408103", 
+				["text"] = "1 Added Passive Skill is Overwhelming Malice", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1665_AvoidInterruptionWhileCasting"] = {
+		["6687_AfflictionNotableBlacksmith"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1916706958", 
-				["text"] = "#% chance to Ignore Stuns while Casting", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1127706436", 
+				["text"] = "1 Added Passive Skill is Blacksmith", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1179_SpellAddedLightningDamageTwoHand"] = {
+		["6856_AfflictionNotablePressurePoints"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2831165374", 
-				["text"] = "Adds # to # Lightning Damage to Spells", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3391925584", 
+				["text"] = "1 Added Passive Skill is Pressure Points", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["6988_AllDamageCorruptedItem"] = {
+		["6849_AfflictionNotablePhlebotomist"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_767196662", 
-				["text"] = "#% increased Damage if Corrupted", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3057154383", 
+				["text"] = "1 Added Passive Skill is Phlebotomist", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["7236_AddedManaRegenWithStaff"] = {
+		["6664_AfflictionNotableAdvanceGuard"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1388668644", 
-				["text"] = "Regenerate # Mana per second while wielding a Staff", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1625939562", 
+				["text"] = "1 Added Passive Skill is Advance Guard", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1332_EnergyShieldDelay"] = {
+		["6746_AfflictionNotableDreadMarch"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1782086450", 
-				["text"] = "#% faster start of Energy Shield Recharge", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3087667389", 
+				["text"] = "1 Added Passive Skill is Dread March", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["6963_AttackAndCastSpeedCorruptedItem"] = {
+		["6925_AfflictionNotableTemperedArrowheads"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_26867112", 
-				["text"] = "#% increased Attack and Cast Speed if Corrupted", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2631806437", 
+				["text"] = "1 Added Passive Skill is Tempered Arrowheads", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1131_FireDamagePercentage"] = {
+		["6710_AfflictionNotableCirclingOblivion"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3962278098", 
-				["text"] = "#% increased Fire Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2129392647", 
+				["text"] = "1 Added Passive Skill is Circling Oblivion", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1499_MaximumLifeLeechRate"] = {
+		["6883_AfflictionNotableRottenClaws"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4118987751", 
-				["text"] = "#% increased Maximum total Life Recovery per second from Leech", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2289610642", 
+				["text"] = "1 Added Passive Skill is Rotten Claws", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3114_FireDamageAvoidance"] = {
+		["6823_AfflictionNotableMartialMomentum"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_42242677", 
-				["text"] = "#% chance to Avoid Fire Damage from Hits", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2978494217", 
+				["text"] = "1 Added Passive Skill is Martial Momentum", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1220_CastSpeedWithShield"] = {
+		["6931_AfflictionNotableUnholyGrace"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1612163368", 
-				["text"] = "#% increased Cast Speed while holding a Shield", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4186213466", 
+				["text"] = "1 Added Passive Skill is Unholy Grace", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1903_IncreasedSpellDamagePerPowerCharge"] = {
+		["6772_AfflictionNotableFeedtheFury"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_827329571", 
-				["text"] = "#% increased Spell Damage per Power Charge", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3944525413", 
+				["text"] = "1 Added Passive Skill is Feed the Fury", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1212_ClawIncreasedAccuracyRating"] = {
+		["6885_AfflictionNotableSadist"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1297965523", 
-				["text"] = "#% increased Accuracy Rating with Claws", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3638731729", 
+				["text"] = "1 Added Passive Skill is Sadist", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["130_LocalIncreaseSocketedDexterityGemLevel"] = {
+		["6850_AfflictionNotablePowerfulAssault"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2718698372", 
-				["text"] = "# to Level of Socketed Dexterity Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1005475168", 
+				["text"] = "1 Added Passive Skill is Powerful Assault", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1888_EnduranceChargeDuration"] = {
+		["6799_AfflictionNotableHexBreaker"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1170174456", 
-				["text"] = "#% increased Endurance Charge Duration", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2341828832", 
+				["text"] = "1 Added Passive Skill is Hex Breaker", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1525_GainLifeOnBlock"] = {
+		["6832_AfflictionNotableMindfulness"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_762600725", 
-				["text"] = "# Life gained when you Block", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2595115995", 
+				["text"] = "1 Added Passive Skill is Mindfulness", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8301_PhysicalDamageWithUnholyMight"] = {
+		["6753_AfflictionNotableEnduringFocus"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1609570656", 
-				["text"] = "#% increased Physical Damage while you have Unholy Might", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2522970386", 
+				["text"] = "1 Added Passive Skill is Enduring Focus", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1089_ClawIncreasedPhysicalDamage"] = {
+		["6748_AfflictionNotableEldritchInspiration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_635761691", 
-				["text"] = "#% increased Physical Damage with Claws", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3737604164", 
+				["text"] = "1 Added Passive Skill is Eldritch Inspiration", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["4479_AttacksBlindOnHitChance"] = {
+		["6684_AfflictionNotableBasicsofPain"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_318953428", 
-				["text"] = "#% chance to Blind Enemies on Hit with Attacks", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3084359503", 
+				["text"] = "1 Added Passive Skill is Basics of Pain", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5814_FireDamagePerStrength"] = {
+		["6701_AfflictionNotableBrutalInfamy"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2241902512", 
-				["text"] = "#% increased Fire Damage per 20 Strength", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2068574831", 
+				["text"] = "1 Added Passive Skill is Brutal Infamy", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1133_GlobalAddedFireDamage"] = {
+		["6955_AfflictionNotableWindup"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_321077055", 
-				["text"] = "Adds # to # Fire Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1938661964", 
+				["text"] = "1 Added Passive Skill is Wind-up", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5310_SpellCriticalMultiplierWithShield"] = {
+		["6782_AfflictionNotableFueltheFight"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2311200892", 
-				["text"] = "#% to Critical Strike Multiplier for Spells while holding a Shield", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3599340381", 
+				["text"] = "1 Added Passive Skill is Fuel the Fight", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["5311_SpellCriticalMultiplierWithStaff"] = {
+		["6762_AfflictionNotableExplosiveForce"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3629080637", 
-				["text"] = "#% to Critical Strike Multiplier for Spells while wielding a Staff", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2017927451", 
+				["text"] = "1 Added Passive Skill is Explosive Force", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["3195_SpectreDamage"] = {
+		["6841_AfflictionNotableOpenness"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3645693773", 
-				["text"] = "Spectres have #% increased Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_633943719", 
+				["text"] = "1 Added Passive Skill is Openness", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1351_BaseManaRegeneration"] = {
+		["6742_AfflictionNotableDoedresApathy"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3188455409", 
-				["text"] = "Regenerate #% of Mana per second", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1381945089", 
+				["text"] = "1 Added Passive Skill is Doedre's Apathy", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1536_MinionMovementSpeed"] = {
+		["6759_AfflictionNotableExpansiveMight"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_174664100", 
-				["text"] = "Minions have #% increased Movement Speed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_394918362", 
+				["text"] = "1 Added Passive Skill is Expansive Might", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["4371_AdditionalCriticalStrikeChanceWithAttacks"] = {
+		["6749_AfflictionNotableElegantForm"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2572042788", 
-				["text"] = "Attacks have #% to Critical Strike Chance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_289714529", 
+				["text"] = "1 Added Passive Skill is Elegant Form", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1199_SwordIncreasedAttackSpeed"] = {
+		["6736_AfflictionNotableDisciples"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3293699237", 
-				["text"] = "#% increased Attack Speed with Swords", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3177526694", 
+				["text"] = "1 Added Passive Skill is Disciples", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1921_IncreasedManaLeechRate"] = {
+		["6712_AfflictionNotableColdBloodedKiller"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_690135178", 
-				["text"] = "#% increased total Recovery per second from Mana Leech", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_836566759", 
+				["text"] = "1 Added Passive Skill is Cold-Blooded Killer", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3396_SkeletonDamage"] = {
+		["6835_AfflictionNotableMysticalWard"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3059357595", 
-				["text"] = "Skeletons deal #% increased Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2314111938", 
+				["text"] = "1 Added Passive Skill is Mystical Ward", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2921_PoisonDamage"] = {
+		["6825_AfflictionNotableMasterofCommand"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1290399200", 
-				["text"] = "#% increased Damage with Poison", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3257074218", 
+				["text"] = "1 Added Passive Skill is Master of Command", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1140_ColdDamagePercentage"] = {
+		["6851_AfflictionNotablePowerfulWard"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3291658075", 
-				["text"] = "#% increased Cold Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_164032122", 
+				["text"] = "1 Added Passive Skill is Powerful Ward", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["4480_AttacksTauntOnHitChance"] = {
+		["6903_AfflictionNotableSmokingRemains"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_280213220", 
-				["text"] = "#% chance to Taunt Enemies on Hit with Attacks", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2322980282", 
+				["text"] = "1 Added Passive Skill is Smoking Remains", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["178_SocketedFireGemQuality"] = {
+		["6905_AfflictionNotableSnowstorm"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3422008440", 
-				["text"] = "#% to Quality of Socketed Fire Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1595367309", 
+				["text"] = "1 Added Passive Skill is Snowstorm", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["171_SocketedAoEGemQuality"] = {
+		["6727_AfflictionNotableDarkIdeation"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_768982451", 
-				["text"] = "#% to Quality of Socketed AoE Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1603621602", 
+				["text"] = "1 Added Passive Skill is Dark Ideation", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1419_LifeLeechLocalPermyriad"] = {
+		["6848_AfflictionNotablePeakVigour"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3593843976", 
-				["text"] = "#% of Physical Attack Damage Leeched as Life", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1722821275", 
+				["text"] = "1 Added Passive Skill is Peak Vigour", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2361_MovementSpeedWhilePhased"] = {
+		["6709_AfflictionNotableChipAway"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3684879618", 
-				["text"] = "#% increased Movement Speed while Phasing", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_968069586", 
+				["text"] = "1 Added Passive Skill is Chip Away", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1751_MaximumBlockChance"] = {
+		["6921_AfflictionNotableSupercharge"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4124805414", 
-				["text"] = "#% to maximum Chance to Block Attack Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3226074658", 
+				["text"] = "1 Added Passive Skill is Supercharge", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["5827_FireDamageSpellSkills"] = {
+		["6842_AfflictionNotableOpportunisticFusilade"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_361162316", 
-				["text"] = "#% increased Fire Damage with Spell Skills", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4281625943", 
+				["text"] = "1 Added Passive Skill is Opportunistic Fusilade", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2280_CurseOnHitDespair"] = {
+		["6831_AfflictionNotableMilitarism"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2764915899", 
-				["text"] = "Curse Enemies with Despair on Hit", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4154709486", 
+				["text"] = "1 Added Passive Skill is Militarism", 
 			}, 
 		}, 
-		["1328_EnergyShield"] = {
+		["6714_AfflictionNotableColdtotheCore"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3489782002", 
-				["text"] = "# to maximum Energy Shield", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_744783843", 
+				["text"] = "1 Added Passive Skill is Cold to the Core", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1160_GlobalAddedChaosDamage"] = {
+		["6775_AfflictionNotableFirstAmongEquals"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3531280422", 
-				["text"] = "Adds # to # Chaos Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1134501245", 
+				["text"] = "1 Added Passive Skill is Spiteful Presence", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8736_SpellDamagePer16Strength"] = {
+		["6747_AfflictionNotableDrivetheDestruction"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4249521944", 
-				["text"] = "#% increased Spell Damage per 16 Strength", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1911162866", 
+				["text"] = "1 Added Passive Skill is Drive the Destruction", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8995_BurningGroundEffectEffectiveness"] = {
+		["6731_AfflictionNotableDeepChill"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1643688236", 
-				["text"] = "Unaffected by Burning Ground", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1703766309", 
+				["text"] = "1 Added Passive Skill is Deep Chill", 
 			}, 
 		}, 
-		["1177_SpellAddedFireDamageTwoHand"] = {
+		["6874_AfflictionNotableReadiness"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1133016593", 
-				["text"] = "Adds # to # Fire Damage to Spells", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_845306697", 
+				["text"] = "1 Added Passive Skill is Readiness", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1623_ChillAndFreezeDuration"] = {
+		["6857_AfflictionNotablePrimordialBond"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3485067555", 
-				["text"] = "#% increased Chill Duration on Enemies", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_622362787", 
+				["text"] = "1 Added Passive Skill is Primordial Bond", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["9019_ShockedGroundEffectEffectiveness"] = {
+		["6923_AfflictionNotableSurgingVitality"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2234049899", 
-				["text"] = "Unaffected by Shocked Ground", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2410501331", 
+				["text"] = "1 Added Passive Skill is Surging Vitality", 
 			}, 
 		}, 
-		["2913_PoisonOnHit"] = {
+		["6720_AfflictionNotableCookedAlive"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_795138349", 
-				["text"] = "#% chance to Poison on Hit", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2938895712", 
+				["text"] = "1 Added Passive Skill is Cooked Alive", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1194_StaffIncreasedAttackSpeed"] = {
+		["6672_AfflictionNotableAncestralInspiration"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1394963553", 
-				["text"] = "#% increased Attack Speed with Staves", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_77045106", 
+				["text"] = "1 Added Passive Skill is Ancestral Inspiration", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1210_AxeIncreasedAccuracyRating"] = {
+		["6761_AfflictionNotableExpertSabotage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2538120572", 
-				["text"] = "#% increased Accuracy Rating with Axes", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2084371547", 
+				["text"] = "1 Added Passive Skill is Expert Sabotage", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["4523_AilmentDamage"] = {
+		["6691_AfflictionNotableBlessedRebirth"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_690707482", 
-				["text"] = "#% increased Damage with Ailments", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1424794574", 
+				["text"] = "1 Added Passive Skill is Blessed Rebirth", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["987_DegenerationDamage"] = {
+		["6694_AfflictionNotableBlowback"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_967627487", 
-				["text"] = "#% increased Damage over Time", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1612414696", 
+				["text"] = "1 Added Passive Skill is Blowback", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1007_PhysicalDamagePercent"] = {
+		["6744_AfflictionNotableDoryanisLesson"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1310194496", 
-				["text"] = "#% increased Global Physical Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_228455793", 
+				["text"] = "1 Added Passive Skill is Doryani's Lesson", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5727_DisciplineEnergyShieldRegen"] = {
+		["6718_AfflictionNotableConjuredWall"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_991194404", 
-				["text"] = "Regenerate #% of Energy Shield per Second while affected by Discipline", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4105031548", 
+				["text"] = "1 Added Passive Skill is Conjured Wall", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1920_IncreasedLifeLeechRate"] = {
+		["6780_AfflictionNotableForceMultiplier"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2633745731", 
-				["text"] = "#% increased total Recovery per second from Life Leech", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1904581068", 
+				["text"] = "1 Added Passive Skill is Force Multiplier", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3108_IncreasedAuraEffectDeterminationCorrupted"] = {
+		["6725_AfflictionNotableDaringIdeas"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3653400807", 
-				["text"] = "Determination has #% increased Aura Effect", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2534405517", 
+				["text"] = "1 Added Passive Skill is Daring Ideas", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["138_LocalIncreaseSocketedColdGemLevel"] = {
+		["6937_AfflictionNotableVengefulCommander"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1645459191", 
-				["text"] = "# to Level of Socketed Cold Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2620267328", 
+				["text"] = "1 Added Passive Skill is Righteous Path", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["185_AbyssJewelEffect"] = {
+		["6816_AfflictionNotableTempttheStorm"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1482572705", 
-				["text"] = "#% increased Effect of Socketed Abyss Jewels", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_348883745", 
+				["text"] = "1 Added Passive Skill is Tempt the Storm", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1177_SpellAddedFireDamage"] = {
+		["6826_AfflictionNotableMasterofFear"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1133016593", 
-				["text"] = "Adds # to # Fire Damage to Spells", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2771217016", 
+				["text"] = "1 Added Passive Skill is Master of Fear", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1362_ItemFoundQuantityIncrease"] = {
+		["6793_AfflictionNotableHaemorrhage"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_884586851", 
-				["text"] = "#% increased Quantity of Items found", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_72129119", 
+				["text"] = "1 Added Passive Skill is Haemorrhage", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2773_AttackAndCastSpeedWithOnslaught"] = {
+		["6843_AfflictionNotableOverlord"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2320884914", 
-				["text"] = "#% increased Attack and Cast Speed during Onslaught", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2250169390", 
+				["text"] = "1 Added Passive Skill is Overlord", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["7071_IncreasedEnergyShieldCorruptedItem"] = {
+		["6692_AfflictionNotableBloodArtist"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1025108940", 
-				["text"] = "#% increased maximum Energy Shield if Corrupted", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2284771334", 
+				["text"] = "1 Added Passive Skill is Blood Artist", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1339_IncreasedLife"] = {
+		["6803_AfflictionNotableHolyConquest"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3299347043", 
-				["text"] = "# to maximum Life", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3898572660", 
+				["text"] = "1 Added Passive Skill is Holy Conquest", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1998_FlatFireDamageTaken"] = {
+		["6784_AfflictionNotableGenius"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_614758785", 
-				["text"] = "# Fire Damage taken from Hits", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2763732093", 
+				["text"] = "1 Added Passive Skill is Genius", 
 			}, 
-			["sign"] = "-", 
 		}, 
-		["5309_SpellCriticalMultiplierWithDualWield"] = {
+		["6708_AfflictionNotableChillingPresence"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2349237916", 
-				["text"] = "#% to Critical Strike Multiplier for Spells while Dual Wielding", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2834490860", 
+				["text"] = "1 Added Passive Skill is Chilling Presence", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["9064_VitalityReservationEfficiency"] = {
+		["6884_AfflictionNotableRunThrough"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3972739758", 
-				["text"] = "Vitality has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1488030420", 
+				["text"] = "1 Added Passive Skill is Run Through", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1338_EnergyShieldRecoveryRate"] = {
+		["6954_AfflictionNotableWillShaper"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_988575597", 
-				["text"] = "#% increased Energy Shield Recovery rate", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1162352537", 
+				["text"] = "1 Added Passive Skill is Will Shaper", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3327_FirePenetrationWeapon"] = {
+		["6777_AfflictionNotableFlexibleSentry"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1123291426", 
-				["text"] = "Damage with Weapons Penetrates #% Fire Resistance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_982290947", 
+				["text"] = "1 Added Passive Skill is Flexible Sentry", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1356_ManaRecoveryRate"] = {
+		["6811_AfflictionNotableInvigoratingPortents"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3513180117", 
-				["text"] = "#% increased Mana Recovery rate", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2262034536", 
+				["text"] = "1 Added Passive Skill is Invigorating Portents", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["9277_UnwaveringStance"] = {
+		["6666_AfflictionNotableAerodynamics"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1683578560", 
-				["text"] = "Unwavering Stance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4120556534", 
+				["text"] = "1 Added Passive Skill is Aerodynamics", 
 			}, 
 		}, 
-		["4339_ArmourEvasionWithFortify"] = {
+		["6871_AfflictionNotableRapidInfusion"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2962782530", 
-				["text"] = "# to Armour and Evasion Rating while Fortified", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1570474940", 
+				["text"] = "1 Added Passive Skill is Rapid Infusion", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["5390_DamagePer15Dexterity"] = {
+		["6756_AfflictionNotableEssenceRush"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_342670903", 
-				["text"] = "#% increased Damage per 100 Dexterity", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1096136223", 
+				["text"] = "1 Added Passive Skill is Essence Rush", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1667_StunRecovery"] = {
+		["6878_AfflictionNotableRepeater"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2511217560", 
-				["text"] = "#% increased Stun and Block Recovery", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2233272527", 
+				["text"] = "1 Added Passive Skill is Repeater", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5826_FireDamageAttackSkills"] = {
+		["6783_AfflictionNotableFuriousAssault"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2468413380", 
-				["text"] = "#% increased Fire Damage with Attack Skills", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3415827027", 
+				["text"] = "1 Added Passive Skill is Furious Assault", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1506_LifeGainPerTargetLocal"] = {
+		["6681_AfflictionNotableArcingShot"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_821021828", 
-				["text"] = "Grants # Life per Enemy Hit", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3212859169", 
+				["text"] = "1 Added Passive Skill is Arcing Shot", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["172_SocketedAuraGemQuality"] = {
+		["6899_AfflictionNotableSkeletalAtrophy"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2276941637", 
-				["text"] = "#% to Quality of Socketed Aura Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1290215329", 
+				["text"] = "1 Added Passive Skill is Skeletal Atrophy", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1490_EnergyShieldLeechPermyriad"] = {
+		["6703_AfflictionNotableBurningBright"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_11106713", 
-				["text"] = "#% of Spell Damage Leeched as Energy Shield", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4199056048", 
+				["text"] = "1 Added Passive Skill is Burning Bright", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5493_DeterminationReservationEfficiency"] = {
+		["6959_AfflictionNotableWizardry"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_325889252", 
-				["text"] = "Determination has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3078065247", 
+				["text"] = "1 Added Passive Skill is Wizardry", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1469_ManaLeechLocalPermyriad"] = {
+		["6683_AfflictionNotableAstonishingAffliction"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3237948413", 
-				["text"] = "#% of Physical Attack Damage Leeched as Mana", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2428334013", 
+				["text"] = "1 Added Passive Skill is Astonishing Affliction", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1438_FireDamageLifeLeechPermyriad"] = {
+		["6838_AfflictionNotableNonFlammable"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3848282610", 
-				["text"] = "#% of Fire Damage Leeched as Life", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_731840035", 
+				["text"] = "1 Added Passive Skill is Non-Flammable", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1394_FireResistance"] = {
+		["6914_AfflictionNotableStormsHand"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3372524247", 
-				["text"] = "#% to Fire Resistance", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1122051203", 
+				["text"] = "1 Added Passive Skill is Storm's Hand", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["4004_AddedColdDamagePerFrenzyCharge"] = {
+		["6755_AfflictionNotableEnergyFromNaught"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3648858570", 
-				["text"] = "# to # Added Cold Damage per Frenzy Charge", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2195518432", 
+				["text"] = "1 Added Passive Skill is Energy From Naught", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2725_ElementalPenetration"] = {
+		["6866_AfflictionNotablePureGuile"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2101383955", 
-				["text"] = "Damage Penetrates #% Elemental Resistances", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1621496909", 
+				["text"] = "1 Added Passive Skill is Pure Guile", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1606_CannotBeIgnited"] = {
+		["6864_AfflictionNotablePureAptitude"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_331731406", 
-				["text"] = "Cannot be Ignited", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3509724289", 
+				["text"] = "1 Added Passive Skill is Pure Aptitude", 
 			}, 
 		}, 
-		["2654_MinionAttackSpeed"] = {
+		["6781_AfflictionNotableBlizzardCaller"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3375935924", 
-				["text"] = "Minions have #% increased Attack Speed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3758712376", 
+				["text"] = "1 Added Passive Skill is Blizzard Caller", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1205_IncreasedAccuracy"] = {
+		["6833_AfflictionNotableMobMentality"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_803737631", 
-				["text"] = "# to Accuracy Rating", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1048879642", 
+				["text"] = "1 Added Passive Skill is Mob Mentality", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["3104_IncreasedAuraEffectGraceCorrupted"] = {
+		["6913_AfflictionNotableStormrider"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_397427740", 
-				["text"] = "Grace has #% increased Aura Effect", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_889728548", 
+				["text"] = "1 Added Passive Skill is Stormrider", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1454_ElementalDamageLeechedAsLifePermyriad"] = {
+		["6946_AfflictionNotableWallofMuscle"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_720395808", 
-				["text"] = "#% of Elemental Damage Leeched as Life", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1363668533", 
+				["text"] = "1 Added Passive Skill is Wall of Muscle", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["6573_LightningDamageSpellSkills"] = {
+		["6786_AfflictionNotableGladiatorsFortitude"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3935031607", 
-				["text"] = "#% increased Lightning Damage with Spell Skills", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1591995797", 
+				["text"] = "1 Added Passive Skill is Gladiator's Fortitude", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3116_LightningDamageAvoidance"] = {
+		["6814_AfflictionNotableLeadByExample"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2889664727", 
-				["text"] = "#% chance to Avoid Lightning Damage from Hits", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2195406641", 
+				["text"] = "1 Added Passive Skill is Lead By Example", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5974_EnduranceChargeIfHitRecently"] = {
+		["6810_AfflictionNotableIntensity"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2894476716", 
-				["text"] = "Gain # Endurance Charge every second if you've been Hit Recently", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2785835061", 
+				["text"] = "1 Added Passive Skill is Intensity", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1335_EnergyShieldRegeneration"] = {
+		["6840_AfflictionNotableOnewiththeShield"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2339757871", 
-				["text"] = "#% increased Energy Shield Recharge Rate", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1976069869", 
+				["text"] = "1 Added Passive Skill is One with the Shield", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1600_FrenzyChargeOnHitChance"] = {
+		["6901_AfflictionNotableSleeplessSentries"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2323242761", 
-				["text"] = "#% chance to gain a Frenzy Charge on Hit", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3993957711", 
+				["text"] = "1 Added Passive Skill is Sleepless Sentries", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3745_CurseEffectFlammability"] = {
+		["6861_AfflictionNotableProdigiousDefense"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_282417259", 
-				["text"] = "#% increased Flammability Curse Effect", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1705633890", 
+				["text"] = "1 Added Passive Skill is Prodigious Defence", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1183_IncreasedAttackSpeed"] = {
+		["6671_AfflictionNotableAncestralGuidance"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_681332047", 
-				["text"] = "#% increased Attack Speed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2387747995", 
+				["text"] = "1 Added Passive Skill is Ancestral Guidance", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1706_FireAddedAsChaos"] = {
+		["6876_AfflictionNotableRend"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1599775597", 
-				["text"] = "Gain #% of Fire Damage as Extra Chaos Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4263287206", 
+				["text"] = "1 Added Passive Skill is Rend", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3746_CurseEffectFrostbite"] = {
+		["6706_AfflictionNotableCapacitor"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1443215722", 
-				["text"] = "#% increased Frostbite Curse Effect", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4025536654", 
+				["text"] = "1 Added Passive Skill is Capacitor", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2252_LightRadius"] = {
+		["6867_AfflictionNotablePureMight"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1263695895", 
-				["text"] = "#% increased Light Radius", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2372915005", 
+				["text"] = "1 Added Passive Skill is Pure Might", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2348_CurseEffectiveness"] = {
+		["6820_AfflictionNotableMageHunter"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2353576063", 
-				["text"] = "#% increased Effect of your Curses", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2118664144", 
+				["text"] = "1 Added Passive Skill is Mage Hunter", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1722_ConvertPhysicalToColdImplicit"] = {
+		["6865_AfflictionNotablePureCommander"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2133341901", 
-				["text"] = "#% of Physical Damage Converted to Cold Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3950683692", 
+				["text"] = "1 Added Passive Skill is Electric Presence", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2311_ItemDropsOnGuardianDeath"] = {
+		["6854_AfflictionNotablePreciseFocus"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3909846940", 
-				["text"] = "Item drops on Death if Equipped by an Animated Guardian", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2913581789", 
+				["text"] = "1 Added Passive Skill is Precise Focus", 
 			}, 
 		}, 
-		["1809_AttackAndCastSpeed"] = {
+		["6909_AfflictionNotableStalwartCommander"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2672805335", 
-				["text"] = "#% increased Attack and Cast Speed", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2350668735", 
+				["text"] = "1 Added Passive Skill is Volatile Presence", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1432_LifeLeechFromAttacksPermyriad"] = {
+		["6827_AfflictionNotableMasterofFire"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_141810208", 
-				["text"] = "#% of Attack Damage Leeched as Life", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1462135249", 
+				["text"] = "1 Added Passive Skill is Master of Fire", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1720_ConvertPhysicalToFireImplicit"] = {
+		["6819_AfflictionNotableMageBane"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1533563525", 
-				["text"] = "#% of Physical Damage Converted to Fire Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_684155617", 
+				["text"] = "1 Added Passive Skill is Mage Bane", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1219_CastSpeedWithDualWield"] = {
+		["6741_AfflictionNotableDistilledPerfection"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2382196858", 
-				["text"] = "#% increased Cast Speed while Dual Wielding", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3652138990", 
+				["text"] = "1 Added Passive Skill is Distilled Perfection", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["131_LocalIncreaseSocketedIntelligenceGemLevel"] = {
+		["6754_AfflictionNotableEnduringWard"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1719423857", 
-				["text"] = "# to Level of Socketed Intelligence Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_252724319", 
+				["text"] = "1 Added Passive Skill is Enduring Ward", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1200_WandIncreasedAttackSpeed"] = {
+		["6910_AfflictionNotableSteadyTorment"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3720627346", 
-				["text"] = "#% increased Attack Speed with Wands", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3500334379", 
+				["text"] = "1 Added Passive Skill is Steady Torment", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["400_SocketedSkillsManaMultiplier"] = {
+		["6824_AfflictionNotableMartialProwess"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2865550257", 
-				["text"] = "Socketed Skill Gems get a #% Cost & Reservation Multiplier", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1152182658", 
+				["text"] = "1 Added Passive Skill is Martial Prowess", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1264_DaggerCriticalStrikeMultiplier"] = {
+		["6677_AfflictionNotableAntivenom"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3998601568", 
-				["text"] = "#% to Critical Strike Multiplier with Daggers", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_774369953", 
+				["text"] = "1 Added Passive Skill is Antivenom", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["8412_PurityOfFireReservation"] = {
+		["6812_AfflictionNotableIronBreaker"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3003688066", 
-				["text"] = "Purity of Fire has #% increased Mana Reservation Efficiency", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3258653591", 
+				["text"] = "1 Added Passive Skill is Iron Breaker", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1179_SpellAddedLightningDamage"] = {
+		["6919_AfflictionNotableSublimeSensation"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2831165374", 
-				["text"] = "Adds # to # Lightning Damage to Spells", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1364858171", 
+				["text"] = "1 Added Passive Skill is Sublime Sensation", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1341_MaximumLifeIncreasePercent"] = {
+		["6895_AfflictionNotableSepticSpells"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_983749596", 
-				["text"] = "#% increased maximum Life", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4290522695", 
+				["text"] = "1 Added Passive Skill is Septic Spells", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2737_ChanceToGainOnslaughtOnKill"] = {
+		["6822_AfflictionNotableMartialMastery"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3023957681", 
-				["text"] = "#% chance to gain Onslaught for 4 seconds on Kill", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1015189426", 
+				["text"] = "1 Added Passive Skill is Martial Mastery", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["1890_FrenzyChargeDuration"] = {
+		["6945_AfflictionNotableVividHues"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3338298622", 
-				["text"] = "#% increased Frenzy Charge Duration", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3957006524", 
+				["text"] = "1 Added Passive Skill is Vivid Hues", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["5284_SpellCriticalChanceWithShield"] = {
+		["6846_AfflictionNotableParalysis"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_952509814", 
-				["text"] = "#% increased Critical Strike Chance for Spells while holding a Shield", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_4272503233", 
+				["text"] = "1 Added Passive Skill is Paralysis", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["157_LocalIncreaseSocketedSupportGemLevel"] = {
+		["6789_AfflictionNotableGrandDesign"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4154259475", 
-				["text"] = "# to Level of Socketed Support Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2350900742", 
+				["text"] = "1 Added Passive Skill is Grand Design", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["1193_AxeIncreasedAttackSpeed"] = {
+		["6758_AfflictionNotableEvilEye"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3550868361", 
-				["text"] = "#% increased Attack Speed with Axes", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_156080652", 
+				["text"] = "1 Added Passive Skill is Evil Eye", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["8735_SpellDamagePer16Intelligence"] = {
+		["6665_AfflictionNotableAerialist"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3961014595", 
-				["text"] = "#% increased Spell Damage per 16 Intelligence", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3848677307", 
+				["text"] = "1 Added Passive Skill is Aerialist", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["181_SocketedMeleeGemQuality"] = {
+		["6893_AfflictionNotableSeekerRunes"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1396421504", 
-				["text"] = "#% to Quality of Socketed Melee Gems", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2261237498", 
+				["text"] = "1 Added Passive Skill is Seeker Runes", 
 			}, 
-			["sign"] = "+", 
 		}, 
-		["8508_ReflectDamageTaken"] = {
+		["6679_AfflictionNotableArcaneHeroism"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3577248251", 
-				["text"] = "You and your Minions take #% reduced Reflected Damage", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_3901992019", 
+				["text"] = "1 Added Passive Skill is Arcane Heroism", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2377_FrenzyChargeOnKillChance"] = {
+		["6870_AfflictionNotableQuickGetaway"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1826802197", 
-				["text"] = "#% chance to gain a Frenzy Charge on Kill", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_1626818279", 
+				["text"] = "1 Added Passive Skill is Quick Getaway", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["3748_CurseEffectVulnerability"] = {
+		["6939_AfflictionNotableViciousBite"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1065909420", 
-				["text"] = "#% increased Vulnerability Curse Effect", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_882876854", 
+				["text"] = "1 Added Passive Skill is Vicious Bite", 
 			}, 
-			["sign"] = "", 
 		}, 
-		["2375_EnduranceChargeOnKillChance"] = {
+		["6949_AfflictionNotableWastingAffliction"] = {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1054322244", 
-				["text"] = "#% chance to gain an Endurance Charge on Kill", 
+				["type"] = "explicit", 
+				["id"] = "explicit.stat_2066820199", 
+				["text"] = "1 Added Passive Skill is Wasting Affliction", 
 			}, 
-			["sign"] = "", 
-		}, 
-		["919_BlockPercent"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2530372417", 
-				["text"] = "#% Chance to Block Attack Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["3380_ZombieIncreasedDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2228518621", 
-				["text"] = "Raised Zombies deal #% increased Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["139_LocalIncreaseSocketedLightningGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4043416969", 
-				["text"] = "# to Level of Socketed Lightning Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1434_PhysicalDamageLifeLeechPermyriad"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3764265320", 
-				["text"] = "#% of Physical Damage Leeched as Life", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["3900_PhysicalDamageRemovedFromManaBeforeLife"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3743438423", 
-				["text"] = "#% of Physical Damage is taken from Mana before Life", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1703_LightningAddedAsChaos"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2402136583", 
-				["text"] = "Gain #% of Lightning Damage as Extra Chaos Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["398_DisplaySocketedGemsGetReducedReservation"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3289633055", 
-				["text"] = "Socketed Gems have #% increased Reservation Efficiency", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1615_AvoidShock"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1871765599", 
-				["text"] = "#% chance to Avoid being Shocked", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["144_IncreasedSocketedAoEGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2551600084", 
-				["text"] = "# to Level of Socketed AoE Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["5796_FasterBleedDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3828375170", 
-				["text"] = "Bleeding you inflict deals Damage #% faster", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1624_ShockDuration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3668351662", 
-				["text"] = "#% increased Shock Duration on Enemies", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["6572_LightningDamageAttackSkills"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4208907162", 
-				["text"] = "#% increased Lightning Damage with Attack Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1611_AvoidChill"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3483999943", 
-				["text"] = "#% chance to Avoid being Chilled", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1000_SpellDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2974417149", 
-				["text"] = "#% increased Spell Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["175_SocketedColdGemQuality"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1164882313", 
-				["text"] = "#% to Quality of Socketed Cold Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["5283_SpellCriticalChanceWithDualWield"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1218939541", 
-				["text"] = "#% increased Critical Strike Chance for Spells while Dual Wielding", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2200_PhysicalDamageTakenAsCold"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1871056256", 
-				["text"] = "#% of Physical Damage from Hits taken as Cold Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1743_ElementalDamagePercent"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3141070085", 
-				["text"] = "#% increased Elemental Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["7233_AddedManaRegenWithDualWield"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1361343333", 
-				["text"] = "Regenerate # Mana per Second while Dual Wielding", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2379_PowerChargeOnKillChance"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2483795307", 
-				["text"] = "#% chance to gain a Power Charge on Kill", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["975_AttackDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2843214518", 
-				["text"] = "#% increased Attack Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["169_IncreaseSocketedSupportGemQuality"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1328548975", 
-				["text"] = "#% to Quality of Socketed Support Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["8712_AdditionalCriticalStrikeChanceWithSpells"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_791835907", 
-				["text"] = "#% to Spell Critical Strike Chance", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1077_AxeIncreasedPhysicalDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2008219439", 
-				["text"] = "#% increased Physical Damage with Axes", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["173_SocketedBowGemQuality"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3280600715", 
-				["text"] = "#% to Quality of Socketed Bow Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1625_ChillAndFreezeDuration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1073942215", 
-				["text"] = "#% increased Freeze Duration on Enemies", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1408_MaximumChaosResistanceImplicit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1301765461", 
-				["text"] = "#% to maximum Chaos Resistance", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1705_ColdAddedAsChaos"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2915373966", 
-				["text"] = "Gain #% of Cold Damage as Extra Chaos Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1265_MaceCriticalStrikeMultiplier"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_458899422", 
-				["text"] = "#% to Critical Strike Multiplier with Maces or Sceptres", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1271_StaffCriticalStrikeMultiplier"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1474913037", 
-				["text"] = "#% to Critical Strike Multiplier with Staves", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["2726_FireResistancePenetration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2653955271", 
-				["text"] = "Damage Penetrates #% Fire Resistance", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1575_MinimumFrenzyCharges"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_658456881", 
-				["text"] = "# to Minimum Frenzy Charges", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1517_MaximumLifeOnKillPercent"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2023107756", 
-				["text"] = "Recover #% of Life on Kill", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["6978_LocalChanceToIntimidateOnHit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_78985352", 
-				["text"] = "#% chance to Intimidate Enemies for 4 seconds on Hit", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["3046_EnemiesExplodeOnDeathPhysicalChance"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3295179224", 
-				["text"] = "Enemies you Kill have a #% chance to Explode, dealing a tenth of their maximum Life as Physical Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2939_DamagePerEnduranceCharge"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3515686789", 
-				["text"] = "#% increased Damage per Endurance Charge", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["3118_UnholyMightOnKillPercentChance"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3562211447", 
-				["text"] = "#% chance to gain Unholy Might for 3 seconds on Kill", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2845_VaalSkillDuration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_547412107", 
-				["text"] = "#% increased Vaal Skill Effect Duration", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2241_ChanceToBleed"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1923879260", 
-				["text"] = "Attacks have #% chance to cause Bleeding", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1003_SpellDamageWithStaff"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3496944181", 
-				["text"] = "#% increased Spell Damage while wielding a Staff", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1388_AllResistances"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2901986750", 
-				["text"] = "#% to all Elemental Resistances", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["923_ChanceToSuppressSpellsOld"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3680664274", 
-				["text"] = "#% chance to Suppress Spell Damage", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["8416_PurityOfIceReservationEfficiency"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_139925400", 
-				["text"] = "Purity of Ice has #% increased Mana Reservation Efficiency", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["174_SocketedChaosGemQuality"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2062835769", 
-				["text"] = "#% to Quality of Socketed Chaos Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1512_ManaGainPerTarget"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_820939409", 
-				["text"] = "Gain # Mana per Enemy Hit with Attacks", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1964_AttackerTakesDamageNoRange"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3767873853", 
-				["text"] = "Reflects # Physical Damage to Melee Attackers", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1327_IncreasedEvasionRatingPerFrenzyCharge"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_660404777", 
-				["text"] = "#% increased Evasion Rating per Frenzy Charge", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1349_IncreasedMana"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1050105434", 
-				["text"] = "# to maximum Mana", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1709_LifeRegenerationRatePercentage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_836936635", 
-				["text"] = "Regenerate #% of Life per second", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["961_PercentageStrength"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_734614379", 
-				["text"] = "#% increased Strength", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["3326_ColdPenetrationWeapon"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1211769158", 
-				["text"] = "Damage with Weapons Penetrates #% Cold Resistance", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1178_SpellAddedColdDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2469416729", 
-				["text"] = "Adds # to # Cold Damage to Spells", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1312_GlobalPhysicalDamageReductionRatingPercent"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2866361420", 
-				["text"] = "#% increased Armour", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1006_SpellDamageWithDualWield"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1678690824", 
-				["text"] = "#% increased Spell Damage while Dual Wielding", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["8419_PurityOfLightningReservationEfficiency"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3411256933", 
-				["text"] = "Purity of Lightning has #% increased Mana Reservation Efficiency", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2658_MinionLifeRegeneration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2479683456", 
-				["text"] = "Minions Regenerate #% of Life per second", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["8320_PhysicalDamageAttackSkills"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2266750692", 
-				["text"] = "#% increased Physical Damage with Attack Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["953_AllAttributes"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1379411836", 
-				["text"] = "# to all Attributes", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1526_GainManaOnBlock"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2122183138", 
-				["text"] = "# Mana gained when you Block", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["6087_GraceReservationEfficiency"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_900639351", 
-				["text"] = "Grace has #% increased Mana Reservation Efficiency", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1658_IncreaseManaCostFlat"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3736589033", 
-				["text"] = "# to Total Mana Cost of Skills", 
-			}, 
-			["sign"] = "-", 
-		}, 
-		["1320_GlobalEvasionRatingPercent"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2106365538", 
-				["text"] = "#% increased Evasion Rating", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1605_CannotBeFrozen"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_876831634", 
-				["text"] = "Cannot be Frozen", 
-			}, 
-		}, 
-		["1331_GlobalEnergyShieldPercent"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2482852589", 
-				["text"] = "#% increased maximum Energy Shield", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["4312_AreaOfEffectIfStunnedEnemyRecently"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_430248187", 
-				["text"] = "#% increased Area of Effect if you have Stunned an Enemy Recently", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1700_PhysicalAddedAsChaos"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3319896421", 
-				["text"] = "Gain #% of Physical Damage as Extra Chaos Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2275_CurseOnHitLevelVulnerability"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3967845372", 
-				["text"] = "Curse Enemies with Vulnerability on Hit", 
-			}, 
-		}, 
-		["1758_ProjectileDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1839076647", 
-				["text"] = "#% increased Projectile Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1034_ChaosDamageOverTimeMultiplier"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4055307827", 
-				["text"] = "#% to Chaos Damage over Time Multiplier", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["5172_FlatColdDamageTaken"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_261654754", 
-				["text"] = "# Cold Damage taken from Hits", 
-			}, 
-			["sign"] = "-", 
-		}, 
-		["1993_ReducedReservation"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4237190083", 
-				["text"] = "#% increased Mana Reservation Efficiency of Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1508_LifeGainPerTarget"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2797971005", 
-				["text"] = "Gain # Life per Enemy Hit with Attacks", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["176_SocketedDexterityGemQuality"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2877754099", 
-				["text"] = "#% to Quality of Socketed Dexterity Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["8974_DamageWithTriggeredSpells"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3067892458", 
-				["text"] = "Triggered Spells deal #% increased Spell Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["7218_RecoverManaPercentOnBlock"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3041288981", 
-				["text"] = "Recover #% of your maximum Mana when you Block", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["3303_AuraEffect"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1880071428", 
-				["text"] = "#% increased effect of Non-Curse Auras from your Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1288_StunThresholdReduction"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1443060084", 
-				["text"] = "#% reduced Enemy Stun Threshold", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2909_BleedingDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1294118672", 
-				["text"] = "#% increased Damage with Bleeding", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1081_StaffIncreasedPhysicalDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3150705301", 
-				["text"] = "#% increased Physical Damage with Staves", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["5174_ColdDamageAttackSkills"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_860668586", 
-				["text"] = "#% increased Cold Damage with Attack Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["954_StrengthImplicit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4080418644", 
-				["text"] = "# to Strength", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["3743_CurseEffectElementalWeakness"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3348324479", 
-				["text"] = "#% increased Elemental Weakness Curse Effect", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["5613_IncreasedWeaponElementalDamagePercent"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_387439868", 
-				["text"] = "#% increased Elemental Damage with Attack Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1269_WandCriticalStrikeMultiplier"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1241396104", 
-				["text"] = "#% to Critical Strike Multiplier with Wands", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["8542_RemoveShockOnFlaskUse"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_561861132", 
-				["text"] = "Remove Shock when you use a Flask", 
-			}, 
-		}, 
-		["8734_SpellDamagePer16Dexterity"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2612056840", 
-				["text"] = "#% increased Spell Damage per 16 Dexterity", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1945_BeltIncreasedFlaskChargesGained"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1452809865", 
-				["text"] = "#% increased Flask Charges gained", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1196_DaggerIncreasedAttackSpeed"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2538566497", 
-				["text"] = "#% increased Attack Speed with Daggers", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1215_BowIncreasedAccuracyRating"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_169946467", 
-				["text"] = "#% increased Accuracy Rating with Bows", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["184_SocketedStrengthGemQuality"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_122841557", 
-				["text"] = "#% to Quality of Socketed Strength Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["4485_AddedColdDamagePerDexterity"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_149574107", 
-				["text"] = "Adds # to # Cold Damage to Attacks with this Weapon per 10 Dexterity", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2655_MinionCastSpeed"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4000101551", 
-				["text"] = "Minions have #% increased Cast Speed", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["6086_GraceReservation"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_900639351", 
-				["text"] = "Grace has #% increased Mana Reservation Efficiency", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2727_ColdResistancePenetration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3417711605", 
-				["text"] = "Damage Penetrates #% Cold Resistance", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1031_ColdDamageOverTimeMultiplier"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1950806024", 
-				["text"] = "#% to Cold Damage over Time Multiplier", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["5391_DamagePer15Intelligence"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3966666111", 
-				["text"] = "#% increased Damage per 100 Intelligence", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["8765_SpellsHinderOnHitChance"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3002506763", 
-				["text"] = "#% chance to Hinder Enemies on Hit with Spells", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2283_FrostbiteOnHitLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_426847518", 
-				["text"] = "Curse Enemies with Frostbite on Hit", 
-			}, 
-		}, 
-		["5504_DisciplineReservation"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2081344089", 
-				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1630_StunDurationIncreasePercent"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2517001139", 
-				["text"] = "#% increased Stun Duration on Enemies", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["7908_FortifyEffect"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_335507772", 
-				["text"] = "# to maximum Fortification", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1501_MaximumManaLeechRate"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_96977651", 
-				["text"] = "#% increased Maximum total Mana Recovery per second from Leech", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1450_ChaosDamageLifeLeechPermyriad"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_744082851", 
-				["text"] = "#% of Chaos Damage Leeched as Life", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["5035_ChanceWhenHitForArmourToBeDoubled"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_327253797", 
-				["text"] = "#% chance to Defend with 200% of Armour", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1447_LightningDamageLifeLeechPermyriad"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_80079005", 
-				["text"] = "#% of Lightning Damage Leeched as Life", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1268_SwordCriticalStrikeMultiplier"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3114492047", 
-				["text"] = "#% to Critical Strike Multiplier with Swords", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["2835_VaalSkillDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2257141320", 
-				["text"] = "#% increased Damage with Vaal Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1344_LifeRegeneration"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3325883026", 
-				["text"] = "Regenerate # Life per second", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2033_ReducedPhysicalDamageTaken"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3771516363", 
-				["text"] = "#% additional Physical Damage Reduction", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1616_ChanceToAvoidPoison"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4053951709", 
-				["text"] = "#% chance to Avoid being Poisoned", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["7932_LifeAddedAsEnergyShield"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_67280387", 
-				["text"] = "Gain #% of Maximum Life as Extra Maximum Energy Shield", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1398_MaximumColdResistanceImplicit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3676141501", 
-				["text"] = "#% to maximum Cold Resistance", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1231_CriticalStrikeChance"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_587431675", 
-				["text"] = "#% increased Global Critical Strike Chance", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1650_ManaCostReduction"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_474294393", 
-				["text"] = "#% reduced Mana Cost of Skills", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1266_AxeCriticalStrikeMultiplier"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4219746989", 
-				["text"] = "#% to Critical Strike Multiplier with Axes", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["5505_DisciplineReservationEfficiency"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2081344089", 
-				["text"] = "Discipline has #% increased Mana Reservation Efficiency", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2844_AdditionalVaalSoulOnKill"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1962922582", 
-				["text"] = "#% chance to gain an additional Vaal Soul on Kill", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2682_PhysicalDamageAddedAsRandomElement"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3753703249", 
-				["text"] = "Gain #% of Physical Damage as Extra Damage of a random Element", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1788_ChanceToIgnite"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1335054179", 
-				["text"] = "#% chance to Ignite", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1697_PhysicalAddedAsFire"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_369494213", 
-				["text"] = "Gain #% of Physical Damage as Extra Fire Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["2847_VaalSkillCriticalStrikeChance"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3165492062", 
-				["text"] = "#% increased Vaal Skill Critical Strike Chance", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1348_LifeRecoveryRate"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3240073117", 
-				["text"] = "#% increased Life Recovery rate", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1692_TrapThrowSpeed"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_118398748", 
-				["text"] = "#% increased Trap Throwing Speed", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["5797_FasterPoisonDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2907156609", 
-				["text"] = "Poisons you inflict deal Damage #% faster", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1417_LifeLeechPermyriad"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3593843976", 
-				["text"] = "#% of Physical Attack Damage Leeched as Life", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["183_SocketedProjectileGemQuality"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2428621158", 
-				["text"] = "#% to Quality of Socketed Projectile Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["3800_DamageAffectedByAuras"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1419713278", 
-				["text"] = "You and nearby Allies deal #% increased Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1216_SwordIncreasedAccuracyRating"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2090868905", 
-				["text"] = "#% increased Accuracy Rating with Swords", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1095_DaggerIncreasedPhysicalDamage"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3882531569", 
-				["text"] = "#% increased Physical Damage with Daggers", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["956_IntelligenceImplicit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_328541901", 
-				["text"] = "# to Intelligence", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["3109_IncreasedAuraEffectDisciplineCorrupted"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_788317702", 
-				["text"] = "Discipline has #% increased Aura Effect", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["5285_SpellCriticalChanceWithStaff"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_140429540", 
-				["text"] = "#% increased Critical Strike Chance for Spells while wielding a Staff", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1727_PhysicalDamageConvertToChaosImplicit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_490098963", 
-				["text"] = "#% of Physical Damage Converted to Chaos Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["7080_AllElementalResistanceCorruptedItem"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3731630482", 
-				["text"] = "#% to all Elemental Resistances if Corrupted", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["1724_ConvertPhysicalToLightningImplicit"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3240769289", 
-				["text"] = "#% of Physical Damage Converted to Lightning Damage", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["7234_AddedManaRegenWithShield"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3762868276", 
-				["text"] = "Regenerate # Mana per Second while holding a Shield", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["996_DamageWhileLeechingMana"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_1994684426", 
-				["text"] = "#% increased Damage while Leeching Mana", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1400_ColdResistance"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_4220027924", 
-				["text"] = "#% to Cold Resistance", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["132_LocalIncreaseSocketedGemLevel"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2843100721", 
-				["text"] = "# to Level of Socketed Gems", 
-			}, 
-			["sign"] = "+", 
-		}, 
-		["2277_CurseOnHitLevelElementalWeakness"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_2028847114", 
-				["text"] = "Curse Enemies with Elemental Weakness on Hit", 
-			}, 
-		}, 
-		["6989_DamageTakenCorruptedItem"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3309607228", 
-				["text"] = "#% reduced Damage taken if Corrupted", 
-			}, 
-			["sign"] = "", 
-		}, 
-		["1373_ExperienceIncrease"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["type"] = "implicit", 
-				["id"] = "implicit.stat_3666934677", 
-				["text"] = "#% increased Experience gain", 
-			}, 
-			["sign"] = "", 
 		}, 
 	}, 
 	["Exarch"] = {

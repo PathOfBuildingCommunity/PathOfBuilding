@@ -1282,10 +1282,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 	end
-	local craftedQuality = calcLocal(modList,"Quality","BASE",0)
+	local craftedQuality = calcLocal(modList,"Quality","BASE",0) or 0
 	if craftedQuality ~= self.craftedQuality then
 		if self.craftedQuality then
-			self.quality = self.quality - self.craftedQuality + craftedQuality
+			self.quality = (self.quality or 0) - self.craftedQuality + craftedQuality
 		end
 		self.craftedQuality = craftedQuality
 	end
