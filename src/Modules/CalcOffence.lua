@@ -1754,6 +1754,8 @@ function calcs.offence(env, actor, activeSkill)
 
 		if skillData.averageBurstHits then
 			output.AverageBurstHits = skillData.averageBurstHits
+		elseif output.Repeats and output.Repeats > 1 then
+			output.AverageBurstHits = output.Repeats
 		end
 
 		-- Calculate hit chance 
@@ -2996,7 +2998,8 @@ function calcs.offence(env, actor, activeSkill)
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
 		globalOutput.AverageBurstHits = output.AverageBurstHits or 1
-		globalOutput.AverageBurstDamage = output.AverageDamage * globalOutput.AverageBurstHits or 0
+		local repeatPenalty = skillModList:Flag(nil, "HasSeals") and activeSkill.skillTypes[SkillType.CanRapidFire] and calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty") or 1
+		globalOutput.AverageBurstDamage = output.AverageDamage + output.AverageDamage * (globalOutput.AverageBurstHits - 1) * repeatPenalty or 0
 		globalOutput.ShowBurst = globalOutput.AverageBurstHits > 1
 		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * skillData.dpsMultiplier * quantityMultiplier
 		if breakdown then
