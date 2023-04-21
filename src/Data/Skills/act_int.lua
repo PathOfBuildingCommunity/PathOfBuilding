@@ -3577,9 +3577,9 @@ skills["Firestorm"] = {
 	},
 	baseMods = {
 		skill("showAverage", false, { type = "SkillPart", skillPart = 1 }),
-		skill("radius", 22),
+		skill("radius", 25),
 		skill("radiusLabel", "Area in which fireballs fall:"),
-		skill("radiusSecondary", 16),
+		skill("radiusSecondary", 13),
 		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
 	},
 	qualityStats = {
@@ -3659,10 +3659,23 @@ skills["VaalFirestorm"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	statMap = {
+		["vaal_firestorm_gem_explosion_area_of_effect_+%_final"] = {
+			mod("AreaOfEffectSecondary", "MORE", nil, 0, 0)
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("dotIsArea", true),
+		flag("dotIsBurningGround"),
+		skill("radius", 20),
+		skill("radiusLabel", "Area in which fireballs fall:"),
+		skill("radiusSecondary", 13),
+		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
 	},
 	qualityStats = {
 		Default = {
