@@ -3661,7 +3661,7 @@ skills["VaalFirestorm"] = {
 	castTime = 0.75,
 	statMap = {
 		["vaal_firestorm_gem_explosion_area_of_effect_+%_final"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0)
+			mod("AreaOfEffectSecondary", "MORE", nil, 0, 0)
 		},
 	},
 	baseFlags = {
