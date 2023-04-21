@@ -1181,6 +1181,30 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 18)
 #mods
 
+#skill VaalLightningArrow
+#flags attack projectile
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
+	statMap = {
+		["projectiles_barrage"] = {
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+#baseMod skill("radius", 18)
+#mods
+
 #skill LightningStrike
 #flags attack melee projectile
 	parts = {
@@ -1200,10 +1224,6 @@ local skills, mod, flag, skill = ...
 			mod("PierceCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
-#mods
-
-#skill VaalLightningArrow
-#flags attack projectile
 #mods
 
 #skill VaalLightningStrike
