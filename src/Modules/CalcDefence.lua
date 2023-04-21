@@ -72,7 +72,7 @@ function calcs.takenHitFromDamage(rawDamage, damageType, actor)
 		local takenFlat = output[damageConvertedType.."takenFlat"]
 		if convertPercent > 0 or takenFlat ~= 0 then
 			local convertedDamage = rawDamage * convertPercent / 100
-			local reducedDamage = round(m_max(convertedDamage * damageMitigationMultiplierForType(convertedDamage, damageConvertedType) + takenFlat, 0) * output[damageConvertedType .."AfterReductionTakenHitMulti"])
+			local reducedDamage = round(m_max(convertedDamage * damageMitigationMultiplierForType(convertedDamage, damageConvertedType) + takenFlat, 0) * output[damageConvertedType .."AfterReductionTakenHitMulti"]) * (1 - output["VaalArcticArmourMitigation"])
 			receivedDamageSum = receivedDamageSum + reducedDamage
 			damages[damageConvertedType] = (reducedDamage > 0 or convertPercent > 0) and reducedDamage or nil
 		end
@@ -1886,7 +1886,7 @@ function calcs.buildDefenceEstimations(env, actor)
 	-- Vaal Arctic Armour
 	do
 		output["VaalArcticArmourLife"] = modDB:Sum("BASE", nil, "VaalArcticArmourMaxHits")
-		output["VaalArcticArmourMitigation"] = - modDB:Sum("MORE", nil, "VaalArcticArmourMitigation") / 100
+		output["VaalArcticArmourMitigation"] = m_min(-modDB:Sum("MORE", nil, "VaalArcticArmourMitigation") / 100, 1)
 	end
 
 	--total pool
