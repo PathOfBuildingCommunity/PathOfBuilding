@@ -3577,9 +3577,9 @@ skills["Firestorm"] = {
 	},
 	baseMods = {
 		skill("showAverage", false, { type = "SkillPart", skillPart = 1 }),
-		skill("radius", 22),
+		skill("radius", 25),
 		skill("radiusLabel", "Area in which fireballs fall:"),
-		skill("radiusSecondary", 16),
+		skill("radiusSecondary", 13),
 		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
 	},
 	qualityStats = {
@@ -3672,9 +3672,9 @@ skills["VaalFirestorm"] = {
 	baseMods = {
 		skill("dotIsArea", true),
 		flag("dotIsBurningGround"),
-		skill("radius", 22),
+		skill("radius", 20),
 		skill("radiusLabel", "Area in which fireballs fall:"),
-		skill("radiusSecondary", 16),
+		skill("radiusSecondary", 13),
 		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
 	},
 	qualityStats = {

@@ -793,9 +793,9 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("showAverage", false, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("radius", 22)
+#baseMod skill("radius", 25)
 #baseMod skill("radiusLabel", "Area in which fireballs fall:")
-#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondary", 13)
 #baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
 #mods
 
@@ -808,9 +808,9 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("dotIsArea", true)
 #baseMod flag("dotIsBurningGround")
-#baseMod skill("radius", 22)
+#baseMod skill("radius", 20)
 #baseMod skill("radiusLabel", "Area in which fireballs fall:")
-#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondary", 13)
 #baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
 #mods
 
