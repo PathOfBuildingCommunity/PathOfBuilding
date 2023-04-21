@@ -881,10 +881,10 @@ Requires Level 69, 82 Dex, 42 Int
 {variant:2,4}Has 2 Abyssal Sockets
 Triggers Level 20 Death Walk when Equipped
 {variant:1,2}(4-6)% increased maximum Life
+{variant:3,4}(40-60)% reduced Duration of Elemental Ailments on You while affected by a Rare Abyss Jewel
 {variant:1,2}30% increased Movement Speed
 {variant:3,4}(24-32)% increased Movement Speed while affected by a Magic Abyss Jewel
 {variant:1,2}10% increased Damage for each type of Abyssal Jewel affecting you
-{variant:3,4}(40-60)% reduced Duration of Elemental Ailments on You while affected by a Rare Abyss Jewel
 {variant:3,4}(16-24)% increased Reservation Efficiency while affected by a Unique Abyss Jewel
 ]],[[
 Corpsewalker

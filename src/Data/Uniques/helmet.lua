@@ -1040,9 +1040,9 @@ Variant: Two Abyssal Sockets (Current)
 Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge
 +(10-15)% to all Elemental Resistances
 {variant:1,2}Recover (4-5)% of Life when a Spirit Charge expires or is consumed
++1 to Maximum Spirit Charges per Abyss Jewel affecting you
 {variant:1,2}(15-20)% chance to gain a Spirit Charge on Kill
 {variant:3,4}Gain a Spirit Charge on Kill
-+1 to Maximum Spirit Charges per Abyss Jewel affecting you
 {variant:3,4}Gain 5% of Physical Damage as Extra Damage of each Element per Spirit Charge
 ]],[[
 Malachai's Vision

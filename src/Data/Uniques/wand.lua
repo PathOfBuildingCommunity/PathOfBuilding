@@ -21,7 +21,7 @@ Gain 10 Life per Ignited Enemy Killed
 ]],[[
 Apep's Rage
 {variant:1,2,3,4,5}Opal Wand
-{variant:6}Omen wand
+{variant:6}Omen Wand
 Variant: Pre 2.3.0
 Variant: Pre 3.7.0
 Variant: Pre 3.11.0
@@ -207,10 +207,10 @@ Implicits: 3
 {variant:4}(33-37)% increased Spell Damage
 No Physical Damage
 (10-18)% increased Attack Speed
-+(340-400) to Accuracy Rating
 (20-30)% increased Critical Strike Chance
++(340-400) to Accuracy Rating
 Attacks with this Weapon have (100-115)% increased Elemental Damage
-{variant:3,4}Attacks with this Weapon Penetrate 5% Elemental Resistances
+{variant:3,4}Damage with Weapons Penetrates 5% Elemental Resistances
 ]],[[
 The Poet's Pen
 Carved Wand
