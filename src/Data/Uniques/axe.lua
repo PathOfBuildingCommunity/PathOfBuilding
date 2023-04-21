@@ -361,28 +361,38 @@ Gain a Frenzy Charge on every 50th Rampage Kill
 Rampage
 ]],[[
 Uul-Netol's Kiss
-Labrys
+{variant:1}Labrys
+{variant:2}Vaal Axe
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Uul-Netol Breach or from unique{Uul-Netol, Unburdened Flesh}
 Upgrade: Upgrades to unique{Uul-Netol's Embrace} using currency{Blessing of Uul-Netol}
-Implicits: 0
-(140-170)% increased Physical Damage
+Implicits: 1
+{variant:2}25% chance to Maim on Hit
+{variant:1}(140-170)% increased Physical Damage
+{variant:2}(230-270)% increased Physical Damage
 15% reduced Attack Speed
-25% chance to Curse Enemies with Vulnerability on Hit
-Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
+{variant:1}25% chance to Curse Enemies with Vulnerability on Hit
+{variant:2}Curse Enemies with Vulnerability on Hit
+{variant:1}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
+{variant:2}Exerted Attacks deal 200% increased Damage
+{variant:2}Exerted Attacks Knock Enemies Back on Hit
 ]],[[
 Uul-Netol's Embrace
 Vaal Axe
 League: Breach
 Source: Upgraded from unique{Uul-Netol's Kiss} using currency{Blessing of Uul-Netol}
 Variant: Pre 3.11.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 1
-{variant:2}25% chance to Maim on Hit
+{variant:2,3}25% chance to Maim on Hit
 Trigger Level 20 Bone Nova when you Hit a Bleeding Enemy
 (280-320)% increased Physical Damage
 (30-25)% reduced Attack Speed
-Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
+{variant:1,2}Attacks have 25% chance to inflict Bleeding when Hitting Cursed Enemies
+{variant:3}Attacks have 25% chance to inflict Bleeding
 ]],[[
 Wideswing
 Poleaxe

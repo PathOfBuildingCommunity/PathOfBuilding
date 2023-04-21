@@ -1574,7 +1574,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="You and nearby Allies gain {0}% increased Energy Shield Recharge rate"
+					text="You and nearby Allies gain {0}% increased Energy Shield Recharge Rate"
 				},
 				[2]={
 					[1]={
@@ -1587,7 +1587,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="You and nearby Allies gain {0}% reduced Energy Shield Recharge rate"
+					text="You and nearby Allies gain {0}% reduced Energy Shield Recharge Rate"
 				}
 			}
 		},

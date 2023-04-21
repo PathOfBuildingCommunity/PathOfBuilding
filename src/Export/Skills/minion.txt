@@ -42,7 +42,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile duration
 #mods
 
-#addSkillTypes Damage
+#addSkillTypes Damage Multicastable 
 #skill MonsterProjectileSpellLightningGolemSummoned Lightning Projectile
 #flags spell projectile
 #mods

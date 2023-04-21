@@ -230,7 +230,7 @@ itemBases["Behemoth Mace"] = {
 itemBases["Flare Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { weapon = true, onehand = true, not_for_sale = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	implicit = "Trigger Level 10 Fiery Impact on Melee Hit with this Weapon",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 20, PhysicalMax = 41, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -239,7 +239,7 @@ itemBases["Flare Mace"] = {
 itemBases["Crack Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { weapon = true, onehand = true, not_for_sale = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	implicit = "Trigger Level 15 Fiery Impact on Melee Hit with this Weapon",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 31, PhysicalMax = 64, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -248,7 +248,7 @@ itemBases["Crack Mace"] = {
 itemBases["Boom Mace"] = {
 	type = "One Handed Mace",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { weapon = true, onehand = true, not_for_sale = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	implicit = "Trigger Level 20 Fiery Impact on Melee Hit with this Weapon",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 39, PhysicalMax = 81, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
@@ -261,7 +261,7 @@ itemBases["Driftwood Sceptre"] = {
 	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "10% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
-	weapon = { PhysicalMin = 5, PhysicalMax = 8, CritChanceBase = 6, AttackRateBase = 1.55, Range = 11, },
+	weapon = { PhysicalMin = 8, PhysicalMax = 11, CritChanceBase = 6, AttackRateBase = 1.2, Range = 11, },
 	req = { str = 8, int = 8, },
 }
 itemBases["Darkwood Sceptre"] = {
@@ -270,7 +270,7 @@ itemBases["Darkwood Sceptre"] = {
 	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "12% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
-	weapon = { PhysicalMin = 8, PhysicalMax = 12, CritChanceBase = 6, AttackRateBase = 1.5, Range = 11, },
+	weapon = { PhysicalMin = 11, PhysicalMax = 17, CritChanceBase = 6, AttackRateBase = 1.2, Range = 11, },
 	req = { level = 5, str = 14, int = 14, },
 }
 itemBases["Bronze Sceptre"] = {
@@ -279,7 +279,7 @@ itemBases["Bronze Sceptre"] = {
 	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "12% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
-	weapon = { PhysicalMin = 10, PhysicalMax = 19, CritChanceBase = 6, AttackRateBase = 1.4, Range = 11, },
+	weapon = { PhysicalMin = 15, PhysicalMax = 29, CritChanceBase = 6, AttackRateBase = 1.1, Range = 11, },
 	req = { level = 10, str = 22, int = 22, },
 }
 itemBases["Quartz Sceptre"] = {
@@ -288,7 +288,7 @@ itemBases["Quartz Sceptre"] = {
 	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "20% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
-	weapon = { PhysicalMin = 14, PhysicalMax = 22, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 11, },
+	weapon = { PhysicalMin = 21, PhysicalMax = 32, CritChanceBase = 6.5, AttackRateBase = 1.1, Range = 11, },
 	req = { level = 15, str = 25, int = 35, },
 }
 itemBases["Iron Sceptre"] = {
@@ -297,7 +297,7 @@ itemBases["Iron Sceptre"] = {
 	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "14% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
-	weapon = { PhysicalMin = 18, PhysicalMax = 27, CritChanceBase = 6, AttackRateBase = 1.4, Range = 11, },
+	weapon = { PhysicalMin = 27, PhysicalMax = 40, CritChanceBase = 6, AttackRateBase = 1.1, Range = 11, },
 	req = { level = 20, str = 38, int = 38, },
 }
 itemBases["Ochre Sceptre"] = {
@@ -306,7 +306,7 @@ itemBases["Ochre Sceptre"] = {
 	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
 	implicit = "16% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
-	weapon = { PhysicalMin = 17, PhysicalMax = 31, CritChanceBase = 6, AttackRateBase = 1.45, Range = 11, },
+	weapon = { PhysicalMin = 24, PhysicalMax = 45, CritChanceBase = 6, AttackRateBase = 1.15, Range = 11, },
 	req = { level = 24, str = 44, int = 44, },
 }
 itemBases["Ritual Sceptre"] = {
@@ -483,7 +483,7 @@ itemBases["Sambar Sceptre"] = {
 itemBases["Oscillating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { weapon = true, not_for_sale = true, onehand = true, sceptre = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	implicit = "Elemental Overload",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "critical" }, },
 	weapon = { PhysicalMin = 23, PhysicalMax = 34, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
@@ -492,7 +492,7 @@ itemBases["Oscillating Sceptre"] = {
 itemBases["Stabilising Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { weapon = true, not_for_sale = true, onehand = true, sceptre = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	implicit = "Elemental Equilibrium",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
 	weapon = { PhysicalMin = 35, PhysicalMax = 52, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
@@ -501,7 +501,7 @@ itemBases["Stabilising Sceptre"] = {
 itemBases["Alternating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { weapon = true, not_for_sale = true, onehand = true, sceptre = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	implicit = "Secrets of Suffering",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 41, PhysicalMax = 61, CritChanceBase = 6.3, AttackRateBase = 1.45, Range = 11, },
@@ -709,7 +709,7 @@ itemBases["Coronal Maul"] = {
 itemBases["Blunt Force Condenser"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, weapon = true, not_for_sale = true, mace = true, experimental_base = true, twohand = true, default = true, },
 	implicit = "Warcries Exert 1 additional Attack",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 39, PhysicalMax = 64, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
@@ -718,7 +718,7 @@ itemBases["Blunt Force Condenser"] = {
 itemBases["Crushing Force Magnifier"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, weapon = true, not_for_sale = true, mace = true, experimental_base = true, twohand = true, default = true, },
 	implicit = "Warcries Exert 1 additional Attack",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 62, PhysicalMax = 103, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
@@ -727,7 +727,7 @@ itemBases["Crushing Force Magnifier"] = {
 itemBases["Impact Force Propagator"] = {
 	type = "Two Handed Mace",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, mace = true, weapon = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, weapon = true, not_for_sale = true, mace = true, experimental_base = true, twohand = true, default = true, },
 	implicit = "Warcries Exert 1 additional Attack",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 81, PhysicalMax = 135, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },

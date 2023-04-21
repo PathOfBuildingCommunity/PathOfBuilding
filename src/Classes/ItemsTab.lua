@@ -592,6 +592,7 @@ holding Shift will put it in the second.]])
 			return self.displayItem and self.displayItem.crafted and self.displayItem.clusterJewel
 		end
 	}
+	
 	self.controls.displayItemClusterJewelNodeCountLabel = new("LabelControl", {"TOPLEFT",self.controls.displayItemClusterJewelSkill,"BOTTOMLEFT"}, 0, 7, 0, 14, "^7Added Passives:")
 	self.controls.displayItemClusterJewelNodeCount = new("SliderControl", {"LEFT",self.controls.displayItemClusterJewelNodeCountLabel,"RIGHT"}, 2, 0, 150, 20, function(val)
 		local divVal = self.controls.displayItemClusterJewelNodeCount:GetDivVal()
@@ -710,7 +711,7 @@ holding Shift will put it in the second.]])
 
 					-- Comparison
 					tooltip:AddSeparator(14)
-					self:AppendAnointTooltip(tooltip, node, "Allocating")
+					self:AppendAddedNotableTooltip(tooltip, node)
 
 					-- Information of for this notable appears
 					local clusterInfo = self.build.data.clusterJewelInfoForNotable[notableName]
@@ -796,14 +797,26 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Custom modifiers
+	-- if either Custom or Crucible mod buttons are shown, create the control for the list of mods
 	self.controls.displayItemSectionCustom = new("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT"}, 0, 0, 0, function()
-		return self.controls.displayItemAddCustom:IsShown() and 28 + self.displayItem.customCount * 22 or 0
+		return (self.controls.displayItemAddCustom:IsShown() or self.controls.displayItemAddCrucible:IsShown()) and 28 + self.displayItem.customCount * 22 or 0
 	end)
 	self.controls.displayItemAddCustom = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 0, 0, 120, 20, "Add modifier...", function()
 		self:AddCustomModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCustom.shown = function()
 		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")
+	end
+
+	-- Section: Crucible modifiers
+	-- if the Add modifier button is not shown, take its place, otherwise move it to the right of it
+	self.controls.displayItemAddCrucible = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, function()
+		return (self.controls.displayItemAddCustom:IsShown() and 128) or 0
+	end, 0, 150, 20, "Add Crucible mod...", function()
+		self:AddCrucibleModifierToDisplayItem()
+	end)
+	self.controls.displayItemAddCrucible.shown = function()
+		return self.displayItem and (self.displayItem:GetPrimarySlot() == "Weapon 1" or self.displayItem.type == "Shield" or self.displayItem.canHaveShieldCrucibleTree)
 	end
 
 	-- Section: Modifier Range
@@ -897,7 +910,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 					-- 'ModRange' elements are legacy though, so is this actually needed? :<
 					-- Maybe it is? Maybe it isn't? Maybe up is down? Maybe good is bad? AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 					-- Sorry, cluster jewels are making me crazy(-ier)
-					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
+					for _, list in ipairs{item.buffModLines, item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines, item.crucibleModLines} do
 						if id <= #list then
 							list[id].range = range
 							break
@@ -991,6 +1004,12 @@ function ItemsTabClass:Save(xml)
 			id = id + 1
 		end
 		for _, modLine in ipairs(item.explicitModLines) do
+			if modLine.range then
+				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
+			end
+			id = id + 1
+		end
+		for _, modLine in ipairs(item.crucibleModLines) do
 			if modLine.range then
 				t_insert(child, { elem = "ModRange", attrib = { id = tostring(id), range = tostring(modLine.range) } })
 			end
@@ -1657,25 +1676,35 @@ end
 function ItemsTabClass:UpdateCustomControls()
 	local item = self.displayItem
 	local i = 1
-	if item.rarity == "MAGIC" or item.rarity == "RARE" then
-		for index, modLine in ipairs(item.explicitModLines) do
-			if modLine.custom or modLine.crafted then
+	local modLines = copyTable(item.explicitModLines)
+	if item.crucibleModLines and #item.crucibleModLines > 0 then
+		for _, line in ipairs(item.crucibleModLines) do
+			t_insert(modLines, line)
+		end
+	end
+	if item.rarity == "MAGIC" or item.rarity == "RARE" or item.crucibleModLines then
+		for index, modLine in ipairs(modLines) do
+			if modLine.custom or modLine.crafted or modLine.crucible then
 				local line = itemLib.formatModLine(modLine)
 				if line then
-					if not self.controls["displayItemCustomModifier"..i] then
-						self.controls["displayItemCustomModifier"..i] = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 55, i * 22 + 4, 0, 16)
-						self.controls["displayItemCustomModifierLabel"..i] = new("LabelControl", {"RIGHT",self.controls["displayItemCustomModifier"..i],"LEFT"}, -2, 0, 0, 16)
-						self.controls["displayItemCustomModifierRemove"..i] = new("ButtonControl", {"LEFT",self.controls["displayItemCustomModifier"..i],"RIGHT"}, 4, 0, 70, 20, "^7Remove")
+					if not self.controls["displayItemCustomModifierRemove"..i] then
+						self.controls["displayItemCustomModifierRemove"..i] = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 0, i * 22 + 4, 70, 20, "^7Remove")
+						self.controls["displayItemCustomModifier"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, 65, 0, 0, 16)
+						self.controls["displayItemCustomModifierLabel"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, 5, 0, 0, 16)
 					end
-					self.controls["displayItemCustomModifier"..i].shown = true
+					self.controls["displayItemCustomModifierRemove"..i].shown = true
 					local label = itemLib.formatModLine(modLine)
 					if DrawStringCursorIndex(16, "VAR", label, 330, 10) < #label then
 						label = label:sub(1, DrawStringCursorIndex(16, "VAR", label, 310, 10)) .. "..."
 					end
 					self.controls["displayItemCustomModifier"..i].label = label
-					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and "^7Crafted:" or "^7Custom:"
+					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and " ^7Crafted:" or modLine.crucible and "^7Crucible:" or " ^7Custom:"
 					self.controls["displayItemCustomModifierRemove"..i].onClick = function()
-						t_remove(item.explicitModLines, index)
+						if index > #item.explicitModLines then
+							t_remove(item.crucibleModLines, index - #item.explicitModLines)
+						else
+							t_remove(item.explicitModLines, index)
+						end
 						item:BuildAndParseRaw()
 						local id = item.id
 						self:CreateDisplayItemFromRaw(item:BuildRaw())
@@ -1687,8 +1716,8 @@ function ItemsTabClass:UpdateCustomControls()
 		end
 	end
 	item.customCount = i - 1
-	while self.controls["displayItemCustomModifier"..i] do
-		self.controls["displayItemCustomModifier"..i].shown = false
+	while self.controls["displayItemCustomModifierRemove"..i] do
+		self.controls["displayItemCustomModifierRemove"..i].shown = false
 		i = i + 1
 	end
 end
@@ -1705,12 +1734,22 @@ function ItemsTabClass:UpdateDisplayItemRangeLines()
 	end
 end
 
+local function checkLineForAllocates(line, nodes)
+	if nodes and string.match(line, "Allocates") then
+		local nodeId = tonumber(string.match(line, "%d+"))
+		if nodes[nodeId] then
+			return "Allocates "..nodes[nodeId].name
+		end
+	end
+	return line
+end
+
 function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	local slotName = self.displayItem:GetPrimarySlot()
 	local newItem = new("Item", self.displayItem:BuildRaw())
 	
 	for _, subMod in ipairs(mod) do
-		t_insert(newItem.explicitModLines, { line = subMod, modTags = mod.modTags, [mod.type] = true })
+		t_insert(newItem.explicitModLines, { line = checkLineForAllocates(subMod, self.build.spec.nodes), modTags = mod.modTags, [mod.type] = true })
 	end
 
 	newItem:BuildAndParseRaw()
@@ -1810,6 +1849,7 @@ function ItemsTabClass:CraftItem()
 		item.scourgeModLines = { }
 		item.implicitModLines = { }
 		item.explicitModLines = { }
+		item.crucibleModLines = { }
 		item.quality = 0
 		local raritySel = controls.rarity.selIndex
 		if base.base.flask then
@@ -2056,7 +2096,7 @@ end
 function ItemsTabClass:getAnoint(item)
 	local result = { }
 	if item then
-		for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
+		for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines, item.crucibleModLines} do
 			for _, mod in ipairs(modList) do
 				local line = mod.line
 				local anoint = line:find("Allocates ([a-zA-Z ]+)")
@@ -2130,6 +2170,21 @@ function ItemsTabClass:AppendAnointTooltip(tooltip, node, actionText)
 	local numChanges = self.build:AddStatComparesToTooltip(tooltip, outputBase, outputNew, header)
 	if node and numChanges == 0 then
 		tooltip:AddLine(14, "^7"..actionText.." "..node.dn.." changes nothing.")
+	end
+end
+
+---Appends tooltip with information about added notable passive node if it would be allocated.
+---@param tooltip table @The tooltip to append into
+---@param node table @The passive tree node that will be added
+function ItemsTabClass:AppendAddedNotableTooltip(tooltip, node)
+	local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
+	local outputNew = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+	GlobalCache.useFullDPS = storedGlobalCacheDPSView
+	local numChanges = self.build:AddStatComparesToTooltip(tooltip, calcBase, outputNew, "^7Allocating "..node.dn.." will give you: ")
+	if numChanges == 0 then
+		tooltip:AddLine(14, "^7Allocating "..node.dn.." changes nothing.")
 	end
 end
 
@@ -2540,6 +2595,134 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
+end
+
+-- Opens the crucible modifier popup
+function ItemsTabClass:AddCrucibleModifierToDisplayItem()
+	local controls = { }
+	local modList = {[1] = {"None"}, [2] = {"None"}, [3] = {"None"}, [4] = {"None"}, [5] = {"None"}}
+	local itemModMap, nodeSelections = { }, { }
+	local function getLabelFromMod(mod)
+		local label = copyTable(mod)
+		for index, line in ipairs(mod) do
+			label[index] = checkLineForAllocates(line, self.build.spec.nodes)
+		end
+		return table.concat(label, "/")
+	end
+	local function itemCanHaveMod(mod)
+		local keyMap = { }
+		for index, key in ipairs(mod.weightKey) do
+			keyMap[key] = index
+		end
+		if self.displayItem.canHaveOnlySupportSkillsCrucibleTree then
+			 return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0
+		end
+		if self.displayItem.canHaveShieldCrucibleTree then
+			return self.displayItem:GetModSpawnWeight(mod, { ["crucible_unique_helmet"] = true, ["shield"] = true }) > 0
+		elseif self.displayItem.canHaveTwoHandedSwordCrucibleTree then
+			self.displayItem.base.tags["one_hand_weapon"] = nil
+			return self.displayItem:GetModSpawnWeight(mod, { ["two_hand_weapon"] = true }) > 0
+		end
+		return self.displayItem:GetModSpawnWeight(mod) > 0
+	end
+	local function buildCrucibleMods()
+		for i, mod in pairs(self.build.data.crucible) do
+			if itemCanHaveMod(mod) then
+				-- item mod must match the whole mod, whether that's one line or two
+				if itemModMap[checkLineForAllocates(mod[1], self.build.spec.nodes)] and ((mod[2] and itemModMap[checkLineForAllocates(mod[2], self.build.spec.nodes)]) or not mod[2]) then
+					-- for multi nodes, if the first location is taken, use second
+					-- works for multi vs single node, ambiguous for multi vs multi (3,4 vs 3,4) but both mods load
+					if nodeSelections[mod.nodeLocation[1]] and mod.nodeLocation[2] then
+						nodeSelections[mod.nodeLocation[2]] = i
+					-- nodeSelections[nodeId] = defaultOrder, used later to match with sorted modList to get selIndex
+					else
+						nodeSelections[mod.nodeLocation[1]] = i
+					end
+				end
+				for _, location in ipairs(mod.nodeLocation) do
+					t_insert(modList[location], {
+						label = getLabelFromMod(mod) .. " - Tier: " .. mod.tier,
+						mod = mod,
+						affixType = mod.type,
+						type = "crucible",
+						defaultOrder = i,
+					})
+				end
+			end
+		end
+		for _, tierList in ipairs(modList) do
+			table.sort(tierList, function(a, b)
+				if b ~= "None" then
+					if a.affixType ~= b.affixType then
+						return a.affixType == "Spawn" and b.affixType == "MergeOnly"
+					else
+						return a.defaultOrder < b.defaultOrder
+					end
+				end
+			end)
+		end
+	end
+	local function addModifier()
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		item.crucibleModLines = { }
+		local listMod = {
+			modList[1][controls.modSelectNode1.selIndex],
+			modList[2][controls.modSelectNode2.selIndex],
+			modList[3][controls.modSelectNode3.selIndex],
+			modList[4][controls.modSelectNode4.selIndex],
+			modList[5][controls.modSelectNode5.selIndex],
+		}
+		for _, nodeMod in ipairs(listMod) do
+			if nodeMod ~= "None" then
+				for index, line in ipairs(nodeMod.mod) do
+					t_insert(item.crucibleModLines, { line = checkLineForAllocates(line, self.build.spec.nodes), modTags = nodeMod.mod.modTags, [nodeMod.type] = true })
+				end
+			end
+		end
+		item:BuildAndParseRaw()
+		return item
+	end
+	-- set up name map to know what modLines the item has as we build the mods out
+	for _, mod in ipairs(self.displayItem.crucibleModLines) do
+		itemModMap[mod.line] = true
+	end
+	buildCrucibleMods()
+	local y = 45
+	for i = 1,5 do
+		controls["modSelectNode"..i.."Label"] = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, y, 0, 16, "^7Node "..i..":")
+		controls["modSelectNode"..i] = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, y, 555, 18, modList[i])
+		controls["modSelectNode"..i].tooltipFunc = function(tooltip, mode, index, value)
+			tooltip:Clear()
+			if mode ~= "OUT" and value and value ~= "None" then
+				for _, line in ipairs(value.mod) do
+					tooltip:AddLine(16, "^7"..checkLineForAllocates(line, self.build.spec.nodes))
+				end
+				self:AddModComparisonTooltip(tooltip, value.mod)
+			end
+		end
+		y = y + 22
+	end
+	-- populate dropdowns with item mods
+	for nodeId, defaultOrder in pairs(nodeSelections) do
+		for index, mod in pairs(modList[nodeId]) do
+			if defaultOrder == mod.defaultOrder then
+				controls["modSelectNode"..nodeId].selIndex = index
+			end
+		end
+	end
+	controls.save = new("ButtonControl", nil, -45, 157, 80, 20, "Add", function()
+		self:SetDisplayItem(addModifier())
+		main:ClosePopup()
+	end)
+	controls.save.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		self:AddItemTooltip(tooltip, addModifier())
+	end
+	controls.close = new("ButtonControl", nil, 45, 157, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(710, 185, "Add Crucible Modifier to Item", controls, "save")
 end
 
 -- Opens the custom Implicit popup
@@ -3035,7 +3218,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		item.requirements.str or 0, item.requirements.dex or 0, item.requirements.int or 0)
 
 	-- Modifiers
-	for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines} do
+	for _, modList in ipairs{item.enchantModLines, item.scourgeModLines, item.implicitModLines, item.explicitModLines, item.crucibleModLines} do
 		if modList[1] then
 			for _, modLine in ipairs(modList) do
 				if item:CheckModLineVariant(modLine) then
@@ -3098,6 +3281,8 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		local output = self.build.calcsTab.mainOutput
 		local durInc = modDB:Sum("INC", nil, "FlaskDuration")
 		local effectInc = modDB:Sum("INC", { actor = "player" }, "FlaskEffect")
+		local lifeDur = 0
+		local manaDur = 0
 
 		if item.rarity == "MAGIC" and not item.base.flask.life and not item.base.flask.mana then
 			effectInc = effectInc + modDB:Sum("INC", { actor = "player" }, "MagicUtilityFlaskEffect")
@@ -3112,7 +3297,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
 				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
 				local grad = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100) * output.LifeRecoveryRateMod
-				local lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
+				lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
 
 				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
 				if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then
@@ -3126,6 +3311,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
 									inst + grad + totalAdditionalAmount, inst, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
 						else
+							lifeDur = 0
 							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, and an additional ^7%d ^8over ^7%.2fs^8)",
 									inst + totalAdditionalAmount, inst, totalAdditionalAmount, 10))
 						end
@@ -3139,6 +3325,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 					-- modifiers to recovery amount or duration
 					elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
 						if inst > 0 then
+							lifeDur = 0
 							t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
 						elseif grad > 0 then
 							t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
@@ -3160,11 +3347,12 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
 				local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
 				local grad = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100) * output.ManaRecoveryRateMod
-				local manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
+				manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
 				if inst > 0 and grad > 0 then
 					t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
 				elseif inst + grad ~= flaskData.manaTotal or (inst == 0 and manaDur ~= flaskData.duration) then
 					if inst > 0 then
+						manaDur = 0
 						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8instantly", inst))
 					elseif grad > 0 then
 						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8over ^7%.2fs", grad, manaDur))
@@ -3224,10 +3412,20 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		end
 
 		-- flask uptime
-		if not item.base.flask.life and not item.base.flask.mana then
+		local hasUptime = not item.base.flask.life and not item.base.flask.mana
+		local flaskDuration = flaskData.duration * (1 + durInc / 100)
+
+		if item.base.flask.life and (flaskData.lifeEffectNotRemoved or modDB:Flag(nil, "LifeFlaskEffectNotRemoved")) then
+			hasUptime = true
+			flaskDuration = lifeDur
+		elseif item.base.flask.mana and (flaskData.manaEffectNotRemoved or modDB:Flag(nil, "ManaFlaskEffectNotRemoved")) then
+			hasUptime = true
+			flaskDuration = manaDur
+		end
+
+		if hasUptime then
 			local flaskChargesUsed = flaskData.chargesUsed * (1 + usedInc / 100)
-			if flaskChargesUsed > 0 then
-				local flaskDuration = flaskData.duration * (1 + durInc / 100)
+			if flaskChargesUsed > 0 and flaskDuration > 0 then
 				local per3Duration = flaskDuration - (flaskDuration % 3)
 				local per5Duration = flaskDuration - (flaskDuration % 5)
 				local minimumChargesGenerated = per3Duration * chargesGenerated + per5Duration * chargesGeneratedPerFlask

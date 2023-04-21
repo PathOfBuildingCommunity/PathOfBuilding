@@ -20,10 +20,10 @@ local skills, mod, flag, skill = ...
 #skill SupportArcaneSurge
 	statMap = {
 		["support_arcane_surge_mana_regeneration_rate_+%"] = {
-			mod("ManaRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
+			mod("ArcaneSurgeManaRegen", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge", unscalable = true }),
 		},
-		["support_arcane_surge_spell_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge" }),
+		["support_arcane_surge_cast_speed_+%"] = {
+			mod("ArcaneSurgeCastSpeed", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Arcane Surge", unscalable = true }),
 		},
 		["support_arcane_surge_spell_damage_+%_final_while_you_have_arcane_surge"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "Condition", var = "AffectedByArcaneSurge" }),
@@ -356,8 +356,16 @@ local skills, mod, flag, skill = ...
 
 #skill ViciousHexExplosion
 #flags spell area
+	parts = {
+		{
+			name = "No Overlaps",
+		},
+		{
+			name = "Overlaps (# hits per cast)",
+			stages = true,
+		}
+	},
 #baseMod skill("radius", 20)
-#baseMod skill("showAverage", true)
 #mods
 
 #skill SupportIncreasedAreaOfEffect
@@ -633,9 +641,7 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 		["support_spell_echo_final_repeat_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
-			--Average out over the casts
-			div = 3
+			mod("RepeatFinalDamage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		}
 	},
 #baseMod flag("Condition:HaveSpellEcho")
@@ -650,12 +656,10 @@ local skills, mod, flag, skill = ...
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
 		["spell_echo_plus_chance_double_damage_%_final"] = {
-			mod("DoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
-			div = 2,
+			mod("RepeatFinalDoubleDamageChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
 		},
 	},
 #baseMod flag("Condition:HaveSpellEcho")
-#baseMod mod("DoubleDamageChance", "BASE", -3, ModFlag.Spell, 0, { type = "Condition", var = "HaveGreaterSpellEcho" })
 #mods
 
 #skill SupportSummonGhostOnKill
@@ -758,4 +762,46 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod flag("HasSeals")
+#mods
+
+#skill SupportPrismaticBurst
+	statMap = {
+		["trigger_prismatic_burst_on_hit_%_chance"] = {
+		},
+	},
+#mods
+
+#skill PrismaticBurst
+#flags spell area
+	parts = {
+		{
+			name = "Fire",
+		},
+		{
+			name = "Cold",
+		},
+		{
+			name = "Lightning",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
+	statMap = {
+		["prismatic_burst_unchosen_type_damage_-100%_final"] = {
+			mod("FireDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),
+			mod("ColdDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 3 } }),
+			mod("LightningDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
+			mult = -100,
+		},
+		["spell_damage_+%_per_10_int"] = {
+			skill("Damage", nil, { type = "PerStat", stat = "Int", div = 10 }),
+		},
+		["critical_strike_multiplier_+_if_dexterity_higher_than_intelligence"] = {
+			skill("CritMultiplier", nil, { type = "Condition", var = "DexHigherThanInt" }),
+		},
+		["area_of_effect_+%_per_50_strength"] = {
+			skill("Area", nil, { type = "PerStat", stat = "Str", div = 50 }),
+		},
+	},
 #mods

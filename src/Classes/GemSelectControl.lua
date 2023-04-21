@@ -129,7 +129,7 @@ function GemSelectClass:BuildList(buf)
 							local negateTag = tagName:sub(1, 1) == "-"
 							if negateTag then tagName = tagName:sub(2) end
 							if tagName == "active" then
-								tagName = "active_skill"
+								tagName = "grants_active_skill"
 							elseif tagName == "int" then
 								tagName = "intelligence"
 							elseif tagName == "str" then
@@ -156,7 +156,7 @@ function GemSelectClass:BuildList(buf)
 					-- Name matching above failed, so lets use searchTerm to look for the tagName
 					-- aura:cold is now illogical and can't work (:aura:cold is the way to do it)
 					if searchTerm == "active" then
-						searchTerm = "active_skill"
+						searchTerm = "grants_active_skill"
 					elseif searchTerm == "int" then
 						searchTerm = "intelligence"
 					elseif searchTerm == "str" then
@@ -200,7 +200,7 @@ function GemSelectClass:UpdateSortCache()
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
 		and (sortCache.characterLevel == self.skillsTab.build.characterLevel or self.skillsTab.defaultGemLevel ~= "characterLevel")
 		and sortCache.defaultQuality == self.skillsTab.defaultGemQuality and sortCache.sortType == self.skillsTab.sortGemsByDPSField
-		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerAwakened == self.skillsTab.showSupportGemTypes then
+		and sortCache.considerAlternates == self.skillsTab.showAltQualityGems and sortCache.considerGemType == self.skillsTab.showSupportGemTypes then
 		return
 	end
 
@@ -256,7 +256,7 @@ function GemSelectClass:UpdateSortCache()
 				oldGem = copyTable(gemList[self.index], true)
 			else
 				gemList[self.index] = {
-					level = gemData.defaultLevel,
+					level = gemData.naturalMaxLevel,
 					qualityId = self:GetQualityType(gemId),
 					quality = self.skillsTab.defaultGemQuality or 0,
 					enabled = true,
@@ -430,7 +430,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 					oldGem = copyTable(gemList[self.index], true)
 				else
 					gemList[self.index] = {
-						level = gemData.defaultLevel,
+						level = gemData.naturalMaxLevel,
 						qualityId = self:GetQualityType(self.list[self.hoverSel]),
 						quality = self.skillsTab.defaultGemQuality or 0,
 						enabled = true,
@@ -539,7 +539,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 		self.tooltip:AddLine(16, string.format("^x7F7F7FLevel: ^7%d%s%s",
 			gemInstance.level, 
 			((displayInstance.level > gemInstance.level) and " (" .. colorCodes.MAGIC .. "+" .. (displayInstance.level - gemInstance.level) .. "^7)") or ((displayInstance.level < gemInstance.level) and " (" .. colorCodes.WARNING .. "-" .. (gemInstance.level - displayInstance.level) .. "^7)") or "",
-			(gemInstance.level >= gemInstance.gemData.defaultLevel) and " (Max)" or ""
+			(gemInstance.level >= gemInstance.gemData.naturalMaxLevel) and " (Max)" or ""
 		))
 	end
 	if grantedEffect.support then

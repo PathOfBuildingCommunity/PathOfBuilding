@@ -231,7 +231,7 @@ itemBases["Tiger Hook"] = {
 itemBases["Fickle Spiritblade"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
+	tags = { experimental_base = true, onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
 	implicit = "100% of Physical Damage from Hits with this Weapon is Converted to a random Element",
 	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental", "attack" }, },
 	weapon = { PhysicalMin = 18, PhysicalMax = 33, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
@@ -240,7 +240,7 @@ itemBases["Fickle Spiritblade"] = {
 itemBases["Capricious Spiritblade"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
+	tags = { experimental_base = true, onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
 	implicit = "100% of Physical Damage from Hits with this Weapon is Converted to a random Element",
 	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental", "attack" }, },
 	weapon = { PhysicalMin = 27, PhysicalMax = 51, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
@@ -249,7 +249,7 @@ itemBases["Capricious Spiritblade"] = {
 itemBases["Anarchic Spiritblade"] = {
 	type = "One Handed Sword",
 	socketLimit = 3,
-	tags = { onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
+	tags = { experimental_base = true, onehand = true, not_for_sale = true, weapon = true, sword = true, one_hand_weapon = true, default = true, },
 	implicit = "100% of Physical Damage from Hits with this Weapon is Converted to a random Element",
 	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental", "attack" }, },
 	weapon = { PhysicalMin = 34, PhysicalMax = 63, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
@@ -737,7 +737,7 @@ itemBases["Exquisite Blade"] = {
 itemBases["Rebuking Blade"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, weapon = true, sword = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, experimental_base = true, not_for_sale = true, weapon = true, sword = true, twohand = true, default = true, },
 	implicit = "Attack Critical Strikes ignore Enemy Monster Elemental Resistances",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 34, PhysicalMax = 63, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
@@ -746,7 +746,7 @@ itemBases["Rebuking Blade"] = {
 itemBases["Blasting Blade"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, weapon = true, sword = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, experimental_base = true, not_for_sale = true, weapon = true, sword = true, twohand = true, default = true, },
 	implicit = "Attack Critical Strikes ignore Enemy Monster Elemental Resistances",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 52, PhysicalMax = 97, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
@@ -755,7 +755,7 @@ itemBases["Blasting Blade"] = {
 itemBases["Banishing Blade"] = {
 	type = "Two Handed Sword",
 	socketLimit = 6,
-	tags = { two_hand_weapon = true, not_for_sale = true, weapon = true, sword = true, twohand = true, default = true, },
+	tags = { two_hand_weapon = true, experimental_base = true, not_for_sale = true, weapon = true, sword = true, twohand = true, default = true, },
 	implicit = "Attack Critical Strikes ignore Enemy Monster Elemental Resistances",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 61, PhysicalMax = 114, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },

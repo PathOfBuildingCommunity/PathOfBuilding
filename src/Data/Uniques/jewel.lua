@@ -35,25 +35,33 @@ Minions have +(2-5)% chance to Suppress Spell Damage
 ]],[[
 The Blue Dream
 Cobalt Jewel
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Blue Nightmare} using currency{Blessing of Chayula}
 Radius: Large
-Gain 5% of Lightning Damage as Extra Chaos Damage
+{variant:1}Gain 5% of Lightning Damage as Extra Chaos Damage
+{variant:2}Gain (6-10)% of Lightning Damage as Extra Chaos Damage
 Passives granting Lightning Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 The Blue Nightmare
 Cobalt Jewel
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Upgraded from unique{The Blue Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
-Gain 5% of Lightning Damage as Extra Chaos Damage
-Passives granting Lightning Resistance or all Elemental Resistances in Radius
-also grant Chance to Block Spell Damage at 35% of its value
-Passives granting Lightning Resistance or all Elemental Resistances in Radius
-also grant an equal chance to gain a Power Charge on Kill
+{variant:1}Gain 5% of Lightning Damage as Extra Chaos Damage
+{variant:2}Gain (6-10)% of Lightning Damage as Extra Chaos Damage
+{variant:1}Passives granting Lightning Resistance or all Elemental Resistances in Radius
+{variant:1}also grant Chance to Block Spell Damage at 35% of its value
+{variant:2}Passives granting Lightning Resistance or all Elemental Resistances in Radius
+{variant:2}also grant Chance to Block Spell Damage at 50% of its value
+{variant:1}Passives granting Lightning Resistance or all Elemental Resistances in Radius
+{variant:1}also grant an equal chance to gain a Power Charge on Kill
 ]],[[
 Brawn
 Crimson Jewel
@@ -61,6 +69,11 @@ Source: No longer obtainable
 (4-6)% increased Dexterity
 (4-6)% increased Strength
 (10-15)% reduced Intelligence
+]],[[
+Bloodnotch
+Crimson Jewel
+Limited to: 1
+(40-60)% of Damage Taken from Stunning Hits is Recovered as Life
 ]],[[
 Calamitous Visions
 Small Cluster Jewel
@@ -242,29 +255,36 @@ Variant: Current - Min Frenzy Charge
 ]],[[
 The Green Dream
 Viridian Jewel
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Green Nightmare} using currency{Blessing of Chayula}
 Radius: Large
-Gain 5% of Cold Damage as Extra Chaos Damage
+{variant:1}Gain 5% of Cold Damage as Extra Chaos Damage
+{variant:2}Gain (6-10)% of Cold Damage as Extra Chaos Damage
 Passives granting Cold Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 The Green Nightmare
 Viridian Jewel
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 League: Breach
 Source: Upgraded from unique{The Green Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
-Gain 5% of Cold Damage as Extra Chaos Damage
+{variant:1,2}Gain 5% of Cold Damage as Extra Chaos Damage
+{variant:3}Gain (6-10)% of Cold Damage as Extra Chaos Damage
 {variant:1}Passives granting Cold Resistance or all Elemental Resistances in Radius
 {variant:1}also grant Chance to Suppress Spell Damage at 35% of its value
 {variant:2}Passives granting Cold Resistance or all Elemental Resistances in Radius
 {variant:2}also grant Chance to Suppress Spell Damage at 50% of its value
-Passives granting Cold Resistance or all Elemental Resistances in Radius
-also grant an equal chance to gain a Frenzy Charge on Kill
+{variant:3}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:3}also grant Chance to Suppress Spell Damage at 70% of its value
+{variant:1,2}Passives granting Cold Resistance or all Elemental Resistances in Radius
+{variant:1,2}also grant an equal chance to gain a Frenzy Charge on Kill
 ]],[[
 Hair Trigger
 Viridian Jewel
@@ -534,7 +554,10 @@ League: Breach
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}
 Upgrade: Upgrades to unique{The Red Nightmare} using currency{Blessing of Chayula}
 Radius: Large
-Gain 5% of Fire Damage as Extra Chaos Damage
+Variant: Pre 3.21.0
+Variant: Current
+{variant:1}Gain 5% of Fire Damage as Extra Chaos Damage
+{variant:2}Gain (6-10)% of Fire Damage as Extra Chaos Damage
 Passives granting Fire Resistance or all Elemental Resistances in Radius
 also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
@@ -544,11 +567,16 @@ League: Breach
 Source: Upgraded from unique{The Red Dream} using currency{Blessing of Chayula}
 Limited to: 1
 Radius: Large
-Gain 5% of Fire Damage as Extra Chaos Damage
-Passives granting Fire Resistance or all Elemental Resistances in Radius
-also grant Chance to Block Attack Damage at 35% of its value
-Passives granting Fire Resistance or all Elemental Resistances in Radius
-also grant an equal chance to gain an Endurance Charge on Kill
+Variant: Pre 3.21.0
+Variant: Current
+{variant:1}Gain 5% of Fire Damage as Extra Chaos Damage
+{variant:2}Gain (6-10)% of Fire Damage as Extra Chaos Damage
+{variant:1}Passives granting Fire Resistance or all Elemental Resistances in Radius
+{variant:1}also grant Chance to Block Attack Damage at 35% of its value
+{variant:2}Passives granting Fire Resistance or all Elemental Resistances in Radius
+{variant:2}also grant Chance to Block Attack Damage at 50% of its value
+{variant:1}Passives granting Fire Resistance or all Elemental Resistances in Radius
+{variant:1}also grant an equal chance to gain an Endurance Charge on Kill
 ]],[[
 The Siege
 Small Cluster Jewel
@@ -750,10 +778,14 @@ Hypnotic Eye Jewel
 ]],[[
 Tecrod's Gaze
 Murderous Eye Jewel
+Variant: Pre 3.21.0
+Variant: Current
 Requires Level 40
 +(10-20) to Strength
-20% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 100%
-+10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +50%
+{variant:1}20% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 100%
+{variant:2}40% increased Main Hand Critical Strike Chance per Murderous Eye Jewel affecting you, up to a maximum of 200%
+{variant:1}+10% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +50%
+{variant:2}+20% to Off Hand Critical Strike Multiplier per Murderous Eye Jewel affecting you, up to a maximum of +100%
 ]],[[
 Ulaman's Gaze
 Searching Eye Jewel
@@ -1168,6 +1200,12 @@ Radius: Medium
 {variant:2}With at least 40 Intelligence in Radius, Cold Snap has a 50% chance to grant a Power Charge on Kill
 {variant:3}With at least 40 Intelligence in Radius, Cold Snap grants Power Charges instead of Frenzy Charges when Enemies die in it's Area
 {variant:3}With at least 40 Intelligence in Radius, Cold Snap Cooldown can be bypassed by Power Charges instead of Frenzy Charges
+]],[[
+Ancestral Vision
+Viridian Jewel
+Limited to: 1
++(5-10) to Dexterity
+Modifiers to Chance to Suppress Spell Damage also apply to Chance to Avoid Elemental Ailments at 50% of their Value
 ]],
 -- Jewel: Corrupted
 [[

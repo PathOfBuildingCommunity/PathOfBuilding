@@ -172,8 +172,29 @@ function main:Init()
 	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()
 	end)
+	
+	self.controls.scriptAll = new("ButtonControl", nil, 270, 10, 100, 18, "Run All", function()
+		do -- run stat desc first
+			local errMsg = PLoadModule("Scripts/".."statdesc"..".lua")
+			if errMsg then
+				print(errMsg)
+			end
+		end
+		for _, script in ipairs(self.scriptList) do
+			if script ~= "statdesc" then
+				local errMsg = PLoadModule("Scripts/"..script..".lua")
+				if errMsg then
+					print(errMsg)
+				end
+			end
+		end
+	end) {
+		shown = function()
+			return not self.curDatFile
+		end
+	}
 
-	self.controls.scriptList = new("ScriptListControl", nil, 270, 10, 100, 300) {
+	self.controls.scriptList = new("ScriptListControl", nil, 270, 35, 100, 300) {
 		shown = function()
 			return not self.curDatFile
 		end
@@ -241,7 +262,7 @@ function main:Init()
 		self:SetCurrentCol()
 	end)
 	
-	self.controls.filter = new("EditControl", nil, 270, 0, 300, 18, nil, "^8Filter") {
+	self.controls.filter = new("EditControl", nil, 270, 0, 800, 18, nil, "^8Filter") {
 		y = function()
 			return self.editSpec and 240 or 30
 		end,
@@ -354,7 +375,7 @@ function main:InitGGPK()
 	else
 		local now = GetTime()
 		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
-		if ggpkPath and (ggpkPath:match("%.ggpk") or ggpkPath:match("steamapps[/\\].+[/\\]Path of Exile")) then
+		if ggpkPath then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)
 		elseif self.datSource.datFilePath then

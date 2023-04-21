@@ -468,7 +468,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	-- Apply gem/quality modifiers from support gems
 	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "SupportedGemProperty")) do
-		if value.keyword == "active_skill" and activeSkill.activeEffect.gemData then
+		if value.keyword == "grants_active_skill" and activeSkill.activeEffect.gemData and not activeSkill.activeEffect.gemData.tags.support  then
 			activeEffect[value.key] = activeEffect[value.key] + value.value
 		end
 	end
@@ -527,6 +527,18 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		activeEffect.srcInstance.skillMineCount = nil
 	end
 	
+
+	-- Determine if it possible to have a stage on this skill based upon skill parts.
+	local noPotentialStage = true
+	if activeEffect.grantedEffect.parts then
+		for _, part in ipairs(activeEffect.grantedEffect.parts) do
+			if part.stages then 
+				noPotentialStage = false
+				break
+			end
+		end
+	end
+
 	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages") > 0 then
 		skillFlags.multiStage = true
 		activeSkill.activeStageCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount)
@@ -538,7 +550,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				skillModList:NewMod("Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", m_min(limit - 1, activeSkill.activeStageCount), "Base")
 			end
 		end
-	elseif activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
+	elseif noPotentialStage and activeEffect.srcInstance and not (activeEffect.gemData and activeEffect.gemData.secondaryGrantedEffect) then
 		activeEffect.srcInstance.skillStageCountCalcs = nil
 		activeEffect.srcInstance.skillStageCount = nil
 	end

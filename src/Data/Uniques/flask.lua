@@ -411,8 +411,8 @@ Variant: Current (Penetration)
 Variant: Current (Spells)
 Variant: Current (Attacks)
 LevelReq: 68
-{variant:5,6,7,8,9,10,11,12,13,14,15}(100-80)% increased Charges per use
-{variant:16,17,18}(150-125)% increased Charges per use
+{variant:5,6,7,8,9,10,11,12,13}(100-80)% increased Charges per use
+{variant:14,15,16,17,18}(150-125)% increased Charges per use
 Shocks nearby Enemies during Effect, causing 10% increased Damage taken
 You are Shocked during Effect, causing 50% increased Damage taken
 {variant:1,5,11}Damage Penetrates 10% Lightning Resistance during Effect

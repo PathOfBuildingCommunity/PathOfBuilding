@@ -3751,6 +3751,124 @@ return {
 							[2]="#"
 						}
 					},
+					text="This Attack and Minions have {0}% increased Attack Speed per Momentum"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="This Attack and Minions have {0}% reduced Attack Speed per Momentum"
+				}
+			}
+		},
+		name="momentum_attack_speed",
+		stats={
+			[1]="support_momentum_attack_speed_+%_per_stack"
+		}
+	},
+	[128]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="milliseconds_to_seconds_1dp",
+						v=1
+					},
+					[2]={
+						k="milliseconds_to_seconds_1dp",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						},
+						[3]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="When you reach {2} Momentum, lose all Momentum and gain Swiftness for {1} seconds\nWhen Minions reach {2} Momentum, they lose all Momentum and gain Swiftness for a Base Duration of {0} seconds"
+				}
+			}
+		},
+		name="momentum_buff_duration",
+		stats={
+			[1]="support_momentum_base_buff_duration_ms",
+			[2]="support_momentum_buff_duration_ms",
+			[3]="support_momentum_max_stacks"
+		}
+	},
+	[129]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Gain 1 Momentum when you Use this Attack\nLose all Momentum if you Move\nMinions gain 1 Momentum when they Attack\nMinions gain 1 Momentum every {0} seconds while Channelling an Attack\nMinions lose all Momentum if they Move"
+				},
+				[2]={
+					[1]={
+						k="milliseconds_to_seconds_2dp",
+						v=1
+					},
+					[2]={
+						k="milliseconds_to_seconds_2dp",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Gain 1 Momentum when you Use this Attack\nGain 1 Momentum every {1} seconds while Channelling this Attack\nLose all Momentum if you Move\nMinions gain 1 Momentum when they Attack\nMinions gain 1 Momentum every {0} seconds while Channelling an Attack\nMinions lose all Momentum if they Move"
+				}
+			}
+		},
+		name="momentum_generation",
+		stats={
+			[1]="support_momentum_stack_while_channelling_base_ms",
+			[2]="support_momentum_stack_while_channelling_ms"
+		}
+	},
+	[130]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
 					text="This Attack and Minions deal {0}% more Damage per Power Charge"
 				},
 				[2]={
@@ -3773,7 +3891,7 @@ return {
 			[1]="support_power_charge_on_crit_damage_+%_final_per_power_charge"
 		}
 	},
-	[128]={
+	[131]={
 		lang={
 			English={
 				[1]={
@@ -3805,7 +3923,7 @@ return {
 			[1]="support_pulverise_area_of_effect_+%_final"
 		}
 	},
-	[129]={
+	[132]={
 		lang={
 			English={
 				[1]={
@@ -3837,7 +3955,7 @@ return {
 			[1]="support_pulverise_attack_speed_+%_final"
 		}
 	},
-	[130]={
+	[133]={
 		lang={
 			English={
 				[1]={
@@ -3869,7 +3987,7 @@ return {
 			[1]="support_pulverise_melee_area_damage_+%_final"
 		}
 	},
-	[131]={
+	[134]={
 		lang={
 			English={
 				[1]={
@@ -3901,7 +4019,7 @@ return {
 			[1]="support_pure_shock_damage_+%_final"
 		}
 	},
-	[132]={
+	[135]={
 		lang={
 			English={
 				[1]={
@@ -3933,7 +4051,7 @@ return {
 			[1]="support_pure_shock_shock_as_though_damage_+%_final"
 		}
 	},
-	[133]={
+	[136]={
 		lang={
 			English={
 				[1]={
@@ -3952,7 +4070,7 @@ return {
 			[1]="support_reduce_enemy_block_and_spell_block_%"
 		}
 	},
-	[134]={
+	[137]={
 		lang={
 			English={
 				[1]={
@@ -3984,7 +4102,7 @@ return {
 			[2]="support_scion_onslaught_on_unique_hit_duration_ms"
 		}
 	},
-	[135]={
+	[138]={
 		lang={
 			English={
 				[1]={
@@ -4021,7 +4139,7 @@ return {
 			[3]="virtual_support_scion_onslaught_on_killing_blow_duration_ms"
 		}
 	},
-	[136]={
+	[139]={
 		lang={
 			English={
 				[1]={
@@ -4040,7 +4158,7 @@ return {
 			[1]="support_slashing_damage_+%_final_from_distance"
 		}
 	},
-	[137]={
+	[140]={
 		lang={
 			English={
 				[1]={
@@ -4199,28 +4317,34 @@ return {
 	["support_ignite_prolif_ignite_damage_+%_final"]=56,
 	["support_ignite_proliferation_radius"]=27,
 	["support_maimed_enemies_physical_damage_taken_+%"]=125,
+	["support_momentum_attack_speed_+%_per_stack"]=127,
+	["support_momentum_base_buff_duration_ms"]=128,
+	["support_momentum_buff_duration_ms"]=128,
+	["support_momentum_max_stacks"]=128,
+	["support_momentum_stack_while_channelling_base_ms"]=129,
+	["support_momentum_stack_while_channelling_ms"]=129,
 	["support_multiple_attacks_melee_attack_speed_+%_final"]=39,
 	["support_poison_poison_damage_+%_final"]=61,
-	["support_power_charge_on_crit_damage_+%_final_per_power_charge"]=127,
-	["support_pulverise_area_of_effect_+%_final"]=128,
-	["support_pulverise_attack_speed_+%_final"]=129,
-	["support_pulverise_melee_area_damage_+%_final"]=130,
-	["support_pure_shock_damage_+%_final"]=131,
-	["support_pure_shock_shock_as_though_damage_+%_final"]=132,
+	["support_power_charge_on_crit_damage_+%_final_per_power_charge"]=130,
+	["support_pulverise_area_of_effect_+%_final"]=131,
+	["support_pulverise_attack_speed_+%_final"]=132,
+	["support_pulverise_melee_area_damage_+%_final"]=133,
+	["support_pure_shock_damage_+%_final"]=134,
+	["support_pure_shock_shock_as_though_damage_+%_final"]=135,
 	["support_rapid_decay_damage_over_time_+%_final"]=57,
-	["support_reduce_enemy_block_and_spell_block_%"]=133,
+	["support_reduce_enemy_block_and_spell_block_%"]=136,
 	["support_ruthless_big_hit_damage_+%_final"]=74,
 	["support_ruthless_big_hit_max_count"]=73,
 	["support_ruthless_big_hit_stun_base_duration_override_ms"]=76,
 	["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"]=75,
-	["support_scion_onslaught_for_3_seconds_on_hitting_unique_enemy_%_chance"]=134,
-	["support_scion_onslaught_on_killing_blow_%_chance"]=135,
-	["support_scion_onslaught_on_killing_blow_duration_ms"]=135,
-	["support_scion_onslaught_on_unique_hit_duration_ms"]=134,
-	["support_slashing_damage_+%_final_from_distance"]=136,
+	["support_scion_onslaught_for_3_seconds_on_hitting_unique_enemy_%_chance"]=137,
+	["support_scion_onslaught_on_killing_blow_%_chance"]=138,
+	["support_scion_onslaught_on_killing_blow_duration_ms"]=138,
+	["support_scion_onslaught_on_unique_hit_duration_ms"]=137,
+	["support_slashing_damage_+%_final_from_distance"]=139,
 	["support_spirit_strike_damage_+%_final"]=51,
 	["support_trap_and_mine_damage_+%_final"]=52,
 	["virtual_number_of_spirit_strikes"]=110,
-	["virtual_support_scion_onslaught_on_killing_blow_duration_ms"]=135,
-	["withered_on_hit_chance_%"]=137
+	["virtual_support_scion_onslaught_on_killing_blow_duration_ms"]=138,
+	["withered_on_hit_chance_%"]=140
 }

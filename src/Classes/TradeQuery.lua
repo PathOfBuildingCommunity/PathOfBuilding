@@ -55,6 +55,7 @@ local TradeQueryClass = newClass("TradeQuery", function(self, itemsTab)
 	-- set 
 	self.storedGlobalCacheDPSView = GlobalCache.useFullDPS
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+	self.hostName = "https://www.pathofexile.com/"
 end)
 
 ---Fetch currency short-names from Poe API (used for PoeNinja price pairing)
@@ -90,7 +91,7 @@ end
 -- Method to pull down and interpret available leagues from PoE
 function TradeQueryClass:PullLeagueList()
 	launch:DownloadPage(
-		"https://api.pathofexile.com/leagues?type=main&compact=1",
+		self.hostName .. "api/leagues?type=main&compact=1",
 		function(response, errMsg)
 			if errMsg then
 				self:SetNotice(self.controls.pbNotice, "Error: " .. tostring(errMsg))
@@ -786,7 +787,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				self:SetNotice(context.controls.pbNotice, "")
 			end
 			if main.POESESSID == nil or main.POESESSID == "" then
-				local url = self.tradeQueryRequests:buildUrl("https://www.pathofexile.com/trade/search", self.pbRealm, self.pbLeague)
+				local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague)
 				url = url .. "?q=" .. urlEncode(query)
 				controls["uri"..context.row_idx]:SetText(url, true)
 				return
@@ -808,7 +809,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				end,
 				{
 					callbackQueryId = function(queryId)
-						local url = self.tradeQueryRequests:buildUrl("https://www.pathofexile.com/trade/search", self.pbRealm, self.pbLeague, queryId)
+						local url = self.tradeQueryRequests:buildUrl(self.hostName .. "trade/search", self.pbRealm, self.pbLeague, queryId)
 						controls["uri"..context.row_idx]:SetText(url, true)
 					end
 				}
@@ -819,7 +820,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	controls["bestButton"..row_idx].tooltipText = "Creates a weighted search to find the highest Stat Value items for this slot."
 	local pbURL
 	controls["uri"..row_idx] = new("EditControl", { "TOPLEFT", controls["bestButton"..row_idx], "TOPRIGHT"}, 8, 0, 514, row_height, nil, nil, "^%C\t\n", nil, function(buf)
-		local subpath = buf:match("https://www.pathofexile.com/trade/search/(.+)$") or ""
+		local subpath = buf:match(self.hostName .. "trade/search/(.+)$") or ""
 		local paths = {}
 		for path in subpath:gmatch("[^/]+") do
 			table.insert(paths, path)
@@ -841,7 +842,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	end
 	controls["uri"..row_idx].tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		if controls["uri"..row_idx].buf:find('^https://www.pathofexile.com/trade/search/') ~= nil then
+		if controls["uri"..row_idx].buf:find('^'..self.hostName..'trade/search/') ~= nil then
 			tooltip:AddLine(16, "Control + click to open in web-browser")
 		end
 	end
