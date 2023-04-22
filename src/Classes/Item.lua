@@ -872,7 +872,7 @@ function ItemClass:NormaliseQuality()
 	end	
 end
 
-function ItemClass:GetModSpawnWeight(mod, extraTags)
+function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 	local weight = 0
 	if self.base then
 		local function HasInfluenceTag(key)
@@ -891,13 +891,13 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 		end
 
 		for i, key in ipairs(mod.weightKey) do
-			if self.base.tags[key] or (extraTags and extraTags[key]) or HasInfluenceTag(key) then
+			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = (HasInfluenceTag(key) and HasMavenInfluence(mod.affix)) and 1000 or mod.weightVal[i]
 				break
 			end
 		end
 		for i, key in ipairs(mod.weightMultiplierKey) do
-			if self.base.tags[key] or (extraTags and extraTags[key]) or HasInfluenceTag(key) then
+			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = weight * mod.weightMultiplierVal[i] / 100
 				break
 			end
@@ -1269,10 +1269,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 	end
-	local craftedQuality = calcLocal(modList,"Quality","BASE",0)
+	local craftedQuality = calcLocal(modList,"Quality","BASE",0) or 0
 	if craftedQuality ~= self.craftedQuality then
 		if self.craftedQuality then
-			self.quality = self.quality - self.craftedQuality + craftedQuality
+			self.quality = (self.quality or 0) - self.craftedQuality + craftedQuality
 		end
 		self.craftedQuality = craftedQuality
 	end

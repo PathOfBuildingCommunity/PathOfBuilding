@@ -263,7 +263,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					currency = trade_entry.listing.price.currency,
 					item_string = common.base64.decode(trade_entry.item.extended.text),
 					whisper = trade_entry.listing.whisper,
-					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)"),
+					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)") or "0",
 					id = trade_entry.id
 				})
 			end
