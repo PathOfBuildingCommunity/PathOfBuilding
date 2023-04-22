@@ -1106,7 +1106,7 @@ function TreeTabClass:FindTimelessJewel()
 	
 	local socketFilterAdditionalDistanceMAX = 10
 	controls.socketFilterAdditionalDistanceLabel = new("LabelControl", { "LEFT", controls.socketFilter, "RIGHT" }, 10, 0, 0, 16, "^7Node Distance:")
-	controls.socketFilterAdditionalDistance = new("SliderControl", { "LEFT", controls.socketFilterAdditionalDistanceLabel, "RIGHT" }, 10, 0, 90, 18, function(value)
+	controls.socketFilterAdditionalDistance = new("SliderControl", { "LEFT", controls.socketFilterAdditionalDistanceLabel, "RIGHT" }, 10, 0, 66, 18, function(value)
 		timelessData.socketFilterDistance = m_floor(value * socketFilterAdditionalDistanceMAX + 0.01)
 		controls.socketFilterAdditionalDistanceValue.label = s_format("^7%d", timelessData.socketFilterDistance)
 	end, { ["SHIFT"] = 1, ["CTRL"] = 1 / (socketFilterAdditionalDistanceMAX * 2), ["DEFAULT"] = 1 / socketFilterAdditionalDistanceMAX })
@@ -1504,14 +1504,12 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7Click this button to generate new fallback node weights, replacing your old ones.")
 	end
 
-	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "^2Desired Nodes", function()
+	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "^7Desired Nodes", function()
 		if controls.searchListFallback.shown then
 			controls.searchListFallback.shown = false
 			controls.searchListFallback.enabled = false
 			controls.searchList.shown = true
 			controls.searchList.enabled = true
-			controls.searchListButton.label = "^2Desired Nodes"
-			controls.searchListFallbackButton.label = "^7Fallback Nodes"
 		end
 	end)
 	controls.searchListButton.tooltipFunc = function(tooltip, mode, index, value)
@@ -1519,13 +1517,13 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7This contains a list of your desired nodes along with their primary, secondary, and minimum weights.")
 		tooltip:AddLine(16, "^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
 	end
+	controls.searchListButton.locked = function() return controls.searchList.shown end
 	controls.searchListFallbackButton = new("ButtonControl", { "LEFT", controls.searchListButton, "RIGHT" }, 5, 0, 110, 20, "^7Fallback Nodes", function()
 		controls.searchList.shown = false
 		controls.searchList.enabled = false
 		controls.searchListFallback.shown = true
 		controls.searchListFallback.enabled = true
-		controls.searchListButton.label = "^7Desired Nodes"
-		controls.searchListFallbackButton.label = "^2Fallback Nodes"
+		controls.searchListFallbackButton.label = "^7Fallback Nodes"
 	end)
 	controls.searchListFallbackButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -1535,6 +1533,7 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7Fallback node weights typically contain automatically generated stat weights based on your current build.")
 		tooltip:AddLine(16, "^7Any manual changes made to your fallback nodes are lost when you click the generate button, as it completely replaces them.")
 	end
+	controls.searchListFallbackButton.locked = function() return controls.searchListFallback.shown end
 	controls.searchList = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 275, 438, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
 		parseSearchList(0, false)
