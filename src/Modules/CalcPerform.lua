@@ -3211,7 +3211,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			if not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredByManaPercentSpent and band(skill.skillCfg.flags, ModFlag.Bow) > 0 then
 				local uuid = cacheSkillUUID(skill)
 				if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
-					calcs.buildActiveSkill(env, "CACHE", skill)
+					calcs.buildActiveSkill(env, "CACHE", skill, true)
 				end
 
 				if GlobalCache.cachedData["CACHE"][uuid] then
