@@ -294,7 +294,7 @@ on trade site to work on other leagues and realms)]]
 		stat = "TotalEHP",
 		weightMult = 0.5,
 	})
-	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", nil, "TOPRIGHT"}, -pane_margins_horizontal, pane_margins_vertical, 150, row_height, "^7Adjust search weights", function()
+	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", self.controls.fetchCountEdit, "BOTTOMRIGHT"}, 0, row_vertical_padding, 150, row_height, "^7Adjust search weights", function()
 		self:SetStatWeights()
 	end)
 	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
@@ -318,7 +318,7 @@ on trade site to work on other leagues and realms)]]
 		self.sortModes.Price,
 		self.sortModes.Weight,
 	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", self.controls.StatWeightMultipliersButton, "TOPRIGHT"}, 0, row_height + row_vertical_padding, 150, row_height, self.itemSortSelectionList, function(index, value)
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", self.controls.StatWeightMultipliersButton, "TOPLEFT"}, -8, 0, 150, row_height, self.itemSortSelectionList, function(index, value)
 		self.pbItemSortSelectionIndex = index
 		for row_idx, _ in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(row_idx)

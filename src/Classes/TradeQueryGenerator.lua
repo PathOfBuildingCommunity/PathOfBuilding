@@ -198,7 +198,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 		end
 
 		local statOrder = modLine:find("Nearby Enemies have %-") ~= nil and mod.statOrder[index + 1] or mod.statOrder[index] -- hack to get minus res mods associated with the correct statOrder
-		local modType = (mod.type == "Prefix" or mod.type == "Suffix") and (modId:find("AfflictionNotable") and "PassiveNode" or "Explicit") or mod.type
+		local modType = (mod.type == "Prefix" or mod.type == "Suffix") and (type(modId) == "string" and modId:find("AfflictionNotable") and "PassiveNode" or "Explicit") or mod.type
 		if modType == "ScourgeUpside" then modType = "Scourge" end
 
 		-- Special cases
