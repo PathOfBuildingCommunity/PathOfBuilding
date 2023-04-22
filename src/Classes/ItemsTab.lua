@@ -2610,9 +2610,16 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		return table.concat(label, "/")
 	end
 	local function itemCanHaveMod(mod)
-		local keyMap = { }
+		local keyMap, includeTags = { }, { }
 		for index, key in ipairs(mod.weightKey) do
 			keyMap[key] = index
+		end
+		-- check for uniques with off-tag mods
+		if data.casterTagCrucibleUniques[self.displayItem.title] then
+			includeTags["caster_unique_weapon"] = true
+		end
+		if data.minionTagCrucibleUniques[self.displayItem.title] then
+			includeTags["minion_unique_weapon"] = true
 		end
 		if self.displayItem.canHaveOnlySupportSkillsCrucibleTree then
 			 return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0
@@ -2621,7 +2628,7 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 		elseif self.displayItem.canHaveTwoHandedSwordCrucibleTree then
 			return self.displayItem:GetModSpawnWeight(mod, { ["two_hand_weapon"] = true }, { ["one_hand_weapon"] = true }) > 0
 		end
-		return self.displayItem:GetModSpawnWeight(mod) > 0
+		return self.displayItem:GetModSpawnWeight(mod, includeTags) > 0
 	end
 	local function buildCrucibleMods()
 		for i, mod in pairs(self.build.data.crucible) do
