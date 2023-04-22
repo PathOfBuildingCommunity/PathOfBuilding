@@ -592,7 +592,7 @@ end
 function formatNumSep(str)
 	return string.gsub(str, "(%^?x?%x?%x?%x?%x?%x?%x?-?%d+%.?%d+)", function(m)
 		local colour = m:match("(^x%x%x%x%x%x%x)") or m:match("(%^%d)") or ""
-		local str = m:gsub("(^x%x%x%x%x%x%x)", "") or m:gsub("(%^%d)", "")
+		local str = m:gsub("(^x%x%x%x%x%x%x)", ""):gsub("(%^%d)", "")
 		if str == "" or (colour == "" and m:match("%^")) then  -- return if we have an invalid color code or a completely stripped number.
 			return m
 		end
