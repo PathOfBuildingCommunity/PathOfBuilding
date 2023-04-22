@@ -5,7 +5,7 @@ body:
   - type: markdown
     attributes:
       value: |
-        Thank you for reporting a crash or serve graphical issue.
+        Thank you for reporting a crash or severe graphical issue.
         Please try to fill in as much of the form below as you're able to. Some of the fields marked with an asterisk (*) are required.
   - type: checkboxes
     id: version

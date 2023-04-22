@@ -200,6 +200,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/WeaponPassiveTreeUniqueBaseTypes.dat",
 		"Data/CrucibleTags.dat",
 		"Data/FlavourText.dat",
+		"Data/ModSellPriceTypes.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

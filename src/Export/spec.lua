@@ -5898,6 +5898,13 @@ return {
 	ModGenerationType={
 	},
 	ModSellPriceTypes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		}
 	},
 	ModSetNames={
 	},
@@ -5912,34 +5919,13 @@ return {
 			width=400
 		},
 		[2]={
-			list=false,
-			name="",
-			refTo="",
-			type="UInt",
+			list=true,
+			name="ModSellPriceTypesKeys",
+			refTo="ModSellPriceTypes",
+			type="Key",
 			width=190
 		},
 		[3]={
-			list=false,
-			name="Tags",
-			refTo="Tags",
-			type="UInt",
-			width=130
-		},
-		[4]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[5]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[6]={
 			list=false,
 			name="",
 			refTo="",
@@ -9814,14 +9800,14 @@ return {
 		},
 		[3]={
 			list=false,
-			name="ModsKey",
+			name="Mod",
 			refTo="Mods",
 			type="Key",
 			width=450
 		},
 		[4]={
 			list=true,
-			name="",
+			name="NodeSpawnLocation",
 			refTo="",
 			type="Int",
 			width=150

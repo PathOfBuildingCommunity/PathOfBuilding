@@ -728,6 +728,12 @@ function ItemClass:ParseRaw(raw)
 					self.canHaveTwoEnchants = true
 					self.canHaveThreeEnchants = true
 					self.canHaveFourEnchants = true
+				elseif lineLower == "has a crucible passive skill tree with only support passive skills" then
+					self.canHaveOnlySupportSkillsCrucibleTree = true
+				elseif lineLower == "has a crucible passive skill tree" then
+					self.canHaveShieldCrucibleTree = true
+				elseif lineLower == "has a two handed sword crucible passive skill tree" then
+					self.canHaveTwoHandedSwordCrucibleTree = true
 				end
 
 				if data.itemBases[line] then
@@ -1304,7 +1310,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				end
 			end
 		end
-		weaponData.CritChance = round(self.base.weapon.CritChanceBase * (1 + (calcLocal(modList, "CritChance", "INC", 0) + m_floor(self.quality / 4 * calcLocal(modList, "AlternateQualityLocalCritChancePer4Quality", "INC", 0))) / 100), 2)
+		weaponData.CritChance = round((self.base.weapon.CritChanceBase + calcLocal(modList, "CritChance", "BASE", 0)) * (1 + (calcLocal(modList, "CritChance", "INC", 0) + m_floor(self.quality / 4 * calcLocal(modList, "AlternateQualityLocalCritChancePer4Quality", "INC", 0))) / 100), 2)
 		for _, value in ipairs(modList:List(nil, "WeaponData")) do
 			weaponData[value.key] = value.value
 		end
