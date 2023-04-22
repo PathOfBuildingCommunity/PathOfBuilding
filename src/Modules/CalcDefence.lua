@@ -509,6 +509,9 @@ function calcs.defence(env, actor)
 				end
 				evasionBase = armourData.Evasion or 0
 				if evasionBase > 0 then
+					if slot == "Body Armour" and modDB:Flag(nil, "Unbreakable") and ironReflexes then
+						evasionBase = evasionBase * 2
+					end
 					gearEvasion = gearEvasion + evasionBase
 					if breakdown then
 						breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
