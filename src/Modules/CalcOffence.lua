@@ -3385,6 +3385,13 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
+		-- address Weapon1H interaction with Ailment for nodes like Sleight of Hand
+		-- bit-and on cfg.flags confirms if the skill has the 1H flag
+		-- if so bit-or on the targetCfg (e.g. dotCfg) to guarantee for calculations like Sum("INC") and breakdown
+		local function checkWeapon1HFlags(targetCfg)
+			targetCfg.flags = bor(targetCfg.flags, band(cfg.flags, ModFlag.Weapon1H))
+		end
+
 		---Calculates normal and crit damage to be used in non-damaging ailment calculations
 		---@param ailment string
 		---@return number, number @average hit damage, average crit damage
@@ -3498,6 +3505,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillDist = skillCfg.skillDist,
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.bleedCfg or activeSkill.OHbleedCfg
+			checkWeapon1HFlags(dotCfg)
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
 				breakdown.BleedPhysical = { damageTypes = { } }
@@ -3697,6 +3705,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillDist = skillCfg.skillDist,
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.poisonCfg or activeSkill.OHpoisonCfg
+			checkWeapon1HFlags(dotCfg)
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
 				breakdown.PoisonPhysical = { damageTypes = { } }
@@ -3922,6 +3931,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillDist = skillCfg.skillDist,
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.igniteCfg or activeSkill.OHigniteCfg
+			checkWeapon1HFlags(dotCfg)
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
 				breakdown.IgnitePhysical = { damageTypes = { } }
