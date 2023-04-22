@@ -2615,13 +2615,12 @@ function ItemsTabClass:AddCrucibleModifierToDisplayItem()
 			keyMap[key] = index
 		end
 		-- check for uniques with off-tag mods
-		if self.build.data.casterTagCrucibleUniques[self.displayItem.title] then
+		if data.casterTagCrucibleUniques[self.displayItem.title] then
 			includeTags["caster_unique_weapon"] = true
 		end
-		if self.build.data.minionTagCrucibleUniques[self.displayItem.title] then
+		if data.minionTagCrucibleUniques[self.displayItem.title] then
 			includeTags["minion_unique_weapon"] = true
 		end
-
 		if self.displayItem.canHaveOnlySupportSkillsCrucibleTree then
 			 return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0
 		elseif self.displayItem.canHaveShieldCrucibleTree then
