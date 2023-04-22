@@ -721,20 +721,20 @@ end
 
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
-	local bandit = self.calcsTab.mainOutput.ExtraPoints or 0 
-	local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + bandit, 8, 1, 1, "", ""
+	local extra = self.calcsTab.mainOutput.ExtraPoints or 0 
+	local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + extra, 8, 1, 1, "", ""
 	local acts = { 
 		[1] = { level = 1, questPoints = 0 }, 
 		[2] = { level = 12, questPoints = 2 }, 
-		[3] = { level = 22, questPoints = 3 + bandit }, 
-		[4] = { level = 32, questPoints = 5 + bandit },
-		[5] = { level = 40, questPoints = 6 + bandit },
-		[6] = { level = 44, questPoints = 8 + bandit },
-		[7] = { level = 50, questPoints = 11 + bandit },
-		[8] = { level = 54, questPoints = 14 + bandit },
-		[9] = { level = 60, questPoints = 17 + bandit },
-		[10] = { level = 64, questPoints = 19 + bandit },
-		[11] = { level = 67, questPoints = 22 + bandit }
+		[3] = { level = 22, questPoints = 3 + extra }, 
+		[4] = { level = 32, questPoints = 5 + extra },
+		[5] = { level = 40, questPoints = 6 + extra },
+		[6] = { level = 44, questPoints = 8 + extra },
+		[7] = { level = 50, questPoints = 11 + extra },
+		[8] = { level = 54, questPoints = 14 + extra },
+		[9] = { level = 60, questPoints = 17 + extra },
+		[10] = { level = 64, questPoints = 19 + extra },
+		[11] = { level = 67, questPoints = 22 + extra }
 	}
 			
 	-- loop for how much quest skillpoints are used with the progress
@@ -743,22 +743,24 @@ function buildMode:EstimatePlayerProgress()
 	end
 
 	-- bandits notification; when considered and in calculation after act 2
-	if currentAct <= 2 and bandit ~= 0 then
-		bandit = 0
+	if currentAct <= 2 and extra ~= 0 then
+		extra = 0
 	end
 	
 	-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
 	levelreq = m_min(math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level), 100)
 	
 	self.lastAllocated = self.lastAllocated or -1
+	self.lastExtra = self.lastExtra or -1
 	
-	if self.characterLevelAutoMode and (self.lastAllocated ~= PointsUsed or self.recalcAdaptiveLevel) then
+	if self.characterLevelAutoMode and (self.lastAllocated ~= PointsUsed or self.lastExtra ~= extra or self.recalcAdaptiveLevel) then
 		self.characterLevel = levelreq
 		self.controls.characterLevel:SetText(self.characterLevel)
 		self.recalcAdaptiveLevel = false
 	end
 	
 	self.lastAllocated = PointsUsed
+	self.lastExtra = extra
 
 	-- Ascendency points for lab
 	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
@@ -774,7 +776,7 @@ function buildMode:EstimatePlayerProgress()
 	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
 	self.Act = strAct
 	
-	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax), "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - bandit .. "\nBandits Skillpoints: " .. bandit .. labSuggest
+	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and "^1" or "^7", PointsUsed, usedMax, AscUsed > ascMax and "^1" or "^7", AscUsed, ascMax), "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - extra .. "\nExtra Skillpoints: " .. extra .. labSuggest
 end
 
 function buildMode:CanExit(mode)
