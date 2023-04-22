@@ -318,7 +318,7 @@ on trade site to work on other leagues and realms)]]
 		self.sortModes.Price,
 		self.sortModes.Weight,
 	}
-	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", self.controls.StatWeightMultipliersButton, "TOPLEFT"}, -8, 0, 150, row_height, self.itemSortSelectionList, function(index, value)
+	self.controls.itemSortSelection = new("DropDownControl", {"TOPRIGHT", self.controls.StatWeightMultipliersButton, "TOPLEFT"}, -8, 0, 170, row_height, self.itemSortSelectionList, function(index, value)
 		self.pbItemSortSelectionIndex = index
 		for row_idx, _ in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(row_idx)
