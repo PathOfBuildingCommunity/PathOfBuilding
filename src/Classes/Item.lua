@@ -224,11 +224,11 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	--getTagBasedModifiers(substring, itemSlotName)
 
 	-- merge various modifier lines into one table
-	for k,v in pairs(self.enchantModLines) do modLines[k] = v end
-	for k,v in pairs(self.scourgeModLines) do modLines[k] = v end
-	for k,v in pairs(self.implicitModLines) do modLines[k] = v end
-	for k,v in pairs(self.explicitModLines) do modLines[k] = v end
-	for k,v in pairs(self.crucibleModLines) do modLines[k] = v end
+	for _,v in pairs(self.enchantModLines) do t_insert(modLines, v) end
+	for _,v in pairs(self.scourgeModLines) do t_insert(modLines, v) end
+	for _,v in pairs(self.implicitModLines) do t_insert(modLines, v) end
+	for _,v in pairs(self.explicitModLines) do t_insert(modLines, v) end
+	for _,v in pairs(self.crucibleModLines) do t_insert(modLines, v) end
 
 	for _,v in pairs(modLines) do
 		if v.line:lower():find(substring) and not v.line:lower():find(substring .. " modifier") then
