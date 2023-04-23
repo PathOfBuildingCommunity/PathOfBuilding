@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Quiver
@@ -239,10 +239,14 @@ Gain 7 Life per Enemy Hit with Attacks
 {variant:2}Arrows Fork
 ]],[[
 Saemus' Gift
-Spike-Point Arrow Quiver
+{variant:1}Spike-Point Arrow Quiver
+{variant:2}Feathered Arrow Quiver
+Variant: Pre 3.17.0
+Variant: Current
 Requires Level 45
-Implicits: 1
-(20-30)% increased Critical Strike Chance with Bows
+Implicits: 2
+{variant:1}(20-30)% increased Critical Strike Chance with Bows
+{variant:2}(20-30)% increased Projectile Speed
 +(30-40) to Dexterity
 (8-12)% increased Cast Speed
 +(30-60) to maximum Life
@@ -261,7 +265,7 @@ Implicits: 2
 {variant:1}6 to 12 Added Physical Damage with Bow Attacks
 {variant:2}(12-16) to (24-27) Added Physical Damage with Bow Attacks
 +(20-40) to Dexterity
-(150-200) Life Regenerated per Second while in Blood Stance
+Regenerate (150-200) Life per Second while in Blood Stance
 (40-60)% increased Projectile Damage while in Blood Stance
 +(700-1000) to Evasion Rating while in Sand Stance
 (20-30)% increased Area of Effect while in Sand Stance

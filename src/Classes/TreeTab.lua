@@ -120,6 +120,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c%(%)", 100, function(buf)
 		self.viewer.searchStr = buf
+		self.searchFlag = buf ~= self.viewer.searchStrSaved
 	end)
 	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
@@ -128,6 +129,11 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeHeatMap = new("CheckBoxControl", { "LEFT", self.controls.findTimelessJewel, "RIGHT" }, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
+		
+		if state == false then 
+			self.showPowerReport = false 
+			self:TogglePowerReport()
+		end
 	end)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
@@ -168,7 +174,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec:RestoreUndoState(self.build.spec:CreateUndoState())
+		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), latestTreeVersion)
 		newSpec:BuildClusterJewelGraphs()
 		t_insert(self.specList, self.activeSpec + 1, newSpec)
 		self:SetActiveSpec(self.activeSpec + 1)
@@ -789,34 +795,34 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	local conquerorTypes = {
 		[1] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_doryani", "explicit.pseudo_timeless_jewel_xibaqua", "explicit.pseudo_timeless_jewel_ahuana" } },
-			{ label = "Doryani (Corrupted Soul)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_doryani" } },
-			{ label = "Xibaqua (Divine Flesh)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_xibaqua" } },
-			{ label = "Ahuana (Immortal Ambition)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_ahuana" } }
+			{ label = "Any", id = 1 },
+			{ label = "Doryani (Corrupted Soul)", id = 2 },
+			{ label = "Xibaqua (Divine Flesh)", id = 3 },
+			{ label = "Ahuana (Immortal Ambition)", id = 4 }
 		},
 		[2] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_kaom", "explicit.pseudo_timeless_jewel_rakiata", "explicit.pseudo_timeless_jewel_akoya" } },
-			{ label = "Kaom (Strength of Blood)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_kaom" } },
-			{ label = "Rakiata (Tempered by War)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_rakiata" } },
-			{ label = "Akoya (Chainbreaker)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_akoya" } }
+			{ label = "Any", id = 1 },
+			{ label = "Kaom (Strength of Blood)", id = 2 },
+			{ label = "Rakiata (Tempered by War)", id = 3 },
+			{ label = "Akoya (Chainbreaker)", id = 4 }
 		},
 		[3] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_asenath", "explicit.pseudo_timeless_jewel_nasima", "explicit.pseudo_timeless_jewel_balbala" } },
-			{ label = "Asenath (Dance with Death)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_asenath" } },
-			{ label = "Nasima (Second Sight)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_nasima" } },
-			{ label = "Balbala (The Traitor)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_balbala" } }
+			{ label = "Any", id = 1 },
+			{ label = "Asenath (Dance with Death)", id = 2 },
+			{ label = "Nasima (Second Sight)", id = 3 },
+			{ label = "Balbala (The Traitor)", id = 4 }
 		},
 		[4] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_avarius", "explicit.pseudo_timeless_jewel_dominus", "explicit.pseudo_timeless_jewel_maxarius" } },
-			{ label = "Avarius (Power of Purpose)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_avarius" } },
-			{ label = "Dominus (Inner Conviction)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_dominus" } },
-			{ label = "Maxarius (Transcendence)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_maxarius" } }
+			{ label = "Any", id = 1 },
+			{ label = "Avarius (Power of Purpose)", id = 2 },
+			{ label = "Dominus (Inner Conviction)", id = 3 },
+			{ label = "Maxarius (Transcendence)", id = 4 }
 		},
 		[5] = {
-			{ label = "Any", id = 1, tradeId = { "explicit.pseudo_timeless_jewel_cadiro", "explicit.pseudo_timeless_jewel_victario", "explicit.pseudo_timeless_jewel_caspiro" } },
-			{ label = "Cadiro (Supreme Decadence)", id = 2, tradeId = { "explicit.pseudo_timeless_jewel_cadiro" } },
-			{ label = "Victario (Supreme Grandstanding)", id = 3, tradeId = { "explicit.pseudo_timeless_jewel_victario" } },
-			{ label = "Caspiro (Supreme Ostentation)", id = 4, tradeId = { "explicit.pseudo_timeless_jewel_caspiro" } }
+			{ label = "Any", id = 1 },
+			{ label = "Cadiro (Supreme Decadence)", id = 2 },
+			{ label = "Victario (Supreme Grandstanding)", id = 3 },
+			{ label = "Caspiro (Supreme Ostentation)", id = 4 }
 		}
 	}
 	-- rebuild `timelessData.conquerorType` as we only store the minimum amount of `conquerorType` data in build XML
@@ -832,21 +838,21 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	local devotionVariants = {
 		{ id = 1 , label = "Any" },
-		{ id = 2 , label = "Totem Damage",                    tradeId = "explicit.stat_2566390555" },
-		{ id = 3 , label = "Brand Damage",                    tradeId = "explicit.stat_2697019412" },
-		{ id = 4 , label = "Channelling Damage",              tradeId = "explicit.stat_970844066" },
-		{ id = 5 , label = "Area Damage",                     tradeId = "explicit.stat_1724614884" },
-		{ id = 6 , label = "Elemental Damage",                tradeId = "explicit.stat_3103189267" },
-		{ id = 7 , label = "Elemental Resistances",           tradeId = "explicit.stat_1910205563" },
-		{ id = 8 , label = "Effect of non-Damaging Ailments", tradeId = "explicit.stat_1810368194" },
-		{ id = 9 , label = "Elemental Ailment Duration",      tradeId = "explicit.stat_730530528" },
-		{ id = 10, label = "Duration of Curses",              tradeId = "explicit.stat_4235333770" },
-		{ id = 11, label = "Minion Attack and Cast Speed",    tradeId = "explicit.stat_3808469650" },
-		{ id = 12, label = "Minions Accuracy Rating",         tradeId = "explicit.stat_2830135449" },
-		{ id = 13, label = "Mana Regen",                      tradeId = "explicit.stat_2042813020" },
-		{ id = 14, label = "Skill Cost",                      tradeId = "explicit.stat_3293275880" },
-		{ id = 15, label = "Non-Curse Aura Effect",           tradeId = "explicit.stat_2585926696" },
-		{ id = 16, label = "Defences from Shield",            tradeId = "explicit.stat_2803981661" }
+		{ id = 2 , label = "Totem Damage" },
+		{ id = 3 , label = "Brand Damage" },
+		{ id = 4 , label = "Channelling Damage" },
+		{ id = 5 , label = "Area Damage" },
+		{ id = 6 , label = "Elemental Damage" },
+		{ id = 7 , label = "Elemental Resistances" },
+		{ id = 8 , label = "Effect of non-Damaging Ailments" },
+		{ id = 9 , label = "Elemental Ailment Duration" },
+		{ id = 10, label = "Duration of Curses" },
+		{ id = 11, label = "Minion Attack and Cast Speed" },
+		{ id = 12, label = "Minions Accuracy Rating" },
+		{ id = 13, label = "Mana Regen" },
+		{ id = 14, label = "Skill Cost" },
+		{ id = 15, label = "Non-Curse Aura Effect" },
+		{ id = 16, label = "Defences from Shield" }
 	}
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
@@ -857,10 +863,14 @@ function TreeTabClass:FindTimelessJewel()
 			elseif socketId == 54127 then
 				keystone = "Duelist"
 			else
+				local minDistance = math.huge
 				for _, nodeInRadius in pairs(treeData.nodes[socketId].nodesInRadius[3]) do
 					if nodeInRadius.isKeystone then
-						keystone = nodeInRadius.name
-						break
+						local distance = math.sqrt((nodeInRadius.x - socketData.x) ^ 2 + (nodeInRadius.y - socketData.y) ^ 2)
+						if distance < minDistance then
+							keystone = nodeInRadius.name
+							minDistance = distance
+						end
 					end
 				end
 			end
@@ -1093,6 +1103,9 @@ function TreeTabClass:FindTimelessJewel()
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
 		timelessData.socketFilter = value
 		self.build.modFlag = true
+		controls.socketFilterAdditionalDistanceLabel.shown = value
+		controls.socketFilterAdditionalDistance.shown = value
+		controls.socketFilterAdditionalDistanceValue.shown = value
 	end)
 	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -1100,6 +1113,33 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
 	end
 	controls.socketFilter.state = timelessData.socketFilter
+	
+	local socketFilterAdditionalDistanceMAX = 10
+	controls.socketFilterAdditionalDistanceLabel = new("LabelControl", { "LEFT", controls.socketFilter, "RIGHT" }, 10, 0, 0, 16, "^7Node Distance:")
+	controls.socketFilterAdditionalDistance = new("SliderControl", { "LEFT", controls.socketFilterAdditionalDistanceLabel, "RIGHT" }, 10, 0, 66, 18, function(value)
+		timelessData.socketFilterDistance = m_floor(value * socketFilterAdditionalDistanceMAX + 0.01)
+		controls.socketFilterAdditionalDistanceValue.label = s_format("^7%d", timelessData.socketFilterDistance)
+	end, { ["SHIFT"] = 1, ["CTRL"] = 1 / (socketFilterAdditionalDistanceMAX * 2), ["DEFAULT"] = 1 / socketFilterAdditionalDistanceMAX })
+	controls.socketFilterAdditionalDistance.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if not controls.socketFilterAdditionalDistance.dragging then
+			tooltip:AddLine(16, "^7This controls the maximum amount of points that need to be spent to grab a node before its filtered out")
+		end
+	end
+	controls.socketFilterAdditionalDistance.tooltip.realDraw = controls.socketFilterAdditionalDistance.tooltip.Draw
+	controls.socketFilterAdditionalDistance.tooltip.Draw = function(self, x, y, width, height, viewPort)
+		local sliderOffsetX = round(184 * (1 - controls.socketFilterAdditionalDistance.val))
+		local tooltipWidth, tooltipHeight = self:GetSize()
+		if main.screenW >= 1384 - sliderOffsetX then
+			return controls.socketFilterAdditionalDistance.tooltip.realDraw(self, x - 8 - sliderOffsetX, y - 4 - tooltipHeight, width, height, viewPort)
+		end
+		return controls.socketFilterAdditionalDistance.tooltip.realDraw(self, x, y, width, height, viewPort)
+	end
+	controls.socketFilterAdditionalDistanceValue = new("LabelControl", { "LEFT", controls.socketFilterAdditionalDistance, "RIGHT" }, 5, 0, 0, 16, "^70")
+	controls.socketFilterAdditionalDistance:SetVal((timelessData.socketFilterDistance or 0) / socketFilterAdditionalDistanceMAX)
+	controls.socketFilterAdditionalDistanceLabel.shown = timelessData.socketFilter
+	controls.socketFilterAdditionalDistance.shown = timelessData.socketFilter
+	controls.socketFilterAdditionalDistanceValue.shown = timelessData.socketFilter
 
 	local scrollWheelSpeedTbl = { ["SHIFT"] = 0.01, ["CTRL"] = 0.0001, ["DEFAULT"] = 0.001 }
 	local scrollWheelSpeedTbl2 = { ["SHIFT"] = 0.2, ["CTRL"] = 0.002, ["DEFAULT"] = 0.02 }
@@ -1465,28 +1505,35 @@ function TreeTabClass:FindTimelessJewel()
 		timelessData.fallbackWeightMode.idx = index
 	end)
 	controls.fallbackWeightsList.selIndex = timelessData.fallbackWeightMode.idx or 1
-	controls.fallbackWeightsButton = new("ButtonControl", { "LEFT", controls.fallbackWeightsList, "RIGHT" }, 5, 0, 66, 18, "Generate", setupFallbackWeights)
+	controls.fallbackWeightsButton = new("ButtonControl", { "LEFT", controls.fallbackWeightsList, "RIGHT" }, 5, 0, 66, 18, "Generate", function()
+		setupFallbackWeights()
+		controls.searchListFallbackButton.label = "^4Fallback Nodes"
+	end)
 	controls.fallbackWeightsButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7Click this button to generate new fallback node weights, replacing your old ones.")
 	end
 
-	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "Desired Nodes", function()
-		controls.searchListFallback.shown = false
-		controls.searchListFallback.enabled = false
-		controls.searchList.shown = true
-		controls.searchList.enabled = true
+	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "^7Desired Nodes", function()
+		if controls.searchListFallback.shown then
+			controls.searchListFallback.shown = false
+			controls.searchListFallback.enabled = false
+			controls.searchList.shown = true
+			controls.searchList.enabled = true
+		end
 	end)
 	controls.searchListButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		tooltip:AddLine(16, "^7This contains a list of your desired nodes along with their primary, secondary, and minimum weights.")
 		tooltip:AddLine(16, "^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
 	end
-	controls.searchListFallbackButton = new("ButtonControl", { "LEFT", controls.searchListButton, "RIGHT" }, 5, 0, 110, 20, "Fallback Nodes", function()
+	controls.searchListButton.locked = function() return controls.searchList.shown end
+	controls.searchListFallbackButton = new("ButtonControl", { "LEFT", controls.searchListButton, "RIGHT" }, 5, 0, 110, 20, "^7Fallback Nodes", function()
 		controls.searchList.shown = false
 		controls.searchList.enabled = false
 		controls.searchListFallback.shown = true
 		controls.searchListFallback.enabled = true
+		controls.searchListFallbackButton.label = "^7Fallback Nodes"
 	end)
 	controls.searchListFallbackButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
@@ -1496,6 +1543,7 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7Fallback node weights typically contain automatically generated stat weights based on your current build.")
 		tooltip:AddLine(16, "^7Any manual changes made to your fallback nodes are lost when you click the generate button, as it completely replaces them.")
 	end
+	controls.searchListFallbackButton.locked = function() return controls.searchListFallback.shown end
 	controls.searchList = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 275, 438, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
 		parseSearchList(0, false)
@@ -1519,7 +1567,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
 		local seedTrades = {}
 		local startRow = controls.searchResults.selIndex or 1
-		local endRow = startRow + m_floor(10 / (#timelessData.sharedResults.conqueror.tradeId))
+		local endRow = startRow + m_floor(10 / ((timelessData.sharedResults.conqueror.id == 1) and 3 or 1))
 		if controls.searchResults.highlightIndex then
 			startRow = m_min(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
 			endRow = m_max(controls.searchResults.selIndex, controls.searchResults.highlightIndex)
@@ -1545,7 +1593,13 @@ function TreeTabClass:FindTimelessJewel()
 		for i = startRow, startRow + seedCount - 1 do
 			local result = timelessData.searchResults[i]
 
-			for _, tradeId in ipairs(timelessData.sharedResults.conqueror.tradeId) do
+			local conquerorKeystoneTradeIds = data.timelessJewelTradeIDs[timelessData.jewelType.id].keystone
+			local conquerorTradeIds = { conquerorKeystoneTradeIds[1], conquerorKeystoneTradeIds[2], conquerorKeystoneTradeIds[3] }
+			if timelessData.sharedResults.conqueror.id > 1 then
+				conquerorTradeIds = { conquerorKeystoneTradeIds[timelessData.sharedResults.conqueror.id - 1] }
+			end
+			
+			for _, tradeId in ipairs(conquerorTradeIds) do
 				t_insert(seedTrades, {
 					id = tradeId,
 					value = {
@@ -1576,13 +1630,13 @@ function TreeTabClass:FindTimelessJewel()
 			}
 		}
 
-		if timelessData.sharedResults.devotionVariant1.tradeId or timelessData.sharedResults.devotionVariant2.tradeId then
+		if (timelessData.sharedResults.devotionVariant1.id > 1) or (timelessData.sharedResults.devotionVariant2.id > 1) then
 			local devotionFilters = {}
-			if timelessData.sharedResults.devotionVariant1.tradeId then
-				t_insert(devotionFilters, { id = timelessData.sharedResults.devotionVariant1.tradeId })
+			if timelessData.sharedResults.devotionVariant1.id > 1 then
+				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant1.id - 1] })
 			end
-			if timelessData.sharedResults.devotionVariant2.tradeId then
-				t_insert(devotionFilters, { id = timelessData.sharedResults.devotionVariant2.tradeId })
+			if timelessData.sharedResults.devotionVariant2.id > 1 then
+				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant2.id - 1] })
 			end
 			t_insert(search.query.stats, {
 				filters = devotionFilters,
@@ -1616,6 +1670,7 @@ function TreeTabClass:FindTimelessJewel()
 		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
 			local radiusNodes = treeData.nodes[timelessData.jewelSocket.id].nodesInRadius[3] -- large radius around timelessData.jewelSocket.id
 			local allocatedNodes = { }
+			local unAllocatedNodesDistance = { }
 			local targetNodes = { }
 			local targetSmallNodes = { ["attributeSmalls"] = 0, ["otherSmalls"] = 0 }
 			local desiredNodes = { }
@@ -1705,13 +1760,16 @@ function TreeTabClass:FindTimelessJewel()
 			if controls.socketFilter.state then
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
+					if timelessData.socketFilterDistance > 0 then
+						unAllocatedNodesDistance[nodeId] = self.build.spec.nodes[nodeId].pathDist or 1000
+					end
 				end
 			end
 			for nodeId in pairs(radiusNodes) do
 				if not rootNodes[nodeId]
 				and not treeData.nodes[nodeId].isJewelSocket
 				and not treeData.nodes[nodeId].isKeystone
-				and (not controls.socketFilter.state or allocatedNodes[nodeId]) then
+				and (not controls.socketFilter.state or allocatedNodes[nodeId] or (timelessData.socketFilterDistance > 0 and unAllocatedNodesDistance[nodeId] <= timelessData.socketFilterDistance)) then
 					if (treeData.nodes[nodeId].isNotable or timelessData.jewelType.id == 1) then
 						targetNodes[nodeId] = true
 					elseif desiredNodes["totalStat"] and not treeData.nodes[nodeId].isNotable then

@@ -15,6 +15,7 @@ local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, ra
 		["search"] = {},
 		["fetch"] = {},
 	}
+	self.hostName = "https://www.pathofexile.com/"
 end)
 
 ---Main routine for processing request queue
@@ -176,7 +177,7 @@ end
 ---@param callback fun(response:table, errMsg:string)
 function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 	table.insert(self.requestQueue["search"], {
-		url = self:buildUrl("https://www.pathofexile.com/api/trade/search", realm, league),
+		url = self:buildUrl(self.hostName .. "api/trade/search", realm, league),
 		body = query,
 		callback = function(response, errMsg)
 			if errMsg and not errMsg:find("Response code: 400") then
@@ -205,7 +206,7 @@ function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 						errMsg = "[ " .. response.error.code .. ": " .. response.error.message .. " ]"
 					end
 				else
-					ConPrintf("Found 0 results for " .. "https://www.pathofexile.com/trade/search/" .. league .. "/" .. response.id)
+					ConPrintf("Found 0 results for " .. self.hostName .. "api/trade/search/" .. league .. "/" .. response.id)
 					errMsg = "No Matching Results Found"
 				end
 				return callback(response, errMsg)
@@ -226,7 +227,7 @@ function TradeQueryRequestsClass:FetchResults(itemHashes, queryId, callback)
 	for fetch_block_start = 1, quantity_found, max_block_size do
 		local fetch_block_end = math.min(fetch_block_start + max_block_size - 1, quantity_found)
 		local param_item_hashes = table.concat({unpack(itemHashes, fetch_block_start, fetch_block_end)}, ",")
-		local fetch_url = "https://www.pathofexile.com/api/trade/fetch/"..param_item_hashes.."?query="..queryId
+		local fetch_url = self.hostName .. "api/trade/fetch/"..param_item_hashes.."?query="..queryId
 		self:FetchResultBlock(fetch_url, function(itemBlock, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
@@ -268,7 +269,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					currency = trade_entry.listing.price.currency,
 					item_string = common.base64.decode(trade_entry.item.extended.text),
 					whisper = trade_entry.listing.whisper,
-					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)"),
+					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)") or "0",
 					id = trade_entry.id
 				})
 			end
@@ -279,7 +280,7 @@ end
 
 ---@param callback fun(items:table, errMsg:string)
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
-	local subpath = url:match("https://www.pathofexile.com/trade/search/(.+)$")
+	local subpath = url:match(self.hostName .. "trade/search/(.+)$")
 	local paths = {}
 	for path in subpath:gmatch("[^/]+") do
 		table.insert(paths, path)
@@ -306,7 +307,7 @@ end
 ---@param league string
 ---@param callback fun(query:string, errMsg:string)
 function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callback)
-	local url = self:buildUrl("https://www.pathofexile.com/api/trade/search", realm, league, queryId)
+	local url = self:buildUrl(self.hostName .. "api/trade/search", realm, league, queryId)
 	table.insert(self.requestQueue["search"], {
 		url = url,
 		callback = function(response, errMsg)
@@ -333,7 +334,7 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(realm, league, queryId, ca
 		return callback(nil, "Please provide your POESESSID")
 	end
 	local header = "Cookie: POESESSID=" .. main.POESESSID
-	launch:DownloadPage(self:buildUrl("https://www.pathofexile.com/trade/search", realm, league, queryId),
+	launch:DownloadPage(self:buildUrl(self.hostName .. "trade/search", realm, league, queryId),
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
@@ -391,7 +392,7 @@ function TradeQueryRequestsClass:FetchRealmsAndLeaguesHTML(callback)
 	end
 	local header = "Cookie: POESESSID=" .. main.POESESSID
 	launch:DownloadPage(
-		"https://www.pathofexile.com/trade",
+		self.hostName .. "trade",
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
@@ -416,7 +417,7 @@ end
 ---@param callback fun(query:table, errMsg:string)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 	launch:DownloadPage(
-		"https://api.pathofexile.com/leagues?compact=1&realm=" .. realm,
+		self.hostName .. "api/leagues?compact=1&realm=" .. realm,
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
