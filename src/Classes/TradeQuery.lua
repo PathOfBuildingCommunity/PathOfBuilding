@@ -792,7 +792,6 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 				controls["uri"..context.row_idx]:SetText(url, true)
 				return
 			end
-			self.pbItemSortSelectionIndex = 1
 			context.controls["priceButton"..context.row_idx].label = "Searching..."
 			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query, 
 				function(items, errMsg)
