@@ -1208,6 +1208,8 @@ function calcs.buildDefenceEstimations(env, actor)
 			-- Add min-max enemy damage from mods
 			enemyDamage = enemyDamage + (enemyDB:Sum("BASE", enemyCfg, (damageType.."Min")) + enemyDB:Sum("BASE", enemyCfg, (damageType.."Max"))) / 2
 			
+			enemyOverwhelm = enemyOverwhelm + enemyDB:Sum("BASE", nil, "PhysicalOverwhelm") + modDB:Sum("BASE", nil, "EnemyPhysicalOverwhelm")
+
 			output[damageType.."EnemyPen"] = enemyPen
 			output[damageType.."EnemyDamageMult"] = enemyDamageMult
 			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
