@@ -4129,6 +4129,9 @@ local specialModList = {
 	["overwhelm (%d+)%% physical damage reduction"] = function(num) return {
 		mod("EnemyPhysicalDamageReduction", "BASE", -num)
 	} end,
+	["hits against you overwhelm (%d+)%% of physical damage reduction"] = function(num) return {
+		mod("EnemyPhysicalOverwhelm", "BASE", num)
+	} end,
 	["impale damage dealt to enemies impaled by you overwhelms (%d+)%% physical damage reduction"] = function(num) return {
 		mod("EnemyImpalePhysicalDamageReduction", "BASE", -num)
 	} end,
