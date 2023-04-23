@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Amulet
@@ -28,6 +28,18 @@ Implicits: 1
 {variant:1}{tags:physical_damage}Reflects 200 to 250 Physical Damage to Attackers on Block
 {variant:2,3,4}{tags:physical_damage}Reflects 240 to 300 Physical Damage to Attackers on Block
 ]],[[
+Bloodsoaked Medallion
+Amber Amulet
+LevelReq: 49
+Implicits: 1
+{tags:jewellery_attribute}+(20-30) to Strength
+{tags:critical}(40-50)% increased Global Critical Strike Chance
+{tags:life}+(50-70) to maximum Life
+{tags:jewellery_resistance}+(17-29)% to Chaos Resistance
+Every 10 seconds:
+Gain 2% of Life per Enemy Hit with Attacks for 5 seconds
+Gain 5% of Life per Enemy Killed for 5 seconds
+]],[[  
 Araku Tiki
 Coral Amulet
 Variant: Pre 3.19.0
@@ -494,16 +506,19 @@ Skills Chain +1 times
 ]],[[
 The Halcyon
 Jade Amulet
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Tul Breach or from unique{Tul, Creeping Avalanche}
 Upgrade: Upgrades to unique{The Pandemonius} using currency{Blessing of Tul}
 Requires Level 35
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Dexterity
-{tags:jewellery_elemental}(10-20)% increased Cold Damage
+{variant:1}{tags:jewellery_elemental}(10-20)% increased Cold Damage
 {tags:jewellery_resistance}+(35-40)% to Cold Resistance
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
+{variant:2}Freezes you inflict spread to other Enemies with a Radius of 15
 60% increased Damage if you've Frozen an Enemy Recently
 ]],[[
 The Pandemonius
@@ -995,6 +1010,15 @@ Summon Raging Spirit has (20-30)% increased Duration
 {variant:2}{tags:life}Summoned Raging Spirits have (25-40)% increased maximum Life
 {tags:chaos_damage}Summoned Raging Spirits take 20% of their Maximum Life per second as Chaos Damage
 ]],[[
+Tainted Pact
+Coral Amulet
+Implicits: 1
+{tags:life}Regenerate (2-4) Life per second
+{tags:jewellery_attribute}+(20-30) to Strength
+{tags:attack,life}(2-3)% of Physical Attack Damage Leeched as Life
+{tags:mana,attack}(1-1.5)% of Physical Attack Damage Leeched as Mana
+Taking Chaos Damage over Time heals you instead while Leeching Life
+]],[[
 Tear of Purity
 Lapis Amulet
 Variant: Pre 3.16.0
@@ -1056,15 +1080,18 @@ League: Breach
 Source: Drops in Esh Breach or from unique{Esh, Forked Thought}
 Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
-Requires Level 40
+Requires Level 69
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
-Trigger Level 12 Lightning Bolt when you deal a Critical Strike
+{variant:1,2}Trigger Level 12 Lightning Bolt when you deal a Critical Strike
 {tags:jewellery_attribute}+(10-15) to all Attributes
+{variant:3}{tags:jewellery_elemental}50% increased Lightning Damage
 {tags:mana}(10-20)% increased maximum Mana
 {variant:1}Critical Strike Chance is increased by Lightning Resistance
 {variant:2}Critical Strike Chance is increased by Overcapped Lightning Resistance
+{variant:3}Lightning Damage with Non-Critical Strikes is Lucky
 ]],[[
 Choir of the Storm
 Lapis Amulet
@@ -1072,16 +1099,18 @@ League: Breach
 Source: Upgraded from unique{Voice of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.0.0
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Requires Level 69
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
-Trigger Level 20 Lightning Bolt when you deal a Critical Strike
-{tags:jewellery_elemental}50% increased Lightning Damage
+{variant:1,2,3}Trigger Level 20 Lightning Bolt when you deal a Critical Strike
+{variant:4}Trigger Level 30 Lightning Bolt when you deal a Critical Strike
+{variant:1,2,3}{tags:jewellery_elemental}50% increased Lightning Damage
 {tags:mana}(10-20)% increased maximum Mana
 {variant:1,2}Critical Strike Chance is increased by Lightning Resistance
-{variant:1,3}{tags:jewellery_resistance}-30% to Lightning Resistance
-{variant:3}Critical Strike Chance is increased by Overcapped Lightning Resistance
+{variant:1,3,4}{tags:jewellery_resistance}-30% to Lightning Resistance
+{variant:3,4}Critical Strike Chance is increased by Overcapped Lightning Resistance
 ]],[[
 Voll's Devotion
 Agate Amulet
@@ -1162,6 +1191,8 @@ Unaffected by Shock
 ]],[[
 Xoph's Heart
 Amber Amulet
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Blood} using currency{Blessing of Xoph}
@@ -1172,7 +1203,8 @@ Implicits: 1
 {tags:jewellery_elemental}25% increased Fire Damage
 {tags:life}+(25-35) to maximum Life
 {tags:jewellery_resistance}+(20-40)% to Fire Resistance
-Cover Enemies in Ash when they Hit you
+{variant:1}Cover Enemies in Ash when they Hit you
+{variant:2}Nearby Enemies are Covered in Ash
 ]],[[
 Xoph's Blood
 Amber Amulet

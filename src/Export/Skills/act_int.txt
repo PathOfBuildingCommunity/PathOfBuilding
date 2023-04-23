@@ -28,7 +28,7 @@ local skills, mod, flag, skill = ...
 #flags spell duration
 	statMap = {
 		["arcane_cloak_damage_absorbed_%"] = {
-			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }),
+			mod("GuardAbsorbRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
 		},
 		["arcane_cloak_consume_%_of_mana"] = {
 			mod("Multiplier:ArcaneCloakConsumedMana", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaUnreserved" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true }),
@@ -243,10 +243,13 @@ local skills, mod, flag, skill = ...
 		["ball_lightning_superball_%_chance"] = {
 			mod("ball_lightning_superball_%_chance", "BASE", nil)
 		},
+		["ball_lightning_projectile_speed_and_hit_frequency_+%_final"] = {
+			mod("ProjectileSpeed", "MORE", nil)
+		},
 	},
 #baseMod skill("radius", 18)
 #baseMod skill("strikeInterval", 0.15)
-#baseMod skill("projectileSpeed", 48)
+#baseMod skill("projectileSpeed", 40)
 #baseMod skill("duration", 2)
 #mods
 
@@ -790,9 +793,24 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("showAverage", false, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("radius", 22)
+#baseMod skill("radius", 25)
 #baseMod skill("radiusLabel", "Area in which fireballs fall:")
-#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondary", 13)
+#baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
+#mods
+
+#skill VaalFirestorm
+#flags spell area duration
+	statMap = {
+		["vaal_firestorm_gem_explosion_area_of_effect_+%_final"] = {
+			mod("AreaOfEffectSecondary", "MORE", nil, 0, 0)
+		},
+	},
+#baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround")
+#baseMod skill("radius", 20)
+#baseMod skill("radiusLabel", "Area in which fireballs fall:")
+#baseMod skill("radiusSecondary", 13)
 #baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
 #mods
 
@@ -885,6 +903,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 2)
 #baseMod skill("showAverage", true)
+#baseMod mod("PvpTvalueMultiplier", "MORE", 100, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" })
 #mods
 
 #skill VaalFlameblast
@@ -1422,7 +1441,7 @@ local skills, mod, flag, skill = ...
 			flag("SpellDamageAppliesToAttacks"),
 			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
 		},
-		["cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
+		["active_skill_cast_speed_+%_applies_to_attack_speed_at_%_of_original_value"] = {
 			flag("CastSpeedAppliesToAttacks"),
 			mod("ImprovedCastSpeedAppliesToAttacks", "MAX", nil)
 		},
@@ -1616,6 +1635,10 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+		["lightning_tendrils_channelled_larger_pulse_always_crit"] = {
+			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			base = 100
 		},
 	},
 #baseMod skill("radius", 22)

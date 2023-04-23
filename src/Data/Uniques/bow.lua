@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Weapon: Bow
@@ -79,42 +79,68 @@ Variant: Attack Speed while Rare/Unique Nearby (Current)
 Variant: Damage per Power Charge (Current)
 Variant: Damage per Frenzy Charge (Current)
 Variant: Damage per Endurance Charge (Current)
-Variant: Accuracy and Quality (Current)
-Variant: Attack Speed and Quality (Current)
-Variant: Attack Speed/Trigger Blood Rage on Kill (Current)
+Variant: Accuracy and Str/Dex (Current)
+Variant: Attack Speed and Dex/Int (Current)
+Variant: Critical Strike Chance and Str/Int (Current)
 Variant: Cast Speed/Trigger Arcane Surge on Kill (Current)
 Variant: Minion Attack and Cast Speed (Current)
 Variant: Double Damage (Current)
 Variant: Double Damage while Focused (Current)
 Variant: Socketed Spell Trigger (Current)
+Variant: Fire Damage over Time (Current)
+Variant: Physical Damage over Time (Current)
+Variant: Chaos Damage over Time (Current)
 Variant: Current
 Requires Level 57, 190 Dex
 Implicits: 1
-(4-6)% increased Movement Speed
+{variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(4-6)% increased Movement Speed
+{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}6% increased Movement Speed
 {variant:1,2,3,4,5,6,7,8,9,10,11,12,13,14}(140-170)% increased Physical Damage
-{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28}(60-80)% increased Physical Damage
+{variant:15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31}(60-80)% increased Physical Damage
 (25-35)% increased Critical Strike Chance
 50% chance to inflict Bleeding on Critical Strike with Attacks
 Enemies you inflict Bleeding on grant (60-100)% increased Flask Charges
 Adds (100-120) to (150-165) Physical Damage against Bleeding Enemies
 50% chance to Maim Enemies on Critical Strike with Attacks
-{variant:1,15}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
-{variant:2,16}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
-{variant:3,17}{crafted}(5-6)% increased Damage per Power Charge
-{variant:4,18}{crafted}(5-6)% increased Damage per Frenzy Charge
-{variant:5,19}{crafted}(5-6)% increased Damage per Endurance Charge
-{variant:6,20}{crafted}+(30-250) to Accuracy Rating
-{variant:7,21}{crafted}(8-16)% increased Attack Speed
-{variant:6,7,20,21}{crafted}+(7-18)% to Quality
-{variant:8,22}{crafted}(8-16)% increased Attack Speed
-{variant:8,22}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
-{variant:9,23}{crafted}(7-13)% increased Cast Speed
-{variant:9,23}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
-{variant:10,24}{crafted}Minions have (16-28)% increased Attack Speed
-{variant:10,24}{crafted}Minions have (16-28)% increased Cast Speed
-{variant:11,25}{crafted}(4-12)% chance to deal Double Damage
-{variant:12,26}{crafted}(13-36)% chance to deal Double Damage while Focused
-{variant:13,27}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
+{variant:1}{crafted}+(18-45)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
+{variant:2}{crafted}(11-22)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:3}{crafted}(5-6)% increased Damage per Power Charge
+{variant:4}{crafted}(5-6)% increased Damage per Frenzy Charge
+{variant:5}{crafted}(5-6)% increased Damage per Endurance Charge
+{variant:6}{crafted}+(30-250) to Accuracy Rating
+{variant:7}{crafted}(8-16)% increased Attack Speed
+{variant:6,7}{crafted}+(7-18)% to Quality
+{variant:8}{crafted}(8-16)% increased Attack Speed
+{variant:8}{crafted}10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
+{variant:9}{crafted}(7-13)% increased Cast Speed
+{variant:9}{crafted}10% chance to gain Arcane Surge when you Kill an Enemy
+{variant:10}{crafted}Minions have (16-28)% increased Attack Speed
+{variant:10}{crafted}Minions have (16-28)% increased Cast Speed
+{variant:11}{crafted}(4-12)% chance to deal Double Damage
+{variant:12}{crafted}(13-36)% chance to deal Double Damage while Focused
+{variant:13}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 8 second Cooldown
+{variant:15}{crafted}+(54-60)% Critical Strike Multiplier while there is a Rare or Unique Enemy Nearby
+{variant:16}{crafted}(27-30)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:17}{crafted}(7-8)% increased Damage per Power Charge
+{variant:18}{crafted}(7-8)% increased Damage per Frenzy Charge
+{variant:19}{crafted}(7-8)% increased Damage per Endurance Charge
+{variant:20}{crafted}+(311-350) to Accuracy Rating
+{variant:20}{crafted}+(25-28) to Strength and Dexterity
+{variant:21}{crafted}(18-22)% increased Attack Speed
+{variant:21}{crafted}+(25-28) to Dexterity and Intelligence
+{variant:22}{crafted}(28-32)% increased Critical Strike Chance
+{variant:22}{crafted}+(25-28) to Strength and Intelligence
+{variant:23}{crafted}(26-31)% increased Cast Speed
+{variant:23}{crafted}15% chance to gain Arcane Surge when you Kill an Enemy
+{variant:24}{crafted}Minions have (34-38)% increased Attack Speed
+{variant:24}{crafted}Minions have (34-38)% increased Cast Speed
+{variant:25}{crafted}(12-14)% chance to deal Double Damage
+{variant:26}{crafted}(36-40)% chance to deal Double Damage while Focused
+{variant:27}{crafted}Trigger a Socketed Spell when you Use a Skill, with a 4 second Cooldown
+{variant:27}{crafted}Spells Triggered this way have 150% more Cost
+{variant:28}{crafted}+(24-28)% to Fire Damage over Time Multiplier
+{variant:29}{crafted}+(24-28)% to Physical Damage over Time Multiplier
+{variant:30}{crafted}+(24-28)% to Chaos Damage over Time Multiplier
 ]],[[
 Darkscorn
 Assassin Bow
@@ -461,6 +487,10 @@ Adds (15-25) to (50-60) Physical Damage
 +30 to Accuracy Rating
 Gain 10 Mana per Enemy Killed
 ]],[[
+Widowhail
+Crude Bow
+(150-250)% increased bonuses gained from Equipped Quiver
+]],[[
 Slivertongue
 Harbinger Bow
 Variant: Pre 3.5.0
@@ -554,15 +584,22 @@ Enemies Frozen by you take 20% increased Damage
 +(90-120) Energy Shield gained on Killing a Shocked Enemy
 ]],[[
 Xoph's Inception
-Bone Bow
+{variant:1}Bone Bow
+{variant:2}Citadel Bow
+Variant: Pre 3.21.0
+Variant: Current
 League: Breach
 Source: Drops in Xoph Breach or from unique{Xoph, Dark Embers}
 Upgrade: Upgrades to unique{Xoph's Nurture} using currency{Blessing of Xoph}
 Requires Level 23, 80 Dex
-(70-90)% increased Physical Damage
-Gain (20-30) Life per Ignited Enemy Killed
+{variant:1}(70-90)% increased Physical Damage
+{variant:2}(160-190)% increased Physical Damage
+{variant:1}Gain (20-30) Life per Ignited Enemy Killed
+{variant:2}Gain (200-300) Life per Ignited Enemy Killed
 Gain 20% of Physical Damage as Extra Fire Damage
 10% chance to Ignite
+{variant:2}Projectiles Pierce all Burning Enemies
+{variant:2}Arrows deal 30 to 50 Added Fire Damage for each time they've Pierced
 ]],[[
 Xoph's Nurture
 Citadel Bow

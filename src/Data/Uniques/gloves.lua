@@ -1,4 +1,4 @@
-﻿-- Item data (c) Grinding Gear Games
+-- Item data (c) Grinding Gear Games
 
 return {
 -- Gloves: Armour
@@ -158,7 +158,7 @@ Vixen's Entrapment
 Embroidered Gloves
 Requires Level 36, 54 Int
 Implicits: 0
-Trigger Socketed Curse Spells when you cast a Curse
+Trigger Socketed Curse Spell when you Cast a Curse Spell, with a 0.25 second Cooldown
 +(50-90) to maximum Energy Shield
 0.2% of Spell Damage Leeched as Energy Shield for each Curse on Enemy
 You can apply an additional Curse
@@ -541,17 +541,35 @@ Tombfist
 Steelscale Gauntlets
 League: Abyss
 Source: Drops from unique{Amanamu, Liege of the Lightless} or unique{Ulaman, Sovereign of the Well}
-Variant: Pre 3.6.0 One Abyssal Socket
-Variant: Pre 3.6.0 Two Abyssal Sockets
-Variant: Current One Abyssal Socket
-Variant: Current Two Abyssal Sockets
-Requires Level: 36, 29 Str, 29 Int
-{variant:1,3}Has 1 Abyssal Socket
-{variant:2,4}Has 2 Abyssal Sockets
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 3
+Selected Alt Variant: 5
+Selected Alt Variant Two: 6
+Selected Alt Variant Three: 9
+Variant: Pre 3.6.0
+Variant: Pre 3.21.0
+Variant: Current
+Variant: One Abyssal Socket
+Variant: Two Abyssal Socket
+Variant: Murderous: Intimidate
+Variant: Murderous: Fortify
+Variant: Murderous: Rage
+Variant: Searching: Maim
+Variant: Searching: Blind
+Variant: Searching: Onslaught
+{variant:4}Has 1 Abyssal Socket
+{variant:5}Has 2 Abyssal Sockets
 {variant:1,2}(6-10)% increased Attack Speed
-(4-6)% increased maximum Life
-With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks
-With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
+{variant:3}(5-10)% increased Attack Speed
+{variant:1,2}(4-6)% increased maximum Life
+{variant:6}With a Murderous Eye Jewel Socketed, Intimidate Enemies for 4 seconds on Hit with Attacks
+{variant:7}With a Murderous Eye Jewel Socketed, Melee Hits have 25% chance to Fortify
+{variant:8}With a Murderous Eye Jewel Socketed, Melee Attacks grant 1 Rage on Hit, no more than once every second
+{variant:9}With a Searching Eye Jewel Socketed, Maim Enemies for 4 seconds on Hit with Attacks
+{variant:10}With a Searching Eye Jewel Socketed, Blind Enemies for 4 seconds on Hit with Attacks
+{variant:11}With a Searching Eye Jewel Socketed, Attacks have 25% chance to grant Onslaught On Kill
 ]],[[
 Vaal Caress
 Bronzescale Gauntlets
@@ -590,6 +608,14 @@ Socketed Gems are Supported by Level 5 Concentrated Effect
 4% reduced Mana Cost per Endurance Charge
 Gain Rampage while at Maximum Endurance Charges
 Lose all Endurance Charges when Rampage ends
+]],[[
+Tanu Ahi
+Wyrmscale Gauntlets
+(8-12)% increased Attack Speed
+(100-150)% increased Armour and Evasion
+(2-3)% of Physical Attack Damage Leeched as Life
+10% chance to gain Adrenaline for 2 Seconds when Leech is removed by Filling Unreserved Life
+10% chance to gain Onslaught for 4 Seconds when Leech is removed by Filling Unreserved Life
 ]],
 -- Gloves: Armour/Energy Shield
 [[
@@ -781,6 +807,15 @@ Requires Level 45, 35 Dex, 35 Int
 Enemies take 4% increased Elemental Damage from your Hits for
 each Withered you have inflicted on them
 Your Hits cannot Penetrate or ignore Elemental Resistances
+]],[[
+Stormseeker
+Ambush Mitts
++(40-60) to maximum Energy Shield
++(40-60) to maximum Mana
+(60-100)% increased Effect of Chill you inflict while Leeching Mana
+(60-100)% increased Effect of Shocks you inflict while Leeching Energy Shield
+Unaffected by Chill while Leeching Mana
+Unaffected by Shock while Leeching Energy Shield
 ]],[[
 Algor Mortis
 Carnal Mitts
@@ -994,6 +1029,7 @@ Requires Level 67, 51 Dex, 51 Int
 Entropic Devastation
 Assassin's Mitts
 Source: Drops from unique{The Shaper} (Uber)
+Shaper Item
 Grants Call of Steel
 (100-150)% increased Evasion and Energy Shield
 (30-50)% increased Effect of Impales inflicted with Spells

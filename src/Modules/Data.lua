@@ -8,6 +8,7 @@ LoadModule("Data/Global")
 
 local m_min = math.min
 local m_max = math.max
+local m_floor = math.floor
 local t_insert = table.insert
 local t_concat = table.concat
 
@@ -214,7 +215,7 @@ data.weaponTypeInfo = {
 	["One Handed Axe"] = { oneHand = true, melee = true, flag = "Axe" },
 	["One Handed Mace"] = { oneHand = true, melee = true, flag = "Mace" },
 	["One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword" },
-	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "One Handed Mace" },
+	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "Sceptre" },
 	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword", label = "One Handed Sword" },
 	["Fishing Rod"] = { oneHand = false, melee = true, flag = "Fishing" },
 	["Two Handed Axe"] = { oneHand = false, melee = true, flag = "Axe" },
@@ -318,6 +319,7 @@ data.keystones = {
 
 data.ailmentTypeList = { "Bleed", "Poison", "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
 data.elementalAilmentTypeList = { "Ignite", "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
+data.nonDamagingAilmentTypeList = { "Chill", "Freeze", "Shock", "Scorch", "Brittle", "Sap" }
 data.nonElementalAilmentTypeList = { "Bleed", "Poison" }
 
 data.nonDamagingAilment = {
@@ -437,6 +439,9 @@ data.highPrecisionMods = {
 	["ChaosDamageEnergyShieldLeech"] = {
 		["BASE"] = 2,
 	},
+	["SupportManaMultiplier"] = {
+		["MORE"] = 4,
+	}
 }
 
 data.misc = { -- magic numbers
@@ -496,27 +501,118 @@ data.misc = { -- magic numbers
 	PvpElemental2 = 150,
 	PvpNonElemental1 = 0.57,
 	PvpNonElemental2 = 90,
+	-- Some magic numbers can change, but need to be here in order to be used in ConfigOptions (e.g. in tooltips)
+	configurable = {
+		-- Life Scaling Mastery
+		LowLifePercentage = 0.5,
+		FullLifePercentage = 1.0,
+	}
 }
 
-data.bossSkills = LoadModule("Data/BossSkills")
--- auto generation of skill list using boss skills above, is currently disabled because it messes with the order
-data.bossSkillsList = {
-	{ val = "None", label = "None" },
-	{ val = "Atziri Flameblast", label = "Atziri Flameblast" },
-	{ val = "Shaper Ball", label = "Shaper Ball" },
-	{ val = "Shaper Slam", label = "Shaper Slam" },
-	--{ val = "Elder Slam", label = "Elder Slam" },
-	{ val = "Sirus Meteor", label = "Sirus Meteor" },
-	{ val = "Exarch Ball", label = "Exarch Ball" },
-	{ val = "Eater Beam", label = "Eater Beam" },
-	{ val = "Maven Fireball", label = "Maven Fireball" },
-	{ val = "Maven MemoryGame", label = "Maven Memory Game" }
+data.casterTagCrucibleUniques = {
+	["Atziri's Rule"] = true,
+	["Cane of Kulemak"] = true,
+	["Cane of Unravelling"] = true,
+	["Cospri's Malice"] = true,
+	["Cybil's Paw"] = true,
+	["Disintegrator"] = true,
+	["Duskdawn"] = true,
+	["Geofri's Devotion"] = true,
+	["Mjolner"] = true,
+	["Pledge of Hands"] = true,
+	["Soulwrest"] = true,
+	["Taryn's Shiver"] = true,
+	["The Rippling Thoughts"] = true,
+	["The Surging Thoughts"] = true,
+	["The Whispering Ice"] = true,
+	["Tremor Rod"] = true,
+	["Xirgil's Crank"] = true,
 }
---[[ 
-for bossSkillName, bossSkillData in pairs(data.bossSkills) do
-	t_insert(data.bossSkillsList, {val = bossSkillName, label = bossSkillName})
+data.minionTagCrucibleUniques = {
+	["Arakaali's Fang"] = true,
+	["Ashcaller"] = true,
+	["Chaber Cairn"] = true,
+	["Chober Chaber"] = true,
+	["Clayshaper"] = true,
+	["Earendel's Embrace"] = true,
+	["Femurs of the Saints"] = true,
+	["Jorrhast's Blacksteel"] = true,
+	["Law of the Wilds"] = true,
+	["Midnight Bargain"] = true,
+	["Mon'tregul's Grasp"] = true,
+	["Null's Inclination"] = true,
+	["Queen's Decree"] = true,
+	["Queen's Escape"] = true,
+	["Replica Earendel's Embrace"] = true,
+	["Replica Midnight Bargain"] = true,
+	["Severed in Sleep"] = true,
+	["Soulwrest"] = true,
+	["The Black Cane"] = true,
+	["The Iron Mass"] = true,
+	["The Scourge"] = true,
+	["United in Dream"] = true,
+}
+
+-- Load bosses
+do 
+	data.bosses = { }
+	LoadModule("Data/Bosses", data.bosses)
+	
+	local count, uberCount = 0, 0
+	local armourTotal, evasionTotal = 0, 0
+	local uberArmourTotal, uberEvasionTotal = 0, 0
+
+	for _, boss in pairs(data.bosses) do
+		if boss.isUber then
+			uberCount = uberCount + 1
+			uberArmourTotal = uberArmourTotal + boss.armourMult
+			uberEvasionTotal = uberEvasionTotal + boss.evasionMult
+		end
+		count = count + 1
+		armourTotal = armourTotal + boss.armourMult
+		evasionTotal = evasionTotal + boss.evasionMult
+	end
+
+	data.bossStats = {
+		PinnacleArmourMean = 100 + armourTotal / count,
+		PinnacleEvasionMean = 100 + evasionTotal / count,
+		UberArmourMean = 100 + uberArmourTotal / uberCount,
+		UberEvasionMean = 100 + uberEvasionTotal / uberCount
+	}
+
+	data.bossSkills, data.bossSkillsList = LoadModule("Data/BossSkills")
+
+	data.enemyIsBossTooltip = [[Bosses' damage is monster damage scaled to an average damage of their attacks
+This is divided by 4.40 to represent 4 damage types + some (40% as much) ^xD02090chaos
+^7Fill in the exact damage numbers if more precision is needed
+
+Bosses' armour and evasion multiplier are calculated using the average of the boss type
+
+Standard Boss adds the following modifiers:
+	+40% to enemy Elemental Resistances
+	+25% to enemy ^xD02090Chaos Resistance
+	^7]]..tostring(m_floor(data.misc.stdBossDPSMult * 100))..[[% of monster Damage of each type
+	]]..tostring(m_floor(data.misc.stdBossDPSMult * 4.4 * 100))..[[% of monster Damage total
+
+Guardian / Pinnacle Boss adds the following modifiers:
+	+50% to enemy Elemental Resistances
+	+30% to enemy ^xD02090Chaos Resistance
+	^7]]..tostring(m_floor(data.bossStats.PinnacleArmourMean))..[[% of monster Armour
+	]]..tostring(m_floor(data.bossStats.PinnacleEvasionMean))..[[% of monster ^x33FF77Evasion
+	^7]]..tostring(m_floor(data.misc.pinnacleBossDPSMult * 100))..[[% of monster Damage of each type
+	]]..tostring(m_floor(data.misc.pinnacleBossDPSMult * 4.4 * 100))..[[% of monster Damage total
+	]]..tostring(data.misc.pinnacleBossPen)..[[% penetration
+
+Uber Pinnacle Boss adds the following modifiers:
+	+50% to enemy Elemental Resistances
+	+30% to enemy ^xD02090Chaos Resistance
+	^7]]..tostring(m_floor(data.bossStats.UberArmourMean))..[[% of monster Armour
+	]]..tostring(m_floor(data.bossStats.UberEvasionMean))..[[% of monster ^x33FF77Evasion
+	^770% less to enemy Damage taken
+	]]..tostring(m_floor(data.misc.uberBossDPSMult * 100))..[[% of monster Damage of each type
+	]]..tostring(m_floor(data.misc.uberBossDPSMult * 4.25 * 100))..[[% of monster Damage total
+	]]..tostring(data.misc.uberBossPen)..[[% penetration]]
 end
---]]
 
 -- Misc data tables
 LoadModule("Data/Misc", data)
@@ -544,6 +640,7 @@ data.enchantments = {
 }
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
+data.crucible = LoadModule("Data/Crucible")
 data.pantheons = LoadModule("Data/Pantheons")
 data.costs = LoadModule("Data/Costs")
 do
@@ -553,6 +650,48 @@ do
 	end
 	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
 end
+
+-- Manually seeded modifier tag against item slot table for Mastery Item Condition based modifiers
+-- Data is informed by getTagBasedModifiers() located in Item.lua
+data.itemTagSpecial = {
+	["life"] = {
+		["body armour"] = {
+			-- Keystone
+			"Blood Magic",
+			"Eternal Youth",
+			"Ghost Reaver",
+			"Mind Over Matter",
+			"The Agnostic",
+			"Vaal Pact",
+			"Zealot's Oath",
+			-- Special Cases
+			"Cannot Leech",
+		},
+	},
+	["evasion"] = {
+		["ring"] = {
+			-- Delve
+			"chance to Evade",
+			-- Unique
+			"Cannot Evade",
+		},
+	},
+}
+data.itemTagSpecialExclusionPattern = {
+	["life"] = {
+		["body armour"] = {
+			"increased Damage while Leeching Life",
+			"Life as Physical Damage",
+			"Life as Extra Maximum Energy Shield",
+			"maximum Life as Fire Damage",
+			"when on Full Life",
+		},
+	},
+	["evasion"] = {
+		["ring"] = {
+		},
+	},
+}
 
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
@@ -596,7 +735,6 @@ for size, jewel in pairs(data.clusterJewels.jewels) do
 end
 
 -- Load legion jewel data
-
 local function loadJewelFile(jewelTypeName)
 	jewelTypeName = "/Data/TimelessJewelData/" .. jewelTypeName
 	local jewelData
@@ -792,6 +930,7 @@ data.timelessJewelSeedMax = {
 	[4] = 10000,
 	[5] = 160000 / 20,
 }
+data.timelessJewelTradeIDs = LoadModule("Data/LegionTradeIds")
 data.timelessJewelAdditions = 94 -- #legionAdditions
 data.nodeIDList = LoadModule("Data/TimelessJewelData/NodeIndexMapping")
 data.timelessJewelLUTs = { }
@@ -963,7 +1102,7 @@ for gemId, gem in pairs(data.gems) do
 		gem.grantedEffect,
 		gem.secondaryGrantedEffect
 	}
-	gem.defaultLevel = gem.defaultLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
+	gem.naturalMaxLevel = gem.naturalMaxLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
 end
 
 -- Load minions
@@ -987,37 +1126,6 @@ for _, minion in pairs(data.minions) do
 		mod.source = "Minion:"..minion.name
 	end
 end
-
--- Load bosses
-data.bosses = { }
-LoadModule("Data/Bosses", data.bosses)
-
-local count = 0
-local uberCount = 0
-
-local armourTotal = 0
-local evasionTotal = 0
-
-local uberArmourTotal = 0
-local uberEvasionTotal = 0
-
-for _, boss in pairs(data.bosses) do
-	if boss.isUber then
-		uberCount = uberCount + 1
-		uberArmourTotal = uberArmourTotal + boss.armourMult
-		uberEvasionTotal = uberEvasionTotal + boss.evasionMult
-	end
-	count = count + 1
-	armourTotal = armourTotal + boss.armourMult
-	evasionTotal = evasionTotal + boss.evasionMult
-end
-
-data.bossStats = {
-	PinnacleArmourMean=armourTotal/count,
-	PinnacleEvasionMean=evasionTotal/count,
-	UberArmourMean=uberArmourTotal/uberCount,
-	UberEvasionMean=uberEvasionTotal/uberCount
-}
 
 -- Item bases
 data.itemBases = { }

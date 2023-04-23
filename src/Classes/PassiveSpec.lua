@@ -17,6 +17,14 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 	self.UndoHandler()
 
 	self.build = build
+
+	-- Initialise and build all tables
+	self:Init(treeVersion)
+
+	self:SelectClass(0)
+end)
+
+function PassiveSpecClass:Init(treeVersion)
 	self.treeVersion = treeVersion
 	self.tree = main:LoadTree(treeVersion)
 
@@ -57,9 +65,7 @@ local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, b
 
 	-- Keys are mastery node IDs, values are mastery effect IDs
 	self.masterySelections = { }
-
-	self:SelectClass(0)
-end)
+end
 
 function PassiveSpecClass:Load(xml, dbFileName)
 	self.title = xml.attrib.title
@@ -165,7 +171,11 @@ function PassiveSpecClass:PostLoad()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, masteryEffects)
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, masteryEffects, treeVersion)
+	if treeVersion and treeVersion ~= self.treeVersion then
+		self:Init(treeVersion)
+		self.build.treeTab.showConvert = self.treeVersion ~= latestTreeVersion
+	end
 	self:ResetNodes()
 	self:SelectClass(classId)
 	for _, id in pairs(hashList) do
@@ -291,7 +301,7 @@ function PassiveSpecClass:EncodeURL(prefix)
 	local masteryNodeIds = {}
 
 	for id, node in pairs(self.allocNodes) do
-		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 then
+		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 and nodeCount < 255 then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
 			nodeCount = nodeCount + 1
@@ -641,7 +651,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if node.type ~= "ClassStart" and node.type ~= "Socket" and not node.ascendancyName then
 			for nodeId, itemId in pairs(self.jewels) do
 				local item = self.build.itemsTab.items[itemId]
-				if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData then
+				if item and item.jewelRadiusIndex and self.allocNodes[nodeId] and item.jewelData and not item.jewelData.limitDisabled then
 					local radiusIndex = item.jewelRadiusIndex
 					if self.nodes[nodeId].nodesInRadius and self.nodes[nodeId].nodesInRadius[radiusIndex][node.id] then
 						if itemId ~= 0 then
@@ -1525,12 +1535,13 @@ function PassiveSpecClass:CreateUndoState()
 		classId = self.curClassId,
 		ascendClassId = self.curAscendClassId,
 		hashList = allocNodeIdList,
-		masteryEffects = selections
+		masteryEffects = selections,
+		treeVersion = self.treeVersion
 	}
 end
 
-function PassiveSpecClass:RestoreUndoState(state)
-	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.masteryEffects)
+function PassiveSpecClass:RestoreUndoState(state, treeVersion)
+	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.masteryEffects, treeVersion or state.treeVersion)
 	self:SetWindowTitleWithBuildClass()
 end
 

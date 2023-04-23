@@ -66,6 +66,7 @@ local sortGemTypeList = {
 	{ label = "Bleed DPS", type = "BleedDPS" },
 	{ label = "Ignite DPS", type = "IgniteDPS" },
 	{ label = "Poison DPS", type = "TotalPoisonDPS" },
+	{ label = "Effective Hit Pool", type = "TotalEHP" },
 }
 
 local alternateGemQualityList ={
@@ -369,13 +370,13 @@ function SkillsTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
 		if node.elem == "Skill" then
 			-- Old format, initialize skill sets if needed
-			if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
-				self.skillSetOrderList = { 1 }
+			if not self.skillSetOrderList[1] then
+				self.skillSetOrderList[1] = 1
 				self:NewSkillSet(1)
 			end
+			self:LoadSkill(node, 1)
 		end
 
-		self:LoadSkill(node, 1)
 		if node.elem == "SkillSet" then
 			local skillSet = self:NewSkillSet(tonumber(node.attrib.id))
 			skillSet.title = node.attrib.title
@@ -637,7 +638,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:ProcessSocketGroup(self.displayGroup)
 		-- New gems need to be constrained by ProcessGemLevel
 		gemInstance.level = self:ProcessGemLevel(gemInstance.gemData)
-		gemInstance.defaultLevel = gemInstance.level
+		gemInstance.naturalMaxLevel = gemInstance.level
 		-- Gem changed, update the list and default the quality id
 		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 		slot.qualityId:SelByValue(qualityId or "Default", "type")
@@ -665,7 +666,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 			slot.count:SetText(gemInstance.count)
 		end
-		gemInstance.level = tonumber(buf) or self.displayGroup.gemList[index].defaultLevel or self:ProcessGemLevel(gemInstance.gemData) or 20
+		gemInstance.level = tonumber(buf) or self.displayGroup.gemList[index].naturalMaxLevel or self:ProcessGemLevel(gemInstance.gemData) or 20
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -1002,19 +1003,19 @@ end
 
 function SkillsTabClass:ProcessGemLevel(gemData)
 	local grantedEffect = gemData.grantedEffect
-	local defaultLevel = grantedEffect.defaultLevel or gemData.defaultLevel or 1
+	local naturalMaxLevel = gemData.naturalMaxLevel
 	if self.defaultGemLevel == "awakenedMaximum" then
-		return defaultLevel + 1
+		return naturalMaxLevel + 1
 	elseif self.defaultGemLevel == "corruptedMaximum" then
 		if grantedEffect.plusVersionOf then
-			return defaultLevel
+			return naturalMaxLevel
 		else
-			return defaultLevel + 1
+			return naturalMaxLevel + 1
 		end
 	elseif self.defaultGemLevel == "normalMaximum" then
-		return defaultLevel
+		return naturalMaxLevel
 	else -- self.defaultGemLevel == "characterLevel"
-		local maxGemLevel = defaultLevel
+		local maxGemLevel = naturalMaxLevel
 		if not grantedEffect.levels[maxGemLevel] then
 			maxGemLevel = #grantedEffect.levels
 		end
@@ -1035,7 +1036,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	for _, gemInstance in ipairs(socketGroup.gemList) do
 		gemInstance.color = "^8"
 		gemInstance.nameSpec = gemInstance.nameSpec or ""
-		local prevDefaultLevel = gemInstance.gemData and gemInstance.gemData.defaultLevel or (gemInstance.new and 20)
+		local prevDefaultLevel = gemInstance.gemData and gemInstance.gemData.naturalMaxLevel or (gemInstance.new and 20)
 		gemInstance.gemData, gemInstance.grantedEffect = nil
 		if gemInstance.gemId then
 			-- Specified by gem ID
@@ -1090,9 +1091,9 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			else
 				gemInstance.color = colorCodes.NORMAL
 			end
-			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.defaultLevel ~= prevDefaultLevel then
-				gemInstance.level = gemInstance.gemData.defaultLevel
-				gemInstance.defaultLevel = gemInstance.level
+			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.naturalMaxLevel ~= prevDefaultLevel then
+				gemInstance.level = gemInstance.gemData.naturalMaxLevel
+				gemInstance.naturalMaxLevel = gemInstance.level
 			end
 			calcLib.validateGemLevel(gemInstance)
 			if gemInstance.gemData then
@@ -1205,9 +1206,9 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 			tooltip:AddLine(20, string.format("%s%s ^7%d%s/%d%s %s",
 				gemInstance.color,
 				(gemInstance.grantedEffect and gemInstance.grantedEffect.name) or (gemInstance.gemData and gemInstance.gemData.name) or gemInstance.nameSpec,
-				activeEffect.srcInstance and activeEffect.srcInstance.level or activeEffect.level,
+				displayEffect.srcInstance and displayEffect.srcInstance.level or displayEffect.level,
 				displayEffect.level > gemInstance.level and colorCodes.MAGIC .. "+" .. (displayEffect.level - gemInstance.level) .. "^7" or "",
-				activeEffect.srcInstance and activeEffect.srcInstance.quality or activeEffect.quality,
+				displayEffect.srcInstance and displayEffect.srcInstance.quality or displayEffect.quality,
 				displayEffect.quality > gemInstance.quality and colorCodes.MAGIC .. "+" .. (displayEffect.quality - gemInstance.quality) .. "^7" or "",
 				reason
 			))
@@ -1246,7 +1247,7 @@ function SkillsTabClass:RestoreUndoState(state)
 		self.skillSets[k] = v
 	end
 	wipeTable(self.skillSetOrderList)
-	for k, v in pairs(state.skillSetOrderList) do
+	for k, v in ipairs(state.skillSetOrderList) do
 		self.skillSetOrderList[k] = v
 	end
 	self:SetActiveSkillSet(state.activeSkillSetId)
@@ -1285,8 +1286,8 @@ end
 -- Changes the active skill set
 function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	-- Initialize skill sets if needed
-	if #self.skillSetOrderList == 0 or #self.skillSets == 0 then
-		self.skillSetOrderList = { 1 }
+	if not self.skillSetOrderList[1] then
+		self.skillSetOrderList[1] = 1
 		self:NewSkillSet(1)
 	end
 
