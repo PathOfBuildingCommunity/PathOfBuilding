@@ -226,10 +226,6 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			goto continue
 		end
 
-		if mod.group == "WitherExpireSpeed" then
-			local temp = 2
-		end
-
 		local function swapInverse(modLine)
 			local priorStr = modLine
 			local inverseKey
@@ -245,10 +241,10 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			elseif modLine:match("less") then
 				modLine = modLine:gsub("([^ ]+) less", "-%1 more")
 				if modLine ~= priorStr then inverseKey = "less" end
-			elseif modLine:match("expires (%d+) slower") then
+			elseif modLine:match("expires ([^ ]+) slower") then
 				modLine = modLine:gsub("([^ ]+) slower", "-%1 faster")
 				if modLine ~= priorStr then inverseKey = "slower" end
-			elseif modLine:match("expires (%d+) faster") then
+			elseif modLine:match("expires ([^ ]+) faster") then
 				modLine = modLine:gsub("([^ ]+) faster", "-%1 slower")
 				if modLine ~= priorStr then inverseKey = "faster" end
 			end

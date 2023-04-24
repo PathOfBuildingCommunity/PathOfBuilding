@@ -9369,6 +9369,48 @@ return {
 				["type"] = "implicit", 
 			}, 
 		}, 
+		["9138_WitherExpireSpeed"] = {
+			["Gloves"] = {
+				["max"] = -10, 
+				["min"] = -24, 
+			}, 
+			["inverseKey"] = "slower", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1625982517", 
+				["text"] = "Withered you Inflict expires #% faster", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["9138_WitherExpireSpeedPinnaclePresence"] = {
+			["Gloves"] = {
+				["max"] = -34, 
+				["min"] = -45, 
+			}, 
+			["inverseKey"] = "slower", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3457821036", 
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Withered you Inflict expires #% faster", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["9138_WitherExpireSpeedUniquePresence"] = {
+			["Gloves"] = {
+				["max"] = -22, 
+				["min"] = -33, 
+			}, 
+			["inverseKey"] = "slower", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3262721796", 
+				["text"] = "While a Unique Enemy is in your Presence, Withered you Inflict expires #% faster", 
+				["type"] = "implicit", 
+			}, 
+		}, 
 		["919_BlockPercent"] = {
 			["Amulet"] = {
 				["max"] = 10, 
