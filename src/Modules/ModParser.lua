@@ -2648,10 +2648,10 @@ local specialModList = {
 	-- Conversion
 	["increases and reductions to minion damage also affects? you"] = { flag("MinionDamageAppliesToPlayer"), mod("ImprovedMinionDamageAppliesToPlayer", "MAX", 100) },
 	["increases and reductions to minion damage also affects? you at (%d+)%% of their value"] = function(num) return { flag("MinionDamageAppliesToPlayer"), mod("ImprovedMinionDamageAppliesToPlayer", "MAX", num) } end,
-	--["increases and reductions to minion damage also affect dominating blow and absolution at (%d+)%% of their value"] = function(num) return {
-		--flag("MinionDamageAppliesToPlayer", { type = "SkillName", skillNameList = { "Dominating Blow", "Absolution" } }),
-		--mod("ImprovedMinionDamageAppliesToPlayer", "MAX", num, { type = "SkillName", skillNameList = { "Dominating Blow", "Absolution" } })
-	--} end,
+	["increases and reductions to minion damage also affect dominating blow and absolution at (%d+)%% of their value"] = function(num) return {
+		flag("MinionDamageAppliesToPlayer", { type = "SkillName", skillNameList = { "Dominating Blow", "Absolution" } }),
+		mod("ImprovedMinionDamageAppliesToPlayer", "MAX", num, { type = "SkillName", skillNameList = { "Dominating Blow", "Absolution" } })
+	} end,
 
 	["increases and reductions to minion attack speed also affects? you"] = { flag("MinionAttackSpeedAppliesToPlayer"), mod("ImprovedMinionAttackSpeedAppliesToPlayer", "MAX", 100) },
 	["increases and reductions to cast speed apply to attack speed at (%d+)%% of their value"] =  function(num) return { flag("CastSpeedAppliesToAttacks"), mod("ImprovedCastSpeedAppliesToAttacks", "MAX", num) } end,
