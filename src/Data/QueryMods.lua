@@ -55505,6 +55505,24 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["920_BlockShieldForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "+", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4061558269", 
+				["text"] = "#% Chance to Block Attack Damage while holding a Shield", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["9211_SpellsAdditionalUnleashSeal"] = {
 			["Helmet"] = {
 				["max"] = 1, 
@@ -55597,6 +55615,24 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2439129490", 
 				["text"] = "Chaos Resistance is Zero", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["921_ShieldSpellBlockForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "+", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_938645499", 
+				["text"] = "#% Chance to Block Spell Damage while holding a Shield", 
 				["type"] = "explicit", 
 			}, 
 		}, 

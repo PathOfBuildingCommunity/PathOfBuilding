@@ -203,7 +203,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 
 		-- Special cases
 		local specialCaseData = { }
-		if mod.group and (mod.group:find("Local") or mod.group:find("Shield")) and modLine:find("Chance to Block") then
+		if mod.group and (mod.group:find("Local") or mod.group:find("Shield")) and modLine:find("Chance to Block$") then
 			specialCaseData.overrideModLine = "+#% Chance to Block"
 			modLine = modLine .. " (Shields)"
 		elseif modLine == "You can apply an additional Curse" then
@@ -226,7 +226,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			goto continue
 		end
 
-		if mod.group == "LocalFlaskSkillManaCostDuringFlaskEffect" then
+		if mod.group == "SocketedGemsNonCurseAuraEffect" then
 			local temp = 2
 		end
 
