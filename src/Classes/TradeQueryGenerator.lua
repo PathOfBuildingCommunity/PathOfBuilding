@@ -214,9 +214,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			modLine = "Bow Attacks fire 1 additional Arrows"
 		elseif modLine == "Projectiles Pierce an additional Target" then
 			specialCaseData.overrideModLineSingular = "Projectiles Pierce an additional Target"
-			if modLine == specialCaseData.overrideModLineSingular then
-				modLine = "Projectiles Pierce 1 additional Target"
-			end
+			modLine = "Projectiles Pierce 1 additional Target"
 		end
 
 		-- If this is the first tier for this mod, find matching trade mod and init the entry

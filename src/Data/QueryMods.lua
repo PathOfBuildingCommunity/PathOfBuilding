@@ -52201,7 +52201,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1619168299", 
+				["id"] = "explicit.stat_1053326368", 
 				["text"] = "#% chance to Avoid being Chilled during Effect", 
 				["type"] = "explicit", 
 			}, 
