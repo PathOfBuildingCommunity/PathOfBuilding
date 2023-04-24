@@ -636,11 +636,13 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				mode = "Name"
 			elseif mode == "Name" and line ~= "" then
 				currentName = line
+				currentEffect = 0
 				if line == "extraAura" then
 					currentModType = "extraAura"
 					mode = "Stats"
 				else
 					mode = "Effect"
+					currentModType = ""
 				end
 			elseif mode == "Effect" then
 				currentEffect = tonumber(line)
@@ -699,20 +701,38 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 		end
 		if label then
 			if buffType == "Aura" then
+				local count = 0
 				label.label = "---------------------------\n"
 				for aura, auraMod in pairs(list["Aura"] or {}) do
 					label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
+					count = count + 1
 				end
 				for aura, auraMod in pairs(list["AuraDebuff"] or {}) do
 					label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
+					count = count + 1
 				end
-				label.label = label.label.."---------------------------\n"
+				if list["extraAura"] and list["extraAura"]["extraAura"] then
+					label.label = label.label.."extraAuras:\n"
+					count = count + 1
+					for _, auraMod in ipairs(list["extraAura"]["extraAura"].modList) do
+						label.label = label.label.."  "..(auraMod.type == "FLAG" and "" or (auraMod.type.." "))..auraMod.name..": "..tostring(auraMod.value).."\n"
+					end
+				end
+				if count > 0 then
+					label.label = label.label.."---------------------------\n"
+				end
 			elseif buffType == "Curse" then
+				local count = 0
 				label.label = "---------------------------\n"
 				for curse, curseMod in pairs(list["Curse"] or {}) do
 					label.label = label.label..curse..": "..curseMod.effectMult.."%\n"
+					count = count + 1
 				end
-				label.label = label.label.."---------------------------\n"
+				if count > 0 then
+					label.label = label.label.."---------------------------\n"
+				else
+					label.label = ""
+				end
 			end
 		end
 	end
@@ -735,27 +755,29 @@ function PartyTabClass:exportBuffs(buffType)
 	end
 	local buf = ((buffType == "Curse") and ("--- Curse Limit ---\n" .. tostring(self.buffExports["CurseLimit"]))) or ""
 	for buffName, buff in pairs(self.buffExports[buffType]) do
-		if #buf > 0 then
-			buf = buf.."\n"
-		end
-		buf = buf..buffName
-		if buffType == "Curse" then
-			buf = buf.."\n"..tostring(buff.effectMult * 100)
-			if buff.isMark then
-				buf = buf.."\ntrue"
-			else
-				buf = buf.."\nfalse"
+		if buffName ~= "extraAura" or #buff.modList > 0 then
+			if #buf > 0 then
+				buf = buf.."\n"
 			end
-		elseif buffType == "Aura" and buffName ~= "extraAura" then
-			buf = buf.."\n"..tostring(buff.effectMult * 100)
-		end
-		if buffType == "Curse" or buffType == "Aura"  then
-			for _, mod in ipairs(buff.modList) do
-				buf = buf.."\n"..tostring(mod.value).."|"..mod.source.."|"..modLib.formatModParams(mod)
+			buf = buf..buffName
+			if buffType == "Curse" then
+				buf = buf.."\n"..tostring(buff.effectMult * 100)
+				if buff.isMark then
+					buf = buf.."\ntrue"
+				else
+					buf = buf.."\nfalse"
+				end
+			elseif buffType == "Aura" and buffName ~= "extraAura" then
+				buf = buf.."\n"..tostring(buff.effectMult * 100)
 			end
-			buf = buf.."\n---"
-		elseif buffType == "EnemyMods" then
-			buf = buf.."\n"..tostring(buff.value).."|"..buff.source.."|"..modLib.formatModParams(buff)
+			if buffType == "Curse" or buffType == "Aura"  then
+				for _, mod in ipairs(buff.modList) do
+					buf = buf.."\n"..tostring(mod.value).."|"..mod.source.."|"..modLib.formatModParams(mod)
+				end
+				buf = buf.."\n---"
+			elseif buffType == "EnemyMods" then
+				buf = buf.."\n"..tostring(buff.value).."|"..buff.source.."|"..modLib.formatModParams(buff)
+			end
 		end
 	end
 	wipeTable(self.buffExports[buffType])
