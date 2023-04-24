@@ -128,6 +128,9 @@ local function canModSpawnForItemCategory(mod, tags)
 end
 
 function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, statWeights)
+	if not baseOutput or not newOutput then
+		return 0
+	end
 	local meanStatDiff = 0
 	local function ratioModSums(...)
 		local baseModSum = 0
