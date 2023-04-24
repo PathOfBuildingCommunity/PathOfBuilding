@@ -171,7 +171,6 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 	local function ratioModSums(...)
 		local baseModSum = 0
 		local newModSum = 0
-		local maxIncrease = 2 -- cap any given mod at 100% increase in a stat per mod.
 		for _, mod in ipairs({ ... }) do
 			baseModSum = baseModSum + (baseOutput[mod] or 0)
 			newModSum = newModSum + (newOutput[mod] or 0)
@@ -181,9 +180,9 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 			return 0
 		else
 			if newModSum == math.huge then
-				return maxIncrease
+				return data.misc.maxStatIncrease
 			else
-				return math.min(newModSum / ((baseModSum ~= 0) and baseModSum or 1), maxIncrease)
+				return math.min(newModSum / ((baseModSum ~= 0) and baseModSum or 1), data.misc.maxStatIncrease)
 			end
 		end
 	end
