@@ -579,7 +579,7 @@ function PartyTabClass:exportBuffs(buffType)
 	if self.buffExports[buffType].ConvertedToText then
 		return self.buffExports[buffType].string
 	end
-	local buf = ((buffType == "Curse") and ("--- Curse Limit ---" .. tostring(self.buffExports["CurseLimit"]))) or ""
+	local buf = ((buffType == "Curse") and ("--- Curse Limit ---\n" .. tostring(self.buffExports["CurseLimit"]))) or ""
 	for buffName, buff in pairs(self.buffExports[buffType]) do
 		if #buf > 0 then
 			buf = buf.."\n"
