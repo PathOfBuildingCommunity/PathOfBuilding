@@ -226,7 +226,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			goto continue
 		end
 
-		if mod.group == "SocketedGemsNonCurseAuraEffect" then
+		if mod.group == "WitherExpireSpeed" then
 			local temp = 2
 		end
 
@@ -234,28 +234,22 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			local priorStr = modLine
 			local inverseKey
 			if modLine:match("increased") then
-				modLine = modLine:gsub(" (.+) increased", " -%1 reduced")
-				if modLine == priorStr then modLine = modLine:gsub("^(.+) increased", "-%1 reduced") end
+				modLine = modLine:gsub("([^ ]+) increased", "-%1 reduced")
 				if modLine ~= priorStr then inverseKey = "increased" end
 			elseif modLine:match("reduced") then
-				modLine = modLine:gsub(" (.+) reduced", " -%1 increased")
-				if modLine == priorStr then modLine = modLine:gsub("^(.+) reduced", "-%1 increased") end
+				modLine = modLine:gsub("([^ ]+) reduced", "-%1 increased")
 				if modLine ~= priorStr then inverseKey = "reduced" end
 			elseif modLine:match("more") then
-				modLine = modLine:gsub(" (.+) more", " -%1 less")
-				if modLine == priorStr then modLine = modLine:gsub("^(.+) more", "-%1 less") end
+				modLine = modLine:gsub("([^ ]+) more", "-%1 less")
 				if modLine ~= priorStr then inverseKey = "more" end
 			elseif modLine:match("less") then
-				modLine = modLine:gsub(" (.+) less", " -%1 more")
-				if modLine == priorStr then modLine = modLine:gsub("^(.+) less", "-%1 more") end
+				modLine = modLine:gsub("([^ ]+) less", "-%1 more")
 				if modLine ~= priorStr then inverseKey = "less" end
-			elseif modLine:match("expires slower") then
-				modLine = modLine:gsub(" (.+) slower", " -%1 faster")
-				if modLine == priorStr then modLine = modLine:gsub("^(.+) slower", "-%1 faster") end
+			elseif modLine:match("expires (%d+) slower") then
+				modLine = modLine:gsub("([^ ]+) slower", "-%1 faster")
 				if modLine ~= priorStr then inverseKey = "slower" end
-			elseif modLine:match("expires faster") then
-				modLine = modLine:gsub(" (.+) faster", " -%1 slower")
-				if modLine == priorStr then modLine = modLine:gsub("^(.+) faster", "-%1 slower") end
+			elseif modLine:match("expires (%d+) faster") then
+				modLine = modLine:gsub("([^ ]+) faster", "-%1 slower")
 				if modLine ~= priorStr then inverseKey = "faster" end
 			end
 			return modLine, inverseKey
