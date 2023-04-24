@@ -1754,6 +1754,8 @@ function calcs.offence(env, actor, activeSkill)
 
 		if skillData.averageBurstHits then
 			output.AverageBurstHits = skillData.averageBurstHits
+		elseif output.Repeats and output.Repeats > 1 then
+			output.AverageBurstHits = output.Repeats
 		end
 
 		-- Calculate hit chance 
@@ -2996,7 +2998,8 @@ function calcs.offence(env, actor, activeSkill)
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
 		globalOutput.AverageBurstHits = output.AverageBurstHits or 1
-		globalOutput.AverageBurstDamage = output.AverageDamage * globalOutput.AverageBurstHits or 0
+		local repeatPenalty = skillModList:Flag(nil, "HasSeals") and activeSkill.skillTypes[SkillType.CanRapidFire] and calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty") or 1
+		globalOutput.AverageBurstDamage = output.AverageDamage + output.AverageDamage * (globalOutput.AverageBurstHits - 1) * repeatPenalty or 0
 		globalOutput.ShowBurst = globalOutput.AverageBurstHits > 1
 		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * skillData.dpsMultiplier * quantityMultiplier
 		if breakdown then
@@ -3022,11 +3025,24 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 		if globalBreakdown and globalOutput.AverageBurstDamage > 0 then
-			globalBreakdown.AverageBurstDamage = { }		
+			globalBreakdown.AverageBurstDamage = { }
 			t_insert(globalBreakdown.AverageBurstDamage, s_format("%.1f ^8(average hit)", output.AverageHit))
-			t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
-			t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(number of hits)", globalOutput.AverageBurstHits))
-			t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f", globalOutput.AverageBurstDamage))
+			if output.HitChance < 100 then
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+			end
+			if repeatPenalty < 1 then
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(number of repeats)", globalOutput.AverageBurstHits - 1))
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(repeat penalty)", repeatPenalty))
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f ^8(repeat damage total)", globalOutput.AverageBurstDamage - output.AverageDamage))
+				t_insert(globalBreakdown.AverageBurstDamage, "")
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("+ %.1f ^8(first hit)", output.AverageHit))
+				if output.HitChance < 100 then
+					t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
+				end
+			else
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(number of hits)", globalOutput.AverageBurstHits))
+			end
+			t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f ^8(total burst damage)", globalOutput.AverageBurstDamage))
 		end
 		
 		
@@ -3369,6 +3385,13 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
+		-- address Weapon1H interaction with Ailment for nodes like Sleight of Hand
+		-- bit-and on cfg.flags confirms if the skill has the 1H flag
+		-- if so bit-or on the targetCfg (e.g. dotCfg) to guarantee for calculations like Sum("INC") and breakdown
+		local function checkWeapon1HFlags(targetCfg)
+			targetCfg.flags = bor(targetCfg.flags, band(cfg.flags, ModFlag.Weapon1H))
+		end
+
 		---Calculates normal and crit damage to be used in non-damaging ailment calculations
 		---@param ailment string
 		---@return number, number @average hit damage, average crit damage
@@ -3482,6 +3505,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillDist = skillCfg.skillDist,
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.bleedCfg or activeSkill.OHbleedCfg
+			checkWeapon1HFlags(dotCfg)
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
 				breakdown.BleedPhysical = { damageTypes = { } }
@@ -3681,6 +3705,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillDist = skillCfg.skillDist,
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.poisonCfg or activeSkill.OHpoisonCfg
+			checkWeapon1HFlags(dotCfg)
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
 				breakdown.PoisonPhysical = { damageTypes = { } }
@@ -3906,6 +3931,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillDist = skillCfg.skillDist,
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.igniteCfg or activeSkill.OHigniteCfg
+			checkWeapon1HFlags(dotCfg)
 			local sourceHitDmg, sourceCritDmg
 			if breakdown then
 				breakdown.IgnitePhysical = { damageTypes = { } }
@@ -4364,7 +4390,7 @@ function calcs.offence(env, actor, activeSkill)
 			skillFlags.impale = true
 			local critChance = output.CritChance / 100
 			local impaleChance =  (m_min(output.ImpaleChance/100, 1) * (1 - critChance) + m_min(output.ImpaleChanceOnCrit/100, 1) * critChance)
-			local maxStacks = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") -- magic number: base stacks duration
+			local maxStacks = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") * (1 + skillModList:Sum("BASE", cfg, "ImpaleAdditionalDurationChance") / 100)
 			local configStacks = enemyDB:Sum("BASE", cfg, "Multiplier:ImpaleStacks")
 			local impaleStacks = m_min(maxStacks, configStacks)
 

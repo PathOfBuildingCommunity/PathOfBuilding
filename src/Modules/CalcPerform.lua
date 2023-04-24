@@ -3211,7 +3211,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			if not skill.skillTypes[SkillType.Triggered] and skill ~= env.player.mainSkill and not skill.skillData.triggeredByManaPercentSpent and band(skill.skillCfg.flags, ModFlag.Bow) > 0 then
 				local uuid = cacheSkillUUID(skill)
 				if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
-					calcs.buildActiveSkill(env, "CACHE", skill)
+					calcs.buildActiveSkill(env, "CACHE", skill, true)
 				end
 
 				if GlobalCache.cachedData["CACHE"][uuid] then
@@ -3403,7 +3403,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
-	local maxImpaleStacks = modDB:Sum("BASE", nil, "ImpaleStacksMax")
+	local maxImpaleStacks = modDB:Sum("BASE", nil, "ImpaleStacksMax") * (1 + modDB:Sum("BASE", nil, "ImpaleAdditionalDurationChance") / 100)
 	if not enemyDB:HasMod("BASE", nil, "Multiplier:ImpaleStacks") then
 		enemyDB:NewMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	elseif enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks") > maxImpaleStacks then

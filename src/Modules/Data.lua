@@ -509,6 +509,50 @@ data.misc = { -- magic numbers
 	}
 }
 
+data.casterTagCrucibleUniques = {
+	["Atziri's Rule"] = true,
+	["Cane of Kulemak"] = true,
+	["Cane of Unravelling"] = true,
+	["Cospri's Malice"] = true,
+	["Cybil's Paw"] = true,
+	["Disintegrator"] = true,
+	["Duskdawn"] = true,
+	["Geofri's Devotion"] = true,
+	["Mjolner"] = true,
+	["Pledge of Hands"] = true,
+	["Soulwrest"] = true,
+	["Taryn's Shiver"] = true,
+	["The Rippling Thoughts"] = true,
+	["The Surging Thoughts"] = true,
+	["The Whispering Ice"] = true,
+	["Tremor Rod"] = true,
+	["Xirgil's Crank"] = true,
+}
+data.minionTagCrucibleUniques = {
+	["Arakaali's Fang"] = true,
+	["Ashcaller"] = true,
+	["Chaber Cairn"] = true,
+	["Chober Chaber"] = true,
+	["Clayshaper"] = true,
+	["Earendel's Embrace"] = true,
+	["Femurs of the Saints"] = true,
+	["Jorrhast's Blacksteel"] = true,
+	["Law of the Wilds"] = true,
+	["Midnight Bargain"] = true,
+	["Mon'tregul's Grasp"] = true,
+	["Null's Inclination"] = true,
+	["Queen's Decree"] = true,
+	["Queen's Escape"] = true,
+	["Replica Earendel's Embrace"] = true,
+	["Replica Midnight Bargain"] = true,
+	["Severed in Sleep"] = true,
+	["Soulwrest"] = true,
+	["The Black Cane"] = true,
+	["The Iron Mass"] = true,
+	["The Scourge"] = true,
+	["United in Dream"] = true,
+}
+
 -- Load bosses
 do 
 	data.bosses = { }
@@ -596,6 +640,7 @@ data.enchantments = {
 }
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
+data.crucible = LoadModule("Data/Crucible")
 data.pantheons = LoadModule("Data/Pantheons")
 data.costs = LoadModule("Data/Costs")
 do
