@@ -3425,6 +3425,7 @@ skills["EnemyExplode"] = {
 	baseMods = {
 		skill("radius", 22),
 		skill("showAverage", true),
+		skill("explodeCorpse", true),
 		skill("hitChanceIsExplodeChance", true, { type = "SkillPart", skillPart = 1 }),
 	},
 	baseFlags = {

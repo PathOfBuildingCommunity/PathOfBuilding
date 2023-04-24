@@ -1551,12 +1551,11 @@ function calcs.offence(env, actor, activeSkill)
 	runSkillFunc("preDamageFunc")
 
 	-- Handle corpse and enemy explosions
-	local monsterLife = env.enemyLevel and data.monsterLifeTable[env.enemyLevel] or 100
+	local monsterLife = skillData.corpseLife or (env.enemyLevel and data.monsterLifeTable[env.enemyLevel] or 100)
 	if skillData.explodeCorpse and (skillData.corpseLife or env.enemyLevel) then
-		local localCorpseLife = skillData.corpseLife or monsterLife;
 		local damageType = skillData.corpseExplosionDamageType or "Fire"
-		skillData[damageType.."BonusMin"] = localCorpseLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
-		skillData[damageType.."BonusMax"] = localCorpseLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
+		skillData[damageType.."BonusMin"] = monsterLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
+		skillData[damageType.."BonusMax"] = monsterLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
 	end
 	if skillFlags.monsterExplode then
 		for _, damageType in pairs(dmgTypeList) do
