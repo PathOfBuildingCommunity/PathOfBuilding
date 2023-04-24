@@ -52,18 +52,20 @@ function NotableDBClass:DoesNotableMatchFilters(node)
 		return false
 	end
 
-	local searchStr = self.controls.search.buf:lower()
+	local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
 	if searchStr:match("%S") then
 		local found = false
 		local mode = self.controls.searchMode.selIndex
 		if mode == 1 or mode == 2 then
-			if node.dn:lower():find(searchStr, 1, true) then
+			local err, match = PCall(string.matchOrPattern, node.dn:lower(), searchStr)
+			if not err and match then
 				found = true
 			end
 		end
 		if mode == 1 or mode == 3 then
 			for _, line in ipairs(node.sd) do
-				if line:lower():find(searchStr, 1, true) then
+				local err, match = PCall(string.matchOrPattern, line:lower(), searchStr)
+				if not err and match then
 					found = true
 					break
 				end

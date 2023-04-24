@@ -439,7 +439,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local searchWords = {}
 			for matchstring, v in search:gmatch('"([^"]*)"') do
 				searchWords[#searchWords+1] = matchstring
-				search = search:gsub('"'..matchstring..'"', "")
+				search = search:gsub('"'..matchstring:gsub("([%(%)])", "%%%1")..'"', "")
 			end
 			for matchstring, v in search:gmatch("(%S*)") do
 				if matchstring:match("%S") ~= nil then
@@ -804,7 +804,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 
 	local function search(haystack, need)
 		for i=#need, 1, -1 do
-			if haystack:match(need[i]) then
+			if haystack:matchOrPattern(need[i]) then
 				table.remove(need, i)
 			end
 		end

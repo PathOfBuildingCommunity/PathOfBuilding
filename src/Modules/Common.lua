@@ -860,3 +860,46 @@ function urlDecode(str)
 	end
 	return str:gsub("%%(%x%x)", hexToChar)
 end
+
+function string:matchOrPattern(pattern)
+	local function generateOrPatterns(pattern)
+		local subGroups = {}
+		local index = 1
+		-- find and call generate patterns on all subGroups
+		for subGroup in pattern:gmatch("%b()") do
+			local open, close = pattern:find(subGroup, (subGroups[index] and subGroups[index].close or 1), true)
+			t_insert(subGroups, { open = open, close = close, patterns = generateOrPatterns(subGroup:sub(2,-2)) })
+			index = index + 1
+		end
+
+		-- generate complete patterns from the subGroup patterns
+		local generatedPatterns = { pattern:sub(1, (subGroups[1] and subGroups[1].open or 0) - 1) }
+		for i, subGroup in ipairs(subGroups) do
+			local regularNextString = pattern:sub(subGroup.close + 1, (subGroups[i+1] and subGroups[i+1].open or 0) - 1)
+			local tempPatterns = {}
+			for _, subPattern in ipairs(generatedPatterns) do
+				for subGroupPattern in pairs(subGroup.patterns) do
+					t_insert(tempPatterns, subPattern..subGroupPattern..regularNextString)
+				end
+			end
+			generatedPatterns = tempPatterns
+		end
+
+		-- apply | operators
+		local orPatterns = { }
+		for _, generatedPattern in ipairs(generatedPatterns) do
+			for orPattern in generatedPattern:gmatch("[^|]+") do
+				orPatterns[orPattern] = true -- store string as key to avoid duplicates.
+			end
+		end
+		return orPatterns
+	end
+
+	local orPatterns = generateOrPatterns(pattern)
+	for orPattern in pairs(orPatterns) do
+		if self:match(orPattern) then
+			return true
+		end
+	end
+	return false
+end
