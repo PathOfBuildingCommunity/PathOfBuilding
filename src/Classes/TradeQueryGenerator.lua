@@ -171,11 +171,21 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 	local function ratioModSums(...)
 		local baseModSum = 0
 		local newModSum = 0
+		local maxIncrease = 2 -- cap any given mod at 100% increase in a stat per mod.
 		for _, mod in ipairs({ ... }) do
 			baseModSum = baseModSum + (baseOutput[mod] or 0)
 			newModSum = newModSum + (newOutput[mod] or 0)
 		end
-		return newModSum / ((baseModSum ~= 0) and baseModSum or 1)
+
+		if baseModSum == math.huge then
+			return 0
+		else
+			if newModSum == math.huge then
+				return maxIncrease
+			else
+				return math.min(newModSum / ((baseModSum ~= 0) and baseModSum or 1), maxIncrease)
+			end
+		end
 	end
 	for _, statTable in ipairs(statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
