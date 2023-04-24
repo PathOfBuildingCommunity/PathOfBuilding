@@ -306,9 +306,6 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.rebuild.y = function()
 		return (self.width > 1350) and 0 or 28
 	end
-	self.controls.rebuild.shown = function()
-		return self.controls.ShowAdvanceTools.state
-	end
 
 	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 150, 16, "^7Auras")
 	self.controls.editAurasLabel.y = function()
