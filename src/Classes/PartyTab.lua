@@ -165,7 +165,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 									node.attrib.string = self.controls.editAuras.buf.."\n"..node.attrib.string
 								end
 								self.controls.editAuras:SetText(node.attrib.string)
-								self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
+								self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
 							end
 						elseif node.attrib.name == "Curse" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
@@ -173,7 +173,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 									node.attrib.string = self.controls.editCurses.buf.."\n"..node.attrib.string
 								end
 								self.controls.editCurses:SetText(node.attrib.string)
-								self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
+								self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
 							end
 						elseif node.attrib.name == "Link Skills" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
@@ -181,7 +181,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 									node.attrib.string = self.controls.editLinks.buf.."\n"..node.attrib.string
 								end
 								self.controls.editLinks:SetText(node.attrib.string)
-								self:ParseBuffs(self.processedInput["Link"], self.controls.editLinks.buf, "Link")
+								self:ParseBuffs(self.processedInput["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
 							end
 						elseif node.attrib.name == "EnemyConditions" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
@@ -272,47 +272,89 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.build.buildFlag = true
 	end)
 	
-	self.controls.rebuild = new("ButtonControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 0, 4, 160, 20, "Rebuild All", function() 
-		wipeTable(self.processedInput)
-		wipeTable(self.enemyModList)
-		self.processedInput = { Aura = {}, Curse = {}, Link = {} }
-		self.enemyModList = new("ModList")
-		self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura")
-		self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse")
-		self:ParseBuffs(self.processedInput["Link"], self.controls.editLinks.buf, "Link")
-		self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
-		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
+	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, 20, "Show Advanced Info", function(state)
 		self.build.buildFlag = true 
-	end)
-	self.controls.rebuild.tooltip = "^7Reparse all the inputs incase they have changed since loading the build or importing" -- buttons cant have tooltips?
-	self.controls.rebuild.y = function()
+	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export", false)
+	self.controls.ShowAdvanceTools.y = function()
 		return (self.width > 1350) and 4 or 32
 	end
 	
-	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 8, 0, 160, 20, "Disable Party Effects", function() 
+	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, 8, 0, 160, 20, "Disable Party Effects", function() 
 		wipeTable(self.processedInput)
 		wipeTable(self.enemyModList)
 		self.processedInput = { Aura = {}, Curse = {}, Link = {} }
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
+	
+	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, 20, "Rebuild All", function() 
+		wipeTable(self.processedInput)
+		wipeTable(self.enemyModList)
+		self.processedInput = { Aura = {}, Curse = {}, Link = {} }
+		self.enemyModList = new("ModList")
+		self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
+		self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
+		self:ParseBuffs(self.processedInput["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
+		self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
+		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
+		self.build.buildFlag = true 
+	end)
+	self.controls.rebuild.tooltip = "^7Reparse all the inputs incase they have changed since loading the build or importing" -- buttons cant have tooltips?
+	self.controls.rebuild.x = function()
+		return (self.width > 1350) and 8 or (-328)
+	end
+	self.controls.rebuild.y = function()
+		return (self.width > 1350) and 0 or 28
+	end
+	self.controls.rebuild.shown = function()
+		return self.controls.ShowAdvanceTools.state
+	end
 
-	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.rebuild,"TOPLEFT"}, 0, 40, 150, 16, "^7Auras")
+	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 150, 16, "^7Auras")
+	self.controls.editAurasLabel.y = function()
+		return 40 + (self.controls.ShowAdvanceTools.state and ((self.width <= 1350) and 28 or 0) or 0)
+	end
 	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editAuras.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editAuras.height = function()
-		return self.controls.editLinks.hasFocus and 106 or (self.height - 296 - ((self.width > 1350) and 0 or 28) - self.controls.importCodeHeader.y())
+		return self.controls.editLinks.hasFocus and 106 or (self.height - 256 - ((self.width > 1350) and 0 or 28) - self.controls.importCodeHeader.y() - self.controls.editAurasLabel.y())
+	end
+	self.controls.editAuras.shown = function()
+		return self.controls.ShowAdvanceTools.state
+	end
+	self.controls.simpleAuras = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, 16, "")
+	self.controls.simpleAuras.shown = function()
+		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editAuras,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Link Skills")
+	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Link Skills")
+	self.controls.editLinksLabel.y = function()
+		if self.controls.ShowAdvanceTools.state then
+			return (8 + self.controls.editAuras.height())
+		end
+		local lineCount = 0
+		for i = 1, #self.controls.simpleAuras.label do
+			local c = self.controls.simpleAuras.label:sub(i, i)
+			if c == '\n' then lineCount = lineCount + 1 end
+		end
+
+		return (lineCount) * 16 + 4
+	end
 	self.controls.editLinks = new("EditControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editLinks.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editLinks.height = function()
-		return (self.controls.editLinks.hasFocus and (self.height - 296 - ((self.width > 1350) and 0 or 28) - self.controls.importCodeHeader.y()) or 106)
+		return (self.controls.editLinks.hasFocus and (self.height - 256 - ((self.width > 1350) and 0 or 28) - self.controls.importCodeHeader.y() - self.controls.editAurasLabel.y()) or 106)
+	end
+	self.controls.editLinks.shown = function()
+		return self.controls.ShowAdvanceTools.state
+	end
+	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 16, "")
+	self.controls.simpleLinks.shown = function()
+		return not self.controls.ShowAdvanceTools.state
 	end
 
 	self.controls.enemyCondLabel = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 150, 16, "^7Enemy Conditions")
@@ -323,8 +365,23 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyCond.height = function()
 		return (self.controls.enemyCond.hasFocus and (self.height - 304) or 106)
 	end
+	self.controls.enemyCond.shown = function()
+		return self.controls.ShowAdvanceTools.state
+	end
 
-	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCond,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Enemy Modifiers")
+	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Enemy Modifiers")
+	self.controls.enemyModsLabel.y = function()
+		if self.controls.ShowAdvanceTools.state then
+			return (8 + self.controls.enemyCond.height())
+		end
+		local lineCount = 0
+		--[[for i = 1, #self.controls.simpleAuras.label do
+			local c = self.controls.simpleAuras.label:sub(i, i)
+			if c == '\n' then lineCount = lineCount + 1 end
+		end--]]
+
+		return (lineCount) * 16 + 4
+	end
 	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.enemyMods.width = function()
 		return self.width / 2 - 16
@@ -332,14 +389,36 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyMods.height = function()
 		return (self.controls.enemyMods.hasFocus and (self.height - 304) or 106)
 	end
+	self.controls.enemyMods.shown = function()
+		return self.controls.ShowAdvanceTools.state
+	end
 
-	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyMods,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Curses")
+	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Curses")
+	self.controls.editCursesLabel.y = function()
+		if self.controls.ShowAdvanceTools.state then
+			return (8 + self.controls.enemyMods.height())
+		end
+		local lineCount = 0
+		--[[for i = 1, #self.controls.simpleAuras.label do
+			local c = self.controls.simpleAuras.label:sub(i, i)
+			if c == '\n' then lineCount = lineCount + 1 end
+		end--]]
+
+		return (lineCount) * 16 + 4
+	end
 	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editCursesLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editCurses.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editCurses.height = function()
 		return ((not self.controls.enemyCond.hasFocus and not self.controls.enemyMods.hasFocus) and (self.height - 304) or 106)
+	end
+	self.controls.editCurses.shown = function()
+		return self.controls.ShowAdvanceTools.state
+	end
+	self.controls.simpleCurses = new("LabelControl", {"TOPLEFT",self.controls.editCursesLabel,"TOPLEFT"}, 0, 18, 0, 16, "")
+	self.controls.simpleCurses.shown = function()
+		return not self.controls.ShowAdvanceTools.state
 	end
 	self:SelectControl(self.controls.editAuras)
 end)
@@ -351,13 +430,13 @@ function PartyTabClass:Load(xml, fileName)
 				ConPrintf("missing name")
 			elseif node.attrib.name == "Aura" then
 				self.controls.editAuras:SetText(node.attrib.string)
-				self:ParseBuffs(self.processedInput["Aura"], node.attrib.string, "Aura")
+				self:ParseBuffs(self.processedInput["Aura"], node.attrib.string, "Aura", self.controls.simpleAuras)
 			elseif node.attrib.name == "Curse" then
 				self.controls.editCurses:SetText(node.attrib.string)
-				self:ParseBuffs(self.processedInput["Curse"], node.attrib.string, "Curse")
+				self:ParseBuffs(self.processedInput["Curse"], node.attrib.string, "Curse", self.controls.simpleCurses)
 			elseif node.attrib.name == "Link Skills" then
 				self.controls.editLinks:SetText(node.attrib.string)
-				self:ParseBuffs(self.processedInput["Link"], node.attrib.string, "Link")
+				self:ParseBuffs(self.processedInput["Link"], node.attrib.string, "Link", self.controls.simpleLinks)
 			elseif node.attrib.name == "EnemyConditions" then
 				self.controls.enemyCond:SetText(node.attrib.string)
 				self:ParseBuffs(self.enemyModList, node.attrib.string, "EnemyConditions")
@@ -439,12 +518,16 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 					self.controls.editAuras:Undo()
 				elseif self.controls.editCurses.hasFocus then
 					self.controls.editCurses:Undo()
+				elseif self.controls.editLinks.hasFocus then
+					self.controls.editLinks:Undo()
 				end
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				if self.controls.editAuras.hasFocus then
 					self.controls.editAuras:Redo()
 				elseif self.controls.editCurses.hasFocus then
 					self.controls.editCurses:Redo()
+				elseif self.controls.editLinks.hasFocus then
+					self.controls.editLinks:Redo()
 				end
 			end
 		end
@@ -509,7 +592,7 @@ function PartyTabClass:ParseTags(line, currentModType)
 	return modType, extraTags
 end
 
-function PartyTabClass:ParseBuffs(list, buf, buffType)
+function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 	if buffType == "EnemyConditions" then
 		for line in buf:gmatch("([^\n]*)\n?") do
 			list:NewMod(line:gsub("Condition:", "Condition:Party:"), "FLAG", true, "Party")
@@ -536,81 +619,100 @@ function PartyTabClass:ParseBuffs(list, buf, buffType)
 				end
 			end
 		end
-	end
-	local mode = "Name"
-	if buffType == "Curse" then
-		mode = "CurseLimit"
-	end
-	local currentName
-	local currentEffect
-	local isMark
-	local currentModType = "Unknown"
-	for line in buf:gmatch("([^\n]*)\n?") do
-		if line ~= "---" and line:match("%-%-%-") then
-			-- comment but not divider, skip the line
-		elseif mode == "CurseLimit" and line ~= "" then
-			list.limit = tonumber(line)
-			mode = "Name"
-		elseif mode == "Name" and line ~= "" then
-			currentName = line
-			if line == "extraAura" then
-				currentModType = "extraAura"
-				mode = "Stats"
-			else
-				mode = "Effect"
-			end
-		elseif mode == "Effect" then
-			currentEffect = tonumber(line)
-			if buffType == "Curse" then
-				mode = "isMark"
-			else
-				mode = "Stats"
-			end
-		elseif mode == "isMark" then
-			isMark = line=="true"
-			mode = "Stats"
-		elseif line == "---" then
-			mode = "Name"
-		else
-			if line:find("|") then
-				local modStrings = {}
-				for line2 in line:gmatch("([^|]*)|?") do
-					t_insert(modStrings, line2)
+	else
+		local mode = "Name"
+		if buffType == "Curse" then
+			mode = "CurseLimit"
+		end
+		local currentName
+		local currentEffect
+		local isMark
+		local currentModType = "Unknown"
+		for line in buf:gmatch("([^\n]*)\n?") do
+			if line ~= "---" and line:match("%-%-%-") then
+				-- comment but not divider, skip the line
+			elseif mode == "CurseLimit" and line ~= "" then
+				list.limit = tonumber(line)
+				mode = "Name"
+			elseif mode == "Name" and line ~= "" then
+				currentName = line
+				if line == "extraAura" then
+					currentModType = "extraAura"
+					mode = "Stats"
+				else
+					mode = "Effect"
 				end
-				if #modStrings >= 4 then
-					local mod = {
-						value = (modStrings[1] == "true" and true) or tonumber(modStrings[1]) or 0,
-						source = modStrings[2],
-						name = modStrings[3],
-						type = modStrings[4],
-						flags = ModFlag[modStrings[5]] or 0,
-						keywordFlags = KeywordFlag[modStrings[6]] or 0,
-					}
-					local modType, Tags = self:ParseTags(modStrings[7], currentModType)
-					for _, tag in ipairs(Tags) do
-						t_insert(mod, tag)
-					end
-					currentModType = modType
-					if not list[modType] then
-						list[modType] = {}
-						list[modType][currentName] = {
-							modList = new("ModList"),
-							effectMult = currentEffect
-						}
-						if isMark then
-							list[modType][currentName].isMark = true
-						end
-					elseif not list[modType][currentName] then
-						list[modType][currentName] = {
-							modList = new("ModList"),
-							effectMult = currentEffect
-						}
-						if isMark then
-							list[modType][currentName].isMark = true
-						end
-					end
-					list[modType][currentName].modList:AddMod(mod)
+			elseif mode == "Effect" then
+				currentEffect = tonumber(line)
+				if buffType == "Curse" then
+					mode = "isMark"
+				else
+					mode = "Stats"
 				end
+			elseif mode == "isMark" then
+				isMark = line=="true"
+				mode = "Stats"
+			elseif line == "---" then
+				mode = "Name"
+			else
+				if line:find("|") then
+					local modStrings = {}
+					for line2 in line:gmatch("([^|]*)|?") do
+						t_insert(modStrings, line2)
+					end
+					if #modStrings >= 4 then
+						local mod = {
+							value = (modStrings[1] == "true" and true) or tonumber(modStrings[1]) or 0,
+							source = modStrings[2],
+							name = modStrings[3],
+							type = modStrings[4],
+							flags = ModFlag[modStrings[5]] or 0,
+							keywordFlags = KeywordFlag[modStrings[6]] or 0,
+						}
+						local modType, Tags = self:ParseTags(modStrings[7], currentModType)
+						for _, tag in ipairs(Tags) do
+							t_insert(mod, tag)
+						end
+						currentModType = modType
+						if not list[modType] then
+							list[modType] = {}
+							list[modType][currentName] = {
+								modList = new("ModList"),
+								effectMult = currentEffect
+							}
+							if isMark then
+								list[modType][currentName].isMark = true
+							end
+						elseif not list[modType][currentName] then
+							list[modType][currentName] = {
+								modList = new("ModList"),
+								effectMult = currentEffect
+							}
+							if isMark then
+								list[modType][currentName].isMark = true
+							end
+						end
+						list[modType][currentName].modList:AddMod(mod)
+					end
+				end
+			end
+		end
+		if label then
+			if buffType == "Aura" then
+				label.label = "---------------------------\n"
+				for aura, auraMod in pairs(list["Aura"] or {}) do
+					label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
+				end
+				for aura, auraMod in pairs(list["AuraDebuff"] or {}) do
+					label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
+				end
+				label.label = label.label.."---------------------------\n"
+			elseif buffType == "Curse" then
+				label.label = "---------------------------\n"
+				for curse, curseMod in pairs(list["Curse"] or {}) do
+					label.label = label.label..curse..": "..curseMod.effectMult.."%\n"
+				end
+				label.label = label.label.."---------------------------\n"
 			end
 		end
 	end
