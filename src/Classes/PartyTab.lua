@@ -478,7 +478,6 @@ function PartyTabClass:Load(xml, fileName)
 	self.lastContent.EnemyMods = self.controls.enemyMods.buf
 	self.lastContent.EnableExportBuffs = self.enableExportBuffs
 	
-	self.controls.importCodeIn:SetText(xml.attrib.currentImportCode or "")
 	self.controls.importCodeDestination:SelByValue(xml.attrib.destination or "All")
 	self.controls.appendNotReplace.state = xml.attrib.append == "true"
 	self.controls.ShowAdvanceTools.state = xml.attrib.ShowAdvanceTools == "true"
@@ -524,7 +523,6 @@ function PartyTabClass:Save(xml)
 	self.lastContent.EnemyMods = self.controls.enemyMods.buf
 	self.lastContent.EnableExportBuffs = self.enableExportBuffs
 	xml.attrib = {
-		currentImportCode = self.controls.importCodeIn.buf,
 		destination = self.controls.importCodeDestination.list[self.controls.importCodeDestination.selIndex],
 		append = tostring(self.controls.appendNotReplace.state),
 		ShowAdvanceTools = tostring(self.controls.ShowAdvanceTools.state)
