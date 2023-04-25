@@ -134,4 +134,5 @@ For now Enemy conditions and Modifiers are not exported but can be imported if i
 
 Advanced info:
     The format for the data is the name of the skill, the %increased effect and then the mods that are applied
-	the mods are done similar to the style from modlib, where it the value applied, the "source" of the mod, the modname, the type added (eg base/inc), the flags, the keywordflags, and then any other tags
+    The mods are done similar to the style from modlib, where it the value applied, the "source" of the mod, the modname, the type added (eg base/inc), the flags, the keywordflags, and then any other tags
+DEV[    The mods are done by modlib using modLib.formatModParams(mod)]
