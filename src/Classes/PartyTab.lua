@@ -167,43 +167,43 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 						elseif node.attrib.name == "Aura" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
 								if #self.controls.editAuras.buf > 0 then
-									node.attrib.string = self.controls.editAuras.buf.."\n"..node.attrib.string
+									node[1] = self.controls.editAuras.buf.."\n"..(node[1] or "")
 								end
-								self.controls.editAuras:SetText(node.attrib.string)
+								self.controls.editAuras:SetText(node[1] or "")
 								self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
 							end
 						elseif node.attrib.name == "Curse" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
 								if #self.controls.editCurses.buf > 0 then
-									node.attrib.string = self.controls.editCurses.buf.."\n"..node.attrib.string
+									node[1] = self.controls.editCurses.buf.."\n"..(node[1] or "")
 								end
-								if currentCurseBuffer and node.attrib.string =="--- Curse Limit ---\n1" then
-									node.attrib.string = currentCurseBuffer
+								if currentCurseBuffer and node[1] =="--- Curse Limit ---\n1" then
+									node[1] = currentCurseBuffer
 								end
-								self.controls.editCurses:SetText(node.attrib.string)
+								self.controls.editCurses:SetText(node[1] or "")
 								self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
 							end
 						elseif node.attrib.name == "Link Skills" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
 								if #self.controls.editLinks.buf > 0 then
-									node.attrib.string = self.controls.editLinks.buf.."\n"..node.attrib.string
+									node[1] = self.controls.editLinks.buf.."\n"..(node[1] or "")
 								end
-								self.controls.editLinks:SetText(node.attrib.string)
+								self.controls.editLinks:SetText(node[1] or "")
 								self:ParseBuffs(self.processedInput["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
 							end
 						elseif node.attrib.name == "EnemyConditions" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
 								if #self.controls.enemyCond.buf > 0 then
-									node.attrib.string = self.controls.enemyCond.buf.."\n"..node.attrib.string
+									node[1] = self.controls.enemyCond.buf.."\n"..(node[1] or "")
 								end
-								self.controls.enemyCond:SetText(node.attrib.string)
+								self.controls.enemyCond:SetText(node[1] or "")
 							end
 						elseif node.attrib.name == "EnemyMods" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyMods" then
 								if #self.controls.enemyMods.buf > 0 then
-									node.attrib.string = self.controls.enemyMods.buf.."\n"..node.attrib.string
+									node[1] = self.controls.enemyMods.buf.."\n"..(node[1] or "")
 								end
-								self.controls.enemyMods:SetText(node.attrib.string)
+								self.controls.enemyMods:SetText(node[1] or "")
 							end
 						end
 					end
@@ -438,37 +438,37 @@ end)
 
 function PartyTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
-		if node.elem == "ImportedText" then
+		if node.elem == "ImportedBuffs" then
 			if not node.attrib.name then
 				ConPrintf("missing name")
 			elseif node.attrib.name == "Aura" then
-				self.controls.editAuras:SetText(node.attrib.string)
-				self:ParseBuffs(self.processedInput["Aura"], node.attrib.string, "Aura", self.controls.simpleAuras)
+				self.controls.editAuras:SetText(node[1] or "")
+				self:ParseBuffs(self.processedInput["Aura"], node[1] or "", "Aura", self.controls.simpleAuras)
 			elseif node.attrib.name == "Curse" then
-				self.controls.editCurses:SetText(node.attrib.string)
-				self:ParseBuffs(self.processedInput["Curse"], node.attrib.string, "Curse", self.controls.simpleCurses)
+				self.controls.editCurses:SetText(node[1] or "")
+				self:ParseBuffs(self.processedInput["Curse"], node[1] or "", "Curse", self.controls.simpleCurses)
 			elseif node.attrib.name == "Link Skills" then
-				self.controls.editLinks:SetText(node.attrib.string)
-				self:ParseBuffs(self.processedInput["Link"], node.attrib.string, "Link", self.controls.simpleLinks)
+				self.controls.editLinks:SetText(node[1] or "")
+				self:ParseBuffs(self.processedInput["Link"], node[1] or "", "Link", self.controls.simpleLinks)
 			elseif node.attrib.name == "EnemyConditions" then
-				self.controls.enemyCond:SetText(node.attrib.string)
-				self:ParseBuffs(self.enemyModList, node.attrib.string, "EnemyConditions")
+				self.controls.enemyCond:SetText(node[1] or "")
+				self:ParseBuffs(self.enemyModList, node[1] or "", "EnemyConditions")
 			elseif node.attrib.name == "EnemyMods" then
-				self.controls.enemyMods:SetText(node.attrib.string)
-				self:ParseBuffs(self.enemyModList, node.attrib.string, "EnemyMods")
+				self.controls.enemyMods:SetText(node[1] or "")
+				self:ParseBuffs(self.enemyModList, node[1] or "", "EnemyMods")
 			end
 		elseif node.elem == "ExportedBuffs" then
 			if not node.attrib.name then
 				ConPrintf("missing name")
 			end
 			if node.attrib.name ~= "EnemyConditions" and node.attrib.name ~= "EnemyMods" then
-				self:ParseBuffs(self.buffExports, node.attrib.string, node.attrib.name)
+				self:ParseBuffs(self.buffExports, node[1] or "", node.attrib.name)
 			end
-			--self:ParseBuffs(self.buffExports, node.attrib.string, "Aura")
-			--self:ParseBuffs(self.buffExports, node.attrib.string, "Curse")
-			--self:ParseBuffs(self.buffExports, node.attrib.string, "Link")
-			--self:ParseBuffs(self.buffExports, node.attrib.string, "EnemyConditions")
-			--self:ParseBuffs(self.buffExports, node.attrib.string, "EnemyMods")
+			--self:ParseBuffs(self.buffExports, node[1] or "", "Aura")
+			--self:ParseBuffs(self.buffExports, node[1] or "", "Curse")
+			--self:ParseBuffs(self.buffExports, node[1] or "", "Link")
+			--self:ParseBuffs(self.buffExports, node[1] or "", "EnemyConditions")
+			--self:ParseBuffs(self.buffExports, node[1] or "", "EnemyMods")
 		end
 	end
 	self.lastContent.Aura = self.controls.editAuras.buf
@@ -487,35 +487,35 @@ function PartyTabClass:Load(xml, fileName)
 end
 
 function PartyTabClass:Save(xml)
-	local child = { elem = "ImportedText", attrib = { name = "Aura" } }
-	child.attrib.string = self.controls.editAuras.buf
+	local child = { elem = "ImportedBuffs", attrib = { name = "Aura" } }
+	t_insert(child, self.controls.editAuras.buf or "")
 	t_insert(xml, child)
-	child = { elem = "ImportedText", attrib = { name = "Curse" } }
-	child.attrib.string = self.controls.editCurses.buf
+	child = { elem = "ImportedBuffs", attrib = { name = "Curse" } }
+	t_insert(child, self.controls.editCurses.buf or "")
 	t_insert(xml, child)
-	child = { elem = "ImportedText", attrib = { name = "Link Skills" } }
-	child.attrib.string = self.controls.editLinks.buf
+	child = { elem = "ImportedBuffs", attrib = { name = "Link Skills" } }
+	t_insert(child, self.controls.editLinks.buf or "")
 	t_insert(xml, child)
-	child = { elem = "ImportedText", attrib = { name = "EnemyConditions" } }
-	child.attrib.string = self.controls.enemyCond.buf
+	child = { elem = "ImportedBuffs", attrib = { name = "EnemyConditions" } }
+	t_insert(child, self.controls.enemyCond.buf or "")
 	t_insert(xml, child)
-	child = { elem = "ImportedText", attrib = { name = "EnemyMods" } }
-	child.attrib.string = self.controls.enemyMods.buf
+	child = { elem = "ImportedBuffs", attrib = { name = "EnemyMods" } }
+	t_insert(child, self.controls.enemyMods.buf or "")
 	t_insert(xml, child)
 	child = { elem = "ExportedBuffs", attrib = { name = "Aura" } }
-	child.attrib.string = self:exportBuffs("Aura")
+	t_insert(child, self:exportBuffs("Aura") or "")
 	t_insert(xml, child)
 	child = { elem = "ExportedBuffs", attrib = { name = "Curse" } }
-	child.attrib.string = self:exportBuffs("Curse")
+	t_insert(child, self:exportBuffs("Curse") or "")
 	t_insert(xml, child)
 	child = { elem = "ExportedBuffs", attrib = { name = "Link Skills" } }
-	child.attrib.string = self:exportBuffs("Link")
+	t_insert(child, self:exportBuffs("Link") or "")
 	t_insert(xml, child)
 	child = { elem = "ExportedBuffs", attrib = { name = "EnemyConditions" } }
-	child.attrib.string = self:exportBuffs("EnemyConditions")
+	t_insert(child, self:exportBuffs("EnemyConditions") or "")
 	t_insert(xml, child)
 	child = { elem = "ExportedBuffs", attrib = { name = "EnemyMods" } }
-	child.attrib.string = self:exportBuffs("EnemyMods")
+	t_insert(child, self:exportBuffs("EnemyMods") or "")
 	t_insert(xml, child)
 	self.lastContent.Aura = self.controls.editAuras.buf
 	self.lastContent.Curse = self.controls.editCurses.buf
