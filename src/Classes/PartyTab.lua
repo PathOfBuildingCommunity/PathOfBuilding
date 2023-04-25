@@ -234,7 +234,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.importCodeDetail or ""
 	end
 	self.controls.importCodeDestination = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, partyDestinations)
-	self.controls.importCodeDestination.tooltipText = "Destination for Import/clear\nCurrently EnemyCondtions, EnemyMods and Links Skills do not export"
+	self.controls.importCodeDestination.tooltipText = "Destination for Import/clear\nCurrently EnemyConditions, EnemyMods and Links Skills do not export"
 	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeDestination,"RIGHT"}, 8, 0, 160, 20, "Import", function()
 		local importCodeFetching = false
 		if self.importCodeSite and not self.importCodeXML then
