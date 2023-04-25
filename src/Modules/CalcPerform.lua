@@ -1103,12 +1103,10 @@ local function doActorMisc(env, actor)
 		if modDB:Flag(nil, "CanLeechLifeOnFullLife") then
 			condList["Leeching"] = true
 			condList["LeechingLife"] = true
-			env.configInput.conditionLeeching = true
 		end
 		if modDB:Flag(nil, "CanLeechEnergyShieldOnFullEnergyShield") then
 			condList["Leeching"] = true
 			condList["LeechingEnergyShield"] = true
-			env.configInput.conditionLeeching = true
 		end
 		if modDB:Flag(nil, "Condition:InfusionActive") then
 			local effect = 1 + modDB:Sum("INC", nil, "InfusionEffect", "BuffEffectOnSelf") / 100
