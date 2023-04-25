@@ -264,7 +264,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 	end
 	self.controls.appendNotReplace = new("CheckBoxControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, 60, 0, 20, "Append", function(state)
-	end, "This sets the impornt button to append to the current party lists isntead of replacing them (curses will still replace)", false)
+	end, "This sets the import button to append to the current party lists instead of replacing them (curses will still replace)", false)
 	self.controls.appendNotReplace.x = function()
 		return (self.width > 1350) and 60 or (-276)
 	end
@@ -592,7 +592,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					t_insert(modStrings, line2)
 				end
 				if #modStrings >= 7 then
-					-- should be done with a modified version of "modlib.ParseTags" where conditions check vs the party
+					-- should be done with a modified version of "modLib.parseTags" where conditions check vs the party
 					-- and check that the ones in the build are NOT true, such that your effects override the supports
 					local tags = nil -- modStrings[7]
 					list:NewMod(modStrings[3], modStrings[4], tonumber(modStrings[1]), "Party"..modStrings[2], ModFlag[modStrings[5]] or 0, KeywordFlag[modStrings[6]] or 0, tags)
@@ -638,7 +638,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				mode = "Name"
 			else
 				if line:find("|") then
-					local modType, mod = modLib.parseFormatedSourceMod(line, currentModType)
+					local modType, mod = modLib.parseFormattedSourceMod(line, currentModType)
 					if mod then
 						currentModType = modType
 						list[modType] = list[modType] or {}

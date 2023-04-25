@@ -93,7 +93,7 @@ function modLib.parseTags(line, currentModType)
 	return modType, extraTags
 end
 
-function modLib.parseFormatedSourceMod(line, currentModType)
+function modLib.parseFormattedSourceMod(line, currentModType)
 	local modStrings = {}
 	for line2 in line:gmatch("([^|]*)|?") do
 		t_insert(modStrings, line2)
