@@ -3877,7 +3877,24 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
 	
+	 -- Export modifiers to enemy conditions and stats for party tab
 	if env.build.partyTab.enableExportBuffs then
+		for k, v in pairs(enemyDB.mods) do
+            if k:find("Condition") and not k:find("Party") then
+                buffExports["EnemyConditions"][k] = true
+            end
+        end
+        for k, v in pairs(enemyDB.mods) do
+            if (k:find("Resist") and not k:find("Totem") and not k:find("Max")) or k:find("Damage") or k:find("ActionSpeed") or k:find("SelfCrit") or (k:find("Multiplier") and not k:find("Max") and not k:find("Impale")) then
+                for k2, v2 in ipairs(v) do
+                    if not v2.party and v2.value ~= 0 and v2.source ~= "EnemyConfig" and not v2.source:find("Delirious") and not (v2[1] and (v2[1].effectType == "Curse" or v2[1].effectType == "AuraDebuff")) then
+                        if not v2[1] or ((v2[1].type ~= "Condition" or (enemyDB.mods["Condition:"..v2[1].var] and enemyDB.mods["Condition:"..v2[1].var][1].value)) and (v2[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v2[1].var] and enemyDB.mods["Multiplier:"..v2[1].var][1].value))) then
+                            buffExports["EnemyMods"][k] = v2
+                        end
+                    end
+                end
+            end
+        end
 		env.build.partyTab:setBuffExports(buffExports)
 	end
 
