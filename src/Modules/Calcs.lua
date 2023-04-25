@@ -682,6 +682,18 @@ function calcs.buildOutput(build, mode)
 		if env.modDB:Flag(nil, "HerEmbrace") then
 			t_insert(combatList, "Her Embrace")
 		end
+		if env.modDB:Flag(nil, "LesserMassiveShrine") then
+			t_insert(combatList, "Lesser Massive Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserBrutalShrine") then
+			t_insert(combatList, "Lesser Brutal Shrine")
+		end
+		if env.modDB:Flag(nil, "DiamondShrine") then
+			t_insert(combatList, "Diamond Shrine")
+		end
+		if env.modDB:Flag(nil, "MassiveShrine") then
+			t_insert(combatList, "Massive Shrine")
+		end
 		for name in pairs(env.buffs) do
 			t_insert(buffList, name)
 		end
@@ -761,6 +773,12 @@ function calcs.buildOutput(build, mode)
 			end
 			if env.minion.modDB:Flag(nil, "Tailwind") then
 				t_insert(combatList, "Tailwind")
+			end
+			if env.minion.modDB:Flag(nil, "DiamondShrine") then
+				t_insert(combatList, "Diamond Shrine")
+			end
+			if env.minion.modDB:Flag(nil, "MassiveShrine") then
+				t_insert(combatList, "Massive Shrine")
 			end
 			for name in pairs(env.minionBuffs) do
 				t_insert(buffList, name)

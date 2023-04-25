@@ -398,6 +398,7 @@ local modNameList = {
 	["effect of herald buffs on you"] = { "BuffEffect", tag = { type = "SkillType", skillType = SkillType.Herald } },
 	["effect of buffs granted by your active ancestor totems"] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Ancestral Warchief", "Ancestral Protector", "Earthbreaker" } } },
 	["effect of buffs your ancestor totems grant "] = { "BuffEffect", tag = { type = "SkillName", skillNameList = { "Ancestral Warchief", "Ancestral Protector", "Earthbreaker" } } },
+	["effect of shrine buffs on you"] = "ShrineBuffEffect",
 	["effect of withered"] = "WitherEffect",
 	["warcry effect"] = { "BuffEffect", keywordFlags = KeywordFlag.Warcry },
 	["aspect of the avian buff effect"] = { "BuffEffect", tag = { type = "SkillName", skillName = "Aspect of the Avian" } },
@@ -741,6 +742,10 @@ local modNameList = {
 	["phasing"] = "Condition:Phasing",
 	["arcane surge"] = "Condition:ArcaneSurge",
 	["unholy might"] = "Condition:UnholyMight",
+	["lesser brutal shrine buff"] = "Condition:LesserBrutalShrine",
+	["lesser massive shrine buff"] = "Condition:LesserMassiveShrine",
+	["diamond shrine buff"] = "Condition:DiamondShrine",
+	["massive shrine buff"] = "Condition:MassiveShrine",
 }
 
 -- List of modifier flags
@@ -3333,21 +3338,11 @@ local specialModList = {
 	["regenerate (%d+)%% life over one second when hit while sane"] = function(num) return {
 		mod("LifeRegenPercent", "BASE", num, { type = "Condition", var = "Insane", neg = true }, { type = "Condition", var = "BeenHitRecently" }),
 	} end,
-	["you have lesser brutal shrine buff"] = {
-		mod("ShrineBuff", "LIST", { mod = mod("Damage", "INC", 20) }),
-		mod("ShrineBuff", "LIST", { mod = mod("EnemyStunDuration", "INC", 20) }),
-		mod("EnemyKnockbackChance", "BASE", 100)
-	},
-	["you have lesser massive shrine buff"] = {
-		mod("ShrineBuff", "LIST", { mod = mod("Life", "INC", 20) }),
-		mod("ShrineBuff", "LIST", { mod = mod("AreaOfEffect", "INC", 20) })
-	},
 	["you count as on low (%a+) while at (%d+)%% of maximum (%a+) or below"] = function(_, resourceType, numStr) return { mod("Low"..resourceType:gsub("^%l", string.upper).."Percentage", "BASE", tonumber(numStr) / 100.0) } end,
 	["you count as on full (%a+) while at (%d+)%% of maximum (%a+) or above"] = function(_, resourceType, numStr) return { mod("Full"..resourceType:gsub("^%l", string.upper).."Percentage", "BASE", tonumber(numStr) / 100.0) } end,
 	["(%d+)%% more maximum life if you have at least (%d+) life masteries allocated"] = function(num, _, thresh) return {
 		mod("Life", "MORE", num, { type = "MultiplierThreshold", var = "AllocatedLifeMastery", threshold = tonumber(thresh) }),
 	} end,
-	["(%d+)%% increased effect of shrine buffs on you"] = function(num) return { mod("ShrineBuffEffect", "INC", num) } end,
 	["left ring slot: cover enemies in ash for 5 seconds when you ignite them"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "SlotNumber", num = 1 }, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) },
 	["right ring slot: cover enemies in frost for 5 seconds when you freeze them"] = { mod("CoveredInFrostEffect", "BASE", 20, { type = "SlotNumber", num = 2 }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }) },
 	["nearby enemies are covered in ash"] = { mod("CoveredInAshEffect", "BASE", 20) },
@@ -3432,6 +3427,16 @@ local specialModList = {
 	["s?u?m?m?o?n?e?d? ?raging spirits' hits always ignite"] = { mod("MinionModifier", "LIST", { mod = mod("EnemyIgniteChance", "BASE", 100) }, { type = "SkillName", skillName = "Summon Raging Spirit" }) },
 	["raised zombies have avatar of fire"] = { mod("MinionModifier", "LIST", { mod = mod("Keystone", "LIST", "Avatar of Fire") }, { type = "SkillName", skillName = "Raise Zombie" }) },
 	["raised zombies take ([%d%.]+)%% of their maximum life per second as fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) }, { type = "SkillName", skillName = "Raise Zombie" }) } end,
+	["maximum number of summoned raging spirits is (%d+)"] = function(num) return { mod("ActiveRagingSpiritLimit", "OVERRIDE", num) } end,
+	["maximum number of summoned phantasms is (%d+)"] = function(num) return { mod("ActivePhantasmLimit", "OVERRIDE", num) } end,
+	["summoned raging spirits have diamond shrine and massive shrine buffs"] = {
+		mod("MinionModifier", "LIST", { mod = flag("Condition:DiamondShrine") }, { type = "SkillName", skillName = "Summon Raging Spirit" }),
+		mod("MinionModifier", "LIST", { mod = flag("Condition:MassiveShrine") }, { type = "SkillName", skillName = "Summon Raging Spirit" }),
+	},
+	["summoned phantasms have diamond shrine and massive shrine buffs"] = {
+		mod("MinionModifier", "LIST", { mod = flag("Condition:DiamondShrine") }, { type = "SkillName", skillName = "Summon Phantasm" }),
+		mod("MinionModifier", "LIST", { mod = flag("Condition:MassiveShrine") }, { type = "SkillName", skillName = "Summon Phantasm" }),
+	},
 	["minions deal no non%-physical damage"] = {
 		mod("MinionModifier", "LIST", { mod = flag("DealNoLightning") }),
 		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
@@ -4631,6 +4636,8 @@ local flagTypes = {
 	["fortify"] = "Condition:Fortified",
 	["fortified"] = "Condition:Fortified",
 	["unholy might"] = "Condition:UnholyMight",
+	["lesser brutal shrine buff"] = "Condition:LesserBrutalShrine",
+	["lesser massive shrine buff"] = "Condition:LesserMassiveShrine",
 	["tailwind"] = "Condition:Tailwind",
 	["intimidated"] = "Condition:Intimidated",
 	["crushed"] = "Condition:Crushed",

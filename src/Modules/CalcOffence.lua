@@ -863,7 +863,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- Calculate skill type stats
 	if skillFlags.minion then
 		if activeSkill.minion and activeSkill.minion.minionData.limit then
-			output.ActiveMinionLimit = m_floor(calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
+			output.ActiveMinionLimit = m_floor(env.modDB:Override(nil, activeSkill.minion.minionData.limit) or calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
 		end
 	end
 	if skillFlags.chaining then
