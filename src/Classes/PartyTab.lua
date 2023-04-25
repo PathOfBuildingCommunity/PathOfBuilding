@@ -487,35 +487,60 @@ end
 
 function PartyTabClass:Save(xml)
 	local child = { elem = "ImportedBuffs", attrib = { name = "Aura" } }
-	t_insert(child, self.controls.editAuras.buf or "")
-	t_insert(xml, child)
-	child = { elem = "ImportedBuffs", attrib = { name = "Curse" } }
-	t_insert(child, self.controls.editCurses.buf or "")
-	t_insert(xml, child)
-	child = { elem = "ImportedBuffs", attrib = { name = "Link Skills" } }
-	t_insert(child, self.controls.editLinks.buf or "")
-	t_insert(xml, child)
-	child = { elem = "ImportedBuffs", attrib = { name = "EnemyConditions" } }
-	t_insert(child, self.controls.enemyCond.buf or "")
-	t_insert(xml, child)
-	child = { elem = "ImportedBuffs", attrib = { name = "EnemyMods" } }
-	t_insert(child, self.controls.enemyMods.buf or "")
-	t_insert(xml, child)
-	child = { elem = "ExportedBuffs", attrib = { name = "Aura" } }
-	t_insert(child, self:exportBuffs("Aura") or "")
-	t_insert(xml, child)
-	child = { elem = "ExportedBuffs", attrib = { name = "Curse" } }
-	t_insert(child, self:exportBuffs("Curse") or "")
-	t_insert(xml, child)
-	child = { elem = "ExportedBuffs", attrib = { name = "Link Skills" } }
-	t_insert(child, self:exportBuffs("Link") or "")
-	t_insert(xml, child)
-	child = { elem = "ExportedBuffs", attrib = { name = "EnemyConditions" } }
-	t_insert(child, self:exportBuffs("EnemyConditions") or "")
-	t_insert(xml, child)
-	child = { elem = "ExportedBuffs", attrib = { name = "EnemyMods" } }
-	t_insert(child, self:exportBuffs("EnemyMods") or "")
-	t_insert(xml, child)
+	if self.controls.editAuras.buf and self.controls.editAuras.buf ~= "" then
+		t_insert(child, self.controls.editAuras.buf)
+		t_insert(xml, child)
+	end
+	if self.controls.editCurses.buf and self.controls.editCurses.buf ~= "" then
+		child = { elem = "ImportedBuffs", attrib = { name = "Curse" } }
+		t_insert(child, self.controls.editCurses.buf)
+		t_insert(xml, child)
+	end
+	if self.controls.editLinks.buf and self.controls.editLinks.buf ~= "" then
+		child = { elem = "ImportedBuffs", attrib = { name = "Link Skills" } }
+		t_insert(child, self.controls.editLinks.buf)
+		t_insert(xml, child)
+	end
+	if self.controls.enemyCond.buf and self.controls.enemyCond.buf ~= "" then
+		child = { elem = "ImportedBuffs", attrib = { name = "EnemyConditions" } }
+		t_insert(child, self.controls.enemyCond.buf)
+		t_insert(xml, child)
+	end
+	if self.controls.enemyMods.buf and self.controls.enemyMods.buf ~= "" then
+		child = { elem = "ImportedBuffs", attrib = { name = "EnemyMods" } }
+		t_insert(child, self.controls.enemyMods.buf)
+		t_insert(xml, child)
+	end
+	local exportString = self:exportBuffs("Aura")
+	if exportString ~= "" then
+		child = { elem = "ExportedBuffs", attrib = { name = "Aura" } }
+		t_insert(child, self:exportBuffs("Aura"))
+		t_insert(xml, child)
+	end
+	exportString = self:exportBuffs("Curse")
+	if exportString ~= "" then
+		child = { elem = "ExportedBuffs", attrib = { name = "Curse" } }
+		t_insert(child, self:exportBuffs("Curse"))
+		t_insert(xml, child)
+	end
+	exportString = self:exportBuffs("Link")
+	if exportString ~= "" then
+		child = { elem = "ExportedBuffs", attrib = { name = "Link Skills" } }
+		t_insert(child, self:exportBuffs("Link"))
+		t_insert(xml, child)
+	end
+	exportString = self:exportBuffs("EnemyConditions")
+	if exportString ~= "" then
+		child = { elem = "ExportedBuffs", attrib = { name = "EnemyConditions" } }
+		t_insert(child, self:exportBuffs("EnemyConditions"))
+		t_insert(xml, child)
+	end
+	exportString = self:exportBuffs("EnemyMods")
+	if exportString ~= "" then
+		child = { elem = "ExportedBuffs", attrib = { name = "EnemyMods" } }
+		t_insert(child, self:exportBuffs("EnemyMods"))
+		t_insert(xml, child)
+	end
 	self.lastContent.Aura = self.controls.editAuras.buf
 	self.lastContent.Curse = self.controls.editCurses.buf
 	self.lastContent.Link = self.controls.editLinks.buf
