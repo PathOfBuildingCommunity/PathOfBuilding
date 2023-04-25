@@ -31,10 +31,10 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	
 	local partyDestinations = { "All", "Aura", "Curse", "Link Skills", "EnemyConditions", "EnemyMods" }
 
-	local notesDesc = [[^7Do not edit any boxes unless you know what you are doing, use copy/paste or import instead
-	To import a build, you must export that build with "Export Support" ticked after it has been saved
-	The Strongest Aura applies, but your curses override the supports regardless of strength
-	]]
+	local notesDesc = [[^7To import a build it must be exported with "Export support" enabled in the import/export tab
+	Auras with the highest effect will take priority, your curses will take priority over a support's
+	
+	All of these effects can be found in the Calcs tab]]
 	
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
 	self.controls.notesDesc.width = function()
@@ -53,7 +53,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			if c == '\n' then lineCount = lineCount + 1 end
 		end
 
-		return (lineCount - 2) * 16
+		return (lineCount - 1) * 16
 	end
 	
 	local clearInputText = function()
@@ -278,9 +278,10 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
+	self.controls.clear.tooltipText = "^7Clears all the party tab imported data"
 	
 	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, 20, "Show Advanced Info", function(state)
-	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export", false)
+	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export\nDo not edit any boxes unless you know what you are doing, use copy/paste or import instead", false)
 	self.controls.ShowAdvanceTools.y = function()
 		return (self.width > 1350) and 4 or 32
 	end
@@ -292,6 +293,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
+	self.controls.removeEffects.tooltipText = "^7Removes the effects of the supports, without removing the data\nUse \"rebuild all\" to apply the effects again"
 	
 	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, 20, "Rebuild All", function() 
 		wipeTable(self.processedInput)
@@ -305,16 +307,13 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
 		self.build.buildFlag = true 
 	end)
-	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have changed since loading the build or importing"
+	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have been disabled or they have changed since loading the build or importing"
 	self.controls.rebuild.x = function()
 		return (self.width > 1350) and 8 or (-328)
 	end
 	self.controls.rebuild.y = function()
 		return (self.width > 1350) and 0 or 28
 	end
-	self.controls.help = new("ButtonControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 8, 0, 72, 20, "Help", function() 
-		self:OpenHelpPopup()
-	end)
 
 	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 150, 16, "^7Auras")
 	self.controls.editAurasLabel.y = function()
@@ -358,7 +357,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editLinks.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 16, "")
+	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 16, "Link Skills are not currently supported")
 	self.controls.simpleLinks.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
@@ -374,17 +373,21 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyCond.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
+	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, 16, "Enemy Conditions are not exported but will still work if correctly added")
+	self.controls.simpleEnemyCond.shown = function()
+		return not self.controls.ShowAdvanceTools.state
+	end
 
 	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Enemy Modifiers")
 	self.controls.enemyModsLabel.y = function()
 		if self.controls.ShowAdvanceTools.state then
 			return (8 + self.controls.enemyCond.height())
 		end
-		local lineCount = 0
-		--[[for i = 1, #self.controls.simpleAuras.label do
-			local c = self.controls.simpleAuras.label:sub(i, i)
+		local lineCount = 1
+		for i = 1, #self.controls.simpleEnemyCond.label do
+			local c = self.controls.simpleEnemyCond.label:sub(i, i)
 			if c == '\n' then lineCount = lineCount + 1 end
-		end--]]
+		end
 
 		return (lineCount) * 16 + 4
 	end
@@ -398,17 +401,21 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyMods.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
+	self.controls.simpleEnemyMods = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"TOPLEFT"}, 0, 18, 0, 16, "Enemy Modifiers are not exported but will still work if correctly added")
+	self.controls.simpleEnemyMods.shown = function()
+		return not self.controls.ShowAdvanceTools.state
+	end
 
 	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 8, 150, 16, "^7Curses")
 	self.controls.editCursesLabel.y = function()
 		if self.controls.ShowAdvanceTools.state then
 			return (8 + self.controls.enemyMods.height())
 		end
-		local lineCount = 0
-		--[[for i = 1, #self.controls.simpleAuras.label do
-			local c = self.controls.simpleAuras.label:sub(i, i)
+		local lineCount = 1
+		for i = 1, #self.controls.simpleEnemyMods.label do
+			local c = self.controls.simpleEnemyMods.label:sub(i, i)
 			if c == '\n' then lineCount = lineCount + 1 end
-		end--]]
+		end
 
 		return (lineCount) * 16 + 4
 	end
@@ -428,27 +435,6 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end
 	self:SelectControl(self.controls.editAuras)
 end)
-
-function PartyTabClass:OpenHelpPopup()	
-	local helpText = [[To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab.
-All of these effects can be found in the Calcs tab
- 
-Auras with the highest effect will take priority
-Your curses will take priority over a support's]]
-	local helpList = { }
-	for line in helpText:gmatch("[^\r\n]+") do
-		local innerLines = main:WrapString(line, 16, 560)
-		for i, innerLine in ipairs(innerLines) do
-			t_insert(helpList, { height = 16, (i == 1 and "^7" or "^7  ")..innerLine })
-		end
-	end
-	local controls = { }
-	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
-		main:ClosePopup()
-	end)
-	controls.help = new("TextListControl", nil, 0, 33, 630, 457, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, helpList)
-	main:OpenPopup(650, 500, "Help", controls)
-end
 
 function PartyTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
