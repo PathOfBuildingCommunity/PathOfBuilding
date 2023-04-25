@@ -343,6 +343,7 @@ function ImportTabClass:Load(xml, fileName)
 	self.controls.accountRealm:SelByValue( self.lastRealm or main.lastRealm or "PC", "id" )
 	self.lastAccountHash = xml.attrib.lastAccountHash
 	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
+	self.build.partyTab.enableExportBuffs = self.controls.enablePartyExportBuffs.state
 	if self.lastAccountHash then
 		for accountName in pairs(main.gameAccounts) do
 			if common.sha1(accountName) == self.lastAccountHash then

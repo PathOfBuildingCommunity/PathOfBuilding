@@ -234,7 +234,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.importCodeDetail or ""
 	end
 	self.controls.importCodeDestination = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, partyDestinations)
-	self.controls.importCodeDestination.tooltip = "Destination for Import/clear\nCurrently EnemyCondtions, EnemyMods and Links Skills do not export"
+	self.controls.importCodeDestination.tooltipText = "Destination for Import/clear\nCurrently EnemyCondtions, EnemyMods and Links Skills do not export"
 	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeDestination,"RIGHT"}, 8, 0, 160, 20, "Import", function()
 		local importCodeFetching = false
 		if self.importCodeSite and not self.importCodeXML then
@@ -305,7 +305,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
 		self.build.buildFlag = true 
 	end)
-	self.controls.rebuild.tooltip = "^7Reparse all the inputs incase they have changed since loading the build or importing" -- buttons cant have tooltips?
+	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have changed since loading the build or importing"
 	self.controls.rebuild.x = function()
 		return (self.width > 1350) and 8 or (-328)
 	end
@@ -601,52 +601,6 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 			or self.lastContent.showAdvancedTools ~= self.controls.ShowAdvanceTools.state)
 end
 
-function PartyTabClass:ParseTags(line, currentModType)
-	 -- should parse this correctly instead of string match
-	if not line then
-		return "none", {}
-	end
-	local extraTags = {}
-	local modType = currentModType
-	for line2 in line:gmatch("([^,]*),?") do
-		if line2:find("type=GlobalEffect/") then
-			if line2:find("type=GlobalEffect/effectType=AuraDebuff") then
-				t_insert(extraTags, {
-					type = "GlobalEffect",
-					effectType = "AuraDebuff"
-				})
-				modType = "AuraDebuff"
-			elseif line2:find("type=GlobalEffect/effectType=Aura") then
-				t_insert(extraTags, {
-					type = "GlobalEffect",
-					effectType = "Aura"
-				})
-				modType = "Aura"
-			elseif line2:find("type=GlobalEffect/effectType=Curse") then
-				t_insert(extraTags, {
-					type = "GlobalEffect",
-					effectType = "Curse"
-				})
-				modType = "Curse"
-			end
-		elseif line2:find("type=Condition/") then
-			if line2:find("type=Condition/neg=true/var=RareOrUnique") then
-				t_insert(extraTags, {
-					type = "Condition",
-					neg = true,
-					var = "RareOrUnique"
-				})
-			elseif line2:find("type=Condition/var=RareOrUnique") then
-				t_insert(extraTags, {
-					type = "Condition",
-					var = "RareOrUnique"
-				})
-			end
-		end
-	end
-	return modType, extraTags
-end
-
 function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 	if buffType == "EnemyConditions" then
 		for line in buf:gmatch("([^\n]*)\n?") do
@@ -667,7 +621,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					t_insert(modStrings, line2)
 				end
 				if #modStrings >= 7 then
-					-- should be done with a modified version of "PartyTabClass:ParseTags" where conditions check vs the party
+					-- should be done with a modified version of "modlib.ParseTags" where conditions check vs the party
 					-- and check that the ones in the build are NOT true, such that your effects override the supports
 					local tags = nil -- modStrings[7]
 					list:NewMod(modStrings[3], modStrings[4], tonumber(modStrings[1]), "Party"..modStrings[2], ModFlag[modStrings[5]] or 0, KeywordFlag[modStrings[6]] or 0, tags)
@@ -697,7 +651,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					mode = "Stats"
 				else
 					mode = "Effect"
-					currentModType = ""
+					currentModType = "Unknown"
 				end
 			elseif mode == "Effect" then
 				currentEffect = tonumber(line)
@@ -713,34 +667,11 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				mode = "Name"
 			else
 				if line:find("|") then
-					local modStrings = {}
-					for line2 in line:gmatch("([^|]*)|?") do
-						t_insert(modStrings, line2)
-					end
-					if #modStrings >= 4 then
-						local mod = {
-							value = (modStrings[1] == "true" and true) or tonumber(modStrings[1]) or 0,
-							source = modStrings[2],
-							name = modStrings[3],
-							type = modStrings[4],
-							flags = ModFlag[modStrings[5]] or 0,
-							keywordFlags = KeywordFlag[modStrings[6]] or 0,
-						}
-						local modType, Tags = self:ParseTags(modStrings[7], currentModType)
-						for _, tag in ipairs(Tags) do
-							t_insert(mod, tag)
-						end
+					local modType, mod = modLib.parseFormatedSourceMod(line, currentModType)
+					if mod then
 						currentModType = modType
-						if not list[modType] then
-							list[modType] = {}
-							list[modType][currentName] = {
-								modList = new("ModList"),
-								effectMult = currentEffect
-							}
-							if isMark then
-								list[modType][currentName].isMark = true
-							end
-						elseif not list[modType][currentName] then
+						list[modType] = list[modType] or {}
+						if not list[modType][currentName] then
 							list[modType][currentName] = {
 								modList = new("ModList"),
 								effectMult = currentEffect
@@ -827,11 +758,11 @@ function PartyTabClass:exportBuffs(buffType)
 			end
 			if buffType == "Curse" or buffType == "Aura"  then
 				for _, mod in ipairs(buff.modList) do
-					buf = buf.."\n"..tostring(mod.value).."|"..mod.source.."|"..modLib.formatModParams(mod)
+					buf = buf.."\n"..modLib.formatSourceMod(mod)
 				end
 				buf = buf.."\n---"
 			elseif buffType == "EnemyMods" then
-				buf = buf.."\n"..tostring(buff.value).."|"..buff.source.."|"..modLib.formatModParams(buff)
+				buf = buf.."\n"..modLib.formatSourceMod(buff)
 			end
 		end
 	end
