@@ -4371,6 +4371,7 @@ local specialModList = {
 		mod("FirePenetration", "BASE", num, { type = "SkillName", skillNameList = { "Ice Trap", "Lightning Trap" } }),
 	} end,
 	["volatile dead and cremation penetrate (%d+)%% fire resistance per (%d+) dexterity"] = function(inc, _, num) return { mod("FirePenetration", "BASE", inc, { type = "PerStat", stat = "Dex", div = num }, { type = "SkillName", skillNameList = { "Volatile Dead", "Cremation" } })	} end,
+	["%+(%d+)%% to wave of conviction damage over time multiplier per ([%d%.]+) seconds of duration expired"] = function(num) return { mod("WaveOfConvictionDurationDotMulti", "INC", num) } end,
 	-- Pantheon: Soul of Tukohama support
 	["while stationary, gain ([%d%.]+)%% of life regenerated per second every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("LifeRegenPercent", "BASE", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit), limitTotal = true }, { type = "Condition", var = "Stationary" }),
