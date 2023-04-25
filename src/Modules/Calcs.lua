@@ -543,6 +543,8 @@ function calcs.buildOutput(build, mode)
 					end
 				elseif tag.type == "ActorCondition" and tag.actor == "enemy" then
 					addVarTag(env.enemyConditionsUsed, tag, mod)
+				elseif tag.type == "ActorCondition" and tag.actor == "parent" then
+					addVarTag(env.conditionsUsed, tag, mod)
 				elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 					if not tag.actor then
 						if actor == env.player then

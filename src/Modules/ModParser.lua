@@ -2657,7 +2657,6 @@ local specialModList = {
 		flag("MinionDamageAppliesToPlayer", { type = "SkillName", skillNameList = { "Dominating Blow", "Absolution" } }),
 		mod("ImprovedMinionDamageAppliesToPlayer", "MAX", num, { type = "SkillName", skillNameList = { "Dominating Blow", "Absolution" } })
 	} end,
-
 	["increases and reductions to minion attack speed also affects? you"] = { flag("MinionAttackSpeedAppliesToPlayer"), mod("ImprovedMinionAttackSpeedAppliesToPlayer", "MAX", 100) },
 	["increases and reductions to cast speed apply to attack speed at (%d+)%% of their value"] =  function(num) return { flag("CastSpeedAppliesToAttacks"), mod("ImprovedCastSpeedAppliesToAttacks", "MAX", num) } end,
 	["increases and reductions to cast speed apply to attack speed"] =  function(num) return { flag("CastSpeedAppliesToAttacks"), mod("ImprovedCastSpeedAppliesToAttacks", "MAX", 100) } end,
@@ -2823,6 +2822,15 @@ local specialModList = {
 		flag("CannotScorch"),
 		flag("CannotBrittle"),
 		flag("CannotSap"),
+	},
+	["flameblast and incinerate cannot inflict elemental ailments"] = {
+		flag("CannotIgnite", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" } }),
+		flag("CannotChill", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" } }),
+		flag("CannotFreeze", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" } }),
+		flag("CannotShock", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" } }),
+		flag("CannotScorch", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" } }),
+		flag("CannotBrittle", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" } }),
+		flag("CannotSap", { type = "SkillName", skillNameList = { "Flameblast", "Incinerate" } }),
 	},
 	["you can inflict up to (%d+) ignites on an enemy"] = { flag("IgniteCanStack") },
 	["you can inflict an additional ignite on an enemy"] = { flag("IgniteCanStack"), mod("IgniteStacks", "BASE", 1) },
@@ -3422,7 +3430,21 @@ local specialModList = {
 	["if you have 3 primordial jewels, can summon up to (%d) additional golems? at a time"] = function(num) return { mod("ActiveGolemLimit", "BASE", num, { type = "MultiplierThreshold", var = "PrimordialItem", threshold = 3 }) } end,
 	["golems regenerate (%d)%% of their maximum life per second"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", num) }, { type = "SkillType", skillType = SkillType.Golem }) } end,
 	["summoned golems regenerate (%d)%% of their life per second"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", num) }, { type = "SkillType", skillType = SkillType.Golem }) } end,
+	["summoned carrion golems impale on hit if you have the same number of them as summoned chaos golems"] = {
+		mod("MinionModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 100, { type = "ActorCondition", actor = "parent", var = "CarrionEqualChaosGolem" }, { type = "ActorCondition", actor = "parent", var = "HaveChaosGolem" }) }, { type = "SkillName", skillName = "Summon Carrion Golem" })
+	},
+	["summoned chaos golems impale on hit if you have the same number of them as summoned stone golems"] = {
+		mod("MinionModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 100, { type = "ActorCondition", actor = "parent", var = "ChaosEqualStoneGolem" }, { type = "ActorCondition", actor = "parent", var = "HavePhysicalGolem" }) }, { type = "SkillName", skillName = "Summon Chaos Golem" })
+	},
+	["summoned stone golems impale on hit if you have the same number of them as summoned carrion golems"] = {
+		mod("MinionModifier", "LIST", { mod = mod("ImpaleChance", "BASE", 100, { type = "ActorCondition", actor = "parent", var = "StoneEqualCarrionGolem" }, { type = "ActorCondition", actor = "parent", var = "HaveCarrionGolem" }) }, { type = "SkillName", skillName = "Summon Stone Golem" })
+	},
+	["maximum life of summoned elemental golems is doubled"] = { mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", 100) }, { type = "SkillType", skillType = SkillType.Golem }, { type = "SkillType", skillTypeList = {SkillType.Lightning, SkillType.Cold, SkillType.Fire} }) },
 	["golems summoned in the past 8 seconds deal (%d+)%% increased damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", num, { type = "ActorCondition", actor = "parent", var = "SummonedGolemInPast8Sec" }) }, { type = "SkillType", skillType = SkillType.Golem }) } end,
+	["raised zombies and spectres gain adrenaline for 8 seconds when raised"] = {
+		mod("MinionModifier", "LIST", { mod = flag("Condition:Adrenaline") }, { type = "Condition", var = "SummonedSpectreInPast8Sec" }, { type = "SkillName", skillName = "Raise Spectre" }),
+		mod("MinionModifier", "LIST", { mod = flag("Condition:Adrenaline") }, { type = "Condition", var = "SummonedZombieInPast8Sec" }, { type = "SkillName", skillName = "Raise Zombie"})
+	},
 	["gain onslaught for 10 seconds when you cast socketed golem skill"] = function(num) return { flag("Condition:Onslaught", { type = "Condition", var = "SummonedGolemInPast10Sec" }) } end,
 	["s?u?m?m?o?n?e?d? ?raging spirits' hits always ignite"] = { mod("MinionModifier", "LIST", { mod = mod("EnemyIgniteChance", "BASE", 100) }, { type = "SkillName", skillName = "Summon Raging Spirit" }) },
 	["raised zombies have avatar of fire"] = { mod("MinionModifier", "LIST", { mod = mod("Keystone", "LIST", "Avatar of Fire") }, { type = "SkillName", skillName = "Raise Zombie" }) },
@@ -4370,7 +4392,8 @@ local specialModList = {
 		mod("ColdPenetration", "BASE", num, { type = "SkillName", skillNameList = { "Ice Trap", "Lightning Trap" } }),
 		mod("FirePenetration", "BASE", num, { type = "SkillName", skillNameList = { "Ice Trap", "Lightning Trap" } }),
 	} end,
-	["volatile dead and cremation penetrate (%d+)%% fire resistance per (%d+) dexterity"] = function(inc, _, num) return { mod("FirePenetration", "BASE", inc, { type = "PerStat", stat = "Dex", div = num }, { type = "SkillName", skillNameList = { "Volatile Dead", "Cremation" } })	} end,
+	["volatile dead and cremation penetrate (%d+)%% fire resistance per (%d+) dexterity"] = function(inc, _, num) return { mod("FirePenetration", "BASE", inc, { type = "PerStat", stat = "Dex", div = num }, { type = "SkillName", skillNameList = { "Volatile Dead", "Cremation" } }) } end,
+	["regenerate (%d+) mana per second while any enemy is in your righteous fire or scorching ray"] = function( num) return { mod("ManaRegen", "BASE", num, { type = "Condition", var = "InRFOrScorchingRay" }) } end,
 	["%+(%d+)%% to wave of conviction damage over time multiplier per ([%d%.]+) seconds of duration expired"] = function(num) return { mod("WaveOfConvictionDurationDotMulti", "INC", num) } end,
 	-- Pantheon: Soul of Tukohama support
 	["while stationary, gain ([%d%.]+)%% of life regenerated per second every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
