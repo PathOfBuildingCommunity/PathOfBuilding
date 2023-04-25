@@ -312,6 +312,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.rebuild.y = function()
 		return (self.width > 1350) and 0 or 28
 	end
+	self.controls.help = new("ButtonControl", {"LEFT",self.controls.rebuild,"RIGHT"}, 8, 0, 72, 20, "Help", function() 
+		self:OpenHelpPopup()
+	end)
 
 	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 150, 16, "^7Auras")
 	self.controls.editAurasLabel.y = function()
@@ -425,6 +428,40 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end
 	self:SelectControl(self.controls.editAuras)
 end)
+
+function PartyTabClass:OpenHelpPopup()	
+	local helpText = [[The Party tab Allows you to import support characters and have thier auras and curses apply
+
+To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab
+You can import a specific type like aura or curse, or import to all
+You can also set it to append to a section rather than replacing it (currently curses must be replaced if not empty due to more curse limits not working well)
+ 
+This does not add the auras or curses into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectivly
+They also show other effects they add, like when physical damage reduction is applied by an aurabot with the gaurdian node
+ 
+Only the highest aura will apply, so if you and the support both run the same aura and your % inc effect is higher it will apply (even if the actual amount yours gives is lower due to gem levels or whatever), this is how it works ingame
+Your curses will always apply before the supports though, so even if theres is a higher effect yours will be applied instead
+ 
+For now Enemy conditions and Modifiers are not exported but can be imported if its saved in the XML, and Links skills are not exported or parsed
+Some auras like Mines which use a stack value for thier effect will not apply as their stack value is missing
+ 
+Advanced info:
+    The format for the data is the name of the skill, the %increased effect and then the mods that are applied
+    The mods are done similar to the style from modlib, where it the value applied, the "source" of the mod, the modname, the type added (eg base/inc), the flags, the keywordflags, and then any other tags]]
+	local helpList = { }
+	for line in helpText:gmatch("[^\r\n]+") do
+		local innerLines = main:WrapString(line, 16, 560)
+		for i, innerLine in ipairs(innerLines) do
+			t_insert(helpList, { height = 16, (i == 1 and "^7" or "^7  ")..innerLine })
+		end
+	end
+	local controls = { }
+	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
+		main:ClosePopup()
+	end)
+	controls.help = new("TextListControl", nil, 0, 33, 630, 457, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, helpList)
+	main:OpenPopup(650, 500, "Help", controls)
+end
 
 function PartyTabClass:Load(xml, fileName)
 	for _, node in ipairs(xml) do
