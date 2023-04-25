@@ -17,14 +17,17 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.processedInput = { Aura = {}, Curse = {} }
 	self.enemyModList = new("ModList")
 	self.buffExports = {}
-	self.enableExportBuffs = true
+	self.enableExportBuffs = false
 
-	self.lastContentAura = ""
-	self.lastContentCurse = ""
-	self.lastContentLink = ""
-	self.lastContentEnemyCond = ""
-	self.lastContentEnemyMods = ""
-	self.lastEnableExportBuffs = true
+	self.lastContent = {
+		Aura = "",
+		Curse = "",
+		Link = "",
+		EnemyCond = "",
+		EnemyMods = "",
+		EnableExportBuffs = false,
+		showAdvancedTools = false,
+	}
 	
 	local partyDestinations = { "All", "Aura", "Curse", "Link Skills", "EnemyConditions", "EnemyMods" }
 
@@ -123,7 +126,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		if not self.importCodeValid or self.importCodeFetching then
 			return
 		end
-	
+		
+		local currentCurseBuffer = nil
 		if self.controls.appendNotReplace.state ~= true then
 			clearInputText()
 		else
@@ -132,6 +136,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 				self.processedInput["Aura"] = {}
 			end
 			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
+				currentCurseBuffer = self.controls.editCurses.buf
 				self.controls.editCurses:SetText("") --curses do not play nicely with append atm, need to fix
 				wipeTable(self.processedInput["Curse"])
 				self.processedInput["Curse"] = {}
@@ -171,6 +176,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
 								if #self.controls.editCurses.buf > 0 then
 									node.attrib.string = self.controls.editCurses.buf.."\n"..node.attrib.string
+								end
+								if currentCurseBuffer and node.attrib.string =="--- Curse Limit ---\n1" then
+									node.attrib.string = currentCurseBuffer
 								end
 								self.controls.editCurses:SetText(node.attrib.string)
 								self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
@@ -256,7 +264,6 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 	end
 	self.controls.appendNotReplace = new("CheckBoxControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, 60, 0, 20, "Append", function(state)
-		self.build.buildFlag = true 
 	end, "This sets the impornt button to append to the current party lists isntead of replacing them (curses will still replace)", false)
 	self.controls.appendNotReplace.x = function()
 		return (self.width > 1350) and 60 or (-276)
@@ -273,7 +280,6 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end)
 	
 	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, 20, "Show Advanced Info", function(state)
-		self.build.buildFlag = true 
 	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export", false)
 	self.controls.ShowAdvanceTools.y = function()
 		return (self.width > 1350) and 4 or 32
@@ -455,12 +461,19 @@ function PartyTabClass:Load(xml, fileName)
 			--self:ParseBuffs(self.buffExports, node.attrib.string, "EnemyMods")
 		end
 	end
-	self.lastContentAura = self.controls.editAuras.buf
-	self.lastContentCurse = self.controls.editCurses.buf
-	self.lastContentLink = self.controls.editLinks.buf
-	self.lastContentEnemyCond = self.controls.enemyCond.buf
-	self.lastContentEnemyMods = self.controls.enemyMods.buf
-	self.lastEnableExportBuffs = self.enableExportBuffs
+	self.lastContent.Aura = self.controls.editAuras.buf
+	self.lastContent.Curse = self.controls.editCurses.buf
+	self.lastContent.Link = self.controls.editLinks.buf
+	self.lastContent.EnemyCond = self.controls.enemyCond.buf
+	self.lastContent.EnemyMods = self.controls.enemyMods.buf
+	self.lastContent.EnableExportBuffs = self.enableExportBuffs
+	
+	self.controls.importCodeIn:SetText(xml.attrib.currentImportCode or "")
+	self.controls.importCodeDestination:SelByValue(xml.attrib.destination or "All")
+	self.controls.appendNotReplace.state = xml.attrib.append == "true"
+	self.controls.ShowAdvanceTools.state = xml.attrib.ShowAdvanceTools == "true"
+	
+	self.lastContent.showAdvancedTools = self.controls.ShowAdvanceTools.state
 end
 
 function PartyTabClass:Save(xml)
@@ -494,12 +507,19 @@ function PartyTabClass:Save(xml)
 	child = { elem = "ExportedBuffs", attrib = { name = "EnemyMods" } }
 	child.attrib.string = self:exportBuffs("EnemyMods")
 	t_insert(xml, child)
-	self.lastContentAura = self.controls.editAuras.buf
-	self.lastContentCurse = self.controls.editCurses.buf
-	self.lastContentLink = self.controls.editLinks.buf
-	self.lastContentEnemyCond = self.controls.enemyCond.buf
-	self.lastContentEnemyMods = self.controls.enemyMods.buf
-	self.lastEnableExportBuffs = self.enableExportBuffs
+	self.lastContent.Aura = self.controls.editAuras.buf
+	self.lastContent.Curse = self.controls.editCurses.buf
+	self.lastContent.Link = self.controls.editLinks.buf
+	self.lastContent.EnemyCond = self.controls.enemyCond.buf
+	self.lastContent.EnemyMods = self.controls.enemyMods.buf
+	self.lastContent.EnableExportBuffs = self.enableExportBuffs
+	xml.attrib = {
+		currentImportCode = self.controls.importCodeIn.buf,
+		destination = self.controls.importCodeDestination.list[self.controls.importCodeDestination.selIndex],
+		append = tostring(self.controls.appendNotReplace.state),
+		ShowAdvanceTools = tostring(self.controls.ShowAdvanceTools.state)
+	}
+	self.lastContent.showAdvancedTools = self.controls.ShowAdvanceTools.state
 end
 
 function PartyTabClass:Draw(viewPort, inputEvents)
@@ -535,12 +555,13 @@ function PartyTabClass:Draw(viewPort, inputEvents)
 
 	self:DrawControls(viewPort)
 
-	self.modFlag = (self.lastContentAura ~= self.controls.editAuras.buf 
-			or self.lastContentCurse ~= self.controls.editCurses.buf
-			or self.lastContentLink ~= self.controls.editLinks.buf
-			or self.lastContentEnemyCond ~= self.controls.enemyCond.buf
-			or self.lastContentEnemyMods ~= self.controls.enemyMods.buf
-			or self.lastEnableExportBuffs ~= self.enableExportBuffs)
+	self.modFlag = (self.lastContent.Aura ~= self.controls.editAuras.buf 
+			or self.lastContent.Curse ~= self.controls.editCurses.buf
+			or self.lastContent.Link ~= self.controls.editLinks.buf
+			or self.lastContent.EnemyCond ~= self.controls.enemyCond.buf
+			or self.lastContent.EnemyMods ~= self.controls.enemyMods.buf
+			or self.lastContent.EnableExportBuffs ~= self.enableExportBuffs
+			or self.lastContent.showAdvancedTools ~= self.controls.ShowAdvanceTools.state)
 end
 
 function PartyTabClass:ParseTags(line, currentModType)

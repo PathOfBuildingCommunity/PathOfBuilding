@@ -160,7 +160,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
 	end)
 	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, 100, 0, 18, "Export Support", function(state)
-		self.build.enableExportBuffs = state
+		self.build.partyTab.enableExportBuffs = state
 		self.build.buildFlag = true 
 	--end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
 	end, "This is for party play, to export support character, it enables the exporting of auras and curses", false)
