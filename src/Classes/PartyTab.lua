@@ -640,7 +640,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				list.limit = tonumber(line)
 				mode = "Name"
 			elseif mode == "Name" and line ~= "" then
-				currentName = line
+				currentName = line:gsub("_Debuff", "")
 				currentEffect = 0
 				if line == "extraAura" then
 					currentModType = "extraAura"

@@ -2039,6 +2039,9 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						local newModList = new("ModList")
 						newModList:AddList(buff.modList)
 						newModList:AddList(extraAuraModList)
+						if buffExports["Aura"][buff.name] then
+							buffExports["Aura"][buff.name.."_Debuff"] = buffExports["Aura"][buff.name]
+						end
 						buffExports["Aura"][buff.name] = { effectMult = mult, modList = newModList }
 					end
 					if env.player.mainSkill.skillFlags.totem and not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
@@ -2095,7 +2098,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 							mult = (1 + inc / 100) * more
-							buffExports["Aura"][buff.name] = { effectMult = mult, modList = buff.modList }
+							buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = buff.modList }
 							if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
 								mult = 0
 							end
