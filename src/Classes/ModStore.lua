@@ -601,16 +601,17 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "SkillName" then
 			local match = false
-			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName)
+			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName or "")
+			matchName = matchName:lower()
 			if tag.skillNameList then
 				for _, name in pairs(tag.skillNameList) do
-					if name == matchName then
+					if name:lower() == matchName then
 						match = true
 						break
 					end
 				end
 			else
-				match = (tag.skillName == matchName)
+				match = (tag.skillName and tag.skillName:lower() == matchName)
 			end
 			if tag.neg then
 				match = not match
