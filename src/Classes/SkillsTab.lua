@@ -66,6 +66,7 @@ local sortGemTypeList = {
 	{ label = "Bleed DPS", type = "BleedDPS" },
 	{ label = "Ignite DPS", type = "IgniteDPS" },
 	{ label = "Poison DPS", type = "TotalPoisonDPS" },
+	{ label = "Effective Hit Pool", type = "TotalEHP" },
 }
 
 local alternateGemQualityList ={

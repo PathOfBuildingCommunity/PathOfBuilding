@@ -311,6 +311,21 @@ skills["VaalAnimateWeapon"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.ThresholdJewelProjectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ThresholdJewelRangedAttack] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.6,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+	statMap = {
+		["base_movement_velocity_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }),
+		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:VaalAnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -477,6 +492,22 @@ skills["VaalArcticArmour"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Cold] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["vaal_arctic_armour_damage_taken_+%_final_from_hits"] = {
+			mod("VaalArcticArmourMitigation", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["vaal_arctic_armour_number_of_hits_absorbed"] = {
+			mod("VaalArcticArmourMaxHits", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+		["base_energy_shield_regeneration_rate_per_minute"] = {
+			mod("EnergyShieldRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -6060,6 +6091,111 @@ skills["LightningArrow"] = {
 		[40] = { 0.10000000149012, 1.8999999761581, 490, damageEffectiveness = 1.73, baseMultiplier = 1.729, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 13, }, },
 	},
 }
+skills["VaalLightningArrow"] = {
+	name = "Vaal Lightning Arrow",
+	color = 2,
+	baseEffectiveness = 0.6700000166893,
+	incrementalEffectiveness = 0.023299999535084,
+	description = "Fires charged arrows, which repeatedly travel for a short time before changing direction. When they hit enemies, they are struck by a bolt of lightning which damages a number of surrounding enemies.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Lightning] = true, [SkillType.Vaal] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
+	statMap = {
+		["projectiles_barrage"] = {
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	baseMods = {
+		skill("radius", 18),
+	},
+	qualityStats = {
+		Default = {
+			{ "base_chance_to_shock_%", 1 },
+		},
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+		{ "lightning_arrow_maximum_number_of_extra_targets", 3 },
+		{ "base_number_of_additional_arrows", 4 },
+		{ "projectile_random_angle_based_on_distance_to_target_location_%", 35 },
+		{ "vaal_lightning_arrow_number_of_redirects", 9 },
+	},
+	stats = {
+		"attack_minimum_added_lightning_damage",
+		"attack_maximum_added_lightning_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"skill_can_fire_arrows",
+		"always_pierce",
+		"vaal_lightning_arrow_fork_and_chain_modifiers_apply_to_number_of_redirects",
+		"projectiles_cannot_split",
+		"projectiles_barrage",
+		"cannot_cancel_skill_before_contact_point",
+		"skill_can_add_multiple_charges_per_action",
+	},
+	levels = {
+		[1] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.62, damageEffectiveness = 0.62, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 12, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[2] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.631, damageEffectiveness = 0.63, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 15, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[3] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.641, damageEffectiveness = 0.64, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 19, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[4] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.651, damageEffectiveness = 0.65, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 23, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[5] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.661, damageEffectiveness = 0.66, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 27, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[6] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.671, damageEffectiveness = 0.67, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[7] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.68, damageEffectiveness = 0.68, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 35, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[8] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.689, damageEffectiveness = 0.69, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 38, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[9] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.698, damageEffectiveness = 0.7, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 41, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[10] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.707, damageEffectiveness = 0.71, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 44, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[11] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.715, damageEffectiveness = 0.71, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 47, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[12] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.723, damageEffectiveness = 0.72, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 50, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[13] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.731, damageEffectiveness = 0.73, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 53, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[14] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.739, damageEffectiveness = 0.74, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 56, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[15] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.746, damageEffectiveness = 0.75, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 59, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[16] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.753, damageEffectiveness = 0.75, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 62, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[17] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.76, damageEffectiveness = 0.76, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 64, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[18] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.767, damageEffectiveness = 0.77, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 66, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[19] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.774, damageEffectiveness = 0.77, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[20] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.78, damageEffectiveness = 0.78, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[21] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.786, damageEffectiveness = 0.79, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 72, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[22] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.792, damageEffectiveness = 0.79, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 74, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[23] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.798, damageEffectiveness = 0.8, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 76, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[24] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.804, damageEffectiveness = 0.8, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 78, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[25] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.81, damageEffectiveness = 0.81, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 80, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[26] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.815, damageEffectiveness = 0.81, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 82, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[27] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.82, damageEffectiveness = 0.82, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 84, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[28] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.825, damageEffectiveness = 0.82, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 86, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[29] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.83, damageEffectiveness = 0.83, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 88, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[30] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.835, damageEffectiveness = 0.83, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 90, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[31] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.837, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 91, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[32] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.839, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 92, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[33] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.841, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 93, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[34] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.843, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 94, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[35] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.845, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 95, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[36] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.847, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 96, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[37] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.849, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 97, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[38] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.851, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 98, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[39] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.853, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 99, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+		[40] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.855, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 100, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
+	},
+}
 skills["LightningStrike"] = {
 	name = "Lightning Strike",
 	color = 2,
@@ -6171,89 +6307,6 @@ skills["LightningStrike"] = {
 		[38] = { 0.10000000149012, 1.8999999761581, 2, damageEffectiveness = 2.91, baseMultiplier = 2.913, levelRequirement = 98, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
 		[39] = { 0.10000000149012, 1.8999999761581, 2, damageEffectiveness = 2.94, baseMultiplier = 2.937, levelRequirement = 99, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
 		[40] = { 0.10000000149012, 1.8999999761581, 2, damageEffectiveness = 2.96, baseMultiplier = 2.961, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
-	},
-}
-skills["VaalLightningArrow"] = {
-	name = "Vaal Lightning Arrow",
-	color = 2,
-	baseEffectiveness = 0.6700000166893,
-	incrementalEffectiveness = 0.023299999535084,
-	description = "Fires charged arrows, which repeatedly travel for a short time before changing direction. When they hit enemies, they are struck by a bolt of lightning which damages a number of surrounding enemies.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Lightning] = true, [SkillType.Vaal] = true, },
-	weaponTypes = {
-		["Bow"] = true,
-	},
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	baseFlags = {
-		attack = true,
-		projectile = true,
-	},
-	qualityStats = {
-		Default = {
-			{ "base_chance_to_shock_%", 1 },
-		},
-	},
-	constantStats = {
-		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
-		{ "lightning_arrow_maximum_number_of_extra_targets", 3 },
-		{ "base_number_of_additional_arrows", 4 },
-		{ "projectile_random_angle_based_on_distance_to_target_location_%", 35 },
-		{ "vaal_lightning_arrow_number_of_redirects", 9 },
-	},
-	stats = {
-		"attack_minimum_added_lightning_damage",
-		"attack_maximum_added_lightning_damage",
-		"base_skill_show_average_damage_instead_of_dps",
-		"skill_can_fire_arrows",
-		"always_pierce",
-		"vaal_lightning_arrow_fork_and_chain_modifiers_apply_to_number_of_redirects",
-		"projectiles_cannot_split",
-		"projectiles_barrage",
-		"cannot_cancel_skill_before_contact_point",
-		"skill_can_add_multiple_charges_per_action",
-	},
-	levels = {
-		[1] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.62, damageEffectiveness = 0.62, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 12, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[2] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.631, damageEffectiveness = 0.63, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 15, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[3] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.641, damageEffectiveness = 0.64, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 19, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[4] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.651, damageEffectiveness = 0.65, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 23, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[5] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.661, damageEffectiveness = 0.66, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 27, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[6] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.671, damageEffectiveness = 0.67, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 31, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[7] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.68, damageEffectiveness = 0.68, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 35, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[8] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.689, damageEffectiveness = 0.69, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 38, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[9] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.698, damageEffectiveness = 0.7, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 41, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[10] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.707, damageEffectiveness = 0.71, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 44, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[11] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.715, damageEffectiveness = 0.71, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 47, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[12] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.723, damageEffectiveness = 0.72, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 50, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[13] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.731, damageEffectiveness = 0.73, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 53, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[14] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.739, damageEffectiveness = 0.74, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 56, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[15] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.746, damageEffectiveness = 0.75, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 59, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[16] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.753, damageEffectiveness = 0.75, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 62, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[17] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.76, damageEffectiveness = 0.76, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 64, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[18] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.767, damageEffectiveness = 0.77, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 66, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[19] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.774, damageEffectiveness = 0.77, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 68, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[20] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.78, damageEffectiveness = 0.78, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 70, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[21] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.786, damageEffectiveness = 0.79, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 72, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[22] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.792, damageEffectiveness = 0.79, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 74, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[23] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.798, damageEffectiveness = 0.8, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 76, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[24] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.804, damageEffectiveness = 0.8, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 78, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[25] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.81, damageEffectiveness = 0.81, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 80, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[26] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.815, damageEffectiveness = 0.81, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 82, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[27] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.82, damageEffectiveness = 0.82, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 84, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[28] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.825, damageEffectiveness = 0.82, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 86, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[29] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.83, damageEffectiveness = 0.83, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 88, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[30] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.835, damageEffectiveness = 0.83, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 90, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[31] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.837, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 91, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[32] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.839, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 92, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[33] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.841, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 93, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[34] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.843, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 94, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[35] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.845, damageEffectiveness = 0.84, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 95, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[36] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.847, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 96, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[37] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.849, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 97, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[38] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.851, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 98, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[39] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.853, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 99, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
-		[40] = { 0.10000000149012, 1.8999999761581, baseMultiplier = 0.855, damageEffectiveness = 0.85, vaalStoredUses = 2, soulPreventionDuration = 8, levelRequirement = 100, statInterpolation = { 3, 3, }, cost = { Soul = 20, }, },
 	},
 }
 skills["VaalLightningStrike"] = {
@@ -8020,6 +8073,7 @@ skills["ShatteringSteel"] = {
 		"shattering_steel_hit_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed",
 		"base_is_projectile",
 		"no_additional_projectiles_if_no_steel_ammo",
+		"console_skill_dont_chase",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 50, attackSpeedMultiplier = -15, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 7, }, },
@@ -9210,6 +9264,7 @@ skills["ImpactingSteel"] = {
 		"projectiles_can_split_at_end_of_range",
 		"projectiles_can_split_from_terrain",
 		"base_is_projectile",
+		"console_skill_dont_chase",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 2, 0, damageEffectiveness = 0.7, baseMultiplier = 0.7, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 5, }, },

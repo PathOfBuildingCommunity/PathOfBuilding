@@ -520,7 +520,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
-	local allocatedLifeMasteryCount = env.spec.allocatedLifeMasteryCount
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -531,9 +530,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 					nodes[node.id] = node
 					if node.type == "Mastery" then
 						allocatedMasteryCount = allocatedMasteryCount + 1
-						if node.name == "Life" then
-							allocatedLifeMasteryCount = allocatedLifeMasteryCount + 1
-						end
 
 						if not allocatedMasteryTypes[node.name] then
 							allocatedMasteryTypes[node.name] = 1
@@ -556,9 +552,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 				elseif override.removeNodes[node] then
 					if node.type == "Mastery" then
 						allocatedMasteryCount = allocatedMasteryCount - 1
-						if node.name == "Life" then
-							allocatedLifeMasteryCount = allocatedLifeMasteryCount + 1
-						end
 
 						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
 						if allocatedMasteryTypes[node.name] == 0 then
@@ -578,7 +571,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
 	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
 	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
-	modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedLifeMasteryCount)
+	modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
 	
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then

@@ -3,6 +3,7 @@ local itemBases = ...
 
 #type Gloves
 #baseTags armour gloves
+#influenceBaseTag gloves
 #socketLimit 4
 
 #subType Armour
