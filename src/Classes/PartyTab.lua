@@ -58,24 +58,29 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	
 	local clearInputText = function()
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
+			self.controls.simpleAuras.label = ""
 			self.controls.editAuras:SetText("")
 			wipeTable(self.processedInput["Aura"])
 			self.processedInput["Aura"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
+			self.controls.simpleCurses.label = ""
 			self.controls.editCurses:SetText("")
 			wipeTable(self.processedInput["Curse"])
 			self.processedInput["Curse"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
+			self.controls.simpleLinks.label = "^7Link Skills are not currently supported"
 			self.controls.editCurses:SetText("")
 			wipeTable(self.processedInput["Link"])
 			self.processedInput["Link"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
+			self.controls.simpleEnemyCond.label = "^7Enemy Conditions are not exported but will still work if correctly added"
 			self.controls.enemyCond:SetText("")
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyMods" then
+			self.controls.simpleEnemyMods.label = "^7Enemy Modifiers are not exported but will still work if correctly added"
 			self.controls.enemyMods:SetText("")
 		end
 	end
@@ -280,7 +285,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end)
 	self.controls.clear.tooltipText = "^7Clears all the party tab imported data"
 	
-	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, 20, "Show Advanced Info", function(state)
+	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, 20, "^7Show Advanced Info", function(state)
 	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export\nDo not edit any boxes unless you know what you are doing, use copy/paste or import instead", false)
 	self.controls.ShowAdvanceTools.y = function()
 		return (self.width > 1350) and 4 or 32
@@ -295,7 +300,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end)
 	self.controls.removeEffects.tooltipText = "^7Removes the effects of the supports, without removing the data\nUse \"rebuild all\" to apply the effects again"
 	
-	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, 20, "Rebuild All", function() 
+	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, 20, "^7Rebuild All", function() 
 		wipeTable(self.processedInput)
 		wipeTable(self.enemyModList)
 		self.processedInput = { Aura = {}, Curse = {}, Link = {} }
@@ -317,7 +322,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 150, 16, "^7Auras")
 	self.controls.editAurasLabel.y = function()
-		return 40 + (self.controls.ShowAdvanceTools.state and ((self.width <= 1350) and 28 or 0) or 0)
+		return 40 + ((self.width <= 1350) and 28 or 0)
 	end
 	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editAuras.width = function()
@@ -357,7 +362,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editLinks.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 16, "Link Skills are not currently supported")
+	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 16, "^7Link Skills are not currently supported")
 	self.controls.simpleLinks.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
@@ -373,7 +378,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyCond.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, 16, "Enemy Conditions are not exported but will still work if correctly added")
+	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, 16, "^7Enemy Conditions are not exported but will still work if correctly added")
 	self.controls.simpleEnemyCond.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
@@ -401,7 +406,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyMods.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleEnemyMods = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"TOPLEFT"}, 0, 18, 0, 16, "Enemy Modifiers are not exported but will still work if correctly added")
+	self.controls.simpleEnemyMods = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"TOPLEFT"}, 0, 18, 0, 16, "^7Enemy Modifiers are not exported but will still work if correctly added")
 	self.controls.simpleEnemyMods.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
@@ -684,7 +689,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 		if label then
 			if buffType == "Aura" then
 				local count = 0
-				label.label = "---------------------------\n"
+				label.label = "^7---------------------------\n"
 				for aura, auraMod in pairs(list["Aura"] or {}) do
 					label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
 					count = count + 1
@@ -705,7 +710,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				end
 			elseif buffType == "Curse" then
 				local count = 0
-				label.label = "---------------------------\n"
+				label.label = "^7---------------------------\n"
 				for curse, curseMod in pairs(list["Curse"] or {}) do
 					label.label = label.label..curse..": "..curseMod.effectMult.."%\n"
 					count = count + 1
