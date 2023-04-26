@@ -681,6 +681,10 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 								list[modType][currentName].isMark = true
 							end
 						end
+						if mod.source:match("Item") then
+							_, mod.source = mod.source:match("Item:(%d+):(.+)")
+							mod.source = "Party, "..mod.source
+						end
 						list[modType][currentName].modList:AddMod(mod)
 					end
 				end
