@@ -2339,6 +2339,15 @@ local specialModList = {
 		end
 		return mods
 	end,
+	["if diamond flask charges are consumed, (%d+)%% increased critical strike chance"] = function (num) return {
+		mod("CritChance", "INC", num, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "Condition", var = "UsingDiamondFlask" })
+	} end,
+	["if bismuth flask charges are consumed, penetrate (%d+)%% elemental resistances"] = function (num) return {
+		mod("ElementalPenetration", "BASE", num, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "Condition", var = "UsingBismuthFlask" })
+	} end,
+	["if amethyst flask charges are consumed, (%d+)%% of physical damage as extra chaos damage"] = function (num) return {
+		mod("PhysicalDamageGainAsChaos", "BASE", num, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "Condition", var = "UsingAmethystFlask" })
+	} end,
 	-- Raider
 	["nearby enemies have (%d+)%% less accuracy rating while you have phasing"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("Accuracy", "MORE", -num) }, { type = "Condition", var = "Phasing" }) } end,
 	["immun[ei]t?y? to elemental ailments while phasing"] = function()
