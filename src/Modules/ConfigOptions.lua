@@ -59,13 +59,13 @@ end
 
 local function LowLifeTooltip(tooltip)
 	tooltip:Clear()
-	tooltip:AddLine(14, 'You will automatically be considered to be on Low ^xE05030Life ^7if you have at least '..100 - data.misc.configurable.LowLifePercentage..'% ^xE05030Life ^7reserved')
+	tooltip:AddLine(14, 'You will automatically be considered to be on Low ^xE05030Life ^7if you have at least '..100 - data.tooltipValues.LowLifePercentage..'% ^xE05030Life ^7reserved')
 	tooltip:AddLine(14, 'but you can use this option to force it if necessary.')
 end
 
 local function FullLifeTooltip(tooltip)
 	tooltip:Clear()
-	tooltip:AddLine(14, 'You will automatically be considered to be on Full ^xE05030Life ^7if you have at least '..data.misc.configurable.FullLifePercentage..'% ^xE05030Life ^7unreserved.')
+	tooltip:AddLine(14, 'You can be considered to be on Full ^xE05030Life ^7if you have at least '..data.tooltipValues.FullLifePercentage..'% ^xE05030Life ^7unreserved.')
 	tooltip:AddLine(14, 'You will automatically be considered to be on Full ^xE05030Life ^7if you have Chaos Inoculation,')
 	tooltip:AddLine(14, 'but you can use this option to force it if necessary.')
 end
