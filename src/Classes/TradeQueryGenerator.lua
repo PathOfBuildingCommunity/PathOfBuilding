@@ -167,19 +167,15 @@ function TradeQueryGeneratorClass:GenerateModData(mods, tradeQueryStatsParsed)
 
 			-- Special cases
 			local specialCaseData = { }
-			if statOrder == 1956 then
+			if mod.group and mod.group:find("Shield") and modLine:find("Chance to Block") then
 				specialCaseData.overrideModLine = "+#% Chance to Block"
 				modLine = modLine .. " (Shields)"
-			elseif statOrder == 1881 then
+			elseif modLine == "You can apply an additional Curse" then
 				specialCaseData.overrideModLineSingular = "You can apply an additional Curse"
-				if modLine == specialCaseData.overrideModLineSingular then
-					modLine = "You can apply 1 additional Curses"
-				end
-			elseif statOrder == 1512 then
+				modLine = "You can apply 1 additional Curses"
+			elseif modLine == "Bow Attacks fire an additional Arrow" then
 				specialCaseData.overrideModLineSingular = "Bow Attacks fire an additional Arrow"
-				if modLine == specialCaseData.overrideModLineSingular then
-					modLine = "Bow Attacks fire 1 additional Arrows"
-				end
+				modLine = "Bow Attacks fire 1 additional Arrows"
 			end
 
 			-- If this is the first tier for this mod, find matching trade mod and init the entry
