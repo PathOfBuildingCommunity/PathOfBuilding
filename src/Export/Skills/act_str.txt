@@ -259,7 +259,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Area of initial attack:")
 #baseMod skill("radiusSecondary", 20)
 #baseMod skill("radiusSecondaryLabel", "Area of bladestorms:")
-#baseMod mod("BleedChance", "BASE", 100, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" })
+#baseMod mod("BleedChance", "BASE", 100, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill BloodSandStance

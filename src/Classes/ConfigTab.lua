@@ -453,8 +453,23 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end
 			end
 
+			local innerShown = control.shown
+			if not varData.doNotHighlight then
+				control.borderFunc = function()
+					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local cur = self.input[varData.var]
+					local def = self:GetDefaultState(varData.var, type(cur))
+					if cur ~= nil and cur ~= def then
+						if not shown then
+							return 	0.753, 0.502, 0.502
+						end
+						return 	0.451, 0.576, 0.702
+					end
+					return 0.5, 0.5, 0.5
+				end
+			end
+
 			if not varData.hideIfInvalid then
-				local innerShown = control.shown
 				control.shown = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
 					local cur = self.input[varData.var]
@@ -467,7 +482,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
-						return "^1"..StripEscapes(innerLabel)
+						return colorCodes.NEGATIVE..StripEscapes(innerLabel)
 					end
 					return innerLabel
 				end
@@ -488,7 +503,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
 					if not shown and cur ~= nil and cur ~= def then
-						tooltip:AddLine(14, "^1This config option is conditional with missing source and is invalid.")
+						tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
 					end
 				end
 			end

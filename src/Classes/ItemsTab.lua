@@ -620,6 +620,41 @@ holding Shift will put it in the second.]])
 	for i = 1, 6 do
 		local prev = self.controls["displayItemAffix"..(i-1)] or self.controls.displayItemSectionAffix
 		local drop, slider
+		local function verifyRange(range, index, drop) -- flips range if it will form discontinuous values
+			local priorMod = index - 1 > 0 and self.displayItem.affixes[drop.list[drop.selIndex].modList[index - 1]] or nil
+			local nextMod = index + 1 < #drop.list[drop.selIndex].modList and self.displayItem.affixes[drop.list[drop.selIndex].modList[index + 1]] or nil
+			local function flipRange(modA, modB) -- assumes all pairs are ordered the same
+				local function getMinMax(mod) -- gets first valid range from a mod
+					for _, line in ipairs(mod) do
+						local min, max = line:match("%((%d[%d%.]*)%-(%d[%d%.]*)%)")
+						if min and max then return tonumber(min), tonumber(max)	end
+					end
+				end
+
+				local minA, maxA = getMinMax(modA)
+				local minB, maxB = getMinMax(modB)
+				
+				if (minA and minB and maxA and maxB) then
+					if (minA < minB) then -- ascending
+						return minA + 1 == maxB
+					else -- descending
+						return minA - 1 == maxB
+					end
+				end
+				return false
+			end
+			
+			if priorMod then
+				if flipRange(priorMod, self.displayItem.affixes[drop.list[drop.selIndex].modList[index]]) then
+					range = 1 - range
+				end
+			elseif nextMod then
+				if flipRange(self.displayItem.affixes[drop.list[drop.selIndex].modList[index]], nextMod) then
+					range = 1 - range
+				end
+			end
+			return range
+		end
 		drop = new("DropDownControl", {"TOPLEFT",prev,"TOPLEFT"}, i==1 and 40 or 0, 0, 418, 20, nil, function(index, value)
 			local affix = { modId = "None" }
 			if value.modId then
@@ -629,7 +664,7 @@ holding Shift will put it in the second.]])
 				slider.divCount = #value.modList
 				local index, range = slider:GetDivVal()
 				affix.modId = value.modList[index]
-				affix.range = range
+				affix.range = verifyRange(range, index, drop)
 			end
 			self.displayItem[drop.outputTable][drop.outputIndex] = affix
 			self.displayItem:Craft()
@@ -753,7 +788,8 @@ holding Shift will put it in the second.]])
 			local affix = self.displayItem[drop.outputTable][drop.outputIndex]
 			local index, range = slider:GetDivVal()
 			affix.modId = drop.list[drop.selIndex].modList[index]
-			affix.range = range
+
+			affix.range = verifyRange(range, index, drop)
 			self.displayItem:Craft()
 			self:UpdateDisplayItemTooltip()
 		end)
@@ -797,14 +833,26 @@ holding Shift will put it in the second.]])
 	end
 
 	-- Section: Custom modifiers
+	-- if either Custom or Crucible mod buttons are shown, create the control for the list of mods
 	self.controls.displayItemSectionCustom = new("Control", {"TOPLEFT",self.controls.displayItemSectionAffix,"BOTTOMLEFT"}, 0, 0, 0, function()
-		return self.controls.displayItemAddCustom:IsShown() and 28 + self.displayItem.customCount * 22 or 0
+		return (self.controls.displayItemAddCustom:IsShown() or self.controls.displayItemAddCrucible:IsShown()) and 28 + self.displayItem.customCount * 22 or 0
 	end)
 	self.controls.displayItemAddCustom = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 0, 0, 120, 20, "Add modifier...", function()
 		self:AddCustomModifierToDisplayItem()
 	end)
 	self.controls.displayItemAddCustom.shown = function()
 		return self.displayItem and (self.displayItem.rarity == "MAGIC" or self.displayItem.rarity == "RARE")
+	end
+
+	-- Section: Crucible modifiers
+	-- if the Add modifier button is not shown, take its place, otherwise move it to the right of it
+	self.controls.displayItemAddCrucible = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, function()
+		return (self.controls.displayItemAddCustom:IsShown() and 128) or 0
+	end, 0, 150, 20, "Add Crucible mod...", function()
+		self:AddCrucibleModifierToDisplayItem()
+	end)
+	self.controls.displayItemAddCrucible.shown = function()
+		return self.displayItem and (self.displayItem:GetPrimarySlot() == "Weapon 1" or self.displayItem.type == "Shield" or self.displayItem.canHaveShieldCrucibleTree)
 	end
 
 	-- Section: Modifier Range
@@ -1664,25 +1712,35 @@ end
 function ItemsTabClass:UpdateCustomControls()
 	local item = self.displayItem
 	local i = 1
-	if item.rarity == "MAGIC" or item.rarity == "RARE" then
-		for index, modLine in ipairs(item.explicitModLines) do
-			if modLine.custom or modLine.crafted then
+	local modLines = copyTable(item.explicitModLines)
+	if item.crucibleModLines and #item.crucibleModLines > 0 then
+		for _, line in ipairs(item.crucibleModLines) do
+			t_insert(modLines, line)
+		end
+	end
+	if item.rarity == "MAGIC" or item.rarity == "RARE" or item.crucibleModLines then
+		for index, modLine in ipairs(modLines) do
+			if modLine.custom or modLine.crafted or modLine.crucible then
 				local line = itemLib.formatModLine(modLine)
 				if line then
-					if not self.controls["displayItemCustomModifier"..i] then
-						self.controls["displayItemCustomModifier"..i] = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 55, i * 22 + 4, 0, 16)
-						self.controls["displayItemCustomModifierLabel"..i] = new("LabelControl", {"RIGHT",self.controls["displayItemCustomModifier"..i],"LEFT"}, -2, 0, 0, 16)
-						self.controls["displayItemCustomModifierRemove"..i] = new("ButtonControl", {"LEFT",self.controls["displayItemCustomModifier"..i],"RIGHT"}, 4, 0, 70, 20, "^7Remove")
+					if not self.controls["displayItemCustomModifierRemove"..i] then
+						self.controls["displayItemCustomModifierRemove"..i] = new("ButtonControl", {"TOPLEFT",self.controls.displayItemSectionCustom,"TOPLEFT"}, 0, i * 22 + 4, 70, 20, "^7Remove")
+						self.controls["displayItemCustomModifier"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, 65, 0, 0, 16)
+						self.controls["displayItemCustomModifierLabel"..i] = new("LabelControl", {"LEFT",self.controls["displayItemCustomModifierRemove"..i],"RIGHT"}, 5, 0, 0, 16)
 					end
-					self.controls["displayItemCustomModifier"..i].shown = true
+					self.controls["displayItemCustomModifierRemove"..i].shown = true
 					local label = itemLib.formatModLine(modLine)
 					if DrawStringCursorIndex(16, "VAR", label, 330, 10) < #label then
 						label = label:sub(1, DrawStringCursorIndex(16, "VAR", label, 310, 10)) .. "..."
 					end
 					self.controls["displayItemCustomModifier"..i].label = label
-					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and "^7Crafted:" or "^7Custom:"
+					self.controls["displayItemCustomModifierLabel"..i].label = modLine.crafted and " ^7Crafted:" or modLine.crucible and "^7Crucible:" or " ^7Custom:"
 					self.controls["displayItemCustomModifierRemove"..i].onClick = function()
-						t_remove(item.explicitModLines, index)
+						if index > #item.explicitModLines then
+							t_remove(item.crucibleModLines, index - #item.explicitModLines)
+						else
+							t_remove(item.explicitModLines, index)
+						end
 						item:BuildAndParseRaw()
 						local id = item.id
 						self:CreateDisplayItemFromRaw(item:BuildRaw())
@@ -1694,8 +1752,8 @@ function ItemsTabClass:UpdateCustomControls()
 		end
 	end
 	item.customCount = i - 1
-	while self.controls["displayItemCustomModifier"..i] do
-		self.controls["displayItemCustomModifier"..i].shown = false
+	while self.controls["displayItemCustomModifierRemove"..i] do
+		self.controls["displayItemCustomModifierRemove"..i].shown = false
 		i = i + 1
 	end
 end
@@ -1712,12 +1770,22 @@ function ItemsTabClass:UpdateDisplayItemRangeLines()
 	end
 end
 
+local function checkLineForAllocates(line, nodes)
+	if nodes and string.match(line, "Allocates") then
+		local nodeId = tonumber(string.match(line, "%d+"))
+		if nodes[nodeId] then
+			return "Allocates "..nodes[nodeId].name
+		end
+	end
+	return line
+end
+
 function ItemsTabClass:AddModComparisonTooltip(tooltip, mod)
 	local slotName = self.displayItem:GetPrimarySlot()
 	local newItem = new("Item", self.displayItem:BuildRaw())
 	
 	for _, subMod in ipairs(mod) do
-		t_insert(newItem.explicitModLines, { line = subMod, modTags = mod.modTags, [mod.type] = true })
+		t_insert(newItem.explicitModLines, { line = checkLineForAllocates(subMod, self.build.spec.nodes), modTags = mod.modTags, [mod.type] = true })
 	end
 
 	newItem:BuildAndParseRaw()
@@ -2565,6 +2633,139 @@ function ItemsTabClass:AddCustomModifierToDisplayItem()
 	main:OpenPopup(710, 105, "Add Modifier to Item", controls, "save", sourceList[controls.source.selIndex].sourceId == "CUSTOM" and "custom")	
 end
 
+-- Opens the crucible modifier popup
+function ItemsTabClass:AddCrucibleModifierToDisplayItem()
+	local controls = { }
+	local modList = {[1] = {"None"}, [2] = {"None"}, [3] = {"None"}, [4] = {"None"}, [5] = {"None"}}
+	local itemModMap, nodeSelections = { }, { }
+	local function getLabelFromMod(mod)
+		local label = copyTable(mod)
+		for index, line in ipairs(mod) do
+			label[index] = checkLineForAllocates(line, self.build.spec.nodes)
+		end
+		return table.concat(label, "/")
+	end
+	local function itemCanHaveMod(mod)
+		local keyMap, includeTags = { }, { }
+		for index, key in ipairs(mod.weightKey) do
+			keyMap[key] = index
+		end
+		-- check for uniques with off-tag mods
+		if data.casterTagCrucibleUniques[self.displayItem.title] then
+			includeTags["caster_unique_weapon"] = true
+		end
+		if data.minionTagCrucibleUniques[self.displayItem.title] then
+			includeTags["minion_unique_weapon"] = true
+		end
+		if self.displayItem.canHaveOnlySupportSkillsCrucibleTree then
+			 return keyMap["crucible_unique_staff"] and mod.weightVal[keyMap["crucible_unique_staff"]] ~= 0
+		elseif self.displayItem.canHaveShieldCrucibleTree then
+			return self.displayItem:GetModSpawnWeight(mod, { ["crucible_unique_helmet"] = true, ["shield"] = true }) > 0
+		elseif self.displayItem.canHaveTwoHandedSwordCrucibleTree then
+			return self.displayItem:GetModSpawnWeight(mod, { ["two_hand_weapon"] = true }, { ["one_hand_weapon"] = true }) > 0
+		end
+		return self.displayItem:GetModSpawnWeight(mod, includeTags) > 0
+	end
+	local function buildCrucibleMods()
+		for i, mod in pairs(self.build.data.crucible) do
+			if itemCanHaveMod(mod) then
+				-- item mod must match the whole mod, whether that's one line or two
+				if itemModMap[checkLineForAllocates(mod[1], self.build.spec.nodes)] and ((mod[2] and itemModMap[checkLineForAllocates(mod[2], self.build.spec.nodes)]) or not mod[2]) then
+					-- for multi nodes, if the first location is taken, use second
+					-- works for multi vs single node, ambiguous for multi vs multi (3,4 vs 3,4) but both mods load
+					if nodeSelections[mod.nodeLocation[1]] and mod.nodeLocation[2] then
+						nodeSelections[mod.nodeLocation[2]] = i
+					-- nodeSelections[nodeId] = defaultOrder, used later to match with sorted modList to get selIndex
+					else
+						nodeSelections[mod.nodeLocation[1]] = i
+					end
+				end
+				for _, location in ipairs(mod.nodeLocation) do
+					t_insert(modList[location], {
+						label = getLabelFromMod(mod) .. " - Tier: " .. mod.tier,
+						mod = mod,
+						affixType = mod.type,
+						type = "crucible",
+						defaultOrder = i,
+					})
+				end
+			end
+		end
+		for _, tierList in ipairs(modList) do
+			table.sort(tierList, function(a, b)
+				if b ~= "None" then
+					if a.affixType ~= b.affixType then
+						return a.affixType == "Spawn" and b.affixType == "MergeOnly"
+					else
+						return a.defaultOrder < b.defaultOrder
+					end
+				end
+			end)
+		end
+	end
+	local function addModifier()
+		local item = new("Item", self.displayItem:BuildRaw())
+		item.id = self.displayItem.id
+		item.crucibleModLines = { }
+		local listMod = {
+			modList[1][controls.modSelectNode1.selIndex],
+			modList[2][controls.modSelectNode2.selIndex],
+			modList[3][controls.modSelectNode3.selIndex],
+			modList[4][controls.modSelectNode4.selIndex],
+			modList[5][controls.modSelectNode5.selIndex],
+		}
+		for _, nodeMod in ipairs(listMod) do
+			if nodeMod ~= "None" then
+				for index, line in ipairs(nodeMod.mod) do
+					t_insert(item.crucibleModLines, { line = checkLineForAllocates(line, self.build.spec.nodes), modTags = nodeMod.mod.modTags, [nodeMod.type] = true })
+				end
+			end
+		end
+		item:BuildAndParseRaw()
+		return item
+	end
+	-- set up name map to know what modLines the item has as we build the mods out
+	for _, mod in ipairs(self.displayItem.crucibleModLines) do
+		itemModMap[mod.line] = true
+	end
+	buildCrucibleMods()
+	local y = 45
+	for i = 1,5 do
+		controls["modSelectNode"..i.."Label"] = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, y, 0, 16, "^7Node "..i..":")
+		controls["modSelectNode"..i] = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, y, 555, 18, modList[i])
+		controls["modSelectNode"..i].tooltipFunc = function(tooltip, mode, index, value)
+			tooltip:Clear()
+			if mode ~= "OUT" and value and value ~= "None" then
+				for _, line in ipairs(value.mod) do
+					tooltip:AddLine(16, "^7"..checkLineForAllocates(line, self.build.spec.nodes))
+				end
+				self:AddModComparisonTooltip(tooltip, value.mod)
+			end
+		end
+		y = y + 22
+	end
+	-- populate dropdowns with item mods
+	for nodeId, defaultOrder in pairs(nodeSelections) do
+		for index, mod in pairs(modList[nodeId]) do
+			if defaultOrder == mod.defaultOrder then
+				controls["modSelectNode"..nodeId].selIndex = index
+			end
+		end
+	end
+	controls.save = new("ButtonControl", nil, -45, 157, 80, 20, "Add", function()
+		self:SetDisplayItem(addModifier())
+		main:ClosePopup()
+	end)
+	controls.save.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		self:AddItemTooltip(tooltip, addModifier())
+	end
+	controls.close = new("ButtonControl", nil, 45, 157, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(710, 185, "Add Crucible Modifier to Item", controls, "save")
+end
+
 -- Opens the custom Implicit popup
 function ItemsTabClass:AddImplicitToDisplayItem()
 	local controls = { }
@@ -2874,7 +3075,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			tooltip:AddLine(16, "^xFF5555Exclusive to: "..item.league)
 		end
 		if item.unreleased then
-			tooltip:AddLine(16, "^1Not yet available")
+			tooltip:AddLine(16, colorCodes.NEGATIVE.."Not yet available")
 		end
 		if item.source then
 			tooltip:AddLine(16, colorCodes.SOURCE.."Source: "..self:FormatItemSource(item.source))
@@ -3100,13 +3301,13 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			tooltip:AddSeparator(10)
 		end
 		if item.split then
-			tooltip:AddLine(16, "^1Split")
+			tooltip:AddLine(16, colorCodes.NEGATIVE.."Split")
 		end
 		if item.mirrored then
-			tooltip:AddLine(16, "^1Mirrored")
+			tooltip:AddLine(16, colorCodes.NEGATIVE.."Mirrored")
 		end
 		if item.corrupted then
-			tooltip:AddLine(16, "^1Corrupted")
+			tooltip:AddLine(16, colorCodes.NEGATIVE.."Corrupted")
 		end
 	end
 	tooltip:AddSeparator(14)

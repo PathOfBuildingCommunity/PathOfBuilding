@@ -518,7 +518,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(35-40)% to Cold Resistance
 30% increased Freeze Duration on Enemies
 10% chance to Freeze
-{variant:2}Freezes you inflict spread to other Enemies with a Radius of 12
+{variant:2}Freezes you inflict spread to other Enemies with a Radius of 15
 60% increased Damage if you've Frozen an Enemy Recently
 ]],[[
 The Pandemonius
@@ -1082,7 +1082,7 @@ Upgrade: Upgrades to unique{Choir of the Storm} using currency{Blessing of Esh}
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 40
+Requires Level 69
 Implicits: 1
 {tags:jewellery_attribute}+(20-30) to Intelligence
 {variant:1,2}Trigger Level 12 Lightning Bolt when you deal a Critical Strike

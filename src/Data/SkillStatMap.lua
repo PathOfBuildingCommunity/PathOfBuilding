@@ -588,7 +588,7 @@ return {
 	mod("SkillAndDamagingAilmentDuration", "MORE", nil),
 },
 ["base_bleed_duration_+%"] = {
-	mod("BleedDuration", "INC", nil),
+	mod("EnemyBleedDuration", "INC", nil),
 },
 -- Damage
 ["damage_+%"] = {

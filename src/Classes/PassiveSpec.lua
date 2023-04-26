@@ -230,9 +230,6 @@ function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
 		self.tree:ProcessStats(self.allocNodes[id])
 		self.masterySelections[id] = effectId
 		self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-		if self.allocNodes[id].name == "Life Mastery" then
-			self.allocatedLifeMasteryCount = self.allocatedLifeMasteryCount + 1
-		end
 		if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
 			self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
 			self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
@@ -873,7 +870,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	self.allocatedNotableCount = 0
 	self.allocatedMasteryTypes = { }
 	self.allocatedMasteryTypeCount = 0
-	self.allocatedLifeMasteryCount = 0
 	for id, node in pairs(self.nodes) do
 		if node.type == "Mastery" and self.masterySelections[id] then
 			local effect = self.tree.masteryEffects[self.masterySelections[id]]
@@ -883,9 +879,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				node.reminderText = { "Tip: Right click to select a different effect" }
 				self.tree:ProcessStats(node)
 				self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-				if node.name == "Life Mastery" then
-					self.allocatedLifeMasteryCount = self.allocatedLifeMasteryCount + 1
-				end
 				if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
 					self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
 					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1

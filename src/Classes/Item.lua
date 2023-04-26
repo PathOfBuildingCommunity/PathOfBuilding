@@ -224,11 +224,11 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	--getTagBasedModifiers(substring, itemSlotName)
 
 	-- merge various modifier lines into one table
-	for k,v in pairs(self.enchantModLines) do modLines[k] = v end
-	for k,v in pairs(self.scourgeModLines) do modLines[k] = v end
-	for k,v in pairs(self.implicitModLines) do modLines[k] = v end
-	for k,v in pairs(self.explicitModLines) do modLines[k] = v end
-	for k,v in pairs(self.crucibleModLines) do modLines[k] = v end
+	for _,v in pairs(self.enchantModLines) do t_insert(modLines, v) end
+	for _,v in pairs(self.scourgeModLines) do t_insert(modLines, v) end
+	for _,v in pairs(self.implicitModLines) do t_insert(modLines, v) end
+	for _,v in pairs(self.explicitModLines) do t_insert(modLines, v) end
+	for _,v in pairs(self.crucibleModLines) do t_insert(modLines, v) end
 
 	for _,v in pairs(modLines) do
 		if v.line:lower():find(substring) and not v.line:lower():find(substring .. " modifier") then
@@ -658,16 +658,7 @@ function ItemClass:ParseRaw(raw)
 						self.enchantments = data.enchantments[self.base.type]
 					end
 					self.corruptible = self.base.type ~= "Flask"
-					self.influenceTags = { }
-					for _, influenceTag in ipairs(influenceInfo) do
-						self.influenceTags[influenceTag.key] = { }
-						for tag, _ in pairs(self.base.tags) do
-							if tag ~= "default" then
-								t_insert(self.influenceTags[influenceTag.key], tag..'_'..influenceTag.key)
-							end
-						end
-					end
-					self.canBeInfluenced = self.influenceTags
+					self.canBeInfluenced = self.base.influenceTags ~= nil
 					self.clusterJewel = data.clusterJewels and data.clusterJewels.jewels[self.baseName]
 					self.requirements.str = self.base.req.str or 0
 					self.requirements.dex = self.base.req.dex or 0
@@ -737,6 +728,12 @@ function ItemClass:ParseRaw(raw)
 					self.canHaveTwoEnchants = true
 					self.canHaveThreeEnchants = true
 					self.canHaveFourEnchants = true
+				elseif lineLower == "has a crucible passive skill tree with only support passive skills" then
+					self.canHaveOnlySupportSkillsCrucibleTree = true
+				elseif lineLower == "has a crucible passive skill tree" then
+					self.canHaveShieldCrucibleTree = true
+				elseif lineLower == "has a two handed sword crucible passive skill tree" then
+					self.canHaveTwoHandedSwordCrucibleTree = true
 				end
 
 				if data.itemBases[line] then
@@ -875,18 +872,14 @@ function ItemClass:NormaliseQuality()
 	end	
 end
 
-function ItemClass:GetModSpawnWeight(mod, extraTags)
+function ItemClass:GetModSpawnWeight(mod, includeTags, excludeTags)
 	local weight = 0
 	if self.base then
 		local function HasInfluenceTag(key)
-			if self.influenceTags then
+			if self.base.influenceTags then
 				for _, curInfluenceInfo in ipairs(influenceInfo) do
-					if self[curInfluenceInfo.key] then
-						for _, tag in ipairs(self.influenceTags[curInfluenceInfo.key]) do
-							if tag == key then
-								return true
-							end
-						end
+					if self[curInfluenceInfo.key] and self.base.influenceTags[curInfluenceInfo.key] == key then
+						return true
 					end
 				end
 			end
@@ -898,13 +891,13 @@ function ItemClass:GetModSpawnWeight(mod, extraTags)
 		end
 
 		for i, key in ipairs(mod.weightKey) do
-			if self.base.tags[key] or (extraTags and extraTags[key]) or HasInfluenceTag(key) then
+			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = (HasInfluenceTag(key) and HasMavenInfluence(mod.affix)) and 1000 or mod.weightVal[i]
 				break
 			end
 		end
 		for i, key in ipairs(mod.weightMultiplierKey) do
-			if self.base.tags[key] or (extraTags and extraTags[key]) or HasInfluenceTag(key) then
+			if (self.base.tags[key] or (includeTags and includeTags[key]) or HasInfluenceTag(key)) and not (excludeTags and excludeTags[key]) then
 				weight = weight * mod.weightMultiplierVal[i] / 100
 				break
 			end
@@ -1276,10 +1269,10 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 			end
 		end
 	end
-	local craftedQuality = calcLocal(modList,"Quality","BASE",0)
+	local craftedQuality = calcLocal(modList,"Quality","BASE",0) or 0
 	if craftedQuality ~= self.craftedQuality then
 		if self.craftedQuality then
-			self.quality = self.quality - self.craftedQuality + craftedQuality
+			self.quality = (self.quality or 0) - self.craftedQuality + craftedQuality
 		end
 		self.craftedQuality = craftedQuality
 	end
@@ -1317,7 +1310,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				end
 			end
 		end
-		weaponData.CritChance = round(self.base.weapon.CritChanceBase * (1 + (calcLocal(modList, "CritChance", "INC", 0) + m_floor(self.quality / 4 * calcLocal(modList, "AlternateQualityLocalCritChancePer4Quality", "INC", 0))) / 100), 2)
+		weaponData.CritChance = round((self.base.weapon.CritChanceBase + calcLocal(modList, "CritChance", "BASE", 0)) * (1 + (calcLocal(modList, "CritChance", "INC", 0) + m_floor(self.quality / 4 * calcLocal(modList, "AlternateQualityLocalCritChancePer4Quality", "INC", 0))) / 100), 2)
 		for _, value in ipairs(modList:List(nil, "WeaponData")) do
 			weaponData[value.key] = value.value
 		end
@@ -1329,7 +1322,7 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 				((mod.name == "PhysicalDamageLifeLeech" or mod.name == "PhysicalDamageManaLeech") and mod.flags == ModFlag.Attack)
 			   ) and (mod.keywordFlags == 0 or mod.keywordFlags == KeywordFlag.Attack) and not mod[1] then
 				mod[1] = { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" }
-			elseif (mod.name == "PoisonChance" or mod.name == "BleedChance") and (not mod[1] or (mod[1].type == "Condition" and mod[1].var == "CriticalStrike" and not mod[2])) then
+			elseif (mod.name == "PoisonChance" or mod.name == "BleedChance") and mod.flags ~= ModFlag.Spell and (not mod[1] or (mod[1].type == "Condition" and mod[1].var == "CriticalStrike" and not mod[2])) then
 				t_insert(mod, { type = "Condition", var = (slotNum == 1) and "MainHandAttack" or "OffHandAttack" })
 			end
 		end
