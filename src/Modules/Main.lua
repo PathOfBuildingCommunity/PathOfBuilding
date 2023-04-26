@@ -438,7 +438,7 @@ function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if not setXML then
 		return true
-	elseif setXML[1].elem ~= "PathOfBuilding" then
+	elseif not setXML[1] or setXML[1].elem ~= "PathOfBuilding" then
 		launch:ShowErrMsg("^1Error parsing 'Settings.xml': 'PathOfBuilding' root element missing")
 		return true
 	end
@@ -552,7 +552,7 @@ function main:LoadSharedItems()
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if not setXML then
 		return true
-	elseif setXML[1].elem ~= "PathOfBuilding" then
+	elseif not setXML[1] or setXML[1].elem ~= "PathOfBuilding" then
 		launch:ShowErrMsg("^1Error parsing 'Settings.xml': 'PathOfBuilding' root element missing")
 		return true
 	end
