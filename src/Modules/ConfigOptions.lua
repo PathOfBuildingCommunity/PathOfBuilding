@@ -58,13 +58,13 @@ Fill in the exact damage numbers if more precision is needed]])
 end
 
 local function LowLifeTooltip(modList, build)
-	local out = 'You will automatically be considered to be on Low ^xE05030Life ^7if you have at least '..100 - build.calcsTab.mainOuput.LowLifePercentage..'% ^xE05030Life ^7reserved'
+	local out = 'You will automatically be considered to be on Low ^xE05030Life ^7if you have at least '..100 - build.calcsTab.mainOutput.LowLifePercentage..'% ^xE05030Life ^7reserved'
 	out = out..'\nbut you can use this option to force it if necessary.'
 	return out
 end
 
 local function FullLifeTooltip(modList, build)
-	local out = 'You can be considered to be on Full ^xE05030Life ^7if you have at least '..build.calcsTab.mainOutput.FullLifePercentage..'% ^xE05030Life ^7unreserved.'
+	local out = 'You can be considered to be on Full ^xE05030Life ^7if you have at least '..build.calcsTab.mainOutput.FullLifePercentage..'% ^xE05030Life ^7left.'
 	out = out..'\nYou will automatically be considered to be on Full ^xE05030Life ^7if you have Chaos Inoculation,'
 	out = out..'\nbut you can use this option to force it if necessary.'
 	return out
