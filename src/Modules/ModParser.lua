@@ -1812,7 +1812,9 @@ local specialModList = {
 	["enemies taunted by your warcries explode on death, dealing (%d+)%% of their maximum life as (.+) damage"] = function(amount, _, type)	-- Al Dhih
 		return explodeFunc(100, amount, type, { type = "ActorCondition", actor = "enemy", var = "Taunted" }, { type = "Condition", var = "UsedWarcryRecently" })
 	end,
-
+	["totems explode on death, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Crucible weapon mod
+		return explodeFunc(100, amount, type)
+	end,
 	-- Keystones
 	["(%d+) rage regenerated for every (%d+) mana regeneration per second"] = function(num, _, div) return { 
 		mod("RageRegen", "BASE", num, {type = "PerStat", stat = "ManaRegen", div = tonumber(div) }) ,

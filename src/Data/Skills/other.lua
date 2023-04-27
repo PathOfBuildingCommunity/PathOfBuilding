@@ -3426,6 +3426,7 @@ skills["EnemyExplode"] = {
 		skill("radius", 22),
 		skill("showAverage", true),
 		skill("explodeCorpse", true),
+		skill("corpseExplosionLifeMultiplier", 0),
 		skill("hitChanceIsExplodeChance", true, { type = "SkillPart", skillPart = 1 }),
 	},
 	baseFlags = {
