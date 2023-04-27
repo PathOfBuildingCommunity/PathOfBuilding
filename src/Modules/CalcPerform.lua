@@ -3876,7 +3876,25 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		local effect = 1 + modDB:Sum("INC", nil, "ConsecratedGroundEffect") / 100
 		enemyDB:NewMod("DamageTaken", "INC", enemyDB:Sum("INC", nil, "DamageTakenConsecratedGround") * effect, "Consecrated Ground")
 	end
-	
+
+	-- Defence/offence calculations
+	calcs.defence(env, env.player)
+	if not fullDPSSkipEHP then
+		calcs.buildDefenceEstimations(env, env.player)
+	end
+	calcs.offence(env, env.player, env.player.mainSkill)
+
+	if env.minion then
+		doActorLifeMana(env.minion)
+		doActorLifeManaReservation(env.minion)
+
+		calcs.defence(env, env.minion)
+		if not fullDPSSkipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
+			calcs.buildDefenceEstimations(env, env.minion)
+		end
+		calcs.offence(env, env.minion, env.minion.mainSkill)
+	end
+
 	 -- Export modifiers to enemy conditions and stats for party tab
 	if env.build.partyTab.enableExportBuffs then
 		for k, v in pairs(enemyDB.mods) do
@@ -3896,24 +3914,6 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
             end
         end
 		env.build.partyTab:setBuffExports(buffExports)
-	end
-
-	-- Defence/offence calculations
-	calcs.defence(env, env.player)
-	if not fullDPSSkipEHP then
-		calcs.buildDefenceEstimations(env, env.player)
-	end
-	calcs.offence(env, env.player, env.player.mainSkill)
-
-	if env.minion then
-		doActorLifeMana(env.minion)
-		doActorLifeManaReservation(env.minion)
-
-		calcs.defence(env, env.minion)
-		if not fullDPSSkipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
-			calcs.buildDefenceEstimations(env, env.minion)
-		end
-		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
 
 	cacheData(cacheSkillUUID(env.player.mainSkill), env)

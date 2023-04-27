@@ -76,11 +76,11 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.processedInput["Link"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
-			self.controls.simpleEnemyCond.label = "^7Enemy Conditions are not exported but will still work if correctly added"
+			self.controls.simpleEnemyCond.label = "^7---------------------------\n"
 			self.controls.enemyCond:SetText("")
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyMods" then
-			self.controls.simpleEnemyMods.label = "^7Enemy Modifiers are not exported but will still work if correctly added"
+			self.controls.simpleEnemyMods.label = "\n"
 			self.controls.enemyMods:SetText("")
 		end
 	end
@@ -217,7 +217,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 					wipeTable(self.enemyModList)
 					self.enemyModList = new("ModList")
 					self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
-					self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
+					self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods", self.controls.simpleEnemyMods)
 				end
 				self.build.buildFlag = true 
 				break
@@ -239,7 +239,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.importCodeDetail or ""
 	end
 	self.controls.importCodeDestination = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, partyDestinations)
-	self.controls.importCodeDestination.tooltipText = "Destination for Import/clear\nCurrently EnemyConditions, EnemyMods and Links Skills do not export"
+	self.controls.importCodeDestination.tooltipText = "Destination for Import/clear\nCurrently Links Skills do not export"
 	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeDestination,"RIGHT"}, 8, 0, 160, 20, "Import", function()
 		local importCodeFetching = false
 		if self.importCodeSite and not self.importCodeXML then
@@ -309,7 +309,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
 		self:ParseBuffs(self.processedInput["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
 		self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
-		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods")
+		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods", self.controls.simpleEnemyMods)
 		self.build.buildFlag = true 
 	end)
 	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have been disabled or they have changed since loading the build or importing"
@@ -378,7 +378,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyCond.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, 16, "^7Enemy Conditions are not exported but will still work if correctly added")
+	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, 16, "^7---------------------------\n")
 	self.controls.simpleEnemyCond.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
@@ -388,7 +388,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		if self.controls.ShowAdvanceTools.state then
 			return (8 + self.controls.enemyCond.height())
 		end
-		local lineCount = 1
+		local lineCount = 0
 		for i = 1, #self.controls.simpleEnemyCond.label do
 			local c = self.controls.simpleEnemyCond.label:sub(i, i)
 			if c == '\n' then lineCount = lineCount + 1 end
@@ -406,7 +406,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyMods.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleEnemyMods = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"TOPLEFT"}, 0, 18, 0, 16, "^7Enemy Modifiers are not exported but will still work if correctly added")
+	self.controls.simpleEnemyMods = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"TOPLEFT"}, 0, 18, 0, 16, "\n")
 	self.controls.simpleEnemyMods.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
@@ -416,7 +416,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		if self.controls.ShowAdvanceTools.state then
 			return (8 + self.controls.enemyMods.height())
 		end
-		local lineCount = 1
+		local lineCount = 0
 		for i = 1, #self.controls.simpleEnemyMods.label do
 			local c = self.controls.simpleEnemyMods.label:sub(i, i)
 			if c == '\n' then lineCount = lineCount + 1 end
@@ -460,7 +460,7 @@ function PartyTabClass:Load(xml, fileName)
 				self:ParseBuffs(self.enemyModList, node[1] or "", "EnemyConditions")
 			elseif node.attrib.name == "EnemyMods" then
 				self.controls.enemyMods:SetText(node[1] or "")
-				self:ParseBuffs(self.enemyModList, node[1] or "", "EnemyMods")
+				self:ParseBuffs(self.enemyModList, node[1] or "", "EnemyMods", self.controls.simpleEnemyMods)
 			end
 		elseif node.elem == "ExportedBuffs" then
 			if not node.attrib.name then
@@ -608,12 +608,16 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 			list:NewMod(line:gsub("Condition:", "Condition:Party:"), "FLAG", true, "Party")
 		end
 	elseif buffType == "EnemyMods" then
+		local enemyModList = {}
 		local modeName = true
 		local currentName
 		for line in buf:gmatch("([^\n]*)\n?") do
 			if modeName then
 				currentName = line
 				modeName = false
+				if label and currentName ~= "" then
+					enemyModList[currentName] = enemyModList[currentName] or {}
+				end
 			else
 				modeName = true
 				local modStrings = {}
@@ -626,7 +630,26 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					-- and check that the ones in the build are NOT true, such that your effects override the supports
 					local tags = nil -- modStrings[7]
 					list:NewMod(modStrings[3], modStrings[4], tonumber(modStrings[1]), "Party"..modStrings[2], ModFlag[modStrings[5]] or 0, KeywordFlag[modStrings[6]] or 0, tags)
+					if label then
+						t_insert(enemyModList[currentName], {modStrings[1], modStrings[4]})
+					end
 				end
+			end
+		end
+		if label then
+			local count = 0
+			label.label = "^7---------------------------"
+			for modName, modList in pairs(enemyModList) do
+				label.label = label.label.."\n"..modName..":"
+				count = count + 1
+				for _, mod in ipairs(modList) do
+					label.label = label.label.." "..mod[1].." "..(mod[2] == "FLAG" and "" or mod[2])..", "
+				end
+			end
+			if count > 0 then
+				label.label = label.label.."\n---------------------------\n"
+			else
+				label.label = label.label.."\n"
 			end
 		end
 	else
