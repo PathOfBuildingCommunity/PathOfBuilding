@@ -12494,6 +12494,9 @@ skills["DestructiveLink"] = {
 		["critical_link_grants_accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
+		["display_critical_link_overrides_main_hand_critical_strike_chance"] = {
+			mod("MainHandCritIsEqualToActor", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "Condition", var = "MainHandAttack" }),
+		},
 	},
 	baseFlags = {
 		spell = true,

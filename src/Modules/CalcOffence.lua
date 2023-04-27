@@ -2548,6 +2548,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		else
 			local critOverride = skillModList:Override(cfg, "CritChance")
+			-- destructive link
+			if skillModList:Flag(cfg, "MainHandCritIsEqualToActor") and actor.parent.output.MainHand then
+				critOverride = actor.parent.output.MainHand.CritChance
+			end
 			local baseCrit = critOverride or source.CritChance or 0
 
 			local baseCritFromMainHand = skillModList:Flag(cfg, "BaseCritFromMainHand")

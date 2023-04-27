@@ -3279,10 +3279,17 @@ skills["FlameLink"] = {
 		["flame_link_grants_chance_to_ignite_%"] = {
 			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
+		["flame_link_added_fire_damage_from_life_%"] = {
+			
+		},
 	},
 	baseFlags = {
 		spell = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("FireMin", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),,
+		mod("FireMax", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),,
 	},
 	qualityStats = {
 		Default = {
@@ -5943,6 +5950,10 @@ skills["ProtectiveLink"] = {
 		},
 		["bulwark_link_grants_stun_threshold_+%"] = {
 			mod("StunThreshold", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"] = {
+			mod("BlockAttackChanceIsEqualToActor", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+			mod("MaximumBlockAttackChanceIsEqualToActor", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
 	},
 	baseFlags = {
