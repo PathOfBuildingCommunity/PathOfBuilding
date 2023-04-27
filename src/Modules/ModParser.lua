@@ -53,13 +53,13 @@ local formList = {
 	["^you gain ([%d%.]+)"] = "GAIN",
 	["^gains? ([%d%.]+)%% of"] = "GAIN",
 	["^gain ([%d%.]+)"] = "GAIN",
-	["^grants ([%d%.]+)"] = "GRANTS",
-	["^removes? ([%d%.]+)%% of"] = "REMOVES",
 	["^gain %+(%d+)%% to"] = "GAIN",
 	["^you lose ([%d%.]+)"] = "LOSE",
 	["^loses? ([%d%.]+)%% of"] = "LOSE",
 	["^lose ([%d%.]+)"] = "LOSE",
 	["^lose %+(%d+)%% to"] = "LOSE",
+	["^grants ([%d%.]+)"] = "GRANTS",    -- local
+	["^removes? ([%d%.]+) ?o?f? ?y?o?u?r?"] = "REMOVES", -- local
 	["^(%d+)"] = "BASE",
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% chance to gain "] = "FLAG",
@@ -3500,6 +3500,7 @@ local specialModList = {
 	["gain (%d+) life per cursed enemy hit with attacks"] = function(num) return { mod("LifeOnHit", "BASE", num, nil, bor(ModFlag.Attack, ModFlag.Hit), { type = "ActorCondition", actor = "enemy", var = "Cursed" }) } end,
 	["(%d+) mana gained for each cursed enemy hit by your attacks"] = function(num) return { mod("ManaOnHit", "BASE", num, nil, bor(ModFlag.Attack, ModFlag.Hit), { type = "ActorCondition", actor = "enemy", var = "Cursed" }) } end,
 	["gain (%d+) mana per cursed enemy hit with attacks"] = function(num) return { mod("ManaOnHit", "BASE", num, nil, bor(ModFlag.Attack, ModFlag.Hit), { type = "ActorCondition", actor = "enemy", var = "Cursed" }) } end,
+	["gain (%d+) life per blinded enemy hit with this weapon"] = function(num) return { mod("LifeOnHit", "BASE", num, nil, ModFlag.Hit,{ type = "ActorCondition", actor = "enemy", var = "Blinded" }, { type = "Condition", var = "{Hand}Attack" }) } end,
 	["recover (%d+)%% of life on kill"] = function(num) return { mod("LifeOnKill", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) } end,
 	["recover (%d+)%% of life on kill for each different type of mastery you have allocated"] = function(num) return { mod("LifeOnKill", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Multiplier", var = "AllocatedMasteryType" }) } end,
 	["recover (%d+)%% of life on killing a poisoned enemy"] = function(num) return { mod("LifeOnKill", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "MultiplierThreshold", actor = "enemy", var = "PoisonStack", threshold = 1 }) } end,
@@ -5018,6 +5019,7 @@ local function parseMod(line, order)
 	local modValue = tonumber(formCap[1]) or formCap[1]
 	local modType = "BASE"
 	local modSuffix
+	local modExtraTags
 	if modForm == "INC" then
 		modType = "INC"
 	elseif modForm == "RED" then
@@ -5033,18 +5035,20 @@ local function parseMod(line, order)
 	elseif modForm == "GAIN" then
 		modType = "BASE"
 		modSuffix, line = scan(line, suffixTypes, true)
-	elseif modForm == "GRANTS" then
-		modType = "BASE"
-		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
-		modSuffix, line = scan(line, suffixTypes, true)
-	elseif modForm == "REMOVES" then
-		modValue = -modValue
-		modType = "BASE"
-		modFlag = modFlag or { keywordFlags = KeywordFlag.Attack }
-		modSuffix, line = scan(line, suffixTypes, true)
 	elseif modForm == "LOSE" then
 		modValue = -modValue
 		modType = "BASE"
+		modSuffix, line = scan(line, suffixTypes, true)
+	elseif modForm == "GRANTS" then -- local
+		modType = "BASE"
+		modFlag = modFlag
+		modExtraTags = { tag = { type = "Condition", var = "{Hand}Attack" } }
+		modSuffix, line = scan(line, suffixTypes, true)
+	elseif modForm == "REMOVES" then -- local
+		modValue = -modValue
+		modType = "BASE"
+		modFlag = modFlag
+		modExtraTags = { tag = { type = "Condition", var = "{Hand}Attack" } }
 		modSuffix, line = scan(line, suffixTypes, true)
 	elseif modForm == "CHANCE" then
 	elseif modForm == "REGENPERCENT" then
@@ -5111,7 +5115,7 @@ local function parseMod(line, order)
 	local keywordFlags = 0
 	local tagList = { }
 	local misc = { }
-	for _, data in pairs({ modName, preFlag, modFlag, modTag, modTag2, skillTag }) do
+	for _, data in pairs({ modName, preFlag, modFlag, modTag, modTag2, skillTag, modExtraTags }) do
 		if type(data) == "table" then
 			flags = bor(flags, data.flags or 0)
 			keywordFlags = bor(keywordFlags, data.keywordFlags or 0)
