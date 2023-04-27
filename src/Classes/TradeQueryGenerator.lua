@@ -175,7 +175,16 @@ function TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, newOutput, st
 			baseModSum = baseModSum + (baseOutput[mod] or 0)
 			newModSum = newModSum + (newOutput[mod] or 0)
 		end
-		return newModSum / ((baseModSum ~= 0) and baseModSum or 1)
+
+		if baseModSum == math.huge then
+			return 0
+		else
+			if newModSum == math.huge then
+				return data.misc.maxStatIncrease
+			else
+				return math.min(newModSum / ((baseModSum ~= 0) and baseModSum or 1), data.misc.maxStatIncrease)
+			end
+		end
 	end
 	for _, statTable in ipairs(statWeights) do
 		if statTable.stat == "FullDPS" and not GlobalCache.useFullDPS then
