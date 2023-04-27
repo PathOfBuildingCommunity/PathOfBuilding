@@ -608,8 +608,8 @@ local skills, mod, flag, skill = ...
 			
 		},
 	},
-#baseMod mod("FireMin", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),
-#baseMod mod("FireMax", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),
+#baseMod mod("FireMin", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" })
+#baseMod mod("FireMax", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" })
 #mods
 
 #skill BloodSandArmour

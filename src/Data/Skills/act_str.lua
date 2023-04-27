@@ -3288,8 +3288,8 @@ skills["FlameLink"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("FireMin", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),,
-		mod("FireMax", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),,
+		mod("FireMin", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),
+		mod("FireMax", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),
 	},
 	qualityStats = {
 		Default = {
