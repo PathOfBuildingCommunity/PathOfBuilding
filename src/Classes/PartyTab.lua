@@ -715,35 +715,36 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 		end
 		if label then
 			if buffType == "Aura" then
-				local count = 0
+				local labelList = {}
 				label.label = "^7---------------------------\n"
 				for aura, auraMod in pairs(list["Aura"] or {}) do
-					label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
-					count = count + 1
+					t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
 				end
 				for aura, auraMod in pairs(list["AuraDebuff"] or {}) do
-					label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
-					count = count + 1
+					if not list["Aura"] or not list["Aura"][aura] then
+						t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
+					end
+				end
+				if #labelList > 0 then
+					table.sort(labelList)
+					label.label = label.label..table.concat(labelList)
+					label.label = label.label.."---------------------------\n"
 				end
 				if list["extraAura"] and list["extraAura"]["extraAura"] then
 					label.label = label.label.."extraAuras:\n"
-					count = count + 1
 					for _, auraMod in ipairs(list["extraAura"]["extraAura"].modList) do
 						label.label = label.label.."  "..(auraMod.type == "FLAG" and "" or (auraMod.type.." "))..auraMod.name..": "..tostring(auraMod.value).."\n"
 					end
-				end
-				if count > 0 then
 					label.label = label.label.."---------------------------\n"
 				end
 			elseif buffType == "Curse" then
-				local count = 0
-				label.label = "^7---------------------------\n"
+				local labelList = {}
 				for curse, curseMod in pairs(list["Curse"] or {}) do
-					label.label = label.label..curse..": "..curseMod.effectMult.."%\n"
-					count = count + 1
+					t_insert(labelList, curse..": "..curseMod.effectMult.."%\n")
 				end
-				if count > 0 then
-					label.label = label.label.."---------------------------\n"
+				if #labelList > 0 then
+					table.sort(labelList)
+					label.label = "^7---------------------------\n"..table.concat(labelList).."---------------------------\n"
 				else
 					label.label = ""
 				end
