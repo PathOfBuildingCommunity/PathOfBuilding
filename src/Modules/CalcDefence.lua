@@ -406,7 +406,7 @@ function calcs.defence(env, actor)
 
 	-- Block
 	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
-	if modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToActor") then
+	if modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToParent") then
 		output.BlockChanceMax = actor.parent.output.BlockChanceMax
 	end
 	output.BlockChanceOverCap = 0
@@ -419,7 +419,7 @@ function calcs.defence(env, actor)
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
 	end
 	output.ShieldBlockChance = baseBlockChance
-	if modDB:Flag(nil, "BlockAttackChanceIsEqualToActor") then
+	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
 		output.BlockChance = actor.parent.output.BlockChance
 	elseif modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
 		output.BlockChance = output.BlockChanceMax
@@ -828,7 +828,7 @@ function calcs.defence(env, actor)
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
 	end
 	output.ShieldBlockChance = baseBlockChance
-	if modDB:Flag(nil, "BlockAttackChanceIsEqualToActor") then
+	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
 		output.BlockChance = actor.parent.output.BlockChance
 	elseif modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
 		output.BlockChance = output.BlockChanceMax
@@ -909,6 +909,9 @@ function calcs.defence(env, actor)
 	-- Leech caps
 	output.MaxLifeLeechInstance = output.Life * calcLib.val(modDB, "MaxLifeLeechInstance") / 100
 	output.MaxLifeLeechRatePercent = calcLib.val(modDB, "MaxLifeLeechRate")
+	if modDB:Flag(nil, "MaximumLifeLeechIsEqualToParent") then
+		output.MaxLifeLeechRatePercent = actor.parent.output.MaxLifeLeechRatePercent
+	end
 	output.MaxLifeLeechRate = output.Life * output.MaxLifeLeechRatePercent / 100
 	if breakdown then
 		breakdown.MaxLifeLeechRate = {

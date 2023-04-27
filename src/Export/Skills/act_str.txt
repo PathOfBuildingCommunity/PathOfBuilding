@@ -1113,8 +1113,8 @@ local skills, mod, flag, skill = ...
 			mod("StunThreshold", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
 		["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"] = {
-			mod("BlockAttackChanceIsEqualToActor", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
-			mod("MaximumBlockAttackChanceIsEqualToActor", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+			mod("BlockAttackChanceIsEqualToParent", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+			mod("MaximumBlockAttackChanceIsEqualToParent", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
 	},
 #mods
