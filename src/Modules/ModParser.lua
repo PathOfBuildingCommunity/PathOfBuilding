@@ -2339,6 +2339,7 @@ local specialModList = {
 		end
 		return mods
 	end,
+	["grant bonuses to non%-channelling skills you use by consuming (%d+) charges from a flask of each of the following types, if possible:"] = { },
 	["if diamond flask charges are consumed, (%d+)%% increased critical strike chance"] = function (num) return {
 		mod("CritChance", "INC", num, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "Condition", var = "UsingDiamondFlask" })
 	} end,
