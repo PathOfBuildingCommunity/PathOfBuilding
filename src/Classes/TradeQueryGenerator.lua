@@ -37,7 +37,7 @@ local itemCategoryTags = {
 	["AbyssJewel"] = { ["default"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
 	["BaseJewel"] = { ["default"] = true, ["jewel"] = true, ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true },
 	["AnyJewel"] = { ["default"] = true, ["jewel"] = true, ["not_int"] = true, ["not_str"] = true, ["not_dex"] = true, ["abyss_jewel"] = true, ["abyss_jewel_melee"] = true, ["abyss_jewel_ranged"] = true, ["abyss_jewel_summoner"] = true, ["abyss_jewel_caster"] = true },
-	["Flask"] = { ["flask"] = true, ["hybrid_flask"] = true, ["utility_flask"] = true, ["mana_flask"] = true, ["life_flask"] = true, ["expedition_flask"] = true, ["critical_utility_flask"] = true }
+	["Flask"] = { ["default"] = true, ["flask"] = true, ["hybrid_flask"] = true, ["utility_flask"] = true, ["mana_flask"] = true, ["life_flask"] = true, ["expedition_flask"] = true, ["critical_utility_flask"] = true }
 }
 
 local craftedCategoryTags = {
@@ -203,7 +203,7 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 
 		-- Special cases
 		local specialCaseData = { }
-		if mod.group and mod.group:find("Shield") and modLine:find("Chance to Block") then
+		if mod.group and (mod.group:find("Local") or mod.group:find("Shield")) and modLine:find("Chance to Block$") then
 			specialCaseData.overrideModLine = "+#% Chance to Block"
 			modLine = modLine .. " (Shields)"
 		elseif modLine == "You can apply an additional Curse" then
@@ -214,7 +214,10 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			modLine = "Bow Attacks fire 1 additional Arrows"
 		elseif modLine == "Projectiles Pierce an additional Target" then
 			specialCaseData.overrideModLineSingular = "Projectiles Pierce an additional Target"
-			modLine = "Projectiles Pierce 1 additional Target"
+			modLine = "Projectiles Pierce 1 additional Targets"
+		elseif modLine == "Has 1 Abyssal Socket" then
+			specialCaseData.overrideModLineSingular = "Has 1 Abyssal Socket"
+			modLine = "Has 1 Abyssal Sockets"
 		end
 
 		-- If this is the first tier for this mod, find matching trade mod and init the entry
@@ -223,10 +226,37 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			goto continue
 		end
 
+		local function swapInverse(modLine)
+			local priorStr = modLine
+			local inverseKey
+			if modLine:match("increased") then
+				modLine = modLine:gsub("([^ ]+) increased", "-%1 reduced")
+				if modLine ~= priorStr then inverseKey = "increased" end
+			elseif modLine:match("reduced") then
+				modLine = modLine:gsub("([^ ]+) reduced", "-%1 increased")
+				if modLine ~= priorStr then inverseKey = "reduced" end
+			elseif modLine:match("more") then
+				modLine = modLine:gsub("([^ ]+) more", "-%1 less")
+				if modLine ~= priorStr then inverseKey = "more" end
+			elseif modLine:match("less") then
+				modLine = modLine:gsub("([^ ]+) less", "-%1 more")
+				if modLine ~= priorStr then inverseKey = "less" end
+			elseif modLine:match("expires ([^ ]+) slower") then
+				modLine = modLine:gsub("([^ ]+) slower", "-%1 faster")
+				if modLine ~= priorStr then inverseKey = "slower" end
+			elseif modLine:match("expires ([^ ]+) faster") then
+				modLine = modLine:gsub("([^ ]+) faster", "-%1 slower")
+				if modLine ~= priorStr then inverseKey = "faster" end
+			end
+			return modLine, inverseKey
+		end
+
 		local uniqueIndex = tostring(statOrder).."_"..mod.group
+		local inverse = false
+		local inverseKey
+		::reparseMod::
 		if self.modData[modType][uniqueIndex] == nil then
 			local tradeMod = nil
-
 			-- Try to match to a local mod fallback to global if no match
 			if mod.group:match("Local") then
 				local matchLocalStr = (modLine .. " (Local)"):gsub("[#()0-9%-%+%.]","")
@@ -248,11 +278,25 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 				end
 			end
 			if tradeMod == nil then
-				logToFile("Unable to match %s mod: %s", modType, modLine)
-				goto nextModLine
+				if inverse then
+					logToFile("Unable to match %s mod: %s", modType, modLine)
+					goto nextModLine
+				else -- try swapping increased / decreased and signed and other similar mods.
+					modLine, inverseKey = swapInverse(modLine)
+					inverse = true
+					if inverseKey then
+						goto reparseMod
+					else
+						logToFile("Unable to match %s mod: %s", modType, modLine)
+						goto nextModLine
+					end
+				end
 			end
 
-			self.modData[modType][uniqueIndex] = { tradeMod = tradeMod, specialCaseData = specialCaseData }
+			self.modData[modType][uniqueIndex] = { tradeMod = tradeMod, specialCaseData = specialCaseData, inverseKey = inverseKey }
+		elseif self.modData[modType][uniqueIndex].inverseKey and modLine:match(self.modData[modType][uniqueIndex].inverseKey) then
+			inverse = true
+			modLine = swapInverse(modLine)
 		end
 
 		-- tokenize the numerical variables for this mod and store the sign if there is one
@@ -263,16 +307,31 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 			if poundPos == nil then
 				break
 			end
-			startPos, endPos, sign, min, max = modLine:find("([%+%-]?)%(?(%d+%.?%d*)%-?(%d*%.?%d*)%)?", poundPos + tokenizeOffset)
+
+			local startPos, endPos, sign, min, max = modLine:find("([%+%-]?)%(?(%d+%.?%d*)%-?(%d*%.?%d*)%)?", poundPos + tokenizeOffset)
 
 			if endPos == nil then
 				logToFile("[GMD] Error extracting tokens from '%s' for tradeMod '%s'", modLine, self.modData[modType][uniqueIndex].tradeMod.text)
 				goto nextModLine
 			end
 
+			max = #max > 0 and tonumber(max) or tonumber(min)
+
 			tokenizeOffset = tokenizeOffset + (endPos - startPos)
+			
+			if inverse then
+				sign = nil
+				min = -min
+				max = -max
+				if min > max then
+					local temp = max
+					max = min
+					min = temp
+				end
+			end
+
 			table.insert(tokens, min)
-			table.insert(tokens, #max > 0 and tonumber(max) or tonumber(min))
+			table.insert(tokens, max)
 			if sign ~= nil then
 				self.modData[modType][uniqueIndex].sign = sign
 			end
@@ -359,7 +418,6 @@ function TradeQueryGeneratorClass:InitMods()
 		end
 	end
 	self:GenerateModData(data.itemMods.Item, tradeQueryStatsParsed, regularItemMask)
-	self:GenerateModData(data.veiledMods, tradeQueryStatsParsed, regularItemMask)
 	self:GenerateModData(data.itemMods.Jewel, tradeQueryStatsParsed, { ["BaseJewel"] = true, ["AnyJewel"] = true })
 	self:GenerateModData(data.itemMods.JewelAbyss, tradeQueryStatsParsed, { ["AbyssJewel"] = true, ["AnyJewel"] = true })
 	self:GenerateModData(data.itemMods.Flask, tradeQueryStatsParsed, { ["Flask"] = true })
@@ -381,6 +439,7 @@ function TradeQueryGeneratorClass:InitMods()
 
 	regularItemMask.Flask = true -- Update mask as flasks can have crafted mods.
 	self:GenerateModData(data.masterMods, tradeQueryStatsParsed, regularItemMask)
+	self:GenerateModData(data.veiledMods, tradeQueryStatsParsed, regularItemMask)
 
 	-- megalomaniac
 	local clusterNotableMods = {}
