@@ -520,7 +520,7 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
 		end
 	end
-	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
+	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") or skillModList:Flag(skillCfg, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from Spiritual Aid and The Scourge
 		local multiplier = (skillModList:Max(skillCfg, "ImprovedMinionDamageAppliesToPlayer") or 100) / 100
 		for _, value in ipairs(skillModList:List(skillCfg, "MinionModifier")) do
@@ -863,7 +863,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- Calculate skill type stats
 	if skillFlags.minion then
 		if activeSkill.minion and activeSkill.minion.minionData.limit then
-			output.ActiveMinionLimit = m_floor(calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
+			output.ActiveMinionLimit = m_floor(env.modDB:Override(nil, activeSkill.minion.minionData.limit) or calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
 		end
 	end
 	if skillFlags.chaining then
@@ -1339,7 +1339,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		durationBase = (skillData.soulPreventionDuration or 0)
 		if durationBase > 0 then
-			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "SkillAndDamagingAilmentDuration", skillData.skillEffectAppliesToSoulGainPrevention and "SoulGainPreventionDuration" or nil, skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+			local durationMod = calcLib.mod(skillModList, skillCfg, "SoulGainPreventionDuration", skillData.skillEffectAppliesToSoulGainPrevention and "Duration" or "SkillAndDamagingAilmentDuration" or nil, skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 			durationMod = m_max(durationMod, 0)
 			output.SoulGainPreventionDuration = durationBase * durationMod
 			output.SoulGainPreventionDuration = m_max(m_ceil(output.SoulGainPreventionDuration * data.misc.ServerTickRate), 1) / data.misc.ServerTickRate

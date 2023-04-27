@@ -3198,6 +3198,13 @@ skills["Exsanguinate"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.CanRapidFire] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -3205,7 +3212,8 @@ skills["Exsanguinate"] = {
 	baseMods = {
 		skill("debuff", true),
 		mod("Multiplier:ExsanguinateMaxStages", "BASE", 3),
-		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}),
+		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
+		mod("FireDamage", "MORE", 100, 0, KeywordFlag.FireDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" }),
 	},
 	qualityStats = {
 		Default = {
@@ -7596,6 +7604,11 @@ skills["Bloodreap"] = {
 		},
 		["blood_scythe_cost_+%_final_per_charge"] = {
 			mod("LifeCost", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
 		},
 	},
 	baseFlags = {

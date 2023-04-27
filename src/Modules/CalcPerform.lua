@@ -588,6 +588,24 @@ local function doActorAttribsConditions(env, actor)
 		if modDB:Sum("BASE", nil, "EnemySapChance") > 0 or modDB:Flag(nil, "CritAlwaysAltAilments") and not modDB:Flag(env.player.mainSkill.skillCfg, "NeverCrit") then
 			condList["CanInflictSap"] = true
 		end
+		-- Shrine Buffs: Must be done before life pool calculated for massive shrine
+		local shrineEffectMod = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf", "ShrineBuffEffect") / 100
+		if modDB:Flag(nil, "LesserMassiveShrine") then
+			modDB:NewMod("Life", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
+			modDB:NewMod("AreaOfEffect", "INC", m_floor(20 * shrineEffectMod), "Lesser Massive Shrine")
+		end
+		if modDB:Flag(nil, "LesserBrutalShrine") then
+			modDB:NewMod("Damage", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
+			modDB:NewMod("EnemyStunDuration", "INC", m_floor(20 * shrineEffectMod), "Lesser Brutal Shrine")
+			modDB:NewMod("EnemyKnockbackChance", "INC", 100, "Lesser Brutal Shrine")
+		end
+		if modDB:Flag(nil, "DiamondShrine") then
+			modDB:NewMod("CritChance", "OVERRIDE", 100, "Diamond Shrine")
+		end
+		if modDB:Flag(nil, "MassiveShrine") then
+			modDB:NewMod("Life", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
+			modDB:NewMod("AreaOfEffect", "INC", m_floor(40 * shrineEffectMod), "Massive Shrine")
+		end
 	end
 	if env.mode_effective then
 		if env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "FireExposureChance") > 0 or modDB:Sum("BASE", nil, "FireExposureChance") > 0 then
@@ -731,11 +749,6 @@ local function doActorAttribsConditions(env, actor)
 				modDB:NewMod("EnergyShield", "INC", m_floor(output.Int / 5), "Intelligence")
 			end
 		end
-	end
-
-	-- Check shrine buffs, must be done before life pool calculated for massive shrine
-	for _, value in ipairs(modDB:List(nil, "ShrineBuff")) do
-		modDB:ScaleAddList({ value.mod }, calcLib.mod(modDB, nil, "BuffEffectOnSelf", "ShrineBuffEffect"))
 	end
 
 	doActorLifeMana(actor)
