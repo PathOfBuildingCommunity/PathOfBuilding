@@ -146,7 +146,7 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 		else
 			if response.total < self.maxFetchPerSearch then -- Less than maximum items retrieved lower weight to try and get more.
 				local queryJson = dkjson.decode(query)
-				queryJson.query.stats[1].value.min = queryJson.query.stats[1].value.min / 10
+				queryJson.query.stats[1].value.min = queryJson.query.stats[1].value.min / 2
 				query = dkjson.encode(queryJson)
 				self:PerformSearch(realm, league, query, performSearchCallback)
 			else -- Search clipped, fetch highest weight item, update query weight and repeat search
