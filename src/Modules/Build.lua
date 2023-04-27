@@ -443,19 +443,23 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 
 	-- Controls: Side bar
 	self.anchorSideBar = new("Control", nil, 4, 36, 0, 0)
-	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 134, 20, "Import/Export Build", function()
+	self.controls.modeImport = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 0, 148, 20, "Import/Export Build", function()
 		self.viewMode = "IMPORT"
 	end)
 	self.controls.modeImport.locked = function() return self.viewMode == "IMPORT" end
-	self.controls.modeNotes = new("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 58, 20, "Notes", function()
+	self.controls.modeNotes = new("ButtonControl", {"LEFT",self.controls.modeImport,"RIGHT"}, 4, 0, 148, 20, "Notes", function()
 		self.viewMode = "NOTES"
 	end)
 	self.controls.modeNotes.locked = function() return self.viewMode == "NOTES" end
-	self.controls.modeConfig = new("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 0, 100, 20, "Configuration", function()
+	self.controls.modeParty = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 148, 20, "Party", function()
+		self.viewMode = "PARTY"
+	end)
+	self.controls.modeParty.locked = function() return self.viewMode == "PARTY" end
+	self.controls.modeConfig = new("ButtonControl", {"TOPRIGHT",self.anchorSideBar,"TOPLEFT"}, 300, 26, 148, 20, "Configuration", function()
 		self.viewMode = "CONFIG"
 	end)
 	self.controls.modeConfig.locked = function() return self.viewMode == "CONFIG" end
-	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 26, 72, 20, "Tree", function()
+	self.controls.modeTree = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 52, 72, 20, "Tree", function()
 		self.viewMode = "TREE"
 	end)
 	self.controls.modeTree.locked = function() return self.viewMode == "TREE" end
@@ -472,7 +476,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
 	-- Skills
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 54, 300, 16, "^7Main Skill:")
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 80, 300, 16, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
@@ -599,6 +603,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.data = data
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
+	self.partyTab = new("PartyTab", self)
 	self.configTab = new("ConfigTab", self)
 	self.itemsTab = new("ItemsTab", self)
 	self.treeTab = new("TreeTab", self)
@@ -609,6 +614,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.savers = {
 		["Config"] = self.configTab,
 		["Notes"] = self.notesTab,
+		["Party"] = self.partyTab,
 		["Tree"] = self.treeTab,
 		["TreeView"] = self.treeTab.viewer,
 		["Items"] = self.itemsTab,
@@ -933,6 +939,7 @@ end
 function buildMode:ResetModFlags()
 	self.modFlag = false
 	self.notesTab.modFlag = false
+	self.partyTab.modFlag = false
 	self.configTab.modFlag = false
 	self.treeTab.modFlag = false
 	self.treeTab.searchFlag = false
@@ -986,6 +993,8 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "CONFIG"
 				elseif event.key == "6" then
 					self.viewMode = "NOTES"
+				elseif event.key == "7" then
+					self.viewMode = "PARTY"
 				end
 			end
 		end
@@ -1038,9 +1047,11 @@ function buildMode:OnFrame(inputEvents)
 		height = main.screenH - 32
 	}
 	if self.viewMode == "IMPORT" then
-		self.importTab:Draw(tabViewPort, inputEvents)
+		self.importTab:Draw(tabViewPort, inputEvents)  
 	elseif self.viewMode == "NOTES" then
 		self.notesTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "PARTY" then
+		self.partyTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "CONFIG" then
 		self.configTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "TREE" then
@@ -1053,7 +1064,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 
