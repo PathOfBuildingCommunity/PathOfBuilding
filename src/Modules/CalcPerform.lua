@@ -391,9 +391,6 @@ local function doActorLifeMana(actor)
 	output.LowLifePercentage = 100.0 * (lowLifePerc > 0 and lowLifePerc or data.misc.LowPoolThreshold)
 	local fullLifePerc = modDB:Sum("BASE", nil, "FullLifePercentage")
 	output.FullLifePercentage = 100.0 * (fullLifePerc > 0 and fullLifePerc or 1.0)
-	-- This is hacky, but currently the only way to bring data into ConfigOptions for dynamically updated tooltips
-	data.tooltipValues.LowLifePercentage = output.LowLifePercentage
-	data.tooltipValues.FullLifePercentage = output.FullLifePercentage
 
 	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
 	-- Life/mana pools

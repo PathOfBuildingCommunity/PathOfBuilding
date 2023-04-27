@@ -503,13 +503,6 @@ data.misc = { -- magic numbers
 	PvpNonElemental2 = 90,
 }
 
--- Some magic numbers can change, but need to be here in order to be used in ConfigOptions (e.g. in tooltips)
-data.tooltipValues = {
-	-- Life Scaling Mastery
-	LowLifePercentage = 0.5,
-	FullLifePercentage = 1.0,
-}
-
 data.casterTagCrucibleUniques = {
 	["Atziri's Rule"] = true,
 	["Cane of Kulemak"] = true,
