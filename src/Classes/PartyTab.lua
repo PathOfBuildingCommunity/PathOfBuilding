@@ -47,8 +47,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		bufferHeightSmall = 106,
 		bufferHeightLeft = function()
 			-- 2 elements
-			return (self.height - 256 - ((self.width > 1350) and 0 or 28) - self.controls.importCodeHeader.y() - self.controls.editAurasLabel.y())
+			return (self.height - 258 - ((self.width > 1350) and 0 or 24) - self.controls.importCodeHeader.y() - self.controls.editAurasLabel.y())
 		end,
+		-- 3 elements
 		bufferHeightRight = 304,
 	}
 
@@ -68,7 +69,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end
 	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, UIGuides.stringHeight, "^7Enter a build code/URL below:")
 	self.controls.importCodeHeader.y = function()
-		return UIGuides.lineCounter(self.controls.notesDesc.label)
+		return UIGuides.lineCounter(self.controls.notesDesc.label) + 4
 	end
 	
 	local clearInputText = function()
@@ -289,7 +290,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return (self.width > UIGuides.widthThreshold1) and 60 or (-276)
 	end
 	self.controls.appendNotReplace.y = function()
-		return (self.width > UIGuides.widthThreshold1) and 0 or 28
+		return (self.width > UIGuides.widthThreshold1) and 0 or 24
 	end
 	
 	self.controls.clear = new("ButtonControl", {"LEFT",self.controls.appendNotReplace,"RIGHT"}, 8, 0, 160, UIGuides.buttonHeight, "Clear", function() 
@@ -303,7 +304,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, UIGuides.buttonHeight, "^7Show Advanced Info", function(state)
 	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export\nDo not edit any boxes unless you know what you are doing, use copy/paste or import instead", false)
 	self.controls.ShowAdvanceTools.y = function()
-		return (self.width > UIGuides.widthThreshold1) and 4 or 32
+		return (self.width > UIGuides.widthThreshold1) and 4 or 28
 	end
 	
 	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, 8, 0, 160, UIGuides.buttonHeight, "Disable Party Effects", function() 
@@ -332,12 +333,12 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return (self.width > UIGuides.widthThreshold1) and 8 or (-328)
 	end
 	self.controls.rebuild.y = function()
-		return (self.width > UIGuides.widthThreshold1) and 0 or 28
+		return (self.width > UIGuides.widthThreshold1) and 0 or 24
 	end
 
 	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 0, UIGuides.stringHeight, "^7Auras")
 	self.controls.editAurasLabel.y = function()
-		return 40 + ((self.width <= UIGuides.widthThreshold1) and 28 or 0)
+		return 36 + ((self.width <= UIGuides.widthThreshold1) and 24 or 0)
 	end
 	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editAuras.width = function()
@@ -357,7 +358,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, 0, 8, 0, UIGuides.stringHeight, "^7Link Skills")
 	self.controls.editLinksLabel.y = function()
-		return self.controls.ShowAdvanceTools.state and (8 + self.controls.editAuras.height()) or (UIGuides.lineCounter(self.controls.simpleAuras.label) + 4)
+		return self.controls.ShowAdvanceTools.state and (self.controls.editAuras.height() + 8) or (UIGuides.lineCounter(self.controls.simpleAuras.label) + 4)
 	end
 	self.controls.editLinks = new("EditControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editLinks.width = function()
@@ -609,18 +610,12 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				end
 			else
 				modeName = true
-				local modStrings = {}
-				local modType = currentModType
-				for line2 in line:gmatch("([^|]*)|?") do
-					t_insert(modStrings, line2)
-				end
-				if #modStrings >= 7 then
-					-- should be done with a modified version of "modLib.parseTags" where conditions check vs the party
-					-- and check that the ones in the build are NOT true, such that your effects override the supports
-					local tags = nil -- modStrings[7]
-					list:NewMod(modStrings[3], modStrings[4], tonumber(modStrings[1]), "Party"..modStrings[2], ModFlag[modStrings[5]] or 0, KeywordFlag[modStrings[6]] or 0, tags)
+				local mod = modLib.parseFormattedSourceMod(line)
+				if mod then
+					mod.source = "Party"..mod.source
+					list:AddMod(mod)
 					if label then
-						t_insert(enemyModList[currentName], {modStrings[1], modStrings[4]})
+						t_insert(enemyModList[currentName], {mod.value, mod.type})
 					end
 				end
 			end
@@ -680,21 +675,25 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				mode = "Name"
 			else
 				if line:find("|") and currentName ~= "SKIP" then
-					local modType, mod = modLib.parseFormattedSourceMod(line, currentModType)
+					local mod = modLib.parseFormattedSourceMod(line)
 					if mod then
-						currentModType = modType
-						list[modType] = list[modType] or {}
-						if not list[modType][currentName] then
-							list[modType][currentName] = {
+						for _, tag in ipairs(mod) do
+							if tag.type == "GlobalEffect" then
+								currentModType = tag.effectType
+							end
+						end
+						list[currentModType] = list[currentModType] or {}
+						if not list[currentModType][currentName] then
+							list[currentModType][currentName] = {
 								modList = new("ModList"),
 								effectMult = currentEffect
 							}
 							if isMark then
-								list[modType][currentName].isMark = true
+								list[currentModType][currentName].isMark = true
 							end
-						elseif list[modType][currentName].effectMult ~= currentEffect then
-							if list[modType][currentName].effectMult < currentEffect then
-								list[modType][currentName] = {
+						elseif list[currentModType][currentName].effectMult ~= currentEffect then
+							if list[currentModType][currentName].effectMult < currentEffect then
+								list[currentModType][currentName] = {
 									modList = new("ModList"),
 									effectMult = currentEffect
 								}
@@ -707,7 +706,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 								_, mod.source = mod.source:match("Item:(%d+):(.+)")
 								mod.source = "Party - "..mod.source
 							end
-							list[modType][currentName].modList:AddMod(mod)
+							list[currentModType][currentName].modList:AddMod(mod)
 						end
 					end
 				end
