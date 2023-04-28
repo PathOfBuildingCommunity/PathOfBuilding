@@ -6609,7 +6609,7 @@ skills["RejuvenationTotem"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 10),
+		skill("radius", 40),
 	},
 	qualityStats = {
 		Default = {
@@ -6690,6 +6690,9 @@ skills["VaalRejuvenationTotem"] = {
 		totem = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 40),
 	},
 	qualityStats = {
 		Default = {
@@ -7696,10 +7699,24 @@ skills["VaalReap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["vaal_reap_additional_maximum_blood_charges"] = {
+			mod("BloodChargesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 23),
+		skill("dotIsArea", true),
 	},
 	qualityStats = {
 		Default = {
