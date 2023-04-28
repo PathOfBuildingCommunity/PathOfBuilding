@@ -6684,6 +6684,15 @@ skills["VaalRejuvenationTotem"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 21,
 	castTime = 0.1,
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+		["vaal_rejuvenation_totem_%_damage_taken_applied_to_totem_instead"] = {
+			mod("takenFromVaalRejuvenationTotemsBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		aura = true,

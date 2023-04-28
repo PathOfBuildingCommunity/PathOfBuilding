@@ -1241,6 +1241,15 @@ local skills, mod, flag, skill = ...
 
 #skill VaalRejuvenationTotem
 #flags spell aura totem area duration
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+		["vaal_rejuvenation_totem_%_damage_taken_applied_to_totem_instead"] = {
+			mod("takenFromVaalRejuvenationTotemsBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
 #baseMod skill("radius", 40)
 #mods
 
