@@ -401,6 +401,16 @@ function main:OnFrame()
 	SetDrawColor(0, 0, 0)
 	DrawImage(nil, par + 500, 200, 2, 750)
 	DrawImage(nil, 500, par + 200, 759, 2)]]
+	
+	if self.inputEvents and not itemLib.wiki.triggered then
+		for _, event in ipairs(self.inputEvents) do
+			if event.type == "KeyUp" and event.key == "F1" then
+				self:OpenAboutPopup(1)
+				break
+			end
+		end
+	end
+	itemLib.wiki.triggered = false
 
 	wipeTable(self.inputEvents)
 
@@ -957,7 +967,7 @@ function main:OpenUpdatePopup()
 	self:OpenPopup(800, 250, "Update Available", controls)
 end
 
-function main:OpenAboutPopup()
+function main:OpenAboutPopup(helpSectionIndex)
 	local textSize, titleSize, popupWidth = 16, 24, 810
 	local changeList = { }
 	local changelogName = launch.devMode and "../changelog.txt" or "changelog.txt"
@@ -977,18 +987,20 @@ function main:OpenAboutPopup()
 		end
 	end
 	local helpList = { }
+	local helpSections = { }
 	do
 		local helpName = launch.devMode and "../help.txt" or "help.txt"
 		local helpFile = io.open(helpName, "r")
 		if helpFile then
 			helpFile:close()
 			for line in io.lines(helpName) do
-				local title, titleIndex = line:match("^---%[(.+)%]%[(.+)%]$")
+				local title = line:match("^---%[(.+)%]$")
 				if title then
 					if #helpList > 0 then
-						t_insert(helpList, { height = 10 })
+						t_insert(helpList, { height = textSize / 2 })
 					end
-					t_insert(helpList, { height = 18, "^7"..title.." ("..titleIndex..")" })
+					t_insert(helpSections, { title = title, height = #helpList })
+					t_insert(helpList, { height = titleSize, "^7"..title.." ("..#helpSections..")" })
 				else
 					local dev = line:match("^DEV%[(.+)%]$")
 					if not ( dev and not launch.devMode ) then
@@ -1012,7 +1024,31 @@ function main:OpenAboutPopup()
 					end
 				end
 			end
+			local contentsDone = false
+			for sectionIndex, sectionValues in ipairs(helpSections) do
+				if sectionValues.title == "Contents" then
+					t_insert(helpList, (sectionValues.height + sectionIndex), { height = textSize, "^7 "})
+					for i, sectionValuesInner in ipairs(helpSections) do
+						t_insert(helpList, (sectionValues.height + i + sectionIndex), { height = textSize, "^7"..tostring(i)..". "..sectionValuesInner.title })
+					end
+				end
+				helpSections[sectionIndex].height = helpSections[sectionIndex].height + (contentsDone and (#helpSections + 1) or 0)
+				if sectionValues.title == "Contents" then
+					contentsDone = true
+				end
+			end
+			helpSections.total = #helpList + #helpSections + 1
 		end
+	end
+	if helpSectionIndex and not helpSections[helpSectionIndex] then
+		local newIndex = nil
+		for sectionIndex, sectionValues in ipairs(helpSections) do
+			if sectionValues.title == helpSectionIndex then
+				newIndex = sectionIndex
+				break
+			end
+		end
+		helpSectionIndex = newIndex
 	end
 	local controls = { }
 	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
@@ -1029,8 +1065,10 @@ function main:OpenAboutPopup()
 	controls.helpLabel = new("ButtonControl", { "TOPRIGHT", nil, "TOPRIGHT" }, -10, 85, 40, 18, "^7Help:", function()
 		controls.changelog.list = helpList
 	end)
-	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, changeList)
-	self:OpenPopup(650, 500, "About", controls)
+	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, helpSectionIndex and helpList or changeList)
+	if helpSectionIndex then
+		controls.changelog.controls.scrollBar.offset = helpSections[helpSectionIndex].height * textSize
+	end
 	self:OpenPopup(popupWidth, 628, "About", controls)
 end
 
