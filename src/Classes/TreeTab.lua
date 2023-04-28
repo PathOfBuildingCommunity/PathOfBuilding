@@ -4,6 +4,7 @@
 -- Passive skill tree tab for the current build.
 --
 local ipairs = ipairs
+local pairs = pairs
 local next = next
 local t_insert = table.insert
 local t_sort = table.sort
@@ -171,7 +172,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return self.showConvert
 	end
 	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
-		local newSpec = new("PassiveSpec", self.build, latestTreeVersion)
+		local newSpec = new("PassiveSpec", self.build, latestTreeVersion, true)
 		newSpec.title = self.build.spec.title
 		newSpec.jewels = copyTable(self.build.spec.jewels)
 		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), latestTreeVersion)

@@ -520,7 +520,7 @@ function calcs.offence(env, actor, activeSkill)
 			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Battlemage", ModFlag.Spell)
 		end
 	end
-	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") then
+	if skillModList:Flag(nil, "MinionDamageAppliesToPlayer") or skillModList:Flag(skillCfg, "MinionDamageAppliesToPlayer") then
 		-- Minion Damage conversion from Spiritual Aid and The Scourge
 		local multiplier = (skillModList:Max(skillCfg, "ImprovedMinionDamageAppliesToPlayer") or 100) / 100
 		for _, value in ipairs(skillModList:List(skillCfg, "MinionModifier")) do
@@ -863,7 +863,7 @@ function calcs.offence(env, actor, activeSkill)
 	-- Calculate skill type stats
 	if skillFlags.minion then
 		if activeSkill.minion and activeSkill.minion.minionData.limit then
-			output.ActiveMinionLimit = m_floor(calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
+			output.ActiveMinionLimit = m_floor(env.modDB:Override(nil, activeSkill.minion.minionData.limit) or calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
 		end
 	end
 	if skillFlags.chaining then
@@ -1339,7 +1339,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		durationBase = (skillData.soulPreventionDuration or 0)
 		if durationBase > 0 then
-			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "SkillAndDamagingAilmentDuration", skillData.skillEffectAppliesToSoulGainPrevention and "SoulGainPreventionDuration" or nil, skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+			local durationMod = calcLib.mod(skillModList, skillCfg, "SoulGainPreventionDuration", skillData.skillEffectAppliesToSoulGainPrevention and "Duration" or "SkillAndDamagingAilmentDuration" or nil, skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
 			durationMod = m_max(durationMod, 0)
 			output.SoulGainPreventionDuration = durationBase * durationMod
 			output.SoulGainPreventionDuration = m_max(m_ceil(output.SoulGainPreventionDuration * data.misc.ServerTickRate), 1) / data.misc.ServerTickRate
@@ -1550,12 +1550,20 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("preDamageFunc")
 
-	-- Handle corpse explosions
+	-- Handle corpse and enemy explosions
+	local monsterLife = skillData.corpseLife or (env.enemyLevel and data.monsterLifeTable[env.enemyLevel] or 100)
 	if skillData.explodeCorpse and (skillData.corpseLife or env.enemyLevel) then
-		local localCorpseLife = skillData.corpseLife or data.monsterLifeTable[env.enemyLevel];
 		local damageType = skillData.corpseExplosionDamageType or "Fire"
-		skillData[damageType.."BonusMin"] = localCorpseLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
-		skillData[damageType.."BonusMax"] = localCorpseLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
+		skillData[damageType.."BonusMin"] = monsterLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
+		skillData[damageType.."BonusMax"] = monsterLife * ( skillData.corpseExplosionLifeMultiplier or skillData.selfFireExplosionLifeMultiplier )
+	end
+	if skillFlags.monsterExplode then
+		for _, damageType in pairs(dmgTypeList) do
+			local percentage = skillData[damageType.."EffectiveExplodePercentage"]
+			local base = (percentage or 0) * monsterLife / 100
+			skillData[damageType.."Min"] = base
+			skillData[damageType.."Max"] = base
+		end
 	end
 
 	-- Cache global damage disabling flags
@@ -2749,7 +2757,7 @@ function calcs.offence(env, actor, activeSkill)
 								output.impaleStoredHitAvg = output.impaleStoredHitAvg + damageTypeHitAvg * (1 - output.CritChance / 100)
 							end
 							local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
-							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg)
+							local armourReduction = calcs.armourReductionF(enemyArmour, damageTypeHitAvg * skillModList:More(cfg, "CalcArmourAsThoughDealing"))
 							if skillModList:Flag(cfg, "IgnoreEnemyPhysicalDamageReduction") then
 								resist = 0
 							else
@@ -2996,6 +3004,12 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate average damage and final DPS
 		output.AverageHit = totalHitAvg * (1 - output.CritChance / 100) + totalCritAvg * output.CritChance / 100
+		if skillFlags.monsterExplode then
+			output.AverageHitToMonsterLifePercentage = output.AverageHit / monsterLife * 100
+			if skillData.hitChanceIsExplodeChance then
+				output.HitChance = output.ExplodeChance
+			end
+		end
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
 		globalOutput.AverageBurstHits = output.AverageBurstHits or 1
 		local repeatPenalty = skillModList:Flag(nil, "HasSeals") and activeSkill.skillTypes[SkillType.CanRapidFire] and calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty") or 1
@@ -4814,7 +4828,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.TotalPoisonDPS = m_min(output.TotalPoisonDPS * quantityMultiplier, data.misc.DotDpsCap)
 	end
 	if skillData.showAverage then
-		output.CombinedAvg = output.CombinedAvg + (output.PoisonDamage or 0)
+		output.CombinedAvg = output.CombinedAvg + (output.TotalPoisonAverageDamage or 0)
 		output.WithPoisonDPS = baseDPS + (output.TotalPoisonAverageDamage or 0)
 	else
 		output.WithPoisonDPS = baseDPS + (output.TotalPoisonDPS or 0)
@@ -4834,6 +4848,9 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	else
 		output.WithIgniteDPS = baseDPS
+	end
+	if skillFlags.monsterExplode then
+		output.CombinedAvgToMonsterLife = output.CombinedAvg / monsterLife * 100
 	end
 	if skillFlags.bleed then
 		if skillData.showAverage then

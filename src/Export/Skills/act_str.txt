@@ -611,9 +611,17 @@ local skills, mod, flag, skill = ...
 
 #skill Exsanguinate
 #flags spell duration
+	statMap = {
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
 #baseMod skill("debuff", true)
 #baseMod mod("Multiplier:ExsanguinateMaxStages", "BASE", 3)
-#baseMod mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"})
+#baseMod mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true })
+#baseMod mod("FireDamage", "MORE", 100, 0, KeywordFlag.FireDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" })
 #mods
 
 #skill FlameLink
@@ -1228,7 +1236,7 @@ local skills, mod, flag, skill = ...
 			div = 60,
 		},
 	},
-#baseMod skill("radius", 10)
+#baseMod skill("radius", 40)
 #mods
 
 #skill VaalRejuvenationTotem
@@ -1242,6 +1250,7 @@ local skills, mod, flag, skill = ...
 			mod("takenFromVaalRejuvenationTotemsBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
+#baseMod skill("radius", 40)
 #mods
 
 #skill SearingBond
@@ -1404,6 +1413,11 @@ end,
 		["blood_scythe_cost_+%_final_per_charge"] = {
 			mod("LifeCost", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
 		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
+		},
 	},
 #baseMod skill("radius", 25)
 #baseMod skill("debuff", true)
@@ -1411,6 +1425,18 @@ end,
 
 #skill VaalReap
 #flags spell area duration
+	statMap = {
+		["vaal_reap_additional_maximum_blood_charges"] = {
+			mod("BloodChargesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
+#baseMod skill("radius", 23)
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill ShieldCrush

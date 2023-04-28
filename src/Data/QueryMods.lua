@@ -2229,6 +2229,24 @@ return {
 				["type"] = "implicit", 
 			}, 
 		}, 
+		["1820_ActorSize"] = {
+			["AnyJewel"] = {
+				["max"] = -1, 
+				["min"] = -1, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = -1, 
+				["min"] = -1, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1408638732", 
+				["text"] = "#% increased Character Size", 
+				["type"] = "implicit", 
+			}, 
+		}, 
 		["1833_AddedPhysicalDamageToBowAttacksCorrupted"] = {
 			["Quiver"] = {
 				["max"] = 15.5, 
@@ -2419,6 +2437,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_3001376862", 
 				["text"] = "#% reduced Area Damage taken from Hits", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["2003_FireDamageTaken"] = {
+			["Chest"] = {
+				["max"] = -4, 
+				["min"] = -6, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3743301799", 
+				["text"] = "#% increased Fire Damage taken", 
 				["type"] = "implicit", 
 			}, 
 		}, 
@@ -4349,6 +4381,42 @@ return {
 				["type"] = "implicit", 
 			}, 
 		}, 
+		["8572_ReducedBleedDuration"] = {
+			["AnyJewel"] = {
+				["max"] = -20, 
+				["min"] = -25, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = -20, 
+				["min"] = -25, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1692879867", 
+				["text"] = "#% increased Bleed Duration on you", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["8579_ReducedPoisonDuration"] = {
+			["AnyJewel"] = {
+				["max"] = -20, 
+				["min"] = -25, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = -20, 
+				["min"] = -25, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3301100256", 
+				["text"] = "#% increased Poison Duration on you", 
+				["type"] = "implicit", 
+			}, 
+		}, 
 		["8606_ShockEffect"] = {
 			["Helmet"] = {
 				["max"] = 30, 
@@ -4360,6 +4428,24 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2527686725", 
 				["text"] = "#% increased Effect of Shock", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["8617_ReducedShockEffectOnSelf"] = {
+			["AnyJewel"] = {
+				["max"] = -20, 
+				["min"] = -25, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = -20, 
+				["min"] = -25, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3801067695", 
+				["text"] = "#% increased Effect of Shock on you", 
 				["type"] = "implicit", 
 			}, 
 		}, 
@@ -5647,6 +5733,7 @@ return {
 			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
+				["overrideModLineSingular"] = "Projectiles Pierce an additional Target", 
 			}, 
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2067062068", 
@@ -9198,6 +9285,48 @@ return {
 				["type"] = "implicit", 
 			}, 
 		}, 
+		["8617_ReducedShockEffectOnSelf"] = {
+			["Helmet"] = {
+				["max"] = -33, 
+				["min"] = -50, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3801067695", 
+				["text"] = "#% increased Effect of Shock on you", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["8617_ReducedShockEffectOnSelfPinnaclePresence"] = {
+			["Helmet"] = {
+				["max"] = -57, 
+				["min"] = -70, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_433740375", 
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, #% increased Effect of Shock on you", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["8617_ReducedShockEffectOnSelfUniquePresence"] = {
+			["Helmet"] = {
+				["max"] = -45, 
+				["min"] = -61, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1343931641", 
+				["text"] = "While a Unique Enemy is in your Presence, #% increased Effect of Shock on you", 
+				["type"] = "implicit", 
+			}, 
+		}, 
 		["8765_SpellsHinderOnHitChance"] = {
 			["Gloves"] = {
 				["max"] = 40, 
@@ -9237,6 +9366,48 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_3423886807", 
 				["text"] = "While a Unique Enemy is in your Presence, #% chance to Hinder Enemies on Hit with Spells", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["9138_WitherExpireSpeed"] = {
+			["Gloves"] = {
+				["max"] = -10, 
+				["min"] = -24, 
+			}, 
+			["inverseKey"] = "slower", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1625982517", 
+				["text"] = "Withered you Inflict expires #% faster", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["9138_WitherExpireSpeedPinnaclePresence"] = {
+			["Gloves"] = {
+				["max"] = -34, 
+				["min"] = -45, 
+			}, 
+			["inverseKey"] = "slower", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3457821036", 
+				["text"] = "While a Pinnacle Atlas Boss is in your Presence, Withered you Inflict expires #% faster", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["9138_WitherExpireSpeedUniquePresence"] = {
+			["Gloves"] = {
+				["max"] = -22, 
+				["min"] = -33, 
+			}, 
+			["inverseKey"] = "slower", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3262721796", 
+				["text"] = "While a Unique Enemy is in your Presence, Withered you Inflict expires #% faster", 
 				["type"] = "implicit", 
 			}, 
 		}, 
@@ -29396,6 +29567,52 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["1557_LocalIncreasedPhysicalDamagePercentAndPierce"] = {
+			["1HWeapon"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["2HWeapon"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Bow"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Wand"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+				["overrideModLineSingular"] = "Projectiles Pierce an additional Target", 
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2067062068", 
+				["text"] = "Projectiles Pierce # additional Targets", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["1557_ProjectilePierceAndProjectileGemLevel"] = {
+			["Gloves"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Helmet"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+				["overrideModLineSingular"] = "Projectiles Pierce an additional Target", 
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2067062068", 
+				["text"] = "Projectiles Pierce # additional Targets", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["1559_AdditionalProjectiles"] = {
 			["2HAxe"] = {
 				["max"] = 1, 
@@ -36570,6 +36787,20 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["1945_FlaskEffectAndFlaskChargesGained"] = {
+			["Belt"] = {
+				["max"] = -20, 
+				["min"] = -33, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1452809865", 
+				["text"] = "#% increased Flask Charges gained", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["1946_BeltReducedFlaskChargesUsed"] = {
 			["Belt"] = {
 				["max"] = 20, 
@@ -36991,6 +37222,30 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["2002_ReducedPhysicalReflectTakenMaven"] = {
+			["Chest"] = {
+				["max"] = -3, 
+				["min"] = -5, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3853018505", 
+				["text"] = "#% increased Physical Damage taken", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["2003_FireDamageTaken"] = {
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3743301799", 
+				["text"] = "#% increased Fire Damage taken", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["2004_ChaosDamageTakenPercentage"] = {
 			["sign"] = "", 
 			["specialCaseData"] = {
@@ -37038,6 +37293,17 @@ return {
 				["max"] = 15, 
 				["min"] = 1, 
 			}, 
+			["sign"] = "+", 
+			["specialCaseData"] = {
+				["overrideModLine"] = "+#% Chance to Block", 
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4253454700", 
+				["text"] = "#% Chance to Block (Shields)", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["2010_LocalPhysicalDamageReductionRatingPercentAndBlockChance"] = {
 			["sign"] = "+", 
 			["specialCaseData"] = {
 				["overrideModLine"] = "+#% Chance to Block", 
@@ -38287,6 +38553,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2264295449", 
 				["text"] = "# to Melee Strike Range", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["2304_GlobalItemAttributeRequirements"] = {
+			["Amulet"] = {
+				["max"] = -5, 
+				["min"] = -15, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_752930724", 
+				["text"] = "Items and Gems have #% increased Attribute Requirements", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -42235,6 +42515,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_1345659139", 
 				["text"] = "#% increased Critical Strike Chance against Poisoned Enemies", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["3035_ReducedElementalReflectTakenMaven"] = {
+			["Chest"] = {
+				["max"] = -3, 
+				["min"] = -5, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2734809852", 
+				["text"] = "#% increased Elemental Damage taken", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -46782,6 +47076,20 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["4553_BaseFrozenEffectOnSelf"] = {
+			["Helmet"] = {
+				["max"] = -11, 
+				["min"] = -20, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2069161757", 
+				["text"] = "#% increased Effect of Freeze on you", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["4558_ColdExposureOnHit"] = {
 			["1HMace"] = {
 				["max"] = 20, 
@@ -47086,6 +47394,85 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_3110907148", 
 				["text"] = "#% increased Cast Speed if a Minion has been Killed Recently", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["48_AbyssJewelSocket"] = {
+			["1HAxe"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["1HMace"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["1HSword"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["1HWeapon"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["2HAxe"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["2HMace"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["2HSword"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["2HWeapon"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Boots"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Bow"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Chest"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Claw"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Dagger"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Gloves"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Helmet"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Staff"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Wand"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+				["overrideModLineSingular"] = "Has 1 Abyssal Socket", 
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3527617737", 
+				["text"] = "Has # Abyssal Sockets", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -48191,6 +48578,24 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["5334_EnchantmentConsecratedGround"] = {
+			["AbyssJewel"] = {
+				["max"] = -10, 
+				["min"] = -15, 
+			}, 
+			["AnyJewel"] = {
+				["max"] = -10, 
+				["min"] = -15, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3444629796", 
+				["text"] = "#% increased Effect of Curses on you while on Consecrated Ground", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["5338_CurseDuration"] = {
 			["sign"] = "", 
 			["specialCaseData"] = {
@@ -48569,6 +48974,20 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["5443_ReducedFreezeDurationMaven"] = {
+			["Helmet"] = {
+				["max"] = -4, 
+				["min"] = -7, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3616645755", 
+				["text"] = "#% increased Damage taken if you've been Frozen Recently", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["5450_FasterAilmentDamageForJewel"] = {
 			["AnyJewel"] = {
 				["max"] = 6, 
@@ -48944,6 +49363,42 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2021420128", 
 				["text"] = "Trigger Level # Warlords's Mark when you Hit a Rare or Unique Enemy and have no Mark", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5681_EnchantmentBlind"] = {
+			["AbyssJewel"] = {
+				["max"] = -15, 
+				["min"] = -20, 
+			}, 
+			["AnyJewel"] = {
+				["max"] = -15, 
+				["min"] = -20, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4216282855", 
+				["text"] = "Enemies Blinded by you have #% increased Critical Strike Chance", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5687_EnchantmentHinder"] = {
+			["AbyssJewel"] = {
+				["max"] = -15, 
+				["min"] = -20, 
+			}, 
+			["AnyJewel"] = {
+				["max"] = -15, 
+				["min"] = -20, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3709502856", 
+				["text"] = "Enemies Hindered by you have #% increased Life Regeneration rate", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -49665,6 +50120,16 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["5894_ShockYourselfOnFocusCDR"] = {
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3610263531", 
+				["text"] = "Focus has #% increased Cooldown Recovery Rate", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["5894_SkillsCostNoManaWhileFocusedCDR"] = {
 			["sign"] = "", 
 			["specialCaseData"] = {
@@ -50178,6 +50643,10 @@ return {
 			}, 
 		}, 
 		["634_FlaskExtraMaxCharges"] = {
+			["Flask"] = {
+				["max"] = 35, 
+				["min"] = 16, 
+			}, 
 			["sign"] = "+", 
 			["specialCaseData"] = {
 			}, 
@@ -50188,6 +50657,10 @@ return {
 			}, 
 		}, 
 		["637_FlaskFullRechargeOnHit"] = {
+			["Flask"] = {
+				["max"] = 3, 
+				["min"] = 1, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50300,6 +50773,10 @@ return {
 			}, 
 		}, 
 		["639_FlaskChanceRechargeOnCrit"] = {
+			["Flask"] = {
+				["max"] = 35, 
+				["min"] = 11, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50310,6 +50787,10 @@ return {
 			}, 
 		}, 
 		["642_FlaskIncreasedChargesAdded"] = {
+			["Flask"] = {
+				["max"] = 50, 
+				["min"] = 16, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50343,7 +50824,25 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["643_FlaskChargesUsed"] = {
+			["Flask"] = {
+				["max"] = -14, 
+				["min"] = -28, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_388617051", 
+				["text"] = "#% increased Charges per use", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["643_FlaskIncreasedHealingCharges"] = {
+			["Flask"] = {
+				["max"] = 25, 
+				["min"] = 20, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50354,6 +50853,10 @@ return {
 			}, 
 		}, 
 		["646_FlaskExtraLifeCostsMana"] = {
+			["Flask"] = {
+				["max"] = 60, 
+				["min"] = 35, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50378,6 +50881,10 @@ return {
 			}, 
 		}, 
 		["647_FlaskHealsMinions"] = {
+			["Flask"] = {
+				["max"] = 80, 
+				["min"] = 51, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50412,6 +50919,10 @@ return {
 			}, 
 		}, 
 		["650_FlaskExtraManaCostsLife"] = {
+			["Flask"] = {
+				["max"] = 70, 
+				["min"] = 41, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50435,7 +50946,39 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["651_FlaskEffectNotRemovedOnFullManaReducedRecovery"] = {
+			["Flask"] = {
+				["max"] = -66, 
+				["min"] = -66, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_700317374", 
+				["text"] = "#% increased Amount Recovered", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["651_FlaskFullInstantRecovery"] = {
+			["Flask"] = {
+				["max"] = -66, 
+				["min"] = -66, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_700317374", 
+				["text"] = "#% increased Amount Recovered", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["651_FlaskIncreasedHealingCharges"] = {
+			["Flask"] = {
+				["max"] = 50, 
+				["min"] = 21, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50446,7 +50989,25 @@ return {
 			}, 
 		}, 
 		["651_FlaskIncreasedRecoveryAmount"] = {
+			["Flask"] = {
+				["max"] = 70, 
+				["min"] = 41, 
+			}, 
 			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_700317374", 
+				["text"] = "#% increased Amount Recovered", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["651_FlaskInstantRecoveryOnLowLife"] = {
+			["Flask"] = {
+				["max"] = -11, 
+				["min"] = -30, 
+			}, 
+			["inverseKey"] = "reduced", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -50456,6 +51017,10 @@ return {
 			}, 
 		}, 
 		["651_FlaskManaRecoveryAtEnd"] = {
+			["Flask"] = {
+				["max"] = 66, 
+				["min"] = 66, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50465,7 +51030,39 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["651_FlaskPartialInstantRecovery"] = {
+			["Flask"] = {
+				["max"] = -36, 
+				["min"] = -55, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_700317374", 
+				["text"] = "#% increased Amount Recovered", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["652_FlaskIncreasedRecoveryAmount"] = {
+			["Flask"] = {
+				["max"] = -33, 
+				["min"] = -33, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_173226756", 
+				["text"] = "#% increased Recovery rate", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["652_FlaskIncreasedRecoverySpeed"] = {
+			["Flask"] = {
+				["max"] = 70, 
+				["min"] = 41, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50476,6 +51073,10 @@ return {
 			}, 
 		}, 
 		["652_FlaskPartialInstantRecovery"] = {
+			["Flask"] = {
+				["max"] = 135, 
+				["min"] = 135, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50510,6 +51111,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_3500911418", 
 				["text"] = "Regenerate #% of Life per second during any Flask Effect", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["654_FlaskEffectReducedDuration"] = {
+			["Flask"] = {
+				["max"] = -23, 
+				["min"] = -38, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1256719186", 
+				["text"] = "#% increased Duration", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -50681,7 +51296,81 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["655_FlaskBleedingAndCorruptedBloodImmunityDuringEffect"] = {
+			["Flask"] = {
+				["max"] = -35, 
+				["min"] = -49, 
+			}, 
+			["inverseKey"] = "less", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1506355899", 
+				["text"] = "#% more Duration", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["655_FlaskFreezeAndChillImmunityDuringEffect"] = {
+			["Flask"] = {
+				["max"] = -35, 
+				["min"] = -49, 
+			}, 
+			["inverseKey"] = "less", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1506355899", 
+				["text"] = "#% more Duration", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["655_FlaskIgniteImmunityDuringEffect"] = {
+			["Flask"] = {
+				["max"] = -35, 
+				["min"] = -49, 
+			}, 
+			["inverseKey"] = "less", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1506355899", 
+				["text"] = "#% more Duration", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["655_FlaskPoisonImmunityDuringEffect"] = {
+			["Flask"] = {
+				["max"] = -35, 
+				["min"] = -49, 
+			}, 
+			["inverseKey"] = "less", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1506355899", 
+				["text"] = "#% more Duration", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["655_FlaskShockImmunityDuringEffect"] = {
+			["Flask"] = {
+				["max"] = -35, 
+				["min"] = -49, 
+			}, 
+			["inverseKey"] = "less", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1506355899", 
+				["text"] = "#% more Duration", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["656_FlaskIncreasedRecoveryOnLowLife"] = {
+			["Flask"] = {
+				["max"] = 130, 
+				["min"] = 101, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50706,6 +51395,10 @@ return {
 			}, 
 		}, 
 		["657_FlaskInstantRecoveryOnLowLife"] = {
+			["Flask"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -50729,6 +51422,10 @@ return {
 			}, 
 		}, 
 		["658_FlaskPartialInstantRecovery"] = {
+			["Flask"] = {
+				["max"] = 50, 
+				["min"] = 50, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50739,6 +51436,10 @@ return {
 			}, 
 		}, 
 		["662_FlaskManaRecoveryAtEnd"] = {
+			["Flask"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -50748,6 +51449,10 @@ return {
 			}, 
 		}, 
 		["663_FlaskFullInstantRecovery"] = {
+			["Flask"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -50757,6 +51462,10 @@ return {
 			}, 
 		}, 
 		["666_FlaskExtraManaCostsLife"] = {
+			["Flask"] = {
+				["max"] = 15, 
+				["min"] = 15, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50767,6 +51476,10 @@ return {
 			}, 
 		}, 
 		["668_FlaskExtraLifeCostsMana"] = {
+			["Flask"] = {
+				["max"] = 10, 
+				["min"] = 10, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -50777,6 +51490,10 @@ return {
 			}, 
 		}, 
 		["692_FlaskCurseImmunity"] = {
+			["Flask"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -51304,6 +52021,10 @@ return {
 			}, 
 		}, 
 		["700_LocalFlaskImmuneToMaimAndHinder"] = {
+			["Flask"] = {
+				["max"] = 17, 
+				["min"] = 6, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -51370,6 +52091,10 @@ return {
 			}, 
 		}, 
 		["701_LocalFlaskImmuneToMaimAndHinder"] = {
+			["Flask"] = {
+				["max"] = 17, 
+				["min"] = 6, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -51467,6 +52192,10 @@ return {
 			}, 
 		}, 
 		["703_FlaskPoisonImmunity"] = {
+			["Flask"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -51485,6 +52214,10 @@ return {
 			}, 
 		}, 
 		["705_FlaskShockImmunity"] = {
+			["Flask"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -51608,6 +52341,10 @@ return {
 			}, 
 		}, 
 		["706_LocalLifeFlaskHinderNearbyEnemies"] = {
+			["Flask"] = {
+				["max"] = 40, 
+				["min"] = 17, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -51788,6 +52525,10 @@ return {
 			}, 
 		}, 
 		["707_LocalManaFlaskHinderNearbyEnemies"] = {
+			["Flask"] = {
+				["max"] = 40, 
+				["min"] = 17, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -51995,6 +52736,20 @@ return {
 				["min"] = 25, 
 			}, 
 			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2448920197", 
+				["text"] = "#% increased effect", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["729_FlaskIncreasedRecoveryReducedEffect"] = {
+			["Flask"] = {
+				["max"] = -25, 
+				["min"] = -25, 
+			}, 
+			["inverseKey"] = "reduced", 
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
@@ -52324,6 +53079,10 @@ return {
 			}, 
 		}, 
 		["768_LocalFlaskCriticalStrikeChanceDuringFlaskEffect"] = {
+			["Flask"] = {
+				["max"] = 60, 
+				["min"] = 40, 
+			}, 
 			["sign"] = "", 
 			["specialCaseData"] = {
 			}, 
@@ -52429,7 +53188,7 @@ return {
 		}, 
 		["785_FlaskReflectReductionDuringFlaskEffect"] = {
 			["Flask"] = {
-				["max"] = 55, 
+				["max"] = 80, 
 				["min"] = 45, 
 			}, 
 			["sign"] = "", 
@@ -52438,6 +53197,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_3842373291", 
 				["text"] = "#% reduced Reflected Damage taken during Effect", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["786_LocalFlaskSkillManaCostDuringFlaskEffect"] = {
+			["Flask"] = {
+				["max"] = -11, 
+				["min"] = -29, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_683273571", 
+				["text"] = "#% increased Mana Cost of Skills during Effect", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -52565,6 +53338,20 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["793_FlaskBuffChillFreezeDuration"] = {
+			["Flask"] = {
+				["max"] = -36, 
+				["min"] = -65, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_774474440", 
+				["text"] = "#% increased Freeze Duration on you during Effect", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["7948_StrikeSkillsAdditionalTarget"] = {
 			["Gloves"] = {
 				["max"] = 2, 
@@ -52608,6 +53395,20 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_59547568", 
 				["text"] = "Hits with Melee Movement Skills have #% chance to Fortify", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["796_FlaskBuffShockEffect"] = {
+			["Flask"] = {
+				["max"] = -36, 
+				["min"] = -65, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1878455805", 
+				["text"] = "#% increased Effect of Shock on you during Effect", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -53622,6 +54423,17 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["8426_Quiver1AdditionalPierceOld"] = {
+			["sign"] = "", 
+			["specialCaseData"] = {
+				["overrideModLineSingular"] = "Projectiles Pierce an additional Target", 
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2067062068", 
+				["text"] = "Projectiles Pierce # additional Targets", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["8427_Quiver2AdditionalPierceOld"] = {
 			["sign"] = "", 
 			["specialCaseData"] = {
@@ -53749,6 +54561,42 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["8572_ReducedBleedDuration"] = {
+			["AnyJewel"] = {
+				["max"] = -30, 
+				["min"] = -35, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = -30, 
+				["min"] = -35, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1692879867", 
+				["text"] = "#% increased Bleed Duration on you", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8579_ReducedPoisonDuration"] = {
+			["AnyJewel"] = {
+				["max"] = -30, 
+				["min"] = -35, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = -30, 
+				["min"] = -35, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3301100256", 
+				["text"] = "#% increased Poison Duration on you", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["8603_ChanceToShockAttackersOnBlock"] = {
 			["2HWeapon"] = {
 				["max"] = 50, 
@@ -53768,6 +54616,88 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_575111651", 
 				["text"] = "#% chance to Shock Attackers for 4 seconds on Block", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["860_LocalAttributeRequirements"] = {
+			["1HAxe"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["1HMace"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["1HSword"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["1HWeapon"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["2HAxe"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["2HMace"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["2HSword"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["2HWeapon"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Boots"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Bow"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Chest"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Claw"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Dagger"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Gloves"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Helmet"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Shield"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Staff"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["Wand"] = {
+				["max"] = -18, 
+				["min"] = -32, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3639275092", 
+				["text"] = "#% increased Attribute Requirements", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -53806,6 +54736,74 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_3031766858", 
 				["text"] = "Shock nearby Enemies for # Seconds when you Focus", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8616_ChillAndShockEffectOnYouJewel"] = {
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1984113628", 
+				["text"] = "#% increased Effect of Chill and Shock on you", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8616_ReducedElementalAilmentEffectOnSelf"] = {
+			["Boots"] = {
+				["max"] = -24, 
+				["min"] = -40, 
+			}, 
+			["Gloves"] = {
+				["max"] = -24, 
+				["min"] = -40, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1984113628", 
+				["text"] = "#% increased Effect of Chill and Shock on you", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8617_ReducedShockEffectOnSelf"] = {
+			["AnyJewel"] = {
+				["max"] = -30, 
+				["min"] = -35, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = -30, 
+				["min"] = -35, 
+			}, 
+			["Helmet"] = {
+				["max"] = -51, 
+				["min"] = -60, 
+			}, 
+			["Ring"] = {
+				["max"] = -41, 
+				["min"] = -60, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3801067695", 
+				["text"] = "#% increased Effect of Shock on you", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8617_ReducedShockEffectOnSelfMaven"] = {
+			["Helmet"] = {
+				["max"] = -51, 
+				["min"] = -60, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3801067695", 
+				["text"] = "#% increased Effect of Shock on you", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -54549,6 +55547,24 @@ return {
 				["type"] = "explicit", 
 			}, 
 		}, 
+		["920_BlockShieldForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "+", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4061558269", 
+				["text"] = "#% Chance to Block Attack Damage while holding a Shield", 
+				["type"] = "explicit", 
+			}, 
+		}, 
 		["9211_SpellsAdditionalUnleashSeal"] = {
 			["Helmet"] = {
 				["max"] = 1, 
@@ -54641,6 +55657,24 @@ return {
 			["tradeMod"] = {
 				["id"] = "explicit.stat_2439129490", 
 				["text"] = "Chaos Resistance is Zero", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["921_ShieldSpellBlockForJewel"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["BaseJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "+", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_938645499", 
+				["text"] = "#% Chance to Block Spell Damage while holding a Shield", 
 				["type"] = "explicit", 
 			}, 
 		}, 
@@ -69717,6 +70751,102 @@ return {
 				["type"] = "scourge", 
 			}, 
 		}, 
+		["860_LocalAttributeRequirements"] = {
+			["1HAxe"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["1HMace"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["1HSword"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["1HWeapon"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["2HAxe"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["2HMace"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["2HSword"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["2HWeapon"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Boots"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Bow"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Chest"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Claw"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Dagger"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Gloves"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Helmet"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Shield"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Staff"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["Wand"] = {
+				["max"] = -12, 
+				["min"] = -20, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "scourge.stat_3639275092", 
+				["text"] = "#% increased Attribute Requirements", 
+				["type"] = "scourge", 
+			}, 
+		}, 
+		["8617_ReducedShockEffectOnSelf"] = {
+			["Ring"] = {
+				["max"] = -31, 
+				["min"] = -40, 
+			}, 
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "scourge.stat_3801067695", 
+				["text"] = "#% increased Effect of Shock on you", 
+				["type"] = "scourge", 
+			}, 
+		}, 
 		["8636_BrandDuration"] = {
 			["Amulet"] = {
 				["max"] = 20, 
@@ -74335,6 +75465,36 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_3257279374", 
 				["text"] = "#% increased Damage with Hits and Ailments against Abyssal Monsters", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["5434_DamageTakenPer250Dexterity"] = {
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_2477636501", 
+				["text"] = "#% increased Damage taken per 250 Dexterity", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["5435_DamageTakenPer250Intelligence"] = {
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_3522931817", 
+				["text"] = "#% increased Damage taken per 250 Intelligence", 
+				["type"] = "implicit", 
+			}, 
+		}, 
+		["5436_DamageTakenPer250Strength"] = {
+			["inverseKey"] = "reduced", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1443108510", 
+				["text"] = "#% increased Damage taken per 250 Strength", 
 				["type"] = "implicit", 
 			}, 
 		}, 

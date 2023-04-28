@@ -1672,7 +1672,7 @@ function calcs.buildDefenceEstimations(env, actor)
 	-- Life Recoverable
 	output.LifeRecoverable = output.LifeUnreserved
 	if env.configInput["conditionLowLife"] then
-		output.LifeRecoverable = m_min(output.Life * data.misc.configurable.LowLifePercentage / 100, output.LifeUnreserved)
+		output.LifeRecoverable = m_min(output.Life * (output.LowLifePercentage or data.misc.LowPoolThreshold) / 100, output.LifeUnreserved)
 		if output.LifeRecoverable < output.LifeUnreserved then
 			output.CappingLife = true
 		end
