@@ -1101,6 +1101,13 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	if modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") then
+		local base = modDB:Sum("BASE", nil, "AvoidShock")
+		if base ~= 0 then
+			modDB:NewMod("AvoidShockAppliesToElementalAilments", "BASE", base, "Stormshroud");
+		end
+	end
+
 	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
 		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments"), 100)
 	end
@@ -1123,6 +1130,18 @@ function calcs.defence(env, actor)
 	output.DebuffExpirationModifier = 10000 / (100 + output.DebuffExpirationRate)
 	output.showDebuffExpirationModifier = (output.DebuffExpirationModifier ~= 100)
 	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration")) * output.DebuffExpirationModifier / 100
+
+	if modDB:Flag(nil, "IgniteDurationAppliesToElementalAilments") then
+		local inc = modDB:Sum("INC", nil, "SelfIgniteDuration");
+		local more =  modDB:More(nil, "SelfIgniteDuration");
+		if inc ~= 0 then
+			modDB:NewMod("SelfIgniteDurationToElementalAilments", "INC", inc, "Firesong");
+		end
+		if more ~= 1 then
+			modDB:NewMod("SelfIgniteDurationToElementalAilments", "MORE", inc, "Firesong");
+		end
+	end
+
 	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
 		local more = modDB:More(nil, "Self"..ailment.."Duration", "SelfAilmentDuration")
 		local inc = (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfAilmentDuration")) * 100
