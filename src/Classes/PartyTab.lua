@@ -627,7 +627,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				label.label = label.label.."\n"..modName..":"
 				count = count + 1
 				for _, mod in ipairs(modList) do
-					label.label = label.label.." "..mod[1].." "..(mod[2] == "FLAG" and "" or mod[2])..", "
+					label.label = label.label.." "..(mod[1] and "True" or mod[1]).." "..(mod[2] == "FLAG" and "" or mod[2])..", "
 				end
 			end
 			if count > 0 then
