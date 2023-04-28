@@ -1,22 +1,24 @@
 VERSION[2.29.0][2023/04/28]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
-* Support for crafting Crucible mods on items by (@LocalIdentity, @Peechey) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6071, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6104, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6123, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6077
+--- Implemented Enhancements ---
+* Support for crafting Crucible mods on items by (LocalIdentity, Peechey)
 * Add ability to simulate Aura bots or curse support with new Party tab (Regisle)
 * Add support for on-kill explosions (Edvinas-Smita)
-* Add support for Vaal Firestorm, Lightning Arrow, Arctic Armour, Animate Weapon and Reap by (@Regisle, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6080, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6081, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6088, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6146, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6082
+* Add support for Vaal Firestorm, Lightning Arrow, Arctic Armour, Animate Weapon and Reap by (Regisle, LocalIdentity)
 * Add ability to search for Megalomaniac in Trader (Edvinas-Smita)
 * Add support for local, Essence and crafted mods in Trader (QuickStick123)
 * Add support for hits against you overwhelm pdr (QuickStick123)
 * Add support for regex OR to tree and Item search (QuickStick123)
 * Add support for Master Distiller (deathbeam)
-* Add support for Damage taken from Allies life before you @Regisle in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5943
+* Add support for Damage taken from Allies life before you (Regisle)
 * Add support for 'Impales to last an additional hit' mastery mod (Regisle)
+
 --- Fixed Crashes ---
 * Fix infinite recursion crash with Manaforged arrows (Paliak)
 * Fix crash when renaming tree with F2 (Paliak)
 * Fix crash when sorting Trader results by some stats (Regisle)
 * Fix multiple Mastery-related crashes when converting tree to new version (Peechey)
+
 --- User Interface ---
 * Allow custom hex colours for positive and negative breakdown values (Peechey)
 * Filter Timeless Jewel search by node distance (Regisle)
@@ -28,6 +30,7 @@ VERSION[2.29.0][2023/04/28]
 * Fix instant Leech breakdown (mortentc)
 * Fix colour codes leaking into formatted numbers (QuickStick123)
 * Fix discontinuous mod values occurring with range tier slider (QuickStick123)
+
 --- Accuracy Improvements ---
 * Update uniques (QuickStick123)
 * Fix Juggernaut Unbreakable not working with Iron Reflexes + Evasion (LocalIdentity)
@@ -43,6 +46,7 @@ VERSION[2.29.0][2023/04/28]
 * Fix leech incorrectly auto-applying in some circumstances (deathbeam)
 * Fix ailment conditionals not being preemptively enabled when an ailment can be applied. (Paliak)
 * Cap trader stat weight per mod to 100% increased (QuickStick123)
+
 --- Fixed Bugs ---
 * Recalculate level requirement when extra skill points change (Lilylicious)
 * Fix trader occasionally ignoring sort selection (Edvinas-Smita)
