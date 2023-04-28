@@ -101,7 +101,7 @@ Requires Level 65, 148 Str
 {variant:1,2}8% of Physical Damage from Hits taken as Fire Damage
 {variant:1}Armour is increased by Uncapped Fire Resistance
 {variant:2}Armour is increased by Overcapped Fire Resistance
-{variant:3}Minion Life is increased by Overcapped Fire Resistance
+{variant:3}Minion Life is increased by their Overcapped Fire Resistance
 ]],[[
 Echoes of Creation
 Shaper Item
@@ -145,6 +145,13 @@ Bleeding you inflict deals Damage 4% faster per Frenzy Charge
 Thrillsteel
 Barbute Helmet
 Onslaught
+]],[[
+Blood Price
+Reaver Helmet
+(20-30)% reduced maximum Life
+Regenerate (200-250) Life per second
+100% increased Stun and Block Recovery
+Nearby Enemy Monsters have at least 8% of Life Reserved
 ]],
 -- Helmet: Evasion
 [[
@@ -179,9 +186,9 @@ Implicits: 0
 {variant:1}Grants Level 20 Snipe Skill
 {variant:2}Grants Level 30 Snipe Skill
 Socketed Non-Channelling Bow Skills are Triggered by Snipe
-Socketed Triggered Bow Skills deal 40% less Damage
 +(350-500) to Accuracy Rating
 +(350-500) to Evasion Rating
+{variant:2}+2 to maximum Snipe Stages
 (14-20)% chance to Suppress Spell Damage while Channelling
 ]],[[
 Fairgraves' Tricorne
@@ -522,7 +529,7 @@ League: Sanctum
 Source: Drops from unique{Lycia, Herald of the Scourge} in normal{The Beyond}
 (8-10)% increased Cast Speed
 (200-250)% increased Energy Shield
-Avoid interruption from Stuns while Casting
+Ignore Stuns while Casting
 Base Spell Critical Strike Chance of Spells is equal to that of Main Hand Weapon
 Cannot deal Critical Strikes with Attacks
 ]],[[
@@ -848,6 +855,16 @@ Requires Level 36, 42 Str, 42 Dex
 {variant:1,2}Minions Regenerate 2% Life per Second
 {variant:3}Minions have +25% Chance to Block Spell Damage
 {variant:3}Minions Recover 10% of their Life when they Block
+]],[[
+El'Abin's Visage
+Fencer Helm
+League: Crucible
++(20-30) to Strength
++(20-30) to Dexterity
+(80-120)% increased Armour and Evasion
+(15-25)% increased Rarity of Items found
+Has a Crucible Passive Skill Tree
+Crucible Passive Skill Tree is removed if this Modifier is removed
 ]],
 -- Helmet: Armour/Energy Shield
 [[
@@ -1023,9 +1040,9 @@ Variant: Two Abyssal Sockets (Current)
 Trigger Level 20 Spirit Burst when you Use a Skill while you have a Spirit Charge
 +(10-15)% to all Elemental Resistances
 {variant:1,2}Recover (4-5)% of Life when a Spirit Charge expires or is consumed
-{variant:1,2}(15-20)% chance to gain a Spirit Charge on Kill
-{variant:3,4}100% chance to gain a Spirit Charge on Kill
 +1 to Maximum Spirit Charges per Abyss Jewel affecting you
+{variant:1,2}(15-20)% chance to gain a Spirit Charge on Kill
+{variant:3,4}Gain a Spirit Charge on Kill
 {variant:3,4}Gain 5% of Physical Damage as Extra Damage of each Element per Spirit Charge
 ]],[[
 Malachai's Vision

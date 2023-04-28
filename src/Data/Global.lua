@@ -54,6 +54,7 @@ colorCodes = {
 	BRITTLEBG = "^x00122b",
 	SAPBG = "^x261500",
 	SCOURGE = "^xFF6E25",
+	CRUCIBLE = "^xFFA500",
 }
 colorCodes.STRENGTH = colorCodes.MARAUDER
 colorCodes.DEXTERITY = colorCodes.RANGER
@@ -67,6 +68,13 @@ colorCodes.ARMOUR = colorCodes.NORMAL
 colorCodes.EVASION = colorCodes.POSITIVE
 colorCodes.RAGE = colorCodes.WARNING
 colorCodes.PHYS = colorCodes.NORMAL
+
+defaultColorCodes = copyTable(colorCodes)
+function updateColorCode(code, color)
+ 	if colorCodes[code] then
+		colorCodes[code] = color:gsub("^0", "^")
+	end
+end
 
 ModFlag = { }
 -- Damage modes
@@ -282,6 +290,7 @@ SkillType = {
 	OwnerCannotUse = 123,
 	ProjectilesNotFired = 124,
 	TotemsAreBallistae = 125,
+	SkillGrantedBySupport = 126,
 }
 
 GlobalCache = { 

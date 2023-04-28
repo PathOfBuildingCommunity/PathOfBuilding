@@ -5,6 +5,7 @@ local itemBases = ...
 itemBases["Rustic Sash"] = {
 	type = "Belt",
 	tags = { belt = true, default = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(12-24)% increased Global Physical Damage",
 	implicitModTypes = { { "physical_damage", "damage", "physical" }, },
 	req = { },
@@ -12,6 +13,7 @@ itemBases["Rustic Sash"] = {
 itemBases["Chain Belt"] = {
 	type = "Belt",
 	tags = { belt = true, default = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(9-20) to maximum Energy Shield",
 	implicitModTypes = { { "energy_shield", "defences" }, },
 	req = { },
@@ -19,6 +21,7 @@ itemBases["Chain Belt"] = {
 itemBases["Leather Belt"] = {
 	type = "Belt",
 	tags = { belt = true, default = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(25-40) to maximum Life",
 	implicitModTypes = { { "resource", "life" }, },
 	req = { level = 8, },
@@ -26,6 +29,7 @@ itemBases["Leather Belt"] = {
 itemBases["Heavy Belt"] = {
 	type = "Belt",
 	tags = { belt = true, default = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(25-35) to Strength",
 	implicitModTypes = { { "attribute" }, },
 	req = { level = 8, },
@@ -33,6 +37,7 @@ itemBases["Heavy Belt"] = {
 itemBases["Cloth Belt"] = {
 	type = "Belt",
 	tags = { belt = true, default = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(15-25)% increased Stun and Block Recovery",
 	implicitModTypes = { {  }, },
 	req = { level = 16, },
@@ -40,20 +45,23 @@ itemBases["Cloth Belt"] = {
 itemBases["Studded Belt"] = {
 	type = "Belt",
 	tags = { belt = true, default = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(20-30)% increased Stun Duration on Enemies",
 	implicitModTypes = { {  }, },
 	req = { level = 16, },
 }
 itemBases["Micro-Distillery Belt"] = {
 	type = "Belt",
-	tags = { belt = true, default = true, },
+	tags = { experimental_base = true, default = true, belt = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Flasks applied to you have 20% increased Effect\nCan't use Flask in Fifth Slot",
 	implicitModTypes = { {  }, {  }, },
 	req = { level = 24, },
 }
 itemBases["Mechalarm Belt"] = {
 	type = "Belt",
-	tags = { belt = true, default = true, },
+	tags = { experimental_base = true, default = true, belt = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Trigger Level 20 Summon Taunting Contraption when you use a Flask",
 	implicitModTypes = { {  }, },
 	req = { level = 56, },
@@ -61,6 +69,7 @@ itemBases["Mechalarm Belt"] = {
 itemBases["Vanguard Belt"] = {
 	type = "Belt",
 	tags = { not_for_sale = true, atlas_base_type = true, beltatlas1 = true, belt = true, default = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(260-320) to Armour and Evasion Rating",
 	implicitModTypes = { { "armour", "evasion", "defences" }, },
 	req = { level = 78, },
@@ -68,6 +77,7 @@ itemBases["Vanguard Belt"] = {
 itemBases["Crystal Belt"] = {
 	type = "Belt",
 	tags = { beltatlas2 = true, not_for_sale = true, atlas_base_type = true, belt = true, default = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(60-80) to maximum Energy Shield",
 	implicitModTypes = { { "energy_shield", "defences" }, },
 	req = { level = 79, },
@@ -75,6 +85,7 @@ itemBases["Crystal Belt"] = {
 itemBases["Stygian Vise"] = {
 	type = "Belt",
 	tags = { not_for_sale = true, default = true, belt = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "Has 1 Abyssal Socket",
 	implicitModTypes = { {  }, },
 	req = { },
@@ -83,6 +94,7 @@ itemBases["Stygian Vise"] = {
 itemBases["Golden Obi"] = {
 	type = "Belt",
 	tags = { demigods = true, not_for_sale = true, default = true, belt = true, },
+	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "(20-30)% increased Rarity of Items found",
 	implicitModTypes = { {  }, },
 	req = { },

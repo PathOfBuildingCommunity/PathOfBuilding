@@ -215,7 +215,7 @@ data.weaponTypeInfo = {
 	["One Handed Axe"] = { oneHand = true, melee = true, flag = "Axe" },
 	["One Handed Mace"] = { oneHand = true, melee = true, flag = "Mace" },
 	["One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword" },
-	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "One Handed Mace" },
+	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "Sceptre" },
 	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword", label = "One Handed Sword" },
 	["Fishing Rod"] = { oneHand = false, melee = true, flag = "Fishing" },
 	["Two Handed Axe"] = { oneHand = false, melee = true, flag = "Axe" },
@@ -496,11 +496,57 @@ data.misc = { -- magic numbers
 	ehpCalcMaxDamage = 100000000,
 	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values will be underestimated.
 	ehpCalcMaxIterationsToCalc = 50,
+	-- maximum increase for stat weights, only used in trader for now.
+	maxStatIncrease = 2, -- 100% increased
 	-- PvP scaling used for hogm
 	PvpElemental1 = 0.55,
 	PvpElemental2 = 150,
 	PvpNonElemental1 = 0.57,
 	PvpNonElemental2 = 90,
+}
+
+data.casterTagCrucibleUniques = {
+	["Atziri's Rule"] = true,
+	["Cane of Kulemak"] = true,
+	["Cane of Unravelling"] = true,
+	["Cospri's Malice"] = true,
+	["Cybil's Paw"] = true,
+	["Disintegrator"] = true,
+	["Duskdawn"] = true,
+	["Geofri's Devotion"] = true,
+	["Mjolner"] = true,
+	["Pledge of Hands"] = true,
+	["Soulwrest"] = true,
+	["Taryn's Shiver"] = true,
+	["The Rippling Thoughts"] = true,
+	["The Surging Thoughts"] = true,
+	["The Whispering Ice"] = true,
+	["Tremor Rod"] = true,
+	["Xirgil's Crank"] = true,
+}
+data.minionTagCrucibleUniques = {
+	["Arakaali's Fang"] = true,
+	["Ashcaller"] = true,
+	["Chaber Cairn"] = true,
+	["Chober Chaber"] = true,
+	["Clayshaper"] = true,
+	["Earendel's Embrace"] = true,
+	["Femurs of the Saints"] = true,
+	["Jorrhast's Blacksteel"] = true,
+	["Law of the Wilds"] = true,
+	["Midnight Bargain"] = true,
+	["Mon'tregul's Grasp"] = true,
+	["Null's Inclination"] = true,
+	["Queen's Decree"] = true,
+	["Queen's Escape"] = true,
+	["Replica Earendel's Embrace"] = true,
+	["Replica Midnight Bargain"] = true,
+	["Severed in Sleep"] = true,
+	["Soulwrest"] = true,
+	["The Black Cane"] = true,
+	["The Iron Mass"] = true,
+	["The Scourge"] = true,
+	["United in Dream"] = true,
 }
 
 -- Load bosses
@@ -590,6 +636,7 @@ data.enchantments = {
 }
 data.essences = LoadModule("Data/Essence")
 data.veiledMods = LoadModule("Data/ModVeiled")
+data.crucible = LoadModule("Data/Crucible")
 data.pantheons = LoadModule("Data/Pantheons")
 data.costs = LoadModule("Data/Costs")
 do
@@ -599,6 +646,49 @@ do
 	end
 	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
 end
+data.mapMods = LoadModule("Data/ModMap")
+
+-- Manually seeded modifier tag against item slot table for Mastery Item Condition based modifiers
+-- Data is informed by getTagBasedModifiers() located in Item.lua
+data.itemTagSpecial = {
+	["life"] = {
+		["body armour"] = {
+			-- Keystone
+			"Blood Magic",
+			"Eternal Youth",
+			"Ghost Reaver",
+			"Mind Over Matter",
+			"The Agnostic",
+			"Vaal Pact",
+			"Zealot's Oath",
+			-- Special Cases
+			"Cannot Leech",
+		},
+	},
+	["evasion"] = {
+		["ring"] = {
+			-- Delve
+			"chance to Evade",
+			-- Unique
+			"Cannot Evade",
+		},
+	},
+}
+data.itemTagSpecialExclusionPattern = {
+	["life"] = {
+		["body armour"] = {
+			"increased Damage while Leeching Life",
+			"Life as Physical Damage",
+			"Life as Extra Maximum Energy Shield",
+			"maximum Life as Fire Damage",
+			"when on Full Life",
+		},
+	},
+	["evasion"] = {
+		["ring"] = {
+		},
+	},
+}
 
 -- Cluster jewel data
 data.clusterJewels = LoadModule("Data/ClusterJewels")
@@ -1009,7 +1099,7 @@ for gemId, gem in pairs(data.gems) do
 		gem.grantedEffect,
 		gem.secondaryGrantedEffect
 	}
-	gem.defaultLevel = gem.defaultLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
+	gem.naturalMaxLevel = gem.naturalMaxLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
 end
 
 -- Load minions

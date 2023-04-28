@@ -242,3 +242,5 @@ local minions, mod = ...
 #spectre Metadata/Monsters/AtlasInvaders/CleansingMonsters/CleansingFodder2
 --Raised Zombie
 #spectre Metadata/Monsters/RaisedZombies/RaisedZombieStandard
+-- Forged Frostbearer
+#spectre Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac

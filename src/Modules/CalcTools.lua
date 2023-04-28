@@ -48,8 +48,8 @@ function calcLib.validateGemLevel(gemInstance)
 			gemInstance.level = m_min(#grantedEffect.levels, gemInstance.level)
 		end
 	end
-	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.defaultLevel then
-		gemInstance.level = gemInstance.gemData.defaultLevel
+	if not grantedEffect.levels[gemInstance.level] and gemInstance.gemData and gemInstance.gemData.naturalMaxLevel then
+		gemInstance.level = gemInstance.gemData.naturalMaxLevel
 	end
 	if not grantedEffect.levels[gemInstance.level] then
 		-- That failed, so just grab any level
@@ -89,7 +89,9 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	if grantedEffect.supportGemsOnly and not activeSkill.activeEffect.gemData then
 		return false
 	end
-	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, activeSkill.skillTypes) then
+	-- if the activeSkill is a Minion's skill like "Default Attack", use minion's skillTypes instead for exclusions
+	-- otherwise compare support to activeSkill directly
+	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, (activeSkill.summonSkill and activeSkill.summonSkill.skillTypes) or activeSkill.skillTypes) then
 		return false
 	end
 	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, activeSkill.skillTypes, not grantedEffect.ignoreMinionTypes and activeSkill.minionSkillTypes)
@@ -101,10 +103,10 @@ function calcLib.gemIsType(gem, type)
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
 			(type == "trap or mine" and (gem.tags.trap or gem.tags.mine)) or
-			(type == "active skill" and gem.tags.active_skill) or
+			((type == "active skill" or type == "grants_active_skill") and gem.tags.grants_active_skill and not gem.tags.support) or
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
-			gem.tags[type])
+			((type ~= "active skill" and type ~= "grants_active_skill") and gem.tags[type]))
 end
 
 -- From PyPoE's formula.py

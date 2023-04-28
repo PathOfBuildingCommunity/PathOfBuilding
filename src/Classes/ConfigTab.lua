@@ -20,6 +20,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 	self.input = { }
 	self.placeholder = { }
+	self.defaultState = { }
 	
 	self.enemyLevel = 1
 
@@ -154,7 +155,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			control.tooltipText = function()
 				local out
 				for i, tooltipFunc in ipairs(tooltipFuncs) do
-					local curTooltipText = type(tooltipFunc) == "string" and tooltipFunc or tooltipFunc(self.modList)
+					local curTooltipText = type(tooltipFunc) == "string" and tooltipFunc or tooltipFunc(self.modList, self.build)
 					if curTooltipText then
 						out = (out and out .. "\n" or "") .. curTooltipText
 					end
@@ -424,8 +425,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			if varData.tooltipFunc then
 				control.tooltipFunc = varData.tooltipFunc
 			end
+			local labelControl = control
 			if varData.label and varData.type ~= "check" then
-				t_insert(self.controls, new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label))
+				labelControl = new("LabelControl", {"RIGHT",control,"LEFT"}, -4, 0, 0, DrawStringWidth(14, "VAR", varData.label) > 228 and 12 or 14, "^7"..varData.label)
+				t_insert(self.controls, labelControl)
 			end
 			if varData.var then
 				self.input[varData.var] = varData.defaultState
@@ -437,19 +440,49 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.input[varData.var] = varData.list[varData.defaultIndex].val
 					control.selIndex = varData.defaultIndex
 				end
+				if varData.type == "check" then
+					self.defaultState[varData.var] = varData.defaultState or false
+				elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
+					self.defaultState[varData.var] = varData.defaultState or 0
+				elseif varData.type == "list" then
+					self.defaultState[varData.var] = varData.list[varData.defaultIndex or 1].val
+				elseif varData.type == "text" then
+					self.defaultState[varData.var] = varData.defaultState or ""
+				else
+					self.defaultState[varData.var] = varData.defaultState
+				end
+			end
+
+			local innerShown = control.shown
+			if not varData.doNotHighlight then
+				control.borderFunc = function()
+					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+					local cur = self.input[varData.var]
+					local def = self:GetDefaultState(varData.var, type(cur))
+					if cur ~= nil and cur ~= def then
+						if not shown then
+							return 	0.753, 0.502, 0.502
+						end
+						return 	0.451, 0.576, 0.702
+					end
+					return 0.5, 0.5, 0.5
+				end
 			end
 
 			if not varData.hideIfInvalid then
-				local innerShown = control.shown
 				control.shown = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					return not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) or shown
+					local cur = self.input[varData.var]
+					local def = self:GetDefaultState(varData.var, type(cur))
+					return not shown and cur ~= nil and cur ~= def or shown
 				end
-				local innerLabel = control.label
-				control.label = function()
+				local innerLabel = labelControl.label
+				labelControl.label = function()
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					if not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) then
-						return "^1"..innerLabel
+					local cur = self.input[varData.var]
+					local def = self:GetDefaultState(varData.var, type(cur))
+					if not shown and cur ~= nil and cur ~= def then
+						return colorCodes.NEGATIVE..StripEscapes(innerLabel)
 					end
 					return innerLabel
 				end
@@ -467,8 +500,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					if not shown and control.state ~= self:GetDefaultState(varData.var, type(control.state)) then
-						tooltip:AddLine(14, "^1This config option is conditional with missing source and is invalid.")
+					local cur = self.input[varData.var]
+					local def = self:GetDefaultState(varData.var, type(cur))
+					if not shown and cur ~= nil and cur ~= def then
+						tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
 					end
 				end
 			end
@@ -527,21 +562,16 @@ function ConfigTabClass:GetDefaultState(var, varType)
 		return self.placeholder[var]
 	end
 
-	for i = 1, #varList do
-		if varList[i].var == var then
-			if varType == "number" then
-				return varList[i].defaultState or 0
-			elseif varType == "boolean" then
-				return varList[i].defaultState == true
-			else
-				return varList[i].defaultState
-			end
-		end
+	if self.defaultState[var] ~= nil then
+		return self.defaultState[var]
 	end
+
 	if varType == "number" then
 		return 0
 	elseif varType == "boolean" then
 		return false
+	elseif varType == "string" then
+		return ""
 	else
 		return nil
 	end

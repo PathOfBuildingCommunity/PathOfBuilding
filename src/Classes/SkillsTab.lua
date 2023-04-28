@@ -66,6 +66,7 @@ local sortGemTypeList = {
 	{ label = "Bleed DPS", type = "BleedDPS" },
 	{ label = "Ignite DPS", type = "IgniteDPS" },
 	{ label = "Poison DPS", type = "TotalPoisonDPS" },
+	{ label = "Effective Hit Pool", type = "TotalEHP" },
 }
 
 local alternateGemQualityList ={
@@ -216,16 +217,33 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		return self.displayGroup.source ~= nil
 	end
 	self.controls.sourceNote.label = function()
-		local source = self.displayGroup.sourceItem or (self.displayGroup.sourceNode and { rarity = "NORMAL", name = self.displayGroup.sourceNode.name }) or { rarity = "NORMAL", name = "?" }
-		local sourceName = colorCodes[source.rarity] .. source.name .. "^7"
-		local activeGem = self.displayGroup.gemList[1]
-		local label = [[^7This is a special group created for the ']] .. activeGem.color .. (activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec) .. [[^7' skill,
-which is being provided by ']] .. sourceName .. [['.
+		local label
+		if self.displayGroup.explodeSources then
+			label = [[^7This is a special group created for the enemy explosion effect,
+which comes from the following sources:]]
+			for _, source in ipairs(self.displayGroup.explodeSources) do
+				label = label .. "\n\t" .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???")
+			end
+			label = label .. "^7\nYou cannot delete this group, but it will disappear if you lose the above sources."
+		else
+			local activeGem = self.displayGroup.gemList[1]
+			local sourceName
+			if self.displayGroup.sourceItem then
+				sourceName = "'" .. colorCodes[self.displayGroup.sourceItem.rarity] .. self.displayGroup.sourceItem.name
+			elseif self.displayGroup.sourceNode then
+				sourceName = "'" .. colorCodes["NORMAL"] .. self.displayGroup.sourceNode.name
+			else
+				sourceName = "'" .. colorCodes["NORMAL"] .. "?"
+			end
+			sourceName = sourceName .. "^7'"
+			label = [[^7This is a special group created for the ']] .. activeGem.color .. (activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec) .. [[^7' skill,
+which is being provided by ]] .. sourceName .. [[.
 You cannot delete this group, but it will disappear if you ]] .. (self.displayGroup.sourceNode and [[un-allocate the node.]] or [[un-equip the item.]])
-		if not self.displayGroup.noSupports then
-			label = label .. "\n\n" .. [[You cannot add support gems to this group, but support gems in
-any other group socketed into ']] .. sourceName .. [['
+			if not self.displayGroup.noSupports then
+				label = label .. "\n\n" .. [[You cannot add support gems to this group, but support gems in
+any other group socketed into ]] .. sourceName .. [[
 will automatically apply to the skill.]]
+			end
 		end
 		return label
 	end
@@ -637,7 +655,7 @@ function SkillsTabClass:CreateGemSlot(index)
 		self:ProcessSocketGroup(self.displayGroup)
 		-- New gems need to be constrained by ProcessGemLevel
 		gemInstance.level = self:ProcessGemLevel(gemInstance.gemData)
-		gemInstance.defaultLevel = gemInstance.level
+		gemInstance.naturalMaxLevel = gemInstance.level
 		-- Gem changed, update the list and default the quality id
 		slot.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
 		slot.qualityId:SelByValue(qualityId or "Default", "type")
@@ -665,7 +683,7 @@ function SkillsTabClass:CreateGemSlot(index)
 			slot.enableGlobal1.state = true
 			slot.count:SetText(gemInstance.count)
 		end
-		gemInstance.level = tonumber(buf) or self.displayGroup.gemList[index].defaultLevel or self:ProcessGemLevel(gemInstance.gemData) or 20
+		gemInstance.level = tonumber(buf) or self.displayGroup.gemList[index].naturalMaxLevel or self:ProcessGemLevel(gemInstance.gemData) or 20
 		self:ProcessSocketGroup(self.displayGroup)
 		self:AddUndoState()
 		self.build.buildFlag = true
@@ -1002,19 +1020,19 @@ end
 
 function SkillsTabClass:ProcessGemLevel(gemData)
 	local grantedEffect = gemData.grantedEffect
-	local defaultLevel = grantedEffect.defaultLevel or gemData.defaultLevel or 1
+	local naturalMaxLevel = gemData.naturalMaxLevel
 	if self.defaultGemLevel == "awakenedMaximum" then
-		return defaultLevel + 1
+		return naturalMaxLevel + 1
 	elseif self.defaultGemLevel == "corruptedMaximum" then
 		if grantedEffect.plusVersionOf then
-			return defaultLevel
+			return naturalMaxLevel
 		else
-			return defaultLevel + 1
+			return naturalMaxLevel + 1
 		end
 	elseif self.defaultGemLevel == "normalMaximum" then
-		return defaultLevel
+		return naturalMaxLevel
 	else -- self.defaultGemLevel == "characterLevel"
-		local maxGemLevel = defaultLevel
+		local maxGemLevel = naturalMaxLevel
 		if not grantedEffect.levels[maxGemLevel] then
 			maxGemLevel = #grantedEffect.levels
 		end
@@ -1035,7 +1053,7 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 	for _, gemInstance in ipairs(socketGroup.gemList) do
 		gemInstance.color = "^8"
 		gemInstance.nameSpec = gemInstance.nameSpec or ""
-		local prevDefaultLevel = gemInstance.gemData and gemInstance.gemData.defaultLevel or (gemInstance.new and 20)
+		local prevDefaultLevel = gemInstance.gemData and gemInstance.gemData.naturalMaxLevel or (gemInstance.new and 20)
 		gemInstance.gemData, gemInstance.grantedEffect = nil
 		if gemInstance.gemId then
 			-- Specified by gem ID
@@ -1090,9 +1108,9 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 			else
 				gemInstance.color = colorCodes.NORMAL
 			end
-			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.defaultLevel ~= prevDefaultLevel then
-				gemInstance.level = gemInstance.gemData.defaultLevel
-				gemInstance.defaultLevel = gemInstance.level
+			if prevDefaultLevel and gemInstance.gemData and gemInstance.gemData.naturalMaxLevel ~= prevDefaultLevel then
+				gemInstance.level = gemInstance.gemData.naturalMaxLevel
+				gemInstance.naturalMaxLevel = gemInstance.level
 			end
 			calcLib.validateGemLevel(gemInstance)
 			if gemInstance.gemData then
@@ -1135,12 +1153,18 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 end
 
 function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
+	if socketGroup.explodeSources then
+		for _, source in ipairs(socketGroup.explodeSources) do
+			tooltip:AddLine(18, "^7Source: " .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???"))
+		end
+		return
+	end
 	if socketGroup.enabled and not socketGroup.slotEnabled then
 		tooltip:AddLine(16, "^7Note: this group is disabled because it is socketed in the inactive weapon set.")
 	end
-	local source = socketGroup.sourceItem or socketGroup.sourceNode
-	if source then
-		tooltip:AddLine(18, "^7Source: " .. colorCodes[source.rarity or "NORMAL"] .. source.name)
+	local sourceSingle = socketGroup.sourceItem or socketGroup.sourceNode
+	if sourceSingle then
+		tooltip:AddLine(18, "^7Source: " .. colorCodes[sourceSingle.rarity or "NORMAL"] .. sourceSingle.name)
 		tooltip:AddSeparator(10)
 	end
 	local gemShown = { }

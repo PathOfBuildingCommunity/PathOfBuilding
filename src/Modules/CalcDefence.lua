@@ -72,7 +72,7 @@ function calcs.takenHitFromDamage(rawDamage, damageType, actor)
 		local takenFlat = output[damageConvertedType.."takenFlat"]
 		if convertPercent > 0 or takenFlat ~= 0 then
 			local convertedDamage = rawDamage * convertPercent / 100
-			local reducedDamage = round(m_max(convertedDamage * damageMitigationMultiplierForType(convertedDamage, damageConvertedType) + takenFlat, 0) * output[damageConvertedType .."AfterReductionTakenHitMulti"])
+			local reducedDamage = round(m_max(convertedDamage * damageMitigationMultiplierForType(convertedDamage, damageConvertedType) + takenFlat, 0) * output[damageConvertedType .."AfterReductionTakenHitMulti"]) * (1 - output["VaalArcticArmourMitigation"])
 			receivedDamageSum = receivedDamageSum + reducedDamage
 			damages[damageConvertedType] = (reducedDamage > 0 or convertPercent > 0) and reducedDamage or nil
 		end
@@ -187,22 +187,28 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 			end
 		end
 		if output.preventedLifeLossTotal > 0 then
+			local halfLife = output.Life * 0.5
+			local lifeOverHalfLife = m_max(life - halfLife, 0)
+			local preventPercent = output.preventedLifeLoss / 100
+			local poolAboveLow = lifeOverHalfLife / (1 - preventPercent)
+			local preventBelowHalfPercent = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100
+			local damageThatLifeCanStillTake = poolAboveLow + m_max(m_min(life, halfLife), 0) / (1 - preventBelowHalfPercent) / (1 - output.preventedLifeLoss / 100)
+			local overkillDamage = damageThatLifeCanStillTake < damageRemainder and damageRemainder - damageThatLifeCanStillTake or 0
+			if overkillDamage ~= 0 then
+				damageRemainder = damageThatLifeCanStillTake
+			end
 			if output.preventedLifeLossBelowHalf ~= 0 then
-				local lifeOverHalfLife = m_max(life - output.Life * 0.5, 0)
-				local preventPercent = output.preventedLifeLoss / 100
-				local poolAboveLow = lifeOverHalfLife / (1 - preventPercent)
 				local damageToSplit = m_min(damageRemainder, poolAboveLow)
 				local lostLife = damageToSplit * (1 - preventPercent)
 				local preventedLoss = damageToSplit * preventPercent
 				damageRemainder = damageRemainder - damageToSplit
 				LifeLossLostOverTime = LifeLossLostOverTime + preventedLoss
 				life = life - lostLife
-				
-				if life <= output.Life * 0.5 then
+				if life <= halfLife then
 					local unspecificallyLowLifePreventedDamage = damageRemainder * preventPercent
 					LifeLossLostOverTime = LifeLossLostOverTime + unspecificallyLowLifePreventedDamage
 					damageRemainder = damageRemainder - unspecificallyLowLifePreventedDamage
-					local specificallyLowLifePreventedDamage = damageRemainder * modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100
+					local specificallyLowLifePreventedDamage = damageRemainder * preventBelowHalfPercent
 					LifeBelowHalfLossLostOverTime = LifeBelowHalfLossLostOverTime + specificallyLowLifePreventedDamage
 					damageRemainder = damageRemainder - specificallyLowLifePreventedDamage
 				end
@@ -211,10 +217,13 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 				LifeLossLostOverTime = LifeLossLostOverTime + tempDamage
 				damageRemainder = damageRemainder - tempDamage
 			end
+			if overkillDamage ~= 0 then
+				life = life - overkillDamage
+			end
 		end
 		life = life - damageRemainder
 	end
-	
+
 	return {
 		FrostShieldLife = frostShield,
 		SoulLink = soulLink,
@@ -230,7 +239,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	}
 end
 
--- Performs all defensive calculations
+-- Performs all ingame and related defensive calculations
 function calcs.defence(env, actor)
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
@@ -376,7 +385,7 @@ function calcs.defence(env, actor)
 		local totalSpellBlockChance = modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance")
 		output.SpellBlockChance = m_min(totalSpellBlockChance, output.SpellBlockChanceMax)
 		output.SpellBlockChanceOverCap = m_max(0, totalSpellBlockChance - output.SpellBlockChanceMax)
-		output.SpellProjectileBlockChance = output.SpellBlockChance
+		output.SpellProjectileBlockChance = m_max(m_min(output.SpellBlockChance + modDB:Sum("BASE", nil, "ProjectileSpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax), 0)
 	end
 	if breakdown then
 		breakdown.BlockChance = {
@@ -500,6 +509,9 @@ function calcs.defence(env, actor)
 				end
 				evasionBase = armourData.Evasion or 0
 				if evasionBase > 0 then
+					if slot == "Body Armour" and modDB:Flag(nil, "Unbreakable") and ironReflexes then
+						evasionBase = evasionBase * 2
+					end
 					gearEvasion = gearEvasion + evasionBase
 					if breakdown then
 						breakdown.slot(slot, nil, slotCfg, evasionBase, nil, "Evasion", "ArmourAndEvasion", "Defences")
@@ -737,7 +749,7 @@ function calcs.defence(env, actor)
 		output.SpellProjectileBlockChance = output.ProjectileBlockChance
 	else
 		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
-		output.SpellProjectileBlockChance = output.SpellBlockChance
+		output.SpellProjectileBlockChance = m_max(m_min(output.SpellBlockChance + modDB:Sum("BASE", nil, "ProjectileSpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax), 0)
 	end
 	if breakdown then
 		breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
@@ -822,7 +834,7 @@ function calcs.defence(env, actor)
 	if breakdown then
 		breakdown.MaxManaLeechRate = {
 			s_format("%d ^8(maximum mana)", output.Mana),
-			s_format("x %d%% ^8(percentage of mana to maximum leech rate)", modDB:Sum("BASE", nil, "MaxManaLeechRate")),
+			s_format("x %d%% ^8(percentage of mana to maximum leech rate)", calcLib.val(modDB, "MaxManaLeechRate")),
 			s_format("= %.1f", output.MaxManaLeechRate)
 		}
 	end
@@ -1143,6 +1155,40 @@ function calcs.defence(env, actor)
 	for _, ailment in ipairs(data.ailmentTypeList) do
 		output["Self"..ailment.."Effect"] = calcLib.mod(modDB, nil, "Self"..ailment.."Effect") * (modDB:Flag(nil, "Condition:"..ailment.."edSelf") and calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect") or calcLib.mod(enemyDB, nil, "Enemy"..ailment.."Effect")) * 100
 	end
+end
+
+-- Performs all extra defensive calculations ( eg EHP, maxHit )
+function calcs.buildDefenceEstimations(env, actor)
+	local modDB = actor.modDB
+	local enemyDB = actor.enemy.modDB
+	local output = actor.output
+	local breakdown = actor.breakdown
+
+	local condList = modDB.conditions
+
+	local damageCategoryConfig = env.configInput.enemyDamageType or "Average"
+	
+	-- chance to not be hit calculations
+	do
+		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
+		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
+		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
+		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
+		output.SpellProjectileNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
+		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
+		output.AverageEvadeChance = (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 4
+		output.ConfiguredNotHitChance = output[damageCategoryConfig.."NotHitChance"]
+		output.ConfiguredEvadeChance = output[damageCategoryConfig.."EvadeChance"] or 0
+		-- unlucky config to lower the value of block, dodge, evade etc for ehp
+		if worstOf > 1 then
+			output.ConfiguredNotHitChance = output.ConfiguredNotHitChance / 100 * output.ConfiguredNotHitChance
+			output.ConfiguredEvadeChance = output.ConfiguredEvadeChance / 100 * output.ConfiguredEvadeChance
+			if worstOf == 4 then
+				output.ConfiguredNotHitChance = output.ConfiguredNotHitChance / 100 * output.ConfiguredNotHitChance
+				output.ConfiguredEvadeChance = output.ConfiguredEvadeChance / 100 * output.ConfiguredEvadeChance
+			end
+		end
+	end
 
 	--Enemy damage input and modifications
 	do
@@ -1162,7 +1208,7 @@ function calcs.defence(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = m_max(m_min((modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100 + enemyDB:Sum("INC", nil, "CritChance") / 100), 100), 0)
+		local enemyCritChance = m_max(m_min((modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100 + enemyDB:Sum("INC", nil, "CritChance") / 100) * (1 - output["ConfiguredEvadeChance"] / 100), 100), 0)
 		local enemyCritDamage = m_max((env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0) + enemyDB:Sum("BASE", nil, "CritMultiplier"), 0)
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		local enemyCfg = {keywordFlags = bit.bnot(KeywordFlag.MatchAll)} -- Match all keywordFlags parameter for enemy min-max damage mods
@@ -1186,6 +1232,8 @@ function calcs.defence(env, actor)
 			-- Add min-max enemy damage from mods
 			enemyDamage = enemyDamage + (enemyDB:Sum("BASE", enemyCfg, (damageType.."Min")) + enemyDB:Sum("BASE", enemyCfg, (damageType.."Max"))) / 2
 			
+			enemyOverwhelm = enemyOverwhelm + enemyDB:Sum("BASE", nil, "PhysicalOverwhelm") + modDB:Sum("BASE", nil, "EnemyPhysicalOverwhelm")
+
 			output[damageType.."EnemyPen"] = enemyPen
 			output[damageType.."EnemyDamageMult"] = enemyDamageMult
 			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
@@ -1291,7 +1339,6 @@ function calcs.defence(env, actor)
 
 	-- Damage taken multipliers/Degen calculations
 	output.AnyTakenReflect = false
-	local damageCategoryConfig = env.configInput.enemyDamageType or "Average"
 	for _, damageType in ipairs(dmgTypeList) do
 		local baseTakenInc = modDB:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken")
 		local baseTakenMore = modDB:More(nil, "DamageTaken", damageType.."DamageTaken")
@@ -1609,7 +1656,7 @@ function calcs.defence(env, actor)
 	-- Life Recoverable
 	output.LifeRecoverable = output.LifeUnreserved
 	if env.configInput["conditionLowLife"] then
-		output.LifeRecoverable = m_min(output.Life * data.misc.LowPoolThreshold, output.LifeUnreserved)
+		output.LifeRecoverable = m_min(output.Life * (output.LowLifePercentage or data.misc.LowPoolThreshold) / 100, output.LifeUnreserved)
 		if output.LifeRecoverable < output.LifeUnreserved then
 			output.CappingLife = true
 		end
@@ -1617,17 +1664,23 @@ function calcs.defence(env, actor)
 	
 	-- Prevented life loss taken over 4 seconds (and Petrified Blood)
 	do
-		output["preventedLifeLoss"] = modDB:Sum("BASE", nil, "LifeLossPrevented")
+		local halfLife = output.Life * 0.5
+		local recoverable = output.LifeRecoverable
+		local aboveLow = m_max(recoverable - halfLife, 0)
+		local preventedLifeLoss = modDB:Sum("BASE", nil, "LifeLossPrevented")
+		output["preventedLifeLoss"] = preventedLifeLoss
 		local initialLifeLossBelowHalfPrevented = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
 		output["preventedLifeLossBelowHalf"] = (1 - output["preventedLifeLoss"] / 100) * initialLifeLossBelowHalfPrevented
 		local portionLife = 1
 		if not env.configInput["conditionLowLife"] then
 			--portion of life that is lowlife
-			portionLife = m_min(output.Life * 0.5 / output.LifeRecoverable, 1)
+			portionLife = m_min(halfLife / recoverable, 1)
 			output["preventedLifeLossTotal"] = output["preventedLifeLoss"] + output["preventedLifeLossBelowHalf"] * portionLife
 		else
 			output["preventedLifeLossTotal"] = output["preventedLifeLoss"] + output["preventedLifeLossBelowHalf"]
 		end
+		output.LifeHitPool = aboveLow / (1 - preventedLifeLoss / 100) + m_min(recoverable, halfLife) / (1 - initialLifeLossBelowHalfPrevented / 100) / (1 - preventedLifeLoss / 100)
+		
 		if breakdown then
 			breakdown["preventedLifeLossTotal"] = {
 				s_format("Total life protected:"),
@@ -1691,22 +1744,28 @@ function calcs.defence(env, actor)
 	if output["sharedMindOverMatter"] > 0 then
 		output.OnlySharedMindOverMatter = true
 		local sourcePool = m_max(output.ManaUnreserved or 0, 0)
+		local sourceHitPool = sourcePool
 		local manatext = "unreserved mana"
 		if modDB:Flag(nil, "EnergyShieldProtectsMana") and output.MinimumBypass < 100 then
 			manatext = manatext.." + non-bypassed energy shield"
 			if output.MinimumBypass > 0 then
 				local manaProtected = output.EnergyShieldRecoveryCap / (1 - output.MinimumBypass / 100) * (output.MinimumBypass / 100)
 				sourcePool = m_max(sourcePool - manaProtected, -output.LifeRecoverable) + m_min(sourcePool + output.LifeRecoverable, manaProtected) / (output.MinimumBypass / 100)
-			else 
+				sourceHitPool = m_max(sourceHitPool - manaProtected, -output.LifeHitPool) + m_min(sourceHitPool + output.LifeHitPool, manaProtected) / (output.MinimumBypass / 100)
+			else
 				sourcePool = sourcePool + output.EnergyShieldRecoveryCap
+				sourceHitPool = sourcePool
 			end
 		end
 		local poolProtected = sourcePool / (output["sharedMindOverMatter"] / 100) * (1 - output["sharedMindOverMatter"] / 100)
+		local hitPoolProtected = sourceHitPool / (output["sharedMindOverMatter"] / 100) * (1 - output["sharedMindOverMatter"] / 100)
 		if output["sharedMindOverMatter"] >= 100 then
 			poolProtected = m_huge
 			output["sharedManaEffectiveLife"] = output.LifeRecoverable + sourcePool
+			output["sharedMoMHitPool"] = output.LifeHitPool + sourceHitPool
 		else
 			output["sharedManaEffectiveLife"] = m_max(output.LifeRecoverable - poolProtected, 0) + m_min(output.LifeRecoverable, poolProtected) / (1 - output["sharedMindOverMatter"] / 100)
+			output["sharedMoMHitPool"] = m_max(output.LifeHitPool - hitPoolProtected, 0) + m_min(output.LifeHitPool, hitPoolProtected) / (1 - output["sharedMindOverMatter"] / 100)
 		end
 		if breakdown then
 			if output["sharedMindOverMatter"] then
@@ -1722,6 +1781,7 @@ function calcs.defence(env, actor)
 		end
 	else
 		output["sharedManaEffectiveLife"] = output.LifeRecoverable
+		output["sharedMoMHitPool"] = output.LifeHitPool
 	end
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100 - output["sharedMindOverMatter"])
@@ -1731,22 +1791,28 @@ function calcs.defence(env, actor)
 			output.AnySpecificMindOverMatter = true
 			output.OnlySharedMindOverMatter = false
 			local sourcePool = m_max(output.ManaUnreserved or 0, 0)
+			local sourceHitPool = sourcePool
 			local manatext = "unreserved mana"
 			if modDB:Flag(nil, "EnergyShieldProtectsMana") and output[damageType.."EnergyShieldBypass"] < 100 then
 				manatext = manatext.." + non-bypassed energy shield"
 				if output[damageType.."EnergyShieldBypass"] > 0 then
 					local manaProtected = output.EnergyShieldRecoveryCap / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
 					sourcePool = m_max(sourcePool - manaProtected, -output.LifeRecoverable) + m_min(sourcePool + output.LifeRecoverable, manaProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
-				else 
+					sourceHitPool = m_max(sourceHitPool - manaProtected, -output.LifeHitPool) + m_min(sourceHitPool + output.LifeHitPool, manaProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
+				else
 					sourcePool = sourcePool + output.EnergyShieldRecoveryCap
+					sourceHitPool = sourcePool
 				end
 			end
 			local poolProtected = sourcePool / (MindOverMatter / 100) * (1 - MindOverMatter / 100)
+			local hitPoolProtected = sourceHitPool / (MindOverMatter / 100) * (1 - MindOverMatter / 100)
 			if MindOverMatter >= 100 then
 				poolProtected = m_huge
 				output[damageType.."ManaEffectiveLife"] = output.LifeRecoverable + sourcePool
+				output[damageType.."MoMHitPool"] = output.LifeHitPool + sourceHitPool
 			else
 				output[damageType.."ManaEffectiveLife"] = m_max(output.LifeRecoverable - poolProtected, 0) + m_min(output.LifeRecoverable, poolProtected) / (1 - MindOverMatter / 100)
+				output[damageType.."MoMHitPool"] = m_max(output.LifeHitPool - hitPoolProtected, 0) + m_min(output.LifeHitPool, hitPoolProtected) / (1 - MindOverMatter / 100)
 			end
 			if breakdown then
 				if output[damageType.."MindOverMatter"] then
@@ -1762,6 +1828,7 @@ function calcs.defence(env, actor)
 			end
 		else
 			output[damageType.."ManaEffectiveLife"] = output["sharedManaEffectiveLife"]
+			output[damageType.."MoMHitPool"] = output["sharedMoMHitPool"]
 		end
 	end
 
@@ -1827,7 +1894,7 @@ function calcs.defence(env, actor)
 		end
 	end
 	
-	--frost shield
+	-- Frost Shield
 	do
 		output["FrostShieldLife"] = modDB:Sum("BASE", nil, "FrostGlobeHealth")
 		output["FrostShieldDamageMitigation"] = modDB:Sum("BASE", nil, "FrostGlobeDamageMitigation")
@@ -1843,10 +1910,17 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
+	
+	-- Vaal Arctic Armour
+	do
+		output["VaalArcticArmourLife"] = modDB:Sum("BASE", nil, "VaalArcticArmourMaxHits")
+		output["VaalArcticArmourMitigation"] = m_min(-modDB:Sum("MORE", nil, "VaalArcticArmourMitigation") / 100, 1)
+	end
 
 	--total pool
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."TotalPool"] = output[damageType.."ManaEffectiveLife"]
+		output[damageType.."TotalHitPool"] = output[damageType.."MoMHitPool"]
 		local manatext = "Mana"
 		if output[damageType.."EnergyShieldBypass"] < 100 then 
 			if modDB:Flag(nil, "EnergyShieldProtectsMana") then
@@ -1855,8 +1929,10 @@ function calcs.defence(env, actor)
 				if output[damageType.."EnergyShieldBypass"] > 0 then
 					local poolProtected = output.EnergyShieldRecoveryCap / (1 - output[damageType.."EnergyShieldBypass"] / 100) * (output[damageType.."EnergyShieldBypass"] / 100)
 					output[damageType.."TotalPool"] = m_max(output[damageType.."TotalPool"] - poolProtected, 0) + m_min(output[damageType.."TotalPool"], poolProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
+					output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (output[damageType.."EnergyShieldBypass"] / 100)
 				else
 					output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.EnergyShieldRecoveryCap
+					output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + output.EnergyShieldRecoveryCap
 				end
 			end
 		end
@@ -1886,7 +1962,7 @@ function calcs.defence(env, actor)
 		end
 		if numHits == 0 then
 			return m_huge
-		elseif modDB:Flag(nil, "WardNotBreak") and output.Ward > 0 and  numHits < output.Ward then
+		elseif modDB:Flag(nil, "WardNotBreak") and output.Ward > 0 and numHits < output.Ward then
 			return m_huge
 		else
 			numHits = 0
@@ -1928,6 +2004,11 @@ function calcs.defence(env, actor)
 			DamageIn["TrackLifeLossOverTime"] = false
 		end
 		DamageIn["WardBypass"] = DamageIn["WardBypass"] or modDB:Sum("BASE", nil, "WardBypass") or 0
+		
+		local VaalArcticArmourHitsLeft = output.VaalArcticArmourLife
+		if DamageIn["cycles"] > 1 then
+			VaalArcticArmourHitsLeft = 0
+		end
 
 		local iterationMultiplier = 1
 		local damageTotal = 0
@@ -1937,8 +2018,10 @@ function calcs.defence(env, actor)
 			DamageIn["iterations"] = DamageIn["iterations"] + 1
 			local Damage = { }
 			damageTotal = 0
+			local VaalArcticArmourMultiplier = VaalArcticArmourHitsLeft > 0 and (( 1 - output["VaalArcticArmourMitigation"] * m_min(VaalArcticArmourHitsLeft / iterationMultiplier, 1))) or 1
+			VaalArcticArmourHitsLeft = VaalArcticArmourHitsLeft - iterationMultiplier
 			for _, damageType in ipairs(dmgTypeList) do
-				Damage[damageType] = DamageIn[damageType] * iterationMultiplier
+				Damage[damageType] = DamageIn[damageType] * iterationMultiplier * VaalArcticArmourMultiplier
 				damageTotal = damageTotal + Damage[damageType]
 			end
 			if DamageIn.GainWhenHit and (iterationMultiplier > 1 or DamageIn["cycles"] > 1) then
@@ -2141,22 +2224,9 @@ function calcs.defence(env, actor)
 		end
 	end
 	
-	-- chance to not be hit
+	-- chance to not be hit breakdown
 	do
 		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
-		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
-		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
-		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
-		output.SpellProjectileNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
-		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
-		output.ConfiguredNotHitChance = output[damageCategoryConfig.."NotHitChance"]
-		-- unlucky config to lower the value of block, dodge, evade etc for ehp
-		if worstOf > 1 then
-			output.ConfiguredNotHitChance = output.ConfiguredNotHitChance / 100 * output.ConfiguredNotHitChance
-			if worstOf == 4 then
-				output.ConfiguredNotHitChance = output.ConfiguredNotHitChance / 100 * output.ConfiguredNotHitChance
-			end
-		end
 		output["TotalNumberOfHits"] = output["NumberOfMitigatedDamagingHits"] / (1 - output["ConfiguredNotHitChance"] / 100)
 		if breakdown then
 			breakdown.ConfiguredNotHitChance = { }
@@ -2519,30 +2589,18 @@ function calcs.defence(env, actor)
 	-- maximum hit taken
 	-- fix total pools, as they aren't used anymore
 	for _, damageType in ipairs(dmgTypeList) do
-		-- base + petrified blood
-		if output.preventedLifeLossTotal > 0 then
-			local halfLife = output.Life * 0.5
-			local recoverable = output.LifeRecoverable
-			if not env.configInput.conditionLowLife then
-				local belowHalf = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented") / 100
-				local aboveLow = m_max(recoverable - halfLife, 0)
-				output[damageType.."TotalPool"] = output[damageType.."TotalPool"] - recoverable + aboveLow / (1 - output.preventedLifeLoss / 100) + m_min(recoverable, halfLife) / (1 - belowHalf) / (1 - output.preventedLifeLoss / 100)
-			else
-				output[damageType.."TotalPool"] = output[damageType.."TotalPool"] - recoverable + recoverable / (1 - output.preventedLifeLossTotal / 100)
-			end
-		end
 		-- ward
 		local wardBypass = modDB:Sum("BASE", nil, "WardBypass") or 0
 		if wardBypass > 0 then
 			local poolProtected = output.Ward / (1 - wardBypass / 100) * (wardBypass / 100)
-			local sourcePool = output[damageType.."TotalPool"]
+			local sourcePool = output[damageType.."TotalHitPool"]
 			sourcePool = m_max(sourcePool - poolProtected, 0) + m_min(sourcePool, poolProtected) / (wardBypass / 100)
-			output[damageType.."TotalPool"] = sourcePool
+			output[damageType.."TotalHitPool"] = sourcePool
 		else
-			output[damageType.."TotalPool"] = output[damageType.."TotalPool"] + output.Ward or 0
+			output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + output.Ward or 0
 		end
 		-- aegis
-		output[damageType.."TotalHitPool"] = output[damageType.."TotalPool"] + m_max(m_max(output[damageType.."Aegis"], output["sharedAegis"]), isElemental[damageType] and output[damageType.."AegisDisplay"] or 0)
+		output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + m_max(m_max(output[damageType.."Aegis"], output["sharedAegis"]), isElemental[damageType] and output[damageType.."AegisDisplay"] or 0)
 		-- guard skill
 		local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
 		if GuardAbsorbRate > 0 then
@@ -2573,7 +2631,7 @@ function calcs.defence(env, actor)
 				local effectiveAppliedArmour = output[damageConvertedType.."EffectiveAppliedArmour"]
 				local damageConvertedMulti = convertPercent / 100
 				local totalHitPool = output[damageConvertedType.."TotalHitPool"]
-				local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"]
+				local totalTakenMulti = output[damageConvertedType.."AfterReductionTakenHitMulti"] * (1 - output["VaalArcticArmourMitigation"])
 
 				if effectiveAppliedArmour == 0 and convertPercent == 100 then	-- use a simpler calculation for no armour DR
 					local drMulti = output[damageConvertedType.."ResistTakenHitMulti"] * (1 - output[damageConvertedType.."DamageReduction"] / 100)

@@ -47,8 +47,12 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
 		local subMod = scaledMod
-		if type(scaledMod.value) == "table" and scaledMod.value.mod then
-			subMod = scaledMod.value.mod
+		if type(scaledMod.value) == "table" then
+			if scaledMod.value.mod then
+				subMod = scaledMod.value.mod
+			elseif scaledMod.value.keyOfScaledMod then
+				scaledMod.value[scaledMod.value.keyOfScaledMod] = round(scaledMod.value[scaledMod.value.keyOfScaledMod] * scale, 2)
+			end
 		end
 		if type(subMod.value) == "number" then
 			local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
@@ -292,6 +296,9 @@ function ModStoreClass:EvalMod(mod, cfg)
 					mult = m_min(mult, limit)
 				end
 			end
+			if tag.invert and mult ~= 0 then
+				mult = 1 / mult
+			end
 			if type(value) == "table" then
 				value = copyTable(value)
 				if value.mod then
@@ -522,6 +529,38 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if not match then
 				return
 			end
+		elseif tag.type == "ItemCondition" then
+			local match = false
+			local searchCond = tag.var
+			local itemSlot = tag.itemSlot:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
+			local bCheckAllAppropriateSlots = tag.allSlots
+			if searchCond and itemSlot then
+				if bCheckAllAppropriateSlots then
+					local match1 = false
+					local match2 = false
+					local itemSlot1 = self.actor.itemList[itemSlot .. " 1"]
+					local itemSlot2 = self.actor.itemList[itemSlot .. " 2"]
+					if itemSlot1 and itemSlot1.name:match("Kalandra's Touch") then itemSlot1 = itemSlot2 end
+					if itemSlot2 and itemSlot2.name:match("Kalandra's Touch") then itemSlot2 = itemSlot1 end
+					if itemSlot1 then
+						match1 = itemSlot1:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
+					end
+					if itemSlot2 then
+						match2 = itemSlot2:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
+					end
+					match = match1 and match2
+				else
+					if self.actor.itemList[itemSlot] then
+						match = self.actor.itemList[itemSlot]:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
+					end
+				end
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
+				return
+			end
 		elseif tag.type == "SocketedIn" then
 			if not cfg or (not tag.slotName and not tag.keyword and not tag.socketColor) then
 				return
@@ -566,16 +605,17 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "SkillName" then
 			local match = false
-			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName)
+			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName or "")
+			matchName = matchName:lower()
 			if tag.skillNameList then
 				for _, name in pairs(tag.skillNameList) do
-					if name == matchName then
+					if name:lower() == matchName then
 						match = true
 						break
 					end
 				end
 			else
-				match = (tag.skillName == matchName)
+				match = (tag.skillName and tag.skillName:lower() == matchName)
 			end
 			if tag.neg then
 				match = not match

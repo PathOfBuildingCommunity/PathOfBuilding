@@ -228,6 +228,52 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants {0} Mana Regeneration per second"
+				}
+			}
+		},
+		name="mana_regen",
+		stats={
+			[1]="base_mana_regeneration_rate_per_minute"
+		}
+	},
+	[11]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="per_minute_to_per_second",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Buff grants {0} Energy Shield Regeneration per second"
+				}
+			}
+		},
+		name="es_regen",
+		stats={
+			[1]="base_energy_shield_regeneration_rate_per_minute"
+		}
+	},
+	[12]={
+		lang={
+			English={
+				[1]={
 					limit={
 						[1]={
 							[1]="#",
@@ -243,7 +289,7 @@ return {
 			[1]="shield_spell_block_%"
 		}
 	},
-	[11]={
+	[13]={
 		lang={
 			English={
 				[1]={
@@ -266,7 +312,7 @@ return {
 			[1]="phase_through_objects"
 		}
 	},
-	[12]={
+	[14]={
 		lang={
 			English={
 				[1]={
@@ -289,7 +335,7 @@ return {
 			[1]="base_chance_to_shock_%_from_skill"
 		}
 	},
-	[13]={
+	[15]={
 		lang={
 			English={
 				[1]={
@@ -321,7 +367,7 @@ return {
 			[1]="base_damage_taken_+%"
 		}
 	},
-	[14]={
+	[16]={
 		lang={
 			English={
 				[1]={
@@ -340,7 +386,7 @@ return {
 			[1]="base_immune_to_freeze"
 		}
 	},
-	[15]={
+	[17]={
 		lang={
 			English={
 				[1]={
@@ -372,7 +418,7 @@ return {
 			[1]="base_movement_velocity_+%"
 		}
 	},
-	[16]={
+	[18]={
 		lang={
 			English={
 				[1]={
@@ -391,7 +437,7 @@ return {
 			[1]="base_physical_damage_reduction_rating"
 		}
 	},
-	[17]={
+	[19]={
 		lang={
 			English={
 				[1]={
@@ -423,7 +469,7 @@ return {
 			[1]="berserk_spell_damage_+%_final"
 		}
 	},
-	[18]={
+	[20]={
 		lang={
 			English={
 				[1]={
@@ -447,7 +493,7 @@ return {
 			[2]="buff_added_spell_maximum_base_physical_damage_per_shield_quality"
 		}
 	},
-	[19]={
+	[21]={
 		lang={
 			English={
 				[1]={
@@ -466,7 +512,7 @@ return {
 			[1]="bulwark_link_grants_recover_X_life_on_block"
 		}
 	},
-	[20]={
+	[22]={
 		lang={
 			English={
 				[1]={
@@ -498,7 +544,7 @@ return {
 			[1]="bulwark_link_grants_stun_threshold_+%"
 		}
 	},
-	[21]={
+	[23]={
 		lang={
 			English={
 				[1]={
@@ -530,7 +576,7 @@ return {
 			[1]="critical_link_grants_accuracy_rating_+%"
 		}
 	},
-	[22]={
+	[24]={
 		lang={
 			English={
 				[1]={
@@ -549,7 +595,7 @@ return {
 			[1]="critical_link_grants_base_critical_strike_multiplier_+"
 		}
 	},
-	[23]={
+	[25]={
 		lang={
 			English={
 				[1]={
@@ -572,7 +618,7 @@ return {
 			[1]="damage_taken_goes_to_mana_%"
 		}
 	},
-	[24]={
+	[26]={
 		lang={
 			English={
 				[1]={
@@ -591,7 +637,7 @@ return {
 			[1]="display_bulwark_link_overrides_attack_block_and_maximum_attack_block"
 		}
 	},
-	[25]={
+	[27]={
 		lang={
 			English={
 				[1]={
@@ -610,7 +656,7 @@ return {
 			[1]="display_critical_link_overrides_main_hand_critical_strike_chance"
 		}
 	},
-	[26]={
+	[28]={
 		lang={
 			English={
 				[1]={
@@ -629,7 +675,7 @@ return {
 			[1]="display_skill_buff_grants_bleeding_immunity"
 		}
 	},
-	[27]={
+	[29]={
 		lang={
 			English={
 				[1]={
@@ -652,7 +698,7 @@ return {
 			[1]="energy_shield_lost_per_minute"
 		}
 	},
-	[28]={
+	[30]={
 		lang={
 			English={
 				[1]={
@@ -675,7 +721,7 @@ return {
 			[1]="flame_link_grants_chance_to_ignite_%"
 		}
 	},
-	[29]={
+	[31]={
 		lang={
 			English={
 				[1]={
@@ -755,7 +801,7 @@ return {
 			[3]="cannot_recover_above_low_life_except_flasks"
 		}
 	},
-	[30]={
+	[32]={
 		lang={
 			English={
 				[1]={
@@ -774,7 +820,7 @@ return {
 			[1]="physical_damage_reduction_%_per_endurance_charge"
 		}
 	},
-	[31]={
+	[33]={
 		lang={
 			English={
 				[1]={
@@ -806,7 +852,7 @@ return {
 			[1]="physical_damage_reduction_rating_+%"
 		}
 	},
-	[32]={
+	[34]={
 		lang={
 			English={
 				[1]={
@@ -825,7 +871,7 @@ return {
 			[1]="life_leech_is_applied_to_remora_link_targets_instead"
 		}
 	},
-	[33]={
+	[35]={
 		lang={
 			English={
 				[1]={
@@ -857,7 +903,7 @@ return {
 			[1]="remora_link_grants_damage_+%_when_on_full_life"
 		}
 	},
-	[34]={
+	[36]={
 		lang={
 			English={
 				[1]={
@@ -880,7 +926,7 @@ return {
 			[1]="remora_link_grants_maximum_life_leech_rate_%_per_minute"
 		}
 	},
-	[35]={
+	[37]={
 		lang={
 			English={
 				[1]={
@@ -899,7 +945,7 @@ return {
 			[1]="resist_all_elements_%_per_endurance_charge"
 		}
 	},
-	[36]={
+	[38]={
 		lang={
 			English={
 				[1]={
@@ -918,7 +964,7 @@ return {
 			[1]="resist_all_%"
 		}
 	},
-	[37]={
+	[39]={
 		lang={
 			English={
 				[1]={
@@ -950,7 +996,7 @@ return {
 			[1]="skill_buff_effect_+%"
 		}
 	},
-	[38]={
+	[40]={
 		lang={
 			English={
 				[1]={
@@ -982,7 +1028,7 @@ return {
 			[1]="skill_buff_grants_attack_and_cast_speed_+%"
 		}
 	},
-	[39]={
+	[41]={
 		lang={
 			English={
 				[1]={
@@ -1001,7 +1047,7 @@ return {
 			[1]="skill_buff_grants_chance_to_freeze_%"
 		}
 	},
-	[40]={
+	[42]={
 		lang={
 			English={
 				[1]={
@@ -1033,7 +1079,7 @@ return {
 			[1]="skill_buff_grants_damage_+%"
 		}
 	},
-	[41]={
+	[43]={
 		lang={
 			English={
 				[1]={
@@ -1065,7 +1111,7 @@ return {
 			[1]="skill_buff_grants_shock_duration_+%"
 		}
 	},
-	[42]={
+	[44]={
 		lang={
 			English={
 				[1]={
@@ -1084,7 +1130,7 @@ return {
 			[1]="skill_display_buff_grants_shock_immunity"
 		}
 	},
-	[43]={
+	[45]={
 		lang={
 			English={
 				[1]={
@@ -1107,7 +1153,7 @@ return {
 			[1]="skill_grants_life_cost_%_mana_cost_while_not_on_low_life"
 		}
 	},
-	[44]={
+	[46]={
 		lang={
 			English={
 				[1]={
@@ -1139,7 +1185,7 @@ return {
 			[1]="soul_link_grants_damage_taken_+%_final"
 		}
 	},
-	[45]={
+	[47]={
 		lang={
 			English={
 				[1]={
@@ -1171,7 +1217,7 @@ return {
 			[1]="soul_link_grants_mana_regeneration_+%"
 		}
 	},
-	[46]={
+	[48]={
 		lang={
 			English={
 				[1]={
@@ -1190,7 +1236,7 @@ return {
 			[1]="soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"
 		}
 	},
-	[47]={
+	[49]={
 		lang={
 			English={
 				[1]={
@@ -1222,7 +1268,7 @@ return {
 			[1]="spell_damage_+%"
 		}
 	},
-	[48]={
+	[50]={
 		lang={
 			English={
 				[1]={
@@ -1254,7 +1300,7 @@ return {
 			[1]="storm_blade_energy_shield_+%_final"
 		}
 	},
-	[49]={
+	[51]={
 		lang={
 			English={
 				[1]={
@@ -1277,7 +1323,7 @@ return {
 			[1]="unaffected_by_temporal_chains"
 		}
 	},
-	[50]={
+	[52]={
 		lang={
 			English={
 				[1]={
@@ -1296,7 +1342,7 @@ return {
 			[1]="vaal_molten_shall_armour_+%_final"
 		}
 	},
-	[51]={
+	[53]={
 		lang={
 			English={
 				[1]={
@@ -1320,7 +1366,7 @@ return {
 			[2]="virtual_flame_link_maximum_fire_damage"
 		}
 	},
-	[52]={
+	[54]={
 		lang={
 			English={
 				[1]={
@@ -1344,23 +1390,41 @@ return {
 			[2]="virtual_storm_blade_maximum_lightning_damage"
 		}
 	},
-	[53]={
+	[55]={
 		lang={
 			English={
 				[1]={
 					limit={
 						[1]={
-							[1]="#",
-							[2]="#"
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]=0,
+							[2]=0
 						}
 					},
 					text="Link breaks if target leaves range or line of sight for 4 seconds\nMaximum 1 Link from any source per target\nYou die if Linked target dies"
+				},
+				[2]={
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
+					},
+					text="Link breaks if target leaves range or line of sight for 8 seconds\nMaximum 1 Link from any source per target\nYou die if Linked target dies"
 				}
 			}
 		},
 		name="link_stuff",
 		stats={
-			[1]="display_link_stuff"
+			[1]="display_link_stuff",
+			[2]="link_grace_period_8_second_override"
 		}
 	},
 	["attack_maximum_added_cold_damage"]=2,
@@ -1369,62 +1433,65 @@ return {
 	["attack_minimum_added_cold_damage"]=2,
 	["attack_minimum_added_fire_damage"]=1,
 	["attack_minimum_added_lightning_damage"]=4,
-	["base_chance_to_shock_%_from_skill"]=12,
-	["base_damage_taken_+%"]=13,
-	["base_immune_to_freeze"]=14,
-	["base_movement_velocity_+%"]=15,
-	["base_physical_damage_reduction_rating"]=16,
-	["berserk_spell_damage_+%_final"]=17,
-	["buff_added_spell_maximum_base_physical_damage_per_shield_quality"]=18,
-	["buff_added_spell_minimum_base_physical_damage_per_shield_quality"]=18,
-	["bulwark_link_grants_recover_X_life_on_block"]=19,
-	["bulwark_link_grants_stun_threshold_+%"]=20,
-	["cannot_recover_above_low_life_except_flasks"]=29,
-	["critical_link_grants_accuracy_rating_+%"]=21,
-	["critical_link_grants_base_critical_strike_multiplier_+"]=22,
-	["damage_taken_goes_to_mana_%"]=23,
-	["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"]=24,
-	["display_critical_link_overrides_main_hand_critical_strike_chance"]=25,
-	["display_link_stuff"]=53,
-	["display_skill_buff_grants_bleeding_immunity"]=26,
-	["energy_shield_lost_per_minute"]=27,
-	["flame_link_grants_chance_to_ignite_%"]=28,
+	["base_chance_to_shock_%_from_skill"]=14,
+	["base_damage_taken_+%"]=15,
+	["base_energy_shield_regeneration_rate_per_minute"]=11,
+	["base_immune_to_freeze"]=16,
+	["base_mana_regeneration_rate_per_minute"]=10,
+	["base_movement_velocity_+%"]=17,
+	["base_physical_damage_reduction_rating"]=18,
+	["berserk_spell_damage_+%_final"]=19,
+	["buff_added_spell_maximum_base_physical_damage_per_shield_quality"]=20,
+	["buff_added_spell_minimum_base_physical_damage_per_shield_quality"]=20,
+	["bulwark_link_grants_recover_X_life_on_block"]=21,
+	["bulwark_link_grants_stun_threshold_+%"]=22,
+	["cannot_recover_above_low_life_except_flasks"]=31,
+	["critical_link_grants_accuracy_rating_+%"]=23,
+	["critical_link_grants_base_critical_strike_multiplier_+"]=24,
+	["damage_taken_goes_to_mana_%"]=25,
+	["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"]=26,
+	["display_critical_link_overrides_main_hand_critical_strike_chance"]=27,
+	["display_link_stuff"]=55,
+	["display_skill_buff_grants_bleeding_immunity"]=28,
+	["energy_shield_lost_per_minute"]=29,
+	["flame_link_grants_chance_to_ignite_%"]=30,
 	["herald_of_ice_cold_damage_+%"]=7,
 	["herald_of_thunder_lightning_damage_+%"]=8,
-	["life_leech_is_applied_to_remora_link_targets_instead"]=32,
+	["life_leech_is_applied_to_remora_link_targets_instead"]=34,
+	["link_grace_period_8_second_override"]=55,
 	parent="skill_stat_descriptions",
-	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=29,
-	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=29,
-	["phase_through_objects"]=11,
-	["physical_damage_reduction_%_per_endurance_charge"]=30,
-	["physical_damage_reduction_rating_+%"]=31,
-	["remora_link_grants_damage_+%_when_on_full_life"]=33,
-	["remora_link_grants_maximum_life_leech_rate_%_per_minute"]=34,
-	["resist_all_%"]=36,
-	["resist_all_elements_%_per_endurance_charge"]=35,
-	["shield_spell_block_%"]=10,
-	["skill_buff_effect_+%"]=37,
-	["skill_buff_grants_attack_and_cast_speed_+%"]=38,
-	["skill_buff_grants_chance_to_freeze_%"]=39,
+	["petrified_blood_%_life_loss_below_half_from_hit_to_prevent"]=31,
+	["petrified_blood_%_prevented_life_loss_to_lose_over_time"]=31,
+	["phase_through_objects"]=13,
+	["physical_damage_reduction_%_per_endurance_charge"]=32,
+	["physical_damage_reduction_rating_+%"]=33,
+	["remora_link_grants_damage_+%_when_on_full_life"]=35,
+	["remora_link_grants_maximum_life_leech_rate_%_per_minute"]=36,
+	["resist_all_%"]=38,
+	["resist_all_elements_%_per_endurance_charge"]=37,
+	["shield_spell_block_%"]=12,
+	["skill_buff_effect_+%"]=39,
+	["skill_buff_grants_attack_and_cast_speed_+%"]=40,
+	["skill_buff_grants_chance_to_freeze_%"]=41,
 	["skill_buff_grants_critical_strike_chance_+%"]=6,
-	["skill_buff_grants_damage_+%"]=40,
-	["skill_buff_grants_shock_duration_+%"]=41,
-	["skill_display_buff_grants_shock_immunity"]=42,
-	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=43,
-	["soul_link_grants_damage_taken_+%_final"]=44,
-	["soul_link_grants_mana_regeneration_+%"]=45,
-	["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"]=46,
-	["spell_damage_+%"]=47,
+	["skill_buff_grants_damage_+%"]=42,
+	["skill_buff_grants_shock_duration_+%"]=43,
+	["skill_display_buff_grants_shock_immunity"]=44,
+	["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"]=45,
+	["soul_link_grants_damage_taken_+%_final"]=46,
+	["soul_link_grants_mana_regeneration_+%"]=47,
+	["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"]=48,
+	["spell_damage_+%"]=49,
 	["spell_maximum_added_cold_damage"]=3,
 	["spell_maximum_added_lightning_damage"]=5,
 	["spell_minimum_added_cold_damage"]=3,
 	["spell_minimum_added_lightning_damage"]=5,
 	["stealth_+%"]=9,
-	["storm_blade_energy_shield_+%_final"]=48,
-	["unaffected_by_temporal_chains"]=49,
-	["vaal_molten_shall_armour_+%_final"]=50,
-	["virtual_flame_link_maximum_fire_damage"]=51,
-	["virtual_flame_link_minimum_fire_damage"]=51,
-	["virtual_storm_blade_maximum_lightning_damage"]=52,
-	["virtual_storm_blade_minimum_lightning_damage"]=52
+	["storm_blade_energy_shield_+%_final"]=50,
+	["unaffected_by_temporal_chains"]=51,
+	["vaal_molten_shall_armour_+%_final"]=52,
+	["virtual_flame_link_maximum_fire_damage"]=53,
+	["virtual_flame_link_minimum_fire_damage"]=53,
+	["virtual_storm_blade_maximum_lightning_damage"]=54,
+	["virtual_storm_blade_minimum_lightning_damage"]=54
 }

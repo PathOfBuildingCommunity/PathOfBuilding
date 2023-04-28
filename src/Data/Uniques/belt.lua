@@ -590,6 +590,25 @@ Implicits: 1
 20% increased Flask Effect Duration
 {tags:physical_damage}-2 Physical Damage taken from Attack Hits
 ]],[[
+Ceinture of Benevolence
+Cloth Belt
+LevelReq: 40
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_attribute}+(20-40) to Dexterity
+{tags:mana}+(40-60) to maximum Mana
+(10-7)% reduced Flask Charges used
+Non-Unique Utility Flasks you Use apply to Linked Targets
+]],[[
+Chain of Endurance
+Chain Belt
+LevelReq: 14
++(9-20) to maximum Energy Shield
++(40-50) to Maximum Life
+(40-60)% increased Stun and Block Recovery
+Reflects (100-150) Physical Damage to Melee Attackers
+Regenerate 2% of Life per second for each different Ailment affecting you
+]],[[
 Perseverance
 Vanguard Belt
 Variant: Pre 3.16.0

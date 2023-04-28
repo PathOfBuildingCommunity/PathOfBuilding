@@ -113,6 +113,6 @@ end
 
 function SkillSetListClass:OnSelKeyDown(index, skillSetId, key)
 	if key == "F2" then
-		self:RenameSet(skillSetId)
+		self:RenameSet(self.skillsTab.skillSets[skillSetId])
 	end
 end

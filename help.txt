@@ -10,6 +10,7 @@ This file contains a list of shortcuts, and other misc things PoB has
 4. Hotkeys
 5. Other Notable Things
 6. Timeless Jewels
+7. PartyTab
 
 ---[FAQ][3]
 
@@ -23,6 +24,7 @@ Ctrl + 3	Jump to items tab
 Ctrl + 4	Jump to calcs tab
 Ctrl + 5	Jump to config tab
 Ctrl + 6	Jump to notes tab
+Ctrl + 7	Jump to party tab
 Ctrl + I	Jump to import tab
 Ctrl + A	Select all
 Ctrl + C	Copy
@@ -114,4 +116,24 @@ Militant Faith jewels also have the option to select the other mods on the jewel
 Advanced tricks:
     For Militant Faith, if you don't want any nodes to change, you can just sort by devotion. As unchanged nodes add devotion, the ones with the most devotion will be the ones with unchanged nodes
 	
-	
+---[Party Tab][7]
+
+The Party tab Allows you to import support characters and have thier auras and curses apply
+
+To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab
+You can import a specific type like aura or curse, or import to all
+You can also set it to append to a section rather than replacing it (currently curses must be replaced if not empty due to more curse limits not working well)
+ 
+This does not add the auras or curses into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectivly
+They also show other effects they add, like when physical damage reduction is applied by an aurabot with the gaurdian node
+ 
+Only the highest aura will apply, so if you and the support both run the same aura and your % inc effect is higher it will apply (even if the actual amount yours gives is lower due to gem levels or whatever), this is how it works ingame
+Your curses will always apply before the supports though, so even if theres is a higher effect yours will be applied instead
+ 
+For now Enemy conditions and Modifiers are not exported but can be imported if its saved in the XML, and Links skills are not exported or parsed
+Some auras like Mines which use a stack value for thier effect will not apply as their stack value is missing
+ 
+Advanced info:
+    The format for the data is the name of the skill, the %increased effect and then the mods that are applied
+    The mods are done similar to the style from modlib, where it the value applied, the "source" of the mod, the modname, the type added (eg base/inc), the flags, the keywordflags, and then any other tags
+DEV[    The mods are done by modlib using modLib.formatModParams(mod)]

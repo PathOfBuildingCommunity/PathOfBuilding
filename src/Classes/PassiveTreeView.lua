@@ -57,6 +57,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.zoomY = 0
 
 	self.searchStr = ""
+	self.searchStrSaved = ""
 	self.searchStrCached = ""
 	self.searchStrResults = {}
 	self.showStatDifferences = true
@@ -74,9 +75,7 @@ function PassiveTreeViewClass:Load(xml, fileName)
 	end
 	if xml.attrib.searchStr then
 		self.searchStr = xml.attrib.searchStr
-	end
-	if xml.attrib.showHeatMap then
-		self.showHeatMap = xml.attrib.showHeatMap == "true"
+		self.searchStrSaved = xml.attrib.searchStr
 	end
 	if xml.attrib.showStatDifferences then
 		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
@@ -84,12 +83,12 @@ function PassiveTreeViewClass:Load(xml, fileName)
 end
 
 function PassiveTreeViewClass:Save(xml)
+	self.searchStrSaved = self.searchStr
 	xml.attrib = {
 		zoomLevel = tostring(self.zoomLevel),
 		zoomX = tostring(self.zoomX),
 		zoomY = tostring(self.zoomY),
 		searchStr = self.searchStr,
-		showHeatMap = tostring(self.showHeatMap),
 		showStatDifferences = tostring(self.showStatDifferences),
 	}
 end
@@ -440,7 +439,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local searchWords = {}
 			for matchstring, v in search:gmatch('"([^"]*)"') do
 				searchWords[#searchWords+1] = matchstring
-				search = search:gsub('"'..matchstring..'"', "")
+				search = search:gsub('"'..matchstring:gsub("([%(%)])", "%%%1")..'"', "")
 			end
 			for matchstring, v in search:gmatch("(%S*)") do
 				if matchstring:match("%S") ~= nil then
@@ -805,7 +804,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 
 	local function search(haystack, need)
 		for i=#need, 1, -1 do
-			if haystack:match(need[i]) then
+			if haystack:matchOrPattern(need[i]) then
 				table.remove(need, i)
 			end
 		end
@@ -923,7 +922,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
 				end
 				if node.mods[i].extra then
-					modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
+					modStr = (modStr and modStr.."  " or "") .. colorCodes.NEGATIVE .. node.mods[i].extra
 				end
 				if modStr then
 					line = line .. "  " .. modStr

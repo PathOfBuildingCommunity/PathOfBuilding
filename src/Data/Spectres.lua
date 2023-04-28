@@ -3713,5 +3713,24 @@ minions["Metadata/Monsters/RaisedZombies/RaisedZombieStandard"] = {
 	modList = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
 		-- RaiseZombieStunThreshold [stun_threshold_+% = 30]
+-- Forged Frostbearer
+minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
+	name = "Forged Frostbearer",
+	life = 1.68,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.4,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 7,
+	accuracy = 1,
+	skillList = {
+		"MMSPyromaniacIceMortar",
+		"CrucibleIceStormTrap",
+	},
+	modList = {
+		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }

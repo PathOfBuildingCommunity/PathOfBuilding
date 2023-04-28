@@ -272,6 +272,49 @@ describe("TestDefence", function()
         assert.are.equals(0, poolsRemaining.Life)
         assert.are.equals(120, poolsRemaining.LifeLossLostOverTime)
         assert.are.equals(20, poolsRemaining.LifeBelowHalfLossLostOverTime)
+        
+        build.skillsTab:PasteSocketGroup("\z
+        Label: 50% petrified\n\z
+        Petrified Blood 20/40 Alternate1  1\n\z
+        ")
+        build.skillsTab:ProcessSocketGroup(build.skillsTab.socketGroupList[1])
+        build.configTab.input.customMods = "\z
+        +1950 to life\n\z
+        +2960 to mana\n\z
+        +3000 to energy shield\n\z
+        100% less attributes\n\z
+        100% less mana reserved\n\z
+        +60% to all resistances\n\z
+        chaos damage does not bypass energy shield\n\z
+        mind over matter\n\z
+        eldritch battery\n\z
+        10% of lightning damage is taken from mana before life\n\z
+        chaos damage is taken from mana before life\n\z
+        When Hit during effect, 50% of Life loss from Damage taken occurs over 4 seconds instead\n\z
+        "
+        build.configTab.input.conditionUsingFlask = true
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+        
+        _, takenDamages = takenHitFromTypeMaxHit("Fire")
+        poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
+        assert.are.equals(0, poolsRemaining.Life)
+        assert.are.equals(0, poolsRemaining.EnergyShield)
+        assert.is.not_false(poolsRemaining.Mana > 0)
+        
+        _, takenDamages = takenHitFromTypeMaxHit("Lightning")
+        poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
+        assert.are.equals(0, poolsRemaining.Life)
+        assert.are.equals(0, poolsRemaining.EnergyShield)
+        assert.are.equals(0, poolsRemaining.Mana)
+        
+        _, takenDamages = takenHitFromTypeMaxHit("Chaos")
+        poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
+        assert.are.equals(0, poolsRemaining.Life)
+        assert.are.equals(0, poolsRemaining.EnergyShield)
+        assert.are.equals(0, poolsRemaining.Mana)
+        
+        build.skillsTab.socketGroupList = {}
     end)
 
     -- fun part

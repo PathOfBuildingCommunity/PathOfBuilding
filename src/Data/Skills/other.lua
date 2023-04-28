@@ -536,7 +536,7 @@ skills["UniqueEnchantmentOfInfernoOnCrit"] = {
 	baseEffectiveness = 3.5555999279022,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -568,7 +568,7 @@ skills["TriggeredConsecrate"] = {
 	hidden = true,
 	color = 4,
 	description = "Creates an area of Consecrated Ground, providing life regeneration and reducing the effect of curses for you and allies who stand in it.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
@@ -618,13 +618,16 @@ skills["CorpseWalk"] = {
 	name = "Corpse Walk",
 	hidden = true,
 	color = 4,
-	description = "Spawns corpses around you while you move.",
+	description = "Spawns corpses around you while you move. The corpses will be chosen from the monsters in the current area and any Spectres that have existed in this instance.",
 	skillTypes = { [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		area = true,
+	},
+	constantStats = {
+		{ "desecrate_corpse_level", 100 },
 	},
 	stats = {
 		"cast_on_gain_skill",
@@ -1503,14 +1506,15 @@ skills["SupportGreaterSpellEcho"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	statMap = {
+		["support_greater_spell_echo_spell_damage_+%_final_per_repeat"] = {
+			mod("RepeatPerRepeatDamage", "MORE", nil, 0, 0, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+		},
 		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
-			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+			mod("RepeatPerRepeatAreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 		},
 	},
 	baseMods = {
 		flag("Condition:HaveGreaterSpellEcho"),
-		mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
-		mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 	},
 	constantStats = {
 		{ "base_spell_repeat_count", 2 },
@@ -1714,8 +1718,8 @@ skills["LightningSpell"] = {
 	name = "Lightning Bolt",
 	hidden = true,
 	color = 3,
-	baseEffectiveness = 5,
-	incrementalEffectiveness = 0.029999999329448,
+	baseEffectiveness = 8,
+	incrementalEffectiveness = 0.035000000149012,
 	description = "A bolt of lightning strikes an area, dealing lightning damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggered] = true, [SkillType.Lightning] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1738,36 +1742,36 @@ skills["LightningSpell"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 1, statInterpolation = { 3, 3, }, },
-		[2] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 2, statInterpolation = { 3, 3, }, },
-		[3] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 4, statInterpolation = { 3, 3, }, },
-		[4] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 7, statInterpolation = { 3, 3, }, },
-		[5] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 11, statInterpolation = { 3, 3, }, },
-		[6] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 16, statInterpolation = { 3, 3, }, },
-		[7] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 20, statInterpolation = { 3, 3, }, },
-		[8] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 24, statInterpolation = { 3, 3, }, },
-		[9] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 28, statInterpolation = { 3, 3, }, },
-		[10] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 32, statInterpolation = { 3, 3, }, },
-		[11] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 36, statInterpolation = { 3, 3, }, },
-		[12] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 40, statInterpolation = { 3, 3, }, },
-		[13] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 44, statInterpolation = { 3, 3, }, },
-		[14] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 48, statInterpolation = { 3, 3, }, },
-		[15] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 52, statInterpolation = { 3, 3, }, },
-		[16] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 56, statInterpolation = { 3, 3, }, },
-		[17] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 60, statInterpolation = { 3, 3, }, },
-		[18] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 64, statInterpolation = { 3, 3, }, },
-		[19] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 67, statInterpolation = { 3, 3, }, },
-		[20] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-		[21] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 72, statInterpolation = { 3, 3, }, },
-		[22] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 74, statInterpolation = { 3, 3, }, },
-		[23] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 76, statInterpolation = { 3, 3, }, },
-		[24] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 78, statInterpolation = { 3, 3, }, },
-		[25] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 80, statInterpolation = { 3, 3, }, },
-		[26] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 82, statInterpolation = { 3, 3, }, },
-		[27] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 84, statInterpolation = { 3, 3, }, },
-		[28] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 86, statInterpolation = { 3, 3, }, },
-		[29] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 88, statInterpolation = { 3, 3, }, },
-		[30] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 90, statInterpolation = { 3, 3, }, },
+		[1] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 2, statInterpolation = { 3, 3, }, },
+		[3] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 4, statInterpolation = { 3, 3, }, },
+		[4] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 7, statInterpolation = { 3, 3, }, },
+		[5] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 11, statInterpolation = { 3, 3, }, },
+		[6] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 16, statInterpolation = { 3, 3, }, },
+		[7] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 20, statInterpolation = { 3, 3, }, },
+		[8] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 24, statInterpolation = { 3, 3, }, },
+		[9] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 28, statInterpolation = { 3, 3, }, },
+		[10] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 32, statInterpolation = { 3, 3, }, },
+		[11] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 36, statInterpolation = { 3, 3, }, },
+		[12] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 40, statInterpolation = { 3, 3, }, },
+		[13] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 44, statInterpolation = { 3, 3, }, },
+		[14] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 48, statInterpolation = { 3, 3, }, },
+		[15] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 52, statInterpolation = { 3, 3, }, },
+		[16] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 56, statInterpolation = { 3, 3, }, },
+		[17] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 60, statInterpolation = { 3, 3, }, },
+		[18] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 64, statInterpolation = { 3, 3, }, },
+		[19] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 67, statInterpolation = { 3, 3, }, },
+		[20] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+		[21] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 72, statInterpolation = { 3, 3, }, },
+		[22] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 74, statInterpolation = { 3, 3, }, },
+		[23] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 76, statInterpolation = { 3, 3, }, },
+		[24] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 78, statInterpolation = { 3, 3, }, },
+		[25] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 80, statInterpolation = { 3, 3, }, },
+		[26] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 82, statInterpolation = { 3, 3, }, },
+		[27] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 84, statInterpolation = { 3, 3, }, },
+		[28] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 86, statInterpolation = { 3, 3, }, },
+		[29] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 88, statInterpolation = { 3, 3, }, },
+		[30] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 90, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SupportTriggerBowSkillOnBowAttack"] = {
@@ -2190,67 +2194,6 @@ skills["TriggeredShockedGround"] = {
 	},
 	levels = {
 		[10] = { storedUses = 1, levelRequirement = 1, cooldown = 5, },
-	},
-}
-skills["ChannelledSnipe"] = {
-	name = "Snipe",
-	hidden = true,
-	color = 2,
-	description = "Channel to charge up your bow, gaining stages. Release to trigger one linked bow skill for each stage gained. Channelled Skills cannot be triggered this way. If there are no skills linked, but at least one stage was gained, this skill will fire its own arrow instead. Cannot be used by Totems.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
-	weaponTypes = {
-		["Bow"] = true,
-	},
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	fromItem = true,
-	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
-	end,
-	baseFlags = {
-		attack = true,
-		projectile = true,
-	},
-	constantStats = {
-		{ "snipe_max_stacks", 6 },
-		{ "override_turn_duration_ms", 100 },
-		{ "snipe_triggered_skill_ailment_damage_+%_final_per_stage", 120 },
-		{ "snipe_triggered_skill_hit_damage_+%_final_per_stage", 165 },
-	},
-	stats = {
-		"skill_can_fire_arrows",
-		"is_snipe_default_projectile",
-		"is_snipe_default_projectile_2",
-	},
-	levels = {
-		[20] = { attackSpeedMultiplier = 80, levelRequirement = 70, cost = { Mana = 4, }, },
-	},
-}
-skills["ChannelledSnipeSupport"] = {
-	name = "ChannelledSnipeSupport",
-	hidden = true,
-	color = 2,
-	support = true,
-	requireSkillTypes = { SkillType.RangedAttack, SkillType.ThresholdJewelRangedAttack, SkillType.OR, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Channel, },
-	weaponTypes = {
-		["Bow"] = true,
-	},
-	statDescriptionScope = "gem_stat_descriptions",
-	fromItem = true,
-	baseMods = {
-		flag("TriggeredBySnipe"),
-	},
-	constantStats = {
-		{ "snipe_triggered_skill_ailment_damage_+%_final_per_stage", 120 },
-		{ "snipe_triggered_skill_hit_damage_+%_final_per_stage", 165 },
-	},
-	stats = {
-		"skill_triggered_by_snipe",
-	},
-	levels = {
-		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 0.05, },
 	},
 }
 skills["SummonEssenceSpirits"] = {
@@ -3412,4 +3355,92 @@ skills["VoidShot"] = {
 	levels = {
 		[20] = { damageEffectiveness = 0.65, PvPDamageMultiplier = -80, baseMultiplier = 0.65, levelRequirement = 70, },
 	},
+}
+skills["EnemyExplode"] = {
+	name = "On Kill Monster Explosion",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	castTime = 0,
+	parts = {
+		{
+			name = "This Source Only",
+		},
+		{
+			name = "This Source Only, Ignoring Chance",
+		},
+		{
+			name = "Average Of All Sources",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		output.ExplodeChance = 0
+		if activeSkill.skillPart ~= 3 then
+			local allExplodeMods = activeSkill.skillModList:Tabulate("LIST", activeSkill.skillCfg, "ExplodeMod")
+			for _, explodeMod in ipairs(allExplodeMods) do
+				local activeEffectSource = activeSkill.activeEffect.srcInstance.explodeSource.modSource or "Tree:"..activeSkill.activeEffect.srcInstance.explodeSource.id
+				if explodeMod.mod.source == activeEffectSource then
+					local explodeMod = explodeMod.value
+					if explodeMod.type == "RandomElement" then
+						activeSkill.skillData["FireEffectiveExplodePercentage"] = explodeMod.amount / 3
+						activeSkill.skillData["ColdEffectiveExplodePercentage"] = explodeMod.amount / 3
+						activeSkill.skillData["LightningEffectiveExplodePercentage"] = explodeMod.amount / 3
+					else
+						activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] = explodeMod.amount
+					end
+					output.ExplodeChance = activeSkill.skillPart == 2 and 1 or explodeMod.chance
+				end
+			end
+		else
+			local typeAmountChances = { }
+			local explodeModList = activeSkill.skillModList:List(activeSkill.skillCfg, "ExplodeMod")
+			for _, explodeMod in ipairs(explodeModList) do
+				local amountChance = typeAmountChances[explodeMod.type] or {}
+				amountChance[explodeMod.amount] = (amountChance[explodeMod.amount] or 0) + explodeMod.chance
+				typeAmountChances[explodeMod.type] = amountChance
+			end
+			for type, amountChance in pairs(typeAmountChances) do
+				local physExplodeChance = 0
+				for amount, chance in pairs(amountChance) do
+					local amountXChance = amount * chance
+					if type == "RandomElement" then
+						activeSkill.skillData["FireEffectiveExplodePercentage"] = (activeSkill.skillData["FireEffectiveExplodePercentage"] or 0) + amountXChance / 3
+						activeSkill.skillData["ColdEffectiveExplodePercentage"] = (activeSkill.skillData["ColdEffectiveExplodePercentage"] or 0) + amountXChance / 3
+						activeSkill.skillData["LightningEffectiveExplodePercentage"] = (activeSkill.skillData["LightningEffectiveExplodePercentage"] or 0) + amountXChance / 3
+					else
+						activeSkill.skillData[type.."EffectiveExplodePercentage"] = (activeSkill.skillData[type.."EffectiveExplodePercentage"] or 0) + amountXChance
+					end
+					if type == "Physical" then
+						physExplodeChance = 1 - ((1 - physExplodeChance) * (1 - chance))
+					end
+					output.ExplodeChance = 1 - ((1 - output.ExplodeChance) * (1 - chance))
+				end
+				if type == "Physical" and physExplodeChance ~= 0 then
+					activeSkill.skillModList:NewMod("CalcArmourAsThoughDealing", "MORE", 100 / math.min(physExplodeChance, 1) - 100)
+				end
+			end
+		end
+		output.ExplodeChance = math.min(output.ExplodeChance * 100, 100)
+	end,
+	baseMods = {
+		skill("radius", 22),
+		skill("showAverage", true),
+		skill("explodeCorpse", true),
+		skill("corpseExplosionLifeMultiplier", 0),
+		skill("hitChanceIsExplodeChance", true, { type = "SkillPart", skillPart = 1 }),
+	},
+	baseFlags = {
+		area = true,
+		monsterExplode = true
+	},
+	stats = {
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"display_skill_deals_secondary_damage",
+		"damage_cannot_be_reflected",
+		"skill_can_add_multiple_charges_per_action",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 0, baseMultiplier = 1, levelRequirement = 1, }
+	}
 }

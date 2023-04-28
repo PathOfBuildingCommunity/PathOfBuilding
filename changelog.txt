@@ -1,3 +1,85 @@
+VERSION[2.28.0][2023/04/12]
+
+--- Implemented Enhancements ---
+* Add support for Impending Doom + using it with Vixen's (ha107642)
+* Add support for Manaforged Arrows (Nostrademous)
+* Add support for 3.21 uniques (QuickStick123, LocalIdentity)
+* Add Forged Frostbearer Spectre (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix active skill mods applying to Impending Doom, Prismatic Burst, Predator and Shockwave (QuickStick123)
+* Fix Petrified Blood Low Life recoverable calculation (QuickStick123)
+* Fix Prismatic Burst not choosing 1 damage type for DPS (LocalIdentity)
+* Fix Chance to Bleed Support applying to Minions (Peechey)
+* Fix 'Damage per aura' mastery incorrectly working with some gems (LocalIdentity)
+* Fix max res Armour Mastery incorrectly applying to max Chaos res (LocalIdentity)
+* Fix Trader not calculating correct weights for hit pool (Regisle)
+* Fix chance to get flask charge on crit for flask breakdown (deathbeam)
+
+--- Accuracy Improvements ---
+* Update Tombfist to 3.21 (QuickStick123, LocalIdentity)
+
+VERSION[2.27.2][2023/04/09]
+
+--- Implemented Enhancements ---
+* Add support for Prismatic Burst (Wires77)
+
+--- Fixed Crashes ---
+* Fix crash in the Trader from not having jewel data (Regisle)
+
+--- User Interface ---
+* Correct display of max mana leech rate breakdown (Lilylicious)
+* Fix crucible item colour (QuickStick123)
+
+--- Fixed Bugs ---
+* Fix Flasks incorrectly having "Cannot Leech" on them (Wires77)
+* Fix + to level of active skill gem mods not working (LocalIdentity)
+* Fix Formless Inferno, Uul-Netol's Kiss and Tulborn (QuickStick123)
+* Fix Absolution Enchant Parsing (LocalIdentity)
+* Fix Snipe Support + update Assailum (LocalIdentity)
+
+
+VERSION[2.27.0][2023/04/08]
+
+--- Implemented Enhancements ---
+* 3.21 game data update (Nostrademous)
+* Add crucible modifier parsing support (Nostrademous)
+* Add support for mods conditional on the modifiers of other equipped items (Nostrademous)
+* Add Bloodnotch (QuickStick123)
+* Set level mode to manual if default level is above 1 (Lilylicious)
+* Hide the power report on loading a build and unchecking "Show node power" (Lilylicious)
+* Add skill names to cost warnings (Paliak)
+* Add support for new Low Life and Full Life Masteries (Nostrademous)
+* Add support for Warcry Mastery (Peechey)
+* Add support for repeat-based modifiers (Regisle)
+* Add support for Saboteur Ascendancy (Peechey)
+* Add support for "Skills Cost Life instead of 30% of Mana" Mastery (Nostrademous)
+* Prompt for saving after altering the passive search string (Lilylicious)
+
+--- User Interface ---
+* Limit separators to non-alphanumeric (Lilylicious)
+
+--- Fixed Bugs ---
+* Fix default state validation for lists and color labels (deathbeam)
+* Fix tree data bug related to recovery mastery (QuickStick123)
+* Fix issue where Sceptres and One Handed Maces were considered the same weapon type (Peechey)
+* Fix Reverberation Rod to add back Controlled Destruction (chx)
+* Fix Kaom's Spirit rage regen calculation behaviour (Ribel38)
+
+--- Other changes ---
+* Improve EHP calculation performance when using full DPS (Regisle)
+* Update a few uniques for 3.21 (QuickStick123)
+
+VERSION[2.26.3][2023/04/05]
+
+--- Fixed Bugs ---
+* Fix several Minion buffs not being calculated correctly (Wires77)
+* Fix level-up stats from appearing on tooltips (Lilylicious)
+* Fix MoM and Prevented Life loss effect interaction (Edvinas-Smita)
+* Fix life loss prevention occurring on overkill damage resulting in undesired breakpoint behaviour (QuickStick123)
+* Fix Ghost Reaver and Mines Leech not working (QuickStick123)
+* Fix mod values on Betrayal uniques (dshebib)
+
 VERSION[2.26.2][2023/04/03]
 
 * Fix mastery choices overlapping when they had multiple lines (Wires77)

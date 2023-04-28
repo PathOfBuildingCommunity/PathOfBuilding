@@ -162,7 +162,6 @@ Variant: Pre 2.6.0
 Variant: Pre 3.0.0
 Variant: Pre 3.21.0
 Variant: Current
-Requires Level 22, 41 Dex, 41 Int
 Implicits: 3
 {variant:1}Grants 10 Life per Enemy Hit
 {variant:2,3}Grants 12 Life per Enemy Hit
@@ -190,13 +189,13 @@ Requires Level 68, 131 Dex, 95 Int
 Implicits: 2
 {variant:1}Grants 25 Life per Enemy Hit
 {variant:2,3,4}Grants 46 Life per Enemy Hit
-{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
-{variant:4}1% of Attack Damage Leeched as Life
 (8-12)% increased Dexterity
 (8-12)% increased Intelligence
+{variant:4}1% of Attack Damage Leeched as Life
 {variant:1,2}Adds 1 to 6 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 {variant:3,4}Adds 1 to 10 Lightning Damage to Attacks with this Weapon per 10 Intelligence
 1% increased Attack Speed per 25 Dexterity
+{variant:1,2,3}(20-25)% increased Elemental Damage with Attack Skills
 ]],[[
 Izaro's Dilemma
 Imperial Claw

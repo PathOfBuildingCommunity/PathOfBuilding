@@ -113,6 +113,7 @@ local skillTypes = {
 	"OwnerCannotUse",
 	"ProjectilesNotFired",
 	"TotemsAreBallistae",
+	"SkillGrantedBySupport",
 }
 
 local wellShitIGotThoseWrong = {
@@ -623,8 +624,8 @@ for skillGem in dat("SkillGems"):Rows() do
 		out:write('\t\treqStr = ', skillGem.Str, ',\n')
 		out:write('\t\treqDex = ', skillGem.Dex, ',\n')
 		out:write('\t\treqInt = ', skillGem.Int, ',\n')
-		local defaultLevel = #dat("ItemExperiencePerLevel"):GetRowList("BaseItemType", skillGem.BaseItemType)
-		out:write('\t\tdefaultLevel = ', defaultLevel > 0 and defaultLevel or 1, ',\n')
+		local naturalMaxLevel = #dat("ItemExperiencePerLevel"):GetRowList("ItemExperienceType", skillGem.GemLevelProgression)
+		out:write('\t\tnaturalMaxLevel = ', naturalMaxLevel > 0 and naturalMaxLevel or 1, ',\n')
 		out:write('\t},\n')
 	end
 end

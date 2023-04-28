@@ -506,7 +506,7 @@ Implicits: 1
 {variant:2}(170-230)% increased Energy Shield
 {variant:1}+(70-100) to maximum Life
 +(35-40)% to Lightning Resistance
-{variant:2}Shocks you inflict spread to other Enemies within a Radius of 12
+{variant:2}Shocks you inflict spread to other Enemies within a Radius of 15
 Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently
 {variant:1}Shock Reflection
 ]],[[
@@ -928,7 +928,7 @@ Implicits: 2
 {variant:4}+(20-30)% to all Elemental Resistances
 {variant:1}+5% to all maximum Resistances
 {variant:2,3,4}+4% to all maximum Resistances
-Cannot Block Attacks
+Cannot Block Attack Damage
 ]],[[
 Springleaf
 Plank Kite Shield

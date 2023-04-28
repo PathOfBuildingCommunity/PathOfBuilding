@@ -415,6 +415,17 @@ Implicits: 1
 {variant:2,3}{tags:caster}(15-25)% increased Effect of your Curses
 {variant:4}{tags:caster}(10-15)% increased Effect of your Curses
 ]],[[
+Soulbound
+Paua Ring
+LevelReq: 44
+Implicits: 1
+{tags:mana}+(20-30) to maximum Mana
+{tags:jewellery_attribute}+(10-20) to all Attributes
+Link Skills have (10-15)% increased Cast Speed
+Link Skills have (10-15)% increased Skill Effect Duration
+Linked Targets Cannot Die for 2 seconds after you Die
+Lose no Experience when you die because a Linked target died
+]],[[
 Dream Fragments
 Sapphire Ring
 Variant: Pre 2.6.0

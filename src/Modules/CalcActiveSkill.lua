@@ -368,7 +368,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Trap)
 	elseif skillFlags.mine then
 		skillKeywordFlags = bor(skillKeywordFlags, KeywordFlag.Mine)
-	else
+	elseif not skillTypes[SkillType.Triggered] then
 		skillFlags.selfCast = true
 	end
 	if skillTypes[SkillType.Attack] then
@@ -468,7 +468,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	-- Apply gem/quality modifiers from support gems
 	for _, value in ipairs(skillModList:List(activeSkill.skillCfg, "SupportedGemProperty")) do
-		if value.keyword == "active_skill" and activeSkill.activeEffect.gemData then
+		if value.keyword == "grants_active_skill" and activeSkill.activeEffect.gemData and not activeSkill.activeEffect.gemData.tags.support  then
 			activeEffect[value.key] = activeEffect[value.key] + value.value
 		end
 	end

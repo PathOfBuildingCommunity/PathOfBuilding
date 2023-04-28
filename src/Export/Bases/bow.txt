@@ -3,5 +3,6 @@ local itemBases = ...
 
 #type Bow
 #baseTags weapon twohand bow ranged two_hand_weapon
+#influenceBaseTag bow
 #socketLimit 6
 #baseMatch Metadata/Items/Weapons/TwoHandWeapons/Bows/Bow
