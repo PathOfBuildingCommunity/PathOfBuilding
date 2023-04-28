@@ -1,5 +1,61 @@
 # Changelog
 
+## [v2.29.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.29.0) (2023/04/28)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.28.0...v2.29.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Implemented Enhancements
+- Support for crafting Crucible mods on items [\#6071](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6071), [\#6104](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6104), [\#6123](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6123), [\#6077](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6077)  ([Peechey](https://github.com/Peechey), [LocalIdentity](https://github.com/LocalIdentity))
+- Add ability to simulate Aura bots or curse support with new Party tab [\#4967](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/4967) ([Regisle](https://github.com/Regisle))
+- Add support for on-kill explosions [\#5696](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5696) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Add support for Vaal Firestorm, Lightning Arrow, Arctic Armour, Animate Weapon and Reap [\#6080](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6080), [\#6081](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6081), [\#6088](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6088), [\#6146](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6146), [\#6082](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6082) ([Regisle](https://github.com/Regisle), [LocalIdentity](https://github.com/LocalIdentity))
+- Add ability to search for Megalomaniac in Trader [\#5714](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5714) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+- Add support for local, Essence and crafted mods in Trader [\#5735](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5735), [\#6118](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6118) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for hits against you overwhelm pdr [\#6110](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6110) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for regex OR to tree and Item search [\#5766](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5766) ([QuickStick123](https://github.com/QuickStick123))
+- Add support for Master Distiller [\#6134](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6134) ([deathbeam](https://github.com/deathbeam))
+- Add support for enduring flask recovery over time [\#5897](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5897) ([deathbeam](https://github.com/deathbeam))
+- Add support for Damage taken from Allies life before you [\#6134](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5943)
+- Add support for 'Impales to last an additional hit' mastery mod [\#6079](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6079) ([Regisle](https://github.com/Regisle))
+### Fixed Crashes
+- Fix infinite recursion crash with Manaforged arrows [\#6059](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6059) ([Paliak](https://github.com/Paliak))
+- Fix crash when renaming tree with F2 [\#6057](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6057) ([Paliak](https://github.com/Paliak))
+- Fix crash when sorting Trader results by some stats [\#6117](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6117) ([Regisle](https://github.com/Regisle))
+- Fix multiple Mastery-related crashes when converting tree to new version [\#6062](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6062) ([Peechey](https://github.com/Peechey))
+### User Interface
+- Allow custom hex colours for positive and negative breakdown values [\#6070](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6070) ([Peechey](https://github.com/Peechey))
+- Filter Timeless Jewel search by node distance [\#5741](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5741) ([Regisle](https://github.com/Regisle))
+- Use nearest keystone for Timeless Jewel search name [\#6091](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6091) ([QuickStick123](https://github.com/QuickStick123))
+- Improve map mod selection UI in the Configuration tab [\#6128](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6128) ([Regisle](https://github.com/Regisle))
+- Add ability to sort by EHP change for gems [\#6087](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6087) ([Regisle](https://github.com/Regisle))
+- Highlight borders for changed config options in config tab [\#5717](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5717) ([deathbeam](https://github.com/deathbeam))
+- Adjust minimum trade weight to always show some items in results [\#5526](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5526) ([QuickStick123](https://github.com/QuickStick123))
+- Fix instant Leech breakdown [\#6030](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6030) ([mortentc](https://github.com/mortentc))
+- Fix colour codes leaking into formatted numbers [\#6072](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6072) ([QuickStick123](https://github.com/QuickStick123))
+- Fix discontinuous mod values occurring with range tier slider [\#6056](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6056) ([QuickStick123](https://github.com/QuickStick123))
+### Accuracy Improvements
+- Update uniques [\#6097](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6097), [\#6038](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6038) ([QuickStick123](https://github.com/QuickStick123))
+- Fix Juggernaut Unbreakable not working with Iron Reflexes + Evasion [\#6101](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6101) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Fanaticism applying to triggered skills [\#6103](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6103) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Sleight of Hand and other one-handed weapon + damage with Ailments passives [\#5923](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5923) ([Peechey](https://github.com/Peechey))
+- Fix Life Mastery not including enchants [\#6068](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6068) ([Nostrademous](https://github.com/Nostrademous))
+- Fix enemy chance to hit not affecting crit effect in defence calculations [\#5716](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5716) ([QuickStick123](https://github.com/QuickStick123))
+- Fix burst damage when using unleash [\#6102](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6102) ([Lilylicious](https://github.com/Lilylicious))
+- Fix alt quality Lacerate and Chance to Bleed Support not affecting Bleed duration [\#6116](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6116) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Bladestorm attack having 100% bleed chance [\#6115](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6115) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Vaal auras being disabled by Sublime Vision [\#6135](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6135) ([deathbeam](https://github.com/deathbeam))
+- Fix local gain on hit mods [\#6130](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6130) ([QuickStick123](https://github.com/QuickStick123))
+- Fix leech incorrectly auto-applying in some circumstances [\#6126](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6126) ([deathbeam](https://github.com/deathbeam))
+- Fix ailment conditionals not being preemptively enabled when an ailment can be applied. [\#5948](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5948) ([Paliak](https://github.com/Paliak))
+- Cap trader stat weight per mod to 100% increased [\#6121](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6121) ([QuickStick123](https://github.com/QuickStick123))
+### Fixed Bugs
+- Recalculate level requirement when extra skill points change [\#5947](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5947) ([Lilylicious](https://github.com/Lilylicious))
+- Fix trader occasionally ignoring sort selection [\#6111](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6111) ([Edvinas-Smita](https://github.com/Edvinas-Smita))
+
+
 ## [v2.28.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.28.0) (2023/04/12)
 
 <!-- Release notes generated using configuration in .github/release.yml at dev -->
