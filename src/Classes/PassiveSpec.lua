@@ -202,8 +202,6 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, m
 			if node.type ~= "Mastery" or (node.type == "Mastery" and self.masterySelections[id]) then
 				node.alloc = true
 				self.allocNodes[id] = node
-			else
-				self.ignoredNodes[id] = node
 			end
 		else
 			t_insert(self.allocSubgraphNodes, id)
