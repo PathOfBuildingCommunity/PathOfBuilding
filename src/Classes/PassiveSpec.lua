@@ -1020,7 +1020,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				end
 				if prune then
 					self:DeallocSingleNode(depNode)
-					self.ignoredNodes[depNode.id] = depNode
 				end
 			end
 		end
