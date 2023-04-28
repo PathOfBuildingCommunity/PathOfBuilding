@@ -1101,6 +1101,7 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	-- This is only used for breakdown purposes
 	if modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") then
 		local base = modDB:Sum("BASE", nil, "AvoidShock")
 		if base ~= 0 then
@@ -1131,6 +1132,7 @@ function calcs.defence(env, actor)
 	output.showDebuffExpirationModifier = (output.DebuffExpirationModifier ~= 100)
 	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration")) * output.DebuffExpirationModifier / 100
 
+	-- This is only used for breakdown purposes
 	if modDB:Flag(nil, "IgniteDurationAppliesToElementalAilments") then
 		local inc = modDB:Sum("INC", nil, "SelfIgniteDuration");
 		local more =  modDB:More(nil, "SelfIgniteDuration");
