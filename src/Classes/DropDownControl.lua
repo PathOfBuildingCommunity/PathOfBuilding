@@ -350,7 +350,9 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				end
 				-- draw actual item label with search match highlight if available
 				local label = type(listVal) == "table" and listVal.label or listVal
+				SetDrawLayer(nil, 6)
 				DrawString(0, y, "LEFT", lineHeight, "VAR", label)
+				SetDrawLayer(nil, 5)
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
 		end

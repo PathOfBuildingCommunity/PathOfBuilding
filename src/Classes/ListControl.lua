@@ -263,7 +263,9 @@ function ListClass:Draw(viewPort, noTooltip)
 			if not self.SetHighlightColor or not self:SetHighlightColor(index, value) then
 				SetDrawColor(1, 1, 1)
 			end
+			SetDrawLayer(nil, GetDrawLayer() + 1)
 			DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+			SetDrawLayer(nil, GetDrawLayer() - 1)
 		end
 		if self.colLabels then
 			local mOver = relX >= colOffset and relX <= colOffset + colWidth and relY >= 0 and relY <= 18

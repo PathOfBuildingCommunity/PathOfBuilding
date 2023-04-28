@@ -76,6 +76,7 @@ function ButtonClass:Draw(viewPort, noTooltip)
 		SetDrawColor(0.33, 0.33, 0.33)
 	end
 	local label = self:GetProperty("label")
+	SetDrawLayer(nil, GetDrawLayer() + 1)
 	if label == "+" then
 		DrawImage(nil, x + width * 0.2, y + height * 0.45, width * 0.6, height * 0.1)
 		DrawImage(nil, x + width * 0.45, y + height * 0.2, width * 0.1, height * 0.6)
@@ -88,6 +89,7 @@ function ButtonClass:Draw(viewPort, noTooltip)
 		local overSize = self.overSizeText or 0
 		DrawString(x + width / 2, y + 2 - overSize, "CENTER_X", height - 4 + overSize * 2, "VAR", label)
 	end
+	SetDrawLayer(nil, GetDrawLayer() - 1)
 	if mOver then
 		if not noTooltip or self.forceTooltip then
 			SetDrawLayer(nil, 100)
