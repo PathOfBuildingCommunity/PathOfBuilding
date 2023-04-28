@@ -3577,9 +3577,9 @@ skills["Firestorm"] = {
 	},
 	baseMods = {
 		skill("showAverage", false, { type = "SkillPart", skillPart = 1 }),
-		skill("radius", 22),
+		skill("radius", 25),
 		skill("radiusLabel", "Area in which fireballs fall:"),
-		skill("radiusSecondary", 16),
+		skill("radiusSecondary", 13),
 		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
 	},
 	qualityStats = {
@@ -3659,10 +3659,23 @@ skills["VaalFirestorm"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	statMap = {
+		["vaal_firestorm_gem_explosion_area_of_effect_+%_final"] = {
+			mod("AreaOfEffectSecondary", "MORE", nil, 0, 0)
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("dotIsArea", true),
+		flag("dotIsBurningGround"),
+		skill("radius", 20),
+		skill("radiusLabel", "Area in which fireballs fall:"),
+		skill("radiusSecondary", 13),
+		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
 	},
 	qualityStats = {
 		Default = {
@@ -11736,6 +11749,10 @@ skills["Purge"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.Multicastable] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.7,
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:Purge", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+	end,
 	statMap = {
 		["purge_expose_resist_%_matching_highest_element_damage"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),

@@ -598,7 +598,7 @@ Implicits: 1
 {tags:jewellery_attribute}+(20-40) to Dexterity
 {tags:mana}+(40-60) to maximum Mana
 (10-7)% reduced Flask Charges used
-Flasks you Use apply to Linked Targets
+Non-Unique Utility Flasks you Use apply to Linked Targets
 ]],[[
 Chain of Endurance
 Chain Belt

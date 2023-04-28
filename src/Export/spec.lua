@@ -3193,6 +3193,8 @@ return {
 			width=130
 		}
 	},
+	CrucibleDifficulty={
+	},
 	CrucibleEndgameMonsterPacks={
 	},
 	CrucibleLifeScalingPerLevel={
@@ -5883,8 +5885,78 @@ return {
 	ModDomains={
 	},
 	ModEffectStats={
+		[1]={
+			list=false,
+			name="Stats",
+			refTo="Stats",
+			type="Key",
+			width=400
+		},
+		[2]={
+			list=true,
+			name="Tags",
+			refTo="Tags",
+			type="Key",
+			width=250
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		}
 	},
 	ModEquivalencies={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="ModsKey0",
+			refTo="Mods",
+			type="Key",
+			width=350
+		},
+		[3]={
+			list=false,
+			name="ModsKey1",
+			refTo="Mods",
+			type="Key",
+			width=350
+		},
+		[4]={
+			list=false,
+			name="ModsKey2",
+			refTo="Mods",
+			type="Key",
+			width=350
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=50
+		}
 	},
 	ModFamily={
 		[1]={
@@ -5898,6 +5970,13 @@ return {
 	ModGenerationType={
 	},
 	ModSellPriceTypes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=250
+		}
 	},
 	ModSetNames={
 	},
@@ -5912,34 +5991,13 @@ return {
 			width=400
 		},
 		[2]={
-			list=false,
-			name="",
-			refTo="",
-			type="UInt",
+			list=true,
+			name="ModSellPriceTypesKeys",
+			refTo="ModSellPriceTypes",
+			type="Key",
 			width=190
 		},
 		[3]={
-			list=false,
-			name="Tags",
-			refTo="Tags",
-			type="UInt",
-			width=130
-		},
-		[4]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[5]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[6]={
 			list=false,
 			name="",
 			refTo="",
@@ -8920,6 +8978,160 @@ return {
 	ShrineVisualArtVariations={
 	},
 	Shrines={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Timeout",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Shared",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="PlayerBuff",
+			refTo="BuffTemplates",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="MonsterBuff",
+			refTo="BuffTemplates",
+			type="Key",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="MonsterVarieties",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="MonsterVarietiesPlayer",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="Duration",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="ShrineSounds",
+			refTo="ShrineSounds",
+			type="Key",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[14]={
+			list=true,
+			name="Achievement",
+			refTo="AchievementItems",
+			type="Key",
+			width=150
+		},
+		[15]={
+			list=false,
+			name="PVPOnly",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[16]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[17]={
+			list=false,
+			name="LesserShrine",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[18]={
+			list=false,
+			name="Description",
+			refTo="ClientStrings",
+			type="Key",
+			width=150
+		},
+		[19]={
+			list=false,
+			name="Name",
+			refTo="ClientStrings",
+			type="Key",
+			width=150
+		},
+		[20]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[21]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[22]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=600
+		}
 	},
 	SigilDisplay={
 	},
@@ -9183,6 +9395,27 @@ return {
 	SpecialTiles={
 	},
 	SpectreOverrides={
+		[1]={
+			list=false,
+			name="Monster",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=500
+		},
+		[2]={
+			list=false,
+			name="Spectre",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=500
+		},
+		[3]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	StampChoice={
 	},
@@ -9380,6 +9613,69 @@ return {
 	Strongboxes={
 	},
 	SuicideExplosion={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=470
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		}
 	},
 	SummonedSpecificBarrels={
 	},
@@ -9726,8 +10022,169 @@ return {
 	UniqueSetNames={
 	},
 	UniqueStashLayout={
+		[1]={
+			list=false,
+			name="WordsKey",
+			refTo="Word",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="ItemVisualIdentity",
+			refTo="ItemVisualIdentity",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="UniqueStashTypes",
+			refTo="UniqueStashTypes",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="OverrideWidth",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="OverrideHeight",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="ShowIfEmptyChallengeLeague",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="ShowIfEmptyStandard",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="RenamedVersion",
+			refTo="UniqueStashLayout",
+			type="ShortKey",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="BaseVersion",
+			refTo="UniqueStashLayout",
+			type="ShortKey",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="IsAlternateArt",
+			refTo="",
+			type="Bool",
+			width=150
+		}
 	},
 	UniqueStashTypes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=100
+		},
+		[2]={
+			list=false,
+			name="Order",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[3]={
+			list=false,
+			name="Width",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[4]={
+			list=false,
+			name="Height",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[7]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=100
+		},
+		[8]={
+			list=false,
+			name="StandardCount",
+			refTo="",
+			type="Int",
+			width=120
+		},
+		[9]={
+			list=false,
+			name="Image",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="ChallengeLeagueCount",
+			refTo="",
+			type="Int",
+			width=120
+		},
+		[11]={
+			list=false,
+			name="Disabled",
+			refTo="",
+			type="Bool",
+			width=80
+		}
 	},
 	UserInterfaceModeCondition={
 	},
@@ -9814,14 +10271,14 @@ return {
 		},
 		[3]={
 			list=false,
-			name="ModsKey",
+			name="Mod",
 			refTo="Mods",
 			type="Key",
 			width=450
 		},
 		[4]={
 			list=true,
-			name="",
+			name="NodeSpawnLocation",
 			refTo="",
 			type="Int",
 			width=150
@@ -9973,6 +10430,55 @@ return {
 	Wordlists={
 	},
 	Words={
+		[1]={
+			list=false,
+			name="Wordlist",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Text",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=true,
+			name="SpawnWeight_Tags",
+			refTo="Tags",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=true,
+			name="SpawnWeight_Values",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="HASH32",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	WorldAreaLeagueChances={
 	},

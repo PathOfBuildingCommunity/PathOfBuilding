@@ -520,6 +520,17 @@ function calcs.buildOutput(build, mode)
 		end
 		local function addModTags(actor, mod)
 			addTo(env.modsUsed, mod.name, mod)
+			
+			-- Imply enemy conditionals based on damage type
+			-- Needed to preemptively show config options for elemental ailments
+			for dmgType, conditions in pairs({["[fi][ig][rn][ei]t?e?"] = {"Ignited", "Burning"}, ["[cf][or][le][de]z?e?"] = {"Frozen"}}) do
+				if mod.name:lower():match(dmgType) then
+					for _, var in ipairs(conditions) do
+						addTo(env.enemyConditionsUsed, var, mod)
+					end
+				end
+			end
+			
 			for _, tag in ipairs(mod) do
 				addTo(env.tagTypesUsed, tag.type, mod)
 				if tag.type == "IgnoreCond" then
@@ -532,6 +543,8 @@ function calcs.buildOutput(build, mode)
 					end
 				elseif tag.type == "ActorCondition" and tag.actor == "enemy" then
 					addVarTag(env.enemyConditionsUsed, tag, mod)
+				elseif tag.type == "ActorCondition" and tag.actor == "parent" then
+					addVarTag(env.conditionsUsed, tag, mod)
 				elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 					if not tag.actor then
 						if actor == env.player then
@@ -671,6 +684,18 @@ function calcs.buildOutput(build, mode)
 		if env.modDB:Flag(nil, "HerEmbrace") then
 			t_insert(combatList, "Her Embrace")
 		end
+		if env.modDB:Flag(nil, "LesserMassiveShrine") then
+			t_insert(combatList, "Lesser Massive Shrine")
+		end
+		if env.modDB:Flag(nil, "LesserBrutalShrine") then
+			t_insert(combatList, "Lesser Brutal Shrine")
+		end
+		if env.modDB:Flag(nil, "DiamondShrine") then
+			t_insert(combatList, "Diamond Shrine")
+		end
+		if env.modDB:Flag(nil, "MassiveShrine") then
+			t_insert(combatList, "Massive Shrine")
+		end
 		for name in pairs(env.buffs) do
 			t_insert(buffList, name)
 		end
@@ -750,6 +775,12 @@ function calcs.buildOutput(build, mode)
 			end
 			if env.minion.modDB:Flag(nil, "Tailwind") then
 				t_insert(combatList, "Tailwind")
+			end
+			if env.minion.modDB:Flag(nil, "DiamondShrine") then
+				t_insert(combatList, "Diamond Shrine")
+			end
+			if env.minion.modDB:Flag(nil, "MassiveShrine") then
+				t_insert(combatList, "Massive Shrine")
 			end
 			for name in pairs(env.minionBuffs) do
 				t_insert(buffList, name)

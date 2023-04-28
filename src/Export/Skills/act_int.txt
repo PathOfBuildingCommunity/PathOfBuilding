@@ -793,14 +793,25 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("showAverage", false, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("radius", 22)
+#baseMod skill("radius", 25)
 #baseMod skill("radiusLabel", "Area in which fireballs fall:")
-#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondary", 13)
 #baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
 #mods
 
 #skill VaalFirestorm
 #flags spell area duration
+	statMap = {
+		["vaal_firestorm_gem_explosion_area_of_effect_+%_final"] = {
+			mod("AreaOfEffectSecondary", "MORE", nil, 0, 0)
+		},
+	},
+#baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround")
+#baseMod skill("radius", 20)
+#baseMod skill("radiusLabel", "Area in which fireballs fall:")
+#baseMod skill("radiusSecondary", 13)
+#baseMod skill("radiusSecondaryLabel", "Area of fireball explosion:")
 #mods
 
 #skill FlameDash
@@ -2448,6 +2459,10 @@ local skills, mod, flag, skill = ...
 
 #skill Purge
 #flags spell area duration
+	preDamageFunc = function(activeSkill, output)
+		local duration = math.floor(math.ceil(activeSkill.skillData.duration * data.misc.ServerTickRate) / data.misc.ServerTickRate * output.DurationMod * 10)
+		activeSkill.skillModList:NewMod("DotMultiplier", "BASE", activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "WaveOfConvictionDurationDotMulti") * duration / 100, "Skill:Purge", 0, { type = "Multiplier", var = "WoCDurationExpired"})
+	end,
 	statMap = {
 		["purge_expose_resist_%_matching_highest_element_damage"] = {
 			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "WaveOfConvictionFireExposureActive" }),

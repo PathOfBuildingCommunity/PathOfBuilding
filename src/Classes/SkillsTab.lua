@@ -66,6 +66,7 @@ local sortGemTypeList = {
 	{ label = "Bleed DPS", type = "BleedDPS" },
 	{ label = "Ignite DPS", type = "IgniteDPS" },
 	{ label = "Poison DPS", type = "TotalPoisonDPS" },
+	{ label = "Effective Hit Pool", type = "TotalEHP" },
 }
 
 local alternateGemQualityList ={
@@ -216,16 +217,33 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		return self.displayGroup.source ~= nil
 	end
 	self.controls.sourceNote.label = function()
-		local source = self.displayGroup.sourceItem or (self.displayGroup.sourceNode and { rarity = "NORMAL", name = self.displayGroup.sourceNode.name }) or { rarity = "NORMAL", name = "?" }
-		local sourceName = colorCodes[source.rarity] .. source.name .. "^7"
-		local activeGem = self.displayGroup.gemList[1]
-		local label = [[^7This is a special group created for the ']] .. activeGem.color .. (activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec) .. [[^7' skill,
-which is being provided by ']] .. sourceName .. [['.
+		local label
+		if self.displayGroup.explodeSources then
+			label = [[^7This is a special group created for the enemy explosion effect,
+which comes from the following sources:]]
+			for _, source in ipairs(self.displayGroup.explodeSources) do
+				label = label .. "\n\t" .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???")
+			end
+			label = label .. "^7\nYou cannot delete this group, but it will disappear if you lose the above sources."
+		else
+			local activeGem = self.displayGroup.gemList[1]
+			local sourceName
+			if self.displayGroup.sourceItem then
+				sourceName = "'" .. colorCodes[self.displayGroup.sourceItem.rarity] .. self.displayGroup.sourceItem.name
+			elseif self.displayGroup.sourceNode then
+				sourceName = "'" .. colorCodes["NORMAL"] .. self.displayGroup.sourceNode.name
+			else
+				sourceName = "'" .. colorCodes["NORMAL"] .. "?"
+			end
+			sourceName = sourceName .. "^7'"
+			label = [[^7This is a special group created for the ']] .. activeGem.color .. (activeGem.grantedEffect and activeGem.grantedEffect.name or activeGem.nameSpec) .. [[^7' skill,
+which is being provided by ]] .. sourceName .. [[.
 You cannot delete this group, but it will disappear if you ]] .. (self.displayGroup.sourceNode and [[un-allocate the node.]] or [[un-equip the item.]])
-		if not self.displayGroup.noSupports then
-			label = label .. "\n\n" .. [[You cannot add support gems to this group, but support gems in
-any other group socketed into ']] .. sourceName .. [['
+			if not self.displayGroup.noSupports then
+				label = label .. "\n\n" .. [[You cannot add support gems to this group, but support gems in
+any other group socketed into ]] .. sourceName .. [[
 will automatically apply to the skill.]]
+			end
 		end
 		return label
 	end
@@ -1135,12 +1153,18 @@ function SkillsTabClass:SetDisplayGroup(socketGroup)
 end
 
 function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
+	if socketGroup.explodeSources then
+		for _, source in ipairs(socketGroup.explodeSources) do
+			tooltip:AddLine(18, "^7Source: " .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???"))
+		end
+		return
+	end
 	if socketGroup.enabled and not socketGroup.slotEnabled then
 		tooltip:AddLine(16, "^7Note: this group is disabled because it is socketed in the inactive weapon set.")
 	end
-	local source = socketGroup.sourceItem or socketGroup.sourceNode
-	if source then
-		tooltip:AddLine(18, "^7Source: " .. colorCodes[source.rarity or "NORMAL"] .. source.name)
+	local sourceSingle = socketGroup.sourceItem or socketGroup.sourceNode
+	if sourceSingle then
+		tooltip:AddLine(18, "^7Source: " .. colorCodes[sourceSingle.rarity or "NORMAL"] .. sourceSingle.name)
 		tooltip:AddSeparator(10)
 	end
 	local gemShown = { }

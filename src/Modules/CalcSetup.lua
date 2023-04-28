@@ -70,6 +70,10 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("UnholyMight", "FLAG", true, "Base", { type = "Condition", var = "UnholyMight" })
 	modDB:NewMod("Tailwind", "FLAG", true, "Base", { type = "Condition", var = "Tailwind" })
 	modDB:NewMod("Adrenaline", "FLAG", true, "Base", { type = "Condition", var = "Adrenaline" })
+	modDB:NewMod("LesserMassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserMassiveShrine" })
+	modDB:NewMod("LesserBrutalShrine", "FLAG", true, "Base", { type = "Condition", var = "LesserBrutalShrine" })
+	modDB:NewMod("DiamondShrine", "FLAG", true, "Base", { type = "Condition", var = "DiamondShrine" })
+	modDB:NewMod("MassiveShrine", "FLAG", true, "Base", { type = "Condition", var = "MassiveShrine" })
 	modDB:NewMod("AlchemistsGenius", "FLAG", true, "Base", { type = "Condition", var = "AlchemistsGenius" })
 	modDB:NewMod("LuckyHits", "FLAG", true, "Base", { type = "Condition", var = "LuckyHits" })
 	modDB:NewMod("Convergence", "FLAG", true, "Base", { type = "Condition", var = "Convergence" })
@@ -131,6 +135,10 @@ function calcs.buildModListForNode(env, node)
 				source = "Tree:"..node.id
 			})
 		end
+	end
+
+	if modList:Flag(nil, "CanExplode") then
+		t_insert(env.explodeSources, node)
 	end
 
 	return modList
@@ -353,6 +361,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.grantedSkills = { }
 		env.grantedSkillsNodes = { }
 		env.grantedSkillsItems = { }
+		env.explodeSources = { }
 		env.flasks = { }
 
 		-- tree based
@@ -498,6 +507,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Add mods from the config tab
 		env.modDB:AddList(build.configTab.modList)
 		env.enemyDB:AddList(build.configTab.enemyModList)
+		
+		-- Add mods from the party tab
+		env.enemyDB:AddList(build.partyTab.enemyModList)
 
 		cachedPlayerDB, cachedEnemyDB, cachedMinionDB = specCopy(env)
 	else
@@ -518,7 +530,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
-	local allocatedLifeMasteryCount = env.spec.allocatedLifeMasteryCount
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -529,9 +540,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 					nodes[node.id] = node
 					if node.type == "Mastery" then
 						allocatedMasteryCount = allocatedMasteryCount + 1
-						if node.name == "Life" then
-							allocatedLifeMasteryCount = allocatedLifeMasteryCount + 1
-						end
 
 						if not allocatedMasteryTypes[node.name] then
 							allocatedMasteryTypes[node.name] = 1
@@ -554,9 +562,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 				elseif override.removeNodes[node] then
 					if node.type == "Mastery" then
 						allocatedMasteryCount = allocatedMasteryCount - 1
-						if node.name == "Life" then
-							allocatedLifeMasteryCount = allocatedLifeMasteryCount + 1
-						end
 
 						allocatedMasteryTypes[node.name] = allocatedMasteryTypes[node.name] - 1
 						if allocatedMasteryTypes[node.name] == 0 then
@@ -576,7 +581,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
 	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
 	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
-	modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedLifeMasteryCount)
+	modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
 	
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
@@ -606,6 +611,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 					grantedSkill.slotName = slotName
 					t_insert(env.grantedSkillsItems, grantedSkill)
 				end
+			end
+			if item and item.baseModList and item.baseModList:Flag(nil, "CanExplode") then
+				t_insert(env.explodeSources, item)
 			end
 			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
 				item = nil
@@ -1048,6 +1056,49 @@ function calcs.initEnv(build, mode, override, specEnv)
 						end
 					end
 				end
+				build.skillsTab:ProcessSocketGroup(group)
+			end
+
+			if #env.explodeSources ~= 0 then
+				-- Check if a matching group already exists
+				local group
+				for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+					if socketGroup.source == "Explode" then
+						group = socketGroup
+						break
+					end
+				end
+				if not group then
+					-- Create a new group for this skill
+					group = { label = "On Kill Monster Explosion", enabled = true, gemList = { }, source = "Explode", noSupports = true }
+					t_insert(build.skillsTab.socketGroupList, group)
+				end
+				-- Update the group
+				group.explodeSources = env.explodeSources
+				local gemsBySource = { }
+				for _, gem in ipairs(group.gemList) do
+					if gem.explodeSource then
+						gemsBySource[gem.explodeSource.modSource or gem.explodeSource.id] = gem
+					end
+				end
+				wipeTable(group.gemList)
+				for _, explodeSource in ipairs(env.explodeSources) do
+					local activeGemInstance
+					if gemsBySource[explodeSource.modSource or explodeSource.id] then
+						activeGemInstance = gemsBySource[explodeSource.modSource or explodeSource.id]
+					else
+						activeGemInstance = {
+							skillId = "EnemyExplode",
+							quality = 0,
+							enabled = true,
+							level = 1,
+							triggered = true,
+							explodeSource = explodeSource,
+						}
+					end
+					t_insert(group.gemList, activeGemInstance)
+				end
+				markList[group] = true
 				build.skillsTab:ProcessSocketGroup(group)
 			end
 

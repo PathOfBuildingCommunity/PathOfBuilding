@@ -47,6 +47,75 @@ end
 
 modLib.parseMod, modLib.parseModCache = LoadModule("Modules/ModParser", launch)
 
+function modLib.parseTags(line, currentModType)
+	 -- should parse this correctly instead of string match
+	if not line then
+		return "none", {}
+	end
+	local extraTags = {}
+	local modType = currentModType
+	for line2 in line:gmatch("([^,]*),?") do
+		if line2:find("type=GlobalEffect/") then
+			if line2:find("type=GlobalEffect/effectType=AuraDebuff") then
+				t_insert(extraTags, {
+					type = "GlobalEffect",
+					effectType = "AuraDebuff"
+				})
+				modType = "AuraDebuff"
+			elseif line2:find("type=GlobalEffect/effectType=Aura") then
+				t_insert(extraTags, {
+					type = "GlobalEffect",
+					effectType = "Aura"
+				})
+				modType = "Aura"
+			elseif line2:find("type=GlobalEffect/effectType=Curse") then
+				t_insert(extraTags, {
+					type = "GlobalEffect",
+					effectType = "Curse"
+				})
+				modType = "Curse"
+			end
+		elseif line2:find("type=Condition/") then
+			if line2:find("type=Condition/neg=true/var=RareOrUnique") then
+				t_insert(extraTags, {
+					type = "Condition",
+					neg = true,
+					var = "RareOrUnique"
+				})
+			elseif line2:find("type=Condition/var=RareOrUnique") then
+				t_insert(extraTags, {
+					type = "Condition",
+					var = "RareOrUnique"
+				})
+			end
+		end
+	end
+	return modType, extraTags
+end
+
+function modLib.parseFormattedSourceMod(line, currentModType)
+	local modStrings = {}
+	for line2 in line:gmatch("([^|]*)|?") do
+		t_insert(modStrings, line2)
+	end
+	if #modStrings >= 4 then
+		local mod = {
+			value = (modStrings[1] == "true" and true) or tonumber(modStrings[1]) or 0,
+			source = modStrings[2],
+			name = modStrings[3],
+			type = modStrings[4],
+			flags = ModFlag[modStrings[5]] or 0,
+			keywordFlags = KeywordFlag[modStrings[6]] or 0,
+		}
+		local modType, Tags = modLib.parseTags(modStrings[7], currentModType)
+		for _, tag in ipairs(Tags) do
+			t_insert(mod, tag)
+		end
+		return modType, mod
+	end
+	return currentModType, nil
+end
+
 function modLib.compareModParams(modA, modB)
 	if modA.name ~= modB.name or modA.type ~= modB.type or modA.flags ~= modB.flags or modA.keywordFlags ~= modB.keywordFlags or #modA ~= #modB then
 		return false
@@ -159,6 +228,10 @@ end
 
 function modLib.formatMod(mod)
 	return modLib.formatValue(mod.value) .. " = " .. modLib.formatModParams(mod)
+end
+
+function modLib.formatSourceMod(mod)
+    return s_format("%s|%s|%s", mod.value, mod.source, modLib.formatModParams(mod))
 end
 
 function modLib.setSource(mod, source)
