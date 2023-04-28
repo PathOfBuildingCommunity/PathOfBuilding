@@ -8,7 +8,6 @@ local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
-local t_concat = table.concat
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
