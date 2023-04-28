@@ -646,6 +646,7 @@ do
 	end
 	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
 end
+data.mapMods = LoadModule("Data/ModMap")
 
 -- Manually seeded modifier tag against item slot table for Mastery Item Condition based modifiers
 -- Data is informed by getTagBasedModifiers() located in Item.lua
