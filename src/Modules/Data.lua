@@ -496,17 +496,13 @@ data.misc = { -- magic numbers
 	ehpCalcMaxDamage = 100000000,
 	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values will be underestimated.
 	ehpCalcMaxIterationsToCalc = 50,
+	-- maximum increase for stat weights, only used in trader for now.
+	maxStatIncrease = 2, -- 100% increased
 	-- PvP scaling used for hogm
 	PvpElemental1 = 0.55,
 	PvpElemental2 = 150,
 	PvpNonElemental1 = 0.57,
 	PvpNonElemental2 = 90,
-	-- Some magic numbers can change, but need to be here in order to be used in ConfigOptions (e.g. in tooltips)
-	configurable = {
-		-- Life Scaling Mastery
-		LowLifePercentage = 0.5,
-		FullLifePercentage = 1.0,
-	}
 }
 
 data.casterTagCrucibleUniques = {
@@ -650,6 +646,7 @@ do
 	end
 	setmetatable(data.costs, { __index = function(t, k) return t[map[k]] end })
 end
+data.mapMods = LoadModule("Data/ModMap")
 
 -- Manually seeded modifier tag against item slot table for Mastery Item Condition based modifiers
 -- Data is informed by getTagBasedModifiers() located in Item.lua

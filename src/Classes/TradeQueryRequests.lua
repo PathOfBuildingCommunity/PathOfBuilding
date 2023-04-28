@@ -92,10 +92,10 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 		if params.callbackQueryId and response and response.id then
 			params.callbackQueryId(response.id)
 		end
-		if errMsg then
+		if errMsg and ((errMsg == "No Matching Results Found" and currentRecursion >= maxRecursion) or errMsg ~= "No Matching Results Found") then
 			return callback(nil, errMsg)
 		end
-		if response.total < 10000  or currentRecursion >= maxRecursion then
+		if (response.total > self.maxFetchPerSearch and response.total < 10000) or currentRecursion >= maxRecursion then
 			-- Search not clipped or max recursion reached, fetch results and finalize
 			if previousSearchItems and self.maxFetchPerSearch > response.total then
 				-- Not enough items in the last search, fill results from previous search
@@ -144,21 +144,27 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 				self:FetchResults(response.result, response.id,  callback)
 			end
 		else
-			-- Search clipped, fetch highest weight item, update query weight and repeat search
-			previousSearchItemIds = response.result
-			previousSearchId = response.id
-			local firstResultBatch = {unpack(response.result, 1, math.min(#response.result, 10))}
-			self:FetchResults(firstResultBatch, response.id, function(items, errMsg)
-				if errMsg then
-					return callback(nil, errMsg)
-				end
-				previousSearchItems = items
-				local highestWeight = items[1].weight
+			if response.total < self.maxFetchPerSearch then -- Less than maximum items retrieved lower weight to try and get more.
 				local queryJson = dkjson.decode(query)
-				queryJson.query.stats[1].value.min = (tonumber(highestWeight) + queryJson.query.stats[1].value.min) / 2
+				queryJson.query.stats[1].value.min = queryJson.query.stats[1].value.min / 2
 				query = dkjson.encode(queryJson)
 				self:PerformSearch(realm, league, query, performSearchCallback)
-			end)
+			else -- Search clipped, fetch highest weight item, update query weight and repeat search
+				previousSearchItemIds = response.result
+				previousSearchId = response.id
+				local firstResultBatch = {unpack(response.result, 1, math.min(#response.result, 10))}
+				self:FetchResults(firstResultBatch, response.id, function(items, errMsg)
+					if errMsg then
+						return callback(nil, errMsg)
+					end
+					previousSearchItems = items
+					local highestWeight = items[1].weight
+					local queryJson = dkjson.decode(query)
+					queryJson.query.stats[1].value.min = (tonumber(highestWeight) + queryJson.query.stats[1].value.min) / 2
+					query = dkjson.encode(queryJson)
+					self:PerformSearch(realm, league, query, performSearchCallback)
+				end)
+			end
 		end
 	end
 	self:PerformSearch(realm, league, query, performSearchCallback)

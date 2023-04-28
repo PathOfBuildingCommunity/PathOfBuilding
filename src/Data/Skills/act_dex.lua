@@ -10882,6 +10882,7 @@ skills["ChannelledSnipeSupport"] = {
 	requireSkillTypes = { SkillType.RangedAttack, SkillType.ThresholdJewelRangedAttack, SkillType.OR, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Channel, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	weaponTypes = {
 		["Bow"] = true,
