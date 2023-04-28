@@ -17,6 +17,7 @@
 - Add support for hits against you overwhelm pdr [\#6110](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6110) ([QuickStick123](https://github.com/QuickStick123))
 - Add support for regex OR to tree and Item search [\#5766](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5766) ([QuickStick123](https://github.com/QuickStick123))
 - Add support for Master Distiller [\#6134](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6134) ([deathbeam](https://github.com/deathbeam))
+- Add support for Master Surgeon [\#5897](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5897) ([deathbeam](https://github.com/deathbeam))
 - Add support for Damage taken from Allies life before you [\#6134](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5943)
 - Add support for 'Impales to last an additional hit' mastery mod [\#6079](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6079) ([Regisle](https://github.com/Regisle))
 ### Fixed Crashes
