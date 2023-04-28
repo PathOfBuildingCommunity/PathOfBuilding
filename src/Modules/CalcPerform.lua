@@ -3020,7 +3020,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			newEnv.player.mainSkill = newSkill
 			-- mark it so we don't recurse infinitely
 			
-			newSkill.skillData.usedByMirageArcher = true
+			newSkill.skillData.limitedProcessing = true
 			calcs.perform(newEnv)
 
 			env.player.mainSkill.infoMessage = tostring(mirageCount) .. " Mirage Archers using " .. usedSkill.activeEffect.grantedEffect.name
