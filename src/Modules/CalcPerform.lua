@@ -387,11 +387,10 @@ local function doActorLifeMana(actor)
 	local breakdown = actor.breakdown
 	local condList = modDB.conditions
 
-	-- This is hacky, but currently the only way to bring data into ConfigOptions for dynamically updated tooltips
 	local lowLifePerc = modDB:Sum("BASE", nil, "LowLifePercentage")
-	data.misc.configurable.LowLifePercentage = 100.0 * (lowLifePerc > 0 and lowLifePerc or data.misc.LowPoolThreshold)
+	output.LowLifePercentage = 100.0 * (lowLifePerc > 0 and lowLifePerc or data.misc.LowPoolThreshold)
 	local fullLifePerc = modDB:Sum("BASE", nil, "FullLifePercentage")
-	data.misc.configurable.FullLifePercentage = 100.0 * (fullLifePerc > 0 and fullLifePerc or 1.0)
+	output.FullLifePercentage = 100.0 * (fullLifePerc > 0 and fullLifePerc or 1.0)
 
 	output.ChaosInoculation = modDB:Flag(nil, "ChaosInoculation")
 	-- Life/mana pools
@@ -766,7 +765,6 @@ local function doActorLifeManaReservation(actor)
 		local reserved
 		if max > 0 then
 			local lowPerc = modDB:Sum("BASE", nil, "Low" .. pool .. "Percentage")
-			local fullPerc = modDB:Sum("BASE", nil, "Full" .. pool .. "Percentage")
 			reserved = (actor["reserved_"..pool.."Base"] or 0) + m_ceil(max * (actor["reserved_"..pool.."Percent"] or 0) / 100)
 			output[pool.."Reserved"] = m_min(reserved, max)
 			output[pool.."ReservedPercent"] = m_min(reserved / max * 100, 100)
