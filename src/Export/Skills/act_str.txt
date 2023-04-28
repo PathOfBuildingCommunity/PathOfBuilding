@@ -1236,11 +1236,12 @@ local skills, mod, flag, skill = ...
 			div = 60,
 		},
 	},
-#baseMod skill("radius", 10)
+#baseMod skill("radius", 40)
 #mods
 
 #skill VaalRejuvenationTotem
 #flags spell aura totem area duration
+#baseMod skill("radius", 40)
 #mods
 
 #skill SearingBond
@@ -1415,6 +1416,18 @@ end,
 
 #skill VaalReap
 #flags spell area duration
+	statMap = {
+		["vaal_reap_additional_maximum_blood_charges"] = {
+			mod("BloodChargesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
+#baseMod skill("radius", 23)
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill ShieldCrush
