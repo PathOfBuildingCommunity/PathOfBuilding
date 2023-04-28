@@ -958,6 +958,7 @@ function main:OpenUpdatePopup()
 end
 
 function main:OpenAboutPopup()
+	local textSize, titleSize, popupWidth = 16, 24, 810
 	local changeList = { }
 	local changelogName = launch.devMode and "../changelog.txt" or "changelog.txt"
 	local changelogFile = io.open(changelogName, "r")
@@ -967,11 +968,11 @@ function main:OpenAboutPopup()
 			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
 			if ver then
 				if #changeList > 0 then
-					t_insert(changeList, { height = 10 })
+					t_insert(changeList, { height = titleSize / 2 })
 				end
-				t_insert(changeList, { height = 18, "^7Version "..ver.." ("..date..")" })
+				t_insert(changeList, { height = titleSize, "^7Version "..ver.." ("..date..")" })
 			else
-				t_insert(changeList, { height = 12, "^7"..line })
+				t_insert(changeList, { height = textSize, "^7"..line })
 			end
 		end
 	end
@@ -994,18 +995,18 @@ function main:OpenAboutPopup()
 						line = (dev or line)
 						local outdent, indent = line:match("(.*)\t+(.*)")
 						if outdent then
-							local indentLines = self:WrapString(indent, 12, 500)
+							local indentLines = self:WrapString(indent, textSize, popupWidth - 190)
 							if #indentLines > 1 then
 								for i, indentLine in ipairs(indentLines) do
-									t_insert(helpList, { height = 12, (i == 1 and outdent or " "), "^7"..indentLine })
+									t_insert(helpList, { height = textSize, (i == 1 and outdent or " "), "^7"..indentLine })
 								end
 							else
-								t_insert(helpList, { height = 12, "^7"..outdent, "^7"..indent })
+								t_insert(helpList, { height = textSize, "^7"..outdent, "^7"..indent })
 							end
 						else
-							local Lines = self:WrapString(line, 12, 560)
+							local Lines = self:WrapString(line, textSize, popupWidth - 110)
 							for i, line2 in ipairs(Lines) do
-								t_insert(helpList, { height = 12, "^7"..(i > 1 and "    " or "")..line2 })
+								t_insert(helpList, { height = textSize, "^7"..(i > 1 and "    " or "")..line2 })
 							end
 						end
 					end
@@ -1025,11 +1026,12 @@ function main:OpenAboutPopup()
 	controls.verLabel = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 10, 85, 100, 18, "^7Version history:", function()
 		controls.changelog.list = changeList
 	end)
-	controls.helpLabel = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 600, 85, 40, 18, "^7Help:", function()
+	controls.helpLabel = new("ButtonControl", { "TOPRIGHT", nil, "TOPRIGHT" }, -10, 85, 40, 18, "^7Help:", function()
 		controls.changelog.list = helpList
 	end)
-	controls.changelog = new("TextListControl", nil, 0, 103, 630, 387, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, changeList)
+	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, changeList)
 	self:OpenPopup(650, 500, "About", controls)
+	self:OpenPopup(popupWidth, 628, "About", controls)
 end
 
 function main:DrawBackground(viewPort)
