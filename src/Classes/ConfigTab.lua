@@ -155,7 +155,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			control.tooltipText = function()
 				local out
 				for i, tooltipFunc in ipairs(tooltipFuncs) do
-					local curTooltipText = type(tooltipFunc) == "string" and tooltipFunc or tooltipFunc(self.modList)
+					local curTooltipText = type(tooltipFunc) == "string" and tooltipFunc or tooltipFunc(self.modList, self.build)
 					if curTooltipText then
 						out = (out and out .. "\n" or "") .. curTooltipText
 					end

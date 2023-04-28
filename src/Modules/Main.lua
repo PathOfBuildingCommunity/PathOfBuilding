@@ -1003,7 +1003,7 @@ function main:OpenAboutPopup()
 								t_insert(helpList, { height = 12, "^7"..outdent, "^7"..indent })
 							end
 						else
-							local Lines = self:WrapString(line, 12, 610)
+							local Lines = self:WrapString(line, 12, 560)
 							for i, line2 in ipairs(Lines) do
 								t_insert(helpList, { height = 12, "^7"..(i > 1 and "    " or "")..line2 })
 							end

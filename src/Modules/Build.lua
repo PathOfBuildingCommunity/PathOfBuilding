@@ -236,6 +236,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "AverageHit", label = "Average Hit", fmt = ".1f", compPercent = true },
 		{ stat = "PvpAverageHit", label = "PvP Average Hit", fmt = ".1f", compPercent = true, flag = "isPvP" },
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "attack" },
+		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true, flag = "monsterExplode", condFunc = function(v,o) return o.HitChance ~= 100 end },
 		{ stat = "AverageBurstDamage", label = "Average Burst Damage", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.AverageBurstHits and o.AverageBurstHits > 1 and v > 0 end },
 		{ stat = "PvpAverageDamage", label = "PvP Average Damage", fmt = ".1f", compPercent = true, flag = "attackPvP" },
 		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
@@ -281,6 +282,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ReservationDPS", label = "Reservation DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return (o.ReservationDPS or 0) > 0 end },
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and ( o.showTotalDotDPS or ( v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS ) ) end },
 		{ stat = "CombinedAvg", label = "Combined Total Damage", fmt = ".1f", compPercent = true, flag = "showAverage", condFunc = function(v,o) return (v ~= o.AverageDamage and (o.TotalDot or 0) == 0) and (v ~= o.WithPoisonDPS or v ~= o.WithIgniteDPS or v ~= o.WithBleedDPS) end },
+		{ stat = "ExplodeChance", label = "Total Explode Chance", fmt = ".0f%%" },
+		{ stat = "CombinedAvgToMonsterLife", label = "Enemy Life Equivalent", fmt = ".1f%%" },
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "SealCooldown", label = "Seal Gain Frequency", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "SealMax", label = "Max Number of Seals", fmt = "d" },
@@ -328,7 +331,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LifeUnreserved", label = "Unreserved Life", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.Life end, compPercent = true, warnFunc = function(v) return v <= 0 and "Your unreserved Life is below 1" end },
 		{ stat = "LifeRecoverable", label = "Life Recoverable", fmt = "d", color = colorCodes.LIFE, condFunc = function(v,o) return v < o.LifeUnreserved end, },
 		{ stat = "LifeUnreservedPercent", label = "Unreserved Life", fmt = "d%%", color = colorCodes.LIFE, condFunc = function(v,o) return v < 100 end },
-		{ stat = "LifeRegenRecovery", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE },
+		{ stat = "LifeRegenRecovery", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE, condFunc = function(v,o) return o.LifeRecovery <= 0 and o.LifeRegenRecovery ~= 0 end },
+		{ stat = "LifeRegenRecovery", label = "Life Recovery", fmt = ".1f", color = colorCodes.LIFE, condFunc = function(v,o) return o.LifeRecovery > 0 and o.LifeRegenRecovery ~= 0 end },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
 		{ stat = "LifeLeechGainPerHit", label = "Life Leech/Gain per Hit", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
 		{ },
@@ -336,14 +340,16 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "Spec:ManaInc", label = "%Inc Mana from Tree", color = colorCodes.MANA, fmt = "d%%" },
 		{ stat = "ManaUnreserved", label = "Unreserved Mana", fmt = "d", color = colorCodes.MANA, condFunc = function(v,o) return v < o.Mana end, compPercent = true, warnFunc = function(v) return v < 0 and "Your unreserved Mana is negative" end },
 		{ stat = "ManaUnreservedPercent", label = "Unreserved Mana", fmt = "d%%", color = colorCodes.MANA, condFunc = function(v,o) return v < 100 end },
-		{ stat = "ManaRegenRecovery", label = "Mana Regen", fmt = ".1f", color = colorCodes.MANA },
+		{ stat = "ManaRegenRecovery", label = "Mana Regen", fmt = ".1f", color = colorCodes.MANA, condFunc = function(v,o) return o.ManaRecovery <= 0 and o.ManaRegenRecovery ~= 0 end },
+		{ stat = "ManaRegenRecovery", label = "Mana Recovery", fmt = ".1f", color = colorCodes.MANA, condFunc = function(v,o) return o.ManaRecovery > 0 and o.ManaRegenRecovery ~= 0 end },
 		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", color = colorCodes.MANA, compPercent = true },
 		{ stat = "ManaLeechGainPerHit", label = "Mana Leech/Gain per Hit", fmt = ".1f", color = colorCodes.MANA, compPercent = true },
 		{ },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
 		{ stat = "EnergyShieldRecoveryCap", label = "Recoverable ES", color = colorCodes.ES, fmt = "d", condFunc = function(v,o) return o.CappingES end },
 		{ stat = "Spec:EnergyShieldInc", label = "%Inc ES from Tree", color = colorCodes.ES, fmt = "d%%" },
-		{ stat = "EnergyShieldRegenRecovery", label = "Energy Shield Regen", color = colorCodes.ES, fmt = ".1f" },
+		{ stat = "EnergyShieldRegenRecovery", label = "ES Regen", color = colorCodes.ES, fmt = ".1f", condFunc = function(v,o) return o.EnergyShieldRecovery <= 0 and o.EnergyShieldRegenRecovery ~= 0 end },
+		{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", color = colorCodes.ES, fmt = ".1f", condFunc = function(v,o) return o.EnergyShieldRecovery > 0 and o.EnergyShieldRegenRecovery ~= 0 end },
 		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", color = colorCodes.ES, fmt = ".1f", compPercent = true },
 		{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", color = colorCodes.ES, fmt = ".1f", compPercent = true },
 		{ },
@@ -353,10 +359,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "RageRegenRecovery", label = "Rage Regen", fmt = ".1f", color = colorCodes.RAGE, compPercent = true },
 		{ },
 		{ stat = "TotalDegen", label = "Total Degen", fmt = ".1f", lowerIsBetter = true },
-		{ stat = "TotalNetRegen", label = "Total Net Regen", fmt = "+.1f" },
-		{ stat = "NetLifeRegen", label = "Net Life Regen", fmt = "+.1f", color = colorCodes.LIFE },
-		{ stat = "NetManaRegen", label = "Net Mana Regen", fmt = "+.1f", color = colorCodes.MANA },
-		{ stat = "NetEnergyShieldRegen", label = "Net Energy Shield Regen", fmt = "+.1f", color = colorCodes.ES },
+		{ stat = "TotalNetRegen", label = "Total Net Recovery", fmt = "+.1f" },
+		{ stat = "NetLifeRegen", label = "Net Life Recovery", fmt = "+.1f", color = colorCodes.LIFE },
+		{ stat = "NetManaRegen", label = "Net Mana Recovery", fmt = "+.1f", color = colorCodes.MANA },
+		{ stat = "NetEnergyShieldRegen", label = "Net ES Recovery", fmt = "+.1f", color = colorCodes.ES },
 		{ },
 		{ stat = "Evasion", label = "Evasion rating", fmt = "d", color = colorCodes.EVASION, compPercent = true },
 		{ stat = "Spec:EvasionInc", label = "%Inc Evasion from Tree", color = colorCodes.EVASION, fmt = "d%%" },
@@ -416,10 +422,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "CombinedDPS", label = "Combined DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= ((o.TotalDPS or 0) + (o.TotalDot or 0)) and v ~= o.WithImpaleDPS and v ~= o.WithPoisonDPS and v ~= o.WithIgniteDPS and v ~= o.WithBleedDPS end},
 		{ stat = "Cooldown", label = "Skill Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "Life", label = "Total Life", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
-		{ stat = "LifeRegenRecovery", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE },
+		{ stat = "LifeRegenRecovery", label = "Life Recovery", fmt = ".1f", color = colorCodes.LIFE },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
-		{ stat = "EnergyShieldRegenRecovery", label = "Energy Shield Regen", fmt = ".1f", color = colorCodes.ES },
+		{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", fmt = ".1f", color = colorCodes.ES },
 		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", color = colorCodes.ES, compPercent = true },
 	}
 	self.extraSaveStats = {
@@ -471,8 +477,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.viewMode = "CALCS"
 	end)
 	self.controls.modeCalcs.locked = function() return self.viewMode == "CALCS" end
+	self.controls.modeParty = new("ButtonControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 52, 72, 20, "Party", function()
+		self.viewMode = "PARTY"
+	end)
+	self.controls.modeParty.locked = function() return self.viewMode == "PARTY" end
 	-- Skills
-	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 54, 300, 16, "^7Main Skill:")
+	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 80, 300, 16, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
 		self.mainSocketGroup = index
 		self.modFlag = true
@@ -599,6 +609,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.data = data
 	self.importTab = new("ImportTab", self)
 	self.notesTab = new("NotesTab", self)
+	self.partyTab = new("PartyTab", self)
 	self.configTab = new("ConfigTab", self)
 	self.itemsTab = new("ItemsTab", self)
 	self.treeTab = new("TreeTab", self)
@@ -609,6 +620,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.savers = {
 		["Config"] = self.configTab,
 		["Notes"] = self.notesTab,
+		["Party"] = self.partyTab,
 		["Tree"] = self.treeTab,
 		["TreeView"] = self.treeTab.viewer,
 		["Items"] = self.itemsTab,
@@ -933,6 +945,7 @@ end
 function buildMode:ResetModFlags()
 	self.modFlag = false
 	self.notesTab.modFlag = false
+	self.partyTab.modFlag = false
 	self.configTab.modFlag = false
 	self.treeTab.modFlag = false
 	self.treeTab.searchFlag = false
@@ -986,6 +999,8 @@ function buildMode:OnFrame(inputEvents)
 					self.viewMode = "CONFIG"
 				elseif event.key == "6" then
 					self.viewMode = "NOTES"
+				elseif event.key == "7" then
+					self.viewMode = "PARTY"
 				end
 			end
 		end
@@ -1038,9 +1053,11 @@ function buildMode:OnFrame(inputEvents)
 		height = main.screenH - 32
 	}
 	if self.viewMode == "IMPORT" then
-		self.importTab:Draw(tabViewPort, inputEvents)
+		self.importTab:Draw(tabViewPort, inputEvents)  
 	elseif self.viewMode == "NOTES" then
 		self.notesTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "PARTY" then
+		self.partyTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "CONFIG" then
 		self.configTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "TREE" then
@@ -1053,7 +1070,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 
@@ -1232,7 +1249,10 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		local mainActiveSkill = mainSocketGroup["mainActiveSkill"..suffix] or 1
 		wipeTable(controls.mainSkill.list)
 		for i, activeSkill in ipairs(displaySkillList) do
-			t_insert(controls.mainSkill.list, { val = i, label = activeSkill.activeEffect.grantedEffect.name })
+			local explodeSource = activeSkill.activeEffect.srcInstance.explodeSource
+			local explodeSourceName = explodeSource and (explodeSource.name or explodeSource.dn)
+			local colourCoded = explodeSourceName and ("From "..colorCodes[explodeSource.rarity or "NORMAL"]..explodeSourceName)
+			t_insert(controls.mainSkill.list, { val = i, label = colourCoded or activeSkill.activeEffect.grantedEffect.name })
 		end
 		controls.mainSkill.enabled = #displaySkillList > 1
 		controls.mainSkill.selIndex = mainActiveSkill
