@@ -3713,6 +3713,8 @@ minions["Metadata/Monsters/RaisedZombies/RaisedZombieStandard"] = {
 	modList = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
 		-- RaiseZombieStunThreshold [stun_threshold_+% = 30]
+	},
+}
 -- Forged Frostbearer
 minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 	name = "Forged Frostbearer",
