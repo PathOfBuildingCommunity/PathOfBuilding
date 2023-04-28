@@ -1140,7 +1140,7 @@ function calcs.defence(env, actor)
 			modDB:NewMod("SelfIgniteDurationToElementalAilments", "INC", inc, "Firesong");
 		end
 		if more ~= 1 then
-			modDB:NewMod("SelfIgniteDurationToElementalAilments", "MORE", inc, "Firesong");
+			modDB:NewMod("SelfIgniteDurationToElementalAilments", "MORE", more, "Firesong");
 		end
 	end
 
