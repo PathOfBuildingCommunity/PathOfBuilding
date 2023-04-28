@@ -10,7 +10,7 @@ VERSION[2.29.0][2023/04/28]
 * Add support for hits against you overwhelm pdr (QuickStick123)
 * Add support for regex OR to tree and Item search (QuickStick123)
 * Add support for Master Distiller (deathbeam)
-* Add support for Master Surgeon (deathbeam)
+* Add support for enduring flask recovery over time (deathbeam)
 * Add support for Damage taken from Allies life before you (Regisle)
 * Add support for 'Impales to last an additional hit' mastery mod (Regisle)
 
