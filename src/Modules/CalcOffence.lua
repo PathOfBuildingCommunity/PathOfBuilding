@@ -3466,7 +3466,7 @@ function calcs.offence(env, actor, activeSkill)
 				if isAttack then
 					t_insert(breakdownDPS, pass.label..":")
 				end
-				if sourceHitDmg == sourceCritDmg then
+				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
 					t_insert(breakdownDPS, "Total damage:")
 					t_insert(breakdownDPS, s_format("%.1f ^8(source damage)",sourceHitDmg))
 					if sourceMult > 1 then
@@ -3575,7 +3575,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			if globalBreakdown then
-				if sourceHitDmg == sourceCritDmg then
+				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
 					globalBreakdown.BleedDPS = {
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
@@ -4040,7 +4040,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.IgniteTotalMax = totalMax
 			end
 			if globalBreakdown then
-				if sourceHitDmg == sourceCritDmg then
+				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
 					globalBreakdown.IgniteDPS = {
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
