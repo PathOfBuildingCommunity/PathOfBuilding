@@ -484,7 +484,7 @@ local function calcActualTriggerRate(env, source, sourceAPS, triggeredSkills, ac
 			if breakdown and (triggeredSkills and #triggeredSkills > 1 or triggerBotsEffective) then
 				breakdown.SkillTriggerRate = {
 					s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
-					s_format("/ %.2f ^8(Estimated impact of linked spells)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
+					s_format("/ %.2f ^8(Estimated impact of skill rotation and cooldown alignment)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
 					s_format("= %.2f ^8per second", output.SkillTriggerRate),
 					"",
 					s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
