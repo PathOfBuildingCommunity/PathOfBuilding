@@ -432,9 +432,6 @@ local skills, mod, flag, skill = ...
 #skill GoreShockwave
 #flags attack area melee
 	fromItem = true,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.timeOverride = output.Cooldown
-	end,
 #mods
 
 #skill SupportGreaterSpellEcho Greater Spell Echo

@@ -1477,9 +1477,6 @@ skills["GoreShockwave"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.timeOverride = output.Cooldown
-	end,
 	baseFlags = {
 		attack = true,
 		area = true,
