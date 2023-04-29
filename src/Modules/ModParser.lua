@@ -1984,7 +1984,7 @@ local specialModList = {
 		mod("LifeRecovery", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num }, { type = "Condition", var = "FullLife", neg = true })
 	} end,
 	["(%d+)%% increased maximum energy shield"] = function(num) return { mod("EnergyShield", "INC", num, { type = "Global" }) } end, -- Override as increased maximum is always global
-	["you are blind"] = { flag("Condition:Blinded") },
+	["you are blind"] = { flag("Condition:Blinded", { type = "Condition", var = "CannotBeBlinded", neg = true }) },
 	["armour applies to fire, cold and lightning damage taken from hits instead of physical damage"] = {
 		mod("ArmourAppliesToFireDamageTaken", "BASE", 100),
 		mod("ArmourAppliesToColdDamageTaken", "BASE", 100),
@@ -3850,7 +3850,7 @@ local specialModList = {
 	["cannot be stunned when on low life"] = { mod("AvoidStun", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }, { type = "Condition", var = "LowLife" }) },
 	["cannot be stunned if you haven't been hit recently"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "BeenHitRecently", neg = true }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["cannot be stunned if you have at least (%d+) crab barriers"] = function(num) return { mod("AvoidStun", "BASE", 100, { type = "StatThreshold", stat = "CrabBarriers", threshold = num }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) } end,
-	["cannot be blinded"] = { mod("AvoidBlind", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
+	["cannot be blinded"] = { flag("Condition:CannotBeBlinded") },
 	["cannot be shocked"] = { mod("AvoidShock", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["immun[ei]t?y? to shock"] = { mod("AvoidShock", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["cannot be frozen"] = { mod("AvoidFreeze", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
