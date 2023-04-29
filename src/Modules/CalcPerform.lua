@@ -477,7 +477,11 @@ local function calcActualTriggerRate(env, source, sourceAPS, triggeredSkills, ac
 			output.SkillTriggerRate = output.EffectiveSourceRate
 		else
 			output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
-			if breakdown and triggeredSkills and #triggeredSkills > 1 then
+			local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
+			if triggerBotsEffective then
+				output.SkillTriggerRate = 2 * output.SkillTriggerRate
+			end
+			if breakdown and (triggeredSkills and #triggeredSkills > 1 or triggerBotsEffective) then
 				breakdown.SkillTriggerRate = {
 					s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
 					s_format("/ %.2f ^8(Estimated impact of linked spells)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
@@ -485,7 +489,9 @@ local function calcActualTriggerRate(env, source, sourceAPS, triggeredSkills, ac
 					"",
 					s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
 				}
-	
+				if triggerBotsEffective then
+					t_insert(breakdown.SkillTriggerRate, 3, "x 2 ^8(Trigger bots effectively cause the skill to trigger twice)")
+				end
 				if simBreakdown.extraSimInfo then
 					t_insert(breakdown.SkillTriggerRate, "")
 					t_insert(breakdown.SkillTriggerRate, simBreakdown.extraSimInfo)
