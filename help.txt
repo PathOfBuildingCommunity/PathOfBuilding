@@ -33,7 +33,7 @@ Ctrl + Y	Redo
 Ctrl + Z	Undo
 Ctrl + BSP / DEL	Faster text delete
 Ctrl + + /-/0	Zoom in / Out / Reset
-F1	Open item/gem/etc in poewiki.net
+F1	Open item/gem/etc in poewiki.net, or if nothing to open, opens help file
 F2	Rename item, set, etc.
 E	On an equipped item will open it on the edit menu on the right.
 Ctrl + LMB	Enable / disable gems
