@@ -3564,7 +3564,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				triggeredSkills = nil
 				triggerSkillCond = function(env, skill) 
 					return true 
-					-- Filtering done by skill() in SkillStatMap, comparer and defualt excludes
+					-- Filtering done by skill() in SkillStatMap, comparer and default excludes
 				end
 			elseif actor.mainSkill.skillData.triggeredByMjolner then
 				triggerSkillCond = function(env, skill)
