@@ -108,9 +108,8 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		if output.TotalRadianceSentinelLife then
 			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
 		end
-		-- soul link is not implemented yet
-		if output.SoulLink then
-			alliesTakenBeforeYou["soulLink"] = { remaining = output.SoulLink, percent = output.SoulLinkMitigation / 100 }
+		if output.AlliedEnergyShield then
+			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
 		end
 	end
 	
@@ -2066,6 +2065,11 @@ function calcs.buildDefenceEstimations(env, actor)
 			output["TotalRadianceSentinelLife"] = modDB:Sum("BASE", nil, "TotalRadianceSentinelLife")
 		end
 		
+		-- from Allied Energy Shield
+		output["SoulLinkMitigation"] = modDB:Sum("BASE", nil, "TakenFromParentESBeforeYou")
+		if output["SoulLinkMitigation"] ~= 0 then
+			output["AlliedEnergyShield"] = actor.parent.output.EnergyShieldRecoveryCap or 0
+		end
 	end
 	
 	-- Vaal Arctic Armour
@@ -2154,6 +2158,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		if output.TotalRadianceSentinelLife then
 			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
+		end
+		if output.AlliedEnergyShield then
+			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
 		end
 		
 		local poolTable = {
@@ -2828,6 +2835,11 @@ function calcs.buildDefenceEstimations(env, actor)
 		if output["TotalRadianceSentinelLife"] and output["TotalRadianceSentinelLife"] > 0 then
 			local poolProtected = output["TotalRadianceSentinelLife"] / (output["RadianceSentinelAllyDamageMitigation"] / 100) * (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
 			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
+		end
+		-- soul link
+		if output["AlliedEnergyShield"] and output["AlliedEnergyShield"] > 0 then
+			local poolProtected = output["AlliedEnergyShield"] / (output["SoulLinkMitigation"] / 100) * (1 - output["SoulLinkMitigation"] / 100)
+			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["SoulLinkMitigation"] / 100)
 		end
 	end
 
