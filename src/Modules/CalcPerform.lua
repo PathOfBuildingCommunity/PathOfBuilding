@@ -2019,12 +2019,16 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							curse.minionBuffModList:ScaleAddList(temp, (1 + buffInc / 100) * buffMore)
 						end
 					end
-					local isCurseReflected = modDB:Flag({slotName = activeSkill.slotName}, "HexesAreReflectedToYou") and not activeSkill.skillTypes[SkillType.Aura]
+					local isHexReflectedAwayFromYou = modDB:Flag(nil, "HexesAreReflectedAwayFromYou") and not curse.isMark
+					local isHexReflectedToYou = modDB:Flag({slotName = activeSkill.slotName}, "HexesAreReflectedToYou") and not activeSkill.skillTypes[SkillType.Aura]
 					local alsoCursePlayer = modDB:Flag({slotName = activeSkill.slotName}, "CurseAurasAlsoAffectYou")
-					if (not isCurseReflected and not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") and activeSkill.skillTypes[SkillType.Aura]) and (not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof"))) or curse.isMark then
+					local canHexBeAppliesToEnemy = not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof")
+					local appliesToEnemies = (not isHexReflectedToYou and not (modDB:Flag(nil, "SelfAurasOnlyAffectYou") and activeSkill.skillTypes[SkillType.Aura]) and canHexBeAppliesToEnemy) or curse.isMark
+					local appliesToPlayer = (alsoCursePlayer or (isHexReflectedToYou and (modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof"))) and not curse.isMark
+					if appliesToEnemies or (not appliesToEnemies and appliesToPlayer and isHexReflectedAwayFromYou and canHexBeAppliesToEnemy) then
 						t_insert(curses, curse)
 					end
-					if (alsoCursePlayer or (isCurseReflected and (modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof"))) and not curse.isMark then
+					if appliesToPlayer then
 						activeSkill.curseAppliesToActor = true
 						local gemModList = new("ModList")
 						calcs.mergeSkillInstanceMods(env, gemModList, {
@@ -2263,15 +2267,13 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				}
 				
 				local onPlayerCurse = value.applyToPlayer and ( ((modDB:Sum("BASE", nil, "AvoidCurse") < 100) and not modDB:Flag(nil, "Condition:Hexproof")) or curse.mark or curse.configCurse )
-				local curseResistFilter = onPlayerCurse and modDB:List(nil, "CurseModFilter")
+				local curseResistFilter = onPlayerCurse and modDB:List(nil, "CurseModFilter") or {}
 				
 				curse.modList = new("ModList")
 				for _, mod in ipairs(gemModList) do
-					if curseResistFilter then
-						for _, filter in ipairs(curseResistFilter) do
-							if mod.name:lower():match(filter.pattern) then
-								goto skip
-							end
+					for _, filter in ipairs(curseResistFilter) do
+						if mod.name:lower():match(filter.pattern) then
+							goto skip
 						end
 					end
 					for _, tag in ipairs(mod) do
@@ -2287,6 +2289,20 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					modDB.conditions["Cursed"] = true
 					modDB.conditions["AffectedBy"..grantedEffect.name:gsub(" ","")] = true
 					t_insert(playerCurses, curse)
+					if modDB:Flag(nil, "HexesAreReflectedAwayFromYou") and not curse.isMark then
+						local curse = copyTable(curse, true)
+						curse.modList = new("ModList")
+						local scale = (1 + enemyDB:Sum("INC", nil, "CurseEffectOnSelf") / 100) * enemyDB:More(nil, "CurseEffectOnSelf")
+						for _, mod in ipairs(gemModList) do
+							for _, tag in ipairs(mod) do
+								if tag.type == "GlobalEffect" and tag.effectType == "Curse" then
+									curse.modList:ScaleAddMod(mod, scale)
+									break
+								end
+							end
+						end
+						t_insert(dest, curse)
+					end
 				elseif not enemyDB:Flag(nil, "Hexproof") or modDB:Flag(nil, "CursesIgnoreHexproof") then
 					t_insert(dest, curse)
 				end
