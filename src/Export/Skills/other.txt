@@ -996,6 +996,7 @@ skills["TotemExplode"] = {
 	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
 	castTime = 1,
 	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = 1
 		local typeAmounts = { }
 		local explodeModList = activeSkill.skillModList:List(activeSkill.skillCfg, "TotemExplodeMod")
 		for _, explodeMod in ipairs(explodeModList) do
