@@ -988,6 +988,7 @@ function main:OpenAboutPopup(helpSectionIndex)
 	end
 	local helpList = { }
 	local helpSections = { }
+	local helpSectionHeights = { }
 	do
 		local helpName = launch.devMode and "../help.txt" or "help.txt"
 		local helpFile = io.open(helpName, "r")
@@ -1033,6 +1034,7 @@ function main:OpenAboutPopup(helpSectionIndex)
 					end
 				end
 				helpSections[sectionIndex].height = helpSections[sectionIndex].height + (contentsDone and (#helpSections + 1) or 0)
+				helpSectionHeights[sectionIndex] = helpSections[sectionIndex].height * textSize
 				if sectionValues.title == "Contents" then
 					contentsDone = true
 				end
@@ -1061,11 +1063,13 @@ function main:OpenAboutPopup(helpSectionIndex)
 	end)
 	controls.verLabel = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 10, 85, 100, 18, "^7Version history:", function()
 		controls.changelog.list = changeList
+		controls.changelog.sectionHeights = nil
 	end)
 	controls.helpLabel = new("ButtonControl", { "TOPRIGHT", nil, "TOPRIGHT" }, -10, 85, 40, 18, "^7Help:", function()
 		controls.changelog.list = helpList
+		controls.changelog.sectionHeights = helpSectionHeights
 	end)
-	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, helpSectionIndex and helpList or changeList)
+	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, helpSectionIndex and helpList or changeList, helpSectionIndex and helpSectionHeights or nil)
 	if helpSectionIndex then
 		controls.changelog.controls.scrollBar.offset = helpSections[helpSectionIndex].height * textSize
 	end
