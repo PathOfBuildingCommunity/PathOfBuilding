@@ -2318,22 +2318,46 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	if allyBuffs["Aura"] then
 		for auraName, aura in pairs(allyBuffs["Aura"]) do
 			local auraNameCompressed = auraName:gsub(" ","")
-			if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..auraNameCompressed] then
-				modDB.conditions["AffectedByAura"] = true
-				if auraName:sub(1,4) == "Vaal" then
-					modDB.conditions["AffectedBy"..auraName:sub(6):gsub(" ","")] = true
+			if not (auraName:sub(1,4) == "Vaal") then
+				if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..auraNameCompressed] then
+					modDB.conditions["AffectedByAura"] = true
+					if auraName:sub(1,4) == "Vaal" then
+						modDB.conditions["AffectedBy"..auraName:sub(6):gsub(" ","")] = true
+					end
+					modDB.conditions["AffectedBy"..auraNameCompressed] = true
+					local srcList = new("ModList")
+					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
+					mergeBuff(srcList, buffs, auraName)
 				end
-				modDB.conditions["AffectedBy"..auraNameCompressed] = true
-				local srcList = new("ModList")
-				srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
-				mergeBuff(srcList, buffs, auraName)
+				if env.minion and not env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] then
+					env.minion.modDB.conditions["AffectedByAura"] = true
+					env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] = true
+					local srcList = new("ModList")
+					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
+					mergeBuff(srcList, minionBuffs, auraName)
+				end
 			end
-			if env.minion and not env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] then
-				env.minion.modDB.conditions["AffectedByAura"] = true
-				env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] = true
-				local srcList = new("ModList")
-				srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
-				mergeBuff(srcList, minionBuffs, auraName)
+		end
+		for auraName, aura in pairs(allyBuffs["Aura"]) do
+			local auraNameCompressed = auraName:gsub(" ","")
+			if auraName:sub(1,4) == "Vaal" then
+				if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..auraNameCompressed] then
+					modDB.conditions["AffectedByAura"] = true
+					if auraName:sub(1,4) == "Vaal" then
+						modDB.conditions["AffectedBy"..auraName:sub(6):gsub(" ","")] = true
+					end
+					modDB.conditions["AffectedBy"..auraNameCompressed] = true
+					local srcList = new("ModList")
+					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
+					mergeBuff(srcList, buffs, auraName)
+				end
+				if env.minion and not env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] then
+					env.minion.modDB.conditions["AffectedByAura"] = true
+					env.minion.modDB.conditions["AffectedBy"..auraNameCompressed] = true
+					local srcList = new("ModList")
+					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
+					mergeBuff(srcList, minionBuffs, auraName)
+				end
 			end
 		end
 	end
