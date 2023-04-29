@@ -225,6 +225,13 @@ which comes from the following sources:]]
 				label = label .. "\n\t" .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???")
 			end
 			label = label .. "^7\nYou cannot delete this group, but it will disappear if you lose the above sources."
+		elseif self.displayGroup.totemExplodeSources then
+			label = [[^7This is a special group created for the totem explosion effect,
+which comes from the following sources:]]
+			for _, source in ipairs(self.displayGroup.totemExplodeSources) do
+				label = label .. "\n\t" .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???")
+			end
+			label = label .. "^7\nYou cannot delete this group, but it will disappear if you lose the above sources."
 		else
 			local activeGem = self.displayGroup.gemList[1]
 			local sourceName
@@ -1155,6 +1162,12 @@ end
 function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 	if socketGroup.explodeSources then
 		for _, source in ipairs(socketGroup.explodeSources) do
+			tooltip:AddLine(18, "^7Source: " .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???"))
+		end
+		return
+	end
+	if socketGroup.totemExplodeSources then
+		for _, source in ipairs(socketGroup.totemExplodeSources) do
 			tooltip:AddLine(18, "^7Source: " .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???"))
 		end
 		return

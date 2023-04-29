@@ -1565,6 +1565,14 @@ function calcs.offence(env, actor, activeSkill)
 			skillData[damageType.."Max"] = base
 		end
 	end
+	if skillFlags.totemExplode then
+		for _, damageType in pairs(dmgTypeList) do
+			local percentage = skillData[damageType.."EffectiveExplodePercentage"]
+			local base = (percentage or 0) * monsterLife / 100
+			skillData[damageType.."Min"] = base
+			skillData[damageType.."Max"] = base
+		end
+	end
 
 	-- Cache global damage disabling flags
 	local canDeal = { }
