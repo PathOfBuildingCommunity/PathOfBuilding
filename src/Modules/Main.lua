@@ -970,6 +970,7 @@ end
 function main:OpenAboutPopup(helpSectionIndex)
 	local textSize, titleSize, popupWidth = 16, 24, 810
 	local changeList = { }
+	local changeVersionHeights = { }
 	local changelogName = launch.devMode and "../changelog.txt" or "changelog.txt"
 	local changelogFile = io.open(changelogName, "r")
 	if changelogFile then
@@ -978,8 +979,9 @@ function main:OpenAboutPopup(helpSectionIndex)
 			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
 			if ver then
 				if #changeList > 0 then
-					t_insert(changeList, { height = titleSize / 2 })
+					t_insert(changeList, { height = textSize / 2 })
 				end
+				t_insert(changeVersionHeights, #changeList * textSize)
 				t_insert(changeList, { height = titleSize, "^7Version "..ver.." ("..date..")" })
 			else
 				t_insert(changeList, { height = textSize, "^7"..line })
@@ -1063,13 +1065,13 @@ function main:OpenAboutPopup(helpSectionIndex)
 	end)
 	controls.verLabel = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 10, 85, 100, 18, "^7Version history:", function()
 		controls.changelog.list = changeList
-		controls.changelog.sectionHeights = nil
+		controls.changelog.sectionHeights = changeVersionHeights
 	end)
 	controls.helpLabel = new("ButtonControl", { "TOPRIGHT", nil, "TOPRIGHT" }, -10, 85, 40, 18, "^7Help:", function()
 		controls.changelog.list = helpList
 		controls.changelog.sectionHeights = helpSectionHeights
 	end)
-	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, helpSectionIndex and helpList or changeList, helpSectionIndex and helpSectionHeights or nil)
+	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, helpSectionIndex and helpList or changeList, helpSectionIndex and helpSectionHeights or changeVersionHeights)
 	if helpSectionIndex then
 		controls.changelog.controls.scrollBar.offset = helpSections[helpSectionIndex].height * textSize
 	end
