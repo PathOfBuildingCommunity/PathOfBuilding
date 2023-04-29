@@ -2177,7 +2177,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					t_insert(curses, curse)	
 				end
 			elseif buff.type == "Link" then
-				if env.mode_buffs and (#linkSkills < 1) and env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") then --  and modDB:Flag(nil, "Condition:LinkedToMinion")
+				if env.mode_buffs and (#linkSkills < 1) and env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion") then
 					-- Check for extra modifiers to apply to link skills
 					local extraLinkModList = { }
 					for _, value in ipairs(modDB:List(skillCfg, "ExtraLinkEffect")) do
