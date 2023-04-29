@@ -3562,7 +3562,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
 				end
 				triggeredSkills = nil
-				triggerSkillCond = function(env, skill) return skill ~= actor.mainSkill  end
+				triggerSkillCond = function(env, skill) 
+					return true 
+					-- Filtering done by skill() in SkillStatMap, comparer and defualt excludes
+				end
 			elseif actor.mainSkill.skillData.triggeredByMjolner then
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0
