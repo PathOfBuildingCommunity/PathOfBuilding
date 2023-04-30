@@ -228,8 +228,15 @@ which comes from the following sources:]]
 		elseif self.displayGroup.totemExplodeSources then
 			label = [[^7This is a special group created for the totem explosion effect,
 which comes from the following sources:]]
+			local types = { count = 0 }
 			for _, source in ipairs(self.displayGroup.totemExplodeSources) do
-				label = label .. "\n\t" .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???")
+				if not types[source.type] then
+					types[source.type] = true
+					types.count = types.count + 1
+				end
+			end
+			for _, source in ipairs(self.displayGroup.totemExplodeSources) do
+				label = label .. "\n\t" .. colorCodes[source.source.rarity or "NORMAL"] .. (source.source.name or source.source.dn or "???") .. ((types.count > 1) and ("^7, of type: " .. source.type) or "")
 			end
 			label = label .. "^7\nYou cannot delete this group, but it will disappear if you lose the above sources."
 		else
@@ -1168,7 +1175,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 	end
 	if socketGroup.totemExplodeSources then
 		for _, source in ipairs(socketGroup.totemExplodeSources) do
-			tooltip:AddLine(18, "^7Source: " .. colorCodes[source.rarity or "NORMAL"] .. (source.name or source.dn or "???"))
+			tooltip:AddLine(18, "^7Source: " .. colorCodes[source.source.rarity or "NORMAL"] .. (source.source.name or source.source.dn or "???"))
 		end
 		return
 	end

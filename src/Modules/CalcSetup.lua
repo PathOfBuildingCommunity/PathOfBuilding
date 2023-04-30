@@ -142,7 +142,7 @@ function calcs.buildModListForNode(env, node)
 	end
 
 	if modList:Flag(nil, "TotemExplodes") then
-		t_insert(env.totemExplodeSources, node)
+		t_insert(env.totemExplodeSources, {source = node, type = "All"})
 	end
 
 	return modList
@@ -621,7 +621,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				t_insert(env.explodeSources, item)
 			end
 			if item and item.baseModList and item.baseModList:Flag(nil, "TotemExplodes") then
-				t_insert(env.totemExplodeSources, item)
+				t_insert(env.totemExplodeSources, {source = item, type = "All"})
 			end
 			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
 				item = nil
@@ -1129,14 +1129,21 @@ function calcs.initEnv(build, mode, override, specEnv)
 				local gemsBySource = { }
 				for _, gem in ipairs(group.gemList) do
 					if gem.totemExplodeSource then
-						gemsBySource[gem.totemExplodeSource.modSource or gem.totemExplodeSource.id] = gem
+						gemsBySource["TotemExplode"] = gem
 					end
 				end
 				wipeTable(group.gemList)
+				local explodeTypes = { }
 				for _, totemExplodeSource in ipairs(env.totemExplodeSources) do
+					if not explodeTypes[totemExplodeSource.type] then
+						explodeTypes[totemExplodeSource.type] = totemExplodeSource
+						explodeTypes.count = (explodeTypes.count or 0) + 1
+					end
+				end
+				if explodeTypes["All"] and explodeTypes.count == 1 then -- always true atm, will not be once decoy totem is implemented
 					local activeGemInstance
-					if gemsBySource[totemExplodeSource.modSource or totemExplodeSource.id] then
-						activeGemInstance = gemsBySource[totemExplodeSource.modSource or totemExplodeSource.id]
+					if gemsBySource["TotemExplode"] then
+						activeGemInstance = gemsBySource["TotemExplode"]
 					else
 						activeGemInstance = {
 							skillId = "TotemExplode",
@@ -1144,7 +1151,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							enabled = true,
 							level = 1,
 							triggered = true,
-							totemExplodeSource = totemExplodeSource,
+							totemExplodeSource = "TotemExplode",
 						}
 					end
 					t_insert(group.gemList, activeGemInstance)
