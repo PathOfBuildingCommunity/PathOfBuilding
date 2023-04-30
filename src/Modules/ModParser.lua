@@ -1756,12 +1756,15 @@ local explodeFunc = function(chance, amount, type, specialType, ...)
 	if not amountNumber then
 		return
 	end
-	local amounts = {}
-	amounts[type] = amountNumber
 	if specialType and specialType == "Totem" then
 		return {
 			mod("TotemExplodeMod", "LIST", { type = firstToUpper(type), chance = chance / 100, amount = amountNumber, keyOfScaledMod = "chance" }, ...),
 			flag("TotemExplodes")
+		}
+	elseif specialType and specialType == "Dot" then
+		return {
+			mod("ExplodeModDot", "LIST", { type = firstToUpper(type), chance = chance / 100, amount = amountNumber, keyOfScaledMod = "chance" }, ...),
+			flag("CanExplode")
 		}
 	end
 	return {
@@ -1817,6 +1820,9 @@ local specialModList = {
 	end,
 	["enemies taunted by your warcries explode on death, dealing (%d+)%% of their maximum life as (.+) damage"] = function(amount, _, type)	-- Al Dhih
 		return explodeFunc(100, amount, type, nil, { type = "ActorCondition", actor = "enemy", var = "Taunted" }, { type = "Condition", var = "UsedWarcryRecently" })
+	end,
+	["(%d+)%% chance when you kill a scorched enemy to burn each surrounding enemy for 4 seconds, dealing (%d+)%% of the killed enemy's life as (.+) damage per second"] = function(chance, _, amount, type)	-- Al Dhih
+		return explodeFunc(chance, amount, type, "Dot", { type = "ActorCondition", actor = "enemy", var = "Scorched" })
 	end,
 	["totems explode on death, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Crucible weapon mod
 		return explodeFunc(100, amount, type, "Totem")
