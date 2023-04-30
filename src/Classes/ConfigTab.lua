@@ -32,7 +32,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.toggleConfigs = false
 	self.controls.toggleConfigs = new("ButtonControl", { "TOPLEFT", self, "TOPLEFT" }, 8, 5, 200, 20, function()
 		-- dynamic text
-		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show Ineligible Configurations"
+		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show All Configurations"
 	end, function()
 		self.toggleConfigs = not self.toggleConfigs
 	end)
@@ -87,33 +87,6 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		end
 	end
 
-	local function tableContains(tab, val)
-		for index, value in ipairs(tab) do
-			if value == val then
-				return true
-			end
-		end
-		return false
-	end
-	-- configOption var names in this table will be shown regardless of eligibility when self.toggleConfigs == true
-	local toggleVars = {
-		"TotemsSummoned",
-		"conditionEnemyBleeding",
-		"conditionEnemyBurning",
-		"conditionEnemyDebilitated",
-		"conditionEnemyFrozen",
-		"conditionEnemyIgnited",
-		"conditionEnemyMaimed",
-		"conditionEnemyMoving",
-		"conditionEnemyOnConsecratedGround",
-		"conditionShockEffect",
-		"detonateDeadCorpseLife",
-		"meleeDistance",
-		"multiplierPoisonOnEnemy",
-		"projectileDistance",
-		"skillChainCount",
-		"warcryMode"
-	}
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
@@ -202,10 +175,6 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 			if varData.tooltip then
 				t_insert(tooltipFuncs, varData.tooltip)
-			end
-
-			if tableContains(toggleVars, varData.var) then
-				override = function() return self.toggleConfigs end
 			end
 
 			if varData.ifNode then
@@ -463,6 +432,11 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					return false
 				end))
 			end
+			-- criteria for showAllButton
+			if not (varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag) then
+				override = function() return self.toggleConfigs end
+			end
+
 			if varData.tooltipFunc then
 				control.tooltipFunc = varData.tooltipFunc
 			end
