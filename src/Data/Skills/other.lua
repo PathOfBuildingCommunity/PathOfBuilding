@@ -3456,21 +3456,12 @@ skills["TotemExplode"] = {
 		local typeAmounts = { }
 		local explodeModList = activeSkill.skillModList:List(activeSkill.skillCfg, "TotemExplodeMod")
 		for _, explodeMod in ipairs(explodeModList) do
-			local amounts = typeAmounts[explodeMod.type] or {}
-			amounts[explodeMod.amount] = true
-			typeAmounts[explodeMod.type] = amounts
-		end
-		for type, amounts in pairs(typeAmounts) do
-			local physExplodeChance = 100
-			for amount, _ in pairs(amounts) do
-				local amountXChance = amount
-				if type == "RandomElement" then
-					activeSkill.skillData["FireEffectiveExplodePercentage"] = (activeSkill.skillData["FireEffectiveExplodePercentage"] or 0) + amountXChance / 3
-					activeSkill.skillData["ColdEffectiveExplodePercentage"] = (activeSkill.skillData["ColdEffectiveExplodePercentage"] or 0) + amountXChance / 3
-					activeSkill.skillData["LightningEffectiveExplodePercentage"] = (activeSkill.skillData["LightningEffectiveExplodePercentage"] or 0) + amountXChance / 3
-				else
-					activeSkill.skillData[type.."EffectiveExplodePercentage"] = (activeSkill.skillData[type.."EffectiveExplodePercentage"] or 0) + amountXChance
-				end
+			if explodeMod.type == "RandomElement" then
+				activeSkill.skillData["FireEffectiveExplodePercentage"] = (activeSkill.skillData["FireEffectiveExplodePercentage"] or 0) + explodeMod.amount / 3
+				activeSkill.skillData["ColdEffectiveExplodePercentage"] = (activeSkill.skillData["ColdEffectiveExplodePercentage"] or 0) + explodeMod.amount / 3
+				activeSkill.skillData["LightningEffectiveExplodePercentage"] = (activeSkill.skillData["LightningEffectiveExplodePercentage"] or 0) + explodeMod.amount / 3
+			else
+				activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] = (activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] or 0) + explodeMod.amount
 			end
 		end
 	end,
