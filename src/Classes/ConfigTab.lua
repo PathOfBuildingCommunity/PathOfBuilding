@@ -29,6 +29,23 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	
 	self:BuildModList()
 
+	self.controls.search = new("EditControl", { "TOPLEFT", self, "TOPLEFT" }, 8, 5, 360, 20, "", "Search", "%c", 100, function()
+		self:UpdateControls()
+	end)
+	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self.controls.search, "TOPLEFT" }, -10, 15, 0, 0, "")
+
+	local function searchMatch(varData)
+		local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
+		if searchStr and searchStr:match("%S") then
+			local err, match = PCall(string.matchOrPattern, (varData.label or ""):lower(), searchStr)
+			if not err and match then
+				return true
+			end
+			return false
+		end
+		return true
+	end
+
 	local function implyCond(varData)
 		local mainEnv = self.build.calcsTab.mainEnv
 		if self.input[varData.var] then
@@ -81,7 +98,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
+			lastSection = new("SectionControl", {"TOPLEFT",self.controls.sectionAnchor,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
 			lastSection.height = function(self)
@@ -143,6 +160,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 			local shownFuncs = {}
 			control.shown = function()
+				if not searchMatch(varData) then
+					return false
+				end
+
 				for _, shownFunc in ipairs(shownFuncs) do
 					if not shownFunc() then
 						return false
@@ -471,6 +492,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 			if not varData.hideIfInvalid then
 				control.shown = function()
+					if not searchMatch(varData) then
+						return false
+					end
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
