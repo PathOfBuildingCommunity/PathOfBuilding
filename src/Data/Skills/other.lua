@@ -3417,6 +3417,7 @@ skills["EnemyExplode"] = {
 			for type, amountChance in pairs(typeAmountChances) do
 				local physExplodeChance = 0
 				for amount, chance in pairs(amountChance) do
+					chance = math.min(chance, 1)
 					local amountXChance = amount * chance
 					if type == "RandomElement" then
 						activeSkill.skillData["FireEffectiveExplodePercentage"] = (activeSkill.skillData["FireEffectiveExplodePercentage"] or 0) + amountXChance / 3
@@ -3444,15 +3445,14 @@ skills["EnemyExplode"] = {
 			end
 			for type, amountChance in pairs(typeAmountChances) do
 				for amount, chance in pairs(amountChance) do
-					local amountXChance = amount * chance
 					if type == "RandomElement" then
-						activeSkill.skillData["FireDotEffectiveExplodePercentage"] = (activeSkill.skillData["FireDotEffectiveExplodePercentage"] or 0) + amountXChance / 3
-						activeSkill.skillData["ColdDotEffectiveExplodePercentage"] = (activeSkill.skillData["ColdDotEffectiveExplodePercentage"] or 0) + amountXChance / 3
-						activeSkill.skillData["LightningDotEffectiveExplodePercentage"] = (activeSkill.skillData["LightningDotEffectiveExplodePercentage"] or 0) + amountXChance / 3
+						activeSkill.skillData["FireDotEffectiveExplodePercentage"] = (activeSkill.skillData["FireDotEffectiveExplodePercentage"] or 0) + amount / 3
+						activeSkill.skillData["ColdDotEffectiveExplodePercentage"] = (activeSkill.skillData["ColdDotEffectiveExplodePercentage"] or 0) + amount / 3
+						activeSkill.skillData["LightningDotEffectiveExplodePercentage"] = (activeSkill.skillData["LightningDotEffectiveExplodePercentage"] or 0) + amount / 3
 					else
-						activeSkill.skillData[type.."DotEffectiveExplodePercentage"] = (activeSkill.skillData[type.."DotEffectiveExplodePercentage"] or 0) + amountXChance
+						activeSkill.skillData[type.."DotEffectiveExplodePercentage"] = (activeSkill.skillData[type.."DotEffectiveExplodePercentage"] or 0) + amount
 					end
-					output.ExplodeChance = 1 - ((1 - output.ExplodeChance) * (1 - chance))
+					output.ExplodeChance = 1 - ((1 - output.ExplodeChance) * (1 - math.min(chance, 1)))
 				end
 			end
 		end
