@@ -1584,7 +1584,10 @@ skills["BlastRain"] = {
 		end
 	end,
 	statMap = {
-		["blast_rain_damage_+%_vs_distant_enemies"] = { 
+		["cover_in_ash_on_hit_%"] = {
+			mod("CoveredInAshChance", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0),
+		},
+		["blast_rain_damage_+%_vs_distant_enemies"] = {
 			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "DistanceRamp", ramp = {{35,0},{70,1}} }) 
 		},
 		["blast_rain_area_of_effect_+%"] = {

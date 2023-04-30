@@ -247,7 +247,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						return out
 					end
 					for _, mod in ipairs(mods) do
-						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. (mod.source or "")
 					end
 					return out
 				end))
@@ -369,6 +369,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			end
 			if varData.ifFlag then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifFlag, function(ifOption)
+					if implyCond(varData) then
+						return true
+					end
 					local skillModList = self.build.calcsTab.mainEnv.player.mainSkill.skillModList
 					local skillFlags = self.build.calcsTab.mainEnv.player.mainSkill.skillFlags
 					-- Check both the skill mods for flags and flags that are set via calcPerform

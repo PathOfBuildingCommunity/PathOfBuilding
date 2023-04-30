@@ -7923,6 +7923,7 @@ skills["Sanctify"] = {
 	baseMods = {
 		skill("radius", 18),
 		skill("radiusSecondary", 50),
+		flag("Condition:OnConsecratedGround", { type = "Condition", var = "Conditional" })
 	},
 	qualityStats = {
 		Default = {
@@ -12270,6 +12271,9 @@ skills["SpellDamageAura"] = {
 	statDescriptionScope = "aura_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
+		["create_consecrated_ground_on_hit_%_vs_rare_or_unique_enemy"] = {
+			flag("Condition:OnConsecratedGround", { type = "Condition", var = "Conditional" }),
+		},
 		["spell_damage_aura_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},

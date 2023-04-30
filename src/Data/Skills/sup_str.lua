@@ -2041,6 +2041,9 @@ skills["SupportFortify"] = {
 	excludeSkillTypes = { SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["chance_to_fortify_on_melee_hit_+%"] = {
+			mod("FortifyChance", "BASE", nil, ModFlag.MeleeHit),
+		},
 		["support_fortify_melee_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Melee),
 		},

@@ -13,6 +13,9 @@ local m_huge = math.huge
 local function firstToUpper(str)
 	return (str:gsub("^%l", string.upper))
 end
+local function conditional()
+	return { type = "Condition", var = "Conditional" }
+end
 
 local conquerorList = {
 	["xibaqua"]		=	{ id = 1, type = "vaal" },
@@ -685,6 +688,14 @@ local modNameList = {
 	["bleeding duration"] = { "EnemyBleedDuration" },
 	["bleed duration on you"] = "SelfBleedDuration",
 	-- Misc modifiers
+	["to fortify"] = "FortifyChance",
+	["to crush enemies"] = "CrushChance",
+	["to intimidate enemies"] = "IntimidateChance",
+	["to unnerve enemies"] = "UnnerveChance",
+	["to blind enemies"] = "BlindChance",
+	["to blind"] = "BlindChance",
+	["to cover enemies in ash"] = "CoveredInAshChance",
+	["to cover enemies in frost"] = "CoveredInFrostChance",
 	["movement speed"] = "MovementSpeed",
 	["attack, cast and movement speed"] = { "Speed", "MovementSpeed" },
 	["action speed"] = "ActionSpeed",
@@ -738,9 +749,10 @@ local modNameList = {
 	["elusive"] = "Condition:CanBeElusive",
 	["onslaught"] = "Condition:Onslaught",
 	["rampage"] = "Condition:Rampage",
-	["soul eater"] = "Condition:CanHaveSoulEater",
+	["soul eater"] = "Condition:SoulEater",
 	["phasing"] = "Condition:Phasing",
 	["arcane surge"] = "Condition:ArcaneSurge",
+	["fortify"] = "Condition:Fortified",
 	["unholy might"] = "Condition:UnholyMight",
 	["lesser brutal shrine buff"] = "Condition:LesserBrutalShrine",
 	["lesser massive shrine buff"] = "Condition:LesserMassiveShrine",
@@ -943,6 +955,7 @@ local preFlagList = {
 	["^attacks with one handed melee weapons [hd][ae][va][el] "] = { flags = bor(ModFlag.Weapon1H, ModFlag.WeaponMelee) },
 	["^attacks with two handed melee weapons [hd][ae][va][el] "] = { flags = bor(ModFlag.Weapon2H, ModFlag.WeaponMelee) },
 	["^attacks with ranged weapons [hd][ae][va][el] "] = { flags = ModFlag.WeaponRanged },
+	["^melee hits [hd][ae][va][el] "] = { flags = ModFlag.MeleeHit },
 	-- Damage types
 	["^attack damage "] = { flags = ModFlag.Attack },
 	["^hits deal "] = { keywordFlags = KeywordFlag.Hit },
@@ -1018,6 +1031,7 @@ local preFlagList = {
 	["^projectiles [hdf][aei][var][el] "] = { flags = ModFlag.Projectile },
 	["^melee attacks have "] = { flags = ModFlag.Melee },
 	["^movement attack skills have "] = { flags = ModFlag.Attack, keywordFlags = KeywordFlag.Movement },
+	["^hits with melee movement skills have "] = { flags = ModFlag.MeleeHit, keywordFlags = KeywordFlag.Movement },
 	["^travel skills have "] = { tag = { type = "SkillType", skillType = SkillType.Travel } },
 	["^link skills have "] = { tag = { type = "SkillType", skillType = SkillType.Link } },
 	["^lightning skills [hd][ae][va][el] a? ?"] = { keywordFlags = KeywordFlag.Lightning },
@@ -1468,6 +1482,10 @@ local modTagList = {
 	["while leeching"] = { tag = { type = "Condition", var = "Leeching" } },
 	["while leeching energy shield"] = { tag = { type = "Condition", var = "LeechingEnergyShield" } },
 	["while leeching mana"] = { tag = { type = "Condition", var = "LeechingMana" } },
+	["when leech is removed by filling unreserved life"] = { tag = conditional() },
+	["if leech was removed by filling unreserved life recently"] = { tag = { type = "Condition", var = "LeechRemovedRecently" } },
+	["when ward breaks"] = { tag = conditional() },
+	["on rampage"] = { tagList = { { type = "Condition", var = "Rampage" }, conditional()} },
 	["while using a flask"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
 	["during flask effect"] = { tag = { type = "Condition", var = "UsingFlask" } },
@@ -1510,6 +1528,7 @@ local modTagList = {
 	["if you[' ]h?a?ve hit with your off hand weapon recently"] = { tagList = { { type = "Condition", var = "HitRecentlyWithWeapon" }, { type = "Condition", var = "DualWielding" } } },
 	["if you[' ]h?a?ve hit a cursed enemy recently"] = { tagList = { { type = "Condition", var = "HitRecently" }, { type = "ActorCondition", actor = "enemy", var = "Cursed" } } },
 	["when you or your totems hit an enemy with a spell"] = { tag = { type = "Condition", varList = { "HitSpellRecently","TotemsHitSpellRecently" } }, },
+	["on hit with attacks"] = { flags = ModFlag.Hit, keywordFlags = KeywordFlag.Attack },
 	["on hit with spells"] = { tag = { type = "Condition", var = "HitSpellRecently" } },
 	["if you[' ]h?a?ve crit recently"] = { tag = { type = "Condition", var = "CritRecently" } },
 	["if you[' ]h?a?ve dealt a critical strike recently"] = { tag = { type = "Condition", var = "CritRecently" } },
@@ -1525,6 +1544,7 @@ local modTagList = {
 	["if you dealt a critical strike with a herald skill recently"] = { tag = { type = "Condition", var = "CritWithHeraldSkillRecently" } },
 	["if you[' ]h?a?ve dealt a critical strike with a two handed melee weapon recently"] = { flags = bor(ModFlag.Weapon2H, ModFlag.WeaponMelee), tag = { type = "Condition", var = "CritRecently" } },
 	["if you[' ]h?a?ve killed recently"] = { tag = { type = "Condition", var = "KilledRecently" } },
+	["on culling strike"] = { tag = { type = "Condition", var = "CulledEnemyRecently" } },
 	["on killing taunted enemies"] = { tag = { type = "Condition", var = "KilledTauntedEnemyRecently" } },
 	["on kill"] = { tag = { type = "Condition", var = "KilledRecently" } },
 	["on melee kill"] = { flags = ModFlag.WeaponMelee, tag = { type = "Condition", var = "KilledRecently" } },
@@ -1607,6 +1627,7 @@ local modTagList = {
 	["if you[' ]h?a?ve used a vaal skill recently"] = { tag = { type = "Condition", var = "UsedVaalSkillRecently" } },
 	["if you[' ]h?a?ve used a socketed vaal skill recently"] = { tag = { type = "Condition", var = "UsedVaalSkillRecently" } },
 	["when you use a vaal skill"] = { tag = { type = "Condition", var = "UsedVaalSkillRecently" } },
+	["on using a vaal skill"] = { tag = { type = "Condition", var = "UsedVaalSkillRecently" } },
 	["if you haven't used a brand skill recently"] = { tag = { type = "Condition", var = "UsedBrandRecently", neg = true } },
 	["if you[' ]h?a?ve used a brand skill recently"] = { tag = { type = "Condition", var = "UsedBrandRecently" } },
 	["if you[' ]h?a?ve spent (%d+) total mana recently"] = function(num) return { tag = { type = "MultiplierThreshold", var = "ManaSpentRecently", threshold = num } } end,
@@ -2112,7 +2133,6 @@ local specialModList = {
 	["cannot be stunned while you have fortify"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortified" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["cannot be stunned while fortified"] = { mod("AvoidStun", "BASE", 100, { type = "Condition", var = "Fortified" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["you cannot be stunned while at maximum endurance charges"] = { mod("AvoidStun", "BASE", 100, { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
-	["fortify"] = { flag("Condition:Fortified") },
 	["you have (%d+) fortification"] = { flag("Condition:Fortified") },
 	["enemies taunted by you cannot evade attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotEvade", { type = "Condition", var = "Taunted" }) }) },
 	["if you've impaled an enemy recently, you and nearby allies have %+(%d+) to armour"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("Armour", "BASE", num) }, { type = "Condition", var = "ImpaledRecently" }) } end,
@@ -3165,15 +3185,21 @@ local specialModList = {
 		mod("SpellSuppressionChance", "BASE", num, nil, ModFlag.Dagger ),
 		mod("SpellSuppressionChance", "BASE", num, nil, ModFlag.Dagger, { type = "Condition", var = "DualWieldingDaggers" })
 	} end,
+	-- Fortify
+	["melee hits fortify"] = { mod("FortifyChance", "BASE", 100, nil, ModFlag.MeleeHit) },
+	["melee hits which stun fortify"] = { mod("FortifyChance", "BASE", 100, nil, ModFlag.MeleeHit) },
+	["with a murderous eye jewel socketed, melee hits have (%d+)%% chance to fortify"] = { mod("FortifyChance", "BASE", 100, nil, ModFlag.MeleeHit, { type = "Condition", var = "HaveMurderousEyeJewelIn{SlotName}" }) },
+	["gain (%d+) fortification on melee kill against a rare or unique enemy"] = { flag("Condition:Fortified", conditional()) },
 	-- Buffs/debuffs
 	["phasing"] = { flag("Condition:Phasing") },
 	["onslaught"] = { flag("Condition:Onslaught") },
 	["rampage"] = { flag("Condition:Rampage") },
-	["soul eater"] = { flag("Condition:CanHaveSoulEater") },
+	["soul eater"] = { flag("Condition:SoulEater") },
 	["unholy might"] = { flag("Condition:UnholyMight") },
 	["elusive"] = { flag("Condition:CanBeElusive") },
 	["adrenaline"] = { flag("Condition:Adrenaline") },
 	["arcane surge"] = { flag("Condition:ArcaneSurge") },
+	["fortify"] = { flag("Condition:Fortified") },
 	["your aura buffs do not affect allies"] = { flag("SelfAurasCannotAffectAllies") },
 	["your curses have (%d+)%% increased effect if (%d+)%% of curse duration expired"] = function(num, _, limit) return {
 		mod("CurseEffect", "INC", num, { type = "MultiplierThreshold", actor = "enemy", var = "CurseExpired", threshold = tonumber(limit) })
@@ -3293,6 +3319,8 @@ local specialModList = {
 		mod("ArcaneSurgeEffect", "INC", num, { type = "PerStat", stat = "WarcryPower", div = tonumber(div), globalLimit = tonumber(limit), globalLimitKey = "Brinerot Flag"}, { type = "Condition", var = "UsedWarcryRecently" }),
 	} end,
 	["gain onslaught for (%d+) seconds on hit while at maximum frenzy charges"] = { flag("Onslaught", { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }, { type = "Condition", var = "HitRecently" }) },
+	["you gain onslaught for (%d+) seconds per endurance charge when hit"] = { flag("Onslaught", { type = "StatThreshold", stat = "EnduranceCharges", thresholdStat = "EnduranceChargesMax" }, { type = "Condition", var = "BeenHitRecently" }) },
+	["gain onslaught for (%d+) seconds per frenzy charge on use"] = { flag("Onslaught", { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }) },
 	["enemies in your chilling areas take (%d+)%% increased lightning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("LightningDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "InChillingArea" }) } end,
 	["warcries count as having (%d+) additional nearby enemies"] = function(num) return {
 		mod("Multiplier:WarcryNearbyEnemies", "BASE", num),
@@ -3427,6 +3455,10 @@ local specialModList = {
 	["left ring slot: cover enemies in ash for 5 seconds when you ignite them"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "SlotNumber", num = 1 }, { type = "ActorCondition", actor = "enemy", var = "Ignited" }) },
 	["right ring slot: cover enemies in frost for 5 seconds when you freeze them"] = { mod("CoveredInFrostEffect", "BASE", 20, { type = "SlotNumber", num = 2 }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }) },
 	["nearby enemies are covered in ash"] = { mod("CoveredInAshEffect", "BASE", 20) },
+	["cover enemies in ash when they hit you"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "Condition", var = "BeenHitRecently" }) },
+	["raised zombies cover enemies in ash on hit"] = { mod("CoveredInAshEffect", "BASE", 20, conditional()) },
+	["cover rare or unique enemies in ash for (%d+) seconds on hit"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }) },
+	["(%d+)%% chance to cover rare or unique enemies in ash for (%d+) seconds on hit"] = { mod("CoveredInAshEffect", "BASE", 20, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" }) },
 	["enemies near targets you shatter have (%d+)%% chance to be covered in frost for (%d+) seconds"] = { mod("CoveredInFrostEffect", "BASE", 20, { type = "Condition", var = "ShatteredEnemyRecently" }) },
 	["([%a%s]+) has (%d+)%% increased effect"] = function(_, skill, num) return { mod("BuffEffect", "INC", num, { type = "SkillId", skillId = gemIdLookup[skill]}) } end,
 	["debuffs on you expire (%d+)%% faster"] = function(num) return { mod("SelfDebuffExpirationRate", "BASE", num) } end,
@@ -3434,8 +3466,8 @@ local specialModList = {
 	["debilitate enemies for (%d+) seconds? when you suppress their spell damage"] = { mod("DebilitateChance", "BASE", 100) },
 	["debilitate nearby enemies for (%d+) seconds? when f?l?a?s?k? ?effect ends"] = { mod("DebilitateChance", "BASE", 100) },
 	["counterattacks have a (%d+)%% chance to debilitate on hit for (%d+) seconds?"] = function (num) return { mod("DebilitateChance", "BASE", num) } end,
-	["eat a soul when you hit a unique enemy, no more than once every second"] = { flag("Condition:CanHaveSoulEater") },
-	["(%d+)%% chance to gain soul eater for (%d+) seconds on killing blow against rare and unique enemies with double strike or dual strike"] = { flag("Condition:CanHaveSoulEater") },
+	["eat a soul when you hit a unique enemy, no more than once every second"] = { flag("Condition:SoulEater") },
+	["(%d+)%% chance to gain soul eater for (%d+) seconds on killing blow against rare and unique enemies with double strike or dual strike"] = { flag("Condition:SoulEater") },
 	["maximum (%d+) eaten souls"] = function(num) return { mod("SoulEaterMax", "OVERRIDE", num) } end,
 	["(%d+)%% increased attack and cast speed if you've killed recently"] = function(num) return { --This boot enchant gives a buff that applies both stats individually
 		mod("Speed", "INC", num, nil, ModFlag.Cast, { type = "Condition", var = "KilledRecently" }),
@@ -4019,7 +4051,7 @@ local specialModList = {
 	} end,
 	["creates a smoke cloud on use"] = { },
 	["creates chilled ground on use"] = { },
-	["creates consecrated ground on use"] = { },
+	["creates consecrated ground on use"] = { flag("Condition:OnConsecratedGround", conditional()) },
 	["removes bleeding on use"] = { },
 	["removes burning on use"] = { },
 	["removes all burning when used"] = { },
@@ -4365,6 +4397,7 @@ local specialModList = {
 	["you are crushed"] = { flag("Condition:Crushed") },
 	["nearby enemies are crushed"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Crushed") }) },
 	["crush enemies on hit with maces and sceptres"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Crushed") }, { type = "Condition", var = "UsingMace" }) },
+	["crush enemies for (%d+) seconds when you hit them while they are on full life"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Crushed") }, { type = "ActorCondition", actor = "enemy", var = "FullLife" }) },
 	["you have fungal ground around you while stationary"] = {
 		mod("ExtraAura", "LIST", { mod = mod("NonChaosDamageGainAsChaos", "BASE", 10) }, { type = "Condition", varList = { "OnFungalGround", "Stationary" } }),
 		mod("EnemyModifier", "LIST", { mod = mod("Damage", "MORE", -10) }, { type = "ActorCondition", actor = "enemy", varList = { "OnFungalGround", "Stationary" } }),
@@ -4728,7 +4761,7 @@ local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
 	["rampage"] = "Condition:Rampage",
-	["soul eater"] = "Condition:CanHaveSoulEater",
+	["soul eater"] = "Condition:SoulEater",
 	["adrenaline"] = "Condition:Adrenaline",
 	["elusive"] = "Condition:CanBeElusive",
 	["arcane surge"] = "Condition:ArcaneSurge",

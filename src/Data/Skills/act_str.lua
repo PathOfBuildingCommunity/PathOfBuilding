@@ -1963,6 +1963,7 @@ skills["ConsecratedPath"] = {
 	},
 	baseMods = {
 		skill("radius", 23),
+		flag("Condition:OnConsecratedGround", { type = "Condition", var = "Conditional" })
 	},
 	qualityStats = {
 		Default = {
@@ -4511,6 +4512,7 @@ skills["FlameTotem"] = {
 	},
 	baseMods = {
 		skill("radius", 16),
+		flag("Condition:OnConsecratedGround", { type = "Condition", var = "Conditional" })
 	},
 	qualityStats = {
 		Default = {

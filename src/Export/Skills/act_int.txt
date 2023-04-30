@@ -1780,6 +1780,7 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 18)
 #baseMod skill("radiusSecondary", 50)
+#baseMod flag("Condition:OnConsecratedGround", { type = "Condition", var = "Conditional" })
 #mods
 
 #skill Purity
@@ -2574,6 +2575,9 @@ local skills, mod, flag, skill = ...
 #skill SpellDamageAura
 #flags spell aura area
 	statMap = {
+		["create_consecrated_ground_on_hit_%_vs_rare_or_unique_enemy"] = {
+			flag("Condition:OnConsecratedGround", { type = "Condition", var = "Conditional" }),
+		},
 		["spell_damage_aura_spell_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},

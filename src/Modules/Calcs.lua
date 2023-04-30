@@ -520,17 +520,7 @@ function calcs.buildOutput(build, mode)
 		end
 		local function addModTags(actor, mod)
 			addTo(env.modsUsed, mod.name, mod)
-			
-			-- Imply enemy conditionals based on damage type
-			-- Needed to preemptively show config options for elemental ailments
-			for dmgType, conditions in pairs({["[fi][ig][rn][ei]t?e?"] = {"Ignited", "Burning"}, ["[cf][or][le][de]z?e?"] = {"Frozen"}}) do
-				if mod.name:lower():match(dmgType) then
-					for _, var in ipairs(conditions) do
-						addTo(env.enemyConditionsUsed, var, mod)
-					end
-				end
-			end
-			
+
 			for _, tag in ipairs(mod) do
 				addTo(env.tagTypesUsed, tag.type, mod)
 				if tag.type == "IgnoreCond" then

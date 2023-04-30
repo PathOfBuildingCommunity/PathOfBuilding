@@ -3337,6 +3337,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.BleedChanceOnHit = 0
 		else
 			output.BleedChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "BleedChance") + enemyDB:Sum("BASE", nil, "SelfBleedChance"))
+			if output.BleedChanceOnHit > 0 then
+				skillFlags["inflictBleed"] = true
+			end
 		end
 		if not skillFlags.hit or skillModList:Flag(cfg, "CannotPoison") then
 			output.PoisonChanceOnHit = 0
@@ -3344,6 +3347,9 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.PoisonChanceOnHit = m_min(100, skillModList:Sum("BASE", cfg, "PoisonChance") + enemyDB:Sum("BASE", nil, "SelfPoisonChance"))
 			output.ChaosPoisonChance = m_min(100, skillModList:Sum("BASE", cfg, "ChaosPoisonChance"))
+			if output.PoisonChanceOnHit > 0 or output.ChaosPoisonChance > 0 then
+				skillFlags["inflictPoison"] = true
+			end
 		end
 		for _, ailment in ipairs(elementalAilmentTypeList) do
 			local chance = skillModList:Sum("BASE", cfg, "Enemy"..ailment.."Chance") + enemyDB:Sum("BASE", nil, "Self"..ailment.."Chance")

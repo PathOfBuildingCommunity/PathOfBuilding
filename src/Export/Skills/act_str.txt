@@ -406,6 +406,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 23)
+#baseMod flag("Condition:OnConsecratedGround", { type = "Condition", var = "Conditional" })
 #mods
 
 #skill CorruptingFever
@@ -834,6 +835,7 @@ local skills, mod, flag, skill = ...
 #skill FlameTotem
 #flags spell totem projectile duration
 #baseMod skill("radius", 16)
+#baseMod flag("Condition:OnConsecratedGround", { type = "Condition", var = "Conditional" })
 #mods
 
 #skill IceCrash
