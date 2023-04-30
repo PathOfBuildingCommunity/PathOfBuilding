@@ -672,30 +672,59 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					if mod then
 						currentModType = modType
 						list[modType] = list[modType] or {}
-						if not list[modType][currentName] then
-							list[modType][currentName] = {
-								modList = new("ModList"),
-								effectMult = currentEffect
-							}
-							if isMark then
-								list[modType][currentName].isMark = true
+						if currentName:find("Vaal") then
+							list[modType]["Vaal"] = list[modType]["Vaal"] or {}
+							if not list[modType]["Vaal"][currentName] then
+								list[modType]["Vaal"][currentName] = {
+									modList = new("ModList"),
+									effectMult = currentEffect
+								}
+								if isMark then
+									list[modType]["Vaal"][currentName].isMark = true
+								end
+							elseif list[modType]["Vaal"][currentName].effectMult ~= currentEffect then
+								if list[modType]["Vaal"][currentName].effectMult < currentEffect then
+									list[modType]["Vaal"][currentName] = {
+										modList = new("ModList"),
+										effectMult = currentEffect
+									}
+								else
+									currentName = "SKIP"
+								end
 							end
-						elseif list[modType][currentName].effectMult ~= currentEffect then
-							if list[modType][currentName].effectMult < currentEffect then
+							if currentName ~= "SKIP" then
+								if mod.source:match("Item") then
+									_, mod.source = mod.source:match("Item:(%d+):(.+)")
+									mod.source = "Party - "..mod.source
+								end
+								list[modType]["Vaal"][currentName].modList:AddMod(mod)
+							end
+						else
+							if not list[modType][currentName] then
 								list[modType][currentName] = {
 									modList = new("ModList"),
 									effectMult = currentEffect
 								}
-							else
-								currentName = "SKIP"
+								if isMark then
+									list[modType][currentName].isMark = true
+								end
+							elseif list[modType][currentName].effectMult ~= currentEffect then
+								if list[modType][currentName].effectMult < currentEffect then
+									list[modType][currentName] = {
+										modList = new("ModList"),
+										effectMult = currentEffect
+									}
+								else
+									currentName = "SKIP"
+								end
 							end
-						end
-						if currentName ~= "SKIP" then
-							if mod.source:match("Item") then
-								_, mod.source = mod.source:match("Item:(%d+):(.+)")
-								mod.source = "Party - "..mod.source
+							if currentName ~= "SKIP" then
+								if mod.source:match("Item") then
+									_, mod.source = mod.source:match("Item:(%d+):(.+)")
+									mod.source = "Party - "..mod.source
+								end
+								list[modType][currentName].modList:AddMod(mod)
 							end
-							list[modType][currentName].modList:AddMod(mod)
 						end
 					end
 				end
@@ -706,12 +735,28 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				local count = 0
 				label.label = "^7---------------------------\n"
 				for aura, auraMod in pairs(list["Aura"] or {}) do
-					label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
-					count = count + 1
+					if aura ~= "Vaal" then
+						label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
+						count = count + 1
+					end
 				end
 				for aura, auraMod in pairs(list["AuraDebuff"] or {}) do
-					label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
-					count = count + 1
+					if aura ~= "Vaal" then
+						label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
+						count = count + 1
+					end
+				end
+				if list["Aura"] and list["Aura"]["Vaal"] then
+					for aura, auraMod in pairs(list["Aura"]["Vaal"]) do
+						label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
+						count = count + 1
+					end
+				end
+				if list["AuraDebuff"] and list["AuraDebuff"]["Vaal"] then
+					for aura, auraMod in pairs(list["AuraDebuff"]["Vaal"]) do
+						label.label = label.label..aura..": "..auraMod.effectMult.."%\n"
+						count = count + 1
+					end
 				end
 				if list["extraAura"] and list["extraAura"]["extraAura"] then
 					label.label = label.label.."extraAuras:\n"
