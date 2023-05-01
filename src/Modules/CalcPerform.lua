@@ -1915,7 +1915,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 						end
 						if add then
 							t_insert(extraLinkModList, copyTable(value.mod, true))
-							-- special handeling to add this early
+							-- special handling to add this early
 							if value.mod.name == "ParentNonUniqueFlasksAppliedToYou" then
 								nonUniqueFlasksApplyToMinion = true
 							end
