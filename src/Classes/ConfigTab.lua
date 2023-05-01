@@ -38,6 +38,22 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	end)
 	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self.controls.toggleConfigs, "TOPLEFT" }, -10, 15, 0, 0, "")
 
+	-- blacklist for Show All Configurations
+	local function isShowAllConfig(varData)
+		local labelMatch = varData.label:lower()
+		local excludeKeywords = { "recently", "in the last", "in the past", "in last", "in past", "pvp" }
+
+		if varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag then
+			return false
+		end
+		for _, keyword in pairs(excludeKeywords) do
+			if labelMatch:find(keyword) then
+				return false
+			end
+		end
+		return true
+	end
+
 	local function implyCond(varData)
 		local mainEnv = self.build.calcsTab.mainEnv
 		if self.input[varData.var] then
@@ -432,8 +448,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					return false
 				end))
 			end
-			-- criteria for showAllButton
-			if not (varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag) then
+			if isShowAllConfig(varData) then
 				override = function() return self.toggleConfigs end
 			end
 
