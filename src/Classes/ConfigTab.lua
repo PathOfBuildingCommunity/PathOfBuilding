@@ -43,7 +43,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		local labelMatch = varData.label:lower()
 		local excludeKeywords = { "recently", "in the last", "in the past", "in last", "in past", "pvp" }
 
-		if varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag then
+		if varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag or varData.legacy then
 			return false
 		end
 		for _, keyword in pairs(excludeKeywords) do
