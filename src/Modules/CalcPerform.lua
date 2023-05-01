@@ -1632,10 +1632,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 
 		local function calcFlaskMods(item, baseName, buffModList, modList)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
-			local flaskEffectIncNonPlayer = effectIncNonPlayer + flaskEffectInc
+			local flaskEffectIncNonPlayer = effectIncNonPlayer + item.flaskData.effectInc
 			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
 				flaskEffectInc = flaskEffectInc + effectIncMagic
-				flaskEffectIncNonPlayer = effectIncNonPlayer + effectIncMagicNonPlayer
+				flaskEffectIncNonPlayer = flaskEffectIncNonPlayer + effectIncMagicNonPlayer
 			end
 			local effectMod = 1 + (flaskEffectInc) / 100
 			local effectModNonPlayer = 1 + (flaskEffectIncNonPlayer) / 100
