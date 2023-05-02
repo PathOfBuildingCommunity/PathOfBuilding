@@ -141,12 +141,36 @@ local skills, mod, flag, skill = ...
 #flags attack melee
 #mods
 
+#skill VaalDominationMelee Default Attack
+#flags attack melee projectile
+#mods
+
+#skill VaalDominationSunder Sunder
+#flags attack melee area
+#mods
+
+#skill GAVaalDominationLargeSlam AoE Slam
+#flags attack  area
+#mods
+
 #skill AbsolutionMinion
 #flags area spell duration
 #mods
 
-#skill AbsolutionMinionEmpowered
+#skill AbsolutionMinionEmpowered Empowered Absolution
 #flags area spell duration
+#mods
+
+#skill AbsolutionMinionVaal
+#flags area spell duration
+#mods
+
+#skill AbsolutionMinionVaalCascade Absolution Cascade
+#flags area spell duration
+#mods
+
+#skill VaalAbsolutionDelayedBlast AoE Blast
+#flags area spell
 #mods
 
 #skill SummonedRhoaShieldCharge
