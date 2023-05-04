@@ -17,6 +17,7 @@ skills["Absolution"] = {
 	castTime = 0.75,
 	minionList = {
 		"AbsolutionTemplarJudge",
+		"AbsolutionTemplarJudgeVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -116,6 +117,14 @@ skills["VaalAbsolution"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -2495,6 +2504,7 @@ skills["DominatingBlow"] = {
 	castTime = 1,
 	minionList = {
 		"AxisEliteSoldierDominatingBlow",
+		"AxisEliteSoldierDominatingBlowVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -2586,6 +2596,14 @@ skills["VaalDomination"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -3213,7 +3231,7 @@ skills["Exsanguinate"] = {
 		skill("debuff", true),
 		mod("Multiplier:ExsanguinateMaxStages", "BASE", 3),
 		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
-		mod("FireDamage", "MORE", 100, 0, KeywordFlag.FireDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" }),
+		mod("FireDamage", "MORE", 100, bit.bor(ModFlag.Spell,ModFlag.Dot), 0, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" }),
 	},
 	qualityStats = {
 		Default = {
@@ -6609,7 +6627,7 @@ skills["RejuvenationTotem"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 10),
+		skill("radius", 40),
 	},
 	qualityStats = {
 		Default = {
@@ -6684,12 +6702,24 @@ skills["VaalRejuvenationTotem"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 21,
 	castTime = 0.1,
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+		["vaal_rejuvenation_totem_%_damage_taken_applied_to_totem_instead"] = {
+			mod("takenFromVaalRejuvenationTotemsBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		aura = true,
 		totem = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 40),
 	},
 	qualityStats = {
 		Default = {
@@ -7696,10 +7726,24 @@ skills["VaalReap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["vaal_reap_additional_maximum_blood_charges"] = {
+			mod("BloodChargesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 23),
+		skill("dotIsArea", true),
 	},
 	qualityStats = {
 		Default = {

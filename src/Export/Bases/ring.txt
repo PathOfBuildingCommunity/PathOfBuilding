@@ -2,7 +2,6 @@
 local itemBases = ...
 
 #type Ring
-#baseTags ring
 #influenceBaseTag ring
 
 #baseMatch Metadata/Items/Rings/Ring%d+

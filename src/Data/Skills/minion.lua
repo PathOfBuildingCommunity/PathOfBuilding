@@ -911,6 +911,70 @@ skills["DominatingBlowMinionCharge"] = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 4, },
 	},
 }
+skills["VaalDominationMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { damageEffectiveness = 3, attackSpeedMultiplier = -72, baseMultiplier = 3, levelRequirement = 1, },
+	},
+}
+skills["VaalDominationSunder"] = {
+	name = "Sunder",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	constantStats = {
+		{ "shockwave_slam_explosion_damage_+%_final", -60 },
+		{ "old_sunder_additional_width_per_stage", 1 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 2.7, baseMultiplier = 2.7, levelRequirement = 1, },
+	},
+}
+skills["GAVaalDominationLargeSlam"] = {
+	name = "AoE Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	constantStats = {
+		{ "melee_range_+", 15 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { attackSpeedMultiplier = -77, cooldown = 7, damageEffectiveness = 3.5, storedUses = 1, baseMultiplier = 3.5, levelRequirement = 0, },
+	},
+}
 skills["AbsolutionMinion"] = {
 	name = "Absolution",
 	hidden = true,
@@ -940,7 +1004,7 @@ skills["AbsolutionMinion"] = {
 	},
 }
 skills["AbsolutionMinionEmpowered"] = {
-	name = "Absolution",
+	name = "Empowered Absolution",
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 1.4865000247955,
@@ -966,6 +1030,87 @@ skills["AbsolutionMinionEmpowered"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, cooldown = 6, damageEffectiveness = 1.3, storedUses = 1, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AbsolutionMinionVaal"] = {
+	name = "Absolution",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 0.92720001935959,
+	incrementalEffectiveness = 0.045299999415874,
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", -35 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.8, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AbsolutionMinionVaalCascade"] = {
+	name = "Absolution Cascade",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 1.4026999473572,
+	incrementalEffectiveness = 0.045299999415874,
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "support_spell_cascade_number_of_cascades_per_side", 1 },
+		{ "active_skill_area_of_effect_radius_+%_final", -25 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"support_spell_cascade_sideways",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 2.4, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["VaalAbsolutionDelayedBlast"] = {
+	name = "AoE Blast",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.1199998855591,
+	incrementalEffectiveness = 0.045299999415874,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.33,
+	baseFlags = {
+		area = true,
+		spell = true,
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_+%_final", 300 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, cooldown = 6, damageEffectiveness = 3.2, storedUses = 1, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SummonedRhoaShieldCharge"] = {
