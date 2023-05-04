@@ -1085,7 +1085,7 @@ local function doActorMisc(env, actor)
 			local effect = modDB:Max(nil, "WitherEffectStack") 	
 			enemyDB:NewMod("ChaosDamageTaken", "INC", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
 		end
-		if modDB:Flag(nil, "Blind") then
+		if modDB:Flag(nil, "Blind") and not modDB:Flag(nil, "CannotBeBlinded") then
 			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
 				local effect = 1 + modDB:Sum("INC", nil, "BlindEffect", "BuffEffectOnSelf") / 100
 				-- Override Blind effect if set.			
