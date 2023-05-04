@@ -43,6 +43,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		local labelMatch = varData.label:lower()
 		local excludeKeywords = { "recently", "in the last", "in the past", "in last", "in past", "pvp" }
 
+		if not self.toggleConfigs then
+			return false
+		end
 		if varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag or varData.legacy then
 			return false
 		end
@@ -51,7 +54,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				return false
 			end
 		end
-		return self.toggleConfigs
+		return true
 	end
 
 	local function implyCond(varData)
@@ -712,7 +715,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self.controls.scrollBar.height = viewPort.height
-	self.controls.scrollBar:SetContentDimension(maxColY + 10, viewPort.height)
+	self.controls.scrollBar:SetContentDimension(maxColY + 30, viewPort.height)
 	for _, section in ipairs(self.sectionList) do
 		section.y = section.y - self.controls.scrollBar.offset
 	end
