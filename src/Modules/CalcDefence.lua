@@ -725,18 +725,24 @@ function calcs.defence(env, actor)
 	local weaponsCfg = {
 		flags = bit.bor(env.player.weaponData1 and env.player.weaponData1.type and ModFlag[env.player.weaponData1.type] or 0, env.player.weaponData2 and env.player.weaponData2.type and ModFlag[env.player.weaponData2.type] or 0)
 	}
+
+	-- Add weapon dependent mods as unflagged mods if the correct weapons are equipped
 	for _, value in ipairs(modDB:Tabulate("BASE",  weaponsCfg, "SpellSuppressionChance")) do
-		value.mod.flags = 0 -- Make mods that match weaponsCfg constant
+		if bit.band(value.mod.flags and weaponsCfg.flags) == value.mod.flags then
+			local mod = copyTable(value.mod)
+			mod.flags = 0
+			modDB:AddMod(mod)
+		end
 	end
+
 	local spellSuppressionChance =  modDB:Sum("BASE", nil, "SpellSuppressionChance")
-	
+	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or spellSuppressionChance
+
 	-- Dodge
 	-- Acrobatics Spell Suppression to Spell Dodge Chance conversion.
 	if modDB:Flag(nil, "ConvertSpellSuppressionToSpellDodge") then
 		modDB:NewMod("SpellDodgeChance", "BASE", spellSuppressionChance / 2, "Acrobatics")
 	end
-
-	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or spellSuppressionChance
 	
 	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
 	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect")
@@ -1122,12 +1128,7 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
 		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100
 		-- Ancestral Vision
-		for _, value in ipairs(modDB:Tabulate("BASE",  nil, "SpellSuppressionChance")) do
-			local mod = copyTable(value.mod)
-			mod.name = "AvoidElementalAilments"
-			mod.value = mod.value * spellSuppressionToAilmentPercent
-			modDB:AddMod(mod)
-		end
+		modDB:NewMod("AvoidElementalAilments", "BASE", spellSuppressionToAilmentPercent * totalSpellSuppressionChance, "Ancestral Vision")
 	end
 
 	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
