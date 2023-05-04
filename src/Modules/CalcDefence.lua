@@ -1128,7 +1128,7 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
 		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100
 		-- Ancestral Vision
-		modDB:NewMod("AvoidElementalAilments", "BASE", spellSuppressionToAilmentPercent * spellSuppressionChance, "Ancestral Vision")
+		modDB:NewMod("AvoidElementalAilments", "BASE", m_floor(spellSuppressionToAilmentPercent * spellSuppressionChance), "Ancestral Vision")
 	end
 
 	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
