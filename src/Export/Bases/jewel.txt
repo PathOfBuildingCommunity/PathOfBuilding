@@ -2,7 +2,6 @@
 local itemBases = ...
 
 #type Jewel
-#baseTags 
 #base Metadata/Items/Jewels/JewelStr
 #base Metadata/Items/Jewels/JewelDex
 #base Metadata/Items/Jewels/JewelInt
