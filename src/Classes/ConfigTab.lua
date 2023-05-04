@@ -30,13 +30,13 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self:BuildModList()
 
 	self.toggleConfigs = false
-	self.controls.toggleConfigs = new("ButtonControl", { "TOPLEFT", self, "TOPLEFT" }, 8, 5, 200, 20, function()
+	self.controls.sectionAnchor = new("Control", { "TOPLEFT", self, "TOPLEFT" }, 0, 20, 0, 0)
+	self.controls.toggleConfigs = new("ButtonControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, 10, -15, 200, 20, function()
 		-- dynamic text
 		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show All Configurations"
 	end, function()
 		self.toggleConfigs = not self.toggleConfigs
 	end)
-	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self.controls.toggleConfigs, "TOPLEFT" }, -10, 15, 0, 0, "")
 
 	-- blacklist for Show All Configurations
 	local function isShowAllConfig(varData)
@@ -716,9 +716,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 
 	self.controls.scrollBar.height = viewPort.height
 	self.controls.scrollBar:SetContentDimension(maxColY + 30, viewPort.height)
-	for _, section in ipairs(self.sectionList) do
-		section.y = section.y - self.controls.scrollBar.offset
-	end
+	self.controls.sectionAnchor.y = 20 - self.controls.scrollBar.offset
 
 	main:DrawBackground(viewPort)
 
