@@ -51,7 +51,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				return false
 			end
 		end
-		return true
+		return self.toggleConfigs
 	end
 
 	local function implyCond(varData)
@@ -166,11 +166,10 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				control.inactiveText = varData.inactiveText
 			end
 
-			local override = function() return false end
 			local shownFuncs = {}
 			control.shown = function()
 				for _, shownFunc in ipairs(shownFuncs) do
-					if not shownFunc() and not override() then
+					if not shownFunc() and not isShowAllConfig(varData) then
 						return false
 					end
 				end
@@ -447,9 +446,6 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 					return false
 				end))
-			end
-			if isShowAllConfig(varData) then
-				override = function() return self.toggleConfigs end
 			end
 
 			if varData.tooltipFunc then
