@@ -2863,6 +2863,43 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 
+	local supportedByPhantasm = false
+	if env.player.mainSkill.socketGroup ~= nil and env.player.mainSkill.socketGroup.gemList ~= nil then
+		for _, gem in ipairs(env.player.mainSkill.socketGroup.gemList) do
+			if gem.nameSpec == "Summon Phantasm" then
+				supportedByPhantasm = true
+			end
+		end
+	end
+
+	if supportedByPhantasm and not env.player.mainSkill.marked then
+		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
+		-- First, create a copy of the main skill that is supported by phantasm
+		local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, env.player.mainSkill)
+		-- Override srcInstance with a copy to break the link with UI changes
+		newSkill.activeEffect.srcInstance = copyTable(newSkill.activeEffect.srcInstance, true)
+		-- Override selected active minion and minion skill
+		newSkill.activeEffect.srcInstance.skillMinion = "SummonedPhantasm"
+		newSkill.activeEffect.srcInstance.skillMinionSkill = 2 -- Physical Projectile
+		-- Now we need to copy it again to trigger newEnv.minion recalculation for phantasms
+		newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, newSkill)
+
+		-- Assign as a main skill and perform calc
+		newEnv.player.mainSkill = newSkill
+		-- mark it so we don't recurse infinitely
+		newSkill.marked = true
+		newEnv.dontCache = true
+		calcs.perform(newEnv)
+
+		-- Store the output for later display
+		env.player.mainSkill.phantasm = { }
+		env.player.mainSkill.phantasm.count = newEnv.player.output.ActiveMinionLimit -- Correctly handles bonuses from Replica Midnight Bargain and gem level
+		env.player.mainSkill.phantasm.name = "Summoned Phantasm"
+		env.player.mainSkill.phantasm.source = env.player.mainSkill.activeEffect.grantedEffect.name -- Source skill name
+		env.player.mainSkill.phantasm.minion = {}
+		env.player.mainSkill.phantasm.minion.output = newEnv.minion.output
+	end
+
 	-- Mirage Archer Support
 	-- This creates and populates env.player.mainSkill.mirage table
 	if env.player.mainSkill.skillData.triggeredByMirageArcher and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked then

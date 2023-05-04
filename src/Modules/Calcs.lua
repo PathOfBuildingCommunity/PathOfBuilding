@@ -270,6 +270,36 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 				end
 
+				if activeSkill.phantasm then
+					if activeSkill.phantasm.minion.output.TotalDPS and activeSkill.phantasm.minion.output.TotalDPS > 0 then
+						t_insert(fullDPS.skills, { name = activeSkill.phantasm.name, dps = activeSkill.phantasm.minion.output.TotalDPS, count = activeSkill.phantasm.count, trigger = activeSkill.infoTrigger, skillPart = "Summoned by: "..activeSkill.phantasm.source })
+						fullDPS.combinedDPS = fullDPS.combinedDPS + activeSkill.phantasm.minion.output.TotalDPS * activeSkill.phantasm.count
+					end
+					if activeSkill.phantasm.minion.output.BleedDPS and activeSkill.phantasm.minion.output.BleedDPS > fullDPS.bleedDPS then
+						fullDPS.bleedDPS = activeSkill.phantasm.minion.output.BleedDPS
+						bleedSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if activeSkill.phantasm.minion.output.IgniteDPS and activeSkill.phantasm.minion.output.IgniteDPS > fullDPS.igniteDPS then
+						fullDPS.igniteDPS = activeSkill.phantasm.minion.output.IgniteDPS
+						igniteSource = activeSkill.activeEffect.grantedEffect.name
+					end
+					if activeSkill.phantasm.minion.output.PoisonDPS and activeSkill.phantasm.minion.output.PoisonDPS > 0 then
+						fullDPS.poisonDPS = fullDPS.poisonDPS + activeSkill.phantasm.minion.output.PoisonDPS * (activeSkill.phantasm.minion.output.TotalPoisonStacks or 1) * activeSkillCount
+					end
+					if activeSkill.phantasm.minion.output.ImpaleDPS and activeSkill.phantasm.minion.output.ImpaleDPS > 0 then
+						fullDPS.impaleDPS = fullDPS.impaleDPS + activeSkill.phantasm.minion.output.ImpaleDPS * activeSkillCount
+					end
+					if activeSkill.phantasm.minion.output.DecayDPS and activeSkill.phantasm.minion.output.DecayDPS > 0 then
+						fullDPS.decayDPS = fullDPS.decayDPS + activeSkill.phantasm.minion.output.DecayDPS
+					end
+					if activeSkill.phantasm.minion.output.TotalDot and activeSkill.phantasm.minion.output.TotalDot > 0 then
+						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.phantasm.minion.output.TotalDot
+					end
+					if activeSkill.phantasm.minion.output.CullMultiplier and activeSkill.phantasm.minion.output.CullMultiplier > 1 and activeSkill.phantasm.minion.output.CullMultiplier > fullDPS.cullingMulti then
+						fullDPS.cullingMulti = activeSkill.phantasm.minion.output.CullMultiplier
+					end
+				end
+
 				if activeSkill.mirage then
 					local mirageCount = (activeSkill.mirage.count or 1) * activeSkillCount
 					if activeSkill.mirage.output.TotalDPS and activeSkill.mirage.output.TotalDPS > 0 then
