@@ -550,6 +550,33 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	},
 }
 
+minions["AxisEliteSoldierDominatingBlowVaal"] = {
+	name = "Ascended Sentinel of Dominance",
+	life = 4,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.8,
+	damageSpread = 0.2,
+	attackTime = 0.83,
+	attackRange = 28,
+	accuracy = 3.4,
+	skillList = {
+		"TeleportVaalDomination",
+		"GAVaalDominationTeleportSlam",
+		"VaalDominationSunderMelee",
+		"VaalDominationSunder",
+		"GAVaalDominationLargeSlam",
+		"VaalDominationMelee",
+	},
+	modList = {
+		mod("Damage", "MORE", 200),
+		mod("DamageTaken", "MORE", -70),
+	},
+}
+
 minions["AbsolutionTemplarJudge"] = {
 	name = "Sentinel of Absolution",
 	life = 4,
@@ -571,6 +598,33 @@ minions["AbsolutionTemplarJudge"] = {
 		"AbsolutionMinionEmpowered",
 	},
 	modList = {
+	},
+}
+
+minions["AbsolutionTemplarJudgeVaal"] = {
+	name = "Ascended Sentinel of Absolution",
+	life = 4,
+	energyShield = 0.2,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.8,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"AbsolutionMinionVaal",
+		"AbsolutionMinionVaalCascade",
+		"GTVaalAbsolutionLarge",
+		"VaalAbsolutionDelayedBlast",
+		"GSVaalAbsolutionEmerge",
+	},
+	modList = {
+		mod("Damage", "MORE", 200),
+		mod("DamageTaken", "MORE", -70),
 	},
 }
 

@@ -17,6 +17,7 @@ skills["Absolution"] = {
 	castTime = 0.75,
 	minionList = {
 		"AbsolutionTemplarJudge",
+		"AbsolutionTemplarJudgeVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -116,6 +117,14 @@ skills["VaalAbsolution"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -2495,6 +2504,7 @@ skills["DominatingBlow"] = {
 	castTime = 1,
 	minionList = {
 		"AxisEliteSoldierDominatingBlow",
+		"AxisEliteSoldierDominatingBlowVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -2586,6 +2596,14 @@ skills["VaalDomination"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
