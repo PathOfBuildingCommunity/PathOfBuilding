@@ -1405,6 +1405,8 @@ function calcs.offence(env, actor, activeSkill)
 		["ESPercentPerMinute"] = { type = "ES", upfront = false, percent = true, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 	}
 	-- First pass to calculate base costs. Used for cost conversion (e.g. Petrified Blood)
+	local additionalLifeCost = skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100 -- Extra cost (e.g. Petrified Blood) calculations
+	local hybridLifeCost = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") / 100 -- Life/Mana mastery
 	for resource, val in pairs(costs) do
 		local skillCost = activeSkill.activeEffect.grantedEffectLevel.cost and activeSkill.activeEffect.grantedEffectLevel.cost[resource] or nil
 		local baseCost = round(skillCost and skillCost / data.costs[resource].Divisor or 0, 2)
@@ -1431,21 +1433,14 @@ function calcs.offence(env, actor, activeSkill)
 				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
 				costs[manaType].baseCost = 0
 				costs[manaType].baseCostNoMult = 0
-			elseif skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") > 0 then -- Extra cost (e.g. Petrified Blood) calculations
-				local portion = skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
-				val.baseCost = val.baseCost + costs[manaType].baseCost * portion
-				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * portion
-			elseif skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") > 0 then -- Life/Mana mastery
-				local life_portion = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") / 100
-				local mana_portion = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Mana") / 100
-				val.baseCost = val.baseCost + (costs[manaType].baseCost / mana_portion) * life_portion
-				val.baseCostNoMult = val.baseCostNoMult + (costs[manaType].baseCostNoMult / mana_portion) * life_portion
 			end
-		elseif val.type == "Mana" then
-			if skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Mana") > 0 then -- Life/Mana mastery
-				local portion = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Mana") / 100
-				val.baseCost = val.baseCost * portion
-				val.baseCostNoMult = val.baseCostNoMult * portion
+			if additionalLifeCost > 0 then
+				val.baseCost = val.baseCost + costs[manaType].baseCost * additionalLifeCost
+				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * additionalLifeCost
+			end
+			if hybridLifeCost > 0 then 
+				val.baseCost = val.baseCost + costs[manaType].baseCost * hybridLifeCost
+				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * hybridLifeCost
 			end
 		elseif val.type == "Rage" then
 			if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
@@ -1475,6 +1470,9 @@ function calcs.offence(env, actor, activeSkill)
 			output[costName] = m_max(0, (1 + inc / 100) * output[costName])
 			output[costName] = m_max(0, more * output[costName])
 			output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
+			if val.type == "Mana" and hybridLifeCost > 0 then -- Life/Mana Mastery
+				output[costName] = m_max(0, (1 - hybridLifeCost) * output[costName])
+			end
 		else
 			more = skillModList:More(skillCfg, val.type.."Cost")
 			inc = skillModList:Sum("INC", skillCfg, val.type.."Cost")
@@ -1501,6 +1499,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			if val.totalCost ~= 0 then
 				t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
+			end
+			if val.type == "Mana" and hybridLifeCost > 0 then
+				t_insert(breakdown[costName], s_format("x %.2f ^8(%d%% paid for with life)", (1-hybridLifeCost), hybridLifeCost*100))
 			end
 			t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 		end
@@ -3472,7 +3473,7 @@ function calcs.offence(env, actor, activeSkill)
 				if isAttack then
 					t_insert(breakdownDPS, pass.label..":")
 				end
-				if sourceHitDmg == sourceCritDmg then
+				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
 					t_insert(breakdownDPS, "Total damage:")
 					t_insert(breakdownDPS, s_format("%.1f ^8(source damage)",sourceHitDmg))
 					if sourceMult > 1 then
@@ -3581,7 +3582,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 			end
 			if globalBreakdown then
-				if sourceHitDmg == sourceCritDmg then
+				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
 					globalBreakdown.BleedDPS = {
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
@@ -4046,7 +4047,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.IgniteTotalMax = totalMax
 			end
 			if globalBreakdown then
-				if sourceHitDmg == sourceCritDmg then
+				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
 					globalBreakdown.IgniteDPS = {
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),

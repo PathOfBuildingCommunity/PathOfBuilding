@@ -1718,7 +1718,7 @@ function ItemsTabClass:UpdateCustomControls()
 			t_insert(modLines, line)
 		end
 	end
-	if item.rarity == "MAGIC" or item.rarity == "RARE" or item.crucibleModLines then
+	if item.rarity == "MAGIC" or item.rarity == "RARE" or (item.crucibleModLines and #item.crucibleModLines > 0) then
 		for index, modLine in ipairs(modLines) do
 			if modLine.custom or modLine.crafted or modLine.crucible then
 				local line = itemLib.formatModLine(modLine)

@@ -198,6 +198,9 @@ return {
 	{ var = "minionsConditionFullLife", type = "check", label = "Are your Minions always on Full ^xE05030Life?", ifMinionCond = "FullLife", apply = function(val, modList, enemyModList)
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullLife", "FLAG", true, "Config") }, "Config")
 	end },
+	{ var = "minionsConditionFullEnergyShield", type = "check", label = "Minion is always on Full ^x88FFFFEnergy Shield?", ifMinionCond = "FullEnergyShield", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:FullEnergyShield", "FLAG", true, "Config") }, "Config")
+	end },
 	{ var = "minionsConditionCreatedRecently", type = "check", label = "Have your Minions been created Recently?", ifCond = "MinionsCreatedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MinionsCreatedRecently", "FLAG", true, "Config")
 	end },
@@ -829,6 +832,10 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionLeechRemovedRecently", type = "check", label = "Did you stopped Leeching recently?", ifCond = "LeechRemovedRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LeechRemovedRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "minionsConditionLeechingEnergyShield", type = "check", label = "Minion is Leeching ^x88FFFFEnergy Shield?", ifMinionCond = "LeechingEnergyShield", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:LeechingEnergyShield", "FLAG", true, "Config") }, "Config")
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:Leeching", "FLAG", true, "Config") }, "Config")
 	end },
 	{ var = "conditionUsingFlask", type = "check", label = "Do you have a Flask active?", ifCond = "UsingFlask", tooltip = "This is automatically enabled if you have a flask active,\nbut you can use this option to force it if necessary.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:UsingFlask", "FLAG", true, "Config", { type = "Condition", var = "Combat" })

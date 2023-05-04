@@ -1106,15 +1106,6 @@ function calcs.defence(env, actor)
 	-- other avoidances etc
 	output.BlindAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidBlind"), 100)
 
-	if modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") then
-		-- Shock avoid conversion from Stormshroud
-		for _, value in ipairs(modDB:Tabulate("BASE",  nil, "AvoidShock")) do
-			if value.mod.value ~= 100 then -- immunity or cannot be ailments don't apply as they have been changed to be unique
-				value.mod.name = "AvoidElementalAilments"
-			end
-		end
-	end
-	
 	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
 		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100
 		-- Ancestral Vision
@@ -1126,11 +1117,20 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	-- This is only used for breakdown purposes
+	if modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") then
+		local base = modDB:Sum("BASE", nil, "AvoidShock")
+		if base ~= 0 then
+			modDB:NewMod("AvoidShockAppliesToElementalAilments", "BASE", base, "Stormshroud");
+		end
+	end
+
 	for _, ailment in ipairs(data.nonElementalAilmentTypeList) do
-		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments"), 100)
+		output[ailment.."AvoidChance"] = m_floor(m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments"), 100))
 	end
 	for _, ailment in ipairs(data.elementalAilmentTypeList) do
-		output[ailment.."AvoidChance"] = m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments"), 100)
+		local shockAvoidAppliesToAll = modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and ailment ~= "Shock"
+		output[ailment.."AvoidChance"] = m_floor(m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments") + (shockAvoidAppliesToAll and modDB:Sum("BASE", nil, "AvoidShock") or 0), 100))
 	end
 
 	output.CurseAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidCurse"), 100)
@@ -1147,14 +1147,16 @@ function calcs.defence(env, actor)
 	output.DebuffExpirationModifier = 10000 / (100 + output.DebuffExpirationRate)
 	output.showDebuffExpirationModifier = (output.DebuffExpirationModifier ~= 100)
 	output.SelfBlindDuration = modDB:More(nil, "SelfBlindDuration") * (100 + modDB:Sum("INC", nil, "SelfBlindDuration")) * output.DebuffExpirationModifier / 100
-	
+
+	-- This is only used for breakdown purposes
 	if modDB:Flag(nil, "IgniteDurationAppliesToElementalAilments") then
-		-- Ignite duration conversion from Firesong
-		for _, value in ipairs(modDB:Tabulate("INC",  nil, "SelfIgniteDuration")) do
-			value.mod.name = "SelfElementalAilmentDuration"
+		local inc = modDB:Sum("INC", nil, "SelfIgniteDuration");
+		local more =  modDB:More(nil, "SelfIgniteDuration");
+		if inc ~= 0 then
+			modDB:NewMod("SelfIgniteDurationToElementalAilments", "INC", inc, "Firesong");
 		end
-		for _, value in ipairs(modDB:Tabulate("MORE",  nil, "SelfIgniteDuration")) do
-			value.mod.name = "SelfElementalAilmentDuration"
+		if more ~= 1 then
+			modDB:NewMod("SelfIgniteDurationToElementalAilments", "MORE", more, "Firesong");
 		end
 	end
 
@@ -1164,8 +1166,9 @@ function calcs.defence(env, actor)
 		output["Self"..ailment.."Duration"] = inc * more / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
 	end
 	for _, ailment in ipairs(data.elementalAilmentTypeList) do
-		local more = modDB:More(nil, "Self"..ailment.."Duration", "SelfAilmentDuration", "SelfElementalAilmentDuration")
-		local inc = (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfAilmentDuration", "SelfElementalAilmentDuration")) * 100
+		local igniteAppliesToAll = modDB:Flag(nil, "IgniteDurationAppliesToElementalAilments") and ailment ~= "Ignite"
+		local more = modDB:More(nil, "Self"..ailment.."Duration", "SelfAilmentDuration", "SelfElementalAilmentDuration") * (igniteAppliesToAll and modDB:More(nil, "SelfIgniteDuration") or 1)
+		local inc = (100 + modDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfAilmentDuration", "SelfElementalAilmentDuration") + (igniteAppliesToAll and modDB:Sum("INC", nil, "SelfIgniteDuration") or 0)) * 100
 		output["Self"..ailment.."Duration"] = more * inc / (100 + output.DebuffExpirationRate + modDB:Sum("BASE", nil, "Self"..ailment.."DebuffExpirationRate"))
 	end
 	for _, ailment in ipairs(data.ailmentTypeList) do
@@ -1224,7 +1227,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				},
 			}
 		end
-		local enemyCritChance = m_max(m_min((modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100 + enemyDB:Sum("INC", nil, "CritChance") / 100) * (1 - output["ConfiguredEvadeChance"] / 100), 100), 0)
+		local enemyCritChance = enemyDB:Flag(nil, "NeverCrit") and 0 or (m_max(m_min((modDB:Override(nil, "enemyCritChance") or env.configInput["enemyCritChance"] or env.configPlaceholder["enemyCritChance"] or 0) * (1 + modDB:Sum("INC", nil, "EnemyCritChance") / 100 + enemyDB:Sum("INC", nil, "CritChance") / 100) * (1 - output["ConfiguredEvadeChance"] / 100), 100), 0))
 		local enemyCritDamage = m_max((env.configInput["enemyCritDamage"] or env.configPlaceholder["enemyCritDamage"] or 0) + enemyDB:Sum("BASE", nil, "CritMultiplier"), 0)
 		output["EnemyCritEffect"] = 1 + enemyCritChance / 100 * (enemyCritDamage / 100) * (1 - output.CritExtraDamageReduction / 100)
 		local enemyCfg = {keywordFlags = bit.bnot(KeywordFlag.MatchAll)} -- Match all keywordFlags parameter for enemy min-max damage mods

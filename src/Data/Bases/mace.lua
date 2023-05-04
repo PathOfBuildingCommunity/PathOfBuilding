@@ -286,7 +286,7 @@ itemBases["Boom Mace"] = {
 itemBases["Driftwood Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "10% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -296,7 +296,7 @@ itemBases["Driftwood Sceptre"] = {
 itemBases["Darkwood Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "12% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -306,7 +306,7 @@ itemBases["Darkwood Sceptre"] = {
 itemBases["Bronze Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "12% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -316,7 +316,7 @@ itemBases["Bronze Sceptre"] = {
 itemBases["Quartz Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "20% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -326,7 +326,7 @@ itemBases["Quartz Sceptre"] = {
 itemBases["Iron Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "14% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -336,7 +336,7 @@ itemBases["Iron Sceptre"] = {
 itemBases["Ochre Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "16% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -346,7 +346,7 @@ itemBases["Ochre Sceptre"] = {
 itemBases["Ritual Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "16% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -356,7 +356,7 @@ itemBases["Ritual Sceptre"] = {
 itemBases["Shadow Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "22% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -366,7 +366,7 @@ itemBases["Shadow Sceptre"] = {
 itemBases["Horned Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { maraketh = true, not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { maraketh = true, onehand = true, sceptre = true, not_for_sale = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Damage Penetrates 4% Elemental Resistances",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -376,7 +376,7 @@ itemBases["Horned Sceptre"] = {
 itemBases["Grinning Fetish"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "18% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -386,7 +386,7 @@ itemBases["Grinning Fetish"] = {
 itemBases["Sekhem"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "18% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -396,7 +396,7 @@ itemBases["Sekhem"] = {
 itemBases["Crystal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "30% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -406,7 +406,7 @@ itemBases["Crystal Sceptre"] = {
 itemBases["Lead Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "22% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -416,7 +416,7 @@ itemBases["Lead Sceptre"] = {
 itemBases["Blood Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "24% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -426,7 +426,7 @@ itemBases["Blood Sceptre"] = {
 itemBases["Royal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "24% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -436,7 +436,7 @@ itemBases["Royal Sceptre"] = {
 itemBases["Abyssal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "30% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -446,7 +446,7 @@ itemBases["Abyssal Sceptre"] = {
 itemBases["Stag Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { maraketh = true, not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { maraketh = true, onehand = true, sceptre = true, not_for_sale = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Damage Penetrates 4% Elemental Resistances",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -456,7 +456,7 @@ itemBases["Stag Sceptre"] = {
 itemBases["Karui Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "26% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -466,7 +466,7 @@ itemBases["Karui Sceptre"] = {
 itemBases["Tyrant's Sekhem"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "26% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -476,7 +476,7 @@ itemBases["Tyrant's Sekhem"] = {
 itemBases["Opal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "40% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -486,7 +486,7 @@ itemBases["Opal Sceptre"] = {
 itemBases["Platinum Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "30% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -496,7 +496,7 @@ itemBases["Platinum Sceptre"] = {
 itemBases["Vaal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "32% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -506,7 +506,7 @@ itemBases["Vaal Sceptre"] = {
 itemBases["Carnal Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "32% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -516,7 +516,7 @@ itemBases["Carnal Sceptre"] = {
 itemBases["Void Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { top_tier_base_item_type = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { onehand = true, sceptre = true, top_tier_base_item_type = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "40% increased Elemental Damage",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -526,7 +526,7 @@ itemBases["Void Sceptre"] = {
 itemBases["Sambar Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { maraketh = true, not_for_sale = true, onehand = true, sceptre = true, mace = true, weapon = true, one_hand_weapon = true, default = true, },
+	tags = { maraketh = true, onehand = true, sceptre = true, not_for_sale = true, weapon = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Damage Penetrates 6% Elemental Resistances",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -536,7 +536,7 @@ itemBases["Sambar Sceptre"] = {
 itemBases["Oscillating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { weapon = true, not_for_sale = true, onehand = true, sceptre = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { weapon = true, onehand = true, sceptre = true, not_for_sale = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Elemental Overload",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental", "critical" }, },
@@ -546,7 +546,7 @@ itemBases["Oscillating Sceptre"] = {
 itemBases["Stabilising Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { weapon = true, not_for_sale = true, onehand = true, sceptre = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { weapon = true, onehand = true, sceptre = true, not_for_sale = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Elemental Equilibrium",
 	implicitModTypes = { { "elemental_damage", "damage", "elemental" }, },
@@ -556,7 +556,7 @@ itemBases["Stabilising Sceptre"] = {
 itemBases["Alternating Sceptre"] = {
 	type = "Sceptre",
 	socketLimit = 3,
-	tags = { weapon = true, not_for_sale = true, onehand = true, sceptre = true, mace = true, experimental_base = true, one_hand_weapon = true, default = true, },
+	tags = { weapon = true, onehand = true, sceptre = true, not_for_sale = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "sceptre_shaper", elder = "sceptre_elder", adjudicator = "sceptre_adjudicator", basilisk = "sceptre_basilisk", crusader = "sceptre_crusader", eyrie = "sceptre_eyrie", cleansing = "sceptre_cleansing", tangle = "sceptre_tangle" },
 	implicit = "Secrets of Suffering",
 	implicitModTypes = { {  }, },
