@@ -725,9 +725,19 @@ function calcs.defence(env, actor)
 	local weaponsCfg = {
 		flags = bit.bor(env.player.weaponData1 and env.player.weaponData1.type and ModFlag[env.player.weaponData1.type] or 0, env.player.weaponData2 and env.player.weaponData2.type and ModFlag[env.player.weaponData2.type] or 0)
 	}
-	local spellSuppressionChance =  modDB:Sum("BASE", weaponsCfg, "SpellSuppressionChance")
-	local totalSpellSuppressionChance = modDB:Override(weaponsCfg, "SpellSuppressionChance") or spellSuppressionChance
-	
+
+	-- Add weapon dependent mods as unflagged mods if the correct weapons are equipped
+	for _, value in ipairs(modDB:Tabulate("BASE",  weaponsCfg, "SpellSuppressionChance")) do
+		if bit.band(value.mod.flags and weaponsCfg.flags) == value.mod.flags then
+			local mod = copyTable(value.mod)
+			mod.flags = 0
+			modDB:AddMod(mod)
+		end
+	end
+
+	local spellSuppressionChance =  modDB:Sum("BASE", nil, "SpellSuppressionChance")
+	local totalSpellSuppressionChance = modDB:Override(nil, "SpellSuppressionChance") or spellSuppressionChance
+
 	-- Dodge
 	-- Acrobatics Spell Suppression to Spell Dodge Chance conversion.
 	if modDB:Flag(nil, "ConvertSpellSuppressionToSpellDodge") then
@@ -735,11 +745,11 @@ function calcs.defence(env, actor)
 	end
 	
 	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
-	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", weaponsCfg, "SpellSuppressionEffect")
+	output.SpellSuppressionEffect = data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect")
 	
-	if env.mode_effective and modDB:Flag(weaponsCfg, "SpellSuppressionChanceIsUnlucky") then
+	if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
 		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
-	elseif env.mode_effective and modDB:Flag(weaponsCfg, "SpellSuppressionChanceIsLucky") then
+	elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
 		output.SpellSuppressionChance = (1 - (1 - output.SpellSuppressionChance / 100) ^ 2) * 100
 	end
 	
@@ -1109,12 +1119,7 @@ function calcs.defence(env, actor)
 	if modDB:Flag(nil, "SpellSuppressionAppliesToAilmentAvoidance") then
 		local spellSuppressionToAilmentPercent = (modDB:Sum("BASE", nil, "SpellSuppressionAppliesToAilmentAvoidancePercent") or 0) / 100
 		-- Ancestral Vision
-		for _, value in ipairs(modDB:Tabulate("BASE",  weaponsCfg, "SpellSuppressionChance")) do
-			local mod = copyTable(value.mod)
-			mod.name = "AvoidElementalAilments"
-			mod.value = mod.value * spellSuppressionToAilmentPercent
-			modDB:AddMod(mod)
-		end
+		modDB:NewMod("AvoidElementalAilments", "BASE", m_floor(spellSuppressionToAilmentPercent * spellSuppressionChance), "Ancestral Vision")
 	end
 
 	-- This is only used for breakdown purposes
