@@ -1130,7 +1130,7 @@ function calcs.defence(env, actor)
 	end
 	for _, ailment in ipairs(data.elementalAilmentTypeList) do
 		local shockAvoidAppliesToAll = modDB:Flag(nil, "ShockAvoidAppliesToElementalAilments") and ailment ~= "Shock"
-		output[ailment.."AvoidChance"] = m_floor(m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments") + (shockAvoidAppliesToAll and modDB:Sum("BASE", nil, "AvoidShock") or 0), 100)_
+		output[ailment.."AvoidChance"] = m_floor(m_min(modDB:Sum("BASE", nil, "Avoid"..ailment, "AvoidAilments", "AvoidElementalAilments") + (shockAvoidAppliesToAll and modDB:Sum("BASE", nil, "AvoidShock") or 0), 100))
 	end
 
 	output.CurseAvoidChance = m_min(modDB:Sum("BASE", nil, "AvoidCurse"), 100)
