@@ -624,6 +624,9 @@ skills["SupportBrutalityPlus"] = {
 		["support_brutality_physical_damage_+%_final"] = {
 			mod("PhysicalDamage", "MORE", nil),
 		},
+		["chance_to_crush_on_hit_%"] = {
+			mod("CrushChance", "BASE", nil),
+		},
 	},
 	qualityStats = {
 		Default = {
