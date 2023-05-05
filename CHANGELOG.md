@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.30.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.30.1) (2023/05/05)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.30.0...v2.30.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix Spell Suppression being doubled with some weapon combinations [\#6196](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6196) ([mortentc](https://github.com/mortentc))
+
+
 ## [v2.30.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.30.0) (2023/05/05)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.29.0...v2.30.0)
@@ -12,6 +23,7 @@
 - Add support for Energy Leech with Minions [\#6163](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6163) ([LocalIdentity](https://github.com/LocalIdentity))
 - Add support for Garb of the Ephemeral "nearby" mods [\#6144](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6144) ([Regisle](https://github.com/Regisle))
 - Add support for Shapers and Maddening Presence mods [\#6144](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6144) ([Regisle](https://github.com/Regisle))
+- Add cooldown value to Twister ([LocalIdentity](https://github.com/LocalIdentity))
 ### Fixed Crashes
 - Fix crash when searching for Timeless Jewel and using filter nodes [\#6170](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6170) ([Regisle](https://github.com/Regisle))
 - Fix error on disabling node power mid-generation [\#6182](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6182) ([Lilylicious](https://github.com/Lilylicious))
