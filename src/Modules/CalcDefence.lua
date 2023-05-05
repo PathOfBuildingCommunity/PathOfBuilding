@@ -728,7 +728,7 @@ function calcs.defence(env, actor)
 
 	-- Add weapon dependent mods as unflagged mods if the correct weapons are equipped
 	for _, value in ipairs(modDB:Tabulate("BASE",  weaponsCfg, "SpellSuppressionChance")) do
-		if bit.band(value.mod.flags and weaponsCfg.flags) == value.mod.flags then
+		if value.mod.flags ~= 0 and bit.band(value.mod.flags and weaponsCfg.flags) == value.mod.flags then
 			local mod = copyTable(value.mod)
 			mod.flags = 0
 			modDB:AddMod(mod)

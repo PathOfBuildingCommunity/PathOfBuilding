@@ -1,3 +1,8 @@
+VERSION[2.30.1][2023/05/06]
+
+--- Fixed Bugs ---
+* Fix Spell Suppression being doubled with some weapon combinations (mortentc)
+
 VERSION[2.30.0][2023/05/06]
 
 --- Implemented Enhancements ---
@@ -5,6 +10,7 @@ VERSION[2.30.0][2023/05/06]
 * Add support for Energy Leech with Minions (LocalIdentity)
 * Add support for Garb of the Ephemeral "nearby" mods (Regisle)
 * Add support for Shapers and Maddening Presence mods (Regisle)
+* Add cooldown value to Twister (LocalIdentity)
 
 --- Fixed Crashes ---
 * Fix crash when searching for Timeless Jewel and using filter nodes (Regisle)
