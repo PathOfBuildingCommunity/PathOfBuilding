@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.30.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.30.1) (2023/05/05)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.30.0...v2.30.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Other changes
+- Fix Spell Suppression being doubled with some weapon combinations [\#6196](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6196) ([mortentc](https://github.com/mortentc))
+
+
+
 ## [v2.30.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.30.0) (2023/05/05)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.29.0...v2.30.0)
