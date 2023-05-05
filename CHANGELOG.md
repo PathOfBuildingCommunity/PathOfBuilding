@@ -8,60 +8,28 @@
 
 ## What's Changed
 ### Implemented Enhancements
-- Add support for Vaal Absolution + Vaal Domination [\#6183](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6183) ([LocalIdentity](https://github.com/LocalIdentity))
-- Add support for Energy Leech with Minions [\#6163](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6163) ([LocalIdentity](https://github.com/LocalIdentity))
-- Add support for Garb of the Ephemeral "nearby" mods [\#6144](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6144) ([Regisle](https://github.com/Regisle))
-- Add support for Shapers and Maddening Presence mods [\#6144](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6144) ([Regisle](https://github.com/Regisle))
+- Add support for Vaal Absolution + Vaal Domination [\#6183](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6183) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Energy Leech with Minions [\#6163](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6163) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add support for Garb of the Ephemeral "nearby" mods [\#6144](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6144) ([Regisle](https://github.com/Regisle))
+- Add support for Shapers and Maddening Presence mods [\#6144](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6144) ([Regisle](https://github.com/Regisle))
 ### Fixed Crashes
-- Fix crash when searching for Timeless Jewel and using filter nodes [\#6170](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6170) ([Regisle](https://github.com/Regisle))
-- Fix error on disabling node power mid-generation [\#6182](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6182) ([Lilylicious](https://github.com/Lilylicious))
+- Fix crash when searching for Timeless Jewel and using filter nodes [\#6170](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6170) ([Regisle](https://github.com/Regisle))
+- Fix error on disabling node power mid-generation [\#6182](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6182) ([Lilylicious](https://github.com/Lilylicious))
 ### User Interface
-- Fix Ailments breakdown showing crit damage while you have Resolute Technique [\#6164](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6164) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix display bug for Betrayal uniques [\#6155](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6155) ([Peechey](https://github.com/Peechey))
+- Fix Ailments breakdown showing crit damage while you have Resolute Technique [\#6164](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6164) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix display bug for Betrayal uniques [\#6155](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6155) ([Peechey](https://github.com/Peechey))
 ### Fixed Bugs
-- Fix Firesong and Stormshroud effects persisting after being removed from your character [\#6145](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6145) ([Lilylicious](https://github.com/Lilylicious))
-- Fix local Flask effect mods not working with Mother's Embrace and Umbilicus Immortalis [\#6181](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6181) ([Regisle](https://github.com/Regisle))
-- Fix Sceptres and Fishing Rods having some incorrect mods in the item crafter [\#6185](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6185) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix calculation of hybrid Mana + Life costs [\#6179](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6179) ([mortentc](https://github.com/mortentc))
-- Fix Ailment avoid chance no rounding down when using Ancestral Vision [\#6174](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6174) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Suppression from Dagger mastery not working with Ancestral Vision [\#6191](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6191) ([mortentc](https://github.com/mortentc))
-- Fix Trigger skills not gaining cooldown from 'CDR per x Charge' mods [\#6186](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6186) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Exsanguinate stages scaling Ignite damage when using the Crucible conversion mod [\#6161](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6161) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix socket gems mods from Ruthless appearing in the Crucible mod list [\#6192](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6192) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Cospri's Will poison mod not working [\#6157](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6157) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix player "while blind" effects working while having "Cannot be Blinded" Saboteur node [\#6162](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6162) ([LocalIdentity](https://github.com/LocalIdentity))
-
-
-[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.29.0...v2.30.0)
-
-
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
-
-## What's Changed
-### New to Path of Building
-- Add support for Vaal Absolution + Vaal Domination [\#6183](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6183) ([LocalIdentity](https://github.com/LocalIdentity))
-- Improve or add support for more "nearby" mods [\#6144](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6144) ([Regisle](https://github.com/Regisle))
-### Fixed Crashes
-- Fix error on disabling node power mid-generation [\#6182](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6182) ([Lilylicious](https://github.com/Lilylicious))
-- Fix crash when searching for Timeless Jewel and using filter nodes [\#6170](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6170) ([Regisle](https://github.com/Regisle))
-### User Interface
-- Fix Ailments breakdown showing crit damage while you have Res Technique [\#6164](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6164) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix ItemsTab Display for Betrayal Uniques [\#6155](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6155) ([Peechey](https://github.com/Peechey))
-### Fixed Bugs
-- Correct handling of Firesong and Stormshroud [\#6145](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6145) ([Lilylicious](https://github.com/Lilylicious))
-### Other changes
-- Fix local Flask effect mods not working with Mother's Embrace and Umbilicus Immortalis [\#6181](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6181) ([Regisle](https://github.com/Regisle))
-- Fix export of tags for Sceptres and Fishing Rods [\#6185](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6185) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix calculation of hybrid mana+life costs [\#6179](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6179) ([mortentc](https://github.com/mortentc))
-- Round down Ailment Avoid chance value [\#6174](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6174) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Trigger skills not gaining cooldown from 'CDR per x Charge' mods [\#6186](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6186) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Energy Leech Support not working for Minions [\#6163](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6163) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Exsanguinate stages scaling Ignite damage with Crucible conversion mod [\#6161](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6161) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Cospri's Will poison mod not working [\#6157](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6157) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix "Cannot be Blinded" interaction with "You are Blind" keystone [\#6162](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6162) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Suppression from dagger mastery not applying to ancestral vision [\#6191](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6191) ([mortentc](https://github.com/mortentc))
-- Fix Ruthless Crucible mods appearing in mod list [\#6192](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6192) ([LocalIdentity](https://github.com/LocalIdentity))
-
+- Fix Firesong and Stormshroud effects persisting after being removed from your character [\#6145](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6145) ([Lilylicious](https://github.com/Lilylicious))
+- Fix local Flask effect mods not working with Mother's Embrace and Umbilicus Immortalis [\#6181](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6181) ([Regisle](https://github.com/Regisle))
+- Fix Sceptres and Fishing Rods having some incorrect mods in the item crafter [\#6185](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6185) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix calculation of hybrid Mana + Life costs [\#6179](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6179) ([mortentc](https://github.com/mortentc))
+- Fix Ailment avoid chance not rounding down when using Ancestral Vision [\#6174](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6174) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Suppression from Dagger mastery not working with Ancestral Vision [\#6191](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6191) ([mortentc](https://github.com/mortentc))
+- Fix Trigger skills not gaining cooldown from 'CDR per x Charge' mods [\#6186](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6186) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Exsanguinate stages scaling Ignite damage when using the Crucible conversion mod [\#6161](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6161) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix socket gems mods from Ruthless appearing in the Crucible mod list [\#6192](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6192) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Cospri's Will poison mod not working [\#6157](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6157) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix player "while blind" effects working while having "Cannot be Blinded" Saboteur node [\#6162](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6162) ([LocalIdentity](https://github.com/LocalIdentity))
 
 
 ## [v2.29.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.29.0) (2023/04/28)
