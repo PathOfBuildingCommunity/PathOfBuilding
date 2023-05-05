@@ -1,3 +1,32 @@
+VERSION[2.30.0][2023/05/06]
+
+--- Implemented Enhancements ---
+* Add support for Vaal Absolution + Vaal Domination (LocalIdentity)
+* Add support for Energy Leech with Minions (LocalIdentity)
+* Add support for Garb of the Ephemeral "nearby" mods (Regisle)
+* Add support for Shapers and Maddening Presence mods (Regisle)
+
+--- Fixed Crashes ---
+* Fix crash when searching for Timeless Jewel and using filter nodes (Regisle)
+* Fix error on disabling node power mid-generation (Lilylicious)
+
+--- User Interface ---
+* Fix Ailments breakdown showing crit damage while you have Resolute Technique (LocalIdentity)
+* Fix display bug for Betrayal uniques (Peechey)
+
+--- Fixed Bugs ---
+* Fix Firesong and Stormshroud effects persisting after being removed from your character (Lilylicious)
+* Fix local Flask effect mods not working with Mother's Embrace and Umbilicus Immortalis (Regisle)
+* Fix Sceptres and Fishing Rods having some incorrect mods in the item crafter (LocalIdentity)
+* Fix calculation of hybrid Mana + Life costs (mortentc)
+* Fix Ailment avoid chance not rounding down when using Ancestral Vision (LocalIdentity)
+* Fix Suppression from Dagger mastery not working with Ancestral Vision (mortentc)
+* Fix Trigger skills not gaining cooldown from 'CDR per x Charge' mods (LocalIdentity)
+* Fix Exsanguinate stages scaling Ignite damage when using the Crucible conversion mod (LocalIdentity)
+* Fix socket gems mods from Ruthless appearing in the Crucible mod list (LocalIdentity)
+* Fix Cospri's Will poison mod not working (LocalIdentity)
+* Fix player "while blind" effects working while having "Cannot be Blinded" Saboteur node (LocalIdentity)
+
 VERSION[2.29.0][2023/04/28]
 
 --- Implemented Enhancements ---

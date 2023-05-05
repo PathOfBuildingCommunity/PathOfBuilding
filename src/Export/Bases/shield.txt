@@ -2,7 +2,6 @@
 local itemBases = ...
 
 #type Shield
-#baseTags armour shield
 #influenceBaseTag shield
 #socketLimit 3
 

@@ -13,13 +13,6 @@ directiveTable.subType = function(state, args, out)
 	state.subType = args
 end
 
-directiveTable.baseTags = function(state, args, out)
-	state.baseTags = { "default" }
-	for tag in args:gmatch("[%w_]+") do
-		table.insert(state.baseTags, tag)
-	end
-end
-
 directiveTable.influenceBaseTag = function(state, args, out)
 	state.influenceBaseTag = args
 end
@@ -63,6 +56,8 @@ directiveTable.base = function(state, args, out)
 						table.insert(tags, tag)
 					end
 				end
+			elseif line:match("remove_tag") then
+				table.remove(tags, isValueInTable(tags, line:match("remove_tag = \"(.+)\"")))
 			elseif line:match("tag") then
 				table.insert(tags, line:match("tag = \"(.+)\""))
 			end
@@ -89,9 +84,6 @@ directiveTable.base = function(state, args, out)
 	end
 	out:write('\ttags = { ')
 	local combinedTags = { }
-	for _, tag in ipairs(state.baseTags) do
-		combinedTags[tag] = tag
-	end
 	for _, tag in ipairs(baseItemTags) do
 		combinedTags[tag] = tag
 	end
