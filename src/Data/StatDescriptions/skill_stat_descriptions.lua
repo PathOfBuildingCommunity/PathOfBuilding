@@ -36905,7 +36905,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="[DNT] Gain Infusion upon Channelling"
+					text="Gain Infusion upon Channelling"
 				}
 			}
 		},
