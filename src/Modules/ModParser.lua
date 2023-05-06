@@ -2963,6 +2963,7 @@ local specialModList = {
 		end
 		return mods
 	end,
+	["freeze enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num) } end,
 	["freeze chilled enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) } end,
 	["manabond and stormbind freeze enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, { type = "SkillName", skillNameList = { "Manabond", "Stormbind" } }) } end,
 	["(%d+)%% chance to inflict brittle on enemies when you block their damage"] = function(num) return { mod("EnemyBrittleChance", "BASE", num) } end,
