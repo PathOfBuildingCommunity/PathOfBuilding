@@ -712,7 +712,7 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
 		local isAlloc = node.alloc
 		if not isAlloc then			
-			local nodePower = (node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
+			local nodePower = (node.power and node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
 			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
 
 			nodePowerStr = formatNumSep(nodePowerStr)
@@ -1761,7 +1761,7 @@ function TreeTabClass:FindTimelessJewel()
 			if controls.socketFilter.state then
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
-					if timelessData.socketFilterDistance > 0 then
+					if (timelessData.socketFilterDistance or 0) > 0 then
 						unAllocatedNodesDistance[nodeId] = self.build.spec.nodes[nodeId].pathDist or 1000
 					end
 				end

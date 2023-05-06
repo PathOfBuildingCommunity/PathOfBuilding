@@ -9,6 +9,7 @@ local skills, mod, flag, skill = ...
 #flags spell minion duration area
 	minionList = {
 		"AbsolutionTemplarJudge",
+		"AbsolutionTemplarJudgeVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -27,6 +28,14 @@ local skills, mod, flag, skill = ...
 
 #skill VaalAbsolution
 #flags spell minion duration area
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
 #mods
 
 #skill AbyssalCry
@@ -471,6 +480,7 @@ local skills, mod, flag, skill = ...
 #flags attack melee duration minion
 	minionList = {
 		"AxisEliteSoldierDominatingBlow",
+		"AxisEliteSoldierDominatingBlowVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -486,6 +496,14 @@ local skills, mod, flag, skill = ...
 
 #skill VaalDomination
 #flags attack melee duration minion
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
 #mods
 
 #skill PuresteelBanner
@@ -624,7 +642,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #baseMod mod("Multiplier:ExsanguinateMaxStages", "BASE", 3)
 #baseMod mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true })
-#baseMod mod("FireDamage", "MORE", 100, 0, KeywordFlag.FireDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" })
+#baseMod mod("FireDamage", "MORE", 100, bit.bor(ModFlag.Spell,ModFlag.Dot), 0, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" })
 #mods
 
 #skill FlameLink

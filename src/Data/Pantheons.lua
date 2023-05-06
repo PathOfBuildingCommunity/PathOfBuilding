@@ -71,7 +71,7 @@ return {
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "Bin'aia, Crimson Rain",
+			[2] = { name = "a Redblade Warlord",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
