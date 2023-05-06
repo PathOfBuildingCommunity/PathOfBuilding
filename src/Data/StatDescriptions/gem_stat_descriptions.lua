@@ -3781,7 +3781,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% chance to Trigger Supported Spells when you take a total of {2} Damage"
+					text="{0}% chance to Trigger Supported Spells when you take {2} total Damage from Hits"
 				},
 				[2]={
 					limit={
@@ -3798,7 +3798,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Trigger Supported Spells when you take a total of {2} Damage"
+					text="Trigger Supported Spells when you take {2} total Damage from Hits"
 				}
 			}
 		},
@@ -17154,33 +17154,72 @@ return {
 				[1]={
 					[1]={
 						k="milliseconds_to_seconds",
-						v=1
-					},
-					limit={
-						[1]={
-							[1]=1000,
-							[2]=1000
-						}
-					},
-					text="Gain Infusion after Channelling a Supported Skill for {0} second"
-				},
-				[2]={
-					[1]={
-						k="milliseconds_to_seconds",
-						v=1
+						v=2
 					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
+						},
+						[2]={
+							[1]=1000,
+							[2]=1000
 						}
 					},
-					text="Gain Infusion after Channelling a Supported Skill for {0} seconds"
+					text="Gain Infusion after Channelling a Supported Skill for {1} second"
+				},
+				[2]={
+					[1]={
+						k="milliseconds_to_seconds",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Gain Infusion after Channelling a Supported Skill for {1} seconds"
+				},
+				[3]={
+					[1]={
+						k="milliseconds_to_seconds",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Gain Infusion after Channelling a Supported Skill for {1} seconds"
+				},
+				[4]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]=1
+						},
+						[2]={
+							[1]="#",
+							[2]=0
+						}
+					},
+					text="Gain Infusion upon Channelling a Supported Skill"
 				}
 			}
 		},
 		stats={
-			[1]="support_storm_barrier_damage_buff_time_threshold_ms"
+			[1]="support_storm_barrier_damage_buff_uses_time_threshold",
+			[2]="support_storm_barrier_damage_buff_time_threshold_ms"
 		}
 	},
 	[596]={
@@ -19170,6 +19209,7 @@ return {
 	["support_storm_barrier_damage_+%_final"]=596,
 	["support_storm_barrier_damage_buff_base_duration_ms"]=594,
 	["support_storm_barrier_damage_buff_time_threshold_ms"]=595,
+	["support_storm_barrier_damage_buff_uses_time_threshold"]=595,
 	["support_storm_barrier_physical_damage_taken_when_hit_+%_final"]=597,
 	["support_storm_barrier_skill_type_damage_+%_final"]=598,
 	["support_storm_barrier_skill_type_damage_taken_when_hit_+%_final"]=599,

@@ -2,7 +2,6 @@
 local itemBases = ...
 
 #type Quiver
-#baseTags quiver
 #influenceBaseTag quiver
 #forceHide true
 #baseMatch Metadata/Items/Quivers/Quiver%d[0123]?$

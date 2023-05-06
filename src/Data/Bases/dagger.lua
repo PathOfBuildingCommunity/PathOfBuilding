@@ -5,7 +5,7 @@ local itemBases = ...
 itemBases["Glass Shank"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
@@ -15,7 +15,7 @@ itemBases["Glass Shank"] = {
 itemBases["Skinning Knife"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
@@ -25,7 +25,7 @@ itemBases["Skinning Knife"] = {
 itemBases["Stiletto"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
@@ -35,7 +35,7 @@ itemBases["Stiletto"] = {
 itemBases["Prong Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { maraketh = true, one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { maraketh = true, one_hand_weapon = true, onehand = true, not_for_sale = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "4% Chance to Block Attack Damage",
 	implicitModTypes = { { "block" }, },
@@ -45,7 +45,7 @@ itemBases["Prong Dagger"] = {
 itemBases["Flaying Knife"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
@@ -55,7 +55,7 @@ itemBases["Flaying Knife"] = {
 itemBases["Poignard"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
@@ -65,7 +65,7 @@ itemBases["Poignard"] = {
 itemBases["Trisula"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { maraketh = true, one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { maraketh = true, one_hand_weapon = true, onehand = true, not_for_sale = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "4% Chance to Block Attack Damage",
 	implicitModTypes = { { "block" }, },
@@ -75,7 +75,7 @@ itemBases["Trisula"] = {
 itemBases["Gutting Knife"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
@@ -85,7 +85,7 @@ itemBases["Gutting Knife"] = {
 itemBases["Ambusher"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { onehand = true, one_hand_weapon = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { onehand = true, one_hand_weapon = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "30% increased Global Critical Strike Chance",
 	implicitModTypes = { { "critical" }, },
@@ -95,7 +95,7 @@ itemBases["Ambusher"] = {
 itemBases["Sai"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { maraketh = true, one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { maraketh = true, one_hand_weapon = true, onehand = true, not_for_sale = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "6% Chance to Block Attack Damage",
 	implicitModTypes = { { "block" }, },
@@ -105,7 +105,7 @@ itemBases["Sai"] = {
 itemBases["Hollowpoint Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { weapon = true, one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, experimental_base = true, attack_dagger = true, default = true, },
+	tags = { weapon = true, one_hand_weapon = true, onehand = true, not_for_sale = true, attack_dagger = true, experimental_base = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "All Damage from Hits with This Weapon can Poison",
 	implicitModTypes = { {  }, },
@@ -115,7 +115,7 @@ itemBases["Hollowpoint Dagger"] = {
 itemBases["Pressurised Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { weapon = true, one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, experimental_base = true, attack_dagger = true, default = true, },
+	tags = { weapon = true, one_hand_weapon = true, onehand = true, not_for_sale = true, attack_dagger = true, experimental_base = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "All Damage from Hits with This Weapon can Poison",
 	implicitModTypes = { {  }, },
@@ -125,7 +125,7 @@ itemBases["Pressurised Dagger"] = {
 itemBases["Pneumatic Dagger"] = {
 	type = "Dagger",
 	socketLimit = 3,
-	tags = { weapon = true, one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, experimental_base = true, attack_dagger = true, default = true, },
+	tags = { weapon = true, one_hand_weapon = true, onehand = true, not_for_sale = true, attack_dagger = true, experimental_base = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicit = "All Damage from Hits with This Weapon can Poison",
 	implicitModTypes = { {  }, },
@@ -136,7 +136,7 @@ itemBases["Ethereal Blade"] = {
 	type = "Dagger",
 	hidden = true,
 	socketLimit = 3,
-	tags = { one_hand_weapon = true, onehand = true, not_for_sale = true, dagger = true, weapon = true, attack_dagger = true, default = true, },
+	tags = { one_hand_weapon = true, onehand = true, not_for_sale = true, attack_dagger = true, weapon = true, dagger = true, default = true, },
 	influenceTags = { shaper = "dagger_shaper", elder = "dagger_elder", adjudicator = "dagger_adjudicator", basilisk = "dagger_basilisk", crusader = "dagger_crusader", eyrie = "dagger_eyrie", cleansing = "dagger_cleansing", tangle = "dagger_tangle" },
 	implicitModTypes = { },
 	weapon = { PhysicalMin = 4, PhysicalMax = 8, CritChanceBase = 6, AttackRateBase = 1.5, Range = 10, },

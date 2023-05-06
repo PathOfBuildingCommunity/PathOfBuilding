@@ -3313,6 +3313,7 @@ skills["SupportStormBarrier"] = {
 	stats = {
 		"support_storm_barrier_damage_+%_final",
 		"support_storm_barrier_damage_buff_time_threshold_ms",
+		"support_storm_barrier_damage_buff_uses_time_threshold",
 	},
 	levels = {
 		[1] = { 15, 1600, manaMultiplier = 30, levelRequirement = 4, statInterpolation = { 1, 1, }, },
