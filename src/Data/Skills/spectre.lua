@@ -891,6 +891,7 @@ skills["GoatmanFireMagmaOrb"] = {
 		spell = true,
 		area = true,
 		projectile = true,
+		chaining = true,
 	},
 	constantStats = {
 		{ "base_cast_speed_+%", 30 },
@@ -1038,6 +1039,7 @@ skills["GuardianArc"] = {
 	castTime = 0.8,
 	baseFlags = {
 		spell = true,
+		chaining = true,
 	},
 	constantStats = {
 		{ "base_chance_to_shock_%", 5 },
@@ -1618,6 +1620,7 @@ skills["MonsterArc"] = {
 	castTime = 0.8,
 	baseFlags = {
 		spell = true,
+		chaining = true,
 	},
 	constantStats = {
 		{ "base_chance_to_shock_%", 10 },
@@ -2683,6 +2686,7 @@ skills["MotherOfFlamesMagmaOrb3"] = {
 		spell = true,
 		projectile = true,
 		area = true,
+		chaining = true,
 	},
 	constantStats = {
 		{ "base_cast_speed_+%", -66 },

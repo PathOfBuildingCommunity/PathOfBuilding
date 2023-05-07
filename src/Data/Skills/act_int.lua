@@ -2351,6 +2351,7 @@ skills["DarkPact"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		chaining = true,
 	},
 	baseMods = {
 		skill("radius", 26),
@@ -9884,6 +9885,7 @@ skills["ConduitSigil"] = {
 		area = true,
 		duration = true,
 		brand = true,
+		chaining = true,
 	},
 	baseMods = {
 		skill("radius", 9),

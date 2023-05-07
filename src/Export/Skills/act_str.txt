@@ -628,7 +628,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Exsanguinate
-#flags spell duration
+#flags spell duration chaining
 	statMap = {
 		["base_physical_damage_to_deal_per_minute"] = {
 			skill("PhysicalDot", nil, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
