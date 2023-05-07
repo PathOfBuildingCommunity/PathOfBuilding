@@ -683,17 +683,22 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 							end
 						end
 						list[currentModType] = list[currentModType] or {}
-						if not list[currentModType][currentName] then
-							list[currentModType][currentName] = {
+						local listElement = list[currentModType]
+						if currentName:sub(1,4) == "Vaal" then
+							list[currentModType]["Vaal"] = list[currentModType]["Vaal"] or {}
+							listElement = list[currentModType]["Vaal"]
+						end
+						if not listElement[currentName] then
+							listElement[currentName] = {
 								modList = new("ModList"),
 								effectMult = currentEffect
 							}
 							if isMark then
-								list[currentModType][currentName].isMark = true
+								listElement[currentName].isMark = true
 							end
-						elseif list[currentModType][currentName].effectMult ~= currentEffect then
-							if list[currentModType][currentName].effectMult < currentEffect then
-								list[currentModType][currentName] = {
+						elseif listElement[currentName].effectMult ~= currentEffect then
+							if listElement[currentName].effectMult < currentEffect then
+								listElement[currentName] = {
 									modList = new("ModList"),
 									effectMult = currentEffect
 								}
@@ -706,7 +711,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 								_, mod.source = mod.source:match("Item:(%d+):(.+)")
 								mod.source = "Party - "..mod.source
 							end
-							list[currentModType][currentName].modList:AddMod(mod)
+							listElement[currentName].modList:AddMod(mod)
 						end
 					end
 				end
@@ -717,11 +722,27 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				local labelList = {}
 				label.label = "^7---------------------------\n"
 				for aura, auraMod in pairs(list["Aura"] or {}) do
-					t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
+					if aura ~= "Vaal" then
+						t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
+					end
+				end
+				if list["Aura"] and list["Aura"]["Vaal"] then
+					for aura, auraMod in pairs(list["Aura"]["Vaal"]) do
+						t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
+					end
 				end
 				for aura, auraMod in pairs(list["AuraDebuff"] or {}) do
 					if not list["Aura"] or not list["Aura"][aura] then
-						t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
+						if aura ~= "Vaal" then
+							t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
+						end
+					end
+				end
+				if list["AuraDebuff"] and list["AuraDebuff"]["Vaal"] then
+					if not list["Aura"] or not list["Aura"]["Vaal"] or not list["Aura"]["Vaal"][aura] then
+						for aura, auraMod in pairs(list["AuraDebuff"]["Vaal"]) do
+							t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
+						end
 					end
 				end
 				if #labelList > 0 then
