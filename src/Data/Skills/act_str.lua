@@ -3226,6 +3226,7 @@ skills["Exsanguinate"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
+		chaining = true,
 	},
 	baseMods = {
 		skill("debuff", true),

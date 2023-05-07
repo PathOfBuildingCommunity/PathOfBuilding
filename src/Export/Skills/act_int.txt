@@ -527,7 +527,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill DarkPact
-#flags spell area
+#flags spell area chaining
 	parts = {
 		{
 			name = "Cast on Player",
@@ -2147,7 +2147,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill ConduitSigil
-#flags spell area duration brand
+#flags spell area duration brand chaining
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
