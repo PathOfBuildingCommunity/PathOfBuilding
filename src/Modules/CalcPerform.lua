@@ -2046,6 +2046,14 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, minionBuffs, buff.name)
 					end
+					if env.build.partyTab.enableExportBuffs and (buff.name == "Harbinger of Time" or buff.name == "Greater Harbinger of Time") then -- special case
+						local srcList = new("ModList")
+						local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
+						local more = modStore:More(skillCfg, "BuffEffect")
+						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+						buffExports["Aura"]["otherEffects"] = buffExports["Aura"]["otherEffects"] or { effectMult = 1, modList = new("ModList") }
+						buffExports["Aura"]["otherEffects"].modList:AddMod(srcList[1])
+					end
 				end
 			elseif buff.type == "Guard" then
 				if env.mode_buffs and (not activeSkill.skillFlags.totem or buff.allowTotemBuff) then
@@ -2337,6 +2345,39 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 							mergeBuff(srcList, debuffs, buff.name)
 						end
 					end
+				end
+			end
+		end
+	end
+	if allyBuffs["otherEffects"] then
+		for _, buff in pairs(allyBuffs["otherEffects"]) do
+			local buffName = ""
+			for _, buffStats in ipairs(buff.modList) do
+				for _, tag in ipairs(buffStats) do
+					if tag.effectType and tag.effectType == "Buff" then
+						buffName = tag.effectName
+						modDB.conditions["AffectedBy"..tag.effectName:gsub(" ","")] = true
+						if env.minion then
+							env.minion.modDB.conditions["AffectedBy"..tag.effectName:gsub(" ","")] = true
+						end
+					end
+				end
+			end
+			local modList = buff.modList
+			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+			if buffName then
+				mergeBuff(modList, buffs, buffName)
+			else
+				modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+			end
+			if env.minion then
+				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+				if buffName then
+					mergeBuff(modList, minionBuffs, buffName)
+				else
+					env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
 				end
 			end
 		end
@@ -3945,7 +3986,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 								break
 							end
 						end
-						ConPrintTable({v2})
+						--ConPrintTable({v2})
                         if not skipValue and (not v2[1] or ((v2[1].type ~= "Condition" or (enemyDB.mods["Condition:"..v2[1].var] and enemyDB.mods["Condition:"..v2[1].var][1].value)) and (v2[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v2[1].var] and enemyDB.mods["Multiplier:"..v2[1].var][1].value)))) then
                             buffExports["EnemyMods"][k] = v2
                         end
