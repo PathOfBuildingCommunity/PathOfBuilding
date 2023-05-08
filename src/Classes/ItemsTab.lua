@@ -62,10 +62,19 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	-- PoB Trader class initialization
 	self.tradeQuery = new("TradeQuery", self)
 
+	local function loadSetLinks(value)
+		if self.build.setManagerTab.enabled then
+			if self.build.setManagerTab.itemSetLinks[value] then
+				self.build.treeTab:SetActiveSpecByVal(self.build.setManagerTab.itemSetLinks[value].treeSet)
+				self.build.skillsTab:SetActiveSkillSetByVal(self.build.setManagerTab.itemSetLinks[value].skillSet)
+			end
+		end
+	end
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 216, 20, nil, function(index, value)
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
+		loadSetLinks(value)
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
@@ -153,6 +162,8 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
+			-- TODO: local function works for Loading from TreeTab select, class function fails from both ItemTab and TreeTab on self.build == nil?
+			--self.build.treeTab:LoadSetLinks(value)
 		end
 	end)
 	self.controls.specSelect.enabled = function()
@@ -1232,6 +1243,14 @@ function ItemsTabClass:SetActiveItemSet(itemSetId)
 	end
 	self.build.buildFlag = true
 	self:PopulateSlots()
+end
+
+function ItemsTabClass:SetActiveItemSetByVal(itemSetTitle)
+	for _, set in pairs(self.itemSets) do
+		if set.title == itemSetTitle or (itemSetTitle == "Default" and not set.title) then
+			self:SetActiveItemSet(set.id)
+		end
+	end
 end
 
 -- Equips the given item in the given item set

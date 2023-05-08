@@ -481,6 +481,10 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.viewMode = "PARTY"
 	end)
 	self.controls.modeParty.locked = function() return self.viewMode == "PARTY" end
+	self.controls.modeSetManager = new("ButtonControl", {"LEFT",self.controls.modeParty,"RIGHT"}, 4, 0, 100, 20, "Set Manager", function()
+		self.viewMode = "SETMANAGER"
+	end)
+	self.controls.modeSetManager.locked = function() return self.viewMode == "SETMANAGER" end
 	-- Skills
 	self.controls.mainSkillLabel = new("LabelControl", {"TOPLEFT",self.anchorSideBar,"TOPLEFT"}, 0, 80, 300, 16, "^7Main Skill:")
 	self.controls.mainSocketGroup = new("DropDownControl", {"TOPLEFT",self.controls.mainSkillLabel,"BOTTOMLEFT"}, 0, 2, 300, 18, nil, function(index, value)
@@ -615,6 +619,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.treeTab = new("TreeTab", self)
 	self.skillsTab = new("SkillsTab", self)
 	self.calcsTab = new("CalcsTab", self)
+	self.setManagerTab = new("SetManagerTab", self)
 
 	-- Load sections from the build file
 	self.savers = {
@@ -626,6 +631,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		["Items"] = self.itemsTab,
 		["Skills"] = self.skillsTab,
 		["Calcs"] = self.calcsTab,
+		["SetManager"] = self.setManagerTab,
 		["Import"] = self.importTab,
 	}
 	self.legacyLoaders = { -- Special loaders for legacy sections
@@ -946,6 +952,7 @@ function buildMode:ResetModFlags()
 	self.modFlag = false
 	self.notesTab.modFlag = false
 	self.partyTab.modFlag = false
+	self.setManagerTab.modFlag = false
 	self.configTab.modFlag = false
 	self.treeTab.modFlag = false
 	self.treeTab.searchFlag = false
@@ -1056,6 +1063,8 @@ function buildMode:OnFrame(inputEvents)
 		self.importTab:Draw(tabViewPort, inputEvents)  
 	elseif self.viewMode == "NOTES" then
 		self.notesTab:Draw(tabViewPort, inputEvents)
+	elseif self.viewMode == "SETMANAGER" then
+		self.setManagerTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "PARTY" then
 		self.partyTab:Draw(tabViewPort, inputEvents)
 	elseif self.viewMode == "CONFIG" then
@@ -1070,7 +1079,7 @@ function buildMode:OnFrame(inputEvents)
 		self.calcsTab:Draw(tabViewPort, inputEvents)
 	end
 
-	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
+	self.unsaved = self.modFlag or self.notesTab.modFlag or self.partyTab.modFlag or self.setManagerTab.modFlag or self.configTab.modFlag or self.treeTab.modFlag or self.treeTab.searchFlag or self.spec.modFlag or self.skillsTab.modFlag or self.itemsTab.modFlag or self.calcsTab.modFlag
 
 	SetDrawLayer(5)
 

@@ -34,10 +34,20 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
 
+	local function loadSetLinks(value)
+		if self.build.setManagerTab.enabled then
+			if self.build.setManagerTab.treeSetLinks[value] then
+				self.build.skillsTab:SetActiveSkillSetByVal(self.build.setManagerTab.treeSetLinks[value].skillSet)
+				self.build.itemsTab:SetActiveItemSetByVal(self.build.setManagerTab.treeSetLinks[value].itemSet)
+			end
+		end
+	end
+
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self.build.modFlag = true
 			self:SetActiveSpec(index)
+			loadSetLinks(value)
 		else
 			self:OpenSpecManagePopup()
 		end
@@ -2092,4 +2102,23 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 
 	main:OpenPopup(910, 517, "Find a Timeless Jewel", controls)
+end
+
+function TreeTabClass:LoadSetLinks(value)
+	if self.build.setManagerTab.enabled then
+		if self.build.setManagerTab.treeSetLinks[value] then
+			self.build.skillsTab:SetActiveSkillSetByVal(self.build.setManagerTab.treeSetLinks[value].skillSet)
+			self.build.itemsTab:SetActiveItemSetByVal(self.build.setManagerTab.treeSetLinks[value].itemSet)
+		end
+	end
+end
+
+function TreeTabClass:SetActiveSpecByVal(treeSetTitle)
+	if self.specList then
+		for index, spec in ipairs(self.specList) do
+			if spec.title == treeSetTitle or (treeSetTitle == "Default" and not spec.title) then
+				self:SetActiveSpec(index)
+			end
+		end
+	end
 end

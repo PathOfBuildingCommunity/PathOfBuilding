@@ -92,11 +92,20 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.defaultGemLevel = "normalMaximum"
 	self.defaultGemQuality = main.defaultGemQuality
 
+	local function loadSetLinks(value)
+		if self.build.setManagerTab.enabled then
+			if self.build.setManagerTab.skillSetLinks[value] then
+				self.build.treeTab:SetActiveSpecByVal(self.build.setManagerTab.skillSetLinks[value].treeSet)
+				self.build.itemsTab:SetActiveItemSetByVal(self.build.setManagerTab.skillSetLinks[value].itemSet)
+			end
+		end
+	end
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, 76, 8, 210, 20, nil, function(index, value)
 		self:SetActiveSkillSet(self.skillSetOrderList[index])
 		self:SetDisplayGroup(self.socketGroupList[1])
 		self:AddUndoState()
+		loadSetLinks(value)
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
@@ -1326,4 +1335,12 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	self.controls.groupList.list = self.socketGroupList
 	self.activeSkillSetId = skillSetId
 	self.build.buildFlag = true
+end
+
+function SkillsTabClass:SetActiveSkillSetByVal(skillSetTitle)
+	for _, set in pairs(self.skillSets) do
+		if set.title == skillSetTitle or (skillSetTitle == "Default" and not set.title) then
+			self:SetActiveSkillSet(set.id)
+		end
+	end
 end
