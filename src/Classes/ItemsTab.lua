@@ -162,8 +162,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
-			-- TODO: local function works for Loading from TreeTab select, class function fails from both ItemTab and TreeTab on self.build == nil?
-			--self.build.treeTab:LoadSetLinks(value)
+			self.build.treeTab:LoadSetLinks(value)
 		end
 	end)
 	self.controls.specSelect.enabled = function()
