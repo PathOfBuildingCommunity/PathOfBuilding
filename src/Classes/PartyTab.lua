@@ -13,8 +13,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.Control()
 
 	self.build = build
-	
-	self.processedInput = { Aura = {}, Curse = {} }
+
+	self.actor = { Aura = {}, Curse = {}, Link = {}, ModList = new("ModList") }
 	self.enemyModList = new("ModList")
 	self.buffExports = {}
 	self.enableExportBuffs = false
@@ -76,20 +76,20 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
 			self.controls.simpleAuras.label = ""
 			self.controls.editAuras:SetText("")
-			wipeTable(self.processedInput["Aura"])
-			self.processedInput["Aura"] = {}
+			wipeTable(self.actor["Aura"])
+			self.actor["Aura"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
 			self.controls.simpleCurses.label = ""
 			self.controls.editCurses:SetText("")
-			wipeTable(self.processedInput["Curse"])
-			self.processedInput["Curse"] = {}
+			wipeTable(self.actor["Curse"])
+			self.actor["Curse"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
 			self.controls.simpleLinks.label = "^7Link Skills are not currently supported"
 			self.controls.editCurses:SetText("")
-			wipeTable(self.processedInput["Link"])
-			self.processedInput["Link"] = {}
+			wipeTable(self.actor["Link"])
+			self.actor["Link"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
 			self.controls.simpleEnemyCond.label = "^7---------------------------\n"
@@ -153,18 +153,18 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			clearInputText()
 		else
 			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
-				wipeTable(self.processedInput["Aura"])
-				self.processedInput["Aura"] = {}
+				wipeTable(self.actor["Aura"])
+				self.actor["Aura"] = {}
 			end
 			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
 				currentCurseBuffer = self.controls.editCurses.buf
 				self.controls.editCurses:SetText("") --curses do not play nicely with append atm, need to fix
-				wipeTable(self.processedInput["Curse"])
-				self.processedInput["Curse"] = {}
+				wipeTable(self.actor["Curse"])
+				self.actor["Curse"] = {}
 			end
 			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
-				wipeTable(self.processedInput["Link"])
-				self.processedInput["Link"] = {}
+				wipeTable(self.actor["Link"])
+				self.actor["Link"] = {}
 			end
 		end
 		
@@ -191,7 +191,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 									node[1] = self.controls.editAuras.buf.."\n"..(node[1] or "")
 								end
 								self.controls.editAuras:SetText(node[1] or "")
-								self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
+								self:ParseBuffs(self.actor["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
 							end
 						elseif node.attrib.name == "Curse" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Curse" then
@@ -202,7 +202,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 									node[1] = currentCurseBuffer
 								end
 								self.controls.editCurses:SetText(node[1] or "")
-								self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
+								self:ParseBuffs(self.actor["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
 							end
 						elseif node.attrib.name == "Link Skills" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
@@ -210,7 +210,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 									node[1] = self.controls.editLinks.buf.."\n"..(node[1] or "")
 								end
 								self.controls.editLinks:SetText(node[1] or "")
-								self:ParseBuffs(self.processedInput["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
+								self:ParseBuffs(self.actor["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
 							end
 						elseif node.attrib.name == "EnemyConditions" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
@@ -308,22 +308,22 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end
 	
 	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, 8, 0, 160, UIGuides.buttonHeight, "Disable Party Effects", function() 
-		wipeTable(self.processedInput)
+		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
-		self.processedInput = { Aura = {}, Curse = {}, Link = {} }
+		self.actor = { Aura = {}, Curse = {}, Link = {}, ModList = new("ModList") }
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
 	self.controls.removeEffects.tooltipText = "^7Removes the effects of the supports, without removing the data\nUse \"rebuild all\" to apply the effects again"
 	
 	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, UIGuides.buttonHeight, "^7Rebuild All", function() 
-		wipeTable(self.processedInput)
+		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
-		self.processedInput = { Aura = {}, Curse = {}, Link = {} }
+		self.actor = { Aura = {}, Curse = {}, Link = {}, ModList = new("ModList") }
 		self.enemyModList = new("ModList")
-		self:ParseBuffs(self.processedInput["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
-		self:ParseBuffs(self.processedInput["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
-		self:ParseBuffs(self.processedInput["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
+		self:ParseBuffs(self.actor["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
+		self:ParseBuffs(self.actor["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
+		self:ParseBuffs(self.actor["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
 		self:ParseBuffs(self.enemyModList, self.controls.enemyCond.buf, "EnemyConditions")
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods", self.controls.simpleEnemyMods)
 		self.build.buildFlag = true 
@@ -438,13 +438,13 @@ function PartyTabClass:Load(xml, fileName)
 				ConPrintf("missing name")
 			elseif node.attrib.name == "Aura" then
 				self.controls.editAuras:SetText(node[1] or "")
-				self:ParseBuffs(self.processedInput["Aura"], node[1] or "", "Aura", self.controls.simpleAuras)
+				self:ParseBuffs(self.actor["Aura"], node[1] or "", "Aura", self.controls.simpleAuras)
 			elseif node.attrib.name == "Curse" then
 				self.controls.editCurses:SetText(node[1] or "")
-				self:ParseBuffs(self.processedInput["Curse"], node[1] or "", "Curse", self.controls.simpleCurses)
+				self:ParseBuffs(self.actor["Curse"], node[1] or "", "Curse", self.controls.simpleCurses)
 			elseif node.attrib.name == "Link Skills" then
 				self.controls.editLinks:SetText(node[1] or "")
-				self:ParseBuffs(self.processedInput["Link"], node[1] or "", "Link", self.controls.simpleLinks)
+				self:ParseBuffs(self.actor["Link"], node[1] or "", "Link", self.controls.simpleLinks)
 			elseif node.attrib.name == "EnemyConditions" then
 				self.controls.enemyCond:SetText(node[1] or "")
 				self:ParseBuffs(self.enemyModList, node[1] or "", "EnemyConditions")

@@ -1221,6 +1221,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	env.player.output = { }
 	env.enemy.output = { }
 	local output = env.player.output
+	
+	env.partyMembers = env.build.partyTab.actor
+	env.player.partyMembers = env.partyMembers
+	local partyTabEnableExportBuffs = env.build.partyTab.enableExportBuffs
 
 	env.minion = env.player.mainSkill.minion
 	if env.minion then
@@ -1999,7 +2003,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	local minionCurses = {
 		limit = 1,
 	}
-	local allyBuffs = env.build.partyTab.processedInput["Aura"]
+	local allyBuffs = env.partyMembers["Aura"]
 	local buffExports = { Aura = {}, Curse = {}, EnemyMods = {}, EnemyConditions = {} }
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
@@ -2046,7 +2050,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 						mergeBuff(srcList, minionBuffs, buff.name)
 					end
-					if env.build.partyTab.enableExportBuffs and (buff.name == "Harbinger of Time" or buff.name == "Greater Harbinger of Time") then -- special case
+					if partyTabEnableExportBuffs and (buff.name == "Harbinger of Time" or buff.name == "Greater Harbinger of Time") then -- special case
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
 						local more = modStore:More(skillCfg, "BuffEffect")
 						buffExports["Aura"]["otherEffects"] = buffExports["Aura"]["otherEffects"] or { }
@@ -2226,7 +2230,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					if buff.type == "Curse" then
 						curse.modList = new("ModList")
 						curse.modList:ScaleAddList(buff.modList, mult)
-						if env.build.partyTab.enableExportBuffs then
+						if partyTabEnableExportBuffs then
 							buffExports["Curse"][buff.name] = { isMark = curse.isMark, effectMult = curse.isMark and mult or (1 + inc / 100) * moreMark, modList = buff.modList }
 						end
 					else
@@ -2524,7 +2528,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 	local allyCurses = {}
-	local allyPartyCurses = env.build.partyTab.processedInput["Curse"]
+	local allyPartyCurses = env.partyMembers["Curse"]
 	if allyPartyCurses["Curse"] then
 		allyCurses.limit = allyPartyCurses.limit
 	else	
@@ -3954,7 +3958,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	end
 
 	 -- Export modifiers to enemy conditions and stats for party tab
-	if env.build.partyTab.enableExportBuffs then
+	if partyTabEnableExportBuffs then
 		for k, v in pairs(enemyDB.mods) do
             if k:find("Condition") and not k:find("Party") then
                 buffExports["EnemyConditions"][k] = true
