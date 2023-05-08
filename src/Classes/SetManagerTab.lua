@@ -298,7 +298,6 @@ function SetManagerTabClass:Save(xml)
 end
 
 function SetManagerTabClass:Load(xml)
-	self:ResetLinks()
 	if xml.attrib then
 		self.enabled = xml.attrib.enabled == "true"
 		self.controls.enabled.state = self.enabled
