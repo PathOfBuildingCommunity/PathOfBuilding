@@ -2047,12 +2047,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 						mergeBuff(srcList, minionBuffs, buff.name)
 					end
 					if env.build.partyTab.enableExportBuffs and (buff.name == "Harbinger of Time" or buff.name == "Greater Harbinger of Time") then -- special case
-						local srcList = new("ModList")
 						local inc = modStore:Sum("INC", skillCfg, "BuffEffect") + skillModList:Sum("INC", skillCfg, buff.name:gsub(" ", "").."Effect")
 						local more = modStore:More(skillCfg, "BuffEffect")
-						srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-						buffExports["Aura"]["otherEffects"] = buffExports["Aura"]["otherEffects"] or { effectMult = 1, modList = new("ModList") }
-						buffExports["Aura"]["otherEffects"].modList:AddMod(srcList[1])
+						buffExports["Aura"]["otherEffects"] = buffExports["Aura"]["otherEffects"] or { }
+						buffExports["Aura"]["otherEffects"][buff.name] =  { effectMult = (1 + inc / 100) * more, modList = buff.modList }
 					end
 				end
 			elseif buff.type == "Guard" then
@@ -2350,35 +2348,20 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 	if allyBuffs["otherEffects"] then
-		for _, buff in pairs(allyBuffs["otherEffects"]) do
-			local buffName = ""
-			for _, buffStats in ipairs(buff.modList) do
-				for _, tag in ipairs(buffStats) do
-					if tag.effectType and tag.effectType == "Buff" then
-						buffName = tag.effectName
-						modDB.conditions["AffectedBy"..tag.effectName:gsub(" ","")] = true
-						if env.minion then
-							env.minion.modDB.conditions["AffectedBy"..tag.effectName:gsub(" ","")] = true
-						end
-					end
-				end
-			end
-			local modList = buff.modList
+		for buffName, buff in pairs(allyBuffs["otherEffects"]) do
+			modDB.conditions["AffectedBy"..buffName:gsub(" ","")] = true
 			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			if buffName then
-				mergeBuff(modList, buffs, buffName)
-			else
-				modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-			end
+			local srcList = new("ModList")
+			srcList:ScaleAddList(buff.modList, (buff.effectMult + inc) / 100 * more)
+			mergeBuff(srcList, buffs, buffName)
 			if env.minion then
+				env.minion.modDB.conditions["AffectedBy"..buffName:gsub(" ","")] = true
 				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
 				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				if buffName then
-					mergeBuff(modList, minionBuffs, buffName)
-				else
-					env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-				end
+				local srcList = new("ModList")
+				srcList:ScaleAddList(buff.modList, (buff.effectMult + inc) / 100 * more)
+				mergeBuff(srcList, minionBuffs, buffName)
 			end
 		end
 	end
