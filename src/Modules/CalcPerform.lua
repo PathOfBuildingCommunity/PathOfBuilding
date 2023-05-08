@@ -2956,21 +2956,23 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
 			end
 		end
-		if env.minion and not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
-			local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-		end
-		buffExports["Aura"]["extraAura"].modList:AddMod(value.mod)
-		local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
-		if env.player.mainSkill.skillFlags.totem and not modDB:Flag(nil, "SelfAurasCannotAffectAllies") and not totemModBlacklist then
-			local totemMod = copyTable(value.mod)
-			local totemModName, matches = totemMod.name:gsub("Condition:", "Condition:Totem")
-			if matches < 1 then
-				totemModName = "Totem" .. totemMod.name
+		if not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
+			if env.minion then
+				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
 			end
-			totemMod.name = totemModName
-			modDB:AddMod(totemMod)
+			buffExports["Aura"]["extraAura"].modList:AddMod(value.mod)
+			local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
+			if env.player.mainSkill.skillFlags.totem and not totemModBlacklist then
+				local totemMod = copyTable(value.mod)
+				local totemModName, matches = totemMod.name:gsub("Condition:", "Condition:Totem")
+				if matches < 1 then
+					totemModName = "Totem" .. totemMod.name
+				end
+				totemMod.name = totemModName
+				modDB:AddMod(totemMod)
+			end
 		end
 	end
 	if allyBuffs["extraAura"] then
