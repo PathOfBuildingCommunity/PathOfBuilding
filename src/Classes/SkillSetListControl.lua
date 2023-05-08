@@ -57,6 +57,7 @@ function SkillSetListClass:RenameSet(skillSet, addOnName)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+		self.skillsTab.build.linkedSetsTab:RenameSet("skill", skillSet.title or "Default", controls.edit.buf)
 		skillSet.title = controls.edit.buf
 		self.skillsTab.modFlag = true
 		if addOnName then

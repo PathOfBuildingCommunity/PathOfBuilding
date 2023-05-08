@@ -48,6 +48,7 @@ function ItemSetListClass:RenameSet(itemSet, addOnName)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+		self.itemsTab.build.linkedSetsTab:RenameSet("item", itemSet.title or "Default", controls.edit.buf)
 		itemSet.title = controls.edit.buf
 		self.itemsTab.modFlag = true
 		if addOnName then

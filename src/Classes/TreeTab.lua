@@ -2096,10 +2096,10 @@ function TreeTabClass:FindTimelessJewel()
 end
 
 function TreeTabClass:LoadSetLinks(value)
-	if self.build.setManagerTab.enabled then
-		if self.build.setManagerTab.treeSetLinks[value] then
-			self.build.skillsTab:SetActiveSkillSetByVal(self.build.setManagerTab.treeSetLinks[value].skillSet)
-			self.build.itemsTab:SetActiveItemSetByVal(self.build.setManagerTab.treeSetLinks[value].itemSet)
+	if self.build.linkedSetsTab.enabled then
+		if self.build.linkedSetsTab.treeSetLinks[value] then
+			self.build.skillsTab:SetActiveSkillSetByVal(self.build.linkedSetsTab.treeSetLinks[value].skillSet)
+			self.build.itemsTab:SetActiveItemSetByVal(self.build.linkedSetsTab.treeSetLinks[value].itemSet)
 		end
 	end
 end

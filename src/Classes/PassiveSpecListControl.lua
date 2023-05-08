@@ -49,6 +49,7 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+		self.treeTab.build.linkedSetsTab:RenameSet("tree", spec.title or "Default", controls.edit.buf)
 		spec.title = controls.edit.buf
 		self.treeTab.modFlag = true
 		if addOnName then

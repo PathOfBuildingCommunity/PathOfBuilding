@@ -1,13 +1,14 @@
 -- Path of Building
 --
--- Module: Set Manager Tab
--- Set Manager tab for the current build.
+-- Module: Linked Sets Tab
+-- Linked Sets tab for the current build.
 --
 local pairs = pairs
 local ipairs = ipairs
 local t_insert = table.insert
 
-local SetManagerTabClass = newClass("SetManagerTab", "ControlHost", "Control", function(self, build)
+local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
+	self.UndoHandler()
 	self.ControlHost()
 	self.Control()
 
@@ -42,8 +43,8 @@ local SetManagerTabClass = newClass("SetManagerTab", "ControlHost", "Control", f
 	end)
 
 	local dropdownWidth = 100
-	-- Tree Set Manager
-	-- Skill and Item Manager controls are anchored to these three labels
+	-- Tree Linked Sets
+	-- Skill and Item controls are anchored to these three labels
 	self.controls.treeSetLabelRoot = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 35, 200, 0, 16, "Tree Sets")
 	self.controls.treeSetLabelDropdownSkill = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"RIGHT"}, dropdownWidth*1.1, 0, 0, 16, "Skill Sets")
 	self.controls.treeSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"RIGHT"}, dropdownWidth/2, 0, 0, 16, "Item Sets")
@@ -68,7 +69,7 @@ local SetManagerTabClass = newClass("SetManagerTab", "ControlHost", "Control", f
 	end)
 	self.controls.treeSetDropdownItem.enabled = function() return self.controls.treeSetDropdown.selIndex ~= 1 end
 
-	-- Skill Set Manager
+	-- Skill Linked Sets
 	self.controls.skillSetLabelRoot = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"LEFT"}, 0, 60, 0, 16, "Skill Sets")
 	self.controls.skillSetLabelDropdownTree = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"LEFT"}, 0, 60, 0, 16, "Tree Sets")
 	self.controls.skillSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownItem,"LEFT"}, 0, 60, 0, 16, "Item Sets")
@@ -92,7 +93,7 @@ local SetManagerTabClass = newClass("SetManagerTab", "ControlHost", "Control", f
 	end)
 	self.controls.skillSetDropdownItem.enabled = function() return self.controls.skillSetDropdown.selIndex ~= 1 end
 
-	-- Item Set Manager
+	-- Item Linked Sets
 	self.controls.itemSetLabelRoot = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"LEFT"}, 0, 120, 0, 16, "Item Sets")
 	self.controls.itemSetLabelDropdownTree = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"LEFT"}, 0, 120, 0, 16, "Tree Sets")
 	self.controls.itemSetLabelDropdownSkill = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownItem,"LEFT"}, 0, 120, 0, 16, "Skill Sets")
@@ -153,7 +154,7 @@ local SetManagerTabClass = newClass("SetManagerTab", "ControlHost", "Control", f
 	end)
 end)
 
-function SetManagerTabClass:InitLinks(set, value)
+function LinkedSetsTabClass:InitLinks(set, value)
 	if set == "tree" then
 		if not (self.treeSetLinks[value]) then
 			self.treeSetLinks[value] = { }
@@ -169,7 +170,7 @@ function SetManagerTabClass:InitLinks(set, value)
 	end
 end
 
-function SetManagerTabClass:LoadLinks(set, value)
+function LinkedSetsTabClass:LoadLinks(set, value)
 	if set == "tree" then
 		self.controls.treeSetDropdownItem:SelByValue(self.treeSetLinks[value].itemSet or "None")
 		self.controls.treeSetDropdownSkill:SelByValue(self.treeSetLinks[value].skillSet or "None")
@@ -182,7 +183,7 @@ function SetManagerTabClass:LoadLinks(set, value)
 	end
 end
 
-function SetManagerTabClass:ResetLinks()
+function LinkedSetsTabClass:ResetLinks()
 	wipeTable(self.treeSetLinks)
 	wipeTable(self.skillSetLinks)
 	wipeTable(self.itemSetLinks)
@@ -200,7 +201,7 @@ function SetManagerTabClass:ResetLinks()
 	self.controls.itemSetDropdownSkill.selIndex = 1
 end
 
-function SetManagerTabClass:GetSetTitles(sets)
+function LinkedSetsTabClass:GetSetTitles(sets)
 	local setTitles = { "None" }
 	local title = ""
 	for _, set in pairs(sets) do
@@ -210,7 +211,7 @@ function SetManagerTabClass:GetSetTitles(sets)
 	return setTitles
 end
 
-function SetManagerTabClass:UpdateSetDropdowns()
+function LinkedSetsTabClass:UpdateSetDropdowns()
 	self.treeSetTitles = self:GetSetTitles(self.build.treeTab.specList)
 	self.skillSetTitles = self:GetSetTitles(self.build.skillsTab.skillSets)
 	self.itemSetTitles = self:GetSetTitles(self.build.itemsTab.itemSets)
@@ -228,7 +229,7 @@ function SetManagerTabClass:UpdateSetDropdowns()
 	self.controls.itemSetDropdownSkill:SetList(self.skillSetTitles)
 end
 
-function SetManagerTabClass:Draw(viewPort, inputEvents)
+function LinkedSetsTabClass:Draw(viewPort, inputEvents)
 	self.x = viewPort.x
 	self.y = viewPort.y
 	self.width = viewPort.width
@@ -250,7 +251,7 @@ function SetManagerTabClass:Draw(viewPort, inputEvents)
 	self:DrawControls(viewPort)
 end
 
-function SetManagerTabClass:Save(xml)
+function LinkedSetsTabClass:Save(xml)
 	xml.attrib = {
 		enabled = tostring(self.enabled)
 	}
@@ -297,7 +298,7 @@ function SetManagerTabClass:Save(xml)
 	end
 end
 
-function SetManagerTabClass:Load(xml)
+function LinkedSetsTabClass:Load(xml)
 	if xml.attrib then
 		self.enabled = xml.attrib.enabled == "true"
 		self.controls.enabled.state = self.enabled
@@ -320,6 +321,60 @@ function SetManagerTabClass:Load(xml)
 					["treeSet"] = node.attrib.treeSet or { },
 					["skillSet"] = node.attrib.skillSet or { }
 				}
+			end
+		end
+	end
+end
+
+function LinkedSetsTabClass:RenameSet(type, old, new)
+	if type == "tree" then
+		-- replace index
+		if self.treeSetLinks[old] then
+			self.treeSetLinks[new] = copyTable(self.treeSetLinks[old])
+			self.treeSetLinks[old] = nil
+		end
+
+		-- replace set in other types
+		for index, _ in pairs(self.skillSetLinks) do
+			if self.skillSetLinks[index].treeSet == old then
+				self.skillSetLinks[index].treeSet = new
+			end
+		end
+		for index, _ in pairs(self.itemSetLinks) do
+			if self.itemSetLinks[index].treeSet == old then
+				self.itemSetLinks[index].treeSet = new
+			end
+		end
+	elseif type == "skill" then
+		if self.skillSetLinks[old] then
+			self.skillSetLinks[new] = copyTable(self.skillSetLinks[old])
+			self.skillSetLinks[old] = nil
+		end
+
+		for index, _ in pairs(self.treeSetLinks) do
+			if self.treeSetLinks[index].skillSet == old then
+				self.treeSetLinks[index].skillSet = new
+			end
+		end
+		for index, _ in pairs(self.itemSetLinks) do
+			if self.itemSetLinks[index].skillSet == old then
+				self.itemSetLinks[index].skillSet = new
+			end
+		end
+	elseif type == "item" then
+		if self.itemSetLinks[old] then
+			self.itemSetLinks[new] = copyTable(self.itemSetLinks[old])
+			self.itemSetLinks[old] = nil
+		end
+
+		for index, _ in pairs(self.treeSetLinks) do
+			if self.treeSetLinks[index].itemSet == old then
+				self.treeSetLinks[index].itemSet = new
+			end
+		end
+		for index, _ in pairs(self.skillSetLinks) do
+			if self.skillSetLinks[index].itemSet == old then
+				self.skillSetLinks[index].itemSet = new
 			end
 		end
 	end
