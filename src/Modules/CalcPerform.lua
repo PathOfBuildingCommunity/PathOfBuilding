@@ -3959,34 +3959,31 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 
 	 -- Export modifiers to enemy conditions and stats for party tab
 	if partyTabEnableExportBuffs then
-		for k, v in pairs(enemyDB.mods) do
+        for k, mod in pairs(enemyDB.mods) do
             if k:find("Condition") and not k:find("Party") then
                 buffExports["EnemyConditions"][k] = true
-            end
-        end
-        for k, v in pairs(enemyDB.mods) do
-            if (k:find("Resist") and not k:find("Totem") and not k:find("Max")) or k:find("Damage") or k:find("ActionSpeed") or k:find("SelfCrit") or (k:find("Multiplier") and not k:find("Max") and not k:find("Impale")) then
-                for k2, v2 in ipairs(v) do
-                    if not v2.party and v2.value ~= 0 and v2.source ~= "EnemyConfig" and v2.source ~= "Base" and not v2.source:find("Delirious") and not v2.source:find("^Party") then
+            elseif (k:find("Resist") and not k:find("Totem") and not k:find("Max")) or k:find("Damage") or k:find("ActionSpeed") or k:find("SelfCrit") or (k:find("Multiplier") and not k:find("Max") and not k:find("Impale")) then
+                for _, v in ipairs(mod) do
+                    if not v.party and v.value ~= 0 and v.source ~= "EnemyConfig" and v.source ~= "Base" and not v.source:find("Delirious") and not v.source:find("^Party") then
 						local skipValue = false
-						for _, tag in ipairs(v2) do
+						for _, tag in ipairs(v) do
 							if tag.effectType == "Curse" or tag.effectType == "AuraDebuff" then
 								skipValue = true
 								break
 							end
 						end
-                        if not skipValue and (not v2[1] or ((v2[1].type ~= "Condition" or (enemyDB.mods["Condition:"..v2[1].var] and enemyDB.mods["Condition:"..v2[1].var][1].value)) and (v2[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v2[1].var] and enemyDB.mods["Multiplier:"..v2[1].var][1].value)))) then
+                        if not skipValue and (not v[1] or ((v[1].type ~= "Condition" or (enemyDB.mods["Condition:"..v[1].var] and enemyDB.mods["Condition:"..v[1].var][1].value)) and (v[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v[1].var] and enemyDB.mods["Multiplier:"..v[1].var][1].value)))) then
                             if buffExports["EnemyMods"][k] then
 								buffExports["EnemyMods"][k] = { MultiStat = true, buffExports["EnemyMods"][k] }
-								t_insert(buffExports["EnemyMods"][k], v2)
+								t_insert(buffExports["EnemyMods"][k], v)
 							else
-								buffExports["EnemyMods"][k] = v2
+								buffExports["EnemyMods"][k] = v
 							end
                         end
                     end
                 end
-            end
-        end
+			end
+		end
 		env.build.partyTab:setBuffExports(buffExports)
 	end
 
