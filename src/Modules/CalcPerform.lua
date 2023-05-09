@@ -3524,7 +3524,13 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	end
 
 	-- Manaforged Arrows
-	if env.player.mainSkill.skillData.triggeredByManaPercentSpent and not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.marked then
+	if
+		env.player.mainSkill.skillData.triggeredByManaPercentSpent and
+		not env.player.mainSkill.skillFlags.minion and
+		not env.player.mainSkill.marked and
+		env.player.itemList["Weapon 1"] and
+		env.player.itemList["Weapon 1"].base.type == "Bow"
+	then
 		local triggerName = "MfA"
 		local spellCount = 0
 		local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
