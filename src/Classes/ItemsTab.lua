@@ -63,11 +63,9 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.tradeQuery = new("TradeQuery", self)
 
 	local function loadSetLinks(value)
-		if self.build.linkedSetsTab.enabled then
-			if self.build.linkedSetsTab.itemSetLinks[value] then
-				self.build.treeTab:SetActiveSpecByVal(self.build.linkedSetsTab.itemSetLinks[value].treeSet)
-				self.build.skillsTab:SetActiveSkillSetByVal(self.build.linkedSetsTab.itemSetLinks[value].skillSet)
-			end
+		if self.build.linkedSetsTab.enabled and self.build.linkedSetsTab.itemSetLinks[value] then
+			self.build.treeTab:SetActiveSpecByVal(self.build.linkedSetsTab.itemSetLinks[value].treeSet)
+			self.build.skillsTab:SetActiveSkillSetByVal(self.build.linkedSetsTab.itemSetLinks[value].skillSet)
 		end
 	end
 	-- Set selector

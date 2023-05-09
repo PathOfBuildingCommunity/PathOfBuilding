@@ -93,11 +93,9 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.defaultGemQuality = main.defaultGemQuality
 
 	local function loadSetLinks(value)
-		if self.build.linkedSetsTab.enabled then
-			if self.build.linkedSetsTab.skillSetLinks[value] then
-				self.build.treeTab:SetActiveSpecByVal(self.build.linkedSetsTab.skillSetLinks[value].treeSet)
-				self.build.itemsTab:SetActiveItemSetByVal(self.build.linkedSetsTab.skillSetLinks[value].itemSet)
-			end
+		if self.build.linkedSetsTab.enabled and self.build.linkedSetsTab.skillSetLinks[value] then
+			self.build.treeTab:SetActiveSpecByVal(self.build.linkedSetsTab.skillSetLinks[value].treeSet)
+			self.build.itemsTab:SetActiveItemSetByVal(self.build.linkedSetsTab.skillSetLinks[value].itemSet)
 		end
 	end
 	-- Set selector
