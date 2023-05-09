@@ -456,9 +456,9 @@ function PartyTabClass:Load(xml, fileName)
 			if not node.attrib.name then
 				ConPrintf("missing name")
 			end
-			if node.attrib.name ~= "EnemyConditions" and node.attrib.name ~= "EnemyMods" then
-				self:ParseBuffs(self.buffExports, node[1] or "", node.attrib.name)
-			end
+			--if node.attrib.name ~= "EnemyConditions" and node.attrib.name ~= "EnemyMods" then
+			---	self:ParseBuffs(self.buffExports, node[1] or "", node.attrib.name)
+			--end
 			--self:ParseBuffs(self.buffExports, node[1] or "", "Aura")
 			--self:ParseBuffs(self.buffExports, node[1] or "", "Curse")
 			--self:ParseBuffs(self.buffExports, node[1] or "", "Link")
@@ -509,31 +509,31 @@ function PartyTabClass:Save(xml)
 	local exportString = self:exportBuffs("Aura")
 	if exportString ~= "" then
 		child = { elem = "ExportedBuffs", attrib = { name = "Aura" } }
-		t_insert(child, self:exportBuffs("Aura"))
+		t_insert(child, exportString)
 		t_insert(xml, child)
 	end
 	exportString = self:exportBuffs("Curse")
 	if exportString ~= "" then
 		child = { elem = "ExportedBuffs", attrib = { name = "Curse" } }
-		t_insert(child, self:exportBuffs("Curse"))
+		t_insert(child, exportString)
 		t_insert(xml, child)
 	end
 	exportString = self:exportBuffs("Link")
 	if exportString ~= "" then
 		child = { elem = "ExportedBuffs", attrib = { name = "Link Skills" } }
-		t_insert(child, self:exportBuffs("Link"))
+		t_insert(child, exportString)
 		t_insert(xml, child)
 	end
 	exportString = self:exportBuffs("EnemyConditions")
 	if exportString ~= "" then
 		child = { elem = "ExportedBuffs", attrib = { name = "EnemyConditions" } }
-		t_insert(child, self:exportBuffs("EnemyConditions"))
+		t_insert(child, exportString)
 		t_insert(xml, child)
 	end
 	exportString = self:exportBuffs("EnemyMods")
 	if exportString ~= "" then
 		child = { elem = "ExportedBuffs", attrib = { name = "EnemyMods" } }
-		t_insert(child, self:exportBuffs("EnemyMods"))
+		t_insert(child, exportString)
 		t_insert(xml, child)
 	end
 	self.lastContent.Aura = self.controls.editAuras.buf
@@ -595,21 +595,20 @@ end
 function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 	if buffType == "EnemyConditions" then
 		for line in buf:gmatch("([^\n]*)\n?") do
-			list:NewMod(line:gsub("Condition:", "Condition:Party:"), "FLAG", true, "Party")
+			if line ~= "" then
+				list:NewMod(line:gsub("Condition:", "Condition:Party:"), "FLAG", true, "Party")
+			end
 		end
 	elseif buffType == "EnemyMods" then
 		local enemyModList = {}
-		local modeName = true
 		local currentName
 		for line in buf:gmatch("([^\n]*)\n?") do
-			if modeName then
+			if not line:find("|") then
 				currentName = line
-				modeName = false
 				if label and currentName ~= "" then
 					enemyModList[currentName] = enemyModList[currentName] or {}
 				end
 			else
-				modeName = true
 				local mod = modLib.parseFormattedSourceMod(line)
 				if mod then
 					mod.source = "Party"..mod.source
@@ -830,7 +829,13 @@ function PartyTabClass:exportBuffs(buffType)
 				end
 				buf = buf.."\n---"
 			elseif buffType == "EnemyMods" then
-				buf = buf.."\n"..modLib.formatSourceMod(buff)
+				if buff.MultiStat then
+					for _, buffInner in ipairs(buff) do
+						buf = buf.."\n"..modLib.formatSourceMod(buffInner)
+					end
+				else
+					buf = buf.."\n"..modLib.formatSourceMod(buff)
+				end
 			end
 		end
 	end

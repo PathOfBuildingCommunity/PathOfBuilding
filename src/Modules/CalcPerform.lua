@@ -3975,9 +3975,13 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 								break
 							end
 						end
-						--ConPrintTable({v2})
                         if not skipValue and (not v2[1] or ((v2[1].type ~= "Condition" or (enemyDB.mods["Condition:"..v2[1].var] and enemyDB.mods["Condition:"..v2[1].var][1].value)) and (v2[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v2[1].var] and enemyDB.mods["Multiplier:"..v2[1].var][1].value)))) then
-                            buffExports["EnemyMods"][k] = v2
+                            if buffExports["EnemyMods"][k] then
+								buffExports["EnemyMods"][k] = { MultiStat = true, buffExports["EnemyMods"][k] }
+								t_insert(buffExports["EnemyMods"][k], v2)
+							else
+								buffExports["EnemyMods"][k] = v2
+							end
                         end
                     end
                 end
