@@ -61,7 +61,7 @@ function modLib.parseTags(line)
 					if tagName then
 						tagSet[tagName] = tagValue == "true" and true or tagValue
 					else
-						ConPrintf(tag)
+						ConPrintf("Error tag invalid: "..tag)
 					end
 				end
 			end
