@@ -2871,7 +2871,7 @@ function calcs.offence(env, actor, activeSkill)
 							-- resist = (1 - invertChance) * resist + invertChance * (-1 * resist)
 							resist = resist - 2 * invertChance * resist
 						end
-						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or (env.partyMembers.ModList:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Party Memeber "..sourceRes.." Resistance" or sourceRes)
+						sourceRes = env.modDB:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Your "..sourceRes.." Resistance" or (env.partyMembers.ModList:Flag(nil, "Enemy"..sourceRes.."ResistEqualToYours") and "Party Member "..sourceRes.." Resistance" or sourceRes)
 						if skillFlags.projectile then
 							takenInc = takenInc + enemyDB:Sum("INC", nil, "ProjectileDamageTaken")
 						end
@@ -3954,7 +3954,7 @@ function calcs.offence(env, actor, activeSkill)
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 					globalOutput["PoisonEffMult"] = effMult
 					if breakdown and effMult ~= 1 then
-						local sourceRes = env.modDB:Flag(nil, "EnemyChaosResistEqualToYours") and "Your Chaos Resistance" or (env.partyMembers.ModList:Flag(nil, "EnemyChaosResistEqualToYours") and "Party Memeber Chaos Resistance" or "Chaos")
+						local sourceRes = env.modDB:Flag(nil, "EnemyChaosResistEqualToYours") and "Your Chaos Resistance" or (env.partyMembers.ModList:Flag(nil, "EnemyChaosResistEqualToYours") and "Party Member Chaos Resistance" or "Chaos")
 						globalBreakdown.PoisonEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 					end
 				end
@@ -4266,7 +4266,7 @@ function calcs.offence(env, actor, activeSkill)
 						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 						globalOutput["IgniteEffMult"] = effMult
 						if breakdown and effMult ~= 1 then
-							local sourceRes = env.modDB:Flag(nil, "EnemyChaosResistEqualToYours") and "Your Chaos Resistance" or (env.partyMembers.ModList:Flag(nil, "EnemyChaosResistEqualToYours") and "Party Memeber Chaos Resistance" or "Chaos")
+							local sourceRes = env.modDB:Flag(nil, "EnemyChaosResistEqualToYours") and "Your Chaos Resistance" or (env.partyMembers.ModList:Flag(nil, "EnemyChaosResistEqualToYours") and "Party Member Chaos Resistance" or "Chaos")
 							globalBreakdown.IgniteEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 						end
 					else
@@ -4276,7 +4276,7 @@ function calcs.offence(env, actor, activeSkill)
 						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 						globalOutput["IgniteEffMult"] = effMult
 						if breakdown and effMult ~= 1 then
-							local sourceRes = env.modDB:Flag(nil, "EnemyFireResistEqualToYours") and "Your Fire Resistance" or (env.partyMembers.ModList:Flag(nil, "EnemyFireResistEqualToYours") and "Party Memeber Fire Resistance" or "Fire")
+							local sourceRes = env.modDB:Flag(nil, "EnemyFireResistEqualToYours") and "Your Fire Resistance" or (env.partyMembers.ModList:Flag(nil, "EnemyFireResistEqualToYours") and "Party Member Fire Resistance" or "Fire")
 							globalBreakdown.IgniteEffMult = breakdown.effMult("Fire", resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 						end
 					end
@@ -4717,7 +4717,7 @@ function calcs.offence(env, actor, activeSkill)
 			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 			output["DecayEffMult"] = effMult
 			if breakdown and effMult ~= 1 then
-				local sourceRes = env.modDB:Flag(nil, "EnemyChaosResistEqualToYours") and "Your Chaos Resistance" or (env.partyMembers.ModList:Flag(nil, "EnemyChaosResistEqualToYours") and "Party Memeber Chaos Resistance" or "Chaos")
+				local sourceRes = env.modDB:Flag(nil, "EnemyChaosResistEqualToYours") and "Your Chaos Resistance" or (env.partyMembers.ModList:Flag(nil, "EnemyChaosResistEqualToYours") and "Party Member Chaos Resistance" or "Chaos")
 				breakdown.DecayEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 			end
 		end
@@ -4830,7 +4830,7 @@ function calcs.offence(env, actor, activeSkill)
 				effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
 				output[damageType.."DotEffMult"] = effMult
 				if breakdown and effMult ~= 1 then
-					local sourceRes = env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") and "Your "..damageType.." Resistance" or (env.partyMembers.ModList:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") and "Party Memeber "..damageType.." Resistance" or damageType)
+					local sourceRes = env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") and "Your "..damageType.." Resistance" or (env.partyMembers.ModList:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") and "Party Member "..damageType.." Resistance" or damageType)
 					breakdown[damageType.."DotEffMult"] = breakdown.effMult(damageType, resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 				end
 			end
