@@ -31,7 +31,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	
 	local partyDestinations = { "All", "Party Member Stats", "Aura", "Curse", "Link Skills", "EnemyConditions", "EnemyMods" }
 	
-	local UIGuides = {
+	local theme = {
 		stringHeight = 16,
 		buttonHeight = 20,
 		lineCounter = function(label)
@@ -58,18 +58,18 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	
 	All of these effects can be found in the Calcs tab]]
 	
-	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, UIGuides.stringHeight, notesDesc)
+	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, theme.stringHeight, notesDesc)
 	self.controls.notesDesc.width = function()
 		local width = self.width / 2 - 16
 		if width ~= self.controls.notesDesc.lastWidth then
 			self.controls.notesDesc.lastWidth = width
-			self.controls.notesDesc.label = table.concat(main:WrapString(notesDesc, UIGuides.stringHeight, width - 50), "\n")
+			self.controls.notesDesc.label = table.concat(main:WrapString(notesDesc, theme.stringHeight, width - 50), "\n")
 		end
 		return width
 	end
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, UIGuides.stringHeight, "^7Enter a build code/URL below:")
+	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, theme.stringHeight, "^7Enter a build code/URL below:")
 	self.controls.importCodeHeader.y = function()
-		return UIGuides.lineCounter(self.controls.notesDesc.label) + 4
+		return theme.lineCounter(self.controls.notesDesc.label) + 4
 	end
 	
 	local clearInputText = function()
@@ -252,7 +252,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 	end
 	
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, UIGuides.buttonHeight, "", nil, nil, nil, importCodeHandle)
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, theme.buttonHeight, "", nil, nil, nil, importCodeHandle)
 	self.controls.importCodeIn.width = function()
 		return (self.width > 880) and 328 or (self.width / 2 - 100)
 	end
@@ -261,13 +261,13 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.controls.importCodeGo.onClick()
 		end
 	end
-	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 8, 0, 0, UIGuides.stringHeight)
+	self.controls.importCodeState = new("LabelControl", {"LEFT",self.controls.importCodeIn,"RIGHT"}, 8, 0, 0, theme.stringHeight)
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeDestination = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, UIGuides.buttonHeight, partyDestinations)
+	self.controls.importCodeDestination = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, theme.buttonHeight, partyDestinations)
 	self.controls.importCodeDestination.tooltipText = "Destination for Import/clear\nCurrently Links Skills do not export"
-	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeDestination,"RIGHT"}, 8, 0, 160, UIGuides.buttonHeight, "Import", function()
+	self.controls.importCodeGo = new("ButtonControl", {"LEFT",self.controls.importCodeDestination,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "Import", function()
 		local importCodeFetching = false
 		if self.importCodeSite and not self.importCodeXML then
 			self.importCodeFetching = true
@@ -295,16 +295,16 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.controls.importCodeGo.onClick()
 		end
 	end
-	self.controls.appendNotReplace = new("CheckBoxControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, 60, 0, UIGuides.buttonHeight, "Append", function(state)
+	self.controls.appendNotReplace = new("CheckBoxControl", {"LEFT",self.controls.importCodeGo,"RIGHT"}, 60, 0, theme.buttonHeight, "Append", function(state)
 	end, "This sets the import button to append to the current party lists instead of replacing them (curses will still replace)", false)
 	self.controls.appendNotReplace.x = function()
-		return (self.width > UIGuides.widthThreshold1) and 60 or (-276)
+		return (self.width > theme.widthThreshold1) and 60 or (-276)
 	end
 	self.controls.appendNotReplace.y = function()
-		return (self.width > UIGuides.widthThreshold1) and 0 or 24
+		return (self.width > theme.widthThreshold1) and 0 or 24
 	end
 	
-	self.controls.clear = new("ButtonControl", {"LEFT",self.controls.appendNotReplace,"RIGHT"}, 8, 0, 160, UIGuides.buttonHeight, "Clear", function() 
+	self.controls.clear = new("ButtonControl", {"LEFT",self.controls.appendNotReplace,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "Clear", function() 
 		clearInputText()
 		wipeTable(self.enemyModList)
 		self.enemyModList = new("ModList")
@@ -312,13 +312,13 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end)
 	self.controls.clear.tooltipText = "^7Clears all the party tab imported data"
 	
-	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, UIGuides.buttonHeight, "^7Show Advanced Info", function(state)
+	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, theme.buttonHeight, "^7Show Advanced Info", function(state)
 	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export\nDo not edit any boxes unless you know what you are doing, use copy/paste or import instead", false)
 	self.controls.ShowAdvanceTools.y = function()
-		return (self.width > UIGuides.widthThreshold1) and 4 or 28
+		return (self.width > theme.widthThreshold1) and 4 or 28
 	end
 	
-	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, 8, 0, 160, UIGuides.buttonHeight, "Disable Party Effects", function() 
+	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "Disable Party Effects", function() 
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
 		self.actor = { Aura = {}, Curse = {}, Link = {}, ModList = new("ModList"), output = { } }
@@ -327,7 +327,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end)
 	self.controls.removeEffects.tooltipText = "^7Removes the effects of the supports, without removing the data\nUse \"rebuild all\" to apply the effects again"
 	
-	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, UIGuides.buttonHeight, "^7Rebuild All", function() 
+	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "^7Rebuild All", function() 
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
 		self.actor = { Aura = {}, Curse = {}, Link = {}, ModList = new("ModList"), output = { } }
@@ -342,64 +342,64 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	end)
 	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have been disabled or they have changed since loading the build or importing"
 	self.controls.rebuild.x = function()
-		return (self.width > UIGuides.widthThreshold1) and 8 or (-328)
+		return (self.width > theme.widthThreshold1) and 8 or (-328)
 	end
 	self.controls.rebuild.y = function()
-		return (self.width > UIGuides.widthThreshold1) and 0 or 24
+		return (self.width > theme.widthThreshold1) and 0 or 24
 	end
 
-	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 0, UIGuides.stringHeight, "^7Auras")
+	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 0, theme.stringHeight, "^7Auras")
 	self.controls.editAurasLabel.y = function()
-		return 36 + ((self.width <= UIGuides.widthThreshold1) and 24 or 0)
+		return 36 + ((self.width <= theme.widthThreshold1) and 24 or 0)
 	end
 	self.controls.editAuras = new("EditControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editAuras.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editAuras.height = function()
-		return self.controls.editLinks.hasFocus and UIGuides.bufferHeightSmall or UIGuides.bufferHeightLeft()
+		return self.controls.editLinks.hasFocus and theme.bufferHeightSmall or theme.bufferHeightLeft()
 	end
 	
 	self.controls.editAuras.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleAuras = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, UIGuides.stringHeight, "")
+	self.controls.simpleAuras = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "")
 	self.controls.simpleAuras.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, 0, 8, 0, UIGuides.stringHeight, "^7Link Skills")
+	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Link Skills")
 	self.controls.editLinksLabel.y = function()
-		return self.controls.ShowAdvanceTools.state and (self.controls.editAuras.height() + 8) or (UIGuides.lineCounter(self.controls.simpleAuras.label) + 4)
+		return self.controls.ShowAdvanceTools.state and (self.controls.editAuras.height() + 8) or (theme.lineCounter(self.controls.simpleAuras.label) + 4)
 	end
 	self.controls.editLinks = new("EditControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editLinks.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editLinks.height = function()
-		return (self.controls.editLinks.hasFocus and UIGuides.bufferHeightLeft() or UIGuides.bufferHeightSmall)
+		return (self.controls.editLinks.hasFocus and theme.bufferHeightLeft() or theme.bufferHeightSmall)
 	end
 	self.controls.editLinks.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, UIGuides.stringHeight, "^7Link Skills are not currently supported")
+	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "^7Link Skills are not currently supported")
 	self.controls.simpleLinks.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editPartyMemberStatsLabel = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, UIGuides.stringHeight, "^7Party Member Stats")
+	self.controls.editPartyMemberStatsLabel = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, theme.stringHeight, "^7Party Member Stats")
 	self.controls.editPartyMemberStats = new("EditControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editPartyMemberStats.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editPartyMemberStats.height = function()
-		return (self.controls.editPartyMemberStats.hasFocus and (self.height - UIGuides.bufferHeightRight) or UIGuides.bufferHeightSmall)
+		return (self.controls.editPartyMemberStats.hasFocus and (self.height - theme.bufferHeightRight) or theme.bufferHeightSmall)
 	end
 	self.controls.editPartyMemberStats.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.enemyCondLabel = new("LabelControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, 0, 8, 0, UIGuides.stringHeight, "^7Enemy Conditions")
+	self.controls.enemyCondLabel = new("LabelControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Enemy Conditions")
 	self.controls.enemyCondLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.editPartyMemberStats.height() + 8) or 4
 	end
@@ -408,50 +408,50 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.width / 2 - 16
 	end
 	self.controls.enemyCond.height = function()
-		return (self.controls.enemyCond.hasFocus and (self.height - UIGuides.bufferHeightRight) or UIGuides.bufferHeightSmall)
+		return (self.controls.enemyCond.hasFocus and (self.height - theme.bufferHeightRight) or theme.bufferHeightSmall)
 	end
 	self.controls.enemyCond.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, UIGuides.stringHeight, "^7---------------------------\n")
+	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "^7---------------------------\n")
 	self.controls.simpleEnemyCond.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, 0, 8, 0, UIGuides.stringHeight, "^7Enemy Modifiers")
+	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Enemy Modifiers")
 	self.controls.enemyModsLabel.y = function()
-		return self.controls.ShowAdvanceTools.state and (self.controls.enemyCond.height() + 8) or (UIGuides.lineCounter(self.controls.simpleEnemyCond.label) + 4)
+		return self.controls.ShowAdvanceTools.state and (self.controls.enemyCond.height() + 8) or (theme.lineCounter(self.controls.simpleEnemyCond.label) + 4)
 	end
 	self.controls.enemyMods = new("EditControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.enemyMods.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.enemyMods.height = function()
-		return (self.controls.enemyMods.hasFocus and (self.height - UIGuides.bufferHeightRight) or UIGuides.bufferHeightSmall)
+		return (self.controls.enemyMods.hasFocus and (self.height - theme.bufferHeightRight) or theme.bufferHeightSmall)
 	end
 	self.controls.enemyMods.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleEnemyMods = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"TOPLEFT"}, 0, 18, 0, UIGuides.stringHeight, "\n")
+	self.controls.simpleEnemyMods = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "\n")
 	self.controls.simpleEnemyMods.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 8, 0, UIGuides.stringHeight, "^7Curses")
+	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Curses")
 	self.controls.editCursesLabel.y = function()
-		return self.controls.ShowAdvanceTools.state and (self.controls.enemyMods.height() + 8) or (UIGuides.lineCounter(self.controls.simpleEnemyMods.label) + 4)
+		return self.controls.ShowAdvanceTools.state and (self.controls.enemyMods.height() + 8) or (theme.lineCounter(self.controls.simpleEnemyMods.label) + 4)
 	end
 	self.controls.editCurses = new("EditControl", {"TOPLEFT",self.controls.editCursesLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editCurses.width = function()
 		return self.width / 2 - 16
 	end
 	self.controls.editCurses.height = function()
-		return (self.controls.enemyCond.hasFocus or self.controls.enemyMods.hasFocus or self.controls.editPartyMemberStats.hasFocus) and UIGuides.bufferHeightSmall or (self.height - UIGuides.bufferHeightRight)
+		return (self.controls.enemyCond.hasFocus or self.controls.enemyMods.hasFocus or self.controls.editPartyMemberStats.hasFocus) and theme.bufferHeightSmall or (self.height - theme.bufferHeightRight)
 	end
 	self.controls.editCurses.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleCurses = new("LabelControl", {"TOPLEFT",self.controls.editCursesLabel,"TOPLEFT"}, 0, 18, 0, UIGuides.stringHeight, "")
+	self.controls.simpleCurses = new("LabelControl", {"TOPLEFT",self.controls.editCursesLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "")
 	self.controls.simpleCurses.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
