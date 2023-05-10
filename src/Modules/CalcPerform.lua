@@ -831,7 +831,7 @@ local function doActorMisc(env, actor)
 	output.FrenzyChargesMin = m_max(modDB:Sum("BASE", nil, "FrenzyChargesMin"), 0)
 	output.FrenzyChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax"), 0)
 	output.EnduranceChargesMin = m_max(modDB:Sum("BASE", nil, "EnduranceChargesMin"), 0)
-	output.EnduranceChargesMax = m_max(modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax"), 0)
+	output.EnduranceChargesMax = m_max(env.partyMembers.ModList:Flag(nil, "PartyMemeberMaximumEnduranceChargesEqualToYours") and env.partyMembers.output.EnduranceChargesMax or (modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")), 0)
 	output.SiphoningChargesMax = m_max(modDB:Sum("BASE", nil, "SiphoningChargesMax"), 0)
 	output.ChallengerChargesMax = m_max(modDB:Sum("BASE", nil, "ChallengerChargesMax"), 0)
 	output.BlitzChargesMax = m_max(modDB:Sum("BASE", nil, "BlitzChargesMax"), 0)
@@ -2004,7 +2004,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		limit = 1,
 	}
 	local allyBuffs = env.partyMembers["Aura"]
-	local buffExports = { Aura = {}, Curse = {}, EnemyMods = {}, EnemyConditions = {} }
+	local buffExports = { Aura = {}, Curse = {}, EnemyMods = {}, EnemyConditions = {}, PlayerMods = {} }
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
 		for modId = 1, #spectreData.modList do
@@ -3982,7 +3982,17 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
                         end
                     end
                 end
+            end
+        end
+		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
+			if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") and output[damageType.."Resist"] then
+				buffExports.PlayerMods["Enemy"..damageType.."ResistEqualToYours"] = true
+				buffExports.PlayerMods[damageType.."Resist="..tostring(output[damageType.."Resist"])] = true
 			end
+		end
+		if env.modDB:Flag(nil, "PartyMemeberMaximumEnduranceChargesEqualToYours") and output["EnduranceChargesMax"] then
+			buffExports.PlayerMods["PartyMemeberMaximumEnduranceChargesEqualToYours"] = true
+			buffExports.PlayerMods["EnduranceChargesMax="..tostring(output["EnduranceChargesMax"])] = true
 		end
 		env.build.partyTab:setBuffExports(buffExports)
 	end
