@@ -4,8 +4,18 @@
 -- Linked Sets tab for the current build.
 --
 local pairs = pairs
-local ipairs = ipairs
 local t_insert = table.insert
+
+-- for showing current links and saving; exclude cases involving None
+local function isValidLink(type, index, set)
+	if type == "tree" then
+		return index ~= "None" and not (set.skillSet == "None" and set.itemSet == "None")
+	elseif type == "skill" then
+		return index ~= "None" and not (set.treeSet == "None" and set.itemSet == "None")
+	elseif type == "item" then
+		return index ~= "None" and not (set.treeSet == "None" and set.skillSet == "None")
+	end
+end
 
 local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost", "Control", function(self, build)
 	self.UndoHandler()
@@ -25,7 +35,6 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	For example, given Tree Set 1 has Skill Set 2 and Item Set 2 linked, if you change to Tree Set 1 either in the Tree Tab or Items Tab,
 	Skill Set 2 and Item Set 2 should automatically set active as well.
 	But with no other changes, setting Skill Set 2 or Item Set 2 to active would do nothing to the other Sets.]]
-
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
 	self.controls.notesDesc.width = function()
 		local width = self.width / 2 - 16
@@ -44,9 +53,9 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	local dropdownWidth = 100
 	-- Tree Linked Sets
 	-- Skill and Item controls are anchored to these three labels
-	self.controls.treeSetLabelRoot = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 35, 200, 0, 16, "Tree Sets")
-	self.controls.treeSetLabelDropdownSkill = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"RIGHT"}, dropdownWidth*1.1, 0, 0, 16, "Skill Sets")
-	self.controls.treeSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"RIGHT"}, dropdownWidth/2, 0, 0, 16, "Item Sets")
+	self.controls.treeSetLabelRoot = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 35, 200, 0, 16, "^7Tree Sets")
+	self.controls.treeSetLabelDropdownSkill = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"RIGHT"}, dropdownWidth*1.1, 0, 0, 16, "^7Skill Sets")
+	self.controls.treeSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"RIGHT"}, dropdownWidth/2, 0, 0, 16, "^7Item Sets")
 	self.controls.treeSetDropdown = new("DropDownControl", {"LEFT",self.controls.treeSetLabelRoot,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		self:InitLinks("tree", value)
 		self:LoadLinks("tree", value)
@@ -67,9 +76,9 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	self.controls.treeSetDropdownItem.enabled = function() return self.controls.treeSetDropdown.selIndex ~= 1 end
 
 	-- Skill Linked Sets
-	self.controls.skillSetLabelRoot = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"LEFT"}, 0, 60, 0, 16, "Skill Sets")
-	self.controls.skillSetLabelDropdownTree = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"LEFT"}, 0, 60, 0, 16, "Tree Sets")
-	self.controls.skillSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownItem,"LEFT"}, 0, 60, 0, 16, "Item Sets")
+	self.controls.skillSetLabelRoot = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"LEFT"}, 0, 70, 0, 16, "^7Skill Sets")
+	self.controls.skillSetLabelDropdownTree = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"LEFT"}, 0, 70, 0, 16, "^7Tree Sets")
+	self.controls.skillSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownItem,"LEFT"}, 0, 70, 0, 16, "^7Item Sets")
 	self.controls.skillSetDropdown = new("DropDownControl", {"LEFT",self.controls.skillSetLabelRoot,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		self:InitLinks("skill", value)
 		self:LoadLinks("skill", value)
@@ -90,9 +99,9 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	self.controls.skillSetDropdownItem.enabled = function() return self.controls.skillSetDropdown.selIndex ~= 1 end
 
 	-- Item Linked Sets
-	self.controls.itemSetLabelRoot = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"LEFT"}, 0, 120, 0, 16, "Item Sets")
-	self.controls.itemSetLabelDropdownTree = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"LEFT"}, 0, 120, 0, 16, "Tree Sets")
-	self.controls.itemSetLabelDropdownSkill = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownItem,"LEFT"}, 0, 120, 0, 16, "Skill Sets")
+	self.controls.itemSetLabelRoot = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"LEFT"}, 0, 140, 0, 16, "^7Item Sets")
+	self.controls.itemSetLabelDropdownTree = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"LEFT"}, 0, 140, 0, 16, "^7Tree Sets")
+	self.controls.itemSetLabelDropdownSkill = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownItem,"LEFT"}, 0, 140, 0, 16, "^7Skill Sets")
 	self.controls.itemSetDropdown = new("DropDownControl", {"LEFT",self.controls.itemSetLabelRoot,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		self:InitLinks("item", value)
 		self:LoadLinks("item", value)
@@ -112,56 +121,83 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	end)
 	self.controls.itemSetDropdownSkill.enabled = function() return self.controls.itemSetDropdown.selIndex ~= 1 end
 
-	self.controls.reset = new("ButtonControl", {"RIGHT",self.controls.treeSetDropdownItem,"RIGHT"}, 0, -74, 75, 18, "Reset", function()
+	self.controls.reset = new("ButtonControl", {"RIGHT",self.controls.treeSetDropdownItem,"RIGHT"}, 0, -74, 75, 18, "^7Reset", function()
 		self:ResetLinks()
 		self.modFlag = true
 	end)
 
 	-- Display current links all at once
-	self.controls.displayLinks = new("LabelControl", {"LEFT",self.controls.itemSetDropdown,"LEFT"}, -15, 75, 0, 16, "Current Links:")
-	self.controls.displayLinks.shown = function() return self.treeSetLinks ~= {} or self.skillSetLinks ~= {} or self.itemSetLinks ~= {} end
-	self.controls.displayLinksTree = new("LabelControl", {"LEFT",self.controls.displayLinks,"LEFT"}, 0, 25, 150, 16, function()
-		local note = "Tree Links  -->  Skill, Item\n\n"
+	self.controls.displayLinks = new("LabelControl", {"LEFT",self.controls.itemSetDropdown,"LEFT"}, -15, 85, 0, 16, "Current Links:")
+	self.controls.displayLinks.shown = function() return self:ShowCurrentLinks() end
+	self.controls.displayLinksTree = new("LabelControl", {"LEFT",self.controls.displayLinks,"LEFT"}, 0, 20, 150, 16, function()
+		local note = "^7{ Tree  -->  Skill, Item }\n\n"
 		for index, link in pairs(self.treeSetLinks) do
-			-- exclude certain cases involving None
-			if index ~= "None" and (link.skillSet or link.itemSet) and not (link.skillSet == "None" and link.itemSet == "None") then
-				note = note .. "   " .. index .. "  -->  " .. (link.skillSet or "") .. ", " .. (link.itemSet or "") .. "\n"
+			if isValidLink("tree", index, link) then
+				note = note .. index .. "  -->  " .. (link.skillSet or "") .. ", " .. (link.itemSet or "") .. "\n"
 			end
 		end
 		return note
 	end)
 	self.controls.displayLinksSkill = new("LabelControl", {"LEFT",self.controls.displayLinksTree,"RIGHT"}, 85, 0, 150, 16, function()
-		local note = "Skill Links  -->  Tree, Item\n\n"
+		local note = "{ Skill  -->  Tree, Item }\n\n"
 		for index, link in pairs(self.skillSetLinks) do
-			if index ~= "None" and (link.treeSet or link.itemSet) and not (link.treeSet == "None" and link.itemSet == "None") then
-				note = note .. "   " .. index .. "  -->  " .. (link.treeSet or "") .. ", " .. (link.itemSet or "") .. "\n"
+			if isValidLink("skill", index, link) then
+				note = note .. index .. "  -->  " .. (link.treeSet or "") .. ", " .. (link.itemSet or "") .. "\n"
 			end
 		end
 		return note
 	end)
 	self.controls.displayLinksItem = new("LabelControl", {"LEFT",self.controls.displayLinksSkill,"RIGHT"}, 85, 0, 150, 16, function()
-		local note = "Item Links  -->  Tree, Skill\n\n"
+		local note = "{ Item  -->  Tree, Skill }\n\n"
 		for index, link in pairs(self.itemSetLinks) do
-			if index ~= "None" and (link.treeSet or link.skillSet) and not (link.treeSet == "None" and link.skillSet == "None") then
-				note = note .. "   " .. index .. "  -->  " .. (link.treeSet or "None") .. ", " .. (link.skillSet or "None") .. "\n"
+			if isValidLink("item", index, link) then
+				note = note .. index .. "  -->  " .. (link.treeSet or "None") .. ", " .. (link.skillSet or "None") .. "\n"
 			end
 		end
 		return note
 	end)
 end)
 
+function LinkedSetsTabClass:ShowCurrentLinks()
+	for index, link in pairs(self.treeSetLinks) do
+		if isValidLink("tree", index, link) then
+			return true
+		end
+	end
+	for index, link in pairs(self.skillSetLinks) do
+		if isValidLink("skill", index, link) then
+			return true
+		end
+	end
+	for index, link in pairs(self.itemSetLinks) do
+		if isValidLink("item", index, link) then
+			return true
+		end
+	end
+	return false
+end
+
 function LinkedSetsTabClass:InitLinks(set, value)
 	if set == "tree" then
 		if not (self.treeSetLinks[value]) then
-			self.treeSetLinks[value] = { }
+			self.treeSetLinks[value] = {
+				skillSet = "None",
+				itemSet = "None"
+			}
 		end
 	elseif set == "skill" then
 		if not (self.skillSetLinks[value]) then
-			self.skillSetLinks[value] = { }
+			self.skillSetLinks[value] = {
+				treeSet = "None",
+				itemSet = "None"
+			}
 		end
 	elseif set == "item" then
 		if not (self.itemSetLinks[value]) then
-			self.itemSetLinks[value] = { }
+			self.itemSetLinks[value] = {
+				treeSet = "None",
+				skillSet = "None"
+			}
 		end
 	end
 end
@@ -197,7 +233,7 @@ function LinkedSetsTabClass:ResetLinks()
 	self.controls.itemSetDropdownSkill.selIndex = 1
 end
 
-function LinkedSetsTabClass:GetSetTitles(sets)
+local function getSetTitles(sets)
 	local setTitles = { "None" }
 	local title = ""
 	for _, set in pairs(sets) do
@@ -208,9 +244,9 @@ function LinkedSetsTabClass:GetSetTitles(sets)
 end
 
 function LinkedSetsTabClass:UpdateSetDropdowns()
-	self.treeSetTitles = self:GetSetTitles(self.build.treeTab.specList)
-	self.skillSetTitles = self:GetSetTitles(self.build.skillsTab.skillSets)
-	self.itemSetTitles = self:GetSetTitles(self.build.itemsTab.itemSets)
+	self.treeSetTitles = getSetTitles(self.build.treeTab.specList)
+	self.skillSetTitles = getSetTitles(self.build.skillsTab.skillSets)
+	self.itemSetTitles = getSetTitles(self.build.itemsTab.itemSets)
 
 	self.controls.treeSetDropdown:SetList(self.treeSetTitles)
 	self.controls.treeSetDropdownSkill:SetList(self.skillSetTitles)
@@ -241,40 +277,40 @@ function LinkedSetsTabClass:Save(xml)
 	xml.attrib = {
 		enabled = tostring(self.enabled)
 	}
-	for index, treeSet in pairs(self.treeSetLinks) do
-		if index ~= "None" then
+	for index, link in pairs(self.treeSetLinks) do
+		if isValidLink("tree", index, link) then
 			local child = {
 				elem = "TreeSet",
 				attrib = {
 					title = index,
-					skillSet = treeSet["skillSet"] or "None",
-					itemSet = treeSet["itemSet"] or "None"
+					skillSet = link["skillSet"],
+					itemSet = link["itemSet"]
 				}
 			}
 			t_insert(xml, child)
 		end
 	end
-	for index, skillSet in pairs(self.skillSetLinks) do
-		if index ~= "None" then
+	for index, link in pairs(self.skillSetLinks) do
+		if isValidLink("skill", index, link) then
 			local child = {
 				elem = "SkillSet",
 				attrib = {
 					title = index,
-					treeSet = skillSet["treeSet"] or "None",
-					itemSet = skillSet["itemSet"] or "None"
+					treeSet = link["treeSet"],
+					itemSet = link["itemSet"]
 				}
 			}
 			t_insert(xml, child)
 		end
 	end
-	for index, itemSet in pairs(self.itemSetLinks) do
-		if index ~= "None" then
+	for index, link in pairs(self.itemSetLinks) do
+		if isValidLink("item", index, link) then
 			local child = {
 				elem = "ItemSet",
 				attrib = {
 					title = index,
-					treeSet = itemSet["treeSet"] or "None",
-					skillSet = itemSet["skillSet"] or "None"
+					treeSet = link["treeSet"],
+					skillSet = link["skillSet"]
 				}
 			}
 			t_insert(xml, child)
