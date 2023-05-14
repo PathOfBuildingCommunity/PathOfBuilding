@@ -10,7 +10,8 @@ This file contains a list of shortcuts, and other misc things PoB has
 4. Hotkeys
 5. Other Notable Things
 6. Timeless Jewels
-7. PartyTab
+7. Party Tab
+8. Items Tab
 
 ---[FAQ][3]
 
@@ -132,3 +133,14 @@ Your curses will take priority over a support's
  
 For now Enemy conditions and Modifiers are not exported but can be imported if its saved in the XML, and Links skills are not exported or parsed
 Some auras like Mines which use a stack value for their effect will not apply as their stack value is missing
+
+---[Items Tab][8]
+
+The Item Tab in Path of Building allows you to plan out the gear you will use for your character. To access the Item Tab, click on the "Items" tab located at the top of the screen.
+
+From here, you can view all of the gear slots for your character, such as your weapon, chest armor, and boots. To add an item to a slot, click on the arrow button on the right side of the slot. This will bring up a list of all the items available in your build, which are visible in the "All items" window.
+If you wish to add more items, you can copy and paste items using CTRL+C (from the game or trade website) and CTRL+V into the "Shared items" window. Additionally, you can craft items using the "Craft item..." button on the top or create completely customizable items using the "Create custom..." option.
+
+The item sets section located at the top of the screen can be used to save multiple sets of items and easily switch between them. You can add, remove, rename, and copy new sets using the "Manage..." button.
+
+If you want to search for item upgrades, you can use the "Trade for these items" button to quickly search for items that can improve your gear.
