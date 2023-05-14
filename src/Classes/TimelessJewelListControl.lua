@@ -48,7 +48,9 @@ function TimelessJewelListControlClass:OverrideSelectIndex(index)
 	else
 		self.highlightIndex = nil
 	end
-
+	
+	self.selValue = self.list[index]
+	self.selIndex = index
 	return false
 end
 

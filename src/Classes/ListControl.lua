@@ -19,8 +19,9 @@
 -- :OnSelCopy(index, value)  [Called when Ctrl+C is pressed while a list value is selected]
 -- :OnSelDelete(index, value)  [Called when backspace or delete is pressed while a list value is selected]
 -- :OnSelKeyDown(index, value)  [Called when any other key is pressed while a list value is selected]
--- :OverrideSelectIndex(index) [Called when an index is selected, return true to prevent default action]
--- :SetHighlightColor(index, value) [Called when querying if a row is highlighted by parent element class]
+-- :ExtraOnKeyUp(key)  [Called on any key up before built-in logic]
+-- :OverrideSelectIndex(index) [Called when an index is selected, return true to prevent default action] - hands over control of setting selIndex and, depending on return value, skips scrolling into view, execution of {OnSelect}, drag logic and execution of {OnSelKeyDown}
+-- :SetHighlightColor(index, value) [Called when querying if a row is highlighted by parent element class] - sets initial draw color for drawing the value from {GetRowValue}
 --
 local ipairs = ipairs
 local t_insert = table.insert
@@ -72,15 +73,20 @@ local ListClass = newClass("ListControl", "Control", "ControlHost", function(sel
 end)
 
 function ListClass:SelectIndex(index)
-	self.selValue = self.list[index]
-	if not self.selValue then
+	if not index then
 		return false
 	end
-
-	if self.OverrideSelectIndex and self:OverrideSelectIndex(index) then
-		return false
+	if self.OverrideSelectIndex  then
+		if self:OverrideSelectIndex(index) then
+			return false
+		end
+	else
+		self.selValue = self.list[index]
+		if not self.selValue then
+			return false
+		end
+		self.selIndex = index
 	end
-	self.selIndex = index
 	local width, height = self:GetSize()
 	if self.scroll then
 		self.controls.scrollBarV:SetContentDimension(#self.list * self.rowHeight, height - 4)
@@ -233,8 +239,8 @@ function ListClass:Draw(viewPort, noTooltip)
 				else
 					SetDrawColor(0.5, 0.5, 0.5)
 				end
-				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
-				if (value == self.selValue or value == ttValue) then
+				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)	-- Border
+				if value == self.selValue or value == ttValue or (self.selIndices and self.selIndices[index]) then
 					SetDrawColor(0.33, 0.33, 0.33)
 				elseif self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
 					SetDrawColor(0, 0.2, 0)
@@ -243,22 +249,22 @@ function ListClass:Draw(viewPort, noTooltip)
 				else
 					SetDrawColor(0, 0, 0)
 				end
-				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
-			elseif value == self.selValue or value == ttValue then
-				if self.hasFocus and value == self.selValue then
+				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)	-- Background
+			elseif value == self.selValue or value == ttValue or (self.selIndices and self.selIndices[index]) then
+				if self.hasFocus and value == self.selValue or (self.selIndices and self.selIndices[index]) then
 					SetDrawColor(1, 1, 1)
 				elseif value == ttValue then
 					SetDrawColor(0.8, 0.8, 0.8)
 				else
 					SetDrawColor(0.5, 0.5, 0.5)
 				end
-				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)
+				DrawImage(nil, colOffset, lineY, not self.scroll and colWidth - 4 or colWidth, rowHeight)	-- Border
 				if self.otherDragSource and self.CanDragToValue and self:CanDragToValue(index, value, self.otherDragSource) then
 					SetDrawColor(0, 0.2, 0)
 				else
 					SetDrawColor(0.15, 0.15, 0.15)
 				end
-				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)
+				DrawImage(nil, colOffset, lineY + 1, not self.scroll and colWidth - 4 or colWidth, rowHeight - 2)	-- Background
 			end
 			if not self.SetHighlightColor or not self:SetHighlightColor(index, value) then
 				SetDrawColor(1, 1, 1)
@@ -299,7 +305,14 @@ function ListClass:Draw(viewPort, noTooltip)
 	SetViewport()
 
 	if self.selDragActive and self.dragTargetList and (not self.isMutable or not self:IsMouseOver()) then
-		main.showDragText = self:GetRowValue(1, self.selIndex, self.selValue)
+		if self.selIndices then
+			main.showDragText = ""
+			for idx in pairs(self.selIndices) do
+				main.showDragText = main.showDragText .. self:GetRowValue(1, idx, self.list[idx]) .. "\n"
+			end
+		else
+			main.showDragText = self:GetRowValue(1, self.selIndex, self.selValue)
+		end
 	end
 
 	self.hoverIndex = ttIndex
@@ -391,6 +404,9 @@ end
 function ListClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
+	end
+	if self.ExtraOnKeyUp then
+		self:ExtraOnKeyUp(key)
 	end
 	if key == "WHEELDOWN" then
 		if self.scroll and self.scrollH and IsKeyDown("SHIFT") then

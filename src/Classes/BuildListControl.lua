@@ -22,18 +22,21 @@ local BuildListClass = newClass("BuildListControl", "ListControl", function(self
 		self.selDragging = false
 		self.selDragActive = false
 		self.otherDragSource = false
+		self.selIndices = { }
 	end)
-	function self.controls.path:CanReceiveDrag(type, build)
-		return type == "Build" and #self.folderList > 1
+	function self.controls.path:CanReceiveDrag(type, builds)
+		return type == "Builds" and #self.folderList > 1
 	end
-	function self.controls.path:ReceiveDrag(type, build, source)
-		if type == "Build" then
+	function self.controls.path:ReceiveDrag(type, builds, source)
+		if type == "Builds" then
 			for index, folder in ipairs(self.folderList) do
 				if index < #self.folderList and folder.button:IsMouseOver() then
-					if build.folderName then
-						main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..folder.path)
-					else
-						os.rename(build.fullFileName, listMode:GetDestName(folder.path, build.fileName))
+					for _, build in pairs(builds) do
+						if build.folderName then
+							main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..folder.path)
+						else
+							os.rename(build.fullFileName, listMode:GetDestName(folder.path, build.fileName))
+						end
 					end
 					listMode:BuildList()
 				end
@@ -41,6 +44,7 @@ local BuildListClass = newClass("BuildListControl", "ListControl", function(self
 		end
 	end
 	self.dragTargetList = { self.controls.path, self }
+	self.selIndices = { }
 end)
 
 function BuildListClass:SelByFileName(selFileName)
@@ -164,9 +168,14 @@ function BuildListClass:GetRowValue(column, index, build)
 	if column == 1 then
 		local label
 		if build.folderName then
-			label = ">> " .. build.folderName
+			label = "^8>> ^7" .. build.folderName
 		else
-			label = build.buildName or "?"
+			local relativeLabel = ""
+			for _, segment in ipairs(string.sub(build.relativePath, 1, -2):split("/")) do
+				relativeLabel = relativeLabel .. "^8>> " .. segment .. " "
+			end
+			relativeLabel = relativeLabel .. (relativeLabel ~= "" and ">> ^7" or "")
+			label = relativeLabel .. build.buildName or "?"
 		end
 		if self.cutBuild and self.cutBuild.buildName == build.buildName and self.cutBuild.folderName == build.folderName then
 			return "^xC0B0B0"..label
@@ -187,22 +196,31 @@ function BuildListClass:GetRowValue(column, index, build)
 end
 
 function BuildListClass:GetDragValue(index, build)
-	return "Build", build
+	local builds = {}
+	for idx in pairs(self.selIndices) do
+		builds[idx] = self.list[idx]
+	end
+	return "Builds", builds
 end
 
 function BuildListClass:CanReceiveDrag(type, build)
-	return type == "Build"
+	return type == "Builds"
 end
 
-function BuildListClass:ReceiveDrag(type, build, source)
-	if type == "Build" then
+function BuildListClass:ReceiveDrag(type, builds, source)
+	if type == "Builds" then
 		if self.hoverValue and self.hoverValue.folderName then
-			if build.folderName then
-				main:MoveFolder(build.folderName, main.buildPath..build.subPath, main.buildPath..self.hoverValue.subPath..self.hoverValue.folderName.."/")
-			else
-				os.rename(build.fullFileName, self.listMode:GetDestName(self.listMode.subPath..self.hoverValue.folderName.."/", build.fileName))
+			for _, build in pairs(builds) do
+				if build.folderName ~= self.hoverValue.folderName then -- don't move a folder into itself... not pretty
+					if build.folderName then
+						main:MoveFolder(build.folderName, main.buildPath.. build.subPath, main.buildPath..self.hoverValue.subPath..self.hoverValue.folderName.."/")
+					else
+						os.rename(build.fullFileName, self.listMode:GetDestName(self.listMode.subPath..self.hoverValue.folderName.."/", build.fileName))
+					end
+				end
 			end
 			self.listMode:BuildList()
+			self.selIndices = {}
 		end
 	end
 end
@@ -213,7 +231,7 @@ end
 
 function BuildListClass:OnSelClick(index, build, doubleClick)
 	if doubleClick then
-		self:LoadBuild(build)
+		self:LoadBuild(self.list[index])
 		self.selDragging = false
 		self.selDragActive = false
 	end
@@ -239,4 +257,67 @@ function BuildListClass:OnSelKeyDown(index, build, key)
 	elseif key == "F2" then
 		self:RenameBuild(build)
 	end	
+end
+
+function BuildListClass:SetHighlightColor(index, value)
+	if not self.selIndices[index] then
+		return false
+	end
+	if self.selIndex ~= index then
+		SetDrawColor(.6, .6, .6)	-- Grey out the other selections to hint that they are not the targets of enter to load or f2 to rename.
+		return true
+	end
+	
+	SetDrawColor(1, 1, 1)
+	return true
+end
+
+function BuildListClass:ExtraOnKeyUp(key)
+	if self.multiSelectCancelIndex and key == "LEFTBUTTON" then
+		self.selIndices = {}
+		self:SelectIndex(self.multiSelectCancelIndex)
+	end
+end
+
+function BuildListClass:OverrideSelectIndex(index)
+	if self.selIndices[index] and not IsKeyDown("CTRL") then
+		self.multiSelectCancelIndex = index
+		return false
+	end
+	self.multiSelectCancelIndex = nil
+	if IsKeyDown("SHIFT") and self.selIndex then
+		for i = self.selIndex, index, index < self.selIndex and -1 or 1 do
+			self.selIndices[i] = true
+		end
+		self.selIndex = index
+		self.selValue = self.list[index]
+	elseif IsKeyDown("CTRL") and self.selIndex then
+		if self.selIndices[index] then
+			self.selIndices[index] = nil
+			if self.selIndex == index then	-- bit of a hack to set selValue to something desirable when current selValue would be unselected, because it is required in quite a few places in ListControl
+				local closestFallbackIndexDelta = math.huge
+				for idx in pairs(self.selIndices) do
+					if math.abs(idx - self.selIndex) < math.abs(closestFallbackIndexDelta) then
+						closestFallbackIndexDelta = idx - self.selIndex
+					end
+				end
+				if closestFallbackIndexDelta ~= math.huge then
+					self.selIndex = self.selIndex + closestFallbackIndexDelta	-- just hop the selValue to the closest one available
+					self.selValue = self.list[self.selIndex]
+				else
+					self.selIndex = nil
+					self.selValue = nil
+				end
+			end
+		else
+			self.selIndex = index
+			self.selValue = self.list[index]
+			self.selIndices[index] = true
+		end
+	else
+		self.selIndex = index
+		self.selValue = self.list[index]
+		self.selIndices = { [index] = true }
+	end
+	return false
 end
