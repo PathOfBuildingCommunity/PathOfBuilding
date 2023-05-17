@@ -4433,6 +4433,14 @@ function calcs.offence(env, actor, activeSkill)
 				if minimumStunDuration ~= maximumStunDuration then
 					t_insert(breakdown.EnemyStunDuration, s_format("(minimum: %.2fs, maximum: %.2fs)", minimumStunDuration, maximumStunDuration))
 				end
+				local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
+				if enemyActionSpeed ~= 1 then
+					t_insert(breakdown.EnemyStunDuration, s_format("/ %.2f ^8(enemy action speed)", enemyActionSpeed))
+					t_insert(breakdown.EnemyStunDuration, s_format("= %.2fs (note that for effects that care about duration this is ignored)", output.EnemyStunDuration / enemyActionSpeed))
+					if minimumStunDuration ~= maximumStunDuration then
+						t_insert(breakdown.EnemyStunDuration, s_format("(minimum: %.2fs, maximum: %.2fs)", minimumStunDuration / enemyActionSpeed, maximumStunDuration / enemyActionSpeed))
+					end
+				end
 			end
 		end
 
