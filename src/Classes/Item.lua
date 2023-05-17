@@ -623,7 +623,7 @@ function ItemClass:ParseRaw(raw)
 						local s, e = self.name:find("Two-Toned Boots", 1, true)
 						if s then
 							-- Hack for Two-Toned Boots
-							baseName = "Two-Toned Boots (Armour/Energy Shield)"
+							baseName = self.baseName
 							self.namePrefix = self.name:sub(1, s - 1)
 							self.nameSuffix = self.name:sub(e + 1)
 						end
