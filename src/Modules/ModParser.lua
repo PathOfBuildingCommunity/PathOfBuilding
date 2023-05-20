@@ -1751,13 +1751,19 @@ local function triggerExtraSkill(name, level, noSupports, sourceSkill)
 	end
 end
 
-local explodeFunc = function(chance, amount, type, ...)
+local explodeFunc = function(chance, amount, type, specialType, ...)
 	local amountNumber = tonumber(amount) or (amount == "tenth" and 10) or (amount == "quarter" and 25)
 	if not amountNumber then
 		return
 	end
 	local amounts = {}
 	amounts[type] = amountNumber
+	if specialType and specialType == "Totem" then
+		return {
+			mod("TotemExplodeMod", "LIST", { type = firstToUpper(type), chance = chance / 100, amount = amountNumber, keyOfScaledMod = "chance" }, ...),
+			flag("TotemExplodes")
+		}
+	end
 	return {
 		mod("ExplodeMod", "LIST", { type = firstToUpper(type), chance = chance / 100, amount = amountNumber, keyOfScaledMod = "chance" }, ...),
 		flag("CanExplode")
@@ -1768,52 +1774,52 @@ end
 local specialModList = {
 	-- Explode mods
 	["enemies you kill have a (%d+)%% chance to explode, dealing a (.+) of their maximum life as (.+) damage"] = function(chance, _, amount, type)	-- Obliteration, Unspeakable Gifts (chaos cluster), synth implicit mod, current crusader body mod
-		return explodeFunc(chance, amount, type)
+		return explodeFunc(chance, amount, type, nil)
 	end,
 	["enemies you kill while using pride have (%d+)%% chance to explode, dealing a (.+) of their maximum life as (.+) damage"] = function(chance, _, amount, type)	-- Sublime Vision
-		return explodeFunc(chance, amount, type, { type = "Condition", var = "AffectedByPride" })
+		return explodeFunc(chance, amount, type, nil, { type = "Condition", var = "AffectedByPride" })
 	end,
 	["enemies you kill during effect have a (%d+)%% chance to explode, dealing a (.+) of their maximum life as damage of a random element"] = function(chance, _, amount)	-- Oriath's End
-		return explodeFunc(chance, amount, "randomElement", { type = "Condition", var = "UsingFlask" })
+		return explodeFunc(chance, amount, "randomElement", nil, { type = "Condition", var = "UsingFlask" })
 	end,
 	["enemies you kill while affected by glorious madness have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = function(chance, _, amount, type)	-- Beacon of Madness
-		return explodeFunc(chance, amount, type, { type = "Condition", var = "AffectedByGloriousMadness" })
+		return explodeFunc(chance, amount, type, nil, { type = "Condition", var = "AffectedByGloriousMadness" })
 	end,
 	["enemies killed with attack hits have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = explodeFunc,	-- Devastator (attack clusters)
 	["enemies killed with wand hits have a (%d+)%% chance to explode, dealing a (.+) of their life as (.+) damage"] = function(chance, _, amount, type)	-- Explosive Force (wand clusters)
-		return explodeFunc(chance, amount, type, { type = "Condition", var = "UsingWand" })
+		return explodeFunc(chance, amount, type, nil, { type = "Condition", var = "UsingWand" })
 	end,
 	["cursed enemies you or your minions kill have a (%d+)%% chance to explode, dealing a (.+) of their maximum life as (.+) damage"] = function(chance, _, amount, type)	-- Profane Bloom
-		return explodeFunc(chance, amount, type, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
+		return explodeFunc(chance, amount, type, nil, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
 	end,
 	["enemies you kill explode, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- legacy synth, legacy crusader
-		return explodeFunc(100, amount, type)
+		return explodeFunc(100, amount, type, nil)
 	end,
 	["enemies killed explode dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Quecholli
-		return explodeFunc(100, amount, type)
+		return explodeFunc(100, amount, type, nil)
 	end,
 	["enemies on fungal ground you kill explode, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Sporeguard
-		return explodeFunc(100, amount, type, { type = "ActorCondition", actor = "enemy", var = "OnFungalGround" })
+		return explodeFunc(100, amount, type, nil, { type = "ActorCondition", actor = "enemy", var = "OnFungalGround" })
 	end,
 	["enemies killed with attack or spell hits explode, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Shaper 2H mace mod
-		return explodeFunc(100, amount, type)
+		return explodeFunc(100, amount, type, nil)
 	end,
 	["shocked enemies you kill explode, dealing (%d+)%% of their life as (.+) damage which cannot shock"] = function(amount, _, type)	-- Inpulsa's Broken Heart
-		return explodeFunc(100, amount, type, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
+		return explodeFunc(100, amount, type, nil, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
 	end,
 	["bleeding enemies you kill explode, dealing (%d+)%% of their maximum life as (.+) damage"] = function(amount, _, type)	-- Haemophilia
-		return explodeFunc(100, amount, type, { type = "ActorCondition", actor = "enemy", var = "Bleeding" })
+		return explodeFunc(100, amount, type, nil, { type = "ActorCondition", actor = "enemy", var = "Bleeding" })
 	end,
 	["non-aura curses you inflict are not removed from dying enemies"] = {},
 	["enemies near corpses affected by your curses are blinded"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Blinded") }, { type = "MultiplierThreshold", var = "NearbyCorpse", threshold = 1 }, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
 	["enemies killed near corpses affected by your curses explode, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Asenath's Gentle Touch
-		return explodeFunc(100, amount, type, { type = "MultiplierThreshold", var = "NearbyCorpse", threshold = 1 }, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
+		return explodeFunc(100, amount, type, nil, { type = "MultiplierThreshold", var = "NearbyCorpse", threshold = 1 }, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
 	end,
 	["enemies taunted by your warcries explode on death, dealing (%d+)%% of their maximum life as (.+) damage"] = function(amount, _, type)	-- Al Dhih
-		return explodeFunc(100, amount, type, { type = "ActorCondition", actor = "enemy", var = "Taunted" }, { type = "Condition", var = "UsedWarcryRecently" })
+		return explodeFunc(100, amount, type, nil, { type = "ActorCondition", actor = "enemy", var = "Taunted" }, { type = "Condition", var = "UsedWarcryRecently" })
 	end,
 	["totems explode on death, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Crucible weapon mod
-		return explodeFunc(100, amount, type)
+		return explodeFunc(100, amount, type, "Totem")
 	end,
 	-- Keystones
 	["(%d+) rage regenerated for every (%d+) mana regeneration per second"] = function(num, _, div) return { 

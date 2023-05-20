@@ -141,6 +141,10 @@ function calcs.buildModListForNode(env, node)
 		t_insert(env.explodeSources, node)
 	end
 
+	if modList:Flag(nil, "TotemExplodes") then
+		t_insert(env.totemExplodeSources, {source = node, type = "All"})
+	end
+
 	return modList
 end
 
@@ -362,6 +366,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.grantedSkillsNodes = { }
 		env.grantedSkillsItems = { }
 		env.explodeSources = { }
+		env.totemExplodeSources = { }
 		env.flasks = { }
 
 		-- tree based
@@ -614,6 +619,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 			end
 			if item and item.baseModList and item.baseModList:Flag(nil, "CanExplode") then
 				t_insert(env.explodeSources, item)
+			end
+			if item and item.baseModList and item.baseModList:Flag(nil, "TotemExplodes") then
+				t_insert(env.totemExplodeSources, {source = item, type = "All"})
 			end
 			if slot.weaponSet and slot.weaponSet ~= (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1) then
 				item = nil
@@ -1094,6 +1102,56 @@ function calcs.initEnv(build, mode, override, specEnv)
 							level = 1,
 							triggered = true,
 							explodeSource = explodeSource,
+						}
+					end
+					t_insert(group.gemList, activeGemInstance)
+				end
+				markList[group] = true
+				build.skillsTab:ProcessSocketGroup(group)
+			end
+
+			if #env.totemExplodeSources ~= 0 then
+				-- Check if a matching group already exists
+				local group
+				for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+					if socketGroup.source == "Totem Explode" then
+						group = socketGroup
+						break
+					end
+				end
+				if not group then
+					-- Create a new group for this skill
+					group = { label = "On Death Totem Explosion", enabled = true, gemList = { }, source = "Totem Explode", noSupports = true }
+					t_insert(build.skillsTab.socketGroupList, group)
+				end
+				-- Update the group
+				group.totemExplodeSources = env.totemExplodeSources
+				local gemsBySource = { }
+				for _, gem in ipairs(group.gemList) do
+					if gem.totemExplodeSource then
+						gemsBySource["TotemExplode"] = gem
+					end
+				end
+				wipeTable(group.gemList)
+				local explodeTypes = { }
+				for _, totemExplodeSource in ipairs(env.totemExplodeSources) do
+					if not explodeTypes[totemExplodeSource.type] then
+						explodeTypes[totemExplodeSource.type] = totemExplodeSource
+						explodeTypes.count = (explodeTypes.count or 0) + 1
+					end
+				end
+				if explodeTypes["All"] and explodeTypes.count == 1 then -- always true atm, will not be once decoy totem is implemented
+					local activeGemInstance
+					if gemsBySource["TotemExplode"] then
+						activeGemInstance = gemsBySource["TotemExplode"]
+					else
+						activeGemInstance = {
+							skillId = "TotemExplode",
+							quality = 0,
+							enabled = true,
+							level = 1,
+							triggered = true,
+							totemExplodeSource = "TotemExplode",
 						}
 					end
 					t_insert(group.gemList, activeGemInstance)

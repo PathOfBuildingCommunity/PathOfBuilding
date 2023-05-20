@@ -1251,7 +1251,9 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 		for i, activeSkill in ipairs(displaySkillList) do
 			local explodeSource = activeSkill.activeEffect.srcInstance.explodeSource
 			local explodeSourceName = explodeSource and (explodeSource.name or explodeSource.dn)
-			local colourCoded = explodeSourceName and ("From "..colorCodes[explodeSource.rarity or "NORMAL"]..explodeSourceName)
+			local totemExplodeSource = activeSkill.activeEffect.srcInstance.totemExplodeSource
+			local totemExplodeSourceName = totemExplodeSource and (totemExplodeSource.name or totemExplodeSource.dn)
+			local colourCoded = explodeSourceName and ("From "..colorCodes[explodeSource.rarity or "NORMAL"]..explodeSourceName) or (totemExplodeSourceName and ("From "..colorCodes[totemExplodeSource.rarity or "NORMAL"]..totemExplodeSourceName))
 			t_insert(controls.mainSkill.list, { val = i, label = colourCoded or activeSkill.activeEffect.grantedEffect.name })
 		end
 		controls.mainSkill.enabled = #displaySkillList > 1

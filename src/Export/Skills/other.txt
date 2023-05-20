@@ -988,3 +988,44 @@ skills["EnemyExplode"] = {
 		[1] = { damageEffectiveness = 0, baseMultiplier = 1, levelRequirement = 1, }
 	}
 }
+
+skills["TotemExplode"] = {
+	name = "On Death Totem Explosion",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = 1
+		local typeAmounts = { }
+		local explodeModList = activeSkill.skillModList:List(activeSkill.skillCfg, "TotemExplodeMod")
+		for _, explodeMod in ipairs(explodeModList) do
+			if explodeMod.type == "RandomElement" then
+				activeSkill.skillData["FireEffectiveExplodePercentage"] = (activeSkill.skillData["FireEffectiveExplodePercentage"] or 0) + explodeMod.amount / 3
+				activeSkill.skillData["ColdEffectiveExplodePercentage"] = (activeSkill.skillData["ColdEffectiveExplodePercentage"] or 0) + explodeMod.amount / 3
+				activeSkill.skillData["LightningEffectiveExplodePercentage"] = (activeSkill.skillData["LightningEffectiveExplodePercentage"] or 0) + explodeMod.amount / 3
+			else
+				activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] = (activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] or 0) + explodeMod.amount
+			end
+		end
+	end,
+	baseMods = {
+		skill("radius", 22),
+		skill("showAverage", true),
+		skill("explodeCorpse", true),
+		skill("corpseExplosionLifeMultiplier", 0),
+	},
+	baseFlags = {
+		area = true,
+		totemExplode = true
+	},
+	stats = {
+		"is_area_damage",
+		"display_skill_deals_secondary_damage",
+		"damage_cannot_be_reflected",
+		"skill_can_add_multiple_charges_per_action",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 0, baseMultiplier = 1, levelRequirement = 1, }
+	}
+}
