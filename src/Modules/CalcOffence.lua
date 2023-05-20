@@ -1564,6 +1564,18 @@ function calcs.offence(env, actor, activeSkill)
 			local base = (percentage or 0) * monsterLife / 100
 			skillData[damageType.."Min"] = base
 			skillData[damageType.."Max"] = base
+			local dotPercentage = skillData[damageType.."DotEffectiveExplodePercentage"]
+			base = (dotPercentage or 0) * monsterLife / 100
+			ConPrintTable({damageType, base})
+			skillData[damageType.."Dot"] = base
+		end
+	end
+	if skillFlags.totemExplode then
+		for _, damageType in pairs(dmgTypeList) do
+			local percentage = skillData[damageType.."EffectiveExplodePercentage"]
+			local base = (percentage or 0) * monsterLife / 100
+			skillData[damageType.."Min"] = base
+			skillData[damageType.."Max"] = base
 		end
 	end
 

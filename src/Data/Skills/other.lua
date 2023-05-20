@@ -3376,8 +3376,8 @@ skills["EnemyExplode"] = {
 	preDamageFunc = function(activeSkill, output)
 		output.ExplodeChance = 0
 		if activeSkill.skillPart ~= 3 then
-			local allExplodeMods = activeSkill.skillModList:Tabulate("LIST", activeSkill.skillCfg, "ExplodeMod")
-			for _, explodeMod in ipairs(allExplodeMods) do
+			local allHitExplodeMods = activeSkill.skillModList:Tabulate("LIST", activeSkill.skillCfg, "ExplodeMod")
+			for _, explodeMod in ipairs(allHitExplodeMods) do
 				local activeEffectSource = activeSkill.activeEffect.srcInstance.explodeSource.modSource or "Tree:"..activeSkill.activeEffect.srcInstance.explodeSource.id
 				if explodeMod.mod.source == activeEffectSource then
 					local explodeMod = explodeMod.value
@@ -3387,6 +3387,21 @@ skills["EnemyExplode"] = {
 						activeSkill.skillData["LightningEffectiveExplodePercentage"] = explodeMod.amount / 3
 					else
 						activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] = explodeMod.amount
+					end
+					output.ExplodeChance = activeSkill.skillPart == 2 and 1 or explodeMod.chance
+				end
+			end
+			local allDotExplodeMods = activeSkill.skillModList:Tabulate("LIST", activeSkill.skillCfg, "ExplodeModDot")
+			for _, explodeMod in ipairs(allDotExplodeMods) do
+				local activeEffectSource = activeSkill.activeEffect.srcInstance.explodeSource.modSource or "Tree:"..activeSkill.activeEffect.srcInstance.explodeSource.id
+				if explodeMod.mod.source == activeEffectSource then
+					local explodeMod = explodeMod.value
+					if explodeMod.type == "RandomElement" then
+						activeSkill.skillData["FireDotEffectiveExplodePercentage"] = explodeMod.amount / 3
+						activeSkill.skillData["ColdDotEffectiveExplodePercentage"] = explodeMod.amount / 3
+						activeSkill.skillData["LightningDotEffectiveExplodePercentage"] = explodeMod.amount / 3
+					else
+						activeSkill.skillData[explodeMod.type.."DotEffectiveExplodePercentage"] = explodeMod.amount
 					end
 					output.ExplodeChance = activeSkill.skillPart == 2 and 1 or explodeMod.chance
 				end
@@ -3402,6 +3417,7 @@ skills["EnemyExplode"] = {
 			for type, amountChance in pairs(typeAmountChances) do
 				local physExplodeChance = 0
 				for amount, chance in pairs(amountChance) do
+					chance = math.min(chance, 1)
 					local amountXChance = amount * chance
 					if type == "RandomElement" then
 						activeSkill.skillData["FireEffectiveExplodePercentage"] = (activeSkill.skillData["FireEffectiveExplodePercentage"] or 0) + amountXChance / 3
@@ -3417,6 +3433,26 @@ skills["EnemyExplode"] = {
 				end
 				if type == "Physical" and physExplodeChance ~= 0 then
 					activeSkill.skillModList:NewMod("CalcArmourAsThoughDealing", "MORE", 100 / math.min(physExplodeChance, 1) - 100)
+				end
+			end
+			typeAmountChances = { }
+			explodeModList = activeSkill.skillModList:List(activeSkill.skillCfg, "ExplodeModDot")
+			ConPrintTable(explodeModList)
+			for _, explodeMod in ipairs(explodeModList) do
+				local amountChance = typeAmountChances[explodeMod.type] or {}
+				amountChance[explodeMod.amount] = (amountChance[explodeMod.amount] or 0) + explodeMod.chance
+				typeAmountChances[explodeMod.type] = amountChance
+			end
+			for type, amountChance in pairs(typeAmountChances) do
+				for amount, chance in pairs(amountChance) do
+					if type == "RandomElement" then
+						activeSkill.skillData["FireDotEffectiveExplodePercentage"] = (activeSkill.skillData["FireDotEffectiveExplodePercentage"] or 0) + amount / 3
+						activeSkill.skillData["ColdDotEffectiveExplodePercentage"] = (activeSkill.skillData["ColdDotEffectiveExplodePercentage"] or 0) + amount / 3
+						activeSkill.skillData["LightningDotEffectiveExplodePercentage"] = (activeSkill.skillData["LightningDotEffectiveExplodePercentage"] or 0) + amount / 3
+					else
+						activeSkill.skillData[type.."DotEffectiveExplodePercentage"] = (activeSkill.skillData[type.."DotEffectiveExplodePercentage"] or 0) + amount
+					end
+					output.ExplodeChance = 1 - ((1 - output.ExplodeChance) * (1 - math.min(chance, 1)))
 				end
 			end
 		end
@@ -3436,6 +3472,47 @@ skills["EnemyExplode"] = {
 	stats = {
 		"is_area_damage",
 		"base_skill_show_average_damage_instead_of_dps",
+		"display_skill_deals_secondary_damage",
+		"damage_cannot_be_reflected",
+		"skill_can_add_multiple_charges_per_action",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 0, baseMultiplier = 1, levelRequirement = 1, }
+	}
+}
+
+skills["TotemExplode"] = {
+	name = "On Death Totem Explosion",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = 1
+		local typeAmounts = { }
+		local explodeModList = activeSkill.skillModList:List(activeSkill.skillCfg, "TotemExplodeMod")
+		for _, explodeMod in ipairs(explodeModList) do
+			if explodeMod.type == "RandomElement" then
+				activeSkill.skillData["FireEffectiveExplodePercentage"] = (activeSkill.skillData["FireEffectiveExplodePercentage"] or 0) + explodeMod.amount / 3
+				activeSkill.skillData["ColdEffectiveExplodePercentage"] = (activeSkill.skillData["ColdEffectiveExplodePercentage"] or 0) + explodeMod.amount / 3
+				activeSkill.skillData["LightningEffectiveExplodePercentage"] = (activeSkill.skillData["LightningEffectiveExplodePercentage"] or 0) + explodeMod.amount / 3
+			else
+				activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] = (activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] or 0) + explodeMod.amount
+			end
+		end
+	end,
+	baseMods = {
+		skill("radius", 22),
+		skill("showAverage", true),
+		skill("explodeCorpse", true),
+		skill("corpseExplosionLifeMultiplier", 0),
+	},
+	baseFlags = {
+		area = true,
+		totemExplode = true
+	},
+	stats = {
+		"is_area_damage",
 		"display_skill_deals_secondary_damage",
 		"damage_cannot_be_reflected",
 		"skill_can_add_multiple_charges_per_action",
