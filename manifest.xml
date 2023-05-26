@@ -41,7 +41,7 @@
 	<File name="Classes/MinionListControl.lua" part="program" sha1="2e9201fd97689f14e53b8be53b0942594362d210" />
 	<File name="Classes/ModDB.lua" part="program" sha1="6918eeb61021016403ce825d2fdcd701a1aaa6c0" />
 	<File name="Classes/ModList.lua" part="program" sha1="30fc04f5a4815b45a52259f4d21054a0b06f95e0" />
-	<File name="Classes/ModStore.lua" part="program" sha1="a94c26113eefd2209af53512585a4a961ad36ebf" />
+	<File name="Classes/ModStore.lua" part="program" sha1="2b54f59099368f4860b0a7adc27a850cc19eef6d" />
 	<File name="Classes/NotableDBControl.lua" part="program" sha1="23d136160c8bf16cced9e77139c278aed0e481d9" />
 	<File name="Classes/NotesTab.lua" part="program" sha1="67827a564d75d6f639893d0f0978212cf01ba4a4" />
 	<File name="Classes/PartyTab.lua" part="program" sha1="0302128331fee33dfb66ef5466757f9ea97c6bd3" />
@@ -127,12 +127,12 @@
 	<File name="Data/QueryMods.lua" part="program" sha1="2563ec6532f96c90e384ca4971a5e4a8b0a3cd02" />
 	<File name="Data/Rares.lua" part="program" sha1="3901663e512fbf4f37e20de4dbcff39c3a3e658b" />
 	<File name="Data/Skills/act_dex.lua" part="program" sha1="ba33f623552b39f0d59bcd82d55d98f9950d44b9" />
-	<File name="Data/Skills/act_int.lua" part="program" sha1="c5ab51ea4d43c58d18fa29f03b175e3c97ce366e" />
-	<File name="Data/Skills/act_str.lua" part="program" sha1="1c37eea403cd94a901e35e5b3339139edbe2ab5c" />
+	<File name="Data/Skills/act_int.lua" part="program" sha1="82bce9cd221457948247825168379ae9a97e8e0e" />
+	<File name="Data/Skills/act_str.lua" part="program" sha1="10cee2c43d884e9a59cc50642c1502723ba51a46" />
 	<File name="Data/Skills/glove.lua" part="program" sha1="e0315c8fe86fccf1563711ed91968f03606a804c" />
 	<File name="Data/Skills/minion.lua" part="program" sha1="4b9cca2d45e4cfae54d4bfc951f6aa55136e0723" />
 	<File name="Data/Skills/other.lua" part="program" sha1="f1a8892683af6d796cf1e5e4cd17834e2d738d7b" />
-	<File name="Data/Skills/spectre.lua" part="program" sha1="30c22f6426884cfd94fb061617da86fb2b087018" />
+	<File name="Data/Skills/spectre.lua" part="program" sha1="ed46a259caf7991dadd34c320b91cb663d15b95b" />
 	<File name="Data/Skills/sup_dex.lua" part="program" sha1="4d9b646b854d6dc42e654f540356ae1825f99e9f" />
 	<File name="Data/Skills/sup_int.lua" part="program" sha1="13db5ba3abf9416c8f135cebe64337512279ef2f" />
 	<File name="Data/Skills/sup_str.lua" part="program" sha1="aaabb6855368588be12c9d392911fd4aa93b5a41" />
@@ -202,7 +202,7 @@
 	<File name="Modules/CalcOffence.lua" part="program" sha1="05fe5cd64282da7b74452cccab806d94e70ec762" />
 	<File name="Modules/CalcPerform.lua" part="program" sha1="9caca7b807f5b5f9c81a67dd36f8459c3124ee88" />
 	<File name="Modules/Calcs.lua" part="program" sha1="feb334dab9ac610bb719673ddf3be256924fa1db" />
-	<File name="Modules/CalcSections.lua" part="program" sha1="1888d96373e084db974fee46894be2d842c656be" />
+	<File name="Modules/CalcSections.lua" part="program" sha1="bda6b223d2687b4959db6bad5d31ce0a85721bba" />
 	<File name="Modules/CalcSetup.lua" part="program" sha1="a5468360a5fbf5aaaede83afb0caf7c91057499b" />
 	<File name="Modules/CalcTools.lua" part="program" sha1="703ae6029e80c9df1a0980b31c6dcdcc942e8dc4" />
 	<File name="Modules/Common.lua" part="program" sha1="4ede46a44f601849c0757096ba4bd2037b0e2c77" />
@@ -210,7 +210,7 @@
 	<File name="Modules/Data.lua" part="program" sha1="e63089538aa9ecb8510f85cb6f1b8c9a928d6b5f" />
 	<File name="Modules/ItemTools.lua" part="program" sha1="aef4b0cc22cb2fe381888d8a2b08e3f5482fb4a6" />
 	<File name="Modules/Main.lua" part="program" sha1="f636bea422e34e819aab78836badd3d94fc4f661" />
-	<File name="Modules/ModParser.lua" part="program" sha1="431242390ccd1c703d437687a13ff86f0f38e182" />
+	<File name="Modules/ModParser.lua" part="program" sha1="9c7f15476d0de9d944870fcc7d98ece813b7fe9b" />
 	<File name="Modules/ModTools.lua" part="program" sha1="03dc3ab09701a3615f518c094cdb3437142dbe18" />
 	<File name="Modules/PantheonTools.lua" part="program" sha1="ebe91a7d8f8444a6061acf4758da0e775cc8c314" />
 	<File name="Modules/StatDescriber.lua" part="program" sha1="0b2d6debdd1770b7e0b7cbb76521efaeabcafba1" />
