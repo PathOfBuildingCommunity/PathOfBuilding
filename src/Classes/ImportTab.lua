@@ -336,6 +336,118 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self.controls.importCodeGo.onClick()
 		end
 	end
+
+	-- Stash Tabs Import Items
+	self.stashImportMode = "GETACCOUNTNAME"
+	self.stashImportStatus = "Idle"
+
+	-- Stash Stage: Account Name
+	self.controls.sectionStashImport = new("SectionControl", {"TOPLEFT", self.controls.sectionBuild, "BOTTOMLEFT"}, 0, 18, 650, 200, "Stash Tab Import")
+	self.controls.stashImportStatusLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionStashImport,"TOPLEFT"}, 6, 14, 200, 16, function()
+		return "^7Stash import status: "..self.stashImportStatus
+	end)
+
+	self.controls.stashHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionStashImport,"TOPLEFT"}, 6, 40, 200, 16, "^7To import your stash you will need the account name, league, and POESESSID:")
+	self.controls.stashHeader.shown = function()
+		return self.stashImportMode == "GETACCOUNTNAME"
+	end
+	self.controls.stashAccountRealm = new("DropDownControl", {"TOPLEFT",self.controls.stashHeader,"BOTTOMLEFT"}, 0, 4, 60, 20, realmList )
+	self.controls.stashAccountRealm:SelByValue( main.lastRealm or "PC", "id" )
+	self.controls.stashAccountName = new("EditControl", {"LEFT",self.controls.stashAccountRealm,"RIGHT"}, 8, 0, 200, 20, main.lastAccountName or "", nil, "%c")
+	self.controls.stashAccountName.pasteFilter = function(text)
+		return text:gsub("[\128-\255]",function(c)
+			return codePointToUTF8(c:byte(1)):gsub(".",function(c)
+				return string.format("%%%X", c:byte(1))
+			end)
+		end)
+	end
+
+	-- accountHistory Control for stash import
+	if not historyList then
+		historyList = { }
+		for accountName, account in pairs(main.gameAccounts) do
+			t_insert(historyList, accountName)
+			historyList[accountName] = true
+		end
+		table.sort(historyList, function(a,b)
+			return a:lower() < b:lower()
+		end)
+	end -- don't load the list many times
+	self.controls.stashAccountNameGo = new("ButtonControl", {"LEFT",self.controls.stashAccountName,"RIGHT"}, 8, 0, 60, 20, "Start", function()
+		self.controls.stashSessionInput.buf = ""
+		self:DownloadLeagueList()
+	end)
+	self.controls.stashAccountNameGo.enabled = function()
+		return self.controls.stashAccountName.buf:match("%S")
+	end
+
+	self.controls.stashAccountHistory = new("DropDownControl", {"LEFT",self.controls.stashAccountNameGo,"RIGHT"}, 8, 0, 200, 20, historyList, function()
+		self.controls.stashAccountName.buf = self.controls.stashAccountHistory.list[self.controls.stashAccountHistory.selIndex]
+	end)
+	self.controls.stashAccountHistory:SelByValue(main.lastAccountName)
+	self.controls.stashAccountHistory:CheckDroppedWidth(true)
+
+	self.controls.stashAccountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.stashAccountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
+	self.controls.stashAccountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.stashAccountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
+		OpenURL("https://www.urlencoder.org/")
+	end)
+
+	-- Stash Stage: input POESESSID for account name
+	self.controls.stashSessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionStashImport,"TOPLEFT"}, 6, 40, 200, 14)
+	self.controls.stashSessionHeader.label = function()
+		return [[
+^7The list of available leagues on ']]..self.controls.accountName.buf..[[' couldn't be retrieved. This may be because:
+1. You entered a character name instead of an account name or
+2. This account's characters tab is hidden (this is the default setting).
+If this is your account, you can either:
+1. Uncheck "Hide Characters" in your privacy settings or
+2. Enter a POESESSID below.
+You can get this from your web browser's cookies while logged into the Path of Exile website.
+		]]
+	end
+	self.controls.stashSessionHeader.shown = function()
+		return self.stashImportMode == "GETSESSIONID"
+	end
+	self.controls.stashSessionRetry = new("ButtonControl", {"TOPLEFT",self.controls.stashSessionHeader,"TOPLEFT"}, 0, 108, 60, 20, "Retry", function()
+		self:DownloadLeagueList()
+	end)
+	self.controls.stashSessionCancel = new("ButtonControl", {"LEFT",self.controls.stashSessionRetry,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
+		self.stashImportMode = "GETACCOUNTNAME"
+		self.stashImportStatus = "Idle"
+	end)
+	self.controls.stashSessionPrivacySettings = new("ButtonControl", {"LEFT",self.controls.stashSessionCancel,"RIGHT"}, 8, 0, 120, 20, "Privacy Settings", function()
+		OpenURL('https://www.pathofexile.com/my-account/privacy')
+	end)
+	self.controls.stashSessionInput = new("EditControl", {"TOPLEFT",self.controls.stashSessionRetry,"BOTTOMLEFT"}, 0, 8, 350, 20, "", "POESESSID", "%X", 32)
+	self.controls.stashSessionInput:SetProtected(true)
+	self.controls.stashSessionGo = new("ButtonControl", {"LEFT",self.controls.stashSessionInput,"RIGHT"}, 8, 0, 60, 20, "Go", function()
+		self:DownloadLeagueList()
+	end)
+	self.controls.stashSessionGo.enabled = function()
+		return #self.controls.stashSessionInput.buf == 32
+	end	
+
+	-- Stash Stage: select league and enter POSSESSID to get stash tabs
+	self.controls.stashSelectHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionStashImport,"TOPLEFT"}, 6, 40, 200, 16, "^7Choose league to import data from, and enter POESESSID:")
+	self.controls.stashSelectHeader.shown = function()
+		return self.stashImportMode == "SELECTCHAR" or self.stashImportMode == "IMPORTING"
+	end
+	self.controls.stashSelectLeagueLabel = new("LabelControl", {"TOPLEFT",self.controls.stashSelectHeader,"BOTTOMLEFT"}, 0, 6, 0, 14, "^7League:")
+	self.controls.stashSelectLeague = new("DropDownControl", {"LEFT",self.controls.stashSelectLeagueLabel,"RIGHT"}, 4, 0, 150, 18, nil, function(index, value)
+		self:BuildCharacterList(value.league)
+	end)
+	
+	self.controls.stashSessionIDLabel = new("LabelControl", {"LEFT",self.controls.stashSelectLeague,"RIGHT"}, 4, 0, 0, 14, "^7POESESSID:")
+	self.controls.stashSessionID = new("EditControl", {"LEFT",self.controls.stashSessionIDLabel,"RIGHT"}, 4, 0, 270, 20, main.POESESSID, nil, "%X", 32)
+	self.controls.stashSessionID:SetProtected(true)
+	self.controls.stashGetTabsButton = new("ButtonControl", {"LEFT",self.controls.stashSessionID,"RIGHT"}, 8, 0, 60, 20, "Go", function()
+		self:DownloadStashTabs()
+	end)
+	self.controls.sessionGo.enabled = function()
+		return #self.controls.stashSessionID.buf == 32
+	end
+
+
 end)
 
 function ImportTabClass:Load(xml, fileName)
@@ -712,6 +824,31 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		return
 	end
 
+	local item = self:ConvertItem(itemData, slotName)
+	--ConPrintf("%s", item.raw)
+
+	if item.base then
+		local repIndex, repItem
+		for index, item in pairs(self.build.itemsTab.items) do
+			if item.uniqueID == itemData.id then
+				repIndex = index
+				repItem = item
+				break
+			end
+		end
+		if repIndex then
+			-- Item already exists in the build, overwrite it
+			item.id = repItem.id
+			self.build.itemsTab.items[item.id] = item
+			item:BuildModList()
+		else
+			self.build.itemsTab:AddItem(item, true)
+		end
+		self.build.itemsTab.slots[slotName]:SetSelItemId(item.id)
+	end
+end
+
+function ImportTabClass:ConvertItem(itemData, slotName)
 	local item = new("Item")
 
 	-- Determine rarity, display name and base type of the item
@@ -823,7 +960,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
 		end
 	end
-	if itemData.socketedItems then
+	if itemData.socketedItems and slotName ~= "stash" then
 		self:ImportSocketedItems(item, itemData.socketedItems, slotName)
 	end
 	if itemData.requirements and (not itemData.socketedItems or not itemData.socketedItems[1]) then
@@ -926,26 +1063,8 @@ function ImportTabClass:ImportItem(itemData, slotName)
 
 	-- Add and equip the new item
 	item:BuildAndParseRaw()
-	--ConPrintf("%s", item.raw)
-	if item.base then
-		local repIndex, repItem
-		for index, item in pairs(self.build.itemsTab.items) do
-			if item.uniqueID == itemData.id then
-				repIndex = index
-				repItem = item
-				break
-			end
-		end
-		if repIndex then
-			-- Item already exists in the build, overwrite it
-			item.id = repItem.id
-			self.build.itemsTab.items[item.id] = item
-			item:BuildModList()
-		else
-			self.build.itemsTab:AddItem(item, true)
-		end
-		self.build.itemsTab.slots[slotName]:SetSelItemId(item.id)
-	end
+
+	return item
 end
 
 function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
@@ -1036,6 +1155,187 @@ function ImportTabClass:GuessMainSocketGroup()
 		end
 	end
 	return largestGroupIndex
+end
+
+function ImportTabClass:DownloadLeagueList()
+	self.stashImportMode = "DOWNLOADLEAGUELIST"
+	self.stashImportStatus = "Retrieving league list..."
+	  -- Trim Trailing/Leading spaces
+	local accountName = self.controls.stashAccountName.buf:gsub('%s+', '')
+	local realm = realmList[self.controls.stashAccountRealm.selIndex]
+	local sessionID = #self.controls.stashSessionInput.buf == 32 and self.controls.stashSessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
+	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
+		if errMsg == "Response code: 401" then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
+			self.stashImportMode = "GETSESSIONID"
+			return
+		elseif errMsg == "Response code: 403" then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Account profile is private."
+			self.stashImportMode = "GETSESSIONID"
+			return
+		elseif errMsg == "Response code: 404" then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Account name is incorrect."
+			self.stashImportMode = "GETACCOUNTNAME"
+			return
+		elseif errMsg then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+			self.stashImportMode = "GETACCOUNTNAME"
+			return
+		end
+		local charList, errMsg = self:ProcessJSON(response.body)
+		if errMsg then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Error processing character list, try again later"
+			self.stashImportMode = "GETACCOUNTNAME"
+			return
+		end
+		--ConPrintTable(charList)
+		if #charList == 0 then
+			self.stashImportStatus = colorCodes.NEGATIVE.."The account has no characters to import."
+			self.stashImportMode = "GETACCOUNTNAME"
+			return
+		end
+		-- GGG's character API has an issue where for /get-characters the account name is not case-sensitive, but for /get-passive-skills and /get-items it is.
+		-- This workaround grabs the profile page and extracts the correct account name from one of the URLs.
+		launch:DownloadPage(realm.hostName..realm.profileURL..accountName, function(response, errMsg)
+			if errMsg then
+				self.stashImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+				self.stashImportMode = "GETACCOUNTNAME"
+				return
+			end
+			local realAccountName = response.body:match("/view%-profile/([^/]+)/characters"):gsub(".", function(c) if c:byte(1) > 127 then return string.format("%%%2X",c:byte(1)) else return c end end)
+			if not realAccountName then
+				self.stashImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character list."
+				self.stashImportMode = "GETSESSIONID"
+				return
+			end
+			self.controls.stashAccountName:SetText(realAccountName)
+			accountName = realAccountName
+			self.stashImportStatus = "League list successfully retrieved."
+			self.stashImportMode = "SELECTCHAR"
+			self.lastRealm = realm.id
+			main.lastRealm = realm.id
+			self.lastAccountHash = common.sha1(accountName)
+			main.lastAccountName = accountName
+			main.gameAccounts[accountName] = main.gameAccounts[accountName] or { }
+			main.gameAccounts[accountName].sessionID = sessionID
+			local leagueList = { }
+			for i, char in ipairs(charList) do
+				if not isValueInArray(leagueList, char.league) then
+					t_insert(leagueList, char.league)
+				end
+			end
+			table.sort(leagueList)
+			wipeTable(self.controls.stashSelectLeague.list)
+			for _, league in ipairs(leagueList) do
+				t_insert(self.controls.stashSelectLeague.list, {
+					label = league,
+					league = league,
+				})
+			end
+			if self.controls.stashSelectLeague.selIndex > #self.controls.stashSelectLeague.list then
+				self.controls.stashSelectLeague.selIndex = 1
+			end
+			self.lastCharList = charList
+
+			-- We only get here if the accountname was correct, found, and not private, so add it to the account history.
+			self:SaveAccountHistory()
+		end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
+	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
+end
+
+function ImportTabClass:DownloadStashTabs()
+	self.stashImportMode = "IMPORTING"
+	self.stashImportStatus = "Retrieving stash tabs..."
+	local realm = realmList[self.controls.stashAccountRealm.selIndex]
+	local league = self.controls.stashSelectLeague:GetSelValue("league")
+	local accountName = self.controls.stashAccountName.buf
+	local sessionID = #self.controls.stashSessionInput.buf == 32 and self.controls.stashSessionInput.buf or main.POESESSID
+
+	launch:DownloadPage(realm.hostName.."character-window/get-stash-items?accountName="..accountName.."&league="..league.."&tabs=1&tabIndex=0", function(response, errMsg)
+		self.stashImportMode = "SELECTTABS"
+		if errMsg then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Error importing stash data, try again ("..errMsg:gsub("\n"," ")..")"
+			return
+		elseif response.body == "false" then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Failed to retrieve stash data, try again."
+			return
+		end
+
+		local stashData, parseErrMsg = self:ProcessJSON(response.body)
+
+		if parseErrMsg then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Failed to parse stash data, try again."
+			return
+		end
+
+		self.stashImportStatus = "Tab Names Loaded"
+		self:BuildStashTabList(stashData)
+	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
+end
+
+function ImportTabClass:BuildStashTabList(stash)
+	self.controls.stashListHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionStashImport,"TOPLEFT"}, 6, 40, 200, 16, "^7Select Stash Tab To Import:")
+	self.controls.stashListHeader.shown = function()
+		return self.stashImportMode == "SELECTTABS"
+	end
+
+	local tabList = {}
+	for _, tab in ipairs(stash.tabs) do
+		t_insert(tabList, {
+			label = tab.n,
+			tabIdx = tab.i,
+		})
+	end
+
+	self.controls.stashList = new("DropDownControl", {"LEFT", self.controls.stashListHeader, "RIGHT"}, 8, 0, 150, 16, tabList )
+	self.controls.stashImportButton = new("ButtonControl", {"LEFT",self.controls.stashList,"RIGHT"}, 8, 0, 60, 16, "Import Tab", function()
+		self:ImportStashTabItems()
+	end)
+	self.controls.stashClearButton = new("ButtonControl", {"LEFT",self.controls.stashImportButton,"RIGHT"}, 8, 0, 110, 16, "Clear PoB Stash", function()
+		wipeTable(main.stashDB.list)
+		self.build.itemsTab.controls.stashDB:ListBuilder()
+	end)
+end
+
+function ImportTabClass:ImportStashTabItems(stash)
+	local stashName = self.controls.stashList:GetSelValue("label")
+	local stashIdx = self.controls.stashList:GetSelValue("tabIdx")
+
+	self.stashImportMode = "SELECTTABS"
+	self.stashImportStatus = "Retrieving " ..stashName.." items..."
+	local realm = realmList[self.controls.stashAccountRealm.selIndex]
+	local league = self.controls.stashSelectLeague:GetSelValue("league")
+	local accountName = self.controls.stashAccountName.buf
+	local sessionID = #self.controls.stashSessionInput.buf == 32 and self.controls.stashSessionInput.buf or main.POESESSID
+
+	launch:DownloadPage(realm.hostName.."character-window/get-stash-items?accountName="..accountName.."&league="..league.."&tabs=1&tabIndex="..stashIdx, function(response, errMsg)
+		self.stashImportMode = "SELECTTABS"
+		if errMsg then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Error importing stash data, try again ("..errMsg:gsub("\n"," ")..")"
+			return
+		elseif response.body == "false" then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Failed to retrieve stash data, try again."
+			return
+		end
+
+		local stashData, parseErrMsg = self:ProcessJSON(response.body)
+
+		if parseErrMsg then
+			self.stashImportStatus = colorCodes.NEGATIVE.."Failed to parse stash data, try again."
+			return
+		end
+
+		self.stashImportStatus = "Adding " ..stashName.." items to PoB..."
+
+		for _, itemData in ipairs(stashData.items) do
+			local item = self:ConvertItem(itemData, "stash")
+			main.stashDB.list[item.uniqueID] = item;
+		end
+
+		self.build.itemsTab.controls.stashDB:ListBuilder()
+		self.stashImportStatus = stashName .. " import complete."
+
+	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
 
 function HexToChar(x)

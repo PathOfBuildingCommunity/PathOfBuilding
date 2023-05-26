@@ -113,6 +113,7 @@ function main:Init()
 	self:LoadTree(latestTreeVersion)
 
 	ConPrintf("Loading item databases...")
+	self.stashDB = { list = { } }
 	self.uniqueDB = { list = { } }
 	for type, typeList in pairs(data.uniques) do
 		for _, raw in pairs(typeList) do
