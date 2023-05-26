@@ -3268,10 +3268,13 @@ function calcs.offence(env, actor, activeSkill)
 		output.LifeLeechRate = 0
 		output.LifeLeechPerHit = 0
 	end
+	output.LifeLeechRateOverCap = m_max(0, output.LifeLeechRate - output.MaxLifeLeechRate) * output.LifeRecoveryRateMod
 	output.LifeLeechRate = output.LifeLeechInstantRate + m_min(output.LifeLeechRate, output.MaxLifeLeechRate) * output.LifeRecoveryRateMod
 	output.LifeLeechPerHit = output.LifeLeechInstant + m_min(output.LifeLeechPerHit, output.MaxLifeLeechRate) * output.LifeLeechDuration * output.LifeRecoveryRateMod
+	output.EnergyShieldLeechRateOverCap = m_max(0, output.EnergyShieldLeechRate - output.MaxEnergyShieldLeechRate) * output.EnergyShieldRecoveryRateMod
 	output.EnergyShieldLeechRate = output.EnergyShieldLeechInstantRate + m_min(output.EnergyShieldLeechRate, output.MaxEnergyShieldLeechRate) * output.EnergyShieldRecoveryRateMod
 	output.EnergyShieldLeechPerHit = output.EnergyShieldLeechInstant + m_min(output.EnergyShieldLeechPerHit, output.MaxEnergyShieldLeechRate) * output.EnergyShieldLeechDuration * output.EnergyShieldRecoveryRateMod
+	output.ManaLeechRateOverCap = m_max(0, output.ManaLeechRate - output.MaxManaLeechRate) * output.ManaRecoveryRateMod
 	output.ManaLeechRate = output.ManaLeechInstantRate + m_min(output.ManaLeechRate, output.MaxManaLeechRate) * output.ManaRecoveryRateMod
 	output.ManaLeechPerHit = output.ManaLeechInstant + m_min(output.ManaLeechPerHit, output.MaxManaLeechRate) * output.ManaLeechDuration * output.ManaRecoveryRateMod
 	skillFlags.leechLife = output.LifeLeechRate > 0
