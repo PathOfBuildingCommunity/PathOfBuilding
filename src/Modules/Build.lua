@@ -334,9 +334,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "LifeRegenRecovery", label = "Life Regen", fmt = ".1f", color = colorCodes.LIFE, condFunc = function(v,o) return o.LifeRecovery <= 0 and o.LifeRegenRecovery ~= 0 end },
 		{ stat = "LifeRegenRecovery", label = "Life Recovery", fmt = ".1f", color = colorCodes.LIFE, condFunc = function(v,o) return o.LifeRecovery > 0 and o.LifeRegenRecovery ~= 0 end },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true, overCapStat = "LifeLeechRateOverCap" },
-		{ stat = "LifeLeechRateOverCap", label = "Life Leech Rate Over Cap", fmt = ".1f", hideStat = true },
+		{ stat = "LifeLeechRateOverCap", label = "Life Leech Rate Over Cap", fmt = ".1f", neutral = true, hideStat = true },
 		{ stat = "LifeLeechPerInstance", label = "Life Leech Per Instance", color = colorCodes.LIFE, fmt = ".1f", compPercent = true, overCapStat = "LifeLeechOverCap" },
-		{ stat = "LifeLeechOverCap", label = "Life Leech Per Instance Over Cap", fmt = ".1f", hideStat = true },
+		{ stat = "LifeLeechOverCap", label = "Life Leech Per Instance Over Cap", fmt = ".1f", neutral = true, hideStat = true },
 		{ stat = "LifeLeechGainPerHit", label = "Life Leech/Gain per Hit", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
 		{ },
 		{ stat = "Mana", label = "Total Mana", fmt = "d", color = colorCodes.MANA, compPercent = true },
@@ -346,9 +346,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "ManaRegenRecovery", label = "Mana Regen", fmt = ".1f", color = colorCodes.MANA, condFunc = function(v,o) return o.ManaRecovery <= 0 and o.ManaRegenRecovery ~= 0 end },
 		{ stat = "ManaRegenRecovery", label = "Mana Recovery", fmt = ".1f", color = colorCodes.MANA, condFunc = function(v,o) return o.ManaRecovery > 0 and o.ManaRegenRecovery ~= 0 end },
 		{ stat = "ManaLeechGainRate", label = "Mana Leech/On Hit Rate", fmt = ".1f", color = colorCodes.MANA, compPercent = true, overCapStat = "ManaLeechRateOverCap" },
-		{ stat = "ManaLeechRateOverCap", label = "Mana Leech Rate Over Cap", fmt = ".1f", hideStat = true },
+		{ stat = "ManaLeechRateOverCap", label = "Mana Leech Rate Over Cap", fmt = ".1f", neutral = true, hideStat = true },
 		{ stat = "ManaLeechPerInstance", label = "Mana Leech Per Instance", color = colorCodes.MANA, fmt = ".1f", compPercent = true, overCapStat = "ManaLeechOverCap" },
-		{ stat = "ManaLeechOverCap", label = "Mana Leech Per Instance Over Cap", fmt = ".1f", hideStat = true },
+		{ stat = "ManaLeechOverCap", label = "Mana Leech Per Instance Over Cap", fmt = ".1f", neutral = true, hideStat = true },
 		{ stat = "ManaLeechGainPerHit", label = "Mana Leech/Gain per Hit", fmt = ".1f", color = colorCodes.MANA, compPercent = true },
 		{ },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
@@ -357,9 +357,9 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "EnergyShieldRegenRecovery", label = "ES Regen", color = colorCodes.ES, fmt = ".1f", condFunc = function(v,o) return o.EnergyShieldRecovery <= 0 and o.EnergyShieldRegenRecovery ~= 0 end },
 		{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", color = colorCodes.ES, fmt = ".1f", condFunc = function(v,o) return o.EnergyShieldRecovery > 0 and o.EnergyShieldRegenRecovery ~= 0 end },
 		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", color = colorCodes.ES, fmt = ".1f", compPercent = true, overCapStat = "EnergyShieldLeechRateOverCap" },
-		{ stat = "EnergyShieldLeechRateOverCap", label = "ES Leech Rate Over Cap", fmt = ".1f", hideStat = true },
+		{ stat = "EnergyShieldLeechRateOverCap", label = "ES Leech Rate Over Cap", fmt = ".1f", neutral = true, hideStat = true },
 		{ stat = "EnergyShieldLeechPerInstance", label = "ES Leech Per Instance", color = colorCodes.ES, fmt = ".1f", compPercent = true, overCapStat = "EnergyShieldLeechOverCap" },
-		{ stat = "EnergyShieldLeechOverCap", label = "ES Leech Per Instance Over Cap", fmt = ".1f", hideStat = true },
+		{ stat = "EnergyShieldLeechOverCap", label = "ES Leech Per Instance Over Cap", fmt = ".1f", neutral = true, hideStat = true },
 		{ stat = "EnergyShieldLeechGainPerHit", label = "ES Leech/Gain per Hit", color = colorCodes.ES, fmt = ".1f", compPercent = true },
 		{ },
 		{ stat = "Ward", label = "Ward", fmt = "d", color = colorCodes.WARD, compPercent = true },
@@ -433,11 +433,11 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "Life", label = "Total Life", fmt = ".1f", color = colorCodes.LIFE, compPercent = true },
 		{ stat = "LifeRegenRecovery", label = "Life Recovery", fmt = ".1f", color = colorCodes.LIFE },
 		{ stat = "LifeLeechGainRate", label = "Life Leech/On Hit Rate", fmt = ".1f", color = colorCodes.LIFE, compPercent = true, overCapStat = "LifeLeechRateOverCap" },
-		{ stat = "LifeLeechRateOverCap", label = "Life Leech Rate Over Cap", fmt = ".1f", hideStat = true },
+		{ stat = "LifeLeechRateOverCap", label = "Life Leech Rate Over Cap", fmt = ".1f", neutral = true, hideStat = true },
 		{ stat = "EnergyShield", label = "Energy Shield", fmt = "d", color = colorCodes.ES, compPercent = true },
 		{ stat = "EnergyShieldRegenRecovery", label = "ES Recovery", fmt = ".1f", color = colorCodes.ES },
 		{ stat = "EnergyShieldLeechGainRate", label = "ES Leech/On Hit Rate", fmt = ".1f", color = colorCodes.ES, compPercent = true, overCapStat = "EnergyShieldLeechRateOverCap" },
-		{ stat = "EnergyShieldLeechRateOverCap", label = "ES Leech Rate Over Cap", fmt = ".1f", hideStat = true },
+		{ stat = "EnergyShieldLeechRateOverCap", label = "ES Leech Rate Over Cap", fmt = ".1f", neutral = true, hideStat = true },
 	}
 	self.extraSaveStats = {
 		"PowerCharges",
@@ -1505,7 +1505,10 @@ function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compare
 				if count == 0 then
 					tooltip:AddLine(14, header)
 				end
-				local color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
+				local color = "^8"
+				if not statData.neutral then
+					color = ((statData.lowerIsBetter and diff < 0) or (not statData.lowerIsBetter and diff > 0)) and colorCodes.POSITIVE or colorCodes.NEGATIVE
+				end
 				local val = diff * ((statData.pc or statData.mod) and 100 or 1)
 				local valStr = s_format("%+"..statData.fmt, val) -- Can't use self:FormatStat, because it doesn't have %+. Adding that would have complicated a simple function
 
