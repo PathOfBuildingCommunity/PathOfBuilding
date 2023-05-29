@@ -1569,7 +1569,7 @@ skills["Boneshatter"] = {
 		end
 
 		if breakdown then
-			t_insert(BSDamageTaken, "Total damage taken: "..round(totalDamageTaken))
+			t_insert(BSDamageTaken, s_format("Total damage taken from Boneshatter per attack: %d", totalDamageTaken))
 			breakdown.BSDamageTaken = BSDamageTaken
 			output.BSDamageTaken = totalDamageTaken
 		end
