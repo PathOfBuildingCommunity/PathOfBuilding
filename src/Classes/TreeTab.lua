@@ -1759,9 +1759,10 @@ function TreeTabClass:FindTimelessJewel()
 				rootNodes[class.startNodeId] = true
 			end
 			if controls.socketFilter.state then
+				timelessData.socketFilterDistance = timelessData.socketFilterDistance or 0
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
-					if (timelessData.socketFilterDistance or 0) > 0 then
+					if timelessData.socketFilterDistance > 0 then
 						unAllocatedNodesDistance[nodeId] = self.build.spec.nodes[nodeId].pathDist or 1000
 					end
 				end
