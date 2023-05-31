@@ -206,7 +206,7 @@ return {
 	skill("triggeredWhileChannelling", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["skill_triggered_by_snipe"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+	skill("triggeredBySnipe", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["triggered_by_spiritual_cry"] = {
 	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),

@@ -3597,6 +3597,52 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 
+	-- Snipe Support
+	if env.player.mainSkill.skillData.triggeredBySnipe and not env.player.mainSkill.skillFlags.minion then
+		local triggerName = "Snipe"
+		local snipeStages = math.min(math.max(env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStage"), 0), env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax"))
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.activeEffect.grantedEffect.name == "Snipe" and skill ~= env.player.mainSkill and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+		end
+		if not source or snipeStages < 1 then
+			env.player.mainSkill.skillData.triggeredBySnipe = nil
+			env.player.mainSkill.infoMessage = s_format("Not enough Snipe stages to Trigger Skill")
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoTrigger = ""
+		else
+			env.player.mainSkill.skillData.triggered = true
+
+			local uuid = cacheSkillUUID(source)
+			local sourceTime = GlobalCache.cachedData["CACHE"][uuid].HitSpeed
+
+			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown)
+			output.SourceTriggerRate = sourceTime
+			output.ServerTriggerRate = m_min(sourceTime, output.ActionTriggerRate)
+
+			if breakdown then
+				breakdown.SimData = {
+					s_format("Trigger rate:"),
+					s_format("1 / %.2f ^8(Snipe channel time)", 1 / sourceTime),
+					s_format("= %.2f ^8per second", output.SourceTriggerRate),
+				}
+				breakdown.ServerTriggerRate = {
+					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = output.SourceTriggerRate
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.infoMessage = "Triggered by Snipe"
+			env.player.mainSkill.infoTrigger = triggerName
+			env.player.mainSkill.skillFlags.noDisplay = true
+		end
+	end
 
 	-- Doom Blast (from Impending Doom)
 	if env.player.mainSkill.skillData.triggeredWhenHexEnds and not env.player.mainSkill.skillFlags.minion then

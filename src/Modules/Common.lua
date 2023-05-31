@@ -712,6 +712,7 @@ function cacheData(uuid, env)
 	GlobalCache.cachedData[mode][uuid] = {
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
+		HitSpeed = env.player.output.HitSpeed,
 		ManaCost = env.player.output.ManaCost,
 		LifeCost = env.player.output.LifeCost,
 		ESCost = env.player.output.ESCost,
