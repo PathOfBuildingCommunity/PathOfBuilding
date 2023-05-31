@@ -971,7 +971,7 @@ local function defualtTriggerHandler(env, config)
 					if assumingEveryHitKills then
 						t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
 					end
-					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, source.activeEffect.grantedEffect.name, useCastRate and "cast rate" or "attack rate"))
+					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, source.activeEffect.grantedEffect.name, config.useCastRate and "cast rate" or "attack rate"))
 				end
 			end
 			
@@ -1511,10 +1511,16 @@ local configTable = {
 					return skill.skillTypes[SkillType.Hex]
 				end}
 	end,
-	["Queen's Demand"] = function(env)
+	["Flames of Judgement"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {triggerName = env.player.mainSkill.activeEffect.grantedEffect.name,
-				triggerSkillCond = function(env, skill) return skill.activeEffect.grantedEffect.name == uniqueTriggerName end,
+				triggerSkillCond = function(env, skill) return skill.activeEffect.grantedEffect.name == "Queen's Demand" end,
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
+	end,
+	["Storm of Judgement"] = function(env)
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+		return {triggerName = env.player.mainSkill.activeEffect.grantedEffect.name,
+				triggerSkillCond = function(env, skill) return skill.activeEffect.grantedEffect.name == "Queen's Demand" end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
 	["Trigger Craft"] = function(env)
