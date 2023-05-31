@@ -1618,7 +1618,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			end
 			breakdown.StunAvoidChance = {
 				colorCodes.CUSTOM.."NOTE: Having any energy shield when the hit occurs grants 50% chance to avoid stun.",
-				colorCodes.CUSTOM.."POB only applies this modifer when ES > Total incoming damage.",
+				colorCodes.CUSTOM.."POB only applies this modifier when ES > Total incoming damage.",
 			}
 		end
 		
