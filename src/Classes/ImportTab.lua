@@ -1273,6 +1273,16 @@ function ImportTabClass:DownloadStashTabs()
 	end, sessionID and { header = "Cookie: POESESSID=" .. sessionID })
 end
 
+local supported_stash_types = { "FlaskStash", "NormalStash", "PremiumStash", "QuadStash" }
+local function IsStashSupported (stashType)
+	for _, stype in ipairs(supported_stash_types) do
+		if stashType == stype then
+			return true
+		end
+	end
+	return false
+end
+
 function ImportTabClass:BuildStashTabList(stash)
 	self.controls.stashListHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionStashImport,"TOPLEFT"}, 6, 40, 200, 16, "^7Select Stash Tab To Import:")
 	self.controls.stashListHeader.shown = function()
@@ -1281,10 +1291,12 @@ function ImportTabClass:BuildStashTabList(stash)
 
 	local tabList = {}
 	for _, tab in ipairs(stash.tabs) do
-		t_insert(tabList, {
-			label = tab.n,
-			tabIdx = tab.i,
-		})
+		if IsStashSupported(tab.type) then
+			t_insert(tabList, {
+				label = tab.n,
+				tabIdx = tab.i,
+			})
+		end
 	end
 
 	self.controls.stashList = new("DropDownControl", {"LEFT", self.controls.stashListHeader, "RIGHT"}, 8, 0, 150, 16, tabList )
@@ -1329,7 +1341,9 @@ function ImportTabClass:ImportStashTabItems(stash)
 
 		for _, itemData in ipairs(stashData.items) do
 			local item = self:ConvertItem(itemData, "stash")
-			main.stashDB.list[item.uniqueID] = item;
+			if item then
+				main.stashDB.list[item.uniqueID] = item;
+			end
 		end
 
 		self.build.itemsTab.controls.stashDB:ListBuilder()
