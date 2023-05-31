@@ -1737,10 +1737,10 @@ function calcs.triggers(env)
 		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
 		local uniqueName = getUniqueItemTriggerName(env.player.mainSkill)
-		local config = (configTable[skillName] or configTable[triggerName] or configTable[uniqueName] or logNoHandler(skillName, triggerName, uniqueName))(env)
+		local config = (configTable[skillName] or triggerName and (configTable[triggerName] or configTable[triggerName:gsub("^Awakened ", "")]) or configTable[uniqueName] or logNoHandler(skillName, triggerName, uniqueName))(env)
         if config then
 		    config.actor = config.actor or env.player
-			config.triggerName = config.triggerName or skillName or triggerName or uniqueName
+			config.triggerName = config.triggerName or triggerName  or uniqueName or skillName
 			local triggerHandler = config.customHandler or defualtTriggerHandler
 		    triggerHandler(env, config)
         end
