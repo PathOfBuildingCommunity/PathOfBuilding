@@ -929,6 +929,7 @@ local function defualtTriggerHandler(env, config)
 	local breakdown = config.actor.breakdown
 	local source = config.source
 	local triggeredSkills = config.triggeredSkills or {}
+	local trigRate = config.trigRate
 	
 	-- Find trigger skill and triggered skills
 	if config.triggeredSkillCond or config.triggerSkillCond then
@@ -946,7 +947,7 @@ local function defualtTriggerHandler(env, config)
 		if not source and not actor.mainSkill.skillFlags.globalTrigger then
 			actor.mainSkill.skillData.triggered = nil
 			actor.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
-			actor.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", triggerName)
+			actor.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", config.triggerName)
 			actor.mainSkill.infoTrigger = ""
 		else
 			actor.mainSkill.skillData.triggered = true
@@ -954,7 +955,7 @@ local function defualtTriggerHandler(env, config)
 			-- Account for Arcanist Brand using activation frequency
 			if breakdown and actor.mainSkill.skillData.triggeredByBrand then
 				breakdown.EffectiveSourceRate = {
-					s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName),
+					s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, config.triggerName),
 					s_format("* %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore),
 					s_format("* %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc),
 					s_format("= %.2f ^8(activation rate of %s)", trigRate, actor.mainSkill.triggeredBy.mainSkill.activeEffect.grantedEffect.name)
@@ -1025,7 +1026,7 @@ local function defualtTriggerHandler(env, config)
 				if breakdown then
 					t_insert(breakdown.EffectiveSourceRate, s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
 				end
-				if (actor.mainSkill.skillData.triggeredByCospris or actor.mainSkill.skillData.triggeredByCoC or triggerName == "Law of the Wilds") and GlobalCache.cachedData["CACHE"][uuid] then
+				if (actor.mainSkill.skillData.triggeredByCospris or actor.mainSkill.skillData.triggeredByCoC or config.triggerName == "Law of the Wilds") and GlobalCache.cachedData["CACHE"][uuid] then
 					local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 					trigRate = trigRate * (sourceCritChance or 0) / 100
 					if breakdown then
@@ -1097,7 +1098,6 @@ local function defualtTriggerHandler(env, config)
 			end
 			
 			local triggeredName = (actor.mainSkill.activeEffect.grantedEffect and actor ~= env.minion and actor.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
-			local triggerName = (actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name) or "Trigger"
 			if actor.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
 				local base = actor.mainSkill.skillData.castTimeOverride or actor.mainSkill.activeEffect.grantedEffect.castTime or 1
 				local inc = actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "Speed")
@@ -1147,7 +1147,7 @@ local function defualtTriggerHandler(env, config)
 					breakdown.TriggerRateCap = {
 						triggeredName .. " has no base cooldown or cooldown override",
 						"",
-						triggerName .. " has no base cooldown",
+						config.triggerName .. " has no base cooldown",
 						"",
 						"Assuming cast on every kill/attack/hit",
 					}
@@ -1157,7 +1157,7 @@ local function defualtTriggerHandler(env, config)
 							s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime),
 							s_format("= %.4f ^8(final cooldown of %s)", ((triggeredCD or 0) / icdr) + output.addsCastTime or 0, triggeredName),
 							"",
-							triggerName .. " has no base cooldown",
+							config.triggerName .. " has no base cooldown",
 							"",
 							s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
 							"",
@@ -1181,7 +1181,7 @@ local function defualtTriggerHandler(env, config)
 					}
 					actor.mainSkill.skillFlags.hasOverride = true
 					if actor.mainSkill.skillData.triggeredByBrand then
-						breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
+						breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, config.triggerName)
 						breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore)
 						t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc))
 					end
@@ -1212,7 +1212,7 @@ local function defualtTriggerHandler(env, config)
 								s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 								s_format("= %.4f ^8(final cooldown of %s)", ((triggeredCD or 0) / icdr) + (output.addsCastTime or 0), triggeredName),
 								"",
-								s_format("%.2f ^8(base cooldown of %s)", triggerCD, triggerName),
+								s_format("%.2f ^8(base cooldown of %s)", triggerCD, config.triggerName),
 								s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 								s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
 								"",
@@ -1231,7 +1231,7 @@ local function defualtTriggerHandler(env, config)
 								t_insert(breakdown.TriggerRateCap, 12, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
 							end
 							if actor.mainSkill.skillData.triggeredByBrand then
-								breakdown.TriggerRateCap[5] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
+								breakdown.TriggerRateCap[5] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, config.triggerName)
 								breakdown.TriggerRateCap[6] = s_format("/ %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore)
 								t_insert(breakdown.TriggerRateCap, 6 , s_format("/ %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc))
 							end
@@ -1264,7 +1264,7 @@ local function defualtTriggerHandler(env, config)
 						breakdown.TriggerRateCap = {
 							triggeredName .. " has no base cooldown",
 							"",
-							s_format("%.2f ^8(base cooldown of %s)", triggerCD, triggerName),
+							s_format("%.2f ^8(base cooldown of %s)", triggerCD, config.triggerName),
 							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 							s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
 							"",
@@ -1283,7 +1283,7 @@ local function defualtTriggerHandler(env, config)
 							t_insert(breakdown.TriggerRateCap, 10, s_format("^8(extra Cast Rate Increase of %d%% would reach next breakpoint)", extraCSIncNeeded))
 						end
 						if actor.mainSkill.skillData.triggeredByBrand then
-							breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, triggerName)
+							breakdown.TriggerRateCap[3] = s_format("%.2f ^8(base activation cooldown of %s)", actor.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency, config.triggerName)
 							breakdown.TriggerRateCap[4] = s_format("/ %.2f ^8(more activation frequency)", actor.mainSkill.triggeredBy.activationFreqMore)
 							t_insert(breakdown.TriggerRateCap, 4 , s_format("/ %.2f ^8(increased activation frequency)", actor.mainSkill.triggeredBy.activationFreqInc))
 						end
@@ -1371,16 +1371,15 @@ local function defualtTriggerHandler(env, config)
 			-- Account for Trigger-related INC/MORE modifiers
 			output.Speed = actor.mainSkill.skillData.triggerRate
 			addTriggerIncMoreMods(actor.mainSkill, source or actor.mainSkill)
-			triggerName = triggerName or ((actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name) or actor.mainSkill.activeEffect.grantedEffect.name)
 			if source and source ~= actor.mainSkill then
 				actor.mainSkill.skillData.triggerSource = source
 				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
-				actor.mainSkill.infoMessage = triggerName .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: ") .. source.activeEffect.grantedEffect.name
+				actor.mainSkill.infoMessage = config.triggerName .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: ") .. source.activeEffect.grantedEffect.name
 			else
-				actor.mainSkill.infoMessage = triggerName .. " Trigger"
+				actor.mainSkill.infoMessage = actor.mainSkill.triggeredBy.grantedEffect.name .. " Trigger"
 			end
 	
-			actor.mainSkill.infoTrigger = actor.mainSkill.infoTrigger or triggerName
+			actor.mainSkill.infoTrigger = config.triggerName
 		end
 	end
 end
@@ -1741,6 +1740,7 @@ function calcs.triggers(env)
 		local config = (configTable[skillName] or configTable[triggerName] or configTable[uniqueName] or logNoHandler(skillName, triggerName, uniqueName))(env)
         if config then
 		    config.actor = config.actor or env.player
+			config.triggerName = config.triggerName or skillName or triggerName or uniqueName
 		    if config.customHandler then
 		    	config.customHandler(env, config)
 		    else
