@@ -35,15 +35,27 @@ local function slotMatch(env, skill)
 	return (match1 or match2)
 end
 
-local function packageSkillDataForSimulation(skill)
-	local addsCastTime = nil
+local function processAddedCastTime(skill, breakdown)
 	if skill.skillModList:Flag(skill.skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
-		baseCastTime = skill.skillData.castTimeOverride or skill.activeEffect.grantedEffect.castTime or 1
+		local baseCastTime = skill.skillData.castTimeOverride or skill.activeEffect.grantedEffect.castTime or 1
 		local inc = skill.skillModList:Sum("INC", skill.skillCfg, "Speed")
 		local more = skill.skillModList:More(skill.skillCfg, "Speed")
-		addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
+		local addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
+		skill.skillFlags.addsCastTime = true
+		if breakdown then
+			breakdown.AddedCastTime = {
+				s_format("%.2f ^8(base cast time of %s)", baseCastTime, triggeredName),
+				s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
+				s_format("%.2f ^8(more/less)", more),
+				s_format("= %.2f ^8cast time", addsCastTime)
+			}
+		end
+		return addsCastTime
 	end
-	return { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = addsCastTime, icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery")}
+end
+
+local function packageSkillDataForSimulation(skill)
+	return { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = processAddedCastTime(skill), icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery")}
 end
 
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
@@ -419,6 +431,8 @@ local function CWCHandler(env)
 		local trigRate = 0
 		local source = nil
 		local triggerName = "Cast While Channeling"
+		local output = env.player.output
+		local breakdown = env.player.breakdown
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
@@ -438,22 +452,8 @@ local function CWCHandler(env)
 		else
 			local triggeredName = env.player.mainSkill.activeEffect.grantedEffect.name or "Triggered"
 			
-			if env.player.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
-				local baseCastTime = env.player.mainSkill.skillData.castTimeOverride or env.player.mainSkill.activeEffect.grantedEffect.castTime or 1
-				local inc = env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed")
-				local more = env.player.mainSkill.skillModList:More(env.player.mainSkill.skillCfg, "Speed")
-				output.addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
-				env.player.mainSkill.skillFlags.addsCastTime = true
-				if breakdown then
-					breakdown.AddedCastTime = {
-						s_format("%.2f ^8(base cast time of %s)", baseCastTime, triggeredName),
-						s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
-						s_format("%.2f ^8(more/less)", more),
-						s_format("= %.2f ^8cast time", output.addsCastTime)
-					}
-				end
-			end
-			
+			output.addsCastTime = processAddedCastTime(env.player.mainSkill, breakdown)
+
 			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery") or 1
 			local adjTriggerInterval = m_ceil(source.skillData.triggerTime * data.misc.ServerTickRate) / data.misc.ServerTickRate
 			local triggerRateOfTrigger = 1/adjTriggerInterval
@@ -930,13 +930,14 @@ local function defualtTriggerHandler(env, config)
 	local source = config.source
 	local triggeredSkills = config.triggeredSkills or {}
 	local trigRate = config.trigRate
+	local uuid
 	
 	-- Find trigger skill and triggered skills
 	if config.triggeredSkillCond or config.triggerSkillCond then
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
 			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not triggered or actor.mainSkill.skillFlags.globalTrigger) and skill ~= actor.mainSkill then
-				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, comparer)
+				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer)
 			end
 			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
 				t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
@@ -1075,14 +1076,14 @@ local function defualtTriggerHandler(env, config)
 			end
 			
 			--Trigger chance
-			if triggerChance and trigRate then
-				trigRate = trigRate * triggerChance / 100
+			if config.triggerChance and trigRate then
+				trigRate = trigRate * config.triggerChance / 100
 				if breakdown and breakdown.EffectiveSourceRate then
-					t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to trigger)", triggerChance))
+					t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to trigger)", config.triggerChance))
 				elseif breakdown then
 					breakdown.EffectiveSourceRate = {
 						s_format("%.2f ^8(adjusted trigger rate)", trigRate),
-						s_format("x %.2f%% ^8(chance to trigger)", triggerChance),
+						s_format("x %.2f%% ^8(chance to trigger)", config.triggerChance),
 					}
 				end
 			end
@@ -1098,21 +1099,7 @@ local function defualtTriggerHandler(env, config)
 			end
 			
 			local triggeredName = (actor.mainSkill.activeEffect.grantedEffect and actor ~= env.minion and actor.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
-			if actor.mainSkill.skillModList:Flag(skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
-				local base = actor.mainSkill.skillData.castTimeOverride or actor.mainSkill.activeEffect.grantedEffect.castTime or 1
-				local inc = actor.mainSkill.skillModList:Sum("INC", actor.mainSkill.skillCfg, "Speed")
-				local more = actor.mainSkill.skillModList:More(actor.mainSkill.skillCfg, "Speed")
-				output.addsCastTime = base / round((1 + inc/100) * more, 2)
-				actor.mainSkill.skillFlags.addsCastTime = true
-				if breakdown then
-					breakdown.AddedCastTime = {
-						s_format("%.2f ^8(base cast time of %s)", base, triggeredName),
-						s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
-						s_format("%.2f ^8(more/less)", more),
-						s_format("= %.2f ^8cast time", output.addsCastTime)
-					}
-				end
-			end
+			output.addsCastTime = processAddedCastTime(env.player.mainSkill, breakdown)
 			
 			local modActionCooldown = cooldownOverride or m_max((triggeredCD or 0) / icdr + (output.addsCastTime or 0), ((triggerCD or 0) / icdr ))
 			
@@ -1188,7 +1175,7 @@ local function defualtTriggerHandler(env, config)
 				else
 					if triggeredCD ~= nil then
 						-- minion skills should always have some kind of cooldown
-						if minion then
+						if actor == env.minion then
 							breakdown.TriggerRateCap = {
 								s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
 								s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
@@ -1295,8 +1282,8 @@ local function defualtTriggerHandler(env, config)
 				end
 			end
 			
-			if sourceAPS ~= nil then
-				output.EffectiveSourceRate = sourceAPS
+			if trigRate ~= nil then
+				output.EffectiveSourceRate = trigRate
 			else
 				output.EffectiveSourceRate = data.misc.ServerTickRate / m_ceil( (triggerCD or triggeredCD or 0) / icdr * data.misc.ServerTickRate)
 				actor.mainSkill.skillFlags.globalTrigger = true
@@ -1320,7 +1307,7 @@ local function defualtTriggerHandler(env, config)
 					end
 					if breakdown and (#triggeredSkills > 1 or triggerBotsEffective) then
 						breakdown.SkillTriggerRate = {
-							s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
+							s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not trigRate and s_format("%s triggers per second", skillName)) or "Effective source rate"),
 							s_format("/ %.2f ^8(Estimated impact of skill rotation and cooldown alignment)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
 							s_format("= %.2f ^8per second", output.SkillTriggerRate),
 							"",
@@ -1734,18 +1721,15 @@ end
 
 function calcs.triggers(env)
 	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing then
-		local skillName = env.player.mainSkill.activeEffect.grantedEffect.name
+		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
 		local uniqueName = getUniqueItemTriggerName(env.player.mainSkill)
 		local config = (configTable[skillName] or configTable[triggerName] or configTable[uniqueName] or logNoHandler(skillName, triggerName, uniqueName))(env)
         if config then
 		    config.actor = config.actor or env.player
 			config.triggerName = config.triggerName or skillName or triggerName or uniqueName
-		    if config.customHandler then
-		    	config.customHandler(env, config)
-		    else
-		    	defualtTriggerHandler(env, config)
-		    end
+			local triggerHandler = config.customHandler or defualtTriggerHandler
+		    triggerHandler(env, config)
         end
 	end
 end
