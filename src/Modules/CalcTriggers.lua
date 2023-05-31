@@ -1424,23 +1424,25 @@ local configTable = {
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBattleMageCry and slotMatch(env, skill) end}
 	end,
 	["Arcanist Brand"] = function(env)
-		env.player.mainSkill.skillData.sourceRateIsFinal = true
-		env.player.mainSkill.skillData.ignoresTickRate = true
-		for _, skill in ipairs(env.player.activeSkillList) do
-			if skill.activeEffect.grantedEffect.name == "Arcanist Brand" then
-				env.player.mainSkill.triggeredBy.mainSkill = skill
-				break
+		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Arcanist Brand" then
+			env.player.mainSkill.skillData.sourceRateIsFinal = true
+			env.player.mainSkill.skillData.ignoresTickRate = true
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.activeEffect.grantedEffect.name == "Arcanist Brand" then
+					env.player.mainSkill.triggeredBy.mainSkill = skill
+					break
+				end
 			end
+			
+			local activationFreqInc = (100 + env.player.mainSkill.triggeredBy.mainSkill.skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")) / 100
+			local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(cfg, "BrandActivationFrequency")
+			env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
+			env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
+			env.player.output.EffectiveSourceRate = trigRate
+			return {trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore,
+					source = env.player.mainSkill.triggeredBy.mainSkill,
+					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end}
 		end
-		
-		local activationFreqInc = (100 + env.player.mainSkill.triggeredBy.mainSkill.skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")) / 100
-		local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(cfg, "BrandActivationFrequency")
-		env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
-		env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
-		env.player.output.EffectiveSourceRate = trigRate
-		return {trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore,
-				source = env.player.mainSkill.triggeredBy.mainSkill,
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end}
 	end,
 	["Cast on Death"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
