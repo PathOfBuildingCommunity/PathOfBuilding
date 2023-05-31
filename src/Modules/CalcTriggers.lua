@@ -1583,6 +1583,10 @@ local configTable = {
 						return skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and slotMatch(env, skill)
 					end,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByMeleeKill and slotMatch(env, skill) end}
+		else
+			env.player.mainSkill.skillData.triggered = nil
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+			env.player.mainSkill.infoMessage = "Cast on Melee Kill requires recent kills"
 		end
 	end,
 	["Cast On Critical Strike"] = function()
