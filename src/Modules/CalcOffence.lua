@@ -4799,7 +4799,7 @@ function calcs.offence(env, actor, activeSkill)
 		local itemNameToHandler = {
 			["Heartbound Loop"] = function(activeSkill, output, breakdown)
 				local dmgType, dmgVal
-				for _, value in ipairs(activeSkill.skillModList:List(nil, "HeartBoundLoopSelfDamage")) do -- Combines dmg taken from both ring accounting for catalists
+				for _, value in ipairs(activeSkill.skillModList:List(nil, "HeartBoundLoopSelfDamage")) do -- Combines dmg taken from both ring accounting for catalysts
 					dmgVal = (dmgVal or 0) + value.baseDamage
 					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
 				end
