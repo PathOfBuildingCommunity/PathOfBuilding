@@ -968,7 +968,7 @@ local function defualtTriggerHandler(env, config)
 			elseif breakdown then
 				breakdown.EffectiveSourceRate = {}
 				if trigRate and source then
-					if assumingEveryHitKills then
+					if config.assumingEveryHitKills then
 						t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
 					end
 					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, source.activeEffect.grantedEffect.name, config.useCastRate and "cast rate" or "attack rate"))
