@@ -1584,7 +1584,6 @@ local configTable = {
 					end,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByMeleeKill and slotMatch(env, skill) end}
 		else
-			env.player.mainSkill.skillData.triggered = nil
 			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
 			env.player.mainSkill.infoMessage = "Cast on Melee Kill requires recent kills"
 		end
@@ -1740,9 +1739,11 @@ function calcs.triggers(env)
 		local config = (configTable[skillName] or triggerName and (configTable[triggerName] or configTable[triggerName:gsub("^Awakened ", "")]) or configTable[uniqueName] or logNoHandler(skillName, triggerName, uniqueName))(env)
         if config then
 		    config.actor = config.actor or env.player
-			config.triggerName = config.triggerName or triggerName  or uniqueName or skillName
+			config.triggerName = config.triggerName or triggerName or uniqueName or skillName
 			local triggerHandler = config.customHandler or defualtTriggerHandler
 		    triggerHandler(env, config)
+		else
+			env.player.mainSkill.skillData.triggered = nil
         end
 	end
 end
