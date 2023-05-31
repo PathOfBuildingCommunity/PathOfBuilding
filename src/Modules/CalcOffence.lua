@@ -1994,7 +1994,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.Speed = output.Speed * totemActionSpeed
 				output.CastRate = output.Speed
 			end
-			if output.Cooldown then
+			if output.Cooldown and not activeSkill.skillTypes[SkillType.Channel] then
 				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
 			end
 			if output.Cooldown and skillFlags.selfCast then
@@ -2048,7 +2048,33 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			output.HitTime = output.Time * skillData.hitTimeMultiplier
-			output.HitSpeed = 1 / output.HitTime
+			if output.Cooldown then
+				output.HitSpeed = 1 / (output.HitTime + output.Cooldown)
+			else
+				output.HitSpeed = 1 / output.HitTime
+			end
+		end
+		if breakdown then
+			if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
+				breakdown.HitSpeed = { }
+				t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time override)", output.HitTime))
+				t_insert(breakdown.HitSpeed, s_format("= %.2f", output.HitSpeed))
+			elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
+				breakdown.HitTime = { }
+				if m_floor(skillData.hitTimeMultiplier) ~= skillData.hitTimeMultiplier then
+					t_insert(breakdown.HitTime, s_format(colorCodes.CUSTOM.."NOTE: First stage has a %.2fx channel time multiplier", skillData.hitTimeMultiplier - m_floor(skillData.hitTimeMultiplier)))
+				end
+				t_insert(breakdown.HitTime, s_format("%.2f ^8(cast time)", output.Time))
+				t_insert(breakdown.HitTime, s_format("x %.2f ^8(channel time multiplier)", skillData.hitTimeMultiplier))
+				t_insert(breakdown.HitTime, s_format("= %.2f", output.HitTime))
+				breakdown.HitSpeed = { }
+				if output.Cooldown then
+					t_insert(breakdown.HitSpeed, s_format("1 / (%.2f + %.2f) ^8(hit time + cooldown)", output.HitTime, output.Cooldown))
+				else
+					t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time)", output.HitTime))
+				end
+				t_insert(breakdown.HitSpeed, s_format("= %.2f", output.HitSpeed))
+			end
 		end
 		
 		-- Other Misc DPS multipliers (like custom source)
@@ -2068,6 +2094,7 @@ function calcs.offence(env, actor, activeSkill)
 		combineStat("HitChance", "AVERAGE")
 		combineStat("Speed", "AVERAGE")
 		combineStat("HitSpeed", "OR")
+		combineStat("HitTime", "OR")
 		if output.Speed == 0 then
 			output.Time = 0
 		else
@@ -2083,6 +2110,28 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("(%.2f + %.2f) / 2", output.MainHand.Speed, output.OffHand.Speed),
 					s_format("= %.2f", output.Speed),
 				}
+			end
+		end
+		if breakdown then
+			if skillData.hitTimeOverride and not skillData.triggeredOnDeath then
+				breakdown.HitSpeed = { }
+				t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time override)", output.HitTime))
+				t_insert(breakdown.HitSpeed, s_format("= %.2f", output.HitSpeed))
+			elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
+				breakdown.HitTime = { }
+				if m_floor(skillData.hitTimeMultiplier) ~= skillData.hitTimeMultiplier then
+					t_insert(breakdown.HitTime, s_format(colorCodes.CUSTOM.."NOTE: First stage has a %.2fx channel time multiplier", skillData.hitTimeMultiplier - m_floor(skillData.hitTimeMultiplier)))
+				end
+				t_insert(breakdown.HitTime, s_format("%.2f ^8(attack time)", output.Time))
+				t_insert(breakdown.HitTime, s_format("x %.2f ^8(channel time multiplier)", skillData.hitTimeMultiplier))
+				t_insert(breakdown.HitTime, s_format("= %.2f", output.HitTime))
+				breakdown.HitSpeed = { }
+				if output.Cooldown then
+					t_insert(breakdown.HitSpeed, s_format("1 / (%.2f + %.2f) ^8(hit time + cooldown)", output.HitTime, output.Cooldown))
+				else
+					t_insert(breakdown.HitSpeed, s_format("1 / %.2f ^8(hit time)", output.HitTime))
+				end
+				t_insert(breakdown.HitSpeed, s_format("= %.2f", output.HitSpeed))
 			end
 		end
 	end
