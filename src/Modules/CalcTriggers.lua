@@ -1670,10 +1670,9 @@ local configTable = {
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end}
 	end,
 	["Manaforged Arrows"] = function(env)
-		if not env.player.mainSkill.skillData.limitedProcessing and not avoidCache then
-			return {triggerOnUse = true,
-					triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 end}
-		end
+		return {triggerOnUse = true,
+				triggerName = "Manaforged Arrows",
+				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 end}
 	end,
 	["Mirage Archer"] = function()
 		return {customHandler = mirageArcherHandler}
