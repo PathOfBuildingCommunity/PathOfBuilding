@@ -1621,7 +1621,7 @@ return {
 	{ label = "Exposure Effect", { format = "{1:output:ExposureEffectOnSelf}%", { modName = "ExposureEffectOnSelf" }, }, },
 	{ label = "Debuff Dur. Mult.", haveOutput = "showDebuffExpirationModifier", { format = "{1:output:DebuffExpirationModifier}%", { modName = "SelfDebuffExpirationRate" }, }, },
 } }, { defaultCollapsed = false, label = "Stun Duration", data = {
-	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%", { modName = "AvoidStun" }, }, },
+	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%",  { breakdown = "StunAvoidChance" }, { modName = "AvoidStun" }, }, },
 	{ label = "Stun Threshold", { format = "{0:output:StunThreshold}", { breakdown = "StunThreshold" }, { modName = { "StunThreshold", "StunThresholdManaPercent", "StunThresholdEnergyShieldPercent" } }, }, },
 	{ label = "Stun Chance", { format = "{0:output:SelfStunChance}%", { breakdown = "SelfStunChance" }, }, },
 	{ label = "Interrupt Avoid Ch.", haveOutput = "InterruptStunAvoidChance", { format = "{0:output:InterruptStunAvoidChance}%", { modName = "AvoidInterruptStun" }, }, },

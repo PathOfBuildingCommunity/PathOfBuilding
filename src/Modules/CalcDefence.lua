@@ -1603,18 +1603,25 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		local StunThresholdMod = (1 + modDB:Sum("INC", nil, "StunThreshold") / 100)
 		output.StunThreshold = stunThresholdBase * StunThresholdMod
+		
+		local notAvoidChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
+		if output.EnergyShield > output["totalTakenHit"] and not env.modDB:Flag(nil, "EnergyShieldProtectsMana") then
+			notAvoidChance = notAvoidChance * 0.5
+		end
+		output.StunAvoidChance = 100 - notAvoidChance
+		
 		if breakdown then
 			breakdown.StunThreshold = { s_format("%d ^8(base from %s)", stunThresholdBase, stunThresholdSource) }
 			if StunThresholdMod ~= 1 then
 				t_insert(breakdown.StunThreshold, s_format("* %.2f ^8(increased threshold)", StunThresholdMod))
 				t_insert(breakdown.StunThreshold, s_format("= %d", output.StunThreshold))
 			end
+			breakdown.StunAvoidChance = {
+				colorCodes.CUSTOM.."NOTE: Having any energy shield when the hit occurs grants 50% chance to avoid stun.",
+				colorCodes.CUSTOM.."POB only applies this modifer when ES > Total incoming damage.",
+			}
 		end
-		local notAvoidChance = 100 - m_min(modDB:Sum("BASE", nil, "AvoidStun"), 100)
-		if output.EnergyShield > output["totalTakenHit"] then
-			notAvoidChance = notAvoidChance * 0.5
-		end
-		output.StunAvoidChance = 100 - notAvoidChance
+		
 		if output.StunAvoidChance >= 100 then
 			output.StunDuration = 0
 			output.BlockDuration = 0
