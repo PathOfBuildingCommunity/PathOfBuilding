@@ -2832,6 +2832,7 @@ skills["SupportGemMirageArcher"] = {
 	excludeSkillTypes = { SkillType.Vaal, SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Minion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	isTrigger = true,
 	statMap = {
 		["support_mirage_archer_base_duration"] = {
 			mod("MirageArcherDuration", "BASE", nil),
