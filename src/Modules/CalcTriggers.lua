@@ -29,6 +29,225 @@ local function addTriggerIncMoreMods(activeSkill, sourceSkill)
 	end
 end
 
+local function slotMatch(env, skill)
+	local match1 = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+	local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+	return (match1 or match2)
+end
+
+local function packageSkillDataForSimulation(skill)
+	local addsCastTime = nil
+	if skill.skillModList:Flag(skill.skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
+		baseCastTime = skill.skillData.castTimeOverride or skill.activeEffect.grantedEffect.castTime or 1
+		local inc = skill.skillModList:Sum("INC", skill.skillCfg, "Speed")
+		local more = skill.skillModList:More(skill.skillCfg, "Speed")
+		addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
+	end
+	return { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = addsCastTime, icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery")}
+end
+
+-- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
+local function findTriggerSkill(env, skill, source, triggerRate, comparer)
+	local comparer = comparer or function(uuid, source, triggerRate)
+		local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+		return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
+	end
+	
+	local uuid = cacheSkillUUID(skill)
+	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
+		calcs.buildActiveSkill(env, "CACHE", skill)
+	end
+
+	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid, source, triggerRate) then
+		return skill, GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
+	end
+	return source, triggerRate, source and cacheSkillUUID(source)
+end
+
+-- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
+-- for more details regarding the implementation see comments of #4599 and #5428
+function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
+	local actor = actor or env.player
+	local SIM_RESOLUTION = 2
+	-- the breaking points are values in attacks per second
+	local function quickSim(env, skills, sourceRate)
+		local Activation = {}
+		function Activation:new(skill)
+			a = {skill = skill, deltaTime = 0, time = 0, count = 0}
+			setmetatable(a, self)
+			self.__index = self
+			return a
+		end
+		function Activation:timeReady()
+			-- returns the time when the skill is ready
+			return self.time + self.skill.cd
+		end
+		function Activation:activate()
+			-- activate the skill at the given time, update the activation
+			self.deltaTime = time - self.time
+			self.time = time
+			self.count = self.count + 1
+		end
+		
+		local State = {}
+		function State:new(skills)
+			s = {activations = {}, time = 0, currentActivation = 1}
+			for _, skill in ipairs(skills) do
+				t_insert(s.activations, Activation:new(skill))
+			end
+			setmetatable(s, self)
+			self.__index = self
+			return s
+		end
+		function State:iter()
+			-- iterate over all activations in order
+			local idx = self.currentActivation
+			local count = #self.activations
+			local i = 0
+			return function()
+				if i < count then
+					i = i + 1
+					local current = idx
+					idx = (idx % count) + 1
+					return self.activations[current]
+				end
+			end
+		end
+		function State:iterTimeReady()
+			-- iterate over all activations and the time at which each skill is ready
+			local att = 1/sourceRate
+			local timePenalty = self.time + att
+			local iter = self:iter()
+			return function()
+				local activation = iter()
+				if activation then
+					-- the time until the skill is ready
+					local timeReady = activation:timeReady()
+					-- wait for the next attack
+					timeReady = att * m_ceil(timeReady / att)
+					-- wait until the attack rotation is ready
+					timeReady = m_max(timeReady, timePenalty)
+					return timeReady, activation
+				end
+			end
+		end
+		function State:getNearestReady()
+			-- Returns the next activation and the time until the skill is ready
+			local nearestTime = 0
+			local nearestActivation = nil
+			for timeReady, activation in self:iterTimeReady() do
+				if nearestActivation == nil or timeReady < nearestTime then
+					nearestTime = timeReady
+					nearestActivation = activation
+				end
+			end
+			return nearestTime, nearestActivation
+		end
+		function State:activate()
+			-- Activates the activation nearest to ready
+			time, nearestActivation = self:getNearestReady()
+			-- round up time to the next server tick
+			time = ceil_b(time, data.misc.ServerTickTime)
+			self.time = time
+			if nearestActivation then
+				nearestActivation:activate(time)
+				for i, activation in ipairs(self.activations) do
+					if nearestActivation.skill == activation.skill and nearestActivation.deltaTime == activation.deltaTime then
+						self.currentActivation = i
+						break
+					end
+				end
+			end
+			return nearestActivation
+		end
+		function State:moveNextRound()
+			-- Move to the next round of activations.
+			local initial_activation = self.activations[self.currentActivation]
+			local is_initial = true
+			local activationsCount = #self.activations
+			while (self:activate() ~= nil) and (is_initial or self.activations[self.currentActivation].skill ~= initial_activation.skill and self.activations[self.currentActivation].deltaTime ~= initial_activation.deltaTime) do
+				self.currentActivation = (self.currentActivation % activationsCount) + 1 -- Skips one skill in the rotation.
+				is_initial = false
+			end
+		end
+		function State:anyUntriggered()
+			for activation in self:iter() do
+				if activation.count == 0 then
+					return true
+				end
+			end
+			return false
+		end
+		
+		local rates = {}
+		local skillCount = #skills
+		for i = 1, skillCount, 1 do
+			local state = State:new(skills)
+			state.currentActivation = i
+			local count = SIM_RESOLUTION + 1
+			repeat
+				state:moveNextRound()
+				count = count-1
+			until(not (count > 0 or state:anyUntriggered()))
+			
+			for i = 1, skillCount, 1 do
+				local avgRate = state.activations[i].time ~= 0 and (state.activations[i].count / state.activations[i].time) or 0
+				rates[i] = (rates[i] or 0) + avgRate
+			end
+		end		
+		for i = 1, skillCount, 1 do
+			skills[i].rate = rates[i] / skillCount
+		end
+	end
+	-- breaking point, where the trigger time is only constrained by the attack speed
+	-- the region tt0 is a slope
+	local tt0_br = 0
+	
+	-- breaking points, where the cooldown times of some skills are awaited
+	local tt1_brs = {}
+	local tt1_smallest_br = m_huge
+	for _, skill in ipairs(skills) do
+		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD)
+		if skill.cd > triggerCD then
+			local br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime)
+			t_insert(tt1_brs, br)
+			tt1_smallest_br = m_min(tt1_smallest_br, br)
+		end
+	end
+	for _, skill in ipairs(skills) do
+		-- the breaking point, where the trigger time is only constrained by the cooldown time
+		-- before this its its either tt0 or tt1, depending on the skills
+		-- after this the trigger time depends on resonance with the attack speed
+		tt2_br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime) * .8
+		-- the breaking point where the the attack speed is so high, that the affect of resonance is negligible
+		tt3_br = #skills / floor_b(skill.cd, data.misc.ServerTickTime) * 8
+		-- classify in tt region the attack rate is in
+		if sourceRate >= tt3_br then
+			skill.rate = 1/ ceil_b(skill.cd, data.misc.ServerTickTime)
+		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
+			quickSim(env, skills, sourceRate)
+			break
+		elseif sourceRate >= tt0_br then
+			skill.rate = sourceRate / #skills
+		else
+			skill.rate = 0
+		end
+	end
+	
+	local mainRate
+	local trigRateTable = { simRes = SIM_RESOLUTION, rates = {}, }
+	for _, sd in ipairs(skills) do
+		if cacheSkillUUID(actor.mainSkill) == sd.uuid then
+			mainRate = sd.rate
+		end
+		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.rate })
+	end
+	if not mainRate then
+		mainRate = trigRateTable.rates[1].rate
+	end
+	return mainRate, trigRateTable
+end
+
 local function mirageArcherHandler(env)
 	-- Mirage Archer Support
 	-- This creates and populates env.player.mainSkill.mirage table
@@ -708,20 +927,22 @@ local function defualtTriggerHandler(env, config)
 	local actor = config.actor
 	local output = config.actor.output
 	local breakdown = config.actor.breakdown
+	local source = config.source
+	local triggeredSkills = config.triggeredSkills or {}
 	
 	-- Find trigger skill and triggered skills
-	if triggeredSkillCond or triggerSkillCond then
+	if config.triggeredSkillCond or config.triggerSkillCond then
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
-			if triggerSkillCond and triggerSkillCond(env, skill) and (not triggered or actor.mainSkill.skillFlags.globalTrigger) and skill ~= actor.mainSkill then
+			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not triggered or actor.mainSkill.skillFlags.globalTrigger) and skill ~= actor.mainSkill then
 				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, comparer)
 			end
-			if triggeredSkillCond and triggeredSkillCond(env,skill) and triggeredSkills ~= nil then
+			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
 				t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
 			end
 		end
 	end
-	if ((triggeredSkills ~= nil and #triggeredSkills > 0) or not triggeredSkills) then
+	if #triggeredSkills > 0 or not config.triggeredSkillCond then
 		if not source and not actor.mainSkill.skillFlags.globalTrigger then
 			actor.mainSkill.skillData.triggered = nil
 			actor.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
@@ -740,7 +961,7 @@ local function defualtTriggerHandler(env, config)
 				}
 			elseif breakdown then
 				breakdown.EffectiveSourceRate = {}
-				if trigRate then
+				if trigRate and source then
 					if assumingEveryHitKills then
 						t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
 					end
@@ -749,7 +970,7 @@ local function defualtTriggerHandler(env, config)
 			end
 			
 			--Dual wield
-			if trigRate and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Damage] or source.skillTypes[SkillType.Attack]) and not isGlobalTrigger(source) then
+			if trigRate and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Damage] or source.skillTypes[SkillType.Attack]) and not actor.mainSkill.skillFlags.globalTrigger then
 				local dualWield = env.player.weaponData1.type and env.player.weaponData2.type
 				trigRate = dualWield and source.skillData.doubleHitsWhenDualWielding and trigRate * 2 or dualWield and trigRate / 2 or trigRate
 				if dualWield and breakdown then
@@ -1089,15 +1310,15 @@ local function defualtTriggerHandler(env, config)
 			
 			--If spell count is missing the skill likely comes from a unique and /or triggers it self
 			if output.EffectiveSourceRate ~= 0 then
-				if actor.mainSkill.skillFlags.globalTrigger and not triggeredSkills then
+				if actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then
 					output.SkillTriggerRate = output.EffectiveSourceRate
 				else
-					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
+					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
 					if triggerBotsEffective then
 						output.SkillTriggerRate = 2 * output.SkillTriggerRate
 					end
-					if breakdown and (triggeredSkills and #triggeredSkills > 1 or triggerBotsEffective) then
+					if breakdown and (#triggeredSkills > 1 or triggerBotsEffective) then
 						breakdown.SkillTriggerRate = {
 							s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not sourceAPS and s_format("%s triggers per second", skillName)) or "Effective source rate"),
 							s_format("/ %.2f ^8(Estimated impact of skill rotation and cooldown alignment)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
@@ -1510,219 +1731,6 @@ local function logNoHandler(skillName, triggerName, uniqueName)
 	return function() 
 				ConPrintf(message) 
 			end
-end
-
--- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
-local function findTriggerSkill(env, skill, source, triggerRate, comparer)
-	local comparer = comparer or function(uuid, source, triggerRate)
-		local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
-		return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
-	end
-	
-	local uuid = cacheSkillUUID(skill)
-	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
-		calcs.buildActiveSkill(env, "CACHE", skill)
-	end
-
-	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid, source, triggerRate) then
-		return skill, GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
-	end
-	return source, triggerRate, source and cacheSkillUUID(source)
-end
-
-local function packageSkillDataForSimulation(skill)
-	local addsCastTime = nil
-	if skill.skillModList:Flag(skill.skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
-		baseCastTime = skill.skillData.castTimeOverride or skill.activeEffect.grantedEffect.castTime or 1
-		local inc = skill.skillModList:Sum("INC", skill.skillCfg, "Speed")
-		local more = skill.skillModList:More(skill.skillCfg, "Speed")
-		addsCastTime = baseCastTime / round((1 + inc/100) * more, 2)
-	end
-	return { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = addsCastTime, icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery")}
-end
-
--- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
--- for more details regarding the implementation see comments of #4599 and #5428
-function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
-	local actor = actor or env.player
-	local SIM_RESOLUTION = 2
-	-- the breaking points are values in attacks per second
-	local function quickSim(env, skills, sourceRate)
-		local Activation = {}
-		function Activation:new(skill)
-			a = {skill = skill, deltaTime = 0, time = 0, count = 0}
-			setmetatable(a, self)
-			self.__index = self
-			return a
-		end
-		function Activation:timeReady()
-			-- returns the time when the skill is ready
-			return self.time + self.skill.cd
-		end
-		function Activation:activate()
-			-- activate the skill at the given time, update the activation
-			self.deltaTime = time - self.time
-			self.time = time
-			self.count = self.count + 1
-		end
-		
-		local State = {}
-		function State:new(skills)
-			s = {activations = {}, time = 0, currentActivation = 1}
-			for _, skill in ipairs(skills) do
-				t_insert(s.activations, Activation:new(skill))
-			end
-			setmetatable(s, self)
-			self.__index = self
-			return s
-		end
-		function State:iter()
-			-- iterate over all activations in order
-			local idx = self.currentActivation
-			local count = #self.activations
-			local i = 0
-			return function()
-				if i < count then
-					i = i + 1
-					local current = idx
-					idx = (idx % count) + 1
-					return self.activations[current]
-				end
-			end
-		end
-		function State:iterTimeReady()
-			-- iterate over all activations and the time at which each skill is ready
-			local att = 1/sourceRate
-			local timePenalty = self.time + att
-			local iter = self:iter()
-			return function()
-				local activation = iter()
-				if activation then
-					-- the time until the skill is ready
-					local timeReady = activation:timeReady()
-					-- wait for the next attack
-					timeReady = att * m_ceil(timeReady / att)
-					-- wait until the attack rotation is ready
-					timeReady = m_max(timeReady, timePenalty)
-					return timeReady, activation
-				end
-			end
-		end
-		function State:getNearestReady()
-			-- Returns the next activation and the time until the skill is ready
-			local nearestTime = 0
-			local nearestActivation = nil
-			for timeReady, activation in self:iterTimeReady() do
-				if nearestActivation == nil or timeReady < nearestTime then
-					nearestTime = timeReady
-					nearestActivation = activation
-				end
-			end
-			return nearestTime, nearestActivation
-		end
-		function State:activate()
-			-- Activates the activation nearest to ready
-			time, nearestActivation = self:getNearestReady()
-			-- round up time to the next server tick
-			time = ceil_b(time, data.misc.ServerTickTime)
-			self.time = time
-			if nearestActivation then
-				nearestActivation:activate(time)
-				for i, activation in ipairs(self.activations) do
-					if nearestActivation.skill == activation.skill and nearestActivation.deltaTime == activation.deltaTime then
-						self.currentActivation = i
-						break
-					end
-				end
-			end
-			return nearestActivation
-		end
-		function State:moveNextRound()
-			-- Move to the next round of activations.
-			local initial_activation = self.activations[self.currentActivation]
-			local is_initial = true
-			local activationsCount = #self.activations
-			while (self:activate() ~= nil) and (is_initial or self.activations[self.currentActivation].skill ~= initial_activation.skill and self.activations[self.currentActivation].deltaTime ~= initial_activation.deltaTime) do
-				self.currentActivation = (self.currentActivation % activationsCount) + 1 -- Skips one skill in the rotation.
-				is_initial = false
-			end
-		end
-		function State:anyUntriggered()
-			for activation in self:iter() do
-				if activation.count == 0 then
-					return true
-				end
-			end
-			return false
-		end
-		
-		local rates = {}
-		local skillCount = #skills
-		for i = 1, skillCount, 1 do
-			local state = State:new(skills)
-			state.currentActivation = i
-			local count = SIM_RESOLUTION + 1
-			repeat
-				state:moveNextRound()
-				count = count-1
-			until(not (count > 0 or state:anyUntriggered()))
-			
-			for i = 1, skillCount, 1 do
-				local avgRate = state.activations[i].time ~= 0 and (state.activations[i].count / state.activations[i].time) or 0
-				rates[i] = (rates[i] or 0) + avgRate
-			end
-		end		
-		for i = 1, skillCount, 1 do
-			skills[i].rate = rates[i] / skillCount
-		end
-	end
-	-- breaking point, where the trigger time is only constrained by the attack speed
-	-- the region tt0 is a slope
-	local tt0_br = 0
-	
-	-- breaking points, where the cooldown times of some skills are awaited
-	local tt1_brs = {}
-	local tt1_smallest_br = m_huge
-	for _, skill in ipairs(skills) do
-		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD)
-		if skill.cd > triggerCD then
-			local br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime)
-			t_insert(tt1_brs, br)
-			tt1_smallest_br = m_min(tt1_smallest_br, br)
-		end
-	end
-	for _, skill in ipairs(skills) do
-		-- the breaking point, where the trigger time is only constrained by the cooldown time
-		-- before this its its either tt0 or tt1, depending on the skills
-		-- after this the trigger time depends on resonance with the attack speed
-		tt2_br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime) * .8
-		-- the breaking point where the the attack speed is so high, that the affect of resonance is negligible
-		tt3_br = #skills / floor_b(skill.cd, data.misc.ServerTickTime) * 8
-		-- classify in tt region the attack rate is in
-		if sourceRate >= tt3_br then
-			skill.rate = 1/ ceil_b(skill.cd, data.misc.ServerTickTime)
-		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
-			quickSim(env, skills, sourceRate)
-			break
-		elseif sourceRate >= tt0_br then
-			skill.rate = sourceRate / #skills
-		else
-			skill.rate = 0
-		end
-	end
-	
-	local mainRate
-	local trigRateTable = { simRes = SIM_RESOLUTION, rates = {}, }
-	for _, sd in ipairs(skills) do
-		if cacheSkillUUID(actor.mainSkill) == sd.uuid then
-			mainRate = sd.rate
-		end
-		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.rate })
-	end
-	if not mainRate then
-		mainRate = trigRateTable.rates[1].rate
-	end
-	return mainRate, trigRateTable
 end
 
 function calcs.triggers(env)
