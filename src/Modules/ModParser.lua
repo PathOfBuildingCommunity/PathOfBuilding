@@ -2710,6 +2710,10 @@ local specialModList = {
 		return { mod("LinkedSupport", "LIST", { targetSlotName = targetItemSlotName }) }
 	end,
 	["socketed hex curse skills are triggered by doedre's effigy when summoned"] = { mod("ExtraSupport", "LIST", { skillId = "SupportCursePillarTriggerCurses", level = 20 }, { type = "SocketedIn", slotName = "{SlotName}" }) },
+	["socketed projectile spells have %+([%d%.]+) seconds to cooldown"] = function(num) return {
+		mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "cooldown", value = 0 }) }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType= SkillType.Projectile }, { type = "SkillType", skillType = SkillType.Spell }),
+		mod("CooldownRecovery", "BASE", num, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "SkillType", skillType= SkillType.Projectile }, { type = "SkillType", skillType = SkillType.Spell })
+	} end,
 	["trigger level (%d+) (.+) every (%d+) seconds"] = function(num, _, skill) return triggerExtraSkill(skill, num) end,
 	["trigger level (%d+) (.+), (.+) or (.+) every (%d+) seconds"] = function(num, _, skill1, skill2, skill3) return {
 		mod("ExtraSkill", "LIST", { skillId = gemIdLookup[skill1], level = num, triggered = true }),
