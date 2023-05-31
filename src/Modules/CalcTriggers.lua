@@ -44,7 +44,7 @@ local function processAddedCastTime(skill, breakdown)
 		skill.skillFlags.addsCastTime = true
 		if breakdown then
 			breakdown.AddedCastTime = {
-				s_format("%.2f ^8(base cast time of %s)", baseCastTime, triggeredName),
+				s_format("%.2f ^8(base cast time of %s)", baseCastTime, skill.activeEffect.grantedEffect.name),
 				s_format("%.2f ^8(increased/reduced)", 1 + inc/100),
 				s_format("%.2f ^8(more/less)", more),
 				s_format("= %.2f ^8cast time", addsCastTime)
@@ -521,40 +521,42 @@ local function CWCHandler(env)
 				t_insert(breakdown.TriggerRateCap, s_format("1 / %.3f ^8(trigger rate adjusted for triggering interval)", 1 / output.TriggerRateCap))
 				t_insert(breakdown.TriggerRateCap, s_format("= %.2f ^8 %s casts per second", output.TriggerRateCap, triggeredName))
 				
-				breakdown.SkillTriggerRate = {
-					s_format("%.2f ^8(%s triggers per second)", triggerRateOfTrigger, triggerName),
-					s_format("/ %.2f ^8(Estimated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
-					s_format("= %.2f ^8%s casts per second", output.SkillTriggerRate, triggeredName),
-					"",
-					s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
-				}
-				
-				if simBreakdown.extraSimInfo then
-					t_insert(breakdown.SkillTriggerRate, "")
-					t_insert(breakdown.SkillTriggerRate, simBreakdown.extraSimInfo)
-				end
-				breakdown.SimData = {
-					rowList = { },
-					colList = {
-						{ label = "Rate", key = "rate" },
-						{ label = "Skill Name", key = "skillName" },
-						{ label = "Slot Name", key = "slotName" },
-						{ label = "Gem Index", key = "gemIndex" },
-					},
-				}
-				for _, rateData in ipairs(simBreakdown.rates) do
-					local t = { }
-					for str in string.gmatch(rateData.name, "([^_]+)") do
-						t_insert(t, str)
-					end
-		
-					local row = {
-						rate = round(rateData.rate,2),
-						skillName = t[1],
-						slotName = t[2],
-						gemIndex = t[3],
+				if #triggeredSkills > 1 then
+					breakdown.SkillTriggerRate = {
+						s_format("%.2f ^8(%s triggers per second)", triggerRateOfTrigger, triggerName),
+						s_format("/ %.2f ^8(Estimated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
+						s_format("= %.2f ^8%s casts per second", output.SkillTriggerRate, triggeredName),
+						"",
+						s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
 					}
-					t_insert(breakdown.SimData.rowList, row)
+					
+					if simBreakdown.extraSimInfo then
+						t_insert(breakdown.SkillTriggerRate, "")
+						t_insert(breakdown.SkillTriggerRate, simBreakdown.extraSimInfo)
+					end
+					breakdown.SimData = {
+						rowList = { },
+						colList = {
+							{ label = "Rate", key = "rate" },
+							{ label = "Skill Name", key = "skillName" },
+							{ label = "Slot Name", key = "slotName" },
+							{ label = "Gem Index", key = "gemIndex" },
+						},
+					}
+					for _, rateData in ipairs(simBreakdown.rates) do
+						local t = { }
+						for str in string.gmatch(rateData.name, "([^_]+)") do
+							t_insert(t, str)
+						end
+			
+						local row = {
+							rate = round(rateData.rate,2),
+							skillName = t[1],
+							slotName = t[2],
+							gemIndex = t[3],
+						}
+						t_insert(breakdown.SimData.rowList, row)
+					end
 				end
 			end
 			
