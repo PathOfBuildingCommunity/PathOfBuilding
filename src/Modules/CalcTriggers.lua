@@ -345,7 +345,8 @@ local function helmetFocusHandler(env)
 	if not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
 		local triggerName = "Focus"
 		env.player.mainSkill.skillData.triggered = true
-
+		local output = env.player.output
+		local breakdown = env.player.breakdown
 		local triggerCD = env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
 		local triggeredCD = env.player.mainSkill.skillData.cooldown
 		
@@ -574,7 +575,8 @@ local function doomBlastHandler(env)
 	if not env.player.mainSkill.skillFlags.minion then --Doom Blast
 		local source = nil
 		local hexCastRate = 0
-
+		local output = env.player.output
+		local breakdown = env.player.breakdown
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
