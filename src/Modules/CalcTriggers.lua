@@ -1367,7 +1367,7 @@ local function defualtTriggerHandler(env, config)
 				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
 				actor.mainSkill.infoMessage = config.triggerName .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: ") .. source.activeEffect.grantedEffect.name
 			else
-				actor.mainSkill.infoMessage = actor.mainSkill.triggeredBy.grantedEffect.name .. " Trigger"
+				actor.mainSkill.infoMessage =  actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
 			end
 	
 			actor.mainSkill.infoTrigger = config.triggerName
