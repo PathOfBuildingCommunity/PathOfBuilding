@@ -984,7 +984,7 @@ local function defualtTriggerHandler(env, config)
 				end
 			end
 			
-			actor.mainSkill.skillData.ignoresTickRate = source and source.skillData.storedUses ~= nil
+			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate or source and source.skillData.storedUses ~= nil
 			
 			--Account for source unleash
 			if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
