@@ -1621,7 +1621,6 @@ local configTable = {
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] end}
 	end,
 	["Hextouch"] = function(env)
-        env.player.mainSkill.skillFlags.globalTrigger = true
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {triggerSkillCond = function(env, skill)
 					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and slotMatch(env, skill)
