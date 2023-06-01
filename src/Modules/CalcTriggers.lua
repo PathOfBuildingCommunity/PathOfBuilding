@@ -1289,7 +1289,7 @@ local function defualtTriggerHandler(env, config)
 			if trigRate ~= nil then
 				output.EffectiveSourceRate = trigRate
 			else
-				output.EffectiveSourceRate = data.misc.ServerTickRate / m_ceil( (triggerCD or triggeredCD or 0) / icdr * data.misc.ServerTickRate)
+				output.EffectiveSourceRate = output.TriggerRateCap
 				actor.mainSkill.skillFlags.globalTrigger = true
 			end
 			
@@ -1636,6 +1636,10 @@ local configTable = {
 		return {source = env.player.mainSkill}
 	end,
 	["Reckoning"] = function(env)
+        env.player.mainSkill.skillFlags.globalTrigger = true
+		return {source = env.player.mainSkill}
+	end,
+	["Vengeance"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
