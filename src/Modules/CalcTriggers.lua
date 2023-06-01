@@ -1643,9 +1643,11 @@ local configTable = {
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
-	["Battlemage's Cry"] = function()
-		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end,
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBattleMageCry and slotMatch(env, skill) end}
+	["Battlemage's Cry"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Battlemage's Cry" then
+			return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end,
+					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBattleMageCry and slotMatch(env, skill) end}
+		end
 	end,
 	["Arcanist Brand"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Arcanist Brand" then
