@@ -1025,7 +1025,7 @@ local function defualtTriggerHandler(env, config)
 			end
 			
 			--Accuracy and crit chance
-			if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData["CACHE"][uuid] and not triggerOnUse then
+			if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData["CACHE"][uuid] and not config.triggerOnUse then
 				local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance					
 				trigRate = trigRate * (sourceHitChance or 0) / 100
 				if breakdown then
@@ -1438,7 +1438,9 @@ local configTable = {
 		env.player.mainSkill.skillData.cooldown = 1
 		return {triggerOnUse = true, triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 end}
 	end,
-	["Moonbender's Wing"] = function()
+	["Moonbender's Wing"] = function(env)
+		--Simillar situation to "Replica Lioneye's Paws"
+		env.player.mainSkill.skillData.cooldown = 1
 		return {triggerName = "Lightning Warp", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 	["Ngamahu's Flame"] = function()
@@ -1466,7 +1468,7 @@ local configTable = {
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 	["Sporeguard"] = function()
-		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
+		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and not skill.skillTypes[SkillType.Triggered] end}
 	end,
 	["Mark of the Elder"] = function()
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
@@ -1486,7 +1488,7 @@ local configTable = {
 	["Maloney's Mechanism"] = function(env)
 		local _, _, uniqueTriggerName = env.player.itemList[env.player.mainSkill.slotName].modSource:find(".*:.*:(.*),.*")
 		local isReplica = uniqueTriggerName:match("Replica.")
-		return {triggerOnUse = true, triggerName = uniqueTriggerName,
+		return {triggerOnUse = true, triggerName = uniqueTriggerName, useCastRate = isReplica,
 				triggerSkillCond = function(env, skill)
 					local attack = skill.skillTypes[SkillType.Attack] and (band(skill.skillCfg.flags, ModFlag.Bow) > 0) and not isReplica
 					local spell = skill.skillTypes[SkillType.Spell] and isReplica
@@ -1626,7 +1628,17 @@ local configTable = {
 					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and slotMatch(env, skill)
 				end}
 	end,
+	["Oskarm"] = function(env)
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
+		return {triggerSkillCond = function(env, skill)
+					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered]
+				end}
+	end,
 	["Tempest Shield"] = function(env)
+        env.player.mainSkill.skillFlags.globalTrigger = true
+		return {source = env.player.mainSkill}
+	end,
+	["Shattershard"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
