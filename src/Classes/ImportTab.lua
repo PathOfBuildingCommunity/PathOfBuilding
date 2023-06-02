@@ -454,9 +454,7 @@ function ImportTabClass:DownloadCharacterList()
 			t_insert(self.controls.charSelectLeague.list, {
 				label = "All",
 			})
-			if self.controls.charSelectLeague.selIndex > #self.controls.charSelectLeague.list then
-				self.controls.charSelectLeague.selIndex = 1
-			end
+			self.controls.charSelectLeague.selIndex = #self.controls.charSelectLeague.list
 			self.lastCharList = charList
 			self:BuildCharacterList(self.controls.charSelectLeague:GetSelValue("league"))
 
