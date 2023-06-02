@@ -243,8 +243,13 @@ directiveTable.skill = function(state, args, out)
 		end
 		out:write('},\n')
 		out:write('\taddSkillTypes = { ')
+		skill.isTrigger = false
 		for _, type in ipairs(granted.AddTypes) do
-			out:write(mapAST(type), ', ')
+			local typeString = mapAST(type)
+			if typeString == "SkillType.Triggered" then
+				skill.isTrigger = true
+			end
+			out:write(typeString, ', ')
 		end
 		out:write('},\n')
 		out:write('\texcludeSkillTypes = { ')
@@ -252,6 +257,9 @@ directiveTable.skill = function(state, args, out)
 			out:write(mapAST(type), ', ')
 		end
 		out:write('},\n')
+		if skill.isTrigger then
+			out:write('\tisTrigger = true,\n')
+		end
 		if granted.SupportGemsOnly then
 			out:write('\tsupportGemsOnly = true,\n')
 		end

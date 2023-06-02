@@ -1024,8 +1024,8 @@ Requires Level 44, 50 Str, 50 Int
 15% reduced Cast Speed
 (70-80)% increased Armour and Energy Shield
 +(30-50) to maximum Mana
-{variant:1}30% chance to Cast Socketed Spells when you Spend at least 100 Mana to Use a Skill
-{variant:2}50% chance to Trigger Socketed Spells when you Spend at least 100 Mana to Use a Skill
+{variant:1}30% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
+{variant:2}50% chance to Trigger Socketed Spells when you Spend at least 100 Mana on an Upfront Cost to Use or Trigger a Skill, with a 0.1 second Cooldown
 ]],[[
 Lightpoacher
 Great Crown

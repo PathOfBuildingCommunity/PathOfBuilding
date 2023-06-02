@@ -654,6 +654,7 @@ skills["SupportCastOnCritTriggered"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -777,6 +778,7 @@ skills["SupportCastOnCritTriggeredPlus"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCastOnCritTriggered",
 	statDescriptionScope = "gem_stat_descriptions",
@@ -828,6 +830,7 @@ skills["SupportCastOnDeath"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Minion, SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["area_of_effect_+%_while_dead"] = {
@@ -2751,6 +2754,7 @@ skills["SupportMarkOnHit"] = {
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Mark, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["mark_skills_curse_effect_+%"] = {
@@ -2828,6 +2832,7 @@ skills["SupportGemMirageArcher"] = {
 	excludeSkillTypes = { SkillType.Vaal, SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Minion, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	isTrigger = true,
 	statMap = {
 		["support_mirage_archer_base_duration"] = {
 			mod("MirageArcherDuration", "BASE", nil),
@@ -4374,6 +4379,7 @@ skills["SupportManaforgedArrows"] = {
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Attack, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	weaponTypes = {
 		["Bow"] = true,
@@ -4387,8 +4393,8 @@ skills["SupportManaforgedArrows"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
 		},
 		["support_manaforged_arrows_mana_cost_%_threshold"] = {
-			skill("triggeredByManaPercentSpent", true, { type = "SkillType", skillType = SkillType.Triggerable }),
-			skill("TriggerSkillManaSpentMultiRequirement", nil),
+			skill("triggeredByManaforged", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("ManaForgedArrowsPercentThreshold", nil),
 			div = 100,
 		},
 	},
