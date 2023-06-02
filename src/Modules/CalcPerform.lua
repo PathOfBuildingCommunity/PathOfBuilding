@@ -374,8 +374,9 @@ local function mergeKeystones(env)
 	for _, modObj in ipairs(env.modDB:Tabulate("LIST", nil, "Keystone")) do
 		if not env.keystonesAdded[modObj.value] and env.spec.tree.keystoneMap[modObj.value] then
 			env.keystonesAdded[modObj.value] = true
+			local fromTree = modObj.mod.source and not modObj.mod.source:lower():match("tree")
 			for _, mod in ipairs(env.spec.tree.keystoneMap[modObj.value].modList) do
-				env.modDB:AddMod(modObj.mod.source and not modObj.mod.source:lower():match("tree") and modLib.setSource(mod, modObj.mod.source) or mod)
+				env.modDB:AddMod(fromTree and modLib.setSource(mod, modObj.mod.source) or mod)
 			end
 		end
 	end
