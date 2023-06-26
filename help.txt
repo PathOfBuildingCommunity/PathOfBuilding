@@ -29,6 +29,7 @@ Ctrl + I	Jump to import tab
 Ctrl + A	Select all
 Ctrl + C	Copy
 Ctrl + F	Show find / search box (e.g. unique item / tree)
+Ctrl + M	Manage Trees (Tree tab only)
 Ctrl + N	New build (in build selection menu)
 Ctrl + S	Save build to file
 Ctrl + U	Check for update
