@@ -67,8 +67,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 						local respec = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
 							-- Assumption: Nodes >= 65536 are small cluster passives.
-							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" 
-							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536 
+							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart"
+							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536
 							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
 									respec = respec + 5
@@ -130,9 +130,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeHeatMap = new("CheckBoxControl", { "LEFT", self.controls.findTimelessJewel, "RIGHT" }, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
-		
-		if state == false then 
-			self.showPowerReport = false 
+
+		if state == false then
+			self.showPowerReport = false
 			self:TogglePowerReport()
 		end
 	end)
@@ -325,7 +325,7 @@ function TreeTabClass:PostLoad()
 end
 
 function TreeTabClass:Save(xml)
-	xml.attrib = { 
+	xml.attrib = {
 		activeSpec = tostring(self.activeSpec)
 	}
 	for specId, spec in ipairs(self.specList) do
@@ -388,9 +388,34 @@ end
 function TreeTabClass:OpenImportPopup()
 	local versionLookup = "tree/([0-9]+)%.([0-9]+)%.([0-9]+)/"
 	local controls = { }
+	local function decodePoePlannerTreeLink(treeLink)
+		-- treeVersion is not known at this point. We need to decode the URL to get it.
+		local tmpSpec = new("PassiveSpec", self.build, latestTreeVersion)
+		local newTreeVersion_or_errMsg = tmpSpec:DecodePoePlannerURL(treeLink, true)
+		-- Check for an error message
+		if string.find(newTreeVersion_or_errMsg, "Invalid") then
+			controls.msg.label = "^1"..newTreeVersion_or_errMsg
+			return
+		end
+
+		-- If this import has changed the version of the active spec, dump the active spec and get one of the right version.
+		if newTreeVersion ~= self.specList[self.activeSpec].treeVersion then
+			local newSpec = new("PassiveSpec", self.build, newTreeVersion_or_errMsg)
+			newSpec.title = self.build.spec.title
+			self.specList[self.activeSpec] = newSpec
+		end
+		self.specList[self.activeSpec]:DecodePoePlannerURL(treeLink, false)
+		-- trigger all the things that go with changing a spec
+		self:SetActiveSpec(self.activeSpec)
+		self.modFlag = true
+		self.build.spec:AddUndoState()
+		self.build.buildFlag = true
+		main:ClosePopup()
+	end
+
 	local function decodeTreeLink(treeLink, newTreeVersion)
 			-- newTreeVersion is passed in as an output of validateTreeVersion(). It will always be a valid tree version text string
-			-- If there was a version on the url, and it changed the version of the active spec, dump the active spec and get one of the right version. 
+			-- If there was a version on the url, and it has changed the version of the active spec, dump the active spec and get one of the right version.
 		if newTreeVersion ~= self.specList[self.activeSpec].treeVersion then
 			local newSpec = new("PassiveSpec", self.build, newTreeVersion)
 			newSpec:SelectClass(self.build.spec.curClassId)
@@ -401,7 +426,7 @@ function TreeTabClass:OpenImportPopup()
 			self:SetActiveSpec(self.activeSpec)
 			self.modFlag = true
 		end
-	
+
 		-- We will now have a spec that matches the version of the binary being imported
 		local errMsg = self.build.spec:DecodeURL(treeLink)
 		if errMsg then
@@ -469,6 +494,8 @@ function TreeTabClass:OpenImportPopup()
 					end
 				end)
 			end
+		elseif treeLink:match("poeplanner.com/") then
+			decodePoePlannerTreeLink(treeLink:gsub("/%?v=.+#","/"))
 		elseif treeLink:match("poeskilltree.com/") then
 			local oldStyleVersionLookup = "/%?v=([0-9]+)%.([0-9]+)%.([0-9]+)#"
 			-- Strip the version from the tree : https://poeskilltree.com/?v=3.6.0#AAAABAMAABEtfIOFMo6-ksHfsOvu -> https://poeskilltree.com/AAAABAMAABEtfIOFMo6-ksHfsOvu
@@ -711,18 +738,18 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	-- search all cluster notables and add to the list
 	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
 		local isAlloc = node.alloc
-		if not isAlloc then			
+		if not isAlloc then
 			local nodePower = (node.power and node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
 			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
 
 			nodePowerStr = formatNumSep(nodePowerStr)
-			
+
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
 			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
 			end
-			
+
 			t_insert(report, {
 				name = node.dn,
 				power = nodePower,
@@ -938,7 +965,7 @@ function TreeTabClass:FindTimelessJewel()
 		t_sort(modData, function(a, b) return a.label < b.label end)
 		t_sort(smallModData, function (a, b) return a.label < b.label end)
 		if totalMods[timelessData.jewelType.id] then
-			t_insert(modData, 1, { 
+			t_insert(modData, 1, {
 				label = "Total " .. totalMods[timelessData.jewelType.id],
 				descriptions = { "This is a hybrid node containing all additions to " .. totalMods[timelessData.jewelType.id] },
 				type = timelessData.jewelType.name,
@@ -1114,7 +1141,7 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
 	end
 	controls.socketFilter.state = timelessData.socketFilter
-	
+
 	local socketFilterAdditionalDistanceMAX = 10
 	controls.socketFilterAdditionalDistanceLabel = new("LabelControl", { "LEFT", controls.socketFilter, "RIGHT" }, 10, 0, 0, 16, "^7Node Distance:")
 	controls.socketFilterAdditionalDistance = new("SliderControl", { "LEFT", controls.socketFilterAdditionalDistanceLabel, "RIGHT" }, 10, 0, 66, 18, function(value)
@@ -1413,7 +1440,7 @@ function TreeTabClass:FindTimelessJewel()
 									if legionNode.modListGenerated then
 										newNode.node = copyTable(legionNode.modListGenerated)
 									else
-										-- generate modList	
+										-- generate modList
 										local modList1, extra1 = modLib.parseMod(replaceHelperFunc(legionNode.sd[1], legionNode.sortedStats[1], legionNode.stats[legionNode.sortedStats[1]], 100))
 										local modList2, extra2 = modLib.parseMod(replaceHelperFunc(legionNode.sd[2], legionNode.sortedStats[2], legionNode.stats[legionNode.sortedStats[2]], 100))
 										local modLists = { { modList = modList1 }, { modList = modList2 } }
@@ -1599,7 +1626,7 @@ function TreeTabClass:FindTimelessJewel()
 			if timelessData.sharedResults.conqueror.id > 1 then
 				conquerorTradeIds = { conquerorKeystoneTradeIds[timelessData.sharedResults.conqueror.id - 1] }
 			end
-			
+
 			for _, tradeId in ipairs(conquerorTradeIds) do
 				t_insert(seedTrades, {
 					id = tradeId,
@@ -1935,7 +1962,7 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 			t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
-			controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0		
+			controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 			controls.searchTradeButton.lastSearch = nil
 			controls.searchTradeButton.label = "Copy Trade URL"
 			controls.searchResults.highlightIndex = nil
