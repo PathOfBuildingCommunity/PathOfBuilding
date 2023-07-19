@@ -1038,6 +1038,9 @@ function buildMode:OnFrame(inputEvents)
 	-- Update contents of main skill dropdowns
 	self:RefreshSkillSelectControls(self.controls, self.mainSocketGroup, "")
 
+	-- Update config controls
+	self.configTab:UpdateControls()
+
 	-- Delete any possible fabricated groups
 	if checkFabricatedGroups then
 		deleteFabricatedGroup(self.skillsTab)

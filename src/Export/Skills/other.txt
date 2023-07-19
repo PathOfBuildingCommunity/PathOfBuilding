@@ -253,9 +253,10 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 	parts = {
 		{
-			name = "Channelling",
+			name = "Spell Explosion",
 			spell = true,
-			cast = false,
+			cast = true,
+			stages = true,
 		},
 		{
 			name = "Minion Explosion",
@@ -267,16 +268,16 @@ local skills, mod, flag, skill = ...
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			local skillData = activeSkill.skillData
-			skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
-			skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMin = skillData.minionLife * skillData.selfFireExplosionLifeMultiplier
+			skillData.FireBonusMax = skillData.minionLife * skillData.selfFireExplosionLifeMultiplier
 		end
 	end,
 	statMap = {
 		["spell_minimum_base_fire_damage"] = {
-			skill("FireMin", nil, { type = "SkillPart", skillPart = 2 }),
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
 		},
 		["spell_maximum_base_fire_damage"] = {
-			skill("FireMax", nil, { type = "SkillPart", skillPart = 2 }),
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
 		},
 		["death_wish_attack_speed_+%"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
@@ -288,14 +289,14 @@ local skills, mod, flag, skill = ...
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["death_wish_hit_and_ailment_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "DeathWishStage" }, { type = "SkillPart", skillPart = 2 }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "DeathWishStage" }),
 		},
 		["death_wish_max_stages"] = {
-			mod("Multiplier:DeathWishMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			mod("Multiplier:DeathWishMaxStages", "BASE", nil),
 		},
 	},
-	#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
-	#baseMod skill("radius", 10, { type = "SkillPart", skillPart = 2 })
+	#baseMod skill("showAverage", true)
+	#baseMod skill("radius", 10)
 	#baseMod skill("buffMinions", true)
 	#baseMod skill("buffNotPlayer", true)
 #mods

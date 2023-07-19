@@ -3112,6 +3112,41 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 
+	-- Death Wish
+	if env.player.mainSkill.skillCfg.skillName == "Death Wish" then
+		-- We need to calculate the selected minion's life to use in the explosion
+		local selectedMinion = env.player.mainSkill.skillData.deathWishMinionName
+		local minionSkill
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.minion and skill.minion.type == selectedMinion then
+				minionSkill = skill
+			elseif skill.minionList then
+				for _, minionId in ipairs(skill.minionList) do
+					if minionId == selectedMinion then
+						minionSkill = skill
+					end
+				end
+			end
+		end
+
+		if not minionSkill then
+			env.player.mainSkill.skillData.minionLife = 100;
+		else
+			local usedSkill = nil
+			local uuid = cacheSkillUUID(minionSkill)
+			local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
+
+			-- cache a new copy of the selected minion
+			--if not GlobalCache.cachedData[calcMode][uuid] then
+				calcs.buildActiveSkill(env, calcMode, minionSkill, true)
+			--end
+			if GlobalCache.cachedData[calcMode][uuid] then
+				usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
+			end
+			env.player.mainSkill.skillData.minionLife = usedSkill.minion.output.Life;
+		end
+	end
+
 	-- Kitava's Thirst
 	if env.player.mainSkill.skillData.triggeredByManaSpent and not env.player.mainSkill.skillFlags.minion then
 		local triggerName = "Kitava"
