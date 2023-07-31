@@ -1750,6 +1750,34 @@ local function triggerExtraSkill(name, level, noSupports, sourceSkill)
 		}
 	end
 end
+local function extraSupport(name, level, slot)
+	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")]
+	
+	if itemSlotName == "main hand" then
+		slot = "Weapon 1"
+	elseif itemSlotName == "off hand" then
+		slot = "Weapon 2"
+	elseif slot then
+		slot = string.gsub(" "..slot, "%W%l", string.upper):sub(2)
+	else
+		slot = "{SlotName}"
+	end
+	
+	level = tonumber(level)
+	if skillId then
+		local gemId = data.gemForBaseName[data.skills[skillId].name .. " Support"]
+		if gemId then
+			return {
+				mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].grantedEffectId, level = level }, { type = "SocketedIn", slotName = slot }),
+				mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].secondaryGrantedEffectId, level = level }, { type = "SocketedIn", slotName = slot })
+			}
+		else
+			return {
+				mod("ExtraSupport", "LIST", { skillId = skillId, level = level }, { type = "SocketedIn", slotName = slot }),
+			}
+		end
+	end
+end
 
 local explodeFunc = function(chance, amount, type, ...)
 	local amountNumber = tonumber(amount) or (amount == "tenth" and 10) or (amount == "quarter" and 25)
@@ -1814,6 +1842,9 @@ local specialModList = {
 	end,
 	["totems explode on death, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Crucible weapon mod
 		return explodeFunc(100, amount, type)
+	end,
+	["enemies you kill have ?a? ?(%d+)%% chance to explode, dealing (%d+)%% of their maximum life as (.+) damage"] = function(chance, _, amount, type)
+		return explodeFunc(chance, amount, type)
 	end,
 	-- Keystones
 	["(%d+) rage regenerated for every (%d+) mana regeneration per second"] = function(num, _, div) return { 
@@ -2686,22 +2717,8 @@ local specialModList = {
 	["trigger commandment of inferno on critical strike"] = { mod("ExtraSkill", "LIST", { skillId = "UniqueEnchantmentOfInfernoOnCrit", level = 1, noSupports = true, triggered = true }) },
 	["trigger (.+) on critical strike"] = function( _, skill) return triggerExtraSkill(skill, 1, true) end,
 	["triggers? (.+) when you take a critical strike"] = function( _, skill) return triggerExtraSkill(skill, 1, true) end,
-	["socketed [%a+]* ?gems a?r?e? ?supported by level (%d+) (.+)"] = function(num, _, support)
-		local skillId = gemIdLookup[support] or gemIdLookup[support:gsub("^increased ","")]
-		if skillId then
-			local gemId = data.gemForBaseName[data.skills[skillId].name .. " Support"]
-			if gemId then
-				return {
-					mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].grantedEffectId, level = num }, { type = "SocketedIn", slotName = "{SlotName}" }),
-					mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].secondaryGrantedEffectId, level = num }, { type = "SocketedIn", slotName = "{SlotName}" })
-				}
-			else
-				return {
-					mod("ExtraSupport", "LIST", { skillId = skillId, level = num }, { type = "SocketedIn", slotName = "{SlotName}" }),
-				}
-			end
-		end
-	end,
+	["socketed [%a+]* ?gems a?r?e? ?supported by level (%d+) (.+)"] = function(num, _, support)	return extraSupport(support, num) end,
+	["skills from equipped (.+) are supported by level (%d+) (.+)"] = function(num, slot, level, support) return extraSupport(support, level, slot) end,
 	["socketed support gems can also support skills from your e?q?u?i?p?p?e?d? ?([%a%s]+)"] = function (_, itemSlotName)
 		local targetItemSlotName = "Body Armour"
 		if itemSlotName == "main hand" then
