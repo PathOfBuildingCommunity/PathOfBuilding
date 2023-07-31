@@ -1117,6 +1117,7 @@ local preFlagList = {
 	["^blink arrow and mirror arrow have "] = { tag = { type = "SkillName", skillNameList = { "Blink Arrow", "Mirror Arrow" } } },
 	["attacks with energy blades "] = { flags = ModFlag.Attack, tag = { type = "Condition", var = "AffectedByEnergyBlade" } },
 	["^for each nearby corpse, "] = { tag = { type = "Multiplier", var = "NearbyCorpse" } },
+	["^allies between you and linked targets have "] = { newAura = true, newAuraOnlyAllies = true, tag = { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" } },
 	-- While in the presence of...
 	["^while a unique enemy is in your presence, "] = { tag = { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } },
 	["^while a pinnacle atlas boss is in your presence, "] = { tag = { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" } },
@@ -2250,6 +2251,7 @@ local specialModList = {
 		end
 		return mods
 	end,
+	["enemies between you and linked targets cannot apply elemental ailments"] = { mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }, { type = "GlobalEffect", effectType = "Global", unscalable = true })},
 	["immun[ei]t?y? to elemental ailments while focus?sed"] = function()
 		local mods = { }
 		for i, ailment in ipairs(data.elementalAilmentTypeList) do
@@ -3234,6 +3236,7 @@ local specialModList = {
 	["nearby allies' damage with hits is lucky"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = flag("LuckyHits") }) },
 	["your damage with hits is lucky"] = { flag("LuckyHits") },
 	["elemental damage with hits is lucky while you are shocked"] = { flag("ElementalLuckHits", { type = "Condition", var = "Shocked" }) },
+	["elemental damage with hits dealt by allies between you and linked targets is lucky"] = { flag("ElementalLuckHits", { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }) },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["(%d+)%% increased effect of non%-curse auras from your skills on enemies"] = function(num) return {
 		mod("DebuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
