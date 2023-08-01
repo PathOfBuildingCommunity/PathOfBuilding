@@ -2355,7 +2355,7 @@ local specialModList = {
 	["while there are at least five nearby allies, you and nearby allies have onslaught"] = { mod("ExtraAura", "LIST", { mod = flag("Onslaught") }, { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 5 }) },
 	["elemental damage with hits dealt by allies between you and linked targets is lucky"] = { flag("ElementalLuckHits", { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }) },
 	["enemies between you and linked targets cannot apply elemental ailments"] = { mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }, { type = "GlobalEffect", effectType = "Global", unscalable = true })},
-	["(%d+)%% of damage from hits is taken from sentinel of radiance's life before you"] = function(num) return { mod("DamageTaken", "MORE", -num, { type = "Condition", var = "HaveRadianceSentinel" }) } end,
+	["(%d+)%% of damage from hits is taken from sentinel of radiance's life before you"] = function(num) return { mod("takenFromRadianceSentinelBeforeYou", "BASE", num) } end,
 	-- Hierophant
 	["you and your totems regenerate ([%d%.]+)%% of life per second for each summoned totem"] = function (num) return {
 		mod("LifeRegenPercent", "BASE", num, { type = "PerStat", stat = "TotemsSummoned" }),

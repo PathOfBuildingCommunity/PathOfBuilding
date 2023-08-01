@@ -105,6 +105,9 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		if output.TotalVaalRejuvenationTotemLife then
 			alliesTakenBeforeYou["vaalRejuvenationTotems"] = { remaining = output.TotalVaalRejuvenationTotemLife, percent = output.VaalRejuvenationTotemAllyDamageMitigation / 100 }
 		end
+		if output.TotalRadianceSentinelLife then
+			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
+		end
 		-- soul link is not implemented yet
 		if output.SoulLink then
 			alliesTakenBeforeYou["soulLink"] = { remaining = output.SoulLink, percent = output.SoulLinkMitigation / 100 }
@@ -1952,6 +1955,13 @@ function calcs.buildDefenceEstimations(env, actor)
 		if output["VaalRejuvenationTotemAllyDamageMitigation"] ~= output["TotemAllyDamageMitigation"] then
 			output["TotalVaalRejuvenationTotemLife"] = modDB:Sum("BASE", nil, "TotalVaalRejuvenationTotemLife")
 		end
+		
+		-- from Sentinel of Radiance
+		output["RadianceSentinelAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromRadianceSentinelBeforeYou")
+		if output["RadianceSentinelAllyDamageMitigation"] ~= 0 then
+			output["TotalRadianceSentinelLife"] = modDB:Sum("BASE", nil, "TotalRadianceSentinelLife")
+		end
+		
 	end
 	
 	-- Vaal Arctic Armour
@@ -2037,6 +2047,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		if output.TotalVaalRejuvenationTotemLife then
 			alliesTakenBeforeYou["vaalRejuvenationTotems"] = { remaining = output.TotalVaalRejuvenationTotemLife, percent = output.VaalRejuvenationTotemAllyDamageMitigation / 100 }
+		end
+		if output.TotalRadianceSentinelLife then
+			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
 		end
 		
 		local poolTable = {
@@ -2690,6 +2703,10 @@ function calcs.buildDefenceEstimations(env, actor)
 			local poolProtected = output["TotalVaalRejuvenationTotemLife"] / (output["VaalRejuvenationTotemAllyDamageMitigation"] / 100) * (1 - output["VaalRejuvenationTotemAllyDamageMitigation"] / 100)
 			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["VaalRejuvenationTotemAllyDamageMitigation"] / 100)
 		end
+		if output["TotalRadianceSentinelLife"] and output["TotalRadianceSentinelLife"] > 0 then
+			local poolProtected = output["TotalRadianceSentinelLife"] / (output["RadianceSentinelAllyDamageMitigation"] / 100) * (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
+			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
+		end
 	end
 
 	for _, damageType in ipairs(dmgTypeList) do
@@ -2825,36 +2842,57 @@ function calcs.buildDefenceEstimations(env, actor)
 			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("= %.0f ^8maximum survivable enemy damage%s", finalMaxHit, useConversionSmoothing and " (approximate)" or ""))
 			
 			local poolsRemaining = calcs.reducePoolsByDamage(nil, takenDamages, actor)
-			local poolRemainingStrings = {
-				output.FrostShieldLife and output.FrostShieldLife > 0 and s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining) or nil,
-				output.TotalSpectreLife and output.TotalSpectreLife > 0 and s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["specters"].remaining, poolsRemaining.AlliesTakenBeforeYou["specters"].remaining) or nil,
-				output.TotalTotemLife and output.TotalTotemLife > 0 and s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.AlliesTakenBeforeYou["totems"].remaining, poolsRemaining.AlliesTakenBeforeYou["totems"].remaining) or nil,
-				output.TotalVaalRejuvenationTotemLife and output.TotalVaalRejuvenationTotemLife > 0 and s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life ^7(%d remaining)", output.TotalVaalRejuvenationTotemLife - poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining, poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining) or nil,
-				output.sharedAegis and output.sharedAegis > 0 and s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared) or nil,
-			}
+			
+			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("^8Such a hit would drain the following:"))
+			if output.FrostShieldLife and output.FrostShieldLife > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining))
+			end
+			if output.TotalSpectreLife and output.TotalSpectreLife > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["specters"].remaining, poolsRemaining.AlliesTakenBeforeYou["specters"].remaining))
+			end
+			if output.TotalTotemLife and output.TotalTotemLife > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.AlliesTakenBeforeYou["totems"].remaining, poolsRemaining.AlliesTakenBeforeYou["totems"].remaining))
+			end
+			if output.TotalVaalRejuvenationTotemLife and output.TotalVaalRejuvenationTotemLife > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life ^7(%d remaining)", output.TotalVaalRejuvenationTotemLife - poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining, poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining))
+			end
+			if output.TotalRadianceSentinelLife and output.TotalRadianceSentinelLife > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
+			end
+			if output.sharedAegis and output.sharedAegis > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared))
+			end
 			local receivedElemental = false
 			for takenType in pairs(takenDamages) do
 				receivedElemental = receivedElemental or isElemental[takenType]
-				t_insert(poolRemainingStrings, output[takenType.."Aegis"] and output[takenType.."Aegis"] > 0 and s_format("\t%d "..colorCodes.GEM.."%s Aegis charge ^7(%d remaining)", output[takenType.."Aegis"] - poolsRemaining.Aegis[takenType], takenType, poolsRemaining.Aegis[takenType]) or nil)
+				if output[takenType.."Aegis"] and output[takenType.."Aegis"] > 0 then
+					t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."%s Aegis charge ^7(%d remaining)", output[takenType.."Aegis"] - poolsRemaining.Aegis[takenType], takenType, poolsRemaining.Aegis[takenType]))
+				end
 			end
-			poolRemainingStrings = tableConcat(poolRemainingStrings, {
-				receivedElemental and output.sharedElementalAegis and output.sharedElementalAegis > 0 and s_format("\t%d "..colorCodes.GEM.."Elemental Aegis charge ^7(%d remaining)", output.sharedElementalAegis - poolsRemaining.Aegis.sharedElemental, poolsRemaining.Aegis.sharedElemental) or nil,
-				output.sharedGuardAbsorb and output.sharedGuardAbsorb > 0 and s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.sharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared) or nil,
-			})
+			if receivedElemental and output.sharedElementalAegis and output.sharedElementalAegis > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Elemental Aegis charge ^7(%d remaining)", output.sharedElementalAegis - poolsRemaining.Aegis.sharedElemental, poolsRemaining.Aegis.sharedElemental))
+			end
+			if output.sharedGuardAbsorb and output.sharedGuardAbsorb > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.sharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared))
+			end
 			for takenType in pairs(takenDamages) do
-				t_insert(poolRemainingStrings, output[takenType.."GuardAbsorb"] and output[takenType.."GuardAbsorb"] > 0 and s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output[takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]) or nil)
+				if  output[takenType.."GuardAbsorb"] and output[takenType.."GuardAbsorb"] > 0 then
+					t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output[takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]))
+				end
 			end
-			poolRemainingStrings = tableConcat(poolRemainingStrings, {
-				output.Ward and output.Ward > 0 and s_format("\t%d "..colorCodes.WARD.."Ward", output.Ward) or nil,
-				output.EnergyShieldRecoveryCap ~= poolsRemaining.EnergyShield and output.EnergyShieldRecoveryCap and output.EnergyShieldRecoveryCap > 0 and s_format("\t%d "..colorCodes.ES.."Energy Shield ^7(%d remaining)", output.EnergyShieldRecoveryCap - poolsRemaining.EnergyShield, poolsRemaining.EnergyShield) or nil,
-				output.ManaUnreserved ~= poolsRemaining.Mana and output.ManaUnreserved and output.ManaUnreserved > 0 and s_format("\t%d "..colorCodes.MANA.."Mana ^7(%d remaining)", output.ManaUnreserved - poolsRemaining.Mana, poolsRemaining.Mana) or nil,
-				poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime > 0 and s_format("\t%d "..colorCodes.LIFE.."Life ^7Loss Prevented", poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime) or nil,
-				s_format("\t%d "..colorCodes.LIFE.."Life ^7(%d remaining)", output.LifeRecoverable - poolsRemaining.Life, poolsRemaining.Life)
-			})
-			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("^8Such a hit would drain the following:"))
-			for _, str in ipairs(poolRemainingStrings) do
-				t_insert(breakdown[damageType.."MaximumHitTaken"], str)
+			if output.Ward and output.Ward > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.WARD.."Ward", output.Ward))
 			end
+			if output.EnergyShieldRecoveryCap ~= poolsRemaining.EnergyShield and output.EnergyShieldRecoveryCap and output.EnergyShieldRecoveryCap > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.ES.."Energy Shield ^7(%d remaining)", output.EnergyShieldRecoveryCap - poolsRemaining.EnergyShield, poolsRemaining.EnergyShield))
+			end
+			if output.ManaUnreserved ~= poolsRemaining.Mana and output.ManaUnreserved and output.ManaUnreserved > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.MANA.."Mana ^7(%d remaining)", output.ManaUnreserved - poolsRemaining.Mana, poolsRemaining.Mana))
+			end
+			if poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime > 0 then
+				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.LIFE.."Life ^7Loss Prevented", poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime))
+			end
+			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.LIFE.."Life ^7(%d remaining)", output.LifeRecoverable - poolsRemaining.Life, poolsRemaining.Life))
 		end
 	end
 
