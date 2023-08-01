@@ -2797,10 +2797,12 @@ function calcs.buildDefenceEstimations(env, actor)
 		else
 			finalMaxHit = round(partMin / enemyDamageMult)
 		end
-		output[damageType.."MaximumHitTaken"] = finalMaxHit
+		
+		local maxHitCurType = damageType.."MaximumHitTaken"
+		output[maxHitCurType] = finalMaxHit
 
 		if breakdown then
-			breakdown[damageType.."MaximumHitTaken"] = {
+			breakdown[maxHitCurType] = {
 				label = "Maximum hit damage breakdown",
 				rowList = {},
 				colList = {
@@ -2820,7 +2822,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				local incoming = finalMaxHit * enemyDamageMult * conversion / 100
 				local nanToZero = takenAmt == takenAmt and takenAmt or 0
 				takenDamages[takenType] = nanToZero
-				t_insert(breakdown[damageType.."MaximumHitTaken"].rowList, {
+				t_insert(breakdown[maxHitCurType].rowList, {
 					type = s_format("%d%% as %s", conversion, takenType),
 					pool = s_format("%d", output[takenType .."TotalHitPool"]),
 					incoming = s_format("%.0f", incoming),
@@ -2830,69 +2832,69 @@ function calcs.buildDefenceEstimations(env, actor)
 			end
 
 			local fullMulti = fullTaken / finalMaxHit / enemyDamageMult
-			t_insert(breakdown[damageType.."MaximumHitTaken"], "^8Maximum hit is calculated in reverse -")
-			t_insert(breakdown[damageType.."MaximumHitTaken"], "^8from health pools, via damage reductions, to the max hit:")
-			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("%d ^8(used pool)", fullTaken))
+			t_insert(breakdown[maxHitCurType], "^8Maximum hit is calculated in reverse -")
+			t_insert(breakdown[maxHitCurType], "^8from health pools, via damage reductions, to the max hit:")
+			t_insert(breakdown[maxHitCurType], s_format("%d ^8(used pool)", fullTaken))
 			if round(fullMulti, 2) ~= 1 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("/ %.2f ^8(modifiers to damage taken)", fullMulti))
+				t_insert(breakdown[maxHitCurType], s_format("/ %.2f ^8(modifiers to damage taken)", fullMulti))
 			end
 			if enemyDamageMult ~= 1 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("/ %.2f ^8(modifiers to enemy damage)", enemyDamageMult))
+				t_insert(breakdown[maxHitCurType], s_format("/ %.2f ^8(modifiers to enemy damage)", enemyDamageMult))
 			end
-			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("= %.0f ^8maximum survivable enemy damage%s", finalMaxHit, useConversionSmoothing and " (approximate)" or ""))
+			t_insert(breakdown[maxHitCurType], s_format("= %.0f ^8maximum survivable enemy damage%s", finalMaxHit, useConversionSmoothing and " (approximate)" or ""))
 			
 			local poolsRemaining = calcs.reducePoolsByDamage(nil, takenDamages, actor)
 			
-			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("^8Such a hit would drain the following:"))
+			t_insert(breakdown[maxHitCurType], s_format("^8Such a hit would drain the following:"))
 			if output.FrostShieldLife and output.FrostShieldLife > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining))
 			end
 			if output.TotalSpectreLife and output.TotalSpectreLife > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["specters"].remaining, poolsRemaining.AlliesTakenBeforeYou["specters"].remaining))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["specters"].remaining, poolsRemaining.AlliesTakenBeforeYou["specters"].remaining))
 			end
 			if output.TotalTotemLife and output.TotalTotemLife > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.AlliesTakenBeforeYou["totems"].remaining, poolsRemaining.AlliesTakenBeforeYou["totems"].remaining))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.AlliesTakenBeforeYou["totems"].remaining, poolsRemaining.AlliesTakenBeforeYou["totems"].remaining))
 			end
 			if output.TotalVaalRejuvenationTotemLife and output.TotalVaalRejuvenationTotemLife > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life ^7(%d remaining)", output.TotalVaalRejuvenationTotemLife - poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining, poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life ^7(%d remaining)", output.TotalVaalRejuvenationTotemLife - poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining, poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining))
 			end
 			if output.TotalRadianceSentinelLife and output.TotalRadianceSentinelLife > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
 			end
 			if output.sharedAegis and output.sharedAegis > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared))
 			end
 			local receivedElemental = false
 			for takenType in pairs(takenDamages) do
 				receivedElemental = receivedElemental or isElemental[takenType]
 				if output[takenType.."Aegis"] and output[takenType.."Aegis"] > 0 then
-					t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."%s Aegis charge ^7(%d remaining)", output[takenType.."Aegis"] - poolsRemaining.Aegis[takenType], takenType, poolsRemaining.Aegis[takenType]))
+					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."%s Aegis charge ^7(%d remaining)", output[takenType.."Aegis"] - poolsRemaining.Aegis[takenType], takenType, poolsRemaining.Aegis[takenType]))
 				end
 			end
 			if receivedElemental and output.sharedElementalAegis and output.sharedElementalAegis > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.GEM.."Elemental Aegis charge ^7(%d remaining)", output.sharedElementalAegis - poolsRemaining.Aegis.sharedElemental, poolsRemaining.Aegis.sharedElemental))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Elemental Aegis charge ^7(%d remaining)", output.sharedElementalAegis - poolsRemaining.Aegis.sharedElemental, poolsRemaining.Aegis.sharedElemental))
 			end
 			if output.sharedGuardAbsorb and output.sharedGuardAbsorb > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.sharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.sharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared))
 			end
 			for takenType in pairs(takenDamages) do
 				if  output[takenType.."GuardAbsorb"] and output[takenType.."GuardAbsorb"] > 0 then
-					t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output[takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]))
+					t_insert(breakdown[maxHitCurType], s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output[takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]))
 				end
 			end
 			if output.Ward and output.Ward > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.WARD.."Ward", output.Ward))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.WARD.."Ward", output.Ward))
 			end
 			if output.EnergyShieldRecoveryCap ~= poolsRemaining.EnergyShield and output.EnergyShieldRecoveryCap and output.EnergyShieldRecoveryCap > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.ES.."Energy Shield ^7(%d remaining)", output.EnergyShieldRecoveryCap - poolsRemaining.EnergyShield, poolsRemaining.EnergyShield))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.ES.."Energy Shield ^7(%d remaining)", output.EnergyShieldRecoveryCap - poolsRemaining.EnergyShield, poolsRemaining.EnergyShield))
 			end
 			if output.ManaUnreserved ~= poolsRemaining.Mana and output.ManaUnreserved and output.ManaUnreserved > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.MANA.."Mana ^7(%d remaining)", output.ManaUnreserved - poolsRemaining.Mana, poolsRemaining.Mana))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.MANA.."Mana ^7(%d remaining)", output.ManaUnreserved - poolsRemaining.Mana, poolsRemaining.Mana))
 			end
 			if poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime > 0 then
-				t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.LIFE.."Life ^7Loss Prevented", poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime))
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.LIFE.."Life ^7Loss Prevented", poolsRemaining.LifeLossLostOverTime + poolsRemaining.LifeBelowHalfLossLostOverTime))
 			end
-			t_insert(breakdown[damageType.."MaximumHitTaken"], s_format("\t%d "..colorCodes.LIFE.."Life ^7(%d remaining)", output.LifeRecoverable - poolsRemaining.Life, poolsRemaining.Life))
+			t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.LIFE.."Life ^7(%d remaining)", output.LifeRecoverable - poolsRemaining.Life, poolsRemaining.Life))
 		end
 	end
 
