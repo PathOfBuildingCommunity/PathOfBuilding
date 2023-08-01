@@ -2251,7 +2251,6 @@ local specialModList = {
 		end
 		return mods
 	end,
-	["enemies between you and linked targets cannot apply elemental ailments"] = { mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }, { type = "GlobalEffect", effectType = "Global", unscalable = true })},
 	["immun[ei]t?y? to elemental ailments while focus?sed"] = function()
 		local mods = { }
 		for i, ailment in ipairs(data.elementalAilmentTypeList) do
@@ -2346,6 +2345,7 @@ local specialModList = {
     -- Guardian
 	["grants armour equal to (%d+)%% of your reserved life to you and nearby allies"] = function(num) return { mod("GrantReservedLifeAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
 	["grants maximum energy shield equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { mod("GrantReservedManaAsAura", "LIST", { mod = mod("EnergyShield", "BASE", num / 100) }) } end,
+	["grants armour equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { mod("GrantReservedManaAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
 	["warcries cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Warcry) },
 	["%+(%d+)%% chance to block attack damage for %d seconds? every %d seconds"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "BastionOfHopeActive" }) } end,
 	["if you've blocked in the past %d+ seconds, you and nearby allies cannot be stunned"] = { mod("ExtraAura", "LIST", { mod = mod("AvoidStun", "BASE", 100) }, { type = "Condition", var = "BlockedRecently" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
@@ -2353,6 +2353,9 @@ local specialModList = {
 	["if you've cast a spell recently, you and nearby allies have %+(%d+)%% chance to block spell damage"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("SpellBlockChance", "BASE", num) }, { type = "Condition", var = "CastSpellRecently" }) } end,
 	["while there is at least one nearby ally, you and nearby allies deal (%d+)%% more damage"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("Damage", "MORE", num) }, { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 1 }) } end,
 	["while there are at least five nearby allies, you and nearby allies have onslaught"] = { mod("ExtraAura", "LIST", { mod = flag("Onslaught") }, { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 5 }) },
+	["elemental damage with hits dealt by allies between you and linked targets is lucky"] = { flag("ElementalLuckHits", { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }) },
+	["enemies between you and linked targets cannot apply elemental ailments"] = { mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }, { type = "GlobalEffect", effectType = "Global", unscalable = true })},
+	["(%d+)%% of damage from hits is taken from sentinel of radiance's life before you"] = function(num) return { mod("DamageTaken", "MORE", -num, { type = "Condition", var = "HaveRadianceSentinel" }) } end,
 	-- Hierophant
 	["you and your totems regenerate ([%d%.]+)%% of life per second for each summoned totem"] = function (num) return {
 		mod("LifeRegenPercent", "BASE", num, { type = "PerStat", stat = "TotemsSummoned" }),
@@ -3236,7 +3239,6 @@ local specialModList = {
 	["nearby allies' damage with hits is lucky"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = flag("LuckyHits") }) },
 	["your damage with hits is lucky"] = { flag("LuckyHits") },
 	["elemental damage with hits is lucky while you are shocked"] = { flag("ElementalLuckHits", { type = "Condition", var = "Shocked" }) },
-	["elemental damage with hits dealt by allies between you and linked targets is lucky"] = { flag("ElementalLuckHits", { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }) },
 	["allies' aura buffs do not affect you"] = { flag("AlliesAurasCannotAffectSelf") },
 	["(%d+)%% increased effect of non%-curse auras from your skills on enemies"] = function(num) return {
 		mod("DebuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Aura }, { type = "SkillType", skillType = SkillType.AppliesCurse, neg = true }),
@@ -4003,7 +4005,6 @@ local specialModList = {
 	} end,
 	["(%d+)%% of damage from hits is taken from your spectres' life before you"] = function(num) return { mod("takenFromSpectresBeforeYou", "BASE", num) } end,
 	["(%d+)%% of damage from hits is taken from your nearest totem's life before you"] = function(num) return { mod("takenFromTotemsBeforeYou", "BASE", num, { type = "Condition", var = "HaveTotem" }) } end,
-	["(%d+)%% of damage from hits is taken from sentinel of radiance's life before you"] = function(num) return { mod("DamageTaken", "MORE", -num, { type = "Condition", var = "HaveRadianceSentinel" }) } end,
 	-- Knockback
 	["cannot knock enemies back"] = { flag("CannotKnockback") },
 	["knocks back enemies if you get a critical strike with a staff"] = { mod("EnemyKnockbackChance", "BASE", 100, nil, ModFlag.Staff, { type = "Condition", var = "CriticalStrike" }) },
