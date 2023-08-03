@@ -541,10 +541,12 @@ function calcs.buildOutput(build, mode)
 					else
 						addVarTag(env.minionConditionsUsed, tag, mod)
 					end
-				elseif tag.type == "ActorCondition" and tag.actor == "enemy" then
-					addVarTag(env.enemyConditionsUsed, tag, mod)
-				elseif tag.type == "ActorCondition" and tag.actor == "parent" then
-					addVarTag(env.conditionsUsed, tag, mod)
+				elseif tag.type == "ActorCondition" and tag.var then
+					if tag.actor == "enemy" then
+						addTo(env.enemyConditionsUsed, tag.var, mod)
+					else
+						addTo(env.conditionsUsed, tag.var, mod)
+					end
 				elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 					if not tag.actor then
 						if actor == env.player then
@@ -596,6 +598,12 @@ function calcs.buildOutput(build, mode)
 						break
 					elseif tag.type == "Condition" then
 						addVarTag(env.enemyConditionsUsed, tag, mod)
+					elseif tag.type == "ActorCondition" and tag.var then
+						if tag.actor == "enemy" or tag.actor == "player" then
+							addTo(env.conditionsUsed, tag.var, mod)
+						else
+							addTo(env.enemyConditionsUsed, tag.var, mod)
+						end
 					elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 						if not tag.actor then
 							addVarTag(env.enemyMultipliersUsed, tag, mod)

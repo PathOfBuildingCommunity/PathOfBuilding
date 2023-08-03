@@ -513,7 +513,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if tag.actor then
 				target = self.actor[tag.actor] and self.actor[tag.actor].modDB
 			end
-			if target then
+			if target and (tag.var or tag.varList) then
 				if tag.varList then
 					for _, var in pairs(tag.varList) do
 						if target:GetCondition(var, cfg) then
@@ -524,7 +524,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 				else
 					match = target:GetCondition(tag.var, cfg)
 				end
-			elseif tag.actor and cfg and tag.var == nil and tag.varList == nil and tag.actor == cfg.actor then
+			elseif tag.actor and cfg and tag.actor == cfg.actor then
 				match = true
 			end
 			if tag.neg then

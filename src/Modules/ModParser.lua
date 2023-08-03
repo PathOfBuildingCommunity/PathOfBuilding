@@ -115,6 +115,7 @@ local formList = {
 	["^are "] = "FLAG",
 	["^gain "] = "FLAG",
 	["^you gain "] = "FLAG",
+	["no "] = "OVERRIDE",
 }
 
 -- Map of modifier names
@@ -1418,6 +1419,7 @@ local modTagList = {
 	["wh[ie][ln]e? you have no energy shield"] = { tag = { type = "Condition", var = "HaveEnergyShield", neg = true } },
 	["if you have energy shield"] = { tag = { type = "Condition", var = "HaveEnergyShield" } },
 	["while stationary"] = { tag = { type = "Condition", var = "Stationary" } },
+	["while you are stationary"] = { tag = { type = "ActorCondition", actor = "player", var = "Stationary" }},
 	["while moving"] = { tag = { type = "Condition", var = "Moving" } },
 	["while channelling"] = { tag = { type = "Condition", var = "Channelling" } },
 	["while channelling snipe"] = { tag = { type = "Condition", var = "Channelling" } },
@@ -5389,6 +5391,9 @@ local function parseMod(line, order)
 		modName = type(modValue) == "table" and modValue.name or modValue
 		modType = type(modValue) == "table" and modValue.type or "FLAG"
 		modValue = type(modValue) == "table" and modValue.value or true
+	elseif modForm == "OVERRIDE" then
+		modValue = 0
+		modType = "OVERRIDE"
 	end
 	if not modName then
 		return { }, line
