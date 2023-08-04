@@ -314,6 +314,39 @@ function calcs.defence(env, actor)
 		end
 	end
 	
+	-- Process Resistance conversion mods
+	for _, resFrom in ipairs(resistTypeList) do
+		local maxRes
+		for _, resTo in ipairs(resistTypeList) do
+			local conversionRate = modDB:Sum("BASE", nil, resFrom.."MaxResConvertTo"..resTo) / 100
+			if conversionRate ~= 0 then
+				if not maxRes then
+					maxRes = 0
+					for _, mod in ipairs(modDB:Tabulate("BASE", nil, resFrom.."ResistMax")) do
+						if mod.mod.source ~= "Base" then
+							maxRes = maxRes + mod.value
+						end
+					end
+				end
+				if maxRes ~= 0 then
+					modDB:NewMod(resTo.."ResistMax", "BASE", maxRes * conversionRate)
+				end
+			end
+		end
+	end
+	
+	for _, resFrom in ipairs(resistTypeList) do
+		local res
+		for _, resTo in ipairs(resistTypeList) do
+			local conversionRate = modDB:Sum("BASE", nil, resFrom.."ResConvertTo"..resTo) / 100
+			if conversionRate ~= 0 then
+				if not res then res = modDB:Sum("BASE", nil, resFrom.."Resist") end
+				modDB:NewMod(resTo.."Resist", "BASE", res * conversionRate)
+			end
+		end
+	end
+	
+	
 	for _, elem in ipairs(resistTypeList) do
 		local min, max, total, totemTotal, totemMax
 		min = data.misc.ResistFloor
