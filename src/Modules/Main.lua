@@ -228,7 +228,7 @@ function main:SaveModCache()
 	local out = io.open("Data/ModCache.lua", "w")
 	out:write('local c=...')
 	for line, dat in pairs(modLib.parseModCache) do
-		if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
+		if not dat[1] or not dat[1][1] or (dat[1][1].name ~= "JewelFunc" and dat[1][1].name ~= "ExtraJewelFunc") then
 			out:write('c["', line:gsub("\n","\\n"), '"]={')
 			if dat[1] then
 				writeLuaTable(out, dat[1])

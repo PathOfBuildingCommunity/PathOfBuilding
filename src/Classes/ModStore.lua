@@ -535,31 +535,48 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "ItemCondition" then
 			local match = false
-			local searchCond = tag.var
+			local searchCond = tag.searchCond
+			local rarityCond = tag.rarityCond
+			local allSlots = tag.allSlots
 			local itemSlot = tag.itemSlot:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
-			local bCheckAllAppropriateSlots = tag.allSlots
-			if searchCond and itemSlot then
+			local bCheckAllAppropriateSlots = tag.bothSlots
+			local items
+			if allSlots then
+				items = self.actor.itemList
+			elseif self.actor.itemList then
+				items = {self.actor.itemList[itemSlot] or (cfg and cfg.item)}
 				if bCheckAllAppropriateSlots then
-					local match1 = false
-					local match2 = false
 					local itemSlot1 = self.actor.itemList[itemSlot .. " 1"]
 					local itemSlot2 = self.actor.itemList[itemSlot .. " 2"]
 					if itemSlot1 and itemSlot1.name:match("Kalandra's Touch") then itemSlot1 = itemSlot2 end
 					if itemSlot2 and itemSlot2.name:match("Kalandra's Touch") then itemSlot2 = itemSlot1 end
-					if itemSlot1 then
-						match1 = itemSlot1:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
-					end
-					if itemSlot2 then
-						match2 = itemSlot2:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
-					end
-					match = match1 and match2
-				else
-					if self.actor.itemList[itemSlot] then
-						match = self.actor.itemList[itemSlot]:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
+					if itemSlot1 and itemSlot2 then
+						t_insert(items, itemSlot1)
+						t_insert(items, itemSlot2)
 					end
 				end
 			end
-			if tag.neg then
+			if items and #items > 0 then
+				if searchCond then
+					for _, item in pairs(items) do
+						if not item:FindModifierSubstring(searchCond:lower(), itemSlot:lower()) then
+							match = false
+							break
+						end
+						match = true
+					end
+				end
+				if rarityCond then
+					for _, item in pairs(items) do
+						if item.rarity ~= rarityCond then
+							match = false
+							break
+						end
+						match = true
+					end
+				end
+			end
+			if tag.neg or not cfg then
 				match = not match
 			end
 			if not match then
