@@ -534,11 +534,12 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "ItemCondition" then
+			local matches = {}
 			local match = false
 			local searchCond = tag.searchCond
 			local rarityCond = tag.rarityCond
 			local allSlots = tag.allSlots
-			local itemSlot = tag.itemSlot:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
+			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
 			local bCheckAllAppropriateSlots = tag.bothSlots
 			local items
 			if allSlots then
@@ -556,30 +557,28 @@ function ModStoreClass:EvalMod(mod, cfg)
 					end
 				end
 			end
-			if items and #items > 0 then
+			if items and #items > 0 or allSlots then
 				if searchCond then
-					for _, item in pairs(items) do
-						if not item:FindModifierSubstring(searchCond:lower(), itemSlot:lower()) then
-							match = false
-							break
+					for slot, item in pairs(items) do
+						if slot ~= itemSlot or not tag.excludeSelf then
+							t_insert(matches, item:FindModifierSubstring(searchCond:lower(), itemSlot:lower()))
 						end
-						match = true
 					end
 				end
 				if rarityCond then
 					for _, item in pairs(items) do
-						if item.rarity ~= rarityCond then
-							match = false
-							break
-						end
-						match = true
+						t_insert(matches, item.rarity == rarityCond)
 					end
 				end
 			end
-			if tag.neg or not cfg then
-				match = not match
+			for _, bool in ipairs(matches) do
+				if bool then
+					match = not tag.neg
+					break
+				end
+				match = tag.neg == true
 			end
-			if not match then
+			if not match and #matches > 0 then
 				return
 			end
 		elseif tag.type == "SocketedIn" then
