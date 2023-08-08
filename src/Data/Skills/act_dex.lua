@@ -10797,9 +10797,6 @@ skills["ChannelledSnipe"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeMultiplier = math.min(math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:SnipeStage") - 0.5, 0.5), activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:SnipeStagesMax")) --First stage takes 0.5x time to channel compared to subsequent stages
-	end,
 	statMap = {
 		["snipe_max_stacks"] = {
 			mod("Multiplier:SnipeStagesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),

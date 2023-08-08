@@ -1699,11 +1699,11 @@ return {
 ["channelled_skill_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channel }),
 },
-["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
-	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStage", limitVar = "SnipeStagesMax" }),
-},
 ["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
-	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage", limitVar = "SnipeStagesMax" }),
+	mod("snipeAilmentMulti", "BASE", nil),
+},
+["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
+	mod("snipeHitMulti", "BASE", nil),
 },
 ["snipe_triggered_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),

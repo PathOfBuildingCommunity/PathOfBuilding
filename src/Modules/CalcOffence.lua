@@ -2045,7 +2045,13 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
 			output.HitTime = output.Time * skillData.hitTimeMultiplier
-			output.HitSpeed = 1 / output.HitTime
+			if output.Cooldown and skillData.triggered then
+				output.HitSpeed = 1 / (m_max(output.HitTime, output.Cooldown))
+			elseif output.Cooldown then
+				output.HitSpeed = 1 / (output.HitTime + output.Cooldown)
+			else
+				output.HitSpeed = 1 / output.HitTime
+			end
 		end
 		
 		-- Other Misc DPS multipliers (like custom source)
