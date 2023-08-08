@@ -2790,6 +2790,11 @@ skills["DivineTempest"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Channel] = true, [SkillType.Lightning] = true, [SkillType.Totemable] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.22,
+	preDamageFunc = function(activeSkill, output)
+		local skillCfg = activeSkill.skillCfg
+		local skillModList = activeSkill.skillModList
+		activeSkill.skillData.hitTimeMultiplier = math.max(skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreStage") / (1 + skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreUniqueEnemyCount") + skillModList:Sum("BASE", skillCfg, "NormalEnemyHitMultiplier") * skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreNormalEnemyCount")), 1)
+	end,
 	parts = {
 		{
 			name = "Channelling",
@@ -2811,13 +2816,16 @@ skills["DivineTempest"] = {
 		["divine_tempest_ailment_damage_+%_final_per_stage"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
 		},
+		["divine_tempest_stage_on_hitting_normal_magic_%_chance"] = {
+			mod("NormalEnemyHitMultiplier", "BASE", nil),
+			div = 100
+		},
 	},
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
-		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		mod("Multiplier:DivineIreMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 38),
 	},
@@ -4060,6 +4068,9 @@ skills["Flameblast"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Fire] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:FlameblastStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:FlameblastMinimumStage"), 1)
+	end,
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
@@ -4085,7 +4096,6 @@ skills["Flameblast"] = {
 	},
 	baseMods = {
 		skill("radius", 2),
-		skill("showAverage", true),
 		mod("PvpTvalueMultiplier", "MORE", 100, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 	},
 	qualityStats = {
@@ -6186,6 +6196,9 @@ skills["ExpandingFireCone"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Fire] = true, [SkillType.Channel] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+	end,
 	parts = {
 		{
 			name = "Channelling",
@@ -6231,7 +6244,6 @@ skills["ExpandingFireCone"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 25),
 		skill("radiusLabel", "Flame Length:"),
 		skill("radiusSecondary", 20),
