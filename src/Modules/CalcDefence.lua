@@ -441,6 +441,18 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	if modDB:Flag(nil, "ArmourIncreasedByUncappedFireRes") then
+		modDB:NewMod("Armour", "INC", output.FireResistTotal)
+	end
+	if modDB:Flag(nil, "ArmourIncreasedByOvercappedFireRes") then
+		modDB:NewMod("Armour", "INC", output.FireResistOverCap)
+	end
+	if modDB:Flag(nil, "EvasionRatingIncreasedByUncappedColdRes") then
+		modDB:NewMod("Evasion", "INC", output.ColdResistTotal)
+	end
+	if modDB:Flag(nil, "EvasionRatingIncreasedByOvercappedColdRes") then
+		modDB:NewMod("Evasion", "INC", output.ColdResistOverCap)
+	end
 	-- Primary defences: Energy shield, evasion and armour
 	do
 		local ironReflexes = modDB:Flag(nil, "IronReflexes")

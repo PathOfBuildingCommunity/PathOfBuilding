@@ -621,6 +621,18 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	if skillModList:Flag(nil, "CritChanceIncreasedByUncappedLightningRes") then
+		skillModList:NewMod("CritChance", "INC", output.LightningResistTotal)
+	end
+	if skillModList:Flag(nil, "CritChanceIncreasedByLightningRes") then
+		skillModList:NewMod("CritChance", "INC", output.LightningResist)
+	end
+	if skillModList:Flag(nil, "CritChanceIncreasedByOvercappedLightningRes") then
+		skillModList:NewMod("CritChance", "INC", output.LightningResistOverCap)
+	end
+	if skillModList:Flag(nil, "CritChanceIncreasedBySpellSuppressChance") then
+		skillModList:NewMod("CritChance", "INC", output.SpellSuppressionChance)
+	end
 	if skillModList:Flag(nil, "LightRadiusAppliesToAccuracy") then
 		-- Light Radius conversion from Corona Solaris
 		for i, value in ipairs(skillModList:Tabulate("INC",  { }, "LightRadius")) do
