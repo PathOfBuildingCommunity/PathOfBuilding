@@ -455,7 +455,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 				activeSkill.skillData.manaReservationPercent = level.manaReservationPercent
 			end	
 			-- Handle multiple triggers situation and if triggered by a trigger skill save a reference to the trigger.
-			local match = skillEffect.grantedEffect.addSkillTypes and activeSkill.skillTypes[SkillType.Triggerable] and (not skillFlags.disable)
+			local match = skillEffect.grantedEffect.addSkillTypes and (not skillFlags.disable)
 			if match and skillEffect.grantedEffect.isTrigger then
 				if activeSkill.triggeredBy then
 					skillFlags.disable = true
