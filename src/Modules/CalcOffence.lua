@@ -1522,7 +1522,7 @@ function calcs.offence(env, actor, activeSkill)
 		if GlobalCache.cachedData["CACHE"][uuid] then
 			local cachedTriggerData = GlobalCache.cachedData["CACHE"][uuid]
 			local manaThreshold = output.ManaCost * reqManaCostMulti
-			local manaSpendPerSec = cachedTriggerData.ManaCost * cachedTriggerData.Speed
+			local manaSpendPerSec = (cachedTriggerData.ManaCost or 0) * (cachedTriggerData.Speed or 0)
 			local manaSpendTriggerRate = manaSpendPerSec / manaThreshold
 			output.SourceTriggerRate = manaSpendTriggerRate
 			local trigRate = m_min(manaSpendTriggerRate, skillData.triggerRate)
