@@ -442,16 +442,32 @@ function calcs.defence(env, actor)
 	end
 
 	if modDB:Flag(nil, "ArmourIncreasedByUncappedFireRes") then
-		modDB:NewMod("Armour", "INC", output.FireResistTotal)
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "ArmourIncreasedByUncappedFireRes")) do
+				local mod = value.mod
+				modDB:NewMod("Armour", "INC", output.FireResistTotal, mod.source)
+			break
+		end
 	end
 	if modDB:Flag(nil, "ArmourIncreasedByOvercappedFireRes") then
-		modDB:NewMod("Armour", "INC", output.FireResistOverCap)
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "ArmourIncreasedByOvercappedFireRes")) do
+			local mod = value.mod
+			modDB:NewMod("Armour", "INC", output.FireResistOverCap, mod.source)			
+			break
+		end
 	end
 	if modDB:Flag(nil, "EvasionRatingIncreasedByUncappedColdRes") then
-		modDB:NewMod("Evasion", "INC", output.ColdResistTotal)
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "EvasionRatingIncreasedByUncappedColdRes")) do
+			local mod = value.mod
+			modDB:NewMod("Evasion", "INC", output.ColdResistTotal, mod.source)			
+			break
+		end
 	end
 	if modDB:Flag(nil, "EvasionRatingIncreasedByOvercappedColdRes") then
-		modDB:NewMod("Evasion", "INC", output.ColdResistOverCap)
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "EvasionRatingIncreasedByOvercappedColdRes")) do
+			local mod = value.mod
+			modDB:NewMod("Evasion", "INC", output.ColdResistOverCap, mod.source)			
+			break
+		end
 	end
 	-- Primary defences: Energy shield, evasion and armour
 	do

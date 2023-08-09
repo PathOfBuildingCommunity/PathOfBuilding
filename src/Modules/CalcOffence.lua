@@ -622,16 +622,33 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	if skillModList:Flag(nil, "CritChanceIncreasedByUncappedLightningRes") then
-		skillModList:NewMod("CritChance", "INC", output.LightningResistTotal)
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "CritChanceIncreasedByUncappedLightningRes")) do
+			local mod = value.mod
+			skillModList:NewMod("CritChance", "INC", output.LightningResistTotal, mod.source)			
+			break
+		end
 	end
 	if skillModList:Flag(nil, "CritChanceIncreasedByLightningRes") then
-		skillModList:NewMod("CritChance", "INC", output.LightningResist)
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "CritChanceIncreasedByLightningRes")) do
+			local mod = value.mod
+			skillModList:NewMod("CritChance", "INC", output.LightningResist, mod.source)			
+			break
+		end
 	end
 	if skillModList:Flag(nil, "CritChanceIncreasedByOvercappedLightningRes") then
-		skillModList:NewMod("CritChance", "INC", output.LightningResistOverCap)
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "CritChanceIncreasedByOvercappedLightningRes")) do
+			local mod = value.mod
+			skillModList:NewMod("CritChance", "INC", output.LightningResistOverCap, mod.source)			
+			break
+		end
 	end
 	if skillModList:Flag(nil, "CritChanceIncreasedBySpellSuppressChance") then
-		skillModList:NewMod("CritChance", "INC", output.SpellSuppressionChance)
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "CritChanceIncreasedBySpellSuppressChance")) do
+			local mod = value.mod
+			skillModList:NewMod("CritChance", "INC", output.SpellSuppressionChance, mod.source)			
+			break
+		end
+		
 	end
 	if skillModList:Flag(nil, "LightRadiusAppliesToAccuracy") then
 		-- Light Radius conversion from Corona Solaris
