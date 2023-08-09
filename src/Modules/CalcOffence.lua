@@ -2434,16 +2434,41 @@ function calcs.offence(env, actor, activeSkill)
 		--Does not take into account mines or traps
 		if activeSkill.activeEffect.grantedEffect.name == "Explosive Arrow" and activeSkill.skillPart == 2 then
 			local hitRate = output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod * skillData.dpsMultiplier
+			local initialHitRate = hitRate
+			local activeTotems = 1
 			if skillFlags.totem then
-				local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+				activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 				hitRate = hitRate * activeTotems
 			end
 			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 			local skillMax = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ExplosiveArrowMaxFuseCount")
 			local maximum = m_min(m_floor(hitRate * duration) + 1, skillMax)
+			local timeToMaximum = maximum / hitRate
 			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
 			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
 			globalOutput.MaxExplosiveArrowFuseCalculated = maximum
+			globalOutput.ExplosionsPerSecond = 1 / timeToMaximum
+			if globalBreakdown then
+				globalBreakdown.MaxExplosiveArrowFuseCalculated = {}
+				if skillFlags.totem then
+					t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("%.2f ^8(attack rate)", initialHitRate))
+					t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %d ^8(active totems)", activeTotems))
+					t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(hit rate)", hitRate))
+				else
+					t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("%.2f ^8(hit rate)", hitRate))
+				end
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(duration)", duration))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("+ 1 ^8(initial hit)"))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f", (hitRate * duration) + 1))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %d ^8(rounded down, capped at max)", maximum))
+
+				globalBreakdown.ExplosionsPerSecond = {}
+				t_insert(globalBreakdown.ExplosionsPerSecond, s_format("1 ^8(second)"))
+				t_insert(globalBreakdown.ExplosionsPerSecond, s_format(" / %d ^8(max fuses)", maximum))
+				t_insert(globalBreakdown.ExplosionsPerSecond, s_format(" / %.2f ^8(hit rate)", hitRate))
+				t_insert(globalBreakdown.ExplosionsPerSecond, s_format("= %.2f ^8(explosions/s)", globalOutput.ExplosionsPerSecond))
+
+			end
 		else
 			globalOutput.MaxExplosiveArrowFuseCalculated = nil
 		end
