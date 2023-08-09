@@ -1301,7 +1301,7 @@ local function defualtTriggerHandler(env, config)
 			
 			--If spell count is missing the skill likely comes from a unique and /or triggers it self
 			if output.EffectiveSourceRate ~= 0 then
-				if (actor.mainSkill.skillFlags.globalTrigger or config.externalSkillRotation) and not config.triggeredSkillCond then
+				if actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then
 					output.SkillTriggerRate = output.EffectiveSourceRate
 				else
 					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
@@ -1723,7 +1723,7 @@ local configTable = {
 		local maxSnipeStages = env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax") - 0.5
 		local snipeHitMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeHitMulti")
 		local snipeAilmentMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeAilmentMulti")
-		local triggeredSkills = {}
+		local triggeredSkillsCount = 0
 		local source
 		local trigRate
 		local uuid
@@ -1732,7 +1732,7 @@ local configTable = {
 		for index, skill in ipairs(env.player.activeSkillList) do
 			if skill.skillData.triggeredBySnipe and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
 				if skill == env.player.mainSkill then currentSkillSnipeIndex = index -1 end
-				t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
+				 triggeredSkillsCount = triggeredSkillsCount + 1
 			end
 		end
 		
@@ -1744,7 +1744,7 @@ local configTable = {
 				-- max(1, snipeStages) makes it behave consistantly with other channeled ranged skills (scourge arrow)
 				env.player.mainSkill.skillData.hitTimeMultiplier = m_max(1, snipeStages) - 0.5 --First stage takes 0.5x time to channel compared to subsequent stages
 			end
-			if #triggeredSkills < 1 then
+			if triggeredSkillsCount < 1 then
 				-- Snipe is being used as a standalone skill
 				if snipeStages then
 					env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * snipeStages, "Snipe", ModFlag.Hit, 0)
@@ -1766,7 +1766,7 @@ local configTable = {
 						trigRate = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.HitSpeed
 					end
 				end
-				return {trigRate = trigRate, source = source, triggeredSkills = triggeredSkills, externalSkillRotation = true, triggerName = env.player.mainSkill.activeEffect.grantedEffect.name}
+				return {trigRate = trigRate, source = source, triggerName = env.player.mainSkill.activeEffect.grantedEffect.name}
 			else
 				env.player.mainSkill.skillData.triggered = nil
 				env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
