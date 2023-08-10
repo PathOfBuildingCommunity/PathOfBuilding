@@ -1365,7 +1365,7 @@ local function defualtTriggerHandler(env, config)
 			if source and source ~= actor.mainSkill then
 				actor.mainSkill.skillData.triggerSource = source
 				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
-				actor.mainSkill.infoMessage = config.triggerName .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: ") .. source.activeEffect.grantedEffect.name
+				actor.mainSkill.infoMessage = config.triggerName ~= source.activeEffect.grantedEffect.name and config.triggerName or triggeredName .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: ") .. source.activeEffect.grantedEffect.name
 			else
 				actor.mainSkill.infoMessage =  actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
 			end
@@ -1772,7 +1772,7 @@ local configTable = {
 						trigRate = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.HitSpeed
 					end
 				end
-				return {trigRate = trigRate, source = source, triggerName = env.player.mainSkill.activeEffect.grantedEffect.name}
+				return {trigRate = trigRate, source = source}
 			else
 				env.player.mainSkill.skillData.triggered = nil
 				env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
