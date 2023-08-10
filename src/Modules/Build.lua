@@ -1452,6 +1452,14 @@ function buildMode:AddDisplayStatList(statList, actor)
 	end
 end
 
+function buildMode:InsertItemWarnings()
+	if self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning then
+		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning) do
+			InsertIfNew(self.controls.warnings.lines, "You are exceeding jewel limit with the jewel "..warning)
+		end
+	end
+end
+
 -- Build list of side bar stats
 function buildMode:RefreshStatList()
 	self.controls.warnings.lines = {}
@@ -1479,6 +1487,7 @@ function buildMode:RefreshStatList()
 		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, self.calcsTab.mainEnv.player.mainSkill.disableReason })
 	end
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player)
+	self:InsertItemWarnings()
 end
 
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)
