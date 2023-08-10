@@ -1723,19 +1723,25 @@ local configTable = {
 		local maxSnipeStages = env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax") - 0.5
 		local snipeHitMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeHitMulti")
 		local snipeAilmentMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeAilmentMulti")
-		local triggeredSkillsCount = 0
+		local triggeredSkills = {}
 		local source
 		local trigRate
 		local uuid
 		local currentSkillSnipeIndex
 		
-		for index, skill in ipairs(env.player.activeSkillList) do
+		for _, skill in ipairs(env.player.activeSkillList) do
 			if skill.skillData.triggeredBySnipe and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
-				if skill == env.player.mainSkill then currentSkillSnipeIndex = index -1 end
-				 triggeredSkillsCount = triggeredSkillsCount + 1
+				t_insert(triggeredSkills, skill)
 			end
 		end
-		
+	
+		for index, skill in ipairs(triggeredSkills) do
+			if skill == env.player.mainSkill then 
+				currentSkillSnipeIndex = index 
+				break
+			end
+		end
+
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" then
 			if env.player.mainSkill.skillData.limitedProcessing then
 				-- Snipe is being used by some other skill. In this case snipe does not get more damage mods
@@ -1744,7 +1750,7 @@ local configTable = {
 				-- max(1, snipeStages) makes it behave consistantly with other channeled ranged skills (scourge arrow)
 				env.player.mainSkill.skillData.hitTimeMultiplier = m_max(1, snipeStages) - 0.5 --First stage takes 0.5x time to channel compared to subsequent stages
 			end
-			if triggeredSkillsCount < 1 then
+			if #triggeredSkills < 1 then
 				-- Snipe is being used as a standalone skill
 				if snipeStages then
 					env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * snipeStages, "Snipe", ModFlag.Hit, 0)
