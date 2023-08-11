@@ -3548,17 +3548,20 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		for _, compareSlot in pairs(compareSlots) do
 			if not main.slotOnlyTooltips or (slot and (slot.nodeId == compareSlot.nodeId or slot.slotName == compareSlot.slotName)) or not slot or slot == compareSlot then
 				local selItem = self.items[compareSlot.selItemId]
-				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item }, {})
-				GlobalCache.useFullDPS = storedGlobalCacheDPSView
-				local header
-				if item == selItem then
-					header = "^7Removing this item from "..compareSlot.label.." will give you:"
-				else
-					header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+
+				if not (main.compareJewelsOfSameType and item.type == "Jewel" and not self:IsSameBase(item, selItem)) then
+					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+					local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item }, {})
+					GlobalCache.useFullDPS = storedGlobalCacheDPSView
+					local header
+					if item == selItem then
+						header = "^7Removing this item from "..compareSlot.label.." will give you:"
+					else
+						header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+					end
+					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 				end
-				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
 			end
 		end
 	end
@@ -3570,6 +3573,26 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			tooltip:AddLine(14, "^7"..modLib.formatMod(mod))
 		end
 	end
+end
+
+function ItemsTabClass:IsSameBase(firstItem, secondItem)
+	if not secondItem then
+		return false
+	end
+
+	if not firstItem.base or not secondItem.base then
+		return firstItem.type == secondItem.type
+	end
+
+	if not firstItem.base.subType and not secondItem.base.subType then
+		return firstItem.base.type == secondItem.base.type
+	end
+
+	if firstItem.base.subType == secondItem.base.subType then
+		return true
+	end
+
+	return false
 end
 
 function ItemsTabClass:CreateUndoState()
