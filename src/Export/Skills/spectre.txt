@@ -80,6 +80,53 @@ local skills, mod, flag, skill = ...
 #flags spell aura area
 #mods
 
+#skill ElementalHitSkeletonKnight Elemental Hit - Fire Variant
+#flags attack area melee projectile Fire Cold Lightning
+#baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoChaos")
+#baseMod flag("DealNoCold")
+#baseMod flag("DealNoLightning")
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited", "Scorched" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Scorched" })
+#mods
+
+#skill ElementalHitSkeletonKnight Elemental Hit - Cold Variant
+#flags attack area melee projectile Fire Cold Lightning
+#baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoChaos")
+#baseMod flag("DealNoFire")
+#baseMod flag("DealNoLightning")
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled", "Frozen", "Brittle" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" })
+#mods
+
+#skill ElementalHitSkeletonKnight Elemental Hit - Lightning Variant
+#flags attack area melee projectile Fire Cold Lightning
+#baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoChaos")
+#baseMod flag("DealNoFire")
+#baseMod flag("DealNoCold")
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked", "Sapped" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" })
+#mods
+
+#skill ElementalHitSkeletonKnight Elemental Hit - Defaulting to Fire		PoB Code Limitation, one Skill Per Monsters Skill, Delete Later.
+#flags attack area melee projectile Fire Cold Lightning
+#baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoProjectile")
+#baseMod flag("DealNoChaos")
+#baseMod flag("DealNoCold")
+#baseMod flag("DealNoLightning")
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited", "Scorched" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Scorched" })
+#mods
+
+
 #skill DelayedBlastSpectre Delayed Blast
 #flags spell area
 #mods
@@ -101,21 +148,53 @@ local skills, mod, flag, skill = ...
 #baseMod skill("hitTimeOverride", 1)
 #mods
 
-#skill ElementalHitSkeletonKnight Elemental Hit Fire
-#flags attack projectile melee
+#skill ElementalHitSkeletonKnight Elemental Hit - Fire Variant
+#flags attack projectile melee Fire Cold Lightning
 #baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoMelee")
 #baseMod flag("DealNoChaos")
 #baseMod flag("DealNoCold")
 #baseMod flag("DealNoLightning")
-#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited", "Scorched" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Scorched" })
+#mods
+
+#skill ElementalHitSkeletonKnight Elemental Hit - Cold Variant
+#flags attack projectile melee Fire Cold Lightning
+#baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoMelee")
+#baseMod flag("DealNoChaos")
+#baseMod flag("DealNoFire")
+#baseMod flag("DealNoLightning")
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled", "Frozen", "Brittle" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Chilled" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" })
-#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
-#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Scorched" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Brittle" })
+#mods
+
+#skill ElementalHitSkeletonKnight Elemental Hit - Lightning Variant
+#flags attack projectile melee Fire Cold Lightning
+#baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoMelee")
+#baseMod flag("DealNoChaos")
+#baseMod flag("DealNoFire")
+#baseMod flag("DealNoCold")
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked", "Sapped" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" })
 #baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Sapped" })
-#baseMod mod("Damage", "MORE", 10, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" })
+#mods
+
+#skill ElementalHitSkeletonKnight Elemental Hit - Defaulting to Fire		PoB Code Limitation, one Skill Per Monsters Skill, Delete Later.
+#flags attack projectile melee Fire Cold Lightning
+#baseMod flag("DealNoPhysical")
+#baseMod flag("DealNoMelee")
+#baseMod flag("DealNoChaos")
+#baseMod flag("DealNoCold")
+#baseMod flag("DealNoLightning")
+#baseMod mod("AreaOfEffect", "MORE", 80, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited", "Scorched" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" })
+#baseMod mod("Multiplier:ElementalHitAilmentOnEnemy", "BASE", 1, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Scorched" })
 #mods
 
 #skill ElementalHitSkeletonKnightIncursion

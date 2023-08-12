@@ -488,6 +488,28 @@ minions["Metadata/Monster/CageSpider/CageSpider2"] = {
 	modList = {
 	},
 }
+-- Colossal Vaal Fallen
+minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalLargeSword"] = {
+	name = "Colossal Vaal Fallen",
+	life = 1.98,
+	armour = 0.8,
+	fireResist = 37,
+	coldResist = 37,
+	lightningResist = 37,
+	chaosResist = 0,
+	damage = 4.05,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 15,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"ElementalHitSkeletonKnight",
+	},
+	modList = {
+	},
+}
 -- Cannibals
 minions["Metadata/Monsters/Cannibal/CannibalMaleChampion"] = {
 	name = "Cannibal Fire-eater",
