@@ -1720,7 +1720,6 @@ local configTable = {
 	end,
 	["Snipe"] = function(env)
 		local snipeStages = m_min(env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStage"), env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax"))
-		local maxSnipeStages = env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax") - 0.5
 		local snipeHitMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeHitMulti")
 		local snipeAilmentMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeAilmentMulti")
 		local triggeredSkills = {}
