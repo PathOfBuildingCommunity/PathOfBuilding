@@ -2252,7 +2252,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				if support.gemData.name == "Combustion" then
 					if not activeSkill.skillModList:Flag(activeSkill.skillCfg, "CannotIgnite") then
 						local value = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "CombustionFireResist")
-						enemyDB:NewMod("FireResist", "BASE", value, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" })
+						enemyDB:NewMod("FireResist", "BASE", value, "Combustion", { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" })
 						appliedCombustion = true
 					end
 					break
