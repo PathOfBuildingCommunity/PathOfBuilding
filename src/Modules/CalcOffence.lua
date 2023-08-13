@@ -120,8 +120,8 @@ local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeF
 	local modNames = damageStatsForTypes[typeFlags]
 	local inc = 1 + skillModList:Sum("INC", cfg, unpack(modNames)) / 100
 	local more = skillModList:More(cfg, unpack(modNames))
-	local moreMinDamage = skillModList:More(cfg, "Min"..damageType.."Damage")
-	local moreMaxDamage = skillModList:More(cfg, "Max"..damageType.."Damage")
+	local moreMinDamage = skillModList:More(cfg, "MinDamage", "Min"..damageType.."Damage")
+	local moreMaxDamage = skillModList:More(cfg, "MaxDamage", "Max"..damageType.."Damage")
 
 	if breakdown then
 		t_insert(breakdown.damageTypes, {
@@ -2106,7 +2106,6 @@ function calcs.offence(env, actor, activeSkill)
 		globalOutput.TheoreticalMaxOffensiveWarcryEffect = 1
 		globalOutput.RallyingHitEffect = 1
 		globalOutput.AilmentWarcryEffect = 1
-		globalOutput.MaxExplosiveArrowFuseCalculated = 1
 
 		if env.mode_buffs then
 			-- Iterative over all the active skills to account for exerted attacks provided by warcries

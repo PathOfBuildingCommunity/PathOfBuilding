@@ -1871,7 +1871,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RaiseSpectre
-#flags spell minion spectre duration
+#flags spell minion spectre duration permanentMinion
 	minionList = {
 	},
 	statMap = {
@@ -1885,7 +1885,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RaiseZombie
-#flags spell minion
+#flags spell minion permanentMinion
 	minionList = {
 		"RaisedZombie",
 	},
@@ -2280,7 +2280,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonBoneGolem
-#flags spell minion golem
+#flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedCarrionGolem",
 	},
@@ -2300,7 +2300,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonChaosGolem
-#flags spell minion golem
+#flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedChaosGolem",
 	},
@@ -2314,7 +2314,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonRelic
-#flags spell minion
+#flags spell minion permanentMinion
 	minionList = {
 		"HolyLivingRelic",
 	},
@@ -2336,7 +2336,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonLightningGolem
-#flags spell minion golem
+#flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedLightningGolem",
 	},
@@ -2403,7 +2403,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Skitterbots
-#flags spell minion
+#flags spell minion permanentMinion
 	minionList = {
 		"SkitterbotCold",
 		"SkitterbotLightning",

@@ -4354,8 +4354,22 @@ skills["FlamethrowerTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "One trap (good placement)",
+		},
+		{
+			name = "One trap (bad placement)",
+		},
+		{ 
+			name = "Average # traps (good placement)",
+		},
+		{ 
+			name = "Average # traps (bad placement)",
+		},
+	},
 	preDamageFunc = function(activeSkill, output, breakdown)
-		-- many unknown stats. can't calculate DPS
+		-- Unknown stats provided by asking GGG
 		local t_insert = table.insert
 		local s_format = string.format
 
@@ -4363,6 +4377,16 @@ skills["FlamethrowerTrap"] = {
 		local cooldown = output.TrapCooldown
 		local averageActiveTraps = duration / cooldown
 		output.AverageActiveTraps = averageActiveTraps
+		if activeSkill.skillPart == 2 or activeSkill.skillPart == 4 then
+			activeSkill.skillData.hitTimeOverride = 0.3
+		else
+			activeSkill.skillData.hitTimeOverride = 0.1
+		end
+
+		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * averageActiveTraps
+		end
+
 		if breakdown then
 			breakdown.AverageActiveTraps = { }
 			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
@@ -4374,6 +4398,8 @@ skills["FlamethrowerTrap"] = {
 	statMap = {
 		["flamethrower_trap_damage_+%_final_vs_burning_enemies"] = {
 			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
 	baseFlags = {
@@ -5425,6 +5451,7 @@ skills["HeraldOfAgony"] = {
 	baseFlags = {
 		cast = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -5987,7 +6014,10 @@ skills["LancingSteel"] = {
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.dpsMultiplier = 1 + activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") * (output.ProjectileCount - 1)
+			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
+			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel")
 		end
 	end,
 	statMap = {
@@ -9399,6 +9429,7 @@ skills["SummonIceGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
