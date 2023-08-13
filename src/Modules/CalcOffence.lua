@@ -2106,7 +2106,6 @@ function calcs.offence(env, actor, activeSkill)
 		globalOutput.TheoreticalMaxOffensiveWarcryEffect = 1
 		globalOutput.RallyingHitEffect = 1
 		globalOutput.AilmentWarcryEffect = 1
-		globalOutput.MaxExplosiveArrowFuseCalculated = 1
 
 		if env.mode_buffs then
 			-- Iterative over all the active skills to account for exerted attacks provided by warcries
@@ -2430,22 +2429,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 
-		--Calculates the max number of fuses you can sustain
-		--Does not take into account mines or traps
-		if activeSkill.activeEffect.grantedEffect.name == "Explosive Arrow" and activeSkill.skillPart == 2 then
-			local hitRate = output.HitChance / 100 * globalOutput.Speed * globalOutput.ActionSpeedMod * skillData.dpsMultiplier
-			if skillFlags.totem then
-				local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
-				hitRate = hitRate * activeTotems
-			end
-			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
-			local skillMax = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ExplosiveArrowMaxFuseCount")
-			local maximum = m_min(m_floor(hitRate * duration) + 1, skillMax)
-			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
-			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
-			globalOutput.MaxExplosiveArrowFuseCalculated = maximum
-		else
-			globalOutput.MaxExplosiveArrowFuseCalculated = nil
+		-- Calculate maximum sustainable fuses and explosion rate for Explosive Arrow
+		-- Does not take into account mines or traps
+		if activeSkill.activeEffect.grantedEffect.name == "Explosive Arrow" then
+			activeSkill.activeEffect.grantedEffect.explosiveArrowFunc(activeSkill, output, globalOutput, env)
 		end
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
