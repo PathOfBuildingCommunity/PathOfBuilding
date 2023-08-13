@@ -130,16 +130,23 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.modFlag = true
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end
+	self.treeVersions = { }
+	for _, num in ipairs(treeVersionList) do
+		if not num:find("^2") then
+			local vers = num:gsub("%_", ".")
+			t_insert(self.treeVersions, vers)
+		end
+	end
 	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, 0, 16, "Version:")
-	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 55, 20, treeVersionList, function(index, value)
+	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 55, 20, self.treeVersions, function(index, value)
 		if value ~= self.build.spec.treeVersion then
-			convertToVersion(value)
+			convertToVersion(value:gsub("%.", "_"))
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
 	self.controls.versionSelect.enableDroppedWidth = true
 	self.controls.versionSelect.enableChangeBoxWidth = true
-	self.controls.versionSelect.selIndex = #treeVersionList
+	self.controls.versionSelect.selIndex = #self.treeVersions
 	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.versionSelect, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c", 100, function(buf)
 		self.viewer.searchStr = buf
 		self.searchFlag = buf ~= self.viewer.searchStrSaved
