@@ -1223,6 +1223,29 @@ function calcs.offence(env, actor, activeSkill)
 			}
 		end
 	end
+	
+	-- Handle Combustion
+	-- Check each active skill for combustion support, except Arcanist Brand
+	-- If combustion support is present, check if we're able to ignite, and then stop looking at support gems
+	-- If we can ignite, apply the fire resist debuff, then break out of the active skill loop
+	local appliedCombustion = false
+	for _, skill in ipairs(actor.activeSkillList) do
+		if skill.activeEffect.grantedEffect.name ~= "Arcanist Brand" then
+			for _, support in ipairs(skill.supportList) do
+				if support.gemData.name == "Combustion" then
+					if not skill.skillModList:Flag(skill.skillCfg, "CannotIgnite") then
+						local value = skill.skillModList:Sum("BASE", skill.skillCfg, "CombustionFireResist")
+						enemyDB:NewMod("FireResist", "BASE", value, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" })
+						appliedCombustion = true
+					end
+					break
+				end
+			end
+			if appliedCombustion then
+				break
+			end
+		end
+	end
 
 	-- General's Cry
 	if skillData.triggeredByGeneralsCry then
