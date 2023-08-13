@@ -3825,15 +3825,17 @@ skills["ExplosiveArrow"] = {
 			-- Number of fuses is less than the limit, so the entire fuse duration applies
 			globalOutput.HitTime = duration
 		end
+
 		globalOutput.HitSpeed = 1 / globalOutput.HitTime
 
 		if globalBreakdown and globalOutput.MaxExplosiveArrowFuseCalculated then
 			globalBreakdown.MaxExplosiveArrowFuseCalculated = {}
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("%.2f ^8(Hit Chance)", output.HitChance / 100))
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(Speed)", globalOutput.Speed))
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(Action Speed)", globalOutput.ActionSpeedMod))
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(dpsMultiplier)", activeSkill.skillData.dpsMultiplier))
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(barrageProjectiles)", barrageProjectiles or 1))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("%.2f ^8(attack speed)", globalOutput.Speed))
+			if output.HitChance < 100 then
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(hit chance)", output.HitChance / 100))
+			end
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(action speed)", globalOutput.ActionSpeedMod))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(projectiles)", barrageProjectiles or 1))
 			if activeSkill.skillFlags.totem then
 				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", initialApplicationRate))
 				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %d ^8(active totems)", activeTotems))
