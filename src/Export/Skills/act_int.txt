@@ -1840,7 +1840,7 @@ local skills, mod, flag, skill = ...
 			--Display only
 		},
 	},
-#baseMod mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
+#baseMod flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"})
 #mods
 
 #skill MortarBarrageMine
@@ -2426,7 +2426,7 @@ local skills, mod, flag, skill = ...
 			--Display only
 		}
 	},
-#baseMod mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+#baseMod flag("ShockImmune")
 #mods
 
 #skill VoltaxicBurst

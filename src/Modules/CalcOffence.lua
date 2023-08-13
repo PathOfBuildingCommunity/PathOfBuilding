@@ -3400,7 +3400,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if env.mode_effective then
 			for _, ailment in ipairs(ailmentTypeList) do
-				local mult = 1 - enemyDB:Sum("BASE", nil, "Avoid"..ailment) / 100
+				local mult = enemyDB:Flag(nil, ailment.."Immune") and 0 or 1 - enemyDB:Sum("BASE", nil, "Avoid"..ailment) / 100
 				output[ailment.."ChanceOnHit"] = output[ailment.."ChanceOnHit"] * mult
 				output[ailment.."ChanceOnCrit"] = output[ailment.."ChanceOnCrit"] * mult
 				if ailment == "Poison" then
