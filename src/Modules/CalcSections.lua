@@ -493,6 +493,8 @@ return {
 	{ label = "Adj. Trigger Rate", flag = "triggered", { format = "{2:output:ServerTriggerRate}",  { breakdown = "ServerTriggerRate" }, }, },
 	{ label = "Eff. Trigger Rate", flag = "triggered", notFlag = "noDisplay", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },
+	{ label = "Channel time", haveOutput = "HitTime", { format = "{2:output:HitTime}s", { breakdown = "HitTime" } }, },
+	{ label = "Hit Rate", haveOutput = "HitSpeed", { format = "{2:output:HitSpeed}", { breakdown = "HitSpeed" } }, },
 } }
 } },
 { 1, "Crit", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Crits", data = {
@@ -643,7 +645,7 @@ return {
 	{ label = "Projectile Count", flag = "projectile", { format = "{output:ProjectileCount}", { modName = { "NoAdditionalProjectiles" , "ProjectileCount" }, cfg = "skill" }, }, },
 	{ label = "Pierce Count", haveOutput = "PierceCount", { format = "{output:PierceCountString}", { modName = { "CannotPierce", "PierceCount", "PierceAllTargets" }, cfg = "skill" }, }, },
 	{ label = "Fork Count", haveOutput = "ForkCountMax", { format = "{output:ForkCountString}", { modName = { "CannotFork", "ForkCountMax" }, cfg = "skill" }, }, },
-	{ label = "Max Chain Count", haveOutput = "ChainCountMax", { format = "{output:ChainMaxString}", { modName = { "CannotChain", "ChainCountMax" }, cfg = "skill" }, }, }, 
+	{ label = "Max Chain Count", haveOutput = "ChainMax", { format = "{output:ChainMaxString}", { modName = { "CannotChain", "ChainCountMax" }, cfg = "skill" }, }, },
 	{ label = "Proj. Speed Mod", flag = "projectile", { format = "x {2:output:ProjectileSpeedMod}",
 		{ breakdown = "ProjectileSpeedMod" },
 		{ modName = "ProjectileSpeed", cfg = "skill" },
@@ -685,7 +687,8 @@ return {
 		{ breakdown = "BrandAttachmentRange" },
 		{ modName = "BrandAttachmentRange", cfg = "skill"},
 	}, },
-	{ label = "Max Sust. Fuses", haveOutput = "MaxExplosiveArrowFuseCalculated", { format = "{0:output:MaxExplosiveArrowFuseCalculated} Fuses", }, },
+	{ label = "Max Sust. Fuses", haveOutput = "MaxExplosiveArrowFuseCalculated", { format = "{0:output:MaxExplosiveArrowFuseCalculated} Fuses", { breakdown = "MaxExplosiveArrowFuseCalculated" }, }, },
+	{ label = "Explosions /s", haveOutput = "MaxExplosiveArrowFuseCalculated", { format = "{2:output:HitSpeed}", { breakdown = "ExplosionsPerSecond" }, }, },
 	{ label = "Overlap Chance", haveOutput = "OverlapChance", { format = "{2:output:OverlapChance}%", { breakdown = "OverlapChance" }, }, },
 	{ label = "Trap Cooldown", haveOutput = "TrapCooldown", { format = "{3:output:TrapCooldown}s",
 		{ breakdown = "TrapCooldown" },
@@ -1628,7 +1631,7 @@ return {
 	{ label = "Debuff Dur. Mult.", haveOutput = "showDebuffExpirationModifier", { format = "{1:output:DebuffExpirationModifier}%", { modName = "EffectExpiresFaster", cfg = {skillGrantsDebuff = true}, }, }, },
 	{ label = "Buff Dur. Mult.", haveOutput = "showBuffExpirationModifier", { format = "{1:output:BuffExpirationModifier}%", { modName = "EffectExpiresFaster", cfg = {skillGrantsBuff = true}, }, }, },
 } }, { defaultCollapsed = false, label = "Stun Duration", data = {
-	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%", { modName = "AvoidStun" }, }, },
+	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%",  { breakdown = "StunAvoidChance" }, { modName = "AvoidStun" }, }, },
 	{ label = "Stun Threshold", { format = "{0:output:StunThreshold}", { breakdown = "StunThreshold" }, { modName = { "StunThreshold", "StunThresholdManaPercent", "StunThresholdEnergyShieldPercent" } }, }, },
 	{ label = "Stun Chance", { format = "{0:output:SelfStunChance}%", { breakdown = "SelfStunChance" }, }, },
 	{ label = "Interrupt Avoid Ch.", haveOutput = "InterruptStunAvoidChance", { format = "{0:output:InterruptStunAvoidChance}%", { modName = "AvoidInterruptStun" }, }, },

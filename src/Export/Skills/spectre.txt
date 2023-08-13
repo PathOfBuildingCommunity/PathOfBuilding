@@ -162,7 +162,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GoatmanFireMagmaOrb Magma Orb
-#flags spell area projectile
+#flags spell area projectile chaining
 #mods
 
 #skill GoatmanMoltenShell Molten Shell
@@ -178,7 +178,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GuardianArc Arc
-#flags spell
+#flags spell chaining
 #mods
 
 #skill HalfSkeletonPuncture Puncture
@@ -261,7 +261,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MonsterArc Arc
-#flags spell
+#flags spell chaining
 #mods
 
 #skill MonsterCausticArrow Caustic Arrow
@@ -417,7 +417,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill MotherOfFlamesMagmaOrb3
-#flags spell projectile area
+#flags spell projectile area chaining
 #mods
 
 #skill NecromancerConductivity Conductivity

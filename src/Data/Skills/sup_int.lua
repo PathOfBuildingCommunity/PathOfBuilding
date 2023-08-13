@@ -963,7 +963,7 @@ skills["SupportChanceToIgnite"] = {
 			mod("FireDamage", "MORE", nil),
 		},
 		["ignites_apply_fire_resistance_+"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" }),
+			mod("CombustionFireResist", "BASE", nil),
 		},
 	},
 	qualityStats = {

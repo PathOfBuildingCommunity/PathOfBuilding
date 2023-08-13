@@ -371,12 +371,13 @@ end
 
 -- Merge keystone modifiers
 local function mergeKeystones(env)
-	local modDB = env.modDB
-
-	for _, name in ipairs(modDB:List(nil, "Keystone")) do
-		if not env.keystonesAdded[name] and env.spec.tree.keystoneMap[name] then
-			env.keystonesAdded[name] = true
-			modDB:AddList(env.spec.tree.keystoneMap[name].modList)
+	for _, modObj in ipairs(env.modDB:Tabulate("LIST", nil, "Keystone")) do
+		if not env.keystonesAdded[modObj.value] and env.spec.tree.keystoneMap[modObj.value] then
+			env.keystonesAdded[modObj.value] = true
+			local fromTree = modObj.mod.source and not modObj.mod.source:lower():match("tree")
+			for _, mod in ipairs(env.spec.tree.keystoneMap[modObj.value].modList) do
+				env.modDB:AddMod(fromTree and modLib.setSource(mod, modObj.mod.source) or mod)
+			end
 		end
 	end
 end
@@ -546,7 +547,7 @@ local function doActorAttribsConditions(env, actor)
 			if actor.mainSkill.skillTypes[SkillType.Movement] then
 				condList["UsedMovementSkillRecently"] = true
 			end
-			if actor.mainSkill.skillFlags.minion then
+			if actor.mainSkill.skillFlags.minion and not actor.mainSkill.skillFlags.permanentMinion then
 				condList["UsedMinionSkillRecently"] = true
 			end
 			if actor.mainSkill.skillTypes[SkillType.Vaal] then
@@ -921,19 +922,11 @@ local function doActorMisc(env, actor)
 	if modDB:Flag(nil, "UseGhostShrouds") then
 		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
 	end
-	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
-		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
-	end
-	if modDB:Flag(nil, "WarcryInfinitePower") then
-		modDB:NewMod("WarcryPower", "OVERRIDE", 999999, "Warcries have infinite power")
-	end
 	output.BloodCharges = m_min(modDB:Override(nil, "BloodCharges") or output.BloodChargesMax, output.BloodChargesMax)
 	output.SpiritCharges = m_min(modDB:Override(nil, "SpiritCharges") or 0, output.SpiritChargesMax)
 
-	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
 	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
 	output.TotalCharges = output.PowerCharges + output.FrenzyCharges + output.EnduranceCharges
-	modDB.multipliers["WarcryPower"] = output.WarcryPower
 	modDB.multipliers["PowerCharge"] = output.PowerCharges
 	modDB.multipliers["PowerChargeMax"] = output.PowerChargesMax
 	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
@@ -1616,7 +1609,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
 					values.reservedPercent = values.reservedPercent * activeSkill.activeMineCount
 				end
-				if activeSkill.activeStageCount then
+				-- Blood Sacrament increases reservation per stage channelled
+				if activeSkill.skillCfg.skillName == "Blood Sacrament" and activeSkill.activeStageCount then
 					values.reservedFlat = values.reservedFlat * (activeSkill.activeStageCount + 1)
 					values.reservedPercent = values.reservedPercent * (activeSkill.activeStageCount + 1)
 				end
@@ -1807,6 +1801,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			end
 		end
 	end
+
+	local appliedCombustion = false
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
@@ -1890,8 +1886,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					end
 					if not (modDB:Flag(nil, "SelfAurasCannotAffectAllies") or modDB:Flag(nil, "SelfAurasOnlyAffectYou") or modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
 						if env.minion then
-							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+							local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
+							local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
 							local mult = (1 + inc / 100) * more
 							if not allyBuffs["Aura"] or  not allyBuffs["Aura"][buff.name] or allyBuffs["Aura"][buff.name].effectMult / 100 <= mult then
 								activeSkill.minionBuffSkill = true
@@ -2077,6 +2073,19 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") or (activeSkill.minion and env.minion and env.minion.modDB:Flag(nil, "Condition:CanWither")) then
 			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
 			modDB:NewMod("WitherEffectStack", "MAX", effect)
+		end
+		--Handle combustion
+		if activeSkill.activeEffect.grantedEffect.name ~= "Arcanist Brand" and not appliedCombustion then
+			for _, support in ipairs(activeSkill.supportList) do
+				if support.gemData.name == "Combustion" then
+					if not activeSkill.skillModList:Flag(activeSkill.skillCfg, "CannotIgnite") then
+						local value = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "CombustionFireResist")
+						enemyDB:NewMod("FireResist", "BASE", value, "Combustion", { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" })
+						appliedCombustion = true
+					end
+					break
+				end
+			end
 		end
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion
@@ -2533,6 +2542,15 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	end
 	
 	local hasGuaranteedBonechill = false
+	
+	if modDB:Flag(nil, "CryWolfMinimumPower") and modDB:Sum("BASE", nil, "WarcryPower") < 10 then
+		modDB:NewMod("WarcryPower", "OVERRIDE", 10, "Minimum Warcry Power from CryWolf")
+	end
+	if modDB:Flag(nil, "WarcryInfinitePower") then
+		modDB:NewMod("WarcryPower", "OVERRIDE", 999999, "Warcries have infinite power")
+	end
+	output.WarcryPower = modDB:Override(nil, "WarcryPower") or modDB:Sum("BASE", nil, "WarcryPower") or 0
+	modDB.multipliers["WarcryPower"] = output.WarcryPower
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		if activeSkill.skillFlags.brand then
@@ -2547,9 +2565,9 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 		-- The actual hexes as opposed to hex related skills all have the curse flag. TotemCastsWhenNotDetached is to remove blasphemy
 		-- Note that this doesn't work for triggers yet, insufficient support
-		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.TotemCastsWhenNotDetached] then
+		if activeSkill.skillFlags.hex and activeSkill.skillFlags.curse and not activeSkill.skillTypes[SkillType.TotemCastsWhenNotDetached] and activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") then
 			local hexDoom = modDB:Sum("BASE", nil, "Multiplier:HexDoomStack")
-			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom") or 30
+			local maxDoom = activeSkill.skillModList:Sum("BASE", nil, "MaxDoom")
 			local doomEffect = activeSkill.skillModList:More(nil, "DoomEffect")
 			-- Update the max doom limit
 			output.HexDoomLimit = m_max(maxDoom, output.HexDoomLimit or 0)
@@ -2558,7 +2576,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			modDB.multipliers["HexDoom"] =  m_min(m_max(hexDoom, modDB.multipliers["HexDoom"] or 0), output.HexDoomLimit)
 		end
 		if (activeSkill.activeEffect.grantedEffect.name == "Vaal Lightning Trap" or activeSkill.activeEffect.grantedEffect.name == "Shock Ground") then
-			local effect = activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect")
+			-- Shock effect applies to shocked ground
+			local effect = activeSkill.skillModList:Sum("BASE", nil, "ShockedGroundEffect") * (1 + activeSkill.skillModList:Sum("INC", nil, "EnemyShockEffect") / 100)
 			modDB:NewMod("ShockOverride", "BASE", effect, "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
 		end
 		if activeSkill.skillData.supportBonechill and (activeSkill.skillTypes[SkillType.ChillingArea] or activeSkill.skillTypes[SkillType.NonHitChill] or not activeSkill.skillModList:Flag(nil, "CannotChill")) then
@@ -2586,10 +2605,6 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				hasGuaranteedBonechill = true
 			end
 		end
-		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") then
-			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
-			modDB:NewMod("WitherEffectStack", "MAX", effect)
-		end
 		if activeSkill.skillFlags.warcry and not modDB:Flag(nil, "AlreadyGlobalWarcryCooldown") then
 			local cooldown = calcSkillCooldown(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData)
 			local warcryList = { }
@@ -2613,7 +2628,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 		if env.mode_buffs and activeSkill.skillFlags.warcry then
 			local extraExertions = activeSkill.skillModList:Sum("BASE", nil, "ExtraExertedAttacks") or 0
-			local full_duration = calcSkillDuration(activeSkill, env, enemyDB)
+			local full_duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 			local cooldownOverride = activeSkill.skillModList:Override(activeSkill.skillCfg, "CooldownRecovery")
 			local actual_cooldown = cooldownOverride or (activeSkill.skillData.cooldown  + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "CooldownRecovery")) / calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "CooldownRecovery")
 			local globalCooldown = modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
@@ -2720,7 +2735,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			activeSkill.skillData.triggered = true
 			local spellCount, quality = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
-				local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == activeSkill.socketGroup.slot
+				local match1 = skill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == activeSkill.socketGroup.slot
 				local match2 = not skill.activeEffect.grantedEffect.fromItem and skill.socketGroup == activeSkill.socketGroup
 				if skill.skillData.triggeredByBrand and (match1 or match2) then
 					spellCount = spellCount + 1
@@ -2955,7 +2970,14 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				end
 				override = m_max(override, effect or 0)
 			end
-			output["Maximum"..ailment] = modDB:Override(nil, ailment.."Max") or (ailmentData[ailment].max + env.player.mainSkill.baseSkillModList:Sum("BASE", nil, ailment.."Max"))
+			local maxAilment = modDB:Override(nil, ailment.."Max") or 0
+			if not modDB:Override(nil, ailment.."Max") then
+				for _, skill in ipairs(env.player.activeSkillList) do
+					local skillMax = modDB:Override(nil, ailment.."Max") or (ailmentData[ailment].max + skill.baseSkillModList:Sum("BASE", nil, ailment.."Max"))
+					maxAilment = skillMax > maxAilment and skillMax or maxAilment
+				end
+			end
+			output["Maximum"..ailment] = maxAilment
 			output["Current"..ailment] = m_floor(m_min(m_max(override, enemyDB:Sum("BASE", nil, ailment.."Val")), output["Maximum"..ailment]) * (10 ^ ailmentData[ailment].precision)) / (10 ^ ailmentData[ailment].precision)
 			for _, mod in ipairs(val.mods(output["Current"..ailment])) do
 				enemyDB:AddMod(mod)
@@ -3651,8 +3673,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 
 				if GlobalCache.cachedData["CACHE"][uuid] then
 					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
-					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
+					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed or 0
+					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost or 0
 					local ManaSpendRate = cachedSpeed * cachedManaCost
 
 					if ((not source and ManaSpendRate) or (ManaSpendRate and ManaSpendRate > trigRate)) then

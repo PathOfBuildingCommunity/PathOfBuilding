@@ -940,6 +940,7 @@ skills["AnimateArmour"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -3235,6 +3236,7 @@ skills["Exsanguinate"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
+		chaining = true,
 	},
 	baseMods = {
 		skill("debuff", true),
@@ -7929,6 +7931,7 @@ skills["SummonFireGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -8019,6 +8022,7 @@ skills["SummonRockGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
