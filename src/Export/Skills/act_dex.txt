@@ -1063,7 +1063,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HeraldOfAgony
-#flags cast minion
+#flags cast minion permanentMinion
 	minionList = {
 		"HeraldOfAgonySpiderPlated",
 	},
@@ -1797,7 +1797,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonIceGolem
-#flags spell minion golem
+#flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedIceGolem",
 	},

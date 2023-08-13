@@ -5346,6 +5346,7 @@ skills["HeraldOfAgony"] = {
 	baseFlags = {
 		cast = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -9323,6 +9324,7 @@ skills["SummonIceGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),

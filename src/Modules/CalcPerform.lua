@@ -546,7 +546,7 @@ local function doActorAttribsConditions(env, actor)
 			if actor.mainSkill.skillTypes[SkillType.Movement] then
 				condList["UsedMovementSkillRecently"] = true
 			end
-			if actor.mainSkill.skillFlags.minion then
+			if actor.mainSkill.skillFlags.minion and not actor.mainSkill.skillFlags.permanentMinion then
 				condList["UsedMinionSkillRecently"] = true
 			end
 			if actor.mainSkill.skillTypes[SkillType.Vaal] then
