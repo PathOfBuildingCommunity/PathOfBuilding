@@ -2077,7 +2077,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		--Handle combustion
 		if activeSkill.activeEffect.grantedEffect.name ~= "Arcanist Brand" and not appliedCombustion then
 			for _, support in ipairs(activeSkill.supportList) do
-				if support.gemData.name == "Combustion" then
+				if support.grantedEffect.name == "Combustion" then
 					if not activeSkill.skillModList:Flag(activeSkill.skillCfg, "CannotIgnite") then
 						local value = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "CombustionFireResist")
 						enemyDB:NewMod("FireResist", "BASE", value, "Combustion", { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" })
