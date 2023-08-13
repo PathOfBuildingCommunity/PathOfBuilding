@@ -395,11 +395,13 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		if breakdown then
 			breakdown.AreaOfEffectMod = { }
-			breakdown.multiChain(breakdown.AreaOfEffectMod, {
-				{ "%.2f ^8(increased/reduced)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 },
-				{ "%.2f ^8(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
-				total = s_format("= %.2f", output.AreaOfEffectMod),
-			})
+			if output.AreaOfEffectMod ~= 1 then
+				breakdown.multiChain(breakdown.AreaOfEffectMod, {
+					{ "%.2f ^8(increased/reduced)", 1 + skillModList:Sum("INC", skillCfg, "AreaOfEffect") / 100 },
+					{ "%.2f ^8(more/less)", skillModList:More(skillCfg, "AreaOfEffect") },
+					total = s_format("= %.2f", output.AreaOfEffectMod),
+				})
+			end
 		end
 	end
 
