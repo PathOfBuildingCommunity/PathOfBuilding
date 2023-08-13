@@ -3775,6 +3775,86 @@ skills["ExplosiveArrow"] = {
 			area = false,
 		},
 	},
+	explosiveArrowFunc = function(activeSkill, output, globalOutput, globalBreakdown, env)
+		local t_insert = table.insert
+		local s_format = string.format
+
+		if activeSkill.skillPart ~= 1 and activeSkill.skillPart ~= 2 then
+			-- This doesn't apply to the "Arrow" skill part. That works like a normal skill.
+			return
+		end
+
+		local modDB = env.modDB
+		local enemyDB = activeSkill.actor.enemy.modDB
+		local skillModList = activeSkill.skillModList
+		local duration = calcSkillDuration(skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
+		local fuseLimit = skillModList:Sum("BASE", activeSkill.skillCfg, "ExplosiveArrowMaxFuseCount")
+		local activeTotems
+		if activeSkill.skillFlags.totem then
+			activeTotems = modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+		end
+
+		local barrageProjectiles = nil
+		if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") and not skillModList:Flag(nil, "TriggeredBySnipe") then
+			barrageProjectiles = skillModList:Sum("BASE", activeSkill.skillCfg, "ProjectileCount")
+			activeSkill.skillData.dpsMultiplier = activeSkill.skillData.dpsMultiplier / barrageProjectiles  -- cancel out the normal dps multiplier from barrage that applies to most other skills
+		end
+
+		local fuseApplicationRate = (output.HitChance / 100) * globalOutput.Speed * globalOutput.ActionSpeedMod * activeSkill.skillData.dpsMultiplier * (barrageProjectiles or 1)
+		local initialApplicationRate = fuseApplicationRate
+		if activeSkill.skillFlags.totem then
+			fuseApplicationRate = fuseApplicationRate * activeTotems
+		end
+
+		-- Calculate the max number of fuses you can sustain
+		-- Does not take into account mines or traps
+		if activeSkill.skillPart == 2 then
+			local maximum = math.min(math.floor(fuseApplicationRate * duration) + 1, fuseLimit)
+			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
+			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
+			globalOutput.MaxExplosiveArrowFuseCalculated = maximum
+		else
+			globalOutput.MaxExplosiveArrowFuseCalculated = nil
+		end
+		
+		-- Calculate explosion rate
+		local timeToMaxFuses = fuseLimit / fuseApplicationRate
+		if activeSkill.skillPart == 2 or (activeSkill.skillPart == 1 and (activeSkill.activeStageCount or 0) + 1 >= fuseLimit) then
+			globalOutput.HitTime = math.min(duration, timeToMaxFuses)
+		else
+			-- Number of fuses is less than the limit, so the entire fuse duration applies
+			globalOutput.HitTime = duration
+		end
+		globalOutput.HitSpeed = 1 / globalOutput.HitTime
+
+		if globalBreakdown and globalOutput.MaxExplosiveArrowFuseCalculated then
+			globalBreakdown.MaxExplosiveArrowFuseCalculated = {}
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("%.2f ^8(Hit Chance)", output.HitChance / 100))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(Speed)", globalOutput.Speed))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(Action Speed)", globalOutput.ActionSpeedMod))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(dpsMultiplier)", activeSkill.skillData.dpsMultiplier))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(barrageProjectiles)", barrageProjectiles or 1))
+			if activeSkill.skillFlags.totem then
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", initialApplicationRate))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %d ^8(active totems)", activeTotems))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", fuseApplicationRate))
+			else
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", fuseApplicationRate))
+			end
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(duration)", duration))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("+ 1 ^8(initial hit)"))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f", (fuseApplicationRate * duration) + 1))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %d ^8(rounded down, capped at max)", globalOutput.MaxExplosiveArrowFuseCalculated))
+
+			globalBreakdown.ExplosionsPerSecond = {}
+			t_insert(globalBreakdown.ExplosionsPerSecond, s_format("1 ^8(second)"))
+			t_insert(globalBreakdown.ExplosionsPerSecond, s_format(" / %d ^8(max fuses)", globalOutput.MaxExplosiveArrowFuseCalculated))
+			t_insert(globalBreakdown.ExplosionsPerSecond, s_format(" / %.2f ^8(fuse rate)", fuseApplicationRate))
+			t_insert(globalBreakdown.ExplosionsPerSecond, s_format("= %.2f ^8(explosions/s)", globalOutput.HitSpeed))
+
+		end
+
+	end,
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
 			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
