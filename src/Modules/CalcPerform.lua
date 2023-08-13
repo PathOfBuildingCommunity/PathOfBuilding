@@ -2845,7 +2845,14 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				end
 				override = m_max(override, effect or 0)
 			end
-			output["Maximum"..ailment] = modDB:Override(nil, ailment.."Max") or (ailmentData[ailment].max + env.player.mainSkill.baseSkillModList:Sum("BASE", nil, ailment.."Max"))
+			local maxAilment = modDB:Override(nil, ailment.."Max") or 0
+			if not modDB:Override(nil, ailment.."Max") then
+				for _, skill in ipairs(env.player.activeSkillList) do
+					local skillMax = modDB:Override(nil, ailment.."Max") or (ailmentData[ailment].max + skill.baseSkillModList:Sum("BASE", nil, ailment.."Max"))
+					maxAilment = skillMax > maxAilment and skillMax or maxAilment
+				end
+			end
+			output["Maximum"..ailment] = maxAilment
 			output["Current"..ailment] = m_floor(m_min(m_max(override, enemyDB:Sum("BASE", nil, ailment.."Val")), output["Maximum"..ailment]) * (10 ^ ailmentData[ailment].precision)) / (10 ^ ailmentData[ailment].precision)
 			for _, mod in ipairs(val.mods(output["Current"..ailment])) do
 				enemyDB:AddMod(mod)
