@@ -2011,6 +2011,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			end
 		end
 	end
+
+	local appliedCombustion = false
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
 		local skillModList = activeSkill.skillModList
 		local skillCfg = activeSkill.skillCfg
@@ -2243,6 +2245,19 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		if activeSkill.skillModList:Flag(nil, "Condition:CanWither") or (activeSkill.minion and env.minion and env.minion.modDB:Flag(nil, "Condition:CanWither")) then
 			local effect = activeSkill.minion and 6 or m_floor(6 * (1 + modDB:Sum("INC", nil, "WitherEffect") / 100))
 			modDB:NewMod("WitherEffectStack", "MAX", effect)
+		end
+		--Handle combustion
+		if activeSkill.activeEffect.grantedEffect.name ~= "Arcanist Brand" and not appliedCombustion then
+			for _, support in ipairs(activeSkill.supportList) do
+				if support.gemData.name == "Combustion" then
+					if not activeSkill.skillModList:Flag(activeSkill.skillCfg, "CannotIgnite") then
+						local value = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "CombustionFireResist")
+						enemyDB:NewMod("FireResist", "BASE", value, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" })
+						appliedCombustion = true
+					end
+					break
+				end
+			end
 		end
 		if activeSkill.minion and activeSkill.minion.activeSkillList then
 			local castingMinion = activeSkill.minion
