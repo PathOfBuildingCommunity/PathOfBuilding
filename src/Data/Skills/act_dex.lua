@@ -5908,7 +5908,10 @@ skills["LancingSteel"] = {
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.dpsMultiplier = 1 + activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") * (output.ProjectileCount - 1)
+			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
+			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel")
 		end
 	end,
 	statMap = {
