@@ -865,6 +865,8 @@ function TreeTabClass:FindTimelessJewel()
 				keystone = "Marauder"
 			elseif socketId == 54127 then
 				keystone = "Duelist"
+			elseif socketId == 7960 then
+				keystone = "Templar/Witch"
 			else
 				local minDistance = math.huge
 				for _, nodeInRadius in pairs(treeData.nodes[socketId].nodesInRadius[3]) do
