@@ -441,6 +441,34 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	if modDB:Flag(nil, "ArmourIncreasedByUncappedFireRes") then
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "ArmourIncreasedByUncappedFireRes")) do
+				local mod = value.mod
+				modDB:NewMod("Armour", "INC", output.FireResistTotal, mod.source)
+			break
+		end
+	end
+	if modDB:Flag(nil, "ArmourIncreasedByOvercappedFireRes") then
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "ArmourIncreasedByOvercappedFireRes")) do
+			local mod = value.mod
+			modDB:NewMod("Armour", "INC", output.FireResistOverCap, mod.source)			
+			break
+		end
+	end
+	if modDB:Flag(nil, "EvasionRatingIncreasedByUncappedColdRes") then
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "EvasionRatingIncreasedByUncappedColdRes")) do
+			local mod = value.mod
+			modDB:NewMod("Evasion", "INC", output.ColdResistTotal, mod.source)			
+			break
+		end
+	end
+	if modDB:Flag(nil, "EvasionRatingIncreasedByOvercappedColdRes") then
+		for i, value in ipairs(modDB:Tabulate("FLAG", nil, "EvasionRatingIncreasedByOvercappedColdRes")) do
+			local mod = value.mod
+			modDB:NewMod("Evasion", "INC", output.ColdResistOverCap, mod.source)			
+			break
+		end
+	end
 	-- Primary defences: Energy shield, evasion and armour
 	do
 		local ironReflexes = modDB:Flag(nil, "IronReflexes")
