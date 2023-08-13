@@ -1830,7 +1830,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					values.reservedFlat = values.reservedFlat * activeSkill.activeMineCount
 					values.reservedPercent = values.reservedPercent * activeSkill.activeMineCount
 				end
-				if activeSkill.activeStageCount then
+				-- Blood Sacrament increases reservation per stage channelled
+				if activeSkill.skillCfg.skillName == "Blood Sacrament" and activeSkill.activeStageCount then
 					values.reservedFlat = values.reservedFlat * (activeSkill.activeStageCount + 1)
 					values.reservedPercent = values.reservedPercent * (activeSkill.activeStageCount + 1)
 				end
