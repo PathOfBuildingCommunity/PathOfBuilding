@@ -573,110 +573,6 @@ local function CWCHandler(env)
 	end
 end
 
-local function doomBlastHandler(env)
-	if not env.player.mainSkill.skillFlags.minion then --Doom Blast
-		local source = nil
-		local hexCastRate = 0
-		local output = env.player.output
-		local breakdown = env.player.breakdown
-		for _, skill in ipairs(env.player.activeSkillList) do
-			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if skill.skillTypes[SkillType.Hex] and (match1 or match2) then
-				source, hexCastRate = findTriggerSkill(env, skill, source, hexCastRate)
-			end
-		end
-		
-		if not source then
-			env.player.mainSkill.skillData.triggeredWhenHexEnds = nil
-			env.player.mainSkill.infoMessage = "No Triggering Hex Found"
-			env.player.mainSkill.infoTrigger = ""
-		else
-			env.player.mainSkill.skillData.triggered = true
-			-- Doom Blast stores three uses. If we assume that the spell is triggered again before all three
-			-- charges have been restored, we can ignore the rate cap imposed on other skills (there are no breakpoints).
-			local triggeredCD = env.player.mainSkill.skillData.cooldown
-			local triggerCD = source.skillData.triggeredByCurseOnCurse and source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
-			local icdr = calcLib.mod(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, "CooldownRecovery")
-			local modActionCooldown = m_max((triggeredCD or 0) / icdr, ((triggerCD or 0) / icdr ))
-			output.TriggerRateCap = 1 / modActionCooldown
-			local rateCapAdjusted
-			local extraICDRNeeded
-			
-			if source.skillData.triggeredByCurseOnCurse then
-				rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-				extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
-				
-				if rateCapAdjusted ~= 0 then
-					output.TriggerRateCap = 1 / rateCapAdjusted
-				end
-				if hexCastRate > output.TriggerRateCap then
-					hexCastRate = hexCastRate - m_ceil(hexCastRate - output.TriggerRateCap)
-				end
-			end
-
-			if breakdown then
-				if triggerCD then
-					breakdown.TriggerRateCap = {
-						s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
-						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
-						"",
-						s_format("%.2f ^8(base cooldown of trigger)", triggerCD),
-						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-						s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
-						"",
-						s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
-						"",
-						s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
-						"",
-						"Trigger rate:",
-						s_format("1 / %.3f", rateCapAdjusted),
-						s_format("= %.2f ^8per second", output.TriggerRateCap),
-					}
-				else
-					breakdown.TriggerRateCap = {
-						s_format("%.2f ^8(base cooldown of Doom Blast)", triggeredCD),
-						s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
-						s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
-						"",
-						"Trigger rate based on Doom Blast cooldown",
-						"",
-						"Trigger rate:",
-						s_format("1 / %.3f", modActionCooldown),
-						s_format("= %.2f ^8per second", 1 / modActionCooldown),
-					}
-				end
-				if extraICDRNeeded then
-					t_insert(breakdown.TriggerRateCap, triggerCD and 10 or 8, s_format("^8(extra ICDR of %d%% would reach next breakpoint)", extraICDRNeeded))
-				end
-			end	
-			
-			-- Set trigger rate
-			local hits_per_cast = env.player.mainSkill.skillPart == 2 and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or 1
-			output.EffectiveSourceRate = hexCastRate
-			output.SkillTriggerRate = calcMultiSpellRotationImpact(env, {packageSkillDataForSimulation(env.player.mainSkill)}, hexCastRate, 0) * hits_per_cast
-			if breakdown then
-				breakdown.EffectiveSourceRate = {
-					s_format("%.2f ^8(%s casts per second)", hexCastRate, source.activeEffect.grantedEffect.name),
-				}
-				breakdown.SkillTriggerRate = {
-					s_format("%.2f ^8(%s casts per second)", hexCastRate, source.activeEffect.grantedEffect.name),
-					s_format("* %.2f ^8(hits per cast from overlaps)", hits_per_cast),
-					s_format("= %.2f ^8per second", hexCastRate * hits_per_cast),
-				}
-			end
-
-			-- Account for Trigger-related INC/MORE modifiers
-			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-			env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
-			env.player.mainSkill.skillData.triggerSource = source
-			env.player.mainSkill.infoMessage = "Triggering Hex: " .. source.activeEffect.grantedEffect.name
-			env.player.mainSkill.infoTrigger = "DoomBlast"
-		end
-	end
-end
-
 local function theSaviourHandler(env)
 	local usedSkill = nil
 	local usedSkillBestDps = 0
@@ -940,7 +836,7 @@ local function defualtTriggerHandler(env, config)
 	if config.triggeredSkillCond or config.triggerSkillCond then
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
-			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not triggered or actor.mainSkill.skillFlags.globalTrigger) and skill ~= actor.mainSkill then
+			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not triggered or actor.mainSkill.skillFlags.globalTrigger or config.allowTriggered) and skill ~= actor.mainSkill then
 				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer)
 			end
 			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
@@ -985,7 +881,8 @@ local function defualtTriggerHandler(env, config)
 			end
 			
 			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate or source and source.skillData.storedUses ~= nil
-			
+			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate and not source.skillData.triggeredByCurseOnCurse
+
 			--Account for source unleash
 			if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
 				local unleashDpsMult = GlobalCache.cachedData["CACHE"][uuid].ActiveSkill.skillData.dpsMultiplier or 1
@@ -1094,7 +991,8 @@ local function defualtTriggerHandler(env, config)
 			
 			local icdr = calcLib.mod(actor.mainSkill.skillModList, actor.mainSkill.skillCfg, "CooldownRecovery") or 1
 			local cooldownOverride = actor.mainSkill.skillModList:Override(actor.mainSkill.skillCfg, "CooldownRecovery")
-			local triggerCD = (actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown)
+			local triggerCD = actor.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.levels[env.player.mainSkill.triggeredBy.level].cooldown
+			triggerCD = triggerCD or source.triggeredBy and source.triggeredBy.grantedEffect.levels[source.triggeredBy.level].cooldown
 			local triggeredCD = actor.mainSkill.skillData.cooldown
 			
 			if actor.mainSkill.skillData.triggeredByBrand then
@@ -1127,12 +1025,13 @@ local function defualtTriggerHandler(env, config)
 					extraICDRNeeded = nil
 				end
 			end
-			
+
 			output.TriggerRateCap = m_huge
 			if rateCapAdjusted ~= 0 then
 				output.TriggerRateCap = 1 / rateCapAdjusted
 			end
 			
+
 			if source and source.skillData.triggeredByCurseOnCurse and trigRate > output.TriggerRateCap then
 				trigRate = trigRate - m_ceil(trigRate - output.TriggerRateCap)
 			end
@@ -1313,7 +1212,11 @@ local function defualtTriggerHandler(env, config)
 					if triggerBotsEffective then
 						output.SkillTriggerRate = 2 * output.SkillTriggerRate
 					end
-					if breakdown and (#triggeredSkills > 1 or triggerBotsEffective) then
+
+					-- stagesAreOverlaps is the skill part which makes the stages behave as overlaps
+					local hits_per_cast = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or 1
+					output.SkillTriggerRate = hits_per_cast * output.SkillTriggerRate
+					if breakdown and (#triggeredSkills > 1 or triggerBotsEffective or hits_per_cast > 1) then
 						breakdown.SkillTriggerRate = {
 							s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not trigRate and s_format("%s triggers per second", skillName)) or "Effective source rate"),
 							s_format("/ %.2f ^8(Estimated impact of skill rotation and cooldown alignment)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
@@ -1323,6 +1226,9 @@ local function defualtTriggerHandler(env, config)
 						}
 						if triggerBotsEffective then
 							t_insert(breakdown.SkillTriggerRate, 3, "x 2 ^8(Trigger bots effectively cause the skill to trigger twice)")
+						end
+						if hits_per_cast > 1 then
+							t_insert(breakdown.SkillTriggerRate, 3, s_format("x %.2f ^8(hits per triggered skill cast)", hits_per_cast))
 						end
 						if simBreakdown.extraSimInfo then
 							t_insert(breakdown.SkillTriggerRate, "")
