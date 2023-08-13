@@ -402,7 +402,10 @@ function ItemClass:ParseRaw(raw)
 			end
 			if not specName then
 				specVal = line:match("^Class:: (.+)$")
-				if specVal then specName = "Requires Class" end
+				if specVal then
+					specName = "Requires Class"
+					specVal = specVal:match("%w+")
+				end
 			end
 			if not specName then
 				specName, specVal = line:match("^(Requires) (.+)$")
