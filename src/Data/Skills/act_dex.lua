@@ -3797,7 +3797,7 @@ skills["ExplosiveArrow"] = {
 		local modDB = env.modDB
 		local enemyDB = activeSkill.actor.enemy.modDB
 		local skillModList = activeSkill.skillModList
-		local duration = calcSkillDuration(skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
+		local duration = calcSkillDuration(activeSkill, env, enemyDB)
 		local fuseLimit = skillModList:Sum("BASE", activeSkill.skillCfg, "ExplosiveArrowMaxFuseCount")
 		local activeTotems
 		if activeSkill.skillFlags.totem then
