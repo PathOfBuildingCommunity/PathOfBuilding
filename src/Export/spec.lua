@@ -10264,7 +10264,7 @@ return {
 		},
 		[2]={
 			list=false,
-			name="Variant",
+			name="ModTier",
 			refTo="",
 			type="Int",
 			width=150
@@ -10285,10 +10285,10 @@ return {
 		},
 		[5]={
 			list=true,
-			name="",
-			refTo="",
-			type="Int",
-			width=150
+			name="Tags",
+			refTo="CrucibleTags",
+			type="Key",
+			width=200
 		},
 		[6]={
 			list=false,

@@ -203,6 +203,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 				inputEvents[id] = nil
 			elseif event.key == "f" and IsKeyDown("CTRL") then
 				self:SelectControl(self.controls.treeSearch)
+			elseif event.key == "m" and IsKeyDown("CTRL") then
+				self:OpenSpecManagePopup()
 			end
 		end
 	end
@@ -249,7 +251,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
 	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
-	t_insert(newSpecList, "Manage trees...")
+	t_insert(newSpecList, "Manage trees... (ctrl-m)")
 	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then
@@ -1759,9 +1761,10 @@ function TreeTabClass:FindTimelessJewel()
 				rootNodes[class.startNodeId] = true
 			end
 			if controls.socketFilter.state then
+				timelessData.socketFilterDistance = timelessData.socketFilterDistance or 0
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
-					if (timelessData.socketFilterDistance or 0) > 0 then
+					if timelessData.socketFilterDistance > 0 then
 						unAllocatedNodesDistance[nodeId] = self.build.spec.nodes[nodeId].pathDist or 1000
 					end
 				end

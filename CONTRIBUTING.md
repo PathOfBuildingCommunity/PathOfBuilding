@@ -248,7 +248,7 @@ Note: For this tutorial, you will need a working installation of [Visual Studio 
 as well as some familiarity with build tools such as [CMake](https://cmake.org).
 1. In Visual Studio, clone the following repository using this command:
 
-        git clone -b master https://github.com/zao/ooz
+        git clone --recurse-submodules -b master https://github.com/zao/ooz
 2. Configure CMake.
 3. Build `bun_extract_file.exe`, `libbun.dll` and `libooz.dll`.
 
