@@ -1133,6 +1133,10 @@ local function defualtTriggerHandler(env, config)
 				output.TriggerRateCap = 1 / rateCapAdjusted
 			end
 			
+			if source and source.skillData.triggeredByCurseOnCurse and trigRate > output.TriggerRateCap then
+				trigRate = trigRate - m_ceil(trigRate - output.TriggerRateCap)
+			end
+			
 			if breakdown then
 				if triggeredCD == nil and triggerCD == nil then
 					breakdown.TriggerRateCap = {
@@ -1365,9 +1369,9 @@ local function defualtTriggerHandler(env, config)
 			if source and source ~= actor.mainSkill then
 				actor.mainSkill.skillData.triggerSource = source
 				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
-				actor.mainSkill.infoMessage = config.triggerName ~= source.activeEffect.grantedEffect.name and config.triggerName or triggeredName .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: ") .. source.activeEffect.grantedEffect.name
+				actor.mainSkill.infoMessage = (config.customTriggerName or ((config.triggerName ~= source.activeEffect.grantedEffect.name and config.triggerName or triggeredName) .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: "))) .. source.activeEffect.grantedEffect.name
 			else
-				actor.mainSkill.infoMessage =  actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
+				actor.mainSkill.infoMessage = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
 			end
 	
 			actor.mainSkill.infoTrigger = config.triggerName
@@ -1704,7 +1708,11 @@ local configTable = {
 		return {customHandler = mirageArcherHandler}
 	end,
 	["Doom Blast"] = function()
-		return {customHandler = doomBlastHandler}
+		return {useCastRate = true,
+				stagesAreOverlaps = 2,
+				customTriggerName = "Doom Blast triggering Hex: ",
+				allowTriggered = true,
+				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) end}
 	end,
 	["Cast while Channelling"] = function()
 		return {customHandler = CWCHandler}
