@@ -2790,9 +2790,11 @@ skills["DivineTempest"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.22,
 	preDamageFunc = function(activeSkill, output)
-		local skillCfg = activeSkill.skillCfg
-		local skillModList = activeSkill.skillModList
-		activeSkill.skillData.hitTimeMultiplier = math.max(skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreStage") / (1 + skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreUniqueEnemyCount") + skillModList:Sum("BASE", skillCfg, "NormalEnemyHitMultiplier") * skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreNormalEnemyCount")), 1)
+		if activeSkill.skillPart == 2 then
+			local skillCfg = activeSkill.skillCfg
+			local skillModList = activeSkill.skillModList
+			activeSkill.skillData.hitTimeMultiplier = math.max(skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreStage") / (1 + skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreUniqueEnemyCount") + skillModList:Sum("BASE", skillCfg, "NormalEnemyHitMultiplier") * skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreNormalEnemyCount")), 1)
+		end
 	end,
 	parts = {
 		{
@@ -2803,6 +2805,7 @@ skills["DivineTempest"] = {
 			name = "Release",
 			area = true,
 			stages = true,
+			channelRelease = true,
 		},
 	},
 	statMap = {
@@ -4092,6 +4095,7 @@ skills["Flameblast"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		channelRelease = true,
 	},
 	baseMods = {
 		skill("radius", 2),
@@ -6197,7 +6201,9 @@ skills["ExpandingFireCone"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+		end
 	end,
 	parts = {
 		{
@@ -6207,6 +6213,7 @@ skills["ExpandingFireCone"] = {
 		{
 			name = "Release",
 			stages = true,
+			channelRelease = true,
 		},
 	},
 	statMap = {
