@@ -895,10 +895,10 @@ local skills, mod, flag, skill = ...
 	end,
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "FlameblastStage" }),
 		},
 		["flameblast_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStage" }),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
@@ -1852,7 +1852,7 @@ local skills, mod, flag, skill = ...
 			--Display only
 		},
 	},
-#baseMod mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
+#baseMod flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"})
 #mods
 
 #skill MortarBarrageMine
@@ -1883,7 +1883,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RaiseSpectre
-#flags spell minion spectre duration
+#flags spell minion spectre duration permanentMinion
 	minionList = {
 	},
 	statMap = {
@@ -1897,7 +1897,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill RaiseZombie
-#flags spell minion
+#flags spell minion permanentMinion
 	minionList = {
 		"RaisedZombie",
 	},
@@ -2292,7 +2292,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonBoneGolem
-#flags spell minion golem
+#flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedCarrionGolem",
 	},
@@ -2312,7 +2312,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonChaosGolem
-#flags spell minion golem
+#flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedChaosGolem",
 	},
@@ -2326,7 +2326,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonRelic
-#flags spell minion
+#flags spell minion permanentMinion
 	minionList = {
 		"HolyLivingRelic",
 	},
@@ -2348,7 +2348,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonLightningGolem
-#flags spell minion golem
+#flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedLightningGolem",
 	},
@@ -2415,7 +2415,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Skitterbots
-#flags spell minion
+#flags spell minion permanentMinion
 	minionList = {
 		"SkitterbotCold",
 		"SkitterbotLightning",
@@ -2438,7 +2438,7 @@ local skills, mod, flag, skill = ...
 			--Display only
 		}
 	},
-#baseMod mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+#baseMod flag("ShockImmune")
 #mods
 
 #skill VoltaxicBurst

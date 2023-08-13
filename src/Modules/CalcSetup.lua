@@ -362,6 +362,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.grantedSkillsNodes = { }
 		env.grantedSkillsItems = { }
 		env.explodeSources = { }
+		env.itemWarnings = { }
 		env.flasks = { }
 
 		-- tree based
@@ -635,6 +636,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 							if item.jewelData then
 								item.jewelData.limitDisabled = true
 							end
+							env.itemWarnings.jewelLimitWarning = env.itemWarnings.jewelLimitWarning or { }
+							t_insert(env.itemWarnings.jewelLimitWarning, limitKey)
 							item = nil
 						else
 							jewelLimits[limitKey] = (jewelLimits[limitKey] or 0) + 1
@@ -962,6 +965,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
 				env.allocNodes[node.id] = env.spec.nodes[node.id] or node -- use the conquered node data, if available
 				env.grantedPassives[node.id] = true
+				env.extraRadiusNodeList[node.id] = nil
 			end
 		end
 	end
