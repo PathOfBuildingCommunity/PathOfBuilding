@@ -2432,7 +2432,7 @@ function calcs.offence(env, actor, activeSkill)
 		-- Calculate maximum sustainable fuses and explosion rate for Explosive Arrow
 		-- Does not take into account mines or traps
 		if activeSkill.activeEffect.grantedEffect.name == "Explosive Arrow" then
-			activeSkill.activeEffect.grantedEffect.explosiveArrowFunc(activeSkill, output, globalOutput, env)
+			activeSkill.activeEffect.grantedEffect.explosiveArrowFunc(activeSkill, output, globalOutput, globalBreakdown, env)
 		end
 
 		-- Calculate crit chance, crit multiplier, and their combined effect
