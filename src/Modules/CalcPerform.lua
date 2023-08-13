@@ -3541,8 +3541,8 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 
 				if GlobalCache.cachedData["CACHE"][uuid] then
 					-- Below code sets the trigger skill to highest APS skill it finds that meets all conditions
-					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
-					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
+					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed or 0
+					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost or 0
 					local ManaSpendRate = cachedSpeed * cachedManaCost
 
 					if ((not source and ManaSpendRate) or (ManaSpendRate and ManaSpendRate > trigRate)) then
