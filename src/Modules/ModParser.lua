@@ -4466,6 +4466,12 @@ local specialModList = {
 	["flamethrower, seismic and lightning spire trap have %-(%d+) cooldown uses?"] = function(num) return { mod("AdditionalCooldownUses", "BASE", -num, { type = "SkillName", skillNameList = { "Flamethrower Trap", "Seismic Trap", "Lightning Spire Trap" } }) } end,
 	["your counterattacks have (%d+)%% reduced cooldown recovery rate"] = function(num) return { mod("CooldownRecovery", "INC", -num, { type = "SkillName", skillNameList = { "Reckoning", "Riposte", "Vengeance" } }) } end,
 	["your counterattacks deal (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, { type = "SkillName", skillNameList = { "Reckoning", "Riposte", "Vengeance" } }) } end,
+	["flameblast starts with (%d+) additional stages"] = function(num) return { mod("Multiplier:FlameblastMinimumStage", "BASE", num, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }) } end,
+	["incinerate starts with (%d+) additional stages"] = function(num) return { mod("Multiplier:IncinerateMinimumStage", "BASE", num, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }) } end,
+	["%+([%d%.]+) seconds to flameblast and incinerate cooldown"] = function(num) return {
+		mod("ExtraSkillMod", "LIST", { mod = mod("SkillData", "LIST", { key = "cooldown", value = 0 }) }, { type = "SkillName", skillNameList = { "Incinerate", "Flameblast"} }),
+		mod("CooldownRecovery", "BASE", num, { type = "SkillName", skillNameList = { "Incinerate", "Flameblast" } })
+	} end,
 	["(%d+)%% chance to deal double damage with attacks if attack time is longer than 1 second"] = function(num) return { 
 		mod("DoubleDamageChance", "BASE", num, 0, 0, { type = "Condition", var = "OneSecondAttackTime" })
 	} end,
