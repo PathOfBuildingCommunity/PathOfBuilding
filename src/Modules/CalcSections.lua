@@ -500,6 +500,8 @@ return {
 	{ label = "Skill Trigger Rate", flag = "triggered", notFlag = "focused", { format = "{2:output:SkillTriggerRate}", { breakdown = "SkillTriggerRate" }, { breakdown = "SimData" }, }, },
 	{ label = "Skill Trigger Rate", flagList = {"triggered", "focused"}, { format = "{2:output:SkillTriggerRate}", { breakdown = "SkillTriggerRate" }, { breakdown = "SimData" }, { modName = "FocusCooldownRecovery", modType = "INC", cfg = "skill", }, }, },
 	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },
+	{ label = "Channel time", haveOutput = "HitTime", { format = "{2:output:HitTime}s", { breakdown = "HitTime" } }, },
+	{ label = "Hit Rate", haveOutput = "HitSpeed", { format = "{2:output:HitSpeed}", { breakdown = "HitSpeed" } }, },
 } }
 } },
 { 1, "Crit", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Crits", data = {

@@ -1031,7 +1031,8 @@ local function defualtTriggerHandler(env, config)
 				output.TriggerRateCap = 1 / rateCapAdjusted
 			end
 			
-			if source.skillData.triggeredByCurseOnCurse and trigRate > output.TriggerRateCap then
+
+			if source and source.skillData.triggeredByCurseOnCurse and trigRate > output.TriggerRateCap then
 				trigRate = trigRate - m_ceil(trigRate - output.TriggerRateCap)
 			end
 			
@@ -1274,9 +1275,9 @@ local function defualtTriggerHandler(env, config)
 			if source and source ~= actor.mainSkill then
 				actor.mainSkill.skillData.triggerSource = source
 				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
-				actor.mainSkill.infoMessage = (config.customTriggerName or (config.triggerName .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: "))) .. source.activeEffect.grantedEffect.name
+				actor.mainSkill.infoMessage = (config.customTriggerName or ((config.triggerName ~= source.activeEffect.grantedEffect.name and config.triggerName or triggeredName) .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: "))) .. source.activeEffect.grantedEffect.name
 			else
-				actor.mainSkill.infoMessage =  actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
+				actor.mainSkill.infoMessage = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
 			end
 	
 			actor.mainSkill.infoTrigger = config.triggerName
@@ -1613,7 +1614,8 @@ local configTable = {
 		return {customHandler = mirageArcherHandler}
 	end,
 	["Doom Blast"] = function()
-		return {stagesAreOverlaps = 2,
+		return {useCastRate = true,
+				stagesAreOverlaps = 2,
 				customTriggerName = "Doom Blast triggering Hex: ",
 				allowTriggered = true,
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) end}
@@ -1624,14 +1626,73 @@ local configTable = {
 	["Focus"] = function()
 		return {customHandler = helmetFocusHandler}
 	end,
-	["Mirage Archer"] = function()
-		return {customHandler = mirageArcherHandler}
-	end,
 	["Reflection"] = function()
 		return {customHandler = theSaviourHandler}
 	end,
 	["Tawhoa's Chosen"] = function()
 		return {customHandler = tawhoaChosenHandler}
+	end,
+	["Snipe"] = function(env)
+		local snipeStages = m_min(env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStage"), env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax"))
+		local snipeHitMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeHitMulti")
+		local snipeAilmentMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeAilmentMulti")
+		local triggeredSkills = {}
+		local source
+		local trigRate
+		local uuid
+		local currentSkillSnipeIndex
+		
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.skillData.triggeredBySnipe and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
+				t_insert(triggeredSkills, skill)
+			end
+		end
+	
+		for index, skill in ipairs(triggeredSkills) do
+			if skill == env.player.mainSkill then 
+				currentSkillSnipeIndex = index 
+				break
+			end
+		end
+
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" then
+			if env.player.mainSkill.skillData.limitedProcessing then
+				-- Snipe is being used by some other skill. In this case snipe does not get more damage mods
+				snipeStages = 0
+			else
+				-- max(1, snipeStages) makes it behave consistantly with other channeled ranged skills (scourge arrow)
+				env.player.mainSkill.skillData.hitTimeMultiplier = m_max(1, snipeStages) - 0.5 --First stage takes 0.5x time to channel compared to subsequent stages
+			end
+			if #triggeredSkills < 1 then
+				-- Snipe is being used as a standalone skill
+				if snipeStages then
+					env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * snipeStages, "Snipe", ModFlag.Hit, 0)
+					env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti * snipeStages, "Snipe", ModFlag.Ailment, 0)
+				end
+			else
+				-- Snipe is being used as a trigger source, it triggers other skills but does no damage it self
+				env.player.mainSkill.skillData.baseMultiplier = 0
+			end
+		else			
+			-- Does snipe have enough stages to trigger this skill?
+			if currentSkillSnipeIndex and currentSkillSnipeIndex <= snipeStages then
+				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * snipeStages , "Snipe", ModFlag.Hit, 0)
+				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti * snipeStages , "Snipe", ModFlag.Ailment, 0)
+				for _, skill in ipairs(env.player.activeSkillList) do
+					if skill.activeEffect.grantedEffect.name == "Snipe" and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
+						skill.skillData.hitTimeMultiplier = snipeStages - 0.5
+						source, _, uuid = findTriggerSkill(env, skill, source)
+						trigRate = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.HitSpeed
+					end
+				end
+				return {trigRate = trigRate, source = source}
+			else
+				env.player.mainSkill.skillData.triggered = nil
+				env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
+				env.player.mainSkill.infoMessage = "Not enough Snipe stages to trigger this skill"
+				env.player.mainSkill.infoTrigger = ""
+			end
+		end
 	end,
 }
 
@@ -1665,8 +1726,14 @@ function calcs.triggers(env)
 		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
 		local uniqueName = getUniqueItemTriggerName(env.player.mainSkill)
-		local config = (configTable[skillName] or triggerName and (configTable[triggerName] or configTable[triggerName:gsub("^Awakened ", "")]) or configTable[uniqueName] or logNoHandler(skillName, triggerName, uniqueName))(env)
-        if config then
+		local config = skillName and configTable[skillName] and configTable[skillName](env)
+        config = config or triggerName and configTable[triggerName] and configTable[triggerName](env)
+        config = config or triggerName and configTable[triggerName:gsub("^Awakened ", "")] and configTable[triggerName:gsub("^Awakened ", "")](env)
+        config = config or uniqueName and configTable[uniqueName] and configTable[uniqueName](env)
+		if not triggerName and configTable[triggerName] and not triggerName and configTable[triggerName:gsub("^Awakened ", "")] and not uniqueName and configTable[uniqueName] then
+			logNoHandler(skillName, triggerName, uniqueName)(env)
+		end
+		if config then
 		    config.actor = config.actor or env.player
 			config.triggerName = config.triggerName or triggerName or uniqueName or skillName
 			local triggerHandler = config.customHandler or defualtTriggerHandler
