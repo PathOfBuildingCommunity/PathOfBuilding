@@ -4919,7 +4919,7 @@ function calcs.offence(env, actor, activeSkill)
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.TotemPlacementSpeed > 0 and output.TotemPlacementSpeed or 1 / output.Cooldown) or output.TotemPlacementSpeed) / repeats
 				timeType = "totem placement"
 			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
-				useSpeed = 1 / env.player.mainSkill.skillData.hitTimeOverride / repeats
+				useSpeed = env.player.mainSkill.skillData.hitTimeOverride / repeats
 				timeType = "full unleash"
 			else
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.Speed > 0 and output.Speed or 1 / output.Cooldown) or output.Speed) / repeats
