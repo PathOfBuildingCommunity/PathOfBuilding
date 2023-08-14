@@ -117,11 +117,11 @@ data.powerStatList = {
 	{ stat="ProjectileAvoidChance", label="Projectile avoid chance" },
 	{ stat="TotalEHP", label="Effective Hit Pool" },
 	{ stat="SecondMinimalMaximumHitTaken", label="Eff. Maximum Hit Taken" },
-	{ stat="PhysicalTakenHitMult", label="Taken Phys dmg", transform=function(value) return 1-value end },
-	{ stat="LightningTakenDotMult", label="Taken Lightning dmg", transform=function(value) return 1-value end },
-	{ stat="ColdTakenDotMult", label="Taken Cold dmg", transform=function(value) return 1-value end },
-	{ stat="FireTakenDotMult", label="Taken Fire dmg", transform=function(value) return 1-value end },
-	{ stat="ChaosTakenHitMult", label="Taken Chaos dmg", transform=function(value) return 1-value end },
+	{ stat="PhysicalTakenHit", label="Taken Phys dmg", transform=function(value) return -value end },
+	{ stat="LightningTakenHit", label="Taken Lightning dmg", transform=function(value) return -value end },
+	{ stat="ColdTakenHit", label="Taken Cold dmg", transform=function(value) return -value end },
+	{ stat="FireTakenHit", label="Taken Fire dmg", transform=function(value) return -value end },
+	{ stat="ChaosTakenHit", label="Taken Chaos dmg", transform=function(value) return -value end },
 	{ stat="CritChance", label="Crit Chance" },
 	{ stat="CritMultiplier", label="Crit Multiplier" },
 	{ stat="BleedChance", label="Bleed Chance" },
@@ -143,6 +143,17 @@ data.setJewelRadiiGlobally = function(treeVersion)
 	else
 		data.jewelRadius = data.jewelRadii["3_16"]
 	end
+
+	local maxJewelRadius = 0
+	for _, radiusInfo in ipairs(data.jewelRadius) do
+		radiusInfo.outerSquared = radiusInfo.outer * radiusInfo.outer
+		radiusInfo.innerSquared = radiusInfo.inner * radiusInfo.inner
+
+		if radiusInfo.outer > maxJewelRadius then
+			maxJewelRadius = radiusInfo.outer
+		end
+	end
+	data.maxJewelRadius = maxJewelRadius
 end
 
 data.jewelRadii = {
@@ -469,7 +480,6 @@ data.misc = { -- magic numbers
 	PoisonDurationBase = 2,
 	IgnitePercentBase = 0.9,
 	IgniteDurationBase = 4,
-	IgniteMinDuration = 0.3,
 	ImpaleStoredDamageBase = 0.1,
 	BuffExpirationSlowCap = 0.25,
 	TrapTriggerRadiusBase = 10,
