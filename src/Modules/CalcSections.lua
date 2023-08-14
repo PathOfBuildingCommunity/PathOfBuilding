@@ -814,7 +814,7 @@ return {
 	{ label = "Effect of Blind", haveOutput = "BlindEffectMod", { format = "{0:output:BlindEffectMod}%", { breakdown = "BlindEffectMod" }, { modName = { "BlindEffect", "BuffEffectOnSelf" }, }, } },
 } }
 } },
-{ 1, "Bleed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Bleed", data = {
+{ 1, "Bleed", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = colorCodes.BLEED.."Bleed".."^7", data = {
 	extra = "{0:output:BleedChance}% {1:output:BleedDPS} {2:output:BleedDuration}s",
 	flag = "bleed",
 	{ label = "Max Bleed Stacks", { format = "{0:output:BleedStacksMax}", { modName = "BleedStacksMax" } }, },
@@ -843,7 +843,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "Poison", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Poison", data = {
+{ 1, "Poison", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = colorCodes.POISON.."Poison".."^7", data = {
 	extra = "{0:output:PoisonChance}% {1:output:PoisonDPS} {2:output:PoisonDuration}s",
 	flag = "poison",
 	{ label = "Chance to Poison", { format = "{0:output:PoisonChance}%", 
@@ -902,7 +902,7 @@ return {
 	}, },
 } }
 } },
-{ 1, "Ignite", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Ignite", data = {	
+{ 1, "Ignite", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = colorCodes.IGNITE.."Ignite".."^7", data = {	
 	extra = "{0:output:IgniteChancePerHit}% {1:output:IgniteDPS} {2:output:IgniteDuration}s",
 	flag = "ignite",
 	{ label = "Max Ignite Stacks", flag = "igniteCanStack", { format = "{1:output:IgniteStacksMax}", { modName = "IgniteStacks" }, }, },
