@@ -3623,23 +3623,27 @@ function calcs.offence(env, actor, activeSkill)
 			if skillFlags.totem then
 				bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / (output.HitTime or output.Time) * skillData.dpsMultiplier) * activeTotems / maxStacks
 			end
-			bleedStacks = configStacks > 0 and m_min(bleedStacks, configStacks / maxStacks) or bleedStacks
+			bleedStacks = skillModList:Override(nil, "BleedStackPotentialOverride") or configStacks > 0 and m_min(bleedStacks, configStacks / maxStacks) or bleedStacks
 			globalOutput.BleedStackPotential = bleedStacks or 1
 			if globalBreakdown then
 				globalBreakdown.BleedStackPotential = {
 					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses a Weighted Avg formula"),
 					s_format(""),
-					s_format("%.2f ^8(chance to hit)", output.HitChance / 100),
-					s_format("* (%.2f / %.2f) ^8(Bleed duration / Attack Time)", globalOutput.BleedDuration, (output.HitTime or output.Time)),
 				}
-				if skillData.dpsMultiplier ~= 1 then
-					t_insert(globalBreakdown.BleedStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+				if skillModList:Override(nil, "BleedStackPotentialOverride") then
+					t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential override)", skillModList:Override(nil, "BleedStackPotentialOverride")))
+				else
+					t_insert(globalBreakdown.BleedStackPotential, s_format("%.2f ^8(chance to hit)", output.HitChance / 100))
+					t_insert(globalBreakdown.BleedStackPotential, s_format("* (%.2f / %.2f) ^8(Bleed duration / Attack Time)", globalOutput.BleedDuration, (output.HitTime or output.Time)))
+					if skillData.dpsMultiplier ~= 1 then
+						t_insert(globalBreakdown.BleedStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+					end
+					if skillFlags.totem then
+						t_insert(globalBreakdown.BleedStackPotential, s_format("* %d ^8(active number of Totems)", activeTotems))
+					end
+					t_insert(globalBreakdown.BleedStackPotential,s_format("/ %d ^8(max number of stacks)", maxStacks))
+					t_insert(globalBreakdown.BleedStackPotential,s_format("= %.2f", globalOutput.BleedStackPotential))
 				end
-				if skillFlags.totem then
-					t_insert(globalBreakdown.BleedStackPotential, s_format("* %d ^8(active number of Totems)", activeTotems))
-				end
-				t_insert(globalBreakdown.BleedStackPotential,s_format("/ %d ^8(max number of stacks)", maxStacks))
-				t_insert(globalBreakdown.BleedStackPotential,s_format("= %.2f", globalOutput.BleedStackPotential))
 			end
 
 			local bleedRollAverage = bleedStacks / (bleedStacks + 1) * 100
@@ -4127,24 +4131,29 @@ function calcs.offence(env, actor, activeSkill)
 					igniteStacks = (globalOutput.IgniteDuration / (globalOutput.HitTime or output.Time) * skillData.dpsMultiplier) / maxStacks
 				end
 			end
-			globalOutput.IgniteStackPotential = igniteStacks or 1
+			igniteStacks = skillModList:Override(nil, "IgniteStackPotentialOverride") or igniteStacks or 1
+			globalOutput.IgniteStackPotential = igniteStacks
 			if globalBreakdown then
 				globalBreakdown.IgniteStackPotential = {
 					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses a Weighted Avg formula"),
 					s_format(""),
 				}
-				if skillData.triggeredOnDeath then
-					t_insert(globalBreakdown.IgniteStackPotential, s_format("1 ^8Cast on Death override"))
-				elseif output.Cooldown then
-					t_insert(globalBreakdown.IgniteStackPotential, s_format("(%.2f / max(%.2f, %.2f) ^8(Ignite Duration / max(Cooldown, Cast Time))", globalOutput.IgniteDuration, output.Cooldown, (output.HitTime or output.Time)))
+				if skillModList:Override(nil, "IgniteStackPotentialOverride") then
+					t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential override)", skillModList:Override(nil, "IgniteStackPotentialOverride")))
 				else
-					t_insert(globalBreakdown.IgniteStackPotential, s_format("(%.2f / %.2f) ^8(Ignite Duration / Cast Time)", globalOutput.IgniteDuration, (globalOutput.HitTime or output.Time)))
+					if skillData.triggeredOnDeath then
+						t_insert(globalBreakdown.IgniteStackPotential, s_format("1 ^8Cast on Death override"))
+					elseif output.Cooldown then
+						t_insert(globalBreakdown.IgniteStackPotential, s_format("(%.2f / max(%.2f, %.2f) ^8(Ignite Duration / max(Cooldown, Cast Time))", globalOutput.IgniteDuration, output.Cooldown, (output.HitTime or output.Time)))
+					else
+						t_insert(globalBreakdown.IgniteStackPotential, s_format("(%.2f / %.2f) ^8(Ignite Duration / Cast Time)", globalOutput.IgniteDuration, (globalOutput.HitTime or output.Time)))
+					end
+					if skillData.dpsMultiplier ~= 1 then
+						t_insert(globalBreakdown.IgniteStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+					end
+					t_insert(globalBreakdown.IgniteStackPotential, s_format("/ %d ^8(max number of stacks)", maxStacks))
+					t_insert(globalBreakdown.IgniteStackPotential, s_format("= %.2f", globalOutput.IgniteStackPotential))
 				end
-				if skillData.dpsMultiplier ~= 1 then
-					t_insert(globalBreakdown.IgniteStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
-				end
-				t_insert(globalBreakdown.IgniteStackPotential, s_format("/ %d ^8(max number of stacks)", maxStacks))
-				t_insert(globalBreakdown.IgniteStackPotential, s_format("= %.2f", globalOutput.IgniteStackPotential))
 			end
 
 			local igniteRollAverage = igniteStacks / (igniteStacks + 1) * 100
