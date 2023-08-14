@@ -16,7 +16,7 @@ for crucible in dat("WeaponPassiveSkills"):Rows() do
 			elseif crucible.Mod.GenerationType == 32 then
 				out:write('type = "MergeOnly", ')
 			end
-			out:write('tier = ', crucible.Variant, ', ')
+			out:write('tier = ', crucible.ModTier, ', ')
 			out:write('"', table.concat(stats, '", "'), '", ')
 			out:write('statOrderKey = "', table.concat(orders, ','), '", ')
 			out:write('statOrder = { ', table.concat(orders, ', '), ' }, ')
