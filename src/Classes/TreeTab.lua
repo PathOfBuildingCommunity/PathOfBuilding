@@ -119,10 +119,38 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.export = new("ButtonControl", { "LEFT", self.controls.import, "RIGHT" }, 8, 0, 90, 20, "Export Tree", function()
 		self:OpenExportPopup()
 	end)
-	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c", 100, function(buf)
+	local function convertToVersion(version)
+		local newSpec = new("PassiveSpec", self.build, version, true)
+		newSpec.title = self.build.spec.title
+		newSpec.jewels = copyTable(self.build.spec.jewels)
+		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), version)
+		newSpec:BuildClusterJewelGraphs()
+		t_insert(self.specList, self.activeSpec + 1, newSpec)
+		self:SetActiveSpec(self.activeSpec + 1)
+		self.modFlag = true
+		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+	end
+	self.treeVersions = { }
+	for _, num in ipairs(treeVersionList) do
+		if not num:find("^2") then
+			local vers = num:gsub("%_", ".")
+			t_insert(self.treeVersions, vers)
+		end
+	end
+	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, 0, 16, "Version:")
+	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 55, 20, self.treeVersions, function(index, value)
+		if value ~= self.build.spec.treeVersion then
+			convertToVersion(value:gsub("%.", "_"))
+		end
+	end)
+	self.controls.versionSelect.maxDroppedWidth = 1000
+	self.controls.versionSelect.enableDroppedWidth = true
+	self.controls.versionSelect.enableChangeBoxWidth = true
+	self.controls.versionSelect.selIndex = #self.treeVersions
+	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.versionSelect, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c", 100, function(buf)
 		self.viewer.searchStr = buf
 		self.searchFlag = buf ~= self.viewer.searchStrSaved
-	end)
+	end, nil, nil, true)
 	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
@@ -172,15 +200,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return self.showConvert
 	end
 	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
-		local newSpec = new("PassiveSpec", self.build, latestTreeVersion, true)
-		newSpec.title = self.build.spec.title
-		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), latestTreeVersion)
-		newSpec:BuildClusterJewelGraphs()
-		t_insert(self.specList, self.activeSpec + 1, newSpec)
-		self:SetActiveSpec(self.activeSpec + 1)
-		self.modFlag = true
-		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[latestTreeVersion].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+		convertToVersion(latestTreeVersion)
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
@@ -203,6 +223,8 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 				inputEvents[id] = nil
 			elseif event.key == "f" and IsKeyDown("CTRL") then
 				self:SelectControl(self.controls.treeSearch)
+			elseif event.key == "m" and IsKeyDown("CTRL") then
+				self:OpenSpecManagePopup()
 			end
 		end
 	end
@@ -249,7 +271,7 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
 	end
 	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
-	t_insert(newSpecList, "Manage trees...")
+	t_insert(newSpecList, "Manage trees... (ctrl-m)")
 	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then
@@ -890,6 +912,8 @@ function TreeTabClass:FindTimelessJewel()
 				keystone = "Marauder"
 			elseif socketId == 54127 then
 				keystone = "Duelist"
+			elseif socketId == 7960 then
+				keystone = "Templar/Witch"
 			else
 				local minDistance = math.huge
 				for _, nodeInRadius in pairs(treeData.nodes[socketId].nodesInRadius[3]) do
@@ -1786,9 +1810,10 @@ function TreeTabClass:FindTimelessJewel()
 				rootNodes[class.startNodeId] = true
 			end
 			if controls.socketFilter.state then
+				timelessData.socketFilterDistance = timelessData.socketFilterDistance or 0
 				for nodeId in pairs(radiusNodes) do
 					allocatedNodes[nodeId] = self.build.calcsTab.mainEnv.grantedPassives[nodeId] ~= nil or self.build.spec.allocNodes[nodeId] ~= nil
-					if (timelessData.socketFilterDistance or 0) > 0 then
+					if timelessData.socketFilterDistance > 0 then
 						unAllocatedNodesDistance[nodeId] = self.build.spec.nodes[nodeId].pathDist or 1000
 					end
 				end

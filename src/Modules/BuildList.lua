@@ -64,11 +64,10 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.buildList.height = function()
 		return main.screenH - 80
 	end
-	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, 0, 25, 640, 20, self.filterBuildList, "Search", "%c%(%)", 100)
-	self.controls.searchText.enterFunc = function(buf)
+	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, 0, 25, 640, 20, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
 		main.filterBuildList = buf
 		self:BuildList()
-	end
+	end, nil, nil, true)
 
 	self:BuildList()
 	self.controls.buildList:SelByFileName(selBuildName and selBuildName..".xml")
