@@ -1435,38 +1435,8 @@ function calcs.offence(env, actor, activeSkill)
 					local reservedPercent = activeSkill.skillData[val.text.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationPercent"] or 0
 					baseCost = baseCost + (round((output[resource] or 0) * reservedPercent / 100))
 				end
-				val.baseCost = val.baseCost + baseCost
-				val.baseCostNoMult = val.baseCostNoMult + baseCostNoMult
-				if val.type == "Life" then
-					local manaType = resource:gsub("Life", "Mana")
-					if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then -- Blood Magic / Lifetap
-						val.baseCost = val.baseCost + costs[manaType].baseCost
-						val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
-						costs[manaType].baseCost = 0
-						costs[manaType].baseCostNoMult = 0
-					elseif skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") > 0 then -- Extra cost (e.g. Petrified Blood) calculations
-						local portion = skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100
-						val.baseCost = val.baseCost + costs[manaType].baseCost * portion
-						val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * portion
-					elseif skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") > 0 then -- Life/Mana mastery
-						local life_portion = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") / 100
-						local mana_portion = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Mana") / 100
-						val.baseCost = val.baseCost + (costs[manaType].baseCost / mana_portion) * life_portion
-						val.baseCostNoMult = val.baseCostNoMult + (costs[manaType].baseCostNoMult / mana_portion) * life_portion
-					end
-				elseif val.type == "Mana" then
-					if skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Mana") > 0 then -- Life/Mana mastery
-						local portion = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Mana") / 100
-						val.baseCost = val.baseCost * portion
-						val.baseCostNoMult = val.baseCostNoMult * portion
-					end
-				elseif val.type == "Rage" then
-					if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
-						val.baseCost = val.baseCost + costs.Soul.baseCost
-						val.baseCostNoMult = val.baseCostNoMult + costs.Soul.baseCostNoMult
-						costs.Soul.baseCost = 0
-						costs.Soul.baseCostNoMult = 0
-					end
+				if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then -- Archmage
+					baseCost = m_max(baseCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
 				end
 			end
 			val.baseCost = val.baseCost + baseCost
