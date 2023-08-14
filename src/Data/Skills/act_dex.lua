@@ -10920,6 +10920,7 @@ skills["ChannelledSnipe"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		channelRelease = true,
 	},
 	qualityStats = {
 		Default = {

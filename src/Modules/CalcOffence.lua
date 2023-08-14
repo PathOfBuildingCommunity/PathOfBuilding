@@ -2093,6 +2093,9 @@ function calcs.offence(env, actor, activeSkill)
 			skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
 		end
 	end
+	if skillModList:Flag(nil, "TriggeredBySnipe") then
+		skillFlags.channelRelease = true
+	end
 	if breakdown then
 		breakdown.SustainableTrauma = storedSustainedTraumaBreakdown
 	end
