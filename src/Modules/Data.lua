@@ -469,7 +469,6 @@ data.misc = { -- magic numbers
 	PoisonDurationBase = 2,
 	IgnitePercentBase = 0.9,
 	IgniteDurationBase = 4,
-	IgniteMinDuration = 0.3,
 	ImpaleStoredDamageBase = 0.1,
 	BuffExpirationSlowCap = 0.25,
 	TrapTriggerRadiusBase = 10,
