@@ -72,6 +72,7 @@ local function isTriggered(skillData)
 		or skillData.triggeredByManaPercentSpent
 		or skillData.triggeredByParentAttack
 		or skillData.triggeredWhenHexEnds
+		or skillData.triggeredBySnipe
 end
 
 -- Calculate min/max damage for the given damage type
@@ -796,10 +797,6 @@ function calcs.offence(env, actor, activeSkill)
 				skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData2[damageType.."Max"] or 0) * mult, "Spellslinger")
 			end
 		end
-	end
-	--Snipe doesn't grab the max stages multiplier from the gem when granted by Assailum so we add it back here
-	if skillModList:Flag(nil, "TriggeredByAssailum") and activeSkill.skillTypes[SkillType.Triggerable] then
-		skillModList:NewMod("Multiplier:SnipeStagesMax", "BASE", 6, "Snipe Max Stages", { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 	end
 	if skillModList:Sum("BASE", nil, "CritMultiplierAppliesToDegen") > 0 then
 		for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "CritMultiplier")) do
