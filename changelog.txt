@@ -1,6 +1,6 @@
-VERSION[2.31.0][2023/08/14]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.31.0][2023/08/15]
 
+--- New to Path of Building ---
 * Add 3.22 Skill tree (Regisle)
 * Add proper support for DPS with Scourge Arrow, Divine Ire, Flameblast and Incinerate (LocalIdentity)
 * Display Channel time for skills that channel and release (Scourge Arrow, Divine Ire, Flameblast, Incinerate and Snipe) (LocalIdentity)
@@ -12,17 +12,20 @@ VERSION[2.31.0][2023/08/14]
 * Add support for Crucible min stages and Cooldown mods with Incinerate/Flameblast (LocalIdentity)
 * Add support for changing Tree Version (Peechey)
 * Add clear button to text inputs (TPlant)
+
 --- Implemented Enhancements ---
 * Remove Minimum Ignite Duration (LocalIdentity)
 * Imply recent Minion skill use only when using non-permanent Minions (Lilylicious)
 * Improve PvP breakdowns (Regisle)
 * Only apply Combustion Fire Resistance effect with skills that can Ignite (Lilylicious)
 * Add parsing for Redeemer 'Freeze as though Dealing more Damage' mod (fira)
+
 --- Fixed Crashes ---
 * Fix crash on 100% reduced reservation efficiency for Relic of the Pact (Lilylicious)
 * Fix crash on unusable weapon swap (Lilylicious)
 * Fix crash sometimes occurring when searching for Timeless Jewel (Regisle)
 * Fix crash when hovering over life mastery mod (Paliak)
+
 --- User Interface ---
 * Add a warning when exceeding jewel limits (Lilylicious)
 * Make build search immediate (TPlant)
@@ -31,6 +34,7 @@ VERSION[2.31.0][2023/08/14]
 * Fix division by zero display error in resource recovery calculations (TPlant)
 * Add Help documentation for Items tab (karlji)
 * Add name to top left Timeless Jewel socket (karlji)
+
 --- Accuracy Improvements ---
 * Fix Explosive Arrow Full DPS (AnSq)
 * Fix Explosive Arrow stages scaling base damage effectiveness (Lilylicious)
@@ -51,11 +55,13 @@ VERSION[2.31.0][2023/08/14]
 * Fix anointed nodes doubling stats when inside radius Jewels (Paliak)
 * Fix Life Mastery not working correctly with Skin of the Loyal (Paliak)
 * Fix Chain count not appearing on Calcs page (LocalIdentity)
+
 --- Fixed Bugs ---
 * Fix sorting of taken damage values when using the power report (QuickStick123)
 * Fix resistance penalty not saving (Paliak)
 * Fix import of Forbidden Flesh/Flame when you did not match the class of the jewel (Paliak)
 * Fix incorrect keystone source on keystones coming from items (Paliak)
+
 --- Other changes ---
 * Improve load time when opening PoB (Lancej)
 
