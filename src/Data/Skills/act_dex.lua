@@ -6019,7 +6019,7 @@ skills["LancingSteel"] = {
 			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
 			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
-			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel")
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel", ModFlag.Hit)
 		end
 	end,
 	statMap = {
@@ -7999,8 +7999,8 @@ skills["ScourgeArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:ScourgeArrowStage"), 1)
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:ScourgeArrowStage") - 0.5, 0.5) --First stage takes 0.5x time to channel compared to subsequent stages
 	end,
 	parts = {
 		{
@@ -10909,9 +10909,6 @@ skills["ChannelledSnipe"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.min(math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1), activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStagesMax"))
-	end,
 	statMap = {
 		["snipe_max_stacks"] = {
 			mod("Multiplier:SnipeStagesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
@@ -10920,6 +10917,7 @@ skills["ChannelledSnipe"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		channelRelease = true,
 	},
 	qualityStats = {
 		Default = {

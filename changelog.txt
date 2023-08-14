@@ -1,3 +1,70 @@
+VERSION[2.31.0][2023/08/15]
+
+--- New to Path of Building ---
+* Add 3.22 Skill tree (Regisle)
+* Add proper support for DPS with Scourge Arrow, Divine Ire, Flameblast and Incinerate (LocalIdentity)
+* Display Channel time for skills that channel and release (Scourge Arrow, Divine Ire, Flameblast, Incinerate and Snipe) (LocalIdentity)
+* Add proper support for triggered skills with Snipe Support (LocalIdentity)
+* Add support for Flamethrower Trap DPS (Lilylicious)
+* Fix weighted average DPS calculation of Ignite/Bleed (LocalIdentity)
+* Show min/max DPS range for Ignite/Bleed/Poison (LocalIdentity)
+* Add support for cooldown on skills in Black Zenith gloves (LocalIdentity)
+* Add support for Crucible min stages and Cooldown mods with Incinerate/Flameblast (LocalIdentity)
+* Add support for changing Tree Version (Peechey)
+* Add clear button to text inputs (TPlant)
+
+--- Implemented Enhancements ---
+* Remove Minimum Ignite Duration (LocalIdentity)
+* Imply recent Minion skill use only when using non-permanent Minions (Lilylicious)
+* Improve PvP breakdowns (Regisle)
+* Only apply Combustion Fire Resistance effect with skills that can Ignite (Lilylicious)
+* Add parsing for Redeemer 'Freeze as though Dealing more Damage' mod (fira)
+
+--- Fixed Crashes ---
+* Fix crash on 100% reduced reservation efficiency for Relic of the Pact (Lilylicious)
+* Fix crash on unusable weapon swap (Lilylicious)
+* Fix crash sometimes occurring when searching for Timeless Jewel (Regisle)
+* Fix crash when hovering over life mastery mod (Paliak)
+
+--- User Interface ---
+* Add a warning when exceeding jewel limits (Lilylicious)
+* Make build search immediate (TPlant)
+* Add Ctrl-M to the tree drop-down to open 'Manage Trees' dialog (pHiney)
+* Force skill groups to display as active based on main skill (Lilylicious)
+* Fix division by zero display error in resource recovery calculations (TPlant)
+* Add Help documentation for Items tab (karlji)
+* Add name to top left Timeless Jewel socket (karlji)
+
+--- Accuracy Improvements ---
+* Fix Explosive Arrow Full DPS (AnSq)
+* Fix Explosive Arrow stages scaling base damage effectiveness (Lilylicious)
+* Fix Flameblast not gaining 'more' damage from first stage (LocalIdentity)
+* Fix Supreme Ego taking effect with Blood Magic (mortentc)
+* Fix Lancing Steel hit rate calculations (Lilylicious)
+* Fix default Uber boss Evasion Rating (ghember)
+* Fix defences on normal and magic Two-Toned Boots (Peechey)
+* Fix Matua Tupuna's aura mod not affecting minions (Paliak)
+* Fix Battlemage's Cry and Redblade Banner not working correctly (Lilylicious)
+* Fix multiple instances of 'x stat is increased by overcapped y resistance' stacking (Lilylicious)
+* Fix Shock Nova's 'max effect of shock' not benefiting other skills (Lilylicious)
+* Fix Adjacent Animosity to work with both Attacks and Spells (deathbeam)
+* Fix Crucible AoE mod from applying to any skill (Paliak)
+* Fix Energy Shield Stun avoidance if EB allocated (Paliak)
+* Fix Spellslinger Reservation incorrectly scaling with stages (mortentc)
+* Fix Infernal Legion ignoring support gem damage modifiers (Paliak)
+* Fix anointed nodes doubling stats when inside radius Jewels (Paliak)
+* Fix Life Mastery not working correctly with Skin of the Loyal (Paliak)
+* Fix Chain count not appearing on Calcs page (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix sorting of taken damage values when using the power report (QuickStick123)
+* Fix resistance penalty not saving (Paliak)
+* Fix import of Forbidden Flesh/Flame when you did not match the class of the jewel (Paliak)
+* Fix incorrect keystone source on keystones coming from items (Paliak)
+
+--- Other changes ---
+* Improve load time when opening PoB (Lancej)
+
 VERSION[2.30.1][2023/05/06]
 
 --- Fixed Bugs ---

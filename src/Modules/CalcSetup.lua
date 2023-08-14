@@ -579,10 +579,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.allocNodes = nodes
 	end
 	
-	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
-	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
-	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
-	modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
+	if allocatedNotableCount and allocatedNotableCount > 0 then
+		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount)
+	end
+	if allocatedMasteryCount and allocatedMasteryCount > 0 then
+		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount)
+	end
+	if allocatedMasteryTypeCount and allocatedMasteryTypeCount > 0 then
+		modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount)
+	end
+	if allocatedMasteryTypes["Life Mastery"] and allocatedMasteryTypes["Life Mastery"] > 0 then
+		modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
+	end
 	
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
@@ -965,6 +973,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
 				env.allocNodes[node.id] = env.spec.nodes[node.id] or node -- use the conquered node data, if available
 				env.grantedPassives[node.id] = true
+				env.extraRadiusNodeList[node.id] = nil
 			end
 		end
 	end
