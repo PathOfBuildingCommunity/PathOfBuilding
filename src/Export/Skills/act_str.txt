@@ -154,7 +154,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill AnimateArmour
-#flags spell minion 
+#flags spell minion permanentMinion
 	minionHasItemSet = true,
 	minionUses = {
 		["Weapon 1"] = true,
@@ -1491,7 +1491,7 @@ end,
 #mods
 
 #skill SummonFireGolem
-#flags spell minion golem
+#flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedFlameGolem",
 	},
@@ -1505,7 +1505,7 @@ end,
 #mods
 
 #skill SummonRockGolem
-#flags spell minion golem
+#flags spell minion golem permanentMinion
 	minionList = {
 		"SummonedStoneGolem",
 	},

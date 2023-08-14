@@ -948,6 +948,7 @@ skills["AnimateArmour"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -7941,6 +7942,7 @@ skills["SummonFireGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -8031,6 +8033,7 @@ skills["SummonRockGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),

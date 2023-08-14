@@ -75,7 +75,7 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	end
 	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
-	end)
+	end, nil, nil, true)
 	self.controls.searchMode = new("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function(index, value)
 		self.listBuildFlag = true
 	end)

@@ -247,7 +247,7 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 		end
 		if data.itemTagSpecial[substring] and data.itemTagSpecial[substring][itemSlotName] then
 			for _, specialMod in ipairs(data.itemTagSpecial[substring][itemSlotName]) do
-				if v.line:lower():find(specialMod:lower()) then
+				if v.line:lower():find(specialMod:lower()) and (not v.variantList or v.variantList[self.variant]) then
 					return true
 				end
 			end
@@ -402,7 +402,10 @@ function ItemClass:ParseRaw(raw)
 			end
 			if not specName then
 				specVal = line:match("^Class:: (.+)$")
-				if specVal then specName = "Requires Class" end
+				if specVal then
+					specName = "Requires Class"
+					specVal = specVal:match("%w+")
+				end
 			end
 			if not specName then
 				specName, specVal = line:match("^(Requires) (.+)$")
@@ -623,7 +626,7 @@ function ItemClass:ParseRaw(raw)
 						local s, e = self.name:find("Two-Toned Boots", 1, true)
 						if s then
 							-- Hack for Two-Toned Boots
-							baseName = "Two-Toned Boots (Armour/Energy Shield)"
+							baseName = self.baseName
 							self.namePrefix = self.name:sub(1, s - 1)
 							self.nameSuffix = self.name:sub(e + 1)
 						end

@@ -2791,9 +2791,11 @@ skills["DivineTempest"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.22,
 	preDamageFunc = function(activeSkill, output)
-		local skillCfg = activeSkill.skillCfg
-		local skillModList = activeSkill.skillModList
-		activeSkill.skillData.hitTimeMultiplier = math.max(skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreStage") / (1 + skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreUniqueEnemyCount") + skillModList:Sum("BASE", skillCfg, "NormalEnemyHitMultiplier") * skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreNormalEnemyCount")), 1)
+		if activeSkill.skillPart == 2 then
+			local skillCfg = activeSkill.skillCfg
+			local skillModList = activeSkill.skillModList
+			activeSkill.skillData.hitTimeMultiplier = math.max(skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreStage") / (1 + skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreUniqueEnemyCount") + skillModList:Sum("BASE", skillCfg, "NormalEnemyHitMultiplier") * skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreNormalEnemyCount")), 1)
+		end
 	end,
 	parts = {
 		{
@@ -2804,6 +2806,7 @@ skills["DivineTempest"] = {
 			name = "Release",
 			area = true,
 			stages = true,
+			channelRelease = true,
 		},
 	},
 	statMap = {
@@ -4073,10 +4076,10 @@ skills["Flameblast"] = {
 	end,
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "FlameblastStage" }),
 		},
 		["flameblast_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStage" }),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
@@ -4093,6 +4096,7 @@ skills["Flameblast"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		channelRelease = true,
 	},
 	baseMods = {
 		skill("radius", 2),
@@ -6197,7 +6201,9 @@ skills["ExpandingFireCone"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+		end
 	end,
 	parts = {
 		{
@@ -6207,6 +6213,7 @@ skills["ExpandingFireCone"] = {
 		{
 			name = "Release",
 			stages = true,
+			channelRelease = true,
 		},
 	},
 	statMap = {
@@ -8218,7 +8225,7 @@ skills["LightningImpurity"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"}),
 	},
 	qualityStats = {
 		Default = {
@@ -8422,6 +8429,7 @@ skills["RaiseSpectre"] = {
 		minion = true,
 		spectre = true,
 		duration = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -8514,6 +8522,7 @@ skills["RaiseZombie"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -10678,6 +10687,7 @@ skills["SummonBoneGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -10770,6 +10780,7 @@ skills["SummonChaosGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -10868,6 +10879,7 @@ skills["SummonRelic"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -10954,6 +10966,7 @@ skills["SummonLightningGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -11403,6 +11416,7 @@ skills["Skitterbots"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("radius", 30),
@@ -11496,7 +11510,7 @@ skills["TempestShield"] = {
 	},
 	baseMods = {
 		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		flag("ShockImmune")
 	},
 	qualityStats = {
 		Default = {

@@ -360,6 +360,9 @@ skills["BloodSacramentUnique"] = {
 	castTime = 0.2,
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
+		if output.LifeReservedPercent >= 100 then
+			return
+		end
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
 		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or math.huge
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
