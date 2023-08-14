@@ -3515,7 +3515,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
-		local function calcAilmentDamage(type, sourceCritChance, sourceHitDmg, sourceCritDmg)
+		local function calcAilmentDamage(type, sourceCritChance, sourceHitDmg, sourceCritDmg, hideFromBreakdown)
 			local chanceOnHit, chanceOnCrit = output[type.."ChanceOnHit"], output[type.."ChanceOnCrit"]
 			-- Use sourceCritChance to factor in chance a critical ailment is present
 			local chanceFromHit = chanceOnHit * (1 - sourceCritChance / 100)
@@ -3526,7 +3526,7 @@ function calcs.offence(env, actor, activeSkill)
 			local baseFromCrit = sourceCritDmg * chanceFromCrit / (chanceFromHit + chanceFromCrit)
 			local baseVal = baseFromHit + baseFromCrit
 			local sourceMult = skillModList:More(cfg, type.."AsThoughDealing")
-			if breakdown and chance ~= 0 then
+			if breakdown and chance ~= 0 and not hideFromBreakdown then
 				local breakdownChance = breakdown[type.."Chance"] or { }
 				breakdown[type.."Chance"] = breakdownChance
 				if breakdownChance[1] then
@@ -3545,7 +3545,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdownChance, s_format("= %.2f", chancePerHit))
 				end
 			end
-			if breakdown and baseVal > 0 then
+			if breakdown and baseVal > 0 and not hideFromBreakdown then
 				local breakdownDPS = breakdown[type.."DPS"] or { }
 				breakdown[type.."DPS"] = breakdownDPS
 				if breakdownDPS[1] then
@@ -3608,7 +3608,7 @@ function calcs.offence(env, actor, activeSkill)
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.bleedCfg or activeSkill.OHbleedCfg
 			checkWeapon1HFlags(dotCfg)
-			local sourceHitDmg, sourceCritDmg
+			local sourceHitDmg, sourceCritDmg, sourceMaxCritDmg, sourceMinHitDmg, sourceMaxHitDmg
 			if breakdown then
 				breakdown.BleedPhysical = { damageTypes = { } }
 			end
@@ -3621,28 +3621,45 @@ function calcs.offence(env, actor, activeSkill)
 			local durationMod = calcLib.mod(skillModList, dotCfg, "EnemyBleedDuration", "EnemyAilmentDuration", "SkillAndDamagingAilmentDuration", skillData.bleedIsSkillEffect and "Duration" or nil) * calcLib.mod(enemyDB, nil, "SelfBleedDuration", "SelfAilmentDuration") / calcLib.mod(enemyDB, dotCfg, "BleedExpireRate")
 			local rateMod = calcLib.mod(skillModList, cfg, "BleedFaster") + enemyDB:Sum("INC", nil, "SelfBleedFaster")  / 100
 			globalOutput.BleedDuration = durationBase * durationMod / rateMod * debuffDurationMult
-			local bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / output.Time * skillData.dpsMultiplier) / maxStacks
+			local bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / (output.HitTime or output.Time) * skillData.dpsMultiplier) / maxStacks
 			local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 			if skillFlags.totem then
-				bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / output.Time * skillData.dpsMultiplier) * activeTotems / maxStacks
+				bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / (output.HitTime or output.Time) * skillData.dpsMultiplier) * activeTotems / maxStacks
 			end
-			bleedStacks = configStacks > 0 and m_min(bleedStacks, configStacks / maxStacks) or bleedStacks
-			globalOutput.BleedStackPotential = bleedStacks
+			bleedStacks = skillModList:Override(nil, "BleedStackPotentialOverride") or configStacks > 0 and m_min(bleedStacks, configStacks / maxStacks) or bleedStacks
+			globalOutput.BleedStackPotential = bleedStacks or 1
 			if globalBreakdown then
 				globalBreakdown.BleedStackPotential = {
-					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
+					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses a Weighted Avg formula"),
 					s_format(""),
-					s_format("%.2f ^8(chance to hit)", output.HitChance / 100),
-					s_format("* (%.2f / %.2f) ^8(BleedDuration / Attack Time)", globalOutput.BleedDuration, output.Time),
 				}
-				if skillData.dpsMultiplier ~= 1 then
-					t_insert(globalBreakdown.BleedStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+				if skillModList:Override(nil, "BleedStackPotentialOverride") then
+					t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential override)", skillModList:Override(nil, "BleedStackPotentialOverride")))
+				else
+					t_insert(globalBreakdown.BleedStackPotential, s_format("%.2f ^8(chance to hit)", output.HitChance / 100))
+					t_insert(globalBreakdown.BleedStackPotential, s_format("* (%.2f / %.2f) ^8(Bleed duration / Attack Time)", globalOutput.BleedDuration, (output.HitTime or output.Time)))
+					if skillData.dpsMultiplier ~= 1 then
+						t_insert(globalBreakdown.BleedStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+					end
+					if skillFlags.totem then
+						t_insert(globalBreakdown.BleedStackPotential, s_format("* %d ^8(active number of Totems)", activeTotems))
+					end
+					t_insert(globalBreakdown.BleedStackPotential,s_format("/ %d ^8(max number of stacks)", maxStacks))
+					t_insert(globalBreakdown.BleedStackPotential,s_format("= %.2f", globalOutput.BleedStackPotential))
 				end
-				if skillFlags.totem then
-					t_insert(globalBreakdown.BleedStackPotential, s_format("* %d ^8(active number of totems)", activeTotems))
-				end
-				t_insert(globalBreakdown.BleedStackPotential,s_format("/ %d ^8(max number of stacks)", maxStacks))
-				t_insert(globalBreakdown.BleedStackPotential,s_format("= %.2f", globalOutput.BleedStackPotential))
+			end
+
+			local bleedRollAverage = bleedStacks / (bleedStacks + 1) * 100
+			globalOutput.BleedRollAverage = bleedRollAverage
+			if globalBreakdown then
+				globalBreakdown.BleedRollAverage = {
+						s_format(colorCodes.CUSTOM.."This is the average roll of a Bleed affecting the enemy if you are constantly attacking"),
+						s_format(colorCodes.CUSTOM.."If attacking constantly, your average strongest bleed currently achieves ^7%.2f%%"..colorCodes.CUSTOM.." of its max damage", bleedRollAverage),
+						s_format(""),
+						s_format("Average Bleed Roll:"),
+						s_format("%.2f / (%.2f + 1) ^8Stack Potential / (Stack Potential + 1)", bleedStacks, bleedStacks),
+						s_format("= %.2f%%", bleedRollAverage),
+					}
 			end
 
 			for sub_pass = 1, 2 do
@@ -3656,10 +3673,13 @@ function calcs.offence(env, actor, activeSkill)
 				output.BleedPhysicalMax = max
 				if sub_pass == 2 then
 					output.CritBleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
-					sourceCritDmg = (min + (max - min) / m_pow(2, 1 / (bleedStacks + 1))) * output.CritBleedDotMulti
+					sourceCritDmg = (max - (max - min) / (bleedStacks + 1)) * output.CritBleedDotMulti
+					sourceMaxCritDmg = max * output.CritBleedDotMulti
 				else
 					output.BleedDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "PhysicalDotMultiplier") / 100
-					sourceHitDmg = (min + (max - min) / m_pow(2, 1 / (bleedStacks + 1))) * output.BleedDotMulti
+					sourceHitDmg = (max - (max - min) / (bleedStacks + 1)) * output.BleedDotMulti
+					sourceMinHitDmg = min * output.BleedDotMulti
+					sourceMaxHitDmg = max * output.BleedDotMulti
 				end
 			end
 			if globalBreakdown then
@@ -3668,8 +3688,8 @@ function calcs.offence(env, actor, activeSkill)
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
 						s_format("Dmg Derivation:"),
-						s_format("(%.2f + (%.2f - %.2f) ^8(min source physical + (max source physical - min source physical)", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin),
-						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", bleedStacks),
+						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin, bleedRollAverage),
+						s_format("^8min source phys + (max source phys - min source phys) * average bleed roll"),
 						s_format("* %.2f ^8(Bleed DoT Multi)", output.BleedDotMulti),
 						s_format("= %.2f", sourceHitDmg),
 					}
@@ -3678,14 +3698,14 @@ function calcs.offence(env, actor, activeSkill)
 						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
 						s_format(""),
 						s_format("Non-Crit Dmg Derivation:"),
-						s_format("(%.2f + (%.2f - %.2f) ^8(min source physical + (max source physical - min source physical)", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin),
-						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", bleedStacks),
+						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin, bleedRollAverage),
+						s_format("^8min source phys + (max source phys - min source phys) * average bleed roll"),
 						s_format("* %.2f ^8(Bleed DoT Multi for Non-Crit)", output.BleedDotMulti),
-						s_format("= %.2f", sourceHitDmg),
+						s_format("= %.0f", sourceHitDmg),
 						s_format(""),
 						s_format("Crit Dmg Derivation:"),
-						s_format("(%.2f + (%.2f - %.2f) ^8(min source physical + (max source physical - min source physical)", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin),
-						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", bleedStacks),
+						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.BleedPhysicalMin, output.BleedPhysicalMax, output.BleedPhysicalMin, bleedRollAverage),
+						s_format("^8min source phys + (max source phys - min source phys) * average bleed roll"),
 						s_format("* %.2f ^8(Bleed DoT Multi for Crit)", output.CritBleedDotMulti),
 						s_format("= %.2f", sourceCritDmg),
 					}
@@ -3695,6 +3715,8 @@ function calcs.offence(env, actor, activeSkill)
 			-- over-stacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, bleedStacks))
 			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowBleedEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMinVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceMinHitDmg, 0, true) * basePercent / 100
+			local baseMaxVal = calcAilmentDamage("Bleed", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * basePercent / 100 * output.RuthlessBlowBleedEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -3719,6 +3741,10 @@ function calcs.offence(env, actor, activeSkill)
 				local chanceToHitInOneSecInterval = 1 - m_pow(1 - (output.HitChance / 100), output.Speed)
 				local BleedDPSUncapped = (baseVal * effectMod * rateMod) * bleedStacks * chanceToHitInOneSecInterval * effMult
 				local BleedDPSCapped = m_min(BleedDPSUncapped, data.misc.DotDpsCap)
+				local MinBleedDPSUncapped = (baseMinVal * effectMod * rateMod) * bleedStacks * chanceToHitInOneSecInterval * effMult
+				local MinBleedDPSCapped = m_min(MinBleedDPSUncapped, data.misc.DotDpsCap)
+				local MaxBleedDPSUncapped = (baseMaxVal * effectMod * rateMod) * bleedStacks * chanceToHitInOneSecInterval * effMult
+				local MaxBleedDPSCapped = m_min(MaxBleedDPSUncapped, data.misc.DotDpsCap)
 				output.BleedDPS = BleedDPSCapped
 				-- reset bleed stacks to actual number doing damage after weighted avg DPS calculation is done
 				globalOutput.BleedStacks = bleedStacks
@@ -3748,7 +3774,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.BleedDPS, s_format("= %.1f", baseVal))
 					if baseVal ~= output.BleedDPS then
 						t_insert(breakdown.BleedDPS, "")
-						t_insert(breakdown.BleedDPS, "Bleed DPS:")
+						t_insert(breakdown.BleedDPS, "Average Bleed DPS:")
 						if baseVal ~= BleedDPSUncapped then
 							t_insert(breakdown.BleedDPS, s_format("%.1f ^8(base damage per second)", baseVal))
 						end
@@ -3769,11 +3795,28 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if output.BleedDPS ~= BleedDPSUncapped then
 							t_insert(breakdown.BleedDPS, s_format("= %.1f ^8(Uncapped raw Bleed DPS)", BleedDPSUncapped))
-							t_insert(breakdown.BleedDPS, s_format("^8(Raw Bleed DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.1f ^8:^7 %.1f%%^8", BleedDPSUncapped - BleedDPSCapped, (BleedDPSUncapped - BleedDPSCapped) / BleedDPSCapped * 100))
+							t_insert(breakdown.BleedDPS, s_format("^8(Raw Bleed DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", BleedDPSUncapped - BleedDPSCapped, (BleedDPSUncapped - BleedDPSCapped) / BleedDPSCapped * 100))
 							t_insert(breakdown.BleedDPS, s_format("= %d ^8(Capped Bleed DPS)", BleedDPSCapped))
 						else
 							t_insert(breakdown.BleedDPS, s_format("= %.1f ^8per second", output.BleedDPS))
 						end
+					end
+					t_insert(breakdown.BleedDPS, s_format("%.2f%% of Maximum Bleed DPS", output.BleedDPS / MaxBleedDPSCapped * 100))
+					t_insert(breakdown.BleedDPS, "")
+					t_insert(breakdown.BleedDPS, "DPS Range:")
+					if MaxBleedDPSCapped == MaxBleedDPSUncapped and MinBleedDPSCapped == MinBleedDPSUncapped then
+						t_insert(breakdown.BleedDPS, s_format("%.0f to %.0f ^8(Bleed DPS Range)", MinBleedDPSUncapped, MaxBleedDPSUncapped))
+					else
+						t_insert(breakdown.BleedDPS, s_format("%.0f to %.0f ^8(Uncapped Bleed DPS Range)", MinBleedDPSUncapped, MaxBleedDPSUncapped))
+					end
+					if MinBleedDPSCapped ~= MinBleedDPSUncapped then
+						t_insert(breakdown.BleedDPS, s_format("^8(Raw Min Bleed DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MinBleedDPSUncapped - MinBleedDPSCapped, (MinBleedDPSUncapped - MinBleedDPSCapped) / MinBleedDPSCapped * 100))
+					end
+					if MaxBleedDPSCapped ~= MaxBleedDPSUncapped then
+						t_insert(breakdown.BleedDPS, s_format("^8(Raw Max Bleed DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MaxBleedDPSUncapped - MaxBleedDPSCapped, (MaxBleedDPSUncapped - MaxBleedDPSCapped) / MaxBleedDPSCapped * 100))
+					end
+					if MaxBleedDPSCapped ~= MaxBleedDPSUncapped or MinBleedDPSCapped ~= MinBleedDPSUncapped then
+						t_insert(breakdown.BleedDPS, s_format("%.0f to %.0f ^8(Capped Bleed DPS Range)", MinBleedDPSCapped, MaxBleedDPSCapped))
 					end
 					if globalOutput.BleedDuration ~= durationBase then
 						globalBreakdown.BleedDuration = {
@@ -3808,7 +3851,7 @@ function calcs.offence(env, actor, activeSkill)
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.poisonCfg or activeSkill.OHpoisonCfg
 			checkWeapon1HFlags(dotCfg)
-			local sourceHitDmg, sourceCritDmg
+			local sourceHitDmg, sourceCritDmg, sourceMaxCritDmg, sourceMinHitDmg, sourceMaxHitDmg
 			if breakdown then
 				breakdown.PoisonPhysical = { damageTypes = { } }
 				breakdown.PoisonLightning = { damageTypes = { } }
@@ -3885,9 +3928,12 @@ function calcs.offence(env, actor, activeSkill)
 				if sub_pass == 2 then
 					output.CritPoisonDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100
 					sourceCritDmg = (totalMin + totalMax) / 2 * output.CritPoisonDotMulti
+					sourceMaxCritDmg = totalMax * output.CritPoisonDotMulti
 				else
 					output.PoisonDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "ChaosDotMultiplier") / 100
 					sourceHitDmg = (totalMin + totalMax) / 2 * output.PoisonDotMulti
+					sourceMinHitDmg = totalMin * output.PoisonDotMulti
+					sourceMaxHitDmg = totalMax * output.PoisonDotMulti
 				end
 			end
 			if globalBreakdown then
@@ -3896,6 +3942,8 @@ function calcs.offence(env, actor, activeSkill)
 				}
 			end
 			local baseVal = calcAilmentDamage("Poison", output.CritChance, sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMinVal = calcAilmentDamage("Poison", output.CritChance, sourceMinHitDmg, 0, true) * data.misc.PoisonPercentBase
+			local baseMaxVal = calcAilmentDamage("Poison", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.poison = true
 				skillFlags.duration = true
@@ -3914,6 +3962,10 @@ function calcs.offence(env, actor, activeSkill)
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				local PoisonDPSUncapped = baseVal * effectMod * rateMod * effMult
 				local PoisonDPSCapped = m_min(PoisonDPSUncapped, data.misc.DotDpsCap)
+				local MinPoisonDPSUncapped = baseMinVal * effectMod * rateMod * effMult
+				local MinPoisonDPSCapped = m_min(MinPoisonDPSUncapped, data.misc.DotDpsCap)
+				local MaxPoisonDPSUncapped = baseMaxVal * effectMod * rateMod* effMult
+				local MaxPoisonDPSCapped = m_min(MaxPoisonDPSUncapped, data.misc.DotDpsCap)
 				output.PoisonDPS = PoisonDPSCapped
 				local groundMult = m_max(skillModList:Max(nil, "PoisonDpsAsCausticGround") or 0, enemyDB:Max(nil, "PoisonDpsAsCausticGround") or 0)
 				if groundMult > 0 then
@@ -3969,11 +4021,28 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if output.PoisonDPS ~= PoisonDPSUncapped then
 							t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8(Uncapped raw Poison DPS)", PoisonDPSUncapped))
-							t_insert(breakdown.PoisonDPS, s_format("^8(Raw Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.1f ^8:^7 %.1f%%^8)", PoisonDPSUncapped - PoisonDPSCapped, (PoisonDPSUncapped - PoisonDPSCapped) / PoisonDPSCapped * 100))
+							t_insert(breakdown.PoisonDPS, s_format("^8(Raw Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", PoisonDPSUncapped - PoisonDPSCapped, (PoisonDPSUncapped - PoisonDPSCapped) / PoisonDPSCapped * 100))
 							t_insert(breakdown.PoisonDPS, s_format("= %d ^8(Capped Poison DPS)", PoisonDPSCapped))
 						else
 							t_insert(breakdown.PoisonDPS, s_format("= %.1f ^8per second", output.PoisonDPS))
 						end
+					end
+					t_insert(breakdown.PoisonDPS, s_format("%.2f%% of Maximum Poison DPS", output.PoisonDPS / MaxPoisonDPSCapped * 100))
+					t_insert(breakdown.PoisonDPS, "")
+					t_insert(breakdown.PoisonDPS, "DPS Range:")
+					if MaxPoisonDPSCapped == MaxPoisonDPSUncapped and MinPoisonDPSCapped == MinPoisonDPSUncapped then
+						t_insert(breakdown.PoisonDPS, s_format("%.0f to %.0f ^8(Poison DPS Range)", MinPoisonDPSUncapped, MaxPoisonDPSUncapped))
+					else
+						t_insert(breakdown.PoisonDPS, s_format("%.0f to %.0f ^8(Uncapped Poison DPS Range)", MinPoisonDPSUncapped, MaxPoisonDPSUncapped))
+					end
+					if MinPoisonDPSCapped ~= MinPoisonDPSUncapped then
+						t_insert(breakdown.PoisonDPS, s_format("^8(Raw Min Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MinPoisonDPSUncapped - MinPoisonDPSCapped, (MinPoisonDPSUncapped - MinPoisonDPSCapped) / MinPoisonDPSCapped * 100))
+					end
+					if MaxPoisonDPSCapped ~= MaxPoisonDPSUncapped then
+						t_insert(breakdown.PoisonDPS, s_format("^8(Raw Max Poison DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MaxPoisonDPSUncapped - MaxPoisonDPSCapped, (MaxPoisonDPSUncapped - MaxPoisonDPSCapped) / MaxPoisonDPSCapped * 100))
+					end
+					if MaxPoisonDPSCapped ~= MaxPoisonDPSUncapped or MinPoisonDPSCapped ~= MinPoisonDPSUncapped then
+						t_insert(breakdown.PoisonDPS, s_format("%.0f to %.0f ^8(Capped Poison DPS Range)", MinPoisonDPSCapped, MaxPoisonDPSCapped))
 					end
 					if globalOutput.PoisonDuration ~= 2 then
 						globalBreakdown.PoisonDuration = {
@@ -4034,7 +4103,7 @@ function calcs.offence(env, actor, activeSkill)
 			}
 			local dotCfg = pass.label ~= "Off Hand" and activeSkill.igniteCfg or activeSkill.OHigniteCfg
 			checkWeapon1HFlags(dotCfg)
-			local sourceHitDmg, sourceCritDmg
+			local sourceHitDmg, sourceCritDmg, sourceMaxCritDmg, sourceMinHitDmg, sourceMaxHitDmg
 			if breakdown then
 				breakdown.IgnitePhysical = { damageTypes = { } }
 				breakdown.IgniteLightning = { damageTypes = { } }
@@ -4058,20 +4127,48 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.IgniteDuration = durationBase * durationMod / rateMod * debuffDurationMult
 			local igniteStacks = 1
 			if not skillData.triggeredOnDeath then
-				igniteStacks = (globalOutput.IgniteDuration / output.Time * skillData.dpsMultiplier) / maxStacks
+				if output.Cooldown then
+					igniteStacks = (globalOutput.IgniteDuration / m_max(output.Cooldown, (output.HitTime or output.Time)) * skillData.dpsMultiplier) / maxStacks
+				else
+					igniteStacks = (globalOutput.IgniteDuration / (globalOutput.HitTime or output.Time) * skillData.dpsMultiplier) / maxStacks
+				end
 			end
+			igniteStacks = skillModList:Override(nil, "IgniteStackPotentialOverride") or igniteStacks or 1
 			globalOutput.IgniteStackPotential = igniteStacks
 			if globalBreakdown then
 				globalBreakdown.IgniteStackPotential = {
-					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
+					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses a Weighted Avg formula"),
 					s_format(""),
-					s_format("(%.2f / %.2f) ^8(IgniteDuration / Cast Time)", globalOutput.IgniteDuration, output.Time)
 				}
-				if skillData.dpsMultiplier ~= 1 then
-					t_insert(globalBreakdown.IgniteStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+				if skillModList:Override(nil, "IgniteStackPotentialOverride") then
+					t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential override)", skillModList:Override(nil, "IgniteStackPotentialOverride")))
+				else
+					if skillData.triggeredOnDeath then
+						t_insert(globalBreakdown.IgniteStackPotential, s_format("1 ^8Cast on Death override"))
+					elseif output.Cooldown then
+						t_insert(globalBreakdown.IgniteStackPotential, s_format("(%.2f / max(%.2f, %.2f) ^8(Ignite Duration / max(Cooldown, Cast Time))", globalOutput.IgniteDuration, output.Cooldown, (output.HitTime or output.Time)))
+					else
+						t_insert(globalBreakdown.IgniteStackPotential, s_format("(%.2f / %.2f) ^8(Ignite Duration / Cast Time)", globalOutput.IgniteDuration, (globalOutput.HitTime or output.Time)))
+					end
+					if skillData.dpsMultiplier ~= 1 then
+						t_insert(globalBreakdown.IgniteStackPotential, s_format("* %g ^8(DPS multiplier for this skill)", skillData.dpsMultiplier))
+					end
+					t_insert(globalBreakdown.IgniteStackPotential, s_format("/ %d ^8(max number of stacks)", maxStacks))
+					t_insert(globalBreakdown.IgniteStackPotential, s_format("= %.2f", globalOutput.IgniteStackPotential))
 				end
-				t_insert(globalBreakdown.IgniteStackPotential, s_format("/ %d ^8(max number of stacks)", maxStacks))
-				t_insert(globalBreakdown.IgniteStackPotential, s_format("= %.2f", globalOutput.IgniteStackPotential))
+			end
+
+			local igniteRollAverage = igniteStacks / (igniteStacks + 1) * 100
+			globalOutput.IgniteRollAverage = igniteRollAverage
+			if globalBreakdown then
+				globalBreakdown.IgniteRollAverage = {
+						s_format(colorCodes.CUSTOM.."This is the average roll of an ignite affecting the enemy if you are constantly attacking"),
+						s_format(colorCodes.CUSTOM.."If attacking constantly, your average strongest Ignite currently achieves ^7%.2f%%"..colorCodes.CUSTOM.." of its max damage", igniteRollAverage),
+						s_format(""),
+						s_format("Average Ignite Roll:"),
+						s_format("%.2f / (%.2f + 1) ^8Stack Potential / (Stack Potential + 1)", igniteStacks, igniteStacks),
+						s_format("= %.2f%%", igniteRollAverage),
+					}
 			end
 
 			for sub_pass = 1, 2 do
@@ -4118,10 +4215,13 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if sub_pass == 2 then
 					output.CritIgniteDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100
-					sourceCritDmg = (totalMin + (totalMax - totalMin) / m_pow(2, 1 / (igniteStacks + 1))) * output.CritIgniteDotMulti
+					sourceCritDmg = (totalMax - (totalMax - totalMin) / (igniteStacks + 1)) * output.CritIgniteDotMulti
+					sourceMaxCritDmg = totalMax * output.CritIgniteDotMulti
 				else
 					output.IgniteDotMulti = 1 + skillModList:Sum("BASE", dotCfg, "DotMultiplier", "FireDotMultiplier") / 100
-					sourceHitDmg = (totalMin + (totalMax - totalMin) / m_pow(2, 1 / (igniteStacks + 1))) * output.IgniteDotMulti
+					sourceHitDmg = (totalMax - (totalMax - totalMin) / (igniteStacks + 1)) * output.IgniteDotMulti
+					sourceMinHitDmg = totalMin * output.IgniteDotMulti
+					sourceMaxHitDmg = totalMax * output.IgniteDotMulti
 				end
 				output.IgniteTotalMin = totalMin
 				output.IgniteTotalMax = totalMax
@@ -4129,27 +4229,23 @@ function calcs.offence(env, actor, activeSkill)
 			if globalBreakdown then
 				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
 					globalBreakdown.IgniteDPS = {
-						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
-						s_format(""),
 						s_format("Dmg Derivation:"),
-						s_format("(%.2f + (%.2f - %.2f) ^8(min combined sources + (max combined sources - min combined sources)", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin),
-						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", igniteStacks),
+						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin, igniteRollAverage),
+						s_format("^8min combined sources + (max combined sources - min combined sources) * average ignite roll"),
 						s_format("* %.2f ^8(Ignite DoT Multi)", output.IgniteDotMulti),
 						s_format("= %.2f", sourceHitDmg),
 					}
 				else
 					globalBreakdown.IgniteDPS = {
-						s_format(colorCodes.CUSTOM.."NOTE: Calculation uses new Weighted Avg Ailment formula"),
-						s_format(""),
 						s_format("Non-Crit Dmg Derivation:"),
-						s_format("(%.2f + (%.2f - %.2f) ^8(min combined sources + (max combined sources - min combined sources)", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin),
-						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", igniteStacks),
+						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin, igniteRollAverage),
+						s_format("^8min combined sources + (max combined sources - min combined sources) * average ignite roll"),
 						s_format("* %.2f ^8(Ignite DoT Multi for Non-Crit)", output.IgniteDotMulti),
 						s_format("= %.2f", sourceHitDmg),
 						s_format(""),
 						s_format("Crit Dmg Derivation:"),
-						s_format("(%.2f + (%.2f - %.2f) ^8(min combined sources + (max combined sources - min combined sources)", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin),
-						s_format("/ 2^(1 / (%.2f + 1))) ^8(/ 2^(1 / (stack potential + 1)))", igniteStacks),
+						s_format("%.0f + (%.0f - %.0f) * %.2f%%", output.IgniteTotalMin, output.IgniteTotalMax, output.IgniteTotalMin, igniteRollAverage),
+						s_format("^8min combined sources + (max combined sources - min combined sources) * average ignite roll"),
 						s_format("* %.2f ^8(Ignite DoT Multi for Crit)", output.CritIgniteDotMulti),
 						s_format("= %.2f", sourceCritDmg),
 					}
@@ -4158,6 +4254,8 @@ function calcs.offence(env, actor, activeSkill)
 			-- over-stacking ignite stacks increases the chance a critical ignite is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, igniteStacks))
 			local baseVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMinVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceMinHitDmg, 0, true) * data.misc.IgnitePercentBase
+			local baseMaxVal = calcAilmentDamage("Ignite", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1
@@ -4187,10 +4285,14 @@ function calcs.offence(env, actor, activeSkill)
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
 				igniteStacks = 1
 				if not skillData.triggeredOnDeath then
-					igniteStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.IgniteDuration / output.Time)
+					igniteStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.IgniteDuration / (globalOutput.HitTime or output.Time))
 				end
 				local IgniteDPSUncapped = baseVal * effectMod * rateMod * igniteStacks * effMult
 				local IgniteDPSCapped = m_min(IgniteDPSUncapped, data.misc.DotDpsCap)
+				local MinIgniteDPSUncapped = baseMinVal * effectMod * rateMod * igniteStacks * effMult
+				local MinIgniteDPSCapped = m_min(MinIgniteDPSUncapped, data.misc.DotDpsCap)
+				local MaxIgniteDPSUncapped = baseMaxVal * effectMod * rateMod * igniteStacks * effMult
+				local MaxIgniteDPSCapped = m_min(MaxIgniteDPSUncapped, data.misc.DotDpsCap)
 				output.IgniteDPS = IgniteDPSCapped
 				local groundMult = m_max(skillModList:Max(nil, "IgniteDpsAsBurningGround") or 0, enemyDB:Max(nil, "IgniteDpsAsBurningGround") or 0)
 				if groundMult > 0 then
@@ -4224,7 +4326,7 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 					if baseVal ~= output.IgniteDPS then
 						t_insert(breakdown.IgniteDPS, "")
-						t_insert(breakdown.IgniteDPS, "Ignite DPS:")
+						t_insert(breakdown.IgniteDPS, "Average Ignite DPS:")
 						if baseVal ~= IgniteDPSUncapped then
 							t_insert(breakdown.IgniteDPS, s_format("%.1f ^8(base damage per second)", baseVal))
 						end
@@ -4242,11 +4344,28 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						if output.IgniteDPS ~= IgniteDPSUncapped then
 							t_insert(breakdown.IgniteDPS, s_format("= %.1f ^8(Uncapped raw Ignite DPS)", IgniteDPSUncapped))
-							t_insert(breakdown.IgniteDPS, s_format("^8(Raw Ignite DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.1f ^8:^7 %.1f%%^8", IgniteDPSUncapped - IgniteDPSCapped, (IgniteDPSUncapped - IgniteDPSCapped) / IgniteDPSCapped * 100))
+							t_insert(breakdown.IgniteDPS, s_format("^8(Raw Ignite DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", IgniteDPSUncapped - IgniteDPSCapped, (IgniteDPSUncapped - IgniteDPSCapped) / IgniteDPSCapped * 100))
 							t_insert(breakdown.IgniteDPS, s_format("= %d ^8(Capped Ignite DPS)", IgniteDPSCapped))
 						else
 							t_insert(breakdown.IgniteDPS, s_format("= %.1f ^8per second", output.IgniteDPS))
 						end
+					end
+					t_insert(breakdown.IgniteDPS, s_format("%.2f%% of Maximum Ignite DPS", output.IgniteDPS / MaxIgniteDPSCapped * 100))
+					t_insert(breakdown.IgniteDPS, "")
+					t_insert(breakdown.IgniteDPS, "DPS Range:")
+					if MaxIgniteDPSCapped == MaxIgniteDPSUncapped and MinIgniteDPSCapped == MinIgniteDPSUncapped then
+						t_insert(breakdown.IgniteDPS, s_format("%.0f to %.0f ^8(Ignite DPS Range)", MinIgniteDPSUncapped, MaxIgniteDPSUncapped))
+					else
+						t_insert(breakdown.IgniteDPS, s_format("%.0f to %.0f ^8(Uncapped Ignite DPS Range)", MinIgniteDPSUncapped, MaxIgniteDPSUncapped))
+					end
+					if MinIgniteDPSCapped ~= MinIgniteDPSUncapped then
+						t_insert(breakdown.IgniteDPS, s_format("^8(Raw Min Ignite DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MinIgniteDPSUncapped - MinIgniteDPSCapped, (MinIgniteDPSUncapped - MinIgniteDPSCapped) / MinIgniteDPSCapped * 100))
+					end
+					if MaxIgniteDPSCapped ~= MaxIgniteDPSUncapped then
+						t_insert(breakdown.IgniteDPS, s_format("^8(Raw Max Ignite DPS is "..colorCodes.NEGATIVE.."overcapped ^8by^7 %.0f ^8:^7 %.1f%%^8)", MaxIgniteDPSUncapped - MaxIgniteDPSCapped, (MaxIgniteDPSUncapped - MaxIgniteDPSCapped) / MaxIgniteDPSCapped * 100))
+					end
+					if MaxIgniteDPSCapped ~= MaxIgniteDPSUncapped or MinIgniteDPSCapped ~= MinIgniteDPSUncapped then
+						t_insert(breakdown.IgniteDPS, s_format("%.0f to %.0f ^8(Capped Ignite DPS Range)", MinIgniteDPSCapped, MaxIgniteDPSCapped))
 					end
 					if output.CritIgniteDotMulti and (output.CritIgniteDotMulti ~= output.IgniteDotMulti) then
 						local chanceFromHit = output.IgniteChanceOnHit / 100 * (1 - globalOutput.CritChance / 100)
