@@ -2351,6 +2351,7 @@ skills["DarkPact"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		chaining = true,
 	},
 	baseMods = {
 		skill("radius", 26),
@@ -2788,6 +2789,13 @@ skills["DivineTempest"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Channel] = true, [SkillType.Lightning] = true, [SkillType.Totemable] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.22,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local skillCfg = activeSkill.skillCfg
+			local skillModList = activeSkill.skillModList
+			activeSkill.skillData.hitTimeMultiplier = math.max(skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreStage") / (1 + skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreUniqueEnemyCount") + skillModList:Sum("BASE", skillCfg, "NormalEnemyHitMultiplier") * skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreNormalEnemyCount")), 1)
+		end
+	end,
 	parts = {
 		{
 			name = "Channelling",
@@ -2797,6 +2805,7 @@ skills["DivineTempest"] = {
 			name = "Release",
 			area = true,
 			stages = true,
+			channelRelease = true,
 		},
 	},
 	statMap = {
@@ -2809,13 +2818,16 @@ skills["DivineTempest"] = {
 		["divine_tempest_ailment_damage_+%_final_per_stage"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
 		},
+		["divine_tempest_stage_on_hitting_normal_magic_%_chance"] = {
+			mod("NormalEnemyHitMultiplier", "BASE", nil),
+			div = 100
+		},
 	},
 	baseFlags = {
 		spell = true,
 		area = true,
 	},
 	baseMods = {
-		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		mod("Multiplier:DivineIreMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 38),
 	},
@@ -4058,12 +4070,15 @@ skills["Flameblast"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Fire] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:FlameblastStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:FlameblastMinimumStage"), 1)
+	end,
 	statMap = {
 		["charged_blast_spell_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "FlameblastStage" }),
 		},
 		["flameblast_ailment_damage_+%_final_per_stack"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "FlameblastStage" }),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
@@ -4080,10 +4095,10 @@ skills["Flameblast"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		channelRelease = true,
 	},
 	baseMods = {
 		skill("radius", 2),
-		skill("showAverage", true),
 		mod("PvpTvalueMultiplier", "MORE", 100, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 	},
 	qualityStats = {
@@ -5588,7 +5603,7 @@ skills["DoomBlast"] = {
 	baseEffectiveness = 3.0564000606537,
 	incrementalEffectiveness = 0.045499999076128,
 	description = "Deals chaos damage to a single enemy, dealing more damage if they are Hexed, then removing the Hex. If the enemy was Hexed, also deals area damage to other enemies around the target, boosting damage and removing Hexes from those enemies in the same way.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Chaos] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Hex] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Chaos] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Hex] = true, [SkillType.AreaSpell] = true, [SkillType.DynamicCooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
@@ -6185,6 +6200,11 @@ skills["ExpandingFireCone"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Totemable] = true, [SkillType.Fire] = true, [SkillType.Channel] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateStage") - activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:IncinerateMinimumStage") - 0.4175, 0.5825) --First stage takes 0.5825x time to channel compared to subsequent stages
+		end
+	end,
 	parts = {
 		{
 			name = "Channelling",
@@ -6193,6 +6213,7 @@ skills["ExpandingFireCone"] = {
 		{
 			name = "Release",
 			stages = true,
+			channelRelease = true,
 		},
 	},
 	statMap = {
@@ -6230,7 +6251,6 @@ skills["ExpandingFireCone"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 25),
 		skill("radiusLabel", "Flame Length:"),
 		skill("radiusSecondary", 20),
@@ -8206,7 +8226,7 @@ skills["LightningImpurity"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
+		flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"}),
 	},
 	qualityStats = {
 		Default = {
@@ -8410,6 +8430,7 @@ skills["RaiseSpectre"] = {
 		minion = true,
 		spectre = true,
 		duration = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -8502,6 +8523,7 @@ skills["RaiseZombie"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -9885,6 +9907,7 @@ skills["ConduitSigil"] = {
 		area = true,
 		duration = true,
 		brand = true,
+		chaining = true,
 	},
 	baseMods = {
 		skill("radius", 9),
@@ -10662,6 +10685,7 @@ skills["SummonBoneGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -10754,6 +10778,7 @@ skills["SummonChaosGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -10852,6 +10877,7 @@ skills["SummonRelic"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -10938,6 +10964,7 @@ skills["SummonLightningGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -11387,6 +11414,7 @@ skills["Skitterbots"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("radius", 30),
@@ -11479,7 +11507,7 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
-		mod("AvoidShock", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		flag("ShockImmune")
 	},
 	qualityStats = {
 		Default = {

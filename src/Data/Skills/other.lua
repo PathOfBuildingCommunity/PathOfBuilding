@@ -359,6 +359,9 @@ skills["BloodSacramentUnique"] = {
 	castTime = 0.2,
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
+		if output.LifeReservedPercent >= 100 then
+			return
+		end
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
 		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or math.huge
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
@@ -3207,7 +3210,7 @@ skills["AvianTornado"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, cooldown = 0.1, storedUses = 1, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["Unhinge"] = {

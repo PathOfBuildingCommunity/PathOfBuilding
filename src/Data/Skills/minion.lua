@@ -1427,7 +1427,7 @@ skills["InfernalLegion"] = {
 		spell = true,
 		area = true,
 	},
-	skillTypes = { },
+	skillTypes = { [SkillType.DamageOverTime] = true, [SkillType.CausesBurning] = true },
 	baseMods = {
 		skill("FireDot", 1, { type = "Multiplier", var = "InfernalLegionBaseDamage" }),
 		skill("dotIsArea", true),

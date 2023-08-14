@@ -306,8 +306,8 @@ return {
 							[2]="#"
 						},
 						[3]={
-							[1]="#",
-							[2]=-1
+							[1]=0,
+							[2]=0
 						}
 					},
 					text="{0} to {1} Fire Damage"
@@ -373,8 +373,8 @@ return {
 							[2]="#"
 						},
 						[3]={
-							[1]="#",
-							[2]=-1
+							[1]=0,
+							[2]=0
 						}
 					},
 					text="{0} to {1} Cold Damage"
@@ -440,8 +440,8 @@ return {
 							[2]="#"
 						},
 						[3]={
-							[1]="#",
-							[2]=-1
+							[1]=0,
+							[2]=0
 						}
 					},
 					text="{0} to {1} Lightning Damage"
@@ -9330,6 +9330,23 @@ return {
 					limit={
 						[1]={
 							[1]="#",
+							[2]=99
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						},
+						[3]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0}% chance to Trigger this Spell when you take {1} total Damage from Hits"
+				},
+				[2]={
+					limit={
+						[1]={
+							[1]=100,
 							[2]="#"
 						},
 						[2]={
@@ -9341,7 +9358,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% chance to Trigger this Spell when you take a total of {1} Damage"
+					text="Trigger this Spell when you take {1} total Damage from Hits"
 				}
 			}
 		},
@@ -36875,11 +36892,20 @@ return {
 					},
 					limit={
 						[1]={
-							[1]="#",
+							[1]=1,
 							[2]="#"
 						}
 					},
 					text="Gain Infusion after Channelling for {0} seconds"
+				},
+				[3]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="Gain Infusion upon Channelling"
 				}
 			}
 		},

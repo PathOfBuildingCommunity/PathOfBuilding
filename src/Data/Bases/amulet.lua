@@ -120,7 +120,7 @@ itemBases["Seaglass Amulet"] = {
 	tags = { not_for_sale = true, atlas_base_type = true, amuletatlas3 = true, amulet = true, default = true, },
 	influenceTags = { shaper = "amulet_shaper", elder = "amulet_elder", adjudicator = "amulet_adjudicator", basilisk = "amulet_basilisk", crusader = "amulet_crusader", eyrie = "amulet_eyrie", cleansing = "amulet_cleansing", tangle = "amulet_tangle" },
 	implicit = "(10-15)% faster start of Energy Shield Recharge",
-	implicitModTypes = { { "energy_shield", "defences" }, },
+	implicitModTypes = { { "defences", "energy_shield" }, },
 	req = { level = 74, },
 }
 itemBases["Astrolabe Amulet"] = {

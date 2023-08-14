@@ -963,7 +963,7 @@ skills["SupportChanceToIgnite"] = {
 			mod("FireDamage", "MORE", nil),
 		},
 		["ignites_apply_fire_resistance_+"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" }),
+			mod("CombustionFireResist", "BASE", nil),
 		},
 	},
 	qualityStats = {
@@ -3289,6 +3289,7 @@ skills["SupportStormBarrier"] = {
 	stats = {
 		"support_storm_barrier_damage_+%_final",
 		"support_storm_barrier_damage_buff_time_threshold_ms",
+		"support_storm_barrier_damage_buff_uses_time_threshold",
 	},
 	levels = {
 		[1] = { 15, 1600, manaMultiplier = 30, levelRequirement = 4, statInterpolation = { 1, 1, }, },
