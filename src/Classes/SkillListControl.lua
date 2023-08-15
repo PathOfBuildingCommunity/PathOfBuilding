@@ -9,9 +9,9 @@ local t_remove = table.remove
 local img_test = NewImageHandle()
 local slot_map = {
 	["Weapon 1"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon.png" },
-	["Offhand 1"] 	= { icon = NewImageHandle(), path = "Assets/icon_offhand.png" },
-	["Weapon 2"] 	= { icon = NewImageHandle(), path = "Assets/icon_weapon_swap.png" },
-	["Offhand 2"] 	= { icon = NewImageHandle(), path = "Assets/icon_offhand_swap.png" },
+	["Weapon 2"] 	= { icon = NewImageHandle(), path = "Assets/icon_offhand.png" },
+	["Weapon 1 Swap"] 	= { icon = NewImageHandle(), path = "Assets/icon_weapon_swap.png" },
+	["Weapon 2 Swap"] 	= { icon = NewImageHandle(), path = "Assets/icon_offhand_swap.png" },
 	["Helmet"] 		= { icon = NewImageHandle(), path = "Assets/icon_helmet.png" },
 	["Body Armour"] 	= { icon = NewImageHandle(), path = "Assets/icon_body_armour.png" },
 	["Gloves"] 		= { icon = NewImageHandle(), path = "Assets/icon_gloves.png" },
