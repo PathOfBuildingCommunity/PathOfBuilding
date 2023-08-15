@@ -6,7 +6,6 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
-local img_test = NewImageHandle()
 local slot_map = {
 	["Weapon 1"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon.png" },
 	["Weapon 2"] 	= { icon = NewImageHandle(), path = "Assets/icon_offhand.png" },
