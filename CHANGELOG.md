@@ -1,6 +1,6 @@
 # Changelog
 
-## [v2.31.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.31.1) (2023/08/15)
+## [v2.31.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.31.1) (2023/08/16)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.31.0...v2.31.1)
 
@@ -8,14 +8,14 @@
 
 ## What's Changed
 ### User Interface
-- Lower contrast of gem select highlight [\#6338](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6338) ([ryuukk](https://github.com/ryuukk))
+- Lower contrast of gem select highlight [\#6338](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6338) ([ryuukk](https://github.com/ryuukk))
 ### Accuracy Improvements
-- Undo incorrect Explosive Arrow change [\#6335](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6335) ([Lilylicious](https://github.com/Lilylicious))
-- Fix Frozen Legion benefiting from exerts [\#6331](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6331) ([Lilylicious](https://github.com/Lilylicious))
-- Fix Combustion debuff not applying when a non-damaging skill precedes a damaging skill [\#6344](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6344) ([Lilylicious](https://github.com/Lilylicious))
-- Fix Blood Sacrament not being capped by Cooldown [\#6351](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6351) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Tree conversion stopping you from allocating some tree nodes [\#6352](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6352) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Mana cost when using 'Wait for max unleash seals' [\#6333](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6333) ([busterw](https://github.com/busterw))
+- Undo incorrect Explosive Arrow change [\#6335](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6335) ([Lilylicious](https://github.com/Lilylicious))
+- Fix Frozen Legion benefiting from exerts [\#6331](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6331) ([Lilylicious](https://github.com/Lilylicious))
+- Fix Combustion debuff not applying when a non-damaging skill precedes a damaging skill [\#6344](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6344) ([Lilylicious](https://github.com/Lilylicious))
+- Fix Blood Sacrament not being capped by Cooldown [\#6351](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6351) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Tree conversion stopping you from allocating some tree nodes [\#6352](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6352) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Mana cost when using 'Wait for max unleash seals' [\#6333](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6333) ([busterw](https://github.com/busterw))
 
 
 ## [v2.31.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.31.0) (2023/08/15)

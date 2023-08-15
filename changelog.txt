@@ -1,7 +1,8 @@
-VERSION[2.31.1][2023/08/15]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.31.1][2023/08/16]
 
+--- User Interface ---
 * Lower contrast of gem select highlight (ryuukk)
+
 --- Accuracy Improvements ---
 * Undo incorrect Explosive Arrow change (Lilylicious)
 * Fix Frozen Legion benefiting from exerts (Lilylicious)
