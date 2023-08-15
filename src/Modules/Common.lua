@@ -697,7 +697,14 @@ function cacheSkillUUID(skill)
 			end
 		end
 	end
-	return strName.."_"..strSlotName.."_"..tostring(indx)
+
+	local uuid = strName.."_"..strSlotName.."_"..tostring(indx)
+
+	-- Add supports in case there are two groups with the same main skill but different supports and therefore stats
+	for _, support in ipairs(skill.supportList) do
+		uuid = uuid .. "_" .. support.grantedEffect.id
+	end
+	return uuid
 end
 
 -- Global Cache related
