@@ -1,3 +1,16 @@
+VERSION[2.31.1][2023/08/16]
+
+--- User Interface ---
+* Lower contrast of gem select highlight (ryuukk)
+
+--- Accuracy Improvements ---
+* Undo incorrect Explosive Arrow change (Lilylicious)
+* Fix Frozen Legion benefiting from exerts (Lilylicious)
+* Fix Combustion debuff not applying when a non-damaging skill precedes a damaging skill (Lilylicious)
+* Fix Blood Sacrament not being capped by Cooldown (LocalIdentity)
+* Fix Tree conversion stopping you from allocating some tree nodes (LocalIdentity)
+* Fix Mana cost when using 'Wait for max unleash seals' (busterw)
+
 BETA VERSION[2.31.0][2023/08/15]
 --- Implemented Enhancements ---
 * Support for triggered skills has been reworked.
