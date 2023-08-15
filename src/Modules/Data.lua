@@ -143,6 +143,17 @@ data.setJewelRadiiGlobally = function(treeVersion)
 	else
 		data.jewelRadius = data.jewelRadii["3_16"]
 	end
+
+	local maxJewelRadius = 0
+	for _, radiusInfo in ipairs(data.jewelRadius) do
+		radiusInfo.outerSquared = radiusInfo.outer * radiusInfo.outer
+		radiusInfo.innerSquared = radiusInfo.inner * radiusInfo.inner
+
+		if radiusInfo.outer > maxJewelRadius then
+			maxJewelRadius = radiusInfo.outer
+		end
+	end
+	data.maxJewelRadius = maxJewelRadius
 end
 
 data.jewelRadii = {
@@ -469,7 +480,6 @@ data.misc = { -- magic numbers
 	PoisonDurationBase = 2,
 	IgnitePercentBase = 0.9,
 	IgniteDurationBase = 4,
-	IgniteMinDuration = 0.3,
 	ImpaleStoredDamageBase = 0.1,
 	BuffExpirationSlowCap = 0.25,
 	TrapTriggerRadiusBase = 10,
