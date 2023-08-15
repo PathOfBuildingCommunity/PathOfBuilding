@@ -272,7 +272,7 @@ function ListClass:Draw(viewPort, noTooltip)
 			if icon == nil then
 				DrawString(colOffset, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 			else
-				DrawString(colOffset + 16, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
+				DrawString(colOffset + 16 + 2, lineY + textOffsetY, "LEFT", textHeight, colFont, text)
 				DrawImage(icon, colOffset, lineY + 1, 16, 16)
 			end
 		end
