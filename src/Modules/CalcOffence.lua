@@ -2022,7 +2022,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.Speed = output.Speed * totemActionSpeed
 				output.CastRate = output.Speed
 			end
-			if output.Cooldown and not activeSkill.skillTypes[SkillType.Channel] then
+			if output.Cooldown then
 				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
 			end
 			if output.Cooldown and skillFlags.selfCast then
@@ -2187,7 +2187,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		if env.mode_buffs then
 			-- Iterative over all the active skills to account for exerted attacks provided by warcries
-			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Triggered] and not activeSkill.skillTypes[SkillType.Channel] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
+			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Triggered] and not activeSkill.skillTypes[SkillType.Channel] and not activeSkill.skillTypes[SkillType.OtherThingUsesSkill] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.grantedEffect.name == "Ancestral Cry" and activeSkill.skillTypes[SkillType.MeleeSingleTarget] and not globalOutput.AncestralCryCalculated then
 						globalOutput.AncestralCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -4919,7 +4919,7 @@ function calcs.offence(env, actor, activeSkill)
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.TotemPlacementSpeed > 0 and output.TotemPlacementSpeed or 1 / output.Cooldown) or output.TotemPlacementSpeed) / repeats
 				timeType = "totem placement"
 			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
-				useSpeed = 1 / env.player.mainSkill.skillData.hitTimeOverride / repeats
+				useSpeed = env.player.mainSkill.skillData.hitTimeOverride / repeats
 				timeType = "full unleash"
 			else
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.Speed > 0 and output.Speed or 1 / output.Cooldown) or output.Speed) / repeats
