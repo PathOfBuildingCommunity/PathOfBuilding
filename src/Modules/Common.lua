@@ -698,13 +698,23 @@ function cacheSkillUUID(skill)
 		end
 	end
 
-	local uuid = strName.."_"..strSlotName.."_"..tostring(indx)
+	local uuid = {
+		strName,
+		skill.activeEffect.level or -1,
+		skill.activeEffect.quality or -1,
+		(skill.activeEffect.qualityId or "Default"),
+		strSlotName,
+		indx,
+	}
 
 	-- Add supports in case there are two groups with the same main skill but different supports and therefore stats
 	for _, support in ipairs(skill.supportList) do
-		uuid = uuid .. "_" .. support.grantedEffect.id
+		t_insert(uuid, support.grantedEffect.id)
+		t_insert(uuid, support.level or -1)
+		t_insert(uuid, support.quality)
+		t_insert(uuid, support.quality or "Default")
 	end
-	return uuid
+	return table.concat(uuid, "_")
 end
 
 -- Global Cache related
