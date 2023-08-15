@@ -1436,7 +1436,8 @@ local configTable = {
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
 	["Trigger Craft"] = function(env)
-		local trigRate, source, uuid, useCastRate, triggeredSkills = {}
+		local trigRate, source, uuid, useCastRate, triggeredSkills
+		triggeredSkills = {}
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or  skill.skillTypes[SkillType.Triggered]
 			if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft and not skill.activeEffect.grantedEffect.fromItem and not triggered then
