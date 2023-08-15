@@ -2247,7 +2247,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		--Handle combustion
-		if activeSkill.skillTypes[SkillType.Damage] and not appliedCombustion then
+		if (activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Attack]) and not appliedCombustion then
 			for _, support in ipairs(activeSkill.supportList) do
 				if support.grantedEffect.name == "Combustion" then
 					if not activeSkill.skillModList:Flag(activeSkill.skillCfg, "CannotIgnite") then
