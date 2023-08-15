@@ -6,6 +6,21 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
+local img_test = NewImageHandle()
+local slot_map = {
+	["Weapon 1"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon.png" },
+	["Offhand 1"] 	= { icon = NewImageHandle(), path = "Assets/icon_offhand.png" },
+	["Weapon 2"] 	= { icon = NewImageHandle(), path = "Assets/icon_weapon_swap.png" },
+	["Offhand 2"] 	= { icon = NewImageHandle(), path = "Assets/icon_offhand_swap.png" },
+	["Helmet"] 		= { icon = NewImageHandle(), path = "Assets/icon_helmet.png" },
+	["Body Armour"] 	= { icon = NewImageHandle(), path = "Assets/icon_body_armour.png" },
+	["Gloves"] 		= { icon = NewImageHandle(), path = "Assets/icon_gloves.png" },
+	["Boots"] 		= { icon = NewImageHandle(), path = "Assets/icon_boots.png" },
+	["Amulet"] 		= { icon = NewImageHandle(), path = "Assets/icon_amulet.png" },
+	["Ring"] 		= { icon = NewImageHandle(), path = "Assets/icon_ring_left.png" },
+	["Ring2"] 		= { icon = NewImageHandle(), path = "Assets/icon_ring_right.png" },
+	["Belt"] 		= { icon = NewImageHandle(), path = "Assets/icon_belt.png" },
+}
 
 local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.socketGroupList)
@@ -44,6 +59,9 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 		skillsTab.build.buildFlag = true
 		return skillsTab.gemSlots[1].nameSpec
 	end)
+	for k, x in pairs(slot_map) do
+		x.icon:Load(x.path)
+	end
 end)
 
 function SkillListClass:GetRowValue(column, index, socketGroup)
@@ -175,6 +193,33 @@ function SkillListClass:OnHoverKeyUp(key)
 			end
 			self.skillsTab:AddUndoState()
 			self.skillsTab.build.buildFlag = true
+		end
+	end
+end
+
+
+function SkillListClass:Draw(viewPort)
+	self.ListControl.Draw(self, viewPort)
+end
+
+function SkillListClass:GetRowIcon(column, index, socketGroup)
+	if column == 1 then
+		local slot = socketGroup.slot or nil
+		local color = "^7"
+		local currentMainSkill = self.skillsTab.build.mainSocketGroup == index
+		local disabled = not socketGroup.enabled or not socketGroup.slotEnabled
+		if disabled then
+			-- local colour = currentMainSkill and "" or "^x7F7F7F"
+			-- label = colour .. label .. " (Disabled)"
+		end
+		if currentMainSkill then 
+			-- local activeLabel = disabled and " (Forced Active)" or " (Active)"
+			-- label = label .. colorCodes.RELIC .. activeLabel
+		end
+		if slot_map[slot] then
+			return slot_map[slot].icon
+		else
+			return nil
 		end
 	end
 end
