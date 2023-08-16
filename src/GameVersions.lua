@@ -103,7 +103,7 @@ treeVersions = {
 	["3_22_ruthless"] = {
 		display = "3.22 (ruthless)",
 		num = 3.22,
-		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/3.22.0/",
+		url = "https://www.pathofexile.com/passive-skill-tree/ruthless/",
 	},
 	["3_22"] = {
 		display = "3.22",
