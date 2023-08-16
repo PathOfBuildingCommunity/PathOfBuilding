@@ -380,7 +380,7 @@ function TreeTabClass:SetActiveSpec(specId)
 			end
 		end
 	end
-	self.showConvert = curSpec.treeVersion ~= latestTreeVersion
+	self.showConvert = not curSpec.treeVersion:match("^" .. latestTreeVersion)
 	if self.build.itemsTab.itemOrderList[1] then
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()
