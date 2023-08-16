@@ -393,6 +393,10 @@ function TreeTabClass:SetActiveSpec(specId)
 	end
 	-- Update the passive tree dropdown control in itemsTab
 	self.build.itemsTab.controls.specSelect.selIndex = specId
+	-- Update Version dropdown to active spec's
+	if self.controls.versionSelect then
+		self.controls.versionSelect:SelByValue(curSpec.treeVersion:gsub("%_", "."))
+	end
 end
 
 function TreeTabClass:SetCompareSpec(specId)
