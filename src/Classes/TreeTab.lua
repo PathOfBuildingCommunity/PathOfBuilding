@@ -196,9 +196,14 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
 	end
-	local convertButtonLabel = "^2Convert to "..treeVersions[latestTreeVersion].display
-	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", convertButtonLabel) + 20 end, 20, convertButtonLabel, function()
-		convertToVersion(latestTreeVersion)
+	local function getLatestTreeVersion()
+		return latestTreeVersion .. (self.specList[self.activeSpec].treeVersion:match("^" .. latestTreeVersion .. "(.*)") or "")
+	end
+	local function buildConvertButtonLabel()
+		return "^2Convert to "..treeVersions[getLatestTreeVersion()].display
+	end
+	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", buildConvertButtonLabel()) + 20 end, 20, buildConvertButtonLabel, function()
+		convertToVersion(getLatestTreeVersion())
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
@@ -496,7 +501,8 @@ function TreeTabClass:OpenImportPopup()
 		else
 			-- EG: https://www.pathofexile.com/passive-skill-tree/3.15.0/AAAABgMADI6-HwKSwQQHLJwtH9-wTLNfKoP3ES3r5AAA
 			-- EG: https://www.pathofexile.com/fullscreen-passive-skill-tree/3.15.0/AAAABgMADAQHES0fAiycLR9Ms18qg_eOvpLB37Dr5AAA
-			decodeTreeLink(treeLink, validateTreeVersion(treeLink:match(versionLookup)))
+			-- EG: https://www.pathofexile.com/passive-skill-tree/ruthless/AAAABgAAAAAA (Ruthless doesn't have versions)
+			decodeTreeLink(treeLink, treeLink:match("tree/ruthless") and (latestTreeVersion .. "_ruthless") or validateTreeVersion(treeLink:match(versionLookup)))
 		end
 	end)
 	controls.cancel = new("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
