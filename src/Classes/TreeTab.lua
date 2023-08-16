@@ -132,15 +132,12 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end
 	self.treeVersions = { }
 	for _, num in ipairs(treeVersionList) do
-		if not num:find("^2") then
-			local vers = num:gsub("%_", ".")
-			t_insert(self.treeVersions, vers)
-		end
+		t_insert(self.treeVersions, treeVersions[num].display)
 	end
 	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, 0, 16, "Version:")
-	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 55, 20, self.treeVersions, function(index, value)
+	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
 		if value ~= self.build.spec.treeVersion then
-			convertToVersion(value:gsub("%.", "_"))
+			convertToVersion(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"))
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
@@ -199,7 +196,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
 	end
-	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
+	local convertButtonLabel = "^2Convert to "..treeVersions[latestTreeVersion].display
+	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", convertButtonLabel) + 20 end, 20, convertButtonLabel, function()
 		convertToVersion(latestTreeVersion)
 	end)
 	self.jumpToNode = false
@@ -232,15 +230,15 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
 	local twoLineHeight = 24
-	if viewPort.width >= 1168 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
+	if viewPort.width >= 1336 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
 		twoLineHeight = 0
-		self.controls.findTimelessJewel:SetAnchor("LEFT", self.controls.treeSearch, "RIGHT", 8, 0)
+		self.controls.treeSearch:SetAnchor("LEFT", self.controls.versionSelect, "RIGHT", 8, 0)
 		if self.controls.powerReportList then
 			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, self.controls.specSelect.height + 4)
 			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", 8, 0)
 		end
 	else
-		self.controls.findTimelessJewel:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, 4)
+		self.controls.treeSearch:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, 4)
 		if self.controls.powerReportList then
 			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.findTimelessJewel, "BOTTOMLEFT", 0, self.controls.treeHeatMap.y + self.controls.treeHeatMap.height + 4)
 			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", -76, -44)
