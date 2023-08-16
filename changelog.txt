@@ -1,3 +1,9 @@
+VERSION[2.31.2][2023/08/16]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix issue when importing characters by @Wires77
+* Fix typo with Ignite Stack Potential Override by @Wires77
+
 VERSION[2.31.1][2023/08/16]
 
 --- User Interface ---

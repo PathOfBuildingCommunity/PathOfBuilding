@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.31.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.31.2) (2023/08/16)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.31.1...v2.31.2)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+* Fix issue when importing characters by @Wires77
+* Fix typo with Ignite Stack Potential Override by @Wires77
+
+
 ## [v2.31.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.31.1) (2023/08/16)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.31.0...v2.31.1)
