@@ -4082,7 +4082,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format(""),
 				}
 				if skillModList:Override(nil, "IgniteStackPotentialOverride") then
-					t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential override)", skillModList:Override(nil, "IgniteStackPotentialOverride")))
+					t_insert(globalBreakdown.IgniteStackPotential, s_format("= %g ^8(stack potential override)", skillModList:Override(nil, "IgniteStackPotentialOverride")))
 				else
 					if skillData.triggeredOnDeath then
 						t_insert(globalBreakdown.IgniteStackPotential, s_format("1 ^8Cast on Death override"))
