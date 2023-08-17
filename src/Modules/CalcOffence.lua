@@ -4280,9 +4280,8 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 				local effectMod = calcLib.mod(skillModList, dotCfg, "AilmentEffect")
-				igniteStacks = 1
 				if not skillData.triggeredOnDeath then
-					igniteStacks = m_min(maxStacks, (output.HitChance / 100) * globalOutput.IgniteDuration / (globalOutput.HitTime or output.Time))
+					igniteStacks = m_min(maxStacks, igniteStacks)
 				end
 				local IgniteDPSUncapped = baseVal * effectMod * rateMod * igniteStacks * effMult
 				local IgniteDPSCapped = m_min(IgniteDPSUncapped, data.misc.DotDpsCap)
@@ -4333,9 +4332,7 @@ function calcs.offence(env, actor, activeSkill)
 						if rateMod ~= 1 then
 							t_insert(breakdown.IgniteDPS, s_format("x %.2f ^8(burn rate modifier)", rateMod))
 						end
-						if skillFlags.igniteCanStack then
-							t_insert(breakdown.IgniteDPS, s_format("x %d ^8(ignite stacks)", output.IgniteStacksMax))
-						end
+						t_insert(breakdown.IgniteDPS, s_format("x %.2f ^8(ignite uptime, not more than max stacks)", igniteStacks))
 						if effMult ~= 1 then
 							t_insert(breakdown.IgniteDPS, s_format("x %.3f ^8(effective DPS modifier from enemy debuffs)", effMult))
 						end
