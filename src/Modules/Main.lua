@@ -1019,7 +1019,7 @@ function main:OpenAboutPopup(helpSectionIndex)
 								t_insert(helpList, { height = textSize, "^7"..outdent, "^7"..indent })
 							end
 						else
-							local Lines = self:WrapString(line, textSize, popupWidth - 110)
+							local Lines = self:WrapString(line, textSize, popupWidth - 135)
 							for i, line2 in ipairs(Lines) do
 								t_insert(helpList, { height = textSize, "^7"..(i > 1 and "    " or "")..line2 })
 							end
@@ -1071,7 +1071,7 @@ function main:OpenAboutPopup(helpSectionIndex)
 		controls.changelog.list = helpList
 		controls.changelog.sectionHeights = helpSectionHeights
 	end)
-	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, helpSectionIndex and helpList or changeList, helpSectionIndex and helpSectionHeights or changeVersionHeights)
+	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 135, align = "LEFT" }}, helpSectionIndex and helpList or changeList, helpSectionIndex and helpSectionHeights or changeVersionHeights)
 	if helpSectionIndex then
 		controls.changelog.controls.scrollBar.offset = helpSections[helpSectionIndex].height * textSize
 	end

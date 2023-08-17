@@ -1,6 +1,7 @@
 ---[Help File Introduction]
 
 This file contains a list of shortcuts, and other misc information about PoB functionality
+While holding shift scroll bars in help section and version history will jump to the previous/next section while scrolling
 
 ---[Contents]
 
@@ -42,6 +43,7 @@ Mouse 4/5	Undo / Redo path respectively (in build selection menu)
 Shift	While scrolling on a slider makes it 5* times faster
 Ctrl	While scrolling on a slider makes it 5* times slower
 * default of 5, some scroll bars have more or less extreme modifiers to scroll speed
+  and scroll bars in help section and version history will jump to the previous/next section
 
 When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot
     and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
