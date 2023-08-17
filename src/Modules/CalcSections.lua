@@ -493,7 +493,7 @@ return {
 	{ label = "Adj. Trigger Rate", flag = "triggered", { format = "{2:output:ServerTriggerRate}",  { breakdown = "ServerTriggerRate" }, }, },
 	{ label = "Eff. Trigger Rate", flag = "triggered", notFlag = "noDisplay", { format = "{2:output:Speed}", { breakdown = "Speed" }, }, },
 	{ label = "Cast time", flag = "spell", notFlag = "triggered", { format = "{2:output:Time}s", }, },
-	{ label = "Channel time", haveOutput = "HitTime", { format = "{2:output:HitTime}s", { breakdown = "HitTime" } }, },
+	{ label = "Channel time", flag = "channelRelease", haveOutput = "HitTime", { format = "{2:output:HitTime}s", { breakdown = "HitTime" } }, },
 	{ label = "Hit Rate", haveOutput = "HitSpeed", { format = "{2:output:HitSpeed}", { breakdown = "HitSpeed" } }, },
 } }
 } },
