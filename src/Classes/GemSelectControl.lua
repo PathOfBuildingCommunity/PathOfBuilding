@@ -381,7 +381,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		for index = minIndex, maxIndex do
 			local y = (index - 1) * (height - 4) - scrollBar.offset
 			if index == self.hoverSel or index == self.selIndex or (index == 1 and self.selIndex == 0) then
-				SetDrawColor(0.2, 0.2, 0.2)
+				SetDrawColor(0.15, 0.15, 0.15)
 				DrawImage(nil, 0, y, width - 4, height - 4)
 			end
 			SetDrawColor(1, 1, 1)
