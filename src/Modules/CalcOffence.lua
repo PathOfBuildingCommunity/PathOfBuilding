@@ -530,13 +530,13 @@ function calcs.offence(env, actor, activeSkill)
 	if skillModList:Flag(nil, "Spellblade") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] and weapon1info.melee and weapon1info.oneHand then
 		local multiplier = (skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpells") or 100) / 100 * (weapon2info and 0.6 or 1)
 		for _, damageType in ipairs(dmgTypeList) do
-			skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData1[damageType.."Min"] or 0) * multiplier, "Spellblade", ModFlag.Spell)
-			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Spellblade", ModFlag.Spell)
+			skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData1[damageType.."Min"] or 0) * multiplier, "Spellblade Main Hand", ModFlag.Spell)
+			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Spellblade Main Hand", ModFlag.Spell)
 		end
 		if weapon2info then
 			for _, damageType in ipairs(dmgTypeList) do
-				skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData2[damageType.."Min"] or 0) * multiplier, "Spellblade", ModFlag.Spell)
-				skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData2[damageType.."Max"] or 0) * multiplier, "Spellblade", ModFlag.Spell)
+				skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData2[damageType.."Min"] or 0) * multiplier, "Spellblade Off Hand", ModFlag.Spell)
+				skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData2[damageType.."Max"] or 0) * multiplier, "Spellblade Off Hand", ModFlag.Spell)
 			end
 		end
 	end
