@@ -127,7 +127,7 @@ Your curses will take priority over a support's
 For now Enemy conditions and Modifiers are not exported but can be imported if its saved in the XML, and Links skills are not exported or parsed
 Some auras like Mines which use a stack value for their effect will not apply as their stack value is missing
 
----[Items Tab][8]
+---[Items Tab]
 
 The Item Tab in Path of Building allows you to plan out the gear you will use for your character. To access the Item Tab, click on the "Items" tab located at the top of the screen.
 
