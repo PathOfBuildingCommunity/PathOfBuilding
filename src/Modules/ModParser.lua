@@ -5266,10 +5266,6 @@ local function parseMod(line, order)
 		preFlag = preFlag(unpack(preFlagCap))
 	end
 
-	if lineLower:match("enemies' fire resistance is 0%%") then
-		local x = 1
-	end
-
 	-- Check for skill name at the start of the line
 	local skillTag
 	skillTag, line = scan(line, preSkillNameList)
