@@ -2389,7 +2389,13 @@ local specialModList = {
 	["if you've cast a spell recently, you and nearby allies have %+(%d+)%% chance to block spell damage"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("SpellBlockChance", "BASE", num) }, { type = "Condition", var = "CastSpellRecently" }) } end,
 	["while there is at least one nearby ally, you and nearby allies deal (%d+)%% more damage"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("Damage", "MORE", num) }, { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 1 }) } end,
 	["while there are at least five nearby allies, you and nearby allies have onslaught"] = { mod("ExtraAura", "LIST", { mod = flag("Onslaught") }, { type = "MultiplierThreshold", var = "NearbyAlly", threshold = 5 }) },
-	["enemies in your link beams cannot apply elemental ailments"] = { mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }, { type = "GlobalEffect", effectType = "Global", unscalable = true })},
+	["enemies in your link beams cannot apply elemental ailments"] = function()
+		local mods = {}
+		for _, ailmentType in ipairs(data.elementalAilmentTypeList) do
+			t_insert(mods, flag(ailmentType.."Immune", { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }))
+		end
+		return mods
+	end,
 	["(%d+)%% of damage from hits is taken from your sentinel of radiance's life before you"] = function(num) return { mod("takenFromRadianceSentinelBeforeYou", "BASE", num) } end,
 	-- Hierophant
 	["you and your totems regenerate ([%d%.]+)%% of life per second for each summoned totem"] = function (num) return {
