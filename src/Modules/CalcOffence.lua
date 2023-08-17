@@ -2084,11 +2084,11 @@ function calcs.offence(env, actor, activeSkill)
 				output.HitSpeed = 1 / output.HitTime
 			end
 		end
-		-- Other Misc DPS multipliers (like custom source)
-		skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", cfg, "DPS") / 100 ) * skillModList:More(cfg, "DPS")
-		if env.configInput.repeatMode == "FINAL" or skillModList:Flag(nil, "OnlyFinalRepeat") then
-			skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
-		end
+	end
+	-- Other Misc DPS multipliers (like custom source)
+	skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", cfg, "DPS") / 100 ) * skillModList:More(cfg, "DPS")
+	if env.configInput.repeatMode == "FINAL" or skillModList:Flag(nil, "OnlyFinalRepeat") then
+		skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
 	end
 	if skillModList:Flag(nil, "TriggeredBySnipe") then
 		skillFlags.channelRelease = true
