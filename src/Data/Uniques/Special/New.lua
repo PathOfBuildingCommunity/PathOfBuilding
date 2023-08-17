@@ -35,6 +35,13 @@ Attacks cannot Hit you
 Attacks against you always Hit
 Your Damage with Hits is Lucky
 Damage of Hits against you is Lucky
+]],[[
+Maata's Teaching
+Karui Sceptre
++37 to Intelligence
+42% increased Critical Strike Chance
++2 to Level of all Minion Skill Gems
+Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon"
 ]],
 -- Reworked
 
