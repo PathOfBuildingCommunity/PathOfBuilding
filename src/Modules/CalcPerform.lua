@@ -2075,7 +2075,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			modDB:NewMod("WitherEffectStack", "MAX", effect)
 		end
 		--Handle combustion
-		if activeSkill.activeEffect.grantedEffect.name ~= "Arcanist Brand" and not appliedCombustion then
+		if (activeSkill.skillTypes[SkillType.Damage] or activeSkill.skillTypes[SkillType.Attack]) and not appliedCombustion then
 			for _, support in ipairs(activeSkill.supportList) do
 				if support.grantedEffect.name == "Combustion" then
 					if not activeSkill.skillModList:Flag(activeSkill.skillCfg, "CannotIgnite") then
@@ -3731,6 +3731,90 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		end
 	end
 
+	-- Snipe Support
+	if env.player.mainSkill.skillData.triggeredBySnipe or env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" and not env.player.mainSkill.skillFlags.minion then
+		local triggerName = "Snipe"
+		local snipeStages = math.min(env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStage"), env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax")) - 0.5 --First stage takes 0.5x time to channel compared to subsequent stages
+		local maxSnipeStages = env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax") - 0.5
+		if env.player.mainSkill.marked then
+			if env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" then
+				local snipeHitMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeHitMulti")
+				local snipeAilmentMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeAilmentMulti")
+				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * (maxSnipeStages + 0.5), "Snipe", ModFlag.Hit, 0)
+				env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti * (maxSnipeStages + 0.5), "Snipe", ModFlag.Ailment, 0)
+				env.player.mainSkill.skillData.hitTimeMultiplier = maxSnipeStages
+			else
+				snipeStages = 0 --Triggered skills cannot be channeled by Mirage Archer
+			end
+		else
+			local snipeHitMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeHitMulti")
+			local snipeAilmentMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeAilmentMulti")
+			env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeHitMulti * (snipeStages + 0.5), "Snipe", ModFlag.Hit, 0)
+			env.player.mainSkill.skillModList:NewMod("Damage", "MORE", snipeAilmentMulti * (snipeStages + 0.5), "Snipe", ModFlag.Ailment, 0)
+		end
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" and env.player.mainSkill.marked then
+			env.player.mainSkill.skillData.hitTimeMultiplier = env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax") - 0.5
+		end
+		local triggerSkillCount = 0
+		local triggerSkillPosition = 1
+		local posFound = false
+		local trigRate = 0
+		local source = nil
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.activeEffect.grantedEffect.name == "Snipe" and env.player.mainSkill.activeEffect.grantedEffect.name ~= "Snipe" and skill ~= env.player.mainSkill and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
+				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
+			end
+			if skill.skillData.triggeredBySnipe and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
+				triggerSkillCount = triggerSkillCount + 1
+				if skill ~= env.player.mainSkill and not posFound then
+					triggerSkillPosition = triggerSkillPosition + 1
+				else
+					posFound = true
+				end
+			end
+		end
+		if env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" then
+			if triggerSkillCount > 0 then
+				env.player.mainSkill.skillData.baseMultiplier = 0
+				env.player.mainSkill.infoMessage = "Triggering Support Skills:"
+			end
+			env.player.mainSkill.skillData.hitTimeMultiplier = snipeStages
+		elseif not source or (snipeStages + 0.5) < triggerSkillPosition then
+			env.player.mainSkill.skillData.triggeredBySnipe = nil
+			env.player.mainSkill.infoMessage = s_format("Not enough Snipe stages to Trigger Skill")
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"..triggerSkillCount
+			env.player.mainSkill.infoTrigger = ""
+		else
+			env.player.mainSkill.skillData.triggered = true
+
+			local uuid = cacheSkillUUID(source)
+			local sourceTime = GlobalCache.cachedData["CACHE"][uuid].Speed
+
+			output.ActionTriggerRate = getTriggerActionTriggerRate(env.player.mainSkill.skillData.cooldown, env, breakdown)
+			output.SourceTriggerRate = sourceTime
+			output.ServerTriggerRate = m_min(output.SourceTriggerRate, output.ActionTriggerRate)
+
+			if breakdown then
+				breakdown.SimData = {
+					s_format("Trigger rate:"),
+					s_format("1 / %.2f ^8(Snipe channel time)", snipeStages / sourceTime),
+					s_format("= %.2f ^8per second", output.SourceTriggerRate),
+				}
+				breakdown.ServerTriggerRate = {
+					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", output.ServerTriggerRate),
+				}
+			end
+
+			-- Account for Trigger-related INC/MORE modifiers
+			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.mainSkill.skillData.triggerRate = sourceTime
+			env.player.mainSkill.skillData.triggerSource = source
+			env.player.mainSkill.skillData.hitTimeMultiplier = snipeStages
+			env.player.mainSkill.infoMessage = "Triggered by Snipe"
+			env.player.mainSkill.infoTrigger = triggerName
+			env.player.mainSkill.skillFlags.noDisplay = true
+		end
+	end
 
 	-- Doom Blast (from Impending Doom)
 	if env.player.mainSkill.skillData.triggeredWhenHexEnds and not env.player.mainSkill.skillFlags.minion then
