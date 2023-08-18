@@ -3670,7 +3670,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				env.player.mainSkill.skillData.baseMultiplier = 0
 				env.player.mainSkill.infoMessage = "Triggering Support Skills:"
 			end
-			env.player.mainSkill.skillData.hitTimeMultiplier = snipeStages
+			env.player.mainSkill.skillData.hitTimeMultiplier = m_max(snipeStages, 0.5)
 		elseif not source or (snipeStages + 0.5) < triggerSkillPosition then
 			env.player.mainSkill.skillData.triggeredBySnipe = nil
 			env.player.mainSkill.infoMessage = s_format("Not enough Snipe stages to Trigger Skill")
