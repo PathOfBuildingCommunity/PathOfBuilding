@@ -68,7 +68,7 @@ directiveTable.monster = function(state, args, out)
 	state.extraSkillList = { }
 	for arg in args:gmatch("%S+") do
 		if state.varietyId == nil then
-			state.varietyId = arg
+			state.varietyId = arg:lower()
 		elseif state.name == nil then
 			if arg == "#" then
 				state.name = state.varietyId
