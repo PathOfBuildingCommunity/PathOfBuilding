@@ -539,10 +539,9 @@ end
 function TreeTabClass:ModifyNodePopup(selectedNode)
 	local controls = { }
 	local modGroups = { }
-	local smallAdditions = {"Strength", "Dex", "Devotion"}
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
-		for _, node in pairs(self.build.spec.tree.legion.nodes) do
+		for _, node in pairs(self.build.spec.tree.tattoo.nodes) do
 			t_insert(modGroups, {
 				label = node.dn,
 				descriptions = copyTable(node.sd),

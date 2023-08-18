@@ -10509,8 +10509,8 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Key",
-			width=150
+			type="String",
+			width=190
 		}
 	},
 	passiveskilloverrides={
@@ -10565,10 +10565,10 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
-			refTo="",
+			name="GrantedEffect",
+			refTo="GrantedEffectsPerLevel",
 			type="Key",
-			width=150
+			width=250
 		},
 		[9]={
 			list=false,
@@ -10580,7 +10580,7 @@ return {
 		[10]={
 			list=false,
 			name="",
-			refTo="",
+			refTo="passiveskilloverridetypeskey",
 			type="Key",
 			width=150
 		},
@@ -10609,25 +10609,32 @@ return {
 		},
 		[2]={
 			list=false,
-			name="",
-			refTo="",
-			type="Int",
+			name="Stat",
+			refTo="Stats",
+			type="Key",
 			width=150
 		}
 	},
 	passiveskilltattoos={
 		[1]={
 			list=false,
-			name="",
-			refTo="",
+			name="BaseItem",
+			refTo="BaseItemTypes",
 			type="Key",
-			width=150
+			width=330
 		},
 		[2]={
 			list=false,
-			name="",
-			refTo="",
-			type="Int",
+			name="Override",
+			refTo="passiveskilloverrides",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="NodeTarget",
+			refTo="passiveskilltattootargetsets",
+			type="Key",
 			width=150
 		}
 	},
@@ -10643,14 +10650,14 @@ return {
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="Key",
 			width=150
 		},
 		[3]={
 			list=false,
 			name="",
 			refTo="",
-			type="Int",
+			type="String",
 			width=150
 		},
 		[4]={
