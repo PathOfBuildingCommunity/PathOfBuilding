@@ -50,12 +50,12 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 		self.modFlag = true
 	end)
 
-	local dropdownWidth = 100
+	local dropdownWidth = 200
 	-- Tree Linked Sets
 	-- Skill and Item controls are anchored to these three labels
-	self.controls.treeSetLabelRoot = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 35, 200, 0, 16, "^7Tree Sets")
-	self.controls.treeSetLabelDropdownSkill = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"RIGHT"}, dropdownWidth*1.1, 0, 0, 16, "^7Skill Sets")
-	self.controls.treeSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"RIGHT"}, dropdownWidth/2, 0, 0, 16, "^7Item Sets")
+	self.controls.treeSetLabelRoot = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 25, 200, 0, 16, "^7Tree Sets")
+	self.controls.treeSetLabelDropdownSkill = new("LabelControl", {"LEFT",self.controls.treeSetLabelRoot,"RIGHT"}, dropdownWidth, 0, 0, 16, "^7Skill Sets")
+	self.controls.treeSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"RIGHT"}, dropdownWidth*0.75, 0, 0, 16, "^7Item Sets")
 	self.controls.treeSetDropdown = new("DropDownControl", {"LEFT",self.controls.treeSetLabelRoot,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		self:InitLinks("tree", value)
 		self:LoadLinks("tree", value)
@@ -126,10 +126,24 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 		self.modFlag = true
 	end)
 
-	-- Display current links all at once
-	self.controls.displayLinks = new("LabelControl", {"LEFT",self.controls.itemSetDropdown,"LEFT"}, -15, 85, 0, 16, "Current Links:")
+	self.controls.displayLinks = new("LabelControl", {"LEFT",self.controls.itemSetDropdown,"LEFT"}, 0, 85, 0, 16, "Current Links:")
 	self.controls.displayLinks.shown = function() return self:ShowCurrentLinks() end
-	self.controls.displayLinksTree = new("LabelControl", {"LEFT",self.controls.displayLinks,"LEFT"}, 0, 20, 150, 16, function()
+	self.controls.displayLinksTree = new("ButtonControl", {"LEFT",self.controls.displayLinks,"LEFT"}, 100, 0, 150, 18, "^7Show Tree Set Links", function()
+		self.controls.displayLinksTreeLabel.shown = true
+		self.controls.displayLinksSkillLabel.shown = false
+		self.controls.displayLinksItemLabel.shown = false
+	end)
+	self.controls.displayLinksSkill = new("ButtonControl", {"LEFT",self.controls.displayLinksTree,"LEFT"}, 160, 0, 150, 18, "^7Show Skill Set Links", function()
+		self.controls.displayLinksSkillLabel.shown = true
+		self.controls.displayLinksTreeLabel.shown = false
+		self.controls.displayLinksItemLabel.shown = false
+	end)
+	self.controls.displayLinksItem = new("ButtonControl", {"LEFT",self.controls.displayLinksSkill,"LEFT"}, 160, 0, 150, 18, "^7Show Item Set Links", function()
+		self.controls.displayLinksItemLabel.shown = true
+		self.controls.displayLinksTreeLabel.shown = false
+		self.controls.displayLinksSkillLabel.shown = false
+	end)
+	self.controls.displayLinksTreeLabel = new("LabelControl", {"LEFT",self.controls.displayLinks,"LEFT"}, 0, 45, 150, 16, function()
 		local note = "^7{ Tree  -->  Skill, Item }\n\n"
 		for index, link in pairs(self.treeSetLinks) do
 			if isValidLink("tree", index, link) then
@@ -138,7 +152,7 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 		end
 		return note
 	end)
-	self.controls.displayLinksSkill = new("LabelControl", {"LEFT",self.controls.displayLinksTree,"RIGHT"}, 85, 0, 150, 16, function()
+	self.controls.displayLinksSkillLabel = new("LabelControl", {"LEFT",self.controls.displayLinks,"LEFT"}, 0, 45, 150, 16, function()
 		local note = "{ Skill  -->  Tree, Item }\n\n"
 		for index, link in pairs(self.skillSetLinks) do
 			if isValidLink("skill", index, link) then
@@ -147,7 +161,7 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 		end
 		return note
 	end)
-	self.controls.displayLinksItem = new("LabelControl", {"LEFT",self.controls.displayLinksSkill,"RIGHT"}, 85, 0, 150, 16, function()
+	self.controls.displayLinksItemLabel = new("LabelControl", {"LEFT",self.controls.displayLinks,"LEFT"}, 0, 45, 150, 16, function()
 		local note = "{ Item  -->  Tree, Skill }\n\n"
 		for index, link in pairs(self.itemSetLinks) do
 			if isValidLink("item", index, link) then
@@ -156,6 +170,9 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 		end
 		return note
 	end)
+	self.controls.displayLinksTreeLabel.shown = false
+	self.controls.displayLinksSkillLabel.shown = false
+	self.controls.displayLinksItemLabel.shown = false
 end)
 
 function LinkedSetsTabClass:ShowCurrentLinks()
