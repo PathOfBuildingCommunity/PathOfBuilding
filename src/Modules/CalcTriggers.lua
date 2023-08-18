@@ -1026,7 +1026,7 @@ local function defualtTriggerHandler(env, config)
 				end
 			end
 
-			output.TriggerRateCap = m_huge
+			output.TriggerRateCap = source == actor.mainSkill and actor.mainSkill.skillData.triggerRateCapOverride or m_huge
 			if rateCapAdjusted ~= 0 then
 				output.TriggerRateCap = 1 / rateCapAdjusted
 			end
@@ -1038,30 +1038,37 @@ local function defualtTriggerHandler(env, config)
 			
 			if breakdown then
 				if triggeredCD == nil and triggerCD == nil then
-					breakdown.TriggerRateCap = {
-						triggeredName .. " has no base cooldown or cooldown override",
-						"",
-						config.triggerName .. " has no base cooldown",
-						"",
-						"Assuming cast on every kill/attack/hit",
-					}
-					if output.addsCastTime then
+					if source == actor.mainSkill and actor.mainSkill.skillData.triggerRateCapOverride then
 						breakdown.TriggerRateCap = {
-							triggeredName .. " has no base cooldown",
-							s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime),
-							s_format("= %.4f ^8(final cooldown of %s)", ((triggeredCD or 0) / icdr) + output.addsCastTime or 0, triggeredName),
+							s_format("%.2f ^8(Trigger rate cap override of skill)", actor.mainSkill.skillData.triggerRateCapOverride),
+							s_format("= %.2f", output.TriggerRateCap),
+						}
+					else
+						breakdown.TriggerRateCap = {
+							triggeredName .. " has no base cooldown or cooldown override",
 							"",
 							config.triggerName .. " has no base cooldown",
 							"",
-							s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
-							"",
-							"Trigger rate:",
-							s_format("1 / %.3f", rateCapAdjusted),
-							s_format("= %.2f ^8per second", output.TriggerRateCap),
+							"Assuming cast on every kill/attack/hit",
 						}
-					end
-					if cooldownOverride ~= nil then
-						breakdown.TriggerRateCap[1] = s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName)
+						if output.addsCastTime then
+							breakdown.TriggerRateCap = {
+								triggeredName .. " has no base cooldown",
+								s_format("+ %.2f ^8(this skill adds cast time to cooldown when triggered)", output.addsCastTime),
+								s_format("= %.4f ^8(final cooldown of %s)", ((triggeredCD or 0) / icdr) + output.addsCastTime or 0, triggeredName),
+								"",
+								config.triggerName .. " has no base cooldown",
+								"",
+								s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
+								"",
+								"Trigger rate:",
+								s_format("1 / %.3f", rateCapAdjusted),
+								s_format("= %.2f ^8per second", output.TriggerRateCap),
+							}
+						end
+						if cooldownOverride ~= nil then
+							breakdown.TriggerRateCap[1] = s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName)
+						end
 					end
 				elseif cooldownOverride then
 					breakdown.TriggerRateCap = {
@@ -1313,6 +1320,7 @@ local configTable = {
 	end,
 	["The Hidden Blade"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
+		env.player.mainSkill.skillData.triggerRateCapOverride = 2
 		if env.player.modDB:Flag(nil, "Condition:Phasing") then
 			return {source = env.player.mainSkill}
 		end
