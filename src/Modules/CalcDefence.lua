@@ -184,7 +184,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 			end
 		end
 		-- frost shield / soul link / other taken before you does not count as you taking damage
-		damageRemainder = aegis:takeDamage(damageType, damage)
+		damageRemainder = aegis:takeDamage(damageType, damageRemainder)
 		if guard[damageType] > 0 then
 			local tempDamage = m_min(damageRemainder * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
 			guard[damageType] = guard[damageType] - tempDamage
