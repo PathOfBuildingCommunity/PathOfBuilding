@@ -34,7 +34,7 @@ directiveTable.base = function(state, args, out)
 	if not baseTypeId then
 		baseTypeId = args
 	end
-	baseTypeId = baseTypeId:lower()
+	baseTypeId = baseTypeId
 	local baseItemType = dat("BaseItemTypes"):GetRow("Id", baseTypeId)
 	if not baseItemType then
 		printf("Invalid Id %s", baseTypeId)
@@ -224,7 +224,7 @@ directiveTable.baseMatch = function(state, argstr, out)
 	for i in string.gmatch(argstr, "%S+") do
 	   table.insert(args, i)
 	end
-	local value = args[1]:lower()
+	local value = args[1]
 	-- If column name is specified, use that
 	if args[2] then
 		key = args[1]
