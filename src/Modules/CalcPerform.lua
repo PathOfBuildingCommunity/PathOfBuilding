@@ -3626,7 +3626,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 	-- Snipe Support
 	if env.player.mainSkill.skillData.triggeredBySnipe or env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" and not env.player.mainSkill.skillFlags.minion then
 		local triggerName = "Snipe"
-		local snipeStages = math.min(env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStage"), env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax")) - 0.5 --First stage takes 0.5x time to channel compared to subsequent stages
+		local snipeStages = math.min(m_max(env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStage"), 1), env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax")) - 0.5 --First stage takes 0.5x time to channel compared to subsequent stages
 		local maxSnipeStages = env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax") - 0.5
 		if env.player.mainSkill.marked then
 			if env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" then
