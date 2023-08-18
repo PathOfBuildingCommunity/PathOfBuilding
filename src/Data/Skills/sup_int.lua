@@ -5080,6 +5080,14 @@ skills["SupportSpellblade"] = {
 	excludeSkillTypes = { },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage"] = {
+			mod("OneHandWeaponDamageAppliesToSpells", "MAX", nil),
+		},
+		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage_while_wielding_two_different_weapon_types"] = {
+			mod("OneHandWeaponDamageAppliesToSpellsWithTwoDifferentTypes", "MAX", nil),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },

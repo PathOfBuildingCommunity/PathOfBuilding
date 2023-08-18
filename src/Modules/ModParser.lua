@@ -4425,7 +4425,6 @@ local specialModList = {
 	["allocates (.+) if you have the matching modifiers? on forbidden (.+)"] = function(_, ascendancy, side) return { mod("GrantedAscendancyNode", "LIST", { side = side, name = ascendancy }) } end,
 	["allocates (.+)"] = function(_, passive) return { mod("GrantedPassive", "LIST", passive) } end,
 	["battlemage"] = { flag("Battlemage"), mod("MainHandWeaponDamageAppliesToSpells", "MAX", 100) },
-	["added spell damage equal to (%d+)%% of damage of equipped one handed melee weapons"] = function(num) return { flag("Spellblade"), mod("OneHandWeaponDamageAppliesToSpells", "MAX", num) } end,
 	["transfiguration of body"] = { flag("TransfigurationOfBody") },
 	["transfiguration of mind"] = { flag("TransfigurationOfMind") },
 	["transfiguration of soul"] = { flag("TransfigurationOfSoul") },

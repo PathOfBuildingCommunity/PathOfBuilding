@@ -525,10 +525,14 @@ function calcs.offence(env, actor, activeSkill)
 	end		
 	local weapon1info = env.data.weaponTypeInfo[actor.weaponData1.type]
 	local weapon2info = env.data.weaponTypeInfo[actor.weaponData2.type]
-	-- account for Spellblade
+	-- -- account for Spellblade
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
-	if skillModList:Flag(nil, "Spellblade") and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] and weapon1info.melee and weapon1info.oneHand then
-		local multiplier = (skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpells") or 100) / 100 * (weapon2info and 0.6 or 1)
+	local spellbladeMulti = skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpells") or 100
+	local spellbladeDiffMulti = skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpellsWithTwoDifferentTypes")
+	if spellbladeMulti > 100 and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] and weapon1info.melee and weapon1info.oneHand then
+		local multiplier = spellbladeMulti / 100 * (weapon2info and 0.6 or 1)
+		local diffMulti = actor.weaponData1 and actor.weaponData2.type and actor.weaponData1.type ~= actor.weaponData2.type and spellbladeDiffMulti and spellbladeDiffMulti / 100 * 0.6 or 0
+		multiplier = multiplier + diffMulti
 		for _, damageType in ipairs(dmgTypeList) do
 			skillModList:NewMod(damageType.."Min", "BASE", (actor.weaponData1[damageType.."Min"] or 0) * multiplier, "Spellblade Main Hand", ModFlag.Spell)
 			skillModList:NewMod(damageType.."Max", "BASE", (actor.weaponData1[damageType.."Max"] or 0) * multiplier, "Spellblade Main Hand", ModFlag.Spell)
