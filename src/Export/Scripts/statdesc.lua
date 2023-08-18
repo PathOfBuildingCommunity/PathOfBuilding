@@ -4,7 +4,7 @@ local function processStatFile(name)
 	--ConPrintf("Processing File: '%s'", name)
 	local statDescriptor = { }
 	local curLang
-	local curDescriptor = { }
+	local curDescriptor = { lang = { } }
 	local prepend = ''
 	local text = convertUTF16to8(getFile("metadata/statdescriptions/"..name..".txt"))
 	for line in text:gmatch("[^\r\n]+") do
