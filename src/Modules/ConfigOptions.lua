@@ -1370,7 +1370,7 @@ Huge sets the radius to 11.
 	{ var = "skillChainCount", type = "count", label = "# of times Skill has Chained:", ifStat = "Chain", ifFlag = "chaining", apply = function(val, modList, enemyModList)
 		modList:NewMod("ChainCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "skillPierceCount", type = "count", label = "# of times Skill has Pierced:", ifStat = "PierceCount", ifFlag = "piercing", apply = function(val, modList, enemyModList)
+	{ var = "skillPierceCount", type = "count", label = "# of times Skill has Pierced:", ifStat = "PiercedCount", ifFlag = "piercing", apply = function(val, modList, enemyModList)
 		modList:NewMod("PiercedCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "meleeDistance", type = "count", label = "Melee distance to enemy:", ifTagType = "MeleeProximity", ifFlag = "melee" },
