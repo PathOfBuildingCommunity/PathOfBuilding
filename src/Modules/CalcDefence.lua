@@ -118,12 +118,8 @@ function Aegis:adjustTotalHitPool(output, damageType)
 	output[damageType.."TotalHitPool"] =
 		output[damageType.."TotalHitPool"] +
 		m_max(
-			m_max(
-				output[damageType.."Aegis"],
-				output["sharedAegis"]),
-		isElemental[damageType] and
-		output[damageType.."AegisDisplay"]
-		or 0)
+			m_max(output[damageType.."Aegis"],output["sharedAegis"]),
+			isElemental[damageType] and output[damageType.."AegisDisplay"] or 0)
 end
 
 ---Helper function that reduces pools according to damage taken
@@ -160,10 +156,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	end
 	
 	local PoolsLost = poolTbl.PoolsLost or { }
-	local aegis = poolTbl.Aegis
-	if not aegis then
-		aegis = Aegis:new(output)
-	end
+	local aegis = poolTbl.Aegis or Aegis:new(output)
 	local guard = poolTbl.Guard
 	if not guard then
 		guard = { shared = output.sharedGuardAbsorb or 0 }
