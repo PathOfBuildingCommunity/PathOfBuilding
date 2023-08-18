@@ -32,9 +32,9 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	With this tab, you can manage links between item, skill, and tree sets.
 	Each set is listed on the left, with two dropdowns on the right to create a link between the sets.
 
-	For example, given Tree Set 1 has Skill Set 2 and Item Set 2 linked, if you change to Tree Set 1 either in the Tree Tab or Items Tab,
+	For example, given Tree Set 2 has Skill Set 2 and Item Set 2 linked, if you change to Tree Set 2 either in the Tree Tab or Items Tab,
 	Skill Set 2 and Item Set 2 should automatically set active as well.
-	But with no other changes, setting Skill Set 2 or Item Set 2 to active would do nothing to the other Sets.]]
+	But given no other links were created, switching Skill Set to Skill Set 1 or Item Set to Item Set 1 would do nothing to the other Sets.]]
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
 	self.controls.notesDesc.width = function()
 		local width = self.width / 2 - 16
@@ -133,7 +133,7 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 		local note = "^7{ Tree  -->  Skill, Item }\n\n"
 		for index, link in pairs(self.treeSetLinks) do
 			if isValidLink("tree", index, link) then
-				note = note .. index .. "  -->  " .. (link.skillSet or "") .. ", " .. (link.itemSet or "") .. "\n"
+				note = note .. index .. "^7  -->  " .. (link.skillSet or "") .. "^7, " .. (link.itemSet or "") .. "\n"
 			end
 		end
 		return note
@@ -142,7 +142,7 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 		local note = "{ Skill  -->  Tree, Item }\n\n"
 		for index, link in pairs(self.skillSetLinks) do
 			if isValidLink("skill", index, link) then
-				note = note .. index .. "  -->  " .. (link.treeSet or "") .. ", " .. (link.itemSet or "") .. "\n"
+				note = note .. index .. "^7  -->  " .. (link.treeSet or "") .. "^7, " .. (link.itemSet or "") .. "\n"
 			end
 		end
 		return note
@@ -151,7 +151,7 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 		local note = "{ Item  -->  Tree, Skill }\n\n"
 		for index, link in pairs(self.itemSetLinks) do
 			if isValidLink("item", index, link) then
-				note = note .. index .. "  -->  " .. (link.treeSet or "None") .. ", " .. (link.skillSet or "None") .. "\n"
+				note = note .. index .. "^7  -->  " .. (link.treeSet or "None") .. "^7, " .. (link.skillSet or "None") .. "\n"
 			end
 		end
 		return note
