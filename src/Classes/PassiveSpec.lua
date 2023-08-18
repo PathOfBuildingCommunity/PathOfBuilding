@@ -47,8 +47,7 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	for id, node in pairs(self.nodes) do
 		-- if the node is allocated and between the old and new tree has the same ID but does not share the same name, add to list of nodes to be ignored
 		if convert and previousTreeNodes[id] and self.build.spec.allocNodes[id] and node.name ~= previousTreeNodes[id].name then
-			--Commented out for now as it was breaking nodes when upgrading trees
-			--self.ignoredNodes[id] = previousTreeNodes[id]
+			self.ignoredNodes[id] = previousTreeNodes[id]
 		end
 		for _, otherId in ipairs(node.linkedId) do
 			t_insert(node.linked, self.nodes[otherId])
@@ -894,6 +893,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if self.ignoredNodes[id] and self.allocNodes[id] then
 			self.nodes[id].alloc = false
 			self.allocNodes[id] = nil
+			-- remove once processed to avoid allocation issue after convert
+			self.ignoredNodes[id] = nil
 		else
 			if node.type == "Mastery" and self.masterySelections[id] then
 				local effect = self.tree.masteryEffects[self.masterySelections[id]]
