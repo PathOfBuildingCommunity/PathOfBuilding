@@ -43,7 +43,7 @@ Karui Sceptre
 +(30-40) to Intelligence
 (25-50)% increased Critical Strike Chance
 +2 to Level of all Minion Skill Gems
-Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon"
+Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon
 ]],
 -- Reworked
 
