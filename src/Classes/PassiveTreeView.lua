@@ -291,6 +291,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
+		elseif hoverNode and hoverNode.isTattoo
+			or (hoverNode.type == "Normal" and (hoverNode.name == "Strength" or hoverNode.name == "Dexterity" or hoverNode.name == "Intelligence"))
+			or (hoverNode.type == "Notable" and hoverNode.icon:match("^Art/2DArt/SkillIcons/passives/plus"))
+		then
+			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
+			build.buildFlag = true
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 			build.buildFlag = true
@@ -520,6 +526,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawLayer(nil, 15)
 			else
 				-- Normal node (includes keystones and notables)
+				if node.isTattoo then
+					effect = node.activeEffectImage
+				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
 			end
@@ -599,7 +608,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 		end
 
-		-- Draw master effect artwork
+		-- Draw mastery/tattoo effect artwork
 		if effect then
 			self:DrawAsset(effect, scrX, scrY, scale)
 		end
@@ -992,6 +1001,15 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		for _, line in ipairs(node.reminderText) do
 			tooltip:AddLine(14, "^xA0A080"..line)
 		end
+	end
+
+	-- Tattoo Editing
+	if node and node.isTattoo
+			or (node.type == "Normal" and (node.name == "Strength" or node.name == "Dexterity" or node.name == "Intelligence"))
+			or (node.type == "Notable" and node.icon:match("^Art/2DArt/SkillIcons/passives/plus"))
+	then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the tattoo for this node")
 	end
 
 	-- Mod differences

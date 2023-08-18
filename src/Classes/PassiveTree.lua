@@ -52,6 +52,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	local versionNum = treeVersions[treeVersion].num
 
 	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
+	self.tattoo = LoadModule("Data/TattooPassives")
 
 	MakeDir("TreeData")
 

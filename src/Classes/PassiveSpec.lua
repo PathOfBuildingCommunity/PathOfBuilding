@@ -74,6 +74,9 @@ function PassiveSpecClass:Init(treeVersion, convert)
 
 	-- Keys are mastery node IDs, values are mastery effect IDs
 	self.masterySelections = { }
+
+	-- Keys are node IDs, values are the replacement node
+	self.hashOverrides = { }
 end
 
 function PassiveSpecClass:Load(xml, dbFileName)
@@ -130,7 +133,38 @@ function PassiveSpecClass:Load(xml, dbFileName)
 				masteryEffects[tonumber(mastery)] = tonumber(effect)
 			end
 		end
-		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, masteryEffects)
+		for _, node in pairs(xml) do
+			if type(node) == "table" then
+				if node.elem == "Overrides" then
+					for _, child in ipairs(node) do
+						if not child.attrib.nodeId then
+							launch:ShowErrMsg("^1Error parsing '%s': 'Override' element missing 'nodeId' attribute", dbFileName)
+							return true
+						end
+						
+						local nodeId = tonumber(child.attrib.nodeId)
+
+						wipeTable(self.hashOverrides)
+						self.hashOverrides[nodeId] = copyTable(self.nodes[nodeId], true)
+						self.hashOverrides[nodeId].id = nodeId
+						self.hashOverrides[nodeId].dn = child.attrib.nodeName
+						self.hashOverrides[nodeId].icon = child.attrib.icon
+						if self.tree.legion.nodes[child.attrib.spriteId] then
+							self.hashOverrides[nodeId].spriteId = child.attrib.spriteId
+							self.hashOverrides[nodeId].sprites = self.tree.overrides.nodes[child.attrib.spriteId].sprites
+						end
+						local modCount = 0
+						for _, modLine in ipairs(child) do
+							for line in string.gmatch(modLine .. "\r\n", "([^\r\n\t]*)\r?\n") do
+								self:NodeAdditionOrReplacementFromString(self.hashOverrides[nodeId], line, modCount == 0)
+								modCount = modCount + 1
+							end
+						end
+					end
+				end
+			end
+		end
+		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, self.hashOverrides, masteryEffects)
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -172,6 +206,23 @@ function PassiveSpecClass:Save(xml)
 		end
 	end
 	t_insert(xml, sockets)
+	
+	local overrides = {
+		elem = "Overrides"
+	}
+	if self.hashOverrides then
+		for nodeId, node in pairs(self.hashOverrides) do
+			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), nodeName = node.dn, icon = node.icon, spriteId = node.spriteId } }
+			for _, modLine in ipairs(node.sd) do
+				t_insert(override, modLine)
+			end
+			-- Do not save current override data unless the current node is anointed or allocated
+			if self.build.calcsTab.mainEnv.grantedPassives[nodeId] or self.allocNodes[nodeId] then
+				t_insert(overrides, override)
+			end
+		end
+	end
+	t_insert(xml, overrides)
 
 end
 
@@ -180,7 +231,7 @@ function PassiveSpecClass:PostLoad()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, masteryEffects, treeVersion)
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, hashOverrides, masteryEffects, treeVersion)
 	if treeVersion and treeVersion ~= self.treeVersion then
 		self:Init(treeVersion)
 		self.build.treeTab.showConvert = self.treeVersion ~= latestTreeVersion
@@ -202,6 +253,9 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, m
 			if node.type ~= "Mastery" or (node.type == "Mastery" and self.masterySelections[id]) then
 				node.alloc = true
 				self.allocNodes[id] = node
+			end
+			if hashOverrides[id] then
+				self:ReplaceNode(node, hashOverrides[id])
 			end
 		else
 			t_insert(self.allocSubgraphNodes, id)
@@ -882,6 +936,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			end
 			self:ReconnectNodeToClassStart(node)
 		end
+
+		-- If node is tattooed, replace it
+		if node.isTattoo then
+			self:ReplaceNode(node, self.hashOverrides[node.id])
+		end
 	end
 
 	-- Add selected mastery effect mods to mastery nodes
@@ -1040,6 +1099,9 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	-- Edited nodes can share a name
 	if old.sd == newNode.sd then
 		return 1
+	end
+	for k, v in pairs(newNode) do
+		old[k] = v
 	end
 	old.dn = newNode.dn
 	old.sd = newNode.sd
@@ -1563,13 +1625,14 @@ function PassiveSpecClass:CreateUndoState()
 		classId = self.curClassId,
 		ascendClassId = self.curAscendClassId,
 		hashList = allocNodeIdList,
+		hashOverrides = self.hashOverrides,
 		masteryEffects = selections,
 		treeVersion = self.treeVersion
 	}
 end
 
 function PassiveSpecClass:RestoreUndoState(state, treeVersion)
-	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.masteryEffects, treeVersion or state.treeVersion)
+	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.hashOverrides, state.masteryEffects, treeVersion or state.treeVersion)
 	self:SetWindowTitleWithBuildClass()
 end
 
