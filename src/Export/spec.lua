@@ -10530,28 +10530,28 @@ return {
 		},
 		[3]={
 			list=false,
-			name="Art",
+			name="DDSIcon",
 			refTo="",
 			type="String",
 			width=330
 		},
 		[4]={
 			list=true,
-			name="Stats",
+			name="StatsKeys",
 			refTo="Stats",
 			type="Key",
 			width=580
 		},
 		[5]={
-			list=false,
-			name="",
+			list=true,
+			name="StatValues",
 			refTo="",
-			type="Key",
-			width=150
+			type="Int",
+			width=50
 		},
 		[6]={
 			list=false,
-			name="",
+			name="Hash",
 			refTo="",
 			type="Int",
 			width=150
@@ -10634,7 +10634,7 @@ return {
 	passiveskilltattootargetsets={
 		[1]={
 			list=false,
-			name="",
+			name="Id",
 			refTo="",
 			type="String",
 			width=150
@@ -10662,17 +10662,17 @@ return {
 		},
 		[5]={
 			list=false,
-			name="",
+			name="Name",
 			refTo="",
 			type="String",
 			width=150
 		},
-		[6]= {
-			list = false,
-			name = "",
-			refTo = "",
-			type = "Key",
-			width = 150
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	}
 }

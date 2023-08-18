@@ -1,12 +1,12 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("passive_skill_stat_descriptions.txt")
+loadStatFile("stat_descriptions.txt")
 
 local out = io.open("../Data/TattooPassives.lua", "w")
 
 local stats = dat("Stats")
-local alternatePassiveSkillDat = dat("TattooPassiveSkills")
+local alternatePassiveSkillDat = dat("passiveskilloverrides")
 
 local tattoo_PASSIVE_GROUP = 1e9
 
@@ -47,16 +47,19 @@ function parseStats(datFileRow, tattooPassive)
 	for idx,statKey in pairs(datFileRow.StatsKeys) do
 		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
 		local statId = stats:ReadCell(refRow, 1)
-		local range = datFileRow["Stat"..idx]
+		local range = datFileRow["StatValues"]
 
 		local stat = {}
 		stat[statId] = {
 			["min"] = range[1],
-			["max"] = range[2],
+			["max"] = range[2] or range[1],
 			["index"] = idx
 		}
 		-- Describing stats here to get the orders
+		print(statId or "nil")
+		prettyPrintTable(range)
 		local statLines, orders = describeStats(stat)
+		prettyPrintTable(orders)
 		stat[statId].statOrder = orders[1]
 		tattooPassive.stats[statId] = stat[statId]
 		for i, line in ipairs(statLines) do
@@ -71,7 +74,7 @@ function parseStats(datFileRow, tattooPassive)
 		table.insert(sortedStats, stat)
 	end
 	-- Finally get what we want, sorted stats by order
-	table.sort(sortedStats, function(a, b) return tattooPassive.stats[a].statOrder < tattooPassive.stats[b].statOrder  end)
+	table.sort(sortedStats, function(a, b) return (tattooPassive.stats[a].statOrder or 0) < (tattooPassive.stats[b].statOrder or 0) end)
 	tattooPassive.sortedStats = sortedStats
 end
 
@@ -79,8 +82,6 @@ end
 local data = { }
 data.nodes = { }
 data.groups = { }
-data.additions = { }
-local ksCount = -1
 
 for i=1, alternatePassiveSkillDat.rowCount do
 	---@type table<string, boolean|string|number>
@@ -95,46 +96,20 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	tattooPassiveNode.id = datFileRow.Id
 	-- icon
 	tattooPassiveNode.icon = datFileRow.DDSIcon
-	-- is keystone
-	tattooPassiveNode.ks = isValueInTable(datFileRow.PassiveType, 4) and true or false
-	if tattooPassiveNode.ks then
-		ksCount = ksCount + 1
-	end
-	-- is notable
-	tattooPassiveNode['not'] = isValueInTable(datFileRow.PassiveType, 3) and true or false
 	-- node name
 	tattooPassiveNode.dn = datFileRow.Name
-	-- is mastery wheel
-	tattooPassiveNode.m = false
-	-- self explanatory
-	tattooPassiveNode.isJewelSocket = false
-	tattooPassiveNode.isMultipleChoice = false
-	tattooPassiveNode.isMultipleChoiceOption = false
-	tattooPassiveNode.passivePointsGranted = 0
-	-- class starting node
-	tattooPassiveNode.spc = {}
 	-- display text
 	tattooPassiveNode.sd = {}
 	tattooPassiveNode.stats = {}
 
 	parseStats(datFileRow, tattooPassiveNode)
 
-	if tattooPassiveNode.id == "vaal_keystone_2_v2" then -- Immortal Ambition needs to be manually added
-        tattooPassiveNode.sd = {
-            [1] = "Energy Shield starts at zero",
-            [2] = "Cannot Recharge or Regenerate Energy Shield",
-            [3] = "Lose 5% of Energy Shield per second",
-            [4] = "Life Leech effects are not removed at Full Life",
-            [5] = "Life Leech effects Recover Energy Shield instead while on Full Life"
-        }
-    end
-
 	-- Node group, tattoo nodes don't use it, so we set it arbitrarily
 	tattooPassiveNode.g = tattoo_PASSIVE_GROUP
 	-- 
 	-- group orbit distance
-	tattooPassiveNode.o = tattooPassiveNode.ks and 4 or 3
-	tattooPassiveNode.oidx = tattooPassiveNode.ks and ksCount * 3 or math.floor(math.random() * 1e5)
+	tattooPassiveNode.o = 3
+	tattooPassiveNode.oidx = math.floor(math.random() * 1e5)
 	-- attributes granted 
 	tattooPassiveNode.sa = 0
 	tattooPassiveNode.da = 0
@@ -143,7 +118,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	tattooPassiveNode.out = {}
 	tattooPassiveNode["in"] = {}
 
-	data.nodes[i] = tattooPassiveNode
+	data.nodes[tattooPassiveNode.id] = tattooPassiveNode
 end
 
 data.groups[tattoo_PASSIVE_GROUP] = {
