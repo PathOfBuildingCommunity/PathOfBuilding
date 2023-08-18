@@ -137,7 +137,7 @@ local formList = {
 	["^are "] = "FLAG",
 	["^gain "] = "FLAG",
 	["^you gain "] = "FLAG",
-	["is (%d)%%? "] = "OVERRIDE",
+	["is (%-?%d+)%%? "] = "OVERRIDE",
 }
 
 -- Map of modifier names
