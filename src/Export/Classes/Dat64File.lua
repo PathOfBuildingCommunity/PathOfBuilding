@@ -236,11 +236,11 @@ function Dat64FileClass:ReadValue(spec, offset)
 	if val == 0xFEFEFEFE or val == 0xFEFEFEFEFEFEFEFE then
 		return
 	end
-	local other = main.datFileByName[spec.refTo]
+	local other = main.datFileByName[spec.refTo:lower()]
 	if not other then
 		return
 	end
-	if spec.type == "Enum" and spec.refTo ~= self.name then
+	if spec.type == "Enum" and spec.refTo:lower() ~= self.name then
 		return val
 	end
 	return other.rowCache[val + 1]
@@ -272,9 +272,9 @@ function Dat64FileClass:ReadValueText(spec, offset)
 		if val == 0xFEFEFEFE or val == 0xFEFEFEFEFEFEFEFE then
 			return ""
 		end
-		local other = main.datFileByName[spec.refTo]
+		local other = main.datFileByName[spec.refTo:lower()]
 		if other then
-			local otherRow = other.rows[val + ((spec.type == "Enum" and spec.refTo ~= self.name) and 0 or 1)]
+			local otherRow = other.rows[val + ((spec.type == "Enum" and spec.refTo:lower() ~= self.name) and 0 or 1)]
 			if not otherRow then
 				return "<bad ref #"..val..">"
 			end
