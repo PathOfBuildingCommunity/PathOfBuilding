@@ -2831,7 +2831,7 @@ function calcs.offence(env, actor, activeSkill)
 								resist = resist > 0 and resist * (1 - (skillModList:Sum("BASE", nil, "PartialIgnoreEnemyPhysicalDamageReduction") / 100)) or resist
 							end
 						else
-							resist = calcResistForType(damageType)
+							resist = calcResistForType(damageType, dotCfg)
 							if (skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") and damageType == "Chaos") or 
 							   (skillModList:Flag(cfg, "ElementalDamageUsesLowestResistance") and isElemental[damageType]) then
 								-- Default to using the current damage type 
@@ -2842,7 +2842,7 @@ function calcs.offence(env, actor, activeSkill)
 								-- Find the lowest resist of all the elements and use that if it's lower
 								for _, eleDamageType in ipairs(dmgTypeList) do
 									if isElemental[eleDamageType] and useThisResist(eleDamageType) and damageType ~= eleDamageType then
-										local currentElementResist = calcResistForType(eleDamageType)
+										local currentElementResist = calcResistForType(eleDamageType, dotCfg)
 										-- If it's explicitly lower, then use the resist and update which element we're using to account for penetration
 										if resist > currentElementResist then
 											resist = currentElementResist
@@ -3946,7 +3946,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.duration = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = calcResistForType("Chaos")
+					local resist = calcResistForType("Chaos", dotCfg)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -4258,7 +4258,7 @@ function calcs.offence(env, actor, activeSkill)
 				local effMult = 1
 				if env.mode_effective then
 					if skillModList:Flag(cfg, "IgniteToChaos") then
-						local resist = calcResistForType("Chaos")
+						local resist = calcResistForType("Chaos", dotCfg)
 						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -4268,7 +4268,7 @@ function calcs.offence(env, actor, activeSkill)
 							globalBreakdown.IgniteEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 						end
 					else
-						local resist = calcResistForType("Fire")
+						local resist = calcResistForType("Fire", dotCfg)
 						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -4294,7 +4294,7 @@ function calcs.offence(env, actor, activeSkill)
 				local groundMult = m_max(skillModList:Max(nil, "IgniteDpsAsBurningGround") or 0, enemyDB:Max(nil, "IgniteDpsAsBurningGround") or 0)
 				if groundMult > 0 then
 					-- Always use fire eff multi
-					local resist = calcResistForType("Fire")
+					local resist = calcResistForType("Fire", dotCfg)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					local fireEffMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -4709,7 +4709,7 @@ function calcs.offence(env, actor, activeSkill)
 		local dotCfg = activeSkill.decayCfg
 		local effMult = 1
 		if env.mode_effective then
-			local resist = calcResistForType("Chaos")
+			local resist = calcResistForType("Chaos", dotCfg)
 			local takenInc = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			local takenMore = enemyDB:More(nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
