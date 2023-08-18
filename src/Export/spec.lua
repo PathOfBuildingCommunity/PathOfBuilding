@@ -10500,17 +10500,17 @@ return {
 	passiveoverridelimits={
 		[1]={
 			list=false,
-			name="",
+			name="Id",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[2]={
 			list=false,
-			name="",
+			name="Description",
 			refTo="",
 			type="String",
-			width=190
+			width=200
 		}
 	},
 	passiveskilloverrides={
@@ -10547,21 +10547,21 @@ return {
 			name="StatValues",
 			refTo="",
 			type="Int",
-			width=50
+			width=100
 		},
 		[6]={
 			list=false,
 			name="Hash",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[7]={
 			list=false,
 			name="Background",
 			refTo="",
 			type="String",
-			width=530
+			width=200
 		},
 		[8]={
 			list=false,
@@ -10579,8 +10579,8 @@ return {
 		},
 		[10]={
 			list=false,
-			name="",
-			refTo="passiveskilloverridetypeskey",
+			name="Limit",
+			refTo="passiveoverridelimits",
 			type="Key",
 			width=150
 		},
@@ -10612,6 +10612,13 @@ return {
 			name="Stat",
 			refTo="Stats",
 			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
 			width=150
 		}
 	},
@@ -10647,10 +10654,10 @@ return {
 			width=150
 		},
 		[2]={
-			list=false,
+			list=true,
 			name="",
 			refTo="",
-			type="Key",
+			type="Int",
 			width=150
 		},
 		[3]={
@@ -10665,20 +10672,6 @@ return {
 			name="",
 			refTo="",
 			type="String",
-			width=150
-		},
-		[5]={
-			list=false,
-			name="Name",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[6]={
-			list=false,
-			name="",
-			refTo="",
-			type="Key",
 			width=150
 		}
 	}
