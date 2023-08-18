@@ -1367,7 +1367,7 @@ Huge sets the radius to 11.
 	{ var = "skillForkCount", type = "count", label = "# of times Skill has Forked:", ifFlag = "forking", apply = function(val, modList, enemyModList)
 		modList:NewMod("ForkedCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "skillChainCount", type = "count", label = "# of times Skill has Chained:", ifStat = "Chain", ifFlag = "chaining", apply = function(val, modList, enemyModList)
+	{ var = "skillChainCount", type = "count", label = "# of times Skill has Chained:", ifStat = "Chain", ifStat = "ChainRemaining", ifFlag = "chaining", apply = function(val, modList, enemyModList)
 		modList:NewMod("ChainCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "skillPierceCount", type = "count", label = "# of times Skill has Pierced:", ifStat = "PiercedCount", ifFlag = "piercing", apply = function(val, modList, enemyModList)
