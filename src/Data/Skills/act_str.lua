@@ -63,7 +63,7 @@ skills["Absolution"] = {
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"active_skill_base_radius_+",
 		"is_area_damage",
 	},
@@ -240,6 +240,8 @@ skills["AbyssalCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
 		"damage_cannot_be_reflected",
 		"base_skill_show_average_damage_instead_of_dps",
 		"display_skill_deals_secondary_damage",
@@ -544,7 +546,9 @@ skills["AncestralCry"] = {
 		"ancestral_cry_max_physical_damage_reduction_rating",
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 	},
@@ -961,9 +965,10 @@ skills["AnimateArmour"] = {
 		"animate_item_maximum_level_requirement",
 		"minion_maximum_life_+%",
 		"melee_physical_damage_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"attack_minimum_added_physical_damage",
 		"attack_maximum_added_physical_damage",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 33, 0, 0, 28, 32, 47, levelRequirement = 28, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 11, }, },
@@ -1053,7 +1058,9 @@ skills["BattlemagesCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 		"display_battlemage_cry_exerted_attacks_trigger_supported_spell",
@@ -1483,7 +1490,7 @@ skills["Boneshatter"] = {
 	baseEffectiveness = 0.18279999494553,
 	incrementalEffectiveness = 0.053700000047684,
 	description = "Attack enemies with a forceful melee strike that also hurts you. Successive uses will raise the damage dealt both to enemies and you. Stunning an enemy with the strike releases a damaging pulse. Requires a Mace, Sceptre, Axe or Staff.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.InnateTrauma] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1586,7 +1593,7 @@ skills["Boneshatter"] = {
 		["trauma_strike_self_damage_per_trauma"] = {
 			skill("SelfDamageTakenLife", nil),
 		},
-		["trauma_base_duration_ms"] = {
+		["boneshatter_trauma_base_duration_ms"] = {
 			skill("duration", nil),
 			div = 1000,
 		},
@@ -1614,7 +1621,7 @@ skills["Boneshatter"] = {
 	},
 	constantStats = {
 		{ "trauma_strike_shockwave_area_of_effect_+%_per_100ms_stun_duration_up_to_400%", 15 },
-		{ "trauma_base_duration_ms", 6000 },
+		{ "boneshatter_trauma_base_duration_ms", 6000 },
 		{ "melee_range_+", 2 },
 	},
 	stats = {
@@ -3161,7 +3168,9 @@ skills["EnduringCry"] = {
 	stats = {
 		"regenerate_x_life_over_1_second_on_skill_use_or_trigger",
 		"warcry_speed_+%",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 	},
@@ -3331,7 +3340,6 @@ skills["FlameLink"] = {
 		"flame_link_minimum_fire_damage",
 		"flame_link_maximum_fire_damage",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 	},
@@ -3737,7 +3745,9 @@ skills["GeneralsCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_gain_mp_from_corpses",
 		"warcry_count_power_from_enemies",
@@ -4467,7 +4477,7 @@ skills["HeraldOfPurity"] = {
 		"herald_of_purity_physical_damage_+%_final",
 		"active_skill_minion_physical_damage_+%_final",
 		"active_skill_minion_life_+%_final",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"herald_of_light_summon_champion_on_kill",
 	},
 	levels = {
@@ -5071,7 +5081,9 @@ skills["IntimidatingCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 		"intimidating_cry_empowerd_attacks_deal_double_damage_display",
@@ -5979,7 +5991,6 @@ skills["ProtectiveLink"] = {
 	stats = {
 		"bulwark_link_grants_recover_X_life_on_block",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 		"display_bulwark_link_overrides_attack_block_and_maximum_attack_block",
@@ -6459,7 +6470,9 @@ skills["RallyingCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_gain_mp_from_allies",
 		"warcry_count_power_from_enemies",
@@ -6927,7 +6940,9 @@ skills["SeismicCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"warcries_knock_back_enemies",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
@@ -7947,7 +7962,8 @@ skills["SummonFireGolem"] = {
 		"base_actor_scale_+%",
 		"fire_golem_grants_damage_+%",
 		"minion_maximum_life_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 15, 0, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },
@@ -8038,7 +8054,8 @@ skills["SummonRockGolem"] = {
 		"base_actor_scale_+%",
 		"minion_maximum_life_+%",
 		"stone_golem_grants_base_life_regeneration_rate_per_minute",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 0, 1980, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },

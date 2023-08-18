@@ -137,7 +137,7 @@ local skills, mod, flag, skill = ...
 			mod("FireDamage", "MORE", nil),
 		},
 		["ignites_apply_fire_resistance_+"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" }),
+			mod("CombustionFireResist", "BASE", nil),
 		},
 	},
 #mods
@@ -254,6 +254,9 @@ local skills, mod, flag, skill = ...
 #skill SupportDecay
 #mods
 
+#skill SupportDevour
+#mods
+
 #skill SupportEfficacy
 	statMap = {
 		["support_efficacy_spell_damage_+%_final"] = {
@@ -320,6 +323,12 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "FeedingFrenzyActive" }),
 		},
 	},
+#mods
+
+#skill SupportFreshMeat
+#mods
+
+#skill SupportFrigidBond
 #mods
 
 #skill SupportHexBloom
@@ -651,6 +660,12 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil),
 		},
 	},
+#mods
+
+#skill SupportSacrifice
+#mods
+
+#skill SupportSpellblade
 #mods
 
 #skill SupportSpellCascade

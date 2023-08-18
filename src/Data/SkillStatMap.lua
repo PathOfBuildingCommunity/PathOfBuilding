@@ -224,12 +224,12 @@ return {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["base_spell_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil),
+	mod("RepeatCount", "BASE", nil, 0, 0, {type = "SkillType", skillType = SkillType.Multicastable }),
 },
 ["base_melee_attack_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil),
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multistrikeable }),
 },
-["display_minion_monster_level"] = {
+["base_display_minion_actor_level"] = {
 	skill("minionLevel", nil),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
@@ -1492,7 +1492,7 @@ return {
     div = 60,
 },
 ["totem_duration_+%"] = {
-	mod("TotemDuration", "INC", nil),
+	mod("Duration", "INC", nil, 0, KeywordFlag.Totem),
 },
 -- Minion
 ["minion_damage_+%"] = {
