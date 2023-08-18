@@ -304,7 +304,6 @@ local directiveTable = { monsters = {}, skills = {} }
 -- #boss [<Display name>] [<MonsterId>] <isUber>
 directiveTable.monsters.boss = function(state, args, out)
 	local displayName, monsterId, isUber = args:match("(%w+) (.+) {(%w+)}")
-	monsterId = monsterId
 	if not displayName then
 		displayName, monsterId = args:match("(%w+) (.+)")
 	end

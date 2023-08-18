@@ -6,13 +6,13 @@ local function processStatFile(name)
 	local curLang
 	local curDescriptor = { lang = { } }
 	local prepend = ''
-	local text = convertUTF16to8(getFile("metadata/statdescriptions/"..name..".txt"))
+	local text = convertUTF16to8(getFile("Metadata/StatDescriptions/"..name..".txt"))
 	for line in text:gmatch("[^\r\n]+") do
 		if prepend then
 			line = prepend .. line
 			prepend = ''
 		end
-		local parent = line:match('include "metadata/statdescriptions/(.+)%.txt"$')
+		local parent = line:match('include "Metadata/StatDescriptions/(.+)%.txt"$')
 		if parent then
 			statDescriptor.parent = parent
 		else

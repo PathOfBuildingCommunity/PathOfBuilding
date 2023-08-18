@@ -13,9 +13,9 @@ function loadStatFile(fileName)
 	local curDescriptor = { }
 	local order = 1
 	local function processLine(line)
-		local include = line:match('include "metadata/statdescriptions/(.+)"$')
+		local include = line:match('include "Metadata/StatDescriptions/(.+)"$')
 		if include then
-			local text = convertUTF16to8(getFile("metadata/statdescriptions/"..include))
+			local text = convertUTF16to8(getFile("Metadata/StatDescriptions/"..include))
 			for line in text:gmatch("[^\r\n]+") do
 				processLine(line)
 			end
@@ -81,7 +81,7 @@ function loadStatFile(fileName)
 			end
 		end
 	end
-	local text = convertUTF16to8(getFile("metadata/statdescriptions/"..fileName))
+	local text = convertUTF16to8(getFile("Metadata/StatDescriptions/"..fileName))
 	for line in text:gmatch("[^\r\n]+") do
 		processLine(line)
 	end
