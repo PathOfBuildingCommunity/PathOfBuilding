@@ -2451,7 +2451,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		output.RuthlessBlowHitEffect = 1
-		output.RuthlessBlowBleedEffect = 1
+		output.RuthlessBlowAilmentEffect = 1
 		output.FistOfWarHitEffect = 1
 		output.FistOfWarAilmentEffect = 1
 		if env.mode_combat then
@@ -2465,7 +2465,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.RuthlessBlowHitMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowHitMultiplier") / 100
 			output.RuthlessBlowAilmentMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowAilmentMultiplier") / 100
 			output.RuthlessBlowHitEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowHitMultiplier
-			output.RuthlessBlowBleedEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowAilmentMultiplier
+			output.RuthlessBlowAilmentEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowAilmentMultiplier
 
 			globalOutput.FistOfWarCooldown = skillModList:Sum("BASE", cfg, "FistOfWarCooldown") or 0
 			-- If Fist of War & Active Skill is a Slam Skill & NOT a Vaal Skill
@@ -3711,9 +3711,9 @@ function calcs.offence(env, actor, activeSkill)
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
 			-- over-stacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, bleedStacks))
-			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowBleedEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			local baseMinVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceMinHitDmg, 0, true) * basePercent / 100
-			local baseMaxVal = calcAilmentDamage("Bleed", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * basePercent / 100 * output.RuthlessBlowBleedEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMaxVal = calcAilmentDamage("Bleed", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -3759,8 +3759,8 @@ function calcs.offence(env, actor, activeSkill)
 					if effectMod ~= 1 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ailment effect modifier)", effectMod))
 					end
-					if output.RuthlessBlowBleedEffect ~= 1 then
-						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowBleedEffect))
+					if output.RuthlessBlowAilmentEffect ~= 1 then
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
 					end
 					if output.FistOfWarAilmentEffect ~= 1 then
 						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(fist of war effect modifier)", output.FistOfWarAilmentEffect))
@@ -3938,9 +3938,9 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Poison", output.CritChance, sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Poison", output.CritChance, sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			local baseMinVal = calcAilmentDamage("Poison", output.CritChance, sourceMinHitDmg, 0, true) * data.misc.PoisonPercentBase
-			local baseMaxVal = calcAilmentDamage("Poison", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.PoisonPercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMaxVal = calcAilmentDamage("Poison", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.poison = true
 				skillFlags.duration = true
@@ -3961,7 +3961,7 @@ function calcs.offence(env, actor, activeSkill)
 				local PoisonDPSCapped = m_min(PoisonDPSUncapped, data.misc.DotDpsCap)
 				local MinPoisonDPSUncapped = baseMinVal * effectMod * rateMod * effMult
 				local MinPoisonDPSCapped = m_min(MinPoisonDPSUncapped, data.misc.DotDpsCap)
-				local MaxPoisonDPSUncapped = baseMaxVal * effectMod * rateMod* effMult
+				local MaxPoisonDPSUncapped = baseMaxVal * effectMod * rateMod * effMult
 				local MaxPoisonDPSCapped = m_min(MaxPoisonDPSUncapped, data.misc.DotDpsCap)
 				output.PoisonDPS = PoisonDPSCapped
 				local groundMult = m_max(skillModList:Max(nil, "PoisonDpsAsCausticGround") or 0, enemyDB:Max(nil, "PoisonDpsAsCausticGround") or 0)
@@ -3998,6 +3998,9 @@ function calcs.offence(env, actor, activeSkill)
 						local totalFromCrit = chanceFromCrit / (chanceFromHit + chanceFromCrit)
 						breakdown.PoisonDotMulti = breakdown.critDot(output.PoisonDotMulti, output.CritPoisonDotMulti, totalFromHit, totalFromCrit)
 						output.PoisonDotMulti = (output.PoisonDotMulti * totalFromHit) + (output.CritPoisonDotMulti * totalFromCrit)
+					end
+					if output.RuthlessBlowAilmentEffect ~= 1 then
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
 					end
 					t_insert(breakdown.PoisonDPS, "x 0.30 ^8(poison deals 30% per second)")
 					t_insert(breakdown.PoisonDPS, s_format("= %.1f", baseVal, 1))
@@ -4250,9 +4253,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			-- over-stacking ignite stacks increases the chance a critical ignite is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, igniteStacks))
-			local baseVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			local baseMinVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceMinHitDmg, 0, true) * data.misc.IgnitePercentBase
-			local baseMaxVal = calcAilmentDamage("Ignite", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.IgnitePercentBase * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMaxVal = calcAilmentDamage("Ignite", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1
@@ -4319,6 +4322,9 @@ function calcs.offence(env, actor, activeSkill)
 				end
 
 				if breakdown then
+					if output.RuthlessBlowAilmentEffect ~= 1 then
+						t_insert(breakdown.BleedDPS, s_format("x %.2f ^8(ruthless blow effect modifier)", output.RuthlessBlowAilmentEffect))
+					end
 					t_insert(breakdown.IgniteDPS, "x 0.9 ^8(ignite deals 90% per second)")
 					t_insert(breakdown.IgniteDPS, s_format("= %.1f", baseVal, 1))
 					if baseVal ~= output.IgniteDPS then
