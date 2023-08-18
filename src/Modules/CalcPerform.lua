@@ -344,6 +344,14 @@ local function getTriggerDefaultCooldown(supportList, name)
 	return 100
 end
 
+local function slotMatch(env, skill)
+	local fromItem = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem)
+	fromItem = fromItem or (env.player.mainSkill.activeEffect.srcInstance.fromItem or skill.activeEffect.srcInstance.fromItem)
+	local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+	local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
+	return (match1 or match2)
+end
+
 -- Merge an instance of a buff, taking the highest value of each modifier
 local function mergeBuff(src, destTable, destKey)
 	if not destTable[destKey] then
@@ -1508,14 +1516,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 			activeSkill.skillData.triggered = true
 			local spellCount, quality = 0
 			for _, skill in ipairs(env.player.activeSkillList) do
-				local fromItem = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem)
-				fromItem = fromItem or (env.player.mainSkill.activeEffect.srcInstance.fromItem or skill.activeEffect.srcInstance.fromItem)
-				local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-				local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-				if skill.skillData.triggeredByBrand and (match1 or match2) then
+				if skill.skillData.triggeredByBrand and slotMatch(env, skill) then
 					spellCount = spellCount + 1
 				end
-				if skill.activeEffect.grantedEffect.name == "Arcanist Brand" and (match1 or match2) then
+				if skill.activeEffect.grantedEffect.name == "Arcanist Brand" and slotMatch(env, skill) then
 					quality = skill.activeEffect.quality / 2
 				end
 			end
@@ -3419,14 +3423,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local fromItem = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem)
-			fromItem = fromItem or (env.player.mainSkill.activeEffect.srcInstance.fromItem or skill.activeEffect.srcInstance.fromItem)
-			local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill and (match1 or match2) then
+			if skill.skillTypes[SkillType.Attack] and skill ~= env.player.mainSkill and slotMatch(env, skill) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.skillData.triggeredByCoC and (match1 or match2) then
+			if skill.skillData.triggeredByCoC and slotMatch(env, skill) then
 				local cooldownOverride = skill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 			end
@@ -3473,14 +3473,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local fromItem = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem)
-			fromItem = fromItem or (env.player.mainSkill.activeEffect.srcInstance.fromItem or skill.activeEffect.srcInstance.fromItem)
-			local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill ~= env.player.mainSkill and (match1 or match2) then
+			if skill.skillTypes[SkillType.Attack] and skill.skillTypes[SkillType.Melee] and skill ~= env.player.mainSkill and slotMatch(env, skill) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.skillData.triggeredByMeleeKill and (match1 or match2) then
+			if skill.skillData.triggeredByMeleeKill and slotMatch(env, skill) then
 				local cooldownOverride = skill.skillModList:Override(env.player.mainSkill.skillCfg, "CooldownRecovery")
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = cooldownOverride or (skill.skillData.cooldown / icdr), next_trig = 0, count = 0 })
 			end
@@ -3524,14 +3520,10 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		local trigRate = 0
 		local source = nil
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local fromItem = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem)
-			fromItem = fromItem or (env.player.mainSkill.activeEffect.srcInstance.fromItem or skill.activeEffect.srcInstance.fromItem)
-			local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and (match1 or match2) then
+			if skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and slotMatch(env, skill) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
-			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
+			if skill.skillData.triggeredWhileChannelling and slotMatch(env, skill) then
 				t_insert(spellCount, { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, next_trig = 0, count = 0 })
 			end
 		end
@@ -3722,11 +3714,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		local hexCastRate = 0
 
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local fromItem = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem)
-			fromItem = fromItem or (env.player.mainSkill.activeEffect.srcInstance.fromItem or skill.activeEffect.srcInstance.fromItem)
-			local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
-			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if skill.skillTypes[SkillType.Hex] and (match1 or match2) then
+			if skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) then
 				source, hexCastRate = findTriggerSkill(env, skill, source, hexCastRate)
 			end
 		end
