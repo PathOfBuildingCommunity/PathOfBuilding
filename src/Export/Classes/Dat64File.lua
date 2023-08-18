@@ -78,7 +78,7 @@ local dataTypes = {
 }
 
 local Dat64FileClass = newClass("Dat64File", function(self, name, raw)
-	self.name = name
+	self.name = name:lower()
 	self.raw = raw
 
 	if not main.datSpecs[self.name] then

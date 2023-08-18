@@ -62,11 +62,23 @@ end
 local tempTable1 = { }
 local tempTable2 = { }
 
+
+-- One Time use function to correct lowercasing all spec.lua keys
+function main:LowercaseKeys(tbl)
+	retTbl = {}
+	for k,v in pairs(tbl) do
+		retTbl[k:lower()] = v
+	end
+	tbl = nil
+	return retTbl
+end
+
 function main:Init()
 	self.inputEvents = { }
 	self.popups = { }
 
 	self.datSpecs = LoadModule("spec")
+	--self.datSpecs = self:LowercaseKeys(self.datSpecs)
 
 	self.datFileList = { }
 	self.datFileByName = { }
@@ -120,6 +132,7 @@ function main:Init()
 		out:close()
 	end
 	function dat(name)
+		name = name:lower()
 		if #self.datFileList == 0 then
 			error("No .dat files loaded; set GGPK path first")
 		end
@@ -129,6 +142,7 @@ function main:Init()
 		return self.datFileByName[name]
 	end
 	function getFile(name)
+		name = name:lower()
 		if not self.ggpk then
 			error("GGPK not loaded; set path first")
 		end
