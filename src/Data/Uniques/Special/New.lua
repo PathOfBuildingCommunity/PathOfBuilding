@@ -16,8 +16,10 @@ Recover (1-3)% of Life on Kill
 [[
 Arohongui's Tending
 Coral Amulet
+Implicits: 1
 {tags:life}Regenerate (2-4) Life per second
-{tags:life}(15-30)% increased Life Recovery from Flasks
+{tags:mana}Regenerate (3-5) Mana per second
+{tags:life}(30-40)% increased Life Recovery from Flasks
 {tags:mana}(15-30)% increased Mana Recovery from Flasks
 Life Flasks used while on Low Life apply Recovery Instantly
 Mana Flasks used while on Low Mana apply Recovery Instantly
