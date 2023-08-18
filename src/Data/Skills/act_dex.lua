@@ -3859,10 +3859,10 @@ skills["ExplosiveArrow"] = {
 	end,
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
-			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
+			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 		["explosive_arrow_explosion_maximum_added_fire_damage"] = {
-			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 		},
 		["fuse_arrow_explosion_radius_+_per_fuse_arrow_orb"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "ExplosiveArrowStage", limitVar = "ExplosiveArrowMaxBonusRadius", limitTotal = true }),
@@ -3894,6 +3894,7 @@ skills["ExplosiveArrow"] = {
 	baseMods = {
 		skill("radius", 15),
 		skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } }),
+		mod("Damage", "MORE", 100, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStageAfterFirst" }),
 	},
 	qualityStats = {
 		Default = {
@@ -4605,6 +4606,9 @@ skills["VaalFlickerStrike"] = {
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment)),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["base_melee_attack_repeat_count"] = {
+			mod("RepeatCount", "BASE", nil)
 		},
 	},
 	baseFlags = {
@@ -6019,7 +6023,7 @@ skills["LancingSteel"] = {
 			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
 			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
-			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel")
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel", ModFlag.Hit)
 		end
 	end,
 	statMap = {

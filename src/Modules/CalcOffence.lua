@@ -2022,7 +2022,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.Speed = output.Speed * totemActionSpeed
 				output.CastRate = output.Speed
 			end
-			if output.Cooldown and not activeSkill.skillTypes[SkillType.Channel] then
+			if output.Cooldown then
 				output.Speed = m_min(output.Speed, 1 / output.Cooldown * output.Repeats)
 			end
 			if output.Cooldown and skillFlags.selfCast then
@@ -2084,11 +2084,11 @@ function calcs.offence(env, actor, activeSkill)
 				output.HitSpeed = 1 / output.HitTime
 			end
 		end
-		-- Other Misc DPS multipliers (like custom source)
-		skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", cfg, "DPS") / 100 ) * skillModList:More(cfg, "DPS")
-		if env.configInput.repeatMode == "FINAL" or skillModList:Flag(nil, "OnlyFinalRepeat") then
-			skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
-		end
+	end
+	-- Other Misc DPS multipliers (like custom source)
+	skillData.dpsMultiplier = ( skillData.dpsMultiplier or 1 ) * ( 1 + skillModList:Sum("INC", cfg, "DPS") / 100 ) * skillModList:More(cfg, "DPS")
+	if env.configInput.repeatMode == "FINAL" or skillModList:Flag(nil, "OnlyFinalRepeat") then
+		skillData.dpsMultiplier = skillData.dpsMultiplier / (output.Repeats or 1)
 	end
 	if skillModList:Flag(nil, "TriggeredBySnipe") then
 		skillFlags.channelRelease = true
@@ -2187,7 +2187,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		if env.mode_buffs then
 			-- Iterative over all the active skills to account for exerted attacks provided by warcries
-			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Triggered] and not activeSkill.skillTypes[SkillType.Channel] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
+			if (activeSkill.activeEffect.grantedEffect.name == "Vaal Ground Slam" or not activeSkill.skillTypes[SkillType.Vaal]) and not activeSkill.skillTypes[SkillType.Triggered] and not activeSkill.skillTypes[SkillType.Channel] and not activeSkill.skillTypes[SkillType.OtherThingUsesSkill] and not activeSkill.skillModList:Flag(cfg, "SupportedByMultistrike") then
 				for index, value in ipairs(actor.activeSkillList) do
 					if value.activeEffect.grantedEffect.name == "Ancestral Cry" and activeSkill.skillTypes[SkillType.MeleeSingleTarget] and not globalOutput.AncestralCryCalculated then
 						globalOutput.AncestralCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2831,7 +2831,7 @@ function calcs.offence(env, actor, activeSkill)
 								resist = resist > 0 and resist * (1 - (skillModList:Sum("BASE", nil, "PartialIgnoreEnemyPhysicalDamageReduction") / 100)) or resist
 							end
 						else
-							resist = calcResistForType(damageType)
+							resist = calcResistForType(damageType, dotCfg)
 							if (skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") and damageType == "Chaos") or 
 							   (skillModList:Flag(cfg, "ElementalDamageUsesLowestResistance") and isElemental[damageType]) then
 								-- Default to using the current damage type 
@@ -2842,7 +2842,7 @@ function calcs.offence(env, actor, activeSkill)
 								-- Find the lowest resist of all the elements and use that if it's lower
 								for _, eleDamageType in ipairs(dmgTypeList) do
 									if isElemental[eleDamageType] and useThisResist(eleDamageType) and damageType ~= eleDamageType then
-										local currentElementResist = calcResistForType(eleDamageType)
+										local currentElementResist = calcResistForType(eleDamageType, dotCfg)
 										-- If it's explicitly lower, then use the resist and update which element we're using to account for penetration
 										if resist > currentElementResist then
 											resist = currentElementResist
@@ -3946,7 +3946,7 @@ function calcs.offence(env, actor, activeSkill)
 				skillFlags.duration = true
 				local effMult = 1
 				if env.mode_effective then
-					local resist = calcResistForType("Chaos")
+					local resist = calcResistForType("Chaos", dotCfg)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 					effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -4138,7 +4138,7 @@ function calcs.offence(env, actor, activeSkill)
 					s_format(""),
 				}
 				if skillModList:Override(nil, "IgniteStackPotentialOverride") then
-					t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential override)", skillModList:Override(nil, "IgniteStackPotentialOverride")))
+					t_insert(globalBreakdown.IgniteStackPotential, s_format("= %g ^8(stack potential override)", skillModList:Override(nil, "IgniteStackPotentialOverride")))
 				else
 					if skillData.triggeredOnDeath then
 						t_insert(globalBreakdown.IgniteStackPotential, s_format("1 ^8Cast on Death override"))
@@ -4258,7 +4258,7 @@ function calcs.offence(env, actor, activeSkill)
 				local effMult = 1
 				if env.mode_effective then
 					if skillModList:Flag(cfg, "IgniteToChaos") then
-						local resist = calcResistForType("Chaos")
+						local resist = calcResistForType("Chaos", dotCfg)
 						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -4268,7 +4268,7 @@ function calcs.offence(env, actor, activeSkill)
 							globalBreakdown.IgniteEffMult = breakdown.effMult("Chaos", resist, 0, takenInc, effMult, takenMore, sourceRes, true)
 						end
 					else
-						local resist = calcResistForType("Fire")
+						local resist = calcResistForType("Fire", dotCfg)
 						local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 						local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 						effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -4294,7 +4294,7 @@ function calcs.offence(env, actor, activeSkill)
 				local groundMult = m_max(skillModList:Max(nil, "IgniteDpsAsBurningGround") or 0, enemyDB:Max(nil, "IgniteDpsAsBurningGround") or 0)
 				if groundMult > 0 then
 					-- Always use fire eff multi
-					local resist = calcResistForType("Fire")
+					local resist = calcResistForType("Fire", dotCfg)
 					local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken")
 					local fireEffMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -4709,7 +4709,7 @@ function calcs.offence(env, actor, activeSkill)
 		local dotCfg = activeSkill.decayCfg
 		local effMult = 1
 		if env.mode_effective then
-			local resist = calcResistForType("Chaos")
+			local resist = calcResistForType("Chaos", dotCfg)
 			local takenInc = enemyDB:Sum("INC", nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			local takenMore = enemyDB:More(nil, "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime")
 			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
@@ -4919,7 +4919,7 @@ function calcs.offence(env, actor, activeSkill)
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.TotemPlacementSpeed > 0 and output.TotemPlacementSpeed or 1 / output.Cooldown) or output.TotemPlacementSpeed) / repeats
 				timeType = "totem placement"
 			elseif skillModList:Flag(nil, "HasSeals") and skillModList:Flag(nil, "UseMaxUnleash") then
-				useSpeed = 1 / env.player.mainSkill.skillData.hitTimeOverride / repeats
+				useSpeed = env.player.mainSkill.skillData.hitTimeOverride / repeats
 				timeType = "full unleash"
 			else
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.Speed > 0 and output.Speed or 1 / output.Cooldown) or output.Speed) / repeats

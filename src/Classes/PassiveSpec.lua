@@ -47,7 +47,8 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	for id, node in pairs(self.nodes) do
 		-- if the node is allocated and between the old and new tree has the same ID but does not share the same name, add to list of nodes to be ignored
 		if convert and previousTreeNodes[id] and self.build.spec.allocNodes[id] and node.name ~= previousTreeNodes[id].name then
-			self.ignoredNodes[id] = previousTreeNodes[id]
+			--Commented out for now as it was breaking nodes when upgrading trees
+			--self.ignoredNodes[id] = previousTreeNodes[id]
 		end
 		for _, otherId in ipairs(node.linkedId) do
 			t_insert(node.linked, self.nodes[otherId])
