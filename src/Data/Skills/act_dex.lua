@@ -4607,6 +4607,9 @@ skills["VaalFlickerStrike"] = {
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["base_melee_attack_repeat_count"] = {
+			mod("RepeatCount", "BASE", nil)
+		},
 	},
 	baseFlags = {
 		attack = true,
