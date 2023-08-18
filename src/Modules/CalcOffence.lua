@@ -2463,9 +2463,9 @@ function calcs.offence(env, actor, activeSkill)
 				output.RuthlessBlowChance = 0
 			end
 			output.RuthlessBlowHitMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowHitMultiplier") / 100
-			output.RuthlessBlowBleedMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowBleedMultiplier") / 100
+			output.RuthlessBlowAilmentMultiplier = 1 + skillModList:Sum("BASE", cfg, "RuthlessBlowAilmentMultiplier") / 100
 			output.RuthlessBlowHitEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowHitMultiplier
-			output.RuthlessBlowBleedEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowBleedMultiplier
+			output.RuthlessBlowBleedEffect = 1 - output.RuthlessBlowChance / 100 + output.RuthlessBlowChance / 100 * output.RuthlessBlowAilmentMultiplier
 
 			globalOutput.FistOfWarCooldown = skillModList:Sum("BASE", cfg, "FistOfWarCooldown") or 0
 			-- If Fist of War & Active Skill is a Slam Skill & NOT a Vaal Skill
