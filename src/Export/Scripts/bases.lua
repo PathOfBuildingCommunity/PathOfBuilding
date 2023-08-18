@@ -34,7 +34,6 @@ directiveTable.base = function(state, args, out)
 	if not baseTypeId then
 		baseTypeId = args
 	end
-	baseTypeId = baseTypeId
 	local baseItemType = dat("BaseItemTypes"):GetRow("Id", baseTypeId)
 	if not baseItemType then
 		printf("Invalid Id %s", baseTypeId)
