@@ -539,8 +539,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
 
 	for _, node in pairs(env.spec.allocNodes) do
-		for _, mod in ipairs(node.finalModList:Tabulate("LIST", nil, "ExtraJewelFunc")) do
-			env.extraJewelFuncs:AddMod(mod.mod)
+		if node.finalModList then
+			for _, mod in ipairs(node.finalModList:Tabulate("LIST", nil, "ExtraJewelFunc")) do
+				env.extraJewelFuncs:AddMod(mod.mod)
+			end
 		end
 	end
 
