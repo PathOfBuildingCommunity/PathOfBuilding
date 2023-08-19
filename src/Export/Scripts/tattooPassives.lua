@@ -7,6 +7,7 @@ local out = io.open("../Data/TattooPassives.lua", "w")
 
 local stats = dat("Stats")
 local alternatePassiveSkillDat = dat("passiveskilloverrides")
+local alternatePassiveSkillTattoosDat = dat("passiveskilltattoos")
 
 local tattoo_PASSIVE_GROUP = 1e9
 
@@ -90,6 +91,12 @@ for i=1, alternatePassiveSkillDat.rowCount do
 		local key = alternatePassiveSkillDat.spec[j].name
 		datFileRow[key] = alternatePassiveSkillDat:ReadCell(i, j)
 	end
+
+	local tattooDatRow = {}
+	for j=1, #alternatePassiveSkillTattoosDat.cols-1 do
+		local key = alternatePassiveSkillTattoosDat.spec[j].name
+		tattooDatRow[key] = alternatePassiveSkillTattoosDat:ReadCell(i,j)
+	end
 	---@type table<string, boolean|string|number|table>
 	local tattooPassiveNode = {}
 	-- id
@@ -101,24 +108,14 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	-- display text
 	tattooPassiveNode.sd = {}
 	tattooPassiveNode.stats = {}
+	tattooPassiveNode.isTattoo = true
+
+	tattooPassiveNode.targetType = tattooDatRow.NodeTarget.Type
+	tattooPassiveNode.targetValue = tattooDatRow.NodeTarget.Value
 
 	parseStats(datFileRow, tattooPassiveNode)
 
-	-- Node group, tattoo nodes don't use it, so we set it arbitrarily
-	tattooPassiveNode.g = tattoo_PASSIVE_GROUP
-	-- 
-	-- group orbit distance
-	tattooPassiveNode.o = 3
-	tattooPassiveNode.oidx = math.floor(math.random() * 1e5)
-	-- attributes granted 
-	tattooPassiveNode.sa = 0
-	tattooPassiveNode.da = 0
-	tattooPassiveNode.ia = 0
-	-- connected nodes
-	tattooPassiveNode.out = {}
-	tattooPassiveNode["in"] = {}
-
-	data.nodes[tattooPassiveNode.id] = tattooPassiveNode
+	data.nodes[datFileRow.Id] = tattooPassiveNode
 end
 
 data.groups[tattoo_PASSIVE_GROUP] = {

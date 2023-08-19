@@ -101,17 +101,9 @@ return {
 	}, 
 	["nodes"] = {
 		["Ngamahu5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Ngamahu5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "totem_life_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["totem_life_+%"] = {
 					["max"] = 6, 
@@ -121,27 +113,20 @@ return {
 					["statOrder"] = 1580, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "totem_life_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "6% increased Totem Life", 
 			}, 
-			["oidx"] = 82620, 
 			["dn"] = "Tattoo of the Ngamahu Woodcarver", 
 		}, 
 		["Hinekora5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Hinekora5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "minion_maximum_life_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["minion_maximum_life_+%"] = {
 					["max"] = 6, 
@@ -151,27 +136,20 @@ return {
 					["statOrder"] = 1572, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "minion_maximum_life_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Minions have 6% increased maximum Life", 
 			}, 
-			["oidx"] = 50410, 
 			["dn"] = "Tattoo of the Hinekora Warmonger", 
 		}, 
 		["Tasalio1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Tasalio1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "maim_on_hit_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["maim_on_hit_%"] = {
 					["max"] = 5, 
@@ -181,27 +159,20 @@ return {
 					["statOrder"] = 7281, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "maim_on_hit_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Attacks have 5% chance to Maim on Hit", 
 			}, 
-			["oidx"] = 93327, 
 			["dn"] = "Tattoo of the Tasalio Bladedancer", 
 		}, 
 		["SpecialSmallNode8"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.dds", 
 			["id"] = "SpecialSmallNode8", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "non_curse_aura_effect_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
 					["max"] = 1, 
@@ -211,27 +182,20 @@ return {
 					["statOrder"] = 3339, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "non_curse_aura_effect_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Attribute", 
 			["sd"] = {
 				[1] = "1% increased effect of Non-Curse Auras from your Skills", 
 			}, 
-			["oidx"] = 66288, 
 			["dn"] = "Honoured Tattoo of the Flock", 
 		}, 
 		["SpecialNotableStr1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon1.dds", 
 			["id"] = "SpecialNotableStr1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "strength_skill_gem_level_+", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "+30 to Strength", 
 			["stats"] = {
 				["strength_skill_gem_level_+"] = {
 					["max"] = 1, 
@@ -241,28 +205,20 @@ return {
 					["statOrder"] = 8955, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "strength_skill_gem_level_+", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "+1 to Level of all Strength Skill Gems", 
 			}, 
-			["oidx"] = 64997, 
 			["dn"] = "Honoured Tattoo of the Warlord", 
 		}, 
 		["Valako6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/ValakoTribeSkill.dds", 
 			["id"] = "Valako6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_block_hit_from_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_kiloava", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_block_hit_from_unique"] = {
 					["max"] = 1, 
@@ -277,28 +233,21 @@ return {
 					["statOrder"] = 585, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_block_hit_from_unique", 
+				[2] = "local_display_tattoo_trigger_level_x_kiloava", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Kiloava Skill when you Block Damage from a Unique Enemy", 
 			}, 
-			["oidx"] = 10883, 
 			["dn"] = "Loyalty Tattoo of Kiloava", 
 		}, 
 		["Ngamahu6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/NgamahuTribeSkill.dds", 
 			["id"] = "Ngamahu6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_totem_death_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_kaom", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_totem_death_in_presence_of_unique"] = {
 					["max"] = 1, 
@@ -313,29 +262,22 @@ return {
 					["statOrder"] = 584, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_totem_death_in_presence_of_unique", 
+				[2] = "local_display_tattoo_trigger_level_x_kaom", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Kaom Skill when a Totem dies while", 
 				[2] = "a Unique Enemy is in your Presence", 
 			}, 
-			["oidx"] = 84022, 
 			["dn"] = "Loyalty Tattoo of Kaom", 
 		}, 
 		["Valako3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Valako3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "global_minimum_added_lightning_damage", 
-				[2] = "global_maximum_added_lightning_damage", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["global_minimum_added_lightning_damage"] = {
 					["max"] = 7, 
@@ -352,28 +294,22 @@ return {
 					["statOrder"] = 1191, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "global_minimum_added_lightning_damage", 
+				[2] = "global_maximum_added_lightning_damage", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Adds (1-7) to 0 Lightning Damage", 
 				[2] = "Adds 0 to (1-7) Lightning Damage", 
 			}, 
-			["oidx"] = 91332, 
 			["dn"] = "Tattoo of the Valako Warrior", 
 		}, 
 		["Ngamahu7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Ngamahu7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_fire_damage_resistance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_maximum_fire_damage_resistance_%"] = {
 					["max"] = 1, 
@@ -383,27 +319,20 @@ return {
 					["statOrder"] = 1431, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_maximum_fire_damage_resistance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "+1% to maximum Fire Resistance", 
 			}, 
-			["oidx"] = 37694, 
 			["dn"] = "Tattoo of the Ngamahu Makanga", 
 		}, 
 		["Hinekora3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Hinekora3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_mana_regeneration_rate_per_minute", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_mana_regeneration_rate_per_minute"] = {
 					["max"] = 3, 
@@ -413,27 +342,20 @@ return {
 					["statOrder"] = 1390, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_mana_regeneration_rate_per_minute", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Regenerate 3 Mana per second", 
 			}, 
-			["oidx"] = 48261, 
 			["dn"] = "Tattoo of the Hinekora Shaman", 
 		}, 
 		["Ngamahu1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Ngamahu1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_fire_damage_resistance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_fire_damage_resistance_%"] = {
 					["max"] = 8, 
@@ -443,27 +365,20 @@ return {
 					["statOrder"] = 1433, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_fire_damage_resistance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "+8% to Fire Resistance", 
 			}, 
-			["oidx"] = 45680, 
 			["dn"] = "Tattoo of the Ngamahu Firewalker", 
 		}, 
 		["Hinekora1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Hinekora1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "energy_shield_recharge_rate_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["energy_shield_recharge_rate_+%"] = {
 					["max"] = 10, 
@@ -473,27 +388,20 @@ return {
 					["statOrder"] = 1373, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "energy_shield_recharge_rate_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "10% increased Energy Shield Recharge Rate", 
 			}, 
-			["oidx"] = 2420, 
 			["dn"] = "Tattoo of the Hinekora Warrior", 
 		}, 
 		["Tukohama4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Tukohama4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "melee_range_+", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["melee_range_+"] = {
 					["max"] = 1, 
@@ -503,27 +411,20 @@ return {
 					["statOrder"] = 2325, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "melee_range_+", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "+1 to Melee Strike Range", 
 			}, 
-			["oidx"] = 32845, 
 			["dn"] = "Tattoo of the Tukohama Warmonger", 
 		}, 
 		["Valako1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Valako1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_lightning_damage_resistance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_lightning_damage_resistance_%"] = {
 					["max"] = 8, 
@@ -533,27 +434,20 @@ return {
 					["statOrder"] = 1444, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_lightning_damage_resistance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "+8% to Lightning Resistance", 
 			}, 
-			["oidx"] = 18807, 
 			["dn"] = "Tattoo of the Valako Stormrider", 
 		}, 
 		["Ngamahu2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Ngamahu2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_self_ignite_duration_-%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_self_ignite_duration_-%"] = {
 					["max"] = 15, 
@@ -563,27 +457,20 @@ return {
 					["statOrder"] = 1681, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_self_ignite_duration_-%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "15% reduced Ignite Duration on you", 
 			}, 
-			["oidx"] = 79160, 
 			["dn"] = "Tattoo of the Ngamahu Shaman", 
 		}, 
 		["Valako7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Valako7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_lightning_damage_resistance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_maximum_lightning_damage_resistance_%"] = {
 					["max"] = 1, 
@@ -593,27 +480,20 @@ return {
 					["statOrder"] = 1442, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_maximum_lightning_damage_resistance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "+1% to maximum Lightning Resistance", 
 			}, 
-			["oidx"] = 17069, 
 			["dn"] = "Tattoo of the Valako Makanga", 
 		}, 
 		["Hinekora4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Hinekora4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "skill_effect_duration_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["skill_effect_duration_+%"] = {
 					["max"] = 3, 
@@ -623,27 +503,20 @@ return {
 					["statOrder"] = 1701, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "skill_effect_duration_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "3% increased Skill Effect Duration", 
 			}, 
-			["oidx"] = 6017, 
 			["dn"] = "Tattoo of the Hinekora Storyteller", 
 		}, 
 		["SpecialNotableDex1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon2.dds", 
 			["id"] = "SpecialNotableDex1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "dexterity_skill_gem_level_+", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "+30 to Dexterity", 
 			["stats"] = {
 				["dexterity_skill_gem_level_+"] = {
 					["max"] = 1, 
@@ -653,28 +526,20 @@ return {
 					["statOrder"] = 5559, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "dexterity_skill_gem_level_+", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "+1 to Level of all Dexterity Skill Gems", 
 			}, 
-			["oidx"] = 57033, 
 			["dn"] = "Honoured Tattoo of the Hunter", 
 		}, 
 		["Ngamahu3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Ngamahu3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "global_maximum_added_fire_damage", 
-				[2] = "global_minimum_added_fire_damage", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["global_maximum_added_fire_damage"] = {
 					["max"] = 5, 
@@ -691,28 +556,22 @@ return {
 					["statOrder"] = 1171, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "global_maximum_added_fire_damage", 
+				[2] = "global_minimum_added_fire_damage", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Adds (3-5) to 0 Fire Damage", 
 				[2] = "Adds 0 to (3-5) Fire Damage", 
 			}, 
-			["oidx"] = 64617, 
 			["dn"] = "Tattoo of the Ngamahu Warrior", 
 		}, 
 		["Tasalio5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Tasalio5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "mark_skills_curse_effect_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["mark_skills_curse_effect_+%"] = {
 					["max"] = 5, 
@@ -722,27 +581,20 @@ return {
 					["statOrder"] = 2389, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "mark_skills_curse_effect_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "5% increased Effect of your Marks", 
 			}, 
-			["oidx"] = 29868, 
 			["dn"] = "Tattoo of the Tasalio Scout", 
 		}, 
 		["SpecialSmallNode2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.dds", 
 			["id"] = "SpecialSmallNode2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_resist_all_elements_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_resist_all_elements_%"] = {
 					["max"] = 3, 
@@ -752,28 +604,20 @@ return {
 					["statOrder"] = 1427, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_resist_all_elements_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Attribute", 
 			["sd"] = {
 				[1] = "+3% to all Elemental Resistances", 
 			}, 
-			["oidx"] = 84913, 
 			["dn"] = "Honoured Tattoo of the Sky", 
 		}, 
 		["Tawhoa3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Tawhoa3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "global_maximum_added_chaos_damage", 
-				[2] = "global_minimum_added_chaos_damage", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["global_maximum_added_chaos_damage"] = {
 					["max"] = 3, 
@@ -790,28 +634,22 @@ return {
 					["statOrder"] = 1198, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "global_maximum_added_chaos_damage", 
+				[2] = "global_minimum_added_chaos_damage", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Adds (2-3) to 0 Chaos Damage", 
 				[2] = "Adds 0 to (2-3) Chaos Damage", 
 			}, 
-			["oidx"] = 91756, 
 			["dn"] = "Tattoo of the Tawhoa Warrior", 
 		}, 
 		["Ramako4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Ramako4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_movement_velocity_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_movement_velocity_+%"] = {
 					["max"] = 2, 
@@ -821,27 +659,20 @@ return {
 					["statOrder"] = 1604, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_movement_velocity_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "2% increased Movement Speed", 
 			}, 
-			["oidx"] = 28021, 
 			["dn"] = "Tattoo of the Ramako Fleetfoot", 
 		}, 
 		["Tasalio3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Tasalio3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "spells_chance_to_hinder_on_hit_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["spells_chance_to_hinder_on_hit_%"] = {
 					["max"] = 5, 
@@ -851,27 +682,20 @@ return {
 					["statOrder"] = 8891, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "spells_chance_to_hinder_on_hit_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "5% chance to Hinder Enemies on Hit with Spells", 
 			}, 
-			["oidx"] = 55075, 
 			["dn"] = "Tattoo of the Tasalio Shaman", 
 		}, 
 		["Tukohama5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Tukohama5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "warcry_cooldown_speed_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["warcry_cooldown_speed_+%"] = {
 					["max"] = 10, 
@@ -881,27 +705,20 @@ return {
 					["statOrder"] = 3107, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "warcry_cooldown_speed_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "10% increased Warcry Cooldown Recovery Rate", 
 			}, 
-			["oidx"] = 40214, 
 			["dn"] = "Tattoo of the Tukohama Warcaller", 
 		}, 
 		["Ramako1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Ramako1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_evasion_rating", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_evasion_rating"] = {
 					["max"] = 80, 
@@ -911,27 +728,20 @@ return {
 					["statOrder"] = 1353, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_evasion_rating", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "+80 to Evasion Rating", 
 			}, 
-			["oidx"] = 33128, 
 			["dn"] = "Tattoo of the Ramako Scout", 
 		}, 
 		["Ramako7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Ramako7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "number_of_additional_projectiles", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["number_of_additional_projectiles"] = {
 					["max"] = 1, 
@@ -941,28 +751,20 @@ return {
 					["statOrder"] = 1598, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "number_of_additional_projectiles", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "Skills fire an additional Projectile", 
 			}, 
-			["oidx"] = 99442, 
 			["dn"] = "Tattoo of the Ramako Makanga", 
 		}, 
 		["Rongokurai6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/RongokuraiTribeSkill.dds", 
 			["id"] = "Rongokurai6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_crit_by_unique_enemy", 
-				[2] = "local_display_tattoo_trigger_level_x_kahuturoa", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["local_display_tattoo_trigger_level_x_kahuturoa"] = {
 					["max"] = 1, 
@@ -977,28 +779,22 @@ return {
 					["index"] = 2, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_crit_by_unique_enemy", 
+				[2] = "local_display_tattoo_trigger_level_x_kahuturoa", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Kahuturoa Skill when you take", 
 				[2] = "a Critical Strike from a Unique Enemy", 
 			}, 
-			["oidx"] = 94233, 
 			["dn"] = "Loyalty Tattoo of Kahuturoa", 
 		}, 
 		["Tawhoa5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Tawhoa5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "damage_taken_goes_to_life_over_4_seconds_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["damage_taken_goes_to_life_over_4_seconds_%"] = {
 					["max"] = 2, 
@@ -1008,28 +804,20 @@ return {
 					["statOrder"] = 5492, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "damage_taken_goes_to_life_over_4_seconds_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "2% of Damage taken Recouped as Life", 
 			}, 
-			["oidx"] = 69797, 
 			["dn"] = "Tattoo of the Tawhoa Shaman", 
 		}, 
 		["Hinekora6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/HinekoraTribeSkill.dds", 
 			["id"] = "Hinekora6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_es_recharge_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_tawhanuku", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_es_recharge_in_presence_of_unique"] = {
 					["max"] = 1, 
@@ -1044,27 +832,21 @@ return {
 					["statOrder"] = 588, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_es_recharge_in_presence_of_unique", 
+				[2] = "local_display_tattoo_trigger_level_x_tawhanuku", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Tawhanuku Skill when Energy Shield Recharge starts while a Unique Enemy is in your Presence", 
 			}, 
-			["oidx"] = 44196, 
 			["dn"] = "Loyalty Tattoo of Tawhanuku", 
 		}, 
 		["Kitava1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Kitava1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_life_leech_from_attack_damage_permyriad", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_life_leech_from_attack_damage_permyriad"] = {
 					["max"] = 0.5, 
@@ -1074,28 +856,20 @@ return {
 					["statOrder"] = 1471, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_life_leech_from_attack_damage_permyriad", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "0.5% of Attack Damage Leeched as Life", 
 			}, 
-			["oidx"] = 88895, 
 			["dn"] = "Tattoo of the Kitava Blood Drinker", 
 		}, 
 		["Arohongui6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/ArohonguiTribeSkill.dds", 
 			["id"] = "Arohongui6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_travel_skill_use_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_ikiaho", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_travel_skill_use_in_presence_of_unique"] = {
 					["max"] = 1, 
@@ -1110,28 +884,22 @@ return {
 					["statOrder"] = 582, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_travel_skill_use_in_presence_of_unique", 
+				[2] = "local_display_tattoo_trigger_level_x_ikiaho", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Ikiaho Skill when you use a Travel", 
 				[2] = "Skill while a Unique Enemy is in your Presence", 
 			}, 
-			["oidx"] = 79942, 
 			["dn"] = "Loyalty Tattoo of Ikiaho", 
 		}, 
 		["Tasalio2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Tasalio2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_avoid_stun_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_avoid_stun_%"] = {
 					["max"] = 15, 
@@ -1141,27 +909,20 @@ return {
 					["statOrder"] = 1657, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_avoid_stun_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "15% chance to Avoid being Stunned", 
 			}, 
-			["oidx"] = 14140, 
 			["dn"] = "Tattoo of the Tasalio Tideshifter", 
 		}, 
 		["Rongokurai4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Rongokurai4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_self_critical_strike_multiplier_-%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_self_critical_strike_multiplier_-%"] = {
 					["max"] = 10, 
@@ -1171,28 +932,20 @@ return {
 					["statOrder"] = 1321, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_self_critical_strike_multiplier_-%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "You take 10% reduced Extra Damage from Critical Strikes", 
 			}, 
-			["oidx"] = 40288, 
 			["dn"] = "Tattoo of the Rongokurai Turtle", 
 		}, 
 		["Tawhoa1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Tawhoa1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "flask_life_to_recover_+%", 
-				[2] = "flask_mana_to_recover_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["flask_life_to_recover_+%"] = {
 					["max"] = 8, 
@@ -1209,28 +962,22 @@ return {
 					["statOrder"] = 1862, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "flask_life_to_recover_+%", 
+				[2] = "flask_mana_to_recover_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "8% increased Life Recovery from Flasks", 
 				[2] = "8% increased Mana Recovery from Flasks", 
 			}, 
-			["oidx"] = 54200, 
 			["dn"] = "Tattoo of the Tawhoa Naturalist", 
 		}, 
 		["Arohongui7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Arohongui7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_cold_damage_resistance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_maximum_cold_damage_resistance_%"] = {
 					["max"] = 1, 
@@ -1240,27 +987,20 @@ return {
 					["statOrder"] = 1437, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_maximum_cold_damage_resistance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "+1% to maximum Cold Resistance", 
 			}, 
-			["oidx"] = 23145, 
 			["dn"] = "Tattoo of the Arohongui Makanga", 
 		}, 
 		["SpecialNotableInt1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon3.dds", 
 			["id"] = "SpecialNotableInt1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "intelligence_skill_gem_level_+", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "+30 to Intelligence", 
 			["stats"] = {
 				["intelligence_skill_gem_level_+"] = {
 					["max"] = 1, 
@@ -1270,28 +1010,20 @@ return {
 					["statOrder"] = 6511, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "intelligence_skill_gem_level_+", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "+1 to Level of all Intelligence Skill Gems", 
 			}, 
-			["oidx"] = 7065, 
 			["dn"] = "Honoured Tattoo of the Wise", 
 		}, 
 		["Tukohama6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/TukohamaTribeSkill.dds", 
 			["id"] = "Tukohama6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_reaching_maximum_rage_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_akoya", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["local_display_tattoo_trigger_level_x_akoya"] = {
 					["max"] = 1, 
@@ -1306,28 +1038,22 @@ return {
 					["index"] = 2, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_reaching_maximum_rage_in_presence_of_unique", 
+				[2] = "local_display_tattoo_trigger_level_x_akoya", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Akoya Skill when you reach Maximum Rage while", 
 				[2] = "a Unique Enemy is in your Presence", 
 			}, 
-			["oidx"] = 87392, 
 			["dn"] = "Loyalty Tattoo of Akoya", 
 		}, 
 		["Ramako2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Ramako2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "accuracy_rating_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["accuracy_rating_+%"] = {
 					["max"] = 5, 
@@ -1337,28 +1063,20 @@ return {
 					["statOrder"] = 1244, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "accuracy_rating_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "5% increased Global Accuracy Rating", 
 			}, 
-			["oidx"] = 39249, 
 			["dn"] = "Tattoo of the Ramako Archer", 
 		}, 
 		["Arohongui2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Arohongui2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_avoid_chill_%", 
-				[2] = "base_avoid_freeze_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_avoid_chill_%"] = {
 					["max"] = 15, 
@@ -1375,29 +1093,22 @@ return {
 					["statOrder"] = 1651, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_avoid_chill_%", 
+				[2] = "base_avoid_freeze_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "15% chance to Avoid being Chilled", 
 				[2] = "15% chance to Avoid being Frozen", 
 			}, 
-			["oidx"] = 57536, 
 			["dn"] = "Tattoo of the Arohongui Scout", 
 		}, 
 		["Kitava3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Kitava3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "global_minimum_added_physical_damage", 
-				[2] = "global_maximum_added_physical_damage", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["global_minimum_added_physical_damage"] = {
 					["max"] = 3, 
@@ -1414,28 +1125,22 @@ return {
 					["statOrder"] = 1078, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "global_minimum_added_physical_damage", 
+				[2] = "global_maximum_added_physical_damage", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Adds (2-3) to 0 Physical Damage", 
 				[2] = "Adds 0 to (2-3) Physical Damage", 
 			}, 
-			["oidx"] = 55867, 
 			["dn"] = "Tattoo of the Kitava Warrior", 
 		}, 
 		["SpecialNotableDex3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon2.dds", 
 			["id"] = "SpecialNotableDex3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "gain_onslaught_on_hit_duration_ms", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "+30 to Dexterity", 
 			["stats"] = {
 				["gain_onslaught_on_hit_duration_ms"] = {
 					["max"] = 4, 
@@ -1445,28 +1150,20 @@ return {
 					["statOrder"] = 6087, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "gain_onslaught_on_hit_duration_ms", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "You gain Onslaught for 4 seconds on Hit", 
 			}, 
-			["oidx"] = 67444, 
 			["dn"] = "Honoured Tattoo of the Berserker", 
 		}, 
 		["SpecialNotableDex2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon2.dds", 
 			["id"] = "SpecialNotableDex2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_cold_damage_resistance_%", 
-				[2] = "max_frenzy_charges", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "+30 to Dexterity", 
 			["stats"] = {
 				["max_frenzy_charges"] = {
 					["max"] = 1, 
@@ -1483,28 +1180,22 @@ return {
 					["statOrder"] = 1437, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_maximum_cold_damage_resistance_%", 
+				[2] = "max_frenzy_charges", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "+1% to maximum Cold Resistance", 
 				[2] = "+1 to Maximum Frenzy Charges", 
 			}, 
-			["oidx"] = 4248, 
 			["dn"] = "Honoured Tattoo of the Barbarian", 
 		}, 
 		["Ramako5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Ramako5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_spell_suppression_chance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_spell_suppression_chance_%"] = {
 					["max"] = 2, 
@@ -1514,27 +1205,20 @@ return {
 					["statOrder"] = 962, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_spell_suppression_chance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "+2% chance to Suppress Spell Damage", 
 			}, 
-			["oidx"] = 19644, 
 			["dn"] = "Tattoo of the Ramako Shaman", 
 		}, 
 		["Arohongui4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Arohongui4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "shatter_on_killing_blow_chance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["shatter_on_killing_blow_chance_%"] = {
 					["max"] = 10, 
@@ -1544,27 +1228,20 @@ return {
 					["statOrder"] = 8716, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "shatter_on_killing_blow_chance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Killing Blows have 10% chance to Shatter Enemies as though Frozen", 
 			}, 
-			["oidx"] = 93616, 
 			["dn"] = "Tattoo of the Arohongui Warmonger", 
 		}, 
 		["Tawhoa7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Tawhoa7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "flask_effect_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["flask_effect_+%"] = {
 					["max"] = 8, 
@@ -1574,28 +1251,20 @@ return {
 					["statOrder"] = 2527, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "flask_effect_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "Flasks applied to you have 8% increased Effect", 
 			}, 
-			["oidx"] = 93563, 
 			["dn"] = "Tattoo of the Tawhoa Makanga", 
 		}, 
 		["SpecialNotableStr2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon1.dds", 
 			["id"] = "SpecialNotableStr2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_fire_damage_resistance_%", 
-				[2] = "max_endurance_charges", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "+30 to Strength", 
 			["stats"] = {
 				["base_maximum_fire_damage_resistance_%"] = {
 					["max"] = 1, 
@@ -1612,28 +1281,22 @@ return {
 					["statOrder"] = 1610, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_maximum_fire_damage_resistance_%", 
+				[2] = "max_endurance_charges", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "+1% to maximum Fire Resistance", 
 				[2] = "+1 to Maximum Endurance Charges", 
 			}, 
-			["oidx"] = 41353, 
 			["dn"] = "Honoured Tattoo of the Mountain", 
 		}, 
 		["Rongokurai1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Rongokurai1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "physical_damage_reduction_rating_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["physical_damage_reduction_rating_+%"] = {
 					["max"] = 8, 
@@ -1643,27 +1306,20 @@ return {
 					["statOrder"] = 1350, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "physical_damage_reduction_rating_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "8% increased Armour", 
 			}, 
-			["oidx"] = 1088, 
 			["dn"] = "Tattoo of the Rongokurai Warrior", 
 		}, 
 		["SpecialSmallNode1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.dds", 
 			["id"] = "SpecialSmallNode1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_chaos_damage_resistance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_chaos_damage_resistance_%"] = {
 					["max"] = 4, 
@@ -1673,27 +1329,20 @@ return {
 					["statOrder"] = 1448, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_chaos_damage_resistance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Attribute", 
 			["sd"] = {
 				[1] = "+4% to Chaos Resistance", 
 			}, 
-			["oidx"] = 823, 
 			["dn"] = "Honoured Tattoo of the Dove", 
 		}, 
 		["Valako2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Valako2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "shocked_effect_on_self_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["shocked_effect_on_self_+%"] = {
 					["max"] = 15, 
@@ -1703,27 +1352,20 @@ return {
 					["statOrder"] = 8743, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "shocked_effect_on_self_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "15% reduced Effect of Shock on you", 
 			}, 
-			["oidx"] = 81217, 
 			["dn"] = "Tattoo of the Valako Scout", 
 		}, 
 		["SpecialSmallNode5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.dds", 
 			["id"] = "SpecialSmallNode5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "global_defences_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["global_defences_+%"] = {
 					["max"] = 3, 
@@ -1733,27 +1375,20 @@ return {
 					["statOrder"] = 2617, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "global_defences_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Attribute", 
 			["sd"] = {
 				[1] = "3% increased Global Defences", 
 			}, 
-			["oidx"] = 4261, 
 			["dn"] = "Honoured Tattoo of the Turtle", 
 		}, 
 		["Kitava2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Kitava2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_avoid_bleed_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_avoid_bleed_%"] = {
 					["max"] = 15, 
@@ -1763,27 +1398,20 @@ return {
 					["statOrder"] = 3983, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_avoid_bleed_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "15% chance to Avoid Bleeding", 
 			}, 
-			["oidx"] = 78681, 
 			["dn"] = "Tattoo of the Kitava Rebel", 
 		}, 
 		["Tawhoa4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Tawhoa4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "flask_duration_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["flask_duration_+%"] = {
 					["max"] = 6, 
@@ -1793,27 +1421,20 @@ return {
 					["statOrder"] = 1988, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "flask_duration_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "6% increased Flask Effect Duration", 
 			}, 
-			["oidx"] = 1205, 
 			["dn"] = "Tattoo of the Tawhoa Herbalist", 
 		}, 
 		["Hinekora7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Hinekora7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "curse_effect_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["curse_effect_+%"] = {
 					["max"] = 8, 
@@ -1823,27 +1444,20 @@ return {
 					["statOrder"] = 2387, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "curse_effect_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "8% increased Effect of your Curses", 
 			}, 
-			["oidx"] = 20341, 
 			["dn"] = "Tattoo of the Hinekora Makanga", 
 		}, 
 		["SpecialSmallNode4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.dds", 
 			["id"] = "SpecialSmallNode4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_item_found_rarity_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_item_found_rarity_+%"] = {
 					["max"] = 3, 
@@ -1853,27 +1467,20 @@ return {
 					["statOrder"] = 1404, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_item_found_rarity_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Attribute", 
 			["sd"] = {
 				[1] = "3% increased Rarity of Items found", 
 			}, 
-			["oidx"] = 27467, 
 			["dn"] = "Honoured Tattoo of the Pillager", 
 		}, 
 		["Rongokurai5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Rongokurai5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "guard_skill_effect_duration_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["guard_skill_effect_duration_+%"] = {
 					["max"] = 6, 
@@ -1883,27 +1490,20 @@ return {
 					["statOrder"] = 6176, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "guard_skill_effect_duration_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Guard Skills have 6% increased Duration", 
 			}, 
-			["oidx"] = 50505, 
 			["dn"] = "Tattoo of the Rongokurai Guard", 
 		}, 
 		["Valako4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Valako4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "additional_block_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["additional_block_%"] = {
 					["max"] = 1, 
@@ -1913,27 +1513,20 @@ return {
 					["statOrder"] = 2249, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "additional_block_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "+1% Chance to Block Attack Damage", 
 			}, 
-			["oidx"] = 65329, 
 			["dn"] = "Tattoo of the Valako Shieldbearer", 
 		}, 
 		["Arohongui5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Arohongui5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "herald_effect_on_self_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["herald_effect_on_self_+%"] = {
 					["max"] = 5, 
@@ -1943,27 +1536,20 @@ return {
 					["statOrder"] = 6349, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "herald_effect_on_self_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "5% increased Effect of Herald Buffs on you", 
 			}, 
-			["oidx"] = 99322, 
 			["dn"] = "Tattoo of the Arohongui Shaman", 
 		}, 
 		["Tasalio7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Tasalio7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_cooldown_speed_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_cooldown_speed_+%"] = {
 					["max"] = 8, 
@@ -1973,27 +1559,20 @@ return {
 					["statOrder"] = 4595, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_cooldown_speed_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "8% increased Cooldown Recovery Rate", 
 			}, 
-			["oidx"] = 81826, 
 			["dn"] = "Tattoo of the Tasalio Makanga", 
 		}, 
 		["Tukohama1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Tukohama1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_life_regeneration_rate_per_minute", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_life_regeneration_rate_per_minute"] = {
 					["max"] = 15, 
@@ -2003,27 +1582,20 @@ return {
 					["statOrder"] = 1382, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_life_regeneration_rate_per_minute", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Regenerate 15 Life per second", 
 			}, 
-			["oidx"] = 29714, 
 			["dn"] = "Tattoo of the Tukohama Shaman", 
 		}, 
 		["SpecialSmallNode3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.dds", 
 			["id"] = "SpecialSmallNode3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "additional_all_attributes", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["additional_all_attributes"] = {
 					["max"] = 4, 
@@ -2033,28 +1605,20 @@ return {
 					["statOrder"] = 991, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "additional_all_attributes", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Attribute", 
 			["sd"] = {
 				[1] = "+4 to all Attributes", 
 			}, 
-			["oidx"] = 21216, 
 			["dn"] = "Honoured Tattoo of the Tuatara", 
 		}, 
 		["Ramako6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/RamakoTribeSkill.dds", 
 			["id"] = "Ramako6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_suppress_hit_from_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_ahuana", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_suppress_hit_from_unique"] = {
 					["max"] = 1, 
@@ -2069,28 +1633,22 @@ return {
 					["statOrder"] = 580, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_suppress_hit_from_unique", 
+				[2] = "local_display_tattoo_trigger_level_x_ahuana", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Ahuana Skill when you Suppress", 
 				[2] = "Spell Damage from a Unique Enemy", 
 			}, 
-			["oidx"] = 21331, 
 			["dn"] = "Loyalty Tattoo of Ahuana", 
 		}, 
 		["SpecialSmallNode7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.dds", 
 			["id"] = "SpecialSmallNode7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_reservation_efficiency_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_reservation_efficiency_+%"] = {
 					["max"] = 1, 
@@ -2100,27 +1658,20 @@ return {
 					["statOrder"] = 2030, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_reservation_efficiency_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Attribute", 
 			["sd"] = {
 				[1] = "1% increased Reservation Efficiency of Skills", 
 			}, 
-			["oidx"] = 37140, 
 			["dn"] = "Honoured Tattoo of the Hatungo", 
 		}, 
 		["Kitava4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Kitava4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "killing_blow_consumes_corpse_restore_10%_life_chance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["killing_blow_consumes_corpse_restore_10%_life_chance_%"] = {
 					["max"] = 4, 
@@ -2130,27 +1681,20 @@ return {
 					["statOrder"] = 6526, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "killing_blow_consumes_corpse_restore_10%_life_chance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Killing Blows have 4% chance to Consume corpses to recover 10% of Maximum Life", 
 			}, 
-			["oidx"] = 79194, 
 			["dn"] = "Tattoo of the Kitava Heart Eater", 
 		}, 
 		["Ramako3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Ramako3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_projectile_speed_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_projectile_speed_+%"] = {
 					["max"] = 8, 
@@ -2160,27 +1704,20 @@ return {
 					["statOrder"] = 1602, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_projectile_speed_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "8% increased Projectile Speed", 
 			}, 
-			["oidx"] = 35273, 
 			["dn"] = "Tattoo of the Ramako Sniper", 
 		}, 
 		["Kitava7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Kitava7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "maximum_life_leech_rate_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["maximum_life_leech_rate_+%"] = {
 					["max"] = 80, 
@@ -2190,27 +1727,20 @@ return {
 					["statOrder"] = 1538, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "maximum_life_leech_rate_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "80% increased Maximum total Life Recovery per second from Leech", 
 			}, 
-			["oidx"] = 87796, 
 			["dn"] = "Tattoo of the Kitava Makanga", 
 		}, 
 		["Kitava5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Kitava5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_life_reservation_efficiency_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_life_reservation_efficiency_+%"] = {
 					["max"] = 4, 
@@ -2220,27 +1750,20 @@ return {
 					["statOrder"] = 2026, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_life_reservation_efficiency_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "4% increased Life Reservation Efficiency of Skills", 
 			}, 
-			["oidx"] = 1855, 
 			["dn"] = "Tattoo of the Kitava Shaman", 
 		}, 
 		["Rongokurai7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Rongokurai7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "chance_to_double_armour_effect_on_hit_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["chance_to_double_armour_effect_on_hit_%"] = {
 					["max"] = 8, 
@@ -2250,27 +1773,20 @@ return {
 					["statOrder"] = 5094, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "chance_to_double_armour_effect_on_hit_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "8% chance to Defend with 200% of Armour", 
 			}, 
-			["oidx"] = 33401, 
 			["dn"] = "Tattoo of the Rongokurai Makanga", 
 		}, 
 		["SpecialSmallNode6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.dds", 
 			["id"] = "SpecialSmallNode6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "maximum_life_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["maximum_life_+%"] = {
 					["max"] = 2, 
@@ -2280,27 +1796,20 @@ return {
 					["statOrder"] = 1379, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "maximum_life_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Attribute", 
 			["sd"] = {
 				[1] = "2% increased maximum Life", 
 			}, 
-			["oidx"] = 72550, 
 			["dn"] = "Honoured Tattoo of the Oak", 
 		}, 
 		["Tasalio4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Tasalio4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "attacks_chance_to_blind_on_hit_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["attacks_chance_to_blind_on_hit_%"] = {
 					["max"] = 5, 
@@ -2310,27 +1819,20 @@ return {
 					["statOrder"] = 4532, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "attacks_chance_to_blind_on_hit_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "5% chance to Blind Enemies on Hit with Attacks", 
 			}, 
-			["oidx"] = 5174, 
 			["dn"] = "Tattoo of the Tasalio Warrior", 
 		}, 
 		["Rongokurai2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Rongokurai2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "stun_threshold_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["stun_threshold_+%"] = {
 					["max"] = 15, 
@@ -2340,28 +1842,20 @@ return {
 					["statOrder"] = 3050, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "stun_threshold_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "15% increased Stun Threshold", 
 			}, 
-			["oidx"] = 25300, 
 			["dn"] = "Tattoo of the Rongokurai Brute", 
 		}, 
 		["Tawhoa6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/TawhoaTribeSkill.dds", 
 			["id"] = "Tawhoa6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_reaching_low_life_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_maata", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["local_display_tattoo_trigger_level_x_maata"] = {
 					["max"] = 1, 
@@ -2376,29 +1870,22 @@ return {
 					["index"] = 2, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_reaching_low_life_in_presence_of_unique", 
+				[2] = "local_display_tattoo_trigger_level_x_maata", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Maata Skill when you reach Low Life while", 
 				[2] = "a Unique Enemy is in your Presence", 
 			}, 
-			["oidx"] = 50579, 
 			["dn"] = "Loyalty Tattoo of Maata", 
 		}, 
 		["Tasalio6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/TasalioTribeSkill.dds", 
 			["id"] = "Tasalio6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_crit_vs_marked_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_rakiata", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_crit_vs_marked_unique"] = {
 					["max"] = 1, 
@@ -2413,27 +1900,21 @@ return {
 					["statOrder"] = 587, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_crit_vs_marked_unique", 
+				[2] = "local_display_tattoo_trigger_level_x_rakiata", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Rakiata Skill on Critical Strike against Marked Unique Enemy", 
 			}, 
-			["oidx"] = 64578, 
 			["dn"] = "Loyalty Tattoo of Rakiata", 
 		}, 
 		["Tukohama7"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Tukohama7", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "life_regeneration_rate_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["life_regeneration_rate_+%"] = {
 					["max"] = 16, 
@@ -2443,27 +1924,20 @@ return {
 					["statOrder"] = 1385, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "life_regeneration_rate_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "16% increased Life Regeneration rate", 
 			}, 
-			["oidx"] = 88901, 
 			["dn"] = "Tattoo of the Tukohama Makanga", 
 		}, 
 		["SpecialNotableInt3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon3.dds", 
 			["id"] = "SpecialNotableInt3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "gain_arcane_surge_on_hit_%_chance", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "+30 to Intelligence", 
 			["stats"] = {
 				["gain_arcane_surge_on_hit_%_chance"] = {
 					["max"] = 100, 
@@ -2473,28 +1947,20 @@ return {
 					["statOrder"] = 6035, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "gain_arcane_surge_on_hit_%_chance", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "Gain Arcane Surge on Hit with Spells", 
 			}, 
-			["oidx"] = 95243, 
 			["dn"] = "Honoured Tattoo of the Flood", 
 		}, 
 		["Kitava6"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/KitavaTribeSkill.dds", 
 			["id"] = "Kitava6", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_taking_savage_hit_from_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_utula", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_taking_savage_hit_from_unique"] = {
 					["max"] = 1, 
@@ -2509,27 +1975,21 @@ return {
 					["statOrder"] = 589, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "has_trigger_on_taking_savage_hit_from_unique", 
+				[2] = "local_display_tattoo_trigger_level_x_utula", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Utula Skill on taking a Savage Hit from a Unique Enemy", 
 			}, 
-			["oidx"] = 55548, 
 			["dn"] = "Loyalty Tattoo of Utula", 
 		}, 
 		["Rongokurai3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Rongokurai3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_stun_duration_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_stun_duration_+%"] = {
 					["max"] = 10, 
@@ -2539,27 +1999,20 @@ return {
 					["statOrder"] = 1669, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_stun_duration_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "10% increased Stun Duration on Enemies", 
 			}, 
-			["oidx"] = 5536, 
 			["dn"] = "Tattoo of the Rongokurai Goliath", 
 		}, 
 		["Tukohama2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Tukohama2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "chance_to_fortify_on_melee_stun_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["chance_to_fortify_on_melee_stun_%"] = {
 					["max"] = 5, 
@@ -2569,27 +2022,20 @@ return {
 					["statOrder"] = 5100, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "chance_to_fortify_on_melee_stun_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Melee Hits which Stun have 5% chance to Fortify", 
 			}, 
-			["oidx"] = 51555, 
 			["dn"] = "Tattoo of the Tukohama Warrior", 
 		}, 
 		["Arohongui1"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Arohongui1", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_cold_damage_resistance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_cold_damage_resistance_%"] = {
 					["max"] = 8, 
@@ -2599,27 +2045,20 @@ return {
 					["statOrder"] = 1439, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_cold_damage_resistance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "+8% to Cold Resistance", 
 			}, 
-			["oidx"] = 90899, 
 			["dn"] = "Tattoo of the Arohongui Moonwarden", 
 		}, 
 		["SpecialNotableStr3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon1.dds", 
 			["id"] = "SpecialNotableStr3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "fortify_on_hit", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "+30 to Strength", 
 			["stats"] = {
 				["fortify_on_hit"] = {
 					["max"] = 1, 
@@ -2629,28 +2068,20 @@ return {
 					["statOrder"] = 5980, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "fortify_on_hit", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "Melee Hits Fortify", 
 			}, 
-			["oidx"] = 67352, 
 			["dn"] = "Honoured Tattoo of the Pa", 
 		}, 
 		["SpecialNotableInt2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon3.dds", 
 			["id"] = "SpecialNotableInt2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_lightning_damage_resistance_%", 
-				[2] = "max_power_charges", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "+30 to Intelligence", 
 			["stats"] = {
 				["max_power_charges"] = {
 					["max"] = 1, 
@@ -2667,28 +2098,22 @@ return {
 					["statOrder"] = 1442, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_maximum_lightning_damage_resistance_%", 
+				[2] = "max_power_charges", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "+1% to maximum Lightning Resistance", 
 				[2] = "+1 to Maximum Power Charges", 
 			}, 
-			["oidx"] = 69156, 
 			["dn"] = "Honoured Tattoo of the Storm", 
 		}, 
 		["Ngamahu4"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Ngamahu4", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "explode_enemies_for_10%_life_as_fire_on_kill_chance_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["explode_enemies_for_10%_life_as_fire_on_kill_chance_%"] = {
 					["max"] = 2, 
@@ -2698,27 +2123,20 @@ return {
 					["statOrder"] = 5846, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "explode_enemies_for_10%_life_as_fire_on_kill_chance_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Enemies you Kill have a 2% chance to Explode, dealing a tenth of their maximum Life as Fire Damage", 
 			}, 
-			["oidx"] = 27124, 
 			["dn"] = "Tattoo of the Ngamahu Warmonger", 
 		}, 
 		["Valako5"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Valako5", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_spell_block_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_spell_block_%"] = {
 					["max"] = 1, 
@@ -2728,27 +2146,20 @@ return {
 					["statOrder"] = 976, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_spell_block_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "1% Chance to Block Spell Damage", 
 			}, 
-			["oidx"] = 31284, 
 			["dn"] = "Tattoo of the Valako Shaman", 
 		}, 
 		["Hinekora2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Hinekora2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "curse_effect_on_self_+%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["curse_effect_on_self_+%"] = {
 					["max"] = 6, 
@@ -2758,28 +2169,20 @@ return {
 					["statOrder"] = 1972, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "curse_effect_on_self_+%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "6% reduced Effect of Curses on you", 
 			}, 
-			["oidx"] = 20860, 
 			["dn"] = "Tattoo of the Hinekora Deathwarden", 
 		}, 
 		["Arohongui3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.dds", 
 			["id"] = "Arohongui3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "global_maximum_added_cold_damage", 
-				[2] = "global_minimum_added_cold_damage", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["global_maximum_added_cold_damage"] = {
 					["max"] = 5, 
@@ -2796,28 +2199,22 @@ return {
 					["statOrder"] = 1180, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "global_maximum_added_cold_damage", 
+				[2] = "global_minimum_added_cold_damage", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "Adds (3-5) to 0 Cold Damage", 
 				[2] = "Adds 0 to (3-5) Cold Damage", 
 			}, 
-			["oidx"] = 55389, 
 			["dn"] = "Tattoo of the Arohongui Warrior", 
 		}, 
 		["Tawhoa2"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.dds", 
 			["id"] = "Tawhoa2", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_avoid_poison_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_avoid_poison_%"] = {
 					["max"] = 15, 
@@ -2827,27 +2224,20 @@ return {
 					["statOrder"] = 1655, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_avoid_poison_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "15% chance to Avoid being Poisoned", 
 			}, 
-			["oidx"] = 2450, 
 			["dn"] = "Tattoo of the Tawhoa Scout", 
 		}, 
 		["Tukohama3"] = {
-			["da"] = 0, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.dds", 
 			["id"] = "Tukohama3", 
-			["in"] = {
-			}, 
-			["sortedStats"] = {
-				[1] = "base_global_chance_to_knockback_%", 
-			}, 
-			["g"] = 1000000000, 
-			["sa"] = 0, 
-			["o"] = 3, 
+			["targetValue"] = "", 
 			["stats"] = {
 				["base_global_chance_to_knockback_%"] = {
 					["max"] = 10, 
@@ -2857,13 +2247,14 @@ return {
 					["statOrder"] = 1796, 
 				}, 
 			}, 
-			["out"] = {
+			["sortedStats"] = {
+				[1] = "base_global_chance_to_knockback_%", 
 			}, 
-			["ia"] = 0, 
+			["isTattoo"] = true, 
+			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "10% chance to Knock Enemies Back on hit", 
 			}, 
-			["oidx"] = 60518, 
 			["dn"] = "Tattoo of the Tukohama Brawler", 
 		}, 
 	}, 

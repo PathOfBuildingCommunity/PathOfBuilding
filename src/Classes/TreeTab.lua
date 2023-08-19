@@ -541,12 +541,15 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local modGroups = { }
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
-		for _, node in pairs(self.build.spec.tree.tattoo.nodes) do
-			t_insert(modGroups, {
-				label = node.dn,
-				descriptions = copyTable(node.sd),
-				id = node.id,
-			})
+		local treeNodes = self.build.spec.tree.nodes
+		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
+			if treeNodes[selectedNode.id].dn:match(node.targetType:gsub("^Small ", "")) or (treeNodes[selectedNode.id].sd[1]:match(node.targetValue) ~= "") then
+				t_insert(modGroups, {
+					label = node.dn,
+					descriptions = copyTable(node.sd),
+					id = id,
+				})
+			end
 		end
 		table.sort(modGroups, function(a, b) return a.label < b.label end)
 	end
@@ -562,35 +565,14 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local function constructUI(modGroup)
 		local totalHeight = 43
 		local i = 1
-		while controls[i] or controls["slider"..i] do
+		while controls[i] do
 			controls[i] = nil
-			controls["slider"..i] = nil
 			i = i + 1
 		end
-		-- special handling for custom vaal notables (Might of the Vaal and Legacy of the Vaal)
-		if next(modGroup.descriptions) == nil then
-			for idx=1,4 do
-				controls[idx] = new("EditControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "", "Modifier "..idx, "%c%(%)", 100, function(buf)
-					controls[idx].label = buf
-				end)
-				controls[idx].label = ""
-				totalHeight = totalHeight + 20
-			end
-		else
-			for idx, desc in ipairs(modGroup.descriptions) do
-				controls[idx] = new("LabelControl", {"TOPLEFT", controls["slider"..idx-1] or controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
-				totalHeight = totalHeight + 20
-				if desc:match("%(%-?[%d%.]+%-[%d%.]+%)") then
-					controls["slider"..idx] = new("SliderControl", {"TOPLEFT",controls[idx],"BOTTOMLEFT"}, 0, 2, 300, 16, function(val)
-						controls[idx].label = itemLib.applyRange(modGroup.descriptions[idx], val)
-					end)
-					controls["slider"..idx]:SetVal(.5)
-					controls["slider"..idx].width = function()
-						return controls["slider"..idx].divCount and 300 or 100
-					end
-					totalHeight = totalHeight + 20
-				end
-			end
+
+		for idx, desc in ipairs(modGroup.descriptions) do
+			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
+			totalHeight = totalHeight + 20
 		end
 		main.popups[1].height = totalHeight + 30
 		controls.save.y = totalHeight
@@ -610,14 +592,13 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		end
 	end
 	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
-		selectedNode.originalId = selectedNode.id
 		addModifier(selectedNode)
 		self.modFlag = true
 		self.build.buildFlag = true
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
-		self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.originalId])
+		self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 		self.modFlag = true
 		self.build.buildFlag = true
 		main:ClosePopup()

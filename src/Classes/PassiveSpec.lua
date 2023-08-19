@@ -144,11 +144,11 @@ function PassiveSpecClass:Load(xml, dbFileName)
 						
 						local nodeId = tonumber(child.attrib.nodeId)
 
-						wipeTable(self.hashOverrides)
 						self.hashOverrides[nodeId] = copyTable(self.nodes[nodeId], true)
 						self.hashOverrides[nodeId].id = nodeId
 						self.hashOverrides[nodeId].dn = child.attrib.nodeName
 						self.hashOverrides[nodeId].icon = child.attrib.icon
+						self.hashOverrides[nodeId].isTattoo = child.attrib.isTattoo == "true"
 						if self.tree.legion.nodes[child.attrib.spriteId] then
 							self.hashOverrides[nodeId].spriteId = child.attrib.spriteId
 							self.hashOverrides[nodeId].sprites = self.tree.overrides.nodes[child.attrib.spriteId].sprites
@@ -212,7 +212,7 @@ function PassiveSpecClass:Save(xml)
 	}
 	if self.hashOverrides then
 		for nodeId, node in pairs(self.hashOverrides) do
-			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), nodeName = node.dn, icon = node.icon, spriteId = node.spriteId } }
+			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), isTattoo = "true", nodeName = node.dn, icon = node.icon, spriteId = node.spriteId } }
 			for _, modLine in ipairs(node.sd) do
 				t_insert(override, modLine)
 			end
@@ -238,6 +238,7 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, h
 	end
 	self:ResetNodes()
 	self:SelectClass(classId)
+	self.hashOverrides = hashOverrides
 	-- move above setting allocNodes so we can compare mastery with selection
 	wipeTable(self.masterySelections)
 	for mastery, effect in pairs(masteryEffects) do
@@ -938,7 +939,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		end
 
 		-- If node is tattooed, replace it
-		if node.isTattoo then
+		if self.hashOverrides[node.id] then
 			self:ReplaceNode(node, self.hashOverrides[node.id])
 		end
 	end
