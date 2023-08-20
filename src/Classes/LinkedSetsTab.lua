@@ -193,7 +193,7 @@ function LinkedSetsTabClass:OpenResetPopup()
 	local controls = { }
 	controls.warningLabel = new("LabelControl", nil, 0, 20, 0, 16, "^7Warning: This action cannot be undone.\n")
 	controls.reset = new("ButtonControl", nil, -60, 50, 100, 20, "Reset", function()
-		self:ResetLinks()
+		self:ResetLinks(true)
 		main:ClosePopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, 60, 50, 100, 20, "Cancel", function()
@@ -240,10 +240,12 @@ function LinkedSetsTabClass:LoadLinks(set, value)
 	end
 end
 
-function LinkedSetsTabClass:ResetLinks()
-	wipeTable(self.treeSetLinks)
-	wipeTable(self.skillSetLinks)
-	wipeTable(self.itemSetLinks)
+function LinkedSetsTabClass:ResetLinks(hardReset)
+	if hardReset then
+		wipeTable(self.treeSetLinks)
+		wipeTable(self.skillSetLinks)
+		wipeTable(self.itemSetLinks)
+	end
 
 	self.controls.treeSetDropdown.selIndex = 1
 	self.controls.treeSetDropdownSkill.selIndex = 1
@@ -370,53 +372,67 @@ function LinkedSetsTabClass:Load(xml)
 	end
 end
 
-function LinkedSetsTabClass:RenameSet(type, old, new)
+-- actions: rename, delete
+function LinkedSetsTabClass:ModifySet(type, action, old, new)
+	local function replace(action, new)
+		return action == "rename" and new or "None"
+	end
 	if type == "tree" then
 		-- replace index
 		if self.treeSetLinks[old] then
-			self.treeSetLinks[new] = copyTable(self.treeSetLinks[old])
+			if action == "rename" then
+				self.treeSetLinks[new] = copyTable(self.treeSetLinks[old])
+			end
 			self.treeSetLinks[old] = nil
 		end
 		-- replace set in other types
 		for index, _ in pairs(self.skillSetLinks) do
 			if self.skillSetLinks[index].treeSet == old then
-				self.skillSetLinks[index].treeSet = new
+				self.skillSetLinks[index].treeSet = replace(action, new)
 			end
 		end
 		for index, _ in pairs(self.itemSetLinks) do
 			if self.itemSetLinks[index].treeSet == old then
-				self.itemSetLinks[index].treeSet = new
+				self.itemSetLinks[index].treeSet = replace(action, new)
 			end
 		end
 	elseif type == "skill" then
 		if self.skillSetLinks[old] then
-			self.skillSetLinks[new] = copyTable(self.skillSetLinks[old])
+			if action == "rename" then
+				self.skillSetLinks[new] = copyTable(self.skillSetLinks[old])
+			end
 			self.skillSetLinks[old] = nil
 		end
 		for index, _ in pairs(self.treeSetLinks) do
 			if self.treeSetLinks[index].skillSet == old then
-				self.treeSetLinks[index].skillSet = new
+				self.treeSetLinks[index].skillSet = replace(action, new)
 			end
 		end
 		for index, _ in pairs(self.itemSetLinks) do
 			if self.itemSetLinks[index].skillSet == old then
-				self.itemSetLinks[index].skillSet = new
+				self.itemSetLinks[index].skillSet = replace(action, new)
 			end
 		end
 	elseif type == "item" then
 		if self.itemSetLinks[old] then
-			self.itemSetLinks[new] = copyTable(self.itemSetLinks[old])
+			if action == "rename" then
+				self.itemSetLinks[new] = copyTable(self.itemSetLinks[old])
+			end
 			self.itemSetLinks[old] = nil
 		end
 		for index, _ in pairs(self.treeSetLinks) do
 			if self.treeSetLinks[index].itemSet == old then
-				self.treeSetLinks[index].itemSet = new
+				self.treeSetLinks[index].itemSet = replace(action, new)
 			end
 		end
 		for index, _ in pairs(self.skillSetLinks) do
 			if self.skillSetLinks[index].itemSet == old then
-				self.skillSetLinks[index].itemSet = new
+				self.skillSetLinks[index].itemSet = replace(action, new)
 			end
 		end
+	end
+	-- bad UX if you delete a set that is the active selIndex of one of the dropdowns, so set all to default selIndex on any delete call
+	if action == "delete" then
+		self:ResetLinks(false)
 	end
 end

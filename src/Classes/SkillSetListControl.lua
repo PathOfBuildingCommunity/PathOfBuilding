@@ -57,7 +57,7 @@ function SkillSetListClass:RenameSet(skillSet, addOnName)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
-		self.skillsTab.build.linkedSetsTab:RenameSet("skill", skillSet.title or "Default", controls.edit.buf)
+		self.skillsTab.build.linkedSetsTab:ModifySet("skill", "rename", skillSet.title or "Default", controls.edit.buf)
 		skillSet.title = controls.edit.buf
 		self.skillsTab.modFlag = true
 		if addOnName then
@@ -101,6 +101,7 @@ function SkillSetListClass:OnSelDelete(index, skillSetId)
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Item Set", "Are you sure you want to delete '"..(skillSet.title or "Default").."'?", "Delete", function()
 			t_remove(self.list, index)
+			self.skillsTab.build.linkedSetsTab:ModifySet("skill", "delete", skillSet.title or "Default")
 			self.skillsTab.skillSets[skillSetId] = nil
 			self.selIndex = nil
 			self.selValue = nil

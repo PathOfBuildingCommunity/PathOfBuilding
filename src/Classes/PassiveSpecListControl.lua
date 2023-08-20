@@ -49,7 +49,7 @@ function PassiveSpecListClass:RenameSpec(spec, title, addOnName)
 		controls.save.enabled = buf:match("%S")
 	end)
 	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
-		self.treeTab.build.linkedSetsTab:RenameSet("tree", spec.title or "Default", controls.edit.buf)
+		self.treeTab.build.linkedSetsTab:ModifySet("tree", "rename", spec.title or "Default", controls.edit.buf)
 		spec.title = controls.edit.buf
 		self.treeTab.modFlag = true
 		if addOnName then
@@ -94,6 +94,7 @@ function PassiveSpecListClass:OnSelDelete(index, spec)
 	if #self.list > 1 then
 		main:OpenConfirmPopup("Delete Tree", "Are you sure you want to delete '"..(spec.title or "Default").."'?", "Delete", function()
 			t_remove(self.list, index)
+			self.treeTab.build.linkedSetsTab:ModifySet("tree", "delete", spec.title or "Default")
 			self.selIndex = nil
 			self.selValue = nil
 			if index == self.treeTab.activeSpec then 
