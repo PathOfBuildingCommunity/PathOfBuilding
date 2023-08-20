@@ -114,6 +114,9 @@ local skillTypes = {
 	"ProjectilesNotFired",
 	"TotemsAreBallistae",
 	"SkillGrantedBySupport",
+	"PreventHexTransfer",
+	"MinionsAreUndamageable",
+	"InnateTrauma",
 }
 
 local wellShitIGotThoseWrong = {

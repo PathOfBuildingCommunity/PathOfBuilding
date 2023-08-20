@@ -132,7 +132,7 @@ end
 return {
 	-- Section: General options
 	{ section = "General", col = 1 },
-	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=nil,label="Act 10 (-60%)"}}, defaultIndex = 3 },
+	{ var = "resistancePenalty", type = "list", label = "Resistance penalty:", list = {{val=0,label="None"},{val=-30,label="Act 5 (-30%)"},{val=-60,label="Act 10 (-60%)"}}, defaultIndex = 3 },
 	{ var = "bandit", type = "list", label = "Bandit quest:", tooltipFunc = banditTooltip, list = {{val="None",label="Kill all"},{val="Oak",label="Help Oak"},{val="Kraityn",label="Help Kraityn"},{val="Alira",label="Help Alira"}} },
 	{ var = "pantheonMajorGod", type = "list", label = "Major God:", tooltipFunc = applyPantheonDescription, list = {
 		{ label = "Nothing", val = "None" },
@@ -324,6 +324,13 @@ return {
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton ^xE05030Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum ^xE05030Life ^7of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
+	end },
+	{ label = "Divine Ire:", ifSkill = "Divine Ire" },
+	{ var = "divineIreNormalEnemy", type = "count", label = "Normal Enemies in AoE:", tooltip = "# of Normal Enemies in Divine Ire's Channel radius", ifSkill = "Divine Ire", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:DivineIreNormalEnemyCount", "BASE", val, "Config")
+	end },
+	{ var = "divineIreUniqueEnemy", type = "count", label = "Unique Enemies in AoE:", tooltip = "# of Unique Enemies in Divine Ire's Channel radius", ifSkill = "Divine Ire", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:DivineIreUniqueEnemyCount", "BASE", val, "Config")
 	end },
 	{ label = "Predator:", ifSkill = "Predator" },
 	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy marked with Signal Prey?", ifSkill = "Predator", apply = function(val, modList, enemyModList)
@@ -591,6 +598,9 @@ Huge sets the radius to 11.
 	end },
 	{ var = "TotalTotemLife", type = "integer", label = "Total Totem Life:", ifOption = "conditionHaveTotem", ifMod = "takenFromTotemsBeforeYou", tooltip = "The total life of your Totems (excluding Vaal Rejuvenation Totem) that can be taken before yours (used by totem mastery)", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotalTotemLife", "BASE", val, "Config")
+	end },
+	{ var = "TotalRadianceSentinelLife", type = "integer", label = "Total life pool of Sentinel of Radiance", ifMod = "takenFromRadianceSentinelBeforeYou", apply = function(val, modList, enemyModList)
+		modList:NewMod("TotalRadianceSentinelLife", "BASE", val, "Config")
 	end },
 	{ var = "TotalVaalRejuvenationTotemLife", type = "integer", label = "Total Vaal Rejuvenation Totem Life:", ifSkill = { "Vaal Rejuvenation Totem" }, ifMod = "takenFromVaalRejuvenationTotemsBeforeYou", tooltip = "The total life of your Vaal Rejuvenation Totems that can be taken before yours", apply = function(val, modList, enemyModList)
 		modList:NewMod("TotalVaalRejuvenationTotemLife", "BASE", val, "Config")
@@ -1357,10 +1367,10 @@ Huge sets the radius to 11.
 	{ var = "skillForkCount", type = "count", label = "# of times Skill has Forked:", ifFlag = "forking", apply = function(val, modList, enemyModList)
 		modList:NewMod("ForkedCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "skillChainCount", type = "count", label = "# of times Skill has Chained:", ifStat = "Chain", ifFlag = "chaining", apply = function(val, modList, enemyModList)
+	{ var = "skillChainCount", type = "count", label = "# of times Skill has Chained:", ifStat = "Chain", ifStat = "ChainRemaining", ifFlag = "chaining", apply = function(val, modList, enemyModList)
 		modList:NewMod("ChainCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "skillPierceCount", type = "count", label = "# of times Skill has Pierced:", ifStat = "PierceCount", ifFlag = "piercing", apply = function(val, modList, enemyModList)
+	{ var = "skillPierceCount", type = "count", label = "# of times Skill has Pierced:", ifStat = "PiercedCount", ifFlag = "piercing", apply = function(val, modList, enemyModList)
 		modList:NewMod("PiercedCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "meleeDistance", type = "count", label = "Melee distance to enemy:", ifTagType = "MeleeProximity", ifFlag = "melee" },
@@ -1385,6 +1395,9 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionEnemyBleeding", type = "check", label = "Is the enemy Bleeding?", ifEnemyCond = "Bleeding", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Bleeding", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "overrideBleedStackPotential", type = "count", label = "Bleed Stack Potential override:", ifOption = "conditionEnemyBleeding", tooltip = "Allows you to manually set the Stack Potential value for a skill.\nStack Potential equates to the number of times you are able to inflict a Bleed on an enemy before the duration of your first Bleed expires", apply = function(val, modList, enemyModList)
+		modList:NewMod("BleedStackPotentialOverride", "OVERRIDE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierRuptureStacks", type = "count", label = "# of Rupture stacks?", ifFlag = "Condition:CanInflictRupture", tooltip = "Rupture applies 25% more bleed damage and 25% faster bleeds for 3 seconds, up to 3 stacks", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Multiplier:RuptureStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
@@ -1441,6 +1454,9 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionEnemyIgnited", type = "check", label = "Is the enemy ^xB97123Ignited?", ifEnemyCond = "Ignited", implyCond = "Burning", tooltip = "This also implies that the enemy is ^xB97123Burning.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Ignited", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "overrideIgniteStackPotential", type = "count", label = "^xB97123Ignite^7 Stack Potential override:", ifOption = "conditionEnemyIgnited", tooltip = "Allows you to manually set the Stack Potential value for a skill.\nStack Potential equates to the number of times you are able to inflict an Ignite on an enemy before the duration of your first Ignite expires", apply = function(val, modList, enemyModList)
+		modList:NewMod("IgniteStackPotentialOverride", "OVERRIDE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "conditionEnemyScorched", type = "check", ifFlag = "inflictScorch", label = "Is the enemy ^xB97123Scorched?", tooltip = "^xB97123Scorched ^7enemies have lowered elemental resistances, up to -30%.\nThis option will also allow you to input the effect of ^xB97123Scorched.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:Scorched", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
@@ -1580,6 +1596,9 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:InRFOrScorchingRay", "FLAG", true, "Config")
 	end },
 	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibrium", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
+	{ var = "conditionBetweenYouAndLinkedTarget", type = "check", label = "Is the enemy in your Link beams?", ifEnemyCond = "BetweenYouAndLinkedTarget", tooltip = "This option sets whether an enemy is between you and your linked target.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("Condition:BetweenYouAndLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
 	-- Section: Enemy Stats
 	{ section = "Enemy Stats", col = 3 },
 	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chance.\n\nThe default level for normal enemies and standard bosses is 83.\nTheir default level is capped by your character level.\n\nThe default level for pinnacle bosses is 84, and the default level for uber pinnacle bosses is 85.\nTheir default level is not capped by your character level." },
@@ -1717,7 +1736,7 @@ Huge sets the radius to 11.
 			build.configTab.varControls['enemyFirePen']:SetPlaceholder(data.misc.uberBossPen, true)
 
 			build.configTab.varControls['enemyArmour']:SetPlaceholder(round(data.monsterArmourTable[defaultLevel] * (data.bossStats.UberArmourMean/100)), true)
-			build.configTab.varControls['enemyEvasion']:SetPlaceholder(round(data.monsterEvasionTable[defaultLevel] * (data.bossStats.UberArmourMean/100)), true)
+			build.configTab.varControls['enemyEvasion']:SetPlaceholder(round(data.monsterEvasionTable[defaultLevel] * (data.bossStats.UberEvasionMean/100)), true)
 		end
 	end },
 	{ var = "deliriousPercentage", type = "list", label = "Delirious Effect:", list = {{val=0,label="None"},{val="20Percent",label="20% Delirious"},{val="40Percent",label="40% Delirious"},{val="60Percent",label="60% Delirious"},{val="80Percent",label="80% Delirious"},{val="100Percent",label="100% Delirious"}}, tooltip = "Delirium scales enemy 'less Damage Taken' as well as enemy 'increased Damage dealt'\nAt 100% effect:\nEnemies Deal 30% Increased Damage\nEnemies take 80% Less Damage", apply = function(val, modList, enemyModList)

@@ -206,7 +206,7 @@ return {
 	skill("triggeredWhileChannelling", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["skill_triggered_by_snipe"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+	skill("triggeredBySnipe", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["triggered_by_spiritual_cry"] = {
 	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),
@@ -224,12 +224,12 @@ return {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["base_spell_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil),
+	mod("RepeatCount", "BASE", nil, 0, 0, {type = "SkillType", skillType = SkillType.Multicastable }),
 },
 ["base_melee_attack_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil),
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multistrikeable }),
 },
-["display_minion_monster_level"] = {
+["base_display_minion_actor_level"] = {
 	skill("minionLevel", nil),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
@@ -1492,7 +1492,7 @@ return {
     div = 60,
 },
 ["totem_duration_+%"] = {
-	mod("TotemDuration", "INC", nil),
+	mod("Duration", "INC", nil, 0, KeywordFlag.Totem),
 },
 -- Minion
 ["minion_damage_+%"] = {
@@ -1699,11 +1699,11 @@ return {
 ["channelled_skill_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channel }),
 },
-["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
-	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStage", limitVar = "SnipeStagesMax" }),
-},
 ["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
-	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage", limitVar = "SnipeStagesMax" }),
+	mod("snipeAilmentMulti", "BASE", nil),
+},
+["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
+	mod("snipeHitMulti", "BASE", nil),
 },
 ["snipe_triggered_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),

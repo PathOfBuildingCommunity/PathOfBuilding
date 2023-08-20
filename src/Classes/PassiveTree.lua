@@ -51,7 +51,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
 
-	self.legion = LoadModule("Data/LegionPassives")
+	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
 
 	MakeDir("TreeData")
 
@@ -415,45 +415,56 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			t_insert(node.linkedId, otherId)
 		end
 	end
+
 	-- Precalculate the lists of nodes that are within each radius of each socket
 	for nodeId, socket in pairs(self.sockets) do
 		socket.nodesInRadius = { }
 		socket.attributesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+		for radiusIndex, _ in ipairs(data.jewelRadius) do
 			socket.nodesInRadius[radiusIndex] = { }
 			socket.attributesInRadius[radiusIndex] = { }
-			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
-			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
-			for _, node in pairs(self.nodes) do
-				if node ~= socket and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery then
+		end
+
+		local minX, maxX = socket.x - data.maxJewelRadius, socket.x + data.maxJewelRadius
+		local minY, maxY = socket.y - data.maxJewelRadius, socket.y + data.maxJewelRadius
+
+		for _, node in pairs(self.nodes) do
+			if node.x and node.x >= minX and node.x <= maxX and node.y and node.y >= minY and node.y <= maxY
+				and node ~= socket and not node.isBlighted and node.group and not node.isProxy
+				and not node.group.isProxy and not node.isMastery then
 					local vX, vY = node.x - socket.x, node.y - socket.y
-					local euclideanDistanceSquared = vX * vX + vY * vY
-					if innerRadiusSquared <= euclideanDistanceSquared then
-						if euclideanDistanceSquared <= outerRadiusSquared then
+					local distSquared = vX * vX + vY * vY
+					for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+						if distSquared <= radiusInfo.outerSquared and radiusInfo.innerSquared <= distSquared then
 							socket.nodesInRadius[radiusIndex][node.id] = node
 						end
 					end
-				end
 			end
 		end
 	end
 
 	for name, keystone in pairs(self.keystoneMap) do
-		keystone.nodesInRadius = { }
-		for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
-			keystone.nodesInRadius[radiusIndex] = { }
-			local outerRadiusSquared = radiusInfo.outer * radiusInfo.outer
-			local innerRadiusSquared = radiusInfo.inner * radiusInfo.inner
+		if not keystone.nodesInRadius then
+			keystone.nodesInRadius = { }
+			for radiusIndex, _ in ipairs(data.jewelRadius) do
+				keystone.nodesInRadius[radiusIndex] = { }
+			end
+
 			if (keystone.x and keystone.y) then
+				local minX, maxX = keystone.x - data.maxJewelRadius, keystone.x + data.maxJewelRadius
+				local minY, maxY = keystone.y - data.maxJewelRadius, keystone.y + data.maxJewelRadius
+
 				for _, node in pairs(self.nodes) do
-					if node ~= keystone and not node.isBlighted and node.group and not node.isProxy and not node.group.isProxy and not node.isMastery and not node.isSocket then
-						local vX, vY = node.x - keystone.x, node.y - keystone.y
-						local euclideanDistanceSquared = vX * vX + vY * vY
-						if innerRadiusSquared <= euclideanDistanceSquared then
-							if euclideanDistanceSquared <= outerRadiusSquared then
-								keystone.nodesInRadius[radiusIndex][node.id] = node
+					if node.x and node.x >= minX and node.x <= maxX and node.y and node.y >= minY and node.y <= maxY
+						and node ~= keystone and not node.isBlighted and node.group and not node.isProxy
+						and not node.group.isProxy and not node.isMastery and not node.isSocket then
+							local vX, vY = node.x - keystone.x, node.y - keystone.y
+							local distSquared = vX * vX + vY * vY
+							for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+								if distSquared <= radiusInfo.outerSquared and radiusInfo.innerSquared <= distSquared then
+									keystone.nodesInRadius[radiusIndex][node.id] = node
+								end
 							end
-						end
 					end
 				end
 			end
