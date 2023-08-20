@@ -1925,7 +1925,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.Repeats = globalOutput.Repeats or 1
 
 			--Calculates the max number of trauma stacks you can sustain
-			if activeSkill.skillFlags.trauma then
+			if skillModList:Flag(nil, "HasTrauma") then
 				local effectiveAttackRateCap = data.misc.ServerTickRate * output.Repeats
 				local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 				local traumaPerAttack = 1 + m_min(skillModList:Sum("BASE", cfg, "ExtraTrauma"), 100) / 100
@@ -2096,8 +2096,7 @@ function calcs.offence(env, actor, activeSkill)
 	if breakdown then
 		breakdown.SustainableTrauma = storedSustainedTraumaBreakdown
 	end
-	output.SustainableTrauma = activeSkill.skillFlags.trauma and skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks")
-
+	output.SustainableTrauma = skillModList:Flag(nil, "HasTrauma") and skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks")
 	if isAttack then
 		-- Combine hit chance and attack speed
 		combineStat("AccuracyHitChance", "AVERAGE")
@@ -5006,7 +5005,7 @@ function calcs.offence(env, actor, activeSkill)
 		local nameToHandler = {
 			["Trauma"] = function(activeSkill, output, breakdown)
 				local dmgType = "Physical"
-				local dmgVal = activeSkill.skillFlags.trauma and activeSkill.skillModList:Sum("BASE", nil, "TraumaSelfDamageTakenLife") * math.max(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:TraumaStacks"), 1)
+				local dmgVal = skillModList:Flag(nil, "HasTrauma") and activeSkill.skillModList:Sum("BASE", nil, "TraumaSelfDamageTakenLife") * math.max(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:TraumaStacks"), 1)
 				if dmgType and dmgVal then
 					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
 					t_insert(dmgBreakdown, 1, s_format("Trauma base damage: %d", dmgVal))

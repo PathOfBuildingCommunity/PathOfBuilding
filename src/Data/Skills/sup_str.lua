@@ -4652,6 +4652,30 @@ skills["SupportTrauma"] = {
 			{ "trauma_strike_self_damage_per_trauma", 1 },
 		},
 	},
+	statMap = {
+		["attack_minimum_added_physical_damage_with_weapons_per_trauma"] = {
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
+		},
+		["attack_maximum_added_physical_damage_with_weapons_per_trauma"] = {
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
+		},
+		["trauma_strike_self_damage_per_trauma"] = {
+			mod("TraumaSelfDamageTakenLife", "BASE", nil),
+		},
+		["attack_speed_+%_per_trauma"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
+			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
+		},
+		["support_trauma_base_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
+		},
+		["supported_skill_can_only_use_axe_mace_and_staff"] = {
+		},
+	},
+	baseMods = {
+		flag("HasTrauma"),
+	},
 	stats = {
 		"trauma_strike_self_damage_per_trauma",
 		"attack_minimum_added_physical_damage_with_weapons_per_trauma",

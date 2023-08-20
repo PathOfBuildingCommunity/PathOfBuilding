@@ -1527,12 +1527,14 @@ skills["Boneshatter"] = {
 			div = 1000,
 		},
 	},
+	baseMods = {
+		flag("HasTrauma"),
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
 		duration = true,
-		trauma = true,
 	},
 	baseMods = {
 		skill("radius", 14, { type = "SkillPart", skillPart = 2 }),

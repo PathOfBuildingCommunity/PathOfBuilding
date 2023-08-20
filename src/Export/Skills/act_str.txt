@@ -283,7 +283,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Boneshatter
-#flags attack melee area duration trauma
+#flags attack melee area duration
 	parts = {
 		{
 			name = "Attack",
@@ -311,6 +311,7 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 14, { type = "SkillPart", skillPart = 2 })
+#baseMod flag("HasTrauma")
 #mods
 
 #skill ChainStrike
