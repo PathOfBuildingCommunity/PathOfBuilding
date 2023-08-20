@@ -1872,6 +1872,14 @@ skills["SupportDevour"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["killing_blow_consumes_corpse_restore_x_life"] = {
+			mod("LifeOnKill", "BASE", nil),
+		},
+		["killing_blow_consumes_corpse_restore_x_mana"] = {
+			mod("ManaOnKill", "BASE", nil),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "damage_vs_enemies_on_low_life_+%", 2 },

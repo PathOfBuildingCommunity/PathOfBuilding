@@ -255,6 +255,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportDevour
+	statMap = {
+		["killing_blow_consumes_corpse_restore_x_life"] = {
+			mod("LifeOnKill", "BASE", nil),
+		},
+		["killing_blow_consumes_corpse_restore_x_mana"] = {
+			mod("ManaOnKill", "BASE", nil),
+		},
+	},
 #mods
 
 #skill SupportEfficacy

@@ -2609,6 +2609,14 @@ skills["SupportLocusMine"] = {
 	excludeSkillTypes = { SkillType.Rain, SkillType.ProjectilesNotFromUser, SkillType.InbuiltTrigger, SkillType.Triggered, SkillType.HasReservation, SkillType.ReservationBecomesCost, SkillType.NOT, SkillType.AND, SkillType.RemoteMined, SkillType.NOT, SkillType.AND, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_locus_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["number_of_projectiles_+%_final_from_locus_mine_support"] = {
+			mod("ProjectileCount", "MORE", nil),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "mine_laying_speed_+%", 0.5 },
