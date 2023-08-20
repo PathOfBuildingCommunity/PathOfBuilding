@@ -252,7 +252,7 @@ skills["AnimateWeapon"] = {
 		"attack_minimum_added_physical_damage",
 		"attack_maximum_added_physical_damage",
 		"number_of_animated_weapons_allowed",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 	},
 	levels = {
 		[1] = { 0.34999999403954, 1.6499999761581, 9, 0, 0, 5, 8, 5, 4, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
@@ -341,7 +341,7 @@ skills["VaalAnimateWeapon"] = {
 		"active_skill_minion_damage_+%_final",
 		"active_skill_minion_attack_speed_+%_final",
 		"number_of_animated_weapons_allowed",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"vaal_animate_weapon_minimum_level_requirement",
 		"vaal_animate_weapon_raise_up_to_X_weapons_as_uniques",
 		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
@@ -1714,7 +1714,7 @@ skills["BlinkArrow"] = {
 	stats = {
 		"minion_damage_+%",
 		"minion_maximum_life_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"base_cooldown_speed_+%",
 		"base_is_projectile",
 	},
@@ -2453,7 +2453,7 @@ skills["CorpseEruption"] = {
 	baseEffectiveness = 1.8178999423981,
 	incrementalEffectiveness = 0.034499999135733,
 	description = "A targeted corpse explodes, dealing area damage and turning into a volcanic geyser, which will repeatedly unleash exploding projectiles sequentially over the surrounding area for a duration. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.Multicastable] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Cascadable] = true, [SkillType.Projectile] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.Multicastable] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Cascadable] = true, [SkillType.Projectile] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	parts = {
@@ -3775,6 +3775,87 @@ skills["ExplosiveArrow"] = {
 			area = false,
 		},
 	},
+	explosiveArrowFunc = function(activeSkill, output, globalOutput, globalBreakdown, env)
+		local t_insert = table.insert
+		local s_format = string.format
+
+		if activeSkill.skillPart ~= 1 and activeSkill.skillPart ~= 2 then
+			-- This doesn't apply to the "Arrow" skill part. That works like a normal skill.
+			return
+		end
+
+		local modDB = env.modDB
+		local enemyDB = activeSkill.actor.enemy.modDB
+		local skillModList = activeSkill.skillModList
+		local duration = calcSkillDuration(skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
+		local fuseLimit = skillModList:Sum("BASE", activeSkill.skillCfg, "ExplosiveArrowMaxFuseCount")
+		local activeTotems
+		if activeSkill.skillFlags.totem then
+			activeTotems = modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", activeSkill.skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
+		end
+
+		local barrageProjectiles = nil
+		if skillModList:Flag(nil, "SequentialProjectiles") and not skillModList:Flag(nil, "OneShotProj") and not skillModList:Flag(nil,"NoAdditionalProjectiles") and not skillModList:Flag(nil, "TriggeredBySnipe") then
+			barrageProjectiles = skillModList:Sum("BASE", activeSkill.skillCfg, "ProjectileCount")
+			activeSkill.skillData.dpsMultiplier = activeSkill.skillData.dpsMultiplier / barrageProjectiles  -- cancel out the normal dps multiplier from barrage that applies to most other skills
+		end
+
+		local fuseApplicationRate = (output.HitChance / 100) * globalOutput.Speed * globalOutput.ActionSpeedMod * activeSkill.skillData.dpsMultiplier * (barrageProjectiles or 1)
+		local initialApplicationRate = fuseApplicationRate
+		if activeSkill.skillFlags.totem then
+			fuseApplicationRate = fuseApplicationRate * activeTotems
+		end
+
+		-- Calculate the max number of fuses you can sustain
+		-- Does not take into account mines or traps
+		if activeSkill.skillPart == 2 then
+			local maximum = math.min(math.floor(fuseApplicationRate * duration) + 1, fuseLimit)
+			skillModList:NewMod("Multiplier:ExplosiveArrowStage", "BASE", maximum, "Base")
+			skillModList:NewMod("Multiplier:ExplosiveArrowStageAfterFirst", "BASE", maximum - 1, "Base")
+			globalOutput.MaxExplosiveArrowFuseCalculated = maximum
+		else
+			globalOutput.MaxExplosiveArrowFuseCalculated = nil
+		end
+
+		-- Calculate explosion rate
+		local timeToMaxFuses = fuseLimit / fuseApplicationRate
+		if activeSkill.skillPart == 2 or (activeSkill.skillPart == 1 and (activeSkill.activeStageCount or 0) + 1 >= fuseLimit) then
+			globalOutput.HitTime = math.min(duration, timeToMaxFuses)
+		else
+			-- Number of fuses is less than the limit, so the entire fuse duration applies
+			globalOutput.HitTime = duration
+		end
+
+		globalOutput.HitSpeed = 1 / globalOutput.HitTime
+
+		if globalBreakdown and globalOutput.MaxExplosiveArrowFuseCalculated then
+			globalBreakdown.MaxExplosiveArrowFuseCalculated = {}
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("%.2f ^8(attack speed)", globalOutput.Speed))
+			if output.HitChance < 100 then
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(hit chance)", output.HitChance / 100))
+			end
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(action speed)", globalOutput.ActionSpeedMod))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(projectiles)", barrageProjectiles or 1))
+			if activeSkill.skillFlags.totem then
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", initialApplicationRate))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %d ^8(active totems)", activeTotems))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", fuseApplicationRate))
+			else
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", fuseApplicationRate))
+			end
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(duration)", duration))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("+ 1 ^8(initial hit)"))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f", (fuseApplicationRate * duration) + 1))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %d ^8(rounded down, capped at max)", globalOutput.MaxExplosiveArrowFuseCalculated))
+
+			globalBreakdown.ExplosionsPerSecond = {}
+			t_insert(globalBreakdown.ExplosionsPerSecond, s_format("1 ^8(second)"))
+			t_insert(globalBreakdown.ExplosionsPerSecond, s_format(" / %d ^8(max fuses)", globalOutput.MaxExplosiveArrowFuseCalculated))
+			t_insert(globalBreakdown.ExplosionsPerSecond, s_format(" / %.2f ^8(fuse rate)", fuseApplicationRate))
+			t_insert(globalBreakdown.ExplosionsPerSecond, s_format("= %.2f ^8(explosions/s)", globalOutput.HitSpeed))
+
+		end
+	end,
 	statMap = {
 		["explosive_arrow_explosion_minimum_added_fire_damage"] = {
 			mod("FireMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
@@ -4275,8 +4356,22 @@ skills["FlamethrowerTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "One trap (good placement)",
+		},
+		{
+			name = "One trap (bad placement)",
+		},
+		{ 
+			name = "Average # traps (good placement)",
+		},
+		{ 
+			name = "Average # traps (bad placement)",
+		},
+	},
 	preDamageFunc = function(activeSkill, output, breakdown)
-		-- many unknown stats. can't calculate DPS
+		-- Unknown stats provided by asking GGG
 		local t_insert = table.insert
 		local s_format = string.format
 
@@ -4284,6 +4379,16 @@ skills["FlamethrowerTrap"] = {
 		local cooldown = output.TrapCooldown
 		local averageActiveTraps = duration / cooldown
 		output.AverageActiveTraps = averageActiveTraps
+		if activeSkill.skillPart == 2 or activeSkill.skillPart == 4 then
+			activeSkill.skillData.hitTimeOverride = 0.3
+		else
+			activeSkill.skillData.hitTimeOverride = 0.1
+		end
+
+		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * averageActiveTraps
+		end
+
 		if breakdown then
 			breakdown.AverageActiveTraps = { }
 			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
@@ -4295,6 +4400,8 @@ skills["FlamethrowerTrap"] = {
 	statMap = {
 		["flamethrower_trap_damage_+%_final_vs_burning_enemies"] = {
 			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "ActorCondition", actor = "enemy", var = "Burning" }),
+		},
+		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 	},
 	baseFlags = {
@@ -4498,6 +4605,9 @@ skills["VaalFlickerStrike"] = {
 			mod("Damage", "MORE", nil, bit.bor(ModFlag.MeleeHit, ModFlag.Ailment)),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["base_melee_attack_repeat_count"] = {
+			mod("RepeatCount", "BASE", nil)
 		},
 	},
 	baseFlags = {
@@ -5310,7 +5420,7 @@ skills["HeraldOfAgony"] = {
 	baseEffectiveness = 0.10999999940395,
 	incrementalEffectiveness = 0.044700000435114,
 	description = "Grants a buff giving more poison damage and a chance to inflict poison. When you poison an enemy while you have this buff, you gain Virulence, and summon an Agony Crawler minion that uses projectile and area attacks. You will lose Virulence over time, at a rate which increases the more Virulence you have. The minion will die when you have no Virulence.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Herald] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Chaos] = true, [SkillType.Physical] = true, [SkillType.CreatesMinion] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Herald] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Chaos] = true, [SkillType.Physical] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Attack] = true, [SkillType.Chaos] = true, [SkillType.Projectile] = true, [SkillType.RangedAttack] = true, },
 	statDescriptionScope = "minion_skill_stat_descriptions",
 	castTime = 0,
@@ -5346,6 +5456,7 @@ skills["HeraldOfAgony"] = {
 	baseFlags = {
 		cast = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -5372,6 +5483,7 @@ skills["HeraldOfAgony"] = {
 		"scorpion_minion_attack_speed_+%",
 		"herald_of_agony_add_stack_on_poison",
 		"minions_cannot_taunt_enemies",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0.69999998807907, 1.2999999523163, 5, 2, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, }, },
@@ -5624,7 +5736,7 @@ skills["VaalIceShot"] = {
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
 	description = "Fires an arrow that converts some physical damage to cold on its target and converts all physical damage to cold in a cone behind that target. When you use this skill, it summons a squad of Mirage Sharpshooters for a duration. Cannot be used by Totems, Traps, or Mines.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Cold] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.ProjectilesNotFired] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Cold] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.ProjectilesNotFired] = true, },
 	weaponTypes = {
 		["Bow"] = true,
 	},
@@ -5908,7 +6020,10 @@ skills["LancingSteel"] = {
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.dpsMultiplier = 1 + activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") * (output.ProjectileCount - 1)
+			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
+			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel", ModFlag.Hit)
 		end
 	end,
 	statMap = {
@@ -6453,7 +6568,7 @@ skills["MirrorArrow"] = {
 	stats = {
 		"minion_damage_+%",
 		"minion_maximum_life_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"base_cooldown_speed_+%",
 		"base_is_projectile",
 	},
@@ -7888,8 +8003,8 @@ skills["ScourgeArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:ScourgeArrowStage"), 1)
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeMultiplier = math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:ScourgeArrowStage") - 0.5, 0.5) --First stage takes 0.5x time to channel compared to subsequent stages
 	end,
 	parts = {
 		{
@@ -9320,6 +9435,7 @@ skills["SummonIceGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -9345,7 +9461,8 @@ skills["SummonIceGolem"] = {
 		"ice_golem_grants_critical_strike_chance_+%",
 		"ice_golem_grants_accuracy_+%",
 		"minion_maximum_life_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 20, 20, 0, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 30, }, },
@@ -9435,7 +9552,7 @@ skills["TemporalChains"] = {
 		},
 	},
 	constantStats = {
-		{ "buff_time_passed_+%_other_than_temporal_chains", -40 },
+		{ "buff_time_passed_+%_other_than_temporal_chains", -25 },
 		{ "curse_effect_+%_final_vs_players", -50 },
 	},
 	stats = {
@@ -10042,7 +10159,7 @@ skills["WhirlingBlades"] = {
 	name = "Whirling Blades",
 	color = 2,
 	baseEffectiveness = 0,
-	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -10075,10 +10192,12 @@ skills["WhirlingBlades"] = {
 	constantStats = {
 		{ "additional_weapon_base_attack_time_ms", 600 },
 		{ "animation_effect_variation", -1 },
+		{ "active_skill_merged_damage_+%_final_while_dual_wielding", -25 },
 	},
 	stats = {
 		"ignores_proximity_shield",
 		"base_skill_show_average_damage_instead_of_dps",
+		"skill_double_hits_when_dual_wielding",
 	},
 	levels = {
 		[1] = { PvPDamageMultiplier = -30, levelRequirement = 10, cost = { Mana = 10, }, },
@@ -10666,7 +10785,6 @@ skills["IntuitiveLink"] = {
 	},
 	stats = {
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_trigger_link",
 		"display_link_stuff",
@@ -10739,7 +10857,6 @@ skills["VampiricLink"] = {
 	stats = {
 		"remora_link_grants_maximum_life_leech_rate_%_per_minute",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 		"life_leech_is_applied_to_remora_link_targets_instead",
@@ -10797,9 +10914,6 @@ skills["ChannelledSnipe"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.min(math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1), activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStagesMax"))
-	end,
 	statMap = {
 		["snipe_max_stacks"] = {
 			mod("Multiplier:SnipeStagesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
@@ -10808,6 +10922,7 @@ skills["ChannelledSnipe"] = {
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		channelRelease = true,
 	},
 	qualityStats = {
 		Default = {

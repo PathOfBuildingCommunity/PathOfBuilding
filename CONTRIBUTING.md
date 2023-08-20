@@ -43,7 +43,7 @@ Feature requests are always welcome. Note that not all requests will receive an 
 ### Before submitting a pull request:
 * Familiarise yourself with the code base [here](docs/rundown.md) to get you started.
 * There is a [Discord](https://discordapp.com/) server for **active development** on the fork and members are happy to answer your questions there.
-  If you are interested in joining, send a private message to any of **Cinnabarit#1341**, **LocalIdentity#9871**, **Yamin#5575** and we'll send you an invitation.
+  If you are interested in joining, send a private message to **localidentity** or **wires77** and we'll send you an invitation.
 
 ### When submitting a pull request:
 * **Pull requests must be created against the `dev` branch**, as all changes to the code are staged there before merging to `master`.
@@ -248,7 +248,7 @@ Note: For this tutorial, you will need a working installation of [Visual Studio 
 as well as some familiarity with build tools such as [CMake](https://cmake.org).
 1. In Visual Studio, clone the following repository using this command:
 
-        git clone -b master https://github.com/zao/ooz
+        git clone --recurse-submodules -b master https://github.com/zao/ooz
 2. Configure CMake.
 3. Build `bun_extract_file.exe`, `libbun.dll` and `libooz.dll`.
 

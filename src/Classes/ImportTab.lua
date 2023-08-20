@@ -38,7 +38,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	end
 	self.controls.accountRealm = new("DropDownControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, 0, 4, 60, 20, realmList )
 	self.controls.accountRealm:SelByValue( main.lastRealm or "PC", "id" )
-	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, 8, 0, 200, 20, main.lastAccountName or "", nil, "%c")
+	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, 8, 0, 200, 20, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
 	self.controls.accountName.pasteFilter = function(text)
 		return text:gsub("[\128-\255]",function(c)
 			return codePointToUTF8(c:byte(1)):gsub(".",function(c)
@@ -292,7 +292,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 	end
 
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle)
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle, nil, nil, true)
 	self.controls.importCodeIn.enterFunc = function()
 		if self.importCodeValid then
 			self.controls.importCodeGo.onClick()
@@ -588,6 +588,20 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
+	for classId, class in pairs(self.build.spec.tree.classes) do
+		if charData.class == class.name then
+			charData.classId = classId
+			charData.ascendancyClass = 0
+			break
+		end
+		for ascendId, ascendancyClass in pairs(class.ascendancies) do
+			if charData.class == ascendancyClass.name then
+				charData.classId = classId
+				charData.ascendancyClass = ascendId
+				break
+			end
+		end
+	end
 	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {}, latestTreeVersion)
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level

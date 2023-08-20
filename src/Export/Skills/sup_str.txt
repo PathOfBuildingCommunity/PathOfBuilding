@@ -124,6 +124,12 @@ local skills, mod, flag, skill = ...
 #skill SupportColdToFire
 #mods
 
+#skill SupportControlledBlaze
+#mods
+
+#skill SupportCorruptingCry
+#mods
+
 #skill SupportCruelty
 	statMap = {
 		["support_cruelty_hit_damage_+%_final"] = {
@@ -239,6 +245,12 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportFlamewood
+#mods
+
+#skill AvengingFlame
+#mods
+
 #skill SupportFortify
 	statMap = {
 		["support_fortify_melee_damage_+%_final"] = {
@@ -271,6 +283,12 @@ local skills, mod, flag, skill = ...
 			skill("auraCannotAffectSelf", true),
 		},
 	},
+#mods
+
+#skill SupportGuardiansBlessing
+#mods
+
+#skill SupportGuardiansBlessingMinion
 #mods
 
 #skill SupportIncreasedDuration
@@ -494,8 +512,8 @@ local skills, mod, flag, skill = ...
 		["support_ruthless_big_hit_damage_+%_final"] = {
 			mod("RuthlessBlowHitMultiplier", "BASE", nil, ModFlag.Melee),
 		},
-		["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"] = {
-			mod("RuthlessBlowBleedMultiplier", "BASE", nil, ModFlag.Melee),
+		["support_ruthless_blow_ailment_damage_from_melee_hits_+%_final"] = {
+			mod("RuthlessBlowAilmentMultiplier", "BASE", nil, ModFlag.Melee),
 		},
 	},
 #mods
@@ -533,5 +551,33 @@ local skills, mod, flag, skill = ...
 #skill SupportStun
 #mods
 
+#skill SupportTrauma
+	statMap = {
+		["attack_minimum_added_physical_damage_with_weapons_per_trauma"] = {
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
+		},
+		["attack_maximum_added_physical_damage_with_weapons_per_trauma"] = {
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
+		},
+		["trauma_strike_self_damage_per_trauma"] = {
+			mod("TraumaSelfDamageTakenLife", "BASE", nil),
+		},
+		["attack_speed_+%_per_trauma"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
+			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
+		},
+		["support_trauma_base_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
+		},
+		["supported_skill_can_only_use_axe_mace_and_staff"] = {
+		},
+	},
+#baseMod flag("HasTrauma")
+#mods
+
 #skill SupportUrgentOrders
+#mods
+
+#skill SupportVolatility
 #mods

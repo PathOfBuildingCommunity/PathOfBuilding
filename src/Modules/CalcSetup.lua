@@ -349,6 +349,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		enemyDB.actor = env.enemy
 		env.player.enemy = env.enemy
 		env.enemy.enemy = env.player
+		enemyDB.actor.player = env.player
+		env.modDB.actor.player = env.player
 
 		-- Set up requirements tracking
 		env.requirementsTableItems = { }
@@ -362,6 +364,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.grantedSkillsNodes = { }
 		env.grantedSkillsItems = { }
 		env.explodeSources = { }
+		env.itemWarnings = { }
 		env.flasks = { }
 
 		-- tree based
@@ -382,6 +385,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB = env.modDB
 		enemyDB = env.enemyDB
 	end
+
+	env.extraJewelFuncs = new("ModList")
+	env.extraJewelFuncs.actor = env.player
 
 	-- Set buff mode
 	local buffMode
@@ -503,7 +509,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Initialise enemy modifier database
 		calcs.initModDB(env, enemyDB)
 		enemyDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.enemyLevel], "Base")
-
+		enemyDB:NewMod("Condition:AgainstDamageOverTime", "FLAG", true, "Base", ModFlag.Dot, { type = "ActorCondition", actor = "player", var = "Combat" })
+		
 		-- Add mods from the config tab
 		env.modDB:AddList(build.configTab.modList)
 		env.enemyDB:AddList(build.configTab.enemyModList)
@@ -530,6 +537,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local allocatedMasteryCount = env.spec.allocatedMasteryCount
 	local allocatedMasteryTypeCount = env.spec.allocatedMasteryTypeCount
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
+
+	for _, node in pairs(env.spec.allocNodes) do
+		for _, mod in ipairs(node.finalModList:Tabulate("LIST", nil, "ExtraJewelFunc")) do
+			env.extraJewelFuncs:AddMod(mod.mod)
+		end
+	end
+
 	if not accelerate.nodeAlloc then
 		-- Build list of passive nodes
 		local nodes
@@ -578,10 +592,18 @@ function calcs.initEnv(build, mode, override, specEnv)
 		env.allocNodes = nodes
 	end
 	
-	modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount, "")
-	modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount, "")
-	modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount, "")
-	modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
+	if allocatedNotableCount and allocatedNotableCount > 0 then
+		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount)
+	end
+	if allocatedMasteryCount and allocatedMasteryCount > 0 then
+		modDB:NewMod("Multiplier:AllocatedMastery", "BASE", allocatedMasteryCount)
+	end
+	if allocatedMasteryTypeCount and allocatedMasteryTypeCount > 0 then
+		modDB:NewMod("Multiplier:AllocatedMasteryType", "BASE", allocatedMasteryTypeCount)
+	end
+	if allocatedMasteryTypes["Life Mastery"] and allocatedMasteryTypes["Life Mastery"] > 0 then
+		modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
+	end
 	
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
@@ -635,12 +657,14 @@ function calcs.initEnv(build, mode, override, specEnv)
 							if item.jewelData then
 								item.jewelData.limitDisabled = true
 							end
+							env.itemWarnings.jewelLimitWarning = env.itemWarnings.jewelLimitWarning or { }
+							t_insert(env.itemWarnings.jewelLimitWarning, limitKey)
 							item = nil
 						else
 							jewelLimits[limitKey] = (jewelLimits[limitKey] or 0) + 1
 						end
 					end
-					if item and item.jewelRadiusIndex then
+					if item and (item.jewelRadiusIndex or #env.extraJewelFuncs > 0) then
 						-- Jewel has a radius, add it to the list
 						local funcList = item.jewelData.funcList or { { type = "Self", func = function(node, out, data)
 							-- Default function just tallies all stats in radius
@@ -664,6 +688,33 @@ function calcs.initEnv(build, mode, override, specEnv)
 							if func.type ~= "Self" and node.nodesInRadius then
 								-- Add nearby unallocated nodes to the extra node list
 								for nodeId, node in pairs(node.nodesInRadius[item.jewelRadiusIndex]) do
+									if not env.allocNodes[nodeId] then
+										env.extraRadiusNodeList[nodeId] = env.spec.nodes[nodeId]
+									end
+								end
+							end
+						end
+						for _, funcData in ipairs(env.extraJewelFuncs:List({item = item}, "ExtraJewelFunc")) do
+							local node = env.spec.nodes[slot.nodeId]
+							local radius
+							for index, data in pairs(data.jewelRadius) do
+								if funcData.radius == data.label then
+									radius = index
+									break
+								end
+							end
+							t_insert(env.radiusJewelList, {
+								nodes = node.nodesInRadius and node.nodesInRadius[radius] or { },
+								func = funcData.func,
+								type = funcData.type,
+								item = item,
+								nodeId = slot.nodeId,
+								attributes = node.attributesInRadius and node.attributesInRadius[radius] or { },
+								data = { }
+							})
+							if funcData.type ~= "Self" and node.nodesInRadius then
+								-- Add nearby unallocated nodes to the extra node list
+								for nodeId, node in pairs(node.nodesInRadius[radius]) do
 									if not env.allocNodes[nodeId] then
 										env.extraRadiusNodeList[nodeId] = env.spec.nodes[nodeId]
 									end
@@ -962,6 +1013,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			if node and (not override.removeNodes or not override.removeNodes[node.id]) then
 				env.allocNodes[node.id] = env.spec.nodes[node.id] or node -- use the conquered node data, if available
 				env.grantedPassives[node.id] = true
+				env.extraRadiusNodeList[node.id] = nil
 			end
 		end
 	end
