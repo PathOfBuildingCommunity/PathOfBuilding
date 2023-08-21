@@ -1114,6 +1114,7 @@ local preFlagList = {
 	["^nearby enemies have "] = { applyToEnemy = true },
 	["^nearby enemies deal "] = { applyToEnemy = true },
 	["^nearby enemies'? "] = { applyToEnemy = true },
+	["^nearby enemy monsters' "] = { applyToEnemy = true },
 	["against you"] = { applyToEnemy = true, actorEnemy = true },
 	["^hits against you "] = { applyToEnemy = true, flags = ModFlag.Hit },
 	["^enemies near your totems deal "] = { applyToEnemy = true },
