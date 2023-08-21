@@ -229,7 +229,7 @@ return {
 ["base_melee_attack_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multistrikeable }),
 },
-["display_minion_monster_level"] = {
+["base_display_minion_actor_level"] = {
 	skill("minionLevel", nil),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
@@ -730,13 +730,13 @@ return {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LowLife"})
 },
 ["damage_vs_enemies_on_low_life_+%"] = {
-	mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "LowLife"})
+	mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "LowLife"})
 },
 ["damage_+%_when_on_full_life"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullLife"})
 },
 ["damage_+%_vs_enemies_on_full_life"] = {
-	mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
+	mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), {type = "ActorCondition", actor = "enemy", var = "FullLife"})
 },
 ["hit_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Hit)
@@ -746,6 +746,10 @@ return {
 },
 ["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+},
+-- PvP Damage
+["support_makes_skill_mine_pvp_damage_+%_final"] = {
+	mod("PvpDamageMultiplier", "MORE", nil),
 },
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
@@ -1604,6 +1608,9 @@ return {
 },
 ["maximum_life_+%_for_corpses_you_create"] = {
 	mod("CorpseLife", "INC", nil),
+},
+["number_of_melee_skeletons_to_summon"] = {
+	mod("MinionPerCastCount", "BASE", nil)
 },
 --Golem
 ["golem_buff_effect_+%"] = {
