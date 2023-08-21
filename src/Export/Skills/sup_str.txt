@@ -286,6 +286,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportGuardiansBlessing
+	statMap = {
+		["aura_skill_no_reservation"] = {
+		},
+	},
+#baseMod skill("manaReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura })
+#baseMod skill("lifeReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura })
+#baseMod skill("manaReservationPercent", 0, { type = "SkillType", skillType = SkillType.Aura })
+#baseMod skill("lifeReservationPercent", 0, { type = "SkillType", skillType = SkillType.Aura })
 #mods
 
 #skill SupportGuardiansBlessingMinion
