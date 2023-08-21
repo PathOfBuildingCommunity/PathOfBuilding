@@ -1609,6 +1609,9 @@ return {
 ["maximum_life_+%_for_corpses_you_create"] = {
 	mod("CorpseLife", "INC", nil),
 },
+["number_of_melee_skeletons_to_summon"] = {
+	mod("MinionPerCastCount", "BASE", nil)
+},
 --Golem
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)

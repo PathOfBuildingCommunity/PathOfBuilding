@@ -1511,77 +1511,6 @@ skills["Boneshatter"] = {
 			area = true,
 		},
 	},
-	preDotFunc = function(activeSkill, output, breakdown)
-		local t_insert = table.insert
-		local s_format = string.format
-		local ipairs = ipairs
-
-		local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-
-		local physBase = activeSkill.skillData.SelfDamageTakenLife * math.max(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:TraumaStacks"), 1)
-		local totalTakenAs = activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAsLightning","PhysicalDamageTakenAsCold","PhysicalDamageTakenAsFire","PhysicalDamageTakenAsChaos") / 100
-		
-		local BSDamageTaken = {}
-
-		local totalDamageTaken = 0
-
-		for _, damageType in ipairs(dmgTypeList) do
-			local damageTakenAs = 1
-			
-			if damageType ~= "Physical" then
-				damageTakenAs = (activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAs"..damageType) or 0) / 100
-			else
-				damageTakenAs = math.max(1 - totalTakenAs, 0)
-			end
-
-			if damageTakenAs ~= 0 then
-
-				if(totalTakenAs > 1) then
-					damageTakenAs = damageTakenAs / totalTakenAs
-				end
-
-				local damage = physBase * damageTakenAs
-				
-				local baseTakenInc = activeSkill.skillModList:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-				local baseTakenMore = activeSkill.skillModList:More(nil, "DamageTaken", damageType.."DamageTaken","DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-				if (damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") then
-					baseTakenInc = baseTakenInc + activeSkill.skillModList:Sum("INC", nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
-					baseTakenMore = baseTakenMore * activeSkill.skillModList:More(nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
-				end
-				local damageTakenMods = math.max((1 + baseTakenInc / 100) * baseTakenMore, 0)
-				local reduction = activeSkill.skillModList:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
-				local resist = activeSkill.skillModList:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
-				local armourReduct = 0
-				local resMult = 1 - resist / 100
-				local reductMult = 1
-
-				local percentOfArmourApplies = math.min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
-				if percentOfArmourApplies > 0 then
-					local effArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
-					local effDamage = damage * resMult
-					armourReduct = round(effArmour ~= 0 and damage * resMult ~= 0 and (effArmour / (effArmour + effDamage * 5) * 100) or 0)
-					armourReduct = math.min(output.DamageReductionMax, armourReduct)
-				end
-				reductMult = (1 - math.max(math.min(output.DamageReductionMax, armourReduct + reduction), 0) / 100) * damageTakenMods
-				local combinedMult = resMult * reductMult
-				local finalDamage = damage * combinedMult
-				totalDamageTaken = totalDamageTaken + finalDamage
-
-				if breakdown then
-					t_insert(BSDamageTaken, damageType.." Damage Taken")
-					t_insert(BSDamageTaken, s_format("^8=^7 %d^8 (Base Damage) * ^7%.2f^8 (Damage taken as %s)", physBase, damageTakenAs, damageType))
-					t_insert(BSDamageTaken, s_format("^8=^7 %d^8 (%s Damage) * ^7%.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
-					t_insert(BSDamageTaken, s_format("^8=^7 %d^8 (%s Damage taken)", finalDamage, damageType))
-				end
-			end
-		end
-
-		if breakdown then
-			t_insert(BSDamageTaken, "Total damage taken: "..round(totalDamageTaken))
-			breakdown.BSDamageTaken = BSDamageTaken
-			output.BSDamageTaken = totalDamageTaken
-		end
-	end,
 	statMap = {
 		["trauma_strike_damage_+%_final_per_trauma"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
@@ -1591,7 +1520,7 @@ skills["Boneshatter"] = {
 			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["trauma_strike_self_damage_per_trauma"] = {
-			skill("SelfDamageTakenLife", nil),
+			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
 		["boneshatter_trauma_base_duration_ms"] = {
 			skill("duration", nil),
@@ -1606,6 +1535,7 @@ skills["Boneshatter"] = {
 	},
 	baseMods = {
 		skill("radius", 14, { type = "SkillPart", skillPart = 2 }),
+		flag("HasTrauma"),
 	},
 	qualityStats = {
 		Default = {
