@@ -542,8 +542,11 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
 		local treeNodes = self.build.spec.tree.nodes
+		local linkedNodes = selectedNode.depends and #selectedNode.depends or 0
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
-			if treeNodes[selectedNode.id].dn:match(node.targetType:gsub("^Small ", "")) or (treeNodes[selectedNode.id].sd[1]:match(node.targetValue) ~= "") then
+			if (treeNodes[selectedNode.id].dn:match(node.targetType:gsub("^Small ", "")) or (treeNodes[selectedNode.id].sd[1]:match(node.targetValue) ~= ""))
+				and node.MaximumConnected >= linkedNodes
+				and node.MinimumConnected <= linkedNodes then
 				t_insert(modGroups, {
 					label = node.dn,
 					descriptions = copyTable(node.sd),
@@ -557,6 +560,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		local newLegionNode = self.build.spec.tree.tattoo.nodes[modGroups[controls.modSelect.selIndex].id]
 		newLegionNode.isTattoo = true
 		newLegionNode.id = selectedNode.id
+		--newLegionNode.sprites = self.build.spec.tree.spriteMap["tattooActiveEffect"]
 		ConPrintf("Id: " .. modGroups[controls.modSelect.selIndex].id .. ", Node found: " .. tostring(newLegionNode ~= nil))
 		self.build.spec.hashOverrides[selectedNode.id] = newLegionNode
 		self.build.spec:ReplaceNode(selectedNode, newLegionNode)
@@ -598,6 +602,8 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
+		self.build.spec.tree.nodes[selectedNode.id].isTattoo = false
+		self.build.spec.hashOverrides[selectedNode.id] = self.build.spec.tree.nodes[selectedNode.id]
 		self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 		self.modFlag = true
 		self.build.buildFlag = true

@@ -508,6 +508,33 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self:ProcessStats(node)
 	end
 
+	-- Build ModList for tattoos
+	for _, node in pairs(self.tattoo.nodes) do
+		-- Determine node type
+		if node.m then
+			node.type = "Mastery"
+		elseif node.ks then
+			node.type = "Keystone"
+			if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
+				self.keystoneMap[node.dn] = node
+			end
+		elseif node["not"] then
+			node.type = "Notable"
+		else
+			node.type = "Normal"
+		end
+
+		-- Assign node artwork assets
+		node.sprites = self.spriteMap[node.icon:gsub("%.dds$", ".png")]
+		node.effectSprites = self.spriteMap[node.activeEffectImage .. ".png"]
+		if not node.sprites then
+			--error("missing sprite "..node.icon)
+			node.sprites = { }
+		end
+
+		self:ProcessStats(node)
+	end
+
 	-- Late load the Generated data so we can take advantage of a tree existing
 	buildTreeDependentUniques(self)
 end)

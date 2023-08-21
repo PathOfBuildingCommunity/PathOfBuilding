@@ -57,7 +57,6 @@ function parseStats(datFileRow, tattooPassive)
 			["index"] = idx
 		}
 		-- Describing stats here to get the orders
-		print(statId or "nil")
 		prettyPrintTable(range)
 		local statLines, orders = describeStats(stat)
 		prettyPrintTable(orders)
@@ -103,6 +102,7 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	tattooPassiveNode.id = datFileRow.Id
 	-- icon
 	tattooPassiveNode.icon = datFileRow.DDSIcon
+	tattooPassiveNode.activeEffectImage = datFileRow.Background
 	-- node name
 	tattooPassiveNode.dn = datFileRow.Name
 	-- display text
@@ -112,6 +112,10 @@ for i=1, alternatePassiveSkillDat.rowCount do
 
 	tattooPassiveNode.targetType = tattooDatRow.NodeTarget.Type
 	tattooPassiveNode.targetValue = tattooDatRow.NodeTarget.Value
+
+	-- These have 0 if they don't apply, which doesn't make sense for MaximumConnected
+	tattooPassiveNode.MinimumConnected = datFileRow.MinimumConnected
+	tattooPassiveNode.MaximumConnected = (datFileRow.MaximumConnected > 0) and datFileRow.MaximumConnected or 100
 
 	parseStats(datFileRow, tattooPassiveNode)
 

@@ -10561,7 +10561,7 @@ return {
 			name="Background",
 			refTo="",
 			type="String",
-			width=200
+			width=530
 		},
 		[8]={
 			list=false,
@@ -10586,14 +10586,14 @@ return {
 		},
 		[11]={
 			list=false,
-			name="",
+			name="MinimumConnected",
 			refTo="",
 			type="Int",
 			width=150
 		},
 		[12]={
 			list=false,
-			name="",
+			name="MaximumConnected",
 			refTo="",
 			type="Int",
 			width=150
@@ -10628,7 +10628,7 @@ return {
 			name="BaseItem",
 			refTo="BaseItemTypes",
 			type="Key",
-			width=330
+			width=380
 		},
 		[2]={
 			list=false,
@@ -10644,6 +10644,8 @@ return {
 			type="Key",
 			width=150
 		}
+	},
+	passiveskilltattootargets={
 	},
 	passiveskilltattootargetsets={
 		[1]={
@@ -10662,14 +10664,14 @@ return {
 		},
 		[3]={
 			list=false,
-			name="",
+			name="Type",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[4]={
 			list=false,
-			name="",
+			name="Value",
 			refTo="",
 			type="String",
 			width=150

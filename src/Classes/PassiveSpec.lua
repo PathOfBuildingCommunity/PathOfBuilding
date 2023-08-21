@@ -149,9 +149,9 @@ function PassiveSpecClass:Load(xml, dbFileName)
 						self.hashOverrides[nodeId].dn = child.attrib.nodeName
 						self.hashOverrides[nodeId].icon = child.attrib.icon
 						self.hashOverrides[nodeId].isTattoo = child.attrib.isTattoo == "true"
-						if self.tree.legion.nodes[child.attrib.spriteId] then
+						if self.tree.tattoo.nodes[child.attrib.spriteId] then
 							self.hashOverrides[nodeId].spriteId = child.attrib.spriteId
-							self.hashOverrides[nodeId].sprites = self.tree.overrides.nodes[child.attrib.spriteId].sprites
+							self.hashOverrides[nodeId].sprites = self.tree.tattoo.nodes[child.attrib.spriteId].sprites
 						end
 						local modCount = 0
 						for _, modLine in ipairs(child) do
