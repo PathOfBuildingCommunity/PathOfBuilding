@@ -558,4 +558,12 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportVolatility
+	statMap = {
+		["minimum_attack_damage_+%_final_from_volatility_support"] = {
+			mod("MinDamage", "MORE", nil),
+		},
+		["maximum_attack_damage_+%_final_from_volatility_support"] = {
+			mod("MaxDamage", "MORE", nil),
+		},
+	},
 #mods

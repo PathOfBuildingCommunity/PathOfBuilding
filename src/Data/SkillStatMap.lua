@@ -730,13 +730,13 @@ return {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LowLife"})
 },
 ["damage_vs_enemies_on_low_life_+%"] = {
-	mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "LowLife"})
+	mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "LowLife"})
 },
 ["damage_+%_when_on_full_life"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullLife"})
 },
 ["damage_+%_vs_enemies_on_full_life"] = {
-	mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
+	mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), {type = "ActorCondition", actor = "enemy", var = "FullLife"})
 },
 ["hit_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Hit)
@@ -746,6 +746,10 @@ return {
 },
 ["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+},
+-- PvP Damage
+["support_makes_skill_mine_pvp_damage_+%_final"] = {
+	mod("PvpDamageMultiplier", "MORE", nil),
 },
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {

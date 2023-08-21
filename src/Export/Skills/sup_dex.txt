@@ -316,6 +316,17 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportLocusMine
+	addFlags = {
+		mine = true,
+	},
+	statMap = {
+		["support_locus_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["number_of_projectiles_+%_final_from_locus_mine_support"] = {
+			mod("ProjectileCount", "MORE", nil),
+		},
+	},
 #mods
 
 #skill SupportChanceToPoison

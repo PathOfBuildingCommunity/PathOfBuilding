@@ -4782,6 +4782,14 @@ skills["SupportVolatility"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["minimum_attack_damage_+%_final_from_volatility_support"] = {
+			mod("MinDamage", "MORE", nil),
+		},
+		["maximum_attack_damage_+%_final_from_volatility_support"] = {
+			mod("MaxDamage", "MORE", nil),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%", 0.5 },
