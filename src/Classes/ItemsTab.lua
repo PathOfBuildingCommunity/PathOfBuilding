@@ -62,17 +62,11 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	-- PoB Trader class initialization
 	self.tradeQuery = new("TradeQuery", self)
 
-	local function loadSetLinks(value)
-		if self.build.linkedSetsTab.enabled and self.build.linkedSetsTab.itemSetLinks[value] then
-			self.build.treeTab:SetActiveSpecByVal(self.build.linkedSetsTab.itemSetLinks[value].treeSet)
-			self.build.skillsTab:SetActiveSkillSetByVal(self.build.linkedSetsTab.itemSetLinks[value].skillSet)
-		end
-	end
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", {"TOPLEFT",self,"TOPLEFT"}, 96, 8, 216, 20, nil, function(index, value)
 		self:SetActiveItemSet(self.itemSetOrderList[index])
 		self:AddUndoState()
-		loadSetLinks(value)
+		self.build.linkedSetsTab:LoadSetLinks("item", value)
 	end)
 	self.controls.setSelect.enableDroppedWidth = true
 	self.controls.setSelect.enabled = function()
@@ -160,7 +154,7 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 		if self.build.treeTab.specList[index] then
 			self.build.modFlag = true
 			self.build.treeTab:SetActiveSpec(index)
-			self.build.treeTab:LoadSetLinks(value)
+			self.build.linkedSetsTab:LoadSetLinks("tree", value)
 		end
 	end)
 	self.controls.specSelect.enabled = function()

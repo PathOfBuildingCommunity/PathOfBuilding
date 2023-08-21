@@ -59,7 +59,7 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	self.controls.treeSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"RIGHT"}, dropdownWidth*0.75, 0, 0, 16, "^7Item Sets")
 	self.controls.treeSetDropdown = new("DropDownControl", {"LEFT",self.controls.treeSetLabelRoot,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		self:InitLinks("tree", value)
-		self:LoadLinks("tree", value)
+		self:LoadDropdowns("tree", value)
 	end)
 	self.controls.treeSetDropdownSkill = new("DropDownControl", {"LEFT",self.controls.treeSetLabelDropdownSkill,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		local treeSetTitle = self.controls.treeSetDropdown.list[self.controls.treeSetDropdown.selIndex]
@@ -82,7 +82,7 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	self.controls.skillSetLabelDropdownItem = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownItem,"LEFT"}, 0, 70, 0, 16, "^7Item Sets")
 	self.controls.skillSetDropdown = new("DropDownControl", {"LEFT",self.controls.skillSetLabelRoot,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		self:InitLinks("skill", value)
-		self:LoadLinks("skill", value)
+		self:LoadDropdowns("skill", value)
 	end)
 	self.controls.skillSetDropdownTree = new("DropDownControl", {"LEFT",self.controls.skillSetLabelDropdownTree,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		local skillSetTitle = self.controls.skillSetDropdown.list[self.controls.skillSetDropdown.selIndex]
@@ -105,7 +105,7 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	self.controls.itemSetLabelDropdownSkill = new("LabelControl", {"LEFT",self.controls.treeSetLabelDropdownItem,"LEFT"}, 0, 140, 0, 16, "^7Skill Sets")
 	self.controls.itemSetDropdown = new("DropDownControl", {"LEFT",self.controls.itemSetLabelRoot,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		self:InitLinks("item", value)
-		self:LoadLinks("item", value)
+		self:LoadDropdowns("item", value)
 	end)
 	self.controls.itemSetDropdownTree = new("DropDownControl", {"LEFT",self.controls.itemSetLabelDropdownTree,"LEFT"}, 0, 20, dropdownWidth, 18, nil, function(index, value)
 		local itemSetTitle = self.controls.itemSetDropdown.list[self.controls.itemSetDropdown.selIndex]
@@ -227,7 +227,7 @@ function LinkedSetsTabClass:InitLinks(set, value)
 	end
 end
 
-function LinkedSetsTabClass:LoadLinks(set, value)
+function LinkedSetsTabClass:LoadDropdowns(set, value)
 	if set == "tree" then
 		self.controls.treeSetDropdownItem:SelByValue(self.treeSetLinks[value].itemSet or "None")
 		self.controls.treeSetDropdownSkill:SelByValue(self.treeSetLinks[value].skillSet or "None")
@@ -368,6 +368,21 @@ function LinkedSetsTabClass:Load(xml)
 					["skillSet"] = node.attrib.skillSet or { }
 				}
 			end
+		end
+	end
+end
+
+function LinkedSetsTabClass:LoadSetLinks(type, value)
+	if self.build.linkedSetsTab.enabled then
+		if type == "item" and self.build.linkedSetsTab.itemSetLinks[value] then
+			self.build.treeTab:SetActiveSpecByVal(self.build.linkedSetsTab.itemSetLinks[value].treeSet)
+			self.build.skillsTab:SetActiveSkillSetByVal(self.build.linkedSetsTab.itemSetLinks[value].skillSet)
+		elseif type == "skill" and self.build.linkedSetsTab.skillSetLinks[value] then
+			self.build.treeTab:SetActiveSpecByVal(self.build.linkedSetsTab.skillSetLinks[value].treeSet)
+			self.build.itemsTab:SetActiveItemSetByVal(self.build.linkedSetsTab.skillSetLinks[value].itemSet)
+		elseif type == "tree" and self.build.linkedSetsTab.treeSetLinks[value] then
+			self.build.skillsTab:SetActiveSkillSetByVal(self.build.linkedSetsTab.treeSetLinks[value].skillSet)
+			self.build.itemsTab:SetActiveItemSetByVal(self.build.linkedSetsTab.treeSetLinks[value].itemSet)
 		end
 	end
 end

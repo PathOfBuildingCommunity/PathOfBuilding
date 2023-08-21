@@ -38,7 +38,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		if self.specList[index] then
 			self.build.modFlag = true
 			self:SetActiveSpec(index)
-			self:LoadSetLinks(value)
+			self.build.linkedSetsTab:LoadSetLinks("tree", value)
 		else
 			self:OpenSpecManagePopup()
 		end
@@ -2093,13 +2093,6 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 
 	main:OpenPopup(910, 517, "Find a Timeless Jewel", controls)
-end
-
-function TreeTabClass:LoadSetLinks(value)
-	if self.build.linkedSetsTab.enabled and self.build.linkedSetsTab.treeSetLinks[value] then
-		self.build.skillsTab:SetActiveSkillSetByVal(self.build.linkedSetsTab.treeSetLinks[value].skillSet)
-		self.build.itemsTab:SetActiveItemSetByVal(self.build.linkedSetsTab.treeSetLinks[value].itemSet)
-	end
 end
 
 function TreeTabClass:SetActiveSpecByVal(treeSetTitle)
