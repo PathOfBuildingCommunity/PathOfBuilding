@@ -562,6 +562,9 @@ local skills, mod, flag, skill = ...
 		["trauma_strike_self_damage_per_trauma"] = {
 			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
+		["support_trauma_stun_duration_+%_per_trauma"] = {
+			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
+		},
 		["attack_speed_+%_per_trauma"] = {
 			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
 			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),

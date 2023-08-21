@@ -4640,18 +4640,6 @@ skills["SupportTrauma"] = {
 		["Staff"] = true,
 	},
 	statDescriptionScope = "gem_stat_descriptions",
-	qualityStats = {
-		Default = {
-			{ "base_stun_threshold_reduction_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "ignore_self_damage_from_trauma_chance_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "attack_speed_+%_per_trauma", 0.05 },
-			{ "trauma_strike_self_damage_per_trauma", 1 },
-		},
-	},
 	statMap = {
 		["attack_minimum_added_physical_damage_with_weapons_per_trauma"] = {
 			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
@@ -4678,6 +4666,18 @@ skills["SupportTrauma"] = {
 	},
 	baseMods = {
 		flag("HasTrauma"),
+	},
+	qualityStats = {
+		Default = {
+			{ "base_stun_threshold_reduction_+%", 0.5 },
+		},
+		Alternate1 = {
+			{ "ignore_self_damage_from_trauma_chance_%", 0.5 },
+		},
+		Alternate2 = {
+			{ "attack_speed_+%_per_trauma", 0.05 },
+			{ "trauma_strike_self_damage_per_trauma", 1 },
+		},
 	},
 	stats = {
 		"trauma_strike_self_damage_per_trauma",
