@@ -146,12 +146,10 @@ function PassiveSpecClass:Load(xml, dbFileName)
 
 						self.hashOverrides[nodeId] = copyTable(self.nodes[nodeId], true)
 						self.hashOverrides[nodeId].id = nodeId
-						self.hashOverrides[nodeId].dn = child.attrib.nodeName
-						self.hashOverrides[nodeId].icon = child.attrib.icon
-						self.hashOverrides[nodeId].isTattoo = child.attrib.isTattoo == "true"
-						if self.tree.tattoo.nodes[child.attrib.spriteId] then
-							self.hashOverrides[nodeId].spriteId = child.attrib.spriteId
-							self.hashOverrides[nodeId].sprites = self.tree.tattoo.nodes[child.attrib.spriteId].sprites
+						if self.tree.tattoo.nodes[child.attrib.tattooId] then
+							local tattooNode = self.tree.tattoo.nodes[child.attrib.tattooId]
+							self.hashOverrides[nodeId].isTattoo = true
+							self:ReplaceNode(self.hashOverrides[nodeId], tattooNode)
 						end
 						local modCount = 0
 						for _, modLine in ipairs(child) do
@@ -212,7 +210,7 @@ function PassiveSpecClass:Save(xml)
 	}
 	if self.hashOverrides then
 		for nodeId, node in pairs(self.hashOverrides) do
-			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), isTattoo = "true", nodeName = node.dn, icon = node.icon, spriteId = node.spriteId } }
+			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), tattooId = tostring(node.tattooId) } }
 			for _, modLine in ipairs(node.sd) do
 				t_insert(override, modLine)
 			end
@@ -1114,6 +1112,7 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.keystoneMod = newNode.keystoneMod
 	old.icon = newNode.icon
 	old.spriteId = newNode.spriteId
+	old.activeEffectImage = newNode.activeEffectImage
 	old.reminderText = newNode.reminderText or { }
 end
 

@@ -557,13 +557,12 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		table.sort(modGroups, function(a, b) return a.label < b.label end)
 	end
 	local function addModifier(selectedNode)
-		local newLegionNode = self.build.spec.tree.tattoo.nodes[modGroups[controls.modSelect.selIndex].id]
-		newLegionNode.isTattoo = true
-		newLegionNode.id = selectedNode.id
-		--newLegionNode.sprites = self.build.spec.tree.spriteMap["tattooActiveEffect"]
-		ConPrintf("Id: " .. modGroups[controls.modSelect.selIndex].id .. ", Node found: " .. tostring(newLegionNode ~= nil))
-		self.build.spec.hashOverrides[selectedNode.id] = newLegionNode
-		self.build.spec:ReplaceNode(selectedNode, newLegionNode)
+		local newTattooNode = self.build.spec.tree.tattoo.nodes[modGroups[controls.modSelect.selIndex].id]
+		newTattooNode.isTattoo = true
+		newTattooNode.tattooId = newTattooNode.id
+		newTattooNode.id = selectedNode.id
+		self.build.spec.hashOverrides[selectedNode.id] = newTattooNode
+		self.build.spec:ReplaceNode(selectedNode, newTattooNode)
 	end
 
 	local function constructUI(modGroup)
@@ -603,7 +602,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end)
 	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
 		self.build.spec.tree.nodes[selectedNode.id].isTattoo = false
-		self.build.spec.hashOverrides[selectedNode.id] = self.build.spec.tree.nodes[selectedNode.id]
+		self.build.spec.hashOverrides[selectedNode.id] = nil
 		self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
 		self.modFlag = true
 		self.build.buildFlag = true
