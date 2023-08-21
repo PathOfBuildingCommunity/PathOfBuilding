@@ -1879,6 +1879,9 @@ skills["SupportDevour"] = {
 		["killing_blow_consumes_corpse_restore_x_mana"] = {
 			mod("ManaOnKill", "BASE", nil),
 		},
+		["damage_+%_if_you_have_consumed_a_corpse_recently"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "ConsumedCorpseRecently" }),
+		},
 	},
 	qualityStats = {
 		Default = {
