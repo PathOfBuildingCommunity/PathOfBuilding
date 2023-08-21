@@ -2696,7 +2696,7 @@ local specialModList = {
 		mod("EyeOfInnocenceSelfDamage", "LIST", {baseDamage = dmg, damageType = dmgType})
 	} end,
 	["(%d+) (.+) damage taken on minion death"] = function(dmg, _, dmgType) return {
-		mod("HeartBoundLoopSelfDamage", "LIST", {baseDamage = dmg, damageType = dmgType})
+		mod("HeartboundLoopSelfDamage", "LIST", {baseDamage = dmg, damageType = dmgType})
 	}end,
 	["your skills deal you (%d+)%% of mana cost as (.+) damage"] = function(dmgMult, _, dmgType) return {
 		mod("ScoldsBridleSelfDamage", "LIST", {dmgMult = dmgMult, damageType = dmgType})

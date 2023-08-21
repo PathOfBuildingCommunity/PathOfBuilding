@@ -5014,9 +5014,14 @@ function calcs.offence(env, actor, activeSkill)
 			
 					if breakdown then
 						t_insert(damageBreakdown, damageType.." Damage Taken")
-						t_insert(damageBreakdown, s_format("^8=^7 %d^8 (Base Damage) * ^7%.2f^8 (Damage taken as %s)", baseDmg, damageTakenAs, damageType))
-						t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage) * ^7%.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
+						if damageTakenAs ~= 1 then
+							t_insert(damageBreakdown, s_format("^8=^7 %d^8 (Base Damage)^7 * %.2f^8 (Damage taken as %s)", baseDmg, damageTakenAs, damageType))
+						end
+						if combinedMult ~= 1 then
+							t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage)^7 * %.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
+						end
 						t_insert(damageBreakdown, s_format("^8=^7 %d^8 (%s Damage taken)", finalDamage, damageType))
+						t_insert(damageBreakdown, s_format(""))
 					end
 				end
 			end
@@ -5027,14 +5032,15 @@ function calcs.offence(env, actor, activeSkill)
 		local nameToHandler = {
 			["Heartbound Loop"] = function(activeSkill, output, breakdown)
 				local dmgType, dmgVal
-				for _, value in ipairs(activeSkill.skillModList:List(nil, "HeartBoundLoopSelfDamage")) do -- Combines dmg taken from both ring accounting for catalysts
+				for _, value in ipairs(activeSkill.skillModList:List(nil, "HeartboundLoopSelfDamage")) do -- Combines dmg taken from both ring accounting for catalysts
 					dmgVal = (dmgVal or 0) + value.baseDamage
 					dmgType = string.gsub(" "..value.damageType, "%W%l", string.upper):sub(2) -- This assumes both rings deal the same damage type
 				end
 				if activeSkill.activeEffect.grantedEffect.name == "Summon Skeletons" and dmgType and dmgVal then
 					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
-					t_insert(dmgBreakdown, 1, s_format("HeartBound Loop base damage: %d", dmgVal))
-					t_insert(dmgBreakdown, s_format("Total HeartBound Loop Damage taken per cast/attack: %.2f * %d(minions per cast) = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
+					t_insert(dmgBreakdown, 1, s_format("Heartbound Loop base damage: %d", dmgVal))
+					t_insert(dmgBreakdown, 2, s_format(""))
+					t_insert(dmgBreakdown, s_format("Total Heartbound Loop damage taken per cast/attack: %.2f * %d ^8(minions per cast)^7 = %.2f",totalDmgTaken, output.SummonedMinionsPerCast, totalDmgTaken * output.SummonedMinionsPerCast))
 					return dmgBreakdown, totalDmgTaken * output.SummonedMinionsPerCast
 				end
 			end,
@@ -5048,7 +5054,8 @@ function calcs.offence(env, actor, activeSkill)
 				if activeSkill.skillFlags.ignite and dmgType and dmgVal then
 					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
 					t_insert(dmgBreakdown, 1, s_format("Eye of Innocence base damage: %d", dmgVal))
-					t_insert(dmgBreakdown, s_format("Total Eye of Innocence Damage taken per cast/attack: %.2f ", totalDmgTaken))
+					t_insert(dmgBreakdown, 2, s_format(""))
+					t_insert(dmgBreakdown, s_format("Total Eye of Innocence damage taken per cast/attack: %.2f ", totalDmgTaken))
 					return dmgBreakdown, totalDmgTaken
 				end
 			end,
@@ -5061,8 +5068,9 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if output.ManaHasCost and dmgType and dmgMult then
 					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, (output.ManaCost or 0) * dmgMult/100)
-					t_insert(dmgBreakdown, 1, s_format("Scold's Bridle base damage: %d(Mana Cost) * %d%% = %.2f", (output.ManaCost or 0), dmgMult, (output.ManaCost or 0) * dmgMult/100))
-					t_insert(dmgBreakdown, s_format("Total Scold's Bridle Damage taken per cast/attack: %.2f ", totalDmgTaken))
+					t_insert(dmgBreakdown, 1, s_format("Scold's Bridle base damage: %d ^8(Mana Cost)^7 * %d%% = %.2f", (output.ManaCost or 0), dmgMult, (output.ManaCost or 0) * dmgMult/100))
+					t_insert(dmgBreakdown, 2, s_format(""))
+					t_insert(dmgBreakdown, s_format("Total Scold's Bridle damage taken per cast/attack: %.2f ", totalDmgTaken))
 					return dmgBreakdown, totalDmgTaken
 				end
 			end,
@@ -5073,8 +5081,9 @@ function calcs.offence(env, actor, activeSkill)
 				local dmgVal = activeSkill.baseSkillModList:Flag(nil, "HasTrauma") and damagePerTrauma * currentTraumaStacks
 				if dmgType and dmgVal then
 					local dmgBreakdown, totalDmgTaken = applyDmgTakenConversion(dmgType, dmgVal)
-					t_insert(dmgBreakdown, 1, s_format("%d ^8(base %s damage) * ^7%.2f ^8(%s trauma) = ^7%.2f %s damage", damagePerTrauma, dmgType, currentTraumaStacks, activeSkill.skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks") == currentTraumaStacks and "sustainable" or "current", dmgVal, dmgType))
-					t_insert(dmgBreakdown, s_format("Total Trauma Damage taken per cast/attack: %.2f ", totalDmgTaken))
+					t_insert(dmgBreakdown, 1, s_format("%d ^8(base %s damage)^7 * %.2f ^8(%s trauma)^7 = %.2f %s damage", damagePerTrauma, dmgType, currentTraumaStacks, activeSkill.skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks") == currentTraumaStacks and "sustainable" or "current", dmgVal, dmgType))
+					t_insert(dmgBreakdown, 2, s_format(""))
+					t_insert(dmgBreakdown, s_format("Total Trauma damage taken per cast/attack: %.2f ", totalDmgTaken))
 					return dmgBreakdown, totalDmgTaken
 				end
 			end,
