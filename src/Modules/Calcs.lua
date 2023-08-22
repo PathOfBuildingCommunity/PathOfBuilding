@@ -298,7 +298,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						fullDPS.decayDPS = fullDPS.decayDPS + activeSkill.mirage.output.DecayDPS
 					end
 					if activeSkill.mirage.output.CorruptingCryDPS and activeSkill.mirage.output.CorruptingCryDPS > 0 then
-						fullDPS.corruptingCryDPS = fullDPS.corruptingCryDPS + activeSkill.mirage.output.corruptingCryDPS
+						fullDPS.corruptingCryDPS = fullDPS.corruptingCryDPS + activeSkill.mirage.output.CorruptingCryDPS
 					end
 					if activeSkill.mirage.output.TotalDot and activeSkill.mirage.output.TotalDot > 0 and (activeSkill.skillFlags.DotCanStack or (usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot == 0)) then
 						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.mirage.output.TotalDot * (activeSkill.skillFlags.DotCanStack and mirageCount or 1)
@@ -338,7 +338,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS
 				end
 				if usedEnv.player.output.CorruptingCryDPS and usedEnv.player.output.CorruptingCryDPS > 0 then
-					fullDPS.corruptingCryDPS = fullDPS.corruptingCryDPS + usedEnv.player.output.corruptingCryDPS
+					fullDPS.corruptingCryDPS = fullDPS.corruptingCryDPS + usedEnv.player.output.CorruptingCryDPS
 				end
 				if usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot > 0 then
 					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot * (activeSkill.skillFlags.DotCanStack and activeSkillCount or 1)
