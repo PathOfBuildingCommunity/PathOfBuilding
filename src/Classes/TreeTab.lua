@@ -542,7 +542,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
 		local treeNodes = self.build.spec.tree.nodes
-		local linkedNodes = selectedNode.depends and #selectedNode.depends or 0
+		local linkedNodes = selectedNode.linked and #selectedNode.linked or 0
 		local nodeName = treeNodes[selectedNode.id].dn
 		local nodeValue = treeNodes[selectedNode.id].sd[1]
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do

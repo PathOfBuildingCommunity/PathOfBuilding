@@ -4965,6 +4965,11 @@ local jewelOtherFuncs = {
 			out:NewMod("PassiveSkillHasNoEffect", "FLAG", true, data.modSource)
 		end
 	end,
+	["100% increased effect of Tattoos in Radius"] = function(node, out, data)
+		if node and node.isTattoo then
+			out:NewMod("PassiveSkillEffect", "INC", 100, data.modSource)
+		end
+	end,
 	["Allocated Small Passive Skills in Radius grant nothing"] = function(node, out, data)
 		if node and node.type == "Normal" then
 			out:NewMod("AllocatedPassiveSkillHasNoEffect", "FLAG", true, data.modSource)
