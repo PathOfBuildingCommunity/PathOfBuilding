@@ -292,7 +292,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.viewMode = "ITEMS"
 			end
 		elseif hoverNode and (hoverNode.isTattoo
-			or (hoverNode.type == "Normal" and (hoverNode.name == "Strength" or hoverNode.name == "Dexterity" or hoverNode.name == "Intelligence"))
+			or (hoverNode.type == "Normal" and (hoverNode.dn == "Strength" or hoverNode.dn == "Dexterity" or hoverNode.dn == "Intelligence"))
 			or (hoverNode.type == "Notable" and (hoverNode.sd[1]:match("+30 to Dexterity") or hoverNode.sd[1]:match("+30 to Strength") or hoverNode.sd[1]:match("+30 to Intelligence"))))
 		then
 			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
@@ -1007,7 +1007,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 
 	-- Tattoo Editing
 	if node and (node.isTattoo
-			or (node.type == "Normal" and (node.name == "Strength" or node.name == "Dexterity" or node.name == "Intelligence"))
+			or (node.type == "Normal" and (node.dn == "Strength" or node.dn == "Dexterity" or node.dn == "Intelligence"))
 			or (node.type == "Notable" and (node.sd[1]:match("+30 to Dexterity") or node.sd[1]:match("+30 to Strength") or node.sd[1]:match("+30 to Intelligence"))))
 	then
 		tooltip:AddSeparator(14)

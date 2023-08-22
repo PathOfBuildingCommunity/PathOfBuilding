@@ -1100,9 +1100,6 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	if old.sd == newNode.sd then
 		return 1
 	end
-	for k, v in pairs(newNode) do
-		old[k] = v
-	end
 	old.dn = newNode.dn
 	old.sd = newNode.sd
 	old.mods = newNode.mods
@@ -1110,6 +1107,8 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.modList = new("ModList")
 	old.modList:AddList(newNode.modList)
 	old.sprites = newNode.sprites
+	old.effectSprites = newNode.effectSprites
+	old.isTattoo = newNode.isTattoo
 	old.keystoneMod = newNode.keystoneMod
 	old.icon = newNode.icon
 	old.spriteId = newNode.spriteId
