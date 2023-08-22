@@ -1241,10 +1241,10 @@ skills["SupportCorruptingCry"] = {
 			div = 60,
 		},
 		["support_corrupting_cry_warcry_applies_X_stacks_of_corrupted_blood"] = {
-			mod("CorruptingCryStagesFromWarcry", nil)
+			mod("CorruptingCryStagesFromWarcry", nil, 0, KeywordFlag.Warcry)
 		},
 		["support_corrupting_cry_exerted_attack_applies_X_stacks_of_corrupted_blood_on_first_hit"] = {
-			mod("CorruptingCryStagesFromExerted", nil)
+			mod("CorruptingCryStagesFromExerted", nil, 0, KeywordFlag.Attack)
 		},
 		["support_corrupting_cry_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Warcry)

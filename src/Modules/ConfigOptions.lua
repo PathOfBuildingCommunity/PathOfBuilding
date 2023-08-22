@@ -1599,9 +1599,10 @@ Huge sets the radius to 11.
 	{ var = "conditionBetweenYouAndLinkedTarget", type = "check", label = "Is the enemy in your Link beams?", ifEnemyCond = "BetweenYouAndLinkedTarget", tooltip = "This option sets whether an enemy is between you and your linked target.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:BetweenYouAndLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "conditionCorruptingCryStages", type = "count", label = "# of Corrupting cry stacks on the enemy", ifMult = "CorruptingCryStageAfterFirst", apply = function(val, modList, enemyModList)
+	{ var = "conditionCorruptingCryStages", type = "count", label = "# of Corrupting cry stacks on the enemy", ifMult = "CorruptingCryStageAfterFirst", defaultState = 1, apply = function(val, modList, enemyModList)
 		-- 10 is the maximum amount of Corrupting Blood Stages. modList does not contain skill base mods at this point so hard coding it here is the cleanest way to handle the cap.
-		modList:NewMod("Multiplier:CorruptingCryStageAfterFirst", "BASE", m_min(10, val), "Config", { type = "Condition", var = "Effective" })
+		-- It's set to 9 here with val -1 to so that it defaults to 1 stage and has max 10 stages.
+		modList:NewMod("Multiplier:CorruptingCryStageAfterFirst", "BASE", m_min(9, val-1), "Config", { type = "Condition", var = "Effective" })
 	end },
 	-- Section: Enemy Stats
 	{ section = "Enemy Stats", col = 3 },
