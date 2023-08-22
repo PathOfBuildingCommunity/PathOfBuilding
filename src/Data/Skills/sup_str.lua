@@ -940,6 +940,9 @@ skills["SupportCastOnDamageTaken"] = {
 		["cast_on_damage_taken_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["cast_when_damage_taken_trigger_threshold_+%"] = {
+			mod("CWDTThreshold", "MORE", nil)
+		}
 	},
 	qualityStats = {
 		Default = {
