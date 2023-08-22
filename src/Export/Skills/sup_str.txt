@@ -137,7 +137,7 @@ statMap = {
 			mod("CorruptingCryStagesFromWarcry", nil)
 		},
 		["support_corrupting_cry_exerted_attack_applies_X_stacks_of_corrupted_blood_on_first_hit"] = {
-			mod("CorruptingCryStagesFromExterted", nil)
+			mod("CorruptingCryStagesFromExerted", nil)
 		},
 		["support_corrupting_cry_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Warcry)
