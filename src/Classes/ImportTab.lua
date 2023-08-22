@@ -569,8 +569,13 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 
 	if charPassiveData.skill_overrides then
-		for _, override in pairs(charPassiveData.skill_overrides) do
-			override.sd = override.stats
+		for nodeId, override in pairs(charPassiveData.skill_overrides) do
+			override.id = nodeId
+			local modCount = 0
+			for _, statLine in ipairs(override.stats) do
+				self.build.spec:NodeAdditionOrReplacementFromString(override, statLine, modCount == 0)
+				modCount = modCount + 1
+			end
 			override.dn = override.name
 		end
 	end

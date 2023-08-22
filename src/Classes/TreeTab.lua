@@ -543,8 +543,11 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		wipeTable(modGroups)
 		local treeNodes = self.build.spec.tree.nodes
 		local linkedNodes = selectedNode.depends and #selectedNode.depends or 0
+		local nodeName = treeNodes[selectedNode.id].dn
+		local nodeValue = treeNodes[selectedNode.id].sd[1]
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
-			if (treeNodes[selectedNode.id].dn:match(node.targetType:gsub("^Small ", "")) or (treeNodes[selectedNode.id].sd[1]:match(node.targetValue) ~= ""))
+			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
+					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
 				and node.MaximumConnected >= linkedNodes
 				and node.MinimumConnected <= linkedNodes then
 				t_insert(modGroups, {
