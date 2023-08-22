@@ -101,8 +101,8 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	-- id
 	tattooPassiveNode.id = datFileRow.Id
 	-- icon
-	tattooPassiveNode.icon = datFileRow.DDSIcon
-	tattooPassiveNode.activeEffectImage = datFileRow.Background
+	tattooPassiveNode.icon = datFileRow.DDSIcon:gsub("%.dds$", ".png")
+	tattooPassiveNode.activeEffectImage = datFileRow.Background .. ".png"
 	-- node name
 	tattooPassiveNode.dn = datFileRow.Name
 	-- display text

@@ -146,11 +146,10 @@ function PassiveSpecClass:Load(xml, dbFileName)
 
 						self.hashOverrides[nodeId] = copyTable(self.nodes[nodeId], true)
 						self.hashOverrides[nodeId].id = nodeId
-						if self.tree.tattoo.nodes[child.attrib.tattooId] then
-							local tattooNode = self.tree.tattoo.nodes[child.attrib.tattooId]
-							self.hashOverrides[nodeId].isTattoo = true
-							self:ReplaceNode(self.hashOverrides[nodeId], tattooNode)
-						end
+						self.hashOverrides[nodeId].isTattoo = true
+						self.hashOverrides[nodeId].icon = child.attrib.icon
+						self.hashOverrides[nodeId].activeEffectImage = child.attrib.activeEffectImage
+						self.hashOverrides[nodeId].dn = child.attrib.dn
 						local modCount = 0
 						for _, modLine in ipairs(child) do
 							for line in string.gmatch(modLine .. "\r\n", "([^\r\n\t]*)\r?\n") do
@@ -210,7 +209,7 @@ function PassiveSpecClass:Save(xml)
 	}
 	if self.hashOverrides then
 		for nodeId, node in pairs(self.hashOverrides) do
-			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), tattooId = tostring(node.tattooId) } }
+			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), icon = tostring(node.icon), activeEffectImage = tostring(node.activeEffectImage), dn = tostring(node.dn) } }
 			for _, modLine in ipairs(node.sd) do
 				t_insert(override, modLine)
 			end
@@ -254,6 +253,8 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, h
 				self.allocNodes[id] = node
 			end
 			if hashOverrides[id] then
+				hashOverrides[id].effectSprites = self.tree.spriteMap[hashOverrides[id].activeEffectImage]
+				hashOverrides[id].sprites = self.tree.spriteMap[hashOverrides[id].icon]
 				self:ReplaceNode(node, hashOverrides[id])
 			end
 		else

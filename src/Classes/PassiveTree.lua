@@ -525,8 +525,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 
 		-- Assign node artwork assets
-		node.sprites = self.spriteMap[node.icon:gsub("%.dds$", ".png")]
-		node.effectSprites = self.spriteMap[node.activeEffectImage .. ".png"]
+		node.sprites = self.spriteMap[node.icon]
+		node.effectSprites = self.spriteMap[node.activeEffectImage]
 		if not node.sprites then
 			--error("missing sprite "..node.icon)
 			node.sprites = { }
