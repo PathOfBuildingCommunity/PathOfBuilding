@@ -128,6 +128,30 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportCorruptingCry
+	statMap = {
+		["support_corrupting_cry_corrupted_blood_base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil),
+			div = 60,
+		},
+		["support_corrupting_cry_warcry_applies_X_stacks_of_corrupted_blood"] = {
+			mod("CorruptingCryStagesFromWarcry", nil)
+		},
+		["support_corrupting_cry_exerted_attack_applies_X_stacks_of_corrupted_blood_on_first_hit"] = {
+			mod("CorruptingCryStagesFromExerted", nil)
+		},
+		["support_corrupting_cry_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Warcry)
+		},
+		["support_corrupting_cry_warcry_and_first_exerted_attack_applies_corrupted_blood_for_X_ms"] = {
+			skill("durationSecondary", nil),
+			div = 1000,
+		}
+	},
+	baseMods = {
+		skill("debuff", true),
+		mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10),
+		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"}),
+	},
 #mods
 
 #skill SupportCruelty
