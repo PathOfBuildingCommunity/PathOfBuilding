@@ -978,24 +978,6 @@ return {
 	}, },
 } }
 } },
-{ 1, "CorruptingCry", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Corrupting Cry", data = {
-	extra = "{1:output:CorruptingCryDPS} {2:output:CorruptingCryDuration}s",
-	flag = "corruptingCry",
-	{ label = "Total Increased", { format = "{0:mod:1}%", { modName = { "Damage", "PhysicalDamage" }, modType = "INC", cfg = "corruptingCry" }, }, },
-	{ label = "Total More", { format = "{0:mod:1}%", { modName = { "Damage", "PhysicalDamage" }, modType = "MORE", cfg = "corruptingCry" }, }, },
-	{ label = "Effective DPS Mod", flag = "effective", { format = "x {3:output:CorruptingCryEffMult}", 
-		{ breakdown = "CorruptingCryEffMult" }, 
-		{ label = "Enemy modifiers", modName = { "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime" }, enemy = true },
-	}, },
-	{ label = "Stages on Enemy", flag = "effective", { format = "x {3:output:CorruptingCryStages}", { modName = { "Multiplier:CorruptingCryStageAfterFirst", }, }, }, },
-	{ label = "Corrupting Cry DPS", { format = "{1:output:CorruptingCryDPS}", 
-		{ breakdown = "CorruptingCry" }, 
-	}, },
-	{ label = "Corrupting Cry Dur.", { format = "{2:output:CorruptingCryDuration}s", 
-		{ breakdown = "CorruptingCryDuration" },
-	}, },
-} }
-} },
 { 1, "LeechGain", 1, colorCodes.OFFENCE, {{ defaultCollapsed = false, label = "Leech & Gain on Hit", data = {
 	{ label = "Life Leech Cap", flag = "leechLife", { format = "{1:output:MaxLifeLeechRate}", 
 		{ breakdown = "MaxLifeLeechRate" },

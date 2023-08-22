@@ -75,19 +75,6 @@ local function isTriggered(skillData)
 		or skillData.triggeredBySnipe
 end
 
-local function processExertingWarcrySupports(env, activeSkill)
-	for _, value in ipairs(activeSkill.skillModList:List(nil, "SkillData")) do
-		activeSkill.skillData[value.key] = value.value
-	end
-	
-	
-	--Corrupting Cry
-	if activeSkill.skillData.corruptingCryDps and (not env.player.mainSkill.skillData.corruptingCryDps or env.player.mainSkill.skillData.corruptingCryDps < activeSkill.skillData.corruptingCryDps) then
-		env.player.mainSkill.skillData.corruptingCryDps = activeSkill.skillData.corruptingCryDps
-		env.player.mainSkill.skillData.corruptingCryDuration = activeSkill.skillData.corruptingCryDuration
-	end
-end
-
 -- Calculate min/max damage for the given damage type
 local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags, convDst)
 	local skillModList = activeSkill.skillModList
@@ -2249,7 +2236,6 @@ function calcs.offence(env, actor, activeSkill)
 							t_insert(globalBreakdown.AncestralUpTimeRatio, s_format("= %d%%", globalOutput.AncestralUpTimeRatio))
 						end
 						globalOutput.AncestralCryCalculated = true
-						processExertingWarcrySupports(env, value)
 					elseif value.activeEffect.grantedEffect.name == "Infernal Cry" and not globalOutput.InfernalCryCalculated then
 						globalOutput.InfernalCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
 						globalOutput.InfernalCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
@@ -2278,7 +2264,6 @@ function calcs.offence(env, actor, activeSkill)
 							end
 						end
 						globalOutput.InfernalCryCalculated = true
-						processExertingWarcrySupports(env, value)
 					elseif value.activeEffect.grantedEffect.name == "Intimidating Cry" and activeSkill.skillTypes[SkillType.Melee] and not globalOutput.IntimidatingCryCalculated then
 						globalOutput.CreateWarcryOffensiveCalcSection = true
 						globalOutput.IntimidatingCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2328,7 +2313,6 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.IntimidatingHitEffect
 						globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.IntimidatingMaxHitEffect
 						globalOutput.IntimidatingCryCalculated = true
-						processExertingWarcrySupports(env, value)
 					elseif value.activeEffect.grantedEffect.name == "Rallying Cry" and activeSkill.skillTypes[SkillType.Melee] and not globalOutput.RallyingCryCalculated then
 						globalOutput.CreateWarcryOffensiveCalcSection = true
 						globalOutput.RallyingCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2378,7 +2362,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.RallyingHitEffect
 						globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.RallyingMaxHitEffect
 						globalOutput.RallyingCryCalculated = true
-						processExertingWarcrySupports(env, value)
+
 					elseif value.activeEffect.grantedEffect.name == "Seismic Cry" and activeSkill.skillTypes[SkillType.Slam] and not globalOutput.SeismicCryCalculated then
 						globalOutput.CreateWarcryOffensiveCalcSection = true
 						globalOutput.SeismicCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2423,7 +2407,6 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 						globalOutput.SeismicCryCalculated = true
-						processExertingWarcrySupports(env, value)
 					end
 				end
 
@@ -4783,50 +4766,6 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	
-	if (skillFlags.hit or skillFlags.warcry) and skillData.corruptingCryDps and canDeal.Physical then
-		-- Calculate DPS for Corrupting Cry
-		skillFlags.corruptingCry = true
-		activeSkill.corruptingCry = {
-			skillName = skillCfg.skillName,
-			skillPart = skillCfg.skillPart,
-			skillTypes = skillCfg.skillTypes,
-			slotName = skillCfg.slotName,
-			flags = ModFlag.Dot,
-			keywordFlags = bor(band(skillCfg.keywordFlags, bnot(KeywordFlag.Hit)), KeywordFlag.PhysicalDot),
-		}
-		local dotCfg = activeSkill.corruptingCry
-		local effMult = 1
-		if env.mode_effective then
-			local resist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction")), data.misc.DamageReductionCap)
-			local takenInc = enemyDB:Sum("INC", dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
-			local takenMore = enemyDB:More(dotCfg, "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime")
-			output.CorruptingCryStages = m_max(modDB:Sum("BASE", nil, "Multiplier:CorruptingCryStageAfterFirst"), 1)
-			effMult = (1 - resist / 100) * (1 + takenInc / 100) * takenMore
-			globalOutput["CorruptingCryEffMult"] = effMult
-			if breakdown and effMult ~= 1 then
-				globalBreakdown.CorruptingCryEffMult = breakdown.effMult("Physical", resist, 0, takenInc, effMult, takenMore, nil, true)
-			end
-		end
-		local inc = skillModList:Sum("INC", dotCfg, "Damage", "PhysicalDamage")
-		local more = skillModList:More(dotCfg, "Damage", "PhysicalDamage")
-		local mult = skillModList:Sum("BASE", dotTypeCfg, "DotMultiplier", "PhysicalDotMultiplier")
-		output.CorruptingCryDPS = skillData.corruptingCryDps * (1 + inc/100) * more * (1 + mult/100) * effMult * output.CorruptingCryStages
-		output.CorruptingCryDuration = skillData.corruptingCryDuration * debuffDurationMult
-		if breakdown then
-			breakdown.CorruptingCryDPS = { }
-			breakdown.dot(breakdown.CorruptingCryDPS, skillData.corruptingCryDps, inc, more, mult, nil, nil, effMult, output.CorruptingCryDPS)
-			if output.CorruptingCryDuration ~= skillData.corruptingCryDuration then
-				breakdown.CorruptingCryDuration = {
-					s_format("%.2fs ^8(base duration)", skillData.CorruptingCryDuration)
-				}
-				if debuffDurationMult ~= 1 then
-					t_insert(breakdown.CorruptingCryDuration, s_format("/ %.2f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
-				end
-				t_insert(breakdown.CorruptingCryDuration, s_format("= %.2fs", output.CorruptingCryDuration))
-			end
-		end
-	end
-	
 	local baseDropsBurningGround = modDB:Sum("BASE", nil, "DropsBurningGround")
 	if baseDropsBurningGround > 0 then
 		if canDeal.Fire then
@@ -5311,7 +5250,7 @@ function calcs.offence(env, actor, activeSkill)
 	else
 		output.WithBleedDPS = baseDPS
 	end
-	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.CausticGroundDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BurningGroundDPS  or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0) + (output.CorruptingCryDPS or 0)
+	local TotalDotDPS = (output.TotalDot or 0) + (output.TotalPoisonDPS or 0) + (output.CausticGroundDPS or 0) + (output.TotalIgniteDPS or output.IgniteDPS or 0) + (output.BurningGroundDPS  or 0) + (output.BleedDPS or 0) + (output.DecayDPS or 0)
 	output.TotalDotDPS = m_min(TotalDotDPS, data.misc.DotDpsCap)
 	if output.TotalDotDPS ~= TotalDotDPS then
 		output.showTotalDotDPS = true
@@ -5385,10 +5324,6 @@ function calcs.offence(env, actor, activeSkill)
 		if activeSkill.mirage.output.DecayDPS then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.DecayDPS
 			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.DecayDPS
-		end
-		if activeSkill.mirage.output.CorruptingCryDPS then
-			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.CorruptingCryDPS
-			output.CombinedDPS = output.CombinedDPS + activeSkill.mirage.output.CorruptingCryDPS
 		end
 		if activeSkill.mirage.output.TotalDot and (skillFlags.DotCanStack or not output.TotalDot or output.TotalDot == 0) then
 			output.MirageDPS = output.MirageDPS + activeSkill.mirage.output.TotalDot * (skillFlags.DotCanStack and mirageCount or 1)

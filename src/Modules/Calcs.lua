@@ -190,7 +190,6 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		igniteDPS = 0,
 		bleedDPS = 0,
 		decayDPS = 0,
-		corruptingCryDPS = 0,
 		burningGroundDPS = 0,
 		causticGroundDPS = 0,
 		dotDPS = 0,
@@ -258,9 +257,6 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > 0 then
 						fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.minion.output.DecayDPS
 					end
-					if usedEnv.minion.output.CorruptingCryDPS and usedEnv.minion.output.CorruptingCryDPS > 0 then
-						fullDPS.corruptingCryDPS = fullDPS.corruptingCryDPS + usedEnv.minion.output.CorruptingCryDPS
-					end
 					if usedEnv.minion.output.TotalDot and usedEnv.minion.output.TotalDot > 0 then
 						fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.minion.output.TotalDot
 					end
@@ -296,9 +292,6 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					end
 					if activeSkill.mirage.output.DecayDPS and activeSkill.mirage.output.DecayDPS > 0 then
 						fullDPS.decayDPS = fullDPS.decayDPS + activeSkill.mirage.output.DecayDPS
-					end
-					if activeSkill.mirage.output.CorruptingCryDPS and activeSkill.mirage.output.CorruptingCryDPS > 0 then
-						fullDPS.corruptingCryDPS = fullDPS.corruptingCryDPS + activeSkill.mirage.output.CorruptingCryDPS
 					end
 					if activeSkill.mirage.output.TotalDot and activeSkill.mirage.output.TotalDot > 0 and (activeSkill.skillFlags.DotCanStack or (usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot == 0)) then
 						fullDPS.dotDPS = fullDPS.dotDPS + activeSkill.mirage.output.TotalDot * (activeSkill.skillFlags.DotCanStack and mirageCount or 1)
@@ -336,9 +329,6 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 				end
 				if usedEnv.player.output.DecayDPS and usedEnv.player.output.DecayDPS > 0 then
 					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS
-				end
-				if usedEnv.player.output.CorruptingCryDPS and usedEnv.player.output.CorruptingCryDPS > 0 then
-					fullDPS.corruptingCryDPS = fullDPS.corruptingCryDPS + usedEnv.player.output.CorruptingCryDPS
 				end
 				if usedEnv.player.output.TotalDot and usedEnv.player.output.TotalDot > 0 then
 					fullDPS.dotDPS = fullDPS.dotDPS + usedEnv.player.output.TotalDot * (activeSkill.skillFlags.DotCanStack and activeSkillCount or 1)
@@ -390,10 +380,6 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	if fullDPS.decayDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Full Decay DPS", dps = fullDPS.decayDPS, count = 1 })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.decayDPS
-	end
-	if fullDPS.corruptingCryDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Full Corrupting Cry DPS", dps = fullDPS.corruptingCryDPS, count = 1 })
-		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.corruptingCryDPS
 	end
 	if fullDPS.dotDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Full DoT DPS", dps = fullDPS.dotDPS, count = 1 })
