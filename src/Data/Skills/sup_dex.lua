@@ -3395,6 +3395,11 @@ skills["SupportSadism"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_faster_ailments_ailment_duration_+%_final"] = {
+			mod("EnemyAilmentDuration", "MORE", nil), 
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "damage_over_time_+%", 0.5 },
