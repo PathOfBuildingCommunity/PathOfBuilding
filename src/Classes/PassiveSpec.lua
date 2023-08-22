@@ -997,6 +997,8 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		if self.ignoredNodes[id] and self.allocNodes[id] then
 			self.nodes[id].alloc = false
 			self.allocNodes[id] = nil
+			-- remove once processed to avoid allocation issue after convert
+			self.ignoredNodes[id] = nil
 		else
 			if node.type == "Mastery" and self.masterySelections[id] then
 				local effect = self.tree.masteryEffects[self.masterySelections[id]]
