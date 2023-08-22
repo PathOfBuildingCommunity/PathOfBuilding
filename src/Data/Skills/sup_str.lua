@@ -2536,6 +2536,16 @@ skills["SupportGuardiansBlessing"] = {
 	addSkillTypes = { SkillType.Blessing, },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, SkillType.AuraNotOnCaster, SkillType.ZeroReservation, SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["aura_skill_no_reservation"] = {
+		},
+	},
+	baseMods = {
+		skill("manaReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura }),
+		skill("lifeReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura }),
+		skill("manaReservationPercent", 0, { type = "SkillType", skillType = SkillType.Aura }),
+		skill("lifeReservationPercent", 0, { type = "SkillType", skillType = SkillType.Aura }),
+	},
 	qualityStats = {
 		Default = {
 			{ "aura_effect_+%", 0.25 },
