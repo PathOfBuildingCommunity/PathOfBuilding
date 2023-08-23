@@ -237,7 +237,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return "^2Convert to "..treeVersions[getLatestTreeVersion()].display
 	end
 	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", buildConvertButtonLabel()) + 20 end, 20, buildConvertButtonLabel, function()
-		self:ConvertToVersion(getLatestTreeVersion())
+		self:ConvertToVersion(getLatestTreeVersion(), false, true)
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
