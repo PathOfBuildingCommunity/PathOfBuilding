@@ -962,7 +962,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 
 	if mNode.sd[1] and mNode.allMasteryOptions then
 		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, "^7Mastery node options are:")
+		tooltip:AddLine(14, "^7Available Mastery node options are:")
 		tooltip:AddLine(6, "")
 		local lineCount = 0
 		for n, effect in ipairs(mNode.masteryEffects) do
