@@ -211,6 +211,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/passiveskilloverridetypes.dat",
 		"Data/passiveskilltattoos.dat",
 		"Data/passiveskilltattootargetsets.dat",
+		"Data/displayminionmonstertype.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

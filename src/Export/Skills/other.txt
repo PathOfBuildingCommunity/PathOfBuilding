@@ -727,6 +727,16 @@ local skills, mod, flag, skill = ...
 #baseMod skill("manaReservationPercent", 0)
 #mods
 
+#skill SummonGuardianRelic
+#flags spell minion duration
+	fromTree = true,
+	minionList = {
+		"GuardianRelicFire",
+		"GuardianRelicCold",
+		"GuardianRelicLightning",
+	},
+#mods
+
 #skill SummonHarbingerOfTheArcaneUber
 #flags spell minion
 	fromItem = true,
@@ -801,6 +811,14 @@ local skills, mod, flag, skill = ...
 		["base_number_of_support_ghosts_allowed"] = {
 			mod("ActivePhantasmLimit", "BASE", nil),
 		},
+	},
+#mods
+
+#skill SummonRadiantSentinel
+#flags spell minion duration
+	fromTree = true,
+	minionList = {
+		"GuardianSentinel",
 	},
 #mods
 

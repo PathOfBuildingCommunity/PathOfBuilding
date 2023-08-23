@@ -2628,6 +2628,39 @@ skills["SupportCursePillarTriggerCurses"] = {
 		[20] = { levelRequirement = 70, },
 	},
 }
+skills["SummonGuardianRelic"] = {
+	name = "Summon Elemental Relic",
+	hidden = true,
+	color = 4,
+	description = "Summons a Relic of a random element that stays near you. Depending on the element chosen, the relic minion will have an Anger, Hatred, or Wrath aura. These relics explode when they die, dealing elemental damage to enemies around them. If you already have a relic of the chosen element, its duration will be refreshed instead of summoning a new one.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.RandomElement] = true, [SkillType.CreatesMinion] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
+	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.Aura] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"GuardianRelicFire",
+		"GuardianRelicCold",
+		"GuardianRelicLightning",
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "display_minion_monster_type", 24 },
+		{ "guardian_relic_explode_on_death_for_%_life_as_element_damage", 100 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "skill_triggered_by_nearby_allies_kill_or_hit_rare_unique_%_chance", 25 },
+	},
+	stats = {
+		"base_skill_effect_duration",
+	},
+	levels = {
+		[20] = { 5000, storedUses = 1, levelRequirement = 85, cooldown = 0.3, statInterpolation = { 1, }, },
+	},
+}
 skills["SummonHarbingerOfTheArcaneUber"] = {
 	name = "Summon Greater Harbinger of the Arcane",
 	hidden = true,
@@ -2958,6 +2991,39 @@ skills["TriggeredSummonGhostOnKill"] = {
 	},
 	levels = {
 		[20] = { manaMultiplier = 20, levelRequirement = 70, },
+	},
+}
+skills["SummonRadiantSentinel"] = {
+	name = "Summon Sentinel of Radiance",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.0517001152039,
+	incrementalEffectiveness = 0.043200001120567,
+	description = "Summons a Sentinel of Radiance which follows you and attacks enemies in melee, while burning enemies around it and taking a portion of damage from hits for you. You can only have one Sentinel of Radiance.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
+	minionSkillTypes = { [SkillType.DamageOverTime] = true, [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, },
+	statDescriptionScope = "single_minion_spell_skill_stat_descriptions",
+	castTime = 0.75,
+	fromTree = true,
+	minionList = {
+		"GuardianSentinel",
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "display_minion_monster_type", 23 },
+		{ "base_skill_effect_duration", 20000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+	},
+	stats = {
+		"radiant_sentinel_minion_burning_effect_radius",
+		"radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute",
+	},
+	levels = {
+		[20] = { 45, 1800, damageEffectiveness = 2, critChance = 6, levelRequirement = 85, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
 	},
 }
 skills["SummonRigwaldsPack"] = {
