@@ -34068,7 +34068,7 @@ return {
 					},
 					limit={
 						[1]={
-							[1]="#",
+							[1]=1,
 							[2]="#"
 						},
 						[2]={
@@ -34076,7 +34076,24 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d} to Level of all {1} Gems"
+					text="+{0} to Level of all {1} Gems"
+				},
+				[2]={
+					[1]={
+						k="display_indexable_skill",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="-{0} to Level of all {1} Gems"
 				}
 			}
 		},
