@@ -2518,6 +2518,15 @@ skills["SupportFreshMeat"] = {
 	addSkillTypes = { SkillType.Buff, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_recent_minions_additional_critical_strike_chance_from_wakened_fury"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
+			div = 100,
+		},
+		["support_recent_minions_additional_critical_strike_multiplier_from_wakened_fury"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "minion_critical_strike_chance_+%", 1 },

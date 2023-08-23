@@ -367,6 +367,11 @@ return {
 	{ var = "flameWallAddedDamage", type = "check", label = "Projectile Travelled through Flame Wall?", ifSkill = "Flame Wall", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FlameWallAddedDamage", "FLAG", true, "Config")
 	end },
+	{ label = "Fresh Meat:", ifSkill = "Fresh Meat" },
+	{ var = "freshMeatBuffs", type = "check", label = "Is Fresh Meat active?", ifSkill = "Fresh Meat", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:Adrenaline", "FLAG", true, "Fresh Meat", { type = "Condition", var = "Combat" })}, "Config")
+		modList:NewMod("Condition:FreshMeatActive", "FLAG", true, "Config")
+	end },
 	{ label = "Frost Shield:", ifSkill = "Frost Shield" },
 	{ var = "frostShieldStages", type = "count", label = "Stages:", ifSkill = "Frost Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:FrostShieldStage", "BASE", val, "Config")
