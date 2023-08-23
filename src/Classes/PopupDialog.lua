@@ -9,10 +9,10 @@ local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", funct
 	self.ControlHost()
 	self.Control(nil, 0, 0, width, height)
 	self.x = function()
-		return m_floor((main.screenW - self.width) / 2)
+		return m_floor((main.screenW - width) / 2)
 	end
 	self.y = function()
-		return m_floor((main.screenH - self.height) / 2)
+		return m_floor((main.screenH - height) / 2)
 	end
 	self.title = title
 	self.controls = controls

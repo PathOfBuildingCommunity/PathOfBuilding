@@ -573,7 +573,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 
 	local function constructUI(modGroup)
 		local totalHeight = 43
-		local maxWidth = 180
+		local maxWidth = 300
 		local i = 1
 		while controls[i] do
 			controls[i] = nil
@@ -581,14 +581,14 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		end
 
 		for idx, desc in ipairs(modGroup.descriptions) do
+			local textWidth = DrawStringWidth(14, "VAR", desc)
+			if textWidth > maxWidth then
+				desc = desc:sub(1, maxWidth / 5) .. "..."
+			end
 			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
 			totalHeight = totalHeight + 20
-
-			local textWidth = DrawStringWidth(14, "VAR", desc)
-			maxWidth = textWidth > maxWidth and textWidth or maxWidth
 		end
 		main.popups[1].height = totalHeight + 30
-		main.popups[1].width = maxWidth + 235
 		controls.save.y = totalHeight
 		controls.reset.y = totalHeight
 		controls.close.y = totalHeight
