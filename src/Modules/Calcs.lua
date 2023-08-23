@@ -363,7 +363,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.bleedDPS
 	end
 	if fullDPS.corruptingBloodDPS > 0 then
-		t_insert(fullDPS.skills, { name = "Best CorruptingBlood DPS", dps = fullDPS.corruptingBloodDPS, count = 1, source = corruptingBloodSource })
+		t_insert(fullDPS.skills, { name = "Corrupting Blood DPS", dps = fullDPS.corruptingBloodDPS, count = 1, source = corruptingBloodSource })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.corruptingBloodDPS
 	end
 	if fullDPS.igniteDPS > 0 then
