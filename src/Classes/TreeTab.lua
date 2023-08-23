@@ -395,7 +395,7 @@ function TreeTabClass:SetActiveSpec(specId)
 	self.build.itemsTab.controls.specSelect.selIndex = specId
 	-- Update Version dropdown to active spec's
 	if self.controls.versionSelect then
-		self.controls.versionSelect:SelByValue(curSpec.treeVersion:gsub("%_", "."))
+		self.controls.versionSelect:SelByValue(curSpec.treeVersion:gsub("%_", "."):gsub(".ruthless", " (ruthless)"))
 	end
 end
 
