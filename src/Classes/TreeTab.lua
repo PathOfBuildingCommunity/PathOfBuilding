@@ -133,15 +133,12 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end
 	self.treeVersions = { }
 	for _, num in ipairs(treeVersionList) do
-		if not num:find("^2") then
-			local vers = num:gsub("%_", ".")
-			t_insert(self.treeVersions, vers)
-		end
+		t_insert(self.treeVersions, treeVersions[num].display)
 	end
 	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, 0, 16, "Version:")
-	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 55, 20, self.treeVersions, function(index, value)
+	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
 		if value ~= self.build.spec.treeVersion then
-			convertToVersion(value:gsub("%.", "_"))
+			convertToVersion(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"))
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
@@ -200,8 +197,14 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
 	end
-	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
-		convertToVersion(latestTreeVersion)
+	local function getLatestTreeVersion()
+		return latestTreeVersion .. (self.specList[self.activeSpec].treeVersion:match("^" .. latestTreeVersion .. "(.*)") or "")
+	end
+	local function buildConvertButtonLabel()
+		return "^2Convert to "..treeVersions[getLatestTreeVersion()].display
+	end
+	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", buildConvertButtonLabel()) + 20 end, 20, buildConvertButtonLabel, function()
+		convertToVersion(getLatestTreeVersion())
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
@@ -233,15 +236,15 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
 	local twoLineHeight = 24
-	if viewPort.width >= 1168 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
+	if viewPort.width >= 1336 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
 		twoLineHeight = 0
-		self.controls.findTimelessJewel:SetAnchor("LEFT", self.controls.treeSearch, "RIGHT", 8, 0)
+		self.controls.treeSearch:SetAnchor("LEFT", self.controls.versionSelect, "RIGHT", 8, 0)
 		if self.controls.powerReportList then
 			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, self.controls.specSelect.height + 4)
 			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", 8, 0)
 		end
 	else
-		self.controls.findTimelessJewel:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, 4)
+		self.controls.treeSearch:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, 4)
 		if self.controls.powerReportList then
 			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.findTimelessJewel, "BOTTOMLEFT", 0, self.controls.treeHeatMap.y + self.controls.treeHeatMap.height + 4)
 			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", -76, -44)
@@ -383,7 +386,7 @@ function TreeTabClass:SetActiveSpec(specId)
 			end
 		end
 	end
-	self.showConvert = curSpec.treeVersion ~= latestTreeVersion
+	self.showConvert = not curSpec.treeVersion:match("^" .. latestTreeVersion)
 	if self.build.itemsTab.itemOrderList[1] then
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()
@@ -435,7 +438,7 @@ function TreeTabClass:OpenImportPopup()
 			main:ClosePopup()
 		end
 	end
-	local function validateTreeVersion(major, minor)
+	local function validateTreeVersion(isRuthless, major, minor)
 		-- Take the Major and Minor version numbers and confirm it is a valid tree version. The point release is also passed in but it is not used
 		-- Return: the passed in tree version as text or latestTreeVersion
 		if major and minor then
@@ -443,12 +446,12 @@ function TreeTabClass:OpenImportPopup()
 			local newTreeVersionNum = tonumber(string.format("%d.%02d", major, minor))
 			if newTreeVersionNum >= treeVersions[defaultTreeVersion].num and newTreeVersionNum <= treeVersions[latestTreeVersion].num then
 				-- no leading 0 here
-				return string.format("%s_%s", major, minor)
+				return string.format("%s_%s", major, minor) .. isRuthless and "_ruthless" or ""
 			else
 				print(string.format("Version '%d_%02d' is out of bounds", major, minor))
 			end
 		end
-		return latestTreeVersion
+		return latestTreeVersion .. (isRuthless and "_ruthless" or "")
 	end
 
 	controls.editLabel = new("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:")
@@ -488,18 +491,19 @@ function TreeTabClass:OpenImportPopup()
 						controls.import.enabled = true
 						return
 					else
-						decodeTreeLink(treeLink, validateTreeVersion(treeLink:match(versionLookup)))
+						decodeTreeLink(treeLink, validateTreeVersion(treeLink:match("tree/ruthless"), treeLink:match(versionLookup)))
 					end
 				end)
 			end
 		elseif treeLink:match("poeskilltree.com/") then
 			local oldStyleVersionLookup = "/%?v=([0-9]+)%.([0-9]+)%.([0-9]+)#"
 			-- Strip the version from the tree : https://poeskilltree.com/?v=3.6.0#AAAABAMAABEtfIOFMo6-ksHfsOvu -> https://poeskilltree.com/AAAABAMAABEtfIOFMo6-ksHfsOvu
-			decodeTreeLink(treeLink:gsub("/%?v=.+#","/"), validateTreeVersion(treeLink:match(oldStyleVersionLookup)))
+			decodeTreeLink(treeLink:gsub("/%?v=.+#","/"), validateTreeVersion(treeLink:match("tree/ruthless"), treeLink:match(oldStyleVersionLookup)))
 		else
 			-- EG: https://www.pathofexile.com/passive-skill-tree/3.15.0/AAAABgMADI6-HwKSwQQHLJwtH9-wTLNfKoP3ES3r5AAA
 			-- EG: https://www.pathofexile.com/fullscreen-passive-skill-tree/3.15.0/AAAABgMADAQHES0fAiycLR9Ms18qg_eOvpLB37Dr5AAA
-			decodeTreeLink(treeLink, validateTreeVersion(treeLink:match(versionLookup)))
+			-- EG: https://www.pathofexile.com/passive-skill-tree/ruthless/AAAABgAAAAAA (Ruthless doesn't have versions)
+			decodeTreeLink(treeLink, validateTreeVersion(treeLink:match("tree/ruthless"), treeLink:match(versionLookup)))
 		end
 	end)
 	controls.cancel = new("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()

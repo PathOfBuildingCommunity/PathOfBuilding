@@ -124,6 +124,35 @@ local skills, mod, flag, skill = ...
 #skill SupportColdToFire
 #mods
 
+#skill SupportControlledBlaze
+#mods
+
+#skill SupportCorruptingCry
+	statMap = {
+		["support_corrupting_cry_corrupted_blood_base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil),
+			div = 60,
+		},
+		["support_corrupting_cry_warcry_applies_X_stacks_of_corrupted_blood"] = {
+			mod("CorruptingCryStagesFromWarcry", nil, 0, KeywordFlag.Warcry)
+		},
+		["support_corrupting_cry_exerted_attack_applies_X_stacks_of_corrupted_blood_on_first_hit"] = {
+			mod("CorruptingCryStagesFromExerted", nil, 0, KeywordFlag.Attack)
+		},
+		["support_corrupting_cry_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Warcry)
+		},
+		["support_corrupting_cry_warcry_and_first_exerted_attack_applies_corrupted_blood_for_X_ms"] = {
+			skill("durationSecondary", nil),
+			div = 1000,
+		}
+	},
+#baseMod skill("debuff", true)
+#baseMod flag("dotIsCorruptingBlood")
+#baseMod mod("Multiplier:CorruptingCryMaxStages", "BASE", 10)
+#baseMod mod("Damage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"})
+#mods
+
 #skill SupportCruelty
 	statMap = {
 		["support_cruelty_hit_damage_+%_final"] = {
@@ -239,6 +268,12 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportFlamewood
+#mods
+
+#skill AvengingFlame
+#mods
+
 #skill SupportFortify
 	statMap = {
 		["support_fortify_melee_damage_+%_final"] = {
@@ -271,6 +306,20 @@ local skills, mod, flag, skill = ...
 			skill("auraCannotAffectSelf", true),
 		},
 	},
+#mods
+
+#skill SupportGuardiansBlessing
+	statMap = {
+		["aura_skill_no_reservation"] = {
+		},
+	},
+#baseMod skill("manaReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura })
+#baseMod skill("lifeReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura })
+#baseMod skill("manaReservationPercent", 0, { type = "SkillType", skillType = SkillType.Aura })
+#baseMod skill("lifeReservationPercent", 0, { type = "SkillType", skillType = SkillType.Aura })
+#mods
+
+#skill SupportGuardiansBlessingMinion
 #mods
 
 #skill SupportIncreasedDuration
@@ -494,8 +543,8 @@ local skills, mod, flag, skill = ...
 		["support_ruthless_big_hit_damage_+%_final"] = {
 			mod("RuthlessBlowHitMultiplier", "BASE", nil, ModFlag.Melee),
 		},
-		["support_ruthless_blow_bleeding_damage_from_melee_hits_+%_final"] = {
-			mod("RuthlessBlowBleedMultiplier", "BASE", nil, ModFlag.Melee),
+		["support_ruthless_blow_ailment_damage_from_melee_hits_+%_final"] = {
+			mod("RuthlessBlowAilmentMultiplier", "BASE", nil, ModFlag.Melee),
 		},
 	},
 #mods
@@ -533,5 +582,44 @@ local skills, mod, flag, skill = ...
 #skill SupportStun
 #mods
 
+#skill SupportTrauma
+	statMap = {
+		["attack_minimum_added_physical_damage_with_weapons_per_trauma"] = {
+			mod("PhysicalMin", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
+		},
+		["attack_maximum_added_physical_damage_with_weapons_per_trauma"] = {
+			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
+		},
+		["trauma_strike_self_damage_per_trauma"] = {
+			mod("TraumaSelfDamageTakenLife", "BASE", nil),
+		},
+		["support_trauma_stun_duration_+%_per_trauma"] = {
+			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
+		},
+		["attack_speed_+%_per_trauma"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
+			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
+		},
+		["support_trauma_base_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
+		},
+		["supported_skill_can_only_use_axe_mace_and_staff"] = {
+		},
+	},
+#baseMod flag("HasTrauma")
+#mods
+
 #skill SupportUrgentOrders
+#mods
+
+#skill SupportVolatility
+	statMap = {
+		["minimum_attack_damage_+%_final_from_volatility_support"] = {
+			mod("MinDamage", "MORE", nil),
+		},
+		["maximum_attack_damage_+%_final_from_volatility_support"] = {
+			mod("MaxDamage", "MORE", nil),
+		},
+	},
 #mods

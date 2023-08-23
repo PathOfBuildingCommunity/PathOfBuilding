@@ -282,8 +282,8 @@ return {
 	{ var = "bladestormInSandstorm", type = "check", label = "Are you in a Sandstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })
 	end },
-	{ label = "Boneshatter:", ifSkill = "Boneshatter" },
-	{ var = "boneshatterTraumaStacks", type = "count", label = "# of Trauma Stacks:", ifSkill = "Boneshatter", apply = function(val, modList, enemyModList)
+	{ label = "Trauma:", ifFlag = "HasTrauma" },
+	{ var = "traumaStacks", type = "count", label = "# of Trauma Stacks:", ifFlag = "HasTrauma", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:TraumaStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ label = "Brand Skills:", ifSkill = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" } }, -- I barely resisted the temptation to label this "Generic Brand:"
@@ -312,6 +312,12 @@ return {
 	{ label = "Close Combat:", ifSkill = "Close Combat" },
 	{ var = "closeCombatCombatRush", type = "check", label = "Is Combat Rush active?", ifSkill = "Close Combat", tooltip = "Combat Rush grants 20% more Attack Speed to Travel Skills not Supported by Close Combat.",apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CombatRushActive", "FLAG", true, "Config")
+	end },
+	{ label = "Corrupting Cry:", ifSkill = "Corrupting Cry" },
+	{ var = "conditionCorruptingCryStages", type = "count", label = "# of Corrupting Cry stacks on enemy", ifSkill = "Corrupting Cry", defaultState = 1, apply = function(val, modList, enemyModList)
+		-- 10 is the maximum amount of Corrupting Blood Stages. modList does not contain skill base mods at this point so hard coding it here is the cleanest way to handle the cap.
+		-- It's set to 9 here with val -1 to so that it defaults to 1 stage and has max 10 stages.
+		modList:NewMod("Multiplier:CorruptingCryStageAfterFirst", "BASE", m_min(val-1, 9), "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ label = "Cruelty:", ifSkill = "Cruelty" },
 	{ var = "overrideCruelty", type = "count", label = "Damage % (if not maximum):", ifSkill = "Cruelty", tooltip = "Cruelty is a buff provided by Cruelty Support which grants\nup to 40% more damage over time to the skills it supports.", apply = function(val, modList, enemyModList)
@@ -709,7 +715,7 @@ Huge sets the radius to 11.
 	{ var = "multiplierGaleForce", type = "count", label = "# of Gale Force:", ifFlag = "Condition:CanGainGaleForce", tooltip = "Base maximum Gale Force is 10.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:GaleForce", "BASE", val, "Config", { type = "IgnoreCond" }, { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainGaleForce" })
 	end },
-	{ var = "overrideInspirationCharges", type = "count", label = "# of Inspiration Charges (if not maximum):", ifMult = "InspirationCharge", apply = function(val, modList, enemyModList)
+	{ var = "overrideInspirationCharges", type = "countAllowZero", label = "# of Inspiration Charges (if not maximum):", ifMult = "InspirationCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("InspirationCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "useGhostShrouds", type = "check", label = "Do you use Ghost Shrouds?", ifMult = "GhostShroud", apply = function(val, modList, enemyModList)

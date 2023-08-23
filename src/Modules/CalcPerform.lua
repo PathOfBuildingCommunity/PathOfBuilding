@@ -2808,6 +2808,9 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				if output.HasBonechill and (hasGuaranteedBonechill or enemyDB:Sum("BASE", nil, "ChillVal") > 0) then
 					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
 				end
+				if modDB:Flag(nil, "ChillEffectIncDamageTaken") then
+					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Ahuana's Bite", { type = "Condition", var = "Chilled" }))
+				end
 				return mods
 			end
 		},
@@ -3668,13 +3671,14 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Snipe" then
 			if triggerSkillCount > 0 then
 				env.player.mainSkill.skillData.baseMultiplier = 0
-				env.player.mainSkill.infoMessage = "Triggering Support Skills:"
+				env.player.mainSkill.skillData.damageEffectiveness = 0
+				env.player.mainSkill.infoMessage = "Triggering Support Skills"
 			end
 			env.player.mainSkill.skillData.hitTimeMultiplier = snipeStages
 		elseif not source or (snipeStages + 0.5) < triggerSkillPosition then
 			env.player.mainSkill.skillData.triggeredBySnipe = nil
 			env.player.mainSkill.infoMessage = s_format("Not enough Snipe stages to Trigger Skill")
-			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"..triggerSkillCount
+			env.player.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
 			env.player.mainSkill.infoTrigger = ""
 		else
 			env.player.mainSkill.skillData.triggered = true
