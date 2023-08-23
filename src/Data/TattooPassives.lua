@@ -108,14 +108,9 @@ return {
 			["stats"] = {
 				["totem_life_+%"] = {
 					["max"] = 6, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 6, 
-					["statOrder"] = 1580, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "totem_life_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -134,14 +129,9 @@ return {
 			["stats"] = {
 				["minion_maximum_life_+%"] = {
 					["max"] = 6, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 6, 
-					["statOrder"] = 1572, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "minion_maximum_life_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -160,14 +150,9 @@ return {
 			["stats"] = {
 				["maim_on_hit_%"] = {
 					["max"] = 5, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 5, 
-					["statOrder"] = 7281, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "maim_on_hit_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -186,14 +171,9 @@ return {
 			["stats"] = {
 				["non_curse_aura_effect_+%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 3339, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "non_curse_aura_effect_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.png", 
@@ -212,14 +192,9 @@ return {
 			["stats"] = {
 				["strength_skill_gem_level_+"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 8955, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "strength_skill_gem_level_+", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon1.png", 
@@ -238,21 +213,14 @@ return {
 			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_block_hit_from_unique"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
 				["local_display_tattoo_trigger_level_x_kiloava"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 585, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_block_hit_from_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_kiloava", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/ValakoTribeSkill.png", 
@@ -271,21 +239,14 @@ return {
 			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_totem_death_in_presence_of_unique"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
 				["local_display_tattoo_trigger_level_x_kaom"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 584, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_totem_death_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_kaom", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/NgamahuTribeSkill.png", 
@@ -305,31 +266,22 @@ return {
 			["targetValue"] = "", 
 			["stats"] = {
 				["global_minimum_added_lightning_damage"] = {
-					["max"] = 7, 
-					["fmt"] = "d", 
-					["index"] = 1, 
+					["max"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 1191, 
+					["fmt"] = "d", 
 				}, 
 				["global_maximum_added_lightning_damage"] = {
 					["max"] = 7, 
+					["min"] = 7, 
 					["fmt"] = "d", 
-					["index"] = 2, 
-					["min"] = 1, 
-					["statOrder"] = 1191, 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "global_minimum_added_lightning_damage", 
-				[2] = "global_maximum_added_lightning_damage", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ValakoTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
 			["sd"] = {
-				[1] = "Adds (1-7) to 0 Lightning Damage", 
-				[2] = "Adds 0 to (1-7) Lightning Damage", 
+				[1] = "Adds 1 to 7 Lightning Damage", 
 			}, 
 			["dn"] = "Tattoo of the Valako Warrior", 
 		}, 
@@ -341,14 +293,9 @@ return {
 			["stats"] = {
 				["base_maximum_fire_damage_resistance_%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 1431, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_fire_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 1, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/NgamahuTribePassiveBG.png", 
@@ -370,14 +317,9 @@ return {
 			["stats"] = {
 				["base_mana_regeneration_rate_per_minute"] = {
 					["max"] = 3, 
-					["fmt"] = "g", 
-					["index"] = 1, 
 					["min"] = 3, 
-					["statOrder"] = 1390, 
+					["fmt"] = "g", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_mana_regeneration_rate_per_minute", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -396,14 +338,9 @@ return {
 			["stats"] = {
 				["base_fire_damage_resistance_%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 1433, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_fire_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -422,14 +359,9 @@ return {
 			["stats"] = {
 				["energy_shield_recharge_rate_+%"] = {
 					["max"] = 10, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 10, 
-					["statOrder"] = 1373, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "energy_shield_recharge_rate_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -448,14 +380,9 @@ return {
 			["stats"] = {
 				["melee_range_+"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 2325, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "melee_range_+", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -474,14 +401,9 @@ return {
 			["stats"] = {
 				["base_lightning_damage_resistance_%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 1444, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_lightning_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -500,14 +422,9 @@ return {
 			["stats"] = {
 				["base_self_ignite_duration_-%"] = {
 					["max"] = 15, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 15, 
-					["statOrder"] = 1681, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_self_ignite_duration_-%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -526,14 +443,9 @@ return {
 			["stats"] = {
 				["base_maximum_lightning_damage_resistance_%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 1442, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_lightning_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 1, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ValakoTribePassiveBG.png", 
@@ -555,14 +467,9 @@ return {
 			["stats"] = {
 				["skill_effect_duration_+%"] = {
 					["max"] = 3, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 3, 
-					["statOrder"] = 1701, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "skill_effect_duration_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -581,14 +488,9 @@ return {
 			["stats"] = {
 				["dexterity_skill_gem_level_+"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 5559, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "dexterity_skill_gem_level_+", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon2.png", 
@@ -608,30 +510,21 @@ return {
 			["stats"] = {
 				["global_maximum_added_fire_damage"] = {
 					["max"] = 5, 
+					["min"] = 5, 
 					["fmt"] = "d", 
-					["index"] = 2, 
-					["min"] = 3, 
-					["statOrder"] = 1171, 
 				}, 
 				["global_minimum_added_fire_damage"] = {
-					["max"] = 5, 
-					["fmt"] = "d", 
-					["index"] = 1, 
+					["max"] = 3, 
 					["min"] = 3, 
-					["statOrder"] = 1171, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "global_maximum_added_fire_damage", 
-				[2] = "global_minimum_added_fire_damage", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/NgamahuTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
 			["sd"] = {
-				[1] = "Adds (3-5) to 0 Fire Damage", 
-				[2] = "Adds 0 to (3-5) Fire Damage", 
+				[1] = "Adds 3 to 5 Fire Damage", 
 			}, 
 			["dn"] = "Tattoo of the Ngamahu Warrior", 
 		}, 
@@ -643,14 +536,9 @@ return {
 			["stats"] = {
 				["mark_skills_curse_effect_+%"] = {
 					["max"] = 5, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 5, 
-					["statOrder"] = 2389, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "mark_skills_curse_effect_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -669,14 +557,9 @@ return {
 			["stats"] = {
 				["base_resist_all_elements_%"] = {
 					["max"] = 3, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 3, 
-					["statOrder"] = 1427, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_resist_all_elements_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.png", 
@@ -695,30 +578,21 @@ return {
 			["stats"] = {
 				["global_maximum_added_chaos_damage"] = {
 					["max"] = 3, 
+					["min"] = 3, 
 					["fmt"] = "d", 
-					["index"] = 2, 
-					["min"] = 2, 
-					["statOrder"] = 1198, 
 				}, 
 				["global_minimum_added_chaos_damage"] = {
-					["max"] = 3, 
-					["fmt"] = "d", 
-					["index"] = 1, 
+					["max"] = 2, 
 					["min"] = 2, 
-					["statOrder"] = 1198, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "global_maximum_added_chaos_damage", 
-				[2] = "global_minimum_added_chaos_damage", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TawhoaTribePassiveBG.png", 
 			["targetType"] = "Small Intelligence", 
 			["sd"] = {
-				[1] = "Adds (2-3) to 0 Chaos Damage", 
-				[2] = "Adds 0 to (2-3) Chaos Damage", 
+				[1] = "Adds 2 to 3 Chaos Damage", 
 			}, 
 			["dn"] = "Tattoo of the Tawhoa Warrior", 
 		}, 
@@ -730,14 +604,9 @@ return {
 			["stats"] = {
 				["base_movement_velocity_+%"] = {
 					["max"] = 2, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 2, 
-					["statOrder"] = 1604, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_movement_velocity_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -756,14 +625,9 @@ return {
 			["stats"] = {
 				["spells_chance_to_hinder_on_hit_%"] = {
 					["max"] = 5, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 5, 
-					["statOrder"] = 8891, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "spells_chance_to_hinder_on_hit_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -782,14 +646,9 @@ return {
 			["stats"] = {
 				["warcry_cooldown_speed_+%"] = {
 					["max"] = 10, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 10, 
-					["statOrder"] = 3107, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "warcry_cooldown_speed_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -808,14 +667,9 @@ return {
 			["stats"] = {
 				["base_evasion_rating"] = {
 					["max"] = 80, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 80, 
-					["statOrder"] = 1353, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_evasion_rating", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -834,14 +688,9 @@ return {
 			["stats"] = {
 				["number_of_additional_projectiles"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 1598, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "number_of_additional_projectiles", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/RamakoTribePassiveBG.png", 
@@ -863,20 +712,13 @@ return {
 			["stats"] = {
 				["local_display_tattoo_trigger_level_x_kahuturoa"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 583, 
+					["fmt"] = "d", 
 				}, 
 				["has_trigger_on_crit_by_unique_enemy"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_crit_by_unique_enemy", 
-				[2] = "local_display_tattoo_trigger_level_x_kahuturoa", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/RongokuraiTribeSkill.png", 
@@ -897,14 +739,9 @@ return {
 			["stats"] = {
 				["damage_taken_goes_to_life_over_4_seconds_%"] = {
 					["max"] = 2, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 2, 
-					["statOrder"] = 5492, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "damage_taken_goes_to_life_over_4_seconds_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -922,21 +759,14 @@ return {
 			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_es_recharge_in_presence_of_unique"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
 				["local_display_tattoo_trigger_level_x_tawhanuku"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 588, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_es_recharge_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_tawhanuku", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/HinekoraTribeSkill.png", 
@@ -956,14 +786,9 @@ return {
 			["stats"] = {
 				["base_life_leech_from_attack_damage_permyriad"] = {
 					["max"] = 0.5, 
-					["fmt"] = "g", 
-					["index"] = 1, 
 					["min"] = 0.5, 
-					["statOrder"] = 1471, 
+					["fmt"] = "g", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_life_leech_from_attack_damage_permyriad", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -981,21 +806,14 @@ return {
 			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_travel_skill_use_in_presence_of_unique"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
 				["local_display_tattoo_trigger_level_x_ikiaho"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 582, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_travel_skill_use_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_ikiaho", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/ArohonguiTribeSkill.png", 
@@ -1016,14 +834,9 @@ return {
 			["stats"] = {
 				["base_avoid_stun_%"] = {
 					["max"] = 15, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 15, 
-					["statOrder"] = 1657, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_avoid_stun_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -1042,14 +855,9 @@ return {
 			["stats"] = {
 				["base_self_critical_strike_multiplier_-%"] = {
 					["max"] = 10, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 10, 
-					["statOrder"] = 1321, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_self_critical_strike_multiplier_-%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -1068,22 +876,14 @@ return {
 			["stats"] = {
 				["flask_life_to_recover_+%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 1861, 
+					["fmt"] = "d", 
 				}, 
 				["flask_mana_to_recover_+%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 2, 
 					["min"] = 8, 
-					["statOrder"] = 1862, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "flask_life_to_recover_+%", 
-				[2] = "flask_mana_to_recover_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -1103,14 +903,9 @@ return {
 			["stats"] = {
 				["base_maximum_cold_damage_resistance_%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 1437, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_cold_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 1, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ArohonguiTribePassiveBG.png", 
@@ -1132,14 +927,9 @@ return {
 			["stats"] = {
 				["intelligence_skill_gem_level_+"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 6511, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "intelligence_skill_gem_level_+", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon3.png", 
@@ -1159,20 +949,13 @@ return {
 			["stats"] = {
 				["local_display_tattoo_trigger_level_x_akoya"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 581, 
+					["fmt"] = "d", 
 				}, 
 				["has_trigger_on_reaching_maximum_rage_in_presence_of_unique"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_reaching_maximum_rage_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_akoya", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/TukohamaTribeSkill.png", 
@@ -1193,14 +976,9 @@ return {
 			["stats"] = {
 				["accuracy_rating_+%"] = {
 					["max"] = 5, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 5, 
-					["statOrder"] = 1244, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "accuracy_rating_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -1219,22 +997,14 @@ return {
 			["stats"] = {
 				["base_avoid_chill_%"] = {
 					["max"] = 15, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 15, 
-					["statOrder"] = 1650, 
+					["fmt"] = "d", 
 				}, 
 				["base_avoid_freeze_%"] = {
 					["max"] = 15, 
-					["fmt"] = "d", 
-					["index"] = 2, 
 					["min"] = 15, 
-					["statOrder"] = 1651, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_avoid_chill_%", 
-				[2] = "base_avoid_freeze_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -1253,31 +1023,22 @@ return {
 			["targetValue"] = "", 
 			["stats"] = {
 				["global_minimum_added_physical_damage"] = {
-					["max"] = 3, 
-					["fmt"] = "d", 
-					["index"] = 1, 
+					["max"] = 2, 
 					["min"] = 2, 
-					["statOrder"] = 1078, 
+					["fmt"] = "d", 
 				}, 
 				["global_maximum_added_physical_damage"] = {
 					["max"] = 3, 
+					["min"] = 3, 
 					["fmt"] = "d", 
-					["index"] = 2, 
-					["min"] = 2, 
-					["statOrder"] = 1078, 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "global_minimum_added_physical_damage", 
-				[2] = "global_maximum_added_physical_damage", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/KitavaTribePassiveBG.png", 
 			["targetType"] = "Small Strength", 
 			["sd"] = {
-				[1] = "Adds (2-3) to 0 Physical Damage", 
-				[2] = "Adds 0 to (2-3) Physical Damage", 
+				[1] = "Adds 2 to 3 Physical Damage", 
 			}, 
 			["dn"] = "Tattoo of the Kitava Warrior", 
 		}, 
@@ -1289,14 +1050,9 @@ return {
 			["stats"] = {
 				["gain_onslaught_on_hit_duration_ms"] = {
 					["max"] = 4, 
-					["fmt"] = "g", 
-					["index"] = 1, 
 					["min"] = 4, 
-					["statOrder"] = 6087, 
+					["fmt"] = "g", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "gain_onslaught_on_hit_duration_ms", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon2.png", 
@@ -1316,22 +1072,14 @@ return {
 			["stats"] = {
 				["max_frenzy_charges"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 2, 
 					["min"] = 1, 
-					["statOrder"] = 1615, 
+					["fmt"] = "d", 
 				}, 
 				["base_maximum_cold_damage_resistance_%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 1437, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_cold_damage_resistance_%", 
-				[2] = "max_frenzy_charges", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon2.png", 
@@ -1352,14 +1100,9 @@ return {
 			["stats"] = {
 				["base_spell_suppression_chance_%"] = {
 					["max"] = 2, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 2, 
-					["statOrder"] = 962, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_spell_suppression_chance_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -1378,14 +1121,9 @@ return {
 			["stats"] = {
 				["shatter_on_killing_blow_chance_%"] = {
 					["max"] = 10, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 10, 
-					["statOrder"] = 8716, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "shatter_on_killing_blow_chance_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -1404,14 +1142,9 @@ return {
 			["stats"] = {
 				["flask_effect_+%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 2527, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "flask_effect_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TawhoaTribePassiveBG.png", 
@@ -1433,22 +1166,14 @@ return {
 			["stats"] = {
 				["base_maximum_fire_damage_resistance_%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 1431, 
+					["fmt"] = "d", 
 				}, 
 				["max_endurance_charges"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 2, 
 					["min"] = 1, 
-					["statOrder"] = 1610, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_fire_damage_resistance_%", 
-				[2] = "max_endurance_charges", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon1.png", 
@@ -1469,14 +1194,9 @@ return {
 			["stats"] = {
 				["physical_damage_reduction_rating_+%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 1350, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "physical_damage_reduction_rating_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -1495,14 +1215,9 @@ return {
 			["stats"] = {
 				["base_chaos_damage_resistance_%"] = {
 					["max"] = 4, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 4, 
-					["statOrder"] = 1448, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_chaos_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.png", 
@@ -1521,14 +1236,9 @@ return {
 			["stats"] = {
 				["shocked_effect_on_self_+%"] = {
 					["max"] = 15, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 15, 
-					["statOrder"] = 8743, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "shocked_effect_on_self_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -1547,14 +1257,9 @@ return {
 			["stats"] = {
 				["global_defences_+%"] = {
 					["max"] = 3, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 3, 
-					["statOrder"] = 2617, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "global_defences_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.png", 
@@ -1573,14 +1278,9 @@ return {
 			["stats"] = {
 				["base_avoid_bleed_%"] = {
 					["max"] = 15, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 15, 
-					["statOrder"] = 3983, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_avoid_bleed_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -1599,14 +1299,9 @@ return {
 			["stats"] = {
 				["flask_duration_+%"] = {
 					["max"] = 6, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 6, 
-					["statOrder"] = 1988, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "flask_duration_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -1625,14 +1320,9 @@ return {
 			["stats"] = {
 				["curse_effect_+%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 2387, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "curse_effect_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/HinekoraTribePassiveBG.png", 
@@ -1654,14 +1344,9 @@ return {
 			["stats"] = {
 				["base_item_found_rarity_+%"] = {
 					["max"] = 3, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 3, 
-					["statOrder"] = 1404, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_item_found_rarity_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.png", 
@@ -1680,14 +1365,9 @@ return {
 			["stats"] = {
 				["guard_skill_effect_duration_+%"] = {
 					["max"] = 6, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 6, 
-					["statOrder"] = 6176, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "guard_skill_effect_duration_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -1706,14 +1386,9 @@ return {
 			["stats"] = {
 				["additional_block_%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 2249, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "additional_block_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -1732,14 +1407,9 @@ return {
 			["stats"] = {
 				["herald_effect_on_self_+%"] = {
 					["max"] = 5, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 5, 
-					["statOrder"] = 6349, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "herald_effect_on_self_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -1758,14 +1428,9 @@ return {
 			["stats"] = {
 				["base_cooldown_speed_+%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 4595, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_cooldown_speed_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TasalioTribePassiveBG.png", 
@@ -1787,14 +1452,9 @@ return {
 			["stats"] = {
 				["base_life_regeneration_rate_per_minute"] = {
 					["max"] = 15, 
-					["fmt"] = "g", 
-					["index"] = 1, 
 					["min"] = 15, 
-					["statOrder"] = 1382, 
+					["fmt"] = "g", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_life_regeneration_rate_per_minute", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -1813,14 +1473,9 @@ return {
 			["stats"] = {
 				["additional_all_attributes"] = {
 					["max"] = 4, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 4, 
-					["statOrder"] = 991, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "additional_all_attributes", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.png", 
@@ -1838,21 +1493,14 @@ return {
 			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_suppress_hit_from_unique"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
 				["local_display_tattoo_trigger_level_x_ahuana"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 580, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_suppress_hit_from_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_ahuana", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/RamakoTribeSkill.png", 
@@ -1873,14 +1521,9 @@ return {
 			["stats"] = {
 				["base_reservation_efficiency_+%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 2030, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_reservation_efficiency_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.png", 
@@ -1899,14 +1542,9 @@ return {
 			["stats"] = {
 				["killing_blow_consumes_corpse_restore_10%_life_chance_%"] = {
 					["max"] = 4, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 4, 
-					["statOrder"] = 6526, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "killing_blow_consumes_corpse_restore_10%_life_chance_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -1925,14 +1563,9 @@ return {
 			["stats"] = {
 				["base_projectile_speed_+%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 1602, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_projectile_speed_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -1951,14 +1584,9 @@ return {
 			["stats"] = {
 				["maximum_life_leech_rate_+%"] = {
 					["max"] = 80, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 80, 
-					["statOrder"] = 1538, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "maximum_life_leech_rate_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/KitavaTribePassiveBG.png", 
@@ -1980,14 +1608,9 @@ return {
 			["stats"] = {
 				["base_life_reservation_efficiency_+%"] = {
 					["max"] = 4, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 4, 
-					["statOrder"] = 2026, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_life_reservation_efficiency_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -2006,14 +1629,9 @@ return {
 			["stats"] = {
 				["chance_to_double_armour_effect_on_hit_%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 5094, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "chance_to_double_armour_effect_on_hit_%", 
 			}, 
 			["MaximumConnected"] = 1, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/RongokuraiTribePassiveBG.png", 
@@ -2035,14 +1653,9 @@ return {
 			["stats"] = {
 				["maximum_life_+%"] = {
 					["max"] = 2, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 2, 
-					["statOrder"] = 1379, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "maximum_life_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/accuracyint.png", 
@@ -2061,14 +1674,9 @@ return {
 			["stats"] = {
 				["attacks_chance_to_blind_on_hit_%"] = {
 					["max"] = 5, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 5, 
-					["statOrder"] = 4532, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "attacks_chance_to_blind_on_hit_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -2087,14 +1695,9 @@ return {
 			["stats"] = {
 				["stun_threshold_+%"] = {
 					["max"] = 15, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 15, 
-					["statOrder"] = 3050, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "stun_threshold_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -2113,20 +1716,13 @@ return {
 			["stats"] = {
 				["local_display_tattoo_trigger_level_x_maata"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 586, 
+					["fmt"] = "d", 
 				}, 
 				["has_trigger_on_reaching_low_life_in_presence_of_unique"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_reaching_low_life_in_presence_of_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_maata", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/TawhoaTribeSkill.png", 
@@ -2146,21 +1742,14 @@ return {
 			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_crit_vs_marked_unique"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
 				["local_display_tattoo_trigger_level_x_rakiata"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 587, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_crit_vs_marked_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_rakiata", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/TasalioTribeSkill.png", 
@@ -2180,14 +1769,9 @@ return {
 			["stats"] = {
 				["life_regeneration_rate_+%"] = {
 					["max"] = 16, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 16, 
-					["statOrder"] = 1385, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "life_regeneration_rate_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TukohamaTribePassiveBG.png", 
@@ -2209,14 +1793,9 @@ return {
 			["stats"] = {
 				["gain_arcane_surge_on_hit_%_chance"] = {
 					["max"] = 100, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 100, 
-					["statOrder"] = 6035, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "gain_arcane_surge_on_hit_%_chance", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon3.png", 
@@ -2235,21 +1814,14 @@ return {
 			["targetValue"] = "", 
 			["stats"] = {
 				["has_trigger_on_taking_savage_hit_from_unique"] = {
-					["max"] = 1, 
 					["min"] = 1, 
-					["index"] = 2, 
+					["max"] = 1, 
 				}, 
 				["local_display_tattoo_trigger_level_x_utula"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 589, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "has_trigger_on_taking_savage_hit_from_unique", 
-				[2] = "local_display_tattoo_trigger_level_x_utula", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/KitavaTribeSkill.png", 
@@ -2269,14 +1841,9 @@ return {
 			["stats"] = {
 				["base_stun_duration_+%"] = {
 					["max"] = 10, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 10, 
-					["statOrder"] = 1669, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_stun_duration_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -2295,14 +1862,9 @@ return {
 			["stats"] = {
 				["chance_to_fortify_on_melee_stun_%"] = {
 					["max"] = 5, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 5, 
-					["statOrder"] = 5100, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "chance_to_fortify_on_melee_stun_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -2321,14 +1883,9 @@ return {
 			["stats"] = {
 				["base_cold_damage_resistance_%"] = {
 					["max"] = 8, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 8, 
-					["statOrder"] = 1439, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_cold_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
@@ -2347,14 +1904,9 @@ return {
 			["stats"] = {
 				["fortify_on_hit"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 5980, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "fortify_on_hit", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon1.png", 
@@ -2374,22 +1926,14 @@ return {
 			["stats"] = {
 				["max_power_charges"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 2, 
 					["min"] = 1, 
-					["statOrder"] = 1620, 
+					["fmt"] = "d", 
 				}, 
 				["base_maximum_lightning_damage_resistance_%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 1442, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_maximum_lightning_damage_resistance_%", 
-				[2] = "max_power_charges", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/HinekoraPassiveIcon3.png", 
@@ -2410,14 +1954,9 @@ return {
 			["stats"] = {
 				["explode_enemies_for_10%_life_as_fire_on_kill_chance_%"] = {
 					["max"] = 2, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 2, 
-					["statOrder"] = 5846, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "explode_enemies_for_10%_life_as_fire_on_kill_chance_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
@@ -2436,14 +1975,9 @@ return {
 			["stats"] = {
 				["base_spell_block_%"] = {
 					["max"] = 1, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 1, 
-					["statOrder"] = 976, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_spell_block_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -2462,14 +1996,9 @@ return {
 			["stats"] = {
 				["curse_effect_on_self_+%"] = {
 					["max"] = 6, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 6, 
-					["statOrder"] = 1972, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "curse_effect_on_self_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -2488,30 +2017,21 @@ return {
 			["stats"] = {
 				["global_maximum_added_cold_damage"] = {
 					["max"] = 5, 
+					["min"] = 5, 
 					["fmt"] = "d", 
-					["index"] = 2, 
-					["min"] = 3, 
-					["statOrder"] = 1180, 
 				}, 
 				["global_minimum_added_cold_damage"] = {
-					["max"] = 5, 
-					["fmt"] = "d", 
-					["index"] = 1, 
+					["max"] = 3, 
 					["min"] = 3, 
-					["statOrder"] = 1180, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "global_maximum_added_cold_damage", 
-				[2] = "global_minimum_added_cold_damage", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/ColdResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ArohonguiTribePassiveBG.png", 
 			["targetType"] = "Small Dexterity", 
 			["sd"] = {
-				[1] = "Adds (3-5) to 0 Cold Damage", 
-				[2] = "Adds 0 to (3-5) Cold Damage", 
+				[1] = "Adds 3 to 5 Cold Damage", 
 			}, 
 			["dn"] = "Tattoo of the Arohongui Warrior", 
 		}, 
@@ -2523,14 +2043,9 @@ return {
 			["stats"] = {
 				["base_avoid_poison_%"] = {
 					["max"] = 15, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 15, 
-					["statOrder"] = 1655, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_avoid_poison_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/LightningResistNode.png", 
@@ -2549,14 +2064,9 @@ return {
 			["stats"] = {
 				["base_global_chance_to_knockback_%"] = {
 					["max"] = 10, 
-					["fmt"] = "d", 
-					["index"] = 1, 
 					["min"] = 10, 
-					["statOrder"] = 1796, 
+					["fmt"] = "d", 
 				}, 
-			}, 
-			["sortedStats"] = {
-				[1] = "base_global_chance_to_knockback_%", 
 			}, 
 			["MaximumConnected"] = 100, 
 			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 

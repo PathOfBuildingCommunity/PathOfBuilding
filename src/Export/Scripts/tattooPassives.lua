@@ -6,8 +6,8 @@ loadStatFile("stat_descriptions.txt")
 local out = io.open("../Data/TattooPassives.lua", "w")
 
 local stats = dat("Stats")
-local alternatePassiveSkillDat = dat("passiveskilloverrides")
-local alternatePassiveSkillTattoosDat = dat("passiveskilltattoos")
+local passiveSkillOverridesDat = dat("passiveskilloverrides")
+local passiveSkillTattoosDat = dat("passiveskilltattoos")
 local clientStrings = dat("ClientStrings")
 
 local tattoo_PASSIVE_GROUP = 1e9
@@ -46,37 +46,26 @@ end
 
 function parseStats(datFileRow, tattooPassive)
 	local descOrders = {}
+	local stat = {}
 	for idx,statKey in pairs(datFileRow.StatsKeys) do
 		local refRow = type(statKey) == "number" and statKey + 1 or statKey._rowIndex
 		local statId = stats:ReadCell(refRow, 1)
 		local range = datFileRow["StatValues"]
 
-		local stat = {}
 		stat[statId] = {
-			["min"] = range[1],
-			["max"] = range[2] or range[1],
-			["index"] = idx
+			["min"] = range[idx],
+			["max"] = range[idx]
 		}
-		-- Describing stats here to get the orders
-		prettyPrintTable(range)
-		local statLines, orders = describeStats(stat)
-		prettyPrintTable(orders)
-		stat[statId].statOrder = orders[1]
-		tattooPassive.stats[statId] = stat[statId]
-		for i, line in ipairs(statLines) do
-			table.insert(tattooPassive.sd, line)
-			descOrders[line] = orders[i]
-		end
+	end
+	-- Describing stats here to get the orders
+	local statLines, orders = describeStats(stat)
+	tattooPassive.stats = stat
+	for i, line in ipairs(statLines) do
+		table.insert(tattooPassive.sd, line)
+		descOrders[line] = orders[i]
 	end
 	-- Have to re-sort since we described the stats earlier
 	table.sort(tattooPassive.sd, function(a, b) return descOrders[a] < descOrders[b] end)
-	local sortedStats = {}
-	for stat in pairs(tattooPassive.stats) do
-		table.insert(sortedStats, stat)
-	end
-	-- Finally get what we want, sorted stats by order
-	table.sort(sortedStats, function(a, b) return (tattooPassive.stats[a].statOrder or 0) < (tattooPassive.stats[b].statOrder or 0) end)
-	tattooPassive.sortedStats = sortedStats
 end
 
 ---@type table <string, table> @this is the structure used to generate the final data file Data/TattooPassives
@@ -84,18 +73,18 @@ local data = { }
 data.nodes = { }
 data.groups = { }
 
-for i=1, alternatePassiveSkillDat.rowCount do
+for i=1, passiveSkillOverridesDat.rowCount do
 	---@type table<string, boolean|string|number>
 	local datFileRow = {}
-	for j=1,#alternatePassiveSkillDat.cols-1 do
-		local key = alternatePassiveSkillDat.spec[j].name
-		datFileRow[key] = alternatePassiveSkillDat:ReadCell(i, j)
+	for j=1,#passiveSkillOverridesDat.cols-1 do
+		local key = passiveSkillOverridesDat.spec[j].name
+		datFileRow[key] = passiveSkillOverridesDat:ReadCell(i, j)
 	end
 
 	local tattooDatRow = {}
-	for j=1, #alternatePassiveSkillTattoosDat.cols-1 do
-		local key = alternatePassiveSkillTattoosDat.spec[j].name
-		tattooDatRow[key] = alternatePassiveSkillTattoosDat:ReadCell(i,j)
+	for j=1, #passiveSkillTattoosDat.cols-1 do
+		local key = passiveSkillTattoosDat.spec[j].name
+		tattooDatRow[key] = passiveSkillTattoosDat:ReadCell(i,j)
 	end
 	---@type table<string, boolean|string|number|table>
 	local tattooPassiveNode = {}
