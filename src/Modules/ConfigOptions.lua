@@ -342,11 +342,6 @@ return {
 	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy marked with Signal Prey?", ifSkill = "Predator", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
 	end },
-	{ label = "Fresh Meat:", ifSkill = "Fresh Meat" },
-	{ var = "freshMeatBuffs", type = "check", label = "Is Fresh Meat active?", ifSkill = "Fresh Meat", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:Adrenaline", "FLAG", true, "Fresh Meat", { type = "Condition", var = "Combat" })}, "Config")
-		modList:NewMod("Condition:FreshMeatActive", "FLAG", true, "Config")
-	end },
 	{ label = "Elemental Army:", ifSkill = "Elemental Army" },
 	{ var = "elementalArmyExposureType", type = "list", label = "Exposure Type:", ifSkill = "Elemental Army", list = {{val=0,label="None"},{val="Fire",label="^xB97123Fire"},{val="Cold",label="^x3F6DB3Cold"},{val="Lightning",label="^xADAA47Lightning"}}, apply = function(val, modList, enemyModList)
 		if val == "Fire" then
@@ -371,6 +366,11 @@ return {
 	{ label = "Flame Wall:", ifSkill = "Flame Wall" },
 	{ var = "flameWallAddedDamage", type = "check", label = "Projectile Travelled through Flame Wall?", ifSkill = "Flame Wall", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FlameWallAddedDamage", "FLAG", true, "Config")
+	end },
+	{ label = "Fresh Meat:", ifSkill = "Fresh Meat" },
+	{ var = "freshMeatBuffs", type = "check", label = "Is Fresh Meat active?", ifSkill = "Fresh Meat", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:Adrenaline", "FLAG", true, "Fresh Meat", { type = "Condition", var = "Combat" })}, "Config")
+		modList:NewMod("Condition:FreshMeatActive", "FLAG", true, "Config")
 	end },
 	{ label = "Frost Shield:", ifSkill = "Frost Shield" },
 	{ var = "frostShieldStages", type = "count", label = "Stages:", ifSkill = "Frost Shield", apply = function(val, modList, enemyModList)
