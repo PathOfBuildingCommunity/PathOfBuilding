@@ -526,7 +526,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawLayer(nil, 15)
 			else
 				-- Normal node (includes keystones and notables)
-				if node.isTattoo and node.effectSprites then
+				if node.isTattoo then
 					effect = node.effectSprites["tattooActiveEffect"]
 				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
@@ -854,6 +854,15 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	if err then return false end
 	if #needMatches == 0 then
 		return true
+	end
+
+	-- Check node id for devs
+	if launch.devMode then
+		err, needMatches = PCall(search, tostring(node.id), needMatches)
+		if err then return false end
+		if #needMatches == 0 then
+			return true
+		end
 	end
 end
 

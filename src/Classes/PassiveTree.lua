@@ -305,8 +305,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		if versionNum <= 3.09 and node.passivePointsGranted > 0 then
 			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
 		end
-		node.conquered = false
-		node.alternative = {}
 		node.__index = node
 		node.linkedId = { }
 		nodeMap[node.id] = node	

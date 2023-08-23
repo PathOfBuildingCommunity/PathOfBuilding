@@ -213,10 +213,7 @@ function PassiveSpecClass:Save(xml)
 			for _, modLine in ipairs(node.sd) do
 				t_insert(override, modLine)
 			end
-			-- Do not save current override data unless the current node is anointed or allocated
-			if self.build.calcsTab.mainEnv.grantedPassives[nodeId] or self.allocNodes[nodeId] then
-				t_insert(overrides, override)
-			end
+			t_insert(overrides, override)
 		end
 	end
 	t_insert(xml, overrides)
@@ -244,6 +241,14 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, h
 			self.masterySelections[mastery] = effect
 		end
 	end
+	for id, override in pairs(hashOverrides) do
+		local node = self.nodes[id]
+		if node then
+			override.effectSprites = self.tree.spriteMap[override.activeEffectImage]
+			override.sprites = self.tree.spriteMap[override.icon]
+			self:ReplaceNode(node, override)
+		end
+	end
 	for _, id in pairs(hashList) do
 		local node = self.nodes[id]
 		if node then
@@ -251,11 +256,6 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, h
 			if node.type ~= "Mastery" or (node.type == "Mastery" and self.masterySelections[id]) then
 				node.alloc = true
 				self.allocNodes[id] = node
-			end
-			if hashOverrides[id] then
-				hashOverrides[id].effectSprites = self.tree.spriteMap[hashOverrides[id].activeEffectImage]
-				hashOverrides[id].sprites = self.tree.spriteMap[hashOverrides[id].icon]
-				self:ReplaceNode(node, hashOverrides[id])
 			end
 		else
 			t_insert(self.allocSubgraphNodes, id)
@@ -760,6 +760,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	end
 
 	for id, node in pairs(self.nodes) do
+		-- If node is tattooed, replace it
+		if self.hashOverrides[node.id] then
+			self:ReplaceNode(node, self.hashOverrides[node.id])
+		end
+
 		-- If node is conquered, replace it or add mods
 		if node.conqueredBy and node.type ~= "Socket" then
 			local conqueredBy = node.conqueredBy
@@ -935,11 +940,6 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 				end
 			end
 			self:ReconnectNodeToClassStart(node)
-		end
-
-		-- If node is tattooed, replace it
-		if self.hashOverrides[node.id] then
-			self:ReplaceNode(node, self.hashOverrides[node.id])
 		end
 	end
 
