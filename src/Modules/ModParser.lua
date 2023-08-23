@@ -1796,10 +1796,15 @@ local function extraSupport(name, level, slot)
 	if skillId then
 		local gemId = data.gemForBaseName[data.skills[skillId].name .. " Support"]
 		if gemId then
-			return {
-				mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].grantedEffectId, level = level }, { type = "SocketedIn", slotName = slot }),
-				mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].secondaryGrantedEffectId, level = level }, { type = "SocketedIn", slotName = slot })
-			}
+			local mods = {mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].grantedEffectId, level = level }, { type = "SocketedIn", slotName = slot })}
+			if data.gems[gemId].secondaryGrantedEffect then
+				if data.gems[gemId].secondaryGrantedEffect.support then
+					t_insert(mods, mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].secondaryGrantedEffectId, level = level }, { type = "SocketedIn", slotName = slot }))
+				else
+					t_insert(mods, mod("ExtraSkill", "LIST", { skillId = data.gems[gemId].secondaryGrantedEffectId, level = level }))
+				end
+			end
+			return mods
 		else
 			return {
 				mod("ExtraSupport", "LIST", { skillId = skillId, level = level }, { type = "SocketedIn", slotName = slot }),
