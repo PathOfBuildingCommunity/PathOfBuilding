@@ -7,6 +7,7 @@ local ipairs = ipairs
 local pairs = pairs
 local next = next
 local t_insert = table.insert
+local t_remove = table.remove
 local t_sort = table.sort
 local t_concat = table.concat
 local m_max = math.max
@@ -538,6 +539,109 @@ function TreeTabClass:OpenExportPopup()
 		main:ClosePopup()
 	end)
 	popup = main:OpenPopup(380, 100, "Export Tree", controls, "done", "edit")
+end
+
+function TreeTabClass:ModifyNodePopup(selectedNode)
+	local controls = { }
+	local modGroups = { }
+	local function buildMods(selectedNode)
+		wipeTable(modGroups)
+		local treeNodes = self.build.spec.tree.nodes
+		local numLinkedNodes = selectedNode.linkedId and #selectedNode.linkedId or 0
+		local nodeName = treeNodes[selectedNode.id].dn
+		local nodeValue = treeNodes[selectedNode.id].sd[1]
+		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
+			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
+					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
+					and node.MinimumConnected <= numLinkedNodes then
+				local combine = false
+				for id, desc in pairs(node.stats) do
+					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
+					if combine then break end
+				end
+				local descriptionsAndReminders = copyTable(node.sd)
+				if combine then
+					t_remove(descriptionsAndReminders, 1)
+					t_remove(descriptionsAndReminders, 1)
+					t_insert(descriptionsAndReminders, 1, node.sd[1] .. " " .. node.sd[2])
+				end
+				local descriptionsAndReminders = combine and { [1] = table.concat(node.sd, " ") } or copyTable(node.sd)
+				if node.reminderText then
+					t_insert(descriptionsAndReminders, node.reminderText[1])
+				end
+				t_insert(modGroups, {
+				label = node.dn .. "                                                " .. table.concat(node.sd, ","),
+				descriptions = descriptionsAndReminders,
+				id = id,
+				})
+			end
+		end
+		table.sort(modGroups, function(a, b) return a.label < b.label end)
+		end
+	local function addModifier(selectedNode)
+		local newTattooNode = self.build.spec.tree.tattoo.nodes[modGroups[controls.modSelect.selIndex].id]
+		newTattooNode.isTattoo = true
+		newTattooNode.tattooId = newTattooNode.id
+		newTattooNode.id = selectedNode.id
+		self.build.spec.hashOverrides[selectedNode.id] = newTattooNode
+		self.build.spec:ReplaceNode(selectedNode, newTattooNode)
+	end
+
+	local function constructUI(modGroup)
+		local totalHeight = 43
+		local maxWidth = 375
+		local i = 1
+		while controls[i] do
+			controls[i] = nil
+			i = i + 1
+		end
+
+		local wrapTable = {}
+		for idx, desc in ipairs(modGroup.descriptions) do
+			for _, wrappedDesc in ipairs(main:WrapString(desc, 16, maxWidth)) do
+				t_insert(wrapTable, wrappedDesc)
+			end
+		end
+		for idx, desc in ipairs(wrapTable) do
+			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
+			totalHeight = totalHeight + 20
+		end
+		main.popups[1].height = totalHeight + 30
+		controls.save.y = totalHeight
+		controls.reset.y = totalHeight
+		controls.close.y = totalHeight
+	end
+
+	buildMods(selectedNode)
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 150, 25, 0, 16, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 155, 25, 250, 18, modGroups, function(idx) constructUI(modGroups[idx]) end)
+	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value then
+			for _, line in ipairs(value.descriptions) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+		end
+	end
+	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
+		addModifier(selectedNode)
+		self.modFlag = true
+		self.build.buildFlag = true
+		main:ClosePopup()
+	end)
+	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
+		self.build.spec.tree.nodes[selectedNode.id].isTattoo = false
+		self.build.spec.hashOverrides[selectedNode.id] = nil
+		self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
+		self.modFlag = true
+		self.build.buildFlag = true
+		main:ClosePopup()
+	end)
+	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
+	constructUI(modGroups[1])
 end
 
 function TreeTabClass:SaveMasteryPopup(node, listControl)

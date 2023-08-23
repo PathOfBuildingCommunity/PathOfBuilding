@@ -206,6 +206,11 @@ function GGPKClass:GetNeededFiles()
 		"Data/UniqueStashLayout.dat",
 		"Data/UniqueStashTypes.dat",
 		"Data/Shrines.dat",
+		"Data/passiveoverridelimits.dat",
+		"Data/passiveskilloverrides.dat",
+		"Data/passiveskilloverridetypes.dat",
+		"Data/passiveskilltattoos.dat",
+		"Data/passiveskilltattootargetsets.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
