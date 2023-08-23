@@ -7,6 +7,7 @@ local ipairs = ipairs
 local pairs = pairs
 local next = next
 local t_insert = table.insert
+local t_remove = table.remove
 local t_sort = table.sort
 local t_concat = table.concat
 local m_max = math.max
@@ -549,7 +550,18 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
 					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
 					and node.MinimumConnected <= numLinkedNodes then
+				local combine = false
+				for id, desc in pairs(node.stats) do
+					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
+					if combine then break end
+				end
 				local descriptionsAndReminders = copyTable(node.sd)
+				if combine then
+					t_remove(descriptionsAndReminders, 1)
+					t_remove(descriptionsAndReminders, 1)
+					t_insert(descriptionsAndReminders, 1, node.sd[1] .. " " .. node.sd[2])
+				end
+				local descriptionsAndReminders = combine and { [1] = table.concat(node.sd, " ") } or copyTable(node.sd)
 				if node.reminderText then
 					t_insert(descriptionsAndReminders, node.reminderText[1])
 				end
@@ -575,34 +587,25 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		local totalHeight = 43
 		local maxWidth = 375
 		local i = 1
-		local extraY = 0
-		local concatDesc = ""
-		local limited = nil
 		while controls[i] do
 			controls[i] = nil
 			i = i + 1
 		end
 
-		for index, desc in ipairs(modGroup.descriptions) do
-			if desc:find("Limited to 1") then
-				limited = desc
-			else
-				concatDesc = concatDesc .. (index > 1 and " " or "") .. desc
+		local wrapTable = {}
+		for idx, desc in ipairs(modGroup.descriptions) do
+			for _, wrappedDesc in ipairs(main:WrapString(desc, 16, maxWidth)) do
+				t_insert(wrapTable, wrappedDesc)
 			end
-		end
-		local wrapTable = main:WrapString(concatDesc, 16, maxWidth)
-		if limited then
-			wrapTable[#wrapTable + 1] = limited
-			extraY = 3
 		end
 		for idx, desc in ipairs(wrapTable) do
 			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
 			totalHeight = totalHeight + 20
 		end
-		main.popups[1].height = totalHeight + 30 + extraY
-		controls.save.y = totalHeight + extraY
-		controls.reset.y = totalHeight + extraY
-		controls.close.y = totalHeight + extraY
+		main.popups[1].height = totalHeight + 30
+		controls.save.y = totalHeight
+		controls.reset.y = totalHeight
+		controls.close.y = totalHeight
 	end
 
 	buildMods(selectedNode)
