@@ -542,23 +542,28 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
 		local treeNodes = self.build.spec.tree.nodes
-		local linkedNodes = selectedNode.linked and #selectedNode.linked or 0
+		local numLinkedNodes = 0
+		for _, nodeId in ipairs(selectedNode.linkedId) do
+			if self.build.spec.allocNodes[nodeId] then
+				numLinkedNodes = numLinkedNodes + 1
+			end
+		end
 		local nodeName = treeNodes[selectedNode.id].dn
 		local nodeValue = treeNodes[selectedNode.id].sd[1]
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
-			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
-					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
-				and node.MaximumConnected >= linkedNodes
-				and node.MinimumConnected <= linkedNodes then
-				t_insert(modGroups, {
-					label = node.dn,
-					descriptions = copyTable(node.sd),
-					id = id,
-				})
-			end
+		if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
+		(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
+		and node.MaximumConnected >= numLinkedNodes
+		and node.MinimumConnected <= numLinkedNodes then
+		t_insert(modGroups, {
+		label = node.dn,
+		descriptions = copyTable(node.sd),
+		id = id,
+		})
+		end
 		end
 		table.sort(modGroups, function(a, b) return a.label < b.label end)
-	end
+		end
 	local function addModifier(selectedNode)
 		local newTattooNode = self.build.spec.tree.tattoo.nodes[modGroups[controls.modSelect.selIndex].id]
 		newTattooNode.isTattoo = true

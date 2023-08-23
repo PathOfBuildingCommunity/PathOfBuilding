@@ -227,6 +227,7 @@ return {
 			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "+1 to Level of all Strength Skill Gems", 
+				[2] = "Limited to 1 Attribute Notable Tattoo", 
 			}, 
 			["dn"] = "Honoured Tattoo of the Warlord", 
 		}, 
@@ -259,6 +260,7 @@ return {
 			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Kiloava Skill when you Block Damage from a Unique Enemy", 
+				[2] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Kiloava", 
 		}, 
@@ -292,6 +294,7 @@ return {
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Kaom Skill when a Totem dies while", 
 				[2] = "a Unique Enemy is in your Presence", 
+				[3] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Kaom", 
 		}, 
@@ -348,8 +351,11 @@ return {
 				[1] = "base_maximum_fire_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 1, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/NgamahuTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires that no more than 1 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "+1% to maximum Fire Resistance", 
@@ -530,8 +536,11 @@ return {
 				[1] = "base_maximum_lightning_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 1, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ValakoTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires that no more than 1 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "+1% to maximum Lightning Resistance", 
@@ -587,6 +596,7 @@ return {
 			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "+1 to Level of all Dexterity Skill Gems", 
+				[2] = "Limited to 1 Attribute Notable Tattoo", 
 			}, 
 			["dn"] = "Honoured Tattoo of the Hunter", 
 		}, 
@@ -834,8 +844,11 @@ return {
 				[1] = "number_of_additional_projectiles", 
 			}, 
 			["MaximumConnected"] = 100, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/RamakoTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires at least 7 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "Skills fire an additional Projectile", 
@@ -872,6 +885,7 @@ return {
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Kahuturoa Skill when you take", 
 				[2] = "a Critical Strike from a Unique Enemy", 
+				[3] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Kahuturoa", 
 		}, 
@@ -930,6 +944,7 @@ return {
 			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Tawhanuku Skill when Energy Shield Recharge starts while a Unique Enemy is in your Presence", 
+				[2] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Tawhanuku", 
 		}, 
@@ -989,6 +1004,7 @@ return {
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Ikiaho Skill when you use a Travel", 
 				[2] = "Skill while a Unique Enemy is in your Presence", 
+				[3] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Ikiaho", 
 		}, 
@@ -1097,8 +1113,11 @@ return {
 				[1] = "base_maximum_cold_damage_resistance_%", 
 			}, 
 			["MaximumConnected"] = 1, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/ArohonguiTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires that no more than 1 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "+1% to maximum Cold Resistance", 
@@ -1128,6 +1147,7 @@ return {
 			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "+1 to Level of all Intelligence Skill Gems", 
+				[2] = "Limited to 1 Attribute Notable Tattoo", 
 			}, 
 			["dn"] = "Honoured Tattoo of the Wise", 
 		}, 
@@ -1161,6 +1181,7 @@ return {
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Akoya Skill when you reach Maximum Rage while", 
 				[2] = "a Unique Enemy is in your Presence", 
+				[3] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Akoya", 
 		}, 
@@ -1283,6 +1304,7 @@ return {
 			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "You gain Onslaught for 4 seconds on Hit", 
+				[2] = "Limited to 1 Attribute Notable Tattoo", 
 			}, 
 			["dn"] = "Honoured Tattoo of the Berserker", 
 		}, 
@@ -1318,6 +1340,7 @@ return {
 			["sd"] = {
 				[1] = "+1% to maximum Cold Resistance", 
 				[2] = "+1 to Maximum Frenzy Charges", 
+				[3] = "Limited to 1 Attribute Notable Tattoo", 
 			}, 
 			["dn"] = "Honoured Tattoo of the Barbarian", 
 		}, 
@@ -1391,8 +1414,11 @@ return {
 				[1] = "flask_effect_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TawhoaTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires at least 7 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "Flasks applied to you have 8% increased Effect", 
@@ -1431,6 +1457,7 @@ return {
 			["sd"] = {
 				[1] = "+1% to maximum Fire Resistance", 
 				[2] = "+1 to Maximum Endurance Charges", 
+				[3] = "Limited to 1 Attribute Notable Tattoo", 
 			}, 
 			["dn"] = "Honoured Tattoo of the Mountain", 
 		}, 
@@ -1608,8 +1635,11 @@ return {
 				[1] = "curse_effect_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/HinekoraTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires at least 7 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "8% increased Effect of your Curses", 
@@ -1738,8 +1768,11 @@ return {
 				[1] = "base_cooldown_speed_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TasalioTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires at least 7 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Intelligence", 
 			["sd"] = {
 				[1] = "8% increased Cooldown Recovery Rate", 
@@ -1828,6 +1861,7 @@ return {
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Ahuana Skill when you Suppress", 
 				[2] = "Spell Damage from a Unique Enemy", 
+				[3] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Ahuana", 
 		}, 
@@ -1927,8 +1961,11 @@ return {
 				[1] = "maximum_life_leech_rate_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/KitavaTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires at least 7 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "80% increased Maximum total Life Recovery per second from Leech", 
@@ -1979,8 +2016,11 @@ return {
 				[1] = "chance_to_double_armour_effect_on_hit_%", 
 			}, 
 			["MaximumConnected"] = 1, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/RongokuraiTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires that no more than 1 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "8% chance to Defend with 200% of Armour", 
@@ -2095,6 +2135,7 @@ return {
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Maata Skill when you reach Low Life while", 
 				[2] = "a Unique Enemy is in your Presence", 
+				[3] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Maata", 
 		}, 
@@ -2127,6 +2168,7 @@ return {
 			["targetType"] = "Small Dexterity", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Rakiata Skill on Critical Strike against Marked Unique Enemy", 
+				[2] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Rakiata", 
 		}, 
@@ -2148,8 +2190,11 @@ return {
 				[1] = "life_regeneration_rate_+%", 
 			}, 
 			["MaximumConnected"] = 100, 
-			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
 			["activeEffectImage"] = "Art/2DArt/UIImages/InGame/AncestralTrial/PassiveTreeTattoos/TukohamaTribePassiveBG.png", 
+			["icon"] = "Art/2DArt/SkillIcons/passives/FireResistNode.png", 
+			["reminderText"] = {
+				[1] = "Requires at least 7 adjacent Passive Skills to be allocated", 
+			}, 
 			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "16% increased Life Regeneration rate", 
@@ -2179,6 +2224,7 @@ return {
 			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "Gain Arcane Surge on Hit with Spells", 
+				[2] = "Limited to 1 Attribute Notable Tattoo", 
 			}, 
 			["dn"] = "Honoured Tattoo of the Flood", 
 		}, 
@@ -2211,6 +2257,7 @@ return {
 			["targetType"] = "Small Strength", 
 			["sd"] = {
 				[1] = "Trigger Summon Spirit of Utula Skill on taking a Savage Hit from a Unique Enemy", 
+				[2] = "Limited to 1 Loyalty Tattoo", 
 			}, 
 			["dn"] = "Loyalty Tattoo of Utula", 
 		}, 
@@ -2315,6 +2362,7 @@ return {
 			["targetType"] = "Notable", 
 			["sd"] = {
 				[1] = "Melee Hits Fortify", 
+				[2] = "Limited to 1 Attribute Notable Tattoo", 
 			}, 
 			["dn"] = "Honoured Tattoo of the Pa", 
 		}, 
@@ -2350,6 +2398,7 @@ return {
 			["sd"] = {
 				[1] = "+1% to maximum Lightning Resistance", 
 				[2] = "+1 to Maximum Power Charges", 
+				[3] = "Limited to 1 Attribute Notable Tattoo", 
 			}, 
 			["dn"] = "Honoured Tattoo of the Storm", 
 		}, 

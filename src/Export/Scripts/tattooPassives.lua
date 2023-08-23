@@ -8,6 +8,7 @@ local out = io.open("../Data/TattooPassives.lua", "w")
 local stats = dat("Stats")
 local alternatePassiveSkillDat = dat("passiveskilloverrides")
 local alternatePassiveSkillTattoosDat = dat("passiveskilltattoos")
+local clientStrings = dat("ClientStrings")
 
 local tattoo_PASSIVE_GROUP = 1e9
 
@@ -114,11 +115,21 @@ for i=1, alternatePassiveSkillDat.rowCount do
 	tattooPassiveNode.targetValue = tattooDatRow.NodeTarget.Value
 
 	-- These have 0 if they don't apply, which doesn't make sense for MaximumConnected
+	if datFileRow.MinimumConnected > 0 then
+		local text = clientStrings:ReadCellText(6929, 2)
+		tattooPassiveNode.reminderText = { [1] = text:gsub("{}", datFileRow.MinimumConnected) }
+	end
 	tattooPassiveNode.MinimumConnected = datFileRow.MinimumConnected
+	if datFileRow.MaximumConnected > 0 then
+		local text = clientStrings:ReadCellText(6930, 2)
+		tattooPassiveNode.reminderText = { [1] = text:gsub("{}", datFileRow.MaximumConnected) }
+	end
 	tattooPassiveNode.MaximumConnected = (datFileRow.MaximumConnected > 0) and datFileRow.MaximumConnected or 100
 
 	parseStats(datFileRow, tattooPassiveNode)
-
+	if datFileRow.Limit then
+		tattooPassiveNode.sd[#tattooPassiveNode.sd + 1] = clientStrings:ReadCellText(6908, 2):gsub("{0}", datFileRow.Limit.Description)
+	end
 	data.nodes[datFileRow.Id] = tattooPassiveNode
 end
 
