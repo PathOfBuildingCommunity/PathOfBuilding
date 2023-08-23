@@ -2600,6 +2600,14 @@ skills["SupportFrigidBond"] = {
 	addSkillTypes = { SkillType.DamageOverTime, SkillType.DegenOnlySpellDamage, SkillType.NonHitChill, SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_damaging_links_base_duration_ms"] = {
+			mod("SecondaryDuration", "BASE", nil),
+			div = 1000,
+		},
+		["support_damaging_links_base_duration_is_gem"] = {
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "chill_effect_+%", 0.5 },
@@ -5032,6 +5040,16 @@ skills["SupportSacrifice"] = {
 	excludeSkillTypes = { SkillType.HasReservation, SkillType.Vaal, SkillType.Channel, SkillType.Trapped, SkillType.RemoteMined, SkillType.Orb, SkillType.Brand, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_sacrifice_sacrifice_%_of_current_life"] = {
+			mod("Multiplier:SacrificePercent", "BASE", nil, 0, 0, { type = "PercentStat", stat = "LifeUnreserved", percent = 1, actor = "parent" }),
+		},
+		["support_sacrifice_gain_%_of_sacrificed_life_as_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SacrificePercent" }),
+			mod("ChaosMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SacrificePercent" }),
+			div = 100,
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "chaos_damage_+%", 0.5 },

@@ -1161,6 +1161,17 @@ skills["SupportControlledBlaze"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimit" }),
+		},
+		["support_recent_ignites_damage_per_recent_ignite_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimit"}),
+		},
+		["support_recent_ignites_max_recent_ignites_tracked"] = {
+			mod("Multiplier:ControlledBlazeRecentIgniteLimit", "BASE", nil),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "base_chance_to_ignite_%", 0.5 },
@@ -2564,6 +2575,8 @@ skills["SupportGuardiansBlessing"] = {
 	statMap = {
 		["aura_skill_no_reservation"] = {
 		},
+		["support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute"] = {
+		},
 	},
 	baseMods = {
 		skill("manaReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura }),
@@ -2640,6 +2653,13 @@ skills["SupportGuardiansBlessingMinion"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.MinionsAreUndamageable, SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PercentStat", stat = "Life", percent = 1 }) }),
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PercentStat", stat = "EnergyShield", percent = 1 }) }),
+			div = 60,
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0.25 },
