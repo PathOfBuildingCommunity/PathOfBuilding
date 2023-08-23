@@ -526,7 +526,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawLayer(nil, 15)
 			else
 				-- Normal node (includes keystones and notables)
-				if node.isTattoo then
+				if node.isTattoo and node.effectSprites then -- trees < 3.22.0 don't have effectSprites
 					effect = node.effectSprites["tattooActiveEffect"]
 				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]

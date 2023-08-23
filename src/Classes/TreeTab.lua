@@ -552,15 +552,15 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		local nodeValue = treeNodes[selectedNode.id].sd[1]
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
 		if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
-		(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
-		and node.MaximumConnected >= numLinkedNodes
-		and node.MinimumConnected <= numLinkedNodes then
-		t_insert(modGroups, {
-		label = node.dn,
-		descriptions = copyTable(node.sd),
-		id = id,
-		})
-		end
+			(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
+			and node.MaximumConnected >= numLinkedNodes
+			and node.MinimumConnected <= numLinkedNodes then
+				t_insert(modGroups, {
+				label = node.dn .. "                                                " .. table.concat(node.sd, ","),
+				descriptions = copyTable(node.sd),
+				id = id,
+				})
+			end
 		end
 		table.sort(modGroups, function(a, b) return a.label < b.label end)
 		end
@@ -593,7 +593,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 
 	buildMods(selectedNode)
 	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 150, 25, 0, 16, "^7Modifier:")
-	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 155, 25, 579, 18, modGroups, function(idx) constructUI(modGroups[idx]) end)
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 155, 25, 250, 18, modGroups, function(idx) constructUI(modGroups[idx]) end)
 	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if mode ~= "OUT" and value then
@@ -619,7 +619,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(800, 105, "Replace Modifier of Node", controls, "save")
+	main:OpenPopup(500, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
 end
 
