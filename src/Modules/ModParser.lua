@@ -1875,6 +1875,9 @@ local specialModList = {
 	["totems explode on death, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Crucible weapon mod
 		return explodeFunc(100, amount, type)
 	end,
+	["nearby corpses explode when you warcry, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Ruthless Berserker node
+		return explodeFunc(100, amount, type)
+	end,
 	-- Keystones
 	["(%d+) rage regenerated for every (%d+) mana regeneration per second"] = function(num, _, div) return { 
 		mod("RageRegen", "BASE", num, {type = "PerStat", stat = "ManaRegen", div = tonumber(div) }) ,
@@ -2160,6 +2163,7 @@ local specialModList = {
 		flag("Condition:CanGainRage", { type = "ActorCondition", actor = "enemy", var = "PinnacleBoss" }),
 	},
 	["inherent effects from having rage are tripled"] = { mod("Multiplier:RageEffect", "BASE", 2) },
+	["inherent effects from having rage are doubled"] = { mod("Multiplier:RageEffect", "BASE", 1) },
 	["cannot be stunned while you have at least (%d+) rage"] = function(num) return { flag("StunImmune", { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
 	["lose ([%d%.]+)%% of life per second per rage while you are not losing rage"] = function(num) return { mod("LifeDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }, { type = "Multiplier", var = "Rage" }) } end,
 	["if you've warcried recently, you and nearby allies have (%d+)%% increased attack speed"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("Speed", "INC", num, nil, ModFlag.Attack) }, { type = "Condition", var = "UsedWarcryRecently" }) } end,
@@ -2375,6 +2379,9 @@ local specialModList = {
 	["attack damage is lucky if you[' ]h?a?ve blocked in the past (%d+) seconds"] = {
 		flag("LuckyHits", nil, ModFlag.Attack, { type = "Condition", var = "BlockedRecently" })
 	},
+	["attack damage while dual wielding is lucky if you[' ]h?a?ve blocked in the past (%d+) seconds"] = {
+		flag("LuckyHits", nil, ModFlag.Attack, { type = "Condition", var = "BlockedRecently" }, { type = "Condition", var = "DualWielding" })
+	},
 	["hits ignore enemy monster physical damage reduction if you[' ]h?a?ve blocked in the past (%d+) seconds"] = {
 		flag("IgnoreEnemyPhysicalDamageReduction", { type = "Condition", var = "BlockedRecently" })
 	},
@@ -2384,6 +2391,7 @@ local specialModList = {
 	} end,
     -- Guardian
 	["grants armour equal to (%d+)%% of your reserved life to you and nearby allies"] = function(num) return { mod("GrantReservedLifeAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
+	["grants armour equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { mod("GrantReservedManaAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
 	["grants maximum energy shield equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { mod("GrantReservedManaAsAura", "LIST", { mod = mod("EnergyShield", "BASE", num / 100) }) } end,
 	["grants armour equal to (%d+)%% of your reserved mana to you and nearby allies"] = function(num) return { mod("GrantReservedManaAsAura", "LIST", { mod = mod("Armour", "BASE", num / 100) }) } end,
 	["warcries cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Warcry) },
@@ -2477,6 +2485,11 @@ local specialModList = {
 	["regenerate (%d+)%% of mana over 2 seconds when you consume a corpse"] = function(num) return { mod("ManaRegen", "BASE", 1, { type = "PercentStat", stat = "Mana", percent = num / 2 }, { type = "Condition", var = "ConsumedCorpseInPast2Sec" }) } end,
 	["corpses you spawn have (%d+)%% increased maximum life"] = function(num) return { mod("CorpseLife", "INC", num) } end,
 	["corpses you spawn have (%d+)%% reduced maximum life"] = function(num) return { mod("CorpseLife", "INC", -num) } end,
+	["minions gain added physical damage equal to (%d+)%% of maximum energy shield on your equipped helmet"] = function(num) return {
+		mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", 1, { type = "PercentStat", stat = "EnergyShieldOnHelmet", actor = "parent", percent = num }) }),
+		mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShieldOnHelmet", actor = "parent", percent = num }) }),
+
+	} end,
 	-- Occultist
 	["when you kill an enemy, for each curse on that enemy, gain (%d+)%% of non%-chaos damage as extra chaos damage for 4 seconds"] = function(num) return {
 		mod("NonChaosDamageGainAsChaos", "BASE", num, { type = "Condition", var = "KilledRecently" }, { type = "Multiplier", var = "CurseOnEnemy" }),
@@ -2519,6 +2532,11 @@ local specialModList = {
 		mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", -num) }, { type = "Condition", var = "Phasing" }),
 		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", -num) }, { type = "Condition", var = "Phasing" }),
 	} end,
+	["nearby enemies have fire, cold and lightning exposure while you have phasing"] = {
+		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -10) }, { type = "Condition", var = "Phasing" }),
+		mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", -10) }, { type = "Condition", var = "Phasing" }),
+		mod("EnemyModifier", "LIST", { mod = mod("LightningExposure", "BASE", -10) }, { type = "Condition", var = "Phasing" }),
+	},
 	-- Saboteur
 	["hits have (%d+)%% chance to deal (%d+)%% more area damage"] = function (num, _, more) return {
 		mod("Damage", "MORE", (num*more/100), nil, bor(ModFlag.Area, ModFlag.Hit))
@@ -2540,6 +2558,7 @@ local specialModList = {
 	["gain (%d+)%% increased movement speed for 20 seconds when you kill an enemy"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "Condition", var = "KilledRecently" }) } end,
 	["gain (%d+)%% increased attack speed for 20 seconds when you kill a rare or unique enemy"] = function(num) return { mod("Speed", "INC", num, nil, ModFlag.Attack, 0, { type = "Condition", var = "KilledUniqueEnemy" }) } end,
 	["kill enemies that have (%d+)%% or lower life when hit by your skills"] = function(num) return { mod("CullPercent", "MAX", num) } end,
+	["you are unaffected by bleeding while leeching"] = { mod("SelfBleedEffect", "MORE", -100, { type = "Condition", var = "Leeching" }) },
 	-- Trickster
 	["(%d+)%% chance to gain (%d+)%% of non%-chaos damage with hits as extra chaos damage"] = function(num, _, perc) return { mod("NonChaosDamageGainAsChaos", "BASE", num / 100 * tonumber(perc)) } end,
 	["movement skills cost no mana"] = { mod("ManaCost", "MORE", -100, nil, 0, KeywordFlag.Movement) },
@@ -3390,6 +3409,9 @@ local specialModList = {
 	["warcries grant arcane surge to you and allies, with (%d+)%% increased effect per (%d+) power, up to (%d+)%%"] = function(num, _, div, limit) return {
 		mod("ExtraAura", "LIST", { mod = flag("Condition:ArcaneSurge")}, { type = "Condition", var = "UsedWarcryRecently" }),
 		mod("ArcaneSurgeEffect", "INC", num, { type = "PerStat", stat = "WarcryPower", div = tonumber(div), globalLimit = tonumber(limit), globalLimitKey = "Brinerot Flag"}, { type = "Condition", var = "UsedWarcryRecently" }),
+	} end,
+	["gain arcane surge after spending a total of (%d+) mana"] = function(num) return {
+		mod("ExtraAura", "LIST", { mod = flag("Condition:ArcaneSurge")}, { type = "MultiplierThreshold", var = "ManaSpentRecently", threshold = num }),
 	} end,
 	["gain onslaught for (%d+) seconds on hit while at maximum frenzy charges"] = { flag("Onslaught", { type = "StatThreshold", stat = "FrenzyCharges", thresholdStat = "FrenzyChargesMax" }, { type = "Condition", var = "HitRecently" }) },
 	["enemies in your chilling areas take (%d+)%% increased lightning damage"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("LightningDamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "InChillingArea" }) } end,
