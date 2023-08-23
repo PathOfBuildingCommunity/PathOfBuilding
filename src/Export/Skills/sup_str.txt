@@ -134,10 +134,10 @@ local skills, mod, flag, skill = ...
 			div = 60,
 		},
 		["support_corrupting_cry_warcry_applies_X_stacks_of_corrupted_blood"] = {
-			mod("CorruptingCryStagesFromWarcry", nil)
+			mod("CorruptingCryStagesFromWarcry", nil, 0, KeywordFlag.Warcry)
 		},
 		["support_corrupting_cry_exerted_attack_applies_X_stacks_of_corrupted_blood_on_first_hit"] = {
-			mod("CorruptingCryStagesFromExerted", nil)
+			mod("CorruptingCryStagesFromExerted", nil, 0, KeywordFlag.Attack)
 		},
 		["support_corrupting_cry_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Warcry)
@@ -150,7 +150,7 @@ local skills, mod, flag, skill = ...
 	baseMods = {
 		skill("debuff", true),
 		mod("Multiplier:CorruptingCryMaxStages", "BASE", 10),
-		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"}),
+		mod("Damage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"}),
 	},
 #mods
 
