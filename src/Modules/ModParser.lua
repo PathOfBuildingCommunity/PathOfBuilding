@@ -4042,6 +4042,11 @@ local specialModList = {
 	["unaffected by scorch"] = { mod("SelfScorchEffect", "MORE", -100) },
 	["unaffected by brittle"] = { mod("SelfBrittleEffect", "MORE", -100) },
 	["unaffected by sap"] = { mod("SelfSapEffect", "MORE", -100) },
+	["unaffected by damaging ailments"] = {
+		mod("SelfBleedEffect", "MORE", -100),
+		mod("SelfIgniteEffect", "MORE", -100),
+		mod("SelfPoisonEffect", "MORE", -100),
+	},
 	["the effect of chill on you is reversed"] = { flag("SelfChillEffectIsReversed") },
 	["your movement speed is (%d+)%% of its base value"] = function(num) return { mod("MovementSpeed", "OVERRIDE", num / 100) } end,
 	["action speed cannot be modified to below (%d+)%% base value"] = function(num) return { mod("MinimumActionSpeed", "MAX", num) } end,
