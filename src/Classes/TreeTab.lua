@@ -539,7 +539,6 @@ end
 function TreeTabClass:ModifyNodePopup(selectedNode)
 	local controls = { }
 	local modGroups = { }
-	local maxTextWidth = 0
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
 		local treeNodes = self.build.spec.tree.nodes
@@ -559,10 +558,6 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 				descriptions = descriptionsAndReminders,
 				id = id,
 				})
-				for _, text in ipairs(descriptionsAndReminders) do
-					local textWidth = DrawStringWidth(14, "VAR", text)
-					maxTextWidth = textWidth > maxTextWidth and textWidth or maxTextWidth
-				end
 			end
 		end
 		table.sort(modGroups, function(a, b) return a.label < b.label end)
@@ -578,6 +573,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 
 	local function constructUI(modGroup)
 		local totalHeight = 43
+		local maxWidth = 180
 		local i = 1
 		while controls[i] do
 			controls[i] = nil
@@ -587,8 +583,12 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		for idx, desc in ipairs(modGroup.descriptions) do
 			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
 			totalHeight = totalHeight + 20
+
+			local textWidth = DrawStringWidth(14, "VAR", desc)
+			maxWidth = textWidth > maxWidth and textWidth or maxWidth
 		end
 		main.popups[1].height = totalHeight + 30
+		main.popups[1].width = maxWidth + 235
 		controls.save.y = totalHeight
 		controls.reset.y = totalHeight
 		controls.close.y = totalHeight
@@ -622,7 +622,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(240 + maxTextWidth, 105, "Replace Modifier of Node", controls, "save")
+	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
 end
 
