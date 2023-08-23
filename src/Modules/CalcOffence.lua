@@ -84,7 +84,6 @@ local function processExertingWarcrySupports(env, activeSkill)
 	--Corrupting Cry
 	if activeSkill.skillData.PhysicalDot and (not env.player.mainSkill.skillData.PhysicalDot or env.player.mainSkill.skillData.PhysicalDot < activeSkill.skillData.PhysicalDot) then
 		env.player.mainSkill.skillData.PhysicalDot = activeSkill.skillData.PhysicalDot
-		env.player.mainSkill.skillData.durationSecondary = activeSkill.skillData.durationSecondary
 	end
 end
 
