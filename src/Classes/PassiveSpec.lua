@@ -922,10 +922,10 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						end
 					end
 				elseif conqueredBy.conqueror.type == "karui" then
-					local str = isValueInArray(attributes, node.dn) and "2" or "4"
+					local str = (isValueInArray(attributes, node.dn) or node.isTattoo) and "2" or "4"
 					self:NodeAdditionOrReplacementFromString(node, " \n+" .. str .. " to Strength")
 				elseif conqueredBy.conqueror.type == "maraketh" then
-					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
+					local dex = (isValueInArray(attributes, node.dn) or node.isTattoo) and "2" or "4"
 					self:NodeAdditionOrReplacementFromString(node, " \n+" .. dex .. " to Dexterity")
 				elseif conqueredBy.conqueror.type == "templar" then
 					if isValueInArray(attributes, node.dn) then
