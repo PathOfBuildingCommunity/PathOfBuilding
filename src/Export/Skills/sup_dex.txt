@@ -415,6 +415,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportSadism
+	statMap = {
+		["support_faster_ailments_ailment_duration_+%_final"] = {
+			mod("EnemyAilmentDuration", "MORE", nil), 
+		},
+	},
 #mods
 
 #skill SupportAdditionalCooldown
