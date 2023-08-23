@@ -30,7 +30,9 @@ local function addTriggerIncMoreMods(activeSkill, sourceSkill)
 end
 
 local function slotMatch(env, skill)
-	local match1 = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem) and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
+	local fromItem = (env.player.mainSkill.activeEffect.grantedEffect.fromItem or skill.activeEffect.grantedEffect.fromItem)
+	fromItem = fromItem or (env.player.mainSkill.activeEffect.srcInstance.fromItem or skill.activeEffect.srcInstance.fromItem)
+	local match1 = fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 	local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
 	return (match1 or match2)
 end
