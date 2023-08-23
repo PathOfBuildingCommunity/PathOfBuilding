@@ -350,6 +350,7 @@ local skills, mod, flag, skill = ...
 #skill CorruptingFever
 #flags spell duration
 #baseMod skill("debuff", true)
+#baseMod flag("dotIsCorruptingBlood")
 #baseMod mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10)
 #baseMod mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"})
 #mods
