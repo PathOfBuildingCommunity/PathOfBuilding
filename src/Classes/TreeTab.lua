@@ -539,6 +539,7 @@ end
 function TreeTabClass:ModifyNodePopup(selectedNode)
 	local controls = { }
 	local modGroups = { }
+	local maxTextWidth = 0
 	local function buildMods(selectedNode)
 		wipeTable(modGroups)
 		local treeNodes = self.build.spec.tree.nodes
@@ -546,18 +547,22 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		local nodeName = treeNodes[selectedNode.id].dn
 		local nodeValue = treeNodes[selectedNode.id].sd[1]
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
-		if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
-				(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
-				and node.MinimumConnected <= numLinkedNodes then
-			local descriptionsAndReminders = copyTable(node.sd)
-			if node.reminderText then
-				t_insert(descriptionsAndReminders, node.reminderText[1])
-			end
+			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
+					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
+					and node.MinimumConnected <= numLinkedNodes then
+				local descriptionsAndReminders = copyTable(node.sd)
+				if node.reminderText then
+					t_insert(descriptionsAndReminders, node.reminderText[1])
+				end
 				t_insert(modGroups, {
 				label = node.dn .. "                                                " .. table.concat(node.sd, ","),
 				descriptions = descriptionsAndReminders,
 				id = id,
 				})
+				for _, text in ipairs(descriptionsAndReminders) do
+					local textWidth = DrawStringWidth(14, "VAR", text)
+					maxTextWidth = textWidth > maxTextWidth and textWidth or maxTextWidth
+				end
 			end
 		end
 		table.sort(modGroups, function(a, b) return a.label < b.label end)
@@ -617,7 +622,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
+	main:OpenPopup(240 + maxTextWidth, 105, "Replace Modifier of Node", controls, "save")
 	constructUI(modGroups[1])
 end
 
