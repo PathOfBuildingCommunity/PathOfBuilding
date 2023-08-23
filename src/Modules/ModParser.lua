@@ -1815,7 +1815,7 @@ local specialModList = {
 	["totems explode on death, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Crucible weapon mod
 		return explodeFunc(100, amount, type)
 	end,
-	["nearby corpses explode when you warcry, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Crucible weapon mod
+	["nearby corpses explode when you warcry, dealing (%d+)%% of their life as (.+) damage"] = function(amount, _, type)	-- Ruthless Berserker node
 		return explodeFunc(100, amount, type)
 	end,
 	-- Keystones
