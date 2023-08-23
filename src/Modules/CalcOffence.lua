@@ -2362,6 +2362,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.TheoreticalOffensiveWarcryEffect = globalOutput.TheoreticalOffensiveWarcryEffect * globalOutput.RallyingHitEffect
 						globalOutput.TheoreticalMaxOffensiveWarcryEffect = globalOutput.TheoreticalMaxOffensiveWarcryEffect * globalOutput.RallyingMaxHitEffect
 						globalOutput.RallyingCryCalculated = true
+						
 					elseif value.activeEffect.grantedEffect.name == "Seismic Cry" and activeSkill.skillTypes[SkillType.Slam] and not globalOutput.SeismicCryCalculated then
 						globalOutput.CreateWarcryOffensiveCalcSection = true
 						globalOutput.SeismicCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
@@ -2405,6 +2406,7 @@ function calcs.offence(env, actor, activeSkill)
 							skillModList:NewMod("AreaOfEffect", "INC", m_floor(AvgAoEImpact * globalOutput.SeismicUpTimeRatio), "Avg Seismic Exert AoE")
 						end
 						calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
+						globalOutput.SeismicCryCalculated = true
 					end
 				end
 
