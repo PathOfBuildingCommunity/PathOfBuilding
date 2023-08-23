@@ -59,18 +59,39 @@ function itemLib.getLineRangeMinMax(line)
 	return rangeMin, rangeMax
 end
 
--- Apply range value (0 to 1) to a modifier that has a range: (x to x) or (x-x to x-x)
+local antonyms = {
+	["increased"] = "reduced",
+	["reduced"] = "increased",
+	["more"] = "less",
+	["less"] = "more",
+}
+
+-- Apply range value (0 to 1) to a modifier that has a range: "(x-x)" or "(x-x) to (x-x)"
 function itemLib.applyRange(line, range, valueScalar)
-	local numbers = 0
-	local precision = nil
+	local precisionSame = true
 	-- Create a line with ranges removed to check if the mod is a high precision mod.
-	local testLine = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
-	:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
-	:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)", function(plus, min, max) return plus.."1" end)
-	:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
-	:gsub("%-(%d+%%) reduced", function(num) return num.." increased" end)
-	:gsub("%-(%d+%%) more", function(num) return num.." less" end)
-	:gsub("%-(%d+%%) less", function(num) return num.." more" end)
+	local testLine = not line:find("-", 1, true) and line or
+		line:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)",
+		function(plus, min, max)
+			min = tonumber(min)
+			local maxPrecision = min + range * (tonumber(max) - min)
+			local minPrecision = m_floor(maxPrecision + 0.5)
+			if minPrecision ~= maxPrecision then
+				precisionSame = false
+			end
+			return (minPrecision < 0 and "" or plus) .. tostring(minPrecision)
+		end)
+		:gsub("%-(%d+%%) (%a+)",
+		function(num, word)
+			local antonym = antonyms[word]
+			return antonym and (num.." "..antonym) or ("-"..num.." "..word)
+		end)
+
+	if precisionSame and (not valueScalar or valueScalar == 1) then
+		return testLine
+	end
+
+	local precision = nil
 	local modList, extra = modLib.parseMod(testLine)
 	if modList and not extra then
 		for _, mod in pairs(modList) do
@@ -86,27 +107,25 @@ function itemLib.applyRange(line, range, valueScalar)
 	if not precision and line:match("(%d+%.%d*)") then
 		precision = data.defaultHighPrecision
 	end
-	line = line:gsub("%((%d+)%-(%d+) to (%d+)%-(%d+)%)", "(%1-%2) to (%3-%4)")
-		:gsub("(%+?)%((%-?%d+) to (%d+)%)", "%1(%2-%3)")
-		:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)",
+
+	local numbers = 0
+	line = line:gsub("(%+?)%((%-?%d+%.?%d*)%-(%-?%d+%.?%d*)%)",
 		function(plus, min, max)
 			numbers = numbers + 1
 			local power = 10 ^ (precision or 0)
 			local numVal = m_floor((tonumber(min) + range * (tonumber(max) - tonumber(min))) * power + 0.5) / power
-			if numVal < 0 then
-				if plus == "+" then
-					plus = ""
-				end
-			end
-			return plus .. tostring(numVal)
+			return (numVal < 0 and "" or plus) .. tostring(numVal)
 		end)
-		:gsub("%-(%d+%%) increased", function(num) return num.." reduced" end)
-		:gsub("%-(%d+%%) reduced", function(num) return num.." increased" end)
-		:gsub("%-(%d+%%) more", function(num) return num.." less" end)
-		:gsub("%-(%d+%%) less", function(num) return num.." more" end)
-		if numbers == 0 and line:match("(%d+%.?%d*)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
-			numbers = 1
-		end
+		:gsub("%-(%d+%%) (%a+)",
+		function(num, word)
+			local antonym = antonyms[word]
+			return antonym and (num.." "..antonym) or ("-"..num.." "..word)
+		end)
+
+	if numbers == 0 and line:match("(%d+%.?%d*)%%? ") then --If a mod contains x or x% and is not already a ranged value, then only the first number will be scalable as any following numbers will always be conditions or unscalable values.
+		numbers = 1
+	end
+
 	return itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 end
 
