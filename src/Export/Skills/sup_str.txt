@@ -147,11 +147,10 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		}
 	},
-	baseMods = {
-		skill("debuff", true),
-		mod("Multiplier:CorruptingCryMaxStages", "BASE", 10),
-		mod("Damage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"}),
-	},
+#baseMod skill("debuff", true)
+#baseMod flag("dotIsCorruptingBlood")
+#baseMod mod("Multiplier:CorruptingCryMaxStages", "BASE", 10)
+#baseMod mod("Damage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"})
 #mods
 
 #skill SupportCruelty

@@ -1256,6 +1256,7 @@ skills["SupportCorruptingCry"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		flag("dotIsCorruptingBlood"),
 		mod("Multiplier:CorruptingCryMaxStages", "BASE", 10),
 		mod("Damage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"}),
 	},

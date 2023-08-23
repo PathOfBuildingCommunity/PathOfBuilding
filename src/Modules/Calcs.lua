@@ -186,17 +186,19 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		TotalDotDPS = 0,
 		skills = { },
 		poisonDPS = 0,
+		causticGroundDPS = 0,
 		impaleDPS = 0,
 		igniteDPS = 0,
-		bleedDPS = 0,
-		decayDPS = 0,
 		burningGroundDPS = 0,
-		causticGroundDPS = 0,
+		bleedDPS = 0,
+		corruptingBloodDPS = 0,
+		decayDPS = 0,
 		dotDPS = 0,
 		cullingMulti = 0
 	}
 
 	local bleedSource = ""
+	local corruptingBloodSource = ""
 	local igniteSource = ""
 	local burningGroundSource = ""
 	local causticGroundSource = ""
@@ -309,6 +311,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					fullDPS.bleedDPS = usedEnv.player.output.BleedDPS
 					bleedSource = activeSkill.activeEffect.grantedEffect.name
 				end
+				if usedEnv.player.output.CorruptingBloodDPS and usedEnv.player.output.CorruptingBloodDPS > fullDPS.corruptingBloodDPS then
+					fullDPS.corruptingBloodDPS = usedEnv.player.output.CorruptingBloodDPS
+					corruptingBloodSource = activeSkill.activeEffect.grantedEffect.name
+				end
 				if usedEnv.player.output.IgniteDPS and usedEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
 					fullDPS.igniteDPS = usedEnv.player.output.IgniteDPS
 					igniteSource = activeSkill.activeEffect.grantedEffect.name
@@ -355,6 +361,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	if fullDPS.bleedDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Best Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.bleedDPS
+	end
+	if fullDPS.corruptingBloodDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Best CorruptingBlood DPS", dps = fullDPS.corruptingBloodDPS, count = 1, source = corruptingBloodSource })
+		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.corruptingBloodDPS
 	end
 	if fullDPS.igniteDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Best Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = igniteSource })
