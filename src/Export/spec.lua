@@ -10497,6 +10497,22 @@ return {
 	},
 	ZanaQuests={
 	},
+	displayminionmonstertype={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[2]={
+			list=false,
+			name="MonsterVarieties",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=400
+		}
+	},
 	passiveoverridelimits={
 		[1]={
 			list=false,

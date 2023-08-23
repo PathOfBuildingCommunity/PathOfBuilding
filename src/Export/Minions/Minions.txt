@@ -136,3 +136,15 @@ local minions, mod = ...
 #monster Metadata/Monsters/LeagueExpedition/Arbalest/SummonedArbalest SummonedArbalists
 #limit ActiveArbalistLimit
 #emit
+
+#monster Metadata/Monsters/Axis/AxisEliteSoldierRadiance GuardianSentinel
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicFire GuardianRelicFire
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicCold GuardianRelicCold
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicLightning GuardianRelicLightning
+#emit
