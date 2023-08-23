@@ -3144,6 +3144,7 @@ local specialModList = {
 		mod("SpellSuppressionAppliesToAilmentAvoidancePercent", "BASE", num),
 		flag("SpellSuppressionAppliesToAilmentAvoidance")
 	} end,
+	["enemies chilled by your hits have damage taken increased by chill effect"] = { flag("ChillEffectIncDamageTaken") },
 	-- Bleed
 	["melee attacks cause bleeding"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Melee) },
 	["attacks cause bleeding when hitting cursed enemies"] = { mod("BleedChance", "BASE", 100, nil, ModFlag.Attack, { type = "ActorCondition", actor = "enemy", var = "Cursed" }) },
