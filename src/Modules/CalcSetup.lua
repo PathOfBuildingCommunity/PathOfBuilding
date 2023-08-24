@@ -1094,6 +1094,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if grantedSkill.triggered then
 					activeGemInstance.triggered = grantedSkill.triggered
 				end
+				if grantedSkill.triggerChance then
+					activeGemInstance.triggerChance = grantedSkill.triggerChance
+				end
 				wipeTable(group.gemList)
 				t_insert(group.gemList, activeGemInstance)
 				if grantedSkill.noSupports then

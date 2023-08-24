@@ -858,6 +858,7 @@ skills["SupportCastOnMeleeKillTriggered"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -933,11 +934,15 @@ skills["SupportCastOnDamageTaken"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_on_damage_taken_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["cast_when_damage_taken_trigger_threshold_+%"] = {
+			mod("CWDTThreshold", "MORE", nil)
+		}
 	},
 	qualityStats = {
 		Default = {
@@ -2224,6 +2229,11 @@ skills["SupportFlamewood"] = {
 	excludeSkillTypes = { },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_flamewood_totems_trigger_infernal_bolt_when_hit"] = {
+			-- Display only
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0.5 },
@@ -2288,7 +2298,28 @@ skills["AvengingFlame"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		local uuid = activeSkill.skillData.triggerSourceUUID
+		local cache = uuid and GlobalCache.cachedData["CACHE"][uuid]
+		local totemLife = cache and cache.Env.player.output.TotemLife or 0
+		
+		local add = totemLife * activeSkill.skillData.lifeDealtAsFire / 100
+		activeSkill.skillData.FireMax = (activeSkill.skillData.FireMax or 0) + add
+		activeSkill.skillData.FireMin = (activeSkill.skillData.FireMin or 0) + add
+	end,
+	statMap = {
+		["active_skill_base_area_of_effect_radius"] = {
+			skill("radius", nil),
+		},
+		["infernal_bolt_base_fire_damage_%_maximum_life"] = {
+			skill("lifeDealtAsFire", nil),
+		},
+		["infernal_bolt_triggered_when_totem_with_this_skill_hit_by_enemy"] = {
+			-- Display only
+		}
+	},
 	baseFlags = {
+		area = true,
 	},
 	qualityStats = {
 		Default = {
@@ -4454,9 +4485,6 @@ skills["SupportBluntWeaponShockwave"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 	baseFlags = {
 		attack = true,
 		melee = true,
