@@ -197,6 +197,9 @@ local skills, mod, flag, skill = ...
 		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
 		},
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCurse
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 		},
 	},
@@ -204,6 +207,10 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCurseOnHitCurse
 	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+			flag("HasNoCost")
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
@@ -212,6 +219,9 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCurseOnHitPlus
 	statMap = {
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCursePlus
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 		},
 	},
@@ -219,6 +229,10 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCurseOnHitCursePlus
 	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+			flag("HasNoCost")
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
@@ -389,6 +403,11 @@ local skills, mod, flag, skill = ...
 
 #skill ViciousHexSupport
 #flags spell area chaos hex
+	statMap = {
+		["trigger_vicious_hex_explosion_when_curse_ends"] = {
+			-- Display only
+		},
+	},
 #mods
 
 #skill ViciousHexExplosion
@@ -614,6 +633,7 @@ local skills, mod, flag, skill = ...
 #skill SupportPrismaticBurst
 	statMap = {
 		["trigger_prismatic_burst_on_hit_%_chance"] = {
+			-- Display only
 		},
 	},
 #mods
@@ -631,9 +651,6 @@ local skills, mod, flag, skill = ...
 			name = "Lightning",
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 	statMap = {
 		["prismatic_burst_unchosen_type_damage_-100%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),

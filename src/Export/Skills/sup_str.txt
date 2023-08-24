@@ -110,6 +110,9 @@ local skills, mod, flag, skill = ...
 		["cast_on_damage_taken_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["cast_when_damage_taken_trigger_threshold_+%"] = {
+			mod("CWDTThreshold", "MORE", nil)
+		}
 	},
 #mods
 
@@ -134,6 +137,12 @@ local skills, mod, flag, skill = ...
 		},
 		["support_recent_ignites_max_recent_ignites_tracked"] = {
 			mod("Multiplier:ControlledBlazeRecentIgniteLimit", "BASE", nil),
+		},
+		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"] = {
+			-- Display only,
+		},
+		["support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"] = {
+			-- Display only,
 		},
 	},
 #mods
@@ -280,9 +289,35 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportFlamewood
+	statMap = {
+		["support_flamewood_totems_trigger_infernal_bolt_when_hit"] = {
+			-- Display only
+		}
+	},
 #mods
 
 #skill AvengingFlame
+	preDamageFunc = function(activeSkill, output)
+		local uuid = activeSkill.skillData.triggerSourceUUID
+		local cache = uuid and GlobalCache.cachedData["CACHE"][uuid]
+		local totemLife = cache and cache.Env.player.output.TotemLife or 0
+		
+		local add = totemLife * activeSkill.skillData.lifeDealtAsFire / 100
+		activeSkill.skillData.FireMax = (activeSkill.skillData.FireMax or 0) + add
+		activeSkill.skillData.FireMin = (activeSkill.skillData.FireMin or 0) + add
+	end,
+	statMap = {
+		["active_skill_base_area_of_effect_radius"] = {
+			skill("radius", nil),
+		},
+		["infernal_bolt_base_fire_damage_%_maximum_life"] = {
+			skill("lifeDealtAsFire", nil),
+		},
+		["infernal_bolt_triggered_when_totem_with_this_skill_hit_by_enemy"] = {
+			-- Display only
+		}
+	},
+#flags area
 #mods
 
 #skill SupportFortify
@@ -580,9 +615,6 @@ local skills, mod, flag, skill = ...
 
 #skill SupportBluntWeaponShockwave
 #flags attack melee area
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 #mods
 
 #skill SupportSpellTotem
@@ -621,7 +653,7 @@ local skills, mod, flag, skill = ...
 			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["support_trauma_base_duration_ms"] = {
-			skill("duration", nil),
+			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
 		["supported_skill_can_only_use_axe_mace_and_staff"] = {

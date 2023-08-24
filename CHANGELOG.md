@@ -1,5 +1,49 @@
 # Changelog
 
+## [v2.33.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.0) (2023/08/25)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.32.2...v2.33.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Support for triggered skills has been reworked [\#6468](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6468) ([Paliak](https://github.com/Paliak))
+    * Calculations of effective triggered skills trigger rate should now be more accurate
+    * Improve cooldown breakpoint interactions with skills that add Cast time
+    * Implemented all currently existing trigger skills that POB is capable of supporting. Including:
+        * CWDT
+        * Spell Slinger
+        * Counter-attack skills
+        * Arcanist brand
+        * Tawhoa's Chosen
+        * Battlemage's Cry
+* Add support for Trigger Bots
+* Add support for Flamewood Support
+- Add Support for Guardian's minion RF skill [\#6479](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6479) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Crashes
+- Fix crash when using Ruthless Support in a Poison build [\#6473](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6473) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix crash when trying to edit Energy Blade weapon [\#6446](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6446) ([Wires77](https://github.com/Wires77))
+- Fix crash when viewing resist breakdown while having Chieftains Valako Ascendancy [\#6460](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6460) ([Paliak](https://github.com/Paliak))
+### User Interface
+- Trigger related breakdowns should now be more descriptive [\#6468](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6468) ([Paliak](https://github.com/Paliak))
+- Improve breakdowns for skills that add Cast time [\#6468](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6468) ([Paliak](https://github.com/Paliak))
+- Display Cast when Damage Taken threshold in the trigger rate section [\#6468](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6468) ([Paliak](https://github.com/Paliak))
+### Accuracy Improvements
+- Fix inaccuracies caused by incorrect handling of skill cooldown during skill rotation simulation [\#6468](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6468) ([Paliak](https://github.com/Paliak))
+- Triggers should now correctly account for source rate modifiers such as crit chance and accuracy [\#6468](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6468) ([Paliak](https://github.com/Paliak))
+- Fix many self triggers counting as self-cast [\#6468](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6468) ([Paliak](https://github.com/Paliak))
+- Fix incorrect handling of gems supported by more than one trigger [\#6468](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6468) ([Paliak](https://github.com/Paliak))
+### Fixed Bugs
+- Fix Volatility from applying multiple times when conversion is present [\#6464](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6464) ([Regisle](https://github.com/Regisle))
+- Fix Chain count box not appearing sometimes [\#6471](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6471) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Cold Exposure mastery not working correctly [\#6472](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6472) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix gems not benefiting from Supports sometimes [\#6474](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6474) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Trauma Duration sometimes using skill Duration [\#6475](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6475) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Strength of Blood Keystone not working [\#6478](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6478) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.32.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.32.2) (2023/08/24)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.32.1...v2.32.2)
@@ -8,8 +52,12 @@
 
 ## What's Changed
 ### Bug Fixes
-- Fix crash caused by usage of incorrect breakdown table [\#6452](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6452) ([Paliak](https://github.com/Paliak))
-- Fix lua error when hovering Ascendant nodes [\#6454](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6454) ([Wires77](https://github.com/Wires77))
+- Fix crash caused by usage of incorrect breakdown table [\#6452
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6452
+) ([Paliak](https://github.com/Paliak))
+- Fix lua error when hovering Ascendant nodes [\#6454
+](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6454
+) ([Wires77](https://github.com/Wires77))
 
 
 

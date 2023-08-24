@@ -1,5 +1,48 @@
+VERSION[2.33.0][2023/08/25]
+
+--- New to Path of Building ---
+* Support for triggered skills has been reworked (Paliak)
+    * Calculations of effective triggered skills trigger rate should now be more accurate
+    * Improve cooldown breakpoint interactions with skills that add Cast time
+    * Implemented all currently existing trigger skills that POB is capable of supporting. Including:
+        * CWDT
+        * Spell Slinger
+        * Counter-attack skills
+        * Arcanist brand
+        * Tawhoa's Chosen
+        * Battlemage's Cry
+* Add support for Trigger Bots
+* Add support for Flamewood Support
+* Add Support for Guardian's minion RF skill (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix crash when using Ruthless Support in a Poison build (LocalIdentity)
+* Fix crash when trying to edit Energy Blade weapon (Wires77)
+* Fix crash when viewing resist breakdown while having Chieftains Valako Ascendancy (Paliak)
+
+--- User Interface ---
+* Trigger related breakdowns should now be more descriptive (Paliak)
+* Improve breakdowns for skills that add Cast time (Paliak)
+* Display Cast when Damage Taken threshold in the trigger rate section (Paliak)
+
+--- Accuracy Improvements ---
+* Fix inaccuracies caused by incorrect handling of skill cooldown during skill rotation simulation (Paliak)
+* Triggers should now correctly account for source rate modifiers such as crit chance and accuracy (Paliak)
+* Fix many self triggers counting as self-cast (Paliak)
+* Fix incorrect handling of gems supported by more than one trigger (Paliak)
+
+--- Fixed Bugs ---
+* Fix Volatility from applying multiple times when conversion is present (Regisle)
+* Fix Chain count box not appearing sometimes (LocalIdentity)
+* Fix Cold Exposure mastery not working correctly (LocalIdentity)
+* Fix gems not benefiting from Supports sometimes (LocalIdentity)
+* Fix Trauma Duration sometimes using skill Duration (LocalIdentity)
+* Fix Strength of Blood Keystone not working (LocalIdentity)
+
+
 VERSION[2.32.2][2023/08/24]
 
+--- Fixed Bugs ---
 * Fix crash caused by usage of incorrect breakdown table (Paliak)
 * Fix lua error when hovering Ascendant nodes (Wires77)
 
@@ -7,15 +50,15 @@ VERSION[2.32.2][2023/08/24]
 VERSION[2.32.1][2023/08/24]
 
 --- Fixed Bugs ---
-* Fix crash when opening some minion builds
-* Fix Timeless jewel stats disappearing when applying a tattoo
+* Fix crash when opening some minion builds (Paliak)
+* Fix Timeless jewel stats disappearing when applying a tattoo (Wires77)
 
 VERSION[2.32.0][2023/08/24]
 
 --- New to Path of Building ---
 * Add support for tattoos (Wires77)
 * Add support for Ruthless tree (Wires77)
-* Add support for 3.22 skill gems by (LocalIdentity, Lilylicious, Regisle, Paliak, Wires77, deathbeam)
+* Add support for 3.22 skill gems (LocalIdentity, Lilylicious, Regisle, Paliak, Wires77, deathbeam)
   * Full Support
   * Locus Mine
   * Devour
@@ -32,7 +75,7 @@ VERSION[2.32.0][2023/08/24]
 * Add support for new Chieftain and Guardian ascendancy nodes (Paliak)
 * Add initial support for Guardian minion nodes (LocalIdentity)
 * Add self-hit calculations for Scolds Bridle, Eye of Innocence and Heartbound Loop (Paliak)
-* Add support for new Ancestor uniques by (Wires77, LocalIdentity)
+* Add support for new Ancestor uniques (Wires77, LocalIdentity)
 * Improve startup time (Lancej)
 
 --- User Interface ---

@@ -206,6 +206,9 @@ skills["AbyssalCry"] = {
 		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
 			mod("InfernalFireTakenPer5MP", "BASE", nil),
 		},
+		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -311,6 +314,11 @@ skills["InfernalCryOnHitExplosion"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["triggered_by_infernal_cry"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -1030,6 +1038,9 @@ skills["BattlemagesCry"] = {
 		["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"] = {
 			mod("BattlemageCritChancePer5MP", "BASE", nil),
 		},
+		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
+			-- Display only
+		},
 	},
 	baseFlags = {
 		area = true,
@@ -1116,8 +1127,17 @@ skills["BattlemagesCrySupport"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_divine_cry_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["triggered_by_divine_cry"] = {
+			skill("triggeredByBattleMageCry", true),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -1523,7 +1543,7 @@ skills["Boneshatter"] = {
 			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
 		["boneshatter_trauma_base_duration_ms"] = {
-			skill("duration", nil),
+			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
 	},

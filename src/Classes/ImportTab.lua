@@ -767,8 +767,9 @@ function ImportTabClass:ImportItem(itemData, slotName)
 				end
 			end
 			item.name = oneHanded and "Energy Blade One Handed" or "Energy Blade Two Handed"
-			itemData.implicitMods = nil
-			itemData.explicitMods = nil
+			item.rarity = "NORMAL"
+			itemData.implicitMods = { }
+			itemData.explicitMods = { }
 		end
 		for baseName, baseData in pairs(self.build.data.itemBases) do
 			local s, e = item.name:find(baseName, 1, true)
@@ -846,7 +847,13 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.sockets and itemData.sockets[1] then
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
+			if socket.sColour == "A" then
+				item.abyssalSocketCount = item.abyssalSocketCount or 0 + 1
+			end
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
+		end
+		if item.abyssalSocketCount and item.abyssalSocketCount > 0 then
+			t_insert(itemData.explicitMods, "Has " .. item.abyssalSocketCount .. " Abyssal Sockets")
 		end
 	end
 	if itemData.socketedItems then

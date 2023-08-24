@@ -16,6 +16,7 @@ LoadModule("Modules/CalcPerform", calcs)
 LoadModule("Modules/CalcActiveSkill", calcs)
 LoadModule("Modules/CalcDefence", calcs)
 LoadModule("Modules/CalcOffence", calcs)
+LoadModule("Modules/CalcTriggers", calcs)
 
 -- Get the average value of a table -- note this is unused
 function math.average(t)
@@ -407,12 +408,12 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 end
 
 -- Process active skill
-function calcs.buildActiveSkill(env, mode, skill, setMark)
+function calcs.buildActiveSkill(env, mode, skill, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
 		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
 			fullEnv.player.mainSkill = activeSkill
-			fullEnv.player.mainSkill.marked = setMark
+			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[cacheSkillUUID(activeSkill)]
 			calcs.perform(fullEnv)
 			return
 		end
