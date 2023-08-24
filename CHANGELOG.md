@@ -1,5 +1,16 @@
 # Changelog
 
+## [v2.32.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.32.1) (2023/08/24)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.32.0...v2.32.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix crash when opening some minion builds
+- Fix Timeless jewel stats disappearing when applying a tattoo
+
 ## [v2.32.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.32.0) (2023/08/24)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.31.2...v2.32.0)
