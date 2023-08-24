@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
             - name: Checkout
-              uses: actions/checkout@v3.5
+              uses: actions/checkout@v3
               with:
                 ref: 'dev'
             - name: Generate Release notes
@@ -49,7 +49,7 @@ jobs:
                 rm changelog_temp.txt;
                 mv changelog_new.txt changelog.txt
             - name: Create Pull Request
-              uses: peter-evans/create-pull-request@v5.0
+              uses: peter-evans/create-pull-request@v5
               with:
                   draft: true
                   title: Release ${{ github.event.inputs.releaseVersion }}
