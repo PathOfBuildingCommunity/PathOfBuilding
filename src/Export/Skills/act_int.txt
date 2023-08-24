@@ -2117,6 +2117,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 		},
 		["spellslinger_trigger_on_wand_attack_%"] = {
+			skill("triggeredBySpellSlinger", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 		},
 	},
 #baseMod flag("Condition:SupportedBySpellslinger")
@@ -2142,7 +2143,7 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "MORE", nil),
 		},
 		["trigger_brand_support_hit_damage_+%_final_vs_branded_enemy"] = {
-			mod("TriggeredDamage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
 	addSkillTypes = { SkillType.Brand, },
@@ -2443,6 +2444,7 @@ local skills, mod, flag, skill = ...
 			--Display only
 		}
 	},
+#baseMod skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell })
 #baseMod flag("ShockImmune")
 #mods
 

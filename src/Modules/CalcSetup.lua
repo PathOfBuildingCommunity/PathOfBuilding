@@ -1087,11 +1087,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 					quality = 0,
 					enabled = true,
 				}
+				activeGemInstance.fromItem = grantedSkill.sourceItem ~= nil
 				activeGemInstance.gemId = nil
 				activeGemInstance.level = grantedSkill.level
 				activeGemInstance.enableGlobal1 = true
 				if grantedSkill.triggered then
 					activeGemInstance.triggered = grantedSkill.triggered
+				end
+				if grantedSkill.triggerChance then
+					activeGemInstance.triggerChance = grantedSkill.triggerChance
 				end
 				wipeTable(group.gemList)
 				t_insert(group.gemList, activeGemInstance)

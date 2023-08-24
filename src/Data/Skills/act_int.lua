@@ -914,6 +914,7 @@ skills["SupportDarkRitual"] = {
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["apply_linked_curses_with_dark_ritual"] = {
@@ -9542,6 +9543,7 @@ skills["SupportSpellslinger"] = {
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Spell, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.HasReservation, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.Triggered, SkillType.NOT, SkillType.AND, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	supportGemsOnly = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -9553,6 +9555,7 @@ skills["SupportSpellslinger"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 		},
 		["spellslinger_trigger_on_wand_attack_%"] = {
+			skill("triggeredBySpellSlinger", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 		},
 	},
 	baseMods = {
@@ -9712,6 +9715,7 @@ skills["SupportBrandSupport"] = {
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Spell, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	addFlags = {
@@ -9725,7 +9729,7 @@ skills["SupportBrandSupport"] = {
 			mod("AreaOfEffect", "MORE", nil),
 		},
 		["trigger_brand_support_hit_damage_+%_final_vs_branded_enemy"] = {
-			mod("TriggeredDamage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
 	addSkillTypes = { SkillType.Brand, },
@@ -11513,6 +11517,7 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
+		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
 		flag("ShockImmune"),
 	},
 	qualityStats = {

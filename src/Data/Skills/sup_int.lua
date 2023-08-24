@@ -631,6 +631,7 @@ skills["SupportCastOnStunned"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
@@ -773,6 +774,7 @@ skills["SupportCastWhileChannellingTriggered"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
@@ -906,6 +908,7 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	plusVersionOf = "SupportCastWhileChannellingTriggered",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -1400,6 +1403,9 @@ skills["SupportCurseOnHit"] = {
 		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
 		},
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCurse
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 		},
 	},
@@ -1470,9 +1476,14 @@ skills["SupportCurseOnHitCurse"] = {
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+			flag("HasNoCost")
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
@@ -1552,6 +1563,9 @@ skills["SupportCurseOnHitPlus"] = {
 	plusVersionOf = "SupportCurseOnHit",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCursePlus
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 		},
 	},
@@ -1591,10 +1605,15 @@ skills["SupportCurseOnHitCursePlus"] = {
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHitCurse",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+			flag("HasNoCost")
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
@@ -2518,6 +2537,15 @@ skills["SupportFreshMeat"] = {
 	addSkillTypes = { SkillType.Buff, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_recent_minions_additional_critical_strike_chance_from_wakened_fury"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
+			div = 100,
+		},
+		["support_recent_minions_additional_critical_strike_multiplier_from_wakened_fury"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "minion_critical_strike_chance_+%", 1 },
@@ -2591,6 +2619,14 @@ skills["SupportFrigidBond"] = {
 	addSkillTypes = { SkillType.DamageOverTime, SkillType.DegenOnlySpellDamage, SkillType.NonHitChill, SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_damaging_links_base_duration_ms"] = {
+			mod("SecondaryDuration", "BASE", nil),
+			div = 1000,
+		},
+		["support_damaging_links_base_duration_is_gem"] = {
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "chill_effect_+%", 0.5 },
@@ -2962,6 +2998,11 @@ skills["ViciousHexSupport"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Triggered, SkillType.InbuiltTrigger, SkillType.Aura, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["trigger_vicious_hex_explosion_when_curse_ends"] = {
+			-- Display only
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -4585,6 +4626,7 @@ skills["SupportPrismaticBurst"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["trigger_prismatic_burst_on_hit_%_chance"] = {
+			-- Display only
 		},
 	},
 	qualityStats = {
@@ -4669,9 +4711,6 @@ skills["PrismaticBurst"] = {
 			name = "Lightning",
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 	statMap = {
 		["prismatic_burst_unchosen_type_damage_-100%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),
@@ -5023,6 +5062,16 @@ skills["SupportSacrifice"] = {
 	excludeSkillTypes = { SkillType.HasReservation, SkillType.Vaal, SkillType.Channel, SkillType.Trapped, SkillType.RemoteMined, SkillType.Orb, SkillType.Brand, },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_sacrifice_sacrifice_%_of_current_life"] = {
+			mod("Multiplier:SacrificePercent", "BASE", nil, 0, 0, { type = "PercentStat", stat = "LifeUnreserved", percent = 1, actor = "parent" }),
+		},
+		["support_sacrifice_gain_%_of_sacrificed_life_as_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SacrificePercent" }),
+			mod("ChaosMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SacrificePercent" }),
+			div = 100,
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "chaos_damage_+%", 0.5 },

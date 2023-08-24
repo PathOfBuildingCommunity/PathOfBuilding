@@ -119,6 +119,7 @@ skills["SupportTriggerSpellOnBowAttack"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -649,6 +650,7 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Cold, SkillType.Triggerable, SkillType.AND, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -1394,6 +1396,7 @@ skills["SupportTriggerSpellFromHelmet"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	constantStats = {
@@ -1477,9 +1480,6 @@ skills["GoreShockwave"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.timeOverride = output.Cooldown
-	end,
 	baseFlags = {
 		attack = true,
 		area = true,
@@ -1678,6 +1678,7 @@ skills["SupportCastOnManaSpent"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -1787,6 +1788,7 @@ skills["SupportTriggerBowSkillOnBowAttack"] = {
 	requireSkillTypes = { SkillType.RangedAttack, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Vaal, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -1852,6 +1854,7 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Lightning, SkillType.Triggerable, SkillType.AND, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -1931,6 +1934,7 @@ skills["SupportTriggerSpellOnAttack"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -2628,6 +2632,39 @@ skills["SupportCursePillarTriggerCurses"] = {
 		[20] = { levelRequirement = 70, },
 	},
 }
+skills["SummonGuardianRelic"] = {
+	name = "Summon Elemental Relic",
+	hidden = true,
+	color = 4,
+	description = "Summons a Relic of a random element that stays near you. Depending on the element chosen, the relic minion will have an Anger, Hatred, or Wrath aura. These relics explode when they die, dealing elemental damage to enemies around them. If you already have a relic of the chosen element, its duration will be refreshed instead of summoning a new one.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.RandomElement] = true, [SkillType.CreatesMinion] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
+	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.Aura] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"GuardianRelicFire",
+		"GuardianRelicCold",
+		"GuardianRelicLightning",
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "display_minion_monster_type", 24 },
+		{ "guardian_relic_explode_on_death_for_%_life_as_element_damage", 100 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "skill_triggered_by_nearby_allies_kill_or_hit_rare_unique_%_chance", 25 },
+	},
+	stats = {
+		"base_skill_effect_duration",
+	},
+	levels = {
+		[20] = { 5000, storedUses = 1, levelRequirement = 85, cooldown = 0.3, statInterpolation = { 1, }, },
+	},
+}
 skills["SummonHarbingerOfTheArcaneUber"] = {
 	name = "Summon Greater Harbinger of the Arcane",
 	hidden = true,
@@ -2960,6 +2997,50 @@ skills["TriggeredSummonGhostOnKill"] = {
 		[20] = { manaMultiplier = 20, levelRequirement = 70, },
 	},
 }
+skills["SummonRadiantSentinel"] = {
+	name = "Summon Sentinel of Radiance",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.0517001152039,
+	incrementalEffectiveness = 0.043200001120567,
+	description = "Summons a Sentinel of Radiance which follows you and attacks enemies in melee, while burning enemies around it and taking a portion of damage from hits for you. You can only have one Sentinel of Radiance.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
+	minionSkillTypes = { [SkillType.DamageOverTime] = true, [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, },
+	statDescriptionScope = "single_minion_spell_skill_stat_descriptions",
+	castTime = 0.75,
+	fromTree = true,
+	minionList = {
+		"GuardianSentinel",
+	},
+	statMap = {
+		["radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraBaseDamage", "BASE", nil) }),
+			div = 60,
+			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
+		},
+		["radiant_sentinel_minion_burning_effect_radius"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
+			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "display_minion_monster_type", 23 },
+		{ "base_skill_effect_duration", 20000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+	},
+	stats = {
+		"radiant_sentinel_minion_burning_effect_radius",
+		"radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute",
+	},
+	levels = {
+		[20] = { 45, 1800, damageEffectiveness = 2, critChance = 6, levelRequirement = 85, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
+	},
+}
 skills["SummonRigwaldsPack"] = {
 	name = "Summon Spectral Wolf",
 	hidden = true,
@@ -3089,6 +3170,11 @@ skills["SummonMirageChieftain"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromTree = true,
+	statMap = {
+		["skill_used_by_mirage_chieftain_damage_+%_final"] = {
+			mod("ChieftainMirageChieftainMoreDamage", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -3172,6 +3258,7 @@ skills["SupportTriggerSpellOnSkillUse"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	constantStats = {
@@ -3364,6 +3451,27 @@ skills["VoidShot"] = {
 	},
 	levels = {
 		[20] = { damageEffectiveness = 0.65, PvPDamageMultiplier = -80, baseMultiplier = 0.65, levelRequirement = 70, },
+	},
+}
+skills["SupportUniqueCastCurseOnCurse"] = {
+	name = "Vixen's Entrapment",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.AppliesCurse, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	constantStats = {
+		{ "cast_when_cast_curse_%", 100 },
+	},
+	stats = {
+		"cannot_cast_curses",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 0.25, },
 	},
 }
 skills["EnemyExplode"] = {

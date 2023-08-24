@@ -858,6 +858,7 @@ skills["SupportCastOnMeleeKillTriggered"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -933,11 +934,15 @@ skills["SupportCastOnDamageTaken"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["cast_on_damage_taken_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["cast_when_damage_taken_trigger_threshold_+%"] = {
+			mod("CWDTThreshold", "MORE", nil)
+		}
 	},
 	qualityStats = {
 		Default = {
@@ -1161,6 +1166,23 @@ skills["SupportControlledBlaze"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimit" }),
+		},
+		["support_recent_ignites_damage_per_recent_ignite_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimit"}),
+		},
+		["support_recent_ignites_max_recent_ignites_tracked"] = {
+			mod("Multiplier:ControlledBlazeRecentIgniteLimit", "BASE", nil),
+		},
+		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"] = {
+			-- Display only,
+		},
+		["support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"] = {
+			-- Display only,
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "base_chance_to_ignite_%", 0.5 },
@@ -1235,6 +1257,31 @@ skills["SupportCorruptingCry"] = {
 	addSkillTypes = { SkillType.DamageOverTime, SkillType.Duration, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_corrupting_cry_corrupted_blood_base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil),
+			div = 60,
+		},
+		["support_corrupting_cry_warcry_applies_X_stacks_of_corrupted_blood"] = {
+			mod("CorruptingCryStagesFromWarcry", nil, 0, KeywordFlag.Warcry)
+		},
+		["support_corrupting_cry_exerted_attack_applies_X_stacks_of_corrupted_blood_on_first_hit"] = {
+			mod("CorruptingCryStagesFromExerted", nil, 0, KeywordFlag.Attack)
+		},
+		["support_corrupting_cry_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Warcry)
+		},
+		["support_corrupting_cry_warcry_and_first_exerted_attack_applies_corrupted_blood_for_X_ms"] = {
+			skill("durationSecondary", nil),
+			div = 1000,
+		}
+	},
+	baseMods = {
+		skill("debuff", true),
+		flag("dotIsCorruptingBlood"),
+		mod("Multiplier:CorruptingCryMaxStages", "BASE", 10),
+		mod("Damage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "CorruptingCryStageAfterFirst"}),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
@@ -2188,6 +2235,11 @@ skills["SupportFlamewood"] = {
 	excludeSkillTypes = { },
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_flamewood_totems_trigger_infernal_bolt_when_hit"] = {
+			-- Display only
+		}
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0.5 },
@@ -2252,7 +2304,28 @@ skills["AvengingFlame"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		local uuid = activeSkill.skillData.triggerSourceUUID
+		local cache = uuid and GlobalCache.cachedData["CACHE"][uuid]
+		local totemLife = cache and cache.Env.player.output.TotemLife or 0
+		
+		local add = totemLife * activeSkill.skillData.lifeDealtAsFire / 100
+		activeSkill.skillData.FireMax = (activeSkill.skillData.FireMax or 0) + add
+		activeSkill.skillData.FireMin = (activeSkill.skillData.FireMin or 0) + add
+	end,
+	statMap = {
+		["active_skill_base_area_of_effect_radius"] = {
+			skill("radius", nil),
+		},
+		["infernal_bolt_base_fire_damage_%_maximum_life"] = {
+			skill("lifeDealtAsFire", nil),
+		},
+		["infernal_bolt_triggered_when_totem_with_this_skill_hit_by_enemy"] = {
+			-- Display only
+		}
+	},
 	baseFlags = {
+		area = true,
 	},
 	qualityStats = {
 		Default = {
@@ -2539,6 +2612,8 @@ skills["SupportGuardiansBlessing"] = {
 	statMap = {
 		["aura_skill_no_reservation"] = {
 		},
+		["support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute"] = {
+		},
 	},
 	baseMods = {
 		skill("manaReservationFlat", 0, { type = "SkillType", skillType = SkillType.Aura }),
@@ -2615,6 +2690,13 @@ skills["SupportGuardiansBlessingMinion"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.MinionsAreUndamageable, SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PercentStat", stat = "Life", percent = 1 }) }),
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PercentStat", stat = "EnergyShield", percent = 1 }) }),
+			div = 60,
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0.25 },
@@ -4409,9 +4491,6 @@ skills["SupportBluntWeaponShockwave"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -4668,7 +4747,7 @@ skills["SupportTrauma"] = {
 			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["support_trauma_base_duration_ms"] = {
-			skill("duration", nil),
+			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
 		["supported_skill_can_only_use_axe_mace_and_staff"] = {

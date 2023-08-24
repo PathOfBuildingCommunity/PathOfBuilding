@@ -50,6 +50,9 @@ local skills, mod, flag, skill = ...
 		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
 			mod("InfernalFireTakenPer5MP", "BASE", nil),
 		},
+		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 60)
 #baseMod skill("radiusLabel", "Warcry area:")
@@ -59,6 +62,11 @@ local skills, mod, flag, skill = ...
 
 #skill InfernalCryOnHitExplosion
 #flags attack melee area
+	statMap = {
+		["triggered_by_infernal_cry"] = {
+			-- Display only
+		},
+	},
 #baseMod skill("showAverage", true)
 #mods
 
@@ -190,11 +198,22 @@ local skills, mod, flag, skill = ...
 		["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"] = {
 			mod("BattlemageCritChancePer5MP", "BASE", nil),
 		},
+		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 60)
 #mods
 
 #skill BattlemagesCrySupport
+	statMap = {
+		["support_divine_cry_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["triggered_by_divine_cry"] = {
+			skill("triggeredByBattleMageCry", true),
+		},
+	},
 #mods
 
 #skill Berserk
@@ -306,7 +325,7 @@ local skills, mod, flag, skill = ...
 			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
 		["boneshatter_trauma_base_duration_ms"] = {
-			skill("duration", nil),
+			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
 	},
@@ -350,6 +369,7 @@ local skills, mod, flag, skill = ...
 #skill CorruptingFever
 #flags spell duration
 #baseMod skill("debuff", true)
+#baseMod flag("dotIsCorruptingBlood")
 #baseMod mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10)
 #baseMod mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"})
 #mods

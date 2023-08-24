@@ -1443,6 +1443,29 @@ skills["InfernalLegion"] = {
 	},
 }
 
+skills["GuardianSentinelFireAura"] = {
+	name = "Burning Aura",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	skillTypes = { [SkillType.DamageOverTime] = true, [SkillType.CausesBurning] = true },
+	baseMods = {
+		skill("FireDot", 1, { type = "Multiplier", var = "GuardianSentinelFireAuraBaseDamage" }, { type = "PercentStat", stat = "Life", percent = 1}),
+		skill("dotIsArea", true),
+		skill("radius", 1, { type = "Multiplier", var = "GuardianSentinelFireAuraRadius" }),
+	},
+	qualityStats = {
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
+
 skills["MeleeAtAnimationSpeedUnique"] = {
 	name = "Default Attack",
 	hidden = true,

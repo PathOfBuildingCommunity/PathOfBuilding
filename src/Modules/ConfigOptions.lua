@@ -313,6 +313,12 @@ return {
 	{ var = "closeCombatCombatRush", type = "check", label = "Is Combat Rush active?", ifSkill = "Close Combat", tooltip = "Combat Rush grants 20% more Attack Speed to Travel Skills not Supported by Close Combat.",apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CombatRushActive", "FLAG", true, "Config")
 	end },
+	{ label = "Corrupting Cry:", ifSkill = "Corrupting Cry" },
+	{ var = "conditionCorruptingCryStages", type = "count", label = "# of Corrupting Cry stacks on enemy", ifSkill = "Corrupting Cry", defaultState = 1, apply = function(val, modList, enemyModList)
+		-- 10 is the maximum amount of Corrupting Blood Stages. modList does not contain skill base mods at this point so hard coding it here is the cleanest way to handle the cap.
+		-- It's set to 9 here with val -1 to so that it defaults to 1 stage and has max 10 stages.
+		modList:NewMod("Multiplier:CorruptingCryStageAfterFirst", "BASE", m_min(val-1, 9), "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ label = "Cruelty:", ifSkill = "Cruelty" },
 	{ var = "overrideCruelty", type = "count", label = "Damage % (if not maximum):", ifSkill = "Cruelty", tooltip = "Cruelty is a buff provided by Cruelty Support which grants\nup to 40% more damage over time to the skills it supports.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Cruelty", "OVERRIDE", m_min(val, 40), "Config", { type = "Condition", var = "Combat" })
@@ -360,6 +366,11 @@ return {
 	{ label = "Flame Wall:", ifSkill = "Flame Wall" },
 	{ var = "flameWallAddedDamage", type = "check", label = "Projectile Travelled through Flame Wall?", ifSkill = "Flame Wall", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FlameWallAddedDamage", "FLAG", true, "Config")
+	end },
+	{ label = "Fresh Meat:", ifSkill = "Fresh Meat" },
+	{ var = "freshMeatBuffs", type = "check", label = "Is Fresh Meat active?", ifSkill = "Fresh Meat", apply = function(val, modList, enemyModList)
+		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:Adrenaline", "FLAG", true, "Fresh Meat", { type = "Condition", var = "Combat" })}, "Config")
+		modList:NewMod("Condition:FreshMeatActive", "FLAG", true, "Config")
 	end },
 	{ label = "Frost Shield:", ifSkill = "Frost Shield" },
 	{ var = "frostShieldStages", type = "count", label = "Stages:", ifSkill = "Frost Shield", apply = function(val, modList, enemyModList)
@@ -1050,6 +1061,9 @@ Huge sets the radius to 11.
 	{ var = "conditionIgnitedEnemyRecently", type = "check", label = "Have you ^xB97123Ignited ^7an enemy Recently?", ifCond = "IgnitedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:IgnitedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "multiplierIgniteAppliedRecently", type = "count", label = "# of ^xB97123Ignites ^7applied Recently:", ifMult = "IgniteAppliedRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:IgniteAppliedRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionShockedEnemyRecently", type = "check", label = "Have you ^xADAA47Shocked ^7an enemy Recently?", ifCond = "ShockedEnemyRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ShockedEnemyRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1367,7 +1381,7 @@ Huge sets the radius to 11.
 	{ var = "skillForkCount", type = "count", label = "# of times Skill has Forked:", ifFlag = "forking", apply = function(val, modList, enemyModList)
 		modList:NewMod("ForkedCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
-	{ var = "skillChainCount", type = "count", label = "# of times Skill has Chained:", ifStat = "Chain", ifStat = "ChainRemaining", ifFlag = "chaining", apply = function(val, modList, enemyModList)
+	{ var = "skillChainCount", type = "count", label = "# of times Skill has Chained:", ifStat = { "Chain", "ChainRemaining" }, ifFlag = "chaining", apply = function(val, modList, enemyModList)
 		modList:NewMod("ChainCount", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "skillPierceCount", type = "count", label = "# of times Skill has Pierced:", ifStat = "PiercedCount", ifFlag = "piercing", apply = function(val, modList, enemyModList)
