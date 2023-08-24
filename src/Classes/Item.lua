@@ -311,7 +311,7 @@ function ItemClass:ParseRaw(raw)
 		end
 
 		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal or Unidentified item to get the base
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) or self.name:match("Energy Blade") then
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) then
 			l = l + 1
 		end
 	end
