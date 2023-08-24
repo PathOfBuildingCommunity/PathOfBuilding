@@ -1,3 +1,9 @@
+VERSION[2.32.1][2023/08/24]
+
+--- Fixed Bugs ---
+* Fix crash when opening some minion builds
+* Fix Timeless jewel stats disappearing when applying a tattoo
+
 VERSION[2.32.0][2023/08/24]
 
 --- New to Path of Building ---

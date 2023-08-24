@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.32.0" />
+	<Version number="2.32.1" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="2b7d8db41b6f059b62d0cef69af0670c30e05830" />
+	<File name="changelog.txt" part="default" sha1="08988c338e84c19ee8dd08d166cd43a909d32af4" />
 	<File name="help.txt" part="default" sha1="bea7d19390f66161c8b81d9ee9634784087b2649" />
 	<File name="LICENSE.md" part="default" sha1="eacedd00e9707defe051bd7151466d223376afa6" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />
@@ -73,7 +73,7 @@
 	<File name="Classes/TradeQueryRateLimiter.lua" part="program" sha1="85c8a28c7d2bacf5bf91a97165a2ebd89bc238c0" />
 	<File name="Classes/TradeQueryRequests.lua" part="program" sha1="9ba087fca20d7cba34d6497f7e3890c86bfd42aa" />
 	<File name="Classes/TradeStatWeightMultiplierListControl.lua" part="program" sha1="dfefba629a2d1dd3cd1eeb015edfae33d1949c2f" />
-	<File name="Classes/TreeTab.lua" part="program" sha1="649218da34b4227a3884b2a70d564c5e1873048b" />
+	<File name="Classes/TreeTab.lua" part="program" sha1="e6acb32ef2385daeb4cd684ecd6df3183ffa11f6" />
 	<File name="Classes/UndoHandler.lua" part="program" sha1="ce4835c384c834da0de47b0302b1e774c8300c6b" />
 	<File name="Data/Bases/amulet.lua" part="program" sha1="d1d3e5fb58136f9d37d3bc6ccd422760e50f6c2d" />
 	<File name="Data/Bases/axe.lua" part="program" sha1="58a44e3ceafcd9ea2c6420b38c74fd834fffcebe" />
@@ -201,7 +201,7 @@
 	<File name="Modules/CalcBreakdown.lua" part="program" sha1="4460ce0aac0086a9667d38131eaeb968cd64b77b" />
 	<File name="Modules/CalcDefence.lua" part="program" sha1="e2dd97b912e055e1848cd11b652e57b5a79723b3" />
 	<File name="Modules/CalcOffence.lua" part="program" sha1="c902d3639b965110623a8bf3c8bc36b495569126" />
-	<File name="Modules/CalcPerform.lua" part="program" sha1="d7958cee82f370ac72726eeadb34b5c2010cd635" />
+	<File name="Modules/CalcPerform.lua" part="program" sha1="5a3297ef96cddd7fb87c6f0d0c7faee35d62e498" />
 	<File name="Modules/Calcs.lua" part="program" sha1="2d4f54800a5c798dcfd4e8a69bbe79f5bfa95573" />
 	<File name="Modules/CalcSections.lua" part="program" sha1="2af4fcab0a35362ab4f5823402ef49b9d05419d4" />
 	<File name="Modules/CalcSetup.lua" part="program" sha1="febc485a0772957136d17115a7bb1e032d05a37e" />
