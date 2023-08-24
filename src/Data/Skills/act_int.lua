@@ -11518,7 +11518,7 @@ skills["TempestShield"] = {
 	},
 	baseMods = {
 		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
-		flag("ShockImmune")
+		flag("ShockImmune"),
 	},
 	qualityStats = {
 		Default = {
