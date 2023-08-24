@@ -1176,6 +1176,12 @@ skills["SupportControlledBlaze"] = {
 		["support_recent_ignites_max_recent_ignites_tracked"] = {
 			mod("Multiplier:ControlledBlazeRecentIgniteLimit", "BASE", nil),
 		},
+		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"] = {
+			-- Display only,
+		},
+		["support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"] = {
+			-- Display only,
+		},
 	},
 	qualityStats = {
 		Default = {
