@@ -291,9 +291,9 @@ SkillType = {
 	ProjectilesNotFired = 124,
 	TotemsAreBallistae = 125,
 	SkillGrantedBySupport = 126,
-	PreventHexTransfer = 126,
-	MinionsAreUndamageable = 126,
-	InnateTrauma = 126,
+	PreventHexTransfer = 127,
+	MinionsAreUndamageable = 128,
+	InnateTrauma = 129,
 }
 
 GlobalCache = { 
