@@ -1,3 +1,40 @@
+VERSION[2.33.0][2023/08/24]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Support for triggered skills has been reworked (Paliak)
+    * Calculations of effective triggered skills trigger rate should now be more accurate
+    * Improve cooldown breakpoint interactions with skills that add Cast time
+    * Implemented all currently existing trigger skills that POB is capable of supporting. Including:
+        * CWDT
+        * Spell Slinger
+        * Counter-attack skills
+        * Arcanist brand
+        * Tawhoa's Chosen
+        * Battlemage's Cry
+* Add support for Trigger Bots
+* Add Support for Guardian's minion RF skill (LocalIdentity)
+--- Fixed Crashes ---
+* Fix crash when using Ruthless Support in a Poison build (LocalIdentity)
+* Fix crash when trying to edit Energy Blade weapon (Wires77)
+* Fix crash when viewing resist breakdown while having Chieftains Valako Ascendancy (Paliak)
+--- User Interface ---
+* Trigger related breakdowns should now be more descriptive (Paliak)
+* Improve breakdowns for skills that add Cast time (Paliak)
+* Display Cast when Damage Taken threshold in the trigger rate section (Paliak)
+--- Accuracy Improvements ---
+* Fix inaccuracies caused by incorrect handling of skill cooldown during skill rotation simulation (Paliak)
+* Triggers should now correctly account for source rate modifiers such as crit chance and accuracy (Paliak)
+* Fix many self triggers counting as self-cast (Paliak)
+* Fix incorrect handling of gems supported by more than one trigger (Paliak)
+--- Fixed Bugs ---
+* Fix Volatility from applying multiple times when conversion is present (Regisle)
+* Fix Chain count box not appearing sometimes (LocalIdentity)
+* Fix Cold Exposure mastery not working correctly (LocalIdentity)
+* Fix gems not benefiting from Supports sometimes (LocalIdentity)
+* Fix Trauma Duration sometimes using skill Duration (LocalIdentity)
+* Fix Strength of Blood Keystone not working (LocalIdentity)
+
+
 VERSION[2.32.2][2023/08/24]
 
 --- Fixed Bugs ---
