@@ -589,6 +589,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		newTattooNode.id = selectedNode.id
 		self.build.spec.hashOverrides[selectedNode.id] = newTattooNode
 		self.build.spec:ReplaceNode(selectedNode, newTattooNode)
+		self.build.spec:BuildAllDependsAndPaths()
 	end
 
 	local function constructUI(modGroup)
@@ -637,6 +638,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		self.build.spec.tree.nodes[selectedNode.id].isTattoo = false
 		self.build.spec.hashOverrides[selectedNode.id] = nil
 		self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
+		self.build.spec:BuildAllDependsAndPaths()
 		self.modFlag = true
 		self.build.buildFlag = true
 		main:ClosePopup()
