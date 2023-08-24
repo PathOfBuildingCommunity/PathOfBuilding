@@ -882,7 +882,7 @@ local function defualtTriggerHandler(env, config)
 				end
 			end
 			
-			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate or source and source.skillData.storedUses ~= nil
+			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate or source and source.skillData.storedUses and source.skillData.storedUses > 1
 			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate and not source.skillData.triggeredByCurseOnCurse
 
 			--Account for source unleash
