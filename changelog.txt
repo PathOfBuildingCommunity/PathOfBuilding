@@ -1,7 +1,85 @@
+BETA VERSION[2.32.0][2023/08/24]
+
+--- User Interface ---
+* Display Cast When damage taken threshold in the trigger rate section
+
+--- Fixed Bugs ---
+* Fix Tawhoa's Chosen granting mod being incorrectly parsed
+* Fix Tawhoa's Chosen not working with strike skills
+
+
+VERSION[2.32.0][2023/08/24]
+
+--- New to Path of Building ---
+* Add support for tattoos (Wires77)
+* Add support for Ruthless tree (Wires77)
+* Add support for 3.22 skill gems by (LocalIdentity, Lilylicious, Regisle, Paliak, Wires77, deathbeam)
+  * Full Support
+  * Locus Mine
+  * Devour
+  * Volatility
+  * Sadism
+  * Spellblade
+  * Trauma
+  * Corrupting Cry
+  * Frigid Bond
+  * Guardian's Blessing
+  * Fresh Meat
+  * Sacrifice
+  * Controlled Blaze
+* Add support for new Chieftain and Guardian ascendancy nodes (Paliak)
+* Add initial support for Guardian minion nodes (LocalIdentity)
+* Add self-hit calculations for Scolds Bridle, Eye of Innocence and Heartbound Loop (Paliak)
+* Add support for new Ancestor uniques by (Wires77, LocalIdentity)
+* Improve startup time (Lancej)
+
+--- User Interface ---
+* Help section improvements (Regisle)
+* Add immunity flags to defence avoidance breakdown (Paliak)
+* Removing allocated mastery from hover list (Wires77)
+* Improve sync of tree version and version dropdown (Peechey)
+
+--- Fixed Bugs ---
+* Fix nodes not being able to be allocated after converting a tree (Peechey)
+* Fix totem duration mods not applying (Paliak)
+* Fix DPS on Vaal Flicker when using 2x 1h weapons (LocalIdentity)
+* Fix Repeat count for minion skills (Wires77)
+* Fix Snipe damage going negative (Paliak)
+* Fix Snipe showing DPS values when triggering support skills (LocalIdentity)
+* Fix Doom Blast not working with Forbidden Shako (Paliak)
+* Fix Bleed/Ignite Stack potential issues (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Update 3.22 skill tree (Regisle)
+* Allow setting inspiration charges to 0 (Paliak)
+* Fix "Enemies maimed by you take inc damage over time" not in breakdown display (LocalIdentity)
+* Fix Pierce and Chain count config not appearing sometimes (LocalIdentity)
+* Fix lower channel time stat using red text (LocalIdentity)
+* Fix incorrect increased usage mod range on Cinderswallow Urn (Paliak)
+
+VERSION[2.31.2][2023/08/16]
+
+--- Fixed Bugs ---
+* Fix issue when importing characters (Wires77)
+* Fix typo with Ignite Stack Potential Override (Wires77)
+
 BETA VERSION[2.31.1][2023/08/16]
 
 --- Fixed Crashes ---
 * Fix Crash when using a weapon with a crafted Trigger mod
+
+VERSION[2.31.1][2023/08/16]
+
+--- User Interface ---
+* Lower contrast of gem select highlight (ryuukk)
+
+--- Accuracy Improvements ---
+* Undo incorrect Explosive Arrow change (Lilylicious)
+* Fix Frozen Legion benefiting from exerts (Lilylicious)
+* Fix Combustion debuff not applying when a non-damaging skill precedes a damaging skill (Lilylicious)
+* Fix Blood Sacrament not being capped by Cooldown (LocalIdentity)
+* Fix Tree conversion stopping you from allocating some tree nodes (LocalIdentity)
+* Fix Mana cost when using 'Wait for max unleash seals' (busterw)
 
 BETA VERSION[2.31.0][2023/08/15]
 --- Implemented Enhancements ---
@@ -27,25 +105,6 @@ BETA VERSION[2.31.0][2023/08/15]
 * Fixed a crash caused by an interation between unleash and nested triggers.
 * Fixed many self triggers counting as self cast.
 * Fixed incorrect handling of gems supported by more than one trigger.
-
-VERSION[2.31.2][2023/08/16]
-
---- Fixed Bugs ---
-* Fix issue when importing characters (Wires77)
-* Fix typo with Ignite Stack Potential Override (Wires77)
-
-VERSION[2.31.1][2023/08/16]
-
---- User Interface ---
-* Lower contrast of gem select highlight (ryuukk)
-
---- Accuracy Improvements ---
-* Undo incorrect Explosive Arrow change (Lilylicious)
-* Fix Frozen Legion benefiting from exerts (Lilylicious)
-* Fix Combustion debuff not applying when a non-damaging skill precedes a damaging skill (Lilylicious)
-* Fix Blood Sacrament not being capped by Cooldown (LocalIdentity)
-* Fix Tree conversion stopping you from allocating some tree nodes (LocalIdentity)
-* Fix Mana cost when using 'Wait for max unleash seals' (busterw)
 
 VERSION[2.31.0][2023/08/15]
 

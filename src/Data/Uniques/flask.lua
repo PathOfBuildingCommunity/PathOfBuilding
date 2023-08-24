@@ -185,7 +185,7 @@ Implicits: 0
 {variant:8,10}Recover (1-3)% of Life when you Kill an Enemy during Effect
 {variant:8,10}Recover (1-3)% of Mana when you Kill an Enemy during Effect
 {variant:8,10}Recover (1-3)% of Energy Shield when you Kill an Enemy during Effect
-{variant:10}(300-250)% increased Charges per use
+{variant:10}(175-200)% increased Charges per use
 {variant:9}{crafted}(60-80)% increased Critical Strike Chance during Effect
 {variant:1}{crafted}(45-55)% increased Critical Strike Chance during Effect
 {variant:2}{crafted}15% of Damage Taken from Hits is Leeched as Life during Effect
