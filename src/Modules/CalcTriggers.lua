@@ -825,7 +825,7 @@ local function tawhoaChosenHandler(env)
 	end
 end
 
-local function defualtTriggerHandler(env, config)
+local function defaultTriggerHandler(env, config)
 	local actor = config.actor
 	local output = config.actor.output
 	local breakdown = config.actor.breakdown
@@ -1359,7 +1359,7 @@ local configTable = {
 		return {triggerOnUse = true, triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 end}
 	end,
 	["Moonbender's Wing"] = function(env)
-		--Simillar situation to "Replica Lioneye's Paws"
+		--Similar situation to "Replica Lioneye's Paws"
 		env.player.mainSkill.skillData.cooldown = 1
 		return {triggerName = "Lightning Warp", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
@@ -1680,7 +1680,7 @@ local configTable = {
 				-- Snipe is being used by some other skill. In this case snipe does not get more damage mods
 				snipeStages = 0
 			else
-				-- max(1, snipeStages) makes it behave consistantly with other channeled ranged skills (scourge arrow)
+				-- max(1, snipeStages) makes it behave consistently with other channeled ranged skills (scourge arrow)
 				env.player.mainSkill.skillData.hitTimeMultiplier = m_max(1, snipeStages) - 0.5 --First stage takes 0.5x time to channel compared to subsequent stages
 			end
 			if #triggeredSkills < 1 then
@@ -1764,7 +1764,7 @@ function calcs.triggers(env)
 		if config then
 		    config.actor = config.actor or env.player
 			config.triggerName = config.triggerName or triggerName or uniqueName or skillName
-			local triggerHandler = config.customHandler or defualtTriggerHandler
+			local triggerHandler = config.customHandler or defaultTriggerHandler
 		    triggerHandler(env, config)
 		else
 			env.player.mainSkill.skillData.triggered = nil
