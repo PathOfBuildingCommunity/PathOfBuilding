@@ -160,6 +160,7 @@ Recover (1-3)% of Life on Kill
 Warrior's Tale
 Crimson Jewel
 League: Ancestor
+Radius: Medium
 Limited to: 1
 100% increased effect of Tattoos in Radius
 ]]
