@@ -1,5 +1,4 @@
 VERSION[2.32.2][2023/08/24]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
 * Fix crash caused by usage of incorrect breakdown table (Paliak)
 * Fix lua error when hovering Ascendant nodes (Wires77)
