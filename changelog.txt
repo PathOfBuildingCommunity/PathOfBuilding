@@ -1,6 +1,6 @@
-VERSION[2.33.0][2023/08/24]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.33.0][2023/08/25]
 
+--- New to Path of Building ---
 * Support for triggered skills has been reworked (Paliak)
     * Calculations of effective triggered skills trigger rate should now be more accurate
     * Improve cooldown breakpoint interactions with skills that add Cast time
@@ -12,20 +12,25 @@ VERSION[2.33.0][2023/08/24]
         * Tawhoa's Chosen
         * Battlemage's Cry
 * Add support for Trigger Bots
+* Add support for Flamewood Support
 * Add Support for Guardian's minion RF skill (LocalIdentity)
+
 --- Fixed Crashes ---
 * Fix crash when using Ruthless Support in a Poison build (LocalIdentity)
 * Fix crash when trying to edit Energy Blade weapon (Wires77)
 * Fix crash when viewing resist breakdown while having Chieftains Valako Ascendancy (Paliak)
+
 --- User Interface ---
 * Trigger related breakdowns should now be more descriptive (Paliak)
 * Improve breakdowns for skills that add Cast time (Paliak)
 * Display Cast when Damage Taken threshold in the trigger rate section (Paliak)
+
 --- Accuracy Improvements ---
 * Fix inaccuracies caused by incorrect handling of skill cooldown during skill rotation simulation (Paliak)
 * Triggers should now correctly account for source rate modifiers such as crit chance and accuracy (Paliak)
 * Fix many self triggers counting as self-cast (Paliak)
 * Fix incorrect handling of gems supported by more than one trigger (Paliak)
+
 --- Fixed Bugs ---
 * Fix Volatility from applying multiple times when conversion is present (Regisle)
 * Fix Chain count box not appearing sometimes (LocalIdentity)
