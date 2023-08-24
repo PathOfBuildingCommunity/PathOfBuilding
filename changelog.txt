@@ -1,9 +1,9 @@
 VERSION[2.32.0][2023/08/24]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
+--- New to Path of Building ---
 * Add support for tattoos (Wires77)
 * Add support for Ruthless tree (Wires77)
-* Add support for 3.22 skill gems by (@LocalIdentity, @Lilylicious, @Regisle, @Paliak, @Wires77, @deathbeam) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6418, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6431, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6436, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6443, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6425
+* Add support for 3.22 skill gems by (LocalIdentity, Lilylicious, Regisle, Paliak, Wires77, deathbeam)
   * Full Support
   * Locus Mine
   * Devour
@@ -19,17 +19,18 @@ VERSION[2.32.0][2023/08/24]
   * Controlled Blaze
 * Add support for new Chieftain and Guardian ascendancy nodes (Paliak)
 * Add initial support for Guardian minion nodes (LocalIdentity)
-* Add self hit calculations for Scolds Bridle, Eye of Innocense and Heartbound Loop (Paliak)
-* Add support for new Ancestor uniques by (@Wires77, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6426
+* Add self-hit calculations for Scolds Bridle, Eye of Innocense and Heartbound Loop (Paliak)
+* Add support for new Ancestor uniques by (Wires77, LocalIdentity)
 * Improve startup time (Lancej)
---- Fixed Crashes ---
+
 --- User Interface ---
 * Help section improvements (Regisle)
 * Add immunity flags to defence avoidance breakdown (Paliak)
 * Removing allocated mastery from hover list (Wires77)
 * Improve sync of tree version and version dropdown (Peechey)
+
 --- Fixed Bugs ---
-* Fix nodes not being able to be alocated after converting a tree (Peechey)
+* Fix nodes not being able to be allocated after converting a tree (Peechey)
 * Fix totem duration mods not applying (Paliak)
 * Fix DPS on Vaal Flicker when using 2x 1h weapons (LocalIdentity)
 * Fix Repeat count for minion skills (Wires77)
@@ -37,10 +38,11 @@ VERSION[2.32.0][2023/08/24]
 * Fix Snipe showing DPS values when triggering support skills (LocalIdentity)
 * Fix Doom Blast not working with Forbidden Shako (Paliak)
 * Fix Bleed/Ignite Stack potential issues (LocalIdentity)
+
 --- Accuracy Improvements ---
 * Update 3.22 skill tree (Regisle)
 * Allow setting inspiration charges to 0 (Paliak)
-* Fix "Enemies maimed by you take inc damage over time` not in breakdown display (LocalIdentity)
+* Fix "Enemies maimed by you take inc damage over time" not in breakdown display (LocalIdentity)
 * Fix Pierce and Chain count config not appearing sometimes (LocalIdentity)
 * Fix lower channel time stat using red text (LocalIdentity)
 * Fix incorrect increased usage mod range on Cinderswallow Urn (Paliak)
