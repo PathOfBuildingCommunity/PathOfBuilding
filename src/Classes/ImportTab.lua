@@ -568,6 +568,18 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 
+	if charPassiveData.skill_overrides then
+		for nodeId, override in pairs(charPassiveData.skill_overrides) do
+			override.id = nodeId
+			local modCount = 0
+			for _, statLine in ipairs(override.stats) do
+				self.build.spec:NodeAdditionOrReplacementFromString(override, statLine, modCount == 0)
+				modCount = modCount + 1
+			end
+			override.dn = override.name
+		end
+	end
+
 	if errMsg then
 		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 		return
@@ -602,7 +614,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 			end
 		end
 	end
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {}, latestTreeVersion)
+	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false

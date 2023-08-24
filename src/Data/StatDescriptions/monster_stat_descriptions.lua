@@ -467,7 +467,7 @@ return {
 			}
 		},
 		stats={
-			[1]="action_speed_+%_minimum_value"
+			[1]="hellscape_boots_action_speed_+%_minimum_value"
 		}
 	},
 	[24]={
@@ -596,7 +596,6 @@ return {
 			[1]="trigger_charge_additional_block_chance_against_projectiles_%"
 		}
 	},
-	["action_speed_+%_minimum_value"]=23,
 	["action_speed_cannot_be_reduced_below_base"]=22,
 	["base_avoid_chill_%"]=9,
 	["base_avoid_freeze_%"]=8,
@@ -606,6 +605,7 @@ return {
 	["display_monster_casts_lightning_nova_text"]=14,
 	["display_monster_ice_spear_nova_on_death_text"]=13,
 	["display_monster_spike_nova_on_death_text"]=12,
+	["hellscape_boots_action_speed_+%_minimum_value"]=23,
 	["hexproof"]=2,
 	["immune_to_curses"]=1,
 	["is_blight_chaos_monster"]=25,

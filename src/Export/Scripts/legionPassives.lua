@@ -3,7 +3,7 @@ if not loadStatFile then
 end
 loadStatFile("passive_skill_stat_descriptions.txt")
 
-local out = io.open("../Data/LegionPassives.lua", "w")
+local out = io.open("../Data/TimelessJewelData/LegionPassives.lua", "w")
 
 local stats = dat("Stats")
 local alternatePassiveSkillDat = dat("AlternatePassiveSkills")
@@ -76,7 +76,7 @@ function parseStats(datFileRow, legionPassive)
 	legionPassive.sortedStats = sortedStats
 end
 
----@type table <string, table> @this is the structure used to generate the final data file Data/LegionPassives
+---@type table <string, table> @this is the structure used to generate the final data file Data/TimelessJewelData/LegionPassives
 local data = { }
 data.nodes = { }
 data.groups = { }
