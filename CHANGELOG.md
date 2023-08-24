@@ -1,5 +1,58 @@
 # Changelog
 
+## [v2.32.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.32.0) (2023/08/24)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.31.2...v2.32.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add support for tattoos [\#6396](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6396) ([Wires77](https://github.com/Wires77))
+- Add support for Ruthless tree [\#6367](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6367) ([Wires77](https://github.com/Wires77))
+* Add support for 3.22 skill gems by (@LocalIdentity, @Lilylicious, @Regisle, @Paliak, @Wires77, @deathbeam) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6418, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6431, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6436, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6443, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6425
+  * Full Support
+  * Locus Mine
+  * Devour
+  * Volatility
+  * Sadism
+  * Spellblade
+  * Trauma
+  * Corrupting Cry
+  * Frigid Bond
+  * Guardian's Blessing
+  * Fresh Meat
+  * Sacrifice
+  * Controlled Blaze
+- Add support for new Chieftain and Guardian ascendancy nodes [\#6288](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6288) ([Paliak](https://github.com/Paliak))
+- Add initial support for Guardian minion nodes [\#6445](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6445) ([LocalIdentity](https://github.com/LocalIdentity))
+- Add self hit calculations for Scolds Bridle, Eye of Innocense and Heartbound Loop [\#6250](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6250) ([Paliak](https://github.com/Paliak))
+* Add support for new Ancestor uniques by (@Wires77, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6426
+- Improve startup time [\#6407](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6407) ([Lancej](https://github.com/Lancej))
+### Fixed Crashes
+### User Interface
+- Help section improvements [\#6156](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6156) ([Regisle](https://github.com/Regisle))
+- Add immunity flags to defence avoidance breakdown [\#6389](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6389) ([Paliak](https://github.com/Paliak))
+- Removing allocated mastery from hover list [\#6374](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6374) ([Wires77](https://github.com/Wires77))
+- Improve sync of tree version and version dropdown [\#6365](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6365) ([Peechey](https://github.com/Peechey))
+### Fixed Bugs
+- Fix nodes not being able to be alocated after converting a tree [\#6364](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6364) ([Peechey](https://github.com/Peechey))
+- Fix totem duration mods not applying [\#6388](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6388) ([Paliak](https://github.com/Paliak))
+- Fix DPS on Vaal Flicker when using 2x 1h weapons [\#6380](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6380) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Repeat count for minion skills [\#6376](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6376) ([Wires77](https://github.com/Wires77))
+- Fix Snipe damage going negative [\#6399](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6399) ([Paliak](https://github.com/Paliak))
+- Fix Snipe showing DPS values when triggering support skills [\#6415](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6415) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Doom Blast not working with Forbidden Shako [\#6393](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6393) ([Paliak](https://github.com/Paliak))
+- Fix Bleed/Ignite Stack potential issues [\#6386](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6386) ([LocalIdentity](https://github.com/LocalIdentity))
+### Accuracy Improvements
+- Update 3.22 skill tree [\#6411](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6411) ([Regisle](https://github.com/Regisle))
+- Allow setting inspiration charges to 0 [\#6421](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6421) ([Paliak](https://github.com/Paliak))
+- Fix "Enemies maimed by you take inc damage over time` not in breakdown display [\#6400](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6400) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Pierce and Chain count config not appearing sometimes [\#6401](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6401) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix lower channel time stat using red text [\#6381](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6381) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix incorrect increased usage mod range on Cinderswallow Urn [\#6434](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6434) ([Paliak](https://github.com/Paliak))
+
+
 ## [v2.31.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.31.2) (2023/08/16)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.31.1...v2.31.2)
