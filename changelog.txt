@@ -115,7 +115,7 @@ BETA VERSION[2.31.0][2023/08/15]
 --- Fixed Bugs ---
 * Triggers should now correctly account for source rate modifiers such as crit chance and accuracy.
 * Fixed inaccuracies caused by incorrect handling of skill cooldown during skill rotation simulation.
-* Fixed a crash caused by an interation between unleash and nested triggers.
+* Fixed a crash caused by an interaction between unleash and nested triggers.
 * Fixed many self triggers counting as self cast.
 * Fixed incorrect handling of gems supported by more than one trigger.
 
