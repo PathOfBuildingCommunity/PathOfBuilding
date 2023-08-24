@@ -4713,7 +4713,7 @@ skills["SupportTrauma"] = {
 			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["support_trauma_base_duration_ms"] = {
-			skill("duration", nil),
+			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
 		["supported_skill_can_only_use_axe_mace_and_staff"] = {

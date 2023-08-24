@@ -1523,7 +1523,7 @@ skills["Boneshatter"] = {
 			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
 		["boneshatter_trauma_base_duration_ms"] = {
-			skill("duration", nil),
+			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
 	},
