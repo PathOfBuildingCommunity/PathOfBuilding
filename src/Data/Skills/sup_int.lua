@@ -631,6 +631,7 @@ skills["SupportCastOnStunned"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
@@ -773,6 +774,7 @@ skills["SupportCastWhileChannellingTriggered"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
@@ -906,6 +908,7 @@ skills["SupportCastWhileChannellingTriggeredPlus"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	plusVersionOf = "SupportCastWhileChannellingTriggered",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -1400,6 +1403,9 @@ skills["SupportCurseOnHit"] = {
 		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
 		},
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCurse
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 		},
 	},
@@ -1470,9 +1476,14 @@ skills["SupportCurseOnHitCurse"] = {
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+			flag("HasNoCost")
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
@@ -1552,6 +1563,9 @@ skills["SupportCurseOnHitPlus"] = {
 	plusVersionOf = "SupportCurseOnHit",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCursePlus
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 		},
 	},
@@ -1591,10 +1605,15 @@ skills["SupportCurseOnHitCursePlus"] = {
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	plusVersionOf = "SupportCurseOnHitCurse",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+			flag("HasNoCost")
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
@@ -2979,6 +2998,11 @@ skills["ViciousHexSupport"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.Triggered, SkillType.InbuiltTrigger, SkillType.Aura, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["trigger_vicious_hex_explosion_when_curse_ends"] = {
+			-- Display only
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -4602,6 +4626,7 @@ skills["SupportPrismaticBurst"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["trigger_prismatic_burst_on_hit_%_chance"] = {
+			-- Display only
 		},
 	},
 	qualityStats = {
@@ -4686,9 +4711,6 @@ skills["PrismaticBurst"] = {
 			name = "Lightning",
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 	statMap = {
 		["prismatic_burst_unchosen_type_damage_-100%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),

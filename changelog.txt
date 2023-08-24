@@ -1,5 +1,6 @@
 VERSION[2.32.2][2023/08/24]
 
+--- Fixed Bugs ---
 * Fix crash caused by usage of incorrect breakdown table (Paliak)
 * Fix lua error when hovering Ascendant nodes (Wires77)
 
@@ -7,15 +8,15 @@ VERSION[2.32.2][2023/08/24]
 VERSION[2.32.1][2023/08/24]
 
 --- Fixed Bugs ---
-* Fix crash when opening some minion builds
-* Fix Timeless jewel stats disappearing when applying a tattoo
+* Fix crash when opening some minion builds (Paliak)
+* Fix Timeless jewel stats disappearing when applying a tattoo (Wires77)
 
 VERSION[2.32.0][2023/08/24]
 
 --- New to Path of Building ---
 * Add support for tattoos (Wires77)
 * Add support for Ruthless tree (Wires77)
-* Add support for 3.22 skill gems by (LocalIdentity, Lilylicious, Regisle, Paliak, Wires77, deathbeam)
+* Add support for 3.22 skill gems (LocalIdentity, Lilylicious, Regisle, Paliak, Wires77, deathbeam)
   * Full Support
   * Locus Mine
   * Devour
@@ -32,7 +33,7 @@ VERSION[2.32.0][2023/08/24]
 * Add support for new Chieftain and Guardian ascendancy nodes (Paliak)
 * Add initial support for Guardian minion nodes (LocalIdentity)
 * Add self-hit calculations for Scolds Bridle, Eye of Innocence and Heartbound Loop (Paliak)
-* Add support for new Ancestor uniques by (Wires77, LocalIdentity)
+* Add support for new Ancestor uniques (Wires77, LocalIdentity)
 * Improve startup time (Lancej)
 
 --- User Interface ---

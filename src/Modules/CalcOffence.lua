@@ -17,6 +17,7 @@ local m_min = math.min
 local m_max = math.max
 local m_sqrt = math.sqrt
 local m_pow = math.pow
+local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
 local bnot = bit.bnot
@@ -58,22 +59,6 @@ end })
 
 local globalOutput = nil
 local globalBreakdown = nil
-
-local function isTriggered(skillData)
-	return skillData.triggeredWhileChannelling 
-		or skillData.triggeredByCoC
-		or skillData.triggeredByMeleeKill
-		or skillData.triggeredByCospris
-		or skillData.triggeredByMjolner
-		or skillData.triggeredByUnique
-		or skillData.triggeredByFocus
-		or skillData.triggeredByCraft
-		or skillData.triggeredByManaSpent
-		or skillData.triggeredByManaPercentSpent
-		or skillData.triggeredByParentAttack
-		or skillData.triggeredWhenHexEnds
-		or skillData.triggeredBySnipe
-end
 
 -- Calculate min/max damage for the given damage type
 local function calcDamage(activeSkill, output, cfg, breakdown, damageType, typeFlags, convDst)
@@ -430,8 +415,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	runSkillFunc("initialFunc")
 
-	local triggered = isTriggered(skillData)
-	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered or triggered
+	skillCfg.skillCond["SkillIsTriggered"] = skillData.triggered
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
 	end
@@ -916,7 +900,7 @@ function calcs.offence(env, actor, activeSkill)
 		if activeSkill.minion and activeSkill.minion.minionData.limit then
 			output.ActiveMinionLimit = m_floor(env.modDB:Override(nil, activeSkill.minion.minionData.limit) or calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
 		end
-		 output.SummonedMinionsPerCast = m_floor(calcLib.val(skillModList, "MinionPerCastCount", skillCfg))
+		output.SummonedMinionsPerCast = m_floor(calcLib.val(skillModList, "MinionPerCastCount", skillCfg))
 	end
 	if skillFlags.chaining then
 		if skillModList:Flag(skillCfg, "CannotChain") then
@@ -1085,7 +1069,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.TrapCooldown = {
 					s_format("%.2fs ^8(base)", skillData.trapCooldown or skillData.cooldown or 4),
 					s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
-					s_format("rounded up to nearest server tick"),
+					"rounded up to nearest server tick",
 					s_format("= %.3fs", output.TrapCooldown)
 				}
 			end
@@ -1370,7 +1354,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.AuraDuration = {
 					s_format("%.2fs ^8(base)", durationBase),
 					s_format("x %.4f ^8(duration modifier)", durationMod),
-					s_format("rounded up to nearest server tick"),
+					"rounded up to nearest server tick",
 					s_format("= %.3fs", output.AuraDuration),
 				}
 			end
@@ -1384,7 +1368,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.ReserveDuration = {
 					s_format("%.2fs ^8(base)", durationBase),
 					s_format("x %.4f ^8(duration modifier)", durationMod),
-					s_format("rounded up to nearest server tick"),
+					"rounded up to nearest server tick",
 					s_format("= %.3fs", output.ReserveDuration),
 				}
 			end
@@ -1456,106 +1440,109 @@ function calcs.offence(env, actor, activeSkill)
 		["ESPerMinute"] = { type = "ES", upfront = false, percent = false, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 		["ESPercentPerMinute"] = { type = "ES", upfront = false, percent = true, text = "ES/s", baseCost = 0, totalCost = 0, baseCostNoMult = 0 },
 	}
-	-- First pass to calculate base costs. Used for cost conversion (e.g. Petrified Blood)
-	local additionalLifeCost = skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100 -- Extra cost (e.g. Petrified Blood) calculations
-	local hybridLifeCost = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") / 100 -- Life/Mana mastery
-	for resource, val in pairs(costs) do
-		local skillCost = activeSkill.activeEffect.grantedEffectLevel.cost and activeSkill.activeEffect.grantedEffectLevel.cost[resource] or nil
-		local baseCost = round(skillCost and skillCost / data.costs[resource].Divisor or 0, 2)
-		local baseCostNoMult = skillModList:Sum("BASE", skillCfg, resource.."CostNoMult") or 0 -- Flat cost from gem e.g. Divine Blessing
-		if val.upfront then
-			baseCost = baseCost + skillModList:Sum("BASE", skillCfg, resource.."CostBase") -- Rage Cost
-			val.totalCost = skillModList:Sum("BASE", skillCfg, resource.."Cost", "Cost")
-			if resource == "Mana" and activeSkill.skillTypes[SkillType.ReservationBecomesCost] and val.percent == false then --Divine Blessing
-				local reservedFlat = activeSkill.skillData[val.text.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationFlat"] or 0
-				baseCost = baseCost + reservedFlat
-				local reservedPercent = activeSkill.skillData[val.text.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationPercent"] or 0
-				baseCost = baseCost + (round((output[resource] or 0) * reservedPercent / 100))
+	
+	if not skillModList:Flag(skillCfg, "HasNoCost") then
+		-- First pass to calculate base costs. Used for cost conversion (e.g. Petrified Blood)
+		local additionalLifeCost = skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100 -- Extra cost (e.g. Petrified Blood) calculations
+		local hybridLifeCost = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") / 100 -- Life/Mana mastery
+		for resource, val in pairs(costs) do
+			local skillCost = activeSkill.activeEffect.grantedEffectLevel.cost and activeSkill.activeEffect.grantedEffectLevel.cost[resource] or nil
+			local baseCost = round(skillCost and skillCost / data.costs[resource].Divisor or 0, 2)
+			local baseCostNoMult = skillModList:Sum("BASE", skillCfg, resource.."CostNoMult") or 0 -- Flat cost from gem e.g. Divine Blessing
+			if val.upfront then
+				baseCost = baseCost + skillModList:Sum("BASE", skillCfg, resource.."CostBase") -- Rage Cost
+				val.totalCost = skillModList:Sum("BASE", skillCfg, resource.."Cost", "Cost")
+				if resource == "Mana" and activeSkill.skillTypes[SkillType.ReservationBecomesCost] and val.percent == false then --Divine Blessing
+					local reservedFlat = activeSkill.skillData[val.text.."ReservationFlat"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationFlat"] or 0
+					baseCost = baseCost + reservedFlat
+					local reservedPercent = activeSkill.skillData[val.text.."ReservationPercent"] or activeSkill.activeEffect.grantedEffectLevel[val.text.."ReservationPercent"] or 0
+					baseCost = baseCost + (round((output[resource] or 0) * reservedPercent / 100))
+				end
+				if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then -- Archmage
+					baseCost = m_max(baseCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
+				end
 			end
-			if resource == "Mana" and skillData.baseManaCostIsAtLeastPercentUnreservedMana then -- Archmage
-				baseCost = m_max(baseCost, m_floor((output.ManaUnreserved or 0) * skillData.baseManaCostIsAtLeastPercentUnreservedMana / 100))
+			val.baseCost = val.baseCost + baseCost
+			val.baseCostNoMult = val.baseCostNoMult + baseCostNoMult
+			if val.type == "Life" then
+				local manaType = resource:gsub("Life", "Mana")
+				if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then -- Blood Magic / Lifetap
+					val.baseCost = val.baseCost + costs[manaType].baseCost
+					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
+					costs[manaType].baseCost = 0
+					costs[manaType].baseCostNoMult = 0
+				end
+				if additionalLifeCost > 0 then
+					val.baseCost = val.baseCost + costs[manaType].baseCost * additionalLifeCost
+					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * additionalLifeCost
+				end
+				if hybridLifeCost > 0 then 
+					val.baseCost = val.baseCost + costs[manaType].baseCost * hybridLifeCost
+					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * hybridLifeCost
+				end
+			elseif val.type == "Rage" then
+				if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
+					val.baseCost = val.baseCost + costs.Soul.baseCost
+					val.baseCostNoMult = val.baseCostNoMult + costs.Soul.baseCostNoMult
+					costs.Soul.baseCost = 0
+					costs.Soul.baseCostNoMult = 0
+				end
 			end
 		end
-		val.baseCost = val.baseCost + baseCost
-		val.baseCostNoMult = val.baseCostNoMult + baseCostNoMult
-		if val.type == "Life" then
-			local manaType = resource:gsub("Life", "Mana")
-			if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then -- Blood Magic / Lifetap
-				val.baseCost = val.baseCost + costs[manaType].baseCost
-				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
-				costs[manaType].baseCost = 0
-				costs[manaType].baseCostNoMult = 0
+		for resource, val in pairs(costs) do
+			local resource = val.upfront and resource or resource:gsub("Minute", "Second")
+			local hasCost = val.baseCost > 0 or val.totalCost > 0 or val.baseCostNoMult > 0
+			output[resource.."HasCost"] = hasCost
+			local dec = val.upfront and 0 or 2
+			local costName = resource.."Cost"
+			local mult = 1
+			local more = 1
+			local inc = 0
+			if not val.unaffectedByGenericCostMults then
+				for _, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "SupportManaMultiplier")) do
+					mult = m_floor(mult * (100 + value.mod.value)) / 100
+				end
+				more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
+				inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
+				output[costName] = m_floor(val.baseCost * mult + val.baseCostNoMult)
+				output[costName] = m_max(0, (1 + inc / 100) * output[costName])
+				output[costName] = m_max(0, more * output[costName])
+				output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
+				if val.type == "Mana" and hybridLifeCost > 0 then -- Life/Mana Mastery
+					output[costName] = m_max(0, (1 - hybridLifeCost) * output[costName])
+				end
+			else
+				more = skillModList:More(skillCfg, val.type.."Cost")
+				inc = skillModList:Sum("INC", skillCfg, val.type.."Cost")
+				output[costName] = m_floor(val.baseCost + val.baseCostNoMult)
+				output[costName] = m_max(0, (1 + inc / 100) * output[costName])
+				output[costName] = m_max(0, more * output[costName])
+				output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
 			end
-			if additionalLifeCost > 0 then
-				val.baseCost = val.baseCost + costs[manaType].baseCost * additionalLifeCost
-				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * additionalLifeCost
+			if breakdown and hasCost then
+				breakdown[costName] = {
+					s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
+				}
+				if mult ~= 1 then
+					t_insert(breakdown[costName], s_format("x %.2f ^8(cost multiplier)", mult))
+				end
+				if val.baseCostNoMult ~= 0 then
+					t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
+				end
+				if inc ~= 0 then
+					t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
+				end
+				if more ~= 1 then
+					t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
+				end
+				if val.totalCost ~= 0 then
+					t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
+				end
+				if val.type == "Mana" and hybridLifeCost > 0 then
+					t_insert(breakdown[costName], s_format("x %.2f ^8(%d%% paid for with life)", (1-hybridLifeCost), hybridLifeCost*100))
+				end
+				t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 			end
-			if hybridLifeCost > 0 then 
-				val.baseCost = val.baseCost + costs[manaType].baseCost * hybridLifeCost
-				val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult * hybridLifeCost
-			end
-		elseif val.type == "Rage" then
-			if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
-				val.baseCost = val.baseCost + costs.Soul.baseCost
-				val.baseCostNoMult = val.baseCostNoMult + costs.Soul.baseCostNoMult
-				costs.Soul.baseCost = 0
-				costs.Soul.baseCostNoMult = 0
-			end
-		end
-	end
-	for resource, val in pairs(costs) do
-		local resource = val.upfront and resource or resource:gsub("Minute", "Second")
-		local hasCost = val.baseCost > 0 or val.totalCost > 0 or val.baseCostNoMult > 0
-		output[resource.."HasCost"] = hasCost
-		local dec = val.upfront and 0 or 2
-		local costName = resource.."Cost"
-		local mult = 1
-		local more = 1
-		local inc = 0
-		if not val.unaffectedByGenericCostMults then
-			for _, value in ipairs(skillModList:Tabulate("MORE", skillCfg, "SupportManaMultiplier")) do
-				mult = m_floor(mult * (100 + value.mod.value)) / 100
-			end
-			more = skillModList:More(skillCfg, val.type.."Cost", "Cost")
-			inc = skillModList:Sum("INC", skillCfg, val.type.."Cost", "Cost")
-			output[costName] = m_floor(val.baseCost * mult + val.baseCostNoMult)
-			output[costName] = m_max(0, (1 + inc / 100) * output[costName])
-			output[costName] = m_max(0, more * output[costName])
-			output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
-			if val.type == "Mana" and hybridLifeCost > 0 then -- Life/Mana Mastery
-				output[costName] = m_max(0, (1 - hybridLifeCost) * output[costName])
-			end
-		else
-			more = skillModList:More(skillCfg, val.type.."Cost")
-			inc = skillModList:Sum("INC", skillCfg, val.type.."Cost")
-			output[costName] = m_floor(val.baseCost + val.baseCostNoMult)
-			output[costName] = m_max(0, (1 + inc / 100) * output[costName])
-			output[costName] = m_max(0, more * output[costName])
-			output[costName] = m_max(0, round(output[costName] + val.totalCost, dec)) -- There are some weird rounding issues producing off by one in here.
-		end
-		if breakdown and hasCost then
-			breakdown[costName] = {
-				s_format("%.2f"..(val.percent and "%%" or "").." ^8(base "..val.text.." cost)", val.baseCost)
-			}
-			if mult ~= 1 then
-				t_insert(breakdown[costName], s_format("x %.2f ^8(cost multiplier)", mult))
-			end
-			if val.baseCostNoMult ~= 0 then
-				t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
-			end
-			if inc ~= 0 then
-				t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
-			end
-			if more ~= 1 then
-				t_insert(breakdown[costName], s_format("x %.2f ^8(more/less "..val.text.." cost)", more))
-			end
-			if val.totalCost ~= 0 then
-				t_insert(breakdown[costName], s_format("%+d ^8(total "..val.text.." cost)", val.totalCost))
-			end
-			if val.type == "Mana" and hybridLifeCost > 0 then
-				t_insert(breakdown[costName], s_format("x %.2f ^8(%d%% paid for with life)", (1-hybridLifeCost), hybridLifeCost*100))
-			end
-			t_insert(breakdown[costName], s_format("= %"..(val.upfront and "d" or ".2f")..(val.percent and "%%" or ""), output[costName]))
 		end
 	end
 
@@ -1565,40 +1552,6 @@ function calcs.offence(env, actor, activeSkill)
 		local multiplier = 0.25
 		skillModList:NewMod("PhysicalMin", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
 		skillModList:NewMod("PhysicalMax", "BASE", m_floor(output.ManaCost * multiplier), "Sacrificial Zeal", ModFlag.Spell)
-	end
-
-	-- account for Manaforged Arrows
-	if skillData.triggeredByManaPercentSpent and skillData.triggerSource then
-		local reqManaCostMulti = skillData.TriggerSkillManaSpentMultiRequirement
-		local uuid = cacheSkillUUID(skillData.triggerSource)
-		if GlobalCache.cachedData["CACHE"][uuid] then
-			local cachedTriggerData = GlobalCache.cachedData["CACHE"][uuid]
-			local manaThreshold = output.ManaCost * reqManaCostMulti
-			local manaSpendPerSec = (cachedTriggerData.ManaCost or 0) * (cachedTriggerData.Speed or 0)
-			local manaSpendTriggerRate = manaSpendPerSec / manaThreshold
-			output.SourceTriggerRate = manaSpendTriggerRate
-			local trigRate = m_min(manaSpendTriggerRate, skillData.triggerRate)
-			-- Account for chance to trigger
-			local manaforgeTriggerChance = 100.0
-			trigRate = trigRate * manaforgeTriggerChance / 100.0
-			if breakdown then
-				t_insert(breakdown.SimData, s_format(""))
-				t_insert(breakdown.SimData, s_format("and"))
-				t_insert(breakdown.SimData, s_format(""))
-				t_insert(breakdown.SimData, s_format("(%d ^8(trigger mana cost)", cachedTriggerData.ManaCost))
-				t_insert(breakdown.SimData, s_format("x %.2f) ^8(trigger attack speed)", cachedTriggerData.Speed))
-				t_insert(breakdown.SimData, s_format("/ (%d ^8(triggered skill mana cost)", output.ManaCost))
-				t_insert(breakdown.SimData, s_format("x %.2f) ^8(manaforge skill multiplier)", reqManaCostMulti))
-				t_insert(breakdown.SimData, s_format(""))
-				t_insert(breakdown.SimData, s_format("Trigger Skill Mana-spending trigger rate:"))
-				t_insert(breakdown.SimData, s_format("= %.2f ^8per second", manaSpendTriggerRate))
-				breakdown.ServerTriggerRate = {
-					s_format("%.2f ^8(smaller of 'cap' and 'skill' trigger rates)", trigRate),
-				}
-			end
-			activeSkill.skillData.triggerRate = trigRate
-			output.ServerTriggerRate = trigRate
-		end
 	end
 
 	runSkillFunc("preDamageFunc")
@@ -1875,9 +1828,9 @@ function calcs.offence(env, actor, activeSkill)
 		-- Check Precise Technique Keystone condition per pass as MH/OH might have different values
 		local condName = pass.label:gsub(" ", "") .. "AccRatingHigherThanMaxLife"
 		skillModList.conditions[condName] = output.Accuracy > env.player.output.Life
-
+		
 		-- Calculate attack/cast speed
-		if activeSkill.activeEffect.grantedEffect.castTime == 0 and not skillData.castTimeOverride then
+		if activeSkill.activeEffect.grantedEffect.castTime == 0 and not skillData.castTimeOverride and not skillData.triggered then
 			output.Time = 0
 			output.Speed = 0
 		elseif skillData.timeOverride then
@@ -1896,41 +1849,10 @@ function calcs.offence(env, actor, activeSkill)
 			output.TriggerTime = output.Time
 			output.Speed = 1 / output.Time
 		elseif skillData.triggerRate and skillData.triggered then
-			-- Account for trigger unleash
-			if skillData.triggerUnleash then
-				-- process the source trigger skill to get it's full data
-				local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
-				for _, triggerSkill in ipairs(actor.activeSkillList) do
-					if cacheSkillUUID(triggerSkill) == skillData.triggerSourceUUID then
-						calcs.buildActiveSkill(env, calcMode, triggerSkill)
-						break
-					end
-				end
-				local cachedSourceSkill = GlobalCache.cachedData[calcMode][skillData.triggerSourceUUID]
-				-- if properly processed, get it's dpsMultiplier to increase triggerRate
-				if cachedSourceSkill then
-					skillData.unleashTriggerRate = skillData.triggerRate * (cachedSourceSkill.ActiveSkill.skillData.dpsMultiplier or 1)
-					if breakdown then
-						breakdown.Speed = {
-							s_format("%.2f ^8(trigger rate)", skillData.triggerRate),
-							s_format("* %.2f ^8(multiplier from Unleash)", cachedSourceSkill.ActiveSkill.skillData.dpsMultiplier or 1),
-							s_format("= %.2f", skillData.unleashTriggerRate),
-						}
-					end
-					-- over-write the triggerRate modifier after breakdown as other calcs use it
-					skillData.triggerRate = skillData.unleashTriggerRate
-				end
-				-- give this activeSkill "HasSeals" flag so Configuration Option for UseMaxUnleash is available
-				activeSkill.skillFlags.HasSeals = true
-			end
 			output.Time = 1 / skillData.triggerRate
 			output.TriggerTime = output.Time
 			output.Speed = skillData.triggerRate
 			skillData.showAverage = false
-		elseif skillData.triggeredByBrand and skillData.triggered then
-			output.Time = 1 / (1 + skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency") / 100) / skillModList:More(cfg, "BrandActivationFrequency") * (skillModList:Sum("BASE", cfg, "ArcanistSpellsLinked") or 1)
-			output.TriggerTime = output.Time
-			output.Speed = 1 / output.Time
 		else
 			local baseTime
 			if isAttack then
@@ -2296,7 +2218,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.IntimidatingAvgDmg = 2 * (1 - ddChance / 100) -- 1
 						if globalBreakdown then
 							globalBreakdown.IntimidatingAvgDmg = {
-								s_format("Average Intimidating Cry Damage:"),
+								"Average Intimidating Cry Damage:",
 								s_format("%.2f%% ^8(base double damage increase to hit 100%%)", (1 - ddChance / 100) * 100 ),
 								s_format("x %d ^8(double damage multiplier)", 2),
 								s_format("= %.2f", globalOutput.IntimidatingAvgDmg),
@@ -2344,7 +2266,7 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.RallyingAvgDmg = m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5) * (env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100)
 						if globalBreakdown then
 							globalBreakdown.RallyingAvgDmg = {
-								s_format("Average Rallying Cry Damage:"),
+								"Average Rallying Cry Damage:",
 								s_format("%.2f ^8(average damage multiplier per ally)", env.modDB:Sum("BASE", nil, "RallyingExertMoreDamagePerAlly") / 100),
 								s_format("x %d ^8(number of nearby allies (max=5))", m_min(env.modDB:Sum("BASE", cfg, "Multiplier:NearbyAlly"), 5)),
 								s_format("= %.2f", globalOutput.RallyingAvgDmg),
@@ -2409,6 +2331,34 @@ function calcs.offence(env, actor, activeSkill)
 						end
 						calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 						globalOutput.SeismicCryCalculated = true
+					elseif value.activeEffect.grantedEffect.name == "Battlemage's Cry" and not globalOutput.BattleMageCryCalculated then
+						globalOutput.BattleMageCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
+						globalOutput.BattleMageCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
+						output.GlobalWarcryCooldown = env.modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
+						output.GlobalWarcryCount = env.modDB:Sum("BASE", nil, "GlobalWarcryCount")
+						if modDB:Flag(nil, "WarcryShareCooldown") then
+							globalOutput.BattleMageCryCooldown = globalOutput.BattleMageCryCooldown + (output.GlobalWarcryCooldown - globalOutput.BattleMageCryCooldown) / output.GlobalWarcryCount
+						end
+						globalOutput.BattleMageCryCastTime = calcWarcryCastTime(value.skillModList, value.skillCfg, actor)
+						if activeSkill.skillTypes[SkillType.Melee] then
+							globalOutput.BattleCryExertsCount = env.modDB:Sum("BASE", nil, "NumBattlemageExerts") or 0
+							local baseUptimeRatio = m_min((globalOutput.BattleCryExertsCount / output.Speed) / (globalOutput.BattleMageCryCooldown + globalOutput.BattleMageCryCastTime), 1) * 100
+							local storedUses = value.skillData.storedUses + value.skillModList:Sum("BASE", value.skillCfg, "AdditionalCooldownUses")
+							globalOutput.BattlemageUpTimeRatio = m_min(100, baseUptimeRatio * storedUses)
+							if globalBreakdown then
+								globalBreakdown.BattlemageUpTimeRatio = { }
+								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("(%d ^8(number of exerts)", globalOutput.BattleCryExertsCount))
+								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("/ %.2f) ^8(attacks per second)", output.Speed))
+								if globalOutput.BattleMageCryCastTime > 0 then
+									t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("/ (%.2f ^8(warcry cooldown)", globalOutput.BattleMageCryCooldown))
+									t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("+ %.2f) ^8(warcry casttime)", globalOutput.BattleMageCryCastTime))
+								else
+									t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("/ %.2f ^8(average warcry cooldown)", globalOutput.BattleMageCryCooldown))
+								end
+								t_insert(globalBreakdown.BattlemageUpTimeRatio, s_format("= %d%%", globalOutput.BattlemageUpTimeRatio))
+							end
+						end
+						globalOutput.BattleMageCryCalculated = true
 					end
 				end
 
@@ -2424,24 +2374,17 @@ function calcs.offence(env, actor, activeSkill)
 				-- Calculate Exerted Attack Uptime
 				-- There are various strategies a player could use to maximize either warcry effect stacking or staggering
 				-- 1) they don't pay attention and therefore we calculated exerted attack uptime as just the maximum uptime of any enabled warcries that exert attacks
-				globalOutput.ExertedAttackUptimeRatio = m_max(m_max(m_max(globalOutput.AncestralUpTimeRatio or 0, globalOutput.InfernalUpTimeRatio or 0), m_max(globalOutput.IntimidatingUpTimeRatio or 0, globalOutput.RallyingUpTimeRatio or 0)), globalOutput.SeismicUpTimeRatio or 0)
+				local warcryList = {"AncestralUpTimeRatio", "InfernalUpTimeRatio", "IntimidatingUpTimeRatio", "RallyingUpTimeRatio", "SeismicUpTimeRatio", "BattlemageUpTimeRatio"}
+				for _, cryTimeRatio in ipairs(warcryList) do
+					globalOutput.ExertedAttackUptimeRatio = m_max(globalOutput.ExertedAttackUptimeRatio or 0, globalOutput[cryTimeRatio] or 0)
+				end
 				if globalBreakdown then
 					globalBreakdown.ExertedAttackUptimeRatio = { }
 					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("Maximum of:"))
-					if globalOutput.AncestralUpTimeRatio then
-						t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Ancestral Cry Uptime)", globalOutput.AncestralUpTimeRatio or 0))
-					end
-					if globalOutput.InfernalUpTimeRatio then
-						t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Infernal Cry Uptime)", globalOutput.InfernalUpTimeRatio or 0))
-					end
-					if globalOutput.IntimidatingUpTimeRatio then
-						t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Intimidating Cry Uptime)", globalOutput.IntimidatingUpTimeRatio or 0))
-					end
-					if globalOutput.RallyingUpTimeRatio then
-						t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Rallying Cry Uptime)", globalOutput.RallyingUpTimeRatio or 0))
-					end
-					if globalOutput.SeismicUpTimeRatio then
-						t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(Seismic Cry Uptime)", globalOutput.SeismicUpTimeRatio or 0))
+					for _, cryTimeRatio in ipairs(warcryList) do
+						if globalOutput[cryTimeRatio] then
+							t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("%d%% ^8(%s Cry Uptime)", globalOutput[cryTimeRatio] or 0, cryTimeRatio:match("(.+)Up.*")))
+						end
 					end
 					t_insert(globalBreakdown.ExertedAttackUptimeRatio, s_format("= %d%%", globalOutput.ExertedAttackUptimeRatio))
 				end
@@ -3318,7 +3261,7 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(attack rate)", output.Speed),
 			}
-		elseif triggered then
+		elseif skillData.triggered then
 			breakdown.TotalDPS = {
 				s_format("%.1f ^8(average damage)", output.AverageDamage),
 				output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(trigger rate)", output.Speed),
@@ -3340,7 +3283,7 @@ function calcs.offence(env, actor, activeSkill)
 			local rateType = "cast"
 			if isAttack then
 				rateType = "attack"
-			elseif triggered then
+			elseif skillData.triggered then
 				rateType = "trigger"
 			end
 			breakdown.PvpTotalDPS = {
@@ -4978,7 +4921,7 @@ function calcs.offence(env, actor, activeSkill)
 				timeType = "full unleash"
 			else
 				useSpeed = (output.Cooldown and output.Cooldown > 0 and (output.Speed > 0 and output.Speed or 1 / output.Cooldown) or output.Speed) / repeats
-				timeType = isTriggered(skillData) and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
+				timeType = skillData.triggered and "trigger" or (skillFlags.totem and "totem placement" or skillFlags.attack and "attack" or "cast")
 			end
 
 			output[usedResource.."PerSecondHasCost"] = true
