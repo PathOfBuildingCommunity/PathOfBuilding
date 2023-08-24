@@ -122,6 +122,45 @@ function Aegis:adjustTotalHitPool(output, damageType)
 			isElemental[damageType] and output[damageType.."AegisDisplay"] or 0)
 end
 
+Guard = {}
+function Guard:new(output)
+	guard = { shared = output.sharedGuardAbsorb or 0 }
+	for _,damageType in pairs(dmgTypeList) do
+		guard[damageType] = output[damageType.."GuardAbsorb"] or 0
+	end
+	self.__index = self
+	return setmetatable(guard, self)
+end
+
+function Guard:takeDamage(output, damageType, damage)
+	local guard = self
+	local damageRemainder = damage
+	if guard[damageType] > 0 then
+		local tempDamage = m_min(damageRemainder * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
+		guard[damageType] = guard[damageType] - tempDamage
+		damageRemainder = damageRemainder - tempDamage
+	end
+	if guard.shared > 0 then
+		local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, guard.shared)
+		guard.shared = guard.shared - tempDamage
+		damageRemainder = damageRemainder - tempDamage
+	end
+	return damageRemainder
+end
+
+function Guard:adjustTotalHitPool(output, damageType)
+	local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
+	if GuardAbsorbRate > 0 then
+		local GuardAbsorb = output["sharedGuardAbsorb"] or 0 + output[damageType.."GuardAbsorb"] or 0
+		if GuardAbsorbRate >= 100 then
+			output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + GuardAbsorb
+		else
+			local poolProtected = GuardAbsorb / (GuardAbsorbRate / 100) * (1 - GuardAbsorbRate / 100)
+			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - GuardAbsorbRate / 100)
+		end
+	end
+end
+
 ---Helper function that reduces pools according to damage taken
 ---@param poolTable table special pool values to use. Can be nil. Values from actor output are used if this is not provided or a value for some key in this is nil.
 ---@param damageTable table damage table after all the relevant reductions
@@ -157,13 +196,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	
 	local PoolsLost = poolTbl.PoolsLost or { }
 	local aegis = poolTbl.Aegis or Aegis:new(output)
-	local guard = poolTbl.Guard
-	if not guard then
-		guard = { shared = output.sharedGuardAbsorb or 0 }
-		for damageType in pairs(damageTable) do
-			guard[damageType] = output[damageType.."GuardAbsorb"] or 0
-		end
-	end
+	local guard = poolTbl.Guard or Guard:new(output)
 	
 	local ward = poolTbl.Ward or output.Ward or 0
 	local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
@@ -186,17 +219,8 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 			end
 		end
 		-- frost shield / soul link / other taken before you does not count as you taking damage
-		damageRemainder = aegis:takeDamage(damageType, damage)
-		if guard[damageType] > 0 then
-			local tempDamage = m_min(damageRemainder * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
-			guard[damageType] = guard[damageType] - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		end
-		if guard.shared > 0 then
-			local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, guard.shared)
-			guard.shared = guard.shared - tempDamage
-			damageRemainder = damageRemainder - tempDamage
-		end
+		damageRemainder = aegis:takeDamage(damageType, damageRemainder)
+		damageRemainder = guard:takeDamage(output, damageType, damageRemainder)
 		if ward > 0 then
 			local tempDamage = m_min(damageRemainder * (1 - (modDB:Sum("BASE", nil, "WardBypass") or 0) / 100), ward)
 			ward = ward - tempDamage
@@ -2166,11 +2190,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			ward = 0
 		end
 		local aegis = Aegis:new(output)
-		local guard = { }
-		guard["shared"] = output.sharedGuardAbsorb or 0
-		for _, damageType in ipairs(dmgTypeList) do
-			guard[damageType] = output[damageType.."GuardAbsorb"] or 0
-		end
+		local guard = Guard:new(output)
 		local alliesTakenBeforeYou = {}
 		if output.FrostShieldLife then
 			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
@@ -2828,17 +2848,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + output.Ward or 0
 		end
 		Aegis:adjustTotalHitPool(output, damageType)
-		-- guard skill
-		local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
-		if GuardAbsorbRate > 0 then
-			local GuardAbsorb = output["sharedGuardAbsorb"] or 0 + output[damageType.."GuardAbsorb"] or 0
-			if GuardAbsorbRate >= 100 then
-				output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + GuardAbsorb
-			else
-				local poolProtected = GuardAbsorb / (GuardAbsorbRate / 100) * (1 - GuardAbsorbRate / 100)
-				output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - GuardAbsorbRate / 100)
-			end
-		end
+		Guard:adjustTotalHitPool(output, damageType)
 		-- from allies before you
 		-- frost shield
 		if output["FrostShieldLife"] > 0 then
