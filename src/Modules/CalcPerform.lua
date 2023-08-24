@@ -2466,6 +2466,9 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 				if output.HasBonechill and (hasGuaranteedBonechill or enemyDB:Sum("BASE", nil, "ChillVal") > 0) then
 					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
 				end
+				if modDB:Flag(nil, "ChillEffectIncDamageTaken") then
+					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Ahuana's Bite", { type = "Condition", var = "Chilled" }))
+				end
 				return mods
 			end
 		},

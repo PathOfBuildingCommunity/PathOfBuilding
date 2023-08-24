@@ -315,6 +315,20 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportLocusMine
+	addFlags = {
+		mine = true,
+	},
+	statMap = {
+		["support_locus_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["number_of_projectiles_+%_final_from_locus_mine_support"] = {
+			mod("ProjectileCount", "MORE", nil),
+		},
+	},
+#mods
+
 #skill SupportChanceToPoison
 #mods
 
@@ -401,6 +415,14 @@ local skills, mod, flag, skill = ...
 #skill SupportCriticalStrikeAffliction
 #mods
 
+#skill SupportSadism
+	statMap = {
+		["support_faster_ailments_ailment_duration_+%_final"] = {
+			mod("EnemyAilmentDuration", "MORE", nil), 
+		},
+	},
+#mods
+
 #skill SupportAdditionalCooldown
 #mods
 
@@ -424,6 +446,9 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Dot),
 		},
 	},
+#mods
+
+#skill SupportReturningProjectiles
 #mods
 
 #skill SupportSwiftAfflictionPlus
