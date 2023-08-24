@@ -900,11 +900,7 @@ function calcs.offence(env, actor, activeSkill)
 		if activeSkill.minion and activeSkill.minion.minionData.limit then
 			output.ActiveMinionLimit = m_floor(env.modDB:Override(nil, activeSkill.minion.minionData.limit) or calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
 		end
-<<<<<<< HEAD
-		 output.SummonedMinionsPerCast = m_floor(calcLib.val(skillModList, "MinionPerCastCount", skillCfg))
-=======
 		output.SummonedMinionsPerCast = m_floor(calcLib.val(skillModList, "MinionPerCastCount", skillCfg))
->>>>>>> POB/beta
 	end
 	if skillFlags.chaining then
 		if skillModList:Flag(skillCfg, "CannotChain") then
