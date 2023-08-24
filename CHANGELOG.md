@@ -26,7 +26,7 @@
   * Controlled Blaze
 - Add support for new Chieftain and Guardian ascendancy nodes [\#6288](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6288) ([Paliak](https://github.com/Paliak))
 - Add initial support for Guardian minion nodes [\#6445](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6445) ([LocalIdentity](https://github.com/LocalIdentity))
-- Add self-hit calculations for Scolds Bridle, Eye of Innocense and Heartbound Loop [\#6250](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6250) ([Paliak](https://github.com/Paliak))
+- Add self-hit calculations for Scolds Bridle, Eye of Innocence and Heartbound Loop [\#6250](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6250) ([Paliak](https://github.com/Paliak))
 - Add support for new Ancestor uniques [\#6426](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6426) ([LocalIdentity](https://github.com/LocalIdentity), [Wires77](https://github.com/Wires77))
 - Improve startup time [\#6407](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6407) ([Lancej](https://github.com/Lancej))
 ### User Interface

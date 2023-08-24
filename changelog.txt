@@ -19,7 +19,7 @@ VERSION[2.32.0][2023/08/24]
   * Controlled Blaze
 * Add support for new Chieftain and Guardian ascendancy nodes (Paliak)
 * Add initial support for Guardian minion nodes (LocalIdentity)
-* Add self-hit calculations for Scolds Bridle, Eye of Innocense and Heartbound Loop (Paliak)
+* Add self-hit calculations for Scolds Bridle, Eye of Innocence and Heartbound Loop (Paliak)
 * Add support for new Ancestor uniques by (Wires77, LocalIdentity)
 * Improve startup time (Lancej)
 
