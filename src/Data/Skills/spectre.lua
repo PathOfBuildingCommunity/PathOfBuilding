@@ -544,7 +544,7 @@ skills["DemonModularBladeVortexSpectre"] = {
 	},
 }
 skills["ElementalHitSkeletonKnight"] = {
-	name = "Elemental Hit - Psuedo Tri-Conversion",
+	name = "Elemental Hit - Pseudo Tri-Conversion",
 	hidden = true,
 	color = 2,
 	baseEffectiveness = 1.1667000055313,
