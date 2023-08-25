@@ -1514,10 +1514,6 @@ local configTable = {
 			env.player.mainSkill.infoMessage = "Cast on Melee Kill requires recent kills"
 		end
 	end,
-	["cast on critical strike"] = function()
-		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoC and slotMatch(env, skill) end}
-	end,
 	["nova"] = function(env)
 		if env.minion and env.minion.mainSkill then
 			return {triggerName = "Summon Holy Relic",
