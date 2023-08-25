@@ -37,14 +37,6 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 	Skill Set 2 and Item Set 2 should automatically set active as well.
 	But given no other links were created, switching to active Tree Set 1, Skill Set 1, or Item Set 1 would do nothing to the other Sets.]]
 	self.controls.notesDesc = new("LabelControl", {"TOPLEFT",self,"TOPLEFT"}, 8, 8, 150, 16, notesDesc)
-	self.controls.notesDesc.width = function()
-		local width = self.width / 2 - 16
-		if width ~= self.controls.notesDesc.lastWidth then
-			self.controls.notesDesc.lastWidth = width
-			self.controls.notesDesc.label = table.concat(main:WrapString(notesDesc, 16, width - 50), "\n")
-		end
-		return width
-	end
 
 	self.controls.enabled = new("CheckBoxControl", { "TOPLEFT", self, "TOPLEFT" }, 80, 145, 18, "Enabled:", function(state)
 		self.enabled = state
@@ -155,36 +147,17 @@ local LinkedSetsTabClass = newClass("LinkedSetsTab", "UndoHandler", "ControlHost
 		end
 		return note
 	end
-	local function showCurrentLinks()
-		for index, link in pairs(self.treeSetLinks) do
-			if isValidLink("tree", index, link) then
-				return true
-			end
-		end
-		for index, link in pairs(self.skillSetLinks) do
-			if isValidLink("skill", index, link) then
-				return true
-			end
-		end
-		for index, link in pairs(self.itemSetLinks) do
-			if isValidLink("item", index, link) then
-				return true
-			end
-		end
-		return false
-	end
 	self.controls.displayLinks = new("LabelControl", {"LEFT",self.controls.itemSetDropdown,"LEFT"}, 0, 85, 0, 16, "Current Links:")
-	self.controls.displayLinks.shown = function() return showCurrentLinks() end
-	self.controls.displayLinksLabel = new("LabelControl", {"LEFT",self.controls.displayLinks,"LEFT"}, 0, 45, 150, 16, function()
+	self.controls.displayLinksLabel = new("LabelControl", {"LEFT",self.controls.displayLinks,"LEFT"}, 0, 35, 150, 16, function()
 		return currentLinksNote[activeNote] and currentLinksNote[activeNote]() or ""
 	end)
-	self.controls.displayLinksTreeButton = new("ButtonControl", { "LEFT", self.controls.displayLinks, "LEFT"}, 100, 0, 150, 18, "^7Show Tree Set Links", function()
+	self.controls.displayLinksTreeButton = new("ButtonControl", { "LEFT",self.controls.displayLinks, "RIGHT"}, 8, 1, 150, 18, "^7Show Tree Set Links", function()
 		activeNote = "tree"
 	end)
-	self.controls.displayLinksSkillButton = new("ButtonControl", {"LEFT",self.controls.displayLinksTreeButton,"LEFT"}, 160, 0, 150, 18, "^7Show Skill Set Links", function()
+	self.controls.displayLinksSkillButton = new("ButtonControl", {"LEFT",self.controls.displayLinksTreeButton,"RIGHT"}, 8, 0, 150, 18, "^7Show Skill Set Links", function()
 		activeNote = "skill"
 	end)
-	self.controls.displayLinksItemButton = new("ButtonControl", {"LEFT",self.controls.displayLinksSkillButton,"LEFT"}, 160, 0, 150, 18, "^7Show Item Set Links", function()
+	self.controls.displayLinksItemButton = new("ButtonControl", {"LEFT",self.controls.displayLinksSkillButton,"RIGHT"}, 8, 0, 150, 18, "^7Show Item Set Links", function()
 		activeNote = "item"
 	end)
 end)
