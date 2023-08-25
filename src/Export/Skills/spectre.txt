@@ -101,7 +101,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("hitTimeOverride", 1)
 #mods
 
-#skill ElementalHitSkeletonKnight Elemental Hit - Psuedo Tri-Conversion
+#skill ElementalHitSkeletonKnight Elemental Hit - Pseudo Tri-Conversion
 #flags attack area melee projectile Fire Cold Lightning
 #baseMod flag("DealNoPhysical")
 #baseMod flag("DealNoChaos")
