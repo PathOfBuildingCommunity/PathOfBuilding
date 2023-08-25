@@ -317,7 +317,7 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		}
 	},
-#flags area
+#flags area totem
 #mods
 
 #skill SupportFortify

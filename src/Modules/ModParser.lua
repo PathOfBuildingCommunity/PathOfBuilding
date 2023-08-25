@@ -517,7 +517,7 @@ local modNameList = {
 	-- Totem/trap/mine/brand modifiers
 	["totem placement speed"] = "TotemPlacementSpeed",
 	["totem life"] = "TotemLife",
-	["totem duration"] = { "Duration", keywordFlags = KeywordFlag.Totem },
+	["totem duration"] = "TotemDuration",
 	["maximum number of summoned totems"] = "ActiveTotemLimit",
 	["maximum number of summoned totems."] = "ActiveTotemLimit", -- Mark plz
 	["maximum number of summoned ballista totems"] = { "ActiveBallistaLimit", tag = { type = "SkillType", skillType = SkillType.TotemsAreBallistae } },
@@ -1780,7 +1780,7 @@ local function triggerExtraSkill(name, level, noSupports, sourceSkill, triggerCh
 	end
 end
 local function extraSupport(name, level, slot)
-	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")]
+	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")] or gemIdLookup[name:gsub(" support$","")]
 	
 	if itemSlotName == "main hand" then
 		slot = "Weapon 1"
