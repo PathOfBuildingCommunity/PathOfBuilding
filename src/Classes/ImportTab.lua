@@ -731,7 +731,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		elseif itemData.inventoryId == "Flask" then
 			slotName = "Flask "..(itemData.x + 1)
 		elseif not (self.controls.charImportItemsIgnoreWeaponSwap.state and (itemData.inventoryId == "Weapon2" or itemData.inventoryId == "Offhand2")) then
-			 slotName = slotMap[itemData.inventoryId]
+			slotName = slotMap[itemData.inventoryId]
 		end
 	end
 	if not slotName then
