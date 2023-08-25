@@ -1,11 +1,13 @@
 VERSION[2.33.1][2023/08/25]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
+--- Fixed Crashes ---
 * Fix crash when using a trigger Wand mod (Paliak)
 * Fix crash when using a trigger Helmet Focus mod (Paliak)
 * Fix crash when using Flamewood Support (Paliak)
+
 --- User Interface ---
 * Display Channel time in the sidebar for Skills triggered by Snipe (Paliak)
+
 --- Fixed Bugs ---
 * Fix Hungry Loop not recognising Elemental Army (Paliak)
 * Fix separate Totem Duration affecting Skill Duration (Paliak)

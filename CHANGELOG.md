@@ -8,16 +8,16 @@
 
 ## What's Changed
 ### Fixed Crashes
-- Fix crash when using a trigger Wand mod [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
-- Fix crash when using a trigger Helmet Focus mod [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
-- Fix crash when using Flamewood Support [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
+- Fix crash when using a trigger Wand mod [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
+- Fix crash when using a trigger Helmet Focus mod [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
+- Fix crash when using Flamewood Support [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
 ### User Interface
-- Display Channel time in the sidebar for Skills triggered by Snipe [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
+- Display Channel time in the sidebar for Skills triggered by Snipe [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
 ### Fixed Bugs
-- Fix Hungry Loop not recognising Elemental Army [\#6489](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6489) ([Paliak](https://github.com/Paliak))
-- Fix separate Totem Duration affecting Skill Duration [\#6488](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6488) ([Paliak](https://github.com/Paliak))
-- Fix Melding of the Flesh not working correctly with Chieftain Valako ascendancy [\#6490](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6490) ([Paliak](https://github.com/Paliak))
-- Fix Flamewood Support not being affected by Totem mods [\#6487](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6487) ([Paliak](https://github.com/Paliak))
+- Fix Hungry Loop not recognising Elemental Army [\#6489](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6489) ([Paliak](https://github.com/Paliak))
+- Fix separate Totem Duration affecting Skill Duration [\#6488](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6488) ([Paliak](https://github.com/Paliak))
+- Fix Melding of the Flesh not working correctly with Chieftain Valako ascendancy [\#6490](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6490) ([Paliak](https://github.com/Paliak))
+- Fix Flamewood Support not being affected by Totem mods [\#6487](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6487) ([Paliak](https://github.com/Paliak))
 
 
 
