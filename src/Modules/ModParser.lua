@@ -1780,7 +1780,7 @@ local function triggerExtraSkill(name, level, noSupports, sourceSkill, triggerCh
 	end
 end
 local function extraSupport(name, level, slot)
-	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")]
+	local skillId = gemIdLookup[name] or gemIdLookup[name:gsub("^increased ","")] or gemIdLookup[name:gsub(" support$","")]
 	
 	if itemSlotName == "main hand" then
 		slot = "Weapon 1"
