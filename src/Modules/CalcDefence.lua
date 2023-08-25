@@ -295,24 +295,6 @@ function calcs.defence(env, actor)
 
 	-- Resistances
 	output["PhysicalResist"] = 0
-
-	-- Highest Maximum Elemental Resistance for Melding of the Flesh
-	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
-		local highestResistMax = 0;
-		local highestResistMaxType = "";
-		for _, elem in ipairs(resistTypeList) do
-			local resistMax = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
-			if resistMax > highestResistMax and isElemental[elem] then
-				highestResistMax = resistMax;
-				highestResistMaxType = elem;
-			end
-		end
-		for _, elem in ipairs(resistTypeList) do
-			if isElemental[elem] then
-				modDB:NewMod(elem.."ResistMax", "OVERRIDE", highestResistMax, highestResistMaxType.." Melding of the Flesh");
-			end
-		end
-	end
 	
 	-- Process Resistance conversion mods
 	for _, resFrom in ipairs(resistTypeList) do
@@ -355,6 +337,23 @@ function calcs.defence(env, actor)
 		end
 	end
 	
+	-- Highest Maximum Elemental Resistance for Melding of the Flesh
+	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
+		local highestResistMax = 0;
+		local highestResistMaxType = "";
+		for _, elem in ipairs(resistTypeList) do
+			local resistMax = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
+			if resistMax > highestResistMax and isElemental[elem] then
+				highestResistMax = resistMax;
+				highestResistMaxType = elem;
+			end
+		end
+		for _, elem in ipairs(resistTypeList) do
+			if isElemental[elem] then
+				modDB:NewMod(elem.."ResistMax", "OVERRIDE", highestResistMax, highestResistMaxType.." Melding of the Flesh");
+			end
+		end
+	end
 	
 	for _, elem in ipairs(resistTypeList) do
 		local min, max, total, totemTotal, totemMax
