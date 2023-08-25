@@ -1767,7 +1767,7 @@ function calcs.triggers(env)
         config = config or triggerNameLower and configTable[triggerNameLower] and configTable[triggerNameLower](env)
         config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
         config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
-		if not triggerNameLower and configTable[triggerNameLower] and not awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and not uniqueNameLower and configTable[uniqueNameLower] then
+		if not (triggerNameLower and configTable[triggerNameLower]) and not (awakenedTriggerNameLower and configTable[awakenedTriggerNameLower]) and not (uniqueNameLower and configTable[uniqueNameLower]) then
 			logNoHandler(skillName, triggerName, uniqueName)(env)
 		end
 		if config then
