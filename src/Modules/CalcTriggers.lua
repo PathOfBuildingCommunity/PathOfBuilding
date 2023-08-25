@@ -344,7 +344,7 @@ local function mirageArcherHandler(env)
 end
 
 local function helmetFocusHandler(env)
-	if not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable then
+	if not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillFlags.disable and env.player.mainSkill.triggeredBy then
 		local triggerName = "Focus"
 		env.player.mainSkill.skillData.triggered = true
 		local output = env.player.output
@@ -564,6 +564,7 @@ local function CWCHandler(env)
 			
 			-- Account for Trigger-related INC/MORE modifiers
 			addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
+			env.player.output.ChannelTimeToTrigger = source.skillData.triggerTime
 			env.player.mainSkill.skillData.triggered = true
 			env.player.mainSkill.skillFlags.globalTrigger = true
 			env.player.mainSkill.skillData.triggerSource = source
@@ -847,7 +848,7 @@ local function defaultTriggerHandler(env, config)
 		end
 	end
 	if #triggeredSkills > 0 or not config.triggeredSkillCond then
-		if not source and not actor.mainSkill.skillFlags.globalTrigger then
+		if not source and not (actor.mainSkill.skillFlags.globalTrigger and config.triggeredSkillCond) then
 			actor.mainSkill.skillData.triggered = nil
 			actor.mainSkill.infoMessage2 = "DPS reported assuming Self-Cast"
 			actor.mainSkill.infoMessage = s_format("No %s Triggering Skill Found", config.triggerName)
@@ -1446,26 +1447,28 @@ local configTable = {
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
 	["trigger craft"] = function(env)
-		local trigRate, source, uuid, useCastRate, triggeredSkills
-		triggeredSkills = {}
-		for _, skill in ipairs(env.player.activeSkillList) do
-			local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or  skill.skillTypes[SkillType.Triggered]
-			if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft and not skill.activeEffect.grantedEffect.fromItem and not triggered then
-				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate)
-				if skill.skillFlags and (skill.skillFlags.totem or skill.skillFlags.golem or skill.skillFlags.banner or skill.skillFlags.ballista) and skill.activeEffect.grantedEffect.castTime then
-					if skill.activeEffect.grantedEffect.levels ~= nil then
-						trigRate = 1 / (skill.activeEffect.grantedEffect.castTime + (skill.activeEffect.grantedEffect.levels[skill.activeEffect.level].cooldown or 0))
-					else
-						trigRate = 1 / skill.activeEffect.grantedEffect.castTime
+		if env.player.mainSkill.skillData.triggeredByCraft then
+			local trigRate, source, uuid, useCastRate, triggeredSkills
+			triggeredSkills = {}
+			for _, skill in ipairs(env.player.activeSkillList) do
+				local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or  skill.skillTypes[SkillType.Triggered]
+				if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and not skill.skillFlags.aura and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft and not skill.activeEffect.grantedEffect.fromItem and not triggered then
+					source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate)
+					if skill.skillFlags and (skill.skillFlags.totem or skill.skillFlags.golem or skill.skillFlags.banner or skill.skillFlags.ballista) and skill.activeEffect.grantedEffect.castTime then
+						if skill.activeEffect.grantedEffect.levels ~= nil then
+							trigRate = 1 / (skill.activeEffect.grantedEffect.castTime + (skill.activeEffect.grantedEffect.levels[skill.activeEffect.level].cooldown or 0))
+						else
+							trigRate = 1 / skill.activeEffect.grantedEffect.castTime
+						end
+						useCastRate = true
 					end
-					useCastRate = true
+				end
+				if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
+					t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
 				end
 			end
-			if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
-				t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
-			end
+			return {trigRate = trigRate, source = source, uuid = uuid, useCastRate = useCastRate, triggeredSkills = triggeredSkills}
 		end
-		return {trigRate = trigRate, source = source, uuid = uuid, useCastRate = useCastRate, triggeredSkills = triggeredSkills}
 	end,
 	["kitava's thirst"] = function(env)
 		local requiredManaCost = env.player.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
@@ -1483,10 +1486,10 @@ local configTable = {
 	end,
 	["mjolner"] = function()
 		return {triggerSkillCond = function(env, skill)
-					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0
+					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and not slotMatch(env, skill)
 				end,
 				triggeredSkillCond = function(env, skill)
-					return skill.skillData.triggeredByMjolner and  env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot
+					return skill.skillData.triggeredByMjolner and slotMatch(env, skill)
 				end}
 	end,
 	["cospri's malice"] = function()
@@ -1703,8 +1706,10 @@ local configTable = {
 						skill.skillData.hitTimeMultiplier = snipeStages - 0.5
 						source, _, uuid = findTriggerSkill(env, skill, source)
 						trigRate = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.HitSpeed
+						env.player.output.ChannelTimeToTrigger = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.HitTime
 					end
 				end
+				
 				return {trigRate = trigRate, source = source}
 			else
 				env.player.mainSkill.skillData.triggered = nil

@@ -1514,7 +1514,11 @@ return {
     div = 60,
 },
 ["totem_duration_+%"] = {
-	mod("Duration", "INC", nil, 0, KeywordFlag.Totem),
+	mod("TotemDuration", "INC", nil),
+},
+["base_totem_duration"] = {
+	mod("TotemDuration", "BASE", nil),
+	div = 1000
 },
 -- Minion
 ["minion_damage_+%"] = {
