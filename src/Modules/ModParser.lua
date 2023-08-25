@@ -517,7 +517,7 @@ local modNameList = {
 	-- Totem/trap/mine/brand modifiers
 	["totem placement speed"] = "TotemPlacementSpeed",
 	["totem life"] = "TotemLife",
-	["totem duration"] = { "Duration", keywordFlags = KeywordFlag.Totem },
+	["totem duration"] = "TotemDuration",
 	["maximum number of summoned totems"] = "ActiveTotemLimit",
 	["maximum number of summoned totems."] = "ActiveTotemLimit", -- Mark plz
 	["maximum number of summoned ballista totems"] = { "ActiveBallistaLimit", tag = { type = "SkillType", skillType = SkillType.TotemsAreBallistae } },
