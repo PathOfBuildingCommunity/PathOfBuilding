@@ -3565,7 +3565,7 @@ c["Has 2 Sockets"]={{[1]={flags=0,keywordFlags=0,name="SocketCount",type="BASE",
 c["Widowsilk Robe Quality: 20"]={nil,"Widowsilk Robe Quality: 20 "}
 c["Socketed Gems are Supported by Level 15 Increased Minion Life"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=15,skillId="SupportMinionLife"}}},nil}
 c["Shock Reflection"]={nil,"Shock Reflection "}
-c["50% increased Totem Duration"]={{[1]={flags=0,keywordFlags=0,name="TotemDuration",type="INC",value=50}},nil}
+c["50% increased Totem Duration"]={{[1]={flags=0,keywordFlags=16384,name="Duration",type="INC",value=50}},nil}
 c["Adds 1 to 10 Lightning Damage for each Shocked Enemy you've Killed Recently"]={{[1]={[1]={type="Multiplier",var="ShockedEnemyKilledRecently"},flags=0,keywordFlags=0,name="LightningMin",type="BASE",value=1},[2]={[1]={type="Multiplier",var="ShockedEnemyKilledRecently"},flags=0,keywordFlags=0,name="LightningMax",type="BASE",value=10}},nil}
 c["Minions have 9% chance to Freeze, Shock and Ignite"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="EnemyFreezeChance",type="BASE",value=9}}},[2]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="EnemyShockChance",type="BASE",value=9}}},[3]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="EnemyIgniteChance",type="BASE",value=9}}}},nil}
 c["141% increased Armour and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="ArmourAndEnergyShield",type="INC",value=141}},nil}
@@ -4578,7 +4578,7 @@ c["Lose 1% of Life on Kill"]={{[1]={[1]={percent=1,stat="Life",type="PercentStat
 c["Minions have 100% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=100}}}},nil}
 c["+34 to Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="BASE",value=34}},nil}
 c["Summoned Holy Relics have 24% reduced Cooldown Recovery Speed"]={{[1]={[1]={skillName="Summon Holy Relic",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="CooldownRecovery",type="INC",value=-24}}}},nil}
-c["30% increased Totem Duration"]={{[1]={flags=0,keywordFlags=0,name="TotemDuration",type="INC",value=30}},nil}
+c["30% increased Totem Duration"]={{[1]={flags=0,keywordFlags=16384,name="Duration",type="INC",value=30}},nil}
 c["80% increased Maximum total Life Recovery per second from Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxLifeLeechRate",type="INC",value=80}},nil}
 c["Majestic Plate League: Ancestor"]={nil,"Majestic Plate League: Ancestor "}
 c["Minions have 37% increased maximum Life"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=37}}}},nil}
@@ -5089,7 +5089,7 @@ c["1% increased Maximum Mana per Abyss Jewel affecting you"]={{[1]={[1]={type="M
 c["0.34% of Attack Damage Leeched as Mana"]={{[1]={flags=1,keywordFlags=0,name="DamageManaLeech",type="BASE",value=0.34}},nil}
 c["+9% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=9}},nil}
 c["Summoned Arbalists gain 40% of Physical Damage as Extra Lightning Damage"]={{[1]={[1]={skillName="Summon Arbalists",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="PhysicalDamageGainAsLightning",type="BASE",value=40}}}},nil}
-c["20% increased Totem Duration"]={{[1]={flags=0,keywordFlags=0,name="TotemDuration",type="INC",value=20}},nil}
+c["20% increased Totem Duration"]={{[1]={flags=0,keywordFlags=16384,name="Duration",type="INC",value=20}},nil}
 c["+40% to Critical Strike Multiplier if you've cast Enfeeble in the past 10 seconds"]={{[1]={[1]={type="Condition",var="SelfCastEnfeeble"},flags=0,keywordFlags=0,name="CritMultiplier",type="BASE",value=40}},nil}
 c["Minions have 10% increased Cast Speed"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=16,keywordFlags=0,name="Speed",type="INC",value=10}}}},nil}
 c["Elder Sword Quality: 20"]={nil,"Elder Sword Quality: 20 "}
@@ -13268,7 +13268,7 @@ c["Seaglass Amulet"]={nil,"Seaglass Amulet "}
 c["Minions deal 37% increased Damage"]={{[1]={flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Damage",type="INC",value=37}}}},nil}
 c["Allocates Born in the Shadows if you have the matching modifier on Forbidden Flame"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="born in the shadows",side="flame"}}},nil}
 c["Summoned Skeletons take 26% of their Maximum Life per second as Fire Damage"]={{[1]={[1]={skillName="Summon Skeleton",type="SkillName"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={[1]={percent=26,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=1}}}},nil}
-c["100% increased Totem Duration"]={{[1]={flags=0,keywordFlags=0,name="TotemDuration",type="INC",value=100}},nil}
+c["100% increased Totem Duration"]={{[1]={flags=0,keywordFlags=16384,name="Duration",type="INC",value=100}},nil}
 c["3% increased Area of Effect per Power Charge, up to a maximum of 50%"]={{[1]={[1]={globalLimit=50,globalLimitKey="VastPower",type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=3}},nil}
 c["Auras from your Skills grant 5% increased Recovery Rate of Life,"]={{[1]={flags=0,keywordFlags=0,name="ExtraAuraEffect",type="LIST",value={mod={flags=0,keywordFlags=0,name="FlaskRecoveryRate",type="INC",value=5}}}},"  of Life, "}
 c["47% chance to cause Bleeding on Hit"]={{[1]={flags=0,keywordFlags=0,name="BleedChance",type="BASE",value=47}},nil}
