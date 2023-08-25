@@ -1,3 +1,14 @@
+VERSION[2.33.2][2023/08/26]
+
+--- Fixed Crashes ---
+* Fix Flamewood Support crash when selecting Support gems (Paliak)
+* Fixed crash when searching trade for Jewels with Chieftain's Ngamahu Ascendancy allocated (Tivorak)
+
+--- Fixed Bugs ---
+* Fix Spellblade Support not adding damage before level 14 (Wires77)
+* Fix Flamewood support not scaling with Spell and Projectile damage (LocalIdentity)
+* Fix Flamewood Support being disabled by Ancestral Bond (Paliak)
+
 VERSION[2.33.1][2023/08/25]
 
 --- Fixed Crashes ---
