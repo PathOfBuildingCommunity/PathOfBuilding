@@ -2326,6 +2326,7 @@ skills["AvengingFlame"] = {
 	},
 	baseFlags = {
 		area = true,
+		totem = true,
 	},
 	qualityStats = {
 		Default = {
