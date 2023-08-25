@@ -1199,7 +1199,7 @@ local function defaultTriggerHandler(env, config)
 				end
 			end
 			
-			if trigRate ~= nil and not actor.mainSkill.skillFlags.globalTrigger then
+			if trigRate ~= nil and not actor.mainSkill.skillFlags.globalTrigger and not actor.mainSkill.skillTypes[SkillType.InbuiltTrigger] then
 				output.EffectiveSourceRate = trigRate
 			else
 				output.EffectiveSourceRate = output.TriggerRateCap
@@ -1720,7 +1720,6 @@ local configTable = {
 		end
 	end,
 	["Avenging Flame"]  = function(env)
-		env.player.mainSkill.skillFlags.globalTrigger = true
 		return {triggerSkillCond = function(env, skill) return skill.skillFlags.totem and slotMatch(env, skill) end,
 				comparer = function(uuid, source, currentTotemLife)
 					local totemLife = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.TotemLife
