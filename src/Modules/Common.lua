@@ -12,6 +12,7 @@ local m_abs = math.abs
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
+local m_ceil = math.ceil
 local s_format = string.format
 local s_char = string.char
 local b_rshift = bit.rshift
@@ -684,7 +685,7 @@ end
 -- Generate a UUID for a skill
 function cacheSkillUUID(skill)
 	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
-	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
+	local strSlotName = (skill.socketGroup and skill.socketGroup.slot and skill.socketGroup.slot:upper() or "NO_SLOT"):gsub("%s+", "") -- strip spaces
 	local indx = 1
 	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.srcInstance then
 		for idx, gem in ipairs(skill.socketGroup.gemList) do
@@ -850,6 +851,17 @@ function string:split(sep)
 	return fields
 end
 
+-- Ceil function with optional base parameter
+function ceil_b(x, base)
+	base = base or 1
+	return base * m_ceil(x/base)
+end
+
+-- Ceil function with optional base parameter
+function floor_b(x, base)
+	base = base or 1
+	return base * m_floor(x/base)
+end
 
 function urlEncode(str)
 	local charToHex = function(c)

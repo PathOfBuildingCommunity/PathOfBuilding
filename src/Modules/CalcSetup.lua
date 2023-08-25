@@ -539,8 +539,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 	local allocatedMasteryTypes = copyTable(env.spec.allocatedMasteryTypes)
 
 	for _, node in pairs(env.spec.allocNodes) do
-		for _, mod in ipairs(node.finalModList:Tabulate("LIST", nil, "ExtraJewelFunc")) do
-			env.extraJewelFuncs:AddMod(mod.mod)
+		if node.finalModList then
+			for _, mod in ipairs(node.finalModList:Tabulate("LIST", nil, "ExtraJewelFunc")) do
+				env.extraJewelFuncs:AddMod(mod.mod)
+			end
 		end
 	end
 
@@ -1085,11 +1087,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 					quality = 0,
 					enabled = true,
 				}
+				activeGemInstance.fromItem = grantedSkill.sourceItem ~= nil
 				activeGemInstance.gemId = nil
 				activeGemInstance.level = grantedSkill.level
 				activeGemInstance.enableGlobal1 = true
 				if grantedSkill.triggered then
 					activeGemInstance.triggered = grantedSkill.triggered
+				end
+				if grantedSkill.triggerChance then
+					activeGemInstance.triggerChance = grantedSkill.triggerChance
 				end
 				wipeTable(group.gemList)
 				t_insert(group.gemList, activeGemInstance)

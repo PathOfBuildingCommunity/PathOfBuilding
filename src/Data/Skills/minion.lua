@@ -514,7 +514,7 @@ skills["RockGolemMinionWhirlingBlades"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -1229,7 +1229,9 @@ skills["DropBearSummonedRallyingCry"] = {
 		{ "active_skill_area_of_effect_radius_+%_final", -25 },
 	},
 	stats = {
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 	},
 	levels = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 5, },
@@ -1431,6 +1433,29 @@ skills["InfernalLegion"] = {
 	baseMods = {
 		skill("FireDot", 1, { type = "Multiplier", var = "InfernalLegionBaseDamage" }),
 		skill("dotIsArea", true),
+	},
+	qualityStats = {
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
+
+skills["GuardianSentinelFireAura"] = {
+	name = "Burning Aura",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	skillTypes = { [SkillType.DamageOverTime] = true, [SkillType.CausesBurning] = true },
+	baseMods = {
+		skill("FireDot", 1, { type = "Multiplier", var = "GuardianSentinelFireAuraBaseDamage" }, { type = "PercentStat", stat = "Life", percent = 1}),
+		skill("dotIsArea", true),
+		skill("radius", 1, { type = "Multiplier", var = "GuardianSentinelFireAuraRadius" }),
 	},
 	qualityStats = {
 	},
