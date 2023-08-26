@@ -3450,6 +3450,7 @@ skills["FrozenLegion"] = {
 	},
 	baseFlags = {
 		spell = true,
+		mirage = true,
 	},
 	qualityStats = {
 		Default = {
@@ -3674,6 +3675,7 @@ skills["GeneralsCry"] = {
 		warcry = true,
 		area = true,
 		duration = true,
+		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 60),

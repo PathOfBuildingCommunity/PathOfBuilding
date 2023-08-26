@@ -1451,6 +1451,13 @@ function buildMode:AddDisplayStatList(statList, actor)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
+	if actor.mainSkill.ineffectiveTriggers and #actor.mainSkill.ineffectiveTriggers > 0 then
+		local line = "Potentially ineffective triggers:"
+		for _, skill in ipairs(actor.mainSkill.ineffectiveTriggers or {}) do
+			line = line .. " " .. skill.grantedEffect.name
+		end
+		InsertIfNew(self.controls.warnings.lines, line)
+	end
 end
 
 function buildMode:InsertItemWarnings()
