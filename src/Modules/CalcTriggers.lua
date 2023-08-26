@@ -56,8 +56,8 @@ local function processAddedCastTime(skill, breakdown)
 	end
 end
 
-local function packageSkillDataForSimulation(skill)
-	return { uuid = cacheSkillUUID(skill), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = processAddedCastTime(skill), icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery")}
+local function packageSkillDataForSimulation(skill, env)
+	return { uuid = cacheSkillUUID(skill, env), cd = skill.skillData.cooldown, cdOverride = skill.skillModList:Override(skill.skillCfg, "CooldownRecovery"), addsCastTime = processAddedCastTime(skill), icdr = calcLib.mod(skill.skillModList, skill.skillCfg, "CooldownRecovery")}
 end
 
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
@@ -67,7 +67,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 		return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
 	end
 	
-	local uuid = cacheSkillUUID(skill)
+	local uuid = cacheSkillUUID(skill, env)
 	if not GlobalCache.cachedData["CACHE"][uuid] or GlobalCache.noCache then
 		calcs.buildActiveSkill(env, "CACHE", skill)
 	end
@@ -75,7 +75,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid, source, triggerRate) then
 		return skill, GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
 	end
-	return source, triggerRate, source and cacheSkillUUID(source)
+	return source, triggerRate, source and cacheSkillUUID(source, env)
 end
 
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
@@ -251,7 +251,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 	local mainRate
 	local trigRateTable = { simRes = SIM_RESOLUTION, rates = {}, }
 	for _, sd in ipairs(skills) do
-		if cacheSkillUUID(actor.mainSkill) == sd.uuid then
+		if cacheSkillUUID(actor.mainSkill, env) == sd.uuid then
 			mainRate = sd.rate
 		end
 		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.rate })
@@ -267,7 +267,7 @@ local function mirageArcherHandler(env)
 	-- This creates and populates env.player.mainSkill.mirage table
 	if not env.player.mainSkill.skillFlags.minion and not env.player.mainSkill.skillData.limitedProcessing then
 		local usedSkill = nil
-		local uuid = cacheSkillUUID(env.player.mainSkill)
+		local uuid = cacheSkillUUID(env.player.mainSkill, env)
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 
 		-- cache a new copy of this skill that's affected by Mirage Archer
@@ -444,7 +444,7 @@ local function CWCHandler(env)
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
-				t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
+				t_insert(triggeredSkills, packageSkillDataForSimulation(skill, env))
 			end
 		end
 		if not source or #triggeredSkills < 1 then
@@ -569,7 +569,7 @@ local function CWCHandler(env)
 			env.player.mainSkill.skillFlags.globalTrigger = true
 			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
-			env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
+			env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env)
 			env.player.mainSkill.infoMessage = triggerName .."'s Trigger: ".. source.activeEffect.grantedEffect.name
 			env.player.infoTrigger = env.player.mainSkill.infoTrigger or triggerName
 		end
@@ -583,7 +583,7 @@ local function theSaviourHandler(env)
 	for _, triggerSkill in ipairs(env.player.activeSkillList) do
 		if triggerSkill ~= env.player.mainSkill and triggerSkill.skillTypes[SkillType.Attack] and not triggerSkill.skillTypes[SkillType.Totem] and not triggerSkill.skillTypes[SkillType.SummonsTotem] and band(triggerSkill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) then
 			-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
-			local uuid = cacheSkillUUID(triggerSkill)
+			local uuid = cacheSkillUUID(triggerSkill, env)
 			if not GlobalCache.cachedData[calcMode][uuid] then
 				calcs.buildActiveSkill(env, calcMode, triggerSkill)
 			end
@@ -668,7 +668,7 @@ local function tawhoaChosenHandler(env)
 		local isDisabled = triggerSkill.skillFlags and triggerSkill.skillFlags.disable
 		if triggerSkill ~= env.player.mainSkill and (triggerSkill.skillTypes[SkillType.Slam] or triggerSkill.skillTypes[SkillType.Melee]) and triggerSkill.skillTypes[SkillType.Attack] and not triggerSkill.skillTypes[SkillType.Vaal] and not triggered and not isDisabled and not triggerSkill.skillTypes[SkillType.Totem] and not triggerSkill.skillTypes[SkillType.SummonsTotem] then
 			-- Grab a fully-processed by calcs.perform() version of the skill that Tawhoa's Chosen will use
-			local uuid = cacheSkillUUID(triggerSkill)
+			local uuid = cacheSkillUUID(triggerSkill, env)
 			if not GlobalCache.cachedData[calcMode][uuid] then
 				calcs.buildActiveSkill(env, calcMode, triggerSkill)
 			end
@@ -716,7 +716,7 @@ local function tawhoaChosenHandler(env)
 		local simBreakdown
 		
 		if EffectiveSourceRate ~= 0 then
-			SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(usedSkill), cd = triggeredCD }}, EffectiveSourceRate, effectiveTriggerCD)
+			SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(usedSkill, env), cd = triggeredCD }}, EffectiveSourceRate, effectiveTriggerCD)
 			if breakdown then
 				BreakdownSkillTriggerRate = {
 					s_format("%.2f ^8(effective trigger rate of trigger)", EffectiveSourceRate),
@@ -843,7 +843,7 @@ local function defaultTriggerHandler(env, config)
 				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer)
 			end
 			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
-				t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
+				t_insert(triggeredSkills, packageSkillDataForSimulation(skill, env))
 			end
 		end
 	end
@@ -952,7 +952,7 @@ local function defaultTriggerHandler(env, config)
 			
 			-- Handling for mana spending rate for Manaforged Arrows Support
 			if actor.mainSkill.skillData.triggeredByManaforged and trigRate > 0 then
-				local triggeredUUID = cacheSkillUUID(actor.mainSkill)
+				local triggeredUUID = cacheSkillUUID(actor.mainSkill, env)
 				if not GlobalCache.cachedData["CACHE"][triggeredUUID] then
 					calcs.buildActiveSkill(env, "CACHE", actor.mainSkill, {[triggeredUUID] = true})
 				end
@@ -1217,7 +1217,7 @@ local function defaultTriggerHandler(env, config)
 				if actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then
 					output.SkillTriggerRate = output.EffectiveSourceRate
 				else
-					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
+					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
 					if triggerBotsEffective then
 						output.SkillTriggerRate = 2 * output.SkillTriggerRate
@@ -1284,7 +1284,7 @@ local function defaultTriggerHandler(env, config)
 			addTriggerIncMoreMods(actor.mainSkill, source or actor.mainSkill)
 			if source and source ~= actor.mainSkill then
 				actor.mainSkill.skillData.triggerSource = source
-				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env.mode)
+				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env)
 				actor.mainSkill.infoMessage = (config.customTriggerName or ((config.triggerName ~= source.activeEffect.grantedEffect.name and config.triggerName or triggeredName) .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: "))) .. source.activeEffect.grantedEffect.name
 			else
 				actor.mainSkill.infoMessage = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name or config.triggerName .. " Trigger"
@@ -1464,7 +1464,7 @@ local configTable = {
 					end
 				end
 				if skill.skillData.triggeredByCraft and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot then
-					t_insert(triggeredSkills, packageSkillDataForSimulation(skill))
+					t_insert(triggeredSkills, packageSkillDataForSimulation(skill, env))
 				end
 			end
 			return {trigRate = trigRate, source = source, uuid = uuid, useCastRate = useCastRate, triggeredSkills = triggeredSkills}
@@ -1522,7 +1522,7 @@ local configTable = {
 		if env.minion and env.minion.mainSkill then
 			return {triggerName = "Summon Holy Relic",
 				   actor = env.minion,
-				   triggeredSkills = {{ uuid = cacheSkillUUID(env.minion.mainSkill), cd = env.minion.mainSkill.skillData.cooldown}},
+				   triggeredSkills = {{ uuid = cacheSkillUUID(env.minion.mainSkill, env), cd = env.minion.mainSkill.skillData.cooldown}},
 				   triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 		end
 	end,
@@ -1754,7 +1754,7 @@ local function logNoHandler(skillName, triggerName, uniqueName)
 end
 
 function calcs.triggers(env)
-	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing then
+	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing and not (env.player.mainSkill.activeEffect.srcInstance and env.player.mainSkill.activeEffect.srcInstance.noSupports) then
 		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
 		local uniqueName = getUniqueItemTriggerName(env.player.mainSkill)
