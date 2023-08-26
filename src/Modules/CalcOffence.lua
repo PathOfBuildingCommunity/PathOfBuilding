@@ -4612,26 +4612,35 @@ function calcs.offence(env, actor, activeSkill)
 			skillFlags.impale = true
 			local critChance = output.CritChance / 100
 			local impaleChance =  (m_min(output.ImpaleChance/100, 1) * (1 - critChance) + m_min(output.ImpaleChanceOnCrit/100, 1) * critChance)
-			local maxStacks = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") * (1 + skillModList:Sum("BASE", cfg, "ImpaleAdditionalDurationChance") / 100)
+			local immunityDuration = modDB:Max(cfg, "ImpaleImmunityPeriod") -- The Impaler Keystone
+			local impalesPerHit =  1 + (modDB:Sum("BASE", cfg, "AdditionalImpalesInflicted") or 0)
+			local impaleHitDuration = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") / (1 - skillModList:Sum("INC", cfg, "ImpaleAdditionalDurationChance") / 100)
 			local configStacks = enemyDB:Sum("BASE", cfg, "Multiplier:ImpaleStacks")
-			local impaleStacks = m_min(maxStacks, configStacks)
+			--local impaleStacks = m_min(immunityDuration and impalesPerHit or maxStacks, configStacks)
+			local impaleStacks =
+				configStacks ~= impaleHitDuration and configStacks or
+				immunityDuration and impalesPerHit or
+				impaleHitDuration * impaleChance
 
 			local baseStoredDamage = data.misc.ImpaleStoredDamageBase
 			local storedExpectedDamageIncOnBleed = skillModList:Sum("INC", cfg, "ImpaleEffectOnBleed")*skillModList:Sum("BASE", cfg, "BleedChance")/100
 			local storedExpectedDamageInc = (skillModList:Sum("INC", cfg, "ImpaleEffect") + storedExpectedDamageIncOnBleed)/100
 			local storedExpectedDamageMore = round(skillModList:More(cfg, "ImpaleEffect"), 2)
 			local storedExpectedDamageModifier = (1 + storedExpectedDamageInc) * storedExpectedDamageMore
-			local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier
-			local impaleHitDamageMod = impaleStoredDamage * impaleStacks  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
+			local impaleStoredDamage = baseStoredDamage * storedExpectedDamageModifier * impalesPerHit
+			local impaleHitDamageMod = impaleStoredDamage * impaleHitDuration  -- Source: https://www.reddit.com/r/pathofexile/comments/chgqqt/impale_and_armor_interaction/
 
+			local oneHitMaxAvgRatio = globalOutput.TheoreticalMaxOffensiveWarcryEffect / globalOutput.TheoreticalOffensiveWarcryEffect
+			local impaleExpectedHit = output.impaleStoredHitAvg * (immunityDuration and oneHitMaxAvgRatio*impaleChance+(1-impaleChance) or 1)
 			local enemyArmour = m_max(calcLib.val(enemyDB, "Armour"), 0)
-			local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleHitDamageMod * output.impaleStoredHitAvg)
+			local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleStoredDamage * impaleStacks / impalesPerHit * impaleExpectedHit)
 			local impaleResist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction), data.misc.DamageReductionCap)
 
 			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
 
-			globalOutput.ImpaleStacksMax = maxStacks
+			globalOutput.ImpaleStacksMax = impaleHitDuration
 			globalOutput.ImpaleStacks = impaleStacks
+			globalOutput.ImpaleImmunityPeriod = immunityDuration
 			--ImpaleStoredDamage should be named ImpaleEffect or similar
 			--Using the variable name ImpaleEffect breaks the calculations sidebar (?!)
 			output.ImpaleStoredDamage = impaleStoredDamage * 100
@@ -4641,10 +4650,11 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.ImpaleStoredDamage = {}
 				t_insert(breakdown.ImpaleStoredDamage, "10% ^8(base value)")
 				t_insert(breakdown.ImpaleStoredDamage, s_format("x %.2f ^8(increased effectiveness)", storedExpectedDamageModifier))
+				if impalesPerHit > 1 then t_insert(breakdown.ImpaleStoredDamage, s_format("x %d ^8(impales per hit)", impalesPerHit)) end
 				t_insert(breakdown.ImpaleStoredDamage, s_format("= %.1f%%", output.ImpaleStoredDamage))
 
 				breakdown.ImpaleModifier = {}
-				t_insert(breakdown.ImpaleModifier, s_format("%d ^8(number of stacks, can be overridden in the Configuration tab)", impaleStacks))
+				t_insert(breakdown.ImpaleModifier, s_format("%.2f ^8(number of hits impales last for)", impaleHitDuration))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
@@ -5243,6 +5253,10 @@ function calcs.offence(env, actor, activeSkill)
 		output.CombinedDPS = output.CombinedDPS + output.TotalDotDPS
 	end
 	if skillFlags.impale then
+		local immunityDuration = output.ImpaleImmunityPeriod
+		local oneHitMaxAvgRatio = output.TheoreticalMaxOffensiveWarcryEffect / output.TheoreticalOffensiveWarcryEffect
+		local chanceToImpale = output.ImpaleChance / 100
+		local timeToImpale = output.ImpaleChance < 100 and 1 / (output.HitSpeed or output.Speed) / (output.HitChance / 100) * chanceToImpale or 0
 		if skillFlags.attack then
 			output.ImpaleHit = ((output.MainHand.PhysicalHitAverage or output.OffHand.PhysicalHitAverage) + (output.OffHand.PhysicalHitAverage or output.MainHand.PhysicalHitAverage)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
 			if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
@@ -5251,13 +5265,15 @@ function calcs.offence(env, actor, activeSkill)
 		else
 			output.ImpaleHit = output.PhysicalHitAverage * (1-output.CritChance/100) + output.PhysicalCritAverage * (output.CritChance/100)
 		end
+		local avgImpale = output.ImpaleHit
+		output.ImpaleHit = output.ImpaleHit * (immunityDuration and oneHitMaxAvgRatio*chanceToImpale + (1-chanceToImpale) or 1)
 		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
 			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
 		else
 			skillFlags.notAverage = true
-			output.ImpaleDPS = output.ImpaleDPS * (output.HitSpeed or output.Speed)
+			output.ImpaleDPS = output.ImpaleDPS * (immunityDuration and 1/(immunityDuration+timeToImpale) or output.HitSpeed or output.Speed)
 			output.WithImpaleDPS = output.TotalDPS + output.ImpaleDPS
 		end
 		if quantityMultiplier > 1 then
@@ -5266,12 +5282,27 @@ function calcs.offence(env, actor, activeSkill)
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
 		if breakdown then
 			breakdown.ImpaleDPS = {}
-			t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
-			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
-			if skillFlags.notAverage then
-				t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
+			if not immunityDuration or oneHitMaxAvgRatio == 1 then
+				t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
+			else
+				if chanceToImpale < 1 then
+					t_insert(breakdown.ImpaleDPS, s_format("%d%% x %.2f + %d%% x %.2f ^8(chance to impale on boosted hit vs impaling on average hit)", chanceToImpale*100, avgImpale*oneHitMaxAvgRatio, (100-chanceToImpale*100), avgImpale))
+					t_insert(breakdown.ImpaleDPS, s_format("= %2.f ^8(average impaling hit)", output.ImpaleHit))
+				else
+				t_insert(breakdown.ImpaleDPS, s_format("%2.f ^8(average boosted hit)", output.ImpaleHit))
+				end
+			end
+			if not immunityDuration then
+				t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("x %.2f ^8(impale damage multiplier)", ((output.ImpaleModifier or 1) - 1)))
+			if skillFlags.notAverage then
+				if immunityDuration then
+					t_insert(breakdown.ImpaleDPS, s_format("/%.2f ^8(seconds between impales)", immunityDuration + timeToImpale))
+				else
+					t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
+				end
+			end
 			if skillData.dpsMultiplier ~= 1 then
 				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
 			end

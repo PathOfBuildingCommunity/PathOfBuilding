@@ -8,6 +8,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local s_format = string.format
 local m_min = math.min
+local m_max = math.max
 
 local calcs = { }
 calcs.breakdownModule = "Modules/CalcBreakdown"
@@ -236,6 +237,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					usedEnv = fullEnv
 					GlobalCache.noCache = forceCache
 				end
+				local addImpaleDPS = function(dps) fullDPS.impaleDPS = usedEnv.player.modDB.mods.ImpaleImmunityPeriod and m_max(fullDPS.impaleDPS, dps) or fullDPS.impaleDPS + dps end
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
 					if usedEnv.minion.output.TotalDPS and usedEnv.minion.output.TotalDPS > 0 then
@@ -255,7 +257,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						fullDPS.poisonDPS = fullDPS.poisonDPS + usedEnv.minion.output.PoisonDPS * (usedEnv.minion.output.TotalPoisonStacks or 1) * activeSkillCount
 					end
 					if usedEnv.minion.output.ImpaleDPS and usedEnv.minion.output.ImpaleDPS > 0 then
-						fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.minion.output.ImpaleDPS * activeSkillCount
+						addImpaleDPS(usedEnv.minion.output.ImpaleDPS * activeSkillCount)
 					end
 					if usedEnv.minion.output.DecayDPS and usedEnv.minion.output.DecayDPS > 0 then
 						fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.minion.output.DecayDPS
@@ -291,7 +293,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 						fullDPS.poisonDPS = fullDPS.poisonDPS + activeSkill.mirage.output.PoisonDPS * (activeSkill.mirage.output.TotalPoisonStacks or 1) * mirageCount
 					end
 					if activeSkill.mirage.output.ImpaleDPS and activeSkill.mirage.output.ImpaleDPS > 0 then
-						fullDPS.impaleDPS = fullDPS.impaleDPS + activeSkill.mirage.output.ImpaleDPS * mirageCount
+						addImpaleDPS(activeSkill.mirage.output.ImpaleDPS * mirageCount)
 					end
 					if activeSkill.mirage.output.DecayDPS and activeSkill.mirage.output.DecayDPS > 0 then
 						fullDPS.decayDPS = fullDPS.decayDPS + activeSkill.mirage.output.DecayDPS
@@ -332,7 +334,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					causticGroundSource = activeSkill.activeEffect.grantedEffect.name
 				end
 				if usedEnv.player.output.ImpaleDPS and usedEnv.player.output.ImpaleDPS > 0 then
-					fullDPS.impaleDPS = fullDPS.impaleDPS + usedEnv.player.output.ImpaleDPS * activeSkillCount
+					addImpaleDPS(usedEnv.player.output.ImpaleDPS * activeSkillCount)
 				end
 				if usedEnv.player.output.DecayDPS and usedEnv.player.output.DecayDPS > 0 then
 					fullDPS.decayDPS = fullDPS.decayDPS + usedEnv.player.output.DecayDPS
