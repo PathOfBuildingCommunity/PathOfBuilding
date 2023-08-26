@@ -1,3 +1,11 @@
+VERSION[2.33.3][2023/08/26]
+
+--- Fixed Bugs ---
+* Fix Replica Dragonfang's Flight not providing levels to Vaal versions of a skill (Paliak)
+* Fix Full DPS not working for skills granted by items e.g. Arakaali's Fang  (Paliak)
+* Fix Militant Faith jewel not overriding small attribute tattoos (LocalIdentity)
+
+
 VERSION[2.33.2][2023/08/26]
 
 --- Fixed Crashes ---
