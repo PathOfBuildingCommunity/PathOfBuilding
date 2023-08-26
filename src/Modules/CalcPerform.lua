@@ -2448,7 +2448,7 @@ function calcs.perform(env,fullDPSSkipEHP)
 	-- Fix the configured impale stacks on the enemy
 	-- 		If the config is missing (blank), then use the maximum number of stacks
 	--		If the config is larger than the maximum number of stacks, replace it with the correct maximum
-	local maxImpaleStacks = modDB:Sum("BASE", nil, "ImpaleStacksMax") * (1 + modDB:Sum("BASE", nil, "ImpaleAdditionalDurationChance") / 100)
+	local maxImpaleStacks = modDB:Sum("BASE", nil, "ImpaleStacksMax") / (1 - modDB:Sum("INC", nil, "ImpaleAdditionalDurationChance") / 100)
 	if not enemyDB:HasMod("BASE", nil, "Multiplier:ImpaleStacks") then
 		enemyDB:NewMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	elseif enemyDB:Sum("BASE", nil, "Multiplier:ImpaleStacks") > maxImpaleStacks then
