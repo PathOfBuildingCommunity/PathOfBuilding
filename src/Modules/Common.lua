@@ -706,7 +706,7 @@ function cacheSkillUUID(skill, env)
 		end
 	end
 
-	return strName.."_"..strSlotName.."_"..tostring(indx) .. "_" .. tostring(groupIdx)
+	return strName.."_"..strSlotName.."_"..tostring(slotIndx) .. "_" .. tostring(groupIdx)
 end
 
 -- Global Cache related
