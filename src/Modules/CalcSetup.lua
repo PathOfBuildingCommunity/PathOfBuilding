@@ -668,7 +668,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 					if item and (item.jewelRadiusIndex or #env.extraJewelFuncs > 0) then
 						-- Jewel has a radius, add it to the list
-						local funcList = item.jewelData.funcList or { { type = "Self", func = function(node, out, data)
+						local funcList = (item.jewelData and item.jewelData.funcList) or { { type = "Self", func = function(node, out, data)
 							-- Default function just tallies all stats in radius
 							if node then
 								for _, stat in pairs({"Str","Dex","Int"}) do
