@@ -5256,7 +5256,7 @@ function calcs.offence(env, actor, activeSkill)
 		local immunityDuration = output.ImpaleImmunityPeriod
 		local oneHitMaxAvgRatio = output.TheoreticalMaxOffensiveWarcryEffect / output.TheoreticalOffensiveWarcryEffect
 		local chanceToImpale = output.ImpaleChance / 100
-		local timeToImpale = output.ImpaleChance < 100 and 1 / (output.HitSpeed or output.Speed) / (output.HitChance / 100) * chanceToImpale or 0
+		local timeToImpale = 1 / (output.HitSpeed or output.Speed) / (output.HitChance / 100) / chanceToImpale * (1-output.HitChance/100*chanceToImpale)
 		if skillFlags.attack then
 			output.ImpaleHit = ((output.MainHand.PhysicalHitAverage or output.OffHand.PhysicalHitAverage) + (output.OffHand.PhysicalHitAverage or output.MainHand.PhysicalHitAverage)) / 2 * (1-output.CritChance/100) + ((output.MainHand.PhysicalCritAverage or output.OffHand.PhysicalCritAverage) + (output.OffHand.PhysicalCritAverage or output.MainHand.PhysicalCritAverage)) / 2 * (output.CritChance/100)
 			if skillData.doubleHitsWhenDualWielding and skillFlags.bothWeaponAttack then
