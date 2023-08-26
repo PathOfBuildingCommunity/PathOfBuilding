@@ -513,9 +513,9 @@ function calcs.offence(env, actor, activeSkill)
 	local weapon2info = env.data.weaponTypeInfo[actor.weaponData2.type]
 	-- -- account for Spellblade
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
-	local spellbladeMulti = skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpells") or 100
+	local spellbladeMulti = skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpells")
 	local spellbladeDiffMulti = skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpellsWithTwoDifferentTypes")
-	if spellbladeMulti > 100 and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] and weapon1info.melee and weapon1info.oneHand then
+	if spellbladeMulti and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] and weapon1info.melee and weapon1info.oneHand then
 		local multiplier = spellbladeMulti / 100 * (weapon2info and 0.6 or 1)
 		local diffMulti = actor.weaponData1 and actor.weaponData2.type and actor.weaponData1.type ~= actor.weaponData2.type and spellbladeDiffMulti and spellbladeDiffMulti / 100 * 0.6 or 0
 		multiplier = multiplier + diffMulti
@@ -1388,7 +1388,20 @@ function calcs.offence(env, actor, activeSkill)
 				}
 			end
 		end
-		
+		output.TotemDurationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "TotemDuration")
+		local TotemDurationBase = skillModList:Sum("BASE", skillCfg, "TotemDuration")
+		output.TotemDuration = m_ceil(TotemDurationBase * output.TotemDurationMod * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		if breakdown then
+			breakdown.TotemDurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "TotemDuration")
+			breakdown.TotemDuration = {
+				s_format("%.2fs ^8(base)", TotemDurationBase),
+			}
+			if output.TotemDurationMod ~= 1 then
+				t_insert(breakdown.TotemDuration, s_format("x %.4f ^8(duration modifier)", output.TotemDurationMod))
+			end
+			t_insert(breakdown.TotemDuration, s_format("rounded up to nearest server tick"))
+			t_insert(breakdown.TotemDuration, s_format("= %.3fs", output.TotemDuration))
+		end
 	end
 
 	-- Skill uptime

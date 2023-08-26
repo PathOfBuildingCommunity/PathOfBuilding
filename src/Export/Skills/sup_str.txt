@@ -296,6 +296,7 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#addSkillTypes SummonsTotem
 #skill AvengingFlame
 	preDamageFunc = function(activeSkill, output)
 		local uuid = activeSkill.skillData.triggerSourceUUID
@@ -317,7 +318,7 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		}
 	},
-#flags area
+#flags area totem spell projectile
 #mods
 
 #skill SupportFortify

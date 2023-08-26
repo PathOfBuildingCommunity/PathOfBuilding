@@ -1,5 +1,42 @@
 # Changelog
 
+## [v2.33.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.2) (2023/08/25)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.33.1...v2.33.2)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Crashes
+- Fix Flamewood Support crash when selecting Support gems [\#6499](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6499) ([Paliak](https://github.com/Paliak))
+- Fixed crash when searching trade for Jewels with Chieftain's Ngamahu Ascendancy allocated [\#6502](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6502) ([Tivorak](https://github.com/Tivorak))
+### Fixed Bugs
+- Fix Spellblade Support not adding damage before level 14 [\#6504](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6504) ([Wires77](https://github.com/Wires77))
+- Fix Flamewood support not scaling with Spell and Projectile damage [\#6505](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6505) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Flamewood Support being disabled by Ancestral Bond [\#6499](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6499) ([Paliak](https://github.com/Paliak))
+
+
+## [v2.33.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.1) (2023/08/25)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.33.0...v2.33.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Crashes
+- Fix crash when using a trigger Wand mod [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
+- Fix crash when using a trigger Helmet Focus mod [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
+- Fix crash when using Flamewood Support [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
+### User Interface
+- Display Channel time in the sidebar for Skills triggered by Snipe [\#6486](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6486) ([Paliak](https://github.com/Paliak))
+### Fixed Bugs
+- Fix Hungry Loop not recognising Elemental Army [\#6489](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6489) ([Paliak](https://github.com/Paliak))
+- Fix separate Totem Duration affecting Skill Duration [\#6488](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6488) ([Paliak](https://github.com/Paliak))
+- Fix Melding of the Flesh not working correctly with Chieftain Valako ascendancy [\#6490](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6490) ([Paliak](https://github.com/Paliak))
+- Fix Flamewood Support not being affected by Totem mods [\#6487](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6487) ([Paliak](https://github.com/Paliak))
+
+
+
 ## [v2.33.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.0) (2023/08/25)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.32.2...v2.33.0)

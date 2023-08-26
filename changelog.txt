@@ -1,3 +1,31 @@
+VERSION[2.33.2][2023/08/26]
+
+--- Fixed Crashes ---
+* Fix Flamewood Support crash when selecting Support gems (Paliak)
+* Fixed crash when searching trade for Jewels with Chieftain's Ngamahu Ascendancy allocated (Tivorak)
+
+--- Fixed Bugs ---
+* Fix Spellblade Support not adding damage before level 14 (Wires77)
+* Fix Flamewood support not scaling with Spell and Projectile damage (LocalIdentity)
+* Fix Flamewood Support being disabled by Ancestral Bond (Paliak)
+
+VERSION[2.33.1][2023/08/25]
+
+--- Fixed Crashes ---
+* Fix crash when using a trigger Wand mod (Paliak)
+* Fix crash when using a trigger Helmet Focus mod (Paliak)
+* Fix crash when using Flamewood Support (Paliak)
+
+--- User Interface ---
+* Display Channel time in the sidebar for Skills triggered by Snipe (Paliak)
+
+--- Fixed Bugs ---
+* Fix Hungry Loop not recognising Elemental Army (Paliak)
+* Fix separate Totem Duration affecting Skill Duration (Paliak)
+* Fix Melding of the Flesh not working correctly with Chieftain Valako ascendancy (Paliak)
+* Fix Flamewood Support not being affected by Totem mods (Paliak)
+
+
 VERSION[2.33.0][2023/08/25]
 
 --- New to Path of Building ---
