@@ -146,10 +146,7 @@ function TimeSpan.fromTicks(ticks)
     error(string.format("Invalid ticks value %d, Ensure the number is an integer between than `TimeSpan.MAX` and `TimeSpan.MIN`", ticks), 2)
   end
 
-  local ts = { ticks = math.floor(ticks) }
-  setmetatable(ts, TimeSpan)
-
-  return ts;
+  return setmetatable({ ticks = math.floor(ticks) }, TimeSpan);
 end
 --- # TimeSpan.fromUs
 --- ## Summary
