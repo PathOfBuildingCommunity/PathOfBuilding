@@ -9,7 +9,7 @@
 --- - `hours`: hours
 --- - `days`: days
 --- ## Constructors
---- Create a `TimeSpan` with the specified value in the measure by calling the `TimeSpan:from*` functions.
+--- Create a `TimeSpan` with the specified value in the measure by calling the `TimeSpan.from*` functions.
 --- ## Getters
 --- ### Relative time values
 --- Get the integer value of time measures are by calling the `TimeSpan:get*` functions.
@@ -64,7 +64,7 @@ TimeSpan.__index = TimeSpan
 --- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
 --- The maximum value of the mantissa is 2^53 - 1 = 9007199254740991
 --- @type TimeSpan
-TimeSpan.MAX = TimeSpan.fromTicks(9007199254740991)
+TimeSpan.MAX_VALUE = TimeSpan.fromTicks(9007199254740991)
 
 --- # TimeSpan:MIN
 --- ## Summary
@@ -74,7 +74,7 @@ TimeSpan.MAX = TimeSpan.fromTicks(9007199254740991)
 --- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
 --- The minimum value of the mantissa is -2^53 + 1 = -9007199254740991
 --- @type TimeSpan
-TimeSpan.MIN = TimeSpan.fromTicks(-9007199254740991)
+TimeSpan.MIN_VALUE = TimeSpan.fromTicks(-9007199254740991)
 
 --- # TimeSpan:ZERO
 --- ## Summary
@@ -104,7 +104,7 @@ TimeSpan.SEC = TimeSpan.fromTicks(10000000)
 --- ## Summary
 --- The `TimeSpan` of one minute.
 --- @type TimeSpan
-TimeSpan.MINUTE = TimeSpan.fromTicks(600000000)
+TimeSpan.MIN = TimeSpan.fromTicks(600000000)
 
 --- # TimeSpan.HOUR
 --- ## Summary
@@ -132,7 +132,7 @@ function TimeSpan.fromTicks(ticks)
     error(string.format("Invalid ticks value, TimeSpan.ticks must always be a number. Ensure a number is used"), 2)
     end
   ticks = math.floor(ticks)
-  if (ticks < TimeSpan.MIN.ticks or ticks > TimeSpan.MAX.ticks or math.type(ticks) ~= "integer") then
+  if (ticks < TimeSpan.MIN_VALUE.ticks or ticks > TimeSpan.MAX_VALUE.ticks or math.type(ticks) ~= "integer") then
     error(string.format("Invalid ticks value %d, Ensure the number is an integer between than `TimeSpan.MAX` and `TimeSpan.MIN`", ticks), 2)
   end
 
@@ -187,7 +187,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of minutes.
 function TimeSpan.fromMin(min)
-  return TimeSpan.fromTicks(min * TimeSpan.MINUTE.ticks)
+  return TimeSpan.fromTicks(min * TimeSpan.MIN.ticks)
 end
 --- # TimeSpan.fromHours
 --- ## Summary
@@ -349,7 +349,7 @@ end
 --- @return number
 --- The total number of minutes of the current `TimeSpan` as a floating point number.
 function TimeSpan:getMinF()
-  return self.ticks / TimeSpan.MINUTE.ticks
+  return self.ticks / TimeSpan.MIN.ticks
 end
 --- # TimeSpan:getMin
 --- ## Summary
