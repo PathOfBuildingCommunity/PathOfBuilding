@@ -15,22 +15,22 @@
 --- Returns the number of the measure in the next higher measure.
 --- #### Example 
 --- ```lua
---- local ts = TimeSpan:fromSec(65)
---- print(ts.getMin()) -- 1
---- print(ts.getSec()) -- 5
+--- local ts = TimeSpan.fromSec(65)
+--- print(ts:getMin()) -- 1
+--- print(ts:getSec()) -- 5
 --- ```
 --- ### Full time values
 --- Get the floating full time measures are by calling the `TimeSpan:get*F` functions.
 --- They return the value of the `TimeSpan` in the measure specified by the function name.
 --- #### Example
 --- ```lua
---- local ts = TimeSpan:fromSec(65)
---- print(ts.getMinF()) -- 1.0833333333333
---- print(ts.getSecF()) -- 65
+--- local ts = TimeSpan.fromSec(65)
+--- print(ts:getMinF()) -- 1.0833333333333
+--- print(ts:getSecF()) -- 65
 --- ```
 --- ## Operators
 --- The following operators are implemented for `TimeSpan`:
---- - `+`: Addition
+--- - `+`: AdditionF
 --- - `-`: Subtraction
 --- - `*`: Multiplication
 --- - `/`: Division
@@ -38,11 +38,6 @@
 --- - `==`: Equality
 --- - `<`: Comparison
 --- - `<=`: Comparison
---- ## Parameters
---- ### `ticks`
---- The number of ticks to create the TimeSpan from.
---- ## Remarks
---- Ensures that the ticks value is an integer and smaller than 2^51.
 --- @class TimeSpan
 TimeSpan = { ticks = 0 }
 TimeSpan.__index = TimeSpan
