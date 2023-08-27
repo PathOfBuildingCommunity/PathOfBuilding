@@ -68,7 +68,7 @@ TimeSpan = {
 }
 TimeSpan.__index = TimeSpan
 
---- # TimeSpan:MAX_VALUE
+--- # TimeSpan.MAX_VALUE
 --- ## Summary
 --- The maximum value of a `TimeSpan`.
 --- ## Remarks
@@ -78,7 +78,7 @@ TimeSpan.__index = TimeSpan
 --- @type TimeSpan
 TimeSpan.MAX_VALUE = TimeSpan.fromTicks(9007199254740991)
 
---- # TimeSpan:MIN_VALUE
+--- # TimeSpan.MIN_VALUE
 --- ## Summary
 --- The minimum value of a `TimeSpan`.
 --- ## Remarks
@@ -88,7 +88,7 @@ TimeSpan.MAX_VALUE = TimeSpan.fromTicks(9007199254740991)
 --- @type TimeSpan
 TimeSpan.MIN_VALUE = TimeSpan.fromTicks(-9007199254740991)
 
---- # TimeSpan:ZERO
+--- # TimeSpan.ZERO
 --- ## Summary
 --- The zero value of a `TimeSpan`.
 --- @type TimeSpan
