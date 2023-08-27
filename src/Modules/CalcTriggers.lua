@@ -693,6 +693,7 @@ local function tawhoaChosenHandler(env)
 		local moreDamage = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ChieftainMirageChieftainMoreDamage")
 		local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
 		newSkill.skillData.triggered = true
+		newSkill.skillTypes[SkillType.OtherThingUsesSkill] = true
 		
 		-- Calculate trigger rate
 		local triggerCD = env.player.mainSkill.skillData.cooldown
