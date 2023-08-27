@@ -42,17 +42,43 @@
 TimeSpan = { ticks = 0 }
 TimeSpan.__index = TimeSpan
 
+--- # TimeSpan:MAX
+--- ## Summary
+--- The maximum value of a `TimeSpan`.
+--- ## Remarks
+--- Lua stores numbers as double precision floating point numbers.
+--- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
+--- The maximum value of the mantissa is 2^53 - 1 = 9007199254740991 which is expressed in binary as 0100001100111111111111111111111111111111111111111111111111111111
+--- @type TimeSpan
+TimeSpan.MAX = TimeSpan.fromTicks(9007199254740991)
+
+--- # TimeSpan:MIN
+--- ## Summary
+--- The minimum value of a `TimeSpan`.
+--- ## Remarks
+--- Lua stores numbers as double precision floating point numbers.
+--- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
+--- The minimum value of the mantissa is -2^53 + 1 = -9007199254740991 which is expressed in binary as 1100001100111111111111111111111111111111111111111111111111111111
+--- @type TimeSpan
+TimeSpan.MIN = TimeSpan.fromTicks(-9007199254740991)
+
+--- # TimeSpan:ZERO
+--- ## Summary
+--- The zero value of a `TimeSpan`.
+--- @type TimeSpan
+TimeSpan.ZERO = TimeSpan.fromTicks(0)
+
 --- @return TimeSpan
 --- @param ticks integer
 function TimeSpan.fromTicks(ticks)
   if (type(ticks) ~= "number") then
     error(string.format("Invalid ticks value, TimeSpan.ticks must always be a number. Ensure a number is used"), 2)
     end
-  if (math.type(ticks) ~= "integer") then
-    error(string.format("Invalid ticks value %d, TimeSpan.ticks must always be an integer. Ensure no fraction is used and the absolute number is smaller than 2^51", ticks), 2)
+  if (ticks < TimeSpan.MIN or ticks > TimeSpan.MAX) then
+    error(string.format("Invalid ticks value %d, Ensure the number is between than `TimeSpan.MAX` and `TimeSpan.MIN`", ticks), 2)
   end
 
-  local ts = { ticks = ticks }
+  local ts = { ticks = math.floor(ticks) }
   setmetatable(ts, TimeSpan)
 
   return ts;
