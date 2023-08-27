@@ -1471,20 +1471,18 @@ local configTable = {
 		end
 	end,
 	["kitava's thirst"] = function(env)
-		if env.player.mainSkill.skillData.triggeredByManaSpent then
-			local requiredManaCost = env.player.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
-			return {triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance"),
-					triggerName = "Kitava's Thirst",
-					comparer = function(uuid, source, triggerRate)
-						local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
-						local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
-						return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
-					end,
-					triggerSkillCond = function(env, skill) 
-						return true 
-						-- Filtering done by skill() in SkillStatMap, comparer and default excludes
-					end}
-		end
+		local requiredManaCost = env.player.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
+		return {triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance"),
+				triggerName = "Kitava's Thirst",
+				comparer = function(uuid, source, triggerRate)
+					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
+					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
+				end,
+				triggerSkillCond = function(env, skill) 
+					return true 
+					-- Filtering done by skill() in SkillStatMap, comparer and default excludes
+				end}
 	end,
 	["mjolner"] = function()
 		return {triggerSkillCond = function(env, skill)
@@ -1755,7 +1753,7 @@ function calcs.triggers(env)
 	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing then
 		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
-		local uniqueName = getUniqueItemTriggerName(env.player.mainSkill)
+		local uniqueName = env.player.mainSkill.skillTypes[SkillType.Triggerable] and getUniqueItemTriggerName(env.player.mainSkill)
 		local skillNameLower = skillName and skillName:lower()
 		local triggerNameLower = triggerName and triggerName:lower()
 		local awakenedTriggerNameLower = triggerNameLower and triggerNameLower:gsub("^awakened ", "")
