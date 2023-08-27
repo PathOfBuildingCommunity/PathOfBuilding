@@ -4620,7 +4620,6 @@ function calcs.offence(env, actor, activeSkill)
 			local impalesPerHit =  1 + (modDB:Sum("BASE", cfg, "AdditionalImpalesInflicted") or 0)
 			local impaleHitDuration = skillModList:Sum("BASE", cfg, "ImpaleStacksMax") / (1 - skillModList:Sum("INC", cfg, "ImpaleAdditionalDurationChance") / 100)
 			local configStacks = enemyDB:Sum("BASE", cfg, "Multiplier:ImpaleStacks")
-			--local impaleStacks = m_min(immunityDuration and impalesPerHit or maxStacks, configStacks)
 			local impaleStacks =
 				configStacks ~= impaleHitDuration and configStacks or
 				immunityDuration and impalesPerHit or
