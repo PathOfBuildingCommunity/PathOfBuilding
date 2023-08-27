@@ -68,7 +68,7 @@ TimeSpan = {
 }
 TimeSpan.__index = TimeSpan
 
---- # TimeSpan:MAX
+--- # TimeSpan:MAX_VALUE
 --- ## Summary
 --- The maximum value of a `TimeSpan`.
 --- ## Remarks
@@ -78,7 +78,7 @@ TimeSpan.__index = TimeSpan
 --- @type TimeSpan
 TimeSpan.MAX_VALUE = TimeSpan.fromTicks(9007199254740991)
 
---- # TimeSpan:MIN
+--- # TimeSpan:MIN_VALUE
 --- ## Summary
 --- The minimum value of a `TimeSpan`.
 --- ## Remarks
@@ -112,7 +112,7 @@ TimeSpan.MS = TimeSpan.fromTicks(10000)
 --- @type TimeSpan
 TimeSpan.SEC = TimeSpan.fromTicks(10000000)
 
---- # TimeSpan.MINUTE
+--- # TimeSpan.MIN
 --- ## Summary
 --- The `TimeSpan` of one minute.
 --- @type TimeSpan
@@ -470,7 +470,7 @@ end
 function TimeSpan:__tostring()
   return self:toIso()
 end
---- # TimeSpan:unm
+--- # TimeSpan:__unm
 --- ## Summary
 --- Returns the negated value of the TimeSpan.
 --- ## Returns
@@ -479,7 +479,7 @@ end
 function TimeSpan:__unm()
   return TimeSpan.fromTicks(-self.ticks)
 end
---- # TimeSpan:add
+--- # TimeSpan:__add
 --- ## Summary
 --- Adds the given TimeSpan to the current TimeSpan.
 --- ## Parameters
@@ -491,7 +491,7 @@ end
 function TimeSpan:__add(rhs)
   return TimeSpan.fromTicks(self.ticks + rhs.ticks)
 end
---- # TimeSpan:sub
+--- # TimeSpan:__sub
 --- ## Summary
 --- Subtracts the given TimeSpan from the current TimeSpan.
 --- ## Parameters
@@ -503,7 +503,7 @@ end
 function TimeSpan:__sub(rhs)
   return TimeSpan.fromTicks(self.ticks - rhs.ticks)
 end
---- # TimeSpan:mul
+--- # TimeSpan:__mul
 --- ## Summary
 --- Multiplies the current TimeSpan with the given TimeSpan.
 --- ## Parameters
@@ -519,7 +519,7 @@ function TimeSpan:__mul(rhs)
     return TimeSpan.fromTicks(self.ticks * rhs.ticks)
   end
 end
---- # TimeSpan:div
+--- # TimeSpan:__div
 --- ## Summary
 --- Divides the current TimeSpan by the given TimeSpan.
 --- ## Parameters
@@ -537,7 +537,7 @@ function TimeSpan:__div(rhs)
     return TimeSpan.fromTicks(self.ticks / rhs.ticks)
   end
 end
---- # TimeSpan:mod
+--- # TimeSpan:__mod
 --- ## Summary
 --- Calculates the modulo of the current `TimeSpan` by the given `TimeSpan`.
 --- ## Parameters
@@ -549,7 +549,7 @@ end
 function TimeSpan:__mod(rhs)
   return TimeSpan.fromTicks(self.ticks % rhs.ticks)
 end
---- # TimeSpan:equals
+--- # TimeSpan:__eq
 --- ## Summary
 --- Checks if the current `TimeSpan` is equal to the given `TimeSpan`.
 --- ## Parameters
@@ -563,7 +563,7 @@ end
 function TimeSpan:__eq(rhs)
   return self.ticks == rhs.ticks
 end
---- # TimeSpan:lt
+--- # TimeSpan:__lt
 --- ## Summary
 --- Checks if the current `TimeSpan` is less than the given `TimeSpan`.
 --- ## Parameters
@@ -575,7 +575,7 @@ end
 function TimeSpan:__lt(rhs)
   return self.ticks < rhs.ticks
 end
---- # TimeSpan:le
+--- # TimeSpan:__le
 --- ## Summary
 --- Checks if the current `TimeSpan` is less than or equal to the given `TimeSpan`.
 --- ## Parameters
