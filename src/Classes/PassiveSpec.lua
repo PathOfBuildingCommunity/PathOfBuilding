@@ -1032,7 +1032,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					local dex = (isValueInArray(attributes, node.dn) or node.isTattoo) and "2" or "4"
 					self:NodeAdditionOrReplacementFromString(node, " \n+" .. dex .. " to Dexterity")
 				elseif conqueredBy.conqueror.type == "templar" then
-					if isValueInArray(attributes, node.dn) then
+					if (isValueInArray(attributes, node.dn) or node.isTattoo) then
 						local legionNode = legionNodes[91] -- templar_devotion_node
 						self:ReplaceNode(node, legionNode)
 					else
