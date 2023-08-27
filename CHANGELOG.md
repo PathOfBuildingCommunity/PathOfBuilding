@@ -1,5 +1,19 @@
 # Changelog
 
+## [v2.33.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.3) (2023/08/26)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.33.2...v2.33.3)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix Replica Dragonfang's Flight not providing levels to Vaal versions of a skill [\#6512](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6512) ([Paliak](https://github.com/Paliak))
+- Fix Full DPS not working for skills granted by items e.g. Arakaali's Fang  [\#6511](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6511) ([Paliak](https://github.com/Paliak))
+- Fix Militant Faith jewel not overriding small attribute tattoos [\#6514](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6514) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
+
 ## [v2.33.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.2) (2023/08/25)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.33.1...v2.33.2)

@@ -109,6 +109,7 @@ function calcLib.gemIsType(gem, type)
 			((type == "active skill" or type == "grants_active_skill") and gem.tags.grants_active_skill and not gem.tags.support) or
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
+			(type == gem.name:lower():gsub("^vaal ", "")) or
 			((type ~= "active skill" and type ~= "grants_active_skill") and gem.tags[type]))
 end
 

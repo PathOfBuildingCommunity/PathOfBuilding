@@ -1764,7 +1764,7 @@ local function grantedExtraSkill(name, level, noSupports)
 	name = name:gsub(" skill","")
 	if gemIdLookup[name] then
 		return {
-			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = level, noSupports = noSupports })
+			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = tonumber(level), noSupports = noSupports })
 		}
 	end
 end
@@ -1775,7 +1775,7 @@ local function triggerExtraSkill(name, level, noSupports, sourceSkill, triggerCh
 	end
 	if gemIdLookup[name] then
 		return {
-			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = level, noSupports = noSupports, triggered = true, source = sourceSkill, triggerChance = triggerChance })
+			mod("ExtraSkill", "LIST", { skillId = gemIdLookup[name], level = tonumber(level), noSupports = noSupports, triggered = true, source = sourceSkill, triggerChance = tonumber(triggerChance) })
 		}
 	end
 end

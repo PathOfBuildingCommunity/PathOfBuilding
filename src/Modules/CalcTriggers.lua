@@ -1296,14 +1296,14 @@ local function defaultTriggerHandler(env, config)
 end
 
 local configTable = {
-	["Law of the Wilds"] = function()
+	["law of the wilds"] = function()
 		return {
 			triggerSkillCond = function(env, skill)
 				return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Claw) > 0 
 			end
 		}
 	end,
-	["The Rippling Thoughts"] = function(env)
+	["the rippling thoughts"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Storm Cascade" then
 			return {
 				triggerSkillCond = function(env, skill) 
@@ -1312,7 +1312,7 @@ local configTable = {
 			}
 		end
 	end,
-	["The Surging Thoughts"] = function(env)
+	["the surging thoughts"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name == "Storm Cascade" then
 			return {
 				triggerSkillCond = function(env, skill) 
@@ -1321,7 +1321,7 @@ local configTable = {
 			}
 		end
 	end,
-	["The Hidden Blade"] = function(env)
+	["the hidden blade"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		env.player.mainSkill.skillData.triggerRateCapOverride = 2
 		if env.player.modDB:Flag(nil, "Condition:Phasing") then
@@ -1330,74 +1330,74 @@ local configTable = {
 		env.player.mainSkill.skillFlags.disable = true
 		env.player.mainSkill.disableReason = "This skill is requires you to be phasing"
 	end,
-	["Replica Eternity Shroud"] = function(env)
+	["replica eternity shroud"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
-	["Shroud of the Lightless"] = function(env)
+	["shroud of the lightless"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
-	["Limbsplit"] = function()
+	["limbsplit"] = function()
 		return {triggerName = "Gore Shockwave", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["The Cauteriser"] = function()
+	["the cauteriser"] = function()
 		return {triggerName = "Gore Shockwave", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Duskblight"] = function()
+	["duskblight"] = function()
 		return {triggerName = "Stalking Pustule", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Lioneye's Paws"] = function(env)
+	["lioneye's paws"] = function(env)
 		-- Due to the way the triggerExtraSkill function in mod parser works this trigger does not use the custom trigger skill (RainOfArrowsOnAttackingWithBow)
 		-- the normal version is used here instead. The stats are the same but the normal version does not have cooldown.
 		env.player.mainSkill.skillData.cooldown = 1
 		return {triggerOnUse = true, triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 end}
 	end,
-	["Replica Lioneye's Paws"] = function(env)
+	["replica lioneye's paws"] = function(env)
 		-- Due to the way the triggerExtraSkill function in mod parser works this trigger does not use the custom trigger skill (RainOfArrowsOnAttackingWithBow)
 		-- the normal version is used here instead. The stats are the same but the normal version does not have cooldown.
 		env.player.mainSkill.skillData.cooldown = 1
 		return {triggerOnUse = true, triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 end}
 	end,
-	["Moonbender's Wing"] = function(env)
+	["moonbender's wing"] = function(env)
 		--Similar situation to "Replica Lioneye's Paws"
 		env.player.mainSkill.skillData.cooldown = 1
 		return {triggerName = "Lightning Warp", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Ngamahu's Flame"] = function()
+	["ngamahu's flame"] = function()
 		return {triggerName = "Molten Burst", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Cameria's Avarice"] = function()
+	["cameria's avarice"] = function()
 		return {triggerName = "Icicle Burst", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Uul-Netol's Embrace"] = function()
+	["uul-netol's embrace"] = function()
 		return {triggerName = "Bone Nova", triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Rigwald's Crest"] = function(env)
+	["rigwald's crest"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Jorrhast's Blacksteel"] = function(env)
+	["jorrhast's blacksteel"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Ashcaller"] = function(env)
+	["ashcaller"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Arakaali's Fang"] = function()
+	["arakaali's fang"] = function()
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Sporeguard"] = function()
+	["sporeguard"] = function()
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and not skill.skillTypes[SkillType.Triggered] end}
 	end,
-	["Mark of the Elder"] = function()
+	["mark of the elder"] = function()
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Mark of the Shaper"] = function()
+	["mark of the shaper"] = function()
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
-	["Poet's Pen"] = function()
+	["poet's pen"] = function()
 		return {triggerOnUse = true,
 				triggerSkillCond = function(env, skill) 
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Wand) > 0 
@@ -1406,7 +1406,7 @@ local configTable = {
 					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell] 
 				end}
 	end,
-	["Maloney's Mechanism"] = function(env)
+	["maloney's mechanism"] = function(env)
 		local _, _, uniqueTriggerName = env.player.itemList[env.player.mainSkill.slotName].modSource:find(".*:.*:(.*),.*")
 		local isReplica = uniqueTriggerName:match("Replica.")
 		return {triggerOnUse = true, triggerName = uniqueTriggerName, useCastRate = isReplica,
@@ -1419,7 +1419,7 @@ local configTable = {
 					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.RangedAttack]
 				end}
 	end,
-	["Asenath's Chant"] = function()
+	["asenath's chant"] = function()
 		return {triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Bow) > 0
@@ -1428,25 +1428,25 @@ local configTable = {
 					return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot and skill.skillTypes[SkillType.Spell]
 				end}
 	end,
-	["Vixen's Entrapment"] = function()
+	["vixen's entrapment"] = function()
 		return {useCastRate = true,
 				triggerSkillCond = function(env, skill)
 					return skill.skillTypes[SkillType.Hex]
 				end}
 	end,
-	["Flames of Judgement"] = function(env)
+	["flames of judgement"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {triggerName = env.player.mainSkill.activeEffect.grantedEffect.name,
 				triggerSkillCond = function(env, skill) return skill.activeEffect.grantedEffect.name == "Queen's Demand" end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
-	["Storm of Judgement"] = function(env)
+	["storm of judgement"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {triggerName = env.player.mainSkill.activeEffect.grantedEffect.name,
 				triggerSkillCond = function(env, skill) return skill.activeEffect.grantedEffect.name == "Queen's Demand" end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByUnique and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
-	["Trigger Craft"] = function(env)
+	["trigger craft"] = function(env)
 		if env.player.mainSkill.skillData.triggeredByCraft then
 			local trigRate, source, uuid, useCastRate, triggeredSkills
 			triggeredSkills = {}
@@ -1470,7 +1470,7 @@ local configTable = {
 			return {trigRate = trigRate, source = source, uuid = uuid, useCastRate = useCastRate, triggeredSkills = triggeredSkills}
 		end
 	end,
-	["Kitava's Thirst"] = function(env)
+	["kitava's thirst"] = function(env)
 		local requiredManaCost = env.player.modDB:Sum("BASE", nil, "KitavaRequiredManaCost")
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance"),
 				triggerName = "Kitava's Thirst",
@@ -1484,7 +1484,7 @@ local configTable = {
 					-- Filtering done by skill() in SkillStatMap, comparer and default excludes
 				end}
 	end,
-	["Mjolner"] = function()
+	["mjolner"] = function()
 		return {triggerSkillCond = function(env, skill)
 					return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, bor(ModFlag.Mace, ModFlag.Weapon1H)) > 0 and not slotMatch(env, skill)
 				end,
@@ -1492,17 +1492,17 @@ local configTable = {
 					return skill.skillData.triggeredByMjolner and slotMatch(env, skill)
 				end}
 	end,
-	["Cospri's Malice"] = function()
+	["cospri's malice"] = function()
 		return {triggerSkillCond = function(env, skill)
 					return skill.skillTypes[SkillType.Melee] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) > 0
 				end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCospris and env.player.mainSkill.socketGroup.slot == skill.socketGroup.slot end}
 	end,
-	["Cast On Critical Strike"] = function()
+	["cast on critical strike"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoC and slotMatch(env, skill) end}
 	end,
-	["Cast on Melee Kill"] = function(env)
+	["cast on melee kill"] = function(env)
 		if env.player.modDB:Flag(nil, "Condition:KilledRecently") then
 			return {assumingEveryHitKills = true,
 					triggerSkillCond = function(env, skill)
@@ -1514,11 +1514,7 @@ local configTable = {
 			env.player.mainSkill.infoMessage = "Cast on Melee Kill requires recent kills"
 		end
 	end,
-	["Cast On Critical Strike"] = function()
-		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoC and slotMatch(env, skill) end}
-	end,
-	["Nova"] = function(env)
+	["nova"] = function(env)
 		if env.minion and env.minion.mainSkill then
 			return {triggerName = "Summon Holy Relic",
 				   actor = env.minion,
@@ -1526,7 +1522,7 @@ local configTable = {
 				   triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 		end
 	end,
-	["Cast when Damage Taken"] = function(env)
+	["cast when damage taken"] = function(env)
 		local thresholdMod = calcLib.mod(env.player.mainSkill.skillModList, nil, "CWDTThreshold")
 		env.player.output.CWDTThreshold = env.player.mainSkill.skillData.triggeredByDamageTaken * thresholdMod
 		if env.player.breakdown and env.player.output.CWDTThreshold ~= env.player.mainSkill.skillData.triggeredByDamageTaken then
@@ -1539,12 +1535,12 @@ local configTable = {
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByDamageTaken and slotMatch(env, skill) end}
 	end,
-	["Cast when Stunned"] = function(env)
+	["cast when stunned"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {triggerChance =  env.player.mainSkill.skillData.triggeredByStunned,
 				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByStunned and slotMatch(env, skill) end}
 	end,
-	["Spellslinger"] = function()
+	["spellslinger"] = function()
 		return {triggerName = "Spellslinger",
 				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
@@ -1552,48 +1548,48 @@ local configTable = {
 					return isWandAttack and not skill.skillTypes[SkillType.Triggered] and not skill.skillData.triggeredBySpellSlinger
 				end}
 	end,
-	["Mark On Hit"] = function()
+	["mark on hit"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] end}
 	end,
-	["Hextouch"] = function(env)
+	["hextouch"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {triggerSkillCond = function(env, skill)
 					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and slotMatch(env, skill)
 				end}
 	end,
-	["Oskarm"] = function(env)
+	["oskarm"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {triggerSkillCond = function(env, skill)
 					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered]
 				end}
 	end,
-	["Tempest Shield"] = function(env)
+	["tempest shield"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
-	["Shattershard"] = function(env)
+	["shattershard"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
-	["Riposte"] = function(env)
+	["riposte"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
-	["Reckoning"] = function(env)
+	["reckoning"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
-	["Vengeance"] = function(env)
+	["vengeance"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		return {source = env.player.mainSkill}
 	end,
-	["Battlemage's Cry"] = function(env)
+	["battlemage's cry"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Battlemage's Cry" then
 			return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end,
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBattleMageCry and slotMatch(env, skill) end}
 		end
 	end,
-	["Arcanist Brand"] = function(env)
+	["arcanist brand"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Arcanist Brand" then
 			env.player.mainSkill.skillData.sourceRateIsFinal = true
 			env.player.mainSkill.skillData.ignoresTickRate = true
@@ -1614,48 +1610,48 @@ local configTable = {
 					triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByBrand and slotMatch(env, skill) end}
 		end
 	end,
-	["Cast on Death"] = function(env)
+	["cast on death"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
 		env.player.mainSkill.skillData.triggered = true
 		env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
 	end,
-	["Combust"] = function(env)
+	["combust"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end}
 	end,
-	["Prismatic Burst"] = function(env)
+	["prismatic burst"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] end}
 	end,
-	["Shockwave"] = function(env)
+	["shockwave"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end}
 	end,
-	["Manaforged Arrows"] = function(env)
+	["manaforged arrows"] = function(env)
 		return {triggerOnUse = true,
 				triggerName = "Manaforged Arrows",
 				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 end}
 	end,
-	["Mirage Archer"] = function()
+	["mirage archer"] = function()
 		return {customHandler = mirageArcherHandler}
 	end,
-	["Doom Blast"] = function()
+	["doom blast"] = function()
 		return {useCastRate = true,
 				stagesAreOverlaps = 2,
 				customTriggerName = "Doom Blast triggering Hex: ",
 				allowTriggered = true,
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) end}
 	end,
-	["Cast while Channelling"] = function()
+	["cast while channelling"] = function()
 		return {customHandler = CWCHandler}
 	end,
-	["Focus"] = function()
+	["focus"] = function()
 		return {customHandler = helmetFocusHandler}
 	end,
-	["Reflection"] = function()
+	["reflection"] = function()
 		return {customHandler = theSaviourHandler}
 	end,
-	["Tawhoa's Chosen"] = function()
+	["tawhoa's chosen"] = function()
 		return {customHandler = tawhoaChosenHandler}
 	end,
-	["Snipe"] = function(env)
+	["snipe"] = function(env)
 		local snipeStages = m_min(env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStage"), env.player.modDB:Sum("BASE", nil, "Multiplier:SnipeStagesMax"))
 		local snipeHitMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeHitMulti")
 		local snipeAilmentMulti = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "snipeAilmentMulti")
@@ -1719,7 +1715,7 @@ local configTable = {
 			end
 		end
 	end,
-	["Avenging Flame"]  = function(env)
+	["avenging flame"]  = function(env)
 		return {triggerSkillCond = function(env, skill) return skill.skillFlags.totem and slotMatch(env, skill) end,
 				comparer = function(uuid, source, currentTotemLife)
 					local totemLife = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.TotemLife
@@ -1758,11 +1754,15 @@ function calcs.triggers(env)
 		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
 		local uniqueName = getUniqueItemTriggerName(env.player.mainSkill)
-		local config = skillName and configTable[skillName] and configTable[skillName](env)
-        config = config or triggerName and configTable[triggerName] and configTable[triggerName](env)
-        config = config or triggerName and configTable[triggerName:gsub("^Awakened ", "")] and configTable[triggerName:gsub("^Awakened ", "")](env)
-        config = config or uniqueName and configTable[uniqueName] and configTable[uniqueName](env)
-		if not triggerName and configTable[triggerName] and not triggerName and configTable[triggerName:gsub("^Awakened ", "")] and not uniqueName and configTable[uniqueName] then
+		local skillNameLower = skillName and skillName:lower()
+		local triggerNameLower = triggerName and triggerName:lower()
+		local awakenedTriggerNameLower = triggerNameLower and triggerNameLower:gsub("^awakened ", "")
+		local uniqueNameLower = uniqueName and uniqueName:lower()
+		local config = skillNameLower and configTable[skillNameLower] and configTable[skillNameLower](env)
+        config = config or triggerNameLower and configTable[triggerNameLower] and configTable[triggerNameLower](env)
+        config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
+        config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
+		if not (triggerNameLower and configTable[triggerNameLower]) and not (awakenedTriggerNameLower and configTable[awakenedTriggerNameLower]) and not (uniqueNameLower and configTable[uniqueNameLower]) then
 			logNoHandler(skillName, triggerName, uniqueName)(env)
 		end
 		if config then
