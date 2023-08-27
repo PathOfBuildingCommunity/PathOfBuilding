@@ -129,7 +129,7 @@ TimeSpan.HOUR = { ticks = 36000000000 }
 --- @type TimeSpan
 TimeSpan.DAY = { ticks = 864000000000 }
 
---- # TimeSpan:fromTicks
+--- # TimeSpan.fromTicks
 --- ## Summary
 --- Creates a new `TimeSpan` from the given number of ticks.
 --- ## Parameters
