@@ -221,7 +221,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 	local tt1_brs = {}
 	local tt1_smallest_br = m_huge
 	for _, skill in ipairs(skills) do
-		skill.cd = TimeSpan.fromSec(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0))):max(TimeSpan.fromSec(triggerCD))
+		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD)
 		if skill.cd > triggerCD then
 			local br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime)
 			t_insert(tt1_brs, br)
