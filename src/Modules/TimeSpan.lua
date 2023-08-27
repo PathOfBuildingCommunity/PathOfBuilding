@@ -36,7 +36,7 @@
 --- - `TimeSpan:clamp(TimeSpan, TimeSpan) -> TimeSpan`: Clamps the current TimeSpan between the given TimeSpans.
 --- - `TimeSpan:floor(TimeSpan) -> TimeSpan`: Rounds the current TimeSpan down to the given TimeSpan.
 --- - `TimeSpan:ceil(TimeSpan) -> TimeSpan`: Rounds the current TimeSpan up to the given TimeSpan.
---- - `TimeSpan:toIso() -> string`: Returns the current TimeSpan in the ISO 8601 format `d.hh:mm:ss.fff*`.
+--- - `TimeSpan:toIso() -> string`: Returns the current TimeSpan in the ISO 8601 format `d.hh:mm:ss.f`.
 --- - `TimeSpan:toMinSecMs() -> string`: Returns the current TimeSpan in the format `mm:ss.ms`.
 --- - `TimeSpan:toSecMs() -> string`: Returns the current TimeSpan in the format `ss.ms`.
 ---
@@ -411,38 +411,38 @@ function TimeSpan:getFraction()
 end
 --- # TimeSpan:toIso
 --- ## Summary
---- Returns the current `TimeSpan` in the ISO 8601 format `d.hh:mm:ss.fff*`.
+--- Returns the current `TimeSpan` in the ISO 8601 format `d.hh:mm:ss.f`.
 --- ## Returns
 --- @return string
---- The current `TimeSpan` in the ISO 8601 format `d.hh:mm:ss.fff*`.
+--- The current `TimeSpan` in the ISO 8601 format `d.hh:mm:ss.f`.
 function TimeSpan:toIso()
   return string.format("%02d.%02d:%02d:%02d.%09d", self:getDays(), self:getHours(), self:getMin(), self:getSec(), self:getFraction())
 end
 --- # TimeSpan:toMinSecMs
 --- ## Summary
---- Returns the current `TimeSpan` in the format `mm:ss.ms`.
+--- Returns the current `TimeSpan` in the format `m:ss.ms`.
 --- ## Returns
 --- @return string
---- The current `TimeSpan` in the format `mm:ss.ms`.
+--- The current `TimeSpan` in the format `m:ss.ms`.
 function TimeSpan:toMinSecMs()
-  return string.format("%02d:%02d.%04d", math.floor(self:min()), self:getSec(), self:getMs())
+  return string.format("%d:%02d.%04d", math.floor(self:min()), self:getSec(), self:getMs())
 end
 --- # TimeSpan:toSecMs
 --- ## Summary
---- Returns the current `TimeSpan` in the format `ss.ms`.
+--- Returns the current `TimeSpan` in the format `s.ms`.
 --- ## Returns
 --- @return string
---- The current `TimeSpan` in the format `ss.ms`.
+--- The current `TimeSpan` in the format `s.ms`.
 function TimeSpan:toSecMs()
-  return string.format("%02d.%04d", math.floor(self:getSecF()), self:getMs())
+  return string.format("%d.%04d", math.floor(self:getSecF()), self:getMs())
 end
 
 --- # TimeSpan:__tostring
 --- ## Summary
---- Returns the current `TimeSpan` in the ISO 8601 format `d.hh:mm:ss.fff*`.
+--- Returns the current `TimeSpan` in the ISO 8601 format `d.hh:mm:ss.f`.
 --- ## Returns
 --- @return string
---- The current `TimeSpan` in the ISO 8601 format `d.hh:mm:ss.fff*`.
+--- The current `TimeSpan` in the ISO 8601 format `d.hh:mm:ss.f`.
 function TimeSpan:__tostring()
   return self:toIso()
 end
