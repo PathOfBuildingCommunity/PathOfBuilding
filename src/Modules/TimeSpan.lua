@@ -29,6 +29,17 @@
 --- print(ts:getMinF()) -- 1.0833333333333
 --- print(ts:getSecF()) -- 65
 --- ```
+--- ## Functions
+--- 
+--- - `TimeSpan:divUp(TimeSpan)`: Divides the current TimeSpan by the given TimeSpan. The integer division result is rounded up.
+--- - `TimeSpan:min(TimeSpan)`: Returns the smaller TimeSpan of the current TimeSpan and the given TimeSpan.
+--- - `TimeSpan:max(TimeSpan)`: Returns the larger TimeSpan of the current TimeSpan and the given TimeSpan.
+--- - `TimeSpan:floor(TimeSpan)`: Rounds the current TimeSpan down to the given TimeSpan.
+--- - `TimeSpan:ceil(TimeSpan)`: Rounds the current TimeSpan up to the given TimeSpan.
+--- - `TimeSpan:toIso()`: Returns the current TimeSpan in the ISO 8601 format `d.hh:mm:ss.fff*`.
+--- - `TimeSpan:toMinSecMs()`: Returns the current TimeSpan in the format `mm:ss.ms`.
+--- - `TimeSpan:toSecMs()`: Returns the current TimeSpan in the format `ss.ms`.
+---
 --- ## Operators
 --- The following operators are implemented for `TimeSpan`:
 --- - `-TimeSpan`: Negation
