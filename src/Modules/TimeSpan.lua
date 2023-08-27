@@ -416,7 +416,7 @@ end
 --- @return string
 --- The current `TimeSpan` in the ISO 8601 format `d.hh:mm:ss.f`.
 function TimeSpan:toIso()
-  return string.format("%02d.%02d:%02d:%02d.%09d", self:getDays(), self:getHours(), self:getMin(), self:getSec(), self:getFraction())
+  return string.format("%d.%02d:%02d:%02d.%09d", self:getDays(), self:getHours(), self:getMin(), self:getSec(), self:getFraction())
 end
 --- # TimeSpan:toMinSecMs
 --- ## Summary
