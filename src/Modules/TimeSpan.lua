@@ -31,14 +31,18 @@
 --- ```
 --- ## Operators
 --- The following operators are implemented for `TimeSpan`:
---- - `+`: Addition
---- - `-`: Subtraction
---- - `*`: Multiplication
---- - `/`: Division
---- - `%`: Modulo
---- - `==`: Equality
---- - `<`: Comparison
---- - `<=`: Comparison
+--- - `-TimeSpan`: Negation
+--- - `TimeSpan + TimeSpan`: Addition
+--- - `TimeSpan - TimeSpan`: Subtraction
+--- - `TimeSpan * TimeSpan`: Multiplication
+--- - `TimeSpan * number`: Scalar multiplication
+--- - `TimeSpan / TimeSpan`: Division
+--- - `TimeSpan / number`: Scalar division
+--- - `TimeSpan % TimeSpan`: Modulo
+--- - `TimeSpan == TimeSpan`: Equality
+--- - `TimeSpan < TimeSpan`: Comparison
+--- - `TimeSpan <= TimeSpan`: Comparison
+---
 --- @class TimeSpan
 TimeSpan = { 
   --- # TimeSpan.ticks
@@ -178,15 +182,19 @@ end
 --- ## Summary
 --- Divides the current TimeSpan by the given TimeSpan.
 --- ## Parameters
---- @param rhs TimeSpan
---- - `rhs`: The TimeSpan to divide the current TimeSpan by.
+--- @param rhs TimeSpan | number
+--- - `rhs`: The TimeSpan or number to divide the current TimeSpan by.
 --- ## Returns
 --- @return TimeSpan
 --- A new TimeSpan object with the divided value.
 --- ## Remarks
 --- The integer division result is rounded up.
 function TimeSpan:divUp(rhs)
-  return TimeSpan.fromTicks(math.ceil(self.ticks / rhs.ticks))
+  if (type(rhs) == "number") then
+    return TimeSpan.fromTicks(math.ceil(self.ticks / ticks))
+  else
+    return TimeSpan.fromTicks(math.ceil(self.ticks / rhs.ticks))
+  end
 end
 
 --- # TimeSpan:min
@@ -440,27 +448,35 @@ end
 --- ## Summary
 --- Multiplies the current TimeSpan with the given TimeSpan.
 --- ## Parameters
---- @param rhs TimeSpan
---- - `rhs`: The TimeSpan to multiply the current TimeSpan with.
+--- @param rhs TimeSpan | number
+--- - `rhs`: The TimeSpan or number to multiply the current TimeSpan with.
 --- ## Returns
 --- @return TimeSpan
 --- A new TimeSpan object with the multiplied value.
 function TimeSpan:__mul(rhs)
-  return TimeSpan.fromTicks(self.ticks * rhs)
+  if (type(rhs) == "number") then
+    return TimeSpan.fromTicks(self.ticks * rhs)
+  else
+    return TimeSpan.fromTicks(self.ticks * rhs.ticks)
+  end
 end
 --- # TimeSpan:div
 --- ## Summary
 --- Divides the current TimeSpan by the given TimeSpan.
 --- ## Parameters
---- @param rhs TimeSpan
---- - `rhs`: The TimeSpan to divide the current TimeSpan by.
+--- @param rhs TimeSpan | number
+--- - `rhs`: The TimeSpan or number to divide the current TimeSpan by.
 --- ## Returns
 --- @return TimeSpan
 --- A new TimeSpan object with the divided value.
 --- ## Remarks
 --- The integer division result is rounded down.
 function TimeSpan:__div(rhs)
-  return TimeSpan.fromTicks(self.ticks // rhs.ticks)
+  if (type(rhs) == "number") then
+    return TimeSpan.fromTicks(self.ticks / ticks)
+  else
+    return TimeSpan.fromTicks(self.ticks / rhs.ticks)
+  end
 end
 --- # TimeSpan:mod
 --- ## Summary
