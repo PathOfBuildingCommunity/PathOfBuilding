@@ -31,7 +31,7 @@
 --- ```
 --- ## Functions
 --- 
---- - `TimeSpan:divUp(TimeSpan | number)`: Divides the current TimeSpan by the given TimeSpan. The division result is rounded up.
+--- - `TimeSpan:divUp(TimeSpan | number)`: Divides the current TimeSpan by the given TimeSpan or scalar. The division result is rounded up.
 --- - `TimeSpan:min(TimeSpan)`: Returns the smaller TimeSpan of the current TimeSpan and the given TimeSpan.
 --- - `TimeSpan:max(TimeSpan)`: Returns the larger TimeSpan of the current TimeSpan and the given TimeSpan.
 --- - `TimeSpan:clamp(TimeSpan, TimeSpan)`: Clamps the current TimeSpan between the given TimeSpans.
@@ -74,7 +74,7 @@ TimeSpan.__index = TimeSpan
 --- ## Remarks
 --- Lua stores numbers as double precision floating point numbers.
 --- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
---- The maximum value of the mantissa is 2^53 - 1 = 9007199254740991
+--- The maximum value of the mantissa is 2^53 - 1 = 9007199254740991 = 10424:23:58:45.4740991
 --- @type TimeSpan
 TimeSpan.MAX_VALUE = TimeSpan.fromTicks(9007199254740991)
 
@@ -84,7 +84,7 @@ TimeSpan.MAX_VALUE = TimeSpan.fromTicks(9007199254740991)
 --- ## Remarks
 --- Lua stores numbers as double precision floating point numbers.
 --- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
---- The minimum value of the mantissa is -2^53 + 1 = -9007199254740991
+--- The minimum value of the mantissa is -2^53 + 1 = -9007199254740991 = -10424:23:58:45.4740991
 --- @type TimeSpan
 TimeSpan.MIN_VALUE = TimeSpan.fromTicks(-9007199254740991)
 
@@ -228,7 +228,7 @@ end
 
 --- # TimeSpan:divUp
 --- ## Summary
---- Divides the current TimeSpan by the given TimeSpan.
+--- Divides the current TimeSpan by the given TimeSpan or scalar.
 --- ## Parameters
 --- @param rhs TimeSpan | number
 --- - `rhs`: The TimeSpan or number to divide the current TimeSpan by.
@@ -505,7 +505,7 @@ function TimeSpan:__sub(rhs)
 end
 --- # TimeSpan:__mul
 --- ## Summary
---- Multiplies the current TimeSpan with the given TimeSpan.
+--- Multiplies the current TimeSpan with the given TimeSpan or scalar.
 --- ## Parameters
 --- @param rhs TimeSpan | number
 --- - `rhs`: The TimeSpan or number to multiply the current TimeSpan with.
@@ -521,7 +521,7 @@ function TimeSpan:__mul(rhs)
 end
 --- # TimeSpan:__div
 --- ## Summary
---- Divides the current TimeSpan by the given TimeSpan.
+--- Divides the current TimeSpan by the given TimeSpan or scalar.
 --- ## Parameters
 --- @param rhs TimeSpan | number
 --- - `rhs`: The TimeSpan or number to divide the current TimeSpan by.
