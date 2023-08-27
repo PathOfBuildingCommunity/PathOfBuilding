@@ -1,5 +1,6 @@
 --- # TimeSpan
 --- Represents the difference between two points in time.
+--- ## Summary
 --- All constructors and getters are implemented for the time measures
 --- - `us`: microseconds
 --- - `ms`: milliseconds
@@ -30,7 +31,7 @@
 --- ```
 --- ## Operators
 --- The following operators are implemented for `TimeSpan`:
---- - `+`: AdditionF
+--- - `+`: Addition
 --- - `-`: Subtraction
 --- - `*`: Multiplication
 --- - `/`: Division
@@ -39,7 +40,16 @@
 --- - `<`: Comparison
 --- - `<=`: Comparison
 --- @class TimeSpan
-TimeSpan = { ticks = 0 }
+TimeSpan = { 
+  --- # TimeSpan.ticks
+  --- ## Summary
+  --- The number of ticks of the `TimeSpan`.
+  --- ## Remarks
+  --- The number of ticks is stored as an integer inside the mantissa of a double precision floating point number.
+  --- The value must always be an integer between `TimeSpan.MIN` and `TimeSpan.MAX`.
+  --- @type integer
+  ticks = 0
+}
 TimeSpan.__index = TimeSpan
 
 --- # TimeSpan:MAX
@@ -48,7 +58,7 @@ TimeSpan.__index = TimeSpan
 --- ## Remarks
 --- Lua stores numbers as double precision floating point numbers.
 --- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
---- The maximum value of the mantissa is 2^53 - 1 = 9007199254740991 which is expressed in binary as 0100001100111111111111111111111111111111111111111111111111111111
+--- The maximum value of the mantissa is 2^53 - 1 = 9007199254740991
 --- @type TimeSpan
 TimeSpan.MAX = TimeSpan.fromTicks(9007199254740991)
 
@@ -58,7 +68,7 @@ TimeSpan.MAX = TimeSpan.fromTicks(9007199254740991)
 --- ## Remarks
 --- Lua stores numbers as double precision floating point numbers.
 --- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
---- The minimum value of the mantissa is -2^53 + 1 = -9007199254740991 which is expressed in binary as 1100001100111111111111111111111111111111111111111111111111111111
+--- The minimum value of the mantissa is -2^53 + 1 = -9007199254740991
 --- @type TimeSpan
 TimeSpan.MIN = TimeSpan.fromTicks(-9007199254740991)
 
@@ -68,22 +78,30 @@ TimeSpan.MIN = TimeSpan.fromTicks(-9007199254740991)
 --- @type TimeSpan
 TimeSpan.ZERO = TimeSpan.fromTicks(0)
 
+--- # TimeSpan:fromTicks
+--- ## Summary
+--- Creates a new `TimeSpan` from the given number of ticks.
+--- ## Parameters
+--- @param ticks number
+--- - `ticks`: The number of ticks to create the `TimeSpan` from.
+--- ## Returns
 --- @return TimeSpan
---- @param ticks integer
+--- A new `TimeSpan` object with the given number of ticks.
 function TimeSpan.fromTicks(ticks)
   if (type(ticks) ~= "number") then
     error(string.format("Invalid ticks value, TimeSpan.ticks must always be a number. Ensure a number is used"), 2)
     end
-  if (ticks < TimeSpan.MIN or ticks > TimeSpan.MAX) then
-    error(string.format("Invalid ticks value %d, Ensure the number is between than `TimeSpan.MAX` and `TimeSpan.MIN`", ticks), 2)
+  ticks = math.floor(ticks)
+  if (ticks < TimeSpan.MIN.ticks or ticks > TimeSpan.MAX.ticks or math.type(ticks) ~= "integer") then
+    error(string.format("Invalid ticks value %d, Ensure the number is an integer between than `TimeSpan.MAX` and `TimeSpan.MIN`", ticks), 2)
   end
 
-  local ts = { ticks = math.floor(ticks) }
+  local ts = { ticks = ticks }
   setmetatable(ts, TimeSpan)
 
   return ts;
 end
---- # TimeSpan:fromUs
+--- # TimeSpan.fromUs
 --- ## Summary
 --- Creates a new `TimeSpan` from the given number of microseconds.
 --- ## Parameters
@@ -93,9 +111,9 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of microseconds.
 function TimeSpan.fromUs(us)
-  return TimeSpan.fromTicks(math.floor(us * 10))
+  return TimeSpan.fromTicks(us * 10)
 end
---- # TimeSpan:fromMs
+--- # TimeSpan.fromMs
 --- ## Summary
 --- Creates a new `TimeSpan` from the given number of milliseconds.
 --- ## Parameters
@@ -105,9 +123,9 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of milliseconds.
 function TimeSpan.fromMs(ms)
-  return TimeSpan.fromTicks(math.floor(ms * 10000))
+  return TimeSpan.fromTicks(ms * 10000)
 end
---- # TimeSpan:fromSec
+--- # TimeSpan.fromSec
 --- ## Summary
 --- Creates a new `TimeSpan` from the given number of seconds.
 --- ## Parameters
@@ -117,9 +135,9 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of seconds.
 function TimeSpan.fromSec(sec)
-  return TimeSpan.fromTicks(math.floor(sec * 10000000))
+  return TimeSpan.fromTicks(sec * 10000000)
 end
---- # TimeSpan:fromMin
+--- # TimeSpan.fromMin
 --- ## Summary
 --- Creates a new `TimeSpan` from the given number of minutes.
 --- ## Parameters
@@ -129,9 +147,9 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of minutes.
 function TimeSpan.fromMin(min)
-  return TimeSpan.fromTicks(math.floor(min * 600000000))
+  return TimeSpan.fromTicks(min * 600000000)
 end
---- # TimeSpan:fromHours
+--- # TimeSpan.fromHours
 --- ## Summary
 --- Creates a new `TimeSpan` from the given number of hours.
 --- ## Parameters
@@ -141,9 +159,9 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of hours.
 function TimeSpan.fromHours(hours)
-  return TimeSpan.fromTicks(math.floor(hours * 36000000000))
+  return TimeSpan.fromTicks(hours * 36000000000)
 end
---- # TimeSpan:fromDays
+--- # TimeSpan.fromDays
 --- ## Summary
 --- Creates a new `TimeSpan` from the given number of days.
 --- ## Parameters
@@ -153,7 +171,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of days.
 function TimeSpan.fromDays(days)
-  return TimeSpan.fromTicks(math.floor(days * 864000000000))
+  return TimeSpan.fromTicks(days * 864000000000)
 end
 
 --- # TimeSpan:divUp
@@ -404,7 +422,7 @@ end
 --- @return TimeSpan
 --- A new TimeSpan object with the added value.
 function TimeSpan:__add(rhs)
-  return TimeSpan.fromTicks(math.floor(self.ticks + rhs.ticks))
+  return TimeSpan.fromTicks(self.ticks + rhs.ticks)
 end
 --- # TimeSpan:sub
 --- ## Summary
@@ -416,7 +434,7 @@ end
 --- @return TimeSpan
 --- A new TimeSpan object with the subtracted value.
 function TimeSpan:__sub(rhs)
-  return TimeSpan.fromTicks(math.floor(self.ticks - rhs.ticks))
+  return TimeSpan.fromTicks(self.ticks - rhs.ticks)
 end
 --- # TimeSpan:mul
 --- ## Summary
@@ -428,7 +446,7 @@ end
 --- @return TimeSpan
 --- A new TimeSpan object with the multiplied value.
 function TimeSpan:__mul(rhs)
-  return TimeSpan.fromTicks(math.floor(self.ticks * rhs))
+  return TimeSpan.fromTicks(self.ticks * rhs)
 end
 --- # TimeSpan:div
 --- ## Summary
@@ -454,7 +472,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the modulo value.
 function TimeSpan:__mod(rhs)
-  return TimeSpan.fromTicks(math.floor(self.ticks % rhs.ticks))
+  return TimeSpan.fromTicks(self.ticks % rhs.ticks)
 end
 --- # TimeSpan:equals
 --- ## Summary
