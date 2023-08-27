@@ -82,6 +82,42 @@ TimeSpan.MIN = TimeSpan.fromTicks(-9007199254740991)
 --- @type TimeSpan
 TimeSpan.ZERO = TimeSpan.fromTicks(0)
 
+--- TimeSpan.US
+--- ## Summary
+--- The `TimeSpan` of one microsecond.
+--- @type TimeSpan
+TimeSpan.US = TimeSpan.fromTicks(10)
+
+--- # TimeSpan.MS
+--- ## Summary
+--- The `TimeSpan` of one millisecond.
+--- @type TimeSpan
+TimeSpan.MS = TimeSpan.fromTicks(10000)
+
+--- # TimeSpan.SEC
+--- ## Summary
+--- The `TimeSpan` of one second.
+--- @type TimeSpan
+TimeSpan.SEC = TimeSpan.fromTicks(10000000)
+
+--- # TimeSpan.MINUTE
+--- ## Summary
+--- The `TimeSpan` of one minute.
+--- @type TimeSpan
+TimeSpan.MINUTE = TimeSpan.fromTicks(600000000)
+
+--- # TimeSpan.HOUR
+--- ## Summary
+--- The `TimeSpan` of one hour.
+--- @type TimeSpan
+TimeSpan.HOUR = TimeSpan.fromTicks(36000000000)
+
+--- # TimeSpan.DAY
+--- ## Summary
+--- The `TimeSpan` of one day.
+--- @type TimeSpan
+TimeSpan.DAY = TimeSpan.fromTicks(864000000000)
+
 --- # TimeSpan:fromTicks
 --- ## Summary
 --- Creates a new `TimeSpan` from the given number of ticks.
@@ -115,7 +151,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of microseconds.
 function TimeSpan.fromUs(us)
-  return TimeSpan.fromTicks(us * 10)
+  return TimeSpan.fromTicks(us * TimeSpan.US.ticks)
 end
 --- # TimeSpan.fromMs
 --- ## Summary
@@ -127,7 +163,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of milliseconds.
 function TimeSpan.fromMs(ms)
-  return TimeSpan.fromTicks(ms * 10000)
+  return TimeSpan.fromTicks(ms * TimeSpan.MS.ticks)
 end
 --- # TimeSpan.fromSec
 --- ## Summary
@@ -139,7 +175,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of seconds.
 function TimeSpan.fromSec(sec)
-  return TimeSpan.fromTicks(sec * 10000000)
+  return TimeSpan.fromTicks(sec * TimeSpan.SEC)
 end
 --- # TimeSpan.fromMin
 --- ## Summary
@@ -151,7 +187,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of minutes.
 function TimeSpan.fromMin(min)
-  return TimeSpan.fromTicks(min * 600000000)
+  return TimeSpan.fromTicks(min * TimeSpan.MINUTE.ticks)
 end
 --- # TimeSpan.fromHours
 --- ## Summary
@@ -163,7 +199,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of hours.
 function TimeSpan.fromHours(hours)
-  return TimeSpan.fromTicks(hours * 36000000000)
+  return TimeSpan.fromTicks(hours * TimeSpan.HOUR.ticks)
 end
 --- # TimeSpan.fromDays
 --- ## Summary
@@ -175,7 +211,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of days.
 function TimeSpan.fromDays(days)
-  return TimeSpan.fromTicks(days * 864000000000)
+  return TimeSpan.fromTicks(days * TimeSpan.Day.ticks)
 end
 
 --- # TimeSpan:divUp
@@ -260,7 +296,7 @@ end
 --- @return number
 --- The total number of microseconds of the current `TimeSpan` as a floating point number.
 function TimeSpan:getUsF()
-  return self.ticks / 10
+  return self.ticks / TimeSpan.US.ticks
 end
 --- # TimeSpan:getUs
 --- ## Summary
@@ -278,7 +314,7 @@ end
 --- @return number
 --- The total number of milliseconds of the current `TimeSpan` as a floating point number.
 function TimeSpan:getMsF()
-  return self.ticks / 10000
+  return self.ticks / TimeSpan.MS.ticks
 end
 --- # TimeSpan:getMs
 --- ## Summary
@@ -296,7 +332,7 @@ end
 --- @return number
 --- The total number of seconds of the current `TimeSpan` as a floating point number.
 function TimeSpan:getSecF()
-  return self.ticks / 10000000
+  return self.ticks / TimeSpan.SEC
 end
 --- # TimeSpan:getSec
 --- ## Summary
@@ -313,7 +349,7 @@ end
 --- @return number
 --- The total number of minutes of the current `TimeSpan` as a floating point number.
 function TimeSpan:getMinF()
-  return self.ticks / 600000000
+  return self.ticks / TimeSpan.MINUTE.ticks
 end
 --- # TimeSpan:getMin
 --- ## Summary
@@ -330,7 +366,7 @@ end
 --- @return number
 --- The total number of hours of the current `TimeSpan` as a floating point number.
 function TimeSpan:getHoursF()
-  return self.ticks / 36000000000
+  return self.ticks / TimeSpan.HOUR.ticks
 end
 --- # TimeSpan:getHours
 --- ## Summary
@@ -348,7 +384,7 @@ end
 --- @return number
 --- The total number of days of the current `TimeSpan` as a floating point number.
 function TimeSpan:getDaysF()
-  return self.ticks / 864000000000
+  return self.ticks / TimeSpan.Day.ticks
 end
 --- # TimeSpan:getDays
 --- ## Summary
@@ -357,7 +393,7 @@ end
 --- @return integer
 --- The number of days in the current `TimeSpan` without hours, minutes, etc.
 function TimeSpan:getDays()
-  return self.ticks // 864000000000
+  return self.ticks // TimeSpan.Day.ticks
 end
 --- # TimeSpan:getFraction
 --- ## Summary
@@ -368,7 +404,7 @@ end
 --- ## Remarks
 --- Used for the ISO 8601 format.
 function TimeSpan:getFraction()
-  return math.floor(self.ticks % 10000000)
+  return math.floor(self.ticks % TimeSpan.SEC)
 end
 --- # TimeSpan:toIso
 --- ## Summary
