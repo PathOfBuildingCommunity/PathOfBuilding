@@ -9,10 +9,10 @@
 --- - `hours`: hours
 --- - `days`: days
 --- ## Constructors
---- Create a `TimeSpan` with the specified value in the measure by calling the `TimeSpan.from*` functions.
+--- Create a `TimeSpan` with the specified value in the measure by calling the `TimeSpan.from*` function for the measure.
 --- ## Getters
 --- ### Relative time values
---- Get the integer value of time measures are by calling the `TimeSpan:get*` functions.
+--- Get the integer value of time measures are by calling the `TimeSpan:get*` function for the measure.
 --- Returns the number of the measure in the next higher measure.
 --- #### Example 
 --- ```lua
@@ -21,7 +21,7 @@
 --- print(ts:getSec()) -- 5
 --- ```
 --- ### Full time values
---- Get the floating full time measures are by calling the `TimeSpan:get*F` functions.
+--- Get the floating full time measures are by calling the `TimeSpan:get*F` function for the measure.
 --- They return the value of the `TimeSpan` in the measure specified by the function name.
 --- #### Example
 --- ```lua
@@ -34,6 +34,7 @@
 --- - `TimeSpan:divUp(TimeSpan)`: Divides the current TimeSpan by the given TimeSpan. The integer division result is rounded up.
 --- - `TimeSpan:min(TimeSpan)`: Returns the smaller TimeSpan of the current TimeSpan and the given TimeSpan.
 --- - `TimeSpan:max(TimeSpan)`: Returns the larger TimeSpan of the current TimeSpan and the given TimeSpan.
+--- - `TimeSpan:clamp(TimeSpan, TimeSpan)`: Clamps the current TimeSpan between the given TimeSpans.
 --- - `TimeSpan:floor(TimeSpan)`: Rounds the current TimeSpan down to the given TimeSpan.
 --- - `TimeSpan:ceil(TimeSpan)`: Rounds the current TimeSpan up to the given TimeSpan.
 --- - `TimeSpan:toIso()`: Returns the current TimeSpan in the ISO 8601 format `d.hh:mm:ss.fff*`.
@@ -275,6 +276,21 @@ function TimeSpan:max(rhs)
   return rhs
 end
 
+--- # TimeSpan:clamp
+--- ## Summary
+--- Clamps the current `TimeSpan` between the given `TimeSpan`s.
+--- ## Parameters
+--- @param min TimeSpan
+--- - `min`: The minimum `TimeSpan` to clamp the current `TimeSpan` to.
+--- @param max TimeSpan
+--- - `max`: The maximum `TimeSpan` to clamp the current `TimeSpan` to.
+--- ## Returns
+--- @return TimeSpan
+--- The clamped `TimeSpan`.
+function TimeSpan:clamp(min, max)
+  return self:max(min):min(max)
+end
+
 --- # TimeSpan:floor
 --- ## Summary
 --- Rounds the current `TimeSpan` down to the given `TimeSpan`.
@@ -444,10 +460,6 @@ end
 function TimeSpan:toSecMs()
   return string.format("%02d.%04d", math.floor(self:getSecF()), self:getMs())
 end
-
-
-
-
 
 --- # TimeSpan:__tostring
 --- ## Summary
