@@ -31,7 +31,7 @@
 --- ```
 --- ## Functions
 --- 
---- - `TimeSpan:divUp(TimeSpan)`: Divides the current TimeSpan by the given TimeSpan. The integer division result is rounded up.
+--- - `TimeSpan:divUp(TimeSpan | number)`: Divides the current TimeSpan by the given TimeSpan. The division result is rounded up.
 --- - `TimeSpan:min(TimeSpan)`: Returns the smaller TimeSpan of the current TimeSpan and the given TimeSpan.
 --- - `TimeSpan:max(TimeSpan)`: Returns the larger TimeSpan of the current TimeSpan and the given TimeSpan.
 --- - `TimeSpan:clamp(TimeSpan, TimeSpan)`: Clamps the current TimeSpan between the given TimeSpans.
@@ -301,7 +301,7 @@ end
 --- @return TimeSpan
 --- The `TimeSpan` rounded down to the given `base`.
 function TimeSpan:floor(base)
-  return base.mul(self:div(base))
+  return base:mul(self:div(base))
 end
 
 --- # TimeSpan:ceil
@@ -314,7 +314,7 @@ end
 --- @return TimeSpan
 --- The `TimeSpan` rounded up to the given `base`.
 function TimeSpan:ceil(base)
-  return base.mul(self:divUp(base))
+  return base:mul(self:divUp(base))
 end
 --- # TimeSpan:getUsF
 --- ## Summary
