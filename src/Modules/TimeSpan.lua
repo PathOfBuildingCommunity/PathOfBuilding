@@ -31,7 +31,6 @@
 --- ```
 --- ## Functions
 --- 
---- - `TimeSpan:divUp(TimeSpan | number)`: Divides the current TimeSpan by the given TimeSpan or scalar. The division result is rounded up.
 --- - `TimeSpan:min(TimeSpan)`: Returns the smaller TimeSpan of the current TimeSpan and the given TimeSpan.
 --- - `TimeSpan:max(TimeSpan)`: Returns the larger TimeSpan of the current TimeSpan and the given TimeSpan.
 --- - `TimeSpan:clamp(TimeSpan, TimeSpan)`: Clamps the current TimeSpan between the given TimeSpans.
@@ -224,25 +223,6 @@ end
 --- A new `TimeSpan` object with the given number of days.
 function TimeSpan.fromDays(days)
   return TimeSpan.fromTicks(days * TimeSpan.DAY.ticks)
-end
-
---- # TimeSpan:divUp
---- ## Summary
---- Divides the current TimeSpan by the given TimeSpan or scalar.
---- ## Parameters
---- @param rhs TimeSpan | number
---- - `rhs`: The TimeSpan or number to divide the current TimeSpan by.
---- ## Returns
---- @return TimeSpan | number
---- A new TimeSpan object with the divided value if the `rhs` is a scalar, the division result otherwise.
---- ## Remarks
---- The integer division result is rounded up.
-function TimeSpan:divUp(rhs)
-  if (type(rhs) == "number") then
-    return TimeSpan.fromTicks(math.ceil(self.ticks / rhs))
-  else
-    return TimeSpan.fromTicks(math.ceil(self.ticks / rhs.ticks))
-  end
 end
 
 --- # TimeSpan:min
