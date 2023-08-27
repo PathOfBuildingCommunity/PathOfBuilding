@@ -295,7 +295,7 @@ function TimeSpan(ticks)
     --- ## Returns
     --- @return TimeSpan
     --- A new TimeSpan object with the added value.
-    __add = function(rhs)
+    __add = function(_, rhs)
       return TimeSpan(math.floor(self.ticks + rhs.ticks))
     end,
     --- # TimeSpan:sub
@@ -307,7 +307,7 @@ function TimeSpan(ticks)
     --- ## Returns
     --- @return TimeSpan
     --- A new TimeSpan object with the subtracted value.
-    __sub = function(rhs)
+    __sub = function(_, rhs)
       return TimeSpan(math.floor(self.ticks - rhs.ticks))
     end,
     --- # TimeSpan:mul
@@ -319,7 +319,7 @@ function TimeSpan(ticks)
     --- ## Returns
     --- @return TimeSpan
     --- A new TimeSpan object with the multiplied value.
-    __mul = function(rhs)
+    __mul = function(_, rhs)
       return TimeSpan(math.floor(self.ticks * rhs))
     end,
     --- # TimeSpan:div
@@ -345,7 +345,7 @@ function TimeSpan(ticks)
     --- ## Returns
     --- @return TimeSpan
     --- A new `TimeSpan` object with the modulo value.
-    __mod = function(rhs)
+    __mod = function(_, rhs)
       return TimeSpan(math.floor(self.ticks % rhs.ticks))
     end,
     --- # TimeSpan:equals
@@ -359,7 +359,7 @@ function TimeSpan(ticks)
     --- `true` if the `TimeSpan`s are equal, `false` otherwise.
     --- ## Remarks
     --- The `TimeSpan`s are considered equal if their ticks values are equal.
-    __eq = function(rhs)
+    __eq = function(_, rhs)
       return self.ticks == rhs.ticks
     end,
     --- # TimeSpan:lt
@@ -371,7 +371,7 @@ function TimeSpan(ticks)
     --- ## Returns
     --- @return boolean
     --- `true` if the current `TimeSpan` is less than the given `TimeSpan`, `false` otherwise.
-    __lt = function(rhs)
+    __lt = function(_, rhs)
       return self.ticks < rhs.ticks
     end,
     --- # TimeSpan:le
@@ -383,7 +383,7 @@ function TimeSpan(ticks)
     --- ## Returns
     --- @return boolean
     --- `true` if the current `TimeSpan` is less than or equal to the given `TimeSpan`, `false` otherwise.
-    __le = function(rhs)
+    __le = function(_, rhs)
       return self.ticks <= rhs.ticks
     end
   })
