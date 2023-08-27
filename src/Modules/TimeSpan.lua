@@ -301,7 +301,7 @@ end
 --- @return TimeSpan
 --- The `TimeSpan` rounded down to the given `base`.
 function TimeSpan:floor(base)
-  return base:mul(self:div(base))
+  return TimeSpan.fromTicks(base.ticks * math.floor(self.ticks / base.ticks))
 end
 
 --- # TimeSpan:ceil
@@ -314,7 +314,7 @@ end
 --- @return TimeSpan
 --- The `TimeSpan` rounded up to the given `base`.
 function TimeSpan:ceil(base)
-  return base:mul(self:divUp(base))
+  return TimeSpan.fromTicks(base.ticks * math.ceil(self.ticks / base.ticks))
 end
 --- # TimeSpan:getUsF
 --- ## Summary
