@@ -9,7 +9,7 @@
 --- - `hours`: hours
 --- - `days`: days
 --- ## Constructors
---- Create a `TimeSpan` with the specified value in the measure by calling the `TimeSpan.from*` function for the measure.
+--- Create a `TimeSpan` with the specified number value in the measure by calling the `TimeSpan.from*` function for the measure.
 --- ## Getters
 --- ### Relative time values
 --- Get the integer value of time measures are by calling the `TimeSpan:get*` function for the measure.
@@ -31,28 +31,28 @@
 --- ```
 --- ## Functions
 --- 
---- - `TimeSpan:min(TimeSpan)`: Returns the smaller TimeSpan of the current TimeSpan and the given TimeSpan.
---- - `TimeSpan:max(TimeSpan)`: Returns the larger TimeSpan of the current TimeSpan and the given TimeSpan.
---- - `TimeSpan:clamp(TimeSpan, TimeSpan)`: Clamps the current TimeSpan between the given TimeSpans.
---- - `TimeSpan:floor(TimeSpan)`: Rounds the current TimeSpan down to the given TimeSpan.
---- - `TimeSpan:ceil(TimeSpan)`: Rounds the current TimeSpan up to the given TimeSpan.
---- - `TimeSpan:toIso()`: Returns the current TimeSpan in the ISO 8601 format `d.hh:mm:ss.fff*`.
---- - `TimeSpan:toMinSecMs()`: Returns the current TimeSpan in the format `mm:ss.ms`.
---- - `TimeSpan:toSecMs()`: Returns the current TimeSpan in the format `ss.ms`.
+--- - `TimeSpan:min(TimeSpan) -> TimeSpan`: Returns the smaller TimeSpan of the current TimeSpan and the given TimeSpan.
+--- - `TimeSpan:max(TimeSpan) -> TimeSpan`: Returns the larger TimeSpan of the current TimeSpan and the given TimeSpan.
+--- - `TimeSpan:clamp(TimeSpan, TimeSpan) -> TimeSpan`: Clamps the current TimeSpan between the given TimeSpans.
+--- - `TimeSpan:floor(TimeSpan) -> TimeSpan`: Rounds the current TimeSpan down to the given TimeSpan.
+--- - `TimeSpan:ceil(TimeSpan) -> TimeSpan`: Rounds the current TimeSpan up to the given TimeSpan.
+--- - `TimeSpan:toIso() -> string`: Returns the current TimeSpan in the ISO 8601 format `d.hh:mm:ss.fff*`.
+--- - `TimeSpan:toMinSecMs() -> string`: Returns the current TimeSpan in the format `mm:ss.ms`.
+--- - `TimeSpan:toSecMs() -> string`: Returns the current TimeSpan in the format `ss.ms`.
 ---
 --- ## Operators
 --- The following operators are implemented for `TimeSpan`:
 --- - `-TimeSpan`: Negation
---- - `TimeSpan + TimeSpan`: Addition
---- - `TimeSpan - TimeSpan`: Subtraction
---- - `TimeSpan * TimeSpan`: Multiplication
---- - `TimeSpan * number`: Scalar multiplication
---- - `TimeSpan / TimeSpan`: Division
---- - `TimeSpan / number`: Scalar division
---- - `TimeSpan % TimeSpan`: Modulo
---- - `TimeSpan == TimeSpan`: Equality
---- - `TimeSpan < TimeSpan`: Comparison
---- - `TimeSpan <= TimeSpan`: Comparison
+--- - `TimeSpan + TimeSpan -> TimeSpan`: Addition
+--- - `TimeSpan - TimeSpan -> TimeSpan`: Subtraction
+--- - `TimeSpan * TimeSpan -> TimeSpan`: Multiplication
+--- - `TimeSpan * number -> TimeSpan`: Scalar multiplication
+--- - `TimeSpan / TimeSpan -> number`: Division
+--- - `TimeSpan / number -> TimeSpan`: Scalar division
+--- - `TimeSpan % TimeSpan -> TimeSpan`: Modulo
+--- - `TimeSpan == TimeSpan -> boolean`: Equality
+--- - `TimeSpan < TimeSpan -> boolean`: Comparison
+--- - `TimeSpan <= TimeSpan -> boolean`: Comparison
 ---
 --- @class TimeSpan
 TimeSpan = { 
