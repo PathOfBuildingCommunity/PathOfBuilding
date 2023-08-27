@@ -76,7 +76,7 @@ TimeSpan.__index = TimeSpan
 --- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
 --- The maximum value of the mantissa is 2^53 - 1 = 9007199254740991 = 10424:23:58:45.4740991
 --- @type TimeSpan
-TimeSpan.MAX_VALUE = TimeSpan.fromTicks(9007199254740991)
+TimeSpan.MAX_VALUE = { ticks = 9007199254740991 }
 
 --- # TimeSpan.MIN_VALUE
 --- ## Summary
@@ -86,49 +86,49 @@ TimeSpan.MAX_VALUE = TimeSpan.fromTicks(9007199254740991)
 --- The value of a `TimeSpan` is stored as an integer inside the mantiassa of the double precision floating point number.
 --- The minimum value of the mantissa is -2^53 + 1 = -9007199254740991 = -10424:23:58:45.4740991
 --- @type TimeSpan
-TimeSpan.MIN_VALUE = TimeSpan.fromTicks(-9007199254740991)
+TimeSpan.MIN_VALUE = { ticks = -9007199254740991 }
 
 --- # TimeSpan.ZERO
 --- ## Summary
 --- The zero value of a `TimeSpan`.
 --- @type TimeSpan
-TimeSpan.ZERO = TimeSpan.fromTicks(0)
+TimeSpan.ZERO = { ticks = 0 }
 
 --- TimeSpan.US
 --- ## Summary
 --- The `TimeSpan` of one microsecond.
 --- @type TimeSpan
-TimeSpan.US = TimeSpan.fromTicks(10)
+TimeSpan.US = { ticks = 10 }
 
 --- # TimeSpan.MS
 --- ## Summary
 --- The `TimeSpan` of one millisecond.
 --- @type TimeSpan
-TimeSpan.MS = TimeSpan.fromTicks(10000)
+TimeSpan.MS = { ticks = 10000 }
 
 --- # TimeSpan.SEC
 --- ## Summary
 --- The `TimeSpan` of one second.
 --- @type TimeSpan
-TimeSpan.SEC = TimeSpan.fromTicks(10000000)
+TimeSpan.SEC = { ticks = 10000000 }
 
 --- # TimeSpan.MIN
 --- ## Summary
 --- The `TimeSpan` of one minute.
 --- @type TimeSpan
-TimeSpan.MIN = TimeSpan.fromTicks(600000000)
+TimeSpan.MIN = { ticks = 600000000 }
 
 --- # TimeSpan.HOUR
 --- ## Summary
 --- The `TimeSpan` of one hour.
 --- @type TimeSpan
-TimeSpan.HOUR = TimeSpan.fromTicks(36000000000)
+TimeSpan.HOUR = { ticks = 36000000000 }
 
 --- # TimeSpan.DAY
 --- ## Summary
 --- The `TimeSpan` of one day.
 --- @type TimeSpan
-TimeSpan.DAY = TimeSpan.fromTicks(864000000000)
+TimeSpan.DAY = { ticks = 864000000000 }
 
 --- # TimeSpan:fromTicks
 --- ## Summary
@@ -187,7 +187,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of seconds.
 function TimeSpan.fromSec(sec)
-  return TimeSpan.fromTicks(sec * TimeSpan.SEC)
+  return TimeSpan.fromTicks(sec * TimeSpan.SEC.ticks)
 end
 --- # TimeSpan.fromMin
 --- ## Summary
@@ -223,7 +223,7 @@ end
 --- @return TimeSpan
 --- A new `TimeSpan` object with the given number of days.
 function TimeSpan.fromDays(days)
-  return TimeSpan.fromTicks(days * TimeSpan.Day.ticks)
+  return TimeSpan.fromTicks(days * TimeSpan.DAY.ticks)
 end
 
 --- # TimeSpan:divUp
@@ -233,8 +233,8 @@ end
 --- @param rhs TimeSpan | number
 --- - `rhs`: The TimeSpan or number to divide the current TimeSpan by.
 --- ## Returns
---- @return TimeSpan
---- A new TimeSpan object with the divided value.
+--- @return TimeSpan | number
+--- A new TimeSpan object with the divided value if the `rhs` is a scalar, the division result otherwise.
 --- ## Remarks
 --- The integer division result is rounded up.
 function TimeSpan:divUp(rhs)
@@ -359,7 +359,7 @@ end
 --- @return number
 --- The total number of seconds of the current `TimeSpan` as a floating point number.
 function TimeSpan:getSecF()
-  return self.ticks / TimeSpan.SEC
+  return self.ticks / TimeSpan.SEC.ticks
 end
 --- # TimeSpan:getSec
 --- ## Summary
@@ -411,7 +411,7 @@ end
 --- @return number
 --- The total number of days of the current `TimeSpan` as a floating point number.
 function TimeSpan:getDaysF()
-  return self.ticks / TimeSpan.Day.ticks
+  return self.ticks / TimeSpan.DAY.ticks
 end
 --- # TimeSpan:getDays
 --- ## Summary
@@ -420,7 +420,7 @@ end
 --- @return integer
 --- The number of days in the current `TimeSpan` without hours, minutes, etc.
 function TimeSpan:getDays()
-  return self.ticks // TimeSpan.Day.ticks
+  return self.ticks // TimeSpan.DAY.ticks
 end
 --- # TimeSpan:getFraction
 --- ## Summary
@@ -431,7 +431,7 @@ end
 --- ## Remarks
 --- Used for the ISO 8601 format.
 function TimeSpan:getFraction()
-  return math.floor(self.ticks % TimeSpan.SEC)
+  return math.floor(self.ticks % TimeSpan.SEC.ticks)
 end
 --- # TimeSpan:toIso
 --- ## Summary
@@ -526,15 +526,15 @@ end
 --- @param rhs TimeSpan | number
 --- - `rhs`: The TimeSpan or number to divide the current TimeSpan by.
 --- ## Returns
---- @return TimeSpan
---- A new TimeSpan object with the divided value.
+--- @return TimeSpan | number
+--- A new TimeSpan object with the divided value if the `rhs` is a scalar, the division result otherwise.
 --- ## Remarks
 --- The integer division result is rounded down.
 function TimeSpan:__div(rhs)
   if (type(rhs) == "number") then
     return TimeSpan.fromTicks(self.ticks / ticks)
   else
-    return TimeSpan.fromTicks(self.ticks / rhs.ticks)
+    return self.ticks / rhs.ticks
   end
 end
 --- # TimeSpan:__mod
