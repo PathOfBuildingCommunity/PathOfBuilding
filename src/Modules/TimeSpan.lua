@@ -239,7 +239,7 @@ end
 --- The integer division result is rounded up.
 function TimeSpan:divUp(rhs)
   if (type(rhs) == "number") then
-    return TimeSpan.fromTicks(math.ceil(self.ticks / ticks))
+    return TimeSpan.fromTicks(math.ceil(self.ticks / rhs))
   else
     return TimeSpan.fromTicks(math.ceil(self.ticks / rhs.ticks))
   end
@@ -532,7 +532,7 @@ end
 --- The integer division result is rounded down.
 function TimeSpan:__div(rhs)
   if (type(rhs) == "number") then
-    return TimeSpan.fromTicks(self.ticks / ticks)
+    return TimeSpan.fromTicks(self.ticks / rhs)
   else
     return self.ticks / rhs.ticks
   end
