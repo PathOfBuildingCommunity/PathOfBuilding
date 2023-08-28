@@ -207,7 +207,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	-- calc defences extra part should only run on the last skill of FullDPS
 	local numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not GlobalCache.excludeFullDpsList[cacheSkillUUID(activeSkill, fullEnv)] then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				numActiveSkillInFullDPS = numActiveSkillInFullDPS + 1
@@ -217,11 +217,11 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	
 	GlobalCache.numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not GlobalCache.excludeFullDpsList[cacheSkillUUID(activeSkill, fullEnv)] then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				GlobalCache.numActiveSkillInFullDPS = GlobalCache.numActiveSkillInFullDPS + 1
-				local cachedData = getCachedData(activeSkill, mode)
+				local cachedData = GlobalCache.cachedData[mode][cacheSkillUUID(activeSkill, fullEnv)]
 				if cachedData and next(override) == nil and not GlobalCache.noCache then
 					usedEnv = cachedData.Env
 					activeSkill = usedEnv.player.mainSkill
@@ -411,9 +411,9 @@ end
 function calcs.buildActiveSkill(env, mode, skill, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
+		if cacheSkillUUID(activeSkill, fullEnv) == cacheSkillUUID(skill, env) then
 			fullEnv.player.mainSkill = activeSkill
-			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[cacheSkillUUID(activeSkill)]
+			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[cacheSkillUUID(activeSkill, fullEnv)]
 			calcs.perform(fullEnv)
 			return
 		end
@@ -430,7 +430,7 @@ function calcs.buildOutput(build, mode)
 	local output = env.player.output
 	
 	for _, skill in ipairs(env.player.activeSkillList) do
-		local uuid = cacheSkillUUID(skill)
+		local uuid = cacheSkillUUID(skill, env)
 		if not GlobalCache.cachedData["CACHE"][uuid] then
 			calcs.buildActiveSkill(env, "CACHE", skill)
 		end

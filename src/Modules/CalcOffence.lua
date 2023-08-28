@@ -1388,11 +1388,11 @@ function calcs.offence(env, actor, activeSkill)
 				}
 			end
 		end
-		output.TotemDurationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "TotemDuration")
+		output.TotemDurationMod = calcLib.mod(skillModList, skillCfg, "TotemDuration")
 		local TotemDurationBase = skillModList:Sum("BASE", skillCfg, "TotemDuration")
 		output.TotemDuration = m_ceil(TotemDurationBase * output.TotemDurationMod * data.misc.ServerTickRate) / data.misc.ServerTickRate
 		if breakdown then
-			breakdown.TotemDurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "TotemDuration")
+			breakdown.TotemDurationMod = breakdown.mod(skillModList, skillCfg, "TotemDuration")
 			breakdown.TotemDuration = {
 				s_format("%.2fs ^8(base)", TotemDurationBase),
 			}
@@ -5104,88 +5104,6 @@ function calcs.offence(env, actor, activeSkill)
 		
 		if breakdown and breakdown.SelfHitDamage then
 			breakdown.SelfHitDamage[#breakdown.SelfHitDamage] = nil -- Remove new line at the end
-		end
-	end
-
-	-- The Saviour
-	if activeSkill.activeEffect.grantedEffect.name == "Reflection" then
-		local usedSkill = nil
-		local usedSkillBestDps = 0
-		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
-		for _, triggerSkill in ipairs(actor.activeSkillList) do
-			if triggerSkill ~= activeSkill and triggerSkill.skillTypes[SkillType.Attack] and band(triggerSkill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) then
-				-- Grab a fully-processed by calcs.perform() version of the skill that Mirage Warrior(s) will use
-				local uuid = cacheSkillUUID(triggerSkill)
-				if not GlobalCache.cachedData[calcMode][uuid] then
-					calcs.buildActiveSkill(env, calcMode, triggerSkill)
-				end
-				-- We found a skill and it can crit
-				if GlobalCache.cachedData[calcMode][uuid] and GlobalCache.cachedData[calcMode][uuid].CritChance and GlobalCache.cachedData[calcMode][uuid].CritChance > 0 then
-					if not usedSkill then
-						usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
-						usedSkillBestDps = GlobalCache.cachedData[calcMode][uuid].TotalDPS
-					else
-						if GlobalCache.cachedData[calcMode][uuid].TotalDPS > usedSkillBestDps then
-							usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
-							usedSkillBestDps = GlobalCache.cachedData[calcMode][uuid].TotalDPS
-						end
-					end
-				end
-			end
-		end
-
-		if usedSkill then
-			local moreDamage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorLessDamage")
-			local maxMirageWarriors = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "SaviourMirageWarriorMaxCount")
-			local newSkill, newEnv = calcs.copyActiveSkill(env, calcMode, usedSkill)
-
-			-- Add new modifiers to new skill (which already has all the old skill's modifiers)
-			newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "The Saviour", activeSkill.ModFlags, activeSkill.KeywordFlags)
-			if env.player.itemList["Weapon 1"] and env.player.itemList["Weapon 2"] and env.player.itemList["Weapon 1"].name == env.player.itemList["Weapon 2"].name then
-				maxMirageWarriors = maxMirageWarriors / 2
-			end
-			newSkill.skillModList:NewMod("QuantityMultiplier", "BASE", maxMirageWarriors, "The Saviour Mirage Warriors", activeSkill.ModFlags, activeSkill.KeywordFlags)
-
-			if usedSkill.skillPartName then
-				env.player.mainSkill.skillPart = usedSkill.skillPart
-				env.player.mainSkill.skillPartName = usedSkill.skillPartName
-				env.player.mainSkill.infoMessage2 = usedSkill.activeEffect.grantedEffect.name
-			else
-				env.player.mainSkill.skillPartName = usedSkill.activeEffect.grantedEffect.name
-			end
-			
-			newSkill.skillCfg.skillCond["usedByMirage"] = true
-			
-			-- Recalculate the offensive/defensive aspects of this new skill
-			newEnv.player.mainSkill = newSkill
-			calcs.perform(newEnv)
-			env.player.mainSkill = newSkill
-
-			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " Mirage Warriors using " .. usedSkill.activeEffect.grantedEffect.name
-
-			-- Re-link over the output
-			env.player.output = newEnv.player.output
-			if newSkill.minion then
-				env.minion = newEnv.player.mainSkill.minion
-				env.minion.output = newEnv.minion.output
-			end
-
-			-- Make any necessary corrections to output
-			env.player.output.ManaCost = 0
-
-			-- Re-link over the breakdown (if present)
-			if newEnv.player.breakdown then
-				env.player.breakdown = newEnv.player.breakdown
-
-				-- Make any necessary corrections to breakdown
-				env.player.breakdown.ManaCost = nil
-
-				if newSkill.minion then
-					env.minion.breakdown = newEnv.minion.breakdown
-				end
-			end
-		else
-			activeSkill.infoMessage2 = "No Saviour active skill found"
 		end
 	end
 
