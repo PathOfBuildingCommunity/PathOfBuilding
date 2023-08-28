@@ -1024,8 +1024,10 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, "Selected Variant: " .. self.variant)
 
 		for _, baseLine in pairs(self.baseLines) do
-			writeModLine(baseLine)
-		end
+			if baseLine.variantList then
+				writeModLine(baseLine)
+			end
+		end	
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
