@@ -1631,8 +1631,9 @@ local configTable = {
 	end,
 	["mirage archer"] = function()
 		return {customHandler = mirageArcherHandler}
-	end,
-	["doom blast"] = function()
+	end,		
+	["doom blast"] = function(env)
+		env.player.mainSkill.skillData.ignoresTickRate = true
 		return {useCastRate = true,
 				stagesAreOverlaps = 2,
 				customTriggerName = "Doom Blast triggering Hex: ",
