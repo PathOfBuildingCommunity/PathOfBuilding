@@ -1200,7 +1200,7 @@ local function defaultTriggerHandler(env, config)
 				end
 			end
 			
-			if trigRate ~= nil and not actor.mainSkill.skillFlags.globalTrigger and not actor.mainSkill.skillTypes[SkillType.InbuiltTrigger] then
+			if trigRate ~= nil and not actor.mainSkill.skillFlags.globalTrigger and not config.ignoreSourceRate then
 				output.EffectiveSourceRate = trigRate
 			else
 				output.EffectiveSourceRate = output.TriggerRateCap
@@ -1722,7 +1722,8 @@ local configTable = {
 				comparer = function(uuid, source, currentTotemLife)
 					local totemLife = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.TotemLife
 					return (not source and totemLife) or (totemLife and totemLife > (currentTotemLife or 0))
-				end}
+				end,
+				ignoreSourceRate = true}
 	end,
 }
 
