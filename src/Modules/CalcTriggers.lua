@@ -18,6 +18,7 @@ local s_format = string.format
 local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
+LoadModule("Classes/TimeSpan")
 
 -- Add trigger-based damage modifiers
 local function addTriggerIncMoreMods(activeSkill, sourceSkill)
@@ -84,10 +85,10 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 	local actor = actor or env.player
 	local SIM_RESOLUTION = 2
 	-- the breaking points are values in attacks per second
-	local function quickSim(env, skills, sourceRate)
+	local function quickSim(env, skills, att)
 		local Activation = {}
 		function Activation:new(skill)
-			a = {skill = skill, deltaTime = 0, time = 0, count = 0}
+			a = {skill = skill, deltaTime = TimeSpan.fromTicks(0), time = TimeSpan.fromTicks(0), count = 0}
 			setmetatable(a, self)
 			self.__index = self
 			return a
@@ -96,7 +97,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 			-- returns the time when the skill is ready
 			return self.time + self.skill.cd
 		end
-		function Activation:activate()
+		function Activation:activate(time)
 			-- activate the skill at the given time, update the activation
 			self.deltaTime = time - self.time
 			self.time = time
@@ -105,7 +106,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 		
 		local State = {}
 		function State:new(skills)
-			s = {activations = {}, time = 0, currentActivation = 1}
+			s = {activations = {}, time = TimeSpan.fromTicks(0), currentActivation = 1}
 			for _, skill in ipairs(skills) do
 				t_insert(s.activations, Activation:new(skill))
 			end
@@ -129,7 +130,6 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 		end
 		function State:iterTimeReady()
 			-- iterate over all activations and the time at which each skill is ready
-			local att = 1/sourceRate
 			local timePenalty = self.time + att
 			local iter = self:iter()
 			return function()
@@ -138,16 +138,16 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 					-- the time until the skill is ready
 					local timeReady = activation:timeReady()
 					-- wait for the next attack
-					timeReady = att * m_ceil(timeReady / att)
+					timeReady = timeReady:ceil(att)
 					-- wait until the attack rotation is ready
-					timeReady = m_max(timeReady, timePenalty)
+					timeReady = timeReady:max(timePenalty)
 					return timeReady, activation
 				end
 			end
 		end
 		function State:getNearestReady()
 			-- Returns the next activation and the time until the skill is ready
-			local nearestTime = 0
+			local nearestTime = TimeSpan.fromTicks(0)
 			local nearestActivation = nil
 			for timeReady, activation in self:iterTimeReady() do
 				if nearestActivation == nil or timeReady < nearestTime then
@@ -158,10 +158,12 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 			return nearestTime, nearestActivation
 		end
 		function State:activate()
+			local time
+			local nearestActivation
 			-- Activates the activation nearest to ready
 			time, nearestActivation = self:getNearestReady()
 			-- round up time to the next server tick
-			time = ceil_b(time, data.misc.ServerTickTime)
+			time = time:ceil(TimeSpan.fromSec(data.misc.ServerTickTime))
 			self.time = time
 			if nearestActivation then
 				nearestActivation:activate(time)
@@ -205,12 +207,12 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 			until(not (count > 0 or state:anyUntriggered()))
 			
 			for i = 1, skillCount, 1 do
-				local avgRate = state.activations[i].time ~= 0 and (state.activations[i].count / state.activations[i].time) or 0
+				local avgRate = state.activations[i].time ~= 0 and (state.activations[i].count / state.activations[i].time:getSecF()) or 0
 				rates[i] = (rates[i] or 0) + avgRate
 			end
 		end		
 		for i = 1, skillCount, 1 do
-			skills[i].rate = rates[i] / skillCount
+			skills[i].rate = rates[i] / skillCount 
 		end
 	end
 	-- breaking point, where the trigger time is only constrained by the attack speed
@@ -227,19 +229,20 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 			t_insert(tt1_brs, br)
 			tt1_smallest_br = m_min(tt1_smallest_br, br)
 		end
+		skill.cd = TimeSpan.fromSec(skill.cd)
 	end
 	for _, skill in ipairs(skills) do
 		-- the breaking point, where the trigger time is only constrained by the cooldown time
 		-- before this its its either tt0 or tt1, depending on the skills
 		-- after this the trigger time depends on resonance with the attack speed
-		tt2_br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime) * .8
+		tt2_br = #skills / ceil_b(skill.cd:getSecF(), data.misc.ServerTickTime) * .8
 		-- the breaking point where the the attack speed is so high, that the affect of resonance is negligible
-		tt3_br = #skills / floor_b(skill.cd, data.misc.ServerTickTime) * 8
+		tt3_br = #skills / floor_b(skill.cd:getSecF(), data.misc.ServerTickTime) * 8
 		-- classify in tt region the attack rate is in
 		if sourceRate >= tt3_br then
-			skill.rate = 1/ ceil_b(skill.cd, data.misc.ServerTickTime)
+			skill.rate = 1/ ceil_b(skill.cd:getSecF(), data.misc.ServerTickTime)
 		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
-			quickSim(env, skills, sourceRate)
+			quickSim(env, skills, TimeSpan.fromSec(1/sourceRate))
 			break
 		elseif sourceRate >= tt0_br then
 			skill.rate = sourceRate / #skills
