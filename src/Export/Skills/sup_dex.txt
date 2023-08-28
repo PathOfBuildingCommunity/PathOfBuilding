@@ -315,6 +315,20 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportLocusMine
+	addFlags = {
+		mine = true,
+	},
+	statMap = {
+		["support_locus_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["number_of_projectiles_+%_final_from_locus_mine_support"] = {
+			mod("ProjectileCount", "MORE", nil),
+		},
+	},
+#mods
+
 #skill SupportChanceToPoison
 #mods
 
@@ -338,6 +352,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportGemMirageArcher
+	addFlags = {
+		mirage = true,
+	},
+	isTrigger = true,
 	statMap = {
 		["support_mirage_archer_base_duration"] = {
 			mod("MirageArcherDuration", "BASE", nil),
@@ -400,6 +418,14 @@ local skills, mod, flag, skill = ...
 #skill SupportCriticalStrikeAffliction
 #mods
 
+#skill SupportSadism
+	statMap = {
+		["support_faster_ailments_ailment_duration_+%_final"] = {
+			mod("EnemyAilmentDuration", "MORE", nil), 
+		},
+	},
+#mods
+
 #skill SupportAdditionalCooldown
 #mods
 
@@ -423,6 +449,9 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Dot),
 		},
 	},
+#mods
+
+#skill SupportReturningProjectiles
 #mods
 
 #skill SupportSwiftAfflictionPlus
@@ -548,8 +577,8 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
 		},
 		["support_manaforged_arrows_mana_cost_%_threshold"] = {
-			skill("triggeredByManaPercentSpent", true, { type = "SkillType", skillType = SkillType.Triggerable }),
-			skill("TriggerSkillManaSpentMultiRequirement", nil),
+			skill("triggeredByManaforged", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("ManaForgedArrowsPercentThreshold", nil),
 			div = 100,
 		},
 	},

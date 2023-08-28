@@ -3356,14 +3356,14 @@ return {
 			name="Id",
 			refTo="",
 			type="Int",
-			width=40
+			width=50
 		},
 		[2]={
 			list=false,
-			name="",
+			name="MonsterVarieties",
 			refTo="MonsterVarieties",
 			type="Key",
-			width=390
+			width=400
 		}
 	},
 	divinationcardart={
@@ -7848,6 +7848,22 @@ return {
 			width=150
 		}
 	},
+	passiveoverridelimits={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Description",
+			refTo="",
+			type="String",
+			width=200
+		}
+	},
 	passiveskillbuffs={
 		[1]={
 			list=false,
@@ -7974,6 +7990,115 @@ return {
 			name="SoundEffect",
 			refTo="SoundEffects",
 			type="Key",
+			width=150
+		}
+	},
+	passiveskilloverrides={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=220
+		},
+		[3]={
+			list=false,
+			name="DDSIcon",
+			refTo="",
+			type="String",
+			width=330
+		},
+		[4]={
+			list=true,
+			name="StatsKeys",
+			refTo="Stats",
+			type="Key",
+			width=580
+		},
+		[5]={
+			list=true,
+			name="StatValues",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[6]={
+			list=false,
+			name="Hash",
+			refTo="",
+			type="Int",
+			width=100
+		},
+		[7]={
+			list=false,
+			name="Background",
+			refTo="",
+			type="String",
+			width=530
+		},
+		[8]={
+			list=false,
+			name="GrantedEffect",
+			refTo="GrantedEffectsPerLevel",
+			type="Key",
+			width=250
+		},
+		[9]={
+			list=false,
+			name="TattooType",
+			refTo="passiveskilloverridetypes",
+			type="Key",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="Limit",
+			refTo="passiveoverridelimits",
+			type="Key",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="MinimumConnected",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="MaximumConnected",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
+	passiveskilloverridetypes={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
 			width=150
 		}
 	},
@@ -8288,6 +8413,61 @@ return {
 		}
 	},
 	passiveskillstatcategories={
+	},
+	passiveskilltattoos={
+		[1]={
+			list=false,
+			name="BaseItem",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=380
+		},
+		[2]={
+			list=false,
+			name="Override",
+			refTo="passiveskilloverrides",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="NodeTarget",
+			refTo="passiveskilltattootargetsets",
+			type="Key",
+			width=150
+		}
+	},
+	passiveskilltattootargets={
+	},
+	passiveskilltattootargetsets={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=true,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Type",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="Value",
+			refTo="",
+			type="String",
+			width=150
+		}
 	},
 	passiveskilltrees={
 	},

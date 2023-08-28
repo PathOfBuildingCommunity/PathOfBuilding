@@ -295,7 +295,48 @@ function calcs.defence(env, actor)
 
 	-- Resistances
 	output["PhysicalResist"] = 0
-
+	
+	-- Process Resistance conversion mods
+	for _, resFrom in ipairs(resistTypeList) do
+		local maxRes
+		for _, resTo in ipairs(resistTypeList) do
+			local conversionRate = modDB:Sum("BASE", nil, resFrom.."MaxResConvertTo"..resTo) / 100
+			if conversionRate ~= 0 then
+				if not maxRes then
+					maxRes = 0
+					for _, mod in ipairs(modDB:Tabulate("BASE", nil, resFrom.."ResistMax")) do
+						if mod.mod.source ~= "Base" then
+							maxRes = maxRes + mod.value
+						end
+					end
+				end
+				if maxRes ~= 0 then
+					modDB:NewMod(resTo.."ResistMax", "BASE", maxRes * conversionRate, resFrom.." To "..resTo.." Max Resistance Conversion")
+				end
+			end
+		end
+	end
+	
+	for _, resFrom in ipairs(resistTypeList) do
+		local res
+		for _, resTo in ipairs(resistTypeList) do
+			local conversionRate = modDB:Sum("BASE", nil, resFrom.."ResConvertTo"..resTo) / 100
+			if conversionRate ~= 0 then
+				if not res then
+					res = 0
+					for _, mod in ipairs(modDB:Tabulate("BASE", nil, resFrom.."Resist")) do
+						if mod.mod.source ~= "Base" then
+							res = res + mod.value
+						end
+					end
+				end
+				if res ~= 0 then
+					modDB:NewMod(resTo.."Resist", "BASE", res * conversionRate, resFrom.." To "..resTo.." Resistance Conversion")
+				end
+			end
+		end
+	end
+	
 	-- Highest Maximum Elemental Resistance for Melding of the Flesh
 	if modDB:Flag(nil, "ElementalResistMaxIsHighestResistMax") then
 		local highestResistMax = 0;
@@ -313,39 +354,6 @@ function calcs.defence(env, actor)
 			end
 		end
 	end
-	
-	-- Process Resistance conversion mods
-	for _, resFrom in ipairs(resistTypeList) do
-		local maxRes
-		for _, resTo in ipairs(resistTypeList) do
-			local conversionRate = modDB:Sum("BASE", nil, resFrom.."MaxResConvertTo"..resTo) / 100
-			if conversionRate ~= 0 then
-				if not maxRes then
-					maxRes = 0
-					for _, mod in ipairs(modDB:Tabulate("BASE", nil, resFrom.."ResistMax")) do
-						if mod.mod.source ~= "Base" then
-							maxRes = maxRes + mod.value
-						end
-					end
-				end
-				if maxRes ~= 0 then
-					modDB:NewMod(resTo.."ResistMax", "BASE", maxRes * conversionRate)
-				end
-			end
-		end
-	end
-	
-	for _, resFrom in ipairs(resistTypeList) do
-		local res
-		for _, resTo in ipairs(resistTypeList) do
-			local conversionRate = modDB:Sum("BASE", nil, resFrom.."ResConvertTo"..resTo) / 100
-			if conversionRate ~= 0 then
-				if not res then res = modDB:Sum("BASE", nil, resFrom.."Resist") end
-				modDB:NewMod(resTo.."Resist", "BASE", res * conversionRate)
-			end
-		end
-	end
-	
 	
 	for _, elem in ipairs(resistTypeList) do
 		local min, max, total, totemTotal, totemMax
@@ -394,14 +402,6 @@ function calcs.defence(env, actor)
 				"Total: "..totemTotal.."%",
 			}
 		end
-	end
-
-	-- Damage Reduction
-	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
-	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
-	for _, damageType in ipairs(dmgTypeList) do
-		output["Base"..damageType.."DamageReduction"] = m_min(m_max(0, modDB:Sum("BASE", nil, damageType.."DamageReduction")), output.DamageReductionMax)
-		output["Base"..damageType.."DamageReductionWhenHit"] = m_min(m_max(0, output["Base"..damageType.."DamageReduction"] + modDB:Sum("BASE", nil, damageType.."DamageReductionWhenHit")), output.DamageReductionMax)
 	end
 
 	-- Block
@@ -1136,6 +1136,14 @@ function calcs.defence(env, actor)
 				s_format("= %.2fs", output.WardRechargeDelay)
 			}
 		end
+	end
+
+	-- Damage Reduction
+	output.DamageReductionMax = modDB:Override(nil, "DamageReductionMax") or data.misc.DamageReductionCap
+	modDB:NewMod("ArmourAppliesToPhysicalDamageTaken", "BASE", 100)
+	for _, damageType in ipairs(dmgTypeList) do
+		output["Base"..damageType.."DamageReduction"] = m_min(m_max(0, modDB:Sum("BASE", nil, damageType.."DamageReduction")), output.DamageReductionMax)
+		output["Base"..damageType.."DamageReductionWhenHit"] = m_min(m_max(0, output["Base"..damageType.."DamageReduction"] + modDB:Sum("BASE", nil, damageType.."DamageReductionWhenHit")), output.DamageReductionMax)
 	end
 
 	-- Miscellaneous: move speed, avoidance
