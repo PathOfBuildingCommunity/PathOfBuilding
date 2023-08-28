@@ -1091,6 +1091,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				activeGemInstance.gemId = nil
 				activeGemInstance.level = grantedSkill.level
 				activeGemInstance.enableGlobal1 = true
+				activeGemInstance.noSupports = grantedSkill.noSupports
 				if grantedSkill.triggered then
 					activeGemInstance.triggered = grantedSkill.triggered
 				end
