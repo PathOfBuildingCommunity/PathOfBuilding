@@ -18,7 +18,6 @@ local s_format = string.format
 local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
-LoadModule("Classes/TimeSpan")
 
 -- Add trigger-based damage modifiers
 local function addTriggerIncMoreMods(activeSkill, sourceSkill)
@@ -84,147 +83,90 @@ end
 function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 	local actor = actor or env.player
 	local SIM_RESOLUTION = 2
-	-- the breaking points are values in attacks per second
-	local function quickSim(env, skills, att)
-		local Activation = {}
-		function Activation:new(skill)
-			a = {skill = skill, deltaTime = TimeSpan.fromTicks(0), time = TimeSpan.fromTicks(0), count = 0}
-			setmetatable(a, self)
-			self.__index = self
-			return a
-		end
-		function Activation:timeReady()
-			-- returns the time when the skill is ready
-			return self.time + self.skill.cd
-		end
-		function Activation:activate(time)
-			-- activate the skill at the given time, update the activation
-			self.deltaTime = time - self.time
-			self.time = time
-			self.count = self.count + 1
-		end
-		
-		local State = {}
-		function State:new(skills)
-			s = {activations = {}, time = TimeSpan.fromTicks(0), currentActivation = 1}
-			for _, skill in ipairs(skills) do
-				t_insert(s.activations, Activation:new(skill))
+	local function to_ticks(t)
+		return m_floor(t * 1000)
+	end
+	local function to_time(t)
+		return t / 1000
+	end
+	-- convert data to ticks
+	for _, skill in ipairs(skills) do
+		skill.cd = to_ticks(m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD))
+	end
+	
+	-- create the state object
+	local state = {
+		time = 0,
+	 	skills = skills,
+		akt = to_ticks(1/sourceRate),
+		cdt = to_ticks(triggerCD),
+		proposed_trigger_skill_index = 1,
+		trigger_next = {},
+		trigger_count = {}
+	}
+	for i, _ in ipairs(skills) do
+		state.trigger_next[i] = 0
+		state.trigger_count[i] = 0
+	end
+
+	--- quickSim helper function
+	local function next_proposed_trigger_skill()
+		local initial_proposed_trigger_skill_index = state.proposed_trigger_skill_index
+		local proposed_trigger_skill_index = (initial_proposed_trigger_skill_index % #state.skills) + 1
+		local attack_activations = 1
+		local next_trigger_skill_index = m_huge
+		local next_trigger_skill_time = m_huge
+		while (next_trigger_skill_time == m_huge or proposed_trigger_skill_index ~= initial_proposed_trigger_skill_index) do
+			local trigger_activation_time = state.trigger_next[proposed_trigger_skill_index]
+			-- the skill can only trigger with an attack activation
+			trigger_activation_time = m_floor(ceil_b(trigger_activation_time, state.akt))
+			-- the skill is delayed by the number of attack activations
+			trigger_activation_time = trigger_activation_time + attack_activations * state.akt
+			-- the skill can only be triggered after the global cooldown
+			local time_to_trigger = trigger_activation_time - state.time
+			if (state.cdt <= time_to_trigger and (next_trigger_skill_time == m_huge or trigger_activation_time < next_trigger_skill_time)) then
+				next_trigger_skill_index = proposed_trigger_skill_index
+				next_trigger_skill_time = trigger_activation_time
 			end
-			setmetatable(s, self)
-			self.__index = self
-			return s
+			attack_activations = attack_activations + 1
+			proposed_trigger_skill_index = (initial_proposed_trigger_skill_index % #state.skills) + 1
 		end
-		function State:iter()
-			-- iterate over all activations in order
-			local idx = self.currentActivation
-			local count = #self.activations
-			local i = 0
-			return function()
-				if i < count then
-					i = i + 1
-					local current = idx
-					idx = (idx % count) + 1
-					return self.activations[current]
-				end
-			end
-		end
-		function State:iterTimeReady()
-			-- iterate over all activations and the time at which each skill is ready
-			local timePenalty = self.time + att
-			local iter = self:iter()
-			return function()
-				local activation = iter()
-				if activation then
-					-- the time until the skill is ready
-					local timeReady = activation:timeReady()
-					-- wait for the next attack
-					timeReady = timeReady:ceil(att)
-					-- wait until the attack rotation is ready
-					timeReady = timeReady:max(timePenalty)
-					return timeReady, activation
-				end
-			end
-		end
-		function State:getNearestReady()
-			-- Returns the next activation and the time until the skill is ready
-			local nearestTime = TimeSpan.fromTicks(0)
-			local nearestActivation = nil
-			for timeReady, activation in self:iterTimeReady() do
-				if nearestActivation == nil or timeReady < nearestTime then
-					nearestTime = timeReady
-					nearestActivation = activation
-				end
-			end
-			return nearestTime, nearestActivation
-		end
-		function State:activate()
-			local time
-			local nearestActivation
-			-- Activates the activation nearest to ready
-			time, nearestActivation = self:getNearestReady()
-			-- round up time to the next server tick
-			time = time:ceil(TimeSpan.fromSec(data.misc.ServerTickTime))
-			self.time = time
-			if nearestActivation then
-				nearestActivation:activate(time)
-				for i, activation in ipairs(self.activations) do
-					if nearestActivation.skill == activation.skill and nearestActivation.deltaTime == activation.deltaTime then
-						self.currentActivation = i
-						break
-					end
-				end
-			end
-			return nearestActivation
-		end
-		function State:moveNextRound()
-			-- Move to the next round of activations.
-			local initial_activation = self.activations[self.currentActivation]
-			local is_initial = true
-			local activationsCount = #self.activations
-			while (self:activate() ~= nil) and (is_initial or self.activations[self.currentActivation].skill ~= initial_activation.skill and self.activations[self.currentActivation].deltaTime ~= initial_activation.deltaTime) do
-				self.currentActivation = (self.currentActivation % activationsCount) + 1 -- Skips one skill in the rotation.
-				is_initial = false
+		state.proposed_trigger_skill_index = next_trigger_skill_index
+		state.time = next_trigger_skill_time
+	end
+	--- quickSim helper function
+	local function activate_proposed_skill()
+		state.trigger_next[state.proposed_trigger_skill_index] = state.time + state.skills[state.proposed_trigger_skill_index].cd
+		state.trigger_count[state.proposed_trigger_skill_index] = state.trigger_count[state.proposed_trigger_skill_index] + 1
+	end
+	--- quickSim helper function
+	local function is_skill_activation_sim_relolution_satisfied()
+		for _, trigger_count in ipairs(state.trigger_count) do
+			if (trigger_count < SIM_RESOLUTION) then
+				return false
 			end
 		end
-		function State:anyUntriggered()
-			for activation in self:iter() do
-				if activation.count == 0 then
-					return true
-				end
-			end
-			return false
-		end
-		
-		local rates = {}
-		local skillCount = #skills
-		for i = 1, skillCount, 1 do
-			local state = State:new(skills)
-			state.currentActivation = i
-			local count = SIM_RESOLUTION + 1
-			repeat
-				state:moveNextRound()
-				count = count-1
-			until(not (count > 0 or state:anyUntriggered()))
-			
-			for i = 1, skillCount, 1 do
-				local avgRate = state.activations[i].time ~= 0 and (state.activations[i].count / state.activations[i].time:getSecF()) or 0
-				rates[i] = (rates[i] or 0) + avgRate
-			end
-		end		
-		for i = 1, skillCount, 1 do
-			skills[i].rate = rates[i] / skillCount 
+		return true
+	end
+	--- computes state.skills[#].rate
+	local function quickSim()
+		while (not is_skill_activation_sim_relolution_satisfied()) do
+			next_proposed_trigger_skill()
+			activate_proposed_skill()
 		end
 	end
 
+	quickSim(state)
+
+	-- convert data back to time
 	for _, skill in ipairs(skills) do
-		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD)
-		if skill.cd > triggerCD then
-			local br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime)
-		end
-		skill.cd = TimeSpan.fromSec(skill.cd)
+		skill.cd = to_time(skill.cd)
 	end
-	quickSim(env, skills, TimeSpan.fromSec(1/sourceRate))
-	
+	-- evaluate skill.rate
+	for i, skill in ipairs(skills) do
+		skill.rate = to_time(state.time / state.trigger_count[i])
+	end
+		
 	local mainRate
 	local trigRateTable = { simRes = SIM_RESOLUTION, rates = {}, }
 	for _, sd in ipairs(skills) do
