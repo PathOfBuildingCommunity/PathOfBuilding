@@ -67,7 +67,7 @@ c["Royal Bow Quality: 20"]={nil,"Royal Bow Quality: 20 "}
 c["20% of Physical Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=20}},nil}
 c["14% faster start of Energy Shield Recharge"]={{[1]={flags=0,keywordFlags=0,name="EnergyShieldRechargeFaster",type="INC",value=14}},nil}
 c["Damaging Ailments Cannot Be inflicted on you while you already have one Non-Damaging Ailments Cannot Be inflicted on you while you already have one"]={nil,"Damaging Ailments Cannot Be inflicted on you while you already have one Non-Damaging Ailments Cannot Be inflicted on you while you already have one "}
-c["20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="20",skillId="ShadeForm",triggerChance=20,triggered=true}}},nil}
+c["20% chance to Trigger Level 20 Shade Form when you Use a Socketed Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ShadeForm",triggerChance=20,triggered=true}}},nil}
 c["Intelligence provides no inherent bonus to Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="NoIntBonusToES",type="FLAG",value=true}},nil}
 c["30% increased total Recovery per second from Life Leech"]={{[1]={flags=0,keywordFlags=0,name="LifeLeechRate",type="INC",value=30}},nil}
 c["Adds 10 to 200 Lightning Damage to Spells"]={{[1]={flags=0,keywordFlags=131072,name="LightningMin",type="BASE",value=10},[2]={flags=0,keywordFlags=131072,name="LightningMax",type="BASE",value=200}},nil}
@@ -6400,7 +6400,7 @@ c["Tricorne Variant: Pre 3.19.0"]={nil,"Tricorne Variant: Pre 3.19.0 "}
 c["Adds 15 to 25 Cold Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ColdMin",type="BASE",value=15},[2]={flags=0,keywordFlags=65536,name="ColdMax",type="BASE",value=25}},nil}
 c["15% of maximum Life taken as Chaos Damage per second"]={{[1]={[1]={percent=15,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="ChaosDegen",type="BASE",value=1}},nil}
 c["Adds 6 to 12 Cold Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ColdMin",type="BASE",value=6},[2]={flags=0,keywordFlags=65536,name="ColdMax",type="BASE",value=12}},nil}
-c["15% chance to Trigger Level 1 Blood Rage when you Kill an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="1",skillId="BloodRage",triggerChance=15,triggered=true}}},nil}
+c["15% chance to Trigger Level 1 Blood Rage when you Kill an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="BloodRage",triggerChance=15,triggered=true}}},nil}
 c["Cannot be Shocked"]={{[1]={flags=0,keywordFlags=0,name="ShockImmune",type="FLAG",value=true}},nil}
 c["Shagreen Boots League: Heist"]={nil,"Shagreen Boots League: Heist "}
 c["15% increased Movement Speed while Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=15}},nil}
@@ -6817,7 +6817,7 @@ c["30% chance to gain a Frenzy Charge on Kill"]={nil,"a Frenzy Charge  "}
 c["+60% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=60}},nil}
 c["Headsman Axe Quality: 20"]={nil,"Headsman Axe Quality: 20 "}
 c["Dagger Attacks deal 8% increased Damage with Hits and Ailments"]={{[1]={flags=524288,keywordFlags=786432,name="Damage",type="INC",value=8}},nil}
-c["10% chance to Trigger Level 8 Summon Raging Spirit on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="8",skillId="SummonRagingSpirit",triggerChance=10,triggered=true}}},nil}
+c["10% chance to Trigger Level 8 Summon Raging Spirit on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=8,skillId="SummonRagingSpirit",triggerChance=10,triggered=true}}},nil}
 c["-500 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=-500}},nil}
 c["Carved Wand Variant: Pre 3.8.0"]={nil,"Carved Wand Variant: Pre 3.8.0 "}
 c["Adds 60 to 90 Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdMin",type="BASE",value=60},[2]={flags=0,keywordFlags=0,name="ColdMax",type="BASE",value=90}},nil}
@@ -6949,7 +6949,7 @@ c["+93 to maximum Life"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",v
 c["Dusk Blade"]={nil,"Dusk Blade "}
 c["Requires Class Shadow Allocates Demolitions Specialist if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Shadow Allocates Demolitions Specialist if you have the matching modifier on Forbidden Flesh "}
 c["Commanded leadership over 18000 warriors under Akoya"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="conqueredBy",value={conqueror={id="3_v2",type="karui"},id=18000}}}},nil}
-c["20% chance to Trigger Level 25 Summon Spectral Wolf on Critical Strike with this Weapon"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="25",skillId="SummonRigwaldsPack",triggerChance=20,triggered=true}}},nil}
+c["20% chance to Trigger Level 25 Summon Spectral Wolf on Critical Strike with this Weapon"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=25,skillId="SummonRigwaldsPack",triggerChance=20,triggered=true}}},nil}
 c["Requires Class Templar Allocates Sign of Purpose if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Templar Allocates Sign of Purpose if you have the matching modifier on Forbidden Flesh "}
 c["Hellion's Paw Variant: Pre 3.14.0"]={nil,"Hellion's Paw Variant: Pre 3.14.0 "}
 c["Cannot Block"]={{[1]={flags=0,keywordFlags=0,name="CannotBlockAttacks",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="CannotBlockSpells",type="FLAG",value=true}},nil}
@@ -7143,7 +7143,7 @@ c["Implicit Modifier magnitudes are tripled Corrupted"]={nil,"Implicit Modifier 
 c["1 Added Passive Skill is No Witnesses"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="No Witnesses"}},nil}
 c["181% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=181}},nil}
 c["10% increased Melee Physical Damage"]={{[1]={flags=256,keywordFlags=0,name="PhysicalDamage",type="INC",value=10}},nil}
-c["10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="1",skillId="BloodRage",triggerChance=10,triggered=true}}},nil}
+c["10% chance to Trigger Level 1 Blood Rage when you Kill an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="BloodRage",triggerChance=10,triggered=true}}},nil}
 c["With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 4 Ranged Weapons With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 12 Ranged Weapons"]={nil,"With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 4 Ranged Weapons With at least 40 Dexterity in Radius, Animate Weapon can Animate up to 12 Ranged Weapons "}
 c["Take 50% less Damage over Time if you've started taking Damage over Time in the past second"]={{[1]={flags=8,keywordFlags=0,name="DamageTaken",type="MORE",value=-50}},"  if you've started taking Damage over Time in the past second "}
 c["Implicit Modifier magnitudes are tripled"]={nil,"Implicit Modifier magnitudes are tripled "}
@@ -7742,7 +7742,7 @@ c["Labrys"]={nil,"Labrys "}
 c["44% increased Fire Damage with Hits and Ailments against Blinded Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Blinded"},flags=0,keywordFlags=786432,name="FireDamage",type="INC",value=44}},nil}
 c["Ignited Enemies Killed by your Hits are destroyed"]={nil,"Ignited Enemies Killed by your Hits are destroyed "}
 c["Allocates Assassin if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="assassin",side="flesh"}}},nil}
-c["25% chance to Trigger Level 20 Animate Weapon on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="20",skillId="AnimateWeapon",triggerChance=25,triggered=true}}},nil}
+c["25% chance to Trigger Level 20 Animate Weapon on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="AnimateWeapon",triggerChance=25,triggered=true}}},nil}
 c["Socketed Gems are Supported by Level 10 Additional Accuracy"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=10,skillId="SupportAdditionalAccuracy"}}},nil}
 c["80% increased Burning Damage"]={{[1]={flags=0,keywordFlags=134217728,name="FireDamage",type="INC",value=80}},nil}
 c["Adds 24 to 44 Fire Damage to Spells and Attacks"]={{[1]={flags=0,keywordFlags=196608,name="FireMin",type="BASE",value=24},[2]={flags=0,keywordFlags=196608,name="FireMax",type="BASE",value=44}},nil}
@@ -7760,7 +7760,7 @@ c["60% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags
 c["Recover 75% of Life on use"]={nil,"Recover 75% of Life on use "}
 c["-10% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=-10}},nil}
 c["25% increased Elemental Damage during any Flask Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ElementalDamage",type="INC",value=25}},nil}
-c["20% chance to Trigger Level 16 Molten Burst on Melee Hit"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="16",skillId="TriggeredMoltenStrike",triggerChance=20,triggered=true}}},nil}
+c["20% chance to Trigger Level 16 Molten Burst on Melee Hit"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=16,skillId="TriggeredMoltenStrike",triggerChance=20,triggered=true}}},nil}
 c["Regenerate 5% of Energy Shield over 1 second when Stunned"]={nil,"Regenerate 5% of Energy Shield over 1 second when Stunned "}
 c["Assassin's Mitts Quality: 20"]={nil,"Assassin's Mitts Quality: 20 "}
 c["Adds 42 to 87 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=42},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=87}},nil}
@@ -8837,7 +8837,7 @@ c["Requires Class Templar Allocates Bastion of Hope if you have the matching mod
 c["Destroyer Regalia Implicits: 0"]={nil,"Destroyer Regalia Implicits: 0 "}
 c["Allocates Augury of Penitence if you have the matching modifier on Forbidden Flesh"]={{[1]={flags=0,keywordFlags=0,name="GrantedAscendancyNode",type="LIST",value={name="augury of penitence",side="flesh"}}},nil}
 c["Requires Class Templar Allocates Augury of Penitence if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Templar Allocates Augury of Penitence if you have the matching modifier on Forbidden Flesh "}
-c["20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="20",skillId="SummonRigwaldsPack",triggerChance=20,triggered=true}}},nil}
+c["20% chance to Trigger Level 20 Summon Spectral Wolf on Critical Strike with this Weapon"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonRigwaldsPack",triggerChance=20,triggered=true}}},nil}
 c["Requires Class Templar Allocates Radiant Faith if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Templar Allocates Radiant Faith if you have the matching modifier on Forbidden Flesh "}
 c["80% reduced Reservation Efficiency of Skills"]={{[1]={flags=0,keywordFlags=0,name="ReservationEfficiency",type="INC",value=-80}},nil}
 c["While in Her Embrace, take 0.5% of your total Maximum Life and Energy Shield as Fire Damage per second per Level"]={{[1]={[1]={percent=0.5,stat="Life",type="PercentStat"},[2]={type="Multiplier",var="Level"},[3]={type="Condition",var="HerEmbrace"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=1},[2]={[1]={percent=0.5,stat="EnergyShield",type="PercentStat"},[2]={type="Multiplier",var="Level"},[3]={type="Condition",var="HerEmbrace"},flags=0,keywordFlags=0,name="FireDegen",type="BASE",value=1}},nil}
@@ -10405,7 +10405,7 @@ c["Topaz Ring League: Bloodlines"]={nil,"Topaz Ring League: Bloodlines "}
 c["Painted Buckler Quality: 20"]={nil,"Painted Buckler Quality: 20 "}
 c["Unset Ring Has Alt Variant: true"]={nil,"Unset Ring Has Alt Variant: true "}
 c["Duelist: 1% of Attack Damage Leeched as Life"]={{[1]={[1]={type="Condition",var="ConnectedToDuelistStart"},flags=1,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=1}},nil}
-c["10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="18",skillId="AnimateGuardianWeapon",triggerChance=10,triggered=true}}},nil}
+c["10% chance to Trigger Level 18 Animate Guardian's Weapon when Animated Weapon Kills an Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=18,skillId="AnimateGuardianWeapon",triggerChance=10,triggered=true}}},nil}
 c["Velvet Slippers"]={nil,"Velvet Slippers "}
 c["3% increased Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=3}},nil}
 c["35% increased Attack Speed with Swords"]={{[1]={flags=4194309,keywordFlags=0,name="Speed",type="INC",value=35}},nil}
@@ -10638,14 +10638,14 @@ c["Gain 20% of Physical Damage as Extra Chaos Damage"]={{[1]={flags=0,keywordFla
 c["1 Added Passive Skill is Sleepless Sentries"]={{[1]={flags=0,keywordFlags=0,name="ClusterJewelNotable",type="LIST",value="Sleepless Sentries"}},nil}
 c["15% reduced maximum Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=-15}},nil}
 c["Burnished Spiked Shield Evasion: 171"]={nil,"Burnished Spiked Shield Evasion: 171 "}
-c["20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="20",skillId="SummonVoidSphere",triggerChance=20,triggered=true}}},nil}
+c["20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonVoidSphere",triggerChance=20,triggered=true}}},nil}
 c["15% chance to Defend with 200% of Armour"]={{[1]={[1]={type="Condition",var="ArmourMax"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Max Calc",type="MAX",value=100},[2]={[1]={type="Condition",var="ArmourAvg"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Average Calc",type="MAX",value=15},[3]={[1]={neg=true,type="Condition",var="ArmourMax"},[2]={neg=true,type="Condition",var="ArmourAvg"},flags=0,keywordFlags=0,name="ArmourDefense",source="Armour Mastery: Min Calc",type="MAX",value=0}},nil}
 c["Cannot be Stunned by Spells if your other Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill"]={nil,"Cannot be Stunned by Spells if your other Ring is a Shaper Item 20% chance to Trigger Level 20 Summon Volatile Anomaly on Kill "}
 c["Cannot be Stunned by Spells if your other Ring is a Shaper Item"]={nil,"Cannot be Stunned by Spells if your other Ring is a Shaper Item "}
 c["80% increased Spell Damage if your other Ring is an Elder Item"]={{[1]={[1]={type="Condition",var="ElderItemInRing {OtherSlotNum}"},flags=2,keywordFlags=0,name="Damage",type="INC",value=80}},nil}
 c["You are Blind"]={{[1]={[1]={neg=true,type="Condition",var="CannotBeBlinded"},flags=0,keywordFlags=0,name="Condition:Blinded",type="FLAG",value=true}},nil}
 c["Adds 30 to 46 Cold Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ColdMin",type="BASE",value=30},[2]={flags=0,keywordFlags=65536,name="ColdMax",type="BASE",value=46}},nil}
-c["20% chance to Trigger Level 20 Tentacle Whip on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="20",skillId="TentacleSmash",triggerChance=20,triggered=true}}},nil}
+c["20% chance to Trigger Level 20 Tentacle Whip on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="TentacleSmash",triggerChance=20,triggered=true}}},nil}
 c["Adds 32 to 48 Cold Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="ColdMin",type="BASE",value=32},[2]={flags=0,keywordFlags=65536,name="ColdMax",type="BASE",value=48}},nil}
 c["Adds 4 to 14 Physical Damage to Attacks"]={{[1]={flags=0,keywordFlags=65536,name="PhysicalMin",type="BASE",value=4},[2]={flags=0,keywordFlags=65536,name="PhysicalMax",type="BASE",value=14}},nil}
 c["144% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=144}},nil}
@@ -10817,7 +10817,7 @@ c["+30% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="Eleme
 c["Herald of Agony has 40% increased Mana Reservation Efficiency"]={{[1]={[1]={skillName="Herald of Agony",type="SkillName"},flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=40}},nil}
 c["Iron Ring Has Alt Variant: true"]={nil,"Iron Ring Has Alt Variant: true "}
 c["Adds 9 to 14 Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=9},[2]={flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=14}},nil}
-c["25% chance to Trigger Level 10 Summon Raging Spirit on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="10",skillId="SummonRagingSpirit",triggerChance=25,triggered=true}}},nil}
+c["25% chance to Trigger Level 10 Summon Raging Spirit on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=10,skillId="SummonRagingSpirit",triggerChance=25,triggered=true}}},nil}
 c["+10% to Chaos Resistance"]={{[1]={flags=0,keywordFlags=0,name="ChaosResist",type="BASE",value=10}},nil}
 c["12% increased Attack Speed with Claws"]={{[1]={flags=262149,keywordFlags=0,name="Speed",type="INC",value=12}},nil}
 c["Viridian Jewel Source: Drops in The Lord's Labyrinth"]={nil,"Viridian Jewel Source: Drops in The Lord's Labyrinth "}
@@ -12328,7 +12328,7 @@ c["15% increased Chaining range"]={{}," Chaining range "}
 c["60% increased Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="INC",value=60}},nil}
 c["4% reduced Life Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="LifeCost",type="INC",value=-4}},nil}
 c["Adds 19 to 27 Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ChaosMin",type="BASE",value=19},[2]={flags=0,keywordFlags=0,name="ChaosMax",type="BASE",value=27}},nil}
-c["100% chance to Trigger Level 1 Raise Spiders on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="1",skillId="TriggeredSummonSpider",triggerChance=100,triggered=true}}},nil}
+c["100% chance to Trigger Level 1 Raise Spiders on Kill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=1,skillId="TriggeredSummonSpider",triggerChance=100,triggered=true}}},nil}
 c["30% increased Trap Damage"]={{[1]={flags=0,keywordFlags=4096,name="Damage",type="INC",value=30}},nil}
 c["Cobalt Jewel Variant: Pre 2.6.0"]={nil,"Cobalt Jewel Variant: Pre 2.6.0 "}
 c["Zodiac Leather Evasion: 1905"]={nil,"Zodiac Leather Evasion: 1905 "}
@@ -13487,7 +13487,7 @@ c["7% increased Attributes"]={{[1]={flags=0,keywordFlags=0,name="Str",type="INC"
 c["Golems have 21% increased Maximum Life"]={{[1]={[1]={skillType=61,type="SkillType"},flags=0,keywordFlags=0,name="MinionModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="Life",type="INC",value=21}}}},nil}
 c["Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flesh"]={nil,"Requires Class Witch Allocates Vile Bastion if you have the matching modifier on Forbidden Flesh "}
 c["-2 to Accuracy Rating per Level"]={{[1]={[1]={type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=-2}},nil}
-c["25% chance to Trigger Level 20 Summon Elemental Relic when you or a nearby Ally Kill an Enemy, or Hit a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level="20",skillId="SummonGuardianRelic",triggerChance=25,triggered=true}}},nil}
+c["25% chance to Trigger Level 20 Summon Elemental Relic when you or a nearby Ally Kill an Enemy, or Hit a Rare or Unique Enemy"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonGuardianRelic",triggerChance=25,triggered=true}}},nil}
 c["Skinning Knife"]={nil,"Skinning Knife "}
 c["Passives in radius of The Agnostic can be allocated without being connected to your tree"]={{[1]={flags=0,keywordFlags=0,name="JewelData",type="LIST",value={key="impossibleEscapeKeystone",value="the agnostic"}},[2]={flags=0,keywordFlags=0,name="ImpossibleEscapeKeystones",type="LIST",value={key="the agnostic",value=true}}},nil}
 c["100% increased Accuracy Rating when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="Accuracy",type="INC",value=100}},nil}
