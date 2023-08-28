@@ -215,41 +215,15 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 			skills[i].rate = rates[i] / skillCount 
 		end
 	end
-	-- breaking point, where the trigger time is only constrained by the attack speed
-	-- the region tt0 is a slope
-	local tt0_br = 0
-	
-	-- breaking points, where the cooldown times of some skills are awaited
-	local tt1_brs = {}
-	local tt1_smallest_br = m_huge
+
 	for _, skill in ipairs(skills) do
 		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD)
 		if skill.cd > triggerCD then
 			local br = #skills / ceil_b(skill.cd, data.misc.ServerTickTime)
-			t_insert(tt1_brs, br)
-			tt1_smallest_br = m_min(tt1_smallest_br, br)
 		end
 		skill.cd = TimeSpan.fromSec(skill.cd)
 	end
-	for _, skill in ipairs(skills) do
-		-- the breaking point, where the trigger time is only constrained by the cooldown time
-		-- before this its its either tt0 or tt1, depending on the skills
-		-- after this the trigger time depends on resonance with the attack speed
-		tt2_br = #skills / ceil_b(skill.cd:getSecF(), data.misc.ServerTickTime) * .8
-		-- the breaking point where the the attack speed is so high, that the affect of resonance is negligible
-		tt3_br = #skills / floor_b(skill.cd:getSecF(), data.misc.ServerTickTime) * 8
-		-- classify in tt region the attack rate is in
-		if sourceRate >= tt3_br then
-			skill.rate = 1/ ceil_b(skill.cd:getSecF(), data.misc.ServerTickTime)
-		elseif (sourceRate >= tt2_br) or (#tt1_brs > 0 and sourceRate >= tt1_smallest_br) then
-			quickSim(env, skills, TimeSpan.fromSec(1/sourceRate))
-			break
-		elseif sourceRate >= tt0_br then
-			skill.rate = sourceRate / #skills
-		else
-			skill.rate = 0
-		end
-	end
+	quickSim(env, skills, TimeSpan.fromSec(1/sourceRate))
 	
 	local mainRate
 	local trigRateTable = { simRes = SIM_RESOLUTION, rates = {}, }
