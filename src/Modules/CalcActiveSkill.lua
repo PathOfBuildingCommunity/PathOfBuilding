@@ -458,7 +458,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			local match = skillEffect.grantedEffect.addSkillTypes and (not skillFlags.disable)
 			if match and skillEffect.grantedEffect.isTrigger then
 				if activeSkill.triggeredBy then
-					if skillEffect.grantedEffect.addFlags.mirage then
+					if skillEffect.grantedEffect.addFlags and skillEffect.grantedEffect.addFlags.mirage then
 						activeSkill.ineffectiveTriggers = activeSkill.ineffectiveTriggers or {}
 						t_insert(activeSkill.ineffectiveTriggers, skillEffect)
 					else
