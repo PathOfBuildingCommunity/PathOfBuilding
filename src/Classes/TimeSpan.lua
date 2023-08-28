@@ -4,7 +4,6 @@
 --- Represents the difference between two points in time.
 --- ## Summary
 --- All constructors and getters are implemented for the time measures
---- - `us`: microseconds
 --- - `ms`: milliseconds
 --- - `sec`: seconds
 --- - `min`: minutes
@@ -95,41 +94,35 @@ TimeSpan.MIN_VALUE = { ticks = -9007199254740991 }
 --- @type TimeSpan
 TimeSpan.ZERO = { ticks = 0 }
 
---- TimeSpan.US
---- ## Summary
---- The `TimeSpan` of one microsecond.
---- @type TimeSpan
-TimeSpan.US = { ticks = 10 }
-
 --- # TimeSpan.MS
 --- ## Summary
 --- The `TimeSpan` of one millisecond.
 --- @type TimeSpan
-TimeSpan.MS = { ticks = 10000 }
+TimeSpan.MS = { ticks = 1 }
 
 --- # TimeSpan.SEC
 --- ## Summary
 --- The `TimeSpan` of one second.
 --- @type TimeSpan
-TimeSpan.SEC = { ticks = 10000000 }
+TimeSpan.SEC = { ticks = 1000 }
 
 --- # TimeSpan.MIN
 --- ## Summary
 --- The `TimeSpan` of one minute.
 --- @type TimeSpan
-TimeSpan.MIN = { ticks = 600000000 }
+TimeSpan.MIN = { ticks = 60000 }
 
 --- # TimeSpan.HOUR
 --- ## Summary
 --- The `TimeSpan` of one hour.
 --- @type TimeSpan
-TimeSpan.HOUR = { ticks = 36000000000 }
+TimeSpan.HOUR = { ticks = 3600000 }
 
 --- # TimeSpan.DAY
 --- ## Summary
 --- The `TimeSpan` of one day.
 --- @type TimeSpan
-TimeSpan.DAY = { ticks = 864000000000 }
+TimeSpan.DAY = { ticks = 86400000 }
 
 --- # TimeSpan.fromTicks
 --- ## Summary
@@ -151,18 +144,6 @@ function TimeSpan.fromTicks(ticks)
   local new = { ticks = math.floor(ticks) }
   setmetatable(new, TimeSpan)
   return new
-end
---- # TimeSpan.fromUs
---- ## Summary
---- Creates a new `TimeSpan` from the given number of microseconds.
---- ## Parameters
---- @param us number
---- - `us`: The number of microseconds to create the `TimeSpan` from.
---- ## Returns
---- @return TimeSpan
---- A new `TimeSpan` object with the given number of microseconds.
-function TimeSpan.fromUs(us)
-  return TimeSpan.fromTicks(us * TimeSpan.US.ticks)
 end
 --- # TimeSpan.fromMs
 --- ## Summary
@@ -295,24 +276,6 @@ end
 --- The `TimeSpan` rounded up to the given `base`.
 function TimeSpan:ceil(base)
   return TimeSpan.fromTicks(base.ticks * math.ceil(self.ticks / base.ticks))
-end
---- # TimeSpan:getUsF
---- ## Summary
---- Returns the total number of microseconds of the current `TimeSpan` as a floating point number.
---- ## Returns
---- @return number
---- The total number of microseconds of the current `TimeSpan` as a floating point number.
-function TimeSpan:getUsF()
-  return self.ticks / TimeSpan.US.ticks
-end
---- # TimeSpan:getUs
---- ## Summary
---- Returns the number of microseconds in the millisecond of the current `TimeSpan`.
---- ## Returns
---- @return integer
---- The number of microseconds in the millisecond of the current `TimeSpan`.
-function TimeSpan:getUs()
-  return math.floor(self:getUsF() % 1000)
 end
 --- # TimeSpan:getMsF
 --- ## Summary
