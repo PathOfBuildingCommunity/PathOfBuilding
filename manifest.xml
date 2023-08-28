@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.33.4" />
+	<Version number="2.33.5" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="c1134eecc5e421fde20e18457f69a26cf56e63a5" />
+	<File name="changelog.txt" part="default" sha1="8b8d3527eccef90a49aa5ed1c349674c069f03bf" />
 	<File name="help.txt" part="default" sha1="bea7d19390f66161c8b81d9ee9634784087b2649" />
 	<File name="LICENSE.md" part="default" sha1="eacedd00e9707defe051bd7151466d223376afa6" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />
@@ -206,7 +206,7 @@
 	<File name="Modules/CalcSections.lua" part="program" sha1="1ef5e732265858bf03bf05c951c4b620714a4134" />
 	<File name="Modules/CalcSetup.lua" part="program" sha1="eea669d2089c4c1d93ed6e24e519a2383141473a" />
 	<File name="Modules/CalcTools.lua" part="program" sha1="cec0408b8f70eaa9584d9676f282ce9d5ce750f7" />
-	<File name="Modules/CalcTriggers.lua" part="program" sha1="f80b6c248412d93e6dacf3a599e148be3f52abab" />
+	<File name="Modules/CalcTriggers.lua" part="program" sha1="0040106d507b0996ef41d46eb466f5fe2f572367" />
 	<File name="Modules/Common.lua" part="program" sha1="d6c6b58aa0001aa2be9e3413c4360e066e4abad1" />
 	<File name="Modules/ConfigOptions.lua" part="program" sha1="8f2944ec03d0e58f443aed9cd2874299f30ef182" />
 	<File name="Modules/Data.lua" part="program" sha1="7170a971b63fd4c5be4838de4b42edad71f9c88e" />
