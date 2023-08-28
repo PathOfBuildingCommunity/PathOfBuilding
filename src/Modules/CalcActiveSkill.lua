@@ -150,7 +150,7 @@ end
 function calcs.copyActiveSkill(env, mode, skill)
 	local newSkill = calcs.createActiveSkill(skill.activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
 	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
-	calcs.buildActiveSkillModList(newEnv, newSkill, {[cacheSkillUUID(newSkill)] = true})
+	calcs.buildActiveSkillModList(newEnv, newSkill, {[cacheSkillUUID(newSkill, newEnv)] = true})
 	newSkill.skillModList = new("ModList", newSkill.baseSkillModList)
 	if newSkill.minion then
 		newSkill.minion.modDB = new("ModDB")
