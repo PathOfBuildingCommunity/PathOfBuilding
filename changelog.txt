@@ -1,8 +1,9 @@
 VERSION[2.33.4][2023/08/28]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
+--- Fixed Crashes ---
 * Fix crash when using Kitava's Thirst (Paliak)
 * Fix crash when loading some 3.20 builds (Peechey)
+
 --- Fixed Bugs ---
 * Temporarily Revert trigger rate calculations to old formula (Paliak)
 * Fix Doom Blast overlap count not affecting DPS (Paliak)
