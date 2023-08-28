@@ -90,6 +90,7 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 	local next_trigger = 0
 	local trigger_increment = 1 / sourceRate
 	local wasted = 0
+	local actor = actor or env.player
 	
 	for _, skill in ipairs(skillRotation) do
 		skill.cd = m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD)
