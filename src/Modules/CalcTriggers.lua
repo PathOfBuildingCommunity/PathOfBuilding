@@ -1755,7 +1755,7 @@ function calcs.triggers(env)
 	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing then
 		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
-		local uniqueName = getUniqueItemTriggerName(env.player.mainSkill)
+		local uniqueName = env.player.mainSkill.skillTypes[SkillType.Triggerable] and getUniqueItemTriggerName(env.player.mainSkill)
 		local skillNameLower = skillName and skillName:lower()
 		local triggerNameLower = triggerName and triggerName:lower()
 		local awakenedTriggerNameLower = triggerNameLower and triggerNameLower:gsub("^awakened ", "")
