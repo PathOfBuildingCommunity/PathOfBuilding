@@ -1388,11 +1388,11 @@ function calcs.offence(env, actor, activeSkill)
 				}
 			end
 		end
-		output.TotemDurationMod = calcLib.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "TotemDuration")
+		output.TotemDurationMod = calcLib.mod(skillModList, skillCfg, "TotemDuration")
 		local TotemDurationBase = skillModList:Sum("BASE", skillCfg, "TotemDuration")
 		output.TotemDuration = m_ceil(TotemDurationBase * output.TotemDurationMod * data.misc.ServerTickRate) / data.misc.ServerTickRate
 		if breakdown then
-			breakdown.TotemDurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "PrimaryDuration", "TotemDuration")
+			breakdown.TotemDurationMod = breakdown.mod(skillModList, skillCfg, "TotemDuration")
 			breakdown.TotemDuration = {
 				s_format("%.2fs ^8(base)", TotemDurationBase),
 			}
