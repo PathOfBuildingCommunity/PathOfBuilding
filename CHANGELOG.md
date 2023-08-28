@@ -1,5 +1,25 @@
 # Changelog
 
+## [v2.33.4](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.4) (2023/08/28)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.33.3...v2.33.4)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Crashes
+- Fix crash when using Kitava's Thirst [\#6531](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6531) ([Paliak](https://github.com/Paliak))
+- Fix crash when loading some 3.20 builds [\#6525](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6525) ([Peechey](https://github.com/Peechey))
+### Fixed Bugs
+- Temporarily Revert trigger rate calculations to old formula [\#6530](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6530) ([Paliak](https://github.com/Paliak))
+- Fix Doom Blast overlap count not affecting DPS [\#6541](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6541) ([Paliak](https://github.com/Paliak))
+- Fix Skill Effect Duration affecting Totem duration [\#6536](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6536) ([Paliak](https://github.com/Paliak))
+- Prevent Tawhoa's Chosen Attacks from being Exerted [\#6535](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6535) ([Paliak](https://github.com/Paliak))
+- Fix crash when adding Support gems to some skills [\#6510](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6510) ([Paliak](https://github.com/Paliak))
+- Fix Mirage Archer disabling skills supported by Manaforged Arrows [\#6521](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6521) ([Paliak](https://github.com/Paliak))
+
+
+
 ## [v2.33.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.3) (2023/08/26)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.33.2...v2.33.3)
