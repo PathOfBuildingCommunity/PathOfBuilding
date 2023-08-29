@@ -100,12 +100,13 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 	 	skills = skills,
 		akt = to_ticks(1/sourceRate),
 		cdt = to_ticks(triggerCD),
+		stt = to_ticks(0.033),
 		proposed_trigger_skill_index = 1,
 		trigger_next = {},
 		trigger_count = {}
 	}
-	for i, _ in ipairs(skills) do
-		state.trigger_next[i] = 0
+	for i, skill in ipairs(skills) do
+		state.trigger_next[i] = skill.cd
 		state.trigger_count[i] = 0
 	end
 
@@ -114,32 +115,37 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 		local initial_proposed_trigger_skill_index = state.proposed_trigger_skill_index
 		local proposed_trigger_skill_index = initial_proposed_trigger_skill_index
 		local attack_activations = 0
-		local next_trigger_skill_index = m_huge
-		local next_trigger_skill_time = m_huge
-		while (next_trigger_skill_time == m_huge) do
+		local trigger_skill_index = m_huge
+		local trigger_skill_time = m_huge
+		while (trigger_skill_time == m_huge) do
 			-- move to the next skill from the current
 			proposed_trigger_skill_index = (initial_proposed_trigger_skill_index % #state.skills) + 1
 			local proposed_trigger_skill_time = state.trigger_next[proposed_trigger_skill_index]
 			attack_activations = attack_activations + 1
 			-- determine the attack on which the global cooldown has expired
-			local trigger_global_time = m_max(state.cdt, attack_activations * state.akt)
+			local trigger_global_delta = m_max(state.cdt, attack_activations * state.akt)
+			-- the trigger can only occur with an attack
+			trigger_global_delta = m_floor(ceil_b(trigger_global_delta, state.akt))
+			--  add the current server time 
+			local trigger_global_time = state.time + trigger_global_delta
 			-- check if the skill can be triggered at the current time
-			if (proposed_trigger_skill_time > trigger_global_time) then
-				proposed_trigger_skill_time = m_huge
-			else
-				proposed_trigger_skill_time = trigger_global_time
-			end
-			if trigger_skill_time == m_huge or proposed_trigger_skill_time < next_trigger_skill_time then
-				next_trigger_skill_index = proposed_trigger_skill_index
-				next_trigger_skill_time = proposed_trigger_skill_time
+			if (proposed_trigger_skill_time <= trigger_global_time) then
+				-- accept the global trigger time as the proposed trigger time
+				proposed_trigger_skill_time = trigger_global_delta
+				-- the proposed trigger time is executed with the next server tic
+				proposed_trigger_skill_time = m_floor(ceil_b(proposed_trigger_skill_time, state.stt))
+				if trigger_skill_time == m_huge or proposed_trigger_skill_time < trigger_skill_time then
+					trigger_skill_index = proposed_trigger_skill_index
+					trigger_skill_time = proposed_trigger_skill_time
+				end
 			end
 		end
-		state.proposed_trigger_skill_index = next_trigger_skill_index
-		state.time = state.time + next_trigger_skill_time
+		state.proposed_trigger_skill_index = trigger_skill_index
+		state.time = trigger_skill_time
 	end
 	--- quickSim helper function
 	local function activate_proposed_skill()
-		state.trigger_next[state.proposed_trigger_skill_index] = state.skills[state.proposed_trigger_skill_index].cd
+		state.trigger_next[state.proposed_trigger_skill_index] = state.time + state.skills[state.proposed_trigger_skill_index].cd
 		state.trigger_count[state.proposed_trigger_skill_index] = state.trigger_count[state.proposed_trigger_skill_index] + 1
 	end
 	--- quickSim helper function
@@ -153,6 +159,7 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 	end
 	--- computes state.skills[#].rate
 	local function quickSim()
+		activate_proposed_skill()
 		while (not is_skill_activation_sim_relolution_satisfied()) do
 			next_proposed_trigger_skill()
 			activate_proposed_skill()
@@ -165,9 +172,10 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 	for _, skill in ipairs(skills) do
 		skill.cd = to_time(skill.cd)
 	end
+	state.time = to_time(state.time)
 	-- evaluate skill.rate
 	for i, skill in ipairs(skills) do
-		skill.rate = to_time(state.time / state.trigger_count[i])
+		skill.rate = state.trigger_count[i] / state.time
 	end
 
 	local mainRate
