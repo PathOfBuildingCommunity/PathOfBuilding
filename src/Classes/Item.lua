@@ -1382,6 +1382,20 @@ function ItemClass:BuildModListForSlotNum(baseList, slotNum)
 		armourData.Evasion = round((evasionBase + armourEvasionBase + evasionEnergyShieldBase + evasionVariance * (armourData.EvasionBasePercentile or 1)) * (1 + (evasionInc + armourEvasionInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
 		armourData.EnergyShield = round((energyShieldBase + evasionEnergyShieldBase + armourEnergyShieldBase + energyShieldVariance * (armourData.EnergyShieldBasePercentile or 1)) * (1 + (energyShieldInc + armourEnergyShieldInc + evasionEnergyShieldInc + defencesInc + qualityScalar) / 100))
 		armourData.Ward = round((wardBase + wardVariance * (armourData.WardBasePercentile or 1)) * (1 + (wardInc + defencesInc + qualityScalar) / 100))
+
+		if not armourData.ArmourBasePercentile and armourData.Armour > 0 then
+			armourData.ArmourBasePercentile = 1
+		end
+		if not armourData.EvasionBasePercentile and armourData.Evasion > 0 then
+			armourData.EvasionBasePercentile = 1
+		end
+		if not armourData.EnergyShieldBasePercentile and armourData.EnergyShield > 0 then
+			armourData.EnergyShieldBasePercentile = 1
+		end
+		if not armourData.WardBasePercentile and armourData.Ward > 0 then
+			armourData.WardBasePercentile = 1
+		end
+
 		if self.base.armour.BlockChance then
 			armourData.BlockChance = self.base.armour.BlockChance + calcLocal(modList, "BlockChance", "BASE", 0)
 		end
