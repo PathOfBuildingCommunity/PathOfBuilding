@@ -2089,6 +2089,7 @@ skills["UniqueMirageWarriors"] = {
 		spell = true,
 		duration = true,
 		minion = true,
+		mirage = true,
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
@@ -3178,6 +3179,7 @@ skills["SummonMirageChieftain"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
+		mirage = true,
 	},
 	constantStats = {
 		{ "trigger_on_slam_or_strike_%_chance", 100 },

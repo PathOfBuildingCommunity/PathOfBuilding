@@ -3590,6 +3590,7 @@ skills["FrozenSweep"] = {
 		attack = true,
 		area = true,
 		melee = true,
+		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 25),
@@ -3674,6 +3675,7 @@ skills["GeneralsCry"] = {
 		warcry = true,
 		area = true,
 		duration = true,
+		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 60),

@@ -2687,5 +2687,5 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
 
-	cacheData(cacheSkillUUID(env.player.mainSkill), env)
+	cacheData(cacheSkillUUID(env.player.mainSkill, env), env)
 end
