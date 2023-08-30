@@ -116,10 +116,8 @@ function main:Init()
 	self.uniqueDB = { list = { } }
 	for type, typeList in pairs(data.uniques) do
 		for _, raw in pairs(typeList) do
-			local newItem = new("Item", "Rarity: Unique\n"..raw)
+			newItem = new("Item", raw, "UNIQUE", true)
 			if newItem.base then
-				newItem:NormaliseQuality()
-				newItem:BuildAndParseRaw()
 				self.uniqueDB.list[newItem.name] = newItem
 			elseif launch.devMode then
 				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
@@ -128,9 +126,8 @@ function main:Init()
 	end
 	self.rareDB = { list = { } }
 	for _, raw in pairs(data.rares) do
-		local newItem = new("Item", "Rarity: Rare\n"..raw)
+		newItem = new("Item", raw, "RARE", true)
 		if newItem.base then
-			newItem:NormaliseQuality()
 			if newItem.crafted then
 				if newItem.base.implicit and #newItem.implicitModLines == 0 then
 					-- Automatically add implicit
