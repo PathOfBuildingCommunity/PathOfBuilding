@@ -72,7 +72,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 		calcs.buildActiveSkill(env, "CACHE", skill)
 	end
 
-	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid, source, triggerRate) then
+	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) then
 		return skill, GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
 	end
 	return source, triggerRate, source and cacheSkillUUID(source, env)
