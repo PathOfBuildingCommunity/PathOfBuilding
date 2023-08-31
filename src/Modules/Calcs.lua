@@ -227,7 +227,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					activeSkill = usedEnv.player.mainSkill
 				else
 					fullEnv.player.mainSkill = activeSkill
-					calcs.perform(fullEnv, true, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
+					calcs.perform(fullEnv, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
 					usedEnv = fullEnv
 				end
 				local minionName = nil
