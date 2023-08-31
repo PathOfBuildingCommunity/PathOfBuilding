@@ -311,7 +311,7 @@ function ItemClass:ParseRaw(raw)
 		end
 
 		-- Found the name for a rare or unique, but let's parse it if it's a magic or normal or Unidentified item to get the base
-		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) or self.name:match("Energy Blade") then
+		if not (self.rarity == "NORMAL" or self.rarity == "MAGIC" or unidentified) then
 			l = l + 1
 		end
 	end
@@ -1024,8 +1024,10 @@ function ItemClass:BuildRaw()
 		t_insert(rawLines, "Selected Variant: " .. self.variant)
 
 		for _, baseLine in pairs(self.baseLines) do
-			writeModLine(baseLine)
-		end
+			if baseLine.variantList then
+				writeModLine(baseLine)
+			end
+		end	
 		if self.hasAltVariant then
 			t_insert(rawLines, "Has Alt Variant: true")
 			t_insert(rawLines, "Selected Alt Variant: " .. self.variantAlt)
@@ -1574,6 +1576,7 @@ function ItemClass:BuildModList()
 				noSupports = skill.noSupports,
 				source = self.modSource,
 				triggered = skill.triggered,
+				triggerChance = skill.triggerChance,
 			})
 		end
 	end

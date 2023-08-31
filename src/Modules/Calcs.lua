@@ -16,6 +16,7 @@ LoadModule("Modules/CalcPerform", calcs)
 LoadModule("Modules/CalcActiveSkill", calcs)
 LoadModule("Modules/CalcDefence", calcs)
 LoadModule("Modules/CalcOffence", calcs)
+LoadModule("Modules/CalcTriggers", calcs)
 
 -- Get the average value of a table -- note this is unused
 function math.average(t)
@@ -186,17 +187,19 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		TotalDotDPS = 0,
 		skills = { },
 		poisonDPS = 0,
+		causticGroundDPS = 0,
 		impaleDPS = 0,
 		igniteDPS = 0,
-		bleedDPS = 0,
-		decayDPS = 0,
 		burningGroundDPS = 0,
-		causticGroundDPS = 0,
+		bleedDPS = 0,
+		corruptingBloodDPS = 0,
+		decayDPS = 0,
 		dotDPS = 0,
 		cullingMulti = 0
 	}
 
 	local bleedSource = ""
+	local corruptingBloodSource = ""
 	local igniteSource = ""
 	local burningGroundSource = ""
 	local causticGroundSource = ""
@@ -204,7 +207,7 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	-- calc defences extra part should only run on the last skill of FullDPS
 	local numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not GlobalCache.excludeFullDpsList[cacheSkillUUID(activeSkill, fullEnv)] then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				numActiveSkillInFullDPS = numActiveSkillInFullDPS + 1
@@ -214,11 +217,11 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 	
 	GlobalCache.numActiveSkillInFullDPS = 0
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not isExcludedFromFullDps(activeSkill) then
+		if activeSkill.socketGroup and activeSkill.socketGroup.includeInFullDPS and not GlobalCache.excludeFullDpsList[cacheSkillUUID(activeSkill, fullEnv)] then
 			local activeSkillCount, enabled = getActiveSkillCount(activeSkill)
 			if enabled then
 				GlobalCache.numActiveSkillInFullDPS = GlobalCache.numActiveSkillInFullDPS + 1
-				local cachedData = getCachedData(activeSkill, mode)
+				local cachedData = GlobalCache.cachedData[mode][cacheSkillUUID(activeSkill, fullEnv)]
 				if cachedData and next(override) == nil and not GlobalCache.noCache then
 					usedEnv = cachedData.Env
 					activeSkill = usedEnv.player.mainSkill
@@ -309,6 +312,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					fullDPS.bleedDPS = usedEnv.player.output.BleedDPS
 					bleedSource = activeSkill.activeEffect.grantedEffect.name
 				end
+				if usedEnv.player.output.CorruptingBloodDPS and usedEnv.player.output.CorruptingBloodDPS > fullDPS.corruptingBloodDPS then
+					fullDPS.corruptingBloodDPS = usedEnv.player.output.CorruptingBloodDPS
+					corruptingBloodSource = activeSkill.activeEffect.grantedEffect.name
+				end
 				if usedEnv.player.output.IgniteDPS and usedEnv.player.output.IgniteDPS > fullDPS.igniteDPS then
 					fullDPS.igniteDPS = usedEnv.player.output.IgniteDPS
 					igniteSource = activeSkill.activeEffect.grantedEffect.name
@@ -356,6 +363,10 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 		t_insert(fullDPS.skills, { name = "Best Bleed DPS", dps = fullDPS.bleedDPS, count = 1, source = bleedSource })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.bleedDPS
 	end
+	if fullDPS.corruptingBloodDPS > 0 then
+		t_insert(fullDPS.skills, { name = "Corrupting Blood DPS", dps = fullDPS.corruptingBloodDPS, count = 1, source = corruptingBloodSource })
+		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.corruptingBloodDPS
+	end
 	if fullDPS.igniteDPS > 0 then
 		t_insert(fullDPS.skills, { name = "Best Ignite DPS", dps = fullDPS.igniteDPS, count = 1, source = igniteSource })
 		fullDPS.TotalDotDPS = fullDPS.TotalDotDPS + fullDPS.igniteDPS
@@ -397,12 +408,12 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 end
 
 -- Process active skill
-function calcs.buildActiveSkill(env, mode, skill, setMark)
+function calcs.buildActiveSkill(env, mode, skill, limitedProcessingFlags)
 	local fullEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
 	for _, activeSkill in ipairs(fullEnv.player.activeSkillList) do
-		if cacheSkillUUID(activeSkill) == cacheSkillUUID(skill) then
+		if cacheSkillUUID(activeSkill, fullEnv) == cacheSkillUUID(skill, env) then
 			fullEnv.player.mainSkill = activeSkill
-			fullEnv.player.mainSkill.marked = setMark
+			fullEnv.player.mainSkill.skillData.limitedProcessing = limitedProcessingFlags and limitedProcessingFlags[cacheSkillUUID(activeSkill, fullEnv)]
 			calcs.perform(fullEnv)
 			return
 		end
@@ -419,7 +430,7 @@ function calcs.buildOutput(build, mode)
 	local output = env.player.output
 	
 	for _, skill in ipairs(env.player.activeSkillList) do
-		local uuid = cacheSkillUUID(skill)
+		local uuid = cacheSkillUUID(skill, env)
 		if not GlobalCache.cachedData["CACHE"][uuid] then
 			calcs.buildActiveSkill(env, "CACHE", skill)
 		end
@@ -541,10 +552,12 @@ function calcs.buildOutput(build, mode)
 					else
 						addVarTag(env.minionConditionsUsed, tag, mod)
 					end
-				elseif tag.type == "ActorCondition" and tag.actor == "enemy" then
-					addVarTag(env.enemyConditionsUsed, tag, mod)
-				elseif tag.type == "ActorCondition" and tag.actor == "parent" then
-					addVarTag(env.conditionsUsed, tag, mod)
+				elseif tag.type == "ActorCondition" and tag.var then
+					if tag.actor == "enemy" then
+						addTo(env.enemyConditionsUsed, tag.var, mod)
+					else
+						addTo(env.conditionsUsed, tag.var, mod)
+					end
 				elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 					if not tag.actor then
 						if actor == env.player then
@@ -596,6 +609,12 @@ function calcs.buildOutput(build, mode)
 						break
 					elseif tag.type == "Condition" then
 						addVarTag(env.enemyConditionsUsed, tag, mod)
+					elseif tag.type == "ActorCondition" and tag.var then
+						if tag.actor == "enemy" or tag.actor == "player" then
+							addTo(env.conditionsUsed, tag.var, mod)
+						else
+							addTo(env.enemyConditionsUsed, tag.var, mod)
+						end
 					elseif tag.type == "Multiplier" or tag.type == "MultiplierThreshold" then
 						if not tag.actor then
 							addVarTag(env.enemyMultipliersUsed, tag, mod)

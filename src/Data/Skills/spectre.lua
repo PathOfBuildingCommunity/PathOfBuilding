@@ -739,7 +739,7 @@ skills["FireMonsterWhirlingBlades"] = {
 	color = 4,
 	baseEffectiveness = 1.0888999700546,
 	incrementalEffectiveness = 0.064599998295307,
-	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -1472,7 +1472,7 @@ skills["KitavaDemonWhirlingBlades"] = {
 	color = 4,
 	baseEffectiveness = 2.666699886322,
 	incrementalEffectiveness = 0.0625,
-	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -3460,7 +3460,7 @@ skills["AxisTemporalChains"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 4000 },
 		{ "temporal_chains_action_speed_+%_final", -20 },
-		{ "buff_time_passed_+%_other_than_temporal_chains", -40 },
+		{ "buff_time_passed_+%_other_than_temporal_chains", -25 },
 		{ "temporal_chains_action_speed_+%_vs_rare_or_unique_final", -10 },
 		{ "active_skill_area_of_effect_radius_+%_final", 9 },
 	},
@@ -3683,7 +3683,7 @@ skills["UndyingWhirlingBlades"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
+	description = "Dive through enemies, dealing weapon damage. If dual wielding attacks with both weapons, dealing the damage of both in one hit. Only works with Daggers, Claws, and One-Handed Swords. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
 	weaponTypes = {
 		["Thrusting One Handed Sword"] = true,
@@ -5898,7 +5898,9 @@ skills["HellionRallyingCry"] = {
 	},
 	stats = {
 		"damage_+%",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 	},
 	levels = {
 		[1] = { 8, storedUses = 1, levelRequirement = 1, cooldown = 8, statInterpolation = { 1, }, },

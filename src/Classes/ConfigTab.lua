@@ -551,6 +551,9 @@ function ConfigTabClass:Load(xml, fileName)
 				if node.attrib.name == "enemyIsBoss" then
 					self.input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
 					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Pinnacle")
+				-- backwards compat <=3.20, Uber Atziri Flameblast -> Atziri Flameblast
+				elseif node.attrib.name == "presetBossSkills" then
+					self.input[node.attrib.name] = node.attrib.string:gsub("^Uber ", "")
 				else
 					self.input[node.attrib.name] = node.attrib.string
 				end
