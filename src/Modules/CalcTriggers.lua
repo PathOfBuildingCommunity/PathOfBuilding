@@ -582,7 +582,7 @@ local function tawhoaChosenHandler(env)
 		-- Calculate trigger rate
 		local triggerCD = env.player.mainSkill.skillData.cooldown
 		local triggeredCD = newSkill.skillData.cooldown
-		local triggerDuration = calcSkillDuration(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, env.player.mainSkill.skillData, env, env.player.enemy.modDB)
+		local triggerDuration = calcSkillDuration(env.player.mainSkill, env, env.player.enemy.modDB)
 		local icdrSkill = calcLib.mod(newSkill.skillModList, newSkill.skillCfg, "CooldownRecovery")
 		local effectiveTriggerCD = (triggerCD / icdrSkill) + triggerDuration
 		

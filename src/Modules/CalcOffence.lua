@@ -2404,7 +2404,7 @@ function calcs.offence(env, actor, activeSkill)
 						calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, globalOutput, globalBreakdown)
 						globalOutput.SeismicCryCalculated = true
 					elseif value.activeEffect.grantedEffect.name == "Battlemage's Cry" and not globalOutput.BattleMageCryCalculated then
-						globalOutput.BattleMageCryDuration = calcSkillDuration(value.skillModList, value.skillCfg, value.skillData, env, enemyDB)
+						globalOutput.BattleMageCryDuration = calcSkillDuration(value, env, enemyDB)
 						globalOutput.BattleMageCryCooldown = calcSkillCooldown(value.skillModList, value.skillCfg, value.skillData)
 						output.GlobalWarcryCooldown = env.modDB:Sum("BASE", nil, "GlobalWarcryCooldown")
 						output.GlobalWarcryCount = env.modDB:Sum("BASE", nil, "GlobalWarcryCount")
