@@ -734,7 +734,7 @@ end
 
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
-	local extra = self.calcsTab.mainOutput.ExtraPoints or 0 
+	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
 	local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + extra, 8, 1, 1, "", ""
 	local acts = { 
 		[1] = { level = 1, questPoints = 0 }, 
