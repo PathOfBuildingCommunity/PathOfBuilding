@@ -156,17 +156,12 @@ local function mirageArcherHandler(env)
 		local uuid = cacheSkillUUID(env.player.mainSkill, env)
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 
-		-- cache a new copy of this skill that's affected by Mirage Archer
-		if avoidCache then
-			usedSkill = env.player.mainSkill
-		else
-			if not GlobalCache.cachedData[calcMode][uuid] then
-				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, {[uuid] = true})
-			end
+		if not GlobalCache.cachedData[calcMode][uuid] then
+			calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, {[uuid] = true})
+		end
 
-			if GlobalCache.cachedData[calcMode][uuid] and not avoidCache then
-				usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
-			end
+		if GlobalCache.cachedData[calcMode][uuid] then
+			usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 		end
 
 		if usedSkill then
