@@ -895,8 +895,6 @@ local function defaultTriggerHandler(env, config)
 							if breakdown and breakdown.EffectiveSourceRate then
 									breakdown.EffectiveSourceRate[1] = s_format("1 / %.2f ^8(source curse duration)", GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration)
 							end
-					elseif env.build.configTab.input["doomBlastSource"] == "replacement" then
-							actor.mainSkill.skillFlags.globalTrigger = true
 					elseif env.build.configTab.input["doomBlastSource"] == "vixen" then
 							local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
 							local vixensCD = vixens and vixens.levels[1].cooldown
