@@ -888,6 +888,29 @@ local function defaultTriggerHandler(env, config)
 				triggerCD = triggerCD * icdr -- cancels out division by icdr lower, brand activation rate is not affected by icdr
 			end
 			
+			-- Doom Blast Vixen's interaction
+			if config.triggerName == "Doom Blast" then
+					if env.build.configTab.input["doomBlastSource"] == "expiration" then
+							trigRate = 1 / GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration
+							if breakdown and breakdown.EffectiveSourceRate then
+									breakdown.EffectiveSourceRate[1] = s_format("1 / %.2f ^8(source curse duration)", GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration)
+							end
+					elseif env.build.configTab.input["doomBlastSource"] == "replacement" then
+							actor.mainSkill.skillFlags.globalTrigger = true
+					elseif env.build.configTab.input["doomBlastSource"] == "vixen" then
+							local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
+							local vixensCD = vixens and vixens.levels[1].cooldown
+							local vixenCurseTrigate = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(actor.mainSkill, env), cd = 0, icdr = icdr}}, trigRate, vixensCD / icdr)
+							local overlaps = ((env.player.mainSkill.skillPart == 2 and env.player.mainSkill.activeEffect.srcInstance.skillStageCount) or 1)
+							trigRate = vixenCurseTrigate * overlaps
+							if breakdown and breakdown.EffectiveSourceRate then
+									breakdown.EffectiveSourceRate[1] = s_format("%.2f ^8(Vixen's trigger rate)", vixenCurseTrigate)
+									t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f ^8(curse overlap count)", overlaps))
+							end
+					end
+			end
+
+			
 			local triggeredName = (actor.mainSkill.activeEffect.grantedEffect and actor ~= env.minion and actor.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
 			output.addsCastTime = processAddedCastTime(env.player.mainSkill, breakdown)
 			
@@ -1518,9 +1541,7 @@ local configTable = {
 	["doom blast"] = function(env)
 		env.player.mainSkill.skillData.ignoresTickRate = true
 		return {useCastRate = true,
-				stagesAreOverlaps = 2,
 				customTriggerName = "Doom Blast triggering Hex: ",
-				allowTriggered = true,
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) end}
 	end,
 	["cast while channelling"] = function()
