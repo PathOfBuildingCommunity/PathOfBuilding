@@ -900,11 +900,11 @@ local function defaultTriggerHandler(env, config)
 					elseif env.build.configTab.input["doomBlastSource"] == "vixen" then
 							local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
 							local vixensCD = vixens and vixens.levels[1].cooldown
-							local vixenCurseTrigate = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(actor.mainSkill, env), cd = 0, icdr = icdr}}, trigRate, vixensCD / icdr)
+							local vixenCurseTrigRate = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(actor.mainSkill, env), cd = 0, icdr = icdr}}, trigRate, vixensCD / icdr)
 							local overlaps = ((env.player.mainSkill.skillPart == 2 and env.player.mainSkill.activeEffect.srcInstance.skillStageCount) or 1)
-							trigRate = vixenCurseTrigate * overlaps
+							trigRate = vixenCurseTrigRate * overlaps
 							if breakdown and breakdown.EffectiveSourceRate then
-									breakdown.EffectiveSourceRate[1] = s_format("%.2f ^8(Vixen's trigger rate)", vixenCurseTrigate)
+									breakdown.EffectiveSourceRate[1] = s_format("%.2f ^8(Vixen's trigger rate)", vixenCurseTrigRate)
 									t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f ^8(curse overlap count)", overlaps))
 							end
 					end
