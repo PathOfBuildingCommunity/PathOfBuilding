@@ -385,4 +385,18 @@ describe("TestItemParse", function()
         item:BuildAndParseRaw()
         assert.are.equals(round(original * 1.2), item.armourData.Armour)
     end)
+
+    it("magic item", function()
+        local item = new("Item", [[
+                Rarity: MAGIC
+                Name Prefix Iron Gauntlets -> +50 ignite chance
+                +50% chance to Ignite
+            ]])
+
+        assert.are.equals("Name Prefix ", item.namePrefix)
+        assert.are.equals(" -> +50 ignite chance", item.nameSuffix)
+        assert.are.equals("Iron Gauntlets", item.baseName)
+        assert.are.equals(1, #item.explicitModLines)
+        assert.are.equals("+50% chance to Ignite", item.explicitModLines[1].line)
+    end)
 end)
