@@ -1387,10 +1387,10 @@ describe("TestTriggers", function()
 		build.skillsTab:PasteSocketGroup("Decoy Totem 20/0 Default  1\nFlamewood 20/0 Default  1\n")
         runCallback("OnFrame")
 
-		local mainSocketGroup = self.skillsTab.socketGroupList[self.mainSocketGroup]
+		local mainSocketGroup = build.skillsTab.socketGroupList[build.mainSocketGroup]
 		mainSocketGroup.mainActiveSkill = 2
-		self.modFlag = true
-		self.buildFlag = true
+		build.modFlag = true
+		build.buildFlag = true
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
