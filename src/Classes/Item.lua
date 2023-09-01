@@ -275,6 +275,8 @@ end
 function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.raw = raw
 	self.name = "?"
+	self.namePrefix = ""
+	self.nameSuffix = ""
 	self.rarity = rarity or "UNIQUE"
 	self.quality = nil
 	self.rawLines = { }
