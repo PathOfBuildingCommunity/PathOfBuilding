@@ -137,7 +137,7 @@ describe("TestTriggers", function()
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
     end)
 
-	it("Trigger hroud of the Lightless", function()
+	it("Trigger shroud of the Lightless", function()
         build.itemsTab:CreateDisplayItemFromRaw([[Shroud of the Lightless
 		Carnal Armour
 		Evasion: 1048
