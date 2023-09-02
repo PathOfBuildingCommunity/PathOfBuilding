@@ -3700,9 +3700,9 @@ function calcs.offence(env, actor, activeSkill)
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
 			-- over-stacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, bleedStacks))
-			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			local baseMinVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceMinHitDmg, 0, true) * basePercent / 100
 			local baseMaxVal = calcAilmentDamage("Bleed", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -3927,9 +3927,9 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Poison", output.CritChance, sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			local baseMinVal = calcAilmentDamage("Poison", output.CritChance, sourceMinHitDmg, 0, true) * data.misc.PoisonPercentBase
 			local baseMaxVal = calcAilmentDamage("Poison", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Poison", output.CritChance, sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.poison = true
 				skillFlags.duration = true
@@ -4252,9 +4252,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			-- over-stacking ignite stacks increases the chance a critical ignite is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, igniteStacks))
-			local baseVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			local baseMinVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceMinHitDmg, 0, true) * data.misc.IgnitePercentBase
 			local baseMaxVal = calcAilmentDamage("Ignite", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1
