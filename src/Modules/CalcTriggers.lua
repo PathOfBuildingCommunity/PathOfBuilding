@@ -14,6 +14,7 @@ local m_max = math.max
 local m_ceil = math.ceil
 local m_floor = math.floor
 local m_modf = math.modf
+local m_fmod = math.fmod
 local s_format = string.format
 local m_huge = math.huge
 local bor = bit.bor
@@ -90,88 +91,80 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 		return t / 1000
 	end
 	-- convert data to ticks
-	for _, skill in ipairs(skillRotation) do
-		skill.cd = to_ticks(m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD))
-	end
-
-	-- create the state object
-	local time = 0
-	local akt = to_ticks(1/sourceRate)
-	local cdt = to_ticks(triggerCD)
-	local stt = to_ticks(0.033)
-	local proposed_trigger_skill_index = 1
 	local trigger_next = {}
 	local trigger_count = {}
 	for _, skill in ipairs(skillRotation) do
+		skill.cd = to_ticks(m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD))
 		t_insert(trigger_next, skill.cd)
 		t_insert(trigger_count, 0)
 	end
+	local stt = 33
+	local atk = to_ticks(1 / sourceRate)
+	local cdt = to_ticks(triggerCD)
+	local time = 0
+	local continue_calculation = true
+	local proposed_trigger_skill_index = 1
 
-	--- quickSim helper function
-	local function is_skill_activation_sim_relolution_satisfied()
-		for _, trigger_count in ipairs(trigger_count) do
-			if (trigger_count < SIM_RESOLUTION) then
-				return false
-			end
-		end
-		return true
-	end
-	--- computes skillRotation[#].rate
-	trigger_next[proposed_trigger_skill_index] = time + skillRotation[proposed_trigger_skill_index].cd
-	trigger_count[proposed_trigger_skill_index] = trigger_count[proposed_trigger_skill_index] + 1
-	while (not is_skill_activation_sim_relolution_satisfied()) do
-		local initial_proposed_trigger_skill_index = proposed_trigger_skill_index
-		local proposed_trigger_skill_index = initial_proposed_trigger_skill_index
-		local attack_activations = 0
+	while continue_calculation do 
+		-- compute next skill trigger
 		local trigger_skill_index = m_huge
 		local trigger_skill_time = m_huge
-		while (trigger_skill_time == m_huge) do
+		local attack_activations = 0
+		while trigger_skill_time == m_huge do
 			-- move to the next skill from the current
-			proposed_trigger_skill_index = (initial_proposed_trigger_skill_index % #skillRotation) + 1
+			proposed_trigger_skill_index = (proposed_trigger_skill_index % #trigger_next) + 1
 			local proposed_trigger_skill_time = trigger_next[proposed_trigger_skill_index]
 			attack_activations = attack_activations + 1
 			-- determine the attack on which the global cooldown has expired
-			local trigger_global_delta = m_max(cdt, attack_activations * akt)
+			local trigger_global_time = m_max(cdt, attack_activations * atk)
 			-- the trigger can only occur with an attack
-			trigger_global_delta = m_floor(ceil_b(trigger_global_delta, akt))
-			--  add the current server time 
-			local trigger_global_time = time + trigger_global_delta
-			-- check if the skill can be triggered at the current time
+			trigger_global_time = ceil_b(trigger_global_time, atk)
+			-- add the current server time 
+			trigger_global_time = trigger_global_time + time
 			if (proposed_trigger_skill_time <= trigger_global_time) then
-				-- accept the global trigger time as the proposed trigger time
-				proposed_trigger_skill_time = trigger_global_delta
-				-- the proposed trigger time is executed with the next server tic
-				proposed_trigger_skill_time = m_floor(ceil_b(proposed_trigger_skill_time, stt))
+				proposed_trigger_skill_time = trigger_global_time
+				proposed_trigger_skill_time = ceil_b(proposed_trigger_skill_time, stt)
 				if trigger_skill_time == m_huge or proposed_trigger_skill_time < trigger_skill_time then
 					trigger_skill_index = proposed_trigger_skill_index
 					trigger_skill_time = proposed_trigger_skill_time
 				end
 			end
+			proposed_trigger_skill_index = trigger_skill_index
+			time = trigger_skill_time
 		end
-		proposed_trigger_skill_index = trigger_skill_index
-		time = trigger_skill_time
+		
+		-- activate proposed skill
 		trigger_next[proposed_trigger_skill_index] = time + skillRotation[proposed_trigger_skill_index].cd
 		trigger_count[proposed_trigger_skill_index] = trigger_count[proposed_trigger_skill_index] + 1
+		
+		-- determine whether to continue
+		continue_calculation = false
+		for idx, _ in ipairs(skillRotation) do
+			if (trigger_count[idx] < SIM_RESOLUTION) then
+				continue_calculation = true
+				break
+			end
+		end
 	end
 
-	-- convert data back to time
-	for _, skill in ipairs(skillRotation) do
-		skill.cd = to_time(skill.cd)
-	end
+	-- fill output table
+	local mainRate = -0
+	local trigRateTable = { 
+		simRes = SIM_RESOLUTION,
+		rates = {}
+	}
+	-- convert data to time
 	time = to_time(time)
-
-	local mainRate = 0
-	local trigRateTable = { simRes = SIM_RESOLUTION, rates = {} }
-	for _, sd in ipairs(skillRotation) do
-		local rate = trigger_count[i] / time
-		if cacheSkillUUID(actor.mainSkill, env) == sd.uuid then
+	cdt = to_time(cdt)
+	atk = to_time(atk)
+	for idx, skill in ipairs(skillRotation) do
+		skill.cd = to_time(skill.cd)
+		local rate = trigger_count[idx] / time
+		if cacheSkillUUID(actor.mainSkill, env) == skill.uuid then
 			mainRate = rate
 		end
-		t_insert(trigRateTable.rates, { name = sd.uuid, rate = rate })
+		t_insert(trigRateTable.rates, { name = skill.uuid, rate = rate })
 	end
-	-- Add akt, cdt, stt to the output
-	trigRateTable.extraSimInfo = s_format("akt: %.3f, cdt: %.3f, stt: %.3f", akt, cdt, stt)
-
 	return mainRate, trigRateTable
 end
 
