@@ -80,7 +80,16 @@ end
 
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
-function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
+function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, actor)
+	local SIM_TIME = 100.0
+	local TIME_STEP = 0.0001
+	local index = 1
+	local time = 0
+	local tick = 0
+	local currTick = 0
+	local next_trigger = 0
+	local trigger_increment = 1 / sourceRate
+	local wasted = 0
 	local actor = actor or env.player
 	local SIM_RESOLUTION = 2
 	local function to_ticks(t)
@@ -184,11 +193,17 @@ function calcMultiSpellRotationImpact(env, skills, sourceRate, triggerCD, actor)
 		if cacheSkillUUID(actor.mainSkill, env) == sd.uuid then
 			mainRate = sd.rate
 		end
-		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.rate })
 	end
-	if not mainRate then
-		mainRate = trigRateTable.rates[1].rate
+
+	local mainRate = 0
+	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
+	for _, sd in ipairs(skillRotation) do
+		if cacheSkillUUID(actor.mainSkill, env) == sd.uuid then
+			mainRate = sd.count / SIM_TIME
+		end
+		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.count / SIM_TIME })
 	end
+
 	return mainRate, trigRateTable
 end
 
@@ -458,8 +473,6 @@ local function CWCHandler(env)
 						s_format("%.2f ^8(%s triggers per second)", triggerRateOfTrigger, triggerName),
 						s_format("/ %.2f ^8(Estimated impact of linked spells)", (triggerRateOfTrigger / output.SkillTriggerRate) or 1),
 						s_format("= %.2f ^8%s casts per second", output.SkillTriggerRate, triggeredName),
-						"",
-						s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
 					}
 
 					if simBreakdown.extraSimInfo then
@@ -1129,8 +1142,8 @@ local function defaultTriggerHandler(env, config)
 					end
 				end
 			end
-
-			if trigRate ~= nil and not actor.mainSkill.skillFlags.globalTrigger and not actor.mainSkill.skillTypes[SkillType.InbuiltTrigger] then
+			
+			if trigRate ~= nil and not actor.mainSkill.skillFlags.globalTrigger and not config.ignoreSourceRate then
 				output.EffectiveSourceRate = trigRate
 			else
 				output.EffectiveSourceRate = output.TriggerRateCap
@@ -1162,8 +1175,6 @@ local function defaultTriggerHandler(env, config)
 							s_format("%.2f ^8(%s)", output.EffectiveSourceRate, (actor.mainSkill.skillData.triggeredByBrand and s_format("%s activations per second", source.activeEffect.grantedEffect.name)) or (not trigRate and s_format("%s triggers per second", skillName)) or "Effective source rate"),
 							s_format("/ %.2f ^8(Estimated impact of skill rotation and cooldown alignment)", m_max(output.EffectiveSourceRate / output.SkillTriggerRate, 1)),
 							s_format("= %.2f ^8per second", output.SkillTriggerRate),
-							"",
-							s_format("Calculated Breakdown ^8(Resolution: %.2f)", simBreakdown.simRes),
 						}
 						if triggerBotsEffective then
 							t_insert(breakdown.SkillTriggerRate, 3, "x 2 ^8(Trigger bots effectively cause the skill to trigger twice)")
@@ -1652,7 +1663,8 @@ local configTable = {
 				comparer = function(uuid, source, currentTotemLife)
 					local totemLife = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.TotemLife
 					return (not source and totemLife) or (totemLife and totemLife > (currentTotemLife or 0))
-				end}
+				end,
+				ignoreSourceRate = true}
 	end,
 }
 
