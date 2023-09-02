@@ -8039,7 +8039,7 @@ skills["Purity"] = {
 			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["immune_to_status_ailments"] = {
-			--Display only
+			flag("ElementalAilmentImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -8049,7 +8049,6 @@ skills["Purity"] = {
 	},
 	baseMods = {
 		skill("radius", 40),
-		mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -8215,7 +8214,7 @@ skills["LightningImpurity"] = {
 			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_shock"] = {
-			--Display only
+			flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -8223,9 +8222,6 @@ skills["LightningImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"}),
 	},
 	qualityStats = {
 		Default = {
@@ -11508,7 +11504,7 @@ skills["TempestShield"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["skill_display_buff_grants_shock_immunity"] = {
-			--Display only
+			flag("ShockImmune", { type = "GlobalEffect", effectType = "Buff"}),
 		}
 	},
 	baseFlags = {
@@ -11518,7 +11514,6 @@ skills["TempestShield"] = {
 	},
 	baseMods = {
 		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
-		flag("ShockImmune"),
 	},
 	qualityStats = {
 		Default = {
