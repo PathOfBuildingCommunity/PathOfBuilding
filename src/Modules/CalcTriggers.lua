@@ -81,15 +81,6 @@ end
 -- Calculate the impact other skills and source rate to trigger cooldown alignment have on the trigger rate
 -- for more details regarding the implementation see comments of #4599 and #5428
 function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD, actor)
-	local SIM_TIME = 100.0
-	local TIME_STEP = 0.0001
-	local index = 1
-	local time = 0
-	local tick = 0
-	local currTick = 0
-	local next_trigger = 0
-	local trigger_increment = 1 / sourceRate
-	local wasted = 0
 	local actor = actor or env.player
 	local SIM_RESOLUTION = 2
 	local function to_ticks(t)
@@ -99,14 +90,14 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 		return t / 1000
 	end
 	-- convert data to ticks
-	for _, skill in ipairs(skills) do
+	for _, skill in ipairs(skillRotation) do
 		skill.cd = to_ticks(m_max(skill.cdOverride or ((skill.cd or 0) / (skill.icdr or 1) + (skill.addsCastTime or 0)), triggerCD))
 	end
 
 	-- create the state object
 	local state = {
 		time = 0,
-	 	skills = skills,
+	 	skills = skillRotation,
 		akt = to_ticks(1/sourceRate),
 		cdt = to_ticks(triggerCD),
 		stt = to_ticks(0.033),
@@ -114,7 +105,7 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 		trigger_next = {},
 		trigger_count = {}
 	}
-	for i, skill in ipairs(skills) do
+	for i, skill in ipairs(skillRotation) do
 		state.trigger_next[i] = skill.cd
 		state.trigger_count[i] = 0
 	end
@@ -175,33 +166,24 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 		end
 	end
 
-	quickSim(state)
+	quickSim()
 
 	-- convert data back to time
-	for _, skill in ipairs(skills) do
+	for _, skill in ipairs(skillRotation) do
 		skill.cd = to_time(skill.cd)
 	end
 	state.time = to_time(state.time)
 	-- evaluate skill.rate
-	for i, skill in ipairs(skills) do
+	for i, skill in ipairs(skillRotation) do
 		skill.rate = state.trigger_count[i] / state.time
 	end
 
 	local mainRate
 	local trigRateTable = { simRes = SIM_RESOLUTION, rates = {}, }
-	for _, sd in ipairs(skills) do
+	for _, sd in ipairs(skillRotation) do
 		if cacheSkillUUID(actor.mainSkill, env) == sd.uuid then
 			mainRate = sd.rate
 		end
-	end
-
-	local mainRate = 0
-	local trigRateTable = { simTime = SIM_TIME, rates = {}, }
-	for _, sd in ipairs(skillRotation) do
-		if cacheSkillUUID(actor.mainSkill, env) == sd.uuid then
-			mainRate = sd.count / SIM_TIME
-		end
-		t_insert(trigRateTable.rates, { name = sd.uuid, rate = sd.count / SIM_TIME })
 	end
 
 	return mainRate, trigRateTable
