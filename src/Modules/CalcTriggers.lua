@@ -129,9 +129,9 @@ function calcMultiSpellRotationImpact(env, skillRotation, sourceRate, triggerCD,
 					trigger_skill_time = proposed_trigger_skill_time
 				end
 			end
-			proposed_trigger_skill_index = trigger_skill_index
-			time = trigger_skill_time
 		end
+		proposed_trigger_skill_index = trigger_skill_index
+		time = trigger_skill_time
 		
 		-- activate proposed skill
 		trigger_next[proposed_trigger_skill_index] = time + skillRotation[proposed_trigger_skill_index].cd
