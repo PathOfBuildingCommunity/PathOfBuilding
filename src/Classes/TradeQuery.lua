@@ -359,20 +359,34 @@ Highest Weight - Displays the order retrieved from trade]]
 		if self.allLeagues[self.pbRealm] then
 			setLeagueDropList()
 		else
-			self.tradeQueryRequests:FetchLeagues(self.pbRealm, function(leagues, errMsg)
+			self.tradeQueryRequests:FetchLeagues(self.pbRealm, function(leagues_json, errMsg)
 				if errMsg then
 					self:SetNotice("Error while fetching league list: "..errMsg)
 					return
 				end
-				local sorted_leagues = { }
-				for _, league in ipairs(leagues) do
-					if league ~= "Standard" and league ~= "Hardcore" then
-						t_insert(sorted_leagues, league)
-					end
-				end
-				t_insert(sorted_leagues, "Standard")
-				t_insert(sorted_leagues, "Hardcore")
-				self.allLeagues[self.pbRealm] = sorted_leagues
+
+        local sorted = {}
+        local reverse_order_index = 1
+        for _, json_data in pairs(leagues_json) do
+          if json_data.id:find("SSF") or json_data.id:find("Solo Self%-Found") then
+            goto continue
+          end
+
+          if not json_data.endAt then
+            if #sorted == 0 then
+              table.insert(sorted, 1, json_data.id)
+            else
+              table.insert(sorted, json_data.id)
+            end
+          else
+            table.insert(sorted, reverse_order_index, json_data.id)
+            reverse_order_index = reverse_order_index + 1
+          end
+
+          ::continue::
+        end
+
+				self.allLeagues[self.pbRealm] = sorted
 				setLeagueDropList()
 			end)
 		end

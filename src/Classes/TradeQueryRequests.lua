@@ -426,13 +426,7 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 			if not json_data or json_data.error then
 				errMsg = json_data and json_data.error or "Failed to get leagues"
 			end
-			local leagues = {}
-				for _, value in pairs(json_data) do
-					if not value.id:find("SSF") then
-						table.insert(leagues, value.id)
-					end
-				end
-			callback(leagues, errMsg)
+			callback(json_data, errMsg)
 		end
 	)
 end
