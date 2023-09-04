@@ -120,16 +120,6 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end)
 	end)
 
-	-- Import button
-	self.controls.import = new("ButtonControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 90, 20, "Import Tree", function()
-		self:OpenImportPopup()
-	end)
-
-	-- Export button
-	self.controls.export = new("ButtonControl", { "LEFT", self.controls.import, "RIGHT" }, 8, 0, 90, 20, "Export Tree", function()
-		self:OpenExportPopup()
-	end)
-
 	-- Convert notification
 	local function convertToVersion(version)
 		local newSpec = new("PassiveSpec", self.build, version, true)
@@ -148,7 +138,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	for _, num in ipairs(treeVersionList) do
 		t_insert(self.treeVersions, treeVersions[num].display)
 	end
-	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, 0, 16, "Version:")
+	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 0, 16, "Version:")
 	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
 		if value ~= self.build.spec.treeVersion then
 			convertToVersion(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"))
@@ -158,7 +148,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.versionSelect.enableDroppedWidth = true
 	self.controls.versionSelect.enableChangeBoxWidth = true
 	self.controls.versionSelect.selIndex = #self.treeVersions
-
+	
 	-- Tree Search Textbox
 	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.versionSelect, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c", 100, function(buf)
 		self.viewer.searchStr = buf
@@ -183,7 +173,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 
 	-- Control for setting max node depth to limit calculation time of the heat map
-	self.controls.nodePowerMaxDepthSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 70, 20, "Node Depth:", function(index, value)
+	self.controls.nodePowerMaxDepthSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 50, 20, "Node Depth:", function(index, value)
 		if type(value) == "number" then
 			self.build.calcsTab.nodePowerMaxDepth = value
 		else
@@ -445,9 +435,24 @@ function TreeTabClass:SetCompareSpec(specId)
 end
 
 function TreeTabClass:OpenSpecManagePopup()
+--	local importTree = 
+--		new("ButtonControl", { "LEFT", nil, "RIGHT" }, -328, 124, 90, 20, "Import Tree", function()
+--			self:OpenImportPopup()
+--		end)
+	local importTree = 
+		new("ButtonControl", nil, -99, 259, 90, 20, "Import Tree", function()
+			self:OpenImportPopup()
+		end)
+	local exportTree =
+		new("ButtonControl", { "LEFT", importTree, "RIGHT" }, 8, 0, 90, 20, "Export Tree", function()
+			self:OpenExportPopup()
+		end)
+
 	main:OpenPopup(370, 290, "Manage Passive Trees", {
 		new("PassiveSpecListControl", nil, 0, 50, 350, 200, self),
-		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+		importTree,
+		exportTree,
+		new("ButtonControl", {"LEFT", exportTree, "RIGHT"}, 8, 0, 90, 20, "Done", function()
 			main:ClosePopup()
 		end),
 	})
