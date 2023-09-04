@@ -482,7 +482,7 @@ function CalcsTabClass:PowerBuilder()
 	local start = GetTime()
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		wipeTable(node.power)
-		if self.nodePowerMaxDepth == nil or self.nodePowerMaxDepth == 0 or self.nodePowerMaxDepth >= node.pathDist then
+		if self.nodePowerMaxDepth == nil or self.nodePowerMaxDepth >= node.pathDist then
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 				if not cache[node.modKey] then
 					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })

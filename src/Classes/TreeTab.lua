@@ -184,11 +184,10 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 
 	-- Control for setting max node depth to limit calculation time of the heat map
 	self.controls.nodePowerMaxDepthSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 70, 20, "Node Depth:", function(index, value)
-		-- Save "All" string option as 0
 		if type(value) == "number" then
 			self.build.calcsTab.nodePowerMaxDepth = value
 		else
-			self.build.calcsTab.nodePowerMaxDepth = 0
+			self.build.calcsTab.nodePowerMaxDepth = nil
 		end
 
 		-- If the heat map is shown, tell it to recalculate with the current value
