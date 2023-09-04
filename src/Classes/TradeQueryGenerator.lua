@@ -970,7 +970,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 	local controls = { }
 	local options = { }
-	local popupHeight = 97
+	local popupHeight = 110
 
 	local isJewelSlot = slot and slot.slotName:find("Jewel") ~= nil
 	local isAbyssalJewelSlot = slot and slot.slotName:find("Abyssal") ~= nil
@@ -987,13 +987,6 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	
 	local lastItemAnchor = controls.includeCorrupted
 	local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
-	
-
-	controls.maxLevel = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf) end)
-	controls.maxLevelLabel = new("LabelControl", {"RIGHT",controls.maxLevel,"LEFT"}, -5, 0, 0, 16, "^7Max Level:")
-
-	lastItemAnchor = controls.maxLevel
-	popupHeight = popupHeight + 23
 	
 	if context.slotTbl.unique then
 		options.special = { itemName = context.slotTbl.slotName }
@@ -1071,6 +1064,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, 5, 0, 150, 18, currencyDropdownNames, function(index, value) end)
 	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "^7Max Price:")
 	lastItemAnchor = controls.maxPrice
+	popupHeight = popupHeight + 23
+
+	
+	controls.maxLevel = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, nil, nil, "%D", nil, function(buf) end)
+	controls.maxLevelLabel = new("LabelControl", {"RIGHT",controls.maxLevel,"LEFT"}, -5, 0, 0, 16, "Max Level:")
+
+	lastItemAnchor = controls.maxLevel
 	popupHeight = popupHeight + 23
 	
 	for i, stat in ipairs(statWeights) do
