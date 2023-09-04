@@ -924,6 +924,19 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 	end
 
+	if options.maxLevel and options.maxLevel > 0 then
+		queryTable.query.filters.req_filters = {
+			disabled = false,
+			filters = {
+				lvl = {
+					max = options.maxLevel
+				}
+			}
+		}
+	end
+
+	
+	
 	if options.maxPrice and options.maxPrice > 0 then
 		queryTable.query.filters.trade_filters = {
 			filters = {
@@ -974,6 +987,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	
 	local lastItemAnchor = controls.includeCorrupted
 	local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
+	
+
+	controls.maxLevel = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf) end)
+	controls.maxLevelLabel = new("LabelControl", {"RIGHT",controls.maxLevel,"LEFT"}, -5, 0, 0, 16, "^7Max Level:")
+
+	lastItemAnchor = controls.maxLevel
+	popupHeight = popupHeight + 23
 	
 	if context.slotTbl.unique then
 		options.special = { itemName = context.slotTbl.slotName }
@@ -1081,6 +1101,9 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 		if controls.includeCorrupted then
 			self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
+		end
+		if controls.maxLevel.buf then
+			options.maxLevel = tonumber(controls.maxLevel.buf)
 		end
 		if controls.includeSynthesis then
 			self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
