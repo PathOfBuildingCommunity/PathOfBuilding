@@ -3150,13 +3150,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to radius"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="{0:+d} to radius"
+					text="{0:+d} metres to radius"
 				}
 			}
 		},
@@ -3169,13 +3186,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to radius of Consecrated Ground"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="{0:+d} to radius of Consecrated Ground"
+					text="{0:+d} metres to radius of Consecrated Ground"
 				}
 			}
 		},
@@ -3226,7 +3260,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Area of Effect per 1 additional Melee Strike Range"
+					text="{0}% increased Area of Effect per 0.1 metre additional Melee Strike Range"
 				},
 				[2]={
 					[1]={
@@ -3239,7 +3273,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Area of Effect per 1 additional Melee Strike Range"
+					text="{0}% reduced Area of Effect per 0.1 metres additional Melee Strike Range"
 				}
 			}
 		},
@@ -6183,6 +6217,27 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="{0:+d} metre to Explosion Radius per Explosive Arrow on Target"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="!",
@@ -6193,20 +6248,91 @@ return {
 							[2]=0
 						}
 					},
-					text="{0:+d} to Explosion Radius per Explosive Arrow on Target"
+					text="{0:+d} metres to Explosion Radius per Explosive Arrow on Target"
 				},
-				[2]={
+				[3]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						},
+						[2]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to Explosion Radius per Explosive Arrow on Target, up to a maximum of {1:+d} metre"
+				},
+				[4]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]="!",
 							[2]=0
 						},
 						[2]={
-							[1]="#",
-							[2]="#"
+							[1]=10,
+							[2]=10
 						}
 					},
-					text="{0:+d} to Explosion Radius per Explosive Arrow on Target, up to {1:+d}"
+					text="{0:+d} metres to Explosion Radius per Explosive Arrow on Target, up to a maximum of {1:+d} metre"
+				},
+				[5]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
+					},
+					text="{0:+d} metre to Explosion Radius per Explosive Arrow on Target, up to a maximum of {1:+d} metres"
+				},
+				[6]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]="!",
+							[2]=0
+						},
+						[2]={
+							[1]="!",
+							[2]=0
+						}
+					},
+					text="{0:+d} metres to Explosion Radius per Explosive Arrow on Target, up to a maximum of {1:+d} metres"
 				}
 			}
 		},
@@ -7046,13 +7172,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Totem range: {0} metre"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Totem range: {0}"
+					text="Totem range: {0} metres"
 				}
 			}
 		},
@@ -7766,13 +7909,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to Radius if using your Life"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="{0:+d} Radius if using your Life"
+					text="{0:+d} metres to Radius if using your Life"
 				}
 			}
 		},
@@ -11253,6 +11413,27 @@ return {
 			English={
 				[1]={
 					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextMeleeStrikeRange"
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to Melee Strike Range"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
 						k="reminderstring",
 						v="ReminderTextMeleeStrikeRange"
 					},
@@ -11262,7 +11443,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d} to Melee Strike Range"
+					text="{0:+d} metres to Melee Strike Range"
 				}
 			}
 		},
@@ -11276,6 +11457,27 @@ return {
 			English={
 				[1]={
 					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextMeleeStrikeRange"
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to Melee Strike Range"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
 						k="reminderstring",
 						v="ReminderTextMeleeStrikeRange"
 					},
@@ -11285,7 +11487,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d} to Melee Strike Range"
+					text="{0:+d} metres to Melee Strike Range"
 				}
 			}
 		},
@@ -13251,6 +13453,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13265,9 +13471,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base radius is {1}"
+					text="Base radius is {1} metre"
 				},
 				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13282,9 +13492,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base radius is {1}"
+					text="Base radius is {1} metre"
 				},
 				[3]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13299,9 +13513,13 @@ return {
 							[2]=10
 						}
 					},
-					text="Radius is {2}"
+					text="Radius is {2} metre"
 				},
 				[4]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13316,9 +13534,13 @@ return {
 							[2]="#"
 						}
 					},
-					text="Radius is {2}"
+					text="Radius is {2} metres"
 				},
 				[5]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13333,9 +13555,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base explosion radius is {1}"
+					text="Base explosion radius is {1} metre"
 				},
 				[6]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13350,9 +13576,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base explosion radius is {1}"
+					text="Base explosion radius is {1} metres"
 				},
 				[7]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13367,9 +13597,13 @@ return {
 							[2]=10
 						}
 					},
-					text="Explosion radius is {2}"
+					text="Explosion radius is {2} metre"
 				},
 				[8]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13384,7 +13618,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Explosion radius is {2}"
+					text="Explosion radius is {2} metres"
 				}
 			}
 		},
@@ -13704,6 +13938,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13718,9 +13956,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base secondary radius is {1}"
+					text="Base radius is {1} metre"
 				},
 				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13735,9 +13977,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base secondary radius is {1}"
+					text="Base radius is {1} metre"
 				},
 				[3]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13752,9 +13998,13 @@ return {
 							[2]=10
 						}
 					},
-					text="Secondary radius is {2}"
+					text="Radius is {2} metre"
 				},
 				[4]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13769,9 +14019,13 @@ return {
 							[2]="#"
 						}
 					},
-					text="Secondary radius is {2}"
+					text="Radius is {2} metres"
 				},
 				[5]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13786,9 +14040,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base explosion radius is {1}"
+					text="Base explosion radius is {1} metre"
 				},
 				[6]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13803,9 +14061,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base explosion radius is {1}"
+					text="Base explosion radius is {1} metres"
 				},
 				[7]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13820,9 +14082,13 @@ return {
 							[2]=10
 						}
 					},
-					text="Explosion radius is {2}"
+					text="Explosion radius is {2} metre"
 				},
 				[8]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13837,7 +14103,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Explosion radius is {2}"
+					text="Explosion radius is {2} metres"
 				}
 			}
 		},
@@ -13884,6 +14150,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13898,9 +14168,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base tertiary radius is {1}"
+					text="Base radius is {1} metre"
 				},
 				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13915,9 +14189,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base tertiary radius is {1}"
+					text="Base radius is {1} metre"
 				},
 				[3]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13932,9 +14210,13 @@ return {
 							[2]=10
 						}
 					},
-					text="Tertiary radius is {2}"
+					text="Radius is {2} metre"
 				},
 				[4]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=0,
@@ -13949,9 +14231,13 @@ return {
 							[2]="#"
 						}
 					},
-					text="Tertiary radius is {2}"
+					text="Radius is {2} metres"
 				},
 				[5]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13966,9 +14252,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base explosion radius is {1}"
+					text="Base explosion radius is {1} metre"
 				},
 				[6]={
+					[1]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -13983,9 +14273,13 @@ return {
 							[2]=0
 						}
 					},
-					text="Base explosion radius is {1}"
+					text="Base explosion radius is {1} metres"
 				},
 				[7]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -14000,9 +14294,13 @@ return {
 							[2]=10
 						}
 					},
-					text="Explosion radius is {2}"
+					text="Explosion radius is {2} metre"
 				},
 				[8]={
+					[1]={
+						k="locations_to_metres",
+						v=3
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -14017,7 +14315,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Explosion radius is {2}"
+					text="Explosion radius is {2} metres"
 				}
 			}
 		},
@@ -17889,13 +18187,17 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="+1 Radius per {0} Rage"
+					text="+0.1 metres to Radius per {0} Rage"
 				}
 			}
 		},
@@ -19280,13 +19582,17 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Cleave has +1 to Radius per Nearby Enemy, up to +10"
+					text="Cleave has +0.1 metres to radius per Nearby Enemy, up to a maximum of +1 metre"
 				}
 			}
 		},
@@ -20085,13 +20391,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to radius per Stage"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="{0:+d} to radius per Stage"
+					text="{0:+d} metres to radius per Stage"
 				}
 			}
 		},
@@ -21083,13 +21406,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to Beam Width Per Intensity\n33% less branching angle per Intensity"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="{0:+d} to Beam Width Per Intensity\n33% less branching angle per Intensity"
+					text="{0:+d} metres to Beam Width Per Intensity\n33% less branching angle per Intensity"
 				}
 			}
 		},
@@ -22592,6 +22932,77 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						},
+						[2]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to radius per stage, up to a maximum of {1:+d} metre"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metres to radius per stage, up to a maximum of {1:+d} metre"
+				},
+				[3]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="{0:+d} metre to radius per stage, up to a maximum of {1:+d} metres"
+				},
+				[4]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]="#",
@@ -22602,7 +23013,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d} to radius per stage, up to {1:+d}"
+					text="{0:+d} metres to radius per stage, up to a maximum of {1:+d} metres"
 				}
 			}
 		},
@@ -22976,13 +23387,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Projectiles gain radius as they travel farther, up to a maximum of {0:+d} metre to radius"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]=1,
 							[2]="#"
 						}
 					},
-					text="Projectiles gain Radius as they travel farther, up to {0:+d} Radius"
+					text="Projectiles gain radius as they travel farther, up to a maximum of {0:+d} metres to radius"
 				}
 			}
 		},
@@ -23364,7 +23792,7 @@ return {
 			English={
 				[1]={
 					[1]={
-						k="divide_by_one_hundred",
+						k="divide_by_one_thousand",
 						v=1
 					},
 					limit={
@@ -23373,7 +23801,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d} to Radius per 1% Life Reserved by this Skill"
+					text="{0:+d} metres to radius per 1% Life Reserved by this Skill"
 				}
 			}
 		},
@@ -24250,6 +24678,10 @@ return {
 						k="reminderstring",
 						v="ReminderTextFortification"
 					},
+					[3]={
+						k="reminderstring",
+						v="ReminderTextCloseRange"
+					},
 					limit={
 						[1]={
 							[1]="#",
@@ -25121,26 +25553,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
-							[1]=1,
-							[2]="#"
+							[1]=10,
+							[2]=10
 						}
 					},
-					text="Field gains {0:+d} to Radius per 10% Shock Effect on Enemy when created"
+					text="Field gains {0:+d} metre to radius per 10% Shock Effect on Enemy when created"
 				},
 				[2]={
 					[1]={
-						k="negate",
+						k="locations_to_metres",
 						v=1
 					},
 					limit={
 						[1]={
 							[1]="#",
-							[2]=-1
+							[2]="#"
 						}
 					},
-					text="Field gains {0:+d} to Radius per 10% Shock Effect on Enemy when created"
+					text="Field gains {0:+d} metres to radius per 10% Shock Effect on Enemy when created"
 				}
 			}
 		},
@@ -25622,6 +26058,27 @@ return {
 			English={
 				[1]={
 					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextHexTransfer"
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Hexes from Supported Skills Transfer to all Enemies within {0} metre when Hexed Enemy dies"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
 						k="reminderstring",
 						v="ReminderTextHexTransfer"
 					},
@@ -25631,7 +26088,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Hexes from Supported Skills Transfer to all Enemies in range {0} when Hexed Enemy dies"
+					text="Hexes from Supported Skills Transfer to all Enemies within {0} metres when Hexed Enemy dies"
 				}
 			}
 		},
@@ -26724,6 +27181,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextCloseRange"
+					},
 					limit={
 						[1]={
 							[1]="#",
@@ -26987,13 +27448,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
-							[1]=1,
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Stronger Pulses have {0:+d} metre to radius"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Stronger Pulses have {0:+d} to Radius"
+					text="Stronger Pulses have {0:+d} metres to radius"
 				}
 			}
 		},
@@ -29546,7 +30024,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="+1 to Explosion Radius per Energy\nPulse deals 50% more Damage with Hits and Ailments"
+					text="+0.1 metres to Explosion radius per Energy\nPulse deals 50% more Damage with Hits and Ailments"
 				}
 			}
 		},
@@ -29559,13 +30037,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Up to {0:+d} metre to Energy spread radius, scaled by distance from Brand"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Up to {0:+d} to Energy spread radius, scaled by distance from Brand"
+					text="Up to {0:+d} metres to Energy spread radius, scaled by distance from Brand"
 				}
 			}
 		},
@@ -30258,13 +30753,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Projectiles have {0} metre maximum range"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]=1,
 							[2]="#"
 						}
 					},
-					text="Projectile Range is Limited"
+					text="Projectiles have {0} metres maximum range"
 				}
 			}
 		},
@@ -30379,13 +30891,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Projectiles Pierce all Targets within {0} metre"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Projectiles Pierce all Targets within {0} units"
+					text="Projectiles Pierce all Targets within {0} metres"
 				}
 			}
 		},
@@ -30579,6 +31108,31 @@ return {
 						k="per_minute_to_per_second",
 						v=1
 					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Minion deals Fire Damage equal to {0}% of its maximum Life per Second to Enemies in a Base radius of {1} metre"
+				},
+				[2]={
+					[1]={
+						k="per_minute_to_per_second",
+						v=1
+					},
+					[2]={
+						k="locations_to_metres",
+						v=2
+					},
 					limit={
 						[1]={
 							[1]="#",
@@ -30589,7 +31143,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Minion deals Fire Damage equal to {0}% of its maximum Life per Second to Enemies in a Base radius of {1}"
+					text="Minion deals Fire Damage equal to {0}% of its maximum Life per Second to Enemies in a Base radius of {1} metres"
 				}
 			}
 		},
@@ -30663,6 +31217,27 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						},
+						[2]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Ragestorm has {0:+d} metre to radius per {1} Rage sacrificed"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
@@ -30673,7 +31248,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Ragestorm has {0:+d} to Radius per {1} Rage sacrificed"
+					text="Ragestorm has {0:+d} metres to radius per {1} Rage sacrificed"
 				}
 			}
 		},
@@ -33900,13 +34475,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Wave gains {0:+d} metre to radius with each Area in the Sequence"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Wave gains {0:+d} to radius with each Area in the Sequence"
+					text="Wave gains {0:+d} metres to radius with each Area in the Sequence"
 				}
 			}
 		},
@@ -34972,13 +35564,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
-							[1]=1,
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Mines can't be Detonated while within {0} metre of you"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Mines can't be Detonated while within a radius of {0} of you"
+					text="Mines can't be Detonated while within {0} metres of you"
 				}
 			}
 		},
@@ -38623,13 +39232,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Base Circle Radius is 1 metre\n{0:+d} metre to Circle Radius per Stage\nChannelling stops when Total Circle Radius reaches 9 metres"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Base Circle Radius is 10\n{0:+d} to Circle Radius per Stage\nChannelling stops when Total Circle Radius reaches 90"
+					text="Base Circle Radius is 1 metre\n{0:+d} metres to Circle Radius per Stage\nChannelling stops when Total Circle Radius reaches 9 metres"
 				}
 			}
 		},
@@ -38689,13 +39315,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="{0:+d} metre to radius per Stage"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="{0:+d} to Radius for each Stage"
+					text="{0:+d} metres to radius per Stage"
 				}
 			}
 		},
@@ -39963,13 +40606,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Buff grants {0:+d} metre to Melee Strike Range per 5 Power, up to a maximum of +0.6"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Buff grants {0:+d} Melee Strike Range per 5 Power, up to a maximum of +6"
+					text="Buff grants {0:+d} metres to Melee Strike Range per 5 Power, up to a maximum of +0.6"
 				}
 			}
 		},
