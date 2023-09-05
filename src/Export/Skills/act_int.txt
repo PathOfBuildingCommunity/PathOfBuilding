@@ -1816,11 +1816,10 @@ local skills, mod, flag, skill = ...
 			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["immune_to_status_ailments"] = {
-			--Display only
+			flag("ElementalAilmentImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 #baseMod skill("radius", 40)
-#baseMod mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
 #mods
 
 #skill LightningResistAura
@@ -1852,10 +1851,9 @@ local skills, mod, flag, skill = ...
 			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_shock"] = {
-			--Display only
+			flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
-#baseMod flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"})
 #mods
 
 #skill MortarBarrageMine
@@ -2439,11 +2437,10 @@ local skills, mod, flag, skill = ...
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["skill_display_buff_grants_shock_immunity"] = {
-			--Display only
+			flag("ShockImmune", { type = "GlobalEffect", effectType = "Buff"}),
 		}
 	},
 #baseMod skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell })
-#baseMod flag("ShockImmune")
 #mods
 
 #skill VoltaxicBurst
