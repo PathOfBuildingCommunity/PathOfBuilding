@@ -1627,13 +1627,6 @@ local function getUniqueItemTriggerName(skill)
 	end
 end
 
-local function logNoHandler(skillName, triggerName, uniqueName)
-	local message = s_format("WARNING: no handler for: %s, %s, %s ", skillName, triggerName, uniqueName)
-	return function() 
-				ConPrintf(message) 
-			end
-end
-
 function calcs.triggers(env)
 	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing and not (env.player.mainSkill.activeEffect.srcInstance and env.player.mainSkill.activeEffect.srcInstance.noSupports) then
 		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
@@ -1647,9 +1640,6 @@ function calcs.triggers(env)
         config = config or triggerNameLower and configTable[triggerNameLower] and configTable[triggerNameLower](env)
         config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
         config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
-		if not (triggerNameLower and configTable[triggerNameLower]) and not (awakenedTriggerNameLower and configTable[awakenedTriggerNameLower]) and not (uniqueNameLower and configTable[uniqueNameLower]) then
-			logNoHandler(skillName, triggerName, uniqueName)(env)
-		end
 		if config then
 		    config.actor = config.actor or env.player
 			config.triggerName = config.triggerName or triggerName or uniqueName or skillName
