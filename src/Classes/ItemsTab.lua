@@ -540,7 +540,7 @@ holding Shift will put it in the second.]])
 	end)
 	self.controls.displayItemQuality = new("LabelControl", {"TOPLEFT",self.controls.displayItemSectionQuality,"TOPRIGHT"}, -4, 0, 0, 16, "^7Quality:")
 	self.controls.displayItemQuality.shown = function()
-		return self.displayItem and self.displayItem.quality and (self.controls.displayItem.base.type ~= "Ring" or self.controls.displayItem.base.type ~= "Belt" or self.controls.displayItem.base.type ~= "Quiver" or self.controls.displayItem.base.type ~= "Jewel" or self.controls.displayItem.base.type ~= "Amulet")
+		return self.displayItem and self.displayItem.quality and (self.displayItem.base.type ~= "Amulet" or self.displayItem.base.type ~= "Belt" or self.displayItem.base.type ~= "Jewel" or self.displayItem.base.type ~= "Quiver" or self.displayItem.base.type ~= "Ring")
 	end
 
 	self.controls.displayItemQualityEdit = new("EditControl", {"LEFT",self.controls.displayItemQuality,"RIGHT"},2,0,60,20,nil,nil,"%D",2,function(buf)
@@ -549,7 +549,7 @@ holding Shift will put it in the second.]])
 		self:UpdateDisplayItemTooltip()
 	end)
 	self.controls.displayItemQualityEdit.shown = function()
-		return self.displayItem and self.displayItem.quality and (self.controls.displayItem.base.type ~= "Ring" or self.controls.displayItem.base.type ~= "Belt" or self.controls.displayItem.base.type ~= "Quiver" or self.controls.displayItem.base.type ~= "Jewel" or self.controls.displayItem.base.type ~= "Amulet")
+		return self.displayItem and self.displayItem.quality and (self.displayItem.base.type ~= "Amulet" or self.displayItem.base.type ~= "Belt" or self.displayItem.base.type ~= "Jewel" or self.displayItem.base.type ~= "Quiver" or self.displayItem.base.type ~= "Ring")
 	end
 
 	-- Section: Catalysts
@@ -1901,7 +1901,11 @@ function ItemsTabClass:CraftItem()
 		item.implicitModLines = { }
 		item.explicitModLines = { }
 		item.crucibleModLines = { }
-		item.quality = 0
+		if base.base.type ~= "Amulet" and base.base.type ~= "Belt" and base.base.type ~= "Jewel" and base.base.type ~= "Quiver" and base.base.type ~= "Ring" then
+			item.quality = 0
+		else
+			item.quality = nil
+		end
 		local raritySel = controls.rarity.selIndex
 		if base.base.flask then
 			if raritySel == 3 then
