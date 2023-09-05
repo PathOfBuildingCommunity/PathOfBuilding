@@ -2,7 +2,7 @@
 local itemBases = ...
 
 #type Belt
-#baseTags belt
+#influenceBaseTag belt
 #baseMatch Metadata/Items/Belts/Belt%d+
 #forceShow true
 #baseMatch Metadata/Items/Belts/BeltE%d+

@@ -148,7 +148,7 @@ Implicits: 0
 (8-12)% Chance to Block Attack Damage
 (80-100)% increased Armour
 10% reduced Movement Speed
-Cannot Block Spells
+Cannot Block Spell Damage
 Strength's Damage Bonus instead grants 3% increased Melee Physical Damage per 10 Strength
 ]],[[
 The Iron Fortress
@@ -206,7 +206,7 @@ Cannot be Ignited
 {variant:1,2}(10-15)% increased Physical Damage with Ranged Weapons
 {variant:3}(75-150)% increased Physical Damage with Ranged Weapons
 {variant:1,2}-(5-7) Physical Damage taken from Attack Hits
-{variant:3}-(30-60)Physical Damage taken from Attack Hits
+{variant:3}-(30-60) Physical Damage taken from Attack Hits
 ]],[[
 Briskwrap
 {variant:1,2,3}Strapped Leather
@@ -269,7 +269,7 @@ Implicits: 1
 {variant:3}+(31-53)% to Chaos Resistance
 You can apply an additional Curse
 Your Hexes can affect Hexproof Enemies
-{variant:1,3}Poison Cursed Enemies on hit
+{variant:1,3}Always Poison on Hit against Cursed Enemies
 {variant:2}60% chance to Poison on Hit against Cursed Enemies
 ]],[[
 Foxshade
@@ -417,18 +417,20 @@ Zodiac Leather
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
+Variant: Pre 3.21.0
 Variant: Current
 Implicits: 0
 {variant:1}(5-10)% increased Dexterity
-{variant:2}(10-15)% increased Dexterity
+{variant:2,3}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
 {variant:2}(80-100)% increased Evasion Rating
+{variant:3}(150-200)% increased Evasion Rating
 {variant:1}+(50-80) to maximum Life
-{variant:2}+(70-100) to maximum Life
+{variant:2,3}+(70-100) to maximum Life
 -30% to Cold Resistance
-Flesh and Stone has no Reservation
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
-{variant:2}Evasion Rating is increased by Overcapped Cold Resistance
+{variant:2,3}Evasion Rating is increased by Overcapped Cold Resistance
+Flesh and Stone has no Reservation
 Hollow Palm Technique
 ]],[[
 Yriel's Fostering
@@ -903,6 +905,14 @@ Deal no Non-Lightning Damage
 Armour also applies to Lightning Damage taken from Hits
 Lightning Resistance does not affect Lightning Damage taken
 Nearby Enemies have Lightning Resistance equal to yours
+]],[[
+The Fourth Vow
+Devout Chainmail
+Physical Damage taken bypasses Energy Shield
+(150-250)% increased Armour and Energy Shield
++(17-29)% to Chaos Resistance
+Regenerate 3% of Life per second
+Armour also applies to Chaos Damage taken from Hits
 ]],[[
 Geofri's Sanctuary
 Elegant Ringmail

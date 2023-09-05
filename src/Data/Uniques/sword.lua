@@ -423,6 +423,18 @@ Adds (75-92) to (125-154) Physical Damage
 (60-80)% increased Global Critical Strike Chance when in Main Hand
 +8% Chance to Block Attack Damage when in Off Hand
 ]],[[
+The Redblade
+Gladius
+League: Crucible
+Implicits: 1
+40% increased Global Accuracy Rating
+(150-180)% increased Physical Damage
+Adds (20-25) to (40-50) Physical Damage
+Gain 100 Life per Enemy Killed
++(400-500) to Accuracy Rating
+Has a Two Handed Sword Crucible Passive Skill Tree
+Crucible Passive Skill Tree is removed if this Modifier is removed
+]],[[
 Severed in Sleep
 Cutlass
 Source: Drops in Chayula Breach or from unique{Chayula, Who Dreamt}

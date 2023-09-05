@@ -185,7 +185,10 @@ return {
 	skill("triggeredByCraft", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["support_cast_on_mana_spent"] = {
-	skill("triggeredByManaSpent", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+	skill("triggeredByKitavaThirst", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["cast_when_cast_curse_%"] = {
+	skill("triggeredByCurseOnCurse", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Hex }),
 },
 ["display_mirage_warriors_no_spirit_strikes"] = {
 	skill("triggeredBySaviour", true, { type = "SkillType", skillType = SkillType.Attack } ),
@@ -197,7 +200,7 @@ return {
 	skill("chanceToTriggerOnCrit", nil, { type = "SkillType", skillType = SkillType.Attack }),
 },
 ["cast_spell_on_linked_melee_kill"] = {
-	skill("triggeredByMeleeKill", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+	skill("triggeredByMeleeKill", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }, { type = "Condition", var = "KilledRecently" }),
 },
 ["cast_linked_spells_on_melee_kill_%"] = {
 	skill("chanceToTriggerOnMeleeKill", nil , { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Melee })
@@ -206,10 +209,25 @@ return {
 	skill("triggeredWhileChannelling", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 ["skill_triggered_by_snipe"] = {
-	skill("triggered", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+	skill("triggeredBySnipe", true, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["triggered_by_spiritual_cry"] = {
 	skill("triggeredByGeneralsCry", true, { type = "SkillType", skillType = SkillType.Melee }, { type = "SkillType", skillType = SkillType.Attack }),
+},
+["cast_on_damage_taken_threshold"] = {
+	skill("triggeredByDamageTaken", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["cast_on_stunned_%"] = {
+	skill("triggeredByStunned", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
+},
+["trigger_on_attack_hit_against_rare_or_unique"] = {
+	skill("triggerMarkOnRareOrUnique", true, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Mark }),
+},
+["melee_counterattack_trigger_on_block_%"] = {
+	skill("triggerCounterAttack", nil, { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Triggerable }),
+},
+["melee_counterattack_trigger_on_hit_%"] = {
+	skill("triggerCounterAttack", nil, { type = "SkillType", skillType = SkillType.Attack }, { type = "SkillType", skillType = SkillType.Triggerable }),
 },
 ["holy_relic_trigger_on_parent_attack_%"] = {
 	skill("triggeredByParentAttack", true, { type = "SkillType", skillType = SkillType.Triggerable }),
@@ -224,12 +242,12 @@ return {
 	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["base_spell_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil),
+	mod("RepeatCount", "BASE", nil, 0, 0, {type = "SkillType", skillType = SkillType.Multicastable }),
 },
 ["base_melee_attack_repeat_count"] = {
-	mod("RepeatCount", "BASE", nil),
+	mod("RepeatCount", "BASE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Multistrikeable }),
 },
-["display_minion_monster_level"] = {
+["base_display_minion_actor_level"] = {
 	skill("minionLevel", nil),
 },
 ["display_skill_minions_level_is_corpse_level"] = {
@@ -570,7 +588,7 @@ return {
 	mod("SkillAndDamagingAilmentDuration", "MORE", nil),
 },
 ["base_bleed_duration_+%"] = {
-	mod("BleedDuration", "INC", nil),
+	mod("EnemyBleedDuration", "INC", nil),
 },
 -- Damage
 ["damage_+%"] = {
@@ -730,13 +748,13 @@ return {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LowLife"})
 },
 ["damage_vs_enemies_on_low_life_+%"] = {
-	mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "LowLife"})
+	mod("Damage", "INC", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "LowLife"})
 },
 ["damage_+%_when_on_full_life"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullLife"})
 },
 ["damage_+%_vs_enemies_on_full_life"] = {
-	mod("Damage", "INC", nil, 0, 0, {type = "ActorCondition", actor = "enemy", var = "FullLife"})
+	mod("Damage", "INC", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), {type = "ActorCondition", actor = "enemy", var = "FullLife"})
 },
 ["hit_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Hit)
@@ -746,6 +764,10 @@ return {
 },
 ["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
+},
+-- PvP Damage
+["support_makes_skill_mine_pvp_damage_+%_final"] = {
+	mod("PvpDamageMultiplier", "MORE", nil),
 },
 -- Conversion
 ["physical_damage_%_to_add_as_lightning"] = {
@@ -1355,13 +1377,13 @@ return {
 	skill("setOffHandAttackTime", nil),
 },
 ["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, 	div = 15, }),
+	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
-	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, 	div = 15, }),
+	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
 ["additional_critical_strike_chance_per_10_shield_maximum_energy_shield_permyriad"] = {
-	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", 	div = 10, }),
+	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = 10, }),
 	div = 100,
 },
 -- Impale
@@ -1494,6 +1516,10 @@ return {
 ["totem_duration_+%"] = {
 	mod("TotemDuration", "INC", nil),
 },
+["base_totem_duration"] = {
+	mod("TotemDuration", "BASE", nil),
+	div = 1000
+},
 -- Minion
 ["minion_damage_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) }),
@@ -1503,6 +1529,9 @@ return {
 },
 ["active_skill_minion_bleeding_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed) }),
+},
+["minion_critical_strike_chance_+%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }),
 },
 ["minion_maximum_life_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }),
@@ -1605,6 +1634,9 @@ return {
 ["maximum_life_+%_for_corpses_you_create"] = {
 	mod("CorpseLife", "INC", nil),
 },
+["number_of_melee_skeletons_to_summon"] = {
+	mod("MinionPerCastCount", "BASE", nil)
+},
 --Golem
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)
@@ -1638,6 +1670,9 @@ return {
 -- Hex
 ["curse_maximum_doom"] = {
 	mod("MaxDoom", "BASE", nil),
+},
+["triggered_vicious_hex_explosion"] = {
+	skill("triggeredWhenHexEnds", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 },
 -- Aura
 ["non_curse_aura_effect_+%"] = {
@@ -1695,11 +1730,14 @@ return {
 ["channelled_skill_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Channel }),
 },
-["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
-	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SnipeStage" }),
-},
 ["snipe_triggered_skill_ailment_damage_+%_final_per_stage"] = {
-	mod("Damage", "MORE", nil, ModFlag.Ailment, 0, { type = "Multiplier", var = "SnipeStage" }),
+	mod("snipeAilmentMulti", "BASE", nil),
+},
+["snipe_triggered_skill_hit_damage_+%_final_per_stage"] = {
+	mod("snipeHitMulti", "BASE", nil),
+},
+["snipe_triggered_skill_damage_+%_final"] = {
+	mod("Damage", "MORE", nil),
 },
 ["withered_on_hit_chance_%"] = {
 	flag("Condition:CanWither"),
@@ -1735,46 +1773,46 @@ return {
 --
 --Fire
 ["supported_fire_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Fire }),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Fire }),
 },
 --Cold
 ["supported_cold_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Cold }),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Cold }),
 },
 --Lightning
 ["supported_lightning_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Lightning }),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Lightning }),
 },
 --Chaos
 ["supported_chaos_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Chaos }),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Chaos }),
 },
 --Physical
 ["supported_physical_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Physical }),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Physical }),
 },
 --Active
 ["supported_active_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }),
 },
 --Aura
 ["supported_aura_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Aura }),
 },
 --Curse
 ["supported_curse_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, KeywordFlag.Curse),
 },
 --Strike
 ["supported_strike_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.MeleeSingleTarget }),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.MeleeSingleTarget }),
 },
 --Elemental
 ["supported_elemental_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, bit.bor(KeywordFlag.Lightning, KeywordFlag.Cold, KeywordFlag.Fire)),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, bit.bor(KeywordFlag.Lightning, KeywordFlag.Cold, KeywordFlag.Fire)),
 },
 --Minion
 ["supported_minion_skill_gem_level_+"] = {
-	mod("SupportedGemProperty", "LIST", { keyword = "active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Minion }),
+	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Minion }),
 },
 }

@@ -150,6 +150,9 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
+		if output.LifeReservedPercent >= 100 then
+			return
+		end
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
 		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or math.huge
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
@@ -432,27 +435,30 @@ local skills, mod, flag, skill = ...
 #skill GoreShockwave
 #flags attack area melee
 	fromItem = true,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.timeOverride = output.Cooldown
-	end,
 #mods
 
 #skill SupportGreaterSpellEcho Greater Spell Echo
 	fromItem = true,
 	statMap = {
+		["support_greater_spell_echo_spell_damage_+%_final_per_repeat"] = {
+			mod("RepeatPerRepeatDamage", "MORE", nil, 0, 0, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+		},
 		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
-			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+			mod("RepeatPerRepeatAreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 		},
 	},
 #baseMod flag("Condition:HaveGreaterSpellEcho")
-#baseMod mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true })
-#baseMod mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true })
 #mods
 
 #skill IcestormUniqueStaff12
 #flags spell area duration
 	fromItem = true,
-#baseMod skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 })
+	statMap = {
+		["skill_effect_duration_per_100_int"] = {
+			mod("Duration", "BASE", nil, 0, 0, { type = "PerStat", stat = "Int", div = 100 }),
+			div = 1000,
+		},
+	},
 #baseMod skill("radius", 22)
 #baseMod skill("radiusSecondary", 16)
 #mods
@@ -582,7 +588,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill UniqueMirageWarriors
-#flags spell duration minion
+#flags spell duration minion mirage
 	fromItem = true,
 	statMap = {
 		["skill_used_by_mirage_warrior_damage_+%_final"] = {
@@ -623,19 +629,6 @@ local skills, mod, flag, skill = ...
 #flags spell area duration
 	fromItem = true,
 #baseMod mod("ShockedGroundEffect", "BASE", 15)
-#mods
-
-#skill ChannelledSnipe
-#flags attack projectile
-	fromItem = true,
-	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
-	end,
-#mods
-
-#skill ChannelledSnipeSupport
-	fromItem = true,
-#baseMod flag("TriggeredBySnipe")
 #mods
 
 #skill SummonEssenceSpirits
@@ -736,6 +729,16 @@ local skills, mod, flag, skill = ...
 #baseMod skill("manaReservationPercent", 0)
 #mods
 
+#skill SummonGuardianRelic
+#flags spell minion duration
+	fromTree = true,
+	minionList = {
+		"GuardianRelicFire",
+		"GuardianRelicCold",
+		"GuardianRelicLightning",
+	},
+#mods
+
 #skill SummonHarbingerOfTheArcaneUber
 #flags spell minion
 	fromItem = true,
@@ -813,6 +816,25 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SummonRadiantSentinel
+#flags spell minion duration
+	fromTree = true,
+	minionList = {
+		"GuardianSentinel",
+	},
+	statMap = {
+		["radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraBaseDamage", "BASE", nil) }),
+			div = 60,
+			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
+		},
+		["radiant_sentinel_minion_burning_effect_radius"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
+			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
+		},
+	},
+#mods
+
 #skill SummonRigwaldsPack
 #flags spell minion duration
 	fromItem = true,
@@ -847,8 +869,13 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonMirageChieftain
-#flags spell duration
+#flags spell duration mirage
 	fromTree = true,
+	statMap = {
+		["skill_used_by_mirage_chieftain_damage_+%_final"] = {
+			mod("ChieftainMirageChieftainMoreDamage", "BASE", nil),
+		},
+	},
 #mods
 
 #skill TentacleSmash
@@ -911,3 +938,97 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area
 	fromItem = true,
 #mods
+
+#skill SupportUniqueCastCurseOnCurse Vixen's Entrapment
+#flags spell curse
+	fromItem = true,
+#mods
+
+skills["EnemyExplode"] = {
+	name = "On Kill Monster Explosion",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	castTime = 0,
+	parts = {
+		{
+			name = "This Source Only",
+		},
+		{
+			name = "This Source Only, Ignoring Chance",
+		},
+		{
+			name = "Average Of All Sources",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		output.ExplodeChance = 0
+		if activeSkill.skillPart ~= 3 then
+			local allExplodeMods = activeSkill.skillModList:Tabulate("LIST", activeSkill.skillCfg, "ExplodeMod")
+			for _, explodeMod in ipairs(allExplodeMods) do
+				local activeEffectSource = activeSkill.activeEffect.srcInstance.explodeSource.modSource or "Tree:"..activeSkill.activeEffect.srcInstance.explodeSource.id
+				if explodeMod.mod.source == activeEffectSource then
+					local explodeMod = explodeMod.value
+					if explodeMod.type == "RandomElement" then
+						activeSkill.skillData["FireEffectiveExplodePercentage"] = explodeMod.amount / 3
+						activeSkill.skillData["ColdEffectiveExplodePercentage"] = explodeMod.amount / 3
+						activeSkill.skillData["LightningEffectiveExplodePercentage"] = explodeMod.amount / 3
+					else
+						activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] = explodeMod.amount
+					end
+					output.ExplodeChance = activeSkill.skillPart == 2 and 1 or explodeMod.chance
+				end
+			end
+		else
+			local typeAmountChances = { }
+			local explodeModList = activeSkill.skillModList:List(activeSkill.skillCfg, "ExplodeMod")
+			for _, explodeMod in ipairs(explodeModList) do
+				local amountChance = typeAmountChances[explodeMod.type] or {}
+				amountChance[explodeMod.amount] = (amountChance[explodeMod.amount] or 0) + explodeMod.chance
+				typeAmountChances[explodeMod.type] = amountChance
+			end
+			for type, amountChance in pairs(typeAmountChances) do
+				local physExplodeChance = 0
+				for amount, chance in pairs(amountChance) do
+					local amountXChance = amount * chance
+					if type == "RandomElement" then
+						activeSkill.skillData["FireEffectiveExplodePercentage"] = (activeSkill.skillData["FireEffectiveExplodePercentage"] or 0) + amountXChance / 3
+						activeSkill.skillData["ColdEffectiveExplodePercentage"] = (activeSkill.skillData["ColdEffectiveExplodePercentage"] or 0) + amountXChance / 3
+						activeSkill.skillData["LightningEffectiveExplodePercentage"] = (activeSkill.skillData["LightningEffectiveExplodePercentage"] or 0) + amountXChance / 3
+					else
+						activeSkill.skillData[type.."EffectiveExplodePercentage"] = (activeSkill.skillData[type.."EffectiveExplodePercentage"] or 0) + amountXChance
+					end
+					if type == "Physical" then
+						physExplodeChance = 1 - ((1 - physExplodeChance) * (1 - chance))
+					end
+					output.ExplodeChance = 1 - ((1 - output.ExplodeChance) * (1 - chance))
+				end
+				if type == "Physical" and physExplodeChance ~= 0 then
+					activeSkill.skillModList:NewMod("CalcArmourAsThoughDealing", "MORE", 100 / math.min(physExplodeChance, 1) - 100)
+				end
+			end
+		end
+		output.ExplodeChance = math.min(output.ExplodeChance * 100, 100)
+	end,
+	baseMods = {
+		skill("radius", 22),
+		skill("showAverage", true),
+		skill("explodeCorpse", true),
+		skill("corpseExplosionLifeMultiplier", 0),
+		skill("hitChanceIsExplodeChance", true, { type = "SkillPart", skillPart = 1 }),
+	},
+	baseFlags = {
+		area = true,
+		monsterExplode = true
+	},
+	stats = {
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"display_skill_deals_secondary_damage",
+		"damage_cannot_be_reflected",
+		"skill_can_add_multiple_charges_per_action",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 0, baseMultiplier = 1, levelRequirement = 1, }
+	}
+}

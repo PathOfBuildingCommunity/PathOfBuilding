@@ -119,6 +119,7 @@ skills["SupportTriggerSpellOnBowAttack"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -359,6 +360,9 @@ skills["BloodSacramentUnique"] = {
 	castTime = 0.2,
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
+		if output.LifeReservedPercent >= 100 then
+			return
+		end
 		local lifeReservedPercent = activeSkill.skillData["LifeReservedPercent"] or 3
 		local lifeReserved = activeSkill.skillData["LifeReservedBase"] or math.huge
 		activeSkill.skillModList:NewMod("Multiplier:ChannelledLifeReservedPercentPerStage", "BASE", lifeReservedPercent, "Blood Sacrament")
@@ -536,7 +540,7 @@ skills["UniqueEnchantmentOfInfernoOnCrit"] = {
 	baseEffectiveness = 3.5555999279022,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -568,7 +572,7 @@ skills["TriggeredConsecrate"] = {
 	hidden = true,
 	color = 4,
 	description = "Creates an area of Consecrated Ground, providing life regeneration and reducing the effect of curses for you and allies who stand in it.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
@@ -618,13 +622,16 @@ skills["CorpseWalk"] = {
 	name = "Corpse Walk",
 	hidden = true,
 	color = 4,
-	description = "Spawns corpses around you while you move.",
+	description = "Spawns corpses around you while you move. The corpses will be chosen from the monsters in the current area and any Spectres that have existed in this instance.",
 	skillTypes = { [SkillType.Area] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
 	baseFlags = {
 		area = true,
+	},
+	constantStats = {
+		{ "desecrate_corpse_level", 100 },
 	},
 	stats = {
 		"cast_on_gain_skill",
@@ -643,6 +650,7 @@ skills["SupportUniqueCosprisMaliceColdSpellsCastOnMeleeCriticalStrike"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Cold, SkillType.Triggerable, SkillType.AND, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -1388,6 +1396,7 @@ skills["SupportTriggerSpellFromHelmet"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	constantStats = {
@@ -1471,9 +1480,6 @@ skills["GoreShockwave"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.timeOverride = output.Cooldown
-	end,
 	baseFlags = {
 		attack = true,
 		area = true,
@@ -1503,14 +1509,15 @@ skills["SupportGreaterSpellEcho"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	statMap = {
+		["support_greater_spell_echo_spell_damage_+%_final_per_repeat"] = {
+			mod("RepeatPerRepeatDamage", "MORE", nil, 0, 0, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
+		},
 		["support_greater_spell_echo_area_of_effect_+%_per_repeat"] = {
-			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
+			mod("RepeatPerRepeatAreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 		},
 	},
 	baseMods = {
 		flag("Condition:HaveGreaterSpellEcho"),
-		mod("Damage", "MORE", 30, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho", neg = true }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
-		mod("Damage", "MORE", 45, ModFlag.Spell, 0, { type = "Condition", var = "HaveSpellEcho" }, { type = "Condition", var = "HaveBladeVortex", neg = true }, { type = "Condition", var = "CastOnFrostbolt", neg = true }),
 	},
 	constantStats = {
 		{ "base_spell_repeat_count", 2 },
@@ -1533,13 +1540,18 @@ skills["IcestormUniqueStaff12"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	fromItem = true,
+	statMap = {
+		["skill_effect_duration_per_100_int"] = {
+			mod("Duration", "BASE", nil, 0, 0, { type = "PerStat", stat = "Int", div = 100 }),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 }),
 		skill("radius", 22),
 		skill("radiusSecondary", 16),
 	},
@@ -1622,7 +1634,7 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 	hidden = true,
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Grants a buff which lowers the effect of enemy physical damage reduction against your hits.",
-	skillTypes = { [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, [SkillType.Physical] = true, [SkillType.Triggered] = true, },
+	skillTypes = { [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, [SkillType.Physical] = true, [SkillType.Triggered] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.25,
 	fromItem = true,
@@ -1649,7 +1661,9 @@ skills["CatsStealthTriggeredIntimidatingCry"] = {
 		{ "base_skill_effect_duration", 4900 },
 	},
 	stats = {
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 		"cast_on_lose_cats_stealth",
@@ -1669,6 +1683,7 @@ skills["SupportCastOnManaSpent"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -1714,10 +1729,10 @@ skills["LightningSpell"] = {
 	name = "Lightning Bolt",
 	hidden = true,
 	color = 3,
-	baseEffectiveness = 5,
-	incrementalEffectiveness = 0.029999999329448,
+	baseEffectiveness = 8,
+	incrementalEffectiveness = 0.035000000149012,
 	description = "A bolt of lightning strikes an area, dealing lightning damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggered] = true, [SkillType.Lightning] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggered] = true, [SkillType.Lightning] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
@@ -1738,36 +1753,36 @@ skills["LightningSpell"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[1] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 1, statInterpolation = { 3, 3, }, },
-		[2] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 2, statInterpolation = { 3, 3, }, },
-		[3] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 4, statInterpolation = { 3, 3, }, },
-		[4] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 7, statInterpolation = { 3, 3, }, },
-		[5] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 11, statInterpolation = { 3, 3, }, },
-		[6] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 16, statInterpolation = { 3, 3, }, },
-		[7] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 20, statInterpolation = { 3, 3, }, },
-		[8] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 24, statInterpolation = { 3, 3, }, },
-		[9] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 28, statInterpolation = { 3, 3, }, },
-		[10] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 32, statInterpolation = { 3, 3, }, },
-		[11] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 36, statInterpolation = { 3, 3, }, },
-		[12] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 40, statInterpolation = { 3, 3, }, },
-		[13] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 44, statInterpolation = { 3, 3, }, },
-		[14] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 48, statInterpolation = { 3, 3, }, },
-		[15] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 52, statInterpolation = { 3, 3, }, },
-		[16] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 56, statInterpolation = { 3, 3, }, },
-		[17] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 60, statInterpolation = { 3, 3, }, },
-		[18] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 64, statInterpolation = { 3, 3, }, },
-		[19] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 67, statInterpolation = { 3, 3, }, },
-		[20] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 70, statInterpolation = { 3, 3, }, },
-		[21] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 72, statInterpolation = { 3, 3, }, },
-		[22] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 74, statInterpolation = { 3, 3, }, },
-		[23] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 76, statInterpolation = { 3, 3, }, },
-		[24] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 78, statInterpolation = { 3, 3, }, },
-		[25] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 80, statInterpolation = { 3, 3, }, },
-		[26] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 82, statInterpolation = { 3, 3, }, },
-		[27] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 84, statInterpolation = { 3, 3, }, },
-		[28] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 86, statInterpolation = { 3, 3, }, },
-		[29] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 88, statInterpolation = { 3, 3, }, },
-		[30] = { 0.5, 1.5, critChance = 7.5, cooldown = 0.2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 90, statInterpolation = { 3, 3, }, },
+		[1] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+		[2] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 2, statInterpolation = { 3, 3, }, },
+		[3] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 4, statInterpolation = { 3, 3, }, },
+		[4] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 7, statInterpolation = { 3, 3, }, },
+		[5] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 11, statInterpolation = { 3, 3, }, },
+		[6] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 16, statInterpolation = { 3, 3, }, },
+		[7] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 20, statInterpolation = { 3, 3, }, },
+		[8] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 24, statInterpolation = { 3, 3, }, },
+		[9] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 28, statInterpolation = { 3, 3, }, },
+		[10] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 32, statInterpolation = { 3, 3, }, },
+		[11] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 36, statInterpolation = { 3, 3, }, },
+		[12] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 40, statInterpolation = { 3, 3, }, },
+		[13] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 44, statInterpolation = { 3, 3, }, },
+		[14] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 48, statInterpolation = { 3, 3, }, },
+		[15] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 52, statInterpolation = { 3, 3, }, },
+		[16] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 56, statInterpolation = { 3, 3, }, },
+		[17] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 60, statInterpolation = { 3, 3, }, },
+		[18] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 64, statInterpolation = { 3, 3, }, },
+		[19] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 67, statInterpolation = { 3, 3, }, },
+		[20] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+		[21] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 72, statInterpolation = { 3, 3, }, },
+		[22] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 74, statInterpolation = { 3, 3, }, },
+		[23] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 76, statInterpolation = { 3, 3, }, },
+		[24] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 78, statInterpolation = { 3, 3, }, },
+		[25] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 80, statInterpolation = { 3, 3, }, },
+		[26] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 82, statInterpolation = { 3, 3, }, },
+		[27] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 84, statInterpolation = { 3, 3, }, },
+		[28] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 86, statInterpolation = { 3, 3, }, },
+		[29] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 88, statInterpolation = { 3, 3, }, },
+		[30] = { 0.10000000149012, 1.8999999761581, critChance = 7.5, cooldown = 0.5, damageEffectiveness = 4.4, storedUses = 1, levelRequirement = 90, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["SupportTriggerBowSkillOnBowAttack"] = {
@@ -1778,6 +1793,7 @@ skills["SupportTriggerBowSkillOnBowAttack"] = {
 	requireSkillTypes = { SkillType.RangedAttack, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Vaal, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -1829,6 +1845,7 @@ skills["UniqueAnimateWeapon"] = {
 	},
 	stats = {
 		"disable_weapons",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[15] = { storedUses = 1, levelRequirement = 1, cooldown = 0.5, },
@@ -1842,6 +1859,7 @@ skills["SupportUniqueMjolnerLightningSpellsCastOnHit"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Lightning, SkillType.Triggerable, SkillType.AND, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -1921,6 +1939,7 @@ skills["SupportTriggerSpellOnAttack"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	stats = {
@@ -2015,7 +2034,7 @@ skills["TriggeredSummonSpider"] = {
 	hidden = true,
 	color = 3,
 	description = "Raise two spectral spiders from each nearby corpse that will attack your enemies with Viper Strike. Each raised spider grants you increased Attack Speed and increased Damage with Poison. Enemies will not engage the spiders directly, and they are immune to damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.CreatesMinion] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsAreUndamageable] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -2075,6 +2094,7 @@ skills["UniqueMirageWarriors"] = {
 		spell = true,
 		duration = true,
 		minion = true,
+		mirage = true,
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
@@ -2192,73 +2212,12 @@ skills["TriggeredShockedGround"] = {
 		[10] = { storedUses = 1, levelRequirement = 1, cooldown = 5, },
 	},
 }
-skills["ChannelledSnipe"] = {
-	name = "Snipe",
-	hidden = true,
-	color = 2,
-	description = "Channel to charge up your bow, gaining stages. Release to trigger one linked bow skill for each stage gained. Channelled Skills cannot be triggered this way. If there are no skills linked, but at least one stage was gained, this skill will fire its own arrow instead. Cannot be used by Totems.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
-	weaponTypes = {
-		["Bow"] = true,
-	},
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	fromItem = true,
-	initialFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = 1 / math.max(activeSkill.skillModList:Sum("BASE", cfg, "Multiplier:SnipeStage"), 1)
-	end,
-	baseFlags = {
-		attack = true,
-		projectile = true,
-	},
-	constantStats = {
-		{ "snipe_max_stacks", 6 },
-		{ "override_turn_duration_ms", 100 },
-		{ "snipe_triggered_skill_ailment_damage_+%_final_per_stage", 120 },
-		{ "snipe_triggered_skill_hit_damage_+%_final_per_stage", 165 },
-	},
-	stats = {
-		"skill_can_fire_arrows",
-		"is_snipe_default_projectile",
-		"is_snipe_default_projectile_2",
-	},
-	levels = {
-		[20] = { attackSpeedMultiplier = 80, levelRequirement = 70, cost = { Mana = 4, }, },
-	},
-}
-skills["ChannelledSnipeSupport"] = {
-	name = "ChannelledSnipeSupport",
-	hidden = true,
-	color = 2,
-	support = true,
-	requireSkillTypes = { SkillType.RangedAttack, SkillType.ThresholdJewelRangedAttack, SkillType.OR, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Channel, },
-	weaponTypes = {
-		["Bow"] = true,
-	},
-	statDescriptionScope = "gem_stat_descriptions",
-	fromItem = true,
-	baseMods = {
-		flag("TriggeredBySnipe"),
-	},
-	constantStats = {
-		{ "snipe_triggered_skill_ailment_damage_+%_final_per_stage", 120 },
-		{ "snipe_triggered_skill_hit_damage_+%_final_per_stage", 165 },
-	},
-	stats = {
-		"skill_triggered_by_snipe",
-	},
-	levels = {
-		[20] = { storedUses = 1, levelRequirement = 0, cooldown = 0.05, },
-	},
-}
 skills["SummonEssenceSpirits"] = {
 	name = "Spectral Spirits",
 	hidden = true,
 	color = 3,
 	description = "Summons three invulnerable spectral skulls that rush at nearby enemies and attack them rapidly. Enemies will not engage these spirits, and can pass through them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.CreatesMinion] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsAreUndamageable] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -2281,6 +2240,7 @@ skills["SummonEssenceSpirits"] = {
 		"minion_dies_when_parent_dies",
 		"minions_cannot_taunt_enemies",
 		"no_cost",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { levelRequirement = 1, },
@@ -2507,6 +2467,7 @@ skills["SummonArbalists"] = {
 		"cast_on_gain_skill",
 		"minions_cannot_taunt_enemies",
 		"no_cost",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[20] = { levelRequirement = 70, },
@@ -2516,8 +2477,8 @@ skills["SummonBeastialRhoa"] = {
 	name = "Summon Bestial Rhoa",
 	hidden = true,
 	color = 3,
-	description = "Summons a Bestial Rhoa. In addition to its melee attack, the Bestial Rhoa uses a charge and has an aura that intimidates enemies. This minion's hits cannot be evaded.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	description = "Summons a Bestial Rhoa. In addition to its melee attack, the Bestial Rhoa uses a charge and has an aura that intimidates enemies. This minion's hits cannot be evaded. Enemies will not engage this minion directly, and they are immune to damage.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -2542,9 +2503,10 @@ skills["SummonBeastialRhoa"] = {
 		{ "base_number_of_beast_minions_allowed", 1 },
 		{ "minion_maximum_life_+%", 30 },
 		{ "display_minion_monster_type", 12 },
-		{ "display_minion_monster_level", 70 },
+		{ "base_display_minion_actor_level", 70 },
 	},
 	stats = {
+		"infinite_minion_duration",
 	},
 	levels = {
 		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 30, }, },
@@ -2554,8 +2516,8 @@ skills["SummonBeastialSnake"] = {
 	name = "Summon Bestial Snake",
 	hidden = true,
 	color = 3,
-	description = "Summons a Bestial Snake. The Bestial Snake fires powerful chaos projectile attacks. This minion's hits cannot be evaded.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	description = "Summons a Bestial Snake. The Bestial Snake fires powerful chaos projectile attacks. This minion's hits cannot be evaded. Enemies will not engage this minion directly, and they are immune to damage.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Chains] = true, [SkillType.RangedAttack] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -2580,10 +2542,11 @@ skills["SummonBeastialSnake"] = {
 		{ "base_number_of_beast_minions_allowed", 1 },
 		{ "minion_maximum_life_+%", 30 },
 		{ "display_minion_monster_type", 14 },
-		{ "display_minion_monster_level", 70 },
+		{ "base_display_minion_actor_level", 70 },
 		{ "alternate_minion", 2 },
 	},
 	stats = {
+		"infinite_minion_duration",
 	},
 	levels = {
 		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 30, }, },
@@ -2593,8 +2556,8 @@ skills["SummonBeastialUrsa"] = {
 	name = "Summon Bestial Ursa",
 	hidden = true,
 	color = 3,
-	description = "Summons a Bestial Ursa. In addition to its melee attack, the Bestial Ursa uses a powerful Ground Slam and Rallying Cry. This minion's hits cannot be evaded.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	description = "Summons a Bestial Ursa. In addition to its melee attack, the Bestial Ursa uses a powerful Ground Slam and Rallying Cry. This minion's hits cannot be evaded. Enemies will not engage this minion directly, and they are immune to damage.",
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -2619,10 +2582,11 @@ skills["SummonBeastialUrsa"] = {
 		{ "base_number_of_beast_minions_allowed", 1 },
 		{ "minion_maximum_life_+%", 30 },
 		{ "display_minion_monster_type", 13 },
-		{ "display_minion_monster_level", 70 },
+		{ "base_display_minion_actor_level", 70 },
 		{ "alternate_minion", 1 },
 	},
 	stats = {
+		"infinite_minion_duration",
 	},
 	levels = {
 		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 30, }, },
@@ -2674,12 +2638,45 @@ skills["SupportCursePillarTriggerCurses"] = {
 		[20] = { levelRequirement = 70, },
 	},
 }
+skills["SummonGuardianRelic"] = {
+	name = "Summon Elemental Relic",
+	hidden = true,
+	color = 4,
+	description = "Summons a Relic of a random element that stays near you. Depending on the element chosen, the relic minion will have an Anger, Hatred, or Wrath aura. These relics explode when they die, dealing elemental damage to enemies around them. If you already have a relic of the chosen element, its duration will be refreshed instead of summoning a new one.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.RandomElement] = true, [SkillType.CreatesMinion] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, },
+	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.Aura] = true, },
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	minionList = {
+		"GuardianRelicFire",
+		"GuardianRelicCold",
+		"GuardianRelicLightning",
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "display_minion_monster_type", 24 },
+		{ "guardian_relic_explode_on_death_for_%_life_as_element_damage", 100 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+		{ "skill_triggered_by_nearby_allies_kill_or_hit_rare_unique_%_chance", 25 },
+	},
+	stats = {
+		"base_skill_effect_duration",
+	},
+	levels = {
+		[20] = { 5000, storedUses = 1, levelRequirement = 85, cooldown = 0.3, statInterpolation = { 1, }, },
+	},
+}
 skills["SummonHarbingerOfTheArcaneUber"] = {
 	name = "Summon Greater Harbinger of the Arcane",
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting More Spell Damage and increased Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -2703,7 +2700,7 @@ skills["SummonHarbingerOfBrutalityUber"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. When you are near a rare or unique enemy, the minion will occasionally grant you a buff giving significantly increased Damage, Attack Speed, and Movement Speed, reducing the Damage you take, and causing Bleeding Enemies that you Kill to Explode, dealing 10% of their maximum Life as Physical Damage.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -2727,7 +2724,7 @@ skills["SummonHarbingerOfDirectionsUber"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion will cast a random buff on you that grants one or all of the following: Fire 2 additional Projectiles, Chain 2 additional times, Projectiles Pierce 2 additional targets, or Projectiles Fork then Fork an additional time.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -2751,7 +2748,7 @@ skills["SummonHarbingerOfFocusUber"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. While you are channelling, the minion will occasionally cast a buff on you that reduces the Damage you take, makes you avoid all Stuns and Elemental Ailments, and prevents Curses affecting you.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -2775,7 +2772,7 @@ skills["SummonHarbingerOfStormsUber"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion will occasionally apply a Chill or Shock with increased effect to an enemy that chains to other nearby enemies.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.NonHitChill] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
@@ -2800,7 +2797,7 @@ skills["SummonHarbingerOfTimeUber"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion will occasionally create an aura on you that increases the Action Speed of you and all allies near you.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -2828,7 +2825,7 @@ skills["SummonHarbingerOfTheArcane"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion will occasionally cast Arcane Surge on you, granting More Spell Damage and increased Mana Regeneration.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -2849,7 +2846,7 @@ skills["SummonHarbingerOfBrutality"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. When you are near a rare or unique enemy, the minion will occasionally grant you a buff giving significantly increased Damage, Attack Speed, and Movement Speed, and reducing the Damage you take.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -2873,7 +2870,7 @@ skills["SummonHarbingerOfDirections"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion will cast a random buff on you that grants one or all of the following: 1 additional Projectile, +1 Chain, Pierce 1 additional Target, or Projectiles Fork.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -2897,7 +2894,7 @@ skills["SummonHarbingerOfFocus"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. While you are channelling, the minion will occasionally cast a buff on you that reduces the Damage you take, and makes you avoid all Stuns and Elemental Ailments.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -2921,7 +2918,7 @@ skills["SummonHarbingerOfStorms"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion will occasionally apply a Chill or Shock to an enemy that chains to other nearby enemies.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.NonHitChill] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
@@ -2946,7 +2943,7 @@ skills["SummonHarbingerOfTime"] = {
 	hidden = true,
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion will occasionally create an aura on you that increases the Action Speed of you, and all allies and enemies near you.",
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
@@ -3006,6 +3003,50 @@ skills["TriggeredSummonGhostOnKill"] = {
 		[20] = { manaMultiplier = 20, levelRequirement = 70, },
 	},
 }
+skills["SummonRadiantSentinel"] = {
+	name = "Summon Sentinel of Radiance",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.0517001152039,
+	incrementalEffectiveness = 0.043200001120567,
+	description = "Summons a Sentinel of Radiance which follows you and attacks enemies in melee, while burning enemies around it and taking a portion of damage from hits for you. You can only have one Sentinel of Radiance.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
+	minionSkillTypes = { [SkillType.DamageOverTime] = true, [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, },
+	statDescriptionScope = "single_minion_spell_skill_stat_descriptions",
+	castTime = 0.75,
+	fromTree = true,
+	minionList = {
+		"GuardianSentinel",
+	},
+	statMap = {
+		["radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraBaseDamage", "BASE", nil) }),
+			div = 60,
+			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
+		},
+		["radiant_sentinel_minion_burning_effect_radius"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
+			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "display_minion_monster_type", 23 },
+		{ "base_skill_effect_duration", 20000 },
+		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
+	},
+	stats = {
+		"radiant_sentinel_minion_burning_effect_radius",
+		"radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute",
+	},
+	levels = {
+		[20] = { 45, 1800, damageEffectiveness = 2, critChance = 6, levelRequirement = 85, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
+	},
+}
 skills["SummonRigwaldsPack"] = {
 	name = "Summon Spectral Wolf",
 	hidden = true,
@@ -3042,7 +3083,7 @@ skills["SummonRigwaldsPack"] = {
 		{ "base_skill_effect_duration", 30000 },
 		{ "number_of_wolves_allowed", 10 },
 		{ "display_minion_monster_type", 8 },
-		{ "display_minion_monster_level", 65 },
+		{ "base_display_minion_actor_level", 65 },
 	},
 	stats = {
 		"chance_to_cast_on_kill_%_target_self",
@@ -3075,7 +3116,7 @@ skills["SummonTauntingContraption"] = {
 	constantStats = {
 		{ "cast_on_flask_use_%", 100 },
 		{ "display_minion_monster_type", 17 },
-		{ "display_minion_monster_level", 70 },
+		{ "base_display_minion_actor_level", 70 },
 		{ "minion_maximum_life_+%", 150 },
 		{ "base_skill_effect_duration", 4000 },
 	},
@@ -3130,26 +3171,31 @@ skills["SummonMirageChieftain"] = {
 	name = "Tawhoa's Chosen",
 	hidden = true,
 	color = 1,
-	description = "This skill is triggered when you use a Slam skill, and summons a Mirage Chieftain who will use that Slam skill once before dissipating.",
+	description = "This skill is triggered when you use a Slam or Strike skill, and summons a Mirage Chieftain who will use that Slam or Strike skill once before dissipating.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Instant] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromTree = true,
+	statMap = {
+		["skill_used_by_mirage_chieftain_damage_+%_final"] = {
+			mod("ChieftainMirageChieftainMoreDamage", "BASE", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
+		mirage = true,
 	},
 	constantStats = {
-		{ "trigger_on_slam_%_chance", 100 },
+		{ "trigger_on_slam_or_strike_%_chance", 100 },
 		{ "base_skill_effect_duration", 3000 },
 	},
 	stats = {
-		"skill_used_by_mirage_chieftain_damage_+%_final",
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[1] = { -40, storedUses = 1, levelRequirement = 1, cooldown = 2, statInterpolation = { 1, }, },
-		[20] = { 100, storedUses = 1, levelRequirement = 1, cooldown = 2, statInterpolation = { 1, }, },
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
+		[20] = { storedUses = 1, levelRequirement = 1, cooldown = 1, },
 	},
 }
 skills["TentacleSmash"] = {
@@ -3219,6 +3265,7 @@ skills["SupportTriggerSpellOnSkillUse"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.Aura, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	fromItem = true,
 	constantStats = {
@@ -3264,7 +3311,7 @@ skills["AvianTornado"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, critChance = 6, PvPDamageMultiplier = -80, cooldown = 0.1, storedUses = 1, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["Unhinge"] = {
@@ -3314,7 +3361,7 @@ skills["HiddenBlade"] = {
 		"base_is_projectile",
 	},
 	levels = {
-		[20] = { baseMultiplier = 2.5, cooldown = 0.5, damageEffectiveness = 2.5, storedUses = 1, levelRequirement = 70, },
+		[20] = { damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 70, },
 	},
 }
 skills["VaalBreach"] = {
@@ -3412,4 +3459,113 @@ skills["VoidShot"] = {
 	levels = {
 		[20] = { damageEffectiveness = 0.65, PvPDamageMultiplier = -80, baseMultiplier = 0.65, levelRequirement = 70, },
 	},
+}
+skills["SupportUniqueCastCurseOnCurse"] = {
+	name = "Vixen's Entrapment",
+	hidden = true,
+	color = 4,
+	support = true,
+	requireSkillTypes = { SkillType.AppliesCurse, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statDescriptionScope = "gem_stat_descriptions",
+	fromItem = true,
+	constantStats = {
+		{ "cast_when_cast_curse_%", 100 },
+	},
+	stats = {
+		"cannot_cast_curses",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 0.25, },
+	},
+}
+skills["EnemyExplode"] = {
+	name = "On Kill Monster Explosion",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	castTime = 0,
+	parts = {
+		{
+			name = "This Source Only",
+		},
+		{
+			name = "This Source Only, Ignoring Chance",
+		},
+		{
+			name = "Average Of All Sources",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		output.ExplodeChance = 0
+		if activeSkill.skillPart ~= 3 then
+			local allExplodeMods = activeSkill.skillModList:Tabulate("LIST", activeSkill.skillCfg, "ExplodeMod")
+			for _, explodeMod in ipairs(allExplodeMods) do
+				local activeEffectSource = activeSkill.activeEffect.srcInstance.explodeSource.modSource or "Tree:"..activeSkill.activeEffect.srcInstance.explodeSource.id
+				if explodeMod.mod.source == activeEffectSource then
+					local explodeMod = explodeMod.value
+					if explodeMod.type == "RandomElement" then
+						activeSkill.skillData["FireEffectiveExplodePercentage"] = explodeMod.amount / 3
+						activeSkill.skillData["ColdEffectiveExplodePercentage"] = explodeMod.amount / 3
+						activeSkill.skillData["LightningEffectiveExplodePercentage"] = explodeMod.amount / 3
+					else
+						activeSkill.skillData[explodeMod.type.."EffectiveExplodePercentage"] = explodeMod.amount
+					end
+					output.ExplodeChance = activeSkill.skillPart == 2 and 1 or explodeMod.chance
+				end
+			end
+		else
+			local typeAmountChances = { }
+			local explodeModList = activeSkill.skillModList:List(activeSkill.skillCfg, "ExplodeMod")
+			for _, explodeMod in ipairs(explodeModList) do
+				local amountChance = typeAmountChances[explodeMod.type] or {}
+				amountChance[explodeMod.amount] = (amountChance[explodeMod.amount] or 0) + explodeMod.chance
+				typeAmountChances[explodeMod.type] = amountChance
+			end
+			for type, amountChance in pairs(typeAmountChances) do
+				local physExplodeChance = 0
+				for amount, chance in pairs(amountChance) do
+					local amountXChance = amount * chance
+					if type == "RandomElement" then
+						activeSkill.skillData["FireEffectiveExplodePercentage"] = (activeSkill.skillData["FireEffectiveExplodePercentage"] or 0) + amountXChance / 3
+						activeSkill.skillData["ColdEffectiveExplodePercentage"] = (activeSkill.skillData["ColdEffectiveExplodePercentage"] or 0) + amountXChance / 3
+						activeSkill.skillData["LightningEffectiveExplodePercentage"] = (activeSkill.skillData["LightningEffectiveExplodePercentage"] or 0) + amountXChance / 3
+					else
+						activeSkill.skillData[type.."EffectiveExplodePercentage"] = (activeSkill.skillData[type.."EffectiveExplodePercentage"] or 0) + amountXChance
+					end
+					if type == "Physical" then
+						physExplodeChance = 1 - ((1 - physExplodeChance) * (1 - chance))
+					end
+					output.ExplodeChance = 1 - ((1 - output.ExplodeChance) * (1 - chance))
+				end
+				if type == "Physical" and physExplodeChance ~= 0 then
+					activeSkill.skillModList:NewMod("CalcArmourAsThoughDealing", "MORE", 100 / math.min(physExplodeChance, 1) - 100)
+				end
+			end
+		end
+		output.ExplodeChance = math.min(output.ExplodeChance * 100, 100)
+	end,
+	baseMods = {
+		skill("radius", 22),
+		skill("showAverage", true),
+		skill("explodeCorpse", true),
+		skill("corpseExplosionLifeMultiplier", 0),
+		skill("hitChanceIsExplodeChance", true, { type = "SkillPart", skillPart = 1 }),
+	},
+	baseFlags = {
+		area = true,
+		monsterExplode = true
+	},
+	stats = {
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"display_skill_deals_secondary_damage",
+		"damage_cannot_be_reflected",
+		"skill_can_add_multiple_charges_per_action",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 0, baseMultiplier = 1, levelRequirement = 1, }
+	}
 }

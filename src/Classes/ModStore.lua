@@ -47,8 +47,12 @@ function ModStoreClass:ScaleAddMod(mod, scale)
 		scale = m_max(scale, 0)
 		local scaledMod = copyTable(mod)
 		local subMod = scaledMod
-		if type(scaledMod.value) == "table" and scaledMod.value.mod then
-			subMod = scaledMod.value.mod
+		if type(scaledMod.value) == "table" then
+			if scaledMod.value.mod then
+				subMod = scaledMod.value.mod
+			elseif scaledMod.value.keyOfScaledMod then
+				scaledMod.value[scaledMod.value.keyOfScaledMod] = round(scaledMod.value[scaledMod.value.keyOfScaledMod] * scale, 2)
+			end
 		end
 		if type(subMod.value) == "number" then
 			local precision = ((data.highPrecisionMods[subMod.name] and data.highPrecisionMods[subMod.name][subMod.type])) or ((m_floor(subMod.value) ~= subMod.value) and data.defaultHighPrecision) or nil
@@ -229,14 +233,18 @@ end
 function ModStoreClass:GetStat(stat, cfg)
 	if stat == "ManaReservedPercent" then
 		local reservedPercentMana = 0
-		for _, activeSkill in ipairs(self.actor.activeSkillList) do
-			if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
-				local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
-				reservedPercentMana = manaBase / self.actor.output["Mana"] * 100
-				break
+		-- Check if mana is 0 (i.e. from Blood Magic) to avoid division by 0.
+		local totalMana = self.actor.output["Mana"]
+		if totalMana == 0 then return 0 else
+			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+				if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
+					local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
+					reservedPercentMana = manaBase / totalMana * 100
+					break
+				end
 			end
+			return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
 		end
-		return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
 	end
 	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
 	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
@@ -291,6 +299,9 @@ function ModStoreClass:EvalMod(mod, cfg)
 				else
 					mult = m_min(mult, limit)
 				end
+			end
+			if tag.invert and mult ~= 0 then
+				mult = 1 / mult
 			end
 			if type(value) == "table" then
 				value = copyTable(value)
@@ -379,13 +390,19 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "PercentStat" then
 			local base
+			local target = self
+			-- This functions similar to the above tagTypes in regard to which actor to use, but for PerStat
+			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
+			if tag.actor and self.actor[tag.actor] then
+				target = self.actor[tag.actor].modDB
+			end
 			if tag.statList then
 				base = 0
 				for _, stat in ipairs(tag.statList) do
-					base = base + self:GetStat(stat, cfg)
+					base = base + target:GetStat(stat, cfg)
 				end
 			else
-				base = self:GetStat(tag.stat, cfg)
+				base = target:GetStat(tag.stat, cfg)
 			end
 			local mult = base * (tag.percent and tag.percent / 100 or 1)
 			local limitTotal
@@ -502,7 +519,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if tag.actor then
 				target = self.actor[tag.actor] and self.actor[tag.actor].modDB
 			end
-			if target then
+			if target and (tag.var or tag.varList) then
 				if tag.varList then
 					for _, var in pairs(tag.varList) do
 						if target:GetCondition(var, cfg) then
@@ -513,13 +530,61 @@ function ModStoreClass:EvalMod(mod, cfg)
 				else
 					match = target:GetCondition(tag.var, cfg)
 				end
-			elseif tag.actor and cfg and tag.var == nil and tag.varList == nil and tag.actor == cfg.actor then
+			elseif tag.actor and cfg and tag.actor == cfg.actor then
 				match = true
 			end
 			if tag.neg then
 				match = not match
 			end
 			if not match then
+				return
+			end
+		elseif tag.type == "ItemCondition" then
+			local matches = {}
+			local match = false
+			local searchCond = tag.searchCond
+			local rarityCond = tag.rarityCond
+			local allSlots = tag.allSlots
+			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
+			local bCheckAllAppropriateSlots = tag.bothSlots
+			local items
+			if allSlots then
+				items = self.actor.itemList
+			elseif self.actor.itemList then
+				items = {self.actor.itemList[itemSlot] or (cfg and cfg.item)}
+				if bCheckAllAppropriateSlots then
+					local itemSlot1 = self.actor.itemList[itemSlot .. " 1"]
+					local itemSlot2 = self.actor.itemList[itemSlot .. " 2"]
+					if itemSlot1 and itemSlot1.name:match("Kalandra's Touch") then itemSlot1 = itemSlot2 end
+					if itemSlot2 and itemSlot2.name:match("Kalandra's Touch") then itemSlot2 = itemSlot1 end
+					if itemSlot1 and itemSlot2 then
+						t_insert(items, itemSlot1)
+						t_insert(items, itemSlot2)
+					end
+				end
+			end
+			if items and #items > 0 or allSlots then
+				if searchCond then
+					for slot, item in pairs(items) do
+						if slot ~= itemSlot or not tag.excludeSelf then
+							t_insert(matches, item:FindModifierSubstring(searchCond:lower(), itemSlot:lower()))
+						end
+					end
+				end
+				if rarityCond then
+					for _, item in pairs(items) do
+						t_insert(matches, item.rarity == rarityCond)
+					end
+				end
+			end
+			for _, bool in ipairs(matches) do
+				if bool then
+					match = not tag.neg
+					break
+				end
+				match = tag.neg == true
+			end
+			if not match and #matches > 0 then
 				return
 			end
 		elseif tag.type == "SocketedIn" then
@@ -566,16 +631,17 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "SkillName" then
 			local match = false
-			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName)
+			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName or "")
+			matchName = matchName:lower()
 			if tag.skillNameList then
 				for _, name in pairs(tag.skillNameList) do
-					if name == matchName then
+					if name:lower() == matchName then
 						match = true
 						break
 					end
 				end
 			else
-				match = (tag.skillName == matchName)
+				match = (tag.skillName and tag.skillName:lower() == matchName)
 			end
 			if tag.neg then
 				match = not match

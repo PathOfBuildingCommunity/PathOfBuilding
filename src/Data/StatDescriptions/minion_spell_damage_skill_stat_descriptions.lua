@@ -567,7 +567,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="This Spell and Minions have {0}% increased Chill Effect"
+					text="{0}% increased Effect of Chill inflicted by this Spell or Minions"
 				},
 				[2]={
 					[1]={
@@ -580,7 +580,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="This Spell and Minions have {0}% reduced Chill Effect"
+					text="{0}% reduced Effect of Chill inflicted by this Spell or Minions"
 				}
 			}
 		},
@@ -1184,7 +1184,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="This Spell and Minions have {0}% increased Duration of Ailments"
+					text="{0}% increased Duration of Ailments inflicted with this Spell or by Minions"
 				},
 				[2]={
 					[1]={
@@ -1201,7 +1201,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="This Spell and Minions have {0}% reduced Duration of Ailments"
+					text="{0}% reduced Duration of Ailments inflicted with this Spell or by Minions"
 				}
 			}
 		},
@@ -1491,6 +1491,46 @@ return {
 				[1]={
 					[1]={
 						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% increased Damage if you have Consumed a corpse Recently\nMinions deal {0}% increased Damage if they have Consumed a corpse Recently"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextRecently"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% reduced Damage if you have Consumed a corpse Recently\nMinions deal {0}% reduced Damage if they have Consumed a corpse Recently"
+				}
+			}
+		},
+		name="damage_if_consumed_corpse_recently",
+		stats={
+			[1]="damage_+%_if_you_have_consumed_a_corpse_recently"
+		}
+	},
+	[52]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="reminderstring",
 						v="ReminderTextDamagingAilments"
 					},
 					limit={
@@ -1525,7 +1565,7 @@ return {
 			[1]="damage_+%_vs_enemies_per_freeze_shock_ignite"
 		}
 	},
-	[52]={
+	[53]={
 		lang={
 			English={
 				[1]={
@@ -1557,7 +1597,7 @@ return {
 			[1]="damage_+%_while_es_leeching"
 		}
 	},
-	[53]={
+	[54]={
 		lang={
 			English={
 				[1]={
@@ -1589,7 +1629,7 @@ return {
 			[1]="damage_+%_while_life_leeching"
 		}
 	},
-	[54]={
+	[55]={
 		lang={
 			English={
 				[1]={
@@ -1621,7 +1661,7 @@ return {
 			[1]="damage_+%_while_mana_leeching"
 		}
 	},
-	[55]={
+	[56]={
 		lang={
 			English={
 				[1]={
@@ -1661,7 +1701,7 @@ return {
 			[1]="damage_vs_cursed_enemies_per_enemy_curse_+%"
 		}
 	},
-	[56]={
+	[57]={
 		lang={
 			English={
 				[1]={
@@ -1680,7 +1720,7 @@ return {
 			[1]="damage_vs_enemies_on_low_life_+%"
 		}
 	},
-	[57]={
+	[58]={
 		lang={
 			English={
 				[1]={
@@ -1694,7 +1734,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Damaging Ailments inflicted by this Spell or Minions deal damage {0}% faster"
+					text="Damaging Ailments inflicted with this Spell or by Minions deal damage {0}% faster"
 				}
 			}
 		},
@@ -1703,7 +1743,7 @@ return {
 			[1]="damaging_ailments_deal_damage_+%_faster"
 		}
 	},
-	[58]={
+	[59]={
 		lang={
 			English={
 				[1]={
@@ -1722,7 +1762,7 @@ return {
 			[1]="deal_chaos_damage_per_second_for_10_seconds_on_hit"
 		}
 	},
-	[59]={
+	[60]={
 		lang={
 			English={
 				[1]={
@@ -1754,7 +1794,7 @@ return {
 			[1]="enemies_you_shock_movement_speed_+%"
 		}
 	},
-	[60]={
+	[61]={
 		lang={
 			English={
 				[1]={
@@ -1773,7 +1813,7 @@ return {
 			[1]="gain_power_charge_on_kill_with_hit_%"
 		}
 	},
-	[61]={
+	[62]={
 		lang={
 			English={
 				[1]={
@@ -1796,7 +1836,7 @@ return {
 			[1]="hits_grant_cruelty"
 		}
 	},
-	[62]={
+	[63]={
 		lang={
 			English={
 				[1]={
@@ -1815,7 +1855,7 @@ return {
 			[1]="ignites_apply_fire_resistance_+"
 		}
 	},
-	[63]={
+	[64]={
 		lang={
 			English={
 				[1]={
@@ -1834,7 +1874,7 @@ return {
 			[1]="infernal_legion_minions_have_burning_effect_radius_+"
 		}
 	},
-	[64]={
+	[65]={
 		lang={
 			English={
 				[1]={
@@ -1857,7 +1897,57 @@ return {
 			[1]="inflict_all_exposure_on_hit"
 		}
 	},
-	[65]={
+	[66]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Killing Blows Consume corpses to Recover {0} Life and {1} Mana\nMinions Consume corpses on Killing Blow to Recover {0} Life and {1} Mana"
+				},
+				[2]={
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Killing Blows Consume corpses to Recover {0} Life\nMinions Consume corpses on Killing Blow to Recover {0} Life"
+				},
+				[3]={
+					limit={
+						[1]={
+							[1]=0,
+							[2]=0
+						},
+						[2]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="Killing Blows Consume corpses to Recover {1} Mana\nMinions Consume corpses on Killing Blow to Recover {1} Mana"
+				}
+			}
+		},
+		name="killing_blow_consume_corpse_add_flat_life",
+		stats={
+			[1]="killing_blow_consumes_corpse_restore_x_life",
+			[2]="killing_blow_consumes_corpse_restore_x_mana"
+		}
+	},
+	[67]={
 		lang={
 			English={
 				[1]={
@@ -1876,7 +1966,7 @@ return {
 			[1]="knockback_chance_%_at_close_range"
 		}
 	},
-	[66]={
+	[68]={
 		lang={
 			English={
 				[1]={
@@ -1916,7 +2006,7 @@ return {
 			[1]="lightning_ailment_effect_+%"
 		}
 	},
-	[67]={
+	[69]={
 		lang={
 			English={
 				[1]={
@@ -1956,7 +2046,7 @@ return {
 			[1]="non_damaging_ailment_effect_+%"
 		}
 	},
-	[68]={
+	[70]={
 		lang={
 			English={
 				[1]={
@@ -1975,7 +2065,7 @@ return {
 			[1]="reduce_enemy_chaos_resistance_%"
 		}
 	},
-	[69]={
+	[71]={
 		lang={
 			English={
 				[1]={
@@ -2007,7 +2097,7 @@ return {
 			[1]="shock_effect_+%_with_critical_strikes"
 		}
 	},
-	[70]={
+	[72]={
 		lang={
 			English={
 				[1]={
@@ -2047,7 +2137,7 @@ return {
 			[1]="skill_effect_and_damaging_ailment_duration_+%"
 		}
 	},
-	[71]={
+	[73]={
 		lang={
 			English={
 				[1]={
@@ -2079,7 +2169,7 @@ return {
 			[1]="support_chills_also_grant_cold_damage_taken_per_minute_+%"
 		}
 	},
-	[72]={
+	[74]={
 		lang={
 			English={
 				[1]={
@@ -2098,7 +2188,7 @@ return {
 			[1]="support_chills_also_grant_cold_damage_taken_+%_equal_to_slow_amount"
 		}
 	},
-	[73]={
+	[75]={
 		lang={
 			English={
 				[1]={
@@ -2130,7 +2220,7 @@ return {
 			[1]="support_energy_shield_leech_damage_+%_on_full_energy_shield_final"
 		}
 	},
-	[74]={
+	[76]={
 		lang={
 			English={
 				[1]={
@@ -2162,7 +2252,47 @@ return {
 			[1]="support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"
 		}
 	},
-	[75]={
+	[77]={
+		lang={
+			English={
+				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextAilments"
+					},
+					limit={
+						[1]={
+							[1]=1,
+							[2]="#"
+						}
+					},
+					text="{0}% more Duration of Ailments inflicted with This Spell or by Minions"
+				},
+				[2]={
+					[1]={
+						k="negate",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextAilments"
+					},
+					limit={
+						[1]={
+							[1]="#",
+							[2]=-1
+						}
+					},
+					text="{0}% less Duration of Ailments inflicted with This Spell or by Minions"
+				}
+			}
+		},
+		name="support_faster_ailments_duration",
+		stats={
+			[1]="support_faster_ailments_ailment_duration_+%_final"
+		}
+	},
+	[78]={
 		lang={
 			English={
 				[1]={
@@ -2186,7 +2316,7 @@ return {
 			[2]="global_maximum_added_fire_damage_vs_burning_enemies"
 		}
 	},
-	[76]={
+	[79]={
 		lang={
 			English={
 				[1]={
@@ -2218,7 +2348,7 @@ return {
 			[1]="support_pure_shock_damage_+%_final"
 		}
 	},
-	[77]={
+	[80]={
 		lang={
 			English={
 				[1]={
@@ -2250,7 +2380,7 @@ return {
 			[1]="support_pure_shock_shock_as_though_damage_+%_final"
 		}
 	},
-	[78]={
+	[81]={
 		lang={
 			English={
 				[1]={
@@ -2282,7 +2412,7 @@ return {
 			[1]="support_spell_echo_final_repeat_damage_+%_final"
 		}
 	},
-	[79]={
+	[82]={
 		lang={
 			English={
 				[1]={
@@ -2322,7 +2452,7 @@ return {
 			[1]="support_unbound_ailments_ailment_damage_+%_final"
 		}
 	},
-	[80]={
+	[83]={
 		lang={
 			English={
 				[1]={
@@ -2358,7 +2488,7 @@ return {
 			[1]="support_withered_base_duration_ms"
 		}
 	},
-	[81]={
+	[84]={
 		lang={
 			English={
 				[1]={
@@ -2426,56 +2556,60 @@ return {
 	["critical_strike_chance_+%_vs_blinded_enemies"]=49,
 	["cruelty_duration_+%"]=35,
 	["cruelty_effect_+%"]=50,
-	["damage_+%_vs_enemies_per_freeze_shock_ignite"]=51,
-	["damage_+%_while_es_leeching"]=52,
-	["damage_+%_while_life_leeching"]=53,
-	["damage_+%_while_mana_leeching"]=54,
-	["damage_vs_cursed_enemies_per_enemy_curse_+%"]=55,
-	["damage_vs_enemies_on_low_life_+%"]=56,
-	["damaging_ailments_deal_damage_+%_faster"]=57,
-	["deal_chaos_damage_per_second_for_10_seconds_on_hit"]=58,
+	["damage_+%_if_you_have_consumed_a_corpse_recently"]=51,
+	["damage_+%_vs_enemies_per_freeze_shock_ignite"]=52,
+	["damage_+%_while_es_leeching"]=53,
+	["damage_+%_while_life_leeching"]=54,
+	["damage_+%_while_mana_leeching"]=55,
+	["damage_vs_cursed_enemies_per_enemy_curse_+%"]=56,
+	["damage_vs_enemies_on_low_life_+%"]=57,
+	["damaging_ailments_deal_damage_+%_faster"]=58,
+	["deal_chaos_damage_per_second_for_10_seconds_on_hit"]=59,
 	["elemental_status_effect_aura_radius"]=25,
-	["enemies_you_shock_movement_speed_+%"]=59,
+	["enemies_you_shock_movement_speed_+%"]=60,
 	["energy_shield_leech_from_any_damage_permyriad"]=6,
 	["freeze_duration_+%"]=23,
-	["gain_power_charge_on_kill_with_hit_%"]=60,
+	["gain_power_charge_on_kill_with_hit_%"]=61,
 	["global_chance_to_blind_on_hit_%"]=28,
 	["global_hit_causes_monster_flee_%"]=15,
-	["global_maximum_added_fire_damage_vs_burning_enemies"]=75,
-	["global_minimum_added_fire_damage_vs_burning_enemies"]=75,
+	["global_maximum_added_fire_damage_vs_burning_enemies"]=78,
+	["global_minimum_added_fire_damage_vs_burning_enemies"]=78,
 	["global_poison_on_hit"]=40,
-	["hits_grant_cruelty"]=61,
+	["hits_grant_cruelty"]=62,
 	["ignite_duration_+%"]=21,
-	["ignites_apply_fire_resistance_+"]=62,
-	["infernal_legion_minions_have_burning_effect_radius_+"]=63,
-	["inflict_all_exposure_on_hit"]=64,
+	["ignites_apply_fire_resistance_+"]=63,
+	["infernal_legion_minions_have_burning_effect_radius_+"]=64,
+	["inflict_all_exposure_on_hit"]=65,
 	["killed_monster_dropped_item_quantity_+%"]=11,
 	["killed_monster_dropped_item_rarity_+%"]=10,
-	["knockback_chance_%_at_close_range"]=65,
+	["killing_blow_consumes_corpse_restore_x_life"]=66,
+	["killing_blow_consumes_corpse_restore_x_mana"]=66,
+	["knockback_chance_%_at_close_range"]=67,
 	["knockback_distance_+%"]=8,
 	["life_leech_from_any_damage_permyriad"]=5,
-	["lightning_ailment_effect_+%"]=66,
-	["non_damaging_ailment_effect_+%"]=67,
+	["lightning_ailment_effect_+%"]=68,
+	["non_damaging_ailment_effect_+%"]=69,
 	parent="minion_spell_skill_stat_descriptions",
-	["reduce_enemy_chaos_resistance_%"]=68,
+	["reduce_enemy_chaos_resistance_%"]=70,
 	["reduce_enemy_elemental_resistance_%"]=32,
 	["shock_duration_+%"]=24,
 	["shock_effect_+%"]=20,
-	["shock_effect_+%_with_critical_strikes"]=69,
-	["skill_effect_and_damaging_ailment_duration_+%"]=70,
+	["shock_effect_+%_with_critical_strikes"]=71,
+	["skill_effect_and_damaging_ailment_duration_+%"]=72,
 	["skill_physical_damage_%_to_convert_to_lightning"]=27,
-	["support_chills_also_grant_cold_damage_taken_+%_equal_to_slow_amount"]=72,
-	["support_chills_also_grant_cold_damage_taken_per_minute_+%"]=71,
+	["support_chills_also_grant_cold_damage_taken_+%_equal_to_slow_amount"]=74,
+	["support_chills_also_grant_cold_damage_taken_per_minute_+%"]=73,
 	["support_concentrated_effect_skill_area_of_effect_+%_final"]=17,
 	["support_controlled_destruction_critical_strike_chance_+%_final"]=3,
-	["support_energy_shield_leech_damage_+%_on_full_energy_shield_final"]=73,
-	["support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"]=74,
+	["support_energy_shield_leech_damage_+%_on_full_energy_shield_final"]=75,
+	["support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"]=76,
+	["support_faster_ailments_ailment_duration_+%_final"]=77,
 	["support_hypothermia_damage_+%_vs_chilled_enemies_final"]=38,
 	["support_ignite_proliferation_radius"]=26,
-	["support_pure_shock_damage_+%_final"]=76,
-	["support_pure_shock_shock_as_though_damage_+%_final"]=77,
-	["support_spell_echo_final_repeat_damage_+%_final"]=78,
-	["support_unbound_ailments_ailment_damage_+%_final"]=79,
-	["support_withered_base_duration_ms"]=80,
-	["withered_on_hit_chance_%"]=81
+	["support_pure_shock_damage_+%_final"]=79,
+	["support_pure_shock_shock_as_though_damage_+%_final"]=80,
+	["support_spell_echo_final_repeat_damage_+%_final"]=81,
+	["support_unbound_ailments_ailment_damage_+%_final"]=82,
+	["support_withered_base_duration_ms"]=83,
+	["withered_on_hit_chance_%"]=84
 }

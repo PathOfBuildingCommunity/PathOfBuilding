@@ -78,6 +78,8 @@ function main:Init()
 	self.buildSortMode = "NAME"
 	self.connectionProtocol = 0
 	self.nodePowerTheme = "RED/BLUE"
+	self.colorPositive = defaultColorCodes.POSITIVE
+	self.colorNegative = defaultColorCodes.NEGATIVE
 	self.showThousandsSeparators = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
@@ -189,7 +191,7 @@ function main:Init()
 	self.controls.versionLabel.label = function()
 		return "^8Version: "..launch.versionNumber..(launch.versionBranch == "dev" and " (Dev)" or launch.versionBranch == "beta" and " (Beta)" or "")
 	end
-	self.controls.devMode = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -26, 0, 20, "^1Dev Mode")
+	self.controls.devMode = new("LabelControl", {"BOTTOMLEFT",self.anchorMain,"BOTTOMLEFT"}, 0, -26, 0, 20, colorCodes.NEGATIVE.."Dev Mode")
 	self.controls.devMode.shown = function()
 		return launch.devMode
 	end
@@ -226,7 +228,7 @@ function main:SaveModCache()
 	local out = io.open("Data/ModCache.lua", "w")
 	out:write('local c=...')
 	for line, dat in pairs(modLib.parseModCache) do
-		if not dat[1] or not dat[1][1] or dat[1][1].name ~= "JewelFunc" then
+		if not dat[1] or not dat[1][1] or (dat[1][1].name ~= "JewelFunc" and dat[1][1].name ~= "ExtraJewelFunc") then
 			out:write('c["', line:gsub("\n","\\n"), '"]={')
 			if dat[1] then
 				writeLuaTable(out, dat[1])
@@ -399,6 +401,16 @@ function main:OnFrame()
 	SetDrawColor(0, 0, 0)
 	DrawImage(nil, par + 500, 200, 2, 750)
 	DrawImage(nil, 500, par + 200, 759, 2)]]
+	
+	if self.inputEvents and not itemLib.wiki.triggered then
+		for _, event in ipairs(self.inputEvents) do
+			if event.type == "KeyUp" and event.key == "F1" then
+				self:OpenAboutPopup(1)
+				break
+			end
+		end
+	end
+	itemLib.wiki.triggered = false
 
 	wipeTable(self.inputEvents)
 
@@ -483,6 +495,14 @@ function main:LoadSettings(ignoreBuild)
 				end
 				if node.attrib.nodePowerTheme then
 					self.nodePowerTheme = node.attrib.nodePowerTheme
+				end
+				if node.attrib.colorPositive then
+					updateColorCode("POSITIVE", node.attrib.colorPositive)
+					self.colorPositive = node.attrib.colorPositive
+				end
+				if node.attrib.colorNegative then
+					updateColorCode("NEGATIVE", node.attrib.colorNegative)
+					self.colorNegative = node.attrib.colorNegative
 				end
 				-- In order to preserve users' settings through renaming/merging this variable, we have this if statement to use the first found setting
 				-- Once the user has closed PoB once, they will be using the new `showThousandsSeparator` variable name, so after some time, this statement may be removed
@@ -619,6 +639,8 @@ function main:SaveSettings()
 		proxyURL = launch.proxyURL,
 		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
 		nodePowerTheme = self.nodePowerTheme,
+		colorPositive = self.colorPositive,
+		colorNegative = self.colorNegative,
 		showThousandsSeparators = tostring(self.showThousandsSeparators),
 		thousandsSeparator = self.thousandsSeparator,
 		decimalSeparator = self.decimalSeparator,
@@ -715,6 +737,30 @@ function main:OpenOptionsPopup()
 	controls.nodePowerTheme:SelByValue(self.nodePowerTheme, "theme")
 
 	nextRow()
+	controls.colorPositive = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, tostring(self.colorPositive:gsub('^(^)', '0')), nil, nil, 8, function(buf)
+		local match = string.match(buf, "0x%x+")
+		if match and #match == 8 then
+			updateColorCode("POSITIVE", buf)
+			self.colorPositive = buf
+		end
+	end)
+	controls.colorPositiveLabel = new("LabelControl", { "RIGHT", controls.colorPositive, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex colour for positive values:")
+	controls.colorPositive.tooltipText = "Overrides the default hex colour for positive values in breakdowns. \nExpected format is 0x000000. " ..
+		"The default value is " .. tostring(defaultColorCodes.POSITIVE:gsub('^(^)', '0')) .. ".\nIf updating while inside a build, please re-load the build after saving."
+
+	nextRow()
+	controls.colorNegative = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, tostring(self.colorNegative:gsub('^(^)', '0')), nil, nil, 8, function(buf)
+		local match = string.match(buf, "0x%x+")
+		if match and #match == 8 then
+			updateColorCode("NEGATIVE", buf)
+			self.colorNegative = buf
+		end
+	end)
+	controls.colorNegativeLabel = new("LabelControl", { "RIGHT", controls.colorNegative, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex colour for negative values:")
+	controls.colorNegative.tooltipText = "Overrides the default hex colour for negative values in breakdowns. \nExpected format is 0x000000. " ..
+		"The default value is " .. tostring(defaultColorCodes.NEGATIVE:gsub('^(^)', '0')) .. ".\nIf updating while inside a build, please re-load the build after saving."
+
+	nextRow()
 	controls.betaTest = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
 	end)
@@ -728,13 +774,13 @@ function main:OpenOptionsPopup()
 	controls.showThousandsSeparators.state = self.showThousandsSeparators
 
 	nextRow()
-	controls.thousandsSeparator = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 30, 20, self.thousandsSeparator, nil, "%%^", 1, function(buf)
+	controls.thousandsSeparator = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 30, 20, self.thousandsSeparator, nil, "%w", 1, function(buf)
 		self.thousandsSeparator = buf
 	end)
 	controls.thousandsSeparatorLabel = new("LabelControl", { "RIGHT", controls.thousandsSeparator, "LEFT" }, defaultLabelSpacingPx, 0, 92, 16, "^7Thousands separator:")
 
 	nextRow()
-	controls.decimalSeparator = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 30, 20, self.decimalSeparator, nil, "%%^", 1, function(buf)
+	controls.decimalSeparator = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 30, 20, self.decimalSeparator, nil, "%w", 1, function(buf)
 		self.decimalSeparator = buf
 	end)
 	controls.decimalSeparatorLabel = new("LabelControl", { "RIGHT", controls.decimalSeparator, "LEFT" }, defaultLabelSpacingPx, 0, 92, 16, "^7Decimal separator:")
@@ -755,7 +801,7 @@ function main:OpenOptionsPopup()
 	controls.defaultCharLevel = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 80, 20, self.defaultCharLevel, nil, "%D", 3, function(charLevel)
 		self.defaultCharLevel = m_min(m_max(tonumber(charLevel) or 1, 1), 100)
 	end)
-	controls.defaultCharLevel.tooltipText = "Set the default character level that can be overwritten by build-related level settings."
+	controls.defaultCharLevel.tooltipText = "Set the default level of your builds. If this is higher than 1, manual level mode will be enabled by default in new builds."
 	controls.defaultCharLevelLabel = new("LabelControl", { "RIGHT", controls.defaultCharLevel, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Default character level:")
 
 	nextRow()
@@ -799,6 +845,8 @@ function main:OpenOptionsPopup()
 	controls.betaTest.state = self.betaTest
 	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
+	local initialColorPositive = self.colorPositive
+	local initialColorNegative = self.colorNegative
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
 	local initialThousandsSeparator = self.thousandsSeparator
@@ -841,6 +889,10 @@ function main:OpenOptionsPopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, 45, currentY, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
+		self.colorPositive = initialColorPositive
+		updateColorCode("POSITIVE", self.colorPositive)
+		self.colorNegative = initialColorNegative
+		updateColorCode("NEGATIVE", self.colorNegative)
 		self.showThousandsSeparators = initialThousandsSeparatorDisplay
 		self.thousandsSeparator = initialThousandsSeparator
 		self.decimalSeparator = initialDecimalSeparator
@@ -915,8 +967,10 @@ function main:OpenUpdatePopup()
 	self:OpenPopup(800, 250, "Update Available", controls)
 end
 
-function main:OpenAboutPopup()
+function main:OpenAboutPopup(helpSectionIndex)
+	local textSize, titleSize, popupWidth = 16, 24, 810
 	local changeList = { }
+	local changeVersionHeights = { }
 	local changelogName = launch.devMode and "../changelog.txt" or "changelog.txt"
 	local changelogFile = io.open(changelogName, "r")
 	if changelogFile then
@@ -925,51 +979,80 @@ function main:OpenAboutPopup()
 			local ver, date = line:match("^VERSION%[(.+)%]%[(.+)%]$")
 			if ver then
 				if #changeList > 0 then
-					t_insert(changeList, { height = 10 })
+					t_insert(changeList, { height = textSize / 2 })
 				end
-				t_insert(changeList, { height = 18, "^7Version "..ver.." ("..date..")" })
+				t_insert(changeVersionHeights, #changeList * textSize)
+				t_insert(changeList, { height = titleSize, "^7Version "..ver.." ("..date..")" })
 			else
-				t_insert(changeList, { height = 12, "^7"..line })
+				t_insert(changeList, { height = textSize, "^7"..line })
 			end
 		end
 	end
 	local helpList = { }
+	local helpSections = { }
+	local helpSectionHeights = { }
 	do
 		local helpName = launch.devMode and "../help.txt" or "help.txt"
 		local helpFile = io.open(helpName, "r")
 		if helpFile then
 			helpFile:close()
 			for line in io.lines(helpName) do
-				local title, titleIndex = line:match("^---%[(.+)%]%[(.+)%]$")
+				local title = line:match("^---%[(.+)%]$")
 				if title then
 					if #helpList > 0 then
-						t_insert(helpList, { height = 10 })
+						t_insert(helpList, { height = textSize / 2 })
 					end
-					t_insert(helpList, { height = 18, "^7"..title.." ("..titleIndex..")" })
+					t_insert(helpSections, { title = title, height = #helpList })
+					t_insert(helpList, { height = titleSize, "^7"..title.." ("..#helpSections..")" })
 				else
 					local dev = line:match("^DEV%[(.+)%]$")
 					if not ( dev and not launch.devMode ) then
 						line = (dev or line)
 						local outdent, indent = line:match("(.*)\t+(.*)")
 						if outdent then
-							local indentLines = self:WrapString(indent, 12, 500)
+							local indentLines = self:WrapString(indent, textSize, popupWidth - 190)
 							if #indentLines > 1 then
 								for i, indentLine in ipairs(indentLines) do
-									t_insert(helpList, { height = 12, (i == 1 and outdent or " "), "^7"..indentLine })
+									t_insert(helpList, { height = textSize, (i == 1 and outdent or " "), "^7"..indentLine })
 								end
 							else
-								t_insert(helpList, { height = 12, "^7"..outdent, "^7"..indent })
+								t_insert(helpList, { height = textSize, "^7"..outdent, "^7"..indent })
 							end
 						else
-							local Lines = self:WrapString(line, 12, 610)
+							local Lines = self:WrapString(line, textSize, popupWidth - 135)
 							for i, line2 in ipairs(Lines) do
-								t_insert(helpList, { height = 12, "^7"..(i > 1 and "    " or "")..line2 })
+								t_insert(helpList, { height = textSize, "^7"..(i > 1 and "    " or "")..line2 })
 							end
 						end
 					end
 				end
 			end
+			local contentsDone = false
+			for sectionIndex, sectionValues in ipairs(helpSections) do
+				if sectionValues.title == "Contents" then
+					t_insert(helpList, (sectionValues.height + sectionIndex), { height = textSize, "^7 "})
+					for i, sectionValuesInner in ipairs(helpSections) do
+						t_insert(helpList, (sectionValues.height + i + sectionIndex), { height = textSize, "^7"..tostring(i)..". "..sectionValuesInner.title })
+					end
+				end
+				helpSections[sectionIndex].height = helpSections[sectionIndex].height + (contentsDone and (#helpSections + 1) or 0)
+				helpSectionHeights[sectionIndex] = helpSections[sectionIndex].height * textSize
+				if sectionValues.title == "Contents" then
+					contentsDone = true
+				end
+			end
+			helpSections.total = #helpList + #helpSections + 1
 		end
+	end
+	if helpSectionIndex and not helpSections[helpSectionIndex] then
+		local newIndex = nil
+		for sectionIndex, sectionValues in ipairs(helpSections) do
+			if sectionValues.title == helpSectionIndex then
+				newIndex = sectionIndex
+				break
+			end
+		end
+		helpSectionIndex = newIndex
 	end
 	local controls = { }
 	controls.close = new("ButtonControl", {"TOPRIGHT",nil,"TOPRIGHT"}, -10, 10, 50, 20, "Close", function()
@@ -982,12 +1065,17 @@ function main:OpenAboutPopup()
 	end)
 	controls.verLabel = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 10, 85, 100, 18, "^7Version history:", function()
 		controls.changelog.list = changeList
+		controls.changelog.sectionHeights = changeVersionHeights
 	end)
-	controls.helpLabel = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 600, 85, 40, 18, "^7Help:", function()
+	controls.helpLabel = new("ButtonControl", { "TOPRIGHT", nil, "TOPRIGHT" }, -10, 85, 40, 18, "^7Help:", function()
 		controls.changelog.list = helpList
+		controls.changelog.sectionHeights = helpSectionHeights
 	end)
-	controls.changelog = new("TextListControl", nil, 0, 103, 630, 387, {{ x = 1, align = "LEFT" }, { x = 110, align = "LEFT" }}, changeList)
-	self:OpenPopup(650, 500, "About", controls)
+	controls.changelog = new("TextListControl", nil, 0, 103, popupWidth - 20, 515, {{ x = 1, align = "LEFT" }, { x = 135, align = "LEFT" }}, helpSectionIndex and helpList or changeList, helpSectionIndex and helpSectionHeights or changeVersionHeights)
+	if helpSectionIndex then
+		controls.changelog.controls.scrollBar.offset = helpSections[helpSectionIndex].height * textSize
+	end
+	self:OpenPopup(popupWidth, 628, "About", controls)
 end
 
 function main:DrawBackground(viewPort)

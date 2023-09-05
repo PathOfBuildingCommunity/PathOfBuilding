@@ -12,11 +12,12 @@ skills["Absolution"] = {
 	baseEffectiveness = 2.0517001152039,
 	incrementalEffectiveness = 0.043200001120567,
 	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
 	castTime = 0.75,
 	minionList = {
 		"AbsolutionTemplarJudge",
+		"AbsolutionTemplarJudgeVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -57,11 +58,12 @@ skills["Absolution"] = {
 		{ "absolution_blast_chance_to_summon_on_hitting_rare_or_unique_%", 25 },
 		{ "display_minion_monster_type", 19 },
 		{ "base_skill_effect_duration", 1000 },
+		{ "max_number_of_vaal_absolution_sentinels", 1 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"active_skill_base_radius_+",
 		"is_area_damage",
 	},
@@ -108,6 +110,85 @@ skills["Absolution"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, 100, 11, damageEffectiveness = 2, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 35, }, },
 	},
 }
+skills["VaalAbsolution"] = {
+	name = "Vaal Absolution",
+	color = 1,
+	description = "Causes one of your existing Sentinels of Absolution to Ascend, becoming more powerful, gaining new spells, and overriding its duration, while maintaining its other bonuses, including from support gems. If you cannot have more Ascended Sentinels of Absolution, an existing one will be refreshed instead.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Vaal] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
+	baseFlags = {
+		spell = true,
+		minion = true,
+		duration = true,
+		area = true,
+	},
+	qualityStats = {
+		Default = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 15000 },
+		{ "display_max_upgraded_sentinels_of_absolution", 1 },
+		{ "vaal_upgrade_minion_damage_+%_final", 200 },
+		{ "vaal_upgrade_minion_damage_taken_+%_final", -70 },
+	},
+	stats = {
+		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
+		"cannot_cancel_skill_before_contact_point",
+	},
+	levels = {
+		[1] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 12, cost = { Soul = 40, }, },
+		[2] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 15, cost = { Soul = 40, }, },
+		[3] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 19, cost = { Soul = 40, }, },
+		[4] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 23, cost = { Soul = 40, }, },
+		[5] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 27, cost = { Soul = 40, }, },
+		[6] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 31, cost = { Soul = 40, }, },
+		[7] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 35, cost = { Soul = 40, }, },
+		[8] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 38, cost = { Soul = 40, }, },
+		[9] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 41, cost = { Soul = 40, }, },
+		[10] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 44, cost = { Soul = 40, }, },
+		[11] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 47, cost = { Soul = 40, }, },
+		[12] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 50, cost = { Soul = 40, }, },
+		[13] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 53, cost = { Soul = 40, }, },
+		[14] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 56, cost = { Soul = 40, }, },
+		[15] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 59, cost = { Soul = 40, }, },
+		[16] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 62, cost = { Soul = 40, }, },
+		[17] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 64, cost = { Soul = 40, }, },
+		[18] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 66, cost = { Soul = 40, }, },
+		[19] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 68, cost = { Soul = 40, }, },
+		[20] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 70, cost = { Soul = 40, }, },
+		[21] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 72, cost = { Soul = 40, }, },
+		[22] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 74, cost = { Soul = 40, }, },
+		[23] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 76, cost = { Soul = 40, }, },
+		[24] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 78, cost = { Soul = 40, }, },
+		[25] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 80, cost = { Soul = 40, }, },
+		[26] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 82, cost = { Soul = 40, }, },
+		[27] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 84, cost = { Soul = 40, }, },
+		[28] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 86, cost = { Soul = 40, }, },
+		[29] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 88, cost = { Soul = 40, }, },
+		[30] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 90, cost = { Soul = 40, }, },
+		[31] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 91, cost = { Soul = 40, }, },
+		[32] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 92, cost = { Soul = 40, }, },
+		[33] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 93, cost = { Soul = 40, }, },
+		[34] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 94, cost = { Soul = 40, }, },
+		[35] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 95, cost = { Soul = 40, }, },
+		[36] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 96, cost = { Soul = 40, }, },
+		[37] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 97, cost = { Soul = 40, }, },
+		[38] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 98, cost = { Soul = 40, }, },
+		[39] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 99, cost = { Soul = 40, }, },
+		[40] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 100, cost = { Soul = 40, }, },
+	},
+}
 skills["AbyssalCry"] = {
 	name = "Infernal Cry",
 	color = 1,
@@ -124,6 +205,9 @@ skills["AbyssalCry"] = {
 		},
 		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
 			mod("InfernalFireTakenPer5MP", "BASE", nil),
+		},
+		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -159,6 +243,8 @@ skills["AbyssalCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
 		"damage_cannot_be_reflected",
 		"base_skill_show_average_damage_instead_of_dps",
 		"display_skill_deals_secondary_damage",
@@ -228,6 +314,11 @@ skills["InfernalCryOnHitExplosion"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["triggered_by_infernal_cry"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -443,7 +534,7 @@ skills["AncestralCry"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
+			{ "base_cooldown_speed_+%", 1 },
 		},
 		Alternate1 = {
 			{ "warcry_speed_+%", 2 },
@@ -463,7 +554,9 @@ skills["AncestralCry"] = {
 		"ancestral_cry_max_physical_damage_reduction_rating",
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 	},
@@ -859,6 +952,7 @@ skills["AnimateArmour"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -879,9 +973,10 @@ skills["AnimateArmour"] = {
 		"animate_item_maximum_level_requirement",
 		"minion_maximum_life_+%",
 		"melee_physical_damage_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"attack_minimum_added_physical_damage",
 		"attack_maximum_added_physical_damage",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 33, 0, 0, 28, 32, 47, levelRequirement = 28, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 11, }, },
@@ -943,6 +1038,9 @@ skills["BattlemagesCry"] = {
 		["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"] = {
 			mod("BattlemageCritChancePer5MP", "BASE", nil),
 		},
+		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
+			-- Display only
+		},
 	},
 	baseFlags = {
 		area = true,
@@ -971,7 +1069,9 @@ skills["BattlemagesCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 		"display_battlemage_cry_exerted_attacks_trigger_supported_spell",
@@ -1027,8 +1127,17 @@ skills["BattlemagesCrySupport"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_divine_cry_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["triggered_by_divine_cry"] = {
+			skill("triggeredByBattleMageCry", true),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -1233,7 +1342,7 @@ skills["Bladestorm"] = {
 		skill("radiusLabel", "Area of initial attack:"),
 		skill("radiusSecondary", 20),
 		skill("radiusSecondaryLabel", "Area of bladestorms:"),
-		mod("BleedChance", "BASE", 100, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }),
+		mod("BleedChance", "BASE", 100, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -1401,7 +1510,7 @@ skills["Boneshatter"] = {
 	baseEffectiveness = 0.18279999494553,
 	incrementalEffectiveness = 0.053700000047684,
 	description = "Attack enemies with a forceful melee strike that also hurts you. Successive uses will raise the damage dealt both to enemies and you. Stunning an enemy with the strike releases a damaging pulse. Requires a Mace, Sceptre, Axe or Staff.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.InnateTrauma] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1422,77 +1531,6 @@ skills["Boneshatter"] = {
 			area = true,
 		},
 	},
-	preDotFunc = function(activeSkill, output, breakdown)
-		local t_insert = table.insert
-		local s_format = string.format
-		local ipairs = ipairs
-
-		local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-
-		local physBase = activeSkill.skillData.SelfDamageTakenLife * math.max(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:TraumaStacks"), 1)
-		local totalTakenAs = activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAsLightning","PhysicalDamageTakenAsCold","PhysicalDamageTakenAsFire","PhysicalDamageTakenAsChaos") / 100
-		
-		local BSDamageTaken = {}
-
-		local totalDamageTaken = 0
-
-		for _, damageType in ipairs(dmgTypeList) do
-			local damageTakenAs = 1
-			
-			if damageType ~= "Physical" then
-				damageTakenAs = (activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAs"..damageType) or 0) / 100
-			else
-				damageTakenAs = math.max(1 - totalTakenAs, 0)
-			end
-
-			if damageTakenAs ~= 0 then
-
-				if(totalTakenAs > 1) then
-					damageTakenAs = damageTakenAs / totalTakenAs
-				end
-
-				local damage = physBase * damageTakenAs
-				
-				local baseTakenInc = activeSkill.skillModList:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-				local baseTakenMore = activeSkill.skillModList:More(nil, "DamageTaken", damageType.."DamageTaken","DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-				if (damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") then
-					baseTakenInc = baseTakenInc + activeSkill.skillModList:Sum("INC", nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
-					baseTakenMore = baseTakenMore * activeSkill.skillModList:More(nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
-				end
-				local damageTakenMods = math.max((1 + baseTakenInc / 100) * baseTakenMore, 0)
-				local reduction = activeSkill.skillModList:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
-				local resist = activeSkill.skillModList:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
-				local armourReduct = 0
-				local resMult = 1 - resist / 100
-				local reductMult = 1
-
-				local percentOfArmourApplies = math.min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
-				if percentOfArmourApplies > 0 then
-					local effArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
-					local effDamage = damage * resMult
-					armourReduct = round(effArmour ~= 0 and damage * resMult ~= 0 and (effArmour / (effArmour + effDamage * 5) * 100) or 0)
-					armourReduct = math.min(output.DamageReductionMax, armourReduct)
-				end
-				reductMult = (1 - math.max(math.min(output.DamageReductionMax, armourReduct + reduction), 0) / 100) * damageTakenMods
-				local combinedMult = resMult * reductMult
-				local finalDamage = damage * combinedMult
-				totalDamageTaken = totalDamageTaken + finalDamage
-
-				if breakdown then
-					t_insert(BSDamageTaken, damageType.." Damage Taken")
-					t_insert(BSDamageTaken, s_format("^8=^7 %d^8 (Base Damage) * ^7%.2f^8 (Damage taken as %s)", physBase, damageTakenAs, damageType))
-					t_insert(BSDamageTaken, s_format("^8=^7 %d^8 (%s Damage) * ^7%.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
-					t_insert(BSDamageTaken, s_format("^8=^7 %d^8 (%s Damage taken)", finalDamage, damageType))
-				end
-			end
-		end
-
-		if breakdown then
-			t_insert(BSDamageTaken, "Total damage taken: "..round(totalDamageTaken))
-			breakdown.BSDamageTaken = BSDamageTaken
-			output.BSDamageTaken = totalDamageTaken
-		end
-	end,
 	statMap = {
 		["trauma_strike_damage_+%_final_per_trauma"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
@@ -1502,10 +1540,10 @@ skills["Boneshatter"] = {
 			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["trauma_strike_self_damage_per_trauma"] = {
-			skill("SelfDamageTakenLife", nil),
+			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
-		["trauma_base_duration_ms"] = {
-			skill("duration", nil),
+		["boneshatter_trauma_base_duration_ms"] = {
+			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
 	},
@@ -1517,6 +1555,7 @@ skills["Boneshatter"] = {
 	},
 	baseMods = {
 		skill("radius", 14, { type = "SkillPart", skillPart = 2 }),
+		flag("HasTrauma"),
 	},
 	qualityStats = {
 		Default = {
@@ -1532,7 +1571,7 @@ skills["Boneshatter"] = {
 	},
 	constantStats = {
 		{ "trauma_strike_shockwave_area_of_effect_+%_per_100ms_stun_duration_up_to_400%", 15 },
-		{ "trauma_base_duration_ms", 6000 },
+		{ "boneshatter_trauma_base_duration_ms", 6000 },
 		{ "melee_range_+", 2 },
 	},
 	stats = {
@@ -1974,6 +2013,7 @@ skills["CorruptingFever"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		flag("dotIsCorruptingBlood"),
 		mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10),
 		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"}),
 	},
@@ -2423,6 +2463,7 @@ skills["DominatingBlow"] = {
 	castTime = 1,
 	minionList = {
 		"AxisEliteSoldierDominatingBlow",
+		"AxisEliteSoldierDominatingBlowVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -2459,6 +2500,7 @@ skills["DominatingBlow"] = {
 		{ "max_number_of_dominated_rare_monsters", 1 },
 		{ "base_secondary_skill_effect_duration", 20000 },
 		{ "dominating_blow_chance_to_summon_on_hitting_unqiue_%", 25 },
+		{ "max_number_of_vaal_dominated_monsters", 3 },
 	},
 	stats = {
 		"is_dominated",
@@ -2504,6 +2546,85 @@ skills["DominatingBlow"] = {
 		[38] = { damageEffectiveness = 2.92, baseMultiplier = 2.918, levelRequirement = 98, cost = { Mana = 8, }, },
 		[39] = { damageEffectiveness = 2.94, baseMultiplier = 2.937, levelRequirement = 99, cost = { Mana = 8, }, },
 		[40] = { damageEffectiveness = 2.96, baseMultiplier = 2.956, levelRequirement = 100, cost = { Mana = 8, }, },
+	},
+}
+skills["VaalDomination"] = {
+	name = "Vaal Domination",
+	color = 1,
+	description = "This spell causes one of your existing Sentinels of Dominance to Ascend, becoming more powerful, gaining new attacks, and overriding its duration, while maintaining its monster modifiers and other bonuses, including from support gems. If you cannot have more Ascended Sentinels of Dominance, an existing one will be refreshed instead.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
+	baseFlags = {
+		attack = true,
+		melee = true,
+		duration = true,
+		minion = true,
+	},
+	qualityStats = {
+		Default = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 30000 },
+		{ "display_max_upgraded_sentinels_of_dominance", 3 },
+		{ "vaal_upgrade_minion_damage_+%_final", 200 },
+		{ "vaal_upgrade_minion_damage_taken_+%_final", -70 },
+	},
+	stats = {
+		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
+		"cannot_cancel_skill_before_contact_point",
+	},
+	levels = {
+		[1] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 28, cost = { Soul = 30, }, },
+		[2] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 31, cost = { Soul = 30, }, },
+		[3] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 34, cost = { Soul = 30, }, },
+		[4] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 37, cost = { Soul = 30, }, },
+		[5] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 40, cost = { Soul = 30, }, },
+		[6] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 42, cost = { Soul = 30, }, },
+		[7] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 44, cost = { Soul = 30, }, },
+		[8] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 46, cost = { Soul = 30, }, },
+		[9] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 48, cost = { Soul = 30, }, },
+		[10] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 50, cost = { Soul = 30, }, },
+		[11] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 52, cost = { Soul = 30, }, },
+		[12] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 54, cost = { Soul = 30, }, },
+		[13] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 56, cost = { Soul = 30, }, },
+		[14] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 58, cost = { Soul = 30, }, },
+		[15] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 60, cost = { Soul = 30, }, },
+		[16] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 62, cost = { Soul = 30, }, },
+		[17] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 64, cost = { Soul = 30, }, },
+		[18] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 66, cost = { Soul = 30, }, },
+		[19] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 68, cost = { Soul = 30, }, },
+		[20] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 70, cost = { Soul = 30, }, },
+		[21] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 72, cost = { Soul = 30, }, },
+		[22] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 74, cost = { Soul = 30, }, },
+		[23] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 76, cost = { Soul = 30, }, },
+		[24] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 78, cost = { Soul = 30, }, },
+		[25] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 80, cost = { Soul = 30, }, },
+		[26] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 82, cost = { Soul = 30, }, },
+		[27] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 84, cost = { Soul = 30, }, },
+		[28] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 86, cost = { Soul = 30, }, },
+		[29] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 88, cost = { Soul = 30, }, },
+		[30] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 90, cost = { Soul = 30, }, },
+		[31] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 91, cost = { Soul = 30, }, },
+		[32] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 92, cost = { Soul = 30, }, },
+		[33] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 93, cost = { Soul = 30, }, },
+		[34] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 94, cost = { Soul = 30, }, },
+		[35] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 95, cost = { Soul = 30, }, },
+		[36] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 96, cost = { Soul = 30, }, },
+		[37] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 97, cost = { Soul = 30, }, },
+		[38] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 98, cost = { Soul = 30, }, },
+		[39] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 99, cost = { Soul = 30, }, },
+		[40] = { vaalStoredUses = 3, soulPreventionDuration = 20, levelRequirement = 100, cost = { Soul = 30, }, },
 	},
 }
 skills["PuresteelBanner"] = {
@@ -2998,7 +3119,9 @@ skills["EnduringCry"] = {
 	stats = {
 		"regenerate_x_life_over_1_second_on_skill_use_or_trigger",
 		"warcry_speed_+%",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 	},
@@ -3054,14 +3177,23 @@ skills["Exsanguinate"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.CanRapidFire] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
+		chaining = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		mod("Multiplier:ExsanguinateMaxStages", "BASE", 3),
-		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}),
+		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
+		mod("FireDamage", "MORE", 100, bit.bor(ModFlag.Spell,ModFlag.Dot), 0, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" }),
 	},
 	qualityStats = {
 		Default = {
@@ -3159,7 +3291,6 @@ skills["FlameLink"] = {
 		"flame_link_minimum_fire_damage",
 		"flame_link_maximum_fire_damage",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 	},
@@ -3459,6 +3590,7 @@ skills["FrozenSweep"] = {
 		attack = true,
 		area = true,
 		melee = true,
+		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 25),
@@ -3543,13 +3675,14 @@ skills["GeneralsCry"] = {
 		warcry = true,
 		area = true,
 		duration = true,
+		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 60),
 	},
 	qualityStats = {
 		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
+			{ "base_cooldown_speed_+%", 1 },
 		},
 		Alternate1 = {
 			{ "warcry_speed_+%", 2 },
@@ -3565,7 +3698,9 @@ skills["GeneralsCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_gain_mp_from_corpses",
 		"warcry_count_power_from_enemies",
@@ -4295,7 +4430,7 @@ skills["HeraldOfPurity"] = {
 		"herald_of_purity_physical_damage_+%_final",
 		"active_skill_minion_physical_damage_+%_final",
 		"active_skill_minion_life_+%_final",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"herald_of_light_summon_champion_on_kill",
 	},
 	levels = {
@@ -4880,7 +5015,7 @@ skills["IntimidatingCry"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
+			{ "base_cooldown_speed_+%", 1 },
 		},
 		Alternate1 = {
 			{ "warcry_speed_+%", 2 },
@@ -4899,7 +5034,9 @@ skills["IntimidatingCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 		"intimidating_cry_empowerd_attacks_deal_double_damage_display",
@@ -5099,8 +5236,8 @@ skills["MoltenShell"] = {
 	constantStats = {
 		{ "skill_override_pvp_scaling_time_ms", 200 },
 		{ "molten_shell_damage_absorbed_%", 75 },
-		{ "molten_shell_damage_absorb_limit_%_of_armour", 20 },
-		{ "molten_shell_max_damage_absorbed", 10000 },
+		{ "molten_shell_damage_absorb_limit_%_of_armour", 10 },
+		{ "molten_shell_max_damage_absorbed", 5000 },
 		{ "base_skill_effect_duration", 3000 },
 	},
 	stats = {
@@ -5198,8 +5335,8 @@ skills["VaalMoltenShell"] = {
 	},
 	constantStats = {
 		{ "skill_override_pvp_scaling_time_ms", 1400 },
-		{ "molten_shell_damage_absorb_limit_%_of_armour", 30 },
-		{ "molten_shell_max_damage_absorbed", 30000 },
+		{ "molten_shell_damage_absorb_limit_%_of_armour", 20 },
+		{ "molten_shell_max_damage_absorbed", 10000 },
 		{ "base_skill_effect_duration", 9000 },
 	},
 	stats = {
@@ -5260,7 +5397,7 @@ skills["MoltenStrike"] = {
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
-	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will explode, causing AoE attack damage to enemies where they land.",
+	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will deal area attack damage to enemies where they land.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, [SkillType.Multistrikeable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -5384,7 +5521,7 @@ skills["VaalMoltenStrike"] = {
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
-	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth causing AoE attack damage to enemies where they land.",
+	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth causing area attack damage to enemies where they land.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Chains] = true, [SkillType.Vaal] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -5807,7 +5944,6 @@ skills["ProtectiveLink"] = {
 	stats = {
 		"bulwark_link_grants_recover_X_life_on_block",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 		"display_bulwark_link_overrides_attack_block_and_maximum_attack_block",
@@ -6287,7 +6423,9 @@ skills["RallyingCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_gain_mp_from_allies",
 		"warcry_count_power_from_enemies",
@@ -6457,7 +6595,7 @@ skills["RejuvenationTotem"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 10),
+		skill("radius", 40),
 	},
 	qualityStats = {
 		Default = {
@@ -6522,6 +6660,98 @@ skills["RejuvenationTotem"] = {
 		[38] = { 45387, 132, levelRequirement = 98, statInterpolation = { 1, 1, }, cost = { Mana = 41, }, },
 		[39] = { 46949, 134, levelRequirement = 99, statInterpolation = { 1, 1, }, cost = { Mana = 42, }, },
 		[40] = { 48384, 136, levelRequirement = 100, statInterpolation = { 1, 1, }, cost = { Mana = 42, }, },
+	},
+}
+skills["VaalRejuvenationTotem"] = {
+	name = "Vaal Rejuvenation Totem",
+	color = 1,
+	description = "Summons a totem that has an aura which regenerates life for you and your nearby allies. When things affected by the aura are hit, the totem's life is removed instead for some of the damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.TotemCastsWhenNotDetached] = true, [SkillType.Vaal] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	skillTotemId = 21,
+	castTime = 0.1,
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+		["vaal_rejuvenation_totem_%_damage_taken_applied_to_totem_instead"] = {
+			mod("takenFromVaalRejuvenationTotemsBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		aura = true,
+		totem = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("radius", 40),
+	},
+	qualityStats = {
+		Default = {
+			{ "base_aura_area_of_effect_+%", 3 },
+		},
+	},
+	constantStats = {
+		{ "base_totem_duration", 4000 },
+		{ "base_totem_range", 10 },
+		{ "vaal_rejuvenation_totem_%_damage_taken_applied_to_totem_instead", 40 },
+		{ "number_of_additional_totems_allowed", 1 },
+		{ "active_skill_area_of_effect_+%_final", -30 },
+		{ "totem_scale_pluspercent", 20 },
+	},
+	stats = {
+		"base_life_regeneration_rate_per_minute",
+		"totem_life_+%",
+		"base_skill_is_totemified",
+		"base_deal_no_damage",
+		"is_totem",
+		"modifiers_to_totem_duration_also_affect_soul_prevention_duration",
+		"cannot_cancel_skill_before_contact_point",
+	},
+	levels = {
+		[1] = { 1157, 50, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 4, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[2] = { 1769, 56, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 6, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[3] = { 2403, 62, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 9, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[4] = { 3267, 68, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[5] = { 4365, 74, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 16, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[6] = { 5504, 80, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 20, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[7] = { 6894, 86, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 24, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[8] = { 8550, 92, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 28, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[9] = { 10260, 98, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 32, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[10] = { 12248, 104, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 36, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[11] = { 14297, 110, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 40, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[12] = { 17109, 116, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 44, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[13] = { 19767, 122, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 48, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[14] = { 22499, 128, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 52, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[15] = { 25308, 134, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 55, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[16] = { 28440, 140, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 58, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[17] = { 31152, 146, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 61, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[18] = { 34959, 152, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 64, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[19] = { 38862, 158, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 67, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[20] = { 42866, 164, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 70, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[21] = { 45356, 170, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 72, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[22] = { 48173, 176, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 74, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[23] = { 50220, 182, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 76, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[24] = { 53427, 188, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 78, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[25] = { 56984, 194, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 80, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[26] = { 59180, 200, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 82, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[27] = { 63161, 206, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 84, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[28] = { 67224, 212, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 86, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[29] = { 71969, 218, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 88, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[30] = { 76508, 224, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 90, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[31] = { 79608, 227, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 91, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[32] = { 82760, 230, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 92, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[33] = { 85652, 233, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 93, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[34] = { 88907, 236, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 94, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[35] = { 92214, 239, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 95, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[36] = { 95574, 242, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 96, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[37] = { 98658, 245, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 97, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[38] = { 102122, 248, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 98, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[39] = { 105636, 251, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 99, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
+		[40] = { 108864, 254, vaalStoredUses = 1, soulPreventionDuration = 12, levelRequirement = 100, statInterpolation = { 1, 1, }, cost = { Soul = 50, }, },
 	},
 }
 skills["SearingBond"] = {
@@ -6641,7 +6871,7 @@ skills["SeismicCry"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_cooldown_speed_+%", 0.5 },
+			{ "base_cooldown_speed_+%", 1 },
 		},
 		Alternate1 = {
 			{ "warcry_speed_+%", 2 },
@@ -6663,7 +6893,9 @@ skills["SeismicCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"warcries_knock_back_enemies",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
@@ -7362,8 +7594,8 @@ skills["Bloodreap"] = {
 	color = 1,
 	baseEffectiveness = 1.405699968338,
 	incrementalEffectiveness = 0.05009999871254,
-	description = "A bloody scythe swipes across a selected area, applying a physical damage over time debuff in addition to hitting enemies with physical damage. If enemies survive, you gain a blood charge which raises the damage and cost of the skill. Players can have 5 maximum blood charges.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.CanRapidFire] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, [SkillType.Cascadable] = true, },
+	description = "A bloody scythe swipes across a selected area, applying a physical damage over time debuff and hitting enemies with physical damage. If any survive, you gain a blood charge which raises the damage and cost of the skill. Players can have 5 maximum blood charges.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
@@ -7372,6 +7604,11 @@ skills["Bloodreap"] = {
 		},
 		["blood_scythe_cost_+%_final_per_charge"] = {
 			mod("LifeCost", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
 		},
 	},
 	baseFlags = {
@@ -7448,6 +7685,98 @@ skills["Bloodreap"] = {
 		[38] = { 0.80000001192093, 1.2000000476837, 61.000002793968, damageEffectiveness = 2.1, critChance = 6, levelRequirement = 98, statInterpolation = { 3, 3, 3, }, cost = { Life = 60, }, },
 		[39] = { 0.80000001192093, 1.2000000476837, 60.500003259629, damageEffectiveness = 2.1, critChance = 6, levelRequirement = 99, statInterpolation = { 3, 3, 3, }, cost = { Life = 61, }, },
 		[40] = { 0.80000001192093, 1.2000000476837, 59.999999751647, damageEffectiveness = 2.1, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 3, }, cost = { Life = 61, }, },
+	},
+}
+skills["VaalReap"] = {
+	name = "Vaal Reap",
+	color = 1,
+	baseEffectiveness = 2.811399936676,
+	incrementalEffectiveness = 0.05009999871254,
+	description = "Bloody scythes swipe around a selected area, hitting enemies with physical damage. An area of boiling blood is left beneath them for a duration which deals physical damage over time. Also gives a bonus to maximum Blood Charges for a secondary duration.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, },
+	statDescriptionScope = "debuff_skill_stat_descriptions",
+	castTime = 0.8,
+	statMap = {
+		["vaal_reap_additional_maximum_blood_charges"] = {
+			mod("BloodChargesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("radius", 23),
+		skill("dotIsArea", true),
+	},
+	qualityStats = {
+		Default = {
+			{ "base_skill_area_of_effect_+%", 0.5 },
+		},
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 5000 },
+		{ "vaal_reap_additional_maximum_blood_charges", 4 },
+		{ "blood_ground_leaving_area_lasts_for_ms", 2000 },
+		{ "base_secondary_skill_effect_duration", 8000 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_physical_damage_to_deal_per_minute",
+		"spell_damage_modifiers_apply_to_skill_dot",
+		"is_area_damage",
+		"modifiers_to_skill_effect_duration_also_affect_soul_prevention_duration",
+		"vaal_reap_gain_maximum_blood_charges_to_on_use",
+		"cannot_cancel_skill_before_contact_point",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 28, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 31, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 34, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 37, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 40, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 42, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 44, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 46, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 48, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 50, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 52, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 54, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 56, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 58, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 60, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 62, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 64, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 66, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 68, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 70, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 72, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 74, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 76, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 78, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 80, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 82, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 84, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 86, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 88, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 90, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 91, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 92, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 93, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 94, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 95, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 96, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 97, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 98, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 99, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, soulPreventionDuration = 8, levelRequirement = 100, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
 	},
 }
 skills["ShieldCrush"] = {
@@ -7561,6 +7890,7 @@ skills["SummonFireGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -7585,7 +7915,8 @@ skills["SummonFireGolem"] = {
 		"base_actor_scale_+%",
 		"fire_golem_grants_damage_+%",
 		"minion_maximum_life_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 15, 0, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },
@@ -7651,6 +7982,7 @@ skills["SummonRockGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -7675,7 +8007,8 @@ skills["SummonRockGolem"] = {
 		"base_actor_scale_+%",
 		"minion_maximum_life_+%",
 		"stone_golem_grants_base_life_regeneration_rate_per_minute",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 0, 1980, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },
@@ -8655,19 +8988,19 @@ skills["WarlordsMark"] = {
 		"base_deal_no_damage",
 	},
 	levels = {
-		[1] = { 40, 200, 200, levelRequirement = 24, statInterpolation = { 1, 1, 1, }, cost = { Mana = 16, }, },
-		[2] = { 41, 205, 205, levelRequirement = 27, statInterpolation = { 1, 1, 1, }, cost = { Mana = 17, }, },
-		[3] = { 42, 210, 210, levelRequirement = 30, statInterpolation = { 1, 1, 1, }, cost = { Mana = 18, }, },
-		[4] = { 43, 215, 215, levelRequirement = 33, statInterpolation = { 1, 1, 1, }, cost = { Mana = 19, }, },
-		[5] = { 44, 220, 220, levelRequirement = 36, statInterpolation = { 1, 1, 1, }, cost = { Mana = 21, }, },
-		[6] = { 45, 225, 225, levelRequirement = 39, statInterpolation = { 1, 1, 1, }, cost = { Mana = 22, }, },
-		[7] = { 46, 230, 230, levelRequirement = 42, statInterpolation = { 1, 1, 1, }, cost = { Mana = 23, }, },
-		[8] = { 47, 235, 235, levelRequirement = 45, statInterpolation = { 1, 1, 1, }, cost = { Mana = 24, }, },
-		[9] = { 48, 240, 240, levelRequirement = 48, statInterpolation = { 1, 1, 1, }, cost = { Mana = 25, }, },
-		[10] = { 49, 245, 245, levelRequirement = 50, statInterpolation = { 1, 1, 1, }, cost = { Mana = 26, }, },
-		[11] = { 50, 250, 250, levelRequirement = 52, statInterpolation = { 1, 1, 1, }, cost = { Mana = 26, }, },
-		[12] = { 51, 255, 255, levelRequirement = 54, statInterpolation = { 1, 1, 1, }, cost = { Mana = 27, }, },
-		[13] = { 52, 260, 260, levelRequirement = 56, statInterpolation = { 1, 1, 1, }, cost = { Mana = 28, }, },
+		[1] = { 40, 200, 200, levelRequirement = 16, statInterpolation = { 1, 1, 1, }, cost = { Mana = 16, }, },
+		[2] = { 41, 205, 205, levelRequirement = 20, statInterpolation = { 1, 1, 1, }, cost = { Mana = 17, }, },
+		[3] = { 42, 210, 210, levelRequirement = 24, statInterpolation = { 1, 1, 1, }, cost = { Mana = 18, }, },
+		[4] = { 43, 215, 215, levelRequirement = 28, statInterpolation = { 1, 1, 1, }, cost = { Mana = 19, }, },
+		[5] = { 44, 220, 220, levelRequirement = 31, statInterpolation = { 1, 1, 1, }, cost = { Mana = 21, }, },
+		[6] = { 45, 225, 225, levelRequirement = 34, statInterpolation = { 1, 1, 1, }, cost = { Mana = 22, }, },
+		[7] = { 46, 230, 230, levelRequirement = 37, statInterpolation = { 1, 1, 1, }, cost = { Mana = 23, }, },
+		[8] = { 47, 235, 235, levelRequirement = 40, statInterpolation = { 1, 1, 1, }, cost = { Mana = 24, }, },
+		[9] = { 48, 240, 240, levelRequirement = 43, statInterpolation = { 1, 1, 1, }, cost = { Mana = 25, }, },
+		[10] = { 49, 245, 245, levelRequirement = 46, statInterpolation = { 1, 1, 1, }, cost = { Mana = 26, }, },
+		[11] = { 50, 250, 250, levelRequirement = 49, statInterpolation = { 1, 1, 1, }, cost = { Mana = 26, }, },
+		[12] = { 51, 255, 255, levelRequirement = 52, statInterpolation = { 1, 1, 1, }, cost = { Mana = 27, }, },
+		[13] = { 52, 260, 260, levelRequirement = 55, statInterpolation = { 1, 1, 1, }, cost = { Mana = 28, }, },
 		[14] = { 53, 265, 265, levelRequirement = 58, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
 		[15] = { 54, 270, 270, levelRequirement = 60, statInterpolation = { 1, 1, 1, }, cost = { Mana = 29, }, },
 		[16] = { 55, 275, 275, levelRequirement = 62, statInterpolation = { 1, 1, 1, }, cost = { Mana = 30, }, },

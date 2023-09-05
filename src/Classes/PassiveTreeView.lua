@@ -57,6 +57,7 @@ local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.zoomY = 0
 
 	self.searchStr = ""
+	self.searchStrSaved = ""
 	self.searchStrCached = ""
 	self.searchStrResults = {}
 	self.showStatDifferences = true
@@ -74,9 +75,7 @@ function PassiveTreeViewClass:Load(xml, fileName)
 	end
 	if xml.attrib.searchStr then
 		self.searchStr = xml.attrib.searchStr
-	end
-	if xml.attrib.showHeatMap then
-		self.showHeatMap = xml.attrib.showHeatMap == "true"
+		self.searchStrSaved = xml.attrib.searchStr
 	end
 	if xml.attrib.showStatDifferences then
 		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
@@ -84,12 +83,12 @@ function PassiveTreeViewClass:Load(xml, fileName)
 end
 
 function PassiveTreeViewClass:Save(xml)
+	self.searchStrSaved = self.searchStr
 	xml.attrib = {
 		zoomLevel = tostring(self.zoomLevel),
 		zoomX = tostring(self.zoomX),
 		zoomY = tostring(self.zoomY),
 		searchStr = self.searchStr,
-		showHeatMap = tostring(self.showHeatMap),
 		showStatDifferences = tostring(self.showStatDifferences),
 	}
 end
@@ -292,6 +291,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				build.itemsTab:SelectControl(slot)
 				build.viewMode = "ITEMS"
 			end
+		elseif hoverNode and (hoverNode.isTattoo
+			or (hoverNode.type == "Normal" and (hoverNode.dn == "Strength" or hoverNode.dn == "Dexterity" or hoverNode.dn == "Intelligence"))
+			or (hoverNode.type == "Notable" and #hoverNode.sd > 0 and (hoverNode.sd[1]:match("+30 to Dexterity") or hoverNode.sd[1]:match("+30 to Strength") or hoverNode.sd[1]:match("+30 to Intelligence"))))
+		then
+			build.treeTab:ModifyNodePopup(hoverNode, viewPort)
+			build.buildFlag = true
 		elseif hoverNode and hoverNode.alloc and hoverNode.type == "Mastery" and hoverNode.masteryEffects then
 			build.treeTab:OpenMasteryPopup(hoverNode, viewPort)
 			build.buildFlag = true
@@ -440,7 +445,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			local searchWords = {}
 			for matchstring, v in search:gmatch('"([^"]*)"') do
 				searchWords[#searchWords+1] = matchstring
-				search = search:gsub('"'..matchstring..'"', "")
+				search = search:gsub('"'..matchstring:gsub("([%(%)])", "%%%1")..'"', "")
 			end
 			for matchstring, v in search:gmatch("(%S*)") do
 				if matchstring:match("%S") ~= nil then
@@ -521,6 +526,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				SetDrawLayer(nil, 15)
 			else
 				-- Normal node (includes keystones and notables)
+				if node.isTattoo and node.effectSprites then -- trees < 3.22.0 don't have effectSprites
+					effect = node.effectSprites["tattooActiveEffect"]
+				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
 			end
@@ -600,9 +608,11 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 		end
 
-		-- Draw master effect artwork
+		-- Draw mastery/tattoo effect artwork
 		if effect then
+			SetDrawLayer(nil, 15)
 			self:DrawAsset(effect, scrX, scrY, scale)
+			SetDrawLayer(nil, 25)
 		end
 
 		-- Draw base artwork
@@ -805,7 +815,7 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 
 	local function search(haystack, need)
 		for i=#need, 1, -1 do
-			if haystack:match(need[i]) then
+			if haystack:matchOrPattern(need[i]) then
 				table.remove(need, i)
 			end
 		end
@@ -844,6 +854,15 @@ function PassiveTreeViewClass:DoesNodeMatchSearchParams(node)
 	if err then return false end
 	if #needMatches == 0 then
 		return true
+	end
+
+	-- Check node id for devs
+	if launch.devMode then
+		err, needMatches = PCall(search, tostring(node.id), needMatches)
+		if err then return false end
+		if #needMatches == 0 then
+			return true
+		end
 	end
 end
 
@@ -923,7 +942,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 					modStr = (modStr and modStr..", " or "^2") .. modLib.formatMod(mod)
 				end
 				if node.mods[i].extra then
-					modStr = (modStr and modStr.."  " or "") .. "^1" .. node.mods[i].extra
+					modStr = (modStr and modStr.."  " or "") .. colorCodes.NEGATIVE .. node.mods[i].extra
 				end
 				if modStr then
 					line = line .. "  " .. modStr
@@ -963,17 +982,20 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 
 	if mNode.sd[1] and mNode.allMasteryOptions then
 		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, "^7Mastery node options are:")
+		tooltip:AddLine(14, "^7Available Mastery node options are:")
 		tooltip:AddLine(6, "")
 		local lineCount = 0
 		for n, effect in ipairs(mNode.masteryEffects) do
-			effect = build.spec.tree.masteryEffects[effect.effect]
-			for _, line in ipairs(effect.sd) do
-				lineCount = lineCount + 1
-				addModInfoToTooltip(mNode, lineCount, line)
-			end
-			if n < #mNode.masteryEffects then
-				tooltip:AddLine(6, "")
+			local existingMastery = isValueInTable(build.spec.masterySelections, effect.effect)
+			if not existingMastery then
+				effect = build.spec.tree.masteryEffects[effect.effect]
+				for _, line in ipairs(effect.sd) do
+					lineCount = lineCount + 1
+					addModInfoToTooltip(mNode, lineCount, line)
+				end
+				if n < #mNode.masteryEffects then
+					tooltip:AddLine(6, "")
+				end
 			end
 		end
 		tooltip:AddSeparator(24)
@@ -993,6 +1015,15 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		for _, line in ipairs(node.reminderText) do
 			tooltip:AddLine(14, "^xA0A080"..line)
 		end
+	end
+
+	-- Tattoo Editing
+	if node and (node.isTattoo
+			or (node.type == "Normal" and (node.dn == "Strength" or node.dn == "Dexterity" or node.dn == "Intelligence"))
+			or (node.type == "Notable" and #node.sd > 0 and (node.sd[1]:match("+30 to Dexterity") or node.sd[1]:match("+30 to Strength") or node.sd[1]:match("+30 to Intelligence"))))
+	then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Right click to edit the tattoo for this node")
 	end
 
 	-- Mod differences

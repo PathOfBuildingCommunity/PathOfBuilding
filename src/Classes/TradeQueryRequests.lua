@@ -15,6 +15,7 @@ local TradeQueryRequestsClass = newClass("TradeQueryRequests", function(self, ra
 		["search"] = {},
 		["fetch"] = {},
 	}
+	self.hostName = "https://www.pathofexile.com/"
 end)
 
 ---Main routine for processing request queue
@@ -91,10 +92,10 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 		if params.callbackQueryId and response and response.id then
 			params.callbackQueryId(response.id)
 		end
-		if errMsg then
+		if errMsg and ((errMsg == "No Matching Results Found" and currentRecursion >= maxRecursion) or errMsg ~= "No Matching Results Found") then
 			return callback(nil, errMsg)
 		end
-		if response.total < 10000  or currentRecursion >= maxRecursion then
+		if (response.total > self.maxFetchPerSearch and response.total < 10000) or currentRecursion >= maxRecursion then
 			-- Search not clipped or max recursion reached, fetch results and finalize
 			if previousSearchItems and self.maxFetchPerSearch > response.total then
 				-- Not enough items in the last search, fill results from previous search
@@ -143,21 +144,27 @@ function TradeQueryRequestsClass:SearchWithQueryWeightAdjusted(realm, league, qu
 				self:FetchResults(response.result, response.id,  callback)
 			end
 		else
-			-- Search clipped, fetch highest weight item, update query weight and repeat search
-			previousSearchItemIds = response.result
-			previousSearchId = response.id
-			local firstResultBatch = {unpack(response.result, 1, math.min(#response.result, 10))}
-			self:FetchResults(firstResultBatch, response.id, function(items, errMsg)
-				if errMsg then
-					return callback(nil, errMsg)
-				end
-				previousSearchItems = items
-				local highestWeight = items[1].weight
+			if response.total < self.maxFetchPerSearch then -- Less than maximum items retrieved lower weight to try and get more.
 				local queryJson = dkjson.decode(query)
-				queryJson.query.stats[1].value.min = (tonumber(highestWeight) + queryJson.query.stats[1].value.min) / 2
+				queryJson.query.stats[1].value.min = queryJson.query.stats[1].value.min / 2
 				query = dkjson.encode(queryJson)
 				self:PerformSearch(realm, league, query, performSearchCallback)
-			end)
+			else -- Search clipped, fetch highest weight item, update query weight and repeat search
+				previousSearchItemIds = response.result
+				previousSearchId = response.id
+				local firstResultBatch = {unpack(response.result, 1, math.min(#response.result, 10))}
+				self:FetchResults(firstResultBatch, response.id, function(items, errMsg)
+					if errMsg then
+						return callback(nil, errMsg)
+					end
+					previousSearchItems = items
+					local highestWeight = items[1].weight
+					local queryJson = dkjson.decode(query)
+					queryJson.query.stats[1].value.min = (tonumber(highestWeight) + queryJson.query.stats[1].value.min) / 2
+					query = dkjson.encode(queryJson)
+					self:PerformSearch(realm, league, query, performSearchCallback)
+				end)
+			end
 		end
 	end
 	self:PerformSearch(realm, league, query, performSearchCallback)
@@ -170,7 +177,7 @@ end
 ---@param callback fun(response:table, errMsg:string)
 function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 	table.insert(self.requestQueue["search"], {
-		url = self:buildUrl("https://www.pathofexile.com/api/trade/search", realm, league),
+		url = self:buildUrl(self.hostName .. "api/trade/search", realm, league),
 		body = query,
 		callback = function(response, errMsg)
 			if errMsg and not errMsg:find("Response code: 400") then
@@ -199,7 +206,7 @@ function TradeQueryRequestsClass:PerformSearch(realm, league, query, callback)
 						errMsg = "[ " .. response.error.code .. ": " .. response.error.message .. " ]"
 					end
 				else
-					ConPrintf("Found 0 results for " .. "https://www.pathofexile.com/trade/search/" .. league .. "/" .. response.id)
+					ConPrintf("Found 0 results for " .. self.hostName .. "api/trade/search/" .. league .. "/" .. response.id)
 					errMsg = "No Matching Results Found"
 				end
 				return callback(response, errMsg)
@@ -220,7 +227,7 @@ function TradeQueryRequestsClass:FetchResults(itemHashes, queryId, callback)
 	for fetch_block_start = 1, quantity_found, max_block_size do
 		local fetch_block_end = math.min(fetch_block_start + max_block_size - 1, quantity_found)
 		local param_item_hashes = table.concat({unpack(itemHashes, fetch_block_start, fetch_block_end)}, ",")
-		local fetch_url = "https://www.pathofexile.com/api/trade/fetch/"..param_item_hashes.."?query="..queryId
+		local fetch_url = self.hostName .. "api/trade/fetch/"..param_item_hashes.."?query="..queryId
 		self:FetchResultBlock(fetch_url, function(itemBlock, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
@@ -262,7 +269,7 @@ function TradeQueryRequestsClass:FetchResultBlock(url, callback)
 					currency = trade_entry.listing.price.currency,
 					item_string = common.base64.decode(trade_entry.item.extended.text),
 					whisper = trade_entry.listing.whisper,
-					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)"),
+					weight = trade_entry.item.pseudoMods and trade_entry.item.pseudoMods[1]:match("Sum: (.+)") or "0",
 					id = trade_entry.id
 				})
 			end
@@ -273,7 +280,7 @@ end
 
 ---@param callback fun(items:table, errMsg:string)
 function TradeQueryRequestsClass:SearchWithURL(url, callback)
-	local subpath = url:match("https://www.pathofexile.com/trade/search/(.+)$")
+	local subpath = url:match(self.hostName .. "trade/search/(.+)$")
 	local paths = {}
 	for path in subpath:gmatch("[^/]+") do
 		table.insert(paths, path)
@@ -300,7 +307,7 @@ end
 ---@param league string
 ---@param callback fun(query:string, errMsg:string)
 function TradeQueryRequestsClass:FetchSearchQuery(realm, league, queryId, callback)
-	local url = self:buildUrl("https://www.pathofexile.com/api/trade/search", realm, league, queryId)
+	local url = self:buildUrl(self.hostName .. "api/trade/search", realm, league, queryId)
 	table.insert(self.requestQueue["search"], {
 		url = url,
 		callback = function(response, errMsg)
@@ -327,7 +334,7 @@ function TradeQueryRequestsClass:FetchSearchQueryHTML(realm, league, queryId, ca
 		return callback(nil, "Please provide your POESESSID")
 	end
 	local header = "Cookie: POESESSID=" .. main.POESESSID
-	launch:DownloadPage(self:buildUrl("https://www.pathofexile.com/trade/search", realm, league, queryId),
+	launch:DownloadPage(self:buildUrl(self.hostName .. "trade/search", realm, league, queryId),
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
@@ -385,7 +392,7 @@ function TradeQueryRequestsClass:FetchRealmsAndLeaguesHTML(callback)
 	end
 	local header = "Cookie: POESESSID=" .. main.POESESSID
 	launch:DownloadPage(
-		"https://www.pathofexile.com/trade",
+		self.hostName .. "trade",
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)
@@ -410,7 +417,7 @@ end
 ---@param callback fun(query:table, errMsg:string)
 function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 	launch:DownloadPage(
-		"https://api.pathofexile.com/leagues?compact=1&realm=" .. realm,
+		self.hostName .. "api/leagues?compact=1&realm=" .. realm,
 		function(response, errMsg)
 			if errMsg then
 				return callback(nil, errMsg)

@@ -4,12 +4,12 @@
 return {
 	["Absolution"] = {
 		["MERCILESS"] = {
-			"20% increased Absolution Duration",
+			"20% increased Sentinel of Absolution Duration",
 			"8% increased Absolution Cast Speed",
 			"Summoned Sentinels of Absolution have 16% increased Area of Effect",
 		},
 		["ENDGAME"] = {
-			"30% increased Absolution Duration",
+			"30% increased Sentinel of Absolution Duration",
 			"12% increased Absolution Cast Speed",
 			"Summoned Sentinels of Absolution have 24% increased Area of Effect",
 		},
@@ -2053,11 +2053,11 @@ return {
 	},
 	["Rejuvenation Totem"] = {
 		["MERCILESS"] = {
-			"Gain 10% of Rejuvenation Totem Life Regeneration as extra Mana Regeneration",
+			"Rejuvenation Totem also grants Mana Regeneration equal to 10% of its Life Regeneration",
 			"30% increased Rejuvenation Totem Aura Effect",
 		},
 		["ENDGAME"] = {
-			"Gain 15% of Rejuvenation Totem Life Regeneration as extra Mana Regeneration",
+			"Rejuvenation Totem also grants Mana Regeneration equal to 15% of its Life Regeneration",
 			"45% increased Rejuvenation Totem Aura Effect",
 		},
 	},
@@ -2274,6 +2274,17 @@ return {
 		["ENDGAME"] = {
 			"30% increased Smoke Mine Duration",
 			"Smoke Mine grants additional 30% increased Movement Speed",
+		},
+	},
+	["Snipe"] = {
+		["MERCILESS"] = {
+			"10% increased Attack Speed with Snipe",
+			"35% chance to Avoid being Stunned while Channelling Snipe",
+		},
+		["ENDGAME"] = {
+			"+1 to maximum Snipe Stages",
+			"15% increased Attack Speed with Snipe",
+			"50% chance to Avoid being Stunned while Channelling Snipe",
 		},
 	},
 	["Sniper's Mark"] = {

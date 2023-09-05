@@ -26,7 +26,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 
 	self.charImportMode = "GETACCOUNTNAME"
 	self.charImportStatus = "Idle"
-	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 600, 250, "Character Import")
+	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 650, 250, "Character Import")
 	self.controls.charImportStatusLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 14, 200, 16, function()
 		return "^7Character import status: "..self.charImportStatus
 	end)
@@ -38,7 +38,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	end
 	self.controls.accountRealm = new("DropDownControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, 0, 4, 60, 20, realmList )
 	self.controls.accountRealm:SelByValue( main.lastRealm or "PC", "id" )
-	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, 8, 0, 200, 20, main.lastAccountName or "", nil, "%c")
+	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, 8, 0, 200, 20, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
 	self.controls.accountName.pasteFilter = function(text)
 		return text:gsub("[\128-\255]",function(c)
 			return codePointToUTF8(c:byte(1)):gsub(".",function(c)
@@ -154,11 +154,16 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end)
 
 	-- Build import/export
-	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 600, 182, "Build Sharing")
+	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 650, 182, "Build Sharing")
 	self.controls.generateCodeLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionBuild,"TOPLEFT"}, 6, 14, 0, 16, "^7Generate a code to share this build with other Path of Building users:")
 	self.controls.generateCode = new("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, 4, 0, 80, 20, "Generate", function()
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
 	end)
+	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, 100, 0, 18, "Export Support", function(state)
+		self.build.partyTab.enableExportBuffs = state
+		self.build.buildFlag = true 
+	--end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
+	end, "This is for party play, to export support character, it enables the exporting of auras and curses", false)
 	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, 0, 8, 250, 20, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
@@ -287,7 +292,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 	end
 
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle)
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle, nil, nil, true)
 	self.controls.importCodeIn.enterFunc = function()
 		if self.importCodeValid then
 			self.controls.importCodeGo.onClick()
@@ -337,6 +342,8 @@ function ImportTabClass:Load(xml, fileName)
 	self.lastRealm = xml.attrib.lastRealm
 	self.controls.accountRealm:SelByValue( self.lastRealm or main.lastRealm or "PC", "id" )
 	self.lastAccountHash = xml.attrib.lastAccountHash
+	self.controls.enablePartyExportBuffs.state = xml.attrib.exportParty == "true"
+	self.build.partyTab.enableExportBuffs = self.controls.enablePartyExportBuffs.state
 	if self.lastAccountHash then
 		for accountName in pairs(main.gameAccounts) do
 			if common.sha1(accountName) == self.lastAccountHash then
@@ -352,6 +359,7 @@ function ImportTabClass:Save(xml)
 		lastRealm = self.lastRealm,
 		lastAccountHash = self.lastAccountHash,
 		lastCharacterHash = self.lastCharacterHash,
+		exportParty = tostring(self.controls.enablePartyExportBuffs.state),
 	}
 end
 
@@ -560,6 +568,18 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 
+	if charPassiveData.skill_overrides then
+		for nodeId, override in pairs(charPassiveData.skill_overrides) do
+			override.id = nodeId
+			local modCount = 0
+			for _, statLine in ipairs(override.stats) do
+				self.build.spec:NodeAdditionOrReplacementFromString(override, statLine, modCount == 0)
+				modCount = modCount + 1
+			end
+			override.dn = override.name
+		end
+	end
+
 	if errMsg then
 		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 		return
@@ -580,7 +600,21 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {}, latestTreeVersion)
+	for classId, class in pairs(self.build.spec.tree.classes) do
+		if charData.class == class.name then
+			charData.classId = classId
+			charData.ascendancyClass = 0
+			break
+		end
+		for ascendId, ascendancyClass in pairs(class.ascendancies) do
+			if charData.class == ascendancyClass.name then
+				charData.classId = classId
+				charData.ascendancyClass = ascendId
+				break
+			end
+		end
+	end
+	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
@@ -733,8 +767,9 @@ function ImportTabClass:ImportItem(itemData, slotName)
 				end
 			end
 			item.name = oneHanded and "Energy Blade One Handed" or "Energy Blade Two Handed"
-			itemData.implicitMods = nil
-			itemData.explicitMods = nil
+			item.rarity = "NORMAL"
+			itemData.implicitMods = { }
+			itemData.explicitMods = { }
 		end
 		for baseName, baseData in pairs(self.build.data.itemBases) do
 			local s, e = item.name:find(baseName, 1, true)
@@ -812,7 +847,13 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.sockets and itemData.sockets[1] then
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
+			if socket.sColour == "A" then
+				item.abyssalSocketCount = item.abyssalSocketCount or 0 + 1
+			end
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
+		end
+		if item.abyssalSocketCount and item.abyssalSocketCount > 0 then
+			t_insert(itemData.explicitMods, "Has " .. item.abyssalSocketCount .. " Abyssal Sockets")
 		end
 	end
 	if itemData.socketedItems then
@@ -879,7 +920,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		for _, line in ipairs(itemData.crucibleMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
-				t_insert(item.crucibleModLines, { line = line, extra = extra, mods = modList or { } })
+				t_insert(item.crucibleModLines, { line = line, extra = extra, mods = modList or { }, crucible = true })
 			end
 		end
 	end

@@ -69,6 +69,13 @@ colorCodes.EVASION = colorCodes.POSITIVE
 colorCodes.RAGE = colorCodes.WARNING
 colorCodes.PHYS = colorCodes.NORMAL
 
+defaultColorCodes = copyTable(colorCodes)
+function updateColorCode(code, color)
+ 	if colorCodes[code] then
+		colorCodes[code] = color:gsub("^0", "^")
+	end
+end
+
 ModFlag = { }
 -- Damage modes
 ModFlag.Attack =	 0x00000001
@@ -283,6 +290,10 @@ SkillType = {
 	OwnerCannotUse = 123,
 	ProjectilesNotFired = 124,
 	TotemsAreBallistae = 125,
+	SkillGrantedBySupport = 126,
+	PreventHexTransfer = 127,
+	MinionsAreUndamageable = 128,
+	InnateTrauma = 129,
 }
 
 GlobalCache = { 

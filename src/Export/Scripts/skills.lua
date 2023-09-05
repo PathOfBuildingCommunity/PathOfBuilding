@@ -113,6 +113,10 @@ local skillTypes = {
 	"OwnerCannotUse",
 	"ProjectilesNotFired",
 	"TotemsAreBallistae",
+	"SkillGrantedBySupport",
+	"PreventHexTransfer",
+	"MinionsAreUndamageable",
+	"InnateTrauma",
 }
 
 local wellShitIGotThoseWrong = {
@@ -242,8 +246,13 @@ directiveTable.skill = function(state, args, out)
 		end
 		out:write('},\n')
 		out:write('\taddSkillTypes = { ')
+		skill.isTrigger = false
 		for _, type in ipairs(granted.AddTypes) do
-			out:write(mapAST(type), ', ')
+			local typeString = mapAST(type)
+			if typeString == "SkillType.Triggered" then
+				skill.isTrigger = true
+			end
+			out:write(typeString, ', ')
 		end
 		out:write('},\n')
 		out:write('\texcludeSkillTypes = { ')
@@ -251,6 +260,9 @@ directiveTable.skill = function(state, args, out)
 			out:write(mapAST(type), ', ')
 		end
 		out:write('},\n')
+		if skill.isTrigger then
+			out:write('\tisTrigger = true,\n')
+		end
 		if granted.SupportGemsOnly then
 			out:write('\tsupportGemsOnly = true,\n')
 		end
@@ -623,8 +635,8 @@ for skillGem in dat("SkillGems"):Rows() do
 		out:write('\t\treqStr = ', skillGem.Str, ',\n')
 		out:write('\t\treqDex = ', skillGem.Dex, ',\n')
 		out:write('\t\treqInt = ', skillGem.Int, ',\n')
-		local defaultLevel = #dat("ItemExperiencePerLevel"):GetRowList("BaseItemType", skillGem.BaseItemType)
-		out:write('\t\tdefaultLevel = ', defaultLevel > 0 and defaultLevel or 1, ',\n')
+		local naturalMaxLevel = #dat("ItemExperiencePerLevel"):GetRowList("ItemExperienceType", skillGem.GemLevelProgression)
+		out:write('\t\tnaturalMaxLevel = ', naturalMaxLevel > 0 and naturalMaxLevel or 1, ',\n')
 		out:write('\t},\n')
 	end
 end

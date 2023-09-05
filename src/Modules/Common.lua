@@ -12,6 +12,7 @@ local m_abs = math.abs
 local m_floor = math.floor
 local m_min = math.min
 local m_max = math.max
+local m_ceil = math.ceil
 local s_format = string.format
 local s_char = string.char
 local b_rshift = bit.rshift
@@ -503,6 +504,27 @@ function tableConcat(t1,t2)
 	return t3
 end
 
+--- Simple table value equality
+---@param t1 table
+---@param t2 table
+---@return boolean
+function tableDeepEquals(t1, t2)
+	if t1 == t2 then
+		return true
+	end
+	if not t1 or not t2 or #t1 ~= #t2 then
+		return false
+	end
+	for k, v1 in pairs(t1) do
+		local v2 = t2[k]
+		local typeV1 = type(v1)
+		if not (typeV1 == type(v2) and (typeV1 == "table" and tableDeepEquals(v1, v2) or v1 == v2)) then
+			return false
+		end
+	end
+	return true
+end
+
 -- Natural sort comparator
 function naturalSortCompare(a, b)
 	local aIndex, bIndex = 1, 1
@@ -571,7 +593,7 @@ end
 function formatNumSep(str)
 	return string.gsub(str, "(%^?x?%x?%x?%x?%x?%x?%x?-?%d+%.?%d+)", function(m)
 		local colour = m:match("(^x%x%x%x%x%x%x)") or m:match("(%^%d)") or ""
-		local str = m:gsub("(^x%x%x%x%x%x%x)", "") or m:gsub("(%^%d)", "")
+		local str = m:gsub("(^x%x%x%x%x%x%x)", ""):gsub("(%^%d)", "")
 		if str == "" or (colour == "" and m:match("%^")) then  -- return if we have an invalid color code or a completely stripped number.
 			return m
 		end
@@ -661,21 +683,30 @@ function zip(a, b)
 end
 
 -- Generate a UUID for a skill
-function cacheSkillUUID(skill)
+function cacheSkillUUID(skill, env)
 	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
-	local strSlotName = (skill.slotName or "NO_SLOT"):gsub("%s+", "") -- strip spaces
-	local indx = 1
+	local strSlotName = (skill.socketGroup and skill.socketGroup.slot and skill.socketGroup.slot:upper() or "NO_SLOT"):gsub("%s+", "") -- strip spaces
+	local slotIndx = 1
+	local groupIdx = 1
 	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.srcInstance then
 		for idx, gem in ipairs(skill.socketGroup.gemList) do
 			-- we compare table addresses rather than names since two of the same gem
 			-- can be socketed in the same slot
 			if gem == skill.activeEffect.srcInstance then
-				indx = idx
+				slotIndx = idx
 				break
 			end
 		end
 	end
-	return strName.."_"..strSlotName.."_"..tostring(indx)
+
+	for i, group in ipairs(env.build.skillsTab.socketGroupList) do
+		if skill.socketGroup == group then
+			groupIdx = i
+			break
+		end
+	end
+
+	return strName.."_"..strSlotName.."_"..tostring(slotIndx) .. "_" .. tostring(groupIdx)
 end
 
 -- Global Cache related
@@ -703,13 +734,6 @@ function cacheData(uuid, env)
 		ActiveSkill = env.player.mainSkill,
 		Env = env,
 	}
-end
-
--- Obtain a stored cached processed skill identified by
---   its UUID and pulled from an appropriate env mode (e.g., MAIN)
-function getCachedData(skill, mode)
-	local uuid = cacheSkillUUID(skill)
-	return GlobalCache.cachedData[mode][uuid]
 end
 
 -- Add an entry for a fabricated skill (e.g., Mirage Archers)
@@ -757,18 +781,6 @@ function wipeGlobalCache()
 	GlobalCache.noCache = nil
 end
 
--- Full DPS related: add to roll-up exclusion list
--- this is for skills that are used by Mirage Warriors for example
-function addToFullDpsExclusionList(skill)
-	--ConPrintf("ADDING TO FULL DPS EXCLUDE: " .. cacheSkillUUID(skill))
-	GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)] = true
-end
-
--- Full DPS related: check if skill is in roll-up exclusion list
-function isExcludedFromFullDps(skill)
-	return GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)]
-end
-
 -- Check if a specific named gem is enabled in a socket group belonging to a skill
 function supportEnabled(skillName, activeSkill)
 	for _, gemInstance in ipairs(activeSkill.socketGroup.gemList) do
@@ -786,7 +798,11 @@ function stringify(thing)
 		return ""..thing;
 	elseif type(thing) == 'table' then
 		local s = "{";
-		for k,v in pairs(thing) do
+		local keys = { }
+		for key in pairs(thing) do table.insert(keys, key) end
+		table.sort(keys)
+		for _, k in ipairs(keys) do
+			local v = thing[k]
 			s = s.."\n\t"
 			if type(k) == 'number' then
 				s = s.."["..k.."] = "
@@ -825,6 +841,17 @@ function string:split(sep)
 	return fields
 end
 
+-- Ceil function with optional base parameter
+function ceil_b(x, base)
+	base = base or 1
+	return base * m_ceil(x/base)
+end
+
+-- Ceil function with optional base parameter
+function floor_b(x, base)
+	base = base or 1
+	return base * m_floor(x/base)
+end
 
 function urlEncode(str)
 	local charToHex = function(c)
@@ -838,4 +865,47 @@ function urlDecode(str)
 		return s_char(tonumber(x, 16))
 	end
 	return str:gsub("%%(%x%x)", hexToChar)
+end
+
+function string:matchOrPattern(pattern)
+	local function generateOrPatterns(pattern)
+		local subGroups = {}
+		local index = 1
+		-- find and call generate patterns on all subGroups
+		for subGroup in pattern:gmatch("%b()") do
+			local open, close = pattern:find(subGroup, (subGroups[index] and subGroups[index].close or 1), true)
+			t_insert(subGroups, { open = open, close = close, patterns = generateOrPatterns(subGroup:sub(2,-2)) })
+			index = index + 1
+		end
+
+		-- generate complete patterns from the subGroup patterns
+		local generatedPatterns = { pattern:sub(1, (subGroups[1] and subGroups[1].open or 0) - 1) }
+		for i, subGroup in ipairs(subGroups) do
+			local regularNextString = pattern:sub(subGroup.close + 1, (subGroups[i+1] and subGroups[i+1].open or 0) - 1)
+			local tempPatterns = {}
+			for _, subPattern in ipairs(generatedPatterns) do
+				for subGroupPattern in pairs(subGroup.patterns) do
+					t_insert(tempPatterns, subPattern..subGroupPattern..regularNextString)
+				end
+			end
+			generatedPatterns = tempPatterns
+		end
+
+		-- apply | operators
+		local orPatterns = { }
+		for _, generatedPattern in ipairs(generatedPatterns) do
+			for orPattern in generatedPattern:gmatch("[^|]+") do
+				orPatterns[orPattern] = true -- store string as key to avoid duplicates.
+			end
+		end
+		return orPatterns
+	end
+
+	local orPatterns = generateOrPatterns(pattern)
+	for orPattern in pairs(orPatterns) do
+		if self:match(orPattern) then
+			return true
+		end
+	end
+	return false
 end
