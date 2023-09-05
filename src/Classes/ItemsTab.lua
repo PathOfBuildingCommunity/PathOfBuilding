@@ -1901,10 +1901,10 @@ function ItemsTabClass:CraftItem()
 		item.implicitModLines = { }
 		item.explicitModLines = { }
 		item.crucibleModLines = { }
-		if base.base.type ~= "Amulet" and base.base.type ~= "Belt" and base.base.type ~= "Jewel" and base.base.type ~= "Quiver" and base.base.type ~= "Ring" then
-			item.quality = 0
-		else
+		if base.base.type ~= "Amulet" or base.base.type ~= "Belt" or base.base.type ~= "Jewel" or base.base.type ~= "Quiver" or base.base.type ~= "Ring" then
 			item.quality = nil
+		else
+			item.quality = 0
 		end
 		local raritySel = controls.rarity.selIndex
 		if base.base.flask then
