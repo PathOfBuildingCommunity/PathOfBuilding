@@ -173,20 +173,25 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 
 	-- Control for setting max node depth to limit calculation time of the heat map
-	self.controls.nodePowerMaxDepthSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 50, 20, "Node Depth:", function(index, value)
+	self.controls.nodePowerMaxDepthSelect = new("DropDownControl", 
+	{ "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 50, 20, {"All", 5, 10 , 15}, function(index, value)
+		local oldMax = self.build.calcsTab.nodePowerMaxDepth
+
 		if type(value) == "number" then
 			self.build.calcsTab.nodePowerMaxDepth = value
 		else
 			self.build.calcsTab.nodePowerMaxDepth = nil
 		end
 
-		-- If the heat map is shown, tell it to recalculate with the current value
-		if self.viewer.showHeatMap then
-			self:SetPowerCalc(self.build.calcsTab.powerStat)
+		-- If the heat map is shown, tell it to recalculate
+		-- if the new value is larger than the old
+		if oldMax ~= value and self.viewer.showHeatMap then
+			if oldMax ~= nil and (self.build.calcsTab.nodePowerMaxDepth == nil or self.build.calcsTab.nodePowerMaxDepth > oldMax) then
+				self:SetPowerCalc(self.build.calcsTab.powerStat)
+			end
 		end
 	end)
 	self.controls.nodePowerMaxDepthSelect.tooltipText = "Limit of Node Distance To Search (lower = faster)"
-	self.controls.nodePowerMaxDepthSelect.list = {"All", 5, 10}
 
 	-- Control for selecting the power stat to sort by (Defense, DPS, etc)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.nodePowerMaxDepthSelect, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
@@ -435,10 +440,6 @@ function TreeTabClass:SetCompareSpec(specId)
 end
 
 function TreeTabClass:OpenSpecManagePopup()
---	local importTree = 
---		new("ButtonControl", { "LEFT", nil, "RIGHT" }, -328, 124, 90, 20, "Import Tree", function()
---			self:OpenImportPopup()
---		end)
 	local importTree = 
 		new("ButtonControl", nil, -99, 259, 90, 20, "Import Tree", function()
 			self:OpenImportPopup()
