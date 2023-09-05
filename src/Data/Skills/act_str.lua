@@ -3450,7 +3450,6 @@ skills["FrozenLegion"] = {
 	},
 	baseFlags = {
 		spell = true,
-		mirage = true,
 	},
 	qualityStats = {
 		Default = {
@@ -3591,6 +3590,7 @@ skills["FrozenSweep"] = {
 		attack = true,
 		area = true,
 		melee = true,
+		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 25),

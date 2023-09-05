@@ -361,7 +361,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1,2}{tags:attack}+(300-350) to Accuracy Rating
 {variant:1}{tags:jewellery_defense}+(60-80) to Armour
-{variant:2}{tags:jewellery_defense}}+(260-300) to Armour
+{variant:2}{tags:jewellery_defense}+(260-300) to Armour
 {variant:2}{tags:life}+(40-50) to maximum Life
 {variant:1,2}{tags:jewellery_resistance}+(15-20)% to Chaos Resistance
 {variant:1,2}{tags:attack,life}(0.6-0.8)% of Physical Attack Damage Leeched as Life
