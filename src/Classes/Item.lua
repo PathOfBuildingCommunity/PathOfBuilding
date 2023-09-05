@@ -231,24 +231,36 @@ function ItemClass:FindModifierSubstring(substring, itemSlotName)
 	for _,v in pairs(self.crucibleModLines) do t_insert(modLines, v) end
 
 	for _,v in pairs(modLines) do
-		if v.line:lower():find(substring) and not v.line:lower():find(substring .. " modifier") then
-			local excluded = false
-			if data.itemTagSpecialExclusionPattern[substring] and data.itemTagSpecialExclusionPattern[substring][itemSlotName] then
-				for _, specialMod in ipairs(data.itemTagSpecialExclusionPattern[substring][itemSlotName]) do
-					if v.line:lower():find(specialMod:lower()) then
-						excluded = true
-						break
-					end
+		local currentVariant = false
+		if v.variantList then
+			for variant, enabled in pairs(v.variantList) do
+				if enabled and variant == self.variant then
+					currentVariant = true
 				end
 			end
-			if not excluded then
-				return true
-			end
+		else
+			currentVariant = true
 		end
-		if data.itemTagSpecial[substring] and data.itemTagSpecial[substring][itemSlotName] then
-			for _, specialMod in ipairs(data.itemTagSpecial[substring][itemSlotName]) do
-				if v.line:lower():find(specialMod:lower()) and (not v.variantList or v.variantList[self.variant]) then
+		if currentVariant then
+			if v.line:lower():find(substring) and not v.line:lower():find(substring .. " modifier") then
+				local excluded = false
+				if data.itemTagSpecialExclusionPattern[substring] and data.itemTagSpecialExclusionPattern[substring][itemSlotName] then
+					for _, specialMod in ipairs(data.itemTagSpecialExclusionPattern[substring][itemSlotName]) do
+						if v.line:lower():find(specialMod:lower()) then
+							excluded = true
+							break
+						end
+					end
+				end
+				if not excluded then
 					return true
+				end
+			end
+			if data.itemTagSpecial[substring] and data.itemTagSpecial[substring][itemSlotName] then
+				for _, specialMod in ipairs(data.itemTagSpecial[substring][itemSlotName]) do
+					if v.line:lower():find(specialMod:lower()) and (not v.variantList or v.variantList[self.variant]) then
+						return true
+					end
 				end
 			end
 		end
