@@ -852,7 +852,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			end
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
 		end
-		if item.abyssalSocketCount and item.abyssalSocketCount > 0 then
+		if item.abyssalSocketCount and item.abyssalSocketCount > 0 and item.name:match("Energy Blade") then
 			t_insert(itemData.explicitMods, "Has " .. item.abyssalSocketCount .. " Abyssal Sockets")
 		end
 	end

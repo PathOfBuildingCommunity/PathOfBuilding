@@ -369,7 +369,6 @@ return {
 	end },
 	{ label = "Fresh Meat:", ifSkill = "Fresh Meat" },
 	{ var = "freshMeatBuffs", type = "check", label = "Is Fresh Meat active?", ifSkill = "Fresh Meat", apply = function(val, modList, enemyModList)
-		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:Adrenaline", "FLAG", true, "Fresh Meat", { type = "Condition", var = "Combat" })}, "Config")
 		modList:NewMod("Condition:FreshMeatActive", "FLAG", true, "Config")
 	end },
 	{ label = "Frost Shield:", ifSkill = "Frost Shield" },

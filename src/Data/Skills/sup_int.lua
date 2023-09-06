@@ -2545,6 +2545,13 @@ skills["SupportFreshMeat"] = {
 		["support_recent_minions_additional_critical_strike_multiplier_from_wakened_fury"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
 		},
+		["support_recent_minions_life_leech_from_any_damage_permyriad_from_wakened_fury"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DamageLifeLeech", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
+			div = 100,
+		},
+	},
+	baseMods = {
+		mod("MinionModifier", "LIST", { mod = mod("Condition:Adrenaline", "FLAG", true) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
 	},
 	qualityStats = {
 		Default = {
