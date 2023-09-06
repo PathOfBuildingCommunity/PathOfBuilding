@@ -3295,6 +3295,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextCloseRange"
+					},
 					limit={
 						[1]={
 							[1]="#",
