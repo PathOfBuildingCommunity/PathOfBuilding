@@ -435,8 +435,10 @@ function TreeTabClass:ConvertToVersion(version, remove, success)
 	t_insert(self.specList, self.activeSpec + 1, newSpec)
 	if remove then
 		t_remove(self.specList, self.activeSpec)
+		self:SetActiveSpec(self.activeSpec)
+	else
+		self:SetActiveSpec(self.activeSpec + 1)
 	end
-	self:SetActiveSpec(self.activeSpec + 1)
 	self.modFlag = true
 	if success then
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
