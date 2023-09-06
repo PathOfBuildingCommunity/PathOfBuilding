@@ -435,6 +435,7 @@ function TreeTabClass:ConvertToVersion(version, remove, success)
 	t_insert(self.specList, self.activeSpec + 1, newSpec)
 	if remove then
 		t_remove(self.specList, self.activeSpec)
+		-- activeSpec + 1 is shifted down one on remove, otherwise we would set the spec below it if it exists
 		self:SetActiveSpec(self.activeSpec)
 	else
 		self:SetActiveSpec(self.activeSpec + 1)
