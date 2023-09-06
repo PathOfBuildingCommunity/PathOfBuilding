@@ -34,6 +34,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
 
+	-- Tree list dropdown
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self.build.modFlag = true
@@ -87,6 +88,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			end
 		end
 	end
+
+	-- Compare checkbox
 	self.controls.compareCheck = new("CheckBoxControl", { "LEFT", self.controls.specSelect, "RIGHT" }, 74, 0, 20, "Compare:", function(state)
 		self.isComparing = state
 		self:SetCompareSpec(self.activeCompareSpec)
@@ -97,6 +100,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self.controls.reset:SetAnchor("LEFT", self.controls.compareCheck, "RIGHT", nil, nil, nil)
 		end
 	end)
+
+	-- Compare tree dropdown
 	self.controls.compareSelect = new("DropDownControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self:SetCompareSpec(index)
@@ -114,12 +119,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self.build.buildFlag = true
 		end)
 	end)
-	self.controls.import = new("ButtonControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 90, 20, "Import Tree", function()
-		self:OpenImportPopup()
-	end)
-	self.controls.export = new("ButtonControl", { "LEFT", self.controls.import, "RIGHT" }, 8, 0, 90, 20, "Export Tree", function()
-		self:OpenExportPopup()
-	end)
+
+	-- Convert notification
 	local function convertToVersion(version)
 		local newSpec = new("PassiveSpec", self.build, version, true)
 		newSpec.title = self.build.spec.title
@@ -131,11 +132,13 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.modFlag = true
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
 	end
+
+	-- Tree Version Dropdown
 	self.treeVersions = { }
 	for _, num in ipairs(treeVersionList) do
 		t_insert(self.treeVersions, treeVersions[num].display)
 	end
-	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, 0, 16, "Version:")
+	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 0, 16, "Version:")
 	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
 		if value ~= self.build.spec.treeVersion then
 			convertToVersion(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"))
@@ -145,14 +148,20 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.versionSelect.enableDroppedWidth = true
 	self.controls.versionSelect.enableChangeBoxWidth = true
 	self.controls.versionSelect.selIndex = #self.treeVersions
+	
+	-- Tree Search Textbox
 	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.versionSelect, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c", 100, function(buf)
 		self.viewer.searchStr = buf
 		self.searchFlag = buf ~= self.viewer.searchStrSaved
 	end, nil, nil, true)
 	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
+
+	-- Find Timeless Jewel Button
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
 	end)
+
+	-- Show Node Power Checkbox
 	self.controls.treeHeatMap = new("CheckBoxControl", { "LEFT", self.controls.findTimelessJewel, "RIGHT" }, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
@@ -162,7 +171,30 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self:TogglePowerReport()
 		end
 	end)
-	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
+
+	-- Control for setting max node depth to limit calculation time of the heat map
+	self.controls.nodePowerMaxDepthSelect = new("DropDownControl", 
+	{ "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 50, 20, { "All", 5, 10, 15 }, function(index, value)
+		local oldMax = self.build.calcsTab.nodePowerMaxDepth
+
+		if type(value) == "number" then
+			self.build.calcsTab.nodePowerMaxDepth = value
+		else
+			self.build.calcsTab.nodePowerMaxDepth = nil
+		end
+
+		-- If the heat map is shown, tell it to recalculate
+		-- if the new value is larger than the old
+		if oldMax ~= value and self.viewer.showHeatMap then
+			if oldMax ~= nil and (self.build.calcsTab.nodePowerMaxDepth == nil or self.build.calcsTab.nodePowerMaxDepth > oldMax) then
+				self:SetPowerCalc(self.build.calcsTab.powerStat)
+			end
+		end
+	end)
+	self.controls.nodePowerMaxDepthSelect.tooltipText = "Limit of Node distance to search (lower = faster)"
+
+	-- Control for selecting the power stat to sort by (Defense, DPS, etc)
+	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.nodePowerMaxDepthSelect, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
 	end)
 	self.controls.treeHeatMap.tooltipText = function()
@@ -177,6 +209,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end
 	end
 
+	-- Show/Hide Power Report Button
 	self.controls.powerReport = new("ButtonControl", { "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, 8, 0, 150, 20, self.showPowerReport and "Hide Power Report" or "Show Power Report", function()
 		self.showPowerReport = not self.showPowerReport
 		self:TogglePowerReport()
@@ -407,9 +440,20 @@ function TreeTabClass:SetCompareSpec(specId)
 end
 
 function TreeTabClass:OpenSpecManagePopup()
+	local importTree = 
+		new("ButtonControl", nil, -99, 259, 90, 20, "Import Tree", function()
+			self:OpenImportPopup()
+		end)
+	local exportTree =
+		new("ButtonControl", { "LEFT", importTree, "RIGHT" }, 8, 0, 90, 20, "Export Tree", function()
+			self:OpenExportPopup()
+		end)
+
 	main:OpenPopup(370, 290, "Manage Passive Trees", {
 		new("PassiveSpecListControl", nil, 0, 50, 350, 200, self),
-		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+		importTree,
+		exportTree,
+		new("ButtonControl", {"LEFT", exportTree, "RIGHT"}, 8, 0, 90, 20, "Done", function()
 			main:ClosePopup()
 		end),
 	})
