@@ -3069,15 +3069,6 @@ skills["ViciousHexExplosion"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Chaos] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SkillGrantedBySupport] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "No Overlaps",
-		},
-		{
-			name = "Overlaps (# hits per cast)",
-			stages = true,
-		}
-	},
 	baseFlags = {
 		spell = true,
 		area = true,
