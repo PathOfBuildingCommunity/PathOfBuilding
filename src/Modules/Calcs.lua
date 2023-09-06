@@ -226,15 +226,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					usedEnv = cachedData.Env
 					activeSkill = usedEnv.player.mainSkill
 				else
-					local forceCache = false
-					if GlobalCache.noCache then 
-						forceCache = true
-						GlobalCache.noCache = nil
-					end
 					fullEnv.player.mainSkill = activeSkill
-					calcs.perform(fullEnv, true, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
+					calcs.perform(fullEnv, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
 					usedEnv = fullEnv
-					GlobalCache.noCache = forceCache
 				end
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
@@ -428,35 +422,6 @@ function calcs.buildOutput(build, mode)
 	calcs.perform(env)
 
 	local output = env.player.output
-	
-	for _, skill in ipairs(env.player.activeSkillList) do
-		local uuid = cacheSkillUUID(skill, env)
-		if not GlobalCache.cachedData["CACHE"][uuid] then
-			calcs.buildActiveSkill(env, "CACHE", skill)
-		end
-		if GlobalCache.cachedData["CACHE"][uuid] then
-			output.EnergyShieldProtectsMana = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
-			for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
-				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
-				if cachedCost then
-					local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
-					if totalPool < cachedCost then
-						output[costResource.."Warning"] = output[costResource.."Warning"] or {}
-						t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
-					end
-				end
-			end
-			for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["ManaUnreservedPercent"] = "ManaPercentCost"}) do
-				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
-				if cachedCost then
-					if (output[pool] or 0) < cachedCost then
-						output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or {}
-						t_insert(output[costResource.."PercentCostWarning"], skill.activeEffect.grantedEffect.name)
-					end
-				end
-			end
-		end
-	end
 
 	-- Build output across all skills added to FullDPS skills
 	GlobalCache.noCache = true
@@ -469,6 +434,35 @@ function calcs.buildOutput(build, mode)
 	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 
 	if mode == "MAIN" then
+		for _, skill in ipairs(env.player.activeSkillList) do
+			local uuid = cacheSkillUUID(skill, env)
+			if not GlobalCache.cachedData["CACHE"][uuid] then
+				calcs.buildActiveSkill(env, "CACHE", skill)
+			end
+			if GlobalCache.cachedData["CACHE"][uuid] then
+				output.EnergyShieldProtectsMana = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
+				for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
+					local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
+					if cachedCost then
+						local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
+						if totalPool < cachedCost then
+							output[costResource.."Warning"] = output[costResource.."Warning"] or {}
+							t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
+						end
+					end
+				end
+				for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["ManaUnreservedPercent"] = "ManaPercentCost"}) do
+					local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
+					if cachedCost then
+						if (output[pool] or 0) < cachedCost then
+							output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or {}
+							t_insert(output[costResource.."PercentCostWarning"], skill.activeEffect.grantedEffect.name)
+						end
+					end
+				end
+			end
+		end
+	
 		output.ExtraPoints = env.modDB:Sum("BASE", nil, "ExtraPoints")
 
 		local specCfg = {

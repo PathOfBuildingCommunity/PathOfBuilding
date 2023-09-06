@@ -871,8 +871,7 @@ end
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env, avoidCache, fullDPSSkipEHP)
-	local avoidCache = avoidCache or false
+function calcs.perform(env,fullDPSSkipEHP)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
 	
