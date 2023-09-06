@@ -285,6 +285,14 @@ You can get this from your web browser's cookies while logged into the Path of E
 				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML)
 				self.build.viewMode = "TREE"
 			end)
+		elseif self.controls.importCodeMode.selIndex == 3 then
+			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing will overwrite the existing configuration.", "Import", function()
+				if self.build:UpdateConfig(self.importCodeXML) then
+					self.build.viewMode = "CONFIG"
+				else
+					self.build.viewMode = "IMPORT"
+				end
+			end)
 		else
 			self.build:Shutdown()
 			self.build:Init(false, "Imported build", self.importCodeXML)
@@ -302,7 +310,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.importCodeState.label = function()
 		return self.importCodeDetail or ""
 	end
-	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build" })
+	self.controls.importCodeMode = new("DropDownControl", {"TOPLEFT",self.controls.importCodeIn,"BOTTOMLEFT"}, 0, 4, 160, 20, { "Import to this build", "Import to a new build",  "Import configuration only" })
 	self.controls.importCodeMode.enabled = function()
 		return self.build.dbFileName and self.importCodeValid
 	end

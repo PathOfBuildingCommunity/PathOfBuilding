@@ -732,6 +732,30 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.abortSave = false
 end
 
+function buildMode:UpdateConfig(newXML)
+	local dbXML, errMsg = common.xml.ParseXML(newXML)
+	if not dbXML then
+		launch:ShowErrMsg("^1Error loading new configuration: %s", errMsg)
+		return false
+	elseif dbXML[1].elem ~= "PathOfBuilding" then
+		launch:ShowErrMsg("^1Error parsing new configuration: 'PathOfBuilding' root element missing")
+		return false
+	end
+	-- self.configTab.Load(self.configTab, newXml)
+	for _, node in ipairs(dbXML[1]) do
+		-- Check if there is a saver that can load this section
+		if node.elem == "Config" then
+			local saver = self.savers[node.elem]
+				if saver:Load(node, self.dbFileName) then
+					self:CloseBuild()
+					return true
+				end
+		end
+	end
+	launch:ShowErrMsg("^1Error parsing new configuration: 'Config' element missing")
+  return false
+end
+
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
 	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
