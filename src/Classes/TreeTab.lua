@@ -120,19 +120,6 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end)
 	end)
 
-	-- Convert notification
-	local function convertToVersion(version)
-		local newSpec = new("PassiveSpec", self.build, version, true)
-		newSpec.title = self.build.spec.title
-		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), version)
-		newSpec:BuildClusterJewelGraphs()
-		t_insert(self.specList, self.activeSpec + 1, newSpec)
-		self:SetActiveSpec(self.activeSpec + 1)
-		self.modFlag = true
-		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
-	end
-
 	-- Tree Version Dropdown
 	self.treeVersions = { }
 	for _, num in ipairs(treeVersionList) do
@@ -440,18 +427,16 @@ function TreeTabClass:SetCompareSpec(specId)
 end
 
 function TreeTabClass:ConvertToVersion(version, remove, success)
-	local newSpec = new("PassiveSpec", self.build, version, true)
+	local newSpec = new("PassiveSpec", self.build, version)
 	newSpec.title = self.build.spec.title
 	newSpec.jewels = copyTable(self.build.spec.jewels)
 	newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), version)
 	newSpec:BuildClusterJewelGraphs()
 	t_insert(self.specList, self.activeSpec + 1, newSpec)
-	-- if we setActive after removing, it loads the spec below => no need to setActive
 	if remove then
 		t_remove(self.specList, self.activeSpec)
-	else
-		self:SetActiveSpec(self.activeSpec + 1)
 	end
+	self:SetActiveSpec(self.activeSpec + 1)
 	self.modFlag = true
 	if success then
 		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
