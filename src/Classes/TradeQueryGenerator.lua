@@ -924,6 +924,19 @@ function TradeQueryGeneratorClass:FinishQuery()
 		end
 	end
 
+	if options.maxLevel and options.maxLevel > 0 then
+		queryTable.query.filters.req_filters = {
+			disabled = false,
+			filters = {
+				lvl = {
+					max = options.maxLevel
+				}
+			}
+		}
+	end
+
+	
+	
 	if options.maxPrice and options.maxPrice > 0 then
 		queryTable.query.filters.trade_filters = {
 			filters = {
@@ -957,7 +970,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 	local controls = { }
 	local options = { }
-	local popupHeight = 97
+	local popupHeight = 110
 
 	local isJewelSlot = slot and slot.slotName:find("Jewel") ~= nil
 	local isAbyssalJewelSlot = slot and slot.slotName:find("Abyssal") ~= nil
@@ -1052,6 +1065,13 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "^7Max Price:")
 	lastItemAnchor = controls.maxPrice
 	popupHeight = popupHeight + 23
+
+	
+	controls.maxLevel = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, nil, nil, "%D", nil, function(buf) end)
+	controls.maxLevelLabel = new("LabelControl", {"RIGHT",controls.maxLevel,"LEFT"}, -5, 0, 0, 16, "Max Level:")
+
+	lastItemAnchor = controls.maxLevel
+	popupHeight = popupHeight + 23
 	
 	for i, stat in ipairs(statWeights) do
 		controls["sortStatType"..tostring(i)] = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, i == 1 and 5 or 3, 70, 16, i < (#statWeights < 6 and 10 or 5) and s_format("^7%.2f: %s", stat.weightMult, stat.label) or ("+ "..tostring(#statWeights - 4).." Additional Stats"))
@@ -1081,6 +1101,9 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 		if controls.includeCorrupted then
 			self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
+		end
+		if controls.maxLevel.buf then
+			options.maxLevel = tonumber(controls.maxLevel.buf)
 		end
 		if controls.includeSynthesis then
 			self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
