@@ -174,7 +174,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 
 	-- Control for setting max node depth to limit calculation time of the heat map
 	self.controls.nodePowerMaxDepthSelect = new("DropDownControl", 
-	{ "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 50, 20, {"All", 5, 10 , 15}, function(index, value)
+	{ "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 50, 20, { "All", 5, 10, 15 }, function(index, value)
 		local oldMax = self.build.calcsTab.nodePowerMaxDepth
 
 		if type(value) == "number" then
@@ -191,7 +191,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			end
 		end
 	end)
-	self.controls.nodePowerMaxDepthSelect.tooltipText = "Limit of Node Distance To Search (lower = faster)"
+	self.controls.nodePowerMaxDepthSelect.tooltipText = "Limit of Node distance to search (lower = faster)"
 
 	-- Control for selecting the power stat to sort by (Defense, DPS, etc)
 	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.nodePowerMaxDepthSelect, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
