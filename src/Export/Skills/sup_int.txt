@@ -417,15 +417,6 @@ local skills, mod, flag, skill = ...
 
 #skill ViciousHexExplosion
 #flags spell area
-	parts = {
-		{
-			name = "No Overlaps",
-		},
-		{
-			name = "Overlaps (# hits per cast)",
-			stages = true,
-		}
-	},
 #baseMod skill("radius", 20)
 #mods
 

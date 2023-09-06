@@ -915,9 +915,11 @@ local function defaultTriggerHandler(env, config)
 				output.TriggerRateCap = 1 / rateCapAdjusted
 			end
 			
-
-			if source and source.skillData.triggeredByCurseOnCurse and trigRate > output.TriggerRateCap then
-				trigRate = trigRate - m_ceil(trigRate - output.TriggerRateCap)
+			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
+				trigRate = 1 / GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration
+				if breakdown and breakdown.EffectiveSourceRate then
+						breakdown.EffectiveSourceRate[1] = s_format("1 / %.2f ^8(source curse duration)", GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration)
+				end
 			end
 			
 			if breakdown then
@@ -1095,7 +1097,18 @@ local function defaultTriggerHandler(env, config)
 			
 			--If spell count is missing the skill likely comes from a unique and /or triggers it self
 			if output.EffectiveSourceRate ~= 0 then
-				if actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then
+				if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
+					local overlaps = m_max(env.player.modDB:Sum("BASE", nil, "Multiplier:CurseOverlaps") or 1, 1)
+					output.SkillTriggerRate = m_min(output.EffectiveSourceRate * overlaps, output.TriggerRateCap)
+					local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
+					local vixensCD = vixens and vixens.levels[1].cooldown
+					output.VixensTooMuchCastSpeedWarn = (vixensCD / icdr) > (1 / trigRate)
+					if breakdown then
+						breakdown.SkillTriggerRate = {
+							s_format("min(%.2f, %.2f *  %d)", output.TriggerRateCap, output.EffectiveSourceRate, overlaps)
+						}
+					end
+				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then
 					output.SkillTriggerRate = output.EffectiveSourceRate
 				else
 					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
@@ -1513,9 +1526,7 @@ local configTable = {
 	["doom blast"] = function(env)
 		env.player.mainSkill.skillData.ignoresTickRate = true
 		return {useCastRate = true,
-				stagesAreOverlaps = 2,
 				customTriggerName = "Doom Blast triggering Hex: ",
-				allowTriggered = true,
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) end}
 	end,
 	["cast while channelling"] = function()
