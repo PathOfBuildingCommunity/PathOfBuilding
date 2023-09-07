@@ -12,6 +12,76 @@ return {
 	achievementitemrewards={
 	},
 	achievementitems={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="Achievements",
+			type="String",
+			width=240
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="CompletionsRequired",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="AchievementsKey",
+			refTo="Achievements",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		}
 	},
 	achievements={
 	},
@@ -645,6 +715,13 @@ return {
 	alternatequalitytypes={
 	},
 	alternateskilltargetingbehaviours={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=270
+		}
 	},
 	alternatetreeart={
 	},
