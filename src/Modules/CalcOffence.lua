@@ -4639,7 +4639,7 @@ function calcs.offence(env, actor, activeSkill)
 			local impaleArmourReduction = calcs.armourReductionF(enemyArmour, impaleStoredDamage * impaleStacks / impalesPerHit * impaleExpectedHit)
 			local impaleResist = m_min(m_max(0, enemyDB:Sum("BASE", nil, "PhysicalDamageReduction") + skillModList:Sum("BASE", cfg, "EnemyImpalePhysicalDamageReduction") + impaleArmourReduction), data.misc.DamageReductionCap)
 
-			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * impaleChance
+			local impaleDMGModifier = impaleHitDamageMod * (1 - impaleResist / 100) * (not immunityDuration and impaleChance or 1)
 
 			globalOutput.ImpaleStacksMax = impaleHitDuration
 			globalOutput.ImpaleStacks = impaleStacks
@@ -4659,7 +4659,7 @@ function calcs.offence(env, actor, activeSkill)
 				breakdown.ImpaleModifier = {}
 				t_insert(breakdown.ImpaleModifier, s_format("%.2f ^8(number of hits impales last for)", impaleHitDuration))
 				t_insert(breakdown.ImpaleModifier, s_format("x %.3f ^8(stored damage)", impaleStoredDamage))
-				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance))
+				if not immunityDuration then t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale chance)", impaleChance)) end
 				t_insert(breakdown.ImpaleModifier, s_format("x %.2f ^8(impale enemy physical damage reduction)", (1 - impaleResist / 100)))
 				t_insert(breakdown.ImpaleModifier, s_format("= %.3f ^8(impale damage multiplier)", impaleDMGModifier))
 			end
