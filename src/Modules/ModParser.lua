@@ -2814,7 +2814,7 @@ local specialModList = {
 	["triggers? (.+) when you take a critical strike"] = function( _, skill) return triggerExtraSkill(skill, 1, true) end,
 	["socketed [%a+]* ?gems a?r?e? ?supported by level (%d+) (.+)"] = function(num, _, support) return extraSupport(support, num) end,
 	["skills from equipped (.+) are supported by level (%d+) (.+)"] = function(_, slot, level, support) return extraSupport(support, level, slot) end,
-	["socketed support gems can also support skills from your e?q?u?i?p?p?e?d? ?([%a%s]+)"] = function (_, itemSlotName)
+	["socketed support gems can also support skills from y?o?u?r? ?e?q?u?i?p?p?e?d? ?([%a%s]+)"] = function (_, itemSlotName)
 		local targetItemSlotName = "Body Armour"
 		if itemSlotName == "main hand" then
 			targetItemSlotName = "Weapon 1"
