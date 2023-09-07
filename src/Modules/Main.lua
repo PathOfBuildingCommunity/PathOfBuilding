@@ -217,7 +217,12 @@ the "Releases" section of the GitHub page.]])
 
 	self:LoadSharedItems()
 
-	self.onFrameFuncs = { }
+	self.onFrameFuncs = {
+		["FirstFrame"] = function()
+			self.onFrameFuncs["FirstFrame"] = nil
+			ConPrintf("Startup time: %d ms", GetTime() - launch.startTime)
+		end
+	}
 end
 
 function main:SaveModCache()
