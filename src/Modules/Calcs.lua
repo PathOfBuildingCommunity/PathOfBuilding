@@ -136,7 +136,7 @@ function calcs.getMiscCalculator(build)
 		GlobalCache.noCache = true
 		-- we need to preserve the override somewhere for use by possible trigger-based build-outs with overrides
 		env.override = override
-		calcs.perform(env, true)
+		calcs.perform(env)
 		if GlobalCache.useFullDPS or build.viewMode == "TREE" then
 			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
