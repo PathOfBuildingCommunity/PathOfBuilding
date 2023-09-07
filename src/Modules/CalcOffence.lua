@@ -5187,7 +5187,8 @@ function calcs.offence(env, actor, activeSkill)
 			output.ImpaleHit = output.PhysicalHitAverage * (1-output.CritChance/100) + output.PhysicalCritAverage * (output.CritChance/100)
 		end
 		local avgImpale = output.ImpaleHit
-		output.ImpaleHit = output.ImpaleHit * (immunityDuration and oneHitMaxAvgRatio*chanceToImpale + (1-chanceToImpale) or 1)
+		local HitAndImpaleChance = chanceToImpale*output.HitChance/100
+		output.ImpaleHit = output.ImpaleHit * (immunityDuration and oneHitMaxAvgRatio*HitAndImpaleChance + (1-HitAndImpaleChance) or 1)
 		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
@@ -5207,7 +5208,7 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
 			else
 				if chanceToImpale < 1 then
-					t_insert(breakdown.ImpaleDPS, s_format("%d%% x %.2f + %d%% x %.2f ^8(chance to impale on boosted hit vs impaling on average hit)", chanceToImpale*100, avgImpale*oneHitMaxAvgRatio, (100-chanceToImpale*100), avgImpale))
+					t_insert(breakdown.ImpaleDPS, s_format("%d%% x %.2f + %d%% x %.2f ^8(chance to hit and impale on boosted hit vs. impaling on average hit)", HitAndImpaleChance*100, avgImpale*oneHitMaxAvgRatio, (100-HitAndImpaleChance*100), avgImpale))
 					t_insert(breakdown.ImpaleDPS, s_format("= %2.f ^8(average impaling hit)", output.ImpaleHit))
 				else
 				t_insert(breakdown.ImpaleDPS, s_format("%2.f ^8(average boosted hit)", output.ImpaleHit))
