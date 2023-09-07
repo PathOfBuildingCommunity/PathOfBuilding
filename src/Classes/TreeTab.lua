@@ -625,7 +625,8 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		local nodeValue = treeNodes[selectedNode.id].sd[1]
 		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
 			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
-					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity")))
+					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
+					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType))
 					and node.MinimumConnected <= numLinkedNodes then
 				local combine = false
 				for id, desc in pairs(node.stats) do

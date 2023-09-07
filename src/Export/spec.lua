@@ -8101,7 +8101,7 @@ return {
 		},
 		[3]={
 			list=false,
-			name="DDSIcon",
+			name="Icon",
 			refTo="",
 			type="String",
 			width=330
@@ -8171,7 +8171,7 @@ return {
 		},
 		[13]={
 			list=false,
-			name="",
+			name="PassiveSkill",
 			refTo="PassiveSkills",
 			type="Key",
 			width=150
@@ -8531,6 +8531,20 @@ return {
 			list=false,
 			name="NodeTarget",
 			refTo="passiveskilltattootargetsets",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
 			type="Key",
 			width=150
 		}
