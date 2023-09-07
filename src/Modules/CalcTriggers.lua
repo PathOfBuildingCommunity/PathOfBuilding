@@ -1424,7 +1424,7 @@ local configTable = {
 			}
 		end
         env.player.mainSkill.skillFlags.globalTrigger = true
-		return {triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByDamageTaken and slotMatch(env, skill) end}
+		return  {source = env.player.mainSkill}
 	end,
 	["cast when stunned"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
