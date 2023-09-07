@@ -5207,7 +5207,7 @@ function calcs.offence(env, actor, activeSkill)
 			if not immunityDuration or oneHitMaxAvgRatio == 1 then
 				t_insert(breakdown.ImpaleDPS, s_format("%.2f ^8(average physical hit)", output.ImpaleHit))
 			else
-				if chanceToImpale < 1 then
+				if HitAndImpaleChance < 1 then
 					t_insert(breakdown.ImpaleDPS, s_format("%d%% x %.2f + %d%% x %.2f ^8(chance to hit and impale on boosted hit vs. impaling on average hit)", HitAndImpaleChance*100, avgImpale*oneHitMaxAvgRatio, (100-HitAndImpaleChance*100), avgImpale))
 					t_insert(breakdown.ImpaleDPS, s_format("= %2.f ^8(average impaling hit)", output.ImpaleHit))
 				else
