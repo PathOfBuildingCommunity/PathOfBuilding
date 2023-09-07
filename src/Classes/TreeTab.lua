@@ -120,19 +120,6 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end)
 	end)
 
-	-- Convert notification
-	local function convertToVersion(version)
-		local newSpec = new("PassiveSpec", self.build, version, true)
-		newSpec.title = self.build.spec.title
-		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), version)
-		newSpec:BuildClusterJewelGraphs()
-		t_insert(self.specList, self.activeSpec + 1, newSpec)
-		self:SetActiveSpec(self.activeSpec + 1)
-		self.modFlag = true
-		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
-	end
-
 	-- Tree Version Dropdown
 	self.treeVersions = { }
 	for _, num in ipairs(treeVersionList) do
@@ -141,14 +128,14 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 0, 16, "Version:")
 	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
 		if value ~= self.build.spec.treeVersion then
-			convertToVersion(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"))
+			self:OpenVersionConvertPopup(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"))
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
 	self.controls.versionSelect.enableDroppedWidth = true
 	self.controls.versionSelect.enableChangeBoxWidth = true
 	self.controls.versionSelect.selIndex = #self.treeVersions
-	
+
 	-- Tree Search Textbox
 	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.versionSelect, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c", 100, function(buf)
 		self.viewer.searchStr = buf
@@ -173,7 +160,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end)
 
 	-- Control for setting max node depth to limit calculation time of the heat map
-	self.controls.nodePowerMaxDepthSelect = new("DropDownControl", 
+	self.controls.nodePowerMaxDepthSelect = new("DropDownControl",
 	{ "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 50, 20, { "All", 5, 10, 15 }, function(index, value)
 		local oldMax = self.build.calcsTab.nodePowerMaxDepth
 
@@ -237,7 +224,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return "^2Convert to "..treeVersions[getLatestTreeVersion()].display
 	end
 	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", buildConvertButtonLabel()) + 20 end, 20, buildConvertButtonLabel, function()
-		convertToVersion(getLatestTreeVersion())
+		self:ConvertToVersion(getLatestTreeVersion(), false, true)
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
@@ -439,8 +426,28 @@ function TreeTabClass:SetCompareSpec(specId)
 	self.compareSpec = curSpec
 end
 
+function TreeTabClass:ConvertToVersion(version, remove, success)
+	local newSpec = new("PassiveSpec", self.build, version)
+	newSpec.title = self.build.spec.title
+	newSpec.jewels = copyTable(self.build.spec.jewels)
+	newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), version)
+	newSpec:BuildClusterJewelGraphs()
+	t_insert(self.specList, self.activeSpec + 1, newSpec)
+	if remove then
+		t_remove(self.specList, self.activeSpec)
+		-- activeSpec + 1 is shifted down one on remove, otherwise we would set the spec below it if it exists
+		self:SetActiveSpec(self.activeSpec)
+	else
+		self:SetActiveSpec(self.activeSpec + 1)
+	end
+	self.modFlag = true
+	if success then
+		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+	end
+end
+
 function TreeTabClass:OpenSpecManagePopup()
-	local importTree = 
+	local importTree =
 		new("ButtonControl", nil, -99, 259, 90, 20, "Import Tree", function()
 			self:OpenImportPopup()
 		end)
@@ -457,6 +464,24 @@ function TreeTabClass:OpenSpecManagePopup()
 			main:ClosePopup()
 		end),
 	})
+end
+
+function TreeTabClass:OpenVersionConvertPopup(version)
+	local controls = { }
+	controls.warningLabel = new("LabelControl", nil, 0, 20, 0, 16, "^7Warning: some or all of the passives may be de-allocated due to changes in the tree.\n\n" ..
+		"Convert will replace your current tree.\nCopy + Convert will backup your current tree.\n")
+	controls.convert = new("ButtonControl", nil, -125, 110, 100, 20, "Convert", function()
+		self:ConvertToVersion(version, true, false)
+		main:ClosePopup()
+	end)
+	controls.convertCopy = new("ButtonControl", nil, 0, 110, 125, 20, "Copy + Convert", function()
+		self:ConvertToVersion(version, false, false)
+		main:ClosePopup()
+	end)
+	controls.cancel = new("ButtonControl", nil, 125, 110, 100, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(570, 140, "Convert to Version "..treeVersions[version].display, controls, "convert", "edit")
 end
 
 function TreeTabClass:OpenImportPopup()
