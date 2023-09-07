@@ -122,6 +122,12 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	tattooPassiveNode.sd = {}
 	tattooPassiveNode.stats = {}
 	tattooPassiveNode.isTattoo = true
+	-- is keystone
+	tattooPassiveNode.ks = false
+	-- is notable
+	tattooPassiveNode['not'] = tattooDatRow.NodeTarget.Type == "Notable" and true or false
+	-- is mastery wheel
+	tattooPassiveNode.m = false
 
 	tattooPassiveNode.targetType = tattooDatRow.NodeTarget.Type
 	tattooPassiveNode.targetValue = tattooDatRow.NodeTarget.Value
@@ -145,6 +151,8 @@ for i=1, passiveSkillOverridesDat.rowCount do
 
 	tattooPassiveNode.activeEffectImage = datFileRow.Background .. ".png"
 	if datFileRow.TattooType.Id == "KeystoneTattoo" then
+		-- is keystone
+		tattooPassiveNode.ks = true
 		datFileRow = datFileRow.PassiveSkill
 		parsePassiveStats(datFileRow, tattooPassiveNode)
 	else
@@ -158,7 +166,7 @@ for i=1, passiveSkillOverridesDat.rowCount do
 	tattooPassiveNode.sd[#tattooPassiveNode.sd + 1] = limitText
 
 	if datFileRow.Id ~= "DisplayRandomKeystone" then
-		data.nodes[datFileRow.Id] = tattooPassiveNode
+		data.nodes[datFileRow.Name] = tattooPassiveNode
 	end
 end
 

@@ -654,8 +654,6 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 		end
 	local function addModifier(selectedNode)
 		local newTattooNode = self.build.spec.tree.tattoo.nodes[modGroups[controls.modSelect.selIndex].id]
-		newTattooNode.isTattoo = true
-		newTattooNode.tattooId = newTattooNode.id
 		newTattooNode.id = selectedNode.id
 		self.build.spec.hashOverrides[selectedNode.id] = newTattooNode
 		self.build.spec:ReplaceNode(selectedNode, newTattooNode)

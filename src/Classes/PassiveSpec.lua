@@ -144,19 +144,8 @@ function PassiveSpecClass:Load(xml, dbFileName)
 						
 						local nodeId = tonumber(child.attrib.nodeId)
 
-						self.hashOverrides[nodeId] = copyTable(self.nodes[nodeId], true)
+						self.hashOverrides[nodeId] = copyTable(self.tree.tattoo.nodes[child.attrib.dn], true)
 						self.hashOverrides[nodeId].id = nodeId
-						self.hashOverrides[nodeId].isTattoo = true
-						self.hashOverrides[nodeId].icon = child.attrib.icon
-						self.hashOverrides[nodeId].activeEffectImage = child.attrib.activeEffectImage
-						self.hashOverrides[nodeId].dn = child.attrib.dn
-						local modCount = 0
-						for _, modLine in ipairs(child) do
-							for line in string.gmatch(modLine .. "\r\n", "([^\r\n\t]*)\r?\n") do
-								self:NodeAdditionOrReplacementFromString(self.hashOverrides[nodeId], line, modCount == 0)
-								modCount = modCount + 1
-							end
-						end
 					end
 				end
 			end
