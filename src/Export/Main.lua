@@ -63,22 +63,11 @@ local tempTable1 = { }
 local tempTable2 = { }
 
 
--- One Time use function to correct lowercasing all spec.lua keys
-function main:LowercaseKeys(tbl)
-	retTbl = {}
-	for k,v in pairs(tbl) do
-		retTbl[k:lower()] = v
-	end
-	tbl = nil
-	return retTbl
-end
-
 function main:Init()
 	self.inputEvents = { }
 	self.popups = { }
 
 	self.datSpecs = LoadModule("spec")
-	--self.datSpecs = self:LowercaseKeys(self.datSpecs)
 
 	self.datFileList = { }
 	self.datFileByName = { }
