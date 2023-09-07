@@ -406,15 +406,12 @@ skills["ArcticArmour"] = {
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_immune_to_freeze"] = {
-			--Display only
+			flag("FreezeImmune", { type = "GlobalEffect", effectType = "Buff"}),
 		},
 	},
 	baseFlags = {
 		spell = true,
 		duration = true,
-	},
-	baseMods = {
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -3278,6 +3275,7 @@ skills["VaalDoubleStrike"] = {
 		melee = true,
 		duration = true,
 		vaal = true,
+		mirage = true,
 	},
 	qualityStats = {
 		Default = {
@@ -5747,6 +5745,7 @@ skills["VaalIceShot"] = {
 		projectile = true,
 		area = true,
 		duration = true,
+		mirage = true,
 	},
 	qualityStats = {
 		Default = {
@@ -7470,10 +7469,10 @@ skills["ColdImpurity"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_freeze"] = {
-			--Display only
+			flag("FreezeImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 		["base_immune_to_chill"] = {
-			--Display only
+			flag("ChillImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -7481,10 +7480,6 @@ skills["ColdImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {

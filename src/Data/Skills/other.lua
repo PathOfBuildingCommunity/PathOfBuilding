@@ -1540,13 +1540,18 @@ skills["IcestormUniqueStaff12"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	fromItem = true,
+	statMap = {
+		["skill_effect_duration_per_100_int"] = {
+			mod("Duration", "BASE", nil, 0, 0, { type = "PerStat", stat = "Int", div = 100 }),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 }),
 		skill("radius", 22),
 		skill("radiusSecondary", 16),
 	},
@@ -2089,6 +2094,7 @@ skills["UniqueMirageWarriors"] = {
 		spell = true,
 		duration = true,
 		minion = true,
+		mirage = true,
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
@@ -3178,6 +3184,7 @@ skills["SummonMirageChieftain"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
+		mirage = true,
 	},
 	constantStats = {
 		{ "trigger_on_slam_or_strike_%_chance", 100 },

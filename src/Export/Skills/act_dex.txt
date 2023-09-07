@@ -93,10 +93,9 @@ local skills, mod, flag, skill = ...
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_immune_to_freeze"] = {
-			--Display only
+			flag("FreezeImmune", { type = "GlobalEffect", effectType = "Buff"}),
 		},
 	},
-#baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 #mods
 
 #skill VaalArcticArmour
@@ -608,7 +607,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalDoubleStrike
-#flags attack melee duration vaal
+#flags attack melee duration vaal mirage
 #mods
 
 #skill DualStrike
@@ -1247,7 +1246,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalIceShot
-#flags attack projectile area duration
+#flags attack projectile area duration mirage
 #mods
 
 #skill IceTrap
@@ -1541,14 +1540,12 @@ local skills, mod, flag, skill = ...
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_freeze"] = {
-			--Display only
+			flag("FreezeImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 		["base_immune_to_chill"] = {
-			--Display only
+			flag("ChillImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
-#baseMod mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
-#baseMod mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
 #mods
 
 #skill RainOfArrows

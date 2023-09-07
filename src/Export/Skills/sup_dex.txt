@@ -352,6 +352,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportGemMirageArcher
+	addFlags = {
+		mirage = true,
+	},
 	isTrigger = true,
 	statMap = {
 		["support_mirage_archer_base_duration"] = {

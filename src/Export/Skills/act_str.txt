@@ -624,7 +624,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrozenSweep
-#flags attack area melee
+#flags attack area melee mirage
 	parts = {
 		{
 			name = "1 charge",
@@ -689,7 +689,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GeneralsCry
-#flags warcry area duration
+#flags warcry area duration mirage
 	statMap = {
 		["spiritual_cry_doubles_summoned_per_5_MP"] = {
 		},
@@ -1132,10 +1132,9 @@ local skills, mod, flag, skill = ...
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_ignite"] = {
-			--Display only
+			flag("IgniteImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
-#baseMod mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true })
 #mods
 
 #skill RageVortex

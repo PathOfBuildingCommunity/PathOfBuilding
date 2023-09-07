@@ -525,6 +525,22 @@ function tableDeepEquals(t1, t2)
 	return true
 end
 
+-- Based on https://www.lua.org/pil/19.3.html
+function pairsSortByKey(t, f)
+	local sortedKeys = {}
+	for key in pairs(t) do t_insert(sortedKeys, key) end
+	table.sort(sortedKeys, f)
+	local i = 0
+	return function() -- iterator function
+		i = i + 1
+		if sortedKeys[i] == nil then
+			return nil
+		else
+			return sortedKeys[i], t[sortedKeys[i]]
+		end
+	end
+end
+
 -- Natural sort comparator
 function naturalSortCompare(a, b)
 	local aIndex, bIndex = 1, 1
@@ -683,21 +699,30 @@ function zip(a, b)
 end
 
 -- Generate a UUID for a skill
-function cacheSkillUUID(skill)
+function cacheSkillUUID(skill, env)
 	local strName = skill.activeEffect.grantedEffect.name:gsub("%s+", "") -- strip spaces
 	local strSlotName = (skill.socketGroup and skill.socketGroup.slot and skill.socketGroup.slot:upper() or "NO_SLOT"):gsub("%s+", "") -- strip spaces
-	local indx = 1
+	local slotIndx = 1
+	local groupIdx = 1
 	if skill.socketGroup and skill.socketGroup.gemList and skill.activeEffect.srcInstance then
 		for idx, gem in ipairs(skill.socketGroup.gemList) do
 			-- we compare table addresses rather than names since two of the same gem
 			-- can be socketed in the same slot
 			if gem == skill.activeEffect.srcInstance then
-				indx = idx
+				slotIndx = idx
 				break
 			end
 		end
 	end
-	return strName.."_"..strSlotName.."_"..tostring(indx)
+
+	for i, group in ipairs(env.build.skillsTab.socketGroupList) do
+		if skill.socketGroup == group then
+			groupIdx = i
+			break
+		end
+	end
+
+	return strName.."_"..strSlotName.."_"..tostring(slotIndx) .. "_" .. tostring(groupIdx)
 end
 
 -- Global Cache related
@@ -725,13 +750,6 @@ function cacheData(uuid, env)
 		ActiveSkill = env.player.mainSkill,
 		Env = env,
 	}
-end
-
--- Obtain a stored cached processed skill identified by
---   its UUID and pulled from an appropriate env mode (e.g., MAIN)
-function getCachedData(skill, mode)
-	local uuid = cacheSkillUUID(skill)
-	return GlobalCache.cachedData[mode][uuid]
 end
 
 -- Add an entry for a fabricated skill (e.g., Mirage Archers)
@@ -777,18 +795,6 @@ function wipeGlobalCache()
 	wipeTable(GlobalCache.excludeFullDpsList)
 	wipeTable(GlobalCache.deleteGroup)
 	GlobalCache.noCache = nil
-end
-
--- Full DPS related: add to roll-up exclusion list
--- this is for skills that are used by Mirage Warriors for example
-function addToFullDpsExclusionList(skill)
-	--ConPrintf("ADDING TO FULL DPS EXCLUDE: " .. cacheSkillUUID(skill))
-	GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)] = true
-end
-
--- Full DPS related: check if skill is in roll-up exclusion list
-function isExcludedFromFullDps(skill)
-	return GlobalCache.excludeFullDpsList[cacheSkillUUID(skill)]
 end
 
 -- Check if a specific named gem is enabled in a socket group belonging to a skill
