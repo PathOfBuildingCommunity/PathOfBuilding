@@ -3019,30 +3019,28 @@ skills["EnergyBlade"] = {
 			mod("EnergyShield", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_minimum_lightning_damage_from_es_%"] = {
-			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "PercentStat", stat = "EnergyShield", percent = 1 }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_maximum_lightning_damage_from_es_%"] = {
-			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "PercentStat", stat = "EnergyShield", percent = 1 }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_damage_+%_final_with_two_hand_weapon"] = {
-			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_minimum_lightning_damage"] = {
-			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_maximum_lightning_damage"] = {
-			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_quality_local_critical_strike_chance_+%"] = {
-			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_quality_chance_to_shock_%"] = {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_quality_attack_lightning_damage_%_to_convert_to_chaos"] = {
-			mod("LightningDamageConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 	},
 	baseFlags = {
@@ -8039,7 +8037,7 @@ skills["Purity"] = {
 			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["immune_to_status_ailments"] = {
-			--Display only
+			flag("ElementalAilmentImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -8049,7 +8047,6 @@ skills["Purity"] = {
 	},
 	baseMods = {
 		skill("radius", 40),
-		mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -8215,7 +8212,7 @@ skills["LightningImpurity"] = {
 			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_shock"] = {
-			--Display only
+			flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -8223,9 +8220,6 @@ skills["LightningImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"}),
 	},
 	qualityStats = {
 		Default = {
@@ -11046,7 +11040,7 @@ skills["SummonLightningGolem"] = {
 skills["SummonRagingSpirit"] = {
 	name = "Summon Raging Spirit",
 	color = 3,
-	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly. Enemies will not directly engage these spirits, and can pass through them.",
+	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly, converting all its physical damage to fire. Enemies will not directly engage these spirits, and can pass through them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
@@ -11508,7 +11502,7 @@ skills["TempestShield"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["skill_display_buff_grants_shock_immunity"] = {
-			--Display only
+			flag("ShockImmune", { type = "GlobalEffect", effectType = "Buff"}),
 		}
 	},
 	baseFlags = {
@@ -11518,7 +11512,6 @@ skills["TempestShield"] = {
 	},
 	baseMods = {
 		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
-		flag("ShockImmune"),
 	},
 	qualityStats = {
 		Default = {

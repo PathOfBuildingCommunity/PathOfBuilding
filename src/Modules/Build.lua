@@ -734,7 +734,7 @@ end
 
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
-	local extra = self.calcsTab.mainOutput.ExtraPoints or 0 
+	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
 	local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + extra, 8, 1, 1, "", ""
 	local acts = { 
 		[1] = { level = 1, questPoints = 0 }, 
@@ -1457,6 +1457,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 			line = line .. " " .. skill.grantedEffect.name
 		end
 		InsertIfNew(self.controls.warnings.lines, line)
+	end
+	if actor.output.VixensTooMuchCastSpeedWarn then
+		InsertIfNew(self.controls.warnings.lines, "You may have too much cast speed or too little cooldown reduction to effectively use Vixen's Curse replacement")
 	end
 end
 

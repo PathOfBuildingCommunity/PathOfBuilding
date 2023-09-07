@@ -1076,13 +1076,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Ignites caused by Supported Skills spread to other Enemies within {0} metre"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Ignites caused by Supported Skills spread to other Enemies within a Radius of {0}"
+					text="Ignites caused by Supported Skills spread to other Enemies within {0} metres"
 				}
 			}
 		},
@@ -1383,6 +1400,27 @@ return {
 			English={
 				[1]={
 					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextElementalAilments"
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Elemental Ailments inflicted by Supported Skills spread to other enemies within {0} metre"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
 						k="reminderstring",
 						v="ReminderTextElementalAilments"
 					},
@@ -1392,7 +1430,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Elemental Ailments caused by Supported Skills spread to other enemies in a Radius of {0}"
+					text="Elemental Ailments inflicted by Supported Skills spread to other enemies within {0} metres"
 				}
 			}
 		},
@@ -5555,13 +5593,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Minions from Supported Skills have {0:+d} metre to Radius of their Burning Effect"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Minions from Supported Skills have {0:+d} to Radius of their Burning Effect"
+					text="Minions from Supported Skills have {0:+d} metres to Radius of their Burning Effect"
 				}
 			}
 		},
@@ -8811,6 +8866,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextCloseRange"
+					},
 					limit={
 						[1]={
 							[1]=1,
@@ -11306,6 +11365,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextCloseRange"
+					},
 					limit={
 						[1]={
 							[1]="#",
@@ -11868,6 +11931,27 @@ return {
 			English={
 				[1]={
 					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
+						k="reminderstring",
+						v="ReminderTextMeleeStrikeRange"
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Supported Skills have {0:+d} metre to Melee Strike Range"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					[2]={
 						k="reminderstring",
 						v="ReminderTextMeleeStrikeRange"
 					},
@@ -11877,7 +11961,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Supported Skills have {0:+d} to Melee Strike Range"
+					text="Supported Skills have {0:+d} metres to Melee Strike Range"
 				}
 			}
 		},
@@ -13497,13 +13581,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Projectiles from Supported Skills have {0} metre maximum range"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]=1,
 							[2]="#"
 						}
 					},
-					text="Supported Skills have limited Projectile Range"
+					text="Projectiles from Supported Skills have {0} metres maximum range"
 				}
 			}
 		},
@@ -13546,13 +13647,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Projectiles from Supported Skills Pierce all Targets within {0} metre"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Projectiles from Supported Skills Pierce all Targets within {0} units"
+					text="Projectiles from Supported Skills Pierce all Targets within {0} metres"
 				}
 			}
 		},
@@ -14461,7 +14579,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="When you Hit an Enemy with an Arrow from a Supported Skill, Summon a Mirage Archer which uses that Skill"
+					text="When you Hit an Enemy with an Arrow from a Supported Skill, Summon a Mirage Archer which uses that Skill\nMirage Archer can use Triggered Attacks as though they were not Triggered"
 				}
 			}
 		},
@@ -15955,13 +16073,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Mines from Supported Skills can't be Detonated while within {0} metre of you"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]=1,
 							[2]="#"
 						}
 					},
-					text="Mines from Supported Skills can't be Detonated while within a radius of {0} of you"
+					text="Mines from Supported Skills can't be Detonated while within {0} metres of you"
 				}
 			}
 		},
@@ -19133,7 +19268,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Hexes from Supported Skills Transfer to all Enemies in a range of 30 when Hexed Enemy dies"
+					text="Hexes from Supported Skills Transfer to all Enemies within 3 metres when Hexed Enemy dies"
 				}
 			}
 		},

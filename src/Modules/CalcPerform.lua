@@ -871,8 +871,7 @@ end
 -- 8. Processes buffs and debuffs
 -- 9. Processes charges and misc buffs (doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
-function calcs.perform(env, avoidCache, fullDPSSkipEHP)
-	local avoidCache = avoidCache or false
+function calcs.perform(env,fullDPSSkipEHP)
 	local modDB = env.modDB
 	local enemyDB = env.enemyDB
 	
@@ -2467,7 +2466,7 @@ function calcs.perform(env, avoidCache, fullDPSSkipEHP)
 					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Bonechill", { type = "Condition", var = "Chilled" }))
 				end
 				if modDB:Flag(nil, "ChillEffectIncDamageTaken") then
-					t_insert(mods, modLib.createMod("ColdDamageTaken", "INC", num, "Ahuana's Bite", { type = "Condition", var = "Chilled" }))
+					t_insert(mods, modLib.createMod("DamageTaken", "INC", num, "Ahuana's Bite", { type = "Condition", var = "Chilled" }))
 				end
 				return mods
 			end

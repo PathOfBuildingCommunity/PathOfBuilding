@@ -239,7 +239,7 @@ return {
 					},
 				},
 				["affliction_aura_effect"] = {
-					name = "Aura Effect",
+					name = "Aura Effect (Legacy)",
 					icon = "Art/2DArt/SkillIcons/passives/AuraEffectNode.png",
 					masteryIcon = "Art/2DArt/SkillIcons/passives/AltMasteryAuras.png",
 					tag = "old_do_not_use_affliction_aura_effect",
@@ -249,7 +249,7 @@ return {
 					},
 				},
 				["affliction_curse_effect"] = {
-					name = "Curse Effect",
+					name = "Curse Effect (Legacy)",
 					icon = "Art/2DArt/SkillIcons/passives/CurseEffectNode.png",
 					masteryIcon = "Art/2DArt/SkillIcons/passives/AltMasteryCurse.png",
 					tag = "old_do_not_use_affliction_curse_effect",

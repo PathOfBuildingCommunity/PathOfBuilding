@@ -7940,6 +7940,13 @@ return {
 			refTo="",
 			type="Int",
 			width=80
+		},
+		[7]={
+			list=false,
+			name="AchievementItem",
+			refTo="AchievementItems",
+			type="Key",
+			width=150
 		}
 	},
 	passiveskillmasterygroups={
@@ -7989,6 +7996,13 @@ return {
 			list=false,
 			name="SoundEffect",
 			refTo="SoundEffects",
+			type="Key",
+			width=150
+		},
+		[8]={
+			list=false,
+			name="MasteryCount",
+			refTo="Stats",
 			type="Key",
 			width=150
 		}
@@ -8076,6 +8090,13 @@ return {
 			name="MaximumConnected",
 			refTo="",
 			type="Int",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="PassiveSkills",
+			type="Key",
 			width=150
 		}
 	},

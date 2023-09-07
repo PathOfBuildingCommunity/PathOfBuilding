@@ -6183,7 +6183,7 @@ skills["FireImpurity"] = {
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_ignite"] = {
-			--Display only
+			flag("IgniteImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -6191,9 +6191,6 @@ skills["FireImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
