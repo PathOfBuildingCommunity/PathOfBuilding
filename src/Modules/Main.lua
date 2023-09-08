@@ -220,6 +220,9 @@ the "Releases" section of the GitHub page.]])
 	self.onFrameFuncs = {
 		["FirstFrame"] = function()
 			self.onFrameFuncs["FirstFrame"] = nil
+			if launch.devMode then
+				data.printMissingMinionSkills()
+			end
 			ConPrintf("Startup time: %d ms", GetTime() - launch.startTime)
 		end
 	}
