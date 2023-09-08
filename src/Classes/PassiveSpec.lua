@@ -795,17 +795,18 @@ end
 
 function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
 	node.sd = {}
-	if node.masteryEffects ~= nil then
+	if node.masteryEffects ~= nil and #node.masteryEffects > 0 then
 		for _, effect in ipairs(node.masteryEffects) do
 			effect = self.tree.masteryEffects[effect.effect]
-			if effect.sd ~= nil then
-				for _, sd in ipairs(effect.sd) do
-					t_insert(node.sd, sd)
-				end
+			local startIndex = #node.sd + 1
+			for _, sd in ipairs(effect.sd) do
+				t_insert(node.sd, sd)
 			end
+			self.tree:ProcessStats(node, startIndex)
 		end
+	else
+		self.tree:ProcessStats(node)
 	end
-	self.tree:ProcessStats(node)
 	node.allMasteryOptions = true
 end
 

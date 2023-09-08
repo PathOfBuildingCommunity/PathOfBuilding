@@ -432,19 +432,19 @@ return {
 		},
 		["ENDGAME"] = {
 			"Chain Hook has a 40% chance to grant +1 Rage if it Hits Enemies",
-			"Chain Hook has +1 Radius per 12 Rage",
+			"Chain Hook has +0.1 metres to radius per 12 Rage",
 			"Chain Hook deals 40% increased Damage",
 		},
 	},
 	["Charged Dash"] = {
 		["MERCILESS"] = {
 			"25% increased Charged Dash Damage",
-			"Charged Dash has +4 to Radius of each Wave's last damage Area",
+			"Charged Dash has +0.4 metres to radius of each Wave's last damage Area",
 			"Charged Dash has 10% more Movement Speed",
 		},
 		["ENDGAME"] = {
 			"40% increased Charged Dash Damage",
-			"Charged Dash has +6 to Radius of each Wave's last damage Area",
+			"Charged Dash has +0.6 metres to radius of each Wave's last damage Area",
 			"Charged Dash has 15% more Movement Speed",
 		},
 	},
@@ -707,12 +707,12 @@ return {
 	["Discharge"] = {
 		["MERCILESS"] = {
 			"20% chance for Discharge to deal Damage without removing Charges",
-			"Discharge has +3 to Radius",
+			"+0.3 metres to Discharge radius",
 			"25% increased Discharge Damage",
 		},
 		["ENDGAME"] = {
 			"30% chance for Discharge to deal Damage without removing Charges",
-			"Discharge has +5 to Radius",
+			"+0.5 metres to Discharge radius",
 			"40% increased Discharge Damage",
 		},
 	},

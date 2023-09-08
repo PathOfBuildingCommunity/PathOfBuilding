@@ -37,6 +37,10 @@ local function slotMatch(env, skill)
 	return (match1 or match2)
 end
 
+local function isTriggered(skill)
+	return skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered] or skill.activeEffect.grantedEffect.triggered
+end
+
 local function processAddedCastTime(skill, breakdown)
 	if skill.skillModList:Flag(skill.skillCfg, "SpellCastTimeAddedToCooldownIfTriggered") then
 		local baseCastTime = skill.skillData.castTimeOverride or skill.activeEffect.grantedEffect.castTime or 1
@@ -72,7 +76,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 		calcs.buildActiveSkill(env, "CACHE", skill)
 	end
 
-	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid, source, triggerRate) then
+	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) then
 		return skill, GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
 	end
 	return source, triggerRate, source and cacheSkillUUID(source, env)
@@ -156,17 +160,12 @@ local function mirageArcherHandler(env)
 		local uuid = cacheSkillUUID(env.player.mainSkill, env)
 		local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 
-		-- cache a new copy of this skill that's affected by Mirage Archer
-		if avoidCache then
-			usedSkill = env.player.mainSkill
-		else
-			if not GlobalCache.cachedData[calcMode][uuid] then
-				calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, {[uuid] = true})
-			end
+		if not GlobalCache.cachedData[calcMode][uuid] then
+			calcs.buildActiveSkill(env, calcMode, env.player.mainSkill, {[uuid] = true})
+		end
 
-			if GlobalCache.cachedData[calcMode][uuid] and not avoidCache then
-				usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
-			end
+		if GlobalCache.cachedData[calcMode][uuid] then
+			usedSkill = GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 		end
 
 		if usedSkill then
@@ -323,10 +322,9 @@ local function CWCHandler(env)
 		local output = env.player.output
 		local breakdown = env.player.breakdown
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and (match1 or match2) and not triggered then
+			if skill.skillTypes[SkillType.Channel] and skill ~= env.player.mainSkill and (match1 or match2) and not isTriggered(skill) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
@@ -548,9 +546,8 @@ local function tawhoaChosenHandler(env)
 	local calcMode = env.mode == "CALCS" and "CALCS" or "MAIN"
 	
 	for _, triggerSkill in ipairs(env.player.activeSkillList) do
-		local triggered = triggerSkill.skillData.triggeredByUnique or triggerSkill.skillData.triggered or triggerSkill.skillTypes[SkillType.InbuiltTrigger] or triggerSkill.skillTypes[SkillType.Triggered]
 		local isDisabled = triggerSkill.skillFlags and triggerSkill.skillFlags.disable
-		if triggerSkill ~= env.player.mainSkill and (triggerSkill.skillTypes[SkillType.Slam] or triggerSkill.skillTypes[SkillType.Melee]) and triggerSkill.skillTypes[SkillType.Attack] and not triggerSkill.skillTypes[SkillType.Vaal] and not triggered and not isDisabled and not triggerSkill.skillTypes[SkillType.Totem] and not triggerSkill.skillTypes[SkillType.SummonsTotem] then
+		if triggerSkill ~= env.player.mainSkill and (triggerSkill.skillTypes[SkillType.Slam] or triggerSkill.skillTypes[SkillType.Melee]) and triggerSkill.skillTypes[SkillType.Attack] and not triggerSkill.skillTypes[SkillType.Vaal] and not isTriggered(triggerSkill) and not isDisabled and not triggerSkill.skillTypes[SkillType.Totem] and not triggerSkill.skillTypes[SkillType.SummonsTotem] then
 			-- Grab a fully-processed by calcs.perform() version of the skill that Tawhoa's Chosen will use
 			local uuid = cacheSkillUUID(triggerSkill, env)
 			if not GlobalCache.cachedData[calcMode][uuid] then
@@ -723,8 +720,7 @@ local function defaultTriggerHandler(env, config)
 	-- Find trigger skill and triggered skills
 	if config.triggeredSkillCond or config.triggerSkillCond then
 		for _, skill in ipairs(env.player.activeSkillList) do
-			local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered]
-			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not triggered or actor.mainSkill.skillFlags.globalTrigger or config.allowTriggered) and skill ~= actor.mainSkill then
+			if config.triggerSkillCond and config.triggerSkillCond(env, skill) and (not isTriggered(skill) or actor.mainSkill.skillFlags.globalTrigger or config.allowTriggered) and skill ~= actor.mainSkill then
 				source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate, config.comparer)
 			end
 			if config.triggeredSkillCond and config.triggeredSkillCond(env,skill) then
@@ -760,7 +756,7 @@ local function defaultTriggerHandler(env, config)
 			end
 			
 			--Dual wield
-			if trigRate and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Damage] or source.skillTypes[SkillType.Attack]) and not actor.mainSkill.skillFlags.globalTrigger then
+			if trigRate and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and not actor.mainSkill.skillFlags.globalTrigger then
 				local dualWield = env.player.weaponData1.type and env.player.weaponData2.type
 				trigRate = dualWield and source.skillData.doubleHitsWhenDualWielding and trigRate * 2 or dualWield and trigRate / 2 or trigRate
 				if dualWield and breakdown then
@@ -919,9 +915,11 @@ local function defaultTriggerHandler(env, config)
 				output.TriggerRateCap = 1 / rateCapAdjusted
 			end
 			
-
-			if source and source.skillData.triggeredByCurseOnCurse and trigRate > output.TriggerRateCap then
-				trigRate = trigRate - m_ceil(trigRate - output.TriggerRateCap)
+			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
+				trigRate = 1 / GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration
+				if breakdown and breakdown.EffectiveSourceRate then
+						breakdown.EffectiveSourceRate[1] = s_format("1 / %.2f ^8(source curse duration)", GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration)
+				end
 			end
 			
 			if breakdown then
@@ -1099,7 +1097,18 @@ local function defaultTriggerHandler(env, config)
 			
 			--If spell count is missing the skill likely comes from a unique and /or triggers it self
 			if output.EffectiveSourceRate ~= 0 then
-				if actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then
+				if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
+					local overlaps = m_max(env.player.modDB:Sum("BASE", nil, "Multiplier:CurseOverlaps") or 1, 1)
+					output.SkillTriggerRate = m_min(output.EffectiveSourceRate * overlaps, output.TriggerRateCap)
+					local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
+					local vixensCD = vixens and vixens.levels[1].cooldown
+					output.VixensTooMuchCastSpeedWarn = (vixensCD / icdr) > (1 / trigRate)
+					if breakdown then
+						breakdown.SkillTriggerRate = {
+							s_format("min(%.2f, %.2f *  %d)", output.TriggerRateCap, output.EffectiveSourceRate, overlaps)
+						}
+					end
+				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then
 					output.SkillTriggerRate = output.EffectiveSourceRate
 				else
 					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
@@ -1334,8 +1343,7 @@ local configTable = {
 			local trigRate, source, uuid, useCastRate, triggeredSkills
 			triggeredSkills = {}
 			for _, skill in ipairs(env.player.activeSkillList) do
-				local triggered = skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or  skill.skillTypes[SkillType.Triggered]
-				if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and not skill.skillFlags.aura and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft and not skill.activeEffect.grantedEffect.fromItem and not triggered then
+				if (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack] or skill.skillTypes[SkillType.Spell]) and not skill.skillFlags.aura and skill ~= env.player.mainSkill and not skill.skillData.triggeredByCraft and not skill.activeEffect.grantedEffect.fromItem and not isTriggered(skill) then
 					source, trigRate, uuid = findTriggerSkill(env, skill, source, trigRate)
 					if skill.skillFlags and (skill.skillFlags.totem or skill.skillFlags.golem or skill.skillFlags.banner or skill.skillFlags.ballista) and skill.activeEffect.grantedEffect.castTime then
 						if skill.activeEffect.grantedEffect.levels ~= nil then
@@ -1416,7 +1424,7 @@ local configTable = {
 			}
 		end
         env.player.mainSkill.skillFlags.globalTrigger = true
-		return {triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByDamageTaken and slotMatch(env, skill) end}
+		return  {source = env.player.mainSkill}
 	end,
 	["cast when stunned"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
@@ -1483,8 +1491,8 @@ local configTable = {
 				end
 			end
 			
-			local activationFreqInc = (100 + env.player.mainSkill.triggeredBy.mainSkill.skillModList:Sum("INC", cfg, "Speed", "BrandActivationFrequency")) / 100
-			local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(cfg, "BrandActivationFrequency")
+			local activationFreqInc = (100 + env.player.mainSkill.triggeredBy.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed", "BrandActivationFrequency")) / 100
+			local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(env.player.mainSkill.skillCfg, "BrandActivationFrequency")
 			env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
 			env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
 			env.player.output.EffectiveSourceRate = trigRate
@@ -1518,9 +1526,7 @@ local configTable = {
 	["doom blast"] = function(env)
 		env.player.mainSkill.skillData.ignoresTickRate = true
 		return {useCastRate = true,
-				stagesAreOverlaps = 2,
 				customTriggerName = "Doom Blast triggering Hex: ",
-				allowTriggered = true,
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) end}
 	end,
 	["cast while channelling"] = function()
@@ -1627,18 +1633,11 @@ local function getUniqueItemTriggerName(skill)
 	end
 end
 
-local function logNoHandler(skillName, triggerName, uniqueName)
-	local message = s_format("WARNING: no handler for: %s, %s, %s ", skillName, triggerName, uniqueName)
-	return function() 
-				ConPrintf(message) 
-			end
-end
-
 function calcs.triggers(env)
-	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing and not (env.player.mainSkill.activeEffect.srcInstance and env.player.mainSkill.activeEffect.srcInstance.noSupports) then
+	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing then
 		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
 		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
-		local uniqueName = env.player.mainSkill.skillTypes[SkillType.Triggerable] and getUniqueItemTriggerName(env.player.mainSkill)
+		local uniqueName = isTriggered(env.player.mainSkill) and getUniqueItemTriggerName(env.player.mainSkill)
 		local skillNameLower = skillName and skillName:lower()
 		local triggerNameLower = triggerName and triggerName:lower()
 		local awakenedTriggerNameLower = triggerNameLower and triggerNameLower:gsub("^awakened ", "")
@@ -1647,9 +1646,6 @@ function calcs.triggers(env)
         config = config or triggerNameLower and configTable[triggerNameLower] and configTable[triggerNameLower](env)
         config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
         config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
-		if not (triggerNameLower and configTable[triggerNameLower]) and not (awakenedTriggerNameLower and configTable[awakenedTriggerNameLower]) and not (uniqueNameLower and configTable[uniqueNameLower]) then
-			logNoHandler(skillName, triggerName, uniqueName)(env)
-		end
 		if config then
 		    config.actor = config.actor or env.player
 			config.triggerName = config.triggerName or triggerName or uniqueName or skillName
