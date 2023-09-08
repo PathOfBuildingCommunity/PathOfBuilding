@@ -633,6 +633,11 @@ holding Shift will put it in the second.]])
 
 				local minA, maxA = getMinMax(modA)
 				local minB, maxB = getMinMax(modB)
+
+				if not minA or not minB or not maxA or not maxB then
+					return false
+				end
+
 				local allInts = minA == m_floor(minA) and maxA == m_floor(maxA) and minB == m_floor(minB) and maxB == m_floor(maxB) -- if the mod goes in steps that aren't 1, then the code below this doesn't work
 				if (minA and minB and maxA and maxB and allInts) then
 					if (minA < minB) then -- ascending
