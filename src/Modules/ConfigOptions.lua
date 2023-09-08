@@ -344,7 +344,7 @@ return {
 			modList:NewMod("UsesCurseOverlaps", "FLAG", true, "Config")
 		end
 	end },
-	{ var = "curseOverlaps", type = "count", label = "Curse overlaps:", ifFlag = "UsesCurseOverlaps", apply = function(val, modList, enemyModList)
+	{ var = "curseOverlaps", type = "count", label = "Curse overlaps:", ifSkill = "Doom Blast", ifFlag = "UsesCurseOverlaps", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:CurseOverlaps", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ label = "Predator:", ifSkill = "Predator" },
