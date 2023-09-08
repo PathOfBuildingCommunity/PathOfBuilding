@@ -5189,7 +5189,7 @@ function calcs.offence(env, actor, activeSkill)
 		local avgImpale = output.ImpaleHit
 		local HitAndImpaleChance = chanceToImpale*output.HitChance/100
 		output.ImpaleHit = output.ImpaleHit * (immunityDuration and oneHitMaxAvgRatio*HitAndImpaleChance + (1-HitAndImpaleChance) or 1)
-		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * skillData.dpsMultiplier
+		output.ImpaleDPS = output.ImpaleHit * ((output.ImpaleModifier or 1) - 1) * output.HitChance / 100 * (immunityDuration and 1 or skillData.dpsMultiplier)
 		if skillData.showAverage then
 			output.WithImpaleDPS = output.AverageDamage + output.ImpaleDPS
 			output.CombinedAvg = output.CombinedAvg + output.ImpaleDPS
@@ -5198,7 +5198,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.ImpaleDPS = output.ImpaleDPS * (immunityDuration and 1/(immunityDuration+timeToImpale) or output.HitSpeed or output.Speed)
 			output.WithImpaleDPS = output.TotalDPS + output.ImpaleDPS
 		end
-		if quantityMultiplier > 1 then
+		if quantityMultiplier > 1 and not immunityDuration then
 			output.ImpaleDPS = output.ImpaleDPS * quantityMultiplier
 		end
 		output.CombinedDPS = output.CombinedDPS + output.ImpaleDPS
@@ -5225,10 +5225,10 @@ function calcs.offence(env, actor, activeSkill)
 					t_insert(breakdown.ImpaleDPS, output.HitSpeed and s_format("x %.2f ^8(hit rate)", output.HitSpeed) or s_format("x %.2f ^8(%s rate)", output.Speed, skillFlags.attack and "attack" or "cast"))
 				end
 			end
-			if skillData.dpsMultiplier ~= 1 then
+			if skillData.dpsMultiplier ~= 1 and not immunityDuration then
 				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(dps multiplier for this skill)", skillData.dpsMultiplier))
 			end
-			if quantityMultiplier > 1 then
+			if quantityMultiplier > 1 and not immunityDuration then
 				t_insert(breakdown.ImpaleDPS, s_format("x %g ^8(quantity multiplier for this skill)", quantityMultiplier))
 			end
 			t_insert(breakdown.ImpaleDPS, s_format("= %.1f", output.ImpaleDPS))
