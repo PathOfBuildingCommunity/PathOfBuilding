@@ -1906,24 +1906,20 @@ function calcs.offence(env, actor, activeSkill)
 					trauma = traumaPerAttack * (output.HitChance / 100) * effectiveAttackRateCap / output.Repeats * duration
 					invalid = true
 				end
+				if skillFlags.bothWeaponAttack then -- halve trauma rate when dual wielding so pass 2 doesn't double your trauma rate
+					trauma = trauma / 2
+				end
 				skillModList:NewMod("Multiplier:SustainableTraumaStacks", "BASE", trauma, "Maximum Sustainable Trauma Stacks")
 				if breakdown then
 					storedSustainedTraumaBreakdown = { }
 					if incAttackSpeedPerTrauma == 0 then
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
-							label = "Attack Speed",
-							base = { "%.2f ^8(base)", 1 / baseTime },
-							{ "%.2f ^8(increased/reduced)", 1 + inc/100 },
-							{ "%.2f ^8(more/less)", more },
-							{ "%.2f ^8(action speed modifier)", globalOutput.ActionSpeedMod },
-							total = s_format("= %.2f ^8attacks per second", attackSpeedBeforeInc * (1 + inc/100))
-						})
-						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Trauma",
-							base = { "%.2f ^8(base)", attackSpeedBeforeInc * (1 + inc/100) },
+							base = { "%.2f ^8(attack speed)", attackSpeedBeforeInc * (1 + inc/100) },
 							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
 							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
-							{ "%.2f ^8(duration)", duration }
+							{ "%.2f ^8(duration)", duration },
+							noTotal = true
 						})
 						if output.Repeats ~= 1 then
 							t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
@@ -1936,16 +1932,19 @@ function calcs.offence(env, actor, activeSkill)
 							{ "%.2f ^8(action speed modifier)", globalOutput.ActionSpeedMod },
 							total = s_format("= %.2f ^8attacks per second", attackSpeedBeforeInc)
 						})
+						t_insert(storedSustainedTraumaBreakdown, "")
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							label = "Trauma per second before increased Attack Speed",
 							base = { "%.2f ^8(base)", attackSpeedBeforeInc },
 							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
 							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
+							noTotal = true
 						})
 						if output.Repeats ~= 1 then
 							t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
 						end
 						t_insert(storedSustainedTraumaBreakdown, s_format("= %.2f ^8trauma per second", traumaRateBeforeInc))
+						t_insert(storedSustainedTraumaBreakdown, "")
 						t_insert(storedSustainedTraumaBreakdown, "Trauma")
 						t_insert(storedSustainedTraumaBreakdown, s_format("%.2f ^8(base)", traumaRateBeforeInc))
 						t_insert(storedSustainedTraumaBreakdown, s_format("x %.2f ^8(increased/reduced)", (1 + inc / 100)))
@@ -1953,12 +1952,14 @@ function calcs.offence(env, actor, activeSkill)
 					end
 					t_insert(storedSustainedTraumaBreakdown, s_format("= "..(invalid and colorCodes.NEGATIVE or "").."%d ^8trauma", traumaBreakdown))
 					if invalid then
+						t_insert(storedSustainedTraumaBreakdown, "")
 						t_insert(storedSustainedTraumaBreakdown, "Attack Speed exceeds cap; Recalculating")
 						breakdown.multiChain(storedSustainedTraumaBreakdown, {
 							base = { "%.2f ^8(base)", effectiveAttackRateCap },
 							{ "%.2f ^8(trauma per attack)", traumaPerAttack },
 							{ "%.2f ^8(chance to hit)", (output.HitChance / 100) },
 							{ "%.2f ^8(duration)", (duration) },
+							noTotal = true
 						})
 						if output.Repeats ~= 1 then
 							t_insert(storedSustainedTraumaBreakdown, s_format("/ %.2f ^8(repeats)", output.Repeats))
