@@ -4728,6 +4728,19 @@ local specialModList = {
 				{ key = "conqueredBy", value = { id = num, conqueror = conquerorList[name:lower()] } }) } end,
 	["passives in radius are conquered by the (%D+)"] = { },
 	["historic"] = { },
+	-- Tattoos
+	["+(%d+) to maximum life per allocated journey tattoo of the body"] = function(num) return {
+		mod("Life", "BASE", num, { type = "Multiplier", var = "JourneyTattooBody" }),
+		mod("Multiplier:JourneyTattooBody", "BASE", 1),
+	} end,
+	["+(%d+) to maximum energy shield per allocated journey tattoo of the soul"] = function(num) return {
+		mod("EnergyShield", "BASE", num, { type = "Multiplier", var = "JourneyTattooSoul" }),
+		mod("Multiplier:JourneyTattooSoul", "BASE", 1),
+	} end,
+	["+(%d+) to maximum mana per allocated journey tattoo of the mind"] = function(num) return {
+		mod("Mana", "BASE", num, { type = "Multiplier", var = "JourneyTattooMind" }),
+		mod("Multiplier:JourneyTattooMind", "BASE", 1),
+	} end,
 	-- Display-only modifiers
 	["extra gore"] = { },
 	["prefixes:"] = { },
