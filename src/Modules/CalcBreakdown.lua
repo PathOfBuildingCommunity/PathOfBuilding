@@ -35,7 +35,7 @@ function breakdown.multiChain(out, chain)
 	end
 	if chain.total then
 		t_insert(out, chain.total)
-	elseif (lines > 0 and base ~= nil) or (lines > 1 and base == nil) then
+	elseif not chain.noTotal and (lines > 0 and base ~= nil) or (lines > 1 and base == nil) then
 		t_insert(out, s_format("= %.2f", multiplier * (base or 1)))
 	end
 	return lines
