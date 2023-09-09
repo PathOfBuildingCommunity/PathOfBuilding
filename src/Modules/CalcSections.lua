@@ -1983,6 +1983,12 @@ return {
 			{ modName = { "TotalVaalRejuvenationTotemLife", "takenFromVaalRejuvenationTotemsBeforeYou", "takenFromTotemsBeforeYou" } },
 		},
 	},
+	{ label = "Soul Link", haveOutput = "AlliedEnergyShield",
+		{ format = "{0:output:AlliedEnergyShield}",
+			{ breakdown = "AlliedEnergyShield" },
+			{ modName = { "AlliedEnergyShield", "TakenFromParentESBeforeYou" } },
+		},
+	},
 	{ label = "Hits before death",{ format = "{2:output:NumberOfDamagingHits}", },
 	}
 }, }, { defaultCollapsed = false, label = "Effective \"Health\" Pool", data = {

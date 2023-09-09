@@ -12412,6 +12412,9 @@ skills["SoulLink"] = {
 		["soul_link_grants_mana_regeneration_+%"] = {
 			mod("ManaRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
+		["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"] = {
+			mod("TakenFromParentESBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -12493,6 +12496,9 @@ skills["DestructiveLink"] = {
 		},
 		["critical_link_grants_accuracy_rating_+%"] = {
 			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["display_critical_link_overrides_main_hand_critical_strike_chance"] = {
+			flag("MainHandCritIsEqualToParent", { type = "GlobalEffect", effectType = "Link" }, { type = "Condition", var = "MainHandAttack" }),
 		},
 	},
 	baseFlags = {

@@ -1231,6 +1231,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	local effectIncMagicNonPlayer = modDB:Sum("INC", nil, "MagicUtilityFlaskEffect")
 	local flasksApplyToMinion = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "FlasksApplyToMinion")
 	local quickSilverAppliesToAllies = env.minion and modDB:Flag(env.player.mainSkill.skillCfg, "QuickSilverAppliesToAllies")
+	local nonUniqueFlasksApplyToMinion = env.minion and env.minion.modDB:Flag(nil, "ParentNonUniqueFlasksAppliedToYou")
 	local flaskTotalRateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
 	local flaskDurInc = modDB:Sum("INC", nil, "FlaskDuration")
 
@@ -1315,7 +1316,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 				srcList:ScaleAddList(buffModList, effectMod)
 				mergeBuff(srcList, flaskBuffs, baseName)
 				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], baseName)
-				if (flasksApplyToMinion or quickSilverAppliesToAllies) then
+				if (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE")) then
 					srcList = new("ModList")
 					srcList:ScaleAddList(buffModList, effectModNonPlayer)
 					mergeBuff(srcList, flaskBuffsNonPlayer, baseName)
@@ -1337,7 +1338,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 				end
 				mergeBuff(srcList, flaskBuffs, key)
 				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
-				if (flasksApplyToMinion or quickSilverAppliesToAllies) then
+				if (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE")) then
 					srcList = new("ModList")
 					srcList:ScaleAddList(modList, effectModNonPlayer)
 					mergeBuff(srcList, flaskBuffsNonPlayer, key)
@@ -1378,7 +1379,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 			end
 		end
 		if env.minion then
-			if flasksApplyToMinion then
+			if flasksApplyToMinion or nonUniqueFlasksApplyToMinion then -- nonUniqueAlreadyFiltered
 				local minionModDB = env.minion.modDB
 				for flaskCond, status in pairs(flaskConditions) do
 					minionModDB.conditions[flaskCond] = status
@@ -1914,6 +1915,10 @@ function calcs.perform(env, fullDPSSkipEHP)
 						end
 						if add then
 							t_insert(extraLinkModList, copyTable(value.mod, true))
+							-- special handling to add this early
+							if value.mod.name == "ParentNonUniqueFlasksAppliedToYou" then
+								nonUniqueFlasksApplyToMinion = true
+							end
 						end
 					end
 					if env.minion then
@@ -2110,7 +2115,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	if env.mode_combat then
 		-- This needs to be done in 2 steps to account for effects affecting life recovery from flasks
 		-- For example Sorrow of the Divine and buffs (like flask recovery watchers eye)
-		mergeFlasks(env.flasks, true)
+		mergeFlasks(env.flasks, not (nonUniqueFlasksApplyToMinion or false))
 	end
 
 	-- Check for extra curses

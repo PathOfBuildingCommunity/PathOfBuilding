@@ -108,9 +108,8 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 		if output.TotalRadianceSentinelLife then
 			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
 		end
-		-- soul link is not implemented yet
-		if output.SoulLink then
-			alliesTakenBeforeYou["soulLink"] = { remaining = output.SoulLink, percent = output.SoulLinkMitigation / 100 }
+		if output.AlliedEnergyShield then
+			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
 		end
 	end
 	
@@ -406,6 +405,9 @@ function calcs.defence(env, actor)
 
 	-- Block
 	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
+	if modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToParent") then
+		output.BlockChanceMax = actor.parent.output.BlockChanceMax
+	end
 	output.BlockChanceOverCap = 0
 	output.SpellBlockChanceOverCap = 0
 	local baseBlockChance = 0
@@ -416,7 +418,9 @@ function calcs.defence(env, actor)
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
 	end
 	output.ShieldBlockChance = baseBlockChance
-	if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
+	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
+		output.BlockChance = actor.parent.output.BlockChance
+	elseif modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
 		output.BlockChance = output.BlockChanceMax
 	else
 		local totalBlockChance = (baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance")
@@ -823,7 +827,9 @@ function calcs.defence(env, actor)
 		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
 	end
 	output.ShieldBlockChance = baseBlockChance
-	if modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
+	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
+		output.BlockChance = actor.parent.output.BlockChance
+	elseif modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
 		output.BlockChance = output.BlockChanceMax
 	else
 		output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
@@ -902,6 +908,9 @@ function calcs.defence(env, actor)
 	-- Leech caps
 	output.MaxLifeLeechInstance = output.Life * calcLib.val(modDB, "MaxLifeLeechInstance") / 100
 	output.MaxLifeLeechRatePercent = calcLib.val(modDB, "MaxLifeLeechRate")
+	if modDB:Flag(nil, "MaximumLifeLeechIsEqualToParent") then
+		output.MaxLifeLeechRatePercent = actor.parent.output.MaxLifeLeechRatePercent
+	end
 	output.MaxLifeLeechRate = output.Life * output.MaxLifeLeechRatePercent / 100
 	if breakdown then
 		breakdown.MaxLifeLeechRate = {
@@ -2056,6 +2065,11 @@ function calcs.buildDefenceEstimations(env, actor)
 			output["TotalRadianceSentinelLife"] = modDB:Sum("BASE", nil, "TotalRadianceSentinelLife")
 		end
 		
+		-- from Allied Energy Shield
+		output["SoulLinkMitigation"] = modDB:Sum("BASE", nil, "TakenFromParentESBeforeYou")
+		if output["SoulLinkMitigation"] ~= 0 then
+			output["AlliedEnergyShield"] = actor.parent.output.EnergyShieldRecoveryCap or 0
+		end
 	end
 	
 	-- Vaal Arctic Armour
@@ -2144,6 +2158,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		if output.TotalRadianceSentinelLife then
 			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
+		end
+		if output.AlliedEnergyShield then
+			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
 		end
 		
 		local poolTable = {
@@ -2819,6 +2836,11 @@ function calcs.buildDefenceEstimations(env, actor)
 			local poolProtected = output["TotalRadianceSentinelLife"] / (output["RadianceSentinelAllyDamageMitigation"] / 100) * (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
 			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
 		end
+		-- soul link
+		if output["AlliedEnergyShield"] and output["AlliedEnergyShield"] > 0 then
+			local poolProtected = output["AlliedEnergyShield"] / (output["SoulLinkMitigation"] / 100) * (1 - output["SoulLinkMitigation"] / 100)
+			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["SoulLinkMitigation"] / 100)
+		end
 	end
 
 	for _, damageType in ipairs(dmgTypeList) do
@@ -2972,6 +2994,9 @@ function calcs.buildDefenceEstimations(env, actor)
 			end
 			if output.TotalRadianceSentinelLife and output.TotalRadianceSentinelLife > 0 then
 				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
+			end
+			if output.AlliedEnergyShield and output.AlliedEnergyShield > 0 then
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Allied Energy shield ^7(%d remaining)", output.AlliedEnergyShield - poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining, poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining))
 			end
 			if output.sharedAegis and output.sharedAegis > 0 then
 				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared))
