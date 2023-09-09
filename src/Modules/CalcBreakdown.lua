@@ -96,13 +96,13 @@ function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, red
 	local out = {}
 	t_insert(out, label)
 	if base ~= total then
-		t_insert(out, s_format("%d ^8(base radius)", base))
+		t_insert(out, s_format("%.1fm ^8(base radius)", base / 10))
 		t_insert(out, s_format("x %.2f ^8(square root of area of effect modifier)", m_floor(100 * m_sqrt(areaMod)) / 100))
-		t_insert(out, s_format("= %d", total))
+		t_insert(out, s_format("= %.1fm", total / 10))
 	end
 	if incBreakpoint and moreBreakpoint and redBreakpoint and lessBreakpoint then
-		t_insert(out, s_format("^8Next breakpoint: %d%% increased AoE / a %d%% more AoE multiplier", incBreakpoint, moreBreakpoint))
-		t_insert(out, s_format("^8Previous breakpoint: %d%% reduced AoE / a %d%% less AoE multiplier", redBreakpoint, lessBreakpoint))
+		t_insert(out, s_format("^8Next 0.1m breakpoint: %d%% increased AoE / a %d%% more AoE multiplier", incBreakpoint, moreBreakpoint))
+		t_insert(out, s_format("^8Previous 0.1m breakpoint: %d%% reduced AoE / a %d%% less AoE multiplier", redBreakpoint, lessBreakpoint))
 	end
 	out.radius = total
 	return out

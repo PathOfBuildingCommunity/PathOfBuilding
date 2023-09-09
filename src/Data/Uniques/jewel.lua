@@ -389,7 +389,7 @@ Variant: Pre 3.11.0
 Variant: Current
 Radius: Small
 {variant:1}(10-15)% increased Area of Effect while Unarmed
-{variant:2}+(3-4) to Melee Strike Range while Unarmed
+{variant:2}+(0.3-0.4) metres to Melee Strike Range while Unarmed
 {variant:2}Passive Skills in Radius also grant: 1% increased Unarmed Attack Speed with Melee Skills
 ]],[[
 Melding of the Flesh
@@ -1651,9 +1651,9 @@ Variant: Pre 3.16.0
 Variant: Current
 Limited to: 1
 {variant:1}8% increased Attack Damage
-{variant:1}+1 Melee Strike Range
+{variant:1}+0.1 metres to Melee Strike Range
 {variant:2}10% increased Attack Damage
-{variant:2}+2 Melee Strike Range
+{variant:2}+0.2 metres to Melee Strike Range
 ]],
 -- Jewel: Labyrinth rewards
 [[

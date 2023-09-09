@@ -3393,6 +3393,11 @@ skills["Fireball"] = {
 			area = true,
 		},
 	},
+	statMap = {
+		["fireball_base_radius_up_to_+_at_longer_ranges"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{50,1}} })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -3486,6 +3491,11 @@ skills["VaalFireballSpiralNova"] = {
 		{
 			name = "Explosion",
 			area = true,
+		},
+	},
+	statMap = {
+		["fireball_base_radius_up_to_+_at_longer_ranges"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{50,1}} })
 		},
 	},
 	baseFlags = {
