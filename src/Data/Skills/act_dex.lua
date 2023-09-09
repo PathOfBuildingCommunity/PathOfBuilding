@@ -10834,6 +10834,18 @@ skills["VampiricLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["life_leech_is_applied_to_remora_link_targets_instead"] = { -- this just disables your leech for now
+			flag("CannotLeechLife", { type = "GlobalEffect", effectType = "Buff" })
+		},
+		["remora_link_grants_maximum_life_leech_rate_%_per_minute"] = {
+			mod("MaxLifeLeechRate", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+		["remora_link_grants_damage_+%_when_on_full_life"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "Condition", var = "FullLife" })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,

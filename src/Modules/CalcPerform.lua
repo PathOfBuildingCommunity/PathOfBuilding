@@ -1656,6 +1656,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	local minionCurses = {
 		limit = 1,
 	}
+	local linkSkills = { }
 	local allyBuffs = env.build.partyTab.processedInput["Aura"]
 	local buffExports = { Aura = {}, Curse = {}, EnemyMods = {}, EnemyConditions = {} }
 	for spectreId = 1, #env.spec.build.spectreList do
@@ -1896,6 +1897,38 @@ function calcs.perform(env, fullDPSSkipEHP)
 						end
 					end
 					t_insert(curses, curse)	
+				end
+			elseif buff.type == "Link" then
+				if env.mode_buffs and (#linkSkills < 1) and env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion")
+						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamageable] then
+					-- Check for extra modifiers to apply to link skills
+					local extraLinkModList = { }
+					for _, value in ipairs(modDB:List(skillCfg, "ExtraLinkEffect")) do
+						local add = true
+						for _, mod in ipairs(extraLinkModList) do
+							if modLib.compareModParams(mod, value.mod) then
+								mod.value = mod.value + value.mod.value
+								add = false
+								break
+							end
+						end
+						if add then
+							t_insert(extraLinkModList, copyTable(value.mod, true))
+						end
+					end
+					if env.minion then
+						activeSkill.minionBuffSkill = true
+						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+						env.minion.modDB.conditions["AffectedByLink"] = true
+						local srcList = new("ModList")
+						local inc = skillModList:Sum("INC", skillCfg, "LinkEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
+						local more = skillModList:More(skillCfg, "LinkEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
+						local mult = (1 + inc / 100) * more
+						srcList:ScaleAddList(buff.modList, mult)
+						srcList:ScaleAddList(extraLinkModList, mult)
+						mergeBuff(srcList, minionBuffs, buff.name)
+						linkSkills[1] = buff.name
+					end
 				end
 			end
 		end

@@ -1755,7 +1755,9 @@ return {
 ["physical_damage_reduction_rating_+%"] = {
 	mod("Armour", "INC", nil),
 },
-
+["cannot_be_damaged"] = {
+	mod("Condition:CannotBeDamaged", "FLAG", nil)
+},
 --
 -- Gem Levels
 --

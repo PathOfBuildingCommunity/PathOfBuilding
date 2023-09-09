@@ -12405,6 +12405,14 @@ skills["SoulLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["soul_link_grants_damage_taken_+%_final"] = {
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["soul_link_grants_mana_regeneration_+%"] = {
+			mod("ManaRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -12479,6 +12487,14 @@ skills["DestructiveLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["critical_link_grants_base_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["critical_link_grants_accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,

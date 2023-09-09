@@ -1034,6 +1034,12 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.CurseEffectMod = breakdown.mod(skillModList, skillCfg, "CurseEffect")
 		end
 	end
+	if activeSkill.skillTypes[SkillType.Link] then
+		output.LinkEffectMod = calcLib.mod(skillModList, skillCfg, "LinkEffect", "BuffEffect")
+		if breakdown then
+			breakdown.LinkEffectMod = breakdown.mod(skillModList, skillCfg, "LinkEffect", "BuffEffect")
+		end
+	end
 	if (skillFlags.trap or skillFlags.mine) and not (skillData.trapCooldown or skillData.cooldown) then
 		skillFlags.notAverage = true
 		skillFlags.showAverage = false
