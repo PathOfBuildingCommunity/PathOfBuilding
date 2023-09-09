@@ -488,24 +488,18 @@ function TreeTabClass:OpenImportPopup()
 	local versionLookup = "tree/([0-9]+)%.([0-9]+)%.([0-9]+)/"
 	local controls = { }
 	local function decodeTreeLink(treeLink, newTreeVersion)
-			-- newTreeVersion is passed in as an output of validateTreeVersion(). It will always be a valid tree version text string
-			-- If there was a version on the url, and it changed the version of the active spec, dump the active spec and get one of the right version. 
-		if newTreeVersion ~= self.specList[self.activeSpec].treeVersion then
-			local newSpec = new("PassiveSpec", self.build, newTreeVersion)
-			newSpec:SelectClass(self.build.spec.curClassId)
-			newSpec:SelectAscendClass(self.build.spec.curAscendClassId)
-			newSpec.title = self.build.spec.title
-			self.specList[self.activeSpec] = newSpec
-			-- trigger all the things that go with changing a spec
-			self:SetActiveSpec(self.activeSpec)
-			self.modFlag = true
-		end
-	
-		-- We will now have a spec that matches the version of the binary being imported
-		local errMsg = self.build.spec:DecodeURL(treeLink)
+		-- newTreeVersion is passed in as an output of validateTreeVersion(). It will always be a valid tree version text string
+		-- 20230908. We always create a new Spec()
+		local newSpec = new("PassiveSpec", self.build, newTreeVersion)
+		newSpec.title = controls.name.buf
+		local errMsg = newSpec:DecodeURL(treeLink)
 		if errMsg then
-			controls.msg.label = "^1"..errMsg
+			controls.msg.label = "^1"..errMsg.."^7"
 		else
+			t_insert(self.specList, newSpec)
+			-- trigger all the things that go with changing a spec
+			self:SetActiveSpec(#self.specList)
+			self.modFlag = true
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
 			main:ClosePopup()
@@ -527,12 +521,18 @@ function TreeTabClass:OpenImportPopup()
 		return latestTreeVersion .. (isRuthless and "_ruthless" or "")
 	end
 
-	controls.editLabel = new("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:")
-	controls.edit = new("EditControl", nil, 0, 40, 350, 18, "", nil, nil, nil, function(buf)
+	controls.nameLabel = new("LabelControl", nil, -180, 20, 0, 16, "Enter name for this passive tree:")
+	controls.name = new("EditControl", nil, 100, 20, 350, 18, "", nil, nil, nil, function(buf)
 		controls.msg.label = ""
+		controls.import.enabled = buf:match("%S") and controls.edit.buf:match("%S")
 	end)
-	controls.msg = new("LabelControl", nil, 0, 58, 0, 16, "")
-	controls.import = new("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
+	controls.editLabel = new("LabelControl", nil, -150, 45, 0, 16, "Enter passive tree link:")
+	controls.edit = new("EditControl", nil, 100, 45, 350, 18, "", nil, nil, nil, function(buf)
+		controls.msg.label = ""
+		controls.import.enabled = buf:match("%S") and controls.name.buf:match("%S")
+	end)
+	controls.msg = new("LabelControl", nil, 0, 65, 0, 16, "")
+	controls.import = new("ButtonControl", nil, -45, 85, 80, 20, "Import", function()
 		local treeLink = controls.edit.buf
 		if #treeLink == 0 then
 			return
@@ -560,7 +560,7 @@ function TreeTabClass:OpenImportPopup()
 			if id then
 				launch:RegisterSubScript(id, function(treeLink, errMsg)
 					if errMsg then
-						controls.msg.label = "^1"..errMsg
+						controls.msg.label = "^1"..errMsg.."^7"
 						controls.import.enabled = true
 						return
 					else
@@ -579,10 +579,11 @@ function TreeTabClass:OpenImportPopup()
 			decodeTreeLink(treeLink, validateTreeVersion(treeLink:match("tree/ruthless"), treeLink:match(versionLookup)))
 		end
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
+	controls.import.enabled = false
+	controls.cancel = new("ButtonControl", nil, 45, 85, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(380, 110, "Import Tree", controls, "import", "edit")
+	main:OpenPopup(580, 115, "Import Tree", controls, "import", "name")
 end
 
 function TreeTabClass:OpenExportPopup()
