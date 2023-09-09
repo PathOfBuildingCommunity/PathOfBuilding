@@ -47,53 +47,31 @@ end
 
 modLib.parseMod, modLib.parseModCache = LoadModule("Modules/ModParser", launch)
 
-function modLib.parseTags(line, currentModType)
-	 -- should parse this correctly instead of string match
-	if not line then
-		return "none", {}
+function modLib.parseTags(line)
+	if not line or line == "-" then
+		return {}
 	end
-	local extraTags = {}
-	local modType = currentModType
-	for line2 in line:gmatch("([^,]*),?") do
-		if line2:find("type=GlobalEffect/") then
-			if line2:find("type=GlobalEffect/effectType=AuraDebuff") then
-				t_insert(extraTags, {
-					type = "GlobalEffect",
-					effectType = "AuraDebuff"
-				})
-				modType = "AuraDebuff"
-			elseif line2:find("type=GlobalEffect/effectType=Aura") then
-				t_insert(extraTags, {
-					type = "GlobalEffect",
-					effectType = "Aura"
-				})
-				modType = "Aura"
-			elseif line2:find("type=GlobalEffect/effectType=Curse") then
-				t_insert(extraTags, {
-					type = "GlobalEffect",
-					effectType = "Curse"
-				})
-				modType = "Curse"
+	local Tags = {}
+	for tagGroup in line:gmatch("([^,]*),?") do
+		if tagGroup ~= "" then
+			local tagSet = {}
+			for tag in tagGroup:gmatch("([^/]*)/?") do
+				if tag ~= "" then
+					local tagName, tagValue = tag:match("^(%a+)=(.+)")
+					if tagName then
+						tagSet[tagName] = tagValue == "true" and true or tagValue
+					else
+						ConPrintf("Error tag invalid: "..tag)
+					end
+				end
 			end
-		elseif line2:find("type=Condition/") then
-			if line2:find("type=Condition/neg=true/var=RareOrUnique") then
-				t_insert(extraTags, {
-					type = "Condition",
-					neg = true,
-					var = "RareOrUnique"
-				})
-			elseif line2:find("type=Condition/var=RareOrUnique") then
-				t_insert(extraTags, {
-					type = "Condition",
-					var = "RareOrUnique"
-				})
-			end
+			t_insert(Tags, tagSet)
 		end
 	end
-	return modType, extraTags
+	return Tags
 end
 
-function modLib.parseFormattedSourceMod(line, currentModType)
+function modLib.parseFormattedSourceMod(line)
 	local modStrings = {}
 	for line2 in line:gmatch("([^|]*)|?") do
 		t_insert(modStrings, line2)
@@ -107,13 +85,11 @@ function modLib.parseFormattedSourceMod(line, currentModType)
 			flags = ModFlag[modStrings[5]] or 0,
 			keywordFlags = KeywordFlag[modStrings[6]] or 0,
 		}
-		local modType, Tags = modLib.parseTags(modStrings[7], currentModType)
-		for _, tag in ipairs(Tags) do
+		for _, tag in ipairs(modLib.parseTags(modStrings[7])) do
 			t_insert(mod, tag)
 		end
-		return modType, mod
+		return mod
 	end
-	return currentModType, nil
 end
 
 function modLib.compareModParams(modA, modB)

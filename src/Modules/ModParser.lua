@@ -3414,6 +3414,7 @@ local specialModList = {
 		mod("ElementalDamage", "MORE", 50, { type = "Condition", var = "Divinity" }),
 		mod("ElementalDamageTaken", "MORE", -20, { type = "Condition", var = "Divinity" }),
 	},
+	["your nearby party members maximum endurance charges is equal to yours"] = { flag("PartyMemberMaximumEnduranceChargesEqualToYours") },
 	["your maximum endurance charges is equal to your maximum frenzy charges"] = { flag("MaximumEnduranceChargesIsMaximumFrenzyCharges") },
 	["your maximum frenzy charges is equal to your maximum power charges"] = { flag("MaximumFrenzyChargesIsMaximumPowerCharges") },
 	["your curse limit is equal to your maximum power charges"] = { flag("CurseLimitIsMaximumPowerCharges") },
