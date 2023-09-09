@@ -146,6 +146,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:", nil, "Delete all existing skills when importing.", true)
 	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
+	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 380, 0, 18, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
 	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Close", function()
@@ -567,6 +568,13 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 
+	if charPassiveData.skill_overrides then
+		for nodeId, override in pairs(charPassiveData.skill_overrides) do
+			self.build.spec:ReplaceNode(override, self.build.spec.tree.tattoo.nodes[override.name])
+			override.id = nodeId
+		end
+	end
+
 	if errMsg then
 		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 		return
@@ -601,7 +609,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 			end
 		end
 	end
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {}, latestTreeVersion)
+	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
@@ -716,7 +724,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
 		elseif itemData.inventoryId == "Flask" then
 			slotName = "Flask "..(itemData.x + 1)
-		else
+		elseif not (self.controls.charImportItemsIgnoreWeaponSwap.state and (itemData.inventoryId == "Weapon2" or itemData.inventoryId == "Offhand2")) then
 			slotName = slotMap[itemData.inventoryId]
 		end
 	end
@@ -754,8 +762,9 @@ function ImportTabClass:ImportItem(itemData, slotName)
 				end
 			end
 			item.name = oneHanded and "Energy Blade One Handed" or "Energy Blade Two Handed"
-			itemData.implicitMods = nil
-			itemData.explicitMods = nil
+			item.rarity = "NORMAL"
+			itemData.implicitMods = { }
+			itemData.explicitMods = { }
 		end
 		for baseName, baseData in pairs(self.build.data.itemBases) do
 			local s, e = item.name:find(baseName, 1, true)
@@ -833,7 +842,13 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.sockets and itemData.sockets[1] then
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
+			if socket.sColour == "A" then
+				item.abyssalSocketCount = item.abyssalSocketCount or 0 + 1
+			end
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
+		end
+		if item.abyssalSocketCount and item.abyssalSocketCount > 0 and item.name:match("Energy Blade") then
+			t_insert(itemData.explicitMods, "Has " .. item.abyssalSocketCount .. " Abyssal Sockets")
 		end
 	end
 	if itemData.socketedItems then

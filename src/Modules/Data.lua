@@ -849,16 +849,20 @@ for name, spectre in pairs(data.spectres) do
 	spectre.limit = "ActiveSpectreLimit"
 	data.minions[name] = spectre
 end
-local missing = { }
 for _, minion in pairs(data.minions) do
-	for _, skillId in ipairs(minion.skillList) do
-		if launch.devMode and not data.skills[skillId] and not missing[skillId] then
-			ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
-			missing[skillId] = true
-		end
-	end
 	for _, mod in ipairs(minion.modList) do
 		mod.source = "Minion:"..minion.name
+	end
+end
+data.printMissingMinionSkills = function()
+	local missing = { }
+	for _, minion in pairs(data.minions) do
+		for _, skillId in ipairs(minion.skillList) do
+			if not data.skills[skillId] and not missing[skillId] then
+				ConPrintf("'%s' missing skill '%s'", minion.name, skillId)
+				missing[skillId] = true
+			end
+		end
 	end
 end
 

@@ -6,7 +6,7 @@ return {
 		"Quality does not increase Physical Damage/1% increased Critical Strike Chance per 4% Quality",
 		"Quality does not increase Physical Damage/Grants 1% increased Accuracy per 2% Quality",
 		"Quality does not increase Physical Damage/1% increased Attack Speed per 8% Quality",
-		"Quality does not increase Physical Damage/+1 Weapon Range per 10% Quality",
+		"Quality does not increase Physical Damage/+0.1 metres to Weapon Range per 10% Quality",
 		"Quality does not increase Physical Damage/Grants 1% increased Elemental Damage per 2% Quality",
 		"Quality does not increase Physical Damage/Grants 1% increased Area of Effect per 4% Quality",
 	},

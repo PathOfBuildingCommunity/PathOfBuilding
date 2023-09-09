@@ -633,8 +633,13 @@ holding Shift will put it in the second.]])
 
 				local minA, maxA = getMinMax(modA)
 				local minB, maxB = getMinMax(modB)
-				
-				if (minA and minB and maxA and maxB) then
+
+				if not minA or not minB or not maxA or not maxB then
+					return false
+				end
+
+				local allInts = minA == m_floor(minA) and maxA == m_floor(maxA) and minB == m_floor(minB) and maxB == m_floor(maxB) -- if the mod goes in steps that aren't 1, then the code below this doesn't work
+				if (minA and minB and maxA and maxB and allInts) then
 					if (minA < minB) then -- ascending
 						return minA + 1 == maxB
 					else -- descending
@@ -2066,13 +2071,16 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	end
 	buildEnchantmentSourceList()
 	buildEnchantmentList()
-	local function enchantItem()
+	local function enchantItem(idx, remove)
 		local item = new("Item", self.displayItem:BuildRaw())
+		local index = idx or controls.enchantment.selIndex
 		item.id = self.displayItem.id
 		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
-		local line = list[controls.enchantmentSource.list[controls.enchantmentSource.selIndex].name][controls.enchantment.selIndex]
+		local line = list[controls.enchantmentSource.list[controls.enchantmentSource.selIndex].name][index]
 		local first, second = line:match("([^/]+)/([^/]+)")
-		if first then
+		if remove then
+			t_remove(item.enchantModLines, self.enchantSlot)
+		elseif first then
 			item.enchantModLines = { { crafted = true, line = first }, { crafted = true, line = second } }
 		else
 			if not item.canHaveTwoEnchants and #item.enchantModLines > 1 then
@@ -2112,15 +2120,19 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	end)
 	controls.enchantmentLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "^7Enchantment:")
 	controls.enchantment = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 440, 18, enchantmentList)
-	controls.save = new("ButtonControl", nil, -45, 100, 80, 20, "Enchant", function()
+	controls.enchantment.tooltipFunc = function(tooltip, mode, index)
+		tooltip:Clear()
+		self:AddItemTooltip(tooltip, enchantItem(index), nil, true)
+	end
+	controls.save = new("ButtonControl", nil, -88, 100, 80, 20, "Enchant", function()
 		self:SetDisplayItem(enchantItem())
 		main:ClosePopup()
 	end)
-	controls.save.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		self:AddItemTooltip(tooltip, enchantItem(), nil, true)
-	end	
-	controls.close = new("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
+	controls.remove = new("ButtonControl", nil, 0, 100, 80, 20, "Remove", function()
+		self:SetDisplayItem(enchantItem(nil, true))
+		main:ClosePopup()
+	end)
+	controls.close = new("ButtonControl", nil, 88, 100, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(550, 130, "Enchant Item", controls)
@@ -3125,7 +3137,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		tooltip:AddLine(16, s_format("^x7F7F7FCritical Strike Chance: %s%.2f%%", main:StatColor(weaponData.CritChance, base.weapon.CritChanceBase), weaponData.CritChance))
 		tooltip:AddLine(16, s_format("^x7F7F7FAttacks per Second: %s%.2f", main:StatColor(weaponData.AttackRate, base.weapon.AttackRateBase), weaponData.AttackRate))
 		if weaponData.range < 120 then
-			tooltip:AddLine(16, s_format("^x7F7F7FWeapon Range: %s%d", main:StatColor(weaponData.range, base.weapon.Range), weaponData.range))
+			tooltip:AddLine(16, s_format("^x7F7F7FWeapon Range: %s%.1f ^x7F7F7Fmetres", main:StatColor(weaponData.range, base.weapon.Range), weaponData.range / 10))
 		end
 	elseif base.armour then
 		-- Armour-specific info
@@ -3331,11 +3343,11 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 
 		if item.base.flask.life or item.base.flask.mana then
 			local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
-			local instantPerc = flaskData.instantPerc
 			if item.base.flask.life then
 				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
 				local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
 				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
+				local instantPerc = flaskData.instantPerc + modDB:Sum("BASE", nil, "LifeFlaskInstantRecovery")
 				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
 				local base = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100)
 				local grad = base * output.LifeRecoveryRateMod
@@ -3388,6 +3400,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			if item.base.flask.mana then
 				local manaInc = modDB:Sum("INC", nil, "FlaskManaRecovery")
 				local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
+				local instantPerc = flaskData.instantPerc + modDB:Sum("BASE", nil, "ManaFlaskInstantRecovery")
 				local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
 				local base = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
 				local grad = base * output.ManaRecoveryRateMod
