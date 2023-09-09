@@ -3280,16 +3280,13 @@ skills["FlameLink"] = {
 			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
 		["flame_link_added_fire_damage_from_life_%"] = {
-			
+			mod("FireMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 1, actor = "parent" }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 1, actor = "parent" }),
 		},
 	},
 	baseFlags = {
 		spell = true,
 		duration = true,
-	},
-	baseMods = {
-		mod("FireMin", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),
-		mod("FireMax", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" }),
 	},
 	qualityStats = {
 		Default = {

@@ -605,11 +605,10 @@ local skills, mod, flag, skill = ...
 			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
 		["flame_link_added_fire_damage_from_life_%"] = {
-			
+			mod("FireMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 1, actor = "parent" }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 1, actor = "parent" }),
 		},
 	},
-#baseMod mod("FireMin", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" })
-#baseMod mod("FireMax", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 0.05, actor = "parent" })
 #mods
 
 #skill BloodSandArmour
