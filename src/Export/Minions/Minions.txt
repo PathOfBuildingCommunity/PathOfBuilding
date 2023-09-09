@@ -95,7 +95,17 @@ local minions, mod = ...
 #monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlow AxisEliteSoldierDominatingBlow
 #emit
 
+#monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlowVaal AxisEliteSoldierDominatingBlowVaal
+#mod mod("Damage", "MORE", 200)
+#mod mod("DamageTaken", "MORE", -70)
+#emit
+
 #monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudge AbsolutionTemplarJudge
+#emit
+
+#monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudgeVaal AbsolutionTemplarJudgeVaal
+#mod mod("Damage", "MORE", 200)
+#mod mod("DamageTaken", "MORE", -70)
 #emit
 
 #monster Metadata/Monsters/Rhoas/RhoaUniqueSummoned RhoaUniqueSummoned
@@ -125,4 +135,16 @@ local minions, mod = ...
 
 #monster Metadata/Monsters/LeagueExpedition/Arbalest/SummonedArbalest SummonedArbalists
 #limit ActiveArbalistLimit
+#emit
+
+#monster Metadata/Monsters/Axis/AxisEliteSoldierRadiance GuardianSentinel
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicFire GuardianRelicFire
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicCold GuardianRelicCold
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicLightning GuardianRelicLightning
 #emit

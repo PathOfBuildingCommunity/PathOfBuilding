@@ -206,7 +206,7 @@ Cannot be Ignited
 {variant:1,2}(10-15)% increased Physical Damage with Ranged Weapons
 {variant:3}(75-150)% increased Physical Damage with Ranged Weapons
 {variant:1,2}-(5-7) Physical Damage taken from Attack Hits
-{variant:3}-(30-60)Physical Damage taken from Attack Hits
+{variant:3}-(30-60) Physical Damage taken from Attack Hits
 ]],[[
 Briskwrap
 {variant:1,2,3}Strapped Leather
@@ -269,7 +269,7 @@ Implicits: 1
 {variant:3}+(31-53)% to Chaos Resistance
 You can apply an additional Curse
 Your Hexes can affect Hexproof Enemies
-{variant:1,3}Poison Cursed Enemies on hit
+{variant:1,3}Always Poison on Hit against Cursed Enemies
 {variant:2}60% chance to Poison on Hit against Cursed Enemies
 ]],[[
 Foxshade

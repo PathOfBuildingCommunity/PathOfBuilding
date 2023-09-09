@@ -550,6 +550,33 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	},
 }
 
+minions["AxisEliteSoldierDominatingBlowVaal"] = {
+	name = "Ascended Sentinel of Dominance",
+	life = 4,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.8,
+	damageSpread = 0.2,
+	attackTime = 0.83,
+	attackRange = 28,
+	accuracy = 3.4,
+	skillList = {
+		"TeleportVaalDomination",
+		"GAVaalDominationTeleportSlam",
+		"VaalDominationSunderMelee",
+		"VaalDominationSunder",
+		"GAVaalDominationLargeSlam",
+		"VaalDominationMelee",
+	},
+	modList = {
+		mod("Damage", "MORE", 200),
+		mod("DamageTaken", "MORE", -70),
+	},
+}
+
 minions["AbsolutionTemplarJudge"] = {
 	name = "Sentinel of Absolution",
 	life = 4,
@@ -571,6 +598,33 @@ minions["AbsolutionTemplarJudge"] = {
 		"AbsolutionMinionEmpowered",
 	},
 	modList = {
+	},
+}
+
+minions["AbsolutionTemplarJudgeVaal"] = {
+	name = "Ascended Sentinel of Absolution",
+	life = 4,
+	energyShield = 0.2,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 2.8,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"AbsolutionMinionVaal",
+		"AbsolutionMinionVaalCascade",
+		"GTVaalAbsolutionLarge",
+		"VaalAbsolutionDelayedBlast",
+		"GSVaalAbsolutionEmerge",
+	},
+	modList = {
+		mod("Damage", "MORE", 200),
+		mod("DamageTaken", "MORE", -70),
 	},
 }
 
@@ -767,5 +821,92 @@ minions["SummonedArbalists"] = {
 	},
 	modList = {
 		-- MonsterCannotBeDamaged [cannot_be_damaged = 1]
+	},
+}
+
+minions["GuardianSentinel"] = {
+	name = "Sentinel of Radiance",
+	life = 12,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 20,
+	damageSpread = 0.2,
+	attackTime = 0.83,
+	attackRange = 17,
+	accuracy = 3.4,
+	skillList = {
+		"TeleportVaalDomination",
+		"VaalDominationMelee",
+	},
+	modList = {
+	},
+}
+
+minions["GuardianRelicFire"] = {
+	name = "Fire Relic",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Anger",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+	},
+}
+
+minions["GuardianRelicCold"] = {
+	name = "Cold Relic",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Hatred",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+	},
+}
+
+minions["GuardianRelicLightning"] = {
+	name = "Lightning Relic",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Wrath",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
 	},
 }

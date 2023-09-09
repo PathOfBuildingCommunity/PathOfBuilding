@@ -13,20 +13,25 @@ local m_max = math.max
 local m_floor = math.floor
 local b_lshift = bit.lshift
 
-local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion)
+local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, convert)
 	self.UndoHandler()
 
 	self.build = build
 
 	-- Initialise and build all tables
-	self:Init(treeVersion)
+	self:Init(treeVersion, convert)
 
 	self:SelectClass(0)
 end)
 
-function PassiveSpecClass:Init(treeVersion)
+function PassiveSpecClass:Init(treeVersion, convert)
 	self.treeVersion = treeVersion
 	self.tree = main:LoadTree(treeVersion)
+	self.ignoredNodes = { }
+	local previousTreeNodes = { }
+	if convert then
+		previousTreeNodes = self.build.spec.nodes
+	end
 
 	-- Make a local copy of the passive tree that we can modify
 	self.nodes = { }
@@ -40,6 +45,10 @@ function PassiveSpecClass:Init(treeVersion)
 		end
 	end
 	for id, node in pairs(self.nodes) do
+		-- if the node is allocated and between the old and new tree has the same ID but does not share the same name, add to list of nodes to be ignored
+		if convert and previousTreeNodes[id] and self.build.spec.allocNodes[id] and node.name ~= previousTreeNodes[id].name then
+			self.ignoredNodes[id] = previousTreeNodes[id]
+		end
 		for _, otherId in ipairs(node.linkedId) do
 			t_insert(node.linked, self.nodes[otherId])
 		end
@@ -65,6 +74,9 @@ function PassiveSpecClass:Init(treeVersion)
 
 	-- Keys are mastery node IDs, values are mastery effect IDs
 	self.masterySelections = { }
+
+	-- Keys are node IDs, values are the replacement node
+	self.hashOverrides = { }
 end
 
 function PassiveSpecClass:Load(xml, dbFileName)
@@ -121,7 +133,24 @@ function PassiveSpecClass:Load(xml, dbFileName)
 				masteryEffects[tonumber(mastery)] = tonumber(effect)
 			end
 		end
-		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, masteryEffects)
+		for _, node in pairs(xml) do
+			if type(node) == "table" then
+				if node.elem == "Overrides" then
+					for _, child in ipairs(node) do
+						if not child.attrib.nodeId then
+							launch:ShowErrMsg("^1Error parsing '%s': 'Override' element missing 'nodeId' attribute", dbFileName)
+							return true
+						end
+						
+						local nodeId = tonumber(child.attrib.nodeId)
+
+						self.hashOverrides[nodeId] = copyTable(self.tree.tattoo.nodes[child.attrib.dn], true)
+						self.hashOverrides[nodeId].id = nodeId
+					end
+				end
+			end
+		end
+		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, self.hashOverrides, masteryEffects)
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -163,6 +192,20 @@ function PassiveSpecClass:Save(xml)
 		end
 	end
 	t_insert(xml, sockets)
+	
+	local overrides = {
+		elem = "Overrides"
+	}
+	if self.hashOverrides then
+		for nodeId, node in pairs(self.hashOverrides) do
+			local override = { elem = "Override", attrib = { nodeId = tostring(nodeId), icon = tostring(node.icon), activeEffectImage = tostring(node.activeEffectImage), dn = tostring(node.dn) } }
+			for _, modLine in ipairs(node.sd) do
+				t_insert(override, modLine)
+			end
+			t_insert(overrides, override)
+		end
+	end
+	t_insert(xml, overrides)
 
 end
 
@@ -171,18 +214,38 @@ function PassiveSpecClass:PostLoad()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, masteryEffects, treeVersion)
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, hashOverrides, masteryEffects, treeVersion)
 	if treeVersion and treeVersion ~= self.treeVersion then
 		self:Init(treeVersion)
 		self.build.treeTab.showConvert = self.treeVersion ~= latestTreeVersion
 	end
 	self:ResetNodes()
 	self:SelectClass(classId)
+	self.hashOverrides = hashOverrides
+	-- move above setting allocNodes so we can compare mastery with selection
+	wipeTable(self.masterySelections)
+	for mastery, effect in pairs(masteryEffects) do
+		-- ignore ggg codes from profile import
+		if (tonumber(effect) < 65536) then
+			self.masterySelections[mastery] = effect
+		end
+	end
+	for id, override in pairs(hashOverrides) do
+		local node = self.nodes[id]
+		if node then
+			override.effectSprites = self.tree.spriteMap[override.activeEffectImage]
+			override.sprites = self.tree.spriteMap[override.icon]
+			self:ReplaceNode(node, override)
+		end
+	end
 	for _, id in pairs(hashList) do
 		local node = self.nodes[id]
 		if node then
-			node.alloc = true
-			self.allocNodes[id] = node
+			-- check to make sure the mastery node has a corresponding selection, if not do not allocate
+			if node.type ~= "Mastery" or (node.type == "Mastery" and self.masterySelections[id]) then
+				node.alloc = true
+				self.allocNodes[id] = node
+			end
 		else
 			t_insert(self.allocSubgraphNodes, id)
 		end
@@ -192,13 +255,6 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, m
 		if node then
 			node.alloc = true
 			self.allocNodes[id] = node
-		end
-	end
-	wipeTable(self.masterySelections)
-	for mastery, effect in pairs(masteryEffects) do
-		-- ignore ggg codes from profile import
-		if (tonumber(effect) < 65536) then
-			self.masterySelections[mastery] = effect
 		end
 	end
 	self:SelectAscendClass(ascendClassId)
@@ -224,21 +280,27 @@ function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
 		local id  = masteryEffects:byte(i + 2) * 256 + masteryEffects:byte(i + 3)
 
 		local effect = self.tree.masteryEffects[effectId]
-		self.allocNodes[id].sd = effect.sd
-		self.allocNodes[id].allMasteryOptions = false
-		self.allocNodes[id].reminderText = { "Tip: Right click to select a different effect" }
-		self.tree:ProcessStats(self.allocNodes[id])
-		self.masterySelections[id] = effectId
-		self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-		if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
-			self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
-			self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
-		else
-			local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
-			self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
-			if prevCount == 0 then
+		if effect then
+			self.allocNodes[id].sd = effect.sd
+			self.allocNodes[id].allMasteryOptions = false
+			self.allocNodes[id].reminderText = { "Tip: Right click to select a different effect" }
+			self.tree:ProcessStats(self.allocNodes[id])
+			self.masterySelections[id] = effectId
+			self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+			if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
+				self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
 				self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+			else
+				local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
+				self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
+				if prevCount == 0 then
+					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+				end
 			end
+		else
+			-- if there is no effect/selection on the latest tree then we do not want to allocate the mastery
+			self.allocNodes[id] = nil
+			self.nodes[id].alloc = false
 		end
 	end
 end
@@ -618,17 +680,18 @@ end
 
 function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
 	node.sd = {}
-	if node.masteryEffects ~= nil then
+	if node.masteryEffects ~= nil and #node.masteryEffects > 0 then
 		for _, effect in ipairs(node.masteryEffects) do
 			effect = self.tree.masteryEffects[effect.effect]
-			if effect.sd ~= nil then
-				for _, sd in ipairs(effect.sd) do
-					t_insert(node.sd, sd)
-				end
+			local startIndex = #node.sd + 1
+			for _, sd in ipairs(effect.sd) do
+				t_insert(node.sd, sd)
 			end
+			self.tree:ProcessStats(node, startIndex)
 		end
+	else
+		self.tree:ProcessStats(node)
 	end
-	self.tree:ProcessStats(node)
 	node.allMasteryOptions = true
 end
 
@@ -687,6 +750,11 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	end
 
 	for id, node in pairs(self.nodes) do
+		-- If node is tattooed, replace it
+		if self.hashOverrides[node.id] then
+			self:ReplaceNode(node, self.hashOverrides[node.id])
+		end
+
 		-- If node is conquered, replace it or add mods
 		if node.conqueredBy and node.type ~= "Socket" then
 			local conqueredBy = node.conqueredBy
@@ -844,13 +912,13 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						end
 					end
 				elseif conqueredBy.conqueror.type == "karui" then
-					local str = isValueInArray(attributes, node.dn) and "2" or "4"
+					local str = (isValueInArray(attributes, node.dn) or node.isTattoo) and "2" or "4"
 					self:NodeAdditionOrReplacementFromString(node, " \n+" .. str .. " to Strength")
 				elseif conqueredBy.conqueror.type == "maraketh" then
-					local dex = isValueInArray(attributes, node.dn) and "2" or "4"
+					local dex = (isValueInArray(attributes, node.dn) or node.isTattoo) and "2" or "4"
 					self:NodeAdditionOrReplacementFromString(node, " \n+" .. dex .. " to Dexterity")
 				elseif conqueredBy.conqueror.type == "templar" then
-					if isValueInArray(attributes, node.dn) then
+					if (isValueInArray(attributes, node.dn) or node.isTattoo) then
 						local legionNode = legionNodes[91] -- templar_devotion_node
 						self:ReplaceNode(node, legionNode)
 					else
@@ -871,32 +939,41 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	self.allocatedMasteryTypes = { }
 	self.allocatedMasteryTypeCount = 0
 	for id, node in pairs(self.nodes) do
-		if node.type == "Mastery" and self.masterySelections[id] then
-			local effect = self.tree.masteryEffects[self.masterySelections[id]]
-			if effect then
-				node.sd = effect.sd
-				node.allMasteryOptions = false
-				node.reminderText = { "Tip: Right click to select a different effect" }
-				self.tree:ProcessStats(node)
-				self.allocatedMasteryCount = self.allocatedMasteryCount + 1
-				if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
-					self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
-					self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
-				else
-					local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
-					self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
-					if prevCount == 0 then
+		if self.ignoredNodes[id] and self.allocNodes[id] then
+			self.nodes[id].alloc = false
+			self.allocNodes[id] = nil
+			-- remove once processed to avoid allocation issue after convert
+			self.ignoredNodes[id] = nil
+		else
+			if node.type == "Mastery" and self.masterySelections[id] then
+				local effect = self.tree.masteryEffects[self.masterySelections[id]]
+				if effect and self.allocNodes[id] then
+					node.sd = effect.sd
+					node.allMasteryOptions = false
+					node.reminderText = { "Tip: Right click to select a different effect" }
+					self.tree:ProcessStats(node)
+					self.allocatedMasteryCount = self.allocatedMasteryCount + 1
+					if not self.allocatedMasteryTypes[self.allocNodes[id].name] then
+						self.allocatedMasteryTypes[self.allocNodes[id].name] = 1
 						self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+					else
+						local prevCount = self.allocatedMasteryTypes[self.allocNodes[id].name]
+						self.allocatedMasteryTypes[self.allocNodes[id].name] = prevCount + 1
+						if prevCount == 0 then
+							self.allocatedMasteryTypeCount = self.allocatedMasteryTypeCount + 1
+						end
 					end
+				-- if the tree doesn't recognize the mastery selection or if we have a selection on a mastery that isn't allocated
+				else
+					self.nodes[id].alloc = false
+					self.allocNodes[id] = nil
+					self.masterySelections[id] = nil
 				end
-			else
-				self.nodes[id].alloc = false
-				self.allocNodes[id] = nil
+			elseif node.type == "Mastery" then
+				self:AddMasteryEffectOptionsToNode(node)
+			elseif node.type == "Notable" and node.alloc then
+				self.allocatedNotableCount = self.allocatedNotableCount + 1
 			end
-		elseif node.type == "Mastery" then
-			self:AddMasteryEffectOptionsToNode(node)
-		elseif node.type == "Notable" and node.alloc then
-			self.allocatedNotableCount = self.allocatedNotableCount + 1
 		end
 	end
 
@@ -1020,9 +1097,12 @@ function PassiveSpecClass:ReplaceNode(old, newNode)
 	old.modList = new("ModList")
 	old.modList:AddList(newNode.modList)
 	old.sprites = newNode.sprites
+	old.effectSprites = newNode.effectSprites
+	old.isTattoo = newNode.isTattoo
 	old.keystoneMod = newNode.keystoneMod
 	old.icon = newNode.icon
 	old.spriteId = newNode.spriteId
+	old.activeEffectImage = newNode.activeEffectImage
 	old.reminderText = newNode.reminderText or { }
 end
 
@@ -1535,13 +1615,14 @@ function PassiveSpecClass:CreateUndoState()
 		classId = self.curClassId,
 		ascendClassId = self.curAscendClassId,
 		hashList = allocNodeIdList,
+		hashOverrides = self.hashOverrides,
 		masteryEffects = selections,
 		treeVersion = self.treeVersion
 	}
 end
 
 function PassiveSpecClass:RestoreUndoState(state, treeVersion)
-	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.masteryEffects, treeVersion or state.treeVersion)
+	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.hashOverrides, state.masteryEffects, treeVersion or state.treeVersion)
 	self:SetWindowTitleWithBuildClass()
 end
 

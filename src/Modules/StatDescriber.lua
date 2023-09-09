@@ -78,6 +78,10 @@ local function applySpecial(val, spec)
 		val[spec.v].min = val[spec.v].min / 12
 		val[spec.v].max = val[spec.v].max / 12
 		val[spec.v].fmt = "g"
+	elseif spec.k == "divide_by_twenty" then
+		val[spec.v].min = val[spec.v].min / 20
+		val[spec.v].max = val[spec.v].max / 20
+		val[spec.v].fmt = "g"
 	elseif spec.k == "divide_by_one_hundred" then
 		val[spec.v].min = val[spec.v].min / 100
 		val[spec.v].max = val[spec.v].max / 100
@@ -139,6 +143,10 @@ local function applySpecial(val, spec)
 		val[spec.v].min = val[spec.v].min / 10
 		val[spec.v].max = val[spec.v].max / 10
 		val[spec.v].fmt = ".2f"
+	elseif spec.k == "locations_to_metres" then
+		val[spec.v].min = val[spec.v].min / 10
+		val[spec.v].max = val[spec.v].max / 10
+		val[spec.v].fmt = "g"
 	elseif spec.k == "30%_of_value" then
 		val[spec.v].min = val[spec.v].min * 0.3
 		val[spec.v].max = val[spec.v].max * 0.3

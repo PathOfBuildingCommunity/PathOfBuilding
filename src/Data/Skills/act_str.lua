@@ -17,6 +17,7 @@ skills["Absolution"] = {
 	castTime = 0.75,
 	minionList = {
 		"AbsolutionTemplarJudge",
+		"AbsolutionTemplarJudgeVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -62,7 +63,7 @@ skills["Absolution"] = {
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"active_skill_base_radius_+",
 		"is_area_damage",
 	},
@@ -116,6 +117,14 @@ skills["VaalAbsolution"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -197,6 +206,9 @@ skills["AbyssalCry"] = {
 		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
 			mod("InfernalFireTakenPer5MP", "BASE", nil),
 		},
+		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		warcry = true,
@@ -231,6 +243,8 @@ skills["AbyssalCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
 		"damage_cannot_be_reflected",
 		"base_skill_show_average_damage_instead_of_dps",
 		"display_skill_deals_secondary_damage",
@@ -300,6 +314,11 @@ skills["InfernalCryOnHitExplosion"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["triggered_by_infernal_cry"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -535,7 +554,9 @@ skills["AncestralCry"] = {
 		"ancestral_cry_max_physical_damage_reduction_rating",
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 	},
@@ -931,6 +952,7 @@ skills["AnimateArmour"] = {
 	baseFlags = {
 		spell = true,
 		minion = true,
+		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -951,9 +973,10 @@ skills["AnimateArmour"] = {
 		"animate_item_maximum_level_requirement",
 		"minion_maximum_life_+%",
 		"melee_physical_damage_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"attack_minimum_added_physical_damage",
 		"attack_maximum_added_physical_damage",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 33, 0, 0, 28, 32, 47, levelRequirement = 28, statInterpolation = { 1, 1, 1, 1, 1, 1, }, cost = { Mana = 11, }, },
@@ -1015,6 +1038,9 @@ skills["BattlemagesCry"] = {
 		["divine_cry_critical_strike_chance_+%_per_5_power_up_to_cap%"] = {
 			mod("BattlemageCritChancePer5MP", "BASE", nil),
 		},
+		["display_battlemage_cry_exerted_attacks_trigger_supported_spell"] ={
+			-- Display only
+		},
 	},
 	baseFlags = {
 		area = true,
@@ -1043,7 +1069,9 @@ skills["BattlemagesCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 		"display_battlemage_cry_exerted_attacks_trigger_supported_spell",
@@ -1099,8 +1127,17 @@ skills["BattlemagesCrySupport"] = {
 	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_divine_cry_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["triggered_by_divine_cry"] = {
+			skill("triggeredByBattleMageCry", true),
+		},
+	},
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
@@ -1473,7 +1510,7 @@ skills["Boneshatter"] = {
 	baseEffectiveness = 0.18279999494553,
 	incrementalEffectiveness = 0.053700000047684,
 	description = "Attack enemies with a forceful melee strike that also hurts you. Successive uses will raise the damage dealt both to enemies and you. Stunning an enemy with the strike releases a damaging pulse. Requires a Mace, Sceptre, Axe or Staff.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.InnateTrauma] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
 		["Sceptre"] = true,
@@ -1494,77 +1531,6 @@ skills["Boneshatter"] = {
 			area = true,
 		},
 	},
-	preDotFunc = function(activeSkill, output, breakdown)
-		local t_insert = table.insert
-		local s_format = string.format
-		local ipairs = ipairs
-
-		local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
-
-		local physBase = activeSkill.skillData.SelfDamageTakenLife * math.max(activeSkill.skillModList:Sum("BASE", nil, "Multiplier:TraumaStacks"), 1)
-		local totalTakenAs = activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAsLightning","PhysicalDamageTakenAsCold","PhysicalDamageTakenAsFire","PhysicalDamageTakenAsChaos") / 100
-		
-		local BSDamageTaken = {}
-
-		local totalDamageTaken = 0
-
-		for _, damageType in ipairs(dmgTypeList) do
-			local damageTakenAs = 1
-			
-			if damageType ~= "Physical" then
-				damageTakenAs = (activeSkill.skillModList:Sum("BASE", nil, "PhysicalDamageTakenAs"..damageType) or 0) / 100
-			else
-				damageTakenAs = math.max(1 - totalTakenAs, 0)
-			end
-
-			if damageTakenAs ~= 0 then
-
-				if(totalTakenAs > 1) then
-					damageTakenAs = damageTakenAs / totalTakenAs
-				end
-
-				local damage = physBase * damageTakenAs
-				
-				local baseTakenInc = activeSkill.skillModList:Sum("INC", nil, "DamageTaken", damageType.."DamageTaken", "DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-				local baseTakenMore = activeSkill.skillModList:More(nil, "DamageTaken", damageType.."DamageTaken","DamageTakenWhenHit", damageType.."DamageTakenWhenHit")
-				if (damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") then
-					baseTakenInc = baseTakenInc + activeSkill.skillModList:Sum("INC", nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
-					baseTakenMore = baseTakenMore * activeSkill.skillModList:More(nil, "ElementalDamageTaken", "ElementalDamageTakenWhenHit")
-				end
-				local damageTakenMods = math.max((1 + baseTakenInc / 100) * baseTakenMore, 0)
-				local reduction = activeSkill.skillModList:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReductionWhenHit"] or output["Base"..damageType.."DamageReduction"]
-				local resist = activeSkill.skillModList:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
-				local armourReduct = 0
-				local resMult = 1 - resist / 100
-				local reductMult = 1
-
-				local percentOfArmourApplies = math.min((not activeSkill.skillModList:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and activeSkill.skillModList:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
-				if percentOfArmourApplies > 0 then
-					local effArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
-					local effDamage = damage * resMult
-					armourReduct = round(effArmour ~= 0 and damage * resMult ~= 0 and (effArmour / (effArmour + effDamage * 5) * 100) or 0)
-					armourReduct = math.min(output.DamageReductionMax, armourReduct)
-				end
-				reductMult = (1 - math.max(math.min(output.DamageReductionMax, armourReduct + reduction), 0) / 100) * damageTakenMods
-				local combinedMult = resMult * reductMult
-				local finalDamage = damage * combinedMult
-				totalDamageTaken = totalDamageTaken + finalDamage
-
-				if breakdown then
-					t_insert(BSDamageTaken, damageType.." Damage Taken")
-					t_insert(BSDamageTaken, s_format("^8=^7 %d^8 (Base Damage) * ^7%.2f^8 (Damage taken as %s)", physBase, damageTakenAs, damageType))
-					t_insert(BSDamageTaken, s_format("^8=^7 %d^8 (%s Damage) * ^7%.4f^8 (Damage taken multi)", damage, damageType, combinedMult))
-					t_insert(BSDamageTaken, s_format("^8=^7 %d^8 (%s Damage taken)", finalDamage, damageType))
-				end
-			end
-		end
-
-		if breakdown then
-			t_insert(BSDamageTaken, "Total damage taken: "..round(totalDamageTaken))
-			breakdown.BSDamageTaken = BSDamageTaken
-			output.BSDamageTaken = totalDamageTaken
-		end
-	end,
 	statMap = {
 		["trauma_strike_damage_+%_final_per_trauma"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
@@ -1574,10 +1540,10 @@ skills["Boneshatter"] = {
 			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["trauma_strike_self_damage_per_trauma"] = {
-			skill("SelfDamageTakenLife", nil),
+			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
-		["trauma_base_duration_ms"] = {
-			skill("duration", nil),
+		["boneshatter_trauma_base_duration_ms"] = {
+			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
 	},
@@ -1589,6 +1555,7 @@ skills["Boneshatter"] = {
 	},
 	baseMods = {
 		skill("radius", 14, { type = "SkillPart", skillPart = 2 }),
+		flag("HasTrauma"),
 	},
 	qualityStats = {
 		Default = {
@@ -1604,7 +1571,7 @@ skills["Boneshatter"] = {
 	},
 	constantStats = {
 		{ "trauma_strike_shockwave_area_of_effect_+%_per_100ms_stun_duration_up_to_400%", 15 },
-		{ "trauma_base_duration_ms", 6000 },
+		{ "boneshatter_trauma_base_duration_ms", 6000 },
 		{ "melee_range_+", 2 },
 	},
 	stats = {
@@ -2046,6 +2013,7 @@ skills["CorruptingFever"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		flag("dotIsCorruptingBlood"),
 		mod("Multiplier:CorruptingFeverMaxStages", "BASE", 10),
 		mod("Damage", "MORE", 100, ModFlag.Dot, 0, { type = "Multiplier", var = "CorruptingFeverStageAfterFirst"}),
 	},
@@ -2495,6 +2463,7 @@ skills["DominatingBlow"] = {
 	castTime = 1,
 	minionList = {
 		"AxisEliteSoldierDominatingBlow",
+		"AxisEliteSoldierDominatingBlowVaal",
 	},
 	statMap = {
 		["sentinel_minion_cooldown_speed_+%"] = {
@@ -2586,6 +2555,14 @@ skills["VaalDomination"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["vaal_upgrade_minion_damage_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+		["vaal_upgrade_minion_damage_taken_+%_final"] = {
+		-- Stat is handled directly on minion
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -3142,7 +3119,9 @@ skills["EnduringCry"] = {
 	stats = {
 		"regenerate_x_life_over_1_second_on_skill_use_or_trigger",
 		"warcry_speed_+%",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 	},
@@ -3208,12 +3187,13 @@ skills["Exsanguinate"] = {
 	baseFlags = {
 		spell = true,
 		duration = true,
+		chaining = true,
 	},
 	baseMods = {
 		skill("debuff", true),
 		mod("Multiplier:ExsanguinateMaxStages", "BASE", 3),
 		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
-		mod("FireDamage", "MORE", 100, 0, KeywordFlag.FireDot, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" }),
+		mod("FireDamage", "MORE", 100, bit.bor(ModFlag.Spell,ModFlag.Dot), 0, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" }),
 	},
 	qualityStats = {
 		Default = {
@@ -3322,7 +3302,6 @@ skills["FlameLink"] = {
 		"flame_link_minimum_fire_damage",
 		"flame_link_maximum_fire_damage",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 	},
@@ -3622,6 +3601,7 @@ skills["FrozenSweep"] = {
 		attack = true,
 		area = true,
 		melee = true,
+		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 25),
@@ -3706,6 +3686,7 @@ skills["GeneralsCry"] = {
 		warcry = true,
 		area = true,
 		duration = true,
+		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 60),
@@ -3728,7 +3709,9 @@ skills["GeneralsCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_gain_mp_from_corpses",
 		"warcry_count_power_from_enemies",
@@ -4458,7 +4441,7 @@ skills["HeraldOfPurity"] = {
 		"herald_of_purity_physical_damage_+%_final",
 		"active_skill_minion_physical_damage_+%_final",
 		"active_skill_minion_life_+%_final",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"herald_of_light_summon_champion_on_kill",
 	},
 	levels = {
@@ -5062,7 +5045,9 @@ skills["IntimidatingCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
 		"intimidating_cry_empowerd_attacks_deal_double_damage_display",
@@ -5978,7 +5963,6 @@ skills["ProtectiveLink"] = {
 	stats = {
 		"bulwark_link_grants_recover_X_life_on_block",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 		"display_bulwark_link_overrides_attack_block_and_maximum_attack_block",
@@ -6218,7 +6202,7 @@ skills["FireImpurity"] = {
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_ignite"] = {
-			--Display only
+			flag("IgniteImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -6226,9 +6210,6 @@ skills["FireImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -6458,7 +6439,9 @@ skills["RallyingCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_gain_mp_from_allies",
 		"warcry_count_power_from_enemies",
@@ -6628,7 +6611,7 @@ skills["RejuvenationTotem"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 10),
+		skill("radius", 40),
 	},
 	qualityStats = {
 		Default = {
@@ -6703,12 +6686,24 @@ skills["VaalRejuvenationTotem"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 21,
 	castTime = 0.1,
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+		["vaal_rejuvenation_totem_%_damage_taken_applied_to_totem_instead"] = {
+			mod("takenFromVaalRejuvenationTotemsBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		aura = true,
 		totem = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 40),
 	},
 	qualityStats = {
 		Default = {
@@ -6914,7 +6909,9 @@ skills["SeismicCry"] = {
 	stats = {
 		"warcry_speed_+%",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"base_deal_no_secondary_damage",
 		"warcries_knock_back_enemies",
 		"cannot_cancel_skill_before_contact_point",
 		"warcry_count_power_from_enemies",
@@ -7715,10 +7712,24 @@ skills["VaalReap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.DamageOverTime] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["vaal_reap_additional_maximum_blood_charges"] = {
+			mod("BloodChargesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 23),
+		skill("dotIsArea", true),
 	},
 	qualityStats = {
 		Default = {
@@ -7895,6 +7906,7 @@ skills["SummonFireGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -7919,7 +7931,8 @@ skills["SummonFireGolem"] = {
 		"base_actor_scale_+%",
 		"fire_golem_grants_damage_+%",
 		"minion_maximum_life_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 15, 0, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },
@@ -7985,6 +7998,7 @@ skills["SummonRockGolem"] = {
 		spell = true,
 		minion = true,
 		golem = true,
+		permanentMinion = true,
 	},
 	baseMods = {
 		skill("allowTotemBuff", true),
@@ -8009,7 +8023,8 @@ skills["SummonRockGolem"] = {
 		"base_actor_scale_+%",
 		"minion_maximum_life_+%",
 		"stone_golem_grants_base_life_regeneration_rate_per_minute",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 0, 1980, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },

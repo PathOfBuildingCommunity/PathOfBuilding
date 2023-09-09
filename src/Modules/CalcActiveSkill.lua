@@ -150,7 +150,7 @@ end
 function calcs.copyActiveSkill(env, mode, skill)
 	local newSkill = calcs.createActiveSkill(skill.activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
 	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
-	calcs.buildActiveSkillModList(newEnv, newSkill)
+	calcs.buildActiveSkillModList(newEnv, newSkill, {[cacheSkillUUID(newSkill, newEnv)] = true})
 	newSkill.skillModList = new("ModList", newSkill.baseSkillModList)
 	if newSkill.minion then
 		newSkill.minion.modDB = new("ModDB")
@@ -453,9 +453,21 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			end
 			if level.manaReservationPercent then
 				activeSkill.skillData.manaReservationPercent = level.manaReservationPercent
-			end
-			if level.cooldown then
-				activeSkill.skillData.cooldown = level.cooldown
+			end	
+			-- Handle multiple triggers situation and if triggered by a trigger skill save a reference to the trigger.
+			local match = skillEffect.grantedEffect.addSkillTypes and (not skillFlags.disable)
+			if match and skillEffect.grantedEffect.isTrigger then
+				if activeSkill.triggeredBy then
+					if skillEffect.grantedEffect.addFlags and skillEffect.grantedEffect.addFlags.mirage then
+						activeSkill.ineffectiveTriggers = activeSkill.ineffectiveTriggers or {}
+						t_insert(activeSkill.ineffectiveTriggers, skillEffect)
+					else
+						skillFlags.disable = true
+						activeSkill.disableReason = "This skill is supported by more than one trigger"
+					end
+				else
+					activeSkill.triggeredBy = skillEffect
+				end
 			end
 			if level.PvPDamageMultiplier then
 				skillModList:NewMod("PvpDamageMultiplier", "MORE", level.PvPDamageMultiplier, skillEffect.grantedEffect.modSource)
@@ -541,7 +553,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 
 	if skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages") > 0 then
 		skillFlags.multiStage = true
-		activeSkill.activeStageCount = (env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount)
+		activeSkill.activeStageCount = m_max((env.mode == "CALCS" and activeEffect.srcInstance.skillStageCountCalcs) or (env.mode ~= "CALCS" and activeEffect.srcInstance.skillStageCount) or 1, 1 + skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MinimumStage"))
 		local limit = skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:"..activeGrantedEffect.name:gsub("%s+", "").."MaxStages")
 		if limit > 0 then
 			if activeSkill.activeStageCount and activeSkill.activeStageCount > 0 then

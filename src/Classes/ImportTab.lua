@@ -38,7 +38,7 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	end
 	self.controls.accountRealm = new("DropDownControl", {"TOPLEFT",self.controls.accountNameHeader,"BOTTOMLEFT"}, 0, 4, 60, 20, realmList )
 	self.controls.accountRealm:SelByValue( main.lastRealm or "PC", "id" )
-	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, 8, 0, 200, 20, main.lastAccountName or "", nil, "%c")
+	self.controls.accountName = new("EditControl", {"LEFT",self.controls.accountRealm,"RIGHT"}, 8, 0, 200, 20, main.lastAccountName or "", nil, "%c", nil, nil, nil, nil, true)
 	self.controls.accountName.pasteFilter = function(text)
 		return text:gsub("[\128-\255]",function(c)
 			return codePointToUTF8(c:byte(1)):gsub(".",function(c)
@@ -146,6 +146,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:", nil, "Delete all existing skills when importing.", true)
 	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
+	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 380, 0, 18, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
 	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Close", function()
@@ -292,7 +293,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 	end
 
-	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle)
+	self.controls.importCodeIn = new("EditControl", {"TOPLEFT",self.controls.importCodeHeader,"BOTTOMLEFT"}, 0, 4, 328, 20, "", nil, nil, nil, importCodeHandle, nil, nil, true)
 	self.controls.importCodeIn.enterFunc = function()
 		if self.importCodeValid then
 			self.controls.importCodeGo.onClick()
@@ -568,6 +569,13 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 
+	if charPassiveData.skill_overrides then
+		for nodeId, override in pairs(charPassiveData.skill_overrides) do
+			self.build.spec:ReplaceNode(override, self.build.spec.tree.tattoo.nodes[override.name])
+			override.id = nodeId
+		end
+	end
+
 	if errMsg then
 		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
 		return
@@ -588,7 +596,21 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.mastery_effects or {}, latestTreeVersion)
+	for classId, class in pairs(self.build.spec.tree.classes) do
+		if charData.class == class.name then
+			charData.classId = classId
+			charData.ascendancyClass = 0
+			break
+		end
+		for ascendId, ascendancyClass in pairs(class.ascendancies) do
+			if charData.class == ascendancyClass.name then
+				charData.classId = classId
+				charData.ascendancyClass = ascendId
+				break
+			end
+		end
+	end
+	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
@@ -703,7 +725,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
 		elseif itemData.inventoryId == "Flask" then
 			slotName = "Flask "..(itemData.x + 1)
-		else
+		elseif not (self.controls.charImportItemsIgnoreWeaponSwap.state and (itemData.inventoryId == "Weapon2" or itemData.inventoryId == "Offhand2")) then
 			slotName = slotMap[itemData.inventoryId]
 		end
 	end
@@ -741,8 +763,9 @@ function ImportTabClass:ImportItem(itemData, slotName)
 				end
 			end
 			item.name = oneHanded and "Energy Blade One Handed" or "Energy Blade Two Handed"
-			itemData.implicitMods = nil
-			itemData.explicitMods = nil
+			item.rarity = "NORMAL"
+			itemData.implicitMods = { }
+			itemData.explicitMods = { }
 		end
 		for baseName, baseData in pairs(self.build.data.itemBases) do
 			local s, e = item.name:find(baseName, 1, true)
@@ -820,7 +843,13 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	if itemData.sockets and itemData.sockets[1] then
 		item.sockets = { }
 		for i, socket in pairs(itemData.sockets) do
+			if socket.sColour == "A" then
+				item.abyssalSocketCount = item.abyssalSocketCount or 0 + 1
+			end
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
+		end
+		if item.abyssalSocketCount and item.abyssalSocketCount > 0 and item.name:match("Energy Blade") then
+			t_insert(itemData.explicitMods, "Has " .. item.abyssalSocketCount .. " Abyssal Sockets")
 		end
 	end
 	if itemData.socketedItems then
