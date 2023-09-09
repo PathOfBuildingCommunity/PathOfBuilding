@@ -439,10 +439,9 @@ function CalcsTabClass:BuildOutput()
 end
 
 -- Controls the coroutine that calculates node power
-function CalcsTabClass:BuildPower(callbackContext)
+function CalcsTabClass:BuildPower()
 	if self.powerBuildFlag then
 		self.powerBuildFlag = false
-		self.powerBuilderCallback = callbackContext or self.powerBuilderCallback
 		self.powerBuilder = coroutine.create(self.PowerBuilder)
 	end
 	if self.powerBuilder then
@@ -452,8 +451,8 @@ function CalcsTabClass:BuildPower(callbackContext)
 		end
 		if coroutine.status(self.powerBuilder) == "dead" then
 			self.powerBuilder = nil
-			if self.powerBuilderCallback then
-				self.powerBuilderCallback.func(self.powerBuilderCallback.caller)
+			if self.build.powerBuilderCallback then
+				self.build.powerBuilderCallback()
 			end
 		end
 	end
