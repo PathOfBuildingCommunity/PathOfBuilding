@@ -630,6 +630,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportStun
+	statMap = {
+		["chance_to_double_stun_duration_%"] = {
+			mod("DoubleEnemyStunDurationChance", "BASE", nil, 0, 0),
+		},
+	},
 #mods
 
 #skill SupportTrauma

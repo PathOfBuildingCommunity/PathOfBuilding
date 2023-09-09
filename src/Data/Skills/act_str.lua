@@ -8960,6 +8960,9 @@ skills["WarlordsMark"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
+		["enemy_chance_to_double_stun_duration_%_vs_self"] = {
+			mod("SelfDoubleStunDurationChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" } ),
+		},
 		["life_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},

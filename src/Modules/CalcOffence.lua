@@ -4610,20 +4610,64 @@ function calcs.offence(env, actor, activeSkill)
 		end
 		local base = skillData.baseStunDuration or 0.35
 		local incDur = skillModList:Sum("INC", cfg, "EnemyStunDuration")
+		local incDurCrit = skillModList:Sum("INC", cfg, "EnemyStunDurationOnCrit")
+		local moreDur = skillModList:More(cfg, "EnemyStunDuration")
+		local chanceToDouble = m_min(skillModList:Sum("BASE", cfg, "DoubleEnemyStunDurationChance") + enemyDB:Sum("BASE", cfg, "SelfDoubleStunDurationChance"), 100)
 		local incRecov = enemyDB:Sum("INC", nil, "StunRecovery")
-		output.EnemyStunDuration = base * (1 + incDur / 100) / (1 + incRecov / 100)
+		local minimumStunDuration = base * moreDur / (1 + incRecov / 100)
+		local maximumStunDuration = minimumStunDuration
+		output.EnemyStunDuration = minimumStunDuration
+		if incDurCrit ~= 0 and output.CritChance ~= 0 then
+			if output.CritChance == 100 then
+				minimumStunDuration = minimumStunDuration * (1 + (incDur + incDurCrit) / 100)
+				maximumStunDuration = minimumStunDuration
+				output.EnemyStunDuration = minimumStunDuration
+			else
+				minimumStunDuration = minimumStunDuration * (1 + incDur / 100)
+				maximumStunDuration = maximumStunDuration * (1 + (incDur + incDurCrit) / 100)
+				output.EnemyStunDuration = output.EnemyStunDuration * (1 + (incDur + incDurCrit * output.CritChance / 100) / 100)
+			end
+		else
+			minimumStunDuration = minimumStunDuration * (1 + incDur / 100)
+			maximumStunDuration = minimumStunDuration
+			output.EnemyStunDuration = minimumStunDuration
+		end
+		if chanceToDouble ~= 0 then
+			if chanceToDouble == 100 then
+				minimumStunDuration = minimumStunDuration * 2
+			end
+			maximumStunDuration = maximumStunDuration * 2
+			output.EnemyStunDuration = output.EnemyStunDuration * (1 + chanceToDouble / 100)
+		end
 		if breakdown then
 			if output.EnemyStunDuration ~= base then
 				breakdown.EnemyStunDuration = {
 					s_format("%.2fs ^8(base duration)", base),
 				}
-				if incDur ~= 0 then
-					t_insert(breakdown.EnemyStunDuration, s_format("x %.2f ^8(increased/reduced stun duration)", 1 + incDur/100))
+				if incDur ~= 0 or (incDurCrit ~= 0 and output.CritChance ~= 0) then
+					t_insert(breakdown.EnemyStunDuration, s_format("x %.2f ^8(increased/reduced stun duration)", 1 + (incDur + incDurCrit * output.CritChance / 100) / 100))
+				end
+				if moreDur ~= 1 then
+					t_insert(breakdown.EnemyStunDuration, s_format("x %.2f ^8(more/less stun duration)", moreDur))
+				end
+				if chanceToDouble ~= 0 then
+					t_insert(breakdown.EnemyStunDuration, s_format("x %.2f ^8(chance to double stun duration)", 1 + chanceToDouble / 100))
 				end
 				if incRecov ~= 0 then
-					t_insert(breakdown.EnemyStunDuration, s_format("/ %.2f ^8(increased/reduced enemy stun recovery)", 1 + incRecov/100))
+					t_insert(breakdown.EnemyStunDuration, s_format("/ %.2f ^8(increased/reduced enemy stun recovery)", 1 + incRecov / 100))
 				end
 				t_insert(breakdown.EnemyStunDuration, s_format("= %.2fs", output.EnemyStunDuration))
+				if minimumStunDuration ~= maximumStunDuration then
+					t_insert(breakdown.EnemyStunDuration, s_format("(minimum: %.2fs, maximum: %.2fs)", minimumStunDuration, maximumStunDuration))
+				end
+				local enemyActionSpeed = calcs.actionSpeedMod(actor.enemy)
+				if enemyActionSpeed ~= 1 then
+					t_insert(breakdown.EnemyStunDuration, s_format("/ %.2f ^8(enemy action speed)", enemyActionSpeed))
+					t_insert(breakdown.EnemyStunDuration, s_format("= %.2fs (note that for effects that care about duration this is ignored)", output.EnemyStunDuration / enemyActionSpeed))
+					if minimumStunDuration ~= maximumStunDuration then
+						t_insert(breakdown.EnemyStunDuration, s_format("(minimum: %.2fs, maximum: %.2fs)", minimumStunDuration / enemyActionSpeed, maximumStunDuration / enemyActionSpeed))
+					end
+				end
 			end
 		end
 

@@ -384,6 +384,7 @@ local modNameList = {
 	["enemy stun threshold"] = "EnemyStunThreshold",
 	["stun duration on enemies"] = "EnemyStunDuration",
 	["stun duration"] = "EnemyStunDuration",
+	["to double stun duration"] = "DoubleEnemyStunDurationChance",
 	["to knock enemies back on hit"] = "EnemyKnockbackChance",
 	["knockback distance"] = "EnemyKnockbackDistance",
 	-- Auras/curses/buffs
@@ -2958,6 +2959,7 @@ local specialModList = {
 	["hits against you cannot be critical strikes if you've been stunned recently"] =  { mod("EnemyModifier", "LIST", { mod = flag("NeverCrit") }, {type = "Condition", var = "StunnedRecently" }), mod("EnemyModifier", "LIST", { mod = flag("Condition:NeverCrit")}, {type = "Condition", var = "StunnedRecently" })},
 	["nearby enemies cannot deal critical strikes"] = { mod("EnemyModifier", "LIST", { mod = flag("NeverCrit")  }), mod("EnemyModifier", "LIST", { mod = flag("Condition:NeverCrit") }) },
 	["hits have (%d+)%% increased critical strike chance against you"] = function(num) return { mod("EnemyCritChance", "INC", num) } end,
+	["stuns from critical strikes have (%d+)%% increased duration"] = function(num) return { mod("EnemyStunDurationOnCrit", "INC", num) } end,
 	-- Generic Ailments
 	["enemies take (%d+)%% increased damage for each type of ailment you have inflicted on them"] = function(num) return {
 		mod("EnemyModifier", "LIST", { mod = mod("DamageTaken", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
