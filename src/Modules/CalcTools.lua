@@ -94,6 +94,9 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, (activeSkill.summonSkill and activeSkill.summonSkill.skillTypes) or activeSkill.skillTypes) then
 		return false
 	end
+	if grantedEffect.isTrigger and activeSkill.triggeredBy then
+		return false
+	end
 	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, activeSkill.skillTypes, not grantedEffect.ignoreMinionTypes and activeSkill.minionSkillTypes)
 end
 
@@ -106,6 +109,7 @@ function calcLib.gemIsType(gem, type)
 			((type == "active skill" or type == "grants_active_skill") and gem.tags.grants_active_skill and not gem.tags.support) or
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
+			(type == gem.name:lower():gsub("^vaal ", "")) or
 			((type ~= "active skill" and type ~= "grants_active_skill") and gem.tags[type]))
 end
 

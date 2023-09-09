@@ -51,7 +51,8 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	self.treeVersion = treeVersion
 	local versionNum = treeVersions[treeVersion].num
 
-	self.legion = LoadModule("Data/LegionPassives")
+	self.legion = LoadModule("Data/TimelessJewelData/LegionPassives")
+	self.tattoo = LoadModule("Data/TattooPassives")
 
 	MakeDir("TreeData")
 
@@ -304,8 +305,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		if versionNum <= 3.09 and node.passivePointsGranted > 0 then
 			t_insert(node.sd, "Grants "..node.passivePointsGranted.." Passive Skill Point"..(node.passivePointsGranted > 1 and "s" or ""))
 		end
-		node.conquered = false
-		node.alternative = {}
 		node.__index = node
 		node.linkedId = { }
 		nodeMap[node.id] = node	
@@ -507,19 +506,48 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		self:ProcessStats(node)
 	end
 
+	-- Build ModList for tattoos
+	for _, node in pairs(self.tattoo.nodes) do
+		-- Determine node type
+		if node.m then
+			node.type = "Mastery"
+		elseif node.ks then
+			node.type = "Keystone"
+		elseif node["not"] then
+			node.type = "Notable"
+		else
+			node.type = "Normal"
+		end
+
+		-- Assign node artwork assets
+		node.sprites = self.spriteMap[node.icon]
+		node.effectSprites = self.spriteMap[node.activeEffectImage]
+		if not node.sprites then
+			--error("missing sprite "..node.icon)
+			node.sprites = { }
+		end
+
+		self:ProcessStats(node)
+	end
+
 	-- Late load the Generated data so we can take advantage of a tree existing
 	buildTreeDependentUniques(self)
 end)
 
-function PassiveTreeClass:ProcessStats(node)
-	node.modKey = ""
+function PassiveTreeClass:ProcessStats(node, startIndex)
+	startIndex = startIndex or 1
+	if startIndex == 1 then
+		node.modKey = ""
+		node.mods = { }
+		node.modList = new("ModList")
+	end
+
 	if not node.sd then
 		return
 	end
 
 	-- Parse node modifier lines
-	node.mods = { }
-	local i = 1
+	local i = startIndex
 	while node.sd[i] do
 		if node.sd[i]:match("\n") then
 			local line = node.sd[i]
@@ -571,8 +599,8 @@ function PassiveTreeClass:ProcessStats(node)
 	end
 
 	-- Build unified list of modifiers from all recognised modifier lines
-	node.modList = new("ModList")
-	for _, mod in pairs(node.mods) do
+	for i = startIndex, #node.mods do
+		local mod = node.mods[i]
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
 				mod = modLib.setSource(mod, "Tree:"..node.id)

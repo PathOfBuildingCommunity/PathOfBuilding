@@ -5,6 +5,7 @@
 -- Program entry point; loads and runs the Main module within a protected environment
 --
 
+local startTime = GetTime()
 APP_NAME = "Path of Building"
 
 SetWindowTitle(APP_NAME)
@@ -22,6 +23,7 @@ function launch:OnInit()
 	self.versionPlatform = "?"
 	self.lastUpdateCheck = GetTime()
 	self.subScripts = { }
+	self.startTime = startTime
 	local firstRunFile = io.open("first.run", "r")
 	if firstRunFile then
 		firstRunFile:close()

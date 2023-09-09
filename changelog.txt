@@ -1,3 +1,182 @@
+VERSION[2.33.5][2023/08/28]
+
+--- Fixed Crashes ---
+* Fix crash when triggering a Skill from a Weapon (LocalIdentity)
+
+VERSION[2.33.4][2023/08/28]
+
+--- Fixed Crashes ---
+* Fix crash when using Kitava's Thirst (Paliak)
+* Fix crash when loading some 3.20 builds (Peechey)
+
+--- Fixed Bugs ---
+* Temporarily Revert trigger rate calculations to old formula (Paliak)
+* Fix Doom Blast overlap count not affecting DPS (Paliak)
+* Fix Skill Effect Duration affecting Totem duration (Paliak)
+* Prevent Tawhoa's Chosen Attacks from being Exerted (Paliak)
+* Fix crash when adding Support gems to some skills (Paliak)
+* Fix Mirage Archer disabling skills supported by Manaforged Arrows (Paliak)
+
+
+VERSION[2.33.3][2023/08/26]
+
+--- Fixed Bugs ---
+* Fix Replica Dragonfang's Flight not providing levels to Vaal versions of a skill (Paliak)
+* Fix Full DPS not working for skills granted by items e.g. Arakaali's Fang  (Paliak)
+* Fix Militant Faith jewel not overriding small attribute tattoos (LocalIdentity)
+
+
+VERSION[2.33.2][2023/08/26]
+
+--- Fixed Crashes ---
+* Fix Flamewood Support crash when selecting Support gems (Paliak)
+* Fixed crash when searching trade for Jewels with Chieftain's Ngamahu Ascendancy allocated (Tivorak)
+
+--- Fixed Bugs ---
+* Fix Spellblade Support not adding damage before level 14 (Wires77)
+* Fix Flamewood support not scaling with Spell and Projectile damage (LocalIdentity)
+* Fix Flamewood Support being disabled by Ancestral Bond (Paliak)
+
+VERSION[2.33.1][2023/08/25]
+
+--- Fixed Crashes ---
+* Fix crash when using a trigger Wand mod (Paliak)
+* Fix crash when using a trigger Helmet Focus mod (Paliak)
+* Fix crash when using Flamewood Support (Paliak)
+
+--- User Interface ---
+* Display Channel time in the sidebar for Skills triggered by Snipe (Paliak)
+
+--- Fixed Bugs ---
+* Fix Hungry Loop not recognising Elemental Army (Paliak)
+* Fix separate Totem Duration affecting Skill Duration (Paliak)
+* Fix Melding of the Flesh not working correctly with Chieftain Valako ascendancy (Paliak)
+* Fix Flamewood Support not being affected by Totem mods (Paliak)
+
+
+VERSION[2.33.0][2023/08/25]
+
+--- New to Path of Building ---
+* Support for triggered skills has been reworked (Paliak)
+    * Calculations of effective triggered skills trigger rate should now be more accurate
+    * Improve cooldown breakpoint interactions with skills that add Cast time
+    * Implemented all currently existing trigger skills that POB is capable of supporting. Including:
+        * CWDT
+        * Spell Slinger
+        * Counter-attack skills
+        * Arcanist brand
+        * Tawhoa's Chosen
+        * Battlemage's Cry
+* Add support for Trigger Bots
+* Add support for Flamewood Support
+* Add Support for Guardian's minion RF skill (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix crash when using Ruthless Support in a Poison build (LocalIdentity)
+* Fix crash when trying to edit Energy Blade weapon (Wires77)
+* Fix crash when viewing resist breakdown while having Chieftains Valako Ascendancy (Paliak)
+
+--- User Interface ---
+* Trigger related breakdowns should now be more descriptive (Paliak)
+* Improve breakdowns for skills that add Cast time (Paliak)
+* Display Cast when Damage Taken threshold in the trigger rate section (Paliak)
+
+--- Accuracy Improvements ---
+* Fix inaccuracies caused by incorrect handling of skill cooldown during skill rotation simulation (Paliak)
+* Triggers should now correctly account for source rate modifiers such as crit chance and accuracy (Paliak)
+* Fix many self triggers counting as self-cast (Paliak)
+* Fix incorrect handling of gems supported by more than one trigger (Paliak)
+
+--- Fixed Bugs ---
+* Fix Volatility from applying multiple times when conversion is present (Regisle)
+* Fix Chain count box not appearing sometimes (LocalIdentity)
+* Fix Cold Exposure mastery not working correctly (LocalIdentity)
+* Fix gems not benefiting from Supports sometimes (LocalIdentity)
+* Fix Trauma Duration sometimes using skill Duration (LocalIdentity)
+* Fix Strength of Blood Keystone not working (LocalIdentity)
+
+
+VERSION[2.32.2][2023/08/24]
+
+--- Fixed Bugs ---
+* Fix crash caused by usage of incorrect breakdown table (Paliak)
+* Fix lua error when hovering Ascendant nodes (Wires77)
+
+
+VERSION[2.32.1][2023/08/24]
+
+--- Fixed Bugs ---
+* Fix crash when opening some minion builds (Paliak)
+* Fix Timeless jewel stats disappearing when applying a tattoo (Wires77)
+
+VERSION[2.32.0][2023/08/24]
+
+--- New to Path of Building ---
+* Add support for tattoos (Wires77)
+* Add support for Ruthless tree (Wires77)
+* Add support for 3.22 skill gems (LocalIdentity, Lilylicious, Regisle, Paliak, Wires77, deathbeam)
+  * Full Support
+  * Locus Mine
+  * Devour
+  * Volatility
+  * Sadism
+  * Spellblade
+  * Trauma
+  * Corrupting Cry
+  * Frigid Bond
+  * Guardian's Blessing
+  * Fresh Meat
+  * Sacrifice
+  * Controlled Blaze
+* Add support for new Chieftain and Guardian ascendancy nodes (Paliak)
+* Add initial support for Guardian minion nodes (LocalIdentity)
+* Add self-hit calculations for Scolds Bridle, Eye of Innocence and Heartbound Loop (Paliak)
+* Add support for new Ancestor uniques (Wires77, LocalIdentity)
+* Improve startup time (Lancej)
+
+--- User Interface ---
+* Help section improvements (Regisle)
+* Add immunity flags to defence avoidance breakdown (Paliak)
+* Removing allocated mastery from hover list (Wires77)
+* Improve sync of tree version and version dropdown (Peechey)
+
+--- Fixed Bugs ---
+* Fix nodes not being able to be allocated after converting a tree (Peechey)
+* Fix totem duration mods not applying (Paliak)
+* Fix DPS on Vaal Flicker when using 2x 1h weapons (LocalIdentity)
+* Fix Repeat count for minion skills (Wires77)
+* Fix Snipe damage going negative (Paliak)
+* Fix Snipe showing DPS values when triggering support skills (LocalIdentity)
+* Fix Doom Blast not working with Forbidden Shako (Paliak)
+* Fix Bleed/Ignite Stack potential issues (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Update 3.22 skill tree (Regisle)
+* Allow setting inspiration charges to 0 (Paliak)
+* Fix "Enemies maimed by you take inc damage over time" not in breakdown display (LocalIdentity)
+* Fix Pierce and Chain count config not appearing sometimes (LocalIdentity)
+* Fix lower channel time stat using red text (LocalIdentity)
+* Fix incorrect increased usage mod range on Cinderswallow Urn (Paliak)
+
+VERSION[2.31.2][2023/08/16]
+
+--- Fixed Bugs ---
+* Fix issue when importing characters (Wires77)
+* Fix typo with Ignite Stack Potential Override (Wires77)
+
+VERSION[2.31.1][2023/08/16]
+
+--- User Interface ---
+* Lower contrast of gem select highlight (ryuukk)
+
+--- Accuracy Improvements ---
+* Undo incorrect Explosive Arrow change (Lilylicious)
+* Fix Frozen Legion benefiting from exerts (Lilylicious)
+* Fix Combustion debuff not applying when a non-damaging skill precedes a damaging skill (Lilylicious)
+* Fix Blood Sacrament not being capped by Cooldown (LocalIdentity)
+* Fix Tree conversion stopping you from allocating some tree nodes (LocalIdentity)
+* Fix Mana cost when using 'Wait for max unleash seals' (busterw)
+
 VERSION[2.31.0][2023/08/15]
 
 --- New to Path of Building ---

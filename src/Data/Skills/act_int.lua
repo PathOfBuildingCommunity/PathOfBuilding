@@ -914,6 +914,7 @@ skills["SupportDarkRitual"] = {
 	requireSkillTypes = { SkillType.AppliesCurse, SkillType.Hex, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.AuraAffectsEnemies, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["apply_linked_curses_with_dark_ritual"] = {
@@ -3018,30 +3019,28 @@ skills["EnergyBlade"] = {
 			mod("EnergyShield", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["storm_blade_minimum_lightning_damage_from_es_%"] = {
-			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "PercentStat", stat = "EnergyShield", percent = 1 }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_maximum_lightning_damage_from_es_%"] = {
-			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShield" }, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "PercentStat", stat = "EnergyShield", percent = 1 }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_damage_+%_final_with_two_hand_weapon"] = {
-			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeDamage", "MORE", nil, 0, 0, { type = "Condition", var = "UsingTwoHandedWeapon" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_minimum_lightning_damage"] = {
-			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeMinLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_maximum_lightning_damage"] = {
-			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_quality_local_critical_strike_chance_+%"] = {
-			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_quality_chance_to_shock_%"] = {
-			mod("EnemyShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 		["storm_blade_quality_attack_lightning_damage_%_to_convert_to_chaos"] = {
-			mod("LightningDamageConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("EnergyBladeConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
 	},
 	baseFlags = {
@@ -3394,6 +3393,11 @@ skills["Fireball"] = {
 			area = true,
 		},
 	},
+	statMap = {
+		["fireball_base_radius_up_to_+_at_longer_ranges"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{50,1}} })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -3487,6 +3491,11 @@ skills["VaalFireballSpiralNova"] = {
 		{
 			name = "Explosion",
 			area = true,
+		},
+	},
+	statMap = {
+		["fireball_base_radius_up_to_+_at_longer_ranges"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{50,1}} })
 		},
 	},
 	baseFlags = {
@@ -4489,9 +4498,10 @@ skills["ForbiddenRite"] = {
 		if activeSkill.skillPart == 2 then
 			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (output.ProjectileCount + 1)
 		end
+		output.FRDamageTaken = SelfDamageTakenLife + SelfDamageTakenES + chaosFlat
 		if breakdown then
 			local FRDamageTaken = {}
-			t_insert(FRDamageTaken, "Damage Taken per Cast")
+			t_insert(FRDamageTaken, s_format("Damage Taken per cast from Forbidden Rite: %d", output.FRDamageTaken))
 			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Life) *^7 %d%%^8 (of Life taken as Chaos Damage)", life, activeSkill.skillData.SelfDamageTakenLife * 100))
 			if energyShield ~= 0 then
 				t_insert(FRDamageTaken, s_format("^8+^7 %d^8 (ES) *^7 %d%%^8 (of ES taken as Chaos Damage)", energyShield, activeSkill.skillData.SelfDamageTakenES * 100))
@@ -4503,10 +4513,8 @@ skills["ForbiddenRite"] = {
 			if chaosDamageTaken ~= 1 then
 				t_insert(FRDamageTaken, s_format("^8 *^7 %.2f^8 (Damage taken Multiplier)", chaosDamageTaken))
 			end
-			t_insert(FRDamageTaken, s_format("^8=^7 %d^8 (Damage taken)", SelfDamageTakenLife + SelfDamageTakenES + chaosFlat))
 			breakdown.FRDamageTaken = FRDamageTaken
 		end
-		output.FRDamageTaken = SelfDamageTakenLife + SelfDamageTakenES + chaosFlat
 	end,
 	statMap = {
 		["skill_base_chaos_damage_%_maximum_life"] = {
@@ -8039,7 +8047,7 @@ skills["Purity"] = {
 			mod("ElementalPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["immune_to_status_ailments"] = {
-			--Display only
+			flag("ElementalAilmentImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -8049,7 +8057,6 @@ skills["Purity"] = {
 	},
 	baseMods = {
 		skill("radius", 40),
-		mod("AvoidElementalAilments", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -8215,7 +8222,7 @@ skills["LightningImpurity"] = {
 			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_shock"] = {
-			--Display only
+			flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -8223,9 +8230,6 @@ skills["LightningImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		flag("ShockImmune", { type = "GlobalEffect", effectType = "Aura"}),
 	},
 	qualityStats = {
 		Default = {
@@ -8455,6 +8459,7 @@ skills["RaiseSpectre"] = {
 		"raised_spectre_level",
 		"accuracy_rating",
 		"minion_elemental_resistance_30%",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 1, 28, 105, levelRequirement = 28, statInterpolation = { 1, 1, 1, }, cost = { Mana = 15, }, },
@@ -8544,9 +8549,10 @@ skills["RaiseZombie"] = {
 	},
 	stats = {
 		"base_number_of_zombies_allowed",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"zombie_slam_cooldown_speed_+%",
 		"zombie_slam_area_of_effect_+%",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 3, 1, 0, 0, levelRequirement = 1, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 9, }, },
@@ -9541,6 +9547,7 @@ skills["SupportSpellslinger"] = {
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Spell, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, SkillType.HasReservation, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.Triggered, SkillType.NOT, SkillType.AND, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	supportGemsOnly = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
@@ -9552,6 +9559,7 @@ skills["SupportSpellslinger"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment)),
 		},
 		["spellslinger_trigger_on_wand_attack_%"] = {
+			skill("triggeredBySpellSlinger", nil, { type = "SkillType", skillType = SkillType.Triggerable }, { type = "SkillType", skillType = SkillType.Spell }),
 		},
 	},
 	baseMods = {
@@ -9711,6 +9719,7 @@ skills["SupportBrandSupport"] = {
 	requireSkillTypes = { SkillType.Triggerable, SkillType.Spell, SkillType.AND, },
 	addSkillTypes = { SkillType.Triggered, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	addFlags = {
@@ -9724,7 +9733,7 @@ skills["SupportBrandSupport"] = {
 			mod("AreaOfEffect", "MORE", nil),
 		},
 		["trigger_brand_support_hit_damage_+%_final_vs_branded_enemy"] = {
-			mod("TriggeredDamage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
+			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
 	addSkillTypes = { SkillType.Brand, },
@@ -10251,9 +10260,10 @@ skills["SummonReaper"] = {
 	stats = {
 		"non_reaper_minion_damage_+%_final",
 		"non_reaper_minion_maximum_life_+%_final",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"minion_maximum_life_+%",
 		"active_skill_minion_bleeding_damage_+%_final",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { -20, -20, 28, 20, 30, storedUses = 1, levelRequirement = 28, cooldown = 4, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Mana = 15, }, },
@@ -10712,7 +10722,8 @@ skills["SummonBoneGolem"] = {
 		"bone_golem_grants_minion_maximum_added_physical_damage",
 		"base_actor_scale_+%",
 		"minion_maximum_life_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0, 0, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 30, }, },
@@ -10802,7 +10813,8 @@ skills["SummonChaosGolem"] = {
 		"base_actor_scale_+%",
 		"chaos_golem_grants_additional_physical_damage_reduction_%",
 		"minion_maximum_life_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 3, 0, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },
@@ -10897,8 +10909,9 @@ skills["SummonRelic"] = {
 		"active_skill_minion_movement_velocity_+%_final",
 		"holy_relic_nova_life_regeneration_rate_per_minute",
 		"holy_relic_nova_minion_life_regeneration_rate_per_second",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"minions_cannot_taunt_enemies",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 314, 9, 4, storedUses = 1, levelRequirement = 4, cooldown = 2, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 11, }, },
@@ -10988,7 +11001,8 @@ skills["SummonLightningGolem"] = {
 		"base_actor_scale_+%",
 		"lightning_golem_grants_attack_and_cast_speed_+%",
 		"minion_maximum_life_+%",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 6, 0, 34, storedUses = 1, levelRequirement = 34, cooldown = 6, statInterpolation = { 1, 1, 1, 1, }, cost = { Mana = 30, }, },
@@ -11036,7 +11050,7 @@ skills["SummonLightningGolem"] = {
 skills["SummonRagingSpirit"] = {
 	name = "Summon Raging Spirit",
 	color = 3,
-	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly. Enemies will not directly engage these spirits, and can pass through them.",
+	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly, converting all its physical damage to fire. Enemies will not directly engage these spirits, and can pass through them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
@@ -11070,7 +11084,7 @@ skills["SummonRagingSpirit"] = {
 	},
 	stats = {
 		"active_skill_minion_damage_+%_final",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"minions_cannot_taunt_enemies",
 	},
 	levels = {
@@ -11162,7 +11176,7 @@ skills["SummonSkeletons"] = {
 	stats = {
 		"number_of_melee_skeletons_to_summon",
 		"base_number_of_skeletons_allowed",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 	},
 	levels = {
 		[1] = { 2, 5, 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, }, cost = { Mana = 5, }, },
@@ -11211,7 +11225,7 @@ skills["VaalSummonSkeletons"] = {
 	name = "Vaal Summon Skeletons",
 	color = 3,
 	baseEffectiveness = 0,
-	description = "Summons an army of skeletal warriors, archers and mages, led by a powerful general.",
+	description = "Summons an army of skeletal soldiers, archers and mages, led by a powerful general.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multistrikeable] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.ThresholdJewelSpellDamage] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
@@ -11246,51 +11260,51 @@ skills["VaalSummonSkeletons"] = {
 		"number_of_archer_skeletons_to_summon",
 		"number_of_mage_skeletons_to_summon",
 		"base_number_of_skeletons_allowed",
-		"display_minion_monster_level",
+		"base_display_minion_actor_level",
 		"cannot_cancel_skill_before_contact_point",
 		"skeletons_are_vaal",
 	},
 	levels = {
-		[1] = { 14, 2, 0, 17, 10, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[2] = { 15, 2, 0, 18, 13, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[3] = { 15, 3, 0, 19, 16, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 17, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[4] = { 16, 3, 0, 20, 19, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 21, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[5] = { 16, 4, 0, 21, 22, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[6] = { 17, 4, 0, 22, 25, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 29, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[7] = { 17, 5, 0, 23, 28, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[8] = { 18, 5, 0, 24, 32, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 36, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[9] = { 18, 5, 1, 25, 36, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 39, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[10] = { 18, 6, 1, 26, 40, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 42, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[11] = { 18, 6, 2, 27, 44, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 45, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[12] = { 19, 6, 2, 28, 47, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 48, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[13] = { 19, 6, 3, 29, 50, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 51, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[14] = { 20, 6, 3, 30, 53, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 54, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[15] = { 20, 7, 3, 31, 56, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 57, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[1] = { 14, 2, 1, 18, 10, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 10, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[2] = { 15, 2, 1, 19, 13, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 13, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[3] = { 15, 3, 1, 20, 16, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 17, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[4] = { 16, 3, 2, 22, 19, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 21, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[5] = { 16, 4, 2, 23, 22, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 25, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[6] = { 17, 4, 2, 24, 25, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 29, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[7] = { 17, 5, 2, 25, 28, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 33, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[8] = { 18, 5, 2, 26, 32, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 36, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[9] = { 18, 5, 3, 27, 36, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 39, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[10] = { 18, 6, 3, 28, 40, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 42, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[11] = { 18, 6, 3, 28, 44, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 45, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[12] = { 19, 6, 3, 29, 47, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 48, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[13] = { 19, 6, 4, 30, 50, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 51, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[14] = { 20, 6, 4, 31, 53, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 54, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[15] = { 20, 7, 4, 32, 56, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 57, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 		[16] = { 20, 7, 4, 32, 59, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 		[17] = { 20, 8, 4, 33, 62, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 63, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[18] = { 21, 8, 4, 34, 64, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[18] = { 21, 8, 5, 35, 64, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 		[19] = { 21, 8, 5, 35, 66, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 68, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 		[20] = { 21, 9, 5, 36, 68, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 		[21] = { 22, 9, 5, 37, 70, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[22] = { 22, 9, 6, 38, 72, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[22] = { 22, 9, 5, 37, 72, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 		[23] = { 22, 10, 6, 39, 74, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 		[24] = { 23, 10, 6, 40, 76, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[25] = { 23, 10, 7, 41, 78, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[26] = { 23, 11, 7, 42, 80, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[27] = { 24, 11, 7, 43, 82, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[28] = { 24, 11, 8, 44, 84, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[29] = { 25, 11, 8, 45, 86, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[30] = { 25, 12, 8, 46, 88, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[31] = { 25, 12, 8, 46, 89, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[32] = { 26, 12, 9, 47, 90, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[33] = { 26, 12, 9, 47, 91, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[34] = { 26, 12, 9, 48, 92, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[35] = { 26, 12, 9, 48, 93, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[36] = { 27, 12, 9, 49, 94, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[37] = { 27, 12, 9, 49, 95, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[38] = { 27, 13, 9, 50, 96, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[39] = { 27, 13, 9, 50, 97, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
-		[40] = { 27, 13, 10, 51, 98, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[25] = { 23, 10, 6, 40, 78, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[26] = { 23, 11, 6, 41, 80, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[27] = { 24, 11, 6, 42, 82, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[28] = { 24, 11, 7, 43, 84, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[29] = { 25, 11, 7, 44, 86, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[30] = { 25, 12, 7, 45, 88, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[31] = { 25, 12, 7, 45, 89, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[32] = { 26, 12, 7, 46, 90, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[33] = { 26, 12, 7, 46, 91, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[34] = { 26, 12, 8, 47, 92, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[35] = { 26, 12, 8, 47, 93, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[36] = { 27, 12, 8, 48, 94, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[37] = { 27, 12, 8, 48, 95, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[38] = { 27, 13, 8, 49, 96, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[39] = { 27, 13, 8, 49, 97, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
+		[40] = { 27, 13, 8, 49, 98, vaalStoredUses = 1, soulPreventionDuration = 10, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, }, cost = { Soul = 50, }, },
 	},
 }
 skills["BlackHole"] = {
@@ -11398,7 +11412,7 @@ skills["Skitterbots"] = {
 	name = "Summon Skitterbots",
 	color = 3,
 	description = "Summon a Chilling Skitterbot and a Shocking Skitterbot, which will trigger your traps and detonate your mines. Mines detonated by Skitterbots will re-arm and can then be detonated again. The Skitterbots grant you more trap and mine damage, and cannot be targeted or damaged.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.HasReservation] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.AuraNotOnCaster] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.HasReservation] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.AuraNotOnCaster] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0,
 	minionList = {
@@ -11439,6 +11453,7 @@ skills["Skitterbots"] = {
 		"minion_movement_speed_+%",
 		"display_skitterbot_shocking_aura",
 		"display_skitterbot_chilling_aura",
+		"infinite_minion_duration",
 	},
 	levels = {
 		[1] = { 0, 0, 0, storedUses = 1, manaReservationPercent = 35, cooldown = 1, levelRequirement = 16, statInterpolation = { 1, 1, 1, }, },
@@ -11497,7 +11512,7 @@ skills["TempestShield"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["skill_display_buff_grants_shock_immunity"] = {
-			--Display only
+			flag("ShockImmune", { type = "GlobalEffect", effectType = "Buff"}),
 		}
 	},
 	baseFlags = {
@@ -11506,7 +11521,7 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
-		flag("ShockImmune")
+		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
 	},
 	qualityStats = {
 		Default = {
@@ -12390,6 +12405,17 @@ skills["SoulLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["soul_link_grants_damage_taken_+%_final"] = {
+			mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["soul_link_grants_mana_regeneration_+%"] = {
+			mod("ManaRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"] = {
+			mod("TakenFromParentESBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -12411,7 +12437,6 @@ skills["SoulLink"] = {
 	stats = {
 		"soul_link_grants_damage_taken_+%_final",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 	},
@@ -12465,6 +12490,17 @@ skills["DestructiveLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["critical_link_grants_base_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["critical_link_grants_accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["display_critical_link_overrides_main_hand_critical_strike_chance"] = {
+			flag("MainHandCritIsEqualToParent", { type = "GlobalEffect", effectType = "Link" }, { type = "Condition", var = "MainHandAttack" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -12483,7 +12519,6 @@ skills["DestructiveLink"] = {
 	stats = {
 		"critical_link_grants_base_critical_strike_multiplier_+",
 		"base_skill_effect_duration",
-		"base_deal_no_damage",
 		"skill_cost_over_time_is_not_removed_with_skill",
 		"display_link_stuff",
 		"display_critical_link_overrides_main_hand_critical_strike_chance",

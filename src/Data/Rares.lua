@@ -563,9 +563,9 @@ Suffix: FireResist4
 Suffix: ColdResist4
 Suffix: LightningResist4
 Implicits: 3
-{variant:1}+(12 to 16)% to Fire and Cold Resistances
-{variant:2}+(12 to 16)% to Cold and Lightning Resistances
-{variant:3}+(12 to 16)% to Fire and Lightning Resistances
+{variant:1}+(12-16)% to Fire and Cold Resistances
+{variant:2}+(12-16)% to Cold and Lightning Resistances
+{variant:3}+(12-16)% to Fire and Lightning Resistances
 ]],[[
 Ring
 Unset Ring
