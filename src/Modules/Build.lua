@@ -163,7 +163,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 50, 20, self.characterLevelAutoMode and "Auto" or "Manual", function()
 		self.characterLevelAutoMode = not self.characterLevelAutoMode
 		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
-		self.recalcAdaptiveLevel = true
 		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
@@ -732,64 +731,55 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.abortSave = false
 end
 
+local acts = { 
+	[1] = { level = 1, questPoints = 0 }, 
+	[2] = { level = 12, questPoints = 2 }, 
+	[3] = { level = 22, questPoints = 3 }, 
+	[4] = { level = 32, questPoints = 5 },
+	[5] = { level = 40, questPoints = 6 },
+	[6] = { level = 44, questPoints = 8 },
+	[7] = { level = 50, questPoints = 11 },
+	[8] = { level = 54, questPoints = 14 },
+	[9] = { level = 60, questPoints = 17 },
+	[10] = { level = 64, questPoints = 19 },
+	[11] = { level = 67, questPoints = 22 },
+}
+
+local function actExtra(act, extra)
+	return act > 2 and extra or 0
+end
+
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
 	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
-	local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + extra, 8, 1, 1, "", ""
-	local acts = { 
-		[1] = { level = 1, questPoints = 0 }, 
-		[2] = { level = 12, questPoints = 2 }, 
-		[3] = { level = 22, questPoints = 3 + extra }, 
-		[4] = { level = 32, questPoints = 5 + extra },
-		[5] = { level = 40, questPoints = 6 + extra },
-		[6] = { level = 44, questPoints = 8 + extra },
-		[7] = { level = 50, questPoints = 11 + extra },
-		[8] = { level = 54, questPoints = 14 + extra },
-		[9] = { level = 60, questPoints = 17 + extra },
-		[10] = { level = 64, questPoints = 19 + extra },
-		[11] = { level = 67, questPoints = 22 + extra }
-	}
-			
-	-- loop for how much quest skillpoints are used with the progress
-	while currentAct < 11 and PointsUsed + 1 - acts[currentAct].questPoints > acts[currentAct + 1].level do
-		currentAct = currentAct + 1
-	end
+	local usedMax, ascMax, level, act = 99 + 22 + extra, 8, 1, 0
 
-	-- bandits notification; when considered and in calculation after act 2
-	if currentAct <= 2 and extra ~= 0 then
-		extra = 0
-	end
+	-- Find estimated act and level based on points used
+	repeat
+		act = act + 1
+		level = m_min(m_max(PointsUsed + 1 - acts[act].questPoints - actExtra(act, extra), acts[act].level), 100)
+	until act == 11 or level <= acts[act + 1].level
 	
-	-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
-	levelreq = m_min(math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level), 100)
-	
-	self.lastAllocated = self.lastAllocated or -1
-	self.lastExtra = self.lastExtra or -1
-	
-	if self.characterLevelAutoMode and (self.lastAllocated ~= PointsUsed or self.lastExtra ~= extra or self.recalcAdaptiveLevel) then
-		self.characterLevel = levelreq
+	if self.characterLevelAutoMode and self.characterLevel ~= level then
+		self.characterLevel = level
 		self.controls.characterLevel:SetText(self.characterLevel)
-		self.recalcAdaptiveLevel = false
 	end
-	
-	self.lastAllocated = PointsUsed
-	self.lastExtra = extra
 
 	-- Ascendency points for lab
 	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
-	local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
-	local strAct = "Endgame"
-	if levelreq >= 33 and levelreq < 55 then labSuggest = labstr[1]
-	elseif levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2]
-	elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
-	elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
-	if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
+	local labSuggest = level < 33 and ""
+		or level < 55 and "\nLabyrinth: Normal Lab"
+		or level < 68 and "\nLabyrinth: Cruel Lab"
+		or level < 75 and "\nLabyrinth: Merciless Lab"
+		or level < 90 and "\nLabyrinth: Uber Lab"
+		or ""
 	
 	if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
 	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
-	self.Act = strAct
+	self.Act = level < 90 and act <= 10 and act or "Endgame"
 	
-	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and colorCodes.NEGATIVE or "^7", PointsUsed, usedMax, AscUsed > ascMax and colorCodes.NEGATIVE or "^7", AscUsed, ascMax), "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - extra .. "\nExtra Skillpoints: " .. extra .. labSuggest
+	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and colorCodes.NEGATIVE or "^7", PointsUsed, usedMax, AscUsed > ascMax and colorCodes.NEGATIVE or "^7", AscUsed, ascMax),
+		"Required Level: "..level.."\nEstimated Progress:\nAct: "..self.Act.."\nQuestpoints: "..acts[act].questPoints.."\nExtra Skillpoints: "..actExtra(act, extra)..labSuggest
 end
 
 function buildMode:CanExit(mode)
