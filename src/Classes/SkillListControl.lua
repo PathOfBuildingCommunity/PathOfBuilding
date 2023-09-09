@@ -16,8 +16,8 @@ local slot_map = {
 	["Gloves"] 		= { icon = NewImageHandle(), path = "Assets/icon_gloves.png" },
 	["Boots"] 		= { icon = NewImageHandle(), path = "Assets/icon_boots.png" },
 	["Amulet"] 		= { icon = NewImageHandle(), path = "Assets/icon_amulet.png" },
-	["Ring"] 		= { icon = NewImageHandle(), path = "Assets/icon_ring_left.png" },
-	["Ring2"] 		= { icon = NewImageHandle(), path = "Assets/icon_ring_right.png" },
+	["Ring 1"] 		= { icon = NewImageHandle(), path = "Assets/icon_ring_left.png" },
+	["Ring 2"] 		= { icon = NewImageHandle(), path = "Assets/icon_ring_right.png" },
 	["Belt"] 		= { icon = NewImageHandle(), path = "Assets/icon_belt.png" },
 }
 
