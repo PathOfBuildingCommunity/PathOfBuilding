@@ -2995,6 +2995,9 @@ function calcs.buildDefenceEstimations(env, actor)
 			if output.TotalRadianceSentinelLife and output.TotalRadianceSentinelLife > 0 then
 				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
 			end
+			if output.AlliedEnergyShield and output.AlliedEnergyShield > 0 then
+				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Allied Energy shield ^7(%d remaining)", output.AlliedEnergyShield - poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining, poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining))
+			end
 			if output.sharedAegis and output.sharedAegis > 0 then
 				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared))
 			end
