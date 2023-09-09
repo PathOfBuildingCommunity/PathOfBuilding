@@ -1899,7 +1899,8 @@ function calcs.perform(env, fullDPSSkipEHP)
 					t_insert(curses, curse)	
 				end
 			elseif buff.type == "Link" then
-				if env.mode_buffs and (#linkSkills < 1) and env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion") then
+				if env.mode_buffs and (#linkSkills < 1) and env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion")
+						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamageable] then
 					-- Check for extra modifiers to apply to link skills
 					local extraLinkModList = { }
 					for _, value in ipairs(modDB:List(skillCfg, "ExtraLinkEffect")) do
