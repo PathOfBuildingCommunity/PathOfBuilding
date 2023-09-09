@@ -152,10 +152,9 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.treeHeatMap = new("CheckBoxControl", { "LEFT", self.controls.findTimelessJewel, "RIGHT" }, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
-		
-		if state == false then 
-			self.showPowerReport = false 
-			self:TogglePowerReport()
+
+		if state == false then
+			self.controls.powerReportList.shown = false 
 		end
 	end)
 
@@ -197,21 +196,28 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end
 
 	-- Show/Hide Power Report Button
-	self.controls.powerReport = new("ButtonControl", { "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, 8, 0, 150, 20, self.showPowerReport and "Hide Power Report" or "Show Power Report", function()
-		self.showPowerReport = not self.showPowerReport
-		self:TogglePowerReport()
+	self.controls.powerReport = new("ButtonControl", { "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, 8, 0, 150, 20,
+		function() return self.controls.powerReportList.shown and "Hide Power Report" or "Show Power Report" end, function()
+		self.controls.powerReportList.shown = not self.controls.powerReportList.shown
 	end)
-	self.controls.powerReport.enabled = function()
-		return self.build.calcsTab and self.build.calcsTab.powerBuilderInitialized
-	end
-	self.controls.powerReport.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		if not (self.build.calcsTab and self.build.calcsTab.powerBuilderInitialized) then
-			tooltip:AddLine(14, "Show Power Report is disabled until the first time")
-			tooltip:AddLine(14, "an evaluation of all nodes and clusters completes.")
+
+	-- Power Report List
+	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
+	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT", self.controls.specSelect, "BOTTOMLEFT"}, 0, yPos, 700, 220, function(selectedNode)
+		-- this code is called by the list control when the user "selects" one of the passives in the list.
+		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
+		if selectedNode.x then
+			self.jumpToNode = true
+			self.jumpToX = selectedNode.x
+			self.jumpToY = selectedNode.y
 		end
+	end)
+	self.controls.powerReportList.shown = false
+	self.build.powerBuilderCallback = function()
+		local powerStat = self.build.calcsTab.powerStat or data.powerStatList[1]
+		local report = self:BuildPowerReportList(powerStat)
+		self.controls.powerReportList:SetReport(powerStat, report)
 	end
-	self.showPowerReport = false
 
 	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
@@ -259,19 +265,13 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	if viewPort.width >= 1336 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
 		twoLineHeight = 0
 		self.controls.treeSearch:SetAnchor("LEFT", self.controls.versionSelect, "RIGHT", 8, 0)
-		if self.controls.powerReportList then
-			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, self.controls.specSelect.height + 4)
-			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", 8, 0)
-		end
+		self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, self.controls.specSelect.height + 4)
 	else
 		self.controls.treeSearch:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, 4)
-		if self.controls.powerReportList then
-			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.findTimelessJewel, "BOTTOMLEFT", 0, self.controls.treeHeatMap.y + self.controls.treeHeatMap.height + 4)
-			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", -76, -44)
-		end
+		self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.treeSearch, "BOTTOMLEFT", 0, self.controls.treeHeatMap.y + self.controls.treeHeatMap.height + 4)
 	end
 
-	local bottomDrawerHeight = self.showPowerReport and 194 or 0
+	local bottomDrawerHeight = self.controls.powerReportList.shown and 194 or 0
 	self.controls.specSelect.y = -bottomDrawerHeight - twoLineHeight
 
 	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 + bottomDrawerHeight + twoLineHeight or 32 + bottomDrawerHeight + twoLineHeight)}
@@ -309,13 +309,6 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
 	if self.build.calcsTab.powerStat then
 		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
-	end
-	if self.controls.powerReportList then
-		if self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.stat then
-			self.controls.powerReportList.label = self.build.calcsTab.powerBuilder and "Building table..." or "Click to focus node on tree"
-		else
-			self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
-		end
 	end
 
 	SetDrawLayer(1)
@@ -765,78 +758,12 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 	end
 end
 
-function TreeTabClass:SetPowerCalc(selection)
+function TreeTabClass:SetPowerCalc(powerStat)
 	self.viewer.showHeatMap = true
 	self.build.buildFlag = true
 	self.build.calcsTab.powerBuildFlag = true
-	self.build.calcsTab.powerStat = selection
-	if self.showPowerReport then
-		self.controls.allocatedNodeToggle.enabled = false
-		self.controls.allocatedNodeDistance.enabled = false
-		self.controls.powerReportList.label = "Building table..."
-		self.build.calcsTab:BuildPower({ func = self.TogglePowerReport, caller = self })
-	end
-end
-
-function TreeTabClass:BuildPowerReportUI()
-	self.controls.powerReport.tooltipText = "A report of node efficacy based on current heat map selection"
-
-	self.controls.allocatedNodeToggle = new("ButtonControl", {"TOPLEFT", self.controls.powerReportList, "TOPRIGHT" }, 8, 4, 160, 20, "Show allocated nodes", function()
-		self.controls.powerReportList.allocated = not self.controls.powerReportList.allocated
-		self.controls.allocatedNodeDistance.shown = self.controls.powerReportList.allocated
-		self.controls.allocatedNodeDistance.enabled = self.controls.powerReportList.allocated
-		self.controls.allocatedNodeToggle.label = self.controls.powerReportList.allocated and "Show Unallocated Nodes" or "Show allocated nodes"
-		self.controls.powerReportList.pathLength = tonumber(self.controls.allocatedNodeDistance.buf or 1)
-		self.controls.powerReportList:ReList()
-	end)
-
-	self.controls.allocatedNodeDistance = new("EditControl", {"TOPLEFT", self.controls.allocatedNodeToggle, "BOTTOMLEFT" }, 0, 4, 125, 20, 1, "Max path", "%D", 100, function(buf)
-		self.controls.powerReportList.pathLength = tonumber(buf)
-		self.controls.powerReportList:ReList()
-	end)
-end
-
-function TreeTabClass:TogglePowerReport(caller)
-	self = self or caller
-	self.controls.powerReport.label = self.showPowerReport and "Hide Power Report" or "Show Power Report"
-	local currentStat = self.build.calcsTab and self.build.calcsTab.powerStat or nil
-	local report = {}
-	if not self.showPowerReport and self.controls.powerReportList then
-		self.controls.powerReportList.shown = false
-		return
-	end
-
-	report = self:BuildPowerReportList(currentStat)
-	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
-	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT", self.controls.specSelect, "BOTTOMLEFT"}, 0, yPos, 700, 220, report, currentStat and currentStat.label or "", function(selectedNode)
-		-- this code is called by the list control when the user "selects" one of the passives in the list.
-		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
-		if selectedNode.x then
-			self.jumpToNode = true
-			self.jumpToX = selectedNode.x
-			self.jumpToY = selectedNode.y
-		end
-	end)
-
-	if not self.controls.allocatedNodeToggle then
-		self:BuildPowerReportUI()
-	end
-	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, main.portraitMode and "BOTTOMLEFT" or "TOPRIGHT")
-	self.controls.powerReportList.shown = self.showPowerReport
-
-	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and I'm unsure how to quantify numerically
-	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.
-	if currentStat and currentStat.stat then
-		self.controls.powerReportList.label = "Click to focus node on tree"
-		self.controls.powerReportList.enabled = true
-	else
-		self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
-		self.controls.powerReportList.enabled = false
-	end
-
-	self.controls.allocatedNodeToggle.enabled = self.controls.powerReportList.enabled
-	self.controls.allocatedNodeDistance.shown = self.controls.powerReportList.allocated
-	self.controls.allocatedNodeToggle.label = self.controls.powerReportList.allocated and "Show Unallocated Nodes" or "Show allocated nodes"
+	self.build.calcsTab.powerStat = powerStat
+	self.controls.powerReportList:SetReport(powerStat, nil)
 end
 
 function TreeTabClass:BuildPowerReportList(currentStat)
