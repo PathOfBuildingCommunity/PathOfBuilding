@@ -765,6 +765,11 @@ local skills, mod, flag, skill = ...
 			area = true,
 		},
 	},
+	statMap = {
+		["fireball_base_radius_up_to_+_at_longer_ranges"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{50,1}} })
+		},
+	},
 #baseMod skill("radius", 9)
 #mods
 
@@ -778,6 +783,11 @@ local skills, mod, flag, skill = ...
 		{
 			name = "Explosion",
 			area = true,
+		},
+	},
+	statMap = {
+		["fireball_base_radius_up_to_+_at_longer_ranges"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{50,1}} })
 		},
 	},
 #baseMod skill("radius", 9)
