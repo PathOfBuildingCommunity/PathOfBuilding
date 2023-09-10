@@ -315,7 +315,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(30-40)% to Fire Resistance
 {tags:jewellery_resistance}+(30-40)% to Cold Resistance
 {tags:speed}10% increased Movement Speed when on Full Life
-{tags:attack}+2 to Melee Weapon and Unarmed range
+{tags:attack}+0.2 metres to Melee Strike Range
 {tags:attack}60% increased Melee Damage when on Full Life
 ]],[[
 The Ephemeral Bond

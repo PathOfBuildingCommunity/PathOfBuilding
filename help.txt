@@ -118,15 +118,16 @@ The Party tab Allows you to import support characters and have their auras and c
 
 To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab
 You can import a specific type like aura or curse, or import to all
-You can also set it to append to a section rather than replacing it (curses are always replaced)
+You can also set it to append to a section rather than replacing it (curses are always replaced if new one has a curse)
  
-This does not add the auras or curses into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectively
+This does not add the auras, curses or links into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectively
 They also show other effects they add, like when physical damage reduction is applied by an aurabot with the Guardian node
  
 Auras with the highest effect will take priority
 Your curses will take priority over a support's
  
-For now Enemy conditions and Modifiers are not exported but can be imported if its saved in the XML, and Links skills are not exported or parsed
+For now Links skills are not exported or parsed
+Some Enemy conditions and Modifiers may not be properly exported, please let us know if something is broken
 Some auras like Mines which use a stack value for their effect will not apply as their stack value is missing
 
 ---[Items Tab]

@@ -163,8 +163,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, 100, 0, 18, "Export Support", function(state)
 		self.build.partyTab.enableExportBuffs = state
 		self.build.buildFlag = true 
-	--end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
-	end, "This is for party play, to export support character, it enables the exporting of auras and curses", false)
+	end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
 	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, 0, 8, 250, 20, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
@@ -571,13 +570,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 
 	if charPassiveData.skill_overrides then
 		for nodeId, override in pairs(charPassiveData.skill_overrides) do
+			self.build.spec:ReplaceNode(override, self.build.spec.tree.tattoo.nodes[override.name])
 			override.id = nodeId
-			local modCount = 0
-			for _, statLine in ipairs(override.stats) do
-				self.build.spec:NodeAdditionOrReplacementFromString(override, statLine, modCount == 0)
-				modCount = modCount + 1
-			end
-			override.dn = override.name
 		end
 	end
 
