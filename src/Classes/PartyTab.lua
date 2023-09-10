@@ -15,6 +15,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.build = build
 
 	self.actor = { Aura = { }, Curse = { }, Link = { }, modDB = new("ModDB"), output = { } }
+	self.actor.modDB.actor = self.actor
 	self.enemyModList = new("ModList")
 	self.buffExports = { }
 	self.enableExportBuffs = false
@@ -329,6 +330,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
 		self.actor = { Aura = {}, Curse = {}, Link = {}, modDB = new("ModDB"), output = { } }
+		self.actor.modDB.actor = self.actor
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
@@ -338,6 +340,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
 		self.actor = { Aura = {}, Curse = {}, Link = {}, modDB = new("ModDB"), output = { } }
+		self.actor.modDB.actor = self.actor
 		self.enemyModList = new("ModList")
 		self:ParseBuffs(self.actor["modDB"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
 		self:ParseBuffs(self.actor["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
