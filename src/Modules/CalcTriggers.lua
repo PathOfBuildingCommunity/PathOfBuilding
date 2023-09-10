@@ -438,8 +438,7 @@ local function defaultTriggerHandler(env, config)
 				end
 			end
 
-			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate or source and source.skillData.storedUses and source.skillData.storedUses > 1
-			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate and not source.skillData.triggeredByCurseOnCurse
+			actor.mainSkill.skillData.ignoresTickRate = actor.mainSkill.skillData.ignoresTickRate or (actor.mainSkill.skillData.storedUses and actor.mainSkill.skillData.storedUses > 1)
 
 			--Account for source unleash
 			if source and GlobalCache.cachedData["CACHE"][uuid] and source.skillModList:Flag(nil, "HasSeals") and source.skillTypes[SkillType.CanRapidFire] then
@@ -561,32 +560,40 @@ local function defaultTriggerHandler(env, config)
 			local triggeredName = (actor.mainSkill.activeEffect.grantedEffect and actor ~= env.minion and actor.mainSkill.activeEffect.grantedEffect.name) or "Triggered skill"
 			output.addsCastTime = processAddedCastTime(env.player.mainSkill, breakdown)
 
-			local modActionCooldown = cooldownOverride or m_max((triggeredCD or 0) / icdr + (output.addsCastTime or 0), ((triggerCD or 0) / icdr ))
+			local triggeredCDAdjusted = (triggeredCD or 0) / icdr + (output.addsCastTime or 0)
+			local triggerCDAdjusted = (triggerCD or 0) / icdr
+			local triggeredCDTickRounded = actor.mainSkill.skillData and actor.mainSkill.skillData.ignoresTickRate and triggeredCDAdjusted or m_ceil(triggeredCDAdjusted * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			local triggerCDTickRounded = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.ignoresTickRate and triggerCDAdjusted or m_ceil(triggerCDAdjusted * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			local actionCooldown = cooldownOverride or m_max(triggerCD or 0, triggeredCD or 0 + (output.addsCastTime or 0))
+			local actionCooldownAdjusted = cooldownOverride or m_max(triggerCDAdjusted, triggeredCDAdjusted)
+			local actionCooldownTickRounded = cooldownOverride and (m_ceil(cooldownOverride * data.misc.ServerTickRate) / data.misc.ServerTickRate) or m_max(triggerCDTickRounded, triggeredCDTickRounded)
 
-			local rateCapAdjusted = actor.mainSkill.skillData.ignoresTickRate and modActionCooldown or m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
-			local extraICDRNeeded = m_ceil((modActionCooldown - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
+			local displayCooldownRounding = (actor.mainSkill.skillData and not actor.mainSkill.skillData.ignoresTickRate and triggeredCDAdjusted ~= 0) or (actor.mainSkill.triggeredBy and not actor.mainSkill.triggeredBy.ignoresTickRate and triggerCDAdjusted ~= 0)
+			local extraICDRNeeded = nil
 
-			if actor.mainSkill.skillData.triggeredByBrand then
-				extraICDRNeeded = m_ceil(((triggeredCD or 0) / icdr - rateCapAdjusted + data.misc.ServerTickTime) * icdr * 1000)
+			if not cooldownOverride then
+				local desiredTickRate = actionCooldownTickRounded - data.misc.ServerTickTime
+				local nextCapCDR = m_ceil((( actionCooldown / desiredTickRate) - 1) * 100)
+				extraICDRNeeded = nextCapCDR - ((icdr - 1) * 100)
 			end
 
 			local extraCSIncNeeded = nil
 
 			if output.addsCastTime then
-				local timeAboveLastBreakPoint = modActionCooldown + data.misc.ServerTickTime - rateCapAdjusted
-				if rateCapAdjusted > data.misc.ServerTickTime and timeAboveLastBreakPoint < output.addsCastTime then
-					extraCSIncNeeded = ((output.addsCastTime / (output.addsCastTime - timeAboveLastBreakPoint)) - 1)*100
+				local timeAboveLastBreakPoint = actionCooldown + data.misc.ServerTickTime - actionCooldownTickRounded
+				if actionCooldownTickRounded > data.misc.ServerTickTime and timeAboveLastBreakPoint < output.addsCastTime then
+					extraCSIncNeeded = m_ceil(((output.addsCastTime / (output.addsCastTime - timeAboveLastBreakPoint)) - 1)*100)
 				end
-				if triggeredCD and rateCapAdjusted > data.misc.ServerTickTime and timeAboveLastBreakPoint < (triggeredCD / icdr) then
-					extraICDRNeeded = (((triggeredCD / icdr) / ((triggeredCD / icdr) - timeAboveLastBreakPoint)) - 1)*100
+				if triggeredCD and actionCooldownTickRounded > data.misc.ServerTickTime and timeAboveLastBreakPoint < (triggeredCD / icdr) then
+					extraICDRNeeded = m_ceil((((triggeredCD / icdr) / ((triggeredCD / icdr) - timeAboveLastBreakPoint)) - 1)*100)
 				else
 					extraICDRNeeded = nil
 				end
 			end
 
 			output.TriggerRateCap = source == actor.mainSkill and actor.mainSkill.skillData.triggerRateCapOverride or m_huge
-			if rateCapAdjusted ~= 0 then
-				output.TriggerRateCap = 1 / rateCapAdjusted
+			if actionCooldownTickRounded ~= 0 then
+				output.TriggerRateCap = 1 / actionCooldownTickRounded
 			end
 
 			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
@@ -619,10 +626,10 @@ local function defaultTriggerHandler(env, config)
 								"",
 								config.triggerName .. " has no base cooldown",
 								"",
-								s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
+								s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", actionCooldownAdjusted),
 								"",
 								"Trigger rate:",
-								s_format("1 / %.3f", rateCapAdjusted),
+								s_format("1 / %.3f", actionCooldownTickRounded),
 								s_format("= %.2f ^8per second", output.TriggerRateCap),
 							}
 						end
@@ -634,10 +641,10 @@ local function defaultTriggerHandler(env, config)
 					breakdown.TriggerRateCap = {
 						s_format("%.2f ^8(hard override of cooldown of %s)", cooldownOverride, triggeredName),
 						"",
-						(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+						displayCooldownRounding and s_format("%.3f ^8(adjusted for server tick rate)", actionCooldownTickRounded) or "",
 						"",
 						"Trigger rate:",
-						s_format("1 / %.3f", rateCapAdjusted),
+						s_format("1 / %.3f", actionCooldownTickRounded),
 						s_format("= %.2f ^8per second", output.TriggerRateCap),
 					}
 					actor.mainSkill.skillFlags.hasOverride = true
@@ -655,10 +662,10 @@ local function defaultTriggerHandler(env, config)
 								s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 								s_format("= %.4f ^8(final cooldown of triggered skill)", triggeredCD / icdr),
 								"",
-								(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+								displayCooldownRounding and s_format("%.3f ^8(adjusted for server tick rate)", actionCooldownTickRounded) or "",
 								"",
 								"Trigger rate:",
-								s_format("1 / %.3f", rateCapAdjusted),
+								s_format("1 / %.3f", actionCooldownTickRounded),
 								s_format("= %.2f ^8per second", output.TriggerRateCap),
 							}
 							if extraICDRNeeded then
@@ -677,12 +684,12 @@ local function defaultTriggerHandler(env, config)
 								s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 								s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
 								"",
-								s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
+								s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", actionCooldownAdjusted),
 								"",
-								(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+								displayCooldownRounding and s_format("%.3f ^8(adjusted for server tick rate)", actionCooldownTickRounded) or "",
 								"",
 								"Trigger rate:",
-								s_format("1 / %.3f", rateCapAdjusted),
+								s_format("1 / %.3f", actionCooldownTickRounded),
 								s_format("= %.2f ^8per second", output.TriggerRateCap),
 							}
 							if extraICDRNeeded then
@@ -708,10 +715,10 @@ local function defaultTriggerHandler(env, config)
 								"",
 								s_format("Trigger rate based on %s cooldown", triggeredName),
 								"",
-								(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+								displayCooldownRounding and s_format("%.3f ^8(adjusted for server tick rate)", actionCooldownTickRounded) or "",
 								"",
 								"Trigger rate:",
-								s_format("1 / %.3f", rateCapAdjusted),
+								s_format("1 / %.3f", actionCooldownTickRounded),
 								s_format("= %.2f ^8per second", output.TriggerRateCap),
 							}
 							if extraICDRNeeded then
@@ -729,12 +736,12 @@ local function defaultTriggerHandler(env, config)
 							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdr),
 							s_format("= %.4f ^8(final cooldown of trigger)", triggerCD / icdr),
 							"",
-							s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
+							s_format("%.3f ^8(biggest of trigger cooldown and triggered skill cooldown)", actionCooldownAdjusted),
 							"",
-							(actor.mainSkill.skillData.ignoresTickRate and "") or s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+							displayCooldownRounding and s_format("%.3f ^8(adjusted for server tick rate)", actionCooldownTickRounded) or "",
 							"",
 							"Trigger rate:",
-							s_format("1 / %.3f", rateCapAdjusted),
+							s_format("1 / %.3f", actionCooldownTickRounded),
 							s_format("= %.2f ^8per second", output.TriggerRateCap),
 						}
 						if extraICDRNeeded and not actor.mainSkill.skillData.triggeredByBrand then
@@ -1157,7 +1164,6 @@ local configTable = {
 	["arcanist brand"] = function(env)
 		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Arcanist Brand" then
 			env.player.mainSkill.skillData.sourceRateIsFinal = true
-			env.player.mainSkill.skillData.ignoresTickRate = true
 			for _, skill in ipairs(env.player.activeSkillList) do
 				if skill.activeEffect.grantedEffect.name == "Arcanist Brand" then
 					env.player.mainSkill.triggeredBy.mainSkill = skill
@@ -1169,6 +1175,7 @@ local configTable = {
 			local activationFreqMore = env.player.mainSkill.triggeredBy.mainSkill.skillModList:More(env.player.mainSkill.skillCfg, "BrandActivationFrequency")
 			env.player.mainSkill.triggeredBy.activationFreqInc = activationFreqInc
 			env.player.mainSkill.triggeredBy.activationFreqMore = activationFreqMore
+			env.player.mainSkill.triggeredBy.ignoresTickRate = true
 			env.player.output.EffectiveSourceRate = trigRate
 			return {trigRate = env.player.mainSkill.triggeredBy.mainSkill.skillData.repeatFrequency * activationFreqInc * activationFreqMore,
 					source = env.player.mainSkill.triggeredBy.mainSkill,
