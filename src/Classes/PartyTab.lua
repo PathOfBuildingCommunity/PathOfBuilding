@@ -793,6 +793,11 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 							end
 							if buffType == "Link" then
 								mod.name = mod.name:gsub("Parent", "PartyMember")
+								--[[for _, modTag in ipairs(mod) do
+									if modTag.actor and modTag.actor == "parent" then
+										modTag.actor = "partyMembers"
+									end
+								end--]]
 							end
 							listElement[currentName].modList:AddMod(mod)
 						end

@@ -2863,7 +2863,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 							buffExports.PlayerMods["MainHand.CritChance="..tostring(env.player.weaponData1.CritChance)] = true
 						end
 					end
-					ConPrintTable({mod.name})
 				end
 			end
 		end
