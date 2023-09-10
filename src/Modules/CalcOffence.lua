@@ -2552,11 +2552,9 @@ function calcs.offence(env, actor, activeSkill)
 			local critOverride = skillModList:Override(cfg, "CritChance")
 			-- destructive link
 			if skillModList:Flag(cfg, "MainHandCritIsEqualToParent") then
-				if actor.parent.output.MainHand then
-					critOverride = actor.parent.output.MainHand.CritChance
-				else
-					critOverride = actor.parent.weaponData1.CritChance
-				end
+				critOverride = actor.parent.output.MainHand and actor.parent.output.MainHand.CritChance or actor.parent.weaponData1.CritChance
+			elseif skillModList:Flag(cfg, "MainHandCritIsEqualToPartyMember") then
+				critOverride = actor.partyMembers.output.MainHand and actor.partyMembers.output.MainHand.CritChance or (actor.partyMembers.weaponData1 and actor.partyMembers.weaponData1.CritChance or 0)
 			end
 			local baseCrit = critOverride or source.CritChance or 0
 
