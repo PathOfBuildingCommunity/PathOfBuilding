@@ -1441,13 +1441,6 @@ function buildMode:AddDisplayStatList(statList, actor)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
-	if actor.mainSkill.ineffectiveTriggers and #actor.mainSkill.ineffectiveTriggers > 0 then
-		local line = "Potentially ineffective triggers:"
-		for _, skill in ipairs(actor.mainSkill.ineffectiveTriggers or {}) do
-			line = line .. " " .. skill.grantedEffect.name
-		end
-		InsertIfNew(self.controls.warnings.lines, line)
-	end
 	if actor.output.VixensTooMuchCastSpeedWarn then
 		InsertIfNew(self.controls.warnings.lines, "You may have too much cast speed or too little cooldown reduction to effectively use Vixen's Curse replacement")
 	end

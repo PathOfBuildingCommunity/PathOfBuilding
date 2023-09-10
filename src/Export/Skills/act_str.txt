@@ -639,7 +639,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrozenSweep
-#flags attack area melee mirage
+#flags attack area melee
 	parts = {
 		{
 			name = "1 charge",
@@ -704,7 +704,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill GeneralsCry
-#flags warcry area duration mirage
+#flags warcry area duration
 	statMap = {
 		["spiritual_cry_doubles_summoned_per_5_MP"] = {
 		},

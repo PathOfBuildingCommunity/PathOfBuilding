@@ -2769,6 +2769,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 		calcs.buildDefenceEstimations(env, env.player)
 	end
 	calcs.triggers(env)
+	calcs.mirages(env)
 	calcs.offence(env, env.player, env.player.mainSkill)
 
 	if env.minion then
