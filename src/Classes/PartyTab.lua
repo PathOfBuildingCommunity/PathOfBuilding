@@ -14,7 +14,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	self.build = build
 
-	self.actor = { Aura = { }, Curse = { }, Link = { }, ModList = new("ModList"), output = { } }
+	self.actor = { Aura = { }, Curse = { }, Link = { }, modDB = new("ModDB"), output = { } }
 	self.enemyModList = new("ModList")
 	self.buffExports = { }
 	self.enableExportBuffs = false
@@ -198,7 +198,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 									node[1] = self.controls.editPartyMemberStats.buf.."\n"..(node[1] or "")
 								end
 								self.controls.editPartyMemberStats:SetText(node[1] or "")
-								self:ParseBuffs(self.actor["ModList"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
+								self:ParseBuffs(self.actor["modDB"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
 							end
 						elseif node.attrib.name == "Aura" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
@@ -328,7 +328,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "Disable Party Effects", function() 
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
-		self.actor = { Aura = {}, Curse = {}, Link = {}, ModList = new("ModList"), output = { } }
+		self.actor = { Aura = {}, Curse = {}, Link = {}, modDB = new("ModDB"), output = { } }
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
@@ -337,9 +337,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "^7Rebuild All", function() 
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
-		self.actor = { Aura = {}, Curse = {}, Link = {}, ModList = new("ModList"), output = { } }
+		self.actor = { Aura = {}, Curse = {}, Link = {}, modDB = new("ModDB"), output = { } }
 		self.enemyModList = new("ModList")
-		self:ParseBuffs(self.actor["ModList"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
+		self:ParseBuffs(self.actor["modDB"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
 		self:ParseBuffs(self.actor["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
 		self:ParseBuffs(self.actor["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
 		self:ParseBuffs(self.actor["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
@@ -472,7 +472,7 @@ function PartyTabClass:Load(xml, fileName)
 				ConPrintf("missing name")
 			elseif node.attrib.name == "PartyMemberStats" then
 				self.controls.editPartyMemberStats:SetText(node[1] or "")
-				self:ParseBuffs(self.actor["ModList"], node[1] or "", "PartyMemberStats", self.actor["output"])
+				self:ParseBuffs(self.actor["modDB"], node[1] or "", "PartyMemberStats", self.actor["output"])
 			elseif node.attrib.name == "Aura" then
 				self.controls.editAuras:SetText(node[1] or "")
 				self:ParseBuffs(self.actor["Aura"], node[1] or "", "Aura", self.controls.simpleAuras)
@@ -793,11 +793,11 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 							end
 							if buffType == "Link" then
 								mod.name = mod.name:gsub("Parent", "PartyMember")
-								--[[for _, modTag in ipairs(mod) do
+								for _, modTag in ipairs(mod) do
 									if modTag.actor and modTag.actor == "parent" then
 										modTag.actor = "partyMembers"
 									end
-								end--]]
+								end
 							end
 							listElement[currentName].modList:AddMod(mod)
 						end
