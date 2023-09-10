@@ -607,7 +607,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalDoubleStrike
-#flags attack melee duration vaal mirage
+#flags attack melee duration vaal
 #mods
 
 #skill DualStrike
@@ -1246,7 +1246,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill VaalIceShot
-#flags attack projectile area duration mirage
+#flags attack projectile area duration
 #mods
 
 #skill IceTrap

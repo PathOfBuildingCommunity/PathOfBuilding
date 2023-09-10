@@ -3675,7 +3675,6 @@ skills["GeneralsCry"] = {
 		warcry = true,
 		area = true,
 		duration = true,
-		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 60),

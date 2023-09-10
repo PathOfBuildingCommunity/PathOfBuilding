@@ -3275,7 +3275,6 @@ skills["VaalDoubleStrike"] = {
 		melee = true,
 		duration = true,
 		vaal = true,
-		mirage = true,
 	},
 	qualityStats = {
 		Default = {
@@ -5745,7 +5744,6 @@ skills["VaalIceShot"] = {
 		projectile = true,
 		area = true,
 		duration = true,
-		mirage = true,
 	},
 	qualityStats = {
 		Default = {
