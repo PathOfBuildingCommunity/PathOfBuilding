@@ -112,40 +112,50 @@ function main:Init()
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
 
-	ConPrintf("Loading item databases...")
-	self.uniqueDB = { list = { } }
-	for type, typeList in pairs(data.uniques) do
-		for _, raw in pairs(typeList) do
-			newItem = new("Item", raw, "UNIQUE", true)
-			if newItem.base then
-				self.uniqueDB.list[newItem.name] = newItem
-			elseif launch.devMode then
-				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
-			end
-		end
-	end
-	self.rareDB = { list = { } }
-	for _, raw in pairs(data.rares) do
-		newItem = new("Item", raw, "RARE", true)
-		if newItem.base then
-			if newItem.crafted then
-				if newItem.base.implicit and #newItem.implicitModLines == 0 then
-					-- Automatically add implicit
-					local implicitIndex = 1
-					for line in newItem.base.implicit:gmatch("[^\n]+") do
-						t_insert(newItem.implicitModLines, { line = line, modTags = newItem.base.implicitModTypes and newItem.base.implicitModTypes[implicitIndex] or { } })
-						implicitIndex = implicitIndex + 1
-					end
+	self.uniqueDB = { list = { }, loading = true }
+	self.rareDB = { list = { }, loading = true }
+
+	local function loadItemDBs()
+		for type, typeList in pairsYield(data.uniques) do
+			for _, raw in pairs(typeList) do
+				newItem = new("Item", raw, "UNIQUE", true)
+				if newItem.base then
+					self.uniqueDB.list[newItem.name] = newItem
+				elseif launch.devMode then
+					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
 				end
-				newItem:Craft()
 			end
-			self.rareDB.list[newItem.name] = newItem
-		elseif launch.devMode then
-			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
+
+		self.uniqueDB.loading = nil
+		ConPrintf("Uniques loaded")
+
+		for _, raw in pairsYield(data.rares) do
+			newItem = new("Item", raw, "RARE", true)
+			if newItem.base then
+				if newItem.crafted then
+					if newItem.base.implicit and #newItem.implicitModLines == 0 then
+						-- Automatically add implicit
+						local implicitIndex = 1
+						for line in newItem.base.implicit:gmatch("[^\n]+") do
+							t_insert(newItem.implicitModLines, { line = line, modTags = newItem.base.implicitModTypes and newItem.base.implicitModTypes[implicitIndex] or { } })
+							implicitIndex = implicitIndex + 1
+						end
+					end
+					newItem:Craft()
+				end
+				self.rareDB.list[newItem.name] = newItem
+			elseif launch.devMode then
+				ConPrintf("Rare DB unrecognised item:\n%s", raw)
+			end
+		end
+
+		self.rareDB.loading = nil
+		ConPrintf("Rares loaded")
 	end
 	
 	if self.saveNewModCache then
+		loadItemDBs()
 		self:SaveModCache()
 	end
 
@@ -226,6 +236,20 @@ the "Releases" section of the GitHub page.]])
 			ConPrintf("Startup time: %d ms", GetTime() - launch.startTime)
 		end
 	}
+
+	if not self.saveNewModCache then
+		local itemsCoroutine = coroutine.create(loadItemDBs)
+		
+		self.onFrameFuncs["LoadItems"] = function()
+			local res, errMsg = coroutine.resume(itemsCoroutine)
+			if coroutine.status(itemsCoroutine) == "dead" then
+				self.onFrameFuncs["LoadItems"] = nil
+			end
+			if not res then
+				error(errMsg)
+			end
+		end
+	end
 end
 
 function main:SaveModCache()
