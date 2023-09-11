@@ -407,6 +407,8 @@ function calcs.defence(env, actor)
 	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
 	if modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToParent") then
 		output.BlockChanceMax = actor.parent.output.BlockChanceMax
+	elseif modDB:Flag(nil, "MaximumBlockAttackChanceIsEqualToPartyMember") then
+		output.BlockChanceMax = actor.partyMembers.output.BlockChanceMax
 	end
 	output.BlockChanceOverCap = 0
 	output.SpellBlockChanceOverCap = 0
@@ -420,6 +422,8 @@ function calcs.defence(env, actor)
 	output.ShieldBlockChance = baseBlockChance
 	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
 		output.BlockChance = actor.parent.output.BlockChance
+	elseif modDB:Flag(nil, "BlockAttackChanceIsEqualToPartyMember") then
+		output.BlockChance = actor.partyMembers.output.BlockChance
 	elseif modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
 		output.BlockChance = output.BlockChanceMax
 	else
@@ -829,6 +833,8 @@ function calcs.defence(env, actor)
 	output.ShieldBlockChance = baseBlockChance
 	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
 		output.BlockChance = actor.parent.output.BlockChance
+	elseif modDB:Flag(nil, "BlockAttackChanceIsEqualToPartyMember") then
+		output.BlockChance = actor.partyMembers.output.BlockChance
 	elseif modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
 		output.BlockChance = output.BlockChanceMax
 	else
@@ -910,6 +916,8 @@ function calcs.defence(env, actor)
 	output.MaxLifeLeechRatePercent = calcLib.val(modDB, "MaxLifeLeechRate")
 	if modDB:Flag(nil, "MaximumLifeLeechIsEqualToParent") then
 		output.MaxLifeLeechRatePercent = actor.parent.output.MaxLifeLeechRatePercent
+	elseif modDB:Flag(nil, "MaximumLifeLeechIsEqualToPartyMember") then
+		output.MaxLifeLeechRatePercent = actor.partyMembers.output.MaxLifeLeechRatePercent
 	end
 	output.MaxLifeLeechRate = output.Life * output.MaxLifeLeechRatePercent / 100
 	if breakdown then
@@ -2069,6 +2077,11 @@ function calcs.buildDefenceEstimations(env, actor)
 		output["SoulLinkMitigation"] = modDB:Sum("BASE", nil, "TakenFromParentESBeforeYou")
 		if output["SoulLinkMitigation"] ~= 0 then
 			output["AlliedEnergyShield"] = actor.parent.output.EnergyShieldRecoveryCap or 0
+		else
+			output["SoulLinkMitigation"] = modDB:Sum("BASE", nil, "TakenFromPartyMemberESBeforeYou")
+			if output["SoulLinkMitigation"] ~= 0 then
+				output["AlliedEnergyShield"] = actor.partyMembers.output.EnergyShieldRecoveryCap or 0
+			end
 		end
 	end
 	

@@ -14,7 +14,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 
 	self.build = build
 
-	self.actor = { Aura = { }, Curse = { }, Link = { }, ModList = new("ModList"), output = { } }
+	self.actor = { Aura = { }, Curse = { }, Link = { }, modDB = new("ModDB"), output = { } }
+	self.actor.modDB.actor = self.actor
 	self.enemyModList = new("ModList")
 	self.buffExports = { }
 	self.enableExportBuffs = false
@@ -89,8 +90,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.actor["Curse"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
-			self.controls.simpleLinks.label = "^7Link Skills are not currently supported"
-			self.controls.editCurses:SetText("")
+			self.controls.simpleLinks.label = ""
+			self.controls.editLinks:SetText("")
 			wipeTable(self.actor["Link"])
 			self.actor["Link"] = {}
 		end
@@ -152,6 +153,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 		
 		local currentCurseBuffer = nil
+		local currentLinkBuffer = nil
 		if self.controls.appendNotReplace.state ~= true then
 			clearInputText()
 		else
@@ -166,6 +168,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 				self.actor["Curse"] = { }
 			end
 			if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
+				 -- only one link can be applied at a time anyway
+				currentLinkBuffer = self.controls.editLinks.buf
+				self.controls.editLinks:SetText("")
 				wipeTable(self.actor["Link"])
 				self.actor["Link"] = { }
 			end
@@ -194,7 +199,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 									node[1] = self.controls.editPartyMemberStats.buf.."\n"..(node[1] or "")
 								end
 								self.controls.editPartyMemberStats:SetText(node[1] or "")
-								self:ParseBuffs(self.actor["ModList"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
+								self:ParseBuffs(self.actor["modDB"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
 							end
 						elseif node.attrib.name == "Aura" then
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Aura" then
@@ -219,6 +224,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 							if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "Link Skills" then
 								if #self.controls.editLinks.buf > 0 then
 									node[1] = self.controls.editLinks.buf.."\n"..(node[1] or "")
+								end
+								if currentLinkBuffer and (not node[1] or node[1] == "") then
+									node[1] = currentLinkBuffer
 								end
 								self.controls.editLinks:SetText(node[1] or "")
 								self:ParseBuffs(self.actor["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
@@ -321,7 +329,8 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.removeEffects = new("ButtonControl", {"LEFT",self.controls.ShowAdvanceTools,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "Disable Party Effects", function() 
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
-		self.actor = { Aura = {}, Curse = {}, Link = {}, ModList = new("ModList"), output = { } }
+		self.actor = { Aura = {}, Curse = {}, Link = {}, modDB = new("ModDB"), output = { } }
+		self.actor.modDB.actor = self.actor
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
@@ -330,9 +339,10 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "^7Rebuild All", function() 
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
-		self.actor = { Aura = {}, Curse = {}, Link = {}, ModList = new("ModList"), output = { } }
+		self.actor = { Aura = {}, Curse = {}, Link = {}, modDB = new("ModDB"), output = { } }
+		self.actor.modDB.actor = self.actor
 		self.enemyModList = new("ModList")
-		self:ParseBuffs(self.actor["ModList"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
+		self:ParseBuffs(self.actor["modDB"], self.controls.editPartyMemberStats.buf, "PartyMemberStats", self.actor["output"])
 		self:ParseBuffs(self.actor["Aura"], self.controls.editAuras.buf, "Aura", self.controls.simpleAuras)
 		self:ParseBuffs(self.actor["Curse"], self.controls.editCurses.buf, "Curse", self.controls.simpleCurses)
 		self:ParseBuffs(self.actor["Link"], self.controls.editLinks.buf, "Link", self.controls.simpleLinks)
@@ -382,7 +392,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.editLinks.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "^7Link Skills are not currently supported")
+	self.controls.simpleLinks = new("LabelControl", {"TOPLEFT",self.controls.editLinksLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "")
 	self.controls.simpleLinks.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
@@ -465,7 +475,7 @@ function PartyTabClass:Load(xml, fileName)
 				ConPrintf("missing name")
 			elseif node.attrib.name == "PartyMemberStats" then
 				self.controls.editPartyMemberStats:SetText(node[1] or "")
-				self:ParseBuffs(self.actor["ModList"], node[1] or "", "PartyMemberStats", self.actor["output"])
+				self:ParseBuffs(self.actor["modDB"], node[1] or "", "PartyMemberStats", self.actor["output"])
 			elseif node.attrib.name == "Aura" then
 				self.controls.editAuras:SetText(node[1] or "")
 				self:ParseBuffs(self.actor["Aura"], node[1] or "", "Aura", self.controls.simpleAuras)
@@ -691,8 +701,16 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 			for line in buf:gmatch("([^\n]*)\n?") do
 				if line:find("=") then
 					-- label is output for this type, as a special case
-					local k, v = line:match("([%w ]-%w+)=(.+)")
-					label[k] = v
+					if line:match("%.") then
+						local k1, k2, v = line:match("([%w ]-%w+)%.([%w ]-%w+)=(.+)")
+						label[k1] = {[k2] = tonumber(v)}
+					else
+						local k, v = line:match("([%w ]-%w+)=(.+)")
+						label[k] = tonumber(v)
+						if k == "Life" then -- special cases that needs to be mods
+							list:NewMod(k, "BASE", v, "Party")
+						end
+					end
 				elseif line ~= "" then
 					list:NewMod(line, "FLAG", true, "Party")
 				end
@@ -706,7 +724,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 		local currentName
 		local currentEffect
 		local isMark
-		local currentModType = "Unknown"
+		local currentModType = (buffType == "Link") and "Link" or "Unknown"
 		for line in buf:gmatch("([^\n]*)\n?") do
 			if line ~= "---" and line:match("%-%-%-") then
 				-- comment but not divider, skip the line
@@ -743,7 +761,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					local mod = modLib.parseFormattedSourceMod(line)
 					if mod then
 						for _, tag in ipairs(mod) do
-							if tag.type == "GlobalEffect" and currentModType ~= "otherEffects" then
+							if tag.type == "GlobalEffect" and currentModType ~= "Link" and currentModType ~= "otherEffects" then
 								currentModType = tag.effectType
 							end
 						end
@@ -775,6 +793,14 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 							if mod.source:match("Item") then
 								_, mod.source = mod.source:match("Item:(%d+):(.+)")
 								mod.source = "Party - "..mod.source
+							end
+							if buffType == "Link" then
+								mod.name = mod.name:gsub("Parent", "PartyMember")
+								for _, modTag in ipairs(mod) do
+									if modTag.actor and modTag.actor == "parent" then
+										modTag.actor = "partyMembers"
+									end
+								end
 							end
 							listElement[currentName].modList:AddMod(mod)
 						end
@@ -831,6 +857,17 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					end
 					label.label = label.label.."---------------------------\n"
 				end
+			elseif buffType == "Link" then
+				local labelList = {}
+				for link, linkMod in pairs(list["Link"] or {}) do
+					t_insert(labelList, link..": "..linkMod.effectMult.."%\n")
+				end
+				if #labelList > 0 then
+					table.sort(labelList)
+					label.label = "^7---------------------------\n"..table.concat(labelList).."---------------------------\n"
+				else
+					label.label = ""
+				end
 			elseif buffType == "Curse" then
 				local labelList = {}
 				for curse, curseMod in pairs(list["Curse"] or {}) do
@@ -876,7 +913,7 @@ function PartyTabClass:exportBuffs(buffType)
 				else
 					buf = buf.."\nfalse"
 				end
-			elseif buffType == "Aura" and buffName ~= "extraAura" and buffName ~= "otherEffects" then
+			elseif buffType == "Link" or buffType == "Aura" and buffName ~= "extraAura" and buffName ~= "otherEffects" then
 				buf = buf.."\n"..tostring(buff.effectMult * 100)
 			end
 			if buffType == "Aura" and buffName == "otherEffects" then
@@ -886,7 +923,7 @@ function PartyTabClass:exportBuffs(buffType)
 					end
 				end
 				buf = buf.."\n---"
-			elseif buffType == "Curse" or buffType == "Aura" then
+			elseif buffType == "Curse" or buffType == "Aura" or buffType == "Link" then
 				for _, mod in ipairs(buff.modList) do
 					buf = buf.."\n"..modLib.formatSourceMod(mod)
 				end

@@ -1,7 +1,7 @@
 ---[Help File Introduction]
 
-This file contains a list of shortcuts, and other misc information about PoB functionality
-While holding shift scroll bars in help section and version history will jump to the previous/next section while scrolling
+This file contains a list of shortcuts and other misc information about PoB functionality
+While holding shift scroll bars in the help section and version history will jump to the previous/next section while scrolling
 
 ---[Contents]
 
@@ -53,7 +53,7 @@ Passive Tree Shortcuts:
 Ctrl	Hide tooltips while held
 P	Toggle node power
 Ctrl + D	Toggle stat diff display
-PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase amount of zoom x 3)
+PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase the amount of zoom x 3)
 Ctrl + LMB	Zoom in on mouse cursor position
 Hold Shift	Enable "path trace mode" 
 	(highlighted nodes will stay highlighted, and will be allocated when a node is clicked on the tree)
@@ -80,7 +80,7 @@ Adding ^ and then a number or hex code before text will change the colour of the
 
 ---[Timeless Jewels]
 
-Timeless jewels modify nodes in a radius based off their seed, the same seed will apply the same changes to the same small/notable nodes so that is the number you look for. The Conqueror (name on the jewel) only affects the keystone.
+Timeless jewels modify nodes in a radius based on their seed, the same seed will apply the same changes to the same small/notable nodes so that is the number you look for. The Conqueror (name on the jewel) only affects the keystone.
 
 Path of Building has an inbuilt tool in the tree tab to search through seeds to find stats that would be good for your build.
 Clicking the "Find Timeless Jewel" button on the bottom bar in the tree tab will open a UI that lets you:
@@ -118,15 +118,15 @@ The Party tab Allows you to import support characters and have their auras and c
 
 To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab
 You can import a specific type like aura or curse, or import to all
-You can also set it to append to a section rather than replacing it (curses are always replaced if new one has a curse)
+You can also set it to append to a section rather than replace it (curses and links are always replaced if new one has a curse/link)
  
 This does not add the auras, curses or links into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectively
 They also show other effects they add, like when physical damage reduction is applied by an aurabot with the Guardian node
  
 Auras with the highest effect will take priority
 Your curses will take priority over a support's
- 
-For now Links skills are not exported or parsed
+
+Links skills use stats from party members if they are exported
 Some Enemy conditions and Modifiers may not be properly exported, please let us know if something is broken
 Some auras like Mines which use a stack value for their effect will not apply as their stack value is missing
 
@@ -134,7 +134,7 @@ Some auras like Mines which use a stack value for their effect will not apply as
 
 The Item Tab in Path of Building allows you to plan out the gear you will use for your character. To access the Item Tab, click on the "Items" tab located at the top of the screen.
 
-From here, you can view all of the gear slots for your character, such as your weapon, chest armor, and boots. To add an item to a slot, click on the arrow button on the right side of the slot. This will bring up a list of all the items available in your build, which are visible in the "All items" window.
+From here, you can view all of the gear slots for your character, such as your weapon, chest armour, and boots. To add an item to a slot, click on the arrow button on the right side of the slot. This will bring up a list of all the items available in your build, which are visible in the "All items" window.
 If you wish to add more items, you can copy and paste items using CTRL+C (from the game or trade website) and CTRL+V into the "Shared items" window. Additionally, you can craft items using the "Craft item..." button on the top or create completely customizable items using the "Create custom..." option.
 
 The item sets section located at the top of the screen can be used to save multiple sets of items and easily switch between them. You can add, remove, rename, and copy new sets using the "Manage..." button.

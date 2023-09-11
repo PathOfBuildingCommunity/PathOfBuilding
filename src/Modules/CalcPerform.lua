@@ -506,7 +506,7 @@ local function doActorMisc(env, actor)
 	output.FrenzyChargesMin = m_max(modDB:Sum("BASE", nil, "FrenzyChargesMin"), 0)
 	output.FrenzyChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax"), 0)
 	output.EnduranceChargesMin = m_max(modDB:Sum("BASE", nil, "EnduranceChargesMin"), 0)
-	output.EnduranceChargesMax = m_max(env.partyMembers.ModList:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and env.partyMembers.output.EnduranceChargesMax or (modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")), 0)
+	output.EnduranceChargesMax = m_max(env.partyMembers.modDB:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and env.partyMembers.output.EnduranceChargesMax or (modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")), 0)
 	output.SiphoningChargesMax = m_max(modDB:Sum("BASE", nil, "SiphoningChargesMax"), 0)
 	output.ChallengerChargesMax = m_max(modDB:Sum("BASE", nil, "ChallengerChargesMax"), 0)
 	output.BlitzChargesMax = m_max(modDB:Sum("BASE", nil, "BlitzChargesMax"), 0)
@@ -1663,7 +1663,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	}
 	local linkSkills = { }
 	local allyBuffs = env.partyMembers["Aura"]
-	local buffExports = { Aura = {}, Curse = {}, EnemyMods = {}, EnemyConditions = {}, PlayerMods = {} }
+	local buffExports = { Aura = {}, Curse = {}, Link = {}, EnemyMods = {}, EnemyConditions = {}, PlayerMods = {} }
 	for spectreId = 1, #env.spec.build.spectreList do
 		local spectreData = data.minions[env.spec.build.spectreList[spectreId]]
 		for modId = 1, #spectreData.modList do
@@ -1910,8 +1910,9 @@ function calcs.perform(env, fullDPSSkipEHP)
 					t_insert(curses, curse)	
 				end
 			elseif buff.type == "Link" then
-				if env.mode_buffs and (#linkSkills < 1) and env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion")
-						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamageable] then
+				local linksApplyToMinions = env.minion and modDB:Flag(nil, "Condition:CanLinkToMinions") and modDB:Flag(nil, "Condition:LinkedToMinion") 
+						and not env.minion.modDB:Flag(nil, "Condition:CannotBeDamaged") and not env.minion.mainSkill.summonSkill.skillTypes[SkillType.MinionsAreUndamageable]
+				if env.mode_buffs and (#linkSkills < 1) and (env.build.partyTab.enableExportBuffs or linksApplyToMinions) then
 					-- Check for extra modifiers to apply to link skills
 					local extraLinkModList = { }
 					for _, value in ipairs(modDB:List(skillCfg, "ExtraLinkEffect")) do
@@ -1931,14 +1932,23 @@ function calcs.perform(env, fullDPSSkipEHP)
 							end
 						end
 					end
-					if env.minion then
+					local inc = skillModList:Sum("INC", skillCfg, "LinkEffect", "BuffEffect")
+					local more = skillModList:More(skillCfg, "LinkEffect", "BuffEffect")
+					local mult = (1 + inc / 100) * more
+					if env.build.partyTab.enableExportBuffs then
+						local newModList = new("ModList")
+						newModList:AddList(buff.modList)
+						newModList:AddList(extraLinkModList)
+						buffExports["Link"][buff.name] = { effectMult = mult, modList = newModList }
+					end
+					if linksApplyToMinions then
 						activeSkill.minionBuffSkill = true
 						env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 						env.minion.modDB.conditions["AffectedByLink"] = true
 						local srcList = new("ModList")
-						local inc = skillModList:Sum("INC", skillCfg, "LinkEffect", "BuffEffect") + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
-						local more = skillModList:More(skillCfg, "LinkEffect", "BuffEffect") * env.minion.modDB:More(nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
-						local mult = (1 + inc / 100) * more
+						inc = inc + env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
+						more = more * env.minion.modDB:More(nil, "BuffEffectOnSelf", "LinkEffectOnSelf")
+						mult = (1 + inc / 100) * more
 						srcList:ScaleAddList(buff.modList, mult)
 						srcList:ScaleAddList(extraLinkModList, mult)
 						mergeBuff(srcList, minionBuffs, buff.name)
@@ -2126,6 +2136,18 @@ function calcs.perform(env, fullDPSSkipEHP)
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
 					mergeBuff(srcList, debuffs, auraName)
 				end
+			end
+		end
+	end
+	if env.partyMembers["Link"] and env.partyMembers["Link"]["Link"] then
+		for linkName, link in pairs(env.partyMembers["Link"]["Link"]) do
+			local linkNameCompressed = linkName:gsub(" ","")
+			if not modDB.conditions["AffectedBy"..linkNameCompressed] then
+				modDB.conditions["AffectedByLink"] = true
+				modDB.conditions["AffectedBy"..linkNameCompressed] = true
+				local srcList = new("ModList")
+				srcList:ScaleAddList(link.modList, (link.effectMult or 100) / 100)
+				mergeBuff(srcList, buffs, linkName)
 			end
 		end
 	end
@@ -2821,6 +2843,31 @@ function calcs.perform(env, fullDPSSkipEHP)
 		if env.modDB:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and output["EnduranceChargesMax"] then
 			buffExports.PlayerMods["PartyMemberMaximumEnduranceChargesEqualToYours"] = true
 			buffExports.PlayerMods["EnduranceChargesMax="..tostring(output["EnduranceChargesMax"])] = true
+		end
+		
+		for linkName, link in pairs(buffExports["Link"]) do
+			if linkName == "Flame Link" then
+				buffExports.PlayerMods["Life="..tostring(output["Life"])] = true
+			end
+			for _, mod in ipairs(link.modList) do
+				if mod.name:match("Parent") then
+					if mod.name == "MaximumBlockAttackChanceIsEqualToParent" then
+						buffExports.PlayerMods["BlockChanceMax="..tostring(output["BlockChanceMax"])] = true
+					elseif mod.name == "BlockAttackChanceIsEqualToParent" then
+						buffExports.PlayerMods["BlockChance="..tostring(output["BlockChance"])] = true
+					elseif mod.name == "MaximumLifeLeechIsEqualToPartyMember" then
+						buffExports.PlayerMods["MaxLifeLeechRatePercent="..tostring(output["MaxLifeLeechRatePercent"])] = true
+					elseif mod.name == "TakenFromParentESBeforeYou" then
+						buffExports.PlayerMods["EnergyShieldRecoveryCap="..tostring(output["EnergyShieldRecoveryCap"])] = true
+					elseif mod.name == "MainHandCritIsEqualToParent" then
+						if output.MainHand then
+							buffExports.PlayerMods["MainHand.CritChance="..tostring(output["MainHand"]["CritChance"])] = true
+						elseif env.player.weaponData1 then
+							buffExports.PlayerMods["MainHand.CritChance="..tostring(env.player.weaponData1.CritChance)] = true
+						end
+					end
+				end
+			end
 		end
 		env.build.partyTab:setBuffExports(buffExports)
 	end
