@@ -406,15 +406,12 @@ skills["ArcticArmour"] = {
 			mod("FireDamageTakenWhenHit", "MORE", nil, 0, 0, { type = "Condition", var = "Stationary" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_immune_to_freeze"] = {
-			--Display only
+			flag("FreezeImmune", { type = "GlobalEffect", effectType = "Buff"}),
 		},
 	},
 	baseFlags = {
 		spell = true,
 		duration = true,
-	},
-	baseMods = {
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -2609,14 +2606,14 @@ skills["Cyclone"] = {
 	initialFunc = function(activeSkill, output)
 		local range = 0
 		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
-			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData1.rangeBonus
+			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRangeMetre") + activeSkill.actor.weaponData1.rangeBonus
 			if activeSkill.skillFlags.weapon2Attack and activeSkill.actor.weaponData2.range then -- dual wield average
-				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData2.rangeBonus) / 2
+				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRangeMetre") + activeSkill.actor.weaponData2.rangeBonus) / 2
 			else -- primary hand attack
 				range = weapon1RangeBonus
 			end
 		else -- unarmed
-			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange")
+			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRangeMetre")
 		end
 		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
@@ -2731,14 +2728,14 @@ skills["VaalCyclone"] = {
 	initialFunc = function(activeSkill, output)
 		local range = 0
 		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
-			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData1.rangeBonus
+			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRangeMetre") + activeSkill.actor.weaponData1.rangeBonus
 			if activeSkill.skillFlags.weapon2Attack and activeSkill.actor.weaponData2.range then -- dual wield average
-				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + activeSkill.actor.weaponData2.rangeBonus) / 2
+				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRangeMetre") + activeSkill.actor.weaponData2.rangeBonus) / 2
 			else -- primary hand attack
 				range = weapon1RangeBonus
 			end
 		else -- unarmed
-			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange")
+			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRangeMetre")
 		end
 		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
@@ -3278,7 +3275,6 @@ skills["VaalDoubleStrike"] = {
 		melee = true,
 		duration = true,
 		vaal = true,
-		mirage = true,
 	},
 	qualityStats = {
 		Default = {
@@ -5748,7 +5744,6 @@ skills["VaalIceShot"] = {
 		projectile = true,
 		area = true,
 		duration = true,
-		mirage = true,
 	},
 	qualityStats = {
 		Default = {
@@ -7472,10 +7467,10 @@ skills["ColdImpurity"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_freeze"] = {
-			--Display only
+			flag("FreezeImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 		["base_immune_to_chill"] = {
-			--Display only
+			flag("ChillImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -7483,10 +7478,6 @@ skills["ColdImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		mod("AvoidFreeze", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
-		mod("AvoidChill", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -10841,6 +10832,19 @@ skills["VampiricLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["life_leech_is_applied_to_remora_link_targets_instead"] = {
+			flag("CannotLeechLife", { type = "GlobalEffect", effectType = "Buff" }), -- this just disables your leech for now
+			flag("MaximumLifeLeechIsEqualToParent", { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["remora_link_grants_maximum_life_leech_rate_%_per_minute"] = {
+			mod("MaxLifeLeechRate", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 60,
+		},
+		["remora_link_grants_damage_+%_when_on_full_life"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "Condition", var = "FullLife" })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,

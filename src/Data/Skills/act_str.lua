@@ -3269,6 +3269,21 @@ skills["FlameLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, [SkillType.Fire] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["flame_link_minimum_fire_damage"] = {
+			mod("FireMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["flame_link_maximum_fire_damage"] = {
+			mod("FireMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["flame_link_grants_chance_to_ignite_%"] = {
+			mod("EnemyIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["flame_link_added_fire_damage_from_life_%"] = {
+			mod("FireMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 1, actor = "parent" }),
+			mod("FireMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "PercentStat", stat = "Life", percent = 1, actor = "parent" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -3675,7 +3690,6 @@ skills["GeneralsCry"] = {
 		warcry = true,
 		area = true,
 		duration = true,
-		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 60),
@@ -5926,6 +5940,18 @@ skills["ProtectiveLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["bulwark_link_grants_recover_X_life_on_block"] = {
+			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["bulwark_link_grants_stun_threshold_+%"] = {
+			mod("StunThreshold", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+		["display_bulwark_link_overrides_attack_block_and_maximum_attack_block"] = {
+			mod("BlockAttackChanceIsEqualToParent", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+			mod("MaximumBlockAttackChanceIsEqualToParent", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -6183,7 +6209,7 @@ skills["FireImpurity"] = {
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["base_immune_to_ignite"] = {
-			--Display only
+			flag("IgniteImmune", { type = "GlobalEffect", effectType = "Aura"}),
 		},
 	},
 	baseFlags = {
@@ -6191,9 +6217,6 @@ skills["FireImpurity"] = {
 		aura = true,
 		area = true,
 		duration = true,
-	},
-	baseMods = {
-		mod("AvoidIgnite", "BASE", 100, 0, 0, { type = "GlobalEffect", effectType = "Aura", unscalable = true }),
 	},
 	qualityStats = {
 		Default = {
@@ -8944,6 +8967,9 @@ skills["WarlordsMark"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
+		["enemy_chance_to_double_stun_duration_%_vs_self"] = {
+			mod("SelfDoubleStunDurationChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" } ),
+		},
 		["life_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},

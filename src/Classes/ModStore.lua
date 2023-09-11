@@ -403,7 +403,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 		elseif tag.type == "PercentStat" then
 			local base
 			local target = self
-			-- This functions similar to the above tagTypes in regard to which actor to use, but for PerStat
+			-- This functions similar to the above tagTypes in regard to which actor to use, but for PercentStat
 			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
 			if tag.actor and self.actor[tag.actor] then
 				target = self.actor[tag.actor].modDB
@@ -578,7 +578,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if items and #items > 0 or allSlots then
 				if searchCond then
 					for slot, item in pairs(items) do
-						if slot ~= itemSlot or not tag.excludeSelf then
+						if (not allSlots or allSlots and item.type ~= "Jewel") and slot ~= itemSlot or not tag.excludeSelf then
 							t_insert(matches, item:FindModifierSubstring(searchCond:lower(), itemSlot:lower()))
 						end
 					end
