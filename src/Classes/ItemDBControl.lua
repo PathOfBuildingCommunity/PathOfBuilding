@@ -75,7 +75,7 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	end
 	self.controls.search = new("EditControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, -2, 258, 18, "", "Search", "%c", 100, function()
 		self.listBuildFlag = true
-	end)
+	end, nil, nil, true)
 	self.controls.searchMode = new("DropDownControl", {"LEFT",self.controls.search,"RIGHT"}, 2, 0, 100, 18, { "Anywhere", "Names", "Modifiers" }, function(index, value)
 		self.listBuildFlag = true
 	end)
@@ -290,7 +290,7 @@ function ItemDBClass:Draw(viewPort)
 		self.listBuilder = coroutine.create(self.ListBuilder)
 		self.listOutputRevision = self.itemsTab.build.outputRevision
 	end
-	if self.listBuilder then
+	if self.listBuilder and not self.db.loading then
 		local res, errMsg = coroutine.resume(self.listBuilder, self)
 		if launch.devMode and not res then
 			error(errMsg)
@@ -298,6 +298,9 @@ function ItemDBClass:Draw(viewPort)
 		if coroutine.status(self.listBuilder) == "dead" then
 			self.listBuilder = nil
 		end
+	end
+	if self.db.loading then
+		self.defaultText = "^7Loading..."
 	end
 	self.ListControl.Draw(self, viewPort)
 end

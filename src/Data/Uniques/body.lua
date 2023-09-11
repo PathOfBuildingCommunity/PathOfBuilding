@@ -206,7 +206,7 @@ Cannot be Ignited
 {variant:1,2}(10-15)% increased Physical Damage with Ranged Weapons
 {variant:3}(75-150)% increased Physical Damage with Ranged Weapons
 {variant:1,2}-(5-7) Physical Damage taken from Attack Hits
-{variant:3}-(30-60)Physical Damage taken from Attack Hits
+{variant:3}-(30-60) Physical Damage taken from Attack Hits
 ]],[[
 Briskwrap
 {variant:1,2,3}Strapped Leather

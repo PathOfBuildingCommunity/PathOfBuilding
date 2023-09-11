@@ -767,6 +767,7 @@ Adds 1 to 80 Chaos Damage to Attacks
 {variant:2}25% increased Movement Speed
 {variant:1}+1 to Maximum number of Skeletons
 {variant:2}Summoned Skeleton Warriors are Permanent and Follow you
+{variant:2}Summon Skeletons cannot Summon more than 1 Skeleton Warrior
 ]],[[
 Replica Alberon's Warpath
 Soldier Boots

@@ -94,6 +94,9 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, (activeSkill.summonSkill and activeSkill.summonSkill.skillTypes) or activeSkill.skillTypes) then
 		return false
 	end
+	if grantedEffect.isTrigger and activeSkill.triggeredBy then
+		return false
+	end
 	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, activeSkill.skillTypes, not grantedEffect.ignoreMinionTypes and activeSkill.minionSkillTypes)
 end
 
@@ -103,10 +106,11 @@ function calcLib.gemIsType(gem, type)
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
 			(type == "trap or mine" and (gem.tags.trap or gem.tags.mine)) or
-			((type == "active skill" or type == "grants_active_skill") and gem.tags.grants_active_skill and not gem.tags.support) or
+			((type == "active skill" or type == "grants_active_skill" or type == "skill") and gem.tags.grants_active_skill and not gem.tags.support) or
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
-			((type ~= "active skill" and type ~= "grants_active_skill") and gem.tags[type]))
+			(type == gem.name:lower():gsub("^vaal ", "")) or
+			((type ~= "active skill" and type ~= "grants_active_skill" and type ~= "skill") and gem.tags[type]))
 end
 
 -- From PyPoE's formula.py
