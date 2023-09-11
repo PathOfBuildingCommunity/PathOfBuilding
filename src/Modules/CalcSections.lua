@@ -1667,7 +1667,7 @@ return {
 	{ label = "Scorch Avoid Ch.", haveOutput = "ScorchAvoidChance", { format = "{0:output:ScorchAvoidChance}%", { modName = { "AvoidScorch", "AvoidElementalAilments", "AvoidAilments", "AvoidShockAppliesToElementalAilments", "ScorchImmune", "ElementalAilmentImmune" } }, }, },
 	{ label = "Bleed Avoid Ch.", haveOutput = "BleedAvoidChance", { format = "{0:output:BleedAvoidChance}%", { modName = { "AvoidBleed", "AvoidAilments", "BleedImmune" } }, }, },
 	{ label = "Poison Avoid Ch.", haveOutput = "PoisonAvoidChance", { format = "{0:output:PoisonAvoidChance}%", { modName = { "AvoidPoison", "AvoidAilments", "PoisonImmune" } }, }, },
-	{ label = "Curse Avoid Ch.", haveOutput = "CurseAvoidChance", { format = "{0:output:CurseAvoidChance}%", { modName = "AvoidCurse" }, }, },
+	{ label = "Curse Avoid Ch.", haveOutput = "CurseAvoidChance", { format = "{0:output:CurseAvoidChance}%", { modName = { "AvoidCurse", "CurseImmune" } }, }, },
 	{ label = "Crit Reduction", haveOutput = "CritExtraDamageReduction", { format = "{0:output:CritExtraDamageReduction}%", { modName = "ReduceCritExtraDamage" }, }, },
 	{ label = "Blind Duration", haveOutput = "SelfBlindDuration", { format = "{0:output:SelfBlindDuration}%", { modName = "SelfBlindDuration" }, }, },
 } }, { defaultCollapsed = true, label = "Other Ailment Defences", data = {

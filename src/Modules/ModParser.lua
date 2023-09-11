@@ -2137,13 +2137,7 @@ local specialModList = {
 	["(%d+)%% chance to gain elusive on kill"] = {
 		flag("Condition:CanBeElusive"),
 	},
-	["immun[ei]t?y? to elemental ailments while on consecrated ground"] = function()
-		local mods = { }
-		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] = flag(ailment.."Immune", { type = "Condition", var = "OnConsecratedGround" })
-		end
-		return mods
-	end,
+	["immun[ei]t?y? to elemental ailments while on consecrated ground"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "OnConsecratedGround" }), },
 	-- Assassin
 	["poison you inflict with critical strikes deals (%d+)%% more damage"] = function(num) return { mod("Damage", "MORE", num, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "CriticalStrike" }) } end,
 	["(%d+)%% chance to gain elusive on critical strike"] = {
@@ -2297,20 +2291,8 @@ local specialModList = {
 		flag("FireCanShock", { type = "Condition", var = "AffectedByGloriousMadness" }),
 		flag("ChaosCanShock", { type = "Condition", var = "AffectedByGloriousMadness" }),
 	},
-	["immun[ei]t?y? to elemental ailments while affected by glorious madness"] = function()
-		local mods = { }
-		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] = flag(ailment.."Immune", { type = "Condition", var = "AffectedByGloriousMadness" })
-		end
-		return mods
-	end,
-	["immun[ei]t?y? to elemental ailments while focus?sed"] = function()
-		local mods = { }
-		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] = flag(ailment.."Immune", { type = "Condition", var = "Focused" })
-		end
-		return mods
-	end,
+	["immun[ei]t?y? to elemental ailments while affected by glorious madness"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "AffectedByGloriousMadness" }), },
+	["immun[ei]t?y? to elemental ailments while focus?sed"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "Focused" }), },
 	["summoned golems are immune to elemental damage"] = {
 		mod("MinionModifier", "LIST", { mod = mod("FireResist", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
 		mod("MinionModifier", "LIST", { mod = mod("FireResistMax", "OVERRIDE", 100) }, { type = "SkillType", skillType = SkillType.Golem }),
@@ -2413,13 +2395,7 @@ local specialModList = {
 		mod("ExtraAura", "LIST", { onlyAllies = true, mod = mod("ElementalResistMax", "BASE", num, { type = "Condition", var = "AffectedByLink", neg = true }) }, { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 1 }),
 		mod("ExtraLinkEffect", "LIST", { mod = mod("ElementalResistMax", "BASE", num, { type = "GlobalEffect", effectType = "Global", unscalable = true }) }),
 	} end,
-	["enemies in your link beams cannot apply elemental ailments"] = function()
-		local mods = {}
-		for _, ailmentType in ipairs(data.elementalAilmentTypeList) do
-			t_insert(mods, flag(ailmentType.."Immune", { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }))
-		end
-		return mods
-	end,
+	["enemies in your link beams cannot apply elemental ailments"] = { flag("ElementalAilmentImmune", { type = "ActorCondition", actor = "enemy", var = "BetweenYouAndLinkedTarget" }), },
 	["(%d+)%% of damage from hits is taken from your sentinel of radiance's life before you"] = function(num) return { mod("takenFromRadianceSentinelBeforeYou", "BASE", num) } end,
 	-- Hierophant
 	["you and your totems regenerate ([%d%.]+)%% of life per second for each summoned totem"] = function (num) return {
@@ -2434,13 +2410,7 @@ local specialModList = {
 		end
 		return mods
 	end,
-	["immun[ei]t?y? to elemental ailments while you have arcane surge"] = function()
-		local mods = { }
-		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] = flag(ailment.."Immune", { type = "Condition", var = "AffectedByArcaneSurge" })
-		end
-		return mods
-	end,
+	["immun[ei]t?y? to elemental ailments while you have arcane surge"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "AffectedByArcaneSurge" }), },
 	["brands have (%d+)%% more activation frequency if (%d+)%% of attached duration expired"] = function(num) return { mod("BrandActivationFrequency", "MORE", num, { type = "Condition", var = "BrandLastQuarter" }) } end,
 	["arcane surge grants (%d+)%% more spell damage to you"] = function(num) return { mod("ArcaneSurgeDamage", "MAX", num) } end,
 	-- Inquisitor
@@ -2448,13 +2418,7 @@ local specialModList = {
 	["non%-critical strikes penetrate (%d+)%% of enemy elemental resistances"] = function(num) return { mod("ElementalPenetration", "BASE", num, { type = "Condition", var = "CriticalStrike", neg = true }) } end,
 	["consecrated ground you create applies (%d+)%% increased damage taken to enemies"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenConsecratedGround", "INC", num, { type = "Condition", var = "OnConsecratedGround" }) }) } end,
 	["you have consecrated ground around you while stationary"] = { flag("Condition:OnConsecratedGround", { type = "Condition", var = "Stationary" }) },
-	["consecrated ground you create grants immun[ei]t?y? to elemental ailments to you and allies"] = function()
-		local mods = { }
-		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] = flag(ailment.."Immune", { type = "Condition", var = "OnConsecratedGround" })
-		end
-		return mods
-	end,
+	["consecrated ground you create grants immun[ei]t?y? to elemental ailments to you and allies"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "OnConsecratedGround" }), },
 	["gain fanaticism for 4 seconds on reaching maximum fanatic charges"] = {
 		flag("Condition:CanGainFanaticism"),
 	},
@@ -2513,13 +2477,7 @@ local specialModList = {
 	-- Pathfinder
 	["always poison on hit while using a flask"] = { mod("PoisonChance", "BASE", 100, { type = "Condition", var = "UsingFlask" }) },
 	["poisons you inflict during any flask effect have (%d+)%% chance to deal (%d+)%% more damage"] = function(num, _, more) return { mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, KeywordFlag.Poison, { type = "Condition", var = "UsingFlask" }) } end,
-	["immun[ei]t?y? to elemental ailments during any flask effect"] = function()
-		local mods = { }
-		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] = flag(ailment.."Immune", { type = "Condition", var = "UsingFlask" })
-		end
-		return mods
-	end,
+	["immun[ei]t?y? to elemental ailments during any flask effect"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "UsingFlask" }), },
 	["grant bonuses to non%-channelling skills you use by consuming (%d+) charges from a flask of each of the following types, if possible:"] = { },
 	["if diamond flask charges are consumed, (%d+)%% increased critical strike chance"] = function (num) return {
 		mod("CritChance", "INC", num, { type = "SkillType", skillType = SkillType.Triggered, neg = true }, { type = "SkillType", skillType = SkillType.Channel, neg = true }, { type = "Condition", var = "UsingDiamondFlask" })
@@ -2532,13 +2490,7 @@ local specialModList = {
 	} end,
 	-- Raider
 	["nearby enemies have (%d+)%% less accuracy rating while you have phasing"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("Accuracy", "MORE", -num) }, { type = "Condition", var = "Phasing" }) } end,
-	["immun[ei]t?y? to elemental ailments while phasing"] = function()
-		local mods = { }
-		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] = flag(ailment.."Immune", { type = "Condition", var = "Phasing" })
-		end
-		return mods
-	end,
+	["immun[ei]t?y? to elemental ailments while phasing"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "Phasing" }), },
 	["nearby enemies have fire, cold and lightning exposure while you have phasing, applying %-(%d+)%% to those resistances"] = function(num) return {
 		mod("EnemyModifier", "LIST", { mod = mod("FireExposure", "BASE", -num) }, { type = "Condition", var = "Phasing" }),
 		mod("EnemyModifier", "LIST", { mod = mod("ColdExposure", "BASE", -num) }, { type = "Condition", var = "Phasing" }),
@@ -3070,13 +3022,7 @@ local specialModList = {
 		mod("EnemyBrittleEffect", "MORE", num),
 		mod("EnemySapEffect", "MORE", num),
 	} end,
-	["immun[ei]t?y? to elemental ailments while on consecrated ground if you have at least (%d+) devotion"] = function(num)
-		local mods = { }
-		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] = flag(ailment.."Immune", { type = "Condition", var = "OnConsecratedGround" }, { type = "StatThreshold", stat = "Devotion", threshold = num })
-		end
-		return mods
-	end,
+	["immun[ei]t?y? to elemental ailments while on consecrated ground if you have at least (%d+) devotion"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "OnConsecratedGround" }, { type = "StatThreshold", stat = "Devotion", threshold = num }), },
 	["freeze enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num) } end,
 	["freeze chilled enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) } end,
 	["manabond and stormbind freeze enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, { type = "SkillName", skillNameList = { "Manabond", "Stormbind" } }) } end,
@@ -3574,8 +3520,8 @@ local specialModList = {
 	["(%d+)%% increased movement speed while you have at least two linked targets"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 2 }) } end,
 	["link skills have (%d+)%% increased buff effect if you have linked to a target recently"] = function(num) return { mod("BuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Link }, { type = "Condition", var = "LinkedRecently" }) } end,
 	["link skills can target damageable minions"] = { flag("Condition:CanLinkToMinions") },
-	["elemental ailments are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = mod("AvoidElementalAilments", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true } ), }), },
-	["curses are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = mod("CurseEffectOnSelf", "MORE", -100, { type = "GlobalEffect", effectType = "Global", unscalable = true } ), }) },
+	["curses are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = flag("CurseImmune"), }), },
+	["elemental ailments are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = flag("ElementalAilmentImmune") }) },
 	["non%-unique utility flasks you use apply to linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = mod("ParentNonUniqueFlasksAppliedToYou", "FLAG", true, { type = "GlobalEffect", effectType = "Global", unscalable = true } ), }) },
 	-- Traps, Mines and Totems
 	["traps and mines deal (%d+)%-(%d+) additional physical damage"] = function(_, min, max) return { mod("PhysicalMin", "BASE", tonumber(min), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)), mod("PhysicalMax", "BASE", tonumber(max), nil, 0, bor(KeywordFlag.Trap, KeywordFlag.Mine)) } end,
@@ -4056,13 +4002,7 @@ local specialModList = {
 	--["cursed enemies cannot inflict elemental ailments on you"] = {
 	--	mod("AvoidElementalAilments", "BASE", 100, { type = "ActorCondition", actor = "enemy", var = "Cursed" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
 	--},
-	["enemies inflict elemental ailments on you instead of nearby allies"] = function()
-		local mods = { }
-		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] = mod("ExtraAura", "LIST", { onlyAllies = true, mod = flag(ailment.."Immune") })
-		end
-		return mods
-	end,
+	["enemies inflict elemental ailments on you instead of nearby allies"] = { mod("ExtraAura", "LIST", { onlyAllies = true, mod = flag("ElementalAilmentImmune") }), },
 	["unaffected by curses"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["unaffected by curses while affected by zealotry"] = { mod("CurseEffectOnSelf", "MORE", -100, { type = "Condition", var = "AffectedByZealotry" }, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
 	["immun[ei]t?y? to curses while you have at least (%d+) rage"] = function(num) return { flag("CurseImmune", { type = "MultiplierThreshold", var = "Rage", threshold = num }) } end,
