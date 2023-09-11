@@ -338,6 +338,15 @@ return {
 	{ var = "divineIreUniqueEnemy", type = "count", label = "Unique Enemies in AoE:", tooltip = "# of Unique Enemies in Divine Ire's Channel radius", ifSkill = "Divine Ire", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:DivineIreUniqueEnemyCount", "BASE", val, "Config")
 	end },
+	{ label = "Doom Blast:", ifSkill = "Doom Blast" },
+	{ var = "doomBlastSource", type = "list", label = "Doom Blast Trigger Source:", ifSkill = "Doom Blast", list = {{val="expiration",label="Curse Expiration"},{val="replacement",label="Curse Replacement"},{val="vixen",label="Vixen's Curse"}}, defaultIndex = 3,  apply = function(val, modList, enemyModList)
+		if val == "vixen" then
+			modList:NewMod("UsesCurseOverlaps", "FLAG", true, "Config")
+		end
+	end },
+	{ var = "curseOverlaps", type = "count", label = "Curse overlaps:", ifSkill = "Doom Blast", ifFlag = "UsesCurseOverlaps", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:CurseOverlaps", "BASE", val, "Config", { type = "Condition", var = "Effective" })
+	end },
 	{ label = "Predator:", ifSkill = "Predator" },
 	{ var = "deathmarkDeathmarkActive", type = "check", label = "Is the enemy marked with Signal Prey?", ifSkill = "Predator", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:EnemyHasDeathmark", "FLAG", true, "Config")
@@ -406,6 +415,13 @@ return {
 	{ label = "Intensify:", ifSkill = { "Intensify", "Crackling Lance", "Pinpoint" } },
 	{ var = "intensifyIntensity", type = "count", label = "# of Intensity:", ifSkill = { "Intensify", "Crackling Lance", "Pinpoint" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:Intensity", "BASE", val, "Config")
+	end },
+	{ label = "Link Skills:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" } },
+	{ var = "multiplierLinkedTargets", type = "count", label = "# of linked Targets:", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:LinkedTargets", "BASE", val, "Config")
+	end },
+	{ var = "linkedToMinion", type = "check", label = "Linked To Minion?", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, ifFlag = "Condition:CanLinkToMinions", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:LinkedToMinion", "FLAG", true, "Config")
 	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
@@ -1210,6 +1226,9 @@ Huge sets the radius to 11.
 	{ var = "multiplierNonInstantSpellCastRecently", type = "count", label = "# of Non-Instant Spells Cast Recently:", ifMult = "NonInstantSpellCastRecently", implyCond = "CastSpellRecently", tooltip = "Only the number of different spells you cast count", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NonInstantSpellCastRecently", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "conditionLinkedRecently", type = "check", label = "Have you Linked recently?", ifCond = "LinkedRecently", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:LinkedRecently", "FLAG", true, "Config")
+	end },
 	{ var = "conditionStunnedWhileCastingRecently", type = "check", label = "Stunned while Casting Recently?", ifCond = "StunnedWhileCastingRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:StunnedWhileCastingRecently", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
@@ -1362,9 +1381,6 @@ Huge sets the radius to 11.
 	end },
 	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's ^xADAA47Lightning ^7Buff?", ifFlag = "Condition:HaveManaStorm", tooltip = "This option enables Manastorm's ^xADAA47Lightning ^7Damage Buff.\n(When you cast a Spell, Sacrifice all ^x7070FFMana ^7to gain Added Maximum ^xADAA47Lightning ^7Damage\nequal to 25% of Sacrificed ^x7070FFMana ^7for 4 seconds)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SacrificeManaForLightning", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
-	end },
-	{ var = "conditionHaveVixensEntrapment", type = "check", defaultState = true, label = "Use Vixen's Entrapment cooldown?", ifFlag = "Condition:HaveVixensEntrapment", tooltip = "Causes Impending Doom calculations to take the cooldown of Vixen's Entrapment into account,\nlowering DPS if cast rate is higher than the gloves' trigger cooldown.", apply = function(val, modList, enemyModList)
-		modList:NewMod("VixenTriggerCap", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffFanaticism", type = "check", label = "Do you have Fanaticism?", ifFlag = "Condition:CanGainFanaticism", tooltip = "This will enable the Fanaticism buff itself. (Grants 75% more cast speed, reduced skill cost, and increased area of effect)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Fanaticism", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainFanaticism" })

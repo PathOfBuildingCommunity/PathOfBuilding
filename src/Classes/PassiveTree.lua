@@ -513,9 +513,6 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			node.type = "Mastery"
 		elseif node.ks then
 			node.type = "Keystone"
-			if not self.keystoneMap[node.dn] then -- Don't override good tree data with legacy keystones
-				self.keystoneMap[node.dn] = node
-			end
 		elseif node["not"] then
 			node.type = "Notable"
 		else
@@ -537,15 +534,20 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	buildTreeDependentUniques(self)
 end)
 
-function PassiveTreeClass:ProcessStats(node)
-	node.modKey = ""
+function PassiveTreeClass:ProcessStats(node, startIndex)
+	startIndex = startIndex or 1
+	if startIndex == 1 then
+		node.modKey = ""
+		node.mods = { }
+		node.modList = new("ModList")
+	end
+
 	if not node.sd then
 		return
 	end
 
 	-- Parse node modifier lines
-	node.mods = { }
-	local i = 1
+	local i = startIndex
 	while node.sd[i] do
 		if node.sd[i]:match("\n") then
 			local line = node.sd[i]
@@ -597,8 +599,8 @@ function PassiveTreeClass:ProcessStats(node)
 	end
 
 	-- Build unified list of modifiers from all recognised modifier lines
-	node.modList = new("ModList")
-	for _, mod in pairs(node.mods) do
+	for i = startIndex, #node.mods do
+		local mod = node.mods[i]
 		if mod.list and not mod.extra then
 			for i, mod in ipairs(mod.list) do
 				mod = modLib.setSource(mod, "Tree:"..node.id)

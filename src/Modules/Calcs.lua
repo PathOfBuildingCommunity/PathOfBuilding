@@ -17,6 +17,7 @@ LoadModule("Modules/CalcActiveSkill", calcs)
 LoadModule("Modules/CalcDefence", calcs)
 LoadModule("Modules/CalcOffence", calcs)
 LoadModule("Modules/CalcTriggers", calcs)
+LoadModule("Modules/CalcMirages.lua", calcs)
 
 -- Get the average value of a table -- note this is unused
 function math.average(t)
@@ -136,7 +137,7 @@ function calcs.getMiscCalculator(build)
 		GlobalCache.noCache = true
 		-- we need to preserve the override somewhere for use by possible trigger-based build-outs with overrides
 		env.override = override
-		calcs.perform(env, true)
+		calcs.perform(env)
 		if GlobalCache.useFullDPS or build.viewMode == "TREE" then
 			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing

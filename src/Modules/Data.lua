@@ -854,7 +854,7 @@ for _, minion in pairs(data.minions) do
 		mod.source = "Minion:"..minion.name
 	end
 end
-if launch.devMode then
+data.printMissingMinionSkills = function()
 	local missing = { }
 	for _, minion in pairs(data.minions) do
 		for _, skillId in ipairs(minion.skillList) do

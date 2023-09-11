@@ -588,7 +588,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill UniqueMirageWarriors
-#flags spell duration minion mirage
+#flags spell duration minion
 	fromItem = true,
 	statMap = {
 		["skill_used_by_mirage_warrior_damage_+%_final"] = {
@@ -869,7 +869,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SummonMirageChieftain
-#flags spell duration mirage
+#flags spell duration
 	fromTree = true,
 	statMap = {
 		["skill_used_by_mirage_chieftain_damage_+%_final"] = {
