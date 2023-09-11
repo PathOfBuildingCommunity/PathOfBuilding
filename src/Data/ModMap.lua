@@ -138,7 +138,8 @@ return {
 			tooltipLines = { "Monsters deal (%d to %d)%% extra Physical Damage as Chaos", "Monsters Inflict Withered for %d seconds on Hit" },
 			values = { { { 0, 0 }, { 0, 0 } }, { { 21, 25 }, { 100 } }, { { 31, 35 }, { 100 } },  },
 			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
-				enemyModList:NewMod("PhysicalDamageGainAsChaos", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Profane")
+				enemyModList:NewMod("PhysicalDamageGainAsChaos", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod Profane")
+				modList:NewMod("Condition:CanBeWithered", "FLAG", true, "Map mod Profane")
 			end
 		},
 		["Fleet"] = {
