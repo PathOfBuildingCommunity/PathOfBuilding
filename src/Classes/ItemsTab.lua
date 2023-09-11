@@ -297,6 +297,9 @@ holding Shift will put it in the second.]])
 	self.controls.removeDisplayItem = new("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 8, 0, 60, 20, "Cancel", function()
 		self:SetDisplayItem()
 	end)
+	self.controls.openTradeDisplay = new("ButtonControl", {"LEFT",self.controls.editDisplayItem,"RIGHT"}, 75, 0, 140, 20, "Open Trade Link...", function()
+		 self:OpenTradeLink()
+	end)
 
 	-- Section: Variant(s)
 
@@ -2009,6 +2012,22 @@ function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 		main:ClosePopup()
 	end)
 	main:OpenPopup(500, 500, self.displayItem and "Edit Item Text" or "Create Custom Item from Text", controls, nil, "edit")
+end
+
+-- Opens trade site link for selected item
+function ItemsTabClass:OpenTradeLink()
+	local item = self.displayItem.rawLines
+	local tradeQuery = new("TradeQueryCurItem",item)
+	local url = tradeQuery:ParseItem()
+	os.execute("rundll32 url.dll,FileProtocolHandler " .. url)
+	-- print(tradeQuery:GetFileCreatedTime('/Data/QueryMods.lua'))
+
+	-- local controls = {}
+    -- controls.edit = new("EditControl", nil, 0, 40, 480, 420, url, nil, "^%C\t\n", nil, nil, 14)
+    -- controls.cancel = new("ButtonControl", nil, 45, 470, 80, 20, "Cancel", function()
+	-- 	main:ClosePopup()
+	-- end)
+    -- main:OpenPopup(500, 500, 'test', controls, nil, "edit")
 end
 
 -- Opens the item enchanting popup
