@@ -2560,8 +2560,11 @@ function calcs.offence(env, actor, activeSkill)
 			local baseCrit = critOverride or source.CritChance or 0
 
 			local baseCritFromMainHand = skillModList:Flag(cfg, "BaseCritFromMainHand")
+			local baseCritFromParentMainHand = skillModList:Flag(cfg, "AttackCritIsEqualToParentMainHand")
 			if baseCritFromMainHand then
 				baseCrit = actor.weaponData1.CritChance
+			elseif baseCritFromParentMainHand then
+				baseCrit = actor.parent.weaponData1 and actor.parent.weaponData1.CritChance or baseCrit
 			end
 
 			if critOverride == 100 then
@@ -2593,7 +2596,7 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if breakdown and output.CritChance ~= baseCrit then
 					breakdown.CritChance = { }
-					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or ""
+					local baseCritFromMainHandStr = baseCritFromMainHand and " from main weapon" or baseCritFromParentMainHand and " from parent main weapon" or ""
 					if base ~= 0 then
 						t_insert(breakdown.CritChance, s_format("(%g + %g) ^8(base%s)", baseCrit, base, baseCritFromMainHandStr))
 					else
