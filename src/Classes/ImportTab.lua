@@ -748,10 +748,9 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		return
 	end
 
-	local item = new("Item")
+	local item = new("Item", rarityMap[itemData.frameType])
 
-	-- Determine rarity, display name and base type of the item
-	item.rarity = rarityMap[itemData.frameType]
+	-- Determine display name and base type of the item
 	if #itemData.name > 0 then
 		item.title = itemLib.sanitiseItemText(itemData.name)
 		item.baseName = itemLib.sanitiseItemText(itemData.typeLine):gsub("Synthesised ","")
