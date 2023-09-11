@@ -2798,7 +2798,9 @@ function calcs.perform(env, fullDPSSkipEHP)
 								break
 							end
 						end
-                        if not skipValue and (not v[1] or ((v[1].type ~= "Condition" or (enemyDB.mods["Condition:"..v[1].var] and enemyDB.mods["Condition:"..v[1].var][1].value)) and (v[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v[1].var] and enemyDB.mods["Multiplier:"..v[1].var][1].value)))) then
+                        if not skipValue and (not v[1] or (
+								(v[1].type ~= "Condition" or (v[1].var and (enemyDB.mods["Condition:"..v[1].var] and enemyDB.mods["Condition:"..v[1].var][1].value) or v[1].varList and (enemyDB.mods["Condition:"..v[1].varList[1]] and enemyDB.mods["Condition:"..v[1].varList[1]][1].value))) 
+								and (v[1].type ~= "Multiplier" or (enemyDB.mods["Multiplier:"..v[1].var] and enemyDB.mods["Multiplier:"..v[1].var][1].value)))) then
                             if buffExports["EnemyMods"][k] then
 								buffExports["EnemyMods"][k] = { MultiStat = true, buffExports["EnemyMods"][k] }
 								t_insert(buffExports["EnemyMods"][k], v)
