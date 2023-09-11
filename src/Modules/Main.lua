@@ -437,7 +437,8 @@ function main:OnFrame()
 	if self.inputEvents and not itemLib.wiki.triggered then
 		for _, event in ipairs(self.inputEvents) do
 			if event.type == "KeyUp" and event.key == "F1" then
-				self:OpenAboutPopup(1)
+				local tabName = self.modes[self.mode].viewMode:lower() .. " tab"
+				self:OpenAboutPopup(tabName or 1)
 				break
 			end
 		end
@@ -1077,9 +1078,9 @@ function main:OpenAboutPopup(helpSectionIndex)
 		end
 	end
 	if helpSectionIndex and not helpSections[helpSectionIndex] then
-		local newIndex = nil
+		local newIndex = 1
 		for sectionIndex, sectionValues in ipairs(helpSections) do
-			if sectionValues.title == helpSectionIndex then
+			if sectionValues.title:lower() == helpSectionIndex then
 				newIndex = sectionIndex
 				break
 			end
