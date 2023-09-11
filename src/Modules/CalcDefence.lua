@@ -1346,11 +1346,36 @@ function calcs.buildDefenceEstimations(env, actor)
 			-- Add min-max enemy damage from mods
 			enemyDamage = enemyDamage + (enemyDB:Sum("BASE", enemyCfg, (damageType.."Min")) + enemyDB:Sum("BASE", enemyCfg, (damageType.."Max"))) / 2
 			
-			-- Gain As mods (actual conversion not support yet)
+			-- Conversion and Gain As Mods
+			local conversionTotal = 0
 			if damageType == "Physical" then
+				local conversions = {total = 0, totalSkill = 0}
 				for _, damageTypeTo in ipairs(dmgTypeList) do
-					--local conversionPercent
-					local gainAsPercent = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) / 100
+					conversions[damageTypeTo.."skill"] = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageSkillConvertTo"..damageTypeTo))
+					conversions[damageTypeTo] = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageConvertTo"..damageTypeTo))
+					conversions["totalSkill"] = conversions["totalSkill"] + conversions[damageTypeTo.."skill"]
+					conversions["total"] = conversions["total"] + conversions[damageTypeTo]
+				end
+				-- Cap the amount of conversion to 100%
+				if conversions["totalSkill"] > 100 then
+					local mult = 1 / conversions["totalSkill"]
+					conversions["totalSkill"] = conversions["totalSkill"] * mult
+					conversions["total"] = 0
+					for _, damageTypeTo in ipairs(dmgTypeList) do
+						conversions[damageTypeTo.."skill"] = conversions[damageTypeTo.."skill"] * mult
+						conversions[damageTypeTo] = 0
+					end
+				elseif conversions["total"] + conversions["totalSkill"] > 100 then
+					local mult = (100 - conversions["totalSkill"]) / 100 / conversions["total"]
+					conversions["total"] = conversions["total"] * mult
+					for _, damageTypeTo in ipairs(dmgTypeList) do
+						conversions[damageTypeTo] = conversions[damageTypeTo] * mult
+					end
+				end
+				conversionTotal = conversions["total"] + conversions["totalSkill"]
+				-- Calculate the amount converted/gained as
+				for _, damageTypeTo in ipairs(dmgTypeList) do
+					local gainAsPercent = (enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) + conversions[damageTypeTo.."skill"] + conversions[damageTypeTo]) / 100
 					if gainAsPercent > 0 then
 						enemyDamageConversion[damageTypeTo] = enemyDamageConversion[damageTypeTo] or { }
 						enemyDamageConversion[damageTypeTo][damageType] = enemyDamage * gainAsPercent
@@ -1364,7 +1389,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			output[damageType.."EnemyDamageMult"] = enemyDamageMult
 			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
-			output[damageType.."EnemyDamage"] = enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
+			output[damageType.."EnemyDamage"] = enemyDamage * (1 - conversionTotal/100) * enemyDamageMult * output["EnemyCritEffect"]
 			if enemyDamageConversion[damageType] then
 				for damageTypeFrom, enemyDamage in pairs(enemyDamageConversion[damageType]) do
 					local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", damageTypeFrom.."Damage", isElemental[damageType] and "ElementalDamage" or nil, isElemental[damageTypeFrom] and "ElementalDamage" or nil) -- missing taunt from allies
