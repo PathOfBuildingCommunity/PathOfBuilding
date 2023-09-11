@@ -155,8 +155,11 @@ function main:Init()
 	end
 	
 	if self.saveNewModCache then
+		local saved = self.defaultItemAffixQuality
+		self.defaultItemAffixQuality = 0.5
 		loadItemDBs()
 		self:SaveModCache()
+		self.defaultItemAffixQuality = saved
 	end
 
 	self.sharedItemList = { }
