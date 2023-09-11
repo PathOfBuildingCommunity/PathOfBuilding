@@ -3574,7 +3574,7 @@ local specialModList = {
 	["elemental ailments are inflicted on you instead of linked targets"] = function()
 		local mods = { }
 		for i, ailment in ipairs(data.elementalAilmentTypeList) do
-			mods[i] =  mod("ExtraLinkEffect", "LIST", { onlyAllies = true, mod = flag(ailment.."Immune") })
+			mods[i] =  mod("ExtraLinkEffect", "LIST", { mod = flag(ailment.."Immune") })
 		end
 		return mods
 	end,
