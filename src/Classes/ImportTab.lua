@@ -5,6 +5,7 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
+local t_remove = table.remove
 local b_rshift = bit.rshift
 local band = bit.band
 
@@ -70,6 +71,20 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	end)
 	self.controls.accountHistory:SelByValue(main.lastAccountName)
 	self.controls.accountHistory:CheckDroppedWidth(true)
+
+	self.controls.removeAccount = new("ButtonControl", {"LEFT",self.controls.accountHistory,"RIGHT"}, 8, 0, 20, 20, "X", function()
+		local accountName = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
+		if (accountName ~= nil) then
+		t_remove(self.controls.accountHistory.list, self.controls.accountHistory.selIndex)
+		self.controls.accountHistory.list[accountName] = nil
+		main.gameAccounts[accountName] = nil
+		end
+	end)
+
+	self.controls.removeAccount.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Removes account from the dropdown list")
+	end
 
 	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
