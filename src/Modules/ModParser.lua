@@ -3571,7 +3571,13 @@ local specialModList = {
 	["(%d+)%% increased movement speed while you have at least two linked targets"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 2 }) } end,
 	["link skills have (%d+)%% increased buff effect if you have linked to a target recently"] = function(num) return { mod("BuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Link }, { type = "Condition", var = "LinkedRecently" }) } end,
 	["link skills can target damageable minions"] = { flag("Condition:CanLinkToMinions") },
-	["elemental ailments are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = mod("AvoidElementalAilments", "BASE", 100, { type = "GlobalEffect", effectType = "Global", unscalable = true } ), }), },
+	["elemental ailments are inflicted on you instead of linked targets"] = function()
+		local mods = { }
+		for i, ailment in ipairs(data.elementalAilmentTypeList) do
+			mods[i] =  mod("ExtraLinkEffect", "LIST", { onlyAllies = true, mod = flag(ailment.."Immune") })
+		end
+		return mods
+	end,
 	["curses are inflicted on you instead of linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = mod("CurseEffectOnSelf", "MORE", -100, { type = "GlobalEffect", effectType = "Global", unscalable = true } ), }) },
 	["non%-unique utility flasks you use apply to linked targets"] = { mod("ExtraLinkEffect", "LIST", { mod = mod("ParentNonUniqueFlasksAppliedToYou", "FLAG", true, { type = "GlobalEffect", effectType = "Global", unscalable = true } ), }) },
 	-- Traps, Mines and Totems
