@@ -130,6 +130,17 @@ Links skills use stats from party members if they are exported
 Some Enemy conditions and Modifiers may not be properly exported, please let us know if something is broken
 Some auras like Mines which use a stack value for their effect will not apply as their stack value is missing
 
+---[Skills Tab]
+
+The skills tab allows you to plan out the skills you will use for your character. To access this tab, click on "Skills" in the tab at the top left of the screen next to "Tree" and "Items".
+
+From here, you can view all of the skills in your build. Skills can be organized into Socket Groups to show which support gems are applied to certain skills. 
+
+Skill sets can be created for different levels, allowing you to plan out which skills you can run at certain points in your leveling progression. 
+Ctrl clicking a skill group on this tab will display a small table showing your gem name, level, variant, and an option to enable or disable each skill. You can use this to check DPS counts and mana/reservation costs.
+
+Socket Groups can be included or excluded in the Full DPS calculation for your build. 
+
 ---[Items Tab]
 
 The Item Tab in Path of Building allows you to plan out the gear you will use for your character. To access the Item Tab, click on the "Items" tab located at the top of the screen.
