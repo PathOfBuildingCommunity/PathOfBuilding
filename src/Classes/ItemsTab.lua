@@ -2016,10 +2016,17 @@ end
 
 -- Opens trade site link for selected item
 function ItemsTabClass:OpenTradeLink()
-	local item = self.displayItem.rawLines
+	local dkjson = require "dkjson"
+	-- local item = self.displayItem.rawLines
+	local item = new("Item", self.displayItem:BuildRaw())
+	-- ConPrintTable(item.explicitModLines)
 	local tradeQuery = new("TradeQueryCurItem",item)
+	-- local test = tradeQuery:TestFunction()
 	local url = tradeQuery:ParseItem()
-	os.execute("rundll32 url.dll,FileProtocolHandler " .. url)
+	-- ConPrintTable(item.baseLines)
+	-- local jsonTable = dkjson:encode(item.explicitModLines)
+	-- os.execute("rundll32 url.dll,FileProtocolHandler " .. url)
+	OpenURL(url)
 	-- print(tradeQuery:GetFileCreatedTime('/Data/QueryMods.lua'))
 
 	-- local controls = {}
