@@ -1513,12 +1513,8 @@ function calcs.offence(env, actor, activeSkill)
 					costs[manaType].finalBaseCost = 0
 				end
 				if additionalLifeCost > 0 or hybridLifeCost > 0 then
+					val.baseCost = costs[manaType].baseCost
 					val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * (hybridLifeCost + additionalLifeCost))
-					--val.totalCost = round(costs[manaType].totalCost * additionalLifeCost)
-				end
-				if hybridLifeCost > 0 then
-					--val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * hybridLifeCost)
-					--val.totalCost = round(costs[manaType].totalCost * hybridLifeCost)
 				end
 			elseif val.type == "Rage" then
 				if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
@@ -1579,8 +1575,8 @@ function calcs.offence(env, actor, activeSkill)
 				if val.baseCostNoMult ~= 0 then
 					t_insert(breakdown[costName], s_format("+ %d ^8(additional "..val.text.." cost)", val.baseCostNoMult))
 				end
-				if val.finalBaseCost ~= 0 then
-					t_insert(breakdown[costName], s_format("= %d ^8(final base "..val.text.." cost)", val.finalBaseCost))
+				if val.type == "Life" and (hybridLifeCost + additionalLifeCost) ~= 0 and not skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
+					t_insert(breakdown[costName], s_format("* %.2f ^8(mana cost conversion)", hybridLifeCost + additionalLifeCost))
 				end
 				if inc ~= 0 then
 					t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
