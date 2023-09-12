@@ -1418,6 +1418,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 	-- Calculate attributes and life/mana pools
 	doActorAttribsConditions(env, env.player)
+	calcs.resistances(env.player)
 	doActorLifeMana(env.player)
 	if env.minion then
 		for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
@@ -2798,6 +2799,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	calcs.offence(env, env.player, env.player.mainSkill)
 
 	if env.minion then
+		calcs.resistances(env.minion)
 		doActorLifeMana(env.minion)
 		doActorLifeManaReservation(env.minion)
 
