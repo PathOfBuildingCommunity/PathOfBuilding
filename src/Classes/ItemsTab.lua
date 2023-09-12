@@ -2016,7 +2016,6 @@ end
 
 -- Opens trade site link for selected item
 function ItemsTabClass:OpenTradeLink()
-	local dkjson = require "dkjson"
 	local item = new("Item", self.displayItem:BuildRaw())
 	local tradeQuery = new("TradeQueryCurItem",item)
 	local url = tradeQuery:ParseItem()
