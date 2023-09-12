@@ -1424,7 +1424,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 	-- Calculate attributes and life/mana pools
 	doActorAttribsConditions(env, env.player)
-	calcs.resistances(env.player)
 	doActorLifeMana(env.player)
 	if env.minion then
 		for _, value in ipairs(env.player.mainSkill.skillModList:List(env.player.mainSkill.skillCfg, "MinionModifier")) do
@@ -2796,6 +2795,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	end
 
 	-- Defence/offence calculations
+	calcs.resistances(env.player)
 	calcs.defence(env, env.player)
 	if not fullDPSSkipEHP then
 		calcs.buildDefenceEstimations(env, env.player)
@@ -2805,6 +2805,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	calcs.offence(env, env.player, env.player.mainSkill)
 
 	if env.minion then
+		-- Minions require resistance calculations before life for uniques like Formless Inferno and Fleshcrafter
 		calcs.resistances(env.minion)
 		doActorLifeMana(env.minion)
 		doActorLifeManaReservation(env.minion)
