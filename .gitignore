@@ -4,8 +4,6 @@
 .vscode/
 *.code-workspace
 inspect.lua
-src/TreeData/*.png
-*.png
 
 # Development files
 *.lnk
@@ -35,5 +33,3 @@ src/Export/ggpk/*.dll
 
 # Timeless Jewels
 src/Data/TimelessJewelData/*.bin
-
-.gitignore
