@@ -78,7 +78,13 @@ local function doActorLifeMana(actor)
 		local inc = modDB:Sum("INC", nil, "Life")
 		local more = modDB:More(nil, "Life")
 		local conv = modDB:Sum("BASE", nil, "LifeConvertToEnergyShield")
-		output.Life = m_max(round(base * (1 + inc/100) * more * (1 - conv/100)), 1)
+		-- Minions can have all of their life pool converted (ex: Fleshcrafter)
+		if actor.minionData and conv >= 100 then
+			output.Life = 0
+			output.MinionLifeConvertedWarning = conv
+		else	
+			output.Life = m_max(round(base * (1 + inc/100) * more * (1 - conv/100)), 1)
+		end
 		if breakdown then
 			if inc ~= 0 or more ~= 1 or conv ~= 0 then
 				breakdown.Life = { }
@@ -2804,7 +2810,9 @@ function calcs.perform(env, fullDPSSkipEHP)
 		doActorLifeManaReservation(env.minion)
 
 		calcs.defence(env, env.minion)
-		if not fullDPSSkipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
+		-- main.build.calcsTab.input.showMinion and should be disabled unless "calcsTab.input.showMinion" is true
+		-- Skip defense estimations if minions have 0 life
+		if not fullDPSSkipEHP and not env.minion.output.MinionLifeConvertedWarning then
 			calcs.buildDefenceEstimations(env, env.minion)
 		end
 		calcs.offence(env, env.minion, env.minion.mainSkill)
