@@ -282,18 +282,14 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
-	local newSpecList = { }
+	local newSpecList = self:GenerateSpecNameList()
 	self.controls.compareSelect.selIndex = self.activeCompareSpec
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
 	self.controls.compareSelect:SetList(newSpecList)
 
 	self.controls.specSelect.selIndex = self.activeSpec
 	wipeTable(newSpecList)
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
+	newSpecList = self:GenerateSpecNameList()
+
 	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
 	t_insert(newSpecList, "Manage trees... (ctrl-m)")
 	self.controls.specSelect:SetList(newSpecList)
@@ -355,6 +351,7 @@ function TreeTabClass:Load(xml, dbFileName)
 		self.specList[1] = new("PassiveSpec", self.build, latestTreeVersion)
 	end
 	self:SetActiveSpec(tonumber(xml.attrib.activeSpec) or 1)
+	self.build:SyncLoadouts()
 end
 
 function TreeTabClass:PostLoad()
@@ -410,6 +407,9 @@ function TreeTabClass:SetActiveSpec(specId)
 	if self.controls.versionSelect then
 		self.controls.versionSelect:SelByValue(curSpec.treeVersion:gsub("%_", "."):gsub(".ruthless", " (ruthless)"))
 	end
+
+	-- set the loadout option to the dummy option since it is now dirty
+	self.build.controls.buildLoadouts:SetSel(1)
 end
 
 function TreeTabClass:SetCompareSpec(specId)
@@ -905,6 +905,19 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	end
 
 	return report
+end
+
+function TreeTabClass:GenerateSpecNameList(oldSpecList)
+	local newSpecList = oldSpecList
+	if (newSpecList == nil) then
+		newSpecList = {}
+	end
+
+	for _, spec in ipairs(self.specList) do
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+	end
+
+	return newSpecList
 end
 
 function TreeTabClass:FindTimelessJewel()

@@ -227,6 +227,93 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.buildFlag = true
 	end)
 
+	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, {}, function(index, value)
+		-- Sync again just in case we're out of date
+		local treeList, itemList, skillList = self:SyncLoadouts()
+
+		if value == "Loadouts:" or value == "-----" then
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		end
+
+		if value == "Sync" then
+			self:SyncLoadouts()
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		end
+
+		if value == "New Loadout" then
+			local controls = { }
+			controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this loadout:")
+			controls.edit = new("EditControl", nil, 0, 40, 350, 20, "New Loadout", nil, nil, 100, function(buf)
+				controls.save.enabled = buf:match("%S")
+			end)
+			controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+				local loadout = controls.edit.buf
+
+				local newSpec = new("PassiveSpec", self, latestTreeVersion)
+				newSpec.title = loadout
+				t_insert(self.treeTab.specList, newSpec)
+
+				local itemSet = self.itemsTab:NewItemSet(#self.itemsTab.itemSets + 1)
+				t_insert(self.itemsTab.itemSetOrderList, itemSet.id)
+				itemSet.title = loadout
+
+				local skillSet = self.skillsTab:NewSkillSet(#self.skillsTab.skillSets + 1)
+				t_insert(self.skillsTab.skillSetOrderList, skillSet.id)
+				skillSet.title = loadout
+
+				self:SyncLoadouts()
+				self.modFlag = true
+				main:ClosePopup()
+			end)
+			controls.save.enabled = false
+			controls.cancel = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+				main:ClosePopup()
+			end)
+			main:OpenPopup(370, 100, "Set Name", controls, "save", "edit", "cancel")
+
+			self.controls.buildLoadouts:SetSel(1)
+			return
+		end
+
+		if treeList == nil or itemList == nil or skillList == nil then
+			return
+		end
+
+		local newSpecId = nil
+		for id, spec in ipairs(treeList) do
+			if value == spec then
+				newSpecId = id
+			end
+		end
+
+		local newItemId = nil
+		for _, itemOrder in ipairs(self.itemsTab.itemSetOrderList) do
+			if value == self.itemsTab.itemSets[itemOrder].title then
+				newItemId = itemOrder
+			end
+		end
+
+		local newSkillId = nil
+		for _, skillOrder in ipairs(self.skillsTab.skillSetOrderList) do
+			if value == self.skillsTab.skillSets[skillOrder].title then
+				newSkillId = skillOrder
+			end
+		end
+
+		if newSpecId == nil or newItemId == nil or newSkillId == nil then
+			return
+		end
+
+		self.treeTab:SetActiveSpec(newSpecId)
+		self.itemsTab:SetActiveItemSet(newItemId)
+		self.skillsTab:SetActiveSkillSet(newSkillId)
+
+		self.controls.buildLoadouts:SelByValue(value)
+	end)
+	self:SyncLoadouts()
+
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
 	-- This may be user-customisable in the future
@@ -749,6 +836,51 @@ local function actExtra(act, extra)
 	return act > 2 and extra or 0
 end
 
+function buildMode:SyncLoadouts(reset)
+	self.controls.buildLoadouts.list = {"No Loadouts"}
+
+	local filteredList = {"Loadouts:"}
+	local treeList = {}
+	local itemList = {}
+	local skillList = {}
+
+	if self.treeTab ~= nil and self.itemsTab ~= nil and self.skillsTab ~= nil then
+		treeList = self.treeTab:GenerateSpecNameList()
+
+		for id, item in ipairs(self.itemsTab.itemSets) do
+			t_insert(itemList, item.title)
+		end
+
+		for id, skill in ipairs(self.skillsTab.skillSets) do
+			t_insert(skillList, skill.title)
+		end
+
+		for id, tree in ipairs(treeList) do
+			for id, skill in ipairs(skillList) do
+				for id, item in ipairs(itemList) do
+					if (tree == skill and tree == item) then
+						t_insert(filteredList, tree)
+					end
+				end
+			end
+		end
+	end
+
+	t_insert(filteredList, "-----")
+	t_insert(filteredList, "New Loadout")
+	t_insert(filteredList, "Sync")
+
+	if #filteredList > 0 then
+		self.controls.buildLoadouts.list = filteredList
+	end
+
+	if reset then
+		self.controls.buildLoadouts:SetSel(1)
+	end
+
+	return treeList, itemList, skillList
+end
+
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
 	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
@@ -1001,6 +1133,9 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
 	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
+
+	-- ensure loadouts are up to date
+	self:SyncLoadouts()
 
 	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then
