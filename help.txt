@@ -112,6 +112,10 @@ Militant Faith jewels also have the option to select the other mods on the jewel
 Advanced tricks:
     For Militant Faith, if you don't want any nodes to change, you can just sort by devotion. As unchanged nodes add devotion, the ones with the most devotion will be the ones with unchanged nodes
 	
+---[Build Tab]
+
+Loadouts can be selected from the dropdown in the top middle of the Build Tab. These are identically named sets of your Passive Tree, Items, and Skills. A set with that name has to exist across all three for it to register as a Loadout. When the user selects a Loadout it will switch to these dropdowns in all three locations. The "New Loadout" option allows the user to create all three sets from a single popup for convenience. the "Sync" option is a backup option to force the UI to update in case the user has changed this data behind the scenes.
+
 ---[Party Tab]
 
 The Party tab Allows you to import support characters and have their auras and curses apply
