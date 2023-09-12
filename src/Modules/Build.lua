@@ -227,7 +227,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.buildFlag = true
 	end)
 
-	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, {}, function(index, value)
+	self.controls.buildLoadouts = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 190, 20, {}, function(index, value)
 		-- Sync again just in case we're out of date
 		local treeList, itemList, skillList = self:SyncLoadouts()
 
