@@ -75,11 +75,6 @@ function TradeQueryCurItem:SanitizeStat(curStat)
     return curStat
 end
 
--- get number of implicit mods on the item
-function TradeQueryCurItem:GetNumOfImplicit()
-    self.numOfImplicits = string.sub(self.curItem[self.implicitIndex],11,1)
-end
-
 -- get the id's of implicit modifier if decided to do this
 function TradeQueryCurItem:GetImplicitID()
 
@@ -126,16 +121,6 @@ function TradeQueryCurItem:TableContains(haystack, needle)
         end
     end
     return false
-end
-
--- init mods from file
-function TradeQueryCurItem:InitMods()
-     local file = io.open(self.queryModsFilePath,"r")
-    if file then
-        file:close()
-        self.modData = LoadModule(self.queryModsFilePath)
-        return
-    end
 end
 
 -- check if item is an accessory, need this to know if needing to use the Local option or not
@@ -232,23 +217,3 @@ function TradeQueryCurItem:GetTradeUrl(endpoint)
     return 'https://www.pathofexile.com/trade/search/'.. self.leauge .. '/' .. endpoint;
 end
 
-function TradeQueryCurItem:GetFileCreatedTime(path)
-    local cwd = io.popen("cd"):read()
-    path = path:gsub('/', '\\')
-    local cdate = io.popen( "dir /T:C \""..cwd..path.."\"", "r" )
-    local createdate = cdate:read("*all")
-    local pos = 0
-    
-    for i = 0, 4 do
-       pos = string.find(createdate, "\n", pos+1)
-    end
-    
-    createdate = string.sub(createdate, pos, pos+17)
-    local year = string.sub(createdate, 8, 11)
-    local month = string.sub(createdate, 5, 6)
-    local day = string.sub(createdate, 2, 3)
-    local hour = string.sub(createdate, 14, 15)
-    local minute = string.sub(createdate, 17, 18)
-    
-    return month.."-"..day
-end
