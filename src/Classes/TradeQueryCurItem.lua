@@ -2,7 +2,7 @@ local dkjson = require "dkjson"
 
 local TradeQueryCurItem = newClass("TradeQueryCurItem", function(self, item)
 	self.curItem = item
-    self.itemType = item[3]
+    -- self.itemType = item[3]
 	self.hostName = "https://www.pathofexile.com/"
     self.queryModsFilePath = "Data/QueryMods.lua"
     self.leauge = 'Ancestor'
@@ -34,34 +34,45 @@ end)
 
 -- Parse the raw item and return the trade url
 function TradeQueryCurItem:ParseItem()
-    self.implicitIndex = self:GetTableIndexContains(self.curItem, 'Implicits')
-    local itemIsAccessory = self:CheckIfItemIsAccessory(self.itemType)
+    local itemType = ''
+    for i, v in pairs(self.curItem.baseLines) do
+        print(v['line'])
+        itemType = v['line']
+    end
+    local itemIsAccessory = self:CheckIfItemIsAccessory(itemType)
     local attribuitIDs = {}
-    -- ConPrintTable(self.curItem)
-    for i = self.implicitIndex+1, #self.curItem do
-        local curItem = self:SanitizeItem(self.curItem[i])
+    for i, v in pairs(self.curItem.explicitModLines) do
+        print(v['line'])
+        local curStat = self:SanitizeStat(v['line'])
+        print(curStat)
         if not itemIsAccessory then
-            if self:TableContains(self.attrWithLocal, curItem) then
-                curItem = curItem .. " (Local)"
+            if self:TableContains(self.attrWithLocal, curStat) then
+                curStat = curStat .. " (Local)"
             end
         end
-        table.insert(attribuitIDs, {['id'] = self:GetExplicitID(curItem)})
+            for j, w in pairs(v) do
+                -- will get stat values from here
+            end
+        print(self:GetExplicitID(curStat))
+        table.insert(attribuitIDs, {['id'] = self:GetExplicitID(curStat)})
     end
-    local endpoint = dkjson.decode(self:GetTradeEndpoint(self:GetTemplate(self.itemType, attribuitIDs)))
+    local endpoint = dkjson.decode(self:GetTradeEndpoint(self:GetTemplate(itemType, attribuitIDs)))
     return self:GetTradeUrl(endpoint.id)
 end
 
 -- Replace the numbers with # to match the format of the incoming attribuites
 -- removes any identifier for fractured,crafted ect
-function TradeQueryCurItem:SanitizeItem(curItem)
-    curItem = curItem:gsub("{.*}", "")
-    curItem = curItem:gsub("([+][1-9][0-9][0-9])", "+#")
-    curItem = curItem:gsub("([1-9][0-9][0-9])", "#")
-    curItem = curItem:gsub("([+][1-9][0-9])", "+#")
-    curItem = curItem:gsub("([1-9][0-9])", "#")
-    curItem = curItem:gsub("([+][0-9])", "+#")
-    curItem = curItem:gsub("([0-9])", "#")
-    return curItem
+function TradeQueryCurItem:SanitizeStat(curStat)
+    curStat = curStat:gsub("{.*}", "")
+    curStat = curStat:gsub("([+][1-9][0-9][0-9])", "+#")
+    curStat = curStat:gsub("([1-9][0-9][0-9])", "#")
+    curStat = curStat:gsub("([+][1-9][0-9])", "+#")
+    curStat = curStat:gsub("([1-9][0-9])", "#")
+    curStat = curStat:gsub("([+][0-9])", "+#")
+    curStat = curStat:gsub("([0-9])", "#")
+    curStat = curStat:gsub("[+]([()][#][-][#][)])", "+#")
+    curStat = curStat:gsub("([()][#][-][#][)])", "#")
+    return curStat
 end
 
 -- get number of implicit mods on the item
