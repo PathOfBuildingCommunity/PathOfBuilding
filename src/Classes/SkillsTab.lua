@@ -423,6 +423,7 @@ function SkillsTabClass:Load(xml, fileName)
 	self:SetActiveSkillSet(tonumber(xml.attrib.activeSkillSet) or 1)
 	self:SetDisplayGroup(self.socketGroupList[1])
 	self:ResetUndo()
+	self.build:SyncLoadouts()
 end
 
 function SkillsTabClass:Save(xml)
@@ -1343,4 +1344,7 @@ function SkillsTabClass:SetActiveSkillSet(skillSetId)
 	self.controls.groupList.list = self.socketGroupList
 	self.activeSkillSetId = skillSetId
 	self.build.buildFlag = true
+
+	-- set the loadout option to the dummy option since it is now dirty
+	self.build.controls.buildLoadouts:SetSel(1)
 end

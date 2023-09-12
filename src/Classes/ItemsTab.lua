@@ -1012,6 +1012,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 	end
 	self:SetActiveItemSet(tonumber(xml.attrib.activeItemSet) or 1)
 	self:ResetUndo()
+	self.build:SyncLoadouts()
 end
 
 function ItemsTabClass:Save(xml)
