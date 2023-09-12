@@ -3619,7 +3619,7 @@ local specialModList = {
 	},
 	["minions deal no non%-lightning damage"] = {
 		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLCold") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
 		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
 		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
 	},
