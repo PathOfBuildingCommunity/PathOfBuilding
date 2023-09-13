@@ -900,6 +900,20 @@ function calcs.offence(env, actor, activeSkill)
 			end
 		end
 	end
+	-- momentum stacks
+	if skillModList:Flag(nil, "SupportedByMomentum") then
+		local maxMomentumStacks = skillModList:Sum("BASE", skillCfg, "MomentumStacksMax")
+		local extraMomentumStacks = skillModList:Sum("BASE", skillCfg, "MomentumStacksExtra")
+		if maxMomentumStacks > 0 then
+			if not modDB:HasMod("BASE", nil, "Multiplier:MomentumStacks") then
+				modDB:NewMod("Multiplier:MomentumStacks", "BASE", m_min((maxMomentumStacks + extraMomentumStacks) / 2, maxMomentumStacks), "Config", { type = "Condition", var = "Combat" })
+			elseif modDB:Sum("BASE", nil, "Multiplier:MomentumStacks") > maxMomentumStacks then
+				modDB:ReplaceMod("Multiplier:MomentumStacks", "BASE", maxMomentumStacks, "Config", { type = "Condition", var = "Combat" })
+			end
+		elseif modDB:HasMod("BASE", nil, "Multiplier:MomentumStacks") then
+			modDB:ReplaceMod("Multiplier:MomentumStacks", "BASE", 0, "Config")
+		end
+	end
 
 	local isAttack = skillFlags.attack
 
