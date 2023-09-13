@@ -35,7 +35,7 @@ end)
 -- Parse the raw item and return the trade url
 function TradeQueryCurItem:ParseItem()
     local itemType = self.curItem['baseName']
-    local itemIsAccessory = self:CheckIfItemIsAccessory(itemType)
+    local itemIsAccessory = self:CheckIfItemIsAccessory(self.curItem)
     local attribuitIDs = {}
     for i, v in pairs(self.curItem.explicitModLines) do
         local curStat = self:SanitizeStat(v['line'])
@@ -91,26 +91,6 @@ function TradeQueryCurItem:GetExplicitID(mod)
     return nil
 end
 
--- Return the first index with the given value (or nil if not found).
-function TradeQueryCurItem:GetTableIndexEqual(haystack, needle)
-    for i=1, #haystack do
-        if haystack[i] == needle then
-            return i
-        end
-    end
-    return nil
-end
-
--- return the first index that contains the given value nil if not found
-function TradeQueryCurItem:GetTableIndexContains(haystack, needle)
-    for i=1, #haystack do
-        if string.find(haystack[i], needle) then
-            return i
-        end
-    end
-    return nil
-end
-
 -- returns true/false if table contains needle
 function TradeQueryCurItem:TableContains(haystack, needle)
     for i = 1, #haystack do
@@ -123,29 +103,11 @@ end
 
 -- check if item is an accessory, need this to know if needing to use the Local option or not
 function TradeQueryCurItem:CheckIfItemIsAccessory(item)
-    local items = self:FetchItems()
-    for i=1, #items.result[1].entries do
-        if string.find(items.result[1].entries[i]['type'], item) then
-            return true
-        end
+    if (item.base.type == 'Ring') or (item.base.type == 'Amulet') or (item.base.type == 'Belt') then
+        return true
+    else
+        return false
     end
-    return false
-end
-
--- hit the api to get a list of items, need this to determine if items are accessories or not
-function TradeQueryCurItem:FetchItems()
-	local items = ""
-	local easy = common.curl.easy()
-	easy:setopt_url("https://www.pathofexile.com/api/trade/data/items")
-	easy:setopt_useragent("Path of Building/" .. launch.versionNumber .. "test")
-	easy:setopt_writefunction(function(data)
-		items = items..data
-		return true
-	end)
-	easy:perform()
-	easy:close()
-	return dkjson.decode(items)
-
 end
 
 -- template for getting the url endpoint
