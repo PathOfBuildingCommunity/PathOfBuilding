@@ -570,4 +570,5 @@ local skills, mod, flag, skill = ...
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "MomentumStacksRemoved" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#baseMod flag("SupportedByMomentum")
 #mods

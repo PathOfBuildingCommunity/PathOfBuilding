@@ -4477,6 +4477,9 @@ skills["SupportMomentum"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "MomentumStacksRemoved" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+	baseMods = {
+		flag("SupportedByMomentum"),
+	},
 	qualityStats = {
 		Default = {
 			{ "support_momentum_base_buff_duration_ms", 25 },

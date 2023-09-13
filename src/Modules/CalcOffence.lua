@@ -856,7 +856,7 @@ function calcs.offence(env, actor, activeSkill)
 		end
 	end
 	-- momentum stacks
-	do
+	if skillModList:Flag(nil, "SupportedByMomentum") then
 		local maxMomentumStacks = skillModList:Sum("BASE", skillCfg, "MomentumStacksMax")
 		local extraMomentumStacks = skillModList:Sum("BASE", skillCfg, "MomentumStacksExtra")
 		if maxMomentumStacks > 0 then
