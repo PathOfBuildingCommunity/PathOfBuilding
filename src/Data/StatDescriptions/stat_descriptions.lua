@@ -199894,7 +199894,7 @@ return {
 							[2]=10
 						}
 					},
-					text="{0:+d} metre to Melee Strike Range with Claws"
+					text="{0:+d} metre to Melee Strike Range with Daggers"
 				},
 				[2]={
 					[1]={
@@ -199915,7 +199915,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0:+d} metres to Melee Strike Range with Claws"
+					text="{0:+d} metres to Melee Strike Range with Daggers"
 				}
 			}
 		},
