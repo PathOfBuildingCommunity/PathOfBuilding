@@ -37,6 +37,47 @@ describe("TestItemParse", function()
         assert.are.equals("Two-Toned Boots (Evasion/Energy Shield)", item.baseName)
     end)
 
+    it("Magic Two-Toned Boots", function()
+        local item = new("Item", [[
+            Rarity: Magic
+            Stalwart Two-Toned Boots of Plunder
+            Armour: 100
+            Energy Shield: 100
+            ]])
+        assert.are.equal("Two-Toned Boots (Armour/Energy Shield)", item.baseName)
+        assert.are.equal("Stalwart ", item.namePrefix)
+        assert.are.equal(" of Plunder", item.nameSuffix)
+        item = new("Item", [[
+            Rarity: Magic
+            Sanguine Two-Toned Boots of the Phoenix
+            Armour: 100
+            Evasion Rating: 100
+            ]])
+        assert.are.equal("Two-Toned Boots (Armour/Evasion)", item.baseName)
+        assert.are.equal("Sanguine ", item.namePrefix)
+        assert.are.equal(" of the Phoenix", item.nameSuffix)
+        item = new("Item", [[
+            Rarity: Magic
+            Stout Two-Toned Boots of the Lightning
+            Evasion Rating: 100
+            Energy Shield: 100
+            ]])
+        assert.are.equal("Two-Toned Boots (Evasion/Energy Shield)", item.baseName)
+        assert.are.equal("Stout ", item.namePrefix)
+        assert.are.equal(" of the Lightning", item.nameSuffix)
+    end)
+
+    it("Title", function()
+        local item = new("Item", [[
+            Rarity: Rare
+            Phoenix Paw
+            Iron Gauntlets
+        ]])
+        assert.are.equal("Phoenix Paw", item.title)
+        assert.are.equal("Iron Gauntlets", item.baseName)
+        assert.are.equal("Phoenix Paw, Iron Gauntlets", item.name)
+    end)
+
     it("Unique ID", function()
         local item = new("Item", raw("Unique ID: 40f9711d5bd7ad2bcbddaf71c705607aef0eecd3dcadaafec6c0192f79b82863"))
         assert.are.equals("40f9711d5bd7ad2bcbddaf71c705607aef0eecd3dcadaafec6c0192f79b82863", item.uniqueID)
@@ -398,5 +439,29 @@ describe("TestItemParse", function()
         assert.are.equals("Iron Gauntlets", item.baseName)
         assert.are.equals(1, #item.explicitModLines)
         assert.are.equals("+50% chance to Ignite", item.explicitModLines[1].line)
+    end)
+
+    it("Energy Blade", function()
+        local item = new("Item", [[
+            Item Class: One Hand Swords
+            Rarity: Magic
+            Superior Energy Blade
+        ]])
+        assert.are.equal("Energy Blade One Handed", item.baseName)
+        item = new("Item", [[
+            Item Class: Two Hand Swords
+            Rarity: Magic
+            Superior Energy Blade
+        ]])
+        assert.are.equal("Energy Blade Two Handed", item.baseName)
+    end)
+
+    it("Flask buff", function()
+        local item = new("Item", [[
+            Rarity: Magic
+            Chemist's Granite Flask of the Opossum
+        ]])
+        assert.are.equal(1, #item.buffModLines)
+        assert.are.equal("+1500 to Armour", item.buffModLines[1].line)
     end)
 end)
