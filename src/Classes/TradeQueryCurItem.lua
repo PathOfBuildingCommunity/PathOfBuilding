@@ -34,16 +34,11 @@ end)
 
 -- Parse the raw item and return the trade url
 function TradeQueryCurItem:ParseItem()
-    local itemType = ''
-    for i, v in pairs(self.curItem.baseLines) do
-        itemType = v['line']
-    end
+    local itemType = self.curItem['baseName']
     local itemIsAccessory = self:CheckIfItemIsAccessory(itemType)
     local attribuitIDs = {}
     for i, v in pairs(self.curItem.explicitModLines) do
-        -- print(v['line'])
         local curStat = self:SanitizeStat(v['line'])
-        -- print(curStat)
         if not itemIsAccessory then
             if self:TableContains(self.attrWithLocal, curStat) then
                 curStat = curStat .. " (Local)"
@@ -52,7 +47,6 @@ function TradeQueryCurItem:ParseItem()
             for j, w in pairs(v) do
                 -- will get stat values from here
             end
-        -- print(self:GetExplicitID(curStat))
         local curStatID = self:GetExplicitID(curStat)
         if (curStatID ~= nil) and (curStatID ~= '') then
             table.insert(attribuitIDs, {['id'] = curStatID})
@@ -68,16 +62,16 @@ end
 function TradeQueryCurItem:SanitizeStat(curStat)
     curStat = curStat:gsub("{.*}", "")
     curStat = curStat:gsub("([1-9][0-9[.][0-9][0-9])", "#")
-    -- curStat = curStat:gsub("([+][1-9][0-9][0-9])", "+#")
     curStat = curStat:gsub("([1-9][.][0-9][0-9])", "#")
     curStat = curStat:gsub("([1-9][0-9][0-9])", "#")
-    -- curStat = curStat:gsub("([+][1-9][0-9])", "+#")
     curStat = curStat:gsub("([1-9][0-9])", "#")
-    -- curStat = curStat:gsub("([+][0-9])", "+#")
     curStat = curStat:gsub("([0-9])", "#")
-    -- curStat = curStat:gsub("[+]([()][#][-][#][)])", "+#")
     curStat = curStat:gsub("([()][#][-][#][)])", "#")
+    -- special case, are there more?
     curStat = curStat:gsub("You can apply an additional Curse", "You can apply # additional Curses")
+    curStat = curStat:gsub("Bow Attacks fire an additional Arrow", "Bow Attacks fire # additional Arrows")
+    curStat = curStat:gsub("Projectiles Pierce an additional Target", "Projectiles Pierce # additional Targets")
+    curStat = curStat:gsub("Has 1 Abyssal Socket", "Has # Abyssal Sockets")
     return curStat
 end
 
@@ -91,8 +85,6 @@ function TradeQueryCurItem:GetExplicitID(mod)
     local tradeStates = LoadModule(self.queryModsFilePath)
     for i, v in pairs(tradeStates['Explicit']) do
         if v['tradeMod']['text'] == mod then
-            print(v['tradeMod']['text'])
-            print(v['tradeMod']['id'])
             return v['tradeMod']['id']
         end
     end
