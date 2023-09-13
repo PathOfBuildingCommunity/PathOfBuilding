@@ -707,9 +707,6 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					else
 						local k, v = line:match("([%w ]-%w+)=(.+)")
 						label[k] = tonumber(v)
-						if k == "Life" then -- special cases that needs to be mods
-							list:NewMod(k, "BASE", v, "Party")
-						end
 					end
 				elseif line ~= "" then
 					list:NewMod(line, "FLAG", true, "Party")
