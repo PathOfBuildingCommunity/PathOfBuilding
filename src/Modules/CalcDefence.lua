@@ -1805,7 +1805,7 @@ function calcs.buildDefenceEstimations(env, actor)
 		local halfLife = output.Life * 0.5
 		local recoverable = output.LifeRecoverable
 		local aboveLow = m_max(recoverable - halfLife, 0)
-		local preventedLifeLoss = modDB:Sum("BASE", nil, "LifeLossPrevented")
+		local preventedLifeLoss = m_min(modDB:Sum("BASE", nil, "LifeLossPrevented"), 100)
 		output["preventedLifeLoss"] = preventedLifeLoss
 		local initialLifeLossBelowHalfPrevented = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
 		output["preventedLifeLossBelowHalf"] = (1 - output["preventedLifeLoss"] / 100) * initialLifeLossBelowHalfPrevented
