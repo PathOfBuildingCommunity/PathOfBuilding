@@ -440,18 +440,6 @@ return {
 ["base_avoid_stun_%"] = {
 	mod("AvoidStun", "BASE", nil),
 },
-["base_immune_to_shock"] = {
-	mod("AvoidShock", "BASE", 100),
-},
-["base_immune_to_chill"] = {
-	mod("AvoidChill", "BASE", 100),
-},
-["base_immune_to_freeze"] = {
-	mod("AvoidFreeze", "BASE", 100),
-},
-["base_immune_to_ignite"] = {
-	mod("AvoidIgnite", "BASE", 100),
-},
 ["avoid_interruption_while_using_this_skill_%"] = {
 	mod("AvoidInterruptStun", "BASE", nil)
 },
@@ -1767,7 +1755,9 @@ return {
 ["physical_damage_reduction_rating_+%"] = {
 	mod("Armour", "INC", nil),
 },
-
+["cannot_be_damaged"] = {
+	mod("Condition:CannotBeDamaged", "FLAG", nil)
+},
 --
 -- Gem Levels
 --

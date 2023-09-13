@@ -292,10 +292,13 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
+			local limitNegTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or limitTarget:GetMultiplier(tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
+				elseif tag.limitNegTotal then
+					limitNegTotal = limit
 				else
 					mult = m_min(mult, limit)
 				end
@@ -310,16 +313,25 @@ function ModStoreClass:EvalMod(mod, cfg)
 					if limitTotal then
 						value.mod.value = m_min(value.mod.value, limitTotal)
 					end
+					if limitNegTotal then
+						value.mod.value = m_max(value.mod.value, limitNegTotal)
+					end
 				else
 					value.value = value.value * mult + (tag.base or 0)
 					if limitTotal then
 						value.value = m_min(value.value, limitTotal)
+					end
+					if limitNegTotal then
+						value.value = m_max(value.value, limitNegTotal)
 					end
 				end
 			else
 				value = value * mult + (tag.base or 0)
 				if limitTotal then
 					value = m_min(value, limitTotal)
+				end
+				if limitNegTotal then
+					value = m_max(value, limitNegTotal)
 				end
 			end
 		elseif tag.type == "MultiplierThreshold" then
@@ -391,7 +403,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 		elseif tag.type == "PercentStat" then
 			local base
 			local target = self
-			-- This functions similar to the above tagTypes in regard to which actor to use, but for PerStat
+			-- This functions similar to the above tagTypes in regard to which actor to use, but for PercentStat
 			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
 			if tag.actor and self.actor[tag.actor] then
 				target = self.actor[tag.actor].modDB
@@ -566,7 +578,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if items and #items > 0 or allSlots then
 				if searchCond then
 					for slot, item in pairs(items) do
-						if slot ~= itemSlot or not tag.excludeSelf then
+						if (not allSlots or allSlots and item.type ~= "Jewel") and slot ~= itemSlot or not tag.excludeSelf then
 							t_insert(matches, item:FindModifierSubstring(searchCond:lower(), itemSlot:lower()))
 						end
 					end

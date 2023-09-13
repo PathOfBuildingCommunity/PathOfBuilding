@@ -34,12 +34,18 @@ LoadModule("Modules/BuildSiteTools")
 	end
 end]]
 
+if arg and isValueInTable(arg, "--no-jit") then
+	require("jit").off()
+	ConPrintf("JIT Disabled")
+end
+
 local tempTable1 = { }
 local tempTable2 = { }
 
 main = new("ControlHost")
 
 function main:Init()
+	self:DetectUnicodeSupport()
 	self.modes = { }
 	self.modes["LIST"] = LoadModule("Modules/BuildList")
 	self.modes["BUILD"] = LoadModule("Modules/Build")
@@ -112,44 +118,54 @@ function main:Init()
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
 
-	ConPrintf("Loading item databases...")
-	self.uniqueDB = { list = { } }
-	for type, typeList in pairs(data.uniques) do
-		for _, raw in pairs(typeList) do
-			local newItem = new("Item", "Rarity: Unique\n"..raw)
-			if newItem.base then
-				newItem:NormaliseQuality()
-				newItem:BuildAndParseRaw()
-				self.uniqueDB.list[newItem.name] = newItem
-			elseif launch.devMode then
-				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
-			end
-		end
-	end
-	self.rareDB = { list = { } }
-	for _, raw in pairs(data.rares) do
-		local newItem = new("Item", "Rarity: Rare\n"..raw)
-		if newItem.base then
-			newItem:NormaliseQuality()
-			if newItem.crafted then
-				if newItem.base.implicit and #newItem.implicitModLines == 0 then
-					-- Automatically add implicit
-					local implicitIndex = 1
-					for line in newItem.base.implicit:gmatch("[^\n]+") do
-						t_insert(newItem.implicitModLines, { line = line, modTags = newItem.base.implicitModTypes and newItem.base.implicitModTypes[implicitIndex] or { } })
-						implicitIndex = implicitIndex + 1
-					end
+	self.uniqueDB = { list = { }, loading = true }
+	self.rareDB = { list = { }, loading = true }
+
+	local function loadItemDBs()
+		for type, typeList in pairsYield(data.uniques) do
+			for _, raw in pairs(typeList) do
+				newItem = new("Item", raw, "UNIQUE", true)
+				if newItem.base then
+					self.uniqueDB.list[newItem.name] = newItem
+				elseif launch.devMode then
+					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
 				end
-				newItem:Craft()
 			end
-			self.rareDB.list[newItem.name] = newItem
-		elseif launch.devMode then
-			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
+
+		self.uniqueDB.loading = nil
+		ConPrintf("Uniques loaded")
+
+		for _, raw in pairsYield(data.rares) do
+			newItem = new("Item", raw, "RARE", true)
+			if newItem.base then
+				if newItem.crafted then
+					if newItem.base.implicit and #newItem.implicitModLines == 0 then
+						-- Automatically add implicit
+						local implicitIndex = 1
+						for line in newItem.base.implicit:gmatch("[^\n]+") do
+							t_insert(newItem.implicitModLines, { line = line, modTags = newItem.base.implicitModTypes and newItem.base.implicitModTypes[implicitIndex] or { } })
+							implicitIndex = implicitIndex + 1
+						end
+					end
+					newItem:Craft()
+				end
+				self.rareDB.list[newItem.name] = newItem
+			elseif launch.devMode then
+				ConPrintf("Rare DB unrecognised item:\n%s", raw)
+			end
+		end
+
+		self.rareDB.loading = nil
+		ConPrintf("Rares loaded")
 	end
 	
 	if self.saveNewModCache then
+		local saved = self.defaultItemAffixQuality
+		self.defaultItemAffixQuality = 0.5
+		loadItemDBs()
 		self:SaveModCache()
+		self.defaultItemAffixQuality = saved
 	end
 
 	self.sharedItemList = { }
@@ -220,14 +236,45 @@ the "Releases" section of the GitHub page.]])
 
 	self:LoadSharedItems()
 
-	self.onFrameFuncs = { }
+	self.onFrameFuncs = {
+		["FirstFrame"] = function()
+			self.onFrameFuncs["FirstFrame"] = nil
+			if launch.devMode then
+				data.printMissingMinionSkills()
+			end
+			ConPrintf("Startup time: %d ms", GetTime() - launch.startTime)
+		end
+	}
+
+	if not self.saveNewModCache then
+		local itemsCoroutine = coroutine.create(loadItemDBs)
+		
+		self.onFrameFuncs["LoadItems"] = function()
+			local res, errMsg = coroutine.resume(itemsCoroutine)
+			if coroutine.status(itemsCoroutine) == "dead" then
+				self.onFrameFuncs["LoadItems"] = nil
+			end
+			if not res then
+				error(errMsg)
+			end
+		end
+	end
+end
+
+function main:DetectUnicodeSupport()
+	-- In PoeCharm returns a valid width, in normal PoB returns 2142240768
+	local w = DrawStringWidth(16, "VAR", "\195\164") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
+	self.unicode = w > 0 and w < 100
+	if self.unicode then
+		ConPrintf("Unicode support detected")
+	end
 end
 
 function main:SaveModCache()
 	-- Update mod cache
 	local out = io.open("Data/ModCache.lua", "w")
 	out:write('local c=...')
-	for line, dat in pairs(modLib.parseModCache) do
+	for line, dat in pairsSortByKey(modLib.parseModCache) do
 		if not dat[1] or not dat[1][1] or (dat[1][1].name ~= "JewelFunc" and dat[1][1].name ~= "ExtraJewelFunc") then
 			out:write('c["', line:gsub("\n","\\n"), '"]={')
 			if dat[1] then
@@ -405,7 +452,8 @@ function main:OnFrame()
 	if self.inputEvents and not itemLib.wiki.triggered then
 		for _, event in ipairs(self.inputEvents) do
 			if event.type == "KeyUp" and event.key == "F1" then
-				self:OpenAboutPopup(1)
+				local tabName = self.modes[self.mode].viewMode:lower() .. " tab"
+				self:OpenAboutPopup(tabName or 1)
 				break
 			end
 		end
@@ -1045,9 +1093,9 @@ function main:OpenAboutPopup(helpSectionIndex)
 		end
 	end
 	if helpSectionIndex and not helpSections[helpSectionIndex] then
-		local newIndex = nil
+		local newIndex = 1
 		for sectionIndex, sectionValues in ipairs(helpSections) do
-			if sectionValues.title == helpSectionIndex then
+			if sectionValues.title:lower() == helpSectionIndex then
 				newIndex = sectionIndex
 				break
 			end

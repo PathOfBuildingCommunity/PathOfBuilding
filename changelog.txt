@@ -1,3 +1,75 @@
+VERSION[2.34.0][2023/09/13]
+
+--- New to Path of Building ---
+* Implement new 3.22.1 Tattoos (Wires77)
+* Add icons to Socket groups based on the item slot (ryuukk, LocalIdentity)
+* Substantially improve startup time (Lancej)
+* Add support for limiting Node depth in Power Report generation (Subtractem)
+* Party tab improvements (Regisle)
+  * Add support for Link Skills
+  * Add support for enemy conditions
+  * Add support for Mine Aura's
+  * Fix Vaal Aura's preventing base Aura from applying
+  * Fix Doryani's Prototype, Ambu's Charge and Eye of Malice
+  * Sort lists in alphabetical order
+* Add support for applying Link skills to minions (Regisle)
+* Add support for importing trees from poeplanner.com (pHiney)
+* Add support for Maata's Teaching crit mod (Regisle)
+* Add support for Momentum Support (Regisle)
+* Add support for more Map mods (Regisle)
+* Add support for more Stun duration mods (Regisle)
+* Add remove account button to the Import tab (CrazieJester)
+
+--- Fixed Crashes ---
+* Fix crash when triggering skills with Unique weapons (Paliak)
+* Fix crash caused by trigger source being disabled (Paliak)
+* Fix crash (Paliak)
+
+--- User Interface ---
+* Add max equip level field to the trade query generator (Kerberos9)
+* Add support for ignoring weapon swap on character import (Peechey)
+* Display AoE values as metres (LocalIdentity)
+* When using F1 to open the Help window, show info for the current tab (Regisle)
+* Add support for item Enchantment comparison when hovering over the list (Peechey)
+* Add confirmation popup when converting Skill Trees (Peechey)
+* Add documentation for the Skills tab to Help window (nrardin)
+* Show version and branch in error box (Lancej)
+
+--- Fixed Bugs ---
+* Fix Doom Blast trigger rate calculations (Paliak)
+* Fix skill Mana/Life cost calculations when using Mana cost conversion Life Mastery (LocalIdentity)
+* Fix Utula's Hungers Life mod not working with some Uniques added from PoB (Lilylicious)
+* Fix Utula's Hungers Life mod not working if you had life on Jewels (Lilylicious)
+* Fix Fresh Meat Support incorrectly granting all Minions Adrenaline (LocalIdentity)
+* Fix Cast Speed not increasing the activation frequency of Arcanist Brand (Paliak)
+* Fix FullDPS issues when using Mirage Archer or Minions (Paliak)
+* Fix Energy Blade alt qualities failing to apply twice when Dual Wielding (LocalIdentity)
+* Fix Ahuana's Bite only increasing Cold damage taken instead of all damage taken (LocalIdentity)
+* Fix CWDT calculations when linked to multiple skills (Paliak)
+* Fix Kitava's Thirst trigger rate when Dual Wielding (Paliak)
+* Fix Trauma Rate doubling when Dual Wielding (LocalIdentity)
+* Fix +1 to Socketed Skill gems mod not working (LocalIdentity)
+* Fix trigger rate for Tawhoa's Chosen (Dogist)
+
+--- Accuracy Improvements ---
+* Add a legacy tag to Cluster Jewels that no longer drop (LocalIdentity)
+* Add missing variant  to Tulborn (pHiney)
+* Fix typo in Death Rush ring (Lancej)
+* Fix typo in Ashrend body armour (Lancej)
+* Fix Ahuana's Bite 'Chill as though dealing' mod (LocalIdentity)
+* Fix chance to Inflict ailments breakdown (LocalIdentity)
+* Fix breakdown for skills that grant Ailment Immunities (LocalIdentity)
+* Fix extra Abyssal socket appearing on Stygian Vise and Darkness Enthroned belts (Lilylicious)
+* Fix some mod ranges being inverted (Lilylicious)
+* Fix wording on Uul-Netol's Vow (Wires77)
+* Fix negative EHP values from Progenesis Flask by capping its effect (Regisle)
+* Fix calculation of increased cooldown reduction breakpoint suggestions (Paliak)
+
+--- Other changes ---
+* Reduce memory usage when on the tree tab (Lancej)
+* Add option to disable Lua JIT (Lancej)
+* Fix Unicode input for PoeCharm (Lancej)
+
 VERSION[2.33.5][2023/08/28]
 
 --- Fixed Crashes ---
