@@ -130,6 +130,27 @@ Links skills use stats from party members if they are exported
 Some Enemy conditions and Modifiers may not be properly exported, please let us know if something is broken
 Some auras like Mines which use a stack value for their effect will not apply as their stack value is missing
 
+---[Skills Tab]
+
+The skills tab allows you to plan out the skills you will use for your character. To access this tab, click on "Skills" in the tab at the top left of the screen next to "Tree" and "Items".
+
+From here, you can view all of the skills in your build. There are a few different UI elements that you can use to group your skills and make DPS calculations easier. 
+
+The top left window lets you view Socket Groups. Skills can be organized into Socket Groups to show which support gems are applied to certain skills. You can add a socket group by clicking New and selecting a skill from the drop-down. 
+For example, you could add a socket group for Vitality and then attach Arrogance to the group as a support.
+You can also add labels and organize your skills by type (auras, mobillity, damage, etc). This is a great way to keep track of skill changes across skill sets as you level. 
+
+Skill sets can be thought of as collections of socket groups. There is a select box above the socket groups window that will let you switch between them. 
+A great way to use these is to create skill sets for different level gaps, allowing you to plan out which skills you can run at certain points in your levelling progression.
+They are also a nice way to showcase different skill options for your build. One set could show the skills you run to maximize DPS, while another could show a better setup for survivability or maybe mapping. Click Manage next to the select box to add, remove, rename, and copy skill sets.
+
+If you click on a skill in one of your socket groups, a table will appear on the right showing you the details of that group. You can set which piece of gear the skills are socketed in, as well as the level of each skill, the variant, quality, and count. 
+Hovering over a skill will display a full description of that skill and toggling the "Enabled" checkbox will enable or disable that skill from your build. You can also use the "Include in Full DPS" checkbox to include or exclude that skill from the Full DPS calculation displayed on the left panel. 
+This can be useful for seeing how much damage you are getting from specific skills as well as specific groups of skills in your gear. You may also want to make a socket group simply for display purposes and then you can exclude that from DPS calculations.
+
+Finally, underneath the Socket Groups window is the Gem Options box. This will let you configure the level of your skills gems as well as sort them by different types of DPS. Really useful for viewing total potential damage vs damage at different levels.
+
+
 ---[Items Tab]
 
 The Item Tab in Path of Building allows you to plan out the gear you will use for your character. To access the Item Tab, click on the "Items" tab located at the top of the screen.

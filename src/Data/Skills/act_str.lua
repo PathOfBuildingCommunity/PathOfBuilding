@@ -3605,7 +3605,6 @@ skills["FrozenSweep"] = {
 		attack = true,
 		area = true,
 		melee = true,
-		mirage = true,
 	},
 	baseMods = {
 		skill("radius", 25),

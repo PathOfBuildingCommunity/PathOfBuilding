@@ -753,6 +753,9 @@ local function doActorMisc(env, actor)
 			local effect = modDB:Max(nil, "WitherEffectStack") 	
 			enemyDB:NewMod("ChaosDamageTaken", "INC", effect, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
 		end
+		if modDB:Flag(nil, "Condition:CanBeWithered") then
+			modDB:NewMod("ChaosDamageTaken", "INC", 6, "Withered", { type = "Multiplier", var = "WitheredStack", limit = 15 } )
+		end
 		if modDB:Flag(nil, "Blind") and not modDB:Flag(nil, "CannotBeBlinded") then
 			if not modDB:Flag(nil, "IgnoreBlindHitChance") then
 				local effect = 1 + modDB:Sum("INC", nil, "BlindEffect", "BuffEffectOnSelf") / 100
@@ -2844,6 +2847,8 @@ function calcs.perform(env, fullDPSSkipEHP)
 			buffExports.PlayerMods["PartyMemberMaximumEnduranceChargesEqualToYours"] = true
 			buffExports.PlayerMods["EnduranceChargesMax="..tostring(output["EnduranceChargesMax"])] = true
 		end
+		
+		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
 		
 		for linkName, link in pairs(buffExports["Link"]) do
 			if linkName == "Flame Link" then

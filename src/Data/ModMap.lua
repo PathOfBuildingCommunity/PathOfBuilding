@@ -133,6 +133,15 @@ return {
 				enemyModList:NewMod("PhysicalDamageGainAsLightning", "BASE", (values[val][1] + (values[val][2] - values[val][1]) * rollRange / 100) * mapModEffect, "Map mod Shocking")
 			end
 		},
+		["Profane"] = {
+			type = "count",
+			tooltipLines = { "Monsters deal (%d to %d)%% extra Physical Damage as Chaos", "Monsters Inflict Withered for %d seconds on Hit" },
+			values = { { { 0, 0 }, { 0, 0 } }, { { 21, 25 }, { 100 } }, { { 31, 35 }, { 100 } },  },
+			apply = function(val, rollRange, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("PhysicalDamageGainAsChaos", "BASE", (values[val][1][1] + (values[val][1][2] - values[val][1][1]) * rollRange / 100) * mapModEffect, "Map mod Profane")
+				modList:NewMod("Condition:CanBeWithered", "FLAG", true, "Map mod Profane")
+			end
+		},
 		["Fleet"] = {
 			type = "count",
 			tooltipLines = { "(%d to %d)%% increased Monster Movement Speed", "(%d to %d)%% increased Monster Attack Speed", "(%d to %d)%% increased Monster Cast Speed" },
@@ -409,6 +418,7 @@ return {
 		{ val = "Burning", label = "Enemy Phys As Fire                                 Monsters deal to extra Physical Damage".."Burning" },
 		{ val = "Freezing", label = "Enemy Phys As Cold                                 Monsters deal to extra Physical Damage".."Freezing" },
 		{ val = "Shocking", label = "Enemy Phys As Lightning                                 Monsters deal to extra Physical Damage".."Shocking" },
+		{ val = "Profane", label = "Enemy Phys As Chaos                                 Monsters deal to extra Physical Damage Inflict Withered for seconds on Hit Profane" },
 		{ val = "Fleet", label = "Enemy Inc Speed                                 to increased Monster Movement Attack Cast".."Fleet" },
 		{ val = "Overlord's", label = "Boss Inc Damage / Speed                                 Unique deals increased has Attack and Cast".."Overlord's" },
 	},

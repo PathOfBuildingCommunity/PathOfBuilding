@@ -289,6 +289,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 	self.name = "?"
 	self.namePrefix = ""
 	self.nameSuffix = ""
+	self.base = nil
 	self.rarity = rarity or "UNIQUE"
 	self.quality = nil
 	self.rawLines = { }
@@ -644,7 +645,7 @@ function ItemClass:ParseRaw(raw, rarity, highQuality)
 						local s, e = self.name:find("Two-Toned Boots", 1, true)
 						if s then
 							-- Hack for Two-Toned Boots
-							baseName = self.baseName
+							baseName = "Two-Toned Boots"
 							self.namePrefix = self.name:sub(1, s - 1)
 							self.nameSuffix = self.name:sub(e + 1)
 						end
