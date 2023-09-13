@@ -23,33 +23,9 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	self.sortDropList = { }
 	self.sortOrder = { }
 	self.sortMode = "NAME"
-	local leagueFlag = { }
-	local typeFlag = { }
-	for _, item in pairs(db.list) do
-		if item.league then
-			for leagueName in item.league:gmatch(" ?([%w ]+),?") do
-				leagueFlag[leagueName] = true
-			end
-		end
-		typeFlag[item.type] = true
-	end
-	self.leagueList = { }
-	for leagueName in pairs(leagueFlag) do
-		t_insert(self.leagueList, leagueName)
-	end
-	table.sort(self.leagueList)
-	t_insert(self.leagueList, 1, "Any league")
-	t_insert(self.leagueList, 2, "No league")
-	self.typeList = { }
-	for type in pairs(typeFlag) do
-		t_insert(self.typeList, type)
-	end
-	table.sort(self.typeList)
-	t_insert(self.typeList, 1, "Any type")
-	t_insert(self.typeList, 2, "Armour")
-	t_insert(self.typeList, 3, "Jewellery")
-	t_insert(self.typeList, 4, "One Handed Melee")
-	t_insert(self.typeList, 5, "Two Handed Melee")
+	self.leaguesAndTypesLoaded = false
+	self.leagueList = { "Any league", "No league" }
+	self.typeList = { "Any type", "Armour", "Jewellery", "One Handed Melee", "Two Handed Melee" }
 	self.slotList = { "Any slot", "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring", "Belt", "Jewel" }
 	local baseY = dbType == "RARE" and -22 or -62
 	self.controls.slot = new("DropDownControl", {"BOTTOMLEFT",self,"TOPLEFT"}, 0, baseY, 179, 18, self.slotList, function(index, value)
@@ -82,6 +58,26 @@ local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anch
 	self:BuildSortOrder()
 	self.listBuildFlag = true
 end)
+
+function ItemDBClass:LoadLeaguesAndTypes()
+	local leagueFlag = { }
+	local typeFlag = { }
+	for _, item in pairs(self.db.list) do
+		if item.league then
+			for leagueName in item.league:gmatch(" ?([%w ]+),?") do
+				leagueFlag[leagueName] = true
+			end
+		end
+		typeFlag[item.type] = true
+	end
+	for leagueName in pairsSortByKey(leagueFlag) do
+		t_insert(self.leagueList, leagueName)
+	end
+	for type in pairsSortByKey(typeFlag) do
+		t_insert(self.typeList, type)
+	end
+	self.leaguesAndTypesLoaded = true
+end
 
 function ItemDBClass:DoesItemMatchFilters(item)
 	if self.controls.slot.selIndex > 1 then
@@ -301,6 +297,8 @@ function ItemDBClass:Draw(viewPort)
 	end
 	if self.db.loading then
 		self.defaultText = "^7Loading..."
+	elseif not self.leaguesAndTypesLoaded then
+		self:LoadLeaguesAndTypes()
 	end
 	self.ListControl.Draw(self, viewPort)
 end

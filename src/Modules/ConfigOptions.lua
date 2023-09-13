@@ -427,6 +427,13 @@ return {
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MeatShieldEnemyNearYou", "FLAG", true, "Config")
 	end },
+	{ label = "Momentum:", ifSkill = { "Momentum" } },
+	{ var = "MomentumStacks", type = "count", label = "# of Momentum (if not average):", ifSkill = { "Momentum" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:MomentumStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
+	end },
+	{ var = "MomentumSwiftnessStacks", type = "count", label = "Swiftness # of Momentum Removed:", ifSkill = { "Momentum" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:MomentumStacksRemoved", "BASE", val, "Config")
+	end },
 	{ label = "Plague Bearer:", ifSkill = "Plague Bearer"},
 	{ var = "plagueBearerState", type = "list", label = "State:", ifSkill = "Plague Bearer", list = {{val="INC",label="Incubating"},{val="INF",label="Infecting"}}, apply = function(val, modList, enemyModList)
 		if val == "INC" then

@@ -1164,7 +1164,7 @@ function calcs.defence(env, actor)
 	end
 
 	-- Miscellaneous: move speed, avoidance
-	output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or calcLib.mod(modDB, nil, "MovementSpeed")
+	output.MovementSpeedMod = modDB:Override(nil, "MovementSpeed") or (modDB:Flag(nil, "MovementSpeedEqualHighestLinkedPlayers") and actor.partyMembers.output.MovementSpeedMod or calcLib.mod(modDB, nil, "MovementSpeed"))
 	if modDB:Flag(nil, "MovementSpeedCannotBeBelowBase") then
 		output.MovementSpeedMod = m_max(output.MovementSpeedMod, 1)
 	end
@@ -1805,7 +1805,7 @@ function calcs.buildDefenceEstimations(env, actor)
 		local halfLife = output.Life * 0.5
 		local recoverable = output.LifeRecoverable
 		local aboveLow = m_max(recoverable - halfLife, 0)
-		local preventedLifeLoss = modDB:Sum("BASE", nil, "LifeLossPrevented")
+		local preventedLifeLoss = m_min(modDB:Sum("BASE", nil, "LifeLossPrevented"), 100)
 		output["preventedLifeLoss"] = preventedLifeLoss
 		local initialLifeLossBelowHalfPrevented = modDB:Sum("BASE", nil, "LifeLossBelowHalfPrevented")
 		output["preventedLifeLossBelowHalf"] = (1 - output["preventedLifeLoss"] / 100) * initialLifeLossBelowHalfPrevented

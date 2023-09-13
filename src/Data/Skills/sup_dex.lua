@@ -4704,6 +4704,23 @@ skills["SupportMomentum"] = {
 	addSkillTypes = { SkillType.Duration, SkillType.Buff, },
 	excludeSkillTypes = { SkillType.Triggered, },
 	statDescriptionScope = "gem_stat_descriptions",
+	statMap = {
+		["support_momentum_max_stacks"] = {
+			mod("MomentumStacksMax", "BASE", nil, 0, 0),
+		},
+		["count_as_momentum_+_if_not_channelled"] = {
+			mod("MomentumStacksExtra", "BASE", nil, 0, 0),
+		},
+		["support_momentum_attack_speed_+%_per_stack"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "MomentumStacks" }),
+		},
+		["support_momentum_movement_speed_+%_per_stack_removed"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "MomentumStacksRemoved" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+	baseMods = {
+		flag("SupportedByMomentum"),
+	},
 	qualityStats = {
 		Default = {
 			{ "support_momentum_base_buff_duration_ms", 25 },

@@ -86,7 +86,8 @@ local formList = {
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% chance to gain "] = "FLAG",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
-	["costs? ([%+%-]?%d+)"] = "BASECOST",
+	["costs? ([%+%-]?%d+)"] = "TOTALCOST",
+	["skills cost ([%+%-]?%d+)"] = "BASECOST",
 	["penetrates? (%d+)%%"] = "PEN",
 	["penetrates (%d+)%% of"] = "PEN",
 	["penetrates (%d+)%% of enemy"] = "PEN",
@@ -908,7 +909,9 @@ local modFlagList = {
 	["with chaos skills"] = { keywordFlags = KeywordFlag.Chaos },
 	["with physical skills"] = { keywordFlags = KeywordFlag.Physical },
 	["with channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channel } },
+	["channelling"] = { tag = { type = "SkillType", skillType = SkillType.Channel } },
 	["channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channel } },
+	["non-channelling"] = { tag = { type = "SkillType", skillType = SkillType.Channel, neg = true } },
 	["non-channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channel, neg = true } },
 	["with brand skills"] = { tag = { type = "SkillType", skillType = SkillType.Brand } },
 	["for stance skills"] = { tag = { type = "SkillType", skillType = SkillType.Stance } },
@@ -3515,8 +3518,9 @@ local specialModList = {
 	["gain adrenaline for 1 second when you change stance"] = { flag("Condition:Adrenaline", { type = "Condition", var = "StanceChangeLastSecond" }) },
 	["with a searching eye jewel socketed, maim enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Maimed", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
 	["with a searching eye jewel socketed, blind enemies for (%d) seconds on hit with attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("Condition:Blinded", nil, ModFlag.Attack) }, { type = "Condition", var = "HaveSearchingEyeJewelIn{SlotName}" }) },
-  ["enemies maimed by you take (%d+)%% increased damage over time"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenOverTime", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Maimed" }) } end,
+	["enemies maimed by you take (%d+)%% increased damage over time"] = function(num) return { mod("EnemyModifier", "LIST", { mod = mod("DamageTakenOverTime", "INC", num) }, { type = "ActorCondition", actor = "enemy", var = "Maimed" }) } end,
 	["(%d+)%% increased defences while you have at least four linked targets"] = function(num) return { mod("Defences", "INC", num, { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 4 }) } end,
+	["your movement speed is equal to the highest movement speed among linked players"] = { flag("MovementSpeedEqualHighestLinkedPlayers", { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 1 }), },
 	["(%d+)%% increased movement speed while you have at least two linked targets"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "MultiplierThreshold", var = "LinkedTargets", threshold = 2 }) } end,
 	["link skills have (%d+)%% increased buff effect if you have linked to a target recently"] = function(num) return { mod("BuffEffect", "INC", num, { type = "SkillType", skillType = SkillType.Link }, { type = "Condition", var = "LinkedRecently" }) } end,
 	["link skills can target damageable minions"] = { flag("Condition:CanLinkToMinions") },
@@ -3666,6 +3670,7 @@ local specialModList = {
 	["summoned skeleton warriors a?n?d? ?s?o?l?d?i?e?r?s? ?wield a? ?c?o?p?y? ?o?f? ?this weapon while in your main hand"] = { }, -- just make the mod blue, handled in CalcSetup
 	["each summoned phantasm grants you phantasmal might"] = { flag("Condition:PhantasmalMight") },
 	["minions have (%d+)%% increased critical strike chance per maximum power charge you have"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", num, { type = "Multiplier", actor = "parent", var = "PowerChargeMax" }) }) } end,
+	["minions' base attack critical strike chance is equal to the critical strike chance of your main hand weapon"] = { mod("MinionModifier", "LIST", { mod = flag("AttackCritIsEqualToParentMainHand", nil, ModFlag.Attack) }) },
 	["minions can hear the whispers for 5 seconds after they deal a critical strike"] = {
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 50, { type = "Condition", neg = true, var = "NeverCrit" }) }),
 		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 50, nil, ModFlag.Attack, { type = "Condition", neg = true, var = "NeverCrit" }) }),
@@ -4834,6 +4839,7 @@ end
 local regenTypes = appendMod(resourceTypes, "Regen")
 local degenTypes = appendMod(resourceTypes, "Degen")
 local costTypes = appendMod(resourceTypes, "Cost")
+local baseCostTypes = appendMod(resourceTypes, "CostNoMult")
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
@@ -5342,6 +5348,13 @@ local function parseMod(line, order)
 		local _
 		_, line = scan(line, modNameList, true)
 	elseif modForm == "BASECOST" then
+		modName, line = scan(line, baseCostTypes, true)
+		if not modName then
+			return { }, line
+		end
+		local _
+		_, line = scan(line, modNameList, true)
+	elseif modForm == "TOTALCOST" then
 		modName, line = scan(line, costTypes, true)
 		if not modName then
 			return { }, line

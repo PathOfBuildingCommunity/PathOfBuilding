@@ -1446,7 +1446,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 		if activeSkill.skillTypes[SkillType.HasReservation] and not activeSkill.skillTypes[SkillType.ReservationBecomesCost] then
 			local skillModList = activeSkill.skillModList
 			local skillCfg = activeSkill.skillCfg
-			local mult = skillModList:More(skillCfg, "SupportManaMultiplier")
+			local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 4)
 			local pool = { ["Mana"] = { }, ["Life"] = { } }
 			pool.Mana.baseFlat = activeSkill.skillData.manaReservationFlat or activeSkill.activeEffect.grantedEffectLevel.manaReservationFlat or 0
 			if skillModList:Flag(skillCfg, "ManaCostGainAsReservation") and activeSkill.activeEffect.grantedEffectLevel.cost then
@@ -2837,6 +2837,7 @@ function calcs.perform(env, fullDPSSkipEHP)
                 end
             end
         end
+		
 		for _, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
 			if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") and output[damageType.."Resist"] then
 				buffExports.PlayerMods["Enemy"..damageType.."ResistEqualToYours"] = true
@@ -2846,6 +2847,48 @@ function calcs.perform(env, fullDPSSkipEHP)
 		if env.modDB:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and output["EnduranceChargesMax"] then
 			buffExports.PlayerMods["PartyMemberMaximumEnduranceChargesEqualToYours"] = true
 			buffExports.PlayerMods["EnduranceChargesMax="..tostring(output["EnduranceChargesMax"])] = true
+		end
+		
+		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
+		
+		-- preStack Mine auras
+		for auraName, aura in pairs(buffExports["Aura"]) do
+			if auraName:match("Mine") and not auraName:match(" Limit") then
+				buffExports["Aura"][auraName] = copyTable(buffExports["Aura"][auraName])
+				aura = buffExports["Aura"][auraName]
+				local stackCount = buffExports["EnemyMods"]["Multiplier:"..auraName.."Stack"] and buffExports["EnemyMods"]["Multiplier:"..auraName.."Stack"].value or 0
+				buffExports["EnemyMods"]["Multiplier:"..auraName.."Stack"] = nil
+				if stackCount == 0 then
+					buffExports["Aura"][auraName] = nil
+				else
+					for _, mod in ipairs(aura.modList) do
+						for _, tag in ipairs(mod) do
+							if (tag.effectStackVar or "") == "ActiveMineCount" then
+								tag.effectStackVar = nil
+								mod.value = mod.value * stackCount
+								break
+							end
+						end
+					end
+				end
+				if buffExports["Aura"][auraName.." Limit"] then
+					buffExports["Aura"][auraName.." Limit"] = copyTable(buffExports["Aura"][auraName.." Limit"])
+					aura = buffExports["Aura"][auraName.." Limit"]
+					if stackCount == 0 then
+						buffExports["Aura"][auraName.." Limit"] = nil
+					else
+						for _, mod in ipairs(aura.modList) do
+							for _, tag in ipairs(mod) do
+								if (tag.effectStackVar or "") == "ActiveMineCount" then
+									tag.effectStackVar = nil
+									mod.value = mod.value * stackCount
+									break
+								end
+							end
+						end
+					end
+				end
+			end
 		end
 		
 		for linkName, link in pairs(buffExports["Link"]) do

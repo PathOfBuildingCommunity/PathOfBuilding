@@ -531,7 +531,7 @@ return {
 	}, },
 	{ label = "MH Crit Chance", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "{2:output:MainHand.CritChance}%", 
 		{ breakdown = "MainHand.CritChance" }, 
-		{ label = "Player modifiers", modName = { "CritChance", "WeaponBaseCritChance" }, cfg = "weapon1" }, 
+		{ label = "Player modifiers", modName = { "CritChance", "WeaponBaseCritChance", "MainHandCritIsEqualToParent", "MainHandCritIsEqualToPartyMember", "AttackCritIsEqualToParentMainHand" }, cfg = "weapon1" }, 
 		{ label = "Enemy modifiers", modName = "SelfCritChance", enemy = true }, 
 	}, },
 	{ label = "MH Crit Multiplier", bgCol = colorCodes.MAINHANDBG, flag = "weapon1Attack", { format = "x {2:output:MainHand.CritMultiplier}", 
@@ -547,7 +547,7 @@ return {
 	}, },
 	{ label = "OH Crit Chance", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "{2:output:OffHand.CritChance}%", 
 		{ breakdown = "OffHand.CritChance" }, 
-		{ label = "Player modifiers", modName = { "CritChance", "WeaponBaseCritChance" }, cfg = "weapon2" },
+		{ label = "Player modifiers", modName = { "CritChance", "WeaponBaseCritChance", "AttackCritIsEqualToParentMainHand" }, cfg = "weapon2" },
 		{ label = "Enemy modifiers", modName = "SelfCritChance", enemy = true }, 
 	}, },
 	{ label = "OH Crit Multiplier", bgCol = colorCodes.OFFHANDBG, flag = "weapon2Attack", { format = "x {2:output:OffHand.CritMultiplier}", 
@@ -1637,7 +1637,7 @@ return {
 } },
 -- misc defense
 { 1, "MiscDefences", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {
-	{ label = "Movement Speed", { format = "x {2:output:EffectiveMovementSpeedMod}", { breakdown = "EffectiveMovementSpeedMod" }, { modName = "MovementSpeed" }, }, },
+	{ label = "Movement Speed", { format = "x {2:output:EffectiveMovementSpeedMod}", { breakdown = "EffectiveMovementSpeedMod" }, { modName = { "MovementSpeed", "MovementSpeedEqualHighestLinkedPlayers" } }, }, },
 	{ label = "Effect of Elusive", haveOutput = "ElusiveEffectMod", { format = "{0:output:ElusiveEffectMod}%", { breakdown = "ElusiveEffectMod" }, { modName = { "ElusiveEffect", "BuffEffectOnSelf", "NightbladeSupportedElusiveEffect" }, }, } },
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
 	{ label = "Curse Effect on You", { format = "{1:output:CurseEffectOnSelf}%", { modName = "CurseEffectOnSelf" }, }, },
