@@ -1508,10 +1508,13 @@ function calcs.offence(env, actor, activeSkill)
 			if val.type == "Life" then
 				local manaType = resource:gsub("Life", "Mana")
 				if skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then -- Blood Magic / Lifetap
+					val.baseCost = val.baseCost + costs[manaType].baseCost
+					val.baseCostNoMult = val.baseCostNoMult + costs[manaType].baseCostNoMult
 					val.finalBaseCost = costs[manaType].finalBaseCost
+					costs[manaType].baseCost = 0
+					costs[manaType].baseCostNoMult = 0
 					costs[manaType].finalBaseCost = 0
-				end
-				if additionalLifeCost > 0 or hybridLifeCost > 0 then
+				elseif additionalLifeCost > 0 or hybridLifeCost > 0 then
 					val.baseCost = costs[manaType].baseCost
 					val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * (hybridLifeCost + additionalLifeCost))
 				end
