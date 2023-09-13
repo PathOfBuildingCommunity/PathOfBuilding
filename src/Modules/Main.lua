@@ -13,7 +13,6 @@ local m_min = math.min
 local m_sin = math.sin
 local m_cos = math.cos
 local m_pi = math.pi
-local jit = require("jit")
 
 LoadModule("GameVersions")
 LoadModule("Modules/Common")
@@ -477,19 +476,6 @@ function main:CallMode(func, ...)
 	end
 end
 
-function main:SetJIT(state)
-	if jit.status() ~= state then
-		if state then
-			jit.on()
-			ConPrintf("JIT Enabled")
-		else
-			jit.off()
-			jit.flush()
-			ConPrintf("JIT Disabled")
-		end
-	end
-end
-
 function main:LoadSettings(ignoreBuild)
 	local setXML, errMsg = common.xml.LoadXMLFile(self.userPath.."Settings.xml")
 	if not setXML then
@@ -549,9 +535,6 @@ function main:LoadSettings(ignoreBuild)
 				if node.attrib.colorNegative then
 					updateColorCode("NEGATIVE", node.attrib.colorNegative)
 					self.colorNegative = node.attrib.colorNegative
-				end
-				if node.attrib.jit == "false" then
-					self:SetJIT(false)
 				end
 				-- In order to preserve users' settings through renaming/merging this variable, we have this if statement to use the first found setting
 				-- Once the user has closed PoB once, they will be using the new `showThousandsSeparator` variable name, so after some time, this statement may be removed
@@ -690,7 +673,6 @@ function main:SaveSettings()
 		nodePowerTheme = self.nodePowerTheme,
 		colorPositive = self.colorPositive,
 		colorNegative = self.colorNegative,
-		jit = jit.status() == false and "false" or nil,
 		showThousandsSeparators = tostring(self.showThousandsSeparators),
 		thousandsSeparator = self.thousandsSeparator,
 		decimalSeparator = self.decimalSeparator,
@@ -816,11 +798,6 @@ function main:OpenOptionsPopup()
 	end)
 
 	nextRow()
-	controls.jit = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7JIT compiler:")
-	controls.jit.tooltipText = "Generate machine code during runtime to improve program performance.\nRecommended enabled but disabling may help with certain antivirus software."
-	controls.jit.state = jit.status()
-
-	nextRow()
 	drawSectionHeader("build", "Build-related options")
 
 	controls.showThousandsSeparators = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT"}, defaultLabelPlacementX, currentY, 20, "^7Show thousands separators:", function(state)
@@ -939,7 +916,6 @@ function main:OpenOptionsPopup()
 		if not launch.devMode then
 			main:SetManifestBranch(self.betaTest and "beta" or "master")
 		end
-		self:SetJIT(controls.jit.state)
 		main:ClosePopup()
 		main:SaveSettings()
 	end)
