@@ -1081,8 +1081,22 @@ local function defaultTriggerHandler(env, config)
 					end	
 				end
 			end
+<<<<<<< Updated upstream
 			
 			if trigRate ~= nil and not actor.mainSkill.skillFlags.globalTrigger and not config.ignoreSourceRate then
+=======
+
+			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
+				local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
+				local vixensCD = vixens and vixens.levels[1].cooldown / icdr
+				output.EffectiveSourceRate = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(env.player.mainSkill, env), icdr = icdr}}, trigRate, vixensCD)
+				output.VixensTooMuchCastSpeedWarn = vixensCD > (1 / trigRate)
+				if breakdown then
+					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f / %.2f = %.2f ^8(Vixen's trigger cooldown)", vixensCD * icdr, icdr, vixensCD))
+					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Simulated trigger rate of a curse socketed in Vixen's given ^7%.2f ^8CD and ^7%.2f ^8source rate)", output.EffectiveSourceRate, vixensCD, trigRate))
+				end
+			elseif trigRate ~= nil and not actor.mainSkill.skillFlags.globalTrigger and not config.ignoreSourceRate then
+>>>>>>> Stashed changes
 				output.EffectiveSourceRate = trigRate
 			else
 				output.EffectiveSourceRate = output.TriggerRateCap
@@ -1099,10 +1113,7 @@ local function defaultTriggerHandler(env, config)
 			if output.EffectiveSourceRate ~= 0 then
 				if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
 					local overlaps = m_max(env.player.modDB:Sum("BASE", nil, "Multiplier:CurseOverlaps") or 1, 1)
-					output.SkillTriggerRate = m_min(output.EffectiveSourceRate * overlaps, output.TriggerRateCap)
-					local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
-					local vixensCD = vixens and vixens.levels[1].cooldown
-					output.VixensTooMuchCastSpeedWarn = (vixensCD / icdr) > (1 / trigRate)
+					output.SkillTriggerRate = m_min(output.TriggerRateCap, output.EffectiveSourceRate * overlaps)
 					if breakdown then
 						breakdown.SkillTriggerRate = {
 							s_format("min(%.2f, %.2f *  %d)", output.TriggerRateCap, output.EffectiveSourceRate, overlaps)
@@ -1525,6 +1536,7 @@ local configTable = {
 	end,		
 	["doom blast"] = function(env)
 		env.player.mainSkill.skillData.ignoresTickRate = true
+		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {useCastRate = true,
 				customTriggerName = "Doom Blast triggering Hex: ",
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) end}
