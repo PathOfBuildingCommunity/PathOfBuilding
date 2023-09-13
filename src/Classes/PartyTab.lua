@@ -704,6 +704,13 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					if line:match("%.") then
 						local k1, k2, v = line:match("([%w ]-%w+)%.([%w ]-%w+)=(.+)")
 						label[k1] = {[k2] = tonumber(v)}
+					elseif line:match("|") then
+						local k, tag, v = line:match("([%w ]-%w+)|(%w+)=(.+)")
+						if tag == "percent" then
+							label[k] = tonumber(v)/100
+						else
+							label[k] = tonumber(v)
+						end
 					else
 						local k, v = line:match("([%w ]-%w+)=(.+)")
 						label[k] = tonumber(v)
