@@ -62,13 +62,14 @@ function calcs.mirages(env)
 				local moreDamage =  newSkill.skillModList:Sum("BASE", newSkill.skillCfg, "MirageArcherLessDamage")
 				local moreAttackSpeed = newSkill.skillModList:Sum("BASE", newSkill.skillCfg, "MirageArcherLessAttackSpeed")
 				local mirageCount = newSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MirageArcherMaxCount")
+				
+				env.player.mainSkill.mirage = { }
+				env.player.mainSkill.mirage.name = newSkill.activeEffect.grantedEffect.name
 				env.player.mainSkill.mirage.count = mirageCount
+				
 				if not env.player.mainSkill.infoMessage then
 					env.player.mainSkill.infoMessage = tostring(mirageCount) .. " Mirage Archers using " .. newSkill.activeEffect.grantedEffect.name
 				end
-
-				env.player.mainSkill.mirage = { }
-				env.player.mainSkill.mirage.name = newSkill.activeEffect.grantedEffect.name
 
 				-- Add new modifiers to new skill (which already has all the old skill's modifiers)
 				newSkill.skillModList:NewMod("Damage", "MORE", moreDamage, "Mirage Archer", env.player.mainSkill.ModFlags, env.player.mainSkill.KeywordFlags)
