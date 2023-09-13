@@ -426,12 +426,12 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					baseVal = ""
 				elseif tag.type == "PerStat" then
 					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(row.mod.value).." ") or baseVal
-					desc = base.."per "..(tag.div or 1).." "..self:FormatVarNameOrList(tag.stat, tag.statList)
+					desc = base.."per "..(tag.div or 1).." "..(tag.actor and (tag.actor.." ") or "")..self:FormatVarNameOrList(tag.stat, tag.statList)
 					baseVal = ""
 				elseif tag.type == "PercentStat" then
 					local finalPercent = (row.mod.value * (tag.percent / 100)) * 100
 					local base = tag.base and (self:FormatModBase(row.mod, tag.base).." + "..math.abs(finalPercent).." ") or self:FormatModBase(row.mod, finalPercent)
-					desc = base.."% of "..self:FormatVarNameOrList(tag.stat, tag.statList)
+					desc = base.."% of "..(tag.actor and (tag.actor.." ") or "")..self:FormatVarNameOrList(tag.stat, tag.statList)
 					baseVal = ""
 				elseif tag.type == "MultiplierThreshold" or tag.type == "StatThreshold" then
 					desc = "If "..self:FormatVarNameOrList(tag.var or tag.stat, tag.varList or tag.statList)..(tag.upper and " <= " or " >= ")..(tag.threshold or self:FormatModName(tag.thresholdVar or tag.thresholdStat))

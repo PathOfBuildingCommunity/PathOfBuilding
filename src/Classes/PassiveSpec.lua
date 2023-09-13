@@ -37,8 +37,8 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	self.nodes = { }
 	for _, treeNode in pairs(self.tree.nodes) do
 		-- Exclude proxy or groupless nodes, as well as expansion sockets
-		if treeNode.group and not treeNode.isProxy and not treeNode.group.isProxy and (not treeNode.expansionJewel or not treeNode.expansionJewel.parent) then 
-			self.nodes[treeNode.id] = setmetatable({ 
+		if treeNode.group and not treeNode.isProxy and not treeNode.group.isProxy and (not treeNode.expansionJewel or not treeNode.expansionJewel.parent) then
+			self.nodes[treeNode.id] = setmetatable({
 				linked = { },
 				power = { }
 			}, treeNode)
@@ -144,19 +144,8 @@ function PassiveSpecClass:Load(xml, dbFileName)
 						
 						local nodeId = tonumber(child.attrib.nodeId)
 
-						self.hashOverrides[nodeId] = copyTable(self.nodes[nodeId], true)
+						self.hashOverrides[nodeId] = copyTable(self.tree.tattoo.nodes[child.attrib.dn], true)
 						self.hashOverrides[nodeId].id = nodeId
-						self.hashOverrides[nodeId].isTattoo = true
-						self.hashOverrides[nodeId].icon = child.attrib.icon
-						self.hashOverrides[nodeId].activeEffectImage = child.attrib.activeEffectImage
-						self.hashOverrides[nodeId].dn = child.attrib.dn
-						local modCount = 0
-						for _, modLine in ipairs(child) do
-							for line in string.gmatch(modLine .. "\r\n", "([^\r\n\t]*)\r?\n") do
-								self:NodeAdditionOrReplacementFromString(self.hashOverrides[nodeId], line, modCount == 0)
-								modCount = modCount + 1
-							end
-						end
 					end
 				end
 			end
@@ -177,18 +166,18 @@ function PassiveSpecClass:Save(xml)
 	for mastery, effect in pairs(self.masterySelections) do
 		t_insert(masterySelections, "{"..mastery..","..effect.."}")
 	end
-	xml.attrib = { 
+	xml.attrib = {
 		title = self.title,
 		treeVersion = self.treeVersion,
 		-- New format
-		classId = tostring(self.curClassId), 
-		ascendClassId = tostring(self.curAscendClassId), 
+		classId = tostring(self.curClassId),
+		ascendClassId = tostring(self.curAscendClassId),
 		nodes = table.concat(allocNodeIdList, ","),
 		masteryEffects = table.concat(masterySelections, ",")
 	}
 	t_insert(xml, {
 		-- Legacy format
-		elem = "URL", 
+		elem = "URL",
 		[1] = self:EncodeURL("https://www.pathofexile.com/passive-skill-tree/")
 	})
 
@@ -271,9 +260,14 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, h
 	self:SelectAscendClass(ascendClassId)
 end
 
-function PassiveSpecClass:AllocateDecodedNodes(nodes, isCluster)
+function PassiveSpecClass:AllocateDecodedNodes(nodes, isCluster, endian)
 	for i = 1, #nodes - 1, 2 do
-		local id = nodes:byte(i) * 256 + nodes:byte(i + 1)
+		local id
+		if endian == "big" then
+			id = nodes:byte(i) * 256 + nodes:byte(i + 1)
+		else
+			id = nodes:byte(i) + nodes:byte(i + 1) * 256
+		end
 		if isCluster then
 			id = id + 65536
 		end
@@ -285,11 +279,23 @@ function PassiveSpecClass:AllocateDecodedNodes(nodes, isCluster)
 	end
 end
 
-function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
+function PassiveSpecClass:AllocateMasteryEffects(masteryEffects, endian)
 	for i = 1, #masteryEffects - 1, 4 do
-		local effectId = masteryEffects:byte(i) * 256 + masteryEffects:byte(i + 1)
-		local id  = masteryEffects:byte(i + 2) * 256 + masteryEffects:byte(i + 3)
-
+		local effectId, id
+		if endian == "big" then
+			effectId = masteryEffects:byte(i) * 256 + masteryEffects:byte(i + 1)
+			id  = masteryEffects:byte(i + 2) * 256 + masteryEffects:byte(i + 3)
+		else
+			-- "little". NOTE: poeplanner swap effectId and id too.
+			effectId = masteryEffects:byte(i + 2) + masteryEffects:byte(i + 3) * 256
+			id  = masteryEffects:byte(i) + masteryEffects:byte(i + 1) * 256
+			-- Assign the node, representing the Mastery, not required for GGG urls.
+			local node = self.nodes[id]
+			if node then
+				node.alloc = true
+				self.allocNodes[id] = node
+			end
+		end
 		local effect = self.tree.masteryEffects[effectId]
 		if effect then
 			self.allocNodes[id].sd = effect.sd
@@ -316,7 +322,96 @@ function PassiveSpecClass:AllocateMasteryEffects(masteryEffects)
 	end
 end
 
--- Decode the given passive tree URL
+-- Decode the given poeplanner passive tree URL
+function PassiveSpecClass:DecodePoePlannerURL(url, return_tree_version_only)
+	-- poeplanner uses little endian numbers (GGG using BIG).
+	-- If return_tree_version_only is True, then the return value will either be an error message or the tree version.
+	   -- both error messages begin with 'Invalid'
+	local function byteToInt(bytes, start)
+		-- get a little endian number from two bytes
+		return bytes:byte(start) + bytes:byte(start + 1) * 256
+	end
+
+	local function translatePoepToGggTreeVersion(minor)
+		-- Translates internal tree version to GGG version.
+		-- Limit poeplanner tree imports to recent versions.
+		tree_versions = { -- poeplanner ID: GGG version
+			[27] = 22, [26] = 21, [25] = 20, [24] = 19, [23] = 18,
+			}
+		if tree_versions[minor] then
+			return tree_versions[minor]
+		else
+			return -1
+		end
+	end
+
+	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
+	if not b or #b < 15 then
+		return "Invalid tree link (unrecognised format)."
+	end
+	-- Quick debug for when we change tree versions. Print the first 20 or so bytes
+	-- s = ""
+	-- for i = 1, 20 do
+		-- s = s..i..":"..string.format('%02X ', b:byte(i))
+	-- end
+	-- print(s)
+
+	-- 4-7 is tree version.version
+	major_version = byteToInt(b,4)
+	minor_version = translatePoepToGggTreeVersion(byteToInt(b,6))
+	-- If we only want the tree version, exit now
+	if minor_version < 0 then
+		return "Invalid tree version found in link."
+	end
+	if return_tree_version_only then
+		return major_version.."_"..minor_version
+	end
+
+	-- 8 is Class, 9 is Ascendancy
+	local classId = b:byte(8)
+	local ascendClassId = b:byte(9)
+	-- print("classId, ascendClassId", classId, ascendClassId)
+
+	-- 9 is Bandit
+	-- bandit = b[9]
+	-- print("bandit", bandit, bandit_list[bandit])
+
+	self:ResetNodes()
+	self:SelectClass(classId)
+	self:SelectAscendClass(ascendClassId)
+
+	-- 11 is node count
+	idx = 11
+	local nodesCount = byteToInt(b, idx)
+	local nodesEnd = idx + 2 + (nodesCount * 2)
+	local nodes = b:sub(idx  + 2, nodesEnd - 1)
+	-- print("idx + 2 , nodesEnd, nodesCount, len(nodes)", idx + 2, nodesEnd, nodesCount, #nodes)
+	self:AllocateDecodedNodes(nodes, false, "little")
+
+	idx = nodesEnd
+	local clusterCount = byteToInt(b, idx)
+	local clusterEnd = idx + 2 + (clusterCount * 2)
+	local clusterNodes = b:sub(idx  + 2, clusterEnd - 1)
+	-- print("idx + 2 , clusterEnd, clusterCount, len(clusterNodes)", idx + 2, clusterEnd, clusterCount, #clusterNodes)
+	self:AllocateDecodedNodes(clusterNodes, true, "little")
+
+	-- poeplanner has Ascendancy nodes in a separate array
+	idx = clusterEnd
+	local ascendancyCount = byteToInt(b, idx)
+	local ascendancyEnd = idx + 2 + (ascendancyCount * 2)
+	local ascendancyNodes = b:sub(idx  + 2, ascendancyEnd - 1)
+	-- print("idx + 2 , ascendancyEnd, ascendancyCount, len(ascendancyNodes)", idx + 2, ascendancyEnd, ascendancyCount, #ascendancyNodes)
+	self:AllocateDecodedNodes(ascendancyNodes, false, "little")
+
+	idx = ascendancyEnd
+	local masteryCount = byteToInt(b, idx)
+	local masteryEnd = idx + 2 + (masteryCount * 4)
+	local masteryEffects = b:sub(idx  + 2, masteryEnd - 1)
+	-- print("idx + 2 , masteryEnd, masteryCount, len(masteryEffects)", idx + 2, masteryEnd, masteryCount, #masteryEffects)
+	self:AllocateMasteryEffects(masteryEffects, "little")
+end
+
+-- Decode the given GGG passive tree URL
 function PassiveSpecClass:DecodeURL(url)
 	local b = common.base64.decode(url:gsub("^.+/",""):gsub("-","+"):gsub("_","/"))
 	if not b or #b < 6 then
@@ -326,7 +421,7 @@ function PassiveSpecClass:DecodeURL(url)
 	if ver > 6 then
 		return "Invalid tree link (unknown version number '"..ver.."')"
 	end
-	local classId = b:byte(5)	
+	local classId = b:byte(5)
 	local ascendClassId = (ver >= 4) and b:byte(6) or 0
 	if not self.tree.classes[classId] then
 		return "Invalid tree link (bad class ID '"..classId.."')"
@@ -334,12 +429,11 @@ function PassiveSpecClass:DecodeURL(url)
 	self:ResetNodes()
 	self:SelectClass(classId)
 	self:SelectAscendClass(ascendClassId)
-	
+
 	local nodesStart = ver >= 4 and 8 or 7
 	local nodesEnd = ver >= 5 and 7 + (b:byte(7) * 2) or -1
 	local nodes = b:sub(nodesStart, nodesEnd)
-	
-	self:AllocateDecodedNodes(nodes, false)
+	self:AllocateDecodedNodes(nodes, false, "big")
 
 	if ver < 5 then
 		return
@@ -348,24 +442,23 @@ function PassiveSpecClass:DecodeURL(url)
 	local clusterStart = nodesEnd + 1
 	local clusterEnd = clusterStart + (b:byte(clusterStart) * 2)
 	local clusterNodes = b:sub(clusterStart + 1, clusterEnd)
-	
-	self:AllocateDecodedNodes(clusterNodes, true)
-	
+	self:AllocateDecodedNodes(clusterNodes, true, "big")
+
 	if ver < 6 then
 		return
 	end
-	
+
 	local masteryStart = clusterEnd + 1
 	local masteryEnd = masteryStart + (b:byte(masteryStart) * 4)
 	local masteryEffects = b:sub(masteryStart + 1, masteryEnd)
-	self:AllocateMasteryEffects(masteryEffects)
+	self:AllocateMasteryEffects(masteryEffects, "big")
 end
 
 -- Encodes the current spec into a URL, using the official skill tree's format
 -- Prepends the URL with an optional prefix
 function PassiveSpecClass:EncodeURL(prefix)
 	local a = { 0, 0, 0, 6, self.curClassId, self.curAscendClassId }
-	
+
 	local nodeCount = 0
 	local clusterCount = 0
 	local masteryCount = 0
@@ -399,12 +492,12 @@ function PassiveSpecClass:EncodeURL(prefix)
 	for _, id in pairs(clusterNodeIds) do
 		t_insert(a, id)
 	end
-	
+
 	t_insert(a, masteryCount)
 	for _, id in pairs(masteryNodeIds) do
 		t_insert(a, id)
 	end
-	
+
 	return (prefix or "")..common.base64.encode(string.char(unpack(a))):gsub("+","-"):gsub("/","_")
 end
 
@@ -419,7 +512,7 @@ function PassiveSpecClass:SelectClass(classId)
 
 	self.curClassId = classId
 	local class = self.tree.classes[classId]
-	self.curClass = class 
+	self.curClass = class
 	self.curClassName = class.name
 
 	-- Allocate the new class's starting node
@@ -458,7 +551,7 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 end
 
 -- Determines if the given class's start node is connected to the current class's start node
--- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e. Ascendant) 
+-- Attempts to find a path between the nodes which doesn't pass through any ascendancy nodes (i.e. Ascendant)
 function PassiveSpecClass:IsClassConnected(classId)
 	for _, other in ipairs(self.nodes[self.tree.classes[classId].startNodeId].linked) do
 		-- For each of the nodes to which the given class's start node connects...
@@ -568,7 +661,7 @@ function PassiveSpecClass:CountAllocNodes()
 end
 
 -- Attempt to find a class start node starting from the given node
--- Unless noAscent == true it will also look for an ascendancy class start node 
+-- Unless noAscent == true it will also look for an ascendancy class start node
 function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 	-- Mark the current node as visited so we don't go around in circles
 	node.visited = true
@@ -579,8 +672,8 @@ function PassiveSpecClass:FindStartFromNode(node, visited, noAscend)
 		--  - the other node is a start node, or
 		--  - there is a path to a start node through the other node which didn't pass through any nodes which have already been visited
 		local startIndex = #visited + 1
-		if other.alloc and 
-		  (other.type == "ClassStart" or other.type == "AscendClassStart" or 
+		if other.alloc and
+		  (other.type == "ClassStart" or other.type == "AscendClassStart" or
 		    (not other.visited and node.type ~= "Mastery" and self:FindStartFromNode(other, visited, noAscend))
 		  ) then
 			if node.ascendancyName and not other.ascendancyName then
@@ -691,17 +784,18 @@ end
 
 function PassiveSpecClass:AddMasteryEffectOptionsToNode(node)
 	node.sd = {}
-	if node.masteryEffects ~= nil then
+	if node.masteryEffects ~= nil and #node.masteryEffects > 0 then
 		for _, effect in ipairs(node.masteryEffects) do
 			effect = self.tree.masteryEffects[effect.effect]
-			if effect.sd ~= nil then
-				for _, sd in ipairs(effect.sd) do
-					t_insert(node.sd, sd)
-				end
+			local startIndex = #node.sd + 1
+			for _, sd in ipairs(effect.sd) do
+				t_insert(node.sd, sd)
 			end
+			self.tree:ProcessStats(node, startIndex)
 		end
+	else
+		self.tree:ProcessStats(node)
 	end
-	self.tree:ProcessStats(node)
 	node.allMasteryOptions = true
 end
 
@@ -786,7 +880,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 			if jewelType == 5 then
 				seed = seed / 20
 			end
-			
+
 			local replaceHelperFunc = function(statToFix, statKey, statMod, value)
 				if statMod.fmt == "g" then -- note the only one we actually care about is "Ritual of Flesh" life regen
 					if statKey:find("per_minute") then
@@ -820,7 +914,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 					if jewelType == 1 then
 						local headerSize = #jewelDataTbl
 						-- FIXME: complete implementation of this. Need to set roll values for stats
-						--        based on their `fmt` specification 
+						--        based on their `fmt` specification
 						if headerSize == 2 or headerSize == 3 then
 							self:ReplaceNode(node, legionNodes[jewelDataTbl[1] + 1 - data.timelessJewelAdditions])
 
@@ -900,7 +994,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 						self:ReplaceNode(node, legionNode)
 						break
 					end
-				end					
+				end
 			elseif node.type == "Normal" then
 				if conqueredBy.conqueror.type == "vaal" then
 					local jewelDataTbl = { }

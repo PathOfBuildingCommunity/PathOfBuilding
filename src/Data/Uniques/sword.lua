@@ -267,7 +267,7 @@ Implicits: 2
 25% increased Global Physical Damage with Weapons per Red Socket
 12% increased Global Attack Speed per Green Socket
 0.4% of Physical Attack Damage Leeched as Mana per Blue Socket
-+2 to Melee Strike Range per White Socket
++0.2 metres to Melee Strike Range per White Socket
 ]],[[
 Razor of the Seventh Sun
 Midnight Blade

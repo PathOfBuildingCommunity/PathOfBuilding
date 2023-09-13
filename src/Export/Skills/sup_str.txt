@@ -130,19 +130,16 @@ local skills, mod, flag, skill = ...
 #skill SupportControlledBlaze
 	statMap = {
 		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimit" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimitMax", limitTotal = true }),
 		},
 		["support_recent_ignites_damage_per_recent_ignite_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimit"}),
-		},
-		["support_recent_ignites_max_recent_ignites_tracked"] = {
-			mod("Multiplier:ControlledBlazeRecentIgniteLimit", "BASE", nil),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimitMin", limitNegTotal = true }),
 		},
 		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"] = {
-			-- Display only,
+			mod("Multiplier:ControlledBlazeRecentIgniteLimitMax", "BASE", nil),
 		},
 		["support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"] = {
-			-- Display only,
+			mod("Multiplier:ControlledBlazeRecentIgniteLimitMin", "BASE", nil),
 		},
 	},
 #mods
@@ -633,6 +630,11 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportStun
+	statMap = {
+		["chance_to_double_stun_duration_%"] = {
+			mod("DoubleEnemyStunDurationChance", "BASE", nil, 0, 0),
+		},
+	},
 #mods
 
 #skill SupportTrauma
