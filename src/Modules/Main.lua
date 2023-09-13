@@ -40,6 +40,7 @@ local tempTable2 = { }
 main = new("ControlHost")
 
 function main:Init()
+	self:DetectUnicodeSupport()
 	self.modes = { }
 	self.modes["LIST"] = LoadModule("Modules/BuildList")
 	self.modes["BUILD"] = LoadModule("Modules/Build")
@@ -252,6 +253,15 @@ the "Releases" section of the GitHub page.]])
 				error(errMsg)
 			end
 		end
+	end
+end
+
+function main:DetectUnicodeSupport()
+	-- In PoeCharm returns a valid width, in normal PoB returns 2142240768
+	local w = DrawStringWidth(16, "VAR", "\195\164") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
+	self.unicode = w > 0 and w < 100
+	if self.unicode then
+		ConPrintf("Unicode support detected")
 	end
 end
 
