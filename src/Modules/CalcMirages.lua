@@ -175,7 +175,6 @@ function calcs.mirages(env)
 
 		local triggerCD = env.player.mainSkill.skillData.cooldown
 		local triggeredCD
-		local triggerDuration = calcSkillDuration(env.player.mainSkill.skillModList, env.player.mainSkill.skillCfg, env.player.mainSkill.skillData, env, env.player.enemy.modDB)
 		local icdrSkill
 		local effectiveTriggerCD
 		local modActionCooldown
@@ -212,7 +211,7 @@ function calcs.mirages(env)
 				triggeredCD = newSkill.skillData.cooldown
 				icdrSkill = calcLib.mod(newSkill.skillModList, newSkill.skillCfg, "CooldownRecovery")
 
-				effectiveTriggerCD = (triggerCD / icdrSkill) + triggerDuration
+				effectiveTriggerCD = triggerCD / icdrSkill
 				modActionCooldown = m_max( triggeredCD or 0, effectiveTriggerCD or 0 ) / icdrSkill
 				rateCapAdjusted = m_ceil(modActionCooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 				if modActionCooldown ~= 0 then
@@ -286,7 +285,6 @@ function calcs.mirages(env)
 							"",
 							s_format("%.2f ^8(Tawhoa's Chosen base cooldown)", triggerCD),
 							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
-							s_format("+ %.2f ^8(only one Tawhoa's Chosen can be active at a time thus we add duration)", triggerDuration),
 							s_format("= %.2f ^8(effective trigger cooldown)", effectiveTriggerCD),
 							"",
 							s_format("%.2f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
@@ -303,7 +301,6 @@ function calcs.mirages(env)
 							"",
 							s_format("%.2f ^8(Tawhoa's Chosen base cooldown)", triggerCD),
 							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
-							s_format("+ %.2f ^8(only one Tawhoa's Chosen can be active at a time thus we add duration)", triggerDuration),
 							s_format("= %.2f ^8(effective trigger cooldown)", effectiveTriggerCD),
 							"",
 							s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
