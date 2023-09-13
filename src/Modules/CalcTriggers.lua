@@ -766,12 +766,15 @@ local function defaultTriggerHandler(env, config)
 			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
 				local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
 				local vixensCD = vixens and vixens.levels[1].cooldown / icdr
-				output.EffectiveSourceRate = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(env.player.mainSkill, env), icdr = icdr}}, trigRate, vixensCD)
-				output.VixensTooMuchCastSpeedWarn = vixensCD > (1 / trigRate)
-				if breakdown then
-					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f / %.2f = %.2f ^8(Vixen's trigger cooldown)", vixensCD * icdr, icdr, vixensCD))
-					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Simulated trigger rate of a curse socketed in Vixen's given ^7%.2f ^8CD and ^7%.2f ^8source rate)", output.EffectiveSourceRate, vixensCD, trigRate))
+				local trigTime = (1 / trigRate)
+				output.VixensTooMuchCastSpeedWarn = vixensCD > trigTime
+				if output.VixensTooMuchCastSpeedWarn then
+					trigRate = 1 / (trigTime * m_ceil(vixensCD / trigTime))
+					if breakdown then
+						t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(adjusted for Vixen's cooldown)", trigRate))
+					end
 				end
+				output.EffectiveSourceRate = trigRate
 			elseif trigRate ~= nil and not actor.mainSkill.skillFlags.globalTrigger and not config.ignoreSourceRate then
 				output.EffectiveSourceRate = trigRate
 			else
