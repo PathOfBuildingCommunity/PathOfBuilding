@@ -763,7 +763,7 @@ local function defaultTriggerHandler(env, config)
 				end
 			end
 
-			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
+			if env.player.mainSkill.activeEffect.grantedEffect.name == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
 				local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
 				local vixensCD = vixens and vixens.levels[1].cooldown / icdr
 				local trigTime = (1 / trigRate)
@@ -790,7 +790,7 @@ local function defaultTriggerHandler(env, config)
 
 			--If spell count is missing the skill likely comes from a unique and /or triggers it self
 			if output.EffectiveSourceRate ~= 0 then
-				if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
+				if env.player.mainSkill.activeEffect.grantedEffect.name == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
 					local overlaps = m_max(env.player.modDB:Sum("BASE", nil, "Multiplier:CurseOverlaps") or 1, 1)
 					output.SkillTriggerRate = m_min(output.TriggerRateCap, output.EffectiveSourceRate * overlaps)
 					if breakdown then
