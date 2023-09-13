@@ -1444,9 +1444,6 @@ function buildMode:AddDisplayStatList(statList, actor)
 	if actor.output.VixensTooMuchCastSpeedWarn then
 		InsertIfNew(self.controls.warnings.lines, "You may have too much cast speed or too little cooldown reduction to effectively use Vixen's Curse replacement")
 	end
-	if actor.output.VixensTooMuchCastSpeedWarn then
-		InsertIfNew(self.controls.warnings.lines, "You may have too much cast speed or too little cooldown reduction to effectively use Vixen's Curse replacement")
-	end
 end
 
 function buildMode:InsertItemWarnings()
