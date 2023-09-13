@@ -2848,6 +2848,8 @@ function calcs.perform(env, fullDPSSkipEHP)
 			buffExports.PlayerMods["EnduranceChargesMax="..tostring(output["EnduranceChargesMax"])] = true
 		end
 		
+		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
+		
 		for linkName, link in pairs(buffExports["Link"]) do
 			if linkName == "Flame Link" then
 				buffExports.PlayerMods["Life="..tostring(output["Life"])] = true

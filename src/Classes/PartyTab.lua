@@ -7,6 +7,7 @@ local pairs = pairs
 local ipairs = ipairs
 local s_format = string.format
 local t_insert = table.insert
+local m_max = math.max
 
 local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
@@ -704,6 +705,17 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 					if line:match("%.") then
 						local k1, k2, v = line:match("([%w ]-%w+)%.([%w ]-%w+)=(.+)")
 						label[k1] = {[k2] = tonumber(v)}
+					elseif line:match("|") then
+						local k, tags, v = line:match("([%w ]-%w+)|(.+)=(.+)")
+						v = tonumber(v)
+						for tag in tags:gmatch("([^|]*)|?") do
+							if tag == "percent" then
+								v = v / 100
+							elseif tag == "max" then
+								v = m_max(v, label[k] or 1)
+							end
+						end
+						label[k] = v
 					else
 						local k, v = line:match("([%w ]-%w+)=(.+)")
 						label[k] = tonumber(v)
