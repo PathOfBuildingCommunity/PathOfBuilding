@@ -287,18 +287,18 @@ if settingsStatList then
 					end
 				end
 				if stat.extraSaveStat then
-					stat.extraSaveStat = nil
+					stat.extraSaveStat = (not found) and stat.extraSaveStat or nil
 					if not (stat.displayStat or stat.minionDisplayStat) then
 						t_insert(extraSaveStats, stat.stat)
 					end
 				end
 				if stat.displayStat then
-					stat.displayStat = nil
+					stat.displayStat = (not found) and stat.displayStat or nil
 					t_insert(displayStats, stat)
 					statCount = statCount + 1
 				end
 				if stat.minionDisplayStat then
-					stat.minionDisplayStat = nil
+					stat.minionDisplayStat = (not found) and stat.minionDisplayStat or nil
 					t_insert(minionDisplayStats, stat)
 				end
 			end
