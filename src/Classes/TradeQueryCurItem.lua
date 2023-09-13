@@ -36,15 +36,14 @@ end)
 function TradeQueryCurItem:ParseItem()
     local itemType = ''
     for i, v in pairs(self.curItem.baseLines) do
-        print(v['line'])
         itemType = v['line']
     end
     local itemIsAccessory = self:CheckIfItemIsAccessory(itemType)
     local attribuitIDs = {}
     for i, v in pairs(self.curItem.explicitModLines) do
-        print(v['line'])
+        -- print(v['line'])
         local curStat = self:SanitizeStat(v['line'])
-        print(curStat)
+        -- print(curStat)
         if not itemIsAccessory then
             if self:TableContains(self.attrWithLocal, curStat) then
                 curStat = curStat .. " (Local)"
@@ -53,9 +52,13 @@ function TradeQueryCurItem:ParseItem()
             for j, w in pairs(v) do
                 -- will get stat values from here
             end
-        print(self:GetExplicitID(curStat))
-        table.insert(attribuitIDs, {['id'] = self:GetExplicitID(curStat)})
+        -- print(self:GetExplicitID(curStat))
+        local curStatID = self:GetExplicitID(curStat)
+        if (curStatID ~= nil) and (curStatID ~= '') then
+            table.insert(attribuitIDs, {['id'] = curStatID})
+        end
     end
+    print(dkjson.encode(attribuitIDs))
     local endpoint = dkjson.decode(self:GetTradeEndpoint(self:GetTemplate(itemType, attribuitIDs)))
     return self:GetTradeUrl(endpoint.id)
 end
@@ -64,14 +67,17 @@ end
 -- removes any identifier for fractured,crafted ect
 function TradeQueryCurItem:SanitizeStat(curStat)
     curStat = curStat:gsub("{.*}", "")
-    curStat = curStat:gsub("([+][1-9][0-9][0-9])", "+#")
+    curStat = curStat:gsub("([1-9][0-9[.][0-9][0-9])", "#")
+    -- curStat = curStat:gsub("([+][1-9][0-9][0-9])", "+#")
+    curStat = curStat:gsub("([1-9][.][0-9][0-9])", "#")
     curStat = curStat:gsub("([1-9][0-9][0-9])", "#")
-    curStat = curStat:gsub("([+][1-9][0-9])", "+#")
+    -- curStat = curStat:gsub("([+][1-9][0-9])", "+#")
     curStat = curStat:gsub("([1-9][0-9])", "#")
-    curStat = curStat:gsub("([+][0-9])", "+#")
+    -- curStat = curStat:gsub("([+][0-9])", "+#")
     curStat = curStat:gsub("([0-9])", "#")
-    curStat = curStat:gsub("[+]([()][#][-][#][)])", "+#")
+    -- curStat = curStat:gsub("[+]([()][#][-][#][)])", "+#")
     curStat = curStat:gsub("([()][#][-][#][)])", "#")
+    curStat = curStat:gsub("You can apply an additional Curse", "You can apply # additional Curses")
     return curStat
 end
 
@@ -82,12 +88,12 @@ end
 
 -- get the id's of explicit modifiers
 function TradeQueryCurItem:GetExplicitID(mod)
-    local tradeStats = self:FetchStats()
-    tradeStats:gsub("\n", " ")
-	local tradeQueryStatsParsed = dkjson.decode(tradeStats)
-    for i=1, #tradeQueryStatsParsed.result[2]['entries'] do      
-        if tradeQueryStatsParsed.result[2]['entries'][i]['text'] == mod then
-            return tradeQueryStatsParsed.result[2]['entries'][i]['id']
+    local tradeStates = LoadModule(self.queryModsFilePath)
+    for i, v in pairs(tradeStates['Explicit']) do
+        if v['tradeMod']['text'] == mod then
+            print(v['tradeMod']['text'])
+            print(v['tradeMod']['id'])
+            return v['tradeMod']['id']
         end
     end
     return nil
@@ -132,21 +138,6 @@ function TradeQueryCurItem:CheckIfItemIsAccessory(item)
         end
     end
     return false
-end
-
--- hit the api to get the item attribuites
-function TradeQueryCurItem:FetchStats()
-	local tradeStats = ""
-	local easy = common.curl.easy()
-	easy:setopt_url("https://www.pathofexile.com/api/trade/data/stats")
-	easy:setopt_useragent("Path of Building/" .. launch.versionNumber .. "test")
-	easy:setopt_writefunction(function(data)
-		tradeStats = tradeStats..data
-		return true
-	end)
-	easy:perform()
-	easy:close()
-	return tradeStats
 end
 
 -- hit the api to get a list of items, need this to determine if items are accessories or not
