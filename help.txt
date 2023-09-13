@@ -138,7 +138,7 @@ From here, you can view all of the skills in your build. There are a few differe
 
 The top left window lets you view Socket Groups. Skills can be organized into Socket Groups to show which support gems are applied to certain skills. You can add a socket group by clicking New and selecting a skill from the drop-down. 
 For example, you could add a socket group for Vitality and then attach Arrogance to the group as a support.
-You can also add labels and organize your skills by type (auras, mobillity, damage, etc). This is a great way to keep track of skill changes across skill sets as you level. 
+You can also add labels and organize your skills by type (auras, mobility, damage, etc). This is a great way to keep track of skill changes across skill sets as you level.
 
 Skill sets can be thought of as collections of socket groups. There is a select box above the socket groups window that will let you switch between them. 
 A great way to use these is to create skill sets for different level gaps, allowing you to plan out which skills you can run at certain points in your levelling progression.
