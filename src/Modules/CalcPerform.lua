@@ -2851,7 +2851,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 		
 		buffExports.PlayerMods["MovementSpeedMod|percent|max="..tostring(output["MovementSpeedMod"] * 100)] = true
 		
-		-- prestack Mine auras
+		-- preStack Mine auras
 		for auraName, aura in pairs(buffExports["Aura"]) do
 			if auraName:match("Mine") and not auraName:match(" Limit") then
 				buffExports["Aura"][auraName] = copyTable(buffExports["Aura"][auraName])
