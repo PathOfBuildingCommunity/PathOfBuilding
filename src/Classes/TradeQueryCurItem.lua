@@ -36,8 +36,9 @@ end)
 function TradeQueryCurItem:ParseItem()
     local itemType = self.curItem['baseName']
     local itemIsAccessory = self:CheckIfItemIsAccessory(self.curItem)
-    local attribuitIDs = {}
+    local attributeIDs = {}
     for i, v in pairs(self.curItem.explicitModLines) do
+        -- print(v['line'])
         local curStat = self:SanitizeStat(v['line'])
         if not itemIsAccessory then
             if self:TableContains(self.attrWithLocal, curStat) then
@@ -47,17 +48,19 @@ function TradeQueryCurItem:ParseItem()
             for j, w in pairs(v) do
                 -- will get stat values from here
             end
+        -- print(curStat)
         local curStatID = self:GetExplicitID(curStat)
+        -- print(curStatID)
         if (curStatID ~= nil) and (curStatID ~= '') then
-            table.insert(attribuitIDs, {['id'] = curStatID})
+            table.insert(attributeIDs, {['id'] = curStatID})
         end
     end
-    print(dkjson.encode(attribuitIDs))
-    local endpoint = dkjson.decode(self:GetTradeEndpoint(self:GetTemplate(itemType, attribuitIDs)))
+    -- print(dkjson.encode(attributeIDs))
+    local endpoint = dkjson.decode(self:GetTradeEndpoint(self:GetTemplate(itemType, attributeIDs)))
     return self:GetTradeUrl(endpoint.id)
 end
 
--- Replace the numbers with # to match the format of the incoming attribuites
+-- Replace the numbers with # to match the format of the incoming attributees
 -- removes any identifier for fractured,crafted ect
 function TradeQueryCurItem:SanitizeStat(curStat)
     curStat = curStat:gsub("{.*}", "")
@@ -76,16 +79,29 @@ function TradeQueryCurItem:SanitizeStat(curStat)
 end
 
 -- get the id's of implicit modifier if decided to do this
-function TradeQueryCurItem:GetImplicitID()
-
+function TradeQueryCurItem:GetImplicitID(mod)
+    local tradeMods = LoadModule(self.queryModsFilePath)
+    for i, v in pairs(tradeMods['Implicit']) do
+        if v['tradeMod']['text'] == mod then
+            return v['tradeMod']['id']
+        end
+    end
+    return nil
 end
 
 -- get the id's of explicit modifiers
 function TradeQueryCurItem:GetExplicitID(mod)
-    local tradeStates = LoadModule(self.queryModsFilePath)
-    for i, v in pairs(tradeStates['Explicit']) do
-        if v['tradeMod']['text'] == mod then
-            return v['tradeMod']['id']
+    local tradeMods = self:FetchStats()
+    -- for i, v in pairs(tradeMods) do
+    --     for j, w in pairs(v) do
+    --         if w['tradeMod']['text'] == mod then
+    --             return w['tradeMod']['id']:gsub('implicit', 'explicit')
+    --         end
+    --     end
+    -- end
+    for i=1, #tradeMods.results do
+        if tradeMods.results[i].text == mod then
+            return tradeMods.results[i].id
         end
     end
     return nil
@@ -111,7 +127,7 @@ function TradeQueryCurItem:CheckIfItemIsAccessory(item)
 end
 
 -- template for getting the url endpoint
-function TradeQueryCurItem:GetTemplate(type, attribuiteIDs)
+function TradeQueryCurItem:GetTemplate(type, attributeeIDs)
     local template = {
         ["query"] = {
           ["status"] = {
@@ -121,7 +137,7 @@ function TradeQueryCurItem:GetTemplate(type, attribuiteIDs)
           ["stats"] = {
             {
               ["type"] = "and",
-              ["filters"] = attribuiteIDs
+              ["filters"] = attributeeIDs
             }
         },
           ["filters"] = {
@@ -137,7 +153,7 @@ function TradeQueryCurItem:GetTemplate(type, attribuiteIDs)
     return dkjson.encode(template)
 end
 
--- passes the template to recieve the endpoint
+-- passes the template to receive the endpoint
 function TradeQueryCurItem:GetTradeEndpoint(template)
     local tradeLink = ""
 	local easy = common.curl.easy()
@@ -160,5 +176,50 @@ end
 -- appends the endpoint to the default trade url
 function TradeQueryCurItem:GetTradeUrl(endpoint)
     return 'https://www.pathofexile.com/trade/search/'.. self.leauge .. '/' .. endpoint;
+end
+
+
+-- hit the api to get the item attributees
+function TradeQueryCurItem:FetchStats()
+    local queryModsFile = io.open('Data/RawQueryMods.lua', 'r')
+    local rawQueryMods = ''
+    if queryModsFile ~= nil then
+        rawQueryMods = LoadModule('Data/RawQueryMods.lua')
+    end
+    if rawQueryMods.leauge == self.leauge then
+        return rawQueryMods
+    end
+	local tradeStats = ""
+	local easy = common.curl.easy()
+	easy:setopt_url("https://www.pathofexile.com/api/trade/data/stats")
+	easy:setopt_useragent("Path of Building/" .. launch.versionNumber .. "test")
+	easy:setopt_writefunction(function(data)
+		tradeStats = tradeStats..data
+		return true
+	end)
+	easy:perform()
+	easy:close()
+    self:GenerateRawQueryMods(tradeStats)
+	return LoadModule('Data/RawQueryMods.lua')
+end
+
+function TradeQueryCurItem:GenerateRawQueryMods(tradeStats)
+    tradeStats:gsub("\n", " ")
+	local tradeQueryStatsParsed = dkjson.decode(tradeStats)
+    -- ConPrintTable(tradeQueryStatsParsed)
+    local queryModsFile = io.open('Data/RawQueryMods.lua', 'w')
+    queryModsFile:write("-- This file is automatically generated, do not edit!\n-- Stat data (c) Grinding Gear Games\n\n")
+    queryModsFile:write("return { {['leauge'] = '" .. self.leauge .. "'},")
+    queryModsFile:write('["results"] = {')
+    for i=1, #tradeQueryStatsParsed.result[2]['entries'] do
+        queryModsFile:write('{')
+        queryModsFile:write('["id"] = "'.. stringify(tradeQueryStatsParsed.result[2]['entries'][i].id):gsub('"%a', '[[')..'",')
+        queryModsFile:write('["text"] = [['.. stringify(tradeQueryStatsParsed.result[2]['entries'][i].text):gsub('"%a', '[[')..']],')
+        queryModsFile:write('["type"] = "'.. stringify(tradeQueryStatsParsed.result[2]['entries'][i].type):gsub('"%a', '[[')..'",')
+        queryModsFile:write('},')
+        queryModsFile:write('\r\n')
+    end
+    queryModsFile:write("}}")
+	queryModsFile:close()
 end
 
