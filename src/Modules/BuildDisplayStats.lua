@@ -24,7 +24,7 @@ local StatList = {
 		{ stat = "Speed", label = "Effective Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 and o.ServerTriggerRate ~= o.Speed end, displayStat = true, minionDisplayStat = true },
 		{ stat = "WarcryCastTime", label = "Cast Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, flag = "warcry", displayStat = true },
 		{ stat = "HitSpeed", label = " Hit Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return not o.TriggerTime end, displayStat = true },
-		{ stat = "HitTime", label = "Channel Time", fmt = ".2fs", compPercent = true, flag = "channelRelease", condFunc = function(v,o) return not o.TriggerTime end, displayStat = true },
+		{ stat = "HitTime", label = "Channel Time", fmt = ".2fs", compPercent = true, flag = "channelRelease", lowerIsBetter = true, condFunc = function(v,o) return not o.TriggerTime end, displayStat = true },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, displayStat = true },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".3fs", lowerIsBetter = true, displayStat = true },
 		{ stat = "MineLayingTime", label = "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, displayStat = true },
