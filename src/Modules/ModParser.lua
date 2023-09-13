@@ -86,7 +86,8 @@ local formList = {
 	["^([%+%-]?%d+)%% chance"] = "CHANCE",
 	["^([%+%-]?%d+)%% chance to gain "] = "FLAG",
 	["^([%+%-]?%d+)%% additional chance"] = "CHANCE",
-	["costs? ([%+%-]?%d+)"] = "BASECOST",
+	["costs? ([%+%-]?%d+)"] = "TOTALCOST",
+	["skills cost ([%+%-]?%d+)"] = "BASECOST",
 	["penetrates? (%d+)%%"] = "PEN",
 	["penetrates (%d+)%% of"] = "PEN",
 	["penetrates (%d+)%% of enemy"] = "PEN",
@@ -908,7 +909,9 @@ local modFlagList = {
 	["with chaos skills"] = { keywordFlags = KeywordFlag.Chaos },
 	["with physical skills"] = { keywordFlags = KeywordFlag.Physical },
 	["with channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channel } },
+	["channelling"] = { tag = { type = "SkillType", skillType = SkillType.Channel } },
 	["channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channel } },
+	["non-channelling"] = { tag = { type = "SkillType", skillType = SkillType.Channel, neg = true } },
 	["non-channelling skills"] = { tag = { type = "SkillType", skillType = SkillType.Channel, neg = true } },
 	["with brand skills"] = { tag = { type = "SkillType", skillType = SkillType.Brand } },
 	["for stance skills"] = { tag = { type = "SkillType", skillType = SkillType.Stance } },
@@ -4836,6 +4839,7 @@ end
 local regenTypes = appendMod(resourceTypes, "Regen")
 local degenTypes = appendMod(resourceTypes, "Degen")
 local costTypes = appendMod(resourceTypes, "Cost")
+local baseCostTypes = appendMod(resourceTypes, "CostNoMult")
 local flagTypes = {
 	["phasing"] = "Condition:Phasing",
 	["onslaught"] = "Condition:Onslaught",
@@ -5344,6 +5348,13 @@ local function parseMod(line, order)
 		local _
 		_, line = scan(line, modNameList, true)
 	elseif modForm == "BASECOST" then
+		modName, line = scan(line, baseCostTypes, true)
+		if not modName then
+			return { }, line
+		end
+		local _
+		_, line = scan(line, modNameList, true)
+	elseif modForm == "TOTALCOST" then
 		modName, line = scan(line, costTypes, true)
 		if not modName then
 			return { }, line
