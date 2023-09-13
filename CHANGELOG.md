@@ -73,14 +73,6 @@
 - Fix Unicode input for PoeCharm [\#6669](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6669) ([Lancej](https://github.com/Lancej))
 
 
-## [v2.33.5](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.5) (2023/08/28)
-
-[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.33.4...v2.33.5)
-
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
-
-## What's Changed
-### Fixed Crashes
 - Fix crash when triggering a Skill from a Weapon ([LocalIdentity](https://github.com/LocalIdentity))
 
 ## [v2.33.4](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.33.4) (2023/08/28)
