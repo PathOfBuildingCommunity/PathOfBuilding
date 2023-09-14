@@ -35,8 +35,7 @@ local function calculateMirage(env, config)
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
 		newSkill.skillData.limitedProcessing = true
 		newSkill.skillTypes[SkillType.OtherThingUsesSkill] = true
-		env.player.mainSkill.mirage = { }
-		env.player.mainSkill.mirage.name = newSkill.activeEffect.grantedEffect.name
+
 		_ = config.preCalcFunc and config.preCalcFunc(env, newSkill, newEnv)
 
 		newEnv.player.mainSkill = newSkill
@@ -63,7 +62,11 @@ function calcs.mirages(env)
 				local moreDamage =  newSkill.skillModList:Sum("BASE", newSkill.skillCfg, "MirageArcherLessDamage")
 				local moreAttackSpeed = newSkill.skillModList:Sum("BASE", newSkill.skillCfg, "MirageArcherLessAttackSpeed")
 				local mirageCount = newSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "MirageArcherMaxCount")
+				
+				env.player.mainSkill.mirage = { }
+				env.player.mainSkill.mirage.name = newSkill.activeEffect.grantedEffect.name
 				env.player.mainSkill.mirage.count = mirageCount
+				
 				if not env.player.mainSkill.infoMessage then
 					env.player.mainSkill.infoMessage = tostring(mirageCount) .. " Mirage Archers using " .. newSkill.activeEffect.grantedEffect.name
 				end
@@ -81,9 +84,7 @@ function calcs.mirages(env)
 				end
 			end,
 			postCalcFunc = function(env, newSkill, newEnv)
-				-- Re-link over the output
 				env.player.mainSkill.mirage.output = newEnv.player.output
-
 				if newSkill.minion then
 					env.player.mainSkill.mirage.minion = {}
 					env.player.mainSkill.mirage.minion.output = newEnv.minion.output
