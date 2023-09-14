@@ -2795,7 +2795,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 	end
 
 	-- Defence/offence calculations
-	calcs.resistances(env.player)
 	calcs.defence(env, env.player)
 	if not fullDPSSkipEHP then
 		calcs.buildDefenceEstimations(env, env.player)

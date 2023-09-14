@@ -408,6 +408,7 @@ function calcs.defence(env, actor)
 		end
 	end
 
+	calcs.resistances(actor)
 
 	-- Block
 	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
