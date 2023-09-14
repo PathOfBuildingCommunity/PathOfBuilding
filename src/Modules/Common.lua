@@ -525,6 +525,36 @@ function tableDeepEquals(t1, t2)
 	return true
 end
 
+function pairsYield(t)
+	local k
+	local start = GetTime()
+	return function() -- iterator function
+		if coroutine.running() and GetTime() - start > 20 then
+			coroutine.yield()
+			start = GetTime()
+		end
+		local v
+		k, v = next(t, k)
+		return k, v
+	end
+end
+
+-- Based on https://www.lua.org/pil/19.3.html
+function pairsSortByKey(t, f)
+	local sortedKeys = {}
+	for key in pairs(t) do t_insert(sortedKeys, key) end
+	table.sort(sortedKeys, f)
+	local i = 0
+	return function() -- iterator function
+		i = i + 1
+		if sortedKeys[i] == nil then
+			return nil
+		else
+			return sortedKeys[i], t[sortedKeys[i]]
+		end
+	end
+end
+
 -- Natural sort comparator
 function naturalSortCompare(a, b)
 	local aIndex, bIndex = 1, 1

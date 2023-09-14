@@ -62,6 +62,7 @@ end
 local tempTable1 = { }
 local tempTable2 = { }
 
+
 function main:Init()
 	self.inputEvents = { }
 	self.popups = { }
@@ -120,6 +121,7 @@ function main:Init()
 		out:close()
 	end
 	function dat(name)
+		name = name:lower()
 		if #self.datFileList == 0 then
 			error("No .dat files loaded; set GGPK path first")
 		end
@@ -129,6 +131,7 @@ function main:Init()
 		return self.datFileByName[name]
 	end
 	function getFile(name)
+		name = name:lower()
 		if not self.ggpk then
 			error("GGPK not loaded; set path first")
 		end

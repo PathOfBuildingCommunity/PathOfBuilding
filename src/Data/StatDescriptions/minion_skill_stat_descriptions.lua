@@ -6720,13 +6720,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Minions have {0:+d} metre to Radius of their Burning Effect"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Minions have {0:+d} to Radius of their Burning Effect"
+					text="Minions have {0:+d} metres to Radius of their Burning Effect"
 				}
 			}
 		},
@@ -6812,6 +6829,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="reminderstring",
+						v="ReminderTextCloseRange"
+					},
 					limit={
 						[1]={
 							[1]="#",
@@ -7703,13 +7724,30 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
+					limit={
+						[1]={
+							[1]=10,
+							[2]=10
+						}
+					},
+					text="Projectiles Fired by Minions Pierce all Targets within {0} metre"
+				},
+				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
 							[2]="#"
 						}
 					},
-					text="Projectiles Fired by Minions Pierce all Targets within {0} units"
+					text="Projectiles Fired by Minions Pierce all Targets within {0} metres"
 				}
 			}
 		},

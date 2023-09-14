@@ -219,6 +219,10 @@ function describeStats(stats)
 					val[spec.v].min = val[spec.v].min / 10
 					val[spec.v].max = val[spec.v].max / 10
 					val[spec.v].fmt = ".2f"
+				elseif spec.k == "locations_to_metres" then
+					val[spec.v].min = val[spec.v].min / 10
+					val[spec.v].max = val[spec.v].max / 10
+					val[spec.v].fmt = "g"
 				elseif spec.k == "60%_of_value" then
 					val[spec.v].min = val[spec.v].min * 0.6
 					val[spec.v].max = val[spec.v].max * 0.6

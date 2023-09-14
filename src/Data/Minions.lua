@@ -470,7 +470,7 @@ minions["HeraldOfAgonySpiderPlated"] = {
 	},
 	modList = {
 		mod("PhysicalDamageConvertToChaos", "BASE", 40, 0, 0), -- MonsterConvertToChaosHeraldOfAgony1 [base_physical_damage_%_to_convert_to_chaos = 40]
-		-- MonsterCannotBeDamaged [cannot_be_damaged = 1]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [cannot_be_damaged = 1]
 		mod("Condition:FullLife", "FLAG", true),
 	},
 }
@@ -820,7 +820,7 @@ minions["SummonedArbalists"] = {
 		"MPWExpeditionSummonedArbalestProjectile",
 	},
 	modList = {
-		-- MonsterCannotBeDamaged [cannot_be_damaged = 1]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [cannot_be_damaged = 1]
 	},
 }
 
