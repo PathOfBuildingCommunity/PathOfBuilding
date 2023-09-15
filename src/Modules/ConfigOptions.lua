@@ -1211,7 +1211,7 @@ Huge sets the radius to 11.
 	{ var = "buffBastionOfHope", type = "check", label = "Is Bastion of Hope active?", ifCond = "BastionOfHopeActive", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BastionOfHopeActive", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "buffNgamahuFlamesAdvance", type = "check", label = "Is Ngamahu, Flame's Advance active?", ifCond = "NgamahuFlamesAdvance", apply = function(val, modList, enemyModList)
+	{ var = "buffNgamahuFlamesAdvance", type = "check", label = "Is Magmatic Strikes active?", ifCond = "NgamahuFlamesAdvance", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:NgamahuFlamesAdvance", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "buffHerEmbrace", type = "check", label = "Are you in Her Embrace?", ifCond = "HerEmbrace", tooltip = "This option is specific to Oni-Goroshi.", apply = function(val, modList, enemyModList)
