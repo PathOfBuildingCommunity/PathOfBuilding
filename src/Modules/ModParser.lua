@@ -2260,10 +2260,10 @@ local specialModList = {
 	["(%d+)%% increased area of effect while you don't have convergence"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "Condition", neg = true, var = "Convergence" }) } end,
 	["exposure you inflict applies an extra (%-?%d+)%% to the affected resistance"] = function(num) return { mod("ExtraExposure", "BASE", num) } end,
 	["cannot take reflected elemental damage"] = { mod("ElementalReflectedDamageTaken", "MORE", -100, { type = "GlobalEffect", effectType = "Global", unscalable = true }) },
-	["you and your minions take (%d+)%% reduced reflected damage"] = {
-		mod("ElementalReflectedDamageTaken", "INC", -50, { type = "GlobalEffect", effectType = "Global", unscalable = true }),
-		mod("MinionModifier", "LIST", { mod = mod("ElementalReflectedDamageTaken", "INC", -50, { type = "GlobalEffect", effectType = "Global", unscalable = true }) }),
-	},
+	["you and your minions take (%d+)%% reduced reflected damage"] = function(num) return {
+		mod("ElementalReflectedDamageTaken", "INC", -tonumber(num), { type = "GlobalEffect", effectType = "Global", unscalable = true }),
+		mod("MinionModifier", "LIST", { mod = mod("ElementalReflectedDamageTaken", "INC", -tonumber(num), { type = "GlobalEffect", effectType = "Global", unscalable = true }) }),
+	} end,
 	["every %d+ seconds:"] = { },
 	["gain chilling conflux for %d seconds"] = {
 		flag("PhysicalCanChill", { type = "Condition", var = "ChillingConflux" }),
