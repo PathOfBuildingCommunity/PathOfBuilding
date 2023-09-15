@@ -908,6 +908,9 @@ Huge sets the radius to 11.
 		modList:NewMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 		modList:NewMod("MinionModifier", "LIST", { mod = modLib.createMod("Condition:OnConsecratedGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" }) })
 	end },
+	{ var = "conditionOnCausticGround", type = "check", label = "Are you on Caustic Ground?", ifCond = "OnCausticGround", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:OnCausticGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
+	end },
 	{ var = "conditionOnFungalGround", type = "check", label = "Are you on Fungal Ground?", ifCond = "OnFungalGround", tooltip = "Allies on your Fungal Ground gain 10% of Non-Chaos Damage as extra ^xD02090Chaos ^7Damage.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:OnFungalGround", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
