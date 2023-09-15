@@ -75,6 +75,7 @@ function TradeQueryCurItem:SanitizeStat(curStat)
     curStat = curStat:gsub("Bow Attacks fire an additional Arrow", "Bow Attacks fire # additional Arrows")
     curStat = curStat:gsub("Projectiles Pierce an additional Target", "Projectiles Pierce # additional Targets")
     curStat = curStat:gsub("Has 1 Abyssal Socket", "Has # Abyssal Sockets")
+    curStat = curStat:gsub("# Added Passive Skill is", "1 Added Passive Skill is")
     return curStat
 end
 
