@@ -227,19 +227,23 @@ function GemSelectClass:UpdateSortCache()
 		sortType = self.skillsTab.sortGemsByDPSField
 	}
 	self.sortCache = sortCache
+	
 	-- Determine supports that affect the active skill
-	if self.skillsTab.displayGroup.displaySkillList and self.skillsTab.displayGroup.displaySkillList[1] then
-		for gemId, gemData in pairs(self.gems) do
-			if gemData.grantedEffect.support then
-				for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
-					if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
-						sortCache.canSupport[gemId] = true
-						break
+	for _, group in ipairs(self.skillsTab.socketGroupList) do
+		if self.skillsTab.displayGroup.slot == group.slot and group.displaySkillList and group.displaySkillList[1] then
+			for gemId, gemData in pairs(self.gems) do
+				if gemData.grantedEffect.support then
+					for _, activeSkill in ipairs(group.displaySkillList) do
+						if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+							sortCache.canSupport[gemId] = true
+							break
+						end
 					end
 				end
 			end
 		end
 	end
+	
 	local dpsField = self.skillsTab.sortGemsByDPSField
 	GlobalCache.useFullDPS = dpsField == "FullDPS"
 	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
