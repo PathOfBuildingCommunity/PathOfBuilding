@@ -65,7 +65,7 @@ function main:Init()
 		-- If modLib.parseMod doesn't find a cache entry it generates it.
 		-- Not loading pre-generated cache causes it to be rebuilt
 		self.saveNewModCache = true
-	elseif not launch.continuousIntegrationMode then -- Forces regeneration of modCache if ran from CI
+	else
 		-- Load mod cache
 		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
