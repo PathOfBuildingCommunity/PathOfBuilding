@@ -2505,8 +2505,8 @@ function calcs.offence(env, actor, activeSkill)
 			globalOutput.FistOfWarCooldown = skillModList:Sum("BASE", cfg, "FistOfWarCooldown") or 0
 			-- If Fist of War & Active Skill is a Slam Skill & NOT a Vaal Skill & NOT used by mirage or other
 			if globalOutput.FistOfWarCooldown ~= 0 and activeSkill.skillTypes[SkillType.Slam] and not activeSkill.skillTypes[SkillType.Vaal] and not activeSkill.skillTypes[SkillType.OtherThingUsesSkill] then
-				globalOutput.FistOfWarHitMultiplier = skillModList:Sum("BASE", cfg, "FistOfWarHitMultiplier") / 100
-				globalOutput.FistOfWarAilmentMultiplier = skillModList:Sum("BASE", cfg, "FistOfWarAilmentMultiplier") / 100
+				globalOutput.FistOfWarHitMultiplier = skillModList:Sum("BASE", nil, "FistOfWarHitMultiplier") / 100
+				globalOutput.FistOfWarAilmentMultiplier = skillModList:Sum("BASE", nil, "FistOfWarAilmentMultiplier") / 100
 				globalOutput.FistOfWarUptimeRatio = m_min( (1 / output.Speed) / globalOutput.FistOfWarCooldown, 1) * 100
 				if globalBreakdown then
 					globalBreakdown.FistOfWarUptimeRatio = {
