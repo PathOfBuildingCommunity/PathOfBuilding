@@ -2,7 +2,7 @@
 # Set default behavior to automatically normalize line endings.
 ###############################################################################
 * text=auto
-
+* text eol=crlf
 ###############################################################################
 # Set default behavior for command prompt diff.
 #
