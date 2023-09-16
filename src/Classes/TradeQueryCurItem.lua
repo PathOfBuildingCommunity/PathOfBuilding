@@ -65,11 +65,11 @@ end
 -- removes any identifier for fractured,crafted ect
 function TradeQueryCurItem:SanitizeStat(curStat)
     curStat = curStat:gsub("{.*}", "")
-    curStat = curStat:gsub("([1-9][0-9[.][0-9][0-9])", "#")
-    curStat = curStat:gsub("([1-9][.][0-9][0-9])", "#")
+    curStat = curStat:gsub("([0-9][0-9[.][0-9][0-9])", "#")
+    curStat = curStat:gsub("([0-9][.][0-9][0-9])", "#")
     curStat = curStat:gsub("([0-9][.][0-9])", "#")
-    curStat = curStat:gsub("([1-9][0-9][0-9])", "#")
-    curStat = curStat:gsub("([1-9][0-9])", "#")
+    curStat = curStat:gsub("([0-9][0-9][0-9])", "#")
+    curStat = curStat:gsub("([0-9][0-9])", "#")
     curStat = curStat:gsub("([0-9])", "#")
     curStat = curStat:gsub("([()][#][-][#][)])", "#")
     -- special case, are there more?
