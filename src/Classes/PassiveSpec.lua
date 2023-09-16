@@ -1365,7 +1365,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		if proxyGroup then
 			for id, data in pairs(importedNodes) do
 				if proxyGroup == data.group then
-					if node.oidx == data.orbitIndex and node.type ~= "Mastery" then
+					if node.oidx == data.orbitIndex and not data.isMastery then
 						for _, extendedId in ipairs(importedGroups[proxyGroup].nodes) do
 							if id == tonumber(extendedId) and inExtendedHashes(id) then
 								return true
