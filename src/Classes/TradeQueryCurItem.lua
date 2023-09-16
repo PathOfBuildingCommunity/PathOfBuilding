@@ -35,6 +35,7 @@ end)
 -- Parse the raw item and return the trade url
 function TradeQueryCurItem:ParseItem()
     local itemType = self.curItem.baseName
+    local item = self.curItem.name:match("(.+),")
     local itemIsAccessory = self:CheckIfItemIsAccessory(self.curItem)
     local attributeIDs = {}
     for i, v in pairs(self.curItem.explicitModLines) do
@@ -56,7 +57,7 @@ function TradeQueryCurItem:ParseItem()
         end
     end
     -- print(dkjson.encode(attributeIDs))
-    local endpoint = dkjson.decode(self:GetTradeEndpoint(self:GetTemplate(itemType, attributeIDs)))
+    local endpoint = dkjson.decode(self:GetTradeEndpoint(self:GetTemplate(item, itemType, self.curItem.rarity, attributeIDs)))
     return self:GetTradeUrl(endpoint.id)
 end
 
@@ -115,7 +116,7 @@ function TradeQueryCurItem:CheckIfItemIsAccessory(item)
 end
 
 -- template for getting the url endpoint
-function TradeQueryCurItem:GetTemplate(type, attributeIDs)
+function TradeQueryCurItem:GetTemplate(name, type, rarity, attributeIDs)
     local template = {
         ["query"] = {
           ["status"] = {
@@ -138,6 +139,9 @@ function TradeQueryCurItem:GetTemplate(type, attributeIDs)
           ["price"] = "asc"
         }
       }
+      if(rarity == 'UNIQUE') then
+        template.query.name = name
+    end
     return dkjson.encode(template)
 end
 
