@@ -8817,7 +8817,7 @@ skills["FireBeam"] = {
 			stages = true,
 		},
 		{
-			name = "Maximum Sustainable Stages",
+			name = "Maximum Stages",
 		},
 	},
 	statMap = {

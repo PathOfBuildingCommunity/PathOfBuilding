@@ -1992,7 +1992,7 @@ local skills, mod, flag, skill = ...
 			stages = true,
 		},
 		{
-			name = "Maximum Sustainable Stages",
+			name = "Maximum Stages",
 		},
 	},
 	statMap = {
