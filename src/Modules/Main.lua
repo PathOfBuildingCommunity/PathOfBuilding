@@ -65,7 +65,7 @@ function main:Init()
 		-- If modLib.parseMod doesn't find a cache entry it generates it.
 		-- Not loading pre-generated cache causes it to be rebuilt
 		self.saveNewModCache = true
-	elseif not launch.continuousIntegrationMode then -- Forces regeneration of modCache if ran from CI
+	else
 		-- Load mod cache
 		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
@@ -262,9 +262,8 @@ the "Releases" section of the GitHub page.]])
 end
 
 function main:DetectUnicodeSupport()
-	-- In PoeCharm returns a valid width, in normal PoB returns 2142240768
-	local w = DrawStringWidth(16, "VAR", "\195\164") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
-	self.unicode = w > 0 and w < 100
+	-- PoeCharm has utf8 global that normal PoB doesn't have
+	self.unicode = type(_G.utf8) == "table"
 	if self.unicode then
 		ConPrintf("Unicode support detected")
 	end

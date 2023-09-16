@@ -2143,10 +2143,10 @@ skills["AncestralSlamSupport"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
-			mod("FistOfWarHitMultiplier", "BASE", nil, ModFlag.Melee),
+			mod("FistOfWarHitMultiplier", "BASE", nil),
 		},
 		["support_ancestral_slam_big_hit_ailment_damage_+%_final"] = {
-			mod("FistOfWarAilmentMultiplier", "BASE", nil, bit.band(ModFlag.Melee, ModFlag.Ailment)),
+			mod("FistOfWarAilmentMultiplier", "BASE", nil),
 		},
 		["ancestral_slam_interval_duration"] = {
 			mod("FistOfWarCooldown", "BASE", nil),

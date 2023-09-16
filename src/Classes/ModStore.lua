@@ -8,6 +8,7 @@ local pairs = pairs
 local select = select
 local t_insert = table.insert
 local m_floor = math.floor
+local m_ceil = math.ceil
 local m_min = math.min
 local m_max = math.max
 local m_modf = math.modf
@@ -416,7 +417,8 @@ function ModStoreClass:EvalMod(mod, cfg)
 			else
 				base = target:GetStat(tag.stat, cfg)
 			end
-			local mult = base * (tag.percent and tag.percent / 100 or 1)
+			local percent = tag.percent or self:GetMultiplier(tag.percentVar, cfg)
+			local mult = base * (percent and percent / 100 or 1)
 			local limitTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
@@ -429,18 +431,18 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if type(value) == "table" then
 				value = copyTable(value)
 				if value.mod then
-					value.mod.value = value.mod.value * mult + (tag.base or 0)
+					value.mod.value = m_ceil(value.mod.value * mult + (tag.base or 0))
 					if limitTotal then
 						value.mod.value = m_min(value.mod.value, limitTotal)
 					end
 				else
-					value.value = value.value * mult + (tag.base or 0)
+					value.value = m_ceil(value.value * mult + (tag.base or 0))
 					if limitTotal then
 						value.value = m_min(value.value, limitTotal)
 					end
 				end
 			else
-				value = value * mult + (tag.base or 0)
+				value = m_ceil(value * mult + (tag.base or 0))
 				if limitTotal then
 					value = m_min(value, limitTotal)
 				end
