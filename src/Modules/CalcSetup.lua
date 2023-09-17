@@ -1275,9 +1275,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 							-- Validate support gem level in case there is no active skill (and no full calculation)
 							calcLib.validateGemLevel(supportEffect)
 
-							--TODO: make sure this works correctly with weapon swaps and linked mods
-							-- filtering for the best support may be better done in calc active skill then here
-							-- this may have some issues not sure yet
 							for _, targetList in ipairs(targetListList) do
 								local add = true
 								for index, otherSupport in ipairs(targetList) do
