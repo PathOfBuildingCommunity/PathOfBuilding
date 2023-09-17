@@ -1053,7 +1053,7 @@ local configTable = {
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance"),
 				triggerName = "Kitava's Thirst",
 				comparer = function(uuid, source, triggerRate)
-					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].HitSpeed or GlobalCache.cachedData["CACHE"][uuid].Speed
 					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
 					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
 				end,
