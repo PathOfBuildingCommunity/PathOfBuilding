@@ -231,7 +231,6 @@ end
 function GemSelectClass:UpdateSortCache()
 	--local start = GetTime()
 	local sortCache = self.sortCache
-
 	-- Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
@@ -267,7 +266,16 @@ function GemSelectClass:UpdateSortCache()
 
 	-- Determine supports that affect the active skill
 	for _, group in ipairs(self.skillsTab.socketGroupList) do
-		if self.skillsTab.displayGroup.slot == group.slot and group.displaySkillList and group.displaySkillList[1] then
+		local slotMatch = self.skillsTab.displayGroup.slot and self.skillsTab.displayGroup.slot == group.slot
+		if not slotMatch and self.skillsTab.displayGroup.slot then
+			for _, slot in ipairs(self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot] or {}) do
+				if group.slot == slot then
+					slotMatch = true
+					break
+				end
+			end
+		end
+		if (slotMatch or self.skillsTab.displayGroup == group) and group.displaySkillList and group.displaySkillList[1] then
 			for gemId, gemData in pairs(self.gems) do
 				if gemData.grantedEffect.support then
 					for _, activeSkill in ipairs(group.displaySkillList) do
@@ -418,12 +426,25 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
-				if gemData.grantedEffect.support and self.skillsTab.displayGroup.displaySkillList then
-					for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
-						if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
-							SetDrawColor(self.sortCache.dpsColor[gemId])
-							main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
-							break
+				if gemData.grantedEffect.support then
+					for _, group in ipairs(self.skillsTab.socketGroupList) do
+						local slotMatch = self.skillsTab.displayGroup.slot and self.skillsTab.displayGroup.slot == group.slot
+						if not slotMatch and self.skillsTab.displayGroup.slot then
+							for _, slot in ipairs(self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot] or {}) do
+								if group.slot == slot then
+									slotMatch = true
+									break
+								end
+							end
+						end
+						if (slotMatch or self.skillsTab.displayGroup == group) and group.displaySkillList and group.displaySkillList[1] then
+							for _, activeSkill in ipairs(group.displaySkillList) do
+								if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+									SetDrawColor(self.sortCache.dpsColor[gemId])
+									main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
+									break
+								end
+							end
 						end
 					end
 				elseif gemData.grantedEffect.hasGlobalEffect then

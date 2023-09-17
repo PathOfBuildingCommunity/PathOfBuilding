@@ -1177,10 +1177,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 
 		-- Process supports and put them into the correct buckets
-		local crossLinkedSupportGroups = {}
+		env.crossLinkedSupportGroups = {}
 		for _, mod in ipairs(env.modDB:Tabulate("LIST", nil, "LinkedSupport")) do
-			crossLinkedSupportGroups[mod.mod.sourceSlot] = crossLinkedSupportGroups[mod.mod.sourceSlot] or {}
-			t_insert(crossLinkedSupportGroups[mod.mod.sourceSlot], mod.value.targetSlotName)
+			env.crossLinkedSupportGroups[mod.mod.sourceSlot] = env.crossLinkedSupportGroups[mod.mod.sourceSlot] or {}
+			t_insert(env.crossLinkedSupportGroups[mod.mod.sourceSlot], mod.value.targetSlotName)
 		end
 
 		local supportLists = { }
@@ -1202,7 +1202,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				if groupCfg.slotName then
 					supportLists[groupCfg.slotName] = supportLists[groupCfg.slotName] or {}
 					t_insert(targetListList, supportLists[groupCfg.slotName])
-					for _, targetSlotName in ipairs(crossLinkedSupportGroups[groupCfg.slotName] or {}) do
+					for _, targetSlotName in ipairs(env.crossLinkedSupportGroups[groupCfg.slotName] or {}) do
 						supportLists[targetSlotName] = supportLists[targetSlotName] or {}
 						t_insert(targetListList, supportLists[targetSlotName])
 					end
