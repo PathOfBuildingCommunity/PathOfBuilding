@@ -89,7 +89,7 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData)
 	else
 		gemList[self.index] = nil
 	end
-	
+
 	return output, gemInstance
 end
 
@@ -125,8 +125,8 @@ end
 function GemSelectClass:FilterSupport(gemId, gemData)
 	local showSupportTypes = self.skillsTab.showSupportGemTypes
 	return (not gemData.grantedEffect.support
-		or showSupportTypes == "ALL" 
-		or (showSupportTypes == "NORMAL" and not gemData.grantedEffect.plusVersionOf) 
+		or showSupportTypes == "ALL"
+		or (showSupportTypes == "NORMAL" and not gemData.grantedEffect.plusVersionOf)
 		or (showSupportTypes == "AWAKENED" and gemData.grantedEffect.plusVersionOf))
 		and (self.skillsTab.showAltQualityGems or (not self.skillsTab.showAltQualityGems and self:GetQualityType(gemId) == "Default"))
 end
@@ -241,7 +241,7 @@ function GemSelectClass:UpdateSortCache()
 		return
 	end
 
-	if not sortCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes 
+	if not sortCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes
 		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality
 		or sortCache.defaultLevel ~= self.skillsTab.defaultGemLevel
 		or (sortCache.characterLevel ~= self.skillsTab.build.characterLevel and self.skillsTab.defaultGemLevel == "characterLevel")) then
@@ -330,7 +330,7 @@ function GemSelectClass:UpdateGem(setText, addUndo)
 		self.gemId = nil
 	end
 	self.gemName = self.gemId and self.gems[self.gemId].name or ""
-	if setText then	
+	if setText then
 		self:SetText(self.gemName)
 	end
 	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), self:GetQualityType(self.gemId), addUndo and self.gemName ~= self.initialBuf)
@@ -448,7 +448,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		SetDrawLayer(nil, 0)
 	else
 		-- not dropped
-		local hoverControl 
+		local hoverControl
 		if self.skillsTab.selControl and self.skillsTab.selControl._className == "GemSelectControl" then
 			hoverControl = self.skillsTab.selControl
 		else
@@ -517,7 +517,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 	local grantedEffectLevel = grantedEffect.levels[displayInstance.level] or { }
 	if addReq then
 		self.tooltip:AddLine(16, string.format("^x7F7F7FLevel: ^7%d%s%s",
-			gemInstance.level, 
+			gemInstance.level,
 			((displayInstance.level > gemInstance.level) and " (" .. colorCodes.MAGIC .. "+" .. (displayInstance.level - gemInstance.level) .. "^7)") or ((displayInstance.level < gemInstance.level) and " (" .. colorCodes.WARNING .. "-" .. (gemInstance.level - displayInstance.level) .. "^7)") or "",
 			(gemInstance.level >= gemInstance.gemData.naturalMaxLevel) and " (Max)" or ""
 		))

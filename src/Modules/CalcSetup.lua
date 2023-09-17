@@ -119,9 +119,9 @@ function calcs.buildModListForNode(env, node)
 			rad.func(node, modList, rad.data)
 		end
 	end
-	
+
 	if modList:Flag(nil, "PassiveSkillHasOtherEffect") then
-		for i, mod in ipairs(modList:List(skillCfg, "NodeModifier")) do	
+		for i, mod in ipairs(modList:List(skillCfg, "NodeModifier")) do
 			if i == 1 then wipeTable(modList) end
 			modList:AddMod(mod.mod)
 		end
@@ -159,7 +159,7 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 	for _, node in pairs(nodeList) do
 		local nodeModList = calcs.buildModListForNode(env, node)
 		modList:AddList(nodeModList)
-		if env.mode == "MAIN" then	
+		if env.mode == "MAIN" then
 			node.finalModList = nodeModList
 		end
 	end
@@ -168,11 +168,11 @@ function calcs.buildModListForNodeList(env, nodeList, finishJewels)
 		-- Process extra radius nodes; these are unallocated nodes near conversion or threshold jewels that need to be processed
 		for _, node in pairs(env.extraRadiusNodeList) do
 			local nodeModList = calcs.buildModListForNode(env, node)
-			if env.mode == "MAIN" then	
+			if env.mode == "MAIN" then
 				node.finalModList = nodeModList
 			end
 		end
-		
+
 		-- Finalise radius jewels
 		for _, rad in pairs(env.radiusJewelList) do
 			rad.func(nil, modList, rad.data)
@@ -512,11 +512,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 		calcs.initModDB(env, enemyDB)
 		enemyDB:NewMod("Accuracy", "BASE", env.data.monsterAccuracyTable[env.enemyLevel], "Base")
 		enemyDB:NewMod("Condition:AgainstDamageOverTime", "FLAG", true, "Base", ModFlag.Dot, { type = "ActorCondition", actor = "player", var = "Combat" })
-		
+
 		-- Add mods from the config tab
 		env.modDB:AddList(build.configTab.modList)
 		env.enemyDB:AddList(build.configTab.enemyModList)
-		
+
 		-- Add mods from the party tab
 		env.enemyDB:AddList(build.partyTab.enemyModList)
 
@@ -595,7 +595,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 		env.allocNodes = nodes
 	end
-	
+
 	if allocatedNotableCount and allocatedNotableCount > 0 then
 		modDB:NewMod("Multiplier:AllocatedNotable", "BASE", allocatedNotableCount)
 	end
@@ -608,7 +608,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	if allocatedMasteryTypes["Life Mastery"] and allocatedMasteryTypes["Life Mastery"] > 0 then
 		modDB:NewMod("Multiplier:AllocatedLifeMastery", "BASE", allocatedMasteryTypes["Life Mastery"])
 	end
-	
+
 	-- Build and merge item modifiers, and create list of radius jewels
 	if not accelerate.requirementsItems then
 		local items = {}
@@ -780,7 +780,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				items[slot] = nil
 			end
 		end
-		
+
 		for _, slot in pairs(build.itemsTab.orderedSlots) do
 			local slotName = slot.slotName
 			local item = items[slotName]
@@ -1056,11 +1056,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	-- Merge Granted Skills Tables
 	env.grantedSkills = tableConcat(env.grantedSkillsNodes, env.grantedSkillsItems)
-	
+
 	if not accelerate.skills then
 		if env.mode == "MAIN" then
 			-- Process extra skills granted by items or tree nodes
-			local markList = wipeTable(tempTable1) 
+			local markList = wipeTable(tempTable1)
 			for _, grantedSkill in ipairs(env.grantedSkills) do
 				-- Check if a matching group already exists
 				local group
@@ -1175,7 +1175,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			build.mainSocketGroup = m_min(m_max(#build.skillsTab.socketGroupList, 1), build.mainSocketGroup or 1)
 			env.mainSocketGroup = build.mainSocketGroup
 		end
-		
+
 		-- Process supports and put them into the correct buckets
 		local crossLinkedSupportGroups = {}
 		for _, mod in ipairs(env.modDB:Tabulate("LIST", nil, "LinkedSupport")) do
@@ -1400,7 +1400,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do
 					env.player.modDB:AddMod(modLib.setSource(value.value, groupCfg.slotName or ""))
 				end
-				
+
 				if index == env.mainSocketGroup and #socketGroupSkillList > 0 then
 					-- Select the main skill from this socket group
 					local activeSkillIndex
@@ -1437,7 +1437,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			elseif env.mode == "CALCS" then
 				group.displaySkillListCalcs = socketGroupSkillList
 			end
-			
+
 			-- Check for enabled energy blade to see if we need to regenerate everything.
 			if not modDB.conditions["AffectedByEnergyBlade"] and group.enabled and group.slotEnabled then
 				for _, gemInstance in ipairs(group.gemList) do
@@ -1462,7 +1462,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 			env.player.mainSkill = calcs.createActiveSkill(defaultEffect, { }, env.player)
 			t_insert(env.player.activeSkillList, env.player.mainSkill)
 		end
-		
+
 		-- Build skill modifier lists
 		for _, activeSkill in pairs(env.player.activeSkillList) do
 			calcs.buildActiveSkillModList(env, activeSkill)
