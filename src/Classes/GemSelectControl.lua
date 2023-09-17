@@ -426,27 +426,9 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
-				if gemData.grantedEffect.support then
-					for _, group in ipairs(self.skillsTab.socketGroupList) do
-						local slotMatch = self.skillsTab.displayGroup.slot and self.skillsTab.displayGroup.slot == group.slot
-						if not slotMatch and self.skillsTab.displayGroup.slot then
-							for _, slot in ipairs(self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot] or {}) do
-								if group.slot == slot then
-									slotMatch = true
-									break
-								end
-							end
-						end
-						if (slotMatch or self.skillsTab.displayGroup == group) and group.displaySkillList and group.displaySkillList[1] then
-							for _, activeSkill in ipairs(group.displaySkillList) do
-								if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
-									SetDrawColor(self.sortCache.dpsColor[gemId])
-									main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
-									break
-								end
-							end
-						end
-					end
+				if gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
+					SetDrawColor(self.sortCache.dpsColor[gemId])
+					main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
 				elseif gemData.grantedEffect.hasGlobalEffect then
 					SetDrawColor(self.sortCache.dpsColor[gemId])
 					DrawString(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y - 2, "CENTER_X", height, "VAR", "+")
