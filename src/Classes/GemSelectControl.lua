@@ -57,6 +57,42 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	}
 end)
 
+function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData)
+	local gemList = self.skillsTab.displayGroup.gemList
+	local oldGem
+	if gemList[self.index] then
+		oldGem = copyTable(gemList[self.index], true)
+	else
+		gemList[self.index] = {
+			level = gemData.naturalMaxLevel,
+			qualityId = self:GetQualityType(gemId),
+			quality = self.skillsTab.defaultGemQuality or 0,
+			count = 1,
+			enabled = true,
+			enableGlobal1 = true,
+			enableGlobal2 = true,
+			gemId = gemData.id,
+			nameSpec = gemData.name,
+			skillId = gemData.grantedEffectId
+		}
+	end
+
+	-- Create gemInstance to represent the hovered gem
+	local gemInstance = gemList[self.index]
+	gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
+	gemInstance.gemData = gemData
+	-- Calculate the impact of using this gem
+	local output = calcFunc({ }, { allocNodes = true, requirementsItems = true })
+	if oldGem then
+		gemInstance.gemData = oldGem.gemData
+		gemInstance.level = oldGem.level
+	else
+		gemList[self.index] = nil
+	end
+	
+	return output, gemInstance
+end
+
 function GemSelectClass:PopulateGemList()
 	wipeTable(self.gems)
 	local showAll = self.skillsTab.showSupportGemTypes == "ALL"
@@ -195,6 +231,7 @@ end
 function GemSelectClass:UpdateSortCache()
 	--local start = GetTime()
 	local sortCache = self.sortCache
+
 	-- Don't update the cache if no settings have changed that would impact the ordering
 	if sortCache and sortCache.socketGroup == self.skillsTab.displayGroup and sortCache.gemInstance == self.skillsTab.displayGroup.gemList[self.index]
 		and sortCache.outputRevision == self.skillsTab.build.outputRevision and sortCache.defaultLevel == self.skillsTab.defaultGemLevel
@@ -227,7 +264,7 @@ function GemSelectClass:UpdateSortCache()
 		sortType = self.skillsTab.sortGemsByDPSField
 	}
 	self.sortCache = sortCache
-	
+
 	-- Determine supports that affect the active skill
 	for _, group in ipairs(self.skillsTab.socketGroupList) do
 		if self.skillsTab.displayGroup.slot == group.slot and group.displaySkillList and group.displaySkillList[1] then
@@ -243,7 +280,7 @@ function GemSelectClass:UpdateSortCache()
 			end
 		end
 	end
-	
+
 	local dpsField = self.skillsTab.sortGemsByDPSField
 	GlobalCache.useFullDPS = dpsField == "FullDPS"
 	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
@@ -254,32 +291,7 @@ function GemSelectClass:UpdateSortCache()
 		sortCache.dps[gemId] = baseDPS
 		-- Ignore gems that don't support the active skill
 		if sortCache.canSupport[gemId] or gemData.grantedEffect.hasGlobalEffect then
-			local gemList = self.skillsTab.displayGroup.gemList
-			local oldGem
-			if gemList[self.index] then
-				oldGem = copyTable(gemList[self.index], true)
-			else
-				gemList[self.index] = {
-					level = gemData.naturalMaxLevel,
-					qualityId = self:GetQualityType(gemId),
-					quality = self.skillsTab.defaultGemQuality or 0,
-					enabled = true,
-					enableGlobal1 = true,
-					enableGlobal2 = true
-				}
-			end
-			-- Create gemInstance to represent the hovered gem
-			local gemInstance = gemList[self.index]
-			gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
-			gemInstance.gemData = gemData
-			-- Calculate the impact of using this gem
-			local output = calcFunc({ }, { allocNodes = true, requirementsItems = true })
-			if oldGem then
-				gemInstance.gemData = oldGem.gemData
-				gemInstance.level = oldGem.level
-			else
-				gemList[self.index] = nil
-			end
+			local output = self:CalcOutputWithThisGem(calcFunc, gemData)
 			-- Check for nil because some fields may not be populated, default to 0
 			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
@@ -426,45 +438,9 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
 				self.tooltip:Clear()
-				local gemList = self.skillsTab.displayGroup.gemList
-				local gemData = self.gems[self.list[self.hoverSel]]
-				local oldGem
-				-- Cache off the current gem in the list, if any
-				if gemList[self.index] then
-					oldGem = copyTable(gemList[self.index], true)
-				else
-					gemList[self.index] = {
-						level = gemData.naturalMaxLevel,
-						qualityId = self:GetQualityType(self.list[self.hoverSel]),
-						quality = self.skillsTab.defaultGemQuality or 0,
-						enabled = true,
-						enableGlobal1 = true,
-						enableGlobal2 = true
-					}
-				end
-				-- Create gemInstance to represent the hovered gem
-				local gemInstance = gemList[self.index]
-				gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
-				gemInstance.gemData = gemData
-				-- Clear the displayEffect so it only displays the temporary gem instance
-				gemInstance.displayEffect = nil
-				-- Check valid qualityId, set to 'Default' if missing
-				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
-					gemInstance.qualityId = "Default"
-				end
-				-- Add hovered gem to tooltip
-				self:AddGemTooltip(gemInstance)
-				-- Calculate with the new gem
-				local output = calcFunc({}, { nodeAlloc = true, requirementsItems = true, requirementsGems = true })
-				-- Put the original gem back into the list
-				if oldGem then
-					gemInstance.gemData = oldGem.gemData
-					gemInstance.level = oldGem.level
-					gemInstance.displayEffect = oldGem.displayEffect
-				else
-					gemList[self.index] = nil
-				end
+				local output, gemInstance = self:CalcOutputWithThisGem(calcFunc, self.gems[self.list[self.hoverSel]])
 				self.tooltip:AddSeparator(10)
+				self:AddGemTooltip(gemInstance)
 				self.skillsTab.build:AddStatComparesToTooltip(self.tooltip, calcBase, output, "^7Selecting this gem will give you:")
 				self.tooltip:Draw(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
 			end
