@@ -51,7 +51,20 @@ function TradeQueryCurItem:ParseItem()
             end
         -- print(curStat)
         local curStatID = self:GetExplicitID(curStat)
+        if curStat == nil and curStat:find('reduced') then
+            curStat = curStat:gsub("reduced", "increased")
+            -- print(curStat)
+            curStatID = self:GetExplicitID(curStat)
+        end
         -- print(curStatID)
+        if(curStatID == nil) then
+            inverseStat = self:swapInverse(curStat)
+            -- print(inverseStat)
+            if curStat ~= inverseStat then
+                curStatID = self:GetExplicitID(inverseStat)
+                -- print(curStatID)
+            end
+        end
         if (curStatID ~= nil) and (curStatID ~= '') then
             table.insert(attributeIDs, {['id'] = curStatID})
         end
@@ -71,7 +84,8 @@ function TradeQueryCurItem:SanitizeStat(curStat)
     curStat = curStat:gsub("([0-9][0-9][0-9])", "#")
     curStat = curStat:gsub("([0-9][0-9])", "#")
     curStat = curStat:gsub("([0-9])", "#")
-    curStat = curStat:gsub("([()][#][-][#][)])", "#")
+    curStat = curStat:gsub("([(][#][-][#][)])", "#")
+    curStat = curStat:gsub("([-][#])", "+#")
     -- special case, are there more?
     curStat = curStat:gsub("You can apply an additional Curse", "You can apply # additional Curses")
     curStat = curStat:gsub("Bow Attacks fire an additional Arrow", "Bow Attacks fire # additional Arrows")
@@ -211,5 +225,24 @@ function TradeQueryCurItem:GenerateRawQueryMods(tradeStats)
     end
     queryModsFile:write("}}")
 	queryModsFile:close()
+end
+
+
+function TradeQueryCurItem:swapInverse(modLine)
+    local priorStr = modLine
+    if modLine:match("increased") then
+        modLine = modLine:gsub("(increased", "reduced")
+    elseif modLine:match("reduced") then
+        modLine = modLine:gsub("(reduced", "increased")
+    elseif modLine:match("more") then
+        modLine = modLine:gsub("(more", "less")
+    elseif modLine:match("less") then
+        modLine = modLine:gsub("(less", "more")
+    elseif modLine:match("expires ([^ ]+) slower") then
+        modLine = modLine:gsub("(slower", "faster")
+    elseif modLine:match("expires ([^ ]+) faster") then
+        modLine = modLine:gsub("(faster", "slower")
+    end
+    return modLine
 end
 
