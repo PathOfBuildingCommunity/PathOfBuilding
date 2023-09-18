@@ -20,7 +20,7 @@ local function getSimpleConv(srcList, dst, type, remove, factor)
 		if node then
 			for _, src in pairs(srcList) do
 				for _, mod in ipairs(node.modList) do
-					if mod.name == src and mod.type == type then
+					if mod.name == src and mod.type == type and not node.isTattoo then
 						if remove then
 							out:MergeNewMod(src, type, -mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 						end
