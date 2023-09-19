@@ -1047,7 +1047,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 		elseif node.alloc then
 			-- Calculate the differences caused by deallocating this node and its dependent nodes
 			nodeOutput = calcFunc({ removeNodes = { [node] = true } })
-			if pathLength > 1 then
+			if not node.dependsOnIntuitiveLeapLike and pathLength > 1 then
 				pathOutput = calcFunc({ removeNodes = pathNodes })
 			end
 		elseif isGranted then
@@ -1061,19 +1061,19 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			else
 				nodeOutput = calcFunc({ addNodes = { [node] = true } })
 			end
-			if pathLength > 1 then
+			if not node.dependsOnIntuitiveLeapLike and pathLength > 1 then
 				pathOutput = calcFunc({ addNodes = pathNodes })
 			end
 		end
 		local count = build:AddStatComparesToTooltip(tooltip, calcBase, nodeOutput, realloc and "^7Reallocating this node will give you:" or node.alloc and "^7Unallocating this node will give you:" or isGranted and "^7This node is granted by an item. Removing it will give you:" or "^7Allocating this node will give you:")
-		if pathLength > 1 and not isGranted then
+		if not node.dependsOnIntuitiveLeapLike and pathLength > 1 and not isGranted then
 			count = count + build:AddStatComparesToTooltip(tooltip, calcBase, pathOutput, node.alloc and "^7Unallocating this node and all nodes depending on it will give you:" or "^7Allocating this node and all nodes leading to it will give you:", pathLength)
 		end
 		if count == 0 then
 			if isGranted then
 				tooltip:AddLine(14, string.format("^7This node is granted by an item. Removing it will cause no changes"))
 			else
-				tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", pathLength > 1 and " or the nodes leading to it" or ""))
+				tooltip:AddLine(14, string.format("^7No changes from %s this node%s.", node.alloc and "unallocating" or "allocating", not node.dependsOnIntuitiveLeapLike and pathLength > 1 and " or the nodes leading to it" or ""))
 			end
 		end
 		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
@@ -1089,7 +1089,7 @@ function PassiveTreeViewClass:AddNodeTooltip(tooltip, node, build)
 			tooltip:AddLine(14, "^7"..#self.tracePath .. " nodes in trace path")
 			tooltip:AddLine(14, colorCodes.TIP)
 		else
-			tooltip:AddLine(14, "^7"..#node.path .. " points to node")
+			tooltip:AddLine(14, "^7"..#node.path .. " points to node" .. (node.dependsOnIntuitiveLeapLike and " ^8(Can be allocated without pathing to it)" or ""))
 			tooltip:AddLine(14, colorCodes.TIP)
 			if #node.path > 1 then
 				-- Handy hint!
