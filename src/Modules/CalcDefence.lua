@@ -18,6 +18,8 @@ local s_format = string.format
 
 local tempTable1 = { }
 
+require('Modules/CalcHitPools')
+
 local isElemental = { Fire = true, Cold = true, Lightning = true }
 
 -- List of all damage types, ordered according to the conversion sequence
@@ -80,87 +82,6 @@ function calcs.takenHitFromDamage(rawDamage, damageType, actor)
 	return receivedDamageSum, damages
 end
 
-Aegis = {}
-function Aegis:new(output)
-	aegis = {
-		shared = output.sharedAegis or 0,
-		sharedElemental = output.sharedElementalAegis or 0
-	}
-	for _,damageType in pairs(dmgTypeList) do
-		aegis[damageType] = output[damageType.."Aegis"] or 0
-	end
-	self.__index = self
-	return setmetatable(aegis, self)
-end
-
-function Aegis:takeDamage(damageType, damage)
-	local aegis = self
-	local damageRemainder = damage
-	if aegis[damageType] > 0 then
-		local tempDamage = m_min(damageRemainder, aegis[damageType])
-		aegis[damageType] = aegis[damageType] - tempDamage
-		damageRemainder = damageRemainder - tempDamage
-	end
-	if isElemental[damageType] and aegis.sharedElemental > 0 then
-		local tempDamage = m_min(damageRemainder, aegis.sharedElemental)
-		aegis.sharedElemental = aegis.sharedElemental - tempDamage
-		damageRemainder = damageRemainder - tempDamage
-	end
-	if aegis.shared > 0 then
-		local tempDamage = m_min(damageRemainder, aegis.shared)
-		aegis.shared = aegis.shared - tempDamage
-		damageRemainder = damageRemainder - tempDamage
-	end
-	return damageRemainder
-end
-
-function Aegis:adjustTotalHitPool(output, damageType)
-	output[damageType.."TotalHitPool"] =
-		output[damageType.."TotalHitPool"] +
-		m_max(
-			m_max(output[damageType.."Aegis"],output["sharedAegis"]),
-			isElemental[damageType] and output[damageType.."AegisDisplay"] or 0)
-end
-
-Guard = {}
-function Guard:new(output)
-	guard = { shared = output.sharedGuardAbsorb or 0 }
-	for _,damageType in pairs(dmgTypeList) do
-		guard[damageType] = output[damageType.."GuardAbsorb"] or 0
-	end
-	self.__index = self
-	return setmetatable(guard, self)
-end
-
-function Guard:takeDamage(output, damageType, damage)
-	local guard = self
-	local damageRemainder = damage
-	if guard[damageType] > 0 then
-		local tempDamage = m_min(damageRemainder * output[damageType.."GuardAbsorbRate"] / 100, guard[damageType])
-		guard[damageType] = guard[damageType] - tempDamage
-		damageRemainder = damageRemainder - tempDamage
-	end
-	if guard.shared > 0 then
-		local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, guard.shared)
-		guard.shared = guard.shared - tempDamage
-		damageRemainder = damageRemainder - tempDamage
-	end
-	return damageRemainder
-end
-
-function Guard:adjustTotalHitPool(output, damageType)
-	local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
-	if GuardAbsorbRate > 0 then
-		local GuardAbsorb = output["sharedGuardAbsorb"] or 0 + output[damageType.."GuardAbsorb"] or 0
-		if GuardAbsorbRate >= 100 then
-			output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + GuardAbsorb
-		else
-			local poolProtected = GuardAbsorb / (GuardAbsorbRate / 100) * (1 - GuardAbsorbRate / 100)
-			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - GuardAbsorbRate / 100)
-		end
-	end
-end
-
 ---Helper function that reduces pools according to damage taken
 ---@param poolTable table special pool values to use. Can be nil. Values from actor output are used if this is not provided or a value for some key in this is nil.
 ---@param damageTable table damage table after all the relevant reductions
@@ -170,33 +91,12 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local output = actor.output
 	local modDB = actor.modDB
 	local poolTbl = poolTable or { }
-	
-	local alliesTakenBeforeYou = poolTbl.AlliesTakenBeforeYou
-	if not alliesTakenBeforeYou then
-		alliesTakenBeforeYou = {}
-		if output.FrostShieldLife then
-			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
-		end
-		if output.TotalSpectreLife then
-			alliesTakenBeforeYou["specters"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
-		end
-		if output.TotalTotemLife then
-			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
-		end
-		if output.TotalVaalRejuvenationTotemLife then
-			alliesTakenBeforeYou["vaalRejuvenationTotems"] = { remaining = output.TotalVaalRejuvenationTotemLife, percent = output.VaalRejuvenationTotemAllyDamageMitigation / 100 }
-		end
-		if output.TotalRadianceSentinelLife then
-			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
-		end
-		if output.AlliedEnergyShield then
-			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
-		end
-	end
+
+	local alliesTakenBeforeYou = poolTbl.AlliesTakenBeforeYou or AlliesTakenBeforeYou:new(output)
 	
 	local PoolsLost = poolTbl.PoolsLost or { }
-	local aegis = poolTbl.Aegis or Aegis:new(output)
 	local guard = poolTbl.Guard or Guard:new(output)
+	local aegis = poolTbl.Aegis or Aegis:new(output)
 	
 	local ward = poolTbl.Ward or output.Ward or 0
 	local restoreWard = modDB:Flag(nil, "WardNotBreak") and ward or 0
@@ -209,18 +109,11 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	
 	for damageType, damage in pairs(damageTable) do
 		local damageRemainder = damage
-		for _, allyValues in pairs(alliesTakenBeforeYou) do
-			if not allyValues.damageType or allyValues.damageType == damageType then
-				if allyValues.remaining > 0 then
-					local tempDamage = m_min(damageRemainder * allyValues.percent, allyValues.remaining)
-					allyValues.remaining = allyValues.remaining - tempDamage
-					damageRemainder = damageRemainder - tempDamage
-				end
-			end
-		end
+		damageRemainder = alliesTakenBeforeYou:takeDamage(damageType, damageRemainder)
 		-- frost shield / soul link / other taken before you does not count as you taking damage
+		PoolsLost[damageType] = (PoolsLost[damageType] or 0) + damageRemainder
 		damageRemainder = aegis:takeDamage(damageType, damageRemainder)
-		damageRemainder = guard:takeDamage(output, damageType, damageRemainder)
+		damageRemainder = guard:takeDamage(damageType, damageRemainder)
 		if ward > 0 then
 			local tempDamage = m_min(damageRemainder * (1 - (modDB:Sum("BASE", nil, "WardBypass") or 0) / 100), ward)
 			ward = ward - tempDamage
@@ -2189,27 +2082,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		if (not modDB:Flag(nil, "WardNotBreak")) and DamageIn["cycles"] > 1 then
 			ward = 0
 		end
-		local aegis = Aegis:new(output)
+		local alliesTakenBeforeYou = AlliesTakenBeforeYou:new(output)
 		local guard = Guard:new(output)
-		local alliesTakenBeforeYou = {}
-		if output.FrostShieldLife then
-			alliesTakenBeforeYou["frostShield"] = { remaining = output.FrostShieldLife, percent = output.FrostShieldDamageMitigation / 100 }
-		end
-		if output.TotalSpectreLife then
-			alliesTakenBeforeYou["specters"] = { remaining = output.TotalSpectreLife, percent = output.SpectreAllyDamageMitigation / 100 }
-		end
-		if output.TotalTotemLife then
-			alliesTakenBeforeYou["totems"] = { remaining = output.TotalTotemLife, percent = output.TotemAllyDamageMitigation / 100 }
-		end
-		if output.TotalVaalRejuvenationTotemLife then
-			alliesTakenBeforeYou["vaalRejuvenationTotems"] = { remaining = output.TotalVaalRejuvenationTotemLife, percent = output.VaalRejuvenationTotemAllyDamageMitigation / 100 }
-		end
-		if output.TotalRadianceSentinelLife then
-			alliesTakenBeforeYou["radianceSentinel"] = { remaining = output.TotalRadianceSentinelLife, percent = output.RadianceSentinelAllyDamageMitigation / 100 }
-		end
-		if output.AlliedEnergyShield then
-			alliesTakenBeforeYou["soulLink"] = { remaining = output.AlliedEnergyShield, percent = output.SoulLinkMitigation / 100 }
-		end
+		local aegis = Aegis:new(output)
 		
 		local poolTable = {
 			AlliesTakenBeforeYou = alliesTakenBeforeYou,
@@ -2847,37 +2722,11 @@ function calcs.buildDefenceEstimations(env, actor)
 		else
 			output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + output.Ward or 0
 		end
-		Aegis:adjustTotalHitPool(output, damageType)
-		Guard:adjustTotalHitPool(output, damageType)
 		-- from allies before you
 		-- frost shield
-		if output["FrostShieldLife"] > 0 then
-			local poolProtected = output["FrostShieldLife"] / (output["FrostShieldDamageMitigation"] / 100) * (1 - output["FrostShieldDamageMitigation"] / 100)
-			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["FrostShieldDamageMitigation"] / 100)
-		end
-		-- spectres
-		if output["TotalSpectreLife"] and output["TotalSpectreLife"] > 0 then
-			local poolProtected = output["TotalSpectreLife"] / (output["SpectreAllyDamageMitigation"] / 100) * (1 - output["SpectreAllyDamageMitigation"] / 100)
-			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["SpectreAllyDamageMitigation"] / 100)
-		end
-		-- totems
-		if output["TotalTotemLife"] and output["TotalTotemLife"] > 0 then
-			local poolProtected = output["TotalTotemLife"] / (output["TotemAllyDamageMitigation"] / 100) * (1 - output["TotemAllyDamageMitigation"] / 100)
-			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["TotemAllyDamageMitigation"] / 100)
-		end
-		if output["TotalVaalRejuvenationTotemLife"] and output["TotalVaalRejuvenationTotemLife"] > 0 then
-			local poolProtected = output["TotalVaalRejuvenationTotemLife"] / (output["VaalRejuvenationTotemAllyDamageMitigation"] / 100) * (1 - output["VaalRejuvenationTotemAllyDamageMitigation"] / 100)
-			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["VaalRejuvenationTotemAllyDamageMitigation"] / 100)
-		end
-		if output["TotalRadianceSentinelLife"] and output["TotalRadianceSentinelLife"] > 0 then
-			local poolProtected = output["TotalRadianceSentinelLife"] / (output["RadianceSentinelAllyDamageMitigation"] / 100) * (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
-			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["RadianceSentinelAllyDamageMitigation"] / 100)
-		end
-		-- soul link
-		if output["AlliedEnergyShield"] and output["AlliedEnergyShield"] > 0 then
-			local poolProtected = output["AlliedEnergyShield"] / (output["SoulLinkMitigation"] / 100) * (1 - output["SoulLinkMitigation"] / 100)
-			output[damageType.."TotalHitPool"] = m_max(output[damageType.."TotalHitPool"] - poolProtected, 0) + m_min(output[damageType.."TotalHitPool"], poolProtected) / (1 - output["SoulLinkMitigation"] / 100)
-		end
+		Guard.adjustTotalHitPool(output, damageType)
+		Aegis.adjustTotalHitPool(output, damageType)
+		AlliesTakenBeforeYou.adjustTotalHitPool(output, damageType)
 	end
 
 	for _, damageType in ipairs(dmgTypeList) do
@@ -3017,45 +2866,9 @@ function calcs.buildDefenceEstimations(env, actor)
 			local poolsRemaining = calcs.reducePoolsByDamage(nil, takenDamages, actor)
 			
 			t_insert(breakdown[maxHitCurType], s_format("^8Such a hit would drain the following:"))
-			if output.FrostShieldLife and output.FrostShieldLife > 0 then
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Frost Shield Life ^7(%d remaining)", output.FrostShieldLife - poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining, poolsRemaining.AlliesTakenBeforeYou["frostShield"].remaining))
-			end
-			if output.TotalSpectreLife and output.TotalSpectreLife > 0 then
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Spectre Life ^7(%d remaining)", output.TotalSpectreLife - poolsRemaining.AlliesTakenBeforeYou["specters"].remaining, poolsRemaining.AlliesTakenBeforeYou["specters"].remaining))
-			end
-			if output.TotalTotemLife and output.TotalTotemLife > 0 then
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Totem Life ^7(%d remaining)", output.TotalTotemLife - poolsRemaining.AlliesTakenBeforeYou["totems"].remaining, poolsRemaining.AlliesTakenBeforeYou["totems"].remaining))
-			end
-			if output.TotalVaalRejuvenationTotemLife and output.TotalVaalRejuvenationTotemLife > 0 then
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Vaal Rejuvenation Totem Life ^7(%d remaining)", output.TotalVaalRejuvenationTotemLife - poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining, poolsRemaining.AlliesTakenBeforeYou["vaalRejuvenationTotems"].remaining))
-			end
-			if output.TotalRadianceSentinelLife and output.TotalRadianceSentinelLife > 0 then
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Sentinel of Radiance Life ^7(%d remaining)", output.TotalRadianceSentinelLife - poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining, poolsRemaining.AlliesTakenBeforeYou["radianceSentinel"].remaining))
-			end
-			if output.AlliedEnergyShield and output.AlliedEnergyShield > 0 then
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Total Allied Energy shield ^7(%d remaining)", output.AlliedEnergyShield - poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining, poolsRemaining.AlliesTakenBeforeYou["soulLink"].remaining))
-			end
-			if output.sharedAegis and output.sharedAegis > 0 then
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Shared Aegis charge ^7(%d remaining)", output.sharedAegis - poolsRemaining.Aegis.shared, poolsRemaining.Aegis.shared))
-			end
-			local receivedElemental = false
-			for takenType in pairs(takenDamages) do
-				receivedElemental = receivedElemental or isElemental[takenType]
-				if output[takenType.."Aegis"] and output[takenType.."Aegis"] > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."%s Aegis charge ^7(%d remaining)", output[takenType.."Aegis"] - poolsRemaining.Aegis[takenType], takenType, poolsRemaining.Aegis[takenType]))
-				end
-			end
-			if receivedElemental and output.sharedElementalAegis and output.sharedElementalAegis > 0 then
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.GEM.."Elemental Aegis charge ^7(%d remaining)", output.sharedElementalAegis - poolsRemaining.Aegis.sharedElemental, poolsRemaining.Aegis.sharedElemental))
-			end
-			if output.sharedGuardAbsorb and output.sharedGuardAbsorb > 0 then
-				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.SCOURGE.."Shared Guard charge ^7(%d remaining)", output.sharedGuardAbsorb - poolsRemaining.Guard.shared, poolsRemaining.Guard.shared))
-			end
-			for takenType in pairs(takenDamages) do
-				if  output[takenType.."GuardAbsorb"] and output[takenType.."GuardAbsorb"] > 0 then
-					t_insert(breakdown[maxHitCurType], s_format("\n\t%d "..colorCodes.SCOURGE.."%s Guard charge ^7(%d remaining)", output[takenType.."GuardAbsorb"] - poolsRemaining.Guard[takenType], takenType, poolsRemaining.Guard[takenType]))
-				end
-			end
+			poolsRemaining.AlliesTakenBeforeYou:displayMaxHit(output, breakdown[maxHitCurType])
+			poolsRemaining.Aegis:displayMaxHit(output, breakdown[maxHitCurType], takenDamages)
+			poolsRemaining.Guard:displayMaxHit(output, breakdown[maxHitCurType], takenDamages)
 			if output.Ward and output.Ward > 0 then
 				t_insert(breakdown[maxHitCurType], s_format("\t%d "..colorCodes.WARD.."Ward", output.Ward))
 			end
