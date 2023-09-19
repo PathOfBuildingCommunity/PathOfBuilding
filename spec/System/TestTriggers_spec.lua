@@ -6,35 +6,6 @@ describe("TestTriggers", function()
     teardown(function()
         -- newBuild() takes care of resetting everything in setup()
     end)
-	
-	it("Trigger Manaforged", function()
-		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
-		Thicket Bow
-		Crafted: true
-		Prefix: {range:0.5}LocalIncreaseSocketedGemLevel1
-		Prefix: {range:0.5}LocalIncreaseSocketedBowGemLevel2
-		Prefix: None
-		Suffix: {range:0.5}LocalIncreasedAttackSpeed2
-		Suffix: None
-		Suffix: None
-		Quality: 20
-		Sockets: G-G-G-G-G-G
-		LevelReq: 56
-		Implicits: 0
-		+1 to Level of Socketed Gems
-		+2 to Level of Socketed Bow Gems
-		9% increased Attack Speed]])
-        build.itemsTab:AddDisplayItem()
-        runCallback("OnFrame")
-
-		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\nManaforged Arrows 20/0 Default  1\n")
-        runCallback("OnFrame")
-
-		build.skillsTab:PasteSocketGroup("Rain of Arrows 20/0 Default  1\n")
-		runCallback("OnFrame")
-
-		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
-    end)
 
     it("Trigger Law of the Wilds", function()
         build.itemsTab:CreateDisplayItemFromRaw([[Law of the Wilds
@@ -1339,6 +1310,35 @@ describe("TestTriggers", function()
 		mainSocketGroup.mainActiveSkill = 2
 		build.modFlag = true
 		build.buildFlag = true
+		runCallback("OnFrame")
+
+		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
+    end)
+
+	it("Trigger Manaforged", function()
+		build.itemsTab:CreateDisplayItemFromRaw([[+3 Bow
+		Thicket Bow
+		Crafted: true
+		Prefix: {range:0.5}LocalIncreaseSocketedGemLevel1
+		Prefix: {range:0.5}LocalIncreaseSocketedBowGemLevel2
+		Prefix: None
+		Suffix: {range:0.5}LocalIncreasedAttackSpeed2
+		Suffix: None
+		Suffix: None
+		Quality: 20
+		Sockets: G-G-G-G-G-G
+		LevelReq: 56
+		Implicits: 0
+		+1 to Level of Socketed Gems
+		+2 to Level of Socketed Bow Gems
+		9% increased Attack Speed]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+		build.skillsTab:PasteSocketGroup("Frenzy 20/0 Default  1\nManaforged Arrows 20/0 Default  1\n")
+        runCallback("OnFrame")
+
+		build.skillsTab:PasteSocketGroup("Rain of Arrows 20/0 Default  1\n")
 		runCallback("OnFrame")
 
 		assert.True(build.calcsTab.mainOutput.SkillTriggerRate ~= nil)
