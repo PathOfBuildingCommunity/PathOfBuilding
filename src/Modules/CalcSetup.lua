@@ -689,25 +689,25 @@ function calcs.initEnv(build, mode, override, specEnv)
 								end
 							end
 						end
-						for _, funcData in ipairs(override.extraJewelFuncs) do
+						for _, funcData in ipairs(override and override.extraJewelFuncs and override.extraJewelFuncs:List({item = item}, "ExtraJewelFunc") or {}) do
 							local node = env.spec.nodes[slot.nodeId]
 							local radius
 							for index, data in pairs(data.jewelRadius) do
-								if funcData.value.radius == data.label then
+								if funcData.radius == data.label then
 									radius = index
 									break
 								end
 							end
 							t_insert(env.radiusJewelList, {
 								nodes = node.nodesInRadius and node.nodesInRadius[radius] or { },
-								func = funcData.value.func,
-								type = funcData.value.type,
+								func = funcData.func,
+								type = funcData.type,
 								item = item,
 								nodeId = slot.nodeId,
 								attributes = node.attributesInRadius and node.attributesInRadius[radius] or { },
 								data = { }
 							})
-							if funcData.value.type ~= "Self" and node.nodesInRadius then
+							if funcData.type ~= "Self" and node.nodesInRadius then
 								-- Add nearby unallocated nodes to the extra node list
 								for nodeId, node in pairs(node.nodesInRadius[radius]) do
 									if not env.allocNodes[nodeId] then
@@ -1036,7 +1036,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 
 	if not override or (override and not override.extraJewelFuncs) then
 		override = override or {}
-		override.extraJewelFuncs = env.modDB:Tabulate("LIST", nil, "ExtraJewelFunc")
+		override.extraJewelFuncs = new("ModList")
+		for _, mod in ipairs(env.modDB:Tabulate("LIST", nil, "ExtraJewelFunc")) do
+			override.extraJewelFuncs:AddMod(mod.mod)
+		end
 		if #override.extraJewelFuncs > 0 then
 			return calcs.initEnv(build, mode, override, specEnv)
 		end
