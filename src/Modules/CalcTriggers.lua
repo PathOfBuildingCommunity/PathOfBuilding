@@ -597,9 +597,17 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
-				trigRate = 1 / GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration
+				local expirationRate = 1 / GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration
 				if breakdown and breakdown.EffectiveSourceRate then
 						breakdown.EffectiveSourceRate[1] = s_format("1 / %.2f ^8(source curse duration)", GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration)
+				end
+				if expirationRate > trigRate then
+					if breakdown and breakdown.EffectiveSourceRate then
+						t_insert(breakdown.EffectiveSourceRate, 2, s_format("max(%.2f, %.2f) ^8(If a curse expires instantly curse expiration is equivalent to curse replacement)", expirationRate, trigRate))
+						t_insert(breakdown.EffectiveSourceRate, 2, s_format("%.2f ^8(%s cast rate)", trigRate, source.activeEffect.grantedEffect.name))
+					end
+				else
+					trigRate = expirationRate
 				end
 			end
 
@@ -1209,7 +1217,6 @@ local configTable = {
 	end,
 	["doom blast"] = function(env)
 		env.player.mainSkill.skillData.ignoresTickRate = true
-		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {useCastRate = true,
 				customTriggerName = "Doom Blast triggering Hex: ",
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) end}
