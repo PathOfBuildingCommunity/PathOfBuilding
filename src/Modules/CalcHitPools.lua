@@ -11,7 +11,7 @@ local s_format = string.format
 ---@param percentage float percentage of damage the pool will take on behalf of the player. Should be between 0 and 1
 ---@param type string name of the type of damage to be absorbed. Must be a key in the pool table
 ---@return number the remaining amount of damage after pool has absorbed what it can
-local function genereicTakeDamage(pool, amount, percentage, type)
+local function genericTakeDamage(pool, amount, percentage, type)
 	if pool[type] > 0 then
 		local temp = m_min(amount*percentage, pool[type])
 		pool[type] = pool[type] - temp
@@ -83,11 +83,11 @@ function Aegis:new(output)
 end
 
 function Aegis:takeDamage(damageType, damage)
-	damage = genereicTakeDamage(self, damage, 1, damageType)
+	damage = genericTakeDamage(self, damage, 1, damageType)
 	if isElemental[damageType] then
-		damage = genereicTakeDamage(self, damage, 1, "sharedElemental")
+		damage = genericTakeDamage(self, damage, 1, "sharedElemental")
 	end
-	damage = genereicTakeDamage(self, damage, 1, "shared")
+	damage = genericTakeDamage(self, damage, 1, "shared")
 	return damage
 end
 
@@ -171,8 +171,8 @@ end
 
 
 function Guard:takeDamage(damageType, damage)
-	damage = genereicTakeDamage(self, damage, self[damageType.."Rate"], damageType)
-	damage = genereicTakeDamage(self, damage, self.sharedRate, "shared")
+	damage = genericTakeDamage(self, damage, self[damageType.."Rate"], damageType)
+	damage = genericTakeDamage(self, damage, self.sharedRate, "shared")
 	return damage
 end
 
@@ -290,7 +290,7 @@ end
 function AlliesTakenBeforeYou:takeDamage(damageType, damage)
 	for _, allyValues in ipairs(self) do
 		if not allyValues.damageType or allyValues.damageType == damageType then
-			damage = genereicTakeDamage(allyValues, damage, allyValues.percent, "remaining")
+			damage = genericTakeDamage(allyValues, damage, allyValues.percent, "remaining")
 		end
 	end
 	return damage
