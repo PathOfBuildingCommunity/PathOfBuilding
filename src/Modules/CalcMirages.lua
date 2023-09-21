@@ -116,7 +116,7 @@ function calcs.mirages(env)
 			compareFunc = function(skill, env, config, mirageSkill)
 				if skill ~= env.player.mainSkill and skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Totem] and not skill.skillTypes[SkillType.SummonsTotem] and band(skill.skillCfg.flags, bor(ModFlag.Sword, ModFlag.Weapon1H)) == bor(ModFlag.Sword, ModFlag.Weapon1H) and not skill.skillCfg.skillCond["usedByMirage"] then
 					local uuid = cacheSkillUUID(skill, env)
-					if not GlobalCache.cachedData[calcMode][uuid] then
+					if not GlobalCache.cachedData[calcMode][uuid] or GlobalCache.noCache then
 						calcs.buildActiveSkill(env, calcMode, skill)
 					end
 
@@ -173,7 +173,8 @@ function calcs.mirages(env)
 		}
 	elseif env.player.mainSkill.activeEffect.grantedEffect.name == "Tawhoa's Chosen" then
 		local usedSkillBestDps
-
+		local EffectiveSourceRate
+		
 		local triggerCD = env.player.mainSkill.skillData.cooldown
 		local triggeredCD
 		local icdrSkill
@@ -182,25 +183,27 @@ function calcs.mirages(env)
 		local rateCapAdjusted
 		local triggerRateCap = m_huge
 		local SkillTriggerRate
-		local EffectiveSourceRate
 		local moreDamage = env.player.mainSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "ChieftainMirageChieftainMoreDamage")
+		
 		config = {
 			compareFunc = function(skill, env, config, mirageSkill)
 				local isDisabled = skill.skillFlags and skill.skillFlags.disable
 				if skill ~= env.player.mainSkill and (skill.skillTypes[SkillType.Slam] or skill.skillTypes[SkillType.Melee]) and skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Vaal] and not isTriggered(skill) and not isDisabled and not skill.skillTypes[SkillType.Totem] and not skill.skillTypes[SkillType.SummonsTotem] and not skill.skillCfg.skillCond["usedByMirage"] then
 					local uuid = cacheSkillUUID(skill, env)
-					if not GlobalCache.cachedData[calcMode][uuid] then
+					if not GlobalCache.cachedData[calcMode][uuid] or GlobalCache.noCache then
 						calcs.buildActiveSkill(env, calcMode, skill)
 					end
 
 					if GlobalCache.cachedData[calcMode][uuid] then
 						if not mirageSkill then
 							usedSkillBestDps = GlobalCache.cachedData[calcMode][uuid].TotalDPS
+							EffectiveSourceRate = GlobalCache.cachedData[calcMode][uuid].Speed
 							return  GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 
 						else
 							if GlobalCache.cachedData[calcMode][uuid].TotalDPS > usedSkillBestDps then
 								usedSkillBestDps = GlobalCache.cachedData[calcMode][uuid].TotalDPS
+								EffectiveSourceRate = GlobalCache.cachedData[calcMode][uuid].Speed
 								return GlobalCache.cachedData[calcMode][uuid].ActiveSkill
 							end
 						end
@@ -220,7 +223,6 @@ function calcs.mirages(env)
 				end
 
 				local BreakdownEffectiveSourceRate = {}
-				EffectiveSourceRate = GlobalCache.cachedData[calcMode][cacheSkillUUID(newSkill, env)].Speed
 				local BreakdownSkillTriggerRate = {}
 				local BreakdownSimData
 				local simBreakdown
