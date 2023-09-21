@@ -1842,7 +1842,10 @@ end
 -- List of special modifiers
 local specialModList = {
 	-- Explode mods
-	["enemies you kill have ?a? ?(%d+)%% chance to explode, dealing ?a? ?(%d+)%% of their maximum life as (.+) damage"] = function(chance, _, amount, type) -- Obliteration; Unspeakable Gifts (chaos cluster); synth implicit mod; crusader body mod; Hinekora, Death's Fury
+	["enemies you kill have a (%d+)%% chance to explode, dealing a (.+) of their maximum life as (.+) damage"] = function(chance, _, amount, type)	-- Obliteration, Unspeakable Gifts (chaos cluster), synth implicit mod, current crusader body mod, Ngamahu Warmonger tattoo
+		return explodeFunc(chance, amount, type)
+	end,
+	["enemies you kill have ?a? ?(%d+)%% chance to explode, dealing (%d+)%% of their maximum life as (.+) damage"] = function(chance, _, amount, type) -- Hinekora, Death's Fury
 		return explodeFunc(chance, amount, type)
 	end,
 	["enemies you kill while using pride have (%d+)%% chance to explode, dealing a (.+) of their maximum life as (.+) damage"] = function(chance, _, amount, type)	-- Sublime Vision
