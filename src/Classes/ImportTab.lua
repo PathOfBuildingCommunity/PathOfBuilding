@@ -1025,7 +1025,12 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 					itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
 				end
 				local socketGroup = itemSocketGroupList[groupID]
-				t_insert(socketGroup.gemList, gemInstance)
+				if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support and item.title ~= "Dialla's Malefaction" then
+					-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
+					t_insert(socketGroup.gemList, 1, gemInstance)
+				else
+					t_insert(socketGroup.gemList, gemInstance)
+				end
 			end
 		end
 	end
