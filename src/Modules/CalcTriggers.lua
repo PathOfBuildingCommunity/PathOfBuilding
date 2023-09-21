@@ -773,6 +773,10 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			if env.player.mainSkill.activeEffect.grantedEffect.name == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
+				if not env.player.itemList["Gloves"] or env.player.itemList["Gloves"].title ~= "Vixen's Entrapment" then
+					output.VixenModeNoVixenGlovesWarn = true
+				end
+
 				env.player.modDB:NewMod("UsesCurseOverlaps", "FLAG", true, "Config")
 				local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
 				local vixensCD = vixens and vixens.levels[1].cooldown / icdr
