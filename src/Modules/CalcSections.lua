@@ -1962,7 +1962,7 @@ return {
 	{ label = "Frost Shield", haveOutput = "FrostShieldLife",
 		{ format = "{0:output:FrostShieldLife}",
 			{ breakdown = "FrostShieldLife" },
-			{ modName = { "FrostGlobeHealth", "FrostGlobeDamageMitigation" } },
+			{ modName = { "FrostShieldLife", "FrostShieldDamageMitigation" } },
 		},
 	},
 	{ label = "Spectre Ally", haveOutput = "TotalSpectreLife",

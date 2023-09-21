@@ -1905,120 +1905,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 	end
 
-	-- Guard
-	output.AnyGuard = false
-	output["sharedGuardAbsorbRate"] = m_min(modDB:Sum("BASE", nil, "GuardAbsorbRate"), 100)
-	if output["sharedGuardAbsorbRate"] > 0 then
-		output.OnlySharedGuard = true
-		output["sharedGuardAbsorb"] = calcLib.val(modDB, "GuardAbsorbLimit")
-		local lifeProtected = output["sharedGuardAbsorb"] / (output["sharedGuardAbsorbRate"] / 100) * (1 - output["sharedGuardAbsorbRate"] / 100)
-		if breakdown then
-			breakdown["sharedGuardAbsorb"] = {
-				s_format("Total life protected:"),
-				s_format("%d ^8(guard limit)", output["sharedGuardAbsorb"]),
-				s_format("/ %.2f ^8(portion taken from guard)", output["sharedGuardAbsorbRate"] / 100),
-				s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output["sharedGuardAbsorbRate"] / 100),
-				s_format("= %d", lifeProtected)
-			}
-		end
-	end
-	for _, damageType in ipairs(dmgTypeList) do
-		output[damageType.."GuardAbsorbRate"] = m_min(modDB:Sum("BASE", nil, damageType.."GuardAbsorbRate"), 100)
-		if output[damageType.."GuardAbsorbRate"] > 0 then
-			output.ehpSectionAnySpecificTypes = true
-			output.AnyGuard = true
-			output.OnlySharedGuard = false
-			output[damageType.."GuardAbsorb"] = calcLib.val(modDB, damageType.."GuardAbsorbLimit")
-			local lifeProtected = output[damageType.."GuardAbsorb"] / (output[damageType.."GuardAbsorbRate"] / 100) * (1 - output[damageType.."GuardAbsorbRate"] / 100)
-			if breakdown then
-				breakdown[damageType.."GuardAbsorb"] = {
-					s_format("Total life protected:"),
-					s_format("%d ^8(guard limit)", output[damageType.."GuardAbsorb"]),
-					s_format("/ %.2f ^8(portion taken from guard)", output[damageType.."GuardAbsorbRate"] / 100),
-					s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output[damageType.."GuardAbsorbRate"] / 100),
-					s_format("= %d", lifeProtected),
-				}
-			end
-		end
-	end
-	
-	--aegis
-	output.AnyAegis = false
-	output["sharedAegis"] = modDB:Max(nil, "AegisValue") or 0
-	output["sharedElementalAegis"] = modDB:Max(nil, "ElementalAegisValue") or 0
-	if output["sharedAegis"] > 0 then
-		output.AnyAegis = true
-	end
-	if output["sharedElementalAegis"] > 0 then
-		output.ehpSectionAnySpecificTypes = true
-		output.AnyAegis = true
-	end
-	for _, damageType in ipairs(dmgTypeList) do
-		local aegisValue = modDB:Max(nil, damageType.."AegisValue") or 0
-		if aegisValue > 0 then
-			output.ehpSectionAnySpecificTypes = true
-			output.AnyAegis = true
-			output[damageType.."Aegis"] = aegisValue
-		else
-			output[damageType.."Aegis"] = 0
-		end
-		if isElemental[damageType] then
-			output[damageType.."AegisDisplay"] = output[damageType.."Aegis"] + output["sharedElementalAegis"]
-		end
-	end
-	
-	-- taken from allies before you, eg. frost shield
-	do
-		-- frost shield
-		output["FrostShieldLife"] = modDB:Sum("BASE", nil, "FrostGlobeHealth")
-		output["FrostShieldDamageMitigation"] = modDB:Sum("BASE", nil, "FrostGlobeDamageMitigation")
-		
-		local lifeProtected = output["FrostShieldLife"] / (output["FrostShieldDamageMitigation"] / 100) * (1 - output["FrostShieldDamageMitigation"] / 100)
-		if breakdown then
-			breakdown["FrostShieldLife"] = {
-				s_format("Total life protected:"),
-				s_format("%d ^8(frost shield limit)", output["FrostShieldLife"]),
-				s_format("/ %.2f ^8(portion taken from frost shield)", output["FrostShieldDamageMitigation"] / 100),
-				s_format("x %.2f ^8(portion taken from life and energy shield)", 1 - output["FrostShieldDamageMitigation"] / 100),
-				s_format("= %d", lifeProtected),
-			}
-		end
-		
-		-- from specters
-		output["SpectreAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromSpectresBeforeYou")
-		if output["SpectreAllyDamageMitigation"] ~= 0 then
-			output["TotalSpectreLife"] = modDB:Sum("BASE", nil, "TotalSpectreLife")
-		end
-		
-		-- from totems
-		output["TotemAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromTotemsBeforeYou")
-		if output["TotemAllyDamageMitigation"] ~= 0 then
-			output["TotalTotemLife"] = modDB:Sum("BASE", nil, "TotalTotemLife")
-		end
-		
-		-- from VaalRejuveTotem
-		output["VaalRejuvenationTotemAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromVaalRejuvenationTotemsBeforeYou") + output["TotemAllyDamageMitigation"]
-		if output["VaalRejuvenationTotemAllyDamageMitigation"] ~= output["TotemAllyDamageMitigation"] then
-			output["TotalVaalRejuvenationTotemLife"] = modDB:Sum("BASE", nil, "TotalVaalRejuvenationTotemLife")
-		end
-		
-		-- from Sentinel of Radiance
-		output["RadianceSentinelAllyDamageMitigation"] = modDB:Sum("BASE", nil, "takenFromRadianceSentinelBeforeYou")
-		if output["RadianceSentinelAllyDamageMitigation"] ~= 0 then
-			output["TotalRadianceSentinelLife"] = modDB:Sum("BASE", nil, "TotalRadianceSentinelLife")
-		end
-		
-		-- from Allied Energy Shield
-		output["SoulLinkMitigation"] = modDB:Sum("BASE", nil, "TakenFromParentESBeforeYou")
-		if output["SoulLinkMitigation"] ~= 0 then
-			output["AlliedEnergyShield"] = actor.parent.output.EnergyShieldRecoveryCap or 0
-		else
-			output["SoulLinkMitigation"] = modDB:Sum("BASE", nil, "TakenFromPartyMemberESBeforeYou")
-			if output["SoulLinkMitigation"] ~= 0 then
-				output["AlliedEnergyShield"] = actor.partyMembers.output.EnergyShieldRecoveryCap or 0
-			end
-		end
-	end
+	Guard.init(output, modDB, breakdown)
+	Aegis.init(output, modDB)
+	AlliesTakenBeforeYou.init(output, modDB, breakdown, actor)
 	
 	-- Vaal Arctic Armour
 	do
@@ -2722,8 +2611,6 @@ function calcs.buildDefenceEstimations(env, actor)
 		else
 			output[damageType.."TotalHitPool"] = output[damageType.."TotalHitPool"] + output.Ward or 0
 		end
-		-- from allies before you
-		-- frost shield
 		Guard.adjustTotalHitPool(output, damageType)
 		Aegis.adjustTotalHitPool(output, damageType)
 		AlliesTakenBeforeYou.adjustTotalHitPool(output, damageType)
