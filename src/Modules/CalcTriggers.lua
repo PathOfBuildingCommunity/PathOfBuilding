@@ -425,7 +425,7 @@ local function defaultTriggerHandler(env, config)
 					if config.assumingEveryHitKills then
 						t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
 					end
-					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, source.activeEffect.grantedEffect.name, config.useCastRate and "cast rate" or "attack rate"))
+					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, config.sourceName or source.activeEffect.grantedEffect.name, config.useCastRate and "cast rate" or "attack rate"))
 				end
 			end
 
@@ -1291,6 +1291,21 @@ local configTable = {
 					return (not source and totemLife) or (totemLife and totemLife > (currentTotemLife or 0))
 				end,
 				ignoreSourceRate = true}
+	end,
+	["intuitive link"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Intuitive Link" then
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.activeEffect.grantedEffect.name == "Intuitive Link" then
+					env.player.mainSkill.triggeredBy.mainSkill = skill
+					break
+				end
+			end
+			return {triggeredSkillCond = function(env, skill) return skill.skillTypes[SkillType.Spell] and slotMatch(env, skill) and skill ~= env.player.mainSkill.triggeredBy.mainSkill end,
+					trigRate = env.modDB:Sum("BASE", nil, "IntuitiveLinkSourceRate"),
+					source = env.player.mainSkill.triggeredBy.mainSkill,
+					sourceName = "Custom source",
+					useCastRate = true}
+		end
 	end,
 }
 
