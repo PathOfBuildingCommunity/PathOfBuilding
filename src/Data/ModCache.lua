@@ -8873,7 +8873,7 @@ c["Modifiers to Maximum Fire Resistance also apply to Maximum Cold and Lightning
 c["Modifiers to Minimum Endurance Charges instead apply to Minimum Brutal Charges"]={{[1]={flags=0,keywordFlags=0,name="MinimumEnduranceChargesEqualsMinimumBrutalCharges",type="FLAG",value=true}},nil}
 c["Modifiers to Minimum Frenzy Charges instead apply to Minimum Affliction Charges"]={{[1]={flags=0,keywordFlags=0,name="MinimumFrenzyChargesEqualsMinimumAfflictionCharges",type="FLAG",value=true}},nil}
 c["Modifiers to Minimum Power Charges instead apply to Minimum Absorption Charges"]={{[1]={flags=0,keywordFlags=0,name="MinimumPowerChargesEqualsMinimumAbsorptionCharges",type="FLAG",value=true}},nil}
-c["Modifiers to number of Projectiles instead apply to the number of targets Projectiles Split towards"]={{[1]={flags=0,keywordFlags=0,name="NoAdditionalProjectiles",type="FLAG",value=true}},nil}
+c["Modifiers to number of Projectiles instead apply to the number of targets Projectiles Split towards"]={{[1]={flags=0,keywordFlags=0,name="NoAdditionalProjectiles",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="AdditionalProjectilesAddSplitsInstead",type="FLAG",value=true}},nil}
 c["Monsters cannot Block your Attacks"]={{[1]={flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="CannotBlockAttacks",type="FLAG",value=true}}}},nil}
 c["Mortal Conviction"]={{[1]={flags=0,keywordFlags=0,name="Keystone",type="LIST",value="Mortal Conviction"}},nil}
 c["Movement Speed cannot be modified to below base value"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeedCannotBeBelowBase",type="FLAG",value=true}},nil}
