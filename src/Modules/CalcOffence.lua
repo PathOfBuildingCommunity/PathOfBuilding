@@ -1041,6 +1041,31 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			output.PiercedCount = m_min(output.PierceCount, skillModList:Sum("BASE", skillCfg, "PiercedCount"))
 		end
+		if skillModList:Flag(skillCfg, "CannotReturn") then
+			if skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
+				output.SplitCountString = "Cannot return"
+			end
+		else
+			output.ReturnChance = m_min(skillModList:Sum("BASE", skillCfg, "ReturnChance"), 100)
+			output.SecondaryReturnChance = m_min(skillModList:Sum("BASE", skillCfg, "SecondaryReturnChance"), 100)
+			if output.ReturnChance > 0 then
+				output.ReturnChanceString = output.ReturnChance.."%"
+				if output.SecondaryReturnChance > 0 then
+					output.ReturnChanceString = output.ReturnChanceString..", "..output.SecondaryReturnChance.."%"
+					if breakdown then
+						breakdown.ReturnChanceString = {
+							s_format("Return Chance: %d%%", output.ReturnChance),
+							s_format(" "),
+							s_format("Second Return Chance: %d%%", output.SecondaryReturnChance),
+						}
+						if output.SecondaryReturnChance > 0 and output.ReturnChance < 100 then
+							t_insert(breakdown.ReturnChanceString, s_format("x %.2f ^8(return chance)", output.ReturnChance / 100))
+							t_insert(breakdown.ReturnChanceString, s_format("= %.2f%% ^8(total chance to return twice)", output.SecondaryReturnChance * output.ReturnChance / 100))
+						end
+					end
+				end
+			end
+		end
 		output.ProjectileSpeedMod = calcLib.mod(skillModList, skillCfg, "ProjectileSpeed")
 		if breakdown then
 			breakdown.ProjectileSpeedMod = breakdown.mod(skillModList, skillCfg, "ProjectileSpeed")
