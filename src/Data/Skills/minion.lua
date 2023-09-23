@@ -225,7 +225,7 @@ skills["IceElementalSpearSummoned"] = {
 	color = 3,
 	baseEffectiveness = 2.2813000679016,
 	incrementalEffectiveness = 0.034600000828505,
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Damage] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
