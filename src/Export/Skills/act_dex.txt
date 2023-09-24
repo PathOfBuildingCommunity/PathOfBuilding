@@ -1804,6 +1804,13 @@ local skills, mod, flag, skill = ...
 
 #skill ShrapnelBallista
 #flags attack projectile totem ballista
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * math.min(activeSkill.skillData.ShrapnelBallistaProjectileOverlap or (activeSkill.skillTypes[SkillType.Rain] and output.ProjectileCount or 1), output.ProjectileCount)
+		local splitCount = output.SplitCount or 0
+		if splitCount > 0 then
+			activeSkill.skillModList:NewMod("DPS", "MORE", splitCount * 100, "Split Return", 0, { type = "Condition", var = "ReturningProjectile" })
+		end
+	end,
 #mods
 
 #skill SiegeBallista

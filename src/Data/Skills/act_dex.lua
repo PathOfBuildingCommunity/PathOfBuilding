@@ -8470,6 +8470,13 @@ skills["ShrapnelBallista"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 18,
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * math.min(activeSkill.skillData.ShrapnelBallistaProjectileOverlap or (activeSkill.skillTypes[SkillType.Rain] and output.ProjectileCount or 1), output.ProjectileCount)
+		local splitCount = output.SplitCount or 0
+		if splitCount > 0 then
+			activeSkill.skillModList:NewMod("DPS", "MORE", splitCount * 100, "Split Return", 0, { type = "Condition", var = "ReturningProjectile" })
+		end
+	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,
