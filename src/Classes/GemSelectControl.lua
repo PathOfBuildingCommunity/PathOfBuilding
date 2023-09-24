@@ -57,7 +57,7 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	}
 end)
 
-function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData)
+function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId)
 	local gemList = self.skillsTab.displayGroup.gemList
 	local oldGem
 	if gemList[self.index] then
@@ -65,7 +65,7 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData)
 	else
 		gemList[self.index] = {
 			level = gemData.naturalMaxLevel,
-			qualityId = self:GetQualityType(gemId),
+			qualityId = qualityId,
 			quality = self.skillsTab.defaultGemQuality or 0,
 			count = 1,
 			enabled = true,
@@ -299,7 +299,7 @@ function GemSelectClass:UpdateSortCache()
 		sortCache.dps[gemId] = baseDPS
 		-- Ignore gems that don't support the active skill
 		if sortCache.canSupport[gemId] or gemData.grantedEffect.hasGlobalEffect then
-			local output = self:CalcOutputWithThisGem(calcFunc, gemData)
+			local output = self:CalcOutputWithThisGem(calcFunc, gemData, self:GetQualityType(gemId))
 			-- Check for nil because some fields may not be populated, default to 0
 			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
@@ -441,7 +441,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
 				self.tooltip:Clear()
-				local output, gemInstance = self:CalcOutputWithThisGem(calcFunc, self.gems[self.list[self.hoverSel]])
+				local output, gemInstance = self:CalcOutputWithThisGem(calcFunc, self.gems[self.list[self.hoverSel]], self:GetQualityType(self.list[self.hoverSel]))
 				self.tooltip:AddSeparator(10)
 				self:AddGemTooltip(gemInstance)
 				self.skillsTab.build:AddStatComparesToTooltip(self.tooltip, calcBase, output, "^7Selecting this gem will give you:")
