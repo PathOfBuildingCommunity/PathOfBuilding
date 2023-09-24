@@ -1041,34 +1041,71 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			output.PiercedCount = m_min(output.PierceCount, skillModList:Sum("BASE", skillCfg, "PiercedCount"))
 		end
+		output.ProjectileSpeedMod = calcLib.mod(skillModList, skillCfg, "ProjectileSpeed")
+		if breakdown then
+			breakdown.ProjectileSpeedMod = breakdown.mod(skillModList, skillCfg, "ProjectileSpeed")
+		end
 		if skillModList:Flag(skillCfg, "CannotReturn") then
 			if skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
-				output.SplitCountString = "Cannot return"
+				output.ReturnChanceString = "Cannot return"
 			end
 		else
 			output.ReturnChance = m_min(skillModList:Sum("BASE", skillCfg, "ReturnChance"), 100)
-			output.SecondaryReturnChance = m_min(skillModList:Sum("BASE", skillCfg, "SecondaryReturnChance"), 100)
 			if output.ReturnChance > 0 then
-				output.ReturnChanceString = output.ReturnChance.."%"
-				if output.SecondaryReturnChance > 0 then
-					output.ReturnChanceString = output.ReturnChanceString..", "..output.SecondaryReturnChance.."%"
-					if breakdown then
-						breakdown.ReturnChanceString = {
-							s_format("Return Chance: %d%%", output.ReturnChance),
-							s_format(" "),
-							s_format("Second Return Chance: %d%%", output.SecondaryReturnChance),
-						}
-						if output.SecondaryReturnChance > 0 and output.ReturnChance < 100 then
-							t_insert(breakdown.ReturnChanceString, s_format("x %.2f ^8(return chance)", output.ReturnChance / 100))
-							t_insert(breakdown.ReturnChanceString, s_format("= %.2f%% ^8(total chance to return twice)", output.SecondaryReturnChance * output.ReturnChance / 100))
+				local minimumReturnSpeed = skillModList:Sum("BASE", skillCfg, "ReturnSpeedNeeded")
+				ConPrintTable({minimumReturnSpeed})
+				if minimumReturnSpeed > 0 then
+					local nonReturnCfg = copyTable(skillCfg, true)
+					nonReturnCfg.skillCond["Condition:ReturningProjectile"] = false
+					local nonReturnProjectileSpeedMod = calcLib.mod(skillModList, nonReturnCfg, "ProjectileSpeed")
+					if (minimumReturnSpeed / 100) > nonReturnProjectileSpeedMod then
+						output.ReturnChance = 0
+						output.ReturnChanceString = "Proj. Too Slow"
+						if breakdown then
+							breakdown.ReturnChanceString = {
+								s_format("Return Chance: %d%%", output.ReturnChance),
+								s_format("Minimum projectile speed required to return: %d%%", minimumReturnSpeed),
+								s_format("Current projectile speed: %d%%", nonReturnProjectileSpeedMod * 100),
+							}
+						end
+					end
+				end
+				if output.ReturnChance > 0 then
+					output.ReturnChanceString = output.ReturnChance.."%"
+					output.SecondaryReturnChance = m_min(skillModList:Sum("BASE", skillCfg, "SecondaryReturnChance"), 100)
+					if output.SecondaryReturnChance > 0 and minimumReturnSpeed > 0 then
+						local returnCfg = copyTable(skillCfg, true)
+						returnCfg.skillCond["ReturningProjectile"] = true
+						local returnProjectileSpeedMod = calcLib.mod(skillModList, returnCfg, "ProjectileSpeed")
+						if (minimumReturnSpeed * 2 / 100) > returnProjectileSpeedMod then
+							output.SecondaryReturnChance = 0
+							if breakdown then
+								breakdown.ReturnChanceString = {
+									s_format("Return Chance: %d%%", output.ReturnChance),
+									s_format(" "),
+									s_format("Second Return Chance: %d%%", output.SecondaryReturnChance),
+									s_format("Minimum projectile speed required to return Second Time: %d%%", minimumReturnSpeed * 2),
+									s_format("Current projectile speed: %d%%", returnProjectileSpeedMod * 100),
+								}
+							end
+						end
+					end
+					if output.SecondaryReturnChance > 0 then
+						output.ReturnChanceString = output.ReturnChanceString..", "..output.SecondaryReturnChance.."%"
+						if breakdown then
+							breakdown.ReturnChanceString = {
+								s_format("Return Chance: %d%%", output.ReturnChance),
+								s_format(" "),
+								s_format("Second Return Chance: %d%%", output.SecondaryReturnChance),
+							}
+							if output.SecondaryReturnChance > 0 and output.ReturnChance < 100 then
+								t_insert(breakdown.ReturnChanceString, s_format("x %.2f ^8(return chance)", output.ReturnChance / 100))
+								t_insert(breakdown.ReturnChanceString, s_format("= %.2f%% ^8(total chance to return twice)", output.SecondaryReturnChance * output.ReturnChance / 100))
+							end
 						end
 					end
 				end
 			end
-		end
-		output.ProjectileSpeedMod = calcLib.mod(skillModList, skillCfg, "ProjectileSpeed")
-		if breakdown then
-			breakdown.ProjectileSpeedMod = breakdown.mod(skillModList, skillCfg, "ProjectileSpeed")
 		end
 	end
 	if skillFlags.melee then
