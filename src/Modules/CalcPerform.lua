@@ -2792,8 +2792,9 @@ function calcs.perform(env, fullDPSSkipEHP)
 		calcs.buildDefenceEstimations(env, env.player)
 	end
 	calcs.triggers(env)
-	calcs.mirages(env)
-	calcs.offence(env, env.player, env.player.mainSkill)
+	if not calcs.mirages(env) then
+		calcs.offence(env, env.player, env.player.mainSkill)
+	end
 
 	if env.minion then
 		doActorLifeMana(env.minion)

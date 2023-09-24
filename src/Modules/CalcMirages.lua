@@ -41,10 +41,9 @@ local function calculateMirage(env, config)
 		newEnv.player.mainSkill = newSkill
 		calcs.perform(newEnv)
 
-		_ = config.postCalcFunc and config.postCalcFunc(env, newSkill, newEnv)
-	else
-		_ = config.mirageSkillNotFoundFunc and config.mirageSkillNotFoundFunc(env, config)
+		return config.postCalcFunc and config.postCalcFunc(env, newSkill, newEnv)
 	end
+	return config.mirageSkillNotFoundFunc and config.mirageSkillNotFoundFunc(env, config)
 end
 
 function calcs.mirages(env)
@@ -165,6 +164,7 @@ function calcs.mirages(env)
 						env.minion.breakdown = newEnv.minion.breakdown
 					end
 				end
+				return newSkill
 			end,
 			mirageSkillNotFoundFunc = function(env, config)
 				env.player.mainSkill.infoMessage2 = "No Saviour active skill found"
@@ -316,6 +316,7 @@ function calcs.mirages(env)
 					env.player.breakdown.ManaCost = nil
 					env.player.mainSkill.skillData.triggered = true
 				end
+				return newSkill
 			end,
 			mirageSkillNotFoundFunc = function(env, config)
 				env.player.mainSkill.disableReason = "No Tawhoa's Chosen active skill found"
@@ -325,6 +326,6 @@ function calcs.mirages(env)
 	end
 
 	if config then
-		calculateMirage(env, config)
+		return calculateMirage(env, config)
 	end
 end
