@@ -15164,11 +15164,11 @@ skills["TornadoShot"] = {
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 and (output.ReturnChance or 0) == 0 then
 			local averageSecondaryProjectiles = output.ProjectileCount + (output.SplitCount or 0)
-			-- if barrage then only shoots 1 projectile at a time, but those can still split and still releases atleast 1 secondary projectile
+			-- if barrage then only shoots 1 projectile at a time, but those can still split and still releases at least 1 secondary projectile
 			if activeSkill.skillModList:Flag(nil, "SequentialProjectiles") and not activeSkill.skillModList:Flag(nil, "OneShotProj") and not activeSkill.skillModList:Flag(nil,"NoAdditionalProjectiles") and not activeSkill.skillModList:Flag(nil, "TriggeredBySnipe") then
 				averageSecondaryProjectiles = 1 + (output.SplitCount or 0)
 			end
-			-- default to 20% per secondary projectile, so 60% base, and 80% with helm ench
+			-- default to 20% per secondary projectile, so 60% base, and 80% with helm enchant
 			local chanceForSecondaryProjectilesToHit = math.min((activeSkill.skillData.tornadoShotSecondaryHitChance or (20 * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "tornadoShotSecondaryProjectiles"))) / 100, 1)
 			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (1 + chanceForSecondaryProjectilesToHit * averageSecondaryProjectiles)
 		end
