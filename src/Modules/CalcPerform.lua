@@ -2083,6 +2083,141 @@ function calcs.perform(env, fullDPSSkipEHP)
 			end
 		end
 	end
+	
+	-- Limited support for handling buffs originating from minions like Spectres or guardian elemental relics
+	for _, activeSkill in ipairs(env.player.activeSkillList) do
+		if activeSkill.minion then
+			for _, activeMinionSkill in ipairs(activeSkill.minion.activeSkillList) do
+				if activeMinionSkill.buffList then
+					local skillModList = activeMinionSkill.skillModList
+					local skillCfg = activeMinionSkill.skillCfg
+					for _, buff in ipairs(activeMinionSkill.buffList) do
+						if buff.type == "Buff" and activeMinionSkill.skillData.enable then
+							if buff.applyAllies then
+								activeMinionSkill.buffSkill = true
+								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								local srcList = new("ModList")
+								local inc = skillModList:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnPlayer")
+								local more = skillModList:More(skillCfg, "BuffEffect", "BuffEffectOnPlayer")
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, buffs, buff.name)
+								mergeBuff(buff.modList, buffs, buff.name)
+								if activeMinionSkill.skillData.thisIsNotABuff then
+									buffs[buff.name].notBuff = true
+								end
+							end
+							if buff.applyMinions then
+								activeMinionSkill.minionBuffSkill = true
+								activeSkill.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+								local srcList = new("ModList")
+								local inc = skillModList:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnMinion")
+								local more = skillModList:More(skillCfg, "BuffEffect", "BuffEffectOnMinion")
+								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
+								mergeBuff(srcList, minionBuffs, buff.name)
+								mergeBuff(buff.modList, minionBuffs, buff.name)
+								if activeMinionSkill.skillData.thisIsNotABuff then
+									buffs[buff.name].notBuff = true
+								end
+							end
+						elseif buff.type == "Aura" then
+							if env.mode_buffs then
+								-- Check for extra modifiers to apply to aura skills
+								local extraAuraModList = { }
+								for _, value in ipairs(activeSkill.minion.modDB:List(skillCfg, "ExtraAuraEffect")) do
+									local add = true
+									for _, mod in ipairs(extraAuraModList) do
+										if modLib.compareModParams(mod, value.mod) then
+											mod.value = mod.value + value.mod.value
+											add = false
+											break
+										end
+									end
+									if add then
+										t_insert(extraAuraModList, copyTable(value.mod, true))
+									end
+								end
+								if not (activeSkill.minion.modDB:Flag(nil, "SelfAurasCannotAffectAllies") or activeSkill.minion.modDB:Flag(nil, "SelfAurasOnlyAffectYou") or activeSkill.minion.modDB:Flag(nil, "SelfAuraSkillsCannotAffectAllies")) then
+									if not modDB:Flag(nil, "AlliesAurasCannotAffectSelf") and not modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] then
+										local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "BuffEffectOnPlayer", "AuraBuffEffect") + modDB:Sum("INC", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
+										local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect") * modDB:More(skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
+										local mult = (1 + inc / 100) * more
+										if not allyBuffs["Aura"] or not allyBuffs["Aura"][buff.name] or allyBuffs["Aura"][buff.name].effectMult / 100 <= mult then
+											activeMinionSkill.buffSkill = true
+											modDB.conditions["AffectedByAura"] = true
+											if buff.name:sub(1,4) == "Vaal" then
+												modDB.conditions["AffectedBy"..buff.name:sub(6):gsub(" ","")] = true
+											end
+											modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+											local srcList = new("ModList")
+											srcList:ScaleAddList(buff.modList, mult)
+											srcList:ScaleAddList(extraAuraModList, mult)
+											mergeBuff(srcList, buffs, buff.name)
+										end
+									end
+									if env.minion and not env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] then
+										local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect") + env.minion.modDB:Sum("INC", skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
+										local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect") * env.minion.modDB:More(skillCfg, "BuffEffectOnSelf", "AuraEffectOnSelf")
+										local mult = (1 + inc / 100) * more
+										if not allyBuffs["Aura"] or  not allyBuffs["Aura"][buff.name] or allyBuffs["Aura"][buff.name].effectMult / 100 <= mult then
+											activeMinionSkill.minionBuffSkill = true
+											env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+											env.minion.modDB.conditions["AffectedByAura"] = true
+											local srcList = new("ModList")
+											srcList:ScaleAddList(buff.modList, mult)
+											srcList:ScaleAddList(extraAuraModList, mult)
+											mergeBuff(srcList, minionBuffs, buff.name)
+										end
+									end
+									local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect")
+									local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect")
+									local mult = (1 + inc / 100) * more
+									local newModList = new("ModList")
+									newModList:AddList(buff.modList)
+									newModList:AddList(extraAuraModList)
+									if buffExports["Aura"][buff.name] then
+										buffExports["Aura"][buff.name.."_Debuff"] = buffExports["Aura"][buff.name]
+									end
+									buffExports["Aura"][buff.name] = { effectMult = mult, modList = newModList }
+									if env.player.mainSkill.skillFlags.totem and not env.player.mainSkill.skillModList.conditions["AffectedBy"..buff.name:gsub(" ","")] then
+										activeMinionSkill.totemBuffSkill = true
+										env.player.mainSkill.skillModList.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+										env.player.mainSkill.skillModList.conditions["AffectedByAura"] = true
+
+										local srcList = new("ModList")
+										local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
+										local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "AuraBuffEffect")
+										local lists = {extraAuraModList, buff.modList}
+										local scale = (1 + inc / 100) * more
+										scale = m_max(scale, 0)
+										
+										for _, modList in ipairs(lists) do
+											for _, mod in ipairs(modList) do
+												if mod.name == "EnergyShield" or mod.name == "Armour" or mod.name == "Evasion" or mod.name:match("Resist?M?a?x?$") then
+													local totemMod = copyTable(mod)
+													totemMod.name = "Totem"..totemMod.name
+													if scale ~= 1 then
+														if type(totemMod.value) == "number" then
+															totemMod.value = (m_floor(totemMod.value) == totemMod.value) and m_modf(round(totemMod.value * scale, 2)) or totemMod.value * scale
+														elseif type(totemMod.value) == "table" and totemMod.value.mod then
+															totemMod.value.mod.value = (m_floor(totemMod.value.mod.value) == totemMod.value.mod.value) and m_modf(round(totemMod.value.mod.value * scale, 2)) or totemMod.value.mod.value * scale
+														end
+													end
+													srcList:AddMod(totemMod)
+												end
+											end
+										end
+										mergeBuff(srcList, buffs, "Totem "..buff.name)
+									end
+								end
+							end
+						end
+					end
+				end
+			end
+		end
+	end
+	
+	
 	if allyBuffs["otherEffects"] then
 		for buffName, buff in pairs(allyBuffs["otherEffects"]) do
 			modDB.conditions["AffectedBy"..buffName:gsub(" ","")] = true
@@ -2177,48 +2312,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 				local srcList = new("ModList")
 				srcList:ScaleAddList(link.modList, (link.effectMult or 100) / 100)
 				mergeBuff(srcList, buffs, linkName)
-			end
-		end
-	end
-
-	-- Limited support for handling buffs originating from Spectres
-	for _, activeSkill in ipairs(env.player.activeSkillList) do
-		if activeSkill.minion then
-			for _, activeMinionSkill in ipairs(activeSkill.minion.activeSkillList) do
-				if activeMinionSkill.skillData.enable then
-					local skillModList = activeMinionSkill.skillModList
-					local skillCfg = activeMinionSkill.skillCfg
-					for _, buff in ipairs(activeMinionSkill.buffList) do
-						if buff.type == "Buff" then
-							if buff.applyAllies then
-								activeMinionSkill.buffSkill = true
-								modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-								local srcList = new("ModList")
-								local inc = skillModList:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnPlayer")
-								local more = skillModList:More(skillCfg, "BuffEffect", "BuffEffectOnPlayer")
-								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-								mergeBuff(srcList, buffs, buff.name)
-								mergeBuff(buff.modList, buffs, buff.name)
-								if activeMinionSkill.skillData.thisIsNotABuff then
-									buffs[buff.name].notBuff = true
-								end
-							end
-							if buff.applyMinions then
-								activeMinionSkill.minionBuffSkill = true
-								activeSkill.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-								local srcList = new("ModList")
-								local inc = skillModList:Sum("INC", skillCfg, "BuffEffect")
-								local more = skillModList:More(skillCfg, "BuffEffect")
-								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
-								mergeBuff(srcList, minionBuffs, buff.name)
-								mergeBuff(buff.modList, minionBuffs, buff.name)
-								if activeMinionSkill.skillData.thisIsNotABuff then
-									buffs[buff.name].notBuff = true
-								end
-							end
-						end
-					end
-				end
 			end
 		end
 	end
