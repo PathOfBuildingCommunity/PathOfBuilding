@@ -2134,6 +2134,22 @@ local skills, mod, flag, skill = ...
 
 #skill IntuitiveLink
 #flags spell duration
+	statMap = {
+		["display_trigger_link"] = {
+			-- Display only
+		},
+	},
+#mods
+
+#skill SupportIntuitiveLink
+	statMap = {
+		["trigger_on_trigger_link_target_hit"] = {
+			-- Display only
+		},
+		["support_trigger_link_damage_+%_final"] = {
+			
+		},
+	},
 #mods
 
 #skill VampiricLink
