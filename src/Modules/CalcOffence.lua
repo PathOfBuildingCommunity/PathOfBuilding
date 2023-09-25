@@ -1834,6 +1834,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	local storedMainHandAccuracy = nil
+	local storedMainHandAccuracyVsEnemy = nil
 	local storedSustainedTraumaBreakdown = { }
 	-- Calculate how often you hit (speed, accuracy, block, etc)
 	for _, pass in ipairs(passList) do
@@ -1847,14 +1848,39 @@ function calcs.offence(env, actor, activeSkill)
 		end
 
 		-- Calculate hit chance
-		output.Accuracy = m_max(0, calcLib.val(skillModList, "Accuracy", cfg))
+		local base = skillModList:Sum("BASE", cfg, "Accuracy")
+		local baseVsEnemy = skillModList:Sum("BASE", cfg, "AccuracyVsEnemy")
+		local inc = skillModList:Sum("INC", cfg, "Accuracy")
+		local incVsEnemy = skillModList:Sum("INC", cfg, "AccuracyVsEnemy")
+		local more = skillModList:More("MORE", cfg, "Accuracy")
+
+		output.Accuracy = m_max(0, m_floor(base * (1 + inc / 100) * more))
+		local accuracyVsEnemy = m_max(0, m_floor((base + baseVsEnemy)* (1 + (inc + incVsEnemy) / 100) * more))
 		if breakdown then
-			breakdown.Accuracy = breakdown.simple(nil, cfg, output.Accuracy, "Accuracy")
+			breakdown.Accuracy = { }
+			breakdown.multiChain(breakdown.Accuracy, {
+				base = { "%g ^8(base)", base },
+				{ "%.2f ^8(increased/reduced)", 1 + inc / 100 },
+				{ "%.2f ^8(more/less)", more },
+				total = s_format("= %g", output.Accuracy)
+			})
+			if incVsEnemy ~= 0 then
+				t_insert(breakdown.Accuracy, s_format(""))
+				breakdown.multiChain(breakdown.Accuracy, {
+					label = "Effective Accuracy vs Enemy",
+					base = { "%g ^8(base)", base + baseVsEnemy },
+					{ "%.2f ^8(increased/reduced)", 1 + (inc + incVsEnemy) / 100 },
+					{ "%.2f ^8(more/less)", more },
+					total = s_format("= %g", accuracyVsEnemy)
+				})
+			end
 		end
 		if skillModList:Flag(nil, "Condition:OffHandAccuracyIsMainHandAccuracy") and pass.label == "Main Hand" then
 			storedMainHandAccuracy = output.Accuracy
+			storedMainHandAccuracyVsEnemy = accuracyVsEnemy
 		elseif skillModList:Flag(nil, "Condition:OffHandAccuracyIsMainHandAccuracy") and pass.label == "Off Hand" and storedMainHandAccuracy then
 			output.Accuracy = storedMainHandAccuracy
+			accuracyVsEnemy = storedMainHandAccuracyVsEnemy
 			if breakdown then
 				breakdown.Accuracy = {
 					"Using Main Hand Accuracy due to Mastery: "..output.Accuracy,
@@ -1865,7 +1891,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.AccuracyHitChance = 100
 		else
 			local enemyEvasion = m_max(round(calcLib.val(enemyDB, "Evasion")), 0)
-			output.AccuracyHitChance = calcs.hitChance(enemyEvasion, output.Accuracy) * calcLib.mod(skillModList, cfg, "HitChance")
+			output.AccuracyHitChance = calcs.hitChance(enemyEvasion, accuracyVsEnemy) * calcLib.mod(skillModList, cfg, "HitChance")
 			if breakdown then
 				breakdown.AccuracyHitChance = {
 					"Enemy level: "..env.enemyLevel..(env.configInput.enemyLevel and " ^8(overridden from the Configuration tab" or " ^8(can be overridden in the Configuration tab)"),

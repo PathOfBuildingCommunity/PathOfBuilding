@@ -2118,6 +2118,8 @@ local specialModList = {
 		mod("HitsInvertEleResChance", "CHANCE", num / 100, nil)
 	} end,
 	["off hand accuracy is equal to main hand accuracy while wielding a sword"] = { flag("Condition:OffHandAccuracyIsMainHandAccuracy", { type = "Condition", var = "UsingSword" }) },
+	["(%d+)%% increased accuracy rating at close range"] = function(num) return { mod("AccuracyVsEnemy", "INC", num, { type = "Condition", var = "AtCloseRange" } ) } end,
+	["(%d+)%% increased accuracy rating against unique enemies"] = function(num) return { mod("AccuracyVsEnemy", "INC", num, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } ) } end,
 	["(%d+)%% chance to defend with (%d+)%% of armour"] = function(numChance, _, numArmourMultiplier) return {
 		mod("ArmourDefense", "MAX", tonumber(numArmourMultiplier) - 100, "Armour Mastery: Max Calc", { type = "Condition", var = "ArmourMax" }),
 		mod("ArmourDefense", "MAX", math.min(numChance / 100, 1.0) * (tonumber(numArmourMultiplier) - 100), "Armour Mastery: Average Calc", { type = "Condition", var = "ArmourAvg" }),
@@ -4259,6 +4261,8 @@ local specialModList = {
 	["gain accuracy rating equal to your intelligence"] = { mod("Accuracy", "BASE", 1, { type = "PerStat", stat = "Int" }) },
 	["intelligence is added to accuracy rating with wands"] = { mod("Accuracy", "BASE", 1, nil, ModFlag.Wand, { type = "PerStat", stat = "Int" }) },
 	["dexterity's accuracy bonus instead grants %+(%d+) to accuracy rating per dexterity"] = function(num) return { mod("DexAccBonusOverride", "OVERRIDE", num ) } end,
+	["(%d+)%% increased accuracy rating against marked enemy"] = function(num) return { mod("AccuracyVsEnemy", "INC", num, { type = "ActorCondition", actor = "enemy", var = "Marked" } ) } end,
+	["%+(%d+) to accuracy against bleeding enemies"] = function(num) return { mod("AccuracyVsEnemy", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Bleeding" } ) } end,
 	["cannot recover energy shield to above armour"] = { flag("ArmourESRecoveryCap") },
 	["cannot recover energy shield to above evasion rating"] = { flag("EvasionESRecoveryCap") },
 	["warcries exert (%d+) additional attacks?"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
