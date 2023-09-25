@@ -1298,7 +1298,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 		return out
 	end
 
-	local function mergeFlasks(flasks, onlyRecovery)
+	local function mergeFlasks(flasks, onlyRecovery, checkNonRecoveryFlasksForMinions)
 		local flaskBuffs = { }
 		local flaskConditions = {}
 		local flaskBuffsPerBase = {}
@@ -1319,11 +1319,13 @@ function calcs.perform(env, fullDPSSkipEHP)
 			-- I have no idea how to determine which buff is applied by a given flask,
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
 			if buffModList[1] then
-				local srcList = new("ModList")
-				srcList:ScaleAddList(buffModList, effectMod)
-				mergeBuff(srcList, flaskBuffs, baseName)
-				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], baseName)
-				if (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE")) then
+				if not onlyRecovery then
+					local srcList = new("ModList")
+					srcList:ScaleAddList(buffModList, effectMod)
+					mergeBuff(srcList, flaskBuffs, baseName)
+					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], baseName)
+				end
+				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE")) then
 					srcList = new("ModList")
 					srcList:ScaleAddList(buffModList, effectModNonPlayer)
 					mergeBuff(srcList, flaskBuffsNonPlayer, baseName)
@@ -1343,9 +1345,11 @@ function calcs.perform(env, fullDPSSkipEHP)
 						key = key .. modLib.formatModParams(mod) .. "&"
 					end
 				end
-				mergeBuff(srcList, flaskBuffs, key)
-				mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
-				if (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE")) then
+				if not onlyRecovery then
+					mergeBuff(srcList, flaskBuffs, key)
+					mergeBuff(srcList, flaskBuffsPerBase[item.baseName], key)
+				end
+				if (not onlyRecovery or checkNonRecoveryFlasksForMinions) and (flasksApplyToMinion or quickSilverAppliesToAllies or (nonUniqueFlasksApplyToMinion and item.rarity ~= "UNIQUE")) then
 					srcList = new("ModList")
 					srcList:ScaleAddList(modList, effectModNonPlayer)
 					mergeBuff(srcList, flaskBuffsNonPlayer, key)
@@ -1372,6 +1376,9 @@ function calcs.perform(env, fullDPSSkipEHP)
 				end
 				if item.base.flask.mana then
 					calcFlaskMods(item, "ManaFlask", calcFlaskRecovery("Mana", item), {})
+				end
+				if checkNonRecoveryFlasksForMinions then
+					calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
 				end
 			else
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
@@ -1410,7 +1417,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	if env.mode_combat then
 		-- This needs to be done in 2 steps to account for effects affecting life recovery from flasks
 		-- For example Sorrow of the Divine and buffs (like flask recovery watchers eye)
-		mergeFlasks(env.flasks, false)
+		mergeFlasks(env.flasks, false, true)
 
 		-- Merge keystones again to catch any that were added by flasks
 		mergeKeystones(env)
@@ -2200,7 +2207,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	if env.mode_combat then
 		-- This needs to be done in 2 steps to account for effects affecting life recovery from flasks
 		-- For example Sorrow of the Divine and buffs (like flask recovery watchers eye)
-		mergeFlasks(env.flasks, not (nonUniqueFlasksApplyToMinion or false))
+		mergeFlasks(env.flasks, true, nonUniqueFlasksApplyToMinion)
 	end
 
 	-- Check for extra curses
