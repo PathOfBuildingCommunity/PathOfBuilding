@@ -32,7 +32,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsMultiplier", 2)
 #mods
 
-#addSkillTypes Damage
+#addSkillTypes Damage Multicastable
 #skill IceElementalSpearSummoned Ice Spear
 #flags spell projectile
 #mods
