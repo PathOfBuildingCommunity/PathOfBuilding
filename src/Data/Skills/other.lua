@@ -2652,6 +2652,11 @@ skills["SummonGuardianRelic"] = {
 		"GuardianRelicCold",
 		"GuardianRelicLightning",
 	},
+	statMap = {
+		["minion_actor_level_is_user_level_up_to_maximum"] = {
+			skill("minionLevelIsPlayerLevel", true),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -2667,7 +2672,7 @@ skills["SummonGuardianRelic"] = {
 		"base_skill_effect_duration",
 	},
 	levels = {
-		[20] = { 5000, storedUses = 1, levelRequirement = 85, cooldown = 0.3, statInterpolation = { 1, }, },
+		[20] = { 5000, storedUses = 1, levelRequirement = 4, cooldown = 0.3, statInterpolation = { 1, }, },
 	},
 }
 skills["SummonHarbingerOfTheArcaneUber"] = {
@@ -3026,6 +3031,9 @@ skills["SummonRadiantSentinel"] = {
 		["radiant_sentinel_minion_burning_effect_radius"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
 		},
+		["minion_actor_level_is_user_level_up_to_maximum"] = {
+			skill("minionLevelIsPlayerLevel", true),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3042,7 +3050,7 @@ skills["SummonRadiantSentinel"] = {
 		"radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute",
 	},
 	levels = {
-		[20] = { 45, 1800, damageEffectiveness = 2, critChance = 6, levelRequirement = 85, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
+		[20] = { 45, 1800, damageEffectiveness = 2, critChance = 6, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
 	},
 }
 skills["SummonRigwaldsPack"] = {
