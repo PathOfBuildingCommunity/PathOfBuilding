@@ -5404,6 +5404,9 @@ skills["GlacialCascade"] = {
 		["glacial_cascade_final_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_glacial_cascade_is_gem"] = {
+			-- Display Only
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -9034,6 +9037,7 @@ skills["CircleOfPower"] = {
 			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["quality_display_circle_of_power_is_gem"] = {
+			-- Display Only
         },
 	},
 	baseFlags = {
@@ -10125,7 +10129,11 @@ skills["Stormbind"] = {
 		["active_skill_quality_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["quality_display_rune_paint_is_gem"] = {
+			-- Display Only
+		},
 		["rune_paint_max_rune_level"] = {
+			-- Display Only
 		},
 	},
 	baseFlags = {

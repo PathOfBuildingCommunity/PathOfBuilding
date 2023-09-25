@@ -4625,6 +4625,9 @@ skills["IceCrash"] = {
 		["ice_crash_third_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
+		["quality_display_ice_crash_is_gem"] = {
+			-- Display Only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -4724,6 +4727,9 @@ skills["ImmortalCall"] = {
 		["immortal_call_elemental_damage_taken_+%_final_per_endurance_charge_consumed_permyriad"] = {
 			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
 			div = 100,
+		},
+		["quality_display_immortal_call_is_gem"] = {
+			-- Display Only
 		},
 	},
 	baseFlags = {
@@ -5776,6 +5782,9 @@ skills["PetrifiedBlood"] = {
 		},
 		["petrified_blood_%_prevented_life_loss_to_lose_over_time"] = {
 			mod("LifeLossBelowHalfLost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Petrified Blood" }),
+		},
+		["cannot_recover_above_low_life_except_flasks"] = {
+			-- Display Only, this mod controls multiple lines for some reason
 		},
 	},
 	baseFlags = {
