@@ -3025,7 +3025,6 @@ skills["SummonRadiantSentinel"] = {
 		},
 		["radiant_sentinel_minion_burning_effect_radius"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
-			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
 		},
 	},
 	baseFlags = {
