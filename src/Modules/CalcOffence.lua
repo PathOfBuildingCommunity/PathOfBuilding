@@ -2111,6 +2111,7 @@ function calcs.offence(env, actor, activeSkill)
 	if breakdown then
 		breakdown.SustainableTrauma = storedSustainedTraumaBreakdown
 	end
+	modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + activeSkill.skillModList:Sum("BASE", nil, "Multiplier:TraumaStacks")
 	output.SustainableTrauma = skillModList:Flag(nil, "HasTrauma") and skillModList:Sum("BASE", skillCfg, "Multiplier:SustainableTraumaStacks")
 	if isAttack then
 		-- Combine hit chance and attack speed
