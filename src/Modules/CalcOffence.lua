@@ -1045,7 +1045,7 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			breakdown.ProjectileSpeedMod = breakdown.mod(skillModList, skillCfg, "ProjectileSpeed")
 		end
-		if skillModList:Flag(skillCfg, "CannotReturn") or activeSkill.skillTypes[SkillType.ProjectileNumber] or output.PierceCount >= 100 then
+		if skillModList:Flag(skillCfg, "CannotReturn") or activeSkill.skillTypes[SkillType.ProjectileNumber] or (activeSkill.activeEffect.grantedEffect.name == "Unearth" and output.PierceCount >= 100) then
 			if breakdown and skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
 				output.ReturnChanceString = "Cannot return"
 			end
