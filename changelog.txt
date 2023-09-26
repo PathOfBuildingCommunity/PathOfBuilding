@@ -1,3 +1,10 @@
+VERSION[Graphics Engine Beta][2023/12/07]
+
+This beta is intended to test the behaviour of the graphics engine update on a
+wide variety of systems.
+If you notice new bugs, especially relating to graphics or functions relating
+to your operating system, please file an issue on GitHub.
+
 VERSION[2.35.5][2023/12/07]
 
 --- Fixed Bugs ---
