@@ -141,16 +141,10 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local LifeLossLostOverTime = poolTbl.LifeLossLostOverTime or 0
 	local LifeBelowHalfLossLostOverTime = poolTbl.LifeBelowHalfLossLostOverTime or 0
 
-	-- Split shared guard between damage types, based on proportion of total damage
-	local sharedGuardPerDamageType = { }
-	if guard.shared > 0 then
-		local damageTotal = 0
-		for _, damage in pairs(damageTable) do
-			damageTotal = damageTotal + damage
-		end
-		for damageType, damage in pairs(damageTable) do
-			sharedGuardPerDamageType[damageType] = guard.shared * damage / damageTotal
-		end
+	local sharedGuardTotal = guard.shared
+	local damageTotal = 0
+	for _, damage in pairs(damageTable) do
+		damageTotal = damageTotal + damage
 	end
 
 	for damageType, damage in pairs(damageTable) do
@@ -187,7 +181,8 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 			damageRemainder = damageRemainder - tempDamage
 		end
 		if guard.shared > 0 then
-			local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, sharedGuardPerDamageType[damageType])
+			-- Apply shared guard proportionial to damage type
+			local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, sharedGuardTotal * damage / damageTotal)
 			guard.shared = guard.shared - tempDamage
 			damageRemainder = damageRemainder - tempDamage
 		end
