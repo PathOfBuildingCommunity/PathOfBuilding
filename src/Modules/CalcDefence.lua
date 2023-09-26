@@ -89,7 +89,6 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local output = actor.output
 	local modDB = actor.modDB
 	local poolTbl = poolTable or { }
-
 	local alliesTakenBeforeYou = poolTbl.AlliesTakenBeforeYou
 	if not alliesTakenBeforeYou then
 		alliesTakenBeforeYou = {}
@@ -181,7 +180,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 			damageRemainder = damageRemainder - tempDamage
 		end
 		if guard.shared > 0 then
-			-- Apply shared guard proportionial to damage type
+			-- Apply shared guard proportional to damage type
 			local tempDamage = m_min(damageRemainder * output.sharedGuardAbsorbRate / 100, sharedGuardTotal * damage / damageTotal)
 			guard.shared = guard.shared - tempDamage
 			damageRemainder = damageRemainder - tempDamage
