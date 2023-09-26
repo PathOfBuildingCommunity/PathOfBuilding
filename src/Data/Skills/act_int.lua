@@ -12207,6 +12207,7 @@ skills["RollingMagma"] = {
 	baseMods = {
 		skill("radius", 14),
 		flag("CannotSplit"),
+		flag("ReturnDoesNotAddDPS"),
 	},
 	qualityStats = {
 		Default = {
@@ -15207,6 +15208,9 @@ skills["Spark"] = {
 		projectile = true,
 		duration = true,
 	},
+	baseMods = {
+		flag("ReturnDoesNotAddDPS"),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_number_of_projectiles", 0.1 },
@@ -15457,6 +15461,9 @@ skills["VaalSpark"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
+	},
+	baseMods = {
+		flag("ReturnDoesNotAddDPS"),
 	},
 	qualityStats = {
 		Default = {

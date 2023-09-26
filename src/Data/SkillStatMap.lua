@@ -1286,6 +1286,9 @@ return {
 ["cannot_pierce"] = {
 	flag("CannotPierce"),
 },
+["projectile_behaviour_only_explode"] = {
+	flag("CannotReturn"),
+},
 ["projectile_damage_+%_if_pierced_enemy"] = {
 	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
 },

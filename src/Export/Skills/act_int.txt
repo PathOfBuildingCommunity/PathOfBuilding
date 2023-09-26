@@ -2797,6 +2797,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile area chaining
 #baseMod skill("radius", 14)
 #baseMod flag("CannotSplit")
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill Malevolence
@@ -3389,6 +3390,7 @@ local skills, mod, flag, skill = ...
 			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill SparkAltX
@@ -3408,6 +3410,7 @@ local skills, mod, flag, skill = ...
 			output.SkillDPSMultiplier = skillData.dpsMultiplier
 		end
 	end,
+#baseMod flag("ReturnDoesNotAddDPS")
 #mods
 
 #skill SparkAltY

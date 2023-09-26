@@ -1045,15 +1045,18 @@ function calcs.offence(env, actor, activeSkill)
 		if breakdown then
 			breakdown.ProjectileSpeedMod = breakdown.mod(skillModList, skillCfg, "ProjectileSpeed")
 		end
-		if skillModList:Flag(skillCfg, "CannotReturn") then
-			if skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
+		if skillModList:Flag(skillCfg, "CannotReturn") or activeSkill.skillTypes[SkillType.ProjectileNumber] or output.PierceCount >= 100 then
+			if breakdown and skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
 				output.ReturnChanceString = "Cannot return"
+			end
+		elseif skillModList:Flag(skillCfg, "ReturnDoesNotAddDPS") then
+			if breakdown and skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
+				output.ReturnChanceString = "No Extra DPS"
 			end
 		else
 			output.ReturnChance = m_min(skillModList:Sum("BASE", skillCfg, "ReturnChance"), 100)
 			if output.ReturnChance > 0 then
 				local minimumReturnSpeed = skillModList:Sum("BASE", skillCfg, "ReturnSpeedNeeded")
-				ConPrintTable({minimumReturnSpeed})
 				if minimumReturnSpeed > 0 then
 					local nonReturnCfg = copyTable(skillCfg, true)
 					nonReturnCfg.skillCond["Condition:ReturningProjectile"] = false
