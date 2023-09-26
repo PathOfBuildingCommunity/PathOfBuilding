@@ -2724,6 +2724,8 @@ local skills, mod, flag, skill = ...
 			activeSkill.skillModList:NewMod("DPS", "MORE", splitCount * 100, "Split Return", 0, { type = "Condition", var = "ReturningProjectile" })
 		end
 	end,
+#baseMod skill("projectileSpeed", 200)
+#baseMod skill("duration", 0.41)
 #mods
 
 #skill ShrapnelBallistaAltX

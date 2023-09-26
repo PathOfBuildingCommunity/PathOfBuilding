@@ -1082,6 +1082,8 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 	},
+#baseMod skill("projectileSpeed", 80)
+#baseMod skill("duration", 0.33)
 #mods
 
 #skill Fireball

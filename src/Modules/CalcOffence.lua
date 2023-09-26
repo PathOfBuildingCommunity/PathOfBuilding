@@ -1058,8 +1058,8 @@ function calcs.offence(env, actor, activeSkill)
 			if output.ReturnChance > 0 then
 				local minimumReturnSpeed = skillModList:Sum("BASE", skillCfg, "ReturnSpeedNeeded")
 				if minimumReturnSpeed == 0 and skillData.projectileSpeed and skillData.duration then
-					local distanceNeeded = skillModList:Sum("OVERRIDE", skillCfg, "projectile_maximum_range_override")
-					distanceNeeded = distanceNeeded > 0 and distanceNeeded or 150
+					local distanceNeeded = skillModList:Sum("OVERRIDE", skillCfg, "projectile_maximum_range_override") * 2
+					distanceNeeded = distanceNeeded > 0 and distanceNeeded or (data.misc.ProjectileDistanceCap * 2)
 					minimumReturnSpeed = distanceNeeded / skillData.projectileSpeed / skillData.duration * 100
 				end
 				if minimumReturnSpeed > 0 then

@@ -13220,6 +13220,10 @@ skills["ShrapnelBallista"] = {
 		totem = true,
 		ballista = true,
 	},
+	baseMods = {
+		skill("projectileSpeed", 200),
+		skill("duration", 0.41),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_projectile_speed_+%", 2 },

@@ -5323,6 +5323,10 @@ skills["EyeOfWinter"] = {
 		spell = true,
 		projectile = true,
 	},
+	baseMods = {
+		skill("projectileSpeed", 80),
+		skill("duration", 0.33),
+	},
 	qualityStats = {
 		Default = {
 			{ "eye_of_winter_base_explosion_shards", 0.1 },
@@ -15701,7 +15705,6 @@ skills["SoulLink"] = {
 		["projectile_maximum_range_override"] = {
 			mod("projectile_maximum_range_override", "OVERRIDE", nil),
 		},
-		
 	},
 	baseFlags = {
 		spell = true,
