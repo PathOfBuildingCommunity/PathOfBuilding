@@ -15698,6 +15698,10 @@ skills["SoulLink"] = {
 		["soul_link_grants_take_%_of_hit_damage_from_soul_link_source_energy_shield_before_you"] = {
 			mod("TakenFromParentESBeforeYou", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }),
 		},
+		["projectile_maximum_range_override"] = {
+			mod("projectile_maximum_range_override", "OVERRIDE", nil),
+		},
+		
 	},
 	baseFlags = {
 		spell = true,
