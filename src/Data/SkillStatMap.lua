@@ -1133,6 +1133,9 @@ return {
 ["cannot_pierce"] = {
 	flag("CannotPierce"),
 },
+["projectile_behaviour_only_explode"] = {
+	flag("CannotSplit"),
+},
 ["base_number_of_additional_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),
 },

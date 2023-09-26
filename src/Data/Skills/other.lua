@@ -1885,6 +1885,9 @@ skills["TriggeredMoltenStrike"] = {
 		projectile = true,
 		area = true,
 	},
+	baseMods = {
+		flag("CannotSplit"),
+	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 3 },
 		{ "attack_trigger_on_melee_hit_%", 20 },

@@ -543,6 +543,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredMoltenStrike
 #flags attack projectile area
 	fromItem = true,
+#baseMod flag("CannotSplit")
 #mods
 
 #skill PhysicalAegis

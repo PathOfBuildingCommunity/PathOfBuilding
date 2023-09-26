@@ -5460,6 +5460,7 @@ skills["MoltenStrike"] = {
 		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 }),
 		skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 }),
 		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 }),
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {
@@ -5582,6 +5583,7 @@ skills["VaalMoltenStrike"] = {
 		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 }),
 		skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 }),
 		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 }),
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {
@@ -8708,6 +8710,9 @@ skills["VolcanicFissure"] = {
 		area = true,
 		slam = true,
 	},
+	baseMods = {
+		flag("CannotSplit"),
+	},
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 1 },
@@ -8803,6 +8808,9 @@ skills["VaalVolcanicFissure"] = {
 		projectile = true,
 		area = true,
 		slam = true,
+	},
+	baseMods = {
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {

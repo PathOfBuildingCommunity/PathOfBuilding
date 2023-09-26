@@ -1016,6 +1016,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 })
+#baseMod flag("CannotSplit")
 #mods
 
 #skill VaalMoltenStrike
@@ -1043,6 +1044,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 })
+#baseMod flag("CannotSplit")
 #mods
 
 #skill BloodSpears
@@ -1582,6 +1584,7 @@ end,
 			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 })
 		},
 	},
+#baseMod flag("CannotSplit")
 #mods
 
 #skill VaalVolcanicFissure
@@ -1598,6 +1601,7 @@ end,
 			projectile = true,
 		},
 	},
+#baseMod flag("CannotSplit")
 #mods
 
 #skill Vulnerability
