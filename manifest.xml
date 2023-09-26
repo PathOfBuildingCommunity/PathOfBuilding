@@ -5,7 +5,7 @@
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="ce9beaba969885b80aa9cb2988fcdcf54387309e" />
+	<File name="changelog.txt" part="default" sha1="a006fa6c62cb260be695aa2311095ca2b58937d8" />
 	<File name="help.txt" part="default" sha1="3343967a2d5f374228fd217a7a3f9612ee046bde" />
 	<File name="LICENSE.md" part="default" sha1="eacedd00e9707defe051bd7151466d223376afa6" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />
@@ -236,9 +236,16 @@
 	<File name="Modules/StatDescriber.lua" part="program" sha1="f2753f06e6be4bfa1744a82a63c6c302b698103c" />
 	<File name="UpdateApply.lua" part="program" sha1="4dd42f413cb89a963e4ae1b40e214985b909c05b" />
 	<File name="UpdateCheck.lua" part="program" sha1="f43b012b0379868c5df520c3efb4426a868c031d" />
-	<File name="lcurl.dll" part="runtime" runtime="win32" sha1="fe399dbe89c02c597bbad8323ef5c29b24af4870" />
-	<File name="libcurl.dll" part="runtime" runtime="win32" sha1="5f68674e22a389dddeb72078b7d9d69d29881bdd" />
-	<File name="lua51.dll" part="runtime" runtime="win32" sha1="7a973d3c0b5121e6aad0dcb9323be5b432fc63e7" />
+	<File name="abseil_dll.dll" part="runtime" runtime="win32" sha1="bf67db6103509d0f53849b41163a216bd264369c" />
+	<File name="concrt140.dll" part="runtime" runtime="win32" sha1="de44ba25679b4b717ffc9acd5246caf4e3916f7c" />
+	<File name="fmt.dll" part="runtime" runtime="win32" sha1="87f410a1a2e9e234b71f9ed368473481139f1278" />
+	<File name="glfw3.dll" part="runtime" runtime="win32" sha1="d840e9be5e414aae55a692bf1a4ca646872c0c26" />
+	<File name="lcurl.dll" part="runtime" runtime="win32" sha1="fc7f3956f87fc9f9563c9a875d8afb24a35a3f7b" />
+	<File name="libcurl.dll" part="runtime" runtime="win32" sha1="af83d632d3b4902ca4da2549f7b019c536755a3a" />
+	<File name="libEGL.dll" part="runtime" runtime="win32" sha1="1b43fef90974bacb3b1434101fd06f5d5e26a501" />
+	<File name="libGLESv2.dll" part="runtime" runtime="win32" sha1="32f3a76412816de1a58568c6f47400b57ab2695e" />
+	<File name="libsodium.dll" part="runtime" runtime="win32" sha1="3f05adf47cc492c732590cf7fba563b12fda3cfa" />
+	<File name="lua51.dll" part="runtime" runtime="win32" sha1="25909c3b1fb9b50bbe545df8ac5fcb021ee8044e" />
 	<File name="lua/base64.lua" part="runtime" sha1="18629865eb351e483178b6524fb3935cbc9b8297" />
 	<File name="lua/dkjson.lua" part="runtime" sha1="d2c9e5433a24b8593886a36cfc267cb05d3bc529" />
 	<File name="lua/sha1/bit32_ops.lua" part="runtime" sha1="25bc8def626fd8d8bd3d37dcd96808c6b8b00087" />
@@ -248,9 +255,15 @@
 	<File name="lua/sha1/lua53_ops.lua" part="runtime" sha1="b10c732f322358c4112226df61af61f53a21b911" />
 	<File name="lua/sha1/pure_lua_ops.lua" part="runtime" sha1="0dff15b1cfd171a3572032346613adcf5e9962c2" />
 	<File name="lua/xml.lua" part="runtime" sha1="859e09104842f91a4aaa9a4d9fadf667535877e2" />
-	<File name="lzip.dll" part="runtime" runtime="win32" sha1="fe73e74330bf2943036139c32a5c773558fc62a5" />
-	<File name="Path{space}of{space}Building.exe" part="runtime" runtime="win32" sha1="7486cf4f0289df72ccce93a69a4198ad069f79b9" />
-	<File name="SimpleGraphic.dll" part="runtime" runtime="win32" sha1="fe91680283bd2ca112c341134befc8922487bfca" />
+	<File name="lzip.dll" part="runtime" runtime="win32" sha1="564427253552f6fe93e7d683ae0fd3dd00be29b8" />
+	<File name="msvcp140.dll" part="runtime" runtime="win32" sha1="df552810d779476610da3c8b956cc921ed6c91ae" />
+	<File name="msvcp140_1.dll" part="runtime" runtime="win32" sha1="b4629d51b5c4d8d78ccb3370b40a850f735b8949" />
+	<File name="msvcp140_2.dll" part="runtime" runtime="win32" sha1="3f658bb9757f5a9d50c884605c7e04f00151237a" />
+	<File name="msvcp140_atomic_wait.dll" part="runtime" runtime="win32" sha1="37b495e87e55ae940d4d198e55c45a06e825d8ce" />
+	<File name="msvcp140_codecvt_ids.dll" part="runtime" runtime="win32" sha1="9c4c4e904d8a9c53e405beb53df13343996c7351" />
+	<File name="Path{space}of{space}Building.exe" part="runtime" runtime="win32" sha1="d5e20975475ea29d4d77bac82e7db77bb685ffe1" />
+	<File name="re2.dll" part="runtime" runtime="win32" sha1="9e73b7e25f42b6396ec23b7184cbc50efe8da250" />
+	<File name="SimpleGraphic.dll" part="runtime" runtime="win32" sha1="977bc54d93673a4e709c32381a65fe510517a165" />
 	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.10.tga" part="runtime" sha1="74cc6c47e7cda18211e57b9e062368eab3c26bab" />
 	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.12.tga" part="runtime" sha1="1977206f0efc5035834ecbf93ca7d046010d8aab" />
 	<File name="SimpleGraphic/Fonts/Bitstream Vera Sans Mono.14.tga" part="runtime" sha1="93a4309dc814914be7d2dee708e3821494f145a2" />
@@ -281,6 +294,9 @@
 	<File name="SimpleGraphic/Fonts/Liberation Sans.28.tga" part="runtime" sha1="3175f25ff2ba00f95f10078bea790ff591943c46" />
 	<File name="SimpleGraphic/Fonts/Liberation Sans.32.tga" part="runtime" sha1="526edb97597a06ed0d9689107a4e130a22faf810" />
 	<File name="SimpleGraphic/Fonts/Liberation Sans.tgf" part="runtime" sha1="31fdef9c0e2ad46df47123e7d81f5e8d4fe399ed" />
+	<File name="vcruntime140.dll" part="runtime" runtime="win32" sha1="00149b7a66723e3f0310f139489fe172f818ca8e" />
+	<File name="vcruntime140_1.dll" part="runtime" runtime="win32" sha1="2050fadecc11550ad9bde0b542bcf87e19d37f1a" />
+	<File name="zlib1.dll" part="runtime" runtime="win32" sha1="af8f883fca7a1d838ff170ec577e17199ad8fa20" />
 	<File name="TreeData/2_6/skill_sprite-3-32f639bbfc42783ca7ec218a787dd918.jpg" part="tree" sha1="dc7a2a0383847ac28eade8a31a57a8bfa7b298e4" />
 	<File name="TreeData/2_6/skill_sprite-active-3-3e73c4c4534433ecfc340c7287093bd5.png" part="tree" sha1="baa878007cfac73bee50958d25617b95c0e73a2d" />
 	<File name="TreeData/2_6/skill_sprite-active-3-7798fabab8a21829831293c20ac9c414.jpg" part="tree" sha1="526654400851f032d3d2f46980c0ecc077aa0c4c" />
