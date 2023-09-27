@@ -1049,10 +1049,12 @@ function calcs.offence(env, actor, activeSkill)
 			if breakdown and skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
 				output.ReturnChanceString = "Cannot return"
 			end
+			skillCfg.skillCond["Condition:ReturningProjectile"] = false
 		elseif skillModList:Flag(skillCfg, "ReturnDoesNotAddDPS") then
 			if breakdown and skillModList:Sum("BASE", skillCfg, "ReturnChance") > 0 then
 				output.ReturnChanceString = "No Extra DPS"
 			end
+			skillCfg.skillCond["Condition:ReturningProjectile"] = false
 		else
 			output.ReturnChance = m_min(skillModList:Sum("BASE", skillCfg, "ReturnChance"), 100)
 			if output.ReturnChance > 0 then
@@ -1069,6 +1071,7 @@ function calcs.offence(env, actor, activeSkill)
 					if (minimumReturnSpeed / 100) > nonReturnProjectileSpeedMod then
 						output.ReturnChance = 0
 						output.ReturnChanceString = "Proj. Too Slow"
+						skillCfg.skillCond["Condition:ReturningProjectile"] = false
 						if breakdown then
 							breakdown.ReturnChanceString = {
 								s_format("Return Chance: %d%%", output.ReturnChance),
@@ -1114,6 +1117,7 @@ function calcs.offence(env, actor, activeSkill)
 					end
 				end
 			end
+			activeSkill.skillModList:NewMod("DPS", "MORE", output.ReturnChance * (1 + (output.SecondaryReturnChance or 0) / 100) - 100, "Return Chance", 0, { type = "Condition", var = "ReturningProjectile" })
 		end
 	end
 	if skillFlags.melee then

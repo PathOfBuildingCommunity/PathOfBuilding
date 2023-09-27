@@ -15382,10 +15382,10 @@ skills["VenomGyre"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "Outgoing Projectile",
+			name = "Main Projectile",
 		},
 		{
-			name = "Returning Projectile",
+			name = "Caught Projectile",
 		},
 	},
 	statMap = {
@@ -15398,7 +15398,7 @@ skills["VenomGyre"] = {
 		projectile = true,
 	},
 	baseMods = {
-		flag("Condition:ReturningProjectile", { type = "SkillPart", skillPart = 2 }),
+		flag("CannotReturn", { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
