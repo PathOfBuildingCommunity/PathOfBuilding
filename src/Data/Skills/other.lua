@@ -2662,14 +2662,74 @@ skills["SummonGuardianRelic"] = {
 		minion = true,
 		duration = true,
 	},
+	statMap = {
+
+		-- ANGER
+		["attack_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura", effectName = "Elemental Relic Anger", effectCond = "ElementalRelicAngerActive" }),
+		},
+		["attack_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura", effectName = "Elemental Relic Anger", effectCond = "ElementalRelicAngerActive"  }),
+		},
+		["spell_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura", effectName = "Elemental Relic Anger", effectCond = "ElementalRelicAngerActive"  }),
+		},
+		["spell_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Aura", effectName = "Elemental Relic Anger", effectCond = "ElementalRelicAngerActive"  }),
+		},
+		
+		-- HATRED
+		["physical_damage_%_to_add_as_cold"] = {
+			mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectName = "Elemental Relic Hatred", effectCond = "ElementalRelicHatredActive" }),
+		},
+		["hatred_aura_cold_damage_+%_final"] = {
+			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectName = "Elemental Relic Hatred", effectCond = "ElementalRelicHatredActive" }),
+		},
+		
+		-- WRATH
+		["wrath_aura_spell_lightning_damage_+%_final"] = {
+			mod("LightningDamage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura", effectName = "Elemental Relic Wrath", effectCond = "ElementalRelicWrathActive" }),
+		},
+		["attack_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura", effectName = "Elemental Relic Wrath", effectCond = "ElementalRelicWrathActive" }),
+		},
+		["attack_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura", effectName = "Elemental Relic Wrath", effectCond = "ElementalRelicWrathActive" }),
+		},
+	},
 	constantStats = {
 		{ "display_minion_monster_type", 24 },
 		{ "guardian_relic_explode_on_death_for_%_life_as_element_damage", 100 },
 		{ "minion_actor_level_is_user_level_up_to_maximum", 85 },
 		{ "skill_triggered_by_nearby_allies_kill_or_hit_rare_unique_%_chance", 25 },
+		-- ANGER
+		{ "attack_minimum_added_fire_damage",181},
+		{ "attack_maximum_added_fire_damage",258},
+		{ "spell_minimum_added_fire_damage",181},
+		{ "spell_maximum_added_fire_damage",258},
+		-- HATRED
+		{ "physical_damage_%_to_add_as_cold",28},
+		{ "hatred_aura_cold_damage_+%_final",19},
+		-- WRATH
+		{ "attack_minimum_added_lightning_damage",25},
+		{ "attack_maximum_added_lightning_damage",414},
+		{ "wrath_aura_spell_lightning_damage_+%_final",22},
 	},
 	stats = {
 		"base_skill_effect_duration",
+		-- ANGER
+		"attack_minimum_added_fire_damage",
+		"attack_maximum_added_fire_damage",
+		"spell_minimum_added_fire_damage",
+		"spell_maximum_added_fire_damage",
+		-- HATRED
+		"physical_damage_%_to_add_as_cold",
+		"hatred_aura_cold_damage_+%_final",
+		-- WRATH
+		"attack_minimum_added_lightning_damage",
+		"attack_maximum_added_lightning_damage",
+		"wrath_aura_spell_lightning_damage_+%_final",
+		
 	},
 	levels = {
 		[20] = { 5000, storedUses = 1, levelRequirement = 4, cooldown = 0.3, statInterpolation = { 1, }, },

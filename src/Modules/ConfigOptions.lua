@@ -242,6 +242,17 @@ return {
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
+	{ label = "Unwavering Crusade:", ifSkill = "Summon Elemental Relic" },
+	{ var = "elementalRelicWrath", type = "check", label = "Is Wrath Elemental Relic Active?", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:ElementalRelicWrathActive", "FLAG", true, "Config")
+	end },
+	{ var = "elementalRelicHatred", type = "check", label = "Is Hatred Elemental Relic Active?", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:ElementalRelicHatredActive", "FLAG", true, "Config")
+	end },
+	{ var = "elementalRelicAnger", type = "check", label = "Is Anger Elemental Relic Active?", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:ElementalRelicAngerActive", "FLAG", true, "Config")
+	end },
+	
 	{ label = "Arcanist Brand:", ifSkill = "Arcanist Brand" },
 	{ var = "targetBrandedEnemy", type = "check", label = "Are skills targeting the Branded enemy?", ifSkill = "Arcanist Brand", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:TargetingBrandedEnemy", "FLAG", true, "Config")
