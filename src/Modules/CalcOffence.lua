@@ -139,6 +139,89 @@ local function calcAilmentSourceDamage(activeSkill, output, cfg, breakdown, dama
 	return min * convMult, max * convMult
 end
 
+-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
+local function calcAilmentDamage(type, output, sourceCritChance, sourceHitDmg, sourceCritDmg, breakdown, skillModList, cfg, passLabel)
+	local chanceOnHit, chanceOnCrit = output[type.."ChanceOnHit"], output[type.."ChanceOnCrit"]
+	-- Use sourceCritChance to factor in chance a critical ailment is present
+	local chanceFromHit = chanceOnHit * (1 - sourceCritChance / 100)
+	local chanceFromCrit = chanceOnCrit * sourceCritChance / 100
+	local chance = chanceFromHit + chanceFromCrit
+	output[type.."Chance"] = chance
+	local baseFromHit = sourceHitDmg * chanceFromHit / (chanceFromHit + chanceFromCrit)
+	local baseFromCrit = sourceCritDmg * chanceFromCrit / (chanceFromHit + chanceFromCrit)
+	local baseVal = baseFromHit + baseFromCrit
+	
+	if breakdown then
+		local sourceMult = skillModList:More(cfg, type.."AsThoughDealing")
+		if chance ~= 0 then
+			local breakdownChance = breakdown[type.."Chance"] or { }
+			breakdown[type.."Chance"] = breakdownChance
+			if breakdownChance[1] then
+				t_insert(breakdownChance, "")
+			end
+			if passLabel then
+				t_insert(breakdownChance, passLabel..":")
+			end
+			t_insert(breakdownChance, s_format("Chance on Non-crit: %d%%", chanceOnHit))
+			t_insert(breakdownChance, s_format("Chance on Crit: %d%%", chanceOnCrit))
+			if chanceOnHit ~= chanceOnCrit then
+				t_insert(breakdownChance, "Combined chance:")
+				t_insert(breakdownChance, s_format("%d x (1 - %.4f) ^8(chance from non-crits)", chanceOnHit, output.CritChance/100))
+				t_insert(breakdownChance, s_format("+ %d x %.4f ^8(chance from crits)", chanceOnCrit, output.CritChance/100))
+				local chancePerHit = chanceOnHit * (1 - output.CritChance / 100) + chanceOnCrit * output.CritChance / 100
+				t_insert(breakdownChance, s_format("= %.2f", chancePerHit))
+			end
+		end
+		if baseVal > 0 then
+			local breakdownDPS = breakdown[type.."DPS"] or { }
+			breakdown[type.."DPS"] = breakdownDPS
+			if breakdownDPS[1] then
+				t_insert(breakdownDPS, "")
+			end
+			if passLabel then
+				t_insert(breakdownDPS, passLabel..":")
+			end
+			if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
+				t_insert(breakdownDPS, "Total damage:")
+				t_insert(breakdownDPS, s_format("%.1f ^8(source damage)",sourceHitDmg))
+				if sourceMult > 1 then
+					t_insert(breakdownDPS, s_format("x %.2f ^8(inflicting as though dealing more damage)", sourceMult))
+					t_insert(breakdownDPS, s_format("= %.1f", baseVal * sourceMult))
+				end
+			else
+				if baseFromHit > 0 then
+					t_insert(breakdownDPS, "Damage from Non-crits:")
+					t_insert(breakdownDPS, s_format("%.1f ^8(source damage from non-crits)", sourceHitDmg))
+					t_insert(breakdownDPS, s_format("x %.3f ^8(portion of instances created by non-crits)", chanceFromHit / (chanceFromHit + chanceFromCrit)))
+					if sourceMult == 1 or baseFromCrit ~= 0 then
+						t_insert(breakdownDPS, s_format("= %.1f", baseFromHit))
+					end
+				end
+				if baseFromCrit > 0 then
+					t_insert(breakdownDPS, "Damage from Crits:")
+					t_insert(breakdownDPS, s_format("%.1f ^8(source damage from crits)", sourceCritDmg))
+					t_insert(breakdownDPS, s_format("x %.3f ^8(portion of instances created by crits)", chanceFromCrit / (chanceFromHit + chanceFromCrit)))
+					if sourceMult == 1 or baseFromHit ~= 0 then
+						t_insert(breakdownDPS, s_format("= %.1f", baseFromCrit))
+					end
+				end
+				if baseFromHit > 0 and baseFromCrit > 0 then
+					t_insert(breakdownDPS, "Total damage:")
+					t_insert(breakdownDPS, s_format("%.1f + %.1f", baseFromHit, baseFromCrit))
+					if sourceMult == 1 then
+						t_insert(breakdownDPS, s_format("= %.1f", baseVal))
+					end
+				end
+				if sourceMult > 1 then
+					t_insert(breakdownDPS, s_format("x %.2f ^8(inflicting as though dealing more damage)", sourceMult))
+					t_insert(breakdownDPS, s_format("= %.1f", baseVal * sourceMult))
+				end
+			end
+		end
+	end
+	return baseVal
+end
+
 ---Calculates skill radius
 ---@param baseRadius number
 ---@param areaMod number
@@ -3590,86 +3673,6 @@ function calcs.offence(env, actor, activeSkill)
 			return sourceHitDmg, sourceCritDmg
 		end
 
-		-- Calculate the inflict chance and base damage of a secondary effect (bleed/poison/ignite/shock/freeze)
-		local function calcAilmentDamage(type, sourceCritChance, sourceHitDmg, sourceCritDmg, hideFromBreakdown)
-			local chanceOnHit, chanceOnCrit = output[type.."ChanceOnHit"], output[type.."ChanceOnCrit"]
-			-- Use sourceCritChance to factor in chance a critical ailment is present
-			local chanceFromHit = chanceOnHit * (1 - sourceCritChance / 100)
-			local chanceFromCrit = chanceOnCrit * sourceCritChance / 100
-			local chance = chanceFromHit + chanceFromCrit
-			output[type.."Chance"] = chance
-			local baseFromHit = sourceHitDmg * chanceFromHit / (chanceFromHit + chanceFromCrit)
-			local baseFromCrit = sourceCritDmg * chanceFromCrit / (chanceFromHit + chanceFromCrit)
-			local baseVal = baseFromHit + baseFromCrit
-			local sourceMult = skillModList:More(cfg, type.."AsThoughDealing")
-			if breakdown and chance ~= 0 and not hideFromBreakdown then
-				local breakdownChance = breakdown[type.."Chance"] or { }
-				breakdown[type.."Chance"] = breakdownChance
-				if breakdownChance[1] then
-					t_insert(breakdownChance, "")
-				end
-				if isAttack then
-					t_insert(breakdownChance, pass.label..":")
-				end
-				t_insert(breakdownChance, s_format("Chance on Non-crit: %d%%", chanceOnHit))
-				t_insert(breakdownChance, s_format("Chance on Crit: %d%%", chanceOnCrit))
-				if chanceOnHit ~= chanceOnCrit then
-					t_insert(breakdownChance, "Combined chance:")
-					t_insert(breakdownChance, s_format("%d x (1 - %.4f) ^8(chance from non-crits)", chanceOnHit, output.CritChance/100))
-					t_insert(breakdownChance, s_format("+ %d x %.4f ^8(chance from crits)", chanceOnCrit, output.CritChance/100))
-					local chancePerHit = chanceOnHit * (1 - output.CritChance / 100) + chanceOnCrit * output.CritChance / 100
-					t_insert(breakdownChance, s_format("= %.2f", chancePerHit))
-				end
-			end
-			if breakdown and baseVal > 0 and not hideFromBreakdown then
-				local breakdownDPS = breakdown[type.."DPS"] or { }
-				breakdown[type.."DPS"] = breakdownDPS
-				if breakdownDPS[1] then
-					t_insert(breakdownDPS, "")
-				end
-				if isAttack then
-					t_insert(breakdownDPS, pass.label..":")
-				end
-				if sourceHitDmg == sourceCritDmg or output.CritChance == 0 then
-					t_insert(breakdownDPS, "Total damage:")
-					t_insert(breakdownDPS, s_format("%.1f ^8(source damage)",sourceHitDmg))
-					if sourceMult > 1 then
-						t_insert(breakdownDPS, s_format("x %.2f ^8(inflicting as though dealing more damage)", sourceMult))
-						t_insert(breakdownDPS, s_format("= %.1f", baseVal * sourceMult))
-					end
-				else
-					if baseFromHit > 0 then
-						t_insert(breakdownDPS, "Damage from Non-crits:")
-						t_insert(breakdownDPS, s_format("%.1f ^8(source damage from non-crits)", sourceHitDmg))
-						t_insert(breakdownDPS, s_format("x %.3f ^8(portion of instances created by non-crits)", chanceFromHit / (chanceFromHit + chanceFromCrit)))
-						if sourceMult == 1 or baseFromCrit ~= 0 then
-							t_insert(breakdownDPS, s_format("= %.1f", baseFromHit))
-						end
-					end
-					if baseFromCrit > 0 then
-						t_insert(breakdownDPS, "Damage from Crits:")
-						t_insert(breakdownDPS, s_format("%.1f ^8(source damage from crits)", sourceCritDmg))
-						t_insert(breakdownDPS, s_format("x %.3f ^8(portion of instances created by crits)", chanceFromCrit / (chanceFromHit + chanceFromCrit)))
-						if sourceMult == 1 or baseFromHit ~= 0 then
-							t_insert(breakdownDPS, s_format("= %.1f", baseFromCrit))
-						end
-					end
-					if baseFromHit > 0 and baseFromCrit > 0 then
-						t_insert(breakdownDPS, "Total damage:")
-						t_insert(breakdownDPS, s_format("%.1f + %.1f", baseFromHit, baseFromCrit))
-						if sourceMult == 1 then
-							t_insert(breakdownDPS, s_format("= %.1f", baseVal))
-						end
-					end
-					if sourceMult > 1 then
-						t_insert(breakdownDPS, s_format("x %.2f ^8(inflicting as though dealing more damage)", sourceMult))
-						t_insert(breakdownDPS, s_format("= %.1f", baseVal * sourceMult))
-					end
-				end
-			end
-			return baseVal
-		end
-
 		-- Calculate bleeding chance and damage
 		if canDeal.Physical and (output.BleedChanceOnHit + output.BleedChanceOnCrit) > 0 then
 			activeSkill[pass.label ~= "Off Hand" and "bleedCfg" or "OHbleedCfg"] = {
@@ -3801,9 +3804,9 @@ function calcs.offence(env, actor, activeSkill)
 			local basePercent = skillData.bleedBasePercent or data.misc.BleedPercentBase
 			-- over-stacking bleed stacks increases the chance a critical bleed is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, bleedStacks))
-			local baseMinVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceMinHitDmg, 0, true) * basePercent / 100
-			local baseMaxVal = calcAilmentDamage("Bleed", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
-			local baseVal = calcAilmentDamage("Bleed", ailmentCritChance, sourceHitDmg, sourceCritDmg) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMinVal = calcAilmentDamage("Bleed", output, ailmentCritChance, sourceMinHitDmg, 0) * basePercent / 100
+			local baseMaxVal = calcAilmentDamage("Bleed", output, 100, sourceMaxHitDmg, sourceMaxCritDmg) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Bleed", output, ailmentCritChance, sourceHitDmg, sourceCritDmg, breakdown, skillModList, cfg, isAttack and pass.label) * basePercent / 100 * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.bleed = true
 				skillFlags.duration = true
@@ -4029,9 +4032,9 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
-			local baseMinVal = calcAilmentDamage("Poison", output.CritChance, sourceMinHitDmg, 0, true) * data.misc.PoisonPercentBase
-			local baseMaxVal = calcAilmentDamage("Poison", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
-			local baseVal = calcAilmentDamage("Poison", output.CritChance, sourceHitDmg, sourceCritDmg) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMinVal = calcAilmentDamage("Poison", output, output.CritChance, sourceMinHitDmg, 0) * data.misc.PoisonPercentBase
+			local baseMaxVal = calcAilmentDamage("Poison", output, 100, sourceMaxHitDmg, sourceMaxCritDmg) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Poison", output, output.CritChance, sourceHitDmg, sourceCritDmg, breakdown, skillModList, cfg, isAttack and pass.label) * data.misc.PoisonPercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.poison = true
 				skillFlags.duration = true
@@ -4355,9 +4358,9 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			-- over-stacking ignite stacks increases the chance a critical ignite is present
 			local ailmentCritChance = 100 * (1 - m_pow(1 - output.CritChance / 100, igniteStacks))
-			local baseMinVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceMinHitDmg, 0, true) * data.misc.IgnitePercentBase
-			local baseMaxVal = calcAilmentDamage("Ignite", 100, sourceMaxHitDmg, sourceMaxCritDmg, true) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
-			local baseVal = calcAilmentDamage("Ignite", ailmentCritChance, sourceHitDmg, sourceCritDmg) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseMinVal = calcAilmentDamage("Ignite", output, ailmentCritChance, sourceMinHitDmg, 0) * data.misc.IgnitePercentBase
+			local baseMaxVal = calcAilmentDamage("Ignite", output, 100, sourceMaxHitDmg, sourceMaxCritDmg) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
+			local baseVal = calcAilmentDamage("Ignite", output, ailmentCritChance, sourceHitDmg, sourceCritDmg, breakdown, skillModList, cfg, isAttack and pass.label) * data.misc.IgnitePercentBase * output.RuthlessBlowAilmentEffect * output.FistOfWarAilmentEffect * globalOutput.AilmentWarcryEffect
 			if baseVal > 0 then
 				skillFlags.ignite = true
 				local effMult = 1
@@ -4573,7 +4576,9 @@ function calcs.offence(env, actor, activeSkill)
 					s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 				}
 			end
-			local baseVal = calcAilmentDamage("Freeze", output.CritChance, calcAverageSourceDamage("Freeze")) * skillModList:More(cfg, "FreezeAsThoughDealing")
+			local sourceHitDmg, sourceCritDmg = calcAverageSourceDamage("Freeze")
+			local baseVal = calcAilmentDamage("Freeze", output, output.CritChance, sourceHitDmg, sourceCritDmg, breakdown, skillModList, cfg, isAttack and pass.label)
+			baseVal = baseVal * skillModList:More(cfg, "FreezeAsThoughDealing")
 			if baseVal > 0 then
 				skillFlags.freeze = true
 				output.FreezeDurationMod = 1 + skillModList:Sum("INC", cfg, "EnemyFreezeDuration", "EnemyAilmentDuration", "EnemyElementalAilmentDuration") / 100 + enemyDB:Sum("INC", nil, "SelfFreezeDuration", "SelfElementalAilmentDuration", "SelfAilmentDuration") / 100
@@ -4590,7 +4595,9 @@ function calcs.offence(env, actor, activeSkill)
 						s_format("Ailment mode: %s ^8(can be changed in the Configuration tab)", igniteMode == "CRIT" and "Crits Only" or "Average Damage")
 					}
 				end
-				local damage = calcAilmentDamage(ailment, output.CritChance, calcAverageSourceDamage(ailment)) * skillModList:More(cfg, ailment.."AsThoughDealing")
+				local sourceHitDmg, sourceCritDmg = calcAverageSourceDamage(ailment)
+				local damage = calcAilmentDamage(ailment, output, output.CritChance, sourceHitDmg, sourceCritDmg, breakdown, skillModList, cfg, isAttack and pass.label)
+				damage = damage * skillModList:More(cfg, ailment.."AsThoughDealing")
 				if damage > 0 then
 					skillFlags[string.lower(ailment)] = true
 					local incDur = skillModList:Sum("INC", cfg, "Enemy"..ailment.."Duration", "EnemyElementalAilmentDuration", "EnemyAilmentDuration") + enemyDB:Sum("INC", nil, "Self"..ailment.."Duration", "SelfElementalAilmentDuration", "SelfAilmentDuration")
