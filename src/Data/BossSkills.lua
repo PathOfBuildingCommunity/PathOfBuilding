@@ -85,7 +85,7 @@ return {
 				CannotBeDodged = "flag"
 			}
 		},
-		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase"
+		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase, Cannot be Blocked, Dodged, or Suppressed"
 	},
 	["Eater Beam"] = {
 		DamageType = "Spell",
@@ -131,7 +131,7 @@ return {
 				CannotBeDodged = "flag"
 			}
 		},
-		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
+		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive"
 	},
 },{
     { val = "None", label = "None" },
