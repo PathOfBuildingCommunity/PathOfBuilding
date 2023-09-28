@@ -106,14 +106,24 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	local life = poolTbl.Life or output.LifeRecoverable or 0
 	local LifeLossLostOverTime = poolTbl.LifeLossLostOverTime or 0
 	local LifeBelowHalfLossLostOverTime = poolTbl.LifeBelowHalfLossLostOverTime or 0
-	
+
+	local remainingDamageTable = {}
 	for damageType, damage in pairs(damageTable) do
+		remainingDamageTable[damageType] = damage
+	end
+
+	alliesTakenBeforeYou:takeDamage(remainingDamageTable)
+	-- frost shield / soul link / other taken before you does not count as you taking damage
+	for damageType, damage in pairs(damageTable) do
+		PoolsLost[damageType] = (PoolsLost[damageType] or 0) + damage
+	end
+	
+	aegis:takeDamage(remainingDamageTable)
+	guard:takeDamage(remainingDamageTable)
+	
+	for damageType, damage in pairs(remainingDamageTable) do
 		local damageRemainder = damage
-		damageRemainder = alliesTakenBeforeYou:takeDamage(damageType, damageRemainder)
-		-- frost shield / soul link / other taken before you does not count as you taking damage
-		PoolsLost[damageType] = (PoolsLost[damageType] or 0) + damageRemainder
-		damageRemainder = aegis:takeDamage(damageType, damageRemainder)
-		damageRemainder = guard:takeDamage(damageType, damageRemainder)
+		
 		if ward > 0 then
 			local tempDamage = m_min(damageRemainder * (1 - (modDB:Sum("BASE", nil, "WardBypass") or 0) / 100), ward)
 			ward = ward - tempDamage

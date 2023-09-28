@@ -21,6 +21,31 @@ local function genericTakeDamage(pool, amount, percentage, type)
 	end
 end
 
+--- Distributes shared guard between damage types and subtracts damage absorbed from the damageTable
+---@param pool table representing the hit pool taking damage
+---@param damageTable table of damage values, keyed by damage type
+---@param percentage float percentage of damage the pool will take on behalf of the player. Should be between 0 and 1
+---@param type string name of the type of damage to be absorbed. Must be a key in the pool table
+---@return void
+local function genericDistributeSharedDamage(pool, damageTable, percentage, type)
+	if pool[type] > 0 then
+		local poolTotal = pool[type]
+		local damageTotal = 0
+		for damageType, damage in pairs(damageTable) do
+			if isElemental[damageType] or type ~= "sharedElemental" then -- currently only sharedElemental has limitations on type
+				damageTotal = damageTotal + damage
+			end 
+		end
+		for damageType, damage in pairs(damageTable) do
+			if isElemental[damageType] or type ~= "sharedElemental" then
+				local damageTaken = m_min(damage * percentage, poolTotal * damage / damageTotal)
+				pool[type] = pool[type] - damageTaken
+				damageTable[damageType] = damage - damageTaken
+			end
+		end
+	end
+end
+
 local function maxHitBreakdown(output, breakdown, remainder, poolName, display, color)
 	t_insert(
 		breakdown,
@@ -82,13 +107,15 @@ function Aegis:new(output)
 	return setmetatable(aegis, self)
 end
 
-function Aegis:takeDamage(damageType, damage)
-	damage = genericTakeDamage(self, damage, 1, damageType)
-	if isElemental[damageType] then
-		damage = genericTakeDamage(self, damage, 1, "sharedElemental")
+function Aegis:takeDamage(damageTable)
+	genericDistributeSharedDamage(self, damageTable, 1, "shared")
+	genericDistributeSharedDamage(self, damageTable, 1, "sharedElemental")
+
+	for damageType, damage in pairs(damageTable) do
+		if self[damageType] > 0 then
+			damageTable[damageType] = genericTakeDamage(self, damage, 1, damageType)
+		end
 	end
-	damage = genericTakeDamage(self, damage, 1, "shared")
-	return damage
 end
 
 function Aegis.adjustTotalHitPool(output, damageType)
@@ -169,11 +196,14 @@ function Guard:new(output)
 	return setmetatable(guard, self)
 end
 
-
-function Guard:takeDamage(damageType, damage)
-	damage = genericTakeDamage(self, damage, self[damageType.."Rate"], damageType)
-	damage = genericTakeDamage(self, damage, self.sharedRate, "shared")
-	return damage
+function Guard:takeDamage(damageTable)
+	genericDistributeSharedDamage(self, damageTable, self.sharedRate, "shared")
+	
+	for damageType, damage in pairs(damageTable) do
+		if self[damageType] > 0 then
+			damageTable[damageType] = damageTable[damageType] - genericTakeDamage(self, damage, self[damageType.."Rate"], damageType)
+		end
+	end
 end
 
 function Guard.adjustTotalHitPool(output, damageType)
@@ -287,13 +317,14 @@ function AlliesTakenBeforeYou:new(output)
 	return setmetatable(alliesTakenBeforeYou, self)
 end
 
-function AlliesTakenBeforeYou:takeDamage(damageType, damage)
+function AlliesTakenBeforeYou:takeDamage(damageTable)
 	for _, allyValues in ipairs(self) do
-		if not allyValues.damageType or allyValues.damageType == damageType then
-			damage = genericTakeDamage(allyValues, damage, allyValues.percent, "remaining")
+		if not allyValues.damageType then
+			genericDistributeSharedDamage(allyValues, damageTable, allyValues.percent, "remaining")
+		else
+			damageTable[allyValues.damageType] = genericTakeDamage(allyValues, damageTable[allyValues.damageType], allyValues.percent, "remaining")
 		end
 	end
-	return damage
 end
 
 function AlliesTakenBeforeYou.adjustTotalHitPool(output, damageType) 
