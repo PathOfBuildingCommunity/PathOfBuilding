@@ -73,6 +73,18 @@ return {
 		},
 		speed = 1000,
 		critChance = 0,
+		additionalStats = {
+			base = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			},
+			uber = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			}
+		},
 		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase"
 	},
 	["Eater Beam"] = {
@@ -107,6 +119,18 @@ return {
 		},
 		UberDamageMultiplier = 1.0086206896552,
 		speed = 7500,
+		additionalStats = {
+			base = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			},
+			uber = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			}
+		},
 		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
 	},
 },{

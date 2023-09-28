@@ -346,6 +346,18 @@ local function getStat(state, stat)
 				end
 			end
 		end
+		for _, implicitStat in ipairs(skill.GrantedEffectStatSets.ImplicitStats) do
+			if implicitStat.Id  == "cannot_be_blocked_or_dodged_or_suppressed" then
+				AdditionalStats.base.CannotBeBlocked = '"flag"'
+				AdditionalStats.base.CannotBeDodged = '"flag"'
+				AdditionalStats.base.CannotBeSuppressed = '"flag"'
+				AdditionalStats.base.count = AdditionalStats.base.count + 3
+				AdditionalStats.uber.CannotBeBlocked = '"flag"'
+				AdditionalStats.uber.CannotBeDodged = '"flag"'
+				AdditionalStats.uber.CannotBeSuppressed = '"flag"'
+				AdditionalStats.uber.count = AdditionalStats.base.count + 3
+			end
+		end
 		if AdditionalStats.base.count == 0 and AdditionalStats.uber.count == 0 then
 			return nil
 		end
@@ -503,7 +515,7 @@ directiveTable.skills.skill = function(state, args, out)
 			out:write('\n			}')
 		end
 		if additionalStats.uber.count > 0 then
-			out:write((#additionalStats.base > 0 and ',' or ''),'\n			uber = {')
+			out:write((additionalStats.base.count > 0 and ',' or ''),'\n			uber = {')
 				local count = 0
 				for stat, value in pairs(additionalStats.uber) do
 					if stat ~= "count" then
