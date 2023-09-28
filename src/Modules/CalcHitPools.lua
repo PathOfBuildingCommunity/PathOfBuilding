@@ -275,7 +275,7 @@ end
 function AlliesTakenBeforeYou:new(output)
     local alliesTakenBeforeYou = {}
 	for _, allyNames in pairs(namingPairs) do
-		if output[allyNames.poolName] then
+		if output[allyNames.poolName] and output[allyNames.poolName] > 0 then
 			t_insert(alliesTakenBeforeYou,{
 				remaining = output[allyNames.poolName],
 				percent = output[allyNames.percentName] / 100,
