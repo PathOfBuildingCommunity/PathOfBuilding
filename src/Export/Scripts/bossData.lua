@@ -14,10 +14,10 @@ end
 local baseDamage = {
 	AtziriFlameblastEmpowered = { index = 1, uberIndex = 2, mapBoss = true },
 	AtlasBossAcceleratingProjectiles = { index = 1, uberIndex = 2 },
-	AtlasBossFlickerSlam = { index = 1, uberIndex = 2, oldMethod = true, attack = true },
+	AtlasBossFlickerSlam = { index = 1, uberIndex = 2, oldMethod = true },
 	AtlasExileOrionCircleMazeBlast3 = { index = 4, uberIndex = 5 },
-	CleansingFireWall = { index = 1, oldMethod = true, spell = true },
-	GSConsumeBossDisintegrateBeam = { index = 1, oldMethod = true, spell = true },
+	CleansingFireWall = { index = 1, oldMethod = true },
+	GSConsumeBossDisintegrateBeam = { index = 1, oldMethod = true },
 	MavenSuperFireProjectileImpact = { index = 1, uberIndex = 2, oldMethod = true, mapBoss = true },
 	MavenMemoryGame = { index = 1, oldMethod = true, mapBoss = true },
 }
@@ -55,7 +55,7 @@ local function calcSkillDamage(state)
 	if not baseDamage[grantedId] and baseDamage[skill.grantedId2] then
 		grantedId = skill.grantedId2
 	end
-	local rarityType = baseDamage[grantedId].attack and (boss.rarity.."Attack") or boss.rarity
+	local rarityType = state.DamageType == "Melee" and (boss.rarity.."Attack") or state.DamageType == "Projectile" and (boss.rarity.."Attack") or boss.rarity
 	local ExtraDamageMult = { 1, 1 }
 	for i, levelIndex  in ipairs({baseDamage[grantedId].index, baseDamage[grantedId].uberIndex}) do
 		local statsPerLevel = skill.statsPerLevel[levelIndex]
@@ -186,47 +186,35 @@ local function calcSkillDamage(state)
 end
 
 -- exports non-damage stats
--- possible stats: DamageType, Penetration, Speed
+-- possible stats: DamageType, Penetration, Speed, AdditionalStats
 local function getStat(state, stat)
 	local DamageData = state.DamageData
 	local skill = state.skill
 	local boss = state.boss
 	if stat == "DamageType" then
 		local DamageType = "Untyped"
-		for _, skillType in ipairs(skill.skillData.ActiveSkill.SkillTypes) do
-			if skillType.Id == "Spell" then
-				if DamageType == "Projectile" then
-					DamageType = "SpellProjectile"
-				else
-					DamageType = "Spell"
-				end
-			elseif skillType.Id  == "Projectile" then
-				if DamageType == "Spell" then
-					DamageType = "SpellProjectile"
-				else
-					DamageType = "Projectile"
-				end
+		for _, implicitStat in ipairs(skill.GrantedEffectStatSets.ImplicitStats) do
+			if implicitStat.Id  == "base_is_projectile" then
+				DamageType = "Projectile"
+				break
 			end
 		end
-		if DamageType == "Untyped" then
-			for _, implicitStat in ipairs(skill.GrantedEffectStatSets.ImplicitStats) do
-				if implicitStat.Id  == "base_is_projectile" then
-					DamageType = "Projectile"
-					break
-				end
+		for _, skillType in ipairs(skill.skillData.ActiveSkill.SkillTypes) do
+			if skillType.Id == "Attack" then
+				DamageType = (DamageType == "Projectile") and "Projectile" or "Melee"
+			elseif skillType.Id == "Spell" then
+				DamageType = (DamageType == "Projectile") and "SpellProjectile" or "Spell"
+			elseif skillType.Id  == "Projectile" then
+				DamageType = (DamageType == "Spell") and "SpellProjectile" or "Projectile"
 			end
-			local grantedId = skill.grantedId
-			if not baseDamage[grantedId] and baseDamage[skill.grantedId2] then
-				grantedId = skill.grantedId2
-			end
-			if baseDamage[grantedId].attack and DamageType == "Untyped" then
-				DamageType = "Melee"
-			elseif baseDamage[grantedId].spell then
-				if DamageType == "Untyped" then
-					DamageType = "Spell"
-				else
-					DamageType = "SpellProjectile"
-				end
+		end
+		for _, contextFlag in ipairs(skill.skillData.ActiveSkill.StatContextFlags) do
+			if contextFlag.Id == "AttackHit" then
+				DamageType = (DamageType == "Projectile") and "Projectile" or "Melee"
+			elseif contextFlag.Id == "SpellHit" then
+				DamageType = (DamageType == "Projectile") and "SpellProjectile" or "Spell"
+			elseif contextFlag.Id  == "Projectile" then
+				DamageType = (DamageType == "Spell") and "SpellProjectile" or "Projectile"
 			end
 		end
 		return DamageType
@@ -441,10 +429,11 @@ directiveTable.skills.skill = function(state, args, out)
 	skill.stages = args:match("stages = (%w+),")
 	local DamageData = {}
 	state.DamageData = DamageData
+	state.DamageType = getStat(state, "DamageType")
 	calcSkillDamage(state)
 	-- output
 	out:write('	["', boss.displayName, " ", displayName, '"] = {\n')
-	out:write('		DamageType = "', getStat(state, "DamageType"),'",\n')
+	out:write('		DamageType = "', state.DamageType,'",\n')
 	out:write('		DamageMultipliers = {\n')
 	local dCount = 0
 	for i, damageType in ipairs({"Physical", "Lightning", "Cold", "Fire", "Chaos"}) do
