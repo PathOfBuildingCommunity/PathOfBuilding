@@ -201,7 +201,7 @@ function Guard:takeDamage(damageTable)
 	
 	for damageType, damage in pairs(damageTable) do
 		if self[damageType] > 0 then
-			damageTable[damageType] = damageTable[damageType] - genericTakeDamage(self, damage, self[damageType.."Rate"], damageType)
+			damageTable[damageType] = genericTakeDamage(self, damage, self[damageType.."Rate"], damageType)
 		end
 	end
 end
