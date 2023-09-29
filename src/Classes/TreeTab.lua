@@ -1674,7 +1674,37 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7Click this button to generate new fallback node weights, replacing your old ones.")
 	end
 
-	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "^7Desired Nodes", function()
+	controls.leagueSelectorLabel = new("LabelControl", {"TOPRIGHT", nil, "TOPLEFT" }, 405, 250, 0, 16, "League:" )
+	controls.leagueSelector = new("DropDownControl", { "LEFT", controls.leagueSelectorLabel, "RIGHT" }, 10, 0, 200, 18, { }, function(index) return end)
+	local leagueList = { }
+	launch:DownloadPage(
+		"https://www.pathofexile.com/api/leagues?type=main&compact=1",
+		function(response, errMsg)
+			if errMsg then
+				main:OpenMessagePopup("Error", "Failed to get League List with error message" ..errMsg)
+				-- using a path that doesnt match any league name falls back to searching the current SC Trade league as of Sept 29 2023,
+				-- i doubt this will ever change and I really doubt GGG will ever launch the Fallback Default league
+				leagueList = { "Fallback Default" }
+			else
+				local jsonData = dkjson.decode(response.body)
+				if not jsonData then
+					main:OpenMessagePopup("Error", "Failed to get League list from POE API. Try again later.")
+					leagueList = { "Fallback Default" }
+				else
+					table.sort(jsonData, function(x,y) return #x.id < #y.id end)
+					for _, league in pairs(jsonData) do
+						if not league.id:find("SSF") then
+							t_insert(leagueList, league.id)
+						end
+					end
+				end
+			end
+			controls.leagueSelector:SetList(leagueList)
+			controls.leagueSelector.selIndex = 1
+		end
+	)
+
+	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 275, 106, 20, "^7Desired Nodes", function()
 		if controls.searchListFallback.shown then
 			controls.searchListFallback.shown = false
 			controls.searchListFallback.enabled = false
@@ -1704,7 +1734,7 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7Any manual changes made to your fallback nodes are lost when you click the generate button, as it completely replaces them.")
 	end
 	controls.searchListFallbackButton.locked = function() return controls.searchListFallback.shown end
-	controls.searchList = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 275, 438, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
+	controls.searchList = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 300, 438, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchList = value
 		parseSearchList(0, false)
 		self.build.modFlag = true
@@ -1712,7 +1742,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchList.shown = true
 	controls.searchList.enabled = true
 	controls.searchList:SetText(timelessData.searchList and timelessData.searchList or "")
-	controls.searchListFallback = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 275, 438, 200, timelessData.searchListFallback, nil, "^%C\t\n", nil, function(value)
+	controls.searchListFallback = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 300, 438, 200, timelessData.searchListFallback, nil, "^%C\t\n", nil, function(value)
 		timelessData.searchListFallback = value
 		parseSearchList(0, true)
 		self.build.modFlag = true
@@ -1721,8 +1751,8 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchListFallback.enabled = false
 	controls.searchListFallback:SetText(timelessData.searchListFallback and timelessData.searchListFallback or "")
 
-	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 250, 0, 16, "^7Search Results:")
-	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 275, 438, 200, self.build)
+	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 275, 0, 16, "^7Search Results:")
+	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 300, 438, 200, self.build)
 
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
 		local seedTrades = {}
@@ -1804,7 +1834,8 @@ function TreeTabClass:FindTimelessJewel()
 			})
 		end
 
-		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+		local tradeUrl = string.format("https://www.pathofexile.com/trade/search/%s?q=", leagueList[controls.leagueSelector.selIndex] or "")
+		Copy(tradeUrl .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
 			return s_format("%%%02X", s_byte(a))
 		end)))
 
@@ -1826,7 +1857,7 @@ function TreeTabClass:FindTimelessJewel()
 	local totalWidth = m_floor(width * buttons + divider * (buttons - 1))
 	local buttonX = -totalWidth / 2 + width / 2
 
-	controls.searchButton = new("ButtonControl", nil, buttonX, 485, width, 20, "Search", function()
+	controls.searchButton = new("ButtonControl", nil, buttonX, 510, width, 20, "Search", function()
 		if treeData.nodes[timelessData.jewelSocket.id] and treeData.nodes[timelessData.jewelSocket.id].isJewelSocket then
 			local radiusNodes = treeData.nodes[timelessData.jewelSocket.id].nodesInRadius[3] -- large radius around timelessData.jewelSocket.id
 			local allocatedNodes = { }
@@ -2102,15 +2133,15 @@ function TreeTabClass:FindTimelessJewel()
 			controls.searchResults.selIndex = 1
 		end
 	end)
-	controls.resetButton = new("ButtonControl", nil, buttonX + (width + divider), 485, width, 20, "Reset", function()
+	controls.resetButton = new("ButtonControl", nil, buttonX + (width + divider), 510, width, 20, "Reset", function()
 		updateSearchList("", true)
 		updateSearchList("", false)
 		wipeTable(timelessData.searchResults)
 		controls.searchTradeButton.enabled = false
 	end)
-	controls.closeButton = new("ButtonControl", nil, buttonX + (width + divider) * 2, 485, width, 20, "Cancel", function()
+	controls.closeButton = new("ButtonControl", nil, buttonX + (width + divider) * 2, 510, width, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
 
-	main:OpenPopup(910, 517, "Find a Timeless Jewel", controls)
+	main:OpenPopup(910, 542, "Find a Timeless Jewel", controls)
 end
