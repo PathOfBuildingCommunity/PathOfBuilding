@@ -2023,6 +2023,12 @@ function calcs.perform(env, fullDPSSkipEHP)
 								if activeMinionSkill.skillData.thisIsNotABuff then
 									buffs[buff.name].notBuff = true
 								end
+								if partyTabEnableExportBuffs then
+									local inc = modStore:Sum("INC", skillCfg, "BuffEffect")
+									local more = modStore:More(skillCfg, "BuffEffect")
+									buffExports["Aura"]["otherEffects"] = buffExports["Aura"]["otherEffects"] or { }
+									buffExports["Aura"]["otherEffects"][buff.name] =  { effectMult = (1 + inc / 100) * more, modList = buff.modList }
+								end
 							end
 							local envMinionCheck = (env.minion and (env.minion == castingMinion or buff.applyAllies))
 							if buff.applyMinions or envMinionCheck then
