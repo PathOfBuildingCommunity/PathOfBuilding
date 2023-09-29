@@ -5,43 +5,55 @@ local dmgTypeList = {"Physical", "Lightning", "Cold", "Fire", "Chaos"}
 local t_insert = table.insert
 local s_format = string.format
 
---- Calculates how much damage a given hit pool will absorb
----@param pool table representing the hit pool taking damage
----@param amount number the magnitude of the incoming damage
----@param percentage float percentage of damage the pool will take on behalf of the player. Should be between 0 and 1
----@param type string name of the type of damage to be absorbed. Must be a key in the pool table
----@return number the remaining amount of damage after pool has absorbed what it can
-local function genericTakeDamage(pool, amount, percentage, type)
-	if pool[type] > 0 then
-		local temp = m_min(amount*percentage, pool[type])
-		pool[type] = pool[type] - temp
-		return amount - temp
-	else
-		return amount
+-- Iterator to only go through elemental damage of a given damage table
+local onlyElemental = function(damageTable)
+	local idx = 2
+	local function next()
+		if idx > 4 then return nil end
+
+		local key = dmgTypeList[idx]
+		idx = idx + 1
+		
+		if not damageTable[key] then return next() end
+		return key, damageTable[key]
 	end
+	return next
 end
 
---- Distributes shared guard between damage types and subtracts damage absorbed from the damageTable
+--- Have a pool that can only absorb a single damage type reduce incoming damage of that type
 ---@param pool table representing the hit pool taking damage
 ---@param damageTable table of damage values, keyed by damage type
 ---@param percentage float percentage of damage the pool will take on behalf of the player. Should be between 0 and 1
 ---@param type string name of the type of damage to be absorbed. Must be a key in the pool table
----@return void
-local function genericDistributeSharedDamage(pool, damageTable, percentage, type)
+---@return nil
+local function genericTakeDamage(pool, damageTable, percentage, type)
 	if pool[type] > 0 then
-		local poolTotal = pool[type]
+		local temp = m_min(damageTable[type]*percentage, pool[type])
+		pool[type] = pool[type] - temp
+		damageTable[type] = damageTable[type] - temp
+	end
+end
+
+--- Distributes damage of multiple types and subtracts damage absorbed from the damageTable
+---@param pool table representing the hit pool taking damage
+---@param damageTable table of damage values, keyed by damage type
+---@param percentage float percentage of damage the pool will take on behalf of the player. Should be between 0 and 1
+---@param resourceName string name of the resource being reduced. Must be a key in the pool table
+---@param ... function optional iterator function. Must be able to traverse a damage table
+---@return nil
+local function genericDistributeSharedDamage(pool, damageTable, percentage, resourceName, ...)
+	if pool[resourceName] > 0 then
+		local iter = ... or pairs
+		local poolTotal = pool[resourceName]
 		local damageTotal = 0
-		for damageType, damage in pairs(damageTable) do
-			if isElemental[damageType] or type ~= "sharedElemental" then -- currently only sharedElemental has limitations on type
-				damageTotal = damageTotal + damage
-			end 
+		for _, damage in iter(damageTable) do
+			damageTotal = damageTotal + damage
 		end
-		for damageType, damage in pairs(damageTable) do
-			if isElemental[damageType] or type ~= "sharedElemental" then
-				local damageTaken = m_min(damage * percentage, poolTotal * damage / damageTotal)
-				pool[type] = pool[type] - damageTaken
-				damageTable[damageType] = damage - damageTaken
-			end
+		if damageTotal == 0 then return end
+		for damageType, damage in iter(damageTable) do
+			local damageTaken = m_min(damage * percentage, poolTotal * damage / damageTotal)
+			pool[resourceName] = pool[resourceName] - damageTaken
+			damageTable[damageType] = damage - damageTaken
 		end
 	end
 end
@@ -109,12 +121,9 @@ end
 
 function Aegis:takeDamage(damageTable)
 	genericDistributeSharedDamage(self, damageTable, 1, "shared")
-	genericDistributeSharedDamage(self, damageTable, 1, "sharedElemental")
-
-	for damageType, damage in pairs(damageTable) do
-		if self[damageType] > 0 then
-			damageTable[damageType] = genericTakeDamage(self, damage, 1, damageType)
-		end
+	genericDistributeSharedDamage(self, damageTable, 1, "sharedElemental", onlyElemental)
+	for damageType,_ in pairs(damageTable) do
+		genericTakeDamage(self, damageTable, 1, damageType)
 	end
 end
 
@@ -199,10 +208,8 @@ end
 function Guard:takeDamage(damageTable)
 	genericDistributeSharedDamage(self, damageTable, self.sharedRate, "shared")
 	
-	for damageType, damage in pairs(damageTable) do
-		if self[damageType] > 0 then
-			damageTable[damageType] = genericTakeDamage(self, damage, self[damageType.."Rate"], damageType)
-		end
+	for damageType,_ in pairs(damageTable) do
+		genericTakeDamage(self, damageTable, self[damageType.."Rate"], damageType)
 	end
 end
 
@@ -319,11 +326,7 @@ end
 
 function AlliesTakenBeforeYou:takeDamage(damageTable)
 	for _, allyValues in ipairs(self) do
-		if not allyValues.damageType then
-			genericDistributeSharedDamage(allyValues, damageTable, allyValues.percent, "remaining")
-		else
-			damageTable[allyValues.damageType] = genericTakeDamage(allyValues, damageTable[allyValues.damageType], allyValues.percent, "remaining")
-		end
+		genericDistributeSharedDamage(allyValues, damageTable, allyValues.percent, "remaining")
 	end
 end
 
