@@ -268,7 +268,7 @@ local function calcAilmentDamage(type, calculateStackPotential, damagingAilment,
 				end
 			end
 			for _, damageType in ipairs(dmgTypeList) do
-				if canDeal[damageType] and (nonChaosMult == 1 or damageType ~= "Chaos") and (ailmentDefaultCanInflict[type] and not skillModList:Flag(cfg, damageType.."Cannot"..type) or skillModList:Flag(cfg, damageType.."Can"..type)) then
+				if canDeal[damageType] and (nonChaosMult == 1 or damageType ~= "Chaos") and ((ailmentDefaultCanInflict[type][damageType] and not skillModList:Flag(cfg, damageType.."Cannot"..type)) or skillModList:Flag(cfg, damageType.."Can"..type)) then
 					local min, max = calcAilmentSourceDamage(activeSkill, output, dotCfg, sub_pass == 1 and breakdown and breakdown[type..damageType], damageType, ailmentDmgTypeFlags)
 					output[type..damageType.."Min"] = min
 					output[type..damageType.."Max"] = max
@@ -3917,6 +3917,7 @@ function calcs.offence(env, actor, activeSkill)
 				output.BaseBleedDPS = baseVal * effectMod * rateMod * effMult
 				local bleedStacksUncapped = (output.HitChance / 100) * globalOutput.BleedDuration / (output.HitTime or output.Time)
 				if skillFlags.totem then
+					local activeTotems = env.modDB:Override(nil, "TotemsSummoned") or skillModList:Sum("BASE", skillCfg, "ActiveTotemLimit", "ActiveBallistaLimit")
 					bleedStacksUncapped = bleedStacksUncapped * activeTotems
 				end
 				local bleedStacks = m_min(output.BleedStacksMax, skillModList:Override(nil, "BleedStackPotentialOverride") or bleedStacksUncapped)
