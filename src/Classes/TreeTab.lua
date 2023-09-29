@@ -1691,7 +1691,11 @@ function TreeTabClass:FindTimelessJewel()
 					main:OpenMessagePopup("Error", "Failed to get League list from POE API. Try again later.")
 					leagueList = { "Fallback Default" }
 				else
-					table.sort(jsonData, function(x,y) return #x.id < #y.id end)
+					table.sort(jsonData, function(x,y) 
+						if x.endAt == nil then return false end
+						if y.endAt == nil then return true end
+						return #x.id < #y.id 
+					end)
 					for _, league in pairs(jsonData) do
 						if not league.id:find("SSF") then
 							t_insert(leagueList, league.id)
