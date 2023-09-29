@@ -737,6 +737,7 @@ local skills, mod, flag, skill = ...
 #flags spell minion duration
 	fromTree = true,
 	minionList = {
+		"GuardianRelicAll",
 		"GuardianRelicFire",
 		"GuardianRelicCold",
 		"GuardianRelicLightning",

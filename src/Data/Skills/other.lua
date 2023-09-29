@@ -2652,6 +2652,7 @@ skills["SummonGuardianRelic"] = {
 	castTime = 1,
 	fromTree = true,
 	minionList = {
+		"GuardianRelicAll",
 		"GuardianRelicFire",
 		"GuardianRelicCold",
 		"GuardianRelicLightning",

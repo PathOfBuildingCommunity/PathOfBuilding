@@ -541,13 +541,13 @@ return {
 		modList:NewMod("SkillData", "LIST", { key = "beamOverlapMultiplier", value = val }, "Config", { type = "SkillName", skillName = "Storm Rain" })
 	end },
 	{ label = "Summon Elemental Relic:", ifSkill = "Summon Elemental Relic" },
-	{ var = "summonElementalRelicEnableAngerAura", type = "check", label = "Enable Anger Aura:", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
+	{ var = "summonElementalRelicEnableAngerAura", type = "check", defaultState = true, label = "Enable Anger Aura:", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "Anger" }, { type = "SkillName", skillName = "Summon Elemental Relic", summonSkill = true })
 	end },
-	{ var = "summonElementalRelicEnableHatredAura", type = "check", label = "Enable Hatred Aura:", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
+	{ var = "summonElementalRelicEnableHatredAura", type = "check", defaultState = true, label = "Enable Hatred Aura:", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "Hatred" }, { type = "SkillName", skillName = "Summon Elemental Relic", summonSkill = true })
 	end },
-	{ var = "summonElementalRelicEnableWrathAura", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
+	{ var = "summonElementalRelicEnableWrathAura", type = "check", defaultState = true, label = "Enable Wrath Aura:", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "Wrath" }, { type = "SkillName", skillName = "Summon Elemental Relic", summonSkill = true })
 	end },
 	{ label = "Summon Holy Relic:", ifSkill = "Summon Holy Relic" },
