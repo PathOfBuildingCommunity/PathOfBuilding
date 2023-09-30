@@ -114,7 +114,7 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 
 	alliesTakenBeforeYou:takeDamage(remainingDamageTable)
 	-- frost shield / soul link / other taken before you does not count as you taking damage
-	for damageType, damage in pairs(damageTable) do
+	for damageType, damage in pairs(remainingDamageTable) do
 		PoolsLost[damageType] = (PoolsLost[damageType] or 0) + damage
 	end
 	
