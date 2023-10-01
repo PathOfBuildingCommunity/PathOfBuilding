@@ -1391,12 +1391,12 @@ function calcs.buildDefenceEstimations(env, actor)
 			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
 			output[damageType.."EnemyDamage"] = enemyDamage * (1 - conversionTotal/100) * enemyDamageMult * output["EnemyCritEffect"]
-			local convertionExtra = -enemyDamage * enemyDamageMult * output["EnemyCritEffect"] + output[damageType.."EnemyDamage"]
+			local conversionExtra = -enemyDamage * enemyDamageMult * output["EnemyCritEffect"] + output[damageType.."EnemyDamage"]
 			if enemyDamageConversion[damageType] then
 				for damageTypeFrom, enemyDamage in pairs(enemyDamageConversion[damageType]) do
 					local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", damageTypeFrom.."Damage", isElemental[damageType] and "ElementalDamage" or nil, isElemental[damageTypeFrom] and "ElementalDamage" or nil) -- missing taunt from allies
 					output[damageType.."EnemyDamage"] = output[damageType.."EnemyDamage"] + enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
-					convertionExtra = convertionExtra + enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
+					conversionExtra = conversionExtra + enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
 				end
 			end
 			output["totalEnemyDamage"] = output["totalEnemyDamage"] + output[damageType.."EnemyDamage"]
@@ -1406,8 +1406,8 @@ function calcs.buildDefenceEstimations(env, actor)
 				s_format("* %.2f (modifiers to enemy damage)", enemyDamageMult),
 				s_format("* %.3f (enemy crit effect)", output["EnemyCritEffect"]),
 				}
-				if convertionExtra ~= 0 then
-					t_insert(breakdown[damageType.."EnemyDamage"], s_format("%s %d (enemy damage conversion)", convertionExtra > 0 and "+" or "-", convertionExtra >= 0 and convertionExtra or -convertionExtra))
+				if conversionExtra ~= 0 then
+					t_insert(breakdown[damageType.."EnemyDamage"], s_format("%s %d (enemy damage conversion)", conversionExtra > 0 and "+" or "-", conversionExtra >= 0 and conversionExtra or -conversionExtra))
 				end
 				t_insert(breakdown[damageType.."EnemyDamage"], s_format("= %d", output[damageType.."EnemyDamage"]))
 				t_insert(breakdown["totalEnemyDamage"].rowList, {
@@ -1415,7 +1415,7 @@ function calcs.buildDefenceEstimations(env, actor)
 					value = s_format("%d", enemyDamage),
 					mult = s_format("%.2f", enemyDamageMult),
 					crit = s_format("%.2f", output["EnemyCritEffect"]),
-					convMult = s_format("%s%d", convertionExtra > 0 and "+" or (convertionExtra < 0 and "-" or ""), convertionExtra >= 0 and convertionExtra or -convertionExtra),
+					convMult = s_format("%s%d", conversionExtra > 0 and "+" or (conversionExtra < 0 and "-" or ""), conversionExtra >= 0 and conversionExtra or -conversionExtra),
 					final = s_format("%d", output[damageType.."EnemyDamage"]),
 					from = s_format("%s", sourceStr),
 				})
