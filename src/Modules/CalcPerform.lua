@@ -1844,6 +1844,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 				end
 				if env.mode_effective and stackCount > 0 then
 					activeSkill.debuffSkill = true
+					enemyDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 					modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 					local srcList = new("ModList")
 					local mult = 1
@@ -2129,7 +2130,8 @@ function calcs.perform(env, fullDPSSkipEHP)
 		for auraName, aura in pairs(allyBuffs["AuraDebuff"]) do
 			if auraName ~= "Vaal" then
 				local auraNameCompressed = auraName:gsub(" ","")
-				if not modDB.conditions["AffectedBy"..auraNameCompressed] then
+				if not enemyDB.conditions["AffectedBy"..auraNameCompressed] then
+					enemyDB.conditions["AffectedBy"..auraNameCompressed] = true
 					modDB.conditions["AffectedBy"..auraNameCompressed] = true
 					local srcList = new("ModList")
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
@@ -2140,7 +2142,8 @@ function calcs.perform(env, fullDPSSkipEHP)
 		if allyBuffs["AuraDebuff"]["Vaal"] then
 			for auraName, aura in pairs(allyBuffs["AuraDebuff"]["Vaal"]) do
 				local auraNameCompressed = auraName:gsub(" ","")
-				if not modDB.conditions["AffectedBy"..auraNameCompressed] then
+				if not enemyDB.conditions["AffectedBy"..auraNameCompressed] then
+					enemyDB.conditions["AffectedBy"..auraNameCompressed] = true
 					modDB.conditions["AffectedBy"..auraNameCompressed] = true
 					local srcList = new("ModList")
 					srcList:ScaleAddList(aura.modList, aura.effectMult / 100)
