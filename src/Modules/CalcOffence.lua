@@ -2583,6 +2583,11 @@ function calcs.offence(env, actor, activeSkill)
 			activeSkill.activeEffect.grantedEffect.explosiveArrowFunc(activeSkill, output, globalOutput, globalBreakdown, env)
 		end
 
+		-- Calculate beam overlaps for Storm Rain
+		if activeSkill.activeEffect.grantedEffect.name == "Storm Rain" then
+			activeSkill.activeEffect.grantedEffect.stormRainFunc(activeSkill, output, globalOutput, globalBreakdown, env)
+		end
+
 		-- Calculate crit chance, crit multiplier, and their combined effect
 		if skillModList:Flag(cfg, "NeverCrit") then
 			output.PreEffectiveCritChance = 0
