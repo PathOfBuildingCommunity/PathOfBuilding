@@ -10869,15 +10869,15 @@ skills["SupportIntuitiveLink"] = {
 	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
 	isTrigger = true,
-	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["trigger_on_trigger_link_target_hit"] = {
 			-- Display only
 		},
 		["support_trigger_link_damage_+%_final"] = {
-			
+			mod("Damage", "MORE", nil),
 		},
 	},
+	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0 },
