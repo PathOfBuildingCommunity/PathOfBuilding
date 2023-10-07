@@ -737,6 +737,11 @@ local skills, mod, flag, skill = ...
 		"GuardianRelicCold",
 		"GuardianRelicLightning",
 	},
+	statMap = {
+		["minion_actor_level_is_user_level_up_to_maximum"] = {
+			skill("minionLevelIsPlayerLevel", true),
+		},
+	},
 #mods
 
 #skill SummonHarbingerOfTheArcaneUber
@@ -830,7 +835,9 @@ local skills, mod, flag, skill = ...
 		},
 		["radiant_sentinel_minion_burning_effect_radius"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
-			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
+		},
+		["minion_actor_level_is_user_level_up_to_maximum"] = {
+			skill("minionLevelIsPlayerLevel", true),
 		},
 	},
 #mods

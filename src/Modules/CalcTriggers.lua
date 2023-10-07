@@ -67,7 +67,7 @@ end
 -- Identify the trigger action skill for trigger conditions, take highest Attack Per Second
 local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 	local comparer = comparer or function(uuid, source, triggerRate)
-		local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+		local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].HitSpeed or GlobalCache.cachedData["CACHE"][uuid].Speed
 		return (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0))
 	end
 
@@ -77,7 +77,7 @@ local function findTriggerSkill(env, skill, source, triggerRate, comparer)
 	end
 
 	if GlobalCache.cachedData["CACHE"][uuid] and comparer(uuid, source, triggerRate) and (skill.skillFlags and not skill.skillFlags.disable) and (skill.skillCfg and not skill.skillCfg.skillCond["usedByMirage"]) and not skill.skillTypes[SkillType.OtherThingUsesSkill] then
-		return skill, GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
+		return skill, GlobalCache.cachedData["CACHE"][uuid].HitSpeed or GlobalCache.cachedData["CACHE"][uuid].Speed, uuid
 	end
 	return source, triggerRate, source and cacheSkillUUID(source, env)
 end
@@ -425,7 +425,7 @@ local function defaultTriggerHandler(env, config)
 					if config.assumingEveryHitKills then
 						t_insert(breakdown.EffectiveSourceRate, "Assuming every attack kills")
 					end
-					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, source.activeEffect.grantedEffect.name, config.useCastRate and "cast rate" or "attack rate"))
+					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, config.sourceName or source.activeEffect.grantedEffect.name, config.useCastRate and "cast rate" or "attack rate"))
 				end
 			end
 
@@ -515,18 +515,18 @@ local function defaultTriggerHandler(env, config)
 					local manaSpentThreshold = triggeredManaCost * actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold
 					local sourceManaCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.ManaCost or 0
 					if sourceManaCost > 0 then
-						trigRate = (trigRate * sourceManaCost) / manaSpentThreshold
 						if breakdown then
 							t_insert(breakdown.EffectiveSourceRate, s_format("* %.2f ^8(Mana cost of trigger source)", sourceManaCost))
-							t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Mana spent per second)", (GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Speed * sourceManaCost)))
+							t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Mana spent per second)", (trigRate * sourceManaCost)))
 							t_insert(breakdown.EffectiveSourceRate, s_format(""))
 							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Mana Cost of triggered)", triggeredManaCost))
 							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Manaforged threshold multiplier)", actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold))
 							t_insert(breakdown.EffectiveSourceRate, s_format("= %.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
 							t_insert(breakdown.EffectiveSourceRate, s_format(""))
-							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Mana spent per second)", (GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Speed * sourceManaCost)))
+							t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(Mana spent per second)", (trigRate * sourceManaCost)))
 							t_insert(breakdown.EffectiveSourceRate, s_format("/ %.2f ^8(Manaforged trigger threshold)", manaSpentThreshold))
 						end
+						trigRate = (trigRate * sourceManaCost) / manaSpentThreshold
 					else
 						trigRate = 0
 					end
@@ -968,7 +968,7 @@ local configTable = {
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 	["sporeguard"] = function()
-		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and not skill.skillTypes[SkillType.Triggered] end}
+		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
 	end,
 	["mark of the elder"] = function()
 		return {assumingEveryHitKills = true, triggerSkillCond = function(env, skill) return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) end}
@@ -1053,7 +1053,7 @@ local configTable = {
 		return {triggerChance = env.player.modDB:Sum("BASE", nil, "KitavaTriggerChance"),
 				triggerName = "Kitava's Thirst",
 				comparer = function(uuid, source, triggerRate)
-					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].Speed
+					local cachedSpeed = GlobalCache.cachedData["CACHE"][uuid].HitSpeed or GlobalCache.cachedData["CACHE"][uuid].Speed
 					local cachedManaCost = GlobalCache.cachedData["CACHE"][uuid].ManaCost
 					return ( (not source and cachedSpeed) or (cachedSpeed and cachedSpeed > (triggerRate or 0)) ) and ( (cachedManaCost or 0) > requiredManaCost )
 				end,
@@ -1123,22 +1123,22 @@ local configTable = {
 				triggerOnUse = true,
 				triggerSkillCond = function(env, skill)
 					local isWandAttack = (not skill.weaponTypes or (skill.weaponTypes and skill.weaponTypes["Wand"])) and skill.skillTypes[SkillType.Attack]
-					return isWandAttack and not skill.skillTypes[SkillType.Triggered] and not skill.skillData.triggeredBySpellSlinger
+					return isWandAttack and not skill.skillData.triggeredBySpellSlinger
 				end}
 	end,
 	["mark on hit"] = function()
-		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] end}
+		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] end}
 	end,
 	["hextouch"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {triggerSkillCond = function(env, skill)
-					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered] and slotMatch(env, skill)
+					return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill)
 				end}
 	end,
 	["oskarm"] = function(env)
 		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {triggerSkillCond = function(env, skill)
-					return skill.skillTypes[SkillType.Attack] and not skill.skillTypes[SkillType.Triggered]
+					return skill.skillTypes[SkillType.Attack]
 				end}
 	end,
 	["tempest shield"] = function(env)
@@ -1194,13 +1194,13 @@ local configTable = {
 		env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
 	end,
 	["combust"] = function(env)
-		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end}
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
 	end,
 	["prismatic burst"] = function(env)
-		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] end}
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end}
 	end,
 	["shockwave"] = function(env)
-		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end}
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
 	end,
 	["manaforged arrows"] = function(env)
 		return {triggerOnUse = true,
@@ -1291,6 +1291,21 @@ local configTable = {
 					return (not source and totemLife) or (totemLife and totemLife > (currentTotemLife or 0))
 				end,
 				ignoreSourceRate = true}
+	end,
+	["intuitive link"] = function(env)
+		if env.player.mainSkill.activeEffect.grantedEffect.name ~= "Intuitive Link" then
+			for _, skill in ipairs(env.player.activeSkillList) do
+				if skill.activeEffect.grantedEffect.name == "Intuitive Link" then
+					env.player.mainSkill.triggeredBy.mainSkill = skill
+					break
+				end
+			end
+			return {triggeredSkillCond = function(env, skill) return skill.skillTypes[SkillType.Spell] and slotMatch(env, skill) and skill ~= env.player.mainSkill.triggeredBy.mainSkill end,
+					trigRate = env.modDB:Sum("BASE", nil, "IntuitiveLinkSourceRate"),
+					source = env.player.mainSkill.triggeredBy.mainSkill,
+					sourceName = "Custom source",
+					useCastRate = true}
+		end
 	end,
 }
 

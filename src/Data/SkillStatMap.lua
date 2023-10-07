@@ -1727,6 +1727,9 @@ return {
 ["snipe_triggered_skill_damage_+%_final"] = {
 	mod("Damage", "MORE", nil),
 },
+["damage_+%_if_you_have_consumed_a_corpse_recently"] = {
+	mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "ConsumedCorpseRecently" }),
+},
 ["withered_on_hit_chance_%"] = {
 	flag("Condition:CanWither"),
 },

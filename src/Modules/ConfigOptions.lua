@@ -423,6 +423,9 @@ return {
 	{ var = "linkedToMinion", type = "check", label = "Linked To Minion?", ifSkill = { "Destructive Link", "Flame Link", "Intuitive Link", "Protective Link", "Soul Link", "Vampiric Link" }, ifFlag = "Condition:CanLinkToMinions", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:LinkedToMinion", "FLAG", true, "Config")
 	end },
+	{ var = "linkedSourceRate", type = "float", label = "Source rate for Intuitive Link", ifSkill = "Intuitive Link", apply = function(val, modList, enemyModList)
+		modList:NewMod("IntuitiveLinkSourceRate", "BASE", val, "Config")
+	end },
 	{ label = "Meat Shield:", ifSkill = "Meat Shield" },
 	{ var = "meatShieldEnemyNearYou", type = "check", label = "Is the enemy near you?", ifSkill = "Meat Shield", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:MeatShieldEnemyNearYou", "FLAG", true, "Config")
@@ -975,7 +978,7 @@ Huge sets the radius to 11.
 	{ var = "conditionAgainstDamageOverTime", type = "check", label = "Are you against Damage over Time?", ifCond = "AgainstDamageOverTime", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AgainstDamageOverTime", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "multiplierWitheredStackCountSelf", type = "count", label = "# of Withered Stacks on you:", ifFlag = "Condition:CanBeWithered", tooltip = "Withered applies 6% increased ^xD02090Chaos ^7Damage Taken to the self, up to 15 stacks.", apply = function(val, modList, enemyModList)
+	{ var = "multiplierWitheredStackCountSelf", type = "countAllowZero", label = "# of Withered Stacks on you:", ifFlag = "Condition:CanBeWithered", tooltip = "Withered applies 6% increased ^xD02090Chaos ^7Damage Taken to the self, up to 15 stacks.", defaultPlaceholderState = 15, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WitheredStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
 	end },
 	{ var = "multiplierNearbyEnemies", type = "count", label = "# of nearby Enemies:", ifMult = "NearbyEnemies", apply = function(val, modList, enemyModList)

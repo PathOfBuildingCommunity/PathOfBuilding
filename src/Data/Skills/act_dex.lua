@@ -10761,6 +10761,11 @@ skills["IntuitiveLink"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
+	statMap = {
+		["display_trigger_link"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -10823,6 +10828,82 @@ skills["IntuitiveLink"] = {
 		[38] = { 11350, levelRequirement = 98, statInterpolation = { 1, }, cost = { ManaPerMinute = 2790, }, },
 		[39] = { 11400, levelRequirement = 99, statInterpolation = { 1, }, cost = { ManaPerMinute = 2830, }, },
 		[40] = { 11450, levelRequirement = 100, statInterpolation = { 1, }, cost = { ManaPerMinute = 2850, }, },
+	},
+}
+skills["SupportIntuitiveLink"] = {
+	name = "Intuitive Link",
+	description = "Supports spell skills, causing them to be triggered by Intuitive Link. Cannot support skills used by totems, traps, or mines. Vaal skills, channelling skills, and skills with a reservation cannot be triggered.",
+	color = 2,
+	support = true,
+	requireSkillTypes = { SkillType.Spell, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
+	isTrigger = true,
+	statMap = {
+		["trigger_on_trigger_link_target_hit"] = {
+			-- Display only
+		},
+		["support_trigger_link_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
+	statDescriptionScope = "gem_stat_descriptions",
+	qualityStats = {
+		Default = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate1 = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+		Alternate2 = {
+			{ "triggered_skill_damage_+%", 1 },
+		},
+	},
+	stats = {
+		"support_trigger_link_damage_+%_final",
+		"trigger_on_trigger_link_target_hit",
+	},
+	levels = {
+		[1] = { -44, storedUses = 1, levelRequirement = 34, cooldown = 0.5, statInterpolation = { 1, }, },
+		[2] = { -44, storedUses = 1, levelRequirement = 36, cooldown = 0.5, statInterpolation = { 1, }, },
+		[3] = { -44, storedUses = 1, levelRequirement = 38, cooldown = 0.5, statInterpolation = { 1, }, },
+		[4] = { -43, storedUses = 1, levelRequirement = 40, cooldown = 0.5, statInterpolation = { 1, }, },
+		[5] = { -43, storedUses = 1, levelRequirement = 42, cooldown = 0.5, statInterpolation = { 1, }, },
+		[6] = { -43, storedUses = 1, levelRequirement = 44, cooldown = 0.5, statInterpolation = { 1, }, },
+		[7] = { -42, storedUses = 1, levelRequirement = 46, cooldown = 0.5, statInterpolation = { 1, }, },
+		[8] = { -42, storedUses = 1, levelRequirement = 48, cooldown = 0.5, statInterpolation = { 1, }, },
+		[9] = { -42, storedUses = 1, levelRequirement = 50, cooldown = 0.5, statInterpolation = { 1, }, },
+		[10] = { -41, storedUses = 1, levelRequirement = 52, cooldown = 0.5, statInterpolation = { 1, }, },
+		[11] = { -41, storedUses = 1, levelRequirement = 54, cooldown = 0.5, statInterpolation = { 1, }, },
+		[12] = { -41, storedUses = 1, levelRequirement = 56, cooldown = 0.5, statInterpolation = { 1, }, },
+		[13] = { -40, storedUses = 1, levelRequirement = 58, cooldown = 0.5, statInterpolation = { 1, }, },
+		[14] = { -40, storedUses = 1, levelRequirement = 60, cooldown = 0.5, statInterpolation = { 1, }, },
+		[15] = { -40, storedUses = 1, levelRequirement = 62, cooldown = 0.5, statInterpolation = { 1, }, },
+		[16] = { -39, storedUses = 1, levelRequirement = 64, cooldown = 0.5, statInterpolation = { 1, }, },
+		[17] = { -39, storedUses = 1, levelRequirement = 66, cooldown = 0.5, statInterpolation = { 1, }, },
+		[18] = { -39, storedUses = 1, levelRequirement = 68, cooldown = 0.5, statInterpolation = { 1, }, },
+		[19] = { -38, storedUses = 1, levelRequirement = 69, cooldown = 0.5, statInterpolation = { 1, }, },
+		[20] = { -38, storedUses = 1, levelRequirement = 70, cooldown = 0.5, statInterpolation = { 1, }, },
+		[21] = { -38, storedUses = 1, levelRequirement = 72, cooldown = 0.5, statInterpolation = { 1, }, },
+		[22] = { -37, storedUses = 1, levelRequirement = 74, cooldown = 0.5, statInterpolation = { 1, }, },
+		[23] = { -37, storedUses = 1, levelRequirement = 76, cooldown = 0.5, statInterpolation = { 1, }, },
+		[24] = { -37, storedUses = 1, levelRequirement = 78, cooldown = 0.5, statInterpolation = { 1, }, },
+		[25] = { -36, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 1, }, },
+		[26] = { -36, storedUses = 1, levelRequirement = 82, cooldown = 0.5, statInterpolation = { 1, }, },
+		[27] = { -36, storedUses = 1, levelRequirement = 84, cooldown = 0.5, statInterpolation = { 1, }, },
+		[28] = { -35, storedUses = 1, levelRequirement = 86, cooldown = 0.5, statInterpolation = { 1, }, },
+		[29] = { -35, storedUses = 1, levelRequirement = 88, cooldown = 0.5, statInterpolation = { 1, }, },
+		[30] = { -35, storedUses = 1, levelRequirement = 90, cooldown = 0.5, statInterpolation = { 1, }, },
+		[31] = { -34, storedUses = 1, levelRequirement = 91, cooldown = 0.5, statInterpolation = { 1, }, },
+		[32] = { -34, storedUses = 1, levelRequirement = 92, cooldown = 0.5, statInterpolation = { 1, }, },
+		[33] = { -34, storedUses = 1, levelRequirement = 93, cooldown = 0.5, statInterpolation = { 1, }, },
+		[34] = { -33, storedUses = 1, levelRequirement = 94, cooldown = 0.5, statInterpolation = { 1, }, },
+		[35] = { -33, storedUses = 1, levelRequirement = 95, cooldown = 0.5, statInterpolation = { 1, }, },
+		[36] = { -33, storedUses = 1, levelRequirement = 96, cooldown = 0.5, statInterpolation = { 1, }, },
+		[37] = { -32, storedUses = 1, levelRequirement = 97, cooldown = 0.5, statInterpolation = { 1, }, },
+		[38] = { -32, storedUses = 1, levelRequirement = 98, cooldown = 0.5, statInterpolation = { 1, }, },
+		[39] = { -32, storedUses = 1, levelRequirement = 99, cooldown = 0.5, statInterpolation = { 1, }, },
+		[40] = { -31, storedUses = 1, levelRequirement = 100, cooldown = 0.5, statInterpolation = { 1, }, },
 	},
 }
 skills["VampiricLink"] = {

@@ -17,10 +17,12 @@ end
 -- Radius jewels that modify other nodes
 local function getSimpleConv(srcList, dst, type, remove, factor)
 	return function(node, out, data)
+		local attributes = {["Dex"] = true, ["Int"] = true, ["Str"] = true}
 		if node then
 			for _, src in pairs(srcList) do
 				for _, mod in ipairs(node.modList) do
-					if mod.name == src and mod.type == type then
+					-- do not convert stats from tattoos
+					if mod.name == src and mod.type == type and not (node.isTattoo and attributes[src]) then
 						if remove then
 							out:MergeNewMod(src, type, -mod.value, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 						end
@@ -1840,7 +1842,10 @@ end
 -- List of special modifiers
 local specialModList = {
 	-- Explode mods
-	["enemies you kill have ?a? ?(%d+)%% chance to explode, dealing ?a? ?(%d+)%% of their maximum life as (.+) damage"] = function(chance, _, amount, type) -- Obliteration; Unspeakable Gifts (chaos cluster); synth implicit mod; crusader body mod; Hinekora, Death's Fury
+	["enemies you kill have a (%d+)%% chance to explode, dealing a (.+) of their maximum life as (.+) damage"] = function(chance, _, amount, type)	-- Obliteration, Unspeakable Gifts (chaos cluster), synth implicit mod, current crusader body mod, Ngamahu Warmonger tattoo
+		return explodeFunc(chance, amount, type)
+	end,
+	["enemies you kill have ?a? ?(%d+)%% chance to explode, dealing (%d+)%% of their maximum life as (.+) damage"] = function(chance, _, amount, type) -- Hinekora, Death's Fury
 		return explodeFunc(chance, amount, type)
 	end,
 	["enemies you kill while using pride have (%d+)%% chance to explode, dealing a (.+) of their maximum life as (.+) damage"] = function(chance, _, amount, type)	-- Sublime Vision
@@ -2113,6 +2118,8 @@ local specialModList = {
 		mod("HitsInvertEleResChance", "CHANCE", num / 100, nil)
 	} end,
 	["off hand accuracy is equal to main hand accuracy while wielding a sword"] = { flag("Condition:OffHandAccuracyIsMainHandAccuracy", { type = "Condition", var = "UsingSword" }) },
+	["(%d+)%% increased accuracy rating at close range"] = function(num) return { mod("AccuracyVsEnemy", "INC", num, { type = "Condition", var = "AtCloseRange" } ) } end,
+	["(%d+)%% increased accuracy rating against unique enemies"] = function(num) return { mod("AccuracyVsEnemy", "INC", num, { type = "ActorCondition", actor = "enemy", var = "RareOrUnique" } ) } end,
 	["(%d+)%% chance to defend with (%d+)%% of armour"] = function(numChance, _, numArmourMultiplier) return {
 		mod("ArmourDefense", "MAX", tonumber(numArmourMultiplier) - 100, "Armour Mastery: Max Calc", { type = "Condition", var = "ArmourMax" }),
 		mod("ArmourDefense", "MAX", math.min(numChance / 100, 1.0) * (tonumber(numArmourMultiplier) - 100), "Armour Mastery: Average Calc", { type = "Condition", var = "ArmourAvg" }),
@@ -3394,17 +3401,17 @@ local specialModList = {
 	["gain maddening presence for 10 seconds when you kill a rare or unique enemy"] = { mod("EnemyModifier", "LIST", { mod = flag("HasMaddeningPresence") }, { type = "Condition", var = "KilledUniqueEnemy" }) },
 	["elemental damage you deal with hits is resisted by lowest elemental resistance instead"] = { flag("ElementalDamageUsesLowestResistance") },
 	["you take (%d+) chaos damage per second for 3 seconds on kill"] = function(num) return { mod("ChaosDegen", "BASE", num, { type = "Condition", var = "KilledLast3Seconds" }) } end,
-	["regenerate (%d+) life per second for each (%d+)%% uncapped fire resistance"] = function(num, percent) return { mod("LifeRegen", "BASE", num, { type = "PerStat", stat = "FireResistTotal", div = 1 / percent }) } end,
+	["regenerate (%d+) life per second for each (%d+)%% uncapped fire resistance"] = function(num, _, percent) return { mod("LifeRegen", "BASE", num, { type = "PerStat", stat = "FireResistTotal", div = 1 / percent }) } end,
 	["regenerate (%d+) life over 1 second for each spell you cast"] = function(num) return { mod("LifeRegen", "BASE", num, { type = "Condition", var = "CastLast1Seconds" }) } end,
 	["and nearby allies regenerate (%d+) life per second"] = function(num) return { mod("ExtraAura", "LIST", { mod = mod("LifeRegen", "BASE", num) }, { type = "Condition", var = "KilledPoisonedLast2Seconds" }) } end,
 	["(%d+)%% increased life regeneration rate"] = function(num) return { mod("LifeRegen", "INC", num) } end,
-	["every (%d+) seconds, regenerate life equal to (%d+)%% of armour and evasion rating over (%d+) second"] = function (interval, percent, duration) return {
+	["every (%d+) seconds, regenerate life equal to (%d+)%% of armour and evasion rating over (%d+) second"] = function (interval, _, percent, duration) return {
 		mod("LifeRegen", "BASE", 1, { type = "Condition", var = "LifeRegenBurstFull" }, { type = "PercentStat", stat = "Armour", percent = percent }),
 		mod("LifeRegen", "BASE", 1 / interval * duration, { type = "Condition", var = "LifeRegenBurstAvg" }, { type = "PercentStat", stat = "Armour", percent = percent }),
 		mod("LifeRegen", "BASE", 1, { type = "Condition", var = "LifeRegenBurstFull" }, { type = "PercentStat", stat = "Evasion", percent = percent }),
 		mod("LifeRegen", "BASE", 1 / interval * duration, { type = "Condition", var = "LifeRegenBurstAvg" }, { type = "PercentStat", stat = "Evasion", percent = percent }),
 	} end,
-	["every (%d+) seconds, regenerate energy shield equal to (%d+)%% of evasion rating over (%d+) second"] = function (interval, percent, duration) return {
+	["every (%d+) seconds, regenerate energy shield equal to (%d+)%% of evasion rating over (%d+) second"] = function (interval, _, percent, duration) return {
 		mod("EnergyShieldRegen", "BASE", 1, { type = "Condition", var = "LifeRegenBurstFull" }, { type = "PercentStat", stat = "Evasion", percent = percent }),
 		mod("EnergyShieldRegen", "BASE", 1 / interval * duration, { type = "Condition", var = "LifeRegenBurstAvg" }, { type = "PercentStat", stat = "Evasion", percent = percent }),
 	} end,
@@ -4254,6 +4261,8 @@ local specialModList = {
 	["gain accuracy rating equal to your intelligence"] = { mod("Accuracy", "BASE", 1, { type = "PerStat", stat = "Int" }) },
 	["intelligence is added to accuracy rating with wands"] = { mod("Accuracy", "BASE", 1, nil, ModFlag.Wand, { type = "PerStat", stat = "Int" }) },
 	["dexterity's accuracy bonus instead grants %+(%d+) to accuracy rating per dexterity"] = function(num) return { mod("DexAccBonusOverride", "OVERRIDE", num ) } end,
+	["(%d+)%% increased accuracy rating against marked enemy"] = function(num) return { mod("AccuracyVsEnemy", "INC", num, { type = "ActorCondition", actor = "enemy", var = "Marked" } ) } end,
+	["%+(%d+) to accuracy against bleeding enemies"] = function(num) return { mod("AccuracyVsEnemy", "BASE", num, { type = "ActorCondition", actor = "enemy", var = "Bleeding" } ) } end,
 	["cannot recover energy shield to above armour"] = { flag("ArmourESRecoveryCap") },
 	["cannot recover energy shield to above evasion rating"] = { flag("EvasionESRecoveryCap") },
 	["warcries exert (%d+) additional attacks?"] = function(num) return { mod("ExtraExertedAttacks", "BASE", num) } end,
