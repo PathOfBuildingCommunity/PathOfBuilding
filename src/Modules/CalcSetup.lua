@@ -1241,6 +1241,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						if grantedEffect then
 							t_insert(supportList, {
 								grantedEffect = grantedEffect,
+								gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name] or env.data.gemForBaseName[grantedEffect.name .. " Support"]],
 								level = value.level,
 								quality = 0,
 								enabled = true,
