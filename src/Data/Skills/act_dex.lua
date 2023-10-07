@@ -7201,7 +7201,7 @@ skills["StormRain"] = {
 			local projectilesBeforeFalloff = projectiles * attacksBeforeArrowFalloff
 
 			-- Use the lower amount of projectiles in the dps calculation
-			activeSkill.skillData.dpsMultiplier = math.min(projectilesBeforeFalloff, projectilesPerSecondCap) or 1
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * (math.min(projectilesBeforeFalloff, projectilesPerSecondCap) or 1)
 			globalOutput.HitSpeed = beamFrequency
 		end
 	end,
