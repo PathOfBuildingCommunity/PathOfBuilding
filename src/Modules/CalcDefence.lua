@@ -1401,17 +1401,38 @@ function calcs.buildDefenceEstimations(env, actor)
 	--Damage Taken as
 	do
 		actor.damageShiftTable = wipeTable(actor.damageShiftTable)
+		actor.damageOverTimeShiftTable = wipeTable(actor.damageOverTimeShiftTable)
 		for _, damageType in ipairs(dmgTypeList) do
-			-- Build damage shift table
+			-- Build damage shift tables
 			local shiftTable = { }
+			local dotShiftTable = { }
 			local destTotal = 0
+			local dotDestinationTotal = 0
 			for _, destType in ipairs(dmgTypeList) do
 				if destType ~= damageType then
-					shiftTable[destType] = modDB:Sum("BASE", nil, damageType.."DamageTakenAs"..destType, isElemental[damageType] and "ElementalDamageTakenAs"..destType or nil)
+					dotShiftTable[destType] = modDB:Sum("BASE", nil, damageType.."DamageTakenAs"..destType, isElemental[damageType] and "ElementalDamageTakenAs"..destType or nil)
+					dotDestinationTotal = dotDestinationTotal + dotShiftTable[destType]
+					shiftTable[destType] = dotShiftTable[destType] + modDB:Sum("BASE", nil, damageType.."DamageFromHitsTakenAs"..destType, isElemental[damageType] and "ElementalDamageFromHitsTakenAs"..destType or nil)
 					destTotal = destTotal + shiftTable[destType]
 				end
 			end
-			shiftTable[damageType] = m_max(100 - destTotal, 0)
+			if dotDestinationTotal > 100 then
+				local factor = 100 / dotDestinationTotal
+				for destType, portion in pairs(dotShiftTable) do
+					dotShiftTable[destType] = portion * factor
+				end
+				dotDestinationTotal = 100
+			end
+			dotShiftTable[damageType] = 100 - dotDestinationTotal
+			actor.damageOverTimeShiftTable[damageType] = dotShiftTable
+			if destTotal > 100 then
+				local factor = 100 / destTotal
+				for destType, portion in pairs(shiftTable) do
+					shiftTable[destType] = portion * factor
+				end
+				destTotal = 100
+			end
+			shiftTable[damageType] = 100 - destTotal
 			actor.damageShiftTable[damageType] = shiftTable
 			
 			--add same type damage
@@ -2664,47 +2685,60 @@ function calcs.buildDefenceEstimations(env, actor)
 	end
 	
 	-- degens
+	output.TotalDegen = 0
 	for _, damageType in ipairs(dmgTypeList) do
 		local baseVal = modDB:Sum("BASE", nil, damageType.."Degen")
 		if baseVal > 0 then
-			local total = baseVal * output[damageType.."TakenDotMult"]
-			output[damageType.."Degen"] = total
-			output.TotalDegen = (output.TotalDegen or 0) + total
-			if breakdown then
-				breakdown.TotalDegen = breakdown.TotalDegen or { 
-					rowList = { },
-					colList = {
-						{ label = "Type", key = "type" },
-						{ label = "Base", key = "base" },
-						{ label = "Multiplier", key = "mult" },
-						{ label = "Total", key = "total" },
-					}
-				}
-				t_insert(breakdown.TotalDegen.rowList, {
-					type = damageType,
-					base = s_format("%.1f", baseVal),
-					mult = s_format("x %.2f", output[damageType.."TakenDotMult"]),
-					total = s_format("%.1f", total),
-				})
-				breakdown[damageType.."Degen"] = { 
-					rowList = { },
-					colList = {
-						{ label = "Type", key = "type" },
-						{ label = "Base", key = "base" },
-						{ label = "Multiplier", key = "mult" },
-						{ label = "Total", key = "total" },
-					}
-				}
-				t_insert(breakdown[damageType.."Degen"].rowList, {
-					type = damageType,
-					base = s_format("%.1f", baseVal),
-					mult = s_format("x %.2f", output[damageType.."TakenDotMult"]),
-					total = s_format("%.1f", total),
-				})
+			for damageConvertedType, convertPercent in pairs(actor.damageOverTimeShiftTable[damageType]) do
+				if convertPercent > 0 then
+					local total = baseVal * (convertPercent / 100) * output[damageConvertedType.."TakenDotMult"]
+					output[damageConvertedType.."Degen"] = (output[damageConvertedType.."Degen"] or 0) + total
+					output.TotalDegen = output.TotalDegen + total
+					if breakdown then
+						breakdown.TotalDegen = breakdown.TotalDegen or { 
+							rowList = { },
+							colList = {
+								{ label = "Base Type", key = "type" },
+								{ label = "Final Type", key = "type2" },
+								{ label = "Base", key = "base" },
+								{ label = "Taken As Percent", key = "conv" },
+								{ label = "Multiplier", key = "mult" },
+								{ label = "Total", key = "total" },
+							}
+						}
+						t_insert(breakdown.TotalDegen.rowList, {
+							type = damageType,
+							type2 = damageConvertedType,
+							base = s_format("%.1f", baseVal),
+							conv = s_format("x %.2f%%", convertPercent),
+							mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+							total = s_format("%.1f", total),
+						})
+						breakdown[damageConvertedType.."Degen"] = breakdown[damageConvertedType.."Degen"] or { 
+							rowList = { },
+							colList = {
+								{ label = "Base Type", key = "type" },
+								{ label = "Base", key = "base" },
+								{ label = "Taken As Percent", key = "conv" },
+								{ label = "Multiplier", key = "mult" },
+								{ label = "Total", key = "total" },
+							}
+						}
+						t_insert(breakdown[damageConvertedType.."Degen"].rowList, {
+							type = damageType,
+							base = s_format("%.1f", baseVal),
+							conv = s_format("x %.2f%%", convertPercent),
+							mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+							total = s_format("%.1f", total),
+						})
+					end
+				end
 			end
 		end
 	end
-	if output.TotalDegen then
+	if output.TotalDegen == 0 then
+		output.TotalDegen = nil
+	else
 		output.NetLifeRegen = output.LifeRegenRecovery
 		output.NetManaRegen = output.ManaRegenRecovery
 		output.NetEnergyShieldRegen = output.EnergyShieldRegenRecovery
