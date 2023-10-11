@@ -1359,7 +1359,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				end
 				-- Cap the amount of conversion to 100%
 				if conversions["totalSkill"] > 100 then
-					local mult = 1 / conversions["totalSkill"]
+					local mult = 100 / conversions["totalSkill"]
 					conversions["totalSkill"] = conversions["totalSkill"] * mult
 					conversions["total"] = 0
 					for _, damageTypeTo in ipairs(dmgTypeList) do
@@ -1367,7 +1367,7 @@ function calcs.buildDefenceEstimations(env, actor)
 						conversions[damageTypeTo] = 0
 					end
 				elseif conversions["total"] + conversions["totalSkill"] > 100 then
-					local mult = (100 - conversions["totalSkill"]) / 100 / conversions["total"]
+					local mult = (100 - conversions["totalSkill"]) / conversions["total"]
 					conversions["total"] = conversions["total"] * mult
 					for _, damageTypeTo in ipairs(dmgTypeList) do
 						conversions[damageTypeTo] = conversions[damageTypeTo] * mult
