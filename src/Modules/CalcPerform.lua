@@ -847,6 +847,21 @@ local function doActorMisc(env, actor)
 			local max = modDB:Override(nil, "SoulEaterMax")
 			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
+		if modDB:Flag(nil, "UseEnduranceCharges") and modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+			local tripleDmgChancePerEndurance = modDB:Sum("BASE", nil, "PerBrutalTripleDamageChance")
+			modDB:NewMod("TripleDamageChance", "BASE", tripleDmgChancePerEndurance, { type = "Multiplier", var = "BrutalCharge" } )
+		end
+		if modDB:Flag(nil, "UseFrenzyCharges") and modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+			local dmgPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionAilmentDamage")
+			local effectPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionNonDamageEffect")
+			modDB:NewMod("Damage", "MORE", dmgPerAffliction, "Affliction Charges", 0, KeywordFlag.Ailment, { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+			modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
+		end
 	end
 end
 
@@ -2583,6 +2598,11 @@ function calcs.perform(env, fullDPSSkipEHP)
 		enemyDB:ReplaceMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	end
 
+	doActorMisc(env, env.player)
+	if env.minion then
+		doActorMisc(env, env.minion)
+	end
+
 	-- Calculate maximum and apply the strongest non-damaging ailments
 	local ailmentData = data.nonDamagingAilment
 	local ailments = {
@@ -2742,11 +2762,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 		modDB:AddList(env.weaponModList1)
 	end
 
-	-- Process misc buffs/modifiers
-	doActorMisc(env, env.player)
-	if env.minion then
-		doActorMisc(env, env.minion)
-	end
 	doActorMisc(env, env.enemy)
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
