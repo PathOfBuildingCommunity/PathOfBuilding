@@ -2416,6 +2416,12 @@ return {
 	{ label = "Total Degen", haveOutput = "TotalDegen", { format = "{1:output:TotalDegen}", 
 		{ breakdown = "TotalDegen" },
 	}, },
+	{ label = "Total Net Recovery", haveOutput = "ComprehensiveTotalNetRegen", { format = "{1:output:ComprehensiveTotalNetRegen}",
+		{ breakdown = "ComprehensiveTotalNetRegen" },
+	}, },
+	{ label = "Net Life Recovery", color = colorCodes.LIFE, haveOutput = "ComprehensiveNetLifeRegen", { format = "{1:output:ComprehensiveNetLifeRegen}", { breakdown = "ComprehensiveNetLifeRegen" }, }, },
+	{ label = "Net Mana Recovery", color = colorCodes.MANA, haveOutput = "ComprehensiveNetManaRegen", { format = "{1:output:ComprehensiveNetManaRegen}", { breakdown = "ComprehensiveNetManaRegen" }, }, },
+	{ label = "Net ES Recovery", color = colorCodes.ES, haveOutput = "ComprehensiveNetEnergyShieldRegen", { format = "{1:output:ComprehensiveNetEnergyShieldRegen}", { breakdown = "ComprehensiveNetEnergyShieldRegen" }, }, }
 } }
 } },
 }

@@ -3330,6 +3330,99 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		if output.TotalDegen == (output.TotalBuildDegen or 0) then
 			output.TotalDegen = nil
+		else
+			output.ComprehensiveNetLifeRegen = output.LifeRegenRecovery
+			output.ComprehensiveNetManaRegen = output.ManaRegenRecovery
+			output.ComprehensiveNetEnergyShieldRegen = output.EnergyShieldRegenRecovery
+			local totalLifeDegen = 0
+			local totalManaDegen = 0
+			local totalEnergyShieldDegen = 0
+			if breakdown then
+				breakdown.ComprehensiveNetLifeRegen = { 
+						label = "Total Life Degen",
+						rowList = { },
+						colList = {
+							{ label = "Type", key = "type" },
+							{ label = "Degen", key = "degen" },
+						},
+					}
+				breakdown.ComprehensiveNetManaRegen = { 
+						label = "Total Mana Degen",
+						rowList = { },
+						colList = {
+							{ label = "Type", key = "type" },
+							{ label = "Degen", key = "degen" },
+						},
+					}
+				breakdown.ComprehensiveNetEnergyShieldRegen = { 
+						label = "Total Energy Shield Degen",
+						rowList = { },
+						colList = {
+							{ label = "Type", key = "type" },
+							{ label = "Degen", key = "degen" },
+						},
+					}
+			end
+			for _, damageType in ipairs(dmgTypeList) do
+				local typeDegen = (output[damageType.."BuildDegen"] or 0) + (output[damageType.."EnemyDegen"] or 0)
+				if typeDegen ~= 0 then 
+					local energyShieldDegen = 0
+					local lifeDegen = 0
+					local manaDegen = 0
+					local takenFromMana = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
+					if output.EnergyShieldRegenRecovery > 0 then 
+						if modDB:Flag(nil, "EnergyShieldProtectsMana") then
+							lifeDegen = typeDegen * (1 - takenFromMana / 100)
+							energyShieldDegen = typeDegen * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
+						else
+							lifeDegen = typeDegen * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - takenFromMana / 100)
+							energyShieldDegen = typeDegen * (1 - output[damageType.."EnergyShieldBypass"] / 100)
+						end
+						manaDegen = typeDegen * (output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
+					else
+						lifeDegen = typeDegen * (1 - takenFromMana / 100)
+						manaDegen = typeDegen * (takenFromMana / 100)
+					end
+					totalLifeDegen = totalLifeDegen + lifeDegen
+					totalManaDegen = totalManaDegen + manaDegen
+					totalEnergyShieldDegen = totalEnergyShieldDegen + energyShieldDegen
+					if breakdown then
+						t_insert(breakdown.ComprehensiveNetLifeRegen.rowList, {
+							type = s_format("%s", damageType),
+							degen = s_format("%.2f", lifeDegen),
+						})
+						t_insert(breakdown.ComprehensiveNetManaRegen.rowList, {
+							type = s_format("%s", damageType),
+							degen = s_format("%.2f", manaDegen),
+						})
+						t_insert(breakdown.ComprehensiveNetEnergyShieldRegen.rowList, {
+							type = s_format("%s", damageType),
+							degen = s_format("%.2f", energyShieldDegen),
+						})
+					end
+				end
+			end
+			output.ComprehensiveNetLifeRegen = output.ComprehensiveNetLifeRegen - totalLifeDegen
+			output.ComprehensiveNetManaRegen = output.ComprehensiveNetManaRegen - totalManaDegen
+			output.ComprehensiveNetEnergyShieldRegen = output.ComprehensiveNetEnergyShieldRegen - totalEnergyShieldDegen
+			output.ComprehensiveTotalNetRegen = output.ComprehensiveNetLifeRegen + output.ComprehensiveNetManaRegen + output.ComprehensiveNetEnergyShieldRegen
+			if breakdown then
+				t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegenRecovery))
+				t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
+				t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("= %.1f", output.ComprehensiveNetLifeRegen))
+				t_insert(breakdown.ComprehensiveNetManaRegen, s_format("%.1f ^8(total mana regen)", output.ManaRegenRecovery))
+				t_insert(breakdown.ComprehensiveNetManaRegen, s_format("- %.1f ^8(total mana degen)", totalManaDegen))
+				t_insert(breakdown.ComprehensiveNetManaRegen, s_format("= %.1f", output.ComprehensiveNetManaRegen))
+				t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegenRecovery))
+				t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
+				t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("= %.1f", output.ComprehensiveNetEnergyShieldRegen))
+				breakdown.ComprehensiveTotalNetRegen = {
+					s_format("Net Life Regen: %.1f", output.ComprehensiveNetLifeRegen),
+					s_format("+ Net Mana Regen: %.1f", output.ComprehensiveNetManaRegen),
+					s_format("+ Net Energy Shield Regen: %.1f", output.ComprehensiveNetEnergyShieldRegen),
+					s_format("= Total Net Regen: %.1f", output.ComprehensiveTotalNetRegen)
+				}
+			end
 		end
 	end
 end
