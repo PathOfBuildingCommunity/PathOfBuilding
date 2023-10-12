@@ -3207,23 +3207,23 @@ function calcs.buildDefenceEstimations(env, actor)
 				}
 		end
 		for _, damageType in ipairs(dmgTypeList) do
-			if output[damageType.."Degen"] then 
+			if output[damageType.."BuildDegen"] then 
 				local energyShieldDegen = 0
 				local lifeDegen = 0
 				local manaDegen = 0
 				local takenFromMana = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
 				if output.EnergyShieldRegenRecovery > 0 then 
 					if modDB:Flag(nil, "EnergyShieldProtectsMana") then
-						lifeDegen = output[damageType.."Degen"] * (1 - takenFromMana / 100)
-						energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
+						lifeDegen = output[damageType.."BuildDegen"] * (1 - takenFromMana / 100)
+						energyShieldDegen = output[damageType.."BuildDegen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
 					else
-						lifeDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - takenFromMana / 100)
-						energyShieldDegen = output[damageType.."Degen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100)
+						lifeDegen = output[damageType.."BuildDegen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - takenFromMana / 100)
+						energyShieldDegen = output[damageType.."BuildDegen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100)
 					end
-					manaDegen = output[damageType.."Degen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
+					manaDegen = output[damageType.."BuildDegen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
 				else
-					lifeDegen = output[damageType.."Degen"] * (1 - takenFromMana / 100)
-					manaDegen = output[damageType.."Degen"] * (takenFromMana / 100)
+					lifeDegen = output[damageType.."BuildDegen"] * (1 - takenFromMana / 100)
+					manaDegen = output[damageType.."BuildDegen"] * (takenFromMana / 100)
 				end
 				totalLifeDegen = totalLifeDegen + lifeDegen
 				totalManaDegen = totalManaDegen + manaDegen
