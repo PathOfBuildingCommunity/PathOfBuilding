@@ -87,6 +87,15 @@ return {
 		},
 		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
 	},
+	["Cortex Ground Degen"] = {
+		DamageType = "DamageOverTime",
+		DamageMultipliers = {
+			Physical = { 5.3012106087214, 0 }
+		},
+		speed = 1630,
+		critChance = 0,
+		tooltip = "Damage Over Time skill"
+	},
 	["Exarch Ball"] = {
 		DamageType = "SpellProjectile",
 		DamageMultipliers = {
@@ -165,6 +174,7 @@ return {
     { val = "Shaper Slam", label = "Shaper Slam" },
     { val = "Shaper Beam", label = "Shaper Beam" },
     { val = "Sirus Meteor", label = "Sirus Meteor" },
+    { val = "Cortex Ground Degen", label = "Cortex Ground Degen" },
     { val = "Exarch Ball", label = "Exarch Ball" },
     { val = "Eater Beam", label = "Eater Beam" },
     { val = "Maven Fireball", label = "Maven Fireball" },

@@ -414,6 +414,8 @@ directiveTable.skills.skill = function(state, args, out)
 	end
 	if displayName == "MemoryGame" then
 		displayName = "Memory Game"
+	elseif displayName == "GroundDegen" then
+		displayName = "Ground Degen"
 	end
 	local boss = state.boss
 	state.skillList = state.skillList or {}
