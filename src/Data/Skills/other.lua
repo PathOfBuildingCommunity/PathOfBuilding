@@ -383,6 +383,7 @@ skills["BloodSacramentUnique"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
+		HasUncancellableReservation = true,
 	},
 	baseMods = {
 		skill("radius", 5),

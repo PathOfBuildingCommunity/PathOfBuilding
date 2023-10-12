@@ -1802,7 +1802,7 @@ function calcs.buildDefenceEstimations(env, actor)
 
 	-- Dissolution of the flesh life pool change
 	if modDB:Flag(nil, "DamageInsteadReservesLife") then 
-		output.LifeRecoverable = output.Life
+		output.LifeRecoverable = (output.LifeCancellableReservation / 100) * output.Life
 	end
 	
 	-- Prevented life loss taken over 4 seconds (and Petrified Blood)

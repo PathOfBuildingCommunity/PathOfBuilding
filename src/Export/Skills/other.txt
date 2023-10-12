@@ -147,7 +147,7 @@ local skills, mod, flag, skill = ...
 #skill BloodSacramentUnique
 #baseMod skill("radius", 5)
 #baseMod mod("Multiplier:BloodSacramentMaxStages", "BASE", 33)
-#flags spell area
+#flags spell area HasUncancellableReservation
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
 		if output.LifeReservedPercent >= 100 then
