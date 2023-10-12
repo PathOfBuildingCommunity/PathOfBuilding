@@ -162,6 +162,7 @@ return {
 			tooltipLines = { "Monsters have %d%% chance to Impale with Attacks" },
 			values = { 25, 40, 60 },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("ImpaleChance", "BASE", values[val] * mapModEffect, "Map mod Impaling", ModFlag.Attack)
 			end
 		},
 		["Empowered"] = {
@@ -420,6 +421,7 @@ return {
 		{ val = "Shocking", label = "Enemy Phys As Lightning                                 Monsters deal to extra Physical Damage".."Shocking" },
 		{ val = "Profane", label = "Enemy Phys As Chaos                                 Monsters deal to extra Physical Damage Inflict Withered for seconds on Hit Profane" },
 		{ val = "Fleet", label = "Enemy Inc Speed                                 to increased Monster Movement Attack Cast".."Fleet" },
+		{ val = "Impaling", label = "Enemy Impale                                 Monsters have chance to with Attacks Impaling" },
 		{ val = "Overlord's", label = "Boss Inc Damage / Speed                                 Unique deals increased has Attack and Cast".."Overlord's" },
 	},
 	Suffix = {
