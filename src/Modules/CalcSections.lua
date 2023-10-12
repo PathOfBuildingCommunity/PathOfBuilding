@@ -1642,6 +1642,7 @@ return {
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
 	{ label = "Curse Effect on You", { format = "{1:output:CurseEffectOnSelf}%", { modName = "CurseEffectOnSelf" }, }, },
 	{ label = "Exposure Effect", { format = "{1:output:ExposureEffectOnSelf}%", { modName = "ExposureEffectOnSelf" }, }, },
+	{ label = "Wither Effect", { format = "{1:output:WitherEffectOnSelf}%", { modName = "WitherEffectOnSelf" }, }, },
 	{ label = "Debuff Dur. Mult.", haveOutput = "showDebuffExpirationModifier", { format = "{1:output:DebuffExpirationModifier}%", { modName = "SelfDebuffExpirationRate" }, }, },
 } }, { defaultCollapsed = false, label = "Stun Duration", data = {
 	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%",  { breakdown = "StunAvoidChance" }, { modName = "AvoidStun" }, }, },

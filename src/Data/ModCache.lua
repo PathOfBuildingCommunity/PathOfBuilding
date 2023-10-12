@@ -5445,7 +5445,7 @@ c["65% increased Mana Regeneration Rate"]={{[1]={flags=0,keywordFlags=0,name="Ma
 c["65% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type="INC",value=65}},nil}
 c["65% increased Ward"]={{[1]={flags=0,keywordFlags=0,name="Ward",type="INC",value=65}},nil}
 c["65% reduced Amount Recovered"]={{[1]={flags=0,keywordFlags=0,name="FlaskRecovery",type="INC",value=-65}},nil}
-c["65% reduced Effect of Withered on you"]={{[1]={flags=0,keywordFlags=0,name="WitherEffect",type="INC",value=-65}},"  on you "}
+c["65% reduced Effect of Withered on you"]={{[1]={flags=0,keywordFlags=0,name="WitherEffectOnSelf",type="INC",value=-65}},nil}
 c["65% reduced Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="INC",value=-65}},nil}
 c["650% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=650}},nil}
 c["66% increased Critical Strike Chance"]={{[1]={flags=0,keywordFlags=0,name="CritChance",type="INC",value=66}},nil}
