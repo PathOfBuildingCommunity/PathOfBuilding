@@ -55,6 +55,17 @@ return {
 		},
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
 	},
+	["Shaper Beam"] = {
+		DamageType = "DamageOverTime",
+		DamageMultipliers = {
+			Lightning = { 12.58958162968, 0 },
+			Cold = { 9.1363649598343, 0 },
+			Fire = { 11.141451836499, 0 }
+		},
+		speed = 1000,
+		critChance = 0,
+		tooltip = "Damage Over Time skill"
+	},
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
@@ -152,6 +163,7 @@ return {
     { val = "Atziri Flameblast", label = "Atziri Flameblast" },
     { val = "Shaper Ball", label = "Shaper Ball" },
     { val = "Shaper Slam", label = "Shaper Slam" },
+    { val = "Shaper Beam", label = "Shaper Beam" },
     { val = "Sirus Meteor", label = "Sirus Meteor" },
     { val = "Exarch Ball", label = "Exarch Ball" },
     { val = "Eater Beam", label = "Eater Beam" },
