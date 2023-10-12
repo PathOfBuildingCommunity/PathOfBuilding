@@ -2746,7 +2746,7 @@ function calcs.buildDefenceEstimations(env, actor)
 	end
 	
 	-- petrified blood "degen"
-	if output.preventedLifeLossTotal > 0 then
+	if output.preventedLifeLossTotal > 0 and (output["LifeLossLostOverTime"] and output["LifeBelowHalfLossLostOverTime"]) then
 		local LifeLossBelowHalfLost = modDB:Sum("BASE", nil, "LifeLossBelowHalfLost") / 100
 		output["LifeLossLostMax"] = (output["LifeLossLostOverTime"] + output["LifeBelowHalfLossLostOverTime"] * LifeLossBelowHalfLost) / 4
 		output["LifeLossLostAvg"] = (output["LifeLossLostOverTime"] + output["LifeBelowHalfLossLostOverTime"] * LifeLossBelowHalfLost) / (output["EHPsurvivalTime"] + 4)
