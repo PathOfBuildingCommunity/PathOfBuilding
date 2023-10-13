@@ -3471,18 +3471,30 @@ function calcs.buildDefenceEstimations(env, actor)
 						end
 					end
 				end
-				output.ComprehensiveNetLifeRegen = output.ComprehensiveNetLifeRegen - totalLifeDegen
-				output.ComprehensiveNetManaRegen = output.ComprehensiveNetManaRegen - totalManaDegen
-				output.ComprehensiveNetEnergyShieldRegen = output.ComprehensiveNetEnergyShieldRegen - totalEnergyShieldDegen
+				output.ComprehensiveNetLifeRegen = output.ComprehensiveNetLifeRegen + (output.LifeRecoupRecoveryAvg or 0) - totalLifeDegen - (output.LifeLossLostAvg or 0)
+				output.ComprehensiveNetManaRegen = output.ComprehensiveNetManaRegen + (output.ManaRecoupRecoveryAvg or 0) - totalManaDegen
+				output.ComprehensiveNetEnergyShieldRegen = output.ComprehensiveNetEnergyShieldRegen + (output.EnergyShieldRecoupRecoveryAvg or 0) - totalEnergyShieldDegen
 				output.ComprehensiveTotalNetRegen = output.ComprehensiveNetLifeRegen + output.ComprehensiveNetManaRegen + output.ComprehensiveNetEnergyShieldRegen
 				if breakdown then
 					t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegenRecovery))
+					if (output.LifeRecoupRecoveryAvg or 0) ~= 0 then
+						t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("+ %.1f ^8(average life recoup)", (output.LifeRecoupRecoveryAvg or 0)))
+					end
 					t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
+					if (output.LifeLossLostAvg or 0) ~= 0 then
+						t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("- %.1f ^8(average life lost over time)", (output.LifeLossLostAvg or 0)))
+					end
 					t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("= %.1f", output.ComprehensiveNetLifeRegen))
 					t_insert(breakdown.ComprehensiveNetManaRegen, s_format("%.1f ^8(total mana regen)", output.ManaRegenRecovery))
+					if (output.ManaRecoupRecoveryAvg or 0) ~= 0 then
+						t_insert(breakdown.ComprehensiveNetManaRegen, s_format("+ %.1f ^8(average mana recoup)", (output.ManaRecoupRecoveryAvg or 0)))
+					end
 					t_insert(breakdown.ComprehensiveNetManaRegen, s_format("- %.1f ^8(total mana degen)", totalManaDegen))
 					t_insert(breakdown.ComprehensiveNetManaRegen, s_format("= %.1f", output.ComprehensiveNetManaRegen))
 					t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegenRecovery))
+					if (output.EnergyShieldRecoupRecoveryAvg or 0) ~= 0 then
+						t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("+ %.1f ^8(average energy shield recoup)", (output.EnergyShieldRecoupRecoveryAvg or 0)))
+					end
 					t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
 					t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("= %.1f", output.ComprehensiveNetEnergyShieldRegen))
 					breakdown.ComprehensiveTotalNetRegen = {
