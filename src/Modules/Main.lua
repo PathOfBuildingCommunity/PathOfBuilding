@@ -451,7 +451,7 @@ function main:OnFrame()
 	if self.inputEvents and not itemLib.wiki.triggered then
 		for _, event in ipairs(self.inputEvents) do
 			if event.type == "KeyUp" and event.key == "F1" then
-				local tabName = self.modes[self.mode].viewMode:lower() .. " tab"
+				local tabName = (self.modes[self.mode].viewMode and self.modes[self.mode].viewMode:lower() or "Build List") .. " tab"
 				self:OpenAboutPopup(tabName or 1)
 				break
 			end
