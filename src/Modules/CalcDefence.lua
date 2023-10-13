@@ -3120,173 +3120,20 @@ function calcs.buildDefenceEstimations(env, actor)
 	end
 	
 	-- degens
-	output.TotalBuildDegen = 0
-	for _, damageType in ipairs(dmgTypeList) do
-		local baseVal = modDB:Sum("BASE", nil, damageType.."Degen")
-		if baseVal > 0 then
-			for damageConvertedType, convertPercent in pairs(actor.damageOverTimeShiftTable[damageType]) do
-				if convertPercent > 0 then
-					local total = baseVal * (convertPercent / 100) * output[damageConvertedType.."TakenDotMult"]
-					output[damageConvertedType.."BuildDegen"] = (output[damageConvertedType.."BuildDegen"] or 0) + total
-					output.TotalBuildDegen = output.TotalBuildDegen + total
-					if breakdown then
-						breakdown.TotalBuildDegen = breakdown.TotalBuildDegen or { 
-							rowList = { },
-							colList = {
-								{ label = "Base Type", key = "type" },
-								{ label = "Final Type", key = "type2" },
-								{ label = "Base", key = "base" },
-								{ label = "Taken As Percent", key = "conv" },
-								{ label = "Multiplier", key = "mult" },
-								{ label = "Total", key = "total" },
-							}
-						}
-						t_insert(breakdown.TotalBuildDegen.rowList, {
-							type = damageType,
-							type2 = damageConvertedType,
-							base = s_format("%.1f", baseVal),
-							conv = s_format("x %.2f%%", convertPercent),
-							mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
-							total = s_format("%.1f", total),
-						})
-						breakdown[damageConvertedType.."BuildDegen"] = breakdown[damageConvertedType.."BuildDegen"] or { 
-							rowList = { },
-							colList = {
-								{ label = "Base Type", key = "type" },
-								{ label = "Base", key = "base" },
-								{ label = "Taken As Percent", key = "conv" },
-								{ label = "Multiplier", key = "mult" },
-								{ label = "Total", key = "total" },
-							}
-						}
-						t_insert(breakdown[damageConvertedType.."BuildDegen"].rowList, {
-							type = damageType,
-							base = s_format("%.1f", baseVal),
-							conv = s_format("x %.2f%%", convertPercent),
-							mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
-							total = s_format("%.1f", total),
-						})
-					end
-				end
-			end
-		end
-	end
-	if output.TotalBuildDegen == 0 then
-		output.TotalBuildDegen = nil
-	else
-		output.NetLifeRegen = output.LifeRegenRecovery
-		output.NetManaRegen = output.ManaRegenRecovery
-		output.NetEnergyShieldRegen = output.EnergyShieldRegenRecovery
-		local totalLifeDegen = 0
-		local totalManaDegen = 0
-		local totalEnergyShieldDegen = 0
-		if breakdown then
-			breakdown.NetLifeRegen = { 
-					label = "Total Life Degen",
-					rowList = { },
-					colList = {
-						{ label = "Type", key = "type" },
-						{ label = "Degen", key = "degen" },
-					},
-				}
-			breakdown.NetManaRegen = { 
-					label = "Total Mana Degen",
-					rowList = { },
-					colList = {
-						{ label = "Type", key = "type" },
-						{ label = "Degen", key = "degen" },
-					},
-				}
-			breakdown.NetEnergyShieldRegen = { 
-					label = "Total Energy Shield Degen",
-					rowList = { },
-					colList = {
-						{ label = "Type", key = "type" },
-						{ label = "Degen", key = "degen" },
-					},
-				}
-		end
+	do
+		output.TotalBuildDegen = 0
 		for _, damageType in ipairs(dmgTypeList) do
-			if output[damageType.."BuildDegen"] then 
-				local energyShieldDegen = 0
-				local lifeDegen = 0
-				local manaDegen = 0
-				local takenFromMana = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
-				if output.EnergyShieldRegenRecovery > 0 then 
-					if modDB:Flag(nil, "EnergyShieldProtectsMana") then
-						lifeDegen = output[damageType.."BuildDegen"] * (1 - takenFromMana / 100)
-						energyShieldDegen = output[damageType.."BuildDegen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
-					else
-						lifeDegen = output[damageType.."BuildDegen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - takenFromMana / 100)
-						energyShieldDegen = output[damageType.."BuildDegen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100)
-					end
-					manaDegen = output[damageType.."BuildDegen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
-				else
-					lifeDegen = output[damageType.."BuildDegen"] * (1 - takenFromMana / 100)
-					manaDegen = output[damageType.."BuildDegen"] * (takenFromMana / 100)
-				end
-				totalLifeDegen = totalLifeDegen + lifeDegen
-				totalManaDegen = totalManaDegen + manaDegen
-				totalEnergyShieldDegen = totalEnergyShieldDegen + energyShieldDegen
-				if breakdown then
-					t_insert(breakdown.NetLifeRegen.rowList, {
-						type = s_format("%s", damageType),
-						degen = s_format("%.2f", lifeDegen),
-					})
-					t_insert(breakdown.NetManaRegen.rowList, {
-						type = s_format("%s", damageType),
-						degen = s_format("%.2f", manaDegen),
-					})
-					t_insert(breakdown.NetEnergyShieldRegen.rowList, {
-						type = s_format("%s", damageType),
-						degen = s_format("%.2f", energyShieldDegen),
-					})
-				end
-			end
-		end
-		output.NetLifeRegen = output.NetLifeRegen - totalLifeDegen
-		output.NetManaRegen = output.NetManaRegen - totalManaDegen
-		output.NetEnergyShieldRegen = output.NetEnergyShieldRegen - totalEnergyShieldDegen
-		output.TotalNetRegen = output.NetLifeRegen + output.NetManaRegen + output.NetEnergyShieldRegen
-		if breakdown then
-			t_insert(breakdown.NetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegenRecovery))
-			t_insert(breakdown.NetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
-			t_insert(breakdown.NetLifeRegen, s_format("= %.1f", output.NetLifeRegen))
-			t_insert(breakdown.NetManaRegen, s_format("%.1f ^8(total mana regen)", output.ManaRegenRecovery))
-			t_insert(breakdown.NetManaRegen, s_format("- %.1f ^8(total mana degen)", totalManaDegen))
-			t_insert(breakdown.NetManaRegen, s_format("= %.1f", output.NetManaRegen))
-			t_insert(breakdown.NetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegenRecovery))
-			t_insert(breakdown.NetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
-			t_insert(breakdown.NetEnergyShieldRegen, s_format("= %.1f", output.NetEnergyShieldRegen))
-			breakdown.TotalNetRegen = {
-				s_format("Net Life Regen: %.1f", output.NetLifeRegen),
-				s_format("+ Net Mana Regen: %.1f", output.NetManaRegen),
-				s_format("+ Net Energy Shield Regen: %.1f", output.NetEnergyShieldRegen),
-				s_format("= Total Net Regen: %.1f", output.TotalNetRegen)
-			}
-		end
-	end
-	local enemyDotChance = 0 -- this is for future use for calculating ignite/bleed/poison etc
-	if damageCategoryConfig == "DamageOverTime" or enemyDotChance > 0 then
-		output.TotalDegen = output.TotalBuildDegen or 0
-		for _, damageType in ipairs(dmgTypeList) do
-			local source = "Config"
-			local baseVal = tonumber(env.configInput["enemy"..damageType.."Damage"])
-			if baseVal == nil then
-				source = "Default"
-				baseVal = tonumber(env.configPlaceholder["enemy"..damageType.."Damage"]) or 0
-			end
+			local baseVal = modDB:Sum("BASE", nil, damageType.."Degen")
 			if baseVal > 0 then
 				for damageConvertedType, convertPercent in pairs(actor.damageOverTimeShiftTable[damageType]) do
 					if convertPercent > 0 then
 						local total = baseVal * (convertPercent / 100) * output[damageConvertedType.."TakenDotMult"]
-						output[damageConvertedType.."EnemyDegen"] = (output[damageConvertedType.."EnemyDegen"] or 0) + total
-						output.TotalDegen = output.TotalDegen + total
+						output[damageConvertedType.."BuildDegen"] = (output[damageConvertedType.."BuildDegen"] or 0) + total
+						output.TotalBuildDegen = output.TotalBuildDegen + total
 						if breakdown then
-							breakdown.TotalDegen = breakdown.TotalDegen or { 
+							breakdown.TotalBuildDegen = breakdown.TotalBuildDegen or { 
 								rowList = { },
 								colList = {
-									{ label = "Source", key = "source" },
 									{ label = "Base Type", key = "type" },
 									{ label = "Final Type", key = "type2" },
 									{ label = "Base", key = "base" },
@@ -3295,8 +3142,7 @@ function calcs.buildDefenceEstimations(env, actor)
 									{ label = "Total", key = "total" },
 								}
 							}
-							t_insert(breakdown.TotalDegen.rowList, {
-								source = source,
+							t_insert(breakdown.TotalBuildDegen.rowList, {
 								type = damageType,
 								type2 = damageConvertedType,
 								base = s_format("%.1f", baseVal),
@@ -3304,10 +3150,9 @@ function calcs.buildDefenceEstimations(env, actor)
 								mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
 								total = s_format("%.1f", total),
 							})
-							breakdown[damageConvertedType.."EnemyDegen"] = breakdown[damageConvertedType.."EnemyDegen"] or { 
+							breakdown[damageConvertedType.."BuildDegen"] = breakdown[damageConvertedType.."BuildDegen"] or { 
 								rowList = { },
 								colList = {
-									{ label = "Source", key = "source" },
 									{ label = "Base Type", key = "type" },
 									{ label = "Base", key = "base" },
 									{ label = "Taken As Percent", key = "conv" },
@@ -3315,8 +3160,7 @@ function calcs.buildDefenceEstimations(env, actor)
 									{ label = "Total", key = "total" },
 								}
 							}
-							t_insert(breakdown[damageConvertedType.."EnemyDegen"].rowList, {
-								source = source,
+							t_insert(breakdown[damageConvertedType.."BuildDegen"].rowList, {
 								type = damageType,
 								base = s_format("%.1f", baseVal),
 								conv = s_format("x %.2f%%", convertPercent),
@@ -3328,17 +3172,17 @@ function calcs.buildDefenceEstimations(env, actor)
 				end
 			end
 		end
-		if output.TotalDegen == (output.TotalBuildDegen or 0) then
-			output.TotalDegen = nil
+		if output.TotalBuildDegen == 0 then
+			output.TotalBuildDegen = nil
 		else
-			output.ComprehensiveNetLifeRegen = output.LifeRegenRecovery
-			output.ComprehensiveNetManaRegen = output.ManaRegenRecovery
-			output.ComprehensiveNetEnergyShieldRegen = output.EnergyShieldRegenRecovery
+			output.NetLifeRegen = output.LifeRegenRecovery
+			output.NetManaRegen = output.ManaRegenRecovery
+			output.NetEnergyShieldRegen = output.EnergyShieldRegenRecovery
 			local totalLifeDegen = 0
 			local totalManaDegen = 0
 			local totalEnergyShieldDegen = 0
 			if breakdown then
-				breakdown.ComprehensiveNetLifeRegen = { 
+				breakdown.NetLifeRegen = { 
 						label = "Total Life Degen",
 						rowList = { },
 						colList = {
@@ -3346,7 +3190,7 @@ function calcs.buildDefenceEstimations(env, actor)
 							{ label = "Degen", key = "degen" },
 						},
 					}
-				breakdown.ComprehensiveNetManaRegen = { 
+				breakdown.NetManaRegen = { 
 						label = "Total Mana Degen",
 						rowList = { },
 						colList = {
@@ -3354,7 +3198,7 @@ function calcs.buildDefenceEstimations(env, actor)
 							{ label = "Degen", key = "degen" },
 						},
 					}
-				breakdown.ComprehensiveNetEnergyShieldRegen = { 
+				breakdown.NetEnergyShieldRegen = { 
 						label = "Total Energy Shield Degen",
 						rowList = { },
 						colList = {
@@ -3364,64 +3208,222 @@ function calcs.buildDefenceEstimations(env, actor)
 					}
 			end
 			for _, damageType in ipairs(dmgTypeList) do
-				local typeDegen = (output[damageType.."BuildDegen"] or 0) + (output[damageType.."EnemyDegen"] or 0)
-				if typeDegen ~= 0 then 
+				if output[damageType.."BuildDegen"] then 
 					local energyShieldDegen = 0
 					local lifeDegen = 0
 					local manaDegen = 0
 					local takenFromMana = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
 					if output.EnergyShieldRegenRecovery > 0 then 
 						if modDB:Flag(nil, "EnergyShieldProtectsMana") then
-							lifeDegen = typeDegen * (1 - takenFromMana / 100)
-							energyShieldDegen = typeDegen * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
+							lifeDegen = output[damageType.."BuildDegen"] * (1 - takenFromMana / 100)
+							energyShieldDegen = output[damageType.."BuildDegen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
 						else
-							lifeDegen = typeDegen * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - takenFromMana / 100)
-							energyShieldDegen = typeDegen * (1 - output[damageType.."EnergyShieldBypass"] / 100)
+							lifeDegen = output[damageType.."BuildDegen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - takenFromMana / 100)
+							energyShieldDegen = output[damageType.."BuildDegen"] * (1 - output[damageType.."EnergyShieldBypass"] / 100)
 						end
-						manaDegen = typeDegen * (output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
+						manaDegen = output[damageType.."BuildDegen"] * (output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
 					else
-						lifeDegen = typeDegen * (1 - takenFromMana / 100)
-						manaDegen = typeDegen * (takenFromMana / 100)
+						lifeDegen = output[damageType.."BuildDegen"] * (1 - takenFromMana / 100)
+						manaDegen = output[damageType.."BuildDegen"] * (takenFromMana / 100)
 					end
 					totalLifeDegen = totalLifeDegen + lifeDegen
 					totalManaDegen = totalManaDegen + manaDegen
 					totalEnergyShieldDegen = totalEnergyShieldDegen + energyShieldDegen
 					if breakdown then
-						t_insert(breakdown.ComprehensiveNetLifeRegen.rowList, {
+						t_insert(breakdown.NetLifeRegen.rowList, {
 							type = s_format("%s", damageType),
 							degen = s_format("%.2f", lifeDegen),
 						})
-						t_insert(breakdown.ComprehensiveNetManaRegen.rowList, {
+						t_insert(breakdown.NetManaRegen.rowList, {
 							type = s_format("%s", damageType),
 							degen = s_format("%.2f", manaDegen),
 						})
-						t_insert(breakdown.ComprehensiveNetEnergyShieldRegen.rowList, {
+						t_insert(breakdown.NetEnergyShieldRegen.rowList, {
 							type = s_format("%s", damageType),
 							degen = s_format("%.2f", energyShieldDegen),
 						})
 					end
 				end
 			end
-			output.ComprehensiveNetLifeRegen = output.ComprehensiveNetLifeRegen - totalLifeDegen
-			output.ComprehensiveNetManaRegen = output.ComprehensiveNetManaRegen - totalManaDegen
-			output.ComprehensiveNetEnergyShieldRegen = output.ComprehensiveNetEnergyShieldRegen - totalEnergyShieldDegen
-			output.ComprehensiveTotalNetRegen = output.ComprehensiveNetLifeRegen + output.ComprehensiveNetManaRegen + output.ComprehensiveNetEnergyShieldRegen
+			output.NetLifeRegen = output.NetLifeRegen - totalLifeDegen
+			output.NetManaRegen = output.NetManaRegen - totalManaDegen
+			output.NetEnergyShieldRegen = output.NetEnergyShieldRegen - totalEnergyShieldDegen
+			output.TotalNetRegen = output.NetLifeRegen + output.NetManaRegen + output.NetEnergyShieldRegen
 			if breakdown then
-				t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegenRecovery))
-				t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
-				t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("= %.1f", output.ComprehensiveNetLifeRegen))
-				t_insert(breakdown.ComprehensiveNetManaRegen, s_format("%.1f ^8(total mana regen)", output.ManaRegenRecovery))
-				t_insert(breakdown.ComprehensiveNetManaRegen, s_format("- %.1f ^8(total mana degen)", totalManaDegen))
-				t_insert(breakdown.ComprehensiveNetManaRegen, s_format("= %.1f", output.ComprehensiveNetManaRegen))
-				t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegenRecovery))
-				t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
-				t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("= %.1f", output.ComprehensiveNetEnergyShieldRegen))
-				breakdown.ComprehensiveTotalNetRegen = {
-					s_format("Net Life Regen: %.1f", output.ComprehensiveNetLifeRegen),
-					s_format("+ Net Mana Regen: %.1f", output.ComprehensiveNetManaRegen),
-					s_format("+ Net Energy Shield Regen: %.1f", output.ComprehensiveNetEnergyShieldRegen),
-					s_format("= Total Net Regen: %.1f", output.ComprehensiveTotalNetRegen)
+				t_insert(breakdown.NetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegenRecovery))
+				t_insert(breakdown.NetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
+				t_insert(breakdown.NetLifeRegen, s_format("= %.1f", output.NetLifeRegen))
+				t_insert(breakdown.NetManaRegen, s_format("%.1f ^8(total mana regen)", output.ManaRegenRecovery))
+				t_insert(breakdown.NetManaRegen, s_format("- %.1f ^8(total mana degen)", totalManaDegen))
+				t_insert(breakdown.NetManaRegen, s_format("= %.1f", output.NetManaRegen))
+				t_insert(breakdown.NetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegenRecovery))
+				t_insert(breakdown.NetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
+				t_insert(breakdown.NetEnergyShieldRegen, s_format("= %.1f", output.NetEnergyShieldRegen))
+				breakdown.TotalNetRegen = {
+					s_format("Net Life Regen: %.1f", output.NetLifeRegen),
+					s_format("+ Net Mana Regen: %.1f", output.NetManaRegen),
+					s_format("+ Net Energy Shield Regen: %.1f", output.NetEnergyShieldRegen),
+					s_format("= Total Net Regen: %.1f", output.TotalNetRegen)
 				}
+			end
+		end
+		local enemyDotChance = 0 -- this is for future use for calculating ignite/bleed/poison etc
+		if damageCategoryConfig == "DamageOverTime" or enemyDotChance > 0 then
+			output.TotalDegen = output.TotalBuildDegen or 0
+			for _, damageType in ipairs(dmgTypeList) do
+				local source = "Config"
+				local baseVal = tonumber(env.configInput["enemy"..damageType.."Damage"])
+				if baseVal == nil then
+					source = "Default"
+					baseVal = tonumber(env.configPlaceholder["enemy"..damageType.."Damage"]) or 0
+				end
+				if baseVal > 0 then
+					for damageConvertedType, convertPercent in pairs(actor.damageOverTimeShiftTable[damageType]) do
+						if convertPercent > 0 then
+							local total = baseVal * (convertPercent / 100) * output[damageConvertedType.."TakenDotMult"]
+							output[damageConvertedType.."EnemyDegen"] = (output[damageConvertedType.."EnemyDegen"] or 0) + total
+							output.TotalDegen = output.TotalDegen + total
+							if breakdown then
+								breakdown.TotalDegen = breakdown.TotalDegen or { 
+									rowList = { },
+									colList = {
+										{ label = "Source", key = "source" },
+										{ label = "Base Type", key = "type" },
+										{ label = "Final Type", key = "type2" },
+										{ label = "Base", key = "base" },
+										{ label = "Taken As Percent", key = "conv" },
+										{ label = "Multiplier", key = "mult" },
+										{ label = "Total", key = "total" },
+									}
+								}
+								t_insert(breakdown.TotalDegen.rowList, {
+									source = source,
+									type = damageType,
+									type2 = damageConvertedType,
+									base = s_format("%.1f", baseVal),
+									conv = s_format("x %.2f%%", convertPercent),
+									mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+									total = s_format("%.1f", total),
+								})
+								breakdown[damageConvertedType.."EnemyDegen"] = breakdown[damageConvertedType.."EnemyDegen"] or { 
+									rowList = { },
+									colList = {
+										{ label = "Source", key = "source" },
+										{ label = "Base Type", key = "type" },
+										{ label = "Base", key = "base" },
+										{ label = "Taken As Percent", key = "conv" },
+										{ label = "Multiplier", key = "mult" },
+										{ label = "Total", key = "total" },
+									}
+								}
+								t_insert(breakdown[damageConvertedType.."EnemyDegen"].rowList, {
+									source = source,
+									type = damageType,
+									base = s_format("%.1f", baseVal),
+									conv = s_format("x %.2f%%", convertPercent),
+									mult = s_format("x %.2f", output[damageConvertedType.."TakenDotMult"]),
+									total = s_format("%.1f", total),
+								})
+							end
+						end
+					end
+				end
+			end
+			if output.TotalDegen == (output.TotalBuildDegen or 0) then
+				output.TotalDegen = nil
+			else
+				output.ComprehensiveNetLifeRegen = output.LifeRegenRecovery
+				output.ComprehensiveNetManaRegen = output.ManaRegenRecovery
+				output.ComprehensiveNetEnergyShieldRegen = output.EnergyShieldRegenRecovery
+				local totalLifeDegen = 0
+				local totalManaDegen = 0
+				local totalEnergyShieldDegen = 0
+				if breakdown then
+					breakdown.ComprehensiveNetLifeRegen = { 
+							label = "Total Life Degen",
+							rowList = { },
+							colList = {
+								{ label = "Type", key = "type" },
+								{ label = "Degen", key = "degen" },
+							},
+						}
+					breakdown.ComprehensiveNetManaRegen = { 
+							label = "Total Mana Degen",
+							rowList = { },
+							colList = {
+								{ label = "Type", key = "type" },
+								{ label = "Degen", key = "degen" },
+							},
+						}
+					breakdown.ComprehensiveNetEnergyShieldRegen = { 
+							label = "Total Energy Shield Degen",
+							rowList = { },
+							colList = {
+								{ label = "Type", key = "type" },
+								{ label = "Degen", key = "degen" },
+							},
+						}
+				end
+				for _, damageType in ipairs(dmgTypeList) do
+					local typeDegen = (output[damageType.."BuildDegen"] or 0) + (output[damageType.."EnemyDegen"] or 0)
+					if typeDegen ~= 0 then 
+						local energyShieldDegen = 0
+						local lifeDegen = 0
+						local manaDegen = 0
+						local takenFromMana = output[damageType.."MindOverMatter"] + output["sharedMindOverMatter"]
+						if output.EnergyShieldRegenRecovery > 0 then 
+							if modDB:Flag(nil, "EnergyShieldProtectsMana") then
+								lifeDegen = typeDegen * (1 - takenFromMana / 100)
+								energyShieldDegen = typeDegen * (1 - output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
+							else
+								lifeDegen = typeDegen * (output[damageType.."EnergyShieldBypass"] / 100) * (1 - takenFromMana / 100)
+								energyShieldDegen = typeDegen * (1 - output[damageType.."EnergyShieldBypass"] / 100)
+							end
+							manaDegen = typeDegen * (output[damageType.."EnergyShieldBypass"] / 100) * (takenFromMana / 100)
+						else
+							lifeDegen = typeDegen * (1 - takenFromMana / 100)
+							manaDegen = typeDegen * (takenFromMana / 100)
+						end
+						totalLifeDegen = totalLifeDegen + lifeDegen
+						totalManaDegen = totalManaDegen + manaDegen
+						totalEnergyShieldDegen = totalEnergyShieldDegen + energyShieldDegen
+						if breakdown then
+							t_insert(breakdown.ComprehensiveNetLifeRegen.rowList, {
+								type = s_format("%s", damageType),
+								degen = s_format("%.2f", lifeDegen),
+							})
+							t_insert(breakdown.ComprehensiveNetManaRegen.rowList, {
+								type = s_format("%s", damageType),
+								degen = s_format("%.2f", manaDegen),
+							})
+							t_insert(breakdown.ComprehensiveNetEnergyShieldRegen.rowList, {
+								type = s_format("%s", damageType),
+								degen = s_format("%.2f", energyShieldDegen),
+							})
+						end
+					end
+				end
+				output.ComprehensiveNetLifeRegen = output.ComprehensiveNetLifeRegen - totalLifeDegen
+				output.ComprehensiveNetManaRegen = output.ComprehensiveNetManaRegen - totalManaDegen
+				output.ComprehensiveNetEnergyShieldRegen = output.ComprehensiveNetEnergyShieldRegen - totalEnergyShieldDegen
+				output.ComprehensiveTotalNetRegen = output.ComprehensiveNetLifeRegen + output.ComprehensiveNetManaRegen + output.ComprehensiveNetEnergyShieldRegen
+				if breakdown then
+					t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("%.1f ^8(total life regen)", output.LifeRegenRecovery))
+					t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("- %.1f ^8(total life degen)", totalLifeDegen))
+					t_insert(breakdown.ComprehensiveNetLifeRegen, s_format("= %.1f", output.ComprehensiveNetLifeRegen))
+					t_insert(breakdown.ComprehensiveNetManaRegen, s_format("%.1f ^8(total mana regen)", output.ManaRegenRecovery))
+					t_insert(breakdown.ComprehensiveNetManaRegen, s_format("- %.1f ^8(total mana degen)", totalManaDegen))
+					t_insert(breakdown.ComprehensiveNetManaRegen, s_format("= %.1f", output.ComprehensiveNetManaRegen))
+					t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("%.1f ^8(total energy shield regen)", output.EnergyShieldRegenRecovery))
+					t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("- %.1f ^8(total energy shield degen)", totalEnergyShieldDegen))
+					t_insert(breakdown.ComprehensiveNetEnergyShieldRegen, s_format("= %.1f", output.ComprehensiveNetEnergyShieldRegen))
+					breakdown.ComprehensiveTotalNetRegen = {
+						s_format("Net Life Regen: %.1f", output.ComprehensiveNetLifeRegen),
+						s_format("+ Net Mana Regen: %.1f", output.ComprehensiveNetManaRegen),
+						s_format("+ Net Energy Shield Regen: %.1f", output.ComprehensiveNetEnergyShieldRegen),
+						s_format("= Total Net Regen: %.1f", output.ComprehensiveTotalNetRegen)
+					}
+				end
 			end
 		end
 	end
