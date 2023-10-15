@@ -207,7 +207,7 @@ end
 
 function SkillListClass:GetRowIcon(column, index, socketGroup)
 	if column == 1 then
-		local slot = socketGroup.slot or nil
+		local slot = socketGroup.slot
 		local itemsTab = self.skillsTab.build.itemsTab
 		local weapon1Sel = itemsTab.activeItemSet["Weapon 1"].selItemId or 0
 		local weapon1Type = itemsTab.items[weapon1Sel] and itemsTab.items[weapon1Sel].base.type or "None"
@@ -229,10 +229,6 @@ function SkillListClass:GetRowIcon(column, index, socketGroup)
 		if slot == "Weapon 2 Swap" and (weapon2SwapType == "Quiver" or weapon2SwapType == "Shield") then
 			slot = weapon2SwapType.." Swap"
 		end
-		if slot_map[slot] then
-			return slot_map[slot].icon
-		else
-			return nil
-		end
+		return slot_map[slot] and slot_map[slot].icon
 	end
 end
