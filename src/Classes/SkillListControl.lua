@@ -208,9 +208,6 @@ end
 function SkillListClass:GetRowIcon(column, index, socketGroup)
 	if column == 1 then
 		local slot = socketGroup.slot or nil
-		local color = "^7"
-		local currentMainSkill = self.skillsTab.build.mainSocketGroup == index
-		local disabled = not socketGroup.enabled or not socketGroup.slotEnabled
 		local itemsTab = self.skillsTab.build.itemsTab
 		local weapon1Sel = itemsTab.activeItemSet["Weapon 1"].selItemId or 0
 		local weapon1Type = itemsTab.items[weapon1Sel] and itemsTab.items[weapon1Sel].base.type or "None"
