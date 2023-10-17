@@ -133,9 +133,9 @@ end
 
 local function setWeaponConditions(env, modDB, weaponData)
 	local info = env.data.weaponTypeInfo[weaponData.type]
-	modDB.conditions["Using"..info.flag] = true
+	modDB:AddCondition("Using"..info.flag, true)
 	if weaponData.countsAsAll1H then
-		setVarunastra(modDB.conditions, weaponData)
+		setVarunastra(modDB, weaponData)
 	end
 	modDB:AddCondition("UsingMeleeWeapon", info.melee)
 	modDB:AddCondition("UsingOneHandedWeapon", info.oneHand)
