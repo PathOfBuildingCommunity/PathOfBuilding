@@ -82,7 +82,7 @@ end
 
 -- These are semi-structured
 ----------------------------------------
--- Everything not in a later catagory
+-- Everything not in a later category
 -- Item mods & jewel data
 -- Boss data, skills and minions
 -- Remaining Item Data and uniques
@@ -181,8 +181,8 @@ data.misc = { -- magic numbers
 	StunBaseDuration = 0.35,
 	StunNotMeleeDamageMult = 0.75,
 	MaxEnemyLevel = 85,
-	maxExperiancePenaltyFreeAreaLevel = 70,
-	experiancePenaltyMultiplier = 0.06,
+	maxExperiencePenaltyFreeAreaLevel = 70,
+	experiencePenaltyMultiplier = 0.06,
 	-- Expected values to calculate EHP
 	stdBossDPSMult = 4 / 4.40,
 	pinnacleBossDPSMult = 8 / 4.40,
@@ -212,10 +212,10 @@ do
 	local function effectiveMonsterLevel(areaLevel)
 		--- Areas with area level above a certain penalty-free level are considered to have
 		--- a scaling lower effective monster level for experience penalty calculations.
-		if areaLevel <= data.misc.maxExperiancePenaltyFreeAreaLevel then
+		if areaLevel <= data.misc.maxExperiencePenaltyFreeAreaLevel then
 			return areaLevel
 		end
-		return areaLevel - triangular(areaLevel - data.misc.maxExperiancePenaltyFreeAreaLevel) * data.misc.experiancePenaltyMultiplier
+		return areaLevel - triangular(areaLevel - data.misc.maxExperiencePenaltyFreeAreaLevel) * data.misc.experiencePenaltyMultiplier
 	end
 
 	---@type table<number, number>
