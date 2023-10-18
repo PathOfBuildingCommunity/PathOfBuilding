@@ -485,11 +485,14 @@ function CalcsTabClass:PowerBuilder()
 		if self.nodePowerMaxDepth == nil or self.nodePowerMaxDepth >= node.pathDist then
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 				if not cache[node.modKey] then
-					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+					cache[node.modKey] = { calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true }) }
 				end
-				local output = cache[node.modKey]
+				local output = cache[node.modKey][1]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
-					node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+					if not cache[node.modKey][2] then
+						t_insert(cache[node.modKey], self:CalculatePowerStat(self.powerStat, output, calcBase))
+					end
+					node.power.singleStat = cache[node.modKey][2]
 					if node.path and not node.ascendancyName then
 						newPowerMax.singleStat = m_max(newPowerMax.singleStat, node.power.singleStat)
 						node.power.pathPower = node.power.singleStat
@@ -502,7 +505,13 @@ function CalcsTabClass:PowerBuilder()
 						end
 					end
 				elseif not self.powerStat or not self.powerStat.ignoreForNodes then
-					node.power.offence, node.power.defence = self:CalculateCombinedOffDefStat(output, calcBase)
+					if not cache[node.modKey][2] then
+						local offence, defence = self:CalculateCombinedOffDefStat(output, calcBase)
+						t_insert(cache[node.modKey], offence)
+						t_insert(cache[node.modKey], defence)
+					end
+					node.power.singleStat = cache[node.modKey][2]
+					node.power.offence, node.power.defence = cache[node.modKey][2], cache[node.modKey][3]
 					if node.path and not node.ascendancyName then
 						newPowerMax.offence = m_max(newPowerMax.offence, node.power.offence)
 						newPowerMax.defence = m_max(newPowerMax.defence, node.power.defence)
@@ -511,9 +520,15 @@ function CalcsTabClass:PowerBuilder()
 					end
 				end
 			elseif node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
-				local output = calcFunc({ removeNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+				if not cache[node.modKey.."_remove"] then
+					cache[node.modKey.."_remove"] = { calcFunc({ removeNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true }) }
+				end
+				local output = cache[node.modKey.."_remove"][1]
 				if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
-					node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+					if not cache[node.modKey.."_remove"][2] then
+						t_insert(cache[node.modKey.."_remove"], self:CalculatePowerStat(self.powerStat, output, calcBase))
+					end
+					node.power.singleStat = cache[node.modKey.."_remove"][2]
 					if node.depends and not node.ascendancyName then
 						node.power.pathPower = node.power.singleStat
 						local pathNodes = { }
@@ -542,11 +557,14 @@ function CalcsTabClass:PowerBuilder()
 		wipeTable(node.power)
 		if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 			if not cache[node.modKey] then
-				cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
+				cache[node.modKey] = { calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true }) }
 			end
-			local output = cache[node.modKey]
+			local output = cache[node.modKey][1]
 			if self.powerStat and self.powerStat.stat and not self.powerStat.ignoreForNodes then
-				node.power.singleStat = self:CalculatePowerStat(self.powerStat, output, calcBase)
+				if not cache[node.modKey][2] then
+					t_insert(cache[node.modKey], self:CalculatePowerStat(self.powerStat, output, calcBase))
+				end
+				node.power.singleStat = cache[node.modKey][2]
 			end
 		end
 		if coroutine.running() and GetTime() - start > 100 then
