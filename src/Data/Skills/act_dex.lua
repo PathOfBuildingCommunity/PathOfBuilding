@@ -10593,8 +10593,8 @@ skills["TemporalRift"] = {
 			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 		},
 		["debuff_time_passed_+%"] = {
-            mod("SelfDebuffExpirationRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
-        },
+			mod("SelfDebuffExpirationRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
 	},
 	baseFlags = {
 		spell = true,
