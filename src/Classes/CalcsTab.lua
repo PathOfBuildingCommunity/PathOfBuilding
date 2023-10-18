@@ -465,6 +465,7 @@ function CalcsTabClass:PowerBuilder()
 	GlobalCache.useFullDPS = self.powerStat and self.powerStat.stat == "FullDPS" or false
 	local calcFunc, calcBase = self:GetMiscCalculator()
 	local cache = { }
+	local distanceMap = { }
 	local newPowerMax = {
 		singleStat = 0,
 		offence = 0,
@@ -478,11 +479,20 @@ function CalcsTabClass:PowerBuilder()
 	if coroutine.running() then
 		coroutine.yield()
 	end
-
+	
 	local start = GetTime()
 	for nodeId, node in pairs(self.build.spec.nodes) do
 		wipeTable(node.power)
-		if self.nodePowerMaxDepth == nil or self.nodePowerMaxDepth >= node.pathDist then
+		if node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
+			distanceMap[node.pathDist or 1000] = distanceMap[node.pathDist or 1000] or { }
+			distanceMap[node.pathDist or 1000][nodeId] = node
+		end
+	end
+	for distance, nodes in pairs(distanceMap) do
+		if self.nodePowerMaxDepth and self.nodePowerMaxDepth >= distance then
+			break
+		end
+		for nodeId, node in pairs(nodes) do
 			if not node.alloc and node.modKey ~= "" and not self.mainEnv.grantedPassives[nodeId] then
 				if not cache[node.modKey] then
 					cache[node.modKey] = calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
@@ -530,10 +540,10 @@ function CalcsTabClass:PowerBuilder()
 					end
 				end
 			end
-		end
-		if coroutine.running() and GetTime() - start > 100 then
-			coroutine.yield()
-			start = GetTime()
+			if coroutine.running() and GetTime() - start > 100 then
+				coroutine.yield()
+				start = GetTime()
+			end
 		end
 	end
 
