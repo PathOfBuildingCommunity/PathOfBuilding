@@ -170,18 +170,18 @@ local function setAttributeRelations(output, modDB)
 	local stats = { output.Str, output.Dex, output.Int }
 	table.sort(stats)
 	output.LowestAttribute = stats[1]
-	modDB:AddCondition("TwoHighestAttributesEqual", stats[2] == stats[3])
+	modDB.conditions["TwoHighestAttributesEqual"] = stats[2] == stats[3]
+		
+	modDB.conditions["DexHigherThanInt"] = output.Dex > output.Int
+	modDB.conditions["StrHigherThanInt"] = output.Str > output.Int
+	modDB.conditions["IntHigherThanDex"] = output.Int > output.Dex
+	modDB.conditions["StrHigherThanDex"] = output.Str > output.Dex
+	modDB.conditions["IntHigherThanStr"] = output.Int > output.Str
+	modDB.conditions["DexHigherThanStr"] = output.Dex > output.Str
 
-	modDB:AddCondition("DexHigherThanInt", output.Dex > output.Int)
-	modDB:AddCondition("StrHigherThanInt", output.Str > output.Int)
-	modDB:AddCondition("IntHigherThanDex", output.Int > output.Dex)
-	modDB:AddCondition("StrHigherThanDex", output.Str > output.Dex)
-	modDB:AddCondition("IntHigherThanStr", output.Int > output.Str)
-	modDB:AddCondition("DexHigherThanStr", output.Dex > output.Str)
-
-	modDB:AddCondition("StrHighestAttribute", output.Str >= output.Dex and output.Str >= output.Int)
-	modDB:AddCondition("IntHighestAttribute", output.Int >= output.Str and output.Int >= output.Dex)
-	modDB:AddCondition("DexHighestAttribute", output.Dex >= output.Str and output.Dex >= output.Int)
+	modDB.conditions["StrHighestAttribute"] = output.Str >= output.Dex and output.Str >= output.Int
+	modDB.conditions["IntHighestAttribute"] = output.Int >= output.Str and output.Int >= output.Dex
+	modDB.conditions["DexHighestAttribute"] = output.Dex >= output.Str and output.Dex >= output.Int
 end
 
 local function calculateAttributes(output, modDB, breakdown)
