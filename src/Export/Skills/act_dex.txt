@@ -2147,7 +2147,7 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 		["support_trigger_link_damage_+%_final"] = {
-			
+			mod("Damage", "MORE", nil),
 		},
 	},
 #mods

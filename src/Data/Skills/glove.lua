@@ -1878,7 +1878,7 @@ skills["EnchantmentOfWarOnKill"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
 		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
+		{ "enchantment_of_war_trigger_on_kill_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 50 },
 	},
 	stats = {
@@ -1919,7 +1919,7 @@ skills["EnchantmentOfWarOnKill2"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
 		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
+		{ "enchantment_of_war_trigger_on_kill_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 100 },
 	},
 	stats = {
@@ -1960,7 +1960,7 @@ skills["EnchantmentOfWarOnKill3"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
 		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
+		{ "enchantment_of_war_trigger_on_kill_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 150 },
 	},
 	stats = {
@@ -2001,7 +2001,7 @@ skills["EnchantmentOfWarOnKill4"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
 		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
+		{ "enchantment_of_war_trigger_on_kill_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 200 },
 	},
 	stats = {
