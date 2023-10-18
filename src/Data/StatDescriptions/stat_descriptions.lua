@@ -48947,6 +48947,10 @@ return {
 		lang={
 			English={
 				[1]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]=10,
@@ -48956,6 +48960,10 @@ return {
 					text="Freezes you inflict spread to other Enemies within {0} metre"
 				},
 				[2]={
+					[1]={
+						k="locations_to_metres",
+						v=1
+					},
 					limit={
 						[1]={
 							[1]="#",
