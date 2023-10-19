@@ -3880,6 +3880,11 @@ local specialModList = {
 	["(%d+)%% of damage taken while affected by clarity recouped as mana"] = function(num) return { mod("ManaRecoup", "BASE", num, { type = "Condition", var = "AffectedByClarity" }) } end,
 	["recoup effects instead occur over 3 seconds"] = { flag("3SecondRecoup") },
 	["life recoup effects instead occur over 3 seconds"] = { flag("3SecondLifeRecoup") },
+	["([%d%.]+)%% of physical damage prevented from hits in the past (%d+) seconds is regenerated as life per second"] = function(num, _, duration) return { 
+		mod("PhysicalDamageMitigatedLifePseudoRecoup", "BASE", num * duration), 
+		mod("PhysicalDamageMitigatedLifePseudoRecoupDuration", "BASE", duration),
+	} end,
+	["([%d%.]+)%% of physical damage prevented from hits recently is regenerated as energy shield per second"] = function(num) return { mod("PhysicalDamageMitigatedEnergyShieldPseudoRecoup", "BASE", num * 4) } end,
 	["cannot leech or regenerate mana"] = { flag("NoManaRegen"), flag("CannotLeechMana") },
 	["right ring slot: you cannot regenerate mana" ] = { flag("NoManaRegen", { type = "SlotNumber", num = 2 }) },
 	["y?o?u? ?cannot recharge energy shield"] = { flag("NoEnergyShieldRecharge") },

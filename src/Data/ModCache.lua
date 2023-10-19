@@ -1896,9 +1896,8 @@ c["1.5% of Lightning Damage is Leeched as Energy Shield while affected by Wrath"
 c["1.5% of Lightning Damage is Leeched as Mana while affected by Wrath"]={{[1]={[1]={type="Condition",var="AffectedByWrath"},flags=0,keywordFlags=0,name="LightningDamageManaLeech",type="BASE",value=1.5}},nil}
 c["1.5% of Physical Attack Damage Leeched as Mana"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageManaLeech",type="BASE",value=1.5}},nil}
 c["1.5% of Physical Damage prevented from Hits in the past"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=1.5}},"  prevented from Hits in the past "}
-c["1.5% of Physical Damage prevented from Hits in the past 10 seconds is Regenerated as Life per second"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=1.5}},"  prevented from Hits in the past 10 seconds is Regenerated as Life per second "}
+c["1.5% of Physical Damage prevented from Hits in the past 10 seconds is Regenerated as Life per second"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageMitigatedLifePseudoRecoup",type="BASE",value=15},[2]={flags=0,keywordFlags=0,name="PhysicalDamageMitigatedLifePseudoRecoupDuration",type="BASE",value="10"}},nil}
 c["1.6% of Physical Attack Damage Leeched as Life"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageLifeLeech",type="BASE",value=1.6}},nil}
-c["10 seconds is Regenerated as Life per second"]={{[1]={flags=0,keywordFlags=0,name="Life",type="BASE",value=10}}," seconds is Regenerated as  per second "}
 c["10% Chance for Traps to Trigger an additional time"]={{},"  to Trigger an additional time "}
 c["10% Chance to Block Attack Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=10}},nil}
 c["10% Chance to Block Attack Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="BlockChance",type="BASE",value=10}},nil}
@@ -4126,8 +4125,7 @@ c["3% more Spell Damage per Power Charge"]={{[1]={[1]={type="Multiplier",var="Po
 c["3% of Attack Damage leeched as Life against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=1,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=3}},nil}
 c["3% of Life Regenerated per Second if you've dealt a Critical Strike in the past 8 seconds"]={{[1]={[1]={type="Condition",var="CritInPast8Sec"},flags=0,keywordFlags=0,name="LifeRegenPercent",type="BASE",value=3}},nil}
 c["3% of Physical Attack Damage Leeched as Life"]={{[1]={flags=1,keywordFlags=0,name="PhysicalDamageLifeLeech",type="BASE",value=3}},nil}
-c["3% of Physical Damage prevented from Hits Recently is Regenerated as Energy Shield per second"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=3}},"  prevented from Hits Recently is Regenerated as Energy Shield per second "}
-c["3% of Physical Damage prevented from Hits Recently is Regenerated as Energy Shield per second Limited to 1 Keystone Tattoo"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamage",type="BASE",value=3}},"  prevented from Hits Recently is Regenerated as Energy Shield per second Limited to 1 Keystone Tattoo "}
+c["3% of Physical Damage prevented from Hits Recently is Regenerated as Energy Shield per second"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageMitigatedEnergyShieldPseudoRecoup",type="BASE",value=12}},nil}
 c["3% reduced Attack and Cast Speed per Frenzy Charge"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="Speed",type="INC",value=-3}},nil}
 c["3% reduced Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="Cost",type="INC",value=-3}},nil}
 c["3% reduced Mana Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaCost",type="INC",value=-3}},nil}
