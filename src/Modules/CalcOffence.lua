@@ -400,7 +400,7 @@ function calcs.offence(env, actor, activeSkill)
 
 	local function calcResistForType(damageType, cfg)
 		local resist = enemyDB:Override(cfg, damageType.."Resist")
-		local maxResist = enemyDB:Flag(nil, "DontChangeMaxResFromConfig") and data.misc.EnemyMaxResist or m_min(m_max(env.configInput["enemy"..damageType.."Resist"] or data.misc.EnemyMaxResist, data.misc.EnemyMaxResist), data.misc.MaxResistCap)
+		local maxResist = enemyDB:Flag(nil, "DoNotChangeMaxResFromConfig") and data.misc.EnemyMaxResist or m_min(m_max(env.configInput["enemy"..damageType.."Resist"] or data.misc.EnemyMaxResist, data.misc.EnemyMaxResist), data.misc.MaxResistCap)
 		if not resist then
 			if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
 				resist = env.player.output[damageType.."Resist"]
