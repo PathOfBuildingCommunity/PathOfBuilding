@@ -143,18 +143,19 @@ skills["BirdAspect"] = {
 		["chance_to_deal_double_damage_%"] = {
 			mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }),
 		},
+		["minion_chance_to_deal_double_damage_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }),
+		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
 		},
 		["minion_movement_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
 		},
 	},
 	baseFlags = {
 		cast = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("buffMinions", true),
 	},
 	constantStats = {
 		{ "chance_to_deal_double_damage_%", 10 },
@@ -2812,7 +2813,7 @@ skills["SummonHarbingerOfTimeUber"] = {
 	},
 	baseMods = {
 		mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Greater Harbinger of Time", modCond = "GreaterHarbingerOfTime" }),
-		skill("buffMinions", true),
+		skill("buffAllies", true),
 	},
 	constantStats = {
 		{ "alternate_minion", 7 },
@@ -2958,7 +2959,7 @@ skills["SummonHarbingerOfTime"] = {
 	},
 	baseMods = {
 		mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" }),
-		skill("buffMinions", true),
+		skill("buffAllies", true),
 	},
 	constantStats = {
 		{ "alternate_minion", 1 },
