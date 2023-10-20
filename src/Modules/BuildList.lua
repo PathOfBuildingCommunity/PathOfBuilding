@@ -26,7 +26,7 @@ function listMode:Init(selBuildName, subPath)
 	end
 
 	self.anchor = new("Control", nil, 0, 4, 0, 0)
-	self.anchor.x = function() 
+	self.anchor.x = function()
 		return main.screenW / 2
 	end
 
@@ -36,7 +36,7 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.new = new("ButtonControl", {"TOP",self.anchor,"TOP"}, -259, 0, 60, 20, "New", function()
 		main:SetMode("BUILD", false, "Unnamed build")
 	end)
-	self.controls.newFolder = new("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, 8, 0, 90, 20, "New_Folder", function()
+	self.controls.newFolder = new("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, 8, 0, 90, 20, "New Folder", function()
 		self.controls.buildList:NewFolder()
 	end)
 	self.controls.open = new("ButtonControl", {"LEFT",self.controls.newFolder,"RIGHT"}, 8, 0, 60, 20, "Open", function()
@@ -85,7 +85,7 @@ end
 
 function listMode:OnFrame(inputEvents)
 	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then	
+		if event.type == "KeyDown" then
 			if event.key == "v" and IsKeyDown("CTRL") then
 				if self.controls.buildList.copyBuild then
 					local build = self.controls.buildList.copyBuild
@@ -182,8 +182,8 @@ function listMode:BuildList()
 	handle = NewFileSearch(main.buildPath..self.subPath.."*", true)
 	while handle do
 		local folderName = handle:GetFileName()
-		t_insert(self.list, { 
-			folderName = folderName, 
+		t_insert(self.list, {
+			folderName = folderName,
 			subPath = self.subPath,
 			fullFileName = main.buildPath..self.subPath..folderName,
 		})
@@ -196,7 +196,7 @@ end
 
 function listMode:SortList()
 	local oldSelFileName = self.controls.buildList.selValue and self.controls.buildList.selValue.fileName
-	table.sort(self.list, function(a, b) 
+	table.sort(self.list, function(a, b)
 		if a.folderName and b.folderName then
 			return naturalSortCompare(a.folderName, b.folderName)
 		elseif a.folderName and not b.folderName then
