@@ -27,7 +27,7 @@ function listMode:Init(selBuildName, subPath)
 
 	self.anchor = new("Control", nil, 0, 4, 0, 0)
 	self.anchor.x = function() 
-		return main.screenW / 2 
+		return main.screenW / 2
 	end
 
 	self.subPath = subPath or ""
@@ -36,7 +36,7 @@ function listMode:Init(selBuildName, subPath)
 	self.controls.new = new("ButtonControl", {"TOP",self.anchor,"TOP"}, -259, 0, 60, 20, "New", function()
 		main:SetMode("BUILD", false, "Unnamed build")
 	end)
-	self.controls.newFolder = new("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, 8, 0, 90, 20, "New Folder", function()
+	self.controls.newFolder = new("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, 8, 0, 90, 20, "New_Folder", function()
 		self.controls.buildList:NewFolder()
 	end)
 	self.controls.open = new("ButtonControl", {"LEFT",self.controls.newFolder,"RIGHT"}, 8, 0, 60, 20, "Open", function()
@@ -60,7 +60,7 @@ function listMode:Init(selBuildName, subPath)
 		self:SortList()
 	end)
 	self.controls.sort:SelByValue(main.buildSortMode, "sortMode")
-	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, 0, 75, 640, 0, self)
+	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, 0, 75, 900, 0, self)
 	self.controls.buildList.height = function()
 		return main.screenH - 80
 	end
