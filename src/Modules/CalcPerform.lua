@@ -2798,7 +2798,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	if not fullDPSSkipEHP then
 		calcs.buildDefenceEstimations(env, env.player)
 	end
-	calcs.triggers(env)
+	calcs.triggers(env, env.player)
 	calcs.mirages(env)
 	calcs.offence(env, env.player, env.player.mainSkill)
 
@@ -2810,6 +2810,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 		if not fullDPSSkipEHP then -- main.build.calcsTab.input.showMinion and -- should be disabled unless "calcsTab.input.showMinion" is true
 			calcs.buildDefenceEstimations(env, env.minion)
 		end
+		calcs.triggers(env, env.minion)
 		calcs.offence(env, env.minion, env.minion.mainSkill)
 	end
 
