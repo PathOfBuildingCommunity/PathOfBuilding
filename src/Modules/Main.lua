@@ -1153,7 +1153,7 @@ end
 
 function main:DrawBackground(viewPort)
 	SetDrawLayer(nil, -100)
-	SetDrawColor(CC.BACKGROUND_0)
+	SetDrawColor(CC.BACKGROUND_2)
 	DrawImage(nil, viewPort.x, viewPort.y, viewPort.width, viewPort.height, 0, 0, viewPort.width / 100, viewPort.height / 100)
 	SetDrawLayer(nil, 0)
 end
