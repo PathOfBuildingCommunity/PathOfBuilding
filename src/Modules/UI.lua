@@ -230,13 +230,13 @@ local function parseTheme(xml)
 		end
 		return res
 	end
-	if not checkAttributes(xml, { "name", "version" }) then
+	if not checkAttributes(xml, { "name" }) then
 		return nil, warnings
 	else
 		theme.name = xml.attrib.name
-		theme.version = xml.attrib.version
 	end
 	theme.parent = xml.attrib.parent or "default"
+	theme.version = xml.attrib.version
 	for _, node in ipairs(xml) do
 		if type(node) == "table" and node.elem == "colors" then
 			for _, node in ipairs(node) do
