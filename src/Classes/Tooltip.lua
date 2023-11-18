@@ -228,13 +228,8 @@ function TooltipClass:Draw(x, y, w, h, viewPort)
 	SetDrawColor(CC.TOOLTIP_TEXT)
 	for i, lines in ipairs(drawStack) do 
 		if #lines < 6 then
-			if(type(self.color) == "string") then
-				SetDrawColor(self.color)
-			elseif lines[1] then -- Don't color images
-				SetDrawColor(1,1,1)
-			else
-				SetDrawColor(unpack(self.color))
-			end
+			-- Don't color images
+			SetDrawColor(1,1,1)
 			DrawImage(unpack(lines))
 		else
 			DrawString(unpack(lines))
