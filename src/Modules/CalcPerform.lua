@@ -1590,7 +1590,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 								env.build.itemsTab:AddItemTooltip(tooltip, item, reqSource.sourceSlot)
 							end
 						elseif reqSource.source == "Gem" then
-							row.sourceName = c_format("%s%s {TEXT_SECONDARY}%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.nameSpec, reqSource.sourceGem.level, reqSource.sourceGem.quality)
+							row.sourceName = c_format("%s%s {TEXT_PRIMARY}%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.nameSpec, reqSource.sourceGem.level, reqSource.sourceGem.quality)
 						end
 						t_insert(breakdown["Req"..breakdownAttr].rowList, row)
 					end

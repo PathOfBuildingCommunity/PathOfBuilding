@@ -2336,8 +2336,8 @@ function calcs.offence(env, actor, activeSkill)
 						globalOutput.IntimidatingMaxHitEffect = 1 + globalOutput.IntimidatingAvgDmg
 						if globalBreakdown then
 							globalBreakdown.IntimidatingHitEffect = {
-								s_format("1 + (%.2f {TEXT_SECONDARY}(average exerted damage)", globalOutput.IntimidatingAvgDmg),
-								s_format("x %.2f) {TEXT_SECONDARY}(uptime %%)", globalOutput.IntimidatingUpTimeRatio / 100),
+								c_format("1 + (%.2f {TEXT_SECONDARY}(average exerted damage)", globalOutput.IntimidatingAvgDmg),
+								c_format("x %.2f) {TEXT_SECONDARY}(uptime %%)", globalOutput.IntimidatingUpTimeRatio / 100),
 								s_format("= %.2f", globalOutput.IntimidatingHitEffect),
 							}
 						end
@@ -2515,8 +2515,8 @@ function calcs.offence(env, actor, activeSkill)
 					globalOutput.ExertedAttackMaxHitEffect = globalOutput.ExertedAttackAvgDmg
 					if globalBreakdown then
 						globalBreakdown.ExertedAttackHitEffect = {
-							s_format("(%.2f {TEXT_SECONDARY}(average exerted damage)", globalOutput.ExertedAttackAvgDmg),
-							s_format("x %.2f) {TEXT_SECONDARY}(uptime %%)", globalOutput.ExertedAttackUptimeRatio / 100),
+							c_format("(%.2f {TEXT_SECONDARY}(average exerted damage)", globalOutput.ExertedAttackAvgDmg),
+							c_format("x %.2f) {TEXT_SECONDARY}(uptime %%)", globalOutput.ExertedAttackUptimeRatio / 100),
 							s_format("= %.2f", globalOutput.ExertedAttackHitEffect),
 						}
 					end
@@ -2549,8 +2549,8 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.FistOfWarUptimeRatio = m_min( (1 / output.Speed) / globalOutput.FistOfWarCooldown, 1) * 100
 				if globalBreakdown then
 					globalBreakdown.FistOfWarUptimeRatio = {
-						s_format("min( (1 / %.2f) {TEXT_SECONDARY}(second per attack)", output.Speed),
-						s_format("/ %.2f, 1) {TEXT_SECONDARY}(fist of war cooldown)", globalOutput.FistOfWarCooldown),
+						c_format("min( (1 / %.2f) {TEXT_SECONDARY}(second per attack)", output.Speed),
+						c_format("/ %.2f, 1) {TEXT_SECONDARY}(fist of war cooldown)", globalOutput.FistOfWarCooldown),
 						s_format("= %d%%", globalOutput.FistOfWarUptimeRatio),
 					}
 				end
@@ -2558,8 +2558,8 @@ function calcs.offence(env, actor, activeSkill)
 				globalOutput.AvgFistOfWarHitEffect = 1 + globalOutput.FistOfWarHitMultiplier * (globalOutput.FistOfWarUptimeRatio / 100)
 				if globalBreakdown then
 					globalBreakdown.AvgFistOfWarHitEffect = {
-						s_format("1 + (%.2f {TEXT_SECONDARY}(fist of war hit multiplier)", globalOutput.FistOfWarHitMultiplier),
-						s_format("x %.2f) {TEXT_SECONDARY}(fist of war uptime ratio)", globalOutput.FistOfWarUptimeRatio / 100),
+						c_format("1 + (%.2f {TEXT_SECONDARY}(fist of war hit multiplier)", globalOutput.FistOfWarHitMultiplier),
+						c_format("x %.2f) {TEXT_SECONDARY}(fist of war uptime ratio)", globalOutput.FistOfWarUptimeRatio / 100),
 						s_format("= %.2f", globalOutput.AvgFistOfWarHitEffect),
 					}
 				end
@@ -4620,7 +4620,7 @@ function calcs.offence(env, actor, activeSkill)
 						if desired > 0 and not isValueInArray(val.effList, desired) and current == 0 then
 							t_insert(val.effList, desired)
 						end
-						breakdown[ailment.."DPS"].label = "Resulting ailment effect"..((current > 0 and val.ramping) and c_format(" {TEXT_SECONDARY}(with a {TEXT_PRIMARY}%s%% {TEXT_SECONDARY}%s on the enemy){TEXT_PRIMARY}", current, ailment) or "")
+						breakdown[ailment.."DPS"].label = c_format("{TEXT_PRIMARY}Resulting ailment effect")..((current > 0 and val.ramping) and c_format(" {TEXT_SECONDARY}(with a {TEXT_PRIMARY}%s%% {TEXT_SECONDARY}%s on the enemy){TEXT_PRIMARY}", current, ailment) or "")
 						breakdown[ailment.."DPS"].footer = c_format("{TEXT_SECONDARY}(ailment threshold is about equal to life, except on bosses that have specific ailment thresholds)\n(the above table shows that when the enemy has X ailment threshold, you %s for Y)", ailment:lower())
 						breakdown[ailment.."DPS"].rowList = { }
 						breakdown[ailment.."DPS"].colList = {

@@ -162,7 +162,7 @@ function breakdown.dot(out, baseVal, inc, more, mult, rate, aura, effMult, total
 		{ "%.2f {TEXT_SECONDARY}(rate modifier)", rate },
 		{ "%.3f {TEXT_SECONDARY}(aura effect modifier)", aura },
 		{ "%.3f {TEXT_SECONDARY}(effective DPS modifier)", effMult },
-		total = s_format("= %.1f {TEXT_SECONDARY}per second", total),
+		total = c_format("= %.1f {TEXT_SECONDARY}per second", total),
 	})
 end
 

@@ -322,7 +322,7 @@ end
 local cache = setmetatable({ }, {
 	__index = function(t, k)
 		if not rawget(t, k) then
-			rawset(t, k, k:gsub("{([%u_]+)}", UI.CC))
+			rawset(t, k, k:gsub("{([%u_%d]+)}", UI.CC))
 		end
 		return t[k]
 	end

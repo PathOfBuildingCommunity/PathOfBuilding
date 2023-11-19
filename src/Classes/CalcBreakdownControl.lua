@@ -513,7 +513,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 	local cursorX, cursorY = GetCursorPos()
 	if section.label then
 		-- Draw table label if able
-		DrawString(x + 2, y, "LEFT", 16, "VAR", CC.TEXT_SECONDARY..section.label..":")
+		DrawString(x + 2, y, "LEFT", 16, "VAR", CC.TEXT_PRIMARY..section.label..":")
 		y = y + 16
 	end
 	local colX = x + 4
@@ -526,7 +526,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 				SetDrawColor(CC.CONTROL_BORDER)
 				DrawImage(nil, colX - 2, y, 1, section.height - (section.label and 16 or 0) - (section.footer and 12 or 0))
 			end
-			SetDrawColor(CC.CONTROL_TEXT)
+			SetDrawColor(CC.TEXT_PRIMARY)
 			DrawString(colX, y + 2, "LEFT", 16, "VAR", col.label)
 			colX = colX + col.width
 		end
@@ -543,11 +543,11 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 				local _, notes = string.gsub(row[col.key], " to ", " ") -- counts " to " in the string
 				local _, paren = string.gsub(row[col.key], "%b()", " ") -- counts parenthesis in the string
 				if (alpha == 0 or notes > 0 or paren > 0) and col.right then
-					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", CC.TEXT_SECONDARY..formatNumSep(tostring(row[col.key])))
+					DrawString(col.x + col.width - 4, rowY + 1, "RIGHT_X", 12, "VAR", CC.TEXT_PRIMARY..formatNumSep(tostring(row[col.key])))
 				elseif (alpha == 0 or notes > 0 or paren > 0) then
-					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", CC.TEXT_SECONDARY..formatNumSep(tostring(row[col.key])))
+					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", CC.TEXT_PRIMARY..formatNumSep(tostring(row[col.key])))
 				else
-					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", CC.TEXT_SECONDARY..tostring(row[col.key]))
+					DrawString(col.x, rowY + 1, "LEFT", 12, "VAR", CC.TEXT_PRIMARY..tostring(row[col.key]))
 				end
 				local ttFunc = row[col.key.."Tooltip"]
 				local ttNode = row[col.key.."Node"]
@@ -676,7 +676,7 @@ function CalcBreakdownClass:Draw(viewPort)
 		if section.type == "TEXT" then
 			local lineY = sectionY + 2
 			for i, line in ipairs(section.lines) do
-				SetDrawColor(CC.CONTROL_TEXT)
+				SetDrawColor(CC.TEXT_PRIMARY)
 				local _, dec = string.gsub(line, "%.%d%d.", " ") -- counts decimals with 2 or more digits
 				DrawString(x + 4, lineY, "LEFT", section.textSize, "VAR", formatNumSep(line))
 				lineY = lineY + section.textSize
