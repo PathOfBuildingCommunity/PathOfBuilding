@@ -24,35 +24,35 @@ end
 DamageTable = {}
 DamageTable.__index = DamageTable
 function DamageTable:new(damages)
-	local dmgs = {}
+	local damages = {}
 	for _,type in pairs(dmgTypeList) do
-		dmgs[type] = damages[type]
+		damages[type] = damages[type]
 	end
-	return setmetatable(dmgs, DamageTable)
+	return setmetatable(damages, DamageTable)
 end
 
 function DamageTable.__mul(op1, op2)
-	local dmgs = {}
+	local damages = {}
 	for _,type in pairs(dmgTypeList) do
-		if op1[type] and op2[type] then dmgs[type] = op1[type] * op2[type] end
+		if op1[type] and op2[type] then damages[type] = op1[type] * op2[type] end
 	end
-	return setmetatable(dmgs, DamageTable)
+	return setmetatable(damages, DamageTable)
 end
 
 function DamageTable.__add(op1, op2)
-	local dmgs = {}
+	local damages = {}
 	for _,type in pairs(dmgTypeList) do
-		if op1[type] or op2[type] then dmgs[type] = (op1[type] or 0) + (op2[type] or 0) end
+		if op1[type] or op2[type] then damages[type] = (op1[type] or 0) + (op2[type] or 0) end
 	end
-	return setmetatable(dmgs, DamageTable)
+	return setmetatable(damages, DamageTable)
 end
 
 function DamageTable.__sub(op1, op2)
-	local dmgs = {}
+	local damages = {}
 	for _,type in pairs(dmgTypeList) do
-		if op1[type] then dmgs[type] = op1[type] - (op2[type] or 0) end
+		if op1[type] then damages[type] = op1[type] - (op2[type] or 0) end
 	end
-	return setmetatable(dmgs, DamageTable)
+	return setmetatable(damages, DamageTable)
 end
 
 --- Have a pool that can only absorb a single damage type reduce incoming damage of that type
