@@ -524,7 +524,12 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 			if index > 1 then
 				-- Skip the separator for the first column
 				SetDrawColor(CC.CONTROL_BORDER)
-				DrawImage(nil, colX - 2, y, 1, section.height - (section.label and 16 or 0) - (section.footer and 12 or 0))
+				local footerHeight = 0
+				if section.footer then
+					local _, lines = string.gsub(section.footer, "\n", "\n") -- counts newlines in the string
+					footerHeight = 12 * (lines + 1)
+				end
+				DrawImage(nil, colX - 2, y, 1, section.height - (section.label and 16 or 0) - footerHeight)
 			end
 			SetDrawColor(CC.TEXT_PRIMARY)
 			DrawString(colX, y + 2, "LEFT", 16, "VAR", col.label)
