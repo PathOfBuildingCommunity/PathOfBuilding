@@ -2549,12 +2549,34 @@ local skills, mod, flag, skill = ...
 #flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+		if activeSkill.skillPart == 2 then
+			local skillMaxStages = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:WintertideBrandMaxStages")
+			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, {})
+			local maxStages = math.min(duration / activeSkill.skillData.hitTimeOverride + 1, skillMaxStages)
+			local timeToReachMaxStages = (maxStages - 1) * activeSkill.skillData.hitTimeOverride
+			local timeAtMaxStages = duration - timeToReachMaxStages
+			local damagePerStage = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:WintertideBrandDamagePerStage")
+			-- Get the average damage before reaching max stages and then damage at max stages
+			local dpsMultiplier = ((2 + damagePerStage + maxStages * damagePerStage)/2*timeToReachMaxStages+timeAtMaxStages*(1+maxStages*damagePerStage))/duration
+			activeSkill.skillModList:NewMod("Damage", "MORE", dpsMultiplier, "Wintertide Brand Average Multiplier")
+		end
 	end,
+	parts = {
+		{
+			name = "Manual Stages",
+			stages = true
+		},
+		{
+			name = "Average Damage",
+		}
+	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["immolation_brand_burn_damage_+%_final_per_stage"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }),
+			-- Only apply to Manual Stages part
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "WintertideBrandStage", limitVar = "WintertideBrandMaxStages" }, { type = "SkillPart", skillPart = 1 }),
+			mod("Multiplier:WintertideBrandDamagePerStage", "BASE", nil),
 		},
 		["winter_brand_max_number_of_stages"] = {
 			mod("Multiplier:WintertideBrandMaxStages", "BASE", nil),
