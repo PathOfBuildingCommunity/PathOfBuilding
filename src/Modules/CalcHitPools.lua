@@ -6,7 +6,7 @@ local t_insert = table.insert
 local s_format = string.format
 local m_huge = math.huge
 
--- Iterator to only go through some damage of a given damage table
+-- Iterator to only go through elemental damage of a given damage table
 local onlyElemental = function(damageTable)
 	local idx = 2
 	local function next()
@@ -19,6 +19,40 @@ local onlyElemental = function(damageTable)
 		return key, damageTable[key]
 	end
 	return next
+end
+
+DamageTable = {}
+DamageTable.__index = DamageTable
+function DamageTable:new(damages)
+	local dmgs = {}
+	for _,type in pairs(dmgTypeList) do
+		dmgs[type] = damages[type]
+	end
+	return setmetatable(dmgs, DamageTable)
+end
+
+function DamageTable.__mul(op1, op2)
+	local dmgs = {}
+	for _,type in pairs(dmgTypeList) do
+		if op1[type] and op2[type] then dmgs[type] = op1[type] * op2[type] end
+	end
+	return setmetatable(dmgs, DamageTable)
+end
+
+function DamageTable.__add(op1, op2)
+	local dmgs = {}
+	for _,type in pairs(dmgTypeList) do
+		if op1[type] or op2[type] then dmgs[type] = (op1[type] or 0) + (op2[type] or 0) end
+	end
+	return setmetatable(dmgs, DamageTable)
+end
+
+function DamageTable.__sub(op1, op2)
+	local dmgs = {}
+	for _,type in pairs(dmgTypeList) do
+		if op1[type] then dmgs[type] = op1[type] - (op2[type] or 0) end
+	end
+	return setmetatable(dmgs, DamageTable)
 end
 
 --- Have a pool that can only absorb a single damage type reduce incoming damage of that type
@@ -40,11 +74,11 @@ end
 ---@param damageTable table of damage values, keyed by damage type
 ---@param percentage number | table percentage of damage the pool will take on behalf of the player. Should be between 0 and 1
 ---@param resourceName string name of the resource being reduced. Must be a key in the pool table
----@param ... function optional iterator function. Must be able to traverse a damage table
+---@param restrictTypes function optional iterator function. Must be able to traverse a damage table
 ---@return nil
-local function genericDistributeSharedDamage(pool, damageTable, percentage, resourceName, ...)
+local function genericDistributeSharedDamage(pool, damageTable, percentage, resourceName, restrictTypes)
 	if pool[resourceName] > 0 then
-		local iter = ... or pairs
+		local iter = restrictTypes or pairs
 		local poolTotal = pool[resourceName]
 		local damageTotal = 0
 		local ratio = {}
@@ -79,11 +113,11 @@ local function maxHitBreakdown(output, breakdown, remainder, poolName, display, 
 	end
 end
 
-local function protectPool(output, poolSize, mitigation, hitPool, shift)
-	local bound = shift or 0
+local function protectPool(output, poolSize, mitigation, hitPool, backup)
 	if mitigation >= 100 then
 		output[hitPool] = output[hitPool] + poolSize
-	else
+	elseif mitigation > 0 then
+		local bound = backup or 0
 		local mitigationPercent = mitigation / 100
 		local poolProtected = poolSize / mitigationPercent * (1 - mitigationPercent)
 		output[hitPool] =
@@ -217,18 +251,15 @@ end
 
 function Guard:takeDamage(damageTable)
 	genericDistributeSharedDamage(self, damageTable, self.sharedRate, "shared")
-	
 	for damageType,_ in pairs(damageTable) do
 		genericTakeDamage(self, damageTable, self[damageType.."Rate"], damageType)
 	end
 end
 
 function Guard.adjustTotalHitPool(output, damageType)
-	local GuardAbsorbRate = output["sharedGuardAbsorbRate"] or 0 + output[damageType.."GuardAbsorbRate"] or 0
-	if GuardAbsorbRate > 0 then
-		local GuardAbsorb = output["sharedGuardAbsorb"] or 0 + output[damageType.."GuardAbsorb"] or 0
-		protectPool(output, GuardAbsorb, GuardAbsorbRate, damageType.."TotalHitPool")
-	end
+	local GuardAbsorbRate = (output["sharedGuardAbsorbRate"] or 0) + (output[damageType.."GuardAbsorbRate"] or 0)
+	local GuardAbsorb = (output["sharedGuardAbsorb"] or 0) + (output[damageType.."GuardAbsorb"] or 0)
+	protectPool(output, GuardAbsorb, GuardAbsorbRate, damageType.."TotalHitPool")
 end
 
 function Guard:displayMaxHit(output, breakdown, takenDamages)
@@ -398,48 +429,14 @@ function EnergyShield:takeDamage(damageTable)
 	genericDistributeSharedDamage(self, damageTable, self.percent, "remaining")
 end
 
+function EnergyShield:displayMaxHit(output, breakdown)
+	if output.EnergyShieldRecoveryCap ~= self.remaining then
+		maxHitBreakdown(output, breakdown, self.remaining, "EnergyShieldRecoveryCap", "Energy Shield", "ES")
+	end
+end
+
 MindOverMatter = {}
-function MindOverMatter.init(output, modDB, breakdown)
-	local function display_breakdown(type, source, text, amount)
-		local poolProtected = source / amount * (1 - amount)
-		if output[type.."MindOverMatter"] >= 100 then
-			poolProtected = m_huge
-		end
-		if output[type.."MindOverMatter"] then
-			breakdown[type.."MindOverMatter"] = {
-				s_format("Total life protected:"),
-				s_format("%d ^8(%s)", source, text),
-				s_format("/ %.2f ^8(portion taken from mana)", amount),
-				s_format("x %.2f ^8(portion taken from life)", 1 - amount),
-				s_format("= %d", poolProtected),
-				s_format("Effective life: %d", output[type.."ManaEffectiveLife"])
-			}
-		end
-	end
-	local function protect(type, bypassName)
-		local sourcePool = m_max(output.ManaUnreserved or 0, 0)
-		local sourceHitPool = sourcePool
-		local manatext = "unreserved mana"
-		local bypass = output[bypassName]
-		local momRate = output[type.."MindOverMatter"]
-		if type ~= "shared" then
-			momRate = momRate + output["sharedMindOverMatter"]
-		end
-		if modDB:Flag(nil, "EnergyShieldProtectsMana") and bypass < 100 then
-			manatext = manatext.." + non-bypassed energy shield"
-			local absorbRate = 100 - bypass
-			local dummy = {source = sourcePool; sourceHit = sourceHitPool}
-			protectPool(dummy, output.EnergyShieldRecoveryCap, absorbRate, "source", output.LifeRecoverable)
-			protectPool(dummy, output.EnergyShieldRecoveryCap, absorbRate, "sourceHit", output.LifeHitPool)
-			sourcePool = dummy.source
-			sourceHitPool = dummy.sourceHit
-		end
-		protectPool(output, sourcePool, momRate, type.."ManaEffectiveLife")
-		protectPool(output, sourceHitPool, momRate, type.."MoMHitPool")
-		if breakdown then
-			display_breakdown(type, sourcePool, manatext, momRate / 100)
-		end
-	end
+function MindOverMatter.init(output, modDB)
 	output.OnlySharedMindOverMatter = false
 	output.AnySpecificMindOverMatter = false
 	output["sharedMindOverMatter"] = m_min(modDB:Sum("BASE", nil, "DamageTakenFromManaBeforeLife"), 100)
@@ -447,20 +444,13 @@ function MindOverMatter.init(output, modDB, breakdown)
 	output["sharedMoMHitPool"] = output.LifeHitPool
 	if output["sharedMindOverMatter"] > 0 then
 		output.OnlySharedMindOverMatter = true
-		protect("shared", "MinimumBypass")
 	end
 	for _, damageType in ipairs(dmgTypeList) do
 		output[damageType.."MindOverMatter"] = m_min(modDB:Sum("BASE", nil, damageType.."DamageTakenFromManaBeforeLife"), 100 - output["sharedMindOverMatter"])
-		output[damageType.."ManaEffectiveLife"] = output.LifeRecoverable
-		output[damageType.."MoMHitPool"] = output.LifeHitPool
 		if output[damageType.."MindOverMatter"] > 0 or (output[damageType.."EnergyShieldBypass"] > output.MinimumBypass and output["sharedMindOverMatter"] > 0) then
 			output.ehpSectionAnySpecificTypes = true
 			output.AnySpecificMindOverMatter = true
 			output.OnlySharedMindOverMatter = false
-			protect(damageType, damageType.."EnergyShieldBypass")
-		else
-			output[damageType.."ManaEffectiveLife"] = output["sharedManaEffectiveLife"]
-			output[damageType.."MoMHitPool"] = output["sharedMoMHitPool"]
 		end
 	end
 end
@@ -468,13 +458,30 @@ end
 function MindOverMatter:new(output)
 	local shared = output["sharedMindOverMatter"] / 100
 	local mana = {
-		sharedRate = shared,
-		PhysicalRate = shared + output["PhysicalMindOverMatter"] / 100 or 0,
-		LightningRate = shared + output["LightningMindOverMatter"] / 100 or 0,
-		ColdRate = shared + output["ColdMindOverMatter"] / 100 or 0,
-		FireRate = shared + output["FireMindOverMatter"] / 100 or 0,
-		ChaosRate = shared + output["ChaosMindOverMatter"] / 100 or 0,
+		remaining = output.ManaUnreserved,
+		percentage = {
+			shared = shared,
+			Physical = shared + output["PhysicalMindOverMatter"] / 100,
+			Lightning = shared + output["LightningMindOverMatter"] / 100,
+			Cold = shared + output["ColdMindOverMatter"] / 100,
+			Fire = shared + output["FireMindOverMatter"] / 100,
+			Chaos = shared + output["ChaosMindOverMatter"] / 100,
+		}
 	}
+	for _,type in pairs(dmgTypeList) do
+		if mana.percentage[type] > 0 then mana.beforeLife = true end
+	end
 	self.__index = self
 	return setmetatable(mana, self)
+end
+
+function MindOverMatter:takeDamage(damageTable)
+	-- Incoming damage is already scaled, so percentage is 100% in this case
+	genericDistributeSharedDamage(self, damageTable, 1, "remaining")
+end
+
+function MindOverMatter:displayMaxHit(output, breakdown)
+	if output.ManaUnreserved ~= self.remaining then
+		maxHitBreakdown(output, breakdown, self.remaining, "ManaUnreserved", "Mana", "MANA")
+	end
 end
