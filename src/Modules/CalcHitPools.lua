@@ -23,10 +23,10 @@ end
 
 DamageTable = {}
 DamageTable.__index = DamageTable
-function DamageTable:new(damages)
+function DamageTable:new(incomingDamage)
 	local damages = {}
 	for _,type in pairs(dmgTypeList) do
-		damages[type] = damages[type]
+		damages[type] = incomingDamage[type]
 	end
 	return setmetatable(damages, DamageTable)
 end
