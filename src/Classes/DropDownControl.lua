@@ -8,8 +8,8 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 
-local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText)
-	self.Control(anchor, x, y, width, height)
+local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, rect, list, selFunc, tooltipText)
+	self.Control(anchor, rect)
 	self.ControlHost()
 	self.TooltipHost(tooltipText)
 	self.SearchHost(
@@ -22,7 +22,7 @@ local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "Too
 				return StripEscapes(type(listVal) == "table" and listVal.label or listVal)
 			end
 	)
-	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, -1, 0, 18, 0, (height - 4) * 4)
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT",self,"TOPRIGHT"}, {-1, 0, 18, 0}, (self.height - 4) * 4)
 	self.controls.scrollBar.height = function()
 		return self.dropHeight + 2
 	end

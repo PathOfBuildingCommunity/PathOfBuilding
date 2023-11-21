@@ -6,8 +6,8 @@
 
 local m_min = math.min
 
-local TimelessJewelSocketClass = newClass("TimelessJewelSocketControl", "DropDownControl", function(self, anchor, x, y, width, height, list, selFunc, build, socketViewer)
-	self.DropDownControl(anchor, x, y, width, height, list, selFunc)
+local TimelessJewelSocketClass = newClass("TimelessJewelSocketControl", "DropDownControl", function(self, anchor, rect, list, selFunc, build, socketViewer)
+	self.DropDownControl(anchor, rect, list, selFunc)
 	self.build = build
 	self.socketViewer = socketViewer
 end)

@@ -8,9 +8,9 @@ local m_max = math.max
 local m_ceil = math.ceil
 local m_floor = math.floor
 
-local ScrollBarClass = newClass("ScrollBarControl", "Control", function(self, anchor, x, y, width, height, step, dir, autoHide)
-	self.Control(anchor, x, y, width, height)
-	self.step = step or width * 2
+local ScrollBarClass = newClass("ScrollBarControl", "Control", function(self, anchor, rect, step, dir, autoHide)
+	self.Control(anchor, rect)
+	self.step = step or self.width * 2
 	self.dir = dir or "VERTICAL"
 	self.offset = 0
 	self.enabled = false

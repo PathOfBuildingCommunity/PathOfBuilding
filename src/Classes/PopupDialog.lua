@@ -7,7 +7,7 @@ local m_floor = math.floor
 
 local PopupDialogClass = newClass("PopupDialog", "ControlHost", "Control", function(self, width, height, title, controls, enterControl, defaultControl, escapeControl)
 	self.ControlHost()
-	self.Control(nil, 0, 0, width, height)
+	self.Control(nil, {0, 0, width, height})
 	self.x = function()
 		return m_floor((main.screenW - width) / 2)
 	end

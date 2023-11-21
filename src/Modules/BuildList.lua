@@ -25,7 +25,7 @@ function listMode:Init(selBuildName, subPath)
 		return
 	end
 
-	self.anchor = new("Control", nil, 0, 4, 0, 0)
+	self.anchor = new("Control", nil, {0, 4, 0, 0})
 	self.anchor.x = function() 
 		return main.screenW / 2 
 	end
@@ -33,38 +33,38 @@ function listMode:Init(selBuildName, subPath)
 	self.subPath = subPath or ""
 	self.list = { }
 
-	self.controls.new = new("ButtonControl", {"TOP",self.anchor,"TOP"}, -259, 0, 60, 20, "New", function()
+	self.controls.new = new("ButtonControl", {"TOP",self.anchor,"TOP"}, {-259, 0, 60, 20}, "New", function()
 		main:SetMode("BUILD", false, "Unnamed build")
 	end)
-	self.controls.newFolder = new("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, 8, 0, 90, 20, "New Folder", function()
+	self.controls.newFolder = new("ButtonControl", {"LEFT",self.controls.new,"RIGHT"}, {8, 0, 90, 20}, "New Folder", function()
 		self.controls.buildList:NewFolder()
 	end)
-	self.controls.open = new("ButtonControl", {"LEFT",self.controls.newFolder,"RIGHT"}, 8, 0, 60, 20, "Open", function()
+	self.controls.open = new("ButtonControl", {"LEFT",self.controls.newFolder,"RIGHT"}, {8, 0, 60, 20}, "Open", function()
 		self.controls.buildList:LoadBuild(self.controls.buildList.selValue)
 	end)
 	self.controls.open.enabled = function() return self.controls.buildList.selValue ~= nil end
-	self.controls.copy = new("ButtonControl", {"LEFT",self.controls.open,"RIGHT"}, 8, 0, 60, 20, "Copy", function()
+	self.controls.copy = new("ButtonControl", {"LEFT",self.controls.open,"RIGHT"}, {8, 0, 60, 20}, "Copy", function()
 		self.controls.buildList:RenameBuild(self.controls.buildList.selValue, true)
 	end)
 	self.controls.copy.enabled = function() return self.controls.buildList.selValue ~= nil end
-	self.controls.rename = new("ButtonControl", {"LEFT",self.controls.copy,"RIGHT"}, 8, 0, 60, 20, "Rename", function()
+	self.controls.rename = new("ButtonControl", {"LEFT",self.controls.copy,"RIGHT"}, {8, 0, 60, 20}, "Rename", function()
 		self.controls.buildList:RenameBuild(self.controls.buildList.selValue)
 	end)
 	self.controls.rename.enabled = function() return self.controls.buildList.selValue ~= nil end
-	self.controls.delete = new("ButtonControl", {"LEFT",self.controls.rename,"RIGHT"}, 8, 0, 60, 20, "Delete", function()
+	self.controls.delete = new("ButtonControl", {"LEFT",self.controls.rename,"RIGHT"}, {8, 0, 60, 20}, "Delete", function()
 		self.controls.buildList:DeleteBuild(self.controls.buildList.selValue)
 	end)
 	self.controls.delete.enabled = function() return self.controls.buildList.selValue ~= nil end
-	self.controls.sort = new("DropDownControl", {"LEFT",self.controls.delete,"RIGHT"}, 8, 0, 140, 20, buildSortDropList, function(index, value)
+	self.controls.sort = new("DropDownControl", {"LEFT",self.controls.delete,"RIGHT"}, {8, 0, 140, 20}, buildSortDropList, function(index, value)
 		main.buildSortMode = value.sortMode
 		self:SortList()
 	end)
 	self.controls.sort:SelByValue(main.buildSortMode, "sortMode")
-	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, 0, 75, 640, 0, self)
+	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, {0, 75, 640, 0}, self)
 	self.controls.buildList.height = function()
 		return main.screenH - 80
 	end
-	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, 0, 25, 640, 20, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
+	self.controls.searchText = new("EditControl", {"TOP",self.anchor,"TOP"}, {0, 25, 640, 20}, self.filterBuildList, "Search", "%c%(%)", 100, function(buf)
 		main.filterBuildList = buf
 		self:BuildList()
 	end, nil, nil, true)

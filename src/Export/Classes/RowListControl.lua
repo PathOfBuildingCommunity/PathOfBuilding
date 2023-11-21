@@ -6,8 +6,8 @@
 local ipairs = ipairs
 local t_insert = table.insert
 
-local RowListClass = newClass("RowListControl", "ListControl", function(self, anchor, x, y, width, height)
-	self.ListControl(anchor, x, y, width, height, 14, "HORIZONTAL", false, { })
+local RowListClass = newClass("RowListControl", "ListControl", function(self, anchor, rect)
+	self.ListControl(anchor, rect, 14, "HORIZONTAL", false, { })
 	self.colLabels = true
 end)
 

@@ -8,10 +8,10 @@ local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
 
-local SkillSetListClass = newClass("SkillSetListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
-	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
+local SkillSetListClass = newClass("SkillSetListControl", "ListControl", function(self, anchor, rect, skillsTab)
+	self.ListControl(anchor, rect, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
 	self.skillsTab = skillsTab
-	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, 2, -4, 60, 18, "Copy", function()
+	self.controls.copy = new("ButtonControl", {"BOTTOMLEFT",self,"TOP"}, {2, -4, 60, 18}, "Copy", function()
 		local skillSet = skillsTab.skillSets[self.selValue]
 		local newSkillSet = copyTable(skillSet, true)
 		newSkillSet.socketGroupList = { }
@@ -33,30 +33,30 @@ local SkillSetListClass = newClass("SkillSetListControl", "ListControl", functio
 	self.controls.copy.enabled = function()
 		return self.selValue ~= nil
 	end
-	self.controls.delete = new("ButtonControl", {"LEFT",self.controls.copy,"RIGHT"}, 4, 0, 60, 18, "Delete", function()
+	self.controls.delete = new("ButtonControl", {"LEFT",self.controls.copy,"RIGHT"}, {4, 0, 60, 18}, "Delete", function()
 		self:OnSelDelete(self.selIndex, self.selValue)
 	end)
 	self.controls.delete.enabled = function()
 		return self.selValue ~= nil and #self.list > 1
 	end
-	self.controls.rename = new("ButtonControl", {"BOTTOMRIGHT",self,"TOP"}, -2, -4, 60, 18, "Rename", function()
+	self.controls.rename = new("ButtonControl", {"BOTTOMRIGHT",self,"TOP"}, {-2, -4, 60, 18}, "Rename", function()
 		self:RenameSet(skillsTab.skillSets[self.selValue])
 	end)
 	self.controls.rename.enabled = function()
 		return self.selValue ~= nil
 	end
-	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.rename,"LEFT"}, -4, 0, 60, 18, "New", function()
+	self.controls.new = new("ButtonControl", {"RIGHT",self.controls.rename,"LEFT"}, {-4, 0, 60, 18}, "New", function()
 		self:RenameSet(skillsTab:NewSkillSet(), true)
 	end)
 end)
 
 function SkillSetListClass:RenameSet(skillSet, addOnName)
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this skill set:")
-	controls.edit = new("EditControl", nil, 0, 40, 350, 20, skillSet.title, nil, nil, 100, function(buf)
+	controls.label = new("LabelControl", nil, {0, 20, 0, 16}, "^7Enter name for this skill set:")
+	controls.edit = new("EditControl", nil, {0, 40, 350, 20}, skillSet.title, nil, nil, 100, function(buf)
 		controls.save.enabled = buf:match("%S")
 	end)
-	controls.save = new("ButtonControl", nil, -45, 70, 80, 20, "Save", function()
+	controls.save = new("ButtonControl", nil, {-45, 70, 80, 20}, "Save", function()
 		skillSet.title = controls.edit.buf
 		self.skillsTab.modFlag = true
 		if addOnName then
@@ -68,7 +68,7 @@ function SkillSetListClass:RenameSet(skillSet, addOnName)
 		main:ClosePopup()
 	end)
 	controls.save.enabled = false
-	controls.cancel = new("ButtonControl", nil, 45, 70, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, {45, 70, 80, 20}, "Cancel", function()
 		if addOnName then
 			self.skillsTab.skillSets[skillSet.id] = nil
 		end

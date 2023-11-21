@@ -3,8 +3,8 @@
 -- Class: Label Control
 -- Simple text label.
 --
-local LabelClass = newClass("LabelControl", "Control", function(self, anchor, x, y, width, height, label)
-	self.Control(anchor, x, y, width, height)
+local LabelClass = newClass("LabelControl", "Control", function(self, anchor, rect, label)
+	self.Control(anchor, rect)
 	self.label = label
 	self.width = function()
 		return DrawStringWidth(self:GetProperty("height"), "VAR", self:GetProperty("label"))

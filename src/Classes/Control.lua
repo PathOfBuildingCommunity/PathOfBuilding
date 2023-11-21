@@ -18,11 +18,20 @@ local anchorPos = {
 	     ["CENTER"] = { 0.5, 0.5 },
 }
 
-local ControlClass = newClass("Control", function(self, anchor, x, y, width, height)
-	self.x = x or 0
-	self.y = y or 0
-	self.width = width or 0
-	self.height = height or 0
+--[[
+local rect = {
+	x,
+	y,
+	width,
+	height,
+	minWidth,
+	minHeight,
+	}
+--]]
+
+local ControlClass = newClass("Control", function(self, anchor, rect)
+	self.rectStart = rect or {0, 0, 0, 0}
+	self.x, self.y, self.width, self.height = unpack(self.rectStart)
 	self.shown = true
 	self.enabled = true
 	self.anchor = { }
