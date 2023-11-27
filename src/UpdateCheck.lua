@@ -252,6 +252,9 @@ for index, data in ipairs(updateFiles) do
 		end
 		file:close()
 	end
+	if failedFile then
+		break
+	end
 end
 for name, zip in pairs(zipFiles) do
 	zip:Close()
