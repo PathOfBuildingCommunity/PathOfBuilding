@@ -880,6 +880,13 @@ function main:OpenOptionsPopup()
 	controls.invertSliderScrollDirection.tooltipText = "Default scroll direction is:\nScroll Up = Move right\nScroll Down = Move left"
 	controls.invertSliderScrollDirection.state = self.invertSliderScrollDirection
 	
+	nextRow()
+	controls.compareJewelsOfSameType = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Compare jewels of the same type:", function(state)
+		self.compareJewelsOfSameType = state
+	end)
+	controls.compareJewelsOfSameType.tooltipText = "Enabling this option will force comparing jewels only jewels of the same type."
+	controls.compareJewelsOfSameType.state = self.compareJewelsOfSameType
+	
 	if launch.devMode then
 		nextRow()
 		controls.disableDevAutoSave = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Disable Dev AutoSave:", function(state)
