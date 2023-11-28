@@ -948,11 +948,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 						env.itemModDB:ScaleAddList(otherRingList, scale)
 					end
 					env.itemModDB:ScaleAddList(srcList, scale)
-				elseif item.type == "Quiver" and ((not slot.slotName:match("Swap") and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId] and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId].name:match("Widowhail"))
-													or (build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId] and build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId].name:match("Widowhail"))) then
-					local WidowHailBaseMods = not slot.slotName:match("Swap") and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId].baseModList or build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId].baseModList
-					scale = scale * (1 + (WidowHailBaseMods:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
-					env.itemModDB:ScaleAddList(srcList, scale)
+				elseif item.type == "Quiver" and items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") then
+					scale = scale * (1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
