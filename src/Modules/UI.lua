@@ -285,7 +285,6 @@ local function parseTheme(xml)
 end
 
 --- Loads all themes from files
---- Do not call before main:userPath is set
 function UI.loadThemes()
 	ConPrintf("Loading themes...")
 
@@ -293,14 +292,14 @@ function UI.loadThemes()
 	wipeTable(themes)
 	addTheme(CC, "default")
 
-	local handle = NewFileSearch(main.userPath .. "Themes/*.xml")
+	local handle = NewFileSearch("Themes/*.xml")
 	if not handle then return end
 
 	repeat
 		local fileName = handle:GetFileName()
 		local id = fileName:gsub("%.xml$","")
 		if id ~= "default" then
-			local fileHnd = io.open(main.userPath .. "Themes/" .. fileName, "r")
+			local fileHnd = io.open("Themes/" .. fileName, "r")
 			if fileHnd then
 				local xml, errMsg = common.xml.ParseXML(fileHnd:read("*a"))
 				if not xml then
