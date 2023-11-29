@@ -213,6 +213,30 @@ local function addTheme(theme, id)
 	t_insert(UI.themeList, { label = theme.name .. (theme.version and (" (" .. theme.version .. ")") or ""), id = id })
 end
 
+--- Links the parent theme for the specified theme ID.
+--- @param id string @The ID of the theme.
+local function linkParent(id)
+	if id == "default" or not themes[id] then return end
+	
+	-- Detect loop
+	local visited = { id }
+	local current = id
+	while current ~= "default" do
+		local parent = themes[current] and themes[current].parent
+		if not isValueInArray(visited, parent) then
+			t_insert(visited, parent)
+		else
+			t_insert(visited, parent)
+			ConPrintf(CC.ERROR .. id .. ": Found loop in theme dependency: " .. table.concat(visited, " > "))
+			return
+		end
+		current = parent
+	end
+
+	local mt = getmetatable(themes[id])
+	mt.__index = themes[themes[id].parent] or themes.default
+	setmetatable(themes[id], mt)
+end
 
 --- Attempts to parse theme definition
 --- @param xml table @root (Theme) xml section
@@ -298,6 +322,10 @@ function UI.loadThemes()
 			end
 		end
 	until not handle:NextFile()
+
+	for theme, _ in pairs(themes) do
+		linkParent(theme)
+	end
 end
 
 --- The current theme, dynamically redirects references to current data
