@@ -582,7 +582,7 @@ function CalcBreakdownClass:DrawBreakdownTable(viewPort, x, y, section)
 						SetViewport(viewerX + 2, viewerY + 2, 300, 300)
 						viewer:Draw(self.calcsTab.build, { x = 0, y = 0, width = 300, height = 300 }, { })
 						SetDrawLayer(nil, 30)
-						SetDrawColor(CC.TOOLTIP_TREE_ITEM)
+						SetDrawColor(CC.TREE_HIGHLIGHT_RING)
 						DrawImage(viewer.highlightRing, 135, 135, 30, 30)
 						SetViewport()
 					end
