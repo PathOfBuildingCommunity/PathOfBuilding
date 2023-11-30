@@ -264,14 +264,14 @@ local function parseTheme(xml)
 				if checkAttributes(node, { "name", "value" }) then
 					local name, value = node.attrib.name, node.attrib.value
 					if not CC[name] then
-						t_insert(warnings, "Skipping unrecognized element: '" .. name .. "'")
+						t_insert(warnings, "Skipping unrecognized element '" .. name .. "'")
 					else
 						if value:match("^" .. ("%x"):rep(6) .. "$") then
 							theme[name] = "^x" .. value
 						elseif value:match("^" .. ("%x"):rep(8) .. "$") then
 							theme[name] = "^xx" .. value
 						else
-							t_insert(warnings, "Skipping unrecognized color code: '" .. value .. "'")
+							t_insert(warnings, "Skipping unrecognized color code '" .. value .. "' for " .. name)
 						end
 					end
 				end
