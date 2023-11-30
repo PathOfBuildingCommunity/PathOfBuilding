@@ -217,18 +217,22 @@ end
 --- @param id string @The ID of the theme.
 local function linkParent(id)
 	if id == "default" or not themes[id] then return end
-	
-	-- Detect loop
+
 	local visited = { id }
 	local current = id
 	while current ~= "default" do
-		local parent = themes[current] and themes[current].parent
-		if not isValueInArray(visited, parent) then
-			t_insert(visited, parent)
-		else
+		if not themes[current] then
+			ConPrintf(CC.ERROR .. id .. ": Can't find parent theme: " .. current)
+			return
+		end
+
+		local parent = themes[current].parent
+		if isValueInArray(visited, parent) then
 			t_insert(visited, parent)
 			ConPrintf(CC.ERROR .. id .. ": Found loop in theme dependency: " .. table.concat(visited, " > "))
 			return
+		else
+			t_insert(visited, parent)
 		end
 		current = parent
 	end
