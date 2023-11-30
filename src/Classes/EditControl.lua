@@ -6,6 +6,7 @@
 local m_max = math.max
 local m_min = math.min
 local m_floor = math.floor
+local CC = UI.CC
 local protected_replace = "*"
 
 local function lastLine(str)
@@ -49,11 +50,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.lineHeight = lineHeight
 	self.defaultLineHeight = lineHeight
 	self.font = "VAR"
-	self.textCol = "^7"
-	self.inactiveCol = "^8"
-	self.disableCol = "^9"
-	self.selCol = "^0"
-	self.selBGCol = "^xBBBBBB"
+	self.inactiveCol = CC.CONTROL_TEXT_SECONDARY
 	self.blinkStart = GetTime()
 	self.allowZoom = allowZoom
 	local function buttonSize()
@@ -243,26 +240,40 @@ function EditClass:Draw(viewPort, noTooltip)
 	local enabled = self:IsEnabled()
 	local mOver = self:IsMouseOver()
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_BORDER_INACTIVE)
 	elseif mOver then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_BORDER_HOVER)
 	elseif self.borderFunc then
 		r, g, b = self.borderFunc()
 		SetDrawColor(r, g, b)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BORDER)
 	end
 	DrawImage(nil, x, y, width, height)
 	if not enabled then
-		SetDrawColor(0, 0, 0)
-	elseif self.hasFocus or mOver then
 		if self.lineHeight then
-			SetDrawColor(0.1, 0.1, 0.1)
+			SetDrawColor(CC.BACKGROUND_0)
 		else
-			SetDrawColor(0.15, 0.15, 0.15)
+			SetDrawColor(CC.CONTROL_BACKGROUND_INACTIVE)
+		end
+	elseif self.hasFocus then
+		if self.lineHeight then
+			SetDrawColor(CC.BACKGROUND_1)
+		else
+			SetDrawColor(CC.CONTROL_BACKGROUND)
+		end
+	elseif mOver then
+		if self.lineHeight then
+			SetDrawColor(CC.BACKGROUND_1)
+		else
+			SetDrawColor(CC.CONTROL_BACKGROUND_HOVER)
 		end
 	else
-		SetDrawColor(0, 0, 0)
+		if self.lineHeight then
+			SetDrawColor(CC.BACKGROUND_0)
+		else
+			SetDrawColor(CC.CONTROL_BACKGROUND)
+		end
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	local textX = x + 2
@@ -270,9 +281,9 @@ function EditClass:Draw(viewPort, noTooltip)
 	local textHeight = self.lineHeight or (height - 4)
 	if self.prompt then
 		if not enabled then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, self.disableCol..self.prompt)
+			DrawString(textX, textY, "LEFT", textHeight, self.font, CC.CONTROL_TEXT_INACTIVE..self.prompt)
 		else
-			DrawString(textX, textY, "LEFT", textHeight, self.font, self.textCol..self.prompt..":")
+			DrawString(textX, textY, "LEFT", textHeight, self.font, CC.TEXT_PRIMARY..self.prompt..":")
 		end
 		textX = textX + DrawStringWidth(textHeight, self.font, self.prompt) + textHeight/2
 	end
@@ -291,7 +302,7 @@ function EditClass:Draw(viewPort, noTooltip)
 	SetViewport(textX, textY, width - 4 - marginL - marginR, height - 4 - marginB)
 	if not self.hasFocus then
 		if self.buf == '' and self.placeholder then
-			SetDrawColor(self.disableCol)
+			SetDrawColor(CC.CONTROL_TEXT_SECONDARY)
 			DrawString(-self.controls.scrollBarH.offset, -self.controls.scrollBarV.offset, "LEFT", textHeight, self.font, self.placeholder)
 		else
 			SetDrawColor(self.inactiveCol)
@@ -323,7 +334,7 @@ function EditClass:Draw(viewPort, noTooltip)
 		local left = m_min(self.caret, self.sel or self.caret)
 		local right = m_max(self.caret, self.sel or self.caret)
 		local caretX
-		SetDrawColor(self.textCol)
+		SetDrawColor(CC.TEXT_PRIMARY)
 		for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
 			textX = -self.controls.scrollBarH.offset
 			if left >= e or right <= s then
@@ -340,15 +351,15 @@ function EditClass:Draw(viewPort, noTooltip)
 				end
 			end
 			if left ~= right and left < e and right > s then
-				local sel = self.selCol .. StripEscapes(line:sub(m_max(1, left - s + 1), m_min(#line, right - s)))
+				local sel = CC.CONTROL_TEXT_ACTIVE .. StripEscapes(line:sub(m_max(1, left - s + 1), m_min(#line, right - s)))
 				if right >= e then
 					sel = sel .. "  "
 				end
 				local selWidth = DrawStringWidth(textHeight, self.font, sel)
-				SetDrawColor(self.selBGCol)
+				SetDrawColor(CC.CONTROL_BACKGROUND_SELECTION)
 				DrawImage(nil, textX, textY, selWidth, textHeight)
 				DrawString(textX, textY, "LEFT", textHeight, self.font, sel)
-				SetDrawColor(self.textCol)
+				SetDrawColor(CC.TEXT_PRIMARY)
 				textX = textX + selWidth
 			end
 			if right >= s and right < e and right == self.caret then
@@ -365,24 +376,24 @@ function EditClass:Draw(viewPort, noTooltip)
 		end
 		if caretX then
 			if (GetTime() - self.blinkStart) % 1000 < 500 then
-				SetDrawColor(self.textCol)
+				SetDrawColor(CC.TEXT_PRIMARY)
 				DrawImage(nil, caretX, caretY, 1, textHeight)
 			end
 		end
 	elseif self.sel and self.sel ~= self.caret then
 		local left = m_min(self.caret, self.sel)
 		local right = m_max(self.caret, self.sel)
-		local pre = self.textCol .. self.buf:sub(1, left - 1)
-		local sel = self.selCol .. StripEscapes(self.buf:sub(left, right - 1))
-		local post = self.textCol .. self.buf:sub(right)
+		local pre = CC.TEXT_PRIMARY .. self.buf:sub(1, left - 1)
+		local sel = CC.CONTROL_TEXT_ACTIVE .. StripEscapes(self.buf:sub(left, right - 1))
+		local post = CC.TEXT_PRIMARY .. self.buf:sub(right)
 		if self.protected then
-			DrawString(textX, textY, "LEFT", textHeight, self.font, self.textCol .. string.rep(protected_replace, #pre-#self.textCol))
+			DrawString(textX, textY, "LEFT", textHeight, self.font, CC.TEXT_PRIMARY .. string.rep(protected_replace, #pre-#CC.TEXT_PRIMARY))
 		else
 			DrawString(textX, textY, "LEFT", textHeight, self.font, pre)
 		end
 		textX = textX + DrawStringWidth(textHeight, self.font, pre)
 		local selWidth = DrawStringWidth(textHeight, self.font, sel)
-		SetDrawColor(self.selBGCol)
+		SetDrawColor(CC.CONTROL_BACKGROUND_SELECTION)
 		DrawImage(nil, textX, textY, selWidth, textHeight)
 		if self.protected then
 			DrawString(textX, textY, "LEFT", textHeight, self.font, self.selCol .. string.rep(protected_replace, #sel-#self.selCol))
@@ -396,11 +407,11 @@ function EditClass:Draw(viewPort, noTooltip)
 		end
 		if (GetTime() - self.blinkStart) % 1000 < 500 then
 			local caretX = (self.caret > self.sel) and textX + selWidth or textX
-			SetDrawColor(self.textCol)
+			SetDrawColor(CC.TEXT_PRIMARY)
 			DrawImage(nil, caretX, textY, 1, textHeight)
 		end
 	else
-		local pre = self.textCol .. self.buf:sub(1, self.caret - 1)
+		local pre = CC.TEXT_PRIMARY .. self.buf:sub(1, self.caret - 1)
 		local post = self.buf:sub(self.caret)
 		if self.protected then
 			DrawString(textX, textY, "LEFT", textHeight, self.font, self.textCol .. string.rep(protected_replace, #pre-#self.textCol))
@@ -414,7 +425,7 @@ function EditClass:Draw(viewPort, noTooltip)
 			DrawString(textX, textY, "LEFT", textHeight, self.font, post)
 		end
 		if (GetTime() - self.blinkStart) % 1000 < 500 then
-			SetDrawColor(self.textCol)
+			SetDrawColor(CC.TEXT_PRIMARY)
 			DrawImage(nil, textX, textY, 1, textHeight)
 		end
 	end

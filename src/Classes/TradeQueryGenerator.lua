@@ -1062,7 +1062,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	end
 	controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf) end)
 	controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, 5, 0, 150, 18, currencyDropdownNames, function(index, value) end)
-	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "^7Max Price:")
+	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "Max Price:")
 	lastItemAnchor = controls.maxPrice
 	popupHeight = popupHeight + 23
 
@@ -1074,11 +1074,11 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	popupHeight = popupHeight + 23
 	
 	for i, stat in ipairs(statWeights) do
-		controls["sortStatType"..tostring(i)] = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, i == 1 and 5 or 3, 70, 16, i < (#statWeights < 6 and 10 or 5) and s_format("^7%.2f: %s", stat.weightMult, stat.label) or ("+ "..tostring(#statWeights - 4).." Additional Stats"))
+		controls["sortStatType"..tostring(i)] = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, i == 1 and 5 or 3, 70, 16, i < (#statWeights < 6 and 10 or 5) and s_format("%.2f: %s", stat.weightMult, stat.label) or ("+ "..tostring(#statWeights - 4).." Additional Stats"))
 		lastItemAnchor = controls["sortStatType"..tostring(i)]
 		popupHeight = popupHeight + 19
 		if i == 1 then
-			controls.sortStatLabel = new("LabelControl", {"RIGHT",lastItemAnchor,"LEFT"}, -5, 0, 0, 16, "^7Stat to Sort By:")
+			controls.sortStatLabel = new("LabelControl", {"RIGHT",lastItemAnchor,"LEFT"}, -5, 0, 0, 16, "Stat to Sort By:")
 		elseif i == 5 then
 			-- tooltips do not actually work for labels
 			lastItemAnchor.tooltipFunc = function(tooltip)

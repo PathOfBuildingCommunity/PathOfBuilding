@@ -8,6 +8,7 @@ local ipairs = ipairs
 local s_format = string.format
 local t_insert = table.insert
 local m_max = math.max
+local CC = UI.CC
 
 local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(self, build)
 	self.ControlHost()
@@ -55,7 +56,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		bufferHeightRight = 434,
 	}
 
-	local notesDesc = [[^7To import a build it must be exported with "Export support" enabled in the import/export tab
+	local notesDesc = CC.TEXT_PRIMARY..[[To import a build it must be exported with "Export support" enabled in the import/export tab
 	Auras with the highest effect will take priority, your curses will take priority over a support's
 	
 	All of these effects can be found in the Calcs tab]]
@@ -69,7 +70,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		end
 		return width
 	end
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, theme.stringHeight, "^7Enter a build code/URL below:")
+	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"BOTTOMLEFT"}, 0, 32, 0, theme.stringHeight, "Enter a build code/URL below:")
 	self.controls.importCodeHeader.y = function()
 		return theme.lineCounter(self.controls.notesDesc.label) + 4
 	end
@@ -97,7 +98,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			self.actor["Link"] = {}
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyConditions" then
-			self.controls.simpleEnemyCond.label = "^7---------------------------\n"
+			self.controls.simpleEnemyCond.label = "---------------------------\n"
 			self.controls.enemyCond:SetText("")
 		end
 		if partyDestinations[self.controls.importCodeDestination.selIndex] == "All" or partyDestinations[self.controls.importCodeDestination.selIndex] == "EnemyMods" then
@@ -116,7 +117,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			return
 		end
 
-		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
+		self.importCodeDetail = CC.ERROR.."Invalid input"
 		local urlText = buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
 		if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
 			local nested_url = urlText:gsub(".*[?&]q=([^&]+).*", "%1")
@@ -127,7 +128,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			if urlText:match(buildSites.websiteList[j].matchURL) then
 				self.controls.importCodeIn.text = urlText
 				self.importCodeValid = true
-				self.importCodeDetail = colorCodes.POSITIVE.."URL is valid ("..buildSites.websiteList[j].label..")"
+				self.importCodeDetail = CC.OK.."URL is valid ("..buildSites.websiteList[j].label..")"
 				self.importCodeSite = j
 				if buf ~= urlText then
 					self.controls.importCodeIn:SetText(urlText, false)
@@ -144,7 +145,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			Copy(xmlText)
 		end
 		self.importCodeValid = true
-		self.importCodeDetail = colorCodes.POSITIVE.."Code is valid"
+		self.importCodeDetail = CC.OK.."Code is valid"
 		self.importCodeXML = xmlText
 	end
 	
@@ -180,10 +181,10 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		-- Parse the XML
 		local dbXML, errMsg = common.xml.ParseXML(self.importCodeXML)
 		if not dbXML then
-			launch:ShowErrMsg("^1Error loading '%s': %s", fileName, errMsg)
+			launch:ShowErrMsg(CC.ERROR.."Error loading '%s': %s", fileName, errMsg)
 			return
 		elseif dbXML[1].elem ~= "PathOfBuilding" then
-			launch:ShowErrMsg("^1Error parsing '%s': 'PathOfBuilding' root element missing", fileName)
+			launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'PathOfBuilding' root element missing", fileName)
 			return
 		end
 
@@ -284,7 +285,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			buildSites.DownloadBuild(self.controls.importCodeIn.buf, selectedWebsite, function(isSuccess, data)
 				self.importCodeFetching = false
 				if not isSuccess then
-					self.importCodeDetail = colorCodes.NEGATIVE..data
+					self.importCodeDetail = CC.ERROR..data
 					self.importCodeValid = false
 				else
 					importCodeHandle(data)
@@ -319,9 +320,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
-	self.controls.clear.tooltipText = "^7Clears all the party tab imported data"
+	self.controls.clear.tooltipText = CC.TEXT_PRIMARY.."Clears all the party tab imported data"
 	
-	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, theme.buttonHeight, "^7Show Advanced Info", function(state)
+	self.controls.ShowAdvanceTools = new("CheckBoxControl", {"TOPLEFT",self.controls.importCodeDestination,"BOTTOMLEFT"}, 140, 4, theme.buttonHeight, CC.TEXT_PRIMARY.."Show Advanced Info", function(state)
 	end, "This shows the advanced info like what stats each aura/curse etc are adding, as well as enables the ability to edit them without a re-export\nDo not edit any boxes unless you know what you are doing, use copy/paste or import instead", false)
 	self.controls.ShowAdvanceTools.y = function()
 		return (self.width > theme.widthThreshold1) and 4 or 28
@@ -335,9 +336,9 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self.enemyModList = new("ModList")
 		self.build.buildFlag = true
 	end)
-	self.controls.removeEffects.tooltipText = "^7Removes the effects of the supports, without removing the data\nUse \"rebuild all\" to apply the effects again"
+	self.controls.removeEffects.tooltipText = CC.TEXT_PRIMARY.."Removes the effects of the supports, without removing the data\nUse \"rebuild all\" to apply the effects again"
 	
-	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "^7Rebuild All", function() 
+	self.controls.rebuild = new("ButtonControl", {"LEFT",self.controls.removeEffects,"RIGHT"}, 8, 0, 160, theme.buttonHeight, "Rebuild All", function() 
 		wipeTable(self.actor)
 		wipeTable(self.enemyModList)
 		self.actor = { Aura = {}, Curse = {}, Link = {}, modDB = new("ModDB"), output = { } }
@@ -351,7 +352,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		self:ParseBuffs(self.enemyModList, self.controls.enemyMods.buf, "EnemyMods", self.controls.simpleEnemyMods)
 		self.build.buildFlag = true 
 	end)
-	self.controls.rebuild.tooltipText = "^7Reparse all the inputs incase they have been disabled or they have changed since loading the build or importing"
+	self.controls.rebuild.tooltipText = CC.TEXT_PRIMARY.."Reparse all the inputs incase they have been disabled or they have changed since loading the build or importing"
 	self.controls.rebuild.x = function()
 		return (self.width > theme.widthThreshold1) and 8 or (-328)
 	end
@@ -359,7 +360,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return (self.width > theme.widthThreshold1) and 0 or 24
 	end
 
-	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 0, theme.stringHeight, "^7Auras")
+	self.controls.editAurasLabel = new("LabelControl", {"TOPLEFT",self.controls.ShowAdvanceTools,"TOPLEFT"}, -140, 40, 0, theme.stringHeight, "Auras")
 	self.controls.editAurasLabel.y = function()
 		return 36 + ((self.width <= theme.widthThreshold1) and 24 or 0)
 	end
@@ -379,7 +380,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Link Skills")
+	self.controls.editLinksLabel = new("LabelControl", {"TOPLEFT",self.controls.editAurasLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "Link Skills")
 	self.controls.editLinksLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.editAuras.height() + 8) or (theme.lineCounter(self.controls.simpleAuras.label) + 4)
 	end
@@ -398,7 +399,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editPartyMemberStatsLabel = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, theme.stringHeight, "^7Party Member Stats")
+	self.controls.editPartyMemberStatsLabel = new("LabelControl", {"TOPLEFT",self.controls.notesDesc,"TOPRIGHT"}, 8, 0, 0, theme.stringHeight, "Party Member Stats")
 	self.controls.editPartyMemberStats = new("EditControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, 0, 2, 0, 0, "", nil, "^%C\t\n", nil, nil, 14, true)
 	self.controls.editPartyMemberStats.width = function()
 		return self.width / 2 - 16
@@ -410,7 +411,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.enemyCondLabel = new("LabelControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Enemy Conditions")
+	self.controls.enemyCondLabel = new("LabelControl", {"TOPLEFT",self.controls.editPartyMemberStatsLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "Enemy Conditions")
 	self.controls.enemyCondLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.editPartyMemberStats.height() + 8) or 4
 	end
@@ -424,12 +425,12 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 	self.controls.enemyCond.shown = function()
 		return self.controls.ShowAdvanceTools.state
 	end
-	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "^7---------------------------\n")
+	self.controls.simpleEnemyCond = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"TOPLEFT"}, 0, 18, 0, theme.stringHeight, "---------------------------\n")
 	self.controls.simpleEnemyCond.shown = function()
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Enemy Modifiers")
+	self.controls.enemyModsLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyCondLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "Enemy Modifiers")
 	self.controls.enemyModsLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.enemyCond.height() + 8) or (theme.lineCounter(self.controls.simpleEnemyCond.label) + 4)
 	end
@@ -448,7 +449,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 		return not self.controls.ShowAdvanceTools.state
 	end
 
-	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "^7Curses")
+	self.controls.editCursesLabel = new("LabelControl", {"TOPLEFT",self.controls.enemyModsLabel,"BOTTOMLEFT"}, 0, 8, 0, theme.stringHeight, "Curses")
 	self.controls.editCursesLabel.y = function()
 		return self.controls.ShowAdvanceTools.state and (self.controls.enemyMods.height() + 8) or (theme.lineCounter(self.controls.simpleEnemyMods.label) + 4)
 	end
@@ -682,7 +683,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 		end
 		if label then
 			local count = 0
-			label.label = "^7---------------------------"
+			label.label = CC.TEXT_PRIMARY.."---------------------------"
 			for modName, modList in pairs(enemyModList) do
 				label.label = label.label.."\n"..modName..":"
 				count = count + 1
@@ -820,7 +821,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 		if label then
 			if buffType == "Aura" then
 				local labelList = {}
-				label.label = "^7---------------------------\n"
+				label.label = CC.TEXT_PRIMARY.."---------------------------\n"
 				for aura, auraMod in pairs(list["Aura"] or {}) do
 					if aura ~= "Vaal" then
 						t_insert(labelList, aura..": "..auraMod.effectMult.."%\n")
@@ -873,7 +874,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				end
 				if #labelList > 0 then
 					table.sort(labelList)
-					label.label = "^7---------------------------\n"..table.concat(labelList).."---------------------------\n"
+					label.label = CC.TEXT_PRIMARY.."---------------------------\n"..table.concat(labelList).."---------------------------\n"
 				else
 					label.label = ""
 				end
@@ -884,7 +885,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 				end
 				if #labelList > 0 then
 					table.sort(labelList)
-					label.label = "^7---------------------------\n"..table.concat(labelList).."---------------------------\n"
+					label.label = CC.TEXT_PRIMARY.."---------------------------\n"..table.concat(labelList).."---------------------------\n"
 				else
 					label.label = ""
 				end

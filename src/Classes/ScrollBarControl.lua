@@ -7,6 +7,7 @@ local m_min = math.min
 local m_max = math.max
 local m_ceil = math.ceil
 local m_floor = math.floor
+local CC = UI.CC
 
 local ScrollBarClass = newClass("ScrollBarControl", "Control", function(self, anchor, x, y, width, height, step, dir, autoHide)
 	self.Control(anchor, x, y, width, height)
@@ -149,21 +150,23 @@ function ScrollBarClass:Draw()
 	end
 	-- Draw up/left button background
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_BORDER_INACTIVE)
 	elseif mOverComp == "UP" then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_BORDER_HOVER)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BORDER)
 	end
 	if dir == "HORIZONTAL" then
 		DrawImage(nil, x, y, height, height)
 	else
 		DrawImage(nil, x, y, width, width)
 	end
-	if enabled and mOverComp == "UP" then
-		SetDrawColor(0.33, 0.33, 0.33)
+	if not enabled then
+		SetDrawColor(CC.CONTROL_BACKGROUND_INACTIVE)
+	elseif mOverComp == "UP" then
+		SetDrawColor(CC.CONTROL_BACKGROUND_HOVER)
 	else
-		SetDrawColor(0, 0, 0)
+		SetDrawColor(CC.CONTROL_BACKGROUND)
 	end
 	if dir == "HORIZONTAL" then
 		DrawImage(nil, x + 1, y + 1, height - 2, height - 2)
@@ -172,11 +175,11 @@ function ScrollBarClass:Draw()
 	end
 	-- Draw up/left arrow
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_ITEM_INACTIVE)
 	elseif mOverComp == "UP" then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_ITEM_HOVER)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_ITEM)
 	end
 	if dir == "HORIZONTAL" then
 		main:DrawArrow(x + height/2, y + height/2, height/2, height/2, "LEFT")
@@ -185,21 +188,23 @@ function ScrollBarClass:Draw()
 	end
 	-- Draw down/right button background
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_BORDER_INACTIVE)
 	elseif mOverComp == "DOWN" then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_BORDER_HOVER)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BORDER)
 	end
 	if dir == "HORIZONTAL" then
 		DrawImage(nil, x + width - height, y, height, height)
 	else
 		DrawImage(nil, x, y + height - width, width, width)
 	end
-	if enabled and mOverComp == "DOWN" then
-		SetDrawColor(0.33, 0.33, 0.33)
+	if not enabled then
+		SetDrawColor(CC.CONTROL_BACKGROUND_INACTIVE)
+	elseif mOverComp == "DOWN" then
+		SetDrawColor(CC.CONTROL_BACKGROUND_HOVER)
 	else
-		SetDrawColor(0, 0, 0)
+		SetDrawColor(CC.CONTROL_BACKGROUND)
 	end
 	if dir == "HORIZONTAL" then
 		DrawImage(nil, x + width - height + 1, y + 1, height - 2, height - 2)
@@ -208,11 +213,11 @@ function ScrollBarClass:Draw()
 	end
 	-- Draw down/right arrow
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_ITEM_INACTIVE)
 	elseif mOverComp == "DOWN" then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_ITEM_HOVER)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_ITEM)
 	end
 	if dir == "HORIZONTAL" then
 		main:DrawArrow(x + width - height/2, y + height/2, height/2, height/2, "RIGHT")
@@ -221,27 +226,35 @@ function ScrollBarClass:Draw()
 	end
 	-- Draw slide background
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_BORDER_INACTIVE)
 	elseif self.dragging or mOverComp == "KNOB" or mOverComp == "SLIDEUP" or mOverComp == "SLIDEDOWN" then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_BORDER_HOVER)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BORDER)
 	end
 	if dir == "HORIZONTAL" then
 		DrawImage(nil, x + height, y, width - height * 2, height)
-		SetDrawColor(0, 0, 0)
+		if enabled then
+			SetDrawColor(CC.CONTROL_BACKGROUND)
+		else
+			SetDrawColor(CC.CONTROL_BACKGROUND_INACTIVE)
+		end
 		DrawImage(nil, x + height, y + 1, width - height * 2, height - 2)
 	else
 		DrawImage(nil, x, y + width, width, height - width * 2)
-		SetDrawColor(0, 0, 0)
+		if enabled then
+			SetDrawColor(CC.CONTROL_BACKGROUND)
+		else
+			SetDrawColor(CC.CONTROL_BACKGROUND_INACTIVE)
+		end
 		DrawImage(nil, x + 1, y + width, width - 2, height - width * 2)
 	end
 	-- Draw knob
 	if enabled then
 		if self.dragging or mOverComp == "KNOB" then
-			SetDrawColor(1, 1, 1)
+			SetDrawColor(CC.CONTROL_ITEM_HOVER)
 		else
-			SetDrawColor(0.5, 0.5, 0.5)
+			SetDrawColor(CC.CONTROL_ITEM)
 		end
 		local knobPos = self:GetKnobPosForOffset()
 		if dir == "HORIZONTAL" then

@@ -7,6 +7,7 @@ local ipairs = ipairs
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local CC = UI.CC
 
 local DropDownClass = newClass("DropDownControl", "Control", "ControlHost", "TooltipHost", "SearchHost", function(self, anchor, x, y, width, height, list, selFunc, tooltipText)
 	self.Control(anchor, x, y, width, height)
@@ -102,7 +103,7 @@ function DropDownClass:DrawSearchHighlights(label, searchInfo, x, y, width, heig
 		local startX = 0
 		local endX = 0
 		local last = 0
-		SetDrawColor(1, 1, 0, 0.2)
+		SetDrawColor(CC.CONTROL_SEARCH_BACKGROUND)
 		for _, range in ipairs(searchInfo.ranges) do
 			if range.from - last - 1 > 0 then
 				startX = DrawStringWidth(height, "VAR", label:sub(last + 1, range.from - 1)) + x + endX
@@ -114,7 +115,7 @@ function DropDownClass:DrawSearchHighlights(label, searchInfo, x, y, width, heig
 
 			DrawImage(nil, startX, y, endX - startX, height)
 		end
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_SEARCH_TEXT)
 	end
 end
 
@@ -232,14 +233,14 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	scrollBar:SetContentDimension(lineHeight * self:GetDropCount(), self.dropHeight)
 	local dropY = self.dropUp and y - dropExtra or y + height
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_BORDER_INACTIVE)
 	elseif mOver or self.dropped then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_BORDER_HOVER)
 	elseif self.borderFunc then
 		r, g, b = self.borderFunc()
 		SetDrawColor(r, g, b)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BORDER)
 	end
 	DrawImage(nil, x, y, width, height)
 	if self.dropped then
@@ -248,31 +249,29 @@ function DropDownClass:Draw(viewPort, noTooltip)
 		SetDrawLayer(nil, 0)
 	end
 	if not enabled then
-		SetDrawColor(0, 0, 0)
-	elseif self.dropped then
-		SetDrawColor(0.5, 0.5, 0.5)
-	elseif mOver then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_BACKGROUND_INACTIVE)
+	elseif self.dropped or mOver then
+		SetDrawColor(CC.CONTROL_BACKGROUND_HOVER)
 	else
-		SetDrawColor(0, 0, 0)
+		SetDrawColor(CC.CONTROL_BACKGROUND)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_ITEM_INACTIVE)
 	elseif mOver or self.dropped then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_ITEM_HOVER)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_ITEM)
 	end
 	main:DrawArrow(x + width - height/2, y + height/2, height/2, height/2, "DOWN")
 	if self.dropped then
 		SetDrawLayer(nil, 5)
-		SetDrawColor(0, 0, 0)
+		SetDrawColor(CC.CONTROL_BACKGROUND)
 		DrawImage(nil, x + 1, dropY + 1, self.droppedWidth - 2, dropExtra - 2)
 		SetDrawLayer(nil, 0)
 	end
 	if self.otherDragSource then
-		SetDrawColor(0, 1, 0, 0.25)
+		SetDrawColor(CC.CONTROL_RECEIVE_DRAG_BACKGROUND)
 		DrawImage(nil, x, y, width, height)
 	end
 
@@ -287,9 +286,13 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				mOver and "BODY" or "OUT", self.selIndex, self.list[self.selIndex])
 			SetDrawLayer(nil, 0)
 		end
-		SetDrawColor(1, 1, 1)
+		if mOver then
+			SetDrawColor(CC.CONTROL_TEXT_HOVER)
+		else
+			SetDrawColor(CC.CONTROL_TEXT)
+		end
 	else
-		SetDrawColor(0.66, 0.66, 0.66)
+		SetDrawColor(CC.CONTROL_TEXT_INACTIVE)
 	end
 	-- draw selected label or search term
 	local selLabel
@@ -339,14 +342,14 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				local y = (dropIndex - 1) * lineHeight - scrollBar.offset
 				-- highlight background if hovered
 				if index == self.hoverSel then
-					SetDrawColor(0.33, 0.33, 0.33)
+					SetDrawColor(CC.CONTROL_BACKGROUND_HOVER)
 					DrawImage(nil, 0, y, width - 4, lineHeight)
 				end
 				-- highlight font color if hovered or selected
 				if index == self.hoverSel or index == self.selIndex then
-					SetDrawColor(1, 1, 1)
+					SetDrawColor(CC.CONTROL_TEXT_HOVER)
 				else
-					SetDrawColor(0.66, 0.66, 0.66)
+					SetDrawColor(CC.CONTROL_TEXT_MUTED)
 				end
 				-- draw actual item label with search match highlight if available
 				local label = type(listVal) == "table" and listVal.label or listVal
@@ -354,7 +357,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 				self:DrawSearchHighlights(label, searchInfo, 0, y, width - 4, lineHeight)
 			end
 		end
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_TEXT)
 		if self:IsSearchActive() and self:GetMatchCount() == 0 then
 			DrawString(0, 0 , "LEFT", lineHeight, "VAR", "<No matches>")
 		end

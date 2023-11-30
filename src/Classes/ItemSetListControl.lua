@@ -7,6 +7,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
+local CC = UI.CC
 
 local ItemSetListClass = newClass("ItemSetListControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, itemsTab.itemSetOrderList)
@@ -43,7 +44,7 @@ end)
 
 function ItemSetListClass:RenameSet(itemSet, addOnName)
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this item set:")
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "Enter name for this item set:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 20, itemSet.title, nil, nil, 100, function(buf)
 		controls.save.enabled = buf:match("%S")
 	end)
@@ -71,7 +72,7 @@ end
 function ItemSetListClass:GetRowValue(column, index, itemSetId)
 	local itemSet = self.itemsTab.itemSets[itemSetId]
 	if column == 1 then
-		return (itemSet.title or "Default") .. (itemSetId == self.itemsTab.activeItemSetId and "  ^9(Current)" or "")
+		return (itemSet.title or "Default") .. (itemSetId == self.itemsTab.activeItemSetId and CC.CONTROL_TEXT_INACTIVE.."  (Current)" or "")
 	end
 end
 

@@ -7,6 +7,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local m_max = math.max
 local s_format = string.format
+local CC = UI.CC
 
 local SkillSetListClass = newClass("SkillSetListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.skillSetOrderList)
@@ -52,7 +53,7 @@ end)
 
 function SkillSetListClass:RenameSet(skillSet, addOnName)
 	local controls = { }
-	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "^7Enter name for this skill set:")
+	controls.label = new("LabelControl", nil, 0, 20, 0, 16, "Enter name for this skill set:")
 	controls.edit = new("EditControl", nil, 0, 40, 350, 20, skillSet.title, nil, nil, 100, function(buf)
 		controls.save.enabled = buf:match("%S")
 	end)
@@ -80,7 +81,7 @@ end
 function SkillSetListClass:GetRowValue(column, index, skillSetId)
 	local skillSet = self.skillsTab.skillSets[skillSetId]
 	if column == 1 then
-		return (skillSet.title or "Default") .. (skillSetId == self.skillsTab.activeSkillSetId and "  ^9(Current)" or "")
+		return (skillSet.title or "Default") .. (skillSetId == self.skillsTab.activeSkillSetId and CC.CONTROL_TEXT_INACTIVE.."  (Current)" or "")
 	end
 end
 

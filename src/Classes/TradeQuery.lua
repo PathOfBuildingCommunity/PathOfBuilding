@@ -14,6 +14,8 @@ local m_max = math.max
 local m_min = math.min
 local m_ceil = math.ceil
 local s_format = string.format
+local CC = UI.CC
+local c_format = UI.colorFormat
 
 local baseSlots = { "Weapon 1", "Weapon 2", "Helmet", "Body Armour", "Gloves", "Boots", "Amulet", "Ring 1", "Ring 2", "Belt", "Flask 1", "Flask 2", "Flask 3", "Flask 4", "Flask 5" }
 
@@ -228,7 +230,7 @@ function TradeQueryClass:PriceItem()
 		return #self.itemsTab.itemSetOrderList > 1
 	end
 
-	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "TOPLEFT"}, 0, row_height + row_vertical_padding, 188, row_height, function() return main.POESESSID ~= "" and "^2Session Mode" or colorCodes.WARNING.."No Session Mode" end, function()
+	self.controls.poesessidButton = new("ButtonControl", {"TOPLEFT", self.controls.setSelect, "TOPLEFT"}, 0, row_height + row_vertical_padding, 188, row_height, function() return main.POESESSID ~= "" and CC.OK.."Session Mode" or CC.WARNING.."No Session Mode" end, function()
 		local poesessid_controls = {}
 		poesessid_controls.sessionInput = new("EditControl", nil, 0, 18, 350, 18, main.POESESSID, nil, "%X", 32)
 		poesessid_controls.sessionInput:SetProtected(true)
@@ -250,12 +252,12 @@ function TradeQueryClass:PriceItem()
 The Trader feature supports two modes of operation depending on the POESESSID availability.
 You can click this button to enter your POESESSID.
 
-^2Session Mode^7
+]]..CC.OK..[[Session Mode]]..CC.TEXT_PRIMARY..[[
 - Requires POESESSID.
 - You can search, compare, and quickly import items without leaving Path of Building.
 - You can generate and perform searches for the private leagues you are participating.
 
-^xFF9922No Session Mode^7
+]]..CC.WARNING..[[No Session Mode]]..CC.TEXT_PRIMARY..[[
 - Doesn't require POESESSID.
 - You cannot search and compare items in Path of Building.
 - You can generate weighted search URLs but have to visit the trade site and manually import items.
@@ -294,7 +296,7 @@ on trade site to work on other leagues and realms)]]
 		stat = "TotalEHP",
 		weightMult = 0.5,
 	})
-	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", self.controls.fetchCountEdit, "BOTTOMRIGHT"}, 0, row_vertical_padding, 150, row_height, "^7Adjust search weights", function()
+	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", self.controls.fetchCountEdit, "BOTTOMRIGHT"}, 0, row_vertical_padding, 150, row_height, "Adjust search weights", function()
 		self:SetStatWeights()
 	end)
 	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
@@ -332,7 +334,7 @@ Highest Stat Value / Price - Sorts from highest to lowest Stat Value per currenc
 Lowest Price - Sorts from lowest to highest price of retrieved items
 Highest Weight - Displays the order retrieved from trade]]
 	self.controls.itemSortSelection:SetSel(self.pbItemSortSelectionIndex)
-	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16	, "^7Sort By:")
+	self.controls.itemSortSelectionLabel = new("LabelControl", {"TOPRIGHT", self.controls.itemSortSelection, "TOPLEFT"}, -4, 0, 60, 16, "Sort By:")
 	
 	-- Use Enchant in DPS sorting
 	self.controls.enchantInSort = new("CheckBoxControl", {"TOPRIGHT",self.controls.fetchCountEdit,"TOPLEFT"}, -8, 0, row_height, "Include Enchants:", function(state)
@@ -344,7 +346,7 @@ Highest Weight - Displays the order retrieved from trade]]
 	self.controls.enchantInSort.tooltipText = "This includes enchants in sorting that occurs after trade results have been retrieved"
 
 	-- Realm selection
-	self.controls.realmLabel = new("LabelControl", {"LEFT", self.controls.setSelect, "RIGHT"}, 18, 0, 20, row_height - 4, "^7Realm:")
+	self.controls.realmLabel = new("LabelControl", {"LEFT", self.controls.setSelect, "RIGHT"}, 18, 0, 20, row_height - 4, "Realm:")
 	self.controls.realm = new("DropDownControl", {"LEFT", self.controls.realmLabel, "RIGHT"}, 6, 0, 150, row_height, self.realmDropList, function(index, value)
 		self.pbRealmIndex = index
 		self.pbRealm = self.realmIds[value]
@@ -383,7 +385,7 @@ Highest Weight - Displays the order retrieved from trade]]
 	end
 
 	-- League selection
-	self.controls.leagueLabel = new("LabelControl", {"TOPRIGHT", self.controls.realmLabel, "TOPRIGHT"}, 0, row_height + row_vertical_padding, 20, row_height - 4, "^7League:")
+	self.controls.leagueLabel = new("LabelControl", {"TOPRIGHT", self.controls.realmLabel, "TOPRIGHT"}, 0, row_height + row_vertical_padding, 20, row_height - 4, "League:")
 	self.controls.league = new("DropDownControl", {"LEFT", self.controls.leagueLabel, "RIGHT"}, 6, 0, 150, row_height, self.itemsTab.leagueDropList, function(index, value)
 		self.pbLeagueIndex = index
 		self.pbLeague = value
@@ -419,7 +421,7 @@ Highest Weight - Displays the order retrieved from trade]]
 		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..index], "TOPLEFT"}
 	end
 	
-	self.controls.otherTradesLabel = new("LabelControl", top_pane_alignment_ref, 0, row_height + row_vertical_padding, 100, 16, "^8Other trades:")
+	self.controls.otherTradesLabel = new("LabelControl", top_pane_alignment_ref, 0, row_height + row_vertical_padding, 100, 16, "Other trades:")
 	top_pane_alignment_ref[2] = self.controls.otherTradesLabel
 	local row_count = #slotTables + 1
 	self.slotTables[row_count] = { slotName = "Megalomaniac", unique = true, alreadyCorrupted = true }
@@ -468,19 +470,19 @@ function TradeQueryClass:SetStatWeights()
 		end
 	end
 	
-	controls.SliderLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 20, 0, 16, "^7"..statList[1].stat.label..":")
+	controls.SliderLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 20, 0, 16, statList[1].stat.label..":")
 	controls.Slider = new("SliderControl", { "TOPLEFT", controls.SliderLabel, "TOPRIGHT" }, 20, 0, 150, 16, function(value)
 		if value == 0 then
-			controls.SliderValue.label = "^7Disabled"
+			controls.SliderValue.label = c_format("{TEXT_PRIMARY}Disabled")
 			statList[sliderController.index].stat.weightMult = 0
 			statList[sliderController.index].label = s_format("%d      :  ", 0)..statList[sliderController.index].stat.label
 		else
-			controls.SliderValue.label = s_format("^7%.2f", 0.01 + value * 0.99)
+			controls.SliderValue.label = c_format("{TEXT_PRIMARY}%.2f", 0.01 + value * 0.99)
 			statList[sliderController.index].stat.weightMult = 0.01 + value * 0.99
 			statList[sliderController.index].label = s_format("%.2f :  ", 0.01 + value * 0.99)..statList[sliderController.index].stat.label
 		end
 	end)
-	controls.SliderValue = new("LabelControl", { "TOPLEFT", controls.Slider, "TOPRIGHT" }, 20, 0, 0, 16, "^7Disabled")
+	controls.SliderValue = new("LabelControl", { "TOPLEFT", controls.Slider, "TOPRIGHT" }, 20, 0, 0, 16, "Disabled")
 	controls.Slider.tooltip.realDraw = controls.Slider.tooltip.Draw
 	controls.Slider.tooltip.Draw = function(self, x, y, width, height, viewPort)
 		local sliderOffsetX = round(184 * (1 - controls.Slider.val))
@@ -587,9 +589,9 @@ end
 -- Method to set the notice message in upper right of PoB Trader pane
 function TradeQueryClass:SetNotice(notice_control, msg)
 	if msg:find("No Matching Results") then
-		msg = colorCodes.WARNING .. msg
+		msg = CC.WARNING .. msg
 	elseif msg:find("Error:") then
-		msg = colorCodes.NEGATIVE .. msg
+		msg = CC.ERROR .. msg
 	end
 	notice_control.label = msg
 end
@@ -668,7 +670,7 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	local sortMode = self.itemSortSelectionList[self.pbItemSortSelectionIndex]
 	local sortedItems, errMsg = self:SortFetchResults(row_idx, sortMode)
 	if errMsg == "MissingConversionRates" then
-		self:SetNotice(self.controls.pbNotice, "^4Price sorting is not available, falling back to Stat Value sort.")
+		self:SetNotice(self.controls.pbNotice, CC.WARNING.."Price sorting is not available, falling back to Stat Value sort.")
 		sortedItems, errMsg = self:SortFetchResults(row_idx, self.sortModes.StatValue)
 	end
 	if errMsg then
@@ -691,7 +693,7 @@ function TradeQueryClass:UpdateControlsWithItems(row_idx)
 	for result_index = 1, #self.resultTbl[row_idx] do
 		local pb_index = self.sortedResultTbl[row_idx][result_index].index
 		local item = new("Item", self.resultTbl[row_idx][pb_index].item_string)
-		table.insert(dropdownLabels, colorCodes[item.rarity]..item.name)
+		table.insert(dropdownLabels, CC["ITEM_RARITY_"..item.rarity]..item.name)
 	end
 	self.controls["resultDropdown".. row_idx].selIndex = 1
 	self.controls["resultDropdown".. row_idx]:SetList(dropdownLabels)
@@ -790,12 +792,12 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local slotTbl = self.slotTables[row_idx]
 	local activeSlotRef = slotTbl.nodeId and self.itemsTab.activeItemSet[slotTbl.nodeId] or self.itemsTab.activeItemSet[slotTbl.slotName]
 	local activeSlot = slotTbl.nodeId and self.itemsTab.sockets[slotTbl.nodeId] or slotTbl.slotName and self.itemsTab.slots[slotTbl.slotName]
-	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
+	local nameColor = slotTbl.unique and CC.ITEM_RARITY_UNIQUE or CC.TEXT_PRIMARY
 	controls["name"..row_idx] = new("LabelControl", top_pane_alignment_ref, 0, row_height + row_vertical_padding, 100, row_height - 4, nameColor..slotTbl.slotName)
 	controls["bestButton"..row_idx] = new("ButtonControl", { "LEFT", controls["name"..row_idx], "LEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
 		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg)
 			if errMsg then
-				self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
+				self:SetNotice(context.controls.pbNotice, CC.ERROR .. errMsg)
 				return
 			else
 				self:SetNotice(context.controls.pbNotice, "")
@@ -810,7 +812,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			self.tradeQueryRequests:SearchWithQueryWeightAdjusted(self.pbRealm, self.pbLeague, query, 
 				function(items, errMsg)
 					if errMsg then
-						self:SetNotice(context.controls.pbNotice, colorCodes.NEGATIVE .. errMsg)
+						self:SetNotice(context.controls.pbNotice, CC.ERROR .. errMsg)
 						context.controls["priceButton"..context.row_idx].label =  "Price Item"
 						return
 					else
@@ -901,7 +903,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local dropdownLabels = {}
 	for _, sortedResult in ipairs(self.sortedResultTbl[row_idx] or {}) do
 		local item = new("Item", self.resultTbl[row_idx][sortedResult.index].item_string)
-		table.insert(dropdownLabels, colorCodes[item.rarity]..item.name)
+		table.insert(dropdownLabels, CC["ITEM_RARITY_"..item.rarity]..item.name)
 	end
 	controls["resultDropdown"..row_idx] = new("DropDownControl", { "TOPLEFT", controls["changeButton"..row_idx], "TOPRIGHT"}, 8, 0, 325, row_height, dropdownLabels, function(index)
 		self.itemIndexTbl[row_idx] = self.sortedResultTbl[row_idx][index].index
@@ -916,9 +918,9 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 			local nodeDNs = evaluationEntry.DNs
 			local nodeCombo = nodeDNs[1]
 			for i = 2, #nodeDNs do
-				nodeCombo = nodeCombo .. " ^8+^7 " .. nodeDNs[i]
+				nodeCombo = nodeCombo .. CC.TEXT_SECONDARY .. " + " .. CC.TEXT_PRIMARY .. nodeDNs[i]
 			end
-			self.itemsTab.build:AddStatComparesToTooltip(tooltip, self.onlyWeightedBaseOutput[row_idx][result_index], evaluationEntry.output, "^8Allocating ^7"..nodeCombo.."^8 will give You:", #nodeDNs + 2)
+			self.itemsTab.build:AddStatComparesToTooltip(tooltip, self.onlyWeightedBaseOutput[row_idx][result_index], evaluationEntry.output, c_format("{TEXT_SECONDARY}Allocating {TEXT_PRIMARY}%s{TEXT_SECONDARY} will give You:", nodeCombo), #nodeDNs + 2)
 		end
 	end
 	controls["resultDropdown"..row_idx].tooltipFunc = function(tooltip, dropdown_mode, dropdown_index, dropdown_display_string)
@@ -929,7 +931,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 		self.itemsTab:AddItemTooltip(tooltip, item, slotTbl)
 		addMegalomaniacCompareToTooltipIfApplicable(tooltip, pb_index)
 		tooltip:AddSeparator(10)
-		tooltip:AddLine(16, string.format("^7Price: %s %s", result.amount, result.currency))
+		tooltip:AddLine(16, c_format("{TEXT_PRIMARY}Price: %s %s", result.amount, result.currency))
 	end
 	controls["importButton"..row_idx] = new("ButtonControl", { "TOPLEFT", controls["resultDropdown"..row_idx], "TOPRIGHT"}, 8, 0, 100, row_height, "Import Item", function()
 		self.itemsTab:CreateDisplayItemFromRaw(self.resultTbl[row_idx][self.itemIndexTbl[row_idx]].item_string)

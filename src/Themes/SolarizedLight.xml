@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- A theme following the original Solarized theme.
+    Includes modifications required to work nicely with PoB
+    while staying in line with the foundation. -->
+
+<Theme name="Solarized Light" version="1.0" parent="default">
+    <colors>
+        <option name="BACKGROUND_0" value="fdf6e3"/>
+        <option name="BACKGROUND_1" value="fdf6e3"/>
+        <option name="BACKGROUND_2" value="93a1a1"/>
+
+        <option name="TEXT_PRIMARY" value="657b83"/>
+        <option name="TEXT_SECONDARY" value="93a1a1"/>
+        <option name="TEXT_TIP" value="2aa198"/>
+        <option name="TEXT_URL" value="268bd2"/>
+        <option name="TEXT_ACCENT1" value="6c71c4"/>
+        <option name="TEXT_ACCENT2" value="cb4b16"/>
+        <option name="TEXT_ACCENT3" value="d33682"/>
+        <option name="TEXT_DISABLED" value=""/>
+        <option name="TEXT_REMINDER" value=""/>
+
+        <option name="ERROR" value="dc322f"/>
+        <option name="WARNING" value="b58900"/>
+        <option name="OK" value="859900"/>
+        <option name="SPECIAL" value="6c71c4"/>
+
+        <option name="SECTION_BORDER" value="eee8d5"/>
+        <option name="SECTION_BACKGROUND" value="fdf6e3"/>
+        <option name="SECTION_HEADER_BACKGROUND" value="fdf6e3"/>
+
+        <option name="CONTROL_BORDER" value="e2d9c7"/>
+        <option name="CONTROL_BORDER_INACTIVE" value="eee8d5"/>
+        <option name="CONTROL_BORDER_HOVER" value="93a1a1"/>
+        <option name="CONTROL_BACKGROUND" value="eee8d5"/>
+        <option name="CONTROL_BACKGROUND_INACTIVE" value="fdf6e3"/>
+        <option name="CONTROL_BACKGROUND_HOVER" value="e2d9c7"/>
+        <option name="CONTROL_BACKGROUND_IMAGE_INACTIVE" value=""/>
+        <option name="CONTROL_TEXT" value="586e75"/>
+        <option name="CONTROL_TEXT_SECONDARY" value="657b83"/>
+        <option name="CONTROL_TEXT_INACTIVE" value="839496"/>
+        <option name="CONTROL_TEXT_HOVER" value="4a6269"/>
+        <option name="CONTROL_TEXT_MUTED" value=""/>
+        <option name="CONTROL_ITEM" value="586e75"/>
+        <option name="CONTROL_ITEM_INACTIVE" value="839496"/>
+        <option name="CONTROL_ITEM_HOVER" value="4a6269"/>
+        <option name="CONTROL_ITEM_ACTIVE" value="586e75"/>
+        <option name="CONTROL_RECEIVE_DRAG_BACKGROUND" value=""/>
+        <option name="CONTROL_SEARCH_BACKGROUND" value=""/>
+        <option name="CONTROL_SEARCH_TEXT" value=""/>
+
+        <option name="TOOLTIP_BORDER" value="cb4b16"/>
+        <option name="TOOLTIP_BACKGROUND" value="eee8d5"/>
+        <option name="TOOLTIP_TEXT" value="657b83"/>
+        <option name="TOOLTIP_SECTION_BORDER" value=""/>
+        <option name="TOOLTIP_SECTION_BORDER_HOVER" value=""/>
+        <option name="TOOLTIP_TREE_BORDER" value=""/>
+        <option name="TOOLTIP_TREE_ITEM" value=""/>
+        <option name="TOOLTIP_RADIUS_BORDER" value=""/>
+        <option name="TOOLTIP_RADIUS_ITEM" value=""/>
+
+        <!--CC.CALC_SECTION_BORDER = "7f4c00"  0.5 0.3 0.0-->
+        <option name="CALC_SECTION_BORDER_SKILL" value=""/>
+        <option name="CALC_SECTION_BORDER_ATTRIBUTES" value=""/>
+        <option name="CALC_SECTION_BORDER_OFFENCE" value=""/>
+        <option name="CALC_SECTION_BORDER_DEFENCE" value=""/>
+        <option name="CALC_SECTION_BACKGROUND" value="eee8d5"/>
+        <!--CC.CALC_SECTION_TEXT = "FFFFFF" -->
+        <option name="CALC_SECTION_HEADER_BACKGROUND" value="e2d9c7"/>
+        <option name="CALC_SECTION_ROW_BACKGROUND" value="fdf6e3"/>
+
+        <option name="ITEM_RARITY_NORMAL" value="919191"/>
+        <option name="ITEM_RARITY_MAGIC" value="0097fb"/>
+        <option name="ITEM_RARITY_RARE" value="929700"/>
+        <option name="ITEM_RARITY_UNIQUE" value="d07c40"/>
+        <option name="ITEM_RARITY_RELIC" value="30a45f"/>
+
+        <option name="ITEM_TEXT" value=""/>
+        <option name="ITEM_MOD" value="8184fb"/>
+        <option name="ITEM_UNSUPPORTED" value="fa5957"/>
+        <option name="ITEM_GEM" value="1aa19a"/>
+        <option name="ITEM_GEM_RED" value="f4613f"/>
+        <option name="ITEM_GEM_GREEN" value="00a91b"/>
+        <option name="ITEM_GEM_BLUE" value="827eff"/>
+        <option name="ITEM_GEM_WHITE" value="919191"/>
+        <option name="ITEM_PROPHECY" value=""/>
+        <option name="ITEM_CURRENCY" value=""/>
+        <option name="ITEM_CRAFTED" value=""/>
+        <option name="ITEM_CUSTOM" value=""/>
+        <option name="ITEM_SOURCE" value=""/>
+        <option name="ITEM_FRACTURED" value=""/>
+        <option name="ITEM_CORRUPTED" value=""/>
+        <option name="ITEM_SHAPER" value=""/>
+        <option name="ITEM_ELDER" value=""/>
+        <option name="ITEM_ADJUDICATOR" value=""/>
+        <option name="ITEM_BASILISK" value=""/>
+        <option name="ITEM_CRUSADER" value=""/>
+        <option name="ITEM_EYRIE" value=""/>
+        <option name="ITEM_CLEANSING" value=""/>
+        <option name="ITEM_TANGLE" value=""/>
+        <option name="ITEM_SCOURGE" value=""/>
+
+        <option name="CLASS_SCION" value=""/>
+        <option name="CLASS_MARAUDER" value=""/>
+        <option name="CLASS_RANGER" value=""/>
+        <option name="CLASS_WITCH" value=""/>
+        <option name="CLASS_DUELIST" value=""/>
+        <option name="CLASS_TEMPLAR" value=""/>
+        <option name="CLASS_SHADOW" value=""/>
+
+        <option name="STAT_FIRE" value=""/>
+        <option name="STAT_COLD" value=""/>
+        <option name="STAT_LIGHTNING" value=""/>
+        <option name="STAT_CHAOS" value=""/>
+        <option name="STAT_PHYS" value="606060"/>
+        <option name="STAT_STRENGTH" value="f4613f"/>
+        <option name="STAT_DEXTERITY" value="00a91b"/>
+        <option name="STAT_INTELLIGENCE" value="827eff"/>
+        <option name="STAT_OMNISCIENCE" value="b58900"/>
+        <option name="STAT_LIFE" value=""/>
+        <option name="STAT_MANA" value=""/>
+        <option name="STAT_ES" value="2aa198"/>
+        <option name="STAT_WARD" value=""/>
+        <option name="STAT_EVASION" value="00a91b"/>
+        <option name="STAT_ARMOUR" value="b44214"/>
+        <option name="STAT_RAGE" value=""/>
+    </colors>
+</Theme>

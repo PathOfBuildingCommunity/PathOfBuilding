@@ -4,6 +4,7 @@
 -- Section control used in the Calcs tab
 --
 local t_insert = table.insert
+local CC = UI.CC
 
 local CalcSectionClass = newClass("CalcSectionControl", "Control", "ControlHost", function(self, calcsTab, width, id, group, colour, subSection, updateFunc)
 	self.Control(calcsTab, 0, 0, width, 0)
@@ -224,7 +225,7 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 	SetDrawLayer(nil, -10)
 	SetDrawColor(self.colour)
 	DrawImage(nil, x, y, width, height)
-	SetDrawColor(0.10, 0.10, 0.10)
+	SetDrawColor(CC.CALC_SECTION_BACKGROUND)
 	DrawImage(nil, x + 2, y + 2, width - 4, height - 4)
 	
 	local primary = true
@@ -233,12 +234,12 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 		-- Draw line above label
 		SetDrawColor(self.colour)
 		DrawImage(nil, x + 2, lineY, width - 4, 2)
-		SetDrawColor(0.10, 0.10, 0.10)
+		SetDrawColor(CC.CALC_SECTION_BACKGROUND)
 		-- Draw label
 		if not self.enabled then
-			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^8"..subSec.label)
+			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", CC.TEXT_SECONDARY..subSec.label)
 		else
-			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", "^7"..subSec.label..":")
+			DrawString(x + 3, lineY + 3, "LEFT", 16, "VAR BOLD", CC.TEXT_PRIMARY..subSec.label..":")
 			if subSec.data.extra then
 				local x = x + 3 + DrawStringWidth(16, "VAR BOLD", subSec.label) + 10
 				DrawString(x, lineY + 3, "LEFT", 16, "VAR", self:FormatStr(subSec.data.extra, actor))
@@ -262,15 +263,15 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 			primary = false
 			for _, rowData in ipairs(subSec.data) do
 				if rowData.enabled then
-					local textColor = "^7"
+					local textColor = CC.TEXT_PRIMARY
 					if rowData.color then
 						textColor = rowData.color
 					end
 					if rowData.label then
 						-- Draw row label with background
-						SetDrawColor(rowData.bgCol or "^0")
+						SetDrawColor(rowData.bgCol or CC.CALC_SECTION_HEADER_BACKGROUND)
 						DrawImage(nil, x + 2, lineY, 130, 18)
-						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", textColor..rowData.label.."^7:")
+						DrawString(x + 132, lineY + 1, "RIGHT_X", 16, "VAR", textColor..rowData.label..CC.TEXT_PRIMARY..":")
 					end
 					for colour, colData in ipairs(rowData) do
 						-- Draw column separator at the left end of the cell
@@ -282,17 +283,17 @@ function CalcSectionClass:Draw(viewPort, noTooltip)
 					end
 					if self.calcsTab.displayData == colData then
 						-- This is the display stat, draw a green border around this cell
-						SetDrawColor(0.25, 1, 0.25)
+						SetDrawColor(CC.TEXT_ACCENT3)
 						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
-						SetDrawColor(rowData.bgCol or "^0")
+						SetDrawColor(rowData.bgCol or CC.CALC_SECTION_ROW_BACKGROUND)
 						DrawImage(nil, colData.x + 3, colData.y + 1, colData.width - 4, colData.height - 2)
 					else
-						SetDrawColor(rowData.bgCol or "^0")
+						SetDrawColor(rowData.bgCol or CC.CALC_SECTION_ROW_BACKGROUND)
 						DrawImage(nil, colData.x + 2, colData.y, colData.width - 2, colData.height)
 					end
 					local textSize = rowData.textSize or 14
 					SetViewport(colData.x + 3, colData.y, colData.width - 4, colData.height)
-					DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", "^7"..self:FormatStr(colData.format, actor, colData))
+					DrawString(1, 9 - textSize/2, "LEFT", textSize, "VAR", CC.TEXT_PRIMARY..self:FormatStr(colData.format, actor, colData))
 					SetViewport()
 				end
 			end

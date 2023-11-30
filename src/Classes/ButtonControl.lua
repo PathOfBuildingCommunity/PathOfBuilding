@@ -3,6 +3,8 @@
 -- Class: Button Control
 -- Basic button control.
 --
+local CC = UI.CC
+
 local ButtonClass = newClass("ButtonControl", "Control", "TooltipHost", function(self, anchor, x, y, width, height, label, onClick, onHover, forceTooltip)
 	self.Control(anchor, x, y, width, height)
 	self.TooltipHost()
@@ -41,28 +43,26 @@ function ButtonClass:Draw(viewPort, noTooltip)
 	local mOver = self:IsMouseOver()
 	local locked = self:GetProperty("locked")
 	if not enabled then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_BORDER_INACTIVE)
 	elseif mOver or locked then
-		SetDrawColor(1, 1, 1)
+		SetDrawColor(CC.CONTROL_BORDER_HOVER)
 	else
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BORDER)
 	end
 	DrawImage(nil, x, y, width, height)
 	if not enabled then
-		SetDrawColor(0, 0, 0)
-	elseif self.clicked and mOver then
-		SetDrawColor(0.5, 0.5, 0.5)
+		SetDrawColor(CC.CONTROL_BACKGROUND_INACTIVE)
 	elseif mOver or locked then
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_BACKGROUND_HOVER)
 	else
-		SetDrawColor(0, 0, 0)
+		SetDrawColor(CC.CONTROL_BACKGROUND)
 	end
 	DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 	if self.image then
 		if enabled then
 			SetDrawColor(1, 1, 1)
 		else
-			SetDrawColor(0.33, 0.33, 0.33)
+			SetDrawColor(CC.CONTROL_BACKGROUND_IMAGE_INACTIVE)
 		end
 		DrawImage(self.image, x + 2, y + 2, width - 4, height - 4)
 		if self.clicked and mOver then
@@ -70,10 +70,12 @@ function ButtonClass:Draw(viewPort, noTooltip)
 			DrawImage(nil, x + 1, y + 1, width - 2, height - 2)
 		end
 	end
-	if enabled then
-		SetDrawColor(1, 1, 1)
+	if not enabled then
+		SetDrawColor(CC.CONTROL_TEXT_INACTIVE)
+	elseif mOver or locked then
+		SetDrawColor(CC.CONTROL_TEXT_HOVER)
 	else
-		SetDrawColor(0.33, 0.33, 0.33)
+		SetDrawColor(CC.CONTROL_TEXT)
 	end
 	local label = self:GetProperty("label")
 	if label == "+" then

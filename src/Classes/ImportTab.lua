@@ -8,6 +8,7 @@ local t_insert = table.insert
 local t_remove = table.remove
 local b_rshift = bit.rshift
 local band = bit.band
+local CC = UI.CC
 
 local realmList = {
 	{ label = "PC", id = "PC", realmCode = "pc", hostName = "https://www.pathofexile.com/", profileURL = "account/view-profile/" },
@@ -29,11 +30,11 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	self.charImportStatus = "Idle"
 	self.controls.sectionCharImport = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 10, 18, 650, 250, "Character Import")
 	self.controls.charImportStatusLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 14, 200, 16, function()
-		return "^7Character import status: "..self.charImportStatus
+		return "Character import status: " .. self.charImportStatus
 	end)
 
 	-- Stage: input account name
-	self.controls.accountNameHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 16, "^7To start importing a character, enter the character's account name:")
+	self.controls.accountNameHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 16, "To start importing a character, enter the character's account name:")
 	self.controls.accountNameHeader.shown = function()
 		return self.charImportMode == "GETACCOUNTNAME"
 	end
@@ -83,19 +84,19 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 
 	self.controls.removeAccount.tooltipFunc = function(tooltip)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7Removes account from the dropdown list")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Removes account from the dropdown list")
 	end
 
-	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
-	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
+	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, CC.TEXT_SECONDARY.."Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
+	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, CC.TEXT_URL.."https://www.urlencoder.org/", function()
 		OpenURL("https://www.urlencoder.org/")
 	end)
 
 	-- Stage: input POESESSID
 	self.controls.sessionHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 14)
 	self.controls.sessionHeader.label = function()
-		return [[
-^7The list of characters on ']]..self.controls.accountName.buf..[[' couldn't be retrieved. This may be because:
+		return CC.TEXT_PRIMARY..[[
+The list of characters on ']]..self.controls.accountName.buf..[[' couldn't be retrieved. This may be because:
 1. You entered a character name instead of an account name or
 2. This account's characters tab is hidden (this is the default setting).
 If this is your account, you can either:
@@ -127,11 +128,11 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 
 	-- Stage: select character and import data
-	self.controls.charSelectHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 16, "^7Choose character to import data from:")
+	self.controls.charSelectHeader = new("LabelControl", {"TOPLEFT",self.controls.sectionCharImport,"TOPLEFT"}, 6, 40, 200, 16, "Choose character to import data from:")
 	self.controls.charSelectHeader.shown = function()
 		return self.charImportMode == "SELECTCHAR" or self.charImportMode == "IMPORTING"
 	end
-	self.controls.charSelectLeagueLabel = new("LabelControl", {"TOPLEFT",self.controls.charSelectHeader,"BOTTOMLEFT"}, 0, 6, 0, 14, "^7League:")
+	self.controls.charSelectLeagueLabel = new("LabelControl", {"TOPLEFT",self.controls.charSelectHeader,"BOTTOMLEFT"}, 0, 6, 0, 14, "League:")
 	self.controls.charSelectLeague = new("DropDownControl", {"LEFT",self.controls.charSelectLeagueLabel,"RIGHT"}, 4, 0, 150, 18, nil, function(index, value)
 		self:BuildCharacterList(value.league)
 	end)
@@ -162,7 +163,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:", nil, "Delete all existing skills when importing.", true)
 	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
 	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 380, 0, 18, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
-	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
+	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
 	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Close", function()
 		self.charImportMode = "GETACCOUNTNAME"
@@ -171,7 +172,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 
 	-- Build import/export
 	self.controls.sectionBuild = new("SectionControl", {"TOPLEFT",self.controls.sectionCharImport,"BOTTOMLEFT"}, 0, 18, 650, 182, "Build Sharing")
-	self.controls.generateCodeLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionBuild,"TOPLEFT"}, 6, 14, 0, 16, "^7Generate a code to share this build with other Path of Building users:")
+	self.controls.generateCodeLabel = new("LabelControl", {"TOPLEFT",self.controls.sectionBuild,"TOPLEFT"}, 6, 14, 0, 16, "Generate a code to share this build with other Path of Building users:")
 	self.controls.generateCode = new("ButtonControl", {"LEFT",self.controls.generateCodeLabel,"RIGHT"}, 4, 0, 80, 20, "Generate", function()
 		self.controls.generateCodeOut:SetText(common.base64.encode(Deflate(self.build:SaveDB("code"))):gsub("+","-"):gsub("/","_"))
 	end)
@@ -240,8 +241,8 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 		return #self.controls.generateCodeOut.buf > 0
 	end
-	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, "^7Note: this code can be very long; you can use 'Share' to shrink it.")
-	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "^7To import a build, enter URL or code here:")
+	self.controls.generateCodeNote = new("LabelControl", {"TOPLEFT",self.controls.generateCodeOut,"BOTTOMLEFT"}, 0, 4, 0, 14, CC.TEXT_SECONDARY .. "Note: this code can be very long; you can use 'Share' to shrink it.")
+	self.controls.importCodeHeader = new("LabelControl", {"TOPLEFT",self.controls.generateCodeNote,"BOTTOMLEFT"}, 0, 26, 0, 16, "To import a build, enter URL or code here:")
 
 	local importCodeHandle = function (buf)
 		self.importCodeSite = nil
@@ -257,7 +258,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			self.controls.importCodeMode.selIndex = 2
 		end
 
-		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
+		self.importCodeDetail = CC.ERROR.."Invalid input"
 		local urlText = buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
 		if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
 			local nested_url = urlText:gsub(".*[?&]q=([^&]+).*", "%1")
@@ -268,7 +269,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			if urlText:match(buildSites.websiteList[j].matchURL) then
 				self.controls.importCodeIn.text = urlText
 				self.importCodeValid = true
-				self.importCodeDetail = colorCodes.POSITIVE.."URL is valid ("..buildSites.websiteList[j].label..")"
+				self.importCodeDetail = CC.OK.."URL is valid ("..buildSites.websiteList[j].label..")"
 				self.importCodeSite = j
 				if buf ~= urlText then
 					self.controls.importCodeIn:SetText(urlText, false)
@@ -285,7 +286,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			Copy(xmlText)
 		end
 		self.importCodeValid = true
-		self.importCodeDetail = colorCodes.POSITIVE.."Code is valid"
+		self.importCodeDetail = CC.OK.."Code is valid"
 		self.importCodeXML = xmlText
 	end
 
@@ -295,7 +296,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 		end
 
 		if self.controls.importCodeMode.selIndex == 1 then
-			main:OpenConfirmPopup("Build Import", colorCodes.WARNING.."Warning:^7 Importing to the current build will erase ALL existing data for this build.", "Import", function()
+			main:OpenConfirmPopup("Build Import", CC.WARNING.."Warning:"..CC.TEXT_PRIMARY.." Importing to the current build will erase ALL existing data for this build.", "Import", function()
 				self.build:Shutdown()
 				self.build:Init(self.build.dbFileName, self.build.buildName, self.importCodeXML)
 				self.build.viewMode = "TREE"
@@ -328,7 +329,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 			buildSites.DownloadBuild(self.controls.importCodeIn.buf, selectedWebsite, function(isSuccess, data)
 				self.importCodeFetching = false
 				if not isSuccess then
-					self.importCodeDetail = colorCodes.NEGATIVE..data
+					self.importCodeDetail = CC.ERROR..data
 					self.importCodeValid = false
 				else
 					importCodeHandle(data)
@@ -400,31 +401,31 @@ function ImportTabClass:DownloadCharacterList()
 	local sessionID = #self.controls.sessionInput.buf == 32 and self.controls.sessionInput.buf or (main.gameAccounts[accountName] and main.gameAccounts[accountName].sessionID)
 	launch:DownloadPage(realm.hostName.."character-window/get-characters?accountName="..accountName.."&realm="..realm.realmCode, function(response, errMsg)
 		if errMsg == "Response code: 401" then
-			self.charImportStatus = colorCodes.NEGATIVE.."Sign-in is required."
+			self.charImportStatus = CC.ERROR.."Sign-in is required."
 			self.charImportMode = "GETSESSIONID"
 			return
 		elseif errMsg == "Response code: 403" then
-			self.charImportStatus = colorCodes.NEGATIVE.."Account profile is private."
+			self.charImportStatus = CC.ERROR.."Account profile is private."
 			self.charImportMode = "GETSESSIONID"
 			return
 		elseif errMsg == "Response code: 404" then
-			self.charImportStatus = colorCodes.NEGATIVE.."Account name is incorrect."
+			self.charImportStatus = CC.ERROR.."Account name is incorrect."
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		elseif errMsg then
-			self.charImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportStatus = CC.ERROR.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		end
 		local charList, errMsg = self:ProcessJSON(response.body)
 		if errMsg then
-			self.charImportStatus = colorCodes.NEGATIVE.."Error processing character list, try again later"
+			self.charImportStatus = CC.ERROR.."Error processing character list, try again later"
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		end
 		--ConPrintTable(charList)
 		if #charList == 0 then
-			self.charImportStatus = colorCodes.NEGATIVE.."The account has no characters to import."
+			self.charImportStatus = CC.ERROR.."The account has no characters to import."
 			self.charImportMode = "GETACCOUNTNAME"
 			return
 		end
@@ -432,13 +433,13 @@ function ImportTabClass:DownloadCharacterList()
 		-- This workaround grabs the profile page and extracts the correct account name from one of the URLs.
 		launch:DownloadPage(realm.hostName..realm.profileURL..accountName, function(response, errMsg)
 			if errMsg then
-				self.charImportStatus = colorCodes.NEGATIVE.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
+				self.charImportStatus = CC.ERROR.."Error retrieving character list, try again ("..errMsg:gsub("\n"," ")..")"
 				self.charImportMode = "GETACCOUNTNAME"
 				return
 			end
 			local realAccountName = response.body:match("/view%-profile/([^/]+)/characters"):gsub(".", function(c) if c:byte(1) > 127 then return string.format("%%%2X",c:byte(1)) else return c end end)
 			if not realAccountName then
-				self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character list."
+				self.charImportStatus = CC.ERROR.."Failed to retrieve character list."
 				self.charImportMode = "GETSESSIONID"
 				return
 			end
@@ -528,10 +529,10 @@ function ImportTabClass:DownloadPassiveTree()
 	launch:DownloadPage(realm.hostName.."character-window/get-passive-skills?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
-			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportStatus = CC.ERROR.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
 			return
 		elseif response.body == "false" then
-			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
+			self.charImportStatus = CC.ERROR.."Failed to retrieve character data, try again."
 			return
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
@@ -550,10 +551,10 @@ function ImportTabClass:DownloadItems()
 	launch:DownloadPage(realm.hostName.."character-window/get-items?accountName="..accountName.."&character="..charData.name.."&realm="..realm.realmCode, function(response, errMsg)
 		self.charImportMode = "SELECTCHAR"
 		if errMsg then
-			self.charImportStatus = colorCodes.NEGATIVE.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
+			self.charImportStatus = CC.ERROR.."Error importing character data, try again ("..errMsg:gsub("\n"," ")..")"
 			return
 		elseif response.body == "false" then
-			self.charImportStatus = colorCodes.NEGATIVE.."Failed to retrieve character data, try again."
+			self.charImportStatus = CC.ERROR.."Failed to retrieve character data, try again."
 			return
 		end
 		self.lastCharacterHash = common.sha1(charData.name)
@@ -591,10 +592,10 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 
 	if errMsg then
-		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
+		self.charImportStatus = CC.ERROR.."Error processing character data, try again later."
 		return
 	end
-	self.charImportStatus = colorCodes.POSITIVE.."Passive tree and jewels successfully imported."
+	self.charImportStatus = CC.OK.."Passive tree and jewels successfully imported."
 	self.build.spec.jewel_data = copyTable(charPassiveData.jewel_data)
 	self.build.spec.extended_hashes = copyTable(charPassiveData.hashes_ex)
 	--ConPrintTable(charPassiveData)
@@ -651,7 +652,7 @@ function ImportTabClass:ImportItemsAndSkills(json)
 	--out:close()
 	local charItemData, errMsg = self:ProcessJSON(json)
 	if errMsg then
-		self.charImportStatus = colorCodes.NEGATIVE.."Error processing character data, try again later."
+		self.charImportStatus = CC.ERROR.."Error processing character data, try again later."
 		return
 	end
 	if self.controls.charImportItemsClearItems.state then
@@ -675,7 +676,7 @@ function ImportTabClass:ImportItemsAndSkills(json)
 		end
 		wipeTable(self.build.skillsTab.socketGroupList)
 	end
-	self.charImportStatus = colorCodes.POSITIVE.."Items and skills successfully imported."
+	self.charImportStatus = CC.OK.."Items and skills successfully imported."
 	--ConPrintTable(charItemData)
 	for _, itemData in pairs(charItemData.items) do
 		self:ImportItem(itemData)

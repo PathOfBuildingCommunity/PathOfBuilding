@@ -18,6 +18,7 @@ local s_format = string.format
 local s_gsub = string.gsub
 local s_byte = string.byte
 local dkjson = require "dkjson"
+local CC = UI.CC
 
 local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.ControlHost()
@@ -63,7 +64,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 					local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
 					if calcFunc then
 						local output = calcFunc({ spec = spec }, {})
-						self.build:AddStatComparesToTooltip(tooltip, calcBase, output, "^7Switching to this tree will give you:")
+						self.build:AddStatComparesToTooltip(tooltip, calcBase, output, CC.TEXT_PRIMARY.."Switching to this tree will give you:")
 					end
 					if spec.curClassId == self.build.spec.curClassId then
 						local respec = 0
@@ -80,7 +81,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 							end
 						end
 						if respec > 0 then
-							tooltip:AddLine(16, "^7Switching to this tree requires "..respec.." refund points.")
+							tooltip:AddLine(16, CC.TEXT_PRIMARY.."Switching to this tree requires "..respec.." refund points.")
 						end
 					end
 				end
@@ -219,7 +220,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		self.controls.powerReportList:SetReport(powerStat, report)
 	end
 
-	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
+	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, 0, -14, 0, 16, "This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
 	end
@@ -227,7 +228,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		return latestTreeVersion .. (self.specList[self.activeSpec].treeVersion:match("^" .. latestTreeVersion .. "(.*)") or "")
 	end
 	local function buildConvertButtonLabel()
-		return "^2Convert to "..treeVersions[getLatestTreeVersion()].display
+		return CC.OK.."Convert to "..treeVersions[getLatestTreeVersion()].display
 	end
 	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", buildConvertButtonLabel()) + 20 end, 20, buildConvertButtonLabel, function()
 		self:ConvertToVersion(getLatestTreeVersion(), false, true)
@@ -313,15 +314,15 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	SetDrawLayer(1)
 
-	SetDrawColor(0.05, 0.05, 0.05)
+	SetDrawColor(CC.BACKGROUND_0)
 	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (28 + bottomDrawerHeight + twoLineHeight), viewPort.width, 28 + bottomDrawerHeight + twoLineHeight)
-	SetDrawColor(0.85, 0.85, 0.85)
+	SetDrawColor(CC.SECTION_BORDER)
 	DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (32 + bottomDrawerHeight + twoLineHeight), viewPort.width, 4)
 
 	if self.showConvert then
-		SetDrawColor(0.05, 0.05, 0.05)
+		SetDrawColor(CC.BACKGROUND_0)
 		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (60 + bottomDrawerHeight + twoLineHeight), viewPort.width, 28)
-		SetDrawColor(0.85, 0.85, 0.85)
+		SetDrawColor(CC.SECTION_BORDER)
 		DrawImage(nil, viewPort.x, viewPort.y + viewPort.height - (64 + bottomDrawerHeight + twoLineHeight), viewPort.width, 4)
 	end
 
@@ -461,7 +462,7 @@ end
 
 function TreeTabClass:OpenVersionConvertPopup(version)
 	local controls = { }
-	controls.warningLabel = new("LabelControl", nil, 0, 20, 0, 16, "^7Warning: some or all of the passives may be de-allocated due to changes in the tree.\n\n" ..
+	controls.warningLabel = new("LabelControl", nil, 0, 20, 0, 16, "Warning: some or all of the passives may be de-allocated due to changes in the tree.\n\n" ..
 		"Convert will replace your current tree.\nCopy + Convert will backup your current tree.\n")
 	controls.convert = new("ButtonControl", nil, -125, 110, 100, 20, "Convert", function()
 		self:ConvertToVersion(version, true, false)
@@ -486,7 +487,7 @@ function TreeTabClass:OpenImportPopup()
 		local newTreeVersion_or_errMsg = tmpSpec:DecodePoePlannerURL(treeLink, true)
 		-- Check for an error message
 		if string.find(newTreeVersion_or_errMsg, "Invalid") then
-			controls.msg.label = "^1"..newTreeVersion_or_errMsg
+			controls.msg.label = CC.ERROR..newTreeVersion_or_errMsg
 			return
 		end
 
@@ -510,7 +511,7 @@ function TreeTabClass:OpenImportPopup()
 		newSpec.title = controls.name.buf
 		local errMsg = newSpec:DecodeURL(treeLink)
 		if errMsg then
-			controls.msg.label = "^1"..errMsg.."^7"
+			controls.msg.label = CC.ERROR..errMsg..CC.TEXT_PRIMARY
 		else
 			t_insert(self.specList, newSpec)
 			-- trigger all the things that go with changing a spec
@@ -576,7 +577,7 @@ function TreeTabClass:OpenImportPopup()
 			if id then
 				launch:RegisterSubScript(id, function(treeLink, errMsg)
 					if errMsg then
-						controls.msg.label = "^1"..errMsg.."^7"
+						controls.msg.label = CC.ERROR..errMsg..CC.TEXT_PRIMARY
 						controls.import.enabled = true
 						return
 					else
@@ -695,7 +696,7 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 			end
 		end
 		for idx, desc in ipairs(wrapTable) do
-			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
+			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, desc)
 			totalHeight = totalHeight + 20
 		end
 		main.popups[1].height = totalHeight + 30
@@ -705,13 +706,13 @@ function TreeTabClass:ModifyNodePopup(selectedNode)
 	end
 
 	buildMods(selectedNode)
-	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 150, 25, 0, 16, "^7Modifier:")
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 150, 25, 0, 16, "Modifier:")
 	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 155, 25, 250, 18, modGroups, function(idx) constructUI(modGroups[idx]) end)
 	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if mode ~= "OUT" and value then
 			for _, line in ipairs(value.descriptions) do
-				tooltip:AddLine(16, "^7"..line)
+				tooltip:AddLine(16, CC.TEXT_PRIMARY..line)
 			end
 		end
 	end
@@ -839,14 +840,14 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 			pathPowerStr = formatNumSep(pathPowerStr)
 
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+				nodePowerStr = CC.BUILD_POSITIVE .. nodePowerStr
 			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+				nodePowerStr = CC.BUILD_NEGATIVE .. nodePowerStr
 			end
 			if (pathPower > 0 and not displayStat.lowerIsBetter) or (pathPower < 0 and displayStat.lowerIsBetter) then
-				pathPowerStr = colorCodes.POSITIVE .. pathPowerStr
+				pathPowerStr = CC.BUILD_POSITIVE .. pathPowerStr
 			elseif (pathPower < 0 and not displayStat.lowerIsBetter) or (pathPower > 0 and displayStat.lowerIsBetter) then
-				pathPowerStr = colorCodes.NEGATIVE .. pathPowerStr
+				pathPowerStr = CC.BUILD_NEGATIVE .. pathPowerStr
 			end
 
 			t_insert(report, {
@@ -875,9 +876,9 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 			nodePowerStr = formatNumSep(nodePowerStr)
 
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
+				nodePowerStr = CC.BUILD_POSITIVE .. nodePowerStr
 			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
-				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
+				nodePowerStr = CC.BUILD_NEGATIVE .. nodePowerStr
 			end
 
 			t_insert(report, {
@@ -1112,17 +1113,11 @@ function TreeTabClass:FindTimelessJewel()
 	end
 
 	local function getNodeWeights()
-		local nodeWeights = {
-			[1] = controls.nodeSliderValue.label:sub(3):lower(),
-			[2] = controls.nodeSlider2Value.label:sub(3):lower(),
-			[3] = controls.nodeSlider3Value.label:sub(3):lower()
+		return {
+			[1] = round(controls.nodeSlider.val * 10, 3),
+			[2] = round(controls.nodeSlider2.val * 10, 3),
+			[3] = controls.nodeSlider3.val == 1 and "required" or round(controls.nodeSlider3.val * 500, 3),
 		}
-		for i, nodeWeight in ipairs(nodeWeights) do
-			if tonumber(nodeWeight) ~= nil then
-				nodeWeights[i] = round(tonumber(nodeWeight), 3)
-			end
-		end
-		return nodeWeights
 	end
 
 	local searchListTbl = { }
@@ -1214,7 +1209,7 @@ function TreeTabClass:FindTimelessJewel()
 		self.build.modFlag = true
 	end
 
-	controls.devotionSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 820, 25, 0, 16, "^7Devotion modifiers:")
+	controls.devotionSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 820, 25, 0, 16, "Devotion modifiers:")
 	controls.devotionSelectLabel.shown = timelessData.jewelType.id == 4
 	controls.devotionSelect1 = new("DropDownControl", { "TOP", controls.devotionSelectLabel, "BOTTOM" }, 0, 8, 200, 18, devotionVariants, function(index, value)
 		timelessData.devotionVariant1 = index
@@ -1225,7 +1220,7 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.devotionSelect2.selIndex = timelessData.devotionVariant2
 
-	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 25, 0, 16, "^7Jewel Type:")
+	controls.jewelSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 25, 0, 16, "Jewel Type:")
 	controls.jewelSelect = new("DropDownControl", { "LEFT", controls.jewelSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelTypes, function(index, value)
 		timelessData.jewelType = value
 		controls.devotionSelectLabel.shown = value.id == 4
@@ -1239,14 +1234,14 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.jewelSelect.selIndex = timelessData.jewelType.id
 
-	controls.conquerorSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 50, 0, 16, "^7Conqueror:")
+	controls.conquerorSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 50, 0, 16, "Conqueror:")
 	controls.conquerorSelect = new("DropDownControl", { "LEFT", controls.conquerorSelectLabel, "RIGHT" }, 10, 0, 200, 18, conquerorTypes[timelessData.jewelType.id], function(index, value)
 		timelessData.conquerorType = value
 		self.build.modFlag = true
 	end)
 	controls.conquerorSelect.selIndex = timelessData.conquerorType.id
 
-	controls.socketSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 75, 0, 16, "^7Jewel Socket:")
+	controls.socketSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 75, 0, 16, "Jewel Socket:")
 	controls.socketSelect = new("TimelessJewelSocketControl", { "LEFT", controls.socketSelectLabel, "RIGHT" }, 10, 0, 200, 18, jewelSockets, function(index, value)
 		timelessData.jewelSocket = value
 		self.build.modFlag = true
@@ -1259,7 +1254,7 @@ function TreeTabClass:FindTimelessJewel()
 		end
 	end
 
-	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 100, 0, 16, "^7Filter Nodes:")
+	controls.socketFilterLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 100, 0, 16, "Filter Nodes:")
 	controls.socketFilter = new("CheckBoxControl", { "LEFT", controls.socketFilterLabel, "RIGHT" }, 10, 0, 18, nil, function(value)
 		timelessData.socketFilter = value
 		self.build.modFlag = true
@@ -1269,21 +1264,21 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.socketFilter.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7Enable this option to exclude nodes that you do not have allocated on your active passive skill tree.")
-		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Enable this option to exclude nodes that you do not have allocated on your active passive skill tree.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
 	end
 	controls.socketFilter.state = timelessData.socketFilter
 
 	local socketFilterAdditionalDistanceMAX = 10
-	controls.socketFilterAdditionalDistanceLabel = new("LabelControl", { "LEFT", controls.socketFilter, "RIGHT" }, 10, 0, 0, 16, "^7Node Distance:")
+	controls.socketFilterAdditionalDistanceLabel = new("LabelControl", { "LEFT", controls.socketFilter, "RIGHT" }, 10, 0, 0, 16, "Node Distance:")
 	controls.socketFilterAdditionalDistance = new("SliderControl", { "LEFT", controls.socketFilterAdditionalDistanceLabel, "RIGHT" }, 10, 0, 66, 18, function(value)
 		timelessData.socketFilterDistance = m_floor(value * socketFilterAdditionalDistanceMAX + 0.01)
-		controls.socketFilterAdditionalDistanceValue.label = s_format("^7%d", timelessData.socketFilterDistance)
+		controls.socketFilterAdditionalDistanceValue.label = c_format("{TEXT_PRIMARY}%d", timelessData.socketFilterDistance)
 	end, { ["SHIFT"] = 1, ["CTRL"] = 1 / (socketFilterAdditionalDistanceMAX * 2), ["DEFAULT"] = 1 / socketFilterAdditionalDistanceMAX })
 	controls.socketFilterAdditionalDistance.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if not controls.socketFilterAdditionalDistance.dragging then
-			tooltip:AddLine(16, "^7This controls the maximum amount of points that need to be spent to grab a node before its filtered out")
+			tooltip:AddLine(16, CC.TEXT_PRIMARY.."This controls the maximum amount of points that need to be spent to grab a node before its filtered out")
 		end
 	end
 	controls.socketFilterAdditionalDistance.tooltip.realDraw = controls.socketFilterAdditionalDistance.tooltip.Draw
@@ -1295,7 +1290,7 @@ function TreeTabClass:FindTimelessJewel()
 		end
 		return controls.socketFilterAdditionalDistance.tooltip.realDraw(self, x, y, width, height, viewPort)
 	end
-	controls.socketFilterAdditionalDistanceValue = new("LabelControl", { "LEFT", controls.socketFilterAdditionalDistance, "RIGHT" }, 5, 0, 0, 16, "^70")
+	controls.socketFilterAdditionalDistanceValue = new("LabelControl", { "LEFT", controls.socketFilterAdditionalDistance, "RIGHT" }, 5, 0, 0, 16, "0")
 	controls.socketFilterAdditionalDistance:SetVal((timelessData.socketFilterDistance or 0) / socketFilterAdditionalDistanceMAX)
 	controls.socketFilterAdditionalDistanceLabel.shown = timelessData.socketFilter
 	controls.socketFilterAdditionalDistance.shown = timelessData.socketFilter
@@ -1305,23 +1300,23 @@ function TreeTabClass:FindTimelessJewel()
 	local scrollWheelSpeedTbl2 = { ["SHIFT"] = 0.2, ["CTRL"] = 0.002, ["DEFAULT"] = 0.02 }
 
 	local nodeSliderStatLabel = "None"
-	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 125, 0, 16, "^7Primary Node Weight:")
+	controls.nodeSliderLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 125, 0, 16, "Primary Node Weight:")
 	controls.nodeSlider = new("SliderControl", { "LEFT", controls.nodeSliderLabel, "RIGHT" }, 10, 0, 200, 16, function(value)
-		controls.nodeSliderValue.label = s_format("^7%.3f", value * 10)
+		controls.nodeSliderValue.label = s_format("%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl)
 	controls.nodeSlider.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if not controls.nodeSlider.dragging then
 			if nodeSliderStatLabel == "None" then
-				tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the first stat listed.")
+				tooltip:AddLine(16, CC.TEXT_PRIMARY.."For nodes with multiple stats this slider controls the weight of the first stat listed.")
 			else
-				tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
-				tooltip:AddLine(16, "^7        " .. nodeSliderStatLabel)
+				tooltip:AddLine(16, CC.TEXT_PRIMARY.."This slider controls the weight of the following stat:")
+				tooltip:AddLine(16, CC.TEXT_PRIMARY.."        " .. nodeSliderStatLabel)
 			end
 		end
 	end
-	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "^71.000")
+	controls.nodeSliderValue = new("LabelControl", { "LEFT", controls.nodeSlider, "RIGHT" }, 5, 0, 0, 16, "1.000")
 	controls.nodeSlider.tooltip.realDraw = controls.nodeSlider.tooltip.Draw
 	controls.nodeSlider.tooltip.Draw = function(self, x, y, width, height, viewPort)
 		local sliderOffsetX = round(184 * (1 - controls.nodeSlider.val))
@@ -1334,23 +1329,23 @@ function TreeTabClass:FindTimelessJewel()
 	controls.nodeSlider:SetVal(0.1)
 
 	local nodeSlider2StatLabel = "None"
-	controls.nodeSlider2Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 150, 0, 16, "^7Secondary Node Weight:")
+	controls.nodeSlider2Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 150, 0, 16, "Secondary Node Weight:")
 	controls.nodeSlider2 = new("SliderControl", { "LEFT", controls.nodeSlider2Label, "RIGHT" }, 10, 0, 200, 16, function(value)
-		controls.nodeSlider2Value.label = s_format("^7%.3f", value * 10)
+		controls.nodeSlider2Value.label = s_format("%.3f", value * 10)
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl)
 	controls.nodeSlider2.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if not controls.nodeSlider2.dragging then
 			if nodeSlider2StatLabel == "None" then
-				tooltip:AddLine(16, "^7For nodes with multiple stats this slider controls the weight of the second stat listed.")
+				tooltip:AddLine(16, CC.TEXT_PRIMARY.."For nodes with multiple stats this slider controls the weight of the second stat listed.")
 			else
-				tooltip:AddLine(16, "^7This slider controls the weight of the following stat:")
-				tooltip:AddLine(16, "^7        " .. nodeSlider2StatLabel)
+				tooltip:AddLine(16, CC.TEXT_PRIMARY.."This slider controls the weight of the following stat:")
+				tooltip:AddLine(16, CC.TEXT_PRIMARY.."        " .. nodeSlider2StatLabel)
 			end
 		end
 	end
-	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "^71.000")
+	controls.nodeSlider2Value = new("LabelControl", { "LEFT", controls.nodeSlider2, "RIGHT" }, 5, 0, 0, 16, "1.000")
 	controls.nodeSlider2.tooltip.realDraw = controls.nodeSlider2.tooltip.Draw
 	controls.nodeSlider2.tooltip.Draw = function(self, x, y, width, height, viewPort)
 		local sliderOffsetX = round(184 * (1 - controls.nodeSlider2.val))
@@ -1362,22 +1357,22 @@ function TreeTabClass:FindTimelessJewel()
 	end
 	controls.nodeSlider2:SetVal(0.1)
 
-	controls.nodeSlider3Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 175, 0, 16, "^7Minimum Node Weight:")
+	controls.nodeSlider3Label = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 175, 0, 16, "Minimum Node Weight:")
 	controls.nodeSlider3 = new("SliderControl", { "LEFT", controls.nodeSlider3Label, "RIGHT" }, 10, 0, 200, 16, function(value)
 		if value == 1 then
-			controls.nodeSlider3Value.label = "^7Required"
+			controls.nodeSlider3Value.label = "Required"
 		else
-			controls.nodeSlider3Value.label = s_format("^7%.f", value * 500)
+			controls.nodeSlider3Value.label = s_format("%.f", value * 500)
 		end
 		parseSearchList(1, controls.searchListFallback and controls.searchListFallback.shown or false)
 	end, scrollWheelSpeedTbl2)
 	controls.nodeSlider3.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
 		if not controls.nodeSlider3.dragging then
-			tooltip:AddLine(16, "^7Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
+			tooltip:AddLine(16, CC.TEXT_PRIMARY.."Seeds that do not meet the minimum weight threshold for a desired node are excluded from the search results.")
 		end
 	end
-	controls.nodeSlider3Value = new("LabelControl", { "LEFT", controls.nodeSlider3, "RIGHT" }, 5, 0, 0, 16, "^70")
+	controls.nodeSlider3Value = new("LabelControl", { "LEFT", controls.nodeSlider3, "RIGHT" }, 5, 0, 0, 16, "0")
 	controls.nodeSlider3.tooltip.realDraw = controls.nodeSlider3.tooltip.Draw
 	controls.nodeSlider3.tooltip.Draw = function(self, x, y, width, height, viewPort)
 		local sliderOffsetX = round(184 * (1 - controls.nodeSlider3.val))
@@ -1392,31 +1387,31 @@ function TreeTabClass:FindTimelessJewel()
 	local function updateSliders(sliderData)
 		if sliderData[2] == "required" then
 			controls.nodeSlider.val = 1
-			controls.nodeSliderValue.label = s_format("^7%.3f", 10)
+			controls.nodeSliderValue.label = s_format("%.3f", 10)
 		else
 			controls.nodeSlider.val = m_min(m_max((tonumber(sliderData[2]) or 0) / 10, 0), 1)
-			controls.nodeSliderValue.label = s_format("^7%.3f", controls.nodeSlider.val * 10)
+			controls.nodeSliderValue.label = s_format("%.3f", controls.nodeSlider.val * 10)
 		end
 		if controls.nodeSlider2.enabled then
 			if sliderData[3] == "required" then
 				controls.nodeSlider2.val = 1
-				controls.nodeSlider2Value.label = s_format("^7%.3f", 10)
+				controls.nodeSlider2Value.label = s_format("%.3f", 10)
 			else
 				controls.nodeSlider2.val = m_min(m_max((tonumber(sliderData[3]) or 0) / 10, 0), 1)
-				controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
+				controls.nodeSlider2Value.label = s_format("%.3f", controls.nodeSlider2.val * 10)
 			end
 		end
 		if sliderData[4] == "required" then
 			controls.nodeSlider3.val = 1
-			controls.nodeSlider3Value.label = "^7Required"
+			controls.nodeSlider3Value.label = "Required"
 		else
 			controls.nodeSlider3.val = m_min(m_max((tonumber(sliderData[4]) or 0) / 500, 0), 1)
-			controls.nodeSlider3Value.label = s_format("^7%.f", controls.nodeSlider3.val * 500)
+			controls.nodeSlider3Value.label = s_format("%.f", controls.nodeSlider3.val * 500)
 		end
 	end
 
 	buildMods()
-	controls.nodeSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 200, 0, 16, "^7Search for Node:")
+	controls.nodeSelectLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 200, 0, 16, "Search for Node:")
 	controls.nodeSelect = new("DropDownControl", { "LEFT", controls.nodeSelectLabel, "RIGHT" }, 10, 0, 200, 18, modData, function(index, value)
 		nodeSliderStatLabel = "None"
 		nodeSlider2StatLabel = "None"
@@ -1441,12 +1436,12 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 			if statCount <= 1 then
-				controls.nodeSlider2Label.label = "^9Secondary Node Weight:"
+				controls.nodeSlider2Label.label = CC.TEXT_DISABLED.."Secondary Node Weight:"
 				controls.nodeSlider2.val = 0
-				controls.nodeSlider2Value.label = s_format("^9%.3f", 0)
+				controls.nodeSlider2Value.label = s_format("%s%.3f", CC.TEXT_DISABLED, 0)
 			else
-				controls.nodeSlider2Label.label = "^7Secondary Node Weight:"
-				controls.nodeSlider2Value.label = s_format("^7%.3f", controls.nodeSlider2.val * 10)
+				controls.nodeSlider2Label.label = "Secondary Node Weight:"
+				controls.nodeSlider2Value.label = s_format("%.3f", controls.nodeSlider2.val * 10)
 			end
 			controls.nodeSlider2.enabled = statCount > 1
 
@@ -1480,7 +1475,7 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:Clear()
 		if mode ~= "OUT" and value.descriptions then
 			for _, line in ipairs(value.descriptions) do
-				tooltip:AddLine(16, "^7" .. line)
+				tooltip:AddLine(16, CC.TEXT_PRIMARY..line)
 			end
 		end
 	end
@@ -1650,7 +1645,7 @@ function TreeTabClass:FindTimelessJewel()
 		updateSearchList(newList, true)
 	end
 
-	controls.fallbackWeightsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 225, 0, 16, "^7Fallback Weight Mode:")
+	controls.fallbackWeightsLabel = new("LabelControl", { "TOPRIGHT", nil, "TOPLEFT" }, 405, 225, 0, 16, "Fallback Weight Mode:")
 	local fallbackWeightsList = { }
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
@@ -1667,14 +1662,14 @@ function TreeTabClass:FindTimelessJewel()
 	controls.fallbackWeightsList.selIndex = timelessData.fallbackWeightMode.idx or 1
 	controls.fallbackWeightsButton = new("ButtonControl", { "LEFT", controls.fallbackWeightsList, "RIGHT" }, 5, 0, 66, 18, "Generate", function()
 		setupFallbackWeights()
-		controls.searchListFallbackButton.label = "^4Fallback Nodes"
+		controls.searchListFallbackButton.label = CC.WARNING.."Fallback Nodes"
 	end)
 	controls.fallbackWeightsButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7Click this button to generate new fallback node weights, replacing your old ones.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Click this button to generate new fallback node weights, replacing your old ones.")
 	end
 
-	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, "^7Desired Nodes", function()
+	controls.searchListButton = new("ButtonControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 250, 106, 20, CC.TEXT_PRIMARY.."Desired Nodes", function()
 		if controls.searchListFallback.shown then
 			controls.searchListFallback.shown = false
 			controls.searchListFallback.enabled = false
@@ -1684,24 +1679,24 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	controls.searchListButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7This contains a list of your desired nodes along with their primary, secondary, and minimum weights.")
-		tooltip:AddLine(16, "^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."This contains a list of your desired nodes along with their primary, secondary, and minimum weights.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
 	end
 	controls.searchListButton.locked = function() return controls.searchList.shown end
-	controls.searchListFallbackButton = new("ButtonControl", { "LEFT", controls.searchListButton, "RIGHT" }, 5, 0, 110, 20, "^7Fallback Nodes", function()
+	controls.searchListFallbackButton = new("ButtonControl", { "LEFT", controls.searchListButton, "RIGHT" }, 5, 0, 110, 20, CC.TEXT_PRIMARY.."Fallback Nodes", function()
 		controls.searchList.shown = false
 		controls.searchList.enabled = false
 		controls.searchListFallback.shown = true
 		controls.searchListFallback.enabled = true
-		controls.searchListFallbackButton.label = "^7Fallback Nodes"
+		controls.searchListFallbackButton.label = CC.TEXT_PRIMARY.."Fallback Nodes"
 	end)
 	controls.searchListFallbackButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7This contains a list of your fallback nodes along with their primary, secondary, and minimum weights.")
-		tooltip:AddLine(16, "^7This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
-		tooltip:AddLine(16, "^7Fallback node weights are only used when no matching entry exists in the desired nodes list, allowing you to override or disable specific automatic weights.")
-		tooltip:AddLine(16, "^7Fallback node weights typically contain automatically generated stat weights based on your current build.")
-		tooltip:AddLine(16, "^7Any manual changes made to your fallback nodes are lost when you click the generate button, as it completely replaces them.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."This contains a list of your fallback nodes along with their primary, secondary, and minimum weights.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."This list can be updated manually or by selecting the node you want to update via the search dropdown list and then moving the node weight sliders.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Fallback node weights are only used when no matching entry exists in the desired nodes list, allowing you to override or disable specific automatic weights.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Fallback node weights typically contain automatically generated stat weights based on your current build.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Any manual changes made to your fallback nodes are lost when you click the generate button, as it completely replaces them.")
 	end
 	controls.searchListFallbackButton.locked = function() return controls.searchListFallback.shown end
 	controls.searchList = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, 12, 275, 438, 200, timelessData.searchList, nil, "^%C\t\n", nil, function(value)
@@ -1721,7 +1716,7 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchListFallback.enabled = false
 	controls.searchListFallback:SetText(timelessData.searchListFallback and timelessData.searchListFallback or "")
 
-	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 250, 0, 16, "^7Search Results:")
+	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 250, 0, 16, "Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 275, 438, 200, self.build)
 
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
@@ -1813,11 +1808,11 @@ function TreeTabClass:FindTimelessJewel()
 	controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 	controls.searchTradeButton.tooltipFunc = function(tooltip, mode, index, value)
 		tooltip:Clear()
-		tooltip:AddLine(16, "^7Click to generate and copy a trade URL for searching for jewels in this list.")
-		tooltip:AddLine(16, "^7Paste the URL in a web browser to search.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Click to generate and copy a trade URL for searching for jewels in this list.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."Paste the URL in a web browser to search.")
 		tooltip:AddLine(16, "")
-		tooltip:AddLine(16, "^7You can click to select a row so that search begins from there.")
-		tooltip:AddLine(16, "^7After selecting a row You can also shift+click on another row to select a range of rows to search.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."You can click to select a row so that search begins from there.")
+		tooltip:AddLine(16, CC.TEXT_PRIMARY.."After selecting a row You can also shift+click on another row to select a range of rows to search.")
 	end
 
 	local width = 80

@@ -8,19 +8,20 @@ local t_remove = table.remove
 local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
+local CC = UI.CC
 
 itemLib = { }
 
 -- Info table for all types of item influence
 itemLib.influenceInfo = {
-	{ key="shaper", display="Shaper", color=colorCodes.SHAPER },
-	{ key="elder", display="Elder", color=colorCodes.ELDER },
-	{ key="adjudicator", display="Warlord", color=colorCodes.ADJUDICATOR },
-	{ key="basilisk", display="Hunter", color=colorCodes.BASILISK },
-	{ key="crusader", display="Crusader", color=colorCodes.CRUSADER },
-	{ key="eyrie", display="Redeemer", color=colorCodes.EYRIE },
-	{ key="cleansing", display="Searing Exarch", color=colorCodes.CLEANSING },
-	{ key="tangle", display="Eater of Worlds", color=colorCodes.TANGLE },
+	{ key = "shaper", display = "Shaper", color = CC.ITEM_SHAPER },
+	{ key = "elder", display = "Elder", color = CC.ITEM_ELDER },
+	{ key = "adjudicator", display = "Warlord", color = CC.ITEM_ADJUDICATOR },
+	{ key = "basilisk", display = "Hunter", color = CC.ITEM_BASILISK },
+	{ key = "crusader", display = "Crusader", color = CC.ITEM_CRUSADER },
+	{ key = "eyrie", display = "Redeemer", color = CC.ITEM_EYRIE },
+	{ key = "cleansing", display = "Searing Exarch", color = CC.ITEM_CLEANSING },
+	{ key = "tangle", display = "Eater of Worlds", color = CC.ITEM_TANGLE },
 }
 
 -- Apply a value scalar to the first n of any numbers present
@@ -143,12 +144,12 @@ function itemLib.formatModLine(modLine, dbMode)
 	end
 	local colorCode
 	if modLine.extra then
-		colorCode = colorCodes.UNSUPPORTED
+		colorCode = CC.ITEM_UNSUPPORTED
 		if launch.devModeAlt then
-			line = line .. "   ^1'" .. modLine.extra .. "'"
+			line = line..CC.SPECIAL.."   '"..modLine.extra.."'"
 		end
 	else
-		colorCode = (modLine.crafted and colorCodes.CRAFTED) or (modLine.scourge and colorCodes.SCOURGE) or (modLine.custom and colorCodes.CUSTOM) or (modLine.fractured and colorCodes.FRACTURED) or (modLine.crucible and colorCodes.CRUCIBLE) or colorCodes.MAGIC
+		colorCode = (modLine.crafted and CC.ITEM_CRAFTED) or (modLine.scourge and CC.ITEM_SCOURGE) or (modLine.custom and CC.ITEM_CUSTOM) or (modLine.fractured and CC.ITEM_FRACTURED) or (modLine.crucible and CC.ITEM_CRUCIBLE) or CC.ITEM_MOD
 	end
 	return colorCode..line
 end

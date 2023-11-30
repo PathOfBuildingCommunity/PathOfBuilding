@@ -8,6 +8,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
+local CC = UI.CC
 
 local buffModeDropList = {
 	{ label = "Unbuffed", buffMode = "UNBUFFED" },
@@ -33,7 +34,7 @@ local CalcsTabClass = newClass("CalcsTab", "UndoHandler", "ControlHost", "Contro
 	self.sectionList = { }
 
 	-- Special section for skill/mode selection
-	self:NewSection(3, "SkillSelect", 1, colorCodes.NORMAL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
+	self:NewSection(3, "SkillSelect", 1, CC.CALC_SECTION_BORDER_SKILL, {{ defaultCollapsed = false, label = "View Skill Details", data = {
 		{ label = "Socket Group", { controlName = "mainSocketGroup", 
 			control = new("DropDownControl", nil, 0, 0, 300, 16, nil, function(index, value) 
 				self.input.skill_number = index
@@ -155,7 +156,7 @@ function CalcsTabClass:Load(xml, dbFileName)
 		if type(node) == "table" then
 			if node.elem == "Input" then
 				if not node.attrib.name then
-					launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing name attribute", fileName)
+					launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Input' element missing name attribute", dbFileName)
 					return true
 				end
 				if node.attrib.number then
@@ -165,12 +166,12 @@ function CalcsTabClass:Load(xml, dbFileName)
 				elseif node.attrib.boolean then
 					self.input[node.attrib.name] = node.attrib.boolean == "true"
 				else
-					launch:ShowErrMsg("^1Error parsing '%s': 'Input' element missing number, string or boolean attribute", fileName)
+					launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Input' element missing number, string or boolean attribute", dbFileName)
 					return true
 				end
 			elseif node.elem == "Section" then
 				if not node.attrib.id then
-					launch:ShowErrMsg("^1Error parsing '%s': 'Section' element missing id attribute", fileName)
+					launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Section' element missing id attribute", dbFileName)
 					return true
 				end
 				for _, section in ipairs(self.sectionList) do

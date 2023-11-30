@@ -8,7 +8,7 @@ local ipairs = ipairs
 local t_insert = table.insert
 local m_max = math.max
 local m_floor = math.floor
-
+local CC = UI.CC
 
 local ItemDBClass = newClass("ItemDBControl", "ListControl", function(self, anchor, x, y, width, height, itemsTab, db, dbType)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", false)
@@ -242,7 +242,7 @@ function ItemDBClass:ListBuilder()
 			end
 			local now = GetTime()
 			if now - start > 50 then
-				self.defaultText = "^7Sorting... ("..m_floor(itemIndex/#list*100).."%)"
+				self.defaultText = CC.TEXT_PRIMARY.."Sorting... ("..m_floor(itemIndex/#list*100).."%)"
 				coroutine.yield()
 				start = now
 			end
@@ -273,7 +273,7 @@ function ItemDBClass:ListBuilder()
 	end)
 
 	self.list = list
-	self.defaultText = "^7No items found that match those filters."
+	self.defaultText = CC.TEXT_PRIMARY.."No items found that match those filters."
 end
 
 function ItemDBClass:Draw(viewPort)
@@ -296,7 +296,7 @@ function ItemDBClass:Draw(viewPort)
 		end
 	end
 	if self.db.loading then
-		self.defaultText = "^7Loading..."
+		self.defaultText = CC.TEXT_PRIMARY.."Loading..."
 	elseif not self.leaguesAndTypesLoaded then
 		self:LoadLeaguesAndTypes()
 	end
@@ -305,7 +305,7 @@ end
 
 function ItemDBClass:GetRowValue(column, index, item)
 	if column == 1 then
-		return colorCodes[item.rarity] .. item.name
+		return CC["ITEM_RARITY_"..item.rarity]..item.name
 	end
 end
 

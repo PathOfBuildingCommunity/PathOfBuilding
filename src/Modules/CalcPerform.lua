@@ -18,6 +18,8 @@ local s_format = string.format
 local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
+local CC = UI.CC
+local c_format = UI.colorFormat
 
 -- Merge an instance of a buff, taking the highest value of each modifier
 local function mergeBuff(src, destTable, destKey)
@@ -82,15 +84,15 @@ local function doActorLifeMana(actor)
 		if breakdown then
 			if inc ~= 0 or more ~= 1 or conv ~= 0 then
 				breakdown.Life = { }
-				breakdown.Life[1] = s_format("%g ^8(base)", base)
+				breakdown.Life[1] = c_format("%g {TEXT_SECONDARY}(base)", base)
 				if inc ~= 0 then
-					t_insert(breakdown.Life, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
+					t_insert(breakdown.Life, c_format("x %.2f {TEXT_SECONDARY}(increased/reduced)", 1 + inc/100))
 				end
 				if more ~= 1 then
-					t_insert(breakdown.Life, s_format("x %.2f ^8(more/less)", more))
+					t_insert(breakdown.Life, c_format("x %.2f {TEXT_SECONDARY}(more/less)", more))
 				end
 				if conv ~= 0 then
-					t_insert(breakdown.Life, s_format("x %.2f ^8(converted to Energy Shield)", 1 - conv/100))
+					t_insert(breakdown.Life, c_format("x %.2f {TEXT_SECONDARY}(converted to Energy Shield)", 1 - conv/100))
 				end
 				t_insert(breakdown.Life, s_format("= %g", output.Life))
 			end
@@ -104,15 +106,15 @@ local function doActorLifeMana(actor)
 	if breakdown then
 		if inc ~= 0 or more ~= 1 or manaConv ~= 0 then
 			breakdown.Mana = { }
-			breakdown.Mana[1] = s_format("%g ^8(base)", base)
+			breakdown.Mana[1] = c_format("%g {TEXT_SECONDARY}(base)", base)
 			if inc ~= 0 then
-				t_insert(breakdown.Mana, s_format("x %.2f ^8(increased/reduced)", 1 + inc/100))
+				t_insert(breakdown.Mana, c_format("x %.2f {TEXT_SECONDARY}(increased/reduced)", 1 + inc/100))
 			end
 			if more ~= 1 then
-				t_insert(breakdown.Mana, s_format("x %.2f ^8(more/less)", more))
+				t_insert(breakdown.Mana, c_format("x %.2f {TEXT_SECONDARY}(more/less)", more))
 			end
 			if manaConv ~= 0 then
-				t_insert(breakdown.Mana, s_format("x %.2f ^8(converted to Armour)", 1 - manaConv/100))
+				t_insert(breakdown.Mana, c_format("x %.2f {TEXT_SECONDARY}(converted to Armour)", 1 - manaConv/100))
 			end
 			t_insert(breakdown.Mana, s_format("= %g", output.Mana))
 		end
@@ -1577,18 +1579,18 @@ function calcs.perform(env, fullDPSSkipEHP)
 					out = m_max(out, req)
 					if breakdown then
 						local row = {
-							req = req > output[breakdownAttr] and colorCodes.NEGATIVE..req or req,
+							req = req > output[breakdownAttr] and CC.ERROR..req or req,
 							reqNum = req,
 							source = reqSource.source,
 						}
 						if reqSource.source == "Item" then
 							local item = reqSource.sourceItem
-							row.sourceName = colorCodes[item.rarity]..item.name
+							row.sourceName = CC["ITEM_RARITY_"..item.rarity]..item.name
 							row.sourceNameTooltip = function(tooltip)
 								env.build.itemsTab:AddItemTooltip(tooltip, item, reqSource.sourceSlot)
 							end
 						elseif reqSource.source == "Gem" then
-							row.sourceName = s_format("%s%s ^7%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.nameSpec, reqSource.sourceGem.level, reqSource.sourceGem.quality)
+							row.sourceName = c_format("%s%s {TEXT_PRIMARY}%d/%d", reqSource.sourceGem.color, reqSource.sourceGem.nameSpec, reqSource.sourceGem.level, reqSource.sourceGem.quality)
 						end
 						t_insert(breakdown["Req"..breakdownAttr].rowList, row)
 					end
@@ -1602,7 +1604,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 				output["Req"..breakdownAttr.."String"] = out
 				output["Req"..breakdownAttr] = out
 				if breakdown then
-					output["Req"..breakdownAttr.."String"] = out > (output[breakdownAttr] or 0) and colorCodes.NEGATIVE..out or out
+					output["Req"..breakdownAttr.."String"] = out > (output[breakdownAttr] or 0) and CC.ERROR..out or out
 				end
 			end
 		end

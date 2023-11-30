@@ -21,7 +21,7 @@ function RowListClass:BuildRows(filter)
 			return ]]..filter..[[
 		]])
 		if error then
-			main.controls.filterError.label = "^7"..error
+			main.controls.filterError.label = UI.CC.ERROR..error
 		end
 	end
 	for rowIndex, row in ipairs(main.curDatFile.rows) do
@@ -33,7 +33,7 @@ function RowListClass:BuildRows(filter)
 					t_insert(self.list, rowIndex)
 				end
 			else
-				main.controls.filterError.label = string.format("^7Row %d: %s", rowIndex, result)
+				main.controls.filterError.label = UI.colorFormat("{TEXT_PRIMARY}Row %d: %s", rowIndex, result)
 				return
 			end
 		else

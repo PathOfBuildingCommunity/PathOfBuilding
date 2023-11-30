@@ -3774,7 +3774,7 @@ skills["ExplosiveArrow"] = {
 	},
 	explosiveArrowFunc = function(activeSkill, output, globalOutput, globalBreakdown, env)
 		local t_insert = table.insert
-		local s_format = string.format
+		local c_format = UI.colorFormat
 
 		if activeSkill.skillPart ~= 1 and activeSkill.skillPart ~= 2 then
 			-- This doesn't apply to the "Arrow" skill part. That works like a normal skill.
@@ -3827,29 +3827,29 @@ skills["ExplosiveArrow"] = {
 
 		if globalBreakdown and globalOutput.MaxExplosiveArrowFuseCalculated then
 			globalBreakdown.MaxExplosiveArrowFuseCalculated = {}
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("%.2f ^8(attack speed)", globalOutput.Speed))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("%.2f {TEXT_SECONDARY}(attack speed)", globalOutput.Speed))
 			if output.HitChance < 100 then
-				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(hit chance)", output.HitChance / 100))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("x %.2f {TEXT_SECONDARY}(hit chance)", output.HitChance / 100))
 			end
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(action speed)", globalOutput.ActionSpeedMod))
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(projectiles)", barrageProjectiles or 1))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("x %.2f {TEXT_SECONDARY}(action speed)", globalOutput.ActionSpeedMod))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("x %.2f {TEXT_SECONDARY}(projectiles)", barrageProjectiles or 1))
 			if activeSkill.skillFlags.totem then
-				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", initialApplicationRate))
-				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %d ^8(active totems)", activeTotems))
-				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", fuseApplicationRate))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("= %.2f {TEXT_SECONDARY}(fuse rate)", initialApplicationRate))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("x %d {TEXT_SECONDARY}(active totems)", activeTotems))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("= %.2f {TEXT_SECONDARY}(fuse rate)", fuseApplicationRate))
 			else
-				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f ^8(fuse rate)", fuseApplicationRate))
+				t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("= %.2f {TEXT_SECONDARY}(fuse rate)", fuseApplicationRate))
 			end
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("x %.2f ^8(duration)", duration))
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("+ 1 ^8(initial hit)"))
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %.2f", (fuseApplicationRate * duration) + 1))
-			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, s_format("= %d ^8(rounded down, capped at max)", globalOutput.MaxExplosiveArrowFuseCalculated))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("x %.2f {TEXT_SECONDARY}(duration)", duration))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("+ 1 {TEXT_SECONDARY}(initial hit)"))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("= %.2f", (fuseApplicationRate * duration) + 1))
+			t_insert(globalBreakdown.MaxExplosiveArrowFuseCalculated, c_format("= %d {TEXT_SECONDARY}(rounded down, capped at max)", globalOutput.MaxExplosiveArrowFuseCalculated))
 
 			globalBreakdown.ExplosionsPerSecond = {}
-			t_insert(globalBreakdown.ExplosionsPerSecond, s_format("1 ^8(second)"))
-			t_insert(globalBreakdown.ExplosionsPerSecond, s_format(" / %d ^8(max fuses)", globalOutput.MaxExplosiveArrowFuseCalculated))
-			t_insert(globalBreakdown.ExplosionsPerSecond, s_format(" / %.2f ^8(fuse rate)", fuseApplicationRate))
-			t_insert(globalBreakdown.ExplosionsPerSecond, s_format("= %.2f ^8(explosions/s)", globalOutput.HitSpeed))
+			t_insert(globalBreakdown.ExplosionsPerSecond, c_format("1 {TEXT_SECONDARY}(second)"))
+			t_insert(globalBreakdown.ExplosionsPerSecond, c_format(" / %d {TEXT_SECONDARY}(max fuses)", globalOutput.MaxExplosiveArrowFuseCalculated))
+			t_insert(globalBreakdown.ExplosionsPerSecond, c_format(" / %.2f {TEXT_SECONDARY}(fuse rate)", fuseApplicationRate))
+			t_insert(globalBreakdown.ExplosionsPerSecond, c_format("= %.2f {TEXT_SECONDARY}(explosions/s)", globalOutput.HitSpeed))
 
 		end
 	end,
@@ -4123,7 +4123,7 @@ skills["ShrapnelTrap"] = {
 		local skillPart = activeSkill.skillPart
 		local skillModList = activeSkill.skillModList
 		local t_insert = table.insert
-		local s_format = string.format
+		local c_format = UI.colorFormat
 
 		local function hitChance(enemyRadius, areaDamageRadius, areaSpreadRadius) -- not to be confused with attack hit chance
 			local damagingAreaRadius = areaDamageRadius + enemyRadius - 1	-- radius where area damage can land to hit the enemy;
@@ -4140,10 +4140,10 @@ skills["ShrapnelTrap"] = {
 		if breakdown then
 			breakdown.OverlapChance = { }
 			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
-			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
-			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
-			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
-			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
+			t_insert(breakdown.OverlapChance, c_format("{TEXT_SECONDARY}= (area where wave can spawn to damage enemy) / (total area)"))
+			t_insert(breakdown.OverlapChance, c_format("{TEXT_SECONDARY}= ({TEXT_PRIMARY}secondary radius{TEXT_SECONDARY} + {TEXT_PRIMARY}enemy radius{TEXT_SECONDARY} - 1) ^ 2 / {TEXT_PRIMARY}radius{TEXT_SECONDARY} ^ 2"))
+			t_insert(breakdown.OverlapChance, c_format("{TEXT_SECONDARY}= ({TEXT_PRIMARY}%d{TEXT_SECONDARY} +{TEXT_PRIMARY} %d{TEXT_SECONDARY} - 1) ^ 2 /{TEXT_PRIMARY} %d{TEXT_SECONDARY} ^ 2", waveRadius, enemyRadius, fullRadius))
+			t_insert(breakdown.OverlapChance, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %.3f{TEXT_SECONDARY}%%", overlapChance * 100))
 		end
 		local dpsMultiplier = 1
 		if skillPart == 2 then
@@ -4151,16 +4151,16 @@ skills["ShrapnelTrap"] = {
 			if breakdown then
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, "^8= 1 + ^7small explosions^8 * ^7overlap chance^8")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= 1 +^7 %d^8 *^7 %.2f^8", smallExplosionsPerTrap, overlapChance))
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}= 1 + {TEXT_PRIMARY}small explosions{TEXT_SECONDARY} * {TEXT_PRIMARY}overlap chance{TEXT_SECONDARY}"))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}= 1 +{TEXT_PRIMARY} %d{TEXT_SECONDARY} *{TEXT_PRIMARY} %.2f{TEXT_SECONDARY}", smallExplosionsPerTrap, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %.3f", dpsMultiplier))
 			end
 		elseif skillPart == 3 then
 			dpsMultiplier = 1 + smallExplosionsPerTrap
 			if breakdown then
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8= 1 +^7 %d (small explosions)", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}= 1 +{TEXT_PRIMARY} %d (small explosions)", dpsMultiplier))
 			end
 		end
 		if dpsMultiplier ~= 1 then
@@ -4370,7 +4370,7 @@ skills["FlamethrowerTrap"] = {
 	preDamageFunc = function(activeSkill, output, breakdown)
 		-- Unknown stats provided by asking GGG
 		local t_insert = table.insert
-		local s_format = string.format
+		local c_format = UI.colorFormat
 
 		local duration = output.Duration
 		local cooldown = output.TrapCooldown
@@ -4389,9 +4389,9 @@ skills["FlamethrowerTrap"] = {
 		if breakdown then
 			breakdown.AverageActiveTraps = { }
 			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
-			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 (skill duration)", duration))
-			t_insert(breakdown.AverageActiveTraps, s_format("/ %.2f^8 (cooldown)", cooldown))
-			t_insert(breakdown.AverageActiveTraps, s_format("= %.2f traps", averageActiveTraps))
+			t_insert(breakdown.AverageActiveTraps, c_format("%.2f{TEXT_SECONDARY} (skill duration)", duration))
+			t_insert(breakdown.AverageActiveTraps, c_format("/ %.2f{TEXT_SECONDARY} (cooldown)", cooldown))
+			t_insert(breakdown.AverageActiveTraps, c_format("= %.2f traps", averageActiveTraps))
 		end
 	end,
 	statMap = {
@@ -8280,36 +8280,36 @@ skills["PhysCascadeTrap"] = {
 		if breakdown then
 			breakdown.OverlapChance = { }
 			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
-			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
-			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
-			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
-			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
+			t_insert(breakdown.OverlapChance, c_format("{TEXT_SECONDARY}= (area where wave can spawn to damage enemy) / (total area)"))
+			t_insert(breakdown.OverlapChance, c_format("{TEXT_SECONDARY}= ({TEXT_PRIMARY}secondary radius{TEXT_SECONDARY} + {TEXT_PRIMARY}enemy radius{TEXT_SECONDARY} - 1) ^ 2 / {TEXT_PRIMARY}radius{TEXT_SECONDARY} ^ 2"))
+			t_insert(breakdown.OverlapChance, c_format("{TEXT_SECONDARY}= ({TEXT_PRIMARY}%d{TEXT_SECONDARY} +{TEXT_PRIMARY} %d{TEXT_SECONDARY} - 1) ^ 2 /{TEXT_PRIMARY} %d{TEXT_SECONDARY} ^ 2", waveRadius, enemyRadius, fullRadius))
+			t_insert(breakdown.OverlapChance, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %.3f{TEXT_SECONDARY}%%", overlapChance * 100))
 			breakdown.WavePulseRate = { }
 			t_insert(breakdown.WavePulseRate, "Pulse rate:")
-			t_insert(breakdown.WavePulseRate, s_format("%.2f ^8(base pulse rate)", 1 / baseInterval))
-			t_insert(breakdown.WavePulseRate, s_format("* %.2f ^8(increased/reduced pulse frequency)", incFrequency))
-			t_insert(breakdown.WavePulseRate, s_format("* %.2f ^8(more/less pulse frequency)", moreFrequency))
-			t_insert(breakdown.WavePulseRate, s_format("= %.2f^8/s", wavePulseRate))
+			t_insert(breakdown.WavePulseRate, c_format("%.2f {TEXT_SECONDARY}(base pulse rate)", 1 / baseInterval))
+			t_insert(breakdown.WavePulseRate, c_format("* %.2f {TEXT_SECONDARY}(increased/reduced pulse frequency)", incFrequency))
+			t_insert(breakdown.WavePulseRate, c_format("* %.2f {TEXT_SECONDARY}(more/less pulse frequency)", moreFrequency))
+			t_insert(breakdown.WavePulseRate, c_format("= %.2f{TEXT_SECONDARY}/s", wavePulseRate))
 			breakdown.PulsesPerTrap = { }
 			t_insert(breakdown.PulsesPerTrap, "Pulses per trap:")
-			t_insert(breakdown.PulsesPerTrap, s_format("%.3f ^8(unrounded skill duration)", duration))
-			t_insert(breakdown.PulsesPerTrap, s_format("* %.2f ^8(pulse rate)", wavePulseRate))
-			t_insert(breakdown.PulsesPerTrap, s_format("= %.2f ^8pulses", duration * wavePulseRate))
-			t_insert(breakdown.PulsesPerTrap, "^8rounded down")
-			t_insert(breakdown.PulsesPerTrap, s_format("= %d ^8pulses", pulses))
-			t_insert(breakdown.PulsesPerTrap, s_format("^8Next breakpoint: %d%% increased Trap Throwing Speed / %d%% increased Duration",
+			t_insert(breakdown.PulsesPerTrap, c_format("%.3f {TEXT_SECONDARY}(unrounded skill duration)", duration))
+			t_insert(breakdown.PulsesPerTrap, c_format("* %.2f {TEXT_SECONDARY}(pulse rate)", wavePulseRate))
+			t_insert(breakdown.PulsesPerTrap, c_format("= %.2f {TEXT_SECONDARY}pulses", duration * wavePulseRate))
+			t_insert(breakdown.PulsesPerTrap, c_format("{TEXT_SECONDARY}rounded down"))
+			t_insert(breakdown.PulsesPerTrap, c_format("= %d {TEXT_SECONDARY}pulses", pulses))
+			t_insert(breakdown.PulsesPerTrap, c_format("{TEXT_SECONDARY}Next breakpoint: %d%% increased Trap Throwing Speed / %d%% increased Duration",
 					math.ceil(100 * ((pulses + 1) * baseInterval / (duration * moreFrequency) - incFrequency)),
 					math.ceil(100 * ((pulses + 1) / (wavePulseRate * skillData.duration * moreDuration) - incDuration))
 			))
-			t_insert(breakdown.PulsesPerTrap, s_format("^8Previous breakpoint: %d%% reduced Trap Throwing Speed / %d%% reduced Duration",
+			t_insert(breakdown.PulsesPerTrap, c_format("{TEXT_SECONDARY}Previous breakpoint: %d%% reduced Trap Throwing Speed / %d%% reduced Duration",
 					-math.ceil(100 * (pulses * baseInterval / (duration * moreFrequency) - incFrequency) - 1),
 					-math.ceil(100 * (pulses / (wavePulseRate * skillData.duration * moreDuration) - incDuration) - 1)
 			))
 			breakdown.AverageActiveTraps = { }
 			t_insert(breakdown.AverageActiveTraps, "Average active traps, not considering stored cooldown uses:")
-			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 /^7 %.2f^8 (pulses / pulse rate = effective skill duration)", pulses, wavePulseRate))
-			t_insert(breakdown.AverageActiveTraps, s_format("/ %.2f ^8(cooldown)", cooldown))
-			t_insert(breakdown.AverageActiveTraps, s_format("= %.2f traps", averageActiveTraps))
+			t_insert(breakdown.AverageActiveTraps, c_format("%.2f{TEXT_SECONDARY} /{TEXT_PRIMARY} %.2f{TEXT_SECONDARY} (pulses / pulse rate = effective skill duration)", pulses, wavePulseRate))
+			t_insert(breakdown.AverageActiveTraps, c_format("/ %.2f {TEXT_SECONDARY}(cooldown)", cooldown))
+			t_insert(breakdown.AverageActiveTraps, c_format("= %.2f traps", averageActiveTraps))
 		end
 		local maxWaves = skillModList:Sum("BASE", skillCfg, "MaximumWaves")
 		local dpsMultiplier = 1
@@ -8318,41 +8318,41 @@ skills["PhysCascadeTrap"] = {
 			if breakdown then
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7maximum waves^8 * ^7overlap chance^8")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.2f^8", maxWaves, overlapChance))
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}= {TEXT_PRIMARY}maximum waves{TEXT_SECONDARY} * {TEXT_PRIMARY}overlap chance{TEXT_SECONDARY}"))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %d{TEXT_SECONDARY} *{TEXT_PRIMARY} %.2f{TEXT_SECONDARY}", maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %.3f", dpsMultiplier))
 			end
 		elseif skillPart == 3 then
 			dpsMultiplier = maxWaves
 			if breakdown then
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d (maximum waves)", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %d (maximum waves)", dpsMultiplier))
 			end
 		elseif skillPart == 4 then
 			dpsMultiplier = averageActiveTraps
 			if breakdown then
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f (average active traps)", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %.2f (average active traps)", dpsMultiplier))
 			end
 		elseif skillPart == 5 then
 			dpsMultiplier = averageActiveTraps * maxWaves * overlapChance
 			if breakdown then
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves^8 * ^7overlap chance^8")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f^8 *^7 %d^8 *^7 %.2f", averageActiveTraps, maxWaves, overlapChance))
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}= {TEXT_PRIMARY}average active traps{TEXT_SECONDARY} * {TEXT_PRIMARY}maximum waves{TEXT_SECONDARY} * {TEXT_PRIMARY}overlap chance{TEXT_SECONDARY}"))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %.2f{TEXT_SECONDARY} *{TEXT_PRIMARY} %d{TEXT_SECONDARY} *{TEXT_PRIMARY} %.2f", averageActiveTraps, maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %.3f", dpsMultiplier))
 			end
 		elseif skillPart == 6 then
 			dpsMultiplier = averageActiveTraps * maxWaves
 			if breakdown then
 				breakdown.SkillDPSMultiplier = {}
 				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves")
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f^8 *^7 %d", averageActiveTraps, maxWaves))
-				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}= {TEXT_PRIMARY}average active traps{TEXT_SECONDARY} * {TEXT_PRIMARY}maximum waves"))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %.2f{TEXT_SECONDARY} *{TEXT_PRIMARY} %d", averageActiveTraps, maxWaves))
+				t_insert(breakdown.SkillDPSMultiplier, c_format("{TEXT_SECONDARY}={TEXT_PRIMARY} %.3f", dpsMultiplier))
 			end
 		end
 		if dpsMultiplier ~= 1 then

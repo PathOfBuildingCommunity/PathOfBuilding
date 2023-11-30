@@ -3,6 +3,7 @@
 -- Class: Search Host
 -- Search host
 --
+local CC = UI.CC
 
 local SearchHostClass = newClass("SearchHost", function(self, listAccessor, valueAccessor)
 	self.searchListAccessor = listAccessor
@@ -122,6 +123,6 @@ function SearchHostClass:ResetSearch()
 end
 
 function SearchHostClass:GetSearchTermPretty()
-	local color = self:IsSearchActive() and self.matchCount > 0 and "^xFFFFFF" or "^xFF0000"
+	local color = self:IsSearchActive() and self.matchCount > 0 and CC.CONTROL_TEXT or CC.ERROR
 	return color .. self.searchTerm
 end

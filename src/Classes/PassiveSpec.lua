@@ -12,6 +12,7 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local b_lshift = bit.lshift
+local CC = UI.CC
 
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, convert)
 	self.UndoHandler()
@@ -87,7 +88,7 @@ function PassiveSpecClass:Load(xml, dbFileName)
 			if node.elem == "URL" then
 				-- Legacy format
 				if type(node[1]) ~= "string" then
-					launch:ShowErrMsg("^1Error parsing '%s': 'URL' element missing content", dbFileName)
+					launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'URL' element missing content", dbFileName)
 					return true
 				end
 				url = node[1]
@@ -95,11 +96,11 @@ function PassiveSpecClass:Load(xml, dbFileName)
 				for _, child in ipairs(node) do
 					if child.elem == "Socket" then
 						if not child.attrib.nodeId then
-							launch:ShowErrMsg("^1Error parsing '%s': 'Socket' element missing 'nodeId' attribute", dbFileName)
+							launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Socket' element missing 'nodeId' attribute", dbFileName)
 							return true
 						end
 						if not child.attrib.itemId then
-							launch:ShowErrMsg("^1Error parsing '%s': 'Socket' element missing 'itemId' attribute", dbFileName)
+							launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Socket' element missing 'itemId' attribute", dbFileName)
 							return true
 						end
 						-- there are files which have been saved poorly and have empty jewel sockets saved as sockets with itemId zero.
@@ -116,11 +117,11 @@ function PassiveSpecClass:Load(xml, dbFileName)
 	if xml.attrib.nodes then
 		-- New format
 		if not xml.attrib.classId then
-			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'classId' attribute", dbFileName)
+			launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Spec' element missing 'classId' attribute", dbFileName)
 			return true
 		end
 		if not xml.attrib.ascendClassId then
-			launch:ShowErrMsg("^1Error parsing '%s': 'Spec' element missing 'ascendClassId' attribute", dbFileName)
+			launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Spec' element missing 'ascendClassId' attribute", dbFileName)
 			return true
 		end
 		local hashList = { }
@@ -138,7 +139,7 @@ function PassiveSpecClass:Load(xml, dbFileName)
 				if node.elem == "Overrides" then
 					for _, child in ipairs(node) do
 						if not child.attrib.nodeId then
-							launch:ShowErrMsg("^1Error parsing '%s': 'Override' element missing 'nodeId' attribute", dbFileName)
+							launch:ShowErrMsg(CC.ERROR.."Error parsing '%s': 'Override' element missing 'nodeId' attribute", dbFileName)
 							return true
 						end
 						
@@ -1643,7 +1644,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 			return ({[0] = 0, 1, 1, 2, 3, 4, 4, 5, 6, 7, 7,  8,  9, 10, 10, 11})[srcOidx]
 		else
 			-- there is no known case where this should happen...
-			launch:ShowErrMsg("^1Error: unexpected cluster jewel node counts %d -> %d", srcNodesPerOrbit, destNodesPerOrbit)
+			launch:ShowErrMsg(CC.ERROR.."Error: unexpected cluster jewel node counts %d -> %d", srcNodesPerOrbit, destNodesPerOrbit)
 			-- ...but if a future patch adds one, this should end up only a little krangled, close enough for initial skill data imports:
 			return m_floor(srcOidx * destNodesPerOrbit / srcNodesPerOrbit)
 		end

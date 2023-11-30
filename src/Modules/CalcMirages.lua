@@ -18,6 +18,7 @@ local s_format = string.format
 local m_huge = math.huge
 local bor = bit.bor
 local band = bit.band
+local c_format = UI.colorFormat
 
 local function calculateMirage(env, config)
 	local mirageSkill = nil
@@ -233,16 +234,16 @@ function calcs.mirages(env)
 
 					if breakdown then
 						BreakdownSkillTriggerRate = {
-							s_format("%.2f ^8(effective trigger rate of trigger)", EffectiveSourceRate),
-							s_format("/ %.2f ^8(simulated impact of linked spells)", m_max(EffectiveSourceRate / SkillTriggerRate, 1)),
-							s_format("= %.2f ^8per second", SkillTriggerRate),
+							c_format("%.2f {TEXT_SECONDARY}(effective trigger rate of trigger)", EffectiveSourceRate),
+							c_format("/ %.2f {TEXT_SECONDARY}(simulated impact of linked spells)", m_max(EffectiveSourceRate / SkillTriggerRate, 1)),
+							c_format("= %.2f {TEXT_SECONDARY}per second", SkillTriggerRate),
 							"",
-							s_format("^8(Calculation Resolution: %.2f)", simBreakdown.simRes),
+							c_format("{TEXT_SECONDARY}(Calculation Resolution: %.2f)", simBreakdown.simRes),
 						}
 
 						local skillName = "Tawhoa's Chosen"
 
-						BreakdownSkillTriggerRate[1] = s_format("%.2f ^8(%s triggers per second)", EffectiveSourceRate, skillName)
+						BreakdownSkillTriggerRate[1] = c_format("%.2f {TEXT_SECONDARY}(%s triggers per second)", EffectiveSourceRate, skillName)
 
 						if simBreakdown.extraSimInfo then
 							t_insert(BreakdownSkillTriggerRate, "")
@@ -282,35 +283,35 @@ function calcs.mirages(env)
 					newEnv.player.breakdown.EffectiveSourceRate = BreakdownEffectiveSourceRate
 					if triggeredCD then
 						newEnv.player.breakdown.TriggerRateCap = {
-							s_format("%.2f ^8(base cooldown of triggered skill)", triggeredCD),
-							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
-							s_format("= %.2f ^8(final cooldown of triggered skill)", triggeredCD / icdrSkill),
+							c_format("%.2f {TEXT_SECONDARY}(base cooldown of triggered skill)", triggeredCD),
+							c_format("/ %.2f {TEXT_SECONDARY}(increased/reduced cooldown recovery)", icdrSkill),
+							c_format("= %.2f {TEXT_SECONDARY}(final cooldown of triggered skill)", triggeredCD / icdrSkill),
 							"",
-							s_format("%.2f ^8(Tawhoa's Chosen base cooldown)", triggerCD),
-							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
-							s_format("= %.2f ^8(effective trigger cooldown)", effectiveTriggerCD),
+							c_format("%.2f {TEXT_SECONDARY}(Tawhoa's Chosen base cooldown)", triggerCD),
+							c_format("/ %.2f {TEXT_SECONDARY}(increased/reduced cooldown recovery)", icdrSkill),
+							c_format("= %.2f {TEXT_SECONDARY}(effective trigger cooldown)", effectiveTriggerCD),
 							"",
-							s_format("%.2f ^8(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
+							c_format("%.2f {TEXT_SECONDARY}(biggest of trigger cooldown and triggered skill cooldown)", modActionCooldown),
 							"",
-							s_format("%.2f ^8(adjusted for server tick rate)", rateCapAdjusted),
+							c_format("%.2f {TEXT_SECONDARY}(adjusted for server tick rate)", rateCapAdjusted),
 							"",
 							"Trigger rate:",
 							s_format("1 / %.3f", rateCapAdjusted),
-							s_format("= %.2f ^8per second", triggerRateCap),
+							c_format("= %.2f {TEXT_SECONDARY}per second", triggerRateCap),
 						}
 					else
 						newEnv.player.breakdown.TriggerRateCap = {
 							"Triggered skill has no base cooldown",
 							"",
-							s_format("%.2f ^8(Tawhoa's Chosen base cooldown)", triggerCD),
-							s_format("/ %.2f ^8(increased/reduced cooldown recovery)", icdrSkill),
-							s_format("= %.2f ^8(effective trigger cooldown)", effectiveTriggerCD),
+							c_format("%.2f {TEXT_SECONDARY}(Tawhoa's Chosen base cooldown)", triggerCD),
+							c_format("/ %.2f {TEXT_SECONDARY}(increased/reduced cooldown recovery)", icdrSkill),
+							c_format("= %.2f {TEXT_SECONDARY}(effective trigger cooldown)", effectiveTriggerCD),
 							"",
-							s_format("%.3f ^8(adjusted for server tick rate)", rateCapAdjusted),
+							c_format("%.3f {TEXT_SECONDARY}(adjusted for server tick rate)", rateCapAdjusted),
 							"",
 							"Trigger rate:",
 							s_format("1 / %.2f", rateCapAdjusted),
-							s_format("= %.2f ^8per second", triggerRateCap),
+							c_format("= %.2f {TEXT_SECONDARY}per second", triggerRateCap),
 						}
 					end
 
