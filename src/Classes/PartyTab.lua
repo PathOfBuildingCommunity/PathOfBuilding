@@ -117,7 +117,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			return
 		end
 
-		self.importCodeDetail = colorCodes.NEGATIVE.."Invalid input"
+		self.importCodeDetail = CC.ERROR.."Invalid input"
 		local urlText = buf:gsub("^[%s?]+", ""):gsub("[%s?]+$", "") -- Quick Trim
 		if urlText:match("youtube%.com/redirect%?") or urlText:match("google%.com/url%?") then
 			local nested_url = urlText:gsub(".*[?&]q=([^&]+).*", "%1")
@@ -128,7 +128,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			if urlText:match(buildSites.websiteList[j].matchURL) then
 				self.controls.importCodeIn.text = urlText
 				self.importCodeValid = true
-				self.importCodeDetail = colorCodes.POSITIVE.."URL is valid ("..buildSites.websiteList[j].label..")"
+				self.importCodeDetail = CC.OK.."URL is valid ("..buildSites.websiteList[j].label..")"
 				self.importCodeSite = j
 				if buf ~= urlText then
 					self.controls.importCodeIn:SetText(urlText, false)
@@ -145,7 +145,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			Copy(xmlText)
 		end
 		self.importCodeValid = true
-		self.importCodeDetail = colorCodes.POSITIVE.."Code is valid"
+		self.importCodeDetail = CC.OK.."Code is valid"
 		self.importCodeXML = xmlText
 	end
 	
@@ -285,7 +285,7 @@ local PartyTabClass = newClass("PartyTab", "ControlHost", "Control", function(se
 			buildSites.DownloadBuild(self.controls.importCodeIn.buf, selectedWebsite, function(isSuccess, data)
 				self.importCodeFetching = false
 				if not isSuccess then
-					self.importCodeDetail = colorCodes.NEGATIVE..data
+					self.importCodeDetail = CC.ERROR..data
 					self.importCodeValid = false
 				else
 					importCodeHandle(data)

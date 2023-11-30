@@ -3206,7 +3206,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 			tooltip:AddLine(16, c_format("{ITEM_TEXT}Limited to: {TEXT_PRIMARY}", item.limit))
 		end
 		if item.classRestriction then
-			tooltip:AddLine(16, c_format("{ITEM_TEXT}Requires Class "..(self.build.spec.curClassName == item.classRestriction and "{POSITIVE}" or "{NEGATIVE}")..item.classRestriction))
+			tooltip:AddLine(16, c_format("{ITEM_TEXT}Requires Class "..(self.build.spec.curClassName == item.classRestriction and "{BUILD_POSITIVE}" or "{BUILD_NEGATIVE}")..item.classRestriction))
 		end
 		if item.jewelRadiusLabel then
 			tooltip:AddLine(16, c_format("{ITEM_TEXT}Radius: {TEXT_PRIMARY}"..item.jewelRadiusLabel))

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Theme name="Classic colorblind">
+    <colors>
+        <option name="BUILD_POSITIVE" value="1A85FF"/>
+        <option name="BUILD_NEGATIVE" value="D41159"/>
+        <option name="TREE_HIGHLIGHT_RING" value="FFFFFF"/>
+    </colors>
+</Theme>

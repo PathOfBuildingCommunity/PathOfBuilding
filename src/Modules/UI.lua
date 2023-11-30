@@ -182,13 +182,6 @@ CC.CONTROL_HIGHLIGHT = "^x00FF00"
 CC.TREE_HIGHLIGHT_RING = "^xFF0000"
 CC.RANGE_HIGHLIGHT = "^xx80FF8054"
 
-defaultColorCodes = copyTable(CC)
-function updateColorCode(code, color)
- 	if CC[code] then
-		CC[code] = color:gsub("^0", "^")
-	end
-end
-
 --- Mapping from gem color integer to color key
 --- @type table<string>
 local skillColorMap = { "ITEM_GEM_RED", "ITEM_GEM_GREEN", "ITEM_GEM_BLUE", "ITEM_GEM_WHITE" }

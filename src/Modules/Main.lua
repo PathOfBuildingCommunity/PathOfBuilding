@@ -90,8 +90,6 @@ function main:Init()
 	self.buildSortMode = "NAME"
 	self.connectionProtocol = 0
 	self.nodePowerTheme = "RED/BLUE"
-	self.colorPositive = defaultColorCodes.BUILD_POSITIVE
-	self.colorNegative = defaultColorCodes.BUILD_NEGATIVE
 	self.showThousandsSeparators = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
@@ -553,14 +551,6 @@ function main:LoadSettings(ignoreBuild)
 					self.themeId = node.attrib.themeId
 					UI.setTheme(self.themeId)
 				end
-				if node.attrib.colorPositive then
-					updateColorCode("POSITIVE", node.attrib.colorPositive)
-					self.colorPositive = node.attrib.colorPositive
-				end
-				if node.attrib.colorNegative then
-					updateColorCode("NEGATIVE", node.attrib.colorNegative)
-					self.colorNegative = node.attrib.colorNegative
-				end
 				-- In order to preserve users' settings through renaming/merging this variable, we have this if statement to use the first found setting
 				-- Once the user has closed PoB once, they will be using the new `showThousandsSeparator` variable name, so after some time, this statement may be removed
 				if node.attrib.showThousandsCalcs then
@@ -697,8 +687,6 @@ function main:SaveSettings()
 		buildPath = (self.buildPath ~= self.defaultBuildPath and self.buildPath or nil),
 		nodePowerTheme = self.nodePowerTheme,
 		themeId = self.themeId,
-		colorPositive = self.colorPositive,
-		colorNegative = self.colorNegative,
 		showThousandsSeparators = tostring(self.showThousandsSeparators),
 		thousandsSeparator = self.thousandsSeparator,
 		decimalSeparator = self.decimalSeparator,
@@ -802,30 +790,6 @@ function main:OpenOptionsPopup()
 	controls.theme:SelByValue(self.themeId, "id")
 
 	nextRow()
-	controls.colorPositive = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, tostring(self.colorPositive:gsub('^(^)', '0')), nil, nil, 8, function(buf)
-		local match = string.match(buf, "0x%x+")
-		if match and #match == 8 then
-			updateColorCode("POSITIVE", buf)
-			self.colorPositive = buf
-		end
-	end)
-	controls.colorPositiveLabel = new("LabelControl", { "RIGHT", controls.colorPositive, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "Hex colour for positive values:")
-	controls.colorPositive.tooltipText = "Overrides the default hex colour for positive values in breakdowns. \nExpected format is 0x000000. " ..
-		"The default value is " .. tostring(defaultColorCodes.BUILD_POSITIVE:gsub('^(^)', '0')) .. ".\nIf updating while inside a build, please re-load the build after saving."
-
-	nextRow()
-	controls.colorNegative = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, tostring(self.colorNegative:gsub('^(^)', '0')), nil, nil, 8, function(buf)
-		local match = string.match(buf, "0x%x+")
-		if match and #match == 8 then
-			updateColorCode("NEGATIVE", buf)
-			self.colorNegative = buf
-		end
-	end)
-	controls.colorNegativeLabel = new("LabelControl", { "RIGHT", controls.colorNegative, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "Hex colour for negative values:")
-	controls.colorNegative.tooltipText = "Overrides the default hex colour for negative values in breakdowns. \nExpected format is 0x000000. " ..
-		"The default value is " .. tostring(defaultColorCodes.BUILD_NEGATIVE:gsub('^(^)', '0')) .. ".\nIf updating while inside a build, please re-load the build after saving."
-
-	nextRow()
 	controls.betaTest = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
 	end)
@@ -911,8 +875,6 @@ function main:OpenOptionsPopup()
 	controls.titlebarName.state = self.showTitlebarName
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialThemeId = self.themeId
-	local initialColorPositive = self.colorPositive
-	local initialColorNegative = self.colorNegative
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
 	local initialThousandsSeparator = self.thousandsSeparator
@@ -962,10 +924,6 @@ function main:OpenOptionsPopup()
 	controls.cancel = new("ButtonControl", nil, 45, currentY, 80, 20, "Cancel", function()
 		self.nodePowerTheme = initialNodePowerTheme
 		self.themeId = initialThemeId
-		self.colorPositive = initialColorPositive
-		updateColorCode("POSITIVE", self.colorPositive)
-		self.colorNegative = initialColorNegative
-		updateColorCode("NEGATIVE", self.colorNegative)
 		self.showThousandsSeparators = initialThousandsSeparatorDisplay
 		self.thousandsSeparator = initialThousandsSeparator
 		self.decimalSeparator = initialDecimalSeparator
