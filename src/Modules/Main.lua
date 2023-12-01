@@ -1082,15 +1082,15 @@ function main:OpenAboutPopup(helpSectionIndex)
 							local indentLines = self:WrapString(indent, textSize, popupWidth - 190)
 							if #indentLines > 1 then
 								for i, indentLine in ipairs(indentLines) do
-									t_insert(helpList, { height = textSize, (i == 1 and outdent or " "), "^7"..indentLine })
+									t_insert(helpList, { height = textSize, (i == 1 and outdent or " "), (dev and "^x8888FF" or "^7")..indentLine })
 								end
 							else
-								t_insert(helpList, { height = textSize, "^7"..outdent, "^7"..indent })
+								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..outdent, (dev and "^x8888FF" or "^7")..indent })
 							end
 						else
 							local Lines = self:WrapString(line, textSize, popupWidth - 135)
 							for i, line2 in ipairs(Lines) do
-								t_insert(helpList, { height = textSize, "^7"..(i > 1 and "    " or "")..line2 })
+								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..(i > 1 and "    " or "")..line2 })
 							end
 						end
 					end
