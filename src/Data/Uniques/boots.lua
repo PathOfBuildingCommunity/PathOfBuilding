@@ -412,6 +412,8 @@ Requires Level 22, 42 Int
 ]],[[
 Replica Bones of Ullr
 Silk Slippers
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 22, 42 Int
@@ -419,8 +421,10 @@ Requires Level 22, 42 Int
 +20 to maximum Life
 +20 to maximum Mana
 (5-15)% increased Movement Speed
-Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Unique Enemy
-Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Unique Enemy
+{variant:1}Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Unique Enemy
+{variant:2}Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Rare or Unique Enemy
+{variant:1}Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Unique Enemy
+{variant:2}Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Rare or Unique Enemy
 ]],[[
 Doryani's Delusion
 Sorcerer Boots
