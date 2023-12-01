@@ -9926,7 +9926,7 @@ c["Skills Chain +1 times"]={{[1]={flags=0,keywordFlags=0,name="ChainCountMax",ty
 c["Skills Chain +2 times"]={{[1]={flags=0,keywordFlags=0,name="ChainCountMax",type="BASE",value=2}},nil}
 c["Skills Chain an additional time while at maximum Frenzy Charges"]={{[1]={[1]={stat="FrenzyCharges",thresholdStat="FrenzyChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="ChainCountMax",type="BASE",value=1}},nil}
 c["Skills Cost +3 Rage"]={{[1]={flags=0,keywordFlags=0,name="RageCostBase",type="BASE",value=3}},nil}
-c["Skills Cost Life instead of 30% of Mana Cost"]={{[1]={flags=0,keywordFlags=0,name="HybridManaAndLifeCost_Life",type="BASE",value=30},[2]={flags=0,keywordFlags=0,name="HybridManaAndLifeCost_Mana",type="BASE",value=70}},nil}
+c["Skills Cost Life instead of 30% of Mana Cost"]={{[1]={flags=0,keywordFlags=0,name="HybridManaAndLifeCost_Life",type="BASE",value=30}},nil}
 c["Skills Cost Life instead of Mana"]={{[1]={flags=0,keywordFlags=0,name="CostLifeInsteadOfMana",type="FLAG",value=true}},nil}
 c["Skills Cost no Mana during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="ManaCost",type="MORE",value=-100}},nil}
 c["Skills Fire 3 additional Projectiles for 4 seconds after"]={{[1]={flags=0,keywordFlags=0,name="ProjectileCount",type="BASE",value=3}},"   after "}

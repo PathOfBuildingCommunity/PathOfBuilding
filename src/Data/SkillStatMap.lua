@@ -159,6 +159,9 @@ return {
 ["base_skill_cost_life_instead_of_mana"] = {
 	flag("CostLifeInsteadOfMana"),
 },
+["base_skill_cost_life_instead_of_mana_%"] = {
+	mod("HybridManaAndLifeCost_Life", "BASE", nil),
+},
 ["base_active_skill_totem_level"] = {
 	skill("totemLevel", nil),
 },
