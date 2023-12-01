@@ -4105,6 +4105,7 @@ local specialModList = {
 	["your spells have culling strike"] = { mod("CullPercent", "MAX", 10, nil, ModFlag.Spell) },
 	["bow attacks have culling strike"] = { mod("CullPercent", "MAX", 10, nil, bor(ModFlag.Attack, ModFlag.Bow)) },
 	["culling strike against burning enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Burning" }) },
+	["culling strike against frozen enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Frozen" }) },
 	["culling strike against marked enemy"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Marked" }) },
 	["nearby allies have culling strike"] = { mod("ExtraAura", "LIST", {onlyAllies = true, mod = mod("CullPercent", "MAX", 10) }) },
 	-- Intimidate

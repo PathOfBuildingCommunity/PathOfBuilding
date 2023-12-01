@@ -807,6 +807,8 @@ Gain a Frenzy Charge if an Attack Ignites an Enemy
 ]],[[
 Replica Oro's Sacrifice
 Infernal Sword
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
@@ -814,11 +816,12 @@ Implicits: 1
 No Physical Damage
 Adds (385-440) to (490-545) Cold Damage
 (10-15)% increased Attack Speed
-1% of Damage against Frozen Enemies Leeched as Life
+{variant:1}1% of Damage against Frozen Enemies Leeched as Life
 20% chance to Freeze
 10% increased Physical Damage taken
 10% increased Cold Damage taken
 Gain an Endurance Charge if an Attack Freezes an Enemy
+{variant:2}Culling Strike against Frozen Enemies
 ]],[[
 Echoforge
 Infernal Sword
