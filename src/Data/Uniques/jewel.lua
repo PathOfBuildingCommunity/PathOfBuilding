@@ -17,7 +17,7 @@ Variant: Current
 Source: Vendor Recipe
 Limited to: 1
 {variant:1}+1 to maximum number of Golems
-{variant:1,2}+1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
++1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 ]],[[
 Apex Mode
 Cobalt Jewel
