@@ -76,14 +76,16 @@ Implicits: 1
 ]],[[
 Ashes of the Stars
 Onyx Amulet
+Variant: Pre 3.23.0
+Variant: Current
 Source: Drops from unique{The Eater of Worlds}
 Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
-(5-10)% increased Experience Gain of Gems
-(10-20)% increased Reservation Efficiency of Skills
-+1 to Level of all Skill Gems
-+(20-30)% to Quality of all Skill Gems
+{variant:1,2}(5-10)% increased Experience Gain of Gems
+{variant:1}(10-20)% increased Reservation Efficiency of Skills
+{variant:1,2}+1 to Level of all Skill Gems
+{variant:1,2}+(20-30)% to Quality of all Skill Gems
 ]],[[
 Astramentis
 Onyx Amulet
