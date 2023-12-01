@@ -1320,7 +1320,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 		local flaskBuffsNonPlayer = {}
 		local flaskBuffsPerBaseNonPlayer = {}
 
-		local function calcFlaskMods(item, baseName, buffModList, modList)
+		local function calcFlaskMods(item, baseName, buffModList, modList, onlyMinion)
 			local flaskEffectInc = effectInc + item.flaskData.effectInc
 			local flaskEffectIncNonPlayer = effectIncNonPlayer + item.flaskData.effectInc
 			if item.rarity == "MAGIC" and not (item.base.flask.life or item.base.flask.mana) then
@@ -1334,7 +1334,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 			-- I have no idea how to determine which buff is applied by a given flask,
 			-- so utility flasks are grouped by base, unique flasks are grouped by name, and magic flasks by their modifiers
 			if buffModList[1] then
-				if not onlyRecovery then
+				if not onlyMinion then
 					local srcList = new("ModList")
 					srcList:ScaleAddList(buffModList, effectMod)
 					mergeBuff(srcList, flaskBuffs, baseName)
@@ -1393,7 +1393,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 					calcFlaskMods(item, "ManaFlask", calcFlaskRecovery("Mana", item), {})
 				end
 				if checkNonRecoveryFlasksForMinions then
-					calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
+					calcFlaskMods(item, item.baseName, item.buffModList, item.modList, true)
 				end
 			else
 				calcFlaskMods(item, item.baseName, item.buffModList, item.modList)
