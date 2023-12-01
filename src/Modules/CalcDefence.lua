@@ -355,7 +355,7 @@ function calcs.defence(env, actor)
 	end
 	
 	for _, elem in ipairs(resistTypeList) do
-		local min, max, total, totemTotal, totemMax
+		local min, max, total, dotTotal, totemTotal, totemMax
 		min = data.misc.ResistFloor
 		max = modDB:Override(nil, elem.."ResistMax") or m_min(data.misc.MaxResistCap, modDB:Sum("BASE", nil, elem.."ResistMax", isElemental[elem] and "ElementalResistMax"))
 		total = modDB:Override(nil, elem.."Resist")
@@ -363,7 +363,10 @@ function calcs.defence(env, actor)
 		totemTotal = modDB:Override(nil, "Totem"..elem.."Resist")
 		if not total then
 			local base = modDB:Sum("BASE", nil, elem.."Resist", isElemental[elem] and "ElementalResist")
-			total = base * m_max(calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist"), 0)
+			local inc = m_max(calcLib.mod(modDB, nil, elem.."Resist", isElemental[elem] and "ElementalResist"), 0)
+			total = base * inc
+			local dotBase = modDB:Sum("BASE", { flags = ModFlag.Dot, keywordFlags = 0 }, elem.."Resist", isElemental[elem] and "ElementalResist")
+			dotTotal = dotBase * inc
 		end
 		if not totemTotal then
 			local base = modDB:Sum("BASE", nil, "Totem"..elem.."Resist", isElemental[elem] and "TotemElementalResist")
@@ -372,12 +375,14 @@ function calcs.defence(env, actor)
 		
 		-- Fractional resistances are truncated
 		total = m_modf(total)
+		dotTotal = dotTotal and m_modf(dotTotal) or total
 		totemTotal = m_modf(totemTotal)
 		min = m_modf(min)
 		max = m_modf(max)
 		totemMax = m_modf(totemMax)
 		
 		local final = m_max(m_min(total, max), min)
+		local dotFinal = m_max(m_min(dotTotal, max), min)
 		local totemFinal = m_max(m_min(totemTotal, totemMax), min)
 
 		output[elem.."Resist"] = final
@@ -385,6 +390,7 @@ function calcs.defence(env, actor)
 		output[elem.."ResistOverCap"] = m_max(0, total - max)
 		output[elem.."ResistOver75"] = m_max(0, final - 75)
 		output["Missing"..elem.."Resist"] = m_max(0, max - final)
+		output[elem.."ResistOverTime"] = dotFinal
 		output["Totem"..elem.."Resist"] = totemFinal
 		output["Totem"..elem.."ResistTotal"] = totemTotal
 		output["Totem"..elem.."ResistOverCap"] = m_max(0, totemTotal - totemMax)
@@ -1507,7 +1513,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				takenInc = takenInc + modDB:Sum("INC", nil, "ElementalDamageTakenOverTime")
 				takenMore = takenMore * modDB:More(nil, "ElementalDamageTakenOverTime")
 			end
-			local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."Resist"]
+			local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistOverTime"] or output[damageType.."Resist"]
 			local reduction = modDB:Flag(nil, "SelfIgnore".."Base"..damageType.."DamageReduction") and 0 or output["Base"..damageType.."DamageReduction"]
 			output[damageType.."TakenDotMult"] = m_max((1 - resist / 100) * (1 - reduction / 100) * (1 + takenInc / 100) * takenMore, 0)
 			if breakdown then
