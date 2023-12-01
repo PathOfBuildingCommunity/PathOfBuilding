@@ -65,20 +65,22 @@ Dusk Blade
 Variant: Pre 2.0.0
 Variant: Pre 2.6.0
 Variant: Pre 3.19.0
+Variant: Pre 3.23.0
 Variant: Current
 Implicits: 2
 {variant:1,2}18% increased Global Accuracy Rating
-{variant:3,4}40% increased Global Accuracy Rating
+{variant:3,4,5}40% increased Global Accuracy Rating
 +10 to Intelligence
 {variant:1}100% increased Physical Damage
 {variant:2,3}150% increased Physical Damage
-{variant:4}Adds 1 to 75 Lightning Damage
+{variant:4,5}Adds 1 to 75 Lightning Damage
 50% increased Global Critical Strike Chance
 (40-50)% increased maximum Energy Shield
 {variant:1,2,3}10% reduced maximum Life
-{variant:4}25% reduced maximum Life
+{variant:4,5}25% reduced maximum Life
 {variant:1,2,3}(0.6-1)% of Physical Attack Damage Leeched as Mana
 {variant:4}Attacks with this Weapon have Added Maximum Lightning Damage equal to 20% of your Maximum Energy Shield
+{variant:5}Attacks with this Weapon have Added Maximum Lightning Damage equal to 20% of player Maximum Energy Shield
 ]],[[
 The Goddess Scorned
 Elegant Sword
