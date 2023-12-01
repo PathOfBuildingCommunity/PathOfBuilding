@@ -2937,7 +2937,7 @@ local skills, mod, flag, skill = ...
 			name = "Single Projectile",
 		},
 		{
-			name = "Combined Average Secondary Projectiles",
+			name = "Combined Average Projectiles",
 		},
 	},
 	preDamageFunc = function(activeSkill, output)
