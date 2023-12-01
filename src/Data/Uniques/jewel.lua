@@ -12,10 +12,12 @@ Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius
 ]],[[
 The Anima Stone
 Prismatic Jewel
+Variant: Pre 3.23.0
+Variant: Current
 Source: Vendor Recipe
 Limited to: 1
-+1 to maximum number of Golems
-+1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
+{variant:1}+1 to maximum number of Golems
+{variant:1,2}+1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 ]],[[
 Apex Mode
 Cobalt Jewel
