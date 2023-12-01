@@ -361,6 +361,7 @@ local modNameList = {
 	["effect of curses on you"] = "CurseEffectOnSelf",
 	["effect of curses on them"] = "CurseEffectOnSelf",
 	["effect of exposure on you"] = "ExposureEffectOnSelf",
+	["effect of withered on you"] = "WitherEffectOnSelf",
 	["life recovery rate"] = "LifeRecoveryRate",
 	["mana recovery rate"] = "ManaRecoveryRate",
 	["energy shield recovery rate"] = "EnergyShieldRecoveryRate",
