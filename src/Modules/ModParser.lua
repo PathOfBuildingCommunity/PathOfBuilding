@@ -4538,7 +4538,6 @@ local specialModList = {
 	} end,
     ["skills cost life instead of (%d+)%% of mana cost"] = function(num) return {
         mod("HybridManaAndLifeCost_Life", "BASE", num),
-        mod("HybridManaAndLifeCost_Mana", "BASE", 100 - num),
     } end,
 	["(%d+)%% increased cost of arc and crackling lance"] = function(num) return {
 		mod("Cost", "INC", num, { type = "SkillName", skillNameList = { "Arc", "Crackling Lance" } }),
