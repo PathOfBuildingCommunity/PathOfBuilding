@@ -120,6 +120,21 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			}
 		end
 	end
+	
+	if self.alternate_ascendancies then
+		local alternate_ascendancies_class = { 
+			["name"]= "alternate_ascendancies",
+			["classes"]= self.alternate_ascendancies
+		}
+		for ascendClassId, ascendClass in pairs(self.alternate_ascendancies) do
+			self.ascendNameMap[ascendClass.id] = {
+				classId = "alternate_ascendancies",
+				class = alternate_ascendancies_class,
+				ascendClassId = ascendClassId,
+				ascendClass = ascendClass
+			}
+		end
+	end
 
 	self.skillsPerOrbit = self.constants.skillsPerOrbit or legacySkillsPerOrbit
 	self.orbitRadii = self.constants.orbitRadii or legacyOrbitRadii
