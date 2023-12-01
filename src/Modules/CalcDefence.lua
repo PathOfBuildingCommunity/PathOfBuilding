@@ -1404,14 +1404,7 @@ function calcs.buildDefenceEstimations(env, actor)
 					destTotal = destTotal + shiftTable[destType]
 				end
 			end
-			if destTotal > 100 then
-				local factor = 100 / destTotal
-				for destType, portion in pairs(shiftTable) do
-					shiftTable[destType] = portion * factor
-				end
-				destTotal = 100
-			end
-			shiftTable[damageType] = 100 - destTotal
+			shiftTable[damageType] = m_max(100 - destTotal, 0)
 			actor.damageShiftTable[damageType] = shiftTable
 			
 			--add same type damage
