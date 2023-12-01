@@ -25,6 +25,7 @@ colorCodes = {
 	CHAOS = "^xD02090",
 	POSITIVE = "^x33FF77",
 	NEGATIVE = "^xDD0022",
+	HIGHLIGHT ="^xFF0000",
 	OFFENCE = "^xE07030",
 	DEFENCE = "^x8080E0",
 	SCION = "^xFFF0F0",
@@ -70,10 +71,26 @@ colorCodes.RAGE = colorCodes.WARNING
 colorCodes.PHYS = colorCodes.NORMAL
 
 defaultColorCodes = copyTable(colorCodes)
+rgbColor = {1, 0, 0}
 function updateColorCode(code, color)
  	if colorCodes[code] then
 		colorCodes[code] = color:gsub("^0", "^")
+		if code == "HIGHLIGHT" then
+			rgbColor = hexToRGB(color)
+		end
 	end
+end
+
+function hexToRGB(hex)
+	hex = hex:gsub("0x", "") -- Remove "0x" prefix
+	hex = hex:gsub("#","") -- Remove '#' if present
+	if #hex ~= 6 then
+		return nil
+	end
+	local r = (tonumber(hex:sub(1, 2), 16)) / 255
+	local g = (tonumber(hex:sub(3, 4), 16)) / 255
+	local b = (tonumber(hex:sub(5, 6), 16)) / 255
+	return {r, g, b}
 end
 
 ModFlag = { }
