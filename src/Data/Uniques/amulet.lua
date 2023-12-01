@@ -861,13 +861,18 @@ Implicits: 1
 ]],[[
 Replica Dragonfang's Flight
 Onyx Amulet
+Variant: Pre 3.23.0
+Variant: Current
 LevelReq: 56
 Implicits: 1
 +(10–16) to all Attributes
-+(10–15)% to all Elemental Resistances
+{variant:1}+(10–15)% to all Elemental Resistances
+{variant:2}+(5–10)% to all Elemental Resistances
 +3 to Level of all Spark Gems
-(10–15)% increased Reservation Efficiency of Skills
-Items and Gems have (10–15)% reduced Attribute Requirements
+{variant:1}(10–15)% increased Reservation Efficiency of Skills
+{variant:2}(5–10)% increased Reservation Efficiency of Skills
+{variant:1}Items and Gems have (10–15)% reduced Attribute Requirements
+{variant:2}Items and Gems have (5–10)% reduced Attribute Requirements
 ]],[[
 Retaliation Charm
 Citrine Amulet
