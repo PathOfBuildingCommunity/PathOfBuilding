@@ -229,7 +229,6 @@ local function helmetFocusHandler(env)
 
 		-- Account for Trigger-related INC/MORE modifiers
 		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-		env.player.mainSkill.skillData.triggerSource = source
 		env.player.mainSkill.infoMessage = "Assuming perfect focus Re-Use"
 		env.player.mainSkill.infoTrigger = triggerName
 		env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
@@ -373,7 +372,6 @@ local function CWCHandler(env)
 			env.player.output.ChannelTimeToTrigger = source.skillData.triggerTime
 			env.player.mainSkill.skillData.triggered = true
 			env.player.mainSkill.skillFlags.globalTrigger = true
-			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
 			env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env)
 			env.player.mainSkill.infoMessage = triggerName .."'s Trigger: ".. source.activeEffect.grantedEffect.name
@@ -862,7 +860,6 @@ local function defaultTriggerHandler(env, config)
 			output.Speed = actor.mainSkill.skillData.triggerRate
 			addTriggerIncMoreMods(actor.mainSkill, source or actor.mainSkill)
 			if source and source ~= actor.mainSkill then
-				actor.mainSkill.skillData.triggerSource = source
 				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env)
 				actor.mainSkill.infoMessage = (config.customTriggerName or ((config.triggerName ~= source.activeEffect.grantedEffect.name and config.triggerName or triggeredName) .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: "))) .. source.activeEffect.grantedEffect.name
 			else
@@ -1327,11 +1324,11 @@ local function getUniqueItemTriggerName(skill)
 	end
 end
 
-function calcs.triggers(env)
-	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing then
-		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
-		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
-		local uniqueName = isTriggered(env.player.mainSkill) and getUniqueItemTriggerName(env.player.mainSkill)
+function calcs.triggers(env, actor)
+	if actor and not actor.mainSkill.skillFlags.disable and not actor.mainSkill.skillData.limitedProcessing then
+		local skillName = actor.mainSkill.activeEffect.grantedEffect.name
+		local triggerName = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name
+		local uniqueName = isTriggered(actor.mainSkill) and getUniqueItemTriggerName(actor.mainSkill)
 		local skillNameLower = skillName and skillName:lower()
 		local triggerNameLower = triggerName and triggerName:lower()
 		local awakenedTriggerNameLower = triggerNameLower and triggerNameLower:gsub("^awakened ", "")
@@ -1341,12 +1338,12 @@ function calcs.triggers(env)
         config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
         config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
 		if config then
-		    config.actor = config.actor or env.player
+		    config.actor = config.actor or actor
 			config.triggerName = config.triggerName or triggerName or uniqueName or skillName
 			local triggerHandler = config.customHandler or defaultTriggerHandler
 		    triggerHandler(env, config)
 		else
-			env.player.mainSkill.skillData.triggered = nil
+			actor.mainSkill.skillData.triggered = nil
         end
 	end
 end
