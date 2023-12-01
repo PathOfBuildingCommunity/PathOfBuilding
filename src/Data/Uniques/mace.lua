@@ -280,12 +280,15 @@ Socketed Gems are Supported by Level 15 Inspiration
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 32, 52 Str, 62 Int
 Implicits: 1
 22% increased Elemental Damage
-Socketed Gems are Supported by Level 1 Elemental Penetration
+{variant: 1}Socketed Gems are Supported by Level 1 Elemental Penetration
+{variant: 2}Socketed Gems are Supported by Level 15 Elemental Penetration
 Socketed Gems are Supported by Level 15 Immolate
 Socketed Gems are Supported by Level 15 Unbound Ailments
 Socketed Gems are Supported by Level 15 Ice Bite
