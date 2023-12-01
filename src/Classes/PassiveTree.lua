@@ -156,6 +156,11 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 		end
 		self.assets = temp.assets
 		self.skillSprites = self.sprites
+		if self.alternate_ascendancies then
+			self.assets["ClassesPrimalist"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesPrimalist.png"}
+			self.assets["ClassesWarlock"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesWarlock.png"}
+			self.assets["ClassesWarden"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesWarden.png"}
+		end
 	end
 	ConPrintf("Loading passive tree assets...")
 	for name, data in pairs(self.assets) do
