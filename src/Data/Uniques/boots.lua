@@ -690,15 +690,15 @@ Dragonscale Boots
 Variant: Pre 3.23.0
 Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
-{variant:1,2}Grants Level 20 Approaching Flames Skill
-{variant:1,2}(60-100)% increased Armour and Evasion
-{variant:1,2}30% increased Movement Speed
-{variant:1,2}Cannot be Chilled
-{variant:1,2}Cannot be Frozen
+Grants Level 20 Approaching Flames Skill
+(60-100)% increased Armour and Evasion
+30% increased Movement Speed
+Cannot be Chilled
+Cannot be Frozen
 {variant:1}Take 10000 Fire Damage per Second while Flame-Touched
 {variant:2}Take 6000 Fire Damage per Second while Flame-Touched
-{variant:1,2}Gain Adrenaline when you become Flame-Touched
-{variant:1,2}Lose Adrenaline when you cease to be Flame-Touched
+Gain Adrenaline when you become Flame-Touched
+Lose Adrenaline when you cease to be Flame-Touched
 ]],[[
 Lioneye's Paws
 Bronzescale Boots
