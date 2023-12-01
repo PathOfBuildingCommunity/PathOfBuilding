@@ -189,6 +189,15 @@ Implicits: 0
 Chaos Damage taken does not bypass Energy Shield
 {variant:1}-10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
+]],[[
+Utula's Hunger
+Majestic Plate
+League: Ancestor
+Requires Level 53, 145 Str
+(60-100)% increased Armour
+Recover (1-3)% of Life on Kill
+(30-40)% Increased Stun and Block Recovery
++(700-1000) to maximum Life if there are no Life Modifiers on other Equipped items
 ]],
 -- Body: Evasion
 [[

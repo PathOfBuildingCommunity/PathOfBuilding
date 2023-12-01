@@ -549,6 +549,19 @@ Implicits: 1
 {variant:2}Steal Power, Frenzy, and Endurance Charges on Hit
 Total Recovery per second from Life Leech is Doubled
 ]],[[
+Honoured Alliance
+Coral Ring
+League: Ancestor
+Source: No longer obtainable
+LevelReq: 49
+Implicits: 1
+{tags:life}+(20–30) to maximum Life
+10% chance to Trigger Summon Spirit of Akoya on Kill
+{tags:jewellery_attribute}+(10–20) to all Attributes
+{tags:mana}(30–50)% increased Mana Regeneration Rate
+{tags:life}(10–15)% of Damage taken Recouped as Life
+]],
+[[
 The Hungry Loop
 Unset Ring
 Requires Level 45
@@ -1115,6 +1128,15 @@ Implicits: 1
 Your Cold Damage cannot Freeze
 Immune to Chill
 {tags:jewellery_elemental}Adds 60 to 80 Cold Damage against Chilled Enemies
+]],[[
+Tawhanuku's Timing
+Moonstone Ring
+League: Ancestor
+{tags:jewellery_defense}+(15–25) to maximum Energy Shield
+{tags:caster}(30–40)% increased Spell Damage
+{tags:mana}+(60–80) to maximum Mana
+(5–10)% chance to Freeze, Shock and Ignite
+{tags:jewellery_defense,caster}Spells cause you to gain Energy Shield equal to their Upfront Cost every fifth time you Pay it
 ]],[[
 Thief's Torment
 Prismatic Ring

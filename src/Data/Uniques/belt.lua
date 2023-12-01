@@ -134,6 +134,23 @@ Implicits: 1
 1% increased Rarity of Items found per 15 Rampage Kills
 Rampage
 ]],[[
+Bound Fate
+Cloth Belt
+League: Ancestor
+LevelReq: 16
+Implicits: 1
+(15-25)% increased Stun and Block Recovery
+{tags:jewellery_attribute}+(20-30) to Dexterity
+{tags:jewellery_attribute}+(20-30) to Intelligence
+{tags:life}+(60-80) to Maximum Life
+Every 5 seconds, gain one of the following for 5 seconds:
+Your Hits are always Critical Strikes
+Hits against you always are Critical Strikes
+Attacks cannot Hit you
+Attacks against you always Hit
+Your Damage with Hits is Lucky
+Damage of Hits against you is Lucky
+]],[[
 Chains of Emancipation
 Chain Belt
 League: Heist
@@ -458,6 +475,16 @@ Implicits: 1
 {variant:2}{tags:jewellery_resistance}-5% to all maximum Resistances
 {tags:physical_damage}-(50-40) Physical Damage taken from Attack Hits
 {tags:jewellery_defense}40% increased Armour while not Ignited, Frozen or Shocked
+]],[[
+Kaom's Binding
+Heavy Belt
+League: Ancestor
+LevelReq: 56
+Implicits: 1
+{tags:jewellery_attribute}+(30–40) to Strength
+{tags:jewellery_defense}+(300–500) to Armour
+Take no Burning Damage if you've stopped taking Burning Damage Recently
+Nearby Enemies Convert 25% of their Physical Damage to Fire
 ]],[[
 Leash of Oblation
 Leather Belt

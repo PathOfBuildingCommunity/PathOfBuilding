@@ -96,6 +96,15 @@ Gain a Power Charge on Hit while Poisoned
 Necrotic Footprints
 50% chance for Spell Hits against you to inflict Poison
 ]],[[
+Kahuturoa's Certainty
+Ancient Greaves
+League: Ancestor
+Requires Level 46, 82 Str
+(100–150)% increased Armour
+5% reduced Movement Speed
+(100–200)% increased Stun and Block Recovery
+Unaffected by Damaging Ailments
+]],[[
 Kaom's Roots
 Titan Greaves
 Variant: Pre 2.6.0

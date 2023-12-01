@@ -1199,6 +1199,15 @@ Variant: Current
 ]],
 -- Helmet: Evasion/Energy Shield
 [[
+Akoya's Gaze
+Regicide Mask
+League: Ancestor
+Requires Level 52, 58 Dex, 58 Int
++100 Strength Requirement
+(20–25)% increased Warcry Speed
+Life Leech from Exerted Attacks is instant
+Non-Exerted Attacks deal no Damage
+]],[[
 Crown of the Pale King
 Regicide Mask
 League: Tempest

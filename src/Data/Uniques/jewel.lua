@@ -765,6 +765,14 @@ it and your Class' starting location
 {variant:8}+40 to Evasion Rating
 {variant:9}+40 to Accuracy Rating
 Corrupted
+]],[[
+Warrior's Tale
+Crimson Jewel
+League: Ancestor
+Source: No longer obtainable
+Limited to: 1
+Radius: Medium
+100% increased effect of Tattoos in Radius
 ]],
 -- Jewel: Abyss
 [[

@@ -448,6 +448,16 @@ Raised Zombies Cover Enemies in Ash on Hit
 Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
 Raised Zombies have Avatar of Fire
 ]],[[
+Maata's Teaching
+Karui Sceptre
+League: Ancestor
+Requires Level 56, 96 Str, 96 Int
+Implicits: 1
++(30-40) to Intelligence
+(25-50)% increased Critical Strike Chance
++(1-2) to Level of all Minion Skill Gems
+Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon
+]],[[
 Mon'tregul's Grasp
 Void Sceptre
 Variant: Pre 1.2.0
