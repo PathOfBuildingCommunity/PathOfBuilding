@@ -443,7 +443,10 @@ function calcs.defence(env, actor)
 	else
 		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
 	end
-	if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
+	if modDB:Flag(nil, "MaxSpellBlockIfNotBlockedRecently") then 
+		output.SpellBlockChance = output.SpellBlockChanceMax
+		output.SpellProjectileBlockChance = output.SpellBlockChanceMax
+	elseif modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
 		output.SpellBlockChance = output.BlockChance
 		output.SpellProjectileBlockChance = output.ProjectileBlockChance
 		output.SpellBlockChanceOverCap = output.BlockChanceOverCap
@@ -852,7 +855,10 @@ function calcs.defence(env, actor)
 	else
 		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
 	end
-	if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
+	if modDB:Flag(nil, "MaxSpellBlockIfNotBlockedRecently") then
+		output.SpellBlockChance = output.SpellBlockChanceMax
+		output.SpellProjectileBlockChance = output.SpellBlockChanceMax
+	elseif modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
 		output.SpellBlockChance = output.BlockChance
 		output.SpellProjectileBlockChance = output.ProjectileBlockChance
 	else
