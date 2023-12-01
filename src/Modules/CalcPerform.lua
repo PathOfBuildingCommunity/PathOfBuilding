@@ -2039,8 +2039,8 @@ function calcs.perform(env, fullDPSSkipEHP)
 									activeSkill.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 								end
 								local srcList = new("ModList")
-								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", "BuffEffectOnMinion", (env.minion == castingMinion) and "BuffEffectOnSelf" or nil)
-								local more = modStore:More(skillCfg, "BuffEffect", "BuffEffectOnMinion", (env.minion == castingMinion) and "BuffEffectOnSelf" or nil)
+								local inc = modStore:Sum("INC", skillCfg, "BuffEffect", (env.minion == castingMinion) and "BuffEffectOnSelf" or nil)
+								local more = modStore:More(skillCfg, "BuffEffect", (env.minion == castingMinion) and "BuffEffectOnSelf" or nil)
 								srcList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 								mergeBuff(srcList, minionBuffs, buff.name)
 								mergeBuff(buff.modList, minionBuffs, buff.name)
