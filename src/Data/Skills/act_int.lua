@@ -731,6 +731,7 @@ skills["BallLightning"] = {
 		skill("strikeInterval", 0.15),
 		skill("projectileSpeed", 40),
 		skill("duration", 2),
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {
@@ -1017,6 +1018,7 @@ skills["Ember"] = {
 		skill("radiusLabel", "Minimum Range:"),
 		skill("radiusSecondary", 22),
 		skill("radiusSecondaryLabel", "Maximum Range:"),
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {
@@ -7304,6 +7306,7 @@ skills["MagmaOrb"] = {
 	},
 	baseMods = {
 		skill("radius", 14),
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {

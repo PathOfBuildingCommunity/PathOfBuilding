@@ -250,6 +250,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("strikeInterval", 0.15)
 #baseMod skill("projectileSpeed", 40)
 #baseMod skill("duration", 2)
+#baseMod flag("CannotSplit")
 #mods
 
 #skill DarkRitual
@@ -316,6 +317,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Minimum Range:")
 #baseMod skill("radiusSecondary", 22)
 #baseMod skill("radiusSecondaryLabel", "Maximum Range:")
+#baseMod flag("CannotSplit")
 #mods
 
 #skill Blight
@@ -1697,6 +1699,7 @@ local skills, mod, flag, skill = ...
 #skill MagmaOrb
 #flags spell projectile area chaining
 #baseMod skill("radius", 14)
+#baseMod flag("CannotSplit")
 #mods
 
 #skill DamageOverTimeAura

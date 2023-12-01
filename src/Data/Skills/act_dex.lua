@@ -7083,6 +7083,9 @@ skills["SnipersMark"] = {
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
+		["projectiles_hitting_self_split_into_x"] = {
+			mod("SelfSplitCount", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -9329,14 +9332,21 @@ skills["ImpactingSteel"] = {
 		["impacting_steel_secondary_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
 		},
+		["projectile_number_to_split"] = {
+			mod("SplitCount", "BASE")
+		},
+		["modifiers_to_number_of_projectiles_instead_apply_to_splitting"] = {
+			flag("NoAdditionalProjectiles"),
+			flag("AdditionalProjectilesAddSplitsInstead")
+		},
+		["already_split_if_no_steel_shards"] = {
+			flag("CannotSplit", { type = "MultiplierThreshold", var = "SteelShardConsumed", threshold = 0, upper = true })
+		},
 	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
 		area = true,
-	},
-	baseMods = {
-		flag("NoAdditionalProjectiles"),
 	},
 	qualityStats = {
 		Default = {
