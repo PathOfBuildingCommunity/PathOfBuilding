@@ -556,6 +556,10 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 end
 
 function PassiveSpecClass:SelectSecondaryAscendClass(ascendClassId)
+	-- if Secondary Ascendencies do not exist on this tree version
+	if not self.tree.alternate_ascendancies then
+		return
+	end
 	if self.curSecondaryAscendClassId then
 		-- Deallocate the current ascendancy class's start node
 		local ascendClass = self.tree.alternate_ascendancies[self.curSecondaryAscendClassId]
@@ -572,7 +576,7 @@ function PassiveSpecClass:SelectSecondaryAscendClass(ascendClassId)
 	if ascendClassId == 0 then
 		self.curSecondaryAscendClass = nil
 		self.curSecondaryAscendClassName = "None"
-	else
+	elseif self.tree.alternate_ascendancies[self.curSecondaryAscendClassId] then
 		local ascendClass = self.tree.alternate_ascendancies[self.curSecondaryAscendClassId]
 		self.curSecondaryAscendClass = ascendClass
 		self.curSecondaryAscendClassName = ascendClass.name
