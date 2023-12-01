@@ -828,17 +828,21 @@ Socketed Gems are Supported by Level 25 Divine Blessing
 Ralakesh's Impatience
 Riveted Boots
 Variant: Pre 3.19.0
+Variant: Pre 3.23.0
 Variant: Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance
 +(15-25)% to Chaos Resistance
 {variant:1}20% increased Movement Speed
-{variant:2}30% increased Movement Speed
-{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
-Lose all Frenzy, Endurance, and Power Charges when you Move
+{variant:2,3}30% increased Movement Speed
+{variant:1,3}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
+{variant:1,2}Lose all Frenzy, Endurance, and Power Charges when you Move
 {variant:2}Minimum Endurance Charges equal to Maximum while stationary
 {variant:2}Minimum Frenzy Charges equal to Maximum while stationary
 {variant:2}Minimum Power Charges equal to Maximum while stationary
+{variant:3}Count as having maximum number of Endurance Charges
+{variant:3}Count as having maximum number of Frenzy Charges
+{variant:3}Count as having maximum number of Power Charges
 ]],[[
 Wake of Destruction
 Mesh Boots
