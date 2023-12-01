@@ -357,6 +357,8 @@ You have Phasing if you have Blocked Recently
 ]],[[
 Replica Mistwall
 Lacquered Buckler
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
@@ -364,7 +366,8 @@ Implicits: 1
 (120-150)% increased Evasion Rating
 10% increased Movement Speed
 +(10-20)% to Fire and Cold Resistances
-+75% Chance to Block Spell Damage if you have not Blocked Recently
+{variant:1}+75% Chance to Block Spell Damage if you have not Blocked Recently
+{variant:2}You are at Maximum Chance to Block Spell Damage if you have not Blocked Recently
 +(8-15)% chance to Avoid Physical Damage from Hits while Phasing
 You have Phasing if you have Blocked Recently
 ]],[[
