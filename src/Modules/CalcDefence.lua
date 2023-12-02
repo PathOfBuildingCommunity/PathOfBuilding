@@ -18,7 +18,7 @@ local s_format = string.format
 
 local tempTable1 = { }
 
-require('Modules/CalcHitPools')
+LoadModule("Modules/CalcHitPools")
 
 local isElemental = { Fire = true, Cold = true, Lightning = true }
 

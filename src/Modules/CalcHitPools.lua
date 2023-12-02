@@ -14,7 +14,7 @@ local onlyElemental = function(damageTable)
 
 		local key = dmgTypeList[idx]
 		idx = idx + 1
-		
+
 		if not damageTable[key] then return next() end
 		return key, damageTable[key]
 	end
@@ -332,7 +332,7 @@ function AlliesTakenBeforeYou.init(output, modDB, breakdown, actor)
 	output["VaalRejuvenationTotemAllyDamageMitigation"] =
 		output["VaalRejuvenationTotemAllyDamageMitigation"] +
 		output["TotemAllyDamageMitigation"]
-	
+
 	-- from Allied Energy Shield / Soul Link
 	if output["SoulLinkMitigation"] == 0 then
 		output["SoulLinkMitigation"] = modDB:Sum("BASE", nil, "TakenFromPartyMemberESBeforeYou")
@@ -343,7 +343,7 @@ function AlliesTakenBeforeYou.init(output, modDB, breakdown, actor)
 end
 
 function AlliesTakenBeforeYou:new(output)
-    local alliesTakenBeforeYou = {}
+	local alliesTakenBeforeYou = {}
 	for _, allyNames in pairs(namingPairs) do
 		if output[allyNames.poolName] and output[allyNames.poolName] > 0 then
 			t_insert(alliesTakenBeforeYou,{
@@ -353,7 +353,7 @@ function AlliesTakenBeforeYou:new(output)
 			})
 		end
 	end
-    self.__index = self
+	self.__index = self
 	return setmetatable(alliesTakenBeforeYou, self)
 end
 
@@ -363,7 +363,7 @@ function AlliesTakenBeforeYou:takeDamage(damageTable)
 	end
 end
 
-function AlliesTakenBeforeYou.adjustTotalHitPool(output, damageType) 
+function AlliesTakenBeforeYou.adjustTotalHitPool(output, damageType)
 	for i=1, #namingPairs do
 		local allyNames = namingPairs[#namingPairs-i+1] -- hit pools are adjusted in reverse order
 		if output[allyNames.poolName] and output[allyNames.poolName] > 0 then
@@ -391,11 +391,11 @@ end
 
 function Ward:takeDamage(damageTable)
 	local nonzeroDmg = false
-	for _,dmg in pairs(damageTable) do 
+	for _,dmg in pairs(damageTable) do
 		nonzeroDmg = nonzeroDmg or dmg ~= 0
 	end
 	genericDistributeSharedDamage(self, damageTable, self.percent, "remaining")
-	if nonzeroDmg and self.willBreak then 
+	if nonzeroDmg and self.willBreak then
 		self.remaining = 0
 	end
 end
