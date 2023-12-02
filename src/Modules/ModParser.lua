@@ -3668,6 +3668,11 @@ local specialModList = {
 	["summoned skeletons take ([%d%.]+)%% of their maximum life per second as fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) }, { type = "SkillName", skillName = "Summon Skeleton" }) } end,
 	["summoned skeletons have (%d+)%% chance to wither enemies for (%d+) seconds on hit"] = { mod("ExtraSkillMod", "LIST", { mod = flag("Condition:CanWither") }, { type = "SkillName", skillName = "Summon Skeleton" }) },
 	["summoned skeletons have (%d+)%% of physical damage converted to chaos damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToChaos", "BASE", num) }, { type = "SkillName", skillName = "Summon Skeleton" }) } end,
+	["summoned skeletons gain added chaos damage equal to (%d+)%% of maximum energy shield on your equipped shield"] = function(num) return {
+		mod("MinionModifier", "LIST", { mod = mod("ChaosMin", "BASE", 1, { type = "PercentStat", stat = "EnergyShieldOnWeapon 2", actor = "parent", percent = num }) }),
+		mod("MinionModifier", "LIST", { mod = mod("ChaosMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShieldOnWeapon 2", actor = "parent", percent = num }) }),
+
+	} end,
 	["minions convert (%d+)%% of physical damage to fire damage per red socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToFire", "BASE", num) }, { type = "Multiplier", var = "RedSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to cold damage per green socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToCold", "BASE", num) }, { type = "Multiplier", var = "GreenSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to lightning damage per blue socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", num) }, { type = "Multiplier", var = "BlueSocketIn{SlotName}" }) } end,

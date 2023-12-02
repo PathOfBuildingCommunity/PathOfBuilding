@@ -854,12 +854,14 @@ Source: Vendor Recipe
 Limited to: 1
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
+Variant: Pre 3.23.0
 Variant: Current
 Radius: Medium
-Minions have +(7-10)% to all Elemental Resistances
+{variant:1,2,3}Minions have +(7-10)% to all Elemental Resistances
 {variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
 {variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 {variant:3}With at least 40 Intelligence in Radius, can summon up to 15 Skeleton Mages with Summon Skeletons
+{variant:4}Summoned Skeletons gain Added Chaos Damage equal to (20-30)% of Maximum Energy Shield on your Equipped Shield
 ]],[[
 Fight for Survival
 Viridian Jewel
