@@ -4547,6 +4547,9 @@ local specialModList = {
 	["skills gain a base life cost equal to (%d+)%% of base mana cost"] = function(num) return { 
 		mod("ManaCostAsLifeCost", "BASE", num),
 	} end,
+	["skills gain a base energy shield cost equal to (%d+)%% of base mana cost"] = function(num) return { 
+		mod("ManaCostAsEnergyShieldCost", "BASE", num),
+	} end,
     ["skills cost life instead of (%d+)%% of mana cost"] = function(num) return {
         mod("HybridManaAndLifeCost_Life", "BASE", num),
     } end,
