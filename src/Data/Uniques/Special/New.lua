@@ -47,6 +47,14 @@ Implicits: 1
 {tags:attack,caster,speed}(6-6)% increased Attack and Cast Speed
 Maximum Quality is 200%
 Corrupted
+]],[[
+Gamblesprint
+Hydrascale Boots
+Requires Level 59, 56 Str, 56 Dex
++(34-34) to Dexterity
+(140-140)% increased Armour and Evasion
++(31-31)% to Lightning Resistance
+When Hit, gain a random Movement Speed modifier from 40% reduced to 100% increased until Hit again
 ]]
 
 -- Reworked
