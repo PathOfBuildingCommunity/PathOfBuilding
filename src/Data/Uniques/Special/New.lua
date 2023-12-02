@@ -29,6 +29,24 @@ Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
 (7-10)% increased Cooldown Recovery of Travel Skills per Frenzy Charge
 (20-25)% chance to lose a Frenzy Charge when you use a Travel Skill
 (20-25)% chance to lose an Endurance Charge when you gain Fortification
+]],[[
+Ixchel's Temptation
+Gold Ring
+Requires Level 20
+Implicits: 1
+(6-15)% increased Rarity of Items found
+{tags:jewellery_attribute}+(13-13) to all Attributes
+{tags:attack,chaos_damage}Adds (9-9) to (18-18) Chaos Damage to Attacks
+{tags:caster,jewellery_elemental}Adds (10-10) to (20-20) Fire Damage to Spells
+{tags:critical}+(17-17)% to Global Critical Strike Multiplier
+{tags:jewellery_defense}+(86-86) to Armour
+{tags:jewellery_defense}+(93-93) to Evasion Rating
+{tags:jewellery_defense}+(34-34) to maximum Energy Shield
+{tags:life}+(26-26) to maximum Life
+{tags:jewellery_resistance}+(10-10)% to all Elemental Resistances
+{tags:attack,caster,speed}(6-6)% increased Attack and Cast Speed
+Maximum Quality is 200%
+Corrupted
 ]]
 
 -- Reworked
