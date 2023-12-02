@@ -14,7 +14,6 @@ local m_floor = math.floor
 local band = bit.band
 local b_rshift = bit.rshift
 
-
 local PassiveTreeViewClass = newClass("PassiveTreeView", function(self)
 	self.ring = NewImageHandle()
 	self.ring:Load("Assets/ring.png", "CLAMP")
