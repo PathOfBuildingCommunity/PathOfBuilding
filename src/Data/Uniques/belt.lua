@@ -576,7 +576,6 @@ Implicits: 1
 ]],[[
 Mother's Embrace
 Heavy Belt
-League: Metamorph
 LevelReq: 40
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength

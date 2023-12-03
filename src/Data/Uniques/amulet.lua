@@ -492,7 +492,6 @@ Implicits: 1
 ]],[[
 Fury Valve
 Turquoise Amulet
-League: Metamorph
 Requires Level 40
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
