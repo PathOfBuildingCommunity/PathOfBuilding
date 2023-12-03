@@ -63,6 +63,16 @@ Implicits: 0
 (100-100)% increased Armour
 +(84-84) to maximum Mana
 -2 to Level of Socketed Skill Gems per Socketed Gem
+]],[[
+The Untouched Soul
+Gold Amulet
+Requires Level 48
+Implicits: 1
+(12-20)% increased Rarity of Items found
++40 to maximum Life for each Empty Red Socket on any Equipped Item
++225 to Accuracy Rating for each Empty Green Socket on any Equipped Item
++40 to maximum Mana for each Empty Blue Socket on any Equipped Item
++18 to all Elemental Resistances for each Empty White Socket on any Equipped Item
 ]]
 
 -- Reworked
