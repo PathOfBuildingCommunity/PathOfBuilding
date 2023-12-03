@@ -242,6 +242,9 @@ local skills, mod, flag, skill = ...
 
 #skill BladeVortex
 #flags spell area duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeVortexBlade") * activeSkill.skillData.hitFrequencyPerBlade)
+	end,
 	parts = {
 		{
 			name = "0 Blades",
@@ -260,9 +263,6 @@ local skills, mod, flag, skill = ...
 		["blade_vortex_ailment_damage_+%_per_blade_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "BladeVortexBlade" }),
 		},
-		["blade_vortex_critical_strike_chance_+%_per_blade"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "BladeVortexBlade" }),
-		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["blade_vortex_damage_+%_with_5_or_fewer_blades"] = {
@@ -272,26 +272,36 @@ local skills, mod, flag, skill = ...
 			mod("Multiplier:BladeVortexMaxStages", "BASE", nil),
 		},
 		["blade_vortex_hit_rate_+%_per_blade"] = {
+			skill("hitFrequencyPerBlade", nil),
+			div = 100,
 		},
 	},
 #baseMod skill("radius", 15)
+#baseMod skill("hitFrequency", 0.6)
 #baseMod mod("Multiplier:BladeVortexBlade", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod mod("Multiplier:BladeVortexBlade", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 })
-#baseMod skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("hitTimeOverride", 0.6 / (1+5*0.35), { type = "SkillPart", skillPart = 2 })
-#baseMod skill("hitTimeOverride", 0.6 / (1+10*0.35), { type = "SkillPart", skillPart = 3 })
 #baseMod flag("Condition:HaveBladeVortex")
 #mods
 
 #skill VaalBladeVortex
 #flags spell area duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillData.VaalBladeVortexBlade * (activeSkill.skillData.hitFrequencyPerBlade or 0))
+	end,
 	statMap = {
 		["base_blade_vortex_hit_rate_ms"] = {
-			skill("hitTimeOverride", nil),
+			skill("hitFrequency", nil),
 			div = 1000,
+		},
+		["blade_vortex_hit_rate_+%_per_blade"] = {
+			skill("hitFrequencyPerBlade", nil),
+			div = 100,
+		},
+		["vaal_blade_vortex_has_10_spinning_blades"] = {
 		},
 	},
 #baseMod skill("radius", 15)
+#baseMod skill("VaalBladeVortexBlade", 10)
 #mods
 
 #skill Bladefall

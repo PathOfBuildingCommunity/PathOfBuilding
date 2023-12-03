@@ -1256,7 +1256,7 @@ skills["BladeVortex"] = {
 	name = "Blade Vortex",
 	color = 2,
 	baseEffectiveness = 0.30599999427795,
-	incrementalEffectiveness = 0.042899999767542,
+	incrementalEffectiveness = 0.04434,
 	description = "This spell creates ethereal blades which orbit in an area around you, dealing damage every 0.6 seconds to all enemies in their radius. As more blades are added, the damage becomes greater and more frequent.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1272,15 +1272,15 @@ skills["BladeVortex"] = {
 			name = "10 Blades",
 		},
 	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeVortexBlade") * activeSkill.skillData.hitFrequencyPerBlade)
+	end,
 	statMap = {
 		["blade_vortex_damage_+%_per_blade_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "BladeVortexBlade" }),
 		},
 		["blade_vortex_ailment_damage_+%_per_blade_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "BladeVortexBlade" }),
-		},
-		["blade_vortex_critical_strike_chance_+%_per_blade"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "BladeVortexBlade" }),
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
@@ -1291,6 +1291,8 @@ skills["BladeVortex"] = {
 			mod("Multiplier:BladeVortexMaxStages", "BASE", nil),
 		},
 		["blade_vortex_hit_rate_+%_per_blade"] = {
+			skill("hitFrequencyPerBlade", nil),
+			div = 100,
 		},
 	},
 	baseFlags = {
@@ -1300,16 +1302,14 @@ skills["BladeVortex"] = {
 	},
 	baseMods = {
 		skill("radius", 15),
+		skill("hitFrequency", 0.6),
 		mod("Multiplier:BladeVortexBlade", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		mod("Multiplier:BladeVortexBlade", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 }),
-		skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 }),
-		skill("hitTimeOverride", 0.6 / (1+5*0.35), { type = "SkillPart", skillPart = 2 }),
-		skill("hitTimeOverride", 0.6 / (1+10*0.35), { type = "SkillPart", skillPart = 3 }),
 		flag("Condition:HaveBladeVortex"),
 	},
 	qualityStats = {
 		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "blade_vortex_hit_rate_+%_per_blade", 0.25 },
 		},
 		Alternate1 = {
 			{ "life_leech_from_any_damage_permyriad", 2 },
@@ -1324,7 +1324,6 @@ skills["BladeVortex"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 4000 },
 		{ "maximum_number_of_spinning_blades", 10 },
-		{ "blade_vortex_critical_strike_chance_+%_per_blade", 10 },
 		{ "blade_vortex_hit_rate_+%_per_blade", 35 },
 		{ "blade_vortex_damage_+%_per_blade_final", 35 },
 	},
@@ -1391,10 +1390,19 @@ skills["VaalBladeVortex"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Vaal] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillData.VaalBladeVortexBlade * (activeSkill.skillData.hitFrequencyPerBlade or 0))
+	end,
 	statMap = {
 		["base_blade_vortex_hit_rate_ms"] = {
-			skill("hitTimeOverride", nil),
+			skill("hitFrequency", nil),
 			div = 1000,
+		},
+		["blade_vortex_hit_rate_+%_per_blade"] = {
+			skill("hitFrequencyPerBlade", nil),
+			div = 100,
+		},
+		["vaal_blade_vortex_has_10_spinning_blades"] = {
 		},
 	},
 	baseFlags = {
@@ -1404,10 +1412,11 @@ skills["VaalBladeVortex"] = {
 	},
 	baseMods = {
 		skill("radius", 15),
+		skill("VaalBladeVortexBlade", 10),
 	},
 	qualityStats = {
 		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "blade_vortex_hit_rate_+%_per_blade", 0.25 },
 		},
 	},
 	constantStats = {
