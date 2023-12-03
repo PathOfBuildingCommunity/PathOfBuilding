@@ -145,7 +145,7 @@ Radius: Medium
 ]],[[
 Endless Misery
 Cobalt Jewel
-Source: Vendor Recipe
+Source: No longer obtainable
 League: Heist
 Limited to: 1
 Radius: Medium
@@ -850,7 +850,6 @@ cone has a 50% chance to deal Double Damage
 ]],[[
 Dead Reckoning
 Cobalt Jewel
-Source: Vendor Recipe
 Limited to: 1
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
@@ -1060,7 +1059,7 @@ With at least 40 Strength in Radius, 20% increased Rarity of Items dropped by En
 ]],[[
 Spirit Guards
 Viridian Jewel
-Source: Vendor Recipe
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -1516,7 +1515,7 @@ Corrupted
 ]],[[
 Soul's Wick
 Cobalt Jewel
-Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
+Source: No longer obtainable
 Variant: Pre 3.20.0
 Variant: Current
 Limited to: 1
