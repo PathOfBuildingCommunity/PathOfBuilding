@@ -197,7 +197,7 @@ itemBases["Exothermic Tower Shield"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Scorch Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 23, ArmourBaseMin = 125, ArmourBaseMax = 143, MovementPenalty = 3, },
+	armour = { BlockChance = 25, ArmourBaseMin = 87, ArmourBaseMax = 100, MovementPenalty = 3, },
 	req = { level = 30, str = 76, },
 }
 itemBases["Magmatic Tower Shield"] = {
@@ -208,7 +208,7 @@ itemBases["Magmatic Tower Shield"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Scorch Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 23, ArmourBaseMin = 205, ArmourBaseMax = 236, MovementPenalty = 3, },
+	armour = { BlockChance = 27, ArmourBaseMin = 144, ArmourBaseMax = 165, MovementPenalty = 3, },
 	req = { level = 50, str = 121, },
 }
 itemBases["Heat-attuned Tower Shield"] = {
@@ -219,7 +219,7 @@ itemBases["Heat-attuned Tower Shield"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Scorch Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 23, ArmourBaseMin = 330, ArmourBaseMax = 379, MovementPenalty = 3, },
+	armour = { BlockChance = 29, ArmourBaseMin = 220, ArmourBaseMax = 253, MovementPenalty = 3, },
 	req = { level = 70, str = 159, },
 }
 
@@ -407,7 +407,7 @@ itemBases["Endothermic Buckler"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Inflict Brittle on Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 22, EvasionBaseMin = 112, EvasionBaseMax = 129, MovementPenalty = 3, },
+	armour = { BlockChance = 24, EvasionBaseMin = 75, EvasionBaseMax = 86, MovementPenalty = 3, },
 	req = { level = 30, dex = 76, },
 }
 itemBases["Polar Buckler"] = {
@@ -418,7 +418,7 @@ itemBases["Polar Buckler"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Inflict Brittle on Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 22, EvasionBaseMin = 185, EvasionBaseMax = 212, MovementPenalty = 3, },
+	armour = { BlockChance = 26, EvasionBaseMin = 123, EvasionBaseMax = 142, MovementPenalty = 3, },
 	req = { level = 50, dex = 121, },
 }
 itemBases["Cold-attuned Buckler"] = {
@@ -429,7 +429,7 @@ itemBases["Cold-attuned Buckler"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Inflict Brittle on Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 22, EvasionBaseMin = 302, EvasionBaseMax = 348, MovementPenalty = 3, },
+	armour = { BlockChance = 28, EvasionBaseMin = 206, EvasionBaseMax = 236, MovementPenalty = 3, },
 	req = { level = 70, dex = 159, },
 }
 
@@ -614,7 +614,7 @@ itemBases["Exhausting Spirit Shield"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Sap Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 20, EnergyShieldBaseMin = 24, EnergyShieldBaseMax = 28, MovementPenalty = 3, },
+	armour = { BlockChance = 22, EnergyShieldBaseMin = 16, EnergyShieldBaseMax = 19, MovementPenalty = 3, },
 	req = { level = 30, int = 76, },
 }
 itemBases["Subsuming Spirit Shield"] = {
@@ -625,7 +625,7 @@ itemBases["Subsuming Spirit Shield"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Sap Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 20, EnergyShieldBaseMin = 38, EnergyShieldBaseMax = 44, MovementPenalty = 3, },
+	armour = { BlockChance = 24, EnergyShieldBaseMin = 25, EnergyShieldBaseMax = 29, MovementPenalty = 3, },
 	req = { level = 50, int = 121, },
 }
 itemBases["Transfer-attuned Spirit Shield"] = {
@@ -636,7 +636,7 @@ itemBases["Transfer-attuned Spirit Shield"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Sap Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 20, EnergyShieldBaseMin = 56, EnergyShieldBaseMax = 64, MovementPenalty = 3, },
+	armour = { BlockChance = 26, EnergyShieldBaseMin = 39, EnergyShieldBaseMax = 45, MovementPenalty = 3, },
 	req = { level = 70, int = 159, },
 }
 
