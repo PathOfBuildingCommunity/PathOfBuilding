@@ -55,6 +55,14 @@ Requires Level 59, 56 Str, 56 Dex
 (140-140)% increased Armour and Evasion
 +(31-31)% to Lightning Resistance
 When Hit, gain a random Movement Speed modifier from 40% reduced to 100% increased until Hit again
+]],[[
+Pragmatism
+Colosseum Plate
+Implicits: 0
++12 to Level of Socketed Skill Gems
+(100-100)% increased Armour
++(84-84) to maximum Mana
+-2 to Level of Socketed Skill Gems per Socketed Gem
 ]]
 
 -- Reworked
