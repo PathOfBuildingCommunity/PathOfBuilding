@@ -1499,7 +1499,7 @@ skills["Bladefall"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "bladefall_number_of_volleys", 0.05 },
 		},
 		Alternate1 = {
 			{ "base_global_chance_to_knockback_%", 1 },
@@ -1509,13 +1509,9 @@ skills["Bladefall"] = {
 		},
 	},
 	constantStats = {
-		{ "bladefall_damage_per_stage_+%_final", -6 },
-		{ "critical_strike_chance_+%", 100 },
-		{ "bladefall_critical_strike_chance_+%_per_stage", -20 },
 		{ "bladefall_number_of_volleys", 5 },
 		{ "bladefall_blade_left_in_ground_for_every_X_volleys", 1 },
 		{ "maximum_number_of_blades_left_in_ground", 40 },
-		{ "blades_left_in_ground_+%_final_if_not_hand_cast", -50 },
 		{ "base_skill_effect_duration", 6000 },
 	},
 	stats = {
