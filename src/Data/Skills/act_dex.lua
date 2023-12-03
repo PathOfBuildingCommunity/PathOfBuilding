@@ -8780,7 +8780,7 @@ skills["ThrownShield"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_projectile_speed_+%", 2 },
+			{ "number_of_additional_projectiles", 0.1 },
 		},
 		Alternate1 = {
 			{ "damage_+%", 1 },
