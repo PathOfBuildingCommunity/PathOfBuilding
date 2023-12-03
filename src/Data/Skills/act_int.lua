@@ -6769,7 +6769,7 @@ skills["LightningConduit"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 1 },
+			{ "energy_release_damage_+%_final_per_5%_increased_damage_taken_from_shock_on_target", 0.2 },
 		},
 		Alternate1 = {
 			{ "base_critical_strike_multiplier_+", 0.5 },
