@@ -889,6 +889,9 @@ return {
 ["chill_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
 },
+["chill_effect_+%_final"] = {
+	mod("EnemyChillEffect", "MORE", nil),
+},
 ["shock_effect_+%"] = {
 	mod("EnemyShockEffect", "INC", nil),
 },
