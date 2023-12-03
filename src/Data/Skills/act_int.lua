@@ -6021,7 +6021,7 @@ skills["IceSpear"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_projectile_speed_+%", 2 },
+			{ "ice_spear_second_form_critical_strike_multiplier_+", 2 },
 		},
 		Alternate1 = {
 			{ "projectile_base_number_of_targets_to_pierce", 0.1 },
