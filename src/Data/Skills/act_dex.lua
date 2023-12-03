@@ -9162,6 +9162,9 @@ skills["SpectralHelix"] = {
 		["spectral_spiral_weapon_base_number_of_bounces"] = {
 			mod("BounceCount", "BASE", nil),
 		},
+		["projectile_damage_+%_if_pierced_enemy"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -9174,7 +9177,7 @@ skills["SpectralHelix"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "attack_speed_+%", 0.5 },
+			{ "projectile_damage_+%_if_pierced_enemy", 0.5 },
 		},
 		Alternate1 = {
 			{ "base_projectile_speed_+%", 1 },
