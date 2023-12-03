@@ -5402,7 +5402,7 @@ skills["GlacialCascade"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 1 },
+			{ "glacial_cascade_final_spike_damage_+%_final", 2.5 },
 		},
 		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
