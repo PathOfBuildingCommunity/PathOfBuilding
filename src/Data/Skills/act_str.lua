@@ -7460,7 +7460,7 @@ end,
 	},
 	qualityStats = {
 		Default = {
-			{ "skill_effect_duration_+%", 1 },
+			{ "static_strike_zap_speed_+%", 1 },
 		},
 		Alternate1 = {
 			{ "damage_+%", 1 },
