@@ -298,48 +298,6 @@ local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
 	end
 end
 
-local function calcSocketStats(env, build)
-	local activeItemSlots
-	if env.build.itemsTab.activeItemSet.useSecondWeaponSet then
-		activeItemSlots = {"Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Gloves", "Boots", "Body Armour", "Amulet", "Ring 1", "Ring 2"}
-		else
-		activeItemSlots = {"Weapon 1", "Weapon 2", "Helmet", "Gloves", "Boots", "Body Armour", "Amulet", "Ring 1", "Ring 2"}
-	end
-	local totalEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
-	for _, slot in pairs(activeItemSlots) do
-		local slotGemSocketsCount = 0
-		local socketedGems = 0
-		-- loop through socket groups to calculate number of socketed gems
-		for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
-			if (socketGroup.enabled and socketGroup.slot and socketGroup.slot == slot and socketGroup.gemList) then
-				for _, gem in pairs(socketGroup.gemList) do
-					if (gem.gemData and gem.enabled) then
-						socketedGems = socketedGems + 1
-					end
-				end
-			end
-		end
-		local item = build.itemsTab.items[build.itemsTab.activeItemSet[slot].selItemId]
-		if item then
-			for i, socket in ipairs(item.sockets) do
-				-- check socket color to ignore abyssal sockets
-				if socket.color == 'R' or socket.color == 'B' or socket.color == 'G' or socket.color == 'W' then
-					slotGemSocketsCount = slotGemSocketsCount + 1
-					-- loop through sockets indexes that are greater than number of socketed gems
-					if i > socketedGems then
-						totalEmptySocketsCount[socket.color] = totalEmptySocketsCount[socket.color] + 1
-					end
-				end
-			end
-		end
-		env.modDB:NewMod("Multiplier:SocketedGemsIn"..slot, "BASE", math.min(slotGemSocketsCount, socketedGems))
-	end
-	env.modDB:NewMod("Multiplier:EmptyRedSocketsInAnySlot", "BASE", totalEmptySocketsCount.R)
-	env.modDB:NewMod("Multiplier:EmptyGreenSocketsInAnySlot", "BASE", totalEmptySocketsCount.G)
-	env.modDB:NewMod("Multiplier:EmptyBlueSocketsInAnySlot", "BASE", totalEmptySocketsCount.B)
-	env.modDB:NewMod("Multiplier:EmptyWhiteSocketsInAnySlot", "BASE", totalEmptySocketsCount.W)
-end
-
 -- Initialise environment:
 -- 1. Initialises the player and enemy modifier databases
 -- 2. Merges modifiers for all items
@@ -517,7 +475,6 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
-		calcSocketStats(env, build)
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
@@ -1040,6 +997,35 @@ function calcs.initEnv(build, mode, override, specEnv)
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 					end
 					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
+					-- Update socket counts
+					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
+					local slotGemSocketsCount = 0
+					local socketedGems = 0
+					-- loop through socket groups to calculate number of socketed gems
+					for _, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
+						if (socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
+							for _, gem in pairs(socketGroup.gemList) do
+								if (gem.gemData and gem.enabled) then
+									socketedGems = socketedGems + 1
+								end
+							end
+						end
+					end
+					for i, socket in ipairs(item.sockets) do
+						-- check socket color to ignore abyssal sockets
+						if socket.color == 'R' or socket.color == 'B' or socket.color == 'G' or socket.color == 'W' then
+							slotGemSocketsCount = slotGemSocketsCount + 1
+							-- loop through sockets indexes that are greater than number of socketed gems
+							if i > socketedGems then
+								slotEmptySocketsCount[socket.color] = slotEmptySocketsCount[socket.color] + 1
+							end
+						end
+					end
+					env.itemModDB.multipliers["SocketedGemsIn"..slotName] = (env.itemModDB.multipliers["SocketedGemsIn"..slotName] or 0) + math.min(slotGemSocketsCount, socketedGems)
+					env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.itemModDB.multipliers.EmptyRedSocketsInAnySlot or 0) + slotEmptySocketsCount.R
+					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
+					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B
+					env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot or 0) + slotEmptySocketsCount.W
 				end
 			end
 		end
