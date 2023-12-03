@@ -3695,7 +3695,7 @@ skills["GeneralsCry"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_cooldown_speed_+%", 1 },
+			{ "maximum_number_of_spiritual_cry_warriors", 0.05 },
 		},
 		Alternate1 = {
 			{ "warcry_speed_+%", 2 },
