@@ -10853,7 +10853,7 @@ skills["SummonRelic"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "skill_buff_effect_+%", 2 },
 		},
 		Alternate1 = {
 			{ "minion_maximum_life_+%", 3 },
