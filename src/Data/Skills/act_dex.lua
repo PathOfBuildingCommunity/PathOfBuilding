@@ -4177,7 +4177,7 @@ skills["ShrapnelTrap"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "shrapnel_trap_number_of_secondary_explosions", 0.1 },
 		},
 		Alternate1 = {
 			{ "burn_damage_+%", 3 },
