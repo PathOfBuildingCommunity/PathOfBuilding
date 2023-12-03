@@ -1751,37 +1751,17 @@ local skills, mod, flag, skill = ...
 #skill MagmaSigil
 #flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:PenanceBrandMaxEnergy") / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
-	parts = {
-		{
-			name = "Energy Explosion",
-			stages = true,
-		},
-		{
-			name = "Max Explosion per Brand",
-		},
-		{
-			name = "Max Stages Energy Pulsing",
-		},
-	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
-		},
-		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
-		},
-		["penance_brand_additional_descriptions_boolean"] = {
+		["active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment),
 		},
 	},
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
-#baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 })
-#baseMod skill("radius", 8)
-#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" })
-#baseMod mod("Multiplier:PenanceBrandMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 28)
+#baseMod mod("Multiplier:PenanceBrandMaxEnergy", "BASE", 20)
 #mods
 
 #skill PowerSiphon
