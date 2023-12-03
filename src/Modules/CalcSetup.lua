@@ -298,6 +298,21 @@ local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
 	end
 end
 
+local function calcSocketStats(env, build)
+	for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+		if socketGroup.slot then
+			local socketedGems = 0
+			for _, gem in pairs(socketGroup.gemList) do
+				if gem.enabled then
+					socketedGems = socketedGems + 1
+				end
+			end
+			socketedGems = math.min(socketedGems, #build.itemsTab.items[build.itemsTab.activeItemSet[socketGroup.slot].selItemId].sockets)
+			env.modDB:NewMod("Multiplier:SocketedGemsIn"..socketGroup.slot, "BASE", socketedGems)
+		end
+	end
+end
+
 -- Initialise environment:
 -- 1. Initialises the player and enemy modifier databases
 -- 2. Merges modifiers for all items
@@ -475,6 +490,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		modDB:NewMod("PerAfflictionAilmentDamage", "BASE", 8, "Base")
 		modDB:NewMod("PerAfflictionNonDamageEffect", "BASE", 8, "Base")
 		modDB:NewMod("PerAbsorptionElementalEnergyShieldRecoup", "BASE", 12, "Base")
+		calcSocketStats(env, build)
 
 		-- Add bandit mods
 		if env.configInput.bandit == "Alira" then
