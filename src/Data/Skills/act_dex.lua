@@ -9245,10 +9245,10 @@ skills["SplitArrow"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "attack_speed_+%", 0.5 },
+			{ "base_number_of_additional_arrows", 0.2 },
 		},
 		Alternate1 = {
-			{ "base_number_of_additional_arrows", 0.05 },
+			{ "base_number_of_additional_arrows", 0.2 },
 		},
 		Alternate2 = {
 			{ "damage_+%", 1 },
