@@ -666,7 +666,7 @@ local skills, mod, flag, skill = ...
 			div = 100
 		},
 	},
-#baseMod mod("Multiplier:DivineIreMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:DivineIreMaxStages", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 38)
 #mods
 

@@ -2817,12 +2817,12 @@ skills["DivineTempest"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:DivineIreMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:DivineIreMaxStages", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 38),
 	},
 	qualityStats = {
 		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "divine_tempest_beam_width_+%", 1 },
 		},
 		Alternate1 = {
 			{ "divine_tempest_beam_width_+%", 0.5 },
@@ -2833,20 +2833,16 @@ skills["DivineTempest"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
-		{ "divine_tempest_hit_damage_+%_final_per_stage", 110 },
+		{ "divine_tempest_hit_damage_+%_final_per_stage", 240 },
 		{ "divine_tempest_base_number_of_nearby_enemies_to_zap", 5 },
-		{ "divine_tempest_stage_on_hitting_normal_magic_%_chance", 40 },
-		{ "divine_tempest_ailment_damage_+%_final_per_stage", 30 },
-		{ "divine_tempest_damage_+%_final_while_channelling", -50 },
+		{ "divine_tempest_ailment_damage_+%_final_per_stage", 100 },
 		{ "shock_art_variation", 2 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
 		"spell_maximum_base_physical_damage",
 		"divine_tempest_beam_width_+",
-		"divine_tempest_stage_on_hitting_rare_unique",
 		"visual_hit_effect_elemental_is_holy",
-		"skill_can_add_multiple_charges_per_action",
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, 0, damageEffectiveness = 0.45, critChance = 6, levelRequirement = 28, statInterpolation = { 3, 3, 1, }, cost = { Mana = 3, }, },
