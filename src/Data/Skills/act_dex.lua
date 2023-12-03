@@ -2381,7 +2381,7 @@ skills["CobraLash"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "critical_strike_chance_+%", 1.5 },
+			{ "number_of_chains", 0.1 },
 		},
 		Alternate1 = {
 			{ "chaining_range_+%", 1 },
@@ -2394,9 +2394,8 @@ skills["CobraLash"] = {
 		{ "skill_physical_damage_%_to_convert_to_chaos", 60 },
 		{ "projectile_speed_variation_+%", 15 },
 		{ "projectile_angle_variance", 8 },
-		{ "critical_poison_dot_multiplier_+", 50 },
 		{ "base_chance_to_poison_on_hit_%", 40 },
-		{ "active_skill_projectile_damage_+%_final_for_each_remaining_chain", 5 },
+		{ "active_skill_projectile_damage_+%_final_for_each_remaining_chain", 8 },
 	},
 	stats = {
 		"attack_minimum_added_chaos_damage",
