@@ -192,7 +192,6 @@ Chaos Damage taken does not bypass Energy Shield
 ]],[[
 Utula's Hunger
 Majestic Plate
-League: Ancestor
 Requires Level 53, 145 Str
 (60-100)% increased Armour
 Recover (1-3)% of Life on Kill

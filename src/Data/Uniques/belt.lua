@@ -136,7 +136,6 @@ Rampage
 ]],[[
 Bound Fate
 Cloth Belt
-League: Ancestor
 LevelReq: 16
 Implicits: 1
 (15-25)% increased Stun and Block Recovery
@@ -478,7 +477,6 @@ Implicits: 1
 ]],[[
 Kaom's Binding
 Heavy Belt
-League: Ancestor
 LevelReq: 56
 Implicits: 1
 {tags:jewellery_attribute}+(30–40) to Strength

@@ -1201,7 +1201,6 @@ Variant: Current
 [[
 Akoya's Gaze
 Regicide Mask
-League: Ancestor
 Requires Level 52, 58 Dex, 58 Int
 +100 Strength Requirement
 (20–25)% increased Warcry Speed

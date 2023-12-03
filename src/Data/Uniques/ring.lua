@@ -1129,7 +1129,6 @@ Immune to Chill
 ]],[[
 Tawhanuku's Timing
 Moonstone Ring
-League: Ancestor
 {tags:jewellery_defense}+(15–25) to maximum Energy Shield
 {tags:caster}(30–40)% increased Spell Damage
 {tags:mana}+(60–80) to maximum Mana

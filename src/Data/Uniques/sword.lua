@@ -877,7 +877,6 @@ Minions have (80-100)% increased Movement Speed
 ]],[[
 Rakiata's Dance
 Engraved Greatsword
-League: Ancestor
 Requires Level 48, 91 Str, 76 Dex
 Implicits: 1
 60% increased Global Accuracy Rating

@@ -453,7 +453,6 @@ Raised Zombies have Avatar of Fire
 ]],[[
 Maata's Teaching
 Karui Sceptre
-League: Ancestor
 Requires Level 56, 96 Str, 96 Int
 Implicits: 1
 +(30-40) to Intelligence

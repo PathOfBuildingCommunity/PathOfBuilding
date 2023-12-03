@@ -334,7 +334,6 @@ Reflects (25-50) Cold Damage to Melee Attackers
 ]],[[
 Kiloava's Bluster
 Ironwood Buckler
-League: Ancestor
 Requires Level 57, 137 Dex
 Implicits: 1
 3% increased Movement Speed

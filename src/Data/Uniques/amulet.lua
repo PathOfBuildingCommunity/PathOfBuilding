@@ -322,7 +322,6 @@ Implicits: 1
 ]],[[
 Defiance of Destiny
 Paua Amulet
-League: Ancestor
 LevelReq: 49
 Implicits: 1
 {tags:mana}(20–30)% increased Mana Regeneration Rate
@@ -637,7 +636,6 @@ Your Hits can't be Evaded by Blinded Enemies
 ]],[[
 Ikiaho's Promise
 Coral Amulet
-League: Ancestor
 LevelReq: 30
 Implicits: 1
 {tags:life}Regenerate (2–4) Life per second

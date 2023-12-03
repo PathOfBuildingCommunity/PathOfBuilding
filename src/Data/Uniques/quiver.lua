@@ -5,7 +5,6 @@ return {
 [[
 Ahuana's Bite
 Sharktooth Arrow Quiver
-League: Ancestor
 LevelReq: 56
 Implicits: 1
 Gain (6–8) Life per Enemy Hit with Attacks

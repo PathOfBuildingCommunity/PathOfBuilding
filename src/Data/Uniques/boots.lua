@@ -98,7 +98,6 @@ Necrotic Footprints
 ]],[[
 Kahuturoa's Certainty
 Ancient Greaves
-League: Ancestor
 Requires Level 46, 82 Str
 (100–150)% increased Armour
 5% reduced Movement Speed
