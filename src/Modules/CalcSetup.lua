@@ -299,17 +299,29 @@ local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
 end
 
 local function calcSocketStats(env, build)
-	for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
-		if socketGroup.slot then
-			local socketedGems = 0
-			for _, gem in pairs(socketGroup.gemList) do
-				if gem.enabled then
-					socketedGems = socketedGems + 1
+	local activeItemSlots
+	if env.build.itemsTab.activeItemSet.useSecondWeaponSet then
+		activeItemSlots = {"Weapon 1 Swap", "Weapon 2 Swap", "Helmet", "Gloves", "Boots", "Body Armour", "Amulet", "Ring 1", "Ring 2"}
+		else
+		activeItemSlots = {"Weapon 1", "Weapon 2", "Helmet", "Gloves", "Boots", "Body Armour", "Amulet", "Ring 1", "Ring 2"}
+	end
+	for _, slot in pairs(activeItemSlots) do
+		local slotSocketsCount = 0
+		local socketedGems = 0
+		local item = build.itemsTab.items[build.itemsTab.activeItemSet[slot].selItemId]
+		if item then
+			slotSocketsCount = #item.sockets
+		end
+		for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
+			if (socketGroup.enabled and socketGroup.slot and socketGroup.slot == slot and socketGroup.gemList) then
+				for _, gem in pairs(socketGroup.gemList) do
+					if (gem.gemData and gem.enabled) then
+						socketedGems = socketedGems + 1
+					end
 				end
 			end
-			socketedGems = math.min(socketedGems, #build.itemsTab.items[build.itemsTab.activeItemSet[socketGroup.slot].selItemId].sockets)
-			env.modDB:NewMod("Multiplier:SocketedGemsIn"..socketGroup.slot, "BASE", socketedGems)
 		end
+		env.modDB:NewMod("Multiplier:SocketedGemsIn"..slot, "BASE", math.min(slotSocketsCount, socketedGems))
 	end
 end
 
