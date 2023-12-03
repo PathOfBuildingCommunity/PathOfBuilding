@@ -32,6 +32,7 @@ Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
 ]],[[
 Ixchel's Temptation
 Gold Ring
+League: Affliction
 Requires Level 20
 Implicits: 1
 (6-15)% increased Rarity of Items found
@@ -50,6 +51,7 @@ Corrupted
 ]],[[
 Gamblesprint
 Hydrascale Boots
+League: Affliction
 Requires Level 59, 56 Str, 56 Dex
 +(34-34) to Dexterity
 (140-140)% increased Armour and Evasion
@@ -58,6 +60,7 @@ When Hit, gain a random Movement Speed modifier from 40% reduced to 100% increas
 ]],[[
 Pragmatism
 Colosseum Plate
+League: Affliction
 Implicits: 0
 +12 to Level of Socketed Skill Gems
 (100-100)% increased Armour
@@ -66,6 +69,7 @@ Implicits: 0
 ]],[[
 The Untouched Soul
 Gold Amulet
+League: Affliction
 Requires Level 48
 Implicits: 1
 (12-20)% increased Rarity of Items found
@@ -73,6 +77,16 @@ Implicits: 1
 +225 to Accuracy Rating for each Empty Green Socket on any Equipped Item
 +40 to maximum Mana for each Empty Blue Socket on any Equipped Item
 +18 to all Elemental Resistances for each Empty White Socket on any Equipped Item
+]],[[
+The Trickster's Smile
+Visored Sallet
+League: Affliction
+Implicits: 0
+(75-75)% increased Armour and Evasion
+Reflects 100 Cold Damage to Melee Attackers
+Reflects 100 Fire Damage to Melee Attackers
+Reflects 100 Lightning Damage to Melee Attackers
+When an Enemy Hit deals Elemental Damage to you, their Resistance to those Elements becomes zero for 4 seconds
 ]]
 
 -- Reworked
