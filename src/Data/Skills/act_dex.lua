@@ -2372,7 +2372,7 @@ skills["CobraLash"] = {
 	castTime = 1,
 	statMap = {
 		["active_skill_projectile_damage_+%_final_for_each_remaining_chain"] = {
-			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "PerStat", stat = "ChainRemaining" }, { type = "SkillType", skillType = SkillType.Projectile })
 		},
 	},
 	baseFlags = {

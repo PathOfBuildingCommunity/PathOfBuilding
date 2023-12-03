@@ -13940,7 +13940,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="Projectiles deal {0}% more Damage with Hits for each remaining Chain"
+					text="Projectiles deal {0}% more Damage with Hits and Ailments for each remaining Chain"
 				},
 				[2]={
 					[1]={
@@ -13953,7 +13953,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="Projectiles deal {0}% less Damage with Hits for each remaining Chain"
+					text="Projectiles deal {0}% less Damage with Hits and Ailments for each remaining Chain"
 				}
 			}
 		},
