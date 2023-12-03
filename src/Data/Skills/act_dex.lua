@@ -8872,12 +8872,17 @@ skills["ThrownWeapon"] = {
 		attack = true,
 		projectile = true,
 	},
+	statMap = {
+		["projectile_damage_+%_if_pierced_enemy"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
+		},
+	},
 	baseMods = {
 		mod("PierceChance", "BASE", 100),
 	},
 	qualityStats = {
 		Default = {
-			{ "attack_speed_+%", 0.5 },
+			{ "projectile_damage_+%_if_pierced_enemy", 0.5 },
 		},
 		Alternate1 = {
 			{ "base_projectile_speed_+%", 1 },
@@ -8960,6 +8965,9 @@ skills["VaalThrownWeapon"] = {
 		["base_number_of_projectiles_in_spiral_nova"] = {
 			mod("ProjectileCount", "BASE", nil),
 		},
+		["projectile_damage_+%_if_pierced_enemy"] = {
+			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -8968,7 +8976,7 @@ skills["VaalThrownWeapon"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "attack_speed_+%", 0.5 },
+			{ "projectile_damage_+%_if_pierced_enemy", 0.5 },
 		},
 	},
 	constantStats = {
