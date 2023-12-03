@@ -9525,7 +9525,7 @@ skills["SupportSpellslinger"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "spell_damage_+%", 1 },
+			{ "gain_%_of_base_wand_damage_as_added_spell_damage", 1 },
 		},
 		Alternate1 = {
 			{ "chance_to_freeze_shock_ignite_%", 1 },
