@@ -3182,7 +3182,7 @@ skills["DoubleStrike"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "attack_speed_+%", 0.5 },
+			{ "chance_to_deal_double_damage_%", 1 },
 		},
 		Alternate1 = {
 			{ "elemental_damage_+%", 2 },
