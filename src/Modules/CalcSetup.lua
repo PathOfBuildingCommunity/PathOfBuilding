@@ -307,7 +307,7 @@ local function calcSocketStats(env, build)
 	end
 	local totalEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
 	for _, slot in pairs(activeItemSlots) do
-		local slotSocketsCount = 0
+		local slotGemSocketsCount = 0
 		local socketedGems = 0
 		-- loop through socket groups to calculate number of socketed gems
 		for _, socketGroup in pairs(build.skillsTab.socketGroupList) do
@@ -321,17 +321,18 @@ local function calcSocketStats(env, build)
 		end
 		local item = build.itemsTab.items[build.itemsTab.activeItemSet[slot].selItemId]
 		if item then
-			slotSocketsCount = #item.sockets
-			local emptySockets = slotSocketsCount - socketedGems
-			if emptySockets > 0 then
-				for i, socket in ipairs(item.sockets) do
-					if slotSocketsCount - i < emptySockets then
+			for i, socket in ipairs(item.sockets) do
+				-- check socket color to ignore abyssal sockets
+				if socket.color == 'R' or socket.color == 'B' or socket.color == 'G' or socket.color == 'W' then
+					slotGemSocketsCount = slotGemSocketsCount + 1
+					-- loop through sockets indexes that are greater than number of socketed gems
+					if i > socketedGems then
 						totalEmptySocketsCount[socket.color] = totalEmptySocketsCount[socket.color] + 1
 					end
 				end
 			end
 		end
-		env.modDB:NewMod("Multiplier:SocketedGemsIn"..slot, "BASE", math.min(slotSocketsCount, socketedGems))
+		env.modDB:NewMod("Multiplier:SocketedGemsIn"..slot, "BASE", math.min(slotGemSocketsCount, socketedGems))
 	end
 	env.modDB:NewMod("Multiplier:EmptyRedSocketsInAnySlot", "BASE", totalEmptySocketsCount.R)
 	env.modDB:NewMod("Multiplier:EmptyGreenSocketsInAnySlot", "BASE", totalEmptySocketsCount.G)
