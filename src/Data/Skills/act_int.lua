@@ -2513,9 +2513,9 @@ skills["Discharge"] = {
 	castTime = 0.75,
 	statMap = {
 		["area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge"] = {
-			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
-			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
-			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
+			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
+			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
+			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
 		},
 		["active_skill_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil,  ModFlag.Ailment),
@@ -2530,7 +2530,7 @@ skills["Discharge"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "elemental_damage_+%", 1 },
+			{ "discharge_chance_not_to_consume_charges_%", 0.05 },
 		},
 		Alternate1 = {
 			{ "base_cast_speed_+%", 2 },
@@ -2543,7 +2543,7 @@ skills["Discharge"] = {
 		},
 	},
 	constantStats = {
-		{ "area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge", 20 },
+		{ "area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge", 15 },
 		{ "active_skill_ailment_damage_+%_final", -60 },
 	},
 	stats = {
