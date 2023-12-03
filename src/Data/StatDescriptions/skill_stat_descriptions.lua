@@ -15775,7 +15775,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Area of Effect per charge consumed"
+					text="{0}% more Area of Effect per charge consumed"
 				},
 				[2]={
 					[1]={
@@ -15788,7 +15788,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Area of Effect per charge consumed"
+					text="{0}% less Area of Effect per charge consumed"
 				}
 			}
 		},
