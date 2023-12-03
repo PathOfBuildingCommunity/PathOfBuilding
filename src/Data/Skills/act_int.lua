@@ -2228,7 +2228,7 @@ skills["Disintegrate"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_chance_to_shock_%", 0.5 },
+			{ "disintegrate_damage_+%_final_per_intensity", 0.5 },
 		},
 		Alternate1 = {
 			{ "skill_lightning_damage_%_to_convert_to_chaos", 1 },
