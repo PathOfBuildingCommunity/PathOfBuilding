@@ -4691,7 +4691,8 @@ skills["Frenzy"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "attack_speed_+%", 0.5 },
+			{ "frenzy_skill_attack_damage_+%_final_per_frenzy_charge", 0.1 },
+			{ "frenzy_skill_attack_speed_+%_final_per_frenzy_charge", 0.1 },
 		},
 		Alternate1 = {
 			{ "number_of_additional_projectiles", 0.05 },
