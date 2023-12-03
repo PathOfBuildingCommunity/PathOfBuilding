@@ -577,7 +577,6 @@ Implicits: 1
 Mother's Embrace
 Heavy Belt
 League: Metamorph
-Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
 LevelReq: 40
 Implicits: 1
 {tags:jewellery_attribute}+(25-35) to Strength

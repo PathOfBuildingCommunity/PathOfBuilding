@@ -48,7 +48,6 @@ Implicits: 1
 Astral Projector
 Topaz Ring
 League: Metamorph
-Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
 Requires Level 40
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
@@ -1423,7 +1422,6 @@ Implicits: 1
 Warrior's Legacy
 Ruby Ring
 League: Metamorph
-Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance
