@@ -369,7 +369,7 @@ return {
 			end
 		},
 		-- other prefixes
-		["Antagonist's"] = {}, -- (20–30)% increased number of Rare Monsters
+		["Antagonist's"] = {}, -- (20-30)% increased number of Rare Monsters
 		["Anarchic"] = {}, -- Area is inhabited by 2 additional Rogue Exiles
 		["Ceremonial"] = {}, -- Area contains many Totems
 		["Skeletal"] = {}, -- Area is inhabited by Skeletons
@@ -392,7 +392,7 @@ return {
 		["Chaining"] = {}, -- Monsters' skills Chain 2 additional times
 		["Splitting"] = {}, -- Monsters fire 2 additional Projectiles
 		-- other suffixes
-		["of Bloodlines"] = {}, -- (20–30)% more Magic Monsters
+		["of Bloodlines"] = {}, -- (20-30)% more Magic Monsters
 		["of Giants"] = {}, --  Monsters have 45|70|100% increased Area of Effect
 		["of Flames"] = {}, -- Area has patches of Burning Ground
 		["of Ice"] = {}, -- Area has patches of Chilled Ground

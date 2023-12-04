@@ -1,3 +1,25 @@
+VERSION[2.34.1][2023/09/16]
+
+--- Fixed Crashes ---
+* Fix crash when using Saviour Mirages in Full DPS (Paliak)
+* Fix crash when using Cast when Channeling with Whispering Ice (Paliak)
+
+--- User Interface ---
+* Update tooltip wording for Magmatic Strikes config (Paliak)
+* Show Warcry calculation mode when using Fist of War (Paliak)
+
+--- Fixed Bugs ---
+* Fix curse mods from The Felbog Fang and Fated End applying to Mark skills (Paliak)
+* Fix Fist of War not applying to Projectile skill parts (Paliak)
+* Fix Divergent Arcane Cloak not scaling properly with buff effect (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Increase accuracy of Doom Blast calculations (Paliak)
+* Fix parsing for some mods on the Pantheon (Paliak)
+* Assume 1 stage by default for Sigil of Power (Paliak)
+* Fix Scorching Ray max stages calculation (LocalIdentity)
+
+
 VERSION[2.34.0][2023/09/13]
 
 --- New to Path of Building ---

@@ -189,6 +189,14 @@ Implicits: 0
 Chaos Damage taken does not bypass Energy Shield
 {variant:1}-10 Chaos Damage taken
 {variant:2}-(30-40) Chaos Damage taken
+]],[[
+Utula's Hunger
+Majestic Plate
+Requires Level 53, 145 Str
+(60-100)% increased Armour
+Recover (1-3)% of Life on Kill
+(30-40)% Increased Stun and Block Recovery
++(700-1000) to maximum Life if there are no Life Modifiers on other Equipped items
 ]],
 -- Body: Evasion
 [[
@@ -418,20 +426,23 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
+Variant: Pre 3.23.0
 Variant: Current
 Implicits: 0
 {variant:1}(5-10)% increased Dexterity
 {variant:2,3}(10-15)% increased Dexterity
 {variant:1}(30-50)% increased Evasion Rating
 {variant:2}(80-100)% increased Evasion Rating
-{variant:3}(150-200)% increased Evasion Rating
+{variant:3,4}(150-200)% increased Evasion Rating
 {variant:1}+(50-80) to maximum Life
 {variant:2,3}+(70-100) to maximum Life
 -30% to Cold Resistance
 {variant:1}Evasion Rating is increased by Uncapped Cold Resistance
 {variant:2,3}Evasion Rating is increased by Overcapped Cold Resistance
-Flesh and Stone has no Reservation
-Hollow Palm Technique
+{variant:3}Flesh and Stone has no Reservation
+{variant:3}Hollow Palm Technique
+{variant:4}Versatile Combatant
+{variant:4}+20% chance to Block Attack Damage
 ]],[[
 Yriel's Fostering
 Exquisite Leather

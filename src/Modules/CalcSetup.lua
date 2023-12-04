@@ -948,11 +948,13 @@ function calcs.initEnv(build, mode, override, specEnv)
 						env.itemModDB:ScaleAddList(otherRingList, scale)
 					end
 					env.itemModDB:ScaleAddList(srcList, scale)
-				elseif item.type == "Quiver" and ((not slot.slotName:match("Swap") and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId] and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId].name:match("Widowhail"))
-													or (build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId] and build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId].name:match("Widowhail"))) then
-					local WidowHailBaseMods = not slot.slotName:match("Swap") and build.itemsTab.items[build.itemsTab.slots["Weapon 1"].selItemId].baseModList or build.itemsTab.items[build.itemsTab.slots["Weapon 1 Swap"].selItemId].baseModList
-					scale = scale * (1 + (WidowHailBaseMods:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
-					env.itemModDB:ScaleAddList(srcList, scale)
+				elseif item.type == "Quiver" and items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") then
+					scale = scale * (1 + (items["Weapon 1"].baseModList:Sum("INC", nil, "EffectOfBonusesFromQuiver") or 100) / 100)
+					local combinedList = new("ModList")
+					for _, mod in ipairs(srcList) do
+						combinedList:MergeMod(mod)
+					end
+					env.itemModDB:ScaleAddList(combinedList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
@@ -995,9 +997,43 @@ function calcs.initEnv(build, mode, override, specEnv)
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 					end
 					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
+					-- Calculate socket counts
+					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
+					local slotGemSocketsCount = 0
+					local socketedGems = 0
+					-- Loop through socket groups to calculate number of socketed gems
+					for _, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
+						if (socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
+							for _, gem in pairs(socketGroup.gemList) do
+								if (gem.gemData and gem.enabled) then
+									socketedGems = socketedGems + 1
+								end
+							end
+						end
+					end
+					for i, socket in ipairs(item.sockets) do
+						-- Check socket color to ignore abyssal sockets
+						if socket.color == 'R' or socket.color == 'B' or socket.color == 'G' or socket.color == 'W' then
+							slotGemSocketsCount = slotGemSocketsCount + 1
+							-- loop through sockets indexes that are greater than number of socketed gems
+							if i > socketedGems then
+								slotEmptySocketsCount[socket.color] = slotEmptySocketsCount[socket.color] + 1
+							end
+						end
+					end
+					env.itemModDB.multipliers["SocketedGemsIn"..slotName] = (env.itemModDB.multipliers["SocketedGemsIn"..slotName] or 0) + math.min(slotGemSocketsCount, socketedGems)
+					env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.itemModDB.multipliers.EmptyRedSocketsInAnySlot or 0) + slotEmptySocketsCount.R
+					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
+					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B
+					env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot or 0) + slotEmptySocketsCount.W
 				end
 			end
 		end
+		-- Override empty socket calculation if set in config
+		env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.configInput.overrideEmptyRedSockets or env.itemModDB.multipliers.EmptyRedSocketsInAnySlot)
+		env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.configInput.overrideEmptyGreenSockets or env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot)
+		env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.configInput.overrideEmptyBlueSockets or env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot)
+		env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.configInput.overrideEmptyWhiteSockets or env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot)
 		if override.toggleFlask then
 			if env.flasks[override.toggleFlask] then
 				env.flasks[override.toggleFlask] = nil
@@ -1168,7 +1204,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 
 		-- Determine main skill group
-		if env.mode == "CALCS" then
+		if env.mode == "CALCS" or env.mode == "CACHE" then
 			env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
 			env.mainSocketGroup = env.calcsInput.skill_number
 		else
@@ -1225,6 +1261,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							for _, targetList in ipairs(targetListList) do
 								t_insert(targetList, {
 									grantedEffect = grantedEffect,
+									gemData = env.data.gems[env.data.gemForBaseName[grantedEffect.name] or env.data.gemForBaseName[grantedEffect.name .. " Support"]],
 									level = value.level,
 									quality = 0,
 									enabled = true,

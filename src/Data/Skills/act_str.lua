@@ -1559,7 +1559,7 @@ skills["Boneshatter"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_stun_duration_+%", 1 },
+			{ "trauma_strike_damage_+%_final_per_trauma", 0.05 },
 		},
 		Alternate1 = {
 			{ "base_stun_threshold_reduction_+%", 1 },
@@ -3695,7 +3695,7 @@ skills["GeneralsCry"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_cooldown_speed_+%", 1 },
+			{ "maximum_number_of_spiritual_cry_warriors", 0.05 },
 		},
 		Alternate1 = {
 			{ "warcry_speed_+%", 2 },
@@ -4625,6 +4625,9 @@ skills["IceCrash"] = {
 		["ice_crash_third_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
 		},
+		["quality_display_ice_crash_is_gem"] = {
+			-- Display Only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -4636,7 +4639,7 @@ skills["IceCrash"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 1 },
+			{ "physical_damage_%_to_add_as_cold", 0.75 },
 		},
 		Alternate1 = {
 			{ "base_chance_to_freeze_%", 0.5 },
@@ -4724,6 +4727,9 @@ skills["ImmortalCall"] = {
 		["immortal_call_elemental_damage_taken_+%_final_per_endurance_charge_consumed_permyriad"] = {
 			mod("ElementalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Guard" }, { type = "Multiplier", var = "RemovableEnduranceCharge", limit = 5 }),
 			div = 100,
+		},
+		["quality_display_immortal_call_is_gem"] = {
+			-- Display Only
 		},
 	},
 	baseFlags = {
@@ -5460,6 +5466,7 @@ skills["MoltenStrike"] = {
 		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 }),
 		skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 }),
 		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 }),
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {
@@ -5582,6 +5589,7 @@ skills["VaalMoltenStrike"] = {
 		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 }),
 		skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 }),
 		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 }),
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {
@@ -5776,6 +5784,9 @@ skills["PetrifiedBlood"] = {
 		},
 		["petrified_blood_%_prevented_life_loss_to_lose_over_time"] = {
 			mod("LifeLossBelowHalfLost", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Petrified Blood" }),
+		},
+		["cannot_recover_above_low_life_except_flasks"] = {
+			-- Display Only, this mod controls multiple lines for some reason
 		},
 	},
 	baseFlags = {
@@ -7449,7 +7460,7 @@ end,
 	},
 	qualityStats = {
 		Default = {
-			{ "skill_effect_duration_+%", 1 },
+			{ "static_strike_zap_speed_+%", 1 },
 		},
 		Alternate1 = {
 			{ "damage_+%", 1 },
@@ -7920,7 +7931,7 @@ skills["SummonFireGolem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "minion_damage_+%", 1 },
+			{ "golem_buff_effect_+%", 1 },
 		},
 		Alternate1 = {
 			{ "golem_buff_effect_+%", 1 },
@@ -8012,7 +8023,7 @@ skills["SummonRockGolem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "minion_damage_+%", 1 },
+			{ "golem_buff_effect_+%", 1 },
 		},
 		Alternate1 = {
 			{ "golem_buff_effect_+%", 1 },
@@ -8708,6 +8719,9 @@ skills["VolcanicFissure"] = {
 		area = true,
 		slam = true,
 	},
+	baseMods = {
+		flag("CannotSplit"),
+	},
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 1 },
@@ -8803,6 +8817,9 @@ skills["VaalVolcanicFissure"] = {
 		projectile = true,
 		area = true,
 		slam = true,
+	},
+	baseMods = {
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {

@@ -143,18 +143,19 @@ skills["BirdAspect"] = {
 		["chance_to_deal_double_damage_%"] = {
 			mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }),
 		},
+		["minion_chance_to_deal_double_damage_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }),
+		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
 		},
 		["minion_movement_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
 		},
 	},
 	baseFlags = {
 		cast = true,
 		duration = true,
-	},
-	baseMods = {
-		skill("buffMinions", true),
 	},
 	constantStats = {
 		{ "chance_to_deal_double_damage_%", 10 },
@@ -1325,9 +1326,9 @@ skills["FieryImpactHeistMaceImplicit"] = {
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[10] = { baseMultiplier = 2, cooldown = 2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 30, },
-		[15] = { baseMultiplier = 2.5, cooldown = 2, damageEffectiveness = 2.5, storedUses = 1, levelRequirement = 50, },
-		[20] = { baseMultiplier = 3, cooldown = 2, damageEffectiveness = 3, storedUses = 1, levelRequirement = 70, },
+		[10] = { baseMultiplier = 2, cooldown = 1.8, damageEffectiveness = 2, storedUses = 1, levelRequirement = 30, },
+		[15] = { baseMultiplier = 2.5, cooldown = 1.6, damageEffectiveness = 2.5, storedUses = 1, levelRequirement = 50, },
+		[20] = { baseMultiplier = 3, cooldown = 1.4, damageEffectiveness = 3, storedUses = 1, levelRequirement = 70, },
 	},
 }
 skills["AtziriUniqueStaffFlameblast"] = {
@@ -1884,6 +1885,9 @@ skills["TriggeredMoltenStrike"] = {
 		attack = true,
 		projectile = true,
 		area = true,
+	},
+	baseMods = {
+		flag("CannotSplit"),
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 3 },
@@ -2652,6 +2656,11 @@ skills["SummonGuardianRelic"] = {
 		"GuardianRelicCold",
 		"GuardianRelicLightning",
 	},
+	statMap = {
+		["minion_actor_level_is_user_level_up_to_maximum"] = {
+			skill("minionLevelIsPlayerLevel", true),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -2667,7 +2676,7 @@ skills["SummonGuardianRelic"] = {
 		"base_skill_effect_duration",
 	},
 	levels = {
-		[20] = { 5000, storedUses = 1, levelRequirement = 85, cooldown = 0.3, statInterpolation = { 1, }, },
+		[20] = { 5000, storedUses = 1, levelRequirement = 4, cooldown = 0.3, statInterpolation = { 1, }, },
 	},
 }
 skills["SummonHarbingerOfTheArcaneUber"] = {
@@ -2807,7 +2816,7 @@ skills["SummonHarbingerOfTimeUber"] = {
 	},
 	baseMods = {
 		mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Greater Harbinger of Time", modCond = "GreaterHarbingerOfTime" }),
-		skill("buffMinions", true),
+		skill("buffAllies", true),
 	},
 	constantStats = {
 		{ "alternate_minion", 7 },
@@ -2953,7 +2962,7 @@ skills["SummonHarbingerOfTime"] = {
 	},
 	baseMods = {
 		mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" }),
-		skill("buffMinions", true),
+		skill("buffAllies", true),
 	},
 	constantStats = {
 		{ "alternate_minion", 1 },
@@ -3025,7 +3034,9 @@ skills["SummonRadiantSentinel"] = {
 		},
 		["radiant_sentinel_minion_burning_effect_radius"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
-			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
+		},
+		["minion_actor_level_is_user_level_up_to_maximum"] = {
+			skill("minionLevelIsPlayerLevel", true),
 		},
 	},
 	baseFlags = {
@@ -3043,7 +3054,7 @@ skills["SummonRadiantSentinel"] = {
 		"radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute",
 	},
 	levels = {
-		[20] = { 45, 1800, damageEffectiveness = 2, critChance = 6, levelRequirement = 85, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
+		[20] = { 45, 1800, damageEffectiveness = 2, critChance = 6, levelRequirement = 12, statInterpolation = { 1, 1, }, cost = { Mana = 40, }, },
 	},
 }
 skills["SummonRigwaldsPack"] = {
@@ -3117,7 +3128,7 @@ skills["SummonTauntingContraption"] = {
 		{ "display_minion_monster_type", 17 },
 		{ "base_display_minion_actor_level", 70 },
 		{ "minion_maximum_life_+%", 150 },
-		{ "base_skill_effect_duration", 4000 },
+		{ "base_skill_effect_duration", 8000 },
 	},
 	stats = {
 		"base_deal_no_damage",

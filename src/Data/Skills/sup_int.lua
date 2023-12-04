@@ -1898,9 +1898,6 @@ skills["SupportDevour"] = {
 		["killing_blow_consumes_corpse_restore_x_mana"] = {
 			mod("ManaOnKill", "BASE", nil),
 		},
-		["damage_+%_if_you_have_consumed_a_corpse_recently"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "ConsumedCorpseRecently" }),
-		},
 	},
 	qualityStats = {
 		Default = {
@@ -5345,7 +5342,7 @@ skills["SupportMulticast"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Multicastable, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Blink, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_echo_damage_+%_final"] = {
@@ -5430,7 +5427,7 @@ skills["SupportSpellEchoPlus"] = {
 	support = true,
 	requireSkillTypes = { SkillType.Multicastable, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.NonRepeatable, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.Triggered, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Blink, SkillType.NonRepeatable, SkillType.CreatesMinion, SkillType.NOT, SkillType.AND, },
 	plusVersionOf = "SupportMulticast",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {

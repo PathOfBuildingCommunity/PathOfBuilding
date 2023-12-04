@@ -8,6 +8,7 @@ local pairs = pairs
 local select = select
 local t_insert = table.insert
 local m_floor = math.floor
+local m_ceil = math.ceil
 local m_min = math.min
 local m_max = math.max
 local m_modf = math.modf
@@ -416,7 +417,8 @@ function ModStoreClass:EvalMod(mod, cfg)
 			else
 				base = target:GetStat(tag.stat, cfg)
 			end
-			local mult = base * (tag.percent and tag.percent / 100 or 1)
+			local percent = tag.percent or self:GetMultiplier(tag.percentVar, cfg)
+			local mult = base * (percent and percent / 100 or 1)
 			local limitTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
@@ -429,18 +431,18 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if type(value) == "table" then
 				value = copyTable(value)
 				if value.mod then
-					value.mod.value = value.mod.value * mult + (tag.base or 0)
+					value.mod.value = m_ceil(value.mod.value * mult + (tag.base or 0))
 					if limitTotal then
 						value.mod.value = m_min(value.mod.value, limitTotal)
 					end
 				else
-					value.value = value.value * mult + (tag.base or 0)
+					value.value = m_ceil(value.value * mult + (tag.base or 0))
 					if limitTotal then
 						value.value = m_min(value.value, limitTotal)
 					end
 				end
 			else
-				value = value * mult + (tag.base or 0)
+				value = m_ceil(value * mult + (tag.base or 0))
 				if limitTotal then
 					value = m_min(value, limitTotal)
 				end
@@ -456,6 +458,10 @@ function ModStoreClass:EvalMod(mod, cfg)
 				stat = self:GetStat(tag.stat, cfg)
 			end
 			local threshold = tag.threshold or self:GetStat(tag.thresholdStat, cfg)
+			if tag.thresholdPercent or tag.thresholdPercentVar then
+				local thresholdPercent = tag.thresholdPercent or self:GetMultiplier(tag.thresholdPercentVar, cfg)
+				threshold = threshold * (thresholdPercent and thresholdPercent / 100 or 1)
+			end
 			if (tag.upper and stat > threshold) or (not tag.upper and stat < threshold) then
 				return
 			end
@@ -556,6 +562,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			local match = false
 			local searchCond = tag.searchCond
 			local rarityCond = tag.rarityCond
+			local corruptedCond = tag.corruptedCond
 			local allSlots = tag.allSlots
 			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
 			local bCheckAllAppropriateSlots = tag.bothSlots
@@ -586,6 +593,11 @@ function ModStoreClass:EvalMod(mod, cfg)
 				if rarityCond then
 					for _, item in pairs(items) do
 						t_insert(matches, item.rarity == rarityCond)
+					end
+				end
+				if corruptedCond then
+					for _, item in pairs(items) do
+						t_insert(matches, item.corrupted == corruptedCond)
 					end
 				end
 			end
