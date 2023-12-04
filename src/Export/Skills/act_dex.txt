@@ -515,7 +515,7 @@ local skills, mod, flag, skill = ...
 		end
 		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
-#baseMod skill("radius", 11)
+#baseMod skill("radius", 16)
 #mods
 
 #skill VaalCyclone

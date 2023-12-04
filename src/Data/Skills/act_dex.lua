@@ -2621,7 +2621,7 @@ skills["Cyclone"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 11),
+		skill("radius", 16),
 	},
 	qualityStats = {
 		Default = {
