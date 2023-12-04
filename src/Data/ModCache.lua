@@ -4774,7 +4774,7 @@ c["40% less Energy Shield Recharge Rate"]={{[1]={flags=0,keywordFlags=0,name="En
 c["40% less Minimum Physical Attack Damage"]={{[1]={[1]={skillType=1,type="SkillType"},flags=0,keywordFlags=0,name="MinPhysicalDamage",type="MORE",value=-40}},nil}
 c["40% less Physical and Chaos Damage Taken while Sane"]={{[1]={[1]={neg=true,type="Condition",var="Insane"},flags=0,keywordFlags=0,name="PhysicalDamageTaken",type="MORE",value=-40},[2]={[1]={neg=true,type="Condition",var="Insane"},flags=0,keywordFlags=0,name="ChaosDamageTaken",type="MORE",value=-40}},nil}
 c["40% less duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="MORE",value=-40}},nil}
-c["40% more Accuracy Rating against Unique Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="RareOrUnique"},flags=0,keywordFlags=0,name="Accuracy",type="MORE",value=40}},nil}
+c["40% more Accuracy Rating against Unique Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="RareOrUnique"},flags=0,keywordFlags=0,name="AccuracyVsEnemy",type="MORE",value=40}},nil}
 c["40% more Attack Damage if Accuracy Rating is higher than Maximum Life"]={{[1]={[1]={type="Condition",var="MainHandAccRatingHigherThanMaxLife"},[2]={type="Condition",var="MainHandAttack"},flags=1,keywordFlags=0,name="Damage",source="Damage",type="MORE",value=40},[2]={[1]={type="Condition",var="OffHandAccRatingHigherThanMaxLife"},[2]={type="Condition",var="OffHandAttack"},flags=1,keywordFlags=0,name="Damage",source="Damage",type="MORE",value=40}},nil}
 c["40% more Attack Speed with Melee Skills while you are Unencumbered"]={{[1]={[1]={type="Condition",var="Unencumbered"},flags=257,keywordFlags=0,name="Speed",type="MORE",value=40}},nil}
 c["40% more Damage"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="MORE",value=40}},nil}
@@ -5199,8 +5199,8 @@ c["50% less Mana Cost of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaCost",
 c["50% less Poison Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="MORE",value=-50}},nil}
 c["50% less duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="MORE",value=-50}},nil}
 c["50% less maximum Total Life Recovery per Second from Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxLifeLeechRate",type="MORE",value=-50}},nil}
-c["50% more Accuracy Rating against Marked Enemy"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Marked"},flags=0,keywordFlags=0,name="Accuracy",type="MORE",value=50}},nil}
-c["50% more Accuracy Rating at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange"},flags=0,keywordFlags=0,name="Accuracy",type="MORE",value=50}},nil}
+c["50% more Accuracy Rating against Marked Enemy"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Marked"},flags=0,keywordFlags=0,name="AccuracyVsEnemy",type="MORE",value=50}},nil}
+c["50% more Accuracy Rating at Close Range"]={{[1]={[1]={type="Condition",var="AtCloseRange"},flags=0,keywordFlags=0,name="AccuracyVsEnemy",type="MORE",value=50}},nil}
 c["50% more Critical Strike Chance while Insane"]={{[1]={[1]={type="Condition",var="Insane"},flags=0,keywordFlags=0,name="CritChance",type="MORE",value=50}},nil}
 c["50% more Damage Over Time with Herald Skills"]={{[1]={[1]={skillType=62,type="SkillType"},flags=8,keywordFlags=0,name="Damage",type="MORE",value=50}},nil}
 c["50% more Effect of Cold Ailments you inflict with Hits for which the highest Damage Type is Cold"]={{[1]={[1]={type="Condition",var="ColdIsHighestDamageType"},flags=0,keywordFlags=0,name="EnemyChillEffect",type="MORE",value=50},[2]={[1]={type="Condition",var="ColdIsHighestDamageType"},flags=0,keywordFlags=0,name="EnemyBrittleEffect",type="MORE",value=50},[3]={flags=0,keywordFlags=0,name="ChecksHighestDamage",type="FLAG",value=true}},nil}
@@ -7613,7 +7613,7 @@ c["Enemies you inflict Bleeding on grant 100% increased Flask Charges"]={nil,"En
 c["Enemies you inflict Bleeding on grant 100% increased Flask Charges Adds 120 to 165 Physical Damage against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=120},[2]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=165}},"Enemies you inflict Bleeding on grant 100% increased Flask Charges   "}
 c["Enemies you kill are Shocked"]={nil,"Enemies you kill are Shocked "}
 c["Enemies you kill are Shocked Shocks you inflict spread to other Enemies within a Radius of 15"]={nil,"Enemies you kill are Shocked Shocks you inflict spread to other Enemies within a Radius of 15 "}
-c["Enemies you or your Totems Kill have 5% chance to Explode, dealing 500% of their maximum Life as Fire Damage"]={nil,"Enemies you or your Totems Kill have 5% chance to Explode, dealing 500% of their maximum Life as Fire Damage "}
+c["Enemies you or your Totems Kill have 5% chance to Explode, dealing 500% of their maximum Life as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ExplodeMod",type="LIST",value={amount=500,chance=0.05,keyOfScaledMod="chance",type="Fire"}},[2]={flags=0,keywordFlags=0,name="CanExplode",type="FLAG",value=true}},nil}
 c["Enemies' Damage with Critical Strikes against you is Lucky"]={nil,"Enemies' Damage with Critical Strikes  is Lucky "}
 c["Enemy Hits inflict Temporal Chains on you"]={nil,"Enemy Hits inflict Temporal Chains on you "}
 c["Enemy Hits inflict Temporal Chains on you When you lose Temporal Chains you gain maximum Rage"]={nil,"Enemy Hits inflict Temporal Chains on you When you lose Temporal Chains you gain maximum Rage "}
@@ -7985,8 +7985,7 @@ c["Gain Her Embrace for 3 seconds when you Ignite an Enemy"]={{[1]={flags=0,keyw
 c["Gain Immunity to Physical Damage for 1.5 seconds on Rampage"]={{[1]={flags=0,keywordFlags=0,name="Condition:Rampage",type="FLAG",value=true}},"Immunity to  for 1.5 seconds on  "}
 c["Gain Immunity to Physical Damage for 1.5 seconds on Rampage Rampage"]={{[1]={flags=0,keywordFlags=0,name="Condition:Rampage",type="FLAG",value=true}},"Immunity to  for 1.5 seconds on  Rampage "}
 c["Gain Maddening Presence for 10 seconds when you Kill a Rare or Unique Enemy"]={{[1]={[1]={type="Condition",var="KilledUniqueEnemy"},flags=0,keywordFlags=0,name="EnemyModifier",type="LIST",value={mod={flags=0,keywordFlags=0,name="HasMaddeningPresence",type="FLAG",value=true}}}},nil}
-c["Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items"]={nil,"Maximum Life instead of Maximum Energy Shield from Equipped Armour Items "}
-c["Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items -6 Maximum Life per Level"]={nil,"Maximum Life instead of Maximum Energy Shield from Equipped Armour Items -6 Maximum Life  "}
+c["Gain Maximum Life instead of Maximum Energy Shield from Equipped Armour Items"]={{[1]={flags=0,keywordFlags=0,name="ConvertArmourESToLife",type="FLAG",value=true}},nil}
 c["Gain Onslaught for 1 second per Frenzy Charge on use"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},flags=0,keywordFlags=0,name="Condition:Onslaught",type="FLAG",value=true}}," for 1 second  on use "}
 c["Gain Onslaught for 1 second per Frenzy Charge on use Gain Onslaught for 2 seconds per Frenzy Charge on use"]={{[1]={[1]={type="Multiplier",var="FrenzyCharge"},[2]={skillName="Frenzy",type="SkillName"},flags=0,keywordFlags=0,name="Condition:Onslaught",type="FLAG",value=true}}," for 1 second  on use Gain   perCharge on use "}
 c["Gain Onslaught for 10 seconds when you Cast Socketed Golem Skill"]={{[1]={[1]={type="Condition",var="SummonedGolemInPast10Sec"},flags=0,keywordFlags=0,name="Condition:Onslaught",type="FLAG",value=true}},nil}
@@ -10573,7 +10572,7 @@ c["Spells have a 20% chance to deal Double Damage"]={{[1]={flags=2,keywordFlags=
 c["Spells which can gain Intensity have +1 to maximum Intensity"]={{[1]={flags=0,keywordFlags=0,name="Multiplier:IntensityLimit",type="BASE",value=1}},nil}
 c["Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds"]={nil,"Spells which have gained Intensity Recently gain 1 Intensity every 0.5 Seconds "}
 c["Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds"]={nil,"Spells which have gained Intensity Recently lose 1 Intensity every 0.50 Seconds "}
-c["Spells you cast yourself gain Added Physical Damage equal to 75% of Life Cost, if Life Cost is not higher than the maximum you could spend"]={nil,"Spells you cast yourself gain Added Physical Damage equal to 75% of Life Cost, if Life Cost is not higher than the maximum you could spend "}
+c["Spells you cast yourself gain Added Physical Damage equal to 75% of Life Cost, if Life Cost is not higher than the maximum you could spend"]={{[1]={[1]={percent=75,stat="LifeCost",type="PercentStat"},[2]={stat="LifeUnreserved",thresholdPercent=75,thresholdStat="LifeCost",type="StatThreshold"},flags=0,keywordFlags=0,name="PhysicalMin",type="BASE",value=1},[2]={[1]={percent=75,stat="LifeCost",type="PercentStat"},[2]={stat="LifeUnreserved",thresholdPercent=75,thresholdStat="LifeCost",type="StatThreshold"},flags=0,keywordFlags=0,name="PhysicalMax",type="BASE",value=1}},nil}
 c["Spend Energy Shield before Mana for Costs of Socketed Skills"]={nil,"Spend Energy Shield before Mana for Costs of Socketed Skills "}
 c["Spend Energy Shield before Mana for Costs of Socketed Skills +165 to maximum Energy Shield"]={nil,"Spend Energy Shield before Mana for Costs of Socketed Skills +165 to maximum Energy Shield "}
 c["Spend Energy Shield before Mana for Skill Mana Costs"]={{},nil}

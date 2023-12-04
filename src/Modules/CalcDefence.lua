@@ -582,7 +582,7 @@ function calcs.defence(env, actor)
 								item = actor.itemList[slot],
 							})
 						end
-					else
+					elseif not modDB:Flag(nil, "ConvertArmourESToLife") then
 						energyShield = energyShield + energyShieldBase * calcLib.mod(modDB, slotCfg, "EnergyShield", "Defences", slot.."ESAndArmour")
 						gearEnergyShield = gearEnergyShield + energyShieldBase
 						if breakdown then

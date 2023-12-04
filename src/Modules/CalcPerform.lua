@@ -1231,6 +1231,22 @@ function calcs.perform(env, fullDPSSkipEHP)
 		end
 	end
 
+	if modDB:Flag(nil, "ConvertArmourESToLife") then
+		local energyShieldBase
+		local tempTable1 = { }
+		local slotCfg = wipeTable(tempTable1)
+		for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
+			local armourData = env.player.itemList[slot] and env.player.itemList[slot].armourData
+			if armourData then
+				slotCfg.slotName = slot
+				energyShieldBase = armourData.EnergyShield or 0
+				if energyShieldBase > 0 then
+					modDB:NewMod("Life", "BASE", energyShieldBase, slot.." ES to Life Conversion")
+				end
+			end
+		end
+	end
+
 	-- Special handling of Mageblood
 	local maxActiveMagicUtilityCount = modDB:Sum("BASE", nil, "ActiveMagicUtilityFlasks")
 	if maxActiveMagicUtilityCount > 0 then
