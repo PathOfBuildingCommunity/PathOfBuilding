@@ -239,6 +239,10 @@ return {
 	end },
 	{ var = "ignoreItemDisablers", type = "check", label = "Don't disable items", ifTagType = "DisablesItem", tooltip = "Ignore the effects of things which disable items, like Bringer of Rain" },
 	{ var = "ignoreJewelLimits", type = "check", label = "Ignore Jewel Limits", tooltip = "Ignore the limits on jewels" },
+	{ var = "overrideEmptyRedSockets", type = "count", label = "# of Empty ^xE05030Red^7 Sockets", ifMult = "EmptyRedSocketsInAnySlot",  tooltip = "This option allows you to override the default calculation for the number of Empty ^xE05030Red^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "overrideEmptyGreenSockets", type = "count", label = "# of Empty ^x70FF70Green^7 Sockets", ifMult = "EmptyGreenSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x70FF70Green^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "overrideEmptyBlueSockets", type = "count", label = "# of Empty ^x7070FFBlue^7 Sockets", ifMult = "EmptyBlueSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x7070FFBlue^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "overrideEmptyWhiteSockets", type = "count", label = "# of Empty White Sockets", ifMult = "EmptyWhiteSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty White Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
@@ -1398,6 +1402,9 @@ Huge sets the radius to 11.
 	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's ^xADAA47Lightning ^7Buff?", ifFlag = "Condition:HaveManaStorm", tooltip = "This option enables Manastorm's ^xADAA47Lightning ^7Damage Buff.\n(When you cast a Spell, Sacrifice all ^x7070FFMana ^7to gain Added Maximum ^xADAA47Lightning ^7Damage\nequal to 25% of Sacrificed ^x7070FFMana ^7for 4 seconds)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SacrificeManaForLightning", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "GamblesprintMovementSpeed", type = "list", label = "Gamblesprint Movement Speed", defaultIndex=5, list={{val=-40,label="-40%"},{val=-20,label="-20%"},{val=0,label="0%"},{val=20,label="20%"},{val=30,label="30%"},{val=40,label="40%"},{val=60,label="60%"},{val=80,label="80%"},{val=100,label="100%"}}, ifFlag = "Condition:HaveGamblesprint", tooltip = "This option sets the Movement Speed from Gamblesprint boots.", apply = function(val, modList, enemyModList)
+		modList:NewMod("MovementSpeed", "INC", val, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveGamblesprint" })
+	end },
 	{ var = "buffFanaticism", type = "check", label = "Do you have Fanaticism?", ifFlag = "Condition:CanGainFanaticism", tooltip = "This will enable the Fanaticism buff itself. (Grants 75% more cast speed, reduced skill cost, and increased area of effect)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Fanaticism", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainFanaticism" })
 	end },
@@ -1643,6 +1650,15 @@ Huge sets the radius to 11.
 	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibrium", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
 	{ var = "conditionBetweenYouAndLinkedTarget", type = "check", label = "Is the enemy in your Link beams?", ifEnemyCond = "BetweenYouAndLinkedTarget", tooltip = "This option sets whether an enemy is between you and your linked target.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:BetweenYouAndLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
+	end },
+	{ var = "conditionEnemyFireResZero", type = "check", label = "Enemy hit you with ^xB97123Fire Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xB97123Fire Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("FireResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
+	end },
+	{ var = "conditionEnemyColdResZero", type = "check", label = "Enemy hit you with ^x3F6DB3Cold Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^x3F6DB3Cold Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("ColdResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
+	end },
+	{ var = "conditionEnemyLightningResZero", type = "check", label = "Enemy hit you with ^xADAA47Light. Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xADAA47Lightning Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("LightningResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
 	end },
 	-- Section: Enemy Stats
 	{ section = "Enemy Stats", col = 3 },

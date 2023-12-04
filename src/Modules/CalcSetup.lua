@@ -997,9 +997,43 @@ function calcs.initEnv(build, mode, override, specEnv)
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
 					end
 					env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] = (env.itemModDB.multipliers[item.type:gsub(" ", ""):gsub(".+Handed", "").."Item"] or 0) + 1
+					-- Calculate socket counts
+					local slotEmptySocketsCount = { R = 0, G = 0, B = 0, W = 0}	
+					local slotGemSocketsCount = 0
+					local socketedGems = 0
+					-- Loop through socket groups to calculate number of socketed gems
+					for _, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
+						if (socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
+							for _, gem in pairs(socketGroup.gemList) do
+								if (gem.gemData and gem.enabled) then
+									socketedGems = socketedGems + 1
+								end
+							end
+						end
+					end
+					for i, socket in ipairs(item.sockets) do
+						-- Check socket color to ignore abyssal sockets
+						if socket.color == 'R' or socket.color == 'B' or socket.color == 'G' or socket.color == 'W' then
+							slotGemSocketsCount = slotGemSocketsCount + 1
+							-- loop through sockets indexes that are greater than number of socketed gems
+							if i > socketedGems then
+								slotEmptySocketsCount[socket.color] = slotEmptySocketsCount[socket.color] + 1
+							end
+						end
+					end
+					env.itemModDB.multipliers["SocketedGemsIn"..slotName] = (env.itemModDB.multipliers["SocketedGemsIn"..slotName] or 0) + math.min(slotGemSocketsCount, socketedGems)
+					env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.itemModDB.multipliers.EmptyRedSocketsInAnySlot or 0) + slotEmptySocketsCount.R
+					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
+					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B
+					env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot or 0) + slotEmptySocketsCount.W
 				end
 			end
 		end
+		-- Override empty socket calculation if set in config
+		env.itemModDB.multipliers.EmptyRedSocketsInAnySlot = (env.configInput.overrideEmptyRedSockets or env.itemModDB.multipliers.EmptyRedSocketsInAnySlot)
+		env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.configInput.overrideEmptyGreenSockets or env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot)
+		env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.configInput.overrideEmptyBlueSockets or env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot)
+		env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.configInput.overrideEmptyWhiteSockets or env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot)
 		if override.toggleFlask then
 			if env.flasks[override.toggleFlask] then
 				env.flasks[override.toggleFlask] = nil

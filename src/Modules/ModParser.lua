@@ -1272,6 +1272,11 @@ local modTagList = {
 	["per green socket"] = { tag = { type = "Multiplier", var = "GreenSocketIn{SlotName}" } },
 	["per blue socket"] = { tag = { type = "Multiplier", var = "BlueSocketIn{SlotName}" } },
 	["per white socket"] = { tag = { type = "Multiplier", var = "WhiteSocketIn{SlotName}" } },
+	["for each empty red socket on any equipped item"] = { tag = { type = "Multiplier", var = "EmptyRedSocketsInAnySlot" } },
+	["for each empty green socket on any equipped item"] = { tag = { type = "Multiplier", var = "EmptyGreenSocketsInAnySlot" } },
+	["for each empty blue socket on any equipped item"] = { tag = { type = "Multiplier", var = "EmptyBlueSocketsInAnySlot" } },
+	["for each empty white socket on any equipped item"] = { tag = { type = "Multiplier", var = "EmptyWhiteSocketsInAnySlot" } },
+	["per socketed gem"] = { tag = { type = "Multiplier", var = "SocketedGemsIn{SlotName}"}},
 	["for each impale on enemy"] = { tag = { type = "Multiplier", var = "ImpaleStacks", actor = "enemy" } },
 	["per impale on enemy"] = { tag = { type = "Multiplier", var = "ImpaleStacks", actor = "enemy" } },
 	["per animated weapon"] = { tag = { type = "Multiplier", var = "AnimatedWeapon", actor = "parent" } },
@@ -2562,6 +2567,11 @@ local specialModList = {
 		mod("DamageTakenOverTime", "MORE", -num, { type = "Condition", var = "HeartstopperDOT" }),
 		mod("DamageTakenOverTime", "MORE", -num * tonumber(duration) / 10, { type = "Condition", var = "HeartstopperAVERAGE" })
 	} end,
+	-- Warden
+	["defences from equipped body armour are doubled if it has no socketed gems"] = { flag("Unbreakable", { type = "MultiplierThreshold", var = "SocketedGemsInBody Armour", threshold = 0, upper = true }) },
+	["([%+%-]%d+)%% to all elemental resistances if you have an equipped helmet with no socketed gems"] = function(num) return { mod("ElementalResist", "BASE", num, { type = "MultiplierThreshold", var = "SocketedGemsInHelmet", threshold = 0, upper = true}) } end, 
+	["(%d+)%% increased maximum life if you have equipped gloves with no socketed gems"] = function(num) return { mod("Life", "INC", num, { type = "MultiplierThreshold", var = "SocketedGemsInGloves", threshold = 0, upper = true}) } end, 
+	["(%d+)%% increased movement speed if you have equipped boots with no socketed gems"] = function(num) return { mod("MovementSpeed", "INC", num, { type = "MultiplierThreshold", var = "SocketedGemsInBoots", threshold = 0, upper = true}) } end, 
 	-- Warlock
 	["spells you cast yourself gain added physical damage equal to (%d+)%% of life cost, if life cost is not higher than the maximum you could spend"] = function(num) return {
 		mod("PhysicalMin", "BASE", 1, { type = "PercentStat", stat = "LifeCost", percent = num }, { type = "StatThreshold", stat = "LifeUnreserved", thresholdStat = "LifeCost", thresholdPercent = num }),
@@ -2638,6 +2648,7 @@ local specialModList = {
 		if type == "" then type = "all" end
 		return { mod("GemProperty", "LIST", { keyword = type, key = property, value = num }, { type = "SocketedIn", slotName = "{SlotName}" }) }
 	end,
+	["([%+%-]%d+) to level of socketed skill gems per socketed gem"] = function(num) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var="SocketedGemsIn{SlotName}"}) } end,
 	["([%+%-]%d+)%% to quality of all skill gems"] = function(num) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "quality", value = num }) } end,
 	["([%+%-]%d+) to level of socketed active skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
 	["([%+%-]%d+) to level of socketed skill gems per (%d+) player levels"] = function(num, _, div) return { mod("GemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = num }, { type = "SocketedIn", slotName = "{SlotName}" }, { type = "Multiplier", var = "Level", div = tonumber(div) }) } end,
@@ -3364,6 +3375,7 @@ local specialModList = {
 	["if you consumed a corpse recently, you and nearby allies regenerate (%d+)%% of life per second"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("LifeRegenPercent", "BASE", num) }, { type = "Condition", var = "ConsumedCorpseRecently" }) } end,
 	["if you have blocked recently, you and nearby allies regenerate (%d+)%% of life per second"] = function (num) return { mod("ExtraAura", "LIST", { mod = mod("LifeRegenPercent", "BASE", num) }, { type = "Condition", var = "BlockedRecently" }) } end,
 	["you are at maximum chance to block attack damage if you have not blocked recently"] = { flag("MaxBlockIfNotBlockedRecently", { type = "Condition", var = "BlockedRecently", neg = true }) },
+	["you are at maximum chance to block spell damage if you have not blocked recently"] = { flag("MaxSpellBlockIfNotBlockedRecently", { type = "Condition", var = "BlockedRecently", neg = true }) },
 	["%+(%d+)%% chance to block attack damage if you have not blocked recently"] = function(num) return { mod("BlockChance", "BASE", num, { type = "Condition", var = "BlockedRecently", neg = true }) } end,
 	["%+(%d+)%% chance to block spell damage if you have not blocked recently"] = function(num) return { mod("SpellBlockChance", "BASE", num, { type = "Condition", var = "BlockedRecently", neg = true }) } end,
 	["([%d%.]+)%% of evasion rating is regenerated as life per second while focus?sed"] = function(num) return { mod("LifeRegen", "BASE", 1, { type = "PercentStat", stat = "Evasion", percent = num }, { type = "Condition", var = "Focused" }) } end,
@@ -3683,6 +3695,11 @@ local specialModList = {
 	["summoned skeletons take ([%d%.]+)%% of their maximum life per second as fire damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("FireDegen", "BASE", 1, { type = "PercentStat", stat = "Life", percent = num }) }, { type = "SkillName", skillName = "Summon Skeleton" }) } end,
 	["summoned skeletons have (%d+)%% chance to wither enemies for (%d+) seconds on hit"] = { mod("ExtraSkillMod", "LIST", { mod = flag("Condition:CanWither") }, { type = "SkillName", skillName = "Summon Skeleton" }) },
 	["summoned skeletons have (%d+)%% of physical damage converted to chaos damage"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToChaos", "BASE", num) }, { type = "SkillName", skillName = "Summon Skeleton" }) } end,
+	["summoned skeletons gain added chaos damage equal to (%d+)%% of maximum energy shield on your equipped shield"] = function(num) return {
+		mod("MinionModifier", "LIST", { mod = mod("ChaosMin", "BASE", 1, { type = "PercentStat", stat = "EnergyShieldOnWeapon 2", actor = "parent", percent = num }) }),
+		mod("MinionModifier", "LIST", { mod = mod("ChaosMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShieldOnWeapon 2", actor = "parent", percent = num }) }),
+
+	} end,
 	["minions convert (%d+)%% of physical damage to fire damage per red socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToFire", "BASE", num) }, { type = "Multiplier", var = "RedSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to cold damage per green socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToCold", "BASE", num) }, { type = "Multiplier", var = "GreenSocketIn{SlotName}" }) } end,
 	["minions convert (%d+)%% of physical damage to lightning damage per blue socket"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageConvertToLightning", "BASE", num) }, { type = "Multiplier", var = "BlueSocketIn{SlotName}" }) } end,
@@ -4120,6 +4137,7 @@ local specialModList = {
 	["your spells have culling strike"] = { mod("CullPercent", "MAX", 10, nil, ModFlag.Spell) },
 	["bow attacks have culling strike"] = { mod("CullPercent", "MAX", 10, nil, bor(ModFlag.Attack, ModFlag.Bow)) },
 	["culling strike against burning enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Burning" }) },
+	["culling strike against frozen enemies"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Frozen" }) },
 	["culling strike against marked enemy"] = { mod("CullPercent", "MAX", 10, { type = "ActorCondition", actor = "enemy", var = "Marked" }) },
 	["nearby allies have culling strike"] = { mod("ExtraAura", "LIST", {onlyAllies = true, mod = mod("CullPercent", "MAX", 10) }) },
 	-- Intimidate
@@ -4273,6 +4291,9 @@ local specialModList = {
 	["minimum power charges equal to maximum while stationary"] = { flag("MinimumPowerChargesIsMaximumPowerCharges", {type = "Condition", var = "Stationary" }) },
 	["minimum frenzy charges equal to maximum while stationary"] = { flag("MinimumFrenzyChargesIsMaximumFrenzyCharges", {type = "Condition", var = "Stationary" }) },
 	["minimum endurance charges equal to maximum while stationary"] = { flag("MinimumEnduranceChargesIsMaximumEnduranceCharges", {type = "Condition", var = "Stationary" }) },
+	["count as having maximum number of power charges"] = { flag("HaveMaximumPowerCharges") },
+	["count as having maximum number of frenzy charges"] = { flag("HaveMaximumFrenzyCharges") },
+	["count as having maximum number of endurance charges"] = { flag("HaveMaximumEnduranceCharges") },
 	["leftmost (%d+) magic utility flasks constantly apply their flask effects to you"] = function(num) return { mod("ActiveMagicUtilityFlasks", "BASE", num) } end,
 	["marauder: melee skills have (%d+)%% increased area of effect"] = function(num) return { mod("AreaOfEffect", "INC", num, { type = "Condition", var = "ConnectedToMarauderStart" }, { type = "SkillType", skillType = SkillType.Melee }) } end,
 	["intelligence provides no bonus to energy shield"] = { flag("NoIntBonusToES") },
@@ -4397,6 +4418,9 @@ local specialModList = {
 	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of your maximum energy shield"] = function(num) return {
 		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 	} end,
+	["attacks with this weapon have added maximum lightning damage equal to (%d+)%% of player maximum energy shield"] = function(num) return {
+		mod("LightningMax", "BASE", 1, { type = "PercentStat", stat = "EnergyShield" , percent = num, actor = "parent" }, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
+	} end,
 	["gain added chaos damage equal to (%d+)%% of ward"] = function(num) return {
 		mod("ChaosMin", "BASE", 1, { type = "PercentStat", stat = "Ward", percent = num }),
 		mod("ChaosMax", "BASE", 1, { type = "PercentStat", stat = "Ward", percent = num }),
@@ -4409,6 +4433,9 @@ local specialModList = {
 	},
 	["every 8 seconds, gain avatar of fire for 4 seconds"] = {
 		flag("Condition:HaveVulconus"),
+	},
+	["when hit, gain a random movement speed modifier from 40%% reduced to 100%% increased until hit again"] = {
+		flag("Condition:HaveGamblesprint"),
 	},
 	["trigger socketed curse spell when you cast a curse spell, with a ([%d%.]+) second cooldown"] = {
 		mod("ExtraSupport", "LIST", { skillId = "SupportUniqueCastCurseOnCurse", level = 1 }, { type = "SocketedIn", slotName = "{SlotName}" }),
@@ -4556,6 +4583,9 @@ local specialModList = {
 	["skills gain a base life cost equal to (%d+)%% of base mana cost"] = function(num) return { 
 		mod("ManaCostAsLifeCost", "BASE", num),
 	} end,
+	["skills gain a base energy shield cost equal to (%d+)%% of base mana cost"] = function(num) return { 
+		mod("ManaCostAsEnergyShieldCost", "BASE", num),
+	} end,
     ["skills cost life instead of (%d+)%% of mana cost"] = function(num) return {
         mod("HybridManaAndLifeCost_Life", "BASE", num),
     } end,
@@ -4605,6 +4635,7 @@ local specialModList = {
 	["volatile dead and cremation penetrate (%d+)%% fire resistance per (%d+) dexterity"] = function(inc, _, num) return { mod("FirePenetration", "BASE", inc, { type = "PerStat", stat = "Dex", div = num }, { type = "SkillName", skillNameList = { "Volatile Dead", "Cremation" } }) } end,
 	["regenerate (%d+) mana per second while any enemy is in your righteous fire or scorching ray"] = function( num) return { mod("ManaRegen", "BASE", num, { type = "Condition", var = "InRFOrScorchingRay" }) } end,
 	["%+(%d+)%% to wave of conviction damage over time multiplier per ([%d%.]+) seconds of duration expired"] = function(num) return { mod("WaveOfConvictionDurationDotMulti", "INC", num) } end,
+	["when an enemy hit deals elemental damage to you, their resistance to those elements becomes zero for 4 seconds"] = { flag("Condition:HaveTrickstersSmile"), },
 	-- Pantheon: Soul of Tukohama support
 	["while stationary, gain ([%d%.]+)%% of life regenerated per second every second, up to a maximum of (%d+)%%"] = function(num, _, limit) return {
 		mod("LifeRegenPercent", "BASE", num, { type = "Multiplier", var = "StationarySeconds", limit = tonumber(limit), limitTotal = true }, { type = "Condition", var = "Stationary" }),
