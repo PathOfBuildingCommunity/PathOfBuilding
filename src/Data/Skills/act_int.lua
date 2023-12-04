@@ -2513,9 +2513,7 @@ skills["Discharge"] = {
 	castTime = 0.75,
 	statMap = {
 		["area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge"] = {
-			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
-			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
-			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
+			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableTotalCharges" }),
 		},
 		["active_skill_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil,  ModFlag.Ailment),
