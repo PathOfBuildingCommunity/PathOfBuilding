@@ -847,7 +847,7 @@ Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Chaos Resistance
 {variant:1}20% increased Movement Speed
 {variant:2,3}30% increased Movement Speed
-{variant:1,3}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
+{variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
 {variant:1,2}Lose all Frenzy, Endurance, and Power Charges when you Move
 {variant:2}Minimum Endurance Charges equal to Maximum while stationary
 {variant:2}Minimum Frenzy Charges equal to Maximum while stationary
