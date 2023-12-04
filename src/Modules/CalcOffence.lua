@@ -1853,13 +1853,14 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate hit chance
 		local base = skillModList:Sum("BASE", cfg, "Accuracy")
-		local baseVsEnemy = skillModList:Sum("BASE", cfg, "AccuracyVsEnemy")
+		local baseVsEnemy = skillModList:Sum("BASE", cfg, "Accuracy", "AccuracyVsEnemy")
 		local inc = skillModList:Sum("INC", cfg, "Accuracy")
-		local incVsEnemy = skillModList:Sum("INC", cfg, "AccuracyVsEnemy")
+		local incVsEnemy = skillModList:Sum("INC", cfg, "Accuracy", "AccuracyVsEnemy")
 		local more = skillModList:More("MORE", cfg, "Accuracy")
+		local moreVsEnemy = skillModList:More("MORE", cfg, "Accuracy", "AccuracyVsEnemy")
 
 		output.Accuracy = m_max(0, m_floor(base * (1 + inc / 100) * more))
-		local accuracyVsEnemy = m_max(0, m_floor((base + baseVsEnemy)* (1 + (inc + incVsEnemy) / 100) * more))
+		local accuracyVsEnemy = m_max(0, m_floor(baseVsEnemy * (1 + incVsEnemy / 100) * moreVsEnemy))
 		if breakdown then
 			breakdown.Accuracy = { }
 			breakdown.multiChain(breakdown.Accuracy, {
@@ -1868,13 +1869,13 @@ function calcs.offence(env, actor, activeSkill)
 				{ "%.2f ^8(more/less)", more },
 				total = s_format("= %g", output.Accuracy)
 			})
-			if incVsEnemy ~= 0 then
+			if output.Accuracy ~= accuracyVsEnemy then
 				t_insert(breakdown.Accuracy, s_format(""))
 				breakdown.multiChain(breakdown.Accuracy, {
 					label = "Effective Accuracy vs Enemy",
-					base = { "%g ^8(base)", base + baseVsEnemy },
-					{ "%.2f ^8(increased/reduced)", 1 + (inc + incVsEnemy) / 100 },
-					{ "%.2f ^8(more/less)", more },
+					base = { "%g ^8(base)", baseVsEnemy },
+					{ "%.2f ^8(increased/reduced)", 1 + incVsEnemy / 100 },
+					{ "%.2f ^8(more/less)", moreVsEnemy },
 					total = s_format("= %g", accuracyVsEnemy)
 				})
 			end

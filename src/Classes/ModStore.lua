@@ -458,6 +458,10 @@ function ModStoreClass:EvalMod(mod, cfg)
 				stat = self:GetStat(tag.stat, cfg)
 			end
 			local threshold = tag.threshold or self:GetStat(tag.thresholdStat, cfg)
+			if tag.thresholdPercent or tag.thresholdPercentVar then
+				local thresholdPercent = tag.thresholdPercent or self:GetMultiplier(tag.thresholdPercentVar, cfg)
+				threshold = threshold * (thresholdPercent and thresholdPercent / 100 or 1)
+			end
 			if (tag.upper and stat > threshold) or (not tag.upper and stat < threshold) then
 				return
 			end

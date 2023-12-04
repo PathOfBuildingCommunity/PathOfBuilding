@@ -1326,9 +1326,9 @@ skills["FieryImpactHeistMaceImplicit"] = {
 		"skill_has_trigger_from_unique_item",
 	},
 	levels = {
-		[10] = { baseMultiplier = 2, cooldown = 2, damageEffectiveness = 2, storedUses = 1, levelRequirement = 30, },
-		[15] = { baseMultiplier = 2.5, cooldown = 2, damageEffectiveness = 2.5, storedUses = 1, levelRequirement = 50, },
-		[20] = { baseMultiplier = 3, cooldown = 2, damageEffectiveness = 3, storedUses = 1, levelRequirement = 70, },
+		[10] = { baseMultiplier = 2, cooldown = 1.8, damageEffectiveness = 2, storedUses = 1, levelRequirement = 30, },
+		[15] = { baseMultiplier = 2.5, cooldown = 1.6, damageEffectiveness = 2.5, storedUses = 1, levelRequirement = 50, },
+		[20] = { baseMultiplier = 3, cooldown = 1.4, damageEffectiveness = 3, storedUses = 1, levelRequirement = 70, },
 	},
 }
 skills["AtziriUniqueStaffFlameblast"] = {
@@ -3128,7 +3128,7 @@ skills["SummonTauntingContraption"] = {
 		{ "display_minion_monster_type", 17 },
 		{ "base_display_minion_actor_level", 70 },
 		{ "minion_maximum_life_+%", 150 },
-		{ "base_skill_effect_duration", 4000 },
+		{ "base_skill_effect_duration", 8000 },
 	},
 	stats = {
 		"base_deal_no_damage",
