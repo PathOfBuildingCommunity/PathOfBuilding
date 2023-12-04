@@ -71,7 +71,6 @@ colorCodes.RAGE = colorCodes.WARNING
 colorCodes.PHYS = colorCodes.NORMAL
 
 defaultColorCodes = copyTable(colorCodes)
-rgbColor = {1, 0, 0}
 function updateColorCode(code, color)
  	if colorCodes[code] then
 		colorCodes[code] = color:gsub("^0", "^")

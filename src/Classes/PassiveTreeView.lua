@@ -673,6 +673,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if self.searchStrResults[nodeId] then
 			-- Node matches the search string, show the highlight circle
 			SetDrawLayer(nil, 30)
+			local rgbColor = rgbColor or {1, 0, 0}
 			SetDrawColor(rgbColor[1], rgbColor[2], rgbColor[3])
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
