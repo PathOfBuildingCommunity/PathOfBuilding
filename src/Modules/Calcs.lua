@@ -169,7 +169,7 @@ local function getActiveSkillCount(activeSkill)
 						return gemData.count or 1,  gemData.enableGlobal2 == true
 					end
 				else
-					if activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffect then
+					if (activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffect and not gemData.gemData.grantedEffect.support) or (activeSkill.activeEffect.grantedEffect == gemData.gemData.secondaryGrantedEffect) then
 						return gemData.count or 1, true
 					end
 				end
