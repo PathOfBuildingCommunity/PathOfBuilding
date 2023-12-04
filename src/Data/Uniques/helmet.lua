@@ -1203,7 +1203,7 @@ Akoya's Gaze
 Regicide Mask
 Requires Level 52, 58 Dex, 58 Int
 +100 Strength Requirement
-(20–25)% increased Warcry Speed
+(20-25)% increased Warcry Speed
 Life Leech from Exerted Attacks is instant
 Non-Exerted Attacks deal no Damage
 ]],[[

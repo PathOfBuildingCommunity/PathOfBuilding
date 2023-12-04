@@ -337,10 +337,10 @@ Ironwood Buckler
 Requires Level 57, 137 Dex
 Implicits: 1
 3% increased Movement Speed
-(100–150)% increased Evasion Rating
-(15–25)% chance to Avoid Elemental Ailments
-+(3–8)% Chance to Block
-(30–40)% chance for Elemental Resistances to count as being 90% against Enemy Hits
+(100-150)% increased Evasion Rating
+(15-25)% chance to Avoid Elemental Ailments
++(3-8)% Chance to Block
+(30-40)% chance for Elemental Resistances to count as being 90% against Enemy Hits
 ]],
 [[
 Mistwall

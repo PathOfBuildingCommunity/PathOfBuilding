@@ -99,9 +99,9 @@ Necrotic Footprints
 Kahuturoa's Certainty
 Ancient Greaves
 Requires Level 46, 82 Str
-(100–150)% increased Armour
+(100-150)% increased Armour
 5% reduced Movement Speed
-(100–200)% increased Stun and Block Recovery
+(100-200)% increased Stun and Block Recovery
 Unaffected by Damaging Ailments
 ]],[[
 Kaom's Roots

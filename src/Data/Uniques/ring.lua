@@ -553,11 +553,11 @@ League: Ancestor
 Source: No longer obtainable
 LevelReq: 49
 Implicits: 1
-{tags:life}+(20–30) to maximum Life
+{tags:life}+(20-30) to maximum Life
 10% chance to Trigger Summon Spirit of Akoya on Kill
-{tags:jewellery_attribute}+(10–20) to all Attributes
-{tags:mana}(30–50)% increased Mana Regeneration Rate
-{tags:life}(10–15)% of Damage taken Recouped as Life
+{tags:jewellery_attribute}+(10-20) to all Attributes
+{tags:mana}(30-50)% increased Mana Regeneration Rate
+{tags:life}(10-15)% of Damage taken Recouped as Life
 ]],
 [[
 The Hungry Loop
@@ -1129,10 +1129,10 @@ Immune to Chill
 ]],[[
 Tawhanuku's Timing
 Moonstone Ring
-{tags:jewellery_defense}+(15–25) to maximum Energy Shield
-{tags:caster}(30–40)% increased Spell Damage
-{tags:mana}+(60–80) to maximum Mana
-(5–10)% chance to Freeze, Shock and Ignite
+{tags:jewellery_defense}+(15-25) to maximum Energy Shield
+{tags:caster}(30-40)% increased Spell Damage
+{tags:mana}+(60-80) to maximum Mana
+(5-10)% chance to Freeze, Shock and Ignite
 {tags:jewellery_defense,caster}Spells cause you to gain Energy Shield equal to their Upfront Cost every fifth time you Pay it
 ]],[[
 Thief's Torment

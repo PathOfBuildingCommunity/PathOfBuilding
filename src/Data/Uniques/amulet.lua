@@ -324,12 +324,12 @@ Defiance of Destiny
 Paua Amulet
 LevelReq: 49
 Implicits: 1
-{tags:mana}(20–30)% increased Mana Regeneration Rate
-{tags:life}+(60–80) to maximum Life
-{tags:jewellery_resistance}+(10–40)% to Fire Resistance
-{tags:jewellery_resistance}+(10–40)% to Cold Resistance
-{tags:jewellery_resistance}+(10–40)% to Lightning Resistance
-{tags:life}Gain (25–35)% of Missing Unreserved Life before being Hit by an Enemy
+{tags:mana}(20-30)% increased Mana Regeneration Rate
+{tags:life}+(60-80) to maximum Life
+{tags:jewellery_resistance}+(10-40)% to Fire Resistance
+{tags:jewellery_resistance}+(10-40)% to Cold Resistance
+{tags:jewellery_resistance}+(10-40)% to Lightning Resistance
+{tags:life}Gain (25-35)% of Missing Unreserved Life before being Hit by an Enemy
 ]],[[
 The Ephemeral Bond
 Lapis Amulet
@@ -638,10 +638,10 @@ Ikiaho's Promise
 Coral Amulet
 LevelReq: 30
 Implicits: 1
-{tags:life}Regenerate (2–4) Life per second
-{tags:mana}Regenerate (3–5) Mana per second
-{tags:life}(30–40)% increased Life Recovery from Flasks
-{tags:mana}(15–30)% increased Mana Recovery from Flasks
+{tags:life}Regenerate (2-4) Life per second
+{tags:mana}Regenerate (3-5) Mana per second
+{tags:life}(30-40)% increased Life Recovery from Flasks
+{tags:mana}(15-30)% increased Mana Recovery from Flasks
 Life Flasks used while on Low Life apply Recovery Instantly
 Mana Flasks used while on Low Mana apply Recovery Instantly
 ]],[[
@@ -861,14 +861,14 @@ Variant: Pre 3.23.0
 Variant: Current
 LevelReq: 56
 Implicits: 1
-+(10–16) to all Attributes
-{variant:1}+(10–15)% to all Elemental Resistances
-{variant:2}+(5–10)% to all Elemental Resistances
++(10-16) to all Attributes
+{variant:1}+(10-15)% to all Elemental Resistances
+{variant:2}+(5-10)% to all Elemental Resistances
 +3 to Level of all Spark Gems
-{variant:1}(10–15)% increased Reservation Efficiency of Skills
-{variant:2}(5–10)% increased Reservation Efficiency of Skills
-{variant:1}Items and Gems have (10–15)% reduced Attribute Requirements
-{variant:2}Items and Gems have (5–10)% reduced Attribute Requirements
+{variant:1}(10-15)% increased Reservation Efficiency of Skills
+{variant:2}(5-10)% increased Reservation Efficiency of Skills
+{variant:1}Items and Gems have (10-15)% reduced Attribute Requirements
+{variant:2}Items and Gems have (5-10)% reduced Attribute Requirements
 ]],[[
 Retaliation Charm
 Citrine Amulet

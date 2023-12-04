@@ -880,9 +880,9 @@ Engraved Greatsword
 Requires Level 48, 91 Str, 76 Dex
 Implicits: 1
 60% increased Global Accuracy Rating
-Adds (150–200) to (300–350) Cold Damage
-Adds 1 to (550–600) Lightning Damage
-(15–20)% increased Attack Speed
+Adds (150-200) to (300-350) Cold Damage
+Adds 1 to (550-600) Lightning Damage
+(15-20)% increased Attack Speed
 Treats Enemy Monster Elemental Resistance values as inverted
 ]],[[
 Rigwald's Charge

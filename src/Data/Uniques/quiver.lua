@@ -7,11 +7,11 @@ Ahuana's Bite
 Sharktooth Arrow Quiver
 LevelReq: 56
 Implicits: 1
-Gain (6–8) Life per Enemy Hit with Attacks
-Adds (30–40) to (60–70) Cold Damage to Attacks
-+(20–30)% to Cold Resistance
+Gain (6-8) Life per Enemy Hit with Attacks
+Adds (30-40) to (60-70) Cold Damage to Attacks
++(20-30)% to Cold Resistance
 Enemies Chilled by your Hits have Damage taken increased by Chill Effect
-Chill Enemies as though dealing (60–100)% more Damage
+Chill Enemies as though dealing (60-100)% more Damage
 ]],[[
 Asphyxia's Wrath
 {variant:1,2}Two-Point Arrow Quiver
