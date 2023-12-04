@@ -4639,7 +4639,7 @@ skills["IceCrash"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 1 },
+			{ "physical_damage_%_to_add_as_cold", 0.75 },
 		},
 		Alternate1 = {
 			{ "base_chance_to_freeze_%", 0.5 },
