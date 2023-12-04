@@ -518,6 +518,9 @@ return {
 ["critical_strike_chance_+%_per_power_charge"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
+["critical_strike_chance_+%_final_per_power_charge"] = {
+	mod("CritChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+},
 ["critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },

@@ -7738,7 +7738,7 @@ skills["PowerSiphon"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 1 },
+			{ "critical_strike_multiplier_+_per_power_charge", 0.5 },
 		},
 		Alternate1 = {
 			{ "number_of_additional_projectiles", 0.05 },
@@ -7749,11 +7749,11 @@ skills["PowerSiphon"] = {
 	},
 	constantStats = {
 		{ "chance_to_gain_power_charge_on_rare_or_unique_enemy_hit_%", 20 },
-		{ "critical_strike_multiplier_+_per_power_charge", 10 },
-		{ "critical_strike_chance_+%_per_power_charge", 20 },
+		{ "critical_strike_multiplier_+_per_power_charge", 20 },
+		{ "critical_strike_chance_+%_final_per_power_charge", 10 },
 	},
 	stats = {
-		"number_of_additional_projectiles",
+		"soulfeast_number_of_secondary_projectiles",
 		"kill_enemy_on_hit_if_under_10%_life",
 		"skill_can_fire_wand_projectiles",
 	},
@@ -7819,13 +7819,13 @@ skills["VaalPowerSiphon"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 1 },
+			{ "critical_strike_multiplier_+_per_power_charge", 0.5 },
 		},
 	},
 	constantStats = {
 		{ "chance_to_gain_power_charge_on_rare_or_unique_enemy_hit_%", 100 },
 		{ "critical_strike_multiplier_+_per_power_charge", 25 },
-		{ "critical_strike_chance_+%_per_power_charge", 50 },
+		{ "critical_strike_chance_+%_final_per_power_charge", 20 },
 	},
 	stats = {
 		"power_siphon_fire_at_all_targets",

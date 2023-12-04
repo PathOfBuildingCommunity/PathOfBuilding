@@ -70950,7 +70950,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Critical Strike Chance per Power Charge"
+					text="{0}% more Critical Strike Chance per Power Charge"
 				},
 				[2]={
 					[1]={
@@ -70963,12 +70963,12 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Critical Strike Chance per Power Charge"
+					text="{0}% less Critical Strike Chance per Power Charge"
 				}
 			}
 		},
 		stats={
-			[1]="critical_strike_chance_+%_per_power_charge"
+			[1]="critical_strike_chance_+%_final_per_power_charge"
 		}
 	},
 	[2967]={
@@ -236750,7 +236750,7 @@ return {
 	["critical_strike_chance_+%_per_level"]=2768,
 	["critical_strike_chance_+%_per_lightning_adaptation"]=4208,
 	["critical_strike_chance_+%_per_mine_detonated_recently_up_to_100%"]=5360,
-	["critical_strike_chance_+%_per_power_charge"]=2966,
+	["critical_strike_chance_+%_final_per_power_charge"]=2966,
 	["critical_strike_chance_+%_per_righteous_charge"]=5361,
 	["critical_strike_chance_+%_per_stackable_unique_jewel"]=3950,
 	["critical_strike_chance_+%_vs_bleeding_enemies"]=2990,

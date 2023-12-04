@@ -20181,7 +20181,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Critical Strike Chance per Power Charge"
+					text="{0}% more Critical Strike Chance per Power Charge"
 				},
 				[2]={
 					[1]={
@@ -20194,13 +20194,13 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Critical Strike Chance per Power Charge"
+					text="{0}% less Critical Strike Chance per Power Charge"
 				}
 			}
 		},
 		name="crit_chance_per_power_charge",
 		stats={
-			[1]="critical_strike_chance_+%_per_power_charge"
+			[1]="critical_strike_chance_+%_final_per_power_charge"
 		}
 	},
 	[648]={
@@ -42277,7 +42277,7 @@ return {
 	["critical_ailment_dot_multiplier_+"]=645,
 	["critical_poison_dot_multiplier_+"]=646,
 	["critical_strike_chance_+%"]=118,
-	["critical_strike_chance_+%_per_power_charge"]=647,
+	["critical_strike_chance_+%_final_per_power_charge"]=647,
 	["critical_strike_chance_+%_per_righteous_charge"]=648,
 	["critical_strike_chance_+%_vs_blinded_enemies"]=649,
 	["critical_strike_chance_+%_vs_shocked_enemies"]=644,
