@@ -556,7 +556,7 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 end
 
 function PassiveSpecClass:SelectSecondaryAscendClass(ascendClassId)
-	-- if Secondary Ascendencies do not exist on this tree version
+	-- if Secondary Ascendency does not exist on this tree version
 	if not self.tree.alternate_ascendancies then
 		return
 	end
