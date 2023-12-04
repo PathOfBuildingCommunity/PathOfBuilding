@@ -161,7 +161,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.assets["ClassesPrimalist"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesPrimalist.png"}
 			self.assets["ClassesWarlock"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesWarlock.png"}
 			self.assets["ClassesWarden"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesWarden.png"}
-			-- asendnecy nodes
+			-- ascendancy nodes
 			self.assets["AzmiriAscendancyMiddle"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyMiddle.png"}
 			self.assets["AzmiriAscendancyFrameLargeNormal"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyFrameLargeNormal.png"}
 			self.assets["AzmiriAscendancyFrameLargeCanAllocate"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyFrameLargeCanAllocate.png"}
