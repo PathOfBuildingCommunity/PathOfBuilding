@@ -45,6 +45,13 @@ return {
 		speed = 3510,
 		UberSpeed = 1755,
 		critChance = 0,
+		additionalStats = {
+			uber = {
+				reduceEnemyBlock = 1000,
+				CannotBeEvaded = "flag",
+				reduceEnemyDodge = 1000
+			}
+		},
 		tooltip = "Cannot be Evaded.  Allocating Cosmic Wounds increases Damage by a further 100% (Applied on Uber) and cannot be blocked or dodged"
 	},
 	["Sirus Meteor"] = {
@@ -66,7 +73,19 @@ return {
 		},
 		speed = 1000,
 		critChance = 0,
-		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase"
+		additionalStats = {
+			base = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			},
+			uber = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			}
+		},
+		tooltip = "Spawns 8-18 waves of balls depending on which fight and which ball phase, Cannot be Blocked, Dodged, or Suppressed"
 	},
 	["Eater Beam"] = {
 		DamageType = "Spell",
@@ -92,7 +111,7 @@ return {
 		tooltip = "Allocating Throw the Gauntlet increases Damage by a further 100% (Applied on Uber) and causes the fireball to have 30 ^xB97123Fire^7 penetration (Applied on Uber)"
 	},
 	["Maven Memory Game"] = {
-		DamageType = "Melee",
+		DamageType = "Spell",
 		DamageMultipliers = {
 			Lightning = { 34.763635149472, 0.17381817574736 },
 			Cold = { 34.763635149472, 0.17381817574736 },
@@ -100,7 +119,19 @@ return {
 		},
 		UberDamageMultiplier = 1.0086206896552,
 		speed = 7500,
-		tooltip = "Is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n	i.e. Hits before death should be more than 3 to survive"
+		additionalStats = {
+			base = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			},
+			uber = {
+				CannotBeBlocked = "flag",
+				CannotBeSuppressed = "flag",
+				CannotBeDodged = "flag"
+			}
+		},
+		tooltip = "Cannot be Blocked, Dodged, or Suppressed. \n	It is three separate hits, and has a large DoT effect.  Neither is taken into account here.  \n		i.e. Hits before death should be more than 3 to survive"
 	},
 },{
     { val = "None", label = "None" },

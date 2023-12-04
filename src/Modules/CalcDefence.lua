@@ -464,17 +464,17 @@ function calcs.defence(env, actor)
 			"Total: "..output.SpellBlockChance+output.SpellBlockChanceOverCap.."%",
 		}
 	end
-	if modDB:Flag(nil, "CannotBlockAttacks") then
+	if modDB:Flag(nil, "CannotBlockAttacks") or enemyDB:Flag(nil, "CannotBeBlocked") then
 		output.BlockChance = 0
 		output.ProjectileBlockChance = 0
 	end
-	if modDB:Flag(nil, "CannotBlockSpells") then
+	if modDB:Flag(nil, "CannotBlockSpells") or enemyDB:Flag(nil, "CannotBeBlocked") then
 		output.SpellBlockChance = 0
 		output.SpellProjectileBlockChance = 0
 	end
 	output.AverageBlockChance = (output.BlockChance + output.ProjectileBlockChance + output.SpellBlockChance + output.SpellProjectileBlockChance) / 4
 	output.BlockEffect = m_max(100 - modDB:Sum("BASE", nil, "BlockEffect"), 0)
-	if output.BlockEffect == 0 then
+	if output.BlockEffect == 0 or output.BlockEffect == 100 then
 		output.BlockEffect = 100
 	else
 		output.ShowBlockEffect = true
@@ -759,7 +759,7 @@ function calcs.defence(env, actor)
 			output.EnergyShieldRecoveryCap = output.EnergyShield or 0
 		end
 
-		if modDB:Flag(nil, "CannotEvade") then
+		if modDB:Flag(nil, "CannotEvade") or enemyDB:Flag(nil, "CannotBeEvaded") then
 			output.EvadeChance = 0
 			output.MeleeEvadeChance = 0
 			output.ProjectileEvadeChance = 0
@@ -825,92 +825,52 @@ function calcs.defence(env, actor)
 	output.SpellSuppressionChance = m_min(totalSpellSuppressionChance, data.misc.SuppressionChanceCap)
 	output.SpellSuppressionEffect = m_max(data.misc.SuppressionEffect + modDB:Sum("BASE", nil, "SpellSuppressionEffect"), 0)
 	
-	if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
-		output.SpellSuppressionChance = output.SpellSuppressionChance / 100 * output.SpellSuppressionChance
-	elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
-		output.SpellSuppressionChance = (1 - (1 - output.SpellSuppressionChance / 100) ^ 2) * 100
+	output.EffectiveSpellSuppressionChance = enemyDB:Flag(nil, "CannotBeSuppressed") and 0 or output.SpellSuppressionChance
+	if output.EffectiveSpellSuppressionChance > 0 then
+		if env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsUnlucky") then
+			output.EffectiveSpellSuppressionChance = output.EffectiveSpellSuppressionChance / 100 * output.EffectiveSpellSuppressionChance
+		elseif env.mode_effective and modDB:Flag(nil, "SpellSuppressionChanceIsLucky") then
+			output.EffectiveSpellSuppressionChance = (1 - (1 - output.EffectiveSpellSuppressionChance / 100) ^ 2) * 100
+		end
 	end
 	
 	output.SpellSuppressionChanceOverCap = m_max(0, totalSpellSuppressionChance - data.misc.SuppressionChanceCap)
-	
-	if actor.itemList["Weapon 3"] and actor.itemList["Weapon 3"].armourData then
-		baseBlockChance = baseBlockChance + actor.itemList["Weapon 3"].armourData.BlockChance
-	end
-	output.ShieldBlockChance = baseBlockChance
-	if modDB:Flag(nil, "BlockAttackChanceIsEqualToParent") then
-		output.BlockChance = actor.parent.output.BlockChance
-	elseif modDB:Flag(nil, "BlockAttackChanceIsEqualToPartyMember") then
-		output.BlockChance = actor.partyMembers.output.BlockChance
-	elseif modDB:Flag(nil, "MaxBlockIfNotBlockedRecently") then
-		output.BlockChance = output.BlockChanceMax
-	else
-		output.BlockChance = m_min((baseBlockChance + modDB:Sum("BASE", nil, "BlockChance")) * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
-	end
-	output.ProjectileBlockChance = m_min(output.BlockChance + modDB:Sum("BASE", nil, "ProjectileBlockChance") * calcLib.mod(modDB, nil, "BlockChance"), output.BlockChanceMax) 
-	if modDB:Flag(nil, "SpellBlockChanceMaxIsBlockChanceMax") then
-		output.SpellBlockChanceMax = output.BlockChanceMax
-	else
-		output.SpellBlockChanceMax = modDB:Sum("BASE", nil, "SpellBlockChanceMax")
-	end
-	if modDB:Flag(nil, "SpellBlockChanceIsBlockChance") then
-		output.SpellBlockChance = output.BlockChance
-		output.SpellProjectileBlockChance = output.ProjectileBlockChance
-	else
-		output.SpellBlockChance = m_min(modDB:Sum("BASE", nil, "SpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax) 
-		output.SpellProjectileBlockChance = m_max(m_min(output.SpellBlockChance + modDB:Sum("BASE", nil, "ProjectileSpellBlockChance") * calcLib.mod(modDB, nil, "SpellBlockChance"), output.SpellBlockChanceMax), 0)
-	end
-	if breakdown then
-		breakdown.BlockChance = breakdown.simple(baseBlockChance, nil, output.BlockChance, "BlockChance")
-		breakdown.SpellBlockChance = breakdown.simple(0, nil, output.SpellBlockChance, "SpellBlockChance")
-	end
-	if modDB:Flag(nil, "CannotBlockAttacks") then
-		output.BlockChance = 0
-		output.ProjectileBlockChance = 0
-	end
-	if modDB:Flag(nil, "CannotBlockSpells") then
-		output.SpellBlockChance = 0
-		output.SpellProjectileBlockChance = 0
-	end
-	output.AverageBlockChance = (output.BlockChance + output.ProjectileBlockChance + output.SpellBlockChance + output.SpellProjectileBlockChance) / 4
-	output.BlockEffect = m_max(100 - modDB:Sum("BASE", nil, "BlockEffect"), 0)
-	if output.BlockEffect == 0 or output.BlockEffect == 100 then
-		output.BlockEffect = 100
-	else
-		output.ShowBlockEffect = true
-		output.DamageTakenOnBlock = 100 - output.BlockEffect
-	end
-	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
-	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
-	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 
 	-- Dodge
-	local baseDodgeChance = 0
 	local totalAttackDodgeChance = modDB:Sum("BASE", nil, "AttackDodgeChance")
 	local totalSpellDodgeChance = modDB:Sum("BASE", nil, "SpellDodgeChance")
 	local attackDodgeChanceMax = data.misc.DodgeChanceCap
 	local spellDodgeChanceMax = modDB:Override(nil, "SpellDodgeChanceMax") or modDB:Sum("BASE", nil, "SpellDodgeChanceMax")
+	local enemyReduceDodgeChance = enemyDB:Sum("BASE", nil, "reduceEnemyDodge") or 0
 
 	output.AttackDodgeChance = m_min(totalAttackDodgeChance, attackDodgeChanceMax)
+	output.EffectiveAttackDodgeChance = enemyDB:Flag(nil, "CannotBeDodged") and 0 or m_min(m_max(totalAttackDodgeChance - enemyReduceDodgeChance, 0), attackDodgeChanceMax)
 	output.SpellDodgeChance = m_min(totalSpellDodgeChance, spellDodgeChanceMax)
+	output.EffectiveSpellDodgeChance = enemyDB:Flag(nil, "CannotBeDodged") and 0 or m_min(m_max(totalSpellDodgeChance - enemyReduceDodgeChance, 0), spellDodgeChanceMax)
 	if env.mode_effective and modDB:Flag(nil, "DodgeChanceIsUnlucky") then
-		output.AttackDodgeChance = output.AttackDodgeChance / 100 * output.AttackDodgeChance
-		output.SpellDodgeChance = output.SpellDodgeChance / 100 * output.SpellDodgeChance
+		output.EffectiveAttackDodgeChance = output.EffectiveAttackDodgeChance / 100 * output.EffectiveAttackDodgeChance
+		output.EffectiveSpellDodgeChance = output.EffectiveSpellDodgeChance / 100 * output.EffectiveSpellDodgeChance
 	end
 	output.AttackDodgeChanceOverCap = m_max(0, totalAttackDodgeChance - attackDodgeChanceMax)
 	output.SpellDodgeChanceOverCap = m_max(0, totalSpellDodgeChance - spellDodgeChanceMax)
 
 	if breakdown then
 		breakdown.AttackDodgeChance = {
-			"Base: "..baseDodgeChance.."%",
+			"Base: "..totalAttackDodgeChance.."%",
 			"Max: "..attackDodgeChanceMax.."%",
 			"Total: "..output.AttackDodgeChance+output.AttackDodgeChanceOverCap.."%",
 		}
 		breakdown.SpellDodgeChance = {
-			"Base: "..baseDodgeChance.."%",
+			"Base: "..totalSpellDodgeChance.."%",
 			"Max: "..spellDodgeChanceMax.."%",
 			"Total: "..output.SpellDodgeChance+output.SpellDodgeChanceOverCap.."%",
 		}
 	end
+	
+	-- Gain on Block
+	output.LifeOnBlock = modDB:Sum("BASE", nil, "LifeOnBlock")
+	output.ManaOnBlock = modDB:Sum("BASE", nil, "ManaOnBlock")
+	output.EnergyShieldOnBlock = modDB:Sum("BASE", nil, "EnergyShieldOnBlock")
 
 	-- Recovery modifiers
 	output.LifeRecoveryRateMod = calcLib.mod(modDB, nil, "LifeRecoveryRate")
@@ -1291,10 +1251,11 @@ function calcs.buildDefenceEstimations(env, actor)
 	-- chance to not be hit calculations
 	do
 		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
-		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
-		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.AttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
-		output.SpellNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
-		output.SpellProjectileNotHitChance = 100 - (1 - output.SpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
+		output.MeleeNotHitChance = 100 - (1 - output.MeleeEvadeChance / 100) * (1 - output.EffectiveAttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
+		output.ProjectileNotHitChance = 100 - (1 - output.ProjectileEvadeChance / 100) * (1 - output.EffectiveAttackDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
+		output.SpellNotHitChance = 100 - (1 - output.EffectiveSpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
+		output.SpellProjectileNotHitChance = 100 - (1 - output.EffectiveSpellDodgeChance / 100) * (1 - output.AvoidAllDamageFromHitsChance / 100) * (1 - (output.specificTypeAvoidance and 0 or output.AvoidProjectilesChance) / 100) * 100
+		output.UntypedNotHitChance = 100 - (1 - output.AvoidAllDamageFromHitsChance / 100) * 100
 		output.AverageNotHitChance = (output.MeleeNotHitChance + output.ProjectileNotHitChance + output.SpellNotHitChance + output.SpellProjectileNotHitChance) / 4
 		output.AverageEvadeChance = (output.MeleeEvadeChance + output.ProjectileEvadeChance) / 4
 		output.ConfiguredNotHitChance = output[damageCategoryConfig.."NotHitChance"]
@@ -1600,10 +1561,10 @@ function calcs.buildDefenceEstimations(env, actor)
 			takenMult = output[damageType.."AttackTakenHitMult"]
 		elseif damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" then
 			takenMult = output[damageType.."SpellTakenHitMult"]
-			spellSuppressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100) or 1
+			spellSuppressMult = output.EffectiveSpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100) or 1
 		elseif damageCategoryConfig == "Average" then
 			takenMult = (output[damageType.."SpellTakenHitMult"] + output[damageType.."AttackTakenHitMult"]) / 2
-			spellSuppressMult = output.SpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100 / 2) or 1
+			spellSuppressMult = output.EffectiveSpellSuppressionChance == 100 and (1 - output.SpellSuppressionEffect / 100 / 2) or 1
 		end
 		output[damageType.."EffectiveAppliedArmour"] = effectiveAppliedArmour
 		output[damageType.."ResistTakenHitMulti"] = resMult
@@ -2307,9 +2268,10 @@ function calcs.buildDefenceEstimations(env, actor)
 		-- block effect
 		if damageCategoryConfig == "Melee" then
 			BlockChance = output.BlockChance / 100
-		else
+		elseif damageCategoryConfig ~= "Untyped" then
 			BlockChance = output[damageCategoryConfig.."BlockChance"] / 100
 		end
+		BlockChance = m_max(BlockChance - enemyDB:Sum("BASE", nil, "reduceEnemyBlock"), 0)
 		-- unlucky config to lower the value of block, dodge, evade etc for ehp
 		if worstOf > 1 then
 			BlockChance = BlockChance * BlockChance
@@ -2330,7 +2292,7 @@ function calcs.buildDefenceEstimations(env, actor)
 		end
 		-- suppression
 		if damageCategoryConfig == "Spell" or damageCategoryConfig == "SpellProjectile" or damageCategoryConfig == "Average" then
-			suppressChance = output.SpellSuppressionChance / 100
+			suppressChance = output.EffectiveSpellSuppressionChance / 100
 		end
 		-- We include suppression in damage reduction if it is 100% otherwise we handle it here.
 		if suppressChance < 1 then
@@ -2415,13 +2377,12 @@ function calcs.buildDefenceEstimations(env, actor)
 			if averageAvoidChance > 0 then
 				t_insert(breakdown["ConfiguredDamageChance"], s_format("x %.2f ^8(chance for avoidance to fail)", 1 - averageAvoidChance / 100))
 			end
-			t_insert(breakdown["ConfiguredDamageChance"], s_format("= %.1f%% ^8(of damage taken from a%s hit)", output["ConfiguredDamageChance"], (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig))
+			t_insert(breakdown["ConfiguredDamageChance"], s_format("= %.1f%% ^8(of damage taken from a%s hit)", output["ConfiguredDamageChance"], (damageCategoryConfig == "Average" and "n " or (damageCategoryConfig == "Untyped" and "n " or " "))..damageCategoryConfig))
 		end
 	end
 	
 	-- chance to not be hit breakdown
 	do
-		local worstOf = env.configInput.EHPUnluckyWorstOf or 1
 		output["TotalNumberOfHits"] = output["NumberOfMitigatedDamagingHits"] / (1 - output["ConfiguredNotHitChance"] / 100)
 		if breakdown then
 			breakdown.ConfiguredNotHitChance = { }
@@ -2456,10 +2417,11 @@ function calcs.buildDefenceEstimations(env, actor)
 			if output.AvoidAllDamageFromHitsChance > 0 then
 				t_insert(breakdown["ConfiguredNotHitChance"], s_format("x %.2f ^8(chance for damage avoidance to fail)", 1 - output.AvoidAllDamageFromHitsChance / 100))
 			end
+			local worstOf = env.configInput.EHPUnluckyWorstOf or 1
 			if worstOf > 1 then
 				t_insert(breakdown["ConfiguredNotHitChance"], s_format("unlucky worst of %d", worstOf))
 			end
-			t_insert(breakdown["ConfiguredNotHitChance"], s_format("= %d%% ^8(chance to be hit by a%s hit)", 100 - output.ConfiguredNotHitChance, (damageCategoryConfig == "Average" and "n " or " ")..damageCategoryConfig))
+			t_insert(breakdown["ConfiguredNotHitChance"], s_format("= %d%% ^8(chance to be hit by a%s hit)", 100 - output.ConfiguredNotHitChance, (damageCategoryConfig == "Average" and "n " or (damageCategoryConfig == "Untyped" and "n " or " ") )..damageCategoryConfig))
 			breakdown["TotalNumberOfHits"] = {
 				s_format("%.2f ^8(Number of mitigated hits)", output["NumberOfMitigatedDamagingHits"]),
 				s_format("/ %.2f ^8(Chance to even be hit)", 1 - output["ConfiguredNotHitChance"] / 100),
