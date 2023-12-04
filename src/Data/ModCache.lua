@@ -2237,17 +2237,17 @@ c["10% of Damage taken Recouped as Mana"]={{[1]={flags=0,keywordFlags=0,name="Ma
 c["10% of Damage taken from Mana before Life while affected by Clarity"]={{[1]={[1]={type="Condition",var="AffectedByClarity"},flags=0,keywordFlags=0,name="DamageTakenFromManaBeforeLife",type="BASE",value=10}},nil}
 c["10% of Damage taken from Stunning Hits is Recovered as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTaken",type="BASE",value=10}},"  from Stunning Hits is Recovered as Life "}
 c["10% of Damage you Reflect to Enemies when Hit is gained as Life"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="BASE",value=10}},"  you Reflect to Enemies when Hit is gained as Life "}
-c["10% of Fire Damage from Hits taken as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenAsPhysical",type="BASE",value=10}},nil}
+c["10% of Fire Damage from Hits taken as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenFromHitsAsPhysical",type="BASE",value=10}},nil}
 c["10% of Leech is Instant"]={{[1]={flags=0,keywordFlags=0,name="InstantEnergyShieldLeech",type="BASE",value=10},[2]={flags=0,keywordFlags=0,name="InstantManaLeech",type="BASE",value=10},[3]={flags=0,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=10}},nil}
 c["10% of Leech is Instant per Equipped Claw"]={{[1]={[1]={type="Multiplier",var="ClawItem"},flags=0,keywordFlags=0,name="InstantEnergyShieldLeech",type="BASE",value=10},[2]={[1]={type="Multiplier",var="ClawItem"},flags=0,keywordFlags=0,name="InstantManaLeech",type="BASE",value=10},[3]={[1]={type="Multiplier",var="ClawItem"},flags=0,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=10}},nil}
 c["10% of Physical Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToChaos",type="BASE",value=10}},nil}
 c["10% of Physical Damage Converted to Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToCold",type="BASE",value=10}},nil}
 c["10% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=10}},nil}
 c["10% of Physical Damage Converted to Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=10}},nil}
-c["10% of Physical Damage from Hits taken as Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsChaos",type="BASE",value=10}},nil}
-c["10% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice"]={{[1]={[1]={type="Condition",var="AffectedByPurityofIce"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=10}},nil}
-c["10% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire"]={{[1]={[1]={type="Condition",var="AffectedByPurityofFire"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=10}},nil}
-c["10% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning"]={{[1]={[1]={type="Condition",var="AffectedByPurityofLightning"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=10}},nil}
+c["10% of Physical Damage from Hits taken as Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsChaos",type="BASE",value=10}},nil}
+c["10% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice"]={{[1]={[1]={type="Condition",var="AffectedByPurityofIce"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsCold",type="BASE",value=10}},nil}
+c["10% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire"]={{[1]={[1]={type="Condition",var="AffectedByPurityofFire"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsFire",type="BASE",value=10}},nil}
+c["10% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning"]={{[1]={[1]={type="Condition",var="AffectedByPurityofLightning"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsLightning",type="BASE",value=10}},nil}
 c["10% reduced Armour per 50 Strength"]={{[1]={[1]={div=50,stat="Str",type="PerStat"},flags=0,keywordFlags=0,name="Armour",type="INC",value=-10}},nil}
 c["10% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-10}},nil}
 c["10% reduced Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=-10}},nil}
@@ -2411,17 +2411,17 @@ c["100% more Critical Strike Chance against Enemies that are on Low Life"]={{[1]
 c["100% more Damage with Hits from Herald Skills"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=262144,name="Damage",type="MORE",value=100}},nil}
 c["100% more Duration of Ailments on you"]={{[1]={flags=0,keywordFlags=0,name="SelfAilmentDuration",type="MORE",value=100}},nil}
 c["100% of Cold Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageConvertToFire",type="BASE",value=100}},nil}
-c["100% of Cold Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageTakenAsFire",type="BASE",value=100}},nil}
-c["100% of Cold Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageTakenAsLightning",type="BASE",value=100}},nil}
+c["100% of Cold Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageTakenFromHitsAsFire",type="BASE",value=100}},nil}
+c["100% of Cold Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="ColdDamageTakenFromHitsAsLightning",type="BASE",value=100}},nil}
 c["100% of Damage taken Recouped as Life"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=100}},nil}
 c["100% of Damage you Reflect to Enemies when Hit is leeched as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=100}},"  you Reflect to Enemies when Hit  "}
-c["100% of Fire Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenAsCold",type="BASE",value=100}},nil}
-c["100% of Fire Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenAsLightning",type="BASE",value=100}},nil}
-c["100% of Fire Damage from Hits taken as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenAsPhysical",type="BASE",value=100}},nil}
+c["100% of Fire Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenFromHitsAsCold",type="BASE",value=100}},nil}
+c["100% of Fire Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenFromHitsAsLightning",type="BASE",value=100}},nil}
+c["100% of Fire Damage from Hits taken as Physical Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenFromHitsAsPhysical",type="BASE",value=100}},nil}
 c["100% of Life Recovery from Flasks is applied to nearby Allies instead of You"]={{[1]={flags=0,keywordFlags=0,name="FlaskLifeRecovery",type="BASE",value=100}},"  is applied to nearby Allies instead of You "}
 c["100% of Lightning Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageConvertToChaos",type="BASE",value=100}},nil}
-c["100% of Lightning Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageTakenAsCold",type="BASE",value=100}},nil}
-c["100% of Lightning Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageTakenAsFire",type="BASE",value=100}},nil}
+c["100% of Lightning Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageTakenFromHitsAsCold",type="BASE",value=100}},nil}
+c["100% of Lightning Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageTakenFromHitsAsFire",type="BASE",value=100}},nil}
 c["100% of Physical Damage Converted to Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToCold",type="BASE",value=100}},nil}
 c["100% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=100}},nil}
 c["100% of Physical Damage from Hits with this Weapon is Converted to a random Element"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToRandom",type="BASE",value=100}},nil}
@@ -2565,9 +2565,9 @@ c["12% increased maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="
 c["12% of Damage Taken Recouped as Life"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=12}},nil}
 c["12% of Damage Taken Recouped as Mana"]={{[1]={flags=0,keywordFlags=0,name="ManaRecoup",type="BASE",value=12}},nil}
 c["12% of Damage taken Recouped as Life"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=12}},nil}
-c["12% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements"]={{[1]={[1]={type="Condition",var="AffectedByPurityofElements"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=12}},nil}
-c["12% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements"]={{[1]={[1]={type="Condition",var="AffectedByPurityofElements"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=12}},nil}
-c["12% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements"]={{[1]={[1]={type="Condition",var="AffectedByPurityofElements"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=12}},nil}
+c["12% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements"]={{[1]={[1]={type="Condition",var="AffectedByPurityofElements"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsCold",type="BASE",value=12}},nil}
+c["12% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements"]={{[1]={[1]={type="Condition",var="AffectedByPurityofElements"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsFire",type="BASE",value=12}},nil}
+c["12% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements"]={{[1]={[1]={type="Condition",var="AffectedByPurityofElements"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsLightning",type="BASE",value=12}},nil}
 c["12% reduced Enemy Stun Threshold with Maces or Sceptres"]={{[1]={flags=1048580,keywordFlags=0,name="EnemyStunThreshold",type="INC",value=-12}},nil}
 c["12% reduced Skill Effect Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=-12}},nil}
 c["120% increased Armour"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="INC",value=120}},nil}
@@ -2641,7 +2641,7 @@ c["13% increased Spell Damage"]={{[1]={flags=2,keywordFlags=0,name="Damage",type
 c["13% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=13}},nil}
 c["13% increased effect of Non-Curse Auras from your Skills"]={{[1]={[1]={skillType=43,type="SkillType"},[2]={neg=true,skillType=79,type="SkillType"},flags=0,keywordFlags=0,name="AuraEffect",type="INC",value=13}},nil}
 c["13% of Damage taken Recouped as Life"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=13}},nil}
-c["13% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=13}},nil}
+c["13% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsCold",type="BASE",value=13}},nil}
 c["13% reduced Intelligence"]={{[1]={flags=0,keywordFlags=0,name="Int",type="INC",value=-13}},nil}
 c["13% reduced Mine Throwing Speed"]={{[1]={flags=0,keywordFlags=0,name="MineLayingSpeed",type="INC",value=-13}},nil}
 c["13% reduced maximum Mana"]={{[1]={flags=0,keywordFlags=0,name="Mana",type="INC",value=-13}},nil}
@@ -2934,7 +2934,7 @@ c["15% of Physical Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlag
 c["15% of Physical Damage Converted to Cold Damage while you have at least 150 Devotion"]={{[1]={[1]={stat="Devotion",threshold=150,type="StatThreshold"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToCold",type="BASE",value=15}},nil}
 c["15% of Physical Damage Converted to Fire Damage while you have at least 150 Devotion"]={{[1]={[1]={stat="Devotion",threshold=150,type="StatThreshold"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=15}},nil}
 c["15% of Physical Damage Converted to Lightning Damage while you have at least 150 Devotion"]={{[1]={[1]={stat="Devotion",threshold=150,type="StatThreshold"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=15}},nil}
-c["15% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=15}},nil}
+c["15% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsCold",type="BASE",value=15}},nil}
 c["15% of Physical Damage taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=15}},nil}
 c["15% of maximum Life taken as Chaos Damage per second"]={{[1]={[1]={percent=15,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="ChaosDegen",type="BASE",value=1}},nil}
 c["15% reduced Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="INC",value=-15}},nil}
@@ -3550,7 +3550,7 @@ c["20% of Damage from Hits is taken from your Sentinel of Radiance's Life before
 c["20% of Damage taken Recouped as Life"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=20}},nil}
 c["20% of Damage taken Recouped as Mana"]={{[1]={flags=0,keywordFlags=0,name="ManaRecoup",type="BASE",value=20}},nil}
 c["20% of Damage taken while affected by Clarity Recouped as Mana"]={{[1]={[1]={type="Condition",var="AffectedByClarity"},flags=0,keywordFlags=0,name="ManaRecoup",type="BASE",value=20}},nil}
-c["20% of Fire Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenAsCold",type="BASE",value=20}},nil}
+c["20% of Fire Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenFromHitsAsCold",type="BASE",value=20}},nil}
 c["20% of Lightning Damage Leeched as Life during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="LightningDamageLifeLeech",type="BASE",value=20}},nil}
 c["20% of Lightning Damage Leeched as Mana during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="LightningDamageManaLeech",type="BASE",value=20}},nil}
 c["20% of Lightning Damage taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="LightningDamageTakenAsFire",type="BASE",value=20}},nil}
@@ -3561,9 +3561,9 @@ c["20% of Overkill Damage is Leeched as Life 20% increased Attack Speed while Le
 c["20% of Overkill Damage is Leeched as Life 20% increased Attack Speed while Leeching Cannot be Stunned while Leeching You are Unaffected by Bleeding while Leeching"]={{[1]={[1]={type="Condition",var="Leeching"},[2]={type="Condition",var="Leeching"},flags=0,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=20}}," Overkill   20% increased Attack Speed  Cannot be Stunned  You are Unaffected by Bleeding while Leeching "}
 c["20% of Physical Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToChaos",type="BASE",value=20}},nil}
 c["20% of Physical Damage Converted to Lightning during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=20}},nil}
-c["20% of Physical Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=20}},nil}
-c["20% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=20}},nil}
-c["20% of Physical Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=20}},nil}
+c["20% of Physical Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsCold",type="BASE",value=20}},nil}
+c["20% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsCold",type="BASE",value=20}},nil}
+c["20% of Physical Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsFire",type="BASE",value=20}},nil}
 c["20% of Physical Damage taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=20}},nil}
 c["20% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-20}},nil}
 c["20% reduced Cast Speed"]={{[1]={flags=16,keywordFlags=0,name="Speed",type="INC",value=-20}},nil}
@@ -3990,13 +3990,13 @@ c["25% more Melee Physical Damage during effect"]={{[1]={[1]={type="Condition",v
 c["25% more Spell Damage if you've been Stunned while Casting Recently"]={{[1]={[1]={type="Condition",var="StunnedWhileCastingRecently"},flags=2,keywordFlags=0,name="Damage",type="MORE",value=25}},nil}
 c["25% of Damage taken Recouped as Life if Leech was removed by Filling Unreserved Life Recently"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=25}},"  if Leech was removed by Filling Unreserved Life Recently "}
 c["25% of Damage taken Recouped as Life, Mana and Energy Shield"]={{[1]={flags=0,keywordFlags=0,name="LifeRecoup",type="BASE",value=25},[2]={flags=0,keywordFlags=0,name="EnergyShieldRecoup",type="BASE",value=25},[3]={flags=0,keywordFlags=0,name="ManaRecoup",type="BASE",value=25}},nil}
-c["25% of Elemental Damage from Hits taken as Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamageTakenAsChaos",type="BASE",value=25}},nil}
+c["25% of Elemental Damage from Hits taken as Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="ElementalDamageTakenFromHitsAsChaos",type="BASE",value=25}},nil}
 c["25% of Maximum Life taken as Chaos Damage per second"]={{[1]={[1]={percent=25,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="ChaosDegen",type="BASE",value=1}},nil}
 c["25% of Physical Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToChaos",type="BASE",value=25}},nil}
 c["25% of Physical Damage Converted to Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToCold",type="BASE",value=25}},nil}
 c["25% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=25}},nil}
 c["25% of Physical Damage Converted to Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=25}},nil}
-c["25% of Physical Damage from Hits taken as Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsChaos",type="BASE",value=25}},nil}
+c["25% of Physical Damage from Hits taken as Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsChaos",type="BASE",value=25}},nil}
 c["25% of Wand Physical Damage converted to Lightning Damage"]={{[1]={flags=8388612,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=25}},nil}
 c["25% reduced Attack Damage with Main Hand"]={{[1]={[1]={type="Condition",var="MainHandAttack"},[2]={skillType=1,type="SkillType"},flags=1,keywordFlags=0,name="Damage",type="INC",value=-25}},nil}
 c["25% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-25}},nil}
@@ -4399,7 +4399,7 @@ c["30% of Cold and Lightning Damage taken as Fire Damage while affected by Purit
 c["30% of Damage you Reflect to Enemies when Hit is gained as Life"]={{[1]={flags=0,keywordFlags=0,name="Damage",type="BASE",value=30}},"  you Reflect to Enemies when Hit is gained as Life "}
 c["30% of Damage you Reflect to Enemies when Hit is gained as Life 100% of Damage you Reflect to Enemies when Hit is leeched as Life"]={{[1]={flags=0,keywordFlags=0,name="DamageLifeLeech",type="BASE",value=30}},"  you Reflect to Enemies when Hit is gained as Life 100% of Damage you Reflect to Enemies when Hit  "}
 c["30% of Fire Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageConvertToChaos",type="BASE",value=30}},nil}
-c["30% of Fire Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenAsCold",type="BASE",value=30}},nil}
+c["30% of Fire Damage from Hits taken as Cold Damage"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenFromHitsAsCold",type="BASE",value=30}},nil}
 c["30% of Fire and Cold Damage taken as Lightning Damage while"]={{[1]={flags=0,keywordFlags=0,name="FireDamageTakenAsLightning",type="BASE",value=30},[2]={flags=0,keywordFlags=0,name="ColdDamageTakenAsLightning",type="BASE",value=30}},"   while "}
 c["30% of Fire and Cold Damage taken as Lightning Damage while affected by Purity of Lightning"]={{[1]={[1]={type="Condition",var="AffectedByPurityofLightning"},flags=0,keywordFlags=0,name="FireDamageTakenAsLightning",type="BASE",value=30},[2]={[1]={type="Condition",var="AffectedByPurityofLightning"},flags=0,keywordFlags=0,name="ColdDamageTakenAsLightning",type="BASE",value=30}},nil}
 c["30% of Fire and Lightning Damage taken as Cold Damage while affected by Purity of Ice"]={{[1]={[1]={type="Condition",var="AffectedByPurityofIce"},flags=0,keywordFlags=0,name="FireDamageTakenAsCold",type="BASE",value=30},[2]={[1]={type="Condition",var="AffectedByPurityofIce"},flags=0,keywordFlags=0,name="LightningDamageTakenAsCold",type="BASE",value=30}},nil}
@@ -4409,8 +4409,8 @@ c["30% of Lightning Damage is taken from Mana before Life"]={{[1]={flags=0,keywo
 c["30% of Physical Damage Converted to Chaos Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToChaos",type="BASE",value=30}},nil}
 c["30% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=30}},nil}
 c["30% of Physical Damage Converted to Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=30}},nil}
-c["30% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageTakenAsCold",type="BASE",value=30}},nil}
-c["30% of Physical Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=30}},nil}
+c["30% of Physical Damage from Hits taken as Cold Damage during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsCold",type="BASE",value=30}},nil}
+c["30% of Physical Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsLightning",type="BASE",value=30}},nil}
 c["30% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-30}},nil}
 c["30% reduced Attack Speed while Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=1,keywordFlags=0,name="Speed",type="INC",value=-30}},nil}
 c["30% reduced Chance to Block Attack and Spell Damage"]={{[1]={flags=0,keywordFlags=0,name="BlockChance",type="INC",value=-30},[2]={flags=0,keywordFlags=0,name="SpellBlockChance",type="INC",value=-30}},nil}
@@ -4794,7 +4794,7 @@ c["40% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags
 c["40% of Physical Damage Converted to Fire Damage while affected by Anger"]={{[1]={[1]={type="Condition",var="AffectedByAnger"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=40}},nil}
 c["40% of Physical Damage Converted to Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=40}},nil}
 c["40% of Physical Damage Converted to Lightning Damage while affected by Wrath"]={{[1]={[1]={type="Condition",var="AffectedByWrath"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=40}},nil}
-c["40% of Physical Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=40}},nil}
+c["40% of Physical Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsLightning",type="BASE",value=40}},nil}
 c["40% of Physical Damage taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=40}},nil}
 c["40% reduced Area of Effect of Hex Skills"]={{[1]={[1]={skillType=108,type="SkillType"},flags=0,keywordFlags=0,name="AreaOfEffect",type="INC",value=-40}},nil}
 c["40% reduced Critical Strike Chance per Power Charge"]={{[1]={[1]={type="Multiplier",var="PowerCharge"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=-40}},nil}
@@ -5216,7 +5216,7 @@ c["50% of Physical Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags
 c["50% of Physical Damage Converted to Fire while you have Avatar of Fire"]={{[1]={[1]={type="Condition",var="HaveAvatarOfFire"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=50}},nil}
 c["50% of Physical Damage Converted to Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=50}},nil}
 c["50% of Physical Damage Converted to Lightning during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="PhysicalDamageConvertToLightning",type="BASE",value=50}},nil}
-c["50% of Physical Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsLightning",type="BASE",value=50}},nil}
+c["50% of Physical Damage from Hits taken as Lightning Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsLightning",type="BASE",value=50}},nil}
 c["50% of Physical Damage from Hits with this Weapon is Converted to a random Element"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToRandom",type="BASE",value=50}},nil}
 c["50% of Physical, Cold and Lightning Damage Converted to Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageConvertToFire",type="BASE",value=50},[2]={flags=0,keywordFlags=0,name="LightningDamageConvertToFire",type="BASE",value=50},[3]={flags=0,keywordFlags=0,name="ColdDamageConvertToFire",type="BASE",value=50}},nil}
 c["50% reduced Attack Speed"]={{[1]={flags=1,keywordFlags=0,name="Speed",type="INC",value=-50}},nil}
@@ -5662,7 +5662,7 @@ c["8% of Armour applies to Fire, Cold and Lightning Damage taken from Hits"]={{[
 c["8% of Damage is taken from Mana before Life"]={{[1]={flags=0,keywordFlags=0,name="DamageTakenFromManaBeforeLife",type="BASE",value=8}},nil}
 c["8% of Damage taken Recouped as Mana"]={{[1]={flags=0,keywordFlags=0,name="ManaRecoup",type="BASE",value=8}},nil}
 c["8% of Maximum Life taken as Chaos Damage per second"]={{[1]={[1]={percent=8,stat="Life",type="PercentStat"},flags=0,keywordFlags=0,name="ChaosDegen",type="BASE",value=1}},nil}
-c["8% of Physical Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenAsFire",type="BASE",value=8}},nil}
+c["8% of Physical Damage from Hits taken as Fire Damage"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromHitsAsFire",type="BASE",value=8}},nil}
 c["8% reduced Critical Strike Chance per Blitz Charge"]={{[1]={[1]={type="Multiplier",var="BlitzCharge"},flags=0,keywordFlags=0,name="CritChance",type="INC",value=-8}},nil}
 c["8% reduced Elemental Damage taken while at Maximum Endurance Charges"]={{[1]={[1]={stat="EnduranceCharges",thresholdStat="EnduranceChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="ElementalDamageTaken",type="INC",value=-8}},nil}
 c["8% reduced Enemy Stun Threshold"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunThreshold",type="INC",value=-8}},nil}
