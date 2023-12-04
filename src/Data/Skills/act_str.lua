@@ -1559,7 +1559,7 @@ skills["Boneshatter"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_stun_duration_+%", 1 },
+			{ "trauma_strike_damage_+%_final_per_trauma", 0.05 },
 		},
 		Alternate1 = {
 			{ "base_stun_threshold_reduction_+%", 1 },
@@ -3695,7 +3695,7 @@ skills["GeneralsCry"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_cooldown_speed_+%", 1 },
+			{ "maximum_number_of_spiritual_cry_warriors", 0.05 },
 		},
 		Alternate1 = {
 			{ "warcry_speed_+%", 2 },
@@ -7460,7 +7460,7 @@ end,
 	},
 	qualityStats = {
 		Default = {
-			{ "skill_effect_duration_+%", 1 },
+			{ "static_strike_zap_speed_+%", 1 },
 		},
 		Alternate1 = {
 			{ "damage_+%", 1 },
@@ -7931,7 +7931,7 @@ skills["SummonFireGolem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "minion_damage_+%", 1 },
+			{ "golem_buff_effect_+%", 1 },
 		},
 		Alternate1 = {
 			{ "golem_buff_effect_+%", 1 },
@@ -8023,7 +8023,7 @@ skills["SummonRockGolem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "minion_damage_+%", 1 },
+			{ "golem_buff_effect_+%", 1 },
 		},
 		Alternate1 = {
 			{ "golem_buff_effect_+%", 1 },
