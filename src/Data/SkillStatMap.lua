@@ -518,6 +518,9 @@ return {
 ["critical_strike_chance_+%_per_power_charge"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
+["critical_strike_chance_+%_final_per_power_charge"] = {
+	mod("CritChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+},
 ["critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -590,6 +593,9 @@ return {
 },
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
+},
+["chance_to_deal_double_damage_%_vs_bleeding_enemies"] = {
+	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}),
 },
 ["base_chance_to_deal_triple_damage_%"] = {
 	mod("TripleDamageChance", "BASE", nil)
@@ -888,6 +894,9 @@ return {
 },
 ["chill_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
+},
+["chill_effect_+%_final"] = {
+	mod("EnemyChillEffect", "MORE", nil),
 },
 ["shock_effect_+%"] = {
 	mod("EnemyShockEffect", "INC", nil),
