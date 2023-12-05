@@ -290,6 +290,9 @@ return {
 	skill("castTimeOverride", nil),
 	div = 1000,
 },
+["skill_cannot_gain_repeat_bonuses"] = {
+	flag("NoRepeatBonuses"),
+},
 
 --
 -- Defensive modifiers
