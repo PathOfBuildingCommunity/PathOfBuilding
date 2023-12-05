@@ -45,7 +45,7 @@ VERSION[2.35.0][2023/12/06]
   * Do not have more than a total of 100% physical damage taken as mods!
 * Fix Hit Chance applying twice to CoC trigger rate calculations (Paliak)
 * Fix Channeled Melee or Attacks halving Trigger rate when Dual Wielding (Lilylicious)
-* Fix Cheiftain's Ngahamu, Flame's Advance node not working with Forbidden Flesh and Flame (Paliak)
+* Fix Chieftain's Ngahamu, Flame's Advance node not working with Forbidden Flesh and Flame (Paliak)
 * Fix Arcane Cloak not affecting max hit (LocalIdentity)
 * Fix Projectile mastery not adding damage to Ailments (LocalIdentity)
 * Fix Ice Golem's Ice Spear skill not being supported by Spell Echo (Paliak)
@@ -71,7 +71,7 @@ VERSION[2.35.0][2023/12/06]
 * Fix negative Damage taken Over Time values (Regisle)
 * Fix a few 'Regen every 4 seconds' mods (Regisle)
 * Fix Affliction charges not affecting some ailment magnitudes (Paliak)
-* Fix Flamewall added Fire Damage Enchant values (LocalIdentity)
+* Fix Flame Wall added Fire Damage Enchant values (LocalIdentity)
 * Fix Phantasmal Flameblast AoE values (LocalIdentity)
 * Update against damage over time to apply the modFlag directly (Regisle)
 * Increase accuracy of defensive calculations for damage over time when using Divine Flesh and Tempered by War (Regisle)

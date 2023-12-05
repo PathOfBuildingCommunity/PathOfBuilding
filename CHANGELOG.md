@@ -52,7 +52,7 @@
   - Do not have more than a total of 100% physical damage taken as mods!
 - Fix Hit Chance applying twice to CoC trigger rate calculations [\#6779](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6779) ([Paliak](https://github.com/Paliak))
 - Fix Channeled Melee or Attacks halving Trigger rate when Dual Wielding [\#6894](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6894) ([Lilylicious](https://github.com/Lilylicious))
-- Fix Cheiftain's Ngahamu, Flame's Advance node not working with Forbidden Flesh and Flame [\#6716](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6716) ([Paliak](https://github.com/Paliak))
+- Fix Chieftain's Ngahamu, Flame's Advance node not working with Forbidden Flesh and Flame [\#6716](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6716) ([Paliak](https://github.com/Paliak))
 - Fix Arcane Cloak not affecting max hit [\#6704](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6704) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Projectile mastery not adding damage to Ailments [\#6902](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6902) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Ice Golem's Ice Spear skill not being supported by Spell Echo [\#6740](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6740) ([Paliak](https://github.com/Paliak))
@@ -78,7 +78,7 @@
 - Fix negative Damage taken Over Time values [\#6802](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6802) ([Regisle](https://github.com/Regisle))
 - Fix a few 'Regen every 4 seconds' mods [\#6775](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6775) ([Regisle](https://github.com/Regisle))
 - Fix Affliction charges not affecting some ailment magnitudes [\#6801](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6801) ([Paliak](https://github.com/Paliak))
-- Fix Flamewall added Fire Damage Enchant values [\#6794](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6794) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Flame Wall added Fire Damage Enchant values [\#6794](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6794) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Phantasmal Flameblast AoE values [\#6813](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6813) ([LocalIdentity](https://github.com/LocalIdentity))
 - Update against damage over time to apply the modFlag directly [\#6805](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6805) ([Regisle](https://github.com/Regisle))
 - Increase accuracy of defensive calculations for damage over time when using Divine Flesh and Tempered by War [\#6803](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6803) ([Regisle](https://github.com/Regisle))
