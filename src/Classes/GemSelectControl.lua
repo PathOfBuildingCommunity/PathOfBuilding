@@ -267,7 +267,7 @@ function GemSelectClass:UpdateSortCache()
 	-- Determine supports that affect the active skill
 	for _, group in ipairs(self.skillsTab.socketGroupList) do
 		local slotMatch = self.skillsTab.displayGroup.slot and self.skillsTab.displayGroup.slot == group.slot
-		if not slotMatch and self.skillsTab.displayGroup.slot then
+		if not slotMatch and self.skillsTab.displayGroup.slot and not self.skillsTab.displayGroup.displaySkillList[1] then
 			for _, slot in ipairs(self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot:gsub(" Swap","")] or {}) do
 				if group.slot and group.slot:gsub(" Swap","") == slot and self.skillsTab.displayGroup.slot:match(" Swap") == group.slot:match(" Swap") then
 					slotMatch = true
