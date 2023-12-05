@@ -86,6 +86,7 @@ function main:Init()
 	self.nodePowerTheme = "RED/BLUE"
 	self.colorPositive = defaultColorCodes.POSITIVE
 	self.colorNegative = defaultColorCodes.NEGATIVE
+	self.colorHighlight = defaultColorCodes.HIGHLIGHT
 	self.showThousandsSeparators = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
@@ -451,7 +452,7 @@ function main:OnFrame()
 	if self.inputEvents and not itemLib.wiki.triggered then
 		for _, event in ipairs(self.inputEvents) do
 			if event.type == "KeyUp" and event.key == "F1" then
-				local tabName = self.modes[self.mode].viewMode:lower() .. " tab"
+				local tabName = (self.modes[self.mode].viewMode and self.modes[self.mode].viewMode:lower() or "Build List") .. " tab"
 				self:OpenAboutPopup(tabName or 1)
 				break
 			end
@@ -551,6 +552,11 @@ function main:LoadSettings(ignoreBuild)
 					updateColorCode("NEGATIVE", node.attrib.colorNegative)
 					self.colorNegative = node.attrib.colorNegative
 				end
+				if node.attrib.colorHighlight then
+					updateColorCode("HIGHLIGHT", node.attrib.colorHighlight)
+					self.colorHighlight = node.attrib.colorHighlight
+				end
+
 				-- In order to preserve users' settings through renaming/merging this variable, we have this if statement to use the first found setting
 				-- Once the user has closed PoB once, they will be using the new `showThousandsSeparator` variable name, so after some time, this statement may be removed
 				if node.attrib.showThousandsCalcs then
@@ -688,6 +694,7 @@ function main:SaveSettings()
 		nodePowerTheme = self.nodePowerTheme,
 		colorPositive = self.colorPositive,
 		colorNegative = self.colorNegative,
+		colorHighlight = self.colorHighlight,
 		showThousandsSeparators = tostring(self.showThousandsSeparators),
 		thousandsSeparator = self.thousandsSeparator,
 		decimalSeparator = self.decimalSeparator,
@@ -808,6 +815,18 @@ function main:OpenOptionsPopup()
 		"The default value is " .. tostring(defaultColorCodes.NEGATIVE:gsub('^(^)', '0')) .. ".\nIf updating while inside a build, please re-load the build after saving."
 
 	nextRow()
+	controls.colorHighlight = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, tostring(self.colorHighlight:gsub('^(^)', '0')), nil, nil, 8, function(buf)
+		local match = string.match(buf, "0x%x+")
+		if match and #match == 8 then
+			updateColorCode("HIGHLIGHT", buf)
+			self.colorHighlight = buf
+		end
+	end)
+	controls.colorHighlightLabel = new("LabelControl", { "RIGHT", controls.colorHighlight, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex colour for highlight nodes:")
+	controls.colorHighlight.tooltipText = "Overrides the default hex colour for highlighting nodes in passive tree search. \nExpected format is 0x000000. " ..
+		"The default value is " .. tostring(defaultColorCodes.HIGHLIGHT:gsub('^(^)', '0')) .."\nIf updating while inside a build, please re-load the build after saving."
+			
+	nextRow()
 	controls.betaTest = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
 	end)
@@ -894,6 +913,7 @@ function main:OpenOptionsPopup()
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialColorPositive = self.colorPositive
 	local initialColorNegative = self.colorNegative
+	local initialColorHighlight = self.colorHighlight
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
 	local initialThousandsSeparator = self.thousandsSeparator
@@ -940,6 +960,8 @@ function main:OpenOptionsPopup()
 		updateColorCode("POSITIVE", self.colorPositive)
 		self.colorNegative = initialColorNegative
 		updateColorCode("NEGATIVE", self.colorNegative)
+		self.colorHighlight = initialColorHighlight
+		updateColorCode("HIGHLIGHT", self.colorHighlight)
 		self.showThousandsSeparators = initialThousandsSeparatorDisplay
 		self.thousandsSeparator = initialThousandsSeparator
 		self.decimalSeparator = initialDecimalSeparator
@@ -1060,15 +1082,15 @@ function main:OpenAboutPopup(helpSectionIndex)
 							local indentLines = self:WrapString(indent, textSize, popupWidth - 190)
 							if #indentLines > 1 then
 								for i, indentLine in ipairs(indentLines) do
-									t_insert(helpList, { height = textSize, (i == 1 and outdent or " "), "^7"..indentLine })
+									t_insert(helpList, { height = textSize, (i == 1 and outdent or " "), (dev and "^x8888FF" or "^7")..indentLine })
 								end
 							else
-								t_insert(helpList, { height = textSize, "^7"..outdent, "^7"..indent })
+								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..outdent, (dev and "^x8888FF" or "^7")..indent })
 							end
 						else
 							local Lines = self:WrapString(line, textSize, popupWidth - 135)
 							for i, line2 in ipairs(Lines) do
-								t_insert(helpList, { height = textSize, "^7"..(i > 1 and "    " or "")..line2 })
+								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..(i > 1 and "    " or "")..line2 })
 							end
 						end
 					end

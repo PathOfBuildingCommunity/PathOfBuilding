@@ -3563,7 +3563,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local selItem = self.items[compareSlot.selItemId]
 				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item }, {})
+				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil}, {})
 				GlobalCache.useFullDPS = storedGlobalCacheDPSView
 				local header
 				if item == selItem then

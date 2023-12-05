@@ -458,6 +458,10 @@ function ModStoreClass:EvalMod(mod, cfg)
 				stat = self:GetStat(tag.stat, cfg)
 			end
 			local threshold = tag.threshold or self:GetStat(tag.thresholdStat, cfg)
+			if tag.thresholdPercent or tag.thresholdPercentVar then
+				local thresholdPercent = tag.thresholdPercent or self:GetMultiplier(tag.thresholdPercentVar, cfg)
+				threshold = threshold * (thresholdPercent and thresholdPercent / 100 or 1)
+			end
 			if (tag.upper and stat > threshold) or (not tag.upper and stat < threshold) then
 				return
 			end
@@ -558,6 +562,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			local match = false
 			local searchCond = tag.searchCond
 			local rarityCond = tag.rarityCond
+			local corruptedCond = tag.corruptedCond
 			local allSlots = tag.allSlots
 			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
 			local bCheckAllAppropriateSlots = tag.bothSlots
@@ -588,6 +593,11 @@ function ModStoreClass:EvalMod(mod, cfg)
 				if rarityCond then
 					for _, item in pairs(items) do
 						t_insert(matches, item.rarity == rarityCond)
+					end
+				end
+				if corruptedCond then
+					for _, item in pairs(items) do
+						t_insert(matches, item.corrupted == corruptedCond)
 					end
 				end
 			end

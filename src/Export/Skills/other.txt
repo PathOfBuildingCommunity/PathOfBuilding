@@ -57,13 +57,16 @@ local skills, mod, flag, skill = ...
 		["chance_to_deal_double_damage_%"] = {
 			mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }),
 		},
+		["minion_chance_to_deal_double_damage_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }),
+		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
 		},
 		["minion_movement_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
 		},
 	},
-#baseMod skill("buffMinions", true)
 #mods
 
 #skill CatAspect
@@ -543,6 +546,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredMoltenStrike
 #flags attack projectile area
 	fromItem = true,
+#baseMod flag("CannotSplit")
 #mods
 
 #skill PhysicalAegis
@@ -733,9 +737,7 @@ local skills, mod, flag, skill = ...
 #flags spell minion duration
 	fromTree = true,
 	minionList = {
-		"GuardianRelicFire",
-		"GuardianRelicCold",
-		"GuardianRelicLightning",
+		"GuardianRelicAll",
 	},
 	statMap = {
 		["minion_actor_level_is_user_level_up_to_maximum"] = {
@@ -773,7 +775,7 @@ local skills, mod, flag, skill = ...
 #flags spell minion
 	fromItem = true,
 #baseMod mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Greater Harbinger of Time", modCond = "GreaterHarbingerOfTime" })
-#baseMod skill("buffMinions", true)
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill SummonHarbingerOfTheArcane
@@ -805,7 +807,7 @@ local skills, mod, flag, skill = ...
 #flags spell minion
 	fromItem = true,
 #baseMod mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" })
-#baseMod skill("buffMinions", true)
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill TriggeredSummonGhostOnKill Triggered Summon Phantasm

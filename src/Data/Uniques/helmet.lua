@@ -216,6 +216,7 @@ Heatshiver
 Leather Hood
 Variant: Pre 3.0.0
 Variant: Pre 3.19.0
+Variant: Pre 3.23.0
 Variant: Current
 Requires Level 20, 46 Dex
 {variant:1}+1 to Level of Socketed Fire Gems
@@ -223,13 +224,14 @@ Requires Level 20, 46 Dex
 (80-100)% increased Evasion Rating
 60% increased Mana Regeneration Rate
 {variant:1}-(20-10)% to Fire Resistance
-{variant:2,3}+(20-30)% to Fire Resistance
+{variant:2,3,4}+(20-30)% to Fire Resistance
 {variant:1}-(20-10)% to Cold Resistance
-{variant:2,3}+(20-30)% to Cold Resistance
+{variant:2,3,4}+(20-30)% to Cold Resistance
 {variant:2}(20-30)% increased Cold Damage if you have used a Fire Skill Recently
 {variant:2}(20-30)% increased Fire Damage if you have used a Cold Skill Recently
-{variant:3}Gain 1% of Cold Damage as Extra Fire Damage per 1% Chill Effect on Enemy
+{variant:3,4}Gain 1% of Cold Damage as Extra Fire Damage per 1% Chill Effect on Enemy
 {variant:3}Gain 100% of Cold Damage as Extra Fire Damage against Frozen Enemies
+{variant:4}Gain 30% of Cold Damage as Extra Fire Damage against Frozen Enemies
 ]],[[
 Frostferno
 Leather Hood
@@ -1197,6 +1199,14 @@ Variant: Current
 ]],
 -- Helmet: Evasion/Energy Shield
 [[
+Akoya's Gaze
+Regicide Mask
+Requires Level 52, 58 Dex, 58 Int
++100 Strength Requirement
+(20-25)% increased Warcry Speed
+Life Leech from Exerted Attacks is instant
+Non-Exerted Attacks deal no Damage
+]],[[
 Crown of the Pale King
 Regicide Mask
 League: Tempest

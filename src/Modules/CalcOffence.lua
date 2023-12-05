@@ -400,18 +400,18 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	local function calcResistForType(damageType, cfg)
-		local resist
-		if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-			resist = env.player.output[damageType.."Resist"]
-		elseif env.partyMembers.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-			resist = env.partyMembers.output[damageType.."Resist"]
-		elseif isElemental[damageType] then
-			resist = enemyDB:Sum("BASE", cfg, damageType.."Resist", "ElementalResist") * m_max(calcLib.mod(enemyDB, cfg, damageType.."Resist", "ElementalResist"), 0)
-		else
-			resist = enemyDB:Sum("BASE", cfg, damageType.."Resist") * m_max(calcLib.mod(enemyDB, cfg, damageType.."Resist"), 0)
+		local resist = enemyDB:Override(cfg, damageType.."Resist")
+		local maxResist = enemyDB:Flag(nil, "DoNotChangeMaxResFromConfig") and data.misc.EnemyMaxResist or m_min(m_max(env.configInput["enemy"..damageType.."Resist"] or data.misc.EnemyMaxResist, data.misc.EnemyMaxResist), data.misc.MaxResistCap)
+		if not resist then
+			if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+				resist = env.player.output[damageType.."Resist"]
+			elseif env.partyMembers.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+				resist = env.partyMembers.output[damageType.."Resist"]
+			else
+				resist = enemyDB:Sum("BASE", cfg, damageType.."Resist", isElemental[damageType] and "ElementalResist" or nil) * m_max(calcLib.mod(enemyDB, cfg, damageType.."Resist", isElemental[damageType] and "ElementalResist" or nil), 0)
+			end
 		end
-		resist = enemyDB:Override(cfg, damageType.."Resist") or resist
-		return m_max(m_min(resist, data.misc.EnemyMaxResist), data.misc.ResistFloor)
+		return m_max(m_min(resist, maxResist), data.misc.ResistFloor)
 	end
 
 	local function runSkillFunc(name)
@@ -463,23 +463,6 @@ function calcs.offence(env, actor, activeSkill)
 		local elusiveEffect = output.ElusiveEffectMod / 100
 		local nightbladeMulti = skillModList:Sum("BASE", nil, "NightbladeElusiveCritMultiplier")
 		skillModList:NewMod("CritMultiplier", "BASE", m_floor(nightbladeMulti * elusiveEffect), "Nightblade")
-	end
-
-	-- additional charge based modifiers
-	if skillModList:Flag(nil, "UseEnduranceCharges") and skillModList:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
-		local tripleDmgChancePerEndurance = modDB:Sum("BASE", nil, "PerBrutalTripleDamageChance")
-		modDB:NewMod("TripleDamageChance", "BASE", tripleDmgChancePerEndurance, { type = "Multiplier", var = "BrutalCharge" } )
-	end
-	if skillModList:Flag(nil, "UseFrenzyCharges") and skillModList:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
-		local dmgPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionAilmentDamage")
-		local effectPerAffliction = modDB:Sum("BASE", nil, "PerAfflictionNonDamageEffect")
-		modDB:NewMod("Damage", "MORE", dmgPerAffliction, "Affliction Charges", 0, KeywordFlag.Ailment, { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyChillEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyShockEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyFreezeEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyScorchEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemyBrittleEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
-		modDB:NewMod("EnemySapEffect", "MORE", effectPerAffliction, "Affliction Charges", { type = "Multiplier", var = "AfflictionCharge" } )
 	end
 
 	-- set other limits
@@ -956,6 +939,20 @@ function calcs.offence(env, actor, activeSkill)
 			local projBase = skillModList:Sum("BASE", skillCfg, "ProjectileCount") + skillModList:Sum("BASE", skillCfg, "BounceCount") - 1
 			local projMore = skillModList:More(skillCfg, "ProjectileCount")
 			output.BounceCount = m_floor(projBase * projMore)
+		end
+		if skillModList:Flag(skillCfg, "CannotSplit") or activeSkill.skillTypes[SkillType.ProjectileNumber] then
+			if breakdown then
+				local SplitCount = skillModList:Sum("BASE", skillCfg, "SplitCount") + enemyDB:Sum("BASE", skillCfg, "SelfSplitCount")
+				if SplitCount > 0 then
+					output.SplitCountString = "Cannot split"
+				end
+			end
+		else
+			output.SplitCount = skillModList:Sum("BASE", skillCfg, "SplitCount") + enemyDB:Sum("BASE", skillCfg, "SelfSplitCount")
+			if skillModList:Flag(skillCfg, "AdditionalProjectilesAddSplitsInstead") then
+				output.SplitCount = output.SplitCount + m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+			end
+			output.SplitCountString = output.SplitCount
 		end
 		if skillModList:Flag(skillCfg, "CannotFork") then
 			output.ForkCountString = "Cannot fork"
@@ -1502,6 +1499,7 @@ function calcs.offence(env, actor, activeSkill)
 		local mult = floor(skillModList:More(skillCfg, "SupportManaMultiplier"), 4)
 		-- First pass to calculate base costs. Used for cost conversion (e.g. Petrified Blood)
 		local additionalLifeCost = skillModList:Sum("BASE", skillCfg, "ManaCostAsLifeCost") / 100 -- Extra cost (e.g. Petrified Blood) calculations
+		local additionalESCost = skillModList:Sum("BASE", skillCfg, "ManaCostAsEnergyShieldCost") / 100 -- Extra cost (e.g. Replica Covenant) calculations
 		local hybridLifeCost = skillModList:Sum("BASE", skillCfg, "HybridManaAndLifeCost_Life") / 100 -- Life/Mana mastery
 		for resource, val in pairs(costs) do
 			local skillCost = activeSkill.activeEffect.grantedEffectLevel.cost and activeSkill.activeEffect.grantedEffectLevel.cost[resource] or nil
@@ -1538,6 +1536,12 @@ function calcs.offence(env, actor, activeSkill)
 				elseif additionalLifeCost > 0 or hybridLifeCost > 0 then
 					val.baseCost = costs[manaType].baseCost
 					val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * (hybridLifeCost + additionalLifeCost))
+				end
+			elseif val.type == "ES" then
+				local manaType = resource:gsub("ES", "Mana")
+			  	if additionalESCost > 0 then
+			  		val.baseCost = costs[manaType].baseCost
+			  		val.finalBaseCost = val.finalBaseCost + round(costs[manaType].finalBaseCost * additionalESCost)
 				end
 			elseif val.type == "Rage" then
 				if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
@@ -1600,6 +1604,9 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				if val.type == "Life" and (hybridLifeCost + additionalLifeCost) ~= 0 and not skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
 					t_insert(breakdown[costName], s_format("* %.2f ^8(mana cost conversion)", hybridLifeCost + additionalLifeCost))
+				end
+				if val.type == "ES" and additionalESCost ~= 0 and not skillModList:Flag(skillCfg, "CostLifeInsteadOfMana") then
+					t_insert(breakdown[costName], s_format("* %.2f ^8(mana cost conversion)", additionalESCost))
 				end
 				if inc ~= 0 then
 					t_insert(breakdown[costName], s_format("x %.2f ^8(increased/reduced "..val.text.." cost)", 1 + inc/100))
@@ -1850,13 +1857,14 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate hit chance
 		local base = skillModList:Sum("BASE", cfg, "Accuracy")
-		local baseVsEnemy = skillModList:Sum("BASE", cfg, "AccuracyVsEnemy")
+		local baseVsEnemy = skillModList:Sum("BASE", cfg, "Accuracy", "AccuracyVsEnemy")
 		local inc = skillModList:Sum("INC", cfg, "Accuracy")
-		local incVsEnemy = skillModList:Sum("INC", cfg, "AccuracyVsEnemy")
+		local incVsEnemy = skillModList:Sum("INC", cfg, "Accuracy", "AccuracyVsEnemy")
 		local more = skillModList:More("MORE", cfg, "Accuracy")
+		local moreVsEnemy = skillModList:More("MORE", cfg, "Accuracy", "AccuracyVsEnemy")
 
 		output.Accuracy = m_max(0, m_floor(base * (1 + inc / 100) * more))
-		local accuracyVsEnemy = m_max(0, m_floor((base + baseVsEnemy)* (1 + (inc + incVsEnemy) / 100) * more))
+		local accuracyVsEnemy = m_max(0, m_floor(baseVsEnemy * (1 + incVsEnemy / 100) * moreVsEnemy))
 		if breakdown then
 			breakdown.Accuracy = { }
 			breakdown.multiChain(breakdown.Accuracy, {
@@ -1865,13 +1873,13 @@ function calcs.offence(env, actor, activeSkill)
 				{ "%.2f ^8(more/less)", more },
 				total = s_format("= %g", output.Accuracy)
 			})
-			if incVsEnemy ~= 0 then
+			if output.Accuracy ~= accuracyVsEnemy then
 				t_insert(breakdown.Accuracy, s_format(""))
 				breakdown.multiChain(breakdown.Accuracy, {
 					label = "Effective Accuracy vs Enemy",
-					base = { "%g ^8(base)", base + baseVsEnemy },
-					{ "%.2f ^8(increased/reduced)", 1 + (inc + incVsEnemy) / 100 },
-					{ "%.2f ^8(more/less)", more },
+					base = { "%g ^8(base)", baseVsEnemy },
+					{ "%.2f ^8(increased/reduced)", 1 + incVsEnemy / 100 },
+					{ "%.2f ^8(more/less)", moreVsEnemy },
 					total = s_format("= %g", accuracyVsEnemy)
 				})
 			end
