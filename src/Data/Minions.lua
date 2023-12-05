@@ -845,6 +845,31 @@ minions["GuardianSentinel"] = {
 	},
 }
 
+-- This is a fake Minion to apply all 3 auras
+minions["GuardianRelicAll"] = {
+	name = "All Relics",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Anger",
+		"Hatred",
+		"Wrath",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+	},
+}
+
 minions["GuardianRelicFire"] = {
 	name = "Fire Relic",
 	life = 4,

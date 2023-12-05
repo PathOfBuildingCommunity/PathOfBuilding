@@ -1293,6 +1293,7 @@ function calcs.buildDefenceEstimations(env, actor)
 					{ label = "Value", key = "value" },
 					{ label = "Mult", key = "mult" },
 					{ label = "Crit", key = "crit" },
+					{ label = "Conversion", key = "convMult" },
 					{ label = "Final", key = "final" },
 					{ label = "From", key = "from" },
 				},
@@ -1323,11 +1324,36 @@ function calcs.buildDefenceEstimations(env, actor)
 			-- Add min-max enemy damage from mods
 			enemyDamage = enemyDamage + (enemyDB:Sum("BASE", enemyCfg, (damageType.."Min")) + enemyDB:Sum("BASE", enemyCfg, (damageType.."Max"))) / 2
 			
-			-- Gain As mods (actual conversion not support yet)
+			-- Conversion and Gain As Mods
+			local conversionTotal = 0
 			if damageType == "Physical" then
+				local conversions = {total = 0, totalSkill = 0}
 				for _, damageTypeTo in ipairs(dmgTypeList) do
-					--local conversionPercent
-					local gainAsPercent = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) / 100
+					conversions[damageTypeTo.."skill"] = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageSkillConvertTo"..damageTypeTo))
+					conversions[damageTypeTo] = enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageConvertTo"..damageTypeTo))
+					conversions["totalSkill"] = conversions["totalSkill"] + conversions[damageTypeTo.."skill"]
+					conversions["total"] = conversions["total"] + conversions[damageTypeTo]
+				end
+				-- Cap the amount of conversion to 100%
+				if conversions["totalSkill"] > 100 then
+					local mult = 100 / conversions["totalSkill"]
+					conversions["totalSkill"] = conversions["totalSkill"] * mult
+					conversions["total"] = 0
+					for _, damageTypeTo in ipairs(dmgTypeList) do
+						conversions[damageTypeTo.."skill"] = conversions[damageTypeTo.."skill"] * mult
+						conversions[damageTypeTo] = 0
+					end
+				elseif conversions["total"] + conversions["totalSkill"] > 100 then
+					local mult = (100 - conversions["totalSkill"]) / conversions["total"]
+					conversions["total"] = conversions["total"] * mult
+					for _, damageTypeTo in ipairs(dmgTypeList) do
+						conversions[damageTypeTo] = conversions[damageTypeTo] * mult
+					end
+				end
+				conversionTotal = conversions["total"] + conversions["totalSkill"]
+				-- Calculate the amount converted/gained as
+				for _, damageTypeTo in ipairs(dmgTypeList) do
+					local gainAsPercent = (enemyDB:Sum("BASE", enemyCfg, (damageType.."DamageGainAs"..damageTypeTo)) + conversions[damageTypeTo.."skill"] + conversions[damageTypeTo]) / 100
 					if gainAsPercent > 0 then
 						enemyDamageConversion[damageTypeTo] = enemyDamageConversion[damageTypeTo] or { }
 						enemyDamageConversion[damageTypeTo][damageType] = enemyDamage * gainAsPercent
@@ -1341,11 +1367,13 @@ function calcs.buildDefenceEstimations(env, actor)
 			output[damageType.."EnemyDamageMult"] = enemyDamageMult
 			output[damageType.."EnemyOverwhelm"] = enemyOverwhelm
 			output["totalEnemyDamageIn"] = output["totalEnemyDamageIn"] + enemyDamage
-			output[damageType.."EnemyDamage"] = enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
+			output[damageType.."EnemyDamage"] = enemyDamage * (1 - conversionTotal/100) * enemyDamageMult * output["EnemyCritEffect"]
+			local conversionExtra = -enemyDamage * enemyDamageMult * output["EnemyCritEffect"] + output[damageType.."EnemyDamage"]
 			if enemyDamageConversion[damageType] then
 				for damageTypeFrom, enemyDamage in pairs(enemyDamageConversion[damageType]) do
 					local enemyDamageMult = calcLib.mod(enemyDB, nil, "Damage", damageType.."Damage", damageTypeFrom.."Damage", isElemental[damageType] and "ElementalDamage" or nil, isElemental[damageTypeFrom] and "ElementalDamage" or nil) -- missing taunt from allies
 					output[damageType.."EnemyDamage"] = output[damageType.."EnemyDamage"] + enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
+					conversionExtra = conversionExtra + enemyDamage * enemyDamageMult * output["EnemyCritEffect"]
 				end
 			end
 			output["totalEnemyDamage"] = output["totalEnemyDamage"] + output[damageType.."EnemyDamage"]
@@ -1354,13 +1382,17 @@ function calcs.buildDefenceEstimations(env, actor)
 				s_format("from %s: %d", sourceStr, enemyDamage),
 				s_format("* %.2f (modifiers to enemy damage)", enemyDamageMult),
 				s_format("* %.3f (enemy crit effect)", output["EnemyCritEffect"]),
-				s_format("= %d", output[damageType.."EnemyDamage"]),
 				}
+				if conversionExtra ~= 0 then
+					t_insert(breakdown[damageType.."EnemyDamage"], s_format("%s %d (enemy damage conversion)", conversionExtra > 0 and "+" or "-", conversionExtra >= 0 and conversionExtra or -conversionExtra))
+				end
+				t_insert(breakdown[damageType.."EnemyDamage"], s_format("= %d", output[damageType.."EnemyDamage"]))
 				t_insert(breakdown["totalEnemyDamage"].rowList, {
 					type = s_format("%s", damageType),
 					value = s_format("%d", enemyDamage),
 					mult = s_format("%.2f", enemyDamageMult),
 					crit = s_format("%.2f", output["EnemyCritEffect"]),
+					convMult = s_format("%s%d", conversionExtra > 0 and "+" or (conversionExtra < 0 and "-" or ""), conversionExtra >= 0 and conversionExtra or -conversionExtra),
 					final = s_format("%d", output[damageType.."EnemyDamage"]),
 					from = s_format("%s", sourceStr),
 				})
@@ -1472,8 +1504,8 @@ function calcs.buildDefenceEstimations(env, actor)
 			end
 			do
 				-- Reflect
-				takenInc = takenInc + modDB:Sum("INC", nil, damageType.."ReflectedDamageTaken")
-				takenMore = takenMore * modDB:More(nil, damageType.."ReflectedDamageTaken")
+				takenInc = takenInc + modDB:Sum("INC", nil, "ReflectedDamageTaken", damageType.."ReflectedDamageTaken")
+				takenMore = takenMore * modDB:More(nil, "ReflectedDamageTaken", damageType.."ReflectedDamageTaken")
 				if isElemental[damageType] then
 					takenInc = takenInc + modDB:Sum("INC", nil, "ElementalReflectedDamageTaken")
 					takenMore = takenMore * modDB:More(nil, "ElementalReflectedDamageTaken")
@@ -1522,6 +1554,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			},
 		}
 	end
+	local enemyImpaleChance = (enemyDB:Sum("BASE", { flags = (damageCategoryConfig == "Melee" or damageCategoryConfig == "Projectile" or damageCategoryConfig == "Average") and ModFlag.Attack or 0, keywordFlags = 0 } , "ImpaleChance") or 0) * (damageCategoryConfig == "Average" and 0.5 or 1) * (1 - (output.ImpaleAvoidChance or 0))
 	for _, damageType in ipairs(dmgTypeList) do
 		-- Calculate incoming damage multiplier
 		local resist = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."ResistWhenHit"] or output[damageType.."Resist"]
@@ -1529,7 +1562,9 @@ function calcs.buildDefenceEstimations(env, actor)
 		local enemyPen = modDB:Flag(nil, "SelfIgnore"..damageType.."Resistance") and 0 or output[damageType.."EnemyPen"]
 		local enemyOverwhelm = modDB:Flag(nil, "SelfIgnore"..damageType.."DamageReduction") and 0 or output[damageType.."EnemyOverwhelm"]
 		local damage = output[damageType.."TakenDamage"]
+		local impaleDamage = enemyImpaleChance > 0 and (damageType == "Physical" and (damage * data.misc.ImpaleStoredDamageBase) or 0) or 0
 		local armourReduct = 0
+		local impaleArmourReduct = 0
 		local percentOfArmourApplies = m_min((not modDB:Flag(nil, "ArmourDoesNotApplyTo"..damageType.."DamageTaken") and modDB:Sum("BASE", nil, "ArmourAppliesTo"..damageType.."DamageTaken") or 0), 100)
 		local effectiveAppliedArmour = (output.Armour * percentOfArmourApplies / 100) * (1 + output.ArmourDefense)
 		local resMult = 1 - (resist - enemyPen) / 100
@@ -1544,10 +1579,18 @@ function calcs.buildDefenceEstimations(env, actor)
 		if percentOfArmourApplies > 0 then
 			armourReduct = calcs.armourReduction(effectiveAppliedArmour, damage * resMult)
 			armourReduct = m_min(output.DamageReductionMax, armourReduct)
+			if impaleDamage > 0 then
+				impaleArmourReduct = m_min(output.DamageReductionMax, calcs.armourReduction(effectiveAppliedArmour, impaleDamage * resMult))
+			end
 		end
 		local totalReduct = m_min(output.DamageReductionMax, armourReduct + reduction)
 		reductMult = 1 - m_max(m_min(output.DamageReductionMax, totalReduct - enemyOverwhelm), 0) / 100
 		output[damageType.."DamageReduction"] = 100 - reductMult * 100
+		if impaleDamage > 0 then
+			ConPrintTable({"A", impaleDamage, impaleArmourReduct, reduction, enemyOverwhelm, output[damageType.."TakenReflect"]})
+			impaleDamage = impaleDamage * resMult * (1 - m_max(m_min(output.DamageReductionMax, m_min(output.DamageReductionMax, impaleArmourReduct + reduction) - enemyOverwhelm), 0) / 100)
+			impaleDamage = impaleDamage * enemyImpaleChance / 100 * 5 * output[damageType.."TakenReflect"]
+		end
 		if breakdown then
 			breakdown[damageType.."DamageReduction"] = { }
 			if armourReduct ~= 0 then
@@ -1590,7 +1633,7 @@ function calcs.buildDefenceEstimations(env, actor)
 		output[damageType.."BaseTakenHitMult"] = baseMult * afterReductionMulti
 		local takenMultReflect = output[damageType.."TakenReflect"]
 		local finalReflect = baseMult * takenMultReflect
-		output[damageType.."TakenHit"] = m_max(damage * baseMult + takenFlat, 0) * takenMult * spellSuppressMult
+		output[damageType.."TakenHit"] = m_max(damage * baseMult + takenFlat, 0) * takenMult * spellSuppressMult + impaleDamage
 		output[damageType.."TakenHitMult"] = (damage > 0) and (output[damageType.."TakenHit"] / damage) or 0
 		output["totalTakenHit"] = output["totalTakenHit"] + output[damageType.."TakenHit"]
 		if output.AnyTakenReflect then
@@ -1639,7 +1682,10 @@ function calcs.buildDefenceEstimations(env, actor)
 			if spellSuppressMult ~= 1 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("x Spell Suppression: %.3f", spellSuppressMult))
 			end
-			if takenMult ~= 1 or takenFlat ~= 0 or spellSuppressMult ~= 1 then
+			if impaleDamage ~= 0 then
+				t_insert(breakdown[damageType.."TakenHitMult"], s_format("+ Impale: %.1f", impaleDamage))
+			end
+			if takenMult ~= 1 or takenFlat ~= 0 or spellSuppressMult ~= 1 or impaleDamage ~= 0 then
 				t_insert(breakdown[damageType.."TakenHitMult"], s_format("= %.3f", output[damageType.."TakenHitMult"]))
 			end
 			breakdown[damageType.."TakenHit"] = {
