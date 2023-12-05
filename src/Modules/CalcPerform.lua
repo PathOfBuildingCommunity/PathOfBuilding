@@ -2682,6 +2682,73 @@ function calcs.perform(env, fullDPSSkipEHP)
 		enemyDB:ReplaceMod("Multiplier:ImpaleStacks", "BASE", maxImpaleStacks, "Config", { type = "Condition", var = "Combat" })
 	end
 
+	-- Check for extra auras
+	buffExports["Aura"]["extraAura"] = { effectMult = 1, modList = new("ModList") }
+	for _, value in ipairs(modDB:List(nil, "ExtraAura")) do
+		local modList = { value.mod }
+		if not value.onlyAllies then
+			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+			if not value.notBuff then
+				modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
+			end
+		end
+		if not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
+			if env.minion then
+				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+			end
+			buffExports["Aura"]["extraAura"].modList:AddMod(value.mod)
+			local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
+			if env.player.mainSkill.skillFlags.totem and not totemModBlacklist then
+				local totemMod = copyTable(value.mod)
+				local totemModName, matches = totemMod.name:gsub("Condition:", "Condition:Totem")
+				if matches < 1 then
+					totemModName = "Totem" .. totemMod.name
+				end
+				totemMod.name = totemModName
+				modDB:AddMod(totemMod)
+			end
+		end
+	end
+	if allyBuffs["extraAura"] then
+		for _, buff in pairs(allyBuffs["extraAura"]) do
+			local modList = buff.modList
+			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+			if env.minion then
+				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
+				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
+			end
+		end
+	end
+
+	-- Check for modifiers to apply to actors affected by player auras or curses
+	for _, value in ipairs(modDB:List(nil, "AffectedByAuraMod")) do
+		for actor in pairs(affectedByAura) do
+			actor.modDB:AddMod(value.mod)
+		end
+	end
+
+	-- Merge keystones again to catch any that were added by buffs
+	mergeKeystones(env)
+
+	-- Special handling for Dancing Dervish
+	if modDB:Flag(nil, "DisableWeapons") then
+		env.player.weaponData1 = copyTable(env.data.unarmedWeaponData[env.classId])
+		modDB.conditions["Unarmed"] = true
+		if not env.player.Gloves or env.player.Gloves == None then
+			modDB.conditions["Unencumbered"] = true
+		end
+	elseif env.weaponModList1 then
+		modDB:AddList(env.weaponModList1)
+	end
+
+	-- Process misc buffs/modifiers
 	doActorMisc(env, env.player)
 	if env.minion then
 		doActorMisc(env, env.minion)
@@ -2778,72 +2845,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 	local shockEffectMultiplier = enemyDB:Sum("BASE", nil, "Multiplier:ShockEffect")
 	if shockEffectMultiplier < output["CurrentShock"] then
 		enemyDB:NewMod("Multiplier:ShockEffect", "BASE", output["CurrentShock"] - shockEffectMultiplier, "")
-	end
-
-	-- Check for extra auras
-	buffExports["Aura"]["extraAura"] = { effectMult = 1, modList = new("ModList") }
-	for _, value in ipairs(modDB:List(nil, "ExtraAura")) do
-		local modList = { value.mod }
-		if not value.onlyAllies then
-			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-			if not value.notBuff then
-				modDB.multipliers["BuffOnSelf"] = (modDB.multipliers["BuffOnSelf"] or 0) + 1
-			end
-		end
-		if not modDB:Flag(nil, "SelfAurasCannotAffectAllies") then
-			if env.minion then
-				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-			end
-			buffExports["Aura"]["extraAura"].modList:AddMod(value.mod)
-			local totemModBlacklist = value.mod.name and (value.mod.name == "Speed" or value.mod.name == "CritMultiplier" or value.mod.name == "CritChance")
-			if env.player.mainSkill.skillFlags.totem and not totemModBlacklist then
-				local totemMod = copyTable(value.mod)
-				local totemModName, matches = totemMod.name:gsub("Condition:", "Condition:Totem")
-				if matches < 1 then
-					totemModName = "Totem" .. totemMod.name
-				end
-				totemMod.name = totemModName
-				modDB:AddMod(totemMod)
-			end
-		end
-	end
-	if allyBuffs["extraAura"] then
-		for _, buff in pairs(allyBuffs["extraAura"]) do
-			local modList = buff.modList
-			local inc = modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			local more = modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-			modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-			if env.minion then
-				local inc = env.minion.modDB:Sum("INC", nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				local more = env.minion.modDB:More(nil, "BuffEffectOnSelf", "AuraEffectOnSelf")
-				env.minion.modDB:ScaleAddList(modList, (1 + inc / 100) * more)
-			end
-		end
-	end
-
-	-- Check for modifiers to apply to actors affected by player auras or curses
-	for _, value in ipairs(modDB:List(nil, "AffectedByAuraMod")) do
-		for actor in pairs(affectedByAura) do
-			actor.modDB:AddMod(value.mod)
-		end
-	end
-
-	-- Merge keystones again to catch any that were added by buffs
-	mergeKeystones(env)
-
-	-- Special handling for Dancing Dervish
-	if modDB:Flag(nil, "DisableWeapons") then
-		env.player.weaponData1 = copyTable(env.data.unarmedWeaponData[env.classId])
-		modDB.conditions["Unarmed"] = true
-		if not env.player.Gloves or env.player.Gloves == None then
-			modDB.conditions["Unencumbered"] = true
-		end
-	elseif env.weaponModList1 then
-		modDB:AddList(env.weaponModList1)
 	end
 
 	doActorMisc(env, env.enemy)
