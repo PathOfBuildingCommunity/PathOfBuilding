@@ -179,7 +179,22 @@ function GemSelectClass:BuildList(buf)
 		-- nothing in buffer
 		for gemId, gemData in pairs(self.gems) do
 			if self:FilterSupport(gemId, gemData) then
-				t_insert(self.list, gemId)
+				-- final filtering
+				local add = true
+				if self.skillsTab.showIntGems == false and gemData.tags["intelligence"] == true then
+					add = false
+				elseif self.skillsTab.showStrGems == false and gemData.tags["strength"] == true then
+					add = false
+				elseif self.skillsTab.showDexGems == false and gemData.tags["dexterity"] == true then
+					add = false
+				elseif self.skillsTab.showActiveGems == false and gemData.tags["grants_active_skill"] == true then
+					add = false
+				elseif self.skillsTab.showSupportGems == false and gemData.tags["support"] == true then
+					add = false
+				end
+				if add then
+					t_insert(self.list, gemId)
+				end
 			end
 		end
 		self:SortGemList(self.list)
