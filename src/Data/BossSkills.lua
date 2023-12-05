@@ -57,13 +57,22 @@ return {
 	["Sirus Meteor"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Physical = { 11.2718900614, 0.056354278291738 },
-			Lightning = { 11.2718900614, 0.056354278291738 },
-			Fire = { 11.2718900614, 0.056354278291738 },
-			Chaos = { 11.2718900614, 0.056354278291738 }
+			Physical = { 45.087560245599, 0.22541711316695 }
 		},
 		UberDamageMultiplier = 1.52,
 		speed = 1500,
+		additionalStats = {
+			base = {
+				PhysicalDamageSkillConvertToFire = 25,
+				PhysicalDamageSkillConvertToLightning = 25,
+				PhysicalDamageSkillConvertToChaos = 25
+			},
+			uber = {
+				PhysicalDamageSkillConvertToFire = 25,
+				PhysicalDamageSkillConvertToLightning = 25,
+				PhysicalDamageSkillConvertToChaos = 25
+			}
+		},
 		tooltip = "Earlier ones with less walls do less damage. Allocating The Perfect Storm increases Damage by a further 50% (Applied on Uber)"
 	},
 	["Exarch Ball"] = {
@@ -113,20 +122,24 @@ return {
 	["Maven Memory Game"] = {
 		DamageType = "Spell",
 		DamageMultipliers = {
-			Lightning = { 34.763635149472, 0.17381817574736 },
-			Cold = { 34.763635149472, 0.17381817574736 },
-			Fire = { 34.763635149472, 0.17381817574736 }
+			Physical = { 104.29090544842, 0.52145452724208 }
 		},
 		UberDamageMultiplier = 1.0086206896552,
 		speed = 7500,
 		additionalStats = {
 			base = {
 				CannotBeBlocked = "flag",
+				PhysicalDamageSkillConvertToLightning = 100,
+				PhysicalDamageSkillConvertToCold = 100,
+				PhysicalDamageSkillConvertToFire = 100,
 				CannotBeSuppressed = "flag",
 				CannotBeDodged = "flag"
 			},
 			uber = {
 				CannotBeBlocked = "flag",
+				PhysicalDamageSkillConvertToLightning = 100,
+				PhysicalDamageSkillConvertToCold = 100,
+				PhysicalDamageSkillConvertToFire = 100,
 				CannotBeSuppressed = "flag",
 				CannotBeDodged = "flag"
 			}
