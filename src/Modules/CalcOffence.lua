@@ -399,18 +399,18 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	local function calcResistForType(damageType, cfg)
-		local resist
-		if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-			resist = env.player.output[damageType.."Resist"]
-		elseif env.partyMembers.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
-			resist = env.partyMembers.output[damageType.."Resist"]
-		elseif isElemental[damageType] then
-			resist = enemyDB:Sum("BASE", cfg, damageType.."Resist", "ElementalResist") * m_max(calcLib.mod(enemyDB, cfg, damageType.."Resist", "ElementalResist"), 0)
-		else
-			resist = enemyDB:Sum("BASE", cfg, damageType.."Resist") * m_max(calcLib.mod(enemyDB, cfg, damageType.."Resist"), 0)
+		local resist = enemyDB:Override(cfg, damageType.."Resist")
+		local maxResist = enemyDB:Flag(nil, "DoNotChangeMaxResFromConfig") and data.misc.EnemyMaxResist or m_min(m_max(env.configInput["enemy"..damageType.."Resist"] or data.misc.EnemyMaxResist, data.misc.EnemyMaxResist), data.misc.MaxResistCap)
+		if not resist then
+			if env.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+				resist = env.player.output[damageType.."Resist"]
+			elseif env.partyMembers.modDB:Flag(nil, "Enemy"..damageType.."ResistEqualToYours") then
+				resist = env.partyMembers.output[damageType.."Resist"]
+			else
+				resist = enemyDB:Sum("BASE", cfg, damageType.."Resist", isElemental[damageType] and "ElementalResist" or nil) * m_max(calcLib.mod(enemyDB, cfg, damageType.."Resist", isElemental[damageType] and "ElementalResist" or nil), 0)
+			end
 		end
-		resist = enemyDB:Override(cfg, damageType.."Resist") or resist
-		return m_max(m_min(resist, data.misc.EnemyMaxResist), data.misc.ResistFloor)
+		return m_max(m_min(resist, maxResist), data.misc.ResistFloor)
 	end
 
 	local function runSkillFunc(name)
