@@ -3664,7 +3664,7 @@ local specialModList = {
 	},
 	["minions deal no non%-lightning damage"] = {
 		mod("MinionModifier", "LIST", { mod = flag("DealNoPhysical") }),
-		mod("MinionModifier", "LIST", { mod = flag("DealNoLCold") }),
+		mod("MinionModifier", "LIST", { mod = flag("DealNoCold") }),
 		mod("MinionModifier", "LIST", { mod = flag("DealNoFire") }),
 		mod("MinionModifier", "LIST", { mod = flag("DealNoChaos") }),
 	},
@@ -3724,6 +3724,9 @@ local specialModList = {
 	},
 	["chaos damage t?a?k?e?n? ?does not bypass minions' energy shield"] = { mod("MinionModifier", "LIST", { mod = flag("ChaosNotBypassEnergyShield") }) },
 	["while minions have energy shield, their hits ignore monster elemental resistances"] = { mod("MinionModifier", "LIST", { mod = flag("IgnoreElementalResistances", { type = "StatThreshold", stat = "EnergyShield", threshold = 1 }) }) },
+	["minions convert (%d+)%% of their maximum life to maximum energy shield per (%d+)%% chaos resistance they have"] = function(num, _, div) return {
+		mod("MinionModifier", "LIST", { mod = mod("LifeConvertToEnergyShield", "BASE", num, { type = "PerStat", stat = "ChaosResist", div = tonumber(div) }) })
+	} end,
 	["summoned arbalists' projectiles pierce (%d+) additional targets"] = function(num) return { mod("MinionModifier", "LIST", { mod = mod("PierceCount", "BASE", num) }, { type = "SkillName", skillName = "Summon Arbalists" }) } end,
 	["summoned arbalists' projectiles fork"] = {
 		mod("MinionModifier", "LIST", { mod = flag("ForkOnce") }, { type = "SkillName", skillName = "Summon Arbalists" }),

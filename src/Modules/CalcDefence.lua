@@ -257,40 +257,9 @@ function calcs.reducePoolsByDamage(poolTable, damageTable, actor)
 	}
 end
 
--- Performs all ingame and related defensive calculations
-function calcs.defence(env, actor)
+function calcs.resistances(actor)
 	local modDB = actor.modDB
-	local enemyDB = actor.enemy.modDB
 	local output = actor.output
-	local breakdown = actor.breakdown
-
-	local condList = modDB.conditions
-
-	-- Action Speed
-	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
-	
-	-- Armour defence types for conditionals
-	for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
-		local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
-		if armourData then
-			wardBase = armourData.Ward or 0
-			if wardBase > 0 then
-				output["WardOn"..slot] = wardBase
-			end
-			energyShieldBase = armourData.EnergyShield or 0
-			if energyShieldBase > 0 then
-				output["EnergyShieldOn"..slot] = energyShieldBase
-			end
-			armourBase = armourData.Armour or 0
-			if armourBase > 0 then
-				output["ArmourOn"..slot] = armourBase
-			end
-			evasionBase = armourData.Evasion or 0
-			if evasionBase > 0 then
-				output["EvasionOn"..slot] = evasionBase
-			end
-		end
-	end
 
 	-- Resistances
 	output["PhysicalResist"] = 0
@@ -408,6 +377,44 @@ function calcs.defence(env, actor)
 			}
 		end
 	end
+end
+
+-- Performs all ingame and related defensive calculations
+function calcs.defence(env, actor)
+	local modDB = actor.modDB
+	local enemyDB = actor.enemy.modDB
+	local output = actor.output
+	local breakdown = actor.breakdown
+
+	local condList = modDB.conditions
+
+	-- Action Speed
+	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
+	
+	-- Armour defence types for conditionals
+	for _, slot in pairs({"Helmet","Gloves","Boots","Body Armour","Weapon 2","Weapon 3"}) do
+		local armourData = actor.itemList[slot] and actor.itemList[slot].armourData
+		if armourData then
+			wardBase = armourData.Ward or 0
+			if wardBase > 0 then
+				output["WardOn"..slot] = wardBase
+			end
+			energyShieldBase = armourData.EnergyShield or 0
+			if energyShieldBase > 0 then
+				output["EnergyShieldOn"..slot] = energyShieldBase
+			end
+			armourBase = armourData.Armour or 0
+			if armourBase > 0 then
+				output["ArmourOn"..slot] = armourBase
+			end
+			evasionBase = armourData.Evasion or 0
+			if evasionBase > 0 then
+				output["EvasionOn"..slot] = evasionBase
+			end
+		end
+	end
+
+	calcs.resistances(actor)
 
 	-- Block
 	output.BlockChanceMax = modDB:Sum("BASE", nil, "BlockChanceMax")
