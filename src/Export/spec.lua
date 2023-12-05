@@ -4539,25 +4539,11 @@ return {
 			width=250
 		},
 		[26]={
-			list=false,
+			list=true,
 			name="",
 			refTo="",
-			type="Int",
+			type="Key",
 			width=50
-		},
-		[27]={
-			list=false,
-			name="",
-			refTo="",
-			type="Int",
-			width=50
-		},
-		[28]={
-			list=false,
-			name="NextEffectName",
-			refTo="",
-			type="String",
-			width=200
 		}
 	},
 	grantedeffectsperlevel={

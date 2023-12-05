@@ -242,6 +242,9 @@ local skills, mod, flag, skill = ...
 
 #skill BladeVortex
 #flags spell area duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:BladeVortexBlade") * activeSkill.skillData.hitFrequencyPerBlade)
+	end,
 	parts = {
 		{
 			name = "0 Blades",
@@ -260,9 +263,6 @@ local skills, mod, flag, skill = ...
 		["blade_vortex_ailment_damage_+%_per_blade_final"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "BladeVortexBlade" }),
 		},
-		["blade_vortex_critical_strike_chance_+%_per_blade"] = {
-			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "BladeVortexBlade" }),
-		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
 		["blade_vortex_damage_+%_with_5_or_fewer_blades"] = {
@@ -272,26 +272,36 @@ local skills, mod, flag, skill = ...
 			mod("Multiplier:BladeVortexMaxStages", "BASE", nil),
 		},
 		["blade_vortex_hit_rate_+%_per_blade"] = {
+			skill("hitFrequencyPerBlade", nil),
+			div = 100,
 		},
 	},
 #baseMod skill("radius", 15)
+#baseMod skill("hitFrequency", 0.6)
 #baseMod mod("Multiplier:BladeVortexBlade", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod mod("Multiplier:BladeVortexBlade", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 3 })
-#baseMod skill("hitTimeOverride", 0.6, { type = "SkillPart", skillPart = 1 })
-#baseMod skill("hitTimeOverride", 0.6 / (1+5*0.35), { type = "SkillPart", skillPart = 2 })
-#baseMod skill("hitTimeOverride", 0.6 / (1+10*0.35), { type = "SkillPart", skillPart = 3 })
 #baseMod flag("Condition:HaveBladeVortex")
 #mods
 
 #skill VaalBladeVortex
 #flags spell area duration
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillData.VaalBladeVortexBlade * (activeSkill.skillData.hitFrequencyPerBlade or 0))
+	end,
 	statMap = {
 		["base_blade_vortex_hit_rate_ms"] = {
-			skill("hitTimeOverride", nil),
+			skill("hitFrequency", nil),
 			div = 1000,
+		},
+		["blade_vortex_hit_rate_+%_per_blade"] = {
+			skill("hitFrequencyPerBlade", nil),
+			div = 100,
+		},
+		["vaal_blade_vortex_has_10_spinning_blades"] = {
 		},
 	},
 #baseMod skill("radius", 15)
+#baseMod skill("VaalBladeVortexBlade", 10)
 #mods
 
 #skill Bladefall
@@ -440,7 +450,7 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 	statMap = {
 		["active_skill_projectile_damage_+%_final_for_each_remaining_chain"] = {
-			mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" })
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "PerStat", stat = "ChainRemaining" }, { type = "SkillType", skillType = SkillType.Projectile })
 		},
 	},
 #mods
@@ -484,17 +494,11 @@ local skills, mod, flag, skill = ...
 #skill Cyclone
 #flags attack melee area
 	statMap = {
-		["cyclone_max_number_of_stages"] = {
-			mod("Multiplier:CycloneMaxStages", "BASE", nil),
-		},
 		["cyclone_area_of_effect_+%_per_additional_melee_range"] = {
 			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "AdditionalMeleeRange"}),
 		},
 		["cyclone_movement_speed_+%_final"] = {
 			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "Condition", var = "ChannellingCyclone"}, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
-		},
-		["cyclone_melee_weapon_range_+_per_stage"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "CycloneStage" }),
 		},
 	},
 	initialFunc = function(activeSkill, output)
@@ -511,7 +515,7 @@ local skills, mod, flag, skill = ...
 		end
 		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
-#baseMod skill("radius", 11)
+#baseMod skill("radius", 16)
 #mods
 
 #skill VaalCyclone
@@ -1466,6 +1470,9 @@ local skills, mod, flag, skill = ...
 		["projectile_damage_taken_+%"] = {
 			mod("ProjectileDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
+		["projectiles_hitting_self_split_into_x"] = {
+			mod("SelfSplitCount", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
 	},
 #baseMod skill("debuff", true)
 #mods
@@ -1804,6 +1811,15 @@ local skills, mod, flag, skill = ...
 
 #skill ShrapnelBallista
 #flags attack projectile totem ballista
+	preDamageFunc = function(activeSkill, output)
+		if not activeSkill.skillModList:Flag(nil, "SequentialProjectiles") then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * math.min(activeSkill.skillData.ShrapnelBallistaProjectileOverlap or (activeSkill.skillTypes[SkillType.Rain] and output.ProjectileCount or 1), output.ProjectileCount)
+		end
+		local splitCount = output.SplitCount or 0
+		if splitCount > 0 then
+			activeSkill.skillModList:NewMod("DPS", "MORE", splitCount * 100, "Split Return", 0, { type = "Condition", var = "ReturningProjectile" })
+		end
+	end,
 #mods
 
 #skill SiegeBallista
@@ -1887,20 +1903,15 @@ local skills, mod, flag, skill = ...
 
 #skill ImpactingSteel
 #flags attack projectile area
-	parts = {
-		{
-			name = "Main Projectile",
-		},
-		{
-			name = "Split Projectile",
-		},
-	},
 	statMap = {
-		["impacting_steel_secondary_projectile_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } )
+		["projectile_number_to_split"] = {
+			mod("SplitCount", "BASE")
+		},
+		["modifiers_to_number_of_projectiles_instead_apply_to_splitting"] = {
+			flag("NoAdditionalProjectiles"),
+			flag("AdditionalProjectilesAddSplitsInstead")
 		},
 	},
-#baseMod flag("NoAdditionalProjectiles")
 #mods
 
 #skill SummonIceGolem
@@ -2116,6 +2127,9 @@ local skills, mod, flag, skill = ...
 		["chronomancer_buff_cooldown_speed_+%"] = {
 			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 		},
+		["debuff_time_passed_+%"] = {
+			mod("SelfDebuffExpirationRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+		},
 	},
 #mods
 
@@ -2134,6 +2148,22 @@ local skills, mod, flag, skill = ...
 
 #skill IntuitiveLink
 #flags spell duration
+	statMap = {
+		["display_trigger_link"] = {
+			-- Display only
+		},
+	},
+#mods
+
+#skill SupportIntuitiveLink
+	statMap = {
+		["trigger_on_trigger_link_target_hit"] = {
+			-- Display only
+		},
+		["support_trigger_link_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+	},
 #mods
 
 #skill VampiricLink

@@ -9,7 +9,7 @@ local skills, mod, flag, skill = ...
 #flags spell chaining
 	statMap = {
 		["arc_damage_+%_final_for_each_remaining_chain"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "PerStat", stat = "ChainRemaining" }),
 		},
 	},
 #mods
@@ -18,7 +18,7 @@ local skills, mod, flag, skill = ...
 #flags spell chaining
 	statMap = {
 		["arc_damage_+%_final_for_each_remaining_chain"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ChainRemaining" }),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "PerStat", stat = "ChainRemaining" }),
 		},
 	},
 #baseMod flag("Condition:CanBeLucky", { type = "GlobalEffect", effectType = "Buff" })
@@ -39,7 +39,7 @@ local skills, mod, flag, skill = ...
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "PercentStat", stat = "ManaUnreserved", percentVar = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
-#baseMod mod("GuardAbsorbLimit", "BASE", 1, 0, 0, { type = "Multiplier", var = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true })
+#baseMod mod("GuardAbsorbLimit", "BASE", 100, 0, 0, { type = "PercentStat", stat = "ManaUnreserved", percentVar = "ArcaneCloakConsumedMana" }, { type = "GlobalEffect", effectType = "Guard", unscalable = true })
 #mods
 
 #skill ArcticBreath
@@ -250,6 +250,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("strikeInterval", 0.15)
 #baseMod skill("projectileSpeed", 40)
 #baseMod skill("duration", 2)
+#baseMod flag("CannotSplit")
 #mods
 
 #skill DarkRitual
@@ -316,6 +317,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Minimum Range:")
 #baseMod skill("radiusSecondary", 22)
 #baseMod skill("radiusSecondaryLabel", "Maximum Range:")
+#baseMod flag("CannotSplit")
 #mods
 
 #skill Blight
@@ -588,9 +590,7 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	statMap = {
 		["area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge"] = {
-			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
-			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableFrenzyCharge" }),
-			mod("AreaOfEffect", "INC", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovablePowerCharge" }),
+			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableTotalCharges" }),
 		},
 		["active_skill_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil,  ModFlag.Ailment),
@@ -664,7 +664,7 @@ local skills, mod, flag, skill = ...
 			div = 100
 		},
 	},
-#baseMod mod("Multiplier:DivineIreMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:DivineIreMaxStages", "BASE", 10, 0, 0, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 38)
 #mods
 
@@ -919,7 +919,7 @@ local skills, mod, flag, skill = ...
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 		["vaal_flameblast_radius_+_per_stage"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 	},
 #baseMod skill("radius", 2)
@@ -936,7 +936,7 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "VaalFlameblastStage" }),
 		},
 		["vaal_flameblast_radius_+_per_stage"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "VaalFlameblastStage" }),
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
 		},
 	},
 #baseMod mod("Multiplier:VaalFlameblastMaxStages", "BASE", 15)
@@ -1219,6 +1219,9 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["glacial_cascade_final_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["quality_display_glacial_cascade_is_gem"] = {
+			-- Display Only
 		},
 	},
 #baseMod skill("radius", 12)
@@ -1694,6 +1697,7 @@ local skills, mod, flag, skill = ...
 #skill MagmaOrb
 #flags spell projectile area chaining
 #baseMod skill("radius", 14)
+#baseMod flag("CannotSplit")
 #mods
 
 #skill DamageOverTimeAura
@@ -1745,37 +1749,17 @@ local skills, mod, flag, skill = ...
 #skill MagmaSigil
 #flags spell area duration brand
 	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:PenanceBrandMaxEnergy") / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
 	end,
-	parts = {
-		{
-			name = "Energy Explosion",
-			stages = true,
-		},
-		{
-			name = "Max Explosion per Brand",
-		},
-		{
-			name = "Max Stages Energy Pulsing",
-		},
-	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
-		},
-		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" }),
-		},
-		["penance_brand_additional_descriptions_boolean"] = {
+		["active_skill_ailment_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Ailment),
 		},
 	},
-#baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
-#baseMod mod("Damage", "MORE", 50, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 3 })
-#baseMod skill("radius", 8)
-#baseMod skill("radiusExtra", 1, { type = "Multiplier", var = "PenanceBrandStageAfterFirst" })
-#baseMod mod("Multiplier:PenanceBrandMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 })
+#baseMod skill("radius", 28)
+#baseMod mod("Multiplier:PenanceBrandMaxEnergy", "BASE", 20)
 #mods
 
 #skill PowerSiphon
@@ -1925,9 +1909,9 @@ local skills, mod, flag, skill = ...
 #flags spell area
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillFlags.totem then
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.TotemLife * activeSkill.skillData.RFLifeMultiplier + output.TotemEnergyShield * activeSkill.skillData.RFESMultiplier
+			activeSkill.skillData.FireDot = output.TotemLife * activeSkill.skillData.RFLifeMultiplier + output.TotemEnergyShield * activeSkill.skillData.RFESMultiplier
 		else
-			activeSkill.skillData.FireDot = activeSkill.skillData.FireDot + output.Life * activeSkill.skillData.RFLifeMultiplier + output.EnergyShield * activeSkill.skillData.RFESMultiplier
+			activeSkill.skillData.FireDot = output.Life * activeSkill.skillData.RFLifeMultiplier + output.EnergyShield * activeSkill.skillData.RFESMultiplier
 		end
 	end,
 	statMap = {
@@ -2059,6 +2043,7 @@ local skills, mod, flag, skill = ...
 			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["quality_display_circle_of_power_is_gem"] = {
+			-- Display Only
         },
 	},
 #baseMod skill("radius", 30)
@@ -2220,7 +2205,11 @@ local skills, mod, flag, skill = ...
 		["active_skill_quality_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
+		["quality_display_rune_paint_is_gem"] = {
+			-- Display Only
+		},
 		["rune_paint_max_rune_level"] = {
+			-- Display Only
 		},
 	},
 #baseMod mod("Multiplier:RuneLevel", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 2 })

@@ -162,6 +162,7 @@ return {
 			tooltipLines = { "Monsters have %d%% chance to Impale with Attacks" },
 			values = { 25, 40, 60 },
 			apply = function(val, mapModEffect, values, modList, enemyModList)
+				enemyModList:NewMod("ImpaleChance", "BASE", values[val] * mapModEffect, "Map mod Impaling", ModFlag.Attack)
 			end
 		},
 		["Empowered"] = {
@@ -369,7 +370,7 @@ return {
 			end
 		},
 		-- other prefixes
-		["Antagonist's"] = {}, -- (20–30)% increased number of Rare Monsters
+		["Antagonist's"] = {}, -- (20-30)% increased number of Rare Monsters
 		["Anarchic"] = {}, -- Area is inhabited by 2 additional Rogue Exiles
 		["Ceremonial"] = {}, -- Area contains many Totems
 		["Skeletal"] = {}, -- Area is inhabited by Skeletons
@@ -392,7 +393,7 @@ return {
 		["Chaining"] = {}, -- Monsters' skills Chain 2 additional times
 		["Splitting"] = {}, -- Monsters fire 2 additional Projectiles
 		-- other suffixes
-		["of Bloodlines"] = {}, -- (20–30)% more Magic Monsters
+		["of Bloodlines"] = {}, -- (20-30)% more Magic Monsters
 		["of Giants"] = {}, --  Monsters have 45|70|100% increased Area of Effect
 		["of Flames"] = {}, -- Area has patches of Burning Ground
 		["of Ice"] = {}, -- Area has patches of Chilled Ground
@@ -420,6 +421,7 @@ return {
 		{ val = "Shocking", label = "Enemy Phys As Lightning                                 Monsters deal to extra Physical Damage".."Shocking" },
 		{ val = "Profane", label = "Enemy Phys As Chaos                                 Monsters deal to extra Physical Damage Inflict Withered for seconds on Hit Profane" },
 		{ val = "Fleet", label = "Enemy Inc Speed                                 to increased Monster Movement Attack Cast".."Fleet" },
+		{ val = "Impaling", label = "Enemy Impale                                 Monsters have chance to with Attacks Impaling" },
 		{ val = "Overlord's", label = "Boss Inc Damage / Speed                                 Unique deals increased has Attack and Cast".."Overlord's" },
 	},
 	Suffix = {

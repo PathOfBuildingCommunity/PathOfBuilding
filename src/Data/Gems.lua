@@ -4412,7 +4412,6 @@ return {
 		name = "Bladefall",
 		grantedEffectId = "Bladefall",
 		tags = {
-			critical = true,
 			dexterity = true,
 			grants_active_skill = true,
 			spell = true,

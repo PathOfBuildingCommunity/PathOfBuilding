@@ -37,6 +37,7 @@ local PassiveSpecListClass = newClass("PassiveSpecListControl", "ListControl", f
 		local newSpec = new("PassiveSpec", treeTab.build, latestTreeVersion)
 		newSpec:SelectClass(treeTab.build.spec.curClassId)
 		newSpec:SelectAscendClass(treeTab.build.spec.curAscendClassId)
+		newSpec:SelectSecondaryAscendClass(treeTab.build.spec.curSecondaryAscendClassId)
 		self:RenameSpec(newSpec, "New Tree", true)
 	end)
 	self:UpdateItemsTabPassiveTreeDropdown()
