@@ -724,7 +724,7 @@ skills["BallLightning"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "lightning_damage_+%", 1 },
+			{ "active_skill_base_radius_+", 0.1 },
 		},
 		Alternate1 = {
 			{ "base_cast_speed_+%", 0.5 },
