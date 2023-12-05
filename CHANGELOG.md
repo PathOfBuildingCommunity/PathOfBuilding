@@ -17,6 +17,19 @@
 
 
 
+## [v2.35.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.1) (2023/12/06)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.0...v2.35.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Crashes
+- Fix crash when importing skill tree from account [\#6915](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6915) ([Peechey](https://github.com/Peechey))
+### Fixed Bugs
+- Fix eHP calculations when using 'x damage taken as y' mods [\#6916](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6916) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
 ## [v2.35.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.0) (2023/12/06)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.34.1...v2.35.0)

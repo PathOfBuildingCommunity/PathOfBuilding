@@ -9,6 +9,14 @@ VERSION[2.35.2][2023/12/06]
 * Remove dead Divine Ire mods (LocalIdentity)
 
 
+VERSION[2.35.1][2023/12/06]
+
+--- Fixed Crashes ---
+* Fix crash when importing skill tree from account (Peechey)
+
+--- Fixed Bugs ---
+* Fix eHP calculations when using 'x damage taken as y' mods (LocalIdentity)
+
 VERSION[2.35.0][2023/12/06]
 
 --- New to Path of Building ---
