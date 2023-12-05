@@ -55,11 +55,14 @@ your maximum number of Crab Barriers
 ]],[[
 Kaom's Spirit
 Titan Gauntlets
+Variant: Pre 3.23.0
+Variant: Current
 +(50-70) to Maximum Life
 +(20-30)% to Fire Resistance
 (0.3-0.5)% of Physical Attack Damage Leeched as Life
 Life Recovery from Regeneration is not applied
-Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
+{variant:1}Regenerate 1 Rage per second for every 100 Life Recovery per second from Regeneration
+{variant:2}Regenerate 1 Rage per second for every 300 Life Recovery per second from Regeneration
 ]],[[
 Doryani's Fist
 Vaal Gauntlets

@@ -260,7 +260,7 @@ itemBases["Fickle Spiritblade"] = {
 	influenceTags = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", cleansing = "sword_cleansing", tangle = "sword_tangle" },
 	implicit = "100% of Physical Damage from Hits with this Weapon is Converted to a random Element",
 	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental", "attack" }, },
-	weapon = { PhysicalMin = 18, PhysicalMax = 33, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
+	weapon = { PhysicalMin = 18, PhysicalMax = 33, CritChanceBase = 6.5, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 30, str = 54, dex = 54, },
 }
 itemBases["Capricious Spiritblade"] = {
@@ -270,7 +270,7 @@ itemBases["Capricious Spiritblade"] = {
 	influenceTags = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", cleansing = "sword_cleansing", tangle = "sword_tangle" },
 	implicit = "100% of Physical Damage from Hits with this Weapon is Converted to a random Element",
 	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental", "attack" }, },
-	weapon = { PhysicalMin = 27, PhysicalMax = 51, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
+	weapon = { PhysicalMin = 27, PhysicalMax = 51, CritChanceBase = 6.5, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 50, str = 94, dex = 94, },
 }
 itemBases["Anarchic Spiritblade"] = {
@@ -280,7 +280,7 @@ itemBases["Anarchic Spiritblade"] = {
 	influenceTags = { shaper = "sword_shaper", elder = "sword_elder", adjudicator = "sword_adjudicator", basilisk = "sword_basilisk", crusader = "sword_crusader", eyrie = "sword_eyrie", cleansing = "sword_cleansing", tangle = "sword_tangle" },
 	implicit = "100% of Physical Damage from Hits with this Weapon is Converted to a random Element",
 	implicitModTypes = { { "physical_damage", "elemental_damage", "damage", "physical", "elemental", "attack" }, },
-	weapon = { PhysicalMin = 34, PhysicalMax = 63, CritChanceBase = 6, AttackRateBase = 1.6, Range = 11, },
+	weapon = { PhysicalMin = 34, PhysicalMax = 63, CritChanceBase = 6.5, AttackRateBase = 1.6, Range = 11, },
 	req = { level = 70, str = 121, dex = 121, },
 }
 
@@ -819,7 +819,7 @@ itemBases["Rebuking Blade"] = {
 	influenceTags = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", cleansing = "2h_sword_cleansing", tangle = "2h_sword_tangle" },
 	implicit = "Attack Critical Strikes ignore Enemy Monster Elemental Resistances",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 34, PhysicalMax = 63, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 34, PhysicalMax = 63, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 30, str = 54, dex = 54, },
 }
 itemBases["Blasting Blade"] = {
@@ -829,7 +829,7 @@ itemBases["Blasting Blade"] = {
 	influenceTags = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", cleansing = "2h_sword_cleansing", tangle = "2h_sword_tangle" },
 	implicit = "Attack Critical Strikes ignore Enemy Monster Elemental Resistances",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 52, PhysicalMax = 97, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 52, PhysicalMax = 97, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 50, str = 86, dex = 86, },
 }
 itemBases["Banishing Blade"] = {
@@ -839,7 +839,7 @@ itemBases["Banishing Blade"] = {
 	influenceTags = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", cleansing = "2h_sword_cleansing", tangle = "2h_sword_tangle" },
 	implicit = "Attack Critical Strikes ignore Enemy Monster Elemental Resistances",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 61, PhysicalMax = 114, CritChanceBase = 6, AttackRateBase = 1.3, Range = 13, },
+	weapon = { PhysicalMin = 61, PhysicalMax = 114, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 70, str = 130, dex = 130, },
 }
 
