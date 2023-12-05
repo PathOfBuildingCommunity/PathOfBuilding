@@ -2653,9 +2653,6 @@ skills["SummonGuardianRelic"] = {
 	fromTree = true,
 	minionList = {
 		"GuardianRelicAll",
-		"GuardianRelicFire",
-		"GuardianRelicCold",
-		"GuardianRelicLightning",
 	},
 	statMap = {
 		["minion_actor_level_is_user_level_up_to_maximum"] = {
