@@ -1,3 +1,14 @@
+VERSION[2.35.2][2023/12/06]
+
+--- Fixed Bugs ---
+* Fix Blade Vortex gaining damage from Unleash (LocalIdentity)
+* Fix Tailwind not applying (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Ball Lightning quality stat (LocalIdentity)
+* Remove dead Divine Ire mods (LocalIdentity)
+
+
 VERSION[2.35.1][2023/12/06]
 
 --- Fixed Crashes ---
