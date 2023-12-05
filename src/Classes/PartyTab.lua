@@ -765,7 +765,7 @@ function PartyTabClass:ParseBuffs(list, buf, buffType, label)
 			else
 				if line:find("|") and currentName ~= "SKIP" and not line:find("MinionModifier|LIST") then
 					if currentModType == "otherEffects" then
-						currentName, currentEffect, line = line:match("([%w ]-%w+)|(%w+)|(.+)")
+						currentName, currentEffect, line = line:match("([%w ']-%w+)|(%w+)|(.+)")
 					end
 					local mod = modLib.parseFormattedSourceMod(line)
 					if mod then
