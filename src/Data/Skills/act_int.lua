@@ -2778,9 +2778,7 @@ skills["DivineTempest"] = {
 	castTime = 0.22,
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
-			local skillCfg = activeSkill.skillCfg
-			local skillModList = activeSkill.skillModList
-			activeSkill.skillData.hitTimeMultiplier = math.max(skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreStage") / (1 + skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreUniqueEnemyCount") + skillModList:Sum("BASE", skillCfg, "NormalEnemyHitMultiplier") * skillModList:Sum("BASE", skillCfg, "Multiplier:DivineIreNormalEnemyCount")), 1)
+			activeSkill.skillData.hitTimeMultiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "Multiplier:DivineIreStage")
 		end
 	end,
 	parts = {
@@ -2804,10 +2802,6 @@ skills["DivineTempest"] = {
 		},
 		["divine_tempest_ailment_damage_+%_final_per_stage"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "DivineIreStageAfterFirst" }),
-		},
-		["divine_tempest_stage_on_hitting_normal_magic_%_chance"] = {
-			mod("NormalEnemyHitMultiplier", "BASE", nil),
-			div = 100
 		},
 	},
 	baseFlags = {
