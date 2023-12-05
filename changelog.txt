@@ -1,10 +1,10 @@
-VERSION[2.35.0][2023/12/05]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.35.0][2023/12/06]
 
-* Add 3.23 Tree by (@LocalIdentity, @Regisle) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6880, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6905, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6882
+--- New to Path of Building ---
+* Add 3.23 Tree (LocalIdentity, Regisle)
 * Add support for new Ascendancy nodes (LocalIdentity)
 * Update + add support for new uniques from 3.23 (sida-wang)
-* Update some gems with 3.23 changes by (@LocalIdentity, @Lilylicious) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6896, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6897
+* Update some gems with 3.23 changes (LocalIdentity, Lilylicious)
   * Arc + Vaal Arc, Blade Vortex + Vaal Blade Vortex, Bladefall, Boneshatter, Cobra Lash, Cold Snap + Vaal Cold Snap, Crackling Lance,
 	Cyclone, Discharge, Divine Ire, Double Strike, Dual Strike, Explosive Trap, Freezing Pulse, Frenzy, General's Cry, Glacial Cascade,
 	Golems skills, Ice Crash, Ice Nova + Vaal Ice Nova, Ice Spear, Kinetic Blast, Lightning Conduit, Penance Brand, 
