@@ -1,12 +1,12 @@
-VERSION[2.35.2][2023/12/05]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.35.2][2023/12/06]
 
-* Fix importing passive tree (Peechey)
-* Fix Phys Damage taken As not contributing to eHP (LocalIdentity)
+--- Fixed Bugs ---
+* Fix Blade Vortex gaining damage from Unleash (LocalIdentity)
+* Fix Tailwind not applying (LocalIdentity)
+
+--- Accuracy Improvements ---
 * Fix Ball Lightning quality stat (LocalIdentity)
 * Remove dead Divine Ire mods (LocalIdentity)
-* Fix Tailwind not applying (LocalIdentity)
-* Fix Blade Vortex gaining damage from Unleash (LocalIdentity)
 
 
 VERSION[2.35.0][2023/12/06]

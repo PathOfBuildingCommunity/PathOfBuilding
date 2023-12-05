@@ -1,19 +1,19 @@
 # Changelog
 
-## [v2.35.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.2) (2023/12/05)
+## [v2.35.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.2) (2023/12/06)
 
-[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.0...v2.35.2)
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.1...v2.35.2)
 
 <!-- Release notes generated using configuration in .github/release.yml at dev -->
 
 ## What's Changed
-### Other changes
-- Fix importing passive tree [\#6915](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6915) ([Peechey](https://github.com/Peechey))
-- Fix Phys Damage taken As not contributing to eHP [\#6916](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6916) ([LocalIdentity](https://github.com/LocalIdentity))
+### Fixed Bugs
+- Fix Blade Vortex gaining damage from Unleash [\#6921](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6921) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Tailwind not applying [\#6919](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6919) ([LocalIdentity](https://github.com/LocalIdentity))
+
+### Accuracy Improvements
 - Fix Ball Lightning quality stat [\#6923](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6923) ([LocalIdentity](https://github.com/LocalIdentity))
 - Remove dead Divine Ire mods [\#6922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6922) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Tailwind not applying [\#6919](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6919) ([LocalIdentity](https://github.com/LocalIdentity))
-- Fix Blade Vortex gaining damage from Unleash [\#6921](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6921) ([LocalIdentity](https://github.com/LocalIdentity))
 
 
 
