@@ -268,8 +268,8 @@ function GemSelectClass:UpdateSortCache()
 	for _, group in ipairs(self.skillsTab.socketGroupList) do
 		local slotMatch = self.skillsTab.displayGroup.slot and self.skillsTab.displayGroup.slot == group.slot
 		if not slotMatch and self.skillsTab.displayGroup.slot then
-			for _, slot in ipairs(self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot] or {}) do
-				if group.slot == slot then
+			for _, slot in ipairs(self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot:gsub(" Swap","")] or {}) do
+				if group.slot and group.slot:gsub(" Swap","") == slot and self.skillsTab.displayGroup.slot:match(" Swap") == group.slot:match(" Swap") then
 					slotMatch = true
 					break
 				end
