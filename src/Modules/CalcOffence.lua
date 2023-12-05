@@ -3166,7 +3166,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.AverageDamage = output.AverageHit * output.HitChance / 100
 		globalOutput.AverageBurstHits = output.AverageBurstHits or 1
 		local repeatPenalty = skillModList:Flag(nil, "HasSeals") and activeSkill.skillTypes[SkillType.CanRapidFire] and calcLib.mod(skillModList, skillCfg, "SealRepeatPenalty") or 1
-		globalOutput.AverageBurstDamage = output.AverageDamage + output.AverageDamage * (globalOutput.AverageBurstHits - 1) * repeatPenalty or 0
+		globalOutput.AverageBurstDamage = output.AverageDamage + output.AverageDamage * (globalOutput.AverageBurstHits) * repeatPenalty or 0
 		globalOutput.ShowBurst = globalOutput.AverageBurstHits > 1
 		output.TotalDPS = output.AverageDamage * (globalOutput.HitSpeed or globalOutput.Speed) * skillData.dpsMultiplier * quantityMultiplier
 		if breakdown then
@@ -3198,7 +3198,7 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(chance to hit)", output.HitChance / 100))
 			end
 			if repeatPenalty < 1 then
-				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(number of repeats)", globalOutput.AverageBurstHits - 1))
+				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(number of repeats)", globalOutput.AverageBurstHits))
 				t_insert(globalBreakdown.AverageBurstDamage, s_format("x %.2f ^8(repeat penalty)", repeatPenalty))
 				t_insert(globalBreakdown.AverageBurstDamage, s_format("= %.1f ^8(repeat damage total)", globalOutput.AverageBurstDamage - output.AverageDamage))
 				t_insert(globalBreakdown.AverageBurstDamage, "")
