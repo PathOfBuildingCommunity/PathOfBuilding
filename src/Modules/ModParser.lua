@@ -3937,6 +3937,7 @@ local specialModList = {
 	["cannot gain energy shield during f?l?a?s?k? ?effect"] = { flag("CannotGainEnergyShield", { type = "Condition", var = "UsingFlask" }) },
 	["cannot gain life during f?l?a?s?k? ?effect"] = { flag("CannotGainLife", { type = "Condition", var = "UsingFlask" }) },
 	["cannot gain mana during f?l?a?s?k? ?effect"] = { flag("CannotGainMana", { type = "Condition", var = "UsingFlask" }) },
+	["life that would be lost by taking damage is instead reserved"] = { flag("DamageInsteadReservesLife") },
 	["you have no armour or energy shield"] = {
 		mod("Armour", "MORE", -100),
 		mod("EnergyShield", "MORE", -100),
