@@ -1,3 +1,13 @@
+VERSION[2.35.3][2023/12/06]
+
+--- Fixed Bugs ---
+* Fix damage taken as mods not appearing in Calcs tab breakdown (Regisle, LocalIdentity)
+* Fix Lucky Spell Suppression chance not displaying in sidebar (MoonOverMira)
+
+--- Accuracy Improvements ---
+* Update Splitting Steel quality mod (kayokalinauskas)
+
+
 VERSION[2.35.2][2023/12/06]
 
 --- Fixed Bugs ---
