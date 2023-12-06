@@ -6,164 +6,89 @@ data.uniques.new = {
 
 -- New
 [[
-Ahuana's Bite
-Sharktooth Arrow Quiver
-League: Ancestor
-LevelReq: 56
+Replica Covenant
+Spidersilk Robe
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Implicits: 0
+Socketed Gems are Supported by Level 29 Added Cold Damage
++(20-30) to Intelligence
+(210-250)% increased Energy Shield
+10% increased maximum Life
+Skills gain a Base Energy Shield Cost equal to 200% of Base Mana Cost
+]],[[
+Replica Badge of the Brotherhood
+Turquoise Amulet
+League: Heist
+Source: Steal from a unique{Curio Display} during a Grand Heist
+Requires Level: 60
 Implicits: 1
-Gain (6–8) Life per Enemy Hit with Attacks
-Adds (30–40) to (60–70) Cold Damage to Attacks
-+(20–30)% to Cold Resistance
-Enemies Chilled by your Hits have Damage taken increased by Chill Effect
-Chill Enemies as though dealing (60–100)% more Damage
+{tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
+Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
++1 to Maximum Fortification per Endurance Charge
+(7-10)% increased Cooldown Recovery of Travel Skills per Frenzy Charge
+(20-25)% chance to lose a Frenzy Charge when you use a Travel Skill
+(20-25)% chance to lose an Endurance Charge when you gain Fortification
 ]],[[
-Akoya's Gaze
-Regicide Mask
-League: Ancestor
-Requires Level 52, 58 Dex, 58 Int
-+100 Strength Requirement
-(20–25)% increased Warcry Speed
-Life Leech from Exerted Attacks is instant
-Non-Exerted Attacks deal no Damage
-]],[[
-Bound Fate
-Cloth Belt
-League: Ancestor
-LevelReq: 16
+Ixchel's Temptation
+Gold Ring
+League: Affliction
+Requires Level 20
 Implicits: 1
-(15-25)% increased Stun and Block Recovery
-{tags:jewellery_attribute}+(20-30) to Dexterity
-{tags:jewellery_attribute}+(20-30) to Intelligence
-{tags:life}+(60-80) to Maximum Life
-Every 5 seconds, gain one of the following for 5 seconds:
-Your Hits are always Critical Strikes
-Hits against you always are Critical Strikes
-Attacks cannot Hit you
-Attacks against you always Hit
-Your Damage with Hits is Lucky
-Damage of Hits against you is Lucky
+(6-15)% increased Rarity of Items found
+{tags:jewellery_attribute}+(13-13) to all Attributes
+{tags:attack,chaos_damage}Adds (9-9) to (18-18) Chaos Damage to Attacks
+{tags:caster,jewellery_elemental}Adds (10-10) to (20-20) Fire Damage to Spells
+{tags:critical}+(17-17)% to Global Critical Strike Multiplier
+{tags:jewellery_defense}+(86-86) to Armour
+{tags:jewellery_defense}+(93-93) to Evasion Rating
+{tags:jewellery_defense}+(34-34) to maximum Energy Shield
+{tags:life}+(26-26) to maximum Life
+{tags:jewellery_resistance}+(10-10)% to all Elemental Resistances
+{tags:attack,caster,speed}(6-6)% increased Attack and Cast Speed
+Maximum Quality is 200%
+Corrupted
 ]],[[
-Defiance of Destiny
-Paua Amulet
-League: Ancestor
-LevelReq: 49
+Gamblesprint
+Hydrascale Boots
+League: Affliction
+Requires Level 59, 56 Str, 56 Dex
++(34-34) to Dexterity
+(140-140)% increased Armour and Evasion
++(31-31)% to Lightning Resistance
+When Hit, gain a random Movement Speed modifier from 40% reduced to 100% increased until Hit again
+]],[[
+Pragmatism
+Colosseum Plate
+League: Affliction
+Implicits: 0
++12 to Level of Socketed Skill Gems
+(100-100)% increased Armour
++(84-84) to maximum Mana
+-2 to Level of Socketed Skill Gems per Socketed Gem
+]],[[
+The Untouched Soul
+Gold Amulet
+League: Affliction
+Requires Level 48
 Implicits: 1
-{tags:mana}(20–30)% increased Mana Regeneration Rate
-{tags:life}+(60–80) to maximum Life
-{tags:jewellery_resistance}+(10–40)% to Fire Resistance
-{tags:jewellery_resistance}+(10–40)% to Cold Resistance
-{tags:jewellery_resistance}+(10–40)% to Lightning Resistance
-{tags:life}Gain (25–35)% of Missing Unreserved Life before being Hit by an Enemy
+(12-20)% increased Rarity of Items found
++40 to maximum Life for each Empty Red Socket on any Equipped Item
++225 to Accuracy Rating for each Empty Green Socket on any Equipped Item
++40 to maximum Mana for each Empty Blue Socket on any Equipped Item
++18% to all Elemental Resistances for each Empty White Socket on any Equipped Item
 ]],[[
-Honoured Alliance
-Coral Ring
-League: Ancestor
-LevelReq: 49
-Implicits: 1
-{tags:life}+(20–30) to maximum Life
-10% chance to Trigger Summon Spirit of Akoya on Kill
-{tags:jewellery_attribute}+(10–20) to all Attributes
-{tags:mana}(30–50)% increased Mana Regeneration Rate
-{tags:life}(10–15)% of Damage taken Recouped as Life
-]],[[
-Ikiaho's Promise
-Coral Amulet
-League: Ancestor
-LevelReq: 30
-Implicits: 1
-{tags:life}Regenerate (2–4) Life per second
-{tags:mana}Regenerate (3–5) Mana per second
-{tags:life}(30–40)% increased Life Recovery from Flasks
-{tags:mana}(15–30)% increased Mana Recovery from Flasks
-Life Flasks used while on Low Life apply Recovery Instantly
-Mana Flasks used while on Low Mana apply Recovery Instantly
-]],[[
-Kahuturoa's Certainty
-Ancient Greaves
-League: Ancestor
-Requires Level 46, 82 Str
-(100–150)% increased Armour
-5% reduced Movement Speed
-(100–200)% increased Stun and Block Recovery
-Unaffected by Damaging Ailments
-]],[[
-Kaom's Binding
-Heavy Belt
-League: Ancestor
-LevelReq: 56
-Implicits: 1
-{tags:jewellery_attribute}+(30–40) to Strength
-{tags:jewellery_defense}+(300–500) to Armour
-Take no Burning Damage if you've stopped taking Burning Damage Recently
-Nearby Enemies Convert 25% of their Physical Damage to Fire
-]],[[
-Kiloava's Bluster
-Ironwood Buckler
-League: Ancestor
-Requires Level 57, 137 Dex
-Implicits: 1
-3% increased Movement Speed
-(100–150)% increased Evasion Rating
-(15–25)% chance to Avoid Elemental Ailments
-+(3–8)% Chance to Block
-(30–40)% chance for Elemental Resistances to count as being 90% against Enemy Hits
-]],[[
-Maata's Teaching
-Karui Sceptre
-League: Ancestor
-Requires Level 56, 96 Str, 96 Int
-Implicits: 1
-+(30-40) to Intelligence
-(25-50)% increased Critical Strike Chance
-+(1-2) to Level of all Minion Skill Gems
-Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon
-]],[[
-Rakiata's Dance
-Engraved Greatsword
-League: Ancestor
-Requires Level 48, 91 Str, 76 Dex
-Implicits: 1
-60% increased Global Accuracy Rating
-Adds (150–200) to (300–350) Cold Damage
-Adds 1 to (550–600) Lightning Damage
-(15–20)% increased Attack Speed
-Treats Enemy Monster Elemental Resistance values as inverted
-]],[[
-Replica Dragonfang's Flight
-Onyx Amulet
-LevelReq: 56
-Implicits: 1
-+(10–16) to all Attributes
-+(10–15)% to all Elemental Resistances
-+3 to Level of all Spark Gems
-(10–15)% increased Reservation Efficiency of Skills
-Items and Gems have (10–15)% reduced Attribute Requirements
-]],[[
-Tawhanuku's Timing
-Moonstone Ring
-League: Ancestor
-{tags:jewellery_defense}+(15–25) to maximum Energy Shield
-{tags:caster}(30–40)% increased Spell Damage
-{tags:mana}+(60–80) to maximum Mana
-(5–10)% chance to Freeze, Shock and Ignite
-{tags:jewellery_defense,caster}Spells cause you to gain Energy Shield equal to their Upfront Cost every fifth time you Pay it
-]],[[
-Utula's Hunger
-Majestic Plate
-League: Ancestor
-Requires Level 53, 145 Str
-(60-100)% increased Armour
-Recover (1-3)% of Life on Kill
-(30-40)% Increased Stun and Block Recovery
-+(700-1000) to maximum Life if there are no Life Modifiers on other Equipped items
-]],[[
-Warrior's Tale
-Crimson Jewel
-League: Ancestor
-Radius: Medium
-Limited to: 1
-100% increased effect of Tattoos in Radius
+The Trickster's Smile
+Visored Sallet
+League: Affliction
+Implicits: 0
+(75-75)% increased Armour and Evasion
+Reflects 100 Cold Damage to Melee Attackers
+Reflects 100 Fire Damage to Melee Attackers
+Reflects 100 Lightning Damage to Melee Attackers
+When an Enemy Hit deals Elemental Damage to you, their Resistance to those Elements becomes zero for 4 seconds
 ]]
+
 -- Reworked
 
 }

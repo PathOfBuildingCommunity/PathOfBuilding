@@ -6,8 +6,7 @@ local function processStatFile(name)
 	local curLang
 	local curDescriptor = { }
 	local prepend = ''
-	local text = convertUTF16to8(getFile("Metadata/StatDescriptions/"..name..".txt"))
-	for line in text:gmatch("[^\r\n]+") do
+	local function processLine(line)
 		if prepend then
 			line = prepend .. line
 			prepend = ''
@@ -15,69 +14,74 @@ local function processStatFile(name)
 		local parent = line:match('include "Metadata/StatDescriptions/(.+)%.txt"$')
 		if parent then
 			statDescriptor.parent = parent
-		else
-			local noDesc = line:match("no_description ([%w_%+%-%%]+)")
-			if noDesc then
-				table.insert(statDescriptor, { stats = { noDesc } })
-				statDescriptor[noDesc] = #statDescriptor
-			elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
-				local name = line:match("description ([%w_]+)")
-				curLang = { }
-				curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
-				table.insert(statDescriptor, curDescriptor)
-			elseif not curDescriptor.stats then
-				local stats = line:match("%d+%s+([%w_%+%-%% ]+)")
-				if stats then
-					curDescriptor.stats = { }
-					for stat in stats:gmatch("[%w_%+%-%%]+") do
-						table.insert(curDescriptor.stats, stat)
-						statDescriptor[stat] = #statDescriptor
-					end
-				else -- Try to combine it with the next line
-					prepend = line
+			return
+		end
+		local noDesc = line:match("no_description ([%w_%+%-%%]+)")
+		if noDesc then
+			table.insert(statDescriptor, { stats = { noDesc } })
+			statDescriptor[noDesc] = #statDescriptor
+		elseif line:match("handed_description") or (line:match("description") and not line:match("_description")) then	
+			local name = line:match("description ([%w_]+)")
+			curLang = { }
+			curDescriptor = { lang = { ["English"] = curLang }, order = order, name = name }
+			table.insert(statDescriptor, curDescriptor)
+		elseif not curDescriptor.stats then
+			local stats = line:match("%d+%s+([%w_%+%-%% ]+)")
+			if stats then
+				curDescriptor.stats = { }
+				for stat in stats:gmatch("[%w_%+%-%%]+") do
+					table.insert(curDescriptor.stats, stat)
+					statDescriptor[stat] = #statDescriptor
 				end
-			else
-				local langName = line:match('lang "(.+)"')
-				if langName then
-					curLang = nil--{ }
-					curDescriptor.lang[langName] = curLang
-				elseif curLang then
-					local statLimits, text, special = line:match('([%d%-#!| ]+) "(.-)"%s*(.*)')
-					if statLimits then
-						local desc = { text = text, limit = { } }
-						for statLimit in statLimits:gmatch("[!%d%-#|]+") do
-							local limit = { }
-							if statLimit == "#" then
-								limit[1] = "#"
-								limit[2] = "#"
-							elseif statLimit:match("^%-?%d+$") then
-								limit[1] = tonumber(statLimit)
-								limit[2] = tonumber(statLimit)
+			else -- Try to combine it with the next line
+				prepend = line
+			end
+		else
+			local langName = line:match('lang "(.+)"')
+			if langName then
+				curLang = nil--{ }
+				curDescriptor.lang[langName] = curLang
+			elseif curLang then
+				local statLimits, text, special = line:match('([%d%-#!| ]+) "(.-)"%s*(.*)')
+				if statLimits then
+					local desc = { text = text, limit = { } }
+					for statLimit in statLimits:gmatch("[!%d%-#|]+") do
+						local limit = { }
+						
+						if statLimit == "#" then
+							limit[1] = "#"
+							limit[2] = "#"
+						elseif statLimit:match("^%-?%d+$") then
+							limit[1] = tonumber(statLimit)
+							limit[2] = tonumber(statLimit)
+						else
+							local negate = statLimit:match("^!(-?%d+)$")
+							if negate then
+								limit[1] = "!"
+								limit[2] = tonumber(negate)
 							else
-								local negate = statLimit:match("^!(-?%d+)$")
-								if negate then
-									limit[1] = "!"
-									limit[2] = tonumber(negate)
-								else
-									limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
-									limit[1] = tonumber(limit[1]) or limit[1]
-									limit[2] = tonumber(limit[2]) or limit[2]
-								end
+								limit[1], limit[2] = statLimit:match("([%d%-#]+)|([%d%-#]+)")
+								limit[1] = tonumber(limit[1]) or limit[1]
+								limit[2] = tonumber(limit[2]) or limit[2]
 							end
-							table.insert(desc.limit, limit)
 						end
-						for k, v in special:gmatch("([%w%%_]+) (%w+)") do
-							table.insert(desc, {
-								k = k,
-								v = tonumber(v) or v,
-							})
-							nk[k] = v
-						end
-						table.insert(curLang, desc)
+						table.insert(desc.limit, limit)
 					end
+					for k, v in special:gmatch("([%w%%_]+) (%w+)") do
+						table.insert(desc, {
+							k = k,
+							v = tonumber(v) or v,
+						})
+						nk[k] = v
+					end
+					table.insert(curLang, desc)
 				end
 			end
 		end
+	end
+	local text = convertUTF16to8(getFile("Metadata/StatDescriptions/"..name..".txt"))
+	for line in text:gmatch("[^\r\n]+") do
+		processLine(line)
 	end
 	local out = io.open("../Data/StatDescriptions/"..name..".lua", "w")
 	out:write('-- This file is automatically generated, do not edit!\n')

@@ -159,6 +159,9 @@ return {
 ["base_skill_cost_life_instead_of_mana"] = {
 	flag("CostLifeInsteadOfMana"),
 },
+["base_skill_cost_life_instead_of_mana_%"] = {
+	mod("HybridManaAndLifeCost_Life", "BASE", nil),
+},
 ["base_active_skill_totem_level"] = {
 	skill("totemLevel", nil),
 },
@@ -286,6 +289,9 @@ return {
 ["base_spell_cast_time_ms_override"] = {
 	skill("castTimeOverride", nil),
 	div = 1000,
+},
+["skill_cannot_gain_repeat_bonuses"] = {
+	flag("NoRepeatBonuses"),
 },
 
 --
@@ -515,6 +521,9 @@ return {
 ["critical_strike_chance_+%_per_power_charge"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
+["critical_strike_chance_+%_final_per_power_charge"] = {
+	mod("CritChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
+},
 ["critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -587,6 +596,9 @@ return {
 },
 ["chance_to_deal_double_damage_%"] = {
 	mod("DoubleDamageChance", "BASE", nil)
+},
+["chance_to_deal_double_damage_%_vs_bleeding_enemies"] = {
+	mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}),
 },
 ["base_chance_to_deal_triple_damage_%"] = {
 	mod("TripleDamageChance", "BASE", nil)
@@ -886,6 +898,9 @@ return {
 ["chill_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
 },
+["chill_effect_+%_final"] = {
+	mod("EnemyChillEffect", "MORE", nil),
+},
 ["shock_effect_+%"] = {
 	mod("EnemyShockEffect", "INC", nil),
 },
@@ -1132,6 +1147,9 @@ return {
 },
 ["cannot_pierce"] = {
 	flag("CannotPierce"),
+},
+["projectile_behaviour_only_explode"] = {
+	flag("CannotSplit"),
 },
 ["base_number_of_additional_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),

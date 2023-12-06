@@ -340,7 +340,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		local scrX, scrY = treeToScreen(group.x, group.y)
 		if group.ascendancyName then
 			if group.isAscendancyStart then
-				if group.ascendancyName ~= spec.curAscendClassName then
+				if group.ascendancyName ~= spec.curAscendClassName and (not spec.curSecondaryAscendClass or group.ascendancyName ~= spec.curSecondaryAscendClass.id) then
 					SetDrawColor(1, 1, 1, 0.25)
 				end
 				self:DrawAsset(tree.assets["Classes"..group.ascendancyName], scrX, scrY, scale)
@@ -474,6 +474,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
+			if node.ascendancyName and (node.ascendancyName == "Warden" or node.ascendancyName == "Warlock" or node.ascendancyName == "Primalist") then
+				overlay = "Azmiri"..overlay
+			end
 		else
 			local state
 			if self.showHeatMap or isAlloc or node == hoverNode or (self.traceMode and node == self.tracePath[#self.tracePath])then
@@ -487,7 +490,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			end
 			if node.type == "Socket" then
 				-- Node is a jewel socket, retrieve the socketed jewel (if present) so we can display the correct art
-				base = tree.assets[node.overlay[state .. (node.expansionJewel and "Alt" or "")]]
+				base = tree.assets[(node.name == "Charm Socket" and "Azmiri" or "" ) .. node.overlay[state .. (node.expansionJewel and "Alt" or "")]]
 				local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 				if isAlloc and jewel then
 					if jewel.baseName == "Crimson Jewel" then
@@ -500,6 +503,12 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 						overlay = node.expansionJewel and "JewelSocketActivePrismaticAlt" or "JewelSocketActivePrismatic"
 					elseif jewel.base.subType == "Abyss" then
 						overlay = node.expansionJewel and "JewelSocketActiveAbyssAlt" or "JewelSocketActiveAbyss"
+					elseif jewel.base.subType == "Ursine Charm" then
+						overlay = "CharmSocketActiveStr"
+					elseif jewel.base.subType == "Corvine Charm" then
+						overlay = "CharmSocketActiveInt"
+					elseif jewel.base.subType == "Lupine Charm" then
+						overlay = "CharmSocketActiveDex"
 					elseif jewel.baseName == "Timeless Jewel" then
 						overlay = node.expansionJewel and "JewelSocketActiveLegionAlt" or "JewelSocketActiveLegion"
 					elseif jewel.baseName == "Large Cluster Jewel" then
@@ -532,6 +541,9 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
+				if node.ascendancyName and (node.ascendancyName == "Warden" or node.ascendancyName == "Warlock" or node.ascendancyName == "Primalist") then
+					overlay = "Azmiri"..overlay
+				end
 			end
 		end
 
@@ -665,7 +677,8 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 		if self.searchStrResults[nodeId] then
 			-- Node matches the search string, show the highlight circle
 			SetDrawLayer(nil, 30)
-			SetDrawColor(1, 0, 0)
+			local rgbColor = rgbColor or {1, 0, 0}
+			SetDrawColor(rgbColor[1], rgbColor[2], rgbColor[3])
 			local size = 175 * scale / self.zoom ^ 0.4
 			DrawImage(self.highlightRing, scrX - size, scrY - size, size * 2, size * 2)
 		end

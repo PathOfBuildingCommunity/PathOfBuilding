@@ -332,6 +332,17 @@ Reflects (25-50) Cold Damage to Melee Attackers
 +5% Chance to Block
 20% of Fire Damage from Hits taken as Cold Damage
 ]],[[
+Kiloava's Bluster
+Ironwood Buckler
+Requires Level 57, 137 Dex
+Implicits: 1
+3% increased Movement Speed
+(100-150)% increased Evasion Rating
+(15-25)% chance to Avoid Elemental Ailments
++(3-8)% Chance to Block
+(30-40)% chance for Elemental Resistances to count as being 90% against Enemy Hits
+]],
+[[
 Mistwall
 Lacquered Buckler
 Implicits: 1
@@ -345,6 +356,8 @@ You have Phasing if you have Blocked Recently
 ]],[[
 Replica Mistwall
 Lacquered Buckler
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Implicits: 1
@@ -352,7 +365,8 @@ Implicits: 1
 (120-150)% increased Evasion Rating
 10% increased Movement Speed
 +(10-20)% to Fire and Cold Resistances
-+75% Chance to Block Spell Damage if you have not Blocked Recently
+{variant:1}+75% Chance to Block Spell Damage if you have not Blocked Recently
+{variant:2}You are at Maximum Chance to Block Spell Damage if you have not Blocked Recently
 +(8-15)% chance to Avoid Physical Damage from Hits while Phasing
 You have Phasing if you have Blocked Recently
 ]],[[
@@ -1153,5 +1167,4 @@ Implicits: 1
 +(50-70) to maximum Life
 1% increased Area of Effect per Enemy killed recently, up to 50%
 You have Zealot's Oath if you haven't been hit recently
-]],
-}
+]],}

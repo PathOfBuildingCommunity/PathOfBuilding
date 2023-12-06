@@ -1022,6 +1022,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 })
+#baseMod flag("CannotSplit")
 #mods
 
 #skill VaalMoltenStrike
@@ -1049,6 +1050,7 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 })
+#baseMod flag("CannotSplit")
 #mods
 
 #skill BloodSpears
@@ -1429,6 +1431,9 @@ end,
 #skill VaalReap
 #flags spell area duration
 	statMap = {
+		["blood_scythe_damage_+%_final_per_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
 		["vaal_reap_additional_maximum_blood_charges"] = {
 			mod("BloodChargesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
@@ -1591,6 +1596,7 @@ end,
 			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 2 })
 		},
 	},
+#baseMod flag("CannotSplit")
 #mods
 
 #skill VaalVolcanicFissure
@@ -1607,6 +1613,7 @@ end,
 			projectile = true,
 		},
 	},
+#baseMod flag("CannotSplit")
 #mods
 
 #skill Vulnerability
