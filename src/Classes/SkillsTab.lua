@@ -89,13 +89,9 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.sortGemsByDPSField = "CombinedDPS"
 	self.showSupportGemTypes = "ALL"
 	self.showAltQualityGems = false
-	self.showIntGems = true
-	self.showStrGems = true
-	self.showDexGems = true
-	self.showSupportGems = true
-	self.showActiveGems = true
 	self.defaultGemLevel = "normalMaximum"
 	self.defaultGemQuality = main.defaultGemQuality
+	self.gemFilter = ""
 
 	-- Set selector
 	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, 76, 8, 210, 20, nil, function(index, value)
@@ -127,7 +123,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	-- Gem options
 	local optionInputsX = 170
 	local optionInputsY = 45
-	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 0, optionInputsY + 50, 360, 266, "Gem Options")
+	self.controls.optionSection = new("SectionControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, 0, optionInputsY + 50, 360, 180, "Gem Options")
 	self.controls.sortGemsByDPS = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 70, 20, "Sort gems by DPS:", function(state)
 		self.sortGemsByDPS = state
 	end, nil, true)
@@ -155,21 +151,16 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.showAltQualityGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 166, 20, "^7Show quality variants:", function(state)
 		self.showAltQualityGems = state
 	end)
-	self.controls.showIntGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 190, 20, "^7Show Int Gems:", function(state)
-		self.showIntGems = state
-	end, nil, true)
-	self.controls.showStrGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 214, 20, "^7Show Str Gems:", function(state)
-		self.showStrGems = state
-	end, nil, true)
-	self.controls.showDexGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 238, 20, "^7Show Dex Gems:", function(state)
-		self.showDexGems = state
-	end, nil, true)
-	self.controls.showSupportGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 264, 20, "^7Show Support Gems:", function(state)
-		self.showSupportGems = state
-	end, nil, true)
-	self.controls.showActiveGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 288, 20, "^7Show Active Gems:", function(state)
-		self.showActiveGems = state
-	end, nil, true)
+
+	self.controls.showAltQualityGems = new("CheckBoxControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 166, 20, "^7Show quality variants:", function(state)
+		self.showAltQualityGems = state
+	end)
+
+	self.controls.gemFilter = new("EditControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 188, 100, 20, nil, nil, "%c", 50, function(buf)
+		self.gemFilter = buf
+	end)
+	self.controls.gemFilter.tooltipText = "List of tags used to filter the gem search result(':' separated)"
+	self.controls.gemFilterLabel = new("LabelControl", {"RIGHT", self.controls.gemFilter,"LEFT"}, -4, 0, 0, 16, "^7Gem Filter:")
 
 	-- Socket group details
 	if main.portraitMode then
