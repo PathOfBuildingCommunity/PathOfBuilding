@@ -2092,23 +2092,58 @@ return {
 	{ label = "DoT taken",
 		{ format = "x {2:output:PhysicalTakenDotMult}", 
 			{ breakdown = "PhysicalTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime" } } 
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "PhysicalDamageTaken", "PhysicalDamageTakenOverTime" } },
+			{ modName = { 
+				"PhysicalDamageTakenAsLightning", "LightningDamageTakenAsPhysical",
+				"PhysicalDamageTakenAsCold", "ColdDamageTakenAsPhysical",
+				"PhysicalDamageTakenAsFire", "FireDamageTakenAsPhysical",
+				"ElementalDamageTakenAsPhysical",
+				"PhysicalDamageTakenAsChaos", "ChaosDamageTakenAsPhysical"
+			} } 
 		},
 		{ format = "x {2:output:LightningTakenDotMult}",
 			{ breakdown = "LightningTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "LightningDamageTaken", "LightningDamageTakenOverTime", "ElementalDamageTaken", "ElementalDamageTakenOverTime", "SelfIgnoreLightningResistance" } }
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "LightningDamageTaken", "LightningDamageTakenOverTime", "ElementalDamageTaken", "ElementalDamageTakenOverTime", "SelfIgnoreLightningResistance" } },
+			{ modName = { 
+				"PhysicalDamageTakenAsLightning", "LightningDamageTakenAsPhysical", 
+				"LightningDamageTakenAsCold", "ColdDamageTakenAsLightning", 
+				"LightningDamageTakenAsFire", "FireDamageTakenAsLightning", 
+				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos",
+				"LightningDamageTakenAsChaos", "ChaosDamageTakenAsLightning"
+			} }
 		},
 		{ format = "x {2:output:ColdTakenDotMult}",
 			{ breakdown = "ColdTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "ColdDamageTaken", "ColdDamageTakenOverTime", "ElementalDamageTaken", "ElementalDamageTakenOverTime", "SelfIgnoreColdResistance" } }
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "ColdDamageTaken", "ColdDamageTakenOverTime", "ElementalDamageTaken", "ElementalDamageTakenOverTime", "SelfIgnoreColdResistance" } },
+			{ modName = { 
+				"PhysicalDamageTakenAsCold", "ColdDamageTakenAsPhysical", 
+				"LightningDamageTakenAsCold", "ColdDamageTakenAsLightning", 
+				"ColdDamageTakenAsFire", "FireDamageTakenAsCold", 
+				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos",
+				"ColdDamageTakenAsChaos", "ChaosDamageTakenAsCold"
+			} }
 		},
 		{ format = "x {2:output:FireTakenDotMult}", 
 			{ breakdown = "FireTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken", "ElementalDamageTakenOverTime", "SelfIgnoreFireResistance" }  } 
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "FireDamageTaken", "FireDamageTakenOverTime", "ElementalDamageTaken", "ElementalDamageTakenOverTime", "SelfIgnoreFireResistance" }  },
+			{ modName = { 
+				"PhysicalDamageTakenAsFire", "FireDamageTakenAsPhysical", 
+				"LightningDamageTakenAsFire", "FireDamageTakenAsLightning", 
+				"ColdDamageTakenAsFire", "FireDamageTakenAsCold", 
+				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos", 
+				"FireDamageTakenAsChaos", "ChaosDamageTakenAsFire"
+			}  } 
 		},
 		{ format = "x {2:output:ChaosTakenDotMult}",
 			{ breakdown = "ChaosTakenDotMult" }, 
-			{ modName = { "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime", "SelfIgnoreChaosResistance" } }
+			{ modName = { "DamageTaken", "DamageTakenOverTime", "ChaosDamageTaken", "ChaosDamageTakenOverTime", "SelfIgnoreChaosResistance" } },
+			{ modName = { 
+				"PhysicalDamageTakenAsChaos", "ChaosDamageTakenAsPhysical", 
+				"LightningDamageTakenAsChaos", "ChaosDamageTakenAsLightning", 
+				"ColdDamageTakenAsChaos", "ChaosDamageTakenAsCold", 
+				"FireDamageTakenAsChaos", "ChaosDamageTakenAsFire", 
+				"ElementalDamageTakenAsChaos"
+			} }
 		},
 	},
 	{ label = "Total Pool",
