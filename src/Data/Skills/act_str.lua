@@ -7655,7 +7655,7 @@ skills["Bloodreap"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "blood_scythe_damage_+%_final_per_charge", 0.25 },
 		},
 		Alternate1 = {
 			{ "critical_strike_chance_+%", 3 },
@@ -7730,6 +7730,9 @@ skills["VaalReap"] = {
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
 	statMap = {
+		["blood_scythe_damage_+%_final_per_charge"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BloodCharge" }),
+		},
 		["vaal_reap_additional_maximum_blood_charges"] = {
 			mod("BloodChargesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
@@ -7750,7 +7753,7 @@ skills["VaalReap"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "blood_scythe_damage_+%_final_per_charge", 0.25 },
 		},
 	},
 	constantStats = {

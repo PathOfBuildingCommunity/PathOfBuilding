@@ -1,3 +1,16 @@
+VERSION[2.35.4][2023/12/07]
+
+--- New to Path of Building ---
+* Add socket limit warning (sida-wang)
+
+--- Fixed Bugs ---
+* Fix Vortex base damage over time values (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix socketed gem count calculation (sida-wang)
+* Fix Evasion ES Mastery mod for ES on rings (Lilylicious)
+* Update Reap + Vaal Reap quality mods (henbe)
+
 VERSION[2.35.3][2023/12/06]
 
 --- Fixed Bugs ---

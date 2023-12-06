@@ -1,5 +1,24 @@
 # Changelog
 
+## [v2.35.4](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.4) (2023/12/07)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.3...v2.35.4)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add socket limit warning [\#6937](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6937) ([sida-wang](https://github.com/sida-wang))
+
+### Fixed Bugs
+- Fix Vortex base damage over time values [\#6945](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6945) ([LocalIdentity](https://github.com/LocalIdentity))
+
+### Accuracy Improvements
+- Fix socketed gem count calculation [\#6937](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6937) ([sida-wang](https://github.com/sida-wang))
+- Fix Evasion ES Mastery mod for ES on rings [\#6944](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6944) ([Lilylicious](https://github.com/Lilylicious))
+- Update Reap + Vaal Reap quality mods [\#6942](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6942) ([henbe](https://github.com/henbe))
+
+
 ## [v2.35.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.3) (2023/12/06)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.2...v2.35.3)
@@ -12,8 +31,6 @@
 - Fix Lucky Spell Suppression chance not displaying in sidebar [\#6931](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6931) ([MoonOverMira](https://github.com/MoonOverMira))
 ### Accuracy Improvements
 - Update Splitting Steel quality mod [\#6927](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6927) ([kayokalinauskas](https://github.com/kayokalinauskas))
-
-
 
 
 ## [v2.35.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.2) (2023/12/06)
@@ -30,7 +47,6 @@
 ### Accuracy Improvements
 - Fix Ball Lightning quality stat [\#6923](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6923) ([LocalIdentity](https://github.com/LocalIdentity))
 - Remove dead Divine Ire mods [\#6922](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6922) ([LocalIdentity](https://github.com/LocalIdentity))
-
 
 
 ## [v2.35.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.1) (2023/12/06)
