@@ -9339,7 +9339,7 @@ skills["ImpactingSteel"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "impale_debuff_effect_+%", 1 },
+			{ "impale_debuff_effect_+%", 2 },
 		},
 		Alternate1 = {
 			{ "chance_to_inflict_additional_impale_%", 0.5 },
