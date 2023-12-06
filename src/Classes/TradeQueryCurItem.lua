@@ -5,7 +5,7 @@ local TradeQueryCurItem = newClass("TradeQueryCurItem", function(self, item)
     -- self.itemType = item[3]
 	self.hostName = "https://www.pathofexile.com/"
     self.queryModsFilePath = "Data/QueryMods.lua"
-    self.league = 'Ancestor'
+    self.league = 'Afflication'
     -- List of items that have a local and a non local option
     self.attrWithLocal = {
         "#% increased Armour, Evasion and Energy Shield",
