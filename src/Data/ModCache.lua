@@ -3482,8 +3482,7 @@ c["20% increased Mana Regeneration Rate"]={{[1]={flags=0,keywordFlags=0,name="Ma
 c["20% increased Mana Reservation Efficiency of Curse Aura Skills"]={{[1]={[1]={skillType=43,type="SkillType"},flags=0,keywordFlags=2,name="ManaReservationEfficiency",type="INC",value=20}},nil}
 c["20% increased Mana Reservation Efficiency of Herald Skills"]={{[1]={[1]={skillType=62,type="SkillType"},flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=20}},nil}
 c["20% increased Mana Reservation Efficiency of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=20}},nil}
-c["20% increased Maximum Energy Shield if both Equipped Rings have an Explicit Evasion Modifier"]={{[1]={flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=20}},"  if both Equipped Rings have an Explicit Evasion Modifier "}
-c["20% increased Maximum Energy Shield if both Equipped Rings have an Explicit Evasion Modifier 40% increased Energy Shield Recharge Rate if Equipped Amulet has an Explicit Evasion Modifier"]={{[1]={[1]={itemSlot="amulet",searchCond="explicit evasion",type="ItemCondition"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=20}},"  if both Equipped Rings have an Explicit Evasion Modifier 40% increased Energy Shield Recharge Rate  "}
+c["20% increased Maximum Energy Shield if both Equipped Rings have an Explicit Evasion Modifier"]={{[1]={[1]={bothSlots=true,itemSlot="ring",searchCond="explicit evasion",type="ItemCondition"},flags=0,keywordFlags=0,name="EnergyShield",type="INC",value=20}},nil}
 c["20% increased Maximum total Life Recovery per second from Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxLifeLeechRate",type="INC",value=20}},nil}
 c["20% increased Melee Critical Strike Chance"]={{[1]={flags=256,keywordFlags=0,name="CritChance",type="INC",value=20}},nil}
 c["20% increased Melee Damage"]={{[1]={flags=256,keywordFlags=0,name="Damage",type="INC",value=20}},nil}
@@ -8527,8 +8526,7 @@ c["Life Recovery from Regeneration is not applied"]={{[1]={flags=0,keywordFlags=
 c["Life Regeneration is applied to Energy Shield instead"]={{[1]={flags=0,keywordFlags=0,name="ZealotsOath",type="FLAG",value=true}},nil}
 c["Life and Mana Leech are instant during effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=100},[2]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="InstantManaLeech",type="BASE",value=100}},nil}
 c["Life and Mana Leech from Critical Strikes are instant"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="InstantLifeLeech",type="BASE",value=100},[2]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="InstantManaLeech",type="BASE",value=100}},nil}
-c["Life that would be lost by taking Damage is instead Reserved"]={nil,"Life that would be lost by taking Damage is instead Reserved "}
-c["Life that would be lost by taking Damage is instead Reserved until you take no Damage to Life for 2 seconds"]={nil,"Life that would be lost by taking Damage is instead Reserved until you take no Damage to Life for 2 seconds "}
+c["Life that would be lost by taking Damage is instead Reserved"]={{[1]={flags=0,keywordFlags=0,name="DamageInsteadReservesLife",type="FLAG",value=true}},nil}
 c["Light Radius is based on Energy Shield instead of Life"]={nil,"Light Radius is based on Energy Shield instead of Life "}
 c["Lightning Damage from Enemies Hitting you is Lucky"]={nil,"Lightning Damage from Enemies Hitting you is Lucky "}
 c["Lightning Damage from Enemies Hitting you is Lucky Nearby Allies' Damage with Hits is Lucky"]={nil,"Lightning Damage from Enemies Hitting you is Lucky Nearby Allies' Damage with Hits is Lucky "}

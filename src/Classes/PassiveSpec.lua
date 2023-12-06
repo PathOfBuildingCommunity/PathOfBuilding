@@ -687,7 +687,7 @@ end
 function PassiveSpecClass:CountAllocNodes()
 	local used, ascUsed, sockets = 0, 0, 0
 	for _, node in pairs(self.allocNodes) do
-		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
+		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and not (node.ascendancyName and (node.ascendancyName == "Warden" or node.ascendancyName == "Warlock" or node.ascendancyName == "Primalist")) then
 			if node.ascendancyName then
 				if not node.isMultipleChoiceOption then
 					ascUsed = ascUsed + 1
