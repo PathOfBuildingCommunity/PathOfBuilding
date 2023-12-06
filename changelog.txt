@@ -1,3 +1,10 @@
+VERSION[2.35.4][2023/12/06]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix socketed gems calculation and add socket limit warning  (sida-wang)
+* Fix Evasion ES Mastery (Lilylicious)
+* Reap+Vaal Reap 3.23 quality (henbe)
+
 VERSION[2.35.3][2023/12/06]
 
 --- Fixed Bugs ---

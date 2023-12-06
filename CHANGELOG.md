@@ -1,5 +1,20 @@
 # Changelog
 
+## [v2.35.4](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.4) (2023/12/06)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.3...v2.35.4)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Fix socketed gems calculation and add socket limit warning  [\#6937](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6937) ([sida-wang](https://github.com/sida-wang))
+### Other changes
+- Fix Vortex base damage over time values [\#6945](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6945) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Evasion ES Mastery [\#6944](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6944) ([Lilylicious](https://github.com/Lilylicious))
+- Reap+Vaal Reap 3.23 quality [\#6942](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6942) ([henbe](https://github.com/henbe))
+
+
 ## [v2.35.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.3) (2023/12/06)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.2...v2.35.3)
