@@ -1,9 +1,12 @@
 VERSION[2.35.3][2023/12/06]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
-* Update splitting steel quality impale effect (kayokalinauskas)
-* Fix spell suppression chance not displaying Lucky (MoonOverMira)
-* Fix damage taken as mods not appearing in breakdown (Regisle)
+--- Fixed Bugs ---
+* Fix damage taken as mods not appearing in Calcs tab breakdown (Regisle, LocalIdentity)
+* Fix Lucky Spell Suppression chance not displaying in sidebar (MoonOverMira)
+
+--- Accuracy Improvements ---
+* Update Splitting Steel quality mod (kayokalinauskas)
+
 
 VERSION[2.35.2][2023/12/06]
 
