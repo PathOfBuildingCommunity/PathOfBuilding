@@ -1587,7 +1587,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 						})
 					end
 				end
-				if activeSkill.skillFlags.HasUncancellableReservation then
+				if skillModList:Flag(skillCfg, "HasUncancellableReservation") then
 					env.player["uncancellable_"..name.."Reservation"] = env.player["uncancellable_"..name.."Reservation"] + values.reservedPercent
 				end
 			end
