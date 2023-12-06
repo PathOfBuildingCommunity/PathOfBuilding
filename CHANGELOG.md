@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.35.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.3) (2023/12/06)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.2...v2.35.3)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Bugs
+- Fix damage taken as mods not appearing in Calcs tab breakdown [\#6932](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6932) ([Regisle](https://github.com/Regisle), [LocalIdentity](https://github.com/LocalIdentity))
+- Fix Lucky Spell Suppression chance not displaying in sidebar [\#6931](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6931) ([MoonOverMira](https://github.com/MoonOverMira))
+### Accuracy Improvements
+- Update Splitting Steel quality mod [\#6927](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6927) ([kayokalinauskas](https://github.com/kayokalinauskas))
+
+
+
+
 ## [v2.35.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.2) (2023/12/06)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.1...v2.35.2)

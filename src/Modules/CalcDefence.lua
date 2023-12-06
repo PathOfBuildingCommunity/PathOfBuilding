@@ -1414,7 +1414,7 @@ function calcs.buildDefenceEstimations(env, actor)
 				if destType ~= damageType then
 					dotShiftTable[destType] = modDB:Sum("BASE", nil, damageType.."DamageTakenAs"..destType, isElemental[damageType] and "ElementalDamageTakenAs"..destType or nil)
 					dotDestinationTotal = dotDestinationTotal + dotShiftTable[destType]
-					shiftTable[destType] = dotShiftTable[destType] + modDB:Sum("BASE", nil, damageType.."DamageTakenFromHitsAs"..destType, isElemental[damageType] and "ElementalDamageTakenFromHitsAs"..destType or nil)
+					shiftTable[destType] = dotShiftTable[destType] + modDB:Sum("BASE", nil, damageType.."DamageFromHitsTakenAs"..destType, isElemental[damageType] and "ElementalDamageFromHitsTakenAs"..destType or nil)
 					destTotal = destTotal + shiftTable[destType]
 				end
 			end
