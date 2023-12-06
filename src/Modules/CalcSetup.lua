@@ -1017,6 +1017,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
 					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B
 					env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot or 0) + slotEmptySocketsCount.W
+					-- Warn if socketed gems over socket limit
+					if socketedGems > slotGemSocketsCount then
+						env.itemWarnings.socketLimitWarning = env.itemWarnings.socketLimitWarning or { }
+						t_insert(env.itemWarnings.socketLimitWarning, slotName)
+					end
 				end
 			end
 		end

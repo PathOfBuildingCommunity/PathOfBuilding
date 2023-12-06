@@ -1460,6 +1460,11 @@ function buildMode:InsertItemWarnings()
 			InsertIfNew(self.controls.warnings.lines, "You are exceeding jewel limit with the jewel "..warning)
 		end
 	end
+	if self.calcsTab.mainEnv.itemWarnings.socketLimitWarning then
+		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.socketLimitWarning) do
+			InsertIfNew(self.controls.warnings.lines, "You have too many gems in your "..warning.." slot")
+		end
+	end
 end
 
 -- Build list of side bar stats
