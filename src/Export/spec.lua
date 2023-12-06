@@ -9496,6 +9496,13 @@ return {
 			refTo="ItemExperienceTypes",
 			type="Key",
 			width=150
+		},
+		[25]={
+			list=true,
+			name="MtxSlotTypes",
+			refTo="MicrotransactionSkillGemEffectSlotTypes",
+			type="Key",
+			width=150
 		}
 	},
 	skillmines={
