@@ -8,7 +8,7 @@
 
 ## What's Changed
 ### Fixed Bugs
-- Fix reserving life with Dissolution of the Flesh affecting eHP [\#6791](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6791) ([ProFrenchToast](https://github.com/ProFrenchToast))
+- Fix reserving life with Dissolution of the Flesh affecting eHP [\#6791](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6791) ([ProFrenchToast](https://github.com/ProFrenchToast), [LocalIdentity](https://github.com/LocalIdentity))
 - Fix new Ascendancies being included in node counts [\#6949](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6949) ([Lilylicious](https://github.com/Lilylicious))
 
 
