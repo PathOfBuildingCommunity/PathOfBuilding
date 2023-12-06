@@ -1755,23 +1755,53 @@ return {
 		},
 		{ format = "{2:output:PhysicalTakenDamage}", 
 			{ breakdown = "PhysicalTakenDamage" }, 
-			{ modName = { "PhysicalDamageTakenAsLightning", "PhysicalDamageTakenAsCold", "PhysicalDamageTakenAsFire", "PhysicalDamageTakenAsChaos", "LightningDamageTakenAsPhysical", "ColdDamageTakenAsPhysical", "FireDamageTakenAsPhysical", "ElementalDamageTakenAsPhysical", "ChaosDamageTakenAsPhysical" } } 
+			{ modName = { 
+				"PhysicalDamageTakenAsLightning", "PhysicalDamageTakenFromHitsAsLightning", "LightningDamageTakenAsPhysical", "LightningDamageTakenFromHitsAsPhysical",
+				"PhysicalDamageTakenAsCold", "PhysicalDamageTakenFromHitsAsCold", "ColdDamageTakenAsPhysical", "ColdDamageTakenFromHitsAsPhysical",
+				"PhysicalDamageTakenAsFire", "PhysicalDamageTakenFromHitsAsFire", "FireDamageTakenAsPhysical", "FireDamageTakenFromHitsAsPhysical",
+				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenFromHitsAsPhysical",
+				"PhysicalDamageTakenAsChaos", "PhysicalDamageTakenFromHitsAsChaos", "ChaosDamageTakenAsPhysical", "ChaosDamageTakenFromHitsAsPhysical"
+			} } 
 		},
 		{ format = "{2:output:LightningTakenDamage}",
 			{ breakdown = "LightningTakenDamage" }, 
-			{ modName = { "PhysicalDamageTakenAsLightning", "LightningDamageTakenAsPhysical", "LightningDamageTakenAsCold", "LightningDamageTakenAsFire", "LightningDamageTakenAsChaos", "ColdDamageTakenAsLightning", "FireDamageTakenAsLightning", "ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos", "ChaosDamageTakenAsLightning" } }
+			{ modName = { 
+				"PhysicalDamageTakenAsLightning", "PhysicalDamageTakenFromHitsAsLightning", "LightningDamageTakenAsPhysical", "LightningDamageTakenFromHitsAsPhysical", 
+				"LightningDamageTakenAsCold", "LightningDamageTakenFromHitsAsCold", "ColdDamageTakenAsLightning", "ColdDamageTakenFromHitsAsLightning", 
+				"LightningDamageTakenAsFire", "LightningDamageTakenFromHitsAsFire", "FireDamageTakenAsLightning", "FireDamageTakenFromHitsAsLightning", 
+				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenFromHitsAsPhysical", "ElementalDamageTakenAsChaos", "ElementalDamageTakenFromHitsAsChaos",
+				"LightningDamageTakenAsChaos", "LightningDamageTakenFromHitsAsChaos", "ChaosDamageTakenAsLightning", "ChaosDamageTakenFromHitsAsLightning"
+			} }
 		},
 		{ format = "{2:output:ColdTakenDamage}",
 			{ breakdown = "ColdTakenDamage" }, 
-			{ modName = { "PhysicalDamageTakenAsCold", "LightningDamageTakenAsCold", "ColdDamageTakenAsPhysical", "ColdDamageTakenAsLightning", "ColdDamageTakenAsFire", "ColdDamageTakenAsChaos", "FireDamageTakenAsCold", "ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos", "ChaosDamageTakenAsCold" } }
+			{ modName = { 
+				"PhysicalDamageTakenAsCold", "PhysicalDamageTakenFromHitsAsCold", "ColdDamageTakenAsPhysical", "ColdDamageTakenFromHitsAsPhysical", 
+				"LightningDamageTakenAsCold", "LightningDamageTakenFromHitsAsCold", "ColdDamageTakenAsLightning", "ColdDamageTakenFromHitsAsLightning", 
+				"ColdDamageTakenAsFire", "ColdDamageTakenFromHitsAsFire", "FireDamageTakenAsCold", "FireDamageTakenFromHitsAsCold", 
+				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenFromHitsAsPhysical", "ElementalDamageTakenAsChaos", "ElementalDamageTakenFromHitsAsChaos",
+				"ColdDamageTakenAsChaos", "ColdDamageTakenFromHitsAsChaos", "ChaosDamageTakenAsCold", "ChaosDamageTakenFromHitsAsCold"
+			} }
 		},
 		{ format = "{2:output:FireTakenDamage}", 
 			{ breakdown = "FireTakenDamage" }, 
-			{ modName = { "PhysicalDamageTakenAsFire", "LightningDamageTakenAsFire", "ColdDamageTakenAsFire", "FireDamageTakenAsPhysical", "FireDamageTakenAsLightning", "FireDamageTakenAsCold", "FireDamageTakenAsChaos", "ElementalDamageTakenAsPhysical", "ElementalDamageTakenAsChaos", "ChaosDamageTakenAsFire" }  } 
+			{ modName = { 
+				"PhysicalDamageTakenAsFire", "PhysicalDamageTakenFromHitsAsFire", "FireDamageTakenAsPhysical", "FireDamageTakenFromHitsAsPhysical", 
+				"LightningDamageTakenAsFire", "LightningDamageTakenFromHitsAsFire", "FireDamageTakenAsLightning", "FireDamageTakenFromHitsAsLightning", 
+				"ColdDamageTakenAsFire", "ColdDamageTakenFromHitsAsFire", "FireDamageTakenAsCold", "FireDamageTakenFromHitsAsCold", 
+				"ElementalDamageTakenAsPhysical", "ElementalDamageTakenFromHitsAsPhysical", "ElementalDamageTakenAsChaos", "ElementalDamageTakenFromHitsAsChaos", 
+				"FireDamageTakenAsChaos", "FireDamageTakenFromHitsAsChaos", "ChaosDamageTakenAsFire", "ChaosDamageTakenFromHitsAsFire"
+			}  } 
 		},
 		{ format = "{2:output:ChaosTakenDamage}",
 			{ breakdown = "ChaosTakenDamage" }, 
-			{ modName = { "PhysicalDamageTakenAsChaos", "LightningDamageTakenAsChaos", "ColdDamageTakenAsChaos", "FireDamageTakenAsChaos", "ElementalDamageTakenAsChaos", "ChaosDamageTakenAsPhysical", "ChaosDamageTakenAsLightning", "ChaosDamageTakenAsCold", "ChaosDamageTakenAsFire" } }
+			{ modName = { 
+				"PhysicalDamageTakenAsChaos", "PhysicalDamageTakenFromHitsAsChaos", "ChaosDamageTakenAsPhysical", "ChaosDamageTakenFromHitsAsPhysical", 
+				"LightningDamageTakenAsChaos", "LightningDamageTakenFromHitsAsChaos", "ChaosDamageTakenAsLightning", "ChaosDamageTakenFromHitsAsLightning", 
+				"ColdDamageTakenAsChaos", "ColdDamageTakenFromHitsAsChaos", "ChaosDamageTakenAsCold", "ChaosDamageTakenFromHitsAsCold", 
+				"FireDamageTakenAsChaos", "FireDamageTakenFromHitsAsChaos", "ChaosDamageTakenAsFire", "ChaosDamageTakenFromHitsAsFire", 
+				"ElementalDamageTakenAsChaos", "ElementalDamageTakenFromHitsAsChaos"
+			} }
 		},
 	},
 } }, { defaultCollapsed = false, label = "Damaging Hits", data = {
