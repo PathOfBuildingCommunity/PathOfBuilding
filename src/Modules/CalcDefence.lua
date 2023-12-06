@@ -264,8 +264,6 @@ function calcs.defence(env, actor)
 	local output = actor.output
 	local breakdown = actor.breakdown
 
-	local condList = modDB.conditions
-
 	-- Action Speed
 	output.ActionSpeedMod = calcs.actionSpeedMod(actor)
 	
@@ -1252,8 +1250,6 @@ function calcs.buildDefenceEstimations(env, actor)
 	local enemyDB = actor.enemy.modDB
 	local output = actor.output
 	local breakdown = actor.breakdown
-
-	local condList = modDB.conditions
 
 	local damageCategoryConfig = env.configInput.enemyDamageType or "Average"
 	

@@ -223,6 +223,10 @@ function ModStoreClass:HasMod(modType, cfg, ...)
 	return self:HasModInternal(modType, flags, keywordFlags, source, ...)
 end
 
+function ModStoreClass:AddCondition(var, value)
+	if value then self.conditions[var] = true end
+end
+
 function ModStoreClass:GetCondition(var, cfg, noMod)
 	return self.conditions[var] or (self.parent and self.parent:GetCondition(var, cfg, true)) or (not noMod and self:Flag(cfg, conditionName[var]))
 end
