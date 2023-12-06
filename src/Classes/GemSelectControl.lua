@@ -265,29 +265,65 @@ function GemSelectClass:UpdateSortCache()
 	self.sortCache = sortCache
 
 	-- Determine supports that affect the active skill
-	for _, group in ipairs(self.skillsTab.socketGroupList) do
-		local slotMatch = self.skillsTab.displayGroup.slot and self.skillsTab.displayGroup.slot == group.slot
-		if not slotMatch and self.skillsTab.displayGroup.slot and not self.skillsTab.displayGroup.displaySkillList[1] then
-			for _, slot in ipairs(self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot:gsub(" Swap","")] or {}) do
-				if group.slot and group.slot:gsub(" Swap","") == slot and self.skillsTab.displayGroup.slot:match(" Swap") == group.slot:match(" Swap") then
-					slotMatch = true
-					break
+	-- old
+	-- if active gem exists in socketgroup
+	if self.skillsTab.displayGroup.displaySkillList and self.skillsTab.displayGroup.displaySkillList[1] then
+		for gemId, gemData in pairs(self.gems) do
+			if gemData.grantedEffect.support then
+				if gemData.name == "Decay" then
+					ConPrintf("hello")
+				end
+				for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
+					if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+						sortCache.canSupport[gemId] = true
+						break
+					end
 				end
 			end
 		end
-		if (slotMatch or self.skillsTab.displayGroup == group) and group.displaySkillList and group.displaySkillList[1] then
-			for gemId, gemData in pairs(self.gems) do
-				if gemData.grantedEffect.support then
-					for _, activeSkill in ipairs(group.displaySkillList) do
-						if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
-							sortCache.canSupport[gemId] = true
-							break
+	-- no active gem exists in socketgroup so check for item provided skills in matching slots
+	elseif self.skillsTab.displayGroup.slot then
+		for _, group in ipairs(self.skillsTab.socketGroupList) do
+			local matchingItemSkillSlot = group.source and group.slot and self.skillsTab.displayGroup.slot == group.slot and group.displaySkillList and group.displaySkillList[1]
+			local crossLinkedSlot = group.slot and group.slot == self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot] and group.displaySkillList and group.displaySkillList[1]
+			if matchingItemSkillSlot or crossLinkedSlot then
+				for gemId, gemData in pairs(self.gems) do
+					if gemData.grantedEffect.support then
+						for _, activeSkill in ipairs(group.displaySkillList) do
+							if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+								sortCache.canSupport[gemId] = true
+								break
+							end
 						end
 					end
 				end
 			end
 		end
 	end
+	-- new
+--		for _, group in ipairs(self.skillsTab.socketGroupList) do
+--		local slotMatch = self.skillsTab.displayGroup.slot and self.skillsTab.displayGroup.slot == group.slot
+--		if not slotMatch and self.skillsTab.displayGroup.slot and not self.skillsTab.displayGroup.displaySkillList[1] then
+--			for _, slot in ipairs(self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot:gsub(" Swap","")] or {}) do
+--				if group.slot and group.slot:gsub(" Swap","") == slot and self.skillsTab.displayGroup.slot:match(" Swap") == group.slot:match(" Swap") then
+--					slotMatch = true
+--					break
+--				end
+--			end
+--		end
+--		if (slotMatch or self.skillsTab.displayGroup == group) and group.displaySkillList and group.displaySkillList[1] then
+--			for gemId, gemData in pairs(self.gems) do
+--				if gemData.grantedEffect.support then
+--					for _, activeSkill in ipairs(group.displaySkillList) do
+--						if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+--							sortCache.canSupport[gemId] = true
+--							break
+--						end
+--					end
+--				end
+--			end
+--		end
+--	end
 
 	local dpsField = self.skillsTab.sortGemsByDPSField
 	GlobalCache.useFullDPS = dpsField == "FullDPS"
