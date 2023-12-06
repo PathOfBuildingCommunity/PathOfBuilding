@@ -7754,6 +7754,7 @@ skills["VaalReap"] = {
 		},
 	},
 	constantStats = {
+		{ "blood_scythe_damage_+%_final_per_charge", 0 },
 		{ "base_skill_effect_duration", 5000 },
 		{ "vaal_reap_additional_maximum_blood_charges", 4 },
 		{ "blood_ground_leaving_area_lasts_for_ms", 2000 },
