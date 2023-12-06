@@ -156,7 +156,7 @@ local SkillsTabClass = newClass("SkillsTab", "UndoHandler", "ControlHost", "Cont
 		self.showAltQualityGems = state
 	end)
 
-	self.controls.gemFilter = new("EditControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 188, 100, 20, nil, nil, "%c", 50, function(buf)
+	self.controls.gemFilter = new("EditControl", { "TOPLEFT", self.controls.groupList, "BOTTOMLEFT" }, optionInputsX, optionInputsY + 190, 100, 20, nil, nil, "%c", 50, function(buf)
 		self.gemFilter = buf
 	end)
 	self.controls.gemFilter.tooltipText = "List of tags used to filter the gem search result(':' separated)"
