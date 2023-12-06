@@ -7750,7 +7750,7 @@ skills["VaalReap"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
+			{ "blood_scythe_damage_+%_final_per_charge", 0.25 },
 		},
 	},
 	constantStats = {
