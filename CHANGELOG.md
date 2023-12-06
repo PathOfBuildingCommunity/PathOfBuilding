@@ -1,5 +1,17 @@
 # Changelog
 
+## [v2.35.5](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.5) (2023/12/06)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.4...v2.35.5)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Other changes
+- Fixed dissolution of the flesh changing maximum hit pools [\#6791](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6791) ([ProFrenchToast](https://github.com/ProFrenchToast))
+- Exclude extra ascendancies from node counts [\#6949](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6949) ([Lilylicious](https://github.com/Lilylicious))
+
+
 ## [v2.35.4](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.4) (2023/12/07)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.3...v2.35.4)

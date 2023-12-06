@@ -1,3 +1,9 @@
+VERSION[2.35.5][2023/12/06]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fixed dissolution of the flesh changing maximum hit pools (ProFrenchToast)
+* Exclude extra ascendancies from node counts (Lilylicious)
+
 VERSION[2.35.4][2023/12/07]
 
 --- New to Path of Building ---
