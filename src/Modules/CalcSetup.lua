@@ -994,7 +994,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local socketedGems = 0
 					-- Loop through socket groups to calculate number of socketed gems
 					for _, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
-						if (socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
+						if (not socketGroup.source and socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
 							for _, gem in pairs(socketGroup.gemList) do
 								if (gem.gemData and gem.enabled) then
 									socketedGems = socketedGems + 1
