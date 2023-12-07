@@ -823,7 +823,7 @@ function main:OpenOptionsPopup()
 			self.colorHighlight = buf
 		end
 	end)
-	controls.colorHighlightLabel = new("LabelControl", { "RIGHT", controls.colorHighlight, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex colour for highlight nodes:")
+	controls.colorHighlightLabel = new("LabelControl", { "RIGHT", controls.colorHighlight, "LEFT" }, { defaultLabelSpacingPx, 0, 0 }, 16, "^7Hex colour for highlight nodes:")
 	controls.colorHighlight.tooltipText = "Overrides the default hex colour for highlighting nodes in passive tree search. \nExpected format is 0x000000. " ..
 		"The default value is " .. tostring(defaultColorCodes.HIGHLIGHT:gsub('^(^)', '0')) .."\nIf updating while inside a build, please re-load the build after saving."
 			
