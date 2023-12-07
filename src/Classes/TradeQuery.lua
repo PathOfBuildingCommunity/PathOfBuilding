@@ -280,8 +280,8 @@ on trade site to work on other leagues and realms)]]
 	end
 
 	-- Stat sort popup button
-	-- if the list is empty, set default sorting, otherwise keep whatever was loaded from xml
-	if not next(self.statSortSelectionList or {}) then
+	-- if the list is nil or empty, set default sorting, otherwise keep whatever was loaded from xml
+	if not self.statSortSelectionList or (#self.statSortSelectionList) == 0 then
 		self.statSortSelectionList = { }
 		t_insert(self.statSortSelectionList,  {
 			label = "Full DPS",
@@ -511,7 +511,7 @@ function TradeQueryClass:SetStatWeights()
 	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Save", function()
 		main:ClosePopup()
 		
-		-- this needs to save the weights somewhere, maybe the XML? its not necessary but possibly useful QoL
+		-- used in ItemsTab to save to xml under TradeSearchWeights node
 		local statSortSelectionList = {}
 		for stat, statTable in pairs(statList) do
 			if statTable.stat.weightMult > 0 then
