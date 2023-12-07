@@ -2060,12 +2060,7 @@ local specialModList = {
 	["gain no inherent bonuses from strength"] = { flag("NoStrengthAttributeBonuses") },
 	["gain no inherent bonuses from dexterity"] = { flag("NoDexterityAttributeBonuses") },
 	["gain no inherent bonuses from intelligence"] = { flag("NoIntelligenceAttributeBonuses") },
-	["all damage taken bypasses energy shield"] = {
-		mod("PhysicalEnergyShieldBypass", "BASE", 100),
-		mod("LightningEnergyShieldBypass", "BASE", 100),
-		mod("ColdEnergyShieldBypass", "BASE", 100),
-		mod("FireEnergyShieldBypass", "BASE", 100),
-	},
+	["all damage taken bypasses energy shield"] = { flag("UnblockedDamageDoesBypassES") },
 	["physical damage taken bypasses energy shield"] = {
 		mod("PhysicalEnergyShieldBypass", "BASE", 100),
 	},
