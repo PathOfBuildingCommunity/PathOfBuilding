@@ -236,7 +236,7 @@ function DropDownClass:Draw(viewPort, noTooltip)
 	elseif mOver or self.dropped then
 		SetDrawColor(1, 1, 1)
 	elseif self.borderFunc then
-		r, g, b = self.borderFunc()
+		local r, g, b = self.borderFunc()
 		SetDrawColor(r, g, b)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)

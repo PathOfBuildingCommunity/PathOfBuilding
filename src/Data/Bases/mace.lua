@@ -809,7 +809,7 @@ itemBases["Impact Force Propagator"] = {
 	socketLimit = 6,
 	tags = { two_hand_weapon = true, weapon = true, not_for_sale = true, mace = true, experimental_base = true, twohand = true, default = true, },
 	influenceTags = { shaper = "2h_mace_shaper", elder = "2h_mace_elder", adjudicator = "2h_mace_adjudicator", basilisk = "2h_mace_basilisk", crusader = "2h_mace_crusader", eyrie = "2h_mace_eyrie", cleansing = "2h_mace_cleansing", tangle = "2h_mace_tangle" },
-	implicit = "Warcries Exert 1 additional Attack",
+	implicit = "Warcries Exert 2 additional Attack",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 81, PhysicalMax = 135, CritChanceBase = 5, AttackRateBase = 1.15, Range = 13, },
 	req = { level = 70, str = 220, },

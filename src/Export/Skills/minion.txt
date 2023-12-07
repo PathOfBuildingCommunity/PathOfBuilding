@@ -47,7 +47,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
-#skill LightningGolemWrath Wrath
+#skill LightningGolemWrath Lightning Golem Wrath
 #flags spell aura area duration
 	statMap = {
 		["attack_minimum_added_lightning_damage"] = {

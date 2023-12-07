@@ -1789,7 +1789,7 @@ function TreeTabClass:FindTimelessJewel()
 			}
 		}
 
-		if (timelessData.sharedResults.devotionVariant1.id > 1) or (timelessData.sharedResults.devotionVariant2.id > 1) then
+		if data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion ~= nil then
 			local devotionFilters = {}
 			if timelessData.sharedResults.devotionVariant1.id > 1 then
 				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant1.id - 1] })
@@ -1797,10 +1797,12 @@ function TreeTabClass:FindTimelessJewel()
 			if timelessData.sharedResults.devotionVariant2.id > 1 then
 				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant2.id - 1] })
 			end
-			t_insert(search.query.stats, {
-				filters = devotionFilters,
-				type = "and"
-			})
+			if next(devotionFilters) then
+				t_insert(search.query.stats, {
+					filters = devotionFilters,
+					type = "and"
+				})
+			end
 		end
 
 		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)

@@ -60,7 +60,7 @@ function listMode:Init(selBuildName, subPath)
 		self:SortList()
 	end)
 	self.controls.sort:SelByValue(main.buildSortMode, "sortMode")
-	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, {0, 75, 640, 0}, self)
+	self.controls.buildList = new("BuildListControl", {"TOP",self.anchor,"TOP"}, {0, 75, 900, 0}, self)
 	self.controls.buildList.height = function()
 		return main.screenH - 80
 	end
@@ -85,7 +85,7 @@ end
 
 function listMode:OnFrame(inputEvents)
 	for id, event in ipairs(inputEvents) do
-		if event.type == "KeyDown" then	
+		if event.type == "KeyDown" then
 			if event.key == "v" and IsKeyDown("CTRL") then
 				if self.controls.buildList.copyBuild then
 					local build = self.controls.buildList.copyBuild
@@ -182,8 +182,8 @@ function listMode:BuildList()
 	handle = NewFileSearch(main.buildPath..self.subPath.."*", true)
 	while handle do
 		local folderName = handle:GetFileName()
-		t_insert(self.list, { 
-			folderName = folderName, 
+		t_insert(self.list, {
+			folderName = folderName,
 			subPath = self.subPath,
 			fullFileName = main.buildPath..self.subPath..folderName,
 		})
@@ -196,7 +196,7 @@ end
 
 function listMode:SortList()
 	local oldSelFileName = self.controls.buildList.selValue and self.controls.buildList.selValue.fileName
-	table.sort(self.list, function(a, b) 
+	table.sort(self.list, function(a, b)
 		if a.folderName and b.folderName then
 			return naturalSortCompare(a.folderName, b.folderName)
 		elseif a.folderName and not b.folderName then
