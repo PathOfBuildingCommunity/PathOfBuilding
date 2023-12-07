@@ -226,7 +226,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
-	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, {8, 0, 120, 20}, nil, function(index, value)
 		self.spec:SelectSecondaryAscendClass(value.ascendClassId)
 		self.spec:AddUndoState()
 		self.spec:SetWindowTitleWithBuildClass()
