@@ -126,7 +126,7 @@
   - Do not have more than a total of 100% physical damage taken as mods!
 - Fix Hit Chance applying twice to CoC trigger rate calculations [\#6779](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6779) ([Paliak](https://github.com/Paliak))
 - Fix Channeled Melee or Attacks halving Trigger rate when Dual Wielding [\#6894](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6894) ([Lilylicious](https://github.com/Lilylicious))
-- Fix Chieftain's Ngahamu, Flame's Advance node not working with Forbidden Flesh and Flame [\#6716](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6716) ([Paliak](https://github.com/Paliak))
+- Fix Chieftain's Ngamahu, Flame's Advance node not working with Forbidden Flesh and Flame [\#6716](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6716) ([Paliak](https://github.com/Paliak))
 - Fix Arcane Cloak not affecting max hit [\#6704](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6704) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Projectile mastery not adding damage to Ailments [\#6902](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6902) ([LocalIdentity](https://github.com/LocalIdentity))
 - Fix Ice Golem's Ice Spear skill not being supported by Spell Echo [\#6740](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6740) ([Paliak](https://github.com/Paliak))
