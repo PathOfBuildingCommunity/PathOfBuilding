@@ -5065,9 +5065,9 @@ function calcs.offence(env, actor, activeSkill)
 
 	--Calculates and displays cost per second for skills that don't already have one (link skills)
 	for resource, val in pairs(costs) do
-		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not output[resource.."PerSecondHasCost"] and (output.Speed > 0 or output.Cooldown)) then
+		local EB = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
+		if(val.upfront and output[resource.."HasCost"] and output[resource.."Cost"] > 0 and not (output[resource.."PerSecondHasCost"] and not (EB and skillModList:Sum("BASE", skillCfg, "ManaCostAsEnergyShieldCost"))) and (output.Speed > 0 or output.Cooldown)) then
 			local usedResource = resource
-			local EB = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
 
 			if EB and resource == "Mana" then
 				usedResource = "ES"
@@ -5093,7 +5093,7 @@ function calcs.offence(env, actor, activeSkill)
 			end
 
 			output[usedResource.."PerSecondHasCost"] = true
-			output[usedResource.."PerSecondCost"] = output[resource.."Cost"] * useSpeed
+			output[usedResource.."PerSecondCost"] = (output[usedResource.."PerSecondCost"] or 0)+ output[resource.."Cost"] * useSpeed
 
 			if breakdown then
 				breakdown[usedResource.."PerSecondCost"] = copyTable(breakdown[resource.."Cost"])
