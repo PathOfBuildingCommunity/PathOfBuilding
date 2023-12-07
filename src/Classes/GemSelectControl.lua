@@ -265,8 +265,6 @@ function GemSelectClass:UpdateSortCache()
 	self.sortCache = sortCache
 
 	-- Determine supports that affect the active skill
-	-- old
-	-- if active gem exists in socketgroup
 	if self.skillsTab.displayGroup.displaySkillList and self.skillsTab.displayGroup.displaySkillList[1] then
 		for gemId, gemData in pairs(self.gems) do
 			if gemData.grantedEffect.support then
@@ -278,7 +276,7 @@ function GemSelectClass:UpdateSortCache()
 				end
 			end
 		end
-	-- no active gem exists in socketgroup so check for item provided skills in matching slots
+	-- No active gem exists in the main socket group so check for item provided skills in matching slots
 	elseif self.skillsTab.displayGroup.slot then
 		for _, group in ipairs(self.skillsTab.socketGroupList) do
 			local matchingItemSkillSlot = group.source and group.slot and self.skillsTab.displayGroup.slot == group.slot and group.displaySkillList and group.displaySkillList[1]
