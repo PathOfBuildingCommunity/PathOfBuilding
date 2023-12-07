@@ -465,7 +465,7 @@ end
 -- Encodes the current spec into a URL, using the official skill tree's format
 -- Prepends the URL with an optional prefix
 function PassiveSpecClass:EncodeURL(prefix)
-	local a = { 0, 0, 0, 6, self.curClassId, band(b_lshift(self.curSecondaryAscendClassId, 4), self.curAscendClassId) }
+	local a = { 0, 0, 0, 6, self.curClassId, band(b_lshift(self.curSecondaryAscendClassId or 0, 4), self.curAscendClassId) }
 
 	local nodeCount = 0
 	local clusterCount = 0
