@@ -771,7 +771,7 @@ function buildMode:EstimatePlayerProgress()
 		self.controls.characterLevel:SetText(self.characterLevel)
 	end
 
-	-- Ascendency points for lab
+	-- Ascendancy points for lab
 	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
 	local labSuggest = level < 33 and ""
 		or level < 55 and "\nLabyrinth: Normal Lab"

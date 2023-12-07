@@ -12,6 +12,8 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local b_lshift = bit.lshift
+local b_rshift = bit.rshift
+local band = bit.band
 
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, convert)
 	self.UndoHandler()
@@ -425,13 +427,16 @@ function PassiveSpecClass:DecodeURL(url)
 		return "Invalid tree link (unknown version number '"..ver.."')"
 	end
 	local classId = b:byte(5)
-	local ascendClassId = (ver >= 4) and b:byte(6) or 0
+	local ascendancyIds = (ver >= 4) and b:byte(6) or 0
+	local ascendClassId = band(ascendancyIds, 0x00001111)
+	local secondaryAscendClassId = b_rshift(ascendancyIds, 4)
 	if not self.tree.classes[classId] then
 		return "Invalid tree link (bad class ID '"..classId.."')"
 	end
 	self:ResetNodes()
 	self:SelectClass(classId)
 	self:SelectAscendClass(ascendClassId)
+	self:SelectSecondaryAscendClass(secondaryAscendClassId)
 
 	local nodesStart = ver >= 4 and 8 or 7
 	local nodesEnd = ver >= 5 and 7 + (b:byte(7) * 2) or -1
@@ -460,7 +465,7 @@ end
 -- Encodes the current spec into a URL, using the official skill tree's format
 -- Prepends the URL with an optional prefix
 function PassiveSpecClass:EncodeURL(prefix)
-	local a = { 0, 0, 0, 6, self.curClassId, self.curAscendClassId }
+	local a = { 0, 0, 0, 6, self.curClassId, band(b_lshift(self.curSecondaryAscendClassId, 4), self.curAscendClassId) }
 
 	local nodeCount = 0
 	local clusterCount = 0
@@ -556,7 +561,7 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 end
 
 function PassiveSpecClass:SelectSecondaryAscendClass(ascendClassId)
-	-- if Secondary Ascendency does not exist on this tree version
+	-- if Secondary Ascendancy does not exist on this tree version
 	if not self.tree.alternate_ascendancies then
 		return
 	end
