@@ -1228,27 +1228,31 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			local slot = group.slot and build.itemsTab.slots[group.slot]
 			group.slotEnabled = not slot or not slot.weaponSet or slot.weaponSet == (build.itemsTab.activeItemSet.useSecondWeaponSet and 2 or 1)
+			-- if group is main skill or group is enabled 
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				local slotName = group.slot and group.slot:gsub(" Swap","")
-				groupCfgList[slotName or group] = groupCfgList[slotName or group] or {
+				groupCfgList[slotName or "noSlot"] = groupCfgList[slotName or "noSlot"] or {}
+				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
 					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
 				}
-				local groupCfg = groupCfgList[slotName or group]
+				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
 				local targetListList = {}
 				if groupCfg.slotName then
 					supportLists[groupCfg.slotName] = supportLists[groupCfg.slotName] or {}
-					t_insert(targetListList, supportLists[groupCfg.slotName])
+					supportLists[groupCfg.slotName][group] = supportLists[groupCfg.slotName][group] or {}
+					t_insert(targetListList, supportLists[groupCfg.slotName][group])
 					for _, targetSlotName in ipairs(env.crossLinkedSupportGroups[groupCfg.slotName] or {}) do
-						supportLists[targetSlotName] = supportLists[targetSlotName] or {}
-						t_insert(targetListList, supportLists[targetSlotName])
+						supportLists[targetSlotName][group] = supportLists[targetSlotName][group] or {}
+						t_insert(targetListList, supportLists[targetSlotName][group])
 					end
 				else
 					supportLists[group] = supportLists[group] or {}
 					t_insert(targetListList, supportLists[group])
 				end
 
+				-- if not unique item that provides skills
 				if not group.source then
 					-- Add extra supports from the item this group is socketed in
 					for _, value in ipairs(env.modDB:List(groupCfg, "ExtraSupport")) do
@@ -1361,14 +1365,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
 				local slotName = group.slot and group.slot:gsub(" Swap","")
-				groupCfgList[slotName or group] = groupCfgList[slotName or group] or {
+				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
 					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
 				}
-				local groupCfg = groupCfgList[slotName or group]
+				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				local propertyModList = groupCfg.propertyModList
-				socketGroupSkillListList[slotName or group] = socketGroupSkillListList[slotName or group] or {}
-				local socketGroupSkillList = socketGroupSkillListList[slotName or group]
+				socketGroupSkillListList[slotName or "noSlot"] = socketGroupSkillListList[slotName or "noSlot"] or {}
+				socketGroupSkillListList[slotName or "noSlot"][group] = socketGroupSkillListList[slotName or "noSlot"][group] or {}
+				local socketGroupSkillList = socketGroupSkillListList[slotName or "noSlot"][group]
 
 				-- Create active skills
 				for gemIndex, gemInstance in ipairs(group.gemList) do
@@ -1400,7 +1405,37 @@ function calcs.initEnv(build, mode, override, specEnv)
 								if env.mode == "MAIN" then
 									gemInstance.displayEffect = activeEffect
 								end
-								local activeSkill = calcs.createActiveSkill(activeEffect, supportLists[slotName or group], env.player, group)
+								local appliedSupportList = {}
+								-- if skill granted by unique item, go through all support groups in slot
+								if group.source then 
+									if supportLists[slotName] then
+										for _, supportGroup in pairs(supportLists[slotName]) do
+											for _, support in ipairs(supportGroup) do
+												t_insert(appliedSupportList, support)
+											end
+										end
+									end
+								else
+									-- otherwise first add supports from socketGroup
+									for _, support in ipairs(supportLists[group] or supportLists[slotName][group]) do
+										t_insert(appliedSupportList, support)
+									end
+									-- then add supports from crossLinked socketGroups
+									for crossLinkedSupportSlot, crossLinkedSupportGroup in pairs(env.crossLinkedSupportGroups) do
+										for _, crossLinkedSupportedSlot in ipairs(crossLinkedSupportGroup) do
+											if crossLinkedSupportedSlot == slotName and supportLists[crossLinkedSupportSlot] then
+												for _, supportGroup in pairs(supportLists[crossLinkedSupportSlot]) do
+													for _, support in ipairs(supportGroup) do
+														t_insert(appliedSupportList, support)
+													end
+												end
+											end
+										end
+									end
+								end
+
+								
+								local activeSkill = calcs.createActiveSkill(activeEffect, appliedSupportList, env.player, group)
 								if gemInstance.gemData then
 									activeSkill.slotName = groupCfg.slotName
 								end
@@ -1425,14 +1460,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 		-- Process calculated active skill lists
 		for index, group in ipairs(build.skillsTab.socketGroupList) do
 			local slotName = group.slot and group.slot:gsub(" Swap","")
-			socketGroupSkillListList[slotName or group] = socketGroupSkillListList[slotName or group] or {}
-			local socketGroupSkillList = socketGroupSkillListList[slotName or group]
+			socketGroupSkillListList[slotName or "noSlot"] = socketGroupSkillListList[slotName or "noSlot"] or {}
+			socketGroupSkillListList[slotName or "noSlot"][group] = socketGroupSkillListList[slotName or "noSlot"][group] or {}
+			local socketGroupSkillList = socketGroupSkillListList[slotName or "noSlot"][group]
 			if index == env.mainSocketGroup or (group.enabled and group.slotEnabled) then
-				groupCfgList[slotName or group] = groupCfgList[slotName or group] or {
+				groupCfgList[slotName or "noSlot"][group] = groupCfgList[slotName or "noSlot"][group] or {
 					slotName = slotName,
 					propertyModList = env.modDB:List({slotName = slotName}, "GemProperty")
 				}
-				local groupCfg = groupCfgList[slotName or group]
+				local groupCfg = groupCfgList[slotName or "noSlot"][group]
 				for _, value in ipairs(env.modDB:List(groupCfg, "GroupProperty")) do
 					env.player.modDB:AddMod(modLib.setSource(value.value, groupCfg.slotName or ""))
 				end
