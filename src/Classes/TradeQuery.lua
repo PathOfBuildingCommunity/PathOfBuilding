@@ -280,18 +280,22 @@ on trade site to work on other leagues and realms)]]
 	end
 
 	-- Stat sort popup button
-	self.statSortSelectionList = { }
-	t_insert(self.statSortSelectionList,  {
-		label = "Full DPS",
-		stat = "FullDPS",
-		weightMult = 1.0,
-	})
-	t_insert(self.statSortSelectionList,  {
-		label = "Effective Hit Pool",
-		stat = "TotalEHP",
-		weightMult = 0.5,
-	})
+	-- if the list is empty, set default sorting, otherwise keep whatever was loaded from xml
+	if not next(self.statSortSelectionList or {}) then
+		self.statSortSelectionList = { }
+		t_insert(self.statSortSelectionList,  {
+			label = "Full DPS",
+			stat = "FullDPS",
+			weightMult = 1.0,
+		})
+		t_insert(self.statSortSelectionList,  {
+			label = "Effective Hit Pool",
+			stat = "TotalEHP",
+			weightMult = 0.5,
+		})
+	end
 	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", self.controls.fetchCountEdit, "BOTTOMRIGHT"}, 0, row_vertical_padding, 150, row_height, "^7Adjust search weights", function()
+		self.itemsTab.modFlag = true
 		self:SetStatWeights()
 	end)
 	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
