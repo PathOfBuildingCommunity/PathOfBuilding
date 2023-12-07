@@ -388,7 +388,7 @@ skills["BloodSacramentUnique"] = {
 	baseMods = {
 		skill("radius", 5),
 		mod("Multiplier:BloodSacramentMaxStages", "BASE", 33),
-		flag("HasUncancellableReservation", { type = "Condition", var = "BloodSacramentReservationeHP" }),
+		flag("HasUncancellableReservation", { type = "Condition", var = "BloodSacramentReservationEHP" }),
 	},
 	constantStats = {
 		{ "flameblast_hundred_times_radius_+_per_1%_life_reserved", 30 },
