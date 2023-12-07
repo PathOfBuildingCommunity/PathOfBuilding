@@ -625,7 +625,7 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 		end
 	end
 	for ascendId, ascendClass in pairs(self.tree.alternate_ascendancies) do
-		if charData.afflictionClass == ascendClass then
+		if charData.alternate_ascendancy == ascendClass then
 			charData.secondaryAscendancyClass = ascendId
 			break
 		end
