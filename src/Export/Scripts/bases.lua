@@ -84,7 +84,7 @@ directiveTable.base = function(state, args, out)
 	end
 	out:write('\ttags = { ')
 	local combinedTags = { }
-	for _, tag in ipairs(baseItemTags) do
+	for _, tag in ipairs(baseItemTags or {}) do
 		combinedTags[tag] = tag
 	end
 	for _, tag in ipairs(baseItemType.Tags) do
