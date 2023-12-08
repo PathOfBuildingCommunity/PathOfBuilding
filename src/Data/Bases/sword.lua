@@ -819,7 +819,7 @@ itemBases["Rebuking Blade"] = {
 	influenceTags = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", cleansing = "2h_sword_cleansing", tangle = "2h_sword_tangle" },
 	implicit = "Attack Critical Strikes ignore Enemy Monster Elemental Resistances",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 34, PhysicalMax = 63, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
+	weapon = { PhysicalMin = 30, PhysicalMax = 56, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 30, str = 54, dex = 54, },
 }
 itemBases["Blasting Blade"] = {
@@ -829,7 +829,7 @@ itemBases["Blasting Blade"] = {
 	influenceTags = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", cleansing = "2h_sword_cleansing", tangle = "2h_sword_tangle" },
 	implicit = "Attack Critical Strikes ignore Enemy Monster Elemental Resistances",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 52, PhysicalMax = 97, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
+	weapon = { PhysicalMin = 47, PhysicalMax = 87, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 50, str = 86, dex = 86, },
 }
 itemBases["Banishing Blade"] = {
@@ -839,7 +839,7 @@ itemBases["Banishing Blade"] = {
 	influenceTags = { shaper = "2h_sword_shaper", elder = "2h_sword_elder", adjudicator = "2h_sword_adjudicator", basilisk = "2h_sword_basilisk", crusader = "2h_sword_crusader", eyrie = "2h_sword_eyrie", cleansing = "2h_sword_cleansing", tangle = "2h_sword_tangle" },
 	implicit = "Attack Critical Strikes ignore Enemy Monster Elemental Resistances",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 61, PhysicalMax = 114, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
+	weapon = { PhysicalMin = 55, PhysicalMax = 102, CritChanceBase = 6.5, AttackRateBase = 1.4, Range = 13, },
 	req = { level = 70, str = 130, dex = 130, },
 }
 

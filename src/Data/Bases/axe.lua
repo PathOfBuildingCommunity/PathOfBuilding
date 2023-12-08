@@ -237,7 +237,7 @@ itemBases["Maltreatment Axe"] = {
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicit = "+10 to Maximum Rage",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 21, PhysicalMax = 44, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
+	weapon = { PhysicalMin = 19, PhysicalMax = 39, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 30, str = 78, dex = 34, },
 }
 itemBases["Disapprobation Axe"] = {
@@ -247,7 +247,7 @@ itemBases["Disapprobation Axe"] = {
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicit = "+15 to Maximum Rage",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 32, PhysicalMax = 67, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
+	weapon = { PhysicalMin = 29, PhysicalMax = 60, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 50, str = 124, dex = 54, },
 }
 itemBases["Psychotic Axe"] = {
@@ -257,7 +257,7 @@ itemBases["Psychotic Axe"] = {
 	influenceTags = { shaper = "axe_shaper", elder = "axe_elder", adjudicator = "axe_adjudicator", basilisk = "axe_basilisk", crusader = "axe_crusader", eyrie = "axe_eyrie", cleansing = "axe_cleansing", tangle = "axe_tangle" },
 	implicit = "+20 to Maximum Rage",
 	implicitModTypes = { {  }, },
-	weapon = { PhysicalMin = 38, PhysicalMax = 79, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
+	weapon = { PhysicalMin = 34, PhysicalMax = 71, CritChanceBase = 5, AttackRateBase = 1.3, Range = 11, },
 	req = { level = 70, str = 163, dex = 84, },
 }
 
@@ -479,7 +479,7 @@ itemBases["Honed Cleaver"] = {
 	socketLimit = 6,
 	tags = { axe = true, weapon = true, not_for_sale = true, two_hand_weapon = true, experimental_base = true, twohand = true, default = true, },
 	influenceTags = { shaper = "2h_axe_shaper", elder = "2h_axe_elder", adjudicator = "2h_axe_adjudicator", basilisk = "2h_axe_basilisk", crusader = "2h_axe_crusader", eyrie = "2h_axe_eyrie", cleansing = "2h_axe_cleansing", tangle = "2h_axe_tangle" },
-	implicit = "+40% to Maximum Quality",
+	implicit = "+30% to Maximum Quality",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 60, PhysicalMax = 95, CritChanceBase = 5, AttackRateBase = 1.35, Range = 13, },
 	req = { level = 50, },

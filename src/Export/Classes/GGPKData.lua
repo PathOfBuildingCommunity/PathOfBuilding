@@ -241,6 +241,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/stat_descriptions.txt",
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
+		"Metadata/StatDescriptions/tincture_stat_descriptions.txt",
 	}
 	local itFiles = {
 		"Metadata/Items/Quivers/AbstractQuiver.it",
@@ -282,6 +283,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/Items/Weapons/OneHandWeapons/AbstractOneHandWeapon.it",
 		"Metadata/Items/Equipment.it",
 		"Metadata/Items/Weapons/AbstractWeapon.it",
+		"Metadata/Items/Tinctures/AbstractTincture.it",
 	}
 	return datFiles, txtFiles, itFiles
 end
