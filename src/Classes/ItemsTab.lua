@@ -1901,7 +1901,7 @@ function ItemsTabClass:CraftItem()
 		item.crucibleModLines = { }
 		item.quality = 0
 		local raritySel = controls.rarity.selIndex
-		if base.base.flask then
+		if base.base.flask or (base.base.type == "Jewel" and base.base.subType == "Charm") then
 			if raritySel == 3 then
 				raritySel = 2
 			end
