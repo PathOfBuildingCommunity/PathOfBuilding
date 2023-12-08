@@ -429,8 +429,8 @@ function PassiveSpecClass:DecodeURL(url)
 	end
 	local classId = b:byte(5)
 	local ascendancyIds = (ver >= 4) and b:byte(6) or 0
-	local ascendClassId = band(ascendancyIds, 0x00000011)
-	local secondaryAscendClassId = band(ascendancyIds, 0x00001100)
+	local ascendClassId = band(ascendancyIds, 3)
+	local secondaryAscendClassId = b_rshift(band(ascendancyIds, 12), 2)
 	if not self.tree.classes[classId] then
 		return "Invalid tree link (bad class ID '"..classId.."')"
 	end
