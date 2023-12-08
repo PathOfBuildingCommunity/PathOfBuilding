@@ -4815,6 +4815,13 @@ return {
 		},
 		[6]={
 			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[7]={
+			list=false,
 			name="IncrementalEffectiveness",
 			refTo="",
 			type="Float",
