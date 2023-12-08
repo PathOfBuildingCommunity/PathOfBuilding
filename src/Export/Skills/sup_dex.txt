@@ -315,6 +315,20 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportLocusMine
+	addFlags = {
+		mine = true,
+	},
+	statMap = {
+		["support_locus_mine_damage_+%_final"] = {
+			mod("Damage", "MORE", nil),
+		},
+		["number_of_projectiles_+%_final_from_locus_mine_support"] = {
+			mod("ProjectileCount", "MORE", nil),
+		},
+	},
+#mods
+
 #skill SupportChanceToPoison
 #mods
 
@@ -400,6 +414,14 @@ local skills, mod, flag, skill = ...
 #skill SupportCriticalStrikeAffliction
 #mods
 
+#skill SupportSadism
+	statMap = {
+		["support_faster_ailments_ailment_duration_+%_final"] = {
+			mod("EnemyAilmentDuration", "MORE", nil), 
+		},
+	},
+#mods
+
 #skill SupportAdditionalCooldown
 #mods
 
@@ -423,6 +445,9 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, ModFlag.Dot),
 		},
 	},
+#mods
+
+#skill SupportReturningProjectiles
 #mods
 
 #skill SupportSwiftAfflictionPlus
@@ -548,12 +573,27 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
 		},
 		["support_manaforged_arrows_mana_cost_%_threshold"] = {
-			skill("triggeredByManaPercentSpent", true, { type = "SkillType", skillType = SkillType.Triggerable }),
-			skill("TriggerSkillManaSpentMultiRequirement", nil),
+			skill("triggeredByManaforged", true, { type = "SkillType", skillType = SkillType.Triggerable }),
+			skill("ManaForgedArrowsPercentThreshold", nil),
 			div = 100,
 		},
 	},
 #mods
 
 #skill SupportMomentum
+	statMap = {
+		["support_momentum_max_stacks"] = {
+			mod("MomentumStacksMax", "BASE", nil, 0, 0),
+		},
+		["count_as_momentum_+_if_not_channelled"] = {
+			mod("MomentumStacksExtra", "BASE", nil, 0, 0),
+		},
+		["support_momentum_attack_speed_+%_per_stack"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "MomentumStacks" }),
+		},
+		["support_momentum_movement_speed_+%_per_stack_removed"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "MomentumStacksRemoved" }, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
+#baseMod flag("SupportedByMomentum")
 #mods

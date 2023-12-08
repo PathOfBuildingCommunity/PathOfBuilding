@@ -3,7 +3,7 @@
 -- Class: Text List
 -- Simple list control for displaying a block of text
 --
-local TextListClass = newClass("TextListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, columns, list)
+local TextListClass = newClass("TextListControl", "Control", "ControlHost", function(self, anchor, x, y, width, height, columns, list, sectionHeights)
 	self.Control(anchor, x, y, width, height)
 	self.ControlHost()
 	self.controls.scrollBar = new("ScrollBarControl", {"RIGHT",self,"RIGHT"}, -1, 0, 18, 0, 40)
@@ -13,6 +13,7 @@ local TextListClass = newClass("TextListControl", "Control", "ControlHost", func
 	end
 	self.columns = columns or { { x = 0, align = "LEFT" } }
 	self.list = list or { }
+	self.sectionHeights = sectionHeights
 end)
 
 function TextListClass:IsMouseOver()
@@ -63,11 +64,27 @@ function TextListClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
+	local scrollBar = self.controls.scrollBar
+	if IsKeyDown("SHIFT") and self.sectionHeights then
+		for i, height in ipairs(self.sectionHeights) do
+			if height >= scrollBar.offset then
+				if key == "WHEELDOWN" then
+					scrollBar:SetOffset((i==#self.sectionHeights and self.sectionHeights[i] or self.sectionHeights[i + 1]))
+					return self
+				elseif key == "WHEELUP" then
+					scrollBar:SetOffset(i==1 and self.sectionHeights[i] or self.sectionHeights[i - 1])
+					return self
+				end
+			end
+		end
+		scrollBar.offset = scrollBar.offsetMax
+		return self
+	end
 	if key == "WHEELDOWN" then
-		self.controls.scrollBar:Scroll(1)
+		scrollBar:Scroll(1)
 		return self
 	elseif key == "WHEELUP" then
-		self.controls.scrollBar:Scroll(-1)
+		scrollBar:Scroll(-1)
 		return self
 	end
 end

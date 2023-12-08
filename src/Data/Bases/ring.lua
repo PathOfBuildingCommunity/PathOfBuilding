@@ -72,7 +72,7 @@ itemBases["Moonstone Ring"] = {
 	tags = { ring = true, default = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
 	implicit = "+(15-25) to maximum Energy Shield",
-	implicitModTypes = { { "energy_shield", "defences" }, },
+	implicitModTypes = { { "defences", "energy_shield" }, },
 	req = { level = 20, },
 }
 itemBases["Amethyst Ring"] = {
@@ -201,7 +201,7 @@ itemBases["Cogwork Ring"] = {
 	type = "Ring",
 	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
-	implicit = "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed",
+	implicit = "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed\n25% increased Suffix Modifier Magnitudes\nImplicit Modifiers Cannot Be Changed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	req = { level = 24, },
 }
@@ -209,7 +209,7 @@ itemBases["Geodesic Ring"] = {
 	type = "Ring",
 	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
-	implicit = "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed",
+	implicit = "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\n25% increased Prefix Modifier Magnitudes\nImplicit Modifiers Cannot Be Changed",
 	implicitModTypes = { {  }, {  }, {  }, },
 	req = { level = 24, },
 }

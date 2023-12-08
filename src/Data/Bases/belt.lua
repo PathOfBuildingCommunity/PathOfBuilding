@@ -15,7 +15,7 @@ itemBases["Chain Belt"] = {
 	tags = { belt = true, default = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(9-20) to maximum Energy Shield",
-	implicitModTypes = { { "energy_shield", "defences" }, },
+	implicitModTypes = { { "defences", "energy_shield" }, },
 	req = { },
 }
 itemBases["Leather Belt"] = {
@@ -54,7 +54,7 @@ itemBases["Micro-Distillery Belt"] = {
 	type = "Belt",
 	tags = { experimental_base = true, default = true, belt = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
-	implicit = "Flasks applied to you have 20% increased Effect\nCan't use Flask in Fifth Slot",
+	implicit = "Flasks applied to you have 30% increased Effect\nCan't use Flask in Fifth Slot",
 	implicitModTypes = { {  }, {  }, },
 	req = { level = 24, },
 }
@@ -71,7 +71,7 @@ itemBases["Vanguard Belt"] = {
 	tags = { not_for_sale = true, atlas_base_type = true, beltatlas1 = true, belt = true, default = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(260-320) to Armour and Evasion Rating",
-	implicitModTypes = { { "armour", "evasion", "defences" }, },
+	implicitModTypes = { { "defences", "armour", "evasion" }, },
 	req = { level = 78, },
 }
 itemBases["Crystal Belt"] = {
@@ -79,7 +79,7 @@ itemBases["Crystal Belt"] = {
 	tags = { beltatlas2 = true, not_for_sale = true, atlas_base_type = true, belt = true, default = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
 	implicit = "+(60-80) to maximum Energy Shield",
-	implicitModTypes = { { "energy_shield", "defences" }, },
+	implicitModTypes = { { "defences", "energy_shield" }, },
 	req = { level = 79, },
 }
 itemBases["Stygian Vise"] = {

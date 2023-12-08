@@ -2210,6 +2210,25 @@ return {
 			[1]="summon_totem_cast_speed_+%"
 		}
 	},
+	[91]={
+		lang={
+			English={
+				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						}
+					},
+					text="Aura cannot be applied unless you have a Minion from a Supported Skill"
+				}
+			}
+		},
+		name="guartdians_blessing_aura_only_while_minion",
+		stats={
+			[1]="support_guardians_blessing_aura_only_enabled_while_support_minion_is_summoned"
+		}
+	},
 	["accuracy_rating"]=31,
 	["accuracy_rating_+%"]=8,
 	["attack_maximum_added_chaos_damage"]=32,
@@ -2306,5 +2325,6 @@ return {
 	["spell_minimum_added_chaos_damage"]=89,
 	["spell_minimum_added_fire_damage"]=29,
 	["summon_totem_cast_speed_+%"]=90,
+	["support_guardians_blessing_aura_only_enabled_while_support_minion_is_summoned"]=91,
 	["wrath_aura_spell_lightning_damage_+%_final"]=30
 }

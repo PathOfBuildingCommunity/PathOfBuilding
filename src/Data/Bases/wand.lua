@@ -217,7 +217,7 @@ itemBases["Accumulator Wand"] = {
 	socketLimit = 3,
 	tags = { ranged = true, not_for_sale = true, onehand = true, wand = true, weapon = true, experimental_base = true, one_hand_weapon = true, default = true, },
 	influenceTags = { shaper = "wand_shaper", elder = "wand_elder", adjudicator = "wand_adjudicator", basilisk = "wand_basilisk", crusader = "wand_crusader", eyrie = "wand_eyrie", cleansing = "wand_cleansing", tangle = "wand_tangle" },
-	implicit = "Gain an Endurance, Frenzy or Power Charge every 6 seconds",
+	implicit = "Gain 2 Endurance, Frenzy or Power Charges every 6 seconds",
 	implicitModTypes = { {  }, },
 	weapon = { PhysicalMin = 29, PhysicalMax = 54, CritChanceBase = 7.5, AttackRateBase = 1.4, Range = 120, },
 	req = { level = 70, int = 237, },

@@ -17,7 +17,7 @@ return {
 					[1] = { line = "30% increased Stun and Block Recovery", value = { 30 }, },
 				},
 			},
-			[3] = { name = "Captain Tanner Lightfoot",
+			[3] = { name = "Fragment of Winter",
 				mods = {
 					-- base_avoid_freeze_%
 					[1] = { line = "100% chance to Avoid being Frozen", value = { 100 }, },
@@ -52,7 +52,7 @@ return {
 					[1] = { line = "Debuffs on you expire 20% faster", value = { 20 }, },
 				},
 			},
-			[4] = { name = "Queen of the Great Tangle",
+			[4] = { name = "Armala, the Widow",
 				mods = {
 					-- additional_chaos_resistance_against_damage_over_time_%
 					[1] = { line = "+40% Chaos Resistance against Damage Over Time", value = { 40 }, },
@@ -71,13 +71,13 @@ return {
 					[2] = { line = "20% chance to take 50% less Area Damage from Hits", value = { 20 }, },
 				},
 			},
-			[2] = { name = "Bin'aia, Crimson Rain",
+			[2] = { name = "Forest of Flames",
 				mods = {
 					-- elemental_damage_taken_+%_if_not_hit_recently
 					[1] = { line = "8% reduced Elemental Damage taken if you haven't been Hit Recently", value = { -8 }, },
 				},
 			},
-			[3] = { name = "The Infernal King",
+			[3] = { name = "Fire and Fury",
 				mods = {
 					-- self_take_no_extra_damage_from_critical_strikes_if_have_been_crit_recently
 					[1] = { line = "Take no Extra Damage from Critical Strikes if you have taken a Critical Strike Recently", value = { 1 }, },
@@ -102,19 +102,19 @@ return {
 					[2] = { line = "1% increased Movement Speed for each nearby Enemy, up to 8%", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Sebbert, Crescent's Point",
+			[2] = { name = "Khor, Sister of Shadows",
 				mods = {
 					-- base_avoid_projectiles_%_chance
 					[1] = { line = "10% chance to avoid Projectiles", value = { 10 }, },
 				},
 			},
-			[3] = { name = "Khor, Sister of Shadows",
+			[3] = { name = "Captain Clayborne, The Accursed",
 				mods = {
 					-- elemental_damage_taken_+%_if_been_hit_recently
 					[1] = { line = "6% reduced Elemental Damage taken if you have been Hit Recently", value = { -6 }, },
 				},
 			},
-			[4] = { name = "Captain Clayborne, The Accursed",
+			[4] = { name = "The Winged Death",
 				mods = {
 					-- avoid_chained_projectile_%_chance
 					[1] = { line = "Avoid Projectiles that have Chained", value = { 100 }, },
@@ -141,7 +141,7 @@ return {
 					[1] = { line = "60% less Duration of Ignite on You", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Megaera",
+			[2] = { name = "Mephod, the Earth Scorcher",
 				mods = {
 					-- unaffected_by_burning_ground
 					[1] = { line = "Unaffected by Burning Ground", value = { 1 }, },
@@ -203,7 +203,7 @@ return {
 					[2] = { line = "You cannot be Poisoned while there are at least 3 Poisons on you", value = { 3 }, },
 				},
 			},
-			[2] = { name = "Terror of the Infinite Drifts",
+			[2] = { name = "Avatar of Undoing",
 				mods = {
 					-- chaos_damage_taken_+%
 					[1] = { line = "5% reduced Chaos Damage taken", value = { -5 }, },
@@ -246,7 +246,7 @@ return {
 					[2] = { line = "Moving while Bleeding doesn't cause you to take extra Damage", value = { 1 }, },
 				},
 			},
-			[2] = { name = "Drek, Apex Hunter",
+			[2] = { name = "The Hollow Lady",
 				mods = {
 					-- cannot_gain_corrupted_blood_while_you_have_at_least_5_stacks
 					[1] = { line = "Corrupted Blood cannot be inflicted on you if you have at least 5 Corrupted Blood Debuffs on you", value = { 1 }, },
@@ -263,7 +263,7 @@ return {
 					[1] = { line = "60% reduced Effect of Shock on you", value = { -60 }, },
 				},
 			},
-			[2] = { name = "Stalker of the Endless Dunes",
+			[2] = { name = "The Blacksmith",
 				mods = {
 					-- cannot_be_blinded
 					[1] = { line = "Cannot be Blinded", value = { 1 }, },

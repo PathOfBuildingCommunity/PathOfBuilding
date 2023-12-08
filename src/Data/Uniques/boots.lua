@@ -96,6 +96,14 @@ Gain a Power Charge on Hit while Poisoned
 Necrotic Footprints
 50% chance for Spell Hits against you to inflict Poison
 ]],[[
+Kahuturoa's Certainty
+Ancient Greaves
+Requires Level 46, 82 Str
+(100-150)% increased Armour
+5% reduced Movement Speed
+(100-200)% increased Stun and Block Recovery
+Unaffected by Damaging Ailments
+]],[[
 Kaom's Roots
 Titan Greaves
 Variant: Pre 2.6.0
@@ -412,6 +420,8 @@ Requires Level 22, 42 Int
 ]],[[
 Replica Bones of Ullr
 Silk Slippers
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 22, 42 Int
@@ -419,8 +429,10 @@ Requires Level 22, 42 Int
 +20 to maximum Life
 +20 to maximum Mana
 (5-15)% increased Movement Speed
-Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Unique Enemy
-Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Unique Enemy
+{variant:1}Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Unique Enemy
+{variant:2}Summoned Phantasms have 10% chance to refresh their Duration when they Hit a Rare or Unique Enemy
+{variant:1}Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Unique Enemy
+{variant:2}Summoned Raging Spirits have 10% chance to refresh their Duration when they Hit a Rare or Unique Enemy
 ]],[[
 Doryani's Delusion
 Sorcerer Boots
@@ -687,13 +699,16 @@ Requires Level 69, 48 Str, 48 Dex
 ]],[[
 Annihilation's Approach
 Dragonscale Boots
+Variant: Pre 3.23.0
+Variant: Current
 Source: Drops from unique{The Searing Exarch} (Uber)
 Grants Level 20 Approaching Flames Skill
 (60-100)% increased Armour and Evasion
 30% increased Movement Speed
 Cannot be Chilled
 Cannot be Frozen
-Take 10000 Fire Damage per Second while Flame-Touched
+{variant:1}Take 10000 Fire Damage per Second while Flame-Touched
+{variant:2}Take 6000 Fire Damage per Second while Flame-Touched
 Gain Adrenaline when you become Flame-Touched
 Lose Adrenaline when you cease to be Flame-Touched
 ]],[[
@@ -767,6 +782,7 @@ Adds 1 to 80 Chaos Damage to Attacks
 {variant:2}25% increased Movement Speed
 {variant:1}+1 to Maximum number of Skeletons
 {variant:2}Summoned Skeleton Warriors are Permanent and Follow you
+{variant:2}Summon Skeletons cannot Summon more than 1 Skeleton Warrior
 ]],[[
 Replica Alberon's Warpath
 Soldier Boots
@@ -824,17 +840,21 @@ Socketed Gems are Supported by Level 25 Divine Blessing
 Ralakesh's Impatience
 Riveted Boots
 Variant: Pre 3.19.0
+Variant: Pre 3.23.0
 Variant: Current
 Requires Level 36, 35 Str, 35 Int
 +(15-25)% to Cold Resistance
 +(15-25)% to Chaos Resistance
 {variant:1}20% increased Movement Speed
-{variant:2}30% increased Movement Speed
+{variant:2,3}30% increased Movement Speed
 {variant:1}Gain a Frenzy, Endurance, or Power Charge once per second while you are Stationary
-Lose all Frenzy, Endurance, and Power Charges when you Move
+{variant:1,2}Lose all Frenzy, Endurance, and Power Charges when you Move
 {variant:2}Minimum Endurance Charges equal to Maximum while stationary
 {variant:2}Minimum Frenzy Charges equal to Maximum while stationary
 {variant:2}Minimum Power Charges equal to Maximum while stationary
+{variant:3}Count as having maximum number of Endurance Charges
+{variant:3}Count as having maximum number of Frenzy Charges
+{variant:3}Count as having maximum number of Power Charges
 ]],[[
 Wake of Destruction
 Mesh Boots

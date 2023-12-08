@@ -35,7 +35,7 @@ function breakdown.multiChain(out, chain)
 	end
 	if chain.total then
 		t_insert(out, chain.total)
-	elseif (lines > 0 and base ~= nil) or (lines > 1 and base == nil) then
+	elseif not chain.noTotal and (lines > 0 and base ~= nil) or (lines > 1 and base == nil) then
 		t_insert(out, s_format("= %.2f", multiplier * (base or 1)))
 	end
 	return lines
@@ -96,13 +96,13 @@ function breakdown.area(base, areaMod, total, incBreakpoint, moreBreakpoint, red
 	local out = {}
 	t_insert(out, label)
 	if base ~= total then
-		t_insert(out, s_format("%d ^8(base radius)", base))
+		t_insert(out, s_format("%.1fm ^8(base radius)", base / 10))
 		t_insert(out, s_format("x %.2f ^8(square root of area of effect modifier)", m_floor(100 * m_sqrt(areaMod)) / 100))
-		t_insert(out, s_format("= %d", total))
+		t_insert(out, s_format("= %.1fm", total / 10))
 	end
 	if incBreakpoint and moreBreakpoint and redBreakpoint and lessBreakpoint then
-		t_insert(out, s_format("^8Next breakpoint: %d%% increased AoE / a %d%% more AoE multiplier", incBreakpoint, moreBreakpoint))
-		t_insert(out, s_format("^8Previous breakpoint: %d%% reduced AoE / a %d%% less AoE multiplier", redBreakpoint, lessBreakpoint))
+		t_insert(out, s_format("^8Next 0.1m breakpoint: %d%% increased AoE / a %d%% more AoE multiplier", incBreakpoint, moreBreakpoint))
+		t_insert(out, s_format("^8Previous 0.1m breakpoint: %d%% reduced AoE / a %d%% less AoE multiplier", redBreakpoint, lessBreakpoint))
 	end
 	out.radius = total
 	return out
@@ -113,7 +113,7 @@ function breakdown.effMult(damageType, resist, pen, taken, mult, takenMore, sour
 	local resistForm = (damageType == "Physical") and "physical damage reduction" or "resistance"
 	local resistLabel = resistForm
 
-	if invertChance ~= 0 then
+	if invertChance and invertChance ~= 0 then
 		resistLabel = "average inverted "..resistForm
 	end
 	if sourceRes and sourceRes ~= damageType then

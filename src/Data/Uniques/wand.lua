@@ -304,8 +304,8 @@ Adds 1 to (35-45) Lightning Damage
 (25-35)% chance to gain a Power Charge on Kill
 ]],[[
 Tulborn
-{variant:1}Spiraled Wand
-{variant:2}Opal Wand
+{variant:1,2}Spiraled Wand
+{variant:3}Opal Wand
 Variant: Pre 3.16.0
 Variant: Pre 3.21.0
 Variant: Current

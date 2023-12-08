@@ -95,7 +95,17 @@ local minions, mod = ...
 #monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlow AxisEliteSoldierDominatingBlow
 #emit
 
+#monster Metadata/Monsters/Axis/AxisEliteSoldierDominatingBlowVaal AxisEliteSoldierDominatingBlowVaal
+#mod mod("Damage", "MORE", 200)
+#mod mod("DamageTaken", "MORE", -70)
+#emit
+
 #monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudge AbsolutionTemplarJudge
+#emit
+
+#monster Metadata/Monsters/TemplarJudge/AbsolutionTemplarJudgeVaal AbsolutionTemplarJudgeVaal
+#mod mod("Damage", "MORE", 200)
+#mod mod("DamageTaken", "MORE", -70)
 #emit
 
 #monster Metadata/Monsters/Rhoas/RhoaUniqueSummoned RhoaUniqueSummoned
@@ -125,4 +135,41 @@ local minions, mod = ...
 
 #monster Metadata/Monsters/LeagueExpedition/Arbalest/SummonedArbalest SummonedArbalists
 #limit ActiveArbalistLimit
+#emit
+
+#monster Metadata/Monsters/Axis/AxisEliteSoldierRadiance GuardianSentinel
+#emit
+
+-- This is a fake Minion to apply all 3 auras
+minions["GuardianRelicAll"] = {
+	name = "All Relics",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Anger",
+		"Hatred",
+		"Wrath",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+	},
+}
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicFire GuardianRelicFire
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicCold GuardianRelicCold
+#emit
+
+#monster Metadata/Monsters/AnimatedItem/ElementalLivingRelicLightning GuardianRelicLightning
 #emit

@@ -35,14 +35,14 @@ local function newlineCount(str)
 	end
 end
 
-local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom)
+local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler", "TooltipHost", function(self, anchor, x, y, width, height, init, prompt, filter, limit, changeFunc, lineHeight, allowZoom, clearable)
 	self.ControlHost()
 	self.Control(anchor, x, y, width, height)
 	self.UndoHandler()
 	self.TooltipHost()
 	self:SetText(init or "")
 	self.prompt = prompt
-	self.filter = filter or "^%w%p "
+	self.filter = filter or (main.unicode and "%c" or "^%w%p ")
 	self.filterPattern = "["..self.filter.."]"
 	self.limit = limit
 	self.changeFunc = changeFunc
@@ -56,19 +56,24 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.selBGCol = "^xBBBBBB"
 	self.blinkStart = GetTime()
 	self.allowZoom = allowZoom
+	local function buttonSize()
+		local _, height = self:GetSize()
+		return height - 4
+	end
 	if self.filter == "%D" or self.filter == "^%-%d" then
 		-- Add +/- buttons for integer number edits
 		self.isNumeric = true
-		local function buttonSize()
-			local width, height = self:GetSize()
-			return height - 4
-		end
 		self.controls.buttonDown = new("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "-", function()
 			self:OnKeyUp("DOWN")
 		end)
 		self.controls.buttonUp = new("ButtonControl", {"RIGHT",self.controls.buttonDown,"LEFT"}, -1, 0, buttonSize, buttonSize, "+", function()
 			self:OnKeyUp("UP")
 		end)
+	elseif clearable then
+		self.controls.buttonClear = new("ButtonControl", {"RIGHT",self,"RIGHT"}, -2, 0, buttonSize, buttonSize, "x", function()
+			self:SetText("", true)
+		end)
+		self.controls.buttonClear.shown = function() return #self.buf > 0 and self:IsMouseInBounds() end
 	end
 	self.controls.scrollBarH = new("ScrollBarControl", {"BOTTOMLEFT",self,"BOTTOMLEFT"}, 1, -1, 0, 14, 60, "HORIZONTAL", true)
 	self.controls.scrollBarH.width = function()
@@ -242,7 +247,7 @@ function EditClass:Draw(viewPort, noTooltip)
 	elseif mOver then
 		SetDrawColor(1, 1, 1)
 	elseif self.borderFunc then
-		r, g, b = self.borderFunc()
+		local r, g, b = self.borderFunc()
 		SetDrawColor(r, g, b)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)

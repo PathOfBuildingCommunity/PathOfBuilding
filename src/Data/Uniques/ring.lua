@@ -47,8 +47,6 @@ Implicits: 1
 ]],[[
 Astral Projector
 Topaz Ring
-League: Metamorph
-Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
 Requires Level 40
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Lightning Resistance
@@ -361,7 +359,7 @@ Implicits: 1
 {tags:jewellery_resistance}+(17-23)% to Chaos Resistance
 {variant:1,2}{tags:attack}+(300-350) to Accuracy Rating
 {variant:1}{tags:jewellery_defense}+(60-80) to Armour
-{variant:2}{tags:jewellery_defense}}+(260-300) to Armour
+{variant:2}{tags:jewellery_defense}+(260-300) to Armour
 {variant:2}{tags:life}+(40-50) to maximum Life
 {variant:1,2}{tags:jewellery_resistance}+(15-20)% to Chaos Resistance
 {variant:1,2}{tags:attack,life}(0.6-0.8)% of Physical Attack Damage Leeched as Life
@@ -549,6 +547,19 @@ Implicits: 1
 {variant:2}Steal Power, Frenzy, and Endurance Charges on Hit
 Total Recovery per second from Life Leech is Doubled
 ]],[[
+Honoured Alliance
+Coral Ring
+League: Ancestor
+Source: No longer obtainable
+LevelReq: 49
+Implicits: 1
+{tags:life}+(20-30) to maximum Life
+10% chance to Trigger Summon Spirit of Akoya on Kill
+{tags:jewellery_attribute}+(10-20) to all Attributes
+{tags:mana}(30-50)% increased Mana Regeneration Rate
+{tags:life}(10-15)% of Damage taken Recouped as Life
+]],
+[[
 The Hungry Loop
 Unset Ring
 Requires Level 45
@@ -1116,6 +1127,14 @@ Your Cold Damage cannot Freeze
 Immune to Chill
 {tags:jewellery_elemental}Adds 60 to 80 Cold Damage against Chilled Enemies
 ]],[[
+Tawhanuku's Timing
+Moonstone Ring
+{tags:jewellery_defense}+(15-25) to maximum Energy Shield
+{tags:caster}(30-40)% increased Spell Damage
+{tags:mana}+(60-80) to maximum Mana
+(5-10)% chance to Freeze, Shock and Ignite
+{tags:jewellery_defense,caster}Spells cause you to gain Energy Shield equal to their Upfront Cost every fifth time you Pay it
+]],[[
 Thief's Torment
 Prismatic Ring
 Variant: Pre 1.0.0
@@ -1400,8 +1419,6 @@ Implicits: 1
 ]],[[
 Warrior's Legacy
 Ruby Ring
-League: Metamorph
-Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
 Requires Level 16
 Implicits: 1
 {tags:jewellery_resistance}+(20-30)% to Fire Resistance

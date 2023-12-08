@@ -163,7 +163,6 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.controls.levelScalingButton = new("ButtonControl", {"LEFT",self.controls.pointDisplay,"RIGHT"}, 12, 0, 50, 20, self.characterLevelAutoMode and "Auto" or "Manual", function()
 		self.characterLevelAutoMode = not self.characterLevelAutoMode
 		self.controls.levelScalingButton.label = self.characterLevelAutoMode and "Auto" or "Manual"
-		self.recalcAdaptiveLevel = true
 		self.configTab:BuildModList()
 		self.modFlag = true
 		self.buildFlag = true
@@ -227,6 +226,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
+	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+		self.spec:SelectSecondaryAscendClass(value.ascendClassId)
+		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
+		self.buildFlag = true
+	end)
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
@@ -241,14 +246,15 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "PvpAverageDamage", label = "PvP Average Damage", fmt = ".1f", compPercent = true, flag = "attackPvP" },
 		{ stat = "Speed", label = "Attack Rate", fmt = ".2f", compPercent = true, flag = "attack", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
 		{ stat = "Speed", label = "Cast Rate", fmt = ".2f", compPercent = true, flag = "spell", condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
-		{ stat = "ServerTriggerRate", label = "Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
-		{ stat = "Speed", label = "Effective Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 and o.ServerTriggerRate ~= o.Speed end },
+		{ stat = "Speed", label = "Effective Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
 		{ stat = "WarcryCastTime", label = "Cast Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, flag = "warcry" },
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return not o.TriggerTime end },
+		{ stat = "HitTime", label = "Channel Time", fmt = ".2fs", compPercent = true, flag = "channelRelease", lowerIsBetter = true, condFunc = function(v,o) return not o.TriggerTime end },
+		{ stat = "ChannelTimeToTrigger", label = "Channel Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapThrowingTime", label = "Trap Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
 		{ stat = "TrapCooldown", label = "Trap Cooldown", fmt = ".3fs", lowerIsBetter = true },
 		{ stat = "MineLayingTime", label = "Mine Throwing Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
-		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, },
+		{ stat = "TotemPlacementTime", label = "Totem Placement Time", fmt = ".2fs", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return not o.TriggerTime end },
 		{ stat = "PreEffectiveCritChance", label = "Crit Chance", fmt = ".2f%%" },
 		{ stat = "CritChance", label = "Effective Crit Chance", fmt = ".2f%%", condFunc = function(v,o) return v ~= o.PreEffectiveCritChance end },
 		{ stat = "CritMultiplier", label = "Crit Multiplier", fmt = "d%%", pc = true, condFunc = function(v,o) return (o.CritChance or 0) > 0 end },
@@ -260,6 +266,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "BleedDPS", label = "Bleed DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Bleed DPS exceeds in game limit" end },
+		{ stat = "CorruptingBloodDPS", label = "Corrupting Blood DPS", fmt = ".1f", compPercent = true, warnFunc = function(v,o) return v >= data.misc.DotDpsCap and "Corrupting Blood DPS exceeds in game limit" end },
 		{ stat = "BleedDamage", label = "Total Damage per Bleed", fmt = ".1f", compPercent = true, flag = "showAverage" },
 		{ stat = "WithBleedDPS", label = "Total DPS inc. Bleed", fmt = ".1f", compPercent = true, flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 end },
 		{ stat = "IgniteDPS", label = "Ignite DPS", fmt = ".1f", compPercent = true, warnFunc = function(v) return v >= data.misc.DotDpsCap and "Ignite DPS exceeds in game limit" end },
@@ -272,7 +279,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "PoisonDamage", label = "Total Damage per Poison", fmt = ".1f", compPercent = true },
 		{ stat = "WithPoisonDPS", label = "Total DPS inc. Poison", fmt = ".1f", compPercent = true, flag = "poison", flag = "notAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
 		{ stat = "DecayDPS", label = "Decay DPS", fmt = ".1f", compPercent = true },
-		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.showTotalDotDPS or ( v ~= o.TotalDot and v ~= o.TotalPoisonDPS and v ~= o.CausticGroundDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BurningGroundDPS and v ~= o.BleedDPS ) end, warnFunc = function(v) return v >= data.misc.DotDpsCap and "DoT DPS exceeds in game limit" end },
+		{ stat = "TotalDotDPS", label = "Total DoT DPS", fmt = ".1f", compPercent = true, condFunc = function(v,o) return o.showTotalDotDPS or ( v ~= o.TotalDot and v ~= o.TotalPoisonDPS and v ~= o.CausticGroundDPS and v ~= (o.TotalIgniteDPS or o.IgniteDPS) and v ~= o.BurningGroundDPS and v ~= o.BleedDPS and v~= o.CorruptingBloodDPS ) end, warnFunc = function(v) return v >= data.misc.DotDpsCap and "DoT DPS exceeds in game limit" end },
 		{ stat = "ImpaleDPS", label = "Impale Damage", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage" },
 		{ stat = "WithImpaleDPS", label = "Damage inc. Impale", fmt = ".1f", compPercent = true, flag = "impale", flag = "showAverage", condFunc = function(v,o) return v ~= o.TotalDPS and (o.TotalDot or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.PoisonDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end  },
 		{ stat = "ImpaleDPS", label = "Impale DPS", fmt = ".1f", compPercent = true, flag = "impale", flag = "notAverage" },
@@ -288,8 +295,8 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "SealCooldown", label = "Seal Gain Frequency", fmt = ".2fs", lowerIsBetter = true },
 		{ stat = "SealMax", label = "Max Number of Seals", fmt = "d" },
 		{ stat = "TimeMaxSeals", label = "Time to Gain Max Seals", fmt = ".2fs", lowerIsBetter = true },
-		{ stat = "AreaOfEffectRadius", label = "AoE Radius", fmt = "d" },
-		{ stat = "BrandAttachmentRange", label = "Attachment Range", fmt = "d", flag = "brand" },
+		{ stat = "AreaOfEffectRadiusMetres", label = "AoE Radius", fmt = ".1fm" },
+		{ stat = "BrandAttachmentRangeMetre", label = "Attachment Range", fmt = ".1fm", flag = "brand" },
 		{ stat = "BrandTicks", label = "Activations per Brand", fmt = "d", flag = "brand" },
 		{ stat = "ManaCost", label = "Mana Cost", fmt = "d", color = colorCodes.MANA, pool = "ManaUnreserved", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaHasCost end },
 		{ stat = "ManaPercentCost", label = "Mana Cost", fmt = "d%%", color = colorCodes.MANA, pool = "ManaUnreservedPercent", compPercent = true, lowerIsBetter = true, condFunc = function(v,o) return o.ManaPercentHasCost end },
@@ -378,7 +385,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", overCapStat = "SpellDodgeChanceOverCap" },
-		{ stat = "SpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
+		{ stat = "EffectiveSpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
 		{ },
 		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, overCapStat = "FireResistOverCap"},
 		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", hideStat = true },
@@ -401,8 +408,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "AverageDamage", label = "Average Damage", fmt = ".1f", compPercent = true },
 		{ stat = "Speed", label = "Attack/Cast Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return v > 0 and (o.TriggerTime or 0) == 0 end },
 		{ stat = "HitSpeed", label = "Hit Rate", fmt = ".2f" },
-		{ stat = "ServerTriggerRate", label = "Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
-		{ stat = "Speed", label = "Effective Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 and o.ServerTriggerRate ~= o.Speed end },
+		{ stat = "Speed", label = "Effective Trigger Rate", fmt = ".2f", compPercent = true, condFunc = function(v,o) return (o.TriggerTime or 0) ~= 0 end },
 		{ stat = "TotalDPS", label = "Hit DPS", fmt = ".1f", compPercent = true },
 		{ stat = "TotalDot", label = "DoT DPS", fmt = ".1f", compPercent = true },
 		{ stat = "WithDotDPS", label = "Total DPS inc. DoT", fmt = ".1f", compPercent = true, condFunc = function(v,o) return v ~= o.TotalDPS and (o.PoisonDPS or 0) == 0 and (o.IgniteDPS or 0) == 0 and (o.ImpaleDPS or 0) == 0 and (o.BleedDPS or 0) == 0 end },
@@ -731,64 +737,55 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 	self.abortSave = false
 end
 
+local acts = { 
+	[1] = { level = 1, questPoints = 0 }, 
+	[2] = { level = 12, questPoints = 2 }, 
+	[3] = { level = 22, questPoints = 3 }, 
+	[4] = { level = 32, questPoints = 5 },
+	[5] = { level = 40, questPoints = 6 },
+	[6] = { level = 44, questPoints = 8 },
+	[7] = { level = 50, questPoints = 11 },
+	[8] = { level = 54, questPoints = 14 },
+	[9] = { level = 60, questPoints = 17 },
+	[10] = { level = 64, questPoints = 19 },
+	[11] = { level = 67, questPoints = 22 },
+}
+
+local function actExtra(act, extra)
+	return act > 2 and extra or 0
+end
+
 function buildMode:EstimatePlayerProgress()
 	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
-	local extra = self.calcsTab.mainOutput.ExtraPoints or 0 
-	local usedMax, ascMax, levelreq, currentAct, banditStr, labSuggest = 99 + 22 + extra, 8, 1, 1, "", ""
-	local acts = { 
-		[1] = { level = 1, questPoints = 0 }, 
-		[2] = { level = 12, questPoints = 2 }, 
-		[3] = { level = 22, questPoints = 3 + extra }, 
-		[4] = { level = 32, questPoints = 5 + extra },
-		[5] = { level = 40, questPoints = 6 + extra },
-		[6] = { level = 44, questPoints = 8 + extra },
-		[7] = { level = 50, questPoints = 11 + extra },
-		[8] = { level = 54, questPoints = 14 + extra },
-		[9] = { level = 60, questPoints = 17 + extra },
-		[10] = { level = 64, questPoints = 19 + extra },
-		[11] = { level = 67, questPoints = 22 + extra }
-	}
-			
-	-- loop for how much quest skillpoints are used with the progress
-	while currentAct < 11 and PointsUsed + 1 - acts[currentAct].questPoints > acts[currentAct + 1].level do
-		currentAct = currentAct + 1
-	end
+	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
+	local usedMax, ascMax, level, act = 99 + 22 + extra, 8, 1, 0
 
-	-- bandits notification; when considered and in calculation after act 2
-	if currentAct <= 2 and extra ~= 0 then
-		extra = 0
-	end
+	-- Find estimated act and level based on points used
+	repeat
+		act = act + 1
+		level = m_min(m_max(PointsUsed + 1 - acts[act].questPoints - actExtra(act, extra), acts[act].level), 100)
+	until act == 11 or level <= acts[act + 1].level
 	
-	-- to prevent a negative level at a blank sheet the level requirement will be set dependent on points invested until caught up with quest skillpoints 
-	levelreq = m_min(math.max(PointsUsed - acts[currentAct].questPoints + 1, acts[currentAct].level), 100)
-	
-	self.lastAllocated = self.lastAllocated or -1
-	self.lastExtra = self.lastExtra or -1
-	
-	if self.characterLevelAutoMode and (self.lastAllocated ~= PointsUsed or self.lastExtra ~= extra or self.recalcAdaptiveLevel) then
-		self.characterLevel = levelreq
+	if self.characterLevelAutoMode and self.characterLevel ~= level then
+		self.characterLevel = level
 		self.controls.characterLevel:SetText(self.characterLevel)
-		self.recalcAdaptiveLevel = false
 	end
-	
-	self.lastAllocated = PointsUsed
-	self.lastExtra = extra
 
 	-- Ascendency points for lab
 	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
-	local labstr = {"\nLabyrinth: Normal Lab", "\nLabyrinth: Cruel Lab", "\nLabyrinth: Merciless Lab", "\nLabyrinth: Uber Lab"}
-	local strAct = "Endgame"
-	if levelreq >= 33 and levelreq < 55 then labSuggest = labstr[1]
-	elseif levelreq >= 55 and levelreq < 68 then labSuggest = labstr[2]
-	elseif levelreq >= 68 and levelreq < 75 then labSuggest = labstr[3]
-	elseif levelreq >= 75 and levelreq < 90 then labSuggest = labstr[4] end
-	if levelreq < 90 and currentAct <= 10 then strAct = currentAct end
+	local labSuggest = level < 33 and ""
+		or level < 55 and "\nLabyrinth: Normal Lab"
+		or level < 68 and "\nLabyrinth: Cruel Lab"
+		or level < 75 and "\nLabyrinth: Merciless Lab"
+		or level < 90 and "\nLabyrinth: Uber Lab"
+		or ""
 	
 	if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
 	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
-	self.Act = strAct
+	self.Act = level < 90 and act <= 10 and act or "Endgame"
 	
-	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and colorCodes.NEGATIVE or "^7", PointsUsed, usedMax, AscUsed > ascMax and colorCodes.NEGATIVE or "^7", AscUsed, ascMax), "Required Level: ".. levelreq .. "\nEstimated Progress:\nAct: ".. strAct .. "\nQuestpoints: " .. acts[currentAct].questPoints - extra .. "\nExtra Skillpoints: " .. extra .. labSuggest
+	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and colorCodes.NEGATIVE or "^7", PointsUsed, usedMax, AscUsed > ascMax and colorCodes.NEGATIVE or "^7", AscUsed, ascMax),
+		"Required Level: "..level.."\nEstimated Progress:\nAct: "..self.Act.."\nQuestpoints: "..acts[act].questPoints.."\nExtra Skillpoints: "..actExtra(act, extra)..labSuggest
 end
 
 function buildMode:CanExit(mode)
@@ -1010,6 +1007,8 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
 	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
+	self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
+	self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
 
 	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then
@@ -1450,6 +1449,22 @@ function buildMode:AddDisplayStatList(statList, actor)
 			InsertIfNew(self.controls.warnings.lines, line)
 		end
 	end
+	if actor.output.VixensTooMuchCastSpeedWarn then
+		InsertIfNew(self.controls.warnings.lines, "You may have too much cast speed or too little cooldown reduction to effectively use Vixen's Curse replacement")
+	end
+end
+
+function buildMode:InsertItemWarnings()
+	if self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning then
+		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning) do
+			InsertIfNew(self.controls.warnings.lines, "You are exceeding jewel limit with the jewel "..warning)
+		end
+	end
+	if self.calcsTab.mainEnv.itemWarnings.socketLimitWarning then
+		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.socketLimitWarning) do
+			InsertIfNew(self.controls.warnings.lines, "You have too many gems in your "..warning.." slot")
+		end
+	end
 end
 
 -- Build list of side bar stats
@@ -1479,6 +1494,7 @@ function buildMode:RefreshStatList()
 		t_insert(statBoxList, { height = 14, align = "CENTER_X", x = 140, self.calcsTab.mainEnv.player.mainSkill.disableReason })
 	end
 	self:AddDisplayStatList(self.displayStats, self.calcsTab.mainEnv.player)
+	self:InsertItemWarnings()
 end
 
 function buildMode:CompareStatList(tooltip, statList, actor, baseOutput, compareOutput, header, nodeCount)

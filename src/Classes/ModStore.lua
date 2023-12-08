@@ -8,6 +8,7 @@ local pairs = pairs
 local select = select
 local t_insert = table.insert
 local m_floor = math.floor
+local m_ceil = math.ceil
 local m_min = math.min
 local m_max = math.max
 local m_modf = math.modf
@@ -233,14 +234,18 @@ end
 function ModStoreClass:GetStat(stat, cfg)
 	if stat == "ManaReservedPercent" then
 		local reservedPercentMana = 0
-		for _, activeSkill in ipairs(self.actor.activeSkillList) do
-			if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
-				local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
-				reservedPercentMana = manaBase / self.actor.output["Mana"] * 100
-				break
+		-- Check if mana is 0 (i.e. from Blood Magic) to avoid division by 0.
+		local totalMana = self.actor.output["Mana"]
+		if totalMana == 0 then return 0 else
+			for _, activeSkill in ipairs(self.actor.activeSkillList) do
+				if (activeSkill.skillTypes[SkillType.Aura] and not activeSkill.skillFlags.disable and activeSkill.buffList and activeSkill.buffList[1] and activeSkill.buffList[1].name == cfg.skillName) then
+					local manaBase = activeSkill.skillData["ManaReservedBase"] or 0
+					reservedPercentMana = manaBase / totalMana * 100
+					break
+				end
 			end
+			return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
 		end
-		return m_min(reservedPercentMana, 100) --Don't let people get more than 100% reservation for aura effect.
 	end
 	-- if ReservationEfficiency is -100, ManaUnreserved is nan which breaks everything if Arcane Cloak is enabled
 	if stat == "ManaUnreserved" and self.actor.output[stat] ~= self.actor.output[stat] then
@@ -288,10 +293,13 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 			local mult = m_floor(base / (tag.div or 1) + 0.0001)
 			local limitTotal
+			local limitNegTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or limitTarget:GetMultiplier(tag.limitVar, cfg)
 				if tag.limitTotal then
 					limitTotal = limit
+				elseif tag.limitNegTotal then
+					limitNegTotal = limit
 				else
 					mult = m_min(mult, limit)
 				end
@@ -306,16 +314,25 @@ function ModStoreClass:EvalMod(mod, cfg)
 					if limitTotal then
 						value.mod.value = m_min(value.mod.value, limitTotal)
 					end
+					if limitNegTotal then
+						value.mod.value = m_max(value.mod.value, limitNegTotal)
+					end
 				else
 					value.value = value.value * mult + (tag.base or 0)
 					if limitTotal then
 						value.value = m_min(value.value, limitTotal)
+					end
+					if limitNegTotal then
+						value.value = m_max(value.value, limitNegTotal)
 					end
 				end
 			else
 				value = value * mult + (tag.base or 0)
 				if limitTotal then
 					value = m_min(value, limitTotal)
+				end
+				if limitNegTotal then
+					value = m_max(value, limitNegTotal)
 				end
 			end
 		elseif tag.type == "MultiplierThreshold" then
@@ -386,15 +403,22 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "PercentStat" then
 			local base
+			local target = self
+			-- This functions similar to the above tagTypes in regard to which actor to use, but for PercentStat
+			-- if the actor is 'parent', we don't want to return if we're already using 'parent', just keep using 'self'
+			if tag.actor and self.actor[tag.actor] then
+				target = self.actor[tag.actor].modDB
+			end
 			if tag.statList then
 				base = 0
 				for _, stat in ipairs(tag.statList) do
-					base = base + self:GetStat(stat, cfg)
+					base = base + target:GetStat(stat, cfg)
 				end
 			else
-				base = self:GetStat(tag.stat, cfg)
+				base = target:GetStat(tag.stat, cfg)
 			end
-			local mult = base * (tag.percent and tag.percent / 100 or 1)
+			local percent = tag.percent or self:GetMultiplier(tag.percentVar, cfg)
+			local mult = base * (percent and percent / 100 or 1)
 			local limitTotal
 			if tag.limit or tag.limitVar then
 				local limit = tag.limit or self:GetMultiplier(tag.limitVar, cfg)
@@ -407,18 +431,18 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if type(value) == "table" then
 				value = copyTable(value)
 				if value.mod then
-					value.mod.value = value.mod.value * mult + (tag.base or 0)
+					value.mod.value = m_ceil(value.mod.value * mult + (tag.base or 0))
 					if limitTotal then
 						value.mod.value = m_min(value.mod.value, limitTotal)
 					end
 				else
-					value.value = value.value * mult + (tag.base or 0)
+					value.value = m_ceil(value.value * mult + (tag.base or 0))
 					if limitTotal then
 						value.value = m_min(value.value, limitTotal)
 					end
 				end
 			else
-				value = value * mult + (tag.base or 0)
+				value = m_ceil(value * mult + (tag.base or 0))
 				if limitTotal then
 					value = m_min(value, limitTotal)
 				end
@@ -434,6 +458,10 @@ function ModStoreClass:EvalMod(mod, cfg)
 				stat = self:GetStat(tag.stat, cfg)
 			end
 			local threshold = tag.threshold or self:GetStat(tag.thresholdStat, cfg)
+			if tag.thresholdPercent or tag.thresholdPercentVar then
+				local thresholdPercent = tag.thresholdPercent or self:GetMultiplier(tag.thresholdPercentVar, cfg)
+				threshold = threshold * (thresholdPercent and thresholdPercent / 100 or 1)
+			end
 			if (tag.upper and stat > threshold) or (not tag.upper and stat < threshold) then
 				return
 			end
@@ -509,7 +537,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if tag.actor then
 				target = self.actor[tag.actor] and self.actor[tag.actor].modDB
 			end
-			if target then
+			if target and (tag.var or tag.varList) then
 				if tag.varList then
 					for _, var in pairs(tag.varList) do
 						if target:GetCondition(var, cfg) then
@@ -520,7 +548,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 				else
 					match = target:GetCondition(tag.var, cfg)
 				end
-			elseif tag.actor and cfg and tag.var == nil and tag.varList == nil and tag.actor == cfg.actor then
+			elseif tag.actor and cfg and tag.actor == cfg.actor then
 				match = true
 			end
 			if tag.neg then
@@ -530,35 +558,57 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 		elseif tag.type == "ItemCondition" then
+			local matches = {}
 			local match = false
-			local searchCond = tag.var
-			local itemSlot = tag.itemSlot:gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
-			local bCheckAllAppropriateSlots = tag.allSlots
-			if searchCond and itemSlot then
+			local searchCond = tag.searchCond
+			local rarityCond = tag.rarityCond
+			local corruptedCond = tag.corruptedCond
+			local allSlots = tag.allSlots
+			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
+			local bCheckAllAppropriateSlots = tag.bothSlots
+			local items
+			if allSlots then
+				items = self.actor.itemList
+			elseif self.actor.itemList then
+				items = {self.actor.itemList[itemSlot] or (cfg and cfg.item)}
 				if bCheckAllAppropriateSlots then
-					local match1 = false
-					local match2 = false
 					local itemSlot1 = self.actor.itemList[itemSlot .. " 1"]
 					local itemSlot2 = self.actor.itemList[itemSlot .. " 2"]
 					if itemSlot1 and itemSlot1.name:match("Kalandra's Touch") then itemSlot1 = itemSlot2 end
 					if itemSlot2 and itemSlot2.name:match("Kalandra's Touch") then itemSlot2 = itemSlot1 end
-					if itemSlot1 then
-						match1 = itemSlot1:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
-					end
-					if itemSlot2 then
-						match2 = itemSlot2:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
-					end
-					match = match1 and match2
-				else
-					if self.actor.itemList[itemSlot] then
-						match = self.actor.itemList[itemSlot]:FindModifierSubstring(searchCond:lower(), itemSlot:lower())
+					if itemSlot1 and itemSlot2 then
+						t_insert(items, itemSlot1)
+						t_insert(items, itemSlot2)
 					end
 				end
 			end
-			if tag.neg then
-				match = not match
+			if items and #items > 0 or allSlots then
+				if searchCond then
+					for slot, item in pairs(items) do
+						if (not allSlots or allSlots and item.type ~= "Jewel") and slot ~= itemSlot or not tag.excludeSelf then
+							t_insert(matches, item:FindModifierSubstring(searchCond:lower(), itemSlot:lower()))
+						end
+					end
+				end
+				if rarityCond then
+					for _, item in pairs(items) do
+						t_insert(matches, item.rarity == rarityCond)
+					end
+				end
+				if corruptedCond then
+					for _, item in pairs(items) do
+						t_insert(matches, item.corrupted == corruptedCond)
+					end
+				end
 			end
-			if not match then
+			for _, bool in ipairs(matches) do
+				if bool then
+					match = not tag.neg
+					break
+				end
+				match = tag.neg == true
+			end
+			if not match and #matches > 0 then
 				return
 			end
 		elseif tag.type == "SocketedIn" then
