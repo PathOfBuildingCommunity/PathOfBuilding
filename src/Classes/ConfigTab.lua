@@ -69,7 +69,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 			if labelMatch:find(keyword) then
 				return false
 			end
-
+		end
+		return true
+	end
 
 	local function implyCond(varData)
 		local mainEnv = self.build.calcsTab.mainEnv
