@@ -31,7 +31,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 	self.controls.search = new("EditControl", { "TOPLEFT", self, "TOPLEFT" }, 8, 5, 360, 20, "", "Search", "%c", 100, function()
 		self:UpdateControls()
-	end)
+	end, nil, nil, true)
 	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self.controls.search, "TOPLEFT" }, -10, 15, 0, 0, "")
 
 	local function searchMatch(varData)
@@ -655,6 +655,8 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self:Redo()
 				self.build.buildFlag = true
+			elseif event.key == "f" and IsKeyDown("CTRL") then
+				self:SelectControl(self.controls.search)
 			end
 		end
 	end
