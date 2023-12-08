@@ -1834,6 +1834,12 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		local node = self.build.spec.tree.nodes[tonumber(slotId)] or self.build.spec.nodes[tonumber(slotId)]
 		if not node or item.type ~= "Jewel" then
 			return false
+		elseif node.charmSocket or item.base.subType == "Charm" then
+			-- Charm sockets can only have charms, and charms can only be in charm sockets
+			if node.charmSocket and item.base.subType == "Charm" then
+				return true
+			end
+			return false
 		elseif item.clusterJewel and not node.expansionJewel then
 			-- Don't allow cluster jewels in inner sockets
 			return false
