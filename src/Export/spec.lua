@@ -9463,7 +9463,7 @@ return {
 		},
 		[7]={
 			list=false,
-			name="GlobalGemLevelStat",
+			name="MinionGlobalSkillLevelStat",
 			refTo="Stats",
 			type="Key",
 			width=150
@@ -9498,24 +9498,24 @@ return {
 		},
 		[12]={
 			list=false,
-			name="Ruthless",
-			refTo="",
-			type="Key",
-			width=150
-		},
-		[13]={
-			list=false,
 			name="GemColour",
 			refTo="",
 			type="Int",
 			width=100
 		},
-		[14]={
-			list=true,
+		[13]={
+			list=false,
 			name="GemLevelProgression",
-			refTo="ItemExperienceType",
+			refTo="ItemExperienceTypes",
 			type="Key",
 			width=400
+		},
+		[14]={
+			list=true,
+			name="MtxSlotType",
+			refTo="MtxSlotTypes: [MicrotransactionSkillGemEffectSlotTypes]",
+			type="Key",
+			width=150
 		},
 		[15]={
 			list=true,
