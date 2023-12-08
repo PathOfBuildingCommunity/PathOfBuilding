@@ -4275,33 +4275,26 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
+			name="SecondarySupportName",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[9]={
-			list=false,
-			name="",
-			refTo="",
+			list=true,
+			name="Tags",
+			refTo="GemTags",
 			type="ShortKey",
-			width=150
+			width=390
 		},
 		[10]={
-			list=false,
-			name="",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[11]={
 			list=false,
 			name="HungryLoopMod",
 			refTo="Mods",
 			type="Key",
 			width=280
 		},
-		[12]={
+		[11]={
 			list=false,
 			name="",
 			refTo="",
