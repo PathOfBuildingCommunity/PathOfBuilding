@@ -14,6 +14,7 @@ local m_floor = math.floor
 local b_lshift = bit.lshift
 local b_rshift = bit.rshift
 local band = bit.band
+local bor = bit.bor
 
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, convert)
 	self.UndoHandler()
@@ -428,8 +429,8 @@ function PassiveSpecClass:DecodeURL(url)
 	end
 	local classId = b:byte(5)
 	local ascendancyIds = (ver >= 4) and b:byte(6) or 0
-	local ascendClassId = band(ascendancyIds, 0x00001111)
-	local secondaryAscendClassId = b_rshift(ascendancyIds, 4)
+	local ascendClassId = band(ascendancyIds, 0x00000011)
+	local secondaryAscendClassId = b_rshift(ascendancyIds, 2)
 	if not self.tree.classes[classId] then
 		return "Invalid tree link (bad class ID '"..classId.."')"
 	end
@@ -465,7 +466,7 @@ end
 -- Encodes the current spec into a URL, using the official skill tree's format
 -- Prepends the URL with an optional prefix
 function PassiveSpecClass:EncodeURL(prefix)
-	local a = { 0, 0, 0, 6, self.curClassId, band(b_lshift(self.curSecondaryAscendClassId or 0, 4), self.curAscendClassId) }
+	local a = { 0, 0, 0, 6, self.curClassId, bor(b_lshift(self.curSecondaryAscendClassId or 0, 2), self.curAscendClassId) }
 
 	local nodeCount = 0
 	local clusterCount = 0
