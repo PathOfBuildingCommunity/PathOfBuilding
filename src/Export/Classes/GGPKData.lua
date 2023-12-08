@@ -174,6 +174,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/StatInterpolationTypes.dat",
 		"Data/Tags.dat",
 		"Data/GemTags.dat",
+		"Data/gemitemvisualeffect.dat",
 		"Data/ItemVisualIdentity.dat",
 		"Data/AchievementItems.dat",
 		"Data/MultiPartAchievements.dat",
@@ -212,6 +213,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/passiveskilltattoos.dat",
 		"Data/passiveskilltattootargetsets.dat",
 		"Data/displayminionmonstertype.dat",
+		"Data/tinctures.dat",
 		"Data/gemeffects.dat",
 	}
 	local txtFiles = {
