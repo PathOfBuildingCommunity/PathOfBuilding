@@ -4284,7 +4284,7 @@ return {
 			list=true,
 			name="Tags",
 			refTo="GemTags",
-			type="ShortKey",
+			type="Key",
 			width=390
 		},
 		[10]={
