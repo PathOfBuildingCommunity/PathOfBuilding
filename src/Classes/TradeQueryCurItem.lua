@@ -5,7 +5,7 @@ local TradeQueryCurItem = newClass("TradeQueryCurItem", function(self, item)
     -- self.itemType = item[3]
 	self.hostName = "https://www.pathofexile.com/"
     self.queryModsFilePath = "Data/QueryMods.lua"
-    self.league = 'Afflication'
+    self.league = 'Affliction'
     -- List of items that have a local and a non local option
     self.attrWithLocal = {
         "#% increased Armour, Evasion and Energy Shield",
@@ -196,12 +196,31 @@ function TradeQueryCurItem:GetTradeEndpoint(template)
 	end)
 	easy:perform()
 	easy:close()
-    return tradeLink
+    if tradeLink == nil then
+        easy:setopt_url("https://www.pathofexile.com/api/trade/search")
+        easy:setopt_useragent("Path of Building/" .. launch.versionNumber .. "test")
+        local header = {"Content-Type: application/json"}
+        easy:setopt(common.curl.OPT_HTTPHEADER, header)
+        easy:setopt(common.curl.OPT_POST, true)
+        easy:setopt(common.curl.OPT_POSTFIELDS, template)
+        easy:setopt(common.curl.OPT_ACCEPT_ENCODING, "")
+        easy:setopt_writefunction(function(data)
+            tradeLink = tradeLink..data
+            return true
+        end)
+        easy:perform()
+        easy:close()
+    end
+   return tradeLink
 end
 
 -- appends the endpoint to the default trade url
 function TradeQueryCurItem:GetTradeUrl(endpoint)
-    return 'https://www.pathofexile.com/trade/search/'.. self.league .. '/' .. endpoint;
+    if endpoint ~= nil then
+        return 'https://www.pathofexile.com/trade/search/'.. self.league .. '/' .. endpoint;
+    else
+        return 'https://www.pathofexile.com/trade/search/';
+    end
 end
 
 
