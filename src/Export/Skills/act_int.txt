@@ -1068,16 +1068,9 @@ local skills, mod, flag, skill = ...
 
 #skill FrostBomb
 #flags spell area duration
-	preDamageFunc = function(activeSkill, output)
-		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
-		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillData.frostBombDamagePer100ms * duration, "Skill:FrostBomb", ModFlag.Hit)
-	end,
 	statMap = {
 		["base_cold_damage_resistance_%"] = {
 			mod("ColdExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frost Bomb" }),
-		},
-		["frost_bomb_damage_+%_final_per_100ms_duration"] = {
-			skill("frostBombDamagePer100ms", nil),
 		},
 		["life_regeneration_rate_+%"] = {
 			mod("LifeRegen", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Frost Bomb" }),
