@@ -411,7 +411,6 @@ skills["BoneArmour"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 10,
-	incrementalEffectiveness = 0.029999999329448,
 	description = "Applies a buff to you and each of your minions, which will take some of the damage from enemy hits before being depleted. The buff also grants immunity to bleeding. Shares a cooldown with other Guard skills.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Guard] = true, [SkillType.Minion] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
@@ -479,7 +478,6 @@ skills["BrandDetonate"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 6.5999999046326,
-	incrementalEffectiveness = 0.03999999910593,
 	description = "Overcharges your brands near the targeted area, causing them to accelerate how quickly they activate and expire. Deals damage in an area around each overcharged brand when it expires.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Multicastable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -540,7 +538,6 @@ skills["UniqueEnchantmentOfInfernoOnCrit"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 3.5555999279022,
-	incrementalEffectiveness = 0.035000000149012,
 	description = "Drops a meteor from above on a nearby foe, dealing fire damage in an area around them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -756,7 +753,6 @@ skills["DeathWish"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 2.1530001163483,
-	incrementalEffectiveness = 0.032299999147654,
 	description = "As you channel this spell, it spreads its effect to more of your minions. When you stop channelling, each affected minion explodes, and this skill deals spell damage around them.  The explosion of the minion is not affected by modifiers to spell damage, and cannot be reflected.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Minion] = true, [SkillType.Fire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -891,9 +887,6 @@ skills["GemDetonateMines"] = {
 	qualityStats = {
 		Default = {
 			{ "mine_detonation_speed_+%", 1 },
-		},
-		Alternate1 = {
-			{ "detonate_mines_recover_permyriad_of_life_per_mine_detonated", 1 },
 		},
 	},
 	constantStats = {
@@ -1031,9 +1024,6 @@ skills["SupportElementalPenetration"] = {
 		Default = {
 			{ "elemental_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "non_damaging_ailment_effect_+%", 0.5 },
-		},
 	},
 	stats = {
 		"reduce_enemy_elemental_resistance_%",
@@ -1086,7 +1076,6 @@ skills["OnHitWhileCursedTriggeredCurseNova"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 3,
-	incrementalEffectiveness = 0.050000000745058,
 	description = "Fires projectiles in all directions, converting all their physical damage to a random element, and grants a buff which makes you unaffected by curses for a duration. Removes curses on you when used.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Buff] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1159,7 +1148,6 @@ skills["Envy"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 2.0999999046326,
-	incrementalEffectiveness = 0.023000000044703,
 	description = "Casts an aura that adds chaos damage to the attacks and spells of you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Chaos] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.CanHaveBlessing] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
@@ -1237,7 +1225,6 @@ skills["FireBurstOnHit"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 2.5199999809265,
-	incrementalEffectiveness = 0.043999999761581,
 	description = "A burst of flame errupts from the location of a hit, dealing fire damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1337,7 +1324,6 @@ skills["AtziriUniqueStaffFlameblast"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 4.0500001907349,
-	incrementalEffectiveness = 0.055500000715256,
 	description = "Creates markers at your location and a targeted location, which grow over time based on cast speed, then explode, dealing fire damage. Cannot be supported by Spell Cascade.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Fire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1566,6 +1552,7 @@ skills["IcestormUniqueStaff12"] = {
 		{ "firestorm_drop_ground_ice_duration_ms", 500 },
 		{ "skill_effect_duration_per_100_int", 100 },
 		{ "firestorm_max_number_of_storms", 5 },
+		{ "active_skill_base_area_of_effect_radius", 16 },
 	},
 	stats = {
 		"base_skill_show_average_damage_instead_of_dps",
@@ -1732,7 +1719,6 @@ skills["LightningSpell"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 8,
-	incrementalEffectiveness = 0.035000000149012,
 	description = "A bolt of lightning strikes an area, dealing lightning damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggered] = true, [SkillType.Lightning] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -1970,9 +1956,6 @@ skills["Portal"] = {
 		Default = {
 			{ "base_cast_speed_+%", 3 },
 		},
-		Alternate1 = {
-			{ "portal_alternate_destination_chance_permyriad", 1 },
-		},
 	},
 	stats = {
 		"base_deal_no_damage",
@@ -2146,7 +2129,6 @@ skills["ShieldShatter"] = {
 	hidden = true,
 	color = 1,
 	baseEffectiveness = 0.34000000357628,
-	incrementalEffectiveness = 0.045000001788139,
 	description = "Your shield shatters, dealing physical spell damage to enemies in an area, based on the shield's quality. For a short duration after this, you will be unable to block and will gain no defences from your shield, but your spells will deal added physical damage.",
 	skillTypes = { [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
@@ -2284,7 +2266,6 @@ skills["SpiritBurst"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 1.875,
-	incrementalEffectiveness = 0.03999999910593,
 	description = "Consumes a spirit charge to fire projectiles which deals physical damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -2317,7 +2298,6 @@ skills["VolatileDeadChaos"] = {
 	hidden = true,
 	color = 2,
 	baseEffectiveness = 3,
-	incrementalEffectiveness = 0.0337999984622,
 	description = "A corpse near the targeted location explodes, dealing damage in a small area and creating an orb which moves towards nearby enemies before dealing spell damage in a larger area. The explosion of the corpse is not affected by modifiers to spell damage, and cannot be reflected.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Triggered] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -2334,9 +2314,10 @@ skills["VolatileDeadChaos"] = {
 	constantStats = {
 		{ "volatile_dead_base_number_of_corpses_to_consume", 1 },
 		{ "corpse_explosion_monster_life_%_chaos", 9 },
-		{ "volatile_dead_core_explosion_radius_+", 13 },
-		{ "volatile_dead_max_cores_allowed", 10 },
+		{ "volatile_dead_max_cores_allowed", 13 },
 		{ "chance_to_cast_on_kill_%", 100 },
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 15 },
 	},
 	stats = {
 		"spell_minimum_base_chaos_damage",
@@ -2354,7 +2335,6 @@ skills["StormCascadeTriggered"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 1.7555999755859,
-	incrementalEffectiveness = 0.034600000828505,
 	description = "Lightning crackles in a series of small bursts, each damaging enemies caught in the area.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Physical] = true, [SkillType.InbuiltTrigger] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Triggered] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -2414,7 +2394,6 @@ skills["AtziriUniqueStaffStormCall"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 4.0549998283386,
-	incrementalEffectiveness = 0.040500000119209,
 	description = "Creates a number of markers around the targeted location, which will explode after a duration, dealing lightning damage. Cannot be supported by Spell Cascade.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Lightning] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -3015,7 +2994,6 @@ skills["SummonRadiantSentinel"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 2.0517001152039,
-	incrementalEffectiveness = 0.043200001120567,
 	description = "Summons a Sentinel of Radiance which follows you and attacks enemies in melee, while burning enemies around it and taking a portion of damage from hits for you. You can only have one Sentinel of Radiance.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
 	minionSkillTypes = { [SkillType.DamageOverTime] = true, [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, },
@@ -3142,7 +3120,6 @@ skills["SummonVoidSphere"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 3.4818000793457,
-	incrementalEffectiveness = 0.035599999129772,
 	description = "Creates an orb which moves towards nearby enemies, exploding after a duration or when it gets close enough. The explosion deals cold spell damage in an area, and leaves behind a Vortex on the ground for a secondary duration which continues to deal cold damage over time and chill enemies caught in it.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Duration] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Cold] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -3173,7 +3150,7 @@ skills["SummonVoidSphere"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, 83.333335195979, storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 70, cooldown = 2, statInterpolation = { 3, 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 5, storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 70, cooldown = 2, statInterpolation = { 3, 3, 3, }, },
 	},
 }
 skills["SummonMirageChieftain"] = {
@@ -3291,7 +3268,6 @@ skills["AvianTornado"] = {
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 2.1300001144409,
-	incrementalEffectiveness = 0.02559999935329,
 	description = "Launches an unpredictable, piercing twister projectile that moves randomly for a duration, repeatedly dealing damage to enemies it intersects.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
@@ -3463,6 +3439,7 @@ skills["VoidShot"] = {
 		"skill_can_fire_arrows",
 		"base_skill_show_average_damage_instead_of_dps",
 		"attack_unusable_if_triggerable",
+		"quality_display_active_skill_area_damage_is_gem",
 	},
 	levels = {
 		[20] = { damageEffectiveness = 0.65, PvPDamageMultiplier = -80, baseMultiplier = 0.65, levelRequirement = 70, },
