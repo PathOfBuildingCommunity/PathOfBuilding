@@ -4911,10 +4911,10 @@ return {
 			name="FloatStats",
 			refTo="Stats",
 			type="Key",
-			width=600
+			width=800
 		},
 		[13]={
-			list=false,
+			list=true,
 			name="",
 			refTo="",
 			type="Key",
@@ -9470,9 +9470,9 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
+			name="IsSupport",
 			refTo="",
-			type="Int",
+			type="Bool",
 			width=150
 		},
 		[9]={
@@ -9480,44 +9480,65 @@ return {
 			name="",
 			refTo="",
 			type="Bool",
-			width=80
+			width=150
 		},
 		[10]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=80
 		},
 		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[14]={
 			list=false,
 			name="Awakened",
 			refTo="SkillGems",
 			type="Key",
 			width=200
 		},
-		[12]={
+		[15]={
 			list=false,
 			name="GemColour",
 			refTo="",
 			type="Int",
 			width=100
 		},
-		[13]={
+		[16]={
 			list=false,
 			name="GemLevelProgression",
 			refTo="ItemExperienceTypes",
 			type="Key",
 			width=400
 		},
-		[14]={
+		[17]={
 			list=true,
 			name="MtxSlotType",
 			refTo="MtxSlotTypes: [MicrotransactionSkillGemEffectSlotTypes]",
 			type="Key",
 			width=150
 		},
-		[15]={
+		[18]={
 			list=true,
 			name="GemVariants",
 			refTo="GemEffects",
