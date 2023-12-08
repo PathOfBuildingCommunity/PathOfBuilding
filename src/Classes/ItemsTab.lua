@@ -1852,6 +1852,8 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		end
 	elseif item.type == slotType then
 		return true
+	elseif item.type == "Tincture" and slotType == "Flask" then
+		return true
 	elseif item.type == "Jewel" and item.base.subType == "Abyss" and slotName:match("Abyssal Socket") then
 		return true
 	elseif slotName == "Weapon 1" or slotName == "Weapon 1 Swap" or slotName == "Weapon" then
