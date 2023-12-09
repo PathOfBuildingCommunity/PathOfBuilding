@@ -268,8 +268,9 @@ skills["ArcticBreath"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 12),
 		skill("dotIsArea", true),
+		skill("radiusLabel", "Projectile Impact:"),
+		skill("radiusSecondaryLabel", "DoT Area:"),
 	},
 	qualityStats = {
 		Default = {
@@ -357,7 +358,6 @@ skills["CataclysmSigil"] = {
 		brand = true,
 	},
 	baseMods = {
-		skill("radius", 22),
 		skill("radiusSecondary", 8),
 	},
 	qualityStats = {
@@ -447,9 +447,6 @@ skills["AssassinsMark"] = {
 		},
 		["mana_granted_when_killed"] = {
 			mod("SelfManaOnKill", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-		["base_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
 	},
 	baseFlags = {
@@ -693,7 +690,6 @@ skills["BallLightning"] = {
 		projectile = true,
 	},
 	baseMods = {
-		skill("radius", 18),
 		skill("strikeInterval", 0.15),
 		skill("projectileSpeed", 40),
 		skill("duration", 2),
@@ -800,7 +796,6 @@ skills["DarkRitual"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 21),
 	},
 	qualityStats = {
 		Default = {
@@ -1324,17 +1319,11 @@ skills["BoneOffering"] = {
 	statDescriptionScope = "offering_skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["cast_speed_+%_granted_from_skill"] = {
-			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
 		["monster_base_block_%"] = {
 			mod("BlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["base_spell_block_%"] = {
 			mod("SpellBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["minion_recover_X_life_on_block"] = {
-			mod("LifeOnBlock", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	baseFlags = {
@@ -1471,12 +1460,6 @@ skills["Clarity"] = {
 		["base_mana_regeneration_rate_per_minute"] = {
 			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 			div = 60,
-		},
-		["damage_+%_on_full_mana"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullMana" }, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["flask_mana_to_recover_+%"] = {
-			mod("FlaskManaRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -1634,8 +1617,10 @@ skills["ColdSnap"] = {
 	},
 	baseMods = {
 		skill("showAverage", false),
-		skill("radius", 16),
 		skill("dotIsArea", true),
+		skill("radiusLabel", "Initial Burst:"),
+		skill("radiusSecondaryLabel", "Initial Chilled Ground:"),
+		skill("radiusTertiaryLabel", "Final Chilled Ground:"),
 	},
 	qualityStats = {
 		Default = {
@@ -1719,10 +1704,9 @@ skills["VaalColdSnap"] = {
 	},
 	baseMods = {
 		skill("dotIsArea", true),
-		skill("radius", 20),
-		skill("radiusLabel", "Initial Area:"),
-		skill("radiusSecondary", 36),
-		skill("radiusSecondaryLabel", "Final Area:"),
+		skill("radiusLabel", "Initial Burst:"),
+		skill("radiusSecondaryLabel", "Initial Chilled Ground:"),
+		skill("radiusTertiaryLabel", "Final Chilled Ground:"),
 	},
 	qualityStats = {
 		Default = {
@@ -1894,7 +1878,6 @@ skills["Contagion"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
-		skill("radius", 17),
 	},
 	qualityStats = {
 		Default = {
@@ -1961,11 +1944,6 @@ skills["ConversionTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Mineable] = true, [SkillType.Trapped] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["conversation_trap_converted_enemy_damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil) } )
-		}
-	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -2123,6 +2101,9 @@ skills["Disintegrate"] = {
 		["disintegrate_base_radius_+_per_intensify"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "Intensity", limitVar = "IntensityLimit" }),
 		},
+		["quality_display_disintegrate_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -2233,6 +2214,9 @@ skills["DarkPact"] = {
 		["skeletal_chains_no_minions_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 1 }),
 		},
+		["quality_display_dark_pact_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -2310,9 +2294,6 @@ skills["Despair"] = {
 	statDescriptionScope = "curse_skill_stat_descriptions",
 	castTime = 0.5,
 	statMap = {
-		["degen_effect_+%"] = {
-			mod("DamageTakenOverTime", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 		["base_chaos_damage_resistance_%"] = {
 			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
@@ -2398,7 +2379,7 @@ skills["Discharge"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
 	statMap = {
-		["area_of_effect_+%_per_removable_power_frenzy_or_endurance_charge"] = {
+		["area_of_effect_+%_final_per_removable_power_frenzy_or_endurance_charge"] = {
 			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableTotalCharges" }),
 		},
 		["active_skill_ailment_damage_+%_final"] = {
@@ -2408,9 +2389,6 @@ skills["Discharge"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-	},
-	baseMods = {
-		skill("radius", 30),
 	},
 	qualityStats = {
 		Default = {
@@ -2489,12 +2467,6 @@ skills["Discipline"] = {
 		["base_maximum_energy_shield"] = {
 			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["damage_+%_on_full_energy_shield"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "FullEnergyShield" }, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["energy_shield_delay_-%"] = {
-			mod("EnergyShieldRechargeFaster", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		}
 	},
 	baseFlags = {
 		spell = true,
@@ -2869,15 +2841,6 @@ skills["EnergyBlade"] = {
 		["storm_blade_maximum_lightning_damage"] = {
 			mod("EnergyBladeMaxLightning", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
 		},
-		["storm_blade_quality_local_critical_strike_chance_+%"] = {
-			mod("EnergyBladeCritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
-		},
-		["storm_blade_quality_chance_to_shock_%"] = {
-			mod("EnergyBladeShockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
-		},
-		["storm_blade_quality_attack_lightning_damage_%_to_convert_to_chaos"] = {
-			mod("EnergyBladeConvertToChaos", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", unscalable = true  }),
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3122,6 +3085,12 @@ skills["EyeOfWinter"] = {
 		["freezing_pulse_damage_+%_final_at_long_range"] = {
 			mod("EyeOfWinterRamp", "BASE", nil)
 		},
+		["quality_display_eye_of_winter_is_gem"] = {
+			-- Display only
+		},
+		["quality_display_freezing_pulse_damage_at_long_range_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3209,17 +3178,9 @@ skills["Fireball"] = {
 			area = true,
 		},
 	},
-	statMap = {
-		["fireball_base_radius_up_to_+_at_longer_ranges"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{50,1}} })
-		},
-	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
-	},
-	baseMods = {
-		skill("radius", 9),
 	},
 	qualityStats = {
 		Default = {
@@ -3298,17 +3259,9 @@ skills["VaalFireballSpiralNova"] = {
 			area = true,
 		},
 	},
-	statMap = {
-		["fireball_base_radius_up_to_+_at_longer_ranges"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "DistanceRamp", ramp = {{0,0},{50,1}} })
-		},
-	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
-	},
-	baseMods = {
-		skill("radius", 9),
 	},
 	qualityStats = {
 		Default = {
@@ -3403,10 +3356,9 @@ skills["Firestorm"] = {
 	},
 	baseMods = {
 		skill("showAverage", false, { type = "SkillPart", skillPart = 1 }),
-		skill("radius", 25),
-		skill("radiusLabel", "Area in which fireballs fall:"),
-		skill("radiusSecondary", 13),
-		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
+		skill("radiusLabel", "Fireball explosion:"),
+		skill("radiusSecondary", 25),
+		skill("radiusSecondaryLabel", "Area in which fireballs fall:"),
 	},
 	qualityStats = {
 		Default = {
@@ -3493,10 +3445,9 @@ skills["VaalFirestorm"] = {
 	baseMods = {
 		skill("dotIsArea", true),
 		flag("dotIsBurningGround"),
-		skill("radius", 20),
-		skill("radiusLabel", "Area in which fireballs fall:"),
-		skill("radiusSecondary", 13),
-		skill("radiusSecondaryLabel", "Area of fireball explosion:"),
+		skill("radiusLabel", "Area of fireball explosion:"),
+		skill("radiusSecondary", 20),
+		skill("radiusSecondaryLabel", "Area in which fireballs fall:"),
 	},
 	qualityStats = {
 		Default = {
@@ -3572,11 +3523,6 @@ skills["FlameDash"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Damage] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
-	statMap = {
-		["flame_dash_burning_damage_+%_final"] = {
-			mod("FireDamage", "MORE", nil, 0, KeywordFlag.FireDot),
-		}
-	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -3676,15 +3622,18 @@ skills["Firewall"] = {
 		["wall_maximum_length"] = {
 			skill("radius", nil),
 		},
-		["firewall_applies_%_fire_exposure"] = {
-			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
-		},
 		["flame_wall_minimum_added_fire_damage"] = {
 			mod("FireMin", "BASE", nil, ModFlag.Projectile, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Flame Wall", effectCond = "FlameWallAddedDamage" }),
 		},
 		["flame_wall_maximum_added_fire_damage"] = {
 			mod("FireMax", "BASE", nil, ModFlag.Projectile, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Flame Wall", effectCond = "FlameWallAddedDamage" }),
-		}
+		},
+		["quality_display_firewall_is_gem"] = {
+			-- Display only
+		},
+		["quality_display_alt_flame_wall_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3780,6 +3729,9 @@ skills["FlameWhip"] = {
 		},
 		["flame_surge_ignite_damage_as_burning_ground_damage_%"] = {
 			mod("IgniteDpsAsBurningGround", "MAX", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["quality_display_flame_whip_is_gem+"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -3881,6 +3833,9 @@ skills["Flameblast"] = {
 		},
 		["vaal_flameblast_radius_+_per_stage"] = {
 			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" }),
+		},
+		["quality_display_flameblast_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -4380,13 +4335,9 @@ skills["FreezingPulse"] = {
 	castTime = 0.65,
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillModList:NewMod("Damage", "MORE", -50, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
-		activeSkill.skillModList:NewMod("Damage", "MORE", activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "FreezingPulseRamp"), "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,0},{60*output.ProjectileSpeedMod,1}} })
 		activeSkill.skillModList:NewMod("EnemyFreezeChance", "BASE", 25, "Skill:FreezingPulse", { type = "DistanceRamp", ramp = {{0,1},{15*output.ProjectileSpeedMod,0}} })
 	end,
 	statMap = {
-		["freezing_pulse_damage_+%_final_at_long_range"] = {
-			mod("FreezingPulseRamp", "BASE", nil)
-		},
 		["display_what_freezing_pulse_does"] = {
 		},
 	},
