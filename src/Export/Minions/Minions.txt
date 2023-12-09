@@ -55,7 +55,10 @@ local minions, mod = ...
 #limit ActiveSkeletonLimit
 #emit
 
-#monster Metadata/Monsters/Clone/RangerClone Clone
+#monster Metadata/Monsters/Clone/MarauderClone Clone
+#emit
+
+#monster Metadata/Monsters/Clone/MarauderCloneImmobile ArrowClone
 #emit
 
 #monster Metadata/Monsters/SummonedSpider/SummonedSpider SpiderMinion

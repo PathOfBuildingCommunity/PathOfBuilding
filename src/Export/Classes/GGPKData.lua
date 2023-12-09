@@ -182,7 +182,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/AlternatePassiveAdditions.dat",
 		"Data/AlternatePassiveSkills.dat",
 		"Data/AlternateTreeVersions.dat",
-		"Data/GrantedEffectQualityTypes.dat",
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/GrantedEffectGroups.dat",
 		"Data/AegisVariations.dat",
@@ -215,6 +214,9 @@ function GGPKClass:GetNeededFiles()
 		"Data/displayminionmonstertype.dat",
 		"Data/tinctures.dat",
 		"Data/gemeffects.dat",
+		"Data/actiontypes.dat",
+		"Data/azmerilifescalingperlevel.dat",
+		"Data/azmerifeaturerooms.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

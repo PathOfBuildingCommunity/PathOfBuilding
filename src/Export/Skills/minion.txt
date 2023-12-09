@@ -373,3 +373,7 @@ skills["GuardianSentinelFireAura"] = {
 #skill MPWExpeditionSummonedArbalestProjectile Projectile Attack
 #flags attack projectile
 #mods
+
+#skill BlinkMirrorArrowMelee Projectile Attack
+#flags attack projectile
+#mods

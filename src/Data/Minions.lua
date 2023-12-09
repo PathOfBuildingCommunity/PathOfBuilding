@@ -32,7 +32,7 @@ minions["RaisedZombie"] = {
 
 minions["SummonedChaosGolem"] = {
 	name = "Chaos Golem",
-	life = 6.91,
+	life = 6.9,
 	energyShield = 0.2,
 	fireResist = 40,
 	coldResist = 40,
@@ -57,7 +57,7 @@ minions["SummonedChaosGolem"] = {
 
 minions["SummonedFlameGolem"] = {
 	name = "Flame Golem",
-	life = 5.83,
+	life = 5.82,
 	energyShield = 0.4,
 	fireResist = 70,
 	coldResist = 40,
@@ -84,7 +84,7 @@ minions["SummonedFlameGolem"] = {
 
 minions["SummonedIceGolem"] = {
 	name = "Ice Golem",
-	life = 5.83,
+	life = 5.82,
 	energyShield = 0.4,
 	fireResist = 40,
 	coldResist = 70,
@@ -109,7 +109,7 @@ minions["SummonedIceGolem"] = {
 
 minions["SummonedLightningGolem"] = {
 	name = "Lightning Golem",
-	life = 5.83,
+	life = 5.82,
 	energyShield = 0.2,
 	fireResist = 40,
 	coldResist = 40,
@@ -318,6 +318,26 @@ minions["Clone"] = {
 	},
 }
 
+minions["ArrowClone"] = {
+	name = "Clone",
+	life = 1.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 0.83,
+	attackRange = 6,
+	accuracy = 3.4,
+	skillList = {
+		"BlinkMirrorArrowMelee",
+	},
+	modList = {
+		mod("EnergyShield", "BASE", 10, 0, 0), -- MirrorArrowEnergyShield [base_maximum_energy_shield = 10]
+	},
+}
+
 minions["SpiderMinion"] = {
 	name = "Spider Minion",
 	life = 1.8,
@@ -363,7 +383,7 @@ minions["AnimatedWeapon"] = {
 
 minions["AnimatedArmour"] = {
 	name = "Animated Guardian",
-	life = 4.5,
+	life = 5,
 	armour = 0.5,
 	fireResist = 40,
 	coldResist = 40,
@@ -470,7 +490,7 @@ minions["HeraldOfAgonySpiderPlated"] = {
 	},
 	modList = {
 		mod("PhysicalDamageConvertToChaos", "BASE", 40, 0, 0), -- MonsterConvertToChaosHeraldOfAgony1 [base_physical_damage_%_to_convert_to_chaos = 40]
-		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [cannot_be_damaged = 1]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [base_cannot_be_damaged = 1]
 		mod("Condition:FullLife", "FLAG", true),
 	},
 }
@@ -703,7 +723,7 @@ minions["DropBearUniqueSummoned"] = {
 
 minions["SummonedCarrionGolem"] = {
 	name = "Carrion Golem",
-	life = 5.83,
+	life = 5.82,
 	energyShield = 0.4,
 	fireResist = 40,
 	coldResist = 40,
@@ -770,7 +790,7 @@ minions["SkitterbotLightning"] = {
 
 minions["SummonedReaper"] = {
 	name = "Reaper",
-	life = 3,
+	life = 3.74,
 	armour = 1,
 	fireResist = 40,
 	coldResist = 40,
@@ -820,7 +840,7 @@ minions["SummonedArbalists"] = {
 		"MPWExpeditionSummonedArbalestProjectile",
 	},
 	modList = {
-		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [cannot_be_damaged = 1]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [base_cannot_be_damaged = 1]
 	},
 }
 

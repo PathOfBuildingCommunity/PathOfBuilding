@@ -241,9 +241,6 @@ return {
 ["skill_double_hits_when_dual_wielding"] = {
 	skill("doubleHitsWhenDualWielding", true),
 },
-["area_of_effect_+%_while_not_dual_wielding"] = {
-	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
-},
 ["base_spell_repeat_count"] = {
 	mod("RepeatCount", "BASE", nil, 0, 0, {type = "SkillType", skillType = SkillType.Multicastable }),
 },
@@ -262,9 +259,6 @@ return {
 ["base_bleed_on_hit_still_%_of_physical_damage_to_deal_per_minute"] = {
 	skill("bleedBasePercent", nil),
 	div = 60,
-},
-["active_skill_base_radius_+"] = {
-	skill("radiusExtra", nil),
 },
 ["corpse_explosion_monster_life_%"] = {
 	skill("corpseExplosionLifeMultiplier", nil),
@@ -483,11 +477,26 @@ return {
 	flag("NoCooldownRecoveryInDuration"),
 },
 -- AoE
+["active_skill_base_area_of_effect_radius"] = {
+	skill("radius", nil),
+},
+["active_skill_base_secondary_area_of_effect_radius"] = {
+	skill("radiusSecondary", nil),
+},
+["active_skill_base_tertiary_area_of_effect_radius"] = {
+	skill("radiusTertiary", nil),
+},
+["active_skill_base_radius_+"] = {
+	skill("radiusExtra", nil),
+},
 ["base_skill_area_of_effect_+%"] = {
 	mod("AreaOfEffect", "INC", nil),
 },
 ["base_aura_area_of_effect_+%"] = {
 	mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Aura),
+},
+["area_of_effect_+%_while_not_dual_wielding"] = {
+	mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Condition", var = "DualWielding", neg = true })
 },
 ["active_skill_area_of_effect_+%_final_when_cast_on_frostbolt"] = {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
@@ -964,6 +973,9 @@ return {
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
 },
+["active_skill_bleeding_damage_+%_final"] = {
+	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
+},
 ["active_skill_bleeding_damage_+%_final_in_blood_stance"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "BloodStance" }),
 },
@@ -1148,13 +1160,22 @@ return {
 ["cannot_pierce"] = {
 	flag("CannotPierce"),
 },
+["projectile_damage_+%_if_pierced_enemy"] = {
+	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
+},
+["projectile_damage_+%_final_if_pierced_enemy"] = {
+	mod("Damage", "MORE", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
+},
 ["projectile_behaviour_only_explode"] = {
 	flag("CannotSplit"),
 },
-["base_number_of_additional_arrows"] = {
+["base_number_of_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),
 },
 ["number_of_additional_projectiles"] = {
+	mod("ProjectileCount", "BASE", nil),
+},
+["base_number_of_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),
 },
 ["projectile_damage_+%_per_remaining_chain"] = {
@@ -1661,6 +1682,9 @@ return {
 ["curse_effect_+%_vs_players"] = {
 	mod("CurseEffectAgainstPlayer", "INC", nil),
 },
+["mark_skills_curse_effect_+%"] = {
+	mod("CurseEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Mark }),
+},
 ["curse_area_of_effect_+%"] = {
 	mod("AreaOfEffect", "INC", nil, 0, KeywordFlag.Curse),
 },
@@ -1776,7 +1800,7 @@ return {
 ["physical_damage_reduction_rating_+%"] = {
 	mod("Armour", "INC", nil),
 },
-["cannot_be_damaged"] = {
+["base_cannot_be_damaged"] = {
 	mod("Condition:CannotBeDamaged", "FLAG", nil)
 },
 --
@@ -1825,5 +1849,28 @@ return {
 --Minion
 ["supported_minion_skill_gem_level_+"] = {
 	mod("SupportedGemProperty", "LIST", { keyword = "grants_active_skill", key = "level", value = nil }, 0, 0, { type = "SkillType", skillType = SkillType.Minion }),
+},
+
+-- Gem quality display only
+["quality_display_base_additional_arrows_is_gem"] = {
+	-- Display only
+},
+["quality_display_base_duration_is_quality"] = {
+	-- Display only
+},
+["quality_display_base_number_of_projectiles_is_gem"] = {
+	-- Display only
+},
+["quality_display_animate_weapon_is_gem"] = {
+	-- Display only
+},
+["quality_display_sigil_attached_target_damage_is_gem"] = {
+	-- Display only
+},
+["quality_display_shock_chance_from_skill_is_gem"] = {
+	-- Display only
+},
+["quality_display_trap_duration_is_gem"] = {
+	-- Display only
 },
 }
