@@ -1138,6 +1138,9 @@ return {
 ["base_inflict_fire_exposure_on_hit_%_chance"] = {
 	mod("FireExposureChance", "BASE", nil),
 },
+["offering_spells_effect_+%"] = {
+	mod("BuffEffect", "INC", nil),
+},
 -- Projectiles
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
