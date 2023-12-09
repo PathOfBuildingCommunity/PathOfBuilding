@@ -200,7 +200,7 @@ directiveTable.skill = function(state, args, out)
 		ConPrintf('Unknown GE: "'..grantedId..'"')
 		return
 	end
-	local gemEffect = dat("gemeffects"):GetRow("GrantedEffect", granted) or dat("gemeffects"):GetRow("GrantedEffect2", granted)
+	local gemEffect = dat("GemEffects"):GetRow("GrantedEffect", granted) or dat("GemEffects"):GetRow("GrantedEffect2", granted)
 	local skillGem
 	if gemEffect then
 		for gem in dat("SkillGems"):Rows() do

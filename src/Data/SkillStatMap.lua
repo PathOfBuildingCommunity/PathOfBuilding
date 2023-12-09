@@ -542,6 +542,9 @@ return {
 ["damage_+%_per_endurance_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 },
+["active_skill_attack_damage_+%_final_per_endurance_charge"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
+},
 ["damage_+%_per_frenzy_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
@@ -1523,6 +1526,9 @@ return {
 },
 ["totem_life_+%"] = {
 	mod("TotemLife", "INC", nil),
+},
+["totem_life_+%_final"] = {
+	mod("TotemLife", "MORE", nil),
 },
 ["number_of_additional_totems_allowed"] = {
 	mod("ActiveTotemLimit", "BASE", nil),
