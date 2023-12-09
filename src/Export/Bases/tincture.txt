@@ -1,0 +1,12 @@
+-- Item data (c) Grinding Gear Games
+local itemBases = ...
+
+#type Tincture
+#base Metadata/Items/Tinctures/TinctureStun
+#base Metadata/Items/Tinctures/TinctureIgnite
+#base Metadata/Items/Tinctures/TinctureShock
+#base Metadata/Items/Tinctures/TincturePoison
+#base Metadata/Items/Tinctures/TinctureCriticalStrike
+#base Metadata/Items/Tinctures/TinctureCullingStrike
+#base Metadata/Items/Tinctures/TinctureFreeze
+#base Metadata/Items/Tinctures/TinctureBleed

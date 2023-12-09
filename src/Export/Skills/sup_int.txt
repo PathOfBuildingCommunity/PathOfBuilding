@@ -137,7 +137,7 @@ local skills, mod, flag, skill = ...
 			mod("FireDamage", "MORE", nil),
 		},
 		["ignites_apply_fire_resistance_+"] = {
-			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Combustion" }, { type = "Condition", var = "Ignited" }),
+			mod("CombustionFireResist", "BASE", nil),
 		},
 	},
 #mods
@@ -197,6 +197,9 @@ local skills, mod, flag, skill = ...
 		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
 		},
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCurse
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 		},
 	},
@@ -204,6 +207,10 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCurseOnHitCurse
 	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+			flag("HasNoCost")
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
@@ -212,6 +219,9 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCurseOnHitPlus
 	statMap = {
+		["apply_linked_curses_on_hit_%"] = {
+			--Display only. Handled by SupportCurseOnHitCursePlus
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 		},
 	},
@@ -219,6 +229,10 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCurseOnHitCursePlus
 	statMap = {
+		["curse_triggered_by_hextouch"] = {
+			skill("triggeredByCurseOnHit", true),
+			flag("HasNoCost")
+		},
 		["support_hextouch_curse_effect_+%_final"] = {
 			mod("CurseEffect", "MORE", nil),
 		},
@@ -252,6 +266,17 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportDecay
+#mods
+
+#skill SupportDevour
+	statMap = {
+		["killing_blow_consumes_corpse_restore_x_life"] = {
+			mod("LifeOnKill", "BASE", nil),
+		},
+		["killing_blow_consumes_corpse_restore_x_mana"] = {
+			mod("ManaOnKill", "BASE", nil),
+		},
+	},
 #mods
 
 #skill SupportEfficacy
@@ -322,6 +347,34 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SupportFreshMeat
+	statMap = {
+		["support_recent_minions_additional_critical_strike_chance_from_wakened_fury"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritChance", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
+			div = 100,
+		},
+		["support_recent_minions_additional_critical_strike_multiplier_from_wakened_fury"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
+		},
+		["support_recent_minions_life_leech_from_any_damage_permyriad_from_wakened_fury"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DamageLifeLeech", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
+			div = 100,
+		},
+	},
+#baseMod mod("MinionModifier", "LIST", { mod = mod("Condition:Adrenaline", "FLAG", true) }, 0, 0, { type = "Condition", var = "FreshMeatActive" })
+#mods
+
+#skill SupportFrigidBond
+	statMap = {
+		["support_damaging_links_base_duration_ms"] = {
+			mod("SecondaryDuration", "BASE", nil),
+			div = 1000,
+		},
+		["support_damaging_links_base_duration_is_gem"] = {
+		},
+	},
+#mods
+
 #skill SupportHexBloom
 #mods
 
@@ -352,19 +405,15 @@ local skills, mod, flag, skill = ...
 
 #skill ViciousHexSupport
 #flags spell area chaos hex
+	statMap = {
+		["trigger_vicious_hex_explosion_when_curse_ends"] = {
+			-- Display only
+		},
+	},
 #mods
 
 #skill ViciousHexExplosion
 #flags spell area
-	parts = {
-		{
-			name = "No Overlaps",
-		},
-		{
-			name = "Overlaps (# hits per cast)",
-			stages = true,
-		}
-	},
 #baseMod skill("radius", 20)
 #mods
 
@@ -577,6 +626,7 @@ local skills, mod, flag, skill = ...
 #skill SupportPrismaticBurst
 	statMap = {
 		["trigger_prismatic_burst_on_hit_%_chance"] = {
+			-- Display only
 		},
 	},
 #mods
@@ -594,9 +644,6 @@ local skills, mod, flag, skill = ...
 			name = "Lightning",
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = output.Cooldown
-	end,
 	statMap = {
 		["prismatic_burst_unchosen_type_damage_-100%_final"] = {
 			mod("FireDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 3 } }),
@@ -649,6 +696,30 @@ local skills, mod, flag, skill = ...
 		},
 		["support_gem_mine_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
+		},
+	},
+#mods
+
+#skill SupportSacrifice
+	statMap = {
+		["support_sacrifice_sacrifice_%_of_current_life"] = {
+			mod("Multiplier:SacrificePercent", "BASE", nil, 0, 0, { type = "PercentStat", stat = "LifeUnreserved", percent = 1, actor = "parent" }),
+		},
+		["support_sacrifice_gain_%_of_sacrificed_life_as_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, 0, { type = "Multiplier", var = "SacrificePercent" }),
+			mod("ChaosMax", "BASE", nil, 0, 0, { type = "Multiplier", var = "SacrificePercent" }),
+			div = 100,
+		},
+	},
+#mods
+
+#skill SupportSpellblade
+	statMap = {
+		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage"] = {
+			mod("OneHandWeaponDamageAppliesToSpells", "MAX", nil),
+		},
+		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage_while_wielding_two_different_weapon_types"] = {
+			mod("OneHandWeaponDamageAppliesToSpellsWithTwoDifferentTypes", "MAX", nil),
 		},
 	},
 #mods

@@ -29,6 +29,50 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	
 	self:BuildModList()
 
+  self.controls.search = new("EditControl", { "TOPLEFT", self, "TOPLEFT" }, 8, 5, 360, 20, "", "Search", "%c", 100, function()
+		self:UpdateControls()
+	end, nil, nil, true)
+	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self.controls.search, "TOPLEFT" }, -10, 15, 0, 0, "")
+
+	local function searchMatch(varData)
+		local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
+		if searchStr and searchStr:match("%S") then
+			local err, match = PCall(string.matchOrPattern, (varData.label or ""):lower(), searchStr)
+			if not err and match then
+				return true
+			end
+			return false
+		end
+		return true
+	end
+  
+	self.toggleConfigs = false
+	self.controls.toggleConfigs = new("ButtonControl", { "LEFT", self.controls.search, "RIGHT" }, 10, 0, 200, 20, function()
+		-- dynamic text
+		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show All Configurations"
+	end, function()
+		self.toggleConfigs = not self.toggleConfigs
+	end)
+
+	-- blacklist for Show All Configurations
+	local function isShowAllConfig(varData)
+		local labelMatch = varData.label:lower()
+		local excludeKeywords = { "recently", "in the last", "in the past", "in last", "in past", "pvp" }
+
+		if not self.toggleConfigs then
+			return false
+		end
+		if varData.ifOption or varData.ifSkill or varData.ifSkillData or varData.ifSkillFlag or varData.legacy then
+			return false
+		end
+		for _, keyword in pairs(excludeKeywords) do
+			if labelMatch:find(keyword) then
+				return false
+			end
+		end
+		return true
+	end
+
 	local function implyCond(varData)
 		local mainEnv = self.build.calcsTab.mainEnv
 		if self.input[varData.var] then
@@ -81,7 +125,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	local lastSection
 	for _, varData in ipairs(varList) do
 		if varData.section then
-			lastSection = new("SectionControl", {"TOPLEFT",self,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
+			lastSection = new("SectionControl", {"TOPLEFT",self.controls.sectionAnchor,"TOPLEFT"}, 0, 0, 360, 0, varData.section)
 			lastSection.varControlList = { }
 			lastSection.col = varData.col
 			lastSection.height = function(self)
@@ -104,8 +148,8 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self:BuildModList()
 					self.build.buildFlag = true
 				end)
-			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, varData.type == "integer" and "^%-%d" or "%D", 7, function(buf, placeholder)
+			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 90, 18, "", nil, (varData.type == "integer" and "^%-%d") or (varData.type == "float" and "^%d.") or "%D", 7, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tonumber(buf)
 					else
@@ -133,7 +177,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 					self.build.buildFlag = true
 				end, 16)
-			else 
+			else
 				control = new("Control", {"TOPLEFT",lastSection,"TOPLEFT"}, 234, 0, 16, 16)
 			end
 
@@ -143,8 +187,12 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 			local shownFuncs = {}
 			control.shown = function()
+				if not searchMatch(varData) then
+					return false
+				end
+
 				for _, shownFunc in ipairs(shownFuncs) do
-					if not shownFunc() then
+					if not shownFunc() and not isShowAllConfig(varData) then
 						return false
 					end
 				end
@@ -425,6 +473,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					return false
 				end))
 			end
+
 			if varData.tooltipFunc then
 				control.tooltipFunc = varData.tooltipFunc
 			end
@@ -445,7 +494,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end
 				if varData.type == "check" then
 					self.defaultState[varData.var] = varData.defaultState or false
-				elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
+				elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
 					self.defaultState[varData.var] = varData.defaultState or 0
 				elseif varData.type == "list" then
 					self.defaultState[varData.var] = varData.list[varData.defaultIndex or 1].val
@@ -474,6 +523,9 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 
 			if not varData.hideIfInvalid then
 				control.shown = function()
+					if not searchMatch(varData) then
+						return false
+					end
 					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
 					local cur = self.input[varData.var]
 					local def = self:GetDefaultState(varData.var, type(cur))
@@ -531,6 +583,9 @@ function ConfigTabClass:Load(xml, fileName)
 				if node.attrib.name == "enemyIsBoss" then
 					self.input[node.attrib.name] = node.attrib.string:lower():gsub("(%l)(%w*)", function(a,b) return s_upper(a)..b end)
 					:gsub("Uber Atziri", "Boss"):gsub("Shaper", "Pinnacle"):gsub("Sirus", "Pinnacle")
+				-- backwards compat <=3.20, Uber Atziri Flameblast -> Atziri Flameblast
+				elseif node.attrib.name == "presetBossSkills" then
+					self.input[node.attrib.name] = node.attrib.string:gsub("^Uber ", "")
 				else
 					self.input[node.attrib.name] = node.attrib.string
 				end
@@ -634,6 +689,8 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 			elseif event.key == "y" and IsKeyDown("CTRL") then
 				self:Redo()
 				self.build.buildFlag = true
+			elseif event.key == "f" and IsKeyDown("CTRL") then
+				self:SelectControl(self.controls.search)
 			end
 		end
 	end
@@ -689,10 +746,8 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self.controls.scrollBar.height = viewPort.height
-	self.controls.scrollBar:SetContentDimension(maxColY + 10, viewPort.height)
-	for _, section in ipairs(self.sectionList) do
-		section.y = section.y - self.controls.scrollBar.offset
-	end
+	self.controls.scrollBar:SetContentDimension(maxColY + 30, viewPort.height)
+	self.controls.sectionAnchor.y = 20 - self.controls.scrollBar.offset
 
 	main:DrawBackground(viewPort)
 
@@ -725,7 +780,7 @@ function ConfigTabClass:BuildModList()
 				if input[varData.var] then
 					varData.apply(true, modList, enemyModList, self.build)
 				end
-			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" then
+			elseif varData.type == "count" or varData.type == "integer" or varData.type == "countAllowZero" or varData.type == "float" then
 				if input[varData.var] and (input[varData.var] ~= 0 or varData.type == "countAllowZero") then
 					varData.apply(input[varData.var], modList, enemyModList, self.build)
 				elseif placeholder[varData.var] and (placeholder[varData.var] ~= 0 or varData.type == "countAllowZero") then

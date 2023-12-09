@@ -32,7 +32,7 @@ minions["RaisedZombie"] = {
 
 minions["SummonedChaosGolem"] = {
 	name = "Chaos Golem",
-	life = 5.76,
+	life = 6.91,
 	energyShield = 0.2,
 	fireResist = 40,
 	coldResist = 40,
@@ -57,7 +57,7 @@ minions["SummonedChaosGolem"] = {
 
 minions["SummonedFlameGolem"] = {
 	name = "Flame Golem",
-	life = 4.86,
+	life = 5.83,
 	energyShield = 0.4,
 	fireResist = 70,
 	coldResist = 40,
@@ -84,7 +84,7 @@ minions["SummonedFlameGolem"] = {
 
 minions["SummonedIceGolem"] = {
 	name = "Ice Golem",
-	life = 4.86,
+	life = 5.83,
 	energyShield = 0.4,
 	fireResist = 40,
 	coldResist = 70,
@@ -109,7 +109,7 @@ minions["SummonedIceGolem"] = {
 
 minions["SummonedLightningGolem"] = {
 	name = "Lightning Golem",
-	life = 4.86,
+	life = 5.83,
 	energyShield = 0.2,
 	fireResist = 40,
 	coldResist = 40,
@@ -136,7 +136,7 @@ minions["SummonedLightningGolem"] = {
 
 minions["SummonedStoneGolem"] = {
 	name = "Stone Golem",
-	life = 6.3,
+	life = 7.25,
 	armour = 0.6,
 	fireResist = 40,
 	coldResist = 40,
@@ -470,7 +470,7 @@ minions["HeraldOfAgonySpiderPlated"] = {
 	},
 	modList = {
 		mod("PhysicalDamageConvertToChaos", "BASE", 40, 0, 0), -- MonsterConvertToChaosHeraldOfAgony1 [base_physical_damage_%_to_convert_to_chaos = 40]
-		-- MonsterCannotBeDamaged [cannot_be_damaged = 1]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [cannot_be_damaged = 1]
 		mod("Condition:FullLife", "FLAG", true),
 	},
 }
@@ -703,7 +703,7 @@ minions["DropBearUniqueSummoned"] = {
 
 minions["SummonedCarrionGolem"] = {
 	name = "Carrion Golem",
-	life = 4.86,
+	life = 5.83,
 	energyShield = 0.4,
 	fireResist = 40,
 	coldResist = 40,
@@ -820,6 +820,118 @@ minions["SummonedArbalists"] = {
 		"MPWExpeditionSummonedArbalestProjectile",
 	},
 	modList = {
-		-- MonsterCannotBeDamaged [cannot_be_damaged = 1]
+		mod("Condition:CannotBeDamaged", "FLAG", 1, 0, 0), -- MonsterCannotBeDamaged [cannot_be_damaged = 1]
+	},
+}
+
+minions["GuardianSentinel"] = {
+	name = "Sentinel of Radiance",
+	life = 12,
+	armour = 0.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 20,
+	damageSpread = 0.2,
+	attackTime = 0.83,
+	attackRange = 17,
+	accuracy = 3.4,
+	skillList = {
+		"TeleportVaalDomination",
+		"VaalDominationMelee",
+	},
+	modList = {
+	},
+}
+
+-- This is a fake Minion to apply all 3 auras
+minions["GuardianRelicAll"] = {
+	name = "All Relics",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Anger",
+		"Hatred",
+		"Wrath",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+	},
+}
+
+minions["GuardianRelicFire"] = {
+	name = "Fire Relic",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Anger",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+	},
+}
+
+minions["GuardianRelicCold"] = {
+	name = "Cold Relic",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Hatred",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
+	},
+}
+
+minions["GuardianRelicLightning"] = {
+	name = "Lightning Relic",
+	life = 4,
+	energyShield = 0.6,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 1,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"RelicTeleport",
+		"Wrath",
+	},
+	modList = {
+		-- EmergeSpeedHigh [emerge_speed_+% = 0]
 	},
 }

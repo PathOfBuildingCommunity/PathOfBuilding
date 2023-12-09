@@ -57,13 +57,16 @@ local skills, mod, flag, skill = ...
 		["chance_to_deal_double_damage_%"] = {
 			mod("DoubleDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }),
 		},
+		["minion_chance_to_deal_double_damage_%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Might", effectCond = "AviansMightActive" }),
+		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
 		},
 		["minion_movement_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Avian's Flight", effectCond = "AviansFlightActive" }),
 		},
 	},
-#baseMod skill("buffMinions", true)
 #mods
 
 #skill CatAspect
@@ -147,6 +150,7 @@ local skills, mod, flag, skill = ...
 #skill BloodSacramentUnique
 #baseMod skill("radius", 5)
 #baseMod mod("Multiplier:BloodSacramentMaxStages", "BASE", 33)
+#baseMod flag("HasUncancellableReservation", { type = "Condition", var = "BloodSacramentReservationEHP" })
 #flags spell area
 	fromItem = true,
 	initialFunc = function(activeSkill, output)
@@ -435,9 +439,6 @@ local skills, mod, flag, skill = ...
 #skill GoreShockwave
 #flags attack area melee
 	fromItem = true,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.timeOverride = output.Cooldown
-	end,
 #mods
 
 #skill SupportGreaterSpellEcho Greater Spell Echo
@@ -456,7 +457,12 @@ local skills, mod, flag, skill = ...
 #skill IcestormUniqueStaff12
 #flags spell area duration
 	fromItem = true,
-#baseMod skill("duration", 0.1, { type = "PerStat", stat = "Int", div = 100, base = 1 })
+	statMap = {
+		["skill_effect_duration_per_100_int"] = {
+			mod("Duration", "BASE", nil, 0, 0, { type = "PerStat", stat = "Int", div = 100 }),
+			div = 1000,
+		},
+	},
 #baseMod skill("radius", 22)
 #baseMod skill("radiusSecondary", 16)
 #mods
@@ -541,6 +547,7 @@ local skills, mod, flag, skill = ...
 #skill TriggeredMoltenStrike
 #flags attack projectile area
 	fromItem = true,
+#baseMod flag("CannotSplit")
 #mods
 
 #skill PhysicalAegis
@@ -727,6 +734,19 @@ local skills, mod, flag, skill = ...
 #baseMod skill("manaReservationPercent", 0)
 #mods
 
+#skill SummonGuardianRelic
+#flags spell minion duration
+	fromTree = true,
+	minionList = {
+		"GuardianRelicAll",
+	},
+	statMap = {
+		["minion_actor_level_is_user_level_up_to_maximum"] = {
+			skill("minionLevelIsPlayerLevel", true),
+		},
+	},
+#mods
+
 #skill SummonHarbingerOfTheArcaneUber
 #flags spell minion
 	fromItem = true,
@@ -756,7 +776,7 @@ local skills, mod, flag, skill = ...
 #flags spell minion
 	fromItem = true,
 #baseMod mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Greater Harbinger of Time", modCond = "GreaterHarbingerOfTime" })
-#baseMod skill("buffMinions", true)
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill SummonHarbingerOfTheArcane
@@ -788,7 +808,7 @@ local skills, mod, flag, skill = ...
 #flags spell minion
 	fromItem = true,
 #baseMod mod("ActionSpeed", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Harbinger of Time", modCond = "HarbingerOfTime" })
-#baseMod skill("buffMinions", true)
+#baseMod skill("buffAllies", true)
 #mods
 
 #skill TriggeredSummonGhostOnKill Triggered Summon Phantasm
@@ -800,6 +820,27 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["base_number_of_support_ghosts_allowed"] = {
 			mod("ActivePhantasmLimit", "BASE", nil),
+		},
+	},
+#mods
+
+#skill SummonRadiantSentinel
+#flags spell minion duration
+	fromTree = true,
+	minionList = {
+		"GuardianSentinel",
+	},
+	statMap = {
+		["radiant_sentinel_minion_fire_%_of_life_to_deal_nearby_per_minute"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraBaseDamage", "BASE", nil) }),
+			div = 60,
+			mod("ExtraMinionSkill", "LIST", { skillId = "GuardianSentinelFireAura" }),
+		},
+		["radiant_sentinel_minion_burning_effect_radius"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Multiplier:GuardianSentinelFireAuraRadius", "BASE", nil) }),
+		},
+		["minion_actor_level_is_user_level_up_to_maximum"] = {
+			skill("minionLevelIsPlayerLevel", true),
 		},
 	},
 #mods
@@ -840,6 +881,11 @@ local skills, mod, flag, skill = ...
 #skill SummonMirageChieftain
 #flags spell duration
 	fromTree = true,
+	statMap = {
+		["skill_used_by_mirage_chieftain_damage_+%_final"] = {
+			mod("ChieftainMirageChieftainMoreDamage", "BASE", nil),
+		},
+	},
 #mods
 
 #skill TentacleSmash
@@ -900,6 +946,11 @@ local skills, mod, flag, skill = ...
 
 #skill VoidShot
 #flags attack projectile area
+	fromItem = true,
+#mods
+
+#skill SupportUniqueCastCurseOnCurse Vixen's Entrapment
+#flags spell curse
 	fromItem = true,
 #mods
 

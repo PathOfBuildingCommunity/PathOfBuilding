@@ -1,3 +1,469 @@
+VERSION[2.35.5][2023/12/07]
+
+--- Fixed Bugs ---
+* Fix reserving life with Dissolution of the Flesh affecting eHP (ProFrenchToast, LocalIdentity)
+* Fix new Ascendancies being included in node counts (Lilylicious)
+
+VERSION[2.35.4][2023/12/07]
+
+--- New to Path of Building ---
+* Add socket limit warning (sida-wang)
+
+--- Fixed Bugs ---
+* Fix Vortex base damage over time values (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix socketed gem count calculation (sida-wang)
+* Fix Evasion ES Mastery mod for ES on rings (Lilylicious)
+* Update Reap + Vaal Reap quality mods (henbe)
+
+VERSION[2.35.3][2023/12/06]
+
+--- Fixed Bugs ---
+* Fix damage taken as mods not appearing in Calcs tab breakdown (Regisle, LocalIdentity)
+* Fix Lucky Spell Suppression chance not displaying in sidebar (MoonOverMira)
+
+--- Accuracy Improvements ---
+* Update Splitting Steel quality mod (kayokalinauskas)
+
+
+VERSION[2.35.2][2023/12/06]
+
+--- Fixed Bugs ---
+* Fix Blade Vortex gaining damage from Unleash (LocalIdentity)
+* Fix Tailwind not applying (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Ball Lightning quality stat (LocalIdentity)
+* Remove dead Divine Ire mods (LocalIdentity)
+
+
+VERSION[2.35.1][2023/12/06]
+
+--- Fixed Crashes ---
+* Fix crash when importing skill tree from account (Peechey)
+
+--- Fixed Bugs ---
+* Fix eHP calculations when using 'x damage taken as y' mods (LocalIdentity)
+
+VERSION[2.35.0][2023/12/06]
+
+--- New to Path of Building ---
+* Add 3.23 Tree (LocalIdentity, Regisle)
+* Add support for new Ascendancy nodes (LocalIdentity)
+* Update + add support for new uniques from 3.23 (sida-wang)
+* Update some gems with 3.23 changes (LocalIdentity, Lilylicious)
+  * Arc + Vaal Arc, Blade Vortex + Vaal Blade Vortex, Bladefall, Boneshatter, Cobra Lash, Cold Snap + Vaal Cold Snap, Crackling Lance,
+	Cyclone, Discharge, Divine Ire, Double Strike, Dual Strike, Explosive Trap, Freezing Pulse, Frenzy, General's Cry, Glacial Cascade,
+	Golems skills, Ice Crash, Ice Nova + Vaal Ice Nova, Ice Spear, Kinetic Blast, Lightning Conduit, Penance Brand, 
+	Power Siphon + Vaal Power Siphon, Righteous Fire + Vaal Righteous Fire, Spark, Spectral Helix, Spectral Shield Throw, Spectral Throw,
+	Spellslinger, Split Arrow, Splitting Steel, Static Strike, Summon Holy Relic, Vortex
+* Update experimental base types (LocalIdentity)
+* Add support for Guardian's Elemental Relic Auras (Regisle)
+* Add support for Intuitive Link (Paliak)
+* Add support for Shrapnel Ballista's shotgunning (Regisle)
+* Add support for enemy skill damage conversion (Regisle)
+* Add support for enemy Resistance config to increase max res (Regisle)
+* Add support for enemy Impale (Regisle)
+* Add support for Anomalous Sacrifice support (lepideble)
+* Add support for Divergent Temporal Rift (Regisle)
+* Add support for reduced Wither effect on self (Regisle)
+* Add support for 'if Corrupted' mod condition (Paliak)
+
+--- Fixed Crashes ---
+* Fix crash when allocating Tawhoa's Chosen and adding gems to a build (Paliak)
+* Fix crash when triggering a minion skill with Arcanist Brand (Paliak)
+* Fix crash when triggering a skill with CwC in a staff (Paliak)
+* Fix crash when opening help section from build list (Regisle)
+* Fix crash when searching for a Timeless Jewel after selecting a Devotion mod (Lothrik)
+* Fix rare crash caused by forcing active an inactive group containing a trigger setup (Paliak)
+* Fix rare crash when trying to save a build (Paliak)
+
+--- User Interface ---
+* Add the ability to customize the colour of the tree search highlight circle (admSla)
+* Widen build selection list (pHiney)
+* Add support for showing Split count for Projectiles (Regisle)
+* Update text colour for some already supported mods on Gems (Regisle)
+* Fix stat tooltip when hovering over nodes inside of Intuitive Leap / Thread of Hope (Paliak)
+* Fix Bear Trap not appearing in Debuff section (Paliak)
+
+--- Fixed Bugs ---
+* Fix Maven Slam + Exarch Ball damage being affected Suppression (Regisle)
+* Remove the normalisation of 'x damage taken as y' mods if they total to over 100% (Regisle)
+  * Do not have more than a total of 100% physical damage taken as mods!
+* Fix Hit Chance applying twice to CoC trigger rate calculations (Paliak)
+* Fix Channeled Melee or Attacks halving Trigger rate when Dual Wielding (Lilylicious)
+* Fix Chieftain's Ngamahu, Flame's Advance node not working with Forbidden Flesh and Flame (Paliak)
+* Fix Arcane Cloak not affecting max hit (LocalIdentity)
+* Fix Projectile mastery not adding damage to Ailments (LocalIdentity)
+* Fix Ice Golem's Ice Spear skill not being supported by Spell Echo (Paliak)
+* Fix Accuracy rating against enemy mods affecting Accuracy stat (LocalIdentity)
+* Fix Flasks applying twice if using Ceinture of Benevolence (Regisle)
+* Fix Widowhail multiplying mods individually and oddly interacting with weapon swaps (Paliak)
+* Fix Slavedriver's Hand Bloodmagic mod not working (LocalIdentity)
+* Fix rare incorrect calculations bug when Mirages use forced active skills (Paliak)
+* Fix fullDPS not working with Flamewood (Paliak)
+* Fix Banner Aura debuff not applying in all cases (Regisle)
+* Fix some Banner and Consecrated Ground mods not applying to allies (Regisle)
+* Fix Holy Relic Nova spell when triggered by Static Strike (Paliak)
+
+--- Accuracy Improvements ---
+* Don't reorder gems on import if socketed into Dialla's Malefaction body armour (Paliak)
+* Fix some Cluster Jewel nodes not being allocated on import (does not fix it completely) (Wires77)
+* Fix Mantra of Flames not counting stacks from Trauma or Voltaxic Burst (LocalIdentity)
+* Fix parsing for many Explode mods (LocalIdentity)
+* Fix Honoured Tattoo of the Tuatara interaction with stat conversion jewels (Peechey)
+* Fix Summon Sentinel of Radiance having 2 burning area skills (Regisle)
+* Fix Prismatic burst, Shockwave and Combust not listing the correct trigger skill (Paliak)
+* Fix negative Duration values (LocalIdentity)
+* Fix negative Damage taken Over Time values (Regisle)
+* Fix a few 'Regen every 4 seconds' mods (Regisle)
+* Fix Affliction charges not affecting some ailment magnitudes (Paliak)
+* Fix Flame Wall added Fire Damage Enchant values (LocalIdentity)
+* Fix Phantasmal Flameblast AoE values (LocalIdentity)
+* Update against damage over time to apply the modFlag directly (Regisle)
+* Increase accuracy of defensive calculations for damage over time when using Divine Flesh and Tempered by War (Regisle)
+
+VERSION[2.34.1][2023/09/16]
+
+--- Fixed Crashes ---
+* Fix crash when using Saviour Mirages in Full DPS (Paliak)
+* Fix crash when using Cast when Channeling with Whispering Ice (Paliak)
+
+--- User Interface ---
+* Update tooltip wording for Magmatic Strikes config (Paliak)
+* Show Warcry calculation mode when using Fist of War (Paliak)
+
+--- Fixed Bugs ---
+* Fix curse mods from The Felbog Fang and Fated End applying to Mark skills (Paliak)
+* Fix Fist of War not applying to Projectile skill parts (Paliak)
+* Fix Divergent Arcane Cloak not scaling properly with buff effect (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Increase accuracy of Doom Blast calculations (Paliak)
+* Fix parsing for some mods on the Pantheon (Paliak)
+* Assume 1 stage by default for Sigil of Power (Paliak)
+* Fix Scorching Ray max stages calculation (LocalIdentity)
+
+
+VERSION[2.34.0][2023/09/13]
+
+--- New to Path of Building ---
+* Implement new 3.22.1 Tattoos (Wires77)
+* Add icons to Socket groups based on the item slot (ryuukk, LocalIdentity)
+* Substantially improve startup time (Lancej)
+* Add support for limiting Node depth in Power Report generation (Subtractem)
+* Party tab improvements (Regisle)
+  * Add support for Link Skills
+  * Add support for enemy conditions
+  * Add support for Mine Aura's
+  * Fix Vaal Aura's preventing base Aura from applying
+  * Fix Doryani's Prototype, Ambu's Charge and Eye of Malice
+  * Sort lists in alphabetical order
+* Add support for applying Link skills to minions (Regisle)
+* Add support for importing trees from poeplanner.com (pHiney)
+* Add support for Maata's Teaching crit mod (Regisle)
+* Add support for Momentum Support (Regisle)
+* Add support for more Map mods (Regisle)
+* Add support for more Stun duration mods (Regisle)
+* Add remove account button to the Import tab (CrazieJester)
+
+--- Fixed Crashes ---
+* Fix crash when triggering skills with Unique weapons (Paliak)
+* Fix crash caused by trigger source being disabled (Paliak)
+* Fix crash (Paliak)
+
+--- User Interface ---
+* Add max equip level field to the trade query generator (Kerberos9)
+* Add support for ignoring weapon swap on character import (Peechey)
+* Display AoE values as metres (LocalIdentity)
+* When using F1 to open the Help window, show info for the current tab (Regisle)
+* Add support for item Enchantment comparison when hovering over the list (Peechey)
+* Add confirmation popup when converting Skill Trees (Peechey)
+* Add documentation for the Skills tab to Help window (nrardin)
+* Show version and branch in error box (Lancej)
+
+--- Fixed Bugs ---
+* Fix Doom Blast trigger rate calculations (Paliak)
+* Fix skill Mana/Life cost calculations when using Mana cost conversion Life Mastery (LocalIdentity)
+* Fix Utula's Hungers Life mod not working with some Uniques added from PoB (Lilylicious)
+* Fix Utula's Hungers Life mod not working if you had life on Jewels (Lilylicious)
+* Fix Fresh Meat Support incorrectly granting all Minions Adrenaline (LocalIdentity)
+* Fix Cast Speed not increasing the activation frequency of Arcanist Brand (Paliak)
+* Fix FullDPS issues when using Mirage Archer or Minions (Paliak)
+* Fix Energy Blade alt qualities failing to apply twice when Dual Wielding (LocalIdentity)
+* Fix Ahuana's Bite only increasing Cold damage taken instead of all damage taken (LocalIdentity)
+* Fix CWDT calculations when linked to multiple skills (Paliak)
+* Fix Kitava's Thirst trigger rate when Dual Wielding (Paliak)
+* Fix Trauma Rate doubling when Dual Wielding (LocalIdentity)
+* Fix +1 to Socketed Skill gems mod not working (LocalIdentity)
+* Fix trigger rate for Tawhoa's Chosen (Dogist)
+
+--- Accuracy Improvements ---
+* Add a legacy tag to Cluster Jewels that no longer drop (LocalIdentity)
+* Add missing variant  to Tulborn (pHiney)
+* Fix typo in Death Rush ring (Lancej)
+* Fix typo in Ashrend body armour (Lancej)
+* Fix Ahuana's Bite 'Chill as though dealing' mod (LocalIdentity)
+* Fix chance to Inflict ailments breakdown (LocalIdentity)
+* Fix breakdown for skills that grant Ailment Immunities (LocalIdentity)
+* Fix extra Abyssal socket appearing on Stygian Vise and Darkness Enthroned belts (Lilylicious)
+* Fix some mod ranges being inverted (Lilylicious)
+* Fix wording on Uul-Netol's Vow (Wires77)
+* Fix negative EHP values from Progenesis Flask by capping its effect (Regisle)
+* Fix calculation of increased cooldown reduction breakpoint suggestions (Paliak)
+
+--- Other changes ---
+* Reduce memory usage when on the tree tab (Lancej)
+* Add option to disable Lua JIT (Lancej)
+* Fix Unicode input for PoeCharm (Lancej)
+
+VERSION[2.33.5][2023/08/28]
+
+--- Fixed Crashes ---
+* Fix crash when triggering a Skill from a Weapon (LocalIdentity)
+
+VERSION[2.33.4][2023/08/28]
+
+--- Fixed Crashes ---
+* Fix crash when using Kitava's Thirst (Paliak)
+* Fix crash when loading some 3.20 builds (Peechey)
+
+--- Fixed Bugs ---
+* Temporarily Revert trigger rate calculations to old formula (Paliak)
+* Fix Doom Blast overlap count not affecting DPS (Paliak)
+* Fix Skill Effect Duration affecting Totem duration (Paliak)
+* Prevent Tawhoa's Chosen Attacks from being Exerted (Paliak)
+* Fix crash when adding Support gems to some skills (Paliak)
+* Fix Mirage Archer disabling skills supported by Manaforged Arrows (Paliak)
+
+
+VERSION[2.33.3][2023/08/26]
+
+--- Fixed Bugs ---
+* Fix Replica Dragonfang's Flight not providing levels to Vaal versions of a skill (Paliak)
+* Fix Full DPS not working for skills granted by items e.g. Arakaali's Fang  (Paliak)
+* Fix Militant Faith jewel not overriding small attribute tattoos (LocalIdentity)
+
+
+VERSION[2.33.2][2023/08/26]
+
+--- Fixed Crashes ---
+* Fix Flamewood Support crash when selecting Support gems (Paliak)
+* Fixed crash when searching trade for Jewels with Chieftain's Ngamahu Ascendancy allocated (Tivorak)
+
+--- Fixed Bugs ---
+* Fix Spellblade Support not adding damage before level 14 (Wires77)
+* Fix Flamewood support not scaling with Spell and Projectile damage (LocalIdentity)
+* Fix Flamewood Support being disabled by Ancestral Bond (Paliak)
+
+VERSION[2.33.1][2023/08/25]
+
+--- Fixed Crashes ---
+* Fix crash when using a trigger Wand mod (Paliak)
+* Fix crash when using a trigger Helmet Focus mod (Paliak)
+* Fix crash when using Flamewood Support (Paliak)
+
+--- User Interface ---
+* Display Channel time in the sidebar for Skills triggered by Snipe (Paliak)
+
+--- Fixed Bugs ---
+* Fix Hungry Loop not recognising Elemental Army (Paliak)
+* Fix separate Totem Duration affecting Skill Duration (Paliak)
+* Fix Melding of the Flesh not working correctly with Chieftain Valako ascendancy (Paliak)
+* Fix Flamewood Support not being affected by Totem mods (Paliak)
+
+
+VERSION[2.33.0][2023/08/25]
+
+--- New to Path of Building ---
+* Support for triggered skills has been reworked (Paliak)
+    * Calculations of effective triggered skills trigger rate should now be more accurate
+    * Improve cooldown breakpoint interactions with skills that add Cast time
+    * Implemented all currently existing trigger skills that POB is capable of supporting. Including:
+        * CWDT
+        * Spell Slinger
+        * Counter-attack skills
+        * Arcanist brand
+        * Tawhoa's Chosen
+        * Battlemage's Cry
+* Add support for Trigger Bots
+* Add support for Flamewood Support
+* Add Support for Guardian's minion RF skill (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix crash when using Ruthless Support in a Poison build (LocalIdentity)
+* Fix crash when trying to edit Energy Blade weapon (Wires77)
+* Fix crash when viewing resist breakdown while having Chieftains Valako Ascendancy (Paliak)
+
+--- User Interface ---
+* Trigger related breakdowns should now be more descriptive (Paliak)
+* Improve breakdowns for skills that add Cast time (Paliak)
+* Display Cast when Damage Taken threshold in the trigger rate section (Paliak)
+
+--- Accuracy Improvements ---
+* Fix inaccuracies caused by incorrect handling of skill cooldown during skill rotation simulation (Paliak)
+* Triggers should now correctly account for source rate modifiers such as crit chance and accuracy (Paliak)
+* Fix many self triggers counting as self-cast (Paliak)
+* Fix incorrect handling of gems supported by more than one trigger (Paliak)
+
+--- Fixed Bugs ---
+* Fix Volatility from applying multiple times when conversion is present (Regisle)
+* Fix Chain count box not appearing sometimes (LocalIdentity)
+* Fix Cold Exposure mastery not working correctly (LocalIdentity)
+* Fix gems not benefiting from Supports sometimes (LocalIdentity)
+* Fix Trauma Duration sometimes using skill Duration (LocalIdentity)
+* Fix Strength of Blood Keystone not working (LocalIdentity)
+
+
+VERSION[2.32.2][2023/08/24]
+
+--- Fixed Bugs ---
+* Fix crash caused by usage of incorrect breakdown table (Paliak)
+* Fix lua error when hovering Ascendant nodes (Wires77)
+
+
+VERSION[2.32.1][2023/08/24]
+
+--- Fixed Bugs ---
+* Fix crash when opening some minion builds (Paliak)
+* Fix Timeless jewel stats disappearing when applying a tattoo (Wires77)
+
+VERSION[2.32.0][2023/08/24]
+
+--- New to Path of Building ---
+* Add support for tattoos (Wires77)
+* Add support for Ruthless tree (Wires77)
+* Add support for 3.22 skill gems (LocalIdentity, Lilylicious, Regisle, Paliak, Wires77, deathbeam)
+  * Full Support
+  * Locus Mine
+  * Devour
+  * Volatility
+  * Sadism
+  * Spellblade
+  * Trauma
+  * Corrupting Cry
+  * Frigid Bond
+  * Guardian's Blessing
+  * Fresh Meat
+  * Sacrifice
+  * Controlled Blaze
+* Add support for new Chieftain and Guardian ascendancy nodes (Paliak)
+* Add initial support for Guardian minion nodes (LocalIdentity)
+* Add self-hit calculations for Scolds Bridle, Eye of Innocence and Heartbound Loop (Paliak)
+* Add support for new Ancestor uniques (Wires77, LocalIdentity)
+* Improve startup time (Lancej)
+
+--- User Interface ---
+* Help section improvements (Regisle)
+* Add immunity flags to defence avoidance breakdown (Paliak)
+* Removing allocated mastery from hover list (Wires77)
+* Improve sync of tree version and version dropdown (Peechey)
+
+--- Fixed Bugs ---
+* Fix nodes not being able to be allocated after converting a tree (Peechey)
+* Fix totem duration mods not applying (Paliak)
+* Fix DPS on Vaal Flicker when using 2x 1h weapons (LocalIdentity)
+* Fix Repeat count for minion skills (Wires77)
+* Fix Snipe damage going negative (Paliak)
+* Fix Snipe showing DPS values when triggering support skills (LocalIdentity)
+* Fix Doom Blast not working with Forbidden Shako (Paliak)
+* Fix Bleed/Ignite Stack potential issues (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Update 3.22 skill tree (Regisle)
+* Allow setting inspiration charges to 0 (Paliak)
+* Fix "Enemies maimed by you take inc damage over time" not in breakdown display (LocalIdentity)
+* Fix Pierce and Chain count config not appearing sometimes (LocalIdentity)
+* Fix lower channel time stat using red text (LocalIdentity)
+* Fix incorrect increased usage mod range on Cinderswallow Urn (Paliak)
+
+VERSION[2.31.2][2023/08/16]
+
+--- Fixed Bugs ---
+* Fix issue when importing characters (Wires77)
+* Fix typo with Ignite Stack Potential Override (Wires77)
+
+VERSION[2.31.1][2023/08/16]
+
+--- User Interface ---
+* Lower contrast of gem select highlight (ryuukk)
+
+--- Accuracy Improvements ---
+* Undo incorrect Explosive Arrow change (Lilylicious)
+* Fix Frozen Legion benefiting from exerts (Lilylicious)
+* Fix Combustion debuff not applying when a non-damaging skill precedes a damaging skill (Lilylicious)
+* Fix Blood Sacrament not being capped by Cooldown (LocalIdentity)
+* Fix Tree conversion stopping you from allocating some tree nodes (LocalIdentity)
+* Fix Mana cost when using 'Wait for max unleash seals' (busterw)
+
+VERSION[2.31.0][2023/08/15]
+
+--- New to Path of Building ---
+* Add 3.22 Skill tree (Regisle)
+* Add proper support for DPS with Scourge Arrow, Divine Ire, Flameblast and Incinerate (LocalIdentity)
+* Display Channel time for skills that channel and release (Scourge Arrow, Divine Ire, Flameblast, Incinerate and Snipe) (LocalIdentity)
+* Add proper support for triggered skills with Snipe Support (LocalIdentity)
+* Add support for Flamethrower Trap DPS (Lilylicious)
+* Fix weighted average DPS calculation of Ignite/Bleed (LocalIdentity)
+* Show min/max DPS range for Ignite/Bleed/Poison (LocalIdentity)
+* Add support for cooldown on skills in Black Zenith gloves (LocalIdentity)
+* Add support for Crucible min stages and Cooldown mods with Incinerate/Flameblast (LocalIdentity)
+* Add support for changing Tree Version (Peechey)
+* Add clear button to text inputs (TPlant)
+
+--- Implemented Enhancements ---
+* Remove Minimum Ignite Duration (LocalIdentity)
+* Imply recent Minion skill use only when using non-permanent Minions (Lilylicious)
+* Improve PvP breakdowns (Regisle)
+* Only apply Combustion Fire Resistance effect with skills that can Ignite (Lilylicious)
+* Add parsing for Redeemer 'Freeze as though Dealing more Damage' mod (fira)
+
+--- Fixed Crashes ---
+* Fix crash on 100% reduced reservation efficiency for Relic of the Pact (Lilylicious)
+* Fix crash on unusable weapon swap (Lilylicious)
+* Fix crash sometimes occurring when searching for Timeless Jewel (Regisle)
+* Fix crash when hovering over life mastery mod (Paliak)
+
+--- User Interface ---
+* Add a warning when exceeding jewel limits (Lilylicious)
+* Make build search immediate (TPlant)
+* Add Ctrl-M to the tree drop-down to open 'Manage Trees' dialog (pHiney)
+* Force skill groups to display as active based on main skill (Lilylicious)
+* Fix division by zero display error in resource recovery calculations (TPlant)
+* Add Help documentation for Items tab (karlji)
+* Add name to top left Timeless Jewel socket (karlji)
+
+--- Accuracy Improvements ---
+* Fix Explosive Arrow Full DPS (AnSq)
+* Fix Explosive Arrow stages scaling base damage effectiveness (Lilylicious)
+* Fix Flameblast not gaining 'more' damage from first stage (LocalIdentity)
+* Fix Supreme Ego taking effect with Blood Magic (mortentc)
+* Fix Lancing Steel hit rate calculations (Lilylicious)
+* Fix default Uber boss Evasion Rating (ghember)
+* Fix defences on normal and magic Two-Toned Boots (Peechey)
+* Fix Matua Tupuna's aura mod not affecting minions (Paliak)
+* Fix Battlemage's Cry and Redblade Banner not working correctly (Lilylicious)
+* Fix multiple instances of 'x stat is increased by overcapped y resistance' stacking (Lilylicious)
+* Fix Shock Nova's 'max effect of shock' not benefiting other skills (Lilylicious)
+* Fix Adjacent Animosity to work with both Attacks and Spells (deathbeam)
+* Fix Crucible AoE mod from applying to any skill (Paliak)
+* Fix Energy Shield Stun avoidance if EB allocated (Paliak)
+* Fix Spellslinger Reservation incorrectly scaling with stages (mortentc)
+* Fix Infernal Legion ignoring support gem damage modifiers (Paliak)
+* Fix anointed nodes doubling stats when inside radius Jewels (Paliak)
+* Fix Life Mastery not working correctly with Skin of the Loyal (Paliak)
+* Fix Chain count not appearing on Calcs page (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix sorting of taken damage values when using the power report (QuickStick123)
+* Fix resistance penalty not saving (Paliak)
+* Fix import of Forbidden Flesh/Flame when you did not match the class of the jewel (Paliak)
+* Fix incorrect keystone source on keystones coming from items (Paliak)
+
+--- Other changes ---
+* Improve load time when opening PoB (Lancej)
+
 VERSION[2.30.1][2023/05/06]
 
 --- Fixed Bugs ---

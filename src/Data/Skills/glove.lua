@@ -1146,7 +1146,7 @@ skills["EnchantmentOfReflectionWhenHit"] = {
 		{ "minion_damage_+%", 80 },
 		{ "minion_maximum_life_+%", 150 },
 		{ "display_minion_monster_type", 4 },
-		{ "display_minion_monster_level", 32 },
+		{ "base_display_minion_actor_level", 32 },
 		{ "cast_when_hit_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 100 },
 	},
@@ -1184,7 +1184,7 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 		{ "minion_damage_+%", 100 },
 		{ "minion_maximum_life_+%", 150 },
 		{ "display_minion_monster_type", 4 },
-		{ "display_minion_monster_level", 53 },
+		{ "base_display_minion_actor_level", 53 },
 		{ "cast_when_hit_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 200 },
 	},
@@ -1222,7 +1222,7 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 		{ "minion_damage_+%", 120 },
 		{ "minion_maximum_life_+%", 150 },
 		{ "display_minion_monster_type", 4 },
-		{ "display_minion_monster_level", 66 },
+		{ "base_display_minion_actor_level", 66 },
 		{ "cast_when_hit_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 300 },
 	},
@@ -1260,7 +1260,7 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 		{ "minion_damage_+%", 140 },
 		{ "minion_maximum_life_+%", 150 },
 		{ "display_minion_monster_type", 4 },
-		{ "display_minion_monster_level", 75 },
+		{ "base_display_minion_actor_level", 75 },
 		{ "cast_when_hit_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 400 },
 	},
@@ -1614,7 +1614,7 @@ skills["EnchantmentOfTheGraveOnKill"] = {
 		{ "base_skill_effect_duration", 5000 },
 		{ "number_of_monsters_to_summon", 3 },
 		{ "display_minion_monster_type", 10 },
-		{ "display_minion_monster_level", 32 },
+		{ "base_display_minion_actor_level", 32 },
 		{ "minions_explode_on_death_for_%_max_life_at_end_of_duration", 20 },
 	},
 	stats = {
@@ -1648,7 +1648,7 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 		{ "base_skill_effect_duration", 5000 },
 		{ "number_of_monsters_to_summon", 3 },
 		{ "display_minion_monster_type", 10 },
-		{ "display_minion_monster_level", 53 },
+		{ "base_display_minion_actor_level", 53 },
 		{ "minions_explode_on_death_for_%_max_life_at_end_of_duration", 20 },
 	},
 	stats = {
@@ -1682,7 +1682,7 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 		{ "base_skill_effect_duration", 5000 },
 		{ "number_of_monsters_to_summon", 3 },
 		{ "display_minion_monster_type", 10 },
-		{ "display_minion_monster_level", 66 },
+		{ "base_display_minion_actor_level", 66 },
 		{ "minions_explode_on_death_for_%_max_life_at_end_of_duration", 20 },
 	},
 	stats = {
@@ -1716,7 +1716,7 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 		{ "base_skill_effect_duration", 5000 },
 		{ "number_of_monsters_to_summon", 3 },
 		{ "display_minion_monster_type", 10 },
-		{ "display_minion_monster_level", 75 },
+		{ "base_display_minion_actor_level", 75 },
 		{ "minions_explode_on_death_for_%_max_life_at_end_of_duration", 20 },
 	},
 	stats = {
@@ -1878,7 +1878,7 @@ skills["EnchantmentOfWarOnKill"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
 		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
+		{ "enchantment_of_war_trigger_on_kill_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 50 },
 	},
 	stats = {
@@ -1919,7 +1919,7 @@ skills["EnchantmentOfWarOnKill2"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
 		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
+		{ "enchantment_of_war_trigger_on_kill_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 100 },
 	},
 	stats = {
@@ -1960,7 +1960,7 @@ skills["EnchantmentOfWarOnKill3"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
 		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
+		{ "enchantment_of_war_trigger_on_kill_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 150 },
 	},
 	stats = {
@@ -2001,7 +2001,7 @@ skills["EnchantmentOfWarOnKill4"] = {
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },
 		{ "number_of_monsters_to_summon", 1 },
-		{ "attack_trigger_on_kill_%", 100 },
+		{ "enchantment_of_war_trigger_on_kill_%", 100 },
 		{ "active_skill_minion_damage_+%_final", 200 },
 	},
 	stats = {

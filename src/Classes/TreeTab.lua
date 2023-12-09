@@ -7,6 +7,7 @@ local ipairs = ipairs
 local pairs = pairs
 local next = next
 local t_insert = table.insert
+local t_remove = table.remove
 local t_sort = table.sort
 local t_concat = table.concat
 local m_max = math.max
@@ -33,6 +34,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 
 	self.anchorControls = new("Control", nil, 0, 0, 0, 20)
 
+	-- Tree list dropdown
 	self.controls.specSelect = new("DropDownControl", {"LEFT",self.anchorControls,"RIGHT"}, 0, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self.build.modFlag = true
@@ -67,8 +69,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 						local respec = 0
 						for nodeId, node in pairs(self.build.spec.allocNodes) do
 							-- Assumption: Nodes >= 65536 are small cluster passives.
-							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" 
-							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536 
+							if node.type ~= "ClassStart" and node.type ~= "AscendClassStart"
+							and (self.build.spec.tree.clusterNodeMap[node.dn] == nil or node.isKeystone or node.isJewelSocket) and nodeId < 65536
 							and not spec.allocNodes[nodeId] then
 								if node.ascendancyName then
 									respec = respec + 5
@@ -86,6 +88,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			end
 		end
 	end
+
+	-- Compare checkbox
 	self.controls.compareCheck = new("CheckBoxControl", { "LEFT", self.controls.specSelect, "RIGHT" }, 74, 0, 20, "Compare:", function(state)
 		self.isComparing = state
 		self:SetCompareSpec(self.activeCompareSpec)
@@ -96,6 +100,8 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self.controls.reset:SetAnchor("LEFT", self.controls.compareCheck, "RIGHT", nil, nil, nil)
 		end
 	end)
+
+	-- Compare tree dropdown
 	self.controls.compareSelect = new("DropDownControl", { "LEFT", self.controls.compareCheck, "RIGHT" }, 8, 0, 190, 20, nil, function(index, value)
 		if self.specList[index] then
 			self:SetCompareSpec(index)
@@ -113,58 +119,68 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 			self.build.buildFlag = true
 		end)
 	end)
-	self.controls.import = new("ButtonControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 90, 20, "Import Tree", function()
-		self:OpenImportPopup()
-	end)
-	self.controls.export = new("ButtonControl", { "LEFT", self.controls.import, "RIGHT" }, 8, 0, 90, 20, "Export Tree", function()
-		self:OpenExportPopup()
-	end)
-	local function convertToVersion(version)
-		local newSpec = new("PassiveSpec", self.build, version, true)
-		newSpec.title = self.build.spec.title
-		newSpec.jewels = copyTable(self.build.spec.jewels)
-		newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), version)
-		newSpec:BuildClusterJewelGraphs()
-		t_insert(self.specList, self.activeSpec + 1, newSpec)
-		self:SetActiveSpec(self.activeSpec + 1)
-		self.modFlag = true
-		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
-	end
+
+	-- Tree Version Dropdown
 	self.treeVersions = { }
 	for _, num in ipairs(treeVersionList) do
-		if not num:find("^2") then
-			local vers = num:gsub("%_", ".")
-			t_insert(self.treeVersions, vers)
-		end
+		t_insert(self.treeVersions, treeVersions[num].display)
 	end
-	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.export, "RIGHT" }, 8, 0, 0, 16, "Version:")
-	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 55, 20, self.treeVersions, function(index, value)
+	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 0, 16, "Version:")
+	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
 		if value ~= self.build.spec.treeVersion then
-			convertToVersion(value:gsub("%.", "_"))
+			self:OpenVersionConvertPopup(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"))
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
 	self.controls.versionSelect.enableDroppedWidth = true
 	self.controls.versionSelect.enableChangeBoxWidth = true
 	self.controls.versionSelect.selIndex = #self.treeVersions
+
+	-- Tree Search Textbox
 	self.controls.treeSearch = new("EditControl", { "LEFT", self.controls.versionSelect, "RIGHT" }, 8, 0, main.portraitMode and 200 or 300, 20, "", "Search", "%c", 100, function(buf)
 		self.viewer.searchStr = buf
 		self.searchFlag = buf ~= self.viewer.searchStrSaved
 	end, nil, nil, true)
 	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
+
+	-- Find Timeless Jewel Button
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
 	end)
+
+	-- Show Node Power Checkbox
 	self.controls.treeHeatMap = new("CheckBoxControl", { "LEFT", self.controls.findTimelessJewel, "RIGHT" }, 130, 0, 20, "Show Node Power:", function(state)
 		self.viewer.showHeatMap = state
 		self.controls.treeHeatMapStatSelect.shown = state
-		
-		if state == false then 
-			self.showPowerReport = false 
-			self:TogglePowerReport()
+
+		if state == false then
+			self.controls.powerReportList.shown = false 
 		end
 	end)
-	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
+
+	-- Control for setting max node depth to limit calculation time of the heat map
+	self.controls.nodePowerMaxDepthSelect = new("DropDownControl",
+	{ "LEFT", self.controls.treeHeatMap, "RIGHT" }, 8, 0, 50, 20, { "All", 5, 10, 15 }, function(index, value)
+		local oldMax = self.build.calcsTab.nodePowerMaxDepth
+
+		if type(value) == "number" then
+			self.build.calcsTab.nodePowerMaxDepth = value
+		else
+			self.build.calcsTab.nodePowerMaxDepth = nil
+		end
+
+		-- If the heat map is shown, tell it to recalculate
+		-- if the new value is larger than the old
+		if oldMax ~= value and self.viewer.showHeatMap then
+			if oldMax ~= nil and (self.build.calcsTab.nodePowerMaxDepth == nil or self.build.calcsTab.nodePowerMaxDepth > oldMax) then
+				self:SetPowerCalc(self.build.calcsTab.powerStat)
+			end
+		end
+	end)
+	self.controls.nodePowerMaxDepthSelect.tooltipText = "Limit of Node distance to search (lower = faster)"
+
+	-- Control for selecting the power stat to sort by (Defense, DPS, etc)
+	self.controls.treeHeatMapStatSelect = new("DropDownControl", { "LEFT", self.controls.nodePowerMaxDepthSelect, "RIGHT" }, 8, 0, 150, 20, nil, function(index, value)
 		self:SetPowerCalc(value)
 	end)
 	self.controls.treeHeatMap.tooltipText = function()
@@ -179,28 +195,42 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		end
 	end
 
-	self.controls.powerReport = new("ButtonControl", { "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, 8, 0, 150, 20, self.showPowerReport and "Hide Power Report" or "Show Power Report", function()
-		self.showPowerReport = not self.showPowerReport
-		self:TogglePowerReport()
+	-- Show/Hide Power Report Button
+	self.controls.powerReport = new("ButtonControl", { "LEFT", self.controls.treeHeatMapStatSelect, "RIGHT" }, 8, 0, 150, 20,
+		function() return self.controls.powerReportList.shown and "Hide Power Report" or "Show Power Report" end, function()
+		self.controls.powerReportList.shown = not self.controls.powerReportList.shown
 	end)
-	self.controls.powerReport.enabled = function()
-		return self.build.calcsTab and self.build.calcsTab.powerBuilderInitialized
-	end
-	self.controls.powerReport.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		if not (self.build.calcsTab and self.build.calcsTab.powerBuilderInitialized) then
-			tooltip:AddLine(14, "Show Power Report is disabled until the first time")
-			tooltip:AddLine(14, "an evaluation of all nodes and clusters completes.")
+
+	-- Power Report List
+	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
+	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT", self.controls.specSelect, "BOTTOMLEFT"}, 0, yPos, 700, 220, function(selectedNode)
+		-- this code is called by the list control when the user "selects" one of the passives in the list.
+		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
+		if selectedNode.x then
+			self.jumpToNode = true
+			self.jumpToX = selectedNode.x
+			self.jumpToY = selectedNode.y
 		end
+	end)
+	self.controls.powerReportList.shown = false
+	self.build.powerBuilderCallback = function()
+		local powerStat = self.build.calcsTab.powerStat or data.powerStatList[1]
+		local report = self:BuildPowerReportList(powerStat)
+		self.controls.powerReportList:SetReport(powerStat, report)
 	end
-	self.showPowerReport = false
 
 	self.controls.specConvertText = new("LabelControl", { "BOTTOMLEFT", self.controls.specSelect, "TOPLEFT" }, 0, -14, 0, 16, "^7This is an older tree version, which may not be fully compatible with the current game version.")
 	self.controls.specConvertText.shown = function()
 		return self.showConvert
 	end
-	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, 120, 20, "^2Convert to "..treeVersions[latestTreeVersion].display, function()
-		convertToVersion(latestTreeVersion)
+	local function getLatestTreeVersion()
+		return latestTreeVersion .. (self.specList[self.activeSpec].treeVersion:match("^" .. latestTreeVersion .. "(.*)") or "")
+	end
+	local function buildConvertButtonLabel()
+		return "^2Convert to "..treeVersions[getLatestTreeVersion()].display
+	end
+	self.controls.specConvert = new("ButtonControl", { "LEFT", self.controls.specConvertText, "RIGHT" }, 8, 0, function() return DrawStringWidth(16, "VAR", buildConvertButtonLabel()) + 20 end, 20, buildConvertButtonLabel, function()
+		self:ConvertToVersion(getLatestTreeVersion(), false, true)
 	end)
 	self.jumpToNode = false
 	self.jumpToX = 0
@@ -232,22 +262,16 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 
 	-- Determine positions if one line of controls doesn't fit in the screen width
 	local twoLineHeight = 24
-	if viewPort.width >= 1168 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
+	if viewPort.width >= 1336 + (self.isComparing and 198 or 0) + (self.viewer.showHeatMap and 316 or 0) then
 		twoLineHeight = 0
-		self.controls.findTimelessJewel:SetAnchor("LEFT", self.controls.treeSearch, "RIGHT", 8, 0)
-		if self.controls.powerReportList then
-			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, self.controls.specSelect.height + 4)
-			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", 8, 0)
-		end
+		self.controls.treeSearch:SetAnchor("LEFT", self.controls.versionSelect, "RIGHT", 8, 0)
+		self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, self.controls.specSelect.height + 4)
 	else
-		self.controls.findTimelessJewel:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, 4)
-		if self.controls.powerReportList then
-			self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.findTimelessJewel, "BOTTOMLEFT", 0, self.controls.treeHeatMap.y + self.controls.treeHeatMap.height + 4)
-			self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, "TOPRIGHT", -76, -44)
-		end
+		self.controls.treeSearch:SetAnchor("TOPLEFT", self.controls.specSelect, "BOTTOMLEFT", 0, 4)
+		self.controls.powerReportList:SetAnchor("TOPLEFT", self.controls.treeSearch, "BOTTOMLEFT", 0, self.controls.treeHeatMap.y + self.controls.treeHeatMap.height + 4)
 	end
 
-	local bottomDrawerHeight = self.showPowerReport and 194 or 0
+	local bottomDrawerHeight = self.controls.powerReportList.shown and 194 or 0
 	self.controls.specSelect.y = -bottomDrawerHeight - twoLineHeight
 
 	local treeViewPort = { x = viewPort.x, y = viewPort.y, width = viewPort.width, height = viewPort.height - (self.showConvert and 64 + bottomDrawerHeight + twoLineHeight or 32 + bottomDrawerHeight + twoLineHeight)}
@@ -285,13 +309,6 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.controls.treeHeatMapStatSelect:CheckDroppedWidth(true)
 	if self.build.calcsTab.powerStat then
 		self.controls.treeHeatMapStatSelect:SelByValue(self.build.calcsTab.powerStat.stat, "stat")
-	end
-	if self.controls.powerReportList then
-		if self.build.calcsTab.powerStat and self.build.calcsTab.powerStat.stat then
-			self.controls.powerReportList.label = self.build.calcsTab.powerBuilder and "Building table..." or "Click to focus node on tree"
-		else
-			self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
-		end
 	end
 
 	SetDrawLayer(1)
@@ -347,7 +364,7 @@ function TreeTabClass:PostLoad()
 end
 
 function TreeTabClass:Save(xml)
-	xml.attrib = { 
+	xml.attrib = {
 		activeSpec = tostring(self.activeSpec)
 	}
 	for specId, spec in ipairs(self.specList) do
@@ -382,13 +399,17 @@ function TreeTabClass:SetActiveSpec(specId)
 			end
 		end
 	end
-	self.showConvert = curSpec.treeVersion ~= latestTreeVersion
+	self.showConvert = not curSpec.treeVersion:match("^" .. latestTreeVersion)
 	if self.build.itemsTab.itemOrderList[1] then
 		-- Update item slots if items have been loaded already
 		self.build.itemsTab:PopulateSlots()
 	end
 	-- Update the passive tree dropdown control in itemsTab
 	self.build.itemsTab.controls.specSelect.selIndex = specId
+	-- Update Version dropdown to active spec's
+	if self.controls.versionSelect then
+		self.controls.versionSelect:SelByValue(curSpec.treeVersion:gsub("%_", "."):gsub(".ruthless", " (ruthless)"))
+	end
 end
 
 function TreeTabClass:SetCompareSpec(specId)
@@ -398,43 +419,109 @@ function TreeTabClass:SetCompareSpec(specId)
 	self.compareSpec = curSpec
 end
 
+function TreeTabClass:ConvertToVersion(version, remove, success)
+	local newSpec = new("PassiveSpec", self.build, version)
+	newSpec.title = self.build.spec.title
+	newSpec.jewels = copyTable(self.build.spec.jewels)
+	newSpec:RestoreUndoState(self.build.spec:CreateUndoState(), version)
+	newSpec:BuildClusterJewelGraphs()
+	t_insert(self.specList, self.activeSpec + 1, newSpec)
+	if remove then
+		t_remove(self.specList, self.activeSpec)
+		-- activeSpec + 1 is shifted down one on remove, otherwise we would set the spec below it if it exists
+		self:SetActiveSpec(self.activeSpec)
+	else
+		self:SetActiveSpec(self.activeSpec + 1)
+	end
+	self.modFlag = true
+	if success then
+		main:OpenMessagePopup("Tree Converted", "The tree has been converted to "..treeVersions[version].display..".\nNote that some or all of the passives may have been de-allocated due to changes in the tree.\n\nYou can switch back to the old tree using the tree selector at the bottom left.")
+	end
+end
+
 function TreeTabClass:OpenSpecManagePopup()
+	local importTree =
+		new("ButtonControl", nil, -99, 259, 90, 20, "Import Tree", function()
+			self:OpenImportPopup()
+		end)
+	local exportTree =
+		new("ButtonControl", { "LEFT", importTree, "RIGHT" }, 8, 0, 90, 20, "Export Tree", function()
+			self:OpenExportPopup()
+		end)
+
 	main:OpenPopup(370, 290, "Manage Passive Trees", {
 		new("PassiveSpecListControl", nil, 0, 50, 350, 200, self),
-		new("ButtonControl", nil, 0, 260, 90, 20, "Done", function()
+		importTree,
+		exportTree,
+		new("ButtonControl", {"LEFT", exportTree, "RIGHT"}, 8, 0, 90, 20, "Done", function()
 			main:ClosePopup()
 		end),
 	})
 end
 
+function TreeTabClass:OpenVersionConvertPopup(version)
+	local controls = { }
+	controls.warningLabel = new("LabelControl", nil, 0, 20, 0, 16, "^7Warning: some or all of the passives may be de-allocated due to changes in the tree.\n\n" ..
+		"Convert will replace your current tree.\nCopy + Convert will backup your current tree.\n")
+	controls.convert = new("ButtonControl", nil, -125, 110, 100, 20, "Convert", function()
+		self:ConvertToVersion(version, true, false)
+		main:ClosePopup()
+	end)
+	controls.convertCopy = new("ButtonControl", nil, 0, 110, 125, 20, "Copy + Convert", function()
+		self:ConvertToVersion(version, false, false)
+		main:ClosePopup()
+	end)
+	controls.cancel = new("ButtonControl", nil, 125, 110, 100, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(570, 140, "Convert to Version "..treeVersions[version].display, controls, "convert", "edit")
+end
+
 function TreeTabClass:OpenImportPopup()
 	local versionLookup = "tree/([0-9]+)%.([0-9]+)%.([0-9]+)/"
 	local controls = { }
-	local function decodeTreeLink(treeLink, newTreeVersion)
-			-- newTreeVersion is passed in as an output of validateTreeVersion(). It will always be a valid tree version text string
-			-- If there was a version on the url, and it changed the version of the active spec, dump the active spec and get one of the right version. 
-		if newTreeVersion ~= self.specList[self.activeSpec].treeVersion then
-			local newSpec = new("PassiveSpec", self.build, newTreeVersion)
-			newSpec:SelectClass(self.build.spec.curClassId)
-			newSpec:SelectAscendClass(self.build.spec.curAscendClassId)
-			newSpec.title = self.build.spec.title
-			self.specList[self.activeSpec] = newSpec
-			-- trigger all the things that go with changing a spec
-			self:SetActiveSpec(self.activeSpec)
-			self.modFlag = true
+	local function decodePoePlannerTreeLink(treeLink)
+		-- treeVersion is not known at this point. We need to decode the URL to get it.
+		local tmpSpec = new("PassiveSpec", self.build, latestTreeVersion)
+		local newTreeVersion_or_errMsg = tmpSpec:DecodePoePlannerURL(treeLink, true)
+		-- Check for an error message
+		if string.find(newTreeVersion_or_errMsg, "Invalid") then
+			controls.msg.label = "^1"..newTreeVersion_or_errMsg
+			return
 		end
-	
-		-- We will now have a spec that matches the version of the binary being imported
-		local errMsg = self.build.spec:DecodeURL(treeLink)
+
+		-- 20230908. We always create a new Spec()
+		local newSpec = new("PassiveSpec", self.build, newTreeVersion_or_errMsg)
+		newSpec.title = controls.name.buf
+		newSpec:DecodePoePlannerURL(treeLink, false)  --DecodePoePlannerURL was used above and URL proven correct.
+		t_insert(self.specList, newSpec)
+		-- trigger all the things that go with changing a spec
+		self:SetActiveSpec(#self.specList)
+		self.modFlag = true
+		self.build.spec:AddUndoState()
+		self.build.buildFlag = true
+		main:ClosePopup()
+	end
+
+	local function decodeTreeLink(treeLink, newTreeVersion)
+		-- newTreeVersion is passed in as an output of validateTreeVersion(). It will always be a valid tree version text string
+		-- 20230908. We always create a new Spec()
+		local newSpec = new("PassiveSpec", self.build, newTreeVersion)
+		newSpec.title = controls.name.buf
+		local errMsg = newSpec:DecodeURL(treeLink)
 		if errMsg then
-			controls.msg.label = "^1"..errMsg
+			controls.msg.label = "^1"..errMsg.."^7"
 		else
+			t_insert(self.specList, newSpec)
+			-- trigger all the things that go with changing a spec
+			self:SetActiveSpec(#self.specList)
+			self.modFlag = true
 			self.build.spec:AddUndoState()
 			self.build.buildFlag = true
 			main:ClosePopup()
 		end
 	end
-	local function validateTreeVersion(major, minor)
+	local function validateTreeVersion(isRuthless, major, minor)
 		-- Take the Major and Minor version numbers and confirm it is a valid tree version. The point release is also passed in but it is not used
 		-- Return: the passed in tree version as text or latestTreeVersion
 		if major and minor then
@@ -442,20 +529,26 @@ function TreeTabClass:OpenImportPopup()
 			local newTreeVersionNum = tonumber(string.format("%d.%02d", major, minor))
 			if newTreeVersionNum >= treeVersions[defaultTreeVersion].num and newTreeVersionNum <= treeVersions[latestTreeVersion].num then
 				-- no leading 0 here
-				return string.format("%s_%s", major, minor)
+				return string.format("%s_%s", major, minor) .. (isRuthless and "_ruthless" or "")
 			else
 				print(string.format("Version '%d_%02d' is out of bounds", major, minor))
 			end
 		end
-		return latestTreeVersion
+		return latestTreeVersion .. (isRuthless and "_ruthless" or "")
 	end
 
-	controls.editLabel = new("LabelControl", nil, 0, 20, 0, 16, "Enter passive tree link:")
-	controls.edit = new("EditControl", nil, 0, 40, 350, 18, "", nil, nil, nil, function(buf)
+	controls.nameLabel = new("LabelControl", nil, -180, 20, 0, 16, "Enter name for this passive tree:")
+	controls.name = new("EditControl", nil, 100, 20, 350, 18, "", nil, nil, nil, function(buf)
 		controls.msg.label = ""
+		controls.import.enabled = buf:match("%S") and controls.edit.buf:match("%S")
 	end)
-	controls.msg = new("LabelControl", nil, 0, 58, 0, 16, "")
-	controls.import = new("ButtonControl", nil, -45, 80, 80, 20, "Import", function()
+	controls.editLabel = new("LabelControl", nil, -150, 45, 0, 16, "Enter passive tree link:")
+	controls.edit = new("EditControl", nil, 100, 45, 350, 18, "", nil, nil, nil, function(buf)
+		controls.msg.label = ""
+		controls.import.enabled = buf:match("%S") and controls.name.buf:match("%S")
+	end)
+	controls.msg = new("LabelControl", nil, 0, 65, 0, 16, "")
+	controls.import = new("ButtonControl", nil, -45, 85, 80, 20, "Import", function()
 		local treeLink = controls.edit.buf
 		if #treeLink == 0 then
 			return
@@ -483,28 +576,32 @@ function TreeTabClass:OpenImportPopup()
 			if id then
 				launch:RegisterSubScript(id, function(treeLink, errMsg)
 					if errMsg then
-						controls.msg.label = "^1"..errMsg
+						controls.msg.label = "^1"..errMsg.."^7"
 						controls.import.enabled = true
 						return
 					else
-						decodeTreeLink(treeLink, validateTreeVersion(treeLink:match(versionLookup)))
+						decodeTreeLink(treeLink, validateTreeVersion(treeLink:match("tree/ruthless"), treeLink:match(versionLookup)))
 					end
 				end)
 			end
+		elseif treeLink:match("poeplanner.com/") then
+			decodePoePlannerTreeLink(treeLink:gsub("/%?v=.+#","/"))
 		elseif treeLink:match("poeskilltree.com/") then
-			local oldStyleVersionLookup = "/%?v=([0-9]+)%.([0-9]+)%.([0-9]+)#"
+			local oldStyleVersionLookup = "/%?v=([0-9]+)%.([0-9]+)%.([0-9]+)%-?r?u?t?h?l?e?s?s?#"
 			-- Strip the version from the tree : https://poeskilltree.com/?v=3.6.0#AAAABAMAABEtfIOFMo6-ksHfsOvu -> https://poeskilltree.com/AAAABAMAABEtfIOFMo6-ksHfsOvu
-			decodeTreeLink(treeLink:gsub("/%?v=.+#","/"), validateTreeVersion(treeLink:match(oldStyleVersionLookup)))
+			decodeTreeLink(treeLink:gsub("/%?v=.+#","/"), validateTreeVersion(treeLink:match("-ruthless#"), treeLink:match(oldStyleVersionLookup)))
 		else
 			-- EG: https://www.pathofexile.com/passive-skill-tree/3.15.0/AAAABgMADI6-HwKSwQQHLJwtH9-wTLNfKoP3ES3r5AAA
 			-- EG: https://www.pathofexile.com/fullscreen-passive-skill-tree/3.15.0/AAAABgMADAQHES0fAiycLR9Ms18qg_eOvpLB37Dr5AAA
-			decodeTreeLink(treeLink, validateTreeVersion(treeLink:match(versionLookup)))
+			-- EG: https://www.pathofexile.com/passive-skill-tree/ruthless/AAAABgAAAAAA (Ruthless doesn't have versions)
+			decodeTreeLink(treeLink, validateTreeVersion(treeLink:match("tree/ruthless"), treeLink:match(versionLookup)))
 		end
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 80, 80, 20, "Cancel", function()
+	controls.import.enabled = false
+	controls.cancel = new("ButtonControl", nil, 45, 85, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
-	main:OpenPopup(380, 110, "Import Tree", controls, "import", "edit")
+	main:OpenPopup(580, 115, "Import Tree", controls, "import", "name")
 end
 
 function TreeTabClass:OpenExportPopup()
@@ -534,6 +631,110 @@ function TreeTabClass:OpenExportPopup()
 		main:ClosePopup()
 	end)
 	popup = main:OpenPopup(380, 100, "Export Tree", controls, "done", "edit")
+end
+
+function TreeTabClass:ModifyNodePopup(selectedNode)
+	local controls = { }
+	local modGroups = { }
+	local function buildMods(selectedNode)
+		wipeTable(modGroups)
+		local treeNodes = self.build.spec.tree.nodes
+		local numLinkedNodes = selectedNode.linkedId and #selectedNode.linkedId or 0
+		local nodeName = treeNodes[selectedNode.id].dn
+		local nodeValue = treeNodes[selectedNode.id].sd[1]
+		for id, node in pairs(self.build.spec.tree.tattoo.nodes) do
+			if (nodeName:match(node.targetType:gsub("^Small ", "")) or (node.targetValue ~= "" and nodeValue:match(node.targetValue)) or
+					(node.targetType == "Small Attribute" and (nodeName == "Intelligence" or nodeName == "Strength" or nodeName == "Dexterity"))
+					or (node.targetType == "Keystone" and treeNodes[selectedNode.id].type == node.targetType))
+					and node.MinimumConnected <= numLinkedNodes then
+				local combine = false
+				for id, desc in pairs(node.stats) do
+					combine = (id:match("^local_display.*") and #node.stats == (#node.sd - 1)) or combine
+					if combine then break end
+				end
+				local descriptionsAndReminders = copyTable(node.sd)
+				if combine then
+					t_remove(descriptionsAndReminders, 1)
+					t_remove(descriptionsAndReminders, 1)
+					t_insert(descriptionsAndReminders, 1, node.sd[1] .. " " .. node.sd[2])
+				end
+				local descriptionsAndReminders = combine and { [1] = table.concat(node.sd, " ") } or copyTable(node.sd)
+				if node.reminderText then
+					t_insert(descriptionsAndReminders, node.reminderText[1])
+				end
+				t_insert(modGroups, {
+				label = node.dn .. "                                                " .. table.concat(node.sd, ","),
+				descriptions = descriptionsAndReminders,
+				id = id,
+				})
+			end
+		end
+		table.sort(modGroups, function(a, b) return a.label < b.label end)
+		end
+	local function addModifier(selectedNode)
+		local newTattooNode = self.build.spec.tree.tattoo.nodes[modGroups[controls.modSelect.selIndex].id]
+		newTattooNode.id = selectedNode.id
+		self.build.spec.hashOverrides[selectedNode.id] = newTattooNode
+		self.build.spec:ReplaceNode(selectedNode, newTattooNode)
+		self.build.spec:BuildAllDependsAndPaths()
+	end
+
+	local function constructUI(modGroup)
+		local totalHeight = 43
+		local maxWidth = 375
+		local i = 1
+		while controls[i] do
+			controls[i] = nil
+			i = i + 1
+		end
+
+		local wrapTable = {}
+		for idx, desc in ipairs(modGroup.descriptions) do
+			for _, wrappedDesc in ipairs(main:WrapString(desc, 16, maxWidth)) do
+				t_insert(wrapTable, wrappedDesc)
+			end
+		end
+		for idx, desc in ipairs(wrapTable) do
+			controls[idx] = new("LabelControl", {"TOPLEFT", controls[idx-1] or controls.modSelect,"TOPLEFT"}, 0, 20, 600, 16, "^7"..desc)
+			totalHeight = totalHeight + 20
+		end
+		main.popups[1].height = totalHeight + 30
+		controls.save.y = totalHeight
+		controls.reset.y = totalHeight
+		controls.close.y = totalHeight
+	end
+
+	buildMods(selectedNode)
+	controls.modSelectLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 150, 25, 0, 16, "^7Modifier:")
+	controls.modSelect = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 155, 25, 250, 18, modGroups, function(idx) constructUI(modGroups[idx]) end)
+	controls.modSelect.tooltipFunc = function(tooltip, mode, index, value)
+		tooltip:Clear()
+		if mode ~= "OUT" and value then
+			for _, line in ipairs(value.descriptions) do
+				tooltip:AddLine(16, "^7"..line)
+			end
+		end
+	end
+	controls.save = new("ButtonControl", nil, -90, 75, 80, 20, "Add", function()
+		addModifier(selectedNode)
+		self.modFlag = true
+		self.build.buildFlag = true
+		main:ClosePopup()
+	end)
+	controls.reset = new("ButtonControl", nil, 0, 75, 80, 20, "Reset Node", function()
+		self.build.spec.tree.nodes[selectedNode.id].isTattoo = false
+		self.build.spec.hashOverrides[selectedNode.id] = nil
+		self.build.spec:ReplaceNode(selectedNode, self.build.spec.tree.nodes[selectedNode.id])
+		self.build.spec:BuildAllDependsAndPaths()
+		self.modFlag = true
+		self.build.buildFlag = true
+		main:ClosePopup()
+	end)
+	controls.close = new("ButtonControl", nil, 90, 75, 80, 20, "Cancel", function()
+		main:ClosePopup()
+	end)
+	main:OpenPopup(600, 105, "Replace Modifier of Node", controls, "save")
+	constructUI(modGroups[1])
 end
 
 function TreeTabClass:SaveMasteryPopup(node, listControl)
@@ -582,78 +783,12 @@ function TreeTabClass:OpenMasteryPopup(node, viewPort)
 	end
 end
 
-function TreeTabClass:SetPowerCalc(selection)
+function TreeTabClass:SetPowerCalc(powerStat)
 	self.viewer.showHeatMap = true
 	self.build.buildFlag = true
 	self.build.calcsTab.powerBuildFlag = true
-	self.build.calcsTab.powerStat = selection
-	if self.showPowerReport then
-		self.controls.allocatedNodeToggle.enabled = false
-		self.controls.allocatedNodeDistance.enabled = false
-		self.controls.powerReportList.label = "Building table..."
-		self.build.calcsTab:BuildPower({ func = self.TogglePowerReport, caller = self })
-	end
-end
-
-function TreeTabClass:BuildPowerReportUI()
-	self.controls.powerReport.tooltipText = "A report of node efficacy based on current heat map selection"
-
-	self.controls.allocatedNodeToggle = new("ButtonControl", {"TOPLEFT", self.controls.powerReportList, "TOPRIGHT" }, 8, 4, 160, 20, "Show allocated nodes", function()
-		self.controls.powerReportList.allocated = not self.controls.powerReportList.allocated
-		self.controls.allocatedNodeDistance.shown = self.controls.powerReportList.allocated
-		self.controls.allocatedNodeDistance.enabled = self.controls.powerReportList.allocated
-		self.controls.allocatedNodeToggle.label = self.controls.powerReportList.allocated and "Show Unallocated Nodes" or "Show allocated nodes"
-		self.controls.powerReportList.pathLength = tonumber(self.controls.allocatedNodeDistance.buf or 1)
-		self.controls.powerReportList:ReList()
-	end)
-
-	self.controls.allocatedNodeDistance = new("EditControl", {"TOPLEFT", self.controls.allocatedNodeToggle, "BOTTOMLEFT" }, 0, 4, 125, 20, 1, "Max path", "%D", 100, function(buf)
-		self.controls.powerReportList.pathLength = tonumber(buf)
-		self.controls.powerReportList:ReList()
-	end)
-end
-
-function TreeTabClass:TogglePowerReport(caller)
-	self = self or caller
-	self.controls.powerReport.label = self.showPowerReport and "Hide Power Report" or "Show Power Report"
-	local currentStat = self.build.calcsTab and self.build.calcsTab.powerStat or nil
-	local report = {}
-	if not self.showPowerReport and self.controls.powerReportList then
-		self.controls.powerReportList.shown = false
-		return
-	end
-
-	report = self:BuildPowerReportList(currentStat)
-	local yPos = self.controls.treeHeatMap.y == 0 and self.controls.specSelect.height + 4 or self.controls.specSelect.height * 2 + 8
-	self.controls.powerReportList = new("PowerReportListControl", {"TOPLEFT", self.controls.specSelect, "BOTTOMLEFT"}, 0, yPos, 700, 220, report, currentStat and currentStat.label or "", function(selectedNode)
-		-- this code is called by the list control when the user "selects" one of the passives in the list.
-		-- we use this to set a flag which causes the next Draw() to recenter the passive tree on the desired node.
-		if selectedNode.x then
-			self.jumpToNode = true
-			self.jumpToX = selectedNode.x
-			self.jumpToY = selectedNode.y
-		end
-	end)
-
-	if not self.controls.allocatedNodeToggle then
-		self:BuildPowerReportUI()
-	end
-	self.controls.allocatedNodeToggle:SetAnchor("TOPLEFT", self.controls.powerReportList, main.portraitMode and "BOTTOMLEFT" or "TOPRIGHT")
-	self.controls.powerReportList.shown = self.showPowerReport
-
-	-- the report doesn't support listing the "offense/defense" hybrid heatmap, as it is not a single scalar and I'm unsure how to quantify numerically
-	-- especially given the heatmap's current approach of using the sqrt() of both components. that number is cryptic to users, i suspect.
-	if currentStat and currentStat.stat then
-		self.controls.powerReportList.label = "Click to focus node on tree"
-		self.controls.powerReportList.enabled = true
-	else
-		self.controls.powerReportList.label = "^7\"Offense/Defense\" not supported.  Select a specific stat from the dropdown."
-		self.controls.powerReportList.enabled = false
-	end
-
-	self.controls.allocatedNodeToggle.enabled = self.controls.powerReportList.enabled
-	self.controls.allocatedNodeDistance.shown = self.controls.powerReportList.allocated
-	self.controls.allocatedNodeToggle.label = self.controls.powerReportList.allocated and "Show Unallocated Nodes" or "Show allocated nodes"
+	self.build.calcsTab.powerStat = powerStat
+	self.controls.powerReportList:SetReport(powerStat, nil)
 end
 
 function TreeTabClass:BuildPowerReportList(currentStat)
@@ -733,18 +868,18 @@ function TreeTabClass:BuildPowerReportList(currentStat)
 	-- search all cluster notables and add to the list
 	for nodeName, node in pairs(self.build.spec.tree.clusterNodeMap) do
 		local isAlloc = node.alloc
-		if not isAlloc then			
+		if not isAlloc then
 			local nodePower = (node.power and node.power.singleStat or 0) * ((displayStat.pc or displayStat.mod) and 100 or 1)
 			local nodePowerStr = s_format("%"..displayStat.fmt, nodePower)
 
 			nodePowerStr = formatNumSep(nodePowerStr)
-			
+
 			if (nodePower > 0 and not displayStat.lowerIsBetter) or (nodePower < 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.POSITIVE .. nodePowerStr
 			elseif (nodePower < 0 and not displayStat.lowerIsBetter) or (nodePower > 0 and displayStat.lowerIsBetter) then
 				nodePowerStr = colorCodes.NEGATIVE .. nodePowerStr
 			end
-			
+
 			t_insert(report, {
 				name = node.dn,
 				power = nodePower,
@@ -962,7 +1097,7 @@ function TreeTabClass:FindTimelessJewel()
 		t_sort(modData, function(a, b) return a.label < b.label end)
 		t_sort(smallModData, function (a, b) return a.label < b.label end)
 		if totalMods[timelessData.jewelType.id] then
-			t_insert(modData, 1, { 
+			t_insert(modData, 1, {
 				label = "Total " .. totalMods[timelessData.jewelType.id],
 				descriptions = { "This is a hybrid node containing all additions to " .. totalMods[timelessData.jewelType.id] },
 				type = timelessData.jewelType.name,
@@ -1138,7 +1273,7 @@ function TreeTabClass:FindTimelessJewel()
 		tooltip:AddLine(16, "^7This can be useful if you're never going to path towards those excluded nodes and don't care what happens to them.")
 	end
 	controls.socketFilter.state = timelessData.socketFilter
-	
+
 	local socketFilterAdditionalDistanceMAX = 10
 	controls.socketFilterAdditionalDistanceLabel = new("LabelControl", { "LEFT", controls.socketFilter, "RIGHT" }, 10, 0, 0, 16, "^7Node Distance:")
 	controls.socketFilterAdditionalDistance = new("SliderControl", { "LEFT", controls.socketFilterAdditionalDistanceLabel, "RIGHT" }, 10, 0, 66, 18, function(value)
@@ -1437,7 +1572,7 @@ function TreeTabClass:FindTimelessJewel()
 									if legionNode.modListGenerated then
 										newNode.node = copyTable(legionNode.modListGenerated)
 									else
-										-- generate modList	
+										-- generate modList
 										local modList1, extra1 = modLib.parseMod(replaceHelperFunc(legionNode.sd[1], legionNode.sortedStats[1], legionNode.stats[legionNode.sortedStats[1]], 100))
 										local modList2, extra2 = modLib.parseMod(replaceHelperFunc(legionNode.sd[2], legionNode.sortedStats[2], legionNode.stats[legionNode.sortedStats[2]], 100))
 										local modLists = { { modList = modList1 }, { modList = modList2 } }
@@ -1623,7 +1758,7 @@ function TreeTabClass:FindTimelessJewel()
 			if timelessData.sharedResults.conqueror.id > 1 then
 				conquerorTradeIds = { conquerorKeystoneTradeIds[timelessData.sharedResults.conqueror.id - 1] }
 			end
-			
+
 			for _, tradeId in ipairs(conquerorTradeIds) do
 				t_insert(seedTrades, {
 					id = tradeId,
@@ -1655,7 +1790,7 @@ function TreeTabClass:FindTimelessJewel()
 			}
 		}
 
-		if (timelessData.sharedResults.devotionVariant1.id > 1) or (timelessData.sharedResults.devotionVariant2.id > 1) then
+		if data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion ~= nil then
 			local devotionFilters = {}
 			if timelessData.sharedResults.devotionVariant1.id > 1 then
 				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant1.id - 1] })
@@ -1663,10 +1798,12 @@ function TreeTabClass:FindTimelessJewel()
 			if timelessData.sharedResults.devotionVariant2.id > 1 then
 				t_insert(devotionFilters, { id = data.timelessJewelTradeIDs[timelessData.jewelType.id].devotion[timelessData.sharedResults.devotionVariant2.id - 1] })
 			end
-			t_insert(search.query.stats, {
-				filters = devotionFilters,
-				type = "and"
-			})
+			if next(devotionFilters) then
+				t_insert(search.query.stats, {
+					filters = devotionFilters,
+					type = "and"
+				})
+			end
 		end
 
 		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
@@ -1960,7 +2097,7 @@ function TreeTabClass:FindTimelessJewel()
 				end
 			end
 			t_sort(timelessData.searchResults, function(a, b) return a.total > b.total end)
-			controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0		
+			controls.searchTradeButton.enabled = timelessData.searchResults and #timelessData.searchResults > 0
 			controls.searchTradeButton.lastSearch = nil
 			controls.searchTradeButton.label = "Copy Trade URL"
 			controls.searchResults.highlightIndex = nil

@@ -1,21 +1,13 @@
----[Help File][1]
+---[Help File Introduction]
 
-This file contains a list of shortcuts, and other misc things PoB has
+This file contains a list of shortcuts and other misc information about PoB functionality
+While holding shift scroll bars in the help section and version history will jump to the previous/next section while scrolling
 
----[Contents][2]
+---[Contents]
 
-1. Intro
-2. Contents
-3. FAQ
-4. Hotkeys
-5. Other Notable Things
-6. Timeless Jewels
-7. Party Tab
-8. Items Tab
+---[FAQ]
 
----[FAQ][3]
-
----[Hotkeys][4]
+---[Hotkeys]
 
 General Shortcuts:
 
@@ -35,13 +27,14 @@ Ctrl + N	New build (in build selection menu)
 Ctrl + S	Save build to file
 Ctrl + U	Check for update
 Ctrl + V or RMB	Paste
-Ctrl + W or Mouse 4	Close Build (gives save prompt if unsaved)
+Ctrl + W or	
+Mouse 4	Close Build (gives save prompt if unsaved)
 Ctrl + X	Cut
 Ctrl + Y	Redo
 Ctrl + Z	Undo
 Ctrl + BSP / DEL	Faster text delete
 Ctrl + + /-/0	Zoom in / Out / Reset
-F1	Open item/gem/etc in poewiki.net
+F1	Open item/gem/etc in poewiki.net, or if nothing to open, opens help file
 F2	Rename item, set, etc.
 E	On an equipped item will open it on the edit menu on the right.
 Ctrl + LMB	Enable / disable gems
@@ -50,6 +43,7 @@ Mouse 4/5	Undo / Redo path respectively (in build selection menu)
 Shift	While scrolling on a slider makes it 5* times faster
 Ctrl	While scrolling on a slider makes it 5* times slower
 * default of 5, some scroll bars have more or less extreme modifiers to scroll speed
+  and scroll bars in help section and version history will jump to the previous/next section
 
 When creating an item either through item creator or adding an item pressing ctrl will add it to the first slot
     and ctrl+shift will add it to the second slot e.g. offhand for a weapon.
@@ -59,7 +53,7 @@ Passive Tree Shortcuts:
 Ctrl	Hide tooltips while held
 P	Toggle node power
 Ctrl + D	Toggle stat diff display
-PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase amount of zoom x 3)
+PgUp/PgDn/MWheel	Zoom in / out (hold with shift to increase the amount of zoom x 3)
 Ctrl + LMB	Zoom in on mouse cursor position
 Hold Shift	Enable "path trace mode" 
 	(highlighted nodes will stay highlighted, and will be allocated when a node is clicked on the tree)
@@ -80,13 +74,13 @@ DEV[F5	Restart]
 DEV[F6	Run garbage collector]
 DEV[Shift	Copy export xml to clipboard (hold key during export)]
 
----[Other Notable Things][5]
+---[Other Notable Things]
 
 Adding ^ and then a number or hex code before text will change the colour of the text, eg ^^77 will make the following text white until the next colour marker is set.
 
----[Timeless Jewels][6]
+---[Timeless Jewels]
 
-Timeless jewels modify nodes in a radius based off their seed, the same seed will apply the same changes to the same small/notable nodes so that is the number you look for. The Conqueror (name on the jewel) only affects the keystone.
+Timeless jewels modify nodes in a radius based on their seed, the same seed will apply the same changes to the same small/notable nodes so that is the number you look for. The Conqueror (name on the jewel) only affects the keystone.
 
 Path of Building has an inbuilt tool in the tree tab to search through seeds to find stats that would be good for your build.
 Clicking the "Find Timeless Jewel" button on the bottom bar in the tree tab will open a UI that lets you:
@@ -118,28 +112,50 @@ Militant Faith jewels also have the option to select the other mods on the jewel
 Advanced tricks:
     For Militant Faith, if you don't want any nodes to change, you can just sort by devotion. As unchanged nodes add devotion, the ones with the most devotion will be the ones with unchanged nodes
 	
----[Party Tab][7]
+---[Party Tab]
 
 The Party tab Allows you to import support characters and have their auras and curses apply
 
 To import a build it must be exported with "Export support" enabled in the import/export tab and must be imported in the party tab
 You can import a specific type like aura or curse, or import to all
-You can also set it to append to a section rather than replacing it (curses are always replaced)
+You can also set it to append to a section rather than replace it (curses and links are always replaced if new one has a curse/link)
  
-This does not add the auras or curses into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectively
+This does not add the auras, curses or links into the skills tab, but they do show up on calcs tab under "aura and buff skills" as well as "curses and debuffs" respectively
 They also show other effects they add, like when physical damage reduction is applied by an aurabot with the Guardian node
  
 Auras with the highest effect will take priority
 Your curses will take priority over a support's
- 
-For now Enemy conditions and Modifiers are not exported but can be imported if its saved in the XML, and Links skills are not exported or parsed
+
+Links skills use stats from party members if they are exported
+Some Enemy conditions and Modifiers may not be properly exported, please let us know if something is broken
 Some auras like Mines which use a stack value for their effect will not apply as their stack value is missing
 
----[Items Tab][8]
+---[Skills Tab]
+
+The skills tab allows you to plan out the skills you will use for your character. To access this tab, click on "Skills" in the tab at the top left of the screen next to "Tree" and "Items".
+
+From here, you can view all of the skills in your build. There are a few different UI elements that you can use to group your skills and make DPS calculations easier. 
+
+The top left window lets you view Socket Groups. Skills can be organized into Socket Groups to show which support gems are applied to certain skills. You can add a socket group by clicking New and selecting a skill from the drop-down. 
+For example, you could add a socket group for Vitality and then attach Arrogance to the group as a support.
+You can also add labels and organize your skills by type (auras, mobility, damage, etc). This is a great way to keep track of skill changes across skill sets as you level.
+
+Skill sets can be thought of as collections of socket groups. There is a select box above the socket groups window that will let you switch between them. 
+A great way to use these is to create skill sets for different level gaps, allowing you to plan out which skills you can run at certain points in your levelling progression.
+They are also a nice way to showcase different skill options for your build. One set could show the skills you run to maximize DPS, while another could show a better setup for survivability or maybe mapping. Click Manage next to the select box to add, remove, rename, and copy skill sets.
+
+If you click on a skill in one of your socket groups, a table will appear on the right showing you the details of that group. You can set which piece of gear the skills are socketed in, as well as the level of each skill, the variant, quality, and count. 
+Hovering over a skill will display a full description of that skill and toggling the "Enabled" checkbox will enable or disable that skill from your build. You can also use the "Include in Full DPS" checkbox to include or exclude that skill from the Full DPS calculation displayed on the left panel. 
+This can be useful for seeing how much damage you are getting from specific skills as well as specific groups of skills in your gear. You may also want to make a socket group simply for display purposes and then you can exclude that from DPS calculations.
+
+Finally, underneath the Socket Groups window is the Gem Options box. This will let you configure the level of your skills gems as well as sort them by different types of DPS. Really useful for viewing total potential damage vs damage at different levels.
+
+
+---[Items Tab]
 
 The Item Tab in Path of Building allows you to plan out the gear you will use for your character. To access the Item Tab, click on the "Items" tab located at the top of the screen.
 
-From here, you can view all of the gear slots for your character, such as your weapon, chest armor, and boots. To add an item to a slot, click on the arrow button on the right side of the slot. This will bring up a list of all the items available in your build, which are visible in the "All items" window.
+From here, you can view all of the gear slots for your character, such as your weapon, chest armour, and boots. To add an item to a slot, click on the arrow button on the right side of the slot. This will bring up a list of all the items available in your build, which are visible in the "All items" window.
 If you wish to add more items, you can copy and paste items using CTRL+C (from the game or trade website) and CTRL+V into the "Shared items" window. Additionally, you can craft items using the "Craft item..." button on the top or create completely customizable items using the "Create custom..." option.
 
 The item sets section located at the top of the screen can be used to save multiple sets of items and easily switch between them. You can add, remove, rename, and copy new sets using the "Manage..." button.
