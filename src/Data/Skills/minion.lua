@@ -1643,3 +1643,23 @@ skills["MPWExpeditionSummonedArbalestProjectile"] = {
 		[1] = { levelRequirement = 1, },
 	},
 }
+skills["BlinkMirrorArrowMelee"] = {
+	name = "Projectile Attack",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 1.75, baseMultiplier = 1.75, levelRequirement = 0, },
+	},
+}

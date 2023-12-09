@@ -186,9 +186,6 @@ skills["AnimateWeapon"] = {
 		"AnimatedWeapon",
 	},
 	statMap = {
-		["base_movement_velocity_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }),
-		},
 		["attack_minimum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
@@ -201,11 +198,11 @@ skills["AnimateWeapon"] = {
 		["attack_maximum_added_physical_damage_for_ethereal_blades"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
 		},
-		["minion_global_maximum_added_lightning_damage"] = {
-			mod("MinionModifier", "LIST", { mod = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack) }),
-		},
 		["number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
+		["quality_display_animate_weapon_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -300,6 +297,9 @@ skills["VaalAnimateWeapon"] = {
 		},
 		["number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:VaalAnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
+		["quality_display_animate_weapon_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -647,14 +647,6 @@ skills["Barrage"] = {
 		end
 	end,
 	statMap = {
-		["non_damaging_ailments_as_though_damage_+%_final"] = {
-			mod("ShockAsThoughDealing", "MORE", nil),
-			mod("ChillAsThoughDealing", "MORE", nil),
-			mod("FreezeAsThoughDealing", "MORE", nil),
-			mod("ScorchAsThoughDealing", "MORE", nil),
-			mod("BrittleAsThoughDealing", "MORE", nil),
-			mod("SapAsThoughDealing", "MORE", nil),
-		},
 		["projectiles_barrage"] = {
 		},
 	},
@@ -834,7 +826,6 @@ skills["BladeBlast"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 14),
 		mod("Multiplier:BladeBlastMaxStages", "BASE", 900, 0, 0),
 		skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastStage" }),
 	},
@@ -911,9 +902,6 @@ skills["BladeTrap"] = {
 		attack = true,
 		area = true,
 		trap = true,
-	},
-	baseMods = {
-		skill("radius", 16),
 	},
 	qualityStats = {
 		Default = {
@@ -1030,7 +1018,13 @@ skills["ChargedAttack"] = {
 		},
 		["blade_flurry_final_flurry_area_of_effect_+%"] = {
 			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 2 })
-		}
+		},
+		["display_max_charged_attack_stats"] = {
+			mod("Multiplier:BladeFlurryMaxStages", "BASE", nil),
+		},
+		["quality_display_charged_attack_is_gem"] = {
+			--Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -1038,7 +1032,6 @@ skills["ChargedAttack"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("Multiplier:BladeFlurryMaxStages", "BASE", 6),
 		skill("numStages", 1, { type = "Multiplier", var = "BladeFlurryStage" }),
 		skill("stackMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 14),
@@ -1222,15 +1215,15 @@ skills["BladeVortex"] = {
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["blade_vortex_damage_+%_with_5_or_fewer_blades"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = {1, 2} }),
-		},
 		["maximum_number_of_spinning_blades"] = {
 			mod("Multiplier:BladeVortexMaxStages", "BASE", nil),
 		},
 		["blade_vortex_hit_rate_+%_per_blade"] = {
 			skill("hitFrequencyPerBlade", nil),
 			div = 100,
+		},
+		["quality_display_blade_vortex_is_gem"] = {
+			--Display only
 		},
 	},
 	baseFlags = {
@@ -1417,6 +1410,11 @@ skills["Bladefall"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["quality_display_bladefall_is_gem"] = {
+			--Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -1510,14 +1508,6 @@ skills["BlastRain"] = {
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
-	statMap = {
-		["blast_rain_damage_+%_vs_distant_enemies"] = { 
-			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "DistanceRamp", ramp = {{35,0},{70,1}} }) 
-		},
-		["blast_rain_area_of_effect_+%"] = {
-			-- Only affects primary area for overlaps
-		}
-	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -1599,7 +1589,7 @@ skills["BlinkArrow"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"Clone",
+		"ArrowClone",
 	},
 	baseFlags = {
 		attack = true,
@@ -1679,10 +1669,6 @@ skills["BloodRage"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["life_leech_from_physical_attack_damage_permyriad"] = {
-			mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
-		},
 		["base_physical_damage_%_of_maximum_life_to_deal_per_minute"] = {
 			mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 6000,
@@ -2255,7 +2241,7 @@ skills["CobraLash"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["active_skill_projectile_damage_+%_final_for_each_remaining_chain"] = {
+		["cobra_lash_hit_and_ailment_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "PerStat", stat = "ChainRemaining" }, { type = "SkillType", skillType = SkillType.Projectile })
 		},
 	},
@@ -2841,7 +2827,6 @@ skills["DetonateDead"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 22),
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
@@ -2937,7 +2922,6 @@ skills["VaalDetonateDead"] = {
 	},
 	baseMods = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
-		skill("radius", 24),
 	},
 	qualityStats = {
 		Default = {
@@ -3197,6 +3181,9 @@ skills["DualStrike"] = {
 		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 		},
+		["quality_display_dual_strike_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3294,9 +3281,8 @@ skills["ElementalHit"] = {
 		},
 	},
 	statMap = {
-		["elemental_hit_damage_+10%_final_per_enemy_elemental_ailment"] = {
+		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
-			mult = 10,
 		},
 		["elemental_hit_area_of_effect_+100%_final_vs_enemy_with_associated_ailment"] = {
 		},
@@ -3309,6 +3295,9 @@ skills["ElementalHit"] = {
 			flag("DealNoCold", { type = "SkillPart", skillPartList = { 5, 6 } }),
 			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 1, 2 } }),
 			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 3, 4 } }),
+		},
+		["quality_display_elemental_hit_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -3409,9 +3398,6 @@ skills["EnsnaringArrow"] = {
 	statMap = {
 		["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
 			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
-		},
-		["ensnaring_arrow_enemy_spell_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
 		},
 	},
 	baseFlags = {
@@ -3681,6 +3667,9 @@ skills["ExplosiveArrow"] = {
 			mod("Multiplier:ExplosiveArrowMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 			mod("ExplosiveArrowMaxFuseCount", "BASE", nil),
 		},
+		["quality_display_explosive_arrow_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3817,9 +3806,6 @@ skills["ExplosiveConcoction"] = {
 		area = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("radius", 18),
-	},
 	qualityStats = {
 		Default = {
 			{ "flask_charges_used_+%", -0.75 },
@@ -3920,7 +3906,7 @@ skills["ShrapnelTrap"] = {
 			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
 		end
 		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
-		local waveRadius = output.AreaOfEffectRadiusSecondary
+		local waveRadius = output.AreaOfEffectRadiusTertiary
 		local fullRadius = output.AreaOfEffectRadius
 		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
 		output.OverlapChance = overlapChance * 100
@@ -3961,6 +3947,9 @@ skills["ShrapnelTrap"] = {
 		["shrapnel_trap_number_of_secondary_explosions"] = {
 			mod("SmallExplosions", "BASE", nil),
 		},
+		["quality_display_explosive_trap_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -3968,10 +3957,9 @@ skills["ShrapnelTrap"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 12),
 		skill("radiusLabel", "Primary Explosion:"),
-		skill("radiusSecondary", 7),
-		skill("radiusSecondaryLabel", "Secondary Explosion:"),
+		skill("radiusSecondaryLabel", "Secondary Area:"),
+		skill("radiusTertiaryLabel", "Secondary Explosion:"),
 	},
 	qualityStats = {
 		Default = {
@@ -4466,6 +4454,12 @@ skills["Frenzy"] = {
 		["frenzy_skill_attack_speed_+%_final_per_frenzy_charge"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 		},
+		["quality_display_frenzy_is_gem"] = {
+			-- Display only
+		},
+		["quality_display_active_skill_attack_speed_per_frenzy_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -4736,12 +4730,6 @@ skills["Grace"] = {
 		["base_evasion_rating"] = {
 			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["avoid_all_elemental_status_%"] = {
-			mod("AvoidElementalAilments", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["avoid_chaos_damage_%"] = {
-			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -4901,15 +4889,6 @@ skills["Haste"] = {
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["summon_totem_cast_speed_+%"] = {
-			mod("TotemPlacementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		},
-		["base_projectile_speed_+%"] = {
-			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		},
-		["buff_time_passed_+%_only_buff_category"] = {
-			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 	},
 	baseFlags = {
@@ -5078,13 +5057,6 @@ skills["Hatred"] = {
 		["hatred_aura_cold_damage_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["chill_and_freeze_duration_+%"] = {
-			mod("EnemyChillDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("EnemyFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["movement_velocity_+%_on_chilled_ground"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, {type = "Condition", var = "OnChilledGround"})
-		}
 	},
 	baseFlags = {
 		spell = true,
@@ -5180,12 +5152,9 @@ skills["HeraldOfAgony"] = {
 		["scorpion_minion_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
-		["active_skill_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		["quality_display_herald_of_agony_is_gem"] = {
+			-- Display only
 		},
-		["withered_on_hit_for_2_seconds_%_chance"] = {
-			flag("Condition:CanWither"),
-		}
 	},
 	baseFlags = {
 		cast = true,
@@ -5266,9 +5235,6 @@ skills["HeraldOfIce"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["herald_of_ice_cold_damage_+%"] = {
-			mod("ColdDamage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
 		["spell_minimum_added_cold_damage"] = {
 			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Buff" }),
 		},
@@ -5281,16 +5247,10 @@ skills["HeraldOfIce"] = {
 		["attack_maximum_added_cold_damage"] = {
 			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["skill_buff_grants_chance_to_freeze_%"] = {
-			mod("FreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		}
 	},
 	baseFlags = {
 		cast = true,
 		area = true,
-	},
-	baseMods = {
-		skill("radius", 12),
 	},
 	qualityStats = {
 		Default = {
@@ -5540,11 +5500,8 @@ skills["IceTrap"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 18),
 		skill("radiusLabel", "First Explosion:"),
-		skill("radiusSecondary", 9),
 		skill("radiusSecondaryLabel", "Second Explosion:"),
-		skill("radiusTertiary", 6),
 		skill("radiusTertiaryLabel", "Third Explosion:"),
 	},
 	qualityStats = {
@@ -5632,6 +5589,11 @@ skills["DoubleSlash"] = {
 		},
 		{
 			name = "Both slashes",
+		},
+	},
+	statMap = {
+		["attack_speed_+%_if_changed_stance_recently"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Condition", var = "ChangedStanceRecently" }),
 		},
 	},
 	baseFlags = {
@@ -5822,6 +5784,11 @@ skills["LightningArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["quality_display_lightning_arrow_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -5917,6 +5884,12 @@ skills["VaalLightningArrow"] = {
 		["projectiles_barrage"] = {
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["quality_display_lightning_arrow_is_gem"] = {
+			-- Display only
+		},
+		["quality_display_base_additional_arrows_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -6027,11 +6000,6 @@ skills["LightningStrike"] = {
 			name = "Projectiles",
 			melee = false,
 			projectile = true,
-		},
-	},
-	statMap = {
-		["projectile_base_number_of_targets_to_pierce"] = {
-			mod("PierceCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
 	baseFlags = {
@@ -6221,7 +6189,7 @@ skills["MirrorArrow"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"Clone",
+		"ArrowClone",
 	},
 	baseFlags = {
 		attack = true,
@@ -6463,12 +6431,6 @@ skills["CorrosiveShroud"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	statMap = {
-		["plague_bearer_movement_speed_+%_while_infecting"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerInfecting" }),
-		},
-		["corrosive_shroud_poison_dot_multiplier_+_while_aura_active"] = {
-			mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerInfecting" }),
-		},
 		["corrosive_shroud_poison_damage_+%_final_while_accumulating_poison"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerIncubating" }),
 		},
@@ -6564,9 +6526,6 @@ skills["PoachersMark"] = {
 		["maximum_added_physical_damage_taken"] = {
 			mod("SelfPhysicalMax", "BASE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -6649,12 +6608,6 @@ skills["AccuracyAndCritsAura"] = {
 		},
 		["skill_buff_grants_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["auras_grant_damage_+%_to_you_and_your_allies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		},
-		["precision_grants_area_of_effect_+%_final"] = {
-			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 	},
 	baseFlags = {
@@ -6829,6 +6782,12 @@ skills["StormRain"] = {
 		["prismatic_rain_beam_frequency_+%"] = {
 			mod("StormRainBeamFrequency", "INC", nil),
 		},
+		["number_of_allowed_storm_arrows"] = {
+			-- Display only
+		},
+		["quality_display_storm_rain_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -6922,8 +6881,8 @@ skills["Puncture"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
-		["puncture_bleeding_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed),
+		["quality_display_active_skill_bleed_damage_final_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -7008,12 +6967,6 @@ skills["ColdResistAura"] = {
 		},
 		["base_maximum_cold_damage_resistance_%"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["base_avoid_freeze_%"] = {
-			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["base_reduce_enemy_cold_resistance_%"] = {
-			mod("ColdPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -7955,6 +7908,9 @@ skills["PhysCascadeTrap"] = {
 		["seismic_trap_frequency_+%"] = {
 			mod("SeismicPulseFrequency", "INC", nil),
 		},
+		["quality_display_phys_cascade_trap_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -8137,6 +8093,11 @@ skills["SiegeBallista"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 12,
 	castTime = 1,
+	statMap = {
+		["attack_speed_+%_per_maximum_totem"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", stat = "ActiveTotemLimit" }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -8217,9 +8178,6 @@ skills["SmokeMine"] = {
 	statMap = {
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["skill_buff_grants_attack_and_cast_speed_+%"] = {
-			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	baseFlags = {
@@ -9544,7 +9502,8 @@ skills["VolatileDead"] = {
 	},
 	baseMods = {
 		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
-		skill("radius", 15),
+		skill("radiusLabel", "Orb Explosion:"),
+		skill("radiusSecondaryLabel", "Corpse Explosion:"),
 	},
 	qualityStats = {
 		Default = {
@@ -9622,11 +9581,6 @@ skills["WhirlingBlades"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.6,
-	statMap = {
-		["whirling_blades_evasion_rating_+%_while_moving"] = {
-			mod("Evasion", "INC", nil, 0, 0, { type = "Condition", var = "Moving" } )
-		},
-	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -9843,6 +9797,9 @@ skills["Slither"] = {
 		["slither_wither_stacks"] = {
 			flag("Condition:CanWither"),
 		},
+		["quality_display_withering_step_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -10016,6 +9973,162 @@ skills["PoisonousConcoction"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, 18, attackSpeedMultiplier = 15, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 12, }, },
 	},
 }
+skills["ChannelledSnipe"] = {
+	name = "Snipe",
+	color = 2,
+	description = "Channel to charge up your bow, gaining stages. Release to trigger one supported bow skill for each stage gained. If there are no supported skills, but at least one stage was gained, this skill will fire its own arrow instead. Cannot be used by Totems.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["snipe_max_stacks"] = {
+			mod("Multiplier:SnipeStagesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["quality_display_snipe_is_gem"] = {
+			-- Display only
+		},
+	},
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		channelRelease = true,
+	},
+	qualityStats = {
+		Default = {
+			{ "snipe_max_stacks", 0.05 },
+		},
+	},
+	constantStats = {
+		{ "override_turn_duration_ms", 100 },
+		{ "snipe_max_stacks", 6 },
+	},
+	stats = {
+		"snipe_triggered_skill_ailment_damage_+%_final_per_stage",
+		"snipe_triggered_skill_hit_damage_+%_final_per_stage",
+		"skill_can_fire_arrows",
+		"is_snipe_default_projectile",
+		"is_snipe_default_projectile_2",
+		"quality_display_snipe_is_gem",
+	},
+	levels = {
+		[1] = { 50, 70, attackSpeedMultiplier = 80, levelRequirement = 34, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[2] = { 51, 72, attackSpeedMultiplier = 80, levelRequirement = 36, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[3] = { 53, 74, attackSpeedMultiplier = 80, levelRequirement = 38, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[4] = { 54, 76, attackSpeedMultiplier = 80, levelRequirement = 40, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[5] = { 56, 78, attackSpeedMultiplier = 80, levelRequirement = 42, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[6] = { 58, 80, attackSpeedMultiplier = 80, levelRequirement = 44, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[7] = { 59, 82, attackSpeedMultiplier = 80, levelRequirement = 46, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[8] = { 61, 84, attackSpeedMultiplier = 80, levelRequirement = 48, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[9] = { 62, 86, attackSpeedMultiplier = 80, levelRequirement = 50, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[10] = { 64, 88, attackSpeedMultiplier = 80, levelRequirement = 52, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[11] = { 66, 90, attackSpeedMultiplier = 80, levelRequirement = 54, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
+		[12] = { 67, 92, attackSpeedMultiplier = 80, levelRequirement = 56, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[13] = { 69, 94, attackSpeedMultiplier = 80, levelRequirement = 58, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[14] = { 70, 96, attackSpeedMultiplier = 80, levelRequirement = 60, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[15] = { 72, 98, attackSpeedMultiplier = 80, levelRequirement = 62, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[16] = { 74, 100, attackSpeedMultiplier = 80, levelRequirement = 64, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[17] = { 75, 102, attackSpeedMultiplier = 80, levelRequirement = 66, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[18] = { 77, 104, attackSpeedMultiplier = 80, levelRequirement = 68, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[19] = { 78, 106, attackSpeedMultiplier = 80, levelRequirement = 69, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[20] = { 80, 108, attackSpeedMultiplier = 80, levelRequirement = 70, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[21] = { 82, 110, attackSpeedMultiplier = 80, levelRequirement = 72, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[22] = { 83, 112, attackSpeedMultiplier = 80, levelRequirement = 74, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[23] = { 85, 114, attackSpeedMultiplier = 80, levelRequirement = 76, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[24] = { 86, 116, attackSpeedMultiplier = 80, levelRequirement = 78, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[25] = { 88, 118, attackSpeedMultiplier = 80, levelRequirement = 80, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[26] = { 90, 120, attackSpeedMultiplier = 80, levelRequirement = 82, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[27] = { 91, 122, attackSpeedMultiplier = 80, levelRequirement = 84, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
+		[28] = { 93, 124, attackSpeedMultiplier = 80, levelRequirement = 86, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[29] = { 94, 126, attackSpeedMultiplier = 80, levelRequirement = 88, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[30] = { 96, 128, attackSpeedMultiplier = 80, levelRequirement = 90, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[31] = { 97, 129, attackSpeedMultiplier = 80, levelRequirement = 91, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[32] = { 98, 130, attackSpeedMultiplier = 80, levelRequirement = 92, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[33] = { 98, 131, attackSpeedMultiplier = 80, levelRequirement = 93, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[34] = { 99, 132, attackSpeedMultiplier = 80, levelRequirement = 94, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[35] = { 100, 133, attackSpeedMultiplier = 80, levelRequirement = 95, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[36] = { 101, 134, attackSpeedMultiplier = 80, levelRequirement = 96, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[37] = { 102, 135, attackSpeedMultiplier = 80, levelRequirement = 97, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[38] = { 102, 136, attackSpeedMultiplier = 80, levelRequirement = 98, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[39] = { 103, 137, attackSpeedMultiplier = 80, levelRequirement = 99, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+		[40] = { 104, 138, attackSpeedMultiplier = 80, levelRequirement = 100, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
+	},
+}
+skills["ChannelledSnipeSupport"] = {
+	name = "Snipe",
+	description = "Supports bow attack skills. Cannot support channelled skills, instant skills, Vaal skills, or skills used by totems, traps, or mines.",
+	color = 2,
+	support = true,
+	requireSkillTypes = { SkillType.RangedAttack, SkillType.ThresholdJewelRangedAttack, SkillType.OR, SkillType.Triggerable, SkillType.AND, },
+	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
+	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Channel, },
+	isTrigger = true,
+	ignoreMinionTypes = true,
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "gem_stat_descriptions",
+	baseMods = {
+		flag("TriggeredBySnipe"),
+	},
+	qualityStats = {
+		Default = {
+			{ "dummy_stat_display_nothing", 0 },
+		},
+	},
+	constantStats = {
+		{ "snipe_triggered_skill_damage_+%_final", -40 },
+	},
+	stats = {
+		"snipe_triggered_skill_ailment_damage_+%_final_per_stage",
+		"snipe_triggered_skill_hit_damage_+%_final_per_stage",
+		"skill_triggered_by_snipe",
+	},
+	levels = {
+		[1] = { 50, 70, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[2] = { 51, 72, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[3] = { 53, 74, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[4] = { 54, 76, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[5] = { 56, 78, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[6] = { 58, 80, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[7] = { 59, 82, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[8] = { 61, 84, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[9] = { 62, 86, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[10] = { 64, 88, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[11] = { 66, 90, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[12] = { 67, 92, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[13] = { 69, 94, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[14] = { 70, 96, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[15] = { 72, 98, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[16] = { 74, 100, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[17] = { 75, 102, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[18] = { 77, 104, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[19] = { 78, 106, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[20] = { 80, 108, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[21] = { 82, 110, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[22] = { 83, 112, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[23] = { 85, 114, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[24] = { 86, 116, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[25] = { 88, 118, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[26] = { 90, 120, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[27] = { 91, 122, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[28] = { 93, 124, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[29] = { 94, 126, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[30] = { 96, 128, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[31] = { 97, 129, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[32] = { 98, 130, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[33] = { 98, 131, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[34] = { 99, 132, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[35] = { 100, 133, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[36] = { 101, 134, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[37] = { 102, 135, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[38] = { 102, 136, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[39] = { 103, 137, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+		[40] = { 104, 138, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
+	},
+}
 skills["TemporalRift"] = {
 	name = "Temporal Rift",
 	color = 2,
@@ -10024,9 +10137,6 @@ skills["TemporalRift"] = {
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.25,
 	statMap = {
-		["chronomancer_buff_cooldown_speed_+%"] = {
-			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
-		},
 		["debuff_time_passed_+%"] = {
 			mod("SelfDebuffExpirationRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 		},
@@ -10335,9 +10445,6 @@ skills["VampiricLink"] = {
 			mod("MaxLifeLeechRate", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 60,
 		},
-		["remora_link_grants_damage_+%_when_on_full_life"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "Condition", var = "FullLife" })
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -10396,159 +10503,6 @@ skills["VampiricLink"] = {
 		[38] = { 516, 11350, levelRequirement = 98, statInterpolation = { 1, 1, }, cost = { ManaPerMinute = 2790, }, },
 		[39] = { 522, 11400, levelRequirement = 99, statInterpolation = { 1, 1, }, cost = { ManaPerMinute = 2830, }, },
 		[40] = { 528, 11450, levelRequirement = 100, statInterpolation = { 1, 1, }, cost = { ManaPerMinute = 2850, }, },
-	},
-}
-skills["ChannelledSnipe"] = {
-	name = "Snipe",
-	color = 2,
-	description = "Channel to charge up your bow, gaining stages. Release to trigger one supported bow skill for each stage gained. If there are no supported skills, but at least one stage was gained, this skill will fire its own arrow instead. Cannot be used by Totems.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
-	weaponTypes = {
-		["Bow"] = true,
-	},
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	statMap = {
-		["snipe_max_stacks"] = {
-			mod("Multiplier:SnipeStagesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
-		},
-	},
-	baseFlags = {
-		attack = true,
-		projectile = true,
-		channelRelease = true,
-	},
-	qualityStats = {
-		Default = {
-			{ "snipe_max_stacks", 0.05 },
-		},
-	},
-	constantStats = {
-		{ "override_turn_duration_ms", 100 },
-		{ "snipe_max_stacks", 6 },
-	},
-	stats = {
-		"snipe_triggered_skill_ailment_damage_+%_final_per_stage",
-		"snipe_triggered_skill_hit_damage_+%_final_per_stage",
-		"skill_can_fire_arrows",
-		"is_snipe_default_projectile",
-		"is_snipe_default_projectile_2",
-		"quality_display_snipe_is_gem",
-	},
-	levels = {
-		[1] = { 50, 70, attackSpeedMultiplier = 80, levelRequirement = 34, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[2] = { 51, 72, attackSpeedMultiplier = 80, levelRequirement = 36, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[3] = { 53, 74, attackSpeedMultiplier = 80, levelRequirement = 38, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[4] = { 54, 76, attackSpeedMultiplier = 80, levelRequirement = 40, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[5] = { 56, 78, attackSpeedMultiplier = 80, levelRequirement = 42, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[6] = { 58, 80, attackSpeedMultiplier = 80, levelRequirement = 44, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[7] = { 59, 82, attackSpeedMultiplier = 80, levelRequirement = 46, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[8] = { 61, 84, attackSpeedMultiplier = 80, levelRequirement = 48, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[9] = { 62, 86, attackSpeedMultiplier = 80, levelRequirement = 50, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[10] = { 64, 88, attackSpeedMultiplier = 80, levelRequirement = 52, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[11] = { 66, 90, attackSpeedMultiplier = 80, levelRequirement = 54, statInterpolation = { 1, 1, }, cost = { Mana = 4, }, },
-		[12] = { 67, 92, attackSpeedMultiplier = 80, levelRequirement = 56, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[13] = { 69, 94, attackSpeedMultiplier = 80, levelRequirement = 58, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[14] = { 70, 96, attackSpeedMultiplier = 80, levelRequirement = 60, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[15] = { 72, 98, attackSpeedMultiplier = 80, levelRequirement = 62, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[16] = { 74, 100, attackSpeedMultiplier = 80, levelRequirement = 64, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[17] = { 75, 102, attackSpeedMultiplier = 80, levelRequirement = 66, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[18] = { 77, 104, attackSpeedMultiplier = 80, levelRequirement = 68, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[19] = { 78, 106, attackSpeedMultiplier = 80, levelRequirement = 69, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[20] = { 80, 108, attackSpeedMultiplier = 80, levelRequirement = 70, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[21] = { 82, 110, attackSpeedMultiplier = 80, levelRequirement = 72, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[22] = { 83, 112, attackSpeedMultiplier = 80, levelRequirement = 74, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[23] = { 85, 114, attackSpeedMultiplier = 80, levelRequirement = 76, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[24] = { 86, 116, attackSpeedMultiplier = 80, levelRequirement = 78, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[25] = { 88, 118, attackSpeedMultiplier = 80, levelRequirement = 80, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[26] = { 90, 120, attackSpeedMultiplier = 80, levelRequirement = 82, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[27] = { 91, 122, attackSpeedMultiplier = 80, levelRequirement = 84, statInterpolation = { 1, 1, }, cost = { Mana = 5, }, },
-		[28] = { 93, 124, attackSpeedMultiplier = 80, levelRequirement = 86, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[29] = { 94, 126, attackSpeedMultiplier = 80, levelRequirement = 88, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[30] = { 96, 128, attackSpeedMultiplier = 80, levelRequirement = 90, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[31] = { 97, 129, attackSpeedMultiplier = 80, levelRequirement = 91, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[32] = { 98, 130, attackSpeedMultiplier = 80, levelRequirement = 92, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[33] = { 98, 131, attackSpeedMultiplier = 80, levelRequirement = 93, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[34] = { 99, 132, attackSpeedMultiplier = 80, levelRequirement = 94, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[35] = { 100, 133, attackSpeedMultiplier = 80, levelRequirement = 95, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[36] = { 101, 134, attackSpeedMultiplier = 80, levelRequirement = 96, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[37] = { 102, 135, attackSpeedMultiplier = 80, levelRequirement = 97, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[38] = { 102, 136, attackSpeedMultiplier = 80, levelRequirement = 98, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[39] = { 103, 137, attackSpeedMultiplier = 80, levelRequirement = 99, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-		[40] = { 104, 138, attackSpeedMultiplier = 80, levelRequirement = 100, statInterpolation = { 1, 1, }, cost = { Mana = 6, }, },
-	},
-}
-skills["ChannelledSnipeSupport"] = {
-	name = "Snipe",
-	description = "Supports bow attack skills. Cannot support channelled skills, instant skills, Vaal skills, or skills used by totems, traps, or mines.",
-	color = 2,
-	support = true,
-	requireSkillTypes = { SkillType.RangedAttack, SkillType.ThresholdJewelRangedAttack, SkillType.OR, SkillType.Triggerable, SkillType.AND, },
-	addSkillTypes = { SkillType.Triggered, SkillType.Cooldown, },
-	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.Trapped, SkillType.RemoteMined, SkillType.HasReservation, SkillType.Vaal, SkillType.Instant, SkillType.Channel, },
-	isTrigger = true,
-	ignoreMinionTypes = true,
-	weaponTypes = {
-		["Bow"] = true,
-	},
-	statDescriptionScope = "gem_stat_descriptions",
-	baseMods = {
-		flag("TriggeredBySnipe"),
-	},
-	qualityStats = {
-		Default = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-	},
-	constantStats = {
-		{ "snipe_triggered_skill_damage_+%_final", -40 },
-	},
-	stats = {
-		"snipe_triggered_skill_ailment_damage_+%_final_per_stage",
-		"snipe_triggered_skill_hit_damage_+%_final_per_stage",
-		"skill_triggered_by_snipe",
-	},
-	levels = {
-		[1] = { 50, 70, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[2] = { 51, 72, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[3] = { 53, 74, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[4] = { 54, 76, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[5] = { 56, 78, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[6] = { 58, 80, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[7] = { 59, 82, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[8] = { 61, 84, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[9] = { 62, 86, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[10] = { 64, 88, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[11] = { 66, 90, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[12] = { 67, 92, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[13] = { 69, 94, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[14] = { 70, 96, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[15] = { 72, 98, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[16] = { 74, 100, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[17] = { 75, 102, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[18] = { 77, 104, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[19] = { 78, 106, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[20] = { 80, 108, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[21] = { 82, 110, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[22] = { 83, 112, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[23] = { 85, 114, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[24] = { 86, 116, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[25] = { 88, 118, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[26] = { 90, 120, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[27] = { 91, 122, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[28] = { 93, 124, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[29] = { 94, 126, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[30] = { 96, 128, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[31] = { 97, 129, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[32] = { 98, 130, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[33] = { 98, 131, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[34] = { 99, 132, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[35] = { 100, 133, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[36] = { 101, 134, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[37] = { 102, 135, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[38] = { 102, 136, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[39] = { 103, 137, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
-		[40] = { 104, 138, storedUses = 1, cooldown = 0.05, levelRequirement = 0, manaMultiplier = -50, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["QuickstepHardMode"] = {

@@ -2668,9 +2668,6 @@ skills["SupportMarkOnHit"] = {
 	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["mark_skills_curse_effect_+%"] = {
-			mod("CurseEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Mark }),
-		},
 		["marked_enemy_damage_taken_+%"] = {
 			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
@@ -2977,9 +2974,6 @@ skills["SupportPierce"] = {
 	statMap = {
 		["support_pierce_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
-		},
-		["projectile_damage_+%_if_pierced_enemy"] = {
-			mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
 		},
 	},
 	qualityStats = {
