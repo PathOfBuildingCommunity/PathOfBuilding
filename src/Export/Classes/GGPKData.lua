@@ -182,7 +182,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/AlternatePassiveAdditions.dat",
 		"Data/AlternatePassiveSkills.dat",
 		"Data/AlternateTreeVersions.dat",
-		"Data/GrantedEffectQualityTypes.dat",
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/GrantedEffectGroups.dat",
 		"Data/AegisVariations.dat",

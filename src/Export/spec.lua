@@ -94,7 +94,7 @@ return {
 	actiontypes={
 		[1]={
 			list=false,
-			name="",
+			name="Name",
 			refTo="",
 			type="String",
 			width=150
@@ -104,6 +104,20 @@ return {
 			name="",
 			refTo="",
 			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
 			width=150
 		}
 	},
@@ -4535,29 +4549,6 @@ return {
 			width=100
 		}
 	},
-	grantedeffectqualitytypes={
-		[1]={
-			list=false,
-			name="AlternateId",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[2]={
-			list=false,
-			name="",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[3]={
-			list=false,
-			name="DisplayString",
-			refTo="ClientStrings",
-			type="Key",
-			width=170
-		}
-	},
 	grantedeffects={
 		[1]={
 			list=false,
@@ -4936,13 +4927,6 @@ return {
 		[7]={
 			list=false,
 			name="IncrementalEffectiveness",
-			refTo="",
-			type="Float",
-			width=150
-		},
-		[7]={
-			list=false,
-			name="",
 			refTo="",
 			type="Float",
 			width=150

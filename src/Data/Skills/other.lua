@@ -3166,7 +3166,7 @@ skills["SummonVoidSphere"] = {
 		"spell_uncastable_if_triggerable",
 	},
 	levels = {
-		[20] = { 0.80000001192093, 1.2000000476837, 5, storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 70, cooldown = 2, statInterpolation = { 3, 3, 3, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 83.333335195979, storedUses = 1, PvPDamageMultiplier = -80, levelRequirement = 70, cooldown = 2, statInterpolation = { 3, 3, 3, }, },
 	},
 }
 skills["SummonMirageChieftain"] = {
