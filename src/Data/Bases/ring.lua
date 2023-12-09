@@ -201,16 +201,48 @@ itemBases["Cogwork Ring"] = {
 	type = "Ring",
 	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
-	implicit = "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed\n25% increased Suffix Modifier Magnitudes\nImplicit Modifiers Cannot Be Changed",
-	implicitModTypes = { {  }, {  }, {  }, },
+	implicit = "-1 Prefix Modifier allowed\n+1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n25% increased Suffix Modifier magnitudes",
+	implicitModTypes = { {  }, {  }, {  }, {  }, },
 	req = { level = 24, },
 }
 itemBases["Geodesic Ring"] = {
 	type = "Ring",
 	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
 	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
-	implicit = "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\n25% increased Prefix Modifier Magnitudes\nImplicit Modifiers Cannot Be Changed",
+	implicit = "+1 Prefix Modifier allowed\n-1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n25% increased Prefix Modifier magnitudes",
+	implicitModTypes = { {  }, {  }, {  }, {  }, },
+	req = { level = 24, },
+}
+itemBases["Composite Ring"] = {
+	type = "Ring",
+	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+3 Prefix Modifiers allowed\n-3 Suffix Modifiers allowed\nImplicit Modifiers Cannot Be Changed",
 	implicitModTypes = { {  }, {  }, {  }, },
+	req = { level = 24, },
+}
+itemBases["Manifold Ring"] = {
+	type = "Ring",
+	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "+1 Prefix Modifier allowed\n-2 Suffix Modifiers allowed\nImplicit Modifiers Cannot Be Changed\n50% increased Prefix Modifier magnitudes",
+	implicitModTypes = { {  }, {  }, {  }, {  }, },
+	req = { level = 24, },
+}
+itemBases["Ratcheting Ring"] = {
+	type = "Ring",
+	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "-3 Prefix Modifiers allowed\n+3 Suffix Modifiers allowed\nImplicit Modifiers Cannot Be Changed",
+	implicitModTypes = { {  }, {  }, {  }, },
+	req = { level = 24, },
+}
+itemBases["Helical Ring"] = {
+	type = "Ring",
+	tags = { ring = true, experimental_base = true, not_for_sale = true, default = true, },
+	influenceTags = { shaper = "ring_shaper", elder = "ring_elder", adjudicator = "ring_adjudicator", basilisk = "ring_basilisk", crusader = "ring_crusader", eyrie = "ring_eyrie", cleansing = "ring_cleansing", tangle = "ring_tangle" },
+	implicit = "-2 Prefix Modifiers allowed\n+1 Suffix Modifier allowed\nImplicit Modifiers Cannot Be Changed\n50% increased Suffix Modifier magnitudes",
+	implicitModTypes = { {  }, {  }, {  }, {  }, },
 	req = { level = 24, },
 }
 itemBases["Dusk Ring"] = {

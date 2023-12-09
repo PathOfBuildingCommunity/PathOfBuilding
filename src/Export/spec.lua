@@ -91,6 +91,22 @@ return {
 	},
 	achievementsetsdisplay={
 	},
+	actiontypes={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	activesettings={
 	},
 	activeskills={
@@ -117,8 +133,8 @@ return {
 		},
 		[4]={
 			list=false,
-			name="Unknown1",
-			refTo="",
+			name="ActionType",
+			refTo="ActionTypes",
 			type="Key",
 			width=170
 		},
@@ -1325,6 +1341,66 @@ return {
 	},
 	awarddisplay={
 	},
+	azmerifeaturerooms={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Enum",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=610
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=260
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="ShortKey",
+			width=600
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
+	},
+	azmerilifescalingperlevel={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
 	backenderrors={
 	},
 	baseitemtypes={
@@ -2015,6 +2091,13 @@ return {
 			name="",
 			refTo="Stats",
 			type="Key",
+			width=150
+		},
+		[51]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
 			width=150
 		}
 	},
@@ -3431,6 +3514,36 @@ return {
 	},
 	delveupgradetype={
 	},
+	descendancy={
+		[1]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=400
+		}
+	},
 	descentexiles={
 	},
 	descentrewardchests={
@@ -4826,6 +4939,13 @@ return {
 			refTo="",
 			type="Float",
 			width=150
+		},
+		[7]={
+			list=false,
+			name="",
+			refTo="",
+			type="Float",
+			width=150
 		}
 	},
 	grantedeffectstatsetsperlevel={
@@ -4911,14 +5031,14 @@ return {
 			name="FloatStats",
 			refTo="Stats",
 			type="Key",
-			width=600
+			width=500
 		},
 		[13]={
-			list=false,
-			name="",
-			refTo="",
+			list=true,
+			name="InterpolationBases",
+			refTo="EffectivenessCostConstants",
 			type="Key",
-			width=150
+			width=200
 		},
 		[14]={
 			list=true,
@@ -8584,6 +8704,20 @@ return {
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[45]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[46]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
 		}
 	},
 	passiveskillstatcategories={
@@ -9470,9 +9604,9 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
+			name="IsSupport",
 			refTo="",
-			type="Int",
+			type="Bool",
 			width=150
 		},
 		[9]={
@@ -9480,44 +9614,65 @@ return {
 			name="",
 			refTo="",
 			type="Bool",
-			width=80
+			width=150
 		},
 		[10]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=80
 		},
 		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[14]={
 			list=false,
 			name="Awakened",
 			refTo="SkillGems",
 			type="Key",
 			width=200
 		},
-		[12]={
+		[15]={
 			list=false,
 			name="GemColour",
 			refTo="",
 			type="Int",
 			width=100
 		},
-		[13]={
+		[16]={
 			list=false,
 			name="GemLevelProgression",
 			refTo="ItemExperienceTypes",
 			type="Key",
 			width=400
 		},
-		[14]={
+		[17]={
 			list=true,
 			name="MtxSlotType",
 			refTo="MtxSlotTypes: [MicrotransactionSkillGemEffectSlotTypes]",
 			type="Key",
 			width=150
 		},
-		[15]={
+		[18]={
 			list=true,
 			name="GemVariants",
 			refTo="GemEffects",
