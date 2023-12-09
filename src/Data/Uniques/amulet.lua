@@ -76,12 +76,14 @@ Implicits: 1
 ]],[[
 Ashes of the Stars
 Onyx Amulet
+Variant: Pre 3.23.0
+Variant: Current
 Source: Drops from unique{The Eater of Worlds}
 Requires Level 60
 Implicits: 1
 {tags:jewellery_attribute}+(10-16) to all Attributes
 (5-10)% increased Experience Gain of Gems
-(10-20)% increased Reservation Efficiency of Skills
+{variant:1}(10-20)% increased Reservation Efficiency of Skills
 +1 to Level of all Skill Gems
 +(20-30)% to Quality of all Skill Gems
 ]],[[
@@ -318,6 +320,17 @@ Implicits: 1
 {tags:attack}+0.2 metres to Melee Strike Range
 {tags:attack}60% increased Melee Damage when on Full Life
 ]],[[
+Defiance of Destiny
+Paua Amulet
+LevelReq: 49
+Implicits: 1
+{tags:mana}(20-30)% increased Mana Regeneration Rate
+{tags:life}+(60-80) to maximum Life
+{tags:jewellery_resistance}+(10-40)% to Fire Resistance
+{tags:jewellery_resistance}+(10-40)% to Cold Resistance
+{tags:jewellery_resistance}+(10-40)% to Lightning Resistance
+{tags:life}Gain (25-35)% of Missing Unreserved Life before being Hit by an Enemy
+]],[[
 The Ephemeral Bond
 Lapis Amulet
 League: Heist
@@ -478,8 +491,6 @@ Implicits: 1
 ]],[[
 Fury Valve
 Turquoise Amulet
-League: Metamorph
-Source: Drops from unique{Metamorph} in normal{Tane's Laboratory}
 Requires Level 40
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
@@ -622,6 +633,17 @@ Implicits: 1
 {tags:jewellery_resistance}+20% to Fire Resistance
 Your Hits can't be Evaded by Blinded Enemies
 {tags:jewellery_elemental}Damage Penetrates 10% Fire Resistance against Blinded Enemies
+]],[[
+Ikiaho's Promise
+Coral Amulet
+LevelReq: 30
+Implicits: 1
+{tags:life}Regenerate (2-4) Life per second
+{tags:mana}Regenerate (3-5) Mana per second
+{tags:life}(30-40)% increased Life Recovery from Flasks
+{tags:mana}(15-30)% increased Mana Recovery from Flasks
+Life Flasks used while on Low Life apply Recovery Instantly
+Mana Flasks used while on Low Mana apply Recovery Instantly
 ]],[[
 Impresence
 Onyx Amulet
@@ -832,6 +854,21 @@ Implicits: 1
 {variant:1}5% chance to Freeze, Shock and Ignite
 {variant:2}Always Freeze, Shock and Ignite
 {variant:1}Cannot gain Power Charges
+]],[[
+Replica Dragonfang's Flight
+Onyx Amulet
+Variant: Pre 3.23.0
+Variant: Current
+LevelReq: 56
+Implicits: 1
++(10-16) to all Attributes
+{variant:1}+(10-15)% to all Elemental Resistances
+{variant:2}+(5-10)% to all Elemental Resistances
++3 to Level of all Spark Gems
+{variant:1}(10-15)% increased Reservation Efficiency of Skills
+{variant:2}(5-10)% increased Reservation Efficiency of Skills
+{variant:1}Items and Gems have (10-15)% reduced Attribute Requirements
+{variant:2}Items and Gems have (5-10)% reduced Attribute Requirements
 ]],[[
 Retaliation Charm
 Citrine Amulet

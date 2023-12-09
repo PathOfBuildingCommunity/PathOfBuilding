@@ -297,7 +297,7 @@ skills["MonsterProjectileSpellLightningGolemSummoned"] = {
 	},
 }
 skills["LightningGolemWrath"] = {
-	name = "Wrath",
+	name = "Lightning Golem Wrath",
 	hidden = true,
 	color = 3,
 	baseEffectiveness = 0.16249999403954,

@@ -38,7 +38,7 @@ local function slotMatch(env, skill)
 end
 
 function isTriggered(skill)
-	return skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered] or skill.activeEffect.grantedEffect.triggered
+	return skill.skillData.triggeredByUnique or skill.skillData.triggered or skill.skillTypes[SkillType.InbuiltTrigger] or skill.skillTypes[SkillType.Triggered] or skill.activeEffect.grantedEffect.triggered or (skill.activeEffect.srcInstance and skill.activeEffect.srcInstance.triggered)
 end
 
 local function processAddedCastTime(skill, breakdown)
@@ -229,7 +229,6 @@ local function helmetFocusHandler(env)
 
 		-- Account for Trigger-related INC/MORE modifiers
 		addTriggerIncMoreMods(env.player.mainSkill, env.player.mainSkill)
-		env.player.mainSkill.skillData.triggerSource = source
 		env.player.mainSkill.infoMessage = "Assuming perfect focus Re-Use"
 		env.player.mainSkill.infoTrigger = triggerName
 		env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
@@ -248,7 +247,7 @@ local function CWCHandler(env)
 		for _, skill in ipairs(env.player.activeSkillList) do
 			local match1 = env.player.mainSkill.activeEffect.grantedEffect.fromItem and skill.socketGroup and skill.socketGroup.slot == env.player.mainSkill.socketGroup.slot
 			local match2 = (not env.player.mainSkill.activeEffect.grantedEffect.fromItem) and skill.socketGroup == env.player.mainSkill.socketGroup
-			if calcLib.canGrantedEffectSupportActiveSkill(env.player.mainSkill.triggeredBy.gemData.grantedEffect, skill) and skill ~= env.player.mainSkill and (match1 or match2) and not isTriggered(skill) then
+			if env.player.mainSkill.triggeredBy.gemData and calcLib.canGrantedEffectSupportActiveSkill(env.player.mainSkill.triggeredBy.gemData.grantedEffect, skill) and skill ~= env.player.mainSkill and (match1 or match2) and not isTriggered(skill) then
 				source, trigRate = findTriggerSkill(env, skill, source, trigRate)
 			end
 			if skill.skillData.triggeredWhileChannelling and (match1 or match2) then
@@ -373,7 +372,6 @@ local function CWCHandler(env)
 			env.player.output.ChannelTimeToTrigger = source.skillData.triggerTime
 			env.player.mainSkill.skillData.triggered = true
 			env.player.mainSkill.skillFlags.globalTrigger = true
-			env.player.mainSkill.skillData.triggerSource = source
 			env.player.mainSkill.skillData.triggerRate = output.SkillTriggerRate
 			env.player.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env)
 			env.player.mainSkill.infoMessage = triggerName .."'s Trigger: ".. source.activeEffect.grantedEffect.name
@@ -430,7 +428,7 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			--Dual wield
-			if trigRate and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and not actor.mainSkill.skillFlags.globalTrigger then
+			if trigRate and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and not source.skillTypes[SkillType.Channel] and not actor.mainSkill.skillFlags.globalTrigger then
 				local dualWield = env.player.weaponData1.type and env.player.weaponData2.type
 				trigRate = dualWield and source.skillData.doubleHitsWhenDualWielding and trigRate * 2 or dualWield and trigRate / 2 or trigRate
 				if dualWield and breakdown then
@@ -480,16 +478,17 @@ local function defaultTriggerHandler(env, config)
 
 			--Accuracy and crit chance
 			if source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and GlobalCache.cachedData["CACHE"][uuid] and not config.triggerOnUse then
-				local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
-				trigRate = trigRate * (sourceHitChance or 0) / 100
-				if breakdown then
-					t_insert(breakdown.EffectiveSourceRate, s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
-				end
 				if (actor.mainSkill.skillData.triggeredByCospris or actor.mainSkill.skillData.triggeredByCoC or config.triggerName == "Law of the Wilds") and GlobalCache.cachedData["CACHE"][uuid] then
 					local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 					trigRate = trigRate * (sourceCritChance or 0) / 100
 					if breakdown then
-						t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(%s effective crit chance)", sourceCritChance, source.activeEffect.grantedEffect.name))
+						t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(%s effective crit chance. Includes hit chance)", sourceCritChance, source.activeEffect.grantedEffect.name))
+					end
+				else
+					local sourceHitChance = GlobalCache.cachedData["CACHE"][uuid].HitChance
+					trigRate = trigRate * (sourceHitChance or 0) / 100
+					if breakdown then
+						t_insert(breakdown.EffectiveSourceRate, s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
 					end
 				end
 			end
@@ -862,7 +861,6 @@ local function defaultTriggerHandler(env, config)
 			output.Speed = actor.mainSkill.skillData.triggerRate
 			addTriggerIncMoreMods(actor.mainSkill, source or actor.mainSkill)
 			if source and source ~= actor.mainSkill then
-				actor.mainSkill.skillData.triggerSource = source
 				actor.mainSkill.skillData.triggerSourceUUID = cacheSkillUUID(source, env)
 				actor.mainSkill.infoMessage = (config.customTriggerName or ((config.triggerName ~= source.activeEffect.grantedEffect.name and config.triggerName or triggeredName) .. ( actor == env.minion and "'s attack Trigger: " or "'s Trigger: "))) .. source.activeEffect.grantedEffect.name
 			else
@@ -1194,7 +1192,7 @@ local configTable = {
 		env.player.mainSkill.infoMessage = env.player.mainSkill.activeEffect.grantedEffect.name .. " Triggered on Death"
 	end,
 	["combust"] = function(env)
-		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] and slotMatch(env, skill) end}
+		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Melee] end}
 	end,
 	["prismatic burst"] = function(env)
 		return {triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end}
@@ -1327,11 +1325,11 @@ local function getUniqueItemTriggerName(skill)
 	end
 end
 
-function calcs.triggers(env)
-	if not env.player.mainSkill.skillFlags.disable and not env.player.mainSkill.skillData.limitedProcessing then
-		local skillName = env.minion and env.minion.mainSkill.activeEffect.grantedEffect.name or env.player.mainSkill.activeEffect.grantedEffect.name
-		local triggerName = env.player.mainSkill.triggeredBy and env.player.mainSkill.triggeredBy.grantedEffect.name
-		local uniqueName = isTriggered(env.player.mainSkill) and getUniqueItemTriggerName(env.player.mainSkill)
+function calcs.triggers(env, actor)
+	if actor and not actor.mainSkill.skillFlags.disable and not actor.mainSkill.skillData.limitedProcessing then
+		local skillName = actor.mainSkill.activeEffect.grantedEffect.name
+		local triggerName = actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name
+		local uniqueName = isTriggered(actor.mainSkill) and getUniqueItemTriggerName(actor.mainSkill)
 		local skillNameLower = skillName and skillName:lower()
 		local triggerNameLower = triggerName and triggerName:lower()
 		local awakenedTriggerNameLower = triggerNameLower and triggerNameLower:gsub("^awakened ", "")
@@ -1341,12 +1339,12 @@ function calcs.triggers(env)
         config = config or awakenedTriggerNameLower and configTable[awakenedTriggerNameLower] and configTable[awakenedTriggerNameLower](env)
         config = config or uniqueNameLower and configTable[uniqueNameLower] and configTable[uniqueNameLower](env)
 		if config then
-		    config.actor = config.actor or env.player
+		    config.actor = config.actor or actor
 			config.triggerName = config.triggerName or triggerName or uniqueName or skillName
 			local triggerHandler = config.customHandler or defaultTriggerHandler
 		    triggerHandler(env, config)
 		else
-			env.player.mainSkill.skillData.triggered = nil
+			actor.mainSkill.skillData.triggered = nil
         end
 	end
 end

@@ -226,6 +226,12 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		self.spec:SetWindowTitleWithBuildClass()
 		self.buildFlag = true
 	end)
+	self.controls.secondaryAscendDrop = new("DropDownControl", {"LEFT",self.controls.ascendDrop,"RIGHT"}, 8, 0, 120, 20, nil, function(index, value)
+		self.spec:SelectSecondaryAscendClass(value.ascendClassId)
+		self.spec:AddUndoState()
+		self.spec:SetWindowTitleWithBuildClass()
+		self.buildFlag = true
+	end)
 
 	-- List of display stats
 	-- This defines the stats in the side bar, and also which stats show in node/item comparisons
@@ -379,7 +385,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", overCapStat = "SpellDodgeChanceOverCap" },
-		{ stat = "SpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
+		{ stat = "EffectiveSpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
 		{ },
 		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, overCapStat = "FireResistOverCap"},
 		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", hideStat = true },
@@ -1001,6 +1007,8 @@ function buildMode:OnFrame(inputEvents)
 	self.controls.classDrop:SelByValue(self.spec.curClassId, "classId")
 	self.controls.ascendDrop.list = self.controls.classDrop:GetSelValue("ascendancies")
 	self.controls.ascendDrop:SelByValue(self.spec.curAscendClassId, "ascendClassId")
+	self.controls.secondaryAscendDrop.list = {{label = "None", ascendClassId = 0}, {label = "Warden", ascendClassId = 1}, {label = "Warlock", ascendClassId = 2}, {label = "Primalist", ascendClassId = 3}}
+	self.controls.secondaryAscendDrop:SelByValue(self.spec.curSecondaryAscendClassId, "ascendClassId")
 
 	local checkFabricatedGroups = self.buildFlag
 	if self.buildFlag then
@@ -1450,6 +1458,11 @@ function buildMode:InsertItemWarnings()
 	if self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning then
 		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning) do
 			InsertIfNew(self.controls.warnings.lines, "You are exceeding jewel limit with the jewel "..warning)
+		end
+	end
+	if self.calcsTab.mainEnv.itemWarnings.socketLimitWarning then
+		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.socketLimitWarning) do
+			InsertIfNew(self.controls.warnings.lines, "You have too many gems in your "..warning.." slot")
 		end
 	end
 end

@@ -117,9 +117,9 @@ return {
 		},
 		[4]={
 			list=false,
-			name="ActionName",
+			name="Unknown1",
 			refTo="",
-			type="String",
+			type="Key",
 			width=170
 		},
 		[5]={
@@ -296,6 +296,13 @@ return {
 			refTo="",
 			type="Bool",
 			width=50
+		},
+		[30]={
+			list=false,
+			name="RegularVersion",
+			refTo="ActiveSkills",
+			type="Key",
+			width=150
 		}
 	},
 	activeskilltargettypes={
@@ -1526,10 +1533,17 @@ return {
 		},
 		[30]={
 			list=true,
-			name="",
+			name="Achievement",
 			refTo="AchievementItems",
 			type="Key",
 			width=280
+		},
+		[31]={
+			list=true,
+			name="Achievement2",
+			refTo="AchievementItems",
+			type="Key",
+			width=150
 		}
 	},
 	battlepasses={
@@ -4209,6 +4223,96 @@ return {
 	},
 	gamestats={
 	},
+	gemeffects={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="GrantedEffect",
+			refTo="GrantedEffects",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="GrantedEffectHardmode",
+			refTo="GrantedEffects",
+			type="Key",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="GrantedEffect2",
+			refTo="GrantedEffects",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="GrantedEffect2Hardmode",
+			refTo="GrantedEffects",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="Description",
+			refTo="",
+			type="String",
+			width=260
+		},
+		[8]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="ShortKey",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[11]={
+			list=false,
+			name="HungryLoopMod",
+			refTo="Mods",
+			type="Key",
+			width=280
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=150
+		}
+	},
+	gemitemvisualeffect={
+	},
+	gemitemvisualidentity={
+	},
 	gemtags={
 		[1]={
 			list=false,
@@ -4297,41 +4401,27 @@ return {
 			width=150
 		},
 		[2]={
-			list=false,
-			name="AlternateID",
-			refTo="",
-			type="Int",
-			width=90
-		},
-		[3]={
 			list=true,
 			name="GrantedStats",
 			refTo="Stats",
 			type="Key",
 			width=460
 		},
-		[4]={
+		[3]={
 			list=true,
 			name="StatValues",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[5]={
-			list=false,
-			name="Weight",
-			refTo="",
-			type="Int",
-			width=90
-		},
-		[6]={
+		[4]={
 			list=true,
 			name="AddTypes",
 			refTo="ActiveSkillType",
 			type="Enum",
 			width=100
 		},
-		[7]={
+		[5]={
 			list=true,
 			name="AddMinionTypes",
 			refTo="ActiveSkillType",
@@ -4790,66 +4880,66 @@ return {
 		},
 		[8]={
 			list=true,
-			name="AdditionalBooleanStats",
+			name="BaseResolvedValues",
 			refTo="Stats",
-			type="Key",
+			type="Int",
 			width=150
 		},
 		[9]={
 			list=true,
-			name="FloatStats",
+			name="AdditionalStatsValues",
 			refTo="Stats",
-			type="Key",
-			width=500
+			type="Int",
+			width=300
 		},
 		[10]={
 			list=true,
-			name="InterpolationBases",
-			refTo="EffectivenessCostConstants",
+			name="GrantedEffect",
+			refTo="GrantedEffects",
+			type="Key",
+			width=190
+		},
+		[11]={
+			list=true,
+			name="AdditionalBooleanStats",
+			refTo="Stats",
 			type="Key",
 			width=220
 		},
-		[11]={
+		[12]={
+			list=true,
+			name="FloatStats",
+			refTo="Stats",
+			type="Key",
+			width=800
+		},
+		[13]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[14]={
 			list=true,
 			name="AdditionalStats",
 			refTo="Stats",
 			type="Key",
-			width=400
+			width=500
 		},
-		[12]={
+		[15]={
 			list=true,
 			name="StatInterpolations",
 			refTo="",
 			type="Int",
 			width=150
 		},
-		[13]={
+		[16]={
 			list=true,
 			name="FloatStatsValues",
 			refTo="",
 			type="Float",
 			width=270
-		},
-		[14]={
-			list=true,
-			name="BaseResolvedValues",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[15]={
-			list=true,
-			name="AdditionalStatsValues",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[16]={
-			list=true,
-			name="GrantedEffect",
-			refTo="GrantedEffects",
-			type="Key",
-			width=190
 		}
 	},
 	groundeffecteffecttypes={
@@ -9338,164 +9428,122 @@ return {
 		},
 		[2]={
 			list=false,
-			name="GrantedEffect",
-			refTo="GrantedEffects",
-			type="Key",
-			width=300
-		},
-		[3]={
-			list=false,
 			name="Str",
 			refTo="",
 			type="Int",
 			width=40
 		},
-		[4]={
+		[3]={
 			list=false,
 			name="Dex",
 			refTo="",
 			type="Int",
 			width=40
 		},
-		[5]={
+		[4]={
 			list=false,
 			name="Int",
 			refTo="",
 			type="Int",
 			width=40
 		},
-		[6]={
-			list=true,
-			name="Tags",
-			refTo="GemTags",
-			type="Key",
-			width=600
-		},
-		[7]={
+		[5]={
 			list=false,
 			name="VaalGem",
 			refTo="BaseItemTypes",
 			type="Key",
 			width=290
 		},
-		[8]={
+		[6]={
 			list=false,
 			name="IsVaalGem",
 			refTo="",
 			type="Bool",
-			width=70
-		},
-		[9]={
-			list=false,
-			name="Description",
-			refTo="",
-			type="String",
-			width=500
-		},
-		[10]={
-			list=false,
-			name="HungryLoopMod",
-			refTo="Mods",
-			type="Key",
 			width=150
 		},
-		[11]={
+		[7]={
 			list=false,
-			name="SecondaryGrantedEffect",
-			refTo="GrantedEffects",
-			type="Key",
-			width=150
-		},
-		[12]={
-			list=false,
-			name="GlobalGemLevelStat",
+			name="MinionGlobalSkillLevelStat",
 			refTo="Stats",
 			type="Key",
 			width=150
 		},
-		[13]={
-			list=false,
-			name="SecondarySupportName",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[14]={
+		[8]={
 			list=false,
 			name="IsSupport",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[15]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=80
-		},
-		[16]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=80
-		},
-		[17]={
-			list=false,
-			name="",
-			refTo="",
-			type="Bool",
-			width=80
-		},
-		[18]={
+		[9]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[19]={
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[11]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
 			width=150
 		},
-		[20]={
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[13]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[14]={
 			list=false,
 			name="Awakened",
 			refTo="SkillGems",
 			type="Key",
 			width=200
 		},
-		[21]={
-			list=false,
-			name="Ruthless",
-			refTo="GrantedEffects",
-			type="Key",
-			width=150
-		},
-		[22]={
-			list=false,
-			name="",
-			refTo="",
-			type="Key",
-			width=50
-		},
-		[23]={
+		[15]={
 			list=false,
 			name="GemColour",
 			refTo="",
 			type="Int",
 			width=100
 		},
-		[24]={
+		[16]={
 			list=false,
 			name="GemLevelProgression",
 			refTo="ItemExperienceTypes",
 			type="Key",
+			width=400
+		},
+		[17]={
+			list=true,
+			name="MtxSlotType",
+			refTo="MtxSlotTypes: [MicrotransactionSkillGemEffectSlotTypes]",
+			type="Key",
 			width=150
+		},
+		[18]={
+			list=true,
+			name="GemVariants",
+			refTo="GemEffects",
+			type="Key",
+			width=600
 		}
 	},
 	skillmines={
@@ -10147,6 +10195,15 @@ return {
 	terrainplugins={
 	},
 	tieredmicrotransactions={
+	},
+	tinctures={
+		[1]={
+			list=false,
+			name="BaseItem",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=320
+		}
 	},
 	tips={
 	},

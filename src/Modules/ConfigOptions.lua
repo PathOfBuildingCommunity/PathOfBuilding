@@ -239,6 +239,10 @@ return {
 	end },
 	{ var = "ignoreItemDisablers", type = "check", label = "Don't disable items", ifTagType = "DisablesItem", tooltip = "Ignore the effects of things which disable items, like Bringer of Rain" },
 	{ var = "ignoreJewelLimits", type = "check", label = "Ignore Jewel Limits", tooltip = "Ignore the limits on jewels" },
+	{ var = "overrideEmptyRedSockets", type = "count", label = "# of Empty ^xE05030Red^7 Sockets", ifMult = "EmptyRedSocketsInAnySlot",  tooltip = "This option allows you to override the default calculation for the number of Empty ^xE05030Red^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "overrideEmptyGreenSockets", type = "count", label = "# of Empty ^x70FF70Green^7 Sockets", ifMult = "EmptyGreenSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x70FF70Green^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "overrideEmptyBlueSockets", type = "count", label = "# of Empty ^x7070FFBlue^7 Sockets", ifMult = "EmptyBlueSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty ^x7070FFBlue^7 Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
+	{ var = "overrideEmptyWhiteSockets", type = "count", label = "# of Empty White Sockets", ifMult = "EmptyWhiteSocketsInAnySlot", tooltip = "This option allows you to override the default calculation for the number of Empty White Sockets.\nThe default calculation assumes enabled gems in skill socket groups fill the item in socket order disregarding gem colour.\nLeave blank for default calculation." },
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
@@ -281,6 +285,10 @@ return {
 	end },
 	{ var = "bladestormInSandstorm", type = "check", label = "Are you in a Sandstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })
+	end },
+	{ label = "Blood Sacrament:", ifSkill = "Blood Sacrament" },
+	{ var = "bloodSacramentReservationEHP", type = "check", label = "Count Skill Reservation towards eHP?", ifSkill = "Blood Sacrament", tooltip = "Use this option to disable the skill reservation factoring into eHP calculations",apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BloodSacramentReservationEHP", "FLAG", true, "Config")
 	end },
 	{ label = "Trauma:", ifFlag = "HasTrauma" },
 	{ var = "traumaStacks", type = "count", label = "# of Trauma Stacks:", ifFlag = "HasTrauma", apply = function(val, modList, enemyModList)
@@ -330,13 +338,6 @@ return {
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
 	{ var = "darkPactSkeletonLife", type = "count", label = "Skeleton ^xE05030Life:", ifSkill = "Dark Pact", tooltip = "Sets the maximum ^xE05030Life ^7of the Skeleton that is being targeted.", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "skeletonLife", value = val }, "Config", { type = "SkillName", skillName = "Dark Pact" })
-	end },
-	{ label = "Divine Ire:", ifSkill = "Divine Ire" },
-	{ var = "divineIreNormalEnemy", type = "count", label = "Normal Enemies in AoE:", tooltip = "# of Normal Enemies in Divine Ire's Channel radius", ifSkill = "Divine Ire", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:DivineIreNormalEnemyCount", "BASE", val, "Config")
-	end },
-	{ var = "divineIreUniqueEnemy", type = "count", label = "Unique Enemies in AoE:", tooltip = "# of Unique Enemies in Divine Ire's Channel radius", ifSkill = "Divine Ire", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:DivineIreUniqueEnemyCount", "BASE", val, "Config")
 	end },
 	{ label = "Doom Blast:", ifSkill = "Doom Blast" },
 	{ var = "doomBlastSource", type = "list", label = "Doom Blast Trigger Source:", ifSkill = "Doom Blast", list = {{val="expiration",label="Curse Expiration"},{val="replacement",label="Curse Replacement"},{val="vixen",label="Vixen's Curse"}}, defaultIndex = 3,  apply = function(val, modList, enemyModList)
@@ -495,6 +496,10 @@ return {
 	{ var = "animateWeaponLingeringBlade", type = "check", label = "Are you animating Lingering Blades?", ifSkill = "Animate Weapon", tooltip = "Enables additional damage given to Lingering Blades\nThe exact weapon is unknown but should be similar to Glass Shank", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AnimatingLingeringBlades", "FLAG", true, "Config")
 	end },
+	{ label = "Shrapnel Ballista:", ifSkill = "Shrapnel Ballista" },
+	{ var = "ShrapnelBallistaProjectileOverlap", type = "count", label = "# of Shotgunning Projectiles:", tooltip = "Maximum is limited by the number of Projectiles., default of 1, if Arrow nova then default of maximum projectiles", ifSkill = "Shrapnel Ballista", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "ShrapnelBallistaProjectileOverlap", value = val }, "Config", { type = "SkillName", skillName = "Shrapnel Ballista" })
+	end },
 	{ label = "Sigil of Power:", ifSkill = "Sigil of Power" },
 	{ var = "sigilOfPowerStages", type = "countAllowZero", label = "Stages:", ifSkill = "Sigil of Power", defaultPlaceholderState = 1, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SigilOfPowerStage", "BASE", val, "Config")
@@ -535,6 +540,16 @@ return {
 	{ label = "Storm Rain:", ifSkill = "Storm Rain" },
 	{ var = "stormRainBeamOverlap", type = "count", label = "# of Overlapping Beams:", ifSkill = "Storm Rain", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "beamOverlapMultiplier", value = val }, "Config", { type = "SkillName", skillName = "Storm Rain" })
+	end },
+	{ label = "Summon Elemental Relic:", ifSkill = "Summon Elemental Relic" },
+	{ var = "summonElementalRelicEnableAngerAura", type = "check", defaultState = true, label = "Enable Anger Aura:", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "Anger" }, { type = "SkillName", skillName = "Summon Elemental Relic", summonSkill = true })
+	end },
+	{ var = "summonElementalRelicEnableHatredAura", type = "check", defaultState = true, label = "Enable Hatred Aura:", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "Hatred" }, { type = "SkillName", skillName = "Summon Elemental Relic", summonSkill = true })
+	end },
+	{ var = "summonElementalRelicEnableWrathAura", type = "check", defaultState = true, label = "Enable Wrath Aura:", ifSkill = "Summon Elemental Relic", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "Wrath" }, { type = "SkillName", skillName = "Summon Elemental Relic", summonSkill = true })
 	end },
 	{ label = "Summon Holy Relic:", ifSkill = "Summon Holy Relic" },
 	{ var = "summonHolyRelicEnableHolyRelicBoon", type = "check", label = "Enable Holy Relic's Boon Aura:", ifSkill = "Summon Holy Relic", apply = function(val, modList, enemyModList)
@@ -747,7 +762,7 @@ Huge sets the radius to 11.
 	{ var = "overrideInspirationCharges", type = "countAllowZero", label = "# of Inspiration Charges (if not maximum):", ifMult = "InspirationCharge", apply = function(val, modList, enemyModList)
 		modList:NewMod("InspirationCharges", "OVERRIDE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ var = "useGhostShrouds", type = "check", label = "Do you use Ghost Shrouds?", ifMult = "GhostShroud", apply = function(val, modList, enemyModList)
+	{ var = "useGhostShrouds", legacy = true, type = "check", label = "Do you use Ghost Shrouds?", ifMult = "GhostShroud", apply = function(val, modList, enemyModList)
 		modList:NewMod("UseGhostShrouds", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "overrideGhostShrouds", type = "count", label = "# of Ghost Shrouds (if not maximum):", ifOption = "useGhostShrouds", apply = function(val, modList, enemyModList)
@@ -974,9 +989,6 @@ Huge sets the radius to 11.
 	end },
 	{ var = "multiplierPoisonOnSelf", type = "count", label = "# of Poison on You:", ifMult = "PoisonStack", implyCond = "Poisoned", tooltip = "This also implies that you are Poisoned.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:PoisonStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
-	end },
-	{ var = "conditionAgainstDamageOverTime", type = "check", label = "Are you against Damage over Time?", ifCond = "AgainstDamageOverTime", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:AgainstDamageOverTime", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
 	{ var = "multiplierWitheredStackCountSelf", type = "countAllowZero", label = "# of Withered Stacks on you:", ifFlag = "Condition:CanBeWithered", tooltip = "Withered applies 6% increased ^xD02090Chaos ^7Damage Taken to the self, up to 15 stacks.", defaultPlaceholderState = 15, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:WitheredStack", "BASE", val, "Config", { type = "Condition", var = "Effective" })
@@ -1397,6 +1409,9 @@ Huge sets the radius to 11.
 	{ var = "conditionHaveManaStorm", type = "check", label = "Do you have Manastorm's ^xADAA47Lightning ^7Buff?", ifFlag = "Condition:HaveManaStorm", tooltip = "This option enables Manastorm's ^xADAA47Lightning ^7Damage Buff.\n(When you cast a Spell, Sacrifice all ^x7070FFMana ^7to gain Added Maximum ^xADAA47Lightning ^7Damage\nequal to 25% of Sacrificed ^x7070FFMana ^7for 4 seconds)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:SacrificeManaForLightning", "FLAG", true, "Config", { type = "Condition", var = "Combat" })
 	end },
+	{ var = "GamblesprintMovementSpeed", type = "list", label = "Gamblesprint Movement Speed", defaultIndex=5, list={{val=-40,label="-40%"},{val=-20,label="-20%"},{val=0,label="0%"},{val=20,label="20%"},{val=30,label="30%"},{val=40,label="40%"},{val=60,label="60%"},{val=80,label="80%"},{val=100,label="100%"}}, ifFlag = "Condition:HaveGamblesprint", tooltip = "This option sets the Movement Speed from Gamblesprint boots.", apply = function(val, modList, enemyModList)
+		modList:NewMod("MovementSpeed", "INC", val, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "HaveGamblesprint" })
+	end },
 	{ var = "buffFanaticism", type = "check", label = "Do you have Fanaticism?", ifFlag = "Condition:CanGainFanaticism", tooltip = "This will enable the Fanaticism buff itself. (Grants 75% more cast speed, reduced skill cost, and increased area of effect)", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:Fanaticism", "FLAG", true, "Config", { type = "Condition", var = "Combat" }, { type = "Condition", var = "CanGainFanaticism" })
 	end },
@@ -1643,6 +1658,15 @@ Huge sets the radius to 11.
 	{ var = "conditionBetweenYouAndLinkedTarget", type = "check", label = "Is the enemy in your Link beams?", ifEnemyCond = "BetweenYouAndLinkedTarget", tooltip = "This option sets whether an enemy is between you and your linked target.", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:BetweenYouAndLinkedTarget", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 	end },
+	{ var = "conditionEnemyFireResZero", type = "check", label = "Enemy hit you with ^xB97123Fire Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xB97123Fire Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("FireResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
+	end },
+	{ var = "conditionEnemyColdResZero", type = "check", label = "Enemy hit you with ^x3F6DB3Cold Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^x3F6DB3Cold Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("ColdResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
+	end },
+	{ var = "conditionEnemyLightningResZero", type = "check", label = "Enemy hit you with ^xADAA47Light. Damage^7?", ifFlag = "Condition:HaveTrickstersSmile", tooltip = "This option sets whether or not the enemy has hit you with ^xADAA47Lightning Damage^7 in the last 4 seconds.", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("LightningResist", "OVERRIDE", 0, "Config", { type = "Condition", var = "Effective"}, { type = "ActorCondition", actor = "enemy", var = "HaveTrickstersSmile" })
+	end },
 	-- Section: Enemy Stats
 	{ section = "Enemy Stats", col = 3 },
 	{ var = "enemyLevel", type = "count", label = "Enemy Level:", tooltip = "This overrides the default enemy level used to estimate your hit and ^x33FF77evade ^7chance.\n\nThe default level for normal enemies and standard bosses is 83.\nTheir default level is capped by your character level.\n\nThe default level for pinnacle bosses is 84, and the default level for uber pinnacle bosses is 85.\nTheir default level is not capped by your character level." },
@@ -1820,6 +1844,9 @@ Huge sets the radius to 11.
 	{ var = "enemyChaosResist", type = "integer", label = "Enemy ^xD02090Chaos Resistance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("ChaosResist", "BASE", val, "EnemyConfig")
 	end },
+	{ var = "enemyMaxResist", type = "check", label = "Enemy Max Resistance is always 75%", tooltip = "Enemy Maximum resistance is increased by the resistance configurations \nThis locks it at the default value", apply = function(val, modList, enemyModList)
+		enemyModList:NewMod("DoNotChangeMaxResFromConfig", "FLAG", true, "EnemyConfig")
+	end },
 	{ var = "enemyBlockChance", type = "integer", label = "Enemy Block Chance:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("BlockChance", "BASE", val, "Config")
 	end },
@@ -1889,12 +1916,24 @@ Huge sets the radius to 11.
 			if val == "Atziri Flameblast" and isUber then
 				enemyModList:NewMod("Damage", "INC", 60, "Alluring Abyss Map Mod")
 			end
+			if bossData.additionalStats then
+				local additionalStats = isUber and bossData.additionalStats.uber or bossData.additionalStats.base
+				if additionalStats then
+					for k, v in pairs(additionalStats) do
+						if tostring(v) == "flag" then
+							enemyModList:NewMod(k, "FLAG", true, "BossSkillAdditionalData")
+						else
+							enemyModList:NewMod(k, "BASE", v, "BossSkillAdditionalData")
+						end
+					end
+				end
+			end
 		else
 			build.configTab.varControls['enemyDamageType'].enabled = true
 		end
 	end },
 	{ var = "enemyDamageRollRange", type = "integer", label = "Enemy Skill Roll Range %:", ifFlag = "BossSkillActive", tooltip = "The percentage of the roll range the enemy hits for \n eg at 100% the enemy deals its maximum damage", defaultPlaceholderState = 70, hideIfInvalid = true },
-	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all damage types\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
+	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all typed damage types (not Untyped)\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Untyped",label="Untyped"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
 	{ var = "enemyMultiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier percent:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("MultiplierPvpDamage", "BASE", val, "Config")
