@@ -1133,6 +1133,15 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 	for id, node in pairs(self.allocNodes) do
 		node.visited = true
 		local anyStartFound = (node.type == "ClassStart" or node.type == "AscendClassStart")
+
+		-- Temporary solution until importing secondary ascendancies works
+		if self.tree.alternate_ascendancies and (self.curSecondaryAscendClass == nil or self.curSecondaryAscendClass.id ~= node.ascendancyName) then
+			for id, class in ipairs(self.tree.alternate_ascendancies) do
+				if class.id == node.ascendancyName then
+					self:SelectSecondaryAscendClass(id)
+				end
+			end
+		end
 		for _, other in ipairs(node.linked) do
 			if other.alloc and not isValueInArray(node.depends, other) then
 				-- The other node is allocated and isn't already dependent on this node, so try and find a path to a start node through it

@@ -624,12 +624,13 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 			end
 		end
 	end
-	for ascendId, ascendClass in pairs(self.tree.alternate_ascendancies) do
-		if charData.alternate_ascendancy == ascendClass then
-			charData.secondaryAscendancyClass = ascendId
-			break
-		end
-	end
+	-- Currently we don't get the alternate ascendancy from the unofficial API
+	--for ascendId, ascendClass in pairs(self.build.spec.tree.alternate_ascendancies) do
+	--	if charData.alternate_ascendancy == ascendClass then
+	--		charData.secondaryAscendancyClass = ascendId
+	--		break
+	--	end
+	--end
 	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charData.secondaryAscendancyClass or 0, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
