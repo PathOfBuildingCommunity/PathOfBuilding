@@ -431,7 +431,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					if implyCond(varData) then
 						return true
 					end
-					return self.build.calcsTab.mainEnv.modsUsed[ifOption]
+					return self.build.calcsTab.mainEnv.modsUsed[ifOption] or self.build.calcsTab.mainEnv.multipliersUsed[ifOption]
 				end))
 				t_insert(tooltipFuncs, listOrSingleIfTooltip(varData.ifMod, function(ifOption)
 					if not launch.devModeAlt then
@@ -439,11 +439,16 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 					local out
 					local mods = self.build.calcsTab.mainEnv.modsUsed[ifOption]
-					if not mods then
-						return out
+					if mods then
+						for _, mod in ipairs(mods) do
+							out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+						end
 					end
-					for _, mod in ipairs(mods) do
-						out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+					local mods2 = self.build.calcsTab.mainEnv.multipliersUsed[ifOption]
+					if mods2 then
+						for _, mod in ipairs(mods2) do
+							out = (out and out.."\n" or "") .. modLib.formatMod(mod) .. "|" .. mod.source
+						end
 					end
 					return out
 				end))
