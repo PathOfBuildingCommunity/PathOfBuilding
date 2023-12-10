@@ -202,15 +202,29 @@ directiveTable.skill = function(state, args, out)
 		ConPrintf('Unknown GE: "'..grantedId..'"')
 		return
 	end
-	local skillGem = dat("SkillGems"):GetRow("GrantedEffect", granted) or dat("SkillGems"):GetRow("SecondaryGrantedEffect", granted)
+	local gemEffect = dat("GemEffects"):GetRow("GrantedEffect", granted) or dat("GemEffects"):GetRow("GrantedEffect2", granted)
+	local skillGem
+	if gemEffect then
+		for gem in dat("SkillGems"):Rows() do
+			for _, variant in ipairs(gem.GemVariants) do
+				if gemEffect.Id == variant.Id then
+					skillGem = gem
+					break
+				end
+			end
+			if skillGem then break end
+		end
+	else
+		ConPrintf('Unknown Gem Effect: "' .. grantedId .. '"')
+	end
 	local skill = { }
 	state.skill = skill
 	if skillGem and not state.noGem then
-		gems[skillGem] = true
+		gems[gemEffect] = true
 		if granted.IsSupport then
 			out:write('\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
-			if #skillGem.Description > 0 then
-				out:write('\tdescription = "', skillGem.Description:gsub('\n','\\n'), '",\n')
+			if #gemEffect.Description > 0 then
+				out:write('\tdescription = "', gemEffect.Description:gsub('\n','\\n'), '",\n')
 			end
 		else
 			out:write('\tname = "', granted.ActiveSkill.DisplayName, '",\n')
