@@ -17,6 +17,10 @@ return {
 	skill("durationSecondary", nil),
 	div = 1000,
 },
+["base_tertiary_skill_effect_duration"] = {
+	skill("durationTertiary", nil),
+	div = 1000,
+},
 ["spell_minimum_base_physical_damage"] = {
 	skill("PhysicalMin", nil),
 },
@@ -530,9 +534,6 @@ return {
 ["critical_strike_chance_+%_per_power_charge"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
-["critical_strike_chance_+%_final_per_power_charge"] = {
-	mod("CritChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
-},
 ["critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "Multiplier", var = "PowerCharge" }),
 },
@@ -694,6 +695,9 @@ return {
 	mod("ChaosPenetration", "BASE", nil),
 },
 ["reduce_enemy_elemental_resistance_%"] = {
+	mod("ElementalPenetration", "BASE", nil),
+},
+["base_penetrate_elemental_resistances_%"] = {
 	mod("ElementalPenetration", "BASE", nil),
 },
 ["global_minimum_added_physical_damage_vs_bleeding_enemies"] = {
@@ -1584,10 +1588,6 @@ return {
 ["minion_elemental_resistance_%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
 },
-["minion_elemental_resistance_30%"] = {
-	mod("MinionModifier", "LIST", { mod = mod("ElementalResist", "BASE", nil) }),
-	value=30
-},
 ["base_minion_duration_+%"] = {
 	mod("Duration", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.CreatesMinion }),
 },
@@ -1742,6 +1742,9 @@ return {
 ["base_number_of_sigils_allowed_per_target"] = {
 	mod("BrandsAttachedLimit", "BASE", nil)
 },
+["active_skill_brands_allowed_on_enemy_+"] = {
+	mod("BrandsAttachedLimit", "BASE", nil)
+},
 ["base_sigil_repeat_frequency_ms"] = {
 	skill("repeatFrequency", nil),
 	div = 1000,
@@ -1750,6 +1753,9 @@ return {
 	mod("BrandActivationFrequency", "INC", nil)
 },
 ["additive_cast_speed_modifiers_apply_to_sigil_repeat_frequency"] = {
+},
+["brand_atttached_duration_is_infinite"] = {
+	flag("UnlimitedBrandDuration"),
 },
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
