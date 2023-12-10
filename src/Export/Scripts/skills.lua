@@ -117,6 +117,8 @@ local skillTypes = {
 	"PreventHexTransfer",
 	"MinionsAreUndamageable",
 	"InnateTrauma",
+	"DualWieldRequiresDifferentTypes",
+	"NoVolley",
 }
 
 local wellShitIGotThoseWrong = {

@@ -215,6 +215,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/displayminionmonstertype.dat",
 		"Data/tinctures.dat",
 		"Data/gemeffects.dat",
+		"Data/gemvisualeffect.dat",
 		"Data/actiontypes.dat",
 		"Data/azmerilifescalingperlevel.dat",
 		"Data/azmerifeaturerooms.dat",

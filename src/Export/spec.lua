@@ -94,7 +94,7 @@ return {
 	actiontypes={
 		[1]={
 			list=false,
-			name="",
+			name="Name",
 			refTo="",
 			type="String",
 			width=150
@@ -104,6 +104,20 @@ return {
 			name="",
 			refTo="",
 			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
 			width=150
 		}
 	},
@@ -4388,35 +4402,28 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
+			name="SecondarySupportName",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[9]={
-			list=false,
-			name="",
-			refTo="",
-			type="ShortKey",
-			width=150
+			list=true,
+			name="Tags",
+			refTo="Tags",
+			type="Key",
+			width=500
 		},
 		[10]={
-			list=false,
-			name="",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[11]={
 			list=false,
 			name="HungryLoopMod",
 			refTo="Mods",
 			type="Key",
 			width=280
 		},
-		[12]={
+		[11]={
 			list=false,
-			name="",
+			name="Variant",
 			refTo="",
 			type="Int",
 			width=150
@@ -4471,6 +4478,8 @@ return {
 		}
 	},
 	gemtypes={
+	},
+	gemvisualeffect={
 	},
 	genericbuffauras={
 		[1]={
@@ -4935,14 +4944,14 @@ return {
 		},
 		[6]={
 			list=false,
-			name="IncrementalEffectiveness",
+			name="",
 			refTo="",
-			type="Float",
+			type="Int",
 			width=150
 		},
 		[7]={
 			list=false,
-			name="",
+			name="IncrementalEffectiveness",
 			refTo="",
 			type="Float",
 			width=150
@@ -5003,14 +5012,14 @@ return {
 			name="BaseResolvedValues",
 			refTo="Stats",
 			type="Int",
-			width=150
+			width=110
 		},
 		[9]={
 			list=true,
 			name="AdditionalStatsValues",
 			refTo="Stats",
 			type="Int",
-			width=300
+			width=200
 		},
 		[10]={
 			list=true,
@@ -5024,7 +5033,7 @@ return {
 			name="AdditionalBooleanStats",
 			refTo="Stats",
 			type="Key",
-			width=220
+			width=200
 		},
 		[12]={
 			list=true,
