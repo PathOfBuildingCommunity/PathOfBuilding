@@ -4410,7 +4410,7 @@ return {
 		[9]={
 			list=true,
 			name="Tags",
-			refTo="Tags",
+			refTo="gemTags",
 			type="Key",
 			width=500
 		},
@@ -4480,6 +4480,20 @@ return {
 	gemtypes={
 	},
 	gemvisualeffect={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=250
+		}
 	},
 	genericbuffauras={
 		[1]={
