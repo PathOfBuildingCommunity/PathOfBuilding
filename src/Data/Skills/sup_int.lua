@@ -320,11 +320,6 @@ skills["SupportArchmage"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
 			div = 100,
 		},
-		["manaweave_added_cold_damage_%_cost_if_payable"] = {
-			mod("ColdMin", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
-			mod("ColdMax", "BASE", nil, 0, 0, { type = "PerStat", stat = "ManaCost" }),
-			div = 100,
-		},
 	},
 	qualityStats = {
 		Default = {
@@ -730,14 +725,6 @@ skills["SupportCastWhileChannellingTriggered"] = {
 		["support_cast_while_channelling_triggered_skill_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
 		},
-		["support_cast_while_channelling_triggered_skill_non_damaging_ailment_effect_+%"] = {
-			mod("EnemyChillEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemyShockEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemyFreezeEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemyScorchEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemyBrittleEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-			mod("EnemySapEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Triggered }),
-		},
 	},
 	qualityStats = {
 		Default = {
@@ -977,17 +964,6 @@ skills["SupportChargedMines"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["mine_throwing_speed_+%_per_frenzy_charge"] = {
-			mod("MineLayingSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
-		},
-		["mine_critical_strike_chance_+%_per_power_charge"] = {
-			mod("CritChance", "INC", nil, 0, KeywordFlag.Mine, { type = "Multiplier", var = "PowerCharge" }),
-		},
-		["mine_projectile_speed_+%_per_frenzy_charge"] = {
-			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" })
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "mine_damage_+%", 0.5 },
@@ -1311,9 +1287,6 @@ skills["SupportCurseOnHit"] = {
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["damage_vs_cursed_enemies_per_enemy_curse_+%"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "CurseOnEnemy" })
-		},
 		["apply_linked_curses_on_hit_%"] = {
 			--Display only. Handled by SupportCurseOnHitCurse
 		},
@@ -1570,12 +1543,6 @@ skills["SupportMinionFocusFire"] = {
 		["support_minion_focus_fire_damage_+%_final_vs_focussed_target"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
 		},
-		["support_minion_focus_fire_critical_strike_chance_+%_vs_focused_target"] = {
-			mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
-		},
-		["support_minion_focus_fire_critical_strike_multiplier_+_vs_focused_target"] = {
-			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "EnemyHasDeathmark" }),
-		},
 	},
 	qualityStats = {
 		Default = {
@@ -1637,12 +1604,6 @@ skills["MinionFocusFire"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.SkillGrantedBySupport] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0,
-	statMap = {
-		["resist_all_%"] = {
-			mod("ElementalResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
-			mod("ChaosResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectCond = "EnemyHasDeathmark" }),
-		},
-	},
 	baseFlags = {
 	},
 	qualityStats = {
@@ -2022,13 +1983,6 @@ skills["SupportElementalProliferation"] = {
 	addSkillTypes = { SkillType.Area, },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["damage_+%_vs_enemies_per_freeze_shock_ignite"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Ignited" }),
-			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Frozen" }),
-			mod("Damage", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Shocked" }),
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "base_elemental_status_ailment_duration_+%", 0.5 },
@@ -2102,9 +2056,6 @@ skills["SupportEnergyShieldLeech"] = {
 		["support_energy_shield_leech_damage_+%_while_leeching_energy_shield_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "LeechingEnergyShield" }),
 		},
-		["maximum_energy_shield_leech_amount_per_leech_+%"] = {
-			mod("MaxEnergyShieldLeechRate", "INC", nil)
-		}
 	},
 	qualityStats = {
 		Default = {
@@ -2374,10 +2325,6 @@ skills["SupportFreshMeat"] = {
 		},
 		["support_recent_minions_additional_critical_strike_multiplier_from_wakened_fury"] = {
 			mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
-		},
-		["support_recent_minions_life_leech_from_any_damage_permyriad_from_wakened_fury"] = {
-			mod("MinionModifier", "LIST", { mod = mod("DamageLifeLeech", "BASE", nil) }, 0, 0, { type = "Condition", var = "FreshMeatActive" }),
-			div = 100,
 		},
 	},
 	baseMods = {
@@ -3179,12 +3126,6 @@ skills["SupportBurningMinions"] = {
 			div = 60,
 			mod("ExtraMinionSkill", "LIST", { skillId = "InfernalLegion" }),
 		},
-		["minion_burning_damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("FireDamage", "INC", nil, 0, KeywordFlag.FireDot) }),
-		},
-		["minion_fire_damage_taken_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("FireDamageTaken", "INC", nil) }),
-		}
 	},
 	qualityStats = {
 		Default = {
@@ -3268,17 +3209,6 @@ skills["SupportStormBarrier"] = {
 			mod("Condition:HaveColdInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
 			mod("Condition:HaveLightningInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
 			mod("Condition:HaveChaosInfusion", "FLAG", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
-		},
-		["infusion_grants_life_regeneration_rate_per_minute_%"] = {
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "PhysicalInfusion" }),
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "FireInfusion" }),
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ColdInfusion" }),
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "LightningInfusion" }),
-			mod("LifeRegenPercent", "BASE", true, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Infusion", effectCond = "InfusionActive", modCond = "ChaosInfusion" }),
-			div = 60
-		},
-		["infusion_effect_+%"] = {
-			mod("InfusionEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 	baseMods = {
@@ -3821,12 +3751,6 @@ skills["SupportMinionDamage"] = {
 		["support_minion_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
 		},
-		["minion_chance_to_deal_double_damage_%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }),
-		},
-		["minion_ailment_damage_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, KeywordFlag.Ailment) }),
-		},
 	},
 	qualityStats = {
 		Default = {
@@ -3945,13 +3869,6 @@ skills["SupportMinionLife"] = {
 	statMap = {
 		["support_minion_maximum_life_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
-		},
-		["minion_life_regeneration_rate_per_minute_%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
-			div = 60
-		},
-		["minion_damage_+%_on_full_life"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
 		},
 	},
 	qualityStats = {
@@ -4081,12 +3998,6 @@ skills["SupportSummonElementalResistances"] = {
 		["support_minion_totem_resistance_elemental_damage_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("ElementalDamage", "MORE", nil) }),
 		},
-		["minion_life_leech_from_elemental_damage_permyriad"] = {
-			mod("MinionModifier", "LIST", { mod = mod("FireDamageLeech", "BASE", nil) }),
-			mod("MinionModifier", "LIST", { mod = mod("LightningDamageLeech", "BASE", nil) }),
-			mod("MinionModifier", "LIST", { mod = mod("ColdDamageLeech", "BASE", nil) }),
-			div = 100
-		},
 		["minions_inflict_exposure_on_hit_%_chance"] = {
 		},
 	},
@@ -4162,9 +4073,6 @@ skills["SupportOvercharge"] = {
 		["support_pure_shock_damage_+%_final"] = {
 			mod("Damage", "MORE", nil),
 		},
-		["shock_effect_+%_with_critical_strikes"] = {
-			mod("EnemyShockEffect", "INC", nil),
-		},
 	},
 	qualityStats = {
 		Default = {
@@ -4230,11 +4138,6 @@ skills["SupportPhysicalToLightning"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["enemies_you_shock_take_%_increased_physical_damage"] = {
-			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Shocked" }),
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "physical_damage_+%", 0.5 },
@@ -4383,15 +4286,6 @@ skills["PrismaticBurst"] = {
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 3 } }),
 			mod("LightningDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 1, 2 } }),
 			mult = -100,
-		},
-		["spell_damage_+%_per_10_int"] = {
-			skill("Damage", nil, { type = "PerStat", stat = "Int", div = 10 }),
-		},
-		["critical_strike_multiplier_+_if_dexterity_higher_than_intelligence"] = {
-			skill("CritMultiplier", nil, { type = "Condition", var = "DexHigherThanInt" }),
-		},
-		["area_of_effect_+%_per_50_strength"] = {
-			skill("Area", nil, { type = "PerStat", stat = "Str", div = 50 }),
 		},
 	},
 	baseFlags = {
@@ -4777,9 +4671,6 @@ skills["SupportSpellblade"] = {
 		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage"] = {
 			mod("OneHandWeaponDamageAppliesToSpells", "MAX", nil),
 		},
-		["support_spell_weapon_damage_gain_%_of_one_hand_melee_weapon_damage_as_added_spell_damage_while_wielding_two_different_weapon_types"] = {
-			mod("OneHandWeaponDamageAppliesToSpellsWithTwoDifferentTypes", "MAX", nil),
-		},
 	},
 	qualityStats = {
 		Default = {
@@ -4976,9 +4867,6 @@ skills["SupportMulticast"] = {
 		["support_multicast_cast_speed_+%_final"] = {
 			mod("Speed", "MORE", nil, ModFlag.Cast),
 		},
-		["support_spell_echo_final_repeat_damage_+%_final"] = {
-			mod("RepeatFinalDamage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt", neg = true }, { type = "Condition", varList = {"averageRepeat", "alwaysFinalRepeat"} }),
-		}
 	},
 	baseMods = {
 		flag("Condition:HaveSpellEcho"),
@@ -5117,9 +5005,6 @@ skills["SupportSummonGhostOnKill"] = {
 		["base_number_of_support_ghosts_allowed"] = {
 			mod("ActivePhantasmLimit", "BASE", nil),
 		},
-		["damage_+%_for_non_minions"] = {
-			-- mod("Damage", "INC", nil, 0, 0, {type = "Actor"})
-		},
 		["phantasm_minimum_added_physical_damage_to_grant"] = {
 			mod("PhysicalMin", "BASE", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "ActivePhantasmLimit" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Phantasmal Might", effectCond = "PhantasmalMight" })
 		},
@@ -5204,9 +5089,6 @@ skills["SupportRapidActivation"] = {
 		},
 		["support_rapid_activation_brand_skill_only_secondary_duration_+%_final"] = {
 			mod("SecondaryDuration", "MORE", nil, 0, KeywordFlag.Brand),
-		},
-		["from_quality_brand_activation_rate_+%_final_if_75%_attached_duration_expired"] = {
-			mod("BrandActivationFrequency", "MORE", nil, 0, 0, {type = "Condition", var = "BrandLastQuarter"})
 		},
 	},
 	qualityStats = {
@@ -5351,9 +5233,6 @@ skills["SupportAilments"] = {
 		["support_unbound_ailments_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
 		},
-		["base_damage_+%_while_an_ailment_on_you"] = {
-			mod("Damage", "INC", nil, 0, 0, {type = "Condition", varList = { "Frozen","Chilled","Shocked","Ignited","Scorched","Brittle","Sapped","Poisoned","Bleeding" }})
-		}
 	},
 	qualityStats = {
 		Default = {

@@ -417,6 +417,9 @@ return {
 	mod("DamageEnergyShieldLeech", "BASE", nil, ModFlag.Spell),
 	div = 100,
 },
+["maximum_energy_shield_leech_amount_per_leech_+%"] = {
+	mod("MaxEnergyShieldLeechRate", "INC", nil)
+},
 ["mana_gain_per_target"] = {
 	mod("ManaOnHit", "BASE", nil)
 },
@@ -511,6 +514,9 @@ return {
 ["active_skill_area_of_effect_+%_final"] = {
 	mod("AreaOfEffect", "MORE", nil),
 },
+["area_of_effect_+%_per_50_strength"] = {
+	skill("AreaOfEffect", nil, { type = "PerStat", stat = "Str", div = 50 }),
+},
 -- Critical strikes
 ["additional_base_critical_strike_chance"] = {
 	mod("CritChance", "BASE", nil),
@@ -539,6 +545,9 @@ return {
 },
 ["critical_multiplier_+%_per_100_max_es_on_shield"] = {
 	mod("CritMultiplier", "BASE", nil, 0, 0, { type = "PerStat", div = 100, stat = "EnergyShieldOnWeapon 2" }),
+},
+["critical_strike_multiplier_+_if_dexterity_higher_than_intelligence"] = {
+	skill("CritMultiplier", nil, { type = "Condition", var = "DexHigherThanInt" }),
 },
 ["damage_+%_per_endurance_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
@@ -1235,6 +1244,9 @@ return {
 ["physical_damage_taken_+%"] = {
 	mod("PhysicalDamageTaken", "INC", nil),
 },
+["enemies_you_shock_take_%_increased_physical_damage"] = {
+	mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Shocked" }),
+},
 ["fire_damage_taken_+%"] = {
 	mod("FireDamageTaken", "INC", nil),
 },
@@ -1448,6 +1460,9 @@ return {
 ["spell_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Spell),
 },
+["spell_damage_+%_per_10_int"] = {
+	skill("Damage", nil, ModFlag.Spell, 0, { type = "PerStat", stat = "Int", div = 10 }),
+},
 ["spell_minimum_added_physical_damage"] = {
 	mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Spell),
 },
@@ -1514,6 +1529,9 @@ return {
 ["mine_laying_speed_+%"] = {
 	mod("MineLayingSpeed", "INC", nil),
 },
+["mine_throwing_speed_+%_per_frenzy_charge"] = {
+	mod("MineLayingSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+},
 ["mine_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Mine),
 },
@@ -1526,6 +1544,12 @@ return {
 ["remote_mined_by_support"] = {
 	flag("ManaCostGainAsReservation"),
 	flag("LifeCostGainAsReservation"),
+},
+["mine_critical_strike_chance_+%_per_power_charge"] = {
+	mod("CritChance", "INC", nil, 0, KeywordFlag.Mine, { type = "Multiplier", var = "PowerCharge" }),
+},
+["mine_projectile_speed_+%_per_frenzy_charge"] = {
+	mod("ProjectileSpeed", "INC", nil, 0, KeywordFlag.Mine, { type = "Multiplier", var = "FrenzyCharge" })
 },
 -- Totem
 ["totem_damage_+%"] = {
@@ -1566,6 +1590,9 @@ return {
 },
 ["minion_melee_damage_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, ModFlag.Melee) }),
+},
+["minion_damage_+%_on_full_life"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, 0, {type = "Condition", var = "FullLife"}) }),
 },
 ["active_skill_minion_bleeding_damage_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed) }),
@@ -1616,6 +1643,12 @@ return {
 	mod("MinionModifier", "LIST", { mod = mod("LifeRegenPercent", "BASE", nil) }),
 	div = 60,
 },
+["minion_chance_to_deal_double_damage_%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("DoubleDamageChance", "BASE", nil) }),
+},
+["minion_ailment_damage_+%"] = {
+	mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", nil, 0, KeywordFlag.Ailment) }),
+},
 ["base_number_of_zombies_allowed"] = {
 	mod("ActiveZombieLimit", "BASE", nil),
 },
@@ -1657,6 +1690,12 @@ return {
 },
 ["support_minion_damage_minion_life_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }),
+},
+["minion_life_leech_from_elemental_damage_permyriad"] = {
+	mod("MinionModifier", "LIST", { mod = mod("FireDamageLeech", "BASE", nil) }),
+	mod("MinionModifier", "LIST", { mod = mod("LightningDamageLeech", "BASE", nil) }),
+	mod("MinionModifier", "LIST", { mod = mod("ColdDamageLeech", "BASE", nil) }),
+	div = 100
 },
 ["active_skill_minion_energy_shield_+%_final"] = {
 	mod("MinionModifier", "LIST", { mod = mod("EnergyShield", "MORE", nil) }),
