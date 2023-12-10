@@ -177,100 +177,6 @@ skills["VaalAbsolution"] = {
 		[40] = { vaalStoredUses = 1, soulPreventionDuration = 30, levelRequirement = 100, cost = { Soul = 40, }, },
 	},
 }
-skills["AbyssalCry"] = {
-	name = "Infernal Cry",
-	color = 1,
-	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Covers enemies in ash, causing them to move slower and take increased fire damage. Affected enemies explode when they die, dealing fire damage in an area.",
-	skillTypes = { [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Fire] = true, [SkillType.Damage] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "debuff_skill_stat_descriptions",
-	castTime = 0.8,
-	statMap = {
-		["skill_empowers_next_x_melee_attacks"] = {
-			mod("InfernalExertedAttacks", "BASE", nil),
-		},
-		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
-			mod("InfernalFireTakenPer5MP", "BASE", nil),
-		},
-		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
-			-- Display only
-		},
-	},
-	baseFlags = {
-		warcry = true,
-		area = true,
-		duration = true,
-	},
-	baseMods = {
-		skill("radius", 60),
-		skill("radiusLabel", "Warcry area:"),
-		skill("radiusSecondary", 22),
-		skill("radiusSecondaryLabel", "Explosion area:"),
-	},
-	qualityStats = {
-		Default = {
-			{ "base_cooldown_speed_+%", 2 },
-		},
-	},
-	constantStats = {
-		{ "infernal_cry_%_max_life_as_fire_on_death", 8 },
-		{ "infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power", 3 },
-		{ "skill_empowers_next_x_melee_attacks", 6 },
-	},
-	stats = {
-		"warcry_speed_+%",
-		"base_skill_effect_duration",
-		"base_deal_no_attack_damage",
-		"base_deal_no_spell_damage",
-		"damage_cannot_be_reflected",
-		"base_skill_show_average_damage_instead_of_dps",
-		"display_skill_deals_secondary_damage",
-		"cannot_cancel_skill_before_contact_point",
-		"warcry_count_power_from_enemies",
-		"infernal_cry_empowered_attacks_trigger_combust_display",
-	},
-	levels = {
-		[1] = { 0, 5000, storedUses = 1, levelRequirement = 24, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
-		[2] = { 2, 5000, storedUses = 1, levelRequirement = 27, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
-		[3] = { 4, 5100, storedUses = 1, levelRequirement = 30, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
-		[4] = { 6, 5100, storedUses = 1, levelRequirement = 33, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
-		[5] = { 8, 5200, storedUses = 1, levelRequirement = 36, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
-		[6] = { 10, 5200, storedUses = 1, levelRequirement = 39, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
-		[7] = { 12, 5300, storedUses = 1, levelRequirement = 42, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
-		[8] = { 14, 5300, storedUses = 1, levelRequirement = 45, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
-		[9] = { 16, 5400, storedUses = 1, levelRequirement = 48, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
-		[10] = { 18, 5400, storedUses = 1, levelRequirement = 50, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
-		[11] = { 20, 5500, storedUses = 1, levelRequirement = 52, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
-		[12] = { 22, 5500, storedUses = 1, levelRequirement = 54, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
-		[13] = { 24, 5600, storedUses = 1, levelRequirement = 56, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
-		[14] = { 26, 5600, storedUses = 1, levelRequirement = 58, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
-		[15] = { 28, 5700, storedUses = 1, levelRequirement = 60, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
-		[16] = { 30, 5700, storedUses = 1, levelRequirement = 62, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
-		[17] = { 32, 5800, storedUses = 1, levelRequirement = 64, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
-		[18] = { 34, 5800, storedUses = 1, levelRequirement = 66, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
-		[19] = { 36, 5900, storedUses = 1, levelRequirement = 68, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
-		[20] = { 38, 5900, storedUses = 1, levelRequirement = 70, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
-		[21] = { 40, 6000, storedUses = 1, levelRequirement = 72, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
-		[22] = { 41, 6000, storedUses = 1, levelRequirement = 74, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
-		[23] = { 42, 6100, storedUses = 1, levelRequirement = 76, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
-		[24] = { 43, 6100, storedUses = 1, levelRequirement = 78, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
-		[25] = { 44, 6200, storedUses = 1, levelRequirement = 80, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
-		[26] = { 45, 6200, storedUses = 1, levelRequirement = 82, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
-		[27] = { 46, 6300, storedUses = 1, levelRequirement = 84, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
-		[28] = { 47, 6300, storedUses = 1, levelRequirement = 86, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
-		[29] = { 48, 6400, storedUses = 1, levelRequirement = 88, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
-		[30] = { 49, 6400, storedUses = 1, levelRequirement = 90, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
-		[31] = { 49, 6400, storedUses = 1, levelRequirement = 91, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
-		[32] = { 50, 6400, storedUses = 1, levelRequirement = 92, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
-		[33] = { 50, 6500, storedUses = 1, levelRequirement = 93, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
-		[34] = { 51, 6500, storedUses = 1, levelRequirement = 94, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
-		[35] = { 51, 6500, storedUses = 1, levelRequirement = 95, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
-		[36] = { 52, 6500, storedUses = 1, levelRequirement = 96, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
-		[37] = { 52, 6600, storedUses = 1, levelRequirement = 97, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
-		[38] = { 53, 6600, storedUses = 1, levelRequirement = 98, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
-		[39] = { 53, 6600, storedUses = 1, levelRequirement = 99, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
-		[40] = { 54, 6600, storedUses = 1, levelRequirement = 100, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
-	},
-}
 skills["InfernalCryOnHitExplosion"] = {
 	name = "Combust",
 	color = 1,
@@ -1384,6 +1290,12 @@ skills["Boneshatter"] = {
 			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
+		["trauma_strike_self_damage_per_trauma"] = {
+			-- Display only
+		},
+		["quality_display_boneshatter_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -1476,6 +1388,9 @@ skills["ChainStrike"] = {
 		["chain_strike_cone_radius_+_per_x_rage"] = {
 			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
 			div = 5,
+		},
+		["quality_display_chain_hook_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -1748,6 +1663,9 @@ skills["ConsecratedPath"] = {
 	statMap = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+		["quality_display_groundslam_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -2511,6 +2429,9 @@ skills["Earthquake"] = {
 		["quake_slam_fully_charged_explosion_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthquake_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -2610,6 +2531,9 @@ skills["VaalEarthquake"] = {
 	statMap = {
 		["quake_slam_fully_charged_explosion_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+		["quality_display_earthquake_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -2715,9 +2639,6 @@ skills["SpikeSlam"] = {
 		},
 		["active_skill_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
-		},
-		["spike_slam_fissure_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
@@ -3146,11 +3067,6 @@ skills["FrozenLegion"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
-	statMap = {
-		["frozen_legion_%_chance_to_summon_additional_statue"] = {
-			mod("FrozenLegionExtraStatueChance", "BASE", nil)
-		}
-	},
 	baseFlags = {
 		spell = true,
 	},
@@ -3258,30 +3174,15 @@ skills["FrozenSweep"] = {
 		output.Cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 		activeSkill.skillData.hitTimeOverride = output.Cooldown
 
-		local extraStatueChance = parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "FrozenLegionExtraStatueChance") or 0
 		local maxStatues = parentSkill.skillData.storedUses + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "AdditionalCooldownUses")
-		
 		local statuesWaitedFor
-		local dpsMultiplier = extraStatueChance
 
 		if activeSkill.skillPart == 1 then
 			statuesWaitedFor = 1
 		elseif activeSkill.skillPart == 2 then
 			statuesWaitedFor = maxStatues
 		end
-		activeSkill.skillData.averageBurstHits = statuesWaitedFor + extraStatueChance / 100
-		dpsMultiplier = 1 + extraStatueChance / statuesWaitedFor / 100
-		if breakdown then
-			breakdown.SkillDPSMultiplier = {}
-			t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
-			t_insert(breakdown.SkillDPSMultiplier, "^8= extra statue chance / statues waited for")
-			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%d%%^8 / ^7%.2f", extraStatueChance, statuesWaitedFor))
-			t_insert(breakdown.SkillDPSMultiplier, s_format("^8= ^7%.3f", dpsMultiplier))
-		end
-		if dpsMultiplier ~= 1 then
-			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * dpsMultiplier
-			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
-		end
+		activeSkill.skillData.averageBurstHits = statuesWaitedFor
 	end,
 	baseFlags = {
 		attack = true,
@@ -3359,6 +3260,9 @@ skills["GeneralsCry"] = {
 		},
 		["maximum_number_of_spiritual_cry_warriors"] = {
 			mod("GeneralsCryDoubleMaxCount", "BASE", nil),
+		},
+		["quality_display_generals_cry_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -3699,6 +3603,9 @@ skills["GroundSlam"] = {
 		["groundslam_damage_to_close_targets_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
+		["quality_display_groundslam_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3789,6 +3696,10 @@ skills["VaalGroundSlam"] = {
 			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
 		},
 		["vaal_skill_exertable"] = {
+			-- Display only
+		},
+		["quality_display_groundslam_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -3969,6 +3880,9 @@ skills["HeraldOfAsh"] = {
 		["herald_of_ash_burning_%_overkill_damage_per_minute"] = {
 			skill("hoaOverkillPercent", nil),
 			div = 6000,
+		},
+		["quality_display_herald_of_ash_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -4243,9 +4157,6 @@ skills["IceCrash"] = {
 		},
 	},
 	statMap = {
-		["ice_crash_first_stage_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
-		},
 		["ice_crash_second_hit_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
@@ -4260,6 +4171,11 @@ skills["IceCrash"] = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radiusLabel", "First hit:"),
+		skill("radiusSecondaryLabel", "Second hit:"),
+		skill("radiusTertiaryLabel", "Third hit:"),
 	},
 	qualityStats = {
 		Default = {
@@ -4482,6 +4398,100 @@ skills["VaalImmortalCall"] = {
 		[40] = { 202, storedUses = 1, soulPreventionDuration = 8, vaalStoredUses = 1, cooldown = 60, levelRequirement = 100, statInterpolation = { 1, }, cost = { Soul = 100, }, },
 	},
 }
+skills["AbyssalCry"] = {
+	name = "Infernal Cry",
+	color = 1,
+	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Covers enemies in ash, causing them to move slower and take increased fire damage. Affected enemies explode when they die, dealing fire damage in an area.",
+	skillTypes = { [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Fire] = true, [SkillType.Damage] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "debuff_skill_stat_descriptions",
+	castTime = 0.8,
+	statMap = {
+		["skill_empowers_next_x_melee_attacks"] = {
+			mod("InfernalExertedAttacks", "BASE", nil),
+		},
+		["infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power"] = {
+			mod("InfernalFireTakenPer5MP", "BASE", nil),
+		},
+		["infernal_cry_empowered_attacks_trigger_combust_display"] = {
+			-- Display only
+		},
+	},
+	baseFlags = {
+		warcry = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("radius", 60),
+		skill("radiusLabel", "Warcry area:"),
+		skill("radiusSecondary", 22),
+		skill("radiusSecondaryLabel", "Explosion area:"),
+	},
+	qualityStats = {
+		Default = {
+			{ "base_cooldown_speed_+%", 2 },
+		},
+	},
+	constantStats = {
+		{ "infernal_cry_%_max_life_as_fire_on_death", 8 },
+		{ "infernal_cry_covered_in_ash_fire_damage_taken_%_per_5_monster_power", 3 },
+		{ "skill_empowers_next_x_melee_attacks", 6 },
+	},
+	stats = {
+		"warcry_speed_+%",
+		"base_skill_effect_duration",
+		"base_deal_no_attack_damage",
+		"base_deal_no_spell_damage",
+		"damage_cannot_be_reflected",
+		"base_skill_show_average_damage_instead_of_dps",
+		"display_skill_deals_secondary_damage",
+		"cannot_cancel_skill_before_contact_point",
+		"warcry_count_power_from_enemies",
+		"infernal_cry_empowered_attacks_trigger_combust_display",
+	},
+	levels = {
+		[1] = { 0, 5000, storedUses = 1, levelRequirement = 24, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
+		[2] = { 2, 5000, storedUses = 1, levelRequirement = 27, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
+		[3] = { 4, 5100, storedUses = 1, levelRequirement = 30, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
+		[4] = { 6, 5100, storedUses = 1, levelRequirement = 33, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 15, }, },
+		[5] = { 8, 5200, storedUses = 1, levelRequirement = 36, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
+		[6] = { 10, 5200, storedUses = 1, levelRequirement = 39, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
+		[7] = { 12, 5300, storedUses = 1, levelRequirement = 42, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
+		[8] = { 14, 5300, storedUses = 1, levelRequirement = 45, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 16, }, },
+		[9] = { 16, 5400, storedUses = 1, levelRequirement = 48, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
+		[10] = { 18, 5400, storedUses = 1, levelRequirement = 50, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
+		[11] = { 20, 5500, storedUses = 1, levelRequirement = 52, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
+		[12] = { 22, 5500, storedUses = 1, levelRequirement = 54, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 17, }, },
+		[13] = { 24, 5600, storedUses = 1, levelRequirement = 56, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
+		[14] = { 26, 5600, storedUses = 1, levelRequirement = 58, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
+		[15] = { 28, 5700, storedUses = 1, levelRequirement = 60, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
+		[16] = { 30, 5700, storedUses = 1, levelRequirement = 62, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 18, }, },
+		[17] = { 32, 5800, storedUses = 1, levelRequirement = 64, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
+		[18] = { 34, 5800, storedUses = 1, levelRequirement = 66, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
+		[19] = { 36, 5900, storedUses = 1, levelRequirement = 68, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
+		[20] = { 38, 5900, storedUses = 1, levelRequirement = 70, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 19, }, },
+		[21] = { 40, 6000, storedUses = 1, levelRequirement = 72, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
+		[22] = { 41, 6000, storedUses = 1, levelRequirement = 74, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
+		[23] = { 42, 6100, storedUses = 1, levelRequirement = 76, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
+		[24] = { 43, 6100, storedUses = 1, levelRequirement = 78, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 20, }, },
+		[25] = { 44, 6200, storedUses = 1, levelRequirement = 80, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
+		[26] = { 45, 6200, storedUses = 1, levelRequirement = 82, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
+		[27] = { 46, 6300, storedUses = 1, levelRequirement = 84, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
+		[28] = { 47, 6300, storedUses = 1, levelRequirement = 86, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 21, }, },
+		[29] = { 48, 6400, storedUses = 1, levelRequirement = 88, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
+		[30] = { 49, 6400, storedUses = 1, levelRequirement = 90, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
+		[31] = { 49, 6400, storedUses = 1, levelRequirement = 91, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
+		[32] = { 50, 6400, storedUses = 1, levelRequirement = 92, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
+		[33] = { 50, 6500, storedUses = 1, levelRequirement = 93, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
+		[34] = { 51, 6500, storedUses = 1, levelRequirement = 94, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 22, }, },
+		[35] = { 51, 6500, storedUses = 1, levelRequirement = 95, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
+		[36] = { 52, 6500, storedUses = 1, levelRequirement = 96, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
+		[37] = { 52, 6600, storedUses = 1, levelRequirement = 97, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
+		[38] = { 53, 6600, storedUses = 1, levelRequirement = 98, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
+		[39] = { 53, 6600, storedUses = 1, levelRequirement = 99, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
+		[40] = { 54, 6600, storedUses = 1, levelRequirement = 100, cooldown = 8, statInterpolation = { 1, 1, }, cost = { Mana = 23, }, },
+	},
+}
 skills["InfernalBlow"] = {
 	name = "Infernal Blow",
 	color = 1,
@@ -4506,7 +4516,16 @@ skills["InfernalBlow"] = {
 	statMap = {
 		["infernal_blow_explosion_damage_%_of_total_per_stack"] = {
 			mod("DebuffEffect", "BASE", nil)
-		}
+		},
+		["quality_display_infernal_blow_is_gem"] = {
+			-- Display Only
+		},
+		["active_skill_base_area_of_effect_radius"] = {
+			skill("radius", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["active_skill_base_secondary_area_of_effect_radius"] = {
+			skill("radius", nil, { type = "SkillPart", skillPartList = { 2, 3 } }),
+		},
 	},
 	parts = {
 		{
@@ -4539,6 +4558,8 @@ skills["InfernalBlow"] = {
 	baseMods = {
 		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
 		mod("Multiplier:DebuffStack", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		skill("radiusLabel", "Hit area:", { type = "SkillPart", skillPart = 1 }),
+		skill("radiusLabel", "Explosion area:", { type = "SkillPart", skillPartList = { 2, 3 } }),
 	},
 	qualityStats = {
 		Default = {
@@ -5254,7 +5275,10 @@ skills["BloodSpears"] = {
 		},
 		["skill_area_of_effect_+%_final_in_sand_stance"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "SandStance" }),
-		}
+		},
+		["quality_display_perforate_is_gem"] = {
+			-- Display Only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -5419,9 +5443,6 @@ skills["PhysicalDamageAura"] = {
 		},
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
 			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMaxEffect" }),
-		},
-		["base_additional_physical_damage_reduction_%"] = {
-			mod("PhysicalDamageReduction", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
 	baseFlags = {
@@ -5658,9 +5679,6 @@ skills["FireResistAura"] = {
 		["base_maximum_fire_damage_resistance_%"] = {
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["base_avoid_ignite_%"] = {
-			mod("AvoidIgnite", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -5849,6 +5867,9 @@ skills["RageVortex"] = {
 		},
 		["rage_slash_sacrifice_rage_%"] = {
 			mod("Multiplier:MaxRageVortexSacrificePercentage", "BASE", nil),
+		},
+		["quality_display_rage_vortex_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -6653,12 +6674,19 @@ skills["Smite"] = {
 		["maximum_added_lightning_damage_from_skill"] = {
 			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
 		},
+		["quality_display_active_skill_area_damage_quality_negated_from_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		duration = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radiusLabel", "Lightning Strike area:"),
+		skill("radiusSecondaryLabel", "Aura area:"),
 	},
 	qualityStats = {
 		Default = {
@@ -6779,7 +6807,8 @@ skills["VaalSmite"] = {
 		area = true,
 	},
 	baseMods = {
-		skill("radius", 15),
+		skill("radiusLabel", "Lightning Strike area:"),
+		skill("radiusSecondaryLabel", "Aura area:"),
 	},
 	qualityStats = {
 		Default = {
@@ -6894,7 +6923,7 @@ skills["StaticStrike"] = {
 	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / ((activeSkill.skillData.repeatFrequencyIncrease or 0) + 1)
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
 		end
 	end,
 	baseFlags = {
@@ -7065,6 +7094,9 @@ skills["Bloodreap"] = {
 			skill("PhysicalDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage", neg = true }),
 			skill("FireDot", nil, { type = "Condition", var = "ReapDebuffIsFireDamage"}),
 			div = 60,
+		},
+		["quality_display_reap_is_gem"] = {
+			-- Display only
 		},
 	},
 	baseFlags = {
@@ -7703,10 +7735,6 @@ skills["EnduranceChargeSlam"] = {
 		["active_skill_area_of_effect_+%_final_per_endurance_charge"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
-		["base_life_leech_from_fire_damage_permyriad"] = {
-			mod("FireDamageLifeLeech", "BASE", nil),
-			div = 100,
-		}
 	},
 	baseFlags = {
 		attack = true,

@@ -1888,4 +1888,7 @@ return {
 ["quality_display_trap_duration_is_gem"] = {
 	-- Display only
 },
+["quality_display_active_skill_area_damage_is_gem"] = {
+	-- Display only
+},
 }
