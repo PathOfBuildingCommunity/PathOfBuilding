@@ -1135,7 +1135,7 @@ function PassiveSpecClass:BuildAllDependsAndPaths()
 		local anyStartFound = (node.type == "ClassStart" or node.type == "AscendClassStart")
 
 		-- Temporary solution until importing secondary ascendancies works
-		if self.tree.alternate_ascendancies and (self.curSecondaryAscendClass == nil or self.curSecondaryAscendClass.id ~= node.ascendancyName) then
+		if self.tree.alternate_ascendancies and node.ascendancyName and (self.curSecondaryAscendClass == nil or self.curSecondaryAscendClass.id ~= node.ascendancyName) then
 			for id, class in ipairs(self.tree.alternate_ascendancies) do
 				if class.id == node.ascendancyName then
 					self:SelectSecondaryAscendClass(id)
