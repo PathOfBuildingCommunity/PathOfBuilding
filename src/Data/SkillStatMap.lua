@@ -417,6 +417,9 @@ return {
 	mod("DamageEnergyShieldLeech", "BASE", nil, ModFlag.Spell),
 	div = 100,
 },
+["maximum_life_leech_amount_per_leech_+%"] = {
+	mod("MaxLifeLeechRate", "INC", nil)
+},
 ["maximum_energy_shield_leech_amount_per_leech_+%"] = {
 	mod("MaxEnergyShieldLeechRate", "INC", nil)
 },
@@ -462,6 +465,9 @@ return {
 },
 ["cast_speed_+%_granted_from_skill"] = {
 	mod("Speed", "INC", nil, ModFlag.Cast),
+},
+["attack_speed_+%_with_atleast_20_rage"] = {
+	mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 20 })
 },
 ["base_cooldown_speed_+%"] = {
 	mod("CooldownRecovery", "INC", nil),
@@ -877,6 +883,9 @@ return {
 },
 ["chance_to_bleed_on_hit_%_chance_in_blood_stance"] = {
 	mod("BleedChance", "BASE", nil, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }),
+},
+["chance_to_bleed_on_hit_%_vs_maimed"] = {
+	mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Maimed" })
 },
 ["faster_bleed_%"] = {
 	mod("BleedFaster", "INC", nil),

@@ -645,7 +645,7 @@ return {
 	{ label = "Tertiary Uptime", haveOutput = "DurationTertiaryUptime", { format = "{2:output:DurationTertiaryUptime}%", { breakdown = "DurationTertiaryUptime" }, }, },
 	{ label = "Aura Uptime", haveOutput = "AuraDurationUptime", { format = "{2:output:AuraDurationUptime}%", { breakdown = "AuraDurationUptime" }, }, },
 	{ label = "Reserve Uptime", haveOutput = "ReserveDurationUptime", { format = "{2:output:ReserveDurationUptime}%", { breakdown = "ReserveDurationUptime" }, }, },
-	{ label = "Sustainable Trauma", haveOutput = "SustainableTrauma", { format = "{0:output:SustainableTrauma}", { breakdown = "SustainableTrauma" }, { modName = { "SpeedPerTrauma", "ExtraTrauma", "RepeatCount", "Duration", "PrimaryDuration", "SecondaryDuration", "SkillAndDamagingAilmentDuration"}, cfg = "skill" }, }, },
+	{ label = "Sustainable Trauma", haveOutput = "SustainableTrauma", { format = "{0:output:SustainableTrauma}", { breakdown = "SustainableTrauma" }, { modName = { "ExtraTrauma", "RepeatCount", "Duration", "PrimaryDuration", "SecondaryDuration", "SkillAndDamagingAilmentDuration"}, cfg = "skill" }, }, },
 	{ label = "Repeat Count", haveOutput = "RepeatCount", { format = "{output:Repeats}", { modName = { "RepeatCount" }, cfg = "skill" }, }, },
 	{ label = "Projectile Count", flag = "projectile", { format = "{output:ProjectileCount}", { modName = { "NoAdditionalProjectiles" , "ProjectileCount" }, cfg = "skill" }, }, },
 	{ label = "Pierce Count", haveOutput = "PierceCount", { format = "{output:PierceCountString}", { modName = { "CannotPierce", "PierceCount", "PierceAllTargets" }, cfg = "skill" }, }, },
