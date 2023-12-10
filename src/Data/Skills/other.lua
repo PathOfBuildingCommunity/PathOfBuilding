@@ -1548,8 +1548,9 @@ skills["IcestormUniqueStaff12"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 22),
-		skill("radiusSecondary", 16),
+		skill("radiusSecondary", 22),
+		skill("radiusLabel", "Ice projectile:"),
+		skill("radiusSecondaryLabel", "Target area:"),
 	},
 	constantStats = {
 		{ "spell_minimum_base_cold_damage_+_per_10_intelligence", 5 },
@@ -2322,6 +2323,10 @@ skills["VolatileDeadChaos"] = {
 	},
 	baseFlags = {
 		spell = true,
+	},
+	baseMods = {
+		skill("radiusLabel", "Orb explosion:"),
+		skill("radiusSecondaryLabel", "Corpse explosion:"),
 	},
 	constantStats = {
 		{ "volatile_dead_base_number_of_corpses_to_consume", 1 },

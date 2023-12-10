@@ -463,8 +463,9 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 	},
-#baseMod skill("radius", 22)
-#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondary", 22)
+#baseMod skill("radiusLabel", "Ice projectile:")
+#baseMod skill("radiusSecondaryLabel", "Target area:")
 #mods
 
 #skill TriggeredIcicleNova
@@ -658,6 +659,8 @@ local skills, mod, flag, skill = ...
 			skill("radius", "BASE", nil),
 		},
 	},
+#baseMod skill("radiusLabel", "Orb explosion:")
+#baseMod skill("radiusSecondaryLabel", "Corpse explosion:")
 #mods
 
 #skill StormCascadeTriggered
