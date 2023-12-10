@@ -643,9 +643,9 @@ for skillGem in dat("SkillGems"):Rows() do
 			out:write('\t\ttags = {\n')
 			for _, tag in ipairs(gemEffect.Tags) do
 				out:write('\t\t\t', tag.Id, ' = true,\n')
-				--if #tag.Name > 0 then
-				--	table.insert(tagNames, tag.Name)
-				--end
+				if #tag.Name > 0 then
+					table.insert(tagNames, tag.Name)
+				end
 			end
 			out:write('\t\t},\n')
 			out:write('\t\ttagString = "', table.concat(tagNames, ", "), '",\n')
