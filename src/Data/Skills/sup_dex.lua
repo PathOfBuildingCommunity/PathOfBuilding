@@ -124,11 +124,6 @@ skills["SupportAdditionalAccuracy"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["attack_damage_+%_per_1000_accuracy_rating"] = {
-			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "accuracy_rating_+%", 1 },
@@ -547,9 +542,6 @@ skills["SupportCastOnCrit"] = {
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
-		},
 		["support_cast_on_crit_spell_damage_+%_final"] = {
 		},
 	},
@@ -792,13 +784,6 @@ skills["SupportCastOnDeath"] = {
 		},
 		["cast_on_death_damage_+%_final_while_dead"] = {
 			mod("Damage", "MORE", nil),
-		},
-		["additional_critical_strike_chance_permyriad_while_dead"] = {
-			mod("CritChance", "BASE", nil),
-			div = 100
-		},
-		["skill_effect_duration_+%_while_dead"] = {
-			mod("Duration", "INC", nil),
 		},
 		["no_cost"] = {
 		},
@@ -1140,9 +1125,6 @@ skills["SupportSlashingWeapon"] = {
 		["close_combat_damage_to_close_range_+%"] = {
 			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }),
 		},
-		["combat_rush_effect_+%"] = {
-			mod("CombatRushEffect", "INC", nil),
-		},
 		["supported_skill_can_only_use_axe_and_sword"] = {
 		},
 	},
@@ -1450,9 +1432,6 @@ skills["SupportDeadlyAilments"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
-		["support_better_ailments_hit_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit),
-		},
 		["support_better_ailments_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
 		},
@@ -2088,7 +2067,7 @@ skills["SupportGreaterVolley"] = {
 	support = true,
 	requireSkillTypes = { SkillType.ProjectilesFromUser, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.ProjectileSpiral, SkillType.SingleMainProjectile, SkillType.ProjectilesNotFromUser, SkillType.ProjectilesNotFired, SkillType.Unknown120, },
+	excludeSkillTypes = { SkillType.ProjectileSpiral, SkillType.SingleMainProjectile, SkillType.ProjectilesNotFromUser, SkillType.ProjectilesNotFired, SkillType.NoVolley, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_greater_volley_projectile_damage_+%_final"] = {
@@ -2166,9 +2145,6 @@ skills["SupportDamageAgainstChilled"] = {
 		},
 		["support_hypothermia_cold_damage_over_time_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
-		},
-		["freeze_applies_cold_resistance_+"] = {
-			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Frozen" }),
 		},
 	},
 	qualityStats = {
@@ -2601,11 +2577,6 @@ skills["SupportManaLeech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["damage_+%_per_200_mana_spent_recently"] = {
-			mod("Damage", "INC", nil, 0, 0, {type = "Multiplier", div = 200, var = "ManaSpentRecently"})
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%_while_mana_leeching", 0.5 },
@@ -2667,11 +2638,6 @@ skills["SupportMarkOnHit"] = {
 	excludeSkillTypes = { SkillType.Trapped, SkillType.RemoteMined, SkillType.SummonsTotem, SkillType.HasReservation, SkillType.InbuiltTrigger, },
 	isTrigger = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["marked_enemy_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "mark_skills_curse_effect_+%", 0.25 },
@@ -2744,9 +2710,6 @@ skills["SupportGemMirageArcher"] = {
 		},
 		["support_mirage_archer_attack_speed_+%_final"] = {
 			mod("MirageArcherLessAttackSpeed", "BASE", nil),
-		},
-		["mirage_archer_number_of_additional_projectiles"] = {
-			mod("MirageArcherAdditionalProjectileCount", "BASE", nil)
 		},
 		["summon_mirage_archer_on_hit"] = {
 			mod("MirageArcherMaxCount", "BASE", 1),
@@ -3301,9 +3264,6 @@ skills["SupportSlowerProjectiles"] = {
 		},
 		["support_slower_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
-		},
-		["projectile_damage_+%_vs_nearby_enemies"] = {
-			mod("Damage", "INC", nil, ModFlag.Projectile)
 		},
 	},
 	qualityStats = {
@@ -4157,7 +4117,7 @@ skills["SupportParallelProjectiles"] = {
 	support = true,
 	requireSkillTypes = { SkillType.ProjectilesFromUser, },
 	addSkillTypes = { },
-	excludeSkillTypes = { SkillType.ProjectileSpiral, SkillType.SingleMainProjectile, SkillType.ProjectilesNotFromUser, SkillType.ProjectilesNotFired, SkillType.Unknown120, },
+	excludeSkillTypes = { SkillType.ProjectileSpiral, SkillType.SingleMainProjectile, SkillType.ProjectilesNotFromUser, SkillType.ProjectilesNotFired, SkillType.NoVolley, },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_parallel_projectiles_damage_+%_final"] = {
