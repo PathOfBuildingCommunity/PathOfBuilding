@@ -392,6 +392,13 @@ local skills, mod, flag, skill = ...
 #baseMod flag("dotIsCausticGround")
 #mods
 
+#skill PoisonArrowAltX
+#flags attack projectile area duration
+#baseMod skill("radius", 20)
+#baseMod skill("radiusSecondary", 12)
+#baseMod skill("dotIsArea", true)
+#mods
+
 #skill VaalCausticArrow
 #flags attack projectile area duration
 #baseMod skill("radius", 20)
