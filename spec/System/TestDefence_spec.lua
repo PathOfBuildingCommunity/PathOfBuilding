@@ -601,4 +601,45 @@ describe("TestDefence", function()
         assert.are.equals(0, round(poolsRemaining.Life))
         assert.are.equals(1000, round(poolsRemaining.Mana))
     end)
+
+    it("energy shield bypass tests #pet", function()
+        -- Negative overrides positive
+        build.configTab.input.customMods = [[
+            +40 to maximum life
+            +100 to energy shield
+            Chaos damage does not bypass energy shield
+            You have no intelligence
+            +60% to all resistances
+        ]]
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+        assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+        assert.are.equals(200, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+        -- Chaos damage should still bypass
+        build.configTab.input.customMods = build.configTab.input.customMods .. "\nAll damage taken bypasses energy shield"
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+        assert.are.equals(100, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+        assert.are.equals(100, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+
+        -- Make sure we can't reach over 100% bypass
+        build.configTab.input.customMods = [[
+            +40 to maximum life
+            +100 to energy shield
+            Chaos damage does not bypass energy shield
+            50% of chaos damage taken does not bypass energy shield
+            You have no intelligence
+            +60% to all resistances
+        ]]
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+        assert.are.equals(200, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+        assert.are.equals(200, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+        -- Chaos damage should still bypass
+        build.configTab.input.customMods = build.configTab.input.customMods .. "\nAll damage taken bypasses energy shield"
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+        assert.are.equals(100, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+        assert.are.equals(100, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+    end)
 end)
