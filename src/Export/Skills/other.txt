@@ -50,6 +50,31 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill Barkskin
+#flags spell
+	fromTree = true,
+#mods
+
+#skill PenanceMark
+#flags spell curse duration mark
+	fromTree = true,
+#mods
+
+#skill MinionSacrifice
+#flags spell area
+	fromTree = true,
+#mods
+
+#skill Quieten
+#flags spell curse area duration hex
+	fromTree = true,
+#mods
+
+#skill Ravenous
+#flags spell
+	fromTree = true,
+#mods
+
 #skill BirdAspect
 #flags cast duration
 	fromItem = true,

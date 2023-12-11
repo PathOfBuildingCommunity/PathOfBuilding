@@ -130,6 +130,130 @@ skills["SupportTriggerSpellOnBowAttack"] = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.3, },
 	},
 }
+skills["Barkskin"] = {
+	name = "Barkskin",
+	hidden = true,
+	color = 2,
+	description = "Adopt the power of the Viridian Wildwood, gradually covering your body in bark. Getting hit by enemy attacks causes bark to be removed. You have higher armour the more bark builds up, but higher chance to evade when less covered in bark.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+	},
+	constantStats = {
+		{ "max_barkskin_stacks", 10 },
+		{ "armour_+%_per_barkskin_stack", 15 },
+		{ "physical_attack_damage_taken_+_per_barkskin_stack", -15 },
+		{ "chance_to_evade_attacks_+%_final_per_missing_barkskin_stack", 2 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 70, },
+	},
+}
+skills["PenanceMark"] = {
+	name = "Penance Mark",
+	hidden = true,
+	color = 3,
+	description = "Curses a single enemy, causing them to spawn multiple phantasms when hit. The phantasms will be allies of the marked enemy with the same monster level. They cast a projectile spell which deals physical damage, and are immune to curses and knockback. You can only have one Mark at a time.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Mark] = true, [SkillType.Duration] = true, },
+	statDescriptionScope = "brand_skill_stat_descriptions",
+	castTime = 0.5,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		curse = true,
+		duration = true,
+		mark = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+		{ "penance_mark_summon_phantasms_when_hit", 3 },
+	},
+	stats = {
+		"base_deal_no_damage",
+	},
+	levels = {
+		[20] = { levelRequirement = 70, cost = { Mana = 33, }, },
+	},
+}
+skills["MinionSacrifice"] = {
+	name = "Affliction",
+	hidden = true,
+	color = 3,
+	description = "Permanently Afflicts any of your damageable minions in a targeted area, causing them to take physical damage over time, at an accelerating rate. Each such minion causes you to regenerate life at a rate based on the current damage of it's Affliction debuff. Afflicted Minions explode if their life is lowered to a fifth of maximum.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Minion] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "minion_sacrifice_%_damage_to_regen", 20 },
+		{ "minion_sacrifice_%_minion_life_to_degen", 8 },
+		{ "minion_sacrifice_%_minion_life_explosion", 50 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { levelRequirement = 70, cost = { Mana = 33, }, },
+	},
+}
+skills["Quieten"] = {
+	name = "Pacify",
+	hidden = true,
+	color = 3,
+	description = "Curses all targets in an area, having no effect at first, but causing them to deal no damage once 60% of the curse's duration has expired.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 10000 },
+	},
+	stats = {
+		"curse_pacifies_after_60%",
+		"base_deal_no_damage",
+		"display_skill_fixed_duration_buff",
+	},
+	levels = {
+		[20] = { levelRequirement = 70, cost = { Mana = 33, }, },
+	},
+}
+skills["Ravenous"] = {
+	name = "Ravenous",
+	hidden = true,
+	color = 3,
+	description = "Consumes a targeted corpse, granting you a buff that gives you bonuses against enemies of the same monster category as the corpse.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+	},
+	constantStats = {
+		{ "ravenous_buff_magnitude", 15 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 33, }, },
+	},
+}
 skills["BirdAspect"] = {
 	name = "Aspect of the Avian",
 	hidden = true,
