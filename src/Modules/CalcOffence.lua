@@ -3732,15 +3732,24 @@ function calcs.offence(env, actor, activeSkill)
 				bleedStacks = (output.HitChance / 100) * (globalOutput.BleedDuration / (output.HitTime or output.Time) * skillData.dpsMultiplier) * activeTotems / maxStacks
 			end
 			bleedStacks = overrideStackPotential or configStacks > 0 and m_min(bleedStacks, configStacks / maxStacks) or bleedStacks
+			if bleedStacks < 1 and (env.configInput.overrideBleedStackPotential or 0) <= 1 then
+				skillModList:NewMod("Condition:SingleBleed", "FLAG", true, "bleed")
+			end
+			if skillModList:Flag(nil, "Condition:SingleBleed") then
+				bleedStacks = m_min(bleedStacks, 1 / maxStacks)
+			end
 			globalOutput.BleedStackPotential = bleedStacks or 1
-			bleedStacks = m_max(bleedStacks, 1)
+			bleedStacks = m_max(bleedStacks, 1 / maxStacks)
+
 			if globalBreakdown then
 				globalBreakdown.BleedStackPotential = {
 					s_format(colorCodes.CUSTOM.."NOTE: Calculation uses a Weighted Avg formula"),
 					s_format(""),
 				}
-				if overrideStackPotential then
-					if maxStacks ~= 1 then
+				if overrideStackPotential or skillModList:Flag(nil, "Condition:SingleBleed") then
+					if skillModList:Flag(nil, "Condition:SingleBleed") then
+						t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(can only have 1 Bleed on Enemy)", bleedStacks))
+					elseif maxStacks ~= 1 then
 						t_insert(globalBreakdown.BleedStackPotential, s_format("= %d / %d ^8(stack potential override / max bleed stacks)", skillModList:Override(nil, "BleedStackPotentialOverride"), maxStacks))
 						t_insert(globalBreakdown.BleedStackPotential, s_format("= %g ^8(stack potential)", overrideStackPotential))
 					else
