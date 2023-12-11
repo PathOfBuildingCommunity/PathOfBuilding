@@ -61,8 +61,16 @@ function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 	for stat, statValue in pairs(stats) do
 		local map = grantedEffect.statMap[stat]
 		if map then
-			for _, mod in ipairs(map) do
-				mergeLevelMod(modList, mod, map.value or statValue * (map.mult or 1) / (map.div or 1) + (map.base or 0))
+			-- Some mods need different scalars for different stats, but the same value.  Putting them in a group allows this
+			for _, modOrGroup in ipairs(map) do
+				-- Found a mod, since all mods have names
+				if modOrGroup.name then
+					mergeLevelMod(modList, modOrGroup, map.value or statValue * (map.mult or 1) / (map.div or 1) + (map.base or 0))
+				else
+					for _, mod in ipairs(modOrGroup) do
+						mergeLevelMod(modList, mod, modOrGroup.value or statValue * (modOrGroup.mult or 1) / (modOrGroup.div or 1) + (modOrGroup.base or 0))
+					end
+				end
 			end
 		end
 	end

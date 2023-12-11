@@ -174,6 +174,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/StatInterpolationTypes.dat",
 		"Data/Tags.dat",
 		"Data/GemTags.dat",
+		"Data/GemItemVisualEffect.dat",
 		"Data/ItemVisualIdentity.dat",
 		"Data/AchievementItems.dat",
 		"Data/MultiPartAchievements.dat",
@@ -181,7 +182,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/AlternatePassiveAdditions.dat",
 		"Data/AlternatePassiveSkills.dat",
 		"Data/AlternateTreeVersions.dat",
-		"Data/GrantedEffectQualityTypes.dat",
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/GrantedEffectGroups.dat",
 		"Data/AegisVariations.dat",
@@ -212,6 +212,11 @@ function GGPKClass:GetNeededFiles()
 		"Data/passiveskilltattoos.dat",
 		"Data/passiveskilltattootargetsets.dat",
 		"Data/displayminionmonstertype.dat",
+		"Data/tinctures.dat",
+		"Data/GemEffects.dat",
+		"Data/actiontypes.dat",
+		"Data/azmerilifescalingperlevel.dat",
+		"Data/azmerifeaturerooms.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
@@ -238,6 +243,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/StatDescriptions/skill_stat_descriptions.txt",
 		"Metadata/StatDescriptions/stat_descriptions.txt",
 		"Metadata/StatDescriptions/variable_duration_skill_stat_descriptions.txt",
+		"Metadata/StatDescriptions/tincture_stat_descriptions.txt",
 	}
 	local itFiles = {
 		"Metadata/Items/Quivers/AbstractQuiver.it",
@@ -279,6 +285,8 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/Items/Weapons/OneHandWeapons/AbstractOneHandWeapon.it",
 		"Metadata/Items/Equipment.it",
 		"Metadata/Items/Weapons/AbstractWeapon.it",
+		"Metadata/Items/Tinctures/AbstractTincture.it",
+		"Metadata/Items/Jewels/AbstractAnimalCharm.it",
 	}
 	return datFiles, txtFiles, itFiles
 end

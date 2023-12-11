@@ -316,6 +316,19 @@ return {
 		lang={
 			English={
 				[1]={
+					limit={
+						[1]={
+							[1]="#",
+							[2]="#"
+						},
+						[2]={
+							[1]=0,
+							[2]=0
+						}
+					},
+					text="Buff grants {0:+d}% chance to Shock enemies"
+				},
+				[2]={
 					[1]={
 						k="reminderstring",
 						v="ReminderTextShock"
@@ -323,6 +336,10 @@ return {
 					limit={
 						[1]={
 							[1]=1,
+							[2]="#"
+						},
+						[2]={
+							[1]="#",
 							[2]="#"
 						}
 					},
@@ -332,7 +349,8 @@ return {
 		},
 		name="skill_grants_shock_chance",
 		stats={
-			[1]="base_chance_to_shock_%_from_skill"
+			[1]="base_chance_to_shock_%_from_skill",
+			[2]="quality_display_shock_chance_from_skill_is_gem"
 		}
 	},
 	[15]={
@@ -1465,6 +1483,7 @@ return {
 	["phase_through_objects"]=13,
 	["physical_damage_reduction_%_per_endurance_charge"]=32,
 	["physical_damage_reduction_rating_+%"]=33,
+	["quality_display_shock_chance_from_skill_is_gem"]=14,
 	["remora_link_grants_damage_+%_when_on_full_life"]=35,
 	["remora_link_grants_maximum_life_leech_rate_%_per_minute"]=36,
 	["resist_all_%"]=38,

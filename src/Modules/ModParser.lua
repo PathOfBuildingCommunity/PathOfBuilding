@@ -348,6 +348,7 @@ local modNameList = {
 	["to avoid being frozen"] = "AvoidFreeze",
 	["to avoid being chilled"] = "AvoidChill",
 	["to avoid being ignited"] = "AvoidIgnite",
+	["to avoid non-damaging ailments on you"] = { "AvoidShock", "AvoidFreeze", "AvoidChill", "AvoidSap", "AvoidBrittle", "AvoidScorch" },
 	["to avoid blind"] = "AvoidBlind",
 	["to avoid elemental ailments"] = "AvoidElementalAilments",
 	["to avoid elemental status ailments"] = "AvoidElementalAilments",
@@ -703,6 +704,7 @@ local modNameList = {
 	["duration of ailments you inflict"] = "EnemyAilmentDuration",
 	["duration of ailments inflicted"] = "EnemyAilmentDuration",
 	["duration of ailments inflicted on you"] = "SelfAilmentDuration",
+	["duration of damaging ailments on you"] = { "SelfIgniteDuration" , "SelfBleedDuration", "SelfPoisonDuration" },
 	-- Other ailments
 	["to poison"] = "PoisonChance",
 	["to cause poison"] = "PoisonChance",
@@ -1282,6 +1284,8 @@ local modTagList = {
 	["per animated weapon"] = { tag = { type = "Multiplier", var = "AnimatedWeapon", actor = "parent" } },
 	["per grasping vine"] = { tag =  { type = "Multiplier", var = "GraspingVinesCount" } },
 	["per fragile regrowth"] = { tag =  { type = "Multiplier", var = "FragileRegrowthCount" } },
+	["per bark"] = { tag =  { type = "Multiplier", var = "BarkskinStacks" } },
+	["per bark below maximum"] = { tag =  { type = "Multiplier", var = "MissingBarkskinStacks" } },
 	["per allocated mastery passive skill"] = { tag = { type = "Multiplier", var = "AllocatedMastery" } },
 	["per allocated notable passive skill"] = { tag = { type = "Multiplier", var = "AllocatedNotable" } },
 	["for each different type of mastery you have allocated"] = { tag = { type = "Multiplier", var = "AllocatedMasteryType" } },
@@ -2061,10 +2065,11 @@ local specialModList = {
 	["gain no inherent bonuses from dexterity"] = { flag("NoDexterityAttributeBonuses") },
 	["gain no inherent bonuses from intelligence"] = { flag("NoIntelligenceAttributeBonuses") },
 	["all damage taken bypasses energy shield"] = {
-		mod("PhysicalEnergyShieldBypass", "BASE", 100),
-		mod("LightningEnergyShieldBypass", "BASE", 100),
-		mod("ColdEnergyShieldBypass", "BASE", 100),
-		mod("FireEnergyShieldBypass", "BASE", 100),
+		mod("PhysicalEnergyShieldBypass", "OVERRIDE", 100),
+		mod("LightningEnergyShieldBypass", "OVERRIDE", 100),
+		mod("ColdEnergyShieldBypass", "OVERRIDE", 100),
+		mod("FireEnergyShieldBypass", "OVERRIDE", 100),
+		mod("ChaosEnergyShieldBypass", "OVERRIDE", 100), -- Allows override of "chaos damage does not bypass energy shield" and similar mods
 	},
 	["physical damage taken bypasses energy shield"] = {
 		mod("PhysicalEnergyShieldBypass", "BASE", 100),
@@ -3164,6 +3169,9 @@ local specialModList = {
 	["you have crimson dance while you have cat's stealth"] = { mod("Keystone", "LIST", "Crimson Dance", { type = "Condition", var = "AffectedByCat'sStealth" }) },
 	["you have crimson dance if you have dealt a critical strike recently"] = { mod("Keystone", "LIST", "Crimson Dance", { type = "Condition", var = "CritRecently" }) },
 	["bleeding you inflict deals damage (%d+)%% faster"] = function(num) return { mod("BleedFaster", "INC", num) } end,
+	["bleeding you inflict on non%-bleeding enemies deals (%d+)%% more damage"] = function(num) return {
+		mod("Damage", "MORE", num, nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "SingleBleed" }),
+	} end,
 	["(%d+)%% chance for bleeding inflicted with this weapon to deal (%d+)%% more damage"] = function(num, _, more) return {
 		mod("Damage", "MORE", tonumber(more) * num / 100, nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "{Hand}Attack" }, { type = "SkillType", skillType = SkillType.Attack }),
 	} end,
@@ -3192,6 +3200,11 @@ local specialModList = {
 	["y?o?u?r? ?cold damage can poison"] = { flag("ColdCanPoison") },
 	["y?o?u?r? ?lightning damage can poison"] = { flag("LightningCanPoison") },
 	["all damage from hits can poison"] = {
+		flag("FireCanPoison"),
+		flag("ColdCanPoison"),
+		flag("LightningCanPoison"),
+	},
+	["all damage can poison"] = {
 		flag("FireCanPoison"),
 		flag("ColdCanPoison"),
 		flag("LightningCanPoison"),
@@ -3909,8 +3922,8 @@ local specialModList = {
 	["cannot block spells"] = { flag("CannotBlockSpells") },
 	["cannot block spell damage"] = { flag("CannotBlockSpells") },
 	["monsters cannot block your attacks"] = { mod("EnemyModifier", "LIST", { mod = flag("CannotBlockAttacks") }) },
-	["damage from blocked hits cannot bypass energy shield"] = { flag("BlockedDamageDoesntBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
-	["damage from unblocked hits always bypasses energy shield"] = { flag("UnblockedDamageDoesBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
+	["damage t?a?k?e?n? from blocked hits cannot bypass energy shield"] = { flag("BlockedDamageDoesntBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
+	["damage t?a?k?e?n? from unblocked hits always bypasses energy shield"] = { flag("UnblockedDamageDoesBypassES", { type = "Condition", var = "EVBypass", neg = true }) },
 	["recover (%d+) life when you block"] = function(num) return { mod("LifeOnBlock", "BASE", num) } end,
 	["recover (%d+) energy shield when you block spell damage"] = function(num) return { mod("EnergyShieldOnSpellBlock", "BASE", num) } end,
 	["recover (%d+) energy shield when you suppress spell damage"] = function(num) return { mod("EnergyShieldOnSuppress", "BASE", num) } end,

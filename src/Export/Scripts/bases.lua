@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.txt")
 
 local directiveTable = { }
 
@@ -84,7 +84,7 @@ directiveTable.base = function(state, args, out)
 	end
 	out:write('\ttags = { ')
 	local combinedTags = { }
-	for _, tag in ipairs(baseItemTags) do
+	for _, tag in ipairs(baseItemTags or {}) do
 		combinedTags[tag] = tag
 	end
 	for _, tag in ipairs(baseItemType.Tags) do
@@ -103,7 +103,6 @@ directiveTable.base = function(state, args, out)
 		end
 		out:write(' },\n')
 	end
-	local movementPenalty
 	local implicitLines = { }
 	local implicitModTypes = { }
 	for _, mod in ipairs(baseItemType.ImplicitMods) do
@@ -257,6 +256,7 @@ local itemTypes = {
 	"belt",
 	"jewel",
 	"flask",
+	"tincture",
 }
 for _, name in pairs(itemTypes) do
 	processTemplateFile(name, "Bases/", "../Data/Bases/", directiveTable)

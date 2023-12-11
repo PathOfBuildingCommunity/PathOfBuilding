@@ -1886,7 +1886,7 @@ function calcs.buildDefenceEstimations(env, actor)
 			output[damageType.."EnergyShieldBypass"] = 100
 			output.AnyBypass = true
 		else
-			output[damageType.."EnergyShieldBypass"] = modDB:Sum("BASE", nil, damageType.."EnergyShieldBypass") or 0
+			output[damageType.."EnergyShieldBypass"] = m_max(modDB:Sum("BASE", nil, damageType.."EnergyShieldBypass") or 0, modDB:Sum("OVERRIDE", nil, damageType.."EnergyShieldBypass") or 0)
 			if output[damageType.."EnergyShieldBypass"] ~= 0 then
 				output.AnyBypass = true
 			end
