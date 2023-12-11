@@ -264,6 +264,9 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, secondaryAs
 			self.allocNodes[id] = node
 		end
 	end
+
+	-- Rebuild all the node paths and dependencies
+	self:BuildAllDependsAndPaths()
 end
 
 function PassiveSpecClass:AllocateDecodedNodes(nodes, isCluster, endian)
