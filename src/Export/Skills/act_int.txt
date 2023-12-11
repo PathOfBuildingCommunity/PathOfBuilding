@@ -818,6 +818,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Area in which fireballs fall:")
 #mods
 
+#skill FirestormAltX
+#flags spell area duration
+#mods
+
+#skill FirestormAltY
+#flags spell area duration
+#mods
+
 #skill VaalFirestorm
 #flags spell area duration
 	statMap = {
@@ -1769,6 +1777,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill PowerSiphonAltX
+#flags attack projectile
+#mods
+
 #skill VaalPowerSiphon
 #flags attack projectile
 	statMap = {
@@ -1883,6 +1895,10 @@ local skills, mod, flag, skill = ...
 			skill("minionLevel", nil),
 		},
 	},
+#mods
+
+#skill RaiseSpectreAltX
+#flags spell minion spectre duration permanentMinion
 #mods
 
 #skill RaiseZombie
@@ -2383,6 +2399,14 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 	},
+#mods
+
+#skill SummonSkeletonsAltX
+#flags spell minion duration
+#mods
+
+#skill SummonSkeletonsAltY
+#flags spell minion duration
 #mods
 
 #skill VaalSummonSkeletons

@@ -368,6 +368,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill DominatingBlowAltX
+#flags attack melee duration minion
+#mods
+
 #skill VaalDomination
 #flags attack melee duration minion
 	statMap = {
@@ -619,6 +623,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill GlacialHammerAltX
+#flags attack melee
+#mods
+
 #skill VaalGlacialHammer
 #flags attack melee area duration
 #baseMod skill("radius", 20)
@@ -827,6 +835,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:DebuffStack", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 3 })
 #baseMod skill("radiusLabel", "Hit area:", { type = "SkillPart", skillPart = 1 })
 #baseMod skill("radiusLabel", "Explosion area:", { type = "SkillPart", skillPartList = { 2, 3 } })
+#mods
+
+#skill InfernalBlowAltX
+#flags attack melee duration
 #mods
 
 #skill IntimidatingCry

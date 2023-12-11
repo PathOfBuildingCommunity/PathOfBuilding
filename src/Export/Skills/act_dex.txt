@@ -371,6 +371,10 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
+#skill BurningArrowAltX
+#flags attack projectile
+#mods
+
 #skill VaalBurningArrow
 #flags attack projectile area vaal
 #baseMod skill("radius", 16)
@@ -1332,6 +1336,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 18)
 #mods
 
+#skill LightningArrowAltX
+#flags attack projectile
+#mods
+
 #skill VaalLightningArrow
 #flags attack projectile
 	parts = {
@@ -1376,6 +1384,10 @@ local skills, mod, flag, skill = ...
 			projectile = true,
 		},
 	},
+#mods
+
+#skill LightningStrikeAltX
+#flags attack melee projectile
 #mods
 
 #skill VaalLightningStrike
@@ -1564,6 +1576,14 @@ local skills, mod, flag, skill = ...
 #flags attack projectile area
 #baseMod skill("radius", 10)
 #baseMod flag("OneShotProj")
+#mods
+
+#skill RainOfArrowsAltX
+#flags attack projectile area
+#mods
+
+#skill RainOfArrowsAltY
+#flags attack projectile area
 #mods
 
 #skill VaalRainOfArrows
@@ -2007,6 +2027,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("poisonIsSkillEffect", true)
+#mods
+
+#skill ViperStrikeAltX
+#flags attack melee duration
 #mods
 
 #skill VolatileDead
