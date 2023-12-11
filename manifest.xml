@@ -1,6 +1,6 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.35.5" />
+	<Version number="2.36.0" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
@@ -472,16 +472,16 @@
 	<File name="TreeData/AscendancyFrameSmallCanAllocate.png" part="tree" sha1="a67ab7791d2058b4322039f42b4ff49214fbcbb7" />
 	<File name="TreeData/AscendancyFrameSmallNormal.png" part="tree" sha1="76574b733671962c07d4a6974abc6403ad764ab0" />
 	<File name="TreeData/AscendancyMiddle.png" part="tree" sha1="fa33df0224c4f48c90f170cbe3c1382a5ec07642" />
-	<File name="TreeData/AzmiriAscendancyFrameLargeAllocated.png" part="tree" sha1="153ee339b837b7c2e570cb1673e8076ff8f34545" />
-	<File name="TreeData/AzmiriAscendancyFrameLargeCanAllocate.png" part="tree" sha1="6b8d8de45ec6fa101efeb0e5b3d9111aa6aa8192" />
-	<File name="TreeData/AzmiriAscendancyFrameLargeNormal.png" part="tree" sha1="9fa77cf0e0080ab1f71503f448b5b6e3d756a51c" />
-	<File name="TreeData/AzmiriAscendancyFrameSmallAllocated.png" part="tree" sha1="ae7f2d1b88e11f77dccb504d959e71bad90fb339" />
-	<File name="TreeData/AzmiriAscendancyFrameSmallCanAllocate.png" part="tree" sha1="0673c937dba9041c6345d3ef51cd61387750e1e3" />
-	<File name="TreeData/AzmiriAscendancyFrameSmallNormal.png" part="tree" sha1="c4327a07f5dd04192b78ca47c2ec8f2271023623" />
-	<File name="TreeData/AzmiriAscendancyMiddle.png" part="tree" sha1="f7128d54f417967871e1f1f5347c2446aa41d39c" />
-	<File name="TreeData/AzmiriJewelFrameAllocated.png" part="tree" sha1="0e6ed20722c86cf75064ab6e0937e6082137b629" />
-	<File name="TreeData/AzmiriJewelFrameCanAllocate.png" part="tree" sha1="bd1c55ae05befb1aa5556a65f9d3262a9d82f4b9" />
-	<File name="TreeData/AzmiriJewelFrameUnallocated.png" part="tree" sha1="3d04638ddb43350769dc667cad18b0a8be3dabb6" />
+	<File name="TreeData/AzmeriAscendancyFrameLargeAllocated.png" part="tree" sha1="153ee339b837b7c2e570cb1673e8076ff8f34545" />
+	<File name="TreeData/AzmeriAscendancyFrameLargeCanAllocate.png" part="tree" sha1="6b8d8de45ec6fa101efeb0e5b3d9111aa6aa8192" />
+	<File name="TreeData/AzmeriAscendancyFrameLargeNormal.png" part="tree" sha1="9fa77cf0e0080ab1f71503f448b5b6e3d756a51c" />
+	<File name="TreeData/AzmeriAscendancyFrameSmallAllocated.png" part="tree" sha1="ae7f2d1b88e11f77dccb504d959e71bad90fb339" />
+	<File name="TreeData/AzmeriAscendancyFrameSmallCanAllocate.png" part="tree" sha1="0673c937dba9041c6345d3ef51cd61387750e1e3" />
+	<File name="TreeData/AzmeriAscendancyFrameSmallNormal.png" part="tree" sha1="c4327a07f5dd04192b78ca47c2ec8f2271023623" />
+	<File name="TreeData/AzmeriAscendancyMiddle.png" part="tree" sha1="f7128d54f417967871e1f1f5347c2446aa41d39c" />
+	<File name="TreeData/AzmeriJewelFrameAllocated.png" part="tree" sha1="0e6ed20722c86cf75064ab6e0937e6082137b629" />
+	<File name="TreeData/AzmeriJewelFrameCanAllocate.png" part="tree" sha1="bd1c55ae05befb1aa5556a65f9d3262a9d82f4b9" />
+	<File name="TreeData/AzmeriJewelFrameUnallocated.png" part="tree" sha1="3d04638ddb43350769dc667cad18b0a8be3dabb6" />
 	<File name="TreeData/AzureOil.png" part="tree" sha1="eec575d9afbc63dfe674e48847cd904b56217da4" />
 	<File name="TreeData/Background1.png" part="tree" sha1="5ca14dfc325b1875d8fc50676766cbcc8607cee4" />
 	<File name="TreeData/Background2.png" part="tree" sha1="d42c7cfd18a119280b3b4eb747095f79e9abba15" />
