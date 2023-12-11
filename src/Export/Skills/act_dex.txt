@@ -576,6 +576,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill DetonateDeadAltX
+#flags spell area
+#mods
+
+#skill DetonateDeadAltY
+#flags spell area
+#mods
+
 #skill VaalDetonateDead
 #flags cast area
 	statMap = {
@@ -1039,6 +1047,10 @@ local skills, mod, flag, skill = ...
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
+#mods
+
+#skill FlickerStrikeAltX
+#flags attack melee
 #mods
 
 #skill VaalFlickerStrike
@@ -1899,6 +1911,10 @@ local skills, mod, flag, skill = ...
 #flags attack projectile
 #mods
 
+#skill SplitArrowAltX
+#flags attack projectile
+#mods
+
 #skill ImpactingSteel
 #flags attack projectile area
 	statMap = {
@@ -2018,6 +2034,14 @@ local skills, mod, flag, skill = ...
 			cast =  true,
 		},
 	},
+#mods
+
+#skill VolatileDeadAltX
+#flags spell area
+#mods
+
+#skill VolatileDeadAltY
+#flags spell area
 #mods
 
 #skill WhirlingBlades

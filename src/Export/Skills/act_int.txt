@@ -471,6 +471,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusTertiaryLabel", "Final Chilled Ground:")
 #mods
 
+#skill ColdSnapAltX
+#flags spell area
+#mods
+
 #skill VaalColdSnap
 #flags spell area duration
 #baseMod skill("dotIsArea", true)
@@ -618,6 +622,10 @@ local skills, mod, flag, skill = ...
 			mod("Damage", "MORE", nil,  ModFlag.Ailment),
 		},
 	},
+#mods
+
+#skill DischargeAltX
+#flags spell area
 #mods
 
 #skill Discipline
@@ -1363,6 +1371,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 })
 #mods
 
+#skill IceSpearAltX
+#flags spell projectile
+#mods
+
 #skill ColdProjectileMine
 #flags spell projectile mine
 	statMap = {
@@ -1891,6 +1903,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill RaiseZombieAltX
+#flags spell minion permanentMinion
+#mods
+
+#skill RaiseZombieAltY
+#flags spell minion permanentMinion
+#mods
+
 #skill RighteousFire
 #flags spell area
 	preDamageFunc = function(activeSkill, output)
@@ -1925,6 +1945,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("dotIsArea", true)
+#mods
+
+#skill RighteousFireAltX
+#flags spell area
 #mods
 
 #skill VaalRighteousFire
@@ -2057,6 +2081,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Spark
+#flags spell projectile duration
+#mods
+
+#skill SparkAltX
+#flags spell projectile duration
+#mods
+
+#skill SparkAltY
 #flags spell projectile duration
 #mods
 
