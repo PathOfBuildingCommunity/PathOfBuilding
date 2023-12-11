@@ -359,7 +359,7 @@ directiveTable.skill = function(state, args, out)
 			local levelRow = perLevel[1]
 			local level = { extra = { }, statInterpolation = { }, cost = { } }
 			level.level = statRow.GemLevel
-			level.extra.levelRequirement = levelRow.PlayerLevelReq
+			level.extra.levelRequirement = statRow.PlayerLevelReq
 			for i, cost in ipairs(levelRow.CostTypes) do
 				level.cost[cost["Resource"]] = levelRow.CostAmounts[i]
 			end
