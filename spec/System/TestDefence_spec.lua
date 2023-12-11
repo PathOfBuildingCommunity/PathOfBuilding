@@ -622,7 +622,7 @@ describe("TestDefence", function()
         assert.are.equals(100, build.calcsTab.calcsOutput.FireMaximumHitTaken)
         assert.are.equals(100, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
 
-        -- No overcapping
+        -- Make sure we can't reach over 100% bypass
         build.configTab.input.customMods = [[
             +40 to maximum life
             +100 to energy shield
