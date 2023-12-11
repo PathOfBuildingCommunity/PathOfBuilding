@@ -2065,7 +2065,7 @@ local specialModList = {
 		mod("LightningEnergyShieldBypass", "OVERRIDE", 100),
 		mod("ColdEnergyShieldBypass", "OVERRIDE", 100),
 		mod("FireEnergyShieldBypass", "OVERRIDE", 100),
-		mod("ChaosEnergyShieldBypass", "OVERRIDE", 100), -- Allows override of Shav's and similar mods
+		mod("ChaosEnergyShieldBypass", "OVERRIDE", 100), -- Allows override of "chaos damage does not bypass energy shield" and similar mods
 	},
 	["physical damage taken bypasses energy shield"] = {
 		mod("PhysicalEnergyShieldBypass", "BASE", 100),
