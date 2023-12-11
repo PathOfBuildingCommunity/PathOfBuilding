@@ -139,6 +139,21 @@ skills["Barkskin"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0,
 	fromTree = true,
+	statMap = {
+		["armour_+%_per_barkskin_stack"] = {
+			mod("Armour", "INC", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["physical_attack_damage_taken_+_per_barkskin_stack"] = {
+			mod("PhysicalDamageTakenFromAttacks", "BASE", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["chance_to_evade_attacks_+%_final_per_missing_barkskin_stack"] = {
+			mod("EvadeChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "MissingBarkskinStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["max_barkskin_stacks"] = {
+			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 	},
@@ -168,6 +183,9 @@ skills["PenanceMark"] = {
 		curse = true,
 		duration = true,
 		mark = true,
+	},
+	baseMods = {
+		skill("debuff", true),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 3000 },
@@ -220,6 +238,9 @@ skills["Quieten"] = {
 		area = true,
 		duration = true,
 		hex = true,
+	},
+	baseMods = {
+		skill("debuff", true),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 10000 },

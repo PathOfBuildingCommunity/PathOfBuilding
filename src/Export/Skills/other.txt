@@ -53,11 +53,27 @@ local skills, mod, flag, skill = ...
 #skill Barkskin
 #flags spell
 	fromTree = true,
+	statMap = {
+		["armour_+%_per_barkskin_stack"] = {
+			mod("Armour", "INC", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["physical_attack_damage_taken_+_per_barkskin_stack"] = {
+			mod("PhysicalDamageTakenFromAttacks", "BASE", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["chance_to_evade_attacks_+%_final_per_missing_barkskin_stack"] = {
+			mod("EvadeChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "MissingBarkskinStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["max_barkskin_stacks"] = {
+			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 #mods
 
 #skill PenanceMark
 #flags spell curse duration mark
 	fromTree = true,
+#baseMod skill("debuff", true)
 #mods
 
 #skill MinionSacrifice
@@ -68,6 +84,7 @@ local skills, mod, flag, skill = ...
 #skill Quieten
 #flags spell curse area duration hex
 	fromTree = true,
+#baseMod skill("debuff", true)
 #mods
 
 #skill Ravenous

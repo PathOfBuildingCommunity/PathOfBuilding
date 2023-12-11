@@ -279,6 +279,11 @@ return {
 	{ var = "bannerStages", type = "count", label = "Banner Stages:", ifSkill = { "Dread Banner", "War Banner", "Defiance Banner" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:BannerStage", "BASE", m_min(val, 50), "Config")
 	end },
+	{ label = "Barkskin:", ifSkill = "Barkskin" },
+	{ var = "barkskinStacks", type = "count", label = "# of Barkskin Stacks:", ifSkill = "Barkskin", apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:BarkskinStacks", "BASE",  m_min(val, 10), "Config")
+		modList:NewMod("Multiplier:MissingBarkskinStacks", "BASE", m_max(-val, -10), "Config")
+	end },
 	{ label = "Bladestorm:", ifSkill = "Bladestorm" },
 	{ var = "bladestormInBloodstorm", type = "check", label = "Are you in a Bloodstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BladestormInBloodstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })

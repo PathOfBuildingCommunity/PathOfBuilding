@@ -700,6 +700,14 @@ function calcs.offence(env, actor, activeSkill)
 				end
 				skillModList:NewMod("AreaOfEffect", "INC", modValue, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
 			end
+			for i, value in ipairs(skillModList:Tabulate("INC", skillCfg, "RepeatPerRepeatAreaOfEffect")) do
+				local mod = value.mod
+				local modValue = mod.value * (output.Repeats - 1)
+				if env.configInput.repeatMode == "AVERAGE" then
+					modValue = modValue / 2
+				end
+				skillModList:NewMod("AreaOfEffect", "INC", modValue, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
+			end
 			for i, value in ipairs(skillModList:Tabulate("BASE", skillCfg, "RepeatFinalDoubleDamageChance")) do
 				local mod = value.mod
 				local modValue = mod.value

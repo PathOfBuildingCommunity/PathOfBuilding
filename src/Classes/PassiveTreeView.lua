@@ -697,7 +697,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 	SetDrawLayer(nil, 25)
 	for nodeId in pairs(tree.sockets) do
 		local node = spec.nodes[nodeId]
-		if node and (not node.expansionJewel or node.expansionJewel.size == 2) then
+		if node and node.name ~= "Charm Socket" and (not node.expansionJewel or node.expansionJewel.size == 2) then
 			local scrX, scrY = treeToScreen(node.x, node.y)
 			local socket, jewel = build.itemsTab:GetSocketAndJewelForNodeID(nodeId)
 			if node == hoverNode then
