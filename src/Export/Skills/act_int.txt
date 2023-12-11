@@ -2355,6 +2355,13 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill SummonRagingSpiritAltX
+#flags spell minion duration
+	minionList = {
+		"SummonedRagingSpirit",
+	},
+#mods
+
 #skill SummonSkeletons
 #flags spell minion duration
 	minionList = {

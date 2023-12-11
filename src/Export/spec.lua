@@ -4356,14 +4356,14 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=150
+			width=200
 		},
 		[2]={
 			list=false,
 			name="Name",
 			refTo="",
 			type="String",
-			width=150
+			width=220
 		},
 		[3]={
 			list=false,

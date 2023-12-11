@@ -219,8 +219,8 @@ directiveTable.skill = function(state, args, out)
 			end
 			if skillGem then break end
 		end
-	else
-		ConPrintf('Unknown Gem Effect: "' .. grantedId .. '"')
+	--else
+	--	ConPrintf('Unknown Gem Effect: "' .. grantedId .. '"')
 	end
 	local skill = { }
 	state.skill = skill
@@ -352,7 +352,11 @@ directiveTable.skill = function(state, args, out)
 	end
 	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffectStatSets", granted.GrantedEffectStatSets)
 	local statMapOrder = {}
-	for indx, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
+	local perLevel = dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)
+	if #perLevel < #statsPerLevel then
+		ConPrintf("More Stats than Level Rows: '" .. granted.Id)
+	end
+	for indx, levelRow in ipairs(perLevel) do
 		local statRow = statsPerLevel[indx] or statsPerLevel[1]
 		local level = { extra = { }, statInterpolation = { }, cost = { } }
 		level.level = levelRow.Level
