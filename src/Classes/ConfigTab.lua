@@ -28,11 +28,19 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.varControls = { }
 	
 	self:BuildModList()
+	
+	self.toggleConfigs = false
 
-  self.controls.search = new("EditControl", { "TOPLEFT", self, "TOPLEFT" }, 8, 5, 360, 20, "", "Search", "%c", 100, function()
+	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self, "TOPLEFT" }, 0, 20, 0, 0, "")
+	self.controls.search = new("EditControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, 8, -15, 360, 20, "", "Search", "%c", 100, function()
 		self:UpdateControls()
 	end, nil, nil, true)
-	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self.controls.search, "TOPLEFT" }, -10, 15, 0, 0, "")
+	self.controls.toggleConfigs = new("ButtonControl", { "LEFT", self.controls.search, "RIGHT" }, 10, 0, 200, 20, function()
+		-- dynamic text
+		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show All Configurations"
+	end, function()
+		self.toggleConfigs = not self.toggleConfigs
+	end)
 
 	local function searchMatch(varData)
 		local searchStr = self.controls.search.buf:lower():gsub("[%-%.%+%[%]%$%^%%%?%*]", "%%%0")
@@ -45,14 +53,6 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 		end
 		return true
 	end
-  
-	self.toggleConfigs = false
-	self.controls.toggleConfigs = new("ButtonControl", { "LEFT", self.controls.search, "RIGHT" }, 10, 0, 200, 20, function()
-		-- dynamic text
-		return self.toggleConfigs and "Hide Ineligible Configurations" or "Show All Configurations"
-	end, function()
-		self.toggleConfigs = not self.toggleConfigs
-	end)
 
 	-- blacklist for Show All Configurations
 	local function isShowAllConfig(varData)
