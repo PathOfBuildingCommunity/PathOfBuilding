@@ -197,7 +197,6 @@ directiveTable.skill = function(state, args, out)
 		grantedId = args
 		displayName = args
 	end
-	ConPrintf("grantedId: '" .. grantedId .. "'")
 	out:write('skills["', grantedId, '"] = {\n')
 	local granted = dat("GrantedEffects"):GetRow("Id", grantedId)
 	if not granted then
