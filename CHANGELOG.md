@@ -9,11 +9,10 @@
 ## What's Changed
 ### Fixed Crashes
 - Fix Crash when opening Timeless Jewel search [\#6995](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6995) ([LocalIdentity](https://github.com/LocalIdentity))
+
 ### Fixed Bugs
 - Fix crash when hovering over Masteries [\#6989](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6989) ([Wires77](https://github.com/Wires77))
-### Other changes
 - Fix negative bypass being ignored [\#6992](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6992) ([mortentc](https://github.com/mortentc))
-
 
 
 ## [v2.36.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.36.0) (2023/12/11)
