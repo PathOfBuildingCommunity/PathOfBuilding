@@ -268,7 +268,7 @@ describe("TestDefence", function()
         
         local _, takenDamages = takenHitFromTypeMaxHit("Fire", 0.8)
         local poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-        assert.are.equals(0, poolsRemaining.EnergyShield)
+        assert.are.equals(0, poolsRemaining.EnergyShield.remaining)
         assert.are.equals(0, poolsRemaining.Life)
         assert.are.equals(120, poolsRemaining.LifeLossLostOverTime)
         assert.are.equals(20, poolsRemaining.LifeBelowHalfLossLostOverTime)
@@ -299,20 +299,20 @@ describe("TestDefence", function()
         _, takenDamages = takenHitFromTypeMaxHit("Fire")
         poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, poolsRemaining.Life)
-        assert.are.equals(0, poolsRemaining.EnergyShield)
-        assert.is.not_false(poolsRemaining.Mana > 0)
+        assert.are.equals(0, poolsRemaining.EnergyShield.remaining)
+        assert.is.not_false(poolsRemaining.Mana.remaining > 0)
         
         _, takenDamages = takenHitFromTypeMaxHit("Lightning")
         poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, poolsRemaining.Life)
-        assert.are.equals(0, poolsRemaining.EnergyShield)
-        assert.are.equals(0, poolsRemaining.Mana)
+        assert.are.equals(0, poolsRemaining.EnergyShield.remaining)
+        assert.are.equals(0, poolsRemaining.Mana.remaining)
         
         _, takenDamages = takenHitFromTypeMaxHit("Chaos")
         poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, poolsRemaining.Life)
-        assert.are.equals(0, poolsRemaining.EnergyShield)
-        assert.are.equals(0, poolsRemaining.Mana)
+        assert.are.equals(0, poolsRemaining.EnergyShield.remaining)
+        assert.are.equals(0, poolsRemaining.Mana.remaining)
         
         build.skillsTab.socketGroupList = {}
     end)
@@ -517,7 +517,7 @@ describe("TestDefence", function()
         runCallback("OnFrame")
         local _, takenDamages = takenHitFromTypeMaxHit("Lightning")
         local poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-        assert.are.equals(0, round(poolsRemaining.Mana))
+        assert.are.equals(0, round(poolsRemaining.Mana.remaining))
         assert.are.not_false(poolsRemaining.Life / 100 < 0.1)
         
         build.configTab.input.customMods = "\z
@@ -534,7 +534,7 @@ describe("TestDefence", function()
         _, takenDamages = takenHitFromTypeMaxHit("Lightning")
         poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Life))
-        assert.are.equals(0, round(poolsRemaining.Mana))
+        assert.are.equals(0, round(poolsRemaining.Mana.remaining))
     
         build.configTab.input.customMods = "\z
         +40 to maximum life\n\z
@@ -550,7 +550,7 @@ describe("TestDefence", function()
         _, takenDamages = takenHitFromTypeMaxHit("Lightning")
         poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Life))
-        assert.are.equals(1000, round(poolsRemaining.Mana))
+        assert.are.equals(1000, round(poolsRemaining.Mana.remaining))
         
         -- conversion into a bigger pool
         build.configTab.input.customMods = "\z
@@ -566,7 +566,7 @@ describe("TestDefence", function()
         runCallback("OnFrame")
         _, takenDamages = takenHitFromTypeMaxHit("Cold")
         poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
-        assert.are.equals(0, round(poolsRemaining.Mana))
+        assert.are.equals(0, round(poolsRemaining.Mana.remaining))
         assert.are.not_false(poolsRemaining.Life / 100 < 0.1)
     
         build.configTab.input.customMods = "\z
@@ -583,7 +583,7 @@ describe("TestDefence", function()
         _, takenDamages = takenHitFromTypeMaxHit("Cold")
         poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Life))
-        assert.are.equals(0, round(poolsRemaining.Mana))
+        assert.are.equals(0, round(poolsRemaining.Mana.remaining))
     
         build.configTab.input.customMods = "\z
         +40 to maximum life\n\z
@@ -599,6 +599,6 @@ describe("TestDefence", function()
         _, takenDamages = takenHitFromTypeMaxHit("Cold")
         poolsRemaining = build.calcsTab.calcs.reducePoolsByDamage(nil, takenDamages, build.calcsTab.calcsEnv.player)
         assert.are.equals(0, round(poolsRemaining.Life))
-        assert.are.equals(1000, round(poolsRemaining.Mana))
+        assert.are.equals(1000, round(poolsRemaining.Mana.remaining))
     end)
 end)
