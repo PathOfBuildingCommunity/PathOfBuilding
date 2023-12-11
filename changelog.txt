@@ -1,3 +1,25 @@
+VERSION[2.36.0][2023/12/11]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Update all base skill gems + minions with 3.23 changes by (@Wires77, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6976
+* Add support for new Ascendancy skills by (@Wires77, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6976
+* Add support for Charms (Regisle)
+* Add support for Tinctures by (@Regisle, @LocalIdentity, @Wires77) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6977
+* Adding new 3.23 uniques (Wires77)
+* Add support for importing new Ascendancies (Wires77)
+* Save trade search weights to build file (Peechey)
+* Remove Pastebin as a build export option (LocalIdentity)
+
+--- User Interface ---
+* Add support for search Configuration tab (deathbeam)
+* Add support for toggling ineligible configurations in Configuration tab (Peechey)
+* Add warning when allocating too many Azmiri Ascendancy nodes (Regisle)
+
+--- Fixed Bugs ---
+* Fix ES bypass Mastery overriding Divine Flesh ES bypass (mortentc)
+* Fix Sin Trek and Legacy of Fury disabling life mod on Utula's Hunger (Lilylicious)
+* Fix Eldritch Battery with Replica Covenant cost calculations (sida-wang)
+
 VERSION[2.35.5][2023/12/07]
 
 --- Fixed Bugs ---

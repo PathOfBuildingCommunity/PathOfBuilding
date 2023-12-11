@@ -1,5 +1,33 @@
 # Changelog
 
+## [v2.36.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.36.0) (2023/12/11)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.5...v2.36.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+* Update all base skill gems + minions with 3.23 changes by (@Wires77, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6976
+* Add support for new Ascendancy skills by (@Wires77, @LocalIdentity) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6976
+- Add support for Charms [\#6977](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6977) ([Regisle](https://github.com/Regisle))
+* Add support for Tinctures by (@Regisle, @LocalIdentity, @Wires77) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6977
+- Adding new 3.23 uniques [\#6983](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6983) ([Wires77](https://github.com/Wires77))
+- Add support for importing new Ascendancies [\#6987](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6956, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6987) ([Wires77](https://github.com/Wires77))
+- Save trade search weights to build file [\#6954](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6954) ([Peechey](https://github.com/Peechey))
+- Remove Pastebin as a build export option [\#6970](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6970) ([LocalIdentity](https://github.com/LocalIdentity))
+
+### User Interface
+- Add support for search Configuration tab [\#6178](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6178) ([deathbeam](https://github.com/deathbeam))
+- Add support for toggling ineligible configurations in Configuration tab [\#5950](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/5950) ([Peechey](https://github.com/Peechey))
+- Add warning when allocating too many Azmiri Ascendancy nodes [\#6958](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6958) ([Regisle](https://github.com/Regisle))
+
+### Fixed Bugs
+- Fix ES bypass Mastery overriding Divine Flesh ES bypass [\#6965](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6965) ([mortentc](https://github.com/mortentc))
+- Fix Sin Trek and Legacy of Fury disabling life mod on Utula's Hunger [\#6969](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6969) ([Lilylicious](https://github.com/Lilylicious))
+- Fix Eldritch Battery with Replica Covenant cost calculations [\#6964](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/6964) ([sida-wang](https://github.com/sida-wang))
+
+
 ## [v2.35.5](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.35.5) (2023/12/07)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.35.4...v2.35.5)
