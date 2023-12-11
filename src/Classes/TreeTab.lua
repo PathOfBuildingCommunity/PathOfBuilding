@@ -1014,7 +1014,7 @@ function TreeTabClass:FindTimelessJewel()
 	}
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
-		if socketData.isJewelSocket then
+		if socketData.isJewelSocket and socketData.name ~= "Charm Socket"then
 			local keystone = "Unknown"
 			if socketId == 26725 then
 				keystone = "Marauder"

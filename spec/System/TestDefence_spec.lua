@@ -603,6 +603,19 @@ describe("TestDefence", function()
     end)
 
     it("energy shield bypass tests #pet", function()
+        -- Mastery
+        build.configTab.input.customMods = [[
+            +40 to maximum life
+            +200 to energy shield
+            50% of chaos damage taken does not bypass energy shield
+            You have no intelligence
+            +60% to all resistances
+        ]]
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+        assert.are.equals(300, build.calcsTab.calcsOutput.FireMaximumHitTaken)
+        assert.are.equals(200, build.calcsTab.calcsOutput.ChaosMaximumHitTaken)
+
         -- Negative overrides positive
         build.configTab.input.customMods = [[
             +40 to maximum life

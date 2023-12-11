@@ -1,3 +1,12 @@
+VERSION[2.36.1][2023/12/11]
+
+--- Fixed Crashes ---
+* Fix Crash when opening Timeless Jewel search (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix crash when hovering over Masteries (Wires77)
+* Fix negative bypass being ignored (mortentc)
+
 VERSION[2.36.0][2023/12/11]
 
 --- New to Path of Building ---
