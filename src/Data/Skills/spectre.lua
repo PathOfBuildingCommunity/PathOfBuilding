@@ -149,7 +149,7 @@ skills["BanditChampionBlastRainSpectre"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
-		{ "base_number_of_additional_arrows", 4 },
+		{ "number_of_additional_arrows", 4 },
 		{ "blast_rain_arrow_delay_ms", 80 },
 		{ "active_skill_area_of_effect_radius_+%_final", -21 },
 	},
@@ -230,7 +230,7 @@ skills["BoneStalkerEarthquake"] = {
 	name = "Earthquake",
 	hidden = true,
 	color = 1,
-	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
+	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, [SkillType.Slam] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -438,7 +438,7 @@ skills["DelveProtovaalWhirlingCharge"] = {
 	name = "Whirling Charge",
 	hidden = true,
 	color = 4,
-	skillTypes = { },
+	skillTypes = { [SkillType.Attack] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -669,6 +669,7 @@ skills["FireballIncursionChaos"] = {
 	},
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -40 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_chaos_damage",
@@ -696,6 +697,7 @@ skills["FireballIncusionFire"] = {
 	},
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -40 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -723,6 +725,7 @@ skills["FireballIncusionLightning"] = {
 	},
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -40 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -847,7 +850,7 @@ skills["GoatmanEarthquake"] = {
 	name = "Earthquake",
 	hidden = true,
 	color = 1,
-	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
+	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, [SkillType.Slam] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -1033,7 +1036,7 @@ skills["GuardianArc"] = {
 	color = 3,
 	baseEffectiveness = 0.85000002384186,
 	incrementalEffectiveness = 0.029999999329448,
-	description = "An arc of lightning stretches from the caster to a targeted enemy and chains on to other nearby enemies. Each time the main beam chains it will also chain to a second enemy, but that secondary arc cannot chain further.",
+	description = "An arc of lightning reaches from the caster to a targeted enemy and chains to other enemies, but not immediately back. Each time the arc chains, it will also chain a secondary arc to another enemy that the main arc has not already hit, which cannot chain further.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.8,
@@ -1109,6 +1112,7 @@ skills["HolyFireElementalFireball"] = {
 	},
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -50 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -1206,7 +1210,7 @@ skills["IncursionLeapSlamChampion"] = {
 	name = "Leap Slam",
 	hidden = true,
 	color = 4,
-	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1225,6 +1229,9 @@ skills["IncursionLeapSlamChampion"] = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 15 },
 	},
 	stats = {
 		"is_area_damage",
@@ -1266,7 +1273,7 @@ skills["InsectSpawnerSpit"] = {
 	color = 4,
 	baseEffectiveness = 0.93999999761581,
 	incrementalEffectiveness = 0.029999999329448,
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -1293,7 +1300,7 @@ skills["KaomFireBeamTotemSpectre"] = {
 	color = 3,
 	baseEffectiveness = 3.039999961853,
 	incrementalEffectiveness = 0.047400001436472,
-	description = "Unleash a beam of fire that burns enemies it touches. Remaining in the beam intensifies the burning, adding a portion of the beam's damage in stages. Inflicts Fire Exposure at maximum stages. Enemies who leave the beam continue to burn for a duration. Increasing cast speed also increases the rate at which the beam can turn.",
+	description = "Unleash a beam of fire that burns enemies it touches. Remaining in the beam raises the burning, adding a portion of the beam's damage in stages. Inflicts Fire Exposure at maximum stages. Enemies who leave the beam continue to burn for a duration. Increasing cast speed also increases the rate at which the beam turns.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.CausesBurning] = true, [SkillType.Duration] = true, [SkillType.Channel] = true, [SkillType.DegenOnlySpellDamage] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
@@ -1390,6 +1397,7 @@ skills["KaomWarriorMoltenStrike"] = {
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
 	},
 	stats = {
+		"base_is_projectile",
 	},
 	levels = {
 		[1] = { storedUses = 1, levelRequirement = 2, cooldown = 3, },
@@ -1400,7 +1408,7 @@ skills["KitavaDemonLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1423,6 +1431,7 @@ skills["KitavaDemonLeapSlam"] = {
 	constantStats = {
 		{ "physical_damage_%_to_add_as_fire", 50 },
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+		{ "active_skill_base_area_of_effect_radius", 15 },
 	},
 	stats = {
 		"is_area_damage",
@@ -1576,7 +1585,7 @@ skills["MinerThrowFireSpectre"] = {
 	color = 4,
 	baseEffectiveness = 1.2777999639511,
 	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -1614,7 +1623,7 @@ skills["MonsterArc"] = {
 	color = 3,
 	baseEffectiveness = 0.89999997615814,
 	incrementalEffectiveness = 0.046000000089407,
-	description = "An arc of lightning stretches from the caster to a targeted enemy and chains on to other nearby enemies. Each time the main beam chains it will also chain to a second enemy, but that secondary arc cannot chain further.",
+	description = "An arc of lightning reaches from the caster to a targeted enemy and chains to other enemies, but not immediately back. Each time the arc chains, it will also chain a secondary arc to another enemy that the main arc has not already hit, which cannot chain further.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.8,
@@ -1910,6 +1919,7 @@ skills["MonsterFireballContactPos"] = {
 	},
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -50 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -2100,7 +2110,7 @@ skills["MonsterLeapSlam"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -2120,6 +2130,9 @@ skills["MonsterLeapSlam"] = {
 		melee = true,
 		area = true,
 	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 15 },
+	},
 	stats = {
 		"is_area_damage",
 		"cast_time_overrides_attack_duration",
@@ -2133,7 +2146,7 @@ skills["MonsterLeapSlamFoothills"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -2155,6 +2168,7 @@ skills["MonsterLeapSlamFoothills"] = {
 	},
 	constantStats = {
 		{ "leapslam_overshoot_distance", 10 },
+		{ "active_skill_base_area_of_effect_radius", 15 },
 	},
 	stats = {
 		"is_area_damage",
@@ -2182,6 +2196,7 @@ skills["MonsterLesserMultiFireballSpectre"] = {
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -50 },
 		{ "number_of_additional_projectiles", 1 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -2227,7 +2242,7 @@ skills["MonsterLightningArrow"] = {
 	color = 2,
 	baseEffectiveness = 1.0199999809265,
 	incrementalEffectiveness = 0.019999999552965,
-	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages a number of surrounding enemies.",
+	description = "Fires a charged arrow which damages enemies by causing them to be struck by a bolt of lightning, which also damages a number of surrounding enemies.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Lightning] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -2246,6 +2261,7 @@ skills["MonsterLightningArrow"] = {
 		{ "active_skill_area_of_effect_radius_+%_final", -12 },
 	},
 	stats = {
+		"base_is_projectile",
 	},
 	levels = {
 		[1] = { levelRequirement = 9, },
@@ -2257,7 +2273,7 @@ skills["SkeletonArcherLightningArrow"] = {
 	color = 2,
 	baseEffectiveness = 1.0199999809265,
 	incrementalEffectiveness = 0.019999999552965,
-	description = "Fires a charged arrow at the target, causing them to be struck by a bolt of lightning which damages a number of surrounding enemies.",
+	description = "Fires a charged arrow which damages enemies by causing them to be struck by a bolt of lightning, which also damages a number of surrounding enemies.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Lightning] = true, [SkillType.Triggerable] = true, },
 	weaponTypes = {
 		["Bow"] = true,
@@ -2276,6 +2292,7 @@ skills["SkeletonArcherLightningArrow"] = {
 		{ "active_skill_area_of_effect_radius_+%_final", -12 },
 	},
 	stats = {
+		"base_is_projectile",
 	},
 	levels = {
 		[1] = { baseMultiplier = 1.25, levelRequirement = 9, },
@@ -2321,6 +2338,7 @@ skills["MonsterMultiFireballSpectre"] = {
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -50 },
 		{ "number_of_additional_projectiles", 2 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -2465,6 +2483,7 @@ skills["MonsterRighteousFireWhileSpectred"] = {
 		area = true,
 	},
 	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 18 },
 		{ "active_skill_area_of_effect_radius_+%_final", 27 },
 	},
 	stats = {
@@ -2557,6 +2576,7 @@ skills["MonsterSplitFireballSpectre"] = {
 	},
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -50 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -2929,9 +2949,9 @@ skills["NecromancerRaiseZombie"] = {
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 0,
-	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee attack and an area of effect slam which cannot be evaded.",
+	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee strike.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
-	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Area] = true, },
+	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.85,
 	baseFlags = {
@@ -3003,6 +3023,7 @@ skills["PyroChaosFireball"] = {
 	},
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -50 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -3032,6 +3053,7 @@ skills["PyroFireball"] = {
 	},
 	constantStats = {
 		{ "spell_maximum_action_distance_+%", -50 },
+		{ "active_skill_base_area_of_effect_radius", 9 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -3308,6 +3330,7 @@ skills["SkeletonCannonBoneNova"] = {
 	},
 	stats = {
 		"projectiles_nova",
+		"base_is_projectile",
 	},
 	levels = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 5, },
@@ -3775,6 +3798,7 @@ skills["WickerManMoltenStrike"] = {
 		{ "base_projectile_speed_+%", -25 },
 	},
 	stats = {
+		"base_is_projectile",
 	},
 	levels = {
 		[1] = { levelRequirement = 10, },
@@ -3835,6 +3859,7 @@ skills["VaalIncursionFirestorm"] = {
 		{ "base_skill_effect_duration", 600 },
 		{ "fire_storm_fireball_delay_ms", 200 },
 		{ "firestorm_base_area_of_effect_+%", 100 },
+		{ "active_skill_base_area_of_effect_radius", 10 },
 	},
 	stats = {
 		"spell_minimum_base_fire_damage",
@@ -3968,7 +3993,7 @@ skills["AtlasEyrieArcherCrystalImpact"] = {
 	color = 4,
 	baseEffectiveness = 2.5,
 	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -4020,7 +4045,7 @@ skills["AtlasExileCrusaderMageguardBombExplodeSpectre"] = {
 	color = 4,
 	baseEffectiveness = 2,
 	incrementalEffectiveness = 0.045000001788139,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -4043,7 +4068,7 @@ skills["AtlasCrusaderMageguardBeam"] = {
 	color = 4,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.045000001788139,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.3,
 	baseFlags = {
@@ -4131,7 +4156,7 @@ skills["BreachArc"] = {
 	color = 3,
 	baseEffectiveness = 0.82499998807907,
 	incrementalEffectiveness = 0.043999999761581,
-	description = "An arc of lightning stretches from the caster to a targeted enemy and chains on to other nearby enemies. Each time the main beam chains it will also chain to a second enemy, but that secondary arc cannot chain further.",
+	description = "An arc of lightning reaches from the caster to a targeted enemy and chains to other enemies, but not immediately back. Each time the arc chains, it will also chain a secondary arc to another enemy that the main arc has not already hit, which cannot chain further.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.5,
@@ -4277,7 +4302,7 @@ skills["SynthesisSoulstealerLaser"] = {
 	color = 4,
 	baseEffectiveness = 0.60000002384186,
 	incrementalEffectiveness = 0.050000000745058,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -4302,7 +4327,7 @@ skills["SynthesisSoulstealerBolt"] = {
 	color = 4,
 	baseEffectiveness = 0.60000002384186,
 	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -4361,7 +4386,7 @@ skills["AtlasCrusaderJudgeBallLightning"] = {
 	color = 3,
 	baseEffectiveness = 0.41249999403954,
 	incrementalEffectiveness = 0.045000001788139,
-	description = "Fires a slow-moving projectile that periodically damages enemies in an area around it with bolts of lightning.",
+	description = "Fires a slow-moving projectile that damages each enemy in an area around it repeatedly with bolts of lightning.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.6,
@@ -4375,6 +4400,7 @@ skills["AtlasCrusaderJudgeBallLightning"] = {
 	constantStats = {
 		{ "base_projectile_speed_+%", -25 },
 		{ "active_skill_area_of_effect_radius_+%_final", -11 },
+		{ "active_skill_base_area_of_effect_radius", 18 },
 	},
 	stats = {
 		"spell_minimum_base_lightning_damage",
@@ -4482,7 +4508,7 @@ skills["HarvestNessaCrabScreech"] = {
 	name = "Screech",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Spell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.5,
 	baseFlags = {
@@ -4523,7 +4549,7 @@ skills["HarvestRhexLeapSlam"] = {
 	name = "Leap Slam",
 	hidden = true,
 	color = 4,
-	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -4548,6 +4574,7 @@ skills["HarvestRhexLeapSlam"] = {
 	},
 	constantStats = {
 		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+		{ "active_skill_base_area_of_effect_radius", 15 },
 	},
 	stats = {
 		"active_skill_damage_+%_final",
@@ -4597,7 +4624,7 @@ skills["GSHarvestRhexScreech"] = {
 	color = 4,
 	baseEffectiveness = 1.2000000476837,
 	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	levels = {
@@ -4646,7 +4673,7 @@ skills["LegionTemplarJudgeBallLightning"] = {
 	color = 3,
 	baseEffectiveness = 0.51560002565384,
 	incrementalEffectiveness = 0.045000001788139,
-	description = "Fires a slow-moving projectile that periodically damages enemies in an area around it with bolts of lightning.",
+	description = "Fires a slow-moving projectile that damages each enemy in an area around it repeatedly with bolts of lightning.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.6,
@@ -4661,6 +4688,7 @@ skills["LegionTemplarJudgeBallLightning"] = {
 		{ "base_projectile_speed_+%", -25 },
 		{ "skill_physical_damage_%_to_convert_to_lightning", 80 },
 		{ "active_skill_area_of_effect_radius_+%_final", -11 },
+		{ "active_skill_base_area_of_effect_radius", 18 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -4678,7 +4706,7 @@ skills["LegionTemplarJudgeStormCall"] = {
 	color = 3,
 	baseEffectiveness = 3,
 	incrementalEffectiveness = 0.031199999153614,
-	description = "Sets a marker at a location. After a short duration, lightning strikes the marker, dealing damage around it. When this happens, it will also set off the lightning at any other markers you've cast.",
+	description = "Sets a marker at a location. After a short duration, lightning strikes the marker, dealing damage around it and causing lightning strikes at any other markers you've cast.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Lightning] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.5,
@@ -4866,7 +4894,7 @@ skills["EmptyActionAttackSecretPoliceDaggers"] = {
 	name = "Dagger Trigger Attack",
 	hidden = true,
 	color = 4,
-	skillTypes = { },
+	skillTypes = { [SkillType.Attack] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.87,
 	baseFlags = {
@@ -4950,7 +4978,7 @@ skills["AtlasEyrieKiwethMortarShards"] = {
 	color = 4,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.045000001788139,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -4997,7 +5025,7 @@ skills["GAHeistThugRangedShotgun"] = {
 	name = "Ranged Shotgun",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Channel] = true, },
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Triggerable] = true, [SkillType.Channel] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.33,
 	baseFlags = {
@@ -5027,7 +5055,7 @@ skills["GSHeistRobotPyreBeamBlast"] = {
 	color = 4,
 	baseEffectiveness = 3.2000000476837,
 	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.5,
 	baseFlags = {
@@ -5054,7 +5082,7 @@ skills["GSHeistRobotPyreNukeBeam"] = {
 	color = 4,
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.050000000745058,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 4.5,
 	baseFlags = {
@@ -5078,7 +5106,7 @@ skills["GSHeistRobotPyreNukeBeamChannelled"] = {
 	color = 4,
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.045000001788139,
-	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Channel] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Channel] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.54,
 	baseFlags = {
@@ -5102,7 +5130,7 @@ skills["GSHeistRobotPyreBeamSweepBeam"] = {
 	color = 4,
 	baseEffectiveness = 2.5,
 	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -5157,7 +5185,7 @@ skills["AtlasEyrieBirdBreath"] = {
 	hidden = true,
 	color = 4,
 	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.5,
 	baseFlags = {
@@ -5182,7 +5210,7 @@ skills["SecretDesecrateMonsterEarthquakeTriggered"] = {
 	name = "Earthquake",
 	hidden = true,
 	color = 4,
-	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a short duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
+	description = "Smashes the ground, dealing damage in an area and cracking the earth. The crack will erupt in a powerful aftershock after a duration. Cracks created before the first one has erupted will not generate their own aftershocks. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, [SkillType.Slam] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -5473,11 +5501,11 @@ skills["GSHellscapeDemonElite1Screech"] = {
 	color = 4,
 	baseEffectiveness = 0.75,
 	incrementalEffectiveness = 0.029999999329448,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
-		attack = true,
+		spell = true,
 		hit = true,
 		area = true,
 		triggerable = true,
@@ -5525,7 +5553,7 @@ skills["GSHellscapePaleEliteBoltImpact"] = {
 	color = 4,
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.03999999910593,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -5552,7 +5580,7 @@ skills["GSHellscapePaleEliteOmegaBeam"] = {
 	color = 4,
 	baseEffectiveness = 6.5,
 	incrementalEffectiveness = 0.043099999427795,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2.333,
 	baseFlags = {
@@ -5655,7 +5683,7 @@ skills["GSHellscapeDemonEliteBeamNuke"] = {
 	color = 4,
 	baseEffectiveness = 5,
 	incrementalEffectiveness = 0.033500000834465,
-	skillTypes = { [SkillType.Triggerable] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 2,
 	baseFlags = {
@@ -5758,7 +5786,7 @@ skills["HellscapeFleshFodderArc"] = {
 	color = 3,
 	baseEffectiveness = 1.3500000238419,
 	incrementalEffectiveness = 0.045000001788139,
-	description = "An arc of lightning stretches from the caster to a targeted enemy and chains on to other nearby enemies. Each time the main beam chains it will also chain to a second enemy, but that secondary arc cannot chain further.",
+	description = "An arc of lightning reaches from the caster to a targeted enemy and chains to other enemies, but not immediately back. Each time the arc chains, it will also chain a secondary arc to another enemy that the main arc has not already hit, which cannot chain further.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 1.166,
@@ -5913,7 +5941,7 @@ skills["EmptyActionSpellWarlordGrandmaster"] = {
 	name = "Arena Master's Presence",
 	hidden = true,
 	color = 4,
-	skillTypes = { },
+	skillTypes = { [SkillType.Spell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 4,
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cooldown] = true, },
@@ -6067,8 +6095,8 @@ skills["WraithEtherealKnives"] = {
 	color = 2,
 	baseEffectiveness = 1.7000000476837,
 	incrementalEffectiveness = 0.037999998778105,
-	description = "Fires an arc of knives in front of the caster which deals physical damage.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, [SkillType.Duration] = true, },
+	description = "Fires an arc of knives in front of the caster which deal physical damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
@@ -6211,6 +6239,7 @@ skills["CrucibleIceStormTrap"] = {
 		{ "base_trap_duration", 10000 },
 		{ "trap_variation", 4 },
 		{ "trap_throwing_speed_+%", -66 },
+		{ "active_skill_base_area_of_effect_radius", 10 },
 	},
 	stats = {
 		"spell_minimum_base_cold_damage",

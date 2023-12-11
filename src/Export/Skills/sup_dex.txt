@@ -12,11 +12,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportAdditionalAccuracy
-	statMap = {
-		["attack_damage_+%_per_1000_accuracy_rating"] = {
-			mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", div = 1000, stat = "Accuracy"})
-		}
-	},
 #mods
 
 #skill SupportArrowNova
@@ -67,9 +62,6 @@ local skills, mod, flag, skill = ...
 
 #skill SupportCastOnCrit
 	statMap = {
-		["support_cast_on_crit_quality_attack_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Attack, 0)
-		},
 		["support_cast_on_crit_spell_damage_+%_final"] = {
 		},
 	},
@@ -105,13 +97,6 @@ local skills, mod, flag, skill = ...
 		},
 		["cast_on_death_damage_+%_final_while_dead"] = {
 			mod("Damage", "MORE", nil),
-		},
-		["additional_critical_strike_chance_permyriad_while_dead"] = {
-			mod("CritChance", "BASE", nil),
-			div = 100
-		},
-		["skill_effect_duration_+%_while_dead"] = {
-			mod("Duration", "INC", nil),
 		},
 		["no_cost"] = {
 		},
@@ -157,9 +142,6 @@ local skills, mod, flag, skill = ...
 		["close_combat_damage_to_close_range_+%"] = {
 			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Melee), 0, { type = "Condition", var = "AtCloseRange" }),
 		},
-		["combat_rush_effect_+%"] = {
-			mod("CombatRushEffect", "INC", nil),
-		},
 		["supported_skill_can_only_use_axe_and_sword"] = {
 		},
 	},
@@ -185,9 +167,6 @@ local skills, mod, flag, skill = ...
 
 #skill SupportDeadlyAilments
 	statMap = {
-		["support_better_ailments_hit_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit),
-		},
 		["support_better_ailments_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
 		},
@@ -286,9 +265,6 @@ local skills, mod, flag, skill = ...
 		["support_hypothermia_cold_damage_over_time_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, KeywordFlag.ColdDot),
 		},
-		["freeze_applies_cold_resistance_+"] = {
-			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }, { type = "Condition", var = "Frozen" }),
-		},
 	},
 #mods
 
@@ -333,22 +309,9 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportManaLeech
-	statMap = {
-		["damage_+%_per_200_mana_spent_recently"] = {
-			mod("Damage", "INC", nil, 0, 0, {type = "Multiplier", div = 200, var = "ManaSpentRecently"})
-		}
-	},
 #mods
 
 #skill SupportMarkOnHit
-	statMap = {
-		["mark_skills_curse_effect_+%"] = {
-			mod("CurseEffect", "INC", nil, 0, 0, { type = "SkillType", skillType = SkillType.Mark }),
-		},
-		["marked_enemy_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
-	},
 #mods
 
 #skill SupportGemMirageArcher
@@ -362,9 +325,6 @@ local skills, mod, flag, skill = ...
 		},
 		["support_mirage_archer_attack_speed_+%_final"] = {
 			mod("MirageArcherLessAttackSpeed", "BASE", nil),
-		},
-		["mirage_archer_number_of_additional_projectiles"] = {
-			mod("MirageArcherAdditionalProjectileCount", "BASE", nil)
 		},
 		["summon_mirage_archer_on_hit"] = {
 			mod("MirageArcherMaxCount", "BASE", 1),
@@ -393,9 +353,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["support_pierce_projectile_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
-		},
-		["projectile_damage_+%_if_pierced_enemy"] = {
-			mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "StatThreshold", stat = "PiercedCount", threshold = 1 }),
 		},
 	},
 #mods
@@ -432,9 +389,6 @@ local skills, mod, flag, skill = ...
 		},
 		["support_slower_projectiles_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, ModFlag.Projectile),
-		},
-		["projectile_damage_+%_vs_nearby_enemies"] = {
-			mod("Damage", "INC", nil, ModFlag.Projectile)
 		},
 	},
 #mods

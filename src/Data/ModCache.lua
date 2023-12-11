@@ -118,7 +118,7 @@ c["+1 Mana per 4 Strength"]={{[1]={[1]={div=4,stat="Str",type="PerStat"},flags=0
 c["+1 Prefix Modifier allowed"]={{}," Prefix Modifier allowed "}
 c["+1 Prefix Modifier allowed -1 Suffix Modifier allowed"]={{}," Prefix Modifier allowed -1 Suffix Modifier allowed "}
 c["+1 Suffix Modifier allowed"]={{}," Suffix Modifier allowed "}
-c["+1 Suffix Modifier allowed 25% increased Suffix Modifier Magnitudes"]={{}," Suffix Modifier allowed 25% increased Suffix Modifier Magnitudes "}
+c["+1 Suffix Modifier allowed Implicit Modifiers Cannot Be Changed"]={{}," Suffix Modifier allowed Implicit Modifiers Cannot Be Changed "}
 c["+1 maximum Energy Shield per 5 Strength"]={{[1]={[1]={div=5,stat="Str",type="PerStat"},flags=0,keywordFlags=0,name="EnergyShield",type="BASE",value=1}},nil}
 c["+1 second to Summon Skeleton Cooldown"]={{}," second to Summon  Cooldown "}
 c["+1 to Level of Socketed Active Skill Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="active skill",value=1}}},nil}
@@ -1377,7 +1377,6 @@ c["-1 Physical Damage taken from Hits per Level"]={{[1]={[1]={type="Multiplier",
 c["-1 Prefix Modifier allowed"]={{}," Prefix Modifier allowed "}
 c["-1 Prefix Modifier allowed +1 Suffix Modifier allowed"]={{}," Prefix Modifier allowed +1 Suffix Modifier allowed "}
 c["-1 Suffix Modifier allowed"]={{}," Suffix Modifier allowed "}
-c["-1 Suffix Modifier allowed 25% increased Prefix Modifier Magnitudes"]={{}," Suffix Modifier allowed 25% increased Prefix Modifier Magnitudes "}
 c["-1 Suffix Modifier allowed Implicit Modifiers Cannot Be Changed"]={{}," Suffix Modifier allowed Implicit Modifiers Cannot Be Changed "}
 c["-1 to Maximum Endurance Charges"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=-1}},nil}
 c["-1 to Maximum Frenzy Charges"]={{[1]={flags=0,keywordFlags=0,name="FrenzyChargesMax",type="BASE",value=-1}},nil}
@@ -1410,8 +1409,8 @@ c["-16 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,na
 c["-18 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-18}},nil}
 c["-2 Physical Damage taken from Attack Hits"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-2}},nil}
 c["-2 Physical Damage taken from Attacks"]={{[1]={flags=0,keywordFlags=0,name="PhysicalDamageTakenFromAttacks",type="BASE",value=-2}},nil}
-c["-2 Prefix Modifier allowed"]={{}," Prefix Modifier allowed "}
-c["-2 Prefix Modifier allowed -1 Suffix Modifier allowed"]={{}," Prefix Modifier allowed -1 Suffix Modifier allowed "}
+c["-2 Prefix Modifiers allowed"]={{}," Prefix Modifiers allowed "}
+c["-2 Prefix Modifiers allowed -1 Suffix Modifier allowed"]={{}," Prefix Modifiers allowed -1 Suffix Modifier allowed "}
 c["-2 to Accuracy Rating per Level"]={{[1]={[1]={type="Multiplier",var="Level"},flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=-2}},nil}
 c["-2 to Level of Socketed Skill Gems per Socketed Gem"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},[2]={type="Multiplier",var="SocketedGemsIn{SlotName}"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="level",keyword="grants_active_skill",value=-2}}},nil}
 c["-2 to Maximum Endurance Charges"]={{[1]={flags=0,keywordFlags=0,name="EnduranceChargesMax",type="BASE",value=-2}},nil}
@@ -1944,8 +1943,7 @@ c["10% chance to Avoid Bleeding"]={{[1]={flags=0,keywordFlags=0,name="AvoidBleed
 c["10% chance to Avoid Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="AvoidElementalAilments",type="BASE",value=10}},nil}
 c["10% chance to Avoid Elemental Ailments while Phasing"]={{[1]={[1]={type="Condition",var="Phasing"},flags=0,keywordFlags=0,name="AvoidElementalAilments",type="BASE",value=10}},nil}
 c["10% chance to Avoid being Poisoned"]={{[1]={flags=0,keywordFlags=0,name="AvoidPoison",type="BASE",value=10}},nil}
-c["10% chance to Avoid non-Damaging Ailments on you per Bark below maximum"]={{}," to Avoid non-Damaging Ailments on you per Bark below maximum "}
-c["10% chance to Avoid non-Damaging Ailments on you per Bark below maximum 10% reduced Duration of Damaging Ailments on you per Bark"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="BASE",value=10}}," to Avoid non-Damaging Ailments on you per Bark below maximum 10% reduced  of Damaging Ailments on you per Bark "}
+c["10% chance to Avoid non-Damaging Ailments on you per Bark below maximum"]={{[1]={[1]={type="Multiplier",var="MissingBarkskinStacks"},flags=0,keywordFlags=0,name="AvoidShock",type="BASE",value=10},[2]={[1]={type="Multiplier",var="MissingBarkskinStacks"},flags=0,keywordFlags=0,name="AvoidFreeze",type="BASE",value=10},[3]={[1]={type="Multiplier",var="MissingBarkskinStacks"},flags=0,keywordFlags=0,name="AvoidChill",type="BASE",value=10},[4]={[1]={type="Multiplier",var="MissingBarkskinStacks"},flags=0,keywordFlags=0,name="AvoidSap",type="BASE",value=10},[5]={[1]={type="Multiplier",var="MissingBarkskinStacks"},flags=0,keywordFlags=0,name="AvoidBrittle",type="BASE",value=10},[6]={[1]={type="Multiplier",var="MissingBarkskinStacks"},flags=0,keywordFlags=0,name="AvoidScorch",type="BASE",value=10}},nil}
 c["10% chance to Blind Enemies on Hit"]={{}," to Blind Enemies  "}
 c["10% chance to Blind Enemies on Hit with Attacks"]={{}," to Blind Enemies  with Attacks "}
 c["10% chance to Blind Enemies on hit"]={{}," to Blind Enemies  "}
@@ -2273,7 +2271,7 @@ c["10% reduced Charges per use"]={{[1]={flags=0,keywordFlags=0,name="FlaskCharge
 c["10% reduced Damage over Time Taken while you have at least 20 Fortification"]={{[1]={[1]={stat="FortificationStacks",threshold=20,type="StatThreshold"},flags=0,keywordFlags=0,name="DamageTakenOverTime",type="INC",value=-10}},nil}
 c["10% reduced Damage taken if you've Taunted an Enemy Recently"]={{[1]={[1]={type="Condition",var="TauntedEnemyRecently"},flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-10}},nil}
 c["10% reduced Damage taken while Leeching"]={{[1]={[1]={type="Condition",var="Leeching"},flags=0,keywordFlags=0,name="DamageTaken",type="INC",value=-10}},nil}
-c["10% reduced Duration of Damaging Ailments on you per Bark"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=-10}},"  of Damaging Ailments on you per Bark "}
+c["10% reduced Duration of Damaging Ailments on you per Bark"]={{[1]={[1]={type="Multiplier",var="BarkskinStacks"},flags=0,keywordFlags=0,name="SelfIgniteDuration",type="INC",value=-10},[2]={[1]={type="Multiplier",var="BarkskinStacks"},flags=0,keywordFlags=0,name="SelfBleedDuration",type="INC",value=-10},[3]={[1]={type="Multiplier",var="BarkskinStacks"},flags=0,keywordFlags=0,name="SelfPoisonDuration",type="INC",value=-10}},nil}
 c["10% reduced Effect of Chill and Shock on you"]={{[1]={flags=0,keywordFlags=0,name="SelfChillEffect",type="INC",value=-10},[2]={flags=0,keywordFlags=0,name="SelfShockEffect",type="INC",value=-10}},nil}
 c["10% reduced Elemental Ailment Duration on you"]={{[1]={flags=0,keywordFlags=0,name="SelfElementalAilmentDuration",type="INC",value=-10}},nil}
 c["10% reduced Enemy Stun Threshold"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunThreshold",type="INC",value=-10}},nil}
@@ -3959,8 +3957,7 @@ c["25% increased Physical Damage with One Handed Melee Weapons"]={{[1]={flags=33
 c["25% increased Physical Damage with Two Handed Melee Weapons"]={{[1]={flags=603979780,keywordFlags=0,name="PhysicalDamage",type="INC",value=25}},nil}
 c["25% increased Poison Duration"]={{[1]={flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=25}},nil}
 c["25% increased Poison Duration if you have at least 150 Intelligence"]={{[1]={[1]={stat="Int",threshold=150,type="StatThreshold"},flags=0,keywordFlags=0,name="EnemyPoisonDuration",type="INC",value=25}},nil}
-c["25% increased Prefix Modifier Magnitudes"]={{}," Prefix Modifier Magnitudes "}
-c["25% increased Prefix Modifier Magnitudes Implicit Modifiers Cannot Be Changed"]={{}," Prefix Modifier Magnitudes Implicit Modifiers Cannot Be Changed "}
+c["25% increased Prefix Modifier magnitudes"]={{}," Prefix Modifier magnitudes "}
 c["25% increased Projectile Damage"]={{[1]={flags=1024,keywordFlags=0,name="Damage",type="INC",value=25}},nil}
 c["25% increased Projectile Speed"]={{[1]={flags=0,keywordFlags=0,name="ProjectileSpeed",type="INC",value=25}},nil}
 c["25% increased Quantity of Items Dropped by Slain Frozen enemies"]={{}," Quantity of Items Dropped by Slain Frozen enemies "}
@@ -3981,8 +3978,8 @@ c["25% increased Strength Requirement"]={{[1]={flags=0,keywordFlags=0,name="StrR
 c["25% increased Stun Duration on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyStunDuration",type="INC",value=25}},nil}
 c["25% increased Stun Duration with Two Handed Melee Weapons on Enemies"]={{[1]={flags=603979780,keywordFlags=0,name="EnemyStunDuration",type="INC",value=25}},nil}
 c["25% increased Stun and Block Recovery"]={{[1]={flags=0,keywordFlags=0,name="StunRecovery",type="INC",value=25}},nil}
-c["25% increased Suffix Modifier Magnitudes"]={{}," Suffix Modifier Magnitudes "}
-c["25% increased Suffix Modifier Magnitudes Implicit Modifiers Cannot Be Changed"]={{}," Suffix Modifier Magnitudes Implicit Modifiers Cannot Be Changed "}
+c["25% increased Suffix Modifier magnitudes"]={{}," Suffix Modifier magnitudes "}
+c["25% increased Suffix Modifier magnitudes +27% to Fire Resistance"]={{[1]={flags=0,keywordFlags=0,name="FireResist",type="INC",value=25}}," Suffix Modifier magnitudes +27% to  "}
 c["25% increased Totem Damage"]={{[1]={flags=0,keywordFlags=16384,name="Damage",type="INC",value=25}},nil}
 c["25% increased Totem Life"]={{[1]={flags=0,keywordFlags=0,name="TotemLife",type="INC",value=25}},nil}
 c["25% increased Totem Placement range"]={{},"  Placement range "}
@@ -8159,13 +8156,13 @@ c["Grants Level 12 Summon Stone Golem Skill"]={{[1]={flags=0,keywordFlags=0,name
 c["Grants Level 15 Blood Offering Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=15,skillId="BloodOffering"}}},nil}
 c["Grants Level 15 Envy Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=15,skillId="Envy"}}},nil}
 c["Grants Level 15 Vengeance Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=15,skillId="Vengeance"}}},nil}
-c["Grants Level 20 Affliction Skill"]={nil,nil}
+c["Grants Level 20 Affliction Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="MinionSacrifice"}}},nil}
 c["Grants Level 20 Approaching Flames Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="TouchOfFire"}}},nil}
 c["Grants Level 20 Aspect of the Avian Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="BirdAspect"}}},nil}
 c["Grants Level 20 Aspect of the Cat Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="CatAspect"}}},nil}
 c["Grants Level 20 Aspect of the Crab Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="CrabAspect"}}},nil}
 c["Grants Level 20 Aspect of the Spider Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SpiderAspect"}}},nil}
-c["Grants Level 20 Barkskin Skill"]={nil,nil}
+c["Grants Level 20 Barkskin Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Barkskin"}}},nil}
 c["Grants Level 20 Bear Trap Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="BearTrap"}}},nil}
 c["Grants Level 20 Bone Armour Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="BoneArmour"}}},nil}
 c["Grants Level 20 Brandsurge Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="BrandDetonate"}}},nil}
@@ -8173,10 +8170,10 @@ c["Grants Level 20 Death Wish Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraS
 c["Grants Level 20 Doryani's Touch Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="TouchOfGod"}}},nil}
 c["Grants Level 20 Hatred Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Hatred"}}},nil}
 c["Grants Level 20 Illusory Warp Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="MerveilWarp"}}},nil}
-c["Grants Level 20 Pacify Skill"]={nil,nil}
-c["Grants Level 20 Penance Mark Skill"]={nil,nil}
+c["Grants Level 20 Pacify Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Quieten"}}},nil}
+c["Grants Level 20 Penance Mark Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="PenanceMark"}}},nil}
 c["Grants Level 20 Queen's Demand Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="QueensDemand"}}},nil}
-c["Grants Level 20 Ravenous Skill"]={nil,nil}
+c["Grants Level 20 Ravenous Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="Ravenous"}}},nil}
 c["Grants Level 20 Snipe Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="ChannelledSnipe"}},[2]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="ExtraSupport",type="LIST",value={level=20,skillId="ChannelledSnipeSupport"}}},nil}
 c["Grants Level 20 Summon Bestial Rhoa Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonBeastialRhoa"}}},nil}
 c["Grants Level 20 Summon Bestial Snake Skill"]={{[1]={flags=0,keywordFlags=0,name="ExtraSkill",type="LIST",value={level=20,skillId="SummonBeastialSnake"}}},nil}
@@ -8407,8 +8404,9 @@ c["Implicit Modifier magnitudes are doubled"]={nil,"Implicit Modifier magnitudes
 c["Implicit Modifier magnitudes are tripled"]={nil,"Implicit Modifier magnitudes are tripled "}
 c["Implicit Modifier magnitudes are tripled Corrupted"]={nil,"Implicit Modifier magnitudes are tripled Corrupted "}
 c["Implicit Modifiers Cannot Be Changed"]={nil,"Implicit Modifiers Cannot Be Changed "}
-c["Implicit Modifiers Cannot Be Changed +27% to Fire Resistance"]={nil,"Implicit Modifiers Cannot Be Changed +27% to Fire Resistance "}
 c["Implicit Modifiers Cannot Be Changed 100% increased Explicit Modifier magnitudes"]={nil,"Implicit Modifiers Cannot Be Changed 100% increased Explicit Modifier magnitudes "}
+c["Implicit Modifiers Cannot Be Changed 25% increased Prefix Modifier magnitudes"]={nil,"Implicit Modifiers Cannot Be Changed 25% increased Prefix Modifier magnitudes "}
+c["Implicit Modifiers Cannot Be Changed 25% increased Suffix Modifier magnitudes"]={nil,"Implicit Modifiers Cannot Be Changed 25% increased Suffix Modifier magnitudes "}
 c["Implicit Modifiers Cannot Be Changed Has Elder, Shaper and all Conqueror Influences"]={nil,"Implicit Modifiers Cannot Be Changed Has Elder, Shaper and all Conqueror Influences "}
 c["Increases and Reductions to Armour also apply to Energy"]={nil,"Increases and Reductions to Armour also apply to Energy "}
 c["Increases and Reductions to Armour also apply to Energy Shield Recharge Rate at 20% of their value"]={{[1]={flags=0,keywordFlags=0,name="ArmourAppliesToEnergyShieldRecharge",type="FLAG",value=true},[2]={flags=0,keywordFlags=0,name="ImprovedArmourAppliesToEnergyShieldRecharge",type="MAX",value=20}},nil}
@@ -10917,7 +10915,7 @@ c["Wand Attacks fire an additional Projectile"]={{[1]={flags=8388608,keywordFlag
 c["War Banner has 200% increased Adrenaline duration"]={{[1]={[1]={skillName="War Banner",type="SkillName"},flags=0,keywordFlags=0,name="AdrenalineDuration",type="INC",value=200}},nil}
 c["Warcries Debilitate Enemies for 1 second"]={{[1]={flags=0,keywordFlags=0,name="DebilitateChance",type="BASE",value=100}},nil}
 c["Warcries Exert 1 additional Attack"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="BASE",value=1}},nil}
-c["Warcries Exert 2 additional Attack"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="BASE",value=2}},nil}
+c["Warcries Exert 2 additional Attacks"]={{[1]={flags=0,keywordFlags=0,name="ExtraExertedAttacks",type="BASE",value=2}},nil}
 c["Warcries Knock Back and Interrupt Enemies in a smaller Area"]={nil,"Warcries Knock Back and Interrupt Enemies in a smaller Area "}
 c["Warcries Sacrifice 10 Rage if you have at least 25 Rage"]={nil,"Warcries Sacrifice 10 Rage if you have at least 25 Rage "}
 c["Warcries Sacrifice 10 Rage if you have at least 25 Rage Exerted Attacks deal 50% more Attack Damage if a Warcry Sacrificed Rage Recently"]={nil,"Warcries Sacrifice 10 Rage if you have at least 25 Rage Exerted Attacks deal 50% more Attack Damage if a Warcry Sacrificed Rage Recently "}

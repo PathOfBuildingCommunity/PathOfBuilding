@@ -10,6 +10,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill MinionSacrifice
+#flags spell area
+	fromTree = true,
+#mods
+
 #skill AnimateGuardianWeapon
 #flags spell minion duration
 	fromItem = true,
@@ -48,6 +53,26 @@ local skills, mod, flag, skill = ...
 
 #skill SupportTriggerSpellOnBowAttack Asenath's Chant
 	fromItem = true,
+#mods
+
+#skill Barkskin
+#flags spell
+	fromTree = true,
+	statMap = {
+		["armour_+%_per_barkskin_stack"] = {
+			mod("Armour", "INC", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["physical_attack_damage_taken_+_per_barkskin_stack"] = {
+			mod("PhysicalDamageTakenFromAttacks", "BASE", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["chance_to_evade_attacks_+%_final_per_missing_barkskin_stack"] = {
+			mod("EvadeChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "MissingBarkskinStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["max_barkskin_stacks"] = {
+			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 #mods
 
 #skill BirdAspect
@@ -463,8 +488,9 @@ local skills, mod, flag, skill = ...
 			div = 1000,
 		},
 	},
-#baseMod skill("radius", 22)
-#baseMod skill("radiusSecondary", 16)
+#baseMod skill("radiusSecondary", 22)
+#baseMod skill("radiusLabel", "Ice projectile:")
+#baseMod skill("radiusSecondaryLabel", "Target area:")
 #mods
 
 #skill TriggeredIcicleNova
@@ -550,6 +576,12 @@ local skills, mod, flag, skill = ...
 #baseMod flag("CannotSplit")
 #mods
 
+#skill PenanceMark
+#flags spell curse duration mark
+	fromTree = true,
+#baseMod skill("debuff", true)
+#mods
+
 #skill PhysicalAegis
 #flags spell
 	fromItem = true,
@@ -574,6 +606,28 @@ local skills, mod, flag, skill = ...
 
 #skill PrimalAegis
 	fromTree = true,
+#mods
+
+#skill Quieten
+#flags spell curse area duration hex
+	fromTree = true,
+#baseMod skill("debuff", true)
+#mods
+
+#skill Ravenous
+#flags spell
+	fromTree = true,
+	statMap = {
+		["ravenous_buff_magnitude"] = {
+			{
+				mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
+				mult = -1,
+			},
+			{
+				mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
+			},
+		},
+	},
 #mods
 
 #skill TriggeredSummonSpider
@@ -658,6 +712,8 @@ local skills, mod, flag, skill = ...
 			skill("radius", "BASE", nil),
 		},
 	},
+#baseMod skill("radiusLabel", "Orb explosion:")
+#baseMod skill("radiusSecondaryLabel", "Corpse explosion:")
 #mods
 
 #skill StormCascadeTriggered

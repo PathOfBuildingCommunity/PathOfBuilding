@@ -94,7 +94,7 @@ return {
 	actiontypes={
 		[1]={
 			list=false,
-			name="",
+			name="Name",
 			refTo="",
 			type="String",
 			width=150
@@ -104,6 +104,20 @@ return {
 			name="",
 			refTo="",
 			type="Int",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
 			width=150
 		}
 	},
@@ -4388,33 +4402,26 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
+			name="SecondarySupportName",
 			refTo="",
 			type="String",
 			width=150
 		},
 		[9]={
-			list=false,
-			name="",
-			refTo="",
-			type="ShortKey",
-			width=150
+			list=true,
+			name="Tags",
+			refTo="GemTags",
+			type="Key",
+			width=390
 		},
 		[10]={
-			list=false,
-			name="",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[11]={
 			list=false,
 			name="HungryLoopMod",
 			refTo="Mods",
 			type="Key",
 			width=280
 		},
-		[12]={
+		[11]={
 			list=false,
 			name="",
 			refTo="",
@@ -4540,29 +4547,6 @@ return {
 			refTo="ActiveSkillType",
 			type="Enum",
 			width=100
-		}
-	},
-	grantedeffectqualitytypes={
-		[1]={
-			list=false,
-			name="AlternateId",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[2]={
-			list=false,
-			name="",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[3]={
-			list=false,
-			name="DisplayString",
-			refTo="ClientStrings",
-			type="Key",
-			width=170
 		}
 	},
 	grantedeffects={
@@ -4935,14 +4919,14 @@ return {
 		},
 		[6]={
 			list=false,
-			name="IncrementalEffectiveness",
+			name="",
 			refTo="",
-			type="Float",
+			type="Int",
 			width=150
 		},
 		[7]={
 			list=false,
-			name="",
+			name="IncrementalEffectiveness",
 			refTo="",
 			type="Float",
 			width=150

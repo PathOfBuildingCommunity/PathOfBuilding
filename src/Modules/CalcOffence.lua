@@ -356,7 +356,7 @@ function calcs.offence(env, actor, activeSkill)
 				if breakdown then
 					local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary
 					if not skillData.projectileSpeedAppliesToMSAreaOfEffect then
-						local incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary)
+						incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary = calcRadiusBreakpoints(baseRadius, incAreaSecondary, moreAreaSecondary)
 					end
 					breakdown.AreaOfEffectRadiusSecondary = breakdown.area(baseRadius, output.AreaOfEffectModSecondary, output.AreaOfEffectRadiusSecondary, incAreaBreakpointSecondary, moreAreaBreakpointSecondary, redAreaBreakpointSecondary, lessAreaBreakpointSecondary, skillData.radiusSecondaryLabel)
 				end
@@ -473,18 +473,13 @@ function calcs.offence(env, actor, activeSkill)
 
 	if modDB.conditions["AffectedByEnergyBlade"] then
 		local dmgMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeDamage")
-		local critMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeCritChance")
 		local speedMod = calcLib.mod(skillModList, skillCfg, "EnergyBladeAttackSpeed")
-		local shockMod = modDB:Sum("BASE", skillCfg, "EnergyBladeShockChance")
-		local lightningToChaosMod = modDB:Sum("BASE", skillCfg, "EnergyBladeConvertToChaos")
 		for slotName, weaponData in pairs({ ["Weapon 1"] = "weaponData1", ["Weapon 2"] = "weaponData2" }) do
 			if actor.itemList[slotName] and actor.itemList[slotName].weaponData and actor.itemList[slotName].weaponData[1] and actor[weaponData].name and data.itemBases[actor[weaponData].name] then
 				local weaponBaseData = data.itemBases[actor[weaponData].name].weapon
-				actor[weaponData].CritChance = weaponBaseData.CritChanceBase * critMod
+				actor[weaponData].CritChance = weaponBaseData.CritChanceBase
 				actor[weaponData].AttackRate = weaponBaseData.AttackRateBase * speedMod
 				actor[weaponData].Range = weaponBaseData.Range
-				modDB:NewMod("EnemyShockChance", "BASE", shockMod, "Energy Blade", { type = "GlobalEffect", effectType = "Buff" } )
-				modDB:NewMod("LightningDamageConvertToChaos", "BASE", lightningToChaosMod, "Energy Blade", { type = "GlobalEffect", effectType = "Buff" } )
 				for _, damageType in ipairs(dmgTypeList) do
 					actor[weaponData][damageType.."Min"] = (weaponBaseData[damageType.."Min"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMin"..damageType) * dmgMod)
 					actor[weaponData][damageType.."Max"] = (weaponBaseData[damageType.."Max"] or 0) + m_floor(skillModList:Sum("BASE", skillCfg, "EnergyBladeMax"..damageType) * dmgMod)
@@ -508,11 +503,8 @@ function calcs.offence(env, actor, activeSkill)
 	-- -- account for Spellblade
 	-- Note: we check conditions of Main Hand weapon using actor.itemList as actor.weaponData1 is populated with unarmed values when no weapon slotted.
 	local spellbladeMulti = skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpells")
-	local spellbladeDiffMulti = skillModList:Max(skillCfg, "OneHandWeaponDamageAppliesToSpellsWithTwoDifferentTypes")
 	if spellbladeMulti and actor.itemList["Weapon 1"] and actor.itemList["Weapon 1"].weaponData and actor.itemList["Weapon 1"].weaponData[1] and weapon1info.melee and weapon1info.oneHand then
 		local multiplier = spellbladeMulti / 100 * (weapon2info and 0.6 or 1)
-		local diffMulti = actor.weaponData1 and actor.weaponData2.type and actor.weaponData1.type ~= actor.weaponData2.type and spellbladeDiffMulti and spellbladeDiffMulti / 100 * 0.6 or 0
-		multiplier = multiplier + diffMulti
 		for _, damageType in ipairs(dmgTypeList) do
 			skillModList:NewMod(damageType.."Min", "BASE", m_floor((actor.weaponData1[damageType.."Min"] or 0) * multiplier), "Spellblade Main Hand", ModFlag.Spell)
 			skillModList:NewMod(damageType.."Max", "BASE", m_floor((actor.weaponData1[damageType.."Max"] or 0) * multiplier), "Spellblade Main Hand", ModFlag.Spell)
@@ -1381,6 +1373,33 @@ function calcs.offence(env, actor, activeSkill)
 				t_insert(breakdown.DurationSecondary, s_format("= %.3fs", output.DurationSecondary))
 			end
 		end
+		durationBase = (skillData.durationTertiary or 0) + skillModList:Sum("BASE", skillCfg, "Duration", "TertiaryDuration")
+		if durationBase > 0 then
+			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "TertiaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+			durationMod = m_max(durationMod, 0)
+			output.DurationTertiary = durationBase * durationMod
+			if skillData.debuffTertiary then
+				output.DurationTertiary = output.DurationTertiary * debuffDurationMult
+			end
+			output.DurationTertiary = m_ceil(output.DurationTertiary * data.misc.ServerTickRate) / data.misc.ServerTickRate
+			if breakdown and output.DurationTertiary ~= durationBase then
+				breakdown.TertiaryDurationMod = breakdown.mod(skillModList, skillCfg, "Duration", "TertiaryDuration", "SkillAndDamagingAilmentDuration", skillData.mineDurationAppliesToSkill and "MineDuration" or nil)
+				if breakdown.TertiaryDurationMod then
+					t_insert(breakdown.TertiaryDurationMod, 1, "Tertiary duration:")
+				end
+				breakdown.DurationTertiary = {
+					s_format("%.2fs ^8(base)", durationBase),
+				}
+				if output.DurationMod ~= 1 then
+					t_insert(breakdown.DurationTertiary, s_format("x %.4f ^8(duration modifier)", durationMod))
+				end
+				if skillData.debuffTertiary and debuffDurationMult ~= 1 then
+					t_insert(breakdown.DurationTertiary, s_format("/ %.3f ^8(debuff expires slower/faster)", 1 / debuffDurationMult))
+				end
+				t_insert(breakdown.DurationTertiary, s_format("rounded up to nearest server tick"))
+				t_insert(breakdown.DurationTertiary, s_format("= %.3fs", output.DurationTertiary))
+			end
+		end
 		durationBase = (skillData.auraDuration or 0)
 		if durationBase > 0 then
 			local durationMod = calcLib.mod(skillModList, skillCfg, "Duration", "SkillAndDamagingAilmentDuration")
@@ -1447,7 +1466,7 @@ function calcs.offence(env, actor, activeSkill)
 	do
 		if not activeSkill.skillTypes[SkillType.Vaal] then -- exclude vaal skills as we currently don't support soul generation or gain prevention.
 			local cooldown = output.Cooldown or 0
-			for _, durationType in pairs({ "Duration", "DurationSecondary", "AuraDuration", "reserveDuration" }) do
+			for _, durationType in pairs({ "Duration", "DurationSecondary", "DurationTertiary", "AuraDuration", "reserveDuration" }) do
 				local duration = output[durationType] or 0
 				if (duration ~= 0 and cooldown ~= 0) then
 					local uptime = 1
@@ -2126,7 +2145,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitTime = skillData.hitTimeOverride
 			output.HitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
-			if skillCfg.skillName and skillCfg.skillName:match("Brand") then
+			if skillCfg.skillName and skillCfg.skillName:match("Brand") and not skillModList:Flag(nil, "UnlimitedBrandDuration") then
 				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
