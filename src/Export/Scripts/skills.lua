@@ -197,6 +197,7 @@ directiveTable.skill = function(state, args, out)
 		grantedId = args
 		displayName = args
 	end
+	ConPrintf("grantedId: '" .. grantedId .. "'")
 	out:write('skills["', grantedId, '"] = {\n')
 	local granted = dat("GrantedEffects"):GetRow("Id", grantedId)
 	if not granted then
@@ -353,7 +354,7 @@ directiveTable.skill = function(state, args, out)
 	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffectStatSets", granted.GrantedEffectStatSets)
 	local statMapOrder = {}
 	for indx, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
-		local statRow = statsPerLevel[indx]
+		local statRow = statsPerLevel[indx] or statsPerLevel[1]
 		local level = { extra = { }, statInterpolation = { }, cost = { } }
 		level.level = levelRow.Level
 		level.extra.levelRequirement = levelRow.PlayerLevelReq
@@ -622,7 +623,7 @@ directiveTable.mods = function(state, args, out)
 	state.skill = nil
 end
 
-for _, name in pairs({"act_str","act_dex","act_int","other","glove","spectre","sup_str","sup_dex","sup_int"}) do
+for _, name in pairs({"act_str","act_dex","act_int","other","glove","minion","spectre","sup_str","sup_dex","sup_int"}) do
 	processTemplateFile(name, "Skills/", "../Data/Skills/", directiveTable)
 end
 
