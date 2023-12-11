@@ -916,6 +916,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 	self.activeItemSetId = 0
 	self.itemSets = { }
 	self.itemSetOrderList = { }
+	self.tradeQuery.statSortSelectionList = { }
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
 			local item = new("Item", "")
@@ -993,6 +994,15 @@ function ItemsTabClass:Load(xml, dbFileName)
 				end
 			end
 			t_insert(self.itemSetOrderList, itemSet.id)
+		elseif node.elem == "TradeSearchWeights" then
+			for _, child in ipairs(node) do
+				local statSort = {
+					label = child.attrib.label,
+					stat = child.attrib.stat,
+					weightMult = tonumber(child.attrib.weightMult)
+				}
+				t_insert(self.tradeQuery.statSortSelectionList, statSort)
+			end
 		end
 	end
 	if not self.itemSetOrderList[1] then
@@ -1071,6 +1081,25 @@ function ItemsTabClass:Save(xml)
 			end
 		end
 		t_insert(xml, child)
+	end
+	if self.tradeQuery.statSortSelectionList then
+		local parent = {
+			elem = "TradeSearchWeights"
+		}
+		for _, statSort in ipairs(self.tradeQuery.statSortSelectionList) do
+			if statSort.weightMult and statSort.weightMult > 0 then
+				local child = {
+				elem = "Stat",
+				attrib = {
+					label = statSort.label,
+					stat = statSort.stat,
+					weightMult = s_format("%.2f", tostring(statSort.weightMult))
+				}
+			}
+			t_insert(parent, child)
+			end
+		end
+		t_insert(xml, parent)
 	end
 end
 
