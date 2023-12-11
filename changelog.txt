@@ -1,3 +1,9 @@
+VERSION[2.36.1][2023/12/11]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix Crash when opening Timeless Jewel search (LocalIdentity)
+
+
 VERSION[2.36.0][2023/12/11]
 
 --- New to Path of Building ---
