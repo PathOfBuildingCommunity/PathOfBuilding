@@ -281,6 +281,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 20)
 #mods
 
+#skill CleaveAltX
+#flags attack melee area
+#mods
+
 #skill VaalCleave
 #flags attack area duration melee
 	statMap = {
@@ -633,6 +637,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 35)
 #mods
 
+#skill GroundSlamAltX
+#flags attack melee area
+#mods
+
 #skill VaalGroundSlam
 #flags attack melee area
 	statMap = {
@@ -843,6 +851,10 @@ local skills, mod, flag, skill = ...
 			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" }),
 		},
 	},
+#mods
+
+#skill LeapSlamAltX
+#flags attack melee area
 #mods
 
 #skill MoltenShell

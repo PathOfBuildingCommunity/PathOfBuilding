@@ -226,6 +226,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 14)
 #mods
 
+#skill ChargedAttackAltX
+#flags attack melee area
+#mods
+
 #skill VaalChargedAttack
 #flags attack melee area
 	statMap = {
@@ -603,6 +607,14 @@ local skills, mod, flag, skill = ...
 #baseMod mod("PvpTvalueMultiplier", "MORE", -50)
 #mods
 
+#skill DoubleStrikeAltX
+#flags attack melee
+#mods
+
+#skill DoubleStrikeAltY
+#flags attack melee
+#mods
+
 #skill VaalDoubleStrike
 #flags attack melee duration vaal
 #mods
@@ -620,6 +632,10 @@ local skills, mod, flag, skill = ...
 			-- Display only
 		},
 	},
+#mods
+
+#skill DualStrikeAltX
+#flags attack melee
 #mods
 
 #skill ElementalHit
@@ -1059,6 +1075,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill FrenzyAltX
+#flags attack melee projectile
+#mods
+
 #skill FrostBlades
 #flags attack melee projectile
 	parts = {
@@ -1250,6 +1270,13 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 38)
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill DoubleSlashAltX
+#flags attack melee area
+#mods
+#skill DoubleSlashAltY
+#flags attack melee area
 #mods
 
 #skill LancingSteel

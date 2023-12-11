@@ -1319,6 +1319,14 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
+#skill IceNovaAltX
+#flags spell area
+#mods
+
+#skill IceNovaAltY
+#flags spell area
+#mods
+
 #skill VaalIceNova
 #flags spell area
 #mods

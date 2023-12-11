@@ -4565,6 +4565,8 @@ return {
 			width=100
 		}
 	},
+	grantedeffectqualitytypes={
+	},
 	grantedeffects={
 		[1]={
 			list=false,
