@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.txt")
 
 function table.containsId(table, element)
   for _, value in pairs(table) do
@@ -123,7 +123,6 @@ end)
 writeMods("../Data/ModFlask.lua", function(mod)
 	return mod.Domain == 2 and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
-loadStatFile("tincture_stat_descriptions.txt")
 writeMods("../Data/ModTincture.lua", function(mod)
 	return (mod.Domain == 34) and (mod.GenerationType == 1 or mod.GenerationType == 2 or mod.GenerationType == 3)
 end)
