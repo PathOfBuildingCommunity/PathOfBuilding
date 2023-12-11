@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.txt")
 
 function table.containsId(table, element)
   for _, value in pairs(table) do
@@ -135,7 +135,7 @@ end)
 writeMods("../Data/ModJewelCluster.lua", function(mod)
 	return (mod.Domain == 21 and (mod.GenerationType == 1 or mod.GenerationType == 2)) or (mod.Domain == 10 and mod.GenerationType == 5)
 end)
-writeMods("../Data/ModCharm.lua", function(mod)
+writeMods("../Data/ModJewelCharm.lua", function(mod)
 	return (mod.Domain == 35) and (mod.GenerationType == 1 or mod.GenerationType == 2)
 end)
 writeMods("../Data/Uniques/Special/WatchersEye.lua", function(mod)

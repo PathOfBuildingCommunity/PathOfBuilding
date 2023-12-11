@@ -4410,9 +4410,9 @@ return {
 		[9]={
 			list=true,
 			name="Tags",
-			refTo="gemTags",
+			refTo="GemTags",
 			type="Key",
-			width=500
+			width=390
 		},
 		[10]={
 			list=false,
@@ -4563,29 +4563,6 @@ return {
 			refTo="ActiveSkillType",
 			type="Enum",
 			width=100
-		}
-	},
-	grantedeffectqualitytypes={
-		[1]={
-			list=false,
-			name="AlternateId",
-			refTo="",
-			type="Int",
-			width=150
-		},
-		[2]={
-			list=false,
-			name="",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[3]={
-			list=false,
-			name="DisplayString",
-			refTo="ClientStrings",
-			type="Key",
-			width=170
 		}
 	},
 	grantedeffects={

@@ -172,6 +172,7 @@ function main:Init()
 			self:LoadDatFiles()
 		end
 	end, nil)
+	self.controls.datSource:SelByValue(self.datSource.label, "label")
 
 	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()
@@ -386,7 +387,7 @@ function main:InitGGPK()
 		return
 	else
 		local now = GetTime()
-		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
+		local ggpkPath = self.datSource.ggpkPath or self.datSource.datFilePath
 		if ggpkPath then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)

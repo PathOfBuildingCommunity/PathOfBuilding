@@ -52,7 +52,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 		if mode ~= "OUT" then
 			local spec = self.specList[selIndex]
 			if spec then
-				local used, ascUsed, sockets = spec:CountAllocNodes()
+				local used, ascUsed, secondaryAscUsed, sockets = spec:CountAllocNodes()
 				tooltip:AddLine(16, "Class: "..spec.curClassName)
 				tooltip:AddLine(16, "Ascendancy: "..spec.curAscendClassName)
 				tooltip:AddLine(16, "Points used: "..used)
@@ -1014,7 +1014,7 @@ function TreeTabClass:FindTimelessJewel()
 	}
 	local jewelSockets = { }
 	for socketId, socketData in pairs(self.build.spec.nodes) do
-		if socketData.isJewelSocket then
+		if socketData.isJewelSocket and socketData.name ~= "Charm Socket"then
 			local keystone = "Unknown"
 			if socketId == 26725 then
 				keystone = "Marauder"

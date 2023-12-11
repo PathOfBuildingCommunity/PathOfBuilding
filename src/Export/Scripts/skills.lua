@@ -219,8 +219,6 @@ directiveTable.skill = function(state, args, out)
 			end
 			if skillGem then break end
 		end
-	--else
-	--	ConPrintf('Unknown Gem Effect: "' .. grantedId .. '"')
 	end
 	local skill = { }
 	state.skill = skill

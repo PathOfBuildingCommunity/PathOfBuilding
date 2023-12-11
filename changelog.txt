@@ -1,3 +1,34 @@
+VERSION[2.36.1][2023/12/11]
+
+--- Fixed Crashes ---
+* Fix Crash when opening Timeless Jewel search (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix crash when hovering over Masteries (Wires77)
+* Fix negative bypass being ignored (mortentc)
+
+VERSION[2.36.0][2023/12/11]
+
+--- New to Path of Building ---
+* Update all base skill gems + minions with 3.23 changes by (Wires77, LocalIdentity)
+* Add support for new Ascendancy skills by (Wires77, LocalIdentity)
+* Add support for Charms (Regisle)
+* Add support for Tinctures by (Regisle, LocalIdentity, Wires77)
+* Adding new 3.23 uniques (Wires77)
+* Add support for importing new Ascendancies (Wires77)
+* Save trade search weights to build file (Peechey)
+* Remove Pastebin as a build export option (LocalIdentity)
+
+--- User Interface ---
+* Add support for search Configuration tab (deathbeam)
+* Add support for toggling ineligible configurations in Configuration tab (Peechey)
+* Add warning when allocating too many Azmeri Ascendancy nodes (Regisle)
+
+--- Fixed Bugs ---
+* Fix ES bypass Mastery overriding Divine Flesh ES bypass (mortentc, Wires77)
+* Fix Sin Trek and Legacy of Fury disabling life mod on Utula's Hunger (Lilylicious)
+* Fix Eldritch Battery with Replica Covenant cost calculations (sida-wang)
+
 VERSION[2.35.5][2023/12/07]
 
 --- Fixed Bugs ---

@@ -40,9 +40,6 @@ local skills, mod, flag, skill = ...
 		"AnimatedWeapon",
 	},
 	statMap = {
-		["base_movement_velocity_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", nil) }),
-		},
 		["attack_minimum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }),
 		},
@@ -55,11 +52,11 @@ local skills, mod, flag, skill = ...
 		["attack_maximum_added_physical_damage_for_ethereal_blades"] = {
 			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
 		},
-		["minion_global_maximum_added_lightning_damage"] = {
-			mod("MinionModifier", "LIST", { mod = mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack) }),
-		},
 		["number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
+		["quality_display_animate_weapon_is_gem"] = {
+			-- Display only
 		},
 	},
 #mods
@@ -79,6 +76,9 @@ local skills, mod, flag, skill = ...
 		},
 		["number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:VaalAnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
+		["quality_display_animate_weapon_is_gem"] = {
+			-- Display only
 		},
 	},
 #mods
@@ -139,14 +139,6 @@ local skills, mod, flag, skill = ...
 		end
 	end,
 	statMap = {
-		["non_damaging_ailments_as_though_damage_+%_final"] = {
-			mod("ShockAsThoughDealing", "MORE", nil),
-			mod("ChillAsThoughDealing", "MORE", nil),
-			mod("FreezeAsThoughDealing", "MORE", nil),
-			mod("ScorchAsThoughDealing", "MORE", nil),
-			mod("BrittleAsThoughDealing", "MORE", nil),
-			mod("SapAsThoughDealing", "MORE", nil),
-		},
 		["projectiles_barrage"] = {
 		},
 	},
@@ -163,7 +155,6 @@ local skills, mod, flag, skill = ...
 
 #skill BladeBlast
 #flags spell area
-#baseMod skill("radius", 14)
 	parts = {
 		{
 			name = "Blade Hits Per Cast",
@@ -186,7 +177,6 @@ local skills, mod, flag, skill = ...
 
 #skill BladeTrap
 #flags attack area trap
-#baseMod skill("radius", 16)
 #mods
 
 #skill ChargedAttack
@@ -223,9 +213,14 @@ local skills, mod, flag, skill = ...
 		},
 		["blade_flurry_final_flurry_area_of_effect_+%"] = {
 			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 2 })
-		}
+		},
+		["display_max_charged_attack_stats"] = {
+			mod("Multiplier:BladeFlurryMaxStages", "BASE", nil),
+		},
+		["quality_display_charged_attack_is_gem"] = {
+			--Display only
+		},
 	},
-#baseMod mod("Multiplier:BladeFlurryMaxStages", "BASE", 6)
 #baseMod skill("numStages", 1, { type = "Multiplier", var = "BladeFlurryStage" })
 #baseMod skill("stackMultiplier", 2, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radius", 14)
@@ -265,15 +260,15 @@ local skills, mod, flag, skill = ...
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["blade_vortex_damage_+%_with_5_or_fewer_blades"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = {1, 2} }),
-		},
 		["maximum_number_of_spinning_blades"] = {
 			mod("Multiplier:BladeVortexMaxStages", "BASE", nil),
 		},
 		["blade_vortex_hit_rate_+%_per_blade"] = {
 			skill("hitFrequencyPerBlade", nil),
 			div = 100,
+		},
+		["quality_display_blade_vortex_is_gem"] = {
+			--Display only
 		},
 	},
 #baseMod skill("radius", 15)
@@ -306,6 +301,11 @@ local skills, mod, flag, skill = ...
 
 #skill Bladefall
 #flags spell area
+	statMap = {
+		["quality_display_bladefall_is_gem"] = {
+			--Display only
+		},
+	},
 #baseMod skill("radius", 44)
 #baseMod skill("radiusLabel", "Volley Width:")
 #baseMod skill("radiusSecondary", 12)
@@ -327,14 +327,6 @@ local skills, mod, flag, skill = ...
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
 		end
 	end,
-	statMap = {
-		["blast_rain_damage_+%_vs_distant_enemies"] = { 
-			mod("Damage", "INC", nil, bit.bor(ModFlag.Attack, ModFlag.Projectile), 0, { type = "DistanceRamp", ramp = {{35,0},{70,1}} }) 
-		},
-		["blast_rain_area_of_effect_+%"] = {
-			-- Only affects primary area for overlaps
-		}
-	},
 #baseMod skill("radius", 24)
 #baseMod flag("OneShotProj")
 #mods
@@ -342,7 +334,7 @@ local skills, mod, flag, skill = ...
 #skill BlinkArrow
 #flags attack projectile minion duration
 	minionList = {
-		"Clone",
+		"ArrowClone",
 	},
 #baseMod skill("minionUseBowAndQuiver", true)
 #mods
@@ -350,10 +342,6 @@ local skills, mod, flag, skill = ...
 #skill BloodRage
 #flags spell duration
 	statMap = {
-		["life_leech_from_physical_attack_damage_permyriad"] = {
-			mod("PhysicalDamageLifeLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			div = 100,
-		},
 		["base_physical_damage_%_of_maximum_life_to_deal_per_minute"] = {
 			mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 6000,
@@ -456,7 +444,7 @@ local skills, mod, flag, skill = ...
 #skill CobraLash
 #flags attack projectile
 	statMap = {
-		["active_skill_projectile_damage_+%_final_for_each_remaining_chain"] = {
+		["cobra_lash_hit_and_ailment_damage_+%_final_for_each_remaining_chain"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "PerStat", stat = "ChainRemaining" }, { type = "SkillType", skillType = SkillType.Projectile })
 		},
 	},
@@ -569,7 +557,6 @@ local skills, mod, flag, skill = ...
 			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
-#baseMod skill("radius", 22)
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
 	parts = {
 		{
@@ -596,7 +583,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
-#baseMod skill("radius", 24)
 	parts = {
 		{
 			name = "Spell",
@@ -630,6 +616,9 @@ local skills, mod, flag, skill = ...
 		["dual_strike_damage_+%_final_against_enemies_on_full_life"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "FullLife" })
 		},
+		["quality_display_dual_strike_is_gem"] = {
+			-- Display only
+		},
 	},
 #mods
 
@@ -662,9 +651,8 @@ local skills, mod, flag, skill = ...
 		},
 	},
 	statMap = {
-		["elemental_hit_damage_+10%_final_per_enemy_elemental_ailment"] = {
+		["elemental_hit_damage_+%_final_per_enemy_elemental_ailment"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ElementalHitAilmentOnEnemy" }),
-			mult = 10,
 		},
 		["elemental_hit_area_of_effect_+100%_final_vs_enemy_with_associated_ailment"] = {
 		},
@@ -677,6 +665,9 @@ local skills, mod, flag, skill = ...
 			flag("DealNoCold", { type = "SkillPart", skillPartList = { 5, 6 } }),
 			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 1, 2 } }),
 			flag("DealNoLightning", { type = "SkillPart", skillPartList = { 3, 4 } }),
+		},
+		["quality_display_elemental_hit_is_gem"] = {
+			-- Display only
 		},
 	},
 #baseMod mod("AreaOfEffect", "MORE", 224, 0, 0, { type = "ActorCondition", actor = "enemy", varList = { "Ignited", "Scorched" } }, { type = "SkillPart", skillPart = 2 })
@@ -697,9 +688,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["tethered_enemies_take_attack_projectile_damage_taken_+%"] = {
 			mod("ProjectileAttackDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
-		},
-		["ensnaring_arrow_enemy_spell_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Ensnared", effectStackVar = "EnsnareStackCount", effectStackLimit = 1 }),
 		},
 	},
 #mods
@@ -833,6 +821,9 @@ local skills, mod, flag, skill = ...
 			mod("Multiplier:ExplosiveArrowMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 			mod("ExplosiveArrowMaxFuseCount", "BASE", nil),
 		},
+		["quality_display_explosive_arrow_is_gem"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 15)
 #baseMod skill("showAverage", true, { type = "SkillPart", skillPartList = { 1, 2 } })
@@ -841,7 +832,6 @@ local skills, mod, flag, skill = ...
 
 #skill ExplosiveConcoction
 #flags attack area projectile
-#baseMod skill("radius", 18)
 	parts = {
 		{
 			name = "No Flasks",
@@ -914,7 +904,7 @@ local skills, mod, flag, skill = ...
 			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
 		end
 		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
-		local waveRadius = output.AreaOfEffectRadiusSecondary
+		local waveRadius = output.AreaOfEffectRadiusTertiary
 		local fullRadius = output.AreaOfEffectRadius
 		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
 		output.OverlapChance = overlapChance * 100
@@ -955,11 +945,13 @@ local skills, mod, flag, skill = ...
 		["shrapnel_trap_number_of_secondary_explosions"] = {
 			mod("SmallExplosions", "BASE", nil),
 		},
+		["quality_display_explosive_trap_is_gem"] = {
+			-- Display only
+		},
 	},
-#baseMod skill("radius", 12)
 #baseMod skill("radiusLabel", "Primary Explosion:")
-#baseMod skill("radiusSecondary", 7)
-#baseMod skill("radiusSecondaryLabel", "Secondary Explosion:")
+#baseMod skill("radiusSecondaryLabel", "Secondary Area:")
+#baseMod skill("radiusTertiaryLabel", "Secondary Explosion:")
 #mods
 
 #skill FireTrap
@@ -1058,6 +1050,12 @@ local skills, mod, flag, skill = ...
 		["frenzy_skill_attack_speed_+%_final_per_frenzy_charge"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 		},
+		["quality_display_frenzy_is_gem"] = {
+			-- Display only
+		},
+		["quality_display_active_skill_attack_speed_per_frenzy_is_gem"] = {
+			-- Display only
+		},
 	},
 #mods
 
@@ -1101,12 +1099,6 @@ local skills, mod, flag, skill = ...
 		["base_evasion_rating"] = {
 			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["avoid_all_elemental_status_%"] = {
-			mod("AvoidElementalAilments", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["avoid_chaos_damage_%"] = {
-			mod("AvoidChaosDamageChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		},
 	},
 #baseMod skill("radius", 40)
 #mods
@@ -1132,15 +1124,6 @@ local skills, mod, flag, skill = ...
 		},
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["summon_totem_cast_speed_+%"] = {
-			mod("TotemPlacementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		},
-		["base_projectile_speed_+%"] = {
-			mod("ProjectileSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		},
-		["buff_time_passed_+%_only_buff_category"] = {
-			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 	},
 #baseMod skill("radius", 40)
@@ -1171,13 +1154,6 @@ local skills, mod, flag, skill = ...
 		["hatred_aura_cold_damage_+%_final"] = {
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
-		["chill_and_freeze_duration_+%"] = {
-			mod("EnemyChillDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-			mod("EnemyFreezeDuration", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["movement_velocity_+%_on_chilled_ground"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, {type = "Condition", var = "OnChilledGround"})
-		}
 	},
 #baseMod skill("radius", 40)
 #mods
@@ -1206,21 +1182,15 @@ local skills, mod, flag, skill = ...
 		["scorpion_minion_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
-		["active_skill_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }),
+		["quality_display_herald_of_agony_is_gem"] = {
+			-- Display only
 		},
-		["withered_on_hit_for_2_seconds_%_chance"] = {
-			flag("Condition:CanWither"),
-		}
 	},
 #mods
 
 #skill HeraldOfIce
 #flags cast area
 	statMap = {
-		["herald_of_ice_cold_damage_+%"] = {
-			mod("ColdDamage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
 		["spell_minimum_added_cold_damage"] = {
 			mod("ColdMin", "BASE", nil, 0, KeywordFlag.Spell, { type = "GlobalEffect", effectType = "Buff" }),
 		},
@@ -1233,11 +1203,7 @@ local skills, mod, flag, skill = ...
 		["attack_maximum_added_cold_damage"] = {
 			mod("ColdMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff" }),
 		},
-		["skill_buff_grants_chance_to_freeze_%"] = {
-			mod("FreezeChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		}
 	},
-#baseMod skill("radius", 12)
 #mods
 
 #skill IceShot
@@ -1262,11 +1228,8 @@ local skills, mod, flag, skill = ...
 
 #skill IceTrap
 #flags spell trap area
-#baseMod skill("radius", 18)
 #baseMod skill("radiusLabel", "First Explosion:")
-#baseMod skill("radiusSecondary", 9)
 #baseMod skill("radiusSecondaryLabel", "Second Explosion:")
-#baseMod skill("radiusTertiary", 6)
 #baseMod skill("radiusTertiaryLabel", "Third Explosion:")
 #mods
 
@@ -1278,6 +1241,11 @@ local skills, mod, flag, skill = ...
 		},
 		{
 			name = "Both slashes",
+		},
+	},
+	statMap = {
+		["attack_speed_+%_if_changed_stance_recently"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Condition", var = "ChangedStanceRecently" }),
 		},
 	},
 #baseMod skill("radius", 38)
@@ -1317,6 +1285,11 @@ local skills, mod, flag, skill = ...
 
 #skill LightningArrow
 #flags attack projectile
+	statMap = {
+		["quality_display_lightning_arrow_is_gem"] = {
+			-- Display only
+		},
+	},
 #baseMod skill("radius", 18)
 #mods
 
@@ -1340,6 +1313,12 @@ local skills, mod, flag, skill = ...
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
+		["quality_display_lightning_arrow_is_gem"] = {
+			-- Display only
+		},
+		["quality_display_base_additional_arrows_is_gem"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 18)
 #mods
@@ -1356,11 +1335,6 @@ local skills, mod, flag, skill = ...
 			name = "Projectiles",
 			melee = false,
 			projectile = true,
-		},
-	},
-	statMap = {
-		["projectile_base_number_of_targets_to_pierce"] = {
-			mod("PierceCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 	},
 #mods
@@ -1389,7 +1363,7 @@ local skills, mod, flag, skill = ...
 #skill MirrorArrow
 #flags attack projectile minion duration
 	minionList = {
-		"Clone",
+		"ArrowClone",
 	},
 #baseMod skill("minionUseBowAndQuiver", true)
 #mods
@@ -1414,12 +1388,6 @@ local skills, mod, flag, skill = ...
 #skill CorrosiveShroud
 #flags spell area
 	statMap = {
-		["plague_bearer_movement_speed_+%_while_infecting"] = {
-			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerInfecting" }),
-		},
-		["corrosive_shroud_poison_dot_multiplier_+_while_aura_active"] = {
-			mod("DotMultiplier", "BASE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerInfecting" }),
-		},
 		["corrosive_shroud_poison_damage_+%_final_while_accumulating_poison"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison, { type = "GlobalEffect", effectType = "Buff", modCond = "PlagueBearerIncubating" }),
 		},
@@ -1445,9 +1413,6 @@ local skills, mod, flag, skill = ...
 		["maximum_added_physical_damage_taken"] = {
 			mod("SelfPhysicalMax", "BASE", nil, ModFlag.Hit, 0, { type = "GlobalEffect", effectType = "Curse" }),
 		},
-		["base_damage_taken_+%"] = {
-			mod("DamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
-		},
 	},
 #baseMod skill("debuff", true)
 #mods
@@ -1460,12 +1425,6 @@ local skills, mod, flag, skill = ...
 		},
 		["skill_buff_grants_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["auras_grant_damage_+%_to_you_and_your_allies"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
-		},
-		["precision_grants_area_of_effect_+%_final"] = {
-			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" })
 		},
 	},
 #baseMod skill("radius", 40)
@@ -1508,6 +1467,12 @@ local skills, mod, flag, skill = ...
 		["prismatic_rain_beam_frequency_+%"] = {
 			mod("StormRainBeamFrequency", "INC", nil),
 		},
+		["number_of_allowed_storm_arrows"] = {
+			-- Display only
+		},
+		["quality_display_storm_rain_is_gem"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 10, { type = "SkillPart", skillPart = 1 })
 #baseMod skill("radiusLabel", "Arrow Explosion:", { type = "SkillPart", skillPart = 1 })
@@ -1518,8 +1483,8 @@ local skills, mod, flag, skill = ...
 #skill Puncture
 #flags attack melee projectile duration
 	statMap = {
-		["puncture_bleeding_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed),
+		["quality_display_active_skill_bleed_damage_final_is_gem"] = {
+			-- Display only
 		},
 	},
 #baseMod skill("bleedIsSkillEffect", true)
@@ -1533,12 +1498,6 @@ local skills, mod, flag, skill = ...
 		},
 		["base_maximum_cold_damage_resistance_%"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["base_avoid_freeze_%"] = {
-			mod("AvoidFreeze", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
-		},
-		["base_reduce_enemy_cold_resistance_%"] = {
-			mod("ColdPenetration", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 40)
@@ -1809,6 +1768,9 @@ local skills, mod, flag, skill = ...
 		["seismic_trap_frequency_+%"] = {
 			mod("SeismicPulseFrequency", "INC", nil),
 		},
+		["quality_display_phys_cascade_trap_is_gem"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 18)
 #baseMod skill("radiusLabel", "Large Burst:")
@@ -1831,6 +1793,11 @@ local skills, mod, flag, skill = ...
 
 #skill SiegeBallista
 #flags attack projectile totem ballista
+	statMap = {
+		["attack_speed_+%_per_maximum_totem"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", stat = "ActiveTotemLimit" }),
+		},
+	},
 #baseMod flag("ProjectileRain")
 #mods
 
@@ -1839,9 +1806,6 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["base_movement_velocity_+%"] = {
 			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-		["skill_buff_grants_attack_and_cast_speed_+%"] = {
-			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
 	},
 #baseMod skill("radius", 18)
@@ -2013,6 +1977,8 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radiusLabel", "Orb Explosion:")
+#baseMod skill("radiusSecondaryLabel", "Corpse Explosion:")
 	parts = {
 		{
 			name = "Spell",
@@ -2025,16 +1991,10 @@ local skills, mod, flag, skill = ...
 			cast =  true,
 		},
 	},
-#baseMod skill("radius", 15)
 #mods
 
 #skill WhirlingBlades
 #flags attack melee
-	statMap = {
-		["whirling_blades_evasion_rating_+%_while_moving"] = {
-			mod("Evasion", "INC", nil, 0, 0, { type = "Condition", var = "Moving" } )
-		},
-	},
 #mods
 
 #skill WildStrike
@@ -2099,6 +2059,9 @@ local skills, mod, flag, skill = ...
 		["slither_wither_stacks"] = {
 			flag("Condition:CanWither"),
 		},
+		["quality_display_withering_step_is_gem"] = {
+			-- Display only
+		},
 	},
 #baseMod flag("Condition:CanBeElusive", { type = "GlobalEffect", effectType = "Buff" })
 #baseMod skill("radius", 26)
@@ -2128,12 +2091,25 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill ChannelledSnipe
+#flags attack projectile channelRelease
+	statMap = {
+		["snipe_max_stacks"] = {
+			mod("Multiplier:SnipeStagesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+		["quality_display_snipe_is_gem"] = {
+			-- Display only
+		},
+	},
+#mods
+
+#skill ChannelledSnipeSupport
+#baseMod flag("TriggeredBySnipe")
+#mods
+
 #skill TemporalRift
 #flags spell
 	statMap = {
-		["chronomancer_buff_cooldown_speed_+%"] = {
-			mod("CooldownRecovery", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
-		},
 		["debuff_time_passed_+%"] = {
 			mod("SelfDebuffExpirationRate", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
 		},
@@ -2184,23 +2160,7 @@ local skills, mod, flag, skill = ...
 			mod("MaxLifeLeechRate", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 60,
 		},
-		["remora_link_grants_damage_+%_when_on_full_life"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Link" }, { type = "Condition", var = "FullLife" })
-		},
 	},
-#mods
-
-#skill ChannelledSnipe
-#flags attack projectile channelRelease
-	statMap = {
-		["snipe_max_stacks"] = {
-			mod("Multiplier:SnipeStagesMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
-		},
-	},
-#mods
-
-#skill ChannelledSnipeSupport
-#baseMod flag("TriggeredBySnipe")
 #mods
 
 #skill QuickstepHardMode

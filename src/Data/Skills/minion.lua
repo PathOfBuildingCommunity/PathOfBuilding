@@ -225,7 +225,7 @@ skills["IceElementalSpearSummoned"] = {
 	color = 3,
 	baseEffectiveness = 2.2813000679016,
 	incrementalEffectiveness = 0.034600000828505,
-	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, },
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -559,19 +559,18 @@ skills["ZombieSlam"] = {
 	},
 	constantStats = {
 		{ "active_skill_area_of_effect_radius_+%_final", 25 },
+		{ "active_skill_attack_speed_+%_final", -25 },
 	},
 	stats = {
-		"active_skill_attack_speed_+%_final",
-		"active_skill_damage_+%_final",
 		"is_area_damage",
 		"global_always_hit",
 	},
 	levels = {
-		[1] = { -30, -20, storedUses = 1, levelRequirement = 1, cooldown = 6, statInterpolation = { 1, 1, }, },
-		[2] = { -28, -10, storedUses = 1, levelRequirement = 12, cooldown = 6, statInterpolation = { 1, 1, }, },
-		[3] = { -26, 0, storedUses = 1, levelRequirement = 20, cooldown = 6, statInterpolation = { 1, 1, }, },
-		[4] = { -24, 10, storedUses = 1, levelRequirement = 33, cooldown = 6, statInterpolation = { 1, 1, }, },
-		[5] = { -22, 15, storedUses = 1, levelRequirement = 45, cooldown = 6, statInterpolation = { 1, 1, }, },
+		[1] = { baseMultiplier = 1.5, cooldown = 6, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 1, },
+		[2] = { baseMultiplier = 1.5, cooldown = 6, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 12, },
+		[3] = { baseMultiplier = 1.5, cooldown = 6, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 20, },
+		[4] = { baseMultiplier = 1.5, cooldown = 6, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 33, },
+		[5] = { baseMultiplier = 1.5, cooldown = 6, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 45, },
 	},
 }
 skills["SummonedSpiderViperStrike"] = {
@@ -611,7 +610,7 @@ skills["DancingDervishCycloneChannelled"] = {
 	name = "Cyclone",
 	hidden = true,
 	color = 4,
-	description = "Channel this skill to move towards a targeted location while spinning, building up stages while constantly attacking enemies in an area around you. While channelling this skill, you cannot be knocked back.",
+	description = "Channel this skill to move towards a targeted location while spinning constantly attacking enemies in an area around you. While channelling this skill, you cannot be knocked back.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Channel] = true, [SkillType.Physical] = true, },
 	weaponTypes = {
 		["None"] = true,
@@ -691,7 +690,7 @@ skills["HeraldOfAgonyMinionMortar"] = {
 	constantStats = {
 		{ "projectile_spread_radius", 20 },
 		{ "projectile_minimum_range", 10 },
-		{ "number_of_additional_projectiles", 5 },
+		{ "base_number_of_projectiles", 6 },
 		{ "active_skill_attack_speed_+%_final", -35 },
 		{ "main_hand_base_maximum_attack_distance", 50 },
 		{ "active_skill_area_of_effect_radius_+%_final", 20 },
@@ -699,7 +698,7 @@ skills["HeraldOfAgonyMinionMortar"] = {
 	stats = {
 		"is_area_damage",
 		"base_is_projectile",
-		"distribute_additional_projectiles_over_contact_points",
+		"distribute_projectiles_over_contact_points",
 		"visual_hit_effect_chaos_is_green",
 	},
 	levels = {
@@ -981,7 +980,7 @@ skills["AbsolutionMinion"] = {
 	color = 1,
 	baseEffectiveness = 1.9819999933243,
 	incrementalEffectiveness = 0.045299999415874,
-	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the corpse will be consumed to summon a Sentinel of Absolution for a secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
 	castTime = 0.75,
@@ -1009,7 +1008,7 @@ skills["AbsolutionMinionEmpowered"] = {
 	color = 1,
 	baseEffectiveness = 1.4865000247955,
 	incrementalEffectiveness = 0.045299999415874,
-	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the corpse will be consumed to summon a Sentinel of Absolution for a secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
 	castTime = 0.75,
@@ -1038,7 +1037,7 @@ skills["AbsolutionMinionVaal"] = {
 	color = 1,
 	baseEffectiveness = 0.92720001935959,
 	incrementalEffectiveness = 0.045299999415874,
-	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the corpse will be consumed to summon a Sentinel of Absolution for a secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
 	castTime = 1.5,
@@ -1065,7 +1064,7 @@ skills["AbsolutionMinionVaalCascade"] = {
 	color = 1,
 	baseEffectiveness = 1.4026999473572,
 	incrementalEffectiveness = 0.045299999415874,
-	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed to summon a Sentinel of Absolution for a longer secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
+	description = "Damages enemies in an area, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the corpse will be consumed to summon a Sentinel of Absolution for a secondary duration, or to refresh the duration and life of an existing one instead if you have the maximum number of them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.MinionsCanExplode] = true, [SkillType.CreatesMinion] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "minion_spell_damage_skill_stat_descriptions",
 	castTime = 1.5,
@@ -1298,7 +1297,7 @@ skills["BoneGolemLeapSlam"] = {
 	name = "Leap Slam",
 	hidden = true,
 	color = 4,
-	description = "Jump into the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
 	weaponTypes = {
 		["One Handed Mace"] = true,
@@ -1323,6 +1322,7 @@ skills["BoneGolemLeapSlam"] = {
 	},
 	constantStats = {
 		{ "active_skill_area_of_effect_radius_+%_final", 30 },
+		{ "active_skill_base_area_of_effect_radius", 15 },
 	},
 	stats = {
 		"is_area_damage",
@@ -1599,7 +1599,7 @@ skills["ReaperConsumeMinionForBuff"] = {
 	name = "Consume",
 	hidden = true,
 	color = 4,
-	skillTypes = { },
+	skillTypes = { [SkillType.Spell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
@@ -1642,4 +1642,46 @@ skills["MPWExpeditionSummonedArbalestProjectile"] = {
 	levels = {
 		[1] = { levelRequirement = 1, },
 	},
+}
+skills["BlinkMirrorArrowMelee"] = {
+	name = "Projectile Attack",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 1.75, baseMultiplier = 1.75, levelRequirement = 0, },
+	},
+}
+skills["SumonRagingSpiritMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+	},
+	levels = {
+        [1] = { 0, levelRequirement = 1, statInterpolation = { 2, }, },
+        [2] = { 0, levelRequirement = 4, statInterpolation = { 2, }, },
+        [3] = { 1, levelRequirement = 5, statInterpolation = { 2, }, },
+        [4] = { 45, levelRequirement = 84, statInterpolation = { 2, }, },
+    },
 }
