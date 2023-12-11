@@ -122,6 +122,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 	
 	if self.alternate_ascendancies then
+		self.secondaryAscendNameMap = { }
 		local alternate_ascendancies_class = { 
 			["name"]= "alternate_ascendancies",
 			["classes"]= self.alternate_ascendancies
@@ -133,6 +134,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				ascendClassId = ascendClassId,
 				ascendClass = ascendClass
 			}
+			self.secondaryAscendNameMap[ascendClass.id] = self.ascendNameMap[ascendClass.id]
 		end
 	end
 

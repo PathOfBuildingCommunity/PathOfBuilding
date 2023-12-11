@@ -474,7 +474,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 			overlay = isAlloc and node.startArt or "PSStartNodeBackgroundInactive"
 		elseif node.type == "AscendClassStart" then
 			overlay = treeVersions[tree.treeVersion].num >= 3.10 and "AscendancyMiddle" or "PassiveSkillScreenAscendancyMiddle"
-			if node.ascendancyName and (node.ascendancyName == "Warden" or node.ascendancyName == "Warlock" or node.ascendancyName == "Primalist") then
+			if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
 				overlay = "Azmiri"..overlay
 			end
 		else
@@ -541,7 +541,7 @@ function PassiveTreeViewClass:Draw(build, viewPort, inputEvents)
 				end
 				base = node.sprites[node.type:lower()..(isAlloc and "Active" or "Inactive")]
 				overlay = node.overlay[state .. (node.ascendancyName and "Ascend" or "") .. (node.isBlighted and "Blighted" or "")]
-				if node.ascendancyName and (node.ascendancyName == "Warden" or node.ascendancyName == "Warlock" or node.ascendancyName == "Primalist") then
+				if node.ascendancyName and tree.secondaryAscendNameMap and tree.secondaryAscendNameMap[node.ascendancyName] then
 					overlay = "Azmiri"..overlay
 				end
 			end
