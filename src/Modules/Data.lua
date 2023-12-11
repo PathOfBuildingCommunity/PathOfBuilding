@@ -672,7 +672,7 @@ data.itemTagSpecial = {
 			"Vaal Pact",
 			"Zealot's Oath",
 			-- Special Cases
-			"Cannot Leech",
+			"^Cannot Leech$",
 		},
 	},
 	["evasion"] = {
@@ -692,6 +692,8 @@ data.itemTagSpecialExclusionPattern = {
 			"Life as Extra Maximum Energy Shield",
 			"maximum Life as Fire Damage",
 			"when on Full Life",
+			"Enemy's life",
+			"Life From You",
 		},
 	},
 	["evasion"] = {
