@@ -10,6 +10,11 @@ local skills, mod, flag, skill = ...
 	fromItem = true,
 #mods
 
+#skill MinionSacrifice
+#flags spell area
+	fromTree = true,
+#mods
+
 #skill AnimateGuardianWeapon
 #flags spell minion duration
 	fromItem = true,
@@ -66,39 +71,6 @@ local skills, mod, flag, skill = ...
 		["max_barkskin_stacks"] = {
 			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-		},
-	},
-#mods
-
-#skill PenanceMark
-#flags spell curse duration mark
-	fromTree = true,
-#baseMod skill("debuff", true)
-#mods
-
-#skill MinionSacrifice
-#flags spell area
-	fromTree = true,
-#mods
-
-#skill Quieten
-#flags spell curse area duration hex
-	fromTree = true,
-#baseMod skill("debuff", true)
-#mods
-
-#skill Ravenous
-#flags spell
-	fromTree = true,
-	statMap = {
-		["ravenous_buff_magnitude"] = {
-			{
-				mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
-				mult = -1,
-			},
-			{
-				mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
-			},
 		},
 	},
 #mods
@@ -604,6 +576,12 @@ local skills, mod, flag, skill = ...
 #baseMod flag("CannotSplit")
 #mods
 
+#skill PenanceMark
+#flags spell curse duration mark
+	fromTree = true,
+#baseMod skill("debuff", true)
+#mods
+
 #skill PhysicalAegis
 #flags spell
 	fromItem = true,
@@ -628,6 +606,28 @@ local skills, mod, flag, skill = ...
 
 #skill PrimalAegis
 	fromTree = true,
+#mods
+
+#skill Quieten
+#flags spell curse area duration hex
+	fromTree = true,
+#baseMod skill("debuff", true)
+#mods
+
+#skill Ravenous
+#flags spell
+	fromTree = true,
+	statMap = {
+		["ravenous_buff_magnitude"] = {
+			{
+				mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
+				mult = -1,
+			},
+			{
+				mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
+			},
+		},
+	},
 #mods
 
 #skill TriggeredSummonSpider
