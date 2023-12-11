@@ -173,7 +173,7 @@ minions["SummonedRagingSpirit"] = {
 	accuracy = 3.4,
 	limit = "ActiveRagingSpiritLimit",
 	skillList = {
-		"Melee",
+		"SumonRagingSpiritMelee",
 	},
 	modList = {
 		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0), -- RagingSpiritConvertPhysToFire [base_physical_damage_%_to_convert_to_fire = 100]

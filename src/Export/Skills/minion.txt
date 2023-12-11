@@ -377,3 +377,7 @@ skills["GuardianSentinelFireAura"] = {
 #skill BlinkMirrorArrowMelee Projectile Attack
 #flags attack projectile
 #mods
+
+#skill SumonRagingSpiritMelee
+#flags attack melee
+#mods

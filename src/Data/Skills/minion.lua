@@ -1663,3 +1663,25 @@ skills["BlinkMirrorArrowMelee"] = {
 		[1] = { damageEffectiveness = 1.75, baseMultiplier = 1.75, levelRequirement = 0, },
 	},
 }
+skills["SumonRagingSpiritMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+	},
+	levels = {
+        [1] = { 0, levelRequirement = 1, statInterpolation = { 2, }, },
+        [2] = { 0, levelRequirement = 4, statInterpolation = { 2, }, },
+        [3] = { 1, levelRequirement = 5, statInterpolation = { 2, }, },
+        [4] = { 45, levelRequirement = 84, statInterpolation = { 2, }, },
+    },
+}
