@@ -45,6 +45,7 @@ local itemTypes = {
 	"belt",
 	"jewel",
 	"flask",
+	"tincture",
 }
 
 local function makeSkillMod(modName, modType, modVal, flags, keywordFlags, ...)
@@ -630,9 +631,11 @@ data.describeStats = LoadModule("Modules/StatDescriber")
 data.itemMods = {
 	Item = LoadModule("Data/ModItem"),
 	Flask = LoadModule("Data/ModFlask"),
+	Tincture = LoadModule("Data/ModTincture"),
 	Jewel = LoadModule("Data/ModJewel"),
 	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
+	JewelCharm = LoadModule("Data/ModJewelCharm"),
 }
 data.masterMods = LoadModule("Data/ModMaster")
 data.enchantments = {

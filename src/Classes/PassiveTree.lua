@@ -455,27 +455,31 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	-- Precalculate the lists of nodes that are within each radius of each socket
 	for nodeId, socket in pairs(self.sockets) do
-		socket.nodesInRadius = { }
-		socket.attributesInRadius = { }
-		for radiusIndex, _ in ipairs(data.jewelRadius) do
-			socket.nodesInRadius[radiusIndex] = { }
-			socket.attributesInRadius[radiusIndex] = { }
-		end
+		if socket.name == "Charm Socket" then
+			socket.charmSocket = true
+		else
+			socket.nodesInRadius = { }
+			socket.attributesInRadius = { }
+			for radiusIndex, _ in ipairs(data.jewelRadius) do
+				socket.nodesInRadius[radiusIndex] = { }
+				socket.attributesInRadius[radiusIndex] = { }
+			end
 
-		local minX, maxX = socket.x - data.maxJewelRadius, socket.x + data.maxJewelRadius
-		local minY, maxY = socket.y - data.maxJewelRadius, socket.y + data.maxJewelRadius
+			local minX, maxX = socket.x - data.maxJewelRadius, socket.x + data.maxJewelRadius
+			local minY, maxY = socket.y - data.maxJewelRadius, socket.y + data.maxJewelRadius
 
-		for _, node in pairs(self.nodes) do
-			if node.x and node.x >= minX and node.x <= maxX and node.y and node.y >= minY and node.y <= maxY
-				and node ~= socket and not node.isBlighted and node.group and not node.isProxy
-				and not node.group.isProxy and not node.isMastery then
-					local vX, vY = node.x - socket.x, node.y - socket.y
-					local distSquared = vX * vX + vY * vY
-					for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
-						if distSquared <= radiusInfo.outerSquared and radiusInfo.innerSquared <= distSquared then
-							socket.nodesInRadius[radiusIndex][node.id] = node
+			for _, node in pairs(self.nodes) do
+				if node.x and node.x >= minX and node.x <= maxX and node.y and node.y >= minY and node.y <= maxY
+					and node ~= socket and not node.isBlighted and node.group and not node.isProxy
+					and not node.group.isProxy and not node.isMastery then
+						local vX, vY = node.x - socket.x, node.y - socket.y
+						local distSquared = vX * vX + vY * vY
+						for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+							if distSquared <= radiusInfo.outerSquared and radiusInfo.innerSquared <= distSquared then
+								socket.nodesInRadius[radiusIndex][node.id] = node
+							end
 						end
-					end
+				end
 			end
 		end
 	end

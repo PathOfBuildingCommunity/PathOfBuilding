@@ -287,6 +287,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/Items/Equipment.it",
 		"Metadata/Items/Weapons/AbstractWeapon.it",
 		"Metadata/Items/Tinctures/AbstractTincture.it",
+		"Metadata/Items/Jewels/AbstractAnimalCharm.it",
 	}
 	return datFiles, txtFiles, itFiles
 end

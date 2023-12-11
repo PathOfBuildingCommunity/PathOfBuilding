@@ -1863,6 +1863,12 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		local node = self.build.spec.tree.nodes[tonumber(slotId)] or self.build.spec.nodes[tonumber(slotId)]
 		if not node or item.type ~= "Jewel" then
 			return false
+		elseif node.charmSocket or item.base.subType == "Charm" then
+			-- Charm sockets can only have charms, and charms can only be in charm sockets
+			if node.charmSocket and item.base.subType == "Charm" then
+				return true
+			end
+			return false
 		elseif item.clusterJewel and not node.expansionJewel then
 			-- Don't allow cluster jewels in inner sockets
 			return false
@@ -1874,6 +1880,8 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 			return not item.clusterJewel or item.clusterJewel.sizeIndex <= node.expansionJewel.size
 		end
 	elseif item.type == slotType then
+		return true
+	elseif item.type == "Tincture" and slotType == "Flask" then
 		return true
 	elseif item.type == "Jewel" and item.base.subType == "Abyss" and slotName:match("Abyssal Socket") then
 		return true
@@ -1922,7 +1930,10 @@ function ItemsTabClass:CraftItem()
 		item.crucibleModLines = { }
 		item.quality = 0
 		local raritySel = controls.rarity.selIndex
-		if base.base.flask then
+		if base.base.flask
+				or (base.base.type == "Jewel" and base.base.subType == "Charm")
+		 		or base.base.type == "Tincture"
+		then
 			if raritySel == 3 then
 				raritySel = 2
 			end
