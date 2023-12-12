@@ -1205,6 +1205,7 @@ return {
 },
 ["base_number_of_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),
+	base = -1,
 },
 ["projectile_damage_+%_per_remaining_chain"] = {
 	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" }),
