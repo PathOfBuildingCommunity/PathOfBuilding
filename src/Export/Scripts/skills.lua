@@ -121,19 +121,6 @@ local skillTypes = {
 	"NoVolley",
 }
 
-local wellShitIGotThoseWrong = {
-	-- Serves me right for not paying attention (not that I've gotten them all right anyway)
-	-- Let's just sweep these under the carpet so we don't break everyone's shiny new builds
-	["Metadata/Items/Gems/SkillGemSmite"] = "Metadata/Items/Gems/Smite",
-	["Metadata/Items/Gems/SkillGemConsecratedPath"] = "Metadata/Items/Gems/ConsecratedPath",
-	["Metadata/Items/Gems/SkillGemVaalAncestralWarchief"] = "Metadata/Items/Gems/VaalAncestralWarchief",
-	["Metadata/Items/Gems/SkillGemHeraldOfAgony"] = "Metadata/Items/Gems/HeraldOfAgony",
-	["Metadata/Items/Gems/SkillGemHeraldOfPurity"] = "Metadata/Items/Gems/HeraldOfPurity",
-	["Metadata/Items/Gems/SkillGemScourgeArrow"] = "Metadata/Items/Gems/ScourgeArrow",
-	["Metadata/Items/Gems/SkillGemToxicRain"] = "Metadata/Items/Gems/RainOfSpores",
-	["Metadata/Items/Gems/SkillGemSummonRelic"] = "Metadata/Items/Gems/SummonRelic",
-}
-
 -- This is here to fix name collisions like in the case of Barrage
 local fullNameGems = {
 	["Metadata/Items/Gems/SupportGemBarrage"] = true,
@@ -783,7 +770,7 @@ out:write('-- Gem data (c) Grinding Gear Games\n\nreturn {\n')
 for skillGem in dat("SkillGems"):Rows() do
 	for _, gemEffect in ipairs(skillGem.GemVariants) do
 		if gems[gemEffect.Id] then
-			out:write('\t["', wellShitIGotThoseWrong[skillGem.BaseItemType.Id] or "Metadata/Items/Gems/SkillGem" .. gemEffect.Id, '"] = {\n')
+			out:write('\t["', "Metadata/Items/Gems/SkillGem" .. gemEffect.Id, '"] = {\n')
 			out:write('\t\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or trueGemNames[gemEffect.Id] or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			out:write('\t\tgrantedEffectId = "', gemEffect.GrantedEffect.Id, '",\n')
 			if gemEffect.GrantedEffect2 then
