@@ -1199,13 +1199,17 @@ return {
 },
 ["base_number_of_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),
+	base = -1,
 },
-["number_of_additional_projectiles"] = {
+["number_of_additional_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),
 },
 ["base_number_of_projectiles"] = {
 	mod("ProjectileCount", "BASE", nil),
 	base = -1,
+},
+["number_of_additional_projectiles"] = {
+	mod("ProjectileCount", "BASE", nil),
 },
 ["projectile_damage_+%_per_remaining_chain"] = {
 	mod("Damage", "INC", nil, ModFlag.Projectile, 0, { type = "PerStat", stat = "ChainRemaining" }),
