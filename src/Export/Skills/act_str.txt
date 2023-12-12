@@ -433,6 +433,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill EarthquakeAltX
+#flags attack melee area duration
+#mods
+
 #skill VaalEarthquake
 #flags attack melee area duration
 	parts = {
@@ -1442,6 +1446,24 @@ local skills, mod, flag, skill = ...
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 			div = 60,
 		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonRockGolemAltX
+#flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedStoneGolem",
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonRockGolemAltY
+#flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedStoneGolem",
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HavePhysicalGolem", { type = "GlobalEffect", effectType = "Buff" })

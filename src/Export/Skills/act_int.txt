@@ -379,6 +379,16 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 26)
 #mods
 
+#skill BlightAltX
+#flags spell duration area
+#baseMod skill("debuff", true)
+#mods
+
+#skill BlightAltY
+#flags spell duration area
+#baseMod skill("debuff", true)
+#mods
+
 #skill VaalBlight
 #flags spell duration area
 	statMap = {
@@ -518,6 +528,16 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill Contagion
+#flags spell area duration
+#baseMod skill("debuff", true)
+#mods
+
+#skill ContagionAltX
+#flags spell area duration
+#baseMod skill("debuff", true)
+#mods
+
+#skill ContagionAltY
 #flags spell area duration
 #baseMod skill("debuff", true)
 #mods
@@ -762,6 +782,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #baseMod skill("showAverage", true)
 #baseMod skill("radius", 8)
+#mods
+
+#skill EssenceDrainAltX
+#flags spell projectile duration
+#mods
+
+#skill EssenceDrainAltY
+#flags spell projectile duration
 #mods
 
 #skill EyeOfWinter
@@ -1125,6 +1153,14 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("debuffSecondary", true)
+#mods
+
+#skill FrostBombAltX
+#flags spell area duration
+#mods
+
+#skill FrostBombAltY
+#flags spell area duration
 #mods
 
 #skill FrostGlobe

@@ -312,6 +312,10 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveBladeVortex")
 #mods
 
+#skill BladeVortexAltX
+#flags spell area duration
+#mods
+
 #skill VaalBladeVortex
 #flags spell area duration
 	preDamageFunc = function(activeSkill, output)
@@ -344,6 +348,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Volley Width:")
 #baseMod skill("radiusSecondary", 12)
 #baseMod skill("radiusSecondaryLabel", "Volley Length:")
+#mods
+
+#skill BladefallAltX
+#flags spell area
+#mods
+
+#skill BladefallAltY
+#flags spell area
 #mods
 
 #skill BlastRain
@@ -1192,6 +1204,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 28)
 #mods
 
+#skill ShrapnelShotAltX
+#flags attack projectile area
+#mods
+
+#skill ShrapnelShotAltY
+#flags attack projectile area
+#mods
+
 #skill Grace
 #flags spell aura area
 	statMap = {
@@ -1333,6 +1353,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "First Explosion:")
 #baseMod skill("radiusSecondaryLabel", "Second Explosion:")
 #baseMod skill("radiusTertiaryLabel", "Third Explosion:")
+#mods
+
+#skill IceTrapAltX
+#flags spell trap area
 #mods
 
 #skill DoubleSlash
@@ -1946,6 +1970,10 @@ local skills, mod, flag, skill = ...
 #baseMod flag("ProjectileRain")
 #mods
 
+#skill SiegeBallistaAltX
+#flags attack projectile totem ballista
+#mods
+
 #skill SmokeMine
 #flags spell mine area buff
 	statMap = {
@@ -2238,6 +2266,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } })
 #baseMod mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } })
 #baseMod skill("radius", 24, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill WildStrikeAltX
+#flags attack melee projectile chaining area
 #mods
 
 #skill Slither
