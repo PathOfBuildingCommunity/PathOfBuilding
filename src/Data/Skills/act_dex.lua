@@ -11381,7 +11381,7 @@ skills["SiegeBallista"] = {
 skills["SiegeBallistaAltX"] = {
 	name = "Siege Ballista of Splintering",
 	color = 2,
-	description = "Summons a ballista totem that attacks with forking arrows. Requires a Bow.",
+	description = "Summons a ballista totem that attacks with forking arrows.\nRequires a Bow.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RangedAttack] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.AttackInPlaceIsDefault] = true, [SkillType.TotemsAreBallistae] = true, },
 	weaponTypes = {
 		["Bow"] = true,
