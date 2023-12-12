@@ -1497,6 +1497,34 @@ local skills, mod, flag, skill = ...
 #baseMod mod("Multiplier:SunderWaveArea", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill NewSunderAltX
+#flags attack melee area
+	parts = {
+		{
+			name = "First Wave Area",
+		},
+		{
+			name = "Final Wave Area",
+		},
+		{
+			name = "Shockwaves",
+		},
+	},
+	statMap = {
+		["shockwave_slam_explosion_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		},
+		["active_skill_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil),
+		},
+		["sunder_wave_radius_+_per_step"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "SunderWaveArea" }),
+		},
+	},
+#baseMod skill("radius", 12)
+#baseMod mod("Multiplier:SunderWaveArea", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 })
+#mods
+
 #skill Sweep
 #flags attack melee area
 #baseMod skill("radius", 24)
@@ -1507,6 +1535,22 @@ local skills, mod, flag, skill = ...
 	statMap = {
 		["active_skill_area_of_effect_+%_final_per_endurance_charge"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
+		},
+	},
+#baseMod skill("radius", 15)
+#baseMod skill("radiusLabel", "Fissure Length:")
+#baseMod skill("radiusSecondary", 7)
+#baseMod skill("radiusSecondaryLabel", "Fissure Width:")
+#mods
+
+#skill EnduranceChargeSlamAltX
+#flags attack melee area
+	statMap = {
+        ["tectonic_slam_area_of_effect_+%_final_per_endurance_charge_consumed"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
+		},
+        ["quality_display_alternate_tectonic_slam_is_gem"] = {
+			-- Display only
 		},
 	},
 #baseMod skill("radius", 15)
