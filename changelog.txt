@@ -1,3 +1,29 @@
+VERSION[2.37.0][2023/12/12]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Add support for new Uniques (LocalIdentity)
+  * The Adorned
+  * The Burden of Shadows
+  * Nametaker
+* Fix parsing for changed mod names (LocalIdentity)
+  * Storm Secret
+  * Umbilicus Immortalis
+  * Replica Infractem
+  * Dead Reckoning
+
+--- User Interface ---
+* Change Manastorm config option to not overrun options box (Ivniinvi)
+
+--- Fixed Bugs ---
+* Fix Projectile count being 1 higher on all skills (LocalIdentity)
+* Fix Ascendant nodes counting towards allocated passive skill total (Regisle)
+* Fix Pyroclast Mine Aura Effect scaling Maximum Added Flat Damage (LocalIdentity)
+* Fix Herald of Agony quality not working (LocalIdentity)
+* Fix error when using Trader making you unable to search for item (LocalIdentity)
+* Fix parsing for Necromancer Offering charm not working (LocalIdentity)
+* Fix ES from Tricksters Escape Artist when using Oath of the Maji (LocalIdentity)
+
+
 VERSION[2.36.1][2023/12/11]
 
 --- Fixed Crashes ---
