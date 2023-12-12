@@ -209,6 +209,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("BleedChance", "BASE", 100, ModFlag.Attack, 0, { type = "Condition", var = "BloodStance" }, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill BladestormAltX
+#flags attack melee area duration
+#mods
+
 #skill BloodSandStance
 #flags spell
 	statMap = {
@@ -309,6 +313,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 23)
+#mods
+
+#skill ConsecratedPathAltX
+#flags attack melee area duration
 #mods
 
 #skill CorruptingFever
@@ -482,6 +490,14 @@ local skills, mod, flag, skill = ...
 		}
 	},
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
+#mods
+
+#skill SpikeSlamAltX
+#flags attack melee area duration
+#mods
+
+#skill SpikeSlamAltY
+#flags attack melee area duration
 #mods
 
 #skill EnduringCry
@@ -1035,6 +1051,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 8, { type = "Condition", var = "BloodStance" })
 #mods
 
+#skill BloodSpearsAltX
+#flags attack melee area
+#mods
+
+#skill BloodSpearsAltY
+#flags attack melee area
+#mods
+
 #skill PetrifiedBlood
 	statMap = {
 		["skill_grants_life_cost_%_mana_cost_while_not_on_low_life"] = {
@@ -1272,6 +1296,10 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radiusLabel", "Lightning Strike area:")
 #baseMod skill("radiusSecondaryLabel", "Aura area:")
+#mods
+
+#skill SmiteAltX
+#flags attack melee area
 #mods
 
 #skill VaalSmite

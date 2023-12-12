@@ -205,6 +205,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastStage" })
 #mods
 
+#skill BladeBlastAltX
+#flags spell area
+#mods
+
+#skill BladeBlastAltY
+#flags spell area
+#mods
+
 #skill BladeTrap
 #flags attack area trap
 #mods
@@ -1195,6 +1203,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusTertiaryLabel", "Secondary Explosion:")
 #mods
 
+#skill ShrapnelTrapAltY
+#flags spell trap area
+#mods
+
 #skill FireTrap
 #flags spell trap area duration
 #baseMod skill("dotIsArea", true)
@@ -1559,6 +1571,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill LancingSteelAltX
+#flags attack projectile
+#mods
+
 #skill LightningArrow
 #flags attack projectile
 	statMap = {
@@ -1905,6 +1921,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill ScourgeArrowAltX
+#flags attack projectile
+#mods
+
 #skill ShatteringSteel
 #flags attack projectile area
 	parts = {
@@ -1928,6 +1948,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 28)
+#mods
+
+#skill ShatteringSteelAltX
+#flags attack projectile area
 #mods
 
 #skill PhysCascadeTrap
@@ -2090,6 +2114,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Small Burst:")
 #mods
 
+#skill PhysCascadeTrapAltX
+#flags spell area trap
+#mods
+
 #skill ShrapnelBallista
 #flags attack projectile totem ballista
 	preDamageFunc = function(activeSkill, output)
@@ -2101,6 +2129,10 @@ local skills, mod, flag, skill = ...
 			activeSkill.skillModList:NewMod("DPS", "MORE", splitCount * 100, "Split Return", 0, { type = "Condition", var = "ReturningProjectile" })
 		end
 	end,
+#mods
+
+#skill ShrapnelBallistaAltX
+#flags attack projectile totem ballista
 #mods
 
 #skill SiegeBallista
@@ -2177,6 +2209,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Pod Area:")
 #mods
 
+#skill RainOfSporesAltX
+#flags attack projectile area duration
+#mods
+
+#skill RainOfSporesAltY
+#flags attack projectile area duration
+#mods
+
 #skill SpectralHelix
 #flags attack projectile bounce
 	statMap = {
@@ -2207,6 +2247,10 @@ local skills, mod, flag, skill = ...
 			flag("AdditionalProjectilesAddSplitsInstead")
 		},
 	},
+#mods
+
+#skill ImpactingSteelAltX
+#flags attack projectile area
 #mods
 
 #skill SummonIceGolem
