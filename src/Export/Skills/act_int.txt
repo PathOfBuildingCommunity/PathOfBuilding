@@ -810,6 +810,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill EyeOfWinterAltX
+#flags spell projectile
+#mods
+
+#skill EyeOfWinterAltY
+#flags spell projectile
+#mods
+
 #skill Fireball
 #flags spell projectile
 	parts = {
@@ -1130,6 +1138,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 8)
 #mods
 
+#skill ForbiddenRiteAltX
+#flags spell projectile area
+#mods
+
 #skill FreezingPulse
 #flags spell projectile
 	preDamageFunc = function(activeSkill, output)
@@ -1250,6 +1262,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 19)
+#mods
+
+#skill GalvanicFieldAltX
+#flags spell duration chaining
 #mods
 
 #skill IceDash
@@ -1733,6 +1749,10 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radiusLabel", "Targeting range:")
+#mods
+
+#skill LightningConduitAltX
+#flags spell
 #mods
 
 #skill LightningTendrilsChannelled
@@ -2509,6 +2529,20 @@ local skills, mod, flag, skill = ...
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
 			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
+	},
+#mods
+
+#skill SummonReaperAltX
+#flags spell minion
+	minionList = {
+		"SummonedReaper",
+	},
+#mods
+
+#skill SummonReaperAltY
+#flags spell minion
+	minionList = {
+		"SummonedReaper",
 	},
 #mods
 
