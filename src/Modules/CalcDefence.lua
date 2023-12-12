@@ -275,18 +275,30 @@ function calcs.defence(env, actor)
 		if armourData then
 			wardBase = armourData.Ward or 0
 			if wardBase > 0 then
+				if slot == "Body Armour" and modDB:Flag(nil, "DoubleBodyArmourDefence") then
+					wardBase = wardBase * 2
+				end
 				output["WardOn"..slot] = wardBase
 			end
 			energyShieldBase = armourData.EnergyShield or 0
 			if energyShieldBase > 0 then
+				if slot == "Body Armour" and modDB:Flag(nil, "DoubleBodyArmourDefence") then
+					energyShieldBase = energyShieldBase * 2
+				end
 				output["EnergyShieldOn"..slot] = energyShieldBase
 			end
 			armourBase = armourData.Armour or 0
 			if armourBase > 0 then
+				if slot == "Body Armour" and (modDB:Flag(nil, "Unbreakable") or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
+					armourBase = armourBase * 2
+				end
 				output["ArmourOn"..slot] = armourBase
 			end
 			evasionBase = armourData.Evasion or 0
 			if evasionBase > 0 then
+				if slot == "Body Armour" and ((modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes")) or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
+					evasionBase = evasionBase * 2
+				end
 				output["EvasionOn"..slot] = evasionBase
 			end
 		end
