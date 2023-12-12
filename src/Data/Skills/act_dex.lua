@@ -5152,6 +5152,9 @@ skills["HeraldOfAgony"] = {
 		["scorpion_minion_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
+		["maximum_virulence_stacks"] = {
+			mod("Multiplier:VirulenceStacksMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectName = "Virulence Stack Limit", unscalable = true }),
+		},
 		["quality_display_herald_of_agony_is_gem"] = {
 			-- Display only
 		},
