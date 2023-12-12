@@ -443,6 +443,47 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 14)
 #mods
 
+#skill CorpseWarpAltX
+#flags spell area
+	parts = {
+		{
+			name = "Self Explosion",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 1 then
+			local skillData = activeSkill.skillData
+			if activeSkill.skillFlags.totem then
+				skillData.FireBonusMin = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+				skillData.FireBonusMax = output.TotemLife * skillData.selfFireExplosionLifeMultiplier
+			else
+				skillData.FireBonusMin = output.Life * skillData.selfFireExplosionLifeMultiplier
+				skillData.FireBonusMax = output.Life * skillData.selfFireExplosionLifeMultiplier
+			end
+		end
+	end,
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["corpse_warp_area_of_effect_+%_final_when_consuming_minion"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
+#baseMod skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 })
+#baseMod skill("radius", 14)
+#mods
+
 #skill BoneOffering
 #flags spell duration
 	statMap = {
@@ -2140,6 +2181,36 @@ local skills, mod, flag, skill = ...
 #baseMod flag("DotCanStackAsTotems")
 #mods
 
+#skill FireBeamAltX
+#flags spell duration
+	parts = {
+		{
+			name = "Manual Stages",
+			stages = true,
+		},
+		{
+			name = "Maximum Stages",
+		},
+	},
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Fire Exposure", effectCond = "ScorchingRayMaxStages" }),
+		},
+		["fire_beam_additional_stack_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
+			base = 100
+		},
+		["display_max_fire_beam_stacks"] = {
+			mod("Multiplier:ScorchingRayMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+		},
+		["quality_display_firebeam_is_gem"] = {
+			-- Display only
+		},
+	},
+#baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 })
+#baseMod flag("DotCanStackAsTotems")
+#mods
+
 #skill ShockNova
 #flags spell area
 	parts = {
@@ -2647,6 +2718,21 @@ local skills, mod, flag, skill = ...
 	end,
 	statMap = {
 		["active_skill_damage_+%_when_cast_on_frostbolt"] = {
+			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+		},
+	},
+#baseMod skill("dotIsArea", true)
+#baseMod skill("radiusLabel", "Initial Hit:")
+#baseMod skill("radiusSecondaryLabel", "Ground Degen:")
+#mods
+
+#skill FrostBoltNovaAltX
+#flags spell area duration forceInstant
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+	end,
+	statMap = {
+		["active_skill_if_used_through_frostbolt_damage_+%_final"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 		},
 	},
