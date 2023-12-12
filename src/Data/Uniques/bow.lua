@@ -316,7 +316,7 @@ Adds (25-35) to (36-45) Physical Damage
 +(350-400) to Accuracy Rating
 Cannot Leech Mana
 Projectiles from Attacks Fork
-Projectiles from Attacks Fork an additional time
+Projectiles from Attacks can Fork 1 additional time
 ]],[[
 Iron Commander
 Death Bow

@@ -1725,6 +1725,7 @@ Huge sets the radius to 11.
 			enemyModList:NewMod("Condition:RareOrUnique", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("AilmentThreshold", "MORE", 488, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
+			modList:NewMod("Multiplier:EnemyPower", "BASE", 20, "Boss")
 
 			local defaultEleResist = 40
 			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultEleResist, true)
@@ -1759,6 +1760,7 @@ Huge sets the radius to 11.
 			enemyModList:NewMod("Condition:PinnacleBoss", "FLAG", true, "Config", { type = "Condition", var = "Effective" })
 			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
+			modList:NewMod("Multiplier:EnemyPower", "BASE", 20, "Boss")
 
 			local defaultEleResist = 50
 			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultEleResist, true)
@@ -1792,6 +1794,7 @@ Huge sets the radius to 11.
 			enemyModList:NewMod("DamageTaken", "MORE", -70, "Boss")
 			enemyModList:NewMod("AilmentThreshold", "MORE", 404, "Boss")
 			modList:NewMod("WarcryPower", "BASE", 20, "Boss")
+			modList:NewMod("Multiplier:EnemyPower", "BASE", 20, "Boss")
 
 			local defaultEleResist = 50
 			build.configTab.varControls['enemyLightningResist']:SetPlaceholder(defaultEleResist, true)

@@ -144,7 +144,7 @@ Implicits: 1
 {tags:life}+(60-80) to Maximum Life
 Every 5 seconds, gain one of the following for 5 seconds:
 Your Hits are always Critical Strikes
-Hits against you always are Critical Strikes
+Hits against you are always Critical Strikes
 Attacks cannot Hit you
 Attacks against you always Hit
 Your Damage with Hits is Lucky
@@ -878,7 +878,7 @@ Implicits: 1
 {tags:life}(8-12)% increased maximum Life
 {tags:life}Regenerate 2% of Life per second
 Flasks do not apply to you
-Flasks apply to your Raised Zombies and Spectres
+Flasks you Use apply to your Raised Zombies and Spectres
 ]],[[
 Wurm's Molt
 Leather Belt
