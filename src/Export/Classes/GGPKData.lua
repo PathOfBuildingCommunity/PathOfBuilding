@@ -174,7 +174,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/StatInterpolationTypes.dat",
 		"Data/Tags.dat",
 		"Data/GemTags.dat",
-		"Data/gemitemvisualeffect.dat",
+		"Data/GemItemVisualEffect.dat",
 		"Data/ItemVisualIdentity.dat",
 		"Data/AchievementItems.dat",
 		"Data/MultiPartAchievements.dat",
@@ -182,7 +182,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/AlternatePassiveAdditions.dat",
 		"Data/AlternatePassiveSkills.dat",
 		"Data/AlternateTreeVersions.dat",
-		"Data/GrantedEffectQualityTypes.dat",
 		"Data/GrantedEffectQualityStats.dat",
 		"Data/GrantedEffectGroups.dat",
 		"Data/AegisVariations.dat",
@@ -214,7 +213,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/passiveskilltattootargetsets.dat",
 		"Data/displayminionmonstertype.dat",
 		"Data/tinctures.dat",
-		"Data/gemeffects.dat",
+		"Data/GemEffects.dat",
 		"Data/actiontypes.dat",
 		"Data/azmerilifescalingperlevel.dat",
 		"Data/azmerifeaturerooms.dat",
@@ -287,6 +286,7 @@ function GGPKClass:GetNeededFiles()
 		"Metadata/Items/Equipment.it",
 		"Metadata/Items/Weapons/AbstractWeapon.it",
 		"Metadata/Items/Tinctures/AbstractTincture.it",
+		"Metadata/Items/Jewels/AbstractAnimalCharm.it",
 	}
 	return datFiles, txtFiles, itFiles
 end

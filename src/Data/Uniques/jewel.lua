@@ -860,7 +860,7 @@ Radius: Medium
 {variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
 {variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 {variant:3}With at least 40 Intelligence in Radius, can summon up to 15 Skeleton Mages with Summon Skeletons
-{variant:4}Summoned Skeletons gain Added Chaos Damage equal to (20-30)% of Maximum Energy Shield on your Equipped Shield
+{variant:4}Skeletons gain Added Chaos Damage equal to (20-30)% of Maximum Energy Shield on your Equipped Shield
 ]],[[
 Fight for Survival
 Viridian Jewel

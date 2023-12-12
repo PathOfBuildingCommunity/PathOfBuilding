@@ -20,13 +20,6 @@ skills["SupportAddedFireDamage"] = {
 		Default = {
 			{ "fire_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "fire_damage_+%", -1 },
-			{ "fire_dot_multiplier_+", 1 },
-		},
-		Alternate2 = {
-			{ "skill_physical_damage_%_to_convert_to_fire", 1 },
-		},
 	},
 	stats = {
 		"physical_damage_%_to_add_as_fire",
@@ -133,13 +126,7 @@ skills["SupportSpiritStrike"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "melee_range_+", 0.2 },
+			{ "extra_target_targeting_distance_+%", 0.75 },
 		},
 	},
 	constantStats = {
@@ -209,7 +196,7 @@ skills["SupportAncestralCallPlus"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_damage_+%", 0.5 },
+			{ "extra_target_targeting_distance_+%", 0.75 },
 		},
 	},
 	constantStats = {
@@ -257,13 +244,7 @@ skills["SupportBehead"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_range_+", 0.1 },
-		},
-		Alternate1 = {
-			{ "damage_vs_enemies_on_low_life_+%", 1.5 },
-		},
-		Alternate2 = {
-			{ "support_executioner_refresh_stolen_mod_on_hitting_rare_or_unique_monster_chance_%", 0.5 },
+			{ "damage_vs_enemies_on_low_life_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -329,12 +310,6 @@ skills["SupportBloodMagic"] = {
 	qualityStats = {
 		Default = {
 			{ "aura_effect_+%", 0.25 },
-		},
-		Alternate1 = {
-			{ "base_life_reservation_efficiency_+%", 0.2 },
-		},
-		Alternate2 = {
-			{ "damage_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -409,12 +384,6 @@ skills["SupportBloodthirst"] = {
 		Default = {
 			{ "damage_+%_when_on_low_life", 1 },
 		},
-		Alternate1 = {
-			{ "accuracy_rating_+%_when_on_low_life", 0.5 },
-		},
-		Alternate2 = {
-			{ "damage_vs_enemies_on_low_life_+%", 1.5 },
-		},
 	},
 	constantStats = {
 		{ "blood_price_gain_%_maximum_life_as_added_physical_damage_with_weapons_while_on_low_life", 2 },
@@ -483,12 +452,6 @@ skills["SupportBloodlust"] = {
 		Default = {
 			{ "melee_damage_vs_bleeding_enemies_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "crush_for_2_seconds_on_hit_%_chance", 0.5 },
-		},
-		Alternate2 = {
-			{ "refresh_bleeding_duration_on_hit_%_chance", 0.5 },
-		},
 	},
 	stats = {
 		"support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies",
@@ -554,12 +517,6 @@ skills["SupportBrutality"] = {
 	qualityStats = {
 		Default = {
 			{ "physical_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "bleed_on_hit_with_attacks_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "enemy_phys_reduction_%_penalty_vs_hit", 0.25 },
 		},
 	},
 	stats = {
@@ -680,12 +637,6 @@ skills["SupportIncreasedBurningDamage"] = {
 		Default = {
 			{ "burn_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "ignite_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "non_damaging_ailment_effect_+%", 2 },
-		},
 	},
 	stats = {
 		"support_burning_damage_+%_final",
@@ -798,12 +749,6 @@ skills["SupportCastOnMeleeKill"] = {
 		Default = {
 			{ "attack_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "attack_damage_+%", 3 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	constantStats = {
 		{ "cast_linked_spells_on_melee_kill_%", 100 },
@@ -872,12 +817,6 @@ skills["SupportCastOnMeleeKillTriggered"] = {
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate2 = {
-			{ "base_cooldown_speed_+%", 1 },
 		},
 	},
 	stats = {
@@ -949,13 +888,7 @@ skills["SupportCastOnDamageTaken"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "cast_when_damage_taken_trigger_threshold_+%", -1 },
+			{ "cast_when_damage_taken_trigger_threshold_+%", -0.5 },
 		},
 	},
 	constantStats = {
@@ -1031,12 +964,6 @@ skills["SupportChanceToBleed"] = {
 		Default = {
 			{ "bleeding_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_bleed_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "added_damage_+%_final", 1 },
-		},
 	},
 	constantStats = {
 		{ "bleed_on_hit_with_attacks_%", 25 },
@@ -1102,13 +1029,6 @@ skills["SupportColdToFire"] = {
 	qualityStats = {
 		Default = {
 			{ "cold_damage_+%", 0.5 },
-			{ "fire_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "skill_cold_damage_%_to_convert_to_fire", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_poison_damage_+%", 3 },
 		},
 	},
 	constantStats = {
@@ -1187,13 +1107,6 @@ skills["SupportControlledBlaze"] = {
 		Default = {
 			{ "base_chance_to_ignite_%", 0.5 },
 		},
-		Alternate1 = {
-			{ "ignite_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "faster_burn_%", 0.5 },
-			{ "attack_speed_+%", -0.5 },
-		},
 	},
 	stats = {
 		"support_recent_ignites_ignite_damage_per_recent_ignite_+%_final",
@@ -1247,7 +1160,7 @@ skills["SupportControlledBlaze"] = {
 }
 skills["SupportCorruptingCry"] = {
 	name = "Corrupting Cry",
-	description = "Supports warcry skills.",
+	description = "Supports warcry skills. Cannot modify the skills of minions.",
 	color = 1,
 	baseEffectiveness = 0.64999997615814,
 	incrementalEffectiveness = 0.050000000745058,
@@ -1255,6 +1168,7 @@ skills["SupportCorruptingCry"] = {
 	requireSkillTypes = { SkillType.Warcry, },
 	addSkillTypes = { SkillType.DamageOverTime, SkillType.Duration, },
 	excludeSkillTypes = { },
+	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_corrupting_cry_corrupted_blood_base_physical_damage_to_deal_per_minute"] = {
@@ -1284,12 +1198,6 @@ skills["SupportCorruptingCry"] = {
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_life_cost_+%", -0.5 },
 		},
 	},
 	constantStats = {
@@ -1370,12 +1278,6 @@ skills["SupportCruelty"] = {
 		Default = {
 			{ "cruelty_effect_+%", 0.25 },
 		},
-		Alternate1 = {
-			{ "critical_strike_chance_+%", 1 },
-		},
-		Alternate2 = {
-			{ "cruelty_duration_+%", 1 },
-		},
 	},
 	constantStats = {
 		{ "support_base_cruelty_duration_ms", 4000 },
@@ -1447,12 +1349,6 @@ skills["SupportMeleeDamageOnFullLife"] = {
 		Default = {
 			{ "damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_life_leech_from_attack_damage_permyriad", 2.5 },
-		},
-		Alternate2 = {
-			{ "damage_+%_vs_enemies_on_full_life", 2 },
-		},
 	},
 	stats = {
 		"support_damage_while_on_full_life_+%_final",
@@ -1518,12 +1414,6 @@ skills["SupportAuraDuration"] = {
 	qualityStats = {
 		Default = {
 			{ "aura_effect_+%", 0.25 },
-		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_mana_cost_-%", 0.25 },
 		},
 	},
 	constantStats = {
@@ -1605,12 +1495,6 @@ skills["SupportEarthbreaker"] = {
 		Default = {
 			{ "totem_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "ancestor_totem_buff_effect_+%", 1 },
-		},
-		Alternate2 = {
-			{ "ancestor_totem_parent_activation_range_+%", 2 },
-		},
 	},
 	constantStats = {
 		{ "base_totem_duration", 12000 },
@@ -1691,12 +1575,6 @@ skills["SupportWeaponElementalDamage"] = {
 	qualityStats = {
 		Default = {
 			{ "elemental_damage_with_attack_skills_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "chance_to_freeze_shock_ignite_%", 0.25 },
-		},
-		Alternate2 = {
-			{ "base_mana_leech_from_elemental_damage_permyriad", 2.5 },
 		},
 	},
 	stats = {
@@ -1806,9 +1684,6 @@ skills["SupportAdditionalLevel"] = {
 		Default = {
 			{ "local_gem_experience_gain_+%", 5 },
 		},
-		Alternate1 = {
-			{ "local_gem_str_requirement_+%", -3 },
-		},
 	},
 	stats = {
 		"supported_active_skill_gem_level_+",
@@ -1881,19 +1756,10 @@ skills["EnduranceChargeOnMeleeStun"] = {
 		["endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
-		["damage_+%_if_lost_endurance_charge_in_past_8_seconds"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" }),
-		}
 	},
 	qualityStats = {
 		Default = {
 			{ "base_stun_duration_+%", 1 },
-		},
-		Alternate1 = {
-			{ "damage_+%_per_endurance_charge", 0.1 },
-		},
-		Alternate2 = {
-			{ "damage_+%_if_lost_endurance_charge_in_past_8_seconds", 1 },
 		},
 	},
 	constantStats = {
@@ -1969,13 +1835,6 @@ skills["SupportMortalConviction"] = {
 		Default = {
 			{ "aura_effect_+%", 0.25 },
 		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_skill_area_of_effect_+%", -1 },
-			{ "non_curse_aura_effect_+%", 0.5 },
-		},
 	},
 	stats = {
 		"aura_effect_+%",
@@ -2038,12 +1897,6 @@ skills["SupportFirePenetration"] = {
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "burn_damage_+%", 3 },
-		},
-		Alternate2 = {
-			{ "base_chance_to_destroy_corpse_on_kill_%_vs_ignited", 5 },
 		},
 	},
 	stats = {
@@ -2155,21 +2008,10 @@ skills["AncestralSlamSupport"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
 			div = 1000,
 		},
-		["ancestral_slam_stun_threshold_reduction_+%"] = {
-			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack),
-			mult = -1,
-		},
 	},
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "attack_speed_+%", -1 },
-			{ "damage_+%", 3 },
-		},
-		Alternate2 = {
-			{ "ancestral_slam_stun_threshold_reduction_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -2241,13 +2083,7 @@ skills["SupportFlamewood"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "dummy_stat_display_nothing", 0.5 },
-		},
-		Alternate1 = {
 			{ "totem_life_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0.5 },
 		},
 	},
 	stats = {
@@ -2331,13 +2167,7 @@ skills["AvengingFlame"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "fire_damage_+%", 1 },
-		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0.5 },
-		},
-		Alternate2 = {
-			{ "cover_in_ash_on_hit_%", 0.5 },
+			{ "dummy_stat_display_nothing", 0 },
 		},
 	},
 	constantStats = {
@@ -2418,20 +2248,10 @@ skills["SupportFortify"] = {
 		["fortify_effect_+%"] = {
 			mod("FortifyEffectOnSelf", "INC", nil)
 		},
-		["overwhelm_%_physical_damage_reduction_while_max_fortification"] = {
-			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Hit, 0, { type = "Condition", var = "HaveMaximumFortification"}),
-			mult = -1,
-		},
 	},
 	qualityStats = {
 		Default = {
-			{ "attack_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "fortify_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "overwhelm_%_physical_damage_reduction_while_max_fortification", 0.25 },
+			{ "fortify_duration_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -2501,13 +2321,6 @@ skills["SupportGenerosity"] = {
 	qualityStats = {
 		Default = {
 			{ "base_aura_area_of_effect_+%", 2 },
-		},
-		Alternate1 = {
-			{ "non_curse_aura_effect_+%", 0.25 },
-		},
-		Alternate2 = {
-			{ "base_aura_area_of_effect_+%", 5 },
-			{ "base_reservation_efficiency_+%", -1 },
 		},
 	},
 	stats = {
@@ -2607,7 +2420,7 @@ skills["SupportGenerosityPlus"] = {
 }
 skills["SupportGuardiansBlessing"] = {
 	name = "Guardian's Blessing",
-	description = "Must support both a skill that creates minions which can be damaged, and\n an aura skill that creates permanent auras around you.\nCannot support triggered skills, banner skills or stance skills. ",
+	description = "Must support both a skill that creates minions which can be damaged, and\n an aura skill that creates permanent auras around you.\nCannot support triggered skills, banner skills or stance skills.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.CanHaveBlessing, },
@@ -2629,12 +2442,6 @@ skills["SupportGuardiansBlessing"] = {
 	qualityStats = {
 		Default = {
 			{ "aura_effect_+%", 0.25 },
-		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0.5 },
-		},
-		Alternate2 = {
-			{ "aura_effect_+%", 1 },
 		},
 	},
 	stats = {
@@ -2688,7 +2495,7 @@ skills["SupportGuardiansBlessing"] = {
 }
 skills["SupportGuardiansBlessingMinion"] = {
 	name = "Guardian's Blessing",
-	description = "Must support both a skill that creates minions which can be damaged, and\n an aura skill that creates permanent auras around you.\nCannot support triggered skills, banner skills or stance skills. ",
+	description = "Must support both a skill that creates minions which can be damaged, and\n an aura skill that creates permanent auras around you.\nCannot support triggered skills, banner skills or stance skills.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.CreatesMinion, },
@@ -2705,12 +2512,6 @@ skills["SupportGuardiansBlessingMinion"] = {
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0.25 },
-		},
-		Alternate1 = {
-			{ "minion_life_regeneration_rate_per_minute_%", 6 },
-		},
-		Alternate2 = {
-			{ "support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute", 15 },
 		},
 	},
 	stats = {
@@ -2774,14 +2575,6 @@ skills["SupportIncreasedDuration"] = {
 		Default = {
 			{ "skill_effect_duration_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_mana_cost_-%", 1 },
-			{ "base_life_cost_+%", -1 },
-			{ "skill_effect_duration_+%", -0.5 },
-		},
-		Alternate2 = {
-			{ "base_all_ailment_duration_+%", 1 },
-		},
 	},
 	stats = {
 		"skill_effect_duration_+%",
@@ -2841,13 +2634,6 @@ skills["SupportIronGrip"] = {
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "attack_speed_+%", -0.5 },
-			{ "damage_+%", 2 },
-		},
-		Alternate2 = {
-			{ "base_projectile_speed_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -2909,13 +2695,6 @@ skills["SupportIronWill"] = {
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_cast_speed_+%", -0.5 },
-			{ "damage_+%", 2 },
-		},
-		Alternate2 = {
-			{ "base_projectile_speed_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -3040,12 +2819,6 @@ skills["SupportKnockback"] = {
 		Default = {
 			{ "base_global_chance_to_knockback_%", 0.5 },
 		},
-		Alternate1 = {
-			{ "damage_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "knockback_distance_+%", 2 },
-		},
 	},
 	constantStats = {
 		{ "knockback_distance_+%", 50 },
@@ -3117,12 +2890,6 @@ skills["SupportReducedDuration"] = {
 		Default = {
 			{ "support_reduced_duration_skill_effect_duration_+%_final", -0.5 },
 		},
-		Alternate1 = {
-			{ "base_all_ailment_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "faster_bleed_%", 0.5 },
-		},
 	},
 	stats = {
 		"support_reduced_duration_skill_effect_duration_+%_final",
@@ -3185,12 +2952,6 @@ skills["SupportLifeGainOnHit"] = {
 		Default = {
 			{ "base_life_gain_per_target", 0.5 },
 		},
-		Alternate1 = {
-			{ "damage_+%_when_on_full_life", 2 },
-		},
-		Alternate2 = {
-			{ "mana_gain_per_target", 0.1 },
-		},
 	},
 	stats = {
 		"base_life_gain_per_target",
@@ -3248,20 +3009,9 @@ skills["SupportLifeLeech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["maximum_life_leech_amount_per_leech_+%"] = {
-			mod("MaxLifeLeechRate", "INC", nil)
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%_while_life_leeching", 0.5 },
-		},
-		Alternate1 = {
-			{ "damage_+%_when_on_full_life", 2 },
-		},
-		Alternate2 = {
-			{ "maximum_life_leech_amount_per_leech_+%", 5 },
 		},
 	},
 	stats = {
@@ -3326,12 +3076,6 @@ skills["SupportLifetap"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_life_cost_+%", 0.5 },
-		},
-		Alternate2 = {
 			{ "support_base_lifetap_buff_duration", 100 },
 		},
 	},
@@ -3403,19 +3147,10 @@ skills["SupportMaim"] = {
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }),
 		},
-		["chance_to_bleed_on_hit_%_vs_maimed"] = {
-			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Maimed" })
-		}
 	},
 	qualityStats = {
 		Default = {
-			{ "physical_damage_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "maim_effect_+%", 1 },
-		},
-		Alternate2 = {
-			{ "chance_to_bleed_on_hit_%_vs_maimed", 0.5 },
 		},
 	},
 	constantStats = {
@@ -3492,12 +3227,6 @@ skills["SupportMeleePhysicalDamage"] = {
 	qualityStats = {
 		Default = {
 			{ "melee_physical_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "melee_range_+", 0.1 },
-		},
-		Alternate2 = {
-			{ "enemy_phys_reduction_%_penalty_vs_hit", 0.25 },
 		},
 	},
 	constantStats = {
@@ -3619,12 +3348,6 @@ skills["SupportMeleeSplash"] = {
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "melee_damage_+%", 1 },
-		},
-		Alternate2 = {
-			{ "support_melee_splash_damage_+%_final_for_splash", 2 },
 		},
 	},
 	constantStats = {
@@ -3748,23 +3471,13 @@ skills["SupportMultistrike"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
-		["multistrike_area_of_effect_+%_per_repeat"] = {
-			mod("RepeatPerRepeatAreaOfEffect", "INC", nil)
-		}
 	},
 	baseMods = {
 		flag("SupportedByMultistrike"),
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_physical_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "attack_speed_+%", -1 },
-			{ "multistrike_area_of_effect_+%_per_repeat", 1 },
-		},
-		Alternate2 = {
-			{ "attack_speed_+%", 0.5 },
+			{ "melee_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -3906,13 +3619,7 @@ skills["SupportMultiTotem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate1 = {
-			{ "totem_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "totem_damage_+%", 0.5 },
+			{ "summon_totem_cast_speed_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -3984,14 +3691,7 @@ skills["SupportPulverise"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "area_damage_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "support_pulverise_attack_speed_+%_final", -0.5 },
-			{ "support_pulverise_melee_area_damage_+%_final", 1 },
 		},
 	},
 	constantStats = {
@@ -4072,19 +3772,10 @@ skills["SupportRage"] = {
 		["attack_maximum_added_physical_damage_per_10_rage"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
 		},
-		["attack_speed_+%_with_atleast_20_rage"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 20 })
-		}
 	},
 	qualityStats = {
 		Default = {
 			{ "attack_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "attack_speed_+%_with_atleast_20_rage", 0.5 },
-		},
-		Alternate2 = {
-			{ "gain_1_rage_on_use_%_chance", 1 },
 		},
 	},
 	constantStats = {
@@ -4148,6 +3839,10 @@ skills["SupportRangedAttackTotem"] = {
 	addSkillTypes = { SkillType.Trappable, SkillType.Mineable, SkillType.SummonsTotem, SkillType.ReservationBecomesCost, SkillType.TotemsAreBallistae, },
 	excludeSkillTypes = { SkillType.InbuiltTrigger, },
 	ignoreMinionTypes = true,
+	weaponTypes = {
+		["Wand"] = true,
+		["Bow"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	addFlags = {
 		totem = true,
@@ -4163,16 +3858,7 @@ skills["SupportRangedAttackTotem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate1 = {
-			{ "totem_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "totem_range_+%", 1 },
-		},
-		Alternate3 = {
-			{ "projectile_return_%_chance", 0.5 },
+			{ "summon_totem_cast_speed_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4253,13 +3939,7 @@ skills["SupportReducedMana"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "inspiration_charge_duration_+%", 1 },
-		},
-		Alternate1 = {
-			{ "critical_strike_chance_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_mana_cost_-%", 0.5 },
+			{ "base_mana_cost_-%", 0.25 },
 		},
 	},
 	constantStats = {
@@ -4342,13 +4022,6 @@ skills["SupportRuthless"] = {
 		Default = {
 			{ "attack_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_stun_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "attack_speed_+%", -1 },
-			{ "support_ruthless_big_hit_damage_+%_final", 1 },
-		},
 	},
 	constantStats = {
 		{ "support_ruthless_big_hit_max_count", 3 },
@@ -4427,12 +4100,6 @@ skills["SupportBluntWeapon"] = {
 		Default = {
 			{ "melee_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	constantStats = {
 		{ "support_blunt_chance_to_trigger_shockwave_on_hit_%", 100 },
@@ -4504,12 +4171,6 @@ skills["SupportBluntWeaponShockwave"] = {
 	qualityStats = {
 		Default = {
 			{ "melee_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_cooldown_speed_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -4584,13 +4245,7 @@ skills["SupportSpellTotem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate1 = {
-			{ "totem_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "totem_range_+%", 1 },
+			{ "summon_totem_cast_speed_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4664,13 +4319,7 @@ skills["SupportStun"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "base_stun_duration_+%", 1.5 },
-		},
-		Alternate1 = {
-			{ "chance_to_double_stun_duration_%", 0.2 },
-		},
-		Alternate2 = {
-			{ "recover_%_life_when_stunning_an_enemy_permyriad", 5 },
+			{ "chance_to_double_stun_duration_%", 0.5 },
 		},
 	},
 	stats = {
@@ -4752,10 +4401,6 @@ skills["SupportTrauma"] = {
 		["support_trauma_stun_duration_+%_per_trauma"] = {
 			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
 		},
-		["attack_speed_+%_per_trauma"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
-			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
-		},
 		["support_trauma_base_duration_ms"] = {
 			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
@@ -4769,13 +4414,6 @@ skills["SupportTrauma"] = {
 	qualityStats = {
 		Default = {
 			{ "base_stun_threshold_reduction_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "ignore_self_damage_from_trauma_chance_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "attack_speed_+%_per_trauma", 0.05 },
-			{ "trauma_strike_self_damage_per_trauma", 1 },
 		},
 	},
 	stats = {
@@ -4841,13 +4479,6 @@ skills["SupportUrgentOrders"] = {
 	qualityStats = {
 		Default = {
 			{ "warcry_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_cooldown_speed_+%", -1 },
-			{ "skill_buff_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "minimum_power_from_quality", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4919,12 +4550,6 @@ skills["SupportVolatility"] = {
 	qualityStats = {
 		Default = {
 			{ "damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "non_damaging_ailment_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_stun_duration_+%", 1 },
 		},
 	},
 	stats = {

@@ -835,7 +835,6 @@ local function doActorMisc(env, actor)
 		end
 		if modDB:Flag(nil, "Condition:CanGainRage") or modDB:Sum("BASE", nil, "RageRegen") > 0 then
 			output.MaximumRage = modDB:Sum("BASE", skillCfg, "MaximumRage")
-			modDB.multipliers["MaxRageVortexSacrifice"] = output.MaximumRage / 4
 			modDB:NewMod("Multiplier:Rage", "BASE", 1, "Base", { type = "Multiplier", var = "RageStack", limit = output.MaximumRage })
 			output.Rage = modDB:Sum("BASE", skillCfg, "Multiplier:Rage")
 		end
@@ -1208,7 +1207,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 					seismicStunEffect = m_floor(seismicStunEffect * warcryPowerBonus * buff_inc) / warcryPowerBonus
 				end
 				env.player.modDB:NewMod("NumSeismicExerts", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicExertedAttacks") + extraExertions)
-				env.player.modDB:NewMod("SeismicIncAoEPerExert",  "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicAoEMultiplier"))
+				env.player.modDB:NewMod("SeismicIncAoEPerExert", "BASE", activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "SeismicAoEMultiplier"))
 				if env.mode_effective then
 					env.player.modDB:NewMod("EnemyStunThreshold", "INC", -seismicStunEffect * uptime, "Seismic Cry Buff", { type = "Multiplier", var = "WarcryPower", div = 5, limit = 6 })
 				end

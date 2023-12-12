@@ -42,7 +42,6 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
-	modDB:NewMod("Multiplier:VirulenceStacksMax", "BASE", 40, "Base")
 	modDB:NewMod("BleedStacksMax", "BASE", 1, "Base")
 	modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
 	modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
@@ -646,6 +645,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if item.jewelData then
 						item.jewelData.limitDisabled = nil
 					end
+					if item and item.type == "Jewel" and item.name:match("The Adorned, Crimson Jewel") then
+						env.modDB.multipliers["CorruptedMagicJewelEffect"] = item.jewelData.corruptedMagicJewelIncEffectFromNonClusterSocket / 100
+					end
 					if item.limit and not env.configInput.ignoreJewelLimits then
 						local limitKey = item.base.subType == "Timeless" and "Historic" or item.title
 						if jewelLimits[limitKey] and jewelLimits[limitKey] >= item.limit then
@@ -946,6 +948,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and env.modDB.multipliers["CorruptedMagicJewelEffect"] and not (item.base.subType == "Charm" or env.build.spec.nodes[tonumber(slot.nodeId)].expansionJewel) then
+					scale = scale + env.modDB.multipliers["CorruptedMagicJewelEffect"]
+					env.itemModDB:ScaleAddList(srcList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end

@@ -36,6 +36,31 @@ skills["RepeatingShockwave"] = {
 		[7] = { critChance = 5, PvPDamageMultiplier = -80, levelRequirement = 1, },
 	},
 }
+skills["MinionSacrifice"] = {
+	name = "Affliction",
+	hidden = true,
+	color = 3,
+	description = "Permanently Afflicts any of your damageable minions in a targeted area, causing them to take physical damage over time, at an accelerating rate. Each such minion causes you to regenerate life at a rate based on the current damage of it's Affliction debuff. Afflicted Minions explode if their life is lowered to a fifth of maximum.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Minion] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.5,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "minion_sacrifice_%_damage_to_regen", 20 },
+		{ "minion_sacrifice_%_minion_life_to_degen", 8 },
+		{ "minion_sacrifice_%_minion_life_explosion", 50 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { levelRequirement = 70, cost = { Mana = 33, }, },
+	},
+}
 skills["AnimateGuardianWeapon"] = {
 	name = "Animate Guardian's Weapon",
 	hidden = true,
@@ -128,6 +153,45 @@ skills["SupportTriggerSpellOnBowAttack"] = {
 	},
 	levels = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 0.3, },
+	},
+}
+skills["Barkskin"] = {
+	name = "Barkskin",
+	hidden = true,
+	color = 2,
+	description = "Adopt the power of the Viridian Wildwood, gradually covering your body in bark. Getting hit by enemy attacks causes bark to be removed. You have higher armour the more bark builds up, but higher chance to evade when less covered in bark.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	fromTree = true,
+	statMap = {
+		["armour_+%_per_barkskin_stack"] = {
+			mod("Armour", "INC", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["physical_attack_damage_taken_+_per_barkskin_stack"] = {
+			mod("PhysicalDamageTakenFromAttacks", "BASE", nil, 0, 0, { type = "Multiplier", var = "BarkskinStacks", limitVar = "BarkskinMaxStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["chance_to_evade_attacks_+%_final_per_missing_barkskin_stack"] = {
+			mod("EvadeChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "MissingBarkskinStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
+		},
+		["max_barkskin_stacks"] = {
+			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+	},
+	constantStats = {
+		{ "max_barkskin_stacks", 10 },
+		{ "armour_+%_per_barkskin_stack", 15 },
+		{ "physical_attack_damage_taken_+_per_barkskin_stack", -15 },
+		{ "chance_to_evade_attacks_+%_final_per_missing_barkskin_stack", 2 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 70, },
 	},
 }
 skills["BirdAspect"] = {
@@ -892,9 +956,6 @@ skills["GemDetonateMines"] = {
 		Default = {
 			{ "mine_detonation_speed_+%", 1 },
 		},
-		Alternate1 = {
-			{ "detonate_mines_recover_permyriad_of_life_per_mine_detonated", 1 },
-		},
 	},
 	constantStats = {
 		{ "display_mine_deontation_mechanics_detonation_speed_+%_final_per_sequence_mine", 10 },
@@ -1030,9 +1091,6 @@ skills["SupportElementalPenetration"] = {
 	qualityStats = {
 		Default = {
 			{ "elemental_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "non_damaging_ailment_effect_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -1554,8 +1612,9 @@ skills["IcestormUniqueStaff12"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 22),
-		skill("radiusSecondary", 16),
+		skill("radiusSecondary", 22),
+		skill("radiusLabel", "Ice projectile:"),
+		skill("radiusSecondaryLabel", "Target area:"),
 	},
 	constantStats = {
 		{ "spell_minimum_base_cold_damage_+_per_10_intelligence", 5 },
@@ -1566,6 +1625,7 @@ skills["IcestormUniqueStaff12"] = {
 		{ "firestorm_drop_ground_ice_duration_ms", 500 },
 		{ "skill_effect_duration_per_100_int", 100 },
 		{ "firestorm_max_number_of_storms", 5 },
+		{ "active_skill_base_area_of_effect_radius", 16 },
 	},
 	stats = {
 		"base_skill_show_average_damage_instead_of_dps",
@@ -1904,6 +1964,35 @@ skills["TriggeredMoltenStrike"] = {
 		[16] = { baseMultiplier = 1.15, cooldown = 0.15, damageEffectiveness = 1.15, storedUses = 1, levelRequirement = 1, },
 	},
 }
+skills["PenanceMark"] = {
+	name = "Penance Mark",
+	hidden = true,
+	color = 3,
+	description = "Curses a single enemy, causing them to spawn multiple phantasms when hit. The phantasms will be allies of the marked enemy with the same monster level. They cast a projectile spell which deals physical damage, and are immune to curses and knockback. You can only have one Mark at a time.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Mark] = true, [SkillType.Duration] = true, },
+	statDescriptionScope = "brand_skill_stat_descriptions",
+	castTime = 0.5,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		curse = true,
+		duration = true,
+		mark = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+		{ "penance_mark_summon_phantasms_when_hit", 3 },
+	},
+	stats = {
+		"base_deal_no_damage",
+	},
+	levels = {
+		[20] = { levelRequirement = 70, cost = { Mana = 33, }, },
+	},
+}
 skills["PhysicalAegis"] = {
 	name = "Physical Aegis",
 	hidden = true,
@@ -1970,9 +2059,6 @@ skills["Portal"] = {
 		Default = {
 			{ "base_cast_speed_+%", 3 },
 		},
-		Alternate1 = {
-			{ "portal_alternate_destination_chance_permyriad", 1 },
-		},
 	},
 	stats = {
 		"base_deal_no_damage",
@@ -2032,6 +2118,69 @@ skills["PrimalAegis"] = {
 	},
 	levels = {
 		[20] = { levelRequirement = 1, },
+	},
+}
+skills["Quieten"] = {
+	name = "Pacify",
+	hidden = true,
+	color = 3,
+	description = "Curses all targets in an area, having no effect at first, but causing them to deal no damage once 60% of the curse's duration has expired.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	fromTree = true,
+	baseFlags = {
+		spell = true,
+		curse = true,
+		area = true,
+		duration = true,
+		hex = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 10000 },
+	},
+	stats = {
+		"curse_pacifies_after_60%",
+		"base_deal_no_damage",
+		"display_skill_fixed_duration_buff",
+	},
+	levels = {
+		[20] = { levelRequirement = 70, cost = { Mana = 33, }, },
+	},
+}
+skills["Ravenous"] = {
+	name = "Ravenous",
+	hidden = true,
+	color = 3,
+	description = "Consumes a targeted corpse, granting you a buff that gives you bonuses against enemies of the same monster category as the corpse.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	fromTree = true,
+	statMap = {
+		["ravenous_buff_magnitude"] = {
+			{
+				mod("DamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
+				mult = -1,
+			},
+			{
+				mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectCond = "RavenousCorpseConsumed" }),
+			},
+		},
+	},
+	baseFlags = {
+		spell = true,
+	},
+	constantStats = {
+		{ "ravenous_buff_magnitude", 15 },
+	},
+	stats = {
+	},
+	levels = {
+		[20] = { storedUses = 1, levelRequirement = 70, cooldown = 5, cost = { Mana = 33, }, },
 	},
 }
 skills["TriggeredSummonSpider"] = {
@@ -2331,12 +2480,17 @@ skills["VolatileDeadChaos"] = {
 	baseFlags = {
 		spell = true,
 	},
+	baseMods = {
+		skill("radiusLabel", "Orb explosion:"),
+		skill("radiusSecondaryLabel", "Corpse explosion:"),
+	},
 	constantStats = {
 		{ "volatile_dead_base_number_of_corpses_to_consume", 1 },
 		{ "corpse_explosion_monster_life_%_chaos", 9 },
-		{ "volatile_dead_core_explosion_radius_+", 13 },
-		{ "volatile_dead_max_cores_allowed", 10 },
+		{ "volatile_dead_max_cores_allowed", 13 },
 		{ "chance_to_cast_on_kill_%", 100 },
+		{ "active_skill_base_area_of_effect_radius", 30 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 15 },
 	},
 	stats = {
 		"spell_minimum_base_chaos_damage",
@@ -3241,7 +3395,7 @@ skills["VampiricIcon"] = {
 	fromItem = true,
 	statMap = {
 		["vampiric_icon_max_bleeding_beam_targets"] = {
-			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 		["skill_life_regeneration_per_minute_per_affected_enemy"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),
@@ -3463,6 +3617,7 @@ skills["VoidShot"] = {
 		"skill_can_fire_arrows",
 		"base_skill_show_average_damage_instead_of_dps",
 		"attack_unusable_if_triggerable",
+		"quality_display_active_skill_area_damage_is_gem",
 	},
 	levels = {
 		[20] = { damageEffectiveness = 0.65, PvPDamageMultiplier = -80, baseMultiplier = 0.65, levelRequirement = 70, },

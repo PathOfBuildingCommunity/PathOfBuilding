@@ -1,7 +1,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
-loadStatFile("stat_descriptions.txt")
+loadStatFile("tincture_stat_descriptions.txt")
 
 local directiveTable = { }
 
@@ -103,7 +103,6 @@ directiveTable.base = function(state, args, out)
 		end
 		out:write(' },\n')
 	end
-	local movementPenalty
 	local implicitLines = { }
 	local implicitModTypes = { }
 	for _, mod in ipairs(baseItemType.ImplicitMods) do

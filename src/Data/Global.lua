@@ -310,6 +310,8 @@ SkillType = {
 	PreventHexTransfer = 127,
 	MinionsAreUndamageable = 128,
 	InnateTrauma = 129,
+	DualWieldRequiresDifferentTypes = 130,
+	NoVolley = 131,
 }
 
 GlobalCache = { 

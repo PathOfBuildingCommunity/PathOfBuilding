@@ -45,6 +45,7 @@ local itemTypes = {
 	"belt",
 	"jewel",
 	"flask",
+	"tincture",
 }
 
 local function makeSkillMod(modName, modType, modVal, flags, keywordFlags, ...)
@@ -630,9 +631,11 @@ data.describeStats = LoadModule("Modules/StatDescriber")
 data.itemMods = {
 	Item = LoadModule("Data/ModItem"),
 	Flask = LoadModule("Data/ModFlask"),
+	Tincture = LoadModule("Data/ModTincture"),
 	Jewel = LoadModule("Data/ModJewel"),
 	JewelAbyss = LoadModule("Data/ModJewelAbyss"),
 	JewelCluster = LoadModule("Data/ModJewelCluster"),
+	JewelCharm = LoadModule("Data/ModJewelCharm"),
 }
 data.masterMods = LoadModule("Data/ModMaster")
 data.enchantments = {
@@ -672,7 +675,7 @@ data.itemTagSpecial = {
 			"Vaal Pact",
 			"Zealot's Oath",
 			-- Special Cases
-			"Cannot Leech",
+			"^Cannot Leech$",
 		},
 	},
 	["evasion"] = {
@@ -692,6 +695,8 @@ data.itemTagSpecialExclusionPattern = {
 			"Life as Extra Maximum Energy Shield",
 			"maximum Life as Fire Damage",
 			"when on Full Life",
+			"Enemy's life",
+			"Life From You",
 		},
 	},
 	["evasion"] = {
@@ -813,8 +818,15 @@ for skillId, grantedEffect in pairs(data.skills) do
 	setmetatable(grantedEffect.statMap, data.skillStatMapMeta)
 	grantedEffect.statMap._grantedEffect = grantedEffect
 	for _, map in pairs(grantedEffect.statMap) do
-		for _, mod in ipairs(map) do
-			processMod(grantedEffect, mod)
+		-- Some mods need different scalars for different stats, but the same value.  Putting them in a group allows this
+		for _, modOrGroup in ipairs(map) do
+			if modOrGroup.name then
+				processMod(grantedEffect, modOrGroup)
+			else
+				for _, mod in ipairs(modOrGroup) do
+					processMod(grantedEffect, mod)
+				end
+			end
 		end
 	end
 end
