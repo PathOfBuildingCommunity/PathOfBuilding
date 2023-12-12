@@ -20,6 +20,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 25)
 #mods
 
+#skill AbsolutionAltX
+#flags spell minion duration area
+	minionList = {
+		"AbsolutionTemplarJudge",
+		"AbsolutionTemplarJudgeVaal",
+	},
+#mods
+
 #skill VaalAbsolution
 #flags spell minion duration area
 	statMap = {
@@ -260,6 +268,15 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 14, { type = "SkillPart", skillPart = 2 })
 #baseMod flag("HasTrauma")
+#mods
+
+#skill BoneshatterAltX
+#flags attack melee area duration
+#baseMod flag("HasTrauma")
+#mods
+
+#skill BoneshatterAltY
+#flags attack melee area duration
 #mods
 
 #skill ChainStrike
@@ -531,6 +548,11 @@ local skills, mod, flag, skill = ...
 #baseMod mod("FireDamage", "MORE", 100, bit.bor(ModFlag.Spell,ModFlag.Dot), 0, { type = "Multiplier", var = "ExsanguinateStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" })
 #mods
 
+#skill ExsanguinateAltX
+#flags spell duration chaining
+#baseMod skill("debuff", true)
+#mods
+
 #skill FlameLink
 #flags spell duration
 	statMap = {
@@ -560,6 +582,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrozenLegion
+#flags spell
+#mods
+
+#skill FrozenLegionAltX
 #flags spell
 #mods
 
@@ -1178,6 +1204,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill RageVortexAltX
+#flags attack melee area duration
+#mods
+
 #skill RallyingCry
 #flags warcry area duration
 	statMap = {
@@ -1430,6 +1460,10 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 29)
 #baseMod skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill ShieldCrushAltX
+#flags attack melee area shieldAttack
 #mods
 
 #skill SummonFireGolem

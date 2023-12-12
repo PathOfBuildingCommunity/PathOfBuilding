@@ -217,6 +217,14 @@ local skills, mod, flag, skill = ...
 #flags attack area trap
 #mods
 
+#skill BladeTrapAltX
+#flags attack area trap
+#mods
+
+#skill BladeTrapAltY
+#flags attack area trap
+#mods
+
 #skill ChargedAttack
 #flags attack melee area
 	parts = {
@@ -1049,6 +1057,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill ExplosiveConcoctionAltX
+#flags attack area projectile
+#mods
+
 #skill ShrapnelTrap
 #flags spell trap area
 	parts = {
@@ -1794,6 +1806,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "Arrow Explosion:", { type = "SkillPart", skillPart = 1 })
 #baseMod skill("radiusSecondary", 12, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusSecondaryLabel", "Beam Width:", { type = "SkillPart", skillPart = 2 })
+#mods
+
+#skill StormRainAltX
+#flags attack area projectile
+#mods
+
+#skill StormRainAltY
+#flags attack area projectile
 #mods
 
 #skill Puncture
