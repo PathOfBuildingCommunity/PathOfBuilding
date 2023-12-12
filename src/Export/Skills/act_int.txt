@@ -14,6 +14,14 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill ArcAltX
+#flags spell chaining
+#mods
+
+#skill ArcAltY
+#flags spell chaining
+#mods
+
 #skill VaalArcChain
 #flags spell chaining
 	statMap = {
@@ -273,6 +281,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("projectileSpeed", 40)
 #baseMod skill("duration", 2)
 #baseMod flag("CannotSplit")
+#mods
+
+#skill BallLightningAltX
+#flags spell projectile
+#mods
+
+#skill BallLightningAltY
+#flags spell projectile
 #mods
 
 #skill DarkRitual
@@ -846,6 +862,12 @@ local skills, mod, flag, skill = ...
 #baseMod flag("dotIsBurningGround")
 #mods
 
+#skill FlameDashAltY
+#flags spell area duration
+#baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsBurningGround")
+#mods
+
 #skill Firewall
 #flags spell area duration
 	parts = {
@@ -907,6 +929,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 30)
 #mods
 
+#skill FlameWhipAltX
+#flags spell area duration
+#mods
+
 #skill Flameblast
 #flags spell area channelRelease
 	preDamageFunc = function(activeSkill, output)
@@ -936,6 +962,14 @@ local skills, mod, flag, skill = ...
 	},
 #baseMod skill("radius", 2)
 #baseMod mod("PvpTvalueMultiplier", "MORE", 100, 0, 0, { type = "Multiplier", var = "FlameblastStageAfterFirst" })
+#mods
+
+#skill FlameblastAltX
+#flags spell area channelRelease
+#mods
+
+#skill FlameblastAltY
+#flags spell area channelRelease
 #mods
 
 #skill VaalFlameblast
@@ -1225,6 +1259,10 @@ local skills, mod, flag, skill = ...
 #baseMod mod("AreaOfEffect", "MORE", 100, 0, 0, { type = "SkillPart", skillPart = 2 })
 #mods
 
+#skill GlacialCascadeAltX
+#flags spell area
+#mods
+
 #skill WaterSphere
 #flags spell duration area
 	parts = {
@@ -1390,6 +1428,14 @@ local skills, mod, flag, skill = ...
 			mod("SelfCritChance", "INC", nil, 0, 0, { type = "Limit", limit = 500 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
 		},
 	},
+#mods
+
+#skill ColdProjectileMineAltX
+#flags spell projectile mine
+#mods
+
+#skill ColdProjectileMineAltY
+#flags spell projectile mine
 #mods
 
 #skill ExpandingFireCone
@@ -1674,7 +1720,19 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill LightningTendrilsChannelledAltX
+#flags spell area
+#mods
+
+#skill LightningTendrilsChannelledAltY
+#flags spell area
+#mods
+
 #skill LightningTrap
+#flags spell trap projectile
+#mods
+
+#skill LightningTrapAltX
 #flags spell trap projectile
 #mods
 
@@ -1881,6 +1939,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusSecondaryLabel", "Area in which projectiles will land:")
 #baseMod skill("radiusTertiary", 12)
 #baseMod skill("radiusTertiaryLabel", "Area of projectile explosions:")
+#mods
+
+#skill MortarBarrageMineAltX
+#flags spell area projectile mine
 #mods
 
 #skill RaiseSpectre
@@ -2322,6 +2384,24 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
+#skill SummonChaosGolemAltX
+#flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedChaosGolem",
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonChaosGolemAltY
+#flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedChaosGolem",
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveChaosGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
 #skill SummonRelic
 #flags spell minion permanentMinion
 	minionList = {
@@ -2350,6 +2430,15 @@ local skills, mod, flag, skill = ...
 		["lightning_golem_grants_attack_and_cast_speed_+%"] = {
 			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveLightningGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonLightningGolemAltX
+#flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedLightningGolem",
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveLightningGolem", { type = "GlobalEffect", effectType = "Buff" })

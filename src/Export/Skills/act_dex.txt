@@ -61,6 +61,28 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill AnimateWeaponAltX
+#flags spell minion duration
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+#mods
+
+#skill AnimateWeaponAltY
+#flags spell minion duration
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+	},
+	minionList = {
+		"AnimatedWeapon",
+	},
+#mods
+
 #skill VaalAnimateWeapon
 #flags spell minion duration
 	minionHasItemSet = true,
@@ -144,6 +166,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill BarrageAltX
+#flags attack projectile
+#mods
+
 #skill BearTrap
 #flags cast trap duration
 	statMap = {
@@ -151,6 +177,10 @@ local skills, mod, flag, skill = ...
 			mod("TrapMineDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff" }),
 		},
 	},
+#mods
+
+#skill BearTrapAltX
+#flags cast trap duration
 #mods
 
 #skill BladeBlast
@@ -343,6 +373,22 @@ local skills, mod, flag, skill = ...
 #baseMod skill("minionUseBowAndQuiver", true)
 #mods
 
+#skill BlinkArrowAltX
+#flags attack projectile minion duration
+	minionList = {
+		"ArrowClone",
+	},
+#baseMod skill("minionUseBowAndQuiver", true)
+#mods
+
+#skill BlinkArrowAltY
+#flags attack projectile minion duration
+	minionList = {
+		"ArrowClone",
+	},
+#baseMod skill("minionUseBowAndQuiver", true)
+#mods
+
 #skill BloodRage
 #flags spell duration
 	statMap = {
@@ -519,6 +565,10 @@ local skills, mod, flag, skill = ...
 		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
 #baseMod skill("radius", 16)
+#mods
+
+#skill CycloneAltX
+#flags attack melee area
 #mods
 
 #skill VaalCyclone
@@ -721,6 +771,14 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill EtherealKnives
+#flags spell projectile
+#mods
+
+#skill EtherealKnivesAltX
+#flags spell projectile
+#mods
+
+#skill EtherealKnivesAltY
 #flags spell projectile
 #mods
 
@@ -989,6 +1047,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 15)
 #mods
 
+#skill FireTrapAltX
+#flags spell trap area duration
+#mods
+
 #skill FlamethrowerTrap
 #flags spell trap area duration
 	parts = {
@@ -1109,6 +1171,10 @@ local skills, mod, flag, skill = ...
 			projectile = true,
 		},
 	},
+#mods
+
+#skill FrostBladesAltX
+#flags attack melee projectile
 #mods
 
 #skill ShrapnelShot
@@ -1419,6 +1485,22 @@ local skills, mod, flag, skill = ...
 #baseMod skill("minionUseBowAndQuiver", true)
 #mods
 
+#skill MirrorArrowAltX
+#flags attack projectile minion duration
+	minionList = {
+		"ArrowClone",
+	},
+#baseMod skill("minionUseBowAndQuiver", true)
+#mods
+
+#skill MirrorArrowAltY
+#flags attack projectile minion duration
+	minionList = {
+		"ArrowClone",
+	},
+#baseMod skill("minionUseBowAndQuiver", true)
+#mods
+
 #skill MambaStrike
 #flags attack melee area duration
 #baseMod skill("radius", 27)
@@ -1604,6 +1686,10 @@ local skills, mod, flag, skill = ...
 		}
 	},
 #baseMod mod("Multiplier:ReaveMaxStages", "BASE", 8)
+#mods
+
+#skill ReaveAltX
+#flags attack melee area
 #mods
 
 #skill VaalReave
@@ -1890,6 +1976,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill ThrownShieldAltX
+#flags attack projectile shieldAttack
+#mods
+
 #skill ThrownWeapon
 #flags attack projectile
 #baseMod mod("PierceChance", "BASE", 100)
@@ -1965,6 +2055,24 @@ local skills, mod, flag, skill = ...
 #baseMod flag("Condition:HaveColdGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
+#skill SummonIceGolemAltX
+#flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedIceGolem",
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveColdGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonIceGolemAltY
+#flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedIceGolem",
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveColdGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
 #skill TemporalChains
 #flags spell curse area duration hex
 	statMap = {
@@ -1986,6 +2094,10 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill TornadoShot
+#flags attack projectile
+#mods
+
+#skill TornadoShotAltX
 #flags attack projectile
 #mods
 

@@ -129,6 +129,10 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
+#skill AnimateArmourAltX
+#flags spell minion permanentMinion
+#mods
+
 #skill BattlemagesCry
 #flags area duration warcry
 	statMap = {
@@ -720,6 +724,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 16)
 #mods
 
+#skill FlameTotemAltX
+#flags spell totem projectile duration
+#mods
+
 #skill IceCrash
 #flags attack melee area
 	parts = {
@@ -747,6 +755,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusLabel", "First hit:")
 #baseMod skill("radiusSecondaryLabel", "Second hit:")
 #baseMod skill("radiusTertiaryLabel", "Third hit:")
+#mods
+
+#skill IceCrashAltX
+#flags attack melee area
 #mods
 
 #skill ImmortalCall
@@ -953,6 +965,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radiusTertiary", 25, { type = "SkillPart", skillPart = 2 })
 #baseMod skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPart = 2 })
 #baseMod flag("CannotSplit")
+#mods
+
+#skill MoltenStrikeAltX
+#flags attack melee projectile area
 #mods
 
 #skill VaalMoltenStrike
@@ -1393,6 +1409,24 @@ local skills, mod, flag, skill = ...
 		["fire_golem_grants_damage_+%"] = {
 			mod("Damage", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
 		},
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonFireGolemAltX
+#flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedFlameGolem",
+	},
+#baseMod skill("allowTotemBuff", true)
+#baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
+#mods
+
+#skill SummonFireGolemAltY
+#flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedFlameGolem",
 	},
 #baseMod skill("allowTotemBuff", true)
 #baseMod flag("Condition:HaveFireGolem", { type = "GlobalEffect", effectType = "Buff" })
