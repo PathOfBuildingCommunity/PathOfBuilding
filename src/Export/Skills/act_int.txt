@@ -2627,10 +2627,6 @@ local skills, mod, flag, skill = ...
 #flags spell area duration brand chaining
 #mods
 
-#skill ConduitSigilAltY
-#flags spell area duration brand chaining
-#mods
-
 #skill LightningExplosionMine
 #flags spell area mine
 	statMap = {
