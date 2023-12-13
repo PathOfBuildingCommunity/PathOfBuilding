@@ -3767,9 +3767,6 @@ skills["Discharge"] = {
 		["area_of_effect_+%_final_per_removable_power_frenzy_or_endurance_charge"] = {
 			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableTotalCharges" }),
 		},
-		["active_skill_ailment_damage_+%_final"] = {
-			mod("Damage", "MORE", nil,  ModFlag.Ailment),
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -11205,9 +11202,6 @@ skills["MagmaSigil"] = {
 	end,
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
-		},
-		["active_skill_ailment_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Ailment),
 		},
 	},
 	baseFlags = {

@@ -142,6 +142,9 @@ return {
 ["poison_duration_is_skill_duration"] = {
 	skill("poisonDurationIsSkillDuration", true),
 },
+["cannot_poison_poisoned_enemies"] = {
+	flag("Condition:SinglePoison"),
+},
 ["spell_damage_modifiers_apply_to_skill_dot"] = {
 	skill("dotIsSpell", true),
 },
@@ -577,6 +580,9 @@ return {
 ["critical_strike_chance_+%_vs_blinded_enemies"] = {
 	mod("CritChance", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Blinded"})
 },
+["no_critical_strike_multiplier"] = {
+	flag("NoCritMultiplier"),
+},
 -- Duration
 ["buff_effect_duration_+%_per_removable_endurance_charge"] = {
 	mod("Duration", "INC", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
@@ -714,6 +720,10 @@ return {
 },
 ["base_penetrate_elemental_resistances_%"] = {
 	mod("ElementalPenetration", "BASE", nil),
+},
+["treat_enemy_resistances_as_negated_on_elemental_damage_hit_%_chance"] = {
+	mod("HitsInvertEleResChance", "CHANCE", nil),
+	div = 100,
 },
 ["global_minimum_added_physical_damage_vs_bleeding_enemies"] = {
 	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Bleeding"}),
@@ -892,6 +902,9 @@ return {
 },
 ["base_ailment_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Ailment)
+},
+["active_skill_ailment_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment),
 },
 ["base_chance_to_poison_on_hit_%"] = {
 	mod("PoisonChance", "BASE", nil),
@@ -1197,6 +1210,13 @@ return {
 ["projectile_behaviour_only_explode"] = {
 	flag("CannotSplit"),
 },
+["projectile_number_to_split"] = {
+	mod("SplitCount", "BASE")
+},
+["modifiers_to_number_of_projectiles_instead_apply_to_splitting"] = {
+	flag("NoAdditionalProjectiles"),
+	flag("AdditionalProjectilesAddSplitsInstead")
+},
 ["base_number_of_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),
 	base = -1,
@@ -1433,8 +1453,14 @@ return {
 ["off_hand_local_minimum_added_physical_damage"] = {
 	skill("setOffHandPhysicalMin", nil),
 },
+["off_hand_local_minimum_added_cold_damage"] = {
+	skill("setOffHandColdMin", nil),
+},
 ["off_hand_local_maximum_added_physical_damage"] = {
 	skill("setOffHandPhysicalMax", nil),
+},
+["off_hand_local_maximum_added_cold_damage"] = {
+	skill("setOffHandColdMax", nil),
 },
 ["off_hand_base_weapon_attack_duration_ms"] = {
 	skill("setOffHandAttackTime", nil),
@@ -1442,8 +1468,14 @@ return {
 ["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
 	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
+["off_hand_minimum_added_cold_damage_per_15_shield_evasion"] = {
+	mod("ColdMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EvasionOnWeapon 2", div = 15 }),
+},
 ["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
 	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
+},
+["off_hand_maximum_added_cold_damage_per_15_shield_evasion"] = {
+	mod("ColdMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EvasionOnWeapon 2", div = 15 }),
 },
 ["additional_critical_strike_chance_per_10_shield_maximum_energy_shield_permyriad"] = {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = 10, }),
@@ -1461,6 +1493,9 @@ return {
 },
 ["impale_debuff_effect_+%"] = {
 	mod("ImpaleEffect", "INC", nil)
+},
+["spell_impale_on_crit_%_chance"] = {
+	mod("ImpaleChance", "BASE", nil, ModFlag.Spell, 0, { type = "Condition", var = "CriticalStrike" })
 },
 --
 -- Spell modifiers
@@ -1526,6 +1561,9 @@ return {
 },
 ["trap_throwing_speed_+%_per_frenzy_charge"] = {
 	mod("TrapThrowingSpeed", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+},
+["active_skill_trap_throwing_speed_+%_final"] = {
+	mod("TrapThrowingSpeed", "MORE", nil),
 },
 ["trap_critical_strike_multiplier_+_per_power_charge"] = {
 	mod("CritMultiplier", "BASE", nil, 0, KeywordFlag.Trap, { type = "Multiplier", var = "PowerCharge" }),
@@ -1942,6 +1980,9 @@ return {
 	-- Display only
 },
 ["quality_display_active_skill_area_damage_is_gem"] = {
+	-- Display only
+},
+["quality_display_active_skill_bleed_damage_final_is_gem"] = {
 	-- Display only
 },
 }

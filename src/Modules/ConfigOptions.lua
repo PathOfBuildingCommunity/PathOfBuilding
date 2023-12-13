@@ -336,8 +336,8 @@ return {
 	{ var = "overrideCruelty", type = "count", label = "Damage % (if not maximum):", ifSkill = "Cruelty", tooltip = "Cruelty is a buff provided by Cruelty Support which grants\nup to 40% more damage over time to the skills it supports.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Cruelty", "OVERRIDE", m_min(val, 40), "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ label = "Cyclone:", ifSkill = "Cyclone" },
-	{ var = "channellingCycloneCheck", type = "check", label = "Are you Channelling Cyclone?", ifSkill = "Cyclone", apply = function(val, modList, enemyModList)
+	{ label = "Cyclone:", ifSkill = { "Cyclone", "Cyclone of Tumult" } },
+	{ var = "channellingCycloneCheck", type = "check", label = "Are you Channelling Cyclone?", ifSkill = { "Cyclone", "Cyclone of Tumult" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ChannellingCyclone", "FLAG", true, "Config")
 	end },
 	{ label = "Dark Pact:", ifSkill = "Dark Pact" },
@@ -501,9 +501,9 @@ return {
 	{ var = "animateWeaponLingeringBlade", type = "check", label = "Are you animating Lingering Blades?", ifSkill = "Animate Weapon", tooltip = "Enables additional damage given to Lingering Blades\nThe exact weapon is unknown but should be similar to Glass Shank", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AnimatingLingeringBlades", "FLAG", true, "Config")
 	end },
-	{ label = "Shrapnel Ballista:", ifSkill = "Shrapnel Ballista" },
-	{ var = "ShrapnelBallistaProjectileOverlap", type = "count", label = "# of Shotgunning Projectiles:", tooltip = "Maximum is limited by the number of Projectiles., default of 1, if Arrow nova then default of maximum projectiles", ifSkill = "Shrapnel Ballista", apply = function(val, modList, enemyModList)
-		modList:NewMod("SkillData", "LIST", { key = "ShrapnelBallistaProjectileOverlap", value = val }, "Config", { type = "SkillName", skillName = "Shrapnel Ballista" })
+	{ label = "Shrapnel Ballista:", ifSkill = { "Shrapnel Ballista", "Shrapnel Ballista of Steel"} },
+	{ var = "ShrapnelBallistaProjectileOverlap", type = "count", label = "# of Shotgunning Projectiles:", tooltip = "Maximum is limited by the number of Projectiles., default of 1, if Arrow nova then default of maximum projectiles", ifSkill = { "Shrapnel Ballista", "Shrapnel Ballista of Steel" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "ShrapnelBallistaProjectileOverlap", value = val }, "Config", { type = "SkillName", skillNameList = { "Shrapnel Ballista", "Shrapnel Ballista of Steel" } })
 	end },
 	{ label = "Sigil of Power:", ifSkill = "Sigil of Power" },
 	{ var = "sigilOfPowerStages", type = "countAllowZero", label = "Stages:", ifSkill = "Sigil of Power", defaultPlaceholderState = 1, apply = function(val, modList, enemyModList)
@@ -535,11 +535,11 @@ return {
 	{ var = "changedStance", type = "check", label = "Changed Stance recently?", ifCond = "ChangedStanceRecently", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:ChangedStanceRecently", "FLAG", true, "Config")
 	end },
-	{ label = "Steel Skills:", ifSkill = { "Splitting Steel", "Shattering Steel", "Lancing Steel" } },
-	{ var = "shardsConsumed", type = "count", label = "Steel Shards consumed:", ifSkill = { "Splitting Steel", "Shattering Steel", "Lancing Steel" }, apply = function(val, modList, enemyModList)
+	{ label = "Steel Skills:", ifSkill = { "Splitting Steel of Ammunition", "Shattering Steel of Ammunition", "Lancing Steel", "Shrapnel Ballista of Steel" } },
+	{ var = "shardsConsumed", type = "count", label = "Steel Shards consumed:", ifSkill = { "Splitting Steel of Ammunition", "Shattering Steel of Ammunition", "Lancing Steel", "Shrapnel Ballista of Steel" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SteelShardConsumed", "BASE", m_min(val, 12), "Config")
 	end },
-	{ var = "steelWards", type = "count", label = "Steel Wards:", ifSkill = "Shattering Steel", tooltip = "Steel Wards are gained from using Shattering Steel with at least 2 Steel Shards.\nYou can have up to 6 Steel Wards, and each grants +4% chance to Block Projectile Attack Damage.", apply = function(val, modList, enemyModList)
+	{ var = "steelWards", type = "count", label = "Steel Wards:", ifSkill = "Shattering Steel of Ammunition", tooltip = "Steel Wards are gained from using Shattering Steel of Ammunition with at least 2 Steel Shards.\nYou can have up to 6 Steel Wards, and each grants +8% chance to Block Projectile Attack Damage.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SteelWardCount", "BASE", val, "Config")
 	end },
 	{ label = "Storm Rain:", ifSkill = "Storm Rain" },
@@ -572,9 +572,9 @@ return {
 	{ var = "nearbyBleedingEnemies", type = "count", label = "# of Nearby Bleeding Enemies:", ifSkill = "Thirst for Blood", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyBleedingEnemies", "BASE", val, "Config" )
 	end },
-	{ label = "Toxic Rain:", ifSkill = "Toxic Rain" },
-	{ var = "toxicRainPodOverlap", type = "count", label = "# of Overlapping Pods:", tooltip = "Maximum is limited by the number of Projectiles.", ifSkill = "Toxic Rain", apply = function(val, modList, enemyModList)
-		modList:NewMod("SkillData", "LIST", { key = "podOverlapMultiplier", value = val }, "Config", { type = "SkillName", skillName = "Toxic Rain" })
+	{ label = "Toxic Rain:", ifSkill = { "Toxic Rain", "Toxic Rain of Sporeburst", "Toxic Rain of Withering" } },
+	{ var = "toxicRainPodOverlap", type = "count", label = "# of Overlapping Pods:", tooltip = "Maximum is limited by the number of Projectiles.", ifSkill = { "Toxic Rain", "Toxic Rain of Sporeburst", "Toxic Rain of Withering" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "podOverlapMultiplier", value = val }, "Config", { type = "SkillName", skillNameList = { "Toxic Rain", "Toxic Rain of Sporeburst", "Toxic Rain of Withering" } })
 	end },
 	{ label = "Herald of Ash:", ifSkill = "Herald of Ash" },
 	{ var = "hoaOverkill", type = "count", label = "Overkill damage:", tooltip = "Herald of Ash's base ^xB97123Burning ^7damage is equal to 25% of Overkill damage.", ifSkill = "Herald of Ash", apply = function(val, modList, enemyModList)
