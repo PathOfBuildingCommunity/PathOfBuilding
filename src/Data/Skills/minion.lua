@@ -64,6 +64,38 @@ skills["SandstormChaosElementalSummoned"] = {
 		[1] = { 16.666667039196, storedUses = 1, levelRequirement = 3, cooldown = 8, statInterpolation = { 3, }, },
 	},
 }
+skills["SandstormChaosElementalSummonedEmpowered"] = {
+	name = "Empowered Chaos Aura",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 15.213299751282,
+	incrementalEffectiveness = 0.052099999040365,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.DamageOverTime] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.7,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		area = true,
+	},
+	baseMods = {
+		skill("dotIsArea", true),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 8000 },
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+		{ "chaos_damage_taken_+%", 6 },
+	},
+	stats = {
+		"base_chaos_damage_to_deal_per_minute",
+		"is_area_damage",
+		"spell_damage_modifiers_apply_to_skill_dot",
+		"sandstorm_applies_withered_to_enemies_within",
+	},
+	levels = {
+		[1] = { 16.666667039196, storedUses = 1, levelRequirement = 3, cooldown = 8, statInterpolation = { 3, }, },
+	},
+}
 skills["FireElementalFlameRedSummoned"] = {
 	name = "Immolate",
 	hidden = true,
@@ -174,6 +206,32 @@ skills["FireElementalConeSummoned"] = {
 		[30] = { 0.80000001192093, 1.25, critChance = 5, storedUses = 1, damageEffectiveness = 2, cooldown = 2, levelRequirement = 90, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["FireElementalMeteorSummoned"] = {
+	name = "Meteor",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 9,
+	incrementalEffectiveness = 0.054999999701977,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Damage] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 5000 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 100 },
+		{ "active_skill_area_of_effect_radius_+%_final", 80 },
+	},
+	stats = {
+		"base_fire_damage_to_deal_per_minute",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 16.666667039196, damageEffectiveness = 3.5, baseMultiplier = 3.5, levelRequirement = 0, statInterpolation = { 3, }, },
+	},
+}
 skills["IceElementalIceCyclone"] = {
 	name = "Cyclone",
 	hidden = true,
@@ -242,6 +300,56 @@ skills["IceElementalSpearSummoned"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 3, cooldown = 4, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["IceElementalSpearSummonedDeathNova"] = {
+	name = "Death Nova",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 4.5626001358032,
+	incrementalEffectiveness = 0.034600000828505,
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "monster_reverse_point_blank_damage_-%_at_minimum_range", 25 },
+		{ "number_of_additional_projectiles", 11 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"base_is_projectile",
+		"projectiles_nova",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["DeathExplodeIceElementalSummoned"] = {
+	name = "Explode",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4.5626001358032,
+	incrementalEffectiveness = 0.034699998795986,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.33,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 3, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["LightningGolemArcSummoned"] = {
@@ -1708,7 +1816,7 @@ skills["BlinkMirrorArrowMelee"] = {
 	},
 }
 skills["SumonRagingSpiritMelee"] = {
-	name = "Default Attack",
+	name = "Melee",
 	hidden = true,
 	color = 4,
 	description = "Strike your foes down with a powerful blow.",
@@ -1727,5 +1835,46 @@ skills["SumonRagingSpiritMelee"] = {
 		[2] = { 0, levelRequirement = 4, statInterpolation = { 2, }, },
 		[3] = { 1, levelRequirement = 5, statInterpolation = { 2, }, },
 		[4] = { 45, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
+skills["AnimateGuardianSmite"] = {
+	name = "Smite",
+	hidden = true,
+	color = 4,
+	description = "Performs a melee attack, and causes lightning to strike a nearby enemy, dealing damage in an area. Each target can only be hit once by this skill. Hitting an enemy grants an aura for a duration. Requires a Sword, Axe, Mace, Sceptre, Staff or Unarmed.",
+	skillTypes = { [SkillType.Melee] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Damage] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Aura] = true, [SkillType.Buff] = true, [SkillType.Lightning] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+		{ "smite_lightning_target_range", 20 },
+		{ "base_smite_number_of_targets", 3 },
+		{ "smite_lightning_target_range", 50 },
+		{ "active_skill_base_area_of_effect_radius", 15 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 36 },
+		{ "active_skill_secondary_area_of_effect_description_mode", 4 },
+	},
+	stats = {
+		"visual_hit_effect_elemental_is_holy",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 1, },
 	},
 }
