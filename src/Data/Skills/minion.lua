@@ -229,7 +229,7 @@ skills["FireElementalMeteorSummoned"] = {
 		"is_area_damage",
 	},
 	levels = {
-		[1] = { 16.666667039196, damageEffectiveness = 3.5, baseMultiplier = 3.5, levelRequirement = 0, statInterpolation = { 3, }, },
+		[1] = { 16.666667039196, damageEffectiveness = 3.5, baseMultiplier = 3.5, levelRequirement = 1, statInterpolation = { 3, }, },
 	},
 }
 skills["IceElementalIceCyclone"] = {
@@ -327,7 +327,7 @@ skills["IceElementalSpearSummonedDeathNova"] = {
 		"projectiles_nova",
 	},
 	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, levelRequirement = 3, statInterpolation = { 3, 3, }, },
+		[1] = { 0.80000001192093, 1.2000000476837, damageEffectiveness = 1.5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
 skills["DeathExplodeIceElementalSummoned"] = {
