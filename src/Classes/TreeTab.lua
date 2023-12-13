@@ -143,6 +143,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end, nil, nil, true)
 	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
 
+	self.tradeLeaguesList = { }
 	-- Find Timeless Jewel Button
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
@@ -1728,31 +1729,34 @@ function TreeTabClass:FindTimelessJewel()
 	end)
 	self.tradeQueryRequests = new("TradeQueryRequests")
 	controls.msg = new("LabelControl", nil, -280, 5, 0, 16, "")
-	self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
-		if errMsg then
-			controls.msg.label = "^1Error fetching league list, default league will be used\n"..errMsg.."^7"
-			return
-		end
-		local sorted_leagues = { }
-		local tempLeagueTable = { }
-		for _, league in ipairs(leagues) do
-			if league ~= "Standard" and league ~= "Hardcore" then
-				if not (league:find("Hardcore") or league:find("Ruthless")) then
-					-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of copy trade url
-					t_insert(tempLeagueTable, league)
-					for _, val in ipairs(sorted_leagues) do
-						t_insert(tempLeagueTable, val)
+	if #self.tradeLeaguesList > 0 then
+		controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
+	else
+		self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
+			if errMsg then
+				controls.msg.label = "^1Error fetching league list, default league will be used\n"..errMsg.."^7"
+				return
+			end
+			local tempLeagueTable = { }
+			for _, league in ipairs(leagues) do
+				if league ~= "Standard" and league ~= "Hardcore" then
+					if not (league:find("Hardcore") or league:find("Ruthless")) then
+						-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of copy trade url
+						t_insert(tempLeagueTable, league)
+						for _, val in ipairs(self.tradeLeaguesList) do
+							t_insert(tempLeagueTable, val)
+						end
+						self.tradeLeaguesList = copyTable(tempLeagueTable)
+					else
+						t_insert(self.tradeLeaguesList, league)
 					end
-					sorted_leagues = copyTable(tempLeagueTable)
-				else
-					t_insert(sorted_leagues, league)
 				end
 			end
-		end
-		t_insert(sorted_leagues, "Standard")
-		t_insert(sorted_leagues, "Hardcore")
-		controls.searchTradeLeagueSelect:SetList(sorted_leagues)
-	end)
+			t_insert(self.tradeLeaguesList, "Standard")
+			t_insert(self.tradeLeaguesList, "Hardcore")
+			controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
+		end)
+	end
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
 		local seedTrades = {}
 		local startRow = controls.searchResults.selIndex or 1
