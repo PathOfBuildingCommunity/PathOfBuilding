@@ -175,8 +175,8 @@ skills["Barkskin"] = {
 			mod("EvadeChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "MissingBarkskinStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
 		},
 		["max_barkskin_stacks"] = {
-			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -3395,7 +3395,7 @@ skills["VampiricIcon"] = {
 	fromItem = true,
 	statMap = {
 		["vampiric_icon_max_bleeding_beam_targets"] = {
-			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 		["skill_life_regeneration_per_minute_per_affected_enemy"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),

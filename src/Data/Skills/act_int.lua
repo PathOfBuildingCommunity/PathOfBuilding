@@ -7098,7 +7098,7 @@ skills["FrostGlobe"] = {
 			mod("FrostGlobeHealth", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrostShieldStage", limitVar = "FrostShieldMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
 		},
 		["frost_globe_max_stages"] = {
-			mod("Multiplier:FrostShieldMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:FrostShieldMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -12122,10 +12122,10 @@ skills["MortarBarrageMine"] = {
 			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
 		},
 		["mortar_barrage_mine_minimum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 	},
 	baseFlags = {
@@ -13264,7 +13264,7 @@ skills["CircleOfPower"] = {
  			mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", actor = "enemy", var = "SigilOfPowerStage", thresholdVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Debuff", effectName = "Sigil of Power" }),
  		},
 		["circle_of_power_max_stages"] = {
-			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["quality_display_circle_of_power_is_gem"] = {
 			-- Display Only
