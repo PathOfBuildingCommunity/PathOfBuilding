@@ -219,6 +219,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
+#skill EGBoneGolemConsumeCorpse
+#mods
+
+#skill BoneGolemCascadeEmpowered
+#flags attack melee area
+#baseMod skill("showAverage", true)
+#mods
+
 #skill SkitterbotWait Skitterbot Wait
 #flags duration
 #mods

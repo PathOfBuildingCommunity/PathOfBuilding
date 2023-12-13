@@ -1332,6 +1332,50 @@ skills["BoneGolemLeapSlam"] = {
 		[1] = { attackSpeedMultiplier = -44, storedUses = 1, damageEffectiveness = 1.8, baseMultiplier = 1.8, cooldown = 4, levelRequirement = 1, },
 	},
 }
+skills["EGBoneGolemConsumeCorpse"] = {
+	name = "",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Spell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0,
+	baseFlags = {
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -90 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 5, },
+	},
+}
+skills["BoneGolemCascadeEmpowered"] = {
+	name = "",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
+	},
+	constantStats = {
+		{ "upheaval_number_of_spikes", 4 },
+		{ "active_skill_area_of_effect_+%_final", 100 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { attackSpeedMultiplier = -10, baseMultiplier = 1.85, damageEffectiveness = 1.85, levelRequirement = 1, },
+	},
+}
 skills["SkitterbotWait"] = {
 	name = "Skitterbot Wait",
 	hidden = true,
