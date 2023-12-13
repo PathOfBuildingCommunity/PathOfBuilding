@@ -2760,10 +2760,16 @@ local skills, mod, flag, skill = ...
 
 #skill SummonBoneGolemAltX
 #flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedCarrionGolem",
+	},
 #mods
 
 #skill SummonBoneGolemAltY
 #flags spell minion golem permanentMinion
+	minionList = {
+		"SummonedCarrionGolem",
+	},
 #mods
 
 #skill SummonChaosGolem

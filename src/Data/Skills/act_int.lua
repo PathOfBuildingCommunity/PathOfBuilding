@@ -15167,6 +15167,9 @@ skills["SummonBoneGolemAltX"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Movement] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	minionList = {
+		"SummonedCarrionGolem",
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -15241,6 +15244,9 @@ skills["SummonBoneGolemAltY"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Movement] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	minionList = {
+		"SummonedCarrionGolem",
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,

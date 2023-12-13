@@ -248,7 +248,7 @@ return {
 			name="MinionSkillTypes",
 			refTo="ActiveSkillType",
 			type="Key",
-			width=150
+			width=420
 		},
 		[19]={
 			list=false,
