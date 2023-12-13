@@ -1459,7 +1459,7 @@ skills["EGBoneGolemConsumeCorpse"] = {
 	},
 }
 skills["BoneGolemCascadeEmpowered"] = {
-	name = "Empowed Cascade",
+	name = "Empowered Cascade",
 	hidden = true,
 	color = 4,
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
