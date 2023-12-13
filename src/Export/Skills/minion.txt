@@ -219,10 +219,10 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
-#skill EGBoneGolemConsumeCorpse
+#skill EGBoneGolemConsumeCorpse Consume Corpse
 #mods
 
-#skill BoneGolemCascadeEmpowered
+#skill BoneGolemCascadeEmpowered Empowed Cascade
 #flags attack melee area
 #baseMod skill("showAverage", true)
 #mods

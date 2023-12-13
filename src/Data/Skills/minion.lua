@@ -1333,7 +1333,7 @@ skills["BoneGolemLeapSlam"] = {
 	},
 }
 skills["EGBoneGolemConsumeCorpse"] = {
-	name = "",
+	name = "Consume Corpse",
 	hidden = true,
 	color = 4,
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Spell] = true, },
@@ -1351,7 +1351,7 @@ skills["EGBoneGolemConsumeCorpse"] = {
 	},
 }
 skills["BoneGolemCascadeEmpowered"] = {
-	name = "",
+	name = "Empowed Cascade",
 	hidden = true,
 	color = 4,
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, },
