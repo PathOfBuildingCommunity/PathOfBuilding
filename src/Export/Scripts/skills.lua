@@ -409,11 +409,11 @@ directiveTable.skill = function(state, args, out)
 		local resolveInterpolation = false
 		local injectConstantValuesIntoEachLevel = false
 		local statMapOrderIndex = 1
-        for i, stat in ipairs(statRow.FloatStats) do
-            if not statMap[stat.Id] or indx == 1 then
-                statMap[stat.Id] = #skill.stats + 1
-                table.insert(skill.stats, { id = stat.Id })
-                if indx == 1 then
+		for i, stat in ipairs(statRow.FloatStats) do
+			if not statMap[stat.Id] or indx == 1 then
+				statMap[stat.Id] = #skill.stats + 1
+				table.insert(skill.stats, { id = stat.Id })
+				if indx == 1 then
 					table.insert(statMapOrder, stat.Id)
 				else
 					print(displayName .. ": stat missing from earlier levels: ".. stat.Id)
