@@ -284,12 +284,12 @@ return {
 		modList:NewMod("Multiplier:BarkskinStacks", "BASE",  m_min(val, 10), "Config")
 		modList:NewMod("Multiplier:MissingBarkskinStacks", "BASE", m_max(-val, -10), "Config")
 	end },
-	{ label = "Bladestorm:", ifSkill = "Bladestorm" },
-	{ var = "bladestormInBloodstorm", type = "check", label = "Are you in a Bloodstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:BladestormInBloodstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })
+	{ label = "Bladestorm:", ifSkill = { "Bladestorm", "Bladestorm of Uncertainty" } },
+	{ var = "bladestormInBloodstorm", type = "check", label = "Are you in a Bloodstorm?", ifSkill = { "Bladestorm", "Bladestorm of Uncertainty" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BladestormInBloodstorm", "FLAG", true, "Config", { type = "SkillName", skillNameList = { "Bladestorm", "Bladestorm of Uncertainty" } })
 	end },
-	{ var = "bladestormInSandstorm", type = "check", label = "Are you in a Sandstorm?", ifSkill = "Bladestorm", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillName = "Bladestorm" })
+	{ var = "bladestormInSandstorm", type = "check", label = "Are you in a Sandstorm?", ifSkill = { "Bladestorm", "Bladestorm of Uncertainty" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:BladestormInSandstorm", "FLAG", true, "Config", { type = "SkillName", skillNameList = { "Bladestorm", "Bladestorm of Uncertainty" } })
 	end },
 	{ label = "Blood Sacrament:", ifSkill = "Blood Sacrament" },
 	{ var = "bloodSacramentReservationEHP", type = "check", label = "Count Skill Reservation towards eHP?", ifSkill = "Blood Sacrament", tooltip = "Use this option to disable the skill reservation factoring into eHP calculations",apply = function(val, modList, enemyModList)
@@ -325,6 +325,14 @@ return {
 	{ label = "Close Combat:", ifSkill = "Close Combat" },
 	{ var = "closeCombatCombatRush", type = "check", label = "Is Combat Rush active?", ifSkill = "Close Combat", tooltip = "Combat Rush grants 20% more Attack Speed to Travel Skills not Supported by Close Combat.",apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CombatRushActive", "FLAG", true, "Config")
+	end },
+	{ label = "Cold Snap:", ifSkill = "Cold Snap" },
+	{ var = "ColdSnapBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Cold Snap", apply = function(val, modList, enemyModList)
+		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillName = "Cold Snap" })
+	end },
+	{ label = "Consecrated Path of Endurance:", ifSkill = "Consecrated Path of Endurance" },
+	{ var = "ConcPathBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Consecrated Path of Endurance", apply = function(val, modList, enemyModList)
+		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillName = "Consecrated Path of Endurance" })
 	end },
 	{ label = "Corrupting Cry:", ifSkill = "Corrupting Cry" },
 	{ var = "conditionCorruptingCryStages", type = "count", label = "# of Corrupting Cry stacks on enemy", ifSkill = "Corrupting Cry", defaultState = 1, apply = function(val, modList, enemyModList)
@@ -451,9 +459,9 @@ return {
 			modList:NewMod("Condition:PlagueBearerInfecting", "FLAG", true, "Config")
 		end
 	end },
-	{ label = "Perforate:", ifSkill = "Perforate"},
-	{ var = "perforateSpikeOverlap", type = "count", label = "# of Overlapping Spikes:", tooltip = "Affects the DPS of Perforate in Blood Stance.\nMaximum is limited by the number of Spikes of Perforate.", ifSkill = "Perforate", apply = function(val, modList, enemyModList)
-		modList:NewMod("Multiplier:PerforateSpikeOverlap", "BASE", val, "Config", { type = "SkillName", skillName = "Perforate" })
+	{ label = "Perforate:", ifSkill = { "Perforate", "Perforate of Duality", "Perforate of Bloodshed" } },
+	{ var = "perforateSpikeOverlap", type = "count", label = "# of Overlapping Spikes:", tooltip = "Affects the DPS of Perforate in Blood Stance.\nMaximum is limited by the number of Spikes of Perforate.", ifSkill = { "Perforate", "Perforate of Duality", "Perforate of Bloodshed" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Multiplier:PerforateSpikeOverlap", "BASE", val, "Config", { type = "SkillName", skillNameList = { "Perforate", "Perforate of Duality", "Perforate of Bloodshed" } })
 	end },
 	{ label = "Physical Aegis:", ifSkill = "Physical Aegis" },
 	{ var = "physicalAegisDepleted", type = "check", label = "Is Physical Aegis depleted?", ifSkill = "Physical Aegis", apply = function(val, modList, enemyModList)
@@ -526,8 +534,8 @@ return {
 	{ var = "configSpectralWolfCount", type = "count", label = "# of Active Spectral Wolves:", ifSkill = "Summon Spectral Wolf", tooltip = "Sets the number of active Spectral Wolves.\nThe maximum number of Spectral Wolves is 10.", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:SpectralWolfCount", "BASE", m_min(val, 10), "Config")
 	end },
-	{ label = "Stance Skills:", ifSkill = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate" } },
-	{ var = "bloodSandStance", type = "list", label = "Stance:", ifSkill = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate" }, list = {{val="BLOOD",label="Blood Stance"},{val="SAND",label="Sand Stance"}}, apply = function(val, modList, enemyModList)
+	{ label = "Stance Skills:", ifSkill = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate", "Perforate of Duality" } },
+	{ var = "bloodSandStance", type = "list", label = "Stance:", ifSkill = { "Blood and Sand", "Flesh and Stone", "Lacerate", "Bladestorm", "Perforate", "Perforate of Duality" }, list = {{val="BLOOD",label="Blood Stance"},{val="SAND",label="Sand Stance"}}, apply = function(val, modList, enemyModList)
 		if val == "SAND" then
 			modList:NewMod("Condition:SandStance", "FLAG", true, "Config")
 		end
@@ -587,10 +595,6 @@ return {
 	{ label = "Vortex:", ifSkill = "Vortex" },
 	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Vortex", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Vortex" })
-	end },
-	{ label = "Cold Snap:", ifSkill = "Cold Snap" },
-	{ var = "ColdSnapBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Cold Snap", apply = function(val, modList, enemyModList)
-		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillName = "Cold Snap" })
 	end },
 	{ label = "Warcry Skills:", ifSkill = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry", "Battlemage's Cry" } },
 	{ var = "multiplierWarcryPower", type = "count", label = "Warcry Power:", ifSkill = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry", "Battlemage's Cry" }, tooltip = "Power determines how strong your Warcry buffs will be, and is based on the total strength of nearby enemies.\nPower is assumed to be 20 if your target is a Boss, but you can override it here if necessary.\n\tEach Normal enemy grants 1 Power\n\tEach Magic enemy grants 2 Power\n\tEach Rare enemy grants 10 Power\n\tEach Unique enemy grants 20 Power", apply = function(val, modList, enemyModList)

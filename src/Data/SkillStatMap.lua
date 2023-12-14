@@ -526,6 +526,12 @@ return {
 ["area_of_effect_+%_per_50_strength"] = {
 	skill("AreaOfEffect", nil, { type = "PerStat", stat = "Str", div = 50 }),
 },
+["active_skill_area_of_effect_+%_final_per_endurance_charge"] = {
+	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
+},
+["skill_area_of_effect_+%_final_in_sand_stance"] = {
+	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "SandStance" }),
+},
 -- Critical strikes
 ["additional_base_critical_strike_chance"] = {
 	mod("CritChance", "BASE", nil),
@@ -806,6 +812,13 @@ return {
 ["active_skill_merged_damage_+%_final_while_dual_wielding"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "DualWielding" }),
 },
+["active_skill_additive_minion_damage_modifiers_apply_to_all_damage_at_%_value"] = {
+	flag("MinionDamageAppliesToPlayer"),
+	mod("ImprovedMinionDamageAppliesToPlayer", "MAX", nil)
+},
+["active_skill_main_hand_weapon_damage_+%_final"] = {
+	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "MainHandAttack" }),
+},
 -- PvP Damage
 ["support_makes_skill_mine_pvp_damage_+%_final"] = {
 	mod("PvpDamageMultiplier", "MORE", nil),
@@ -1003,10 +1016,10 @@ return {
 	mod("EnemyFreezeDuration", "INC", nil),
 },
 ["base_elemental_status_ailment_duration_+%"] = {
-	mod("EnemyElementalAilmentDuration", "INC", nil), 
+	mod("EnemyElementalAilmentDuration", "INC", nil),
 },
 ["base_all_ailment_duration_+%"] = {
-	mod("EnemyAilmentDuration", "INC", nil), 
+	mod("EnemyAilmentDuration", "INC", nil),
 },
 ["bleeding_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
@@ -1081,8 +1094,8 @@ return {
 	flag("IronWill"),
 },
 ["deal_no_elemental_damage"] = {
-	flag("DealNoFire"), 
-	flag("DealNoCold"), 
+	flag("DealNoFire"),
+	flag("DealNoCold"),
 	flag("DealNoLightning"),
 },
 ["base_deal_no_chaos_damage"] = {
@@ -1136,6 +1149,12 @@ return {
 ["base_stun_duration_+%"] = {
 	mod("EnemyStunDuration", "INC", nil),
 },
+["stun_duration_+%_vs_enemies_that_are_on_full_life"] = {
+	mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" }),
+},
+["chance_to_double_stun_duration_%"] = {
+	mod("DoubleEnemyStunDurationChance", "BASE", nil),
+},
 ["base_killed_monster_dropped_item_quantity_+%"] = {
 	mod("LootQuantity", "INC", nil),
 },
@@ -1183,8 +1202,8 @@ return {
 ["base_arrow_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
 },
-["base_projectile_speed_+%"] = {
-	mod("ProjectileSpeed", "INC", nil),
+["active_skill_projectile_speed_+%_final"] = {
+	mod("ProjectileSpeed", "MORE", nil),
 },
 ["projectile_base_number_of_targets_to_pierce"] = {
 	mod("PierceCount", "BASE", nil),
@@ -1216,6 +1235,9 @@ return {
 ["modifiers_to_number_of_projectiles_instead_apply_to_splitting"] = {
 	flag("NoAdditionalProjectiles"),
 	flag("AdditionalProjectilesAddSplitsInstead")
+},
+["modifiers_to_projectile_count_do_not_apply"] = {
+	flag("NoAdditionalProjectiles"),
 },
 ["base_number_of_arrows"] = {
 	mod("ProjectileCount", "BASE", nil),
@@ -1453,14 +1475,20 @@ return {
 ["off_hand_local_minimum_added_physical_damage"] = {
 	skill("setOffHandPhysicalMin", nil),
 },
-["off_hand_local_minimum_added_cold_damage"] = {
-	skill("setOffHandColdMin", nil),
-},
 ["off_hand_local_maximum_added_physical_damage"] = {
 	skill("setOffHandPhysicalMax", nil),
 },
+["off_hand_local_minimum_added_cold_damage"] = {
+	skill("setOffHandColdMin", nil),
+},
 ["off_hand_local_maximum_added_cold_damage"] = {
 	skill("setOffHandColdMax", nil),
+},
+["off_hand_local_minimum_added_fire_damage"] = {
+	skill("setOffHandFireMin", nil),
+},
+["off_hand_local_maximum_added_fire_damage"] = {
+	skill("setOffHandFireMax", nil),
 },
 ["off_hand_base_weapon_attack_duration_ms"] = {
 	skill("setOffHandAttackTime", nil),
@@ -1468,14 +1496,20 @@ return {
 ["off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
 	mod("PhysicalMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
-["off_hand_minimum_added_cold_damage_per_15_shield_evasion"] = {
-	mod("ColdMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EvasionOnWeapon 2", div = 15 }),
-},
 ["off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating"] = {
 	mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "Condition", var = "ShieldThrowCrushNoArmourEvasion", neg = true }, { type = "PerStat", statList = { "ArmourOnWeapon 2", "EvasionOnWeapon 2" }, div = 15, }),
 },
+["off_hand_minimum_added_cold_damage_per_15_shield_evasion"] = {
+	mod("ColdMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EvasionOnWeapon 2", div = 15 }),
+},
 ["off_hand_maximum_added_cold_damage_per_15_shield_evasion"] = {
 	mod("ColdMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "EvasionOnWeapon 2", div = 15 }),
+},
+["off_hand_minimum_added_fire_damage_per_15_shield_armour"] = {
+	mod("FireMin", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "ArmourOnWeapon 2", div = 15 }),
+},
+["off_hand_maximum_added_fire_damage_per_15_shield_armour"] = {
+	mod("FireMax", "BASE", nil, 0, 0, { type = "Condition", var = "OffHandAttack" }, { type = "PerStat", stat = "ArmourOnWeapon 2", div = 15 }),
 },
 ["additional_critical_strike_chance_per_10_shield_maximum_energy_shield_permyriad"] = {
 	mod("CritChance", "BASE", nil, 0, 0, { type = "PerStat", stat = "EnergyShieldOnWeapon 2", div = 10, }),

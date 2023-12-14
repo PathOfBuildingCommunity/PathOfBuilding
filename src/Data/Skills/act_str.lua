@@ -111,11 +111,20 @@ skills["AbsolutionAltX"] = {
 		"AbsolutionTemplarJudge",
 		"AbsolutionTemplarJudgeVaal",
 	},
+	statMap = {
+		["skill_physical_damage_%_to_convert_to_lightning"] = {
+			mod("SkillPhysicalDamageConvertToLightning", "BASE", nil),
+			mod("MinionModifier", "LIST", { mod = mod("SkillPhysicalDamageConvertToLightning", "BASE", nil, 0, 0) })
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
 		duration = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 25),
 	},
 	qualityStats = {
 		Default = {
@@ -919,6 +928,18 @@ skills["AnimateArmourAltX"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "single_minion_spell_skill_stat_descriptions",
 	castTime = 0.6,
+	minionHasItemSet = true,
+	minionUses = {
+		["Weapon 1"] = true,
+		["Weapon 2"] = true,
+		["Helmet"] = true,
+		["Body Armour"] = true,
+		["Gloves"] = true,
+		["Boots"] = true,
+	},
+	minionList = {
+		"AnimatedArmour",
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -1356,11 +1377,36 @@ skills["BladestormAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Attack",
+		},
+		{
+			name = "Bladestorm",
+		},
+	},
+	statMap = {
+		["bladestorm_storm_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["bladestorm_attack_speed_+%_final_while_in_bloodstorm"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Condition", var = "BladestormInBloodstorm" }),
+		},
+		["bladestorm_movement_speed_+%_while_in_sandstorm"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sandstorm", effectCond = "BladestormInSandstorm" }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 24),
+		skill("radiusLabel", "Area of initial attack:"),
+		skill("radiusSecondary", 20),
+		skill("radiusSecondaryLabel", "Area of bladestorms:"),
 	},
 	qualityStats = {
 		Default = {
@@ -1625,6 +1671,34 @@ skills["BoneshatterAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Attack",
+			area = false,
+		},
+		{
+			name = "Pulse",
+			area = true,
+		},
+	},
+	statMap = {
+		["trauma_strike_damage_+%_final_per_trauma"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks", limitVar = "TraumaStacksMax" }),
+		},
+		["boneshatter_trauma_base_duration_ms"] = {
+			mod("TraumaDuration", "BASE", nil),
+			div = 1000,
+		},
+		["lose_all_trauma_at_X_trauma"] = {
+			mod("Multiplier:TraumaStacksMax", "BASE", nil),
+		},
+		["trauma_strike_self_damage_per_trauma"] = {
+			-- Display only
+		},
+		["quality_display_boneshatter_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -1632,6 +1706,7 @@ skills["BoneshatterAltX"] = {
 		duration = true,
 	},
 	baseMods = {
+		skill("radius", 14, { type = "SkillPart", skillPart = 2 }),
 		flag("HasTrauma"),
 	},
 	qualityStats = {
@@ -1712,11 +1787,23 @@ skills["BoneshatterAltY"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Attack",
+			area = false,
+		},
+		{
+			name = "Pulse",
+			area = true,
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
-		duration = true,
+	},
+	baseMods = {
+		skill("radius", 14, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -1968,10 +2055,25 @@ skills["CleaveAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["chain_strike_gain_x_rage_if_attack_hits"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
+		},
+		["chain_strike_cone_radius_+_per_x_rage"] = {
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
+			div = 5,
+		},
+		["quality_display_chain_hook_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 20),
 	},
 	qualityStats = {
 		Default = {
@@ -2242,11 +2344,22 @@ skills["ConsecratedPathAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+		["quality_display_groundslam_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 23),
 	},
 	qualityStats = {
 		Default = {
@@ -2826,6 +2939,10 @@ skills["DominatingBlowAltX"] = {
 	},
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
+	minionList = {
+		"AxisEliteSoldierDominatingBlow",
+		"AxisEliteSoldierDominatingBlowVaal",
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -3184,11 +3301,35 @@ skills["EarthquakeAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Initial impact",
+		},
+		{
+			name = "Aftershock",
+		},
+	},
+	statMap = {
+		["earthquake_skill_aftershock_hit_damage_+%_final_per_100ms_duration"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Hit, { type = "SkillPart", skillPart = 2 }, { type = "Multiplier", var = "100msEarthquakeDuration"} ),
+		},
+		["earthquake_skill_aftershock_ailment_damage_+%_final_per_100ms_duration"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPart = 2 }, { type = "Multiplier", var = "100msEarthquakeDuration"} ),
+		},
+		["earthquake_skill_aftershock_area_of_effect_+%_final_per_100ms_duration"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }, { type = "Multiplier", var = "100msEarthquakeDuration"} ),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 18, { type = "SkillPart", skillPart = 1 }),
+		skill("radius", 28, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -3389,7 +3530,7 @@ skills["SpikeSlam"] = {
 		},
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
-		}
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3477,11 +3618,30 @@ skills["SpikeSlamAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Initial impact",
+		},
+		{
+			name = "Spike",
+		},
+	},
+	statMap = {
+		["spike_slam_explosion_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["spike_slam_spike_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 18, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		Default = {
@@ -3560,11 +3720,30 @@ skills["SpikeSlamAltY"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Initial impact",
+		},
+		{
+			name = "Spike",
+		},
+	},
+	statMap = {
+		["spike_slam_explosion_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["earthshatter_spike_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 18, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		Default = {
@@ -3810,6 +3989,13 @@ skills["ExsanguinateAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.CanRapidFire] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["base_physical_damage_to_deal_per_minute"] = {
+			skill("PhysicalDot", nil, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
+			skill("FireDot", nil, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage"}),
+			div = 60,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -3817,6 +4003,9 @@ skills["ExsanguinateAltX"] = {
 	},
 	baseMods = {
 		skill("debuff", true),
+		mod("Multiplier:ExsanguinateofTransmissionMaxStages", "BASE", 3),
+		mod("PhysicalDamage", "MORE", 100, 0, KeywordFlag.PhysicalDot, { type = "Multiplier", var = "ExsanguinateofTransmissionStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage", neg = true }),
+		mod("FireDamage", "MORE", 100, bit.bor(ModFlag.Spell,ModFlag.Dot), 0, { type = "Multiplier", var = "ExsanguinateofTransmissionStageAfterFirst"}, { type = "Condition", var = "ExsanguinateDebuffIsFireDamage" }),
 	},
 	qualityStats = {
 		Default = {
@@ -4210,8 +4399,6 @@ skills["FrozenSweep"] = {
 		},
 	},
 	preDamageFunc = function(activeSkill, output, breakdown)
-		local t_insert = table.insert
-		local s_format = string.format
 		local parentSkill
 		local m_ceil = math.ceil
 		local m_max = math.max
@@ -4308,6 +4495,123 @@ skills["FrozenSweep"] = {
 		[38] = { attackSpeedMultiplier = -30, baseMultiplier = 3.628, damageEffectiveness = 3.63, levelRequirement = 98, },
 		[39] = { attackSpeedMultiplier = -30, baseMultiplier = 3.657, damageEffectiveness = 3.66, levelRequirement = 99, },
 		[40] = { attackSpeedMultiplier = -30, baseMultiplier = 3.686, damageEffectiveness = 3.69, levelRequirement = 100, },
+	},
+}
+skills["FrozenSweepAltX"] = {
+	name = "Frozen Legion of Rallying",
+	color = 1,
+	description = "This attack is used by your Statues to deal damage in an area around them while stepping forward. This skill cannot repeat and can only be used by Statues from Frozen Legion.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Cold] = true, [SkillType.NonRepeatable] = true, [SkillType.OtherThingUsesSkill] = true, [SkillType.OwnerCannotUse] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Sceptre"] = true,
+		["Staff"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	parts = {
+		{
+			name = "1 charge",
+		},
+		{
+			name = "Wait for max charges",
+		},
+	},
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local parentSkill
+		local m_ceil = math.ceil
+		local m_max = math.max
+		activeSkill.skillData.showAverage = false
+		activeSkill.skillFlags.showAverage = false
+		activeSkill.skillFlags.notAverage = true
+
+		for _, skill in ipairs(activeSkill.actor.activeSkillList) do
+			if skill.activeEffect.grantedEffect.name == "Frozen Legion of Rallying" and activeSkill.actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
+				parentSkill = skill
+				break
+			end
+		end
+
+		if parentSkill.skillModList:Flag(parentSkill.skillCfg, "DisableSkill") and not parentSkill.skillModList:Flag(parentSkill.skillCfg, "EnableSkill") then
+			return
+		end
+
+		activeSkill.skillData.cooldown = parentSkill.skillData.cooldown
+		local cooldownOverride = parentSkill.skillModList:Override(parentSkill.skillCfg, "CooldownRecovery")
+		local cooldown = cooldownOverride or (parentSkill.skillData.cooldown + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(parentSkill.skillModList, parentSkill.skillCfg, "CooldownRecovery"))
+		output.Cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
+		activeSkill.skillData.hitTimeOverride = output.Cooldown
+
+		local maxStatues = parentSkill.skillData.storedUses + parentSkill.skillModList:Sum("BASE", parentSkill.skillCfg, "AdditionalCooldownUses")
+		local statuesWaitedFor
+
+		if activeSkill.skillPart == 1 then
+			statuesWaitedFor = 1
+		elseif activeSkill.skillPart == 2 then
+			statuesWaitedFor = maxStatues
+		end
+		activeSkill.skillData.averageBurstHits = statuesWaitedFor
+	end,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	baseMods = {
+		skill("radius", 25),
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
+		{ "skill_disabled_unless_cloned", 1 },
+	},
+	stats = {
+		"is_area_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+	},
+	levels = {
+		[1] = { attackSpeedMultiplier = -30, baseMultiplier = 0.8, damageEffectiveness = 0.8, levelRequirement = 39, },
+		[2] = { attackSpeedMultiplier = -30, baseMultiplier = 0.829, damageEffectiveness = 0.829, levelRequirement = 41, },
+		[3] = { attackSpeedMultiplier = -30, baseMultiplier = 0.858, damageEffectiveness = 0.858, levelRequirement = 43, },
+		[4] = { attackSpeedMultiplier = -30, baseMultiplier = 0.887, damageEffectiveness = 0.887, levelRequirement = 45, },
+		[5] = { attackSpeedMultiplier = -30, baseMultiplier = 0.916, damageEffectiveness = 0.916, levelRequirement = 47, },
+		[6] = { attackSpeedMultiplier = -30, baseMultiplier = 0.945, damageEffectiveness = 0.945, levelRequirement = 49, },
+		[7] = { attackSpeedMultiplier = -30, baseMultiplier = 0.974, damageEffectiveness = 0.974, levelRequirement = 51, },
+		[8] = { attackSpeedMultiplier = -30, baseMultiplier = 1.003, damageEffectiveness = 1.003, levelRequirement = 53, },
+		[9] = { attackSpeedMultiplier = -30, baseMultiplier = 1.032, damageEffectiveness = 1.032, levelRequirement = 55, },
+		[10] = { attackSpeedMultiplier = -30, baseMultiplier = 1.061, damageEffectiveness = 1.061, levelRequirement = 57, },
+		[11] = { attackSpeedMultiplier = -30, baseMultiplier = 1.089, damageEffectiveness = 1.089, levelRequirement = 59, },
+		[12] = { attackSpeedMultiplier = -30, baseMultiplier = 1.118, damageEffectiveness = 1.118, levelRequirement = 61, },
+		[13] = { attackSpeedMultiplier = -30, baseMultiplier = 1.147, damageEffectiveness = 1.147, levelRequirement = 63, },
+		[14] = { attackSpeedMultiplier = -30, baseMultiplier = 1.176, damageEffectiveness = 1.176, levelRequirement = 64, },
+		[15] = { attackSpeedMultiplier = -30, baseMultiplier = 1.205, damageEffectiveness = 1.205, levelRequirement = 65, },
+		[16] = { attackSpeedMultiplier = -30, baseMultiplier = 1.234, damageEffectiveness = 1.234, levelRequirement = 66, },
+		[17] = { attackSpeedMultiplier = -30, baseMultiplier = 1.263, damageEffectiveness = 1.263, levelRequirement = 67, },
+		[18] = { attackSpeedMultiplier = -30, baseMultiplier = 1.292, damageEffectiveness = 1.292, levelRequirement = 68, },
+		[19] = { attackSpeedMultiplier = -30, baseMultiplier = 1.321, damageEffectiveness = 1.321, levelRequirement = 69, },
+		[20] = { attackSpeedMultiplier = -30, baseMultiplier = 1.35, damageEffectiveness = 1.35, levelRequirement = 70, },
+		[21] = { attackSpeedMultiplier = -30, baseMultiplier = 1.379, damageEffectiveness = 1.379, levelRequirement = 72, },
+		[22] = { attackSpeedMultiplier = -30, baseMultiplier = 1.408, damageEffectiveness = 1.408, levelRequirement = 74, },
+		[23] = { attackSpeedMultiplier = -30, baseMultiplier = 1.437, damageEffectiveness = 1.437, levelRequirement = 76, },
+		[24] = { attackSpeedMultiplier = -30, baseMultiplier = 1.466, damageEffectiveness = 1.466, levelRequirement = 78, },
+		[25] = { attackSpeedMultiplier = -30, baseMultiplier = 1.495, damageEffectiveness = 1.495, levelRequirement = 80, },
+		[26] = { attackSpeedMultiplier = -30, baseMultiplier = 1.524, damageEffectiveness = 1.524, levelRequirement = 82, },
+		[27] = { attackSpeedMultiplier = -30, baseMultiplier = 1.553, damageEffectiveness = 1.553, levelRequirement = 84, },
+		[28] = { attackSpeedMultiplier = -30, baseMultiplier = 1.582, damageEffectiveness = 1.582, levelRequirement = 86, },
+		[29] = { attackSpeedMultiplier = -30, baseMultiplier = 1.611, damageEffectiveness = 1.611, levelRequirement = 88, },
+		[30] = { attackSpeedMultiplier = -30, baseMultiplier = 1.639, damageEffectiveness = 1.639, levelRequirement = 90, },
+		[31] = { attackSpeedMultiplier = -30, baseMultiplier = 1.654, damageEffectiveness = 1.654, levelRequirement = 91, },
+		[32] = { attackSpeedMultiplier = -30, baseMultiplier = 1.668, damageEffectiveness = 1.668, levelRequirement = 92, },
+		[33] = { attackSpeedMultiplier = -30, baseMultiplier = 1.683, damageEffectiveness = 1.683, levelRequirement = 93, },
+		[34] = { attackSpeedMultiplier = -30, baseMultiplier = 1.697, damageEffectiveness = 1.697, levelRequirement = 94, },
+		[35] = { attackSpeedMultiplier = -30, baseMultiplier = 1.712, damageEffectiveness = 1.712, levelRequirement = 95, },
+		[36] = { attackSpeedMultiplier = -30, baseMultiplier = 1.726, damageEffectiveness = 1.726, levelRequirement = 96, },
+		[37] = { attackSpeedMultiplier = -30, baseMultiplier = 1.741, damageEffectiveness = 1.741, levelRequirement = 97, },
+		[38] = { attackSpeedMultiplier = -30, baseMultiplier = 1.755, damageEffectiveness = 1.755, levelRequirement = 98, },
+		[39] = { attackSpeedMultiplier = -30, baseMultiplier = 1.77, damageEffectiveness = 1.77, levelRequirement = 99, },
+		[40] = { attackSpeedMultiplier = -30, baseMultiplier = 1.784, damageEffectiveness = 1.784, levelRequirement = 100, },
 	},
 }
 skills["GeneralsCry"] = {
@@ -4827,10 +5131,21 @@ skills["GroundSlamAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["groundslam_damage_to_close_targets_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "AtCloseRange" })
+		},
+		["quality_display_groundslam_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 35),
 	},
 	qualityStats = {
 		Default = {
@@ -5900,20 +6215,15 @@ skills["InfernalBlow"] = {
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["infernal_blow_explosion_damage_%_of_total_per_stack"] = {
-			mod("DebuffEffect", "BASE", nil)
-		},
-		["quality_display_infernal_blow_is_gem"] = {
-			-- Display Only
-		},
-		["active_skill_base_area_of_effect_radius"] = {
-			skill("radius", nil, { type = "SkillPart", skillPart = 1 }),
-		},
-		["active_skill_base_secondary_area_of_effect_radius"] = {
-			skill("radius", nil, { type = "SkillPart", skillPartList = { 2, 3 } }),
-		},
-	},
+	preDamageFunc = function(activeSkill, output)
+		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect")
+		if activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
+			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlow", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
+		end
+		if activeSkill.skillPart == 3 then
+			activeSkill.skillData.dpsMultiplier = 1 / 6
+		end
+	end,
 	parts = {
 		{
 			name = "Melee Hit",
@@ -5928,15 +6238,20 @@ skills["InfernalBlow"] = {
 			area = true
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect")
-		if activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
-			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlow", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
-		end
-		if activeSkill.skillPart == 3 then
-			activeSkill.skillData.dpsMultiplier = 1 / 6
-		end
-	end,
+	statMap = {
+		["infernal_blow_explosion_damage_%_of_total_per_stack"] = {
+			mod("DebuffEffect", "BASE", nil)
+		},
+		["quality_display_infernal_blow_is_gem"] = {
+			-- Display Only
+		},
+		["active_skill_base_area_of_effect_radius"] = {
+			skill("radius", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["active_skill_base_secondary_area_of_effect_radius"] = {
+			skill("radius", nil, { type = "SkillPart", skillPartList = { 2, 3 } }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -6031,10 +6346,45 @@ skills["InfernalBlowAltX"] = {
 	},
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect")
+		if activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
+			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlowofImmolation", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
+		end
+		if activeSkill.skillPart == 3 then
+			activeSkill.skillData.dpsMultiplier = 1 / 6
+		end
+	end,
+	parts = {
+		{
+			name = "Melee Hit",
+			area = false
+		},
+		{
+			name = "Debuff Explosion - 1 Stack",
+			area = true
+		},
+		{
+			name = "Debuff Explosion - 6 Stacks",
+			area = true
+		},
+	},
+	statMap = {
+		["infernal_blow_explosion_damage_%_of_total_per_stack"] = {
+			mod("DebuffEffect", "BASE", nil)
+		},
+		["quality_display_infernal_blow_is_gem"] = {
+			-- Display Only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("showAverage", true, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:DebuffStack", "BASE", 5, 0, 0, { type = "SkillPart", skillPart = 3 }),
 	},
 	qualityStats = {
 		Default = {
@@ -6204,11 +6554,6 @@ skills["LeapSlam"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.4,
-	statMap = {
-		["stun_duration_+%_vs_enemies_that_are_on_full_life"] = {
-			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "FullLife" }),
-		},
-	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -6689,11 +7034,52 @@ skills["MoltenStrikeAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Melee Hit",
+			melee = true,
+			projectile = false,
+			area = false,
+		},
+		{
+			name = "Magma Balls",
+			melee = false,
+			projectile = true,
+			area = true,
+		},
+		{
+			name = "Magma Balls (5th attack)",
+			melee = false,
+			projectile = true,
+			area = true,
+		},
+	},
+	statMap = {
+		["active_skill_hit_ailment_damage_with_projectile_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPartList = { 2, 3 } })
+		},
+		["molten_strike_every_5th_attack_projectiles_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, bit.band(ModFlag.Hit, ModFlag.Ailment), 0, { type = "SkillPart", skillPart = 3 })
+		},
+		["molten_strike_every_5th_attack_fire_X_additional_projectiles"] = {
+			mod("ProjectileCount", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 3 })
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		projectile = true,
 		area = true,
+	},
+	baseMods = {
+		skill("projectileSpeedAppliesToMSAreaOfEffect", true),
+		skill("radius", 9, { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radiusLabel", "Ball area:", { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radiusSecondary", 2, { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radiusSecondaryLabel", "Chain Minimum Distance:", { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radiusTertiary", 25, { type = "SkillPart", skillPartList = { 2, 3 } }),
+		skill("radiusTertiaryLabel", "Chain Maximum Distance:", { type = "SkillPart", skillPartList = { 2, 3 } }),
+		flag("CannotSplit"),
 	},
 	qualityStats = {
 		Default = {
@@ -6905,12 +7291,6 @@ skills["BloodSpears"] = {
 		["blood_spears_damage_+%_final_in_blood_stance"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" }),
 		},
-		["blood_spears_additional_number_of_spears_if_changed_stance_recently"] = {
-			mod("Multiplier:PerforateMaxSpikes", "BASE", nil, 0, 0, { type = "Condition", var = "ChangedStanceRecently" }),
-		},
-		["skill_area_of_effect_+%_final_in_sand_stance"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "SandStance" }),
-		},
 		["quality_display_perforate_is_gem"] = {
 			-- Display Only
 		},
@@ -7002,10 +7382,32 @@ skills["BloodSpearsAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = math.max(activeSkill.skillData.dpsMultiplier or 1, 1)
+	end,
+	statMap = {
+		["blood_spears_base_number_of_spears"] = {
+			mod("Multiplier:PerforateofDualityMaxSpikes", "BASE", nil),
+		},
+		["blood_spears_damage_+%_final_in_blood_stance"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "BloodStance" }),
+		},
+		["blood_spears_additional_number_of_spears_if_changed_stance_recently"] = {
+			mod("Multiplier:PerforateofDualityMaxSpikes", "BASE", nil, 0, 0, { type = "Condition", var = "ChangedStanceRecently" }),
+		},
+		["quality_display_perforate_is_gem"] = {
+			-- Display Only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("dpsMultiplier", 1, { type = "Multiplier", var = "PerforateSpikeOverlap", limitVar = "PerforateofDualityMaxSpikes" }, { type = "Condition", var = "BloodStance" }),
+		skill("radius", 11, { type = "Condition", var = "SandStance" }),
+		skill("radius", 8, { type = "Condition", var = "BloodStance" }),
 	},
 	qualityStats = {
 		Default = {
@@ -7085,10 +7487,25 @@ skills["BloodSpearsAltY"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = math.max(activeSkill.skillData.dpsMultiplier or 1, 1)
+	end,
+	statMap = {
+		["blood_spears_base_number_of_spears"] = {
+			mod("Multiplier:PerforateofBloodshedMaxSpikes", "BASE", nil),
+		},
+		["quality_display_perforate_is_gem"] = {
+			-- Display Only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("dpsMultiplier", 1, { type = "Multiplier", var = "PerforateSpikeOverlap", limitVar = "PerforateofBloodshedMaxSpikes" }),
+		skill("radius", 11),
 	},
 	qualityStats = {
 		Default = {
@@ -7758,6 +8175,19 @@ skills["RageVortexAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Melee",
+		},
+		{
+			name = "Rage Storm",
+		},
+	},
+	statMap = {
+		["rage_slash_vortex_attack_speed_+%_final"] = {
+			mod("Speed", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -8436,6 +8866,186 @@ skills["NewShieldCharge"] = {
 		[40] = { 0.80000001192093, 1.2000000476837, 124, 7, 9, attackTime = 500, PvPDamageMultiplier = -30, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
 	},
 }
+skills["ShieldCrush"] = {
+	name = "Shield Crush",
+	color = 1,
+	baseEffectiveness = 1.2081999778748,
+	incrementalEffectiveness = 0.026799999177456,
+	description = "Swipe your shield, dealing area damage in three waves in front of you. Enemies can be hit by two of the waves where they overlap.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RequiresShield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Physical] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	parts = {
+		{
+			name = "1 Wave",
+		},
+		{
+			name = "2 Overlapping Waves",
+		},
+	},
+	statMap = {
+		["shield_crush_damage_+%_final_from_distance"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "MeleeProximity", ramp = {1,0} }),
+		},
+	},
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+		shieldAttack = true,
+	},
+	baseMods = {
+		skill("radius", 29),
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
+	},
+	qualityStats = {
+		Default = {
+			{ "shield_crush_damage_+%_final_from_distance", 0.5 },
+		},
+	},
+	stats = {
+		"off_hand_local_minimum_added_physical_damage",
+		"off_hand_local_maximum_added_physical_damage",
+		"off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating",
+		"off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating",
+		"active_skill_base_radius_+",
+		"is_area_damage",
+		"attack_is_melee_override",
+		"console_skill_dont_chase",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 3, 4, 0, attackTime = 800, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 3, 4, 0, attackTime = 800, critChance = 5, levelRequirement = 2, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 3, 4, 1, attackTime = 800, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 4, 5, 1, attackTime = 800, critChance = 5, levelRequirement = 7, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 4, 5, 1, attackTime = 800, critChance = 5, levelRequirement = 11, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 4, 5, 2, attackTime = 800, critChance = 5, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 4, 5, 2, attackTime = 800, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 4, 5, 2, attackTime = 800, critChance = 5, levelRequirement = 24, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 4, 5, 3, attackTime = 800, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 4, 5, 3, attackTime = 800, critChance = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 4, 5, 3, attackTime = 800, critChance = 5, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 4, 6, 4, attackTime = 800, critChance = 5, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 4, 6, 4, attackTime = 800, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 4, 6, 4, attackTime = 800, critChance = 5, levelRequirement = 48, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 4, 6, 5, attackTime = 800, critChance = 5, levelRequirement = 52, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 4, 6, 5, attackTime = 800, critChance = 5, levelRequirement = 56, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 4, 6, 5, attackTime = 800, critChance = 5, levelRequirement = 60, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 4, 6, 6, attackTime = 800, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 5, 7, 6, attackTime = 800, critChance = 5, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 5, 7, 6, attackTime = 800, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 5, 7, 7, attackTime = 800, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 5, 7, 7, attackTime = 800, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 5, 7, 7, attackTime = 800, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 6, 8, 8, attackTime = 800, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 6, 8, 8, attackTime = 800, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 6, 8, 8, attackTime = 800, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 6, 8, 9, attackTime = 800, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 6, 8, 9, attackTime = 800, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 6, 8, 9, attackTime = 800, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 6, 8, 10, attackTime = 800, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 6, 8, 10, attackTime = 800, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 6, 8, 10, attackTime = 800, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 6, 8, 10, attackTime = 800, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 7, 9, 10, attackTime = 800, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 7, 9, 10, attackTime = 800, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
+	},
+}
+skills["ShieldCrushAltX"] = {
+	name = "Shield Crush of the Chieftain",
+	color = 1,
+	baseEffectiveness = 1.5599999427795,
+	incrementalEffectiveness = 0.026799999177456,
+	description = "Swipe your shield, dealing area damage in three waves in front of you. Enemies can be hit by two of the waves where they overlap.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RequiresShield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Fire] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	parts = {
+		{
+			name = "1 Wave",
+		},
+		{
+			name = "2 Overlapping Waves",
+		},
+	},
+	statMap = {
+		["shield_crush_damage_+%_final_from_distance"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "MeleeProximity", ramp = {1,0} }),
+		},
+	},
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+		shieldAttack = true,
+	},
+	baseMods = {
+		skill("radius", 29),
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
+	},
+	qualityStats = {
+		Default = {
+			{ "shield_crush_damage_+%_final_from_distance", 0.5 },
+		},
+	},
+	stats = {
+		"off_hand_local_minimum_added_fire_damage",
+		"off_hand_local_maximum_added_fire_damage",
+		"off_hand_minimum_added_fire_damage_per_15_shield_armour",
+		"off_hand_maximum_added_fire_damage_per_15_shield_armour",
+		"shield_crush_helmet_enchantment_aoe_+%_final",
+		"is_area_damage",
+		"attack_is_melee_override",
+		"console_skill_dont_chase",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 5, 7, 50, attackTime = 1000, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, 5, 7, 52, attackTime = 1000, critChance = 5, levelRequirement = 2, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, 5, 7, 54, attackTime = 1000, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, 5, 7, 56, attackTime = 1000, critChance = 5, levelRequirement = 7, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, 5, 7, 58, attackTime = 1000, critChance = 5, levelRequirement = 11, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, 5, 7, 60, attackTime = 1000, critChance = 5, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, 5, 7, 62, attackTime = 1000, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, 5, 7, 64, attackTime = 1000, critChance = 5, levelRequirement = 24, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, 5, 8, 66, attackTime = 1000, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, 5, 8, 68, attackTime = 1000, critChance = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, 5, 8, 70, attackTime = 1000, critChance = 5, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, 5, 8, 72, attackTime = 1000, critChance = 5, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, 5, 8, 74, attackTime = 1000, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, 5, 8, 76, attackTime = 1000, critChance = 5, levelRequirement = 48, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, 5, 8, 78, attackTime = 1000, critChance = 5, levelRequirement = 52, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, 7, 9, 80, attackTime = 1000, critChance = 5, levelRequirement = 56, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, 7, 9, 82, attackTime = 1000, critChance = 5, levelRequirement = 60, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, 7, 9, 84, attackTime = 1000, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, 7, 9, 86, attackTime = 1000, critChance = 5, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, 7, 9, 88, attackTime = 1000, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, 8, 10, 90, attackTime = 1000, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, 8, 10, 92, attackTime = 1000, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, 8, 10, 94, attackTime = 1000, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, 8, 10, 96, attackTime = 1000, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, 8, 10, 98, attackTime = 1000, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, 8, 10, 100, attackTime = 1000, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, 8, 10, 102, attackTime = 1000, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, 8, 10, 104, attackTime = 1000, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, 8, 10, 106, attackTime = 1000, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, 8, 10, 108, attackTime = 1000, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, 9, 12, 109, attackTime = 1000, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, 9, 12, 110, attackTime = 1000, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, 9, 12, 111, attackTime = 1000, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, 9, 12, 112, attackTime = 1000, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, 9, 12, 113, attackTime = 1000, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, 10, 14, 114, attackTime = 1000, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, 10, 14, 115, attackTime = 1000, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, 10, 14, 116, attackTime = 1000, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, 10, 14, 117, attackTime = 1000, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, 10, 14, 118, attackTime = 1000, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
+	},
+}
 skills["ShockwaveTotem"] = {
 	name = "Shockwave Totem",
 	color = 1,
@@ -8657,6 +9267,17 @@ skills["SmiteAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Melee Hit",
+			area = false,
+		},
+		{
+			name = "Area Hit",
+			area = true,
+			melee = false,
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -9232,169 +9853,6 @@ skills["VaalReap"] = {
 		[38] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, levelRequirement = 98, soulPreventionDuration = 8, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
 		[39] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, levelRequirement = 99, soulPreventionDuration = 8, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
 		[40] = { 0.80000001192093, 1.2000000476837, 75.000001676381, critChance = 6, damageEffectiveness = 4.2, vaalStoredUses = 1, levelRequirement = 100, soulPreventionDuration = 8, statInterpolation = { 3, 3, 3, }, cost = { Soul = 25, }, },
-	},
-}
-skills["ShieldCrush"] = {
-	name = "Shield Crush",
-	color = 1,
-	baseEffectiveness = 1.2081999778748,
-	incrementalEffectiveness = 0.026799999177456,
-	description = "Swipe your shield, dealing area damage in three waves in front of you. Enemies can be hit by two of the waves where they overlap.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RequiresShield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Physical] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	parts = {
-		{
-			name = "1 Wave",
-		},
-		{
-			name = "2 Overlapping Waves",
-		},
-	},
-	statMap = {
-		["shield_crush_damage_+%_final_from_distance"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "MeleeProximity", ramp = {1,0} }),
-		},
-	},
-	baseFlags = {
-		attack = true,
-		melee = true,
-		area = true,
-		shieldAttack = true,
-	},
-	baseMods = {
-		skill("radius", 29),
-		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
-	},
-	qualityStats = {
-		Default = {
-			{ "shield_crush_damage_+%_final_from_distance", 0.5 },
-		},
-	},
-	stats = {
-		"off_hand_local_minimum_added_physical_damage",
-		"off_hand_local_maximum_added_physical_damage",
-		"off_hand_minimum_added_physical_damage_per_15_shield_armour_and_evasion_rating",
-		"off_hand_maximum_added_physical_damage_per_15_shield_armour_and_evasion_rating",
-		"active_skill_base_radius_+",
-		"is_area_damage",
-		"attack_is_melee_override",
-		"console_skill_dont_chase",
-	},
-	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 3, 4, 0, attackTime = 800, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 3, 4, 0, attackTime = 800, critChance = 5, levelRequirement = 2, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 3, 4, 1, attackTime = 800, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 4, 5, 1, attackTime = 800, critChance = 5, levelRequirement = 7, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, 4, 5, 1, attackTime = 800, critChance = 5, levelRequirement = 11, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, 4, 5, 2, attackTime = 800, critChance = 5, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, 4, 5, 2, attackTime = 800, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, 4, 5, 2, attackTime = 800, critChance = 5, levelRequirement = 24, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, 4, 5, 3, attackTime = 800, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, 4, 5, 3, attackTime = 800, critChance = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, 4, 5, 3, attackTime = 800, critChance = 5, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, 4, 6, 4, attackTime = 800, critChance = 5, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, 4, 6, 4, attackTime = 800, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, 4, 6, 4, attackTime = 800, critChance = 5, levelRequirement = 48, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, 4, 6, 5, attackTime = 800, critChance = 5, levelRequirement = 52, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, 4, 6, 5, attackTime = 800, critChance = 5, levelRequirement = 56, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, 4, 6, 5, attackTime = 800, critChance = 5, levelRequirement = 60, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, 4, 6, 6, attackTime = 800, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, 5, 7, 6, attackTime = 800, critChance = 5, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, 5, 7, 6, attackTime = 800, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, 5, 7, 7, attackTime = 800, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, 5, 7, 7, attackTime = 800, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, 5, 7, 7, attackTime = 800, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, 6, 8, 8, attackTime = 800, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, 6, 8, 8, attackTime = 800, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, 6, 8, 8, attackTime = 800, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, 6, 8, 9, attackTime = 800, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, 6, 8, 9, attackTime = 800, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, 6, 8, 9, attackTime = 800, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, 6, 8, 10, attackTime = 800, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, 6, 8, 10, attackTime = 800, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, 6, 8, 10, attackTime = 800, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, 6, 8, 10, attackTime = 800, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, 7, 9, 10, attackTime = 800, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, 7, 9, 10, attackTime = 800, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, 7, 9, 11, attackTime = 800, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 8, }, },
-	},
-}
-skills["ShieldCrushAltX"] = {
-	name = "Shield Crush of the Chieftain",
-	color = 1,
-	baseEffectiveness = 1.5599999427795,
-	incrementalEffectiveness = 0.026799999177456,
-	description = "Swipe your shield, dealing area damage in three waves in front of you. Enemies can be hit by two of the waves where they overlap.",
-	skillTypes = { [SkillType.Attack] = true, [SkillType.RequiresShield] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Fire] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1,
-	baseFlags = {
-		attack = true,
-		melee = true,
-		area = true,
-		shieldAttack = true,
-	},
-	qualityStats = {
-		Default = {
-			{ "shield_crush_damage_+%_final_from_distance", 0.5 },
-		},
-	},
-	stats = {
-		"off_hand_local_minimum_added_fire_damage",
-		"off_hand_local_maximum_added_fire_damage",
-		"off_hand_minimum_added_fire_damage_per_15_shield_armour",
-		"off_hand_maximum_added_fire_damage_per_15_shield_armour",
-		"shield_crush_helmet_enchantment_aoe_+%_final",
-		"is_area_damage",
-		"attack_is_melee_override",
-		"console_skill_dont_chase",
-	},
-	levels = {
-		[1] = { 0.80000001192093, 1.2000000476837, 5, 7, 50, attackTime = 1000, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 5, 7, 52, attackTime = 1000, critChance = 5, levelRequirement = 2, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 5, 7, 54, attackTime = 1000, critChance = 5, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 5, 7, 56, attackTime = 1000, critChance = 5, levelRequirement = 7, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, 5, 7, 58, attackTime = 1000, critChance = 5, levelRequirement = 11, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, 5, 7, 60, attackTime = 1000, critChance = 5, levelRequirement = 16, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, 5, 7, 62, attackTime = 1000, critChance = 5, levelRequirement = 20, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, 5, 7, 64, attackTime = 1000, critChance = 5, levelRequirement = 24, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, 5, 8, 66, attackTime = 1000, critChance = 5, levelRequirement = 28, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, 5, 8, 68, attackTime = 1000, critChance = 5, levelRequirement = 32, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, 5, 8, 70, attackTime = 1000, critChance = 5, levelRequirement = 36, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, 5, 8, 72, attackTime = 1000, critChance = 5, levelRequirement = 40, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, 5, 8, 74, attackTime = 1000, critChance = 5, levelRequirement = 44, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, 5, 8, 76, attackTime = 1000, critChance = 5, levelRequirement = 48, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, 5, 8, 78, attackTime = 1000, critChance = 5, levelRequirement = 52, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, 7, 9, 80, attackTime = 1000, critChance = 5, levelRequirement = 56, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, 7, 9, 82, attackTime = 1000, critChance = 5, levelRequirement = 60, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, 7, 9, 84, attackTime = 1000, critChance = 5, levelRequirement = 64, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, 7, 9, 86, attackTime = 1000, critChance = 5, levelRequirement = 67, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, 7, 9, 88, attackTime = 1000, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, 8, 10, 90, attackTime = 1000, critChance = 5, levelRequirement = 72, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, 8, 10, 92, attackTime = 1000, critChance = 5, levelRequirement = 74, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, 8, 10, 94, attackTime = 1000, critChance = 5, levelRequirement = 76, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, 8, 10, 96, attackTime = 1000, critChance = 5, levelRequirement = 78, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, 8, 10, 98, attackTime = 1000, critChance = 5, levelRequirement = 80, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, 8, 10, 100, attackTime = 1000, critChance = 5, levelRequirement = 82, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, 8, 10, 102, attackTime = 1000, critChance = 5, levelRequirement = 84, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, 8, 10, 104, attackTime = 1000, critChance = 5, levelRequirement = 86, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, 8, 10, 106, attackTime = 1000, critChance = 5, levelRequirement = 88, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, 8, 10, 108, attackTime = 1000, critChance = 5, levelRequirement = 90, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, 9, 12, 109, attackTime = 1000, critChance = 5, levelRequirement = 91, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, 9, 12, 110, attackTime = 1000, critChance = 5, levelRequirement = 92, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, 9, 12, 111, attackTime = 1000, critChance = 5, levelRequirement = 93, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, 9, 12, 112, attackTime = 1000, critChance = 5, levelRequirement = 94, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, 9, 12, 113, attackTime = 1000, critChance = 5, levelRequirement = 95, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, 10, 14, 114, attackTime = 1000, critChance = 5, levelRequirement = 96, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, 10, 14, 115, attackTime = 1000, critChance = 5, levelRequirement = 97, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, 10, 14, 116, attackTime = 1000, critChance = 5, levelRequirement = 98, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, 10, 14, 117, attackTime = 1000, critChance = 5, levelRequirement = 99, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, 10, 14, 118, attackTime = 1000, critChance = 5, levelRequirement = 100, statInterpolation = { 3, 3, 1, 1, 1, }, cost = { Mana = 10, }, },
 	},
 }
 skills["SummonFireGolem"] = {
@@ -10014,10 +10472,7 @@ skills["NewSunderAltX"] = {
 	castTime = 1,
 	parts = {
 		{
-			name = "First Wave Area",
-		},
-		{
-			name = "Final Wave Area",
+			name = "Wave",
 		},
 		{
 			name = "Shockwaves",
@@ -10025,13 +10480,10 @@ skills["NewSunderAltX"] = {
 	},
 	statMap = {
 		["shockwave_slam_explosion_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 3 }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
 		["active_skill_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil),
-		},
-		["sunder_wave_radius_+_per_step"] = {
-			skill("radiusExtra", nil, { type = "Multiplier", var = "SunderWaveArea" }),
 		},
 	},
 	baseFlags = {
@@ -10041,7 +10493,6 @@ skills["NewSunderAltX"] = {
 	},
 	baseMods = {
 		skill("radius", 12),
-		mod("Multiplier:SunderWaveArea", "BASE", 4, 0, 0, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -10201,11 +10652,6 @@ skills["EnduranceChargeSlam"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["active_skill_area_of_effect_+%_final_per_endurance_charge"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
-		},
-	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -10296,6 +10742,9 @@ skills["EnduranceChargeSlamAltX"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	statMap = {
+		["endurance_charge_slam_damage_+%_final_per_endurance_charge_consumed"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
+		},
         ["tectonic_slam_area_of_effect_+%_final_per_endurance_charge_consumed"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RemovableEnduranceCharge" }),
 		},
@@ -10710,6 +11159,84 @@ skills["VolcanicFissure"] = {
 		[38] = { 5, attackSpeedMultiplier = -20, baseMultiplier = 2.255, damageEffectiveness = 2.255, levelRequirement = 98, statInterpolation = { 1, }, cost = { Mana = 8, }, },
 		[39] = { 5, attackSpeedMultiplier = -20, baseMultiplier = 2.27, damageEffectiveness = 2.27, levelRequirement = 99, statInterpolation = { 1, }, cost = { Mana = 8, }, },
 		[40] = { 5, attackSpeedMultiplier = -20, baseMultiplier = 2.284, damageEffectiveness = 2.284, levelRequirement = 100, statInterpolation = { 1, }, cost = { Mana = 8, }, },
+	},
+}
+skills["VolcanicFissureAltX"] = {
+	name = "Volcanic Fissure of Snaking",
+	color = 1,
+	description = "Slam the ground, creating a winding fissure that deals area damage while travelling outwards. When it reaches the target location it erupts dealing damage in an area. After erupting, the fissure continues moving towards enemies to cause further eruptions. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Slam] = true, [SkillType.Fire] = true, [SkillType.Multistrikeable] = true, [SkillType.Totemable] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Two Handed Axe"] = true,
+		["Staff"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		melee = true,
+		attack = true,
+		area = true,
+		slam = true,
+	},
+	qualityStats = {
+		Default = {
+			{ "vaal_volcanic_fissure_crack_repeat_count", 0.05 },
+		},
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
+		{ "vaal_volcanic_fissure_crack_repeat_count", 2 },
+		{ "active_skill_area_of_effect_+%_final", 50 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { attackSpeedMultiplier = -30, baseMultiplier = 1.3, damageEffectiveness = 1.3, levelRequirement = 12, cost = { Mana = 10, }, },
+		[2] = { attackSpeedMultiplier = -30, baseMultiplier = 1.329, damageEffectiveness = 1.329, levelRequirement = 15, cost = { Mana = 10, }, },
+		[3] = { attackSpeedMultiplier = -30, baseMultiplier = 1.358, damageEffectiveness = 1.358, levelRequirement = 19, cost = { Mana = 10, }, },
+		[4] = { attackSpeedMultiplier = -30, baseMultiplier = 1.387, damageEffectiveness = 1.387, levelRequirement = 23, cost = { Mana = 10, }, },
+		[5] = { attackSpeedMultiplier = -30, baseMultiplier = 1.416, damageEffectiveness = 1.416, levelRequirement = 27, cost = { Mana = 10, }, },
+		[6] = { attackSpeedMultiplier = -30, baseMultiplier = 1.445, damageEffectiveness = 1.445, levelRequirement = 31, cost = { Mana = 10, }, },
+		[7] = { attackSpeedMultiplier = -30, baseMultiplier = 1.474, damageEffectiveness = 1.474, levelRequirement = 35, cost = { Mana = 10, }, },
+		[8] = { attackSpeedMultiplier = -30, baseMultiplier = 1.503, damageEffectiveness = 1.503, levelRequirement = 38, cost = { Mana = 10, }, },
+		[9] = { attackSpeedMultiplier = -30, baseMultiplier = 1.532, damageEffectiveness = 1.532, levelRequirement = 41, cost = { Mana = 10, }, },
+		[10] = { attackSpeedMultiplier = -30, baseMultiplier = 1.561, damageEffectiveness = 1.561, levelRequirement = 44, cost = { Mana = 10, }, },
+		[11] = { attackSpeedMultiplier = -30, baseMultiplier = 1.589, damageEffectiveness = 1.589, levelRequirement = 47, cost = { Mana = 10, }, },
+		[12] = { attackSpeedMultiplier = -30, baseMultiplier = 1.618, damageEffectiveness = 1.618, levelRequirement = 50, cost = { Mana = 10, }, },
+		[13] = { attackSpeedMultiplier = -30, baseMultiplier = 1.647, damageEffectiveness = 1.647, levelRequirement = 53, cost = { Mana = 10, }, },
+		[14] = { attackSpeedMultiplier = -30, baseMultiplier = 1.676, damageEffectiveness = 1.676, levelRequirement = 56, cost = { Mana = 10, }, },
+		[15] = { attackSpeedMultiplier = -30, baseMultiplier = 1.705, damageEffectiveness = 1.705, levelRequirement = 59, cost = { Mana = 10, }, },
+		[16] = { attackSpeedMultiplier = -30, baseMultiplier = 1.734, damageEffectiveness = 1.734, levelRequirement = 62, cost = { Mana = 10, }, },
+		[17] = { attackSpeedMultiplier = -30, baseMultiplier = 1.763, damageEffectiveness = 1.763, levelRequirement = 64, cost = { Mana = 10, }, },
+		[18] = { attackSpeedMultiplier = -30, baseMultiplier = 1.792, damageEffectiveness = 1.792, levelRequirement = 66, cost = { Mana = 10, }, },
+		[19] = { attackSpeedMultiplier = -30, baseMultiplier = 1.821, damageEffectiveness = 1.821, levelRequirement = 68, cost = { Mana = 10, }, },
+		[20] = { attackSpeedMultiplier = -30, baseMultiplier = 1.85, damageEffectiveness = 1.85, levelRequirement = 70, cost = { Mana = 10, }, },
+		[21] = { attackSpeedMultiplier = -30, baseMultiplier = 1.879, damageEffectiveness = 1.879, levelRequirement = 72, cost = { Mana = 10, }, },
+		[22] = { attackSpeedMultiplier = -30, baseMultiplier = 1.908, damageEffectiveness = 1.908, levelRequirement = 74, cost = { Mana = 10, }, },
+		[23] = { attackSpeedMultiplier = -30, baseMultiplier = 1.937, damageEffectiveness = 1.937, levelRequirement = 76, cost = { Mana = 10, }, },
+		[24] = { attackSpeedMultiplier = -30, baseMultiplier = 1.966, damageEffectiveness = 1.966, levelRequirement = 78, cost = { Mana = 10, }, },
+		[25] = { attackSpeedMultiplier = -30, baseMultiplier = 1.995, damageEffectiveness = 1.995, levelRequirement = 80, cost = { Mana = 10, }, },
+		[26] = { attackSpeedMultiplier = -30, baseMultiplier = 2.024, damageEffectiveness = 2.024, levelRequirement = 82, cost = { Mana = 10, }, },
+		[27] = { attackSpeedMultiplier = -30, baseMultiplier = 2.053, damageEffectiveness = 2.053, levelRequirement = 84, cost = { Mana = 10, }, },
+		[28] = { attackSpeedMultiplier = -30, baseMultiplier = 2.082, damageEffectiveness = 2.082, levelRequirement = 86, cost = { Mana = 10, }, },
+		[29] = { attackSpeedMultiplier = -30, baseMultiplier = 2.111, damageEffectiveness = 2.111, levelRequirement = 88, cost = { Mana = 10, }, },
+		[30] = { attackSpeedMultiplier = -30, baseMultiplier = 2.139, damageEffectiveness = 2.139, levelRequirement = 90, cost = { Mana = 10, }, },
+		[31] = { attackSpeedMultiplier = -30, baseMultiplier = 2.154, damageEffectiveness = 2.154, levelRequirement = 91, cost = { Mana = 10, }, },
+		[32] = { attackSpeedMultiplier = -30, baseMultiplier = 2.168, damageEffectiveness = 2.168, levelRequirement = 92, cost = { Mana = 10, }, },
+		[33] = { attackSpeedMultiplier = -30, baseMultiplier = 2.183, damageEffectiveness = 2.183, levelRequirement = 93, cost = { Mana = 10, }, },
+		[34] = { attackSpeedMultiplier = -30, baseMultiplier = 2.197, damageEffectiveness = 2.197, levelRequirement = 94, cost = { Mana = 10, }, },
+		[35] = { attackSpeedMultiplier = -30, baseMultiplier = 2.212, damageEffectiveness = 2.212, levelRequirement = 95, cost = { Mana = 10, }, },
+		[36] = { attackSpeedMultiplier = -30, baseMultiplier = 2.226, damageEffectiveness = 2.226, levelRequirement = 96, cost = { Mana = 10, }, },
+		[37] = { attackSpeedMultiplier = -30, baseMultiplier = 2.241, damageEffectiveness = 2.241, levelRequirement = 97, cost = { Mana = 10, }, },
+		[38] = { attackSpeedMultiplier = -30, baseMultiplier = 2.255, damageEffectiveness = 2.255, levelRequirement = 98, cost = { Mana = 10, }, },
+		[39] = { attackSpeedMultiplier = -30, baseMultiplier = 2.27, damageEffectiveness = 2.27, levelRequirement = 99, cost = { Mana = 10, }, },
+		[40] = { attackSpeedMultiplier = -30, baseMultiplier = 2.284, damageEffectiveness = 2.284, levelRequirement = 100, cost = { Mana = 10, }, },
 	},
 }
 skills["VaalVolcanicFissure"] = {

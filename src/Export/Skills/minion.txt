@@ -34,7 +34,8 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FireElementalMeteorSummoned Meteor
-#flags spell area
+#flags attack area
+#baseMod skill("showAverage", true)
 #mods
 
 #skill IceElementalIceCyclone Cyclone

@@ -216,8 +216,11 @@ skills["FireElementalMeteorSummoned"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.5,
 	baseFlags = {
-		spell = true,
+		attack = true,
 		area = true,
+	},
+	baseMods = {
+		skill("showAverage", true),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 5000 },

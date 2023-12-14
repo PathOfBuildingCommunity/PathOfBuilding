@@ -4306,11 +4306,6 @@ skills["SupportStun"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["chance_to_double_stun_duration_%"] = {
-			mod("DoubleEnemyStunDurationChance", "BASE", nil, 0, 0),
-		},
-	},
 	qualityStats = {
 		Default = {
 			{ "chance_to_double_stun_duration_%", 0.5 },
