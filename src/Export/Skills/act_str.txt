@@ -411,7 +411,14 @@ local skills, mod, flag, skill = ...
 		["cleave_+1_base_radius_per_nearby_enemy_up_to_10"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
 		},
+		["vaal_cleave_executioner_damage_against_enemies_on_low_life_+%"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+		},
+		["vaal_cleave_executioner_area_of_effect_+%"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+		},
 	},
+#baseMod mod("CullPercent", "MAX", 10, 0, 0, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } )
 #mods
 
 #skill ConsecratedPath
