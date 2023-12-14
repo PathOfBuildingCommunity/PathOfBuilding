@@ -754,7 +754,6 @@ minions["SummonedCarrionGolem"] = {
 	},
 }
 
-
 minions["SkitterbotCold"] = {
 	name = "Chilling Skitterbot",
 	life = 1,

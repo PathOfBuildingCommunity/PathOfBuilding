@@ -34507,7 +34507,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="+0.1 metres to Explosion radius per Energy"
+					text="+0.1 metres to Pulse radius per Energy"
 				}
 			}
 		},
