@@ -8866,6 +8866,11 @@ skills["StaticStrike"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StaticStrikeFrequency") / 100)
+		end
+	end,
 	parts = {
 		{
 			name = "Melee hit",
@@ -8884,12 +8889,10 @@ skills["StaticStrike"] = {
 			skill("repeatFrequency", nil),
 			div = 1000,
 		},
+		["static_strike_zap_speed_+%"] = {
+			mod("StaticStrikeFrequency", "INC", nil),
+		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
-		end
-	end,
 	baseFlags = {
 		attack = true,
 		melee = true,

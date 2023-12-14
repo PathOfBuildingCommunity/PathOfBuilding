@@ -1362,6 +1362,11 @@ local skills, mod, flag, skill = ...
 
 #skill StaticStrike
 #flags attack melee duration
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StaticStrikeFrequency") / 100)
+		end
+	end,
 	parts = {
 		{
 			name = "Melee hit",
@@ -1380,12 +1385,10 @@ local skills, mod, flag, skill = ...
 			skill("repeatFrequency", nil),
 			div = 1000,
 		},
+		["static_strike_zap_speed_+%"] = {
+			mod("StaticStrikeFrequency", "INC", nil),
+		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency
-		end
-	end,
 #baseMod skill("radius", 20)
 #mods
 
