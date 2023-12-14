@@ -738,6 +738,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- checks if it disables another slot
 						for _, tag in ipairs(mod) do
 							if tag.type == "DisablesItem" then
+								-- e.g. Tincture in Flask 5 while using a Micro-Distillery Belt
+								if tag.exclusion and items[tag.slotName] and items[tag.slotName].name:find(tag.exclusion) then
+									break
+								end
 								itemDisablers[slotName] = tag.slotName
 								itemDisabled[tag.slotName] = slotName
 								break
