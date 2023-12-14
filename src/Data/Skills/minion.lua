@@ -1361,6 +1361,9 @@ skills["MinionInstability"] = {
 		fire = true,
 	},
 	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = 1 / (activeSkill.summonSkill.skillData.summonSpeed or 1)
+	end,
 	baseMods = {
 		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
 		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),

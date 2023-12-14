@@ -901,6 +901,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.ActiveMinionLimit = m_floor(env.modDB:Override(nil, activeSkill.minion.minionData.limit) or calcLib.val(skillModList, activeSkill.minion.minionData.limit, skillCfg))
 		end
 		output.SummonedMinionsPerCast = m_floor(calcLib.val(skillModList, "MinionPerCastCount", skillCfg))
+		if output.SummonedMinionsPerCast == 0 then
+			output.SummonedMinionsPerCast = 1
+		end
 	end
 	if skillFlags.chaining then
 		if skillModList:Flag(skillCfg, "CannotChain") then
@@ -3438,6 +3441,10 @@ function calcs.offence(env, actor, activeSkill)
 			end
 			t_insert(breakdown.PvpTotalDPS, s_format("= %.1f", output.PvpTotalDPS))
 		end
+	end
+	
+	if skillFlags.minion then
+		skillData.summonSpeed = output.SummonedMinionsPerCast * (output.HitSpeed or output.Speed) * skillData.dpsMultiplier
 	end
 
 	-- Calculate leech rates
