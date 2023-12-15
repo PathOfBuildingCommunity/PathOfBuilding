@@ -1064,7 +1064,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 			modDB:NewMod("ShockOverride", "BASE", effect, "Shocked Ground", { type = "ActorCondition", actor = "enemy", var = "OnShockedGround" } )
 		end
 		if (activeSkill.activeEffect.grantedEffect.name == "Earthquake of Amplification")  and activeSkill.skillPart == 2 then
-			-- Need to calc the duration here as the AoE mod is calculated before Duration in CalcOffence and wont work
+			-- Need to calc the duration here as the AoE mod is calculated before Duration in CalcOffence and won't work
 			local full_duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
 			local durationMulti = m_floor(full_duration * 10)
 			activeSkill.skillModList:NewMod("Multiplier:100msEarthquakeDuration", "BASE", durationMulti, "Skill:EarthquakeofAmplification")
