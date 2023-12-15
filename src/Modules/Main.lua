@@ -1022,18 +1022,18 @@ function main:OpenUpdatePopup()
 		end
 	end
 	local controls = { }
-	controls.changeLog = new("TextListControl", nil, 0, 20, 780, 192, nil, changeList)
-	controls.update = new("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
+	controls.changeLog = new("TextListControl", nil, 0, 20, 780, 542, nil, changeList)
+	controls.update = new("ButtonControl", nil, -45, 570, 80, 20, "Update", function()
 		self:ClosePopup()
 		local ret = self:CallMode("CanExit", "UPDATE")
 		if ret == nil or ret == true then
 			launch:ApplyUpdate(launch.updateAvailable)
 		end
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 220, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 570, 80, 20, "Cancel", function()
 		self:ClosePopup()
 	end)
-	self:OpenPopup(800, 250, "Update Available", controls)
+	self:OpenPopup(800, 600, "Update Available", controls)
 end
 
 function main:OpenAboutPopup(helpSectionIndex)

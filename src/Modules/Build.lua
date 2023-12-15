@@ -385,7 +385,7 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
 		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
 		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", overCapStat = "SpellDodgeChanceOverCap" },
-		{ stat = "SpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
+		{ stat = "EffectiveSpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
 		{ },
 		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, overCapStat = "FireResistOverCap"},
 		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", hideStat = true },
@@ -756,9 +756,9 @@ local function actExtra(act, extra)
 end
 
 function buildMode:EstimatePlayerProgress()
-	local PointsUsed, AscUsed = self.spec:CountAllocNodes()
+	local PointsUsed, AscUsed, SecondaryAscUsed = self.spec:CountAllocNodes()
 	local extra = self.calcsTab.mainOutput and self.calcsTab.mainOutput.ExtraPoints or 0
-	local usedMax, ascMax, level, act = 99 + 22 + extra, 8, 1, 0
+	local usedMax, ascMax, secondaryAscMax, level, act = 99 + 22 + extra, 8, 8, 1, 0
 
 	-- Find estimated act and level based on points used
 	repeat
@@ -771,7 +771,7 @@ function buildMode:EstimatePlayerProgress()
 		self.controls.characterLevel:SetText(self.characterLevel)
 	end
 
-	-- Ascendency points for lab
+	-- Ascendancy points for lab
 	-- this is a recommendation for beginners who are using Path of Building for the first time and trying to map out progress in PoB
 	local labSuggest = level < 33 and ""
 		or level < 55 and "\nLabyrinth: Normal Lab"
@@ -782,6 +782,7 @@ function buildMode:EstimatePlayerProgress()
 	
 	if PointsUsed > usedMax then InsertIfNew(self.controls.warnings.lines, "You have too many passive points allocated") end
 	if AscUsed > ascMax then InsertIfNew(self.controls.warnings.lines, "You have too many ascendancy points allocated") end
+	if SecondaryAscUsed > secondaryAscMax then InsertIfNew(self.controls.warnings.lines, "You have too many secondary ascendancy points allocated") end
 	self.Act = level < 90 and act <= 10 and act or "Endgame"
 	
 	return string.format("%s%3d / %3d   %s%d / %d", PointsUsed > usedMax and colorCodes.NEGATIVE or "^7", PointsUsed, usedMax, AscUsed > ascMax and colorCodes.NEGATIVE or "^7", AscUsed, ascMax),
@@ -1458,6 +1459,11 @@ function buildMode:InsertItemWarnings()
 	if self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning then
 		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.jewelLimitWarning) do
 			InsertIfNew(self.controls.warnings.lines, "You are exceeding jewel limit with the jewel "..warning)
+		end
+	end
+	if self.calcsTab.mainEnv.itemWarnings.socketLimitWarning then
+		for _, warning in ipairs(self.calcsTab.mainEnv.itemWarnings.socketLimitWarning) do
+			InsertIfNew(self.controls.warnings.lines, "You have too many gems in your "..warning.." slot")
 		end
 	end
 end
