@@ -81,13 +81,22 @@ function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId)
 	local gemInstance = gemList[self.index]
 	gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
 	gemInstance.gemData = gemData
+	gemInstance.displayEffect = nil
+	if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
+		gemInstance.qualityId = "Default"
+	end
+	-- Add hovered gem to tooltip
+	self:AddGemTooltip(gemInstance)
 	-- Calculate the impact of using this gem
 	local output = calcFunc({ }, { allocNodes = true, requirementsItems = true })
+	-- Put the original gem back into the list
 	if oldGem then
 		gemInstance.gemData = oldGem.gemData
 		gemInstance.level = oldGem.level
+		gemInstance.displayEffect = oldGem.displayEffect
 	else
 		gemList[self.index] = nil
+		calcFunc({ }, { allocNodes = true, requirementsItems = true })
 	end
 
 	return output, gemInstance
@@ -463,7 +472,6 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 				self.tooltip:Clear()
 				local output, gemInstance = self:CalcOutputWithThisGem(calcFunc, self.gems[self.list[self.hoverSel]], self:GetQualityType(self.list[self.hoverSel]))
 				self.tooltip:AddSeparator(10)
-				self:AddGemTooltip(gemInstance)
 				self.skillsTab.build:AddStatComparesToTooltip(self.tooltip, calcBase, output, "^7Selecting this gem will give you:")
 				self.tooltip:Draw(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
 			end
