@@ -712,7 +712,6 @@ return {
 		{ label = "Small Explosions", modName = "SmallExplosions", cfg = "skill" },
 	}, },
 	{ label = "Avg. Active Traps", haveOutput = "AverageActiveTraps", { format = "{2:output:AverageActiveTraps}", { breakdown = "AverageActiveTraps" }, }, },
-	{ label = "Super Chance", haveOutput = "SuperchargePct", { format = "{0:output:SuperchargePct}%", { breakdown = "SuperchargePct" }, }, },
 	{ label = "Normal Hits/Cast", haveOutput = "NormalHitsPerCast", { format = "{3:output:NormalHitsPerCast}", { breakdown = "NormalHitsPerCast" }, }, },
 	{ label = "Super Hits/Cast", haveOutput = "SuperchargedHitsPerCast", { format = "{3:output:SuperchargedHitsPerCast}", { breakdown = "SuperchargedHitsPerCast" }, }, },
 	{ label = "DPS Multiplier", haveOutput = "SkillDPSMultiplier", { format = "{3:output:SkillDPSMultiplier}", { breakdown = "SkillDPSMultiplier" }, }, },

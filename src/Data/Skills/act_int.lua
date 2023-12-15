@@ -90,7 +90,7 @@ skills["ArcAltX"] = {
 	incrementalEffectiveness = 0.039500001817942,
 	description = "An arc of lightning reaches from the caster to a targeted enemy and splits to simultaneously hit several other enemies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.ThresholdJewelChaining] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
 		spell = true,
@@ -162,7 +162,7 @@ skills["ArcAltY"] = {
 	incrementalEffectiveness = 0.039500001817942,
 	description = "An arc of lightning reaches from the caster to a targeted enemy and chains to other enemies. Each time the arc chains, it will also chain a secondary arc to another enemy, but this secondary arc cannot chain further.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Chains] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "beam_skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
 		spell = true,
@@ -738,7 +738,7 @@ skills["CataclysmSigilAltX"] = {
 	incrementalEffectiveness = 0.044900000095367,
 	description = "Creates a magical brand which can attach to a nearby enemy. It activates once, causing a fiery meteor to fall from the sky, then is destroyed.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
 		spell = true,
@@ -816,7 +816,7 @@ skills["CataclysmSigilAltY"] = {
 	incrementalEffectiveness = 0.044900000095367,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, causing a fiery meteor to fall from the sky. The brand will detach if the enemy dies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.4,
 	baseFlags = {
 		spell = true,
@@ -1005,24 +1005,10 @@ skills["BallLightning"] = {
 		local t_insert = table.insert
 		local s_format = string.format
 
-		local superchance = (skillModList:Sum("BASE", skillCfg, "ball_lightning_superball_%_chance") or 0) / 100
-		output.SuperchargePct = superchance * 100
 		local dpsMultiplier = 0
 		if activeSkill.skillPart == 1 then
 			-- Compute DPS changes as if we get exactly 1 strike per ball.
-			if superchance > 0 then
-				dpsMultiplier = 1 + 0.5 * superchance
-				if breakdown then
-					local breakdownDpsMult = {}
-					t_insert(breakdownDpsMult, "Average DPS multiplier")
-					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7super chance^8) + 1.5 * (1 - ^7super chance^8)"))
-					t_insert(breakdownDpsMult, s_format("^8= 1 *^7 %d%%^8 + 1.5 *^7 %d%%^8", superchance * 100, 100 - superchance * 100))
-					t_insert(breakdownDpsMult, s_format("^7=^7 %.3f", dpsMultiplier))
-					breakdown.SkillDPSMultiplier = breakdownDpsMult
-				end
-			else
-				dpsMultiplier = 1
-			end
+            dpsMultiplier = 1
 		elseif activeSkill.skillPart == 2 then
 			-- Compute DPS changes accounting for all strikes in range.
 
@@ -1044,97 +1030,48 @@ skills["BallLightning"] = {
 			local ballDistPerStrike = ballDistPerSec * secsPerStrike
 			-- How many times does the ball proc a bolt strike while it is in
 			-- range of the enemy?
-			for isSuperballAsInt = 0, 1 do
-				local isSuperball = isSuperballAsInt > 0
-				if isSuperball and superchance == 0 then
-					break
-				end
-				local enemyRadius = 0 -- for now, we will be conservative and assume no enemy radius
-				local baseStrikeRadius = output.AreaOfEffectRadius
-				local strikeRadius = baseStrikeRadius
-				if isSuperball then
-					strikeRadius = round(strikeRadius * math.sqrt(1.5))
-				end
-				local castDist = 0
-				if skillCfg.skillDist then
-					-- Advanced users can specify exactly the standoff distance
-					-- they'll use against single-target bosses.
-					castDist = skillCfg.skillDist
-				elseif skillFlags.triggered then
-					-- Cyclone is the most common trigger skill, and players who
-					-- aren't min-maxing their playstyle will tend to just
-					-- cyclone back and forth across the boss instead of
-					-- hovering at the optimal range. For simplicity, let's
-					-- assume they tend to be an average of 1 normal bolt strike
-					-- radius away as they do this.
-					castDist = math.floor(baseStrikeRadius / 2)
-				else
-					-- Be nice and assume hand-casters are at the optimal
-					-- distance for normal bolt strikes.
-					castDist = baseStrikeRadius
-				end
-				local firstStrikeIdxThatHits =
-					math.max(1,  -- 1 not 0 here: strike seems to happen at the end of the interval, not start
-						     math.ceil((castDist - strikeRadius) / ballDistPerStrike))
-				local lastStrikeIdxThatHits = math.floor(math.min(data.misc.ProjectileDistanceCap, castDist + strikeRadius) / ballDistPerStrike)
-				local numStrikes = math.max(0, math.min(maxStrikes, lastStrikeIdxThatHits + 1 - firstStrikeIdxThatHits))
-				lastStrikeIdxThatHits = firstStrikeIdxThatHits + numStrikes - 1
+            local enemyRadius = 0 -- for now, we will be conservative and assume no enemy radius
+            local baseStrikeRadius = output.AreaOfEffectRadius
+            local strikeRadius = baseStrikeRadius
+            local castDist = 0
+            if skillCfg.skillDist then
+                -- Advanced users can specify exactly the standoff distance
+                -- they'll use against single-target bosses.
+                castDist = skillCfg.skillDist
+            elseif skillFlags.triggered then
+                -- Cyclone is the most common trigger skill, and players who
+                -- aren't min-maxing their playstyle will tend to just
+                -- cyclone back and forth across the boss instead of
+                -- hovering at the optimal range. For simplicity, let's
+                -- assume they tend to be an average of 1 normal bolt strike
+                -- radius away as they do this.
+                castDist = math.floor(baseStrikeRadius / 2)
+            else
+                -- Be nice and assume hand-casters are at the optimal
+                -- distance for normal bolt strikes.
+                castDist = baseStrikeRadius
+            end
+            local firstStrikeIdxThatHits =
+                math.max(1,  -- 1 not 0 here: strike seems to happen at the end of the interval, not start
+                         math.ceil((castDist - strikeRadius) / ballDistPerStrike))
+            local lastStrikeIdxThatHits = math.floor(math.min(data.misc.ProjectileDistanceCap, castDist + strikeRadius) / ballDistPerStrike)
+            local numStrikes = math.max(0, math.min(maxStrikes, lastStrikeIdxThatHits + 1 - firstStrikeIdxThatHits))
+            lastStrikeIdxThatHits = firstStrikeIdxThatHits + numStrikes - 1
 
-				local effNumStrikes
-				if isSuperball then
-					effNumStrikes = numStrikes * superchance
-					dpsMultiplier = dpsMultiplier + effNumStrikes * 1.5
-				else
-					effNumStrikes = numStrikes * (1 - superchance)
-					dpsMultiplier = dpsMultiplier + effNumStrikes
-				end
+            dpsMultiplier = numStrikes
 
-				if breakdown then
-					local breakdownHits = {}
-					local ballsName
-					if superchance > 0 then
-						t_insert(breakdownHits, "Applicable to all balls:")
-					end
-					t_insert(breakdownHits, s_format("^8Balls travel at^7 %.2f^8 units/sec.", ballDistPerSec))
-					t_insert(breakdownHits, s_format("^8Lightning bolts strike all nearby enemies every^7 %.2f^8 seconds (^7%.2f^8 strikes/sec).", secsPerStrike, 1 / secsPerStrike))
-					t_insert(breakdownHits, s_format("^8Balls travel^7 %.2f^8 units between each bolt strike.", ballDistPerStrike))
-					t_insert(breakdownHits, s_format("^8Assumes balls are cast^7 %d^8 units from the enemy.", castDist))
-					if superchance > 0 then
-						if isSuperball then
-							t_insert(breakdownHits, "Applicable to supercharged balls only:")
-						else
-							t_insert(breakdownHits, "Applicable to normal balls only:")
-						end
-					end
-					t_insert(breakdownHits, s_format("^8Balls can strike enemies up to^7 %d^8 units away from themselves.", strikeRadius))
-					t_insert(breakdownHits, s_format("^8The first strike is at^7 %.2f^8 seconds after it is cast, when the ball is^7 %d^8 units from the cast point.", firstStrikeIdxThatHits * secsPerStrike, firstStrikeIdxThatHits * ballDistPerStrike))
-					t_insert(breakdownHits, s_format("^8The last strike is at^7 %.2f^8 seconds after it is cast, when the ball is^7 %d^8 units from the cast point.", lastStrikeIdxThatHits * secsPerStrike, lastStrikeIdxThatHits * ballDistPerStrike))
-					if superchance > 0 then
-						if isSuperball then
-							t_insert(breakdownHits, s_format("^8Balls have a(n)^7 %.1f%%^8 chance to be supercharged.", superchance * 100))
-						else
-							t_insert(breakdownHits, s_format("^8Balls have a(n)^7 %.1f%%^8 chance to be normal.", 100 - superchance * 100))
-						end
-					end
-					if isSuperball then
-						output.SuperchargedHitsPerCast = effNumStrikes
-						breakdown.SuperchargedHitsPerCast = breakdownHits
-					else
-						output.NormalHitsPerCast = effNumStrikes
-						breakdown.NormalHitsPerCast = breakdownHits
-					end
-				end
-			end
-			if breakdown then
-				if (dpsMultiplier ~= 1) and (superchance > 0) then
-					local breakdownDpsMult = {}
-					t_insert(breakdownDpsMult, "Average DPS multiplier")
-					t_insert(breakdownDpsMult, s_format("^8= 1 * (^7normal hits/cast^8) + 1.5 * (^7super hits/cast^8)"))
-					t_insert(breakdownDpsMult, s_format("^8= 1 *^7 %.3f^8 + 1.5 *^7 %.3f^8", output.NormalHitsPerCast, output.SuperchargedHitsPerCast))
-					t_insert(breakdownDpsMult, s_format("^8=^7 %.3f", dpsMultiplier))
-					breakdown.SkillDPSMultiplier = breakdownDpsMult
-				end
-			end
+            if breakdown then
+                local breakdownHits = {}
+                t_insert(breakdownHits, s_format("^8Balls travel at^7 %.2f^8 units/sec.", ballDistPerSec))
+                t_insert(breakdownHits, s_format("^8Lightning bolts strike all nearby enemies every^7 %.2f^8 seconds (^7%.2f^8 strikes/sec).", secsPerStrike, 1 / secsPerStrike))
+                t_insert(breakdownHits, s_format("^8Balls travel^7 %.2f^8 units between each bolt strike.", ballDistPerStrike))
+                t_insert(breakdownHits, s_format("^8Assumes balls are cast^7 %d^8 units from the enemy.", castDist))
+                t_insert(breakdownHits, s_format("^8Balls can strike enemies up to^7 %d^8 units away from themselves.", strikeRadius))
+                t_insert(breakdownHits, s_format("^8The first strike is at^7 %.2f^8 seconds after it is cast, when the ball is^7 %d^8 units from the cast point.", firstStrikeIdxThatHits * secsPerStrike, firstStrikeIdxThatHits * ballDistPerStrike))
+                t_insert(breakdownHits, s_format("^8The last strike is at^7 %.2f^8 seconds after it is cast, when the ball is^7 %d^8 units from the cast point.", lastStrikeIdxThatHits * secsPerStrike, lastStrikeIdxThatHits * ballDistPerStrike))
+                output.NormalHitsPerCast = numStrikes
+                breakdown.NormalHitsPerCast = breakdownHits
+            end
 		end
 		if dpsMultiplier ~= 1 then
 			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
@@ -1142,9 +1079,6 @@ skills["BallLightning"] = {
 		end
 	end,
 	statMap = {
-		["ball_lightning_superball_%_chance"] = {
-			mod("ball_lightning_superball_%_chance", "BASE", nil)
-		},
 		["ball_lightning_projectile_speed_and_hit_frequency_+%_final"] = {
 			mod("ProjectileSpeed", "MORE", nil)
 		},
@@ -1298,9 +1232,32 @@ skills["BallLightningAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+    preDamageFunc = function(activeSkill, output, breakdown)
+        local s_format = string.format
+
+        local skillData = activeSkill.skillData
+        local secsPerStrike = skillData.strikeInterval
+        local durationSecs = skillData.duration
+        local numStrikes = math.floor(durationSecs / secsPerStrike)
+
+        skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * numStrikes
+        output.NormalHitsPerCast = numStrikes
+        output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * numStrikes
+
+        if breakdown then
+            breakdown.NormalHitsPerCast = {
+                s_format("^8Lightning bolts strike all nearby enemies every^7 %.2f^8 seconds (^7%.2f^8 strikes/sec).", secsPerStrike, 1 / secsPerStrike),
+                s_format("^8Balls lasts for ^7%d^8 seconds for a total of ^7%d^8 strikes.", durationSecs, numStrikes),
+            }
+        end
+    end,
 	baseFlags = {
 		spell = true,
-		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("strikeInterval", 0.15),
+		skill("duration", 2),
 	},
 	qualityStats = {
 		Default = {
@@ -1472,7 +1429,7 @@ skills["DarkRitualAltX"] = {
 	incrementalEffectiveness = 0.047100000083447,
 	description = "Applies a debuff to enemies in a small area, which deals chaos damage over Time. Linked hex curses are also applied to those enemies. The debuff deals more damage and lasts longer for each hex applied this way.  This skill cannot be used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.Triggerable] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Hex] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.6,
 	baseFlags = {
 		spell = true,
@@ -1800,7 +1757,7 @@ skills["BlightAltX"] = {
 	incrementalEffectiveness = 0.033599998801947,
 	description = "Apply a debuff to enemies in front of you which deals chaos damage over time. Enemies who aren't already debuffed by Blight are also hindered for a shorter secondary duration, slowing their movement. Continued channelling adds layers of damage to the debuff, each with their own duration. The damaging debuff is spread by Contagion.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Chaos] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Channel] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.AreaSpell] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.25,
 	baseFlags = {
 		spell = true,
@@ -1876,7 +1833,7 @@ skills["BlightAltY"] = {
 	incrementalEffectiveness = 0.033599998801947,
 	description = "Apply a debuff to enemies in front of you which deals chaos damage over time. Enemies who aren't already debuffed by Blight are also hindered for a longer secondary duration, slowing their movement and reducing their life regeneration rate. Continued channelling adds layers of damage to the debuff, each with their own duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Chaos] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Channel] = true, [SkillType.Duration] = true, [SkillType.DamageOverTime] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.AreaSpell] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.3,
 	baseFlags = {
 		spell = true,
@@ -2963,7 +2920,7 @@ skills["ContagionAltX"] = {
 	incrementalEffectiveness = 0.047499999403954,
 	description = "Unleashes a vile contagion on enemies, dealing chaos damage over time. If an enemy dies while affected by Contagion, the debuff spreads to other enemies, but each time it spreads, it only deals three quarters as much damage as before.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.85,
 	baseFlags = {
 		spell = true,
@@ -3038,7 +2995,7 @@ skills["ContagionAltY"] = {
 	incrementalEffectiveness = 0.047499999403954,
 	description = "Unleashes a vile contagion on enemies, dealing chaos damage over time. If an enemy is hit while affected by Contagion, the debuff spreads to other enemies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.DegenOnlySpellDamage] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.85,
 	baseFlags = {
 		spell = true,
@@ -3766,9 +3723,6 @@ skills["Discharge"] = {
 	statMap = {
 		["area_of_effect_+%_final_per_removable_power_frenzy_or_endurance_charge"] = {
 			mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableTotalCharges" }),
-		},
-		["active_skill_ailment_damage_+%_final"] = {
-			mod("Damage", "MORE", nil,  ModFlag.Ailment),
 		},
 	},
 	baseFlags = {
@@ -4686,7 +4640,7 @@ skills["EssenceDrainAltX"] = {
 	incrementalEffectiveness = 0.052700001746416,
 	description = "Fires a projectile that applies a damage over time debuff when it hits. You lose Life and Energy Shield equal to a portion of the debuff damage. The debuff is spread by Contagion.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Multicastable] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
 		spell = true,
@@ -4706,6 +4660,7 @@ skills["EssenceDrainAltX"] = {
 		"base_chaos_damage_to_deal_per_minute",
 		"spell_minimum_base_chaos_damage",
 		"spell_maximum_base_chaos_damage",
+		"base_chaos_damage_to_deal_per_minute",
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"base_is_projectile",
 		"quality_display_essence_drain_is_gem",
@@ -4760,7 +4715,7 @@ skills["EssenceDrainAltY"] = {
 	incrementalEffectiveness = 0.052700001746416,
 	description = "Fires a piercing projectile that applies a damage over time debuff when it hits. You are healed for a portion of the debuff damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Multicastable] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
 		spell = true,
@@ -6932,7 +6887,7 @@ skills["FrostBombAltX"] = {
 	incrementalEffectiveness = 0.051899999380112,
 	description = "Creates a crystal which lasts for a duration. When the crystal's duration ends, it explodes, dealing cold damage to enemies around it.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cold] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AreaSpell] = true, [SkillType.CanRapidFire] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
 		spell = true,
@@ -7004,7 +6959,7 @@ skills["FrostBombAltY"] = {
 	incrementalEffectiveness = 0.051899999380112,
 	description = "Creates a crystal which lasts for a duration. When the crystal's duration ends, it explodes, dealing heavy cold damage to enemies around it.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Cold] = true, [SkillType.Damage] = true, [SkillType.Multicastable] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
 		spell = true,
@@ -7098,7 +7053,7 @@ skills["FrostGlobe"] = {
 			mod("FrostGlobeHealth", "BASE", nil, 0, 0, { type = "Multiplier", var = "FrostShieldStage", limitVar = "FrostShieldMaxStages" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Frost Shield" }),
 		},
 		["frost_globe_max_stages"] = {
-			mod("Multiplier:FrostShieldMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:FrostShieldMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -7451,7 +7406,7 @@ skills["GalvanicFieldAltX"] = {
 	incrementalEffectiveness = 0.051399998366833,
 	description = "Applies a buff boosting chance to shock. When you shock an enemy while you have this buff, creates a spherical field of energy attached to the shocked enemy for a duration, which will damage it and other nearby enemies with beams of lightning.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, [SkillType.Orb] = true, [SkillType.Triggerable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
 		spell = true,
@@ -11206,9 +11161,6 @@ skills["MagmaSigil"] = {
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["active_skill_ailment_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, ModFlag.Ailment),
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -11291,7 +11243,7 @@ skills["MagmaSigilAltX"] = {
 	incrementalEffectiveness = 0.046720001846552,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy and causing a pulse that deals damage to the branded enemy and other nearby enemies. The pulse gains area of effect and damage for each energy on the branded enemy.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
 	baseFlags = {
 		spell = true,
@@ -11373,7 +11325,7 @@ skills["MagmaSigilAltY"] = {
 	incrementalEffectiveness = 0.046720001846552,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy and nearby enemies who do not have energy. When the brand is detached, all enemies with energy are dealt damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
 	baseFlags = {
 		spell = true,
@@ -12122,10 +12074,10 @@ skills["MortarBarrageMine"] = {
 			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
 		},
 		["mortar_barrage_mine_minimum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 	},
 	baseFlags = {
@@ -12387,7 +12339,7 @@ skills["RaiseSpectreAltX"] = {
 	description = "Raises a spectral version of a defeated foe as a temporary minion to fight for you in battle for a duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, [SkillType.Duration] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.Chains] = true, [SkillType.Duration] = true, [SkillType.SummonsTotem] = true, [SkillType.Trapped] = true, [SkillType.RemoteMined] = true, [SkillType.DamageOverTime] = true, [SkillType.Channel] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Warcry] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.7,
 	baseFlags = {
 		spell = true,
@@ -12550,7 +12502,7 @@ skills["RaiseZombieAltX"] = {
 	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee strike and an area of effect slam which cannot be evaded.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.85,
 	baseFlags = {
 		spell = true,
@@ -12624,7 +12576,7 @@ skills["RaiseZombieAltY"] = {
 	description = "Raises necromantic energies into the sky above a targeted location, where they coalese into a zombie minion. The minion then attacks by falling to the ground, causing an impact that deals damage in an area and kills the zombie.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.75,
 	baseFlags = {
 		spell = true,
@@ -12804,7 +12756,7 @@ skills["RighteousFireAltX"] = {
 	incrementalEffectiveness = 0.057300001382828,
 	description = "Engulfs you in magical fire that rapidly burns you and nearby enemies. The effect ends when you have 1 life remaining.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.DegenOnlySpellDamage] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
 	baseFlags = {
 		spell = true,
@@ -13067,7 +13019,7 @@ skills["FireBeamAltX"] = {
 	incrementalEffectiveness = 0.048900000751019,
 	description = "Unleash a beam of fire that burns enemies it touches. Remaining in the beam raises the burning, adding a portion of the beam's damage in stages. Enemies who leave the beam continue to burn for a duration. Increasing cast speed also increases the rate at which the beam turns.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.CausesBurning] = true, [SkillType.Duration] = true, [SkillType.Channel] = true, [SkillType.DegenOnlySpellDamage] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.18,
 	parts = {
 		{
@@ -13264,7 +13216,7 @@ skills["CircleOfPower"] = {
  			mod("Damage", "MORE", nil, 0, 0, { type = "MultiplierThreshold", actor = "enemy", var = "SigilOfPowerStage", thresholdVar = "SigilOfPowerMaxStages" }, { type = "GlobalEffect", effectType = "Debuff", effectName = "Sigil of Power" }),
  		},
 		["circle_of_power_max_stages"] = {
-			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:SigilOfPowerMaxStages", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["quality_display_circle_of_power_is_gem"] = {
 			-- Display Only
@@ -13526,7 +13478,7 @@ skills["SoulrendAltX"] = {
 	incrementalEffectiveness = 0.056699998676777,
 	description = "Fires a projectile that deals chaos damage to enemies it hits and leeches some of that damage as energy shield.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Damage] = true, [SkillType.Chaos] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.CanRapidFire] = true, [SkillType.ProjectilesFromUser] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.8,
 	baseFlags = {
 		spell = true,
@@ -13597,7 +13549,7 @@ skills["SoulrendAltY"] = {
 	incrementalEffectiveness = 0.056699998676777,
 	description = "Fires a series of projectiles in a spiral that turn towards enemies in front of them, damaging and piercing through those they hit, and leeching some of that damage as energy shield. As the projectiles travel, they repeatedly apply a short but powerful chaos damage over time debuff to each enemy in an area around them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.DamageOverTime] = true, [SkillType.Damage] = true, [SkillType.Chaos] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ProjectileSpiral] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 0.9,
 	baseFlags = {
 		spell = true,
@@ -14371,7 +14323,7 @@ skills["ConduitSigilAltX"] = {
 	incrementalEffectiveness = 0.040399998426437,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, firing a beam which deals damage to the branded enemy and those around it. The brand will detach if the enemy dies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.35,
 	baseFlags = {
 		spell = true,
@@ -15165,8 +15117,11 @@ skills["SummonBoneGolemAltX"] = {
 	description = "Summons a Carrion Golem. The Carrion Golem attacks with a series of slashes that increase in speed and damage, as well as a cascade of bone spikes.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Movement] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
+	minionList = {
+		"SummonedCarrionGolem",
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -15239,8 +15194,11 @@ skills["SummonBoneGolemAltY"] = {
 	description = "Summons a Carrion Golem. The Carrion Golem attacks with a series of slashes that increase in speed and damage, can consume corpses to heal itself and gain the ability to unleash a devastating cascade of bone spikes, and deals more damage for each of your non-golem minions near it.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Movement] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
+	minionList = {
+		"SummonedCarrionGolem",
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -15398,7 +15356,7 @@ skills["SummonChaosGolemAltX"] = {
 	description = "Summons a Chaos Golem. The Chaos Golem can cast a damage over time Chaos aura and a cascade of Chaos spikes in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"SummonedChaosGolem",
@@ -15477,7 +15435,7 @@ skills["SummonChaosGolemAltY"] = {
 	description = "Summons a Chaos Golem. The Chaos Golem can cast a powerful damage over time Chaos aura that Withers enemies in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"SummonedChaosGolem",
@@ -15729,7 +15687,7 @@ skills["SummonLightningGolemAltX"] = {
 	description = "Summons a Lightning Golem. The Lightning Golem fires a projectile spell, creates orbs of Lightning that zap nearby enemies, and casts a temporary aura that grants added Lightning Damage to spells and attacks used by the Golem and its nearby allies.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Buff] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"SummonedLightningGolem",
@@ -15881,7 +15839,7 @@ skills["SummonRagingSpiritAltX"] = {
 	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly, converting all its physical damage to fire. Enemies will not directly engage these spirits, and can pass through them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.8,
 	minionList = {
 		"SummonedRagingSpirit",
@@ -16118,7 +16076,7 @@ skills["SummonReaperAltY"] = {
 	description = "Summons a powerful Reaper which passively follows you without attacking enemies. The Reaper's presence weakens your other minions, and it will consume them to temporarily empower and heal itself. Using this skill while the Reaper is already summoned causes it to dash to the targeted location and perform a powerful attack. Cannot be triggered, supported by Spell Echo or Unleash, or used by Totems, Traps, or Mines. ",
 	skillTypes = { [SkillType.Physical] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.CreatesMinion] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Movement] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "single_minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"SummonedReaper",
@@ -16277,7 +16235,7 @@ skills["SummonSkeletonsAltX"] = {
 	description = "Summon Skeleton Archer minions at the targeted location. They fire arrows and die after a duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
 		spell = true,
@@ -16349,7 +16307,7 @@ skills["SummonSkeletonsAltY"] = {
 	description = "Summon Skeleton Mage minions of random elemental types at the targeted location. They cast projectile spells based on their element, and die after a duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, [SkillType.RandomElement] = true, },
 	minionSkillTypes = { [SkillType.Damage] = true, [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.RandomElement] = true, [SkillType.Fire] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.5,
 	baseFlags = {
 		spell = true,
@@ -17056,6 +17014,7 @@ skills["FrostBoltNovaAltX"] = {
 	stats = {
 		"spell_minimum_base_cold_damage",
 		"spell_maximum_base_cold_damage",
+		"base_cold_damage_to_deal_per_minute",
 		"base_cold_damage_to_deal_per_minute",
 		"is_area_damage",
 		"spell_damage_modifiers_apply_to_skill_dot",

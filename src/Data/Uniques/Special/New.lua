@@ -10,7 +10,6 @@ Replica Covenant
 Spidersilk Robe
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-Implicits: 0
 Socketed Gems are Supported by Level 29 Added Cold Damage
 +(20-30) to Intelligence
 (210-250)% increased Energy Shield
@@ -25,9 +24,9 @@ Requires Level: 60
 Implicits: 1
 {tags:jewellery_attribute}+(16-24) to Dexterity and Intelligence
 Your Maximum Endurance Charges is equal to your Maximum Frenzy Charges
-+1 to Maximum Fortification per Endurance Charge
-(7-10)% increased Cooldown Recovery of Travel Skills per Frenzy Charge
 (20-25)% chance to lose a Frenzy Charge when you use a Travel Skill
+(7-10)% increased Cooldown Recovery of Travel Skills per Frenzy Charge
++1 to Maximum Fortification per Endurance Charge
 (20-25)% chance to lose an Endurance Charge when you gain Fortification
 ]],[[
 Ixchel's Temptation
@@ -36,16 +35,17 @@ League: Affliction
 Requires Level 20
 Implicits: 1
 (6-15)% increased Rarity of Items found
-{tags:jewellery_attribute}+(13-13) to all Attributes
-{tags:attack,chaos_damage}Adds (9-9) to (18-18) Chaos Damage to Attacks
-{tags:caster,jewellery_elemental}Adds (10-10) to (20-20) Fire Damage to Spells
-{tags:critical}+(17-17)% to Global Critical Strike Multiplier
-{tags:jewellery_defense}+(86-86) to Armour
-{tags:jewellery_defense}+(93-93) to Evasion Rating
-{tags:jewellery_defense}+(34-34) to maximum Energy Shield
-{tags:life}+(26-26) to maximum Life
-{tags:jewellery_resistance}+(10-10)% to all Elemental Resistances
-{tags:attack,caster,speed}(6-6)% increased Attack and Cast Speed
+{tags:jewellery_attribute}+(10-15) to all Attributes
+{tags:attack,chaos_damage}Adds (7-10) to (15-18) Chaos Damage to Attacks
+{tags:caster,jewellery_elemental}Adds (9-12) to (19-22) Fire Damage to Spells
+{tags:jewellery_defense}+(80-100) to Armour
+{tags:jewellery_defense}+(80-100) to Evasion Rating
+{tags:jewellery_defense}+(30-35) to maximum Energy Shield
+{tags:life}+(25-30) to maximum Life
+{tags:critical}+(15-20)% to Global Critical Strike Multiplier
+{tags:mana}+(20-25) to maximum Mana
+{tags:jewellery_resistance}+(8-10)% to all Elemental Resistances
+{tags:attack,caster,speed}(6-8)% increased Attack and Cast Speed
 Maximum Quality is 200%
 Corrupted
 ]],[[
@@ -53,18 +53,18 @@ Gamblesprint
 Hydrascale Boots
 League: Affliction
 Requires Level 59, 56 Str, 56 Dex
-+(34-34) to Dexterity
-(140-140)% increased Armour and Evasion
-+(31-31)% to Lightning Resistance
++(30-40) to Dexterity
+(100-150)% increased Armour and Evasion
++(20-40)% to Lightning Resistance
 When Hit, gain a random Movement Speed modifier from 40% reduced to 100% increased until Hit again
 ]],[[
 Pragmatism
 Colosseum Plate
 League: Affliction
-Implicits: 0
+Requires Level 49, 134 Str
 +12 to Level of Socketed Skill Gems
-(100-100)% increased Armour
-+(84-84) to maximum Mana
+(80-120)% increased Armour
++(60-100) to maximum Mana
 -2 to Level of Socketed Skill Gems per Socketed Gem
 ]],[[
 The Untouched Soul
@@ -73,16 +73,16 @@ League: Affliction
 Requires Level 48
 Implicits: 1
 (12-20)% increased Rarity of Items found
-+40 to maximum Life for each Empty Red Socket on any Equipped Item
-+225 to Accuracy Rating for each Empty Green Socket on any Equipped Item
-+40 to maximum Mana for each Empty Blue Socket on any Equipped Item
-+18% to all Elemental Resistances for each Empty White Socket on any Equipped Item
+{tags:life}+40 to maximum Life for each Empty Red Socket on any Equipped Item
+{tags:attack}+225 to Accuracy Rating for each Empty Green Socket on any Equipped Item
+{tags:mana}+40 to maximum Mana for each Empty Blue Socket on any Equipped Item
+{tags:jewellery_resistance}+18% to all Elemental Resistances for each Empty White Socket on any Equipped Item
 ]],[[
 The Trickster's Smile
 Visored Sallet
 League: Affliction
-Implicits: 0
-(75-75)% increased Armour and Evasion
+Requires Level 23, 28 Str, 28 Dex
+(60-100)% increased Armour and Evasion
 Reflects 100 Cold Damage to Melee Attackers
 Reflects 100 Fire Damage to Melee Attackers
 Reflects 100 Lightning Damage to Melee Attackers
@@ -162,10 +162,10 @@ Replica Hinekora's Sight
 Onyx Amulet
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
-+(10–16) to all Attributes
-+(600–1000) to Accuracy Rating
-+(600–1000) to Armour
-+1% to all maximum Elemental Resistances
+{tags:jewellery_attribute}+(10–16) to all Attributes
+{tags:attack}+(600–1000) to Accuracy Rating
+{tags:jewellery_defense}+(600–1000) to Armour
+{tags:jewellery_resistance}+1% to all maximum Elemental Resistances
 You cannot be Maimed
 ]],[[
 Replica Hyrri's Ire

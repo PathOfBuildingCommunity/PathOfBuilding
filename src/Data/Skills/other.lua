@@ -175,8 +175,8 @@ skills["Barkskin"] = {
 			mod("EvadeChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "MissingBarkskinStacks" }, { type = "GlobalEffect", effectType = "Buff", effectName = "Barkskin" }),
 		},
 		["max_barkskin_stacks"] = {
-			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
-			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+			mod("Multiplier:BarkskinMaxStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("Multiplier:MissingBarkskinStacks", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -2838,7 +2838,7 @@ skills["SummonHarbingerOfTheArcaneUber"] = {
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion has two buff spells it will cast on you: Arcane Surge, granting More Spell Damage and increased Mana Regeneration, and a buff that grants Chance to Shock and Lightning Penetration.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
@@ -2862,7 +2862,7 @@ skills["SummonHarbingerOfBrutalityUber"] = {
 	color = 4,
 	description = "Summons an immortal Harbinger minion. When you are near a rare or unique enemy, the minion will occasionally grant you a buff giving significantly increased Damage, Attack Speed, and Movement Speed, reducing the Damage you take, and causing Bleeding Enemies that you Kill to Explode, dealing 10% of their maximum Life as Physical Damage.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
@@ -2886,7 +2886,7 @@ skills["SummonHarbingerOfDirectionsUber"] = {
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion will cast a random buff on you that grants one or all of the following: Fire 2 additional Projectiles, Chain 2 additional times, Projectiles Pierce 2 additional targets, or Projectiles Fork then Fork an additional time.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
@@ -2910,7 +2910,7 @@ skills["SummonHarbingerOfFocusUber"] = {
 	color = 4,
 	description = "Summons an immortal Harbinger minion. While you are channelling, the minion will occasionally cast a buff on you that reduces the Damage you take, makes you avoid all Stuns and Elemental Ailments, and prevents Curses affecting you.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
@@ -2935,7 +2935,7 @@ skills["SummonHarbingerOfStormsUber"] = {
 	description = "Summons an immortal Harbinger minion. The minion will occasionally apply a Chill or Shock with increased effect to an enemy that chains to other nearby enemies.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.NonHitChill] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
@@ -2959,7 +2959,7 @@ skills["SummonHarbingerOfTimeUber"] = {
 	color = 4,
 	description = "Summons an immortal Harbinger minion. The minion will occasionally create an aura on you that increases the Action Speed of you and all allies near you.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	fromItem = true,
@@ -3395,7 +3395,7 @@ skills["VampiricIcon"] = {
 	fromItem = true,
 	statMap = {
 		["vampiric_icon_max_bleeding_beam_targets"] = {
-			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" })
+			mod("Multiplier:ThirstForBloodMaxTargets", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
 		["skill_life_regeneration_per_minute_per_affected_enemy"] = {
 			mod("LifeRegen", "BASE", nil, 0, 0, { type = "Multiplier", var = "NearbyBleedingEnemies", limitVar = "ThirstForBloodMaxTargets" }, { type = "GlobalEffect", effectType = "Buff" }),

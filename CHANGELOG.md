@@ -1,5 +1,36 @@
 # Changelog
 
+## [v2.37.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.37.0) (2023/12/13)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.36.1...v2.37.0)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### New to Path of Building
+- Add support for new Uniques [\#7016](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7016) ([LocalIdentity](https://github.com/LocalIdentity))
+  - The Adorned
+  - The Burden of Shadows
+  - Nametaker
+
+### User Interface
+- Change Manastorm config option to not overrun options box [\#7008](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7008) ([Ivniinvi](https://github.com/Ivniinvi))
+
+### Fixed Bugs
+- Fix parsing for changed mod names [\#7016](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7016) ([LocalIdentity](https://github.com/LocalIdentity))
+  - Storm Secret
+  - Umbilicus Immortalis
+  - Replica Infractem
+  - Dead Reckoning
+- Fix Projectile count being 1 higher on all skills [\#7006](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7006) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Ascendant nodes counting towards allocated passive skill total [\#7002](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7002) ([Regisle](https://github.com/Regisle))
+- Fix Pyroclast Mine Aura Effect scaling Maximum Added Flat Damage [\#7005](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7005) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix Herald of Agony quality not working [\#7017](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7017) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix error when using Trader making you unable to search for item [\#7011](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7011) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix parsing for Necromancer Offering charm not working [\#7014](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7014) ([LocalIdentity](https://github.com/LocalIdentity))
+- Fix ES from Tricksters Escape Artist when using Oath of the Maji [\#7018](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7018) ([LocalIdentity](https://github.com/LocalIdentity))
+
+
 ## [v2.36.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.36.1) (2023/12/11)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.36.0...v2.36.1)

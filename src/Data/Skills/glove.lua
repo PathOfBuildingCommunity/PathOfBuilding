@@ -1163,7 +1163,7 @@ skills["EnchantmentOfReflectionWhenHit2"] = {
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	minionList = {
@@ -1201,7 +1201,7 @@ skills["EnchantmentOfReflectionWhenHit3"] = {
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	minionList = {
@@ -1239,7 +1239,7 @@ skills["EnchantmentOfReflectionWhenHit4"] = {
 	description = "Creates a clone of you that attacks with your weapon.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	minionList = {
@@ -1631,7 +1631,7 @@ skills["EnchantmentOfTheGraveOnKill2"] = {
 	description = "Summons three icy skull minions that explode at the end of their duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	minionList = {
@@ -1665,7 +1665,7 @@ skills["EnchantmentOfTheGraveOnKill3"] = {
 	description = "Summons three icy skull minions that explode at the end of their duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	minionList = {
@@ -1699,7 +1699,7 @@ skills["EnchantmentOfTheGraveOnKill4"] = {
 	description = "Summons three icy skull minions that explode at the end of their duration.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Cold] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Duration] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, [SkillType.InbuiltTrigger] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	cannotBeSupported = true,
 	minionList = {

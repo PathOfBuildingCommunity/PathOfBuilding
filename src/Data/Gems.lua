@@ -5013,7 +5013,7 @@ return {
 		reqInt = 100,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/HeraldOfAgony"] = {
+	["Metadata/Items/Gems/SkillGemHeraldOfAgony"] = {
 		name = "Herald of Agony",
 		grantedEffectId = "HeraldOfAgony",
 		tags = {
@@ -5031,7 +5031,7 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/HeraldOfPurity"] = {
+	["Metadata/Items/Gems/SkillGemHeraldOfPurity"] = {
 		name = "Herald of Purity",
 		grantedEffectId = "HeraldOfPurity",
 		tags = {
@@ -7417,7 +7417,7 @@ return {
 		reqInt = 60,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/VaalAncestralWarchief"] = {
+	["Metadata/Items/Gems/SkillGemVaalAncestralWarchief"] = {
 		name = "Vaal Ancestral Warchief",
 		grantedEffectId = "VaalAncestralWarchief",
 		secondaryGrantedEffectId = "AncestorTotemSlam",
@@ -7438,7 +7438,7 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/ConsecratedPath"] = {
+	["Metadata/Items/Gems/SkillGemConsecratedPath"] = {
 		name = "Consecrated Path",
 		grantedEffectId = "ConsecratedPath",
 		tags = {
@@ -7458,7 +7458,7 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/ConsecratedPathAltX"] = {
+	["Metadata/Items/Gems/SkillGemConsecratedPathAltX"] = {
 		name = "Consecrated Path of Endurance",
 		grantedEffectId = "ConsecratedPathAltX",
 		tags = {
@@ -7478,7 +7478,7 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/Smite"] = {
+	["Metadata/Items/Gems/SkillGemSmite"] = {
 		name = "Smite",
 		grantedEffectId = "Smite",
 		tags = {
@@ -7498,7 +7498,7 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SmiteAltX"] = {
+	["Metadata/Items/Gems/SkillGemSmiteAltX"] = {
 		name = "Smite of Divine Judgement",
 		grantedEffectId = "SmiteAltX",
 		tags = {
@@ -7516,7 +7516,7 @@ return {
 		reqInt = 40,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/ScourgeArrow"] = {
+	["Metadata/Items/Gems/SkillGemScourgeArrow"] = {
 		name = "Scourge Arrow",
 		grantedEffectId = "ScourgeArrow",
 		tags = {
@@ -7534,7 +7534,7 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/ScourgeArrowAltX"] = {
+	["Metadata/Items/Gems/SkillGemScourgeArrowAltX"] = {
 		name = "Scourge Arrow of Menace",
 		grantedEffectId = "ScourgeArrowAltX",
 		tags = {
@@ -7551,7 +7551,7 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/RainOfSpores"] = {
+	["Metadata/Items/Gems/SkillGemToxicRain"] = {
 		name = "Toxic Rain",
 		grantedEffectId = "RainOfSpores",
 		tags = {
@@ -7570,7 +7570,7 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/RainOfSporesAltX"] = {
+	["Metadata/Items/Gems/SkillGemToxicRainAltX"] = {
 		name = "Toxic Rain of Sporeburst",
 		grantedEffectId = "RainOfSporesAltX",
 		tags = {
@@ -7589,7 +7589,7 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/RainOfSporesAltY"] = {
+	["Metadata/Items/Gems/SkillGemToxicRainAltY"] = {
 		name = "Toxic Rain of Withering",
 		grantedEffectId = "RainOfSporesAltY",
 		tags = {
@@ -7608,7 +7608,7 @@ return {
 		reqInt = 0,
 		naturalMaxLevel = 20,
 	},
-	["Metadata/Items/Gems/SummonRelic"] = {
+	["Metadata/Items/Gems/SkillGemSummonRelic"] = {
 		name = "Summon Holy Relic",
 		grantedEffectId = "SummonRelic",
 		tags = {
@@ -11314,6 +11314,24 @@ return {
 			fire = true,
 		},
 		tagString = "Melee, Attack, Projectile, AoE, Slam, Fire",
+		reqStr = 100,
+		reqDex = 0,
+		reqInt = 0,
+		naturalMaxLevel = 20,
+	},
+	["Metadata/Items/Gems/SkillGemVolcanicFissureAltX"] = {
+		name = "Volcanic Fissure of Snaking",
+		grantedEffectId = "VolcanicFissureAltX",
+		tags = {
+			melee = true,
+			strength = true,
+			grants_active_skill = true,
+			attack = true,
+			area = true,
+			slam = true,
+			fire = true,
+		},
+		tagString = "Melee, Attack, AoE, Slam, Fire",
 		reqStr = 100,
 		reqDex = 0,
 		reqInt = 0,

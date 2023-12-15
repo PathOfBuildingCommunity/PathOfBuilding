@@ -201,9 +201,6 @@ skills["AnimateWeapon"] = {
 		["number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
 		},
-		["quality_display_animate_weapon_is_gem"] = {
-			-- Display only
-		},
 	},
 	baseFlags = {
 		spell = true,
@@ -295,7 +292,7 @@ skills["AnimateWeaponAltX"] = {
 		["Claw"] = true,
 		["One Handed Sword"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.6,
 	minionHasItemSet = true,
 	minionUses = {
@@ -303,6 +300,11 @@ skills["AnimateWeaponAltX"] = {
 	},
 	minionList = {
 		"AnimatedWeapon",
+	},
+	statMap = {
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -377,7 +379,7 @@ skills["AnimateWeaponAltY"] = {
 	description = "Animates a Ranged Weapon Item or Lingering Blade to fight by your side. You cannot animate unidentified Weapons. Will not animate weapons with 6 sockets. Cannot be used by Traps or Mines.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.CreatesMinion] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.ThresholdJewelProjectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.ThresholdJewelRangedAttack] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.75,
 	minionHasItemSet = true,
 	minionUses = {
@@ -385,6 +387,23 @@ skills["AnimateWeaponAltY"] = {
 	},
 	minionList = {
 		"AnimatedWeapon",
+	},
+	statMap = {
+		["attack_minimum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+		["attack_maximum_added_physical_damage"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack) }),
+		},
+		["attack_minimum_added_physical_damage_for_ethereal_blades"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
+		},
+		["attack_maximum_added_physical_damage_for_ethereal_blades"] = {
+			mod("MinionModifier", "LIST", { mod = mod("PhysicalMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "ActorCondition", actor = "parent", var = "AnimatingLingeringBlades" }) }),
+		},
+		["number_of_animated_weapons_allowed"] = {
+			mod("Multiplier:AnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
+		},
 	},
 	baseFlags = {
 		spell = true,
@@ -479,9 +498,6 @@ skills["VaalAnimateWeapon"] = {
 		},
 		["number_of_animated_weapons_allowed"] = {
 			mod("Multiplier:VaalAnimatedWeapon", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true })
-		},
-		["quality_display_animate_weapon_is_gem"] = {
-			-- Display only
 		},
 	},
 	baseFlags = {
@@ -904,6 +920,23 @@ skills["BarrageAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "1 Projectile",
+		},
+		{
+			name = "All Projectiles",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+		end
+	end,
+	statMap = {
+		["projectiles_barrage"] = {
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -1058,7 +1091,7 @@ skills["BearTrapAltX"] = {
 	incrementalEffectiveness = 0.042500000447035,
 	description = "Throws a trap that damages and impales a single enemy, and immobilises them for a duration based on how much damage was dealt. Modifiers to spell damage do not affect this skill's damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Mineable] = true, [SkillType.Trapped] = true, [SkillType.Damage] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	baseFlags = {
 		cast = true,
@@ -1229,9 +1262,29 @@ skills["BladeBlastAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
+	parts = {
+		{
+			name = "Blade Hits Per Cast",
+			stages = true,
+		},
+		{
+			name = "Blade Hits Per Sec",
+			stages = true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * activeSkill.skillData.dpsBaseMultiplier
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = 1
+		end
+	end,
 	baseFlags = {
 		spell = true,
 		area = true,
+	},
+	baseMods = {
+		mod("Multiplier:BladeBlastofUnloadingMaxStages", "BASE", 900, 0, 0),
+		skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastofUnloadingStage" }),
 	},
 	qualityStats = {
 		Default = {
@@ -1299,9 +1352,34 @@ skills["BladeBlastAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
+	parts = {
+		{
+			name = "Blade Hits Per Cast",
+			stages = true,
+		},
+		{
+			name = "Blade Hits Per Sec",
+			stages = true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * activeSkill.skillData.dpsBaseMultiplier
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = 1
+		end
+	end,
+	statMap = {
+		["gain_%_of_base_dagger_damage_as_added_spell_damage"] = {
+			skill("gainPercentBaseDaggerDamage", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
+	},
+	baseMods = {
+		mod("Multiplier:BladeBlastofDaggerDetonationMaxStages", "BASE", 900, 0, 0),
+		skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastofDaggerDetonationStage" }),
 	},
 	qualityStats = {
 		Default = {
@@ -1538,6 +1616,11 @@ skills["BladeTrapAltY"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["quality_display_active_skill_bleed_damage_final_is_gem"] = {
+			--Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		area = true,
@@ -1653,12 +1736,6 @@ skills["ChargedAttack"] = {
 		["charged_attack_damage_per_stack_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "BladeFlurryStage" }),
 		},
-		["blade_flurry_elemental_damage_+%_while_channeling"] = {
-			mod("ElementalDamage", "INC", nil, 0, 0, { type = "SkillPart", skillPart = 1 })
-		},
-		["blade_flurry_final_flurry_area_of_effect_+%"] = {
-			mod("AreaOfEffect", "INC", nil, 0, 0,  { type = "SkillPart", skillPart = 2 })
-		},
 		["display_max_charged_attack_stats"] = {
 			mod("Multiplier:BladeFlurryMaxStages", "BASE", nil),
 		},
@@ -1751,10 +1828,49 @@ skills["ChargedAttackAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Channelling",
+			stages = true,
+		},
+		{
+			name = "Channel & Release",
+			stages = true,
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 and activeSkill.skillData.numStages > 0 then
+			local numStages = activeSkill.skillData.numStages
+			local channelMulti = 0
+			for i = 1, numStages do
+				channelMulti = channelMulti + (0.8 + (0.2 * i))
+			end
+			channelMulti = channelMulti / (0.8 + (0.2 * numStages))
+			activeSkill.skillData.dpsMultiplier = channelMulti / numStages + 1
+		end
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["blade_flurry_critical_strike_chance_per_stage_+%_final"] = {
+			mod("CritChance", "MORE", nil, 0, 0, { type = "Multiplier", var = "BladeFlurryofIncisionStage" }),
+		},
+		["display_max_charged_attack_stats"] = {
+			mod("Multiplier:BladeFlurryofIncisionMaxStages", "BASE", nil),
+		},
+		["quality_display_charged_attack_is_gem"] = {
+			--Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("numStages", 1, { type = "Multiplier", var = "BladeFlurryofIncisionStage" }),
+		skill("stackMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
+		skill("radius", 14),
 	},
 	qualityStats = {
 		Default = {
@@ -2033,10 +2149,22 @@ skills["BladeVortexAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["quality_display_blade_vortex_is_gem"] = {
+			--Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 15),
+		skill("hitTimeOverride", 0.6),
+		flag("Condition:HaveBladeVortex"),
 	},
 	qualityStats = {
 		Default = {
@@ -2292,6 +2420,20 @@ skills["BladefallAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["bladefall_damage_per_stage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "BladefallofVolleysStage" }),
+		},
+		["bladefall_critical_strike_chance_+%_per_stage"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "Multiplier", var = "BladefallofVolleysStage" }),
+		},
+		["bladefall_number_of_volleys"] = {
+			mod("Multiplier:BladefallofVolleysMaxStages", "BASE", nil),
+		},
+		["quality_display_bladefall_is_gem"] = {
+			--Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -2364,6 +2506,11 @@ skills["BladefallAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["quality_display_bladefall_is_gem"] = {
+			--Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -2612,7 +2759,7 @@ skills["BlinkArrowAltX"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"ArrowClone",
@@ -2695,7 +2842,7 @@ skills["BlinkArrowAltY"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"ArrowClone",
@@ -2945,8 +3092,14 @@ skills["BurningArrowAltX"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["added_fire_damage_to_attacks_equal_to_%_maximum_life"] = {
+			mod("FireMin", "BASE", nil, ModFlag.Attack, 0, { type = "PercentStat", stat = "Life", percent = 1 }),
+			mod("FireMax", "BASE", nil, ModFlag.Attack, 0, { type = "PercentStat", stat = "Life", percent = 1 }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -3101,6 +3254,11 @@ skills["PoisonArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["caustic_arrow_explode_on_hit_base_area_of_effect_radius"] = {
+			skill("radius", nil),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -3108,8 +3266,9 @@ skills["PoisonArrow"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 20),
-		skill("radiusSecondary", 12),
+		skill("radiusSecondary", 20),
+		skill("radiusLabel", "AoE Explosion:"),
+		skill("radiusSecondaryLabel", "Caustic Ground:"),
 		skill("dotIsArea", true),
 		flag("dotIsCausticGround"),
 	},
@@ -3184,16 +3343,18 @@ skills["PoisonArrowAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["caustic_arrow_explode_on_hit_base_area_of_effect_radius"] = {
+			skill("radius", nil),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
 		area = true,
-		duration = true,
 	},
 	baseMods = {
-		skill("radius", 20),
-		skill("radiusSecondary", 12),
-		skill("dotIsArea", true),
+		skill("radiusLabel", "AoE Explosion:"),
 	},
 	qualityStats = {
 		Default = {
@@ -3274,8 +3435,10 @@ skills["VaalCausticArrow"] = {
 		duration = true,
 	},
 	baseMods = {
-		skill("radius", 20),
-		skill("radiusSecondary", 12),
+		skill("radius", 12),
+		skill("radiusSecondary", 20),
+		skill("radiusLabel", "AoE Explosion:"),
+		skill("radiusSecondaryLabel", "Caustic Ground:"),
 		skill("dotIsArea", true),
 		flag("dotIsCausticGround"),
 	},
@@ -3584,6 +3747,11 @@ skills["CorpseEruption"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.Multicastable] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Cascadable] = true, [SkillType.Projectile] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 1 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate / (1 + (activeSkill.skillData.cremationFireRateIncrease or 0))
+		end
+	end,
 	parts = {
 		{
 			name = "Spell",
@@ -3609,19 +3777,14 @@ skills["CorpseEruption"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		}
 	},
-	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 1 then
-			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate / (1 + (activeSkill.skillData.cremationFireRateIncrease or 0))
-		end
-	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 		area = true,
 	},
 	baseMods = {
-		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 15),
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -3698,6 +3861,11 @@ skills["CorpseEruptionAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.Multicastable] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Cascadable] = true, [SkillType.Projectile] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 1 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate / (1 + (activeSkill.skillData.cremationFireRateIncrease or 0))
+		end
+	end,
 	parts = {
 		{
 			name = "Spell",
@@ -3723,19 +3891,14 @@ skills["CorpseEruptionAltX"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		}
 	},
-	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 1 then
-			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate / (1 + (activeSkill.skillData.cremationFireRateIncrease or 0))
-		end
-	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 		area = true,
 	},
 	baseMods = {
-		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 15),
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -3813,13 +3976,9 @@ skills["CorpseEruptionAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.Multicastable] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Cascadable] = true, [SkillType.Projectile] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
-	parts = {
-		{
-			name = "Spell",
-			spell = true,
-			cast = false,
-		},
-	},
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate / (1 + (activeSkill.skillData.cremationFireRateIncrease or 0))
+	end,
 	statMap = {
 		["cremation_base_fires_projectile_every_x_ms"] = {
 			skill("cremationFireRate", nil),
@@ -3832,18 +3991,12 @@ skills["CorpseEruptionAltY"] = {
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		}
 	},
-	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 1 then
-			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.cremationFireRate / (1 + (activeSkill.skillData.cremationFireRateIncrease or 0))
-		end
-	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
 		area = true,
 	},
 	baseMods = {
-		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 		skill("radius", 15),
 	},
 	qualityStats = {
@@ -3933,14 +4086,6 @@ skills["Cyclone"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["cyclone_area_of_effect_+%_per_additional_melee_range"] = {
-			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "AdditionalMeleeRange"}),
-		},
-		["cyclone_movement_speed_+%_final"] = {
-			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "Condition", var = "ChannellingCyclone"}, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
-		},
-	},
 	initialFunc = function(activeSkill, output)
 		local range = 0
 		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
@@ -3955,6 +4100,14 @@ skills["Cyclone"] = {
 		end
 		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:Cyclone")
 	end,
+	statMap = {
+		["cyclone_area_of_effect_+%_per_additional_melee_range"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "AdditionalMeleeRange"}),
+		},
+		["cyclone_movement_speed_+%_final"] = {
+			mod("MovementSpeed", "MORE", nil, 0, 0, { type = "Condition", var = "ChannellingCyclone"}, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -4044,10 +4197,44 @@ skills["CycloneAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	initialFunc = function(activeSkill, output)
+		local range = 0
+		if activeSkill.skillFlags.weapon1Attack and activeSkill.actor.weaponData1.range then
+			local weapon1RangeBonus = activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.weapon1Cfg, "MeleeWeaponRangeMetre") + activeSkill.actor.weaponData1.rangeBonus
+			if activeSkill.skillFlags.weapon2Attack and activeSkill.actor.weaponData2.range then -- dual wield average
+				range = (weapon1RangeBonus + activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.weapon2Cfg, "MeleeWeaponRangeMetre") + activeSkill.actor.weaponData2.rangeBonus) / 2
+			else -- primary hand attack
+				range = weapon1RangeBonus
+			end
+		else -- unarmed
+			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRangeMetre")
+		end
+		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:CycloneofTumult")
+	end,
+	statMap = {
+		["cyclone_max_number_of_stages"] = {
+			mod("Multiplier:CycloneofTumultMaxStages", "BASE", nil),
+		},
+		["cyclone_area_of_effect_+%_per_additional_melee_range"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "AdditionalMeleeRange"}),
+		},
+		--["cyclone_movement_speed_+%_final_per_stage"] = {
+			--mod("MovementSpeed", "MORE", nil, 0, 0, { type = "Multiplier", var = "CycloneofTumultStage" }, { type = "Condition", var = "ChannellingCyclone" }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+		--},
+		["cyclone_attack_speed_+%_final_per_stage"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "CycloneofTumultStage" }),
+		},
+		["cyclone_melee_weapon_range_+_per_stage"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "CycloneofTumultStage" }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 11),
 	},
 	qualityStats = {
 		Default = {
@@ -4377,14 +4564,6 @@ skills["DetonateDead"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.DestroysCorpse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
-	statMap = {
-		["spell_minimum_base_fire_damage"] = {
-			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
-		},
-		["spell_maximum_base_fire_damage"] = {
-			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
-		},
-	},
 	parts = {
 		{
 			name = "Spell",
@@ -4395,6 +4574,14 @@ skills["DetonateDead"] = {
 			name = "Corpse Explosion",
 			spell = false,
 			cast =  true,
+		},
+	},
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
@@ -4472,8 +4659,10 @@ skills["DetonateDeadAltX"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
 	baseFlags = {
-		spell = true,
 		area = true,
+	},
+	baseMods = {
+		skill("explodeCorpse", true),
 	},
 	qualityStats = {
 		Default = {
@@ -4541,9 +4730,32 @@ skills["DetonateDeadAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.DestroysCorpse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
+	},
+	baseMods = {
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -4612,14 +4824,6 @@ skills["VaalDetonateDead"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.Fire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
-	statMap = {
-		["spell_minimum_base_fire_damage"] = {
-			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
-		},
-		["spell_maximum_base_fire_damage"] = {
-			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
-		},
-	},
 	parts = {
 		{
 			name = "Spell",
@@ -4630,6 +4834,14 @@ skills["VaalDetonateDead"] = {
 			name = "Corpse Explosion",
 			spell = false,
 			cast =  true,
+		},
+	},
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
@@ -4807,6 +5019,10 @@ skills["DoubleStrikeAltX"] = {
 		attack = true,
 		melee = true,
 	},
+	baseMods = {
+		skill("dpsMultiplier", 2),
+		mod("PvpTvalueMultiplier", "MORE", -50),
+	},
 	qualityStats = {
 		Default = {
 			{ "impale_debuff_effect_+%", 2 },
@@ -4883,9 +5099,21 @@ skills["DoubleStrikeAltY"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["double_strike_max_stages"] = {
+			mod("Multiplier:DoubleStrikeofMomentumMaxStages", "BASE", nil),
+		},
+		["double_strike_attack_speed_+%_final_per_stage"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "DoubleStrikeofMomentumStage" }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
+	},
+	baseMods = {
+		skill("dpsMultiplier", 2),
+		mod("PvpTvalueMultiplier", "MORE", -50),
 	},
 	qualityStats = {
 		Default = {
@@ -5421,7 +5649,7 @@ skills["EtherealKnives"] = {
 	color = 2,
 	baseEffectiveness = 2.1717000007629,
 	incrementalEffectiveness = 0.043600000441074,
-	description = "Fires an arc of knives in front of the caster which deal physical damage.",
+	description = "Fires an arc of knives outwards in front of the caster which deal physical damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
@@ -5433,6 +5661,9 @@ skills["EtherealKnives"] = {
 		Default = {
 			{ "base_number_of_projectiles", 0.1 },
 		},
+	},
+	constantStats = {
+		{ "active_skill_projectile_speed_+%_variation_final", 50 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -5490,7 +5721,7 @@ skills["EtherealKnivesAltX"] = {
 	color = 2,
 	baseEffectiveness = 2.1717000007629,
 	incrementalEffectiveness = 0.043600000441074,
-	description = "Fires an arc of knives in front of the caster which deal physical damage. Cannot be supported by Volley.",
+	description = "Fires an arc of knives down into the ground in front of the caster which deal physical damage.\nCannot be supported by Volley.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, [SkillType.Duration] = true, [SkillType.NoVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
@@ -5504,10 +5735,10 @@ skills["EtherealKnivesAltX"] = {
 		},
 	},
 	constantStats = {
+		{ "active_skill_projectile_speed_+%_variation_final", 50 },
 		{ "maximum_number_of_blades_left_in_ground", 40 },
 		{ "ethereal_knives_blade_left_in_ground_for_every_X_projectiles", 1 },
 		{ "base_skill_effect_duration", 6000 },
-		{ "active_skill_projectile_speed_+%_variation_final", 50 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -5565,7 +5796,7 @@ skills["EtherealKnivesAltY"] = {
 	color = 2,
 	baseEffectiveness = 2.1717000007629,
 	incrementalEffectiveness = 0.043600000441074,
-	description = "Fires a circle of knives around the caster which deal physical damage.",
+	description = "Fires a circle of knives outwards around the caster which deal physical damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
@@ -5577,6 +5808,9 @@ skills["EtherealKnivesAltY"] = {
 		Default = {
 			{ "base_number_of_projectiles", 0.15 },
 		},
+	},
+	constantStats = {
+		{ "active_skill_projectile_speed_+%_variation_final", 50 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -5982,6 +6216,49 @@ skills["ExplosiveConcoctionAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "No Flasks",
+		},
+		{
+			name = "Sapphire",
+		},
+		{
+			name = "Topaz",
+		},
+		{
+			name = "Ruby",
+		},
+		{
+			name = "Sapphire + Topaz",
+		},
+		{
+			name = "Sapphire + Ruby",
+		},
+		{
+			name = "Topaz + Ruby",
+		},
+		{
+			name = "All Flasks",
+		},
+	},
+	statMap = {
+		["flask_throw_minimum_cold_damage_if_used_sapphire_flask"] = {
+			mod("ColdMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 5, 6, 8 } }),
+		},
+		["flask_throw_maximum_cold_damage_if_used_sapphire_flask"] = {
+			mod("ColdMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 5, 6, 8 } }),
+		},
+		["flask_throw_minimum_lightning_damage_if_used_topaz_flask"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
+		},
+		["flask_throw_maximum_lightning_damage_if_used_topaz_flask"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 3, 5, 7, 8 } }),
+		},
+		["flask_throw_ruby_flask_critical_strike_multiplier_+"] = {
+			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 4, 6, 7, 8 } }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		area = true,
@@ -6553,6 +6830,9 @@ skills["FireTrapAltX"] = {
 		area = true,
 		duration = true,
 	},
+	baseMods = {
+		skill("radius", 15),
+	},
 	qualityStats = {
 		Default = {
 			{ "trap_trigger_radius_+%", 4 },
@@ -6859,9 +7139,17 @@ skills["FlickerStrikeAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+		["flicker_strike_buff_movement_speed_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff" }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
+		duration = true,
 	},
 	qualityStats = {
 		Default = {
@@ -7117,6 +7405,20 @@ skills["FrenzyAltX"] = {
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["frenzy_skill_attack_damage_+%_final_per_frenzy_charge"] = {
+			mod("Damage", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+		},
+		["frenzy_skill_attack_speed_+%_final_per_frenzy_charge"] = {
+			mod("Speed", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "FrenzyCharge" }),
+		},
+		["quality_display_frenzy_is_gem"] = {
+			-- Display only
+		},
+		["quality_display_active_skill_attack_speed_per_frenzy_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -7323,6 +7625,8 @@ skills["FrostBladesAltX"] = {
 	stats = {
 		"attack_minimum_added_cold_damage",
 		"attack_maximum_added_cold_damage",
+		"attack_minimum_added_cold_damage",
+		"attack_maximum_added_cold_damage",
 		"base_cold_damage_to_deal_per_minute",
 		"base_number_of_projectiles",
 		"melee_weapon_range_+",
@@ -7333,45 +7637,45 @@ skills["FrostBladesAltX"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.1, baseMultiplier = 1.1, levelRequirement = 1, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[2] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.16, baseMultiplier = 1.16, levelRequirement = 2, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[3] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.22, baseMultiplier = 1.22, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[4] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.28, baseMultiplier = 1.28, levelRequirement = 7, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[5] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.34, baseMultiplier = 1.34, levelRequirement = 11, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[6] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.4, baseMultiplier = 1.4, levelRequirement = 16, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[7] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.46, baseMultiplier = 1.46, levelRequirement = 20, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[8] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.52, baseMultiplier = 1.52, levelRequirement = 24, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[9] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.58, baseMultiplier = 1.58, levelRequirement = 28, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[10] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.64, baseMultiplier = 1.64, levelRequirement = 32, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[11] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.71, baseMultiplier = 1.71, levelRequirement = 36, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[12] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.77, baseMultiplier = 1.77, levelRequirement = 40, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[13] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.83, baseMultiplier = 1.83, levelRequirement = 44, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[14] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.89, baseMultiplier = 1.89, levelRequirement = 48, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[15] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.95, baseMultiplier = 1.95, levelRequirement = 52, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[16] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.01, baseMultiplier = 2.01, levelRequirement = 56, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[17] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.07, baseMultiplier = 2.07, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[18] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.13, baseMultiplier = 2.13, levelRequirement = 64, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[19] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.19, baseMultiplier = 2.19, levelRequirement = 67, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[20] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.25, baseMultiplier = 2.25, levelRequirement = 70, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[21] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.31, baseMultiplier = 2.31, levelRequirement = 72, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[22] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.37, baseMultiplier = 2.37, levelRequirement = 74, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[23] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.43, baseMultiplier = 2.43, levelRequirement = 76, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[24] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.49, baseMultiplier = 2.49, levelRequirement = 78, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[25] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.55, baseMultiplier = 2.55, levelRequirement = 80, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[26] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.61, baseMultiplier = 2.61, levelRequirement = 82, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[27] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.67, baseMultiplier = 2.67, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[28] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.73, baseMultiplier = 2.73, levelRequirement = 86, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[29] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.79, baseMultiplier = 2.79, levelRequirement = 88, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[30] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.86, baseMultiplier = 2.86, levelRequirement = 90, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[31] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.89, baseMultiplier = 2.89, levelRequirement = 91, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[32] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.92, baseMultiplier = 2.92, levelRequirement = 92, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[33] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.95, baseMultiplier = 2.95, levelRequirement = 93, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[34] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.98, baseMultiplier = 2.98, levelRequirement = 94, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[35] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.01, baseMultiplier = 3.01, levelRequirement = 95, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[36] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.04, baseMultiplier = 3.04, levelRequirement = 96, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[37] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.07, baseMultiplier = 3.07, levelRequirement = 97, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[38] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.1, baseMultiplier = 3.1, levelRequirement = 98, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[39] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.13, baseMultiplier = 3.13, levelRequirement = 99, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
-		[40] = { 0.80000001192093, 1.2000000476837, 0, 0, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.16, baseMultiplier = 3.16, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[2] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.16, baseMultiplier = 1.16, levelRequirement = 2, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[3] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.22, baseMultiplier = 1.22, levelRequirement = 4, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[4] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.28, baseMultiplier = 1.28, levelRequirement = 7, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[5] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.34, baseMultiplier = 1.34, levelRequirement = 11, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[6] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.4, baseMultiplier = 1.4, levelRequirement = 16, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[7] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.46, baseMultiplier = 1.46, levelRequirement = 20, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[8] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.52, baseMultiplier = 1.52, levelRequirement = 24, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[9] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.58, baseMultiplier = 1.58, levelRequirement = 28, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[10] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.64, baseMultiplier = 1.64, levelRequirement = 32, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[11] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.71, baseMultiplier = 1.71, levelRequirement = 36, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[12] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.77, baseMultiplier = 1.77, levelRequirement = 40, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[13] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.83, baseMultiplier = 1.83, levelRequirement = 44, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[14] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.89, baseMultiplier = 1.89, levelRequirement = 48, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[15] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 1.95, baseMultiplier = 1.95, levelRequirement = 52, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[16] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.01, baseMultiplier = 2.01, levelRequirement = 56, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[17] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.07, baseMultiplier = 2.07, levelRequirement = 60, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[18] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.13, baseMultiplier = 2.13, levelRequirement = 64, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[19] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.19, baseMultiplier = 2.19, levelRequirement = 67, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[20] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.25, baseMultiplier = 2.25, levelRequirement = 70, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[21] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.31, baseMultiplier = 2.31, levelRequirement = 72, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[22] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.37, baseMultiplier = 2.37, levelRequirement = 74, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[23] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.43, baseMultiplier = 2.43, levelRequirement = 76, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[24] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.49, baseMultiplier = 2.49, levelRequirement = 78, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[25] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.55, baseMultiplier = 2.55, levelRequirement = 80, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[26] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.61, baseMultiplier = 2.61, levelRequirement = 82, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[27] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.67, baseMultiplier = 2.67, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[28] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.73, baseMultiplier = 2.73, levelRequirement = 86, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[29] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.79, baseMultiplier = 2.79, levelRequirement = 88, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[30] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.86, baseMultiplier = 2.86, levelRequirement = 90, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[31] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.89, baseMultiplier = 2.89, levelRequirement = 91, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[32] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.92, baseMultiplier = 2.92, levelRequirement = 92, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[33] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.95, baseMultiplier = 2.95, levelRequirement = 93, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[34] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 2.98, baseMultiplier = 2.98, levelRequirement = 94, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[35] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.01, baseMultiplier = 3.01, levelRequirement = 95, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[36] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.04, baseMultiplier = 3.04, levelRequirement = 96, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[37] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.07, baseMultiplier = 3.07, levelRequirement = 97, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[38] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.1, baseMultiplier = 3.1, levelRequirement = 98, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[39] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.13, baseMultiplier = 3.13, levelRequirement = 99, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
+		[40] = { 0.80000001192093, 1.2000000476837, -0.80000001192093, -1.2000000476837, 55.000000434617, 0, 50, damageEffectiveness = 3.16, baseMultiplier = 3.16, levelRequirement = 100, statInterpolation = { 3, 3, 3, 3, 3, 1, 1, }, cost = { Mana = 6, }, },
 	},
 }
 skills["ShrapnelShot"] = {
@@ -7479,8 +7783,10 @@ skills["ShrapnelShotAltX"] = {
 	castTime = 1,
 	baseFlags = {
 		attack = true,
-		projectile = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 28),
 	},
 	qualityStats = {
 		Default = {
@@ -7552,10 +7858,23 @@ skills["ShrapnelShotAltY"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Arrow",
+			area = false,
+		},
+		{
+			name = "Cone",
+			area = true,
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 28),
 	},
 	qualityStats = {
 		Default = {
@@ -8052,6 +8371,9 @@ skills["HeraldOfAgony"] = {
 		["scorpion_minion_maximum_added_physical_damage"] = {
 			mod("MinionModifier", "LIST", { type = "HeraldOfAgonySpiderPlated", mod = mod("PhysicalMax", "BASE", nil, 0, 0, { type = "Multiplier", actor = "parent", var = "VirulenceStack", limitVar = "VirulenceStacksMax", limitActor = "parent" })})
 		},
+		["maximum_virulence_stacks"] = {
+			mod("Multiplier:VirulenceStacksMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura", effectName = "Virulence Stack Limit", unscalable = true }),
+		},
 		["quality_display_herald_of_agony_is_gem"] = {
 			-- Display only
 		},
@@ -8481,6 +8803,10 @@ skills["IceTrapAltX"] = {
 		trap = true,
 		area = true,
 	},
+	baseMods = {
+		skill("radiusLabel", "First Explosion:"),
+		skill("radiusSecondaryLabel", "Second Explosion:"),
+	},
 	qualityStats = {
 		Default = {
 			{ "trap_%_chance_to_trigger_twice", 0.75 },
@@ -8654,10 +8980,22 @@ skills["DoubleSlashAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "One slash",
+		},
+		{
+			name = "Both slashes",
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 38),
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -8729,10 +9067,22 @@ skills["DoubleSlashAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "One slash",
+		},
+		{
+			name = "Both slashes",
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 38),
+		skill("dpsMultiplier", 2, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -8808,14 +9158,6 @@ skills["LancingSteel"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "Single Projectile Hit",
-		},
-		{
-			name = "All Projectiles Hit",
-		},
-	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
@@ -8824,6 +9166,14 @@ skills["LancingSteel"] = {
 			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel", ModFlag.Hit)
 		end
 	end,
+	parts = {
+		{
+			name = "Single Projectile Hit",
+		},
+		{
+			name = "All Projectiles Hit",
+		},
+	},
 	statMap = {
 		["number_of_projectiles_to_fire_+%_final_per_steel_ammo_consumed"] = {
 			mod("ProjectileCount", "MORE", nil, 0, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 4 } )
@@ -8915,6 +9265,27 @@ skills["LancingSteelAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
+			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
+			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteelofSpraying", ModFlag.Hit)
+		end
+	end,
+	parts = {
+		{
+			name = "Single Projectile Hit",
+		},
+		{
+			name = "All Projectiles Hit",
+		},
+	},
+	statMap = {
+		["lancing_steel_damage_+%_final_after_first_hit_on_target"] = {
+			mod("LancingSteelSubsequentDamage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 } ),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -9073,9 +9444,21 @@ skills["LightningArrowAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["lightning_arrow_stack_limit"] = {
+			mod("Multiplier:LightningArrowofElectrocutionMaxStages", "BASE", nil)
+		},
+		["lightning_arrow_alt_strike_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
+	},
+	baseMods = {
+		skill("dpsMultiplier", 1, { type = "Multiplier", var = "LightningArrowofElectrocutionStage" }),
 	},
 	qualityStats = {
 		Default = {
@@ -9372,6 +9755,23 @@ skills["LightningStrikeAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Melee hit",
+			melee = true,
+			projectile = false,
+		},
+		{
+			name = "Projectiles",
+			melee = false,
+			projectile = true,
+		},
+	},
+	statMap = {
+		["skill_damage_+%_final_per_chain_from_skill_specific_stat"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "PerStat", stat = "Chain" }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
@@ -9638,7 +10038,7 @@ skills["MirrorArrowAltX"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"ArrowClone",
@@ -9721,7 +10121,7 @@ skills["MirrorArrowAltY"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"ArrowClone",
@@ -10904,6 +11304,9 @@ skills["RainOfArrowsAltX"] = {
 		projectile = true,
 		area = true,
 	},
+	baseMods = {
+		flag("OneShotProj"),
+	},
 	qualityStats = {
 		Default = {
 			{ "base_number_of_arrows", 0.2 },
@@ -10975,6 +11378,9 @@ skills["RainOfArrowsAltY"] = {
 		attack = true,
 		projectile = true,
 		area = true,
+	},
+	baseMods = {
+		flag("OneShotProj"),
 	},
 	qualityStats = {
 		Default = {
@@ -11216,10 +11622,22 @@ skills["ReaveAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["reave_area_of_effect_+%_final_per_stage"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "ReaveofRefractionStage" }),
+		},
+		["reave_additional_max_stacks"] = {
+			mod("Multiplier:ReaveofRefractionMaxStages", "BASE", nil),
+		}
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 20),
+		mod("Multiplier:ReaveofRefractionMaxStages", "BASE", 8),
 	},
 	qualityStats = {
 		Default = {
@@ -11490,6 +11908,9 @@ skills["ScourgeArrow"] = {
 		["virulent_arrow_maximum_number_of_stacks"] = {
 			mod("Multiplier:ScourgeArrowMaxStages", "BASE", nil),
 		},
+		["base_arrows_always_pierce"] = {
+			flag("PierceAllTargets"),
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -11570,6 +11991,25 @@ skills["ScourgeArrowAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Release",
+		},
+		{
+			name = "Thorn Arrows",
+		},
+	},
+	statMap = {
+		["virulent_arrow_damage_+%_final_per_stage"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "ScourgeArrowStage" }),
+		},
+		["virulent_arrow_pod_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type= "SkillPart", skillPart = 2 }),
+		},
+		["base_arrows_always_pierce"] = {
+			flag("PierceAllTargets"),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -11662,17 +12102,6 @@ skills["ShatteringSteel"] = {
 			name = "Cone AoE",
 		},
 	},
-	statMap = {
-		["shattering_steel_hit_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SteelShardConsumed", limit = 2 }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
-		},
-		["additional_block_chance_against_projectiles_%_per_steel_charge"] = {
-			mod("ProjectileBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "SteelWardCount", limit = 6 } ),
-		},
-		["no_additional_projectiles_if_no_steel_ammo"] = {
-			flag("NoAdditionalProjectiles", { type = "MultiplierThreshold", var = "SteelShardConsumed", threshold = 0, upper = true }),
-		},
-	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -11758,10 +12187,36 @@ skills["ShatteringSteelAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Projectile",
+			area = false,
+		},
+		{
+			name = "Cone AoE",
+		},
+	},
+	statMap = {
+		["steel_ammo_consumed_per_use"] = {
+			mod("Multiplier:MaxSteelShardsConsumed", "BASE", nil),
+		},
+		["shattering_steel_hit_damage_+%_final_scaled_by_projectile_distance_per_ammo_consumed"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "SteelShardConsumed", limitVar = "MaxSteelShardsConsumed" }, { type = "DistanceRamp", ramp = {{10,1},{70,0} } } ),
+		},
+		["additional_block_chance_against_projectiles_%_per_steel_charge"] = {
+			mod("ProjectileBlockChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", unscalable = true }, { type = "Multiplier", var = "SteelWardCount", limit = 6 } ),
+		},
+		["fires_1_projectile_if_no_steel_ammo"] = {
+			flag("NoAdditionalProjectiles", { type = "MultiplierThreshold", var = "SteelShardConsumed", threshold = 0, upper = true }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 28),
 	},
 	qualityStats = {
 		Default = {
@@ -11838,26 +12293,6 @@ skills["PhysCascadeTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "One wave hitting",
-		},
-		{
-			name = "Average waves hitting configured size enemy",
-		},
-		{
-			name = "All waves hitting",
-		},
-		{
-			name = "Average active traps, one wave",
-		},
-		{
-			name = "Average active traps, average waves",
-		},
-		{
-			name = "Average active traps, all waves",
-		},
-	},
 	preDamageFunc = function(activeSkill, output, breakdown)
 		local skillCfg = activeSkill.skillCfg
 		local skillData = activeSkill.skillData
@@ -11974,6 +12409,26 @@ skills["PhysCascadeTrap"] = {
 			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
 		end
 	end,
+	parts = {
+		{
+			name = "One wave hitting",
+		},
+		{
+			name = "Average waves hitting configured size enemy",
+		},
+		{
+			name = "All waves hitting",
+		},
+		{
+			name = "Average active traps, one wave",
+		},
+		{
+			name = "Average active traps, average waves",
+		},
+		{
+			name = "Average active traps, all waves",
+		},
+	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {},
 		["phys_cascade_trap_base_interval_duration_ms"] = {
@@ -12076,10 +12531,86 @@ skills["PhysCascadeTrapAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillPart = activeSkill.skillPart
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		local function hitChance(enemyRadius, areaDamageRadius, areaSpreadRadius) -- not to be confused with attack hit chance
+			local damagingAreaRadius = areaDamageRadius + enemyRadius - 1	-- radius where area damage can land to hit the enemy;
+			-- -1 because of two assumptions: PoE coordinates are integers and damage is not registered if the two areas only share a point or vertex. If either is not correct, then -1 is not needed.
+			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
+		end
+		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local waveRadius = output.AreaOfEffectRadiusSecondary
+		local fullRadius = output.AreaOfEffectRadius
+		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
+		output.OverlapChance = overlapChance * 100
+		if breakdown then
+			breakdown.OverlapChance = { }
+			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
+		end
+		local maxWaves = skillModList:Sum("BASE", skillCfg, "MaximumWaves")
+		local dpsMultiplier = 1
+		if skillPart == 2 then
+			dpsMultiplier = maxWaves * overlapChance
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7maximum waves^8 * ^7overlap chance^8")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.2f^8", maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+			end
+		elseif skillPart == 3 then
+			dpsMultiplier = maxWaves
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d (maximum waves)", dpsMultiplier))
+			end
+		end
+		if dpsMultiplier ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
+		end
+	end,
+	parts = {
+		{
+			name = "One wave hitting",
+		},
+		{
+			name = "Average waves hitting configured size enemy",
+		},
+		{
+			name = "All waves hitting",
+		},
+	},
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {},
+		["phys_cascade_trap_number_of_cascades"] = {
+			mod("MaximumWaves", "BASE", nil),
+		},
+		["quality_display_phys_cascade_trap_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		trap = true,
+	},
+	baseMods = {
+		skill("radius", 18),
+		skill("radiusLabel", "Large Burst:"),
+		skill("radiusSecondary", 9),
+		skill("radiusSecondaryLabel", "Small Burst:"),
 	},
 	qualityStats = {
 		Default = {
@@ -12249,6 +12780,20 @@ skills["ShrapnelBallistaAltX"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	skillTotemId = 18,
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		if not activeSkill.skillModList:Flag(nil, "SequentialProjectiles") then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * math.min(activeSkill.skillData.ShrapnelBallistaProjectileOverlap or (activeSkill.skillTypes[SkillType.Rain] and output.ProjectileCount or 1), output.ProjectileCount)
+		end
+		local splitCount = output.SplitCount or 0
+		if splitCount > 0 then
+			activeSkill.skillModList:NewMod("DPS", "MORE", splitCount * 100, "Split Return", 0, { type = "Condition", var = "ReturningProjectile" })
+		end
+	end,
+	statMap = {
+		["fires_1_projectile_if_no_steel_ammo"] = {
+			flag("NoAdditionalProjectiles", { type = "MultiplierThreshold", var = "SteelShardConsumed", threshold = 0, upper = true }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -12426,6 +12971,9 @@ skills["SiegeBallistaAltX"] = {
 		projectile = true,
 		totem = true,
 		ballista = true,
+	},
+	baseMods = {
+		flag("ProjectileRain"),
 	},
 	qualityStats = {
 		Default = {
@@ -12674,6 +13222,19 @@ skills["ThrownShieldAltX"] = {
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.SingleMainProjectile] = true, [SkillType.Cold] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Shield",
+		},
+		{
+			name = "Shards",
+		},
+	},
+	statMap = {
+		["thrown_shield_secondary_projectile_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -13015,13 +13576,21 @@ skills["RainOfSporesAltX"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
+	end,
 	baseFlags = {
 		attack = true,
 		projectile = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		flag("OneShotProj"),
+		skill("radius", 18),
+		skill("radiusLabel", "Pod Area:"),
 	},
 	qualityStats = {
 		Default = {
@@ -13099,13 +13668,28 @@ skills["RainOfSporesAltY"] = {
 	weaponTypes = {
 		["Bow"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.podOverlapMultiplier or 1, output.ProjectileCount)
+	end,
+	statMap = {
+		["toxic_rain_spores_apply_withered"] = {
+			flag("Condition:CanWither"),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("dotIsArea", true),
+		flag("DotCanStack"),
+		flag("OneShotProj"),
+		skill("radius", 18),
+		skill("radiusLabel", "Pod Area:"),
 	},
 	qualityStats = {
 		Default = {
@@ -13427,15 +14011,6 @@ skills["ImpactingSteel"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["projectile_number_to_split"] = {
-			mod("SplitCount", "BASE")
-		},
-		["modifiers_to_number_of_projectiles_instead_apply_to_splitting"] = {
-			flag("NoAdditionalProjectiles"),
-			flag("AdditionalProjectilesAddSplitsInstead")
-		},
-	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -13685,7 +14260,7 @@ skills["SummonIceGolemAltX"] = {
 	description = "Summons an Ice Golem. The Ice Golem can use an icy barrage spell and a chilling spinning attack in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Movement] = true, [SkillType.Multistrikeable] = true, [SkillType.ChillingArea] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"SummonedIceGolem",
@@ -13764,7 +14339,7 @@ skills["SummonIceGolemAltY"] = {
 	description = "Summons an Ice Golem. The Ice Golem can use an icy barrage spell and a chilling spinning attack in addition to its melee attack. If reduced to low life it will trigger a spell that destroys itself to deal area damage and fire icy projectiles in a circle.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Movement] = true, [SkillType.Multistrikeable] = true, [SkillType.ChillingArea] = true, },
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
 		"SummonedIceGolem",
@@ -14436,12 +15011,23 @@ skills["ViperStrikeAltX"] = {
 		["Dagger"] = true,
 		["One Handed Sword"] = true,
 	},
-	statDescriptionScope = "skill_stat_descriptions",
+	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["active_skill_poison_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Poison),
+		},
+		["quality_display_active_skill_poison_damage_final_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("poisonIsSkillEffect", true),
 	},
 	qualityStats = {
 		Default = {
@@ -14515,14 +15101,6 @@ skills["VolatileDead"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
-	statMap = {
-		["spell_minimum_base_fire_damage"] = {
-			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
-		},
-		["spell_maximum_base_fire_damage"] = {
-			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
-		},
-	},
 	parts = {
 		{
 			name = "Spell",
@@ -14533,6 +15111,14 @@ skills["VolatileDead"] = {
 			name = "Corpse Explosion",
 			spell = false,
 			cast =  true,
+		},
+	},
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
 		},
 	},
 	baseFlags = {
@@ -14615,9 +15201,34 @@ skills["VolatileDeadAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
+	},
+	baseMods = {
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusLabel", "Orb Explosion:"),
+		skill("radiusSecondaryLabel", "Corpse Explosion:"),
 	},
 	qualityStats = {
 		Default = {
@@ -14691,9 +15302,34 @@ skills["VolatileDeadAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
+	parts = {
+		{
+			name = "Spell",
+			spell = true,
+			cast = false,
+		},
+		{
+			name = "Corpse Explosion",
+			spell = false,
+			cast =  true,
+		},
+	},
+	statMap = {
+		["spell_minimum_base_fire_damage"] = {
+			skill("FireMin", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+		["spell_maximum_base_fire_damage"] = {
+			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
+	},
+	baseMods = {
+		skill("explodeCorpse", true, { type = "SkillPart", skillPart = 2 }),
+		skill("radiusLabel", "Orb Explosion:"),
+		skill("radiusSecondaryLabel", "Corpse Explosion:"),
 	},
 	qualityStats = {
 		Default = {
@@ -14899,6 +15535,9 @@ skills["WildStrike"] = {
 	},
 	statMap = {
 		["elemental_strike_physical_damage_%_to_convert"] = {
+			mod("PhysicalDamageConvertToFire", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } }),
+			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } }),
+			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } }),
 		},
 	},
 	baseFlags = {
@@ -14909,9 +15548,6 @@ skills["WildStrike"] = {
 		area = true,
 	},
 	baseMods = {
-		mod("PhysicalDamageConvertToFire", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } }),
-		mod("PhysicalDamageConvertToLightning", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } }),
-		mod("PhysicalDamageConvertToCold", "BASE", 100, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } }),
 		skill("radius", 24, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
@@ -14995,12 +15631,66 @@ skills["WildStrikeAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Fire hit",
+			melee = true,
+			projectile = false,
+			chaining = false,
+			area = false,
+		},
+		{
+			name = "Fire explosion",
+			melee = false,
+			projectile = false,
+			chaining = false,
+			area = true,
+		},
+		{
+			name = "Lightning hit",
+			melee = true,
+			projectile = false,
+			chaining = false,
+			area = false,
+		},
+		{
+			name = "Lightning bolt",
+			melee = false,
+			projectile = false,
+			chaining = true,
+			area = false,
+		},
+		{
+			name = "Cold hit",
+			melee = true,
+			projectile = false,
+			chaining = false,
+			area = false,
+		},
+		{
+			name = "Icy wave",
+			melee = false,
+			projectile = true,
+			chaining = false,
+			area = false,
+		},
+	},
+	statMap = {
+		["elemental_strike_physical_damage_%_to_convert"] = {
+			mod("PhysicalDamageConvertToFire", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 1, 2 } }),
+			mod("PhysicalDamageConvertToLightning", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 3, 4 } }),
+			mod("PhysicalDamageConvertToCold", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList =  { 5, 6 } }),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		projectile = true,
 		chaining = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 24, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
@@ -15185,9 +15875,6 @@ skills["PoisonousConcoction"] = {
 		area = true,
 		projectile = true,
 	},
-	baseMods = {
-		skill("radius", 18),
-	},
 	qualityStats = {
 		Default = {
 			{ "withered_on_hit_for_2_seconds_%_chance", 1 },
@@ -15198,6 +15885,7 @@ skills["PoisonousConcoction"] = {
 		{ "base_chance_to_poison_on_hit_%", 40 },
 		{ "display_flask_throw_allowed_flask_types", 1 },
 		{ "flask_throw_charges_used_per_projectile", 1 },
+		{ "active_skill_base_area_of_effect_radius", 18 },
 	},
 	stats = {
 		"attack_minimum_added_chaos_damage",

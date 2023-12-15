@@ -23,6 +23,7 @@ minions["RaisedZombie"] = {
 	skillList = {
 		"Melee",
 		"ZombieSlam",
+		"GAZombieCorpseGroundImpact",
 	},
 	modList = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
@@ -48,6 +49,7 @@ minions["SummonedChaosGolem"] = {
 		"Melee",
 		"SandstormChaosElementalSummoned",
 		"ChaosElementalCascadeSummoned",
+		"SandstormChaosElementalSummonedEmpowered",
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
@@ -74,6 +76,7 @@ minions["SummonedFlameGolem"] = {
 		"FireElementalFlameRedSummoned",
 		"FireElementalConeSummoned",
 		"FireElementalMortarSummoned",
+		"FireElementalMeteorSummoned",
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
@@ -100,6 +103,8 @@ minions["SummonedIceGolem"] = {
 		"Melee",
 		"IceElementalIceCyclone",
 		"IceElementalSpearSummoned",
+		"IceElementalSpearSummonedDeathNova",
+		"DeathExplodeIceElementalSummoned",
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
@@ -396,6 +401,7 @@ minions["AnimatedArmour"] = {
 	accuracy = 3.4,
 	skillList = {
 		"Melee",
+		"AnimateGuardianSmite",
 	},
 	modList = {
 		-- LabyrinthArrowTrapDamageTakenAnimateArmour [damage_taken_+%_from_arrow_traps_final = -90]
@@ -739,6 +745,8 @@ minions["SummonedCarrionGolem"] = {
 		"BoneGolemMultiAttack",
 		"BoneGolemCascade",
 		"BoneGolemLeapSlam",
+		"EGBoneGolemConsumeCorpse",
+		"BoneGolemCascadeEmpowered",
 	},
 	modList = {
 		-- MonsterNoDropsOrExperience [monster_no_drops_or_experience = 1]
