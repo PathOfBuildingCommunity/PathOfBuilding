@@ -2910,6 +2910,43 @@ return {
 	},
 	corpsesinkvariations={
 	},
+	corpsetypetags={
+		[1]={
+			list=false,
+			name="Tag",
+			refTo="Tags",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Buff",
+			refTo="BuffDefinitions",
+			type="Key",
+			width=180
+		},
+		[4]={
+			list=false,
+			name="Icon",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		}
+	},
 	cosmeticsequippanelmode={
 	},
 	costtypes={
@@ -5339,6 +5376,36 @@ return {
 		}
 	},
 	itemframetype={
+	},
+	itemisedcorpse={
+		[1]={
+			list=false,
+			name="BaseItem",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=400
+		},
+		[2]={
+			list=false,
+			name="Monster",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=500
+		},
+		[3]={
+			list=false,
+			name="MonsterAbilities",
+			refTo="",
+			type="String",
+			width=600
+		},
+		[4]={
+			list=false,
+			name="MonsterCategory",
+			refTo="CorpseTypeTags",
+			type="Key",
+			width=130
+		}
 	},
 	itemisedvisualeffect={
 	},
