@@ -15,6 +15,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dotIsArea", true)
 #mods
 
+#addSkillTypes DamageOverTime
+#skill SandstormChaosElementalSummonedEmpowered Empowered Chaos Aura
+#flags spell duration area
+#baseMod skill("dotIsArea", true)
+#mods
+
 #skill FireElementalFlameRedSummoned Immolate
 #flags spell projectile
 #mods
@@ -27,6 +33,11 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
+#skill FireElementalMeteorSummoned Meteor
+#flags attack area
+#baseMod skill("showAverage", true)
+#mods
+
 #skill IceElementalIceCyclone Cyclone
 #flags attack area melee movement
 #baseMod skill("dpsMultiplier", 2)
@@ -35,6 +46,14 @@ local skills, mod, flag, skill = ...
 #addSkillTypes Damage Multicastable
 #skill IceElementalSpearSummoned Ice Spear
 #flags spell projectile
+#mods
+
+#skill IceElementalSpearSummonedDeathNova Death Nova
+#flags spell projectile area
+#mods
+
+#skill DeathExplodeIceElementalSummoned Explode
+#flags spell area
 #mods
 
 #addSkillTypes Damage
@@ -219,6 +238,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
+#skill EGBoneGolemConsumeCorpse Consume Corpse
+#mods
+
+#skill BoneGolemCascadeEmpowered Empowered Cascade
+#flags attack melee area
+#baseMod skill("showAverage", true)
+#mods
+
 #skill SkitterbotWait Skitterbot Wait
 #flags duration
 #mods
@@ -378,6 +405,10 @@ skills["GuardianSentinelFireAura"] = {
 #flags attack projectile
 #mods
 
-#skill SumonRagingSpiritMelee
+#skill SumonRagingSpiritMelee Melee
 #flags attack melee
+#mods
+
+#skill AnimateGuardianSmite Smite
+#flags attack melee area
 #mods

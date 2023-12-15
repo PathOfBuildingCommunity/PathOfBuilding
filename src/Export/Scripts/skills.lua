@@ -121,19 +121,6 @@ local skillTypes = {
 	"NoVolley",
 }
 
-local wellShitIGotThoseWrong = {
-	-- Serves me right for not paying attention (not that I've gotten them all right anyway)
-	-- Let's just sweep these under the carpet so we don't break everyone's shiny new builds
-	["Metadata/Items/Gems/SkillGemSmite"] = "Metadata/Items/Gems/Smite",
-	["Metadata/Items/Gems/SkillGemConsecratedPath"] = "Metadata/Items/Gems/ConsecratedPath",
-	["Metadata/Items/Gems/SkillGemVaalAncestralWarchief"] = "Metadata/Items/Gems/VaalAncestralWarchief",
-	["Metadata/Items/Gems/SkillGemHeraldOfAgony"] = "Metadata/Items/Gems/HeraldOfAgony",
-	["Metadata/Items/Gems/SkillGemHeraldOfPurity"] = "Metadata/Items/Gems/HeraldOfPurity",
-	["Metadata/Items/Gems/SkillGemScourgeArrow"] = "Metadata/Items/Gems/ScourgeArrow",
-	["Metadata/Items/Gems/SkillGemToxicRain"] = "Metadata/Items/Gems/RainOfSpores",
-	["Metadata/Items/Gems/SkillGemSummonRelic"] = "Metadata/Items/Gems/SummonRelic",
-}
-
 -- This is here to fix name collisions like in the case of Barrage
 local fullNameGems = {
 	["Metadata/Items/Gems/SupportGemBarrage"] = true,
@@ -167,9 +154,13 @@ do
 	for skillName, scope in text:gmatch('([%w_]+) "Metadata/StatDescriptions/([%w_]+)%.txt"') do
 		skillStatScope[skillName] = scope
 	end
+	for skillName, copyFromSkill in text:gmatch('copy ([%w_]+) ([%w_]+)') do
+		skillStatScope[skillName] = skillStatScope[copyFromSkill]
+	end
 end
 
 local gems = { }
+local trueGemNames = { }
 
 local directiveTable = { }
 
@@ -209,6 +200,10 @@ directiveTable.skill = function(state, args, out)
 			for _, variant in ipairs(gem.GemVariants) do
 				if gemEffect.Id == variant.Id then
 					skillGem = gem
+					local trueGemNameObj = dat("GemVisualEffect"):GetRow("Id", gemEffect.Id)
+					if trueGemNameObj.Name ~= "" then
+						trueGemNames[gemEffect.Id] = trueGemNameObj.Name
+					end
 					break
 				end
 			end
@@ -218,18 +213,18 @@ directiveTable.skill = function(state, args, out)
 	local skill = { }
 	state.skill = skill
 	if skillGem and not state.noGem then
-		gems[gemEffect] = true
+		gems[gemEffect.Id] = true
 		if granted.IsSupport then
 			out:write('\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			if #gemEffect.Description > 0 then
 				out:write('\tdescription = "', gemEffect.Description:gsub('\n','\\n'), '",\n')
 			end
 		else
-			out:write('\tname = "', granted.ActiveSkill.DisplayName, '",\n')
+			out:write('\tname = "', trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName, '",\n')
 		end
 	else
 		if displayName == args and not granted.IsSupport then
-			displayName = granted.ActiveSkill.DisplayName
+			displayName = gemEffect and trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName
 		end
 		out:write('\tname = "', displayName, '",\n')
 		out:write('\thidden = true,\n')
@@ -302,7 +297,7 @@ directiveTable.skill = function(state, args, out)
 		out:write('\tstatDescriptionScope = "gem_stat_descriptions",\n')
 	else
 		if #granted.ActiveSkill.Description > 0 then
-			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'), '",\n')
+			out:write('\tdescription = "', granted.ActiveSkill.Description:gsub('"','\\"'):gsub('\n','\\n'), '",\n')
 		end
 		out:write('\tskillTypes = { ')
 		for _, type in ipairs(granted.ActiveSkill.SkillTypes) do
@@ -345,14 +340,16 @@ directiveTable.skill = function(state, args, out)
 	end
 	local statsPerLevel = dat("GrantedEffectStatSetsPerLevel"):GetRowList("GrantedEffectStatSets", granted.GrantedEffectStatSets)
 	local statMapOrder = {}
-	for indx, levelRow in ipairs(dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)) do
-		local statRow = statsPerLevel[indx]
-		if not statRow then
-			statRow = statsPerLevel[#statsPerLevel]
-		end
+	local perLevel = dat("GrantedEffectsPerLevel"):GetRowList("GrantedEffect", granted)
+	if #perLevel ~= #statsPerLevel and #perLevel > 1 and #statsPerLevel > 1 then
+		ConPrintf("UNKNOWN CASE of Level to Stat rows for '" .. granted.Id .. "'")
+	end
+	for indx = 1, math.max(#perLevel, #statsPerLevel) do
+		local levelRow = perLevel[indx] or perLevel[1]
+		local statRow = statsPerLevel[indx] or statsPerLevel[1]
 		local level = { extra = { }, statInterpolation = { }, cost = { } }
-		level.level = levelRow.Level
-		level.extra.levelRequirement = levelRow.PlayerLevelReq
+		level.level = #perLevel == 1 and statRow.GemLevel or levelRow.Level
+		level.extra.levelRequirement = #perLevel == 1 and statRow.PlayerLevelReq or levelRow.PlayerLevelReq
 		for i, cost in ipairs(levelRow.CostTypes) do
 			level.cost[cost["Resource"]] = levelRow.CostAmounts[i]
 		end
@@ -370,18 +367,6 @@ directiveTable.skill = function(state, args, out)
 		end
 		if levelRow.CostMultiplier ~= 100 then
 			level.extra.manaMultiplier = levelRow.CostMultiplier - 100
-		end
-		if statRow.DamageEffectiveness ~= 0 then
-			level.extra.damageEffectiveness = statRow.DamageEffectiveness / 10000 + 1
-		end
-		if statRow.AttackCritChance ~= 0 then
-			level.extra.critChance = statRow.AttackCritChance / 100
-		end
-		if statRow.OffhandCritChance ~= 0 then
-			level.extra.critChance = statRow.OffhandCritChance / 100
-		end
-		if statRow.BaseMultiplier and statRow.BaseMultiplier ~= 0 then
-			level.extra.baseMultiplier = statRow.BaseMultiplier / 10000 + 1
 		end
 		if levelRow.AttackSpeedMultiplier and levelRow.AttackSpeedMultiplier ~= 0 then
 			level.extra.attackSpeedMultiplier = levelRow.AttackSpeedMultiplier
@@ -407,12 +392,25 @@ directiveTable.skill = function(state, args, out)
 		if levelRow.SoulGainPreventionDuration ~= 0 then
 			level.extra.soulPreventionDuration = levelRow.SoulGainPreventionDuration / 1000
 		end
+		-- stat based level info
+		if statRow.DamageEffectiveness ~= 0 then
+			level.extra.damageEffectiveness = statRow.DamageEffectiveness / 10000 + 1
+		end
+		if statRow.AttackCritChance ~= 0 then
+			level.extra.critChance = statRow.AttackCritChance / 100
+		end
+		if statRow.OffhandCritChance ~= 0 then
+			level.extra.critChance = statRow.OffhandCritChance / 100
+		end
+		if statRow.BaseMultiplier and statRow.BaseMultiplier ~= 0 then
+			level.extra.baseMultiplier = statRow.BaseMultiplier / 10000 + 1
+		end
 		level.statInterpolation = statRow.StatInterpolations
 		local resolveInterpolation = false
 		local injectConstantValuesIntoEachLevel = false
 		local statMapOrderIndex = 1
 		for i, stat in ipairs(statRow.FloatStats) do
-			if not statMap[stat.Id] then
+			if not statMap[stat.Id] or indx == 1 then
 				statMap[stat.Id] = #skill.stats + 1
 				table.insert(skill.stats, { id = stat.Id })
 				if indx == 1 then
@@ -627,9 +625,9 @@ out:write('-- This file is automatically generated, do not edit!\n')
 out:write('-- Gem data (c) Grinding Gear Games\n\nreturn {\n')
 for skillGem in dat("SkillGems"):Rows() do
 	for _, gemEffect in ipairs(skillGem.GemVariants) do
-		if gems[gemEffect] then
-			out:write('\t["', wellShitIGotThoseWrong[skillGem.BaseItemType.Id] or skillGem.BaseItemType.Id, '"] = {\n')
-			out:write('\t\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
+		if gems[gemEffect.Id] then
+			out:write('\t["', "Metadata/Items/Gems/SkillGem" .. gemEffect.Id, '"] = {\n')
+			out:write('\t\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or trueGemNames[gemEffect.Id] or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
 			out:write('\t\tgrantedEffectId = "', gemEffect.GrantedEffect.Id, '",\n')
 			if gemEffect.GrantedEffect2 then
 				out:write('\t\tsecondaryGrantedEffectId = "', gemEffect.GrantedEffect2.Id, '",\n')
