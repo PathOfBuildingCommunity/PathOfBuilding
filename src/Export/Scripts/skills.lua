@@ -200,7 +200,7 @@ directiveTable.skill = function(state, args, out)
 			for _, variant in ipairs(gem.GemVariants) do
 				if gemEffect.Id == variant.Id then
 					skillGem = gem
-					local trueGemNameObj = dat("GemVisualEffect"):GetRow("Id", gemEffect.Id)
+					local trueGemNameObj = dat("GemEffects"):GetRow("Id", gemEffect.Id)
 					if trueGemNameObj.Name ~= "" then
 						trueGemNames[gemEffect.Id] = trueGemNameObj.Name
 					end

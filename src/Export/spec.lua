@@ -4479,22 +4479,6 @@ return {
 	},
 	gemtypes={
 	},
-	gemvisualeffect={
-		[1]={
-			list=false,
-			name="Id",
-			refTo="",
-			type="String",
-			width=150
-		},
-		[2]={
-			list=false,
-			name="Name",
-			refTo="",
-			type="String",
-			width=250
-		}
-	},
 	genericbuffauras={
 		[1]={
 			list=false,
