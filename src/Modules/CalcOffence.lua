@@ -922,7 +922,7 @@ function calcs.offence(env, actor, activeSkill)
 		output.SummonedMinionsPerCast = m_floor(calcLib.val(skillModList, "MinionPerCastCount", skillCfg))
 	end
 	if skillFlags.chaining then
-		if skillModList:Flag(skillCfg, "CannotChain") then
+		if skillModList:Flag(skillCfg, "CannotChain") or skillModList:Flag(skillCfg, "NoAdditionalChains")then
 			output.ChainMaxString = "Cannot chain"
 		else
 			output.ChainMax = skillModList:Sum("BASE", skillCfg, "ChainCountMax", not skillFlags.projectile and "BeamChainCountMax" or nil)
@@ -961,6 +961,9 @@ function calcs.offence(env, actor, activeSkill)
 			output.SplitCount = skillModList:Sum("BASE", skillCfg, "SplitCount") + enemyDB:Sum("BASE", skillCfg, "SelfSplitCount")
 			if skillModList:Flag(skillCfg, "AdditionalProjectilesAddSplitsInstead") then
 				output.SplitCount = output.SplitCount + m_floor((skillModList:Sum("BASE", skillCfg, "ProjectileCount") - 1) * skillModList:More(skillCfg, "ProjectileCount"))
+			end
+			if skillModList:Flag(skillCfg, "AdditionalChainsAddSplitsInstead") then
+				output.SplitCount = output.SplitCount + skillModList:Sum("BASE", skillCfg, "ChainCountMax")
 			end
 			output.SplitCountString = output.SplitCount
 		end
@@ -2958,7 +2961,7 @@ function calcs.offence(env, actor, activeSkill)
 							end
 						else
 							resist = calcResistForType(damageType, dotCfg)
-							if (skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") and damageType == "Chaos") or
+							if ((skillModList:Flag(cfg, "ChaosDamageUsesLowestResistance") or skillModList:Flag(cfg, "ChaosDamageUsesHighestResistance")) and damageType == "Chaos") or
 							   (skillModList:Flag(cfg, "ElementalDamageUsesLowestResistance") and isElemental[damageType]) then
 								-- Default to using the current damage type
 								local elementUsed = damageType
@@ -2970,9 +2973,16 @@ function calcs.offence(env, actor, activeSkill)
 									if isElemental[eleDamageType] and useThisResist(eleDamageType) and damageType ~= eleDamageType then
 										local currentElementResist = calcResistForType(eleDamageType, dotCfg)
 										-- If it's explicitly lower, then use the resist and update which element we're using to account for penetration
-										if resist > currentElementResist then
-											resist = currentElementResist
-											elementUsed = eleDamageType
+										if skillModList:Flag(cfg, "ChaosDamageUsesHighestResistance") then
+											if resist < currentElementResist then
+												resist = currentElementResist
+												elementUsed = eleDamageType
+											end
+										else
+											if resist > currentElementResist then
+												resist = currentElementResist
+												elementUsed = eleDamageType
+											end
 										end
 									end
 								end
