@@ -1298,9 +1298,32 @@ skills["BallLightningAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Orb] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+    preDamageFunc = function(activeSkill, output, breakdown)
+        local s_format = string.format
+
+        local skillData = activeSkill.skillData
+        local secsPerStrike = skillData.strikeInterval
+        local durationSecs = skillData.duration
+        local numStrikes = math.floor(durationSecs / secsPerStrike)
+
+        skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * numStrikes
+        output.NormalHitsPerCast = numStrikes
+        output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * numStrikes
+
+        if breakdown then
+            breakdown.NormalHitsPerCast = {
+                s_format("^8Lightning bolts strike all nearby enemies every^7 %.2f^8 seconds (^7%.2f^8 strikes/sec).", secsPerStrike, 1 / secsPerStrike),
+                s_format("^8Balls lasts for ^7%d^8 seconds for a total of ^7%d^8 strikes.", durationSecs, numStrikes),
+            }
+        end
+    end,
 	baseFlags = {
 		spell = true,
-		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("strikeInterval", 0.15),
+		skill("duration", 2),
 	},
 	qualityStats = {
 		Default = {
