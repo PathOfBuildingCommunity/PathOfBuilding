@@ -12758,6 +12758,19 @@ skills["RighteousFireAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.DegenOnlySpellDamage] = true, },
 	statDescriptionScope = "buff_skill_stat_descriptions",
 	castTime = 0,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.FireDot = output.Mana * activeSkill.skillData.RFManaMultiplier
+	end,
+	statMap = {
+		["base_nonlethal_fire_damage_%_of_maximum_mana_taken_per_minute"] = {
+			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Mana", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 6000,
+		},
+		["base_righteous_fire_%_of_max_mana_to_deal_to_nearby_per_minute"] = {
+			skill("RFManaMultiplier", nil),
+			div = 6000,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,

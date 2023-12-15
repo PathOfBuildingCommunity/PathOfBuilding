@@ -2321,6 +2321,20 @@ local skills, mod, flag, skill = ...
 
 #skill RighteousFireAltX
 #flags spell area
+	preDamageFunc = function(activeSkill, output)
+			activeSkill.skillData.FireDot = output.Mana * activeSkill.skillData.RFManaMultiplier
+		end,
+	statMap = {
+		["base_nonlethal_fire_damage_%_of_maximum_mana_taken_per_minute"] = {
+			mod("FireDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Mana", div = 1}, { type = "GlobalEffect", effectType = "Buff" }),
+			div = 6000,
+		},
+		["base_righteous_fire_%_of_max_mana_to_deal_to_nearby_per_minute"] = {
+			skill("RFManaMultiplier", nil),
+			div = 6000,
+		},
+	},
+#baseMod skill("dotIsArea", true)
 #mods
 
 #skill VaalRighteousFire
