@@ -2176,6 +2176,36 @@ local skills, mod, flag, skill = ...
 
 #skill StormRainAltY
 #flags attack area projectile
+    parts = {
+		{
+			name = "Arrow",
+		},
+		{
+			name = "Beam",
+		},
+	},
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
+			-- Max of 2 arrows, and each fires at each other, so 2 beams per tick
+			activeSkill.skillData.dpsMultiplier = 2
+		end
+	end,
+	statMap = {
+		["prismatic_rain_beam_base_frequency_ms"] = {
+			skill("hitFrequency", nil),
+			div = 1000,
+		},
+		["prismatic_rain_beam_frequency_+%"] = {
+			mod("StormRainBeamFrequency", "INC", nil),
+		},
+		["number_of_allowed_storm_arrows"] = {
+			-- Display only
+		},
+		["quality_display_storm_rain_is_gem"] = {
+			-- Display only
+		},
+	},
 #mods
 
 #skill Puncture
