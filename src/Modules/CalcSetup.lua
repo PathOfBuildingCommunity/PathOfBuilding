@@ -624,7 +624,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local grantedSkill = copyTable(skill)
 					grantedSkill.nameSpec = skillData and skillData.name or nil
 					grantedSkill.sourceItem = item
-					grantedSkill.slotName = slotName
+					grantedSkill.slotName = skillData.preferredSlotName or slotName
 					t_insert(env.grantedSkillsItems, grantedSkill)
 				end
 			end

@@ -3513,9 +3513,11 @@ skills["HiddenBlade"] = {
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
 	fromItem = true,
+	preferredSlotName = "Weapon 1",
 	baseFlags = {
 		attack = true,
 		projectile = true,
+		forceMainHand = true,
 	},
 	stats = {
 		"skill_has_trigger_from_unique_item",
