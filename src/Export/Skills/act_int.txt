@@ -3371,20 +3371,6 @@ statMap = {
 #baseMod flag("Condition:HaveCarrionGolem", { type = "GlobalEffect", effectType = "Buff" })
 #mods
 
-#skill SummonBoneGolemAltX
-#flags spell minion golem permanentMinion
-	minionList = {
-		"SummonedCarrionGolem",
-	},
-#mods
-
-#skill SummonBoneGolemAltY
-#flags spell minion golem permanentMinion
-	minionList = {
-		"SummonedCarrionGolem",
-	},
-#mods
-
 #skill SummonChaosGolem
 #flags spell minion golem permanentMinion
 	minionList = {
@@ -3524,20 +3510,6 @@ statMap = {
 	},
 #mods
 
-#skill SummonReaperAltX
-#flags spell minion
-	minionList = {
-		"SummonedReaper",
-	},
-#mods
-
-#skill SummonReaperAltY
-#flags spell minion
-	minionList = {
-		"SummonedReaper",
-	},
-#mods
-
 #skill SummonSkeletons
 #flags spell minion duration
 	minionList = {
@@ -3640,10 +3612,6 @@ statMap = {
 			div = 1000,
 		},
 	},
-#mods
-
-#skill BlackHoleAltX
-#flags spell area duration
 #mods
 
 #skill VoltaxicBurst

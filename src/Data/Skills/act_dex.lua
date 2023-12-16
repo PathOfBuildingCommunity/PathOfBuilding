@@ -5649,7 +5649,7 @@ skills["EtherealKnives"] = {
 	color = 2,
 	baseEffectiveness = 2.1717000007629,
 	incrementalEffectiveness = 0.043600000441074,
-	description = "Fires an arc of knives outwards in front of the caster which deal physical damage.",
+	description = "Fires an arc of knives in front of the caster which deal physical damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
@@ -5661,9 +5661,6 @@ skills["EtherealKnives"] = {
 		Default = {
 			{ "base_number_of_projectiles", 0.1 },
 		},
-	},
-	constantStats = {
-		{ "active_skill_projectile_speed_+%_variation_final", 50 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -5721,7 +5718,7 @@ skills["EtherealKnivesAltX"] = {
 	color = 2,
 	baseEffectiveness = 2.1717000007629,
 	incrementalEffectiveness = 0.043600000441074,
-	description = "Fires an arc of knives down into the ground in front of the caster which deal physical damage.\nCannot be supported by Volley.",
+	description = "Fires an arc of knives in front of the caster which deal physical damage. Cannot be supported by Volley.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, [SkillType.Duration] = true, [SkillType.NoVolley] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.6,
@@ -5735,10 +5732,10 @@ skills["EtherealKnivesAltX"] = {
 		},
 	},
 	constantStats = {
-		{ "active_skill_projectile_speed_+%_variation_final", 50 },
 		{ "maximum_number_of_blades_left_in_ground", 40 },
 		{ "ethereal_knives_blade_left_in_ground_for_every_X_projectiles", 1 },
 		{ "base_skill_effect_duration", 6000 },
+		{ "active_skill_projectile_speed_+%_variation_final", 50 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -5796,7 +5793,7 @@ skills["EtherealKnivesAltY"] = {
 	color = 2,
 	baseEffectiveness = 2.1717000007629,
 	incrementalEffectiveness = 0.043600000441074,
-	description = "Fires a circle of knives outwards around the caster which deal physical damage.",
+	description = "Fires a circle of knives around the caster which deal physical damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
@@ -5808,9 +5805,6 @@ skills["EtherealKnivesAltY"] = {
 		Default = {
 			{ "base_number_of_projectiles", 0.15 },
 		},
-	},
-	constantStats = {
-		{ "active_skill_projectile_speed_+%_variation_final", 50 },
 	},
 	stats = {
 		"spell_minimum_base_physical_damage",
@@ -15885,7 +15879,6 @@ skills["PoisonousConcoction"] = {
 		{ "base_chance_to_poison_on_hit_%", 40 },
 		{ "display_flask_throw_allowed_flask_types", 1 },
 		{ "flask_throw_charges_used_per_projectile", 1 },
-		{ "active_skill_base_area_of_effect_radius", 18 },
 	},
 	stats = {
 		"attack_minimum_added_chaos_damage",
