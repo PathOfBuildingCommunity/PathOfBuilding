@@ -7092,7 +7092,7 @@ c["Can have up to 5 Implicit Modifiers while Item has this Modifier"]={nil,"Can 
 c["Can have up to 5 Implicit Modifiers while Item has this Modifier 200% increased Armour and Energy Shield"]={nil,"Can have up to 5 Implicit Modifiers while Item has this Modifier 200% increased Armour and Energy Shield "}
 c["Can have up to 5 additional Traps placed at a time"]={{[1]={flags=0,keywordFlags=0,name="ActiveTrapLimit",type="BASE",value=5}},nil}
 c["Can't use Chest armour"]={{[1]={[1]={slotName="Body Armour",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseBody",type="Flag",value=1}},nil}
-c["Can't use Flask in Fifth Slot"]={{[1]={[1]={slotName="Flask 5",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseFifthFlask",type="Flag",value=1}},nil}
+c["Can't use Flask in Fifth Slot"]={{[1]={[1]={excludeItemType="Tincture",slotName="Flask 5",type="DisablesItem"},flags=0,keywordFlags=0,name="CanNotUseFifthFlask",type="Flag",value=1}},nil}
 c["Can't use Helmets"]={nil,"Can't use Helmets "}
 c["Can't use Helmets Your Critical Strike Chance is Lucky"]={nil,"Can't use Helmets Your Critical Strike Chance is Lucky "}
 c["Can't use Helmets Your Critical Strike Chance is Lucky Your Damage with Critical Strikes is Lucky"]={nil,"Can't use Helmets Your Critical Strike Chance is Lucky Your Damage with Critical Strikes is Lucky "}

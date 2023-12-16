@@ -246,10 +246,6 @@ return {
 
 	-- Section: Skill-specific options
 	{ section = "Skill Options", col = 2 },
-	{ label = "Arcanist Brand:", ifSkill = "Arcanist Brand" },
-	{ var = "targetBrandedEnemy", type = "check", label = "Are skills targeting the Branded enemy?", ifSkill = "Arcanist Brand", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:TargetingBrandedEnemy", "FLAG", true, "Config")
-	end },
 	{ label = "Aspect of the Avian:", ifSkill = "Aspect of the Avian" },
 	{ var = "aspectOfTheAvianAviansMight", type = "check", label = "Is Avian's Might active?", ifSkill = "Aspect of the Avian", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:AviansMightActive", "FLAG", true, "Config")
@@ -299,18 +295,21 @@ return {
 	{ var = "traumaStacks", type = "count", label = "# of Trauma Stacks:", ifFlag = "HasTrauma", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:TraumaStacks", "BASE", val, "Config", { type = "Condition", var = "Combat" })
 	end },
-	{ label = "Brand Skills:", ifSkill = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" } }, -- I barely resisted the temptation to label this "Generic Brand:"
-	{ var = "ActiveBrands", type = "count", label = "# of active Brands:", ifSkill = { "Armageddon Brand", "Storm Brand", "Arcanist Brand", "Penance Brand", "Wintertide Brand" }, apply = function(val, modList, enemyModList)
+	{ label = "Brand Skills:", ifSkill = { "Armageddon Brand", "Armageddon Brand of Volatility", "Armageddon Brand of Recall", "Storm Brand", "Storm Brand of indecision", "Arcanist Brand", "Penance Brand", "Penance Brand of Conduction", "Penance Brand of Dissipation", "Wintertide Brand" } }, -- I barely resisted the temptation to label this "Generic Brand:"
+	{ var = "ActiveBrands", type = "count", label = "# of active Brands:", ifSkill = { "Armageddon Brand", "Armageddon Brand of Volatility", "Armageddon Brand of Recall", "Storm Brand", "Storm Brand of indecision", "Arcanist Brand", "Penance Brand", "Penance Brand of Conduction", "Penance Brand of Dissipation", "Wintertide Brand" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigActiveBrands", "BASE", val, "Config")
 	end },
 	{ var = "BrandsAttachedToEnemy", type = "count", label = "# of Brands attached to the enemy:", ifEnemyMult = "BrandsAttached", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:ConfigBrandsAttachedToEnemy", "BASE", val, "Config")
 	end },
+	{ var = "targetBrandedEnemy", type = "check", label = "Skill is targeting the Branded enemy", ifCond = "TargetingBrandedEnemy", defaultState = true, apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:TargetingBrandedEnemy", "FLAG", true, "Config")
+	end },
 	{ var = "BrandsInLastQuarter", type = "check", label = "Last 25% of Attached Duration?", ifCond = "BrandLastQuarter", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:BrandLastQuarter", "FLAG", true, "Config")
 	end },
-	{ label = "Carrion Golem:", ifSkill = "Summon Carrion Golem" },
-	{ var = "carrionGolemNearbyMinion", type = "count", label = "# of Nearby Non-Golem Minions:", ifSkill = "Summon Carrion Golem", apply = function(val, modList, enemyModList)
+	{ label = "Carrion Golem:", ifSkill = { "Summon Carrion Golem", "Summon Carrion Golem of Hordes" } },
+	{ var = "carrionGolemNearbyMinion", type = "count", label = "# of Nearby Non-Golem Minions:", ifSkill = { "Summon Carrion Golem", "Summon Carrion Golem of Hordes" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:NearbyNonGolemMinion", "BASE", val, "Config")
 	end },
 	{ var = "carrionGolemEqualsChaosGolem", type = "check", label = "# Carrion Golem = # Chaos Golem:", ifCond = "CarrionEqualChaosGolem", ifSkill = "Summon Chaos Golem", apply = function(val, modList, enemyModList)
@@ -326,9 +325,9 @@ return {
 	{ var = "closeCombatCombatRush", type = "check", label = "Is Combat Rush active?", ifSkill = "Close Combat", tooltip = "Combat Rush grants 20% more Attack Speed to Travel Skills not Supported by Close Combat.",apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:CombatRushActive", "FLAG", true, "Config")
 	end },
-	{ label = "Cold Snap:", ifSkill = "Cold Snap" },
-	{ var = "ColdSnapBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Cold Snap", apply = function(val, modList, enemyModList)
-		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillName = "Cold Snap" })
+	{ label = "Cold Snap:", ifSkill = { "Cold Snap", "Cold Snap of Power" } },
+	{ var = "ColdSnapBypassCD", type = "check", label = "Bypass CD?", ifSkill = { "Cold Snap", "Cold Snap of Power" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillNameList = { "Cold Snap", "Cold Snap of Power" } })
 	end },
 	{ label = "Consecrated Path of Endurance:", ifSkill = "Consecrated Path of Endurance" },
 	{ var = "ConcPathBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Consecrated Path of Endurance", apply = function(val, modList, enemyModList)
@@ -576,8 +575,8 @@ return {
 	{ var = "summonHolyRelicEnableHolyRelicBoon", type = "check", label = "Enable Holy Relic's Boon Aura:", ifSkill = "Summon Holy Relic", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:HolyRelicBoonActive", "FLAG", true, "Config")
 	end },
-	{ label = "Summon Lightning Golem:", ifSkill = "Summon Lightning Golem" },
-	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = "Summon Lightning Golem", apply = function(val, modList, enemyModList)
+	{ label = "Summon Lightning Golem:", ifSkill = { "Summon Lightning Golem", "Summon Lightning Golem of Hordes" } },
+	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = { "Summon Lightning Golem", "Summon Lightning Golem of Hordes" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
 	end },
 	{ label = "Summon Reaper:", ifSkill = "Summon Reaper" },
@@ -600,9 +599,9 @@ return {
 	{ var = "voltaxicBurstSpellsQueued", type = "count", label = "# of Casts currently waiting:", ifSkill = "Voltaxic Burst", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:VoltaxicWaitingStages", "BASE", val, "Config")
 	end },
-	{ label = "Vortex:", ifSkill = "Vortex" },
-	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Vortex", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Vortex" })
+	{ label = "Vortex:", ifSkill = { "Vortex", "Vortex of Projection" } },
+	{ var = "vortexCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = { "Vortex", "Vortex of Projection" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillNameList = { "Vortex", "Vortex of Projection" } })
 	end },
 	{ label = "Warcry Skills:", ifSkill = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry", "Battlemage's Cry" } },
 	{ var = "multiplierWarcryPower", type = "count", label = "Warcry Power:", ifSkill = { "Infernal Cry", "Ancestral Cry", "Enduring Cry", "General's Cry", "Intimidating Cry", "Rallying Cry", "Seismic Cry", "Battlemage's Cry" }, tooltip = "Power determines how strong your Warcry buffs will be, and is based on the total strength of nearby enemies.\nPower is assumed to be 20 if your target is a Boss, but you can override it here if necessary.\n\tEach Normal enemy grants 1 Power\n\tEach Magic enemy grants 2 Power\n\tEach Rare enemy grants 10 Power\n\tEach Unique enemy grants 20 Power", apply = function(val, modList, enemyModList)

@@ -532,6 +532,9 @@ return {
 ["skill_area_of_effect_+%_final_in_sand_stance"] = {
 	mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Condition", var = "SandStance" }),
 },
+["area_of_effect_+%_final_per_removable_power_frenzy_or_endurance_charge"] = {
+	mod("AreaOfEffect", "MORE", nil, ModFlag.Spell, 0, { type = "Multiplier", var = "RemovableTotalCharges" }),
+},
 -- Critical strikes
 ["additional_base_critical_strike_chance"] = {
 	mod("CritChance", "BASE", nil),
@@ -680,7 +683,7 @@ return {
 	mod("Damage", "MORE", nil),
 },
 ["sigil_attached_target_hit_damage_+%_final"] = {
-	mod("Damage", "MORE", nil, ModFlag.Hit),
+	mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 },
 ["melee_damage_+%"] = {
 	mod("Damage", "INC", nil, ModFlag.Melee),
@@ -1084,6 +1087,9 @@ return {
 ["never_freeze"] = {
 	flag("CannotFreeze"),
 },
+["never_chill"] = {
+	flag("CannotChill"),
+},
 ["cannot_cause_bleeding"] = {
 	flag("CannotBleed"),
 },
@@ -1235,6 +1241,10 @@ return {
 ["modifiers_to_number_of_projectiles_instead_apply_to_splitting"] = {
 	flag("NoAdditionalProjectiles"),
 	flag("AdditionalProjectilesAddSplitsInstead")
+},
+["active_skill_beam_splits_instead_of_chaining"] = {
+	flag("NoAdditionalChains"),
+	flag("AdditionalChainsAddSplitsInstead")
 },
 ["modifiers_to_projectile_count_do_not_apply"] = {
 	flag("NoAdditionalProjectiles"),
@@ -1686,6 +1696,9 @@ return {
 ["minion_critical_strike_chance_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("CritChance", "INC", nil) }),
 },
+["minion_critical_strike_multiplier_+"] = {
+	mod("MinionModifier", "LIST", { mod = mod("CritMultiplier", "BASE", nil) }),
+},
 ["minion_maximum_life_+%"] = {
 	mod("MinionModifier", "LIST", { mod = mod("Life", "INC", nil) }),
 },
@@ -1798,6 +1811,16 @@ return {
 ["number_of_melee_skeletons_to_summon"] = {
 	mod("MinionPerCastCount", "BASE", nil)
 },
+["number_of_archer_skeletons_to_summon"] = {
+	mod("MinionPerCastCount", "BASE", nil)
+},
+["number_of_mage_skeletons_to_summon"] = {
+	mod("MinionPerCastCount", "BASE", nil)
+},
+["minion_always_crit"] = {
+	mod("MinionModifier", "LIST", { mod = mod("CritChance", "OVERRIDE", nil) }),
+	value = 100,
+},
 --Golem
 ["golem_buff_effect_+%"] = {
 	mod("BuffEffect", "INC", nil, 0, 0)
@@ -1882,6 +1905,9 @@ return {
 ["brand_atttached_duration_is_infinite"] = {
 	flag("UnlimitedBrandDuration"),
 },
+["brand_cannot_be_recalled"] = {
+	flag("Condition:CannotRecallBrand"),
+},
 -- Banner
 ["banner_buff_effect_+%_per_stage"] = {
 	mod("AuraEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "BannerStage" }, { type = "Condition", var = "BannerPlanted" }),
@@ -1914,6 +1940,9 @@ return {
 },
 ["withered_on_hit_chance_%"] = {
 	flag("Condition:CanWither"),
+},
+["minions_have_%_chance_to_inflict_wither_on_hit"] = {
+	mod("MinionModifier", "LIST", { mod = flag("Condition:CanWither") }),
 },
 ["withered_on_hit_for_2_seconds_%_chance"] = {
 	flag("Condition:CanWither"),
