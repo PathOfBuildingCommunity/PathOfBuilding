@@ -5991,7 +5991,7 @@ skills["ExplosiveArrow"] = {
 		},
 		["explosive_arrow_ailment_damage_+%_final_per_stack"] = {
 			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "SkillPart", skillPartList = { 1, 2 } }, { type = "Multiplier", var = "ExplosiveArrowStage" }),
- 		},
+		},
 		["explosive_arrow_maximum_bonus_explosion_radius"] = {
 			mod("Multiplier:ExplosiveArrowMaxBonusRadius", "BASE", nil),
 		},
@@ -10808,7 +10808,13 @@ skills["StormRainAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-    parts = {
+	 preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 2 then
+			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
+			activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.activeArrowMultiplier or 1, activeSkill.skillModList:Sum("BASE", skillCfg, "StormRainAllowedStormArrows"))
+		end
+	end,
+	parts = {
 		{
 			name = "Arrow",
 		},
@@ -10816,27 +10822,21 @@ skills["StormRainAltX"] = {
 			name = "Beam",
 		},
 	},
-    preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
-			activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.activeArrowMultiplier or 1, activeSkill.skillModList:Sum("BASE", skillCfg, "StormRainAllowedStormArrows"))
-		end
-	end,
-    statMap = {
-            ["prismatic_rain_beam_base_frequency_ms"] = {
-                skill("hitFrequency", nil),
-                div = 1000,
-            },
-            ["prismatic_rain_beam_frequency_+%"] = {
-                mod("StormRainBeamFrequency", "INC", nil),
-            },
-            ["number_of_allowed_storm_arrows"] = {
-			    mod("StormRainAllowedStormArrows", "BASE", nil)
-            },
-            ["quality_display_storm_rain_is_gem"] = {
-                -- Display only
-            },
-        },
+	statMap = {
+			["prismatic_rain_beam_base_frequency_ms"] = {
+				skill("hitFrequency", nil),
+				div = 1000,
+			},
+			["prismatic_rain_beam_frequency_+%"] = {
+				mod("StormRainBeamFrequency", "INC", nil),
+			},
+			["number_of_allowed_storm_arrows"] = {
+				mod("StormRainAllowedStormArrows", "BASE", nil)
+			},
+			["quality_display_storm_rain_is_gem"] = {
+				-- Display only
+			},
+		},
 	baseFlags = {
 		attack = true,
 		area = true,
@@ -10915,14 +10915,6 @@ skills["StormRainAltY"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-    parts = {
-		{
-			name = "Arrow",
-		},
-		{
-			name = "Beam",
-		},
-	},
 	preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
@@ -10930,6 +10922,14 @@ skills["StormRainAltY"] = {
 			activeSkill.skillData.dpsMultiplier = activeSkill.skillModList:Sum("BASE", skillCfg, "StormRainAllowedStormArrows")
 		end
 	end,
+	parts = {
+		{
+			name = "Arrow",
+		},
+		{
+			name = "Beam",
+		},
+	},
 	statMap = {
 		["prismatic_rain_beam_base_frequency_ms"] = {
 			skill("hitFrequency", nil),
