@@ -1453,6 +1453,10 @@ return {
 ["attack_maximum_added_lightning_damage"] = {
 	mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack),
 },
+["attack_skills_have_added_lightning_damage_equal_to_%_of_maximum_mana"] = {
+	mod("LightningMin", "BASE", nil, ModFlag.Attack, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
+	mod("LightningMax", "BASE", nil, ModFlag.Attack, 0, { type = "PercentStat", stat = "Mana", percent = 1 }),
+},
 ["attack_minimum_added_cold_damage"] = {
 	mod("ColdMin", "BASE", nil, 0, KeywordFlag.Attack),
 },

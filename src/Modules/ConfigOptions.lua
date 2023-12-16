@@ -413,9 +413,9 @@ return {
 	{ var = "heraldOfAgonyVirulenceStack", type = "count", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:VirulenceStack", "BASE", val, "Config")
 	end },
-	{ label = "Ice Nova:", ifSkill = "Ice Nova" },
-	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova" })
+	{ label = "Ice Nova:", ifSkill = "Ice Nova, Ice Nova of Frostbolts, Ice Nova of Deep Freeze" },
+	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova, Ice Nova of Frostbolts, Ice Nova of Deep Freeze", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova, Ice Nova of Frostbolts, Ice Nova of Deep Freeze" })
 	end },
 	{ label = "Infusion:", ifSkill = "Infused Channelling" },
 	{ var = "infusedChannellingInfusion", type = "check", label = "Is Infusion active?", ifSkill = "Infused Channelling", apply = function(val, modList, enemyModList)
@@ -623,8 +623,8 @@ return {
 	{ var = "VaalMoltenShellDamageMitigated", type = "count", label = "Damage mitigated:", tooltip = "Vaal Molten Shell reflects damage to the enemy,\nbased on the amount of damage it has mitigated in the last second.", ifSkill = "Vaal Molten Shell", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "VaalMoltenShellDamageMitigated", value = val }, "Config", { type = "SkillName", skillName = "Molten Shell" })
 	end },
-	{ label = "Multi-part area skills:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap" } },
-	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap" }, defaultIndex = 2, tooltip = [[
+	{ label = "Multi-part area skills:", ifSkill = { "Seismic Trap", "Seismic Trap of Swells", "Lightning Spire Trap", "Lightning Spire Trap of Overloading", "Lightning Spire Trap of Zapping", "Explosive Trap" } },
+	{ var = "enemySizePreset", type = "list", label = "Enemy size preset:", ifSkill = { "Seismic Trap", "Seismic Trap of Swells", "Lightning Spire Trap", "Lightning Spire Trap of Overloading", "Lightning Spire Trap of Zapping", "Explosive Trap" }, defaultIndex = 2, tooltip = [[
 Configure the radius of an enemy hitbox which is used in calculating some area multi-hitting (shotgunning) effects.
 
 Small sets the radius to 2.
@@ -649,7 +649,7 @@ Huge sets the radius to 11.
 			modList:NewMod("EnemyRadius", "BASE", 11, "Config")
 		end
 	end },
-	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Lightning Spire Trap", "Explosive Trap" }, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
+	{ var = "enemyRadius", type = "integer", label = "Enemy radius:", ifSkill = { "Seismic Trap", "Seismic Trap of Swells", "Lightning Spire Trap", "Lightning Spire Trap of Overloading", "Lightning Spire Trap of Zapping", "Explosive Trap" }, tooltip = "Configure the radius of an enemy hitbox to calculate some area overlapping (shotgunning) effects.", apply = function(val, modList, enemyModList)
 		modList:NewMod("EnemyRadius", "OVERRIDE", m_max(val, 1), "Config")
 	end },
 	{ var = "TotalSpectreLife", type = "integer", label = "Total Spectre Life:", ifMod = "takenFromSpectresBeforeYou", ifSkill = "Raise Spectre", tooltip = "The total life of your Spectres that can be taken before yours (used by jinxed juju)", apply = function(val, modList, enemyModList)

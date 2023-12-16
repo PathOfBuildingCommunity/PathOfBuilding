@@ -8955,6 +8955,11 @@ skills["IceNovaAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["ice_nova_damage_when_cast_on_frostbolt_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Condition", var = "CastOnFrostbolt" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -9028,6 +9033,11 @@ skills["IceNovaAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	statMap = {
+		["ice_nova_freeze_as_though_damage_+%_final"] = {
+			mod("FreezeAsThoughDealing", "MORE", nil)
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -9172,6 +9182,11 @@ skills["IceSpear"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * output.ProjectileCount
+		end
+	end,
 	parts = {
 		{
 			name = "First Form, 1 Projectile",
@@ -9187,6 +9202,9 @@ skills["IceSpear"] = {
 		},
 	},
 	statMap = {
+		["ice_spear_second_form_projectile_speed_+%_final"] = {
+			mod("ProjectileSpeed", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
+		},
 		["ice_spear_second_form_critical_strike_chance_+%"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
 		},
@@ -9194,11 +9212,6 @@ skills["IceSpear"] = {
 			mod("CritMultiplier", "BASE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
 		},
 	},
-	preDamageFunc = function(activeSkill, output)
-		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
-			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * output.ProjectileCount
-		end
-	end,
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -9276,9 +9289,36 @@ skills["IceSpearAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.CanRapidFire] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	preDamageFunc = function(activeSkill, output)
+		if activeSkill.skillPart == 3 or activeSkill.skillPart == 4 then
+			activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * output.ProjectileCount
+		end
+	end,
+	parts = {
+		{
+			name = "First Form, 1 Projectile",
+		},
+		{
+			name = "Second Form, 1 Projectile",
+		},
+		{
+			name = "First Form, All Projectiles",
+		},
+		{
+			name = "Second Form, All Projectiles",
+		},
+	},
+	statMap = {
+		["ice_spear_second_form_projectile_speed_+%_final"] = {
+			mod("ProjectileSpeed", "MORE", nil, 0, 0, { type = "SkillPart", skillPartList = { 2, 4 } }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
+	},
+	baseMods = {
+		mod("PierceChance", "BASE", 100, 0, 0, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		Default = {
@@ -9435,6 +9475,11 @@ skills["ColdProjectileMineAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.RemoteMined] = true, [SkillType.Cold] = true, [SkillType.HasReservation] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Aura] = true, [SkillType.Area] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.AuraNotOnCaster] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	statMap = {
+		["cold_projectile_mine_enemy_critical_strike_chance_+%_against_self"] = {
+			mod("SelfCritChance", "INC", nil, 0, 0, { type = "Limit", limit = 500 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -9515,6 +9560,11 @@ skills["ColdProjectileMineAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.RemoteMined] = true, [SkillType.Cold] = true, [SkillType.HasReservation] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Aura] = true, [SkillType.Area] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.AuraNotOnCaster] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.75,
+	statMap = {
+		["cold_projectile_mine_enemy_critical_strike_chance_+%_against_self"] = {
+			mod("SelfCritChance", "INC", nil, 0, 0, { type = "Limit", limit = 500 }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		projectile = true,
@@ -9898,6 +9948,15 @@ skills["KineticBoltAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["active_skill_additive_spell_damage_modifiers_apply_to_attack_damage_at_%_value"] = {
+			flag("SpellDamageAppliesToAttacks"),
+			mod("ImprovedSpellDamageAppliesToAttacks", "MAX", nil),
+		},
+		["quality_display_spell_damage_to_attack_damage_is_gem"] = {
+			--Display Only
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -9971,26 +10030,6 @@ skills["LightningTowerTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "One wave hitting",
-		},
-		{
-			name = "Average waves hitting configured size enemy",
-		},
-		{
-			name = "All waves hitting",
-		},
-		{
-			name = "Average active traps, one wave",
-		},
-		{
-			name = "Average active traps, average waves",
-		},
-		{
-			name = "Average active traps, all waves",
-		},
-	},
 	preDamageFunc = function(activeSkill, output, breakdown)
 		local skillCfg = activeSkill.skillCfg
 		local skillData = activeSkill.skillData
@@ -10006,8 +10045,8 @@ skills["LightningTowerTrap"] = {
 		end
 
 		local baseInterval = skillData.repeatInterval
-		local incFrequency = (1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency") / 100)
-		local moreFrequency = skillModList:More(skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency")
+		local incFrequency = (1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed") / 100)
+		local moreFrequency = skillModList:More(skillCfg, "TrapThrowingSpeed")
 		local wavePulseRate = incFrequency * moreFrequency / baseInterval
 		skillData.hitTimeOverride = 1 / wavePulseRate
 		output.WavePulseRate = wavePulseRate
@@ -10113,6 +10152,26 @@ skills["LightningTowerTrap"] = {
 			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
 		end
 	end,
+	parts = {
+		{
+			name = "One wave hitting",
+		},
+		{
+			name = "Average waves hitting configured size enemy",
+		},
+		{
+			name = "All waves hitting",
+		},
+		{
+			name = "Average active traps, one wave",
+		},
+		{
+			name = "Average active traps, average waves",
+		},
+		{
+			name = "Average active traps, all waves",
+		},
+	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {},
 		["lightning_tower_trap_base_interval_duration_ms"] = {
@@ -10213,11 +10272,167 @@ skills["LightningTowerTrapAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output, breakdown)
+		local skillCfg = activeSkill.skillCfg
+		local skillData = activeSkill.skillData
+		local skillPart = activeSkill.skillPart
+		local skillModList = activeSkill.skillModList
+		local t_insert = table.insert
+		local s_format = string.format
+
+		-- seemingly the only mechanical difference with seismic trap - this one does not scale it's total radius with AoE modifiers
+		output.AreaOfEffectRadius = skillData.radius
+		if breakdown then
+			breakdown.AreaOfEffectRadius = {"Targeting area of this skill is not affected by Area of Effect modifiers."}
+		end
+
+		local baseInterval = skillData.repeatInterval
+		local wavePulseRate = 1 / baseInterval
+		skillData.hitTimeOverride = 1 / wavePulseRate
+		local incDuration = (1 + skillModList:Sum("INC", skillCfg, "Duration") / 100)
+		local moreDuration = skillModList:More(skillCfg, "Duration")
+		local duration = skillData.duration * incDuration * moreDuration
+		local pulses = math.floor(duration * wavePulseRate)
+		output.PulsesPerTrap = pulses
+		local actionSpeedMod = 1 + skillModList:Sum("INC", skillCfg, "ActionSpeed") / 100
+		local baseSpeed = 1 / skillModList:Sum("BASE", skillCfg, "TrapThrowingTime")
+		local throwSpeed = baseSpeed * calcLib.mod(skillModList, skillCfg, "TrapThrowingSpeed") * actionSpeedMod
+		throwSpeed = math.min(throwSpeed, data.misc.ServerTickRate)
+		local throwTime = 1 / throwSpeed
+
+		local effectiveDuration = pulses / wavePulseRate
+		--local cooldown = output.TrapCooldown or 1
+		local averageActiveTraps = effectiveDuration / throwTime
+		output.AverageActiveTraps = averageActiveTraps
+		local function hitChance(enemyRadius, areaDamageRadius, areaSpreadRadius) -- not to be confused with attack hit chance
+			local damagingAreaRadius = areaDamageRadius + enemyRadius - 1	-- radius where area damage can land to hit the enemy;
+			-- -1 because of two assumptions: PoE coordinates are integers and damage is not registered if the two areas only share a point or vertex. If either is not correct, then -1 is not needed.
+			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
+		end
+		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
+		local waveRadius = output.AreaOfEffectRadiusSecondary
+		local fullRadius = output.AreaOfEffectRadius
+		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
+		output.OverlapChance = overlapChance * 100
+		if breakdown then
+			breakdown.OverlapChance = { }
+			t_insert(breakdown.OverlapChance, "Chance for individual wave to land within range to damage enemy:")
+			t_insert(breakdown.OverlapChance, "^8= (area where wave can spawn to damage enemy) / (total area)")
+			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
+			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
+			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
+			breakdown.PulsesPerTrap = { }
+			t_insert(breakdown.PulsesPerTrap, "Pulses per trap:")
+			t_insert(breakdown.PulsesPerTrap, s_format("%.3f ^8(unrounded skill duration)", duration))
+			t_insert(breakdown.PulsesPerTrap, s_format("* %.2f ^8(pulse rate)", wavePulseRate))
+			t_insert(breakdown.PulsesPerTrap, s_format("= %.2f ^8pulses", duration * wavePulseRate))
+			t_insert(breakdown.PulsesPerTrap, "^8rounded down")
+			t_insert(breakdown.PulsesPerTrap, s_format("= %d ^8pulses", pulses))
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Next breakpoint: %d%% increased Duration",
+					math.ceil(100 * ((pulses + 1) / (wavePulseRate * skillData.duration * moreDuration) - incDuration))
+			))
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Previous breakpoint: %d%% reduced Duration",
+					-math.ceil(100 * (pulses / (wavePulseRate * skillData.duration * moreDuration) - incDuration) - 1)
+			))
+			breakdown.AverageActiveTraps = { }
+			t_insert(breakdown.AverageActiveTraps, "Average active traps:")
+			t_insert(breakdown.AverageActiveTraps, s_format("%.2f^8 /^7 %.2f^8 (pulses / pulse rate = effective skill duration)", pulses, wavePulseRate))
+			t_insert(breakdown.AverageActiveTraps, s_format("/ %.2f ^8(throw time)", throwTime))
+			t_insert(breakdown.AverageActiveTraps, s_format("= %.2f traps", averageActiveTraps))
+		end
+		local maxWaves = skillModList:Sum("BASE", skillCfg, "MaximumWaves")
+		local dpsMultiplier = 1
+		if skillPart == 2 then
+			dpsMultiplier = maxWaves * overlapChance
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7maximum waves^8 * ^7overlap chance^8")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d^8 *^7 %.2f^8", maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+			end
+		elseif skillPart == 3 then
+			dpsMultiplier = maxWaves
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %d (maximum waves)", dpsMultiplier))
+			end
+		elseif skillPart == 4 then
+			dpsMultiplier = averageActiveTraps
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f (average active traps)", dpsMultiplier))
+			end
+		elseif skillPart == 5 then
+			dpsMultiplier = averageActiveTraps * maxWaves * overlapChance
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves^8 * ^7overlap chance^8")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f^8 *^7 %d^8 *^7 %.2f", averageActiveTraps, maxWaves, overlapChance))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+			end
+		elseif skillPart == 6 then
+			dpsMultiplier = averageActiveTraps * maxWaves
+			if breakdown then
+				breakdown.SkillDPSMultiplier = {}
+				t_insert(breakdown.SkillDPSMultiplier, "DPS multiplier")
+				t_insert(breakdown.SkillDPSMultiplier, "^8= ^7average active traps^8 * ^7maximum waves")
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.2f^8 *^7 %d", averageActiveTraps, maxWaves))
+				t_insert(breakdown.SkillDPSMultiplier, s_format("^8=^7 %.3f", dpsMultiplier))
+			end
+		end
+		if dpsMultiplier ~= 1 then
+			skillData.dpsMultiplier = (skillData.dpsMultiplier or 1) * dpsMultiplier
+			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
+		end
+	end,
+	parts = {
+		{
+			name = "One wave hitting",
+		},
+		{
+			name = "Average waves hitting configured size enemy",
+		},
+		{
+			name = "All waves hitting",
+		},
+		{
+			name = "Average active traps, one wave",
+		},
+		{
+			name = "Average active traps, average waves",
+		},
+		{
+			name = "Average active traps, all waves",
+		},
+	},
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {},
+		["lightning_tower_trap_base_interval_duration_ms"] = {
+			skill("repeatInterval", nil),
+			div = 1000,
+		},
+		["lightning_tower_trap_number_of_beams"] = {
+			mod("MaximumWaves", "BASE", nil),
+		},
+		["quality_display_lightning_tower_trap_is_gem"] = {
+			-- Display Only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		trap = true,
 		duration = true,
 		area = true,
+	},
+	baseMods = {
+		skill("radius", 24),
+		skill("radiusLabel", "Targeting Area:"),
+		skill("radiusSecondary", 10),
+		skill("radiusSecondaryLabel", "Impact Area:"),
 	},
 	qualityStats = {
 		Default = {
@@ -10292,26 +10507,6 @@ skills["LightningTowerTrapAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.Trapped] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	parts = {
-		{
-			name = "One wave hitting",
-		},
-		{
-			name = "Average waves hitting configured size enemy",
-		},
-		{
-			name = "All waves hitting",
-		},
-		{
-			name = "Average active traps, one wave",
-		},
-		{
-			name = "Average active traps, average waves",
-		},
-		{
-			name = "Average active traps, all waves",
-		},
-	},
 	preDamageFunc = function(activeSkill, output, breakdown)
 		local skillCfg = activeSkill.skillCfg
 		local skillData = activeSkill.skillData
@@ -10327,11 +10522,8 @@ skills["LightningTowerTrapAltY"] = {
 		end
 
 		local baseInterval = skillData.repeatInterval
-		local incFrequency = (1 + skillModList:Sum("INC", skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency") / 100)
-		local moreFrequency = skillModList:More(skillCfg, "TrapThrowingSpeed", "SeismicPulseFrequency")
-		local wavePulseRate = incFrequency * moreFrequency / baseInterval
+		local wavePulseRate = 1 / baseInterval
 		skillData.hitTimeOverride = 1 / wavePulseRate
-		output.WavePulseRate = wavePulseRate
 		local incDuration = (1 + skillModList:Sum("INC", skillCfg, "Duration") / 100)
 		local moreDuration = skillModList:More(skillCfg, "Duration")
 		local duration = skillData.duration * incDuration * moreDuration
@@ -10358,12 +10550,6 @@ skills["LightningTowerTrapAltY"] = {
 			t_insert(breakdown.OverlapChance, "^8= (^7secondary radius^8 + ^7enemy radius^8 - 1) ^ 2 / ^7radius^8 ^ 2")
 			t_insert(breakdown.OverlapChance, s_format("^8= (^7%d^8 +^7 %d^8 - 1) ^ 2 /^7 %d^8 ^ 2", waveRadius, enemyRadius, fullRadius))
 			t_insert(breakdown.OverlapChance, s_format("^8=^7 %.3f^8%%", overlapChance * 100))
-			breakdown.WavePulseRate = { }
-			t_insert(breakdown.WavePulseRate, "Pulse rate:")
-			t_insert(breakdown.WavePulseRate, s_format("%.2f ^8(base pulse rate)", 1 / baseInterval))
-			t_insert(breakdown.WavePulseRate, s_format("* %.2f ^8(increased/reduced pulse frequency)", incFrequency))
-			t_insert(breakdown.WavePulseRate, s_format("* %.2f ^8(more/less pulse frequency)", moreFrequency))
-			t_insert(breakdown.WavePulseRate, s_format("= %.2f^8/s", wavePulseRate))
 			breakdown.PulsesPerTrap = { }
 			t_insert(breakdown.PulsesPerTrap, "Pulses per trap:")
 			t_insert(breakdown.PulsesPerTrap, s_format("%.3f ^8(unrounded skill duration)", duration))
@@ -10371,12 +10557,10 @@ skills["LightningTowerTrapAltY"] = {
 			t_insert(breakdown.PulsesPerTrap, s_format("= %.2f ^8pulses", duration * wavePulseRate))
 			t_insert(breakdown.PulsesPerTrap, "^8rounded down")
 			t_insert(breakdown.PulsesPerTrap, s_format("= %d ^8pulses", pulses))
-			t_insert(breakdown.PulsesPerTrap, s_format("^8Next breakpoint: %d%% increased Trap Throwing Speed / %d%% increased Duration",
-					math.ceil(100 * ((pulses + 1) * baseInterval / (duration * moreFrequency) - incFrequency)),
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Next breakpoint: %d%% increased Duration",
 					math.ceil(100 * ((pulses + 1) / (wavePulseRate * skillData.duration * moreDuration) - incDuration))
 			))
-			t_insert(breakdown.PulsesPerTrap, s_format("^8Previous breakpoint: %d%% reduced Trap Throwing Speed / %d%% reduced Duration",
-					-math.ceil(100 * (pulses * baseInterval / (duration * moreFrequency) - incFrequency) - 1),
+			t_insert(breakdown.PulsesPerTrap, s_format("^8Previous breakpoint: %d%% reduced Duration",
 					-math.ceil(100 * (pulses / (wavePulseRate * skillData.duration * moreDuration) - incDuration) - 1)
 			))
 			breakdown.AverageActiveTraps = { }
@@ -10434,6 +10618,26 @@ skills["LightningTowerTrapAltY"] = {
 			output.SkillDPSMultiplier = (output.SkillDPSMultiplier or 1) * dpsMultiplier
 		end
 	end,
+	parts = {
+		{
+			name = "One wave hitting",
+		},
+		{
+			name = "Average waves hitting configured size enemy",
+		},
+		{
+			name = "All waves hitting",
+		},
+		{
+			name = "Average active traps, one wave",
+		},
+		{
+			name = "Average active traps, average waves",
+		},
+		{
+			name = "Average active traps, all waves",
+		},
+	},
 	statMap = {
 		["base_skill_show_average_damage_instead_of_dps"] = {},
 		["lightning_tower_trap_base_interval_duration_ms"] = {
@@ -10772,9 +10976,30 @@ skills["LightningTendrilsChannelledAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Lightning] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.23,
+	parts = {
+		{
+			name = "Normal pulse",
+		},
+		{
+			name = "Stronger pulse",
+		},
+	},
+	statMap = {
+		["lightning_tendrils_channelled_larger_pulse_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "SkillPart", skillPart = 2 }),
+		},
+		["lightning_tendrils_channelled_larger_pulse_area_of_effect_+%_final"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["lightning_tendrils_channelled_larger_pulse_always_crit"] = {
+			mod("CritChance", "OVERRIDE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+			base = 100
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
+		channelling = true,
 	},
 	qualityStats = {
 		Default = {
@@ -10847,9 +11072,15 @@ skills["LightningTendrilsChannelledAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.Lightning] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.23,
+	statMap = {
+		["lightning_tendrils_channelled_base_radius_+_per_second_while_channelling"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "ChannellingTime", limit = 2})
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
+		channelling = true,
 	},
 	qualityStats = {
 		Default = {
@@ -11745,11 +11976,39 @@ skills["MagmaSigilAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+	parts = {
+		{
+			name = "Energy Pulse",
+			stages = true,
+		},
+		{
+			name = "Max Pulse per Brand",
+		},
+	},
+	statMap = {
+		["magma_brand_hit_damage_+%_final_per_additional_pustule"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "Multiplier", var = "PenanceBrandofDissipationStageAfterFirst" }),
+		},
+		["magma_brand_ailment_damage_+%_final_per_additional_pustule"] = {
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "Multiplier", var = "PenanceBrandofDissipationStageAfterFirst" }),
+		},
+		["penance_brand_pulses_instead_of_explode"] = {
+			skill("radiusExtra", nil, { type = "Multiplier", var = "PenanceBrandofDissipationStageAfterFirst"}),
+			value = 1,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 		brand = true,
+	},
+	baseMods = {
+		skill("radius", 28),
+		mod("Multiplier:PenanceBrandofDissipationMaxStages", "BASE", 20, 0, 0, { type = "SkillPart", skillPart = 1 }),
 	},
 	qualityStats = {
 		Default = {
@@ -11827,11 +12086,18 @@ skills["MagmaSigilAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 		brand = true,
+	},
+	baseMods = {
+		skill("radius", 28),
+		skill("showAverage", true),
 	},
 	qualityStats = {
 		Default = {
@@ -11992,6 +12258,11 @@ skills["PowerSiphonAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["power_siphon_base_fire_at_x_targets"] = {
+			flag("OneShotProj")
+		},
+	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -12251,10 +12522,32 @@ skills["SanctifyAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.7,
+	parts = {
+		{
+			name = "Initial hit",
+		},
+		{
+			name = "Shockwave",
+		},
+	},
+	statMap = {
+		["sanctify_wave_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["quality_display_sanctify_is_gem"] = {
+			-- Display Only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radius", 18),
+		skill("radiusLabel", "Initial Hit:"),
+		skill("radiusSecondary", 50),
+		skill("radiusSecondaryLabel", "Shockwave:"),
 	},
 	qualityStats = {
 		Default = {
@@ -12568,16 +12861,16 @@ skills["MortarBarrageMine"] = {
 	castTime = 0.18,
 	statMap = {
 		["mortar_barrage_mine_minimum_added_fire_damage_taken"] = {
-			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine" }, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
 		},
 		["mortar_barrage_mine_maximum_added_fire_damage_taken"] = {
-			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine" }, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
 		},
 		["mortar_barrage_mine_minimum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine" }, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
-			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine" }, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
 		},
 	},
 	baseFlags = {
@@ -12672,11 +12965,33 @@ skills["MortarBarrageMineAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.Fire] = true, [SkillType.RemoteMined] = true, [SkillType.Area] = true, [SkillType.HasReservation] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Nova] = true, [SkillType.AuraNotOnCaster] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.18,
+	statMap = {
+		["mortar_barrage_mine_minimum_added_fire_damage_taken"] = {
+			mod("SelfFireMin", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine of Sabotage" }, { type = "Limit", limitVar = "PyroclastSelfFireMinLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+		},
+		["mortar_barrage_mine_maximum_added_fire_damage_taken"] = {
+			mod("SelfFireMax", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine of Sabotage" }, { type = "Limit", limitVar = "PyroclastSelfFireMaxLimit" }, { type = "GlobalEffect", effectType = "AuraDebuff", effectStackVar = "ActiveMineCount" }),
+		},
+		["mortar_barrage_mine_minimum_added_fire_damage_taken_limit"] = {
+			mod("Multiplier:PyroclastSelfFireMinLimit", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine of Sabotage" }, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+		},
+		["mortar_barrage_mine_maximum_added_fire_damage_taken_limit"] = {
+			mod("Multiplier:PyroclastSelfFireMaxLimit", "BASE", nil, 0, 0, { type = "SkillName", skillName = "Pyroclast Mine of Sabotage" }, { type = "GlobalEffect", effectType = "AuraDebuff", unscalable = true, effectName = "Pyroclast Mine Limit" }),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		projectile = true,
 		mine = true,
+	},
+	baseMods = {
+		skill("radius", 20),
+		skill("radiusLabel", "Area of initial explosion:"),
+		skill("radiusSecondary", 26),
+		skill("radiusSecondaryLabel", "Area in which projectiles will land:"),
+		skill("radiusTertiary", 12),
+		skill("radiusTertiaryLabel", "Area of projectile explosions:"),
 	},
 	qualityStats = {
 		Default = {
