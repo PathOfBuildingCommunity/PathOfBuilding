@@ -6095,7 +6095,7 @@ skills["WraithEtherealKnives"] = {
 	color = 2,
 	baseEffectiveness = 1.7000000476837,
 	incrementalEffectiveness = 0.037999998778105,
-	description = "Fires an arc of knives in front of the caster which deal physical damage.",
+	description = "Fires an arc of knives outwards in front of the caster which deal physical damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.CanRapidFire] = true, [SkillType.Physical] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
