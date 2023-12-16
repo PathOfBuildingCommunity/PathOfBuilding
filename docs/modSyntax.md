@@ -1,6 +1,7 @@
 This syntax is used all over the codebase, but there are two locations that hold the majority of them: [ModParser](../src/Modules/ModParser.lua) and [Skill Stats](../src/Data/SkillStatMap.lua).
 
 In ModParser, the standard format of a mod looks like this: `mod(ModName, ModType, Value, source, modFlags, keywordFlags, extraTags)`  See the function declaration [here](../src/Modules/ModTools.lua#L20-L46)
+
 For Skills, the format is [simplified slightly](../src/Modules/Data.lua#L51-L60) to remove the `source` parameter, as that is [added in automatically](../src/Modules/Data.lua#L70) based on the gem it came from.
 
 ### ModName
