@@ -522,6 +522,8 @@ function PassiveSpecClass:SelectClass(classId)
 		self.allocNodes[oldStartNodeId] = nil
 	end
 
+	self:ResetAscendClass()
+
 	self.curClassId = classId
 	local class = self.tree.classes[classId]
 	self.curClass = class
@@ -537,7 +539,7 @@ function PassiveSpecClass:SelectClass(classId)
 	self:SelectAscendClass(0)
 end
 
-function PassiveSpecClass:SelectAscendClass(ascendClassId)
+function PassiveSpecClass:ResetAscendClass()
 	if self.curAscendClassId then
 		-- Deallocate the current ascendancy class's start node
 		local ascendClass = self.curClass.classes[self.curAscendClassId] or self.curClass.classes[0]
@@ -547,6 +549,10 @@ function PassiveSpecClass:SelectAscendClass(ascendClassId)
 			self.allocNodes[oldStartNodeId] = nil
 		end
 	end
+end
+
+function PassiveSpecClass:SelectAscendClass(ascendClassId)
+	self:ResetAscendClass()
 
 	self.curAscendClassId = ascendClassId
 	local ascendClass = self.curClass.classes[ascendClassId] or self.curClass.classes[0]
