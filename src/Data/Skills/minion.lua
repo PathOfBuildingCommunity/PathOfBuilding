@@ -684,6 +684,26 @@ skills["ZombieSlam"] = {
 		[5] = { baseMultiplier = 1.5, storedUses = 1, damageEffectiveness = 1.5, cooldown = 6, levelRequirement = 45, },
 	},
 }
+skills["GAZombieCorpseGroundImpact"] = {
+	name = "Falling Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		area = true,
+	},
+	stats = {
+		"is_area_damage",
+		"global_always_hit",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 1, },
+	},
+}
 skills["SummonedSpiderViperStrike"] = {
 	name = "Viper Strike",
 	hidden = true,
