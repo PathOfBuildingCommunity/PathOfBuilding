@@ -413,17 +413,9 @@ return {
 	{ var = "heraldOfAgonyVirulenceStack", type = "count", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:VirulenceStack", "BASE", val, "Config")
 	end },
-	{ label = "Ice Nova:", ifSkill = "Ice Nova" },
-	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova" })
-	end },
-    { label = "", ifSkill = "Ice Nova of Frostbolts" },
-	{ var = "iceNovaOfFrostboltsCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova of Frostbolts", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova of Frostbolts" })
-	end },
-    { label = "Ice Nova of Deep Freeze:", ifSkill = "Ice Nova of Deep Freeze" },
-	{ var = "iceNovaOfDeepFreezeCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova of Deep Freeze", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova of Deep Freeze" })
+	{ label = "Ice Nova:", ifSkill = "Ice Nova, Ice Nova of Frostbolts, Ice Nova of Deep Freeze" },
+	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova, Ice Nova of Frostbolts, Ice Nova of Deep Freeze", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova, Ice Nova of Frostbolts, Ice Nova of Deep Freeze" })
 	end },
 	{ label = "Infusion:", ifSkill = "Infused Channelling" },
 	{ var = "infusedChannellingInfusion", type = "check", label = "Is Infusion active?", ifSkill = "Infused Channelling", apply = function(val, modList, enemyModList)
