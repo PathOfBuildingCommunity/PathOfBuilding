@@ -438,7 +438,7 @@ function SkillsTabClass:Save(xml)
 				t_insert(node, { elem = "Gem", attrib = {
 					nameSpec = gemInstance.nameSpec,
 					skillId = gemInstance.skillId,
-					gemId = gemInstance.gemId:match("(Metadata/Items/Gems/SkillGem%a+)Alt[XY]"),
+					gemId = gemInstance.gemId and gemInstance.gemId:match("(Metadata/Items/Gems/SkillGem%a+)Alt[XY]"),
 					level = tostring(gemInstance.level),
 					quality = tostring(gemInstance.quality),
 					qualityId = gemInstance.qualityId,
