@@ -835,7 +835,7 @@ end
 data.gems = LoadModule("Data/Gems")
 data.gemForSkill = { }
 data.gemForBaseName = { }
-for gemId, gem in pairs(data.gems) do
+local function setupGem(gem, gemId)
 	gem.id = gemId
 	gem.grantedEffect = data.skills[gem.grantedEffectId]
 	data.gemForSkill[gem.grantedEffect] = gemId
@@ -850,6 +850,21 @@ for gemId, gem in pairs(data.gems) do
 		gem.secondaryGrantedEffect
 	}
 	gem.naturalMaxLevel = gem.naturalMaxLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
+end
+
+for gemId, gem in pairs(data.gems) do
+	setupGem(gem, gemId)
+	local loc, _ = gemId:find('Vaal')
+	for _, alt in ipairs{"AltX", "AltY"} do
+		if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
+			local newGem = copyTable(gem, true)
+			newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].name
+			newGem.secondaryGrantedEffectId = gem.secondaryGrantedEffectId..alt
+			--ConPrintf("Adding Gem: " .. newGem.name .. "\t" .. newGem.secondaryGrantedEffectId)
+			data.gems[gemId..alt] = newGem
+			setupGem(newGem, gemId..alt)
+		end
+	end
 end
 
 -- Load minions
