@@ -4516,6 +4516,15 @@ return {
 	},
 	gemtypes={
 	},
+	genericbuffauras={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="String",
+			width=150
+		}
+	},
 	genericleaguerewardtypes={
 	},
 	genericleaguerewardtypevisuals={
