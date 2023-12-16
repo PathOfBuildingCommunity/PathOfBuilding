@@ -10898,7 +10898,7 @@ skills["StormRainAltY"] = {
 		if activeSkill.skillPart == 2 then
 			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
 			-- Max of 2 arrows, and each fires at each other, so 2 beams per tick
-			activeSkill.skillData.dpsMultiplier = 2
+			activeSkill.skillData.dpsMultiplier = activeSkill.skillModList:Sum("BASE", skillCfg, "StormRainAllowedStormArrows")
 		end
 	end,
 	statMap = {
@@ -10910,7 +10910,7 @@ skills["StormRainAltY"] = {
 			mod("StormRainBeamFrequency", "INC", nil),
 		},
 		["number_of_allowed_storm_arrows"] = {
-			-- Display only
+			mod("StormRainAllowedStormArrows", "BASE", nil)
 		},
 		["quality_display_storm_rain_is_gem"] = {
 			-- Display only
