@@ -309,7 +309,16 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 		local gemInstance = { }
 		gemInstance.nameSpec = child.attrib.nameSpec or ""
 		if child.attrib.gemId then
-			local gemData = self.build.data.gems[child.attrib.gemId:match("Metadata/Items/Gems/SkillGem") .. child.attrib.skillId]
+			local realGemId
+			-- For now the gemId in the save file is the base gems id, so we need to add the skill id to get the real gem id
+			-- The skillId holds which variant (transfiguration) it is, eg. Arc, ArcAltX, or ArcAltY
+			-- The save format may change in the future but it is what we have for now for backward compatibility
+			if child.attrib.gemId:match("Metadata/Items/Gems/SkillGem") then
+				realGemId = "Metadata/Items/Gems/SkillGem" .. child.attrib.skillId
+			else
+				realGemId = child.attrib.gemId
+			end
+			local gemData = self.build.data.gems[realGemId]
 			if gemData then
 				gemInstance.gemId = gemData.id
 				gemInstance.skillId = gemData.grantedEffectId
