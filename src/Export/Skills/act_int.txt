@@ -27,14 +27,6 @@ local skills, mod, flag, skill = ...
 	},
 #mods
 
-#skill ArcAltX
-#flags spell chaining
-#mods
-
-#skill ArcAltY
-#flags spell chaining
-#mods
-
 #skill VaalArcChain
 #flags spell chaining
 	statMap = {
@@ -106,14 +98,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radiusSecondary", 8)
-#mods
-
-#skill CataclysmSigilAltX
-#flags spell area duration brand
-#mods
-
-#skill CataclysmSigilAltY
-#flags spell area duration brand
 #mods
 
 #skill CataclysmSigilAltX
@@ -366,10 +350,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #mods
 
-#skill DarkRitualAltX
-#flags spell duration area
-#mods
-
 #skill SupportDarkRitual Bane
 	statMap = {
 		["apply_linked_curses_with_dark_ritual"] = {
@@ -512,16 +492,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("debuff", true)
 #baseMod skill("debuffSecondary", true)
 #baseMod skill("radius", 26)
-#mods
-
-#skill BlightAltX
-#flags spell duration area
-#baseMod skill("debuff", true)
-#mods
-
-#skill BlightAltY
-#flags spell duration area
-#baseMod skill("debuff", true)
 #mods
 
 #skill VaalBlight
@@ -1043,14 +1013,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("radius", 8)
 #mods
 
-#skill EssenceDrainAltX
-#flags spell projectile duration
-#mods
-
-#skill EssenceDrainAltY
-#flags spell projectile duration
-#mods
-
 #skill EyeOfWinter
 #flags spell projectile
 	preDamageFunc = function(activeSkill, output)
@@ -1269,10 +1231,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 30)
-#mods
-
-#skill FlameWhipAltX
-#flags spell area duration
 #mods
 
 #skill Flameblast
@@ -1589,14 +1547,6 @@ local skills, mod, flag, skill = ...
 
 #skill FrostBombAltY
 #flags spell area duration
-#mods
-
-#skill FrostBombAltX
-#flags spell area duration
-#mods
-
-#skill FrostBombAltY
-#flags spell area duration
 	preDamageFunc = function(activeSkill, output)
 		local duration = math.floor(activeSkill.skillData.duration * output.DurationMod * 10)
 		activeSkill.skillModList:NewMod("Multiplier:100msFrostBombDuration", "BASE", duration, "Skill:FrostBombofForthcoming")
@@ -1729,10 +1679,6 @@ local skills, mod, flag, skill = ...
 		},
 	},
 #baseMod skill("radius", 19)
-#mods
-
-#skill GalvanicFieldAltX
-#flags spell duration chaining
 #mods
 
 #skill GalvanicFieldAltX
@@ -1898,39 +1844,6 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
-#skill DoomBlastAltX
-#flags spell area
-	statMap = {
-		["hexblast_hit_damage_+%_final_if_hexed"] = {
-			mod("Damage", "MORE", nil, ModFlag.Hit, 0, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
-		},
-		["hexblast_ailment_damage_+%_final_if_hexed"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ailment, { type = "ActorCondition", actor = "enemy", var = "Cursed" })
-		},
-		["chaos_damage_resisted_by_highest_resistance"] = {
-			flag("ChaosDamageUsesHighestResistance"),
-		},
-		["hexblast_display_innate_remove_hex_100%_chance"] = {
-			-- Display Only
-		},
-	},
-	parts = {
-		{
-			name = "Target",
-			area = false,
-		},
-		{
-			name = "Explosion",
-			area = true,
-		},
-	},
-#baseMod skill("showAverage", true)
-#mods
-
-#skill DoomBlastAltY
-#flags spell area
-#mods
-
 #skill DoomBlastAltY
 #flags spell area
 	parts = {
@@ -1979,14 +1892,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill IceNova
-#flags spell area
-#mods
-
-#skill IceNovaAltX
-#flags spell area
-#mods
-
-#skill IceNovaAltY
 #flags spell area
 #mods
 
@@ -2103,14 +2008,6 @@ statMap = {
 	},
 #mods
 
-#skill ColdProjectileMineAltX
-#flags spell projectile mine
-#mods
-
-#skill ColdProjectileMineAltY
-#flags spell projectile mine
-#mods
-
 #skill ExpandingFireCone
 #flags spell area
 	preDamageFunc = function(activeSkill, output)
@@ -2156,9 +2053,6 @@ statMap = {
 			--Display Only
 		},
 		["quality_display_incinerate_is_gem_ingite"] = {
-			--Display Only
-		},
-		["quality_display_incinerate_is_gem_stages"] = {
 			--Display Only
 		},
 	},
@@ -2207,10 +2101,6 @@ statMap = {
 			--Display Only
 		},
 	},
-#mods
-
-#skill KineticBoltAltX
-#flags attack projectile
 #mods
 
 #skill LightningTowerTrap
@@ -2596,10 +2486,6 @@ statMap = {
 #flags spell
 #mods
 
-#skill LightningConduitAltX
-#flags spell
-#mods
-
 #skill LightningTendrilsChannelled
 #flags spell area
 	parts = {
@@ -2885,10 +2771,6 @@ statMap = {
 #baseMod skill("radiusSecondaryLabel", "Shockwave:")
 #mods
 
-#skill SanctifyAltX
-#flags spell area duration
-#mods
-
 #skill Purity
 #flags spell aura area
 	statMap = {
@@ -2976,10 +2858,6 @@ statMap = {
 #baseMod skill("radiusSecondaryLabel", "Area in which projectiles will land:")
 #baseMod skill("radiusTertiary", 12)
 #baseMod skill("radiusTertiaryLabel", "Area of projectile explosions:")
-#mods
-
-#skill MortarBarrageMineAltX
-#flags spell area projectile mine
 #mods
 
 #skill RaiseSpectre
