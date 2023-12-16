@@ -811,10 +811,6 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
-#skill DischargeAltX
-#flags spell area
-#mods
-
 #skill Discipline
 #flags spell aura area
 	statMap = {
