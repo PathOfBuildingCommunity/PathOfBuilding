@@ -10819,7 +10819,7 @@ skills["StormRainAltX"] = {
     preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
-			activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.activeArrowMultiplier or 1, 10)
+			activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.activeArrowMultiplier or 1, activeSkill.skillModList:Sum("BASE", skillCfg, "StormRainAllowedStormArrows"))
 		end
 	end,
     statMap = {
@@ -10831,7 +10831,7 @@ skills["StormRainAltX"] = {
                 mod("StormRainBeamFrequency", "INC", nil),
             },
             ["number_of_allowed_storm_arrows"] = {
-                -- Display only
+			    mod("StormRainAllowedStormArrows", "BASE", nil)
             },
             ["quality_display_storm_rain_is_gem"] = {
                 -- Display only
