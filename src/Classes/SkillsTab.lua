@@ -309,7 +309,7 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 		local gemInstance = { }
 		gemInstance.nameSpec = child.attrib.nameSpec or ""
 		if child.attrib.gemId then
-			local gemData = self.build.data.gems[child.attrib.gemId]
+			local gemData = self.build.data.gems[child.attrib.gemId:match("Metadata/Items/Gems/SkillGem") .. child.attrib.skillId]
 			if gemData then
 				gemInstance.gemId = gemData.id
 				gemInstance.skillId = gemData.grantedEffectId
@@ -438,7 +438,7 @@ function SkillsTabClass:Save(xml)
 				t_insert(node, { elem = "Gem", attrib = {
 					nameSpec = gemInstance.nameSpec,
 					skillId = gemInstance.skillId,
-					gemId = gemInstance.gemId,
+					gemId = gemInstance.gemId:match("(Metadata/Items/Gems/SkillGem%a+)Alt[XY]"),
 					level = tostring(gemInstance.level),
 					quality = tostring(gemInstance.quality),
 					qualityId = gemInstance.qualityId,
