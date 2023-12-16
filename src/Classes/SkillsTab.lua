@@ -309,16 +309,23 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 		local gemInstance = { }
 		gemInstance.nameSpec = child.attrib.nameSpec or ""
 		if child.attrib.gemId then
-			local realGemId
-			-- For now the gemId in the save file is the base gems id, so we need to add the skill id to get the real gem id
-			-- The skillId holds which variant (transfiguration) it is, eg. Arc, ArcAltX, or ArcAltY
-			-- The save format may change in the future but it is what we have for now for backward compatibility
-			if child.attrib.gemId:match("Metadata/Items/Gems/SkillGem") then
-				realGemId = "Metadata/Items/Gems/SkillGem" .. child.attrib.skillId
-			else
-				realGemId = child.attrib.gemId
+			local gemData
+			local possibleVariants = self.build.data.gemsByGameId[child.attrib.gemId]
+			if possibleVariants then
+				-- If it is a known game, try to determine which variant is used
+				if child.attrib.variantId then
+					-- New save format from 3.23 that stores the specific variation (transfiguration)
+					gemData = possibleVariants[child.attrib.variantId]
+				elseif child.attrib.skillId and possibleVariants then
+					-- Old format relying on the uniqueness of the granted effects id
+					for _, variant in pairs(possibleVariants) do
+						if variant.grantedEffectId == child.attrib.skillId then
+							gemData = variant
+							break
+						end
+					end
+				end
 			end
-			local gemData = self.build.data.gems[realGemId]
 			if gemData then
 				gemInstance.gemId = gemData.id
 				gemInstance.skillId = gemData.grantedEffectId
@@ -447,7 +454,8 @@ function SkillsTabClass:Save(xml)
 				t_insert(node, { elem = "Gem", attrib = {
 					nameSpec = gemInstance.nameSpec,
 					skillId = gemInstance.skillId,
-					gemId = gemInstance.gemId and gemInstance.gemId:match("(Metadata/Items/Gems/SkillGem%a+)Alt[XY]"),
+					gemId = gemInstance.gemData and gemInstance.gemData.gameId,
+					variantId = gemInstance.gemData and gemInstance.gemData.variantId,
 					level = tostring(gemInstance.level),
 					quality = tostring(gemInstance.quality),
 					qualityId = gemInstance.qualityId,

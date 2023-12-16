@@ -835,10 +835,13 @@ end
 data.gems = LoadModule("Data/Gems")
 data.gemForSkill = { }
 data.gemForBaseName = { }
+data.gemsByGameId = { }
 local function setupGem(gem, gemId)
 	gem.id = gemId
 	gem.grantedEffect = data.skills[gem.grantedEffectId]
 	data.gemForSkill[gem.grantedEffect] = gemId
+	data.gemsByGameId[gem.gameId] = data.gemsByGameId[gem.gameId] or {}
+	data.gemsByGameId[gem.gameId][gem.variantId] = gem
 	local baseName = gem.name
 	if gem.grantedEffect.support and gem.grantedEffectId ~= "SupportBarrage" then
 		baseName = baseName .. " Support"
