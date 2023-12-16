@@ -1668,7 +1668,7 @@ Huge sets the radius to 11.
 	{ var = "enemyConditionHitByLightningDamage", type = "check", label = "Enemy was Hit by ^xADAA47Light. ^7Damage?", ifFlag = "ElementalEquilibrium", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Condition:HitByLightningDamage", "FLAG", true, "Config")
 	end },
-	{ var = "enemyInRFOrScorchingRay", type = "check", label = "Is the enemy in RF or Scorching Ray:", ifCond = "InRFOrScorchingRay", ifSkill = { "Righteous Fire", "Scorching Ray" }, apply = function(val, modList, enemyModList)
+	{ var = "enemyInRFOrScorchingRay", type = "check", label = "Is the enemy in RF or Scorching Ray:", ifCond = "InRFOrScorchingRay", ifSkill = { "Righteous Fire", "Scorching Ray", "Scorching Ray of Immolation" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:InRFOrScorchingRay", "FLAG", true, "Config")
 	end },
 	{ var = "EEIgnoreHitDamage", type = "check", label = "Ignore Skill Hit Damage?", ifFlag = "ElementalEquilibrium", tooltip = "This option prevents EE from being reset by the hit damage of your main skill." },
