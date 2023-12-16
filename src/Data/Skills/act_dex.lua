@@ -10811,7 +10811,7 @@ skills["StormRainAltX"] = {
 	 preDamageFunc = function(activeSkill, output)
 		if activeSkill.skillPart == 2 then
 			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
-			activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.activeArrowMultiplier or 1, activeSkill.skillModList:Sum("BASE", skillCfg, "StormRainAllowedStormArrows"))
+			activeSkill.skillData.dpsMultiplier = math.min(activeSkill.skillData.activeArrowMultiplier or 1, activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "StormRainAllowedStormArrows"))
 		end
 	end,
 	parts = {
@@ -10919,7 +10919,7 @@ skills["StormRainAltY"] = {
 		if activeSkill.skillPart == 2 then
 			activeSkill.skillData.hitTimeOverride = activeSkill.skillData.hitFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "StormRainBeamFrequency") / 100)
 			-- Max of 2 arrows, and each fires at each other, so 2 beams per tick
-			activeSkill.skillData.dpsMultiplier = activeSkill.skillModList:Sum("BASE", skillCfg, "StormRainAllowedStormArrows")
+			activeSkill.skillData.dpsMultiplier = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "StormRainAllowedStormArrows")
 		end
 	end,
 	parts = {
