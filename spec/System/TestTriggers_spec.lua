@@ -54,7 +54,6 @@ describe("TestTriggers", function()
         runCallback("OnFrame")
 		
 		build.mainSocketGroup = 2
-		build.skillsTab.socketGroupList[build.mainSocketGroup].mainActiveSkill = 2
 		build.modFlag = true
 		build.buildFlag = true
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
@@ -83,7 +82,6 @@ describe("TestTriggers", function()
         runCallback("OnFrame")
 		
 		build.mainSocketGroup = 2
-		build.skillsTab.socketGroupList[build.mainSocketGroup].mainActiveSkill = 2
 		build.modFlag = true
 		build.buildFlag = true
 		build.skillsTab:PasteSocketGroup("Smite 20/0 Default  1\n")
@@ -794,7 +792,6 @@ describe("TestTriggers", function()
         runCallback("OnFrame")
 		
 		build.mainSocketGroup = 2
-		build.skillsTab.socketGroupList[build.mainSocketGroup].mainActiveSkill = 2
 		build.modFlag = true
 		build.buildFlag = true
         runCallback("OnFrame")
