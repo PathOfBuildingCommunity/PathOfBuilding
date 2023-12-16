@@ -13135,12 +13135,25 @@ skills["RaiseSpectreAltX"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Projectile] = true, [SkillType.Chains] = true, [SkillType.Duration] = true, [SkillType.SummonsTotem] = true, [SkillType.Trapped] = true, [SkillType.RemoteMined] = true, [SkillType.DamageOverTime] = true, [SkillType.Channel] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Warcry] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.7,
+	minionList = {
+	},
+	statMap = {
+		["accuracy_rating"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", nil) })
+		},
+		["raised_spectre_level"] = {
+			skill("minionLevel", nil),
+		},
+		["spectres_have_base_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
 		spectre = true,
 		duration = true,
-		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -13216,12 +13229,6 @@ skills["RaiseZombie"] = {
 		"RaisedZombie",
 	},
 	statMap = {
-		["zombie_slam_cooldown_speed_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0, { type = "SkillId", skillId = "ZombieSlam" }) }),
-		},
-		["zombie_slam_area_of_effect_+%"] = {
-			mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillId", skillId = "ZombieSlam" }) }),
-		},
 		["quality_display_raise_zombie_is_gem+%"] = {
 			-- Display only
 		},
@@ -13298,6 +13305,20 @@ skills["RaiseZombieAltX"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.85,
+	minionList = {
+		"RaisedZombie",
+	},
+	statMap = {
+		["zombie_slam_cooldown_speed_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("CooldownRecovery", "INC", nil, 0, 0, { type = "SkillId", skillId = "ZombieSlam" }) }),
+		},
+		["zombie_slam_area_of_effect_+%"] = {
+			mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", nil, 0, 0, { type = "SkillId", skillId = "ZombieSlam" }) }),
+		},
+		["quality_display_raise_zombie_is_gem+%"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
@@ -13372,10 +13393,23 @@ skills["RaiseZombieAltY"] = {
 	minionSkillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, },
 	statDescriptionScope = "minion_spell_skill_stat_descriptions",
 	castTime = 0.75,
+	minionList = {
+		"RaisedZombie",
+	},
+	statMap = {
+		["quality_display_raise_zombie_is_gem+%"] = {
+			-- Display only
+		},
+		["minion_global_always_hit"] = {
+			-- Display only
+		},
+		["raise_zombie_does_not_use_corpses"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		minion = true,
-		permanentMinion = true,
 	},
 	qualityStats = {
 		Default = {
@@ -13842,11 +13876,11 @@ skills["FireBeamAltX"] = {
 	},
 	statMap = {
 		["fire_beam_additional_stack_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ScorchingRayofImmolationStageAfterFirst" }),
 			base = 100
 		},
 		["display_max_fire_beam_stacks"] = {
-			mod("Multiplier:ScorchingRayMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("Multiplier:ScorchingRayofImmolationMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["quality_display_firebeam_is_gem"] = {
 			-- Display only
@@ -13857,7 +13891,7 @@ skills["FireBeamAltX"] = {
 		duration = true,
 	},
 	baseMods = {
-		mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 }),
+		mod("Condition:ScorchingRayofImmolationMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayofImmolationStageAfterFirst", threshold = 7 }),
 		flag("DotCanStackAsTotems"),
 	},
 	qualityStats = {
@@ -14293,7 +14327,9 @@ skills["SoulrendAltX"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		duration = true,
+	},
+	baseMods = {
+		skill("radius", 10),
 	},
 	qualityStats = {
 		Default = {
@@ -14365,6 +14401,10 @@ skills["SoulrendAltY"] = {
 		spell = true,
 		projectile = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("debuff", true),
+		skill("radius", 10),
 	},
 	qualityStats = {
 		Default = {
@@ -15135,12 +15175,22 @@ skills["ConduitSigilAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.35,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 		brand = true,
 		chaining = true,
+	},
+	baseMods = {
+		skill("radius", 9),
 	},
 	qualityStats = {
 		Default = {
@@ -15417,6 +15467,66 @@ skills["Stormbind"] = {
 		[40] = { 0.5, 1.5, 39, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
 	},
 }
+skills["RuneBlast"] = {
+	name = "Rune Blast",
+	color = 3,
+	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.Arcane] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.2,
+	baseFlags = {
+		spell = true,
+	},
+	qualityStats = {
+		Default = {
+			{ "base_cast_speed_+%", 0.5 },
+		},
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 28, cost = { Mana = 5, }, },
+		[2] = { levelRequirement = 31, cost = { Mana = 5, }, },
+		[3] = { levelRequirement = 34, cost = { Mana = 6, }, },
+		[4] = { levelRequirement = 37, cost = { Mana = 6, }, },
+		[5] = { levelRequirement = 40, cost = { Mana = 7, }, },
+		[6] = { levelRequirement = 42, cost = { Mana = 7, }, },
+		[7] = { levelRequirement = 44, cost = { Mana = 8, }, },
+		[8] = { levelRequirement = 46, cost = { Mana = 8, }, },
+		[9] = { levelRequirement = 48, cost = { Mana = 9, }, },
+		[10] = { levelRequirement = 50, cost = { Mana = 9, }, },
+		[11] = { levelRequirement = 52, cost = { Mana = 10, }, },
+		[12] = { levelRequirement = 54, cost = { Mana = 10, }, },
+		[13] = { levelRequirement = 56, cost = { Mana = 11, }, },
+		[14] = { levelRequirement = 58, cost = { Mana = 11, }, },
+		[15] = { levelRequirement = 60, cost = { Mana = 12, }, },
+		[16] = { levelRequirement = 62, cost = { Mana = 12, }, },
+		[17] = { levelRequirement = 64, cost = { Mana = 13, }, },
+		[18] = { levelRequirement = 66, cost = { Mana = 13, }, },
+		[19] = { levelRequirement = 68, cost = { Mana = 14, }, },
+		[20] = { levelRequirement = 70, cost = { Mana = 14, }, },
+		[21] = { levelRequirement = 72, cost = { Mana = 14, }, },
+		[22] = { levelRequirement = 74, cost = { Mana = 15, }, },
+		[23] = { levelRequirement = 76, cost = { Mana = 15, }, },
+		[24] = { levelRequirement = 78, cost = { Mana = 16, }, },
+		[25] = { levelRequirement = 80, cost = { Mana = 16, }, },
+		[26] = { levelRequirement = 82, cost = { Mana = 17, }, },
+		[27] = { levelRequirement = 84, cost = { Mana = 17, }, },
+		[28] = { levelRequirement = 86, cost = { Mana = 18, }, },
+		[29] = { levelRequirement = 88, cost = { Mana = 18, }, },
+		[30] = { levelRequirement = 90, cost = { Mana = 19, }, },
+		[31] = { levelRequirement = 91, cost = { Mana = 19, }, },
+		[32] = { levelRequirement = 92, cost = { Mana = 19, }, },
+		[33] = { levelRequirement = 93, cost = { Mana = 20, }, },
+		[34] = { levelRequirement = 94, cost = { Mana = 20, }, },
+		[35] = { levelRequirement = 95, cost = { Mana = 20, }, },
+		[36] = { levelRequirement = 96, cost = { Mana = 20, }, },
+		[37] = { levelRequirement = 97, cost = { Mana = 21, }, },
+		[38] = { levelRequirement = 98, cost = { Mana = 21, }, },
+		[39] = { levelRequirement = 99, cost = { Mana = 21, }, },
+		[40] = { levelRequirement = 100, cost = { Mana = 21, }, },
+	},
+}
 skills["StormbindAltX"] = {
 	name = "Stormbind of Teleportation",
 	color = 3,
@@ -15426,10 +15536,50 @@ skills["StormbindAltX"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, [SkillType.Channel] = true, [SkillType.Lightning] = true, [SkillType.Totemable] = true, [SkillType.Duration] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.12,
+	parts = {
+		{
+			name = "Unimproved",
+		},
+		{
+			name = "1 Improvement",
+		},
+		{
+			name = "2 Improvements",
+		},
+		{
+			name = "3 Improvements",
+		},
+	},
+	statMap = {
+		["rune_paint_damage_+%_final_per_rune_level"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["rune_paint_area_of_effect_+%_final_per_rune_level"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["rune_paint_area_of_effect_+%_per_rune_level"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["quality_display_rune_paint_is_gem"] = {
+			-- Display Only
+		},
+		["rune_paint_max_rune_level"] = {
+			-- Display Only
+		},
+		["quality_display_rune_paint_area_is_gem"] = {
+			-- Display Only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		mod("Multiplier:RuneLevel", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		mod("Multiplier:RuneLevel", "BASE", 2, 0, 0, { type = "SkillPart", skillPart = 3 }),
+		mod("Multiplier:RuneLevel", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 4 }),
+		skill("radius", 16),
 	},
 	qualityStats = {
 		Default = {
@@ -15497,11 +15647,11 @@ skills["StormbindAltX"] = {
 		[40] = { 0.5, 1.5, 39, damageEffectiveness = 1.6, critChance = 6, levelRequirement = 100, statInterpolation = { 3, 3, 1, }, cost = { Mana = 6, }, },
 	},
 }
-skills["RuneBlast"] = {
-	name = "Rune Blast",
+skills["RuneBlastAltX"] = {
+	name = "Stormbind of Teleportation",
 	color = 3,
-	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.Arcane] = true, },
+	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction. Detonation can teleport you to the targeted Rune.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.Arcane] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.2,
 	baseFlags = {
@@ -15513,6 +15663,8 @@ skills["RuneBlast"] = {
 		},
 	},
 	stats = {
+		"rune_blast_teleports_to_detonated_rune_with_100_ms_cooldown",
+		"gem_display_rune_blast_is_gem",
 	},
 	levels = {
 		[1] = { levelRequirement = 28, cost = { Mana = 5, }, },

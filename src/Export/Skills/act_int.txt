@@ -2875,10 +2875,36 @@ statMap = {
 #mods
 
 #skill RaiseSpectreAltX
-#flags spell minion spectre duration permanentMinion
+#flags spell minion spectre duration
+	minionList = {
+	},
+	statMap = {
+		["accuracy_rating"] = {
+			mod("MinionModifier", "LIST", { mod = mod("Accuracy", "BASE", nil) })
+		},
+		["raised_spectre_level"] = {
+			skill("minionLevel", nil),
+		},
+		["spectres_have_base_duration_ms"] = {
+			skill("duration", nil),
+			div = 1000,
+		},
+	},
 #mods
 
 #skill RaiseZombie
+#flags spell minion permanentMinion
+	minionList = {
+		"RaisedZombie",
+	},
+	statMap = {
+		["quality_display_raise_zombie_is_gem+%"] = {
+			-- Display only
+		},
+	},
+#mods
+
+#skill RaiseZombieAltX
 #flags spell minion permanentMinion
 	minionList = {
 		"RaisedZombie",
@@ -2896,12 +2922,22 @@ statMap = {
 	},
 #mods
 
-#skill RaiseZombieAltX
-#flags spell minion permanentMinion
-#mods
-
 #skill RaiseZombieAltY
-#flags spell minion permanentMinion
+#flags spell minion
+	minionList = {
+		"RaisedZombie",
+	},
+	statMap = {
+		["quality_display_raise_zombie_is_gem+%"] = {
+			-- Display only
+		},
+		["minion_global_always_hit"] = {
+			-- Display only
+		},
+		["raise_zombie_does_not_use_corpses"] = {
+			-- Display only
+		},
+	},
 #mods
 
 #skill RighteousFire
@@ -3026,17 +3062,17 @@ statMap = {
 	},
 	statMap = {
 		["fire_beam_additional_stack_damage_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ScorchingRayStageAfterFirst" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "ScorchingRayofImmolationStageAfterFirst" }),
 			base = 100
 		},
 		["display_max_fire_beam_stacks"] = {
-			mod("Multiplier:ScorchingRayMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
+			mod("Multiplier:ScorchingRayofImmolationMaxStages", "BASE", nil, 0, 0, { type = "SkillPart", skillPart = 1 }),
 		},
 		["quality_display_firebeam_is_gem"] = {
 			-- Display only
 		},
 	},
-#baseMod mod("Condition:ScorchingRayMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayStageAfterFirst", threshold = 7 })
+#baseMod mod("Condition:ScorchingRayofImmolationMaxStages", "FLAG", true, 0, 0, { type = "MultiplierThreshold", var = "ScorchingRayofImmolationStageAfterFirst", threshold = 7 })
 #baseMod flag("DotCanStackAsTotems")
 #mods
 
@@ -3115,11 +3151,14 @@ statMap = {
 #mods
 
 #skill SoulrendAltX
-#flags spell projectile duration
+#flags spell projectile
+#baseMod skill("radius", 10)
 #mods
 
 #skill SoulrendAltY
 #flags spell projectile duration
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 10)
 #mods
 
 #skill Spark
@@ -3209,6 +3248,14 @@ statMap = {
 
 #skill ConduitSigilAltX
 #flags spell area duration brand chaining
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.repeatFrequency / (1 + activeSkill.skillModList:Sum("INC", activeSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency")
+	end,
+	statMap = {
+		["base_skill_show_average_damage_instead_of_dps"] = {
+		},
+	},
+#baseMod skill("radius", 9)
 #mods
 
 #skill LightningExplosionMine
@@ -3266,11 +3313,53 @@ statMap = {
 #baseMod skill("radius", 16)
 #mods
 
-#skill StormbindAltX
-#flags spell area duration
+#skill RuneBlast
+#flags spell
 #mods
 
-#skill RuneBlast
+#skill StormbindAltX
+#flags spell area duration
+	parts = {
+		{
+			name = "Unimproved",
+		},
+		{
+			name = "1 Improvement",
+		},
+		{
+			name = "2 Improvements",
+		},
+		{
+			name = "3 Improvements",
+		},
+	},
+	statMap = {
+		["rune_paint_damage_+%_final_per_rune_level"] = {
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["rune_paint_area_of_effect_+%_final_per_rune_level"] = {
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["rune_paint_area_of_effect_+%_per_rune_level"] = {
+			mod("AreaOfEffect", "INC", nil, 0, 0, { type = "Multiplier", var = "RuneLevel" }),
+		},
+		["quality_display_rune_paint_is_gem"] = {
+			-- Display Only
+		},
+		["rune_paint_max_rune_level"] = {
+			-- Display Only
+		},
+		["quality_display_rune_paint_area_is_gem"] = {
+			-- Display Only
+		},
+	},
+#baseMod mod("Multiplier:RuneLevel", "BASE", 1, 0, 0, { type = "SkillPart", skillPart = 2 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 2, 0, 0, { type = "SkillPart", skillPart = 3 })
+#baseMod mod("Multiplier:RuneLevel", "BASE", 3, 0, 0, { type = "SkillPart", skillPart = 4 })
+#baseMod skill("radius", 16)
+#mods
+
+#skill RuneBlastAltX
 #flags spell
 #mods
 
