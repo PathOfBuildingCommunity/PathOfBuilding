@@ -1154,7 +1154,7 @@ c["+50% to Global Critical Strike Multiplier while you have a Frenzy Charge"]={{
 c["+50% to Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="LightningResist",type="BASE",value=50}},nil}
 c["+50% to Quality of Socketed Gems"]={{[1]={[1]={slotName="{SlotName}",type="SocketedIn"},flags=0,keywordFlags=0,name="GemProperty",type="LIST",value={key="quality",keyword="all",value=50}}},nil}
 c["+50% to all Elemental Resistances"]={{[1]={flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=50}},nil}
-c["+50% to all Elemental Resistances if you have an Equipped Helmet with no Socketed Gems"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="SocketedGemsInHelmet"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=50}},nil}
+c["+50% to all Elemental Resistances if you have an Equipped Helmet with no Socketed Gems"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="SocketedGemsInHelmet"},[2]={type="Condition",var="UsingHelmet"},flags=0,keywordFlags=0,name="ElementalResist",type="BASE",value=50}},nil}
 c["+500 to Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=500}},nil}
 c["+500 to Accuracy Rating while at Maximum Frenzy Charges"]={{[1]={[1]={stat="FrenzyCharges",thresholdStat="FrenzyChargesMax",type="StatThreshold"},flags=0,keywordFlags=0,name="Accuracy",type="BASE",value=500}},nil}
 c["+500 to Accuracy against Bleeding Enemies"]={{[1]={[1]={actor="enemy",type="ActorCondition",var="Bleeding"},flags=0,keywordFlags=0,name="AccuracyVsEnemy",type="BASE",value=500}},nil}
@@ -3947,7 +3947,7 @@ c["25% increased Lightning Damage with Hits against Chilled Enemies"]={{[1]={[1]
 c["25% increased Mana Recovery from Flasks"]={{[1]={flags=0,keywordFlags=0,name="FlaskManaRecovery",type="INC",value=25}},nil}
 c["25% increased Mana Regeneration Rate"]={{[1]={flags=0,keywordFlags=0,name="ManaRegen",type="INC",value=25}},nil}
 c["25% increased Mana Reservation Efficiency of Skills"]={{[1]={flags=0,keywordFlags=0,name="ManaReservationEfficiency",type="INC",value=25}},nil}
-c["25% increased Maximum Life if you have Equipped Gloves with no Socketed Gems"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="SocketedGemsInGloves"},flags=0,keywordFlags=0,name="Life",type="INC",value=25}},nil}
+c["25% increased Maximum Life if you have Equipped Gloves with no Socketed Gems"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="SocketedGemsInGloves"},[2]={type="Condition",var="UsingGloves"},flags=0,keywordFlags=0,name="Life",type="INC",value=25}},nil}
 c["25% increased Maximum total Life, Mana and Energy Shield Recovery per second from Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxLifeLeechRate",type="INC",value=25},[2]={flags=0,keywordFlags=0,name="MaxManaLeechRate",type="INC",value=25},[3]={flags=0,keywordFlags=0,name="MaxEnergyShieldLeechRate",type="INC",value=25}},nil}
 c["25% increased Maximum total Mana Recovery per second from Leech"]={{[1]={flags=0,keywordFlags=0,name="MaxManaLeechRate",type="INC",value=25}},nil}
 c["25% increased Melee Critical Strike Chance"]={{[1]={flags=256,keywordFlags=0,name="CritChance",type="INC",value=25}},nil}
@@ -4366,7 +4366,7 @@ c["30% increased Minion Accuracy Rating"]={{[1]={flags=0,keywordFlags=0,name="Mi
 c["30% increased Movement Speed"]={{[1]={flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=30}},nil}
 c["30% increased Movement Speed during Effect"]={{[1]={[1]={type="Condition",var="UsingFlask"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=30}},nil}
 c["30% increased Movement Speed for 9 seconds on Throwing a Trap"]={{[1]={[1]={type="Condition",var="TrapOrMineThrownRecently"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=30}},nil}
-c["30% increased Movement Speed if you have Equipped Boots with no Socketed Gems"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="SocketedGemsInBoots"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=30}},nil}
+c["30% increased Movement Speed if you have Equipped Boots with no Socketed Gems"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="SocketedGemsInBoots"},[2]={type="Condition",var="UsingBoots"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=30}},nil}
 c["30% increased Movement Speed if you've Cast Dash recently"]={{[1]={[1]={type="Condition",var="CastDashRecently"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=30}},nil}
 c["30% increased Movement Speed when on Full Life"]={{[1]={[1]={type="Condition",var="FullLife"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=30}},nil}
 c["30% increased Movement Speed when on Low Life"]={{[1]={[1]={type="Condition",var="LowLife"},flags=0,keywordFlags=0,name="MovementSpeed",type="INC",value=30}},nil}
@@ -7438,7 +7438,7 @@ c["Debuffs on you expire 20% faster"]={{[1]={flags=0,keywordFlags=0,name="SelfDe
 c["Debuffs on you expire 20% faster while affected by Haste"]={nil,"Debuffs on you expire 20% faster while affected by Haste "}
 c["Debuffs on you expire 20% faster while affected by Haste You gain Onslaught for 4 seconds on Kill while affected by Haste"]={nil,"Debuffs on you expire 20% faster while affected by Haste You gain Onslaught for 4 seconds on Kill while affected by Haste "}
 c["Defences are Zero"]={{[1]={flags=0,keywordFlags=0,name="Armour",type="MORE",value=-100},[2]={flags=0,keywordFlags=0,name="EnergyShield",type="MORE",value=-100},[3]={flags=0,keywordFlags=0,name="Evasion",type="MORE",value=-100},[4]={flags=0,keywordFlags=0,name="Ward",type="MORE",value=-100}},nil}
-c["Defences from Equipped Body Armour are doubled if it has no Socketed Gems"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="SocketedGemsInBody Armour"},flags=0,keywordFlags=0,name="DoubleBodyArmourDefence",type="FLAG",value=true}},nil}
+c["Defences from Equipped Body Armour are doubled if it has no Socketed Gems"]={{[1]={[1]={threshold=0,type="MultiplierThreshold",upper=true,var="SocketedGemsInBody Armour"},[2]={type="Condition",var="UsingBodyArmour"},flags=0,keywordFlags=0,name="DoubleBodyArmourDefence",type="FLAG",value=true}},nil}
 c["Defend with 120% of Armour against Projectile Attacks"]={nil,"Defend with 120% of Armour against Projectile Attacks "}
 c["Defend with 120% of Armour against Projectile Attacks 5% more chance to Evade Melee Attacks"]={nil,"Defend with 120% of Armour against Projectile Attacks 5% more chance to Evade Melee Attacks "}
 c["Defiance Banner has 200% increased Taunt duration"]={{[1]={[1]={skillName="Defiance Banner",type="SkillName"},flags=0,keywordFlags=0,name="Duration",type="INC",value=200}}," Taunt  "}

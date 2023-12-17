@@ -167,6 +167,12 @@ local function doActorAttribsConditions(env, actor)
 			condList["UsingTwoHandedWeapon"] = true
 		end
 	end
+	local armourSlots = { "Helmet", "Body Armour", "Gloves", "Boots" }
+	for _, slotName in ipairs(armourSlots) do
+		if actor.itemList[slotName] then
+			condList["Using"..slotName] = true
+		end
+	end
 	if actor.weaponData2.type then
 		local info = env.data.weaponTypeInfo[actor.weaponData2.type]
 		condList["Using"..info.flag] = true
