@@ -325,18 +325,19 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 				gemInstance.nameSpec = gemData.nameSpec
 			end
 		elseif child.attrib.skillId then
-			local grantedEffect = self.build.data.skills[child.attrib.skillId]
-			if grantedEffect then
-				gemInstance.gemId = self.build.data.gemForSkill[grantedEffect]
-				gemInstance.skillId = grantedEffect.id
-				gemInstance.nameSpec = grantedEffect.name
+			local realGemId = self.build.data.gemForBaseName[gemInstance.nameSpec]
+			local gemData = self.build.data.gems[realGemId]
+			if gemData then
+				gemInstance.gemId = gemData.id
+				gemInstance.skillId = gemData.grantedEffectId
+				gemInstance.nameSpec = gemData.nameSpec
 			end
 		end
 		gemInstance.level = tonumber(child.attrib.level)
 		gemInstance.quality = tonumber(child.attrib.quality)
 		local nameSpecOverride, qualityOverrideId = SkillsTabClass:GetBaseNameAndQuality(gemInstance.nameSpec, child.attrib.qualityId)
 		gemInstance.nameSpec = nameSpecOverride
-		gemInstance.qualityId = qualityOverrideId
+		gemInstance.qualityId = qualityOverrideId or "Default"
 
 		if gemInstance.gemData then
 			gemInstance.qualityId.list = self:getGemAltQualityList(gemInstance.gemData)
@@ -447,10 +448,10 @@ function SkillsTabClass:Save(xml)
 				t_insert(node, { elem = "Gem", attrib = {
 					nameSpec = gemInstance.nameSpec,
 					skillId = gemInstance.skillId,
-					gemId = gemInstance.gemId and gemInstance.gemId:match("(Metadata/Items/Gems/SkillGem%a+)Alt[XY]"),
+					--gemId = gemInstance.gemId and gemInstance.gemId:match("(Metadata/Items/Gems/SkillGem%a+)Alt[XY]"),
 					level = tostring(gemInstance.level),
 					quality = tostring(gemInstance.quality),
-					qualityId = gemInstance.qualityId,
+					--qualityId = gemInstance.qualityId,
 					enabled = tostring(gemInstance.enabled),
 					enableGlobal1 = tostring(gemInstance.enableGlobal1),
 					enableGlobal2 = tostring(gemInstance.enableGlobal2),
