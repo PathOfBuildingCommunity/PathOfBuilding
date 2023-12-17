@@ -990,7 +990,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename]
 			if socketedItem.hybrid then
-				-- Used by transifgured gems and dual-skill gems (currently just Stormbind) 
+				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
 				if socketedItem.hybrid.isVaalGem then
 					normalizedBasename = "Vaal " .. normalizedBasename
