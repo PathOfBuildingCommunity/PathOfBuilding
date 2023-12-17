@@ -316,7 +316,7 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 				if child.attrib.variantId then
 					-- New save format from 3.23 that stores the specific variation (transfiguration)
 					gemData = possibleVariants[child.attrib.variantId]
-				elseif child.attrib.skillId and possibleVariants then
+				elseif child.attrib.skillId then
 					-- Old format relying on the uniqueness of the granted effects id
 					for _, variant in pairs(possibleVariants) do
 						if variant.grantedEffectId == child.attrib.skillId then
