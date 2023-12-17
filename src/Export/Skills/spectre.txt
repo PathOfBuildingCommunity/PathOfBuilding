@@ -413,6 +413,9 @@ local skills, mod, flag, skill = ...
 		["enemy_rage_regeneration_on_stun"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
 		},
+		["enemy_rage_regeneration_on_stun"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
+		},
 	},
 #mods
 
