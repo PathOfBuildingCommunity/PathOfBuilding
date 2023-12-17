@@ -297,6 +297,37 @@ local function applySocketMods(env, gem, groupCfg, socketNum, modSource)
 	end
 end
 
+local function addBestSupport(supportEffect, appliedSupportList, mode)
+	local add = true
+	for index, otherSupport in ipairs(appliedSupportList) do
+		-- Check if there's another better support already present
+		if supportEffect.grantedEffect == otherSupport.grantedEffect then
+			add = false
+			if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
+				if mode == "MAIN" then
+					otherSupport.superseded = true
+				end
+				appliedSupportList[index] = supportEffect
+			else
+				supportEffect.superseded = true
+			end
+			break
+		elseif supportEffect.grantedEffect.plusVersionOf == otherSupport.grantedEffect.id then
+			add = false
+			if mode == "MAIN" then
+				otherSupport.superseded = true
+			end
+			appliedSupportList[index] = supportEffect
+		elseif otherSupport.grantedEffect.plusVersionOf == supportEffect.grantedEffect.id then
+			add = false
+			supportEffect.superseded = true
+		end
+	end
+	if add then
+		t_insert(appliedSupportList, supportEffect)
+	end
+end
+
 -- Initialise environment:
 -- 1. Initialises the player and enemy modifier databases
 -- 2. Merges modifiers for all items
@@ -1330,34 +1361,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 							calcLib.validateGemLevel(supportEffect)
 
 							for _, targetList in ipairs(targetListList) do
-								local add = true
-								for index, otherSupport in ipairs(targetList) do
-									-- Check if there's another better support already present
-									if grantedEffect == otherSupport.grantedEffect then
-										add = false
-										if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
-											if env.mode == "MAIN" then
-												otherSupport.superseded = true
-											end
-											targetList[index] = supportEffect
-										else
-											supportEffect.superseded = true
-										end
-										break
-									elseif grantedEffect.plusVersionOf == otherSupport.grantedEffect.id then
-										add = false
-										if env.mode == "MAIN" then
-											otherSupport.superseded = true
-										end
-										targetList[index] = supportEffect
-									elseif otherSupport.grantedEffect.plusVersionOf == grantedEffect.id then
-										add = false
-										supportEffect.superseded = true
-									end
-								end
-								if add then
-									t_insert(targetList, supportEffect)
-								end
+								addBestSupport(supportEffect, targetList, env.mode)
 							end
 						end
 						if gemInstance.gemData then
@@ -1438,34 +1442,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 											end
 											for _, supportGroup in pairs(supportLists[slotName]) do
 												for _, supportEffect in ipairs(supportGroup) do
-													local add = true
-													for index, otherSupport in ipairs(appliedSupportList) do
-														-- Check if there's another better support already present
-														if supportEffect.grantedEffect == otherSupport.grantedEffect then
-															add = false
-															if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
-																if env.mode == "MAIN" then
-																	otherSupport.superseded = true
-																end
-																appliedSupportList[index] = supportEffect
-															else
-																supportEffect.superseded = true
-															end
-															break
-														elseif supportEffect.grantedEffect.plusVersionOf == otherSupport.grantedEffect.id then
-															add = false
-															if env.mode == "MAIN" then
-																otherSupport.superseded = true
-															end
-															appliedSupportList[index] = supportEffect
-														elseif otherSupport.grantedEffect.plusVersionOf == supportEffect.grantedEffect.id then
-															add = false
-															supportEffect.superseded = true
-														end
-													end
-													if add then
-														t_insert(appliedSupportList, supportEffect)
-													end
+													addBestSupport(supportEffect, appliedSupportList, env.mode)
 												end
 											end
 										end
@@ -1485,34 +1462,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 												end
 												for _, supportGroup in pairs(supportLists[crossLinkedSupportSlot]) do
 													for _, supportEffect in ipairs(supportGroup) do
-														local add = true
-														for index, otherSupport in ipairs(appliedSupportList) do
-															-- Check if there's another better support already present
-															if supportEffect.grantedEffect == otherSupport.grantedEffect then
-																add = false
-																if supportEffect.level > otherSupport.level or (supportEffect.level == otherSupport.level and supportEffect.quality > otherSupport.quality) then
-																	if env.mode == "MAIN" then
-																		otherSupport.superseded = true
-																	end
-																	appliedSupportList[index] = supportEffect
-																else
-																	supportEffect.superseded = true
-																end
-																break
-															elseif supportEffect.grantedEffect.plusVersionOf == otherSupport.grantedEffect.id then
-																add = false
-																if env.mode == "MAIN" then
-																	otherSupport.superseded = true
-																end
-																appliedSupportList[index] = supportEffect
-															elseif otherSupport.grantedEffect.plusVersionOf == supportEffect.grantedEffect.id then
-																add = false
-																supportEffect.superseded = true
-															end
-														end
-														if add then
-															t_insert(appliedSupportList, supportEffect)
-														end
+														addBestSupport(supportEffect, appliedSupportList, env.mode)
 													end
 												end
 											end
