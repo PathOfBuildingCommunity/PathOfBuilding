@@ -952,7 +952,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
-				elseif item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and env.modDB.multipliers["CorruptedMagicJewelEffect"] and not (item.base.subType == "Charm" or env.build.spec.nodes[tonumber(slot.nodeId)].expansionJewel) then
+				elseif env.modDB.multipliers["CorruptedMagicJewelEffect"] and item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and not (item.base.subType == "Charm" or slot.nodeId and env.build.spec.nodes[tonumber(slot.nodeId)].expansionJewel) then
 					scale = scale + env.modDB.multipliers["CorruptedMagicJewelEffect"]
 					env.itemModDB:ScaleAddList(srcList, scale)
 				else
