@@ -628,6 +628,8 @@ for skillGem in dat("SkillGems"):Rows() do
 		if gems[gemEffect.Id] then
 			out:write('\t["', "Metadata/Items/Gems/SkillGem" .. gemEffect.Id, '"] = {\n')
 			out:write('\t\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or trueGemNames[gemEffect.Id] or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
+			out:write('\t\tgameId = "', skillGem.BaseItemType.Id, '",\n')
+			out:write('\t\tvariantId = "', gemEffect.Id, '",\n')
 			out:write('\t\tgrantedEffectId = "', gemEffect.GrantedEffect.Id, '",\n')
 			if gemEffect.GrantedEffect2 then
 				out:write('\t\tsecondaryGrantedEffectId = "', gemEffect.GrantedEffect2.Id, '",\n')
