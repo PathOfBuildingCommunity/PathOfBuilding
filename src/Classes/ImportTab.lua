@@ -989,10 +989,12 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename]
-			if not gemId and socketedItem.hybrid then
-				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
-				-- Luckily the primary skill name is also there, so we can find the gem using that
+			if socketedItem.hybrid then
+				-- Used by transifgured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
+				if socketedItem.hybrid.isVaalGem then
+					normalizedBasename = "Vaal " .. normalizedBasename
+				end
 				gemId = self.build.data.gemForBaseName[normalizedBasename]
 			end
 			if gemId then
