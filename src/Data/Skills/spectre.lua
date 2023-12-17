@@ -6102,7 +6102,6 @@ skills["WraithEtherealKnives"] = {
 	baseFlags = {
 		spell = true,
 		projectile = true,
-		duration = true,
 	},
 	constantStats = {
 		{ "number_of_additional_projectiles", 9 },
