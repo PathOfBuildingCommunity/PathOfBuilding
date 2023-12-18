@@ -601,10 +601,10 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	if minionList[1] and not activeSkill.actor.minionData then
 		local minionType
 		if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
-			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinionCalcs) or 1
+			local index = activeEffect.srcInstance.skillMinionCalcs and isValueInArray(minionList, activeEffect.srcInstance.skillMinionCalcs) or 1
 			minionType = minionList[index]
 		else
-			local index = isValueInArray(minionList, activeEffect.srcInstance.skillMinion) or 1
+			local index = activeEffect.srcInstance.skillMinion and isValueInArray(minionList, activeEffect.srcInstance.skillMinion) or 1
 			minionType = minionList[index]
 		end
 		if minionType then
