@@ -413,9 +413,9 @@ return {
 	{ var = "heraldOfAgonyVirulenceStack", type = "count", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:VirulenceStack", "BASE", val, "Config")
 	end },
-	{ label = "Ice Nova:", ifSkill = "Ice Nova of Frostbolts" },
-	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova of Frostbolts", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova of Frostbolts" })
+	{ label = "Ice Nova:", ifSkill = { "Ice Nova", "Ice Nova of Frostbolts", "Ice Nova of Deep Freeze" } },
+	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?",  ifSkill = { "Ice Nova", "Ice Nova of Frostbolts", "Ice Nova of Deep Freeze" }, apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillNameList = { "Ice Nova", "Ice Nova of Frostbolts", "Ice Nova of Deep Freeze" } })
 	end },
 	{ label = "Infusion:", ifSkill = "Infused Channelling" },
 	{ var = "infusedChannellingInfusion", type = "check", label = "Is Infusion active?", ifSkill = "Infused Channelling", apply = function(val, modList, enemyModList)
