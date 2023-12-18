@@ -32,7 +32,7 @@
 ### Accuracy Improvements
 - Fix Devouring Diadem using legacy Ailment duration mod [\#7077](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7077) ([sida-wang](https://github.com/sida-wang))
 - Fix Catalysts not working correctly on Replica Dragonfang's Flight [\#7074](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7074) ([sida-wang](https://github.com/sida-wang))
-- Revert preferred slot for Unseen Strike / Fix skillData nil crash [\#7085](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7085) ([Paliak](https://github.com/Paliak))
+- Revert preferred slot for Unseen Strike [\#7085](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7085) ([Paliak](https://github.com/Paliak))
 
 
 

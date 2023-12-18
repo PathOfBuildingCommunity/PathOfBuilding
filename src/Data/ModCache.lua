@@ -4719,6 +4719,7 @@ c["40% increased Damage with Ignite inflicted on Chilled Enemies"]={{[1]={[1]={a
 c["40% increased Defences from Equipped Shield"]={{[1]={[1]={slotName="Weapon 2",type="SlotName"},flags=0,keywordFlags=0,name="Defences",type="INC",value=40}},nil}
 c["40% increased Duration"]={{[1]={flags=0,keywordFlags=0,name="Duration",type="INC",value=40}},nil}
 c["40% increased Duration of Ailments on Enemies"]={{[1]={flags=0,keywordFlags=0,name="EnemyAilmentDuration",type="INC",value=40}},nil}
+c["40% increased Duration of Ailments you inflict while Focused"]={{[1]={[1]={type="Condition",var="Focused"},flags=0,keywordFlags=0,name="EnemyAilmentDuration",type="INC",value=40}},nil}
 c["40% increased Effect of Buffs granted by your Golems"]={{[1]={[1]={skillType=61,type="SkillType"},flags=0,keywordFlags=0,name="BuffEffect",type="INC",value=40}},nil}
 c["40% increased Effect of Chilled Ground"]={{[1]={flags=0,keywordFlags=0,name="EnemyChillEffect",type="INC",value=40}}," ed Ground "}
 c["40% increased Effect of Impales inflicted with Spells"]={{[1]={flags=0,keywordFlags=131072,name="ImpaleEffect",type="INC",value=40}},nil}

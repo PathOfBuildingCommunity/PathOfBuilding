@@ -24,7 +24,7 @@ VERSION[2.38.1][2023/12/18]
 --- Accuracy Improvements ---
 * Fix Devouring Diadem using legacy Ailment duration mod (sida-wang)
 * Fix Catalysts not working correctly on Replica Dragonfang's Flight (sida-wang)
-* Revert preferred slot for Unseen Strike / Fix skillData nil crash (Paliak)
+* Revert preferred slot for Unseen Strike (Paliak)
 
 
 VERSION[2.38.0][2023/12/18]
