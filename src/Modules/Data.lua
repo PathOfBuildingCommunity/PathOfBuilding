@@ -865,6 +865,7 @@ for gemId, gem in pairs(data.gems) do
 			local newGem = copyTable(gem, true)
 			newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].name
 			newGem.secondaryGrantedEffectId = gem.secondaryGrantedEffectId..alt
+			newGem.variantId = gem.variantId..alt
 			--ConPrintf("Adding Gem: " .. newGem.name .. "\t" .. newGem.secondaryGrantedEffectId)
 			data.gems[gemId..alt] = newGem
 			setupGem(newGem, gemId..alt)
