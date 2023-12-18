@@ -5286,7 +5286,72 @@ return {
 	},
 	incursionuniqueupgrades={
 	},
+	indexableskillgems={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[2]={
+			list=true,
+			name="BaseItemType",
+			refTo="SkillGems",
+			type="Key",
+			width=300
+		},
+		[3]={
+			list=false,
+			name="Skill",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[4]={
+			list=true,
+			name="BaseItemTypeRuthless",
+			refTo="SkillGems",
+			type="Key",
+			width=300
+		},
+		[5]={
+			list=false,
+			name="SkillRuthless",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="IdRuthless",
+			refTo="indexableskillgems",
+			type="Key",
+			width=80
+		}
+	},
 	indexablesupportgems={
+		[1]={
+			list=false,
+			name="Id",
+			refTo="",
+			type="Int",
+			width=80
+		},
+		[2]={
+			list=false,
+			name="BaseItemType",
+			refTo="SkillGems",
+			type="Key",
+			width=300
+		},
+		[3]={
+			list=false,
+			name="Skill",
+			refTo="",
+			type="String",
+			width=200
+		}
 	},
 	influenceexalts={
 	},
