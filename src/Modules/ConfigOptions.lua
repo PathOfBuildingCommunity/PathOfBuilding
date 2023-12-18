@@ -329,8 +329,12 @@ return {
 	{ var = "ColdSnapBypassCD", type = "check", label = "Bypass CD?", ifSkill = { "Cold Snap", "Cold Snap of Power" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillNameList = { "Cold Snap", "Cold Snap of Power" } })
 	end },
+	{ label = "Flicker Strike:", ifSkill = { "Flicker Strike", "Flicker Strike of Power" } },
+	{ var = "FlickerStrikeBypassCD", type = "check", label = "Bypass CD?", ifSkill = { "Flicker Strike", "Flicker Strike of Power" }, defaultState = true, apply = function(val, modList, enemyModList)
+		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillNameList = { "Flicker Strike", "Flicker Strike of Power" } })
+	end },
 	{ label = "Consecrated Path of Endurance:", ifSkill = "Consecrated Path of Endurance" },
-	{ var = "ConcPathBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Consecrated Path of Endurance", apply = function(val, modList, enemyModList)
+	{ var = "ConcPathBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Consecrated Path of Endurance", defaultState = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillName = "Consecrated Path of Endurance" })
 	end },
 	{ label = "Corrupting Cry:", ifSkill = "Corrupting Cry" },
