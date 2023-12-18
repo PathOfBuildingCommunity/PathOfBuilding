@@ -1004,6 +1004,11 @@ local skills, mod, flag, skill = ...
 
 #skill DualStrikeAltX
 #flags attack melee
+	statMap = {
+		["dual_strike_off_hand_weapon_determines_attack_time"] = {
+			flag("UseOffhandAttackSpeed"),
+		},
+	},
 #mods
 
 #skill ElementalHit
