@@ -120,6 +120,9 @@ local skills, mod, flag, skill = ...
 
 #skill GAZombieCorpseGroundImpact Falling Slam
 #flags attack melee area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = 1 / (activeSkill.summonSkill.skillData.summonSpeed or 1)
+	end,
 #mods
 
 #skill SummonedSpiderViperStrike

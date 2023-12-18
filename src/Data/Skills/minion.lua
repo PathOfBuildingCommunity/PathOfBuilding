@@ -691,6 +691,9 @@ skills["GAZombieCorpseGroundImpact"] = {
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = 1 / (activeSkill.summonSkill.skillData.summonSpeed or 1)
+	end,
 	baseFlags = {
 		attack = true,
 		melee = true,
