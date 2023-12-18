@@ -5347,6 +5347,11 @@ skills["DualStrikeAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	statMap = {
+		["dual_strike_off_hand_weapon_determines_attack_time"] = {
+			flag("UseOffhandAttackSpeed"),
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
