@@ -10,6 +10,7 @@ VERSION[2.38.1][2023/12/18]
 
 --- Fixed Bugs ---
 * Fix Flicker Strike DPS being limited by cooldown (sida-wang)
+* Fix Replica Dragonsfang's Flight not affecting Transfigured gems (Paliak)
 * Fix Lacerate of Haemorrhage "more damage with Bleeding" using increased (sida-wang)
 * Fix The Adorned not applying to jewels in outer tree sockets (LocalIdentity)
 * Fix The Adorned applying to abyss jewels in gear (LocalIdentity)
