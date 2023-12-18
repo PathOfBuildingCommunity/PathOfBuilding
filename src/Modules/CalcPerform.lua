@@ -2818,17 +2818,16 @@ function calcs.perform(env, fullDPSSkipEHP)
 
 	for ailment, val in pairs(ailments) do
 		if (enemyDB:Sum("BASE", nil, ailment.."Val") > 0
-		or modDB:Sum("BASE", nil, ailment.."Base", ailment.."Override", ailment.."Minimum"))
+		or modDB:Sum("BASE", nil, ailment.."Base", ailment.."Override"))
 		and not enemyDB:Flag(nil, "Condition:Already"..val.condition) then
 			local override = 0
-			local minimum = 0
-			for _, value in ipairs(modDB:Tabulate("BASE", nil, ailment.."Base", ailment.."Override", ailment.."Minimum")) do
+			for _, value in ipairs(modDB:Tabulate("BASE", nil, ailment.."Base", ailment.."Override")) do
 				local mod = value.mod
 				local effect = mod.value
 				if mod.name == ailment.."Override" then
 					enemyDB:NewMod("Condition:"..val.condition, "FLAG", true, mod.source)
 				end
-				if mod.name == ailment.."Base" or mod.name == ailment.."Minimum" then
+				if mod.name == ailment.."Base" then
 					-- If the main skill can inflict the ailment, the ailment is inflicted with a hit, and we have a node allocated that checks what our highest damage is, then
 					-- use the skill's ailment modifiers
 					-- if not, use the generic modifiers
@@ -2839,11 +2838,8 @@ function calcs.perform(env, fullDPSSkipEHP)
 						effect = effect * calcLib.mod(modDB, nil, "Enemy"..ailment.."Effect")
 					end
 					modDB:NewMod(ailment.."Override", "BASE", effect, mod.source, mod.flags, mod.keywordFlags, unpack(mod))
-					if mod.name == ailment.."Minimum" then
-						minimum = minimum + effect
-					end
 				end
-				override = m_max(m_max(override, effect or 0), minimum)
+				override = m_max(override, effect or 0)
 			end
 			local maxAilment = modDB:Override(nil, ailment.."Max") or 0
 			if not modDB:Override(nil, ailment.."Max") then
