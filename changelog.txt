@@ -1,3 +1,30 @@
+VERSION[2.38.0][2023/12/18]
+
+--- New to Path of Building ---
+* Add support for new transfigured gems (LocalIdentity, Nostrademous, markoleptic, jopotochny, Lilylicious)
+  * Pretty much every new gem should be supported, with a select few still needing a bit more work
+* Add support for selecting league for Timeless Jewel search (Peechey)
+
+--- Fixed Crashes ---
+* Fix Crash when using the Adorned and items with Abyssal sockets (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix Tinctures when using Micro-Distillery Belt (Peechey)
+* Fix Lord of Drought increasing curse limit (Paliak)
+* Fix Hidden Blade not using main weapon and its Supports (Paliak)
+* Fix Rigwald's Curse damage conversion with specific Claw mods (Peechey)
+* Fix Ascendancy class not resetting when changing base class (Lilylicious)
+
+--- Accuracy Improvements ---
+* Fix Minion Instability to now use player Summon speed instead of Minion Hit speed (Regisle)
+* Fix Oath of the Maji applying when gear slot is empty (LocalIdentity)
+* Fix Rage not working when using Warlord's Mark (LocalIdentity)
+* Fix Deadly Ailments less hit damage multiplier not working (LocalIdentity)
+* Fix Forbidden Shako and Megalomaniac display error if added from the uniques list (sida-wang)
+
+--- Other changes ---
+* Add additional attributes to save data (asvanberg)
+
 VERSION[2.37.0][2023/12/13]
 
 --- New to Path of Building ---
