@@ -54807,7 +54807,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_1619168299", 
+				["id"] = "explicit.stat_1053326368", 
 				["text"] = "#% chance to Avoid being Chilled during Effect", 
 				["type"] = "explicit", 
 			}, 
@@ -54841,7 +54841,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_475518267", 
+				["id"] = "explicit.stat_2872815301", 
 				["text"] = "#% chance to Avoid being Frozen during Effect", 
 				["type"] = "explicit", 
 			}, 
@@ -68510,6 +68510,29 @@ return {
 			["tradeMod"] = {
 				["id"] = "scourge.stat_2067062068", 
 				["text"] = "Projectiles Pierce # additional Targets", 
+				["type"] = "scourge", 
+			}, 
+		}, 
+		["1635_AdditionalArrows"] = {
+			["2HWeapon"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Bow"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["Quiver"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+				["overrideModLineSingular"] = "Bow Attacks fire an additional Arrow", 
+			}, 
+			["tradeMod"] = {
+				["id"] = "scourge.stat_3885405204", 
+				["text"] = "Bow Attacks fire # additional Arrows", 
 				["type"] = "scourge", 
 			}, 
 		}, 
