@@ -1,6 +1,6 @@
 VERSION[2.38.2][2023/12/19]
 
---- User Interface ---
+--- Fixed Bugs ---
 * Fix Bodyswap of Sacrifice explosion not scaling correctly (LocalIdentity)
 
 
