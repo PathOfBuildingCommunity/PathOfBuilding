@@ -697,6 +697,7 @@ data.itemTagSpecialExclusionPattern = {
 			"when on Full Life",
 			"Enemy's life",
 			"Life From You",
+			"^Socketed Gems are Supported by Level"
 		},
 	},
 	["evasion"] = {
