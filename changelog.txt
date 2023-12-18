@@ -1,7 +1,7 @@
-VERSION[2.38.0][2023/12/17]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
+VERSION[2.38.0][2023/12/18]
 
-* Add support for new transfigured gems (LocalIdentity, @Nostrademous, @markoleptic, @jopotochny, @Lilylicious)
+--- New to Path of Building ---
+* Add support for new transfigured gems (LocalIdentity, Nostrademous, markoleptic, jopotochny, Lilylicious)
   * Pretty much every new gem should be supported, with a select few still needing a bit more work
 * Add support for selecting league for Timeless Jewel search (Peechey)
 
