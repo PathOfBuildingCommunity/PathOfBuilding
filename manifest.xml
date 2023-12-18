@@ -1,11 +1,11 @@
 <?xml version='1.0' encoding='UTF-8'?>
 <PoBVersion>
-	<Version number="2.38.1" />
+	<Version number="2.38.2" />
 	<Source part="default" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/" />
 	<Source part="runtime" platform="win32" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/runtime/" />
 	<Source part="program" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
 	<Source part="tree" url="https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/{branch}/src/" />
-	<File name="changelog.txt" part="default" sha1="94e2e4ac139a642f713d6b24a9b2a31fd560ee37" />
+	<File name="changelog.txt" part="default" sha1="841bde658645c91b35b108c7175d2bb56fd18206" />
 	<File name="help.txt" part="default" sha1="3343967a2d5f374228fd217a7a3f9612ee046bde" />
 	<File name="LICENSE.md" part="default" sha1="eacedd00e9707defe051bd7151466d223376afa6" />
 	<File name="Assets/game_ui_small.png" part="program" sha1="3e3f01a7c21ffe5ee7dfb644e9f3b7188c319d4d" />
@@ -144,7 +144,7 @@
 	<File name="Data/QueryMods.lua" part="program" sha1="7f32d5c7e3c353109ef3fe58627a4151805e80ba" />
 	<File name="Data/Rares.lua" part="program" sha1="cf9c96881f652ce1455bd93eaeaf572d5e56f272" />
 	<File name="Data/Skills/act_dex.lua" part="program" sha1="9d3192c970206d281fd113bf6ad6ab2cb3ccd7cb" />
-	<File name="Data/Skills/act_int.lua" part="program" sha1="ac3ec991eed534c8216297120a920b6f8f55e0ab" />
+	<File name="Data/Skills/act_int.lua" part="program" sha1="ddfa829593e622578a29246cf0be5698f34e3780" />
 	<File name="Data/Skills/act_str.lua" part="program" sha1="35a0a1e16f06e49f6b9d7e84068e2eea718e3b80" />
 	<File name="Data/Skills/glove.lua" part="program" sha1="fd74aa0305325e3a20991380d5ce61b20b1394fb" />
 	<File name="Data/Skills/minion.lua" part="program" sha1="7cac300846cfdf3e16a94e1807d46693d5c697ff" />
