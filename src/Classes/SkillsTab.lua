@@ -271,6 +271,7 @@ end)
 
 -- parse real gem name and quality by omitting the first word if alt qual is set
 function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
+	gemTypeLine = sanitiseText(gemTypeLine)
 	-- if quality is default or nil check the gem type line if we have alt qual by comparing to the existing list
 	if gemTypeLine and (quality == nil or quality == "" or quality == "Default") then
 		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
