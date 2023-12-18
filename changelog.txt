@@ -1,3 +1,32 @@
+VERSION[2.38.1][2023/12/18]
+
+--- User Interface ---
+* Fix tooltip for Summon Chaos Golem of the Maelstrom (QuickStick123)
+* Fix Blade Blast of Dagger Detonation having a stages box (LocalIdentity)
+* Fix "Cast on Frostbolt" config not showing for Ice Nova of Frostbolts (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix crash when importing some builds (Paliak)
+
+--- Fixed Bugs ---
+* Fix Flicker Strike DPS being limited by cooldown (sida-wang)
+* Fix Replica Dragonsfang's Flight not affecting Transfigured gems (Paliak)
+* Fix Lacerate of Haemorrhage "more damage with Bleeding" using increased (sida-wang)
+* Fix The Adorned not applying to jewels in outer tree sockets (LocalIdentity)
+* Fix The Adorned applying to abyss jewels in gear (LocalIdentity)
+* Fix Frost Blades of Katabasis DoT not being scaled by area damage (LocalIdentity)
+* Fix Dual Strike of Ambidexterity not using offhand attack time (LocalIdentity)
+* Fix Vaal gems loading incorrect variant after reopening a build (sida-wang)
+* Fix Pyroclast Mine aura not affecting the damage of other skills (sida-wang)
+* Fix gem mods on Forbidden Shako not working correctly with Utula's Hunger (sida-wang)
+* Fix "damage taken by at least x%" Ailment mods not stacking (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Devouring Diadem using legacy Ailment duration mod (sida-wang)
+* Fix Catalysts not working correctly on Replica Dragonfang's Flight (sida-wang)
+* Revert preferred slot for Unseen Strike / Fix skillData nil crash (Paliak)
+
+
 VERSION[2.38.0][2023/12/18]
 
 --- New to Path of Building ---
