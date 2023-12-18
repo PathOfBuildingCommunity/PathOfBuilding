@@ -274,12 +274,12 @@ local function applyGemMods(effect, modList)
 		local match = true
 		if value.keywordList then
 			for _, keyword in ipairs(value.keywordList) do
-				if not calcLib.gemIsType(effect.gemData, keyword) then
+				if not calcLib.gemIsType(effect.gemData, keyword, true) then
 					match = false
 					break
 				end
 			end
-		elseif not calcLib.gemIsType(effect.gemData, value.keyword) then
+		elseif not calcLib.gemIsType(effect.gemData, value.keyword, true) then
 			match = false
 		end
 		if match then

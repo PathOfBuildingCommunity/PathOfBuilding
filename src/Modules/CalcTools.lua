@@ -101,7 +101,7 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
-function calcLib.gemIsType(gem, type)
+function calcLib.gemIsType(gem, type, allowVariants)
 	return (type == "all" or 
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
@@ -110,6 +110,7 @@ function calcLib.gemIsType(gem, type)
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
 			(type == gem.name:lower():gsub("^vaal ", "")) or
+			(allowVariants and gem.name:lower():match("^" .. type:lower())) or
 			((type ~= "active skill" and type ~= "grants_active_skill" and type ~= "skill") and gem.tags[type]))
 end
 
