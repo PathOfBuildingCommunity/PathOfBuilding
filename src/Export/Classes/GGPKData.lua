@@ -174,7 +174,6 @@ function GGPKClass:GetNeededFiles()
 		"Data/StatInterpolationTypes.dat",
 		"Data/Tags.dat",
 		"Data/GemTags.dat",
-		"Data/GemItemVisualEffect.dat",
 		"Data/ItemVisualIdentity.dat",
 		"Data/AchievementItems.dat",
 		"Data/MultiPartAchievements.dat",
@@ -213,10 +212,12 @@ function GGPKClass:GetNeededFiles()
 		"Data/passiveskilltattootargetsets.dat",
 		"Data/displayminionmonstertype.dat",
 		"Data/tinctures.dat",
-		"Data/GemEffects.dat",
+		"Data/gemeffects.dat",
 		"Data/actiontypes.dat",
 		"Data/azmerilifescalingperlevel.dat",
 		"Data/azmerifeaturerooms.dat",
+		"Data/corpsetypetags.dat",
+		"Data/itemisedcorpse.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",

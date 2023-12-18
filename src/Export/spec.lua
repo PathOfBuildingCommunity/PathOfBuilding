@@ -248,7 +248,7 @@ return {
 			name="MinionSkillTypes",
 			refTo="ActiveSkillType",
 			type="Key",
-			width=150
+			width=420
 		},
 		[19]={
 			list=false,
@@ -2910,6 +2910,43 @@ return {
 	},
 	corpsesinkvariations={
 	},
+	corpsetypetags={
+		[1]={
+			list=false,
+			name="Tag",
+			refTo="Tags",
+			type="Key",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Buff",
+			refTo="BuffDefinitions",
+			type="Key",
+			width=180
+		},
+		[4]={
+			list=false,
+			name="Icon",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		}
+	},
 	cosmeticsequippanelmode={
 	},
 	costtypes={
@@ -4356,14 +4393,14 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=150
+			width=200
 		},
 		[2]={
 			list=false,
 			name="Name",
 			refTo="",
 			type="String",
-			width=150
+			width=220
 		},
 		[3]={
 			list=false,
@@ -4423,7 +4460,7 @@ return {
 		},
 		[11]={
 			list=false,
-			name="",
+			name="Variant",
 			refTo="",
 			type="Int",
 			width=150
@@ -4548,6 +4585,8 @@ return {
 			type="Enum",
 			width=100
 		}
+	},
+	grantedeffectqualitytypes={
 	},
 	grantedeffects={
 		[1]={
@@ -4987,14 +5026,14 @@ return {
 			name="BaseResolvedValues",
 			refTo="Stats",
 			type="Int",
-			width=150
+			width=110
 		},
 		[9]={
 			list=true,
 			name="AdditionalStatsValues",
 			refTo="Stats",
 			type="Int",
-			width=300
+			width=200
 		},
 		[10]={
 			list=true,
@@ -5008,7 +5047,7 @@ return {
 			name="AdditionalBooleanStats",
 			refTo="Stats",
 			type="Key",
-			width=220
+			width=200
 		},
 		[12]={
 			list=true,
@@ -5337,6 +5376,36 @@ return {
 		}
 	},
 	itemframetype={
+	},
+	itemisedcorpse={
+		[1]={
+			list=false,
+			name="BaseItem",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=400
+		},
+		[2]={
+			list=false,
+			name="Monster",
+			refTo="MonsterVarieties",
+			type="Key",
+			width=500
+		},
+		[3]={
+			list=false,
+			name="MonsterAbilities",
+			refTo="",
+			type="String",
+			width=600
+		},
+		[4]={
+			list=false,
+			name="MonsterCategory",
+			refTo="CorpseTypeTags",
+			type="Key",
+			width=130
+		}
 	},
 	itemisedvisualeffect={
 	},

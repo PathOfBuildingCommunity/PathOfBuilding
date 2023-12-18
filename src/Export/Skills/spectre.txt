@@ -1136,7 +1136,7 @@ skills["MonsterChanceToTemporalChainsOnHit1"] = {
 }
 
 #skill WraithEtherealKnives Ethereal Knives
-#flags spell projectile duration
+#flags spell projectile
 #mods
 
 skills["DelveMonsterEnfeebleOnHit"] = {

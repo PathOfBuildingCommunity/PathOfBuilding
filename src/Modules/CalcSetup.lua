@@ -624,7 +624,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local grantedSkill = copyTable(skill)
 					grantedSkill.nameSpec = skillData and skillData.name or nil
 					grantedSkill.sourceItem = item
-					grantedSkill.slotName = slotName
+					grantedSkill.slotName = skillData.preferredSlotName or slotName
 					t_insert(env.grantedSkillsItems, grantedSkill)
 				end
 			end
@@ -738,6 +738,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- checks if it disables another slot
 						for _, tag in ipairs(mod) do
 							if tag.type == "DisablesItem" then
+								-- e.g. Tincture in Flask 5 while using a Micro-Distillery Belt
+								if tag.excludeItemType and items[tag.slotName] and items[tag.slotName].type == tag.excludeItemType then
+									break
+								end
 								itemDisablers[slotName] = tag.slotName
 								itemDisabled[tag.slotName] = slotName
 								break
@@ -948,7 +952,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
-				elseif item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and env.modDB.multipliers["CorruptedMagicJewelEffect"] and not (item.base.subType == "Charm" or env.build.spec.nodes[tonumber(slot.nodeId)].expansionJewel) then
+				elseif env.modDB.multipliers["CorruptedMagicJewelEffect"] and item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and not (item.base.subType == "Charm" or slot.nodeId and env.build.spec.nodes[tonumber(slot.nodeId)].expansionJewel) then
 					scale = scale + env.modDB.multipliers["CorruptedMagicJewelEffect"]
 					env.itemModDB:ScaleAddList(srcList, scale)
 				else
