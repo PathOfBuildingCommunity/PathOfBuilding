@@ -145,7 +145,7 @@
 	<File name="Data/Rares.lua" part="program" sha1="cf9c96881f652ce1455bd93eaeaf572d5e56f272" />
 	<File name="Data/Skills/act_dex.lua" part="program" sha1="703e8667f332bbf757182027e6b8c5725ad4a80d" />
 	<File name="Data/Skills/act_int.lua" part="program" sha1="668d24f8bcd1022522f8528b75bf37a3220a28c8" />
-	<File name="Data/Skills/act_str.lua" part="program" sha1="15db178e3266a0077c1697135c6c8b59ac8b86b8" />
+	<File name="Data/Skills/act_str.lua" part="program" sha1="35a0a1e16f06e49f6b9d7e84068e2eea718e3b80" />
 	<File name="Data/Skills/glove.lua" part="program" sha1="fd74aa0305325e3a20991380d5ce61b20b1394fb" />
 	<File name="Data/Skills/minion.lua" part="program" sha1="7cac300846cfdf3e16a94e1807d46693d5c697ff" />
 	<File name="Data/Skills/other.lua" part="program" sha1="82837911c7452380d2988a3860c3e20b93dc2022" />

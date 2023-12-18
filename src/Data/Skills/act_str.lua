@@ -2060,8 +2060,8 @@ skills["CleaveAltX"] = {
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["chain_strike_cone_radius_+_per_x_rage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
-			div = 5,
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 3 }),
+			div = 3,
 		},
 		["quality_display_chain_hook_is_gem"] = {
 			-- Display only
