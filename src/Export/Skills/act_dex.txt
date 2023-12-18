@@ -262,29 +262,11 @@ local skills, mod, flag, skill = ...
 
 #skill BladeBlastAltY
 #flags spell area
-	parts = {
-		{
-			name = "Blade Hits Per Cast",
-			stages = true,
-		},
-		{
-			name = "Blade Hits Per Sec",
-			stages = true,
-		},
-	},
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * activeSkill.skillData.dpsBaseMultiplier
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.hitTimeOverride = 1
-		end
-	end,
 	statMap = {
 		["gain_%_of_base_dagger_damage_as_added_spell_damage"] = {
 			skill("gainPercentBaseDaggerDamage", nil),
 		},
 	},
-#baseMod mod("Multiplier:BladeBlastofDaggerDetonationMaxStages", "BASE", 900, 0, 0)
-#baseMod skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastofDaggerDetonationStage" })
 #mods
 
 #skill BladeTrap
@@ -1004,6 +986,11 @@ local skills, mod, flag, skill = ...
 
 #skill DualStrikeAltX
 #flags attack melee
+	statMap = {
+		["dual_strike_off_hand_weapon_determines_attack_time"] = {
+			flag("UseOffhandAttackSpeed"),
+		},
+	},
 #mods
 
 #skill ElementalHit
@@ -1630,7 +1617,30 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrostBladesAltX
-#flags attack melee projectile
+#flags attack melee projectile area
+	parts = {
+		{
+			name = "Melee Hit",
+			attack = true,
+			melee = true,
+			projectile = true,
+			area = false,
+		},
+		{
+			name = "Ground DoT",
+			attack = false,
+			melee = false,
+			projectile = false,
+			area = true,
+		},
+	},
+	statMap = {
+		["base_cold_damage_to_deal_per_minute"] = {
+			skill("ColdDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
+		},
+	},
+#baseMod skill("dotIsArea", true, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill ShrapnelShot

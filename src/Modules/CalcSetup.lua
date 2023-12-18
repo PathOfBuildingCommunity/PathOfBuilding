@@ -274,12 +274,12 @@ local function applyGemMods(effect, modList)
 		local match = true
 		if value.keywordList then
 			for _, keyword in ipairs(value.keywordList) do
-				if not calcLib.gemIsType(effect.gemData, keyword) then
+				if not calcLib.gemIsType(effect.gemData, keyword, true) then
 					match = false
 					break
 				end
 			end
-		elseif not calcLib.gemIsType(effect.gemData, value.keyword) then
+		elseif not calcLib.gemIsType(effect.gemData, value.keyword, true) then
 			match = false
 		end
 		if match then
@@ -624,7 +624,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local grantedSkill = copyTable(skill)
 					grantedSkill.nameSpec = skillData and skillData.name or nil
 					grantedSkill.sourceItem = item
-					grantedSkill.slotName = skillData.preferredSlotName or slotName
+					grantedSkill.slotName = slotName
 					t_insert(env.grantedSkillsItems, grantedSkill)
 				end
 			end
@@ -952,7 +952,8 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
-				elseif env.modDB.multipliers["CorruptedMagicJewelEffect"] and item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and not (item.base.subType == "Charm" or slot.nodeId and env.build.spec.nodes[tonumber(slot.nodeId)].expansionJewel) then
+				elseif env.modDB.multipliers["CorruptedMagicJewelEffect"] and item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and slot.nodeId and
+							not (item.base.subType == "Charm" or env.build.spec.nodes[tonumber(slot.nodeId)].expansionJewel and env.build.spec.nodes[tonumber(slot.nodeId)].expansionJewel.parent) then
 					scale = scale + env.modDB.multipliers["CorruptedMagicJewelEffect"]
 					env.itemModDB:ScaleAddList(srcList, scale)
 				else

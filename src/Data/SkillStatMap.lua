@@ -1028,7 +1028,7 @@ return {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
 },
 ["active_skill_bleeding_damage_+%_final"] = {
-	mod("Damage", "INC", nil, 0, KeywordFlag.Bleed),
+	mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed),
 },
 ["active_skill_bleeding_damage_+%_final_in_blood_stance"] = {
 	mod("Damage", "MORE", nil, 0, KeywordFlag.Bleed, { type = "Condition", var = "BloodStance" }),

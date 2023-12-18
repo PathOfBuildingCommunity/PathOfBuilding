@@ -330,7 +330,7 @@ return {
 		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillNameList = { "Cold Snap", "Cold Snap of Power" } })
 	end },
 	{ label = "Consecrated Path of Endurance:", ifSkill = "Consecrated Path of Endurance" },
-	{ var = "ConcPathBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Consecrated Path of Endurance", apply = function(val, modList, enemyModList)
+	{ var = "ConcPathBypassCD", type = "check", label = "Bypass CD?", ifSkill = "Consecrated Path of Endurance", defaultState = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillName = "Consecrated Path of Endurance" })
 	end },
 	{ label = "Corrupting Cry:", ifSkill = "Corrupting Cry" },
@@ -389,6 +389,10 @@ return {
 	{ var = "flameWallAddedDamage", type = "check", label = "Projectile Travelled through Flame Wall?", ifSkill = "Flame Wall", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FlameWallAddedDamage", "FLAG", true, "Config")
 	end },
+	{ label = "Flicker Strike:", ifSkill = { "Flicker Strike", "Flicker Strike of Power" } },
+	{ var = "FlickerStrikeBypassCD", type = "check", label = "Bypass CD?", ifSkill = { "Flicker Strike", "Flicker Strike of Power" }, defaultState = true, apply = function(val, modList, enemyModList)
+		modList:NewMod("CooldownRecovery", "OVERRIDE", 0, "Config", { type = "SkillName", skillNameList = { "Flicker Strike", "Flicker Strike of Power" } })
+	end },
 	{ label = "Fresh Meat:", ifSkill = "Fresh Meat" },
 	{ var = "freshMeatBuffs", type = "check", label = "Is Fresh Meat active?", ifSkill = "Fresh Meat", apply = function(val, modList, enemyModList)
 		modList:NewMod("Condition:FreshMeatActive", "FLAG", true, "Config")
@@ -413,9 +417,9 @@ return {
 	{ var = "heraldOfAgonyVirulenceStack", type = "count", label = "# of Virulence Stacks:", ifSkill = "Herald of Agony", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:VirulenceStack", "BASE", val, "Config")
 	end },
-	{ label = "Ice Nova:", ifSkill = "Ice Nova, Ice Nova of Frostbolts, Ice Nova of Deep Freeze" },
-	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova, Ice Nova of Frostbolts, Ice Nova of Deep Freeze", apply = function(val, modList, enemyModList)
-		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova, Ice Nova of Frostbolts, Ice Nova of Deep Freeze" })
+	{ label = "Ice Nova:", ifSkill = "Ice Nova of Frostbolts" },
+	{ var = "iceNovaCastOnFrostbolt", type = "check", label = "Cast on Frostbolt?", ifSkill = "Ice Nova of Frostbolts", apply = function(val, modList, enemyModList)
+		modList:NewMod("Condition:CastOnFrostbolt", "FLAG", true, "Config", { type = "SkillName", skillName = "Ice Nova of Frostbolts" })
 	end },
 	{ label = "Infusion:", ifSkill = "Infused Channelling" },
 	{ var = "infusedChannellingInfusion", type = "check", label = "Is Infusion active?", ifSkill = "Infused Channelling", apply = function(val, modList, enemyModList)

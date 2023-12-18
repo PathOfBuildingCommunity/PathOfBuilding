@@ -52,7 +52,7 @@ local influenceInfo = itemLib.influenceInfo
 
 local ItemClass = newClass("Item", function(self, raw, rarity, highQuality)
 	if raw then
-		self:ParseRaw(itemLib.sanitiseItemText(raw), rarity, highQuality)
+		self:ParseRaw(sanitiseText(raw), rarity, highQuality)
 	end	
 end)
 
