@@ -312,7 +312,7 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 			local gemData
 			local possibleVariants = self.build.data.gemsByGameId[child.attrib.gemId]
 			if possibleVariants then
-				-- If it is a known game, try to determine which variant is used
+				-- If it is a known gem, try to determine which variant is used
 				if child.attrib.variantId then
 					-- New save format from 3.23 that stores the specific variation (transfiguration)
 					gemData = possibleVariants[child.attrib.variantId]
