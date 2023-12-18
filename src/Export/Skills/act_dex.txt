@@ -262,29 +262,11 @@ local skills, mod, flag, skill = ...
 
 #skill BladeBlastAltY
 #flags spell area
-	parts = {
-		{
-			name = "Blade Hits Per Cast",
-			stages = true,
-		},
-		{
-			name = "Blade Hits Per Sec",
-			stages = true,
-		},
-	},
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * activeSkill.skillData.dpsBaseMultiplier
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.hitTimeOverride = 1
-		end
-	end,
 	statMap = {
 		["gain_%_of_base_dagger_damage_as_added_spell_damage"] = {
 			skill("gainPercentBaseDaggerDamage", nil),
 		},
 	},
-#baseMod mod("Multiplier:BladeBlastofDaggerDetonationMaxStages", "BASE", 900, 0, 0)
-#baseMod skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastofDaggerDetonationStage" })
 #mods
 
 #skill BladeTrap

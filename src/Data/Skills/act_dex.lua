@@ -1352,22 +1352,6 @@ skills["BladeBlastAltY"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.Nova] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.65,
-	parts = {
-		{
-			name = "Blade Hits Per Cast",
-			stages = true,
-		},
-		{
-			name = "Blade Hits Per Sec",
-			stages = true,
-		},
-	},
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.dpsMultiplier = (activeSkill.skillData.dpsMultiplier or 1) * activeSkill.skillData.dpsBaseMultiplier
-		if activeSkill.skillPart == 2 then
-			activeSkill.skillData.hitTimeOverride = 1
-		end
-	end,
 	statMap = {
 		["gain_%_of_base_dagger_damage_as_added_spell_damage"] = {
 			skill("gainPercentBaseDaggerDamage", nil),
@@ -1376,10 +1360,6 @@ skills["BladeBlastAltY"] = {
 	baseFlags = {
 		spell = true,
 		area = true,
-	},
-	baseMods = {
-		mod("Multiplier:BladeBlastofDaggerDetonationMaxStages", "BASE", 900, 0, 0),
-		skill("dpsBaseMultiplier", 1, { type = "Multiplier", var = "BladeBlastofDaggerDetonationStage" }),
 	},
 	qualityStats = {
 		Default = {
