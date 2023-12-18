@@ -799,6 +799,7 @@ for _, type in pairs(skillTypes) do
 	LoadModule("Data/Skills/"..type, data.skills, makeSkillMod, makeFlagMod, makeSkillDataMod)
 end
 for skillId, grantedEffect in pairs(data.skills) do
+	grantedEffect.name = sanitiseText(grantedEffect.name)
 	grantedEffect.id = skillId
 	grantedEffect.modSource = "Skill:"..skillId
 	-- Add sources for skill mods, and check for global effects
@@ -856,6 +857,7 @@ local function setupGem(gem, gemId)
 end
 
 for gemId, gem in pairs(data.gems) do
+	gem.name = sanitiseText(gem.name)
 	setupGem(gem, gemId)
 	local loc, _ = gemId:find('Vaal')
 	for _, alt in ipairs{"AltX", "AltY"} do
