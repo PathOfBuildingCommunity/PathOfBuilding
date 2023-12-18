@@ -2344,6 +2344,14 @@ skills["CorpseWarpAltX"] = {
 		["spell_maximum_base_fire_damage"] = {
 			skill("FireMax", nil, { type = "SkillPart", skillPart = 1 }),
 		},
+		["spell_base_fire_damage_%_maximum_life"] = {
+			skill("selfFireExplosionLifeMultiplier", nil, { type = "SkillPart", skillPart = 1 }),
+			div = 100,
+		},
+		["skill_minion_explosion_life_%"] = {
+			skill("selfFireExplosionLifeMultiplier", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 100,
+		},
 		["corpse_warp_area_of_effect_+%_final_when_consuming_minion"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
