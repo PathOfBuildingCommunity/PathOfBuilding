@@ -984,7 +984,6 @@ local skills, mod, flag, skill = ...
 #skill HiddenBlade
 #flags attack projectile forceMainHand
 	fromItem = true,
-	preferredSlotName = "Weapon 1",
 #mods
 
 #skill VaalBreach
