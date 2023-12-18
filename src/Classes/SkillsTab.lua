@@ -271,6 +271,7 @@ end)
 
 -- parse real gem name and quality by omitting the first word if alt qual is set
 function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
+	gemTypeLine = sanitiseText(gemTypeLine)
 	-- if quality is default or nil check the gem type line if we have alt qual by comparing to the existing list
 	if gemTypeLine and (quality == nil or quality == "" or quality == "Default") then
 		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
@@ -307,7 +308,7 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	socketGroup.gemList = { }
 	for _, child in ipairs(node) do
 		local gemInstance = { }
-		gemInstance.nameSpec = child.attrib.nameSpec or ""
+		gemInstance.nameSpec = sanitiseText(child.attrib.nameSpec or "")
 		if child.attrib.gemId then
 			local gemData
 			local possibleVariants = self.build.data.gemsByGameId[child.attrib.gemId]
@@ -560,7 +561,7 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 end
 
 function SkillsTabClass:PasteSocketGroup(testInput)
-	local skillText = Paste() or testInput
+	local skillText = sanitiseText(Paste() or testInput)
 	if skillText then
 		local newGroup = { label = "", enabled = true, gemList = { } }
 		local label = skillText:match("Label: (%C+)")

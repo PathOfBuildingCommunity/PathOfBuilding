@@ -2016,7 +2016,7 @@ function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 		controls.rarity.selIndex = 3
 	end
 	controls.edit.font = "FIXED"
-	controls.edit.pasteFilter = itemLib.sanitiseItemText
+	controls.edit.pasteFilter = sanitiseText
 	controls.save = new("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
