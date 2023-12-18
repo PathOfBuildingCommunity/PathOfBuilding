@@ -1630,7 +1630,30 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill FrostBladesAltX
-#flags attack melee projectile
+#flags attack melee projectile area
+	parts = {
+		{
+			name = "Melee Hit",
+			attack = true,
+			melee = true,
+			projectile = true,
+			area = false,
+		},
+		{
+			name = "Ground DoT",
+			attack = false,
+			melee = false,
+			projectile = false,
+			area = true,
+		},
+	},
+	statMap = {
+		["base_cold_damage_to_deal_per_minute"] = {
+			skill("ColdDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
+		},
+	},
+#baseMod skill("dotIsArea", true, { type = "SkillPart", skillPart = 2 })
 #mods
 
 #skill ShrapnelShot

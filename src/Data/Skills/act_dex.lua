@@ -7606,10 +7606,36 @@ skills["FrostBladesAltX"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	parts = {
+		{
+			name = "Melee Hit",
+			attack = true,
+			melee = true,
+			projectile = true,
+			area = false,
+		},
+		{
+			name = "Ground DoT",
+			attack = false,
+			melee = false,
+			projectile = false,
+			area = true,
+		},
+	},
+	statMap = {
+		["base_cold_damage_to_deal_per_minute"] = {
+			skill("ColdDot", nil, { type = "SkillPart", skillPart = 2 }),
+			div = 60,
+		},
+	},
 	baseFlags = {
 		attack = true,
 		melee = true,
 		projectile = true,
+		area = true,
+	},
+	baseMods = {
+		skill("dotIsArea", true, { type = "SkillPart", skillPart = 2 }),
 	},
 	qualityStats = {
 		Default = {
