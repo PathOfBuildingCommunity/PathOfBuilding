@@ -181547,7 +181547,7 @@ return {
 							[2]="#"
 						}
 					},
-					text="{0}% increased Effect of Jewel Socket Passive Skills containing\nCorrupted Magic Jewels, if not from Cluster Jewels"
+					text="{0}% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels"
 				},
 				[2]={
 					[1]={
@@ -181560,7 +181560,7 @@ return {
 							[2]=-1
 						}
 					},
-					text="{0}% reduced Effect of Jewel Socket Passive Skills containing\nCorrupted Magic Jewels, if not from Cluster Jewels"
+					text="{0}% reduced Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels"
 				}
 			}
 		},

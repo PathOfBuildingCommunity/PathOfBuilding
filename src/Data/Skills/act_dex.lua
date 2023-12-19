@@ -4189,7 +4189,7 @@ skills["CycloneAltX"] = {
 		else -- unarmed
 			range = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRange") + 10 * activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "UnarmedRangeMetre")
 		end
-		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:CycloneofTumult")
+		activeSkill.skillModList:NewMod("Multiplier:AdditionalMeleeRange", "BASE", range, "Skill:CycloneAltX")
 	end,
 	statMap = {
 		["cyclone_max_number_of_stages"] = {
@@ -6898,10 +6898,10 @@ skills["FlamethrowerTrap"] = {
 		{
 			name = "One trap (bad placement)",
 		},
-		{ 
+		{
 			name = "Average # traps (good placement)",
 		},
-		{ 
+		{
 			name = "Average # traps (bad placement)",
 		},
 	},
@@ -9174,7 +9174,7 @@ skills["LancingSteel"] = {
 			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
 			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
-			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel", ModFlag.Hit)
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel")
 		end
 	end,
 	parts = {
@@ -9281,7 +9281,7 @@ skills["LancingSteelAltX"] = {
 			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
 			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
-			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteelofSpraying", ModFlag.Hit)
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteelAltX")
 		end
 	end,
 	parts = {
@@ -11963,7 +11963,7 @@ skills["ScourgeArrow"] = {
 			name = "Release",
 			stages = true,
 		},
-		{ 
+		{
 			name = "Thorn Arrows",
 			stages = true,
 		},
@@ -16251,7 +16251,7 @@ skills["Tornado"] = {
 	statMap = {
 		["tornado_base_damage_interval_ms"] = {
 			skill("damageInterval", nil ),
-			div = 1000, 
+			div = 1000,
 		},
 	},
 	baseFlags = {

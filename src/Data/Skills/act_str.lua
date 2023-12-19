@@ -6358,7 +6358,7 @@ skills["InfernalBlowAltX"] = {
 	preDamageFunc = function(activeSkill, output)
 		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect")
 		if activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
-			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlowofImmolation", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
+			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlowAltX", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
 		end
 		if activeSkill.skillPart == 3 then
 			activeSkill.skillData.dpsMultiplier = 1 / 6
