@@ -9174,7 +9174,7 @@ skills["LancingSteel"] = {
 			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
 			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
-			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel", ModFlag.Hit)
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteel")
 		end
 	end,
 	parts = {
@@ -9281,7 +9281,7 @@ skills["LancingSteelAltX"] = {
 			local percentReducedProjectiles = (output.ProjectileCount - 1) / output.ProjectileCount
 			local mult = (activeSkill.skillModList:More(activeSkill.skillCfg, "LancingSteelSubsequentDamage") - 1) * 100 * percentReducedProjectiles
 			activeSkill.skillData.dpsMultiplier = output.ProjectileCount
-			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteelofSpraying", ModFlag.Hit)
+			activeSkill.skillModList:NewMod("Damage", "MORE", mult, "Skill:LancingSteelAltX", 0)
 		end
 	end,
 	parts = {
