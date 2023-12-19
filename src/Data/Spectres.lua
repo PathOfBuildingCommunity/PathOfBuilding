@@ -3973,6 +3973,69 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_"] = {
 	modList = {
 	},
 }
+-- Dark Marionette
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow"] = {
+	name = "Imperfect Dark Marionette",
+	life = 2.88,
+	armour = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+		-- AzmeriMannequinReviveAfterTime [revive_spectre_if_killed_by_enemies_ms = 1000]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid"] = {
+	name = "Dark Marionette",
+	life = 2.88,
+	armour = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DarkMarionetteExplode",
+	},
+	modList = {
+		-- AzmeriMannequinReviveAfterTime [revive_spectre_if_killed_by_enemies_ms = 1000]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_"] = {
+	name = "Perfect Dark Marionette",
+	life = 2.88,
+	armour = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"DarkMarionetteExplodePerfect",
+	},
+	modList = {
+		-- AzmeriMannequinReviveAfterTime [revive_spectre_if_killed_by_enemies_ms = 1000]
+	},
+}
 -- Hulking Miscreation
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
 	name = "Imperfect Hulking Miscreation",

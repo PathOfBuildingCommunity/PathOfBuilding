@@ -241,6 +241,10 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_
+-- Dark Marionette
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid # DarkMarionetteExplode
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_ # DarkMarionetteExplodePerfect
 -- Hulking Miscreation
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 5, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }) })
