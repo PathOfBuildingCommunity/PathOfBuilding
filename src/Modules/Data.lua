@@ -857,21 +857,33 @@ local function setupGem(gem, gemId)
 	gem.naturalMaxLevel = gem.naturalMaxLevel or (#gem.grantedEffect.levels > 20 and #gem.grantedEffect.levels - 20) or (gem.grantedEffect.levels[3][1] and 3) or 1
 end
 
+local toAddGems = { }
 for gemId, gem in pairs(data.gems) do
-	gem.name = sanitiseText(gem.name)
-	setupGem(gem, gemId)
-	local loc, _ = gemId:find('Vaal')
-	for _, alt in ipairs{"AltX", "AltY"} do
-		if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
-			local newGem = copyTable(gem, true)
-			newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].name
-			newGem.secondaryGrantedEffectId = gem.secondaryGrantedEffectId..alt
-			newGem.variantId = gem.variantId..alt
-			--ConPrintf("Adding Gem: " .. newGem.name .. "\t" .. newGem.secondaryGrantedEffectId)
-			data.gems[gemId..alt] = newGem
-			setupGem(newGem, gemId..alt)
-		end
-	end
+    gem.name = sanitiseText(gem.name)
+    setupGem(gem, gemId)
+    local loc, _ = gemId:find('Vaal')
+    for _, alt in ipairs{"AltX", "AltY"} do
+        if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
+            local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }
+            newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].name
+            newGem.gameId = gem.gameId
+            newGem.variantId = gem.variantId..alt
+            newGem.grantedEffectId = gem.grantedEffectId
+            newGem.secondaryGrantedEffectId = gem.secondaryGrantedEffectId..alt
+            newGem.vaalGem = gem.vaalGem
+            newGem.tags = copyTable(gem.tags)
+            newGem.tagString = gem.tagString
+            newGem.reqStr = gem.reqStr
+            newGem.reqDex = gem.reqDex
+            newGem.reqInt = gem.reqInt
+            newGem.naturalMaxLevel = gem.naturalMaxLevel
+            setupGem(newGem, gemId..alt)
+            toAddGems[gemId..alt] = newGem
+        end
+    end
+end
+for id, gem in pairs(toAddGems) do
+    data.gems[id] = gem
 end
 
 -- Load minions

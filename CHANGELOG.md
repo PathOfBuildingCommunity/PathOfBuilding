@@ -1,5 +1,18 @@
 # Changelog
 
+## [v2.38.4](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.38.4) (2023/12/20)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.38.3...v2.38.4)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+
+### Fixed Crashes
+- Fix occasional crash when loading build on Beta branch [\#7120](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7120) ([Nostrademous](https://github.com/Nostrademous))
+
+
+
 ## [v2.38.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.38.3) (2023/12/19)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.38.2...v2.38.3)
@@ -17,7 +30,6 @@
 
 ### Other change
 - Update The Adorned to work in Cluster Jewel sockets [\#7113](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7113) ([LocalIdentity](https://github.com/LocalIdentity))
-
 
 
 
