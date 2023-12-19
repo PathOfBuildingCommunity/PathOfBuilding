@@ -6644,3 +6644,112 @@ skills["AzmeriFirefuryFireResistAura"] = {
 		[2] = { 60, 5, 45, levelRequirement = 80, statInterpolation = { 2, 2, 2, }, },
 	},
 }
+skills["AzmeriHydraDoomArrow"] = {
+	name = "Doom Arrow",
+	hidden = true,
+	color = 2,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "doom_arrow_number_of_arrows", 10 },
+		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+		{ "active_skill_damage_+%_final", 100 },
+		{ "active_skill_area_of_effect_radius_+%_final", 45 },
+	},
+	stats = {
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 83, cooldown = 3, },
+	},
+}
+skills["AzmeriHydraBarrage"] = {
+	name = "Barrage",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.4,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+	end,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "number_of_additional_projectiles", 9 },
+		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+		{ "active_skill_damage_+%_final", -10 },
+	},
+	stats = {
+		"base_is_projectile",
+		"always_pierce",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 83, cooldown = 3, },
+	},
+}
+skills["AzmeriHydraForkArrow"] = {
+	name = "Fork Arrow",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.33,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "active_skill_damage_+%_final", 50 },
+		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+	},
+	stats = {
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 83, cooldown = 8, },
+	},
+}
+skills["AzmeriHydraHatred"] = {
+	name = "Hatred",
+	hidden = true,
+	color = 2,
+	description = "Casts an aura that grants extra cold damage based on physical damage to you and your allies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Cold] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["physical_damage_%_to_add_as_cold"] = {
+			mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["hatred_aura_cold_damage_+%_final"] = {
+			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	constantStats = {
+		{ "physical_damage_%_to_add_as_cold", 30 },
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+		{ "hatred_aura_cold_damage_+%_final", 20 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
