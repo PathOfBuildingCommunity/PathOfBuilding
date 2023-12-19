@@ -2160,6 +2160,12 @@ local specialModList = {
 			{ type = "StatThreshold", stat = "EnergyShieldOnBoots", threshold = 1}
 		)
 	} end,
+	["inflict (%d+) additional impales on enemies you impale"] = function(num) return {
+		mod("AdditionalImpalesInflicted", "BASE", num, "The Impaler")
+	} end,
+	["for (%d+) seconds after you impale enemies, they cannot be impaled again, and impales cannot be called from them"] = function(num) return {
+		mod("ImpaleImmunityPeriod", "MAX", num, "The Impaler")
+	} end,
 	-- Exerted Attacks
 	["exerted attacks deal (%d+)%% increased damage"] = function(num) return { mod("ExertIncrease", "INC", num, nil, ModFlag.Attack, 0) } end,
 	["exerted attacks have (%d+)%% chance to deal double damage"] = function(num) return { mod("ExertDoubleDamageChance", "BASE", num, nil, ModFlag.Attack, 0) } end,
@@ -3198,7 +3204,7 @@ local specialModList = {
 	["(%d+)%% chance for blade vortex and blade blast to impale enemies on hit"] = function(num) return {  mod("ImpaleChance", "BASE", num, { type = "SkillName", skillNameList = { "Blade Vortex", "Blade Blast" } }) } end,
 	["critical strikes with spells inflict impale"] = { mod("ImpaleChance", "BASE", 100, nil, ModFlag.Spell, { type = "Condition", var = "CriticalStrike" }) },
 	["(%d+)%% chance on hitting an enemy for all impales on that enemy to last for an additional hit"] = function(num) return { 
-		mod("ImpaleAdditionalDurationChance", "BASE", num)
+		mod("ImpaleAdditionalDurationChance", "INC", num)
 	} end,
 	-- Poison and Bleed
 	["(%d+)%% increased damage with bleeding inflicted on poisoned enemies"] = function(num) return {
