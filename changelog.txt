@@ -1,3 +1,16 @@
+VERSION[2.38.3][2023/12/19]
+
+--- Fixed Crashes ---
+* Fix crash when checking the breakdown for Transfigured Eye of Winter and Infernal Blow (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix Oath of the Magi not working for Body Armour slot (sida-wang)
+* Fix Lancing Steel less damage multiplier only applying to Hits (deathbeam)
+
+--- Other Changes ---
+* Update The Adorned to work in Cluster Jewel sockets (LocalIdentity)
+
+
 VERSION[2.38.2][2023/12/19]
 
 --- Fixed Bugs ---
