@@ -6898,10 +6898,10 @@ skills["FlamethrowerTrap"] = {
 		{
 			name = "One trap (bad placement)",
 		},
-		{ 
+		{
 			name = "Average # traps (good placement)",
 		},
-		{ 
+		{
 			name = "Average # traps (bad placement)",
 		},
 	},
@@ -11963,7 +11963,7 @@ skills["ScourgeArrow"] = {
 			name = "Release",
 			stages = true,
 		},
-		{ 
+		{
 			name = "Thorn Arrows",
 			stages = true,
 		},
@@ -16251,7 +16251,7 @@ skills["Tornado"] = {
 	statMap = {
 		["tornado_base_damage_interval_ms"] = {
 			skill("damageInterval", nil ),
-			div = 1000, 
+			div = 1000,
 		},
 	},
 	baseFlags = {
