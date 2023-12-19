@@ -1272,3 +1272,43 @@ skills["MonsterVulnerabilityOnHit1"] = {
 		},
 	},
 #mods
+
+#skill AzmeriFireFuryMoltenStrike
+#flags attack projectile area melee
+#mods
+
+#skill FemaleCannibalBossFireStorm
+#flags spell area duration
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000,
+		},
+	},
+#mods
+
+#skill FemaleCannibalBossFlameDash
+#flags spell movement duration
+#mods
+
+#skill AzmeriFirefuryCremation
+#flags spell area duration projectile
+	statMap = {
+		["cremation_base_fires_projectile_every_x_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000
+		},
+	},
+#mods
+
+#skill AzmeriFirefuryFireResistAura Purity of Fire
+#flags spell area aura
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_fire_damage_resistance_%"] = {
+			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods

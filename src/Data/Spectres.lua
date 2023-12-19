@@ -3653,6 +3653,76 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh"] =
 	modList = {
 	},
 }
+-- Fiery Cannibal
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow"] = {
+	name = "Imperfect Fiery Cannibal",
+	life = 2,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "Staff",
+	skillList = {
+		"MeleeAtAnimationSpeedFire",
+		"FemaleCannibalBossFireStorm",
+		"FemaleCannibalBossFlameDash",
+		"AzmeriFirefuryCremation",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid"] = {
+	name = "Fiery Cannibal",
+	life = 2,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "Staff",
+	skillList = {
+		"MeleeAtAnimationSpeedFire",
+		"AzmeriFireFuryMoltenStrike",
+		"FemaleCannibalBossFireStorm",
+		"FemaleCannibalBossFlameDash",
+		"AzmeriFirefuryCremation",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_"] = {
+	name = "Perfect Fiery Cannibal",
+	life = 2,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "Staff",
+	skillList = {
+		"MeleeAtAnimationSpeedFire",
+		"AzmeriFireFuryMoltenStrike",
+		"FemaleCannibalBossFireStorm",
+		"FemaleCannibalBossFlameDash",
+		"AzmeriFirefuryCremation",
+		"AzmeriFirefuryFireResistAura",
+	},
+	modList = {
+	},
+}
 -- Hulking Miscreation
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
 	name = "Imperfect Hulking Miscreation",

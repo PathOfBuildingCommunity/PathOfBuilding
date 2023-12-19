@@ -6467,3 +6467,180 @@ skills["AzmeriHailrakeColdResistAura"] = {
 		[2] = { 60, 5, 45, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
 	},
 }
+skills["AzmeriFireFuryMoltenStrike"] = {
+	name = "Molten Strike",
+	hidden = true,
+	color = 1,
+	description = "Infuses your melee weapon with molten energies to attack with physical and fire damage. This attack causes balls of molten magma to launch forth from the enemies you hit, divided amongst all enemies hit by the strike. These will deal area attack damage to enemies where they land.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.ThresholdJewelChaining] = true, [SkillType.Multistrikeable] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		area = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 60 },
+		{ "active_skill_projectile_damage_+%_final", -40 },
+		{ "base_projectile_speed_+%", -25 },
+		{ "number_of_additional_projectiles", 4 },
+	},
+	stats = {
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 1.125, baseMultiplier = 1.125, levelRequirement = 0, },
+	},
+}
+skills["FemaleCannibalBossFireStorm"] = {
+	name = "Firestorm",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.85000002384186,
+	incrementalEffectiveness = 0.031500000506639,
+	description = "Flaming bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.33,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+		{ "fire_storm_fireball_delay_ms", 100 },
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -25 },
+		{ "base_chance_to_ignite_%", 25 },
+		{ "spell_maximum_action_distance_+%", -75 },
+		{ "firestorm_base_area_of_effect_+%", -74 },
+		{ "active_skill_base_area_of_effect_radius", 10 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 2, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["FemaleCannibalBossFlameDash"] = {
+	name = "Flame Dash",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.0541000366211,
+	incrementalEffectiveness = 0.04450000077486,
+	description = "Teleport to a location, damaging enemies and leaving a trail of burning ground. Shares a cooldown with other Blink skills.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Movement] = true, [SkillType.Damage] = true, [SkillType.DamageOverTime] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.13,
+	baseFlags = {
+		spell = true,
+		movement = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_fire_damage_to_deal_per_minute",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 90.000003601114, critChance = 5, storedUses = 1, levelRequirement = 1, cooldown = 6, statInterpolation = { 3, 3, 3, }, },
+	},
+}
+skills["AzmeriFirefuryCremation"] = {
+	name = "Cremation",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.2000000476837,
+	incrementalEffectiveness = 0.034000001847744,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Duration] = true, [SkillType.Projectile] = true, [SkillType.Multicastable] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Cascadable] = true, [SkillType.Projectile] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["cremation_base_fires_projectile_every_x_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 4000 },
+		{ "corpse_erruption_base_maximum_number_of_geyers", 3 },
+		{ "number_of_additional_projectiles", 2 },
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -60 },
+		{ "cremation_base_fires_projectile_every_x_ms", 500 },
+		{ "active_skill_area_of_effect_radius_+%_final", -30 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 5, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriFirefuryFireResistAura"] = {
+	name = "Purity of Fire",
+	hidden = true,
+	color = 1,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Fire] = true, [SkillType.Instant] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_fire_damage_resistance_%"] = {
+			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	stats = {
+		"base_fire_damage_resistance_%",
+		"base_maximum_fire_damage_resistance_%",
+		"active_skill_area_of_effect_radius_+%_final",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 20, 0, 20, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+		[2] = { 60, 5, 45, levelRequirement = 80, statInterpolation = { 2, 2, 2, }, },
+	},
+}
