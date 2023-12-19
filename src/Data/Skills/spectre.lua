@@ -6753,3 +6753,57 @@ skills["AzmeriHydraHatred"] = {
 		[1] = { levelRequirement = 0, },
 	},
 }
+skills["DarkMarionetteExplode"] = {
+	name = "On Death Explode",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		area = true,
+	},
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	baseMods = {
+		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("PhysicalMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("PhysicalMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("LightningMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("LightningMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("showAverage", true),
+		skill("radius", 22),
+	},
+	stats = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
+
+skills["DarkMarionetteExplodePerfect"] = {
+	name = "On Death Explode",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		area = true,
+	},
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	baseMods = {
+		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("PhysicalMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("PhysicalMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("LightningMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("LightningMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		mod("EnemyScorchChance", "BASE", 100),
+		skill("showAverage", true),
+		skill("radius", 22),
+	},
+	stats = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
