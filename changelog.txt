@@ -1,3 +1,8 @@
+VERSION[2.38.4][2023/12/20]
+
+--- Fixed Crashes ---
+* Fix occasional crash when loading build on Beta branch (Nostrademous)
+
 VERSION[2.38.3][2023/12/19]
 
 --- Fixed Crashes ---
