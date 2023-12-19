@@ -1020,6 +1020,9 @@ return {
 ["freeze_duration_+%"] = {
 	mod("EnemyFreezeDuration", "INC", nil),
 },
+["active_skill_freeze_duration_+%_final"] = {
+	mod("EnemyFreezeDuration", "MORE", nil),
+},
 ["base_elemental_status_ailment_duration_+%"] = {
 	mod("EnemyElementalAilmentDuration", "INC", nil),
 },
