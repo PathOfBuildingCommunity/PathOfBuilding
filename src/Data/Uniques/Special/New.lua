@@ -125,7 +125,7 @@ You take 100% of Elemental Damage from Blocked Hits
 The Adorned
 Crimson Jewel
 League: Affliction
-(50–150)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels, if not from Cluster Jewels
+(50–150)% increased Effect of Jewel Socket Passive Skills containing Corrupted Magic Jewels
 ]],[[
 Replica Fragility
 Crimson Jewel
