@@ -1,3 +1,11 @@
+VERSION[2.38.3][2023/12/19]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix crash when checking the breakdown for Transfigured Eye of Winter and Infernal Blow (LocalIdentity)
+* Update The Adorned to work in Cluster Jewel sockets (LocalIdentity)
+* Fix Lancing Steel less damage multiplier only applying to Hits (deathbeam)
+
+
 VERSION[2.38.2][2023/12/19]
 
 --- Fixed Bugs ---
