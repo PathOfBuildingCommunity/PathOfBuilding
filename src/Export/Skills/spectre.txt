@@ -1312,3 +1312,30 @@ skills["MonsterVulnerabilityOnHit1"] = {
 		},
 	},
 #mods
+
+#skill AzmeriHydraDoomArrow Doom Arrow
+#flags attack projectile area
+#mods
+
+#skill AzmeriHydraBarrage Barrage
+#flags attack projectile
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+	end,
+#mods
+
+#skill AzmeriHydraForkArrow Fork Arrow
+#flags attack projectile
+#mods
+
+#skill AzmeriHydraHatred
+#flags spell area aura
+	statMap = {
+		["physical_damage_%_to_add_as_cold"] = {
+			mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["hatred_aura_cold_damage_+%_final"] = {
+			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods

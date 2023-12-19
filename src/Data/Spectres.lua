@@ -3723,6 +3723,73 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_"] 
 	modList = {
 	},
 }
+-- Hydra
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow"] = {
+	name = "Imperfect Hydra",
+	life = 0.86,
+	armour = 0.3,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 4.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 80,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"AzmeriHydraDoomArrow",
+		"AzmeriHydraBarrage",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid"] = {
+	name = "Hydra",
+	life = 0.86,
+	armour = 0.3,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 4.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 80,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"AzmeriHydraDoomArrow",
+		"AzmeriHydraBarrage",
+		"AzmeriHydraForkArrow",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_"] = {
+	name = "Perfect Hydra",
+	life = 0.86,
+	armour = 0.3,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 4.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 80,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"AzmeriHydraDoomArrow",
+		"AzmeriHydraBarrage",
+		"AzmeriHydraForkArrow",
+		"AzmeriHydraHatred",
+	},
+	modList = {
+	},
+}
 -- Hulking Miscreation
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
 	name = "Imperfect Hulking Miscreation",
