@@ -233,6 +233,10 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh
+-- Fiery Cannibal
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_
 -- Hulking Miscreation
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 5, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }) })
