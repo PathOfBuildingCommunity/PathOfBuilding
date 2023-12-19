@@ -3579,6 +3579,80 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+	-- Affliction Corpses
+-- Frozen Cannibal
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow"] = {
+	name = "Imperfect Frozen Cannibal",
+	life = 2,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriHailrakeGlacialCascade",
+		"AzmeriHailrakeArcticArmour",
+		"AzmeriHailrakeGlacialHammer",
+		"GSAzmeriHailrakeIceNova",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid"] = {
+	name = "Frozen Cannibal",
+	life = 2,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriHailrakeGlacialCascade",
+		"AzmeriHailrakeArcticArmour",
+		"AzmeriHailrakeGlacialHammer",
+		"GSAzmeriHailrakeIceNova",
+		"IceCrashAzmeriHailrake",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh"] = {
+	name = "Perfect Frozen Cannibal",
+	life = 2,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	weaponType1 = "One Handed Mace",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriHailrakeGlacialCascade",
+		"AzmeriHailrakeArcticArmour",
+		"AzmeriHailrakeGlacialHammer",
+		"GSAzmeriHailrakeIceNova",
+		"IceCrashAzmeriHailrake",
+		"AzmeriHailrakeColdResistAura",
+	},
+	modList = {
+	},
+}
 -- Hulking Miscreation
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
 	name = "Imperfect Hulking Miscreation",

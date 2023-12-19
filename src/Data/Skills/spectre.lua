@@ -6283,3 +6283,187 @@ skills["MMSPyromaniacIceMortar"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["AzmeriHailrakeGlacialCascade"] = {
+	name = "Glacial Cascade",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 2.25,
+	incrementalEffectiveness = 0.039500001817942,
+	description = "Icicles emerge from the ground in a series of small bursts, each damaging enemies caught in the area.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Physical] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.33,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"upheaval_number_of_spikes",
+		"base_cast_speed_+%",
+		"active_skill_area_of_effect_radius_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 6, 0, -20, critChance = 5, levelRequirement = 3, statInterpolation = { 3, 3, 1, 1, 1, }, },
+	},
+}
+skills["AzmeriHailrakeArcticArmour"] = {
+	name = "Arctic Armour",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0.85000002384186,
+	incrementalEffectiveness = 0.029999999329448,
+	description = "Conjures an icy barrier that chills enemies when they hit you. You drop chilled ground while moving, and take less Fire and Physical damage while stationary.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Totemable] = true, [SkillType.Duration] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Cold] = true, [SkillType.ElementalStatus] = true, [SkillType.Instant] = true, [SkillType.NonHitChill] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "buff_skill_stat_descriptions",
+	castTime = 1.07,
+	baseFlags = {
+		spell = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "chill_enemy_when_hit_duration_ms", 500 },
+		{ "new_arctic_armour_physical_damage_taken_when_hit_+%_final", -5 },
+		{ "new_arctic_armour_fire_damage_taken_when_hit_+%_final", -5 },
+		{ "base_skill_effect_duration", 2000 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { levelRequirement = 3, },
+	},
+}
+skills["AzmeriHailrakeGlacialHammer"] = {
+	name = "Glacial Hammer",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 0,
+	description = "Hits enemies, converting some of your physical damage to cold damage. If a non-unique enemy is frozen and is on less than one third life, they will shatter when hit by Glacial Hammer. If striking three times in a row, the third strike will freeze enemies more easily. Requires a Mace, Sceptre or Staff.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Cold] = true, [SkillType.ThresholdJewelArea] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["Staff"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+		{ "base_chance_to_freeze_%", 30 },
+		{ "active_skill_damage_+%_final", 20 },
+		{ "active_skill_freeze_duration_+%_final", 100 },
+	},
+	stats = {
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 1.25, baseMultiplier = 1.25, levelRequirement = 1, },
+	},
+}
+skills["GSAzmeriHailrakeIceNova"] = {
+	name = "Ice Nova",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.2999999523163,
+	incrementalEffectiveness = 0.039500001817942,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_chance_to_freeze_%", 20 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 0.2, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["IceCrashAzmeriHailrake"] = {
+	name = "Ice Crash",
+	hidden = true,
+	color = 1,
+	description = "Slam the ground, damaging enemies in an area around the impact in three stages of increasing size. Enemies take slightly less damage on the second and third stage, and can only be hit by one stage. Works with Swords, Maces, Sceptres, Axes, Staves and Unarmed.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Cold] = true, [SkillType.Multistrikeable] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 50 },
+		{ "ice_crash_second_hit_damage_+%_final", -15 },
+		{ "ice_crash_third_hit_damage_+%_final", -30 },
+		{ "active_skill_base_area_of_effect_radius", 11 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 21 },
+		{ "active_skill_base_tertiary_area_of_effect_radius", 31 },
+		{ "active_skill_attack_speed_+%_final", -66 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["AzmeriHailrakeColdResistAura"] = {
+	name = "Purity of Ice",
+	hidden = true,
+	color = 2,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Cold] = true, [SkillType.Instant] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["base_cold_damage_resistance_%"] = {
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_cold_damage_resistance_%"] = {
+			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	stats = {
+		"base_cold_damage_resistance_%",
+		"base_maximum_cold_damage_resistance_%",
+		"active_skill_area_of_effect_radius_+%_final",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 20, 0, 20, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+		[2] = { 60, 5, 45, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+	},
+}

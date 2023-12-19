@@ -1240,3 +1240,35 @@ skills["MonsterVulnerabilityOnHit1"] = {
 #skill MMSPyromaniacIceMortar Ice Mortar
 #flags area spell projectile
 #mods
+
+#skill AzmeriHailrakeGlacialCascade
+#flags spell area
+#mods
+
+#skill AzmeriHailrakeArcticArmour
+#flags spell duration
+#mods
+
+#skill AzmeriHailrakeGlacialHammer
+#flags attack melee
+#mods
+
+#skill GSAzmeriHailrakeIceNova Ice Nova
+#flags spell area
+#mods
+
+#skill IceCrashAzmeriHailrake
+#flags attack area melee
+#mods
+
+#skill AzmeriHailrakeColdResistAura Purity of Ice
+#flags spell area aura
+	statMap = {
+		["base_cold_damage_resistance_%"] = {
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_cold_damage_resistance_%"] = {
+			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods
