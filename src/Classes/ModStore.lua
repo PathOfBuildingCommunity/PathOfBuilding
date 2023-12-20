@@ -656,7 +656,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 		elseif tag.type == "SkillName" then
 			local match = false
 			if tag.includeTransfigured then
-				local matchGameId = tag.summonSkill and (cfg and calcLib.getGameIdFromGemName(cfg.summonSkillName or "")) or (cfg and cfg.skillGem.gameId or "")
+				local matchGameId = tag.summonSkill and (cfg and calcLib.getGameIdFromGemName(cfg.summonSkillName) or "") or (cfg and cfg.skillGem.gameId or "")
 				if tag.skillNameList then
 					for _, name in pairs(tag.skillNameList) do
 						if name and matchGameId == calcLib.getGameIdFromGemName(name) then
