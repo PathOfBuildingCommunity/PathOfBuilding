@@ -446,9 +446,20 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				end))
 			end
 			if varData.ifSkill then
-				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
-					return self.build.calcsTab.mainEnv.skillsUsed[ifOption]
-				end))
+				if varData.includeTransfigured then
+					t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
+						for skill,_ in pairs(self.build.calcsTab.mainEnv.skillsUsed) do
+							if skill:lower():match("^"..ifOption:lower()) then
+								return true
+							end
+						end
+						return false
+					end))
+				else
+					t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
+						return self.build.calcsTab.mainEnv.skillsUsed[ifOption]
+					end))
+				end
 			end
 			if varData.ifSkillFlag then
 				t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkillFlag, function(ifOption)
