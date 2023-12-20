@@ -579,8 +579,8 @@ return {
 	{ var = "summonLightningGolemEnableWrath", type = "check", label = "Enable Wrath Aura:", ifSkill = { "Summon Lightning Golem", "Summon Lightning Golem of Hordes" }, apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "LightningGolemWrath" })
 	end },
-	{ label = "Summon Reaper:", ifSkill = "Summon Reaper" },
-	{ var = "summonReaperConsumeRecently", type = "check", label = "Reaper Consumed recently?", ifSkill = "Summon Reaper", apply = function(val, modList, enemyModList)
+	{ label = "Summon Reaper:", ifSkill = "Summon Reaper", includeTransfigured = true },
+	{ var = "summonReaperConsumeRecently", type = "check", label = "Reaper Consumed recently?", ifSkill = "Summon Reaper", includeTransfigured = true, apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = true }, "Config", { type = "SkillId", skillId = "ReaperConsumeMinionForBuff" })
 	end },
 	{ label = "Thirst for Blood:", ifSkill = "Thirst for Blood" },
