@@ -238,6 +238,9 @@ end
 --- @param gemName string
 --- @return string
 function calcLib.getGameIdFromGemName(gemName)
+	if type(gemName) ~= "string" then
+		return
+	end
 	for _, gemData in pairs(data.gems) do
 		if gemData.name:lower() == gemName:lower() then
 			return gemData.gameId
