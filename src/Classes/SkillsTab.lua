@@ -1137,6 +1137,20 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 				gemInstance.reqInt = calcLib.getGemStatRequirement(gemInstance.reqLevel, grantedEffect.support, gemInstance.gemData.reqInt)
 			end
 		end
+		if gemInstance.gemData.tags.support then -- delete active skill stats as they get left behind on supports.
+			gemInstance.skillMinionCalcs = nil
+			gemInstance.skillMinion = nil
+			gemInstance.skillMinionItemSetCalcs = nil
+			gemInstance.skillMinionItemSet = nil
+			gemInstance.skillMinionSkill = nil
+			gemInstance.skillMinionSkillCalcs = nil
+			gemInstance.skillStageCountCalcs = nil
+			gemInstance.skillStageCount = nil
+			gemInstance.skillMineCountCalcs = nil
+			gemInstance.skillMineCount = nil
+			gemInstance.skillPart = nil
+			gemInstance.skillPartCalcs = nil
+		end
 	end
 end
 
