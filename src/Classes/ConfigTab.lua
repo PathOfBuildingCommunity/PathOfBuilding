@@ -449,7 +449,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 				if varData.includeTransfigured then
 					t_insert(shownFuncs, listOrSingleIfOption(varData.ifSkill, function(ifOption)
 						for skill,_ in pairs(self.build.calcsTab.mainEnv.skillsUsed) do
-							if skill:lower():match("^"..ifOption:lower()) then
+							if calcLib.getGameIdFromGemName(skill) == calcLib.getGameIdFromGemName(ifOption) then
 								return true
 							end
 						end
