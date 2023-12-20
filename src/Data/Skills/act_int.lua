@@ -17946,11 +17946,6 @@ skills["FrostBoltNova"] = {
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = output.Cooldown
 	end,
-	statMap = {
-		["active_skill_damage_+%_when_cast_on_frostbolt"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
-		},
-	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -18036,7 +18031,7 @@ skills["FrostBoltNovaAltX"] = {
 	end,
 	statMap = {
 		["active_skill_if_used_through_frostbolt_damage_+%_final"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 		},
 	},
 	baseFlags = {
