@@ -655,17 +655,31 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "SkillName" then
 			local match = false
-			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName or "")
-			matchName = matchName:lower()
-			if tag.skillNameList then
-				for _, name in pairs(tag.skillNameList) do
-					if (tag.includeTransfigured and matchName:match("^"..name:lower())) or name:lower() == matchName then
-						match = true
-						break
+			if tag.includeTransfigured then
+				local matchGameId = cfg and cfg.skillGem.gameId
+				if tag.skillNameList then
+					for _, name in pairs(tag.skillNameList) do
+						if name and matchGameId == calcLib.getGameIdFromGemName(name) then
+							match = true
+							break
+						end
 					end
+				else
+					match = (tag.skillName and matchGameId == calcLib.getGameIdFromGemName(tag.skillName))
 				end
 			else
-				match = (tag.skillName and (tag.includeTransfigured and matchName:match("^"..tag.skillName:lower())) or tag.skillName:lower() == matchName)
+				local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName or "")
+				matchName = matchName:lower()
+				if tag.skillNameList then
+					for _, name in pairs(tag.skillNameList) do
+						if name:lower() == matchName then
+							match = true
+							break
+						end
+					end
+				else
+					match = (tag.skillName and tag.skillName:lower() == matchName)
+				end
 			end
 			if tag.neg then
 				match = not match

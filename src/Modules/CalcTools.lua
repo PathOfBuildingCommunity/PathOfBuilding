@@ -233,3 +233,15 @@ function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 	end
 	return modifiers
 end
+
+--- Get the gameId from the gemName which will be the same as the base gem for transfigured gems
+--- @param gemName string
+--- @return string
+function calcLib.getGameIdFromGemName(gemName)
+	for gameId, gemData in pairs(data.gems) do
+		if gemData.name:lower() == gemName:lower() then
+			return gameId
+		end
+	end
+	return
+end
