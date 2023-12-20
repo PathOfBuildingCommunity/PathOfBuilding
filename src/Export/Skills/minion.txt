@@ -401,7 +401,7 @@ skills["GuardianSentinelFireAura"] = {
 
 #skill ReaperConsumeMinionForBuff Consume
 #flags spell
-#baseMod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper" }, { type = "GlobalEffect", effectType = "Buff" })
+#baseMod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff" })
 #baseMod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 40) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff" })
 #baseMod mod("MinionModifier", "LIST", { mod = mod("AreaOfEffect", "INC", 30) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff" })
 #baseMod skill("buffAllies", true)
