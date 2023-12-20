@@ -238,9 +238,9 @@ end
 --- @param gemName string
 --- @return string
 function calcLib.getGameIdFromGemName(gemName)
-	for gameId, gemData in pairs(data.gems) do
+	for _, gemData in pairs(data.gems) do
 		if gemData.name:lower() == gemName:lower() then
-			return gameId
+			return gemData.gameId
 		end
 	end
 	return
