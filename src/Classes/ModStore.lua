@@ -659,13 +659,13 @@ function ModStoreClass:EvalMod(mod, cfg)
 			matchName = matchName:lower()
 			if tag.skillNameList then
 				for _, name in pairs(tag.skillNameList) do
-					if name:lower() == matchName then
+					if (tag.includeTransfigured and matchName:match("^"..name:lower())) or name:lower() == matchName then
 						match = true
 						break
 					end
 				end
 			else
-				match = (tag.skillName and tag.skillName:lower() == matchName)
+				match = (tag.skillName and (tag.includeTransfigured and matchName:match("^"..tag.skillName:lower())) or tag.skillName:lower() == matchName)
 			end
 			if tag.neg then
 				match = not match
