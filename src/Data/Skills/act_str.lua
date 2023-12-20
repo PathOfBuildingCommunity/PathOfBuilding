@@ -2155,10 +2155,10 @@ skills["VaalCleave"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
 		},
 		["vaal_cleave_executioner_damage_against_enemies_on_low_life_+%"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
 		},
 		["vaal_cleave_executioner_area_of_effect_+%"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
 		},
 	},
 	baseFlags = {
@@ -2168,7 +2168,7 @@ skills["VaalCleave"] = {
 		melee = true,
 	},
 	baseMods = {
-		mod("CullPercent", "MAX", 10, 0, 0, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+		mod("CullPercent", "MAX", 10, 0, 0, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
 	},
 	qualityStats = {
 		Default = {
