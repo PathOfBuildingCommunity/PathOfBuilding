@@ -59,6 +59,26 @@ local itemClassMap = {
 
 local directiveTable = { }
 
+-- #buildcorpsetypes
+directiveTable.buildcorpsetypes = function(state, args, out)
+	-- this only run once
+	if state.corpsetypedict then
+		return
+	end
+
+	local corpsetypetags = dat("corpsetypetags")
+	state.corpsetypedict = { }
+	local tagIndex = corpsetypetags.colMap["Tag"]
+	local nameIndex = corpsetypetags.colMap["Name"]
+	for i=1, corpsetypetags.rowCount do
+		local tagString = corpsetypetags:ReadCellText(i, tagIndex)
+		local nameString = corpsetypetags:ReadCellText(i, nameIndex)
+		state.corpsetypedict[tagString] = nameString
+	end
+
+	print("corpsetypedict generated")
+end
+
 -- #monster <MonsterId> [<Name>] [<ExtraSkills>]
 directiveTable.monster = function(state, args, out)
 	state.varietyId = nil
@@ -100,6 +120,9 @@ end
 
 -- #emit
 directiveTable.emit = function(state, args, out)
+	-- this only run once internally
+	directiveTable.buildcorpsetypes(state, args, out)
+
 	local monsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
 	if not monsterVariety then
 		print("Invalid Variety: "..state.varietyId)
@@ -149,6 +172,17 @@ directiveTable.emit = function(state, args, out)
 		out:write('\t\t"', skill, '",\n')
 	end
 	out:write('\t},\n')
+
+	if state.corpsetypedict then
+		-- identify the corpsetype base on tags and corpsetypetags.dat
+		for _, tag in ipairs(monsterVariety.Tags) do
+			if state.corpsetypedict[tag.Id] then
+				out:write('\tcorpseType = "', state.corpsetypedict[tag.Id], '",\n')
+				break
+			end
+		end
+	end
+
 	local modList = { }
 	for _, mod in ipairs(monsterVariety.Mods) do
 		table.insert(modList, mod)
