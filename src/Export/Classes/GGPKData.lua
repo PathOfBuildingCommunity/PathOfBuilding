@@ -221,6 +221,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/indexableskillgems.dat",
 		"Data/indexablesupportgems.dat",
 		"Data/itemclasscategories.dat",
+		"Data/miniontype.dat",
 	}
 	local txtFiles = {
 		"Metadata/StatDescriptions/passive_skill_aura_stat_descriptions.txt",
