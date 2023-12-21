@@ -1577,9 +1577,6 @@ skills["Boneshatter"] = {
 			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			-- Display only
-		},
 		["quality_display_boneshatter_is_gem"] = {
 			-- Display only
 		},
@@ -1691,9 +1688,6 @@ skills["BoneshatterAltX"] = {
 		},
 		["lose_all_trauma_at_X_trauma"] = {
 			mod("Multiplier:TraumaStacksMax", "BASE", nil),
-		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			-- Display only
 		},
 		["quality_display_boneshatter_is_gem"] = {
 			-- Display only
