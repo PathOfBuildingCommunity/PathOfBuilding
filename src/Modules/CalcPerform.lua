@@ -1743,6 +1743,20 @@ function calcs.perform(env, fullDPSSkipEHP)
 			if modData.name == "EnemyCurseLimit" then
 				minionCurses.limit = modData.value + 1
 				break
+			elseif modData.name == "MinionModifier" and modData.type == "LIST" then
+				minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
+				for _, modValue in pairs(modData.value) do
+					local copyModValue = copyTable(modValue)
+					copyModValue.source = "Spectre:"..spectreData.name
+					t_insert(minionBuffs["Spectre"], copyModValue)
+				end
+			elseif modData.name == "PlayerModifier" and modData.type == "LIST" then
+				buffs["Spectre"] = buffs["Spectre"] or new("ModList")
+				for _, modValue in pairs(modData.value) do
+					local copyModValue = copyTable(modValue)
+					copyModValue.source = "Spectre:"..spectreData.name
+					t_insert(buffs["Spectre"], copyModValue)
+				end
 			end
 		end
 	end

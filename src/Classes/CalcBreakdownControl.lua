@@ -397,7 +397,10 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 			row.sourceName = build.data.skills[row.mod.source:match("Skill:(.+)")].name
 		elseif sourceType == "Pantheon" then
 			row.sourceName = row.mod.source:match("Pantheon:(.+)")
+		elseif sourceType == "Spectre" then
+			row.sourceName = row.mod.source:match("Spectre:(.+)")
 		end
+
 		if row.mod.flags ~= 0 or row.mod.keywordFlags ~= 0 then
 			-- Combine, sort and format modifier flags
 			local flagNames = { }
@@ -455,6 +458,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					desc = self:FormatModName(tag.effectType)
 				elseif tag.type == "Limit" then
 					desc = "Limited to "..(tag.limitVar and self:FormatModName(tag.limitVar) or self:FormatModBase(row.mod, tag.limit))
+				elseif tag.type == "CorpseType" then
+					desc = "Monster Category: "..(tag.corpseTypeList and table.concat(tag.corpseTypeList, "/") or tag.corpseType)
 				else
 					desc = self:FormatModName(tag.type)
 				end

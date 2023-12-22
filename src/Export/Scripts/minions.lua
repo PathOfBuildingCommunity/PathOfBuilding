@@ -59,24 +59,22 @@ local itemClassMap = {
 
 local directiveTable = { }
 
--- #buildcorpsetypes
-directiveTable.buildcorpsetypes = function(state, args, out)
+-- #buildCorpseTypes
+directiveTable.buildCorpseTypes = function(state, args, out)
 	-- this only run once
-	if state.corpsetypedict then
+	if state.corpseTypeDict then
 		return
 	end
 
-	local corpsetypetags = dat("corpsetypetags")
-	state.corpsetypedict = { }
-	local tagIndex = corpsetypetags.colMap["Tag"]
-	local nameIndex = corpsetypetags.colMap["Name"]
-	for i=1, corpsetypetags.rowCount do
-		local tagString = corpsetypetags:ReadCellText(i, tagIndex)
-		local nameString = corpsetypetags:ReadCellText(i, nameIndex)
-		state.corpsetypedict[tagString] = nameString
+	local corpseTypeTags = dat("corpsetypetags")
+	state.corpseTypeDict = { }
+	local tagIndex = corpseTypeTags.colMap["Tag"]
+	local nameIndex = corpseTypeTags.colMap["Name"]
+	for i=1, corpseTypeTags.rowCount do
+		local tagString = corpseTypeTags:ReadCellText(i, tagIndex)
+		local nameString = corpseTypeTags:ReadCellText(i, nameIndex)
+		state.corpseTypeDict[tagString] = nameString
 	end
-
-	print("corpsetypedict generated")
 end
 
 -- #monster <MonsterId> [<Name>] [<ExtraSkills>]
@@ -121,7 +119,7 @@ end
 -- #emit
 directiveTable.emit = function(state, args, out)
 	-- this only run once internally
-	directiveTable.buildcorpsetypes(state, args, out)
+	directiveTable.buildCorpseTypes(state, args, out)
 
 	local monsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
 	if not monsterVariety then
@@ -173,11 +171,11 @@ directiveTable.emit = function(state, args, out)
 	end
 	out:write('\t},\n')
 
-	if state.corpsetypedict then
+	if state.corpseTypeDict then
 		-- identify the corpsetype base on tags and corpsetypetags.dat
 		for _, tag in ipairs(monsterVariety.Tags) do
-			if state.corpsetypedict[tag.Id] then
-				out:write('\tcorpseType = "', state.corpsetypedict[tag.Id], '",\n')
+			if state.corpseTypeDict[tag.Id] then
+				out:write('\tcorpseType = "', state.corpseTypeDict[tag.Id], '",\n')
 				break
 			end
 		end

@@ -751,6 +751,33 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if band(cfg.keywordFlags, tag.keywordFlags) ~= tag.keywordFlags then
 				return
 			end
+		elseif tag.type == "CorpseType" then
+			-- actor should be a minion to apply
+			if not self.actor or not self.actor.minionData or not self.actor.minionData.corpseType then
+				return
+			end
+
+			local match = false
+
+			-- validate for actor and minionData
+			local matchName = self.actor.minionData.corpseType
+			matchName = matchName:lower()
+			if tag.corpseTypeList then
+				for _, name in pairs(tag.corpseTypeList) do
+					if name:lower() == matchName then
+						match = true
+						break
+					end
+				end
+			else
+				match = (tag.corpseType and tag.corpseType:lower() == matchName)
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
+				return
+			end
 		end
 	end	
 	return value
