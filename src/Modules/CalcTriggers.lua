@@ -595,7 +595,6 @@ local function defaultTriggerHandler(env, config)
 			if actionCooldownTickRounded ~= 0 then
 				output.TriggerRateCap = 1 / actionCooldownTickRounded
 			end
-
 			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
 				local expirationRate = 1 / GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration
 				if breakdown and breakdown.EffectiveSourceRate then
@@ -609,6 +608,19 @@ local function defaultTriggerHandler(env, config)
 					end
 				else
 					trigRate = expirationRate
+				end
+			elseif config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "hexblast" then
+				local hexBlast, rate
+				for _, skill in ipairs(env.player.activeSkillList) do
+					if skill.activeEffect.grantedEffect.name == "Hexblast" and not isTriggered(skill) and skill ~= actor.mainSkill then
+						hexBlast, rate, uuid = findTriggerSkill(env, skill, hexBlast, rate)
+					end
+				end
+				if hexBlast then
+					if breakdown then
+						breakdown.EffectiveSourceRate[1] = s_format("1 / (%.2f + %.2f) ^8(sum of triggered curse and hexblast cast time)", 1/trigRate, 1/rate)
+					end
+					trigRate = 1/ (1/trigRate + 1/rate)
 				end
 			end
 
