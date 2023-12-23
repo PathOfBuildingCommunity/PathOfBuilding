@@ -110,7 +110,7 @@ function calcLib.gemIsType(gem, type, includeTransfigured)
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
 			(type == gem.name:lower():gsub("^vaal ", "")) or
-			(includeTransfigured and calcLib.getGameIdFromGemName(gem.name) == calcLib.getGameIdFromGemName(type)) or
+			(includeTransfigured and calcLib.getGameIdFromGemName(gem.name, true) == calcLib.getGameIdFromGemName(type, true)) or
 			((type ~= "active skill" and type ~= "grants_active_skill" and type ~= "skill") and gem.tags[type]))
 end
 
@@ -236,13 +236,15 @@ end
 
 --- Get the gameId from the gemName which will be the same as the base gem for transfigured gems
 --- @param gemName string
+--- @param dropVaal boolean 
 --- @return string
-function calcLib.getGameIdFromGemName(gemName)
+function calcLib.getGameIdFromGemName(gemName, dropVaal)
 	if type(gemName) ~= "string" then
 		return
 	end
+	gemName = dropVaal and gemName:lower():gsub("^vaal ", "") or gemName:lower()
 	for _, gemData in pairs(data.gems) do
-		if gemData.name:lower() == gemName:lower() then
+		if gemData.name:lower() == gemName then
 			return gemData.gameId
 		end
 	end
