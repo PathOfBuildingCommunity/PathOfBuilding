@@ -2432,7 +2432,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2524254339", 
+				["id"] = "implicit.stat_1229298404", 
 				["text"] = "Culling Strike", 
 				["type"] = "implicit", 
 			}, 
@@ -42620,7 +42620,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2653955271", 
+				["id"] = "explicit.stat_1123291426", 
 				["text"] = "Damage Penetrates #% Fire Resistance", 
 				["type"] = "explicit", 
 			}, 
@@ -42654,7 +42654,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2653955271", 
+				["id"] = "explicit.stat_1123291426", 
 				["text"] = "Damage Penetrates #% Fire Resistance", 
 				["type"] = "explicit", 
 			}, 
@@ -58054,6 +58054,15 @@ return {
 				["type"] = "implicit", 
 			}, 
 		}, 
+		["implicit.stat_1229298404"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1229298404", 
+				["text"] = "Culling Strike", 
+				["type"] = "implicit", 
+			}, 
+		}, 
 		["implicit.stat_1263158408"] = {
 			["1HAxe"] = {
 				["max"] = 1, 
@@ -60007,15 +60016,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2522672898", 
 				["text"] = "#% of Fire Damage from Hits taken as Cold Damage", 
-				["type"] = "implicit", 
-			}, 
-		}, 
-		["implicit.stat_2524254339"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2524254339", 
-				["text"] = "Culling Strike", 
 				["type"] = "implicit", 
 			}, 
 		}, 
@@ -76366,6 +76366,1304 @@ return {
 				["id"] = "implicit.stat_3680664274", 
 				["text"] = "+#% chance to Suppress Spell Damage", 
 				["type"] = "implicit", 
+			}, 
+		}, 
+	}, 
+	["WatchersEye"] = {
+		["1577_ZealotryMaximumEnergyShieldPerSecondToMaximumEnergyShieldLeechRate"] = {
+			["AnyJewel"] = {
+				["max"] = 30, 
+				["min"] = 30, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2731416566", 
+				["text"] = "#% increased Maximum total Energy Shield Recovery per second from Leech while affected by Zealotry", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["1578_ZealotryMaximumEnergyShieldPerSecondToMaximumEnergyShieldLeechRateOld"] = {
+			["AnyJewel"] = {
+				["max"] = 30, 
+				["min"] = 30, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2731416566", 
+				["text"] = "#% increased Maximum total Energy Shield Recovery per second from Leech while affected by Zealotry", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4296_HatredAdditionalCriticalStrikeChance"] = {
+			["AnyJewel"] = {
+				["max"] = 1.8, 
+				["min"] = 1.2, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2753985507", 
+				["text"] = "+#% to Critical Strike Chance while affected by Hatred", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4322_DeterminationPhysicalDamageReduction"] = {
+			["AnyJewel"] = {
+				["max"] = 8, 
+				["min"] = 5, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1873457881", 
+				["text"] = "#% additional Physical Damage Reduction while affected by Determination", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4452_DeterminationAdditionalArmour"] = {
+			["AnyJewel"] = {
+				["max"] = 1000, 
+				["min"] = 600, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3742808908", 
+				["text"] = "+# to Armour while affected by Determination", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4540_PrecisionIncreasedAttackDamage"] = {
+			["AnyJewel"] = {
+				["max"] = 60, 
+				["min"] = 40, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2048747572", 
+				["text"] = "#% increased Attack Damage while affected by Precision", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4576_PrecisionIncreasedAttackSpeed"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3375743050", 
+				["text"] = "#% increased Attack Speed while affected by Precision", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4688_HatredPhysicalConvertedToCold"] = {
+			["AnyJewel"] = {
+				["max"] = 40, 
+				["min"] = 25, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_664849247", 
+				["text"] = "#% of Physical Damage Converted to Cold Damage while affected by Hatred", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4689_AngerPhysicalConvertedToFire"] = {
+			["AnyJewel"] = {
+				["max"] = 40, 
+				["min"] = 25, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3624529132", 
+				["text"] = "#% of Physical Damage Converted to Fire Damage while affected by Anger", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4690_WrathPhysicalConvertedToLightning"] = {
+			["AnyJewel"] = {
+				["max"] = 40, 
+				["min"] = 25, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2106756686", 
+				["text"] = "#% of Physical Damage Converted to Lightning Damage while affected by Wrath", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4858_GraceBlindEnemiesWhenHit"] = {
+			["AnyJewel"] = {
+				["max"] = 50, 
+				["min"] = 30, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2548097895", 
+				["text"] = "#% chance to Blind Enemies which Hit you while affected by Grace", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4866_DeterminationAdditionalBlock"] = {
+			["AnyJewel"] = {
+				["max"] = 8, 
+				["min"] = 5, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3692646597", 
+				["text"] = "+#% Chance to Block Attack Damage while affected by Determination", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4923_PrecisionCannotBeBlinded"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1653848515", 
+				["text"] = "Cannot be Blinded while affected by Precision", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["4992_ZealotryCastSpeed"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2444534954", 
+				["text"] = "#% increased Cast Speed while affected by Zealotry", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5128_DisciplineAdditionalSpellBlock"] = {
+			["AnyJewel"] = {
+				["max"] = 8, 
+				["min"] = 5, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1313498929", 
+				["text"] = "+#% Chance to Block Spell Damage while affected by Discipline", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5149_GraceAdditionalChanceToEvade"] = {
+			["AnyJewel"] = {
+				["max"] = 8, 
+				["min"] = 5, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_969576725", 
+				["text"] = "+#% chance to Evade Attack Hits while affected by Grace", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5212_PurityOfElementsChaosResistance"] = {
+			["AnyJewel"] = {
+				["max"] = 50, 
+				["min"] = 30, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1138813382", 
+				["text"] = "+#% to Chaos Resistance while affected by Purity of Elements", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5279_HatredIncreasedColdDamage"] = {
+			["AnyJewel"] = {
+				["max"] = 60, 
+				["min"] = 40, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1413864591", 
+				["text"] = "#% increased Cold Damage while affected by Hatred", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5312_ZealotryConsecratedGroundEnemyDamageTaken"] = {
+			["AnyJewel"] = {
+				["max"] = 10, 
+				["min"] = 8, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2434030180", 
+				["text"] = "Consecrated Ground you create while affected by Zealotry causes enemies to take #% increased Damage", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5315_ZealotryConsecratedGroundEffectLingersForMsAfterLeavingTheArea"] = {
+			["AnyJewel"] = {
+				["max"] = 2, 
+				["min"] = 2, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2163419452", 
+				["text"] = "Effects of Consecrated Ground you create while affected by Zealotry Linger for # seconds", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5376_ZealotryCriticalStrikeChanceAgainstEnemiesOnConsecratedGround"] = {
+			["AnyJewel"] = {
+				["max"] = 120, 
+				["min"] = 100, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_214835567", 
+				["text"] = "#% increased Critical Strike Chance against Enemies on Consecrated Ground while affected by Zealotry", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5396_WrathIncreasedCriticalStrikeChance"] = {
+			["AnyJewel"] = {
+				["max"] = 100, 
+				["min"] = 70, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3357049845", 
+				["text"] = "#% increased Critical Strike Chance while affected by Wrath", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5422_AngerIncreasedCriticalStrikeMultiplier"] = {
+			["AnyJewel"] = {
+				["max"] = 50, 
+				["min"] = 30, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3627458291", 
+				["text"] = "+#% to Critical Strike Multiplier while affected by Anger", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5423_PrecisionIncreasedCriticalStrikeMultiplier"] = {
+			["AnyJewel"] = {
+				["max"] = 30, 
+				["min"] = 20, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1817023621", 
+				["text"] = "+#% to Critical Strike Multiplier while affected by Precision", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5436_ZealotryCriticalStrikesPenetratesElementalResistances"] = {
+			["AnyJewel"] = {
+				["max"] = 10, 
+				["min"] = 8, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2091518682", 
+				["text"] = "Critical Strikes Penetrate #% of Enemy Elemental Resistances while affected by Zealotry", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5538_ClarityDamageTakenFromManaBeforeLife"] = {
+			["AnyJewel"] = {
+				["max"] = 10, 
+				["min"] = 6, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2383304564", 
+				["text"] = "#% of Damage taken from Mana before Life while affected by Clarity", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5549_ClarityDamageTakenGainedAsMana"] = {
+			["AnyJewel"] = {
+				["max"] = 20, 
+				["min"] = 15, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_380220671", 
+				["text"] = "#% of Damage taken while affected by Clarity Recouped as Mana", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5588_HasteDebuffsExpireFaster"] = {
+			["AnyJewel"] = {
+				["max"] = 20, 
+				["min"] = 15, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_207635700", 
+				["text"] = "Debuffs on you expire #% faster while affected by Haste", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5689_MalevolenceDamageOverTimeMultiplier"] = {
+			["AnyJewel"] = {
+				["max"] = 22, 
+				["min"] = 18, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2736708072", 
+				["text"] = "+#% to Damage over Time Multiplier while affected by Malevolence", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5759_PurityOfElementsReducedReflectedElementalDamage"] = {
+			["AnyJewel"] = {
+				["max"] = 50, 
+				["min"] = 40, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_65331133", 
+				["text"] = "#% reduced Reflected Elemental Damage taken while affected by Purity of Elements", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5838_DisciplineFasterStartOfRecharge"] = {
+			["AnyJewel"] = {
+				["max"] = 40, 
+				["min"] = 30, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1016185292", 
+				["text"] = "#% faster start of Energy Shield Recharge while affected by Discipline", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5841_DisciplineEnergyShieldPerHit"] = {
+			["AnyJewel"] = {
+				["max"] = 30, 
+				["min"] = 20, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3765507527", 
+				["text"] = "Gain # Energy Shield per Enemy Hit while affected by Discipline", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5845_WrathLightningDamageESLeech"] = {
+			["AnyJewel"] = {
+				["max"] = 1.5, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_121436064", 
+				["text"] = "#% of Lightning Damage is Leeched as Energy Shield while affected by Wrath", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5858_DisciplineEnergyShieldRecoveryRate"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_80470845", 
+				["text"] = "#% increased Energy Shield Recovery Rate while affected by Discipline", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5864_DisciplineEnergyShieldRegen"] = {
+			["AnyJewel"] = {
+				["max"] = 2.5, 
+				["min"] = 1.5, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_991194404", 
+				["text"] = "Regenerate #% of Energy Shield per Second while affected by Discipline", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5930_DeterminationReducedExtraDamageFromCrits"] = {
+			["AnyJewel"] = {
+				["max"] = 60, 
+				["min"] = 40, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_68410701", 
+				["text"] = "You take #% reduced Extra Damage from Critical Strikes while affected by Determination", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["5959_AngerIncreasedFireDamage"] = {
+			["AnyJewel"] = {
+				["max"] = 60, 
+				["min"] = 40, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3337107517", 
+				["text"] = "#% increased Fire Damage while affected by Anger", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6024_VitalityLifeRecoveryFromFlasks"] = {
+			["AnyJewel"] = {
+				["max"] = 70, 
+				["min"] = 50, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_362838683", 
+				["text"] = "#% increased Life Recovery from Flasks while affected by Vitality", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6100_ZealotryGainArcaneSurgeFor4SecondsWhenYouCreateConsecratedGround"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1919069577", 
+				["text"] = "Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6158_HasteGainOnslaughtOnKill"] = {
+			["AnyJewel"] = {
+				["max"] = 4, 
+				["min"] = 4, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1424006185", 
+				["text"] = "You gain Onslaught for # seconds on Kill while affected by Haste", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6169_HasteGainPhasing"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1346311588", 
+				["text"] = "You have Phasing while affected by Haste", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6534_PurityOfIceImmuneToFreeze"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2720072724", 
+				["text"] = "Immune to Freeze while affected by Purity of Ice", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6537_PurityOfFireImmuneToIgnite"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_371612541", 
+				["text"] = "Immune to Ignite while affected by Purity of Fire", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6541_PurityOfLightningImmuneToShock"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_281949611", 
+				["text"] = "Immune to Shock while affected by Purity of Lightning", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6628_MalevolenceLifeAndEnergyShieldRecoveryRate"] = {
+			["AnyJewel"] = {
+				["max"] = 12, 
+				["min"] = 8, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3643449791", 
+				["text"] = "#% increased Recovery rate of Life and Energy Shield while affected by Malevolence", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6637_VitalityLifeGainPerHit"] = {
+			["AnyJewel"] = {
+				["max"] = 30, 
+				["min"] = 20, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4259701244", 
+				["text"] = "Gain # Life per Enemy Hit while affected by Vitality", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6643_VitalityDamageLifeLeech"] = {
+			["AnyJewel"] = {
+				["max"] = 1.2, 
+				["min"] = 0.8, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3656959867", 
+				["text"] = "#% of Damage leeched as Life while affected by Vitality", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6650_AngerFireDamageLifeLeech"] = {
+			["AnyJewel"] = {
+				["max"] = 1.5, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2312747856", 
+				["text"] = "#% of Fire Damage Leeched as Life while affected by Anger", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6673_VitalityLifeRecoveryRate"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2690790844", 
+				["text"] = "#% increased Life Recovery Rate while affected by Vitality", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6683_VitalityFlatLifeRegen"] = {
+			["AnyJewel"] = {
+				["max"] = 140, 
+				["min"] = 100, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3489570622", 
+				["text"] = "Regenerate # Life per Second while affected by Vitality", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6690_VitalityPercentLifeRegen"] = {
+			["AnyJewel"] = {
+				["max"] = 1.5, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1165583295", 
+				["text"] = "Regenerate #% of Life per second while affected by Vitality", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["6728_WrathIncreasedLightningDamage"] = {
+			["AnyJewel"] = {
+				["max"] = 60, 
+				["min"] = 40, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_418293304", 
+				["text"] = "#% increased Lightning Damage while affected by Wrath", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["7388_WrathLightningDamageManaLeech"] = {
+			["AnyJewel"] = {
+				["max"] = 1.5, 
+				["min"] = 1, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2889601846", 
+				["text"] = "#% of Lightning Damage is Leeched as Mana while affected by Wrath", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["7397_ClarityManaRecoveryRate"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_556659145", 
+				["text"] = "#% increased Mana Recovery Rate while affected by Clarity", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8232_ClarityManaAddedAsEnergyShield"] = {
+			["AnyJewel"] = {
+				["max"] = 10, 
+				["min"] = 6, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2831391506", 
+				["text"] = "Gain #% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8282_HatredAddedColdDamage"] = {
+			["AnyJewel"] = {
+				["max"] = 87, 
+				["min"] = 73, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2643562209", 
+				["text"] = "Adds # to # Cold Damage while affected by Hatred", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8416_HasteCooldownRecoveryForMovementSkills"] = {
+			["AnyJewel"] = {
+				["max"] = 50, 
+				["min"] = 30, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3332055899", 
+				["text"] = "#% increased Cooldown Recovery Rate of Movement Skills used while affected by Haste", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8436_GraceIncreasedMovementSpeed"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3329402420", 
+				["text"] = "#% increased Movement Speed while affected by Grace", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8597_AngerPhysicalAddedAsFire"] = {
+			["AnyJewel"] = {
+				["max"] = 25, 
+				["min"] = 15, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4245204226", 
+				["text"] = "Gain #% of Physical Damage as Extra Fire Damage while affected by Anger", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8600_WrathPhysicalAddedAsLightning"] = {
+			["AnyJewel"] = {
+				["max"] = 25, 
+				["min"] = 15, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2255914633", 
+				["text"] = "Gain #% of Physical Damage as Extra Lightning Damage while affected by Wrath", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8622_PurityOfElementsTakePhysicalAsCold"] = {
+			["AnyJewel"] = {
+				["max"] = 12, 
+				["min"] = 8, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1710207583", 
+				["text"] = "#% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8623_PurityOfIceTakePhysicalAsIce"] = {
+			["AnyJewel"] = {
+				["max"] = 10, 
+				["min"] = 6, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1779027621", 
+				["text"] = "#% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8624_PurityOfElementsTakePhysicalAsFire"] = {
+			["AnyJewel"] = {
+				["max"] = 12, 
+				["min"] = 8, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1722775216", 
+				["text"] = "#% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8625_PurityOfFireTakePhysicalAsFire"] = {
+			["AnyJewel"] = {
+				["max"] = 10, 
+				["min"] = 6, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1798459983", 
+				["text"] = "#% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8626_PurityOfElementsTakePhysicalAsLightning"] = {
+			["AnyJewel"] = {
+				["max"] = 12, 
+				["min"] = 8, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_873224517", 
+				["text"] = "#% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8627_PurityOfLightningTakePhysicalAsLightning"] = {
+			["AnyJewel"] = {
+				["max"] = 10, 
+				["min"] = 6, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_254131992", 
+				["text"] = "#% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8675_PrideChanceForDoubleDamage"] = {
+			["AnyJewel"] = {
+				["max"] = 12, 
+				["min"] = 8, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3371719014", 
+				["text"] = "#% chance to deal Double Damage while using Pride", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8676_PrideChanceToImpale"] = {
+			["AnyJewel"] = {
+				["max"] = 25, 
+				["min"] = 25, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4173751044", 
+				["text"] = "#% chance to Impale Enemies on Hit with Attacks while using Pride", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8677_PrideIntimidateOnHit"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3772848194", 
+				["text"] = "Your Hits Intimidate Enemies for 4 seconds while you are using Pride", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8681_PrideIncreasedPhysicalDamage"] = {
+			["AnyJewel"] = {
+				["max"] = 60, 
+				["min"] = 40, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_576528026", 
+				["text"] = "#% increased Physical Damage while using Pride", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8683_PrideImpaleAdditionalHits"] = {
+			["AnyJewel"] = {
+				["max"] = 2, 
+				["min"] = 2, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1011863394", 
+				["text"] = "Impales you inflict last # additional Hits while using Pride", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8778_PrecisionFlaskChargeOnCrit"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3772841281", 
+				["text"] = "Gain a Flask Charge when you deal a Critical Strike while affected by Precision", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8788_ClarityRecoverManaOnSkillUse"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1699077932", 
+				["text"] = "#% chance to Recover 10% of Mana when you use a Skill while affected by Clarity", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8814_HatredColdPenetration"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1222888897", 
+				["text"] = "Damage Penetrates #% Cold Resistance while affected by Hatred", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8816_AngerFirePenetration"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3111519953", 
+				["text"] = "Damage Penetrates #% Fire Resistance while affected by Anger", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8817_WrathLightningPenetration"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1077131949", 
+				["text"] = "Damage Penetrates #% Lightning Resistance while affected by Wrath", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8824_DeterminationReducedReflectedPhysicalDamage"] = {
+			["AnyJewel"] = {
+				["max"] = 50, 
+				["min"] = 40, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2457540491", 
+				["text"] = "#% reduced Reflected Physical Damage taken while affected by Determination", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8971_ClarityReducedManaCost"] = {
+			["AnyJewel"] = {
+				["max"] = 5, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2445618239", 
+				["text"] = "+# to Total Mana Cost of Skills while affected by Clarity", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["8976_ClarityReducedManaCostNonChannelled"] = {
+			["AnyJewel"] = {
+				["max"] = 5, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1853636813", 
+				["text"] = "Non-Channelling Skills have +# to Total Mana Cost while affected by Clarity", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9070_GraceChanceToDodge"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 12, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4071658793", 
+				["text"] = "+#% chance to Suppress Spell Damage while affected by Grace", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9071_HasteChanceToDodgeSpells"] = {
+			["AnyJewel"] = {
+				["max"] = 8, 
+				["min"] = 5, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2170859717", 
+				["text"] = "+#% chance to Suppress Spell Damage while affected by Haste", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9316_MalevolenceUnaffectedByBleeding"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4104891138", 
+				["text"] = "Unaffected by Bleeding while affected by Malevolence", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9320_PurityOfFireUnaffectedByBurningGround"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3308185931", 
+				["text"] = "Unaffected by Burning Ground while affected by Purity of Fire", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9325_PurityOfIceUnaffectedByChilledGround"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2647344903", 
+				["text"] = "Unaffected by Chilled Ground while affected by Purity of Ice", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9326_PurityOfLightningUnaffectedByConductivity"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1567542124", 
+				["text"] = "Unaffected by Conductivity while affected by Purity of Lightning", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9331_PurityOfElementsUnaffectedByElementalWeakness"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3223142064", 
+				["text"] = "Unaffected by Elemental Weakness while affected by Purity of Elements", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9332_GraceUnaffectedByEnfeeble"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2365917222", 
+				["text"] = "Unaffected by Enfeeble while affected by Grace", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9333_PurityOfFireUnaffectedByFlammability"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_1173690938", 
+				["text"] = "Unaffected by Flammability while affected by Purity of Fire", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9335_PurityOfIceUnaffectedByFrostbite"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_4012281889", 
+				["text"] = "Unaffected by Frostbite while affected by Purity of Ice", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9339_MalevolenceUnaffectedByPoison"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_34059570", 
+				["text"] = "Unaffected by Poison while affected by Malevolence", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9345_PurityOfLightningUnaffectedByShockedGround"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2567659895", 
+				["text"] = "Unaffected by Shocked Ground while affected by Purity of Lightning", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9347_HasteUnaffectedByTemporalChains"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_2806391472", 
+				["text"] = "Unaffected by Temporal Chains while affected by Haste", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9348_DeterminationUnaffectedByVulnerability"] = {
+			["AnyJewel"] = {
+				["max"] = 1, 
+				["min"] = 1, 
+			}, 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3207781478", 
+				["text"] = "Unaffected by Vulnerability while affected by Determination", 
+				["type"] = "explicit", 
+			}, 
+		}, 
+		["9497_MalevolenceYourAilmentsDealDamageFaster"] = {
+			["AnyJewel"] = {
+				["max"] = 15, 
+				["min"] = 10, 
+			}, 
+			["sign"] = "", 
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "explicit.stat_3468843137", 
+				["text"] = "Damaging Ailments you inflict deal Damage #% faster while affected by Malevolence", 
+				["type"] = "explicit", 
 			}, 
 		}, 
 	}, 

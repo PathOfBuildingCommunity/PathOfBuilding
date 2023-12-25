@@ -79,6 +79,7 @@ local tradeStatCategoryIndices = {
 	["Exarch"] = 3,
 	["Synthesis"] = 3,
 	["PassiveNode"] = 2,
+	["WatchersEye"] = 2,
 }
 
 local influenceSuffixes = { "_shaper", "_elder", "_adjudicator", "_basilisk", "_crusader", "_eyrie"}
@@ -401,6 +402,7 @@ function TradeQueryGeneratorClass:InitMods()
 		["Exarch"] = { },
 		["Synthesis"] = { },
 		["PassiveNode"] = { },
+		["WatchersEye"] = { },
 	}
 
 	-- originates from: https://www.pathofexile.com/api/trade/data/stats
@@ -459,6 +461,17 @@ function TradeQueryGeneratorClass:InitMods()
 	end
 	self:GenerateModData(clusterNotableMods, tradeQueryStatsParsed)
 
+	-- Watcher's Eye
+	local watchersEyeMods = {}
+	for _,v in pairs(data.uniqueMods["Watcher's Eye"]) do
+		if v.Id:find("SublimeVision") or v.Id:find("SummonArbalist") then
+			goto continue
+		end
+		watchersEyeMods[v.Id] = v.mod
+		watchersEyeMods[v.Id].type = "WatchersEye"
+		::continue::
+	end
+	self:GenerateModData(watchersEyeMods,tradeQueryStatsParsed,{ ["BaseJewel"] = true, ["AnyJewel"] = true },{["AnyJewel"]="AnyJewel"})
 	-- Base item implicit mods. A lot of this code is duplicated from generateModData(), but with important small logical flow changes to handle the format differences
 	for baseName, entry in pairs(data.itemBases) do
 		if entry.implicit ~= nil then
@@ -757,12 +770,35 @@ function TradeQueryGeneratorClass:StartQuery(slot, options)
 		itemCategoryQueryStr = "jewel.abyss"
 		itemCategory = "AbyssJewel"
 	elseif slot.slotName:find("Jewel") ~= nil then
-		itemCategoryQueryStr = "jewel"
-		itemCategory = options.jewelType .. "Jewel"
-		if itemCategory == "AbyssJewel" then
-			itemCategoryQueryStr = "jewel.abyss"
-		elseif itemCategory == "BaseJewel" then
-			itemCategoryQueryStr = "jewel.base"
+		if options.jewelType == "Watcher's Eye" then
+			special={
+				queryExtra = {
+					name = "Watcher's Eye"
+				},
+				queryFilters = {
+					type_filters = {
+						filters = {
+							category = {
+								option = "jewel"
+							},
+							rarity = {
+								option = "unique"
+							}
+						}
+					}
+				},
+				watchersEye = true
+			}
+			itemCategory = "AnyJewel"
+			itemCategoryQueryStr = "jewel"
+		else
+			itemCategoryQueryStr = "jewel"
+			itemCategory = options.jewelType .. "Jewel"
+			if itemCategory == "AbyssJewel" then
+				itemCategoryQueryStr = "jewel.abyss"
+			elseif itemCategory == "BaseJewel" then
+				itemCategoryQueryStr = "jewel.base"
+			end
 		end
 	elseif slot.slotName:find("Flask") ~= nil then
 		itemCategoryQueryStr = "flask"
@@ -818,6 +854,10 @@ end
 function TradeQueryGeneratorClass:ExecuteQuery()
 	if self.calcContext.special.calcNodesInsteadOfMods then
 		self:GeneratePassiveNodeWeights(self.modData.PassiveNode)
+		return
+	end
+	if self.calcContext.special.watchersEye then
+		self:GenerateModWeights(self.modData.WatchersEye)
 		return
 	end
 	self:GenerateModWeights(self.modData["Explicit"])
@@ -1017,7 +1057,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	end
 
 	if isJewelSlot then
-		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
+		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 110, 18, { "Any", "Base", "Abyss", "Watcher's Eye" }, function(index, value) end)
 		controls.jewelType.selIndex = self.lastJewelType or 1
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, -5, 0, 0, 16, "Jewel Type:")
 
