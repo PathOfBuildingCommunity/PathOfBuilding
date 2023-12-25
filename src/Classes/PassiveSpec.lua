@@ -219,7 +219,7 @@ end
 
 -- Import passive spec from the provided class IDs and node hash list
 function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, secondaryAscendClassId, hashList, hashOverrides, masteryEffects, treeVersion)
-  if hashOverrides == nil then hashOverrides = {} end
+  	if hashOverrides == nil then hashOverrides = {} end
 	if treeVersion and treeVersion ~= self.treeVersion then
 		self:Init(treeVersion)
 		self.build.treeTab.showConvert = self.treeVersion ~= latestTreeVersion
@@ -237,13 +237,20 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, secondaryAs
 			self.masterySelections[mastery] = effect
 		end
 	end
+	local removeHashOverrides = {}
 	for id, override in pairs(hashOverrides) do
 		local node = self.nodes[id]
-		if node then
+		-- Remove tattos if tree version is not Ancestor League
+		if node.isTattoo and tonumber(((self.treeVersion):gsub("_", ""))) ~= 322 then
+			t_insert(removeHashOverrides, id)
+		elseif node then
 			override.effectSprites = self.tree.spriteMap[override.activeEffectImage]
 			override.sprites = self.tree.spriteMap[override.icon]
 			self:ReplaceNode(node, override)
 		end
+	end
+	for _, id in ipairs(removeHashOverrides) do
+		self.hashOverrides[id] = nil
 	end
 	for _, id in pairs(hashList) do
 		local node = self.nodes[id]
