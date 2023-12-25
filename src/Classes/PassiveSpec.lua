@@ -240,7 +240,7 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, secondaryAs
 	local removeHashOverrides = {}
 	for id, override in pairs(hashOverrides) do
 		local node = self.nodes[id]
-		-- Remove tattos if tree version is not Ancestor League
+		-- Remove tattoos if tree version is not Ancestor League
 		if node.isTattoo and tonumber(((self.treeVersion):gsub("_", ""))) ~= 322 then
 			t_insert(removeHashOverrides, id)
 		elseif node then
