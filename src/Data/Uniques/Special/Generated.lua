@@ -783,8 +783,10 @@ Variant: None
 local unsortedCharmsMods = LoadModule("Data/ModJewelCharm")
 local sortedCharmsMods = { }
 
-for modId in pairs(unsortedCharmsMods) do
-	table.insert(sortedCharmsMods, modId)
+for modId, mod in pairs(unsortedCharmsMods) do
+	if mod.level and mod.level >= 60 then
+		table.insert(sortedCharmsMods, modId)
+	end
 end
 table.sort(sortedCharmsMods)
 for _, modId in ipairs(sortedCharmsMods) do
