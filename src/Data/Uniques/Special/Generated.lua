@@ -788,7 +788,6 @@ for modId in pairs(unsortedCharmsMods) do
 end
 table.sort(sortedCharmsMods)
 for _, modId in ipairs(sortedCharmsMods) do
-	local mod = unsortedCharmsMods[modId]
 	local variantName = abbreviateModId(modId):gsub("AnimalCharm", ""):gsub("LIfe", "Life"):gsub("OnHIt", "OnHit"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
 	table.insert(thatWhichWasTaken, "Variant:"..variantName)
 end
