@@ -790,7 +790,7 @@ for modId, mod in pairs(unsortedCharmsMods) do
 end
 table.sort(sortedCharmsMods)
 for _, modId in ipairs(sortedCharmsMods) do
-	local variantName = abbreviateModId(modId):gsub("AnimalCharm", ""):gsub("LIfe", "Life"):gsub("OnHIt", "OnHit"):gsub("2$", ""):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
+	local variantName = abbreviateModId(modId):gsub("AnimalCharm", ""):gsub("LIfe", "Life"):gsub("OnHIt", "OnHit"):gsub("2$", ""):gsub("New", ""):gsub("[%u]", " %1"):gsub("[%d]+", " %1"):gsub("_", ""):gsub("E S", "ES")
 	table.insert(thatWhichWasTaken, "Variant:"..variantName)
 end
 
