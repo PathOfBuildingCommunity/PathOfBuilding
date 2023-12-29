@@ -772,10 +772,10 @@ League: Affliction
 Has Alt Variant: true
 Has Alt Variant Two: true
 Has Alt Variant Three: true
-Selected Variant: 2
-Selected Alt Variant: 1
-Selected Alt Variant Two: 1
-Selected Alt Variant Three: 1
+Selected Variant: 82
+Selected Alt Variant: 104
+Selected Alt Variant Two: 106
+Selected Alt Variant Three: 125
 Variant: None
 ]]
 }
@@ -784,13 +784,13 @@ local unsortedCharmsMods = LoadModule("Data/ModJewelCharm")
 local sortedCharmsMods = { }
 
 for modId, mod in pairs(unsortedCharmsMods) do
-	if mod.level and mod.level >= 60 then
+	if not modId:match("1$") then
 		table.insert(sortedCharmsMods, modId)
 	end
 end
 table.sort(sortedCharmsMods)
 for _, modId in ipairs(sortedCharmsMods) do
-	local variantName = abbreviateModId(modId):gsub("AnimalCharm", ""):gsub("LIfe", "Life"):gsub("OnHIt", "OnHit"):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
+	local variantName = abbreviateModId(modId):gsub("AnimalCharm", ""):gsub("LIfe", "Life"):gsub("OnHIt", "OnHit"):gsub("2$", ""):gsub("New", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("E S", "ES")
 	table.insert(thatWhichWasTaken, "Variant:"..variantName)
 end
 
