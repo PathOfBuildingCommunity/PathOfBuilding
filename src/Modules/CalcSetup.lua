@@ -943,6 +943,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 						end
 						env.itemModDB:ScaleAddList(otherRingList, scale)
+						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+							if otherRing[property] and not item[property] then
+								env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
+								env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) - 1
+							end
+						end
+						if (otherRing.elder or otherRing.shaper) and not (item.elder or item.shaper) then
+							env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
+						end
 					end
 					env.itemModDB:ScaleAddList(srcList, scale)
 				elseif item.type == "Quiver" and items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") then
@@ -976,22 +985,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 					env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
 					env.itemModDB.conditions[key .. "In" .. slotName] = true
-					if item.corrupted then
-						env.itemModDB.multipliers.CorruptedItem = (env.itemModDB.multipliers.CorruptedItem or 0) + 1
-					else
-						env.itemModDB.multipliers.NonCorruptedItem = (env.itemModDB.multipliers.NonCorruptedItem or 0) + 1
-					end
-					if item.shaper then
-						env.itemModDB.multipliers.ShaperItem = (env.itemModDB.multipliers.ShaperItem or 0) + 1
-						env.itemModDB.conditions["ShaperItemIn"..slotName] = true
-					else
-						env.itemModDB.multipliers.NonShaperItem = (env.itemModDB.multipliers.NonShaperItem or 0) + 1
-					end
-					if item.elder then
-						env.itemModDB.multipliers.ElderItem = (env.itemModDB.multipliers.ElderItem or 0) + 1
-						env.itemModDB.conditions["ElderItemIn"..slotName] = true
-					else
-						env.itemModDB.multipliers.NonElderItem = (env.itemModDB.multipliers.NonElderItem or 0) + 1
+					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+						if item[property] then
+							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
+						else
+							env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) + 1
+						end
 					end
 					if item.shaper or item.elder then
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
