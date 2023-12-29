@@ -197,6 +197,49 @@ describe("TetsItemMods", function()
 
         assert.are.equals(genericRingInt - initialInt, build.calcsTab.mainOutput.Int - genericRingInt)
     end)
+	
+	it("Kalandra's Touch influence copy", function()
+        local dmg = build.calcsTab.mainOutput.AverageDamage
+
+        build.configTab.input.customMods = "\z
+        Gain 5% of Elemental Damage as Extra Chaos Damage per Shaper Item Equipped\n\z
+        "
+        build.configTab:BuildModList()
+        runCallback("OnFrame")
+
+        assert.are.equals(build.calcsTab.mainOutput.AverageDamage, dmg)
+
+        build.itemsTab:CreateDisplayItemFromRaw([[New Item
+        Cerulean Ring
+        Shaper Item
+        Crafted: true
+        Prefix: None
+        Prefix: None
+        Prefix: None
+        Suffix: None
+        Suffix: None
+        Suffix: None
+        Quality: 0
+        LevelReq: 80
+        Implicits: 0]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.is_true(build.calcsTab.mainOutput.AverageDamage > dmg)
+
+        local dmgOneRing = build.calcsTab.mainOutput.AverageDamage
+
+        build.itemsTab:CreateDisplayItemFromRaw([[Kalandra's Touch
+        Ring
+        League: Kalandra
+        Implicits: 0
+        Reflects your other Ring
+        Mirrored]])
+        build.itemsTab:AddDisplayItem()
+        runCallback("OnFrame")
+
+        assert.is_true(build.calcsTab.mainOutput.AverageDamage > dmgOneRing)
+    end)
 
     it("Both slots mod (evasion and es mastery)", function()
 
