@@ -199,6 +199,10 @@ describe("TetsItemMods", function()
     end)
 	
 	it("Kalandra's Touch influence copy", function()
+
+        build.skillsTab:PasteSocketGroup("Slot: Weapon 1\nSmite 20/0 Default  1\n")
+        runCallback("OnFrame")
+
         local dmg = build.calcsTab.mainOutput.AverageDamage
 
         build.configTab.input.customMods = "\z
