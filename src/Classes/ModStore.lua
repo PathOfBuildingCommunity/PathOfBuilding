@@ -560,7 +560,7 @@ function ModStoreClass:EvalMod(mod, cfg)
 		elseif tag.type == "ItemCondition" then
 			local matches = {}
 			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
-			local items
+			local items = {}
 			if tag.allSlots then
 				items = self.actor.itemList
 			elseif self.actor.itemList then
