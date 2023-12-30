@@ -57,6 +57,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.blinkStart = GetTime()
 	self.allowZoom = allowZoom
 	self.dynHeight = false
+	self.initialHeight = height
 	local function buttonSize()
 		local _, height = self:GetSize()
 		return height - 4
@@ -373,7 +374,11 @@ function EditClass:Draw(viewPort, noTooltip)
 			end
 		end
 		if self.dynHeight then
-			self.height = accHeight
+			if accHeight < self.initialHeight then
+				self.height = self.initialHeight
+			else
+				self.height = accHeight
+			end
 		end
 	elseif self.sel and self.sel ~= self.caret then
 		local left = m_min(self.caret, self.sel)
