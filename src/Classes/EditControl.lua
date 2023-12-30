@@ -56,6 +56,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.selBGCol = "^xBBBBBB"
 	self.blinkStart = GetTime()
 	self.allowZoom = allowZoom
+	self.dynHeight = false
 	local function buttonSize()
 		local _, height = self:GetSize()
 		return height - 4
@@ -320,11 +321,13 @@ function EditClass:Draw(viewPort, noTooltip)
 	textX = -self.controls.scrollBarH.offset
 	textY = -self.controls.scrollBarV.offset
 	if self.lineHeight then
+		local accHeight = 0
 		local left = m_min(self.caret, self.sel or self.caret)
 		local right = m_max(self.caret, self.sel or self.caret)
 		local caretX
 		SetDrawColor(self.textCol)
 		for s, line, e in (self.buf.."\n"):gmatch("()([^\n]*)\n()") do
+			accHeight = accHeight + self.lineHeight
 			textX = -self.controls.scrollBarH.offset
 			if left >= e or right <= s then
 				DrawString(textX, textY, "LEFT", textHeight, self.font, line)
@@ -368,6 +371,9 @@ function EditClass:Draw(viewPort, noTooltip)
 				SetDrawColor(self.textCol)
 				DrawImage(nil, caretX, caretY, 1, textHeight)
 			end
+		end
+		if self.dynHeight then
+			self.height = accHeight
 		end
 	elseif self.sel and self.sel ~= self.caret then
 		local left = m_min(self.caret, self.sel)
