@@ -502,145 +502,12 @@ local function determineCursePriority(curseName, activeSkill)
 	return basePriority + socketPriority + slotPriority + sourcePriority
 end
 
--- Process charges, enemy modifiers, and other buffs
+-- Process enemy modifiers and other buffs
 local function doActorMisc(env, actor)
 	local modDB = actor.modDB
 	local enemyDB = actor.enemy.modDB
 	local output = actor.output
 	local condList = modDB.conditions
-
-	-- Calculate current and maximum charges
-	output.PowerChargesMin = m_max(modDB:Sum("BASE", nil, "PowerChargesMin"), 0)
-	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0)
-	output.FrenzyChargesMin = m_max(modDB:Sum("BASE", nil, "FrenzyChargesMin"), 0)
-	output.FrenzyChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax"), 0)
-	output.EnduranceChargesMin = m_max(modDB:Sum("BASE", nil, "EnduranceChargesMin"), 0)
-	output.EnduranceChargesMax = m_max(env.partyMembers.modDB:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and env.partyMembers.output.EnduranceChargesMax or (modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")), 0)
-	output.SiphoningChargesMax = m_max(modDB:Sum("BASE", nil, "SiphoningChargesMax"), 0)
-	output.ChallengerChargesMax = m_max(modDB:Sum("BASE", nil, "ChallengerChargesMax"), 0)
-	output.BlitzChargesMax = m_max(modDB:Sum("BASE", nil, "BlitzChargesMax"), 0)
-	output.InspirationChargesMax = m_max(modDB:Sum("BASE", nil, "InspirationChargesMax"), 0)
-	output.CrabBarriersMax = m_max(modDB:Sum("BASE", nil, "CrabBarriersMax"), 0)
-	output.BrutalChargesMin = m_max(modDB:Flag(nil, "MinimumEnduranceChargesEqualsMinimumBrutalCharges") and (modDB:Flag(nil, "MinimumEnduranceChargesIsMaximumEnduranceCharges") and output.EnduranceChargesMax or output.EnduranceChargesMin) or 0 , 0)
-	output.BrutalChargesMax = m_max(modDB:Flag(nil, "MaximumEnduranceChargesEqualsMaximumBrutalCharges") and output.EnduranceChargesMax or 0, 0)
-	output.AbsorptionChargesMin = m_max(modDB:Flag(nil, "MinimumPowerChargesEqualsMinimumAbsorptionCharges") and (modDB:Flag(nil, "MinimumPowerChargesIsMaximumPowerCharges") and output.PowerChargesMax or output.PowerChargesMin) or 0, 0)
-	output.AbsorptionChargesMax = m_max(modDB:Flag(nil, "MaximumPowerChargesEqualsMaximumAbsorptionCharges") and output.PowerChargesMax or 0, 0)
-	output.AfflictionChargesMin = m_max(modDB:Flag(nil, "MinimumFrenzyChargesEqualsMinimumAfflictionCharges") and (modDB:Flag(nil, "MinimumFrenzyChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or output.FrenzyChargesMin) or 0, 0)
-	output.AfflictionChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesEqualsMaximumAfflictionCharges") and output.FrenzyChargesMax or 0, 0)
-	output.BloodChargesMax = m_max(modDB:Sum("BASE", nil, "BloodChargesMax"), 0)
-	output.SpiritChargesMax = m_max(modDB:Sum("BASE", nil, "SpiritChargesMax"), 0)
-
-	-- Initialize Charges
-	output.PowerCharges = 0
-	output.FrenzyCharges = 0
-	output.EnduranceCharges = 0
-	output.SiphoningCharges = 0
-	output.ChallengerCharges = 0
-	output.BlitzCharges = 0
-	output.InspirationCharges = 0
-	output.GhostShrouds = 0
-	output.BrutalCharges = 0
-	output.AbsorptionCharges = 0
-	output.AfflictionCharges = 0
-	output.BloodCharges = 0
-	output.SpiritCharges = 0
-
-	-- Conditionally over-write Charge values
-	if modDB:Flag(nil, "MinimumFrenzyChargesIsMaximumFrenzyCharges") then
-		output.FrenzyChargesMin = output.FrenzyChargesMax
-	end
-	if modDB:Flag(nil, "MinimumEnduranceChargesIsMaximumEnduranceCharges") then
-		output.EnduranceChargesMin = output.EnduranceChargesMax
-	end
-	if modDB:Flag(nil, "MinimumPowerChargesIsMaximumPowerCharges") then
-		output.PowerChargesMin = output.PowerChargesMax
-	end
-	if modDB:Flag(nil, "UsePowerCharges") then
-		output.PowerCharges = modDB:Override(nil, "PowerCharges") or output.PowerChargesMax
-	end
-	if modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
-		-- we max with possible Power Charge Override from Config since Absorption Charges won't have their own config entry
-		-- and are converted from Power Charges
-		output.AbsorptionCharges = m_max(output.PowerCharges, m_min(output.AbsorptionChargesMax, output.AbsorptionChargesMin))
-		output.PowerCharges = 0
-	else
-		output.PowerCharges = m_max(output.PowerCharges, m_min(output.PowerChargesMax, output.PowerChargesMin))
-	end
-	output.RemovablePowerCharges = m_max(output.PowerCharges - output.PowerChargesMin, 0)
-	if modDB:Flag(nil, "UseFrenzyCharges") then
-		output.FrenzyCharges = modDB:Override(nil, "FrenzyCharges") or output.FrenzyChargesMax
-	end
-	if modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
-		-- we max with possible Power Charge Override from Config since Absorption Charges won't have their own config entry
-		-- and are converted from Power Charges
-		output.AfflictionCharges = m_max(output.FrenzyCharges, m_min(output.AfflictionChargesMax, output.AfflictionChargesMin))
-		output.FrenzyCharges = 0
-	else
-		output.FrenzyCharges = m_max(output.FrenzyCharges, m_min(output.FrenzyChargesMax, output.FrenzyChargesMin))
-	end
-	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
-	if modDB:Flag(nil, "UseEnduranceCharges") then
-		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
-	end
-	if modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
-		-- we max with possible Endurance Charge Override from Config since Brutal Charges won't have their own config entry
-		-- and are converted from Endurance Charges
-		output.BrutalCharges = m_max(output.EnduranceCharges, m_min(output.BrutalChargesMax, output.BrutalChargesMin))
-		output.EnduranceCharges = 0
-	else
-		output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
-	end
-	output.RemovableEnduranceCharges = m_max(output.EnduranceCharges - output.EnduranceChargesMin, 0)
-	if modDB:Flag(nil, "UseSiphoningCharges") then
-		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax
-	end
-	if modDB:Flag(nil, "UseChallengerCharges") then
-		output.ChallengerCharges = modDB:Override(nil, "ChallengerCharges") or output.ChallengerChargesMax
-	end
-	if modDB:Flag(nil, "UseBlitzCharges") then
-		output.BlitzCharges = modDB:Override(nil, "BlitzCharges") or output.BlitzChargesMax
-	end
-	if not env.player.mainSkill.minion then 
-		output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
-	end 
-	if modDB:Flag(nil, "UseGhostShrouds") then
-		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
-	end
-	output.BloodCharges = m_min(modDB:Override(nil, "BloodCharges") or output.BloodChargesMax, output.BloodChargesMax)
-	output.SpiritCharges = m_min(modDB:Override(nil, "SpiritCharges") or 0, output.SpiritChargesMax)
-
-	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
-	if modDB:Flag(nil, "HaveMaximumPowerCharges") then
-		output.PowerCharges = output.PowerChargesMax
-	end
-	if modDB:Flag(nil, "HaveMaximumFrenzyCharges") then
-		output.FrenzyCharges = output.FrenzyChargesMax
-	end
-	if modDB:Flag(nil, "HaveMaximumEnduranceCharges") then
-		output.EnduranceCharges = output.EnduranceChargesMax
-	end
-	output.TotalCharges = output.PowerCharges + output.FrenzyCharges + output.EnduranceCharges
-	output.RemovableTotalCharges = output.RemovableEnduranceCharges + output.RemovableFrenzyCharges + output.RemovablePowerCharges
-	modDB.multipliers["PowerCharge"] = output.PowerCharges
-	modDB.multipliers["PowerChargeMax"] = output.PowerChargesMax
-	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
-	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
-	modDB.multipliers["RemovableFrenzyCharge"] = output.RemovableFrenzyCharges
-	modDB.multipliers["EnduranceCharge"] = output.EnduranceCharges
-	modDB.multipliers["RemovableEnduranceCharge"] = output.RemovableEnduranceCharges
-	modDB.multipliers["TotalCharges"] = output.TotalCharges
-	modDB.multipliers["RemovableTotalCharges"] = output.RemovableTotalCharges
-	modDB.multipliers["SiphoningCharge"] = output.SiphoningCharges
-	modDB.multipliers["ChallengerCharge"] = output.ChallengerCharges
-	modDB.multipliers["BlitzCharge"] = output.BlitzCharges
-	modDB.multipliers["InspirationCharge"] = output.InspirationCharges
-	modDB.multipliers["GhostShroud"] = output.GhostShrouds
-	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
-	modDB.multipliers["BrutalCharge"] = output.BrutalCharges
-	modDB.multipliers["AbsorptionCharge"] = output.AbsorptionCharges
-	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
-	modDB.multipliers["BloodCharge"] = output.BloodCharges
-	modDB.multipliers["SpiritCharge"] = output.SpiritCharges
 
 	-- Process enemy modifiers 
 	for _, value in ipairs(modDB:Tabulate(nil, nil, "EnemyModifier")) do
@@ -867,6 +734,148 @@ local function doActorMisc(env, actor)
 			local max = modDB:Override(nil, "SoulEaterMax")
 			modDB:NewMod("Multiplier:SoulEater", "BASE", 1, "Base", { type = "Multiplier", var = "SoulEaterStack", limit = max })
 		end
+	end
+end
+
+-- Process charges
+local function doActorCharges(env, actor)
+	local modDB = actor.modDB
+	local output = actor.output
+
+	-- Calculate current and maximum charges
+	output.PowerChargesMin = m_max(modDB:Sum("BASE", nil, "PowerChargesMin"), 0)
+	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0)
+	output.FrenzyChargesMin = m_max(modDB:Sum("BASE", nil, "FrenzyChargesMin"), 0)
+	output.FrenzyChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesIsMaximumPowerCharges") and output.PowerChargesMax or modDB:Sum("BASE", nil, "FrenzyChargesMax"), 0)
+	output.EnduranceChargesMin = m_max(modDB:Sum("BASE", nil, "EnduranceChargesMin"), 0)
+	output.EnduranceChargesMax = m_max(env.partyMembers.modDB:Flag(nil, "PartyMemberMaximumEnduranceChargesEqualToYours") and env.partyMembers.output.EnduranceChargesMax or (modDB:Flag(nil, "MaximumEnduranceChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or modDB:Sum("BASE", nil, "EnduranceChargesMax")), 0)
+	output.SiphoningChargesMax = m_max(modDB:Sum("BASE", nil, "SiphoningChargesMax"), 0)
+	output.ChallengerChargesMax = m_max(modDB:Sum("BASE", nil, "ChallengerChargesMax"), 0)
+	output.BlitzChargesMax = m_max(modDB:Sum("BASE", nil, "BlitzChargesMax"), 0)
+	output.InspirationChargesMax = m_max(modDB:Sum("BASE", nil, "InspirationChargesMax"), 0)
+	output.CrabBarriersMax = m_max(modDB:Sum("BASE", nil, "CrabBarriersMax"), 0)
+	output.BrutalChargesMin = m_max(modDB:Flag(nil, "MinimumEnduranceChargesEqualsMinimumBrutalCharges") and (modDB:Flag(nil, "MinimumEnduranceChargesIsMaximumEnduranceCharges") and output.EnduranceChargesMax or output.EnduranceChargesMin) or 0 , 0)
+	output.BrutalChargesMax = m_max(modDB:Flag(nil, "MaximumEnduranceChargesEqualsMaximumBrutalCharges") and output.EnduranceChargesMax or 0, 0)
+	output.AbsorptionChargesMin = m_max(modDB:Flag(nil, "MinimumPowerChargesEqualsMinimumAbsorptionCharges") and (modDB:Flag(nil, "MinimumPowerChargesIsMaximumPowerCharges") and output.PowerChargesMax or output.PowerChargesMin) or 0, 0)
+	output.AbsorptionChargesMax = m_max(modDB:Flag(nil, "MaximumPowerChargesEqualsMaximumAbsorptionCharges") and output.PowerChargesMax or 0, 0)
+	output.AfflictionChargesMin = m_max(modDB:Flag(nil, "MinimumFrenzyChargesEqualsMinimumAfflictionCharges") and (modDB:Flag(nil, "MinimumFrenzyChargesIsMaximumFrenzyCharges") and output.FrenzyChargesMax or output.FrenzyChargesMin) or 0, 0)
+	output.AfflictionChargesMax = m_max(modDB:Flag(nil, "MaximumFrenzyChargesEqualsMaximumAfflictionCharges") and output.FrenzyChargesMax or 0, 0)
+	output.BloodChargesMax = m_max(modDB:Sum("BASE", nil, "BloodChargesMax"), 0)
+	output.SpiritChargesMax = m_max(modDB:Sum("BASE", nil, "SpiritChargesMax"), 0)
+
+	-- Initialize Charges
+	output.PowerCharges = 0
+	output.FrenzyCharges = 0
+	output.EnduranceCharges = 0
+	output.SiphoningCharges = 0
+	output.ChallengerCharges = 0
+	output.BlitzCharges = 0
+	output.InspirationCharges = 0
+	output.GhostShrouds = 0
+	output.BrutalCharges = 0
+	output.AbsorptionCharges = 0
+	output.AfflictionCharges = 0
+	output.BloodCharges = 0
+	output.SpiritCharges = 0
+
+	-- Conditionally over-write Charge values
+	if modDB:Flag(nil, "MinimumFrenzyChargesIsMaximumFrenzyCharges") then
+		output.FrenzyChargesMin = output.FrenzyChargesMax
+	end
+	if modDB:Flag(nil, "MinimumEnduranceChargesIsMaximumEnduranceCharges") then
+		output.EnduranceChargesMin = output.EnduranceChargesMax
+	end
+	if modDB:Flag(nil, "MinimumPowerChargesIsMaximumPowerCharges") then
+		output.PowerChargesMin = output.PowerChargesMax
+	end
+	if modDB:Flag(nil, "UsePowerCharges") then
+		output.PowerCharges = modDB:Override(nil, "PowerCharges") or output.PowerChargesMax
+	end
+	if modDB:Flag(nil, "PowerChargesConvertToAbsorptionCharges") then
+		-- we max with possible Power Charge Override from Config since Absorption Charges won't have their own config entry
+		-- and are converted from Power Charges
+		output.AbsorptionCharges = m_max(output.PowerCharges, m_min(output.AbsorptionChargesMax, output.AbsorptionChargesMin))
+		output.PowerCharges = 0
+	else
+		output.PowerCharges = m_max(output.PowerCharges, m_min(output.PowerChargesMax, output.PowerChargesMin))
+	end
+	output.RemovablePowerCharges = m_max(output.PowerCharges - output.PowerChargesMin, 0)
+	if modDB:Flag(nil, "UseFrenzyCharges") then
+		output.FrenzyCharges = modDB:Override(nil, "FrenzyCharges") or output.FrenzyChargesMax
+	end
+	if modDB:Flag(nil, "FrenzyChargesConvertToAfflictionCharges") then
+		-- we max with possible Power Charge Override from Config since Absorption Charges won't have their own config entry
+		-- and are converted from Power Charges
+		output.AfflictionCharges = m_max(output.FrenzyCharges, m_min(output.AfflictionChargesMax, output.AfflictionChargesMin))
+		output.FrenzyCharges = 0
+	else
+		output.FrenzyCharges = m_max(output.FrenzyCharges, m_min(output.FrenzyChargesMax, output.FrenzyChargesMin))
+	end
+	output.RemovableFrenzyCharges = m_max(output.FrenzyCharges - output.FrenzyChargesMin, 0)
+	if modDB:Flag(nil, "UseEnduranceCharges") then
+		output.EnduranceCharges = modDB:Override(nil, "EnduranceCharges") or output.EnduranceChargesMax
+	end
+	if modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
+		-- we max with possible Endurance Charge Override from Config since Brutal Charges won't have their own config entry
+		-- and are converted from Endurance Charges
+		output.BrutalCharges = m_max(output.EnduranceCharges, m_min(output.BrutalChargesMax, output.BrutalChargesMin))
+		output.EnduranceCharges = 0
+	else
+		output.EnduranceCharges = m_max(output.EnduranceCharges, m_min(output.EnduranceChargesMax, output.EnduranceChargesMin))
+	end
+	output.RemovableEnduranceCharges = m_max(output.EnduranceCharges - output.EnduranceChargesMin, 0)
+	if modDB:Flag(nil, "UseSiphoningCharges") then
+		output.SiphoningCharges = modDB:Override(nil, "SiphoningCharges") or output.SiphoningChargesMax
+	end
+	if modDB:Flag(nil, "UseChallengerCharges") then
+		output.ChallengerCharges = modDB:Override(nil, "ChallengerCharges") or output.ChallengerChargesMax
+	end
+	if modDB:Flag(nil, "UseBlitzCharges") then
+		output.BlitzCharges = modDB:Override(nil, "BlitzCharges") or output.BlitzChargesMax
+	end
+	if not env.player.mainSkill.minion then 
+		output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
+	end 
+	if modDB:Flag(nil, "UseGhostShrouds") then
+		output.GhostShrouds = modDB:Override(nil, "GhostShrouds") or 3
+	end
+	output.BloodCharges = m_min(modDB:Override(nil, "BloodCharges") or output.BloodChargesMax, output.BloodChargesMax)
+	output.SpiritCharges = m_min(modDB:Override(nil, "SpiritCharges") or 0, output.SpiritChargesMax)
+
+	output.CrabBarriers = m_min(modDB:Override(nil, "CrabBarriers") or output.CrabBarriersMax, output.CrabBarriersMax)
+	if modDB:Flag(nil, "HaveMaximumPowerCharges") then
+		output.PowerCharges = output.PowerChargesMax
+	end
+	if modDB:Flag(nil, "HaveMaximumFrenzyCharges") then
+		output.FrenzyCharges = output.FrenzyChargesMax
+	end
+	if modDB:Flag(nil, "HaveMaximumEnduranceCharges") then
+		output.EnduranceCharges = output.EnduranceChargesMax
+	end
+	output.TotalCharges = output.PowerCharges + output.FrenzyCharges + output.EnduranceCharges
+	output.RemovableTotalCharges = output.RemovableEnduranceCharges + output.RemovableFrenzyCharges + output.RemovablePowerCharges
+	modDB.multipliers["PowerCharge"] = output.PowerCharges
+	modDB.multipliers["PowerChargeMax"] = output.PowerChargesMax
+	modDB.multipliers["RemovablePowerCharge"] = output.RemovablePowerCharges
+	modDB.multipliers["FrenzyCharge"] = output.FrenzyCharges
+	modDB.multipliers["RemovableFrenzyCharge"] = output.RemovableFrenzyCharges
+	modDB.multipliers["EnduranceCharge"] = output.EnduranceCharges
+	modDB.multipliers["RemovableEnduranceCharge"] = output.RemovableEnduranceCharges
+	modDB.multipliers["TotalCharges"] = output.TotalCharges
+	modDB.multipliers["RemovableTotalCharges"] = output.RemovableTotalCharges
+	modDB.multipliers["SiphoningCharge"] = output.SiphoningCharges
+	modDB.multipliers["ChallengerCharge"] = output.ChallengerCharges
+	modDB.multipliers["BlitzCharge"] = output.BlitzCharges
+	modDB.multipliers["InspirationCharge"] = output.InspirationCharges
+	modDB.multipliers["GhostShroud"] = output.GhostShrouds
+	modDB.multipliers["CrabBarrier"] = output.CrabBarriers
+	modDB.multipliers["BrutalCharge"] = output.BrutalCharges
+	modDB.multipliers["AbsorptionCharge"] = output.AbsorptionCharges
+	modDB.multipliers["AfflictionCharge"] = output.AfflictionCharges
+	modDB.multipliers["BloodCharge"] = output.BloodCharges
+	modDB.multipliers["SpiritCharge"] = output.SpiritCharges
+
+	if env.mode_combat then
 		if modDB:Flag(nil, "UseEnduranceCharges") and modDB:Flag(nil, "EnduranceChargesConvertToBrutalCharges") then
 			local tripleDmgChancePerEndurance = modDB:Sum("BASE", nil, "PerBrutalTripleDamageChance")
 			modDB:NewMod("TripleDamageChance", "BASE", tripleDmgChancePerEndurance, { type = "Multiplier", var = "BrutalCharge" } )
@@ -2328,6 +2337,9 @@ function calcs.perform(env, fullDPSSkipEHP)
 		mergeFlasks(env.flasks, true, nonUniqueFlasksApplyToMinion)
 	end
 
+	-- Calculate charges early to enable usage of stats that depend on charge count
+	doActorCharges(env, env.player)
+
 	-- Check for extra curses
 	for dest, modDB in pairs({[curses] = modDB, [minionCurses] = env.minion and env.minion.modDB}) do
 		for _, value in ipairs(modDB:List(nil, "ExtraCurse")) do
@@ -2394,7 +2406,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 		newCurse.modList:ScaleAddList(curse.modList, mult)
 		t_insert(allyCurses, newCurse)
 	end
-	
+
 
 	-- Set curse limit
 	output.PowerChargesMax = m_max(modDB:Sum("BASE", nil, "PowerChargesMax"), 0) -- precalculate max charges for this.
@@ -2769,8 +2781,10 @@ function calcs.perform(env, fullDPSSkipEHP)
 	end
 
 	-- Process misc buffs/modifiers
+	doActorCharges(env, env.player)
 	doActorMisc(env, env.player)
 	if env.minion then
+		doActorCharges(env, env.player)
 		doActorMisc(env, env.minion)
 	end
 
@@ -2871,6 +2885,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 		enemyDB:NewMod("Multiplier:ShockEffect", "BASE", output["CurrentShock"] - shockEffectMultiplier, "")
 	end
 
+	doActorCharges(env, env.enemy)
 	doActorMisc(env, env.enemy)
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do
