@@ -167,7 +167,11 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					self.build.buildFlag = true
 				end)
 			elseif varData.type == "text" then
-				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, 118, "", nil, "^%C\t\n", nil, function(buf, placeholder)
+				local h = 118
+				if varData.height then
+					h = varData.height
+				end
+				control = new("EditControl", {"TOPLEFT",lastSection,"TOPLEFT"}, 8, 0, 344, h, "", nil, "^%C\t\n", nil, function(buf, placeholder)
 					if placeholder then
 						self.placeholder[varData.var] = tostring(buf)
 					else
