@@ -322,7 +322,7 @@ function EditClass:Draw(viewPort, noTooltip)
 	textX = -self.controls.scrollBarH.offset
 	textY = -self.controls.scrollBarV.offset
 	if self.lineHeight then
-		local accHeight = 0
+		local accHeight = self.lineHeight
 		local left = m_min(self.caret, self.sel or self.caret)
 		local right = m_max(self.caret, self.sel or self.caret)
 		local caretX
