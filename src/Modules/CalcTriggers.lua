@@ -594,11 +594,32 @@ local function defaultTriggerHandler(env, config)
 			if actionCooldownTickRounded ~= 0 then
 				output.TriggerRateCap = 1 / actionCooldownTickRounded
 			end
-
 			if config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "expiration" then
-				trigRate = 1 / GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration
+				local expirationRate = 1 / GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration
 				if breakdown and breakdown.EffectiveSourceRate then
 						breakdown.EffectiveSourceRate[1] = s_format("1 / %.2f ^8(source curse duration)", GlobalCache.cachedData["CACHE"][uuid].Env.player.output.Duration)
+				end
+				if expirationRate > trigRate then
+					env.player.modDB:NewMod("UsesCurseOverlaps", "FLAG", true, "Config")
+					if breakdown and breakdown.EffectiveSourceRate then
+						t_insert(breakdown.EffectiveSourceRate, 2, s_format("max(%.2f, %.2f) ^8(If a curse expires instantly curse expiration is equivalent to curse replacement)", expirationRate, trigRate))
+						t_insert(breakdown.EffectiveSourceRate, 2, s_format("%.2f ^8(%s cast rate)", trigRate, source.activeEffect.grantedEffect.name))
+					end
+				else
+					trigRate = expirationRate
+				end
+			elseif config.triggerName == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "hexblast" then
+				local hexBlast, rate
+				for _, skill in ipairs(env.player.activeSkillList) do
+					if skill.activeEffect.grantedEffect.name == "Hexblast" and not isTriggered(skill) and skill ~= actor.mainSkill then
+						hexBlast, rate, uuid = findTriggerSkill(env, skill, hexBlast, rate)
+					end
+				end
+				if hexBlast then
+					if breakdown then
+						breakdown.EffectiveSourceRate[1] = s_format("1 / (%.2f + %.2f) ^8(sum of triggered curse and hexblast cast time)", 1/trigRate, 1/rate)
+					end
+					trigRate = 1/ (1/trigRate + 1/rate)
 				end
 			end
 
@@ -763,6 +784,11 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			if env.player.mainSkill.activeEffect.grantedEffect.name == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
+				if not env.player.itemList["Gloves"] or env.player.itemList["Gloves"].title ~= "Vixen's Entrapment" then
+					output.VixenModeNoVixenGlovesWarn = true
+				end
+
+				env.player.modDB:NewMod("UsesCurseOverlaps", "FLAG", true, "Config")
 				local vixens = env.data.skills["SupportUniqueCastCurseOnCurse"]
 				local vixensCD = vixens and vixens.levels[1].cooldown / icdr
 				output.EffectiveSourceRate = calcMultiSpellRotationImpact(env, {{ uuid = cacheSkillUUID(env.player.mainSkill, env), icdr = icdr}}, trigRate, vixensCD)
@@ -784,19 +810,25 @@ local function defaultTriggerHandler(env, config)
 
 			local skillName = (source and source.activeEffect.grantedEffect.name) or (actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.name) or actor.mainSkill.activeEffect.grantedEffect.name
 
-			--If spell count is missing the skill likely comes from a unique and /or triggers it self
 			if output.EffectiveSourceRate ~= 0 then
-				if env.player.mainSkill.activeEffect.grantedEffect.name == "Doom Blast" and env.build.configTab.input["doomBlastSource"] == "vixen" then
-					local overlaps = m_max(env.player.modDB:Sum("BASE", nil, "Multiplier:CurseOverlaps") or 1, 1)
-					output.SkillTriggerRate = m_min(output.TriggerRateCap, output.EffectiveSourceRate * overlaps)
+				-- If the current triggered skill ignores tick rate and is the only triggered skill by this trigger use charge based calcs
+				if actor.mainSkill.skillData.ignoresTickRate and ( not config.triggeredSkillCond or (triggeredSkills and #triggeredSkills == 1 and triggeredSkills[1] == packageSkillDataForSimulation(actor.mainSkill, env)) ) then
+					local overlaps = config.stagesAreOverlaps and env.player.mainSkill.skillPart == config.stagesAreOverlaps and env.player.mainSkill.activeEffect.srcInstance.skillStageCount or config.overlaps
+					output.SkillTriggerRate = m_min(output.TriggerRateCap, output.EffectiveSourceRate * (overlaps or 1))
 					if breakdown then
-						breakdown.SkillTriggerRate = {
-							s_format("min(%.2f, %.2f *  %d)", output.TriggerRateCap, output.EffectiveSourceRate, overlaps)
-						}
+						if overlaps then
+							breakdown.SkillTriggerRate = {
+								s_format("min(%.2f, %.2f *  %d) ^8(%d overlaps)", output.TriggerRateCap, output.EffectiveSourceRate, overlaps, overlaps)
+							}
+						else
+							breakdown.SkillTriggerRate = {
+								s_format("min(%.2f, %.2f)", output.TriggerRateCap, output.EffectiveSourceRate)
+							}
+						end
 					end
-				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then
+				elseif actor.mainSkill.skillFlags.globalTrigger and not config.triggeredSkillCond then -- Trigger does not use source rate breakpoints for one reason or another
 					output.SkillTriggerRate = output.EffectiveSourceRate
-				else
+				else -- Triggers like Cast on Crit go through simulation to calculate the trigger rate of each skill in the trigger group
 					output.SkillTriggerRate, simBreakdown = calcMultiSpellRotationImpact(env, config.triggeredSkillCond and triggeredSkills or {packageSkillDataForSimulation(actor.mainSkill, env)}, output.EffectiveSourceRate, (not actor.mainSkill.skillData.triggeredByBrand and ( triggerCD or triggeredCD ) or 0) / icdr, actor)
 					local triggerBotsEffective = actor.modDB:Flag(nil, "HaveTriggerBots") and actor.mainSkill.skillTypes[SkillType.Spell]
 					if triggerBotsEffective then
@@ -1206,9 +1238,12 @@ local configTable = {
 				triggerSkillCond = function(env, skill)	return skill.skillTypes[SkillType.Attack] and band(skill.skillCfg.flags, ModFlag.Bow) > 0 end}
 	end,
 	["doom blast"] = function(env)
+		if env.build.configTab.input["doomBlastSource"] == "replacement" then
+			env.player.modDB:NewMod("UsesCurseOverlaps", "FLAG", true, "Config")
+		end
 		env.player.mainSkill.skillData.ignoresTickRate = true
-		env.player.mainSkill.skillData.sourceRateIsFinal = true
 		return {useCastRate = true,
+				overlaps = #env.player.modDB:Tabulate("BASE", nil, "Multiplier:CurseOverlaps") > 0 and m_max(env.player.modDB:Sum("BASE", nil, "Multiplier:CurseOverlaps"), 1),
 				customTriggerName = "Doom Blast triggering Hex: ",
 				triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Hex] and slotMatch(env, skill) end}
 	end,
