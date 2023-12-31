@@ -428,7 +428,7 @@ function TradeQueryRequestsClass:FetchLeagues(realm, callback)
 			end
 			local leagues = {}
 				for _, value in pairs(json_data) do
-					if not value.id:find("SSF") then
+					if (not value.id:find("SSF") and not value.id:find("Solo")) then
 						table.insert(leagues, value.id)
 					end
 				end
@@ -447,7 +447,7 @@ function TradeQueryRequestsClass:buildUrl(root, realm, league, queryId)
 	if realm and realm ~='pc' then
 		result = result .. "/" .. realm
 	end	
-	result = result .. "/" .. league
+	result = result .. "/" .. league:gsub(" ", "+")
 	if queryId then
 		result = result .. "/" .. queryId
 	end

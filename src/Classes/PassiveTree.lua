@@ -122,6 +122,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 	end
 	
 	if self.alternate_ascendancies then
+		self.secondaryAscendNameMap = { }
 		local alternate_ascendancies_class = { 
 			["name"]= "alternate_ascendancies",
 			["classes"]= self.alternate_ascendancies
@@ -133,6 +134,7 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 				ascendClassId = ascendClassId,
 				ascendClass = ascendClass
 			}
+			self.secondaryAscendNameMap[ascendClass.id] = self.ascendNameMap[ascendClass.id]
 		end
 	end
 
@@ -162,17 +164,17 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 			self.assets["ClassesWarlock"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesWarlock.png"}
 			self.assets["ClassesWarden"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/ClassesWarden.png"}
 			-- ascendancy nodes
-			self.assets["AzmiriAscendancyMiddle"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyMiddle.png"}
-			self.assets["AzmiriAscendancyFrameLargeNormal"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyFrameLargeNormal.png"}
-			self.assets["AzmiriAscendancyFrameLargeCanAllocate"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyFrameLargeCanAllocate.png"}
-			self.assets["AzmiriAscendancyFrameLargeAllocated"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyFrameLargeAllocated.png"}
-			self.assets["AzmiriAscendancyFrameSmallNormal"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyFrameSmallNormal.png"}
-			self.assets["AzmiriAscendancyFrameSmallCanAllocate"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyFrameSmallCanAllocate.png"}
-			self.assets["AzmiriAscendancyFrameSmallAllocated"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriAscendancyFrameSmallAllocated.png"}
+			self.assets["AzmeriAscendancyMiddle"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriAscendancyMiddle.png"}
+			self.assets["AzmeriAscendancyFrameLargeNormal"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriAscendancyFrameLargeNormal.png"}
+			self.assets["AzmeriAscendancyFrameLargeCanAllocate"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriAscendancyFrameLargeCanAllocate.png"}
+			self.assets["AzmeriAscendancyFrameLargeAllocated"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriAscendancyFrameLargeAllocated.png"}
+			self.assets["AzmeriAscendancyFrameSmallNormal"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriAscendancyFrameSmallNormal.png"}
+			self.assets["AzmeriAscendancyFrameSmallCanAllocate"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriAscendancyFrameSmallCanAllocate.png"}
+			self.assets["AzmeriAscendancyFrameSmallAllocated"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriAscendancyFrameSmallAllocated.png"}
 			-- jewel sockets
-			self.assets["AzmiriJewelFrameUnallocated"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriJewelFrameUnallocated.png"}
-			self.assets["AzmiriJewelFrameCanAllocate"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriJewelFrameCanAllocate.png"}
-			self.assets["AzmiriJewelFrameAllocated"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmiriJewelFrameAllocated.png"}
+			self.assets["AzmeriJewelFrameUnallocated"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriJewelFrameUnallocated.png"}
+			self.assets["AzmeriJewelFrameCanAllocate"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriJewelFrameCanAllocate.png"}
+			self.assets["AzmeriJewelFrameAllocated"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/AzmeriJewelFrameAllocated.png"}
 			self.assets["CharmSocketActiveStr"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/CharmSocketActiveStr.png"}
 			self.assets["CharmSocketActiveInt"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/CharmSocketActiveInt.png"}
 			self.assets["CharmSocketActiveDex"] = {[0.3835]="https://web.poecdn.com/gen/image/WzIyLCJlMzIwYTYwYmNiZTY4ZmQ5YTc2NmE1ZmY4MzhjMDMyNCIseyJ0IjoyNywic3AiOjAuMzgzNX1d/3d68393250/CharmSocketActiveDex.png"}
@@ -453,27 +455,31 @@ local PassiveTreeClass = newClass("PassiveTree", function(self, treeVersion)
 
 	-- Precalculate the lists of nodes that are within each radius of each socket
 	for nodeId, socket in pairs(self.sockets) do
-		socket.nodesInRadius = { }
-		socket.attributesInRadius = { }
-		for radiusIndex, _ in ipairs(data.jewelRadius) do
-			socket.nodesInRadius[radiusIndex] = { }
-			socket.attributesInRadius[radiusIndex] = { }
-		end
+		if socket.name == "Charm Socket" then
+			socket.charmSocket = true
+		else
+			socket.nodesInRadius = { }
+			socket.attributesInRadius = { }
+			for radiusIndex, _ in ipairs(data.jewelRadius) do
+				socket.nodesInRadius[radiusIndex] = { }
+				socket.attributesInRadius[radiusIndex] = { }
+			end
 
-		local minX, maxX = socket.x - data.maxJewelRadius, socket.x + data.maxJewelRadius
-		local minY, maxY = socket.y - data.maxJewelRadius, socket.y + data.maxJewelRadius
+			local minX, maxX = socket.x - data.maxJewelRadius, socket.x + data.maxJewelRadius
+			local minY, maxY = socket.y - data.maxJewelRadius, socket.y + data.maxJewelRadius
 
-		for _, node in pairs(self.nodes) do
-			if node.x and node.x >= minX and node.x <= maxX and node.y and node.y >= minY and node.y <= maxY
-				and node ~= socket and not node.isBlighted and node.group and not node.isProxy
-				and not node.group.isProxy and not node.isMastery then
-					local vX, vY = node.x - socket.x, node.y - socket.y
-					local distSquared = vX * vX + vY * vY
-					for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
-						if distSquared <= radiusInfo.outerSquared and radiusInfo.innerSquared <= distSquared then
-							socket.nodesInRadius[radiusIndex][node.id] = node
+			for _, node in pairs(self.nodes) do
+				if node.x and node.x >= minX and node.x <= maxX and node.y and node.y >= minY and node.y <= maxY
+					and node ~= socket and not node.isBlighted and node.group and not node.isProxy
+					and not node.group.isProxy and not node.isMastery then
+						local vX, vY = node.x - socket.x, node.y - socket.y
+						local distSquared = vX * vX + vY * vY
+						for radiusIndex, radiusInfo in ipairs(data.jewelRadius) do
+							if distSquared <= radiusInfo.outerSquared and radiusInfo.innerSquared <= distSquared then
+								socket.nodesInRadius[radiusIndex][node.id] = node
+							end
 						end
-					end
+				end
 			end
 		end
 	end

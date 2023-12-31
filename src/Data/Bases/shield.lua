@@ -429,7 +429,7 @@ itemBases["Cold-attuned Buckler"] = {
 	influenceTags = { shaper = "shield_shaper", elder = "shield_elder", adjudicator = "shield_adjudicator", basilisk = "shield_basilisk", crusader = "shield_crusader", eyrie = "shield_eyrie", cleansing = "shield_cleansing", tangle = "shield_tangle" },
 	implicit = "Inflict Brittle on Enemies when you Block their Damage",
 	implicitModTypes = { {  }, },
-	armour = { BlockChance = 28, EvasionBaseMin = 206, EvasionBaseMax = 236, MovementPenalty = 3, },
+	armour = { BlockChance = 28, EvasionBaseMin = 206, EvasionBaseMax = 237, MovementPenalty = 3, },
 	req = { level = 70, dex = 159, },
 }
 

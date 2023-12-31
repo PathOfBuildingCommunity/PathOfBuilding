@@ -42,7 +42,6 @@ function calcs.initModDB(env, modDB)
 	modDB:NewMod("MaxLifeLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("MaxManaLeechRate", "BASE", 20, "Base")
 	modDB:NewMod("ImpaleStacksMax", "BASE", 5, "Base")
-	modDB:NewMod("Multiplier:VirulenceStacksMax", "BASE", 40, "Base")
 	modDB:NewMod("BleedStacksMax", "BASE", 1, "Base")
 	modDB:NewMod("MaxEnergyShieldLeechRate", "BASE", 10, "Base")
 	modDB:NewMod("MaxLifeLeechInstance", "BASE", 10, "Base")
@@ -275,12 +274,12 @@ local function applyGemMods(effect, modList)
 		local match = true
 		if value.keywordList then
 			for _, keyword in ipairs(value.keywordList) do
-				if not calcLib.gemIsType(effect.gemData, keyword) then
+				if not calcLib.gemIsType(effect.gemData, keyword, true) then
 					match = false
 					break
 				end
 			end
-		elseif not calcLib.gemIsType(effect.gemData, value.keyword) then
+		elseif not calcLib.gemIsType(effect.gemData, value.keyword, true) then
 			match = false
 		end
 		if match then
@@ -646,6 +645,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 					if item.jewelData then
 						item.jewelData.limitDisabled = nil
 					end
+					if item and item.type == "Jewel" and item.name:match("The Adorned, Crimson Jewel") then
+						env.modDB.multipliers["CorruptedMagicJewelEffect"] = item.jewelData.corruptedMagicJewelIncEffect / 100
+					end
 					if item.limit and not env.configInput.ignoreJewelLimits then
 						local limitKey = item.base.subType == "Timeless" and "Historic" or item.title
 						if jewelLimits[limitKey] and jewelLimits[limitKey] >= item.limit then
@@ -736,6 +738,10 @@ function calcs.initEnv(build, mode, override, specEnv)
 						-- checks if it disables another slot
 						for _, tag in ipairs(mod) do
 							if tag.type == "DisablesItem" then
+								-- e.g. Tincture in Flask 5 while using a Micro-Distillery Belt
+								if tag.excludeItemType and items[tag.slotName] and items[tag.slotName].type == tag.excludeItemType then
+									break
+								end
 								itemDisablers[slotName] = tag.slotName
 								itemDisabled[tag.slotName] = slotName
 								break
@@ -937,6 +943,15 @@ function calcs.initEnv(build, mode, override, specEnv)
 							end
 						end
 						env.itemModDB:ScaleAddList(otherRingList, scale)
+						for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+							if otherRing[property] and not item[property] then
+								env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
+								env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) - 1
+							end
+						end
+						if (otherRing.elder or otherRing.shaper) and not (item.elder or item.shaper) then
+							env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
+						end
 					end
 					env.itemModDB:ScaleAddList(srcList, scale)
 				elseif item.type == "Quiver" and items["Weapon 1"] and items["Weapon 1"].name:match("Widowhail") then
@@ -946,6 +961,9 @@ function calcs.initEnv(build, mode, override, specEnv)
 						combinedList:MergeMod(mod)
 					end
 					env.itemModDB:ScaleAddList(combinedList, scale)
+				elseif env.modDB.multipliers["CorruptedMagicJewelEffect"] and item.type == "Jewel" and item.rarity == "MAGIC" and item.corrupted and slot.nodeId and item.base.subType ~= "Charm" then
+					scale = scale + env.modDB.multipliers["CorruptedMagicJewelEffect"]
+					env.itemModDB:ScaleAddList(srcList, scale)
 				else
 					env.itemModDB:ScaleAddList(srcList, scale)
 				end
@@ -967,22 +985,12 @@ function calcs.initEnv(build, mode, override, specEnv)
 					end
 					env.itemModDB.multipliers[key] = (env.itemModDB.multipliers[key] or 0) + 1
 					env.itemModDB.conditions[key .. "In" .. slotName] = true
-					if item.corrupted then
-						env.itemModDB.multipliers.CorruptedItem = (env.itemModDB.multipliers.CorruptedItem or 0) + 1
-					else
-						env.itemModDB.multipliers.NonCorruptedItem = (env.itemModDB.multipliers.NonCorruptedItem or 0) + 1
-					end
-					if item.shaper then
-						env.itemModDB.multipliers.ShaperItem = (env.itemModDB.multipliers.ShaperItem or 0) + 1
-						env.itemModDB.conditions["ShaperItemIn"..slotName] = true
-					else
-						env.itemModDB.multipliers.NonShaperItem = (env.itemModDB.multipliers.NonShaperItem or 0) + 1
-					end
-					if item.elder then
-						env.itemModDB.multipliers.ElderItem = (env.itemModDB.multipliers.ElderItem or 0) + 1
-						env.itemModDB.conditions["ElderItemIn"..slotName] = true
-					else
-						env.itemModDB.multipliers.NonElderItem = (env.itemModDB.multipliers.NonElderItem or 0) + 1
+					for mult, property in pairs({["CorruptedItem"] = "corrupted", ["ShaperItem"] = "shaper", ["ElderItem"] = "elder"}) do
+						if item[property] then
+							env.itemModDB.multipliers[mult] = (env.itemModDB.multipliers[mult] or 0) + 1
+						else
+							env.itemModDB.multipliers["Non"..mult] = (env.itemModDB.multipliers["Non"..mult] or 0) + 1
+						end
 					end
 					if item.shaper or item.elder then
 						env.itemModDB.multipliers.ShaperOrElderItem = (env.itemModDB.multipliers.ShaperOrElderItem or 0) + 1
@@ -994,7 +1002,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 					local socketedGems = 0
 					-- Loop through socket groups to calculate number of socketed gems
 					for _, socketGroup in pairs(env.build.skillsTab.socketGroupList) do
-						if (socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
+						if (not socketGroup.source and socketGroup.enabled and socketGroup.slot and socketGroup.slot == slotName and socketGroup.gemList) then
 							for _, gem in pairs(socketGroup.gemList) do
 								if (gem.gemData and gem.enabled) then
 									socketedGems = socketedGems + 1
@@ -1017,6 +1025,11 @@ function calcs.initEnv(build, mode, override, specEnv)
 					env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot = (env.itemModDB.multipliers.EmptyGreenSocketsInAnySlot or 0) + slotEmptySocketsCount.G
 					env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot = (env.itemModDB.multipliers.EmptyBlueSocketsInAnySlot or 0) + slotEmptySocketsCount.B
 					env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot = (env.itemModDB.multipliers.EmptyWhiteSocketsInAnySlot or 0) + slotEmptySocketsCount.W
+					-- Warn if socketed gems over socket limit
+					if socketedGems > slotGemSocketsCount then
+						env.itemWarnings.socketLimitWarning = env.itemWarnings.socketLimitWarning or { }
+						t_insert(env.itemWarnings.socketLimitWarning, slotName)
+					end
 				end
 			end
 		end
@@ -1073,6 +1086,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 	if not override or (override and not override.extraJewelFuncs) then
 		override = override or {}
 		override.extraJewelFuncs = new("ModList")
+		override.extraJewelFuncs.actor = env.player
 		for _, mod in ipairs(env.modDB:Tabulate("LIST", nil, "ExtraJewelFunc")) do
 			override.extraJewelFuncs:AddMod(mod.mod)
 		end

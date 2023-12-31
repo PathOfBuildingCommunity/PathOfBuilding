@@ -916,6 +916,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 	self.activeItemSetId = 0
 	self.itemSets = { }
 	self.itemSetOrderList = { }
+	self.tradeQuery.statSortSelectionList = { }
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
 			local item = new("Item", "")
@@ -993,6 +994,15 @@ function ItemsTabClass:Load(xml, dbFileName)
 				end
 			end
 			t_insert(self.itemSetOrderList, itemSet.id)
+		elseif node.elem == "TradeSearchWeights" then
+			for _, child in ipairs(node) do
+				local statSort = {
+					label = child.attrib.label,
+					stat = child.attrib.stat,
+					weightMult = tonumber(child.attrib.weightMult)
+				}
+				t_insert(self.tradeQuery.statSortSelectionList, statSort)
+			end
 		end
 	end
 	if not self.itemSetOrderList[1] then
@@ -1071,6 +1081,25 @@ function ItemsTabClass:Save(xml)
 			end
 		end
 		t_insert(xml, child)
+	end
+	if self.tradeQuery.statSortSelectionList then
+		local parent = {
+			elem = "TradeSearchWeights"
+		}
+		for _, statSort in ipairs(self.tradeQuery.statSortSelectionList) do
+			if statSort.weightMult and statSort.weightMult > 0 then
+				local child = {
+				elem = "Stat",
+				attrib = {
+					label = statSort.label,
+					stat = statSort.stat,
+					weightMult = s_format("%.2f", tostring(statSort.weightMult))
+				}
+			}
+			t_insert(parent, child)
+			end
+		end
+		t_insert(xml, parent)
 	end
 end
 
@@ -1834,6 +1863,12 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		local node = self.build.spec.tree.nodes[tonumber(slotId)] or self.build.spec.nodes[tonumber(slotId)]
 		if not node or item.type ~= "Jewel" then
 			return false
+		elseif node.charmSocket or item.base.subType == "Charm" then
+			-- Charm sockets can only have charms, and charms can only be in charm sockets
+			if node.charmSocket and item.base.subType == "Charm" then
+				return true
+			end
+			return false
 		elseif item.clusterJewel and not node.expansionJewel then
 			-- Don't allow cluster jewels in inner sockets
 			return false
@@ -1845,6 +1880,8 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 			return not item.clusterJewel or item.clusterJewel.sizeIndex <= node.expansionJewel.size
 		end
 	elseif item.type == slotType then
+		return true
+	elseif item.type == "Tincture" and slotType == "Flask" then
 		return true
 	elseif item.type == "Jewel" and item.base.subType == "Abyss" and slotName:match("Abyssal Socket") then
 		return true
@@ -1893,7 +1930,10 @@ function ItemsTabClass:CraftItem()
 		item.crucibleModLines = { }
 		item.quality = 0
 		local raritySel = controls.rarity.selIndex
-		if base.base.flask then
+		if base.base.flask
+				or (base.base.type == "Jewel" and base.base.subType == "Charm")
+		 		or base.base.type == "Tincture"
+		then
 			if raritySel == 3 then
 				raritySel = 2
 			end
@@ -1976,7 +2016,7 @@ function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 		controls.rarity.selIndex = 3
 	end
 	controls.edit.font = "FIXED"
-	controls.edit.pasteFilter = itemLib.sanitiseItemText
+	controls.edit.pasteFilter = sanitiseText
 	controls.save = new("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
