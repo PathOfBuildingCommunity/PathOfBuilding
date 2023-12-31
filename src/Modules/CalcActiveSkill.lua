@@ -61,8 +61,16 @@ function calcs.mergeSkillInstanceMods(env, modList, skillEffect, extraStats)
 	for stat, statValue in pairs(stats) do
 		local map = grantedEffect.statMap[stat]
 		if map then
-			for _, mod in ipairs(map) do
-				mergeLevelMod(modList, mod, map.value or statValue * (map.mult or 1) / (map.div or 1) + (map.base or 0))
+			-- Some mods need different scalars for different stats, but the same value.  Putting them in a group allows this
+			for _, modOrGroup in ipairs(map) do
+				-- Found a mod, since all mods have names
+				if modOrGroup.name then
+					mergeLevelMod(modList, modOrGroup, map.value or statValue * (map.mult or 1) / (map.div or 1) + (map.base or 0))
+				else
+					for _, mod in ipairs(modOrGroup) do
+						mergeLevelMod(modList, mod, modOrGroup.value or statValue * (modOrGroup.mult or 1) / (modOrGroup.div or 1) + (modOrGroup.base or 0))
+					end
+				end
 			end
 		end
 	end
@@ -148,9 +156,17 @@ end
 
 -- Copy an Active Skill
 function calcs.copyActiveSkill(env, mode, skill)
-	local newSkill = calcs.createActiveSkill(skill.activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
+	local activeEffect = {
+		grantedEffect = skill.activeEffect.grantedEffect,
+		level = skill.activeEffect.srcInstance.level,
+		quality = skill.activeEffect.srcInstance.quality,
+		qualityId = skill.activeEffect.srcInstance.qualityId,
+		srcInstance = skill.activeEffect.srcInstance,
+		gemData = skill.activeEffect.srcInstance.gemData,
+	}
+	local newSkill = calcs.createActiveSkill(activeEffect, skill.supportList, skill.actor, skill.socketGroup, skill.summonSkill)
 	local newEnv, _, _, _ = calcs.initEnv(env.build, mode, env.override)
-	calcs.buildActiveSkillModList(newEnv, newSkill, {[cacheSkillUUID(newSkill, newEnv)] = true})
+	calcs.buildActiveSkillModList(newEnv, newSkill)
 	newSkill.skillModList = new("ModList", newSkill.baseSkillModList)
 	if newSkill.minion then
 		newSkill.minion.modDB = new("ModDB")
@@ -458,13 +474,8 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			local match = skillEffect.grantedEffect.addSkillTypes and (not skillFlags.disable)
 			if match and skillEffect.grantedEffect.isTrigger then
 				if activeSkill.triggeredBy then
-					if skillEffect.grantedEffect.addFlags and skillEffect.grantedEffect.addFlags.mirage then
-						activeSkill.ineffectiveTriggers = activeSkill.ineffectiveTriggers or {}
-						t_insert(activeSkill.ineffectiveTriggers, skillEffect)
-					else
-						skillFlags.disable = true
-						activeSkill.disableReason = "This skill is supported by more than one trigger"
-					end
+					skillFlags.disable = true
+					activeSkill.disableReason = "This skill is supported by more than one trigger"
 				else
 					activeSkill.triggeredBy = skillEffect
 				end
@@ -614,7 +625,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			minion.enemy = env.enemy
 			minion.type = minionType
 			minion.minionData = env.data.minions[minionType]
-			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement
+			minion.level = activeSkill.skillData.minionLevelIsEnemyLevel and env.enemyLevel or 
+								activeSkill.skillData.minionLevelIsPlayerLevel and (m_min(env.build and env.build.characterLevel or activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement, activeSkill.skillData.minionLevelIsPlayerLevel)) or 
+								activeSkill.skillData.minionLevel or activeEffect.grantedEffectLevel.levelRequirement
 			-- fix minion level between 1 and 100
 			minion.level = m_min(m_max(minion.level,1),100) 
 			minion.itemList = { }

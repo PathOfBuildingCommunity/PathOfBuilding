@@ -102,12 +102,9 @@ function TradeQueryClass:PullLeagueList()
 					self:SetNotice(self.controls.pbNotice, "Failed to Get PoE League List response")
 					return
 				end
-				table.sort(json_data, function(a, b) 
+				table.sort(json_data, function(a, b)
 					if a.endAt == nil then return false end
 					if b.endAt == nil then return true end
-					if a.endAt == b.endAt then
-						return #a.id < #b.id
-					end
 					return #a.id < #b.id
 				end)
 				self.itemsTab.leagueDropList = {}
@@ -283,18 +280,22 @@ on trade site to work on other leagues and realms)]]
 	end
 
 	-- Stat sort popup button
-	self.statSortSelectionList = { }
-	t_insert(self.statSortSelectionList,  {
-		label = "Full DPS",
-		stat = "FullDPS",
-		weightMult = 1.0,
-	})
-	t_insert(self.statSortSelectionList,  {
-		label = "Effective Hit Pool",
-		stat = "TotalEHP",
-		weightMult = 0.5,
-	})
+	-- if the list is nil or empty, set default sorting, otherwise keep whatever was loaded from xml
+	if not self.statSortSelectionList or (#self.statSortSelectionList) == 0 then
+		self.statSortSelectionList = { }
+		t_insert(self.statSortSelectionList,  {
+			label = "Full DPS",
+			stat = "FullDPS",
+			weightMult = 1.0,
+		})
+		t_insert(self.statSortSelectionList,  {
+			label = "Effective Hit Pool",
+			stat = "TotalEHP",
+			weightMult = 0.5,
+		})
+	end
 	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", self.controls.fetchCountEdit, "BOTTOMRIGHT"}, 0, row_vertical_padding, 150, row_height, "^7Adjust search weights", function()
+		self.itemsTab.modFlag = true
 		self:SetStatWeights()
 	end)
 	self.controls.StatWeightMultipliersButton.tooltipFunc = function(tooltip)
@@ -365,26 +366,26 @@ Highest Weight - Displays the order retrieved from trade]]
 					return
 				end
 
-        local sorted = {}
-        local reverse_order_index = 1
-        for _, json_data in pairs(leagues_json) do
-          if json_data.id:find("SSF") or json_data.id:find("Solo Self%-Found") then
-            goto continue
-          end
+		local sorted = {}
+		local reverse_order_index = 1
+		for _, json_data in pairs(leagues_json) do
+			if json_data.id:find("SSF") or json_data.id:find("Solo Self%-Found") then
+				goto continue
+			end
 
-          if not json_data.endAt then
-            if #sorted == 0 then
-              table.insert(sorted, 1, json_data.id)
-            else
-              table.insert(sorted, json_data.id)
-            end
-          else
-            table.insert(sorted, reverse_order_index, json_data.id)
-            reverse_order_index = reverse_order_index + 1
-          end
+			if not json_data.endAt then
+			if #sorted == 0 then
+				table.insert(sorted, 1, json_data.id)
+			else
+				table.insert(sorted, json_data.id)
+			end
+			else
+				table.insert(sorted, reverse_order_index, json_data.id)
+				reverse_order_index = reverse_order_index + 1
+			end
 
-          ::continue::
-        end
+			::continue::
+		end
 
 				self.allLeagues[self.pbRealm] = sorted
 				setLeagueDropList()
@@ -461,10 +462,10 @@ end
 -- Popup to set stat weight multipliers for sorting
 function TradeQueryClass:SetStatWeights()
 
-    local controls = { }
-    local statList = { }
+	local controls = { }
+	local statList = { }
 	local sliderController = { index = 1 }
-    local popupHeight = 285
+	local popupHeight = 285
 	
 	controls.ListControl = new("TradeStatWeightMultiplierListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 45, 400, 200, statList, sliderController)
 	
@@ -524,7 +525,7 @@ function TradeQueryClass:SetStatWeights()
 	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Save", function()
 		main:ClosePopup()
 		
-		-- this needs to save the weights somewhere, maybe the XML? its not necessary but possibly useful QoL
+		-- used in ItemsTab to save to xml under TradeSearchWeights node
 		local statSortSelectionList = {}
 		for stat, statTable in pairs(statList) do
 			if statTable.stat.weightMult > 0 then
@@ -538,7 +539,7 @@ function TradeQueryClass:SetStatWeights()
 		for row_idx in pairs(self.resultTbl) do
 			self:UpdateControlsWithItems(row_idx)
 		end
-    end)
+	end)
 	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 45, -10, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)

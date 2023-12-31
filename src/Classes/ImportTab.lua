@@ -5,6 +5,7 @@
 --
 local ipairs = ipairs
 local t_insert = table.insert
+local t_remove = table.remove
 local b_rshift = bit.rshift
 local band = bit.band
 
@@ -70,6 +71,20 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 	end)
 	self.controls.accountHistory:SelByValue(main.lastAccountName)
 	self.controls.accountHistory:CheckDroppedWidth(true)
+
+	self.controls.removeAccount = new("ButtonControl", {"LEFT",self.controls.accountHistory,"RIGHT"}, 8, 0, 20, 20, "X", function()
+		local accountName = self.controls.accountHistory.list[self.controls.accountHistory.selIndex]
+		if (accountName ~= nil) then
+		t_remove(self.controls.accountHistory.list, self.controls.accountHistory.selIndex)
+		self.controls.accountHistory.list[accountName] = nil
+		main.gameAccounts[accountName] = nil
+		end
+	end)
+
+	self.controls.removeAccount.tooltipFunc = function(tooltip)
+		tooltip:Clear()
+		tooltip:AddLine(16, "^7Removes account from the dropdown list")
+	end
 
 	self.controls.accountNameUnicode = new("LabelControl", {"TOPLEFT",self.controls.accountRealm,"BOTTOMLEFT"}, 0, 16, 0, 14, "^7Note: if the account name contains non-ASCII characters then it must be URL encoded first.")
 	self.controls.accountNameURLEncoder = new("ButtonControl", {"TOPLEFT",self.controls.accountNameUnicode,"BOTTOMLEFT"}, 0, 4, 170, 18, "^x4040FFhttps://www.urlencoder.org/", function()
@@ -146,6 +161,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	end
 	self.controls.charImportItemsClearSkills = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 85, 0, 18, "Delete skills:", nil, "Delete all existing skills when importing.", true)
 	self.controls.charImportItemsClearItems = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 220, 0, 18, "Delete equipment:", nil, "Delete all equipped items when importing.", true)
+	self.controls.charImportItemsIgnoreWeaponSwap = new("CheckBoxControl", {"LEFT",self.controls.charImportItems,"RIGHT"}, 380, 0, 18, "Ignore weapon swap:", nil, "Ignore items and skills in weapon swap.", false)
 	self.controls.charBanditNote = new("LabelControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 50, 200, 14, "^7Tip: After you finish importing a character, make sure you update the bandit choice,\nas it cannot be imported.")
 
 	self.controls.charClose = new("ButtonControl", {"TOPLEFT",self.controls.charImportHeader,"BOTTOMLEFT"}, 0, 90, 60, 20, "Close", function()
@@ -162,8 +178,7 @@ You can get this from your web browser's cookies while logged into the Path of E
 	self.controls.enablePartyExportBuffs = new("CheckBoxControl", {"LEFT",self.controls.generateCode,"RIGHT"}, 100, 0, 18, "Export Support", function(state)
 		self.build.partyTab.enableExportBuffs = state
 		self.build.buildFlag = true 
-	--end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
-	end, "This is for party play, to export support character, it enables the exporting of auras and curses", false)
+	end, "This is for party play, to export support character, it enables the exporting of auras, curses and modifiers to the enemy", false)
 	self.controls.generateCodeOut = new("EditControl", {"TOPLEFT",self.controls.generateCodeLabel,"BOTTOMLEFT"}, 0, 8, 250, 20, "", "Code", "%Z")
 	self.controls.generateCodeOut.enabled = function()
 		return #self.controls.generateCodeOut.buf > 0
@@ -570,13 +585,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 
 	if charPassiveData.skill_overrides then
 		for nodeId, override in pairs(charPassiveData.skill_overrides) do
+			self.build.spec:ReplaceNode(override, self.build.spec.tree.tattoo.nodes[override.name])
 			override.id = nodeId
-			local modCount = 0
-			for _, statLine in ipairs(override.stats) do
-				self.build.spec:NodeAdditionOrReplacementFromString(override, statLine, modCount == 0)
-				modCount = modCount + 1
-			end
-			override.dn = override.name
 		end
 	end
 
@@ -600,21 +610,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
-	for classId, class in pairs(self.build.spec.tree.classes) do
-		if charData.class == class.name then
-			charData.classId = classId
-			charData.ascendancyClass = 0
-			break
-		end
-		for ascendId, ascendancyClass in pairs(class.ascendancies) do
-			if charData.class == ascendancyClass.name then
-				charData.classId = classId
-				charData.ascendancyClass = ascendId
-				break
-			end
-		end
-	end
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
+
+	self.build.spec:ImportFromNodeList(charPassiveData.character, charPassiveData.ascendancy, charPassiveData.alternate_ascendancy or 0, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
@@ -729,7 +726,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			slotName = "Jewel "..self.build.latestTree.jewelSlots[itemData.x + 1]
 		elseif itemData.inventoryId == "Flask" then
 			slotName = "Flask "..(itemData.x + 1)
-		else
+		elseif not (self.controls.charImportItemsIgnoreWeaponSwap.state and (itemData.inventoryId == "Weapon2" or itemData.inventoryId == "Offhand2")) then
 			slotName = slotMap[itemData.inventoryId]
 		end
 	end
@@ -743,8 +740,8 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	-- Determine rarity, display name and base type of the item
 	item.rarity = rarityMap[itemData.frameType]
 	if #itemData.name > 0 then
-		item.title = itemLib.sanitiseItemText(itemData.name)
-		item.baseName = itemLib.sanitiseItemText(itemData.typeLine):gsub("Synthesised ","")
+		item.title = sanitiseText(itemData.name)
+		item.baseName = sanitiseText(itemData.typeLine):gsub("Synthesised ","")
 		item.name = item.title .. ", " .. item.baseName
 		if item.baseName == "Two-Toned Boots" then
 			-- Hack for Two-Toned Boots
@@ -757,7 +754,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			ConPrintf("Unrecognised base in imported item: %s", item.baseName)
 		end
 	else
-		item.name = itemLib.sanitiseItemText(itemData.typeLine)
+		item.name = sanitiseText(itemData.typeLine)
 		if item.name:match("Energy Blade") then
 			local oneHanded = false
 			for _, p in ipairs(itemData.properties) do
@@ -852,7 +849,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			end
 			item.sockets[i] = { group = socket.group, color = socket.sColour }
 		end
-		if item.abyssalSocketCount and item.abyssalSocketCount > 0 then
+		if item.abyssalSocketCount and item.abyssalSocketCount > 0 and item.name:match("Energy Blade") then
 			t_insert(itemData.explicitMods, "Has " .. item.abyssalSocketCount .. " Abyssal Sockets")
 		end
 	end
@@ -992,10 +989,12 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename]
-			if not gemId and socketedItem.hybrid then
-				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
-				-- Luckily the primary skill name is also there, so we can find the gem using that
+			if socketedItem.hybrid then
+				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
+				if socketedItem.hybrid.isVaalGem then
+					normalizedBasename = "Vaal " .. normalizedBasename
+				end
 				gemId = self.build.data.gemForBaseName[normalizedBasename]
 			end
 			if gemId then
@@ -1015,7 +1014,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 					itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
 				end
 				local socketGroup = itemSocketGroupList[groupID]
-				if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
+				if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support and item.title ~= "Dialla's Malefaction" then
 					-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
 					t_insert(socketGroup.gemList, 1, gemInstance)
 				else

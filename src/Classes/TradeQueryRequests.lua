@@ -441,7 +441,7 @@ function TradeQueryRequestsClass:buildUrl(root, realm, league, queryId)
 	if realm and realm ~='pc' then
 		result = result .. "/" .. realm
 	end	
-	result = result .. "/" .. league
+	result = result .. "/" .. league:gsub(" ", "+")
 	if queryId then
 		result = result .. "/" .. queryId
 	end

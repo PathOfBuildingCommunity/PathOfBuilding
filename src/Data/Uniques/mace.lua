@@ -280,12 +280,15 @@ Socketed Gems are Supported by Level 15 Inspiration
 ]],[[
 Replica Bitterdream
 Shadow Sceptre
+Variant: Pre 3.23.0
+Variant: Current
 League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 32, 52 Str, 62 Int
 Implicits: 1
 22% increased Elemental Damage
-Socketed Gems are Supported by Level 1 Elemental Penetration
+{variant: 1}Socketed Gems are Supported by Level 1 Elemental Penetration
+{variant: 2}Socketed Gems are Supported by Level 15 Elemental Penetration
 Socketed Gems are Supported by Level 15 Immolate
 Socketed Gems are Supported by Level 15 Unbound Ailments
 Socketed Gems are Supported by Level 15 Ice Bite
@@ -447,6 +450,15 @@ Minions deal (30-40)% increased Damage
 Raised Zombies Cover Enemies in Ash on Hit
 Raised Zombies take (15.0-30.0)% of their Maximum Life per second as Fire Damage
 Raised Zombies have Avatar of Fire
+]],[[
+Maata's Teaching
+Karui Sceptre
+Requires Level 56, 96 Str, 96 Int
+Implicits: 1
++(30-40) to Intelligence
+(25-50)% increased Critical Strike Chance
++(1-2) to Level of all Minion Skill Gems
+Minions' Base Attack Critical Strike Chance is equal to the Critical Strike Chance of your Main Hand Weapon
 ]],[[
 Mon'tregul's Grasp
 Void Sceptre

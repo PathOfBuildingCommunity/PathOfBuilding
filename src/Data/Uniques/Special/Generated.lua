@@ -194,8 +194,6 @@ local megalomaniac = {
 	"Source: Drops from the Simulacrum Encounter",
 	"Has Alt Variant: true",
 	"Has Alt Variant Two: true",
-	"Adds 4 Passive Skills",
-	"Added Small Passive Skills grant Nothing",
 }
 local notables = { }
 for name in pairs(data.clusterJewels.notableSortOrder) do
@@ -204,6 +202,10 @@ end
 table.sort(notables)
 for index, name in ipairs(notables) do
 	table.insert(megalomaniac, "Variant: "..name)
+end
+table.insert(megalomaniac, "Adds 4 Passive Skills")
+table.insert(megalomaniac, "Added Small Passive Skills grant Nothing")
+for index, name in ipairs(notables) do
 	table.insert(megalomaniac, "{variant:"..index.."}1 Added Passive Skill is "..name)
 end
 table.insert(data.uniques.generated, table.concat(megalomaniac, "\n"))
@@ -241,12 +243,14 @@ end
 table.sort(gems)
 for index, name in ipairs(gems) do
 	table.insert(forbiddenShako, "Variant: "..name.. " (Low Level)")
-	table.insert(forbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
 	table.insert(forbiddenShako, "Variant: "..name.. " (High Level)")
-	table.insert(forbiddenShako, "{variant:"..(index * 2).."}Socketed Gems are Supported by Level (25-35) "..name)
 	table.insert(replicaForbiddenShako, "Variant: "..name.. " (Low Level)")
-	table.insert(replicaForbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
 	table.insert(replicaForbiddenShako, "Variant: "..name.. " (High Level)")
+end
+for index, name in ipairs(gems) do
+	table.insert(forbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
+	table.insert(forbiddenShako, "{variant:"..(index * 2).."}Socketed Gems are Supported by Level (25-35) "..name)
+	table.insert(replicaForbiddenShako, "{variant:"..(index * 2 - 1).."}Socketed Gems are Supported by Level (1-10) "..name)
 	table.insert(replicaForbiddenShako, "{variant:"..(index * 2).."}Socketed Gems are Supported by Level (25-35) "..name)
 end
 table.insert(forbiddenShako, "+(25-30) to all Attributes")
@@ -727,9 +731,11 @@ function buildForbidden(classNotables)
 		table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel")
 		local index = 1
 		for className, notableTable in pairs(classNotables) do
-			for _, notableName in ipairs(notableTable) do
-				table.insert(forbidden[name], "Variant: (" .. className .. ") " .. notableName)
-				index = index + 1
+			if className ~= "alternate_ascendancies" then --Remove Affliction Ascendancy's
+				for _, notableName in ipairs(notableTable) do
+					table.insert(forbidden[name], "Variant: (" .. className .. ") " .. notableName)
+					index = index + 1
+				end
 			end
 		end
 		if name == "Flame" then
@@ -741,10 +747,12 @@ function buildForbidden(classNotables)
 		table.insert(forbidden[name], "Item Level: 83")
 		index = 1
 		for className, notableTable in pairs(classNotables) do
-			for _, notableName in ipairs(notableTable) do
-				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
-				table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifier on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
-				index = index + 1
+			if className ~= "alternate_ascendancies" then --Remove Affliction Ascendancy's
+				for _, notableName in ipairs(notableTable) do
+					table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Requires Class " .. className)
+					table.insert(forbidden[name], "{variant:" .. index .. "}" .. "Allocates ".. notableName .. " if you have the matching modifier on Forbidden " .. (name == "Flame" and "Flesh" or "Flame"))
+					index = index + 1
+				end
 			end
 		end
 		table.insert(forbidden[name], "Corrupted")
@@ -752,3 +760,55 @@ function buildForbidden(classNotables)
 	table.insert(data.uniques.generated, table.concat(forbidden["Flame"], "\n"))
 	table.insert(data.uniques.generated, table.concat(forbidden["Flesh"], "\n"))
 end
+
+-- That Which Was Taken
+local thatWhichWasTaken = {
+[[
+Item Class: Jewels
+Rarity: Unique
+That Which Was Taken
+Crimson Jewel
+League: Affliction
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 82
+Selected Alt Variant: 104
+Selected Alt Variant Two: 106
+Selected Alt Variant Three: 125
+Variant: None
+]]
+}
+
+local unsortedCharmsMods = LoadModule("Data/ModJewelCharm")
+local sortedCharmsMods = { }
+
+for modId, mod in pairs(unsortedCharmsMods) do
+	if not modId:match("1$") then
+		table.insert(sortedCharmsMods, modId)
+	end
+end
+table.sort(sortedCharmsMods)
+for _, modId in ipairs(sortedCharmsMods) do
+	local variantName = abbreviateModId(modId):gsub("AnimalCharm", ""):gsub("LIfe", "Life"):gsub("OnHIt", "OnHit"):gsub("2$", ""):gsub("New", ""):gsub("[%u]", " %1"):gsub("[%d]+", " %1"):gsub("_", ""):gsub("E S", "ES")
+	table.insert(thatWhichWasTaken, "Variant:"..variantName)
+end
+
+table.insert(thatWhichWasTaken,
+[[Limited to: 1
+Requirements:
+Level: 48
+Item Level: 86
+]]
+)
+
+local indexCharmMod = 2
+for _, modId in ipairs(sortedCharmsMods) do
+	local mod = unsortedCharmsMods[modId]
+	for i, _ in ipairs(mod) do
+		table.insert(thatWhichWasTaken, "{variant:" .. indexCharmMod .. "}" .. mod[i])
+	end
+	indexCharmMod = indexCharmMod + 1
+end
+
+table.insert(data.uniques.generated, table.concat(thatWhichWasTaken, "\n"))

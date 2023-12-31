@@ -5,6 +5,7 @@
 -- Program entry point; loads and runs the Main module within a protected environment
 --
 
+local startTime = GetTime()
 APP_NAME = "Path of Building"
 
 SetWindowTitle(APP_NAME)
@@ -22,6 +23,7 @@ function launch:OnInit()
 	self.versionPlatform = "?"
 	self.lastUpdateCheck = GetTime()
 	self.subScripts = { }
+	self.startTime = startTime
 	local firstRunFile = io.open("first.run", "r")
 	if firstRunFile then
 		firstRunFile:close()
@@ -355,7 +357,10 @@ end
 
 function launch:ShowErrMsg(fmt, ...)
 	if not self.promptMsg then
-		self:ShowPrompt(1, 0, 0, "^1Error:\n\n^0" .. string.format(fmt, ...) .. "\n\nPress Enter/Escape to Dismiss, or F5 to restart the application.")
+		local version = self.versionNumber and 
+			"^8v"..self.versionNumber..(self.versionBranch and " "..self.versionBranch or "")
+			or ""
+		self:ShowPrompt(1, 0, 0, "^1Error:\n\n^0"..string.format(fmt, ...).."\n"..version.."\n^0Press Enter/Escape to dismiss, or F5 to restart the application.")
 	end
 end
 

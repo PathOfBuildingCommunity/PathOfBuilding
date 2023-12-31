@@ -85,3 +85,25 @@ itemBases["Timeless Jewel"] = {
 	implicitModTypes = { },
 	req = { },
 }
+
+itemBases["Ursine Charm"] = {
+	type = "Jewel",
+	subType = "Charm",
+	tags = { animal_charm = true, str_animal_charm = true, default = true, },
+	implicitModTypes = { },
+	req = { },
+}
+itemBases["Lupine Charm"] = {
+	type = "Jewel",
+	subType = "Charm",
+	tags = { animal_charm = true, dex_animal_charm = true, default = true, },
+	implicitModTypes = { },
+	req = { },
+}
+itemBases["Corvine Charm"] = {
+	type = "Jewel",
+	subType = "Charm",
+	tags = { animal_charm = true, int_animal_charm = true, default = true, },
+	implicitModTypes = { },
+	req = { },
+}

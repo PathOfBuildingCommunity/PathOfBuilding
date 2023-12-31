@@ -633,8 +633,13 @@ holding Shift will put it in the second.]])
 
 				local minA, maxA = getMinMax(modA)
 				local minB, maxB = getMinMax(modB)
-				
-				if (minA and minB and maxA and maxB) then
+
+				if not minA or not minB or not maxA or not maxB then
+					return false
+				end
+
+				local allInts = minA == m_floor(minA) and maxA == m_floor(maxA) and minB == m_floor(minB) and maxB == m_floor(maxB) -- if the mod goes in steps that aren't 1, then the code below this doesn't work
+				if (minA and minB and maxA and maxB and allInts) then
 					if (minA < minB) then -- ascending
 						return minA + 1 == maxB
 					else -- descending
@@ -911,6 +916,7 @@ function ItemsTabClass:Load(xml, dbFileName)
 	self.activeItemSetId = 0
 	self.itemSets = { }
 	self.itemSetOrderList = { }
+	self.tradeQuery.statSortSelectionList = { }
 	for _, node in ipairs(xml) do
 		if node.elem == "Item" then
 			local item = new("Item", "")
@@ -988,6 +994,15 @@ function ItemsTabClass:Load(xml, dbFileName)
 				end
 			end
 			t_insert(self.itemSetOrderList, itemSet.id)
+		elseif node.elem == "TradeSearchWeights" then
+			for _, child in ipairs(node) do
+				local statSort = {
+					label = child.attrib.label,
+					stat = child.attrib.stat,
+					weightMult = tonumber(child.attrib.weightMult)
+				}
+				t_insert(self.tradeQuery.statSortSelectionList, statSort)
+			end
 		end
 	end
 	if not self.itemSetOrderList[1] then
@@ -1066,6 +1081,25 @@ function ItemsTabClass:Save(xml)
 			end
 		end
 		t_insert(xml, child)
+	end
+	if self.tradeQuery.statSortSelectionList then
+		local parent = {
+			elem = "TradeSearchWeights"
+		}
+		for _, statSort in ipairs(self.tradeQuery.statSortSelectionList) do
+			if statSort.weightMult and statSort.weightMult > 0 then
+				local child = {
+				elem = "Stat",
+				attrib = {
+					label = statSort.label,
+					stat = statSort.stat,
+					weightMult = s_format("%.2f", tostring(statSort.weightMult))
+				}
+			}
+			t_insert(parent, child)
+			end
+		end
+		t_insert(xml, parent)
 	end
 end
 
@@ -1829,6 +1863,12 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 		local node = self.build.spec.tree.nodes[tonumber(slotId)] or self.build.spec.nodes[tonumber(slotId)]
 		if not node or item.type ~= "Jewel" then
 			return false
+		elseif node.charmSocket or item.base.subType == "Charm" then
+			-- Charm sockets can only have charms, and charms can only be in charm sockets
+			if node.charmSocket and item.base.subType == "Charm" then
+				return true
+			end
+			return false
 		elseif item.clusterJewel and not node.expansionJewel then
 			-- Don't allow cluster jewels in inner sockets
 			return false
@@ -1840,6 +1880,8 @@ function ItemsTabClass:IsItemValidForSlot(item, slotName, itemSet)
 			return not item.clusterJewel or item.clusterJewel.sizeIndex <= node.expansionJewel.size
 		end
 	elseif item.type == slotType then
+		return true
+	elseif item.type == "Tincture" and slotType == "Flask" then
 		return true
 	elseif item.type == "Jewel" and item.base.subType == "Abyss" and slotName:match("Abyssal Socket") then
 		return true
@@ -1888,7 +1930,10 @@ function ItemsTabClass:CraftItem()
 		item.crucibleModLines = { }
 		item.quality = 0
 		local raritySel = controls.rarity.selIndex
-		if base.base.flask then
+		if base.base.flask
+				or (base.base.type == "Jewel" and base.base.subType == "Charm")
+		 		or base.base.type == "Tincture"
+		then
 			if raritySel == 3 then
 				raritySel = 2
 			end
@@ -1971,7 +2016,7 @@ function ItemsTabClass:EditDisplayItemText(alsoAddItem)
 		controls.rarity.selIndex = 3
 	end
 	controls.edit.font = "FIXED"
-	controls.edit.pasteFilter = itemLib.sanitiseItemText
+	controls.edit.pasteFilter = sanitiseText
 	controls.save = new("ButtonControl", nil, -45, 470, 80, 20, self.displayItem and "Save" or "Create", function()
 		local id = self.displayItem and self.displayItem.id
 		self:CreateDisplayItemFromRaw(buildRaw(), not self.displayItem)
@@ -2066,13 +2111,16 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	end
 	buildEnchantmentSourceList()
 	buildEnchantmentList()
-	local function enchantItem()
+	local function enchantItem(idx, remove)
 		local item = new("Item", self.displayItem:BuildRaw())
+		local index = idx or controls.enchantment.selIndex
 		item.id = self.displayItem.id
 		local list = haveSkills and enchantments[controls.skill.list[controls.skill.selIndex]] or enchantments
-		local line = list[controls.enchantmentSource.list[controls.enchantmentSource.selIndex].name][controls.enchantment.selIndex]
+		local line = list[controls.enchantmentSource.list[controls.enchantmentSource.selIndex].name][index]
 		local first, second = line:match("([^/]+)/([^/]+)")
-		if first then
+		if remove then
+			t_remove(item.enchantModLines, self.enchantSlot)
+		elseif first then
 			item.enchantModLines = { { crafted = true, line = first }, { crafted = true, line = second } }
 		else
 			if not item.canHaveTwoEnchants and #item.enchantModLines > 1 then
@@ -2112,15 +2160,19 @@ function ItemsTabClass:EnchantDisplayItem(enchantSlot)
 	end)
 	controls.enchantmentLabel = new("LabelControl", {"TOPRIGHT",nil,"TOPLEFT"}, 95, 70, 0, 16, "^7Enchantment:")
 	controls.enchantment = new("DropDownControl", {"TOPLEFT",nil,"TOPLEFT"}, 100, 70, 440, 18, enchantmentList)
-	controls.save = new("ButtonControl", nil, -45, 100, 80, 20, "Enchant", function()
+	controls.enchantment.tooltipFunc = function(tooltip, mode, index)
+		tooltip:Clear()
+		self:AddItemTooltip(tooltip, enchantItem(index), nil, true)
+	end
+	controls.save = new("ButtonControl", nil, -88, 100, 80, 20, "Enchant", function()
 		self:SetDisplayItem(enchantItem())
 		main:ClosePopup()
 	end)
-	controls.save.tooltipFunc = function(tooltip)
-		tooltip:Clear()
-		self:AddItemTooltip(tooltip, enchantItem(), nil, true)
-	end	
-	controls.close = new("ButtonControl", nil, 45, 100, 80, 20, "Cancel", function()
+	controls.remove = new("ButtonControl", nil, 0, 100, 80, 20, "Remove", function()
+		self:SetDisplayItem(enchantItem(nil, true))
+		main:ClosePopup()
+	end)
+	controls.close = new("ButtonControl", nil, 88, 100, 80, 20, "Cancel", function()
 		main:ClosePopup()
 	end)
 	main:OpenPopup(550, 130, "Enchant Item", controls)
@@ -3125,7 +3177,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		tooltip:AddLine(16, s_format("^x7F7F7FCritical Strike Chance: %s%.2f%%", main:StatColor(weaponData.CritChance, base.weapon.CritChanceBase), weaponData.CritChance))
 		tooltip:AddLine(16, s_format("^x7F7F7FAttacks per Second: %s%.2f", main:StatColor(weaponData.AttackRate, base.weapon.AttackRateBase), weaponData.AttackRate))
 		if weaponData.range < 120 then
-			tooltip:AddLine(16, s_format("^x7F7F7FWeapon Range: %s%d", main:StatColor(weaponData.range, base.weapon.Range), weaponData.range))
+			tooltip:AddLine(16, s_format("^x7F7F7FWeapon Range: %s%.1f ^x7F7F7Fmetres", main:StatColor(weaponData.range, base.weapon.Range), weaponData.range / 10))
 		end
 	elseif base.armour then
 		-- Armour-specific info
@@ -3551,7 +3603,7 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 				local selItem = self.items[compareSlot.selItemId]
 				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
 				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item }, {})
+				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil}, {})
 				GlobalCache.useFullDPS = storedGlobalCacheDPSView
 				local header
 				if item == selItem then

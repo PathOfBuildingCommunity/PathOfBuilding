@@ -42,7 +42,7 @@ local EditClass = newClass("EditControl", "ControlHost", "Control", "UndoHandler
 	self.TooltipHost()
 	self:SetText(init or "")
 	self.prompt = prompt
-	self.filter = filter or "^%w%p "
+	self.filter = filter or (main.unicode and "%c" or "^%w%p ")
 	self.filterPattern = "["..self.filter.."]"
 	self.limit = limit
 	self.changeFunc = changeFunc
@@ -247,7 +247,7 @@ function EditClass:Draw(viewPort, noTooltip)
 	elseif mOver then
 		SetDrawColor(1, 1, 1)
 	elseif self.borderFunc then
-		r, g, b = self.borderFunc()
+		local r, g, b = self.borderFunc()
 		SetDrawColor(r, g, b)
 	else
 		SetDrawColor(0.5, 0.5, 0.5)
