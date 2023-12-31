@@ -705,7 +705,7 @@ function ConfigTabClass:Draw(viewPort, inputEvents)
 
 	local maxCol = m_floor((viewPort.width - 10) / 370)
 	local maxColY = 0
-	local colY = { }
+	local colY = { 0 }
 	for _, section in ipairs(self.sectionList) do
 		local y = 14
 		section.shown = true
