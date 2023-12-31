@@ -365,28 +365,24 @@ Highest Weight - Displays the order retrieved from trade]]
 					self:SetNotice("Error while fetching league list: "..errMsg)
 					return
 				end
-
-		local sorted = {}
-		local reverse_order_index = 1
-		for _, json_data in pairs(leagues_json) do
-			if json_data.id:find("SSF") or json_data.id:find("Solo Self%-Found") then
-				goto continue
-			end
-
-			if not json_data.endAt then
-			if #sorted == 0 then
-				table.insert(sorted, 1, json_data.id)
-			else
-				table.insert(sorted, json_data.id)
-			end
-			else
-				table.insert(sorted, reverse_order_index, json_data.id)
-				reverse_order_index = reverse_order_index + 1
-			end
-
-			::continue::
-		end
-
+				local sorted = {}
+				local reverse_order_index = 1
+				for _, json_data in pairs(leagues_json) do
+					if json_data.id:find("SSF") or json_data.id:find("Solo Self%-Found") then
+						goto continue
+					end
+					if not json_data.endAt then
+						if #sorted == 0 then
+							table.insert(sorted, 1, json_data.id)
+						else
+							table.insert(sorted, json_data.id)
+						end
+					else
+						table.insert(sorted, reverse_order_index, json_data.id)
+						reverse_order_index = reverse_order_index + 1
+					end
+					::continue::
+				end
 				self.allLeagues[self.pbRealm] = sorted
 				setLeagueDropList()
 			end)
