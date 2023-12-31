@@ -426,13 +426,12 @@ local function defaultTriggerHandler(env, config)
 					t_insert(breakdown.EffectiveSourceRate, s_format("%.2f ^8(%s %s)", trigRate, config.sourceName or source.activeEffect.grantedEffect.name, config.useCastRate and "cast rate" or "attack rate"))
 				end
 			end
-
-			--Dual wield
-			if trigRate and source and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and not source.skillTypes[SkillType.Channel] and not actor.mainSkill.skillFlags.globalTrigger then
-				local dualWield = env.player.weaponData1.type and env.player.weaponData2.type
-				trigRate = dualWield and source.skillData.doubleHitsWhenDualWielding and trigRate * 2 or dualWield and trigRate / 2 or trigRate
-				if dualWield and breakdown then
-					t_insert(breakdown.EffectiveSourceRate, 2, s_format("%s 2 ^8(due to dual wielding)", source.skillData.doubleHitsWhenDualWielding and "*" or "/"))
+			
+			-- Dual wield triggers
+			if trigRate and source and env.player.weaponData1.type and env.player.weaponData2.type and not source.skillData.doubleHitsWhenDualWielding and (source.skillTypes[SkillType.Melee] or source.skillTypes[SkillType.Attack]) and actor.mainSkill.triggeredBy and actor.mainSkill.triggeredBy.grantedEffect.support and actor.mainSkill.triggeredBy.grantedEffect.fromItem then
+				trigRate = trigRate / 2
+				if breakdown then
+					t_insert(breakdown.EffectiveSourceRate, 2, s_format("/ 2 ^8(due to dual wielding)"))
 				end
 			end
 
