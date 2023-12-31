@@ -1384,6 +1384,9 @@ return {
 ["mana_granted_when_killed"] = {
 	mod("SelfManaOnKill", "BASE", nil),
 },
+["trauma_strike_self_damage_per_trauma"] = {
+	mod("TraumaSelfDamageTakenLife", "BASE", nil),
+},
 -- Degen
 ["base_physical_damage_%_of_maximum_life_to_deal_per_minute"] = {
 	mod("PhysicalDegen", "BASE", nil, 0, 0, { type = "PerStat", stat = "Life", div = 1 }),
