@@ -63,9 +63,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBrandSupport
-	addFlags = {
-		brand = true,
-	},
 	statMap = {
 		["support_brand_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil),
@@ -77,7 +74,6 @@ local skills, mod, flag, skill = ...
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
-	addSkillTypes = { SkillType.Brand, },
 #baseMod skill("triggeredByBrand", true)
 #mods
 
