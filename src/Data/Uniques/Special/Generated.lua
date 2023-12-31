@@ -805,7 +805,9 @@ Item Level: 86
 local indexCharmMod = 2
 for _, modId in ipairs(sortedCharmsMods) do
 	local mod = unsortedCharmsMods[modId]
-	table.insert(thatWhichWasTaken, "{variant:" .. indexCharmMod .. "}" .. mod[1])
+	for i, _ in ipairs(mod) do
+		table.insert(thatWhichWasTaken, "{variant:" .. indexCharmMod .. "}" .. mod[i])
+	end
 	indexCharmMod = indexCharmMod + 1
 end
 
