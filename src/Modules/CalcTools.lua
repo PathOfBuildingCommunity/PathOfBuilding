@@ -242,12 +242,9 @@ function calcLib.getGameIdFromGemName(gemName, dropVaal)
 	if type(gemName) ~= "string" then
 		return
 	end
-	for _, gemData in pairs(data.gems) do
-		if gemData.name:lower() == gemName:lower() then
-			local gameId = gemData.gameId:lower():gsub("^metadata/items/gems/skillgem", "")
-			if dropVaal then gameId = gameId:gsub("^vaal","") end
-			return gameId
-		end
-	end
-	return
+	local gemId = data.gemForBaseName[gemName]
+	if not gemId then return end
+	local gameId = data.gems[gemId].gameId
+	if gameId and dropVaal then gameId = gameId:gsub("SkillGemVaal","SkillGem") end
+	return gameId
 end
