@@ -94,14 +94,14 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 	if grantedEffect.excludeSkillTypes[1] and calcLib.doesTypeExpressionMatch(grantedEffect.excludeSkillTypes, (activeSkill.summonSkill and activeSkill.summonSkill.skillTypes) or activeSkill.skillTypes) then
 		return false
 	end
-	if grantedEffect.isTrigger and activeSkill.triggeredBy then
+	if grantedEffect.isTrigger and (activeSkill.triggeredBy or activeSkill.actor.enemy.player ~= activeSkill.actor) then
 		return false
 	end
 	return not grantedEffect.requireSkillTypes[1] or calcLib.doesTypeExpressionMatch(grantedEffect.requireSkillTypes, activeSkill.skillTypes, not grantedEffect.ignoreMinionTypes and activeSkill.minionSkillTypes)
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
-function calcLib.gemIsType(gem, type)
+function calcLib.gemIsType(gem, type, allowVariants)
 	return (type == "all" or 
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
@@ -110,6 +110,7 @@ function calcLib.gemIsType(gem, type)
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
 			(type == gem.name:lower():gsub("^vaal ", "")) or
+			(allowVariants and gem.name:lower():match("^" .. type:lower())) or
 			((type ~= "active skill" and type ~= "grants_active_skill" and type ~= "skill") and gem.tags[type]))
 end
 

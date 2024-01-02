@@ -61,6 +61,7 @@ end
 
 local tempTable1 = { }
 local tempTable2 = { }
+local remainingScripts = { }
 
 
 function main:Init()
@@ -171,6 +172,7 @@ function main:Init()
 			self:LoadDatFiles()
 		end
 	end, nil)
+	self.controls.datSource:SelByValue(self.datSource.label, "label")
 
 	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()
@@ -185,10 +187,7 @@ function main:Init()
 		end
 		for _, script in ipairs(self.scriptList) do
 			if script ~= "statdesc" then
-				local errMsg = PLoadModule("Scripts/"..script..".lua")
-				if errMsg then
-					print(errMsg)
-				end
+				t_insert(remainingScripts, script)
 			end
 		end
 	end) {
@@ -353,6 +352,17 @@ function main:OnFrame()
 	end
 
 	wipeTable(self.inputEvents)
+	
+	if #remainingScripts > 0 then
+		local startTime = GetTime()
+		repeat
+			local script = t_remove(remainingScripts)
+			local errMsg = PLoadModule("Scripts/"..script..".lua")
+			if errMsg then
+				print(errMsg)
+			end
+		until ((#remainingScripts == 0) or (GetTime() - startTime > 100))
+	end
 end
 
 function main:OnKeyDown(key, doubleClick)
@@ -377,7 +387,7 @@ function main:InitGGPK()
 		return
 	else
 		local now = GetTime()
-		local ggpkPath = self.datSource.ggpkPath or self.datSource.path
+		local ggpkPath = self.datSource.ggpkPath or self.datSource.datFilePath
 		if ggpkPath then
 			self.ggpk = new("GGPKData", ggpkPath)
 			ConPrintf("GGPK: %d ms", GetTime() - now)

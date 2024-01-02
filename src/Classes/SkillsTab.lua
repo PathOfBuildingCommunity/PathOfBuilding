@@ -271,6 +271,7 @@ end)
 
 -- parse real gem name and quality by omitting the first word if alt qual is set
 function SkillsTabClass:GetBaseNameAndQuality(gemTypeLine, quality)
+	gemTypeLine = sanitiseText(gemTypeLine)
 	-- if quality is default or nil check the gem type line if we have alt qual by comparing to the existing list
 	if gemTypeLine and (quality == nil or quality == "" or quality == "Default") then
 		local firstword, otherwords = gemTypeLine:match("(%w+)%s(.+)")
@@ -307,9 +308,25 @@ function SkillsTabClass:LoadSkill(node, skillSetId)
 	socketGroup.gemList = { }
 	for _, child in ipairs(node) do
 		local gemInstance = { }
-		gemInstance.nameSpec = child.attrib.nameSpec or ""
+		gemInstance.nameSpec = sanitiseText(child.attrib.nameSpec or "")
 		if child.attrib.gemId then
-			local gemData = self.build.data.gems[child.attrib.gemId]
+			local gemData
+			local possibleVariants = self.build.data.gemsByGameId[child.attrib.gemId]
+			if possibleVariants then
+				-- If it is a known gem, try to determine which variant is used
+				if child.attrib.variantId then
+					-- New save format from 3.23 that stores the specific variation (transfiguration)
+					gemData = possibleVariants[child.attrib.variantId]
+				elseif child.attrib.skillId then
+					-- Old format relying on the uniqueness of the granted effects id
+					for _, variant in pairs(possibleVariants) do
+						if variant.grantedEffectId == child.attrib.skillId then
+							gemData = variant
+							break
+						end
+					end
+				end
+			end
 			if gemData then
 				gemInstance.gemId = gemData.id
 				gemInstance.skillId = gemData.grantedEffectId
@@ -438,7 +455,8 @@ function SkillsTabClass:Save(xml)
 				t_insert(node, { elem = "Gem", attrib = {
 					nameSpec = gemInstance.nameSpec,
 					skillId = gemInstance.skillId,
-					gemId = gemInstance.gemId,
+					gemId = gemInstance.gemData and gemInstance.gemData.gameId,
+					variantId = gemInstance.gemData and gemInstance.gemData.variantId,
 					level = tostring(gemInstance.level),
 					quality = tostring(gemInstance.quality),
 					qualityId = gemInstance.qualityId,
@@ -543,7 +561,7 @@ function SkillsTabClass:CopySocketGroup(socketGroup)
 end
 
 function SkillsTabClass:PasteSocketGroup(testInput)
-	local skillText = Paste() or testInput
+	local skillText = sanitiseText(Paste() or testInput)
 	if skillText then
 		local newGroup = { label = "", enabled = true, gemList = { } }
 		local label = skillText:match("Label: (%C+)")
@@ -1078,7 +1096,6 @@ function SkillsTabClass:ProcessSocketGroup(socketGroup)
 				if gemInstance.grantedEffect.levels[gemInstance.level] then
 					gemInstance.grantedEffect.levels[gemInstance.level].cost = {}
 				end
-				gemInstance.grantedEffect.triggered = gemInstance.triggered
 			end
 		elseif gemInstance.nameSpec:match("%S") then
 			-- Specified by gem/skill name, try to match it

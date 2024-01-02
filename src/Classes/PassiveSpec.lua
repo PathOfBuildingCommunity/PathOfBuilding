@@ -12,6 +12,9 @@ local m_min = math.min
 local m_max = math.max
 local m_floor = math.floor
 local b_lshift = bit.lshift
+local b_rshift = bit.rshift
+local band = bit.band
+local bor = bit.bor
 
 local PassiveSpecClass = newClass("PassiveSpec", "UndoHandler", function(self, build, treeVersion, convert)
 	self.UndoHandler()
@@ -150,7 +153,7 @@ function PassiveSpecClass:Load(xml, dbFileName)
 				end
 			end
 		end
-		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), hashList, self.hashOverrides, masteryEffects)
+		self:ImportFromNodeList(tonumber(xml.attrib.classId), tonumber(xml.attrib.ascendClassId), tonumber(xml.attrib.secondaryAscendClassId or 0), hashList, self.hashOverrides, masteryEffects)
 	elseif url then
 		self:DecodeURL(url)
 	end
@@ -172,6 +175,7 @@ function PassiveSpecClass:Save(xml)
 		-- New format
 		classId = tostring(self.curClassId),
 		ascendClassId = tostring(self.curAscendClassId),
+		secondaryAscendClassId = tostring(self.curSecondaryAscendClassId),
 		nodes = table.concat(allocNodeIdList, ","),
 		masteryEffects = table.concat(masterySelections, ",")
 	}
@@ -214,13 +218,16 @@ function PassiveSpecClass:PostLoad()
 end
 
 -- Import passive spec from the provided class IDs and node hash list
-function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, hashOverrides, masteryEffects, treeVersion)
+function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, secondaryAscendClassId, hashList, hashOverrides, masteryEffects, treeVersion)
+  if hashOverrides == nil then hashOverrides = {} end
 	if treeVersion and treeVersion ~= self.treeVersion then
 		self:Init(treeVersion)
 		self.build.treeTab.showConvert = self.treeVersion ~= latestTreeVersion
 	end
 	self:ResetNodes()
 	self:SelectClass(classId)
+	self:SelectAscendClass(ascendClassId)
+	self:SelectSecondaryAscendClass(secondaryAscendClassId)
 	self.hashOverrides = hashOverrides
 	-- move above setting allocNodes so we can compare mastery with selection
 	wipeTable(self.masterySelections)
@@ -257,7 +264,9 @@ function PassiveSpecClass:ImportFromNodeList(classId, ascendClassId, hashList, h
 			self.allocNodes[id] = node
 		end
 	end
-	self:SelectAscendClass(ascendClassId)
+
+	-- Rebuild all the node paths and dependencies
+	self:BuildAllDependsAndPaths()
 end
 
 function PassiveSpecClass:AllocateDecodedNodes(nodes, isCluster, endian)
@@ -422,13 +431,16 @@ function PassiveSpecClass:DecodeURL(url)
 		return "Invalid tree link (unknown version number '"..ver.."')"
 	end
 	local classId = b:byte(5)
-	local ascendClassId = (ver >= 4) and b:byte(6) or 0
+	local ascendancyIds = (ver >= 4) and b:byte(6) or 0
+	local ascendClassId = band(ascendancyIds, 3)
+	local secondaryAscendClassId = b_rshift(band(ascendancyIds, 12), 2)
 	if not self.tree.classes[classId] then
 		return "Invalid tree link (bad class ID '"..classId.."')"
 	end
 	self:ResetNodes()
 	self:SelectClass(classId)
 	self:SelectAscendClass(ascendClassId)
+	self:SelectSecondaryAscendClass(secondaryAscendClassId)
 
 	local nodesStart = ver >= 4 and 8 or 7
 	local nodesEnd = ver >= 5 and 7 + (b:byte(7) * 2) or -1
@@ -457,7 +469,7 @@ end
 -- Encodes the current spec into a URL, using the official skill tree's format
 -- Prepends the URL with an optional prefix
 function PassiveSpecClass:EncodeURL(prefix)
-	local a = { 0, 0, 0, 6, self.curClassId, self.curAscendClassId }
+	local a = { 0, 0, 0, 6, self.curClassId, bor(b_lshift(self.curSecondaryAscendClassId or 0, 2), self.curAscendClassId) }
 
 	local nodeCount = 0
 	local clusterCount = 0
@@ -510,6 +522,8 @@ function PassiveSpecClass:SelectClass(classId)
 		self.allocNodes[oldStartNodeId] = nil
 	end
 
+	self:ResetAscendClass()
+
 	self.curClassId = classId
 	local class = self.tree.classes[classId]
 	self.curClass = class
@@ -525,25 +539,69 @@ function PassiveSpecClass:SelectClass(classId)
 	self:SelectAscendClass(0)
 end
 
+function PassiveSpecClass:ResetAscendClass()
+	if self.curAscendClassId then
+		-- Deallocate the current ascendancy class's start node
+		local ascendClass = self.curClass.classes[self.curAscendClassId] or self.curClass.classes[0]
+		local oldStartNodeId = ascendClass.startNodeId
+		if oldStartNodeId then
+			self.nodes[oldStartNodeId].alloc = false
+			self.allocNodes[oldStartNodeId] = nil
+		end
+	end
+end
+
 function PassiveSpecClass:SelectAscendClass(ascendClassId)
+	self:ResetAscendClass()
+
 	self.curAscendClassId = ascendClassId
 	local ascendClass = self.curClass.classes[ascendClassId] or self.curClass.classes[0]
 	self.curAscendClass = ascendClass
 	self.curAscendClassName = ascendClass.name
-
-	-- Deallocate any allocated ascendancy nodes that don't belong to the new ascendancy class
-	for id, node in pairs(self.allocNodes) do
-		if node.ascendancyName and node.ascendancyName ~= ascendClass.name then
-			node.alloc = false
-			self.allocNodes[id] = nil
-		end
-	end
 
 	if ascendClass.startNodeId then
 		-- Allocate the new ascendancy class's start node
 		local startNode = self.nodes[ascendClass.startNodeId]
 		startNode.alloc = true
 		self.allocNodes[startNode.id] = startNode
+	end
+
+	-- Rebuild all the node paths and dependencies
+	self:BuildAllDependsAndPaths()
+end
+
+function PassiveSpecClass:SelectSecondaryAscendClass(ascendClassId)
+	-- if Secondary Ascendancy does not exist on this tree version
+	if not self.tree.alternate_ascendancies then
+		return
+	end
+	if self.curSecondaryAscendClassId then
+		-- Deallocate the current ascendancy class's start node
+		local ascendClass = self.tree.alternate_ascendancies[self.curSecondaryAscendClassId]
+		if ascendClass then
+			local oldStartNodeId = ascendClass.startNodeId
+			if oldStartNodeId then
+				self.nodes[oldStartNodeId].alloc = false
+				self.allocNodes[oldStartNodeId] = nil
+			end
+		end
+	end
+	
+	self.curSecondaryAscendClassId = ascendClassId
+	if ascendClassId == 0 then
+		self.curSecondaryAscendClass = nil
+		self.curSecondaryAscendClassName = "None"
+	elseif self.tree.alternate_ascendancies[self.curSecondaryAscendClassId] then
+		local ascendClass = self.tree.alternate_ascendancies[self.curSecondaryAscendClassId]
+		self.curSecondaryAscendClass = ascendClass
+		self.curSecondaryAscendClassName = ascendClass.name
+
+		if ascendClass.startNodeId then
+			-- Allocate the new ascendancy class's start node
+			local startNode = self.nodes[ascendClass.startNodeId]
+			startNode.alloc = true
+			self.allocNodes[startNode.id] = startNode
+		end
 	end
 
 	-- Rebuild all the node paths and dependencies
@@ -642,12 +700,16 @@ end
 
 -- Count the number of allocated nodes and allocated ascendancy nodes
 function PassiveSpecClass:CountAllocNodes()
-	local used, ascUsed, sockets = 0, 0, 0
+	local used, ascUsed, secondaryAscUsed, sockets = 0, 0, 0, 0
 	for _, node in pairs(self.allocNodes) do
 		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" then
 			if node.ascendancyName then
 				if not node.isMultipleChoiceOption then
-					ascUsed = ascUsed + 1
+					if self.tree.secondaryAscendNameMap and self.tree.secondaryAscendNameMap[node.ascendancyName] then
+						secondaryAscUsed = secondaryAscUsed + 1
+					else
+						ascUsed = ascUsed + 1
+					end
 				end
 			else
 				used = used + 1
@@ -657,7 +719,7 @@ function PassiveSpecClass:CountAllocNodes()
 			end
 		end
 	end
-	return used, ascUsed, sockets
+	return used, ascUsed, secondaryAscUsed, sockets
 end
 
 -- Attempt to find a class start node starting from the given node
@@ -1718,6 +1780,7 @@ function PassiveSpecClass:CreateUndoState()
 	return {
 		classId = self.curClassId,
 		ascendClassId = self.curAscendClassId,
+		secondaryAscendClassId = self.secondaryAscendClassId,
 		hashList = allocNodeIdList,
 		hashOverrides = self.hashOverrides,
 		masteryEffects = selections,
@@ -1726,7 +1789,7 @@ function PassiveSpecClass:CreateUndoState()
 end
 
 function PassiveSpecClass:RestoreUndoState(state, treeVersion)
-	self:ImportFromNodeList(state.classId, state.ascendClassId, state.hashList, state.hashOverrides, state.masteryEffects, treeVersion or state.treeVersion)
+	self:ImportFromNodeList(state.classId, state.ascendClassId, state.secondaryAscendClassId, state.hashList, state.hashOverrides, state.masteryEffects, treeVersion or state.treeVersion)
 	self:SetWindowTitleWithBuildClass()
 end
 

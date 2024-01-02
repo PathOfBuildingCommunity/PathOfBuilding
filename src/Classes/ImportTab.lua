@@ -610,21 +610,8 @@ function ImportTabClass:ImportPassiveTreeAndJewels(json, charData)
 	end
 	self.build.itemsTab:PopulateSlots()
 	self.build.itemsTab:AddUndoState()
-	for classId, class in pairs(self.build.spec.tree.classes) do
-		if charData.class == class.name then
-			charData.classId = classId
-			charData.ascendancyClass = 0
-			break
-		end
-		for ascendId, ascendancyClass in pairs(class.ascendancies) do
-			if charData.class == ascendancyClass.name then
-				charData.classId = classId
-				charData.ascendancyClass = ascendId
-				break
-			end
-		end
-	end
-	self.build.spec:ImportFromNodeList(charData.classId, charData.ascendancyClass, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
+
+	self.build.spec:ImportFromNodeList(charPassiveData.character, charPassiveData.ascendancy, charPassiveData.alternate_ascendancy or 0, charPassiveData.hashes, charPassiveData.skill_overrides, charPassiveData.mastery_effects or {}, latestTreeVersion .. (charData.league:match("Ruthless") and "_ruthless" or ""))
 	self.build.spec:AddUndoState()
 	self.build.characterLevel = charData.level
 	self.build.characterLevelAutoMode = false
@@ -753,8 +740,8 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	-- Determine rarity, display name and base type of the item
 	item.rarity = rarityMap[itemData.frameType]
 	if #itemData.name > 0 then
-		item.title = itemLib.sanitiseItemText(itemData.name)
-		item.baseName = itemLib.sanitiseItemText(itemData.typeLine):gsub("Synthesised ","")
+		item.title = sanitiseText(itemData.name)
+		item.baseName = sanitiseText(itemData.typeLine):gsub("Synthesised ","")
 		item.name = item.title .. ", " .. item.baseName
 		if item.baseName == "Two-Toned Boots" then
 			-- Hack for Two-Toned Boots
@@ -767,7 +754,7 @@ function ImportTabClass:ImportItem(itemData, slotName)
 			ConPrintf("Unrecognised base in imported item: %s", item.baseName)
 		end
 	else
-		item.name = itemLib.sanitiseItemText(itemData.typeLine)
+		item.name = sanitiseText(itemData.typeLine)
 		if item.name:match("Energy Blade") then
 			local oneHanded = false
 			for _, p in ipairs(itemData.properties) do
@@ -1002,10 +989,12 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
 			local gemId = self.build.data.gemForBaseName[normalizedBasename]
-			if not gemId and socketedItem.hybrid then
-				-- Dual skill gems (currently just Stormbind) show the second skill as the typeLine, which won't match the actual gem
-				-- Luckily the primary skill name is also there, so we can find the gem using that
+			if socketedItem.hybrid then
+				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
+				if socketedItem.hybrid.isVaalGem then
+					normalizedBasename = "Vaal " .. normalizedBasename
+				end
 				gemId = self.build.data.gemForBaseName[normalizedBasename]
 			end
 			if gemId then
@@ -1025,7 +1014,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 					itemSocketGroupList[groupID] = { label = "", enabled = true, gemList = { }, slot = slotName }
 				end
 				local socketGroup = itemSocketGroupList[groupID]
-				if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support then
+				if not socketedItem.support and socketGroup.gemList[1] and socketGroup.gemList[1].support and item.title ~= "Dialla's Malefaction" then
 					-- If the first gemInstance is a support gemInstance, put the first active gemInstance before it
 					t_insert(socketGroup.gemList, 1, gemInstance)
 				else

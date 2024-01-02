@@ -207,7 +207,7 @@ function modLib.formatMod(mod)
 end
 
 function modLib.formatSourceMod(mod)
-    return s_format("%s|%s|%s", mod.value, mod.source, modLib.formatModParams(mod))
+    return s_format("%s|%s|%s", modLib.formatValue(mod.value), mod.source, modLib.formatModParams(mod))
 end
 
 function modLib.setSource(mod, source)

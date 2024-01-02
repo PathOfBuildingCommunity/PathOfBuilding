@@ -12,9 +12,11 @@ Adds 1 to Maximum Life per 3 Intelligence Allocated in Radius
 ]],[[
 The Anima Stone
 Prismatic Jewel
+Variant: Pre 3.23.0
+Variant: Current
 Source: Vendor Recipe
 Limited to: 1
-+1 to maximum number of Golems
+{variant:1}+1 to maximum number of Golems
 +1 to maximum number of Summoned Golems if you have 3 Primordial Items Socketed or Equipped
 ]],[[
 Apex Mode
@@ -143,7 +145,7 @@ Radius: Medium
 ]],[[
 Endless Misery
 Cobalt Jewel
-Source: Vendor Recipe
+Source: No longer obtainable
 League: Heist
 Limited to: 1
 Radius: Medium
@@ -763,6 +765,14 @@ it and your Class' starting location
 {variant:8}+40 to Evasion Rating
 {variant:9}+40 to Accuracy Rating
 Corrupted
+]],[[
+Warrior's Tale
+Crimson Jewel
+League: Ancestor
+Source: No longer obtainable
+Limited to: 1
+Radius: Medium
+100% increased effect of Tattoos in Radius
 ]],
 -- Jewel: Abyss
 [[
@@ -840,16 +850,17 @@ cone has a 50% chance to deal Double Damage
 ]],[[
 Dead Reckoning
 Cobalt Jewel
-Source: Vendor Recipe
 Limited to: 1
 Variant: Pre 3.0.0
 Variant: Pre 3.8.0
+Variant: Pre 3.23.0
 Variant: Current
 Radius: Medium
-Minions have +(7-10)% to all Elemental Resistances
+{variant:1,2,3}Minions have +(7-10)% to all Elemental Resistances
 {variant:1}With at least 40 Intelligence in Radius, can summon up to 3 Skeleton Mages with Summon Skeletons
 {variant:2}With at least 40 Intelligence in Radius, can summon up to 5 Skeleton Mages with Summon Skeletons
 {variant:3}With at least 40 Intelligence in Radius, can summon up to 15 Skeleton Mages with Summon Skeletons
+{variant:4}Skeletons gain Added Chaos Damage equal to (20-30)% of Maximum Energy Shield on your Equipped Shield
 ]],[[
 Fight for Survival
 Viridian Jewel
@@ -1048,7 +1059,7 @@ With at least 40 Strength in Radius, 20% increased Rarity of Items dropped by En
 ]],[[
 Spirit Guards
 Viridian Jewel
-Source: Vendor Recipe
+Source: No longer obtainable
 Variant: Pre 2.6.0
 Variant: Pre 3.20.0
 Variant: Current
@@ -1504,7 +1515,7 @@ Corrupted
 ]],[[
 Soul's Wick
 Cobalt Jewel
-Source: Use currency{Vaal Orb} on normal{Cobalt Jewel}
+Source: No longer obtainable
 Variant: Pre 3.20.0
 Variant: Current
 Limited to: 1

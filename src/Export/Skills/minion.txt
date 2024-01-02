@@ -15,6 +15,12 @@ local skills, mod, flag, skill = ...
 #baseMod skill("dotIsArea", true)
 #mods
 
+#addSkillTypes DamageOverTime
+#skill SandstormChaosElementalSummonedEmpowered Empowered Chaos Aura
+#flags spell duration area
+#baseMod skill("dotIsArea", true)
+#mods
+
 #skill FireElementalFlameRedSummoned Immolate
 #flags spell projectile
 #mods
@@ -27,14 +33,27 @@ local skills, mod, flag, skill = ...
 #flags spell area
 #mods
 
+#skill FireElementalMeteorSummoned Meteor
+#flags attack area
+#baseMod skill("showAverage", true)
+#mods
+
 #skill IceElementalIceCyclone Cyclone
 #flags attack area melee movement
 #baseMod skill("dpsMultiplier", 2)
 #mods
 
-#addSkillTypes Damage
+#addSkillTypes Damage Multicastable
 #skill IceElementalSpearSummoned Ice Spear
 #flags spell projectile
+#mods
+
+#skill IceElementalSpearSummonedDeathNova Death Nova
+#flags spell projectile area
+#mods
+
+#skill DeathExplodeIceElementalSummoned Explode
+#flags spell area
 #mods
 
 #addSkillTypes Damage
@@ -47,7 +66,7 @@ local skills, mod, flag, skill = ...
 #flags spell projectile
 #mods
 
-#skill LightningGolemWrath Wrath
+#skill LightningGolemWrath Lightning Golem Wrath
 #flags spell aura area duration
 	statMap = {
 		["attack_minimum_added_lightning_damage"] = {
@@ -97,6 +116,13 @@ local skills, mod, flag, skill = ...
 #skill ZombieSlam Slam
 #flags attack melee area
 #baseMod skill("radius", 18)
+#mods
+
+#skill GAZombieCorpseGroundImpact Falling Slam
+#flags attack melee area
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = 1 / (activeSkill.summonSkill.skillData.summonSpeed or 1)
+	end,
 #mods
 
 #skill SummonedSpiderViperStrike
@@ -219,6 +245,14 @@ local skills, mod, flag, skill = ...
 #baseMod skill("showAverage", true)
 #mods
 
+#skill EGBoneGolemConsumeCorpse Consume Corpse
+#mods
+
+#skill BoneGolemCascadeEmpowered Empowered Cascade
+#flags attack melee area
+#baseMod skill("showAverage", true)
+#mods
+
 #skill SkitterbotWait Skitterbot Wait
 #flags duration
 #mods
@@ -233,6 +267,9 @@ skills["MinionInstability"] = {
 		fire = true,
 	},
 	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = 1 / (activeSkill.summonSkill.skillData.summonSpeed or 1)
+	end,
 	baseMods = {
 		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
 		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 1/.33 }),
@@ -372,4 +409,16 @@ skills["GuardianSentinelFireAura"] = {
 
 #skill MPWExpeditionSummonedArbalestProjectile Projectile Attack
 #flags attack projectile
+#mods
+
+#skill BlinkMirrorArrowMelee Projectile Attack
+#flags attack projectile
+#mods
+
+#skill SumonRagingSpiritMelee Melee
+#flags attack melee
+#mods
+
+#skill AnimateGuardianSmite Smite
+#flags attack melee area
 #mods

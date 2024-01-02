@@ -109,33 +109,6 @@ function itemLib.applyRange(line, range, valueScalar)
 	return itemLib.applyValueScalar(line, valueScalar, numbers, precision)
 end
 
---- Clean item text by removing or replacing unsupported or redundant characters or sequences
----@param text string
----@return string
-function itemLib.sanitiseItemText(text)
-	-- Something something unicode support something grumble
-	-- Only do these replacements if a char from 128-255 or '<' is found first
-	return text:find("[\128-\255<]") and text
-		:gsub("%b<>", "")
-		:gsub("\226\128\144", "-") -- U+2010 HYPHEN
-		:gsub("\226\128\145", "-") -- U+2011 NON-BREAKING HYPHEN
-		:gsub("\226\128\146", "-") -- U+2012 FIGURE DASH
-		:gsub("\226\128\147", "-") -- U+2013 EN DASH
-		:gsub("\226\128\148", "-") -- U+2014 EM DASH
-		:gsub("\226\128\149", "-") -- U+2015 HORIZONTAL BAR
-		:gsub("\226\136\146", "-") -- U+2212 MINUS SIGN
-		:gsub("\195\164", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
-		:gsub("\195\182", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
-		-- single-byte: Windows-1252 and similar
-		:gsub("\150", "-") -- U+2013 EN DASH
-		:gsub("\151", "-") -- U+2014 EM DASH
-		:gsub("\228", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
-		:gsub("\246", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
-		-- unsupported
-		:gsub("[\128-\255]", "?")
-		or text
-end
-
 function itemLib.formatModLine(modLine, dbMode)
 	local line = (not dbMode and modLine.range and itemLib.applyRange(modLine.line, modLine.range, modLine.valueScalar)) or modLine.line
 	if line:match("^%+?0%%? ") or (line:match(" %+?0%%? ") and not line:match("0 to [1-9]")) or line:match(" 0%-0 ") or line:match(" 0 to 0 ") then -- Hack to hide 0-value modifiers
