@@ -2791,7 +2791,8 @@ function calcs.perform(env, fullDPSSkipEHP)
 	if not fullDPSSkipEHP then
 		calcs.buildDefenceEstimations(env, env.player)
 	end
-	calcs.triggers(env)
+	
+	calcs.triggers(env, env.player)
 	if not calcs.mirages(env) then
 		calcs.offence(env, env.player, env.player.mainSkill)
 	end
