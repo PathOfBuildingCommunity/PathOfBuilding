@@ -630,7 +630,6 @@ return {
 }, },
 	{ label = "Duration Mod", flag = "duration", { format = "x {4:output:DurationMod}",
 		{ breakdown = "DurationMod" }, 
-<<<<<<< HEAD
 		{ breakdown = "SecondaryDurationMod" },
 		{ breakdown = "TertiaryDurationMod" },
 		{ modName = { "Duration", "PrimaryDuration", "SecondaryDuration", "TertiaryDuration", "SkillAndDamagingAilmentDuration" }, cfg = "skill" },
@@ -1655,13 +1654,9 @@ return {
 	{ label = "Light Radius Mod", { format = "x {2:output:LightRadiusMod}", { breakdown = "LightRadiusMod" }, { modName = "LightRadius" }, }, },
 	{ label = "Curse Effect on You", { format = "{1:output:CurseEffectOnSelf}%", { modName = "CurseEffectOnSelf" }, }, },
 	{ label = "Exposure Effect", { format = "{1:output:ExposureEffectOnSelf}%", { modName = "ExposureEffectOnSelf" }, }, },
-<<<<<<< HEAD
+	{ label = "Wither Effect", { format = "{1:output:WitherEffectOnSelf}%", { modName = "WitherEffectOnSelf" }, }, },
 	{ label = "Debuff Dur. Mult.", haveOutput = "showDebuffExpirationModifier", { format = "{1:output:DebuffExpirationModifier}%", { modName = "EffectExpiresFaster", cfg = {skillGrantsDebuff = true}, }, }, },
 	{ label = "Buff Dur. Mult.", haveOutput = "showBuffExpirationModifier", { format = "{1:output:BuffExpirationModifier}%", { modName = "EffectExpiresFaster", cfg = {skillGrantsBuff = true}, }, }, },
-=======
-	{ label = "Wither Effect", { format = "{1:output:WitherEffectOnSelf}%", { modName = "WitherEffectOnSelf" }, }, },
-	{ label = "Debuff Dur. Mult.", haveOutput = "showDebuffExpirationModifier", { format = "{1:output:DebuffExpirationModifier}%", { modName = "SelfDebuffExpirationRate" }, }, },
->>>>>>> POB/dev
 } }, { defaultCollapsed = false, label = "Stun Duration", data = {
 	{ label = "Stun Avoid Chance", haveOutput = "StunAvoidChance", { format = "{0:output:StunAvoidChance}%",  { breakdown = "StunAvoidChance" }, { modName = "AvoidStun" }, }, },
 	{ label = "Stun Threshold", { format = "{0:output:StunThreshold}", { breakdown = "StunThreshold" }, { modName = { "StunThreshold", "StunThresholdManaPercent", "StunThresholdEnergyShieldPercent" } }, }, },
