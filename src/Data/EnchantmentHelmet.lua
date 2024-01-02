@@ -298,7 +298,7 @@ return {
 			"Bladestorm deals 25% increased Damage",
 		},
 		["ENDGAME"] = {
-			"+1 to maximum number of Bladestorms",
+			"+1 to Maximum number of Bladestorms at a time",
 			"Sand Bladestorms move with 75% increased speed",
 			"Bladestorm deals 40% increased Damage",
 		},
@@ -432,19 +432,19 @@ return {
 		},
 		["ENDGAME"] = {
 			"Chain Hook has a 40% chance to grant +1 Rage if it Hits Enemies",
-			"Chain Hook has +1 Radius per 12 Rage",
+			"Chain Hook has +0.1 metres to radius per 12 Rage",
 			"Chain Hook deals 40% increased Damage",
 		},
 	},
 	["Charged Dash"] = {
 		["MERCILESS"] = {
 			"25% increased Charged Dash Damage",
-			"Charged Dash has +4 to Radius of each Wave's last damage Area",
+			"Charged Dash has +0.4 metres to radius of each Wave's last damage Area",
 			"Charged Dash has 10% more Movement Speed",
 		},
 		["ENDGAME"] = {
 			"40% increased Charged Dash Damage",
-			"Charged Dash has +6 to Radius of each Wave's last damage Area",
+			"Charged Dash has +0.6 metres to radius of each Wave's last damage Area",
 			"Charged Dash has 15% more Movement Speed",
 		},
 	},
@@ -707,12 +707,12 @@ return {
 	["Discharge"] = {
 		["MERCILESS"] = {
 			"20% chance for Discharge to deal Damage without removing Charges",
-			"Discharge has +3 to Radius",
+			"+0.3 metres to Discharge radius",
 			"25% increased Discharge Damage",
 		},
 		["ENDGAME"] = {
 			"30% chance for Discharge to deal Damage without removing Charges",
-			"Discharge has +5 to Radius",
+			"+0.5 metres to Discharge radius",
 			"40% increased Discharge Damage",
 		},
 	},
@@ -1376,12 +1376,12 @@ return {
 		["MERCILESS"] = {
 			"Hexblast deals 25% increased Damage",
 			"Hexblast has 16% increased Area of Effect",
-			"Hexblast has 10% chance to not remove a Hex",
+			"Hexblast has +10% chance to remove a Hex",
 		},
 		["ENDGAME"] = {
 			"Hexblast deals 40% increased Damage",
 			"Hexblast has 24% increased Area of Effect",
-			"Hexblast has 15% chance to not remove a Hex",
+			"Hexblast has +15% chance to remove a Hex",
 		},
 	},
 	["Holy Flame Totem"] = {
@@ -1851,13 +1851,13 @@ return {
 			"25% increased Power Siphon Damage",
 			"30% Chance to gain an additional Power Charge on Kill with Power Siphon",
 			"10% increased Power Siphon Attack Speed",
-			"Power Siphon fires an additional Projectile",
+			"Power Siphon fires at up to 1 additional target",
 		},
 		["ENDGAME"] = {
 			"40% increased Power Siphon Damage",
 			"45% Chance to gain an additional Power Charge on Kill with Power Siphon",
 			"15% increased Power Siphon Attack Speed",
-			"Power Siphon fires 2 additional Projectiles",
+			"Power Siphon fires at up to 2 additional targets",
 		},
 	},
 	["Precision"] = {
@@ -2114,7 +2114,7 @@ return {
 		["ENDGAME"] = {
 			"Scourge Arrow deals 40% increased Damage",
 			"Scourge Arrow has 8% chance to Poison per Stage",
-			"Scourge Arrow creates an additional spore pod at Maximum Stages",
+			"Scourge Arrow creates +1 Spore Pod",
 		},
 	},
 	["Searing Bond"] = {
@@ -2306,11 +2306,11 @@ return {
 	["Soulrend"] = {
 		["MERCILESS"] = {
 			"Soulrend deals 25% increased Damage",
-			"Soulrend also Hinders Enemies, with 25% reduced Movement Speed",
+			"Soulrend also Hinders Enemies when applying its Debuff, with 25% reduced Movement Speed",
 		},
 		["ENDGAME"] = {
 			"Soulrend deals 40% increased Damage",
-			"Soulrend also Hinders Enemies, with 40% reduced Movement Speed",
+			"Soulrend also Hinders Enemies when applying its Debuff, with 40% reduced Movement Speed",
 			"Soulrend fires an additional Projectile",
 		},
 	},

@@ -3062,7 +3062,7 @@ minions["Metadata/Monsters/Maligaro/SecretDesecrateMonster"] = {
 -- Trial Galecaller
 minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
 	name = "Trial Galecaller",
-	life = 3.06,
+	life = 2.47,
 	armour = 0.3,
 	fireResist = 0,
 	coldResist = 0,
@@ -3084,7 +3084,7 @@ minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdWeakSpectre"] = {
 -- Trial Windchaser
 minions["Metadata/Monsters/LeagueUltimatum/Guard/GuardBowColdSpectre"] = {
 	name = "Trial Windchaser",
-	life = 3.06,
+	life = 2.47,
 	armour = 0.3,
 	fireResist = 0,
 	coldResist = 0,

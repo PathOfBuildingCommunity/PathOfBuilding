@@ -231,6 +231,34 @@ function convertUTF8to16(text, offset)
 	return table.concat(out)
 end
 
+--- Clean item text by removing or replacing unsupported or redundant characters or sequences
+---@param text string
+---@return string
+function sanitiseText(text)
+	if not text then return nil end
+	-- Something something unicode support something grumble
+	-- Only do these replacements if a char from 128-255 or '<' is found first
+	return text:find("[\128-\255<]") and text
+		:gsub("%b<>", "")
+		:gsub("\226\128\144", "-") -- U+2010 HYPHEN
+		:gsub("\226\128\145", "-") -- U+2011 NON-BREAKING HYPHEN
+		:gsub("\226\128\146", "-") -- U+2012 FIGURE DASH
+		:gsub("\226\128\147", "-") -- U+2013 EN DASH
+		:gsub("\226\128\148", "-") -- U+2014 EM DASH
+		:gsub("\226\128\149", "-") -- U+2015 HORIZONTAL BAR
+		:gsub("\226\136\146", "-") -- U+2212 MINUS SIGN
+		:gsub("\195\164", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
+		:gsub("\195\182", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
+		-- single-byte: Windows-1252 and similar
+		:gsub("\150", "-") -- U+2013 EN DASH
+		:gsub("\151", "-") -- U+2014 EM DASH
+		:gsub("\228", "a") -- U+00E4 LATIN SMALL LETTER A WITH DIAERESIS
+		:gsub("\246", "o") -- U+00F6 LATIN SMALL LETTER O WITH DIAERESIS
+		-- unsupported
+		:gsub("[\128-\255]", "?")
+		or text
+end
+
 do
 	local function toUnsigned(val)
 		return val < 0 and val + 0x100000000 or val
@@ -525,6 +553,36 @@ function tableDeepEquals(t1, t2)
 	return true
 end
 
+function pairsYield(t)
+	local k
+	local start = GetTime()
+	return function() -- iterator function
+		if coroutine.running() and GetTime() - start > 20 then
+			coroutine.yield()
+			start = GetTime()
+		end
+		local v
+		k, v = next(t, k)
+		return k, v
+	end
+end
+
+-- Based on https://www.lua.org/pil/19.3.html
+function pairsSortByKey(t, f)
+	local sortedKeys = {}
+	for key in pairs(t) do t_insert(sortedKeys, key) end
+	table.sort(sortedKeys, f)
+	local i = 0
+	return function() -- iterator function
+		i = i + 1
+		if sortedKeys[i] == nil then
+			return nil
+		else
+			return sortedKeys[i], t[sortedKeys[i]]
+		end
+	end
+end
+
 -- Natural sort comparator
 function naturalSortCompare(a, b)
 	local aIndex, bIndex = 1, 1
@@ -722,6 +780,7 @@ function cacheData(uuid, env)
 	GlobalCache.cachedData[mode][uuid] = {
 		Name = env.player.mainSkill.activeEffect.grantedEffect.name,
 		Speed = env.player.output.Speed,
+		HitSpeed = env.player.output.HitSpeed,
 		ManaCost = env.player.output.ManaCost,
 		LifeCost = env.player.output.LifeCost,
 		ESCost = env.player.output.ESCost,

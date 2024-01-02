@@ -956,7 +956,7 @@ skills["HarvestRhexScreechDebuff"] = {
 #mods
 
 #skill GSHellscapeDemonElite1Screech Screech
-#flags attack hit area triggerable
+#flags spell hit area triggerable
 #mods
 
 #skill TBHellscapePaleLightningBoltSpammableLeft Lightning Bolt
@@ -1136,7 +1136,7 @@ skills["MonsterChanceToTemporalChainsOnHit1"] = {
 }
 
 #skill WraithEtherealKnives Ethereal Knives
-#flags spell projectile duration
+#flags spell projectile
 #mods
 
 skills["DelveMonsterEnfeebleOnHit"] = {

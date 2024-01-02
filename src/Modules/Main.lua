@@ -34,12 +34,18 @@ LoadModule("Modules/BuildSiteTools")
 	end
 end]]
 
+if arg and isValueInTable(arg, "--no-jit") then
+	require("jit").off()
+	ConPrintf("JIT Disabled")
+end
+
 local tempTable1 = { }
 local tempTable2 = { }
 
 main = new("ControlHost")
 
 function main:Init()
+	self:DetectUnicodeSupport()
 	self.modes = { }
 	self.modes["LIST"] = LoadModule("Modules/BuildList")
 	self.modes["BUILD"] = LoadModule("Modules/Build")
@@ -59,7 +65,7 @@ function main:Init()
 		-- If modLib.parseMod doesn't find a cache entry it generates it.
 		-- Not loading pre-generated cache causes it to be rebuilt
 		self.saveNewModCache = true
-	elseif not launch.continuousIntegrationMode then -- Forces regeneration of modCache if ran from CI
+	else
 		-- Load mod cache
 		LoadModule("Data/ModCache", modLib.parseModCache)
 	end
@@ -80,6 +86,7 @@ function main:Init()
 	self.nodePowerTheme = "RED/BLUE"
 	self.colorPositive = defaultColorCodes.POSITIVE
 	self.colorNegative = defaultColorCodes.NEGATIVE
+	self.colorHighlight = defaultColorCodes.HIGHLIGHT
 	self.showThousandsSeparators = true
 	self.thousandsSeparator = ","
 	self.decimalSeparator = "."
@@ -112,44 +119,54 @@ function main:Init()
 	self.tree = { }
 	self:LoadTree(latestTreeVersion)
 
-	ConPrintf("Loading item databases...")
-	self.uniqueDB = { list = { } }
-	for type, typeList in pairs(data.uniques) do
-		for _, raw in pairs(typeList) do
-			local newItem = new("Item", "Rarity: Unique\n"..raw)
-			if newItem.base then
-				newItem:NormaliseQuality()
-				newItem:BuildAndParseRaw()
-				self.uniqueDB.list[newItem.name] = newItem
-			elseif launch.devMode then
-				ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
-			end
-		end
-	end
-	self.rareDB = { list = { } }
-	for _, raw in pairs(data.rares) do
-		local newItem = new("Item", "Rarity: Rare\n"..raw)
-		if newItem.base then
-			newItem:NormaliseQuality()
-			if newItem.crafted then
-				if newItem.base.implicit and #newItem.implicitModLines == 0 then
-					-- Automatically add implicit
-					local implicitIndex = 1
-					for line in newItem.base.implicit:gmatch("[^\n]+") do
-						t_insert(newItem.implicitModLines, { line = line, modTags = newItem.base.implicitModTypes and newItem.base.implicitModTypes[implicitIndex] or { } })
-						implicitIndex = implicitIndex + 1
-					end
+	self.uniqueDB = { list = { }, loading = true }
+	self.rareDB = { list = { }, loading = true }
+
+	local function loadItemDBs()
+		for type, typeList in pairsYield(data.uniques) do
+			for _, raw in pairs(typeList) do
+				newItem = new("Item", raw, "UNIQUE", true)
+				if newItem.base then
+					self.uniqueDB.list[newItem.name] = newItem
+				elseif launch.devMode then
+					ConPrintf("Unique DB unrecognised item of type '%s':\n%s", type, raw)
 				end
-				newItem:Craft()
 			end
-			self.rareDB.list[newItem.name] = newItem
-		elseif launch.devMode then
-			ConPrintf("Rare DB unrecognised item:\n%s", raw)
 		end
+
+		self.uniqueDB.loading = nil
+		ConPrintf("Uniques loaded")
+
+		for _, raw in pairsYield(data.rares) do
+			newItem = new("Item", raw, "RARE", true)
+			if newItem.base then
+				if newItem.crafted then
+					if newItem.base.implicit and #newItem.implicitModLines == 0 then
+						-- Automatically add implicit
+						local implicitIndex = 1
+						for line in newItem.base.implicit:gmatch("[^\n]+") do
+							t_insert(newItem.implicitModLines, { line = line, modTags = newItem.base.implicitModTypes and newItem.base.implicitModTypes[implicitIndex] or { } })
+							implicitIndex = implicitIndex + 1
+						end
+					end
+					newItem:Craft()
+				end
+				self.rareDB.list[newItem.name] = newItem
+			elseif launch.devMode then
+				ConPrintf("Rare DB unrecognised item:\n%s", raw)
+			end
+		end
+
+		self.rareDB.loading = nil
+		ConPrintf("Rares loaded")
 	end
 	
 	if self.saveNewModCache then
+		local saved = self.defaultItemAffixQuality
+		self.defaultItemAffixQuality = 0.5
+		loadItemDBs()
 		self:SaveModCache()
+		self.defaultItemAffixQuality = saved
 	end
 
 	self.sharedItemList = { }
@@ -220,14 +237,44 @@ the "Releases" section of the GitHub page.]])
 
 	self:LoadSharedItems()
 
-	self.onFrameFuncs = { }
+	self.onFrameFuncs = {
+		["FirstFrame"] = function()
+			self.onFrameFuncs["FirstFrame"] = nil
+			if launch.devMode then
+				data.printMissingMinionSkills()
+			end
+			ConPrintf("Startup time: %d ms", GetTime() - launch.startTime)
+		end
+	}
+
+	if not self.saveNewModCache then
+		local itemsCoroutine = coroutine.create(loadItemDBs)
+		
+		self.onFrameFuncs["LoadItems"] = function()
+			local res, errMsg = coroutine.resume(itemsCoroutine)
+			if coroutine.status(itemsCoroutine) == "dead" then
+				self.onFrameFuncs["LoadItems"] = nil
+			end
+			if not res then
+				error(errMsg)
+			end
+		end
+	end
+end
+
+function main:DetectUnicodeSupport()
+	-- PoeCharm has utf8 global that normal PoB doesn't have
+	self.unicode = type(_G.utf8) == "table"
+	if self.unicode then
+		ConPrintf("Unicode support detected")
+	end
 end
 
 function main:SaveModCache()
 	-- Update mod cache
 	local out = io.open("Data/ModCache.lua", "w")
 	out:write('local c=...')
-	for line, dat in pairs(modLib.parseModCache) do
+	for line, dat in pairsSortByKey(modLib.parseModCache) do
 		if not dat[1] or not dat[1][1] or (dat[1][1].name ~= "JewelFunc" and dat[1][1].name ~= "ExtraJewelFunc") then
 			out:write('c["', line:gsub("\n","\\n"), '"]={')
 			if dat[1] then
@@ -405,7 +452,8 @@ function main:OnFrame()
 	if self.inputEvents and not itemLib.wiki.triggered then
 		for _, event in ipairs(self.inputEvents) do
 			if event.type == "KeyUp" and event.key == "F1" then
-				self:OpenAboutPopup(1)
+				local tabName = (self.modes[self.mode].viewMode and self.modes[self.mode].viewMode:lower() or "Build List") .. " tab"
+				self:OpenAboutPopup(tabName or 1)
 				break
 			end
 		end
@@ -504,6 +552,11 @@ function main:LoadSettings(ignoreBuild)
 					updateColorCode("NEGATIVE", node.attrib.colorNegative)
 					self.colorNegative = node.attrib.colorNegative
 				end
+				if node.attrib.colorHighlight then
+					updateColorCode("HIGHLIGHT", node.attrib.colorHighlight)
+					self.colorHighlight = node.attrib.colorHighlight
+				end
+
 				-- In order to preserve users' settings through renaming/merging this variable, we have this if statement to use the first found setting
 				-- Once the user has closed PoB once, they will be using the new `showThousandsSeparator` variable name, so after some time, this statement may be removed
 				if node.attrib.showThousandsCalcs then
@@ -641,6 +694,7 @@ function main:SaveSettings()
 		nodePowerTheme = self.nodePowerTheme,
 		colorPositive = self.colorPositive,
 		colorNegative = self.colorNegative,
+		colorHighlight = self.colorHighlight,
 		showThousandsSeparators = tostring(self.showThousandsSeparators),
 		thousandsSeparator = self.thousandsSeparator,
 		decimalSeparator = self.decimalSeparator,
@@ -761,6 +815,18 @@ function main:OpenOptionsPopup()
 		"The default value is " .. tostring(defaultColorCodes.NEGATIVE:gsub('^(^)', '0')) .. ".\nIf updating while inside a build, please re-load the build after saving."
 
 	nextRow()
+	controls.colorHighlight = new("EditControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 100, 18, tostring(self.colorHighlight:gsub('^(^)', '0')), nil, nil, 8, function(buf)
+		local match = string.match(buf, "0x%x+")
+		if match and #match == 8 then
+			updateColorCode("HIGHLIGHT", buf)
+			self.colorHighlight = buf
+		end
+	end)
+	controls.colorHighlightLabel = new("LabelControl", { "RIGHT", controls.colorHighlight, "LEFT" }, defaultLabelSpacingPx, 0, 0, 16, "^7Hex colour for highlight nodes:")
+	controls.colorHighlight.tooltipText = "Overrides the default hex colour for highlighting nodes in passive tree search. \nExpected format is 0x000000. " ..
+		"The default value is " .. tostring(defaultColorCodes.HIGHLIGHT:gsub('^(^)', '0')) .."\nIf updating while inside a build, please re-load the build after saving."
+			
+	nextRow()
 	controls.betaTest = new("CheckBoxControl", { "TOPLEFT", nil, "TOPLEFT" }, defaultLabelPlacementX, currentY, 20, "^7Opt-in to weekly beta test builds:", function(state)
 		self.betaTest = state
 	end)
@@ -847,6 +913,7 @@ function main:OpenOptionsPopup()
 	local initialNodePowerTheme = self.nodePowerTheme
 	local initialColorPositive = self.colorPositive
 	local initialColorNegative = self.colorNegative
+	local initialColorHighlight = self.colorHighlight
 	local initialThousandsSeparatorDisplay = self.showThousandsSeparators
 	local initialTitlebarName = self.showTitlebarName
 	local initialThousandsSeparator = self.thousandsSeparator
@@ -893,6 +960,8 @@ function main:OpenOptionsPopup()
 		updateColorCode("POSITIVE", self.colorPositive)
 		self.colorNegative = initialColorNegative
 		updateColorCode("NEGATIVE", self.colorNegative)
+		self.colorHighlight = initialColorHighlight
+		updateColorCode("HIGHLIGHT", self.colorHighlight)
 		self.showThousandsSeparators = initialThousandsSeparatorDisplay
 		self.thousandsSeparator = initialThousandsSeparator
 		self.decimalSeparator = initialDecimalSeparator
@@ -953,18 +1022,18 @@ function main:OpenUpdatePopup()
 		end
 	end
 	local controls = { }
-	controls.changeLog = new("TextListControl", nil, 0, 20, 780, 192, nil, changeList)
-	controls.update = new("ButtonControl", nil, -45, 220, 80, 20, "Update", function()
+	controls.changeLog = new("TextListControl", nil, 0, 20, 780, 542, nil, changeList)
+	controls.update = new("ButtonControl", nil, -45, 570, 80, 20, "Update", function()
 		self:ClosePopup()
 		local ret = self:CallMode("CanExit", "UPDATE")
 		if ret == nil or ret == true then
 			launch:ApplyUpdate(launch.updateAvailable)
 		end
 	end)
-	controls.cancel = new("ButtonControl", nil, 45, 220, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", nil, 45, 570, 80, 20, "Cancel", function()
 		self:ClosePopup()
 	end)
-	self:OpenPopup(800, 250, "Update Available", controls)
+	self:OpenPopup(800, 600, "Update Available", controls)
 end
 
 function main:OpenAboutPopup(helpSectionIndex)
@@ -1013,15 +1082,15 @@ function main:OpenAboutPopup(helpSectionIndex)
 							local indentLines = self:WrapString(indent, textSize, popupWidth - 190)
 							if #indentLines > 1 then
 								for i, indentLine in ipairs(indentLines) do
-									t_insert(helpList, { height = textSize, (i == 1 and outdent or " "), "^7"..indentLine })
+									t_insert(helpList, { height = textSize, (i == 1 and outdent or " "), (dev and "^x8888FF" or "^7")..indentLine })
 								end
 							else
-								t_insert(helpList, { height = textSize, "^7"..outdent, "^7"..indent })
+								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..outdent, (dev and "^x8888FF" or "^7")..indent })
 							end
 						else
 							local Lines = self:WrapString(line, textSize, popupWidth - 135)
 							for i, line2 in ipairs(Lines) do
-								t_insert(helpList, { height = textSize, "^7"..(i > 1 and "    " or "")..line2 })
+								t_insert(helpList, { height = textSize, (dev and "^x8888FF" or "^7")..(i > 1 and "    " or "")..line2 })
 							end
 						end
 					end
@@ -1045,9 +1114,9 @@ function main:OpenAboutPopup(helpSectionIndex)
 		end
 	end
 	if helpSectionIndex and not helpSections[helpSectionIndex] then
-		local newIndex = nil
+		local newIndex = 1
 		for sectionIndex, sectionValues in ipairs(helpSections) do
-			if sectionValues.title == helpSectionIndex then
+			if sectionValues.title:lower() == helpSectionIndex then
 				newIndex = sectionIndex
 				break
 			end

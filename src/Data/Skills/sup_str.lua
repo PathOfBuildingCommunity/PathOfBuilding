@@ -20,13 +20,6 @@ skills["SupportAddedFireDamage"] = {
 		Default = {
 			{ "fire_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "fire_damage_+%", -1 },
-			{ "fire_dot_multiplier_+", 1 },
-		},
-		Alternate2 = {
-			{ "skill_physical_damage_%_to_convert_to_fire", 1 },
-		},
 	},
 	stats = {
 		"physical_damage_%_to_add_as_fire",
@@ -133,13 +126,7 @@ skills["SupportSpiritStrike"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "melee_range_+", 0.2 },
+			{ "extra_target_targeting_distance_+%", 0.75 },
 		},
 	},
 	constantStats = {
@@ -209,7 +196,7 @@ skills["SupportAncestralCallPlus"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_damage_+%", 0.5 },
+			{ "extra_target_targeting_distance_+%", 0.75 },
 		},
 	},
 	constantStats = {
@@ -257,13 +244,7 @@ skills["SupportBehead"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_range_+", 0.1 },
-		},
-		Alternate1 = {
-			{ "damage_vs_enemies_on_low_life_+%", 1.5 },
-		},
-		Alternate2 = {
-			{ "support_executioner_refresh_stolen_mod_on_hitting_rare_or_unique_monster_chance_%", 0.5 },
+			{ "damage_vs_enemies_on_low_life_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -329,12 +310,6 @@ skills["SupportBloodMagic"] = {
 	qualityStats = {
 		Default = {
 			{ "aura_effect_+%", 0.25 },
-		},
-		Alternate1 = {
-			{ "base_life_reservation_efficiency_+%", 0.2 },
-		},
-		Alternate2 = {
-			{ "damage_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -409,12 +384,6 @@ skills["SupportBloodthirst"] = {
 		Default = {
 			{ "damage_+%_when_on_low_life", 1 },
 		},
-		Alternate1 = {
-			{ "accuracy_rating_+%_when_on_low_life", 0.5 },
-		},
-		Alternate2 = {
-			{ "damage_vs_enemies_on_low_life_+%", 1.5 },
-		},
 	},
 	constantStats = {
 		{ "blood_price_gain_%_maximum_life_as_added_physical_damage_with_weapons_while_on_low_life", 2 },
@@ -483,12 +452,6 @@ skills["SupportBloodlust"] = {
 		Default = {
 			{ "melee_damage_vs_bleeding_enemies_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "crush_for_2_seconds_on_hit_%_chance", 0.5 },
-		},
-		Alternate2 = {
-			{ "refresh_bleeding_duration_on_hit_%_chance", 0.5 },
-		},
 	},
 	stats = {
 		"support_bloodlust_melee_physical_damage_+%_final_vs_bleeding_enemies",
@@ -554,12 +517,6 @@ skills["SupportBrutality"] = {
 	qualityStats = {
 		Default = {
 			{ "physical_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "bleed_on_hit_with_attacks_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "enemy_phys_reduction_%_penalty_vs_hit", 0.25 },
 		},
 	},
 	stats = {
@@ -677,12 +634,6 @@ skills["SupportIncreasedBurningDamage"] = {
 		Default = {
 			{ "burn_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "ignite_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "non_damaging_ailment_effect_+%", 2 },
-		},
 	},
 	stats = {
 		"support_burning_damage_+%_final",
@@ -795,12 +746,6 @@ skills["SupportCastOnMeleeKill"] = {
 		Default = {
 			{ "attack_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "attack_damage_+%", 3 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	constantStats = {
 		{ "cast_linked_spells_on_melee_kill_%", 100 },
@@ -869,12 +814,6 @@ skills["SupportCastOnMeleeKillTriggered"] = {
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
-		Alternate2 = {
-			{ "base_cooldown_speed_+%", 1 },
 		},
 	},
 	stats = {
@@ -946,13 +885,7 @@ skills["SupportCastOnDamageTaken"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "cast_when_damage_taken_trigger_threshold_+%", -1 },
+			{ "cast_when_damage_taken_trigger_threshold_+%", -0.5 },
 		},
 	},
 	constantStats = {
@@ -1028,12 +961,6 @@ skills["SupportChanceToBleed"] = {
 		Default = {
 			{ "bleeding_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_bleed_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "added_damage_+%_final", 1 },
-		},
 	},
 	constantStats = {
 		{ "bleed_on_hit_with_attacks_%", 25 },
@@ -1099,13 +1026,6 @@ skills["SupportColdToFire"] = {
 	qualityStats = {
 		Default = {
 			{ "cold_damage_+%", 0.5 },
-			{ "fire_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "skill_cold_damage_%_to_convert_to_fire", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_poison_damage_+%", 3 },
 		},
 	},
 	constantStats = {
@@ -1168,87 +1088,76 @@ skills["SupportControlledBlaze"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimit" }),
+			mod("Damage", "MORE", nil, 0, KeywordFlag.Ignite, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimitMax", limitTotal = true }),
 		},
 		["support_recent_ignites_damage_per_recent_ignite_+%_final"] = {
-			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimit"}),
-		},
-		["support_recent_ignites_max_recent_ignites_tracked"] = {
-			mod("Multiplier:ControlledBlazeRecentIgniteLimit", "BASE", nil),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "IgniteAppliedRecently", limitVar = "ControlledBlazeRecentIgniteLimitMin", limitNegTotal = true }),
 		},
 		["support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum"] = {
-			-- Display only,
+			mod("Multiplier:ControlledBlazeRecentIgniteLimitMax", "BASE", nil),
 		},
 		["support_recent_ignites_damage_per_recent_ignite_+%_final_minimum"] = {
-			-- Display only,
+			mod("Multiplier:ControlledBlazeRecentIgniteLimitMin", "BASE", nil),
 		},
 	},
 	qualityStats = {
 		Default = {
 			{ "base_chance_to_ignite_%", 0.5 },
 		},
-		Alternate1 = {
-			{ "ignite_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "faster_burn_%", 0.5 },
-			{ "attack_speed_+%", -0.5 },
-		},
 	},
 	stats = {
 		"support_recent_ignites_ignite_damage_per_recent_ignite_+%_final",
 		"support_recent_ignites_damage_per_recent_ignite_+%_final",
-		"support_recent_ignites_max_recent_ignites_tracked",
 		"support_recent_ignites_ignite_damage_per_recent_ignite_+%_final_maximum",
 		"support_recent_ignites_damage_per_recent_ignite_+%_final_minimum",
 		"base_chance_to_ignite_%",
 	},
 	levels = {
-		[1] = { 10, -3, 23, 230, -69, 10, manaMultiplier = 30, levelRequirement = 31, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[2] = { 10, -3, 23, 230, -69, 10, manaMultiplier = 30, levelRequirement = 34, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[3] = { 10, -3, 23, 230, -69, 11, manaMultiplier = 30, levelRequirement = 36, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[4] = { 10, -3, 23, 230, -69, 11, manaMultiplier = 30, levelRequirement = 38, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[5] = { 11, -3, 24, 264, -72, 12, manaMultiplier = 30, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[6] = { 11, -3, 24, 264, -72, 12, manaMultiplier = 30, levelRequirement = 42, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[7] = { 11, -3, 24, 264, -72, 13, manaMultiplier = 30, levelRequirement = 44, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[8] = { 11, -3, 24, 264, -72, 13, manaMultiplier = 30, levelRequirement = 46, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[9] = { 12, -3, 25, 300, -75, 14, manaMultiplier = 30, levelRequirement = 48, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[10] = { 12, -3, 25, 300, -75, 14, manaMultiplier = 30, levelRequirement = 50, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[11] = { 12, -3, 25, 300, -75, 15, manaMultiplier = 30, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[12] = { 12, -3, 25, 300, -75, 15, manaMultiplier = 30, levelRequirement = 54, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[13] = { 13, -3, 25, 325, -75, 16, manaMultiplier = 30, levelRequirement = 56, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[14] = { 13, -3, 25, 325, -75, 16, manaMultiplier = 30, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[15] = { 13, -3, 25, 325, -75, 17, manaMultiplier = 30, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[16] = { 13, -3, 25, 325, -75, 17, manaMultiplier = 30, levelRequirement = 62, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[17] = { 14, -3, 26, 364, -78, 18, manaMultiplier = 30, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[18] = { 14, -3, 26, 364, -78, 18, manaMultiplier = 30, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[19] = { 14, -3, 26, 364, -78, 19, manaMultiplier = 30, levelRequirement = 68, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[20] = { 14, -3, 26, 364, -78, 19, manaMultiplier = 30, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[21] = { 15, -3, 26, 390, -78, 20, manaMultiplier = 30, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[22] = { 15, -3, 26, 390, -78, 20, manaMultiplier = 30, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[23] = { 15, -3, 26, 390, -78, 21, manaMultiplier = 30, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[24] = { 15, -3, 26, 390, -78, 21, manaMultiplier = 30, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[25] = { 16, -3, 27, 432, -81, 22, manaMultiplier = 30, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[26] = { 16, -3, 27, 432, -81, 22, manaMultiplier = 30, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[27] = { 16, -3, 27, 432, -81, 23, manaMultiplier = 30, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[28] = { 16, -3, 27, 432, -81, 23, manaMultiplier = 30, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[29] = { 17, -3, 27, 459, -81, 24, manaMultiplier = 30, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[30] = { 17, -3, 27, 459, -81, 24, manaMultiplier = 30, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[31] = { 17, -3, 27, 459, -81, 24, manaMultiplier = 30, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[32] = { 17, -3, 27, 459, -81, 25, manaMultiplier = 30, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[33] = { 17, -3, 27, 459, -81, 25, manaMultiplier = 30, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[34] = { 17, -3, 27, 459, -81, 25, manaMultiplier = 30, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[35] = { 17, -3, 27, 459, -81, 25, manaMultiplier = 30, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[36] = { 18, -3, 27, 486, -81, 26, manaMultiplier = 30, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[37] = { 18, -3, 27, 486, -81, 26, manaMultiplier = 30, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[38] = { 18, -3, 27, 486, -81, 26, manaMultiplier = 30, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[39] = { 18, -3, 27, 486, -81, 26, manaMultiplier = 30, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
-		[40] = { 18, -3, 27, 486, -81, 27, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, 1, }, },
+		[1] = { 10, -3, 230, -69, 10, manaMultiplier = 30, levelRequirement = 31, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[2] = { 10, -3, 230, -69, 10, manaMultiplier = 30, levelRequirement = 34, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[3] = { 10, -3, 230, -69, 11, manaMultiplier = 30, levelRequirement = 36, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[4] = { 10, -3, 230, -69, 11, manaMultiplier = 30, levelRequirement = 38, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[5] = { 11, -3, 264, -72, 12, manaMultiplier = 30, levelRequirement = 40, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[6] = { 11, -3, 264, -72, 12, manaMultiplier = 30, levelRequirement = 42, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[7] = { 11, -3, 264, -72, 13, manaMultiplier = 30, levelRequirement = 44, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[8] = { 11, -3, 264, -72, 13, manaMultiplier = 30, levelRequirement = 46, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[9] = { 12, -3, 300, -75, 14, manaMultiplier = 30, levelRequirement = 48, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[10] = { 12, -3, 300, -75, 14, manaMultiplier = 30, levelRequirement = 50, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[11] = { 12, -3, 300, -75, 15, manaMultiplier = 30, levelRequirement = 52, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[12] = { 12, -3, 300, -75, 15, manaMultiplier = 30, levelRequirement = 54, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[13] = { 13, -3, 325, -75, 16, manaMultiplier = 30, levelRequirement = 56, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[14] = { 13, -3, 325, -75, 16, manaMultiplier = 30, levelRequirement = 58, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[15] = { 13, -3, 325, -75, 17, manaMultiplier = 30, levelRequirement = 60, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[16] = { 13, -3, 325, -75, 17, manaMultiplier = 30, levelRequirement = 62, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[17] = { 14, -3, 364, -78, 18, manaMultiplier = 30, levelRequirement = 64, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[18] = { 14, -3, 364, -78, 18, manaMultiplier = 30, levelRequirement = 66, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[19] = { 14, -3, 364, -78, 19, manaMultiplier = 30, levelRequirement = 68, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[20] = { 14, -3, 364, -78, 19, manaMultiplier = 30, levelRequirement = 70, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[21] = { 15, -3, 390, -78, 20, manaMultiplier = 30, levelRequirement = 72, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[22] = { 15, -3, 390, -78, 20, manaMultiplier = 30, levelRequirement = 74, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[23] = { 15, -3, 390, -78, 21, manaMultiplier = 30, levelRequirement = 76, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[24] = { 15, -3, 390, -78, 21, manaMultiplier = 30, levelRequirement = 78, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[25] = { 16, -3, 432, -81, 22, manaMultiplier = 30, levelRequirement = 80, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[26] = { 16, -3, 432, -81, 22, manaMultiplier = 30, levelRequirement = 82, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[27] = { 16, -3, 432, -81, 23, manaMultiplier = 30, levelRequirement = 84, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[28] = { 16, -3, 432, -81, 23, manaMultiplier = 30, levelRequirement = 86, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[29] = { 17, -3, 459, -81, 24, manaMultiplier = 30, levelRequirement = 88, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[30] = { 17, -3, 459, -81, 24, manaMultiplier = 30, levelRequirement = 90, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[31] = { 17, -3, 459, -81, 24, manaMultiplier = 30, levelRequirement = 91, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[32] = { 17, -3, 459, -81, 25, manaMultiplier = 30, levelRequirement = 92, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[33] = { 17, -3, 459, -81, 25, manaMultiplier = 30, levelRequirement = 93, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[34] = { 17, -3, 459, -81, 25, manaMultiplier = 30, levelRequirement = 94, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[35] = { 17, -3, 459, -81, 25, manaMultiplier = 30, levelRequirement = 95, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[36] = { 18, -3, 486, -81, 26, manaMultiplier = 30, levelRequirement = 96, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[37] = { 18, -3, 486, -81, 26, manaMultiplier = 30, levelRequirement = 97, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[38] = { 18, -3, 486, -81, 26, manaMultiplier = 30, levelRequirement = 98, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[39] = { 18, -3, 486, -81, 26, manaMultiplier = 30, levelRequirement = 99, statInterpolation = { 1, 1, 1, 1, 1, }, },
+		[40] = { 18, -3, 486, -81, 27, manaMultiplier = 30, levelRequirement = 100, statInterpolation = { 1, 1, 1, 1, 1, }, },
 	},
 }
 skills["SupportCorruptingCry"] = {
 	name = "Corrupting Cry",
-	description = "Supports warcry skills.",
+	description = "Supports warcry skills. Cannot modify the skills of minions.",
 	color = 1,
 	baseEffectiveness = 0.64999997615814,
 	incrementalEffectiveness = 0.050000000745058,
@@ -1256,6 +1165,7 @@ skills["SupportCorruptingCry"] = {
 	requireSkillTypes = { SkillType.Warcry, },
 	addSkillTypes = { SkillType.DamageOverTime, SkillType.Duration, },
 	excludeSkillTypes = { },
+	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_corrupting_cry_corrupted_blood_base_physical_damage_to_deal_per_minute"] = {
@@ -1285,12 +1195,6 @@ skills["SupportCorruptingCry"] = {
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_life_cost_+%", -0.5 },
 		},
 	},
 	constantStats = {
@@ -1371,12 +1275,6 @@ skills["SupportCruelty"] = {
 		Default = {
 			{ "cruelty_effect_+%", 0.25 },
 		},
-		Alternate1 = {
-			{ "critical_strike_chance_+%", 1 },
-		},
-		Alternate2 = {
-			{ "cruelty_duration_+%", 1 },
-		},
 	},
 	constantStats = {
 		{ "support_base_cruelty_duration_ms", 4000 },
@@ -1448,12 +1346,6 @@ skills["SupportMeleeDamageOnFullLife"] = {
 		Default = {
 			{ "damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_life_leech_from_attack_damage_permyriad", 2.5 },
-		},
-		Alternate2 = {
-			{ "damage_+%_vs_enemies_on_full_life", 2 },
-		},
 	},
 	stats = {
 		"support_damage_while_on_full_life_+%_final",
@@ -1519,12 +1411,6 @@ skills["SupportAuraDuration"] = {
 	qualityStats = {
 		Default = {
 			{ "aura_effect_+%", 0.25 },
-		},
-		Alternate1 = {
-			{ "skill_effect_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_mana_cost_-%", 0.25 },
 		},
 	},
 	constantStats = {
@@ -1606,12 +1492,6 @@ skills["SupportEarthbreaker"] = {
 		Default = {
 			{ "totem_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "ancestor_totem_buff_effect_+%", 1 },
-		},
-		Alternate2 = {
-			{ "ancestor_totem_parent_activation_range_+%", 2 },
-		},
 	},
 	constantStats = {
 		{ "base_totem_duration", 12000 },
@@ -1692,12 +1572,6 @@ skills["SupportWeaponElementalDamage"] = {
 	qualityStats = {
 		Default = {
 			{ "elemental_damage_with_attack_skills_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "chance_to_freeze_shock_ignite_%", 0.25 },
-		},
-		Alternate2 = {
-			{ "base_mana_leech_from_elemental_damage_permyriad", 2.5 },
 		},
 	},
 	stats = {
@@ -1807,9 +1681,6 @@ skills["SupportAdditionalLevel"] = {
 		Default = {
 			{ "local_gem_experience_gain_+%", 5 },
 		},
-		Alternate1 = {
-			{ "local_gem_str_requirement_+%", -3 },
-		},
 	},
 	stats = {
 		"supported_active_skill_gem_level_+",
@@ -1882,19 +1753,10 @@ skills["EnduranceChargeOnMeleeStun"] = {
 		["endurance_charge_on_melee_stun_damage_+%_final_per_endurance_charge"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 		},
-		["damage_+%_if_lost_endurance_charge_in_past_8_seconds"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "LostEnduranceChargeInPast8Sec" }),
-		}
 	},
 	qualityStats = {
 		Default = {
 			{ "base_stun_duration_+%", 1 },
-		},
-		Alternate1 = {
-			{ "damage_+%_per_endurance_charge", 0.1 },
-		},
-		Alternate2 = {
-			{ "damage_+%_if_lost_endurance_charge_in_past_8_seconds", 1 },
 		},
 	},
 	constantStats = {
@@ -1970,13 +1832,6 @@ skills["SupportMortalConviction"] = {
 		Default = {
 			{ "aura_effect_+%", 0.25 },
 		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_skill_area_of_effect_+%", -1 },
-			{ "non_curse_aura_effect_+%", 0.5 },
-		},
 	},
 	stats = {
 		"aura_effect_+%",
@@ -2039,12 +1894,6 @@ skills["SupportFirePenetration"] = {
 	qualityStats = {
 		Default = {
 			{ "fire_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "burn_damage_+%", 3 },
-		},
-		Alternate2 = {
-			{ "base_chance_to_destroy_corpse_on_kill_%_vs_ignited", 5 },
 		},
 	},
 	stats = {
@@ -2147,30 +1996,19 @@ skills["AncestralSlamSupport"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["support_ancestral_slam_big_hit_hit_damage_+%_final"] = {
-			mod("FistOfWarHitMultiplier", "BASE", nil, ModFlag.Melee),
+			mod("FistOfWarHitMultiplier", "BASE", nil),
 		},
 		["support_ancestral_slam_big_hit_ailment_damage_+%_final"] = {
-			mod("FistOfWarAilmentMultiplier", "BASE", nil, bit.band(ModFlag.Melee, ModFlag.Ailment)),
+			mod("FistOfWarAilmentMultiplier", "BASE", nil),
 		},
 		["ancestral_slam_interval_duration"] = {
 			mod("FistOfWarCooldown", "BASE", nil),
 			div = 1000,
 		},
-		["ancestral_slam_stun_threshold_reduction_+%"] = {
-			mod("EnemyStunThreshold", "INC", nil, ModFlag.Attack),
-			mult = -1,
-		},
 	},
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "attack_speed_+%", -1 },
-			{ "damage_+%", 3 },
-		},
-		Alternate2 = {
-			{ "ancestral_slam_stun_threshold_reduction_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -2242,13 +2080,7 @@ skills["SupportFlamewood"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "dummy_stat_display_nothing", 0.5 },
-		},
-		Alternate1 = {
 			{ "totem_life_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0.5 },
 		},
 	},
 	stats = {
@@ -2332,13 +2164,7 @@ skills["AvengingFlame"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "fire_damage_+%", 1 },
-		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0.5 },
-		},
-		Alternate2 = {
-			{ "cover_in_ash_on_hit_%", 0.5 },
+			{ "dummy_stat_display_nothing", 0 },
 		},
 	},
 	constantStats = {
@@ -2355,46 +2181,46 @@ skills["AvengingFlame"] = {
 		"do_not_predict_totem_life",
 	},
 	levels = {
-		[1] = { 80, 0, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 8, statInterpolation = { 1, 1, }, },
-		[2] = { 83, 0, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 10, statInterpolation = { 1, 1, }, },
-		[3] = { 86, 0, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 13, statInterpolation = { 1, 1, }, },
-		[4] = { 89, 1, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 17, statInterpolation = { 1, 1, }, },
-		[5] = { 92, 1, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 21, statInterpolation = { 1, 1, }, },
-		[6] = { 95, 1, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 25, statInterpolation = { 1, 1, }, },
-		[7] = { 98, 1, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 29, statInterpolation = { 1, 1, }, },
-		[8] = { 101, 2, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 33, statInterpolation = { 1, 1, }, },
-		[9] = { 104, 2, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 37, statInterpolation = { 1, 1, }, },
-		[10] = { 107, 2, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 40, statInterpolation = { 1, 1, }, },
-		[11] = { 110, 2, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 43, statInterpolation = { 1, 1, }, },
-		[12] = { 113, 3, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 46, statInterpolation = { 1, 1, }, },
-		[13] = { 116, 3, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 49, statInterpolation = { 1, 1, }, },
-		[14] = { 119, 3, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 52, statInterpolation = { 1, 1, }, },
-		[15] = { 122, 3, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 55, statInterpolation = { 1, 1, }, },
-		[16] = { 125, 4, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 58, statInterpolation = { 1, 1, }, },
-		[17] = { 128, 4, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 61, statInterpolation = { 1, 1, }, },
-		[18] = { 131, 4, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 64, statInterpolation = { 1, 1, }, },
-		[19] = { 134, 4, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 67, statInterpolation = { 1, 1, }, },
-		[20] = { 137, 5, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 70, statInterpolation = { 1, 1, }, },
-		[21] = { 140, 5, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 72, statInterpolation = { 1, 1, }, },
-		[22] = { 143, 5, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 74, statInterpolation = { 1, 1, }, },
-		[23] = { 146, 5, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 76, statInterpolation = { 1, 1, }, },
-		[24] = { 149, 6, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 78, statInterpolation = { 1, 1, }, },
-		[25] = { 152, 6, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 80, statInterpolation = { 1, 1, }, },
-		[26] = { 155, 6, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 82, statInterpolation = { 1, 1, }, },
-		[27] = { 158, 6, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 84, statInterpolation = { 1, 1, }, },
-		[28] = { 161, 7, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 86, statInterpolation = { 1, 1, }, },
-		[29] = { 164, 7, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 88, statInterpolation = { 1, 1, }, },
-		[30] = { 167, 7, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 90, statInterpolation = { 1, 1, }, },
-		[31] = { 168, 7, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 91, statInterpolation = { 1, 1, }, },
-		[32] = { 170, 8, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 92, statInterpolation = { 1, 1, }, },
-		[33] = { 171, 8, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 93, statInterpolation = { 1, 1, }, },
-		[34] = { 173, 8, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 94, statInterpolation = { 1, 1, }, },
-		[35] = { 174, 8, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 95, statInterpolation = { 1, 1, }, },
-		[36] = { 176, 9, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 96, statInterpolation = { 1, 1, }, },
-		[37] = { 177, 9, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 97, statInterpolation = { 1, 1, }, },
-		[38] = { 179, 9, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 98, statInterpolation = { 1, 1, }, },
-		[39] = { 180, 9, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 99, statInterpolation = { 1, 1, }, },
-		[40] = { 182, 10, critChance = 5, storedUses = 1, cooldown = 1, levelRequirement = 100, statInterpolation = { 1, 1, }, },
+		[1] = { 80, 0, critChance = 5, storedUses = 1, levelRequirement = 8, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[2] = { 83, 0, critChance = 5, storedUses = 1, levelRequirement = 10, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[3] = { 86, 0, critChance = 5, storedUses = 1, levelRequirement = 13, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[4] = { 89, 1, critChance = 5, storedUses = 1, levelRequirement = 17, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[5] = { 92, 1, critChance = 5, storedUses = 1, levelRequirement = 21, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[6] = { 95, 1, critChance = 5, storedUses = 1, levelRequirement = 25, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[7] = { 98, 1, critChance = 5, storedUses = 1, levelRequirement = 29, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[8] = { 101, 2, critChance = 5, storedUses = 1, levelRequirement = 33, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[9] = { 104, 2, critChance = 5, storedUses = 1, levelRequirement = 37, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[10] = { 107, 2, critChance = 5, storedUses = 1, levelRequirement = 40, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[11] = { 110, 2, critChance = 5, storedUses = 1, levelRequirement = 43, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[12] = { 113, 3, critChance = 5, storedUses = 1, levelRequirement = 46, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[13] = { 116, 3, critChance = 5, storedUses = 1, levelRequirement = 49, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[14] = { 119, 3, critChance = 5, storedUses = 1, levelRequirement = 52, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[15] = { 122, 3, critChance = 5, storedUses = 1, levelRequirement = 55, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[16] = { 125, 4, critChance = 5, storedUses = 1, levelRequirement = 58, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[17] = { 128, 4, critChance = 5, storedUses = 1, levelRequirement = 61, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[18] = { 131, 4, critChance = 5, storedUses = 1, levelRequirement = 64, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[19] = { 134, 4, critChance = 5, storedUses = 1, levelRequirement = 67, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[20] = { 137, 5, critChance = 5, storedUses = 1, levelRequirement = 70, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[21] = { 140, 5, critChance = 5, storedUses = 1, levelRequirement = 72, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[22] = { 143, 5, critChance = 5, storedUses = 1, levelRequirement = 74, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[23] = { 146, 5, critChance = 5, storedUses = 1, levelRequirement = 76, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[24] = { 149, 6, critChance = 5, storedUses = 1, levelRequirement = 78, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[25] = { 152, 6, critChance = 5, storedUses = 1, levelRequirement = 80, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[26] = { 155, 6, critChance = 5, storedUses = 1, levelRequirement = 82, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[27] = { 158, 6, critChance = 5, storedUses = 1, levelRequirement = 84, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[28] = { 161, 7, critChance = 5, storedUses = 1, levelRequirement = 86, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[29] = { 164, 7, critChance = 5, storedUses = 1, levelRequirement = 88, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[30] = { 167, 7, critChance = 5, storedUses = 1, levelRequirement = 90, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[31] = { 168, 7, critChance = 5, storedUses = 1, levelRequirement = 91, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[32] = { 170, 8, critChance = 5, storedUses = 1, levelRequirement = 92, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[33] = { 171, 8, critChance = 5, storedUses = 1, levelRequirement = 93, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[34] = { 173, 8, critChance = 5, storedUses = 1, levelRequirement = 94, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[35] = { 174, 8, critChance = 5, storedUses = 1, levelRequirement = 95, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[36] = { 176, 9, critChance = 5, storedUses = 1, levelRequirement = 96, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[37] = { 177, 9, critChance = 5, storedUses = 1, levelRequirement = 97, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[38] = { 179, 9, critChance = 5, storedUses = 1, levelRequirement = 98, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[39] = { 180, 9, critChance = 5, storedUses = 1, levelRequirement = 99, cooldown = 1, statInterpolation = { 1, 1, }, },
+		[40] = { 182, 10, critChance = 5, storedUses = 1, levelRequirement = 100, cooldown = 1, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SupportFortify"] = {
@@ -2416,20 +2242,10 @@ skills["SupportFortify"] = {
 		["fortify_effect_+%"] = {
 			mod("FortifyEffectOnSelf", "INC", nil)
 		},
-		["overwhelm_%_physical_damage_reduction_while_max_fortification"] = {
-			mod("EnemyPhysicalDamageReduction", "BASE", nil, ModFlag.Hit, 0, { type = "Condition", var = "HaveMaximumFortification"}),
-			mult = -1,
-		},
 	},
 	qualityStats = {
 		Default = {
-			{ "attack_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "fortify_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "overwhelm_%_physical_damage_reduction_while_max_fortification", 0.25 },
+			{ "fortify_duration_+%", 1 },
 		},
 	},
 	constantStats = {
@@ -2499,13 +2315,6 @@ skills["SupportGenerosity"] = {
 	qualityStats = {
 		Default = {
 			{ "base_aura_area_of_effect_+%", 2 },
-		},
-		Alternate1 = {
-			{ "non_curse_aura_effect_+%", 0.25 },
-		},
-		Alternate2 = {
-			{ "base_aura_area_of_effect_+%", 5 },
-			{ "base_reservation_efficiency_+%", -1 },
 		},
 	},
 	stats = {
@@ -2605,7 +2414,7 @@ skills["SupportGenerosityPlus"] = {
 }
 skills["SupportGuardiansBlessing"] = {
 	name = "Guardian's Blessing",
-	description = "Must support both a skill that creates minions which can be damaged, and\n an aura skill that creates permanent auras around you.\nCannot support triggered skills, banner skills or stance skills. ",
+	description = "Must support both a skill that creates minions which can be damaged, and\n an aura skill that creates permanent auras around you.\nCannot support triggered skills, banner skills or stance skills.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.CanHaveBlessing, },
@@ -2627,12 +2436,6 @@ skills["SupportGuardiansBlessing"] = {
 	qualityStats = {
 		Default = {
 			{ "aura_effect_+%", 0.25 },
-		},
-		Alternate1 = {
-			{ "dummy_stat_display_nothing", 0.5 },
-		},
-		Alternate2 = {
-			{ "aura_effect_+%", 1 },
 		},
 	},
 	stats = {
@@ -2686,7 +2489,7 @@ skills["SupportGuardiansBlessing"] = {
 }
 skills["SupportGuardiansBlessingMinion"] = {
 	name = "Guardian's Blessing",
-	description = "Must support both a skill that creates minions which can be damaged, and\n an aura skill that creates permanent auras around you.\nCannot support triggered skills, banner skills or stance skills. ",
+	description = "Must support both a skill that creates minions which can be damaged, and\n an aura skill that creates permanent auras around you.\nCannot support triggered skills, banner skills or stance skills.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.CreatesMinion, },
@@ -2703,12 +2506,6 @@ skills["SupportGuardiansBlessingMinion"] = {
 	qualityStats = {
 		Default = {
 			{ "dummy_stat_display_nothing", 0.25 },
-		},
-		Alternate1 = {
-			{ "minion_life_regeneration_rate_per_minute_%", 6 },
-		},
-		Alternate2 = {
-			{ "support_guardians_blessing_minion_physical_damage_%_of_maximum_life_and_ES_taken_per_minute", 15 },
 		},
 	},
 	stats = {
@@ -2772,14 +2569,6 @@ skills["SupportIncreasedDuration"] = {
 		Default = {
 			{ "skill_effect_duration_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_mana_cost_-%", 1 },
-			{ "base_life_cost_+%", -1 },
-			{ "skill_effect_duration_+%", -0.5 },
-		},
-		Alternate2 = {
-			{ "base_all_ailment_duration_+%", 1 },
-		},
 	},
 	stats = {
 		"skill_effect_duration_+%",
@@ -2839,13 +2628,6 @@ skills["SupportIronGrip"] = {
 	qualityStats = {
 		Default = {
 			{ "projectile_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "attack_speed_+%", -0.5 },
-			{ "damage_+%", 2 },
-		},
-		Alternate2 = {
-			{ "base_projectile_speed_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -2907,13 +2689,6 @@ skills["SupportIronWill"] = {
 	qualityStats = {
 		Default = {
 			{ "spell_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_cast_speed_+%", -0.5 },
-			{ "damage_+%", 2 },
-		},
-		Alternate2 = {
-			{ "base_projectile_speed_+%", 0.5 },
 		},
 	},
 	stats = {
@@ -3038,12 +2813,6 @@ skills["SupportKnockback"] = {
 		Default = {
 			{ "base_global_chance_to_knockback_%", 0.5 },
 		},
-		Alternate1 = {
-			{ "damage_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "knockback_distance_+%", 2 },
-		},
 	},
 	constantStats = {
 		{ "knockback_distance_+%", 50 },
@@ -3115,12 +2884,6 @@ skills["SupportReducedDuration"] = {
 		Default = {
 			{ "support_reduced_duration_skill_effect_duration_+%_final", -0.5 },
 		},
-		Alternate1 = {
-			{ "base_all_ailment_duration_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "faster_bleed_%", 0.5 },
-		},
 	},
 	stats = {
 		"support_reduced_duration_skill_effect_duration_+%_final",
@@ -3183,12 +2946,6 @@ skills["SupportLifeGainOnHit"] = {
 		Default = {
 			{ "base_life_gain_per_target", 0.5 },
 		},
-		Alternate1 = {
-			{ "damage_+%_when_on_full_life", 2 },
-		},
-		Alternate2 = {
-			{ "mana_gain_per_target", 0.1 },
-		},
 	},
 	stats = {
 		"base_life_gain_per_target",
@@ -3246,20 +3003,9 @@ skills["SupportLifeLeech"] = {
 	addSkillTypes = { },
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
-	statMap = {
-		["maximum_life_leech_amount_per_leech_+%"] = {
-			mod("MaxLifeLeechRate", "INC", nil)
-		}
-	},
 	qualityStats = {
 		Default = {
 			{ "damage_+%_while_life_leeching", 0.5 },
-		},
-		Alternate1 = {
-			{ "damage_+%_when_on_full_life", 2 },
-		},
-		Alternate2 = {
-			{ "maximum_life_leech_amount_per_leech_+%", 5 },
 		},
 	},
 	stats = {
@@ -3324,12 +3070,6 @@ skills["SupportLifetap"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_life_cost_+%", 0.5 },
-		},
-		Alternate2 = {
 			{ "support_base_lifetap_buff_duration", 100 },
 		},
 	},
@@ -3401,19 +3141,10 @@ skills["SupportMaim"] = {
 		["support_maimed_enemies_physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Maim" }, { type = "Condition", var = "Maimed" }),
 		},
-		["chance_to_bleed_on_hit_%_vs_maimed"] = {
-			mod("BleedChance", "BASE", nil, 0, 0, { type = "ActorCondition", actor = "enemy", var = "Maimed" })
-		}
 	},
 	qualityStats = {
 		Default = {
-			{ "physical_damage_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "maim_effect_+%", 1 },
-		},
-		Alternate2 = {
-			{ "chance_to_bleed_on_hit_%_vs_maimed", 0.5 },
 		},
 	},
 	constantStats = {
@@ -3490,12 +3221,6 @@ skills["SupportMeleePhysicalDamage"] = {
 	qualityStats = {
 		Default = {
 			{ "melee_physical_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "melee_range_+", 0.1 },
-		},
-		Alternate2 = {
-			{ "enemy_phys_reduction_%_penalty_vs_hit", 0.25 },
 		},
 	},
 	constantStats = {
@@ -3617,12 +3342,6 @@ skills["SupportMeleeSplash"] = {
 	qualityStats = {
 		Default = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "melee_damage_+%", 1 },
-		},
-		Alternate2 = {
-			{ "support_melee_splash_damage_+%_final_for_splash", 2 },
 		},
 	},
 	constantStats = {
@@ -3746,23 +3465,13 @@ skills["SupportMultistrike"] = {
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "ModFlagOr", modFlags = bit.bor(ModFlag.WeaponMelee, ModFlag.Unarmed) }),
 			mod("Speed", "MORE", nil, ModFlag.Attack, nil, { type = "SkillType", skillType = SkillType.RequiresShield }),
 		},
-		["multistrike_area_of_effect_+%_per_repeat"] = {
-			mod("RepeatPerRepeatAreaOfEffect", "INC", nil)
-		}
 	},
 	baseMods = {
 		flag("SupportedByMultistrike"),
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_physical_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "attack_speed_+%", -1 },
-			{ "multistrike_area_of_effect_+%_per_repeat", 1 },
-		},
-		Alternate2 = {
-			{ "attack_speed_+%", 0.5 },
+			{ "melee_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -3904,13 +3613,7 @@ skills["SupportMultiTotem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate1 = {
-			{ "totem_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "totem_damage_+%", 0.5 },
+			{ "summon_totem_cast_speed_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -3982,14 +3685,7 @@ skills["SupportPulverise"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "area_damage_+%", 0.5 },
-		},
-		Alternate1 = {
 			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "support_pulverise_attack_speed_+%_final", -0.5 },
-			{ "support_pulverise_melee_area_damage_+%_final", 1 },
 		},
 	},
 	constantStats = {
@@ -4070,19 +3766,10 @@ skills["SupportRage"] = {
 		["attack_maximum_added_physical_damage_per_10_rage"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "Rage", div = 10 })
 		},
-		["attack_speed_+%_with_atleast_20_rage"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "MultiplierThreshold", var = "Rage", threshold = 20 })
-		}
 	},
 	qualityStats = {
 		Default = {
 			{ "attack_damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "attack_speed_+%_with_atleast_20_rage", 0.5 },
-		},
-		Alternate2 = {
-			{ "gain_1_rage_on_use_%_chance", 1 },
 		},
 	},
 	constantStats = {
@@ -4146,6 +3833,10 @@ skills["SupportRangedAttackTotem"] = {
 	addSkillTypes = { SkillType.Trappable, SkillType.Mineable, SkillType.SummonsTotem, SkillType.ReservationBecomesCost, SkillType.TotemsAreBallistae, },
 	excludeSkillTypes = { SkillType.InbuiltTrigger, },
 	ignoreMinionTypes = true,
+	weaponTypes = {
+		["Wand"] = true,
+		["Bow"] = true,
+	},
 	statDescriptionScope = "gem_stat_descriptions",
 	addFlags = {
 		totem = true,
@@ -4161,16 +3852,7 @@ skills["SupportRangedAttackTotem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate1 = {
-			{ "totem_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "totem_range_+%", 1 },
-		},
-		Alternate3 = {
-			{ "projectile_return_%_chance", 0.5 },
+			{ "summon_totem_cast_speed_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4251,13 +3933,7 @@ skills["SupportReducedMana"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "inspiration_charge_duration_+%", 1 },
-		},
-		Alternate1 = {
-			{ "critical_strike_chance_+%", 1 },
-		},
-		Alternate2 = {
-			{ "base_mana_cost_-%", 0.5 },
+			{ "base_mana_cost_-%", 0.25 },
 		},
 	},
 	constantStats = {
@@ -4340,13 +4016,6 @@ skills["SupportRuthless"] = {
 		Default = {
 			{ "attack_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_stun_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "attack_speed_+%", -1 },
-			{ "support_ruthless_big_hit_damage_+%_final", 1 },
-		},
 	},
 	constantStats = {
 		{ "support_ruthless_big_hit_max_count", 3 },
@@ -4425,12 +4094,6 @@ skills["SupportBluntWeapon"] = {
 		Default = {
 			{ "melee_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "dummy_stat_display_nothing", 0 },
-		},
 	},
 	constantStats = {
 		{ "support_blunt_chance_to_trigger_shockwave_on_hit_%", 100 },
@@ -4503,12 +4166,6 @@ skills["SupportBluntWeaponShockwave"] = {
 		Default = {
 			{ "melee_damage_+%", 0.5 },
 		},
-		Alternate1 = {
-			{ "base_skill_area_of_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_cooldown_speed_+%", 0.5 },
-		},
 	},
 	stats = {
 		"active_skill_base_radius_+",
@@ -4517,46 +4174,46 @@ skills["SupportBluntWeaponShockwave"] = {
 		"triggered_by_shockwave_support",
 	},
 	levels = {
-		[1] = { 0, 0, baseMultiplier = 1.6, cooldown = 1, damageEffectiveness = 1.6, storedUses = 1, levelRequirement = 18, statInterpolation = { 1, 1, }, },
-		[2] = { 0, 2, baseMultiplier = 1.653, cooldown = 1, damageEffectiveness = 1.65, storedUses = 1, levelRequirement = 22, statInterpolation = { 1, 1, }, },
-		[3] = { 0, 4, baseMultiplier = 1.705, cooldown = 1, damageEffectiveness = 1.71, storedUses = 1, levelRequirement = 26, statInterpolation = { 1, 1, }, },
-		[4] = { 0, 6, baseMultiplier = 1.758, cooldown = 1, damageEffectiveness = 1.76, storedUses = 1, levelRequirement = 29, statInterpolation = { 1, 1, }, },
-		[5] = { 0, 8, baseMultiplier = 1.811, cooldown = 1, damageEffectiveness = 1.81, storedUses = 1, levelRequirement = 32, statInterpolation = { 1, 1, }, },
-		[6] = { 1, 10, baseMultiplier = 1.863, cooldown = 1, damageEffectiveness = 1.86, storedUses = 2, levelRequirement = 35, statInterpolation = { 1, 1, }, },
-		[7] = { 1, 12, baseMultiplier = 1.916, cooldown = 1, damageEffectiveness = 1.92, storedUses = 2, levelRequirement = 38, statInterpolation = { 1, 1, }, },
-		[8] = { 1, 14, baseMultiplier = 1.968, cooldown = 1, damageEffectiveness = 1.97, storedUses = 2, levelRequirement = 41, statInterpolation = { 1, 1, }, },
-		[9] = { 1, 16, baseMultiplier = 2.021, cooldown = 1, damageEffectiveness = 2.02, storedUses = 2, levelRequirement = 44, statInterpolation = { 1, 1, }, },
-		[10] = { 1, 18, baseMultiplier = 2.074, cooldown = 1, damageEffectiveness = 2.07, storedUses = 2, levelRequirement = 47, statInterpolation = { 1, 1, }, },
-		[11] = { 2, 20, baseMultiplier = 2.126, cooldown = 1, damageEffectiveness = 2.13, storedUses = 3, levelRequirement = 50, statInterpolation = { 1, 1, }, },
-		[12] = { 2, 22, baseMultiplier = 2.179, cooldown = 1, damageEffectiveness = 2.18, storedUses = 3, levelRequirement = 53, statInterpolation = { 1, 1, }, },
-		[13] = { 2, 24, baseMultiplier = 2.232, cooldown = 1, damageEffectiveness = 2.23, storedUses = 3, levelRequirement = 56, statInterpolation = { 1, 1, }, },
-		[14] = { 2, 26, baseMultiplier = 2.284, cooldown = 1, damageEffectiveness = 2.28, storedUses = 3, levelRequirement = 58, statInterpolation = { 1, 1, }, },
-		[15] = { 2, 28, baseMultiplier = 2.337, cooldown = 1, damageEffectiveness = 2.34, storedUses = 3, levelRequirement = 60, statInterpolation = { 1, 1, }, },
-		[16] = { 3, 30, baseMultiplier = 2.389, cooldown = 1, damageEffectiveness = 2.39, storedUses = 4, levelRequirement = 62, statInterpolation = { 1, 1, }, },
-		[17] = { 3, 32, baseMultiplier = 2.442, cooldown = 1, damageEffectiveness = 2.44, storedUses = 4, levelRequirement = 64, statInterpolation = { 1, 1, }, },
-		[18] = { 3, 34, baseMultiplier = 2.495, cooldown = 1, damageEffectiveness = 2.49, storedUses = 4, levelRequirement = 66, statInterpolation = { 1, 1, }, },
-		[19] = { 3, 36, baseMultiplier = 2.547, cooldown = 1, damageEffectiveness = 2.55, storedUses = 4, levelRequirement = 68, statInterpolation = { 1, 1, }, },
-		[20] = { 3, 38, baseMultiplier = 2.6, cooldown = 1, damageEffectiveness = 2.6, storedUses = 4, levelRequirement = 70, statInterpolation = { 1, 1, }, },
-		[21] = { 4, 40, baseMultiplier = 2.653, cooldown = 1, damageEffectiveness = 2.65, storedUses = 5, levelRequirement = 72, statInterpolation = { 1, 1, }, },
-		[22] = { 4, 42, baseMultiplier = 2.705, cooldown = 1, damageEffectiveness = 2.71, storedUses = 5, levelRequirement = 74, statInterpolation = { 1, 1, }, },
-		[23] = { 4, 44, baseMultiplier = 2.758, cooldown = 1, damageEffectiveness = 2.76, storedUses = 5, levelRequirement = 76, statInterpolation = { 1, 1, }, },
-		[24] = { 4, 46, baseMultiplier = 2.811, cooldown = 1, damageEffectiveness = 2.81, storedUses = 5, levelRequirement = 78, statInterpolation = { 1, 1, }, },
-		[25] = { 4, 48, baseMultiplier = 2.863, cooldown = 1, damageEffectiveness = 2.86, storedUses = 5, levelRequirement = 80, statInterpolation = { 1, 1, }, },
-		[26] = { 5, 50, baseMultiplier = 2.916, cooldown = 1, damageEffectiveness = 2.92, storedUses = 5, levelRequirement = 82, statInterpolation = { 1, 1, }, },
-		[27] = { 5, 52, baseMultiplier = 2.968, cooldown = 1, damageEffectiveness = 2.97, storedUses = 5, levelRequirement = 84, statInterpolation = { 1, 1, }, },
-		[28] = { 5, 54, baseMultiplier = 3.021, cooldown = 1, damageEffectiveness = 3.02, storedUses = 5, levelRequirement = 86, statInterpolation = { 1, 1, }, },
-		[29] = { 5, 56, baseMultiplier = 3.074, cooldown = 1, damageEffectiveness = 3.07, storedUses = 5, levelRequirement = 88, statInterpolation = { 1, 1, }, },
-		[30] = { 5, 58, baseMultiplier = 3.126, cooldown = 1, damageEffectiveness = 3.13, storedUses = 5, levelRequirement = 90, statInterpolation = { 1, 1, }, },
-		[31] = { 6, 59, baseMultiplier = 3.153, cooldown = 1, damageEffectiveness = 3.15, storedUses = 6, levelRequirement = 91, statInterpolation = { 1, 1, }, },
-		[32] = { 6, 60, baseMultiplier = 3.179, cooldown = 1, damageEffectiveness = 3.18, storedUses = 6, levelRequirement = 92, statInterpolation = { 1, 1, }, },
-		[33] = { 6, 61, baseMultiplier = 3.205, cooldown = 1, damageEffectiveness = 3.21, storedUses = 6, levelRequirement = 93, statInterpolation = { 1, 1, }, },
-		[34] = { 6, 62, baseMultiplier = 3.232, cooldown = 1, damageEffectiveness = 3.23, storedUses = 6, levelRequirement = 94, statInterpolation = { 1, 1, }, },
-		[35] = { 6, 63, baseMultiplier = 3.258, cooldown = 1, damageEffectiveness = 3.26, storedUses = 6, levelRequirement = 95, statInterpolation = { 1, 1, }, },
-		[36] = { 7, 64, baseMultiplier = 3.284, cooldown = 1, damageEffectiveness = 3.28, storedUses = 6, levelRequirement = 96, statInterpolation = { 1, 1, }, },
-		[37] = { 7, 65, baseMultiplier = 3.311, cooldown = 1, damageEffectiveness = 3.31, storedUses = 6, levelRequirement = 97, statInterpolation = { 1, 1, }, },
-		[38] = { 7, 66, baseMultiplier = 3.337, cooldown = 1, damageEffectiveness = 3.34, storedUses = 6, levelRequirement = 98, statInterpolation = { 1, 1, }, },
-		[39] = { 7, 67, baseMultiplier = 3.363, cooldown = 1, damageEffectiveness = 3.36, storedUses = 6, levelRequirement = 99, statInterpolation = { 1, 1, }, },
-		[40] = { 7, 68, baseMultiplier = 3.364, cooldown = 1, damageEffectiveness = 3.39, storedUses = 6, levelRequirement = 100, statInterpolation = { 1, 1, }, },
+		[1] = { 0, 0, baseMultiplier = 1.6, storedUses = 1, damageEffectiveness = 1.6, cooldown = 1, levelRequirement = 18, statInterpolation = { 1, 1, }, },
+		[2] = { 0, 2, baseMultiplier = 1.653, storedUses = 1, damageEffectiveness = 1.65, cooldown = 1, levelRequirement = 22, statInterpolation = { 1, 1, }, },
+		[3] = { 0, 4, baseMultiplier = 1.705, storedUses = 1, damageEffectiveness = 1.71, cooldown = 1, levelRequirement = 26, statInterpolation = { 1, 1, }, },
+		[4] = { 0, 6, baseMultiplier = 1.758, storedUses = 1, damageEffectiveness = 1.76, cooldown = 1, levelRequirement = 29, statInterpolation = { 1, 1, }, },
+		[5] = { 0, 8, baseMultiplier = 1.811, storedUses = 1, damageEffectiveness = 1.81, cooldown = 1, levelRequirement = 32, statInterpolation = { 1, 1, }, },
+		[6] = { 1, 10, baseMultiplier = 1.863, storedUses = 2, damageEffectiveness = 1.86, cooldown = 1, levelRequirement = 35, statInterpolation = { 1, 1, }, },
+		[7] = { 1, 12, baseMultiplier = 1.916, storedUses = 2, damageEffectiveness = 1.92, cooldown = 1, levelRequirement = 38, statInterpolation = { 1, 1, }, },
+		[8] = { 1, 14, baseMultiplier = 1.968, storedUses = 2, damageEffectiveness = 1.97, cooldown = 1, levelRequirement = 41, statInterpolation = { 1, 1, }, },
+		[9] = { 1, 16, baseMultiplier = 2.021, storedUses = 2, damageEffectiveness = 2.02, cooldown = 1, levelRequirement = 44, statInterpolation = { 1, 1, }, },
+		[10] = { 1, 18, baseMultiplier = 2.074, storedUses = 2, damageEffectiveness = 2.07, cooldown = 1, levelRequirement = 47, statInterpolation = { 1, 1, }, },
+		[11] = { 2, 20, baseMultiplier = 2.126, storedUses = 3, damageEffectiveness = 2.13, cooldown = 1, levelRequirement = 50, statInterpolation = { 1, 1, }, },
+		[12] = { 2, 22, baseMultiplier = 2.179, storedUses = 3, damageEffectiveness = 2.18, cooldown = 1, levelRequirement = 53, statInterpolation = { 1, 1, }, },
+		[13] = { 2, 24, baseMultiplier = 2.232, storedUses = 3, damageEffectiveness = 2.23, cooldown = 1, levelRequirement = 56, statInterpolation = { 1, 1, }, },
+		[14] = { 2, 26, baseMultiplier = 2.284, storedUses = 3, damageEffectiveness = 2.28, cooldown = 1, levelRequirement = 58, statInterpolation = { 1, 1, }, },
+		[15] = { 2, 28, baseMultiplier = 2.337, storedUses = 3, damageEffectiveness = 2.34, cooldown = 1, levelRequirement = 60, statInterpolation = { 1, 1, }, },
+		[16] = { 3, 30, baseMultiplier = 2.389, storedUses = 4, damageEffectiveness = 2.39, cooldown = 1, levelRequirement = 62, statInterpolation = { 1, 1, }, },
+		[17] = { 3, 32, baseMultiplier = 2.442, storedUses = 4, damageEffectiveness = 2.44, cooldown = 1, levelRequirement = 64, statInterpolation = { 1, 1, }, },
+		[18] = { 3, 34, baseMultiplier = 2.495, storedUses = 4, damageEffectiveness = 2.49, cooldown = 1, levelRequirement = 66, statInterpolation = { 1, 1, }, },
+		[19] = { 3, 36, baseMultiplier = 2.547, storedUses = 4, damageEffectiveness = 2.55, cooldown = 1, levelRequirement = 68, statInterpolation = { 1, 1, }, },
+		[20] = { 3, 38, baseMultiplier = 2.6, storedUses = 4, damageEffectiveness = 2.6, cooldown = 1, levelRequirement = 70, statInterpolation = { 1, 1, }, },
+		[21] = { 4, 40, baseMultiplier = 2.653, storedUses = 5, damageEffectiveness = 2.65, cooldown = 1, levelRequirement = 72, statInterpolation = { 1, 1, }, },
+		[22] = { 4, 42, baseMultiplier = 2.705, storedUses = 5, damageEffectiveness = 2.71, cooldown = 1, levelRequirement = 74, statInterpolation = { 1, 1, }, },
+		[23] = { 4, 44, baseMultiplier = 2.758, storedUses = 5, damageEffectiveness = 2.76, cooldown = 1, levelRequirement = 76, statInterpolation = { 1, 1, }, },
+		[24] = { 4, 46, baseMultiplier = 2.811, storedUses = 5, damageEffectiveness = 2.81, cooldown = 1, levelRequirement = 78, statInterpolation = { 1, 1, }, },
+		[25] = { 4, 48, baseMultiplier = 2.863, storedUses = 5, damageEffectiveness = 2.86, cooldown = 1, levelRequirement = 80, statInterpolation = { 1, 1, }, },
+		[26] = { 5, 50, baseMultiplier = 2.916, storedUses = 5, damageEffectiveness = 2.92, cooldown = 1, levelRequirement = 82, statInterpolation = { 1, 1, }, },
+		[27] = { 5, 52, baseMultiplier = 2.968, storedUses = 5, damageEffectiveness = 2.97, cooldown = 1, levelRequirement = 84, statInterpolation = { 1, 1, }, },
+		[28] = { 5, 54, baseMultiplier = 3.021, storedUses = 5, damageEffectiveness = 3.02, cooldown = 1, levelRequirement = 86, statInterpolation = { 1, 1, }, },
+		[29] = { 5, 56, baseMultiplier = 3.074, storedUses = 5, damageEffectiveness = 3.07, cooldown = 1, levelRequirement = 88, statInterpolation = { 1, 1, }, },
+		[30] = { 5, 58, baseMultiplier = 3.126, storedUses = 5, damageEffectiveness = 3.13, cooldown = 1, levelRequirement = 90, statInterpolation = { 1, 1, }, },
+		[31] = { 6, 59, baseMultiplier = 3.153, storedUses = 6, damageEffectiveness = 3.15, cooldown = 1, levelRequirement = 91, statInterpolation = { 1, 1, }, },
+		[32] = { 6, 60, baseMultiplier = 3.179, storedUses = 6, damageEffectiveness = 3.18, cooldown = 1, levelRequirement = 92, statInterpolation = { 1, 1, }, },
+		[33] = { 6, 61, baseMultiplier = 3.205, storedUses = 6, damageEffectiveness = 3.21, cooldown = 1, levelRequirement = 93, statInterpolation = { 1, 1, }, },
+		[34] = { 6, 62, baseMultiplier = 3.232, storedUses = 6, damageEffectiveness = 3.23, cooldown = 1, levelRequirement = 94, statInterpolation = { 1, 1, }, },
+		[35] = { 6, 63, baseMultiplier = 3.258, storedUses = 6, damageEffectiveness = 3.26, cooldown = 1, levelRequirement = 95, statInterpolation = { 1, 1, }, },
+		[36] = { 7, 64, baseMultiplier = 3.284, storedUses = 6, damageEffectiveness = 3.28, cooldown = 1, levelRequirement = 96, statInterpolation = { 1, 1, }, },
+		[37] = { 7, 65, baseMultiplier = 3.311, storedUses = 6, damageEffectiveness = 3.31, cooldown = 1, levelRequirement = 97, statInterpolation = { 1, 1, }, },
+		[38] = { 7, 66, baseMultiplier = 3.337, storedUses = 6, damageEffectiveness = 3.34, cooldown = 1, levelRequirement = 98, statInterpolation = { 1, 1, }, },
+		[39] = { 7, 67, baseMultiplier = 3.363, storedUses = 6, damageEffectiveness = 3.36, cooldown = 1, levelRequirement = 99, statInterpolation = { 1, 1, }, },
+		[40] = { 7, 68, baseMultiplier = 3.364, storedUses = 6, damageEffectiveness = 3.39, cooldown = 1, levelRequirement = 100, statInterpolation = { 1, 1, }, },
 	},
 }
 skills["SupportSpellTotem"] = {
@@ -4582,13 +4239,7 @@ skills["SupportSpellTotem"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "summon_totem_cast_speed_+%", 1 },
-		},
-		Alternate1 = {
-			{ "totem_duration_+%", 1 },
-		},
-		Alternate2 = {
-			{ "totem_range_+%", 1 },
+			{ "summon_totem_cast_speed_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4657,13 +4308,7 @@ skills["SupportStun"] = {
 	statDescriptionScope = "gem_stat_descriptions",
 	qualityStats = {
 		Default = {
-			{ "base_stun_duration_+%", 1.5 },
-		},
-		Alternate1 = {
-			{ "chance_to_double_stun_duration_%", 0.2 },
-		},
-		Alternate2 = {
-			{ "recover_%_life_when_stunning_an_enemy_permyriad", 5 },
+			{ "chance_to_double_stun_duration_%", 0.5 },
 		},
 	},
 	stats = {
@@ -4739,15 +4384,8 @@ skills["SupportTrauma"] = {
 		["attack_maximum_added_physical_damage_with_weapons_per_trauma"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
 		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			mod("TraumaSelfDamageTakenLife", "BASE", nil),
-		},
 		["support_trauma_stun_duration_+%_per_trauma"] = {
 			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),
-		},
-		["attack_speed_+%_per_trauma"] = {
-			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "TraumaStacks" }),
-			mod("SpeedPerTrauma", "INC", nil, ModFlag.Attack, 0),
 		},
 		["support_trauma_base_duration_ms"] = {
 			mod("TraumaDuration", "BASE", nil),
@@ -4762,13 +4400,6 @@ skills["SupportTrauma"] = {
 	qualityStats = {
 		Default = {
 			{ "base_stun_threshold_reduction_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "ignore_self_damage_from_trauma_chance_%", 0.5 },
-		},
-		Alternate2 = {
-			{ "attack_speed_+%_per_trauma", 0.05 },
-			{ "trauma_strike_self_damage_per_trauma", 1 },
 		},
 	},
 	stats = {
@@ -4834,13 +4465,6 @@ skills["SupportUrgentOrders"] = {
 	qualityStats = {
 		Default = {
 			{ "warcry_speed_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "base_cooldown_speed_+%", -1 },
-			{ "skill_buff_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "minimum_power_from_quality", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4912,12 +4536,6 @@ skills["SupportVolatility"] = {
 	qualityStats = {
 		Default = {
 			{ "damage_+%", 0.5 },
-		},
-		Alternate1 = {
-			{ "non_damaging_ailment_effect_+%", 0.5 },
-		},
-		Alternate2 = {
-			{ "base_stun_duration_+%", 1 },
 		},
 	},
 	stats = {

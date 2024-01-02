@@ -54,7 +54,7 @@ itemBases["Micro-Distillery Belt"] = {
 	type = "Belt",
 	tags = { experimental_base = true, default = true, belt = true, },
 	influenceTags = { shaper = "belt_shaper", elder = "belt_elder", adjudicator = "belt_adjudicator", basilisk = "belt_basilisk", crusader = "belt_crusader", eyrie = "belt_eyrie", cleansing = "belt_cleansing", tangle = "belt_tangle" },
-	implicit = "Flasks applied to you have 20% increased Effect\nCan't use Flask in Fifth Slot",
+	implicit = "Flasks applied to you have 30% increased Effect\nCan't use Flask in Fifth Slot",
 	implicitModTypes = { {  }, {  }, },
 	req = { level = 24, },
 }

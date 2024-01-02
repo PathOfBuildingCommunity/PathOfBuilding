@@ -17,6 +17,7 @@ LoadModule("Modules/CalcActiveSkill", calcs)
 LoadModule("Modules/CalcDefence", calcs)
 LoadModule("Modules/CalcOffence", calcs)
 LoadModule("Modules/CalcTriggers", calcs)
+LoadModule("Modules/CalcMirages.lua", calcs)
 
 -- Get the average value of a table -- note this is unused
 function math.average(t)
@@ -136,7 +137,7 @@ function calcs.getMiscCalculator(build)
 		GlobalCache.noCache = true
 		-- we need to preserve the override somewhere for use by possible trigger-based build-outs with overrides
 		env.override = override
-		calcs.perform(env, true)
+		calcs.perform(env)
 		if GlobalCache.useFullDPS or build.viewMode == "TREE" then
 			-- prevent upcoming calculation from using Cached Data and thus forcing it to re-calculate new FullDPS roll-up 
 			-- without this, FullDPS increase/decrease when for node/item/gem comparison would be all 0 as it would be comparing
@@ -168,7 +169,7 @@ local function getActiveSkillCount(activeSkill)
 						return gemData.count or 1,  gemData.enableGlobal2 == true
 					end
 				else
-					if activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffect then
+					if (activeSkill.activeEffect.grantedEffect == gemData.gemData.grantedEffect and not gemData.gemData.grantedEffect.support) or (activeSkill.activeEffect.grantedEffect == gemData.gemData.secondaryGrantedEffect) then
 						return gemData.count or 1, true
 					end
 				end
@@ -226,15 +227,9 @@ function calcs.calcFullDPS(build, mode, override, specEnv)
 					usedEnv = cachedData.Env
 					activeSkill = usedEnv.player.mainSkill
 				else
-					local forceCache = false
-					if GlobalCache.noCache then 
-						forceCache = true
-						GlobalCache.noCache = nil
-					end
 					fullEnv.player.mainSkill = activeSkill
-					calcs.perform(fullEnv, true, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
+					calcs.perform(fullEnv, (GlobalCache.numActiveSkillInFullDPS ~= numActiveSkillInFullDPS))
 					usedEnv = fullEnv
-					GlobalCache.noCache = forceCache
 				end
 				local minionName = nil
 				if activeSkill.minion or usedEnv.minion then
@@ -428,35 +423,6 @@ function calcs.buildOutput(build, mode)
 	calcs.perform(env)
 
 	local output = env.player.output
-	
-	for _, skill in ipairs(env.player.activeSkillList) do
-		local uuid = cacheSkillUUID(skill, env)
-		if not GlobalCache.cachedData["CACHE"][uuid] then
-			calcs.buildActiveSkill(env, "CACHE", skill)
-		end
-		if GlobalCache.cachedData["CACHE"][uuid] then
-			output.EnergyShieldProtectsMana = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
-			for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
-				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
-				if cachedCost then
-					local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
-					if totalPool < cachedCost then
-						output[costResource.."Warning"] = output[costResource.."Warning"] or {}
-						t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
-					end
-				end
-			end
-			for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["ManaUnreservedPercent"] = "ManaPercentCost"}) do
-				local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
-				if cachedCost then
-					if (output[pool] or 0) < cachedCost then
-						output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or {}
-						t_insert(output[costResource.."PercentCostWarning"], skill.activeEffect.grantedEffect.name)
-					end
-				end
-			end
-		end
-	end
 
 	-- Build output across all skills added to FullDPS skills
 	GlobalCache.noCache = true
@@ -469,6 +435,35 @@ function calcs.buildOutput(build, mode)
 	env.player.output.FullDotDPS = fullDPS.TotalDotDPS
 
 	if mode == "MAIN" then
+		for _, skill in ipairs(env.player.activeSkillList) do
+			local uuid = cacheSkillUUID(skill, env)
+			if not GlobalCache.cachedData["CACHE"][uuid] then
+				calcs.buildActiveSkill(env, "CACHE", skill)
+			end
+			if GlobalCache.cachedData["CACHE"][uuid] then
+				output.EnergyShieldProtectsMana = env.modDB:Flag(nil, "EnergyShieldProtectsMana")
+				for pool, costResource in pairs({["LifeUnreserved"] = "LifeCost", ["ManaUnreserved"] = "ManaCost", ["Rage"] = "RageCost", ["EnergyShield"] = "ESCost"}) do
+					local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
+					if cachedCost then
+						local totalPool = (output.EnergyShieldProtectsMana and costResource == "ManaCost" and output["EnergyShield"] or 0) + (output[pool] or 0)
+						if totalPool < cachedCost then
+							output[costResource.."Warning"] = output[costResource.."Warning"] or {}
+							t_insert(output[costResource.."Warning"], skill.activeEffect.grantedEffect.name)
+						end
+					end
+				end
+				for pool, costResource in pairs({["LifeUnreservedPercent"] = "LifePercentCost", ["ManaUnreservedPercent"] = "ManaPercentCost"}) do
+					local cachedCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output[costResource]
+					if cachedCost then
+						if (output[pool] or 0) < cachedCost then
+							output[costResource.."PercentCostWarning"] = output[costResource.."PercentCostWarning"] or {}
+							t_insert(output[costResource.."PercentCostWarning"], skill.activeEffect.grantedEffect.name)
+						end
+					end
+				end
+			end
+		end
+	
 		output.ExtraPoints = env.modDB:Sum("BASE", nil, "ExtraPoints")
 
 		local specCfg = {

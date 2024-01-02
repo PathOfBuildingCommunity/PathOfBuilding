@@ -21,7 +21,11 @@ for jewel in dat("PassiveTreeExpansionJewels"):Rows() do
 	out:write('\t\t\tskills = {\n')
 	for index, skill in ipairs(dat("PassiveTreeExpansionSkills"):GetRowList("JewelSize", jewel.Size)) do
 		out:write('\t\t\t\t["', skill.Node.Id, '"] = {\n')
-		out:write('\t\t\t\t\tname = "', skill.Node.Name, '",\n')
+		if skill.Tag.Id:match("old_do_not_use") then
+			out:write('\t\t\t\t\tname = "', skill.Node.Name, ' (Legacy)",\n')
+			else
+			out:write('\t\t\t\t\tname = "', skill.Node.Name, '",\n')
+		end
 		out:write('\t\t\t\t\ticon = "', skill.Node.Icon:gsub("dds$","png"), '",\n')
 		if skill.Mastery then
 			out:write('\t\t\t\t\tmasteryIcon = "', skill.Mastery.Icon:gsub("dds$","png"), '",\n')
