@@ -534,22 +534,14 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 					end
 				end
 				if not varData.hideIfInvalid then
-				control.shown = function()
-					if not searchMatch(varData) then
-						return false
-					end
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.input[varData.var]
-					local def = self:GetDefaultState(varData.var, type(cur))
-					return not shown and cur ~= nil and cur ~= def or shown
-				end
-				local innerLabel = labelControl.label
-				labelControl.label = function()
-					local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-					local cur = self.input[varData.var]
-					local def = self:GetDefaultState(varData.var, type(cur))
-					if not shown and cur ~= nil and cur ~= def then
-						return colorCodes.NEGATIVE..StripEscapes(innerLabel)
+					control.shown = function()
+						if not searchMatch(varData) then
+							return false
+						end
+						local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+						local cur = self.input[varData.var]
+						local def = self:GetDefaultState(varData.var, type(cur))
+						return not shown and cur ~= nil and cur ~= def or shown
 					end
 					local innerLabel = labelControl.label
 					labelControl.label = function()
@@ -559,26 +551,35 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 						if not shown and cur ~= nil and cur ~= def then
 							return colorCodes.NEGATIVE..StripEscapes(innerLabel)
 						end
-						return innerLabel
-					end
-					local innerTooltipFunc = control.tooltipFunc
-					control.tooltipFunc = function (tooltip, ...)
-						tooltip:Clear()
-	
-						if innerTooltipFunc then
-							innerTooltipFunc(tooltip, ...)
-						else
-							local tooltipText = control:GetProperty("tooltipText")
-							if tooltipText and tooltipText ~= '' then
-								tooltip:AddLine(14, tooltipText)
+						local innerLabel = labelControl.label
+						labelControl.label = function()
+							local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+							local cur = self.input[varData.var]
+							local def = self:GetDefaultState(varData.var, type(cur))
+							if not shown and cur ~= nil and cur ~= def then
+								return colorCodes.NEGATIVE..StripEscapes(innerLabel)
 							end
+							return innerLabel
 						end
-	
-						local shown = type(innerShown) == "boolean" and innerShown or innerShown()
-						local cur = self.input[varData.var]
-						local def = self:GetDefaultState(varData.var, type(cur))
-						if not shown and cur ~= nil and cur ~= def then
-							tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
+						local innerTooltipFunc = control.tooltipFunc
+						control.tooltipFunc = function (tooltip, ...)
+							tooltip:Clear()
+		
+							if innerTooltipFunc then
+								innerTooltipFunc(tooltip, ...)
+							else
+								local tooltipText = control:GetProperty("tooltipText")
+								if tooltipText and tooltipText ~= '' then
+									tooltip:AddLine(14, tooltipText)
+								end
+							end
+		
+							local shown = type(innerShown) == "boolean" and innerShown or innerShown()
+							local cur = self.input[varData.var]
+							local def = self:GetDefaultState(varData.var, type(cur))
+							if not shown and cur ~= nil and cur ~= def then
+								tooltip:AddLine(14, colorCodes.NEGATIVE.."This config option is conditional with missing source and is invalid.")
+							end
 						end
 					end
 				end
