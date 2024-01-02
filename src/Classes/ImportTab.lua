@@ -993,7 +993,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
 				gemId = self.build.data.gemForBaseName[normalizedBasename]
-				if socketedItem.hybrid.isVaalGem then
+				if gemId and socketedItem.hybrid.isVaalGem then
 					gemId = gemId:gsub("SkillGem", "SkillGemVaal")
 				end
 			end
