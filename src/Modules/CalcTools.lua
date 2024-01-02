@@ -101,7 +101,7 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
-function calcLib.gemIsType(gem, type, allowVariants)
+function calcLib.gemIsType(gem, type, includeTransfigured)
 	return (type == "all" or 
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
@@ -110,7 +110,7 @@ function calcLib.gemIsType(gem, type, allowVariants)
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
 			(type == gem.name:lower():gsub("^vaal ", "")) or
-			(allowVariants and gem.name:lower():match("^" .. type:lower())) or
+			(includeTransfigured and calcLib.getGameIdFromGemName(gem.name, true) == calcLib.getGameIdFromGemName(type, true)) or
 			((type ~= "active skill" and type ~= "grants_active_skill" and type ~= "skill") and gem.tags[type]))
 end
 
@@ -232,4 +232,19 @@ function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 		end
 	end
 	return modifiers
+end
+
+--- Get the gameId from the gemName which will be the same as the base gem for transfigured gems
+--- @param gemName string
+--- @param dropVaal boolean 
+--- @return string
+function calcLib.getGameIdFromGemName(gemName, dropVaal)
+	if type(gemName) ~= "string" then
+		return
+	end
+	local gemId = data.gemForBaseName[gemName]
+	if not gemId then return end
+	local gameId = data.gems[gemId].gameId
+	if gameId and dropVaal then gameId = gameId:gsub("SkillGemVaal","SkillGem") end
+	return gameId
 end
