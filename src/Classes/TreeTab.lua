@@ -1739,7 +1739,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			local tempLeagueTable = { }
 			for _, league in ipairs(leagues) do
-				if league ~= "Standard" and league ~= "Hardcore" then
+				if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
 					if not (league:find("Hardcore") or league:find("Ruthless")) then
 						-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of copy trade url
 						t_insert(tempLeagueTable, league)
@@ -1754,6 +1754,8 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			t_insert(self.tradeLeaguesList, "Standard")
 			t_insert(self.tradeLeaguesList, "Hardcore")
+			t_insert(self.tradeLeaguesList, "Ruthless")
+			t_insert(self.tradeLeaguesList, "Hardcore Ruthless")
 			controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
 		end)
 	end
