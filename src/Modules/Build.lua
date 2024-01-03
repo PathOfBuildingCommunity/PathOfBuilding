@@ -1364,7 +1364,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 				local statVal = actor.output[statData.stat]
 				-- access output values that are one node deeper (statData.stat is a table e.g. output.MainHand.Accuracy vs output.Life)
 				if statVal and statData.childStat then
-					statVal = actor.output[statData.stat][statData.childStat]
+					statVal = statVal[statData.childStat]
 				end
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
 					local overCapStatVal = actor.output[statData.overCapStat] or nil
