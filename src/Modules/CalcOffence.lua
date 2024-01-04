@@ -1752,6 +1752,7 @@ function calcs.offence(env, actor, activeSkill)
 	if isAttack then
 		output.MainHand = { }
 		output.OffHand = { }
+		output.PreciseTechnique = env.keystonesAdded["Precise Technique"]
 		local critOverride = skillModList:Override(skillCfg, "WeaponBaseCritChance")
 		if skillFlags.weapon1Attack then
 			if breakdown then
