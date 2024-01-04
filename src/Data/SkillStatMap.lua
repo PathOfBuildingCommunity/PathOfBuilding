@@ -384,6 +384,9 @@ return {
 ["base_spell_block_%"] = {
 	mod("SpellBlockChance", "BASE", nil),
 },
+["base_block_%_damage_taken"] = {
+	mod("BlockEffect", "BASE", nil)
+},
 ["life_leech_from_any_damage_permyriad"] = {
 	mod("DamageLifeLeech", "BASE", nil),
 	div = 100,
@@ -571,7 +574,7 @@ return {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 },
 ["active_skill_attack_damage_+%_final_per_endurance_charge"] = {
-	mod("Damage", "MORE", nil, 0, 0, { type = "Multiplier", var = "EnduranceCharge" }),
+	mod("Damage", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 },
 ["damage_+%_per_frenzy_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
@@ -1160,6 +1163,9 @@ return {
 },
 ["chance_to_double_stun_duration_%"] = {
 	mod("DoubleEnemyStunDurationChance", "BASE", nil),
+},
+["stun_threshold_+%"] = {
+	mod("StunThreshold", "INC", nil),
 },
 ["base_killed_monster_dropped_item_quantity_+%"] = {
 	mod("LootQuantity", "INC", nil),

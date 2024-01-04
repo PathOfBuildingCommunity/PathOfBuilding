@@ -28,7 +28,7 @@ minions["RaisedZombie"] = {
 	},
 	modList = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
-		-- RaiseZombieStunThreshold [stun_threshold_+% = 30]
+		mod("StunThreshold", "INC", 30, 0, 0), -- RaiseZombieStunThreshold [stun_threshold_+% = 30]
 	},
 }
 
@@ -263,7 +263,7 @@ minions["RaisedSkeleton"] = {
 	},
 	modList = {
 		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
-		-- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
+		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 	},
 }
@@ -596,7 +596,7 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	modList = {
 		-- MonsterCastsShieldChargeText [monster_casts_shield_charge_text = 1]
 		mod("BlockChance", "BASE", 40, 0, 0), -- MonsterAttackBlock40Bypass20 [monster_base_block_% = 40]
-		-- MonsterAttackBlock40Bypass20 [base_block_%_damage_taken = 20]
+		mod("BlockEffect", "BASE", 20, 0, 0), -- MonsterAttackBlock40Bypass20 [base_block_%_damage_taken = 20]
 	},
 }
 

@@ -31,7 +31,7 @@ minions["Metadata/Monsters/Axis/AxisCaster"] = {
 	},
 	modList = {
 		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
-		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
@@ -58,7 +58,7 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 	},
 	modList = {
 		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
-		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
@@ -84,7 +84,7 @@ minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
 	},
 	modList = {
 		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
-		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
+		mod("BlockEffect", "BASE", 10, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
 minions["Metadata/Monsters/Axis/AxisEliteSoldier3Champion"] = {
@@ -948,7 +948,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateBlackFlickerStrikeMaps"] = {
 		-- MonsterUsesFlickerStrikeText [monster_uses_flicker_strike_text = 1]
 		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
 		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
-		-- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
+		mod("BlockEffect", "BASE", 40, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
 	},
 }
 minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
@@ -976,7 +976,7 @@ minions["Metadata/Monsters/GhostPirates/GhostPirateGreenBladeVortex"] = {
 		mod("PhysicalDamageConvertToLightning", "BASE", 50, 0, 0), -- MonsterElementalSkeletonLightning [base_physical_damage_%_to_convert_to_lightning = 50]
 		mod("BlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [monster_base_block_% = 20]
 		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_spell_block_% = 20]
-		-- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
+		mod("BlockEffect", "BASE", 40, 0, 0), -- MonsterAttackSpellBlock20Bypass40 [base_block_%_damage_taken = 40]
 	},
 }
 -- Undying Grappler
