@@ -59,6 +59,30 @@ minions["Metadata/Monsters/Axis/AxisCasterArc"] = {
 		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
 	},
 }
+minions["Metadata/Monsters/Axis/AxisCasterGuardFlamability"] = {
+	name = "Blackguard Firemage",
+	life = 0.9,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 0.79,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 40,
+	accuracy = 1,
+	weaponType1 = "Wand",
+	weaponType2 = "Shield",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AxisFlammability",
+	},
+	modList = {
+		mod("SpellBlockChance", "BASE", 20, 0, 0), -- MonsterSpellBlock25Bypass30___ [base_spell_block_% = 20]
+		-- MonsterSpellBlock25Bypass30___ [base_block_%_damage_taken = 10]
+	},
+}
 minions["Metadata/Monsters/Axis/AxisCasterLunaris"] = {
 	name = "Lunarsworn Wintermage",
 	life = 0.9,
@@ -1012,6 +1036,28 @@ minions["Metadata/Monsters/Guardians/GuardianFire"] = {
 	modList = {
 	},
 }
+minions["Metadata/Monsters/Guardians/GuardianFire2_"] = {
+	name = "Infernal Sentinel",
+	life = 2.7,
+	energyShield = 0.4,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.7,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 8,
+	accuracy = 1,
+	skillList = {
+		"GuardianTriggerCascade1",
+		"GuardianTriggerCascade2",
+		"SpellNovaFireRibbons",
+		"GuardianTriggerCascade3",
+	},
+	modList = {
+	},
+}
 minions["Metadata/Monsters/Guardians/GuardianFire_BlueMaps"] = {
 	name = "Frost Sentinel",
 	life = 1.8,
@@ -1048,6 +1094,28 @@ minions["Metadata/Monsters/Guardians/GuardianLightning"] = {
 	accuracy = 1,
 	skillList = {
 		"GuardianArc",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Guardians/GuardianLightning_Blue"] = {
+	name = "Rime Sentinel",
+	life = 1.8,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 85,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"GuardianTriggerCascade1",
+		"GuardianTriggerCascade2",
+		"SpellNovaIceRibbons",
+		"GuardianTriggerCascade3",
 	},
 	modList = {
 	},
@@ -1482,6 +1550,127 @@ minions["Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite"] = {
 	},
 	modList = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueDelve/QiongqiChampionSpectre"] = {
+	name = "Gorgol",
+	life = 3.6,
+	armour = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.31,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 11,
+	accuracy = 1,
+	skillList = {
+		"DelveMeleeFire",
+		"DelveFlamethrowerLeftToRight",
+		"DelveFlamethrowerRightToLeft",
+		"DelveQiongqiSlash",
+		"DelveQiongqiSlam",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueDelve/QiongqiChampionSpikedSpectre_"] = {
+	name = "Gorgol Alpha",
+	life = 3.6,
+	armour = 1,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.31,
+	damageSpread = 0.2,
+	attackTime = 1.305,
+	attackRange = 11,
+	accuracy = 1,
+	skillList = {
+		"DelveMeleeFire",
+		"DelveFlamethrowerLeftToRight",
+		"DelveFlamethrowerRightToLeft",
+		"DelveQiongqiSlash",
+		"DelveQiongqiSlam",
+		"EmptyActionQiongqiSpiked",
+		"DelveQiongqiTornado",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/MineBat/MineBatAbyssLargeSpectre"] = {
+	name = "Wellwing Matriarch",
+	life = 3,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AbyssMineBatWhirlingBlades",
+		"AbyssBatLargeScreech",
+		"AbyssBatLargeScreechGeometrySpell",
+		"AbyssBatTeleportSlam",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Spiders/DelveSpiderPacksMotherSpectre"] = {
+	name = "Azurite Widow",
+	life = 3.6,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.28,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 18,
+	accuracy = 1,
+	skillList = {
+		"DelveMeleeCold",
+		"DelveSpiderProjectile",
+		"DelveSpiderWeb",
+		"SSMDelveSpidersOnDamageTaken",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueDelve/TaowuChampionSpectre"] = {
+	name = "Turong",
+	life = 3.6,
+	energyShield = 0.2,
+	armour = 0.5,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.31,
+	damageSpread = 0.2,
+	attackTime = 1.335,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"DelveMeleeFire",
+		"EmptyActionAttackTaowuDash",
+		"FireballTaowuDash",
+		"FireballTaowuCombo",
+		"AddBuffToTargetDelveDarkZone",
+		"DelveTaowuSlash",
+		"EmptyActionAttackTaowuDashSwipe",
+		"DelveTaowuDashAttack",
+		"DelveTaowuBackwardsSlash",
+		"WalkEmergeDelveWetaUpForward",
+	},
+	modList = {
 	},
 }
 -- Hellion
@@ -2316,6 +2505,27 @@ minions["Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+minions["Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalLargeSword2"] = {
+	name = "Vaal Gargantuan",
+	life = 2.7,
+	energyShield = 0.12,
+	armour = 0.7,
+	fireResist = 37,
+	coldResist = 37,
+	lightningResist = 37,
+	chaosResist = 0,
+	damage = 3.24,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 15,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"ElementalStrikeVaalColossus",
+	},
+	modList = {
+	},
+}
 minions["Metadata/Monsters/SkeletonCannon/SkeletonCannon1"] = {
 	name = "Bone Husk",
 	life = 2.07,
@@ -2410,6 +2620,26 @@ minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike"] = {
 	lightningResist = 40,
 	chaosResist = 25,
 	damage = 2.45,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrike",
+		"MonsterFlickerStrike",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrikeWeaver"] = {
+	name = "Deadly Tarantula",
+	life = 2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.72,
 	damageSpread = 0.2,
 	attackTime = 0.945,
 	attackRange = 12,
@@ -3257,6 +3487,36 @@ minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spe
 	modList = {
 	},
 }
+-- Ravenous Macerator
+minions["Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite2_Spectre_"] = {
+	name = "Ravenous Macerator",
+	life = 3.15,
+	armour = 1,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.93,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 26,
+	accuracy = 1,
+	weaponType1 = "None",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"EAAHellscapeFleshElite2Combo1",
+		"EAAHellscapeFleshElite2Combo2",
+		"GAHellscapeFleshElite2Melee1",
+		"GAHellscapeFleshElite2Melee2",
+		"GAHellscapeFleshElite2Combo1Cleave",
+		"GAHellscapeFleshElite2Combo1Slam",
+		"GAHellscapeFleshElite2Combo2Slam1",
+		"GAHellscapeFleshElite2Combo2Slam2",
+		"GAHellscapeFleshElite2Combo2Slam3",
+	},
+	modList = {
+	},
+}
 -- Aurid Synthete
 minions["Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre"] = {
 	name = "Aurid Synthete",
@@ -3407,6 +3667,52 @@ minions["Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith"] = {
 		-- DelveMonsterEnfeebleOnHit [curse_on_hit_level_enfeeble = 8]
 		mod("EnemyCurseLimit", "BASE", 1, 0, 0), -- AdditionalCurseOnEnemies_ [number_of_additional_curses_allowed = 1]
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
+	},
+}
+-- Minotaur
+minions["Metadata/Monsters/AtlasInvaders/CleansingMonsters/CleansingFodder2"] = {
+	name = "Molten Minotaur",
+	life = 3.36,
+	armour = 1,
+	fireResist = 75,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.68,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 18,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MeleeAtAnimationSpeedFire",
+		"GAAtlasInvadersCleansingFodder2Slam",
+		"GAAtlasInvadersCleansingFodder2SlamBig",
+	},
+	modList = {
+	},
+}
+--Raised Zombie
+minions["Metadata/Monsters/RaisedZombies/RaisedZombieStandard"] = {
+	name = "Raised Zombie",
+	life = 3.75,
+	armour = 0.7,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1.65,
+	damageSpread = 0.4,
+	attackTime = 1.17,
+	attackRange = 11,
+	accuracy = 3.4,
+	skillList = {
+		"Melee",
+		"ZombieSlam",
+	},
+	modList = {
+		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
+		-- RaiseZombieStunThreshold [stun_threshold_+% = 30]
 	},
 }
 -- Forged Frostbearer

@@ -6,6 +6,435 @@
 --
 local skills, mod, flag, skill = ...
 
+skills["FireballTaowuDash"] = {
+	name = "Fireball",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 6.1999998092651,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Unleashes a ball of fire towards a target which explodes, damaging nearby foes.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.2,
+	baseFlags = {
+		area = true,
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "active_skill_ignite_damage_+%_final", 150 },
+		{ "active_skill_area_of_effect_radius_+%_final", 300 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"always_ignite",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 6, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["DelveMeleeCold"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	stats = {
+		"physical_damage_%_to_add_as_cold",
+		"action_attack_or_cast_time_uses_animation_length",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { 10, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 100, levelRequirement = 83, statInterpolation = { 2, }, },
+	},
+}
+skills["DelveSpiderProjectile"] = {
+	name = "Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 57 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, cooldown = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AbyssBatTeleportSlam"] = {
+	name = "Teleport Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Damage] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 3.75,
+	baseFlags = {
+		attack = true,
+	},
+	baseMods = {
+		mod("BleedChance", "BASE", 100),
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", -25 },
+	},
+	stats = {
+		"is_area_damage",
+		"global_bleed_on_hit",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.75, cooldown = 4, damageEffectiveness = 1.5, storedUses = 1, levelRequirement = 1, },
+	},
+}
+skills["AbyssBatLargeScreech"] = {
+	name = "Screech",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.44999998807907,
+	incrementalEffectiveness = 0.035999998450279,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.2,
+	baseFlags = {
+		area = true,
+		spell = true,
+		duration = true,
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"active_skill_area_of_effect_radius_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.25, 0.5, 0.5, 0.75, -10, critChance = 5, storedUses = 1, cooldown = 2.5, levelRequirement = 3, statInterpolation = { 3, 3, 3, 3, 1, }, },
+		[2] = { 0.30000001192093, 0.60000002384186, 1.25, 1.8799999952316, critChance = 5, storedUses = 1, cooldown = 2.5, levelRequirement = 84, statInterpolation = { 3, 3, 3, 3, }, },
+	},
+}
+skills["AbyssMineBatWhirlingBlades"] = {
+	name = "Whirling Blades",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.7332999706268,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Dive through enemies, dealing weapon damage. Only works with daggers, claws and one handed swords. Cannot be supported by Multistrike.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, },
+	weaponTypes = {
+		["Thrusting One Handed Sword"] = true,
+		["Claw"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.859,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 6000 },
+		{ "monster_flurry", 1 },
+		{ "ground_caustic_art_variation", 2 },
+	},
+	stats = {
+		"whirling_blades_base_ground_chaos_damage_to_deal_per_minute",
+		"cast_time_overrides_attack_duration",
+		"ignores_proximity_shield",
+	},
+	levels = {
+		[1] = { 16.666667039196, baseMultiplier = 0.6, cooldown = 6, damageEffectiveness = 0.6, storedUses = 1, levelRequirement = 68, statInterpolation = { 3, }, },
+	},
+}
+skills["DelveQiongqiTornado"] = {
+	name = "Tornado",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		area = true,
+		attack = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 75 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["DelveQiongqiSlam"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["DelveQiongqiSlash"] = {
+	name = "Slash",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 75 },
+		{ "active_skill_attack_speed_+%_final", -35 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 40, baseMultiplier = 1.5, storedUses = 1, cooldown = 6, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 40, baseMultiplier = 1.5, storedUses = 1, cooldown = 6, levelRequirement = 20, statInterpolation = { 2, }, },
+		[3] = { 40, baseMultiplier = 1.5, storedUses = 1, cooldown = 6, levelRequirement = 21, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 1.5, storedUses = 1, cooldown = 6, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
+skills["DelveFlamethrowerLeftToRight"] = {
+	name = "Flamethrower",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.6110999584198,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Fire] = true, [SkillType.Damage] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 3,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "ground_fire_art_variation", 5 },
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -50 },
+		{ "active_skill_area_of_effect_radius_+%_final", -35 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"base_fire_damage_to_deal_per_minute",
+		"active_skill_ignite_damage_+%_final",
+		"is_area_damage",
+		"cannot_stun",
+		"always_ignite",
+	},
+	levels = {
+		[1] = { 0.40000000596046, 0.60000002384186, 66.666668156783, 500, storedUses = 1, levelRequirement = 1, cooldown = 12, statInterpolation = { 3, 3, 3, 2, }, },
+		[2] = { 0.40000000596046, 0.60000002384186, 66.666668156783, 740, storedUses = 1, levelRequirement = 67, cooldown = 12, statInterpolation = { 3, 3, 3, 2, }, },
+		[3] = { 0.40000000596046, 0.60000002384186, 66.666668156783, 740, storedUses = 1, levelRequirement = 68, cooldown = 12, statInterpolation = { 3, 3, 3, 2, }, },
+		[4] = { 0.40000000596046, 0.60000002384186, 66.666668156783, 740, storedUses = 1, levelRequirement = 83, cooldown = 12, statInterpolation = { 3, 3, 3, 2, }, },
+	},
+}
+skills["DelveMeleeFire"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	stats = {
+		"physical_damage_%_to_add_as_fire",
+		"action_attack_or_cast_time_uses_animation_length",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+	},
+	levels = {
+		[1] = { 10, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 100, levelRequirement = 83, statInterpolation = { 2, }, },
+	},
+}
+skills["SpellNovaFireRibbons"] = {
+	name = "Fire Ribbons",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.333300113678,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		area = true,
+		duration = true,
+		spell = true,
+	},
+	constantStats = {
+		{ "cast_on_trigger_cascade_event_%", 100 },
+		{ "active_skill_area_of_effect_radius_+%_final", -70 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["ElementalStrikeVaalColossus"] = {
+	name = "Wild Strike",
+	hidden = true,
+	color = 2,
+	description = "Your melee weapon strikes enemies, converting physical damage to a random element. Then, depending on the element chosen, it releases a fiery explosion, an arcing bolt of lightning, or an icy wave. It will avoid choosing the same element twice in a row.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Lightning] = true, [SkillType.Cold] = true, [SkillType.Fire] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Chains] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.RandomElement] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		are = true,
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "elemental_strike_physical_damage_%_to_convert", 60 },
+		{ "number_of_chains", 2 },
+		{ "fixed_projectile_spread", 70 },
+	},
+	stats = {
+		"always_pierce",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["SpellNovaIceRibbons"] = {
+	name = "Ice Ribbons",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.7272999286652,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		area = true,
+		duration = true,
+		spell = true,
+	},
+	constantStats = {
+		{ "cast_on_trigger_cascade_event_%", 100 },
+		{ "active_skill_area_of_effect_radius_+%_final", -70 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GAAtlasInvadersCleansingFodder2Slam"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 75 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { -30, baseMultiplier = 1.15, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 1.15, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 20, baseMultiplier = 1.15, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 175, baseMultiplier = 1.15, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
+skills["GAAtlasInvadersCleansingFodder2SlamBig"] = {
+	name = "Big Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 75 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { -30, baseMultiplier = 1.35, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 1.35, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 20, baseMultiplier = 1.35, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 175, baseMultiplier = 1.35, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
 skills["AxisCasterGlacialCascade"] = {
 	name = "Glacial Cascade",
 	hidden = true,
@@ -75,6 +504,44 @@ skills["AxisDoubleStrikeTrigger"] = {
 	},
 	levels = {
 		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 2, },
+	},
+}
+skills["AxisFlammability"] = {
+	name = "Flammability",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0.85000002384186,
+	description = "Curses all targets in an area, lowering their fire resistance and giving them a chance to be ignited when hit.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
+	statDescriptionScope = "curse_skill_stat_descriptions",
+	castTime = 0.5,
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_ignited_%"] = {
+			mod("SelfIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+	baseFlags = {
+		area = true,
+		duration = true,
+		spell = true,
+		curse = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 6000 },
+		{ "chance_to_be_ignited_%", 25 },
+		{ "active_skill_area_of_effect_radius_+%_final", 9 },
+	},
+	stats = {
+		"base_fire_damage_resistance_%",
+	},
+	levels = {
+		[1] = { -20, storedUses = 1, levelRequirement = 10, cooldown = 10, statInterpolation = { 1, }, },
+		[2] = { -25, storedUses = 1, levelRequirement = 41, cooldown = 10, statInterpolation = { 1, }, },
+		[3] = { -30, storedUses = 1, levelRequirement = 58, cooldown = 10, statInterpolation = { 1, }, },
+		[4] = { -40, storedUses = 1, levelRequirement = 71, cooldown = 10, statInterpolation = { 1, }, },
 	},
 }
 skills["BanditExplosiveArrowAtAnimationSpeed"] = {

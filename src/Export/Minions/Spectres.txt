@@ -8,6 +8,7 @@ local minions, mod = ...
 -- Blackguard
 #spectre Metadata/Monsters/Axis/AxisCaster
 #spectre Metadata/Monsters/Axis/AxisCasterArc
+#spectre Metadata/Monsters/Axis/AxisCasterGuardFlamability
 #spectre Metadata/Monsters/Axis/AxisCasterLunaris
 #spectre Metadata/Monsters/Axis/AxisEliteSoldier3Champion
 #spectre Metadata/Monsters/Axis/AxisExperimenter
@@ -64,8 +65,10 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Grappler/GrapplerLabyrinth
 -- Ribbon
 #spectre Metadata/Monsters/Guardians/GuardianFire
+#spectre Metadata/Monsters/Guardians/GuardianFire2_
 #spectre Metadata/Monsters/Guardians/GuardianFire_BlueMaps
 #spectre Metadata/Monsters/Guardians/GuardianLightning
+#spectre Metadata/Monsters/Guardians/GuardianLightning_Blue
 -- Gut flayer
 #spectre Metadata/Monsters/HalfSkeleton/HalfSkeleton
 -- Solar Guard
@@ -94,6 +97,11 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Kiweth/KiwethSeagull
 -- Delve League
 #spectre Metadata/Monsters/LeagueDelve/ProtoVaalWarriorElite
+#spectre Metadata/Monsters/LeagueDelve/QiongqiChampionSpectre
+#spectre Metadata/Monsters/LeagueDelve/QiongqiChampionSpikedSpectre_
+#spectre Metadata/Monsters/MineBat/MineBatAbyssLargeSpectre
+#spectre Metadata/Monsters/Spiders/DelveSpiderPacksMotherSpectre
+#spectre Metadata/Monsters/LeagueDelve/TaowuChampionSpectre
 -- Hellion
 #spectre Metadata/Monsters/Lion/LionDesertSkinPuncture
 #spectre Metadata/Monsters/Lion/LionWolf3Champion
@@ -143,6 +151,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalSwordIncursionChampion
 #spectre Metadata/Monsters/Skeletons/SkeletonBowKnightElemental
 #spectre Metadata/Monsters/Skeletons/SkeletonMeleeBlackAbyssBoneLance
+#spectre Metadata/Monsters/Skeletons/SkeletonMeleeKnightElementalLargeSword2
 #spectre Metadata/Monsters/SkeletonCannon/SkeletonCannon1
 -- Snake
 #spectre Metadata/Monsters/Snake/SnakeMeleeSpit
@@ -150,6 +159,7 @@ local minions, mod = ...
 -- Spider
 #spectre Metadata/Monsters/Spiders/SpiderThornFlickerStrike
 #spectre Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrike
+#spectre Metadata/Monsters/Spiders/SpiderThornViperStrikeFlickerStrikeWeaver
 -- Statue
 #spectre Metadata/Monsters/Statue/DaressoStatueLargeMaleSpear
 #spectre Metadata/Monsters/Statue/StoneStatueMaleBow
@@ -214,6 +224,8 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueHellscape/PaleFaction/HellscapePaleElite2Spectre
 -- Ravenous Mishapen
 #spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshFodder4Spectre
+-- Ravenous Macerator
+#spectre Metadata/Monsters/LeagueHellscape/FleshFaction/HellscapeFleshElite2_Spectre_
 -- Aurid Synthete
 #spectre Metadata/Monsters/LeagueSynthesis/SynthesisSoulstealer4Spectre
 -- Ruins Hellion
@@ -226,5 +238,9 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/WraithPurple # MonsterChanceToTemporalChainsOnHit1
 -- Ancient Wraith
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit
+-- Minotaur
+#spectre Metadata/Monsters/AtlasInvaders/CleansingMonsters/CleansingFodder2
+--Raised Zombie
+#spectre Metadata/Monsters/RaisedZombies/RaisedZombieStandard
 -- Forged Frostbearer
 #spectre Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac

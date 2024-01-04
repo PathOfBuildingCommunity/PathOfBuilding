@@ -5,6 +5,71 @@
 --
 local skills, mod, flag, skill = ...
 
+#skill FireballTaowuDash Fireball
+#flags area spell projectile
+#mods
+
+#skill DelveMeleeCold
+#flags attack melee projectile
+#mods
+
+#skill DelveSpiderProjectile Projectile
+#flags spell projectile
+#mods
+
+#skill AbyssBatTeleportSlam Teleport Slam
+#flags attack
+#baseMod mod("BleedChance", "BASE", 100)
+#mods
+
+#skill AbyssBatLargeScreech Screech
+#flags area spell duration
+#mods
+
+#skill AbyssMineBatWhirlingBlades
+#flags attack melee
+#mods
+
+#skill DelveQiongqiTornado Tornado
+#flags area attack
+#mods
+
+#skill DelveQiongqiSlam Slam
+#flags attack
+#mods
+
+#skill DelveQiongqiSlash Slash
+#flags attack
+#mods
+
+#skill DelveFlamethrowerLeftToRight Flamethrower
+#flags spell area
+#mods
+
+#skill DelveMeleeFire Default Attack
+#flags attack melee projectile
+#mods
+
+#skill SpellNovaFireRibbons Fire Ribbons
+#flags area duration spell
+#mods
+
+#skill ElementalStrikeVaalColossus
+#flags are attack melee projectile
+#mods
+
+#skill SpellNovaIceRibbons Ice Ribbons
+#flags area duration spell
+#mods
+
+#skill GAAtlasInvadersCleansingFodder2Slam Slam
+#flags attack
+#mods
+
+#skill GAAtlasInvadersCleansingFodder2SlamBig Big Slam
+#flags attack
+#mods
+
 #skill AxisCasterGlacialCascade
 #flags spell area
 #baseMod skill("radius", 12)
@@ -13,6 +78,18 @@ local skills, mod, flag, skill = ...
 #skill AxisDoubleStrikeTrigger
 #flags attack melee
 #baseMod skill("dpsMultiplier", 2)
+#mods
+
+#skill AxisFlammability
+#flags area duration spell curse
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["chance_to_be_ignited_%"] = {
+			mod("SelfIgniteChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
 #mods
 
 #skill BanditExplosiveArrowAtAnimationSpeed Explosive Arrow
