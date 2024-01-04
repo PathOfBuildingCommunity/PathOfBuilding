@@ -815,7 +815,7 @@ local function setupGem(gem, gemId)
 	end
 	data.gemForBaseName[baseName] = gemId
 	-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
-	if gem.baseTypeName and not data.gemForBaseName[gem.baseTypeName] then
+	if gem.baseTypeName and gem.baseTypeName ~= baseName then
 		data.gemForBaseName[gem.baseTypeName] = gemId
 	end
 	gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and data.skills[gem.secondaryGrantedEffectId]
