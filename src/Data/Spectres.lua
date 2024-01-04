@@ -3762,10 +3762,12 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
+
 	-- Affliction Corpses
 -- Frozen Cannibal
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow"] = {
 	name = "Imperfect Frozen Cannibal",
+	monsterCategory = "Humanoid",
 	life = 2,
 	fireResist = 0,
 	coldResist = 75,
@@ -3789,6 +3791,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow"] = 
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid"] = {
 	name = "Frozen Cannibal",
+	monsterCategory = "Humanoid",
 	life = 2,
 	fireResist = 0,
 	coldResist = 75,
@@ -3813,6 +3816,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeMid"] = 
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh"] = {
 	name = "Perfect Frozen Cannibal",
+	monsterCategory = "Humanoid",
 	life = 2,
 	fireResist = 0,
 	coldResist = 75,
@@ -3839,6 +3843,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeHigh"] =
 -- Fiery Cannibal
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow"] = {
 	name = "Imperfect Fiery Cannibal",
+	monsterCategory = "Humanoid",
 	life = 2,
 	fireResist = 75,
 	coldResist = 0,
@@ -3861,6 +3866,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryLow"] = 
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid"] = {
 	name = "Fiery Cannibal",
+	monsterCategory = "Humanoid",
 	life = 2,
 	fireResist = 75,
 	coldResist = 0,
@@ -3884,6 +3890,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryMid"] = 
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_"] = {
 	name = "Perfect Fiery Cannibal",
+	monsterCategory = "Humanoid",
 	life = 2,
 	fireResist = 75,
 	coldResist = 0,
@@ -3909,6 +3916,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Firefury/FirefuryHigh_"] 
 -- Hydra
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow"] = {
 	name = "Imperfect Hydra",
+	monsterCategory = "Beast",
 	life = 0.86,
 	armour = 0.3,
 	fireResist = 0,
@@ -3930,6 +3938,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraLow"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid"] = {
 	name = "Hydra",
+	monsterCategory = "Beast",
 	life = 0.86,
 	armour = 0.3,
 	fireResist = 0,
@@ -3952,6 +3961,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraMid"] = {
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_"] = {
 	name = "Perfect Hydra",
+	monsterCategory = "Beast",
 	life = 0.86,
 	armour = 0.3,
 	fireResist = 0,
@@ -3976,6 +3986,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hydra/HydraHigh_"] = {
 -- Dark Marionette
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow"] = {
 	name = "Imperfect Dark Marionette",
+	monsterCategory = "Construct",
 	life = 2.88,
 	armour = 1,
 	fireResist = 20,
@@ -3996,6 +4007,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinLow"] 
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid"] = {
 	name = "Dark Marionette",
+	monsterCategory = "Construct",
 	life = 2.88,
 	armour = 1,
 	fireResist = 20,
@@ -4017,6 +4029,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinMid"] 
 }
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Mannequin/MannequinHigh_"] = {
 	name = "Perfect Dark Marionette",
+	monsterCategory = "Construct",
 	life = 2.88,
 	armour = 1,
 	fireResist = 20,
@@ -4125,5 +4138,74 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterCategory", monsterCategory = "Construct" })}),
 		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })}),
 		mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })}),
+	},
+}
+-- Spirit of Fortune
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow"] = {
+	name = "Imperfect Spirit of Fortune",
+	monsterCategory = "Construct",
+	life = 4.28,
+	armour = 2,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"AzmeriKudukuShockNova",
+		"AzmeriKudukuSparkExtraProj",
+		"AzmeriKudukuWarp",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid"] = {
+	name = "Spirit of Fortune",
+	monsterCategory = "Construct",
+	life = 4.28,
+	armour = 2,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"AzmeriKudukuShockNova",
+		"AzmeriKudukuSparkExtraProj",
+		"AzmeriKudukuWarp",
+		"AvatarWrath",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
+	name = "Perfect Spirit of Fortune",
+	monsterCategory = "Construct",
+	life = 4.28,
+	armour = 2,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"AzmeriKudukuShockNova",
+		"AzmeriKudukuSparkExtraProj",
+		"AzmeriKudukuWarp",
+		"AvatarWrath",
+	},
+	modList = {
 	},
 }

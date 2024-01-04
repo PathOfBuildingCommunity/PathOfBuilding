@@ -1394,3 +1394,28 @@ skills["DarkMarionetteExplodePerfect"] = {
 		[1] = { cost = { } },
 	},
 }
+
+#skill AzmeriKudukuShockNova
+#flags spell area
+#mods
+
+#skill AzmeriKudukuSparkExtraProj
+#flags spell projectile duration
+#mods
+
+#skill AzmeriKudukuWarp
+#flags spell area duration
+#mods
+
+#skill AvatarWrath
+#flags spell aura area
+	statMap = {
+		["attack_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods

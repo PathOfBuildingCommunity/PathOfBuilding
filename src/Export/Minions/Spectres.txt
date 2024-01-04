@@ -228,6 +228,7 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit
 -- Forged Frostbearer
 #spectre Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac
+
 	-- Affliction Corpses
 -- Frozen Cannibal
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/Hailrake/HailrakeLow
@@ -261,3 +262,7 @@ local minions, mod = ...
 #mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })})
 #mod mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })})
 #emit
+-- Spirit of Fortune
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh
