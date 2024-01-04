@@ -814,6 +814,10 @@ local function setupGem(gem, gemId)
 		baseName = baseName .. " Support"
 	end
 	data.gemForBaseName[baseName] = gemId
+	-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
+	if gem.baseTypeName and not data.gemForBaseName[gem.baseTypeName] then
+		data.gemForBaseName[gem.baseTypeName] = gemId
+	end
 	gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and data.skills[gem.secondaryGrantedEffectId]
 	gem.grantedEffectList = {
 		gem.grantedEffect,
@@ -830,7 +834,8 @@ for gemId, gem in pairs(data.gems) do
     for _, alt in ipairs{"AltX", "AltY"} do
         if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
             local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }
-            newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].name
+			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
+            newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].baseTypeName
             newGem.gameId = gem.gameId
             newGem.variantId = gem.variantId..alt
             newGem.grantedEffectId = gem.grantedEffectId
