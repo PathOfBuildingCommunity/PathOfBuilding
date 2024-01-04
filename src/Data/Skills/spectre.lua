@@ -6807,3 +6807,129 @@ skills["DarkMarionetteExplodePerfect"] = {
 		[1] = { cost = { } },
 	},
 }
+
+skills["AzmeriKudukuShockNova"] = {
+	name = "Shock Nova",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 5.25,
+	incrementalEffectiveness = 0.050000000745058,
+	description = "Casts a ring of Lightning around you, followed by a larger Lightning nova. Each effect hits enemies caught in their area with Lightning Damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.Nova] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.6,
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	constantStats = {
+		{ "newshocknova_first_ring_damage_+%_final", -60 },
+		{ "base_chance_to_shock_%", 100 },
+		{ "active_skill_area_of_effect_radius_+%_final", 65 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, storedUses = 1, levelRequirement = 7, cooldown = 6, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriKudukuSparkExtraProj"] = {
+	name = "Spark",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 3,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Launches unpredictable sparks that move randomly until they hit an enemy or expire.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.85,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3500 },
+		{ "number_of_additional_projectiles", 3 },
+		{ "base_projectile_speed_+%", 30 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 6, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriKudukuWarp"] = {
+	name = "Lightning Warp",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4.5,
+	incrementalEffectiveness = 0.050000000745058,
+	description = "Waits for a duration before teleporting to a targeted destination, with the duration based on the distance and your movement speed. When the teleport occurs, lightning damage is dealt to the area around both where the player was and where they teleported to. Casting again will queue up multiple teleportations to occur in sequence.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Movement] = true, [SkillType.Lightning] = true, [SkillType.AreaSpell] = true, [SkillType.Travel] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, },
+	statDescriptionScope = "variable_duration_skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "skill_effect_duration_+%", -80 },
+		{ "base_cast_speed_+%", 150 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 2, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AvatarWrath"] = {
+	name = "Wrath",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 2.3375000953674,
+	incrementalEffectiveness = 0.035000000149012,
+	description = "Casts an aura that adds lightning damage to the attacks of you and your allies, and makes your spells deal more lightning damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1.2,
+	statMap = {
+		["attack_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		aura = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radius", 40),
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 75 },
+	},
+	stats = {
+		"attack_minimum_added_lightning_damage",
+		"attack_maximum_added_lightning_damage",
+	},
+	levels = {
+		[1] = { 0.050000000745058, 0.80000001192093, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
