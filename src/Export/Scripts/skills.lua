@@ -221,6 +221,8 @@ directiveTable.skill = function(state, args, out)
 			end
 		else
 			out:write('\tname = "', trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName, '",\n')
+			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
+			out:write('\tbaseTypeName = "', granted.ActiveSkill.DisplayName, '",\n')
 		end
 	else
 		if displayName == args and not granted.IsSupport then
@@ -628,6 +630,10 @@ for skillGem in dat("SkillGems"):Rows() do
 		if gems[gemEffect.Id] then
 			out:write('\t["', "Metadata/Items/Gems/SkillGem" .. gemEffect.Id, '"] = {\n')
 			out:write('\t\tname = "', fullNameGems[skillGem.BaseItemType.Id] and skillGem.BaseItemType.Name or trueGemNames[gemEffect.Id] or skillGem.BaseItemType.Name:gsub(" Support",""), '",\n')
+			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
+			if not skillGem.IsSupport then
+				out:write('\t\tbaseTypeName = "', gemEffect.GrantedEffect.ActiveSkill.DisplayName, '",\n')
+			end
 			out:write('\t\tgameId = "', skillGem.BaseItemType.Id, '",\n')
 			out:write('\t\tvariantId = "', gemEffect.Id, '",\n')
 			out:write('\t\tgrantedEffectId = "', gemEffect.GrantedEffect.Id, '",\n')

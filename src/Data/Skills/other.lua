@@ -944,6 +944,7 @@ skills["MeleeUseContactPoint"] = {
 }
 skills["GemDetonateMines"] = {
 	name = "Detonate Mines",
+	baseTypeName = "Detonate Mines",
 	color = 4,
 	description = "Detonates a Mine, starting a Detonation Sequence which will detonate other Mines around it.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
@@ -2046,6 +2047,7 @@ skills["SupportTriggerSpellOnAttack"] = {
 }
 skills["Portal"] = {
 	name = "Portal",
+	baseTypeName = "Portal",
 	color = 4,
 	baseEffectiveness = 0,
 	description = "Creates a portal to the current area's town.",
@@ -3529,6 +3531,7 @@ skills["HiddenBlade"] = {
 }
 skills["VaalBreach"] = {
 	name = "Vaal Breach",
+	baseTypeName = "Vaal Breach",
 	color = 4,
 	baseEffectiveness = 0,
 	description = "Creates a breach, making you vulnerable to its powerful inhabitants.",
