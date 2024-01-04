@@ -50,8 +50,8 @@ function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 		local minion = self.data.minions[minionId]
 		tooltip:AddLine(18, "^7"..minion.name)
 
-		if minion.corpseType then
-			tooltip:AddLine(14, "^7Monster Category: "..minion.corpseType)
+		if minion.monsterCategory then
+			tooltip:AddLine(14, "^7Monster Category: "..minion.monsterCategory)
 		end
 
 		tooltip:AddLine(14, s_format("^7Life Multiplier: x%.2f", minion.life))

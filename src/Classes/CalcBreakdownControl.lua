@@ -458,8 +458,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 					desc = self:FormatModName(tag.effectType)
 				elseif tag.type == "Limit" then
 					desc = "Limited to "..(tag.limitVar and self:FormatModName(tag.limitVar) or self:FormatModBase(row.mod, tag.limit))
-				elseif tag.type == "CorpseType" then
-					desc = "Monster Category: "..(tag.corpseTypeList and table.concat(tag.corpseTypeList, "/") or tag.corpseType)
+				elseif tag.type == "MonsterCategory" then
+					desc = "Monster Category: "..(tag.monsterCategoryList and table.concat(tag.monsterCategoryList, "/") or tag.monsterCategory)
 				else
 					desc = self:FormatModName(tag.type)
 				end

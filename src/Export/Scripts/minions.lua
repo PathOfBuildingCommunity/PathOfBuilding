@@ -59,21 +59,21 @@ local itemClassMap = {
 
 local directiveTable = { }
 
--- #buildCorpseTypes
-directiveTable.buildCorpseTypes = function(state, args, out)
+-- #buildMonsterCategory
+directiveTable.buildMonsterCategory = function(state, args, out)
 	-- this only run once
-	if state.corpseTypeDict then
+	if state.monsterCategoryDict then
 		return
 	end
 
-	local corpseTypeTags = dat("corpsetypetags")
-	state.corpseTypeDict = { }
-	local tagIndex = corpseTypeTags.colMap["Tag"]
-	local nameIndex = corpseTypeTags.colMap["Name"]
-	for i=1, corpseTypeTags.rowCount do
-		local tagString = corpseTypeTags:ReadCellText(i, tagIndex)
-		local nameString = corpseTypeTags:ReadCellText(i, nameIndex)
-		state.corpseTypeDict[tagString] = nameString
+	local monsterCategoryTags = dat("corpsetypetags")
+	state.monsterCategoryDict = { }
+	local tagIndex = monsterCategoryTags.colMap["Tag"]
+	local nameIndex = monsterCategoryTags.colMap["Name"]
+	for i=1, monsterCategoryTags.rowCount do
+		local tagString = monsterCategoryTags:ReadCellText(i, tagIndex)
+		local nameString = monsterCategoryTags:ReadCellText(i, nameIndex)
+		state.monsterCategoryDict[tagString] = nameString
 	end
 end
 
@@ -119,7 +119,7 @@ end
 -- #emit
 directiveTable.emit = function(state, args, out)
 	-- this only run once internally
-	directiveTable.buildCorpseTypes(state, args, out)
+	directiveTable.buildMonsterCategory(state, args, out)
 
 	local monsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
 	if not monsterVariety then
@@ -128,6 +128,15 @@ directiveTable.emit = function(state, args, out)
 	end
 	out:write('minions["', state.name, '"] = {\n')
 	out:write('\tname = "', monsterVariety.Name, '",\n')
+	if state.monsterCategoryDict then
+		-- identify the monster category base on tags and corpsetypetags.dat
+		for _, tag in ipairs(monsterVariety.Tags) do
+			if state.monsterCategoryDict[tag.Id] then
+				out:write('\tmonsterCategory = "', state.monsterCategoryDict[tag.Id], '",\n')
+				break
+			end
+		end
+	end
 	out:write('\tlife = ', (monsterVariety.LifeMultiplier/100), ',\n')
 	if monsterVariety.Type.EnergyShield ~= 0 then
 		out:write('\tenergyShield = ', (0.4 * monsterVariety.Type.EnergyShield / 100), ',\n')
@@ -170,16 +179,6 @@ directiveTable.emit = function(state, args, out)
 		out:write('\t\t"', skill, '",\n')
 	end
 	out:write('\t},\n')
-
-	if state.corpseTypeDict then
-		-- identify the corpsetype base on tags and corpsetypetags.dat
-		for _, tag in ipairs(monsterVariety.Tags) do
-			if state.corpseTypeDict[tag.Id] then
-				out:write('\tcorpseType = "', state.corpseTypeDict[tag.Id], '",\n')
-				break
-			end
-		end
-	end
 
 	local modList = { }
 	for _, mod in ipairs(monsterVariety.Mods) do
