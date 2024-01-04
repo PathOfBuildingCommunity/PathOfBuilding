@@ -3579,7 +3579,7 @@ minions["Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac"] = {
 		-- MonsterNoMapDrops [monster_no_map_drops = 1]
 	},
 }
-
+-- Hulking Miscreation
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
 	name = "Imperfect Hulking Miscreation",
 	monsterCategory = "Construct",
@@ -3602,9 +3602,9 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow"] = {
 	},
 	modList = {
 		-- AzmeriRobotArgusAttackDamagePerArmour [attack_damage_+%_per_450_physical_damage_reduction_rating = 5]
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 5, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }) }),
 	},
 }
-
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid"] = {
 	name = "Hulking Miscreation",
 	monsterCategory = "Construct",
@@ -3633,7 +3633,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid"] = {
 		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterCategory", monsterCategory = "Construct" })}),
 	},
 }
-
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__"] = {
 	name = "Perfect Hulking Miscreation",
 	monsterCategory = "Construct",
