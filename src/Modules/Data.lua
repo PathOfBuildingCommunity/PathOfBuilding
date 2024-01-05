@@ -853,9 +853,9 @@ end
 
 -- Load minions
 data.minions = { }
-LoadModule("Data/Minions", data.minions, makeSkillMod)
+LoadModule("Data/Minions", data.minions, makeSkillMod, makeFlagMod)
 data.spectres = { }
-LoadModule("Data/Spectres", data.spectres, makeSkillMod)
+LoadModule("Data/Spectres", data.spectres, makeSkillMod, makeFlagMod)
 for name, spectre in pairs(data.spectres) do
 	spectre.limit = "ActiveSpectreLimit"
 	data.minions[name] = spectre
