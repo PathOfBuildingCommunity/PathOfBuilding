@@ -3,7 +3,7 @@
 -- Spectre Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod = ...
+local minions, mod, flag = ...
 
 -- Blackguard
 #spectre Metadata/Monsters/Axis/AxisCaster
@@ -265,4 +265,8 @@ local minions, mod = ...
 -- Spirit of Fortune
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid
-#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh
+
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh
+#mod mod("MinionModifier", "LIST", { mod = flag("LightningLuckHits") })
+#mod mod("PlayerModifier", "LIST", { mod = flag("LightningLuckHits") })
+#emit
