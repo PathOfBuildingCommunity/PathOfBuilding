@@ -3074,7 +3074,7 @@ local specialModList = {
 		mod("EnemyBrittleEffect", "MORE", num),
 		mod("EnemySapEffect", "MORE", num),
 	} end,
-	["immun[ei]t?y? to elemental ailments while on consecrated ground if you have at least (%d+) devotion"] = { flag("ElementalAilmentImmune", { type = "Condition", var = "OnConsecratedGround" }, { type = "StatThreshold", stat = "Devotion", threshold = num }), },
+	["immun[ei]t?y? to elemental ailments while on consecrated ground if you have at least (%d+) devotion"] = function(num) return { flag("ElementalAilmentImmune", { type = "Condition", var = "OnConsecratedGround" }, { type = "StatThreshold", stat = "Devotion", threshold = num }), } end,
 	["freeze enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num) } end,
 	["freeze chilled enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, { type = "ActorCondition", actor = "enemy", var = "Chilled" }) } end,
 	["manabond and stormbind freeze enemies as though dealing (%d+)%% more damage"] = function(num) return { mod("FreezeAsThoughDealing", "MORE", num, { type = "SkillName", skillNameList = { "Manabond", "Stormbind" }, includeTransfigured = true }) } end,
