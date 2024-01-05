@@ -193,7 +193,14 @@ directiveTable.skill = function(state, args, out)
 		ConPrintf('Unknown GE: "'..grantedId..'"')
 		return
 	end
-	local gemEffect = dat("GemEffects"):GetRow("GrantedEffect", granted) or dat("GemEffects"):GetRow("GrantedEffect2", granted)
+	local gemEffect = dat("GemEffects"):GetRow("GrantedEffect", granted)
+	local secondaryEffect
+	if not gemEffect then
+		gemEffect = dat("GemEffects"):GetRow("GrantedEffect2", granted)
+		if gemEffect then 
+			secondaryEffect = true
+		end
+	end
 	local skillGem
 	if gemEffect then
 		for gem in dat("SkillGems"):Rows() do
@@ -220,7 +227,7 @@ directiveTable.skill = function(state, args, out)
 				out:write('\tdescription = "', gemEffect.Description:gsub('\n','\\n'), '",\n')
 			end
 		else
-			out:write('\tname = "', trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName, '",\n')
+			out:write('\tname = "', secondaryEffect and granted.ActiveSkill.DisplayName or trueGemNames[gemEffect.Id] or granted.ActiveSkill.DisplayName, '",\n')
 			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
 			out:write('\tbaseTypeName = "', granted.ActiveSkill.DisplayName, '",\n')
 		end

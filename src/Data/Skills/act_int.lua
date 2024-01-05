@@ -15845,7 +15845,7 @@ skills["StormbindAltX"] = {
 	},
 }
 skills["RuneBlastAltX"] = {
-	name = "Stormbind of Teleportation",
+	name = "Rune Blast of Teleportation",
 	baseTypeName = "Rune Blast of Teleportation",
 	color = 3,
 	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction. Detonation can teleport you to the targeted Rune.",

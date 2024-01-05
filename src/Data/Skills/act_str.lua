@@ -4549,7 +4549,7 @@ skills["FrozenSweep"] = {
 	},
 }
 skills["FrozenSweepAltX"] = {
-	name = "Frozen Legion of Rallying",
+	name = "Frozen Sweep",
 	baseTypeName = "Frozen Sweep",
 	color = 1,
 	description = "This attack is used by your Statues to deal damage in an area around them while stepping forward. This skill cannot repeat and can only be used by Statues from Frozen Legion.",
