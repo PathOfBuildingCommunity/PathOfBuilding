@@ -265,7 +265,6 @@ local minions, mod, flag = ...
 -- Spirit of Fortune
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid
-
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh
 #mod mod("MinionModifier", "LIST", { mod = flag("LightningLuckHits") })
 #mod mod("PlayerModifier", "LIST", { mod = flag("LightningLuckHits") })

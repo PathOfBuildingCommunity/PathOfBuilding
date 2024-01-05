@@ -4,7 +4,7 @@
 -- Spectre Data
 -- Monster data (c) Grinding Gear Games
 --
-local minions, mod = ...
+local minions, mod, flag = ...
 
 -- Blackguard
 minions["Metadata/Monsters/Axis/AxisCaster"] = {
@@ -4207,5 +4207,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh"] = {
 		"AvatarWrath",
 	},
 	modList = {
+		mod("MinionModifier", "LIST", { mod = flag("LightningLuckHits") }),
+		mod("PlayerModifier", "LIST", { mod = flag("LightningLuckHits") }),
 	},
 }
