@@ -482,7 +482,14 @@ local function defaultTriggerHandler(env, config)
 				if breakdown then
 					t_insert(breakdown.EffectiveSourceRate, s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
 				end
-				if (actor.mainSkill.skillData.triggeredByCospris or actor.mainSkill.skillData.triggeredByCoC or config.triggerName == "Law of the Wilds") and GlobalCache.cachedData["CACHE"][uuid] then
+				if GlobalCache.cachedData["CACHE"][uuid] and GlobalCache.cachedData["CACHE"][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit then
+					local onCritChance = GlobalCache.cachedData["CACHE"][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit
+					if onCritChance ~= 100 then
+						trigRate = trigRate * onCritChance / 100
+						if breakdown then
+							t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to cast on crit)"))
+						end
+					end
 					local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 					trigRate = trigRate * (sourceCritChance or 0) / 100
 					if breakdown then
