@@ -271,4 +271,5 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_
+#mod mod("AllyModifier", "LIST", { mod = mod("MinimumFortification", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })})
 #emit

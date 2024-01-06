@@ -519,10 +519,15 @@ local function doActorMisc(env, actor)
 		if env.player.mainSkill.baseSkillModList:Flag(nil, "Cruelty") then
 			modDB.multipliers["Cruelty"] = modDB:Override(nil, "Cruelty") or 40
 		end
-		-- Fortify from a mod, or minions getting stacks from Kingmaker
+		-- Minimum Fortification from King Maker of Perfect Naval Officer spectres
+		if modDB:Sum("BASE", nil, "MinimumFortification") > 0 then
+			condList["Fortified"] = true
+		end
+		-- Fortify
 		if modDB:Flag(nil, "Fortified") or modDB:Sum("BASE", nil, "Multiplier:Fortification") > 0 then
 			local maxStacks = modDB:Override(nil, "MaximumFortification") or modDB:Sum("BASE", skillCfg, "MaximumFortification")
-			local stacks = modDB:Override(nil, "FortificationStacks") or maxStacks
+			local minStacks = m_min(modDB:Sum("BASE", nil, "MinimumFortification"), maxStacks)
+			local stacks = modDB:Override(nil, "FortificationStacks") or minStacks > 0 or maxStacks
 			output.FortificationStacks = stacks
 			if not modDB:Flag(nil,"Condition:NoFortificationMitigation") then
 				local effectScale = 1 + modDB:Sum("INC", nil, "BuffEffectOnSelf") / 100
