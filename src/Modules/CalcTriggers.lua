@@ -482,14 +482,10 @@ local function defaultTriggerHandler(env, config)
 				if breakdown then
 					t_insert(breakdown.EffectiveSourceRate, s_format("x %.0f%% ^8(%s hit chance)", sourceHitChance, source.activeEffect.grantedEffect.name))
 				end
-				if actor.mainSkill.skillData.chanceToTriggerOnCrit or (GlobalCache.cachedData["CACHE"][uuid] and GlobalCache.cachedData["CACHE"][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit) then
-					local onCritChance = actor.mainSkill.skillData.chanceToTriggerOnCrit or GlobalCache.cachedData["CACHE"][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit
-					if onCritChance ~= 100 then
-						trigRate = trigRate * onCritChance / 100
-						if breakdown then
-							t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to cast on crit)", onCritChance))
-						end
-					end
+				if actor.mainSkill.skillData.triggerOnCrit then
+					local onCritChance = actor.mainSkill.skillData.chanceToTriggerOnCrit or (GlobalCache.cachedData["CACHE"][uuid] and GlobalCache.cachedData["CACHE"][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit)
+					config.triggerChance = config.triggerChance or actor.mainSkill.skillData.chanceToTriggerOnCrit or onCritChance
+					
 					local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 					trigRate = trigRate * (sourceCritChance or 0) / 100
 					if breakdown then
@@ -538,7 +534,7 @@ local function defaultTriggerHandler(env, config)
 			end
 
 			--Trigger chance
-			if config.triggerChance and trigRate then
+			if config.triggerChance and config.triggerChance ~= 100 and trigRate then
 				trigRate = trigRate * config.triggerChance / 100
 				if breakdown and breakdown.EffectiveSourceRate then
 					t_insert(breakdown.EffectiveSourceRate, s_format("x %.2f%% ^8(chance to trigger)", config.triggerChance))
@@ -913,7 +909,7 @@ local configTable = {
 	["law of the wilds"] = function()
 		return {
 			triggerSkillCond = function(env, skill)
-				return (skill.skillTypes[SkillType.Damage] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Claw) > 0
+				return not skill.skillTypes[SkillType.SummonsTotem] and (skill.skillTypes[SkillType.Melee] or skill.skillTypes[SkillType.Attack]) and band(skill.skillCfg.flags, ModFlag.Claw) > 0
 			end
 		}
 	end,
@@ -1113,7 +1109,7 @@ local configTable = {
 	end,
 	["cast on critical strike"] = function()
 		return {triggerSkillCond = function(env, skill) return skill.skillTypes[SkillType.Attack] and slotMatch(env, skill) end,
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoC and slotMatch(env, skill) end}
+				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByCoc and slotMatch(env, skill) end}
 	end,
 	["cast on melee kill"] = function(env)
 		if env.player.modDB:Flag(nil, "Condition:KilledRecently") then
@@ -1150,8 +1146,8 @@ local configTable = {
 	end,
 	["cast when stunned"] = function(env)
         env.player.mainSkill.skillFlags.globalTrigger = true
-		return {triggerChance =  env.player.mainSkill.skillData.triggeredByStunned,
-				triggeredSkillCond = function(env, skill) return skill.skillData.triggeredByStunned and slotMatch(env, skill) end}
+		return {triggerChance =  env.player.mainSkill.skillData.chanceToTriggerOnStun,
+				triggeredSkillCond = function(env, skill) return skill.skillData.chanceToTriggerOnStun and slotMatch(env, skill) end}
 	end,
 	["spellslinger"] = function()
 		return {triggerName = "Spellslinger",
@@ -1381,6 +1377,7 @@ function calcs.triggers(env, actor)
 		if config then
 		    config.actor = config.actor or actor
 			config.triggerName = config.triggerName or triggerName or uniqueName or skillName
+			config.triggerChance = config.triggerChance or (actor.mainSkill.activeEffect.srcInstance and actor.mainSkill.activeEffect.srcInstance.triggerChance)
 			local triggerHandler = config.customHandler or defaultTriggerHandler
 		    triggerHandler(env, config)
 		else
