@@ -273,3 +273,12 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_
 #mod mod("AllyModifier", "LIST", { mod = mod("MinimumFortification", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })})
 #emit
+--Dancing Sword
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid
+#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_
+#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
+#mod mod("AllyModifier", "LIST", { mod = mod("ImpaleStacksMax", "BASE", 1, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
+#emit

@@ -1455,3 +1455,24 @@ skills["DarkMarionetteExplodePerfect"] = {
 		},
 	},
 #mods
+
+#skill AzmeriSawbladeAnimatedWeaponCyclone
+#flags attack area melee movement
+#mods
+
+#skill AzmeriDoubleSlashAnimatedWeapon
+#flags attack area melee
+#mods
+
+#skill AzmeriSwordStormCascade Sword Cascade
+#flags spell area triggerable
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+	end,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000,
+		},
+	},
+#mods

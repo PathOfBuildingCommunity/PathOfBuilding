@@ -4318,3 +4318,73 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_"] = {
 		mod("AllyModifier", "LIST", { mod = mod("MinimumFortification", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })}),
 	},
 }
+--Dancing Sword
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow"] = {
+	name = "Imperfect Dancing Sword",
+	monsterCategory = "Construct",
+	life = 1.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.25,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"AzmeriSawbladeAnimatedWeaponCyclone",
+		"MeleeAtAnimationSpeed",
+		"AzmeriDoubleSlashAnimatedWeapon",
+		"AzmeriSwordStormCascade",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid"] = {
+	name = "Dancing Sword",
+	monsterCategory = "Construct",
+	life = 1.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.25,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"AzmeriSawbladeAnimatedWeaponCyclone",
+		"MeleeAtAnimationSpeed",
+		"AzmeriDoubleSlashAnimatedWeapon",
+		"AzmeriSwordStormCascade",
+	},
+	modList = {
+		mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
+	name = "Perfect Dancing Sword",
+	monsterCategory = "Construct",
+	life = 1.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.25,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 6,
+	accuracy = 1,
+	skillList = {
+		"AzmeriSawbladeAnimatedWeaponCyclone",
+		"MeleeAtAnimationSpeed",
+		"AzmeriDoubleSlashAnimatedWeapon",
+		"AzmeriSwordStormCascade",
+	},
+	modList = {
+		mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
+		mod("AllyModifier", "LIST", { mod = mod("ImpaleStacksMax", "BASE", 1, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
+	},
+}

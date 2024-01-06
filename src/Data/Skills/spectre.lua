@@ -7120,3 +7120,116 @@ skills["AzmeriAdmiralPrecision"] = {
 		[1] = { 1, 0.10000000149012, storedUses = 1, levelRequirement = 70, cooldown = 0.5, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["AzmeriSawbladeAnimatedWeaponCyclone"] = {
+	name = "Cyclone",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0.85000002384186,
+	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+		movement = true,
+	},
+	constantStats = {
+		{ "active_skill_attack_speed_+%_final", 150 },
+		{ "cyclone_movement_speed_+%_final", 80 },
+		{ "cyclone_extra_distance", 30 },
+		{ "active_skill_damage_+%_final", -50 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 68, },
+	},
+}
+skills["AzmeriDoubleSlashAnimatedWeapon"] = {
+	name = "Lacerate",
+	hidden = true,
+	color = 2,
+	description = "Slashes twice, releasing waves of force that damage enemies they hit. Enemies in the middle of the slashes can be hit by both. The slashes will have a chance to inflict bleeding in Blood Stance, or have a wider angle in Sand Stance. Can be used with Axes and Swords. You are in Blood Stance by default.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Physical] = true, },
+	weaponTypes = {
+		["Two Handed Axe"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 70 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 68, },
+	},
+}
+skills["AzmeriSwordStormCascade"] = {
+	name = "Sword Cascade",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.3400000333786,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
+	end,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("damageInterval", nil ),
+			div = 1000,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 2000 },
+		{ "fire_storm_fireball_delay_ms", 190 },
+		{ "skill_override_pvp_scaling_time_ms", 450 },
+		{ "upheaval_number_of_spikes", 10 },
+		{ "base_secondary_skill_effect_duration", 1500 },
+		{ "active_skill_area_of_effect_radius_+%_final", -50 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_skill_show_average_damage_instead_of_dps",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, storedUses = 1, levelRequirement = 68, cooldown = 10, statInterpolation = { 3, 3, }, },
+	},
+}
