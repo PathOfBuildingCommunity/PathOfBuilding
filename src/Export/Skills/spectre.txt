@@ -1419,3 +1419,39 @@ skills["DarkMarionetteExplodePerfect"] = {
 	},
 #baseMod skill("radius", 40)
 #mods
+
+#skill MeleeAtAnimationSpeedCold
+#flags attack melee projectile
+#mods
+
+#skill AzmeriAdmiralDoubleStrike Double Strike
+#flags attack
+#mods
+
+#skill AzmeriAdmiralGeyserDamage Geyser Damage
+#flags spell area  hit
+#mods
+
+#skill AzmeriAdmiralTidalWave Todial Wave
+#flags spell triggerable
+#mods
+
+#skill AzmeriAdmiralDashMortars Dash Mortars
+#flags spell area projectile triggerable
+#mods
+
+#skill GSAzmeriAdmiralCannonball Cannonball
+#flags spell area hit
+#mods
+
+#skill AzmeriAdmiralPrecision
+#flags spell area aura
+	statMap = {
+		["accuracy_rating"] = {
+			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["skill_buff_grants_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods

@@ -259,13 +259,16 @@ local minions, mod, flag = ...
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 5, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }) })
 #mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterCategory", monsterCategory = "Construct" })})
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterCategory", monsterCategory = "Construct" })})
-#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })})
-#mod mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })})
+#mod mod("AllyModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })})
 #emit
 -- Spirit of Fortune
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuMid
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/KudukuHigh
-#mod mod("MinionModifier", "LIST", { mod = flag("LightningLuckHits") })
-#mod mod("PlayerModifier", "LIST", { mod = flag("LightningLuckHits") })
+#mod mod("AllyModifier", "LIST", { mod = flag("LightningLuckHits") })
+#emit
+-- Naval Officer
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralMid__
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_
 #emit

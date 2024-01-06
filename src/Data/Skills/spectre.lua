@@ -6933,3 +6933,190 @@ skills["AvatarWrath"] = {
 		[1] = { 0.050000000745058, 0.80000001192093, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["MeleeAtAnimationSpeedCold"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 75 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
+skills["AzmeriAdmiralDoubleStrike"] = {
+	name = "Double Strike",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		attack = true,
+	},
+	stats = {
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { attackSpeedMultiplier = -25, storedUses = 1, damageEffectiveness = 1.1, baseMultiplier = 1.1, cooldown = 6, levelRequirement = 0, },
+	},
+}
+skills["AzmeriAdmiralGeyserDamage"] = {
+	name = "Geyser Damage",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.82499998807907,
+	incrementalEffectiveness = 0.046250000596046,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "chill_minimum_slow_%_from_skill", 30 },
+		{ "active_skill_chill_duration_+%_final", 100 },
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -50 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriAdmiralTidalWave"] = {
+	name = "Todial Wave",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 5,
+	baseFlags = {
+		spell = true,
+		triggerable = true,
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 25, },
+	},
+}
+skills["AzmeriAdmiralDashMortars"] = {
+	name = "Dash Mortars",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.045000001788139,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "projectile_spread_radius", 10 },
+		{ "projectile_minimum_range", 5 },
+		{ "number_of_projectiles_override", 2 },
+		{ "active_skill_area_of_effect_radius_+%_final", -33 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"is_area_damage",
+		"base_is_projectile",
+		"use_scaled_contact_offset",
+		"projectile_uses_contact_direction",
+		"mortar_projectile_scale_animation_speed_instead_of_projectile_speed",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSAzmeriAdmiralCannonball"] = {
+	name = "Cannonball",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.3499999046326,
+	incrementalEffectiveness = 0.037500001490116,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriAdmiralPrecision"] = {
+	name = "Precision",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 15,
+	incrementalEffectiveness = 0.0070000002160668,
+	description = "Casts an aura that grants accuracy and critical strike chance to you and your allies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["accuracy_rating"] = {
+			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["skill_buff_grants_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	constantStats = {
+		{ "active_skill_base_radius_+", 50 },
+	},
+	stats = {
+		"accuracy_rating",
+		"skill_buff_grants_critical_strike_chance_+%",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 1, 0.10000000149012, storedUses = 1, levelRequirement = 70, cooldown = 0.5, statInterpolation = { 3, 3, }, },
+	},
+}
