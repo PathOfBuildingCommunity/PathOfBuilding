@@ -2432,7 +2432,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "implicit.stat_2524254339", 
+				["id"] = "implicit.stat_1229298404", 
 				["text"] = "Culling Strike", 
 				["type"] = "implicit", 
 			}, 
@@ -42620,7 +42620,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2653955271", 
+				["id"] = "explicit.stat_1123291426", 
 				["text"] = "Damage Penetrates #% Fire Resistance", 
 				["type"] = "explicit", 
 			}, 
@@ -42654,7 +42654,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_2653955271", 
+				["id"] = "explicit.stat_1123291426", 
 				["text"] = "Damage Penetrates #% Fire Resistance", 
 				["type"] = "explicit", 
 			}, 
@@ -58054,6 +58054,15 @@ return {
 				["type"] = "implicit", 
 			}, 
 		}, 
+		["implicit.stat_1229298404"] = {
+			["specialCaseData"] = {
+			}, 
+			["tradeMod"] = {
+				["id"] = "implicit.stat_1229298404", 
+				["text"] = "Culling Strike", 
+				["type"] = "implicit", 
+			}, 
+		}, 
 		["implicit.stat_1263158408"] = {
 			["1HAxe"] = {
 				["max"] = 1, 
@@ -60007,15 +60016,6 @@ return {
 			["tradeMod"] = {
 				["id"] = "implicit.stat_2522672898", 
 				["text"] = "#% of Fire Damage from Hits taken as Cold Damage", 
-				["type"] = "implicit", 
-			}, 
-		}, 
-		["implicit.stat_2524254339"] = {
-			["specialCaseData"] = {
-			}, 
-			["tradeMod"] = {
-				["id"] = "implicit.stat_2524254339", 
-				["text"] = "Culling Strike", 
 				["type"] = "implicit", 
 			}, 
 		}, 
