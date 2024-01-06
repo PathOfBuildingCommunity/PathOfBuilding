@@ -1476,3 +1476,15 @@ skills["DarkMarionetteExplodePerfect"] = {
 		},
 	},
 #mods
+
+#skill AzmeriBarrageDemonSpineProjectile Spine Projectile
+#flags attack projectile triggerable
+#mods
+
+#skill AzmeriBarrageDemonRainOfSpines
+#flags attack area projectile triggerable
+#mods
+
+#skill AzmeriBarrageDemonSpinestorm
+#flags spell area duration triggerable
+#mods

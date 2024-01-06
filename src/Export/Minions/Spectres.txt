@@ -282,3 +282,10 @@ local minions, mod, flag = ...
 #mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
 #mod mod("AllyModifier", "LIST", { mod = mod("ImpaleStacksMax", "BASE", 1, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
 #emit
+
+--Needle Horror
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_
+#mod mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscaleable = true })})
+#emit

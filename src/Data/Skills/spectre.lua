@@ -7233,3 +7233,94 @@ skills["AzmeriSwordStormCascade"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, storedUses = 1, levelRequirement = 68, cooldown = 10, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["AzmeriBarrageDemonSpineProjectile"] = {
+	name = "Spine Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.8700000047684,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 2 },
+		{ "spell_maximum_action_distance_+%", -30 },
+		{ "base_projectile_speed_+%", 90 },
+		{ "active_skill_physical_damage_+%_final", 30 },
+	},
+	stats = {
+		"base_is_projectile",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["AzmeriBarrageDemonRainOfSpines"] = {
+	name = "Rain of Arrows",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0,
+	description = "Fires a large number of arrows into the air, to land at the target after a short delay.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Area] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Rain] = true, },
+	weaponTypes = {
+		["Bow"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+	},
+	stats = {
+		"base_is_projectile",
+		"is_area_damage",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 1.425, baseMultiplier = 1.425, levelRequirement = 0, },
+	},
+}
+skills["AzmeriBarrageDemonSpinestorm"] = {
+	name = "Firestorm",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.125,
+	incrementalEffectiveness = 0.042500000447035,
+	description = "Flaming bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 0.9,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 4000 },
+		{ "fire_storm_fireball_delay_ms", 90 },
+		{ "spell_maximum_action_distance_+%", 50 },
+		{ "firestorm_base_area_of_effect_+%", -51 },
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -30 },
+		{ "active_skill_base_area_of_effect_radius", 10 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, }, },
+	},
+}

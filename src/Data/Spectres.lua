@@ -4388,3 +4388,77 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
 		mod("AllyModifier", "LIST", { mod = mod("ImpaleStacksMax", "BASE", 1, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
 	},
 }
+
+--Needle Horror
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow"] = {
+	name = "Imperfect Needle Horror",
+	monsterCategory = "Demon",
+	life = 3.75,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 50,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"AzmeriBarrageDemonSpineProjectile",
+		"AzmeriBarrageDemonRainOfSpines",
+		"AzmeriBarrageDemonSpinestorm",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid"] = {
+	name = "Needle Horror",
+	monsterCategory = "Demon",
+	life = 3.75,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 50,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"AzmeriBarrageDemonSpineProjectile",
+		"AzmeriBarrageDemonRainOfSpines",
+		"AzmeriBarrageDemonSpinestorm",
+	},
+	modList = {
+		mod("ImpaleEffect", "INC", 100, 0, 0), -- AzmeriBarrageDemonImpaleEffect [impale_debuff_effect_+% = 100]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
+	name = "Perfect Needle Horror",
+	monsterCategory = "Demon",
+	life = 3.75,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 50,
+	accuracy = 1,
+	weaponType1 = "Bow",
+	skillList = {
+		"AzmeriBarrageDemonSpineProjectile",
+		"AzmeriBarrageDemonRainOfSpines",
+		"AzmeriBarrageDemonSpinestorm",
+	},
+	modList = {
+		mod("ImpaleEffect", "INC", 100, 0, 0), -- AzmeriBarrageDemonImpaleEffect [impale_debuff_effect_+% = 100]
+		mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscaleable = true })}),
+	},
+}
