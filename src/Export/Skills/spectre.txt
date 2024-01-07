@@ -1580,6 +1580,32 @@ skills["DarkMarionetteExplodePerfect"] = {
 #flags attack area triggerable
 #mods
 
-#skill GSExpeditionDeathKnightNova Nova
-#flags spell area triggerable
+#skill GSExpeditionDeathKnightNova Nova Spell
+#flags spell area triggerable hit
+#mods
+
+#addSkillTypes Buff
+#skill AzmeriDualStrikeDemonFireEnrage Enrage
+#flags spell hit
+	statMap = {
+		["physical_damage_%_to_add_as_fire"] = {
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Enrage" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Enrage" }),
+		},
+		["attack_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Enrage" }),
+		},
+		["minimum_fire_damage_to_return_when_hit"] = {
+			mod("FireMin", "BASE", nil),
+		},
+		["maximum_fire_damage_to_return_when_hit"] = {
+			mod("FireMax", "BASE", nil),
+		},
+	},
+#mods
+
+#skill AzmeriDualStrikeDemonDualStrike
+#flags attack melee
 #mods

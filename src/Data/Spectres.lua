@@ -4815,3 +4815,84 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
 	modList = {
 	},
 }
+
+--Slashing Horror
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow"] = {
+	name = "Imperfect Slashing Horror",
+	monsterCategory = "Demon",
+	life = 3.75,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.88,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriDualStrikeDemonFireEnrage",
+		"AzmeriDualStrikeDemonDualStrike",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid"] = {
+	name = "Slashing Horror",
+	monsterCategory = "Demon",
+	life = 3.75,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.88,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriDualStrikeDemonFireEnrage",
+		"AzmeriDualStrikeDemonDualStrike",
+	},
+	modList = {
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage" }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 2 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
+	name = "Perfect Slashing Horror",
+	monsterCategory = "Demon",
+	life = 3.75,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.88,
+	damageSpread = 0.2,
+	attackTime = 1.35,
+	attackRange = 11,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriDualStrikeDemonFireEnrage",
+		"AzmeriDualStrikeDemonDualStrike",
+	},
+	modList = {
+		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsFire", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SlashingHorror", unscaleable = true })}),
+		mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage" }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+		mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 2 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
+	},
+}

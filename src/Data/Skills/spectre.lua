@@ -7874,7 +7874,7 @@ skills["GAExpeditionDeathKnightSlam"] = {
 	},
 }
 skills["GSExpeditionDeathKnightNova"] = {
-	name = "Nova AoE",
+	name = "Nova Spell",
 	hidden = true,
 	color = 4,
 	baseEffectiveness = 3.5297000408173,
@@ -7899,5 +7899,81 @@ skills["GSExpeditionDeathKnightNova"] = {
 	},
 	levels = {
 		[1] = { 0.80000001192093, 1, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 2.5, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriDualStrikeDemonFireEnrage"] = {
+	name = "Enrage",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.7889000177383,
+	incrementalEffectiveness = 0.034000001847744,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["physical_damage_%_to_add_as_fire"] = {
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Enrage" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Enrage" }),
+		},
+		["attack_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Enrage" }),
+		},
+		["minimum_fire_damage_to_return_when_hit"] = {
+			mod("FireMin", "BASE", nil),
+		},
+		["maximum_fire_damage_to_return_when_hit"] = {
+			mod("FireMax", "BASE", nil),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 5000 },
+		{ "base_movement_velocity_+%", 50 },
+		{ "attack_speed_+%", 50 },
+	},
+	stats = {
+		"minimum_fire_damage_to_return_when_hit",
+		"maximum_fire_damage_to_return_when_hit",
+		"physical_damage_%_to_add_as_fire",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 100, storedUses = 1, levelRequirement = 70, cooldown = 12, statInterpolation = { 3, 3, 1, }, },
+	},
+}
+skills["AzmeriDualStrikeDemonDualStrike"] = {
+	name = "Dual Strike",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Attacks with both weapons, dealing the damage of both in one strike. Dual wield only. Does not work with wands.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.DualWieldOnly] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ThresholdJewelArea] = true, },
+	weaponTypes = {
+		["Two Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["One Handed Axe"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+	},
+	stats = {
+		"skill_double_hits_when_dual_wielding",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 0, },
 	},
 }
