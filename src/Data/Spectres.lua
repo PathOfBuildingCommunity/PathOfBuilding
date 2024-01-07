@@ -4592,3 +4592,79 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh"] = {
 		mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") }),
 	},
 }
+
+--Pain Artist
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow"] = {
+	name = "Imperfect Pain Artist",
+	monsterCategory = "Demon",
+	life = 1.44,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.32,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"AzmeriCasterDemonProjectile",
+		"DeceleratingProjectileAzmeriCasterDemon",
+		"DeceleratingProjectileAzmeriCasterDemonExplode",
+	},
+	modList = {
+		mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid"] = {
+	name = "Pain Artist",
+	monsterCategory = "Demon",
+	life = 1.44,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.32,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"AzmeriCasterDemonProjectile",
+		"DeceleratingProjectileAzmeriCasterDemon",
+		"DeceleratingProjectileAzmeriCasterDemonExplode",
+		"ABTTAzmeriCasterDemonCritMultiAura",
+	},
+	modList = {
+		mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
+		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })}),
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
+	name = "Perfect Pain Artist",
+	monsterCategory = "Demon",
+	life = 1.44,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.32,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"AzmeriCasterDemonProjectile",
+		"DeceleratingProjectileAzmeriCasterDemon",
+		"DeceleratingProjectileAzmeriCasterDemonExplode",
+		"ABTTAzmeriCasterDemonCritMultiAura",
+		"AzmeriCasterDemonSpellDamageAura",
+	},
+	modList = {
+		mod("CritMultiplier", "BASE", 250, 0, 0), -- AzmeriCasterDemonCriticalStrikeMultiplier [base_critical_strike_multiplier_+ = 250]
+		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })}),
+	},
+}

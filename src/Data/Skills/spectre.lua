@@ -7658,3 +7658,121 @@ skills["ABTTAzmeriBasaliskShroud"] = {
 		[1] = { 16.666667039196, storedUses = 1, levelRequirement = 0, cooldown = 0.1, statInterpolation = { 3, }, },
 	},
 }
+skills["AzmeriCasterDemonProjectile"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.414999961853,
+	incrementalEffectiveness = 0.045000001788139,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.17,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 139 },
+		{ "spell_maximum_action_distance_+%", -40 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 1, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["DeceleratingProjectileAzmeriCasterDemon"] = {
+	name = "Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.60000002384186,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.5,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "number_of_projectiles_override", 1 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 1, storedUses = 1, levelRequirement = 0, cooldown = 10, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["DeceleratingProjectileAzmeriCasterDemonExplode"] = {
+	name = "Explode",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.1500000953674,
+	incrementalEffectiveness = 0.04450000077486,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		triggerable = true,
+		hit = true,
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+		"always_shock",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 1, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriCasterDemonSpellDamageAura"] = {
+	name = "Zealotry",
+	hidden = true,
+	color = 3,
+	description = "Casts an aura that grants bonuses to damage and critical strike chance of spells to you and your allies, and gives a chance to create Consecrated Ground against stronger enemies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["spell_damage_aura_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	constantStats = {
+		{ "create_consecrated_ground_on_hit_%_vs_rare_or_unique_enemy", 10 },
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+	},
+	stats = {
+		"spell_damage_aura_spell_damage_+%_final",
+		"spell_critical_strike_chance_+%",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 10, 30, storedUses = 1, levelRequirement = 0, cooldown = 0.5, statInterpolation = { 2, 2, }, },
+		[2] = { 20, 60, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, }, },
+	},
+}

@@ -1542,3 +1542,27 @@ skills["DarkMarionetteExplodePerfect"] = {
 		},
 	},
 #mods
+
+#skill AzmeriCasterDemonProjectile Default Attack
+#flags spell projectile triggerable
+#mods
+
+#skill DeceleratingProjectileAzmeriCasterDemon Projectile
+#flags spell projectile triggerable
+#mods
+
+#skill DeceleratingProjectileAzmeriCasterDemonExplode Explode
+#flags spell projectile triggerable hit
+#mods
+
+#skill AzmeriCasterDemonSpellDamageAura
+#flags spell area aura
+	statMap = {
+		["spell_damage_aura_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods
