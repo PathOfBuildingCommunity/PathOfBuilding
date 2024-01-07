@@ -4896,3 +4896,83 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
 		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
 	},
 }
+
+--Druidic Alchemist
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__"] = {
+	name = "Imperfect Druidic Alchemist",
+	monsterCategory = "Humanoid",
+	life = 1.75,
+	energyShield = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 75,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPSAncestralDruidFlask",
+		"GSAncestralDruidFlaskExplode",
+		"EASAncestralHealTotem",
+		"EASAncestralHealAlly",
+		"GSAncestralDruidTotemChannelHeal",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverMid"] = {
+	name = "Druidic Alchemist",
+	monsterCategory = "Humanoid",
+	life = 1.75,
+	energyShield = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 75,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPSAncestralDruidFlask",
+		"GSAncestralDruidFlaskExplode",
+		"EASAncestralHealTotem",
+		"EASAncestralHealAlly",
+		"GSAncestralDruidTotemChannelHeal",
+	},
+	modList = {
+		mod("FlaskEffect", "INC", 200, 0, 0), -- AzmeriDruidFlaskEffect [flask_effect_+% = 200]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
+	name = "Perfect Druidic Alchemist",
+	monsterCategory = "Humanoid",
+	life = 1.75,
+	energyShield = 0.8,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 75,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MPSAncestralDruidFlask",
+		"GSAncestralDruidFlaskExplode",
+		"EASAncestralHealTotem",
+		"EASAncestralHealAlly",
+		"GSAncestralDruidTotemChannelHeal",
+	},
+	modList = {
+		mod("FlaskEffect", "INC", 200, 0, 0), -- AzmeriDruidFlaskEffect [flask_effect_+% = 200]
+		mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscaleable = true })}),
+	},
+}

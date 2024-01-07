@@ -7977,3 +7977,30 @@ skills["AzmeriDualStrikeDemonDualStrike"] = {
 		[1] = { damageEffectiveness = 1.5, baseMultiplier = 1.5, levelRequirement = 0, },
 	},
 }
+skills["GSAncestralDruidFlaskExplode"] = {
+	name = "Poisonous Concoction",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.25,
+	incrementalEffectiveness = 0.037500001490116,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_chance_to_poison_on_hit_%", 100 },
+	},
+	stats = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+		"is_area_damage",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}

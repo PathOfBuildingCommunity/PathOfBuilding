@@ -368,6 +368,9 @@ return {
 ["flask_mana_to_recover_+%"] = {
 	mod("FlaskManaRecovery", "INC", nil),
 },
+["flask_effect_+%"] = {
+	mod("FlaskEffect", "INC", nil),
+},
 ["base_chance_to_dodge_%"] = {
 	mod("AttackDodgeChance", "BASE", nil),
 },

@@ -1609,3 +1609,8 @@ skills["DarkMarionetteExplodePerfect"] = {
 #skill AzmeriDualStrikeDemonDualStrike
 #flags attack melee
 #mods
+
+#addSkillTypes Projectile ProjectilesFromUser
+#skill GSAncestralDruidFlaskExplode Poisonous Concoction
+#flags spell projectile area
+#mods
