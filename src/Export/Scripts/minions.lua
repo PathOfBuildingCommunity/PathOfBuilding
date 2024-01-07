@@ -208,7 +208,7 @@ directiveTable.emit = function(state, args, out)
 				if skillStatMap[mod["Stat"..i].Id] then
 					local newMod = skillStatMap[mod["Stat"..i].Id][1]
 					--mod("Speed", "INC", -80, ModFlag.Cast, KeywordFlag.Curse)
-					out:write('\t\tmod("', newMod.name, '", "', newMod.type, '", ', newMod.value and tableToString(newMod.value) or (skillStatMap[mod["Stat"..i].Id].value or mod["Stat"..i.."Value"][1] * (skillStatMap[mod["Stat"..i].Id].mult or 1) / (skillStatMap[mod["Stat"..i].Id].div or 1)), ', ', newMod.flags or 0, ', ', newMod.keywordFlags or 0)
+					out:write('\t\tmod("', newMod.name, '", "', newMod.type, '", ', newMod.value and type(newMod.value) ~= "boolean" and tableToString(newMod.value) or (skillStatMap[mod["Stat"..i].Id].value or mod["Stat"..i.."Value"][1] * (skillStatMap[mod["Stat"..i].Id].mult or 1) / (skillStatMap[mod["Stat"..i].Id].div or 1)), ', ', newMod.flags or 0, ', ', newMod.keywordFlags or 0)
 					for _, extra in ipairs(newMod) do
 						out:write(', ', tableToString(extra))
 					end

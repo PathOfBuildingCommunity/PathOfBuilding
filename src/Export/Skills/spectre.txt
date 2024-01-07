@@ -1488,3 +1488,57 @@ skills["DarkMarionetteExplodePerfect"] = {
 #skill AzmeriBarrageDemonSpinestorm
 #flags spell area duration triggerable
 #mods
+
+#skill MeleeAtAnimationSpeedChaos
+#flags attack projectile melee
+#mods
+
+#skill AzmeriBasiliskShoulderMortar Mortar
+#flags spell area projectile triggerable
+#mods
+
+#skill AzmeriBasiliskComboThrust Combo Thrust
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskComboSlam Combo Slam
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskDecapitateRightToLeft Decapitate
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskDecapThrust Decapitate Thrust
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskWyvernFlight Wyvern Flight
+#flags attack projectile triggerable
+#mods
+
+#skill AzmeriBasiliskDualProjectile Dual Projectile
+#flags attack projectile triggerable
+#mods
+
+#skill AzmeriBasiliskDualProjectileImpact Projectile Impact
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskWyvernGroundCollide Ground Slam
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskShoulderMortar2 Mortar 2
+#flags spell area projectile triggerable
+#mods
+
+#skill ABTTAzmeriBasaliskShroud Poison DoT
+#flags spell buff duration triggerable
+	statMap = {
+		["base_chaos_damage_taken_per_minute"] = {
+			skill("ChaosDot", nil),
+			div = 60,
+		},
+	},
+#mods

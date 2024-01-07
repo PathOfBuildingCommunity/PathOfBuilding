@@ -7324,3 +7324,337 @@ skills["AzmeriBarrageDemonSpinestorm"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 70, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["MeleeAtAnimationSpeedChaos"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 25 },
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["AzmeriBasiliskShoulderMortar"] = {
+	name = "Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.89999997615814,
+	incrementalEffectiveness = 0.039500001817942,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "projectile_spread_radius", 8 },
+		{ "projectile_minimum_range", 15 },
+		{ "skill_physical_damage_%_to_convert_to_chaos", 60 },
+		{ "base_poison_duration_+%", 100 },
+		{ "base_chance_to_poison_on_hit_%", 60 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriBasiliskComboThrust"] = {
+	name = "Combo Thrust",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
+		{ "base_chance_to_poison_on_hit_%", 40 },
+	},
+	stats = {
+		"is_area_damage",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.4, levelRequirement = 0, },
+	},
+}
+skills["AzmeriBasiliskComboSlam"] = {
+	name = "Combo Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
+		{ "base_chance_to_poison_on_hit_%", 40 },
+	},
+	stats = {
+		"is_area_damage",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.625, levelRequirement = 0, },
+	},
+}
+skills["AzmeriBasiliskDecapitateRightToLeft"] = {
+	name = "Decapitate",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
+		{ "base_poison_duration_+%", 50 },
+		{ "base_poison_damage_+%", 0 },
+		{ "base_chance_to_poison_on_hit_%", 40 },
+	},
+	stats = {
+		"is_area_damage",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.75, levelRequirement = 0, },
+	},
+}
+skills["AzmeriBasiliskDecapThrust"] = {
+	name = "Decapitate Thrust",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
+		{ "base_chance_to_poison_on_hit_%", 40 },
+	},
+	stats = {
+		"is_area_damage",
+		"global_maim_on_hit",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.4, levelRequirement = 0, },
+	},
+}
+skills["AzmeriBasiliskWyvernFlight"] = {
+	name = "Wyvern Flight",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
+		{ "base_poison_damage_+%", 100 },
+		{ "base_chance_to_poison_on_hit_%", 60 },
+	},
+	stats = {
+		"base_is_projectile",
+		"always_pierce",
+		"projectile_uses_contact_position",
+		"visual_hit_effect_chaos_is_green",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.45, levelRequirement = 0, },
+	},
+}
+skills["AzmeriBasiliskDualProjectile"] = {
+	name = "Dual Projectile",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 174 },
+		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
+		{ "base_chance_to_poison_on_hit_%", 60 },
+	},
+	stats = {
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"always_pierce",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.2, levelRequirement = 0, },
+	},
+}
+skills["AzmeriBasiliskDualProjectileImpact"] = {
+	name = "Projectile Impact",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 40 },
+		{ "base_poison_duration_+%", 50 },
+		{ "base_chance_to_poison_on_hit_%", 60 },
+	},
+	stats = {
+		"is_area_damage",
+		"global_bleed_on_hit",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["AzmeriBasiliskWyvernGroundCollide"] = {
+	name = "Ground Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_chaos", 60 },
+		{ "base_chance_to_poison_on_hit_%", 40 },
+	},
+	stats = {
+		"is_area_damage",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.25, levelRequirement = 0, },
+	},
+}
+skills["AzmeriBasiliskShoulderMortar2"] = {
+	name = "Mortar 2",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.89999997615814,
+	incrementalEffectiveness = 0.041000001132488,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		projectile = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "projectile_spread_radius", 13 },
+		{ "projectile_minimum_range", 15 },
+		{ "skill_physical_damage_%_to_convert_to_chaos", 60 },
+		{ "base_poison_duration_+%", 100 },
+		{ "base_chance_to_poison_on_hit_%", 60 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["ABTTAzmeriBasaliskShroud"] = {
+	name = "Poison DoT",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3,
+	incrementalEffectiveness = 0.032499998807907,
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["base_chaos_damage_taken_per_minute"] = {
+			skill("ChaosDot", nil),
+			div = 60,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		buff = true,
+		duration = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 4000 },
+	},
+	stats = {
+		"base_chaos_damage_taken_per_minute",
+	},
+	levels = {
+		[1] = { 16.666667039196, storedUses = 1, levelRequirement = 0, cooldown = 0.1, statInterpolation = { 3, }, },
+	},
+}

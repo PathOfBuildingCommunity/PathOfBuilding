@@ -289,3 +289,12 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_
 #mod mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscaleable = true })})
 #emit
+
+--Serpent Warrior
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid
+#mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh
+#mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
+#emit
