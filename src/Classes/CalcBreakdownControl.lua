@@ -289,6 +289,11 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	}
 	t_insert(self.sectionList, section)
 
+	table.sort(rowList, function(a, b)
+		-- Sort Modifiers by descending value
+		return b.value < a.value
+	end)
+
 	if not modList and not sectionData.modType then
 		-- Sort modifiers by type
 		for i, row in ipairs(rowList) do
