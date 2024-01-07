@@ -7011,7 +7011,7 @@ skills["AzmeriAdmiralGeyserDamage"] = {
 	},
 }
 skills["AzmeriAdmiralTidalWave"] = {
-	name = "Todial Wave",
+	name = "Tidal Wave",
 	hidden = true,
 	color = 4,
 	skillTypes = { [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, },

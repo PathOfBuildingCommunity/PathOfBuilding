@@ -1432,7 +1432,7 @@ skills["DarkMarionetteExplodePerfect"] = {
 #flags spell area  hit
 #mods
 
-#skill AzmeriAdmiralTidalWave Todial Wave
+#skill AzmeriAdmiralTidalWave Tidal Wave
 #flags spell triggerable
 #mods
 
