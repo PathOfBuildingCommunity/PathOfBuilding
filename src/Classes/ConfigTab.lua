@@ -40,7 +40,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 	self.controls.sectionAnchor = new("LabelControl", { "TOPLEFT", self, "TOPLEFT" }, 0, 20, 0, 0, "")
 
 	-- Set selector
-	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self, "TOPLEFT" }, 76, 8, 210, 20, nil, function(index, value)
+	self.controls.setSelect = new("DropDownControl", { "TOPLEFT", self.controls.sectionAnchor, "TOPLEFT" }, 76, -12, 210, 20, nil, function(index, value)
 		self:SetActiveConfigSet(self.configSetOrderList[index])
 		self:AddUndoState()
 	end)
