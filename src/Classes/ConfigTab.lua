@@ -623,7 +623,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 end)
 
 function ConfigTabClass:Load(xml, fileName)
-	self.activeConfigSetId = 0
+	self.activeConfigSetId = 1
 	self.configSets = { }
 	self.configSetOrderList = { 1 }
 
@@ -992,6 +992,7 @@ function ConfigTabClass:SetActiveConfigSet(configSetId, init)
 		self.input = copyTable(self.configSets[configSetId].input, true)
 		self.placeholder = copyTable(self.configSets[configSetId].placeholder, true)
 		self:UpdateControls()
+		self:BuildModList()
 	end
 	self.activeConfigSetId = configSetId
 	self.build.buildFlag = true
