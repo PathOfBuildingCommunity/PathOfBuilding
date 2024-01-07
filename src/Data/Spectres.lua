@@ -4976,3 +4976,77 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
 		mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscaleable = true })}),
 	},
 }
+
+--Escaped Prototype
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow"] = {
+	name = "Imperfect Escaped Prototype",
+	monsterCategory = "Construct",
+	life = 16,
+	armour = 1,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.56,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"DoLiterallyNothing",
+		"GAHeistRobotHoundStomp",
+		"MDHeistRobotHoundLaserTarget",
+		"GSRoboHoundBellyDamage",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid"] = {
+	name = "Escaped Prototype",
+	monsterCategory = "Construct",
+	life = 16,
+	armour = 1,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.56,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"DoLiterallyNothing",
+		"GAHeistRobotHoundStomp",
+		"MDHeistRobotHoundLaserTarget",
+		"GSRoboHoundBellyDamage",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
+	name = "Perfect Escaped Prototype",
+	monsterCategory = "Construct",
+	life = 16,
+	armour = 1,
+	fireResist = 30,
+	coldResist = 30,
+	lightningResist = 30,
+	chaosResist = 20,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.56,
+	attackRange = 10,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"DoLiterallyNothing",
+		"GAHeistRobotHoundStomp",
+		"MDHeistRobotHoundLaserTarget",
+		"GSRoboHoundBellyDamage",
+	},
+	modList = {
+	},
+}

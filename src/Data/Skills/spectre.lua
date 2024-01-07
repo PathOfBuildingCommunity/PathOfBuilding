@@ -8004,3 +8004,54 @@ skills["GSAncestralDruidFlaskExplode"] = {
 		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["GAHeistRobotHoundStomp"] = {
+	name = "Stomp",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"global_knockback",
+		"is_area_damage",
+		"always_stun",
+	},
+	levels = {
+		[1] = { -30, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 60, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
+skills["GSRoboHoundBellyDamage"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.041999999433756,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+		"cannot_stun",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}

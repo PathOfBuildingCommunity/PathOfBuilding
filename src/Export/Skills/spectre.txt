@@ -1614,3 +1614,11 @@ skills["DarkMarionetteExplodePerfect"] = {
 #skill GSAncestralDruidFlaskExplode Poisonous Concoction
 #flags spell projectile area
 #mods
+
+#skill GAHeistRobotHoundStomp Stomp
+#flags attack area
+#mods
+
+#skill GSRoboHoundBellyDamage Slam
+#flags spell area hit
+#mods

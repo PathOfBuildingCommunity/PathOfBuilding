@@ -338,3 +338,8 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh
 #mod mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscaleable = true })})
 #emit
+
+--Escaped Prototype
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_
