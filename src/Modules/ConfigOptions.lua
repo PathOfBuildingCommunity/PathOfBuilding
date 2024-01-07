@@ -1923,7 +1923,7 @@ Huge sets the radius to 11.
 	{ var = "enemyArmour", type = "count", label = "Enemy Base Armour:", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("Armour", "BASE", val, "Config")
 	end },
-	{ var = "presetBossSkills", type = "list", label = "Boss Skill Preset", tooltipFunc = bossSkillsTooltip, list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
+	{ var = "presetBossSkills", type = "list", defaultIndex = 1, label = "Boss Skill Preset", tooltipFunc = bossSkillsTooltip, list = data.bossSkillsList, apply = function(val, modList, enemyModList, build)
 		if not (val == "None") then
 			local bossData = data.bossSkills[val]
 			local isUber = build.configTab.varControls['enemyIsBoss'].list[build.configTab.varControls['enemyIsBoss'].selIndex].val == "Uber"
@@ -2000,7 +2000,7 @@ Huge sets the radius to 11.
 		end
 	end },
 	{ var = "enemyDamageRollRange", type = "integer", label = "Enemy Skill Roll Range %:", ifFlag = "BossSkillActive", tooltip = "The percentage of the roll range the enemy hits for \n eg at 100% the enemy deals its maximum damage", defaultPlaceholderState = 70, hideIfInvalid = true },
-	{ var = "enemyDamageType", type = "list", label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all typed damage types (not Untyped)\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Untyped",label="Untyped"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
+	{ var = "enemyDamageType", type = "list", defaultIndex = 1, label = "Enemy Damage Type:", tooltip = "Controls which types of damage the EHP calculation uses:\n\tAverage: uses the Average of all typed damage types (not Untyped)\n\nIf a specific damage type is selected, that will be the only type used.", list = {{val="Average",label="Average"},{val="Untyped",label="Untyped"},{val="Melee",label="Melee"},{val="Projectile",label="Projectile"},{val="Spell",label="Spell"},{val="SpellProjectile",label="Projectile Spell"}} },
 	{ var = "enemySpeed", type = "integer", label = "Enemy attack / cast time in ms:", defaultPlaceholderState = 700 },
 	{ var = "enemyMultiplierPvpDamage", type = "count", label = "Custom PvP Damage multiplier percent:", ifFlag = "isPvP", tooltip = "This multiplies the damage of a given skill in pvp, for instance any with damage multiplier specific to pvp (from skill or support or item like sire of shards)", apply = function(val, modList, enemyModList)
 		enemyModList:NewMod("MultiplierPvpDamage", "BASE", val, "Config")
