@@ -222,6 +222,7 @@ function GGPKClass:GetNeededFiles()
 		"Data/indexablesupportgems.dat",
 		"Data/itemclasscategories.dat",
 		"Data/miniontype.dat",
+		"Data/summonedspecificmonsters.dat",
 		"Data/gameconstants.dat",
 		"Data/alternatequalitytypes.dat",
 		"Data/weaponclasses.dat",

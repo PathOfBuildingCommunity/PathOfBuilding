@@ -5050,3 +5050,88 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
 	modList = {
 	},
 }
+
+--Blasphemer
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow"] = {
+	name = "Imperfect Blasphemer",
+	monsterCategory = "Humanoid",
+	life = 2.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.25,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriGeofriSlam",
+		"AzmeriWanderingEnfeebleGeofri",
+		"AzmeriWanderingVulnerabilityGeofri",
+		"AzmeriWanderingTemporalChainsGeofri",
+		"TalismanT1TemporalChains",
+		"TalismanT2EnfeebleAura",
+		"TalismanT1Vulnerability",
+	},
+	modList = {
+		mod("EnemyCurseLimit", "BASE", 3),
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_"] = {
+	name = "Blasphemer",
+	monsterCategory = "Humanoid",
+	life = 2.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.25,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriGeofriSlam",
+		"AzmeriWanderingEnfeebleGeofri",
+		"AzmeriWanderingVulnerabilityGeofri",
+		"AzmeriWanderingTemporalChainsGeofri",
+		"AzmeriGeofriSmite",
+		"TalismanT1TemporalChains",
+		"TalismanT2EnfeebleAura",
+		"TalismanT1Vulnerability",
+	},
+	modList = {
+		mod("EnemyCurseLimit", "BASE", 3),
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
+	name = "Perfect Blasphemer",
+	monsterCategory = "Humanoid",
+	life = 2.25,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.25,
+	damageSpread = 0,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriGeofriSlam",
+		"AzmeriWanderingEnfeebleGeofriHexproof",
+		"AzmeriWanderingVulnerabilityGeofriHexproof",
+		"AzmeriWanderingTemporalChainsGeofriHexproof",
+		"AzmeriGeofriSmite",
+		"TalismanT1TemporalChains",
+		"TalismanT2EnfeebleAura",
+		"TalismanT1Vulnerability",
+	},
+	modList = {
+		mod("EnemyCurseLimit", "BASE", 3),
+	},
+}

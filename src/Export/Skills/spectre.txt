@@ -1622,3 +1622,70 @@ skills["DarkMarionetteExplodePerfect"] = {
 #skill GSRoboHoundBellyDamage Slam
 #flags spell area hit
 #mods
+
+#skill AzmeriGeofriSlam Slam
+#flags attack area
+#mods
+
+#skill TalismanT2EnfeebleAura
+#flags spell curse area duration hex
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#baseMod mod("CooldownRecovery", "OVERRIDE", 15)
+#mods
+
+#skill TalismanT1Vulnerability
+#flags spell curse area duration hex
+	statMap = {
+        ["receive_bleeding_chance_%_when_hit_by_attack"] = {
+            mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+        },
+        ["physical_damage_taken_+%"] = {
+            mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+        },
+    },
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#baseMod mod("CooldownRecovery", "OVERRIDE", 15)
+#mods
+
+#skill TalismanT1TemporalChains
+#flags spell curse area duration hex
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#baseMod mod("CooldownRecovery", "OVERRIDE", 15)
+#mods
+
+#skill AzmeriGeofriSmite
+#flags attack melee area duration aura buff
+	statMap = {
+		["minimum_added_lightning_damage_from_skill"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
+		},
+		["maximum_added_lightning_damage_from_skill"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
+		},
+	},
+#mods

@@ -343,3 +343,14 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_
+
+--Blasphemer
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
+#mod mod("EnemyCurseLimit", "BASE", 3)
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriMid_ # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
+#mod mod("EnemyCurseLimit", "BASE", 3)
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
+#mod mod("EnemyCurseLimit", "BASE", 3)
+#emit
