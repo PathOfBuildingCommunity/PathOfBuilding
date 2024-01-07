@@ -307,3 +307,8 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh
 #mod mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })})
 #emit
+
+--Sawblade Horror
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh

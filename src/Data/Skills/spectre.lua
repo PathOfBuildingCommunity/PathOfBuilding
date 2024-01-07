@@ -7776,3 +7776,75 @@ skills["AzmeriCasterDemonSpellDamageAura"] = {
 		[2] = { 20, 60, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, }, },
 	},
 }
+skills["AzmeriCycloneDemonCleave"] = {
+	name = "Cleave",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.DamageOverTime] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "corrupted_blood_on_hit_%_average_damage_to_deal_per_minute_per_stack", 100 },
+		{ "corrupted_blood_on_hit_duration", 4000 },
+		{ "corrupted_blood_on_hit_num_stacks", 2 },
+	},
+	stats = {
+		"is_area_damage",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { levelRequirement = 3, },
+	},
+}
+skills["AzmeriCycloneDemonDesecratedGroundCyclone"] = {
+	name = "Cyclone",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 0.85000002384186,
+	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+		movement = true,
+	},
+	baseMods = {
+		mod("CooldownRecovery", "OVERRIDE", 0),
+	},
+	constantStats = {
+		{ "desecrated_ground_art_variation", 1 },
+		{ "attack_speed_+%", 120 },
+		{ "cyclone_movement_speed_+%_final", 120 },
+		{ "cyclone_extra_distance", 40 },
+		{ "cyclone_places_ground_desecration_chaos_damage_per_minute", 4250 },
+	},
+	stats = {
+		"is_area_damage",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.575, storedUses = 1, levelRequirement = 4, cooldown = 5, },
+	},
+}

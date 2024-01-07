@@ -4668,3 +4668,76 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
 		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })}),
 	},
 }
+
+--Sawblade Horror
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow"] = {
+	name = "Imperfect Sawblade Horror",
+	monsterCategory = "Demon",
+	life = 3.75,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriCycloneDemonCleave",
+		"AzmeriCycloneDemonDesecratedGroundCyclone",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid"] = {
+	name = "Sawblade Horror",
+	monsterCategory = "Demon",
+	life = 3.75,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriCycloneDemonCleave",
+		"AzmeriCycloneDemonDesecratedGroundCyclone",
+	},
+	modList = {
+		-- MonsterMaimOnHit [global_maim_on_hit = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh"] = {
+	name = "Perfect Sawblade Horror",
+	monsterCategory = "Demon",
+	life = 3.75,
+	armour = 0.4,
+	fireResist = 0,
+	coldResist = 52,
+	lightningResist = 52,
+	chaosResist = 0,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 13,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriCycloneDemonCleave",
+		"AzmeriCycloneDemonDesecratedGroundCyclone",
+	},
+	modList = {
+		-- MonsterMaimOnHit [global_maim_on_hit = 1]
+	},
+}

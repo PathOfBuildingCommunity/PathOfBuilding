@@ -1566,3 +1566,12 @@ skills["DarkMarionetteExplodePerfect"] = {
 		},
 	},
 #mods
+
+#skill AzmeriCycloneDemonCleave Cleave
+#flags attack area melee
+#mods
+
+#skill AzmeriCycloneDemonDesecratedGroundCyclone
+#flags attack area melee movement
+#baseMod mod("CooldownRecovery", "OVERRIDE", 0)
+#mods
