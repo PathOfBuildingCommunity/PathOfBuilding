@@ -312,3 +312,8 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh
+
+--Restless Knight
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh

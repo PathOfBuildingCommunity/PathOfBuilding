@@ -4741,3 +4741,77 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh"] = {
 		-- MonsterMaimOnHit [global_maim_on_hit = 1]
 	},
 }
+
+--Restless Knight
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow"] = {
+	name = "Imperfect Restless Knight",
+	monsterCategory = "Humanoid",
+	life = 3.43,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.17,
+	damageSpread = 0.2,
+	attackTime = 2.25,
+	attackRange = 22,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GAExpeditionDeathKnightSlam",
+		"GSExpeditionDeathKnightNova",
+		"WalkEmergeExpeditionDeathKnight",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid"] = {
+	name = "Restless Knight",
+	monsterCategory = "Humanoid",
+	life = 3.43,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.17,
+	damageSpread = 0.2,
+	attackTime = 2.25,
+	attackRange = 22,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GAExpeditionDeathKnightSlam",
+		"GSExpeditionDeathKnightNova",
+		"WalkEmergeExpeditionDeathKnight",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
+	name = "Perfect Restless Knight",
+	monsterCategory = "Humanoid",
+	life = 3.43,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 75,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 2.17,
+	damageSpread = 0.2,
+	attackTime = 2.25,
+	attackRange = 22,
+	accuracy = 1,
+	weaponType1 = "Two Handed Mace",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"GAExpeditionDeathKnightSlam",
+		"GSExpeditionDeathKnightNova",
+		"WalkEmergeExpeditionDeathKnight",
+	},
+	modList = {
+	},
+}

@@ -1575,3 +1575,11 @@ skills["DarkMarionetteExplodePerfect"] = {
 #flags attack area melee movement
 #baseMod mod("CooldownRecovery", "OVERRIDE", 0)
 #mods
+
+#skill GAExpeditionDeathKnightSlam Slam
+#flags attack area triggerable
+#mods
+
+#skill GSExpeditionDeathKnightNova Nova
+#flags spell area triggerable
+#mods

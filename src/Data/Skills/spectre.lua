@@ -7848,3 +7848,56 @@ skills["AzmeriCycloneDemonDesecratedGroundCyclone"] = {
 		[1] = { baseMultiplier = 0.575, storedUses = 1, levelRequirement = 4, cooldown = 5, },
 	},
 }
+skills["GAExpeditionDeathKnightSlam"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.5,
+	baseFlags = {
+		attack = true,
+		area = true,
+		triggerable = true,
+	},
+	constantStats = {
+		{ "main_hand_base_maximum_attack_distance", 35 },
+		{ "skill_physical_damage_%_to_convert_to_cold", 20 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 35, attackSpeedMultiplier = -10, storedUses = 1, baseMultiplier = 1.65, cooldown = 4, levelRequirement = 0, statInterpolation = { 2, }, },
+		[2] = { 0, attackSpeedMultiplier = -10, storedUses = 1, baseMultiplier = 1.65, cooldown = 4, levelRequirement = 68, statInterpolation = { 2, }, },
+	},
+}
+skills["GSExpeditionDeathKnightNova"] = {
+	name = "Nova AoE",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.5297000408173,
+	incrementalEffectiveness = 0.036200001835823,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		spell = true,
+		area = true,
+		triggerable = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 20 },
+		{ "spell_maximum_action_distance_+%", -75 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 2.5, statInterpolation = { 3, 3, }, },
+	},
+}
