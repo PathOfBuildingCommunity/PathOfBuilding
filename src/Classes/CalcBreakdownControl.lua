@@ -260,8 +260,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	cfg.actor = sectionData.actor
 	local rowList
 	local modStore = (sectionData.enemy and actor.enemy.modDB) or (sectionData.cfg and actor.mainSkill.skillModList) or actor.modDB
-	if modList then	
-		rowList = modList
+	if modList then
+		rowList = copyTable(modList)
 	else
 		if type(sectionData.modName) == "table" then
 			rowList = modStore:Tabulate(sectionData.modType, cfg, unpack(sectionData.modName))
