@@ -291,7 +291,13 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 
 	table.sort(rowList, function(a, b)
 		-- Sort Modifiers by descending value
-		return b.value < a.value
+		if type(a.value) == 'number' and type(b.value) == 'number' then
+			return b.value < a.value
+		end
+		if type(a.value) == 'boolean' and type(b.value) == 'boolean' then
+			return a.value and not b.value
+		end
+		return false
 	end)
 
 	if not modList and not sectionData.modType then
