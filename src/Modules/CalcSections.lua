@@ -1641,6 +1641,27 @@ return {
 	}, },
 } }
 } },
+{ 1, "Charges", 3, colorCodes.NORMAL, {
+	{ defaultCollapsed = true, label = "Charges", data = { } },
+	{ defaultCollapsed = true, label = "Endurance", haveOutput="UseEnduranceCharges", data = {
+		{ label = "Max", { format = "{0:output:EnduranceChargesMax}", { modName = { "EnduranceChargesMax" } } }, },
+		{ label = "Current", { format = "{0:output:EnduranceCharges}", }, },
+		{ label = "Spendable", { format = "{0:output:RemovableEnduranceCharges}", }, },
+		{ label = "Duration", { format = "{0:output:EnduranceChargesDuration}s", { modName = { "EnduranceChargesDuration", "ChargeDuration" } } }, },
+	} },
+	{ defaultCollapsed = true, label = "Frenzy", haveOutput="UseFrenzyCharges", data = {
+		{ label = "Max", { format = "{0:output:FrenzyChargesMax}", { modName = { "FrenzyChargesMax" } } }, },
+		{ label = "Current", { format = "{0:output:FrenzyCharges}", }, },
+		{ label = "Spendable", { format = "{0:output:RemovableFrenzyCharges}", }, },
+		{ label = "Duration", { format = "{0:output:FrenzyChargesDuration}s", { modName = { "FrenzyChargesDuration", "ChargeDuration" } } }, },
+	} },
+	{ defaultCollapsed = true, label = "Power", haveOutput="UsePowerCharges", data = {
+		{ label = "Max", { format = "{0:output:PowerChargesMax}", { modName = { "PowerChargesMax" } } }, },
+		{ label = "Current", { format = "{0:output:PowerCharges}", }, },
+		{ label = "Spendable", { format = "{0:output:RemovablePowerCharges}", }, },
+		{ label = "Duration", { format = "{0:output:PowerChargesDuration}s", { modName = { "PowerChargesDuration", "ChargeDuration" } } }, },
+	} },
+} },
 -- misc defense
 { 1, "MiscDefences", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {
 	{ label = "Movement Speed", { format = "x {2:output:EffectiveMovementSpeedMod}", { breakdown = "EffectiveMovementSpeedMod" }, { modName = { "MovementSpeed", "MovementSpeedEqualHighestLinkedPlayers" } }, }, },
