@@ -253,9 +253,9 @@ end
 --- @param gemName string
 --- @param type string
 --- @param dropVaal boolean 
---- @return booleanf
-function calcLib.isGemIdSame(gemName, type, dropVaal)
+--- @return boolean
+function calcLib.isGemIdSame(gemName, typeName, dropVaal)
 	local gemNameId = calcLib.getGameIdFromGemName(gemName, dropVaal)
-	local typeId = calcLib.getGameIdFromGemName(type, dropVaal)
+	local typeId = calcLib.getGameIdFromGemName(typeName, dropVaal)
 	return gemNameId and typeId and gemNameId == typeId
 end
