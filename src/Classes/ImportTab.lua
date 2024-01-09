@@ -988,14 +988,14 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 			abyssalSocketId = abyssalSocketId + 1
 		else
 			local normalizedBasename, qualityType = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.typeLine, nil)
-			local gemId = self.build.data.gemForBaseName[normalizedBasename]
+			local gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			if socketedItem.hybrid then
 				-- Used by transfigured gems and dual-skill gems (currently just Stormbind) 
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
 				if socketedItem.hybrid.isVaalGem then
 					normalizedBasename = "Vaal " .. normalizedBasename
 				end
-				gemId = self.build.data.gemForBaseName[normalizedBasename]
+				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 			end
 			if gemId then
 				local gemInstance = { level = 20, quality = 0, enabled = true, enableGlobal1 = true, gemId = gemId }

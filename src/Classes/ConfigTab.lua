@@ -452,7 +452,7 @@ local ConfigTabClass = newClass("ConfigTab", "UndoHandler", "ControlHost", "Cont
 							return false
 						end
 						for skill,_ in pairs(self.build.calcsTab.mainEnv.skillsUsed) do
-							if calcLib.getGameIdFromGemName(skill, true) == calcLib.getGameIdFromGemName(ifOption, true) then
+							if calcLib.isGemIdSame(skill, ifOption, true) then
 								return true
 							end
 						end

@@ -1822,7 +1822,7 @@ local function extraSupport(name, level, slot)
 	
 	level = tonumber(level)
 	if skillId then
-		local gemId = data.gemForBaseName[data.skills[skillId].name .. " Support"]
+		local gemId = data.gemForBaseName[(data.skills[skillId].name .. " Support"):lower()]
 		if gemId then
 			local mods = {mod("ExtraSupport", "LIST", { skillId = data.gems[gemId].grantedEffectId, level = level }, { type = "SocketedIn", slotName = slot })}
 			if data.gems[gemId].secondaryGrantedEffect then

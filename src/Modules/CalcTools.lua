@@ -110,7 +110,7 @@ function calcLib.gemIsType(gem, type, includeTransfigured)
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
 			(type == gem.name:lower():gsub("^vaal ", "")) or
-			(includeTransfigured and calcLib.getGameIdFromGemName(gem.name, true) == calcLib.getGameIdFromGemName(type, true)) or
+			(includeTransfigured and calcLib.isGemIdSame(gem.name, type, true)) or
 			((type ~= "active skill" and type ~= "grants_active_skill" and type ~= "skill") and gem.tags[type]))
 end
 
@@ -236,15 +236,26 @@ end
 
 --- Get the gameId from the gemName which will be the same as the base gem for transfigured gems
 --- @param gemName string
---- @param dropVaal boolean 
+--- @param dropVaal boolean
 --- @return string
 function calcLib.getGameIdFromGemName(gemName, dropVaal)
 	if type(gemName) ~= "string" then
 		return
 	end
-	local gemId = data.gemForBaseName[gemName]
+	local gemId = data.gemForBaseName[gemName:lower()]
 	if not gemId then return end
 	local gameId = data.gems[gemId].gameId
 	if gameId and dropVaal then gameId = gameId:gsub("SkillGemVaal","SkillGem") end
 	return gameId
+end
+
+--- Use getGameIdFromGemName to get gameId from the gemName and passed in type. Return true if they're the same and not nil
+--- @param gemName string
+--- @param type string
+--- @param dropVaal boolean 
+--- @return booleanf
+function calcLib.isGemIdSame(gemName, type, dropVaal)
+	local gemNameId = calcLib.getGameIdFromGemName(gemName, dropVaal)
+	local typeId = calcLib.getGameIdFromGemName(type, dropVaal)
+	return gemNameId and typeId and gemNameId == typeId
 end

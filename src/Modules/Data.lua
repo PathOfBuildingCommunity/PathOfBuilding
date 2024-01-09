@@ -813,7 +813,7 @@ local function setupGem(gem, gemId)
 	if gem.grantedEffect.support and gem.grantedEffectId ~= "SupportBarrage" then
 		baseName = baseName .. " Support"
 	end
-	data.gemForBaseName[baseName] = gemId
+	data.gemForBaseName[baseName:lower()] = gemId
 	gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and data.skills[gem.secondaryGrantedEffectId]
 	gem.grantedEffectList = {
 		gem.grantedEffect,
