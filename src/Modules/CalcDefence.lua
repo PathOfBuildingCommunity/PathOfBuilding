@@ -302,7 +302,7 @@ function calcs.defence(env, actor)
 				if slot == "Body Armour" and  modDB:Flag(nil, "DoubleBodyArmourDefence") then
 					evasionBase = evasionBase * 2
 				end
-				if (modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes")) then
+				if slot == "Body Armour" and modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes") then
 					evasionBase = evasionBase * 2
 				end
 				output["EvasionOn"..slot] = evasionBase
@@ -642,7 +642,7 @@ function calcs.defence(env, actor)
 					if slot == "Body Armour" and modDB:Flag(nil, "DoubleBodyArmourDefence") then
 						evasionBase = evasionBase * 2
 					end
-					if slot == "Body Armour" and (modDB:Flag(nil, "Unbreakable") and ironReflexes) then
+					if slot == "Body Armour" and modDB:Flag(nil, "Unbreakable") and ironReflexes then
 						evasionBase = evasionBase * 2
 					end
 					gearEvasion = gearEvasion + evasionBase
