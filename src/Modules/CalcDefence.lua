@@ -350,6 +350,12 @@ function calcs.defence(env, actor)
 				if res ~= 0 then
 					modDB:NewMod(resTo.."Resist", "BASE", res * conversionRate, resFrom.." To "..resTo.." Resistance Conversion")
 				end
+				for _, mod in ipairs(modDB:Tabulate("INC", nil, resFrom.."Resist")) do
+					modDB:NewMod(resTo.."Resist", "INC", mod.value * conversionRate, mod.mod.source)
+				end
+				for _, mod in ipairs(modDB:Tabulate("MORE", nil, resFrom.."Resist")) do
+					modDB:NewMod(resTo.."Resist", "MORE", mod.value * conversionRate, mod.mod.source)
+				end
 			end
 		end
 	end
