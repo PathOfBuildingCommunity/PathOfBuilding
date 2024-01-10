@@ -625,7 +625,6 @@ function calcs.defence(env, actor)
 					if slot == "Body Armour" and modDB:Flag(nil, "Unbreakable") then 
 						armourBase = armourBase * 2
 					end
-
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
 					if breakdown then
