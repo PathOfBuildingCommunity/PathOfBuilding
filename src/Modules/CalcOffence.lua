@@ -426,7 +426,7 @@ function calcs.offence(env, actor, activeSkill)
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
 	end
-	skillCfg.skillCond["SkillIsFocused"] = skillData.triggeredByFocus
+	skillCfg.skillCond["SkillIsFocused"] = skillData.chanceToTriggerOnFocus
 	if skillCfg.skillCond["SkillIsFocused"] then
 		skillFlags.focused = true
 	end

@@ -17606,7 +17606,7 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
-		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
+		skill("chanceToTriggerCounterattackOnBlock", 100, { type = "SkillType", skillType = SkillType.Spell }),
 	},
 	qualityStats = {
 		Default = {

@@ -3766,7 +3766,7 @@ local skills, mod, flag, skill = ...
 			flag("ShockImmune", { type = "GlobalEffect", effectType = "Buff"}),
 		},
 	},
-#baseMod skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell })
+#baseMod skill("chanceToTriggerCounterattackOnBlock", 100, { type = "SkillType", skillType = SkillType.Spell })
 #mods
 
 #skill BlackHole
