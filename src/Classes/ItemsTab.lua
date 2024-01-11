@@ -1220,6 +1220,8 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	if self.controls.scrollBarV:IsShown() then
 		self.controls.scrollBarV:Draw(viewPort)
 	end
+
+	self.controls.specSelect:SetList(self.build.treeTab:GetSpecList())
 end
 
 -- Creates a new item set
