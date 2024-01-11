@@ -289,15 +289,25 @@ function calcs.defence(env, actor)
 			end
 			armourBase = armourData.Armour or 0
 			if armourBase > 0 then
-				if slot == "Body Armour" and (modDB:Flag(nil, "Unbreakable") or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-					armourBase = armourBase * 2
+				if slot == "Body Armour" then 
+					if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+						armourBase = armourBase * 2
+					end
+					if modDB:Flag(nil, "Unbreakable") then
+						armourBase = armourBase * 2
+					end
 				end
 				output["ArmourOn"..slot] = armourBase
 			end
 			evasionBase = armourData.Evasion or 0
 			if evasionBase > 0 then
-				if slot == "Body Armour" and ((modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes")) or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-					evasionBase = evasionBase * 2
+				if slot == "Body Armour" then
+					if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+						evasionBase = evasionBase * 2
+					end
+				 	if modDB:Flag(nil, "Unbreakable") and modDB:Flag(nil, "IronReflexes") then
+						evasionBase = evasionBase * 2
+					end
 				end
 				output["EvasionOn"..slot] = evasionBase
 			end
@@ -619,8 +629,13 @@ function calcs.defence(env, actor)
 				end
 				armourBase = armourData.Armour or 0
 				if armourBase > 0 then
-					if slot == "Body Armour" and (modDB:Flag(nil, "Unbreakable") or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-						armourBase = armourBase * 2
+					if slot == "Body Armour" then
+						if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+							armourBase = armourBase * 2
+						end
+						if modDB:Flag(nil, "Unbreakable") then 
+							armourBase = armourBase * 2
+						end
 					end
 					armour = armour + armourBase * calcLib.mod(modDB, slotCfg, "Armour", "ArmourAndEvasion", "Defences", slot.."ESAndArmour")
 					gearArmour = gearArmour + armourBase
@@ -630,8 +645,13 @@ function calcs.defence(env, actor)
 				end
 				evasionBase = armourData.Evasion or 0
 				if evasionBase > 0 then
-					if slot == "Body Armour" and ((modDB:Flag(nil, "Unbreakable") and ironReflexes) or modDB:Flag(nil, "DoubleBodyArmourDefence")) then
-						evasionBase = evasionBase * 2
+					if slot == "Body Armour" then
+						if modDB:Flag(nil, "DoubleBodyArmourDefence") then
+							evasionBase = evasionBase * 2
+						end
+						if modDB:Flag(nil, "Unbreakable") and ironReflexes then
+							evasionBase = evasionBase * 2
+						end
 					end
 					gearEvasion = gearEvasion + evasionBase
 					if breakdown then
