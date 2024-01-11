@@ -283,20 +283,11 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
-	local newSpecList = { }
+	local newSpecList = self:GetSpecList()
 	self.controls.compareSelect.selIndex = self.activeCompareSpec
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
 	self.controls.compareSelect:SetList(newSpecList)
-
-	self.controls.specSelect.selIndex = self.activeSpec
-	wipeTable(newSpecList)
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
-	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
 	t_insert(newSpecList, "Manage trees... (ctrl-m)")
+	self.controls.specSelect.selIndex = self.activeSpec
 	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then
@@ -327,6 +318,14 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self:DrawControls(viewPort)
+end
+
+function TreeTabClass:GetSpecList()
+	local newSpecList = { }
+	for _, spec in ipairs(self.specList) do
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+	end
+	return newSpecList
 end
 
 function TreeTabClass:Load(xml, dbFileName)
