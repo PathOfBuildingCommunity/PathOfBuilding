@@ -1094,8 +1094,8 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	controls.maxLevelLabel = new("LabelControl", {"RIGHT",controls.maxLevel,"LEFT"}, -5, 0, 0, 16, "Max Level:")
 	updateLastAnchor(controls.maxLevel)
 
-	-- basic filtering by slot for sockets and links
-	if not slot.slotName:find("Flask") then
+	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
+	if slot and not slot.slotName:find("Jewel") and not slot.slotName:find("Flask") then
 		controls.sockets = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D")
 		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, -5, 0, 0, 16, "# of Sockets:")
 		updateLastAnchor(controls.sockets)
