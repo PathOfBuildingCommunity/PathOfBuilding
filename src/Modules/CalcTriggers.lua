@@ -485,7 +485,7 @@ local function defaultTriggerHandler(env, config)
 				if actor.mainSkill.skillData.triggerOnCrit then
 					local onCritChance = actor.mainSkill.skillData.chanceToTriggerOnCrit or (GlobalCache.cachedData["CACHE"][uuid] and GlobalCache.cachedData["CACHE"][uuid].Env.player.mainSkill.skillData.chanceToTriggerOnCrit)
 					config.triggerChance = config.triggerChance or actor.mainSkill.skillData.chanceToTriggerOnCrit or onCritChance
-					
+
 					local sourceCritChance = GlobalCache.cachedData["CACHE"][uuid].CritChance
 					trigRate = trigRate * (sourceCritChance or 0) / 100
 					if breakdown then
