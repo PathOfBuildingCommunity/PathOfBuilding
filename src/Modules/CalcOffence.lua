@@ -2591,7 +2591,7 @@ function calcs.offence(env, actor, activeSkill)
 		if env.mode_combat then
 			-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
 			output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
-			if output.RuthlessBlowMaxCount > 0 then
+			if output.RuthlessBlowMaxCount > 0 and ( not skillCfg.skillCond["usedByMirage"] or (skillData.mirageUses or 0) > output.RuthlessBlowMaxCount ) then
 				output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
 			else
 				output.RuthlessBlowChance = 0
