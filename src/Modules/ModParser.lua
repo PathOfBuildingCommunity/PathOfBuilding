@@ -5210,7 +5210,7 @@ local jewelSelfUnallocFuncs = {
 			if node.type == "Normal" then
 				data.modList = data.modList or new("ModList")
 
-				-- Filter out "Condtion:ConnectedTo" mods as these nodes are not technically allocated by this jewel func
+				-- Filter out "Condition:ConnectedTo" mods as these nodes are not technically allocated by this jewel func
 				for _, mod in ipairs(out) do
 					if not mod.name:match("^Condition:ConnectedTo") then
 						data.modList:AddMod(mod)
