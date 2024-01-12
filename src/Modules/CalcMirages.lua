@@ -292,78 +292,56 @@ function calcs.mirages(env)
 			end
 		}
 	elseif env.player.mainSkill.skillData.triggeredByGeneralsCry then
+		env.player.mainSkill[SkillType.Triggered] = true
 		local maxMirageWarriors = 0
-		config = {
-			compareFunc = function(skill, env, config, mirageSkill)
-				if not env.player.mainSkill.skillCfg.skillCond["usedByMirage"] then
-					return env.player.mainSkill
-				end
-			end,
-			preCalcFunc = function(env, newSkill, newEnv)
-				local cooldown = 1
-				local gemeralsCryActiveSkill
+		local cooldown = 1
+		local gemeralsCryActiveSkill
 
-				-- Find the active General's Cry gem to get active properties
-				for _, skill in ipairs(env.player.activeSkillList) do
-					if skill.activeEffect.grantedEffect.name == "General's Cry" and env.player.mainSkill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
-						cooldown = calcSkillCooldown(skill.skillModList, skill.skillCfg, skill.skillData)
-						gemeralsCryActiveSkill = skill
-						break
-					end
-				end
-
-				-- Scale dps with GC's cooldown
-				newSkill.skillData.dpsMultiplier = (newSkill.skillData.dpsMultiplier or 1) * (1 / cooldown)
-
-				-- Does not use player resources
-				newSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by mirage")
-
-				-- Non-channelled skills only attack once, disregard attack rate
-				if not env.player.mainSkill.skillTypes[SkillType.Channel] then
-					newSkill.skillData.timeOverride = 1
-				end
-
-				-- Supported Attacks Count as Exerted
-				for _, value in ipairs(env.modDB:Tabulate("INC", newSkill.skillCfg, "ExertIncrease")) do
-					local mod = value.mod
-					newSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-				end
-				for _, value in ipairs(env.modDB:Tabulate("MORE", newSkill.skillCfg, "ExertIncrease")) do
-					local mod = value.mod
-					newSkill. skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-				end
-				for _, value in ipairs(env.modDB:Tabulate("MORE", newSkill.skillCfg, "ExertAttackIncrease")) do
-					local mod = value.mod
-					newSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-				end
-				for _, value in ipairs(env.modDB:Tabulate("BASE", newSkill.skillCfg, "ExertDoubleDamageChance")) do
-					local mod = value.mod
-					newSkill.skillModList:NewMod("DoubleDamageChance", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-				end
-
-				-- Scale dps with mirage quantity
-				for _, value in ipairs(gemeralsCryActiveSkill.skillModList:Tabulate("BASE", gemeralsCryActiveSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
-					local mod = value.mod
-					newSkill.skillModList:NewMod("QuantityMultiplier", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-					maxMirageWarriors = maxMirageWarriors + mod.value
-				end
-			end,
-			postCalcFunc = function(env, newSkill, newEnv)
-				env.player.mainSkill = newSkill
-				env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. env.player.mainSkill.activeEffect.grantedEffect.name
-				env.player.output = newEnv.player.output
-				env.player.mainSkill.skillData.triggered = true
-
-				if newEnv.player.breakdown then
-					env.player.breakdown = newEnv.player.breakdown
-				end
-			end,
-			mirageSkillNotFoundFunc = function(env, config)
-				if not env.player.mainSkill.infoMessage2 then
-					env.player.mainSkill.infoMessage2 = "No General's Cry active skill found"
-				end
+		-- Find the active General's Cry gem to get active properties
+		for _, skill in ipairs(env.player.activeSkillList) do
+			if skill.activeEffect.grantedEffect.name == "General's Cry" and env.player.mainSkill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
+				cooldown = calcSkillCooldown(skill.skillModList, skill.skillCfg, skill.skillData)
+				gemeralsCryActiveSkill = skill
+				break
 			end
-		}
+		end
+
+		-- Scale dps with GC's cooldown
+		env.player.mainSkill.skillData.dpsMultiplier = (env.player.mainSkill.skillData.dpsMultiplier or 1) * (1 / cooldown)
+
+		-- Does not use player resources
+		env.player.mainSkill.skillModList:NewMod("HasNoCost", "FLAG", true, "Used by mirage")
+
+		-- Non-channelled skills only attack once, disregard attack rate
+		if not env.player.mainSkill.skillTypes[SkillType.Channel] then
+			env.player.mainSkill.skillData.timeOverride = 1
+		end
+
+		-- Supported Attacks Count as Exerted
+		for _, value in ipairs(env.modDB:Tabulate("INC", env.player.mainSkill.skillCfg, "ExertIncrease")) do
+			local mod = value.mod
+			env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+		end
+		for _, value in ipairs(env.modDB:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertIncrease")) do
+			local mod = value.mod
+			env.player.mainSkill. skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+		end
+		for _, value in ipairs(env.modDB:Tabulate("MORE", env.player.mainSkill.skillCfg, "ExertAttackIncrease")) do
+			local mod = value.mod
+			env.player.mainSkill.skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+		end
+		for _, value in ipairs(env.modDB:Tabulate("BASE", env.player.mainSkill.skillCfg, "ExertDoubleDamageChance")) do
+			local mod = value.mod
+			env.player.mainSkill.skillModList:NewMod("DoubleDamageChance", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+		end
+
+		-- Scale dps with mirage quantity
+		for _, value in ipairs(gemeralsCryActiveSkill.skillModList:Tabulate("BASE", gemeralsCryActiveSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
+			local mod = value.mod
+			env.player.mainSkill.skillModList:NewMod("QuantityMultiplier", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
+			maxMirageWarriors = maxMirageWarriors + mod.value
+		end
+		env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. env.player.mainSkill.activeEffect.grantedEffect.name
 	end
 
 	return calculateMirage(env, config)
