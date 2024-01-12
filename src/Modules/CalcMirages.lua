@@ -49,7 +49,7 @@ local function calculateMirage(env, config)
 	else
 		_ = config.mirageSkillNotFoundFunc and config.mirageSkillNotFoundFunc(env, config)
 	end
-	return mirageSkill
+	return not config.calcMainSkillOffence
 end
 
 function calcs.mirages(env)
@@ -61,6 +61,7 @@ function calcs.mirages(env)
 
 	if env.player.mainSkill.skillData.triggeredByMirageArcher then
 		config = {
+			calcMainSkillOffence = true,
 			compareFunc = function(skill, env, config, mirageSkill)
 				if not env.player.mainSkill.skillCfg.skillCond["usedByMirage"] and env.player.weaponData1.type == "Bow" then
 					return env.player.mainSkill
