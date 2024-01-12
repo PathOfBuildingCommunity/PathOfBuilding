@@ -148,12 +148,19 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 	end
 
 	if breakdown.rowList and #breakdown.rowList > 0 then
+		-- sort by the first column (the value)
+		local rowList = copyTable(breakdown.rowList, true)
+		local colKey = breakdown.colList[1].key
+		table.sort(rowList, function(a, b)
+			return a[colKey] > b[colKey]
+		end)
+		
 		-- Generic table
 		local section = {
 			type = "TABLE",
 			label = breakdown.label,
 			footer = breakdown.footer,
-			rowList = breakdown.rowList,
+			rowList = rowList,
 			colList = breakdown.colList,
 		}
 		t_insert(self.sectionList, section)
@@ -225,6 +232,10 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 			rowList = breakdown.slots
 		end
 
+		table.sort(rowList, function(a, b)
+			return a['base'] > b['base']
+		end)
+		
 		local section = { 
 			type = "TABLE",
 			rowList = rowList,
