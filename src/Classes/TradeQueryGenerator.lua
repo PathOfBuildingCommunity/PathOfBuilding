@@ -8,6 +8,7 @@ local dkjson = require "dkjson"
 local curl = require("lcurl.safe")
 local m_max = math.max
 local s_format = string.format
+local t_insert = table.insert
 
 -- TODO generate these from data files
 local itemCategoryTags = {
@@ -339,8 +340,8 @@ function TradeQueryGeneratorClass:ProcessMod(modId, mod, tradeQueryStatsParsed, 
 				end
 			end
 
-			table.insert(tokens, min)
-			table.insert(tokens, max)
+			t_insert(tokens, min)
+			t_insert(tokens, max)
 			if sign ~= nil then
 				self.modData[modType][uniqueIndex].sign = sign
 			end
@@ -508,8 +509,8 @@ function TradeQueryGeneratorClass:InitMods()
 					end
 
 					tokenizeOffset = tokenizeOffset + (endPos - startPos)
-					table.insert(tokens, min)
-					table.insert(tokens, #max > 0 and tonumber(max) or tonumber(min))
+					t_insert(tokens, min)
+					t_insert(tokens, #max > 0 and tonumber(max) or tonumber(min))
 					if sign ~= nil then
 						self.modData[modType][uniqueIndex].sign = sign
 					end
@@ -594,7 +595,7 @@ function TradeQueryGeneratorClass:GenerateModWeights(modsToTest)
 			local output = self.calcContext.calcFunc({ repSlotName = self.calcContext.slot.slotName, repItem = self.calcContext.testItem }, { nodeAlloc = true })
 			local meanStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(self.calcContext.baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 			if meanStatDiff > 0.01 then
-				table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
+				t_insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff / modValue, meanStatDiff = meanStatDiff, invert = entry.sign == "-" and true or false })
 			end
 			self.alreadyWeightedMods[entry.tradeMod.id] = true
 
@@ -626,7 +627,7 @@ function TradeQueryGeneratorClass:GeneratePassiveNodeWeights(nodesToTest)
 		local output = self.calcContext.calcFunc({ addNodes = { [node] = true } }, { requirementsItems = true, requirementsGems = true, skills = true })
 		local meanStatDiff = TradeQueryGeneratorClass.WeightedRatioOutputs(baseOutput, output, self.calcContext.options.statWeights) * 1000 - (self.calcContext.baseStatValue or 0)
 		if meanStatDiff > 0.01 then
-			table.insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff, meanStatDiff = meanStatDiff, invert = false })
+			t_insert(self.modWeights, { tradeModId = entry.tradeMod.id, weight = meanStatDiff, meanStatDiff = meanStatDiff, invert = false })
 		end
 		self.alreadyWeightedMods[entry.tradeMod.id] = true
 		
@@ -843,16 +844,16 @@ function TradeQueryGeneratorClass:FinishQuery()
 	self.calcContext.testItem.explicitModLines = { }
 	if originalItem then
 		for _, modLine in ipairs(originalItem.explicitModLines) do
-			table.insert(self.calcContext.testItem.explicitModLines, modLine)
+			t_insert(self.calcContext.testItem.explicitModLines, modLine)
 		end
 		for _, modLine in ipairs(originalItem.scourgeModLines) do
-			table.insert(self.calcContext.testItem.explicitModLines, modLine)
+			t_insert(self.calcContext.testItem.explicitModLines, modLine)
 		end
 		for _, modLine in ipairs(originalItem.implicitModLines) do
-			table.insert(self.calcContext.testItem.explicitModLines, modLine)
+			t_insert(self.calcContext.testItem.explicitModLines, modLine)
 		end
 		for _, modLine in ipairs(originalItem.crucibleModLines) do
-			table.insert(self.calcContext.testItem.explicitModLines, modLine)
+			t_insert(self.calcContext.testItem.explicitModLines, modLine)
 		end
 	end
 	self.calcContext.testItem:BuildAndParseRaw()
@@ -904,24 +905,35 @@ function TradeQueryGeneratorClass:FinishQuery()
 
 	local options = self.calcContext.options
 	if options.influence1 > 1 then
-		table.insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
+		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence1 - 1] })
 		filters = filters + 1
 	end
 	if options.influence2 > 1 then
-		table.insert(andFilters.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
+		t_insert(andFilters.filters, { id = hasInfluenceModIds[options.influence2 - 1] })
 		filters = filters + 1
 	end
 
 	if #andFilters.filters > 0 then
-		table.insert(queryTable.query.stats, andFilters)
+		t_insert(queryTable.query.stats, andFilters)
 	end
 
 	for _, entry in pairs(self.modWeights) do
-		table.insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
+		t_insert(queryTable.query.stats[1].filters, { id = entry.tradeModId, value = { weight = (entry.invert == true and entry.weight * -1 or entry.weight) } })
 		filters = filters + 1
 		if filters == MAX_FILTERS then
 			break
 		end
+	end
+
+	if options.maxPrice and options.maxPrice > 0 then
+		queryTable.query.filters.trade_filters = {
+			filters = {
+				price = {
+					option = options.maxPriceType,
+					max = options.maxPrice
+				}
+			}
+		}
 	end
 
 	if options.maxLevel and options.maxLevel > 0 then
@@ -935,17 +947,35 @@ function TradeQueryGeneratorClass:FinishQuery()
 		}
 	end
 
-	
-	
-	if options.maxPrice and options.maxPrice > 0 then
-		queryTable.query.filters.trade_filters = {
+	if options.sockets and options.sockets > 0 then
+		queryTable.query.filters.socket_filters = {
+			disabled = false,
 			filters = {
-				price = {
-					option = options.maxPriceType,
-					max = options.maxPrice
+				sockets = {
+					max = options.sockets,
+					min = options.sockets
 				}
 			}
 		}
+	end
+
+	if options.links and options.links > 0 then
+		if not queryTable.query.filters.socket_filters then
+			queryTable.query.filters.socket_filters = {
+				disabled = false,
+				filters = {
+					links = {
+						max = options.links,
+						min = options.links
+					}
+				}
+			}
+		else -- do not overwrite options.sockets
+			queryTable.query.filters.socket_filters.filters["links"] = {
+				max = options.links,
+				min = options.links
+			}
+		end
 	end
 
 	local errMsg = nil
@@ -976,7 +1006,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	local isAbyssalJewelSlot = slot and slot.slotName:find("Abyssal") ~= nil
 	local isAmuletSlot = slot and slot.slotName == "Amulet"
 	local isEldritchModSlot = slot and eldritchModSlots[slot.slotName] == true
-	
+
 	controls.includeCorrupted = new("CheckBoxControl", {"TOP",nil,"TOP"}, -40, 30, 18, "Corrupted Mods:", function(state) end)
 	controls.includeCorrupted.state = not context.slotTbl.alreadyCorrupted and (self.lastIncludeCorrupted == nil or self.lastIncludeCorrupted == true)
 	controls.includeCorrupted.enabled = not context.slotTbl.alreadyCorrupted
@@ -984,45 +1014,42 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	-- removing checkbox until synthesis mods are supported
 	--controls.includeSynthesis = new("CheckBoxControl", {"TOPRIGHT",controls.includeEldritch,"BOTTOMRIGHT"}, 0, 5, 18, "Synthesis Mods:", function(state) end)
 	--controls.includeSynthesis.state = (self.lastIncludeSynthesis == nil or self.lastIncludeSynthesis == true)
-	
+
 	local lastItemAnchor = controls.includeCorrupted
 	local includeScourge = self.queryTab.pbLeagueRealName == "Standard" or self.queryTab.pbLeagueRealName == "Hardcore"
-	
+
+	local function updateLastAnchor(anchor, height)
+		lastItemAnchor = anchor
+		popupHeight = popupHeight + (height or 23)
+	end
+
 	if context.slotTbl.unique then
 		options.special = { itemName = context.slotTbl.slotName }
 	end
-	
+
 	if not isJewelSlot and not isAbyssalJewelSlot and includeScourge then
 		controls.includeScourge = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Scourge Mods:", function(state) end)
 		controls.includeScourge.state = (self.lastIncludeScourge == nil or self.lastIncludeScourge == true)
-
-		lastItemAnchor = controls.includeScourge
-		popupHeight = popupHeight + 23
+		updateLastAnchor(controls.includeScourge)
 	end
 
 	if isAmuletSlot then
 		controls.includeTalisman = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Talisman Mods:", function(state) end)
 		controls.includeTalisman.state = (self.lastIncludeTalisman == nil or self.lastIncludeTalisman == true)
-
-		lastItemAnchor = controls.includeTalisman
-		popupHeight = popupHeight + 23
+		updateLastAnchor(controls.includeTalisman)
 	end
 
 	if isEldritchModSlot then
 		controls.includeEldritch = new("CheckBoxControl", {"TOPRIGHT",lastItemAnchor,"BOTTOMRIGHT"}, 0, 5, 18, "Eldritch Mods:", function(state) end)
 		controls.includeEldritch.state = (self.lastIncludeEldritch == true)
-
-		lastItemAnchor = controls.includeEldritch
-		popupHeight = popupHeight + 23
+		updateLastAnchor(controls.includeEldritch)
 	end
 
 	if isJewelSlot then
 		controls.jewelType = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, { "Any", "Base", "Abyss" }, function(index, value) end)
 		controls.jewelType.selIndex = self.lastJewelType or 1
 		controls.jewelTypeLabel = new("LabelControl", {"RIGHT",controls.jewelType,"LEFT"}, -5, 0, 0, 16, "Jewel Type:")
-
-		lastItemAnchor = controls.jewelType
-		popupHeight = popupHeight + 23
+		updateLastAnchor(controls.jewelType)
 	elseif slot and not isAbyssalJewelSlot then
 		controls.influence1 = new("DropDownControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
 		controls.influence1.selIndex = self.lastInfluence1 or 1
@@ -1031,9 +1058,7 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		controls.influence2 = new("DropDownControl", {"TOPLEFT",controls.influence1,"BOTTOMLEFT"}, 0, 5, 100, 18, influenceDropdownNames, function(index, value) end)
 		controls.influence2.selIndex = self.lastInfluence2 or 1
 		controls.influence2Label = new("LabelControl", {"RIGHT",controls.influence2,"LEFT"}, -5, 0, 0, 16, "Influence 2:")
-
-		lastItemAnchor = controls.influence2
-		popupHeight = popupHeight + 46
+		updateLastAnchor(controls.influence2, 46)
 	end
 
 	-- Add max price limit selection dropbox
@@ -1058,21 +1083,30 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 	}
 	local currencyDropdownNames = { }
 	for _, currency in ipairs(currencyTable) do
-		table.insert(currencyDropdownNames, currency.name)
+		t_insert(currencyDropdownNames, currency.name)
 	end
-	controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D", nil, function(buf) end)
-	controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, 5, 0, 150, 18, currencyDropdownNames, function(index, value) end)
+	controls.maxPrice = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D")
+	controls.maxPriceType = new("DropDownControl", {"LEFT",controls.maxPrice,"RIGHT"}, 5, 0, 150, 18, currencyDropdownNames, nil)
 	controls.maxPriceLabel = new("LabelControl", {"RIGHT",controls.maxPrice,"LEFT"}, -5, 0, 0, 16, "^7Max Price:")
-	lastItemAnchor = controls.maxPrice
-	popupHeight = popupHeight + 23
+	updateLastAnchor(controls.maxPrice)
 
-	
-	controls.maxLevel = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, nil, nil, "%D", nil, function(buf) end)
+	controls.maxLevel = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 100, 18, nil, nil, "%D")
 	controls.maxLevelLabel = new("LabelControl", {"RIGHT",controls.maxLevel,"LEFT"}, -5, 0, 0, 16, "Max Level:")
+	updateLastAnchor(controls.maxLevel)
 
-	lastItemAnchor = controls.maxLevel
-	popupHeight = popupHeight + 23
-	
+	-- basic filtering by slot for sockets and links, Megalomaniac does not have slot and Sockets use "Jewel nodeId"
+	if slot and not slot.slotName:find("Jewel") and not slot.slotName:find("Flask") then
+		controls.sockets = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D")
+		controls.socketsLabel = new("LabelControl", {"RIGHT",controls.sockets,"LEFT"}, -5, 0, 0, 16, "# of Sockets:")
+		updateLastAnchor(controls.sockets)
+
+		if not slot.slotName:find("Belt") and not slot.slotName:find("Ring") and not slot.slotName:find("Amulet") then
+			controls.links = new("EditControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, 5, 70, 18, nil, nil, "%D")
+			controls.linksLabel = new("LabelControl", {"RIGHT",controls.links,"LEFT"}, -5, 0, 0, 16, "# of Links:")
+			updateLastAnchor(controls.links)
+		end
+	end
+
 	for i, stat in ipairs(statWeights) do
 		controls["sortStatType"..tostring(i)] = new("LabelControl", {"TOPLEFT",lastItemAnchor,"BOTTOMLEFT"}, 0, i == 1 and 5 or 3, 70, 16, i < (#statWeights < 6 and 10 or 5) and s_format("^7%.2f: %s", stat.weightMult, stat.label) or ("+ "..tostring(#statWeights - 4).." Additional Stats"))
 		lastItemAnchor = controls["sortStatType"..tostring(i)]
@@ -1101,9 +1135,6 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 
 		if controls.includeCorrupted then
 			self.lastIncludeCorrupted, options.includeCorrupted = controls.includeCorrupted.state, controls.includeCorrupted.state
-		end
-		if controls.maxLevel.buf then
-			options.maxLevel = tonumber(controls.maxLevel.buf)
 		end
 		if controls.includeSynthesis then
 			self.lastIncludeSynthesis, options.includeSynthesis = controls.includeSynthesis.state, controls.includeSynthesis.state
@@ -1134,6 +1165,15 @@ function TradeQueryGeneratorClass:RequestQuery(slot, context, statWeights, callb
 		if controls.maxPrice.buf then
 			options.maxPrice = tonumber(controls.maxPrice.buf)
 			options.maxPriceType = currencyTable[controls.maxPriceType.selIndex].id
+		end
+		if controls.maxLevel.buf then
+			options.maxLevel = tonumber(controls.maxLevel.buf)
+		end
+		if controls.sockets and controls.sockets.buf then
+			options.sockets = tonumber(controls.sockets.buf)
+		end
+		if controls.links and controls.links.buf then
+			options.links = tonumber(controls.links.buf)
 		end
 		options.statWeights = statWeights
 
