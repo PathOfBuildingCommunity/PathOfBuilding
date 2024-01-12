@@ -295,13 +295,13 @@ function calcs.mirages(env)
 		env.player.mainSkill[SkillType.Triggered] = true
 		local maxMirageWarriors = 0
 		local cooldown = 1
-		local gemeralsCryActiveSkill
+		local generalsCryActiveSkill
 
 		-- Find the active General's Cry gem to get active properties
 		for _, skill in ipairs(env.player.activeSkillList) do
 			if skill.activeEffect.grantedEffect.name == "General's Cry" and env.player.mainSkill.socketGroup.slot == env.player.mainSkill.socketGroup.slot then
 				cooldown = calcSkillCooldown(skill.skillModList, skill.skillCfg, skill.skillData)
-				gemeralsCryActiveSkill = skill
+				generalsCryActiveSkill = skill
 				break
 			end
 		end
@@ -336,7 +336,7 @@ function calcs.mirages(env)
 		end
 
 		-- Scale dps with mirage quantity
-		for _, value in ipairs(gemeralsCryActiveSkill.skillModList:Tabulate("BASE", gemeralsCryActiveSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
+		for _, value in ipairs(generalsCryActiveSkill.skillModList:Tabulate("BASE", generalsCryActiveSkill.skillCfg, "GeneralsCryDoubleMaxCount")) do
 			local mod = value.mod
 			env.player.mainSkill.skillModList:NewMod("QuantityMultiplier", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
 			maxMirageWarriors = maxMirageWarriors + mod.value
