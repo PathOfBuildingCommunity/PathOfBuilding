@@ -148,12 +148,19 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 	end
 
 	if breakdown.rowList and #breakdown.rowList > 0 then
+		-- sort by the first column (the value)
+		local rowList = copyTable(breakdown.rowList, true)
+		local colKey = breakdown.colList[1].key
+		table.sort(rowList, function(a, b)
+			return a[colKey] > b[colKey]
+		end)
+		
 		-- Generic table
 		local section = {
 			type = "TABLE",
 			label = breakdown.label,
 			footer = breakdown.footer,
-			rowList = breakdown.rowList,
+			rowList = rowList,
 			colList = breakdown.colList,
 		}
 		t_insert(self.sectionList, section)
@@ -225,6 +232,10 @@ function CalcBreakdownClass:AddBreakdownSection(sectionData)
 			rowList = breakdown.slots
 		end
 
+		table.sort(rowList, function(a, b)
+			return a['base'] > b['base']
+		end)
+		
 		local section = { 
 			type = "TABLE",
 			rowList = rowList,
@@ -260,8 +271,8 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 	cfg.actor = sectionData.actor
 	local rowList
 	local modStore = (sectionData.enemy and actor.enemy.modDB) or (sectionData.cfg and actor.mainSkill.skillModList) or actor.modDB
-	if modList then	
-		rowList = modList
+	if modList then
+		rowList = copyTable(modList)
 	else
 		if type(sectionData.modName) == "table" then
 			rowList = modStore:Tabulate(sectionData.modType, cfg, unpack(sectionData.modName))
@@ -288,6 +299,17 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		},
 	}
 	t_insert(self.sectionList, section)
+
+	table.sort(rowList, function(a, b)
+		-- Sort Modifiers by descending value
+		if type(a.value) == 'number' and type(b.value) == 'number' then
+			return b.value < a.value
+		end
+		if type(a.value) == 'boolean' and type(b.value) == 'boolean' then
+			return a.value and not b.value
+		end
+		return false
+	end)
 
 	if not modList and not sectionData.modType then
 		-- Sort modifiers by type
