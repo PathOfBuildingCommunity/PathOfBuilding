@@ -41,13 +41,13 @@ local function calculateMirage(env, config)
 		newSkill.skillData.mirageUses = env.player.mainSkill.skillData.storedUses
 		newSkill.skillTypes[SkillType.OtherThingUsesSkill] = true
 
-		_ = config.preCalcFunc and config.preCalcFunc(env, newSkill, newEnv)
+		config.preCalcFunc(env, newSkill, newEnv)
 
 		newEnv.player.mainSkill = newSkill
 		calcs.perform(newEnv)
-		_ = config.postCalcFunc and config.postCalcFunc(env, newSkill, newEnv)
+		config.postCalcFunc(env, newSkill, newEnv)
 	else
-		_ = config.mirageSkillNotFoundFunc and config.mirageSkillNotFoundFunc(env, config)
+		config.mirageSkillNotFoundFunc(env, config)
 	end
 	return not config.calcMainSkillOffence
 end
