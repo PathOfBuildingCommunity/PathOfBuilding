@@ -90,6 +90,23 @@ local excludedItemKeystones = {
 	"Necromantic Aegis", -- to prevent infinite loop
 }
 
+local typos = {
+	["OnHIt"] = "OnHit",
+	["LIfe"] = "Life",
+	["Enchange"] = "Endurance",
+	["Blockedin"] = "BlockedIn",
+	["Areaof"] = "AreaOf",
+	["Exposureon"] = "ExposureOn",
+}
+
+local fixTypos = function(str)
+	for pattern, replacement in pairs(typos) do
+		str = str:gsub(pattern, replacement)
+	end
+	return str
+end
+	
+
 -- Generate uniques
 -- Paradoxica
 local paradoxicaMods = tableFromDat("Mods",
@@ -280,7 +297,7 @@ Selected Alt Variant Two: 106
 Selected Alt Variant Three: 125
 ]]}
 for _, mod in ipairs(charmMods) do
-	local variantName = abbreviateModId(mod.Id):gsub("AnimalCharm", ""):gsub("LIfe", "Life"):gsub("OnHIt", "OnHit"):gsub("2$", ""):gsub("[%u]", " %1"):gsub("[%d]+", " %1"):gsub("E S", "ES")
+	local variantName = abbreviateModId(fixTypos(mod.Id)):gsub("AnimalCharm", ""):gsub("2$", ""):gsub("[%u]", " %1"):gsub("[%d]+", " %1"):gsub("E S", "ES")
 	table.insert(thatWhichWasTaken, "Variant:"..variantName.."\n")
 end
 table.insert(thatWhichWasTaken, [[
@@ -569,7 +586,7 @@ Selected Alt Variant Three: 13
 -- Blank variant to account for changes made in 3.20.1
 table.insert(voranasMarch, "Variant: None\n")
 for _, mod in ipairs(voranasMarchMods) do
-	local variantName = abbreviateModId(mod.Id):gsub("SummonArbalist", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("Percent To ", ""):gsub("Chance To ", ""):gsub("Targets To ", ""):gsub("[fF]or 4 ?[Ss]econds On Hit", ""):gsub(" Percent", ""):gsub("Number Of ", "")
+	local variantName = abbreviateModId(fixTypos(mod.Id)):gsub("SummonArbalist", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("Percent To ", ""):gsub("Chance To ", ""):gsub("Targets To ", ""):gsub("[fF]or 4 ?[Ss]econds On Hit", ""):gsub(" Percent", ""):gsub("Number Of ", "")
 	table.insert(voranasMarch, "Variant:"..variantName.."\n")
 end
 table.insert(voranasMarch, [[

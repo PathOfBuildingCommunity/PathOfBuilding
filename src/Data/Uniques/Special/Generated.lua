@@ -959,7 +959,7 @@ Variant: Movement Speed Cannot Be Below Base
 Variant: Armour Applies To Ele Damage
 Variant: Endurance Charge On Stun
 Variant: Area Of Effect Per Endurance Charge
-Variant: Enchange Charge When Hit
+Variant: Endurance Charge When Hit
 Variant: Chaos Resistance Per Endurance Charge
 Variant: Life Regeneration Rate
 Variant: Totem Taunt Enemies When Summoned
@@ -988,7 +988,7 @@ Variant: Blind On Hit Vs Bleeding Enemies
 Variant: Maim On Hit Vs Blinded Enemies
 Variant: Stun Immune Against Blocked Hits
 Variant: Maximum Block
-Variant: Overwhelm If Blockedin Past 20 Seconds
+Variant: Overwhelm If Blocked In Past 20 Seconds
 Variant: Armour And Evasion Per Block
 Variant: Attack Block
 Variant: Attack Speed On Killing Rare Unique
@@ -1031,7 +1031,7 @@ Variant: Ignite Freeze Shock Chance
 Variant: Ele Reflect Immune
 Variant: Ignore Hexproof Enemies
 Variant: Chaos Explode
-Variant: Areaof Effect Per Power Charge
+Variant: Area Of Effect Per Power Charge
 Variant: Curse Effect
 Variant: Nearby Enemies Are Chilled
 Variant: ES Regeneration
@@ -4644,7 +4644,7 @@ Variant: Maim
 Variant: Intimidate 
 Variant: Unnerve 
 Variant: Inflict Fire Exposure On Hit
-Variant: Inflict Cold Exposureon Hit
+Variant: Inflict Cold Exposure On Hit
 Variant: Inflict Lightning Exposure On Hit
 Variant: Crush On Hit
 Variant: Phys Damage Convert To Fire
