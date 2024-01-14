@@ -994,7 +994,7 @@ Variant: Attack Block
 Variant: Attack Speed On Killing Rare Unique
 Variant: Phys Reflect Immune
 Variant: Stun Immune While Leeching
-Variant: Unaffectedby Bleeding While Leeching
+Variant: Unaffected By Bleeding While Leeching
 Variant: Overkill Leech
 Variant: Maximum Amount Per Life Leech
 Variant: Area Of Effect If Killed Recently

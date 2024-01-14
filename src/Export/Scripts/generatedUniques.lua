@@ -97,6 +97,7 @@ local typos = {
 	["Blockedin"] = "BlockedIn",
 	["Areaof"] = "AreaOf",
 	["Exposureon"] = "ExposureOn",
+	["Unaffectedby"] = "UnaffectedBy",
 }
 
 local fixTypos = function(str)
