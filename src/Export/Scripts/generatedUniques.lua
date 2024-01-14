@@ -466,7 +466,7 @@ for _, name in pairs({"Flame", "Flesh"}) do
 	table.insert(forbidden[name], "Forbidden " .. name.."\n")
 	table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel\n")
 	for _, notable in ipairs(classNotables) do
-		table.insert(forbidden[name], "Variant: ("..notable.Ascendancy.Class.Name..") "..notable.Name.."\n")
+		table.insert(forbidden[name], "Variant: ("..notable.Ascendancy.Class[1].Name..") "..notable.Name.."\n")
 	end
 	if name == "Flame" then
 		table.insert(forbidden[name], "Source: Drops from unique{The Searing Exarch}\n")
@@ -476,7 +476,7 @@ for _, name in pairs({"Flame", "Flesh"}) do
 	table.insert(forbidden[name], "Limited to: 1\n")
 	table.insert(forbidden[name], "Item Level: 83\n")
 	for index, notable in pairs(classNotables) do
-		table.insert(forbidden[name], "{variant:"..index.."}".."Requires Class "..notable.Ascendancy.Class.Name.."\n")
+		table.insert(forbidden[name], "{variant:"..index.."}".."Requires Class "..notable.Ascendancy.Class[1].Name.."\n")
 		table.insert(forbidden[name], "{variant:"..index.."}".."Allocates "..notable.Name.." if you have the matching modifier on Forbidden "..(name == "Flame" and "Flesh" or "Flame").."\n")
 	end
 	table.insert(forbidden[name], "Corrupted")

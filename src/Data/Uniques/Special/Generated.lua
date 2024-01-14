@@ -3376,50 +3376,50 @@ Variant: Vulnerability Double Damage
 [[
 Forbidden Flame
 Crimson Jewel
-Variant: (Witch) Unstoppable
-Variant: (Witch) Unbreakable
-Variant: (Witch) Unyielding
-Variant: (Witch) Undeniable
-Variant: (Witch) Unflinching
-Variant: (Witch) Unrelenting
-Variant: (Witch) Untiring
-Variant: (Witch) War Bringer
-Variant: (Witch) Rite of Ruin
-Variant: (Witch) Defy Pain
-Variant: (Witch) Flawless Savagery
-Variant: (Witch) Crave the Slaughter
-Variant: (Witch) Aspect of Carnage
-Variant: (Witch) Blitz
-Variant: (Witch) Arohongui, Moon's Presence
-Variant: (Witch) Ngamahu, Flame's Advance
-Variant: (Witch) Hinekora, Death's Fury
-Variant: (Witch) Tasalio, Cleansing Water
-Variant: (Witch) Tukohama, War's Herald
-Variant: (Witch) Tawhoa, Forest's Strength
-Variant: (Witch) Ramako, Sun's Light
-Variant: (Witch) Valako, Storm's Embrace
-Variant: (Witch) Way of the Poacher
-Variant: (Witch) Avatar of the Slaughter
-Variant: (Witch) Rapid Assault
-Variant: (Witch) Avatar of the Chase
-Variant: (Witch) Quartz Infusion
-Variant: (Witch) Avatar of the Veil
-Variant: (Witch) Focal Point
-Variant: (Witch) Ricochet
-Variant: (Witch) Endless Munitions
-Variant: (Witch) Far Shot
-Variant: (Witch) Rupturing
-Variant: (Witch) Powerful Precision
-Variant: (Witch) Gathering Winds
-Variant: (Witch) Occupying Force
-Variant: (Witch) Wind Ward
-Variant: (Witch) Nature's Adrenaline
-Variant: (Witch) Master Surgeon
-Variant: (Witch) Nature's Boon
-Variant: (Witch) Master Alchemist
-Variant: (Witch) Master Distiller
-Variant: (Witch) Nature's Reprisal
-Variant: (Witch) Master Toxicist
+Variant: (Marauder) Unstoppable
+Variant: (Marauder) Unbreakable
+Variant: (Marauder) Unyielding
+Variant: (Marauder) Undeniable
+Variant: (Marauder) Unflinching
+Variant: (Marauder) Unrelenting
+Variant: (Marauder) Untiring
+Variant: (Marauder) War Bringer
+Variant: (Marauder) Rite of Ruin
+Variant: (Marauder) Defy Pain
+Variant: (Marauder) Flawless Savagery
+Variant: (Marauder) Crave the Slaughter
+Variant: (Marauder) Aspect of Carnage
+Variant: (Marauder) Blitz
+Variant: (Marauder) Arohongui, Moon's Presence
+Variant: (Marauder) Ngamahu, Flame's Advance
+Variant: (Marauder) Hinekora, Death's Fury
+Variant: (Marauder) Tasalio, Cleansing Water
+Variant: (Marauder) Tukohama, War's Herald
+Variant: (Marauder) Tawhoa, Forest's Strength
+Variant: (Marauder) Ramako, Sun's Light
+Variant: (Marauder) Valako, Storm's Embrace
+Variant: (Ranger) Way of the Poacher
+Variant: (Ranger) Avatar of the Slaughter
+Variant: (Ranger) Rapid Assault
+Variant: (Ranger) Avatar of the Chase
+Variant: (Ranger) Quartz Infusion
+Variant: (Ranger) Avatar of the Veil
+Variant: (Ranger) Focal Point
+Variant: (Ranger) Ricochet
+Variant: (Ranger) Endless Munitions
+Variant: (Ranger) Far Shot
+Variant: (Ranger) Rupturing
+Variant: (Ranger) Powerful Precision
+Variant: (Ranger) Gathering Winds
+Variant: (Ranger) Occupying Force
+Variant: (Ranger) Wind Ward
+Variant: (Ranger) Nature's Adrenaline
+Variant: (Ranger) Master Surgeon
+Variant: (Ranger) Nature's Boon
+Variant: (Ranger) Master Alchemist
+Variant: (Ranger) Master Distiller
+Variant: (Ranger) Nature's Reprisal
+Variant: (Ranger) Master Toxicist
 Variant: (Witch) Profane Bloom
 Variant: (Witch) Unholy Authority
 Variant: (Witch) Wicked Ward
@@ -3446,188 +3446,188 @@ Variant: (Witch) Essence Glutton
 Variant: (Witch) Commander of Darkness
 Variant: (Witch) Plaguebringer
 Variant: (Witch) Corpse Pact
-Variant: (Witch) Headsman
-Variant: (Witch) Overwhelm
-Variant: (Witch) Bane of Legends
-Variant: (Witch) Endless Hunger
-Variant: (Witch) Brutal Fervour
-Variant: (Witch) Impact
-Variant: (Witch) Masterful Form
-Variant: (Witch) Gratuitous Violence
-Variant: (Witch) Blood in the Eyes
-Variant: (Witch) Outmatch and Outlast
-Variant: (Witch) Painforged
-Variant: (Witch) Violent Retaliation
-Variant: (Witch) Reigning Veteran
-Variant: (Witch) Arena Challenger
-Variant: (Witch) Fortitude
-Variant: (Witch) Unstoppable Hero
-Variant: (Witch) Conqueror
-Variant: (Witch) Worthy Foe
-Variant: (Witch) Inspirational
-Variant: (Witch) First to Strike, Last to Fall
-Variant: (Witch) Master of Metal
-Variant: (Witch) Righteous Providence
-Variant: (Witch) Inevitable Judgement
-Variant: (Witch) Augury of Penitence
-Variant: (Witch) Instruments of Virtue
-Variant: (Witch) Sanctuary
-Variant: (Witch) Pious Path
-Variant: (Witch) Instruments of Zeal
-Variant: (Witch) Instruments of Virtue
-Variant: (Witch) Divine Guidance
-Variant: (Witch) Sanctuary of Thought
-Variant: (Witch) Pursuit of Faith
-Variant: (Witch) Ritual of Awakening
-Variant: (Witch) Conviction of Power
-Variant: (Witch) Illuminated Devotion
-Variant: (Witch) Arcane Blessing
-Variant: (Witch) Sign of Purpose
-Variant: (Witch) Time of Need
-Variant: (Witch) Radiant Faith
-Variant: (Witch) Bastion of Hope
-Variant: (Witch) Prayer of Glory
-Variant: (Witch) Harmony of Purpose
-Variant: (Witch) Unwavering Faith
-Variant: (Witch) Radiant Crusade
-Variant: (Witch) Unwavering Crusade
-Variant: (Witch) Unstable Infusion
-Variant: (Witch) Deadly Infusion
-Variant: (Witch) Ambush and Assassinate
-Variant: (Witch) Opportunistic
-Variant: (Witch) Toxic Delivery
-Variant: (Witch) Noxious Strike
-Variant: (Witch) Mistwalker
-Variant: (Witch) Swift Killer
-Variant: (Witch) Polymath
-Variant: (Witch) Heartstopper
-Variant: (Witch) Escape Artist
-Variant: (Witch) Spellbreaker
-Variant: (Witch) One Step Ahead
-Variant: (Witch) Harness the Void
-Variant: (Witch) Pyromaniac
-Variant: (Witch) Born in the Shadows
-Variant: (Witch) Explosives Expert
-Variant: (Witch) Like Clockwork
-Variant: (Witch) Perfect Crime
-Variant: (Witch) Demolitions Specialist
-Variant: (Witch) Chain Reaction
-Variant: (Witch) Bomb Specialist
-Variant: (Witch) Juggernaut
-Variant: (Witch) Berserker
-Variant: (Witch) Chieftain
-Variant: (Witch) Raider
-Variant: (Witch) Deadeye
-Variant: (Witch) Pathfinder
-Variant: (Witch) Occultist
-Variant: (Witch) Elementalist
-Variant: (Witch) Necromancer
-Variant: (Witch) Slayer
-Variant: (Witch) Gladiator
-Variant: (Witch) Champion
-Variant: (Witch) Inquisitor
-Variant: (Witch) Hierophant
-Variant: (Witch) Guardian
-Variant: (Witch) Assassin
-Variant: (Witch) Trickster
-Variant: (Witch) Saboteur
+Variant: (Duelist) Headsman
+Variant: (Duelist) Overwhelm
+Variant: (Duelist) Bane of Legends
+Variant: (Duelist) Endless Hunger
+Variant: (Duelist) Brutal Fervour
+Variant: (Duelist) Impact
+Variant: (Duelist) Masterful Form
+Variant: (Duelist) Gratuitous Violence
+Variant: (Duelist) Blood in the Eyes
+Variant: (Duelist) Outmatch and Outlast
+Variant: (Duelist) Painforged
+Variant: (Duelist) Violent Retaliation
+Variant: (Duelist) Reigning Veteran
+Variant: (Duelist) Arena Challenger
+Variant: (Duelist) Fortitude
+Variant: (Duelist) Unstoppable Hero
+Variant: (Duelist) Conqueror
+Variant: (Duelist) Worthy Foe
+Variant: (Duelist) Inspirational
+Variant: (Duelist) First to Strike, Last to Fall
+Variant: (Duelist) Master of Metal
+Variant: (Templar) Righteous Providence
+Variant: (Templar) Inevitable Judgement
+Variant: (Templar) Augury of Penitence
+Variant: (Templar) Instruments of Virtue
+Variant: (Templar) Sanctuary
+Variant: (Templar) Pious Path
+Variant: (Templar) Instruments of Zeal
+Variant: (Templar) Instruments of Virtue
+Variant: (Templar) Divine Guidance
+Variant: (Templar) Sanctuary of Thought
+Variant: (Templar) Pursuit of Faith
+Variant: (Templar) Ritual of Awakening
+Variant: (Templar) Conviction of Power
+Variant: (Templar) Illuminated Devotion
+Variant: (Templar) Arcane Blessing
+Variant: (Templar) Sign of Purpose
+Variant: (Templar) Time of Need
+Variant: (Templar) Radiant Faith
+Variant: (Templar) Bastion of Hope
+Variant: (Templar) Prayer of Glory
+Variant: (Templar) Harmony of Purpose
+Variant: (Templar) Unwavering Faith
+Variant: (Templar) Radiant Crusade
+Variant: (Templar) Unwavering Crusade
+Variant: (Shadow) Unstable Infusion
+Variant: (Shadow) Deadly Infusion
+Variant: (Shadow) Ambush and Assassinate
+Variant: (Shadow) Opportunistic
+Variant: (Shadow) Toxic Delivery
+Variant: (Shadow) Noxious Strike
+Variant: (Shadow) Mistwalker
+Variant: (Shadow) Swift Killer
+Variant: (Shadow) Polymath
+Variant: (Shadow) Heartstopper
+Variant: (Shadow) Escape Artist
+Variant: (Shadow) Spellbreaker
+Variant: (Shadow) One Step Ahead
+Variant: (Shadow) Harness the Void
+Variant: (Shadow) Pyromaniac
+Variant: (Shadow) Born in the Shadows
+Variant: (Shadow) Explosives Expert
+Variant: (Shadow) Like Clockwork
+Variant: (Shadow) Perfect Crime
+Variant: (Shadow) Demolitions Specialist
+Variant: (Shadow) Chain Reaction
+Variant: (Shadow) Bomb Specialist
+Variant: (Scion) Juggernaut
+Variant: (Scion) Berserker
+Variant: (Scion) Chieftain
+Variant: (Scion) Raider
+Variant: (Scion) Deadeye
+Variant: (Scion) Pathfinder
+Variant: (Scion) Occultist
+Variant: (Scion) Elementalist
+Variant: (Scion) Necromancer
+Variant: (Scion) Slayer
+Variant: (Scion) Gladiator
+Variant: (Scion) Champion
+Variant: (Scion) Inquisitor
+Variant: (Scion) Hierophant
+Variant: (Scion) Guardian
+Variant: (Scion) Assassin
+Variant: (Scion) Trickster
+Variant: (Scion) Saboteur
 Variant: (Witch) Nine Lives
-Variant: (Witch) Searing Purity
-Variant: (Witch) Indomitable Resolve
-Variant: (Witch) Fatal Flourish
-Variant: (Witch) Fury of Nature
-Variant: (Witch) Soul Drinker
-Variant: (Witch) Unleashed Potential
+Variant: (Templar) Searing Purity
+Variant: (Marauder) Indomitable Resolve
+Variant: (Duelist) Fatal Flourish
+Variant: (Ranger) Fury of Nature
+Variant: (Shadow) Soul Drinker
+Variant: (Scion) Unleashed Potential
 Source: Drops from unique{The Searing Exarch}
 Limited to: 1
 Item Level: 83
-{variant:1}Requires Class Witch
+{variant:1}Requires Class Marauder
 {variant:1}Allocates Unstoppable if you have the matching modifier on Forbidden Flesh
-{variant:2}Requires Class Witch
+{variant:2}Requires Class Marauder
 {variant:2}Allocates Unbreakable if you have the matching modifier on Forbidden Flesh
-{variant:3}Requires Class Witch
+{variant:3}Requires Class Marauder
 {variant:3}Allocates Unyielding if you have the matching modifier on Forbidden Flesh
-{variant:4}Requires Class Witch
+{variant:4}Requires Class Marauder
 {variant:4}Allocates Undeniable if you have the matching modifier on Forbidden Flesh
-{variant:5}Requires Class Witch
+{variant:5}Requires Class Marauder
 {variant:5}Allocates Unflinching if you have the matching modifier on Forbidden Flesh
-{variant:6}Requires Class Witch
+{variant:6}Requires Class Marauder
 {variant:6}Allocates Unrelenting if you have the matching modifier on Forbidden Flesh
-{variant:7}Requires Class Witch
+{variant:7}Requires Class Marauder
 {variant:7}Allocates Untiring if you have the matching modifier on Forbidden Flesh
-{variant:8}Requires Class Witch
+{variant:8}Requires Class Marauder
 {variant:8}Allocates War Bringer if you have the matching modifier on Forbidden Flesh
-{variant:9}Requires Class Witch
+{variant:9}Requires Class Marauder
 {variant:9}Allocates Rite of Ruin if you have the matching modifier on Forbidden Flesh
-{variant:10}Requires Class Witch
+{variant:10}Requires Class Marauder
 {variant:10}Allocates Defy Pain if you have the matching modifier on Forbidden Flesh
-{variant:11}Requires Class Witch
+{variant:11}Requires Class Marauder
 {variant:11}Allocates Flawless Savagery if you have the matching modifier on Forbidden Flesh
-{variant:12}Requires Class Witch
+{variant:12}Requires Class Marauder
 {variant:12}Allocates Crave the Slaughter if you have the matching modifier on Forbidden Flesh
-{variant:13}Requires Class Witch
+{variant:13}Requires Class Marauder
 {variant:13}Allocates Aspect of Carnage if you have the matching modifier on Forbidden Flesh
-{variant:14}Requires Class Witch
+{variant:14}Requires Class Marauder
 {variant:14}Allocates Blitz if you have the matching modifier on Forbidden Flesh
-{variant:15}Requires Class Witch
+{variant:15}Requires Class Marauder
 {variant:15}Allocates Arohongui, Moon's Presence if you have the matching modifier on Forbidden Flesh
-{variant:16}Requires Class Witch
+{variant:16}Requires Class Marauder
 {variant:16}Allocates Ngamahu, Flame's Advance if you have the matching modifier on Forbidden Flesh
-{variant:17}Requires Class Witch
+{variant:17}Requires Class Marauder
 {variant:17}Allocates Hinekora, Death's Fury if you have the matching modifier on Forbidden Flesh
-{variant:18}Requires Class Witch
+{variant:18}Requires Class Marauder
 {variant:18}Allocates Tasalio, Cleansing Water if you have the matching modifier on Forbidden Flesh
-{variant:19}Requires Class Witch
+{variant:19}Requires Class Marauder
 {variant:19}Allocates Tukohama, War's Herald if you have the matching modifier on Forbidden Flesh
-{variant:20}Requires Class Witch
+{variant:20}Requires Class Marauder
 {variant:20}Allocates Tawhoa, Forest's Strength if you have the matching modifier on Forbidden Flesh
-{variant:21}Requires Class Witch
+{variant:21}Requires Class Marauder
 {variant:21}Allocates Ramako, Sun's Light if you have the matching modifier on Forbidden Flesh
-{variant:22}Requires Class Witch
+{variant:22}Requires Class Marauder
 {variant:22}Allocates Valako, Storm's Embrace if you have the matching modifier on Forbidden Flesh
-{variant:23}Requires Class Witch
+{variant:23}Requires Class Ranger
 {variant:23}Allocates Way of the Poacher if you have the matching modifier on Forbidden Flesh
-{variant:24}Requires Class Witch
+{variant:24}Requires Class Ranger
 {variant:24}Allocates Avatar of the Slaughter if you have the matching modifier on Forbidden Flesh
-{variant:25}Requires Class Witch
+{variant:25}Requires Class Ranger
 {variant:25}Allocates Rapid Assault if you have the matching modifier on Forbidden Flesh
-{variant:26}Requires Class Witch
+{variant:26}Requires Class Ranger
 {variant:26}Allocates Avatar of the Chase if you have the matching modifier on Forbidden Flesh
-{variant:27}Requires Class Witch
+{variant:27}Requires Class Ranger
 {variant:27}Allocates Quartz Infusion if you have the matching modifier on Forbidden Flesh
-{variant:28}Requires Class Witch
+{variant:28}Requires Class Ranger
 {variant:28}Allocates Avatar of the Veil if you have the matching modifier on Forbidden Flesh
-{variant:29}Requires Class Witch
+{variant:29}Requires Class Ranger
 {variant:29}Allocates Focal Point if you have the matching modifier on Forbidden Flesh
-{variant:30}Requires Class Witch
+{variant:30}Requires Class Ranger
 {variant:30}Allocates Ricochet if you have the matching modifier on Forbidden Flesh
-{variant:31}Requires Class Witch
+{variant:31}Requires Class Ranger
 {variant:31}Allocates Endless Munitions if you have the matching modifier on Forbidden Flesh
-{variant:32}Requires Class Witch
+{variant:32}Requires Class Ranger
 {variant:32}Allocates Far Shot if you have the matching modifier on Forbidden Flesh
-{variant:33}Requires Class Witch
+{variant:33}Requires Class Ranger
 {variant:33}Allocates Rupturing if you have the matching modifier on Forbidden Flesh
-{variant:34}Requires Class Witch
+{variant:34}Requires Class Ranger
 {variant:34}Allocates Powerful Precision if you have the matching modifier on Forbidden Flesh
-{variant:35}Requires Class Witch
+{variant:35}Requires Class Ranger
 {variant:35}Allocates Gathering Winds if you have the matching modifier on Forbidden Flesh
-{variant:36}Requires Class Witch
+{variant:36}Requires Class Ranger
 {variant:36}Allocates Occupying Force if you have the matching modifier on Forbidden Flesh
-{variant:37}Requires Class Witch
+{variant:37}Requires Class Ranger
 {variant:37}Allocates Wind Ward if you have the matching modifier on Forbidden Flesh
-{variant:38}Requires Class Witch
+{variant:38}Requires Class Ranger
 {variant:38}Allocates Nature's Adrenaline if you have the matching modifier on Forbidden Flesh
-{variant:39}Requires Class Witch
+{variant:39}Requires Class Ranger
 {variant:39}Allocates Master Surgeon if you have the matching modifier on Forbidden Flesh
-{variant:40}Requires Class Witch
+{variant:40}Requires Class Ranger
 {variant:40}Allocates Nature's Boon if you have the matching modifier on Forbidden Flesh
-{variant:41}Requires Class Witch
+{variant:41}Requires Class Ranger
 {variant:41}Allocates Master Alchemist if you have the matching modifier on Forbidden Flesh
-{variant:42}Requires Class Witch
+{variant:42}Requires Class Ranger
 {variant:42}Allocates Master Distiller if you have the matching modifier on Forbidden Flesh
-{variant:43}Requires Class Witch
+{variant:43}Requires Class Ranger
 {variant:43}Allocates Nature's Reprisal if you have the matching modifier on Forbidden Flesh
-{variant:44}Requires Class Witch
+{variant:44}Requires Class Ranger
 {variant:44}Allocates Master Toxicist if you have the matching modifier on Forbidden Flesh
 {variant:45}Requires Class Witch
 {variant:45}Allocates Profane Bloom if you have the matching modifier on Forbidden Flesh
@@ -3681,238 +3681,238 @@ Item Level: 83
 {variant:69}Allocates Plaguebringer if you have the matching modifier on Forbidden Flesh
 {variant:70}Requires Class Witch
 {variant:70}Allocates Corpse Pact if you have the matching modifier on Forbidden Flesh
-{variant:71}Requires Class Witch
+{variant:71}Requires Class Duelist
 {variant:71}Allocates Headsman if you have the matching modifier on Forbidden Flesh
-{variant:72}Requires Class Witch
+{variant:72}Requires Class Duelist
 {variant:72}Allocates Overwhelm if you have the matching modifier on Forbidden Flesh
-{variant:73}Requires Class Witch
+{variant:73}Requires Class Duelist
 {variant:73}Allocates Bane of Legends if you have the matching modifier on Forbidden Flesh
-{variant:74}Requires Class Witch
+{variant:74}Requires Class Duelist
 {variant:74}Allocates Endless Hunger if you have the matching modifier on Forbidden Flesh
-{variant:75}Requires Class Witch
+{variant:75}Requires Class Duelist
 {variant:75}Allocates Brutal Fervour if you have the matching modifier on Forbidden Flesh
-{variant:76}Requires Class Witch
+{variant:76}Requires Class Duelist
 {variant:76}Allocates Impact if you have the matching modifier on Forbidden Flesh
-{variant:77}Requires Class Witch
+{variant:77}Requires Class Duelist
 {variant:77}Allocates Masterful Form if you have the matching modifier on Forbidden Flesh
-{variant:78}Requires Class Witch
+{variant:78}Requires Class Duelist
 {variant:78}Allocates Gratuitous Violence if you have the matching modifier on Forbidden Flesh
-{variant:79}Requires Class Witch
+{variant:79}Requires Class Duelist
 {variant:79}Allocates Blood in the Eyes if you have the matching modifier on Forbidden Flesh
-{variant:80}Requires Class Witch
+{variant:80}Requires Class Duelist
 {variant:80}Allocates Outmatch and Outlast if you have the matching modifier on Forbidden Flesh
-{variant:81}Requires Class Witch
+{variant:81}Requires Class Duelist
 {variant:81}Allocates Painforged if you have the matching modifier on Forbidden Flesh
-{variant:82}Requires Class Witch
+{variant:82}Requires Class Duelist
 {variant:82}Allocates Violent Retaliation if you have the matching modifier on Forbidden Flesh
-{variant:83}Requires Class Witch
+{variant:83}Requires Class Duelist
 {variant:83}Allocates Reigning Veteran if you have the matching modifier on Forbidden Flesh
-{variant:84}Requires Class Witch
+{variant:84}Requires Class Duelist
 {variant:84}Allocates Arena Challenger if you have the matching modifier on Forbidden Flesh
-{variant:85}Requires Class Witch
+{variant:85}Requires Class Duelist
 {variant:85}Allocates Fortitude if you have the matching modifier on Forbidden Flesh
-{variant:86}Requires Class Witch
+{variant:86}Requires Class Duelist
 {variant:86}Allocates Unstoppable Hero if you have the matching modifier on Forbidden Flesh
-{variant:87}Requires Class Witch
+{variant:87}Requires Class Duelist
 {variant:87}Allocates Conqueror if you have the matching modifier on Forbidden Flesh
-{variant:88}Requires Class Witch
+{variant:88}Requires Class Duelist
 {variant:88}Allocates Worthy Foe if you have the matching modifier on Forbidden Flesh
-{variant:89}Requires Class Witch
+{variant:89}Requires Class Duelist
 {variant:89}Allocates Inspirational if you have the matching modifier on Forbidden Flesh
-{variant:90}Requires Class Witch
+{variant:90}Requires Class Duelist
 {variant:90}Allocates First to Strike, Last to Fall if you have the matching modifier on Forbidden Flesh
-{variant:91}Requires Class Witch
+{variant:91}Requires Class Duelist
 {variant:91}Allocates Master of Metal if you have the matching modifier on Forbidden Flesh
-{variant:92}Requires Class Witch
+{variant:92}Requires Class Templar
 {variant:92}Allocates Righteous Providence if you have the matching modifier on Forbidden Flesh
-{variant:93}Requires Class Witch
+{variant:93}Requires Class Templar
 {variant:93}Allocates Inevitable Judgement if you have the matching modifier on Forbidden Flesh
-{variant:94}Requires Class Witch
+{variant:94}Requires Class Templar
 {variant:94}Allocates Augury of Penitence if you have the matching modifier on Forbidden Flesh
-{variant:95}Requires Class Witch
+{variant:95}Requires Class Templar
 {variant:95}Allocates Instruments of Virtue if you have the matching modifier on Forbidden Flesh
-{variant:96}Requires Class Witch
+{variant:96}Requires Class Templar
 {variant:96}Allocates Sanctuary if you have the matching modifier on Forbidden Flesh
-{variant:97}Requires Class Witch
+{variant:97}Requires Class Templar
 {variant:97}Allocates Pious Path if you have the matching modifier on Forbidden Flesh
-{variant:98}Requires Class Witch
+{variant:98}Requires Class Templar
 {variant:98}Allocates Instruments of Zeal if you have the matching modifier on Forbidden Flesh
-{variant:99}Requires Class Witch
+{variant:99}Requires Class Templar
 {variant:99}Allocates Instruments of Virtue if you have the matching modifier on Forbidden Flesh
-{variant:100}Requires Class Witch
+{variant:100}Requires Class Templar
 {variant:100}Allocates Divine Guidance if you have the matching modifier on Forbidden Flesh
-{variant:101}Requires Class Witch
+{variant:101}Requires Class Templar
 {variant:101}Allocates Sanctuary of Thought if you have the matching modifier on Forbidden Flesh
-{variant:102}Requires Class Witch
+{variant:102}Requires Class Templar
 {variant:102}Allocates Pursuit of Faith if you have the matching modifier on Forbidden Flesh
-{variant:103}Requires Class Witch
+{variant:103}Requires Class Templar
 {variant:103}Allocates Ritual of Awakening if you have the matching modifier on Forbidden Flesh
-{variant:104}Requires Class Witch
+{variant:104}Requires Class Templar
 {variant:104}Allocates Conviction of Power if you have the matching modifier on Forbidden Flesh
-{variant:105}Requires Class Witch
+{variant:105}Requires Class Templar
 {variant:105}Allocates Illuminated Devotion if you have the matching modifier on Forbidden Flesh
-{variant:106}Requires Class Witch
+{variant:106}Requires Class Templar
 {variant:106}Allocates Arcane Blessing if you have the matching modifier on Forbidden Flesh
-{variant:107}Requires Class Witch
+{variant:107}Requires Class Templar
 {variant:107}Allocates Sign of Purpose if you have the matching modifier on Forbidden Flesh
-{variant:108}Requires Class Witch
+{variant:108}Requires Class Templar
 {variant:108}Allocates Time of Need if you have the matching modifier on Forbidden Flesh
-{variant:109}Requires Class Witch
+{variant:109}Requires Class Templar
 {variant:109}Allocates Radiant Faith if you have the matching modifier on Forbidden Flesh
-{variant:110}Requires Class Witch
+{variant:110}Requires Class Templar
 {variant:110}Allocates Bastion of Hope if you have the matching modifier on Forbidden Flesh
-{variant:111}Requires Class Witch
+{variant:111}Requires Class Templar
 {variant:111}Allocates Prayer of Glory if you have the matching modifier on Forbidden Flesh
-{variant:112}Requires Class Witch
+{variant:112}Requires Class Templar
 {variant:112}Allocates Harmony of Purpose if you have the matching modifier on Forbidden Flesh
-{variant:113}Requires Class Witch
+{variant:113}Requires Class Templar
 {variant:113}Allocates Unwavering Faith if you have the matching modifier on Forbidden Flesh
-{variant:114}Requires Class Witch
+{variant:114}Requires Class Templar
 {variant:114}Allocates Radiant Crusade if you have the matching modifier on Forbidden Flesh
-{variant:115}Requires Class Witch
+{variant:115}Requires Class Templar
 {variant:115}Allocates Unwavering Crusade if you have the matching modifier on Forbidden Flesh
-{variant:116}Requires Class Witch
+{variant:116}Requires Class Shadow
 {variant:116}Allocates Unstable Infusion if you have the matching modifier on Forbidden Flesh
-{variant:117}Requires Class Witch
+{variant:117}Requires Class Shadow
 {variant:117}Allocates Deadly Infusion if you have the matching modifier on Forbidden Flesh
-{variant:118}Requires Class Witch
+{variant:118}Requires Class Shadow
 {variant:118}Allocates Ambush and Assassinate if you have the matching modifier on Forbidden Flesh
-{variant:119}Requires Class Witch
+{variant:119}Requires Class Shadow
 {variant:119}Allocates Opportunistic if you have the matching modifier on Forbidden Flesh
-{variant:120}Requires Class Witch
+{variant:120}Requires Class Shadow
 {variant:120}Allocates Toxic Delivery if you have the matching modifier on Forbidden Flesh
-{variant:121}Requires Class Witch
+{variant:121}Requires Class Shadow
 {variant:121}Allocates Noxious Strike if you have the matching modifier on Forbidden Flesh
-{variant:122}Requires Class Witch
+{variant:122}Requires Class Shadow
 {variant:122}Allocates Mistwalker if you have the matching modifier on Forbidden Flesh
-{variant:123}Requires Class Witch
+{variant:123}Requires Class Shadow
 {variant:123}Allocates Swift Killer if you have the matching modifier on Forbidden Flesh
-{variant:124}Requires Class Witch
+{variant:124}Requires Class Shadow
 {variant:124}Allocates Polymath if you have the matching modifier on Forbidden Flesh
-{variant:125}Requires Class Witch
+{variant:125}Requires Class Shadow
 {variant:125}Allocates Heartstopper if you have the matching modifier on Forbidden Flesh
-{variant:126}Requires Class Witch
+{variant:126}Requires Class Shadow
 {variant:126}Allocates Escape Artist if you have the matching modifier on Forbidden Flesh
-{variant:127}Requires Class Witch
+{variant:127}Requires Class Shadow
 {variant:127}Allocates Spellbreaker if you have the matching modifier on Forbidden Flesh
-{variant:128}Requires Class Witch
+{variant:128}Requires Class Shadow
 {variant:128}Allocates One Step Ahead if you have the matching modifier on Forbidden Flesh
-{variant:129}Requires Class Witch
+{variant:129}Requires Class Shadow
 {variant:129}Allocates Harness the Void if you have the matching modifier on Forbidden Flesh
-{variant:130}Requires Class Witch
+{variant:130}Requires Class Shadow
 {variant:130}Allocates Pyromaniac if you have the matching modifier on Forbidden Flesh
-{variant:131}Requires Class Witch
+{variant:131}Requires Class Shadow
 {variant:131}Allocates Born in the Shadows if you have the matching modifier on Forbidden Flesh
-{variant:132}Requires Class Witch
+{variant:132}Requires Class Shadow
 {variant:132}Allocates Explosives Expert if you have the matching modifier on Forbidden Flesh
-{variant:133}Requires Class Witch
+{variant:133}Requires Class Shadow
 {variant:133}Allocates Like Clockwork if you have the matching modifier on Forbidden Flesh
-{variant:134}Requires Class Witch
+{variant:134}Requires Class Shadow
 {variant:134}Allocates Perfect Crime if you have the matching modifier on Forbidden Flesh
-{variant:135}Requires Class Witch
+{variant:135}Requires Class Shadow
 {variant:135}Allocates Demolitions Specialist if you have the matching modifier on Forbidden Flesh
-{variant:136}Requires Class Witch
+{variant:136}Requires Class Shadow
 {variant:136}Allocates Chain Reaction if you have the matching modifier on Forbidden Flesh
-{variant:137}Requires Class Witch
+{variant:137}Requires Class Shadow
 {variant:137}Allocates Bomb Specialist if you have the matching modifier on Forbidden Flesh
-{variant:138}Requires Class Witch
+{variant:138}Requires Class Scion
 {variant:138}Allocates Juggernaut if you have the matching modifier on Forbidden Flesh
-{variant:139}Requires Class Witch
+{variant:139}Requires Class Scion
 {variant:139}Allocates Berserker if you have the matching modifier on Forbidden Flesh
-{variant:140}Requires Class Witch
+{variant:140}Requires Class Scion
 {variant:140}Allocates Chieftain if you have the matching modifier on Forbidden Flesh
-{variant:141}Requires Class Witch
+{variant:141}Requires Class Scion
 {variant:141}Allocates Raider if you have the matching modifier on Forbidden Flesh
-{variant:142}Requires Class Witch
+{variant:142}Requires Class Scion
 {variant:142}Allocates Deadeye if you have the matching modifier on Forbidden Flesh
-{variant:143}Requires Class Witch
+{variant:143}Requires Class Scion
 {variant:143}Allocates Pathfinder if you have the matching modifier on Forbidden Flesh
-{variant:144}Requires Class Witch
+{variant:144}Requires Class Scion
 {variant:144}Allocates Occultist if you have the matching modifier on Forbidden Flesh
-{variant:145}Requires Class Witch
+{variant:145}Requires Class Scion
 {variant:145}Allocates Elementalist if you have the matching modifier on Forbidden Flesh
-{variant:146}Requires Class Witch
+{variant:146}Requires Class Scion
 {variant:146}Allocates Necromancer if you have the matching modifier on Forbidden Flesh
-{variant:147}Requires Class Witch
+{variant:147}Requires Class Scion
 {variant:147}Allocates Slayer if you have the matching modifier on Forbidden Flesh
-{variant:148}Requires Class Witch
+{variant:148}Requires Class Scion
 {variant:148}Allocates Gladiator if you have the matching modifier on Forbidden Flesh
-{variant:149}Requires Class Witch
+{variant:149}Requires Class Scion
 {variant:149}Allocates Champion if you have the matching modifier on Forbidden Flesh
-{variant:150}Requires Class Witch
+{variant:150}Requires Class Scion
 {variant:150}Allocates Inquisitor if you have the matching modifier on Forbidden Flesh
-{variant:151}Requires Class Witch
+{variant:151}Requires Class Scion
 {variant:151}Allocates Hierophant if you have the matching modifier on Forbidden Flesh
-{variant:152}Requires Class Witch
+{variant:152}Requires Class Scion
 {variant:152}Allocates Guardian if you have the matching modifier on Forbidden Flesh
-{variant:153}Requires Class Witch
+{variant:153}Requires Class Scion
 {variant:153}Allocates Assassin if you have the matching modifier on Forbidden Flesh
-{variant:154}Requires Class Witch
+{variant:154}Requires Class Scion
 {variant:154}Allocates Trickster if you have the matching modifier on Forbidden Flesh
-{variant:155}Requires Class Witch
+{variant:155}Requires Class Scion
 {variant:155}Allocates Saboteur if you have the matching modifier on Forbidden Flesh
 {variant:156}Requires Class Witch
 {variant:156}Allocates Nine Lives if you have the matching modifier on Forbidden Flesh
-{variant:157}Requires Class Witch
+{variant:157}Requires Class Templar
 {variant:157}Allocates Searing Purity if you have the matching modifier on Forbidden Flesh
-{variant:158}Requires Class Witch
+{variant:158}Requires Class Marauder
 {variant:158}Allocates Indomitable Resolve if you have the matching modifier on Forbidden Flesh
-{variant:159}Requires Class Witch
+{variant:159}Requires Class Duelist
 {variant:159}Allocates Fatal Flourish if you have the matching modifier on Forbidden Flesh
-{variant:160}Requires Class Witch
+{variant:160}Requires Class Ranger
 {variant:160}Allocates Fury of Nature if you have the matching modifier on Forbidden Flesh
-{variant:161}Requires Class Witch
+{variant:161}Requires Class Shadow
 {variant:161}Allocates Soul Drinker if you have the matching modifier on Forbidden Flesh
-{variant:162}Requires Class Witch
+{variant:162}Requires Class Scion
 {variant:162}Allocates Unleashed Potential if you have the matching modifier on Forbidden Flesh
 Corrupted]],
 [[
 Forbidden Flesh
 Cobalt Jewel
-Variant: (Witch) Unstoppable
-Variant: (Witch) Unbreakable
-Variant: (Witch) Unyielding
-Variant: (Witch) Undeniable
-Variant: (Witch) Unflinching
-Variant: (Witch) Unrelenting
-Variant: (Witch) Untiring
-Variant: (Witch) War Bringer
-Variant: (Witch) Rite of Ruin
-Variant: (Witch) Defy Pain
-Variant: (Witch) Flawless Savagery
-Variant: (Witch) Crave the Slaughter
-Variant: (Witch) Aspect of Carnage
-Variant: (Witch) Blitz
-Variant: (Witch) Arohongui, Moon's Presence
-Variant: (Witch) Ngamahu, Flame's Advance
-Variant: (Witch) Hinekora, Death's Fury
-Variant: (Witch) Tasalio, Cleansing Water
-Variant: (Witch) Tukohama, War's Herald
-Variant: (Witch) Tawhoa, Forest's Strength
-Variant: (Witch) Ramako, Sun's Light
-Variant: (Witch) Valako, Storm's Embrace
-Variant: (Witch) Way of the Poacher
-Variant: (Witch) Avatar of the Slaughter
-Variant: (Witch) Rapid Assault
-Variant: (Witch) Avatar of the Chase
-Variant: (Witch) Quartz Infusion
-Variant: (Witch) Avatar of the Veil
-Variant: (Witch) Focal Point
-Variant: (Witch) Ricochet
-Variant: (Witch) Endless Munitions
-Variant: (Witch) Far Shot
-Variant: (Witch) Rupturing
-Variant: (Witch) Powerful Precision
-Variant: (Witch) Gathering Winds
-Variant: (Witch) Occupying Force
-Variant: (Witch) Wind Ward
-Variant: (Witch) Nature's Adrenaline
-Variant: (Witch) Master Surgeon
-Variant: (Witch) Nature's Boon
-Variant: (Witch) Master Alchemist
-Variant: (Witch) Master Distiller
-Variant: (Witch) Nature's Reprisal
-Variant: (Witch) Master Toxicist
+Variant: (Marauder) Unstoppable
+Variant: (Marauder) Unbreakable
+Variant: (Marauder) Unyielding
+Variant: (Marauder) Undeniable
+Variant: (Marauder) Unflinching
+Variant: (Marauder) Unrelenting
+Variant: (Marauder) Untiring
+Variant: (Marauder) War Bringer
+Variant: (Marauder) Rite of Ruin
+Variant: (Marauder) Defy Pain
+Variant: (Marauder) Flawless Savagery
+Variant: (Marauder) Crave the Slaughter
+Variant: (Marauder) Aspect of Carnage
+Variant: (Marauder) Blitz
+Variant: (Marauder) Arohongui, Moon's Presence
+Variant: (Marauder) Ngamahu, Flame's Advance
+Variant: (Marauder) Hinekora, Death's Fury
+Variant: (Marauder) Tasalio, Cleansing Water
+Variant: (Marauder) Tukohama, War's Herald
+Variant: (Marauder) Tawhoa, Forest's Strength
+Variant: (Marauder) Ramako, Sun's Light
+Variant: (Marauder) Valako, Storm's Embrace
+Variant: (Ranger) Way of the Poacher
+Variant: (Ranger) Avatar of the Slaughter
+Variant: (Ranger) Rapid Assault
+Variant: (Ranger) Avatar of the Chase
+Variant: (Ranger) Quartz Infusion
+Variant: (Ranger) Avatar of the Veil
+Variant: (Ranger) Focal Point
+Variant: (Ranger) Ricochet
+Variant: (Ranger) Endless Munitions
+Variant: (Ranger) Far Shot
+Variant: (Ranger) Rupturing
+Variant: (Ranger) Powerful Precision
+Variant: (Ranger) Gathering Winds
+Variant: (Ranger) Occupying Force
+Variant: (Ranger) Wind Ward
+Variant: (Ranger) Nature's Adrenaline
+Variant: (Ranger) Master Surgeon
+Variant: (Ranger) Nature's Boon
+Variant: (Ranger) Master Alchemist
+Variant: (Ranger) Master Distiller
+Variant: (Ranger) Nature's Reprisal
+Variant: (Ranger) Master Toxicist
 Variant: (Witch) Profane Bloom
 Variant: (Witch) Unholy Authority
 Variant: (Witch) Wicked Ward
@@ -3939,188 +3939,188 @@ Variant: (Witch) Essence Glutton
 Variant: (Witch) Commander of Darkness
 Variant: (Witch) Plaguebringer
 Variant: (Witch) Corpse Pact
-Variant: (Witch) Headsman
-Variant: (Witch) Overwhelm
-Variant: (Witch) Bane of Legends
-Variant: (Witch) Endless Hunger
-Variant: (Witch) Brutal Fervour
-Variant: (Witch) Impact
-Variant: (Witch) Masterful Form
-Variant: (Witch) Gratuitous Violence
-Variant: (Witch) Blood in the Eyes
-Variant: (Witch) Outmatch and Outlast
-Variant: (Witch) Painforged
-Variant: (Witch) Violent Retaliation
-Variant: (Witch) Reigning Veteran
-Variant: (Witch) Arena Challenger
-Variant: (Witch) Fortitude
-Variant: (Witch) Unstoppable Hero
-Variant: (Witch) Conqueror
-Variant: (Witch) Worthy Foe
-Variant: (Witch) Inspirational
-Variant: (Witch) First to Strike, Last to Fall
-Variant: (Witch) Master of Metal
-Variant: (Witch) Righteous Providence
-Variant: (Witch) Inevitable Judgement
-Variant: (Witch) Augury of Penitence
-Variant: (Witch) Instruments of Virtue
-Variant: (Witch) Sanctuary
-Variant: (Witch) Pious Path
-Variant: (Witch) Instruments of Zeal
-Variant: (Witch) Instruments of Virtue
-Variant: (Witch) Divine Guidance
-Variant: (Witch) Sanctuary of Thought
-Variant: (Witch) Pursuit of Faith
-Variant: (Witch) Ritual of Awakening
-Variant: (Witch) Conviction of Power
-Variant: (Witch) Illuminated Devotion
-Variant: (Witch) Arcane Blessing
-Variant: (Witch) Sign of Purpose
-Variant: (Witch) Time of Need
-Variant: (Witch) Radiant Faith
-Variant: (Witch) Bastion of Hope
-Variant: (Witch) Prayer of Glory
-Variant: (Witch) Harmony of Purpose
-Variant: (Witch) Unwavering Faith
-Variant: (Witch) Radiant Crusade
-Variant: (Witch) Unwavering Crusade
-Variant: (Witch) Unstable Infusion
-Variant: (Witch) Deadly Infusion
-Variant: (Witch) Ambush and Assassinate
-Variant: (Witch) Opportunistic
-Variant: (Witch) Toxic Delivery
-Variant: (Witch) Noxious Strike
-Variant: (Witch) Mistwalker
-Variant: (Witch) Swift Killer
-Variant: (Witch) Polymath
-Variant: (Witch) Heartstopper
-Variant: (Witch) Escape Artist
-Variant: (Witch) Spellbreaker
-Variant: (Witch) One Step Ahead
-Variant: (Witch) Harness the Void
-Variant: (Witch) Pyromaniac
-Variant: (Witch) Born in the Shadows
-Variant: (Witch) Explosives Expert
-Variant: (Witch) Like Clockwork
-Variant: (Witch) Perfect Crime
-Variant: (Witch) Demolitions Specialist
-Variant: (Witch) Chain Reaction
-Variant: (Witch) Bomb Specialist
-Variant: (Witch) Juggernaut
-Variant: (Witch) Berserker
-Variant: (Witch) Chieftain
-Variant: (Witch) Raider
-Variant: (Witch) Deadeye
-Variant: (Witch) Pathfinder
-Variant: (Witch) Occultist
-Variant: (Witch) Elementalist
-Variant: (Witch) Necromancer
-Variant: (Witch) Slayer
-Variant: (Witch) Gladiator
-Variant: (Witch) Champion
-Variant: (Witch) Inquisitor
-Variant: (Witch) Hierophant
-Variant: (Witch) Guardian
-Variant: (Witch) Assassin
-Variant: (Witch) Trickster
-Variant: (Witch) Saboteur
+Variant: (Duelist) Headsman
+Variant: (Duelist) Overwhelm
+Variant: (Duelist) Bane of Legends
+Variant: (Duelist) Endless Hunger
+Variant: (Duelist) Brutal Fervour
+Variant: (Duelist) Impact
+Variant: (Duelist) Masterful Form
+Variant: (Duelist) Gratuitous Violence
+Variant: (Duelist) Blood in the Eyes
+Variant: (Duelist) Outmatch and Outlast
+Variant: (Duelist) Painforged
+Variant: (Duelist) Violent Retaliation
+Variant: (Duelist) Reigning Veteran
+Variant: (Duelist) Arena Challenger
+Variant: (Duelist) Fortitude
+Variant: (Duelist) Unstoppable Hero
+Variant: (Duelist) Conqueror
+Variant: (Duelist) Worthy Foe
+Variant: (Duelist) Inspirational
+Variant: (Duelist) First to Strike, Last to Fall
+Variant: (Duelist) Master of Metal
+Variant: (Templar) Righteous Providence
+Variant: (Templar) Inevitable Judgement
+Variant: (Templar) Augury of Penitence
+Variant: (Templar) Instruments of Virtue
+Variant: (Templar) Sanctuary
+Variant: (Templar) Pious Path
+Variant: (Templar) Instruments of Zeal
+Variant: (Templar) Instruments of Virtue
+Variant: (Templar) Divine Guidance
+Variant: (Templar) Sanctuary of Thought
+Variant: (Templar) Pursuit of Faith
+Variant: (Templar) Ritual of Awakening
+Variant: (Templar) Conviction of Power
+Variant: (Templar) Illuminated Devotion
+Variant: (Templar) Arcane Blessing
+Variant: (Templar) Sign of Purpose
+Variant: (Templar) Time of Need
+Variant: (Templar) Radiant Faith
+Variant: (Templar) Bastion of Hope
+Variant: (Templar) Prayer of Glory
+Variant: (Templar) Harmony of Purpose
+Variant: (Templar) Unwavering Faith
+Variant: (Templar) Radiant Crusade
+Variant: (Templar) Unwavering Crusade
+Variant: (Shadow) Unstable Infusion
+Variant: (Shadow) Deadly Infusion
+Variant: (Shadow) Ambush and Assassinate
+Variant: (Shadow) Opportunistic
+Variant: (Shadow) Toxic Delivery
+Variant: (Shadow) Noxious Strike
+Variant: (Shadow) Mistwalker
+Variant: (Shadow) Swift Killer
+Variant: (Shadow) Polymath
+Variant: (Shadow) Heartstopper
+Variant: (Shadow) Escape Artist
+Variant: (Shadow) Spellbreaker
+Variant: (Shadow) One Step Ahead
+Variant: (Shadow) Harness the Void
+Variant: (Shadow) Pyromaniac
+Variant: (Shadow) Born in the Shadows
+Variant: (Shadow) Explosives Expert
+Variant: (Shadow) Like Clockwork
+Variant: (Shadow) Perfect Crime
+Variant: (Shadow) Demolitions Specialist
+Variant: (Shadow) Chain Reaction
+Variant: (Shadow) Bomb Specialist
+Variant: (Scion) Juggernaut
+Variant: (Scion) Berserker
+Variant: (Scion) Chieftain
+Variant: (Scion) Raider
+Variant: (Scion) Deadeye
+Variant: (Scion) Pathfinder
+Variant: (Scion) Occultist
+Variant: (Scion) Elementalist
+Variant: (Scion) Necromancer
+Variant: (Scion) Slayer
+Variant: (Scion) Gladiator
+Variant: (Scion) Champion
+Variant: (Scion) Inquisitor
+Variant: (Scion) Hierophant
+Variant: (Scion) Guardian
+Variant: (Scion) Assassin
+Variant: (Scion) Trickster
+Variant: (Scion) Saboteur
 Variant: (Witch) Nine Lives
-Variant: (Witch) Searing Purity
-Variant: (Witch) Indomitable Resolve
-Variant: (Witch) Fatal Flourish
-Variant: (Witch) Fury of Nature
-Variant: (Witch) Soul Drinker
-Variant: (Witch) Unleashed Potential
+Variant: (Templar) Searing Purity
+Variant: (Marauder) Indomitable Resolve
+Variant: (Duelist) Fatal Flourish
+Variant: (Ranger) Fury of Nature
+Variant: (Shadow) Soul Drinker
+Variant: (Scion) Unleashed Potential
 Source: Drops from unique{The Eater of Worlds}
 Limited to: 1
 Item Level: 83
-{variant:1}Requires Class Witch
+{variant:1}Requires Class Marauder
 {variant:1}Allocates Unstoppable if you have the matching modifier on Forbidden Flame
-{variant:2}Requires Class Witch
+{variant:2}Requires Class Marauder
 {variant:2}Allocates Unbreakable if you have the matching modifier on Forbidden Flame
-{variant:3}Requires Class Witch
+{variant:3}Requires Class Marauder
 {variant:3}Allocates Unyielding if you have the matching modifier on Forbidden Flame
-{variant:4}Requires Class Witch
+{variant:4}Requires Class Marauder
 {variant:4}Allocates Undeniable if you have the matching modifier on Forbidden Flame
-{variant:5}Requires Class Witch
+{variant:5}Requires Class Marauder
 {variant:5}Allocates Unflinching if you have the matching modifier on Forbidden Flame
-{variant:6}Requires Class Witch
+{variant:6}Requires Class Marauder
 {variant:6}Allocates Unrelenting if you have the matching modifier on Forbidden Flame
-{variant:7}Requires Class Witch
+{variant:7}Requires Class Marauder
 {variant:7}Allocates Untiring if you have the matching modifier on Forbidden Flame
-{variant:8}Requires Class Witch
+{variant:8}Requires Class Marauder
 {variant:8}Allocates War Bringer if you have the matching modifier on Forbidden Flame
-{variant:9}Requires Class Witch
+{variant:9}Requires Class Marauder
 {variant:9}Allocates Rite of Ruin if you have the matching modifier on Forbidden Flame
-{variant:10}Requires Class Witch
+{variant:10}Requires Class Marauder
 {variant:10}Allocates Defy Pain if you have the matching modifier on Forbidden Flame
-{variant:11}Requires Class Witch
+{variant:11}Requires Class Marauder
 {variant:11}Allocates Flawless Savagery if you have the matching modifier on Forbidden Flame
-{variant:12}Requires Class Witch
+{variant:12}Requires Class Marauder
 {variant:12}Allocates Crave the Slaughter if you have the matching modifier on Forbidden Flame
-{variant:13}Requires Class Witch
+{variant:13}Requires Class Marauder
 {variant:13}Allocates Aspect of Carnage if you have the matching modifier on Forbidden Flame
-{variant:14}Requires Class Witch
+{variant:14}Requires Class Marauder
 {variant:14}Allocates Blitz if you have the matching modifier on Forbidden Flame
-{variant:15}Requires Class Witch
+{variant:15}Requires Class Marauder
 {variant:15}Allocates Arohongui, Moon's Presence if you have the matching modifier on Forbidden Flame
-{variant:16}Requires Class Witch
+{variant:16}Requires Class Marauder
 {variant:16}Allocates Ngamahu, Flame's Advance if you have the matching modifier on Forbidden Flame
-{variant:17}Requires Class Witch
+{variant:17}Requires Class Marauder
 {variant:17}Allocates Hinekora, Death's Fury if you have the matching modifier on Forbidden Flame
-{variant:18}Requires Class Witch
+{variant:18}Requires Class Marauder
 {variant:18}Allocates Tasalio, Cleansing Water if you have the matching modifier on Forbidden Flame
-{variant:19}Requires Class Witch
+{variant:19}Requires Class Marauder
 {variant:19}Allocates Tukohama, War's Herald if you have the matching modifier on Forbidden Flame
-{variant:20}Requires Class Witch
+{variant:20}Requires Class Marauder
 {variant:20}Allocates Tawhoa, Forest's Strength if you have the matching modifier on Forbidden Flame
-{variant:21}Requires Class Witch
+{variant:21}Requires Class Marauder
 {variant:21}Allocates Ramako, Sun's Light if you have the matching modifier on Forbidden Flame
-{variant:22}Requires Class Witch
+{variant:22}Requires Class Marauder
 {variant:22}Allocates Valako, Storm's Embrace if you have the matching modifier on Forbidden Flame
-{variant:23}Requires Class Witch
+{variant:23}Requires Class Ranger
 {variant:23}Allocates Way of the Poacher if you have the matching modifier on Forbidden Flame
-{variant:24}Requires Class Witch
+{variant:24}Requires Class Ranger
 {variant:24}Allocates Avatar of the Slaughter if you have the matching modifier on Forbidden Flame
-{variant:25}Requires Class Witch
+{variant:25}Requires Class Ranger
 {variant:25}Allocates Rapid Assault if you have the matching modifier on Forbidden Flame
-{variant:26}Requires Class Witch
+{variant:26}Requires Class Ranger
 {variant:26}Allocates Avatar of the Chase if you have the matching modifier on Forbidden Flame
-{variant:27}Requires Class Witch
+{variant:27}Requires Class Ranger
 {variant:27}Allocates Quartz Infusion if you have the matching modifier on Forbidden Flame
-{variant:28}Requires Class Witch
+{variant:28}Requires Class Ranger
 {variant:28}Allocates Avatar of the Veil if you have the matching modifier on Forbidden Flame
-{variant:29}Requires Class Witch
+{variant:29}Requires Class Ranger
 {variant:29}Allocates Focal Point if you have the matching modifier on Forbidden Flame
-{variant:30}Requires Class Witch
+{variant:30}Requires Class Ranger
 {variant:30}Allocates Ricochet if you have the matching modifier on Forbidden Flame
-{variant:31}Requires Class Witch
+{variant:31}Requires Class Ranger
 {variant:31}Allocates Endless Munitions if you have the matching modifier on Forbidden Flame
-{variant:32}Requires Class Witch
+{variant:32}Requires Class Ranger
 {variant:32}Allocates Far Shot if you have the matching modifier on Forbidden Flame
-{variant:33}Requires Class Witch
+{variant:33}Requires Class Ranger
 {variant:33}Allocates Rupturing if you have the matching modifier on Forbidden Flame
-{variant:34}Requires Class Witch
+{variant:34}Requires Class Ranger
 {variant:34}Allocates Powerful Precision if you have the matching modifier on Forbidden Flame
-{variant:35}Requires Class Witch
+{variant:35}Requires Class Ranger
 {variant:35}Allocates Gathering Winds if you have the matching modifier on Forbidden Flame
-{variant:36}Requires Class Witch
+{variant:36}Requires Class Ranger
 {variant:36}Allocates Occupying Force if you have the matching modifier on Forbidden Flame
-{variant:37}Requires Class Witch
+{variant:37}Requires Class Ranger
 {variant:37}Allocates Wind Ward if you have the matching modifier on Forbidden Flame
-{variant:38}Requires Class Witch
+{variant:38}Requires Class Ranger
 {variant:38}Allocates Nature's Adrenaline if you have the matching modifier on Forbidden Flame
-{variant:39}Requires Class Witch
+{variant:39}Requires Class Ranger
 {variant:39}Allocates Master Surgeon if you have the matching modifier on Forbidden Flame
-{variant:40}Requires Class Witch
+{variant:40}Requires Class Ranger
 {variant:40}Allocates Nature's Boon if you have the matching modifier on Forbidden Flame
-{variant:41}Requires Class Witch
+{variant:41}Requires Class Ranger
 {variant:41}Allocates Master Alchemist if you have the matching modifier on Forbidden Flame
-{variant:42}Requires Class Witch
+{variant:42}Requires Class Ranger
 {variant:42}Allocates Master Distiller if you have the matching modifier on Forbidden Flame
-{variant:43}Requires Class Witch
+{variant:43}Requires Class Ranger
 {variant:43}Allocates Nature's Reprisal if you have the matching modifier on Forbidden Flame
-{variant:44}Requires Class Witch
+{variant:44}Requires Class Ranger
 {variant:44}Allocates Master Toxicist if you have the matching modifier on Forbidden Flame
 {variant:45}Requires Class Witch
 {variant:45}Allocates Profane Bloom if you have the matching modifier on Forbidden Flame
@@ -4174,189 +4174,189 @@ Item Level: 83
 {variant:69}Allocates Plaguebringer if you have the matching modifier on Forbidden Flame
 {variant:70}Requires Class Witch
 {variant:70}Allocates Corpse Pact if you have the matching modifier on Forbidden Flame
-{variant:71}Requires Class Witch
+{variant:71}Requires Class Duelist
 {variant:71}Allocates Headsman if you have the matching modifier on Forbidden Flame
-{variant:72}Requires Class Witch
+{variant:72}Requires Class Duelist
 {variant:72}Allocates Overwhelm if you have the matching modifier on Forbidden Flame
-{variant:73}Requires Class Witch
+{variant:73}Requires Class Duelist
 {variant:73}Allocates Bane of Legends if you have the matching modifier on Forbidden Flame
-{variant:74}Requires Class Witch
+{variant:74}Requires Class Duelist
 {variant:74}Allocates Endless Hunger if you have the matching modifier on Forbidden Flame
-{variant:75}Requires Class Witch
+{variant:75}Requires Class Duelist
 {variant:75}Allocates Brutal Fervour if you have the matching modifier on Forbidden Flame
-{variant:76}Requires Class Witch
+{variant:76}Requires Class Duelist
 {variant:76}Allocates Impact if you have the matching modifier on Forbidden Flame
-{variant:77}Requires Class Witch
+{variant:77}Requires Class Duelist
 {variant:77}Allocates Masterful Form if you have the matching modifier on Forbidden Flame
-{variant:78}Requires Class Witch
+{variant:78}Requires Class Duelist
 {variant:78}Allocates Gratuitous Violence if you have the matching modifier on Forbidden Flame
-{variant:79}Requires Class Witch
+{variant:79}Requires Class Duelist
 {variant:79}Allocates Blood in the Eyes if you have the matching modifier on Forbidden Flame
-{variant:80}Requires Class Witch
+{variant:80}Requires Class Duelist
 {variant:80}Allocates Outmatch and Outlast if you have the matching modifier on Forbidden Flame
-{variant:81}Requires Class Witch
+{variant:81}Requires Class Duelist
 {variant:81}Allocates Painforged if you have the matching modifier on Forbidden Flame
-{variant:82}Requires Class Witch
+{variant:82}Requires Class Duelist
 {variant:82}Allocates Violent Retaliation if you have the matching modifier on Forbidden Flame
-{variant:83}Requires Class Witch
+{variant:83}Requires Class Duelist
 {variant:83}Allocates Reigning Veteran if you have the matching modifier on Forbidden Flame
-{variant:84}Requires Class Witch
+{variant:84}Requires Class Duelist
 {variant:84}Allocates Arena Challenger if you have the matching modifier on Forbidden Flame
-{variant:85}Requires Class Witch
+{variant:85}Requires Class Duelist
 {variant:85}Allocates Fortitude if you have the matching modifier on Forbidden Flame
-{variant:86}Requires Class Witch
+{variant:86}Requires Class Duelist
 {variant:86}Allocates Unstoppable Hero if you have the matching modifier on Forbidden Flame
-{variant:87}Requires Class Witch
+{variant:87}Requires Class Duelist
 {variant:87}Allocates Conqueror if you have the matching modifier on Forbidden Flame
-{variant:88}Requires Class Witch
+{variant:88}Requires Class Duelist
 {variant:88}Allocates Worthy Foe if you have the matching modifier on Forbidden Flame
-{variant:89}Requires Class Witch
+{variant:89}Requires Class Duelist
 {variant:89}Allocates Inspirational if you have the matching modifier on Forbidden Flame
-{variant:90}Requires Class Witch
+{variant:90}Requires Class Duelist
 {variant:90}Allocates First to Strike, Last to Fall if you have the matching modifier on Forbidden Flame
-{variant:91}Requires Class Witch
+{variant:91}Requires Class Duelist
 {variant:91}Allocates Master of Metal if you have the matching modifier on Forbidden Flame
-{variant:92}Requires Class Witch
+{variant:92}Requires Class Templar
 {variant:92}Allocates Righteous Providence if you have the matching modifier on Forbidden Flame
-{variant:93}Requires Class Witch
+{variant:93}Requires Class Templar
 {variant:93}Allocates Inevitable Judgement if you have the matching modifier on Forbidden Flame
-{variant:94}Requires Class Witch
+{variant:94}Requires Class Templar
 {variant:94}Allocates Augury of Penitence if you have the matching modifier on Forbidden Flame
-{variant:95}Requires Class Witch
+{variant:95}Requires Class Templar
 {variant:95}Allocates Instruments of Virtue if you have the matching modifier on Forbidden Flame
-{variant:96}Requires Class Witch
+{variant:96}Requires Class Templar
 {variant:96}Allocates Sanctuary if you have the matching modifier on Forbidden Flame
-{variant:97}Requires Class Witch
+{variant:97}Requires Class Templar
 {variant:97}Allocates Pious Path if you have the matching modifier on Forbidden Flame
-{variant:98}Requires Class Witch
+{variant:98}Requires Class Templar
 {variant:98}Allocates Instruments of Zeal if you have the matching modifier on Forbidden Flame
-{variant:99}Requires Class Witch
+{variant:99}Requires Class Templar
 {variant:99}Allocates Instruments of Virtue if you have the matching modifier on Forbidden Flame
-{variant:100}Requires Class Witch
+{variant:100}Requires Class Templar
 {variant:100}Allocates Divine Guidance if you have the matching modifier on Forbidden Flame
-{variant:101}Requires Class Witch
+{variant:101}Requires Class Templar
 {variant:101}Allocates Sanctuary of Thought if you have the matching modifier on Forbidden Flame
-{variant:102}Requires Class Witch
+{variant:102}Requires Class Templar
 {variant:102}Allocates Pursuit of Faith if you have the matching modifier on Forbidden Flame
-{variant:103}Requires Class Witch
+{variant:103}Requires Class Templar
 {variant:103}Allocates Ritual of Awakening if you have the matching modifier on Forbidden Flame
-{variant:104}Requires Class Witch
+{variant:104}Requires Class Templar
 {variant:104}Allocates Conviction of Power if you have the matching modifier on Forbidden Flame
-{variant:105}Requires Class Witch
+{variant:105}Requires Class Templar
 {variant:105}Allocates Illuminated Devotion if you have the matching modifier on Forbidden Flame
-{variant:106}Requires Class Witch
+{variant:106}Requires Class Templar
 {variant:106}Allocates Arcane Blessing if you have the matching modifier on Forbidden Flame
-{variant:107}Requires Class Witch
+{variant:107}Requires Class Templar
 {variant:107}Allocates Sign of Purpose if you have the matching modifier on Forbidden Flame
-{variant:108}Requires Class Witch
+{variant:108}Requires Class Templar
 {variant:108}Allocates Time of Need if you have the matching modifier on Forbidden Flame
-{variant:109}Requires Class Witch
+{variant:109}Requires Class Templar
 {variant:109}Allocates Radiant Faith if you have the matching modifier on Forbidden Flame
-{variant:110}Requires Class Witch
+{variant:110}Requires Class Templar
 {variant:110}Allocates Bastion of Hope if you have the matching modifier on Forbidden Flame
-{variant:111}Requires Class Witch
+{variant:111}Requires Class Templar
 {variant:111}Allocates Prayer of Glory if you have the matching modifier on Forbidden Flame
-{variant:112}Requires Class Witch
+{variant:112}Requires Class Templar
 {variant:112}Allocates Harmony of Purpose if you have the matching modifier on Forbidden Flame
-{variant:113}Requires Class Witch
+{variant:113}Requires Class Templar
 {variant:113}Allocates Unwavering Faith if you have the matching modifier on Forbidden Flame
-{variant:114}Requires Class Witch
+{variant:114}Requires Class Templar
 {variant:114}Allocates Radiant Crusade if you have the matching modifier on Forbidden Flame
-{variant:115}Requires Class Witch
+{variant:115}Requires Class Templar
 {variant:115}Allocates Unwavering Crusade if you have the matching modifier on Forbidden Flame
-{variant:116}Requires Class Witch
+{variant:116}Requires Class Shadow
 {variant:116}Allocates Unstable Infusion if you have the matching modifier on Forbidden Flame
-{variant:117}Requires Class Witch
+{variant:117}Requires Class Shadow
 {variant:117}Allocates Deadly Infusion if you have the matching modifier on Forbidden Flame
-{variant:118}Requires Class Witch
+{variant:118}Requires Class Shadow
 {variant:118}Allocates Ambush and Assassinate if you have the matching modifier on Forbidden Flame
-{variant:119}Requires Class Witch
+{variant:119}Requires Class Shadow
 {variant:119}Allocates Opportunistic if you have the matching modifier on Forbidden Flame
-{variant:120}Requires Class Witch
+{variant:120}Requires Class Shadow
 {variant:120}Allocates Toxic Delivery if you have the matching modifier on Forbidden Flame
-{variant:121}Requires Class Witch
+{variant:121}Requires Class Shadow
 {variant:121}Allocates Noxious Strike if you have the matching modifier on Forbidden Flame
-{variant:122}Requires Class Witch
+{variant:122}Requires Class Shadow
 {variant:122}Allocates Mistwalker if you have the matching modifier on Forbidden Flame
-{variant:123}Requires Class Witch
+{variant:123}Requires Class Shadow
 {variant:123}Allocates Swift Killer if you have the matching modifier on Forbidden Flame
-{variant:124}Requires Class Witch
+{variant:124}Requires Class Shadow
 {variant:124}Allocates Polymath if you have the matching modifier on Forbidden Flame
-{variant:125}Requires Class Witch
+{variant:125}Requires Class Shadow
 {variant:125}Allocates Heartstopper if you have the matching modifier on Forbidden Flame
-{variant:126}Requires Class Witch
+{variant:126}Requires Class Shadow
 {variant:126}Allocates Escape Artist if you have the matching modifier on Forbidden Flame
-{variant:127}Requires Class Witch
+{variant:127}Requires Class Shadow
 {variant:127}Allocates Spellbreaker if you have the matching modifier on Forbidden Flame
-{variant:128}Requires Class Witch
+{variant:128}Requires Class Shadow
 {variant:128}Allocates One Step Ahead if you have the matching modifier on Forbidden Flame
-{variant:129}Requires Class Witch
+{variant:129}Requires Class Shadow
 {variant:129}Allocates Harness the Void if you have the matching modifier on Forbidden Flame
-{variant:130}Requires Class Witch
+{variant:130}Requires Class Shadow
 {variant:130}Allocates Pyromaniac if you have the matching modifier on Forbidden Flame
-{variant:131}Requires Class Witch
+{variant:131}Requires Class Shadow
 {variant:131}Allocates Born in the Shadows if you have the matching modifier on Forbidden Flame
-{variant:132}Requires Class Witch
+{variant:132}Requires Class Shadow
 {variant:132}Allocates Explosives Expert if you have the matching modifier on Forbidden Flame
-{variant:133}Requires Class Witch
+{variant:133}Requires Class Shadow
 {variant:133}Allocates Like Clockwork if you have the matching modifier on Forbidden Flame
-{variant:134}Requires Class Witch
+{variant:134}Requires Class Shadow
 {variant:134}Allocates Perfect Crime if you have the matching modifier on Forbidden Flame
-{variant:135}Requires Class Witch
+{variant:135}Requires Class Shadow
 {variant:135}Allocates Demolitions Specialist if you have the matching modifier on Forbidden Flame
-{variant:136}Requires Class Witch
+{variant:136}Requires Class Shadow
 {variant:136}Allocates Chain Reaction if you have the matching modifier on Forbidden Flame
-{variant:137}Requires Class Witch
+{variant:137}Requires Class Shadow
 {variant:137}Allocates Bomb Specialist if you have the matching modifier on Forbidden Flame
-{variant:138}Requires Class Witch
+{variant:138}Requires Class Scion
 {variant:138}Allocates Juggernaut if you have the matching modifier on Forbidden Flame
-{variant:139}Requires Class Witch
+{variant:139}Requires Class Scion
 {variant:139}Allocates Berserker if you have the matching modifier on Forbidden Flame
-{variant:140}Requires Class Witch
+{variant:140}Requires Class Scion
 {variant:140}Allocates Chieftain if you have the matching modifier on Forbidden Flame
-{variant:141}Requires Class Witch
+{variant:141}Requires Class Scion
 {variant:141}Allocates Raider if you have the matching modifier on Forbidden Flame
-{variant:142}Requires Class Witch
+{variant:142}Requires Class Scion
 {variant:142}Allocates Deadeye if you have the matching modifier on Forbidden Flame
-{variant:143}Requires Class Witch
+{variant:143}Requires Class Scion
 {variant:143}Allocates Pathfinder if you have the matching modifier on Forbidden Flame
-{variant:144}Requires Class Witch
+{variant:144}Requires Class Scion
 {variant:144}Allocates Occultist if you have the matching modifier on Forbidden Flame
-{variant:145}Requires Class Witch
+{variant:145}Requires Class Scion
 {variant:145}Allocates Elementalist if you have the matching modifier on Forbidden Flame
-{variant:146}Requires Class Witch
+{variant:146}Requires Class Scion
 {variant:146}Allocates Necromancer if you have the matching modifier on Forbidden Flame
-{variant:147}Requires Class Witch
+{variant:147}Requires Class Scion
 {variant:147}Allocates Slayer if you have the matching modifier on Forbidden Flame
-{variant:148}Requires Class Witch
+{variant:148}Requires Class Scion
 {variant:148}Allocates Gladiator if you have the matching modifier on Forbidden Flame
-{variant:149}Requires Class Witch
+{variant:149}Requires Class Scion
 {variant:149}Allocates Champion if you have the matching modifier on Forbidden Flame
-{variant:150}Requires Class Witch
+{variant:150}Requires Class Scion
 {variant:150}Allocates Inquisitor if you have the matching modifier on Forbidden Flame
-{variant:151}Requires Class Witch
+{variant:151}Requires Class Scion
 {variant:151}Allocates Hierophant if you have the matching modifier on Forbidden Flame
-{variant:152}Requires Class Witch
+{variant:152}Requires Class Scion
 {variant:152}Allocates Guardian if you have the matching modifier on Forbidden Flame
-{variant:153}Requires Class Witch
+{variant:153}Requires Class Scion
 {variant:153}Allocates Assassin if you have the matching modifier on Forbidden Flame
-{variant:154}Requires Class Witch
+{variant:154}Requires Class Scion
 {variant:154}Allocates Trickster if you have the matching modifier on Forbidden Flame
-{variant:155}Requires Class Witch
+{variant:155}Requires Class Scion
 {variant:155}Allocates Saboteur if you have the matching modifier on Forbidden Flame
 {variant:156}Requires Class Witch
 {variant:156}Allocates Nine Lives if you have the matching modifier on Forbidden Flame
-{variant:157}Requires Class Witch
+{variant:157}Requires Class Templar
 {variant:157}Allocates Searing Purity if you have the matching modifier on Forbidden Flame
-{variant:158}Requires Class Witch
+{variant:158}Requires Class Marauder
 {variant:158}Allocates Indomitable Resolve if you have the matching modifier on Forbidden Flame
-{variant:159}Requires Class Witch
+{variant:159}Requires Class Duelist
 {variant:159}Allocates Fatal Flourish if you have the matching modifier on Forbidden Flame
-{variant:160}Requires Class Witch
+{variant:160}Requires Class Ranger
 {variant:160}Allocates Fury of Nature if you have the matching modifier on Forbidden Flame
-{variant:161}Requires Class Witch
+{variant:161}Requires Class Shadow
 {variant:161}Allocates Soul Drinker if you have the matching modifier on Forbidden Flame
-{variant:162}Requires Class Witch
+{variant:162}Requires Class Scion
 {variant:162}Allocates Unleashed Potential if you have the matching modifier on Forbidden Flame
 Corrupted]],
 [[
