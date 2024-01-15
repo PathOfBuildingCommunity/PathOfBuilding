@@ -426,7 +426,7 @@ function calcs.offence(env, actor, activeSkill)
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
 	end
-	skillCfg.skillCond["SkillIsFocused"] = skillData.triggeredByFocus
+	skillCfg.skillCond["SkillIsFocused"] = skillData.chanceToTriggerOnFocus
 	if skillCfg.skillCond["SkillIsFocused"] then
 		skillFlags.focused = true
 	end
@@ -1248,7 +1248,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TotemArmour = breakdown.mod(skillModList, skillCfg, "TotemArmour")
 		end
 	end
-	if skillCfg.skillName and skillCfg.skillName:match("Brand") then
+	if skillFlags.brand then
 		output.BrandAttachmentRange = data.misc.BrandAttachmentRangeBase * calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.BrandAttachmentRangeMetre = output.BrandAttachmentRange / 10
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
@@ -1590,8 +1590,10 @@ function calcs.offence(env, actor, activeSkill)
 				if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
 					val.baseCost = val.baseCost + costs.Soul.baseCost
 					val.baseCostNoMult = val.baseCostNoMult + costs.Soul.baseCostNoMult
+					val.finalBaseCost = val.finalBaseCost + costs.Soul.finalBaseCost
 					costs.Soul.baseCost = 0
 					costs.Soul.baseCostNoMult = 0
+					costs.Soul.finalBaseCost = 0
 				end
 			end
 		end
@@ -1752,6 +1754,7 @@ function calcs.offence(env, actor, activeSkill)
 	if isAttack then
 		output.MainHand = { }
 		output.OffHand = { }
+		output.PreciseTechnique = env.keystonesAdded["Precise Technique"]
 		local critOverride = skillModList:Override(skillCfg, "WeaponBaseCritChance")
 		if skillFlags.weapon1Attack then
 			if breakdown then
@@ -2171,7 +2174,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitTime = skillData.hitTimeOverride
 			output.HitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
-			if skillCfg.skillName and skillCfg.skillName:match("Brand") and not skillModList:Flag(nil, "UnlimitedBrandDuration") then
+			if skillFlags.brand and not skillModList:Flag(nil, "UnlimitedBrandDuration") then
 				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
@@ -2588,10 +2591,16 @@ function calcs.offence(env, actor, activeSkill)
 		output.FistOfWarHitEffect = 1
 		output.FistOfWarAilmentEffect = 1
 		if env.mode_combat then
+			local ruthlessEffect = env.configInput.ruthlessSupportMode or "AVERAGE"
 			-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
 			output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
-			if output.RuthlessBlowMaxCount > 0 then
-				output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
+			if output.RuthlessBlowMaxCount > 0 and ( not skillCfg.skillCond["usedByMirage"] or (skillData.mirageUses or 0) > output.RuthlessBlowMaxCount ) then
+				if ruthlessEffect == "AVERAGE" then
+					output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
+				elseif ruthlessEffect == "MAX" then
+					output.RuthlessBlowChance = 100
+					skillData.dpsMultiplier = skillData.dpsMultiplier / (output.RuthlessBlowMaxCount or 1)
+				end
 			else
 				output.RuthlessBlowChance = 0
 			end

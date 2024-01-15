@@ -8,6 +8,7 @@ local minions, mod = ...
 
 minions["RaisedZombie"] = {
 	name = "Raised Zombie",
+	monsterCategory = "Undead",
 	life = 3.75,
 	armour = 0.7,
 	fireResist = 40,
@@ -27,12 +28,13 @@ minions["RaisedZombie"] = {
 	},
 	modList = {
 		mod("Armour", "INC", 40, 0, 0), -- MonsterImplicitDamageReduction1 [physical_damage_reduction_rating_+% = 40]
-		-- RaiseZombieStunThreshold [stun_threshold_+% = 30]
+		mod("StunThreshold", "INC", 30, 0, 0), -- RaiseZombieStunThreshold [stun_threshold_+% = 30]
 	},
 }
 
 minions["SummonedChaosGolem"] = {
 	name = "Chaos Golem",
+	monsterCategory = "Construct",
 	life = 6.9,
 	energyShield = 0.2,
 	fireResist = 40,
@@ -59,6 +61,7 @@ minions["SummonedChaosGolem"] = {
 
 minions["SummonedFlameGolem"] = {
 	name = "Flame Golem",
+	monsterCategory = "Construct",
 	life = 5.82,
 	energyShield = 0.4,
 	fireResist = 70,
@@ -87,6 +90,7 @@ minions["SummonedFlameGolem"] = {
 
 minions["SummonedIceGolem"] = {
 	name = "Ice Golem",
+	monsterCategory = "Construct",
 	life = 5.82,
 	energyShield = 0.4,
 	fireResist = 40,
@@ -114,6 +118,7 @@ minions["SummonedIceGolem"] = {
 
 minions["SummonedLightningGolem"] = {
 	name = "Lightning Golem",
+	monsterCategory = "Construct",
 	life = 5.82,
 	energyShield = 0.2,
 	fireResist = 40,
@@ -141,6 +146,7 @@ minions["SummonedLightningGolem"] = {
 
 minions["SummonedStoneGolem"] = {
 	name = "Stone Golem",
+	monsterCategory = "Construct",
 	life = 7.25,
 	armour = 0.6,
 	fireResist = 40,
@@ -166,6 +172,7 @@ minions["SummonedStoneGolem"] = {
 
 minions["SummonedRagingSpirit"] = {
 	name = "Raging Spirit",
+	monsterCategory = "Construct",
 	life = 2.16,
 	fireResist = 40,
 	coldResist = 40,
@@ -191,6 +198,7 @@ minions["SummonedRagingSpirit"] = {
 
 minions["SummonedEssenceSpirit"] = {
 	name = "Essence Spirit",
+	monsterCategory = "Construct",
 	life = 2.25,
 	fireResist = 40,
 	coldResist = 40,
@@ -213,6 +221,7 @@ minions["SummonedEssenceSpirit"] = {
 
 minions["SummonedSpectralWolf"] = {
 	name = "Spectral Wolf Companion",
+	monsterCategory = "Beast",
 	life = 4.5,
 	fireResist = 40,
 	coldResist = 40,
@@ -234,6 +243,7 @@ minions["SummonedSpectralWolf"] = {
 
 minions["RaisedSkeleton"] = {
 	name = "Summoned Skeleton",
+	monsterCategory = "Humanoid",
 	life = 1.05,
 	fireResist = 40,
 	coldResist = 40,
@@ -253,13 +263,14 @@ minions["RaisedSkeleton"] = {
 	},
 	modList = {
 		mod("BlockChance", "BASE", 30, 0, 0), -- MonsterAttackBlock30Bypass15 [monster_base_block_% = 30]
-		-- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
+		mod("BlockEffect", "BASE", 15, 0, 0), -- MonsterAttackBlock30Bypass15 [base_block_%_damage_taken = 15]
 		-- SummonSkeletonsSkeletonIsWarrior [summoned_skeleton_is_warrior = 1]
 	},
 }
 
 minions["RaisedSkeletonCaster"] = {
 	name = "Summoned Skeleton Caster",
+	monsterCategory = "Humanoid",
 	life = 1.05,
 	energyShield = 0.4,
 	fireResist = 40,
@@ -284,6 +295,7 @@ minions["RaisedSkeletonCaster"] = {
 
 minions["RaisedSkeletonArcher"] = {
 	name = "Summoned Skeleton Archer",
+	monsterCategory = "Humanoid",
 	life = 1.05,
 	fireResist = 40,
 	coldResist = 40,
@@ -305,6 +317,7 @@ minions["RaisedSkeletonArcher"] = {
 
 minions["Clone"] = {
 	name = "Clone",
+	monsterCategory = "Construct",
 	life = 1,
 	fireResist = 40,
 	coldResist = 40,
@@ -325,6 +338,7 @@ minions["Clone"] = {
 
 minions["ArrowClone"] = {
 	name = "Clone",
+	monsterCategory = "Construct",
 	life = 1.5,
 	fireResist = 40,
 	coldResist = 40,
@@ -345,6 +359,7 @@ minions["ArrowClone"] = {
 
 minions["SpiderMinion"] = {
 	name = "Spider Minion",
+	monsterCategory = "Beast",
 	life = 1.8,
 	fireResist = 40,
 	coldResist = 40,
@@ -368,6 +383,7 @@ minions["SpiderMinion"] = {
 
 minions["AnimatedWeapon"] = {
 	name = "Animated Weapon",
+	monsterCategory = "Construct",
 	life = 4,
 	fireResist = 40,
 	coldResist = 40,
@@ -388,6 +404,7 @@ minions["AnimatedWeapon"] = {
 
 minions["AnimatedArmour"] = {
 	name = "Animated Guardian",
+	monsterCategory = "Construct",
 	life = 5,
 	armour = 0.5,
 	fireResist = 40,
@@ -412,6 +429,7 @@ minions["AnimatedArmour"] = {
 
 minions["IcyRagingSpirit"] = {
 	name = "Grave Spirit",
+	monsterCategory = "Construct",
 	life = 3.75,
 	fireResist = 40,
 	coldResist = 40,
@@ -434,6 +452,7 @@ minions["IcyRagingSpirit"] = {
 
 minions["UniqueAnimatedWeapon"] = {
 	name = "Dancing Dervish",
+	monsterCategory = "Construct",
 	life = 5,
 	fireResist = 40,
 	coldResist = 40,
@@ -454,6 +473,7 @@ minions["UniqueAnimatedWeapon"] = {
 
 minions["SummonedPhantasm"] = {
 	name = "Summoned Phantasm",
+	monsterCategory = "Undead",
 	life = 1.58,
 	energyShield = 0.2,
 	fireResist = 40,
@@ -477,6 +497,7 @@ minions["SummonedPhantasm"] = {
 
 minions["HeraldOfAgonySpiderPlated"] = {
 	name = "Agony Crawler",
+	monsterCategory = "Beast",
 	life = 1.5,
 	fireResist = 0,
 	coldResist = 0,
@@ -503,6 +524,7 @@ minions["HeraldOfAgonySpiderPlated"] = {
 
 minions["AxisEliteSoldierHeraldOfLight"] = {
 	name = "Sentinel of Purity",
+	monsterCategory = "Humanoid",
 	life = 3.4,
 	armour = 0.5,
 	fireResist = 40,
@@ -528,6 +550,7 @@ minions["AxisEliteSoldierHeraldOfLight"] = {
 
 minions["HolyLivingRelic"] = {
 	name = "Holy Relic",
+	monsterCategory = "Construct",
 	life = 6,
 	energyShield = 0.6,
 	fireResist = 40,
@@ -551,6 +574,7 @@ minions["HolyLivingRelic"] = {
 
 minions["AxisEliteSoldierDominatingBlow"] = {
 	name = "Sentinel of Dominance",
+	monsterCategory = "Humanoid",
 	life = 4,
 	armour = 0.5,
 	fireResist = 40,
@@ -572,12 +596,13 @@ minions["AxisEliteSoldierDominatingBlow"] = {
 	modList = {
 		-- MonsterCastsShieldChargeText [monster_casts_shield_charge_text = 1]
 		mod("BlockChance", "BASE", 40, 0, 0), -- MonsterAttackBlock40Bypass20 [monster_base_block_% = 40]
-		-- MonsterAttackBlock40Bypass20 [base_block_%_damage_taken = 20]
+		mod("BlockEffect", "BASE", 20, 0, 0), -- MonsterAttackBlock40Bypass20 [base_block_%_damage_taken = 20]
 	},
 }
 
 minions["AxisEliteSoldierDominatingBlowVaal"] = {
 	name = "Ascended Sentinel of Dominance",
+	monsterCategory = "Humanoid",
 	life = 4,
 	armour = 0.5,
 	fireResist = 40,
@@ -605,6 +630,7 @@ minions["AxisEliteSoldierDominatingBlowVaal"] = {
 
 minions["AbsolutionTemplarJudge"] = {
 	name = "Sentinel of Absolution",
+	monsterCategory = "Humanoid",
 	life = 4,
 	energyShield = 0.2,
 	armour = 0.5,
@@ -629,6 +655,7 @@ minions["AbsolutionTemplarJudge"] = {
 
 minions["AbsolutionTemplarJudgeVaal"] = {
 	name = "Ascended Sentinel of Absolution",
+	monsterCategory = "Humanoid",
 	life = 4,
 	energyShield = 0.2,
 	armour = 0.5,
@@ -656,6 +683,7 @@ minions["AbsolutionTemplarJudgeVaal"] = {
 
 minions["RhoaUniqueSummoned"] = {
 	name = "Summoned Rhoa",
+	monsterCategory = "Beast",
 	life = 9,
 	armour = 0.2,
 	fireResist = 40,
@@ -681,6 +709,7 @@ minions["RhoaUniqueSummoned"] = {
 
 minions["SnakeSpitUniqueSummoned"] = {
 	name = "Summoned Cobra",
+	monsterCategory = "Beast",
 	life = 9,
 	armour = 0.15,
 	fireResist = 40,
@@ -704,6 +733,7 @@ minions["SnakeSpitUniqueSummoned"] = {
 
 minions["DropBearUniqueSummoned"] = {
 	name = "Summoned Ursa",
+	monsterCategory = "Beast",
 	life = 9,
 	armour = 0.5,
 	fireResist = 40,
@@ -729,6 +759,7 @@ minions["DropBearUniqueSummoned"] = {
 
 minions["SummonedCarrionGolem"] = {
 	name = "Carrion Golem",
+	monsterCategory = "Construct",
 	life = 5.82,
 	energyShield = 0.4,
 	fireResist = 40,
@@ -756,6 +787,7 @@ minions["SummonedCarrionGolem"] = {
 
 minions["SkitterbotCold"] = {
 	name = "Chilling Skitterbot",
+	monsterCategory = "Construct",
 	life = 1,
 	fireResist = 0,
 	coldResist = 0,
@@ -777,6 +809,7 @@ minions["SkitterbotCold"] = {
 
 minions["SkitterbotLightning"] = {
 	name = "Shocking Skitterbot",
+	monsterCategory = "Construct",
 	life = 1,
 	fireResist = 0,
 	coldResist = 0,
@@ -798,6 +831,7 @@ minions["SkitterbotLightning"] = {
 
 minions["SummonedReaper"] = {
 	name = "Reaper",
+	monsterCategory = "Undead",
 	life = 3.74,
 	armour = 1,
 	fireResist = 40,
@@ -833,6 +867,7 @@ minions["SummonedReaper"] = {
 
 minions["SummonedArbalists"] = {
 	name = "Summoned Arbalist",
+	monsterCategory = "Undead",
 	life = 7.41,
 	fireResist = 40,
 	coldResist = 40,
@@ -854,6 +889,7 @@ minions["SummonedArbalists"] = {
 
 minions["GuardianSentinel"] = {
 	name = "Sentinel of Radiance",
+	monsterCategory = "Humanoid",
 	life = 12,
 	armour = 0.5,
 	fireResist = 40,
@@ -900,6 +936,7 @@ minions["GuardianRelicAll"] = {
 
 minions["GuardianRelicFire"] = {
 	name = "Fire Relic",
+	monsterCategory = "Construct",
 	life = 4,
 	energyShield = 0.6,
 	fireResist = 40,
@@ -922,6 +959,7 @@ minions["GuardianRelicFire"] = {
 
 minions["GuardianRelicCold"] = {
 	name = "Cold Relic",
+	monsterCategory = "Construct",
 	life = 4,
 	energyShield = 0.6,
 	fireResist = 40,
@@ -944,6 +982,7 @@ minions["GuardianRelicCold"] = {
 
 minions["GuardianRelicLightning"] = {
 	name = "Lightning Relic",
+	monsterCategory = "Construct",
 	life = 4,
 	energyShield = 0.6,
 	fireResist = 40,

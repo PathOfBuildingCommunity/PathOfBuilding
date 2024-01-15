@@ -367,12 +367,14 @@ Highest Weight - Displays the order retrieved from trade]]
 				end
 				local sorted_leagues = { }
 				for _, league in ipairs(leagues) do
-					if league ~= "Standard" and league ~= "Hardcore" then
+					if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
 						t_insert(sorted_leagues, league)
 					end
 				end
 				t_insert(sorted_leagues, "Standard")
 				t_insert(sorted_leagues, "Hardcore")
+				t_insert(sorted_leagues, "Ruthless")
+				t_insert(sorted_leagues, "Hardcore Ruthless")
 				self.allLeagues[self.pbRealm] = sorted_leagues
 				setLeagueDropList()
 			end)

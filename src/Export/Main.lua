@@ -172,7 +172,10 @@ function main:Init()
 			self:LoadDatFiles()
 		end
 	end, nil)
-	self.controls.datSource:SelByValue(self.datSource.label, "label")
+
+	if self.datSource and self.datSource.label then
+		self.controls.datSource:SelByValue(self.datSource.label, "label")
+	end
 
 	self.controls.scripts = new("ButtonControl", nil, 160, 30, 100, 18, "Scripts >>", function()
 		self:SetCurrentDat()

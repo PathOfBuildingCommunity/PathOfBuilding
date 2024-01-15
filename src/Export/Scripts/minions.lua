@@ -59,6 +59,24 @@ local itemClassMap = {
 
 local directiveTable = { }
 
+-- #buildMonsterCategory
+directiveTable.buildMonsterCategory = function(state, args, out)
+	-- this only run once
+	if state.monsterCategoryDict then
+		return
+	end
+
+	local monsterCategoryTags = dat("corpsetypetags")
+	state.monsterCategoryDict = { }
+	local tagIndex = monsterCategoryTags.colMap["Tag"]
+	local nameIndex = monsterCategoryTags.colMap["Name"]
+	for i=1, monsterCategoryTags.rowCount do
+		local tagString = monsterCategoryTags:ReadCellText(i, tagIndex)
+		local nameString = monsterCategoryTags:ReadCellText(i, nameIndex)
+		state.monsterCategoryDict[tagString] = nameString
+	end
+end
+
 -- #monster <MonsterId> [<Name>] [<ExtraSkills>]
 directiveTable.monster = function(state, args, out)
 	state.varietyId = nil
@@ -100,6 +118,9 @@ end
 
 -- #emit
 directiveTable.emit = function(state, args, out)
+	-- this only run once internally
+	directiveTable.buildMonsterCategory(state, args, out)
+
 	local monsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
 	if not monsterVariety then
 		print("Invalid Variety: "..state.varietyId)
@@ -107,6 +128,15 @@ directiveTable.emit = function(state, args, out)
 	end
 	out:write('minions["', state.name, '"] = {\n')
 	out:write('\tname = "', monsterVariety.Name, '",\n')
+	if state.monsterCategoryDict then
+		-- identify the monster category base on tags and corpsetypetags.dat
+		for _, tag in ipairs(monsterVariety.Tags) do
+			if state.monsterCategoryDict[tag.Id] then
+				out:write('\tmonsterCategory = "', state.monsterCategoryDict[tag.Id], '",\n')
+				break
+			end
+		end
+	end
 	out:write('\tlife = ', (monsterVariety.LifeMultiplier/100), ',\n')
 	if monsterVariety.Type.EnergyShield ~= 0 then
 		out:write('\tenergyShield = ', (0.4 * monsterVariety.Type.EnergyShield / 100), ',\n')
@@ -149,6 +179,7 @@ directiveTable.emit = function(state, args, out)
 		out:write('\t\t"', skill, '",\n')
 	end
 	out:write('\t},\n')
+
 	local modList = { }
 	for _, mod in ipairs(monsterVariety.Mods) do
 		table.insert(modList, mod)

@@ -228,3 +228,19 @@ local minions, mod = ...
 #spectre Metadata/Monsters/LeagueDelve/GhostEncounter/Wraith # DelveMonsterEnfeebleOnHit
 -- Forged Frostbearer
 #spectre Metadata/Monsters/LeagueCrucible/Cold/Pyromaniac
+-- Hulking Miscreation
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusLow
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 5, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }) })
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusMid
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 5, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }) })
+#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterCategory", monsterCategory = "Construct" })})
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterCategory", monsterCategory = "Construct" })})
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/RobotArgusHigh__
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 5, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }) })
+#mod mod("MinionModifier", "LIST", { mod = mod("Speed", "INC", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterCategory", monsterCategory = "Construct" })})
+#mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 100, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true }, { type = "MonsterCategory", monsterCategory = "Construct" })})
+#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })})
+#mod mod("MinionModifier", "LIST", { mod = mod("PhysicalDamageGainAsLightning", "BASE", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HulkingMiscreation", unscaleable = true })})
+#emit

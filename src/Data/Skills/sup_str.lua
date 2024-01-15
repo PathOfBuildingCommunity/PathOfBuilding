@@ -2131,6 +2131,7 @@ skills["SupportFlamewood"] = {
 }
 skills["AvengingFlame"] = {
 	name = "Avenging Flame",
+	baseTypeName = "Avenging Flame",
 	color = 1,
 	description = "Launches a fiery projectile high into the air, to drop on a target and deal area damage where it lands.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SummonsTotem] = true, },
@@ -4146,6 +4147,7 @@ skills["SupportBluntWeapon"] = {
 }
 skills["SupportBluntWeaponShockwave"] = {
 	name = "Shockwave",
+	baseTypeName = "Shockwave",
 	color = 1,
 	description = "Deals attack damage in an area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, [SkillType.SkillGrantedBySupport] = true, },
@@ -4383,9 +4385,6 @@ skills["SupportTrauma"] = {
 		},
 		["attack_maximum_added_physical_damage_with_weapons_per_trauma"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
-		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
 		["support_trauma_stun_duration_+%_per_trauma"] = {
 			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),

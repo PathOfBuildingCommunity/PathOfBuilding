@@ -833,7 +833,7 @@ local function doActorCharges(env, actor)
 	if modDB:Flag(nil, "UseBlitzCharges") then
 		output.BlitzCharges = modDB:Override(nil, "BlitzCharges") or output.BlitzChargesMax
 	end
-	if not env.player.mainSkill.minion then 
+	if actor == env.player then
 		output.InspirationCharges = modDB:Override(nil, "InspirationCharges") or output.InspirationChargesMax
 	end 
 	if modDB:Flag(nil, "UseGhostShrouds") then
@@ -1752,6 +1752,20 @@ function calcs.perform(env, fullDPSSkipEHP)
 			if modData.name == "EnemyCurseLimit" then
 				minionCurses.limit = modData.value + 1
 				break
+			elseif modData.name == "MinionModifier" and modData.type == "LIST" then
+				minionBuffs["Spectre"] = minionBuffs["Spectre"] or new("ModList")
+				for _, modValue in pairs(modData.value) do
+					local copyModValue = copyTable(modValue)
+					copyModValue.source = "Spectre:"..spectreData.name
+					t_insert(minionBuffs["Spectre"], copyModValue)
+				end
+			elseif modData.name == "PlayerModifier" and modData.type == "LIST" then
+				buffs["Spectre"] = buffs["Spectre"] or new("ModList")
+				for _, modValue in pairs(modData.value) do
+					local copyModValue = copyTable(modValue)
+					copyModValue.source = "Spectre:"..spectreData.name
+					t_insert(buffs["Spectre"], copyModValue)
+				end
 			end
 		end
 	end
@@ -2679,28 +2693,30 @@ function calcs.perform(env, fullDPSSkipEHP)
 	end
 
 	for _, activeSkill in ipairs(env.player.activeSkillList) do -- Do another pass on the SkillList to catch effects of buffs, if needed
-		if (activeSkill.activeEffect.grantedEffect.name == "Blight" or activeSkill.activeEffect.grantedEffect.name == "Blight of Contagion" or activeSkill.activeEffect.grantedEffect.name == "Blight of Atrophy") and activeSkill.skillPart == 2 then
-			local rate = (1 / activeSkill.activeEffect.grantedEffect.castTime) * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed") * calcs.actionSpeedMod(env.player)
-			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
-			local baseMaxStages = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BlightBaseMaxStages")
-			local maximum = m_min((m_floor(rate * duration) - 1), baseMaxStages - 1)
-			activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."MaxStages", "BASE", maximum, "Base")
-			activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", maximum, "Base")
-			processBuffDebuff(activeSkill)
-		end
-		if activeSkill.activeEffect.grantedEffect.name == "Penance Brand of Dissipation" and activeSkill.skillPart == 2 then
-			local rate = 1 / (activeSkill.skillData.repeatFrequency / (1 + env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency"))
-			local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
-			local ticks = m_min((m_floor(rate * duration) - 1), 19)
-			activeSkill.skillModList:NewMod("Multiplier:PenanceBrandofDissipationMaxStages", "BASE", ticks, "Base")
-			activeSkill.skillModList:NewMod("Multiplier:PenanceBrandofDissipationStageAfterFirst", "BASE", ticks, "Base")
-			processBuffDebuff(activeSkill)
-		end
-		if (activeSkill.activeEffect.grantedEffect.name == "Scorching Ray" or activeSkill.activeEffect.grantedEffect.name == "Scorching Ray of Immolation") and activeSkill.skillPart == 2 then
-			local maximum = 7
-			activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."MaxStages", "BASE", maximum, "Base")
-			activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", maximum, "Base")
-			processBuffDebuff(activeSkill)
+		if not activeSkill.skillFlags.disable then
+			if (activeSkill.activeEffect.grantedEffect.name == "Blight" or activeSkill.activeEffect.grantedEffect.name == "Blight of Contagion" or activeSkill.activeEffect.grantedEffect.name == "Blight of Atrophy") and activeSkill.skillPart == 2 then
+				local rate = (1 / activeSkill.activeEffect.grantedEffect.castTime) * calcLib.mod(activeSkill.skillModList, activeSkill.skillCfg, "Speed") * calcs.actionSpeedMod(env.player)
+				local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
+				local baseMaxStages = activeSkill.skillModList:Sum("BASE", env.player.mainSkill.skillCfg, "BlightBaseMaxStages")
+				local maximum = m_min((m_floor(rate * duration) - 1), baseMaxStages - 1)
+				activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."MaxStages", "BASE", maximum, "Base")
+				activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", maximum, "Base")
+				processBuffDebuff(activeSkill)
+			end
+			if activeSkill.activeEffect.grantedEffect.name == "Penance Brand of Dissipation" and activeSkill.skillPart == 2 then
+				local rate = 1 / (activeSkill.skillData.repeatFrequency / (1 + env.player.mainSkill.skillModList:Sum("INC", env.player.mainSkill.skillCfg, "Speed", "BrandActivationFrequency") / 100) / activeSkill.skillModList:More(activeSkill.skillCfg, "BrandActivationFrequency"))
+				local duration = calcSkillDuration(activeSkill.skillModList, activeSkill.skillCfg, activeSkill.skillData, env, enemyDB)
+				local ticks = m_min((m_floor(rate * duration) - 1), 19)
+				activeSkill.skillModList:NewMod("Multiplier:PenanceBrandofDissipationMaxStages", "BASE", ticks, "Base")
+				activeSkill.skillModList:NewMod("Multiplier:PenanceBrandofDissipationStageAfterFirst", "BASE", ticks, "Base")
+				processBuffDebuff(activeSkill)
+			end
+			if (activeSkill.activeEffect.grantedEffect.name == "Scorching Ray" or activeSkill.activeEffect.grantedEffect.name == "Scorching Ray of Immolation") and activeSkill.skillPart == 2 then
+				local maximum = 7
+				activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."MaxStages", "BASE", maximum, "Base")
+				activeSkill.skillModList:NewMod("Multiplier:"..activeSkill.activeEffect.grantedEffect.name:gsub("%s+", "").."StageAfterFirst", "BASE", maximum, "Base")
+				processBuffDebuff(activeSkill)
+			end
 		end
 	end
 	

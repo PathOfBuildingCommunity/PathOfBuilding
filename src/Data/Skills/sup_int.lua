@@ -1599,6 +1599,7 @@ skills["SupportMinionFocusFire"] = {
 }
 skills["MinionFocusFire"] = {
 	name = "Signal Prey",
+	baseTypeName = "Signal Prey",
 	color = 3,
 	description = "Applies a debuff to a specific enemy which signals your minions to consider that enemy to be the Prey. All minions from skills supported by any Predator Support will target that enemy. Only one enemy can be the Prey at a time. This skill cannot be used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.SkillGrantedBySupport] = true, },
@@ -2804,6 +2805,7 @@ skills["ViciousHexSupport"] = {
 }
 skills["ViciousHexExplosion"] = {
 	name = "Doom Blast",
+	baseTypeName = "Doom Blast",
 	color = 3,
 	baseEffectiveness = 1.7200000286102,
 	incrementalEffectiveness = 0.055599998682737,
@@ -4262,6 +4264,7 @@ skills["SupportPrismaticBurst"] = {
 }
 skills["PrismaticBurst"] = {
 	name = "Prismatic Burst",
+	baseTypeName = "Prismatic Burst",
 	color = 3,
 	baseEffectiveness = 0.99330002069473,
 	incrementalEffectiveness = 0.059399999678135,

@@ -283,20 +283,11 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
-	local newSpecList = { }
+	local newSpecList = self:GetSpecList()
 	self.controls.compareSelect.selIndex = self.activeCompareSpec
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
 	self.controls.compareSelect:SetList(newSpecList)
-
-	self.controls.specSelect.selIndex = self.activeSpec
-	wipeTable(newSpecList)
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
-	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
 	t_insert(newSpecList, "Manage trees... (ctrl-m)")
+	self.controls.specSelect.selIndex = self.activeSpec
 	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then
@@ -327,6 +318,14 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self:DrawControls(viewPort)
+end
+
+function TreeTabClass:GetSpecList()
+	local newSpecList = { }
+	for _, spec in ipairs(self.specList) do
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+	end
+	return newSpecList
 end
 
 function TreeTabClass:Load(xml, dbFileName)
@@ -1739,7 +1738,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			local tempLeagueTable = { }
 			for _, league in ipairs(leagues) do
-				if league ~= "Standard" and league ~= "Hardcore" then
+				if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
 					if not (league:find("Hardcore") or league:find("Ruthless")) then
 						-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of copy trade url
 						t_insert(tempLeagueTable, league)
@@ -1754,6 +1753,8 @@ function TreeTabClass:FindTimelessJewel()
 			end
 			t_insert(self.tradeLeaguesList, "Standard")
 			t_insert(self.tradeLeaguesList, "Hardcore")
+			t_insert(self.tradeLeaguesList, "Ruthless")
+			t_insert(self.tradeLeaguesList, "Hardcore Ruthless")
 			controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
 		end)
 	end

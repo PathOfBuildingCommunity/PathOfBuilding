@@ -34,6 +34,7 @@ local function calculateMirage(env, config)
 		local newSkill, newEnv = calcs.copyActiveSkill(env, env.mode == "CALCS" and "CALCS" or "MAIN", mirageSkill)
 		newSkill.skillCfg.skillCond["usedByMirage"] = true
 		newSkill.skillData.limitedProcessing = true
+		newSkill.skillData.mirageUses = env.player.mainSkill.skillData.storedUses
 		newSkill.skillTypes[SkillType.OtherThingUsesSkill] = true
 
 		_ = config.preCalcFunc and config.preCalcFunc(env, newSkill, newEnv)
