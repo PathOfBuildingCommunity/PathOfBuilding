@@ -916,7 +916,7 @@ end
 -- 6. Calculates reservations
 -- 7. Sets life/mana reservation (doActorLifeManaReservation)
 -- 8. Processes buffs and debuffs
--- 9. Processes charges and misc buffs (doActorMisc)
+-- 9. Processes charges and misc buffs (doActorCharges, doActorMisc)
 -- 10. Calculates defence and offence stats (calcs.defence, calcs.offence)
 function calcs.perform(env, fullDPSSkipEHP)
 	local modDB = env.modDB
@@ -2800,7 +2800,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 	doActorCharges(env, env.player)
 	doActorMisc(env, env.player)
 	if env.minion then
-		doActorCharges(env, env.player)
+		doActorCharges(env, env.minion)
 		doActorMisc(env, env.minion)
 	end
 
