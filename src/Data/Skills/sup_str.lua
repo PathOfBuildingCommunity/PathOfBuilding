@@ -2301,12 +2301,13 @@ skills["SupportFortify"] = {
 }
 skills["SupportGenerosity"] = {
 	name = "Generosity",
-	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems.",
+	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems. Cannot modify the skills of minions.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Aura, },
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AppliesCurse, SkillType.AuraAffectsEnemies, },
+	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["aura_cannot_affect_self"] = {
@@ -2367,12 +2368,13 @@ skills["SupportGenerosity"] = {
 }
 skills["SupportGenerosityPlus"] = {
 	name = "Awakened Generosity",
-	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems.",
+	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems. Cannot modify the skills of minions.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Aura, },
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AppliesCurse, SkillType.AuraAffectsEnemies, },
+	ignoreMinionTypes = true,
 	plusVersionOf = "SupportGenerosity",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -3561,7 +3563,7 @@ skills["SupportMultistrikePlus"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_physical_damage_+%", 0.5 },
+			{ "melee_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {

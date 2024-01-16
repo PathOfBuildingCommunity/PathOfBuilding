@@ -636,6 +636,9 @@ local skills, mod, flag, skill = ...
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
 #mods
@@ -657,6 +660,9 @@ local skills, mod, flag, skill = ...
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
 #mods
@@ -677,6 +683,9 @@ local skills, mod, flag, skill = ...
 		},
 		["earthshatter_spike_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
 		},
 	},
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })

@@ -1934,11 +1934,6 @@ local skills, mod, flag, skill = ...
 
 #skill LightningArrow
 #flags attack projectile
-	statMap = {
-		["quality_display_lightning_arrow_is_gem"] = {
-			-- Display only
-		},
-	},
 #baseMod skill("radius", 18)
 #mods
 
@@ -1975,9 +1970,6 @@ local skills, mod, flag, skill = ...
 		["projectiles_barrage"] = {
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
-		},
-		["quality_display_lightning_arrow_is_gem"] = {
-			-- Display only
 		},
 		["quality_display_base_additional_arrows_is_gem"] = {
 			-- Display only
