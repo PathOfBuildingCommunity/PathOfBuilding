@@ -1249,654 +1249,656 @@ League: Harvest
 Source: Drops from unique{Oshabi, Avatar of the Grove}
 Requires Level 68, 59 Str, 59 Int
 Has Alt Variant: true
-Variant: Greater Multiple Projectiles (Low Level)
-Variant: Greater Multiple Projectiles (High Level)
-Variant: Void Manipulation (Low Level)
-Variant: Void Manipulation (High Level)
-Variant: Vile Toxins (Low Level)
-Variant: Vile Toxins (High Level)
-Variant: Unleash (Low Level)
-Variant: Unleash (High Level)
-Variant: Unbound Ailments (Low Level)
-Variant: Unbound Ailments (High Level)
-Variant: Advanced Traps (Low Level)
-Variant: Advanced Traps (High Level)
-Variant: Trap and Mine Damage (Low Level)
-Variant: Trap and Mine Damage (High Level)
-Variant: Trap (Low Level)
-Variant: Trap (High Level)
-Variant: Swift Assembly (Low Level)
-Variant: Swift Assembly (High Level)
-Variant: Summon Phantasm (Low Level)
-Variant: Summon Phantasm (High Level)
-Variant: Elemental Army (Low Level)
-Variant: Elemental Army (High Level)
-Variant: Stun (Low Level)
-Variant: Stun (High Level)
-Variant: Infused Channelling (Low Level)
-Variant: Infused Channelling (High Level)
-Variant: Ancestral Call (Low Level)
-Variant: Ancestral Call (High Level)
-Variant: Spell Totem (Low Level)
-Variant: Spell Totem (High Level)
-Variant: Intensify (Low Level)
-Variant: Intensify (High Level)
-Variant: Spell Cascade (Low Level)
-Variant: Spell Cascade (High Level)
-Variant: Slower Projectiles (Low Level)
-Variant: Slower Projectiles (High Level)
-Variant: Shockwave (Low Level)
-Variant: Shockwave (High Level)
-Variant: Second Wind (Low Level)
-Variant: Second Wind (High Level)
-Variant: Ruthless (Low Level)
-Variant: Ruthless (High Level)
-Variant: High-Impact Mine (Low Level)
-Variant: High-Impact Mine (High Level)
-Variant: Blastchain Mine (Low Level)
-Variant: Blastchain Mine (High Level)
-Variant: Inspiration (Low Level)
-Variant: Inspiration (High Level)
-Variant: Less Duration (Low Level)
-Variant: Less Duration (High Level)
-Variant: Swift Affliction (Low Level)
-Variant: Swift Affliction (High Level)
-Variant: Ballista Totem (Low Level)
-Variant: Ballista Totem (High Level)
-Variant: Rage (Low Level)
-Variant: Rage (High Level)
-Variant: Pulverise (Low Level)
-Variant: Pulverise (High Level)
-Variant: Power Charge On Critical (Low Level)
-Variant: Power Charge On Critical (High Level)
-Variant: Critical Strike Affliction (Low Level)
-Variant: Critical Strike Affliction (High Level)
-Variant: Point Blank (Low Level)
-Variant: Point Blank (High Level)
-Variant: Pierce (Low Level)
-Variant: Pierce (High Level)
-Variant: Physical to Lightning (Low Level)
-Variant: Physical to Lightning (High Level)
-Variant: Vicious Projectiles (Low Level)
-Variant: Vicious Projectiles (High Level)
-Variant: Volley (Low Level)
-Variant: Volley (High Level)
-Variant: Momentum (Low Level)
-Variant: Momentum (High Level)
-Variant: Nightblade (Low Level)
-Variant: Nightblade (High Level)
-Variant: Multiple Traps (Low Level)
-Variant: Multiple Traps (High Level)
-Variant: Multiple Totems (Low Level)
-Variant: Multiple Totems (High Level)
-Variant: Multistrike (Low Level)
-Variant: Multistrike (High Level)
-Variant: Spell Echo (Low Level)
-Variant: Spell Echo (High Level)
-Variant: Mirage Archer (Low Level)
-Variant: Mirage Archer (High Level)
-Variant: Minefield (Low Level)
-Variant: Minefield (High Level)
-Variant: Melee Splash (Low Level)
-Variant: Melee Splash (High Level)
-Variant: Melee Physical Damage (Low Level)
-Variant: Melee Physical Damage (High Level)
-Variant: Damage on Full Life (Low Level)
-Variant: Damage on Full Life (High Level)
-Variant: Meat Shield (Low Level)
-Variant: Meat Shield (High Level)
-Variant: Mana Leech (Low Level)
-Variant: Mana Leech (High Level)
-Variant: Maim (Low Level)
-Variant: Maim (High Level)
-Variant: Lightning Penetration (Low Level)
-Variant: Lightning Penetration (High Level)
-Variant: Life Leech (Low Level)
-Variant: Life Leech (High Level)
-Variant: Life Gain on Hit (Low Level)
-Variant: Life Gain on Hit (High Level)
-Variant: Chance to Poison (Low Level)
-Variant: Chance to Poison (High Level)
-Variant: Lesser Multiple Projectiles (Low Level)
-Variant: Lesser Multiple Projectiles (High Level)
-Variant: Knockback (Low Level)
-Variant: Knockback (High Level)
-Variant: Item Rarity (Low Level)
-Variant: Item Rarity (High Level)
-Variant: Iron Will (Low Level)
-Variant: Iron Will (High Level)
-Variant: Iron Grip (Low Level)
-Variant: Iron Grip (High Level)
-Variant: Innervate (Low Level)
-Variant: Innervate (High Level)
-Variant: Infernal Legion (Low Level)
-Variant: Infernal Legion (High Level)
-Variant: Minion Speed (Low Level)
-Variant: Minion Speed (High Level)
-Variant: Minion Life (Low Level)
-Variant: Minion Life (High Level)
-Variant: Minion Damage (Low Level)
-Variant: Minion Damage (High Level)
-Variant: Increased Duration (Low Level)
-Variant: Increased Duration (High Level)
-Variant: Increased Critical Strikes (Low Level)
-Variant: Increased Critical Strikes (High Level)
-Variant: Increased Critical Damage (Low Level)
-Variant: Increased Critical Damage (High Level)
-Variant: Burning Damage (Low Level)
-Variant: Burning Damage (High Level)
-Variant: Increased Area of Effect (Low Level)
-Variant: Increased Area of Effect (High Level)
-Variant: Impale (Low Level)
-Variant: Impale (High Level)
-Variant: Immolate (Low Level)
-Variant: Immolate (High Level)
-Variant: Ignite Proliferation (Low Level)
-Variant: Ignite Proliferation (High Level)
-Variant: Ice Bite (Low Level)
-Variant: Ice Bite (High Level)
-Variant: Hypothermia (Low Level)
-Variant: Hypothermia (High Level)
-Variant: Greater Volley (Low Level)
-Variant: Greater Volley (High Level)
-Variant: Elemental Damage with Attacks (Low Level)
-Variant: Elemental Damage with Attacks (High Level)
-Variant: Generosity (Low Level)
-Variant: Generosity (High Level)
-Variant: Charged Traps (Low Level)
-Variant: Charged Traps (High Level)
-Variant: Fortify (Low Level)
-Variant: Fortify (High Level)
-Variant: Fork (Low Level)
-Variant: Fork (High Level)
-Variant: Chance to Flee (Low Level)
-Variant: Chance to Flee (High Level)
-Variant: Fire Penetration (Low Level)
-Variant: Fire Penetration (High Level)
-Variant: Feeding Frenzy (Low Level)
-Variant: Feeding Frenzy (High Level)
-Variant: Faster Projectiles (Low Level)
-Variant: Faster Projectiles (High Level)
-Variant: Faster Casting (Low Level)
-Variant: Faster Casting (High Level)
-Variant: Faster Attacks (Low Level)
-Variant: Faster Attacks (High Level)
-Variant: Energy Leech (Low Level)
-Variant: Energy Leech (High Level)
-Variant: Endurance Charge on Melee Stun (Low Level)
-Variant: Endurance Charge on Melee Stun (High Level)
-Variant: Elemental Proliferation (Low Level)
-Variant: Elemental Proliferation (High Level)
-Variant: Elemental Focus (Low Level)
-Variant: Elemental Focus (High Level)
-Variant: Efficacy (Low Level)
-Variant: Efficacy (High Level)
-Variant: Decay (Low Level)
-Variant: Decay (High Level)
-Variant: Predator (Low Level)
-Variant: Predator (High Level)
-Variant: Deadly Ailments (Low Level)
-Variant: Deadly Ailments (High Level)
-Variant: Hextouch (Low Level)
-Variant: Hextouch (High Level)
-Variant: Culling Strike (Low Level)
-Variant: Culling Strike (High Level)
-Variant: Controlled Destruction (Low Level)
-Variant: Controlled Destruction (High Level)
-Variant: Concentrated Effect (Low Level)
-Variant: Concentrated Effect (High Level)
-Variant: Cold to Fire (Low Level)
-Variant: Cold to Fire (High Level)
-Variant: Cold Penetration (Low Level)
-Variant: Cold Penetration (High Level)
-Variant: Cluster Traps (Low Level)
-Variant: Cluster Traps (High Level)
-Variant: Close Combat (Low Level)
-Variant: Close Combat (High Level)
-Variant: Charged Mines (Low Level)
-Variant: Charged Mines (High Level)
-Variant: Withering Touch (Low Level)
-Variant: Withering Touch (High Level)
-Variant: Combustion (Low Level)
-Variant: Combustion (High Level)
-Variant: Chance to Bleed (Low Level)
-Variant: Chance to Bleed (High Level)
-Variant: Chain (Low Level)
-Variant: Chain (High Level)
-Variant: Cast while Channelling (Low Level)
-Variant: Cast while Channelling (High Level)
-Variant: Cast when Stunned (Low Level)
-Variant: Cast when Stunned (High Level)
-Variant: Cast on Melee Kill (Low Level)
-Variant: Cast on Melee Kill (High Level)
-Variant: Cast on Death (Low Level)
-Variant: Cast on Death (High Level)
-Variant: Cast when Damage Taken (Low Level)
-Variant: Cast when Damage Taken (High Level)
-Variant: Cast On Critical Strike (Low Level)
-Variant: Cast On Critical Strike (High Level)
-Variant: Brutality (Low Level)
-Variant: Brutality (High Level)
-Variant: Bonechill (Low Level)
-Variant: Bonechill (High Level)
-Variant: Arrogance (Low Level)
-Variant: Arrogance (High Level)
-Variant: Bloodlust (Low Level)
-Variant: Bloodlust (High Level)
-Variant: Blind (Low Level)
-Variant: Blind (High Level)
-Variant: Blasphemy (Low Level)
-Variant: Blasphemy (High Level)
-Variant: Barrage (Low Level)
-Variant: Barrage (High Level)
-Variant: Arrow Nova (Low Level)
-Variant: Arrow Nova (High Level)
-Variant: Archmage (Low Level)
-Variant: Archmage (High Level)
-Variant: Arcane Surge (Low Level)
-Variant: Arcane Surge (High Level)
-Variant: Additional Accuracy (Low Level)
-Variant: Additional Accuracy (High Level)
-Variant: Added Lightning Damage (Low Level)
-Variant: Added Lightning Damage (High Level)
-Variant: Added Fire Damage (Low Level)
-Variant: Added Fire Damage (High Level)
-Variant: Added Cold Damage (Low Level)
-Variant: Added Cold Damage (High Level)
+Selected Variant: 164
+Selected Alt Variant: 172
 Variant: Added Chaos Damage (Low Level)
 Variant: Added Chaos Damage (High Level)
-Variant: Fist of War (Low Level)
-Variant: Fist of War (High Level)
-Variant: Swiftbrand (Low Level)
-Variant: Swiftbrand (High Level)
-Variant: Urgent Orders (Low Level)
-Variant: Urgent Orders (High Level)
-Variant: Pinpoint (Low Level)
-Variant: Pinpoint (High Level)
-Variant: Impending Doom (Low Level)
-Variant: Impending Doom (High Level)
-Variant: Trinity (Low Level)
-Variant: Trinity (High Level)
-Variant: Bloodthirst (Low Level)
-Variant: Bloodthirst (High Level)
-Variant: Cruelty (Low Level)
-Variant: Cruelty (High Level)
-Variant: Lifetap (Low Level)
-Variant: Lifetap (High Level)
-Variant: Focused Ballista (Low Level)
-Variant: Focused Ballista (High Level)
-Variant: Earthbreaker (Low Level)
-Variant: Earthbreaker (High Level)
+Variant: Added Cold Damage (Low Level)
+Variant: Added Cold Damage (High Level)
+Variant: Added Fire Damage (Low Level)
+Variant: Added Fire Damage (High Level)
+Variant: Added Lightning Damage (Low Level)
+Variant: Added Lightning Damage (High Level)
+Variant: Additional Accuracy (Low Level)
+Variant: Additional Accuracy (High Level)
+Variant: Advanced Traps (Low Level)
+Variant: Advanced Traps (High Level)
+Variant: Ancestral Call (Low Level)
+Variant: Ancestral Call (High Level)
+Variant: Arcane Surge (Low Level)
+Variant: Arcane Surge (High Level)
+Variant: Archmage (Low Level)
+Variant: Archmage (High Level)
+Variant: Arrogance (Low Level)
+Variant: Arrogance (High Level)
+Variant: Arrow Nova (Low Level)
+Variant: Arrow Nova (High Level)
+Variant: Ballista Totem (Low Level)
+Variant: Ballista Totem (High Level)
+Variant: Barrage (Low Level)
+Variant: Barrage (High Level)
 Variant: Behead (Low Level)
 Variant: Behead (High Level)
-Variant: Mark On Hit (Low Level)
-Variant: Mark On Hit (High Level)
-Variant: Divine Blessing (Low Level)
-Variant: Divine Blessing (High Level)
-Variant: Eternal Blessing (Low Level)
-Variant: Eternal Blessing (High Level)
-Variant: Overcharge (Low Level)
-Variant: Overcharge (High Level)
-Variant: Cursed Ground (Low Level)
-Variant: Cursed Ground (High Level)
-Variant: Hex Bloom (Low Level)
-Variant: Hex Bloom (High Level)
-Variant: Manaforged Arrows (Low Level)
-Variant: Manaforged Arrows (High Level)
-Variant: Prismatic Burst (Low Level)
-Variant: Prismatic Burst (High Level)
-Variant: Returning Projectiles (Low Level)
-Variant: Returning Projectiles (High Level)
-Variant: Trauma (Low Level)
-Variant: Trauma (High Level)
-Variant: Spellblade (Low Level)
-Variant: Spellblade (High Level)
-Variant: Devour (Low Level)
-Variant: Devour (High Level)
-Variant: Fresh Meat (Low Level)
-Variant: Fresh Meat (High Level)
-Variant: Flamewood (Low Level)
-Variant: Flamewood (High Level)
-Variant: Corrupting Cry (Low Level)
-Variant: Corrupting Cry (High Level)
-Variant: Volatility (Low Level)
-Variant: Volatility (High Level)
-Variant: Guardian's Blessing (Low Level)
-Variant: Guardian's Blessing (High Level)
-Variant: Sacrifice (Low Level)
-Variant: Sacrifice (High Level)
-Variant: Frigid Bond (Low Level)
-Variant: Frigid Bond (High Level)
-Variant: Locus Mine (Low Level)
-Variant: Locus Mine (High Level)
-Variant: Sadism (Low Level)
-Variant: Sadism (High Level)
+Variant: Blasphemy (Low Level)
+Variant: Blasphemy (High Level)
+Variant: Blastchain Mine (Low Level)
+Variant: Blastchain Mine (High Level)
+Variant: Blind (Low Level)
+Variant: Blind (High Level)
+Variant: Bloodlust (Low Level)
+Variant: Bloodlust (High Level)
+Variant: Bloodthirst (Low Level)
+Variant: Bloodthirst (High Level)
+Variant: Bonechill (Low Level)
+Variant: Bonechill (High Level)
+Variant: Brutality (Low Level)
+Variant: Brutality (High Level)
+Variant: Burning Damage (Low Level)
+Variant: Burning Damage (High Level)
+Variant: Cast On Critical Strike (Low Level)
+Variant: Cast On Critical Strike (High Level)
+Variant: Cast on Death (Low Level)
+Variant: Cast on Death (High Level)
+Variant: Cast on Melee Kill (Low Level)
+Variant: Cast on Melee Kill (High Level)
+Variant: Cast when Damage Taken (Low Level)
+Variant: Cast when Damage Taken (High Level)
+Variant: Cast when Stunned (Low Level)
+Variant: Cast when Stunned (High Level)
+Variant: Cast while Channelling (Low Level)
+Variant: Cast while Channelling (High Level)
+Variant: Chain (Low Level)
+Variant: Chain (High Level)
+Variant: Chance to Bleed (Low Level)
+Variant: Chance to Bleed (High Level)
+Variant: Chance to Flee (Low Level)
+Variant: Chance to Flee (High Level)
+Variant: Chance to Poison (Low Level)
+Variant: Chance to Poison (High Level)
+Variant: Charged Mines (Low Level)
+Variant: Charged Mines (High Level)
+Variant: Charged Traps (Low Level)
+Variant: Charged Traps (High Level)
+Variant: Close Combat (Low Level)
+Variant: Close Combat (High Level)
+Variant: Cluster Traps (Low Level)
+Variant: Cluster Traps (High Level)
+Variant: Cold Penetration (Low Level)
+Variant: Cold Penetration (High Level)
+Variant: Cold to Fire (Low Level)
+Variant: Cold to Fire (High Level)
+Variant: Combustion (Low Level)
+Variant: Combustion (High Level)
+Variant: Concentrated Effect (Low Level)
+Variant: Concentrated Effect (High Level)
 Variant: Controlled Blaze (Low Level)
 Variant: Controlled Blaze (High Level)
-{variant:1}Socketed Gems are Supported by Level (1-10) Greater Multiple Projectiles
-{variant:2}Socketed Gems are Supported by Level (25-35) Greater Multiple Projectiles
-{variant:3}Socketed Gems are Supported by Level (1-10) Void Manipulation
-{variant:4}Socketed Gems are Supported by Level (25-35) Void Manipulation
-{variant:5}Socketed Gems are Supported by Level (1-10) Vile Toxins
-{variant:6}Socketed Gems are Supported by Level (25-35) Vile Toxins
-{variant:7}Socketed Gems are Supported by Level (1-10) Unleash
-{variant:8}Socketed Gems are Supported by Level (25-35) Unleash
-{variant:9}Socketed Gems are Supported by Level (1-10) Unbound Ailments
-{variant:10}Socketed Gems are Supported by Level (25-35) Unbound Ailments
+Variant: Controlled Destruction (Low Level)
+Variant: Controlled Destruction (High Level)
+Variant: Corrupting Cry (Low Level)
+Variant: Corrupting Cry (High Level)
+Variant: Critical Strike Affliction (Low Level)
+Variant: Critical Strike Affliction (High Level)
+Variant: Cruelty (Low Level)
+Variant: Cruelty (High Level)
+Variant: Culling Strike (Low Level)
+Variant: Culling Strike (High Level)
+Variant: Cursed Ground (Low Level)
+Variant: Cursed Ground (High Level)
+Variant: Damage on Full Life (Low Level)
+Variant: Damage on Full Life (High Level)
+Variant: Deadly Ailments (Low Level)
+Variant: Deadly Ailments (High Level)
+Variant: Decay (Low Level)
+Variant: Decay (High Level)
+Variant: Devour (Low Level)
+Variant: Devour (High Level)
+Variant: Divine Blessing (Low Level)
+Variant: Divine Blessing (High Level)
+Variant: Earthbreaker (Low Level)
+Variant: Earthbreaker (High Level)
+Variant: Efficacy (Low Level)
+Variant: Efficacy (High Level)
+Variant: Elemental Army (Low Level)
+Variant: Elemental Army (High Level)
+Variant: Elemental Damage with Attacks (Low Level)
+Variant: Elemental Damage with Attacks (High Level)
+Variant: Elemental Focus (Low Level)
+Variant: Elemental Focus (High Level)
+Variant: Elemental Proliferation (Low Level)
+Variant: Elemental Proliferation (High Level)
+Variant: Endurance Charge on Melee Stun (Low Level)
+Variant: Endurance Charge on Melee Stun (High Level)
+Variant: Energy Leech (Low Level)
+Variant: Energy Leech (High Level)
+Variant: Eternal Blessing (Low Level)
+Variant: Eternal Blessing (High Level)
+Variant: Faster Attacks (Low Level)
+Variant: Faster Attacks (High Level)
+Variant: Faster Casting (Low Level)
+Variant: Faster Casting (High Level)
+Variant: Faster Projectiles (Low Level)
+Variant: Faster Projectiles (High Level)
+Variant: Feeding Frenzy (Low Level)
+Variant: Feeding Frenzy (High Level)
+Variant: Fire Penetration (Low Level)
+Variant: Fire Penetration (High Level)
+Variant: Fist of War (Low Level)
+Variant: Fist of War (High Level)
+Variant: Flamewood (Low Level)
+Variant: Flamewood (High Level)
+Variant: Focused Ballista (Low Level)
+Variant: Focused Ballista (High Level)
+Variant: Fork (Low Level)
+Variant: Fork (High Level)
+Variant: Fortify (Low Level)
+Variant: Fortify (High Level)
+Variant: Fresh Meat (Low Level)
+Variant: Fresh Meat (High Level)
+Variant: Frigid Bond (Low Level)
+Variant: Frigid Bond (High Level)
+Variant: Generosity (Low Level)
+Variant: Generosity (High Level)
+Variant: Greater Multiple Projectiles (Low Level)
+Variant: Greater Multiple Projectiles (High Level)
+Variant: Greater Volley (Low Level)
+Variant: Greater Volley (High Level)
+Variant: Guardian's Blessing (Low Level)
+Variant: Guardian's Blessing (High Level)
+Variant: Hex Bloom (Low Level)
+Variant: Hex Bloom (High Level)
+Variant: Hextouch (Low Level)
+Variant: Hextouch (High Level)
+Variant: High-Impact Mine (Low Level)
+Variant: High-Impact Mine (High Level)
+Variant: Hypothermia (Low Level)
+Variant: Hypothermia (High Level)
+Variant: Ice Bite (Low Level)
+Variant: Ice Bite (High Level)
+Variant: Ignite Proliferation (Low Level)
+Variant: Ignite Proliferation (High Level)
+Variant: Immolate (Low Level)
+Variant: Immolate (High Level)
+Variant: Impale (Low Level)
+Variant: Impale (High Level)
+Variant: Impending Doom (Low Level)
+Variant: Impending Doom (High Level)
+Variant: Increased Area of Effect (Low Level)
+Variant: Increased Area of Effect (High Level)
+Variant: Increased Critical Damage (Low Level)
+Variant: Increased Critical Damage (High Level)
+Variant: Increased Critical Strikes (Low Level)
+Variant: Increased Critical Strikes (High Level)
+Variant: Increased Duration (Low Level)
+Variant: Increased Duration (High Level)
+Variant: Infernal Legion (Low Level)
+Variant: Infernal Legion (High Level)
+Variant: Infused Channelling (Low Level)
+Variant: Infused Channelling (High Level)
+Variant: Innervate (Low Level)
+Variant: Innervate (High Level)
+Variant: Inspiration (Low Level)
+Variant: Inspiration (High Level)
+Variant: Intensify (Low Level)
+Variant: Intensify (High Level)
+Variant: Iron Grip (Low Level)
+Variant: Iron Grip (High Level)
+Variant: Iron Will (Low Level)
+Variant: Iron Will (High Level)
+Variant: Item Rarity (Low Level)
+Variant: Item Rarity (High Level)
+Variant: Knockback (Low Level)
+Variant: Knockback (High Level)
+Variant: Less Duration (Low Level)
+Variant: Less Duration (High Level)
+Variant: Lesser Multiple Projectiles (Low Level)
+Variant: Lesser Multiple Projectiles (High Level)
+Variant: Life Gain on Hit (Low Level)
+Variant: Life Gain on Hit (High Level)
+Variant: Life Leech (Low Level)
+Variant: Life Leech (High Level)
+Variant: Lifetap (Low Level)
+Variant: Lifetap (High Level)
+Variant: Lightning Penetration (Low Level)
+Variant: Lightning Penetration (High Level)
+Variant: Locus Mine (Low Level)
+Variant: Locus Mine (High Level)
+Variant: Maim (Low Level)
+Variant: Maim (High Level)
+Variant: Mana Leech (Low Level)
+Variant: Mana Leech (High Level)
+Variant: Manaforged Arrows (Low Level)
+Variant: Manaforged Arrows (High Level)
+Variant: Mark On Hit (Low Level)
+Variant: Mark On Hit (High Level)
+Variant: Meat Shield (Low Level)
+Variant: Meat Shield (High Level)
+Variant: Melee Physical Damage (Low Level)
+Variant: Melee Physical Damage (High Level)
+Variant: Melee Splash (Low Level)
+Variant: Melee Splash (High Level)
+Variant: Minefield (Low Level)
+Variant: Minefield (High Level)
+Variant: Minion Damage (Low Level)
+Variant: Minion Damage (High Level)
+Variant: Minion Life (Low Level)
+Variant: Minion Life (High Level)
+Variant: Minion Speed (Low Level)
+Variant: Minion Speed (High Level)
+Variant: Mirage Archer (Low Level)
+Variant: Mirage Archer (High Level)
+Variant: Momentum (Low Level)
+Variant: Momentum (High Level)
+Variant: Multiple Totems (Low Level)
+Variant: Multiple Totems (High Level)
+Variant: Multiple Traps (Low Level)
+Variant: Multiple Traps (High Level)
+Variant: Multistrike (Low Level)
+Variant: Multistrike (High Level)
+Variant: Nightblade (Low Level)
+Variant: Nightblade (High Level)
+Variant: Overcharge (Low Level)
+Variant: Overcharge (High Level)
+Variant: Physical to Lightning (Low Level)
+Variant: Physical to Lightning (High Level)
+Variant: Pierce (Low Level)
+Variant: Pierce (High Level)
+Variant: Pinpoint (Low Level)
+Variant: Pinpoint (High Level)
+Variant: Point Blank (Low Level)
+Variant: Point Blank (High Level)
+Variant: Power Charge On Critical (Low Level)
+Variant: Power Charge On Critical (High Level)
+Variant: Predator (Low Level)
+Variant: Predator (High Level)
+Variant: Prismatic Burst (Low Level)
+Variant: Prismatic Burst (High Level)
+Variant: Pulverise (Low Level)
+Variant: Pulverise (High Level)
+Variant: Rage (Low Level)
+Variant: Rage (High Level)
+Variant: Returning Projectiles (Low Level)
+Variant: Returning Projectiles (High Level)
+Variant: Ruthless (Low Level)
+Variant: Ruthless (High Level)
+Variant: Sacrifice (Low Level)
+Variant: Sacrifice (High Level)
+Variant: Sadism (Low Level)
+Variant: Sadism (High Level)
+Variant: Second Wind (Low Level)
+Variant: Second Wind (High Level)
+Variant: Shockwave (Low Level)
+Variant: Shockwave (High Level)
+Variant: Slower Projectiles (Low Level)
+Variant: Slower Projectiles (High Level)
+Variant: Spell Cascade (Low Level)
+Variant: Spell Cascade (High Level)
+Variant: Spell Echo (Low Level)
+Variant: Spell Echo (High Level)
+Variant: Spell Totem (Low Level)
+Variant: Spell Totem (High Level)
+Variant: Spellblade (Low Level)
+Variant: Spellblade (High Level)
+Variant: Stun (Low Level)
+Variant: Stun (High Level)
+Variant: Summon Phantasm (Low Level)
+Variant: Summon Phantasm (High Level)
+Variant: Swift Affliction (Low Level)
+Variant: Swift Affliction (High Level)
+Variant: Swift Assembly (Low Level)
+Variant: Swift Assembly (High Level)
+Variant: Swiftbrand (Low Level)
+Variant: Swiftbrand (High Level)
+Variant: Trap (Low Level)
+Variant: Trap (High Level)
+Variant: Trap and Mine Damage (Low Level)
+Variant: Trap and Mine Damage (High Level)
+Variant: Trauma (Low Level)
+Variant: Trauma (High Level)
+Variant: Trinity (Low Level)
+Variant: Trinity (High Level)
+Variant: Unbound Ailments (Low Level)
+Variant: Unbound Ailments (High Level)
+Variant: Unleash (Low Level)
+Variant: Unleash (High Level)
+Variant: Urgent Orders (Low Level)
+Variant: Urgent Orders (High Level)
+Variant: Vicious Projectiles (Low Level)
+Variant: Vicious Projectiles (High Level)
+Variant: Vile Toxins (Low Level)
+Variant: Vile Toxins (High Level)
+Variant: Void Manipulation (Low Level)
+Variant: Void Manipulation (High Level)
+Variant: Volatility (Low Level)
+Variant: Volatility (High Level)
+Variant: Volley (Low Level)
+Variant: Volley (High Level)
+Variant: Withering Touch (Low Level)
+Variant: Withering Touch (High Level)
+{variant:1}Socketed Gems are Supported by Level (1-10) Added Chaos Damage
+{variant:2}Socketed Gems are Supported by Level (25-35) Added Chaos Damage
+{variant:3}Socketed Gems are Supported by Level (1-10) Added Cold Damage
+{variant:4}Socketed Gems are Supported by Level (25-35) Added Cold Damage
+{variant:5}Socketed Gems are Supported by Level (1-10) Added Fire Damage
+{variant:6}Socketed Gems are Supported by Level (25-35) Added Fire Damage
+{variant:7}Socketed Gems are Supported by Level (1-10) Added Lightning Damage
+{variant:8}Socketed Gems are Supported by Level (25-35) Added Lightning Damage
+{variant:9}Socketed Gems are Supported by Level (1-10) Additional Accuracy
+{variant:10}Socketed Gems are Supported by Level (25-35) Additional Accuracy
 {variant:11}Socketed Gems are Supported by Level (1-10) Advanced Traps
 {variant:12}Socketed Gems are Supported by Level (25-35) Advanced Traps
-{variant:13}Socketed Gems are Supported by Level (1-10) Trap and Mine Damage
-{variant:14}Socketed Gems are Supported by Level (25-35) Trap and Mine Damage
-{variant:15}Socketed Gems are Supported by Level (1-10) Trap
-{variant:16}Socketed Gems are Supported by Level (25-35) Trap
-{variant:17}Socketed Gems are Supported by Level (1-10) Swift Assembly
-{variant:18}Socketed Gems are Supported by Level (25-35) Swift Assembly
-{variant:19}Socketed Gems are Supported by Level (1-10) Summon Phantasm
-{variant:20}Socketed Gems are Supported by Level (25-35) Summon Phantasm
-{variant:21}Socketed Gems are Supported by Level (1-10) Elemental Army
-{variant:22}Socketed Gems are Supported by Level (25-35) Elemental Army
-{variant:23}Socketed Gems are Supported by Level (1-10) Stun
-{variant:24}Socketed Gems are Supported by Level (25-35) Stun
-{variant:25}Socketed Gems are Supported by Level (1-10) Infused Channelling
-{variant:26}Socketed Gems are Supported by Level (25-35) Infused Channelling
-{variant:27}Socketed Gems are Supported by Level (1-10) Ancestral Call
-{variant:28}Socketed Gems are Supported by Level (25-35) Ancestral Call
-{variant:29}Socketed Gems are Supported by Level (1-10) Spell Totem
-{variant:30}Socketed Gems are Supported by Level (25-35) Spell Totem
-{variant:31}Socketed Gems are Supported by Level (1-10) Intensify
-{variant:32}Socketed Gems are Supported by Level (25-35) Intensify
-{variant:33}Socketed Gems are Supported by Level (1-10) Spell Cascade
-{variant:34}Socketed Gems are Supported by Level (25-35) Spell Cascade
-{variant:35}Socketed Gems are Supported by Level (1-10) Slower Projectiles
-{variant:36}Socketed Gems are Supported by Level (25-35) Slower Projectiles
-{variant:37}Socketed Gems are Supported by Level (1-10) Shockwave
-{variant:38}Socketed Gems are Supported by Level (25-35) Shockwave
-{variant:39}Socketed Gems are Supported by Level (1-10) Second Wind
-{variant:40}Socketed Gems are Supported by Level (25-35) Second Wind
-{variant:41}Socketed Gems are Supported by Level (1-10) Ruthless
-{variant:42}Socketed Gems are Supported by Level (25-35) Ruthless
-{variant:43}Socketed Gems are Supported by Level (1-10) High-Impact Mine
-{variant:44}Socketed Gems are Supported by Level (25-35) High-Impact Mine
-{variant:45}Socketed Gems are Supported by Level (1-10) Blastchain Mine
-{variant:46}Socketed Gems are Supported by Level (25-35) Blastchain Mine
-{variant:47}Socketed Gems are Supported by Level (1-10) Inspiration
-{variant:48}Socketed Gems are Supported by Level (25-35) Inspiration
-{variant:49}Socketed Gems are Supported by Level (1-10) Less Duration
-{variant:50}Socketed Gems are Supported by Level (25-35) Less Duration
-{variant:51}Socketed Gems are Supported by Level (1-10) Swift Affliction
-{variant:52}Socketed Gems are Supported by Level (25-35) Swift Affliction
-{variant:53}Socketed Gems are Supported by Level (1-10) Ballista Totem
-{variant:54}Socketed Gems are Supported by Level (25-35) Ballista Totem
-{variant:55}Socketed Gems are Supported by Level (1-10) Rage
-{variant:56}Socketed Gems are Supported by Level (25-35) Rage
-{variant:57}Socketed Gems are Supported by Level (1-10) Pulverise
-{variant:58}Socketed Gems are Supported by Level (25-35) Pulverise
-{variant:59}Socketed Gems are Supported by Level (1-10) Power Charge On Critical
-{variant:60}Socketed Gems are Supported by Level (25-35) Power Charge On Critical
-{variant:61}Socketed Gems are Supported by Level (1-10) Critical Strike Affliction
-{variant:62}Socketed Gems are Supported by Level (25-35) Critical Strike Affliction
-{variant:63}Socketed Gems are Supported by Level (1-10) Point Blank
-{variant:64}Socketed Gems are Supported by Level (25-35) Point Blank
-{variant:65}Socketed Gems are Supported by Level (1-10) Pierce
-{variant:66}Socketed Gems are Supported by Level (25-35) Pierce
-{variant:67}Socketed Gems are Supported by Level (1-10) Physical to Lightning
-{variant:68}Socketed Gems are Supported by Level (25-35) Physical to Lightning
-{variant:69}Socketed Gems are Supported by Level (1-10) Vicious Projectiles
-{variant:70}Socketed Gems are Supported by Level (25-35) Vicious Projectiles
-{variant:71}Socketed Gems are Supported by Level (1-10) Volley
-{variant:72}Socketed Gems are Supported by Level (25-35) Volley
-{variant:73}Socketed Gems are Supported by Level (1-10) Momentum
-{variant:74}Socketed Gems are Supported by Level (25-35) Momentum
-{variant:75}Socketed Gems are Supported by Level (1-10) Nightblade
-{variant:76}Socketed Gems are Supported by Level (25-35) Nightblade
-{variant:77}Socketed Gems are Supported by Level (1-10) Multiple Traps
-{variant:78}Socketed Gems are Supported by Level (25-35) Multiple Traps
-{variant:79}Socketed Gems are Supported by Level (1-10) Multiple Totems
-{variant:80}Socketed Gems are Supported by Level (25-35) Multiple Totems
-{variant:81}Socketed Gems are Supported by Level (1-10) Multistrike
-{variant:82}Socketed Gems are Supported by Level (25-35) Multistrike
-{variant:83}Socketed Gems are Supported by Level (1-10) Spell Echo
-{variant:84}Socketed Gems are Supported by Level (25-35) Spell Echo
-{variant:85}Socketed Gems are Supported by Level (1-10) Mirage Archer
-{variant:86}Socketed Gems are Supported by Level (25-35) Mirage Archer
-{variant:87}Socketed Gems are Supported by Level (1-10) Minefield
-{variant:88}Socketed Gems are Supported by Level (25-35) Minefield
-{variant:89}Socketed Gems are Supported by Level (1-10) Melee Splash
-{variant:90}Socketed Gems are Supported by Level (25-35) Melee Splash
-{variant:91}Socketed Gems are Supported by Level (1-10) Melee Physical Damage
-{variant:92}Socketed Gems are Supported by Level (25-35) Melee Physical Damage
-{variant:93}Socketed Gems are Supported by Level (1-10) Damage on Full Life
-{variant:94}Socketed Gems are Supported by Level (25-35) Damage on Full Life
-{variant:95}Socketed Gems are Supported by Level (1-10) Meat Shield
-{variant:96}Socketed Gems are Supported by Level (25-35) Meat Shield
-{variant:97}Socketed Gems are Supported by Level (1-10) Mana Leech
-{variant:98}Socketed Gems are Supported by Level (25-35) Mana Leech
-{variant:99}Socketed Gems are Supported by Level (1-10) Maim
-{variant:100}Socketed Gems are Supported by Level (25-35) Maim
-{variant:101}Socketed Gems are Supported by Level (1-10) Lightning Penetration
-{variant:102}Socketed Gems are Supported by Level (25-35) Lightning Penetration
-{variant:103}Socketed Gems are Supported by Level (1-10) Life Leech
-{variant:104}Socketed Gems are Supported by Level (25-35) Life Leech
-{variant:105}Socketed Gems are Supported by Level (1-10) Life Gain on Hit
-{variant:106}Socketed Gems are Supported by Level (25-35) Life Gain on Hit
-{variant:107}Socketed Gems are Supported by Level (1-10) Chance to Poison
-{variant:108}Socketed Gems are Supported by Level (25-35) Chance to Poison
-{variant:109}Socketed Gems are Supported by Level (1-10) Lesser Multiple Projectiles
-{variant:110}Socketed Gems are Supported by Level (25-35) Lesser Multiple Projectiles
-{variant:111}Socketed Gems are Supported by Level (1-10) Knockback
-{variant:112}Socketed Gems are Supported by Level (25-35) Knockback
-{variant:113}Socketed Gems are Supported by Level (1-10) Item Rarity
-{variant:114}Socketed Gems are Supported by Level (25-35) Item Rarity
-{variant:115}Socketed Gems are Supported by Level (1-10) Iron Will
-{variant:116}Socketed Gems are Supported by Level (25-35) Iron Will
-{variant:117}Socketed Gems are Supported by Level (1-10) Iron Grip
-{variant:118}Socketed Gems are Supported by Level (25-35) Iron Grip
-{variant:119}Socketed Gems are Supported by Level (1-10) Innervate
-{variant:120}Socketed Gems are Supported by Level (25-35) Innervate
-{variant:121}Socketed Gems are Supported by Level (1-10) Infernal Legion
-{variant:122}Socketed Gems are Supported by Level (25-35) Infernal Legion
-{variant:123}Socketed Gems are Supported by Level (1-10) Minion Speed
-{variant:124}Socketed Gems are Supported by Level (25-35) Minion Speed
-{variant:125}Socketed Gems are Supported by Level (1-10) Minion Life
-{variant:126}Socketed Gems are Supported by Level (25-35) Minion Life
-{variant:127}Socketed Gems are Supported by Level (1-10) Minion Damage
-{variant:128}Socketed Gems are Supported by Level (25-35) Minion Damage
-{variant:129}Socketed Gems are Supported by Level (1-10) Increased Duration
-{variant:130}Socketed Gems are Supported by Level (25-35) Increased Duration
-{variant:131}Socketed Gems are Supported by Level (1-10) Increased Critical Strikes
-{variant:132}Socketed Gems are Supported by Level (25-35) Increased Critical Strikes
-{variant:133}Socketed Gems are Supported by Level (1-10) Increased Critical Damage
-{variant:134}Socketed Gems are Supported by Level (25-35) Increased Critical Damage
-{variant:135}Socketed Gems are Supported by Level (1-10) Burning Damage
-{variant:136}Socketed Gems are Supported by Level (25-35) Burning Damage
-{variant:137}Socketed Gems are Supported by Level (1-10) Increased Area of Effect
-{variant:138}Socketed Gems are Supported by Level (25-35) Increased Area of Effect
-{variant:139}Socketed Gems are Supported by Level (1-10) Impale
-{variant:140}Socketed Gems are Supported by Level (25-35) Impale
-{variant:141}Socketed Gems are Supported by Level (1-10) Immolate
-{variant:142}Socketed Gems are Supported by Level (25-35) Immolate
-{variant:143}Socketed Gems are Supported by Level (1-10) Ignite Proliferation
-{variant:144}Socketed Gems are Supported by Level (25-35) Ignite Proliferation
-{variant:145}Socketed Gems are Supported by Level (1-10) Ice Bite
-{variant:146}Socketed Gems are Supported by Level (25-35) Ice Bite
-{variant:147}Socketed Gems are Supported by Level (1-10) Hypothermia
-{variant:148}Socketed Gems are Supported by Level (25-35) Hypothermia
-{variant:149}Socketed Gems are Supported by Level (1-10) Greater Volley
-{variant:150}Socketed Gems are Supported by Level (25-35) Greater Volley
-{variant:151}Socketed Gems are Supported by Level (1-10) Elemental Damage with Attacks
-{variant:152}Socketed Gems are Supported by Level (25-35) Elemental Damage with Attacks
-{variant:153}Socketed Gems are Supported by Level (1-10) Generosity
-{variant:154}Socketed Gems are Supported by Level (25-35) Generosity
-{variant:155}Socketed Gems are Supported by Level (1-10) Charged Traps
-{variant:156}Socketed Gems are Supported by Level (25-35) Charged Traps
-{variant:157}Socketed Gems are Supported by Level (1-10) Fortify
-{variant:158}Socketed Gems are Supported by Level (25-35) Fortify
-{variant:159}Socketed Gems are Supported by Level (1-10) Fork
-{variant:160}Socketed Gems are Supported by Level (25-35) Fork
-{variant:161}Socketed Gems are Supported by Level (1-10) Chance to Flee
-{variant:162}Socketed Gems are Supported by Level (25-35) Chance to Flee
-{variant:163}Socketed Gems are Supported by Level (1-10) Fire Penetration
-{variant:164}Socketed Gems are Supported by Level (25-35) Fire Penetration
-{variant:165}Socketed Gems are Supported by Level (1-10) Feeding Frenzy
-{variant:166}Socketed Gems are Supported by Level (25-35) Feeding Frenzy
-{variant:167}Socketed Gems are Supported by Level (1-10) Faster Projectiles
-{variant:168}Socketed Gems are Supported by Level (25-35) Faster Projectiles
-{variant:169}Socketed Gems are Supported by Level (1-10) Faster Casting
-{variant:170}Socketed Gems are Supported by Level (25-35) Faster Casting
-{variant:171}Socketed Gems are Supported by Level (1-10) Faster Attacks
-{variant:172}Socketed Gems are Supported by Level (25-35) Faster Attacks
-{variant:173}Socketed Gems are Supported by Level (1-10) Energy Leech
-{variant:174}Socketed Gems are Supported by Level (25-35) Energy Leech
-{variant:175}Socketed Gems are Supported by Level (1-10) Endurance Charge on Melee Stun
-{variant:176}Socketed Gems are Supported by Level (25-35) Endurance Charge on Melee Stun
-{variant:177}Socketed Gems are Supported by Level (1-10) Elemental Proliferation
-{variant:178}Socketed Gems are Supported by Level (25-35) Elemental Proliferation
-{variant:179}Socketed Gems are Supported by Level (1-10) Elemental Focus
-{variant:180}Socketed Gems are Supported by Level (25-35) Elemental Focus
-{variant:181}Socketed Gems are Supported by Level (1-10) Efficacy
-{variant:182}Socketed Gems are Supported by Level (25-35) Efficacy
-{variant:183}Socketed Gems are Supported by Level (1-10) Decay
-{variant:184}Socketed Gems are Supported by Level (25-35) Decay
-{variant:185}Socketed Gems are Supported by Level (1-10) Predator
-{variant:186}Socketed Gems are Supported by Level (25-35) Predator
-{variant:187}Socketed Gems are Supported by Level (1-10) Deadly Ailments
-{variant:188}Socketed Gems are Supported by Level (25-35) Deadly Ailments
-{variant:189}Socketed Gems are Supported by Level (1-10) Hextouch
-{variant:190}Socketed Gems are Supported by Level (25-35) Hextouch
-{variant:191}Socketed Gems are Supported by Level (1-10) Culling Strike
-{variant:192}Socketed Gems are Supported by Level (25-35) Culling Strike
-{variant:193}Socketed Gems are Supported by Level (1-10) Controlled Destruction
-{variant:194}Socketed Gems are Supported by Level (25-35) Controlled Destruction
-{variant:195}Socketed Gems are Supported by Level (1-10) Concentrated Effect
-{variant:196}Socketed Gems are Supported by Level (25-35) Concentrated Effect
-{variant:197}Socketed Gems are Supported by Level (1-10) Cold to Fire
-{variant:198}Socketed Gems are Supported by Level (25-35) Cold to Fire
-{variant:199}Socketed Gems are Supported by Level (1-10) Cold Penetration
-{variant:200}Socketed Gems are Supported by Level (25-35) Cold Penetration
-{variant:201}Socketed Gems are Supported by Level (1-10) Cluster Traps
-{variant:202}Socketed Gems are Supported by Level (25-35) Cluster Traps
-{variant:203}Socketed Gems are Supported by Level (1-10) Close Combat
-{variant:204}Socketed Gems are Supported by Level (25-35) Close Combat
-{variant:205}Socketed Gems are Supported by Level (1-10) Charged Mines
-{variant:206}Socketed Gems are Supported by Level (25-35) Charged Mines
-{variant:207}Socketed Gems are Supported by Level (1-10) Withering Touch
-{variant:208}Socketed Gems are Supported by Level (25-35) Withering Touch
-{variant:209}Socketed Gems are Supported by Level (1-10) Combustion
-{variant:210}Socketed Gems are Supported by Level (25-35) Combustion
-{variant:211}Socketed Gems are Supported by Level (1-10) Chance to Bleed
-{variant:212}Socketed Gems are Supported by Level (25-35) Chance to Bleed
-{variant:213}Socketed Gems are Supported by Level (1-10) Chain
-{variant:214}Socketed Gems are Supported by Level (25-35) Chain
-{variant:215}Socketed Gems are Supported by Level (1-10) Cast while Channelling
-{variant:216}Socketed Gems are Supported by Level (25-35) Cast while Channelling
-{variant:217}Socketed Gems are Supported by Level (1-10) Cast when Stunned
-{variant:218}Socketed Gems are Supported by Level (25-35) Cast when Stunned
-{variant:219}Socketed Gems are Supported by Level (1-10) Cast on Melee Kill
-{variant:220}Socketed Gems are Supported by Level (25-35) Cast on Melee Kill
-{variant:221}Socketed Gems are Supported by Level (1-10) Cast on Death
-{variant:222}Socketed Gems are Supported by Level (25-35) Cast on Death
-{variant:223}Socketed Gems are Supported by Level (1-10) Cast when Damage Taken
-{variant:224}Socketed Gems are Supported by Level (25-35) Cast when Damage Taken
-{variant:225}Socketed Gems are Supported by Level (1-10) Cast On Critical Strike
-{variant:226}Socketed Gems are Supported by Level (25-35) Cast On Critical Strike
-{variant:227}Socketed Gems are Supported by Level (1-10) Brutality
-{variant:228}Socketed Gems are Supported by Level (25-35) Brutality
-{variant:229}Socketed Gems are Supported by Level (1-10) Bonechill
-{variant:230}Socketed Gems are Supported by Level (25-35) Bonechill
-{variant:231}Socketed Gems are Supported by Level (1-10) Arrogance
-{variant:232}Socketed Gems are Supported by Level (25-35) Arrogance
-{variant:233}Socketed Gems are Supported by Level (1-10) Bloodlust
-{variant:234}Socketed Gems are Supported by Level (25-35) Bloodlust
-{variant:235}Socketed Gems are Supported by Level (1-10) Blind
-{variant:236}Socketed Gems are Supported by Level (25-35) Blind
-{variant:237}Socketed Gems are Supported by Level (1-10) Blasphemy
-{variant:238}Socketed Gems are Supported by Level (25-35) Blasphemy
-{variant:239}Socketed Gems are Supported by Level (1-10) Barrage
-{variant:240}Socketed Gems are Supported by Level (25-35) Barrage
-{variant:241}Socketed Gems are Supported by Level (1-10) Arrow Nova
-{variant:242}Socketed Gems are Supported by Level (25-35) Arrow Nova
-{variant:243}Socketed Gems are Supported by Level (1-10) Archmage
-{variant:244}Socketed Gems are Supported by Level (25-35) Archmage
-{variant:245}Socketed Gems are Supported by Level (1-10) Arcane Surge
-{variant:246}Socketed Gems are Supported by Level (25-35) Arcane Surge
-{variant:247}Socketed Gems are Supported by Level (1-10) Additional Accuracy
-{variant:248}Socketed Gems are Supported by Level (25-35) Additional Accuracy
-{variant:249}Socketed Gems are Supported by Level (1-10) Added Lightning Damage
-{variant:250}Socketed Gems are Supported by Level (25-35) Added Lightning Damage
-{variant:251}Socketed Gems are Supported by Level (1-10) Added Fire Damage
-{variant:252}Socketed Gems are Supported by Level (25-35) Added Fire Damage
-{variant:253}Socketed Gems are Supported by Level (1-10) Added Cold Damage
-{variant:254}Socketed Gems are Supported by Level (25-35) Added Cold Damage
-{variant:255}Socketed Gems are Supported by Level (1-10) Added Chaos Damage
-{variant:256}Socketed Gems are Supported by Level (25-35) Added Chaos Damage
-{variant:257}Socketed Gems are Supported by Level (1-10) Fist of War
-{variant:258}Socketed Gems are Supported by Level (25-35) Fist of War
-{variant:259}Socketed Gems are Supported by Level (1-10) Swiftbrand
-{variant:260}Socketed Gems are Supported by Level (25-35) Swiftbrand
-{variant:261}Socketed Gems are Supported by Level (1-10) Urgent Orders
-{variant:262}Socketed Gems are Supported by Level (25-35) Urgent Orders
-{variant:263}Socketed Gems are Supported by Level (1-10) Pinpoint
-{variant:264}Socketed Gems are Supported by Level (25-35) Pinpoint
-{variant:265}Socketed Gems are Supported by Level (1-10) Impending Doom
-{variant:266}Socketed Gems are Supported by Level (25-35) Impending Doom
-{variant:267}Socketed Gems are Supported by Level (1-10) Trinity
-{variant:268}Socketed Gems are Supported by Level (25-35) Trinity
-{variant:269}Socketed Gems are Supported by Level (1-10) Bloodthirst
-{variant:270}Socketed Gems are Supported by Level (25-35) Bloodthirst
-{variant:271}Socketed Gems are Supported by Level (1-10) Cruelty
-{variant:272}Socketed Gems are Supported by Level (25-35) Cruelty
-{variant:273}Socketed Gems are Supported by Level (1-10) Lifetap
-{variant:274}Socketed Gems are Supported by Level (25-35) Lifetap
-{variant:275}Socketed Gems are Supported by Level (1-10) Focused Ballista
-{variant:276}Socketed Gems are Supported by Level (25-35) Focused Ballista
-{variant:277}Socketed Gems are Supported by Level (1-10) Earthbreaker
-{variant:278}Socketed Gems are Supported by Level (25-35) Earthbreaker
-{variant:279}Socketed Gems are Supported by Level (1-10) Behead
-{variant:280}Socketed Gems are Supported by Level (25-35) Behead
-{variant:281}Socketed Gems are Supported by Level (1-10) Mark On Hit
-{variant:282}Socketed Gems are Supported by Level (25-35) Mark On Hit
-{variant:283}Socketed Gems are Supported by Level (1-10) Divine Blessing
-{variant:284}Socketed Gems are Supported by Level (25-35) Divine Blessing
-{variant:285}Socketed Gems are Supported by Level (1-10) Eternal Blessing
-{variant:286}Socketed Gems are Supported by Level (25-35) Eternal Blessing
-{variant:287}Socketed Gems are Supported by Level (1-10) Overcharge
-{variant:288}Socketed Gems are Supported by Level (25-35) Overcharge
-{variant:289}Socketed Gems are Supported by Level (1-10) Cursed Ground
-{variant:290}Socketed Gems are Supported by Level (25-35) Cursed Ground
-{variant:291}Socketed Gems are Supported by Level (1-10) Hex Bloom
-{variant:292}Socketed Gems are Supported by Level (25-35) Hex Bloom
-{variant:293}Socketed Gems are Supported by Level (1-10) Manaforged Arrows
-{variant:294}Socketed Gems are Supported by Level (25-35) Manaforged Arrows
-{variant:295}Socketed Gems are Supported by Level (1-10) Prismatic Burst
-{variant:296}Socketed Gems are Supported by Level (25-35) Prismatic Burst
-{variant:297}Socketed Gems are Supported by Level (1-10) Returning Projectiles
-{variant:298}Socketed Gems are Supported by Level (25-35) Returning Projectiles
-{variant:299}Socketed Gems are Supported by Level (1-10) Trauma
-{variant:300}Socketed Gems are Supported by Level (25-35) Trauma
-{variant:301}Socketed Gems are Supported by Level (1-10) Spellblade
-{variant:302}Socketed Gems are Supported by Level (25-35) Spellblade
-{variant:303}Socketed Gems are Supported by Level (1-10) Devour
-{variant:304}Socketed Gems are Supported by Level (25-35) Devour
-{variant:305}Socketed Gems are Supported by Level (1-10) Fresh Meat
-{variant:306}Socketed Gems are Supported by Level (25-35) Fresh Meat
-{variant:307}Socketed Gems are Supported by Level (1-10) Flamewood
-{variant:308}Socketed Gems are Supported by Level (25-35) Flamewood
-{variant:309}Socketed Gems are Supported by Level (1-10) Corrupting Cry
-{variant:310}Socketed Gems are Supported by Level (25-35) Corrupting Cry
-{variant:311}Socketed Gems are Supported by Level (1-10) Volatility
-{variant:312}Socketed Gems are Supported by Level (25-35) Volatility
-{variant:313}Socketed Gems are Supported by Level (1-10) Guardian's Blessing
-{variant:314}Socketed Gems are Supported by Level (25-35) Guardian's Blessing
-{variant:315}Socketed Gems are Supported by Level (1-10) Sacrifice
-{variant:316}Socketed Gems are Supported by Level (25-35) Sacrifice
-{variant:317}Socketed Gems are Supported by Level (1-10) Frigid Bond
-{variant:318}Socketed Gems are Supported by Level (25-35) Frigid Bond
-{variant:319}Socketed Gems are Supported by Level (1-10) Locus Mine
-{variant:320}Socketed Gems are Supported by Level (25-35) Locus Mine
-{variant:321}Socketed Gems are Supported by Level (1-10) Sadism
-{variant:322}Socketed Gems are Supported by Level (25-35) Sadism
-{variant:323}Socketed Gems are Supported by Level (1-10) Controlled Blaze
-{variant:324}Socketed Gems are Supported by Level (25-35) Controlled Blaze
+{variant:13}Socketed Gems are Supported by Level (1-10) Ancestral Call
+{variant:14}Socketed Gems are Supported by Level (25-35) Ancestral Call
+{variant:15}Socketed Gems are Supported by Level (1-10) Arcane Surge
+{variant:16}Socketed Gems are Supported by Level (25-35) Arcane Surge
+{variant:17}Socketed Gems are Supported by Level (1-10) Archmage
+{variant:18}Socketed Gems are Supported by Level (25-35) Archmage
+{variant:19}Socketed Gems are Supported by Level (1-10) Arrogance
+{variant:20}Socketed Gems are Supported by Level (25-35) Arrogance
+{variant:21}Socketed Gems are Supported by Level (1-10) Arrow Nova
+{variant:22}Socketed Gems are Supported by Level (25-35) Arrow Nova
+{variant:23}Socketed Gems are Supported by Level (1-10) Ballista Totem
+{variant:24}Socketed Gems are Supported by Level (25-35) Ballista Totem
+{variant:25}Socketed Gems are Supported by Level (1-10) Barrage
+{variant:26}Socketed Gems are Supported by Level (25-35) Barrage
+{variant:27}Socketed Gems are Supported by Level (1-10) Behead
+{variant:28}Socketed Gems are Supported by Level (25-35) Behead
+{variant:29}Socketed Gems are Supported by Level (1-10) Blasphemy
+{variant:30}Socketed Gems are Supported by Level (25-35) Blasphemy
+{variant:31}Socketed Gems are Supported by Level (1-10) Blastchain Mine
+{variant:32}Socketed Gems are Supported by Level (25-35) Blastchain Mine
+{variant:33}Socketed Gems are Supported by Level (1-10) Blind
+{variant:34}Socketed Gems are Supported by Level (25-35) Blind
+{variant:35}Socketed Gems are Supported by Level (1-10) Bloodlust
+{variant:36}Socketed Gems are Supported by Level (25-35) Bloodlust
+{variant:37}Socketed Gems are Supported by Level (1-10) Bloodthirst
+{variant:38}Socketed Gems are Supported by Level (25-35) Bloodthirst
+{variant:39}Socketed Gems are Supported by Level (1-10) Bonechill
+{variant:40}Socketed Gems are Supported by Level (25-35) Bonechill
+{variant:41}Socketed Gems are Supported by Level (1-10) Brutality
+{variant:42}Socketed Gems are Supported by Level (25-35) Brutality
+{variant:43}Socketed Gems are Supported by Level (1-10) Burning Damage
+{variant:44}Socketed Gems are Supported by Level (25-35) Burning Damage
+{variant:45}Socketed Gems are Supported by Level (1-10) Cast On Critical Strike
+{variant:46}Socketed Gems are Supported by Level (25-35) Cast On Critical Strike
+{variant:47}Socketed Gems are Supported by Level (1-10) Cast on Death
+{variant:48}Socketed Gems are Supported by Level (25-35) Cast on Death
+{variant:49}Socketed Gems are Supported by Level (1-10) Cast on Melee Kill
+{variant:50}Socketed Gems are Supported by Level (25-35) Cast on Melee Kill
+{variant:51}Socketed Gems are Supported by Level (1-10) Cast when Damage Taken
+{variant:52}Socketed Gems are Supported by Level (25-35) Cast when Damage Taken
+{variant:53}Socketed Gems are Supported by Level (1-10) Cast when Stunned
+{variant:54}Socketed Gems are Supported by Level (25-35) Cast when Stunned
+{variant:55}Socketed Gems are Supported by Level (1-10) Cast while Channelling
+{variant:56}Socketed Gems are Supported by Level (25-35) Cast while Channelling
+{variant:57}Socketed Gems are Supported by Level (1-10) Chain
+{variant:58}Socketed Gems are Supported by Level (25-35) Chain
+{variant:59}Socketed Gems are Supported by Level (1-10) Chance to Bleed
+{variant:60}Socketed Gems are Supported by Level (25-35) Chance to Bleed
+{variant:61}Socketed Gems are Supported by Level (1-10) Chance to Flee
+{variant:62}Socketed Gems are Supported by Level (25-35) Chance to Flee
+{variant:63}Socketed Gems are Supported by Level (1-10) Chance to Poison
+{variant:64}Socketed Gems are Supported by Level (25-35) Chance to Poison
+{variant:65}Socketed Gems are Supported by Level (1-10) Charged Mines
+{variant:66}Socketed Gems are Supported by Level (25-35) Charged Mines
+{variant:67}Socketed Gems are Supported by Level (1-10) Charged Traps
+{variant:68}Socketed Gems are Supported by Level (25-35) Charged Traps
+{variant:69}Socketed Gems are Supported by Level (1-10) Close Combat
+{variant:70}Socketed Gems are Supported by Level (25-35) Close Combat
+{variant:71}Socketed Gems are Supported by Level (1-10) Cluster Traps
+{variant:72}Socketed Gems are Supported by Level (25-35) Cluster Traps
+{variant:73}Socketed Gems are Supported by Level (1-10) Cold Penetration
+{variant:74}Socketed Gems are Supported by Level (25-35) Cold Penetration
+{variant:75}Socketed Gems are Supported by Level (1-10) Cold to Fire
+{variant:76}Socketed Gems are Supported by Level (25-35) Cold to Fire
+{variant:77}Socketed Gems are Supported by Level (1-10) Combustion
+{variant:78}Socketed Gems are Supported by Level (25-35) Combustion
+{variant:79}Socketed Gems are Supported by Level (1-10) Concentrated Effect
+{variant:80}Socketed Gems are Supported by Level (25-35) Concentrated Effect
+{variant:81}Socketed Gems are Supported by Level (1-10) Controlled Blaze
+{variant:82}Socketed Gems are Supported by Level (25-35) Controlled Blaze
+{variant:83}Socketed Gems are Supported by Level (1-10) Controlled Destruction
+{variant:84}Socketed Gems are Supported by Level (25-35) Controlled Destruction
+{variant:85}Socketed Gems are Supported by Level (1-10) Corrupting Cry
+{variant:86}Socketed Gems are Supported by Level (25-35) Corrupting Cry
+{variant:87}Socketed Gems are Supported by Level (1-10) Critical Strike Affliction
+{variant:88}Socketed Gems are Supported by Level (25-35) Critical Strike Affliction
+{variant:89}Socketed Gems are Supported by Level (1-10) Cruelty
+{variant:90}Socketed Gems are Supported by Level (25-35) Cruelty
+{variant:91}Socketed Gems are Supported by Level (1-10) Culling Strike
+{variant:92}Socketed Gems are Supported by Level (25-35) Culling Strike
+{variant:93}Socketed Gems are Supported by Level (1-10) Cursed Ground
+{variant:94}Socketed Gems are Supported by Level (25-35) Cursed Ground
+{variant:95}Socketed Gems are Supported by Level (1-10) Damage on Full Life
+{variant:96}Socketed Gems are Supported by Level (25-35) Damage on Full Life
+{variant:97}Socketed Gems are Supported by Level (1-10) Deadly Ailments
+{variant:98}Socketed Gems are Supported by Level (25-35) Deadly Ailments
+{variant:99}Socketed Gems are Supported by Level (1-10) Decay
+{variant:100}Socketed Gems are Supported by Level (25-35) Decay
+{variant:101}Socketed Gems are Supported by Level (1-10) Devour
+{variant:102}Socketed Gems are Supported by Level (25-35) Devour
+{variant:103}Socketed Gems are Supported by Level (1-10) Divine Blessing
+{variant:104}Socketed Gems are Supported by Level (25-35) Divine Blessing
+{variant:105}Socketed Gems are Supported by Level (1-10) Earthbreaker
+{variant:106}Socketed Gems are Supported by Level (25-35) Earthbreaker
+{variant:107}Socketed Gems are Supported by Level (1-10) Efficacy
+{variant:108}Socketed Gems are Supported by Level (25-35) Efficacy
+{variant:109}Socketed Gems are Supported by Level (1-10) Elemental Army
+{variant:110}Socketed Gems are Supported by Level (25-35) Elemental Army
+{variant:111}Socketed Gems are Supported by Level (1-10) Elemental Damage with Attacks
+{variant:112}Socketed Gems are Supported by Level (25-35) Elemental Damage with Attacks
+{variant:113}Socketed Gems are Supported by Level (1-10) Elemental Focus
+{variant:114}Socketed Gems are Supported by Level (25-35) Elemental Focus
+{variant:115}Socketed Gems are Supported by Level (1-10) Elemental Proliferation
+{variant:116}Socketed Gems are Supported by Level (25-35) Elemental Proliferation
+{variant:117}Socketed Gems are Supported by Level (1-10) Endurance Charge on Melee Stun
+{variant:118}Socketed Gems are Supported by Level (25-35) Endurance Charge on Melee Stun
+{variant:119}Socketed Gems are Supported by Level (1-10) Energy Leech
+{variant:120}Socketed Gems are Supported by Level (25-35) Energy Leech
+{variant:121}Socketed Gems are Supported by Level (1-10) Eternal Blessing
+{variant:122}Socketed Gems are Supported by Level (25-35) Eternal Blessing
+{variant:123}Socketed Gems are Supported by Level (1-10) Faster Attacks
+{variant:124}Socketed Gems are Supported by Level (25-35) Faster Attacks
+{variant:125}Socketed Gems are Supported by Level (1-10) Faster Casting
+{variant:126}Socketed Gems are Supported by Level (25-35) Faster Casting
+{variant:127}Socketed Gems are Supported by Level (1-10) Faster Projectiles
+{variant:128}Socketed Gems are Supported by Level (25-35) Faster Projectiles
+{variant:129}Socketed Gems are Supported by Level (1-10) Feeding Frenzy
+{variant:130}Socketed Gems are Supported by Level (25-35) Feeding Frenzy
+{variant:131}Socketed Gems are Supported by Level (1-10) Fire Penetration
+{variant:132}Socketed Gems are Supported by Level (25-35) Fire Penetration
+{variant:133}Socketed Gems are Supported by Level (1-10) Fist of War
+{variant:134}Socketed Gems are Supported by Level (25-35) Fist of War
+{variant:135}Socketed Gems are Supported by Level (1-10) Flamewood
+{variant:136}Socketed Gems are Supported by Level (25-35) Flamewood
+{variant:137}Socketed Gems are Supported by Level (1-10) Focused Ballista
+{variant:138}Socketed Gems are Supported by Level (25-35) Focused Ballista
+{variant:139}Socketed Gems are Supported by Level (1-10) Fork
+{variant:140}Socketed Gems are Supported by Level (25-35) Fork
+{variant:141}Socketed Gems are Supported by Level (1-10) Fortify
+{variant:142}Socketed Gems are Supported by Level (25-35) Fortify
+{variant:143}Socketed Gems are Supported by Level (1-10) Fresh Meat
+{variant:144}Socketed Gems are Supported by Level (25-35) Fresh Meat
+{variant:145}Socketed Gems are Supported by Level (1-10) Frigid Bond
+{variant:146}Socketed Gems are Supported by Level (25-35) Frigid Bond
+{variant:147}Socketed Gems are Supported by Level (1-10) Generosity
+{variant:148}Socketed Gems are Supported by Level (25-35) Generosity
+{variant:149}Socketed Gems are Supported by Level (1-10) Greater Multiple Projectiles
+{variant:150}Socketed Gems are Supported by Level (25-35) Greater Multiple Projectiles
+{variant:151}Socketed Gems are Supported by Level (1-10) Greater Volley
+{variant:152}Socketed Gems are Supported by Level (25-35) Greater Volley
+{variant:153}Socketed Gems are Supported by Level (1-10) Guardian's Blessing
+{variant:154}Socketed Gems are Supported by Level (25-35) Guardian's Blessing
+{variant:155}Socketed Gems are Supported by Level (1-10) Hex Bloom
+{variant:156}Socketed Gems are Supported by Level (25-35) Hex Bloom
+{variant:157}Socketed Gems are Supported by Level (1-10) Hextouch
+{variant:158}Socketed Gems are Supported by Level (25-35) Hextouch
+{variant:159}Socketed Gems are Supported by Level (1-10) High-Impact Mine
+{variant:160}Socketed Gems are Supported by Level (25-35) High-Impact Mine
+{variant:161}Socketed Gems are Supported by Level (1-10) Hypothermia
+{variant:162}Socketed Gems are Supported by Level (25-35) Hypothermia
+{variant:163}Socketed Gems are Supported by Level (1-10) Ice Bite
+{variant:164}Socketed Gems are Supported by Level (25-35) Ice Bite
+{variant:165}Socketed Gems are Supported by Level (1-10) Ignite Proliferation
+{variant:166}Socketed Gems are Supported by Level (25-35) Ignite Proliferation
+{variant:167}Socketed Gems are Supported by Level (1-10) Immolate
+{variant:168}Socketed Gems are Supported by Level (25-35) Immolate
+{variant:169}Socketed Gems are Supported by Level (1-10) Impale
+{variant:170}Socketed Gems are Supported by Level (25-35) Impale
+{variant:171}Socketed Gems are Supported by Level (1-10) Impending Doom
+{variant:172}Socketed Gems are Supported by Level (25-35) Impending Doom
+{variant:173}Socketed Gems are Supported by Level (1-10) Increased Area of Effect
+{variant:174}Socketed Gems are Supported by Level (25-35) Increased Area of Effect
+{variant:175}Socketed Gems are Supported by Level (1-10) Increased Critical Damage
+{variant:176}Socketed Gems are Supported by Level (25-35) Increased Critical Damage
+{variant:177}Socketed Gems are Supported by Level (1-10) Increased Critical Strikes
+{variant:178}Socketed Gems are Supported by Level (25-35) Increased Critical Strikes
+{variant:179}Socketed Gems are Supported by Level (1-10) Increased Duration
+{variant:180}Socketed Gems are Supported by Level (25-35) Increased Duration
+{variant:181}Socketed Gems are Supported by Level (1-10) Infernal Legion
+{variant:182}Socketed Gems are Supported by Level (25-35) Infernal Legion
+{variant:183}Socketed Gems are Supported by Level (1-10) Infused Channelling
+{variant:184}Socketed Gems are Supported by Level (25-35) Infused Channelling
+{variant:185}Socketed Gems are Supported by Level (1-10) Innervate
+{variant:186}Socketed Gems are Supported by Level (25-35) Innervate
+{variant:187}Socketed Gems are Supported by Level (1-10) Inspiration
+{variant:188}Socketed Gems are Supported by Level (25-35) Inspiration
+{variant:189}Socketed Gems are Supported by Level (1-10) Intensify
+{variant:190}Socketed Gems are Supported by Level (25-35) Intensify
+{variant:191}Socketed Gems are Supported by Level (1-10) Iron Grip
+{variant:192}Socketed Gems are Supported by Level (25-35) Iron Grip
+{variant:193}Socketed Gems are Supported by Level (1-10) Iron Will
+{variant:194}Socketed Gems are Supported by Level (25-35) Iron Will
+{variant:195}Socketed Gems are Supported by Level (1-10) Item Rarity
+{variant:196}Socketed Gems are Supported by Level (25-35) Item Rarity
+{variant:197}Socketed Gems are Supported by Level (1-10) Knockback
+{variant:198}Socketed Gems are Supported by Level (25-35) Knockback
+{variant:199}Socketed Gems are Supported by Level (1-10) Less Duration
+{variant:200}Socketed Gems are Supported by Level (25-35) Less Duration
+{variant:201}Socketed Gems are Supported by Level (1-10) Lesser Multiple Projectiles
+{variant:202}Socketed Gems are Supported by Level (25-35) Lesser Multiple Projectiles
+{variant:203}Socketed Gems are Supported by Level (1-10) Life Gain on Hit
+{variant:204}Socketed Gems are Supported by Level (25-35) Life Gain on Hit
+{variant:205}Socketed Gems are Supported by Level (1-10) Life Leech
+{variant:206}Socketed Gems are Supported by Level (25-35) Life Leech
+{variant:207}Socketed Gems are Supported by Level (1-10) Lifetap
+{variant:208}Socketed Gems are Supported by Level (25-35) Lifetap
+{variant:209}Socketed Gems are Supported by Level (1-10) Lightning Penetration
+{variant:210}Socketed Gems are Supported by Level (25-35) Lightning Penetration
+{variant:211}Socketed Gems are Supported by Level (1-10) Locus Mine
+{variant:212}Socketed Gems are Supported by Level (25-35) Locus Mine
+{variant:213}Socketed Gems are Supported by Level (1-10) Maim
+{variant:214}Socketed Gems are Supported by Level (25-35) Maim
+{variant:215}Socketed Gems are Supported by Level (1-10) Mana Leech
+{variant:216}Socketed Gems are Supported by Level (25-35) Mana Leech
+{variant:217}Socketed Gems are Supported by Level (1-10) Manaforged Arrows
+{variant:218}Socketed Gems are Supported by Level (25-35) Manaforged Arrows
+{variant:219}Socketed Gems are Supported by Level (1-10) Mark On Hit
+{variant:220}Socketed Gems are Supported by Level (25-35) Mark On Hit
+{variant:221}Socketed Gems are Supported by Level (1-10) Meat Shield
+{variant:222}Socketed Gems are Supported by Level (25-35) Meat Shield
+{variant:223}Socketed Gems are Supported by Level (1-10) Melee Physical Damage
+{variant:224}Socketed Gems are Supported by Level (25-35) Melee Physical Damage
+{variant:225}Socketed Gems are Supported by Level (1-10) Melee Splash
+{variant:226}Socketed Gems are Supported by Level (25-35) Melee Splash
+{variant:227}Socketed Gems are Supported by Level (1-10) Minefield
+{variant:228}Socketed Gems are Supported by Level (25-35) Minefield
+{variant:229}Socketed Gems are Supported by Level (1-10) Minion Damage
+{variant:230}Socketed Gems are Supported by Level (25-35) Minion Damage
+{variant:231}Socketed Gems are Supported by Level (1-10) Minion Life
+{variant:232}Socketed Gems are Supported by Level (25-35) Minion Life
+{variant:233}Socketed Gems are Supported by Level (1-10) Minion Speed
+{variant:234}Socketed Gems are Supported by Level (25-35) Minion Speed
+{variant:235}Socketed Gems are Supported by Level (1-10) Mirage Archer
+{variant:236}Socketed Gems are Supported by Level (25-35) Mirage Archer
+{variant:237}Socketed Gems are Supported by Level (1-10) Momentum
+{variant:238}Socketed Gems are Supported by Level (25-35) Momentum
+{variant:239}Socketed Gems are Supported by Level (1-10) Multiple Totems
+{variant:240}Socketed Gems are Supported by Level (25-35) Multiple Totems
+{variant:241}Socketed Gems are Supported by Level (1-10) Multiple Traps
+{variant:242}Socketed Gems are Supported by Level (25-35) Multiple Traps
+{variant:243}Socketed Gems are Supported by Level (1-10) Multistrike
+{variant:244}Socketed Gems are Supported by Level (25-35) Multistrike
+{variant:245}Socketed Gems are Supported by Level (1-10) Nightblade
+{variant:246}Socketed Gems are Supported by Level (25-35) Nightblade
+{variant:247}Socketed Gems are Supported by Level (1-10) Overcharge
+{variant:248}Socketed Gems are Supported by Level (25-35) Overcharge
+{variant:249}Socketed Gems are Supported by Level (1-10) Physical to Lightning
+{variant:250}Socketed Gems are Supported by Level (25-35) Physical to Lightning
+{variant:251}Socketed Gems are Supported by Level (1-10) Pierce
+{variant:252}Socketed Gems are Supported by Level (25-35) Pierce
+{variant:253}Socketed Gems are Supported by Level (1-10) Pinpoint
+{variant:254}Socketed Gems are Supported by Level (25-35) Pinpoint
+{variant:255}Socketed Gems are Supported by Level (1-10) Point Blank
+{variant:256}Socketed Gems are Supported by Level (25-35) Point Blank
+{variant:257}Socketed Gems are Supported by Level (1-10) Power Charge On Critical
+{variant:258}Socketed Gems are Supported by Level (25-35) Power Charge On Critical
+{variant:259}Socketed Gems are Supported by Level (1-10) Predator
+{variant:260}Socketed Gems are Supported by Level (25-35) Predator
+{variant:261}Socketed Gems are Supported by Level (1-10) Prismatic Burst
+{variant:262}Socketed Gems are Supported by Level (25-35) Prismatic Burst
+{variant:263}Socketed Gems are Supported by Level (1-10) Pulverise
+{variant:264}Socketed Gems are Supported by Level (25-35) Pulverise
+{variant:265}Socketed Gems are Supported by Level (1-10) Rage
+{variant:266}Socketed Gems are Supported by Level (25-35) Rage
+{variant:267}Socketed Gems are Supported by Level (1-10) Returning Projectiles
+{variant:268}Socketed Gems are Supported by Level (25-35) Returning Projectiles
+{variant:269}Socketed Gems are Supported by Level (1-10) Ruthless
+{variant:270}Socketed Gems are Supported by Level (25-35) Ruthless
+{variant:271}Socketed Gems are Supported by Level (1-10) Sacrifice
+{variant:272}Socketed Gems are Supported by Level (25-35) Sacrifice
+{variant:273}Socketed Gems are Supported by Level (1-10) Sadism
+{variant:274}Socketed Gems are Supported by Level (25-35) Sadism
+{variant:275}Socketed Gems are Supported by Level (1-10) Second Wind
+{variant:276}Socketed Gems are Supported by Level (25-35) Second Wind
+{variant:277}Socketed Gems are Supported by Level (1-10) Shockwave
+{variant:278}Socketed Gems are Supported by Level (25-35) Shockwave
+{variant:279}Socketed Gems are Supported by Level (1-10) Slower Projectiles
+{variant:280}Socketed Gems are Supported by Level (25-35) Slower Projectiles
+{variant:281}Socketed Gems are Supported by Level (1-10) Spell Cascade
+{variant:282}Socketed Gems are Supported by Level (25-35) Spell Cascade
+{variant:283}Socketed Gems are Supported by Level (1-10) Spell Echo
+{variant:284}Socketed Gems are Supported by Level (25-35) Spell Echo
+{variant:285}Socketed Gems are Supported by Level (1-10) Spell Totem
+{variant:286}Socketed Gems are Supported by Level (25-35) Spell Totem
+{variant:287}Socketed Gems are Supported by Level (1-10) Spellblade
+{variant:288}Socketed Gems are Supported by Level (25-35) Spellblade
+{variant:289}Socketed Gems are Supported by Level (1-10) Stun
+{variant:290}Socketed Gems are Supported by Level (25-35) Stun
+{variant:291}Socketed Gems are Supported by Level (1-10) Summon Phantasm
+{variant:292}Socketed Gems are Supported by Level (25-35) Summon Phantasm
+{variant:293}Socketed Gems are Supported by Level (1-10) Swift Affliction
+{variant:294}Socketed Gems are Supported by Level (25-35) Swift Affliction
+{variant:295}Socketed Gems are Supported by Level (1-10) Swift Assembly
+{variant:296}Socketed Gems are Supported by Level (25-35) Swift Assembly
+{variant:297}Socketed Gems are Supported by Level (1-10) Swiftbrand
+{variant:298}Socketed Gems are Supported by Level (25-35) Swiftbrand
+{variant:299}Socketed Gems are Supported by Level (1-10) Trap
+{variant:300}Socketed Gems are Supported by Level (25-35) Trap
+{variant:301}Socketed Gems are Supported by Level (1-10) Trap and Mine Damage
+{variant:302}Socketed Gems are Supported by Level (25-35) Trap and Mine Damage
+{variant:303}Socketed Gems are Supported by Level (1-10) Trauma
+{variant:304}Socketed Gems are Supported by Level (25-35) Trauma
+{variant:305}Socketed Gems are Supported by Level (1-10) Trinity
+{variant:306}Socketed Gems are Supported by Level (25-35) Trinity
+{variant:307}Socketed Gems are Supported by Level (1-10) Unbound Ailments
+{variant:308}Socketed Gems are Supported by Level (25-35) Unbound Ailments
+{variant:309}Socketed Gems are Supported by Level (1-10) Unleash
+{variant:310}Socketed Gems are Supported by Level (25-35) Unleash
+{variant:311}Socketed Gems are Supported by Level (1-10) Urgent Orders
+{variant:312}Socketed Gems are Supported by Level (25-35) Urgent Orders
+{variant:313}Socketed Gems are Supported by Level (1-10) Vicious Projectiles
+{variant:314}Socketed Gems are Supported by Level (25-35) Vicious Projectiles
+{variant:315}Socketed Gems are Supported by Level (1-10) Vile Toxins
+{variant:316}Socketed Gems are Supported by Level (25-35) Vile Toxins
+{variant:317}Socketed Gems are Supported by Level (1-10) Void Manipulation
+{variant:318}Socketed Gems are Supported by Level (25-35) Void Manipulation
+{variant:319}Socketed Gems are Supported by Level (1-10) Volatility
+{variant:320}Socketed Gems are Supported by Level (25-35) Volatility
+{variant:321}Socketed Gems are Supported by Level (1-10) Volley
+{variant:322}Socketed Gems are Supported by Level (25-35) Volley
+{variant:323}Socketed Gems are Supported by Level (1-10) Withering Touch
+{variant:324}Socketed Gems are Supported by Level (25-35) Withering Touch
 +(25-30) to all Attributes
 ]],
 [[
@@ -1906,654 +1908,656 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68, 59 Str, 59 Int
 Has Alt Variant: true
-Variant: Greater Multiple Projectiles (Low Level)
-Variant: Greater Multiple Projectiles (High Level)
-Variant: Void Manipulation (Low Level)
-Variant: Void Manipulation (High Level)
-Variant: Vile Toxins (Low Level)
-Variant: Vile Toxins (High Level)
-Variant: Unleash (Low Level)
-Variant: Unleash (High Level)
-Variant: Unbound Ailments (Low Level)
-Variant: Unbound Ailments (High Level)
-Variant: Advanced Traps (Low Level)
-Variant: Advanced Traps (High Level)
-Variant: Trap and Mine Damage (Low Level)
-Variant: Trap and Mine Damage (High Level)
-Variant: Trap (Low Level)
-Variant: Trap (High Level)
-Variant: Swift Assembly (Low Level)
-Variant: Swift Assembly (High Level)
-Variant: Summon Phantasm (Low Level)
-Variant: Summon Phantasm (High Level)
-Variant: Elemental Army (Low Level)
-Variant: Elemental Army (High Level)
-Variant: Stun (Low Level)
-Variant: Stun (High Level)
-Variant: Infused Channelling (Low Level)
-Variant: Infused Channelling (High Level)
-Variant: Ancestral Call (Low Level)
-Variant: Ancestral Call (High Level)
-Variant: Spell Totem (Low Level)
-Variant: Spell Totem (High Level)
-Variant: Intensify (Low Level)
-Variant: Intensify (High Level)
-Variant: Spell Cascade (Low Level)
-Variant: Spell Cascade (High Level)
-Variant: Slower Projectiles (Low Level)
-Variant: Slower Projectiles (High Level)
-Variant: Shockwave (Low Level)
-Variant: Shockwave (High Level)
-Variant: Second Wind (Low Level)
-Variant: Second Wind (High Level)
-Variant: Ruthless (Low Level)
-Variant: Ruthless (High Level)
-Variant: High-Impact Mine (Low Level)
-Variant: High-Impact Mine (High Level)
-Variant: Blastchain Mine (Low Level)
-Variant: Blastchain Mine (High Level)
-Variant: Inspiration (Low Level)
-Variant: Inspiration (High Level)
-Variant: Less Duration (Low Level)
-Variant: Less Duration (High Level)
-Variant: Swift Affliction (Low Level)
-Variant: Swift Affliction (High Level)
-Variant: Ballista Totem (Low Level)
-Variant: Ballista Totem (High Level)
-Variant: Rage (Low Level)
-Variant: Rage (High Level)
-Variant: Pulverise (Low Level)
-Variant: Pulverise (High Level)
-Variant: Power Charge On Critical (Low Level)
-Variant: Power Charge On Critical (High Level)
-Variant: Critical Strike Affliction (Low Level)
-Variant: Critical Strike Affliction (High Level)
-Variant: Point Blank (Low Level)
-Variant: Point Blank (High Level)
-Variant: Pierce (Low Level)
-Variant: Pierce (High Level)
-Variant: Physical to Lightning (Low Level)
-Variant: Physical to Lightning (High Level)
-Variant: Vicious Projectiles (Low Level)
-Variant: Vicious Projectiles (High Level)
-Variant: Volley (Low Level)
-Variant: Volley (High Level)
-Variant: Momentum (Low Level)
-Variant: Momentum (High Level)
-Variant: Nightblade (Low Level)
-Variant: Nightblade (High Level)
-Variant: Multiple Traps (Low Level)
-Variant: Multiple Traps (High Level)
-Variant: Multiple Totems (Low Level)
-Variant: Multiple Totems (High Level)
-Variant: Multistrike (Low Level)
-Variant: Multistrike (High Level)
-Variant: Spell Echo (Low Level)
-Variant: Spell Echo (High Level)
-Variant: Mirage Archer (Low Level)
-Variant: Mirage Archer (High Level)
-Variant: Minefield (Low Level)
-Variant: Minefield (High Level)
-Variant: Melee Splash (Low Level)
-Variant: Melee Splash (High Level)
-Variant: Melee Physical Damage (Low Level)
-Variant: Melee Physical Damage (High Level)
-Variant: Damage on Full Life (Low Level)
-Variant: Damage on Full Life (High Level)
-Variant: Meat Shield (Low Level)
-Variant: Meat Shield (High Level)
-Variant: Mana Leech (Low Level)
-Variant: Mana Leech (High Level)
-Variant: Maim (Low Level)
-Variant: Maim (High Level)
-Variant: Lightning Penetration (Low Level)
-Variant: Lightning Penetration (High Level)
-Variant: Life Leech (Low Level)
-Variant: Life Leech (High Level)
-Variant: Life Gain on Hit (Low Level)
-Variant: Life Gain on Hit (High Level)
-Variant: Chance to Poison (Low Level)
-Variant: Chance to Poison (High Level)
-Variant: Lesser Multiple Projectiles (Low Level)
-Variant: Lesser Multiple Projectiles (High Level)
-Variant: Knockback (Low Level)
-Variant: Knockback (High Level)
-Variant: Item Rarity (Low Level)
-Variant: Item Rarity (High Level)
-Variant: Iron Will (Low Level)
-Variant: Iron Will (High Level)
-Variant: Iron Grip (Low Level)
-Variant: Iron Grip (High Level)
-Variant: Innervate (Low Level)
-Variant: Innervate (High Level)
-Variant: Infernal Legion (Low Level)
-Variant: Infernal Legion (High Level)
-Variant: Minion Speed (Low Level)
-Variant: Minion Speed (High Level)
-Variant: Minion Life (Low Level)
-Variant: Minion Life (High Level)
-Variant: Minion Damage (Low Level)
-Variant: Minion Damage (High Level)
-Variant: Increased Duration (Low Level)
-Variant: Increased Duration (High Level)
-Variant: Increased Critical Strikes (Low Level)
-Variant: Increased Critical Strikes (High Level)
-Variant: Increased Critical Damage (Low Level)
-Variant: Increased Critical Damage (High Level)
-Variant: Burning Damage (Low Level)
-Variant: Burning Damage (High Level)
-Variant: Increased Area of Effect (Low Level)
-Variant: Increased Area of Effect (High Level)
-Variant: Impale (Low Level)
-Variant: Impale (High Level)
-Variant: Immolate (Low Level)
-Variant: Immolate (High Level)
-Variant: Ignite Proliferation (Low Level)
-Variant: Ignite Proliferation (High Level)
-Variant: Ice Bite (Low Level)
-Variant: Ice Bite (High Level)
-Variant: Hypothermia (Low Level)
-Variant: Hypothermia (High Level)
-Variant: Greater Volley (Low Level)
-Variant: Greater Volley (High Level)
-Variant: Elemental Damage with Attacks (Low Level)
-Variant: Elemental Damage with Attacks (High Level)
-Variant: Generosity (Low Level)
-Variant: Generosity (High Level)
-Variant: Charged Traps (Low Level)
-Variant: Charged Traps (High Level)
-Variant: Fortify (Low Level)
-Variant: Fortify (High Level)
-Variant: Fork (Low Level)
-Variant: Fork (High Level)
-Variant: Chance to Flee (Low Level)
-Variant: Chance to Flee (High Level)
-Variant: Fire Penetration (Low Level)
-Variant: Fire Penetration (High Level)
-Variant: Feeding Frenzy (Low Level)
-Variant: Feeding Frenzy (High Level)
-Variant: Faster Projectiles (Low Level)
-Variant: Faster Projectiles (High Level)
-Variant: Faster Casting (Low Level)
-Variant: Faster Casting (High Level)
-Variant: Faster Attacks (Low Level)
-Variant: Faster Attacks (High Level)
-Variant: Energy Leech (Low Level)
-Variant: Energy Leech (High Level)
-Variant: Endurance Charge on Melee Stun (Low Level)
-Variant: Endurance Charge on Melee Stun (High Level)
-Variant: Elemental Proliferation (Low Level)
-Variant: Elemental Proliferation (High Level)
-Variant: Elemental Focus (Low Level)
-Variant: Elemental Focus (High Level)
-Variant: Efficacy (Low Level)
-Variant: Efficacy (High Level)
-Variant: Decay (Low Level)
-Variant: Decay (High Level)
-Variant: Predator (Low Level)
-Variant: Predator (High Level)
-Variant: Deadly Ailments (Low Level)
-Variant: Deadly Ailments (High Level)
-Variant: Hextouch (Low Level)
-Variant: Hextouch (High Level)
-Variant: Culling Strike (Low Level)
-Variant: Culling Strike (High Level)
-Variant: Controlled Destruction (Low Level)
-Variant: Controlled Destruction (High Level)
-Variant: Concentrated Effect (Low Level)
-Variant: Concentrated Effect (High Level)
-Variant: Cold to Fire (Low Level)
-Variant: Cold to Fire (High Level)
-Variant: Cold Penetration (Low Level)
-Variant: Cold Penetration (High Level)
-Variant: Cluster Traps (Low Level)
-Variant: Cluster Traps (High Level)
-Variant: Close Combat (Low Level)
-Variant: Close Combat (High Level)
-Variant: Charged Mines (Low Level)
-Variant: Charged Mines (High Level)
-Variant: Withering Touch (Low Level)
-Variant: Withering Touch (High Level)
-Variant: Combustion (Low Level)
-Variant: Combustion (High Level)
-Variant: Chance to Bleed (Low Level)
-Variant: Chance to Bleed (High Level)
-Variant: Chain (Low Level)
-Variant: Chain (High Level)
-Variant: Cast while Channelling (Low Level)
-Variant: Cast while Channelling (High Level)
-Variant: Cast when Stunned (Low Level)
-Variant: Cast when Stunned (High Level)
-Variant: Cast on Melee Kill (Low Level)
-Variant: Cast on Melee Kill (High Level)
-Variant: Cast on Death (Low Level)
-Variant: Cast on Death (High Level)
-Variant: Cast when Damage Taken (Low Level)
-Variant: Cast when Damage Taken (High Level)
-Variant: Cast On Critical Strike (Low Level)
-Variant: Cast On Critical Strike (High Level)
-Variant: Brutality (Low Level)
-Variant: Brutality (High Level)
-Variant: Bonechill (Low Level)
-Variant: Bonechill (High Level)
-Variant: Arrogance (Low Level)
-Variant: Arrogance (High Level)
-Variant: Bloodlust (Low Level)
-Variant: Bloodlust (High Level)
-Variant: Blind (Low Level)
-Variant: Blind (High Level)
-Variant: Blasphemy (Low Level)
-Variant: Blasphemy (High Level)
-Variant: Barrage (Low Level)
-Variant: Barrage (High Level)
-Variant: Arrow Nova (Low Level)
-Variant: Arrow Nova (High Level)
-Variant: Archmage (Low Level)
-Variant: Archmage (High Level)
-Variant: Arcane Surge (Low Level)
-Variant: Arcane Surge (High Level)
-Variant: Additional Accuracy (Low Level)
-Variant: Additional Accuracy (High Level)
-Variant: Added Lightning Damage (Low Level)
-Variant: Added Lightning Damage (High Level)
-Variant: Added Fire Damage (Low Level)
-Variant: Added Fire Damage (High Level)
-Variant: Added Cold Damage (Low Level)
-Variant: Added Cold Damage (High Level)
+Selected Variant: 164
+Selected Alt Variant: 172
 Variant: Added Chaos Damage (Low Level)
 Variant: Added Chaos Damage (High Level)
-Variant: Fist of War (Low Level)
-Variant: Fist of War (High Level)
-Variant: Swiftbrand (Low Level)
-Variant: Swiftbrand (High Level)
-Variant: Urgent Orders (Low Level)
-Variant: Urgent Orders (High Level)
-Variant: Pinpoint (Low Level)
-Variant: Pinpoint (High Level)
-Variant: Impending Doom (Low Level)
-Variant: Impending Doom (High Level)
-Variant: Trinity (Low Level)
-Variant: Trinity (High Level)
-Variant: Bloodthirst (Low Level)
-Variant: Bloodthirst (High Level)
-Variant: Cruelty (Low Level)
-Variant: Cruelty (High Level)
-Variant: Lifetap (Low Level)
-Variant: Lifetap (High Level)
-Variant: Focused Ballista (Low Level)
-Variant: Focused Ballista (High Level)
-Variant: Earthbreaker (Low Level)
-Variant: Earthbreaker (High Level)
+Variant: Added Cold Damage (Low Level)
+Variant: Added Cold Damage (High Level)
+Variant: Added Fire Damage (Low Level)
+Variant: Added Fire Damage (High Level)
+Variant: Added Lightning Damage (Low Level)
+Variant: Added Lightning Damage (High Level)
+Variant: Additional Accuracy (Low Level)
+Variant: Additional Accuracy (High Level)
+Variant: Advanced Traps (Low Level)
+Variant: Advanced Traps (High Level)
+Variant: Ancestral Call (Low Level)
+Variant: Ancestral Call (High Level)
+Variant: Arcane Surge (Low Level)
+Variant: Arcane Surge (High Level)
+Variant: Archmage (Low Level)
+Variant: Archmage (High Level)
+Variant: Arrogance (Low Level)
+Variant: Arrogance (High Level)
+Variant: Arrow Nova (Low Level)
+Variant: Arrow Nova (High Level)
+Variant: Ballista Totem (Low Level)
+Variant: Ballista Totem (High Level)
+Variant: Barrage (Low Level)
+Variant: Barrage (High Level)
 Variant: Behead (Low Level)
 Variant: Behead (High Level)
-Variant: Mark On Hit (Low Level)
-Variant: Mark On Hit (High Level)
-Variant: Divine Blessing (Low Level)
-Variant: Divine Blessing (High Level)
-Variant: Eternal Blessing (Low Level)
-Variant: Eternal Blessing (High Level)
-Variant: Overcharge (Low Level)
-Variant: Overcharge (High Level)
-Variant: Cursed Ground (Low Level)
-Variant: Cursed Ground (High Level)
-Variant: Hex Bloom (Low Level)
-Variant: Hex Bloom (High Level)
-Variant: Manaforged Arrows (Low Level)
-Variant: Manaforged Arrows (High Level)
-Variant: Prismatic Burst (Low Level)
-Variant: Prismatic Burst (High Level)
-Variant: Returning Projectiles (Low Level)
-Variant: Returning Projectiles (High Level)
-Variant: Trauma (Low Level)
-Variant: Trauma (High Level)
-Variant: Spellblade (Low Level)
-Variant: Spellblade (High Level)
-Variant: Devour (Low Level)
-Variant: Devour (High Level)
-Variant: Fresh Meat (Low Level)
-Variant: Fresh Meat (High Level)
-Variant: Flamewood (Low Level)
-Variant: Flamewood (High Level)
-Variant: Corrupting Cry (Low Level)
-Variant: Corrupting Cry (High Level)
-Variant: Volatility (Low Level)
-Variant: Volatility (High Level)
-Variant: Guardian's Blessing (Low Level)
-Variant: Guardian's Blessing (High Level)
-Variant: Sacrifice (Low Level)
-Variant: Sacrifice (High Level)
-Variant: Frigid Bond (Low Level)
-Variant: Frigid Bond (High Level)
-Variant: Locus Mine (Low Level)
-Variant: Locus Mine (High Level)
-Variant: Sadism (Low Level)
-Variant: Sadism (High Level)
+Variant: Blasphemy (Low Level)
+Variant: Blasphemy (High Level)
+Variant: Blastchain Mine (Low Level)
+Variant: Blastchain Mine (High Level)
+Variant: Blind (Low Level)
+Variant: Blind (High Level)
+Variant: Bloodlust (Low Level)
+Variant: Bloodlust (High Level)
+Variant: Bloodthirst (Low Level)
+Variant: Bloodthirst (High Level)
+Variant: Bonechill (Low Level)
+Variant: Bonechill (High Level)
+Variant: Brutality (Low Level)
+Variant: Brutality (High Level)
+Variant: Burning Damage (Low Level)
+Variant: Burning Damage (High Level)
+Variant: Cast On Critical Strike (Low Level)
+Variant: Cast On Critical Strike (High Level)
+Variant: Cast on Death (Low Level)
+Variant: Cast on Death (High Level)
+Variant: Cast on Melee Kill (Low Level)
+Variant: Cast on Melee Kill (High Level)
+Variant: Cast when Damage Taken (Low Level)
+Variant: Cast when Damage Taken (High Level)
+Variant: Cast when Stunned (Low Level)
+Variant: Cast when Stunned (High Level)
+Variant: Cast while Channelling (Low Level)
+Variant: Cast while Channelling (High Level)
+Variant: Chain (Low Level)
+Variant: Chain (High Level)
+Variant: Chance to Bleed (Low Level)
+Variant: Chance to Bleed (High Level)
+Variant: Chance to Flee (Low Level)
+Variant: Chance to Flee (High Level)
+Variant: Chance to Poison (Low Level)
+Variant: Chance to Poison (High Level)
+Variant: Charged Mines (Low Level)
+Variant: Charged Mines (High Level)
+Variant: Charged Traps (Low Level)
+Variant: Charged Traps (High Level)
+Variant: Close Combat (Low Level)
+Variant: Close Combat (High Level)
+Variant: Cluster Traps (Low Level)
+Variant: Cluster Traps (High Level)
+Variant: Cold Penetration (Low Level)
+Variant: Cold Penetration (High Level)
+Variant: Cold to Fire (Low Level)
+Variant: Cold to Fire (High Level)
+Variant: Combustion (Low Level)
+Variant: Combustion (High Level)
+Variant: Concentrated Effect (Low Level)
+Variant: Concentrated Effect (High Level)
 Variant: Controlled Blaze (Low Level)
 Variant: Controlled Blaze (High Level)
-{variant:1}Socketed Gems are Supported by Level (1-10) Greater Multiple Projectiles
-{variant:2}Socketed Gems are Supported by Level (25-35) Greater Multiple Projectiles
-{variant:3}Socketed Gems are Supported by Level (1-10) Void Manipulation
-{variant:4}Socketed Gems are Supported by Level (25-35) Void Manipulation
-{variant:5}Socketed Gems are Supported by Level (1-10) Vile Toxins
-{variant:6}Socketed Gems are Supported by Level (25-35) Vile Toxins
-{variant:7}Socketed Gems are Supported by Level (1-10) Unleash
-{variant:8}Socketed Gems are Supported by Level (25-35) Unleash
-{variant:9}Socketed Gems are Supported by Level (1-10) Unbound Ailments
-{variant:10}Socketed Gems are Supported by Level (25-35) Unbound Ailments
+Variant: Controlled Destruction (Low Level)
+Variant: Controlled Destruction (High Level)
+Variant: Corrupting Cry (Low Level)
+Variant: Corrupting Cry (High Level)
+Variant: Critical Strike Affliction (Low Level)
+Variant: Critical Strike Affliction (High Level)
+Variant: Cruelty (Low Level)
+Variant: Cruelty (High Level)
+Variant: Culling Strike (Low Level)
+Variant: Culling Strike (High Level)
+Variant: Cursed Ground (Low Level)
+Variant: Cursed Ground (High Level)
+Variant: Damage on Full Life (Low Level)
+Variant: Damage on Full Life (High Level)
+Variant: Deadly Ailments (Low Level)
+Variant: Deadly Ailments (High Level)
+Variant: Decay (Low Level)
+Variant: Decay (High Level)
+Variant: Devour (Low Level)
+Variant: Devour (High Level)
+Variant: Divine Blessing (Low Level)
+Variant: Divine Blessing (High Level)
+Variant: Earthbreaker (Low Level)
+Variant: Earthbreaker (High Level)
+Variant: Efficacy (Low Level)
+Variant: Efficacy (High Level)
+Variant: Elemental Army (Low Level)
+Variant: Elemental Army (High Level)
+Variant: Elemental Damage with Attacks (Low Level)
+Variant: Elemental Damage with Attacks (High Level)
+Variant: Elemental Focus (Low Level)
+Variant: Elemental Focus (High Level)
+Variant: Elemental Proliferation (Low Level)
+Variant: Elemental Proliferation (High Level)
+Variant: Endurance Charge on Melee Stun (Low Level)
+Variant: Endurance Charge on Melee Stun (High Level)
+Variant: Energy Leech (Low Level)
+Variant: Energy Leech (High Level)
+Variant: Eternal Blessing (Low Level)
+Variant: Eternal Blessing (High Level)
+Variant: Faster Attacks (Low Level)
+Variant: Faster Attacks (High Level)
+Variant: Faster Casting (Low Level)
+Variant: Faster Casting (High Level)
+Variant: Faster Projectiles (Low Level)
+Variant: Faster Projectiles (High Level)
+Variant: Feeding Frenzy (Low Level)
+Variant: Feeding Frenzy (High Level)
+Variant: Fire Penetration (Low Level)
+Variant: Fire Penetration (High Level)
+Variant: Fist of War (Low Level)
+Variant: Fist of War (High Level)
+Variant: Flamewood (Low Level)
+Variant: Flamewood (High Level)
+Variant: Focused Ballista (Low Level)
+Variant: Focused Ballista (High Level)
+Variant: Fork (Low Level)
+Variant: Fork (High Level)
+Variant: Fortify (Low Level)
+Variant: Fortify (High Level)
+Variant: Fresh Meat (Low Level)
+Variant: Fresh Meat (High Level)
+Variant: Frigid Bond (Low Level)
+Variant: Frigid Bond (High Level)
+Variant: Generosity (Low Level)
+Variant: Generosity (High Level)
+Variant: Greater Multiple Projectiles (Low Level)
+Variant: Greater Multiple Projectiles (High Level)
+Variant: Greater Volley (Low Level)
+Variant: Greater Volley (High Level)
+Variant: Guardian's Blessing (Low Level)
+Variant: Guardian's Blessing (High Level)
+Variant: Hex Bloom (Low Level)
+Variant: Hex Bloom (High Level)
+Variant: Hextouch (Low Level)
+Variant: Hextouch (High Level)
+Variant: High-Impact Mine (Low Level)
+Variant: High-Impact Mine (High Level)
+Variant: Hypothermia (Low Level)
+Variant: Hypothermia (High Level)
+Variant: Ice Bite (Low Level)
+Variant: Ice Bite (High Level)
+Variant: Ignite Proliferation (Low Level)
+Variant: Ignite Proliferation (High Level)
+Variant: Immolate (Low Level)
+Variant: Immolate (High Level)
+Variant: Impale (Low Level)
+Variant: Impale (High Level)
+Variant: Impending Doom (Low Level)
+Variant: Impending Doom (High Level)
+Variant: Increased Area of Effect (Low Level)
+Variant: Increased Area of Effect (High Level)
+Variant: Increased Critical Damage (Low Level)
+Variant: Increased Critical Damage (High Level)
+Variant: Increased Critical Strikes (Low Level)
+Variant: Increased Critical Strikes (High Level)
+Variant: Increased Duration (Low Level)
+Variant: Increased Duration (High Level)
+Variant: Infernal Legion (Low Level)
+Variant: Infernal Legion (High Level)
+Variant: Infused Channelling (Low Level)
+Variant: Infused Channelling (High Level)
+Variant: Innervate (Low Level)
+Variant: Innervate (High Level)
+Variant: Inspiration (Low Level)
+Variant: Inspiration (High Level)
+Variant: Intensify (Low Level)
+Variant: Intensify (High Level)
+Variant: Iron Grip (Low Level)
+Variant: Iron Grip (High Level)
+Variant: Iron Will (Low Level)
+Variant: Iron Will (High Level)
+Variant: Item Rarity (Low Level)
+Variant: Item Rarity (High Level)
+Variant: Knockback (Low Level)
+Variant: Knockback (High Level)
+Variant: Less Duration (Low Level)
+Variant: Less Duration (High Level)
+Variant: Lesser Multiple Projectiles (Low Level)
+Variant: Lesser Multiple Projectiles (High Level)
+Variant: Life Gain on Hit (Low Level)
+Variant: Life Gain on Hit (High Level)
+Variant: Life Leech (Low Level)
+Variant: Life Leech (High Level)
+Variant: Lifetap (Low Level)
+Variant: Lifetap (High Level)
+Variant: Lightning Penetration (Low Level)
+Variant: Lightning Penetration (High Level)
+Variant: Locus Mine (Low Level)
+Variant: Locus Mine (High Level)
+Variant: Maim (Low Level)
+Variant: Maim (High Level)
+Variant: Mana Leech (Low Level)
+Variant: Mana Leech (High Level)
+Variant: Manaforged Arrows (Low Level)
+Variant: Manaforged Arrows (High Level)
+Variant: Mark On Hit (Low Level)
+Variant: Mark On Hit (High Level)
+Variant: Meat Shield (Low Level)
+Variant: Meat Shield (High Level)
+Variant: Melee Physical Damage (Low Level)
+Variant: Melee Physical Damage (High Level)
+Variant: Melee Splash (Low Level)
+Variant: Melee Splash (High Level)
+Variant: Minefield (Low Level)
+Variant: Minefield (High Level)
+Variant: Minion Damage (Low Level)
+Variant: Minion Damage (High Level)
+Variant: Minion Life (Low Level)
+Variant: Minion Life (High Level)
+Variant: Minion Speed (Low Level)
+Variant: Minion Speed (High Level)
+Variant: Mirage Archer (Low Level)
+Variant: Mirage Archer (High Level)
+Variant: Momentum (Low Level)
+Variant: Momentum (High Level)
+Variant: Multiple Totems (Low Level)
+Variant: Multiple Totems (High Level)
+Variant: Multiple Traps (Low Level)
+Variant: Multiple Traps (High Level)
+Variant: Multistrike (Low Level)
+Variant: Multistrike (High Level)
+Variant: Nightblade (Low Level)
+Variant: Nightblade (High Level)
+Variant: Overcharge (Low Level)
+Variant: Overcharge (High Level)
+Variant: Physical to Lightning (Low Level)
+Variant: Physical to Lightning (High Level)
+Variant: Pierce (Low Level)
+Variant: Pierce (High Level)
+Variant: Pinpoint (Low Level)
+Variant: Pinpoint (High Level)
+Variant: Point Blank (Low Level)
+Variant: Point Blank (High Level)
+Variant: Power Charge On Critical (Low Level)
+Variant: Power Charge On Critical (High Level)
+Variant: Predator (Low Level)
+Variant: Predator (High Level)
+Variant: Prismatic Burst (Low Level)
+Variant: Prismatic Burst (High Level)
+Variant: Pulverise (Low Level)
+Variant: Pulverise (High Level)
+Variant: Rage (Low Level)
+Variant: Rage (High Level)
+Variant: Returning Projectiles (Low Level)
+Variant: Returning Projectiles (High Level)
+Variant: Ruthless (Low Level)
+Variant: Ruthless (High Level)
+Variant: Sacrifice (Low Level)
+Variant: Sacrifice (High Level)
+Variant: Sadism (Low Level)
+Variant: Sadism (High Level)
+Variant: Second Wind (Low Level)
+Variant: Second Wind (High Level)
+Variant: Shockwave (Low Level)
+Variant: Shockwave (High Level)
+Variant: Slower Projectiles (Low Level)
+Variant: Slower Projectiles (High Level)
+Variant: Spell Cascade (Low Level)
+Variant: Spell Cascade (High Level)
+Variant: Spell Echo (Low Level)
+Variant: Spell Echo (High Level)
+Variant: Spell Totem (Low Level)
+Variant: Spell Totem (High Level)
+Variant: Spellblade (Low Level)
+Variant: Spellblade (High Level)
+Variant: Stun (Low Level)
+Variant: Stun (High Level)
+Variant: Summon Phantasm (Low Level)
+Variant: Summon Phantasm (High Level)
+Variant: Swift Affliction (Low Level)
+Variant: Swift Affliction (High Level)
+Variant: Swift Assembly (Low Level)
+Variant: Swift Assembly (High Level)
+Variant: Swiftbrand (Low Level)
+Variant: Swiftbrand (High Level)
+Variant: Trap (Low Level)
+Variant: Trap (High Level)
+Variant: Trap and Mine Damage (Low Level)
+Variant: Trap and Mine Damage (High Level)
+Variant: Trauma (Low Level)
+Variant: Trauma (High Level)
+Variant: Trinity (Low Level)
+Variant: Trinity (High Level)
+Variant: Unbound Ailments (Low Level)
+Variant: Unbound Ailments (High Level)
+Variant: Unleash (Low Level)
+Variant: Unleash (High Level)
+Variant: Urgent Orders (Low Level)
+Variant: Urgent Orders (High Level)
+Variant: Vicious Projectiles (Low Level)
+Variant: Vicious Projectiles (High Level)
+Variant: Vile Toxins (Low Level)
+Variant: Vile Toxins (High Level)
+Variant: Void Manipulation (Low Level)
+Variant: Void Manipulation (High Level)
+Variant: Volatility (Low Level)
+Variant: Volatility (High Level)
+Variant: Volley (Low Level)
+Variant: Volley (High Level)
+Variant: Withering Touch (Low Level)
+Variant: Withering Touch (High Level)
+{variant:1}Socketed Gems are Supported by Level (1-10) Added Chaos Damage
+{variant:2}Socketed Gems are Supported by Level (25-35) Added Chaos Damage
+{variant:3}Socketed Gems are Supported by Level (1-10) Added Cold Damage
+{variant:4}Socketed Gems are Supported by Level (25-35) Added Cold Damage
+{variant:5}Socketed Gems are Supported by Level (1-10) Added Fire Damage
+{variant:6}Socketed Gems are Supported by Level (25-35) Added Fire Damage
+{variant:7}Socketed Gems are Supported by Level (1-10) Added Lightning Damage
+{variant:8}Socketed Gems are Supported by Level (25-35) Added Lightning Damage
+{variant:9}Socketed Gems are Supported by Level (1-10) Additional Accuracy
+{variant:10}Socketed Gems are Supported by Level (25-35) Additional Accuracy
 {variant:11}Socketed Gems are Supported by Level (1-10) Advanced Traps
 {variant:12}Socketed Gems are Supported by Level (25-35) Advanced Traps
-{variant:13}Socketed Gems are Supported by Level (1-10) Trap and Mine Damage
-{variant:14}Socketed Gems are Supported by Level (25-35) Trap and Mine Damage
-{variant:15}Socketed Gems are Supported by Level (1-10) Trap
-{variant:16}Socketed Gems are Supported by Level (25-35) Trap
-{variant:17}Socketed Gems are Supported by Level (1-10) Swift Assembly
-{variant:18}Socketed Gems are Supported by Level (25-35) Swift Assembly
-{variant:19}Socketed Gems are Supported by Level (1-10) Summon Phantasm
-{variant:20}Socketed Gems are Supported by Level (25-35) Summon Phantasm
-{variant:21}Socketed Gems are Supported by Level (1-10) Elemental Army
-{variant:22}Socketed Gems are Supported by Level (25-35) Elemental Army
-{variant:23}Socketed Gems are Supported by Level (1-10) Stun
-{variant:24}Socketed Gems are Supported by Level (25-35) Stun
-{variant:25}Socketed Gems are Supported by Level (1-10) Infused Channelling
-{variant:26}Socketed Gems are Supported by Level (25-35) Infused Channelling
-{variant:27}Socketed Gems are Supported by Level (1-10) Ancestral Call
-{variant:28}Socketed Gems are Supported by Level (25-35) Ancestral Call
-{variant:29}Socketed Gems are Supported by Level (1-10) Spell Totem
-{variant:30}Socketed Gems are Supported by Level (25-35) Spell Totem
-{variant:31}Socketed Gems are Supported by Level (1-10) Intensify
-{variant:32}Socketed Gems are Supported by Level (25-35) Intensify
-{variant:33}Socketed Gems are Supported by Level (1-10) Spell Cascade
-{variant:34}Socketed Gems are Supported by Level (25-35) Spell Cascade
-{variant:35}Socketed Gems are Supported by Level (1-10) Slower Projectiles
-{variant:36}Socketed Gems are Supported by Level (25-35) Slower Projectiles
-{variant:37}Socketed Gems are Supported by Level (1-10) Shockwave
-{variant:38}Socketed Gems are Supported by Level (25-35) Shockwave
-{variant:39}Socketed Gems are Supported by Level (1-10) Second Wind
-{variant:40}Socketed Gems are Supported by Level (25-35) Second Wind
-{variant:41}Socketed Gems are Supported by Level (1-10) Ruthless
-{variant:42}Socketed Gems are Supported by Level (25-35) Ruthless
-{variant:43}Socketed Gems are Supported by Level (1-10) High-Impact Mine
-{variant:44}Socketed Gems are Supported by Level (25-35) High-Impact Mine
-{variant:45}Socketed Gems are Supported by Level (1-10) Blastchain Mine
-{variant:46}Socketed Gems are Supported by Level (25-35) Blastchain Mine
-{variant:47}Socketed Gems are Supported by Level (1-10) Inspiration
-{variant:48}Socketed Gems are Supported by Level (25-35) Inspiration
-{variant:49}Socketed Gems are Supported by Level (1-10) Less Duration
-{variant:50}Socketed Gems are Supported by Level (25-35) Less Duration
-{variant:51}Socketed Gems are Supported by Level (1-10) Swift Affliction
-{variant:52}Socketed Gems are Supported by Level (25-35) Swift Affliction
-{variant:53}Socketed Gems are Supported by Level (1-10) Ballista Totem
-{variant:54}Socketed Gems are Supported by Level (25-35) Ballista Totem
-{variant:55}Socketed Gems are Supported by Level (1-10) Rage
-{variant:56}Socketed Gems are Supported by Level (25-35) Rage
-{variant:57}Socketed Gems are Supported by Level (1-10) Pulverise
-{variant:58}Socketed Gems are Supported by Level (25-35) Pulverise
-{variant:59}Socketed Gems are Supported by Level (1-10) Power Charge On Critical
-{variant:60}Socketed Gems are Supported by Level (25-35) Power Charge On Critical
-{variant:61}Socketed Gems are Supported by Level (1-10) Critical Strike Affliction
-{variant:62}Socketed Gems are Supported by Level (25-35) Critical Strike Affliction
-{variant:63}Socketed Gems are Supported by Level (1-10) Point Blank
-{variant:64}Socketed Gems are Supported by Level (25-35) Point Blank
-{variant:65}Socketed Gems are Supported by Level (1-10) Pierce
-{variant:66}Socketed Gems are Supported by Level (25-35) Pierce
-{variant:67}Socketed Gems are Supported by Level (1-10) Physical to Lightning
-{variant:68}Socketed Gems are Supported by Level (25-35) Physical to Lightning
-{variant:69}Socketed Gems are Supported by Level (1-10) Vicious Projectiles
-{variant:70}Socketed Gems are Supported by Level (25-35) Vicious Projectiles
-{variant:71}Socketed Gems are Supported by Level (1-10) Volley
-{variant:72}Socketed Gems are Supported by Level (25-35) Volley
-{variant:73}Socketed Gems are Supported by Level (1-10) Momentum
-{variant:74}Socketed Gems are Supported by Level (25-35) Momentum
-{variant:75}Socketed Gems are Supported by Level (1-10) Nightblade
-{variant:76}Socketed Gems are Supported by Level (25-35) Nightblade
-{variant:77}Socketed Gems are Supported by Level (1-10) Multiple Traps
-{variant:78}Socketed Gems are Supported by Level (25-35) Multiple Traps
-{variant:79}Socketed Gems are Supported by Level (1-10) Multiple Totems
-{variant:80}Socketed Gems are Supported by Level (25-35) Multiple Totems
-{variant:81}Socketed Gems are Supported by Level (1-10) Multistrike
-{variant:82}Socketed Gems are Supported by Level (25-35) Multistrike
-{variant:83}Socketed Gems are Supported by Level (1-10) Spell Echo
-{variant:84}Socketed Gems are Supported by Level (25-35) Spell Echo
-{variant:85}Socketed Gems are Supported by Level (1-10) Mirage Archer
-{variant:86}Socketed Gems are Supported by Level (25-35) Mirage Archer
-{variant:87}Socketed Gems are Supported by Level (1-10) Minefield
-{variant:88}Socketed Gems are Supported by Level (25-35) Minefield
-{variant:89}Socketed Gems are Supported by Level (1-10) Melee Splash
-{variant:90}Socketed Gems are Supported by Level (25-35) Melee Splash
-{variant:91}Socketed Gems are Supported by Level (1-10) Melee Physical Damage
-{variant:92}Socketed Gems are Supported by Level (25-35) Melee Physical Damage
-{variant:93}Socketed Gems are Supported by Level (1-10) Damage on Full Life
-{variant:94}Socketed Gems are Supported by Level (25-35) Damage on Full Life
-{variant:95}Socketed Gems are Supported by Level (1-10) Meat Shield
-{variant:96}Socketed Gems are Supported by Level (25-35) Meat Shield
-{variant:97}Socketed Gems are Supported by Level (1-10) Mana Leech
-{variant:98}Socketed Gems are Supported by Level (25-35) Mana Leech
-{variant:99}Socketed Gems are Supported by Level (1-10) Maim
-{variant:100}Socketed Gems are Supported by Level (25-35) Maim
-{variant:101}Socketed Gems are Supported by Level (1-10) Lightning Penetration
-{variant:102}Socketed Gems are Supported by Level (25-35) Lightning Penetration
-{variant:103}Socketed Gems are Supported by Level (1-10) Life Leech
-{variant:104}Socketed Gems are Supported by Level (25-35) Life Leech
-{variant:105}Socketed Gems are Supported by Level (1-10) Life Gain on Hit
-{variant:106}Socketed Gems are Supported by Level (25-35) Life Gain on Hit
-{variant:107}Socketed Gems are Supported by Level (1-10) Chance to Poison
-{variant:108}Socketed Gems are Supported by Level (25-35) Chance to Poison
-{variant:109}Socketed Gems are Supported by Level (1-10) Lesser Multiple Projectiles
-{variant:110}Socketed Gems are Supported by Level (25-35) Lesser Multiple Projectiles
-{variant:111}Socketed Gems are Supported by Level (1-10) Knockback
-{variant:112}Socketed Gems are Supported by Level (25-35) Knockback
-{variant:113}Socketed Gems are Supported by Level (1-10) Item Rarity
-{variant:114}Socketed Gems are Supported by Level (25-35) Item Rarity
-{variant:115}Socketed Gems are Supported by Level (1-10) Iron Will
-{variant:116}Socketed Gems are Supported by Level (25-35) Iron Will
-{variant:117}Socketed Gems are Supported by Level (1-10) Iron Grip
-{variant:118}Socketed Gems are Supported by Level (25-35) Iron Grip
-{variant:119}Socketed Gems are Supported by Level (1-10) Innervate
-{variant:120}Socketed Gems are Supported by Level (25-35) Innervate
-{variant:121}Socketed Gems are Supported by Level (1-10) Infernal Legion
-{variant:122}Socketed Gems are Supported by Level (25-35) Infernal Legion
-{variant:123}Socketed Gems are Supported by Level (1-10) Minion Speed
-{variant:124}Socketed Gems are Supported by Level (25-35) Minion Speed
-{variant:125}Socketed Gems are Supported by Level (1-10) Minion Life
-{variant:126}Socketed Gems are Supported by Level (25-35) Minion Life
-{variant:127}Socketed Gems are Supported by Level (1-10) Minion Damage
-{variant:128}Socketed Gems are Supported by Level (25-35) Minion Damage
-{variant:129}Socketed Gems are Supported by Level (1-10) Increased Duration
-{variant:130}Socketed Gems are Supported by Level (25-35) Increased Duration
-{variant:131}Socketed Gems are Supported by Level (1-10) Increased Critical Strikes
-{variant:132}Socketed Gems are Supported by Level (25-35) Increased Critical Strikes
-{variant:133}Socketed Gems are Supported by Level (1-10) Increased Critical Damage
-{variant:134}Socketed Gems are Supported by Level (25-35) Increased Critical Damage
-{variant:135}Socketed Gems are Supported by Level (1-10) Burning Damage
-{variant:136}Socketed Gems are Supported by Level (25-35) Burning Damage
-{variant:137}Socketed Gems are Supported by Level (1-10) Increased Area of Effect
-{variant:138}Socketed Gems are Supported by Level (25-35) Increased Area of Effect
-{variant:139}Socketed Gems are Supported by Level (1-10) Impale
-{variant:140}Socketed Gems are Supported by Level (25-35) Impale
-{variant:141}Socketed Gems are Supported by Level (1-10) Immolate
-{variant:142}Socketed Gems are Supported by Level (25-35) Immolate
-{variant:143}Socketed Gems are Supported by Level (1-10) Ignite Proliferation
-{variant:144}Socketed Gems are Supported by Level (25-35) Ignite Proliferation
-{variant:145}Socketed Gems are Supported by Level (1-10) Ice Bite
-{variant:146}Socketed Gems are Supported by Level (25-35) Ice Bite
-{variant:147}Socketed Gems are Supported by Level (1-10) Hypothermia
-{variant:148}Socketed Gems are Supported by Level (25-35) Hypothermia
-{variant:149}Socketed Gems are Supported by Level (1-10) Greater Volley
-{variant:150}Socketed Gems are Supported by Level (25-35) Greater Volley
-{variant:151}Socketed Gems are Supported by Level (1-10) Elemental Damage with Attacks
-{variant:152}Socketed Gems are Supported by Level (25-35) Elemental Damage with Attacks
-{variant:153}Socketed Gems are Supported by Level (1-10) Generosity
-{variant:154}Socketed Gems are Supported by Level (25-35) Generosity
-{variant:155}Socketed Gems are Supported by Level (1-10) Charged Traps
-{variant:156}Socketed Gems are Supported by Level (25-35) Charged Traps
-{variant:157}Socketed Gems are Supported by Level (1-10) Fortify
-{variant:158}Socketed Gems are Supported by Level (25-35) Fortify
-{variant:159}Socketed Gems are Supported by Level (1-10) Fork
-{variant:160}Socketed Gems are Supported by Level (25-35) Fork
-{variant:161}Socketed Gems are Supported by Level (1-10) Chance to Flee
-{variant:162}Socketed Gems are Supported by Level (25-35) Chance to Flee
-{variant:163}Socketed Gems are Supported by Level (1-10) Fire Penetration
-{variant:164}Socketed Gems are Supported by Level (25-35) Fire Penetration
-{variant:165}Socketed Gems are Supported by Level (1-10) Feeding Frenzy
-{variant:166}Socketed Gems are Supported by Level (25-35) Feeding Frenzy
-{variant:167}Socketed Gems are Supported by Level (1-10) Faster Projectiles
-{variant:168}Socketed Gems are Supported by Level (25-35) Faster Projectiles
-{variant:169}Socketed Gems are Supported by Level (1-10) Faster Casting
-{variant:170}Socketed Gems are Supported by Level (25-35) Faster Casting
-{variant:171}Socketed Gems are Supported by Level (1-10) Faster Attacks
-{variant:172}Socketed Gems are Supported by Level (25-35) Faster Attacks
-{variant:173}Socketed Gems are Supported by Level (1-10) Energy Leech
-{variant:174}Socketed Gems are Supported by Level (25-35) Energy Leech
-{variant:175}Socketed Gems are Supported by Level (1-10) Endurance Charge on Melee Stun
-{variant:176}Socketed Gems are Supported by Level (25-35) Endurance Charge on Melee Stun
-{variant:177}Socketed Gems are Supported by Level (1-10) Elemental Proliferation
-{variant:178}Socketed Gems are Supported by Level (25-35) Elemental Proliferation
-{variant:179}Socketed Gems are Supported by Level (1-10) Elemental Focus
-{variant:180}Socketed Gems are Supported by Level (25-35) Elemental Focus
-{variant:181}Socketed Gems are Supported by Level (1-10) Efficacy
-{variant:182}Socketed Gems are Supported by Level (25-35) Efficacy
-{variant:183}Socketed Gems are Supported by Level (1-10) Decay
-{variant:184}Socketed Gems are Supported by Level (25-35) Decay
-{variant:185}Socketed Gems are Supported by Level (1-10) Predator
-{variant:186}Socketed Gems are Supported by Level (25-35) Predator
-{variant:187}Socketed Gems are Supported by Level (1-10) Deadly Ailments
-{variant:188}Socketed Gems are Supported by Level (25-35) Deadly Ailments
-{variant:189}Socketed Gems are Supported by Level (1-10) Hextouch
-{variant:190}Socketed Gems are Supported by Level (25-35) Hextouch
-{variant:191}Socketed Gems are Supported by Level (1-10) Culling Strike
-{variant:192}Socketed Gems are Supported by Level (25-35) Culling Strike
-{variant:193}Socketed Gems are Supported by Level (1-10) Controlled Destruction
-{variant:194}Socketed Gems are Supported by Level (25-35) Controlled Destruction
-{variant:195}Socketed Gems are Supported by Level (1-10) Concentrated Effect
-{variant:196}Socketed Gems are Supported by Level (25-35) Concentrated Effect
-{variant:197}Socketed Gems are Supported by Level (1-10) Cold to Fire
-{variant:198}Socketed Gems are Supported by Level (25-35) Cold to Fire
-{variant:199}Socketed Gems are Supported by Level (1-10) Cold Penetration
-{variant:200}Socketed Gems are Supported by Level (25-35) Cold Penetration
-{variant:201}Socketed Gems are Supported by Level (1-10) Cluster Traps
-{variant:202}Socketed Gems are Supported by Level (25-35) Cluster Traps
-{variant:203}Socketed Gems are Supported by Level (1-10) Close Combat
-{variant:204}Socketed Gems are Supported by Level (25-35) Close Combat
-{variant:205}Socketed Gems are Supported by Level (1-10) Charged Mines
-{variant:206}Socketed Gems are Supported by Level (25-35) Charged Mines
-{variant:207}Socketed Gems are Supported by Level (1-10) Withering Touch
-{variant:208}Socketed Gems are Supported by Level (25-35) Withering Touch
-{variant:209}Socketed Gems are Supported by Level (1-10) Combustion
-{variant:210}Socketed Gems are Supported by Level (25-35) Combustion
-{variant:211}Socketed Gems are Supported by Level (1-10) Chance to Bleed
-{variant:212}Socketed Gems are Supported by Level (25-35) Chance to Bleed
-{variant:213}Socketed Gems are Supported by Level (1-10) Chain
-{variant:214}Socketed Gems are Supported by Level (25-35) Chain
-{variant:215}Socketed Gems are Supported by Level (1-10) Cast while Channelling
-{variant:216}Socketed Gems are Supported by Level (25-35) Cast while Channelling
-{variant:217}Socketed Gems are Supported by Level (1-10) Cast when Stunned
-{variant:218}Socketed Gems are Supported by Level (25-35) Cast when Stunned
-{variant:219}Socketed Gems are Supported by Level (1-10) Cast on Melee Kill
-{variant:220}Socketed Gems are Supported by Level (25-35) Cast on Melee Kill
-{variant:221}Socketed Gems are Supported by Level (1-10) Cast on Death
-{variant:222}Socketed Gems are Supported by Level (25-35) Cast on Death
-{variant:223}Socketed Gems are Supported by Level (1-10) Cast when Damage Taken
-{variant:224}Socketed Gems are Supported by Level (25-35) Cast when Damage Taken
-{variant:225}Socketed Gems are Supported by Level (1-10) Cast On Critical Strike
-{variant:226}Socketed Gems are Supported by Level (25-35) Cast On Critical Strike
-{variant:227}Socketed Gems are Supported by Level (1-10) Brutality
-{variant:228}Socketed Gems are Supported by Level (25-35) Brutality
-{variant:229}Socketed Gems are Supported by Level (1-10) Bonechill
-{variant:230}Socketed Gems are Supported by Level (25-35) Bonechill
-{variant:231}Socketed Gems are Supported by Level (1-10) Arrogance
-{variant:232}Socketed Gems are Supported by Level (25-35) Arrogance
-{variant:233}Socketed Gems are Supported by Level (1-10) Bloodlust
-{variant:234}Socketed Gems are Supported by Level (25-35) Bloodlust
-{variant:235}Socketed Gems are Supported by Level (1-10) Blind
-{variant:236}Socketed Gems are Supported by Level (25-35) Blind
-{variant:237}Socketed Gems are Supported by Level (1-10) Blasphemy
-{variant:238}Socketed Gems are Supported by Level (25-35) Blasphemy
-{variant:239}Socketed Gems are Supported by Level (1-10) Barrage
-{variant:240}Socketed Gems are Supported by Level (25-35) Barrage
-{variant:241}Socketed Gems are Supported by Level (1-10) Arrow Nova
-{variant:242}Socketed Gems are Supported by Level (25-35) Arrow Nova
-{variant:243}Socketed Gems are Supported by Level (1-10) Archmage
-{variant:244}Socketed Gems are Supported by Level (25-35) Archmage
-{variant:245}Socketed Gems are Supported by Level (1-10) Arcane Surge
-{variant:246}Socketed Gems are Supported by Level (25-35) Arcane Surge
-{variant:247}Socketed Gems are Supported by Level (1-10) Additional Accuracy
-{variant:248}Socketed Gems are Supported by Level (25-35) Additional Accuracy
-{variant:249}Socketed Gems are Supported by Level (1-10) Added Lightning Damage
-{variant:250}Socketed Gems are Supported by Level (25-35) Added Lightning Damage
-{variant:251}Socketed Gems are Supported by Level (1-10) Added Fire Damage
-{variant:252}Socketed Gems are Supported by Level (25-35) Added Fire Damage
-{variant:253}Socketed Gems are Supported by Level (1-10) Added Cold Damage
-{variant:254}Socketed Gems are Supported by Level (25-35) Added Cold Damage
-{variant:255}Socketed Gems are Supported by Level (1-10) Added Chaos Damage
-{variant:256}Socketed Gems are Supported by Level (25-35) Added Chaos Damage
-{variant:257}Socketed Gems are Supported by Level (1-10) Fist of War
-{variant:258}Socketed Gems are Supported by Level (25-35) Fist of War
-{variant:259}Socketed Gems are Supported by Level (1-10) Swiftbrand
-{variant:260}Socketed Gems are Supported by Level (25-35) Swiftbrand
-{variant:261}Socketed Gems are Supported by Level (1-10) Urgent Orders
-{variant:262}Socketed Gems are Supported by Level (25-35) Urgent Orders
-{variant:263}Socketed Gems are Supported by Level (1-10) Pinpoint
-{variant:264}Socketed Gems are Supported by Level (25-35) Pinpoint
-{variant:265}Socketed Gems are Supported by Level (1-10) Impending Doom
-{variant:266}Socketed Gems are Supported by Level (25-35) Impending Doom
-{variant:267}Socketed Gems are Supported by Level (1-10) Trinity
-{variant:268}Socketed Gems are Supported by Level (25-35) Trinity
-{variant:269}Socketed Gems are Supported by Level (1-10) Bloodthirst
-{variant:270}Socketed Gems are Supported by Level (25-35) Bloodthirst
-{variant:271}Socketed Gems are Supported by Level (1-10) Cruelty
-{variant:272}Socketed Gems are Supported by Level (25-35) Cruelty
-{variant:273}Socketed Gems are Supported by Level (1-10) Lifetap
-{variant:274}Socketed Gems are Supported by Level (25-35) Lifetap
-{variant:275}Socketed Gems are Supported by Level (1-10) Focused Ballista
-{variant:276}Socketed Gems are Supported by Level (25-35) Focused Ballista
-{variant:277}Socketed Gems are Supported by Level (1-10) Earthbreaker
-{variant:278}Socketed Gems are Supported by Level (25-35) Earthbreaker
-{variant:279}Socketed Gems are Supported by Level (1-10) Behead
-{variant:280}Socketed Gems are Supported by Level (25-35) Behead
-{variant:281}Socketed Gems are Supported by Level (1-10) Mark On Hit
-{variant:282}Socketed Gems are Supported by Level (25-35) Mark On Hit
-{variant:283}Socketed Gems are Supported by Level (1-10) Divine Blessing
-{variant:284}Socketed Gems are Supported by Level (25-35) Divine Blessing
-{variant:285}Socketed Gems are Supported by Level (1-10) Eternal Blessing
-{variant:286}Socketed Gems are Supported by Level (25-35) Eternal Blessing
-{variant:287}Socketed Gems are Supported by Level (1-10) Overcharge
-{variant:288}Socketed Gems are Supported by Level (25-35) Overcharge
-{variant:289}Socketed Gems are Supported by Level (1-10) Cursed Ground
-{variant:290}Socketed Gems are Supported by Level (25-35) Cursed Ground
-{variant:291}Socketed Gems are Supported by Level (1-10) Hex Bloom
-{variant:292}Socketed Gems are Supported by Level (25-35) Hex Bloom
-{variant:293}Socketed Gems are Supported by Level (1-10) Manaforged Arrows
-{variant:294}Socketed Gems are Supported by Level (25-35) Manaforged Arrows
-{variant:295}Socketed Gems are Supported by Level (1-10) Prismatic Burst
-{variant:296}Socketed Gems are Supported by Level (25-35) Prismatic Burst
-{variant:297}Socketed Gems are Supported by Level (1-10) Returning Projectiles
-{variant:298}Socketed Gems are Supported by Level (25-35) Returning Projectiles
-{variant:299}Socketed Gems are Supported by Level (1-10) Trauma
-{variant:300}Socketed Gems are Supported by Level (25-35) Trauma
-{variant:301}Socketed Gems are Supported by Level (1-10) Spellblade
-{variant:302}Socketed Gems are Supported by Level (25-35) Spellblade
-{variant:303}Socketed Gems are Supported by Level (1-10) Devour
-{variant:304}Socketed Gems are Supported by Level (25-35) Devour
-{variant:305}Socketed Gems are Supported by Level (1-10) Fresh Meat
-{variant:306}Socketed Gems are Supported by Level (25-35) Fresh Meat
-{variant:307}Socketed Gems are Supported by Level (1-10) Flamewood
-{variant:308}Socketed Gems are Supported by Level (25-35) Flamewood
-{variant:309}Socketed Gems are Supported by Level (1-10) Corrupting Cry
-{variant:310}Socketed Gems are Supported by Level (25-35) Corrupting Cry
-{variant:311}Socketed Gems are Supported by Level (1-10) Volatility
-{variant:312}Socketed Gems are Supported by Level (25-35) Volatility
-{variant:313}Socketed Gems are Supported by Level (1-10) Guardian's Blessing
-{variant:314}Socketed Gems are Supported by Level (25-35) Guardian's Blessing
-{variant:315}Socketed Gems are Supported by Level (1-10) Sacrifice
-{variant:316}Socketed Gems are Supported by Level (25-35) Sacrifice
-{variant:317}Socketed Gems are Supported by Level (1-10) Frigid Bond
-{variant:318}Socketed Gems are Supported by Level (25-35) Frigid Bond
-{variant:319}Socketed Gems are Supported by Level (1-10) Locus Mine
-{variant:320}Socketed Gems are Supported by Level (25-35) Locus Mine
-{variant:321}Socketed Gems are Supported by Level (1-10) Sadism
-{variant:322}Socketed Gems are Supported by Level (25-35) Sadism
-{variant:323}Socketed Gems are Supported by Level (1-10) Controlled Blaze
-{variant:324}Socketed Gems are Supported by Level (25-35) Controlled Blaze
+{variant:13}Socketed Gems are Supported by Level (1-10) Ancestral Call
+{variant:14}Socketed Gems are Supported by Level (25-35) Ancestral Call
+{variant:15}Socketed Gems are Supported by Level (1-10) Arcane Surge
+{variant:16}Socketed Gems are Supported by Level (25-35) Arcane Surge
+{variant:17}Socketed Gems are Supported by Level (1-10) Archmage
+{variant:18}Socketed Gems are Supported by Level (25-35) Archmage
+{variant:19}Socketed Gems are Supported by Level (1-10) Arrogance
+{variant:20}Socketed Gems are Supported by Level (25-35) Arrogance
+{variant:21}Socketed Gems are Supported by Level (1-10) Arrow Nova
+{variant:22}Socketed Gems are Supported by Level (25-35) Arrow Nova
+{variant:23}Socketed Gems are Supported by Level (1-10) Ballista Totem
+{variant:24}Socketed Gems are Supported by Level (25-35) Ballista Totem
+{variant:25}Socketed Gems are Supported by Level (1-10) Barrage
+{variant:26}Socketed Gems are Supported by Level (25-35) Barrage
+{variant:27}Socketed Gems are Supported by Level (1-10) Behead
+{variant:28}Socketed Gems are Supported by Level (25-35) Behead
+{variant:29}Socketed Gems are Supported by Level (1-10) Blasphemy
+{variant:30}Socketed Gems are Supported by Level (25-35) Blasphemy
+{variant:31}Socketed Gems are Supported by Level (1-10) Blastchain Mine
+{variant:32}Socketed Gems are Supported by Level (25-35) Blastchain Mine
+{variant:33}Socketed Gems are Supported by Level (1-10) Blind
+{variant:34}Socketed Gems are Supported by Level (25-35) Blind
+{variant:35}Socketed Gems are Supported by Level (1-10) Bloodlust
+{variant:36}Socketed Gems are Supported by Level (25-35) Bloodlust
+{variant:37}Socketed Gems are Supported by Level (1-10) Bloodthirst
+{variant:38}Socketed Gems are Supported by Level (25-35) Bloodthirst
+{variant:39}Socketed Gems are Supported by Level (1-10) Bonechill
+{variant:40}Socketed Gems are Supported by Level (25-35) Bonechill
+{variant:41}Socketed Gems are Supported by Level (1-10) Brutality
+{variant:42}Socketed Gems are Supported by Level (25-35) Brutality
+{variant:43}Socketed Gems are Supported by Level (1-10) Burning Damage
+{variant:44}Socketed Gems are Supported by Level (25-35) Burning Damage
+{variant:45}Socketed Gems are Supported by Level (1-10) Cast On Critical Strike
+{variant:46}Socketed Gems are Supported by Level (25-35) Cast On Critical Strike
+{variant:47}Socketed Gems are Supported by Level (1-10) Cast on Death
+{variant:48}Socketed Gems are Supported by Level (25-35) Cast on Death
+{variant:49}Socketed Gems are Supported by Level (1-10) Cast on Melee Kill
+{variant:50}Socketed Gems are Supported by Level (25-35) Cast on Melee Kill
+{variant:51}Socketed Gems are Supported by Level (1-10) Cast when Damage Taken
+{variant:52}Socketed Gems are Supported by Level (25-35) Cast when Damage Taken
+{variant:53}Socketed Gems are Supported by Level (1-10) Cast when Stunned
+{variant:54}Socketed Gems are Supported by Level (25-35) Cast when Stunned
+{variant:55}Socketed Gems are Supported by Level (1-10) Cast while Channelling
+{variant:56}Socketed Gems are Supported by Level (25-35) Cast while Channelling
+{variant:57}Socketed Gems are Supported by Level (1-10) Chain
+{variant:58}Socketed Gems are Supported by Level (25-35) Chain
+{variant:59}Socketed Gems are Supported by Level (1-10) Chance to Bleed
+{variant:60}Socketed Gems are Supported by Level (25-35) Chance to Bleed
+{variant:61}Socketed Gems are Supported by Level (1-10) Chance to Flee
+{variant:62}Socketed Gems are Supported by Level (25-35) Chance to Flee
+{variant:63}Socketed Gems are Supported by Level (1-10) Chance to Poison
+{variant:64}Socketed Gems are Supported by Level (25-35) Chance to Poison
+{variant:65}Socketed Gems are Supported by Level (1-10) Charged Mines
+{variant:66}Socketed Gems are Supported by Level (25-35) Charged Mines
+{variant:67}Socketed Gems are Supported by Level (1-10) Charged Traps
+{variant:68}Socketed Gems are Supported by Level (25-35) Charged Traps
+{variant:69}Socketed Gems are Supported by Level (1-10) Close Combat
+{variant:70}Socketed Gems are Supported by Level (25-35) Close Combat
+{variant:71}Socketed Gems are Supported by Level (1-10) Cluster Traps
+{variant:72}Socketed Gems are Supported by Level (25-35) Cluster Traps
+{variant:73}Socketed Gems are Supported by Level (1-10) Cold Penetration
+{variant:74}Socketed Gems are Supported by Level (25-35) Cold Penetration
+{variant:75}Socketed Gems are Supported by Level (1-10) Cold to Fire
+{variant:76}Socketed Gems are Supported by Level (25-35) Cold to Fire
+{variant:77}Socketed Gems are Supported by Level (1-10) Combustion
+{variant:78}Socketed Gems are Supported by Level (25-35) Combustion
+{variant:79}Socketed Gems are Supported by Level (1-10) Concentrated Effect
+{variant:80}Socketed Gems are Supported by Level (25-35) Concentrated Effect
+{variant:81}Socketed Gems are Supported by Level (1-10) Controlled Blaze
+{variant:82}Socketed Gems are Supported by Level (25-35) Controlled Blaze
+{variant:83}Socketed Gems are Supported by Level (1-10) Controlled Destruction
+{variant:84}Socketed Gems are Supported by Level (25-35) Controlled Destruction
+{variant:85}Socketed Gems are Supported by Level (1-10) Corrupting Cry
+{variant:86}Socketed Gems are Supported by Level (25-35) Corrupting Cry
+{variant:87}Socketed Gems are Supported by Level (1-10) Critical Strike Affliction
+{variant:88}Socketed Gems are Supported by Level (25-35) Critical Strike Affliction
+{variant:89}Socketed Gems are Supported by Level (1-10) Cruelty
+{variant:90}Socketed Gems are Supported by Level (25-35) Cruelty
+{variant:91}Socketed Gems are Supported by Level (1-10) Culling Strike
+{variant:92}Socketed Gems are Supported by Level (25-35) Culling Strike
+{variant:93}Socketed Gems are Supported by Level (1-10) Cursed Ground
+{variant:94}Socketed Gems are Supported by Level (25-35) Cursed Ground
+{variant:95}Socketed Gems are Supported by Level (1-10) Damage on Full Life
+{variant:96}Socketed Gems are Supported by Level (25-35) Damage on Full Life
+{variant:97}Socketed Gems are Supported by Level (1-10) Deadly Ailments
+{variant:98}Socketed Gems are Supported by Level (25-35) Deadly Ailments
+{variant:99}Socketed Gems are Supported by Level (1-10) Decay
+{variant:100}Socketed Gems are Supported by Level (25-35) Decay
+{variant:101}Socketed Gems are Supported by Level (1-10) Devour
+{variant:102}Socketed Gems are Supported by Level (25-35) Devour
+{variant:103}Socketed Gems are Supported by Level (1-10) Divine Blessing
+{variant:104}Socketed Gems are Supported by Level (25-35) Divine Blessing
+{variant:105}Socketed Gems are Supported by Level (1-10) Earthbreaker
+{variant:106}Socketed Gems are Supported by Level (25-35) Earthbreaker
+{variant:107}Socketed Gems are Supported by Level (1-10) Efficacy
+{variant:108}Socketed Gems are Supported by Level (25-35) Efficacy
+{variant:109}Socketed Gems are Supported by Level (1-10) Elemental Army
+{variant:110}Socketed Gems are Supported by Level (25-35) Elemental Army
+{variant:111}Socketed Gems are Supported by Level (1-10) Elemental Damage with Attacks
+{variant:112}Socketed Gems are Supported by Level (25-35) Elemental Damage with Attacks
+{variant:113}Socketed Gems are Supported by Level (1-10) Elemental Focus
+{variant:114}Socketed Gems are Supported by Level (25-35) Elemental Focus
+{variant:115}Socketed Gems are Supported by Level (1-10) Elemental Proliferation
+{variant:116}Socketed Gems are Supported by Level (25-35) Elemental Proliferation
+{variant:117}Socketed Gems are Supported by Level (1-10) Endurance Charge on Melee Stun
+{variant:118}Socketed Gems are Supported by Level (25-35) Endurance Charge on Melee Stun
+{variant:119}Socketed Gems are Supported by Level (1-10) Energy Leech
+{variant:120}Socketed Gems are Supported by Level (25-35) Energy Leech
+{variant:121}Socketed Gems are Supported by Level (1-10) Eternal Blessing
+{variant:122}Socketed Gems are Supported by Level (25-35) Eternal Blessing
+{variant:123}Socketed Gems are Supported by Level (1-10) Faster Attacks
+{variant:124}Socketed Gems are Supported by Level (25-35) Faster Attacks
+{variant:125}Socketed Gems are Supported by Level (1-10) Faster Casting
+{variant:126}Socketed Gems are Supported by Level (25-35) Faster Casting
+{variant:127}Socketed Gems are Supported by Level (1-10) Faster Projectiles
+{variant:128}Socketed Gems are Supported by Level (25-35) Faster Projectiles
+{variant:129}Socketed Gems are Supported by Level (1-10) Feeding Frenzy
+{variant:130}Socketed Gems are Supported by Level (25-35) Feeding Frenzy
+{variant:131}Socketed Gems are Supported by Level (1-10) Fire Penetration
+{variant:132}Socketed Gems are Supported by Level (25-35) Fire Penetration
+{variant:133}Socketed Gems are Supported by Level (1-10) Fist of War
+{variant:134}Socketed Gems are Supported by Level (25-35) Fist of War
+{variant:135}Socketed Gems are Supported by Level (1-10) Flamewood
+{variant:136}Socketed Gems are Supported by Level (25-35) Flamewood
+{variant:137}Socketed Gems are Supported by Level (1-10) Focused Ballista
+{variant:138}Socketed Gems are Supported by Level (25-35) Focused Ballista
+{variant:139}Socketed Gems are Supported by Level (1-10) Fork
+{variant:140}Socketed Gems are Supported by Level (25-35) Fork
+{variant:141}Socketed Gems are Supported by Level (1-10) Fortify
+{variant:142}Socketed Gems are Supported by Level (25-35) Fortify
+{variant:143}Socketed Gems are Supported by Level (1-10) Fresh Meat
+{variant:144}Socketed Gems are Supported by Level (25-35) Fresh Meat
+{variant:145}Socketed Gems are Supported by Level (1-10) Frigid Bond
+{variant:146}Socketed Gems are Supported by Level (25-35) Frigid Bond
+{variant:147}Socketed Gems are Supported by Level (1-10) Generosity
+{variant:148}Socketed Gems are Supported by Level (25-35) Generosity
+{variant:149}Socketed Gems are Supported by Level (1-10) Greater Multiple Projectiles
+{variant:150}Socketed Gems are Supported by Level (25-35) Greater Multiple Projectiles
+{variant:151}Socketed Gems are Supported by Level (1-10) Greater Volley
+{variant:152}Socketed Gems are Supported by Level (25-35) Greater Volley
+{variant:153}Socketed Gems are Supported by Level (1-10) Guardian's Blessing
+{variant:154}Socketed Gems are Supported by Level (25-35) Guardian's Blessing
+{variant:155}Socketed Gems are Supported by Level (1-10) Hex Bloom
+{variant:156}Socketed Gems are Supported by Level (25-35) Hex Bloom
+{variant:157}Socketed Gems are Supported by Level (1-10) Hextouch
+{variant:158}Socketed Gems are Supported by Level (25-35) Hextouch
+{variant:159}Socketed Gems are Supported by Level (1-10) High-Impact Mine
+{variant:160}Socketed Gems are Supported by Level (25-35) High-Impact Mine
+{variant:161}Socketed Gems are Supported by Level (1-10) Hypothermia
+{variant:162}Socketed Gems are Supported by Level (25-35) Hypothermia
+{variant:163}Socketed Gems are Supported by Level (1-10) Ice Bite
+{variant:164}Socketed Gems are Supported by Level (25-35) Ice Bite
+{variant:165}Socketed Gems are Supported by Level (1-10) Ignite Proliferation
+{variant:166}Socketed Gems are Supported by Level (25-35) Ignite Proliferation
+{variant:167}Socketed Gems are Supported by Level (1-10) Immolate
+{variant:168}Socketed Gems are Supported by Level (25-35) Immolate
+{variant:169}Socketed Gems are Supported by Level (1-10) Impale
+{variant:170}Socketed Gems are Supported by Level (25-35) Impale
+{variant:171}Socketed Gems are Supported by Level (1-10) Impending Doom
+{variant:172}Socketed Gems are Supported by Level (25-35) Impending Doom
+{variant:173}Socketed Gems are Supported by Level (1-10) Increased Area of Effect
+{variant:174}Socketed Gems are Supported by Level (25-35) Increased Area of Effect
+{variant:175}Socketed Gems are Supported by Level (1-10) Increased Critical Damage
+{variant:176}Socketed Gems are Supported by Level (25-35) Increased Critical Damage
+{variant:177}Socketed Gems are Supported by Level (1-10) Increased Critical Strikes
+{variant:178}Socketed Gems are Supported by Level (25-35) Increased Critical Strikes
+{variant:179}Socketed Gems are Supported by Level (1-10) Increased Duration
+{variant:180}Socketed Gems are Supported by Level (25-35) Increased Duration
+{variant:181}Socketed Gems are Supported by Level (1-10) Infernal Legion
+{variant:182}Socketed Gems are Supported by Level (25-35) Infernal Legion
+{variant:183}Socketed Gems are Supported by Level (1-10) Infused Channelling
+{variant:184}Socketed Gems are Supported by Level (25-35) Infused Channelling
+{variant:185}Socketed Gems are Supported by Level (1-10) Innervate
+{variant:186}Socketed Gems are Supported by Level (25-35) Innervate
+{variant:187}Socketed Gems are Supported by Level (1-10) Inspiration
+{variant:188}Socketed Gems are Supported by Level (25-35) Inspiration
+{variant:189}Socketed Gems are Supported by Level (1-10) Intensify
+{variant:190}Socketed Gems are Supported by Level (25-35) Intensify
+{variant:191}Socketed Gems are Supported by Level (1-10) Iron Grip
+{variant:192}Socketed Gems are Supported by Level (25-35) Iron Grip
+{variant:193}Socketed Gems are Supported by Level (1-10) Iron Will
+{variant:194}Socketed Gems are Supported by Level (25-35) Iron Will
+{variant:195}Socketed Gems are Supported by Level (1-10) Item Rarity
+{variant:196}Socketed Gems are Supported by Level (25-35) Item Rarity
+{variant:197}Socketed Gems are Supported by Level (1-10) Knockback
+{variant:198}Socketed Gems are Supported by Level (25-35) Knockback
+{variant:199}Socketed Gems are Supported by Level (1-10) Less Duration
+{variant:200}Socketed Gems are Supported by Level (25-35) Less Duration
+{variant:201}Socketed Gems are Supported by Level (1-10) Lesser Multiple Projectiles
+{variant:202}Socketed Gems are Supported by Level (25-35) Lesser Multiple Projectiles
+{variant:203}Socketed Gems are Supported by Level (1-10) Life Gain on Hit
+{variant:204}Socketed Gems are Supported by Level (25-35) Life Gain on Hit
+{variant:205}Socketed Gems are Supported by Level (1-10) Life Leech
+{variant:206}Socketed Gems are Supported by Level (25-35) Life Leech
+{variant:207}Socketed Gems are Supported by Level (1-10) Lifetap
+{variant:208}Socketed Gems are Supported by Level (25-35) Lifetap
+{variant:209}Socketed Gems are Supported by Level (1-10) Lightning Penetration
+{variant:210}Socketed Gems are Supported by Level (25-35) Lightning Penetration
+{variant:211}Socketed Gems are Supported by Level (1-10) Locus Mine
+{variant:212}Socketed Gems are Supported by Level (25-35) Locus Mine
+{variant:213}Socketed Gems are Supported by Level (1-10) Maim
+{variant:214}Socketed Gems are Supported by Level (25-35) Maim
+{variant:215}Socketed Gems are Supported by Level (1-10) Mana Leech
+{variant:216}Socketed Gems are Supported by Level (25-35) Mana Leech
+{variant:217}Socketed Gems are Supported by Level (1-10) Manaforged Arrows
+{variant:218}Socketed Gems are Supported by Level (25-35) Manaforged Arrows
+{variant:219}Socketed Gems are Supported by Level (1-10) Mark On Hit
+{variant:220}Socketed Gems are Supported by Level (25-35) Mark On Hit
+{variant:221}Socketed Gems are Supported by Level (1-10) Meat Shield
+{variant:222}Socketed Gems are Supported by Level (25-35) Meat Shield
+{variant:223}Socketed Gems are Supported by Level (1-10) Melee Physical Damage
+{variant:224}Socketed Gems are Supported by Level (25-35) Melee Physical Damage
+{variant:225}Socketed Gems are Supported by Level (1-10) Melee Splash
+{variant:226}Socketed Gems are Supported by Level (25-35) Melee Splash
+{variant:227}Socketed Gems are Supported by Level (1-10) Minefield
+{variant:228}Socketed Gems are Supported by Level (25-35) Minefield
+{variant:229}Socketed Gems are Supported by Level (1-10) Minion Damage
+{variant:230}Socketed Gems are Supported by Level (25-35) Minion Damage
+{variant:231}Socketed Gems are Supported by Level (1-10) Minion Life
+{variant:232}Socketed Gems are Supported by Level (25-35) Minion Life
+{variant:233}Socketed Gems are Supported by Level (1-10) Minion Speed
+{variant:234}Socketed Gems are Supported by Level (25-35) Minion Speed
+{variant:235}Socketed Gems are Supported by Level (1-10) Mirage Archer
+{variant:236}Socketed Gems are Supported by Level (25-35) Mirage Archer
+{variant:237}Socketed Gems are Supported by Level (1-10) Momentum
+{variant:238}Socketed Gems are Supported by Level (25-35) Momentum
+{variant:239}Socketed Gems are Supported by Level (1-10) Multiple Totems
+{variant:240}Socketed Gems are Supported by Level (25-35) Multiple Totems
+{variant:241}Socketed Gems are Supported by Level (1-10) Multiple Traps
+{variant:242}Socketed Gems are Supported by Level (25-35) Multiple Traps
+{variant:243}Socketed Gems are Supported by Level (1-10) Multistrike
+{variant:244}Socketed Gems are Supported by Level (25-35) Multistrike
+{variant:245}Socketed Gems are Supported by Level (1-10) Nightblade
+{variant:246}Socketed Gems are Supported by Level (25-35) Nightblade
+{variant:247}Socketed Gems are Supported by Level (1-10) Overcharge
+{variant:248}Socketed Gems are Supported by Level (25-35) Overcharge
+{variant:249}Socketed Gems are Supported by Level (1-10) Physical to Lightning
+{variant:250}Socketed Gems are Supported by Level (25-35) Physical to Lightning
+{variant:251}Socketed Gems are Supported by Level (1-10) Pierce
+{variant:252}Socketed Gems are Supported by Level (25-35) Pierce
+{variant:253}Socketed Gems are Supported by Level (1-10) Pinpoint
+{variant:254}Socketed Gems are Supported by Level (25-35) Pinpoint
+{variant:255}Socketed Gems are Supported by Level (1-10) Point Blank
+{variant:256}Socketed Gems are Supported by Level (25-35) Point Blank
+{variant:257}Socketed Gems are Supported by Level (1-10) Power Charge On Critical
+{variant:258}Socketed Gems are Supported by Level (25-35) Power Charge On Critical
+{variant:259}Socketed Gems are Supported by Level (1-10) Predator
+{variant:260}Socketed Gems are Supported by Level (25-35) Predator
+{variant:261}Socketed Gems are Supported by Level (1-10) Prismatic Burst
+{variant:262}Socketed Gems are Supported by Level (25-35) Prismatic Burst
+{variant:263}Socketed Gems are Supported by Level (1-10) Pulverise
+{variant:264}Socketed Gems are Supported by Level (25-35) Pulverise
+{variant:265}Socketed Gems are Supported by Level (1-10) Rage
+{variant:266}Socketed Gems are Supported by Level (25-35) Rage
+{variant:267}Socketed Gems are Supported by Level (1-10) Returning Projectiles
+{variant:268}Socketed Gems are Supported by Level (25-35) Returning Projectiles
+{variant:269}Socketed Gems are Supported by Level (1-10) Ruthless
+{variant:270}Socketed Gems are Supported by Level (25-35) Ruthless
+{variant:271}Socketed Gems are Supported by Level (1-10) Sacrifice
+{variant:272}Socketed Gems are Supported by Level (25-35) Sacrifice
+{variant:273}Socketed Gems are Supported by Level (1-10) Sadism
+{variant:274}Socketed Gems are Supported by Level (25-35) Sadism
+{variant:275}Socketed Gems are Supported by Level (1-10) Second Wind
+{variant:276}Socketed Gems are Supported by Level (25-35) Second Wind
+{variant:277}Socketed Gems are Supported by Level (1-10) Shockwave
+{variant:278}Socketed Gems are Supported by Level (25-35) Shockwave
+{variant:279}Socketed Gems are Supported by Level (1-10) Slower Projectiles
+{variant:280}Socketed Gems are Supported by Level (25-35) Slower Projectiles
+{variant:281}Socketed Gems are Supported by Level (1-10) Spell Cascade
+{variant:282}Socketed Gems are Supported by Level (25-35) Spell Cascade
+{variant:283}Socketed Gems are Supported by Level (1-10) Spell Echo
+{variant:284}Socketed Gems are Supported by Level (25-35) Spell Echo
+{variant:285}Socketed Gems are Supported by Level (1-10) Spell Totem
+{variant:286}Socketed Gems are Supported by Level (25-35) Spell Totem
+{variant:287}Socketed Gems are Supported by Level (1-10) Spellblade
+{variant:288}Socketed Gems are Supported by Level (25-35) Spellblade
+{variant:289}Socketed Gems are Supported by Level (1-10) Stun
+{variant:290}Socketed Gems are Supported by Level (25-35) Stun
+{variant:291}Socketed Gems are Supported by Level (1-10) Summon Phantasm
+{variant:292}Socketed Gems are Supported by Level (25-35) Summon Phantasm
+{variant:293}Socketed Gems are Supported by Level (1-10) Swift Affliction
+{variant:294}Socketed Gems are Supported by Level (25-35) Swift Affliction
+{variant:295}Socketed Gems are Supported by Level (1-10) Swift Assembly
+{variant:296}Socketed Gems are Supported by Level (25-35) Swift Assembly
+{variant:297}Socketed Gems are Supported by Level (1-10) Swiftbrand
+{variant:298}Socketed Gems are Supported by Level (25-35) Swiftbrand
+{variant:299}Socketed Gems are Supported by Level (1-10) Trap
+{variant:300}Socketed Gems are Supported by Level (25-35) Trap
+{variant:301}Socketed Gems are Supported by Level (1-10) Trap and Mine Damage
+{variant:302}Socketed Gems are Supported by Level (25-35) Trap and Mine Damage
+{variant:303}Socketed Gems are Supported by Level (1-10) Trauma
+{variant:304}Socketed Gems are Supported by Level (25-35) Trauma
+{variant:305}Socketed Gems are Supported by Level (1-10) Trinity
+{variant:306}Socketed Gems are Supported by Level (25-35) Trinity
+{variant:307}Socketed Gems are Supported by Level (1-10) Unbound Ailments
+{variant:308}Socketed Gems are Supported by Level (25-35) Unbound Ailments
+{variant:309}Socketed Gems are Supported by Level (1-10) Unleash
+{variant:310}Socketed Gems are Supported by Level (25-35) Unleash
+{variant:311}Socketed Gems are Supported by Level (1-10) Urgent Orders
+{variant:312}Socketed Gems are Supported by Level (25-35) Urgent Orders
+{variant:313}Socketed Gems are Supported by Level (1-10) Vicious Projectiles
+{variant:314}Socketed Gems are Supported by Level (25-35) Vicious Projectiles
+{variant:315}Socketed Gems are Supported by Level (1-10) Vile Toxins
+{variant:316}Socketed Gems are Supported by Level (25-35) Vile Toxins
+{variant:317}Socketed Gems are Supported by Level (1-10) Void Manipulation
+{variant:318}Socketed Gems are Supported by Level (25-35) Void Manipulation
+{variant:319}Socketed Gems are Supported by Level (1-10) Volatility
+{variant:320}Socketed Gems are Supported by Level (25-35) Volatility
+{variant:321}Socketed Gems are Supported by Level (1-10) Volley
+{variant:322}Socketed Gems are Supported by Level (25-35) Volley
+{variant:323}Socketed Gems are Supported by Level (1-10) Withering Touch
+{variant:324}Socketed Gems are Supported by Level (25-35) Withering Touch
 +(25-30) to all Attributes
 ]],
 [[

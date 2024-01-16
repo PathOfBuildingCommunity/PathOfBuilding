@@ -349,6 +349,7 @@ end
 
 -- Forbidden Shako and Replica Forbidden Shako
 local indexableSupportGems = tableFromDat("IndexableSupportGems")
+table.sort(indexableSupportGems, function(a, b) return a.Skill < b.Skill end)
 
 local forbiddenShako = {[[
 Forbidden Shako
@@ -357,6 +358,8 @@ League: Harvest
 Source: Drops from unique{Oshabi, Avatar of the Grove}
 Requires Level 68, 59 Str, 59 Int
 Has Alt Variant: true
+Selected Variant: 164
+Selected Alt Variant: 172
 ]]}
 local replicaForbiddenShako = {[[
 Replica Forbidden Shako
@@ -365,6 +368,8 @@ League: Heist
 Source: Steal from a unique{Curio Display} during a Grand Heist
 Requires Level 68, 59 Str, 59 Int
 Has Alt Variant: true
+Selected Variant: 164
+Selected Alt Variant: 172
 ]]}
 for _, support in ipairs(indexableSupportGems) do
 	table.insert(forbiddenShako, "Variant: "..support.Skill.. " (Low Level)\n")
