@@ -634,7 +634,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			minion.uses = activeGrantedEffect.minionUses
 			minion.lifeTable = isSpectre and env.data.monsterLifeTable or env.data.monsterAllyLifeTable
 			local attackTime = minion.minionData.attackTime * (1 - (minion.minionData.damageFixup or 0))
-			local damage = env.data.monsterDamageTable[minion.level] * minion.minionData.damage * attackTime
+			local damage = env.data.minionDamageTable[minion.level] * minion.minionData.damage * attackTime
 			if activeGrantedEffect.minionHasItemSet then
 				if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
 					if not env.build.itemsTab.itemSets[activeEffect.srcInstance.skillMinionItemSetCalcs] then

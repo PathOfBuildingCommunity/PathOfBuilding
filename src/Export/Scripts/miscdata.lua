@@ -5,6 +5,7 @@ local evasion = ""
 local accuracy = ""
 local life = ""
 local allyLife = ""
+local allyDamage = ""
 local damage = ""
 local armour = ""
 local ailmentThreshold = ""
@@ -14,6 +15,7 @@ for stats in dat("DefaultMonsterStats"):Rows() do
 	life = life .. stats.MonsterLife .. ", "
 	allyLife = allyLife .. stats.MinionLife .. ", "
 	damage = damage .. stats.Damage .. ", "
+	allyDamage = allyDamage .. stats.MinionDamage .. ", "
 	armour = armour .. stats.Armour .. ", "
 	ailmentThreshold = ailmentThreshold .. stats.AilmentThreshold .. ", "
 end
@@ -23,6 +25,7 @@ out:write('data.monsterAccuracyTable = { '..accuracy..'}\n')
 out:write('data.monsterLifeTable = { '..life..'}\n')
 out:write('data.monsterAllyLifeTable = { '..allyLife..'}\n')
 out:write('data.monsterDamageTable = { '..damage..'}\n')
+out:write('data.minionDamageTable = { '..allyDamage..'}\n')
 out:write('data.monsterArmourTable = { '..armour..'}\n')
 out:write('data.monsterAilmentThresholdTable = { '..ailmentThreshold..'}\n')
 
