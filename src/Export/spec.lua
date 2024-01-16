@@ -7642,21 +7642,21 @@ return {
 		},
 		[25]={
 			list=false,
-			name="SporlightColour1",
+			name="SpotlightColour1",
 			refTo="",
 			type="Int",
 			width=100
 		},
 		[26]={
 			list=false,
-			name="SporlightColour2",
+			name="SpotlightColour2",
 			refTo="",
 			type="Int",
 			width=100
 		},
 		[27]={
 			list=false,
-			name="SporlightColour3",
+			name="SpotlightColour3",
 			refTo="",
 			type="Int",
 			width=100
