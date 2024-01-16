@@ -110,7 +110,14 @@ end
 -- Generate uniques
 -- Paradoxica
 local paradoxicaMods = tableFromDat("Mods",
-	function(mod) return veiledModsPredicate("base", "weapon", "one_handed_weapon")(mod) and mod.Type.Id ~= "DoubleDamageChance" end)
+	function(mod) return veiledModsPredicate("base", "weapon", "one_hand_weapon")(mod) and mod.Type.Id ~= "DoubleDamageChance" end)
+table.sort(paradoxicaMods, function(a, b)
+	if a.GenerationType ~= b.GenerationType then
+		return a.GenerationType < b.GenerationType
+	else
+		return parseVeiledModName(a.Id) < parseVeiledModName(b.Id)
+	end
+end)
 
 local paradoxica = {[[
 Paradoxica
@@ -122,7 +129,8 @@ Selected Variant: 4
 Selected Alt Variant: 16
 ]]}
 for _, mod in ipairs(paradoxicaMods) do
-	local variantName = parseVeiledModName(mod.Id)
+	local affixType = (mod.GenerationType == 1 and "Prefix") or (mod.GenerationType == 2 and "Suffix")
+	local variantName = "("..affixType..") "..parseVeiledModName(mod.Id)
 	table.insert(paradoxica, "Variant: "..variantName.."\n")
 end
 table.insert(paradoxica, [[
