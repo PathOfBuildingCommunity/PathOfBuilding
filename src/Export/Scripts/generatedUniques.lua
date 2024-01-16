@@ -7,8 +7,7 @@
 if not loadStatFile then
 	dofile("statdesc.lua")
 end
--- Not sure how this StatFile is actually used, just can't use describeMod without it
-loadStatFile("passive_skill_stat_descriptions.txt")
+loadStatFile("stat_descriptions.txt")
 
 -- Utility functions
 local abbreviateModId = function(string)
