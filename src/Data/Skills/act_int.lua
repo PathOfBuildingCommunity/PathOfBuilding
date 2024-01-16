@@ -6097,7 +6097,7 @@ skills["Firewall"] = {
 		["quality_display_firewall_is_gem"] = {
 			-- Display only
 		},
-		["quality_display_alt_flame_wall_is_gem"] = {
+		["quality_display_wall_length_is_gem"] = {
 			-- Display only
 		},
 	},
@@ -6132,7 +6132,7 @@ skills["Firewall"] = {
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"console_skill_dont_chase",
 		"quality_display_firewall_is_gem",
-		"quality_display_alt_flame_wall_is_gem",
+		"quality_display_wall_length_is_gem",
 	},
 	levels = {
 		[1] = { 5.0000003104409, 16.666667039196, 3, 5, 1000, 40, 3000, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
@@ -7667,6 +7667,11 @@ skills["FrostWall"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+    statMap = {
+        ["quality_display_wall_length_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -7685,6 +7690,7 @@ skills["FrostWall"] = {
 		"base_skill_effect_duration",
 		"wall_maximum_length",
 		"base_skill_show_average_damage_instead_of_dps",
+		"quality_display_wall_length_is_gem",
 	},
 	levels = {
 		[1] = { 0.69999998807907, 1.1000000238419, 3000, 28, storedUses = 3, levelRequirement = 4, cooldown = 3, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 9, }, },
@@ -8897,9 +8903,6 @@ skills["HeraldOfThunder"] = {
 		["herald_of_thunder_bolt_frequency_+%"] = {
 			mod("HeraldStormFrequency", "INC", nil),
 		},
-		["quality_display_herald_of_thunder_is_gem"] = {
-			-- Display Only
-		},
 	},
 	baseFlags = {
 		cast = true,
@@ -8931,7 +8934,6 @@ skills["HeraldOfThunder"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"display_herald_of_thunder_storm",
 		"herald_of_thunder_pvp_scaling_time_uses_bolt_frequency",
-		"quality_display_herald_of_thunder_is_gem",
 	},
 	levels = {
 		[1] = { 0.10000000149012, 0.40000000596046, 0.10000000149012, 0.40000000596046, 1, 31, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 16, statInterpolation = { 3, 3, 3, 3, 1, 1, }, },
@@ -12104,7 +12106,7 @@ skills["MagmaSigilAltX"] = {
 	color = 3,
 	baseEffectiveness = 0.53680002689362,
 	incrementalEffectiveness = 0.046720001846552,
-	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy and causing a pulse that deals damage to the branded enemy and other nearby enemies. The pulse gains area of effect and damage for each energy on the branded enemy.",
+	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy and causing a pulse that deals damage to the branded enemy and other nearby enemies. The pulse gains area of effect and damage for each energy on the branded enemy, up to 20. All energy is removed from the enemy when the brand is detached.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,

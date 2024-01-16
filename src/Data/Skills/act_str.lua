@@ -3572,6 +3572,9 @@ skills["SpikeSlam"] = {
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3599,6 +3602,7 @@ skills["SpikeSlam"] = {
 		"is_area_damage",
 		"quality_display_spike_slam_is_gem",
 		"quality_display_max_spikes_is_gem",
+		"quality_display_earthshatter_spike_damage_is_gem",
 	},
 	levels = {
 		[1] = { 0, attackSpeedMultiplier = -20, baseMultiplier = 1.25, damageEffectiveness = 1.25, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 8, }, },
@@ -3675,6 +3679,9 @@ skills["SpikeSlamAltX"] = {
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3702,6 +3709,7 @@ skills["SpikeSlamAltX"] = {
 		"is_area_damage",
 		"quality_display_spike_slam_is_gem",
 		"quality_display_max_spikes_is_gem",
+		"quality_display_earthshatter_spike_damage_is_gem",
 	},
 	levels = {
 		[1] = { 0, attackSpeedMultiplier = -20, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 8, }, },
@@ -3778,6 +3786,9 @@ skills["SpikeSlamAltY"] = {
 		["earthshatter_spike_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3802,7 +3813,9 @@ skills["SpikeSlamAltY"] = {
 	stats = {
 		"earthshatter_spike_area_of_effect_+%_final",
 		"is_area_damage",
+		"quality_display_spike_slam_is_gem",
 		"quality_display_max_spikes_is_gem",
+		"quality_display_earthshatter_spike_damage_is_gem",
 	},
 	levels = {
 		[1] = { 100, attackSpeedMultiplier = -20, baseMultiplier = 1.1, damageEffectiveness = 1.1, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 8, }, },

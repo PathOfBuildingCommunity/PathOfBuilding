@@ -1611,7 +1611,7 @@ return {
 		["MERCILESS"] = {
 			"25% increased Lightning Arrow Damage",
 			"16% increased Lightning Arrow Area of Effect",
-			"Lightning Arrow hits an additional Enemy",
+			"Lightning Arrow hits 1 additional Enemy",
 		},
 		["ENDGAME"] = {
 			"40% increased Lightning Arrow Damage",

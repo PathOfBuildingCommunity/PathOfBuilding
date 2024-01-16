@@ -4758,8 +4758,8 @@ skills["DetonateDeadAltY"] = {
 	color = 2,
 	baseEffectiveness = 2.3699998855591,
 	incrementalEffectiveness = 0.031700000166893,
-	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected. This will continue to target other corpses in the area, with a shorter delay between each one, until it runs out of corpses or has destroyed 8 corpses.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.DestroysCorpse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	description = "Targets a corpse, and deals spell damage to enemies around the corpse, as well as causing the corpse to explode, dealing fire damage. The explosion is not affected by modifiers to spell damage and cannot be reflected. This will continue to target other corpses in the area, with a shorter delay between each one, until it runs out of corpses or has destroyed 8 corpses. Cannot be supported by Spell Cascade.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.DestroysCorpse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.8,
 	parts = {
@@ -9472,11 +9472,6 @@ skills["LightningArrow"] = {
 	},
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	statMap = {
-		["quality_display_lightning_arrow_is_gem"] = {
-			-- Display only
-		},
-	},
 	baseFlags = {
 		attack = true,
 		projectile = true,
@@ -9498,7 +9493,6 @@ skills["LightningArrow"] = {
 		"attack_maximum_added_lightning_damage",
 		"active_skill_shock_as_though_damage_+%_final",
 		"skill_can_fire_arrows",
-		"quality_display_lightning_arrow_is_gem",
 	},
 	levels = {
 		[1] = { 0.10000000149012, 1.8999999761581, 100, damageEffectiveness = 1.3, baseMultiplier = 1.3, levelRequirement = 12, statInterpolation = { 3, 3, 1, }, cost = { Mana = 7, }, },
@@ -9587,7 +9581,6 @@ skills["LightningArrowAltX"] = {
 		"attack_minimum_added_lightning_damage",
 		"attack_maximum_added_lightning_damage",
 		"skill_can_fire_arrows",
-		"quality_display_lightning_arrow_is_gem",
 	},
 	levels = {
 		[1] = { 0.10000000149012, 1.8999999761581, damageEffectiveness = 0.65, baseMultiplier = 0.65, levelRequirement = 12, statInterpolation = { 3, 3, }, cost = { Mana = 7, }, },
@@ -9663,9 +9656,6 @@ skills["VaalLightningArrow"] = {
 		},
 		["base_skill_show_average_damage_instead_of_dps"] = {
 		},
-		["quality_display_lightning_arrow_is_gem"] = {
-			-- Display only
-		},
 		["quality_display_base_additional_arrows_is_gem"] = {
 			-- Display only
 		},
@@ -9700,7 +9690,6 @@ skills["VaalLightningArrow"] = {
 		"projectiles_barrage",
 		"cannot_cancel_skill_before_contact_point",
 		"skill_can_add_multiple_charges_per_action",
-		"quality_display_lightning_arrow_is_gem",
 		"quality_display_base_additional_arrows_is_gem",
 	},
 	levels = {

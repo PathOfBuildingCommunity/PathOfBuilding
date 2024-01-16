@@ -1189,7 +1189,7 @@ local skills, mod, flag, skill = ...
 		["quality_display_firewall_is_gem"] = {
 			-- Display only
 		},
-		["quality_display_alt_flame_wall_is_gem"] = {
+		["quality_display_wall_length_is_gem"] = {
 			-- Display only
 		},
 	},
@@ -1590,6 +1590,11 @@ local skills, mod, flag, skill = ...
 
 #skill FrostWall
 #flags spell duration
+    statMap = {
+        ["quality_display_wall_length_is_gem"] = {
+			-- Display only
+		},
+	},
 #mods
 
 #skill Frostbite
@@ -1882,9 +1887,6 @@ local skills, mod, flag, skill = ...
 		},
 		["herald_of_thunder_bolt_frequency_+%"] = {
 			mod("HeraldStormFrequency", "INC", nil),
-		},
-		["quality_display_herald_of_thunder_is_gem"] = {
-			-- Display Only
 		},
 	},
 #baseMod skill("radius", 32)
