@@ -54,6 +54,14 @@ local veiledModsPredicate = function (veiledPool, baseType, specificType1, speci
 	end
 end
 
+local veiledModSortFunction = function(a, b)
+	if a.GenerationType ~= b.GenerationType then
+		return a.GenerationType < b.GenerationType
+	else
+		return parseVeiledModName(a.Id) < parseVeiledModName(b.Id)
+	end
+end
+
 local writeTable = function(out, table)
     out:write('[[\n')
     for _, line in ipairs(table) do
@@ -111,13 +119,7 @@ end
 -- Paradoxica
 local paradoxicaMods = tableFromDat("Mods",
 	function(mod) return veiledModsPredicate("base", "weapon", "one_hand_weapon")(mod) and mod.Type.Id ~= "DoubleDamageChance" end)
-table.sort(paradoxicaMods, function(a, b)
-	if a.GenerationType ~= b.GenerationType then
-		return a.GenerationType < b.GenerationType
-	else
-		return parseVeiledModName(a.Id) < parseVeiledModName(b.Id)
-	end
-end)
+table.sort(paradoxicaMods, veiledModSortFunction)
 
 local paradoxica = {[[
 Paradoxica
@@ -149,6 +151,7 @@ table.insert(paradoxica, "Attacks with this Weapon deal Double Damage\n")
 -- Cane of Kulemak
 local caneOfKulemakMods = tableFromDat("Mods",
 	function(mod) return veiledModsPredicate("catarina", "weapon", "staff", "two_hand_weapon")(mod) end)
+table.sort(caneOfKulemakMods, veiledModSortFunction)
 local caneOfKulemakMinUnveiledModifierMagnitudes, caneOfKulemakMaxUnveiledModifierMagnitudes = 60, 90
 
 local caneOfKulemak = {[[
@@ -161,7 +164,8 @@ Selected Variant: 1
 Selected Alt Variant: 20
 ]]}
 for _, mod in ipairs(caneOfKulemakMods) do
-	local variantName = parseVeiledModName(mod.Id)
+	local affixType = (mod.GenerationType == 1 and "Prefix") or (mod.GenerationType == 2 and "Suffix")
+	local variantName = "("..affixType..") "..parseVeiledModName(mod.Id)
 	table.insert(caneOfKulemak, "Variant: "..variantName.."\n")
 end
 table.insert(caneOfKulemak, [[
@@ -185,7 +189,8 @@ end
 
 -- Replica Paradoxica
 local replicaParadoxicaMods = tableFromDat("Mods",
-	function(mod) return veiledModsPredicate("all", "weapon", "one_handed_weapon")(mod) end)
+	function(mod) return veiledModsPredicate("all", "weapon", "one_hand_weapon")(mod) end)
+table.sort(replicaParadoxicaMods, veiledModSortFunction)
 
 local replicaParadoxica = {[[
 Replica Paradoxica
@@ -205,7 +210,8 @@ Selected Alt Variant Four: 27
 Selected Alt Variant Five: 34
 ]]}
 for _, mod in ipairs(replicaParadoxicaMods) do
-	local variantName = parseVeiledModName(mod.Id)
+	local affixType = (mod.GenerationType == 1 and "Prefix") or (mod.GenerationType == 2 and "Suffix")
+	local variantName = "("..affixType..") "..parseVeiledModName(mod.Id)
 	table.insert(replicaParadoxica, "Variant: "..variantName.."\n")
 end
 table.insert(replicaParadoxica, [[
@@ -223,6 +229,7 @@ end
 -- Queen's Hunger
 local queensHungerMods = tableFromDat("Mods",
 	function(mod) return veiledModsPredicate("base", "body_armour", "int_armour")(mod) end)
+table.sort(queensHungerMods, veiledModSortFunction)
 	
 local queensHunger = {[[
 The Queen's Hunger
@@ -234,7 +241,8 @@ Selected Variant: 1
 Selected Alt Variant: 24
 ]]}
 for _, mod in ipairs(queensHungerMods) do
-	local variantName = parseVeiledModName(mod.Id)
+	local affixType = (mod.GenerationType == 1 and "Prefix") or (mod.GenerationType == 2 and "Suffix")
+	local variantName = "("..affixType..") "..parseVeiledModName(mod.Id)
 	table.insert(queensHunger, "Variant: "..variantName.."\n")
 end
 table.insert(queensHunger, [[

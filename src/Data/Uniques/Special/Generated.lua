@@ -101,91 +101,91 @@ Has Alt Variant: true
 Has Alt Variant Two: true
 Selected Variant: 1
 Selected Alt Variant: 20
-Variant: Increased Physical Damage And Impale
-Variant: Increased Physical Damage And Bleed Chance
-Variant: Increased Physical Damage And Blind Chance
-Variant: Increased Physical Damage And Poison Chance
-Variant: Elemental Penetration With Attacks
-Variant: Chaos Penetration With Attacks
-Variant: Double Damage Chance
-Variant: Fire Damage And Chance To Ignite
-Variant: Cold Damage And Base Chance To Freeze
-Variant: Lightning Damage And Chance To Shock
-Variant: Chaos Damage And Chaos Skill Duration
-Variant: Spell Damage And Mana Regeneration Rate
-Variant: Spell Damage And Non Chaos Damage To Add As Chaos Damage
-Variant: Minion Damage And Minion Maximum Life
-Variant: Minion Attack And Cast Speed On Weapon
-Variant: Chaos Damage Over Time Multiplier Two Hand
-Variant: Physical Damage Over Time Multiplier Two Hand
-Variant: Cold Damage Over Time Multiplier Two Hand
-Variant: Fire Damage Over Time Multiplier Two Hand
-Variant: Damage Per Endurance Charge
-Variant: Damage Per Frenzy Charge
-Variant: Damage Per Power Charge
-Variant: Critical Strike Multiplier If Rare Or Unique Enemy Nearby
-Variant: Attack Speed Percent If Rare Or Unique Enemy Nearby
-Variant: Chance To Deal Double Damage While Focused
-Variant: Increase Socketed Support Gem Level
-Variant: Attack Speed Dexterity Intelligence
-Variant: Critical Strike Chance Strength Intelligence
-Variant: Accuracy Rating Strength Dexterity
-Variant: Attack Speed And Trigger Level 1 Blood Rage On Kill Chance
-Variant: Cast Speed And Gain Arcane Surge On Kill Chance
-Variant: Trigger Socketed Spell On Skill Use
+Variant: (Prefix) Chaos Damage And Chaos Skill Duration
+Variant: (Prefix) Chaos Penetration With Attacks
+Variant: (Prefix) Cold Damage And Base Chance To Freeze
+Variant: (Prefix) Elemental Penetration With Attacks
+Variant: (Prefix) Fire Damage And Chance To Ignite
+Variant: (Prefix) Increase Socketed Support Gem Level
+Variant: (Prefix) Increased Physical Damage And Bleed Chance
+Variant: (Prefix) Increased Physical Damage And Blind Chance
+Variant: (Prefix) Increased Physical Damage And Impale
+Variant: (Prefix) Increased Physical Damage And Poison Chance
+Variant: (Prefix) Lightning Damage And Chance To Shock
+Variant: (Prefix) Minion Damage And Minion Maximum Life
+Variant: (Prefix) Spell Damage And Mana Regeneration Rate
+Variant: (Prefix) Spell Damage And Non Chaos Damage To Add As Chaos Damage
+Variant: (Suffix) Accuracy Rating Strength Dexterity
+Variant: (Suffix) Attack Speed And Trigger Level 1 Blood Rage On Kill Chance
+Variant: (Suffix) Attack Speed Dexterity Intelligence
+Variant: (Suffix) Attack Speed Percent If Rare Or Unique Enemy Nearby
+Variant: (Suffix) Cast Speed And Gain Arcane Surge On Kill Chance
+Variant: (Suffix) Chance To Deal Double Damage While Focused
+Variant: (Suffix) Chaos Damage Over Time Multiplier Two Hand
+Variant: (Suffix) Cold Damage Over Time Multiplier Two Hand
+Variant: (Suffix) Critical Strike Chance Strength Intelligence
+Variant: (Suffix) Critical Strike Multiplier If Rare Or Unique Enemy Nearby
+Variant: (Suffix) Damage Per Endurance Charge
+Variant: (Suffix) Damage Per Frenzy Charge
+Variant: (Suffix) Damage Per Power Charge
+Variant: (Suffix) Double Damage Chance
+Variant: (Suffix) Fire Damage Over Time Multiplier Two Hand
+Variant: (Suffix) Minion Attack And Cast Speed On Weapon
+Variant: (Suffix) Physical Damage Over Time Multiplier Two Hand
+Variant: (Suffix) Trigger Socketed Spell On Skill Use
 Requires Level 68, 85 Str, 85 Int
 Implicits: 1
 +20% Chance to Block Attack Damage while wielding a Staff
 (60-90)% increased Unveiled Modifier magnitudes
-{variant:1}(192-264)% increased Physical Damage
-{variant:1}(33-47)% chance to Impale Enemies on Hit with Attacks
-{variant:2}(192-264)% increased Physical Damage
-{variant:2}(33-47)% chance to cause Bleeding on Hit
-{variant:3}(192-264)% increased Physical Damage
-{variant:3}(33-47)% chance to Blind Enemies on hit
-{variant:4}(192-264)% increased Physical Damage
-{variant:4}(33-47)% chance to Poison on Hit
-{variant:5}Attacks with this Weapon Penetrate (22-30)% Elemental Resistances
-{variant:6}Attacks with this Weapon Penetrate (22-30)% Chaos Resistance
-{variant:7}(19-26)% chance to deal Double Damage
-{variant:8}(160-207)% increased Fire Damage
-{variant:8}(56-76)% chance to Ignite
-{variant:9}(160-207)% increased Cold Damage
-{variant:9}(56-76)% chance to Freeze
-{variant:10}(160-207)% increased Lightning Damage
-{variant:10}(56-76)% chance to Shock
-{variant:11}(144-188)% increased Chaos Damage
-{variant:11}Chaos Skills have (41-57)% increased Skill Effect Duration
-{variant:12}(160-207)% increased Spell Damage
-{variant:12}(57-76)% increased Mana Regeneration Rate
-{variant:13}(144-188)% increased Spell Damage
-{variant:13}Gain (14-19)% of Non-Chaos Damage as extra Chaos Damage
-{variant:14}Minions have (80-112)% increased maximum Life
-{variant:14}Minions deal (80-112)% increased Damage
-{variant:15}Minions have (54-72)% increased Attack Speed
-{variant:15}Minions have (54-72)% increased Cast Speed
-{variant:16}+(70-91)% to Chaos Damage over Time Multiplier
-{variant:17}+(70-91)% to Physical Damage over Time Multiplier
-{variant:18}+(70-91)% to Cold Damage over Time Multiplier
-{variant:19}+(70-91)% to Fire Damage over Time Multiplier
-{variant:20}(11-15)% increased Damage per Endurance Charge
-{variant:21}(11-15)% increased Damage per Frenzy Charge
-{variant:22}(11-15)% increased Damage per Power Charge
-{variant:23}+(86-114)% Critical Strike Multiplier while a Rare or Unique Enemy is Nearby
-{variant:24}(43-57)% increased Attack Speed while a Rare or Unique Enemy is Nearby
-{variant:25}(57-76)% chance to deal Double Damage while Focused
-{variant:26}+3 to Level of Socketed Support Gems
-{variant:26}+(8-15)% to Quality of Socketed Support Gems
-{variant:27}+(40-53) to Dexterity and Intelligence
-{variant:27}(28-41)% increased Attack Speed
-{variant:28}+(40-53) to Strength and Intelligence
-{variant:28}(44-60)% increased Critical Strike Chance
-{variant:29}+(40-53) to Strength and Dexterity
-{variant:29}+(497-665) to Accuracy Rating
-{variant:30}15% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
-{variant:30}(28-41)% increased Attack Speed
-{variant:31}(41-58)% increased Cast Speed
-{variant:31}15% chance to gain Arcane Surge when you Kill an Enemy
+{variant:1}(144-188)% increased Chaos Damage
+{variant:1}Chaos Skills have (41-57)% increased Skill Effect Duration
+{variant:2}Attacks with this Weapon Penetrate (22-30)% Chaos Resistance
+{variant:3}(160-207)% increased Cold Damage
+{variant:3}(56-76)% chance to Freeze
+{variant:4}Attacks with this Weapon Penetrate (22-30)% Elemental Resistances
+{variant:5}(160-207)% increased Fire Damage
+{variant:5}(56-76)% chance to Ignite
+{variant:6}+3 to Level of Socketed Support Gems
+{variant:6}+(8-15)% to Quality of Socketed Support Gems
+{variant:7}(192-264)% increased Physical Damage
+{variant:7}(33-47)% chance to cause Bleeding on Hit
+{variant:8}(192-264)% increased Physical Damage
+{variant:8}(33-47)% chance to Blind Enemies on hit
+{variant:9}(192-264)% increased Physical Damage
+{variant:9}(33-47)% chance to Impale Enemies on Hit with Attacks
+{variant:10}(192-264)% increased Physical Damage
+{variant:10}(33-47)% chance to Poison on Hit
+{variant:11}(160-207)% increased Lightning Damage
+{variant:11}(56-76)% chance to Shock
+{variant:12}Minions have (80-112)% increased maximum Life
+{variant:12}Minions deal (80-112)% increased Damage
+{variant:13}(160-207)% increased Spell Damage
+{variant:13}(57-76)% increased Mana Regeneration Rate
+{variant:14}(144-188)% increased Spell Damage
+{variant:14}Gain (14-19)% of Non-Chaos Damage as extra Chaos Damage
+{variant:15}+(40-53) to Strength and Dexterity
+{variant:15}+(497-665) to Accuracy Rating
+{variant:16}15% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
+{variant:16}(28-41)% increased Attack Speed
+{variant:17}+(40-53) to Dexterity and Intelligence
+{variant:17}(28-41)% increased Attack Speed
+{variant:18}(43-57)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:19}(41-58)% increased Cast Speed
+{variant:19}15% chance to gain Arcane Surge when you Kill an Enemy
+{variant:20}(57-76)% chance to deal Double Damage while Focused
+{variant:21}+(70-91)% to Chaos Damage over Time Multiplier
+{variant:22}+(70-91)% to Cold Damage over Time Multiplier
+{variant:23}+(40-53) to Strength and Intelligence
+{variant:23}(44-60)% increased Critical Strike Chance
+{variant:24}+(86-114)% Critical Strike Multiplier while a Rare or Unique Enemy is Nearby
+{variant:25}(11-15)% increased Damage per Endurance Charge
+{variant:26}(11-15)% increased Damage per Frenzy Charge
+{variant:27}(11-15)% increased Damage per Power Charge
+{variant:28}(19-26)% chance to deal Double Damage
+{variant:29}+(70-91)% to Fire Damage over Time Multiplier
+{variant:30}Minions have (54-72)% increased Attack Speed
+{variant:30}Minions have (54-72)% increased Cast Speed
+{variant:31}+(70-91)% to Physical Damage over Time Multiplier
 {variant:32}Trigger a Socketed Spell on Using a Skill, with a 4 second Cooldown
 {variant:32}Spells Triggered this way have 150% more Cost
 ]],
@@ -205,101 +205,107 @@ Selected Alt Variant Two: 3
 Selected Alt Variant Three: 25
 Selected Alt Variant Four: 27
 Selected Alt Variant Five: 34
-Variant: Increased Physical Damage And Impale
-Variant: Increased Physical Damage And Bleed Chance
-Variant: Increased Physical Damage And Blind Chance
-Variant: Increased Physical Damage And Poison Chance
-Variant: Elemental Penetration With Attacks
-Variant: Chaos Penetration With Attacks
-Variant: Fire Damage And Chance To Ignite
-Variant: Fire Damage And Chance To Ignite
-Variant: Cold Damage And Base Chance To Freeze
-Variant: Cold Damage And Base Chance To Freeze
-Variant: Lightning Damage And Chance To Shock
-Variant: Lightning Damage And Chance To Shock
-Variant: Chaos Damage And Chaos Skill Duration
-Variant: Chaos Damage And Chaos Skill Duration
-Variant: Spell Damage And Mana Regeneration Rate
-Variant: Spell Damage And Non Chaos Damage To Add As Chaos Damage
-Variant: Minion Damage And Minion Maximum Life
-Variant: Minion Damage And Minion Maximum Life
-Variant: Minion Attack And Cast Speed On Weapon
-Variant: Minion Attack And Cast Speed On Weapon
-Variant: Chaos Damage Over Time Multiplier Two Hand
-Variant: Chaos Damage Over Time Multiplier
-Variant: Physical Damage Over Time Multiplier Two Hand
-Variant: Physical Damage Over Time Multiplier
-Variant: Cold Damage Over Time Multiplier
-Variant: Fire Damage Over Time Multiplier
-Variant: Increase Socketed Support Gem Level
-Variant: Socketed Gem Quality
-Variant: Always Hits
-Variant: Attack Speed Dexterity Intelligence
-Variant: Critical Strike Chance Strength Intelligence
-Variant: Accuracy Rating Strength Dexterity
-Variant: Attack Speed And Trigger Level 1 Blood Rage On Kill Chance
-Variant: Trigger Socketed Spell On Skill Use
+Variant: (Prefix) Always Hits
+Variant: (Prefix) Bleed On Hit Gained
+Variant: (Prefix) Chaos Damage And Chaos Skill Duration
+Variant: (Prefix) Chaos Penetration With Attacks
+Variant: (Prefix) Cold Added As Chaos
+Variant: (Prefix) Cold Damage And Base Chance To Freeze
+Variant: (Prefix) Elemental Penetration With Attacks
+Variant: (Prefix) Fire Added As Chaos
+Variant: (Prefix) Fire Damage And Chance To Ignite
+Variant: (Prefix) Increase Socketed Support Gem Level
+Variant: (Prefix) Increased Physical Damage And Bleed Chance
+Variant: (Prefix) Increased Physical Damage And Blind Chance
+Variant: (Prefix) Increased Physical Damage And Impale
+Variant: (Prefix) Increased Physical Damage And Poison Chance
+Variant: (Prefix) Lightning Added As Chaos
+Variant: (Prefix) Lightning Damage And Chance To Shock
+Variant: (Prefix) Minion Damage And Minion Maximum Life
+Variant: (Prefix) Physical Added As Chaos
+Variant: (Prefix) Socketed Gem Quality
+Variant: (Prefix) Spell Damage And Mana Regeneration Rate
+Variant: (Prefix) Spell Damage And Non Chaos Damage To Add As Chaos Damage
+Variant: (Suffix) Accuracy Rating Strength Dexterity
+Variant: (Suffix) Attack Speed And Trigger Level 1 Blood Rage On Kill Chance
+Variant: (Suffix) Attack Speed Dexterity Intelligence
+Variant: (Suffix) Attack Speed Percent If Rare Or Unique Enemy Nearby
+Variant: (Suffix) Cast Speed And Gain Arcane Surge On Kill Chance
+Variant: (Suffix) Chance To Deal Double Damage While Focused
+Variant: (Suffix) Chaos Damage Over Time Multiplier
+Variant: (Suffix) Cold Damage Over Time Multiplier
+Variant: (Suffix) Critical Strike Chance Strength Intelligence
+Variant: (Suffix) Critical Strike Multiplier If Rare Or Unique Enemy Nearby
+Variant: (Suffix) Damage Per Endurance Charge
+Variant: (Suffix) Damage Per Frenzy Charge
+Variant: (Suffix) Damage Per Power Charge
+Variant: (Suffix) Double Damage Chance
+Variant: (Suffix) Fire Damage Over Time Multiplier
+Variant: (Suffix) Minion Attack And Cast Speed On Weapon
+Variant: (Suffix) Physical Damage Over Time Multiplier
+Variant: (Suffix) Trigger Socketed Spell On Skill Use
 Requires Level 66, 212 Dex
 Implicits: 1
 +25% to Global Critical Strike Multiplier
-{variant:1}(120-139)% increased Physical Damage
-{variant:1}(21-25)% chance to Impale Enemies on Hit with Attacks
-{variant:2}(120-139)% increased Physical Damage
-{variant:2}(21-25)% chance to cause Bleeding on Hit
-{variant:3}(120-139)% increased Physical Damage
-{variant:3}(21-25)% chance to Blind Enemies on hit
-{variant:4}(120-139)% increased Physical Damage
-{variant:4}(21-25)% chance to Poison on Hit
-{variant:5}Attacks with this Weapon Penetrate (14-16)% Elemental Resistances
-{variant:6}Attacks with this Weapon Penetrate (14-16)% Chaos Resistance
-{variant:7}(70-79)% increased Fire Damage
-{variant:7}(21-23)% chance to Ignite
-{variant:8}(100-109)% increased Fire Damage
-{variant:8}(35-40)% chance to Ignite
-{variant:9}(70-79)% increased Cold Damage
-{variant:9}(21-23)% chance to Freeze
-{variant:10}(100-109)% increased Cold Damage
-{variant:10}(35-40)% chance to Freeze
-{variant:11}(70-79)% increased Lightning Damage
-{variant:11}(21-23)% chance to Shock
-{variant:12}(100-109)% increased Lightning Damage
-{variant:12}(35-40)% chance to Shock
-{variant:13}(60-69)% increased Chaos Damage
-{variant:13}Chaos Skills have (13-15)% increased Skill Effect Duration
-{variant:14}(90-99)% increased Chaos Damage
-{variant:14}Chaos Skills have (26-30)% increased Skill Effect Duration
-{variant:15}(70-79)% increased Spell Damage
-{variant:15}(18-20)% increased Mana Regeneration Rate
-{variant:16}(60-69)% increased Spell Damage
-{variant:16}Gain 5% of Non-Chaos Damage as extra Chaos Damage
+{variant:1}Hits can't be Evaded
+{variant:2}Adds (12-14) to (18-20) Physical Damage
+{variant:2}40% chance to cause Bleeding on Hit
+{variant:3}(60-69)% increased Chaos Damage
+{variant:3}Chaos Skills have (13-15)% increased Skill Effect Duration
+{variant:4}Attacks with this Weapon Penetrate (14-16)% Chaos Resistance
+{variant:5}Gain (9-10)% of Cold Damage as Extra Chaos Damage
+{variant:6}(70-79)% increased Cold Damage
+{variant:6}(21-23)% chance to Freeze
+{variant:7}Attacks with this Weapon Penetrate (14-16)% Elemental Resistances
+{variant:8}Gain (9-10)% of Fire Damage as Extra Chaos Damage
+{variant:9}(70-79)% increased Fire Damage
+{variant:9}(21-23)% chance to Ignite
+{variant:10}+2 to Level of Socketed Support Gems
+{variant:10}+(5-8)% to Quality of Socketed Support Gems
+{variant:11}(120-139)% increased Physical Damage
+{variant:11}(21-25)% chance to cause Bleeding on Hit
+{variant:12}(120-139)% increased Physical Damage
+{variant:12}(21-25)% chance to Blind Enemies on hit
+{variant:13}(120-139)% increased Physical Damage
+{variant:13}(21-25)% chance to Impale Enemies on Hit with Attacks
+{variant:14}(120-139)% increased Physical Damage
+{variant:14}(21-25)% chance to Poison on Hit
+{variant:15}Gain (9-10)% of Lightning Damage as Extra Chaos Damage
+{variant:16}(70-79)% increased Lightning Damage
+{variant:16}(21-23)% chance to Shock
 {variant:17}Minions have (34-38)% increased maximum Life
 {variant:17}Minions deal (34-38)% increased Damage
-{variant:18}Minions have (50-59)% increased maximum Life
-{variant:18}Minions deal (50-59)% increased Damage
-{variant:19}Minions have (18-20)% increased Attack Speed
-{variant:19}Minions have (18-20)% increased Cast Speed
-{variant:20}Minions have (34-38)% increased Attack Speed
-{variant:20}Minions have (34-38)% increased Cast Speed
-{variant:21}+(44-48)% to Chaos Damage over Time Multiplier
-{variant:22}+(24-28)% to Chaos Damage over Time Multiplier
-{variant:23}+(44-48)% to Physical Damage over Time Multiplier
-{variant:24}+(24-28)% to Physical Damage over Time Multiplier
-{variant:25}+(24-28)% to Cold Damage over Time Multiplier
-{variant:26}+(24-28)% to Fire Damage over Time Multiplier
-{variant:27}+2 to Level of Socketed Support Gems
-{variant:27}+(5-8)% to Quality of Socketed Support Gems
-{variant:28}+(9-10)% to Quality of Socketed Gems
-{variant:29}Hits can't be Evaded
-{variant:30}+(25-28) to Dexterity and Intelligence
-{variant:30}(18-22)% increased Attack Speed
-{variant:31}+(25-28) to Strength and Intelligence
-{variant:31}(28-32)% increased Critical Strike Chance
-{variant:32}+(25-28) to Strength and Dexterity
-{variant:32}+(311-350) to Accuracy Rating
-{variant:33}15% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
-{variant:33}(18-22)% increased Attack Speed
-{variant:34}Trigger a Socketed Spell on Using a Skill, with a 4 second Cooldown
-{variant:34}Spells Triggered this way have 150% more Cost
+{variant:18}Gain (9-10)% of Physical Damage as Extra Chaos Damage
+{variant:19}+(9-10)% to Quality of Socketed Gems
+{variant:20}(70-79)% increased Spell Damage
+{variant:20}(18-20)% increased Mana Regeneration Rate
+{variant:21}(60-69)% increased Spell Damage
+{variant:21}Gain 5% of Non-Chaos Damage as extra Chaos Damage
+{variant:22}+(25-28) to Strength and Dexterity
+{variant:22}+(311-350) to Accuracy Rating
+{variant:23}15% chance to Trigger Level 1 Blood Rage when you Kill an Enemy
+{variant:23}(18-22)% increased Attack Speed
+{variant:24}+(25-28) to Dexterity and Intelligence
+{variant:24}(18-22)% increased Attack Speed
+{variant:25}(12-15)% increased Attack Speed while a Rare or Unique Enemy is Nearby
+{variant:26}(18-22)% increased Cast Speed
+{variant:26}15% chance to gain Arcane Surge when you Kill an Enemy
+{variant:27}(18-20)% chance to deal Double Damage while Focused
+{variant:28}+(24-28)% to Chaos Damage over Time Multiplier
+{variant:29}+(24-28)% to Cold Damage over Time Multiplier
+{variant:30}+(25-28) to Strength and Intelligence
+{variant:30}(28-32)% increased Critical Strike Chance
+{variant:31}+(36-40)% Critical Strike Multiplier while a Rare or Unique Enemy is Nearby
+{variant:32}(5-6)% increased Damage per Endurance Charge
+{variant:33}(5-6)% increased Damage per Frenzy Charge
+{variant:34}(5-6)% increased Damage per Power Charge
+{variant:35}(6-7)% chance to deal Double Damage
+{variant:36}+(24-28)% to Fire Damage over Time Multiplier
+{variant:37}Minions have (18-20)% increased Attack Speed
+{variant:37}Minions have (18-20)% increased Cast Speed
+{variant:38}+(24-28)% to Physical Damage over Time Multiplier
+{variant:39}Trigger a Socketed Spell on Using a Skill, with a 4 second Cooldown
+{variant:39}Spells Triggered this way have 150% more Cost
 ]],
 [[
 The Queen's Hunger
@@ -309,68 +315,68 @@ Source: Drops from unique{Catarina, Master of Undeath}
 Has Alt Variant: true
 Selected Variant: 1
 Selected Alt Variant: 24
-Variant: Increased Energy Shield And Life
-Variant: Increased Energy Shield And Life Med
-Variant: Increased Energy Shield And Life High
-Variant: Strength And Dexterity
-Variant: Dexterity And Intelligence
-Variant: Strength And Intelligence
-Variant: Avoid Elemental Damage Chance During Soul Gain Prevention
-Variant: Physical Damage Reduction Rating During Soul Gain Prevention
-Variant: Energy Shield Regeneration Rate Per Minute If Rare Or Unique Enemy Nearby
-Variant: Life Regeneration Per Evasion During Focus
-Variant: Restore Mana And Energy Shield On Focus
-Variant: Fortify Effect While Focused
-Variant: Damage Removed From Mana Before Life While Focused
-Variant: Fire And Chaos Damage Resistance
-Variant: Lightning And Chaos Damage Resistance
-Variant: Cold And Chaos Damage Resistance
-Variant: Strength And Avoid Ignite
-Variant: Dexterity And Avoid Freeze
-Variant: Intelligence And Avoid Shock
-Variant: Percentage Life And Mana
-Variant: Block Percent
-Variant: Spell Block Percent
-Variant: Spell Dodge Percentage
-Variant: Avoid Stun And Elemental Status Ailments
+Variant: (Prefix) Avoid Stun And Elemental Status Ailments
+Variant: (Prefix) Block Percent
+Variant: (Prefix) Increased Energy Shield And Life
+Variant: (Prefix) Increased Energy Shield And Life High
+Variant: (Prefix) Increased Energy Shield And Life Med
+Variant: (Prefix) Percentage Life And Mana
+Variant: (Prefix) Physical Damage Reduction Rating During Soul Gain Prevention
+Variant: (Prefix) Spell Block Percent
+Variant: (Prefix) Spell Dodge Percentage
+Variant: (Suffix) Avoid Elemental Damage Chance During Soul Gain Prevention
+Variant: (Suffix) Cold And Chaos Damage Resistance
+Variant: (Suffix) Damage Removed From Mana Before Life While Focused
+Variant: (Suffix) Dexterity And Avoid Freeze
+Variant: (Suffix) Dexterity And Intelligence
+Variant: (Suffix) Energy Shield Regeneration Rate Per Minute If Rare Or Unique Enemy Nearby
+Variant: (Suffix) Fire And Chaos Damage Resistance
+Variant: (Suffix) Fortify Effect While Focused
+Variant: (Suffix) Intelligence And Avoid Shock
+Variant: (Suffix) Life Regeneration Per Evasion During Focus
+Variant: (Suffix) Lightning And Chaos Damage Resistance
+Variant: (Suffix) Restore Mana And Energy Shield On Focus
+Variant: (Suffix) Strength And Avoid Ignite
+Variant: (Suffix) Strength And Dexterity
+Variant: (Suffix) Strength And Intelligence
 Requires Level 68, 194 Int
 Trigger Level 20 Bone Offering, Flesh Offering or Spirit Offering every 5 seconds
 Offering Skills Triggered this way also affect you
 (5-10)% increased Cast Speed
 (100-130)% increased Energy Shield
 (6-10)% increased maximum Life
-{variant:1}(24-28)% increased Energy Shield
-{variant:1}+(17-19) to maximum Life
-{variant:2}(24-28)% increased Energy Shield
-{variant:2}+(19-22) to maximum Life
+{variant:1}(30-35)% chance to Avoid Elemental Ailments
+{variant:1}(30-35)% chance to Avoid being Stunned
+{variant:2}(8-9)% Chance to Block Attack Damage
 {variant:3}(24-28)% increased Energy Shield
-{variant:3}+(23-26) to maximum Life
-{variant:4}+(31-35) to Strength and Dexterity
-{variant:5}+(31-35) to Dexterity and Intelligence
-{variant:6}+(31-35) to Strength and Intelligence
-{variant:7}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
-{variant:8}+(3201-4000) to Armour during Soul Gain Prevention
-{variant:9}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
-{variant:10}1.5% of Evasion Rating is Regenerated as Life per second while Focused
-{variant:11}Recover (37-40)% of Mana and Energy Shield when you Focus
-{variant:12}+10 to maximum Fortification while Focused
-{variant:13}(18-22)% of Damage is taken from Mana before Life while Focused
-{variant:14}+(16-20)% to Fire and Chaos Resistances
-{variant:15}+(16-20)% to Lightning and Chaos Resistances
-{variant:16}+(16-20)% to Cold and Chaos Resistances
-{variant:17}+(31-35) to Strength
-{variant:17}(21-25)% chance to Avoid being Ignited
-{variant:18}+(31-35) to Dexterity
-{variant:18}(21-25)% chance to Avoid being Frozen
-{variant:19}+(31-35) to Intelligence
-{variant:19}(21-25)% chance to Avoid being Shocked
-{variant:20}(9-10)% increased maximum Life
-{variant:20}(9-10)% increased maximum Mana
-{variant:21}(8-9)% Chance to Block Attack Damage
-{variant:22}(9-10)% Chance to Block Spell Damage
-{variant:23}+(18-21)% chance to Suppress Spell Damage
-{variant:24}(30-35)% chance to Avoid Elemental Ailments
-{variant:24}(30-35)% chance to Avoid being Stunned
+{variant:3}+(17-19) to maximum Life
+{variant:4}(24-28)% increased Energy Shield
+{variant:4}+(23-26) to maximum Life
+{variant:5}(24-28)% increased Energy Shield
+{variant:5}+(19-22) to maximum Life
+{variant:6}(9-10)% increased maximum Life
+{variant:6}(9-10)% increased maximum Mana
+{variant:7}+(3201-4000) to Armour during Soul Gain Prevention
+{variant:8}(9-10)% Chance to Block Spell Damage
+{variant:9}+(18-21)% chance to Suppress Spell Damage
+{variant:10}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
+{variant:11}+(16-20)% to Cold and Chaos Resistances
+{variant:12}(18-22)% of Damage is taken from Mana before Life while Focused
+{variant:13}+(31-35) to Dexterity
+{variant:13}(21-25)% chance to Avoid being Frozen
+{variant:14}+(31-35) to Dexterity and Intelligence
+{variant:15}Regenerate 200 Energy Shield per second while a Rare or Unique Enemy is Nearby
+{variant:16}+(16-20)% to Fire and Chaos Resistances
+{variant:17}+10 to maximum Fortification while Focused
+{variant:18}+(31-35) to Intelligence
+{variant:18}(21-25)% chance to Avoid being Shocked
+{variant:19}1.5% of Evasion Rating is Regenerated as Life per second while Focused
+{variant:20}+(16-20)% to Lightning and Chaos Resistances
+{variant:21}Recover (37-40)% of Mana and Energy Shield when you Focus
+{variant:22}+(31-35) to Strength
+{variant:22}(21-25)% chance to Avoid being Ignited
+{variant:23}+(31-35) to Strength and Dexterity
+{variant:24}+(31-35) to Strength and Intelligence
 ]],
 [[
 Replica Dragonfang's Flight
