@@ -97,10 +97,6 @@ local excludedItemKeystones = {
 	"Necromantic Aegis", -- to prevent infinite loop
 }
 
-local excludedPassiveSkillPatterns = {
-	"_notable_whispers_of_death",
-}
-
 local typos = {
 	["OnHIt"] = "OnHit",
 	["LIfe"] = "Life",
@@ -391,16 +387,19 @@ table.insert(forbiddenShako, "+(25-30) to all Attributes\n")
 table.insert(replicaForbiddenShako, "+(25-30) to all Attributes\n")
 
 -- Megalomaniac
-local notables = tableFromDat("PassiveTreeExpansionSpecialSkills",
-	function(skill) return skill.Node.Notable end)
-table.sort(notables, function(a, b) return a.Node.Name < b.Node.Name end)
-for index, notable in ipairs(notables) do
-	for _, pattern in ipairs(excludedPassiveSkillPatterns) do
-		if notable.Node.Id:match(pattern) then
-			table.remove(notables, index)
-		end
+-- Evil Eye Notable is duplicated in dat
+local excludedMegalomaniacPatterns = {
+	"_notable_whispers_of_death",
+}
+local excludedMegalomaniacPredicate = function(skill) 
+	for _, pattern in ipairs(excludedMegalomaniacPatterns) do
+		if skill.Node.Id:match(pattern) then return false end
+		return true
 	end
 end
+local notables = tableFromDat("PassiveTreeExpansionSpecialSkills",
+	function(skill) return skill.Node.Notable and excludedMegalomaniacPredicate(skill) end)
+table.sort(notables, function(a, b) return a.Node.Name < b.Node.Name end)
 
 local megalomaniac = {[[
 Megalomaniac
@@ -511,6 +510,7 @@ end
 -- The Balance of Terror
 local balanceOfTerrorMods = tableFromDat("Mods",
 	function(mod) return mod.Family[1].Id == "CurseCastBonus" end)
+table.sort(balanceOfTerrorMods, function(a, b) return a.Id < b.Id end)
 
 local balanceOfTerror = {[[
 The Balance of Terror
@@ -539,8 +539,30 @@ for index, mod in ipairs(balanceOfTerrorMods) do
 end
 
 -- Forbidden Flame/Flesh
+local excludedAscendancyNotables = {
+	"AscendancyDeadeye12", 		-- Powerful Precision
+	"AscendancyInquisitor10", 	-- Old Instruments of Virtue
+	"AscendancyGuardian10", 	-- Prayer of Glory
+	"AscendancyElementalist7", 	-- Beacon of Ruin
+	"AscendancyElementalist8",	-- Shaper of Desolation
+	"AscendancyOccultist9", 	-- Wicked Ward
+}
 local classNotables = tableFromDat("PassiveSkills",
-	function(passive) return passive.Ascendancy and (not passive.Name:match("%[UNUSED%]") and passive.Ascendancy.Id ~= "Ascendant" and passive.Notable or passive.MultipleChoiceOption or passive.Id:match("Eldritch")) end)
+	function(passive) return passive.Ascendancy and 
+		(not passive.Name:match("%[UNUSED%]") 
+		and not isValueInArray(excludedAscendancyNotables, passive.Id) 
+		and passive.Ascendancy.Id ~= "Ascendant" 
+		and passive.Notable 
+		or passive.MultipleChoiceOption 
+		or passive.Id:match("Eldritch")) end)
+local classNotableSortFunction = function(a, b)
+	if a.Ascendancy.Class[1].Name ~= b.Ascendancy.Class[1].Name then
+		return a.Ascendancy.Class[1].Name < b.Ascendancy.Class[1].Name
+	else
+		return a.Name < b.Name
+	end
+end
+table.sort(classNotables, classNotableSortFunction)
 
 local forbidden = { }
 for _, name in pairs({"Flame", "Flesh"}) do
@@ -548,6 +570,7 @@ for _, name in pairs({"Flame", "Flesh"}) do
 	table.insert(forbidden[name], "Forbidden " .. name.."\n")
 	table.insert(forbidden[name], (name == "Flame" and "Crimson" or "Cobalt") .. " Jewel\n")
 	for _, notable in ipairs(classNotables) do
+		-- print(notable.Name)
 		table.insert(forbidden[name], "Variant: ("..notable.Ascendancy.Class[1].Name..") "..notable.Name.."\n")
 	end
 	if name == "Flame" then
