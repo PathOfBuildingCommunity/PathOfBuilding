@@ -222,22 +222,23 @@ minions["SummonedEssenceSpirit"] = {
 minions["SummonedSpectralWolf"] = {
 	name = "Spectral Wolf Companion",
 	monsterCategory = "Beast",
-	life = 4.5,
+	life = 11,
 	fireResist = 40,
 	coldResist = 40,
 	lightningResist = 40,
 	chaosResist = 20,
-	damage = 1.5,
+	damage = 6.2,
 	damageSpread = 0.2,
-	attackTime = 1,
+	attackTime = 1.5,
 	attackRange = 11,
 	accuracy = 3.4,
 	weaponType1 = "Dagger",
 	limit = "ActiveWolfLimit",
 	skillList = {
-		"Melee",
+		"MeleeAtAnimationSpeed",
 	},
 	modList = {
+		mod("PhysicalDamageLifeLeech", "BASE", 100, 1, 0), -- SummonedWolfLifeLeech [life_leech_from_physical_attack_damage_permyriad = 10000]
 	},
 }
 
