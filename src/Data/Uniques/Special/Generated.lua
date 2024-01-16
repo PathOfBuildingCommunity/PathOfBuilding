@@ -2567,606 +2567,604 @@ League: Delirium
 Source: Drops from the Simulacrum Encounter
 Has Alt Variant: true
 Has Alt Variant Two: true
-Variant: Prodigious Defence
+Variant: Adrenaline
 Variant: Advance Guard
-Variant: Gladiatorial Combat
-Variant: Strike Leader
-Variant: Powerful Ward
-Variant: Enduring Ward
-Variant: Gladiator's Fortitude
-Variant: Precise Retaliation
-Variant: Veteran Defender
-Variant: Iron Breaker
-Variant: Deep Cuts
-Variant: Master the Fundamentals
-Variant: Force Multiplier
-Variant: Furious Assault
-Variant: Vicious Skewering
-Variant: Grim Oath
-Variant: Battle-Hardened
-Variant: Replenishing Presence
-Variant: Master of Command
-Variant: Spiteful Presence
-Variant: Purposeful Harbinger
-Variant: Destructive Aspect
-Variant: Electric Presence
-Variant: Volatile Presence
-Variant: Righteous Path
-Variant: Skullbreaker
-Variant: Pressure Points
-Variant: Overwhelming Malice
-Variant: Magnifier
-Variant: Savage Response
-Variant: Eye of the Storm
-Variant: Basics of Pain
-Variant: Quick Getaway
-Variant: Assert Dominance
-Variant: Vast Power
-Variant: Powerful Assault
-Variant: Intensity
-Variant: Titanic Swings
-Variant: Towering Threat
+Variant: Aerialist
+Variant: Aerodynamics
+Variant: Agent of Destruction
+Variant: Aggressive Defence
+Variant: Alchemist
 Variant: Ancestral Echo
-Variant: Ancestral Reach
-Variant: Ancestral Might
-Variant: Ancestral Preservation
-Variant: Snaring Spirits
-Variant: Sleepless Sentries
 Variant: Ancestral Guidance
 Variant: Ancestral Inspiration
-Variant: Vital Focus
-Variant: Rapid Infusion
-Variant: Unwavering Focus
-Variant: Enduring Focus
-Variant: Precise Focus
-Variant: Stoic Focus
-Variant: Hex Breaker
+Variant: Ancestral Might
+Variant: Ancestral Preservation
+Variant: Ancestral Reach
+Variant: Antifreeze
+Variant: Antivenom
 Variant: Arcane Adept
-Variant: Distilled Perfection
-Variant: Spiked Concoction
-Variant: Fasting
-Variant: Mender's Wellspring
-Variant: Special Reserve
-Variant: Numbing Elixir
-Variant: Mob Mentality
-Variant: Cry Wolf
-Variant: Haunting Shout
-Variant: Lead By Example
-Variant: Provocateur
-Variant: Warning Call
-Variant: Rattling Bellow
-Variant: Bloodscent
-Variant: Run Through
-Variant: Wound Aggravation
-Variant: Overlord
-Variant: Expansive Might
-Variant: Weight Advantage
-Variant: Wind-up
-Variant: Fan of Blades
-Variant: Disease Vector
-Variant: Arcing Shot
-Variant: Tempered Arrowheads
-Variant: Broadside
-Variant: Explosive Force
-Variant: Opportunistic Fusilade
-Variant: Storm's Hand
-Variant: Battlefield Dominator
-Variant: Martial Mastery
-Variant: Surefooted Striker
-Variant: Graceful Execution
-Variant: Brutal Infamy
-Variant: Fearsome Warrior
-Variant: Combat Rhythm
-Variant: Hit and Run
-Variant: Insatiable Killer
-Variant: Mage Bane
-Variant: Martial Momentum
-Variant: Deadly Repartee
-Variant: Quick and Deadly
-Variant: Smite the Weak
-Variant: Heavy Hitter
-Variant: Martial Prowess
-Variant: Calamitous
-Variant: Devastator
-Variant: Fuel the Fight
-Variant: Drive the Destruction
-Variant: Feed the Fury
-Variant: Seal Mender
-Variant: Conjured Wall
 Variant: Arcane Heroism
-Variant: Practiced Caster
-Variant: Burden Projection
-Variant: Thaumophage
-Variant: Essence Rush
-Variant: Sap Psyche
-Variant: Sadist
-Variant: Corrosive Elements
-Variant: Doryani's Lesson
-Variant: Disorienting Display
-Variant: Prismatic Heart
-Variant: Widespread Destruction
-Variant: Master of Fire
-Variant: Smoking Remains
-Variant: Cremator
-Variant: Snowstorm
-Variant: Storm Drinker
-Variant: Paralysis
-Variant: Supercharge
+Variant: Arcane Pyrotechnics
+Variant: Arcing Shot
+Variant: Assert Dominance
+Variant: Astonishing Affliction
+Variant: Basics of Pain
+Variant: Battle-Hardened
+Variant: Battlefield Dominator
+Variant: Blacksmith
 Variant: Blanketed Snow
+Variant: Blast-Freeze
+Variant: Blessed
+Variant: Blessed Rebirth
+Variant: Blizzard Caller
+Variant: Blood Artist
+Variant: Bloodscent
+Variant: Blowback
+Variant: Bodyguards
+Variant: Born of Chaos
+Variant: Brand Loyalty
+Variant: Brewed for Potency
+Variant: Broadside
+Variant: Brush with Death
+Variant: Brutal Infamy
+Variant: Burden Projection
+Variant: Burning Bright
+Variant: Calamitous
+Variant: Call to the Slaughter
+Variant: Capacitor
+Variant: Careful Handling
+Variant: Chilling Presence
+Variant: Chip Away
+Variant: Circling Oblivion
+Variant: Clarity of Purpose
+Variant: Cold Conduction
 Variant: Cold to the Core
 Variant: Cold-Blooded Killer
-Variant: Touch of Cruelty
-Variant: Unwaveringly Evil
-Variant: Unspeakable Gifts
-Variant: Dark Ideation
-Variant: Unholy Grace
-Variant: Wicked Pall
-Variant: Renewal
-Variant: Raze and Pillage
-Variant: Rotten Claws
-Variant: Call to the Slaughter
-Variant: Skeletal Atrophy
-Variant: Hulking Corpses
-Variant: Vicious Bite
-Variant: Primordial Bond
-Variant: Blowback
-Variant: Fan the Flames
-Variant: Cooked Alive
-Variant: Burning Bright
-Variant: Wrapped in Flame
-Variant: Vivid Hues
-Variant: Rend
-Variant: Disorienting Wounds
+Variant: Combat Rhythm
 Variant: Compound Injury
-Variant: Blood Artist
-Variant: Phlebotomist
-Variant: Septic Spells
-Variant: Low Tolerance
-Variant: Steady Torment
-Variant: Eternal Suffering
-Variant: Eldritch Inspiration
-Variant: Wasting Affliction
-Variant: Haemorrhage
-Variant: Flow of Life
-Variant: Exposure Therapy
-Variant: Brush with Death
-Variant: Vile Reinvigoration
-Variant: Circling Oblivion
-Variant: Brewed for Potency
-Variant: Astonishing Affliction
-Variant: Cold Conduction
-Variant: Inspired Oppression
-Variant: Chilling Presence
-Variant: Deep Chill
-Variant: Blast-Freeze
-Variant: Thunderstruck
-Variant: Stormrider
-Variant: Overshock
-Variant: Evil Eye
-Variant: Evil Eye
-Variant: Forbidden Words
-Variant: Doedre's Spite
-Variant: Victim Maker
-Variant: Master of Fear
-Variant: Wish for Death
-Variant: Heraldry
-Variant: Endbringer
-Variant: Cult-Leader
-Variant: Empowered Envoy
-Variant: Dark Messenger
-Variant: Agent of Destruction
-Variant: Lasting Impression
-Variant: Self-Fulfilling Prophecy
-Variant: Invigorating Portents
-Variant: Pure Agony
-Variant: Disciples
-Variant: Dread March
-Variant: Blessed Rebirth
-Variant: Life from Death
-Variant: Feasting Fiends
-Variant: Bodyguards
-Variant: Follow-Through
-Variant: Streamlined
-Variant: Shrieking Bolts
-Variant: Eye to Eye
-Variant: Repeater
-Variant: Aerodynamics
-Variant: Chip Away
-Variant: Seeker Runes
-Variant: Remarkable
-Variant: Brand Loyalty
-Variant: Holy Conquest
-Variant: Grand Design
-Variant: Set and Forget
-Variant: Expert Sabotage
-Variant: Guerilla Tactics
-Variant: Expendability
-Variant: Arcane Pyrotechnics
-Variant: Surprise Sabotage
-Variant: Careful Handling
-Variant: Peak Vigour
-Variant: Fettle
-Variant: Feast of Flesh
-Variant: Sublime Sensation
-Variant: Surging Vitality
-Variant: Peace Amidst Chaos
-Variant: Adrenaline
-Variant: Wall of Muscle
-Variant: Mindfulness
-Variant: Liquid Inspiration
-Variant: Openness
-Variant: Daring Ideas
-Variant: Clarity of Purpose
-Variant: Scintillating Idea
-Variant: Holistic Health
-Variant: Genius
-Variant: Improvisor
-Variant: Stubborn Student
-Variant: Savour the Moment
-Variant: Energy From Naught
-Variant: Will Shaper
-Variant: Spring Back
-Variant: Conservation of Energy
-Variant: Heart of Iron
-Variant: Prismatic Carapace
-Variant: Militarism
-Variant: Second Skin
-Variant: Dragon Hunter
-Variant: Enduring Composure
-Variant: Prismatic Dance
-Variant: Natural Vigour
-Variant: Untouchable
-Variant: Shifting Shadow
-Variant: Readiness
 Variant: Confident Combatant
-Variant: Flexible Sentry
-Variant: Vicious Guard
-Variant: Mystical Ward
-Variant: Rote Reinforcement
-Variant: Mage Hunter
-Variant: Riot Queller
-Variant: One with the Shield
-Variant: Aerialist
-Variant: Elegant Form
+Variant: Conjured Wall
+Variant: Conservation of Energy
+Variant: Cooked Alive
+Variant: Corrosive Elements
+Variant: Cremator
+Variant: Cry Wolf
+Variant: Cult-Leader
+Variant: Daring Ideas
+Variant: Dark Ideation
+Variant: Dark Messenger
 Variant: Darting Movements
-Variant: No Witnesses
-Variant: Molten One's Mark
-Variant: Fire Attunement
-Variant: Pure Might
-Variant: Blacksmith
-Variant: Non-Flammable
-Variant: Winter Prowler
-Variant: Hibernator
-Variant: Pure Guile
-Variant: Alchemist
-Variant: Antifreeze
-Variant: Wizardry
-Variant: Capacitor
-Variant: Pure Aptitude
-Variant: Sage
-Variant: Insulated
-Variant: Born of Chaos
-Variant: Antivenom
-Variant: Rot-Resistant
-Variant: Blessed
-Variant: Student of Decay
-Variant: Lord of Drought
-Variant: Blizzard Caller
-Variant: Tempt the Storm
-Variant: Misery Everlasting
-Variant: Exploit Weakness
-Variant: Self-Control
-Variant: Uncompromising
-Variant: Sublime Form
-Variant: Mortifying Aspect
-Variant: Frantic Aspect
-Variant: Introspection
-Variant: Hound's Mark
-Variant: Doedre's Gluttony
+Variant: Deadly Repartee
+Variant: Deep Chill
+Variant: Deep Cuts
+Variant: Destructive Aspect
+Variant: Devastator
+Variant: Disciples
+Variant: Disease Vector
+Variant: Disorienting Display
+Variant: Disorienting Wounds
+Variant: Distilled Perfection
 Variant: Doedre's Apathy
+Variant: Doedre's Gluttony
+Variant: Doedre's Spite
+Variant: Doryani's Lesson
+Variant: Dragon Hunter
+Variant: Dread March
+Variant: Drive the Destruction
+Variant: Eldritch Inspiration
+Variant: Electric Presence
+Variant: Elegant Form
+Variant: Empowered Envoy
+Variant: Endbringer
+Variant: Enduring Composure
+Variant: Enduring Focus
+Variant: Enduring Ward
+Variant: Energy From Naught
+Variant: Essence Rush
+Variant: Eternal Suffering
+Variant: Evil Eye
+Variant: Expansive Might
+Variant: Expendability
+Variant: Expert Sabotage
+Variant: Exploit Weakness
+Variant: Explosive Force
+Variant: Exposure Therapy
+Variant: Eye of the Storm
+Variant: Eye to Eye
+Variant: Fan of Blades
+Variant: Fan the Flames
+Variant: Fasting
+Variant: Fearsome Warrior
+Variant: Feast of Flesh
+Variant: Feasting Fiends
+Variant: Feed the Fury
+Variant: Fettle
+Variant: Fire Attunement
+Variant: Flexible Sentry
+Variant: Flow of Life
+Variant: Follow-Through
+Variant: Forbidden Words
+Variant: Force Multiplier
+Variant: Frantic Aspect
+Variant: Fuel the Fight
+Variant: Furious Assault
+Variant: Genius
+Variant: Gladiator's Fortitude
+Variant: Gladiatorial Combat
+Variant: Graceful Execution
+Variant: Grand Design
+Variant: Grim Oath
+Variant: Guerilla Tactics
+Variant: Haemorrhage
+Variant: Haunting Shout
+Variant: Heart of Iron
+Variant: Heavy Hitter
+Variant: Heraldry
+Variant: Hex Breaker
+Variant: Hibernator
+Variant: Hit and Run
+Variant: Holistic Health
+Variant: Holy Conquest
+Variant: Hound's Mark
+Variant: Hulking Corpses
+Variant: Improvisor
+Variant: Insatiable Killer
+Variant: Inspired Oppression
+Variant: Insulated
+Variant: Intensity
+Variant: Introspection
+Variant: Invigorating Portents
+Variant: Iron Breaker
+Variant: Lasting Impression
+Variant: Lead By Example
+Variant: Life from Death
+Variant: Liquid Inspiration
+Variant: Lord of Drought
+Variant: Low Tolerance
+Variant: Mage Bane
+Variant: Mage Hunter
+Variant: Magnifier
+Variant: Martial Mastery
+Variant: Martial Momentum
+Variant: Martial Prowess
+Variant: Master of Command
+Variant: Master of Fear
+Variant: Master of Fire
 Variant: Master of the Maelstrom
-Variant: Aggressive Defence
+Variant: Master the Fundamentals
+Variant: Mender's Wellspring
+Variant: Militarism
+Variant: Mindfulness
+Variant: Misery Everlasting
+Variant: Mob Mentality
+Variant: Molten One's Mark
+Variant: Mortifying Aspect
+Variant: Mystical Ward
+Variant: Natural Vigour
+Variant: No Witnesses
+Variant: Non-Flammable
+Variant: Numbing Elixir
+Variant: One with the Shield
+Variant: Openness
+Variant: Opportunistic Fusilade
+Variant: Overlord
+Variant: Overshock
+Variant: Overwhelming Malice
+Variant: Paralysis
+Variant: Peace Amidst Chaos
+Variant: Peak Vigour
+Variant: Phlebotomist
+Variant: Powerful Assault
+Variant: Powerful Ward
+Variant: Practiced Caster
+Variant: Precise Focus
+Variant: Precise Retaliation
+Variant: Pressure Points
+Variant: Primordial Bond
+Variant: Prismatic Carapace
+Variant: Prismatic Dance
+Variant: Prismatic Heart
+Variant: Prodigious Defence
+Variant: Provocateur
+Variant: Pure Agony
+Variant: Pure Aptitude
+Variant: Pure Guile
+Variant: Pure Might
+Variant: Purposeful Harbinger
+Variant: Quick Getaway
+Variant: Quick and Deadly
+Variant: Rapid Infusion
+Variant: Rattling Bellow
+Variant: Raze and Pillage
+Variant: Readiness
+Variant: Remarkable
+Variant: Rend
+Variant: Renewal
+Variant: Repeater
+Variant: Replenishing Presence
+Variant: Righteous Path
+Variant: Riot Queller
+Variant: Rot-Resistant
+Variant: Rote Reinforcement
+Variant: Rotten Claws
+Variant: Run Through
+Variant: Sadist
+Variant: Sage
+Variant: Sap Psyche
+Variant: Savage Response
+Variant: Savour the Moment
+Variant: Scintillating Idea
+Variant: Seal Mender
+Variant: Second Skin
+Variant: Seeker Runes
+Variant: Self-Control
+Variant: Self-Fulfilling Prophecy
+Variant: Septic Spells
+Variant: Set and Forget
+Variant: Shifting Shadow
+Variant: Shrieking Bolts
+Variant: Skeletal Atrophy
+Variant: Skullbreaker
+Variant: Sleepless Sentries
+Variant: Smite the Weak
+Variant: Smoking Remains
+Variant: Snaring Spirits
+Variant: Snowstorm
+Variant: Special Reserve
+Variant: Spiked Concoction
+Variant: Spiteful Presence
+Variant: Spring Back
+Variant: Steady Torment
+Variant: Stoic Focus
+Variant: Storm Drinker
+Variant: Storm's Hand
+Variant: Stormrider
+Variant: Streamlined
+Variant: Strike Leader
+Variant: Stubborn Student
+Variant: Student of Decay
+Variant: Sublime Form
+Variant: Sublime Sensation
+Variant: Supercharge
+Variant: Surefooted Striker
+Variant: Surging Vitality
+Variant: Surprise Sabotage
+Variant: Tempered Arrowheads
+Variant: Tempt the Storm
+Variant: Thaumophage
+Variant: Thunderstruck
+Variant: Titanic Swings
+Variant: Touch of Cruelty
+Variant: Towering Threat
+Variant: Uncompromising
+Variant: Unholy Grace
+Variant: Unspeakable Gifts
+Variant: Untouchable
+Variant: Unwavering Focus
+Variant: Unwaveringly Evil
+Variant: Vast Power
+Variant: Veteran Defender
+Variant: Vicious Bite
+Variant: Vicious Guard
+Variant: Vicious Skewering
+Variant: Victim Maker
+Variant: Vile Reinvigoration
+Variant: Vital Focus
+Variant: Vivid Hues
+Variant: Volatile Presence
+Variant: Wall of Muscle
+Variant: Warning Call
+Variant: Wasting Affliction
+Variant: Weight Advantage
+Variant: Wicked Pall
+Variant: Widespread Destruction
+Variant: Will Shaper
+Variant: Wind-up
+Variant: Winter Prowler
+Variant: Wish for Death
+Variant: Wizardry
+Variant: Wound Aggravation
+Variant: Wrapped in Flame
 Adds 4 Passive Skills
 Added Small Passive Skills grant Nothing
-{variant:1}1 Added Passive Skill is Prodigious Defence
+{variant:1}1 Added Passive Skill is Adrenaline
 {variant:2}1 Added Passive Skill is Advance Guard
-{variant:3}1 Added Passive Skill is Gladiatorial Combat
-{variant:4}1 Added Passive Skill is Strike Leader
-{variant:5}1 Added Passive Skill is Powerful Ward
-{variant:6}1 Added Passive Skill is Enduring Ward
-{variant:7}1 Added Passive Skill is Gladiator's Fortitude
-{variant:8}1 Added Passive Skill is Precise Retaliation
-{variant:9}1 Added Passive Skill is Veteran Defender
-{variant:10}1 Added Passive Skill is Iron Breaker
-{variant:11}1 Added Passive Skill is Deep Cuts
-{variant:12}1 Added Passive Skill is Master the Fundamentals
-{variant:13}1 Added Passive Skill is Force Multiplier
-{variant:14}1 Added Passive Skill is Furious Assault
-{variant:15}1 Added Passive Skill is Vicious Skewering
-{variant:16}1 Added Passive Skill is Grim Oath
-{variant:17}1 Added Passive Skill is Battle-Hardened
-{variant:18}1 Added Passive Skill is Replenishing Presence
-{variant:19}1 Added Passive Skill is Master of Command
-{variant:20}1 Added Passive Skill is Spiteful Presence
-{variant:21}1 Added Passive Skill is Purposeful Harbinger
-{variant:22}1 Added Passive Skill is Destructive Aspect
-{variant:23}1 Added Passive Skill is Electric Presence
-{variant:24}1 Added Passive Skill is Volatile Presence
-{variant:25}1 Added Passive Skill is Righteous Path
-{variant:26}1 Added Passive Skill is Skullbreaker
-{variant:27}1 Added Passive Skill is Pressure Points
-{variant:28}1 Added Passive Skill is Overwhelming Malice
-{variant:29}1 Added Passive Skill is Magnifier
-{variant:30}1 Added Passive Skill is Savage Response
-{variant:31}1 Added Passive Skill is Eye of the Storm
-{variant:32}1 Added Passive Skill is Basics of Pain
-{variant:33}1 Added Passive Skill is Quick Getaway
-{variant:34}1 Added Passive Skill is Assert Dominance
-{variant:35}1 Added Passive Skill is Vast Power
-{variant:36}1 Added Passive Skill is Powerful Assault
-{variant:37}1 Added Passive Skill is Intensity
-{variant:38}1 Added Passive Skill is Titanic Swings
-{variant:39}1 Added Passive Skill is Towering Threat
-{variant:40}1 Added Passive Skill is Ancestral Echo
-{variant:41}1 Added Passive Skill is Ancestral Reach
-{variant:42}1 Added Passive Skill is Ancestral Might
-{variant:43}1 Added Passive Skill is Ancestral Preservation
-{variant:44}1 Added Passive Skill is Snaring Spirits
-{variant:45}1 Added Passive Skill is Sleepless Sentries
-{variant:46}1 Added Passive Skill is Ancestral Guidance
-{variant:47}1 Added Passive Skill is Ancestral Inspiration
-{variant:48}1 Added Passive Skill is Vital Focus
-{variant:49}1 Added Passive Skill is Rapid Infusion
-{variant:50}1 Added Passive Skill is Unwavering Focus
-{variant:51}1 Added Passive Skill is Enduring Focus
-{variant:52}1 Added Passive Skill is Precise Focus
-{variant:53}1 Added Passive Skill is Stoic Focus
-{variant:54}1 Added Passive Skill is Hex Breaker
-{variant:55}1 Added Passive Skill is Arcane Adept
-{variant:56}1 Added Passive Skill is Distilled Perfection
-{variant:57}1 Added Passive Skill is Spiked Concoction
-{variant:58}1 Added Passive Skill is Fasting
-{variant:59}1 Added Passive Skill is Mender's Wellspring
-{variant:60}1 Added Passive Skill is Special Reserve
-{variant:61}1 Added Passive Skill is Numbing Elixir
-{variant:62}1 Added Passive Skill is Mob Mentality
-{variant:63}1 Added Passive Skill is Cry Wolf
-{variant:64}1 Added Passive Skill is Haunting Shout
-{variant:65}1 Added Passive Skill is Lead By Example
-{variant:66}1 Added Passive Skill is Provocateur
-{variant:67}1 Added Passive Skill is Warning Call
-{variant:68}1 Added Passive Skill is Rattling Bellow
-{variant:69}1 Added Passive Skill is Bloodscent
-{variant:70}1 Added Passive Skill is Run Through
-{variant:71}1 Added Passive Skill is Wound Aggravation
-{variant:72}1 Added Passive Skill is Overlord
-{variant:73}1 Added Passive Skill is Expansive Might
-{variant:74}1 Added Passive Skill is Weight Advantage
-{variant:75}1 Added Passive Skill is Wind-up
-{variant:76}1 Added Passive Skill is Fan of Blades
-{variant:77}1 Added Passive Skill is Disease Vector
-{variant:78}1 Added Passive Skill is Arcing Shot
-{variant:79}1 Added Passive Skill is Tempered Arrowheads
-{variant:80}1 Added Passive Skill is Broadside
-{variant:81}1 Added Passive Skill is Explosive Force
-{variant:82}1 Added Passive Skill is Opportunistic Fusilade
-{variant:83}1 Added Passive Skill is Storm's Hand
-{variant:84}1 Added Passive Skill is Battlefield Dominator
-{variant:85}1 Added Passive Skill is Martial Mastery
-{variant:86}1 Added Passive Skill is Surefooted Striker
-{variant:87}1 Added Passive Skill is Graceful Execution
-{variant:88}1 Added Passive Skill is Brutal Infamy
-{variant:89}1 Added Passive Skill is Fearsome Warrior
-{variant:90}1 Added Passive Skill is Combat Rhythm
-{variant:91}1 Added Passive Skill is Hit and Run
-{variant:92}1 Added Passive Skill is Insatiable Killer
-{variant:93}1 Added Passive Skill is Mage Bane
-{variant:94}1 Added Passive Skill is Martial Momentum
-{variant:95}1 Added Passive Skill is Deadly Repartee
-{variant:96}1 Added Passive Skill is Quick and Deadly
-{variant:97}1 Added Passive Skill is Smite the Weak
-{variant:98}1 Added Passive Skill is Heavy Hitter
-{variant:99}1 Added Passive Skill is Martial Prowess
-{variant:100}1 Added Passive Skill is Calamitous
-{variant:101}1 Added Passive Skill is Devastator
-{variant:102}1 Added Passive Skill is Fuel the Fight
-{variant:103}1 Added Passive Skill is Drive the Destruction
-{variant:104}1 Added Passive Skill is Feed the Fury
-{variant:105}1 Added Passive Skill is Seal Mender
-{variant:106}1 Added Passive Skill is Conjured Wall
-{variant:107}1 Added Passive Skill is Arcane Heroism
-{variant:108}1 Added Passive Skill is Practiced Caster
-{variant:109}1 Added Passive Skill is Burden Projection
-{variant:110}1 Added Passive Skill is Thaumophage
-{variant:111}1 Added Passive Skill is Essence Rush
-{variant:112}1 Added Passive Skill is Sap Psyche
-{variant:113}1 Added Passive Skill is Sadist
-{variant:114}1 Added Passive Skill is Corrosive Elements
-{variant:115}1 Added Passive Skill is Doryani's Lesson
-{variant:116}1 Added Passive Skill is Disorienting Display
-{variant:117}1 Added Passive Skill is Prismatic Heart
-{variant:118}1 Added Passive Skill is Widespread Destruction
-{variant:119}1 Added Passive Skill is Master of Fire
-{variant:120}1 Added Passive Skill is Smoking Remains
-{variant:121}1 Added Passive Skill is Cremator
-{variant:122}1 Added Passive Skill is Snowstorm
-{variant:123}1 Added Passive Skill is Storm Drinker
-{variant:124}1 Added Passive Skill is Paralysis
-{variant:125}1 Added Passive Skill is Supercharge
-{variant:126}1 Added Passive Skill is Blanketed Snow
-{variant:127}1 Added Passive Skill is Cold to the Core
-{variant:128}1 Added Passive Skill is Cold-Blooded Killer
-{variant:129}1 Added Passive Skill is Touch of Cruelty
-{variant:130}1 Added Passive Skill is Unwaveringly Evil
-{variant:131}1 Added Passive Skill is Unspeakable Gifts
-{variant:132}1 Added Passive Skill is Dark Ideation
-{variant:133}1 Added Passive Skill is Unholy Grace
-{variant:134}1 Added Passive Skill is Wicked Pall
-{variant:135}1 Added Passive Skill is Renewal
-{variant:136}1 Added Passive Skill is Raze and Pillage
-{variant:137}1 Added Passive Skill is Rotten Claws
-{variant:138}1 Added Passive Skill is Call to the Slaughter
-{variant:139}1 Added Passive Skill is Skeletal Atrophy
+{variant:3}1 Added Passive Skill is Aerialist
+{variant:4}1 Added Passive Skill is Aerodynamics
+{variant:5}1 Added Passive Skill is Agent of Destruction
+{variant:6}1 Added Passive Skill is Aggressive Defence
+{variant:7}1 Added Passive Skill is Alchemist
+{variant:8}1 Added Passive Skill is Ancestral Echo
+{variant:9}1 Added Passive Skill is Ancestral Guidance
+{variant:10}1 Added Passive Skill is Ancestral Inspiration
+{variant:11}1 Added Passive Skill is Ancestral Might
+{variant:12}1 Added Passive Skill is Ancestral Preservation
+{variant:13}1 Added Passive Skill is Ancestral Reach
+{variant:14}1 Added Passive Skill is Antifreeze
+{variant:15}1 Added Passive Skill is Antivenom
+{variant:16}1 Added Passive Skill is Arcane Adept
+{variant:17}1 Added Passive Skill is Arcane Heroism
+{variant:18}1 Added Passive Skill is Arcane Pyrotechnics
+{variant:19}1 Added Passive Skill is Arcing Shot
+{variant:20}1 Added Passive Skill is Assert Dominance
+{variant:21}1 Added Passive Skill is Astonishing Affliction
+{variant:22}1 Added Passive Skill is Basics of Pain
+{variant:23}1 Added Passive Skill is Battle-Hardened
+{variant:24}1 Added Passive Skill is Battlefield Dominator
+{variant:25}1 Added Passive Skill is Blacksmith
+{variant:26}1 Added Passive Skill is Blanketed Snow
+{variant:27}1 Added Passive Skill is Blast-Freeze
+{variant:28}1 Added Passive Skill is Blessed
+{variant:29}1 Added Passive Skill is Blessed Rebirth
+{variant:30}1 Added Passive Skill is Blizzard Caller
+{variant:31}1 Added Passive Skill is Blood Artist
+{variant:32}1 Added Passive Skill is Bloodscent
+{variant:33}1 Added Passive Skill is Blowback
+{variant:34}1 Added Passive Skill is Bodyguards
+{variant:35}1 Added Passive Skill is Born of Chaos
+{variant:36}1 Added Passive Skill is Brand Loyalty
+{variant:37}1 Added Passive Skill is Brewed for Potency
+{variant:38}1 Added Passive Skill is Broadside
+{variant:39}1 Added Passive Skill is Brush with Death
+{variant:40}1 Added Passive Skill is Brutal Infamy
+{variant:41}1 Added Passive Skill is Burden Projection
+{variant:42}1 Added Passive Skill is Burning Bright
+{variant:43}1 Added Passive Skill is Calamitous
+{variant:44}1 Added Passive Skill is Call to the Slaughter
+{variant:45}1 Added Passive Skill is Capacitor
+{variant:46}1 Added Passive Skill is Careful Handling
+{variant:47}1 Added Passive Skill is Chilling Presence
+{variant:48}1 Added Passive Skill is Chip Away
+{variant:49}1 Added Passive Skill is Circling Oblivion
+{variant:50}1 Added Passive Skill is Clarity of Purpose
+{variant:51}1 Added Passive Skill is Cold Conduction
+{variant:52}1 Added Passive Skill is Cold to the Core
+{variant:53}1 Added Passive Skill is Cold-Blooded Killer
+{variant:54}1 Added Passive Skill is Combat Rhythm
+{variant:55}1 Added Passive Skill is Compound Injury
+{variant:56}1 Added Passive Skill is Confident Combatant
+{variant:57}1 Added Passive Skill is Conjured Wall
+{variant:58}1 Added Passive Skill is Conservation of Energy
+{variant:59}1 Added Passive Skill is Cooked Alive
+{variant:60}1 Added Passive Skill is Corrosive Elements
+{variant:61}1 Added Passive Skill is Cremator
+{variant:62}1 Added Passive Skill is Cry Wolf
+{variant:63}1 Added Passive Skill is Cult-Leader
+{variant:64}1 Added Passive Skill is Daring Ideas
+{variant:65}1 Added Passive Skill is Dark Ideation
+{variant:66}1 Added Passive Skill is Dark Messenger
+{variant:67}1 Added Passive Skill is Darting Movements
+{variant:68}1 Added Passive Skill is Deadly Repartee
+{variant:69}1 Added Passive Skill is Deep Chill
+{variant:70}1 Added Passive Skill is Deep Cuts
+{variant:71}1 Added Passive Skill is Destructive Aspect
+{variant:72}1 Added Passive Skill is Devastator
+{variant:73}1 Added Passive Skill is Disciples
+{variant:74}1 Added Passive Skill is Disease Vector
+{variant:75}1 Added Passive Skill is Disorienting Display
+{variant:76}1 Added Passive Skill is Disorienting Wounds
+{variant:77}1 Added Passive Skill is Distilled Perfection
+{variant:78}1 Added Passive Skill is Doedre's Apathy
+{variant:79}1 Added Passive Skill is Doedre's Gluttony
+{variant:80}1 Added Passive Skill is Doedre's Spite
+{variant:81}1 Added Passive Skill is Doryani's Lesson
+{variant:82}1 Added Passive Skill is Dragon Hunter
+{variant:83}1 Added Passive Skill is Dread March
+{variant:84}1 Added Passive Skill is Drive the Destruction
+{variant:85}1 Added Passive Skill is Eldritch Inspiration
+{variant:86}1 Added Passive Skill is Electric Presence
+{variant:87}1 Added Passive Skill is Elegant Form
+{variant:88}1 Added Passive Skill is Empowered Envoy
+{variant:89}1 Added Passive Skill is Endbringer
+{variant:90}1 Added Passive Skill is Enduring Composure
+{variant:91}1 Added Passive Skill is Enduring Focus
+{variant:92}1 Added Passive Skill is Enduring Ward
+{variant:93}1 Added Passive Skill is Energy From Naught
+{variant:94}1 Added Passive Skill is Essence Rush
+{variant:95}1 Added Passive Skill is Eternal Suffering
+{variant:96}1 Added Passive Skill is Evil Eye
+{variant:97}1 Added Passive Skill is Expansive Might
+{variant:98}1 Added Passive Skill is Expendability
+{variant:99}1 Added Passive Skill is Expert Sabotage
+{variant:100}1 Added Passive Skill is Exploit Weakness
+{variant:101}1 Added Passive Skill is Explosive Force
+{variant:102}1 Added Passive Skill is Exposure Therapy
+{variant:103}1 Added Passive Skill is Eye of the Storm
+{variant:104}1 Added Passive Skill is Eye to Eye
+{variant:105}1 Added Passive Skill is Fan of Blades
+{variant:106}1 Added Passive Skill is Fan the Flames
+{variant:107}1 Added Passive Skill is Fasting
+{variant:108}1 Added Passive Skill is Fearsome Warrior
+{variant:109}1 Added Passive Skill is Feast of Flesh
+{variant:110}1 Added Passive Skill is Feasting Fiends
+{variant:111}1 Added Passive Skill is Feed the Fury
+{variant:112}1 Added Passive Skill is Fettle
+{variant:113}1 Added Passive Skill is Fire Attunement
+{variant:114}1 Added Passive Skill is Flexible Sentry
+{variant:115}1 Added Passive Skill is Flow of Life
+{variant:116}1 Added Passive Skill is Follow-Through
+{variant:117}1 Added Passive Skill is Forbidden Words
+{variant:118}1 Added Passive Skill is Force Multiplier
+{variant:119}1 Added Passive Skill is Frantic Aspect
+{variant:120}1 Added Passive Skill is Fuel the Fight
+{variant:121}1 Added Passive Skill is Furious Assault
+{variant:122}1 Added Passive Skill is Genius
+{variant:123}1 Added Passive Skill is Gladiator's Fortitude
+{variant:124}1 Added Passive Skill is Gladiatorial Combat
+{variant:125}1 Added Passive Skill is Graceful Execution
+{variant:126}1 Added Passive Skill is Grand Design
+{variant:127}1 Added Passive Skill is Grim Oath
+{variant:128}1 Added Passive Skill is Guerilla Tactics
+{variant:129}1 Added Passive Skill is Haemorrhage
+{variant:130}1 Added Passive Skill is Haunting Shout
+{variant:131}1 Added Passive Skill is Heart of Iron
+{variant:132}1 Added Passive Skill is Heavy Hitter
+{variant:133}1 Added Passive Skill is Heraldry
+{variant:134}1 Added Passive Skill is Hex Breaker
+{variant:135}1 Added Passive Skill is Hibernator
+{variant:136}1 Added Passive Skill is Hit and Run
+{variant:137}1 Added Passive Skill is Holistic Health
+{variant:138}1 Added Passive Skill is Holy Conquest
+{variant:139}1 Added Passive Skill is Hound's Mark
 {variant:140}1 Added Passive Skill is Hulking Corpses
-{variant:141}1 Added Passive Skill is Vicious Bite
-{variant:142}1 Added Passive Skill is Primordial Bond
-{variant:143}1 Added Passive Skill is Blowback
-{variant:144}1 Added Passive Skill is Fan the Flames
-{variant:145}1 Added Passive Skill is Cooked Alive
-{variant:146}1 Added Passive Skill is Burning Bright
-{variant:147}1 Added Passive Skill is Wrapped in Flame
-{variant:148}1 Added Passive Skill is Vivid Hues
-{variant:149}1 Added Passive Skill is Rend
-{variant:150}1 Added Passive Skill is Disorienting Wounds
-{variant:151}1 Added Passive Skill is Compound Injury
-{variant:152}1 Added Passive Skill is Blood Artist
-{variant:153}1 Added Passive Skill is Phlebotomist
-{variant:154}1 Added Passive Skill is Septic Spells
-{variant:155}1 Added Passive Skill is Low Tolerance
-{variant:156}1 Added Passive Skill is Steady Torment
-{variant:157}1 Added Passive Skill is Eternal Suffering
-{variant:158}1 Added Passive Skill is Eldritch Inspiration
-{variant:159}1 Added Passive Skill is Wasting Affliction
-{variant:160}1 Added Passive Skill is Haemorrhage
-{variant:161}1 Added Passive Skill is Flow of Life
-{variant:162}1 Added Passive Skill is Exposure Therapy
-{variant:163}1 Added Passive Skill is Brush with Death
-{variant:164}1 Added Passive Skill is Vile Reinvigoration
-{variant:165}1 Added Passive Skill is Circling Oblivion
-{variant:166}1 Added Passive Skill is Brewed for Potency
-{variant:167}1 Added Passive Skill is Astonishing Affliction
-{variant:168}1 Added Passive Skill is Cold Conduction
-{variant:169}1 Added Passive Skill is Inspired Oppression
-{variant:170}1 Added Passive Skill is Chilling Presence
-{variant:171}1 Added Passive Skill is Deep Chill
-{variant:172}1 Added Passive Skill is Blast-Freeze
-{variant:173}1 Added Passive Skill is Thunderstruck
-{variant:174}1 Added Passive Skill is Stormrider
-{variant:175}1 Added Passive Skill is Overshock
-{variant:176}1 Added Passive Skill is Evil Eye
-{variant:177}1 Added Passive Skill is Evil Eye
-{variant:178}1 Added Passive Skill is Forbidden Words
-{variant:179}1 Added Passive Skill is Doedre's Spite
-{variant:180}1 Added Passive Skill is Victim Maker
-{variant:181}1 Added Passive Skill is Master of Fear
-{variant:182}1 Added Passive Skill is Wish for Death
-{variant:183}1 Added Passive Skill is Heraldry
-{variant:184}1 Added Passive Skill is Endbringer
-{variant:185}1 Added Passive Skill is Cult-Leader
-{variant:186}1 Added Passive Skill is Empowered Envoy
-{variant:187}1 Added Passive Skill is Dark Messenger
-{variant:188}1 Added Passive Skill is Agent of Destruction
-{variant:189}1 Added Passive Skill is Lasting Impression
-{variant:190}1 Added Passive Skill is Self-Fulfilling Prophecy
-{variant:191}1 Added Passive Skill is Invigorating Portents
-{variant:192}1 Added Passive Skill is Pure Agony
-{variant:193}1 Added Passive Skill is Disciples
-{variant:194}1 Added Passive Skill is Dread March
-{variant:195}1 Added Passive Skill is Blessed Rebirth
-{variant:196}1 Added Passive Skill is Life from Death
-{variant:197}1 Added Passive Skill is Feasting Fiends
-{variant:198}1 Added Passive Skill is Bodyguards
-{variant:199}1 Added Passive Skill is Follow-Through
-{variant:200}1 Added Passive Skill is Streamlined
-{variant:201}1 Added Passive Skill is Shrieking Bolts
-{variant:202}1 Added Passive Skill is Eye to Eye
-{variant:203}1 Added Passive Skill is Repeater
-{variant:204}1 Added Passive Skill is Aerodynamics
-{variant:205}1 Added Passive Skill is Chip Away
-{variant:206}1 Added Passive Skill is Seeker Runes
-{variant:207}1 Added Passive Skill is Remarkable
-{variant:208}1 Added Passive Skill is Brand Loyalty
-{variant:209}1 Added Passive Skill is Holy Conquest
-{variant:210}1 Added Passive Skill is Grand Design
-{variant:211}1 Added Passive Skill is Set and Forget
-{variant:212}1 Added Passive Skill is Expert Sabotage
-{variant:213}1 Added Passive Skill is Guerilla Tactics
-{variant:214}1 Added Passive Skill is Expendability
-{variant:215}1 Added Passive Skill is Arcane Pyrotechnics
-{variant:216}1 Added Passive Skill is Surprise Sabotage
-{variant:217}1 Added Passive Skill is Careful Handling
-{variant:218}1 Added Passive Skill is Peak Vigour
-{variant:219}1 Added Passive Skill is Fettle
-{variant:220}1 Added Passive Skill is Feast of Flesh
-{variant:221}1 Added Passive Skill is Sublime Sensation
-{variant:222}1 Added Passive Skill is Surging Vitality
-{variant:223}1 Added Passive Skill is Peace Amidst Chaos
-{variant:224}1 Added Passive Skill is Adrenaline
-{variant:225}1 Added Passive Skill is Wall of Muscle
-{variant:226}1 Added Passive Skill is Mindfulness
-{variant:227}1 Added Passive Skill is Liquid Inspiration
-{variant:228}1 Added Passive Skill is Openness
-{variant:229}1 Added Passive Skill is Daring Ideas
-{variant:230}1 Added Passive Skill is Clarity of Purpose
-{variant:231}1 Added Passive Skill is Scintillating Idea
-{variant:232}1 Added Passive Skill is Holistic Health
-{variant:233}1 Added Passive Skill is Genius
-{variant:234}1 Added Passive Skill is Improvisor
-{variant:235}1 Added Passive Skill is Stubborn Student
-{variant:236}1 Added Passive Skill is Savour the Moment
-{variant:237}1 Added Passive Skill is Energy From Naught
-{variant:238}1 Added Passive Skill is Will Shaper
-{variant:239}1 Added Passive Skill is Spring Back
-{variant:240}1 Added Passive Skill is Conservation of Energy
-{variant:241}1 Added Passive Skill is Heart of Iron
-{variant:242}1 Added Passive Skill is Prismatic Carapace
-{variant:243}1 Added Passive Skill is Militarism
-{variant:244}1 Added Passive Skill is Second Skin
-{variant:245}1 Added Passive Skill is Dragon Hunter
-{variant:246}1 Added Passive Skill is Enduring Composure
-{variant:247}1 Added Passive Skill is Prismatic Dance
-{variant:248}1 Added Passive Skill is Natural Vigour
-{variant:249}1 Added Passive Skill is Untouchable
-{variant:250}1 Added Passive Skill is Shifting Shadow
-{variant:251}1 Added Passive Skill is Readiness
-{variant:252}1 Added Passive Skill is Confident Combatant
-{variant:253}1 Added Passive Skill is Flexible Sentry
-{variant:254}1 Added Passive Skill is Vicious Guard
-{variant:255}1 Added Passive Skill is Mystical Ward
-{variant:256}1 Added Passive Skill is Rote Reinforcement
-{variant:257}1 Added Passive Skill is Mage Hunter
-{variant:258}1 Added Passive Skill is Riot Queller
-{variant:259}1 Added Passive Skill is One with the Shield
-{variant:260}1 Added Passive Skill is Aerialist
-{variant:261}1 Added Passive Skill is Elegant Form
-{variant:262}1 Added Passive Skill is Darting Movements
-{variant:263}1 Added Passive Skill is No Witnesses
-{variant:264}1 Added Passive Skill is Molten One's Mark
-{variant:265}1 Added Passive Skill is Fire Attunement
-{variant:266}1 Added Passive Skill is Pure Might
-{variant:267}1 Added Passive Skill is Blacksmith
-{variant:268}1 Added Passive Skill is Non-Flammable
-{variant:269}1 Added Passive Skill is Winter Prowler
-{variant:270}1 Added Passive Skill is Hibernator
-{variant:271}1 Added Passive Skill is Pure Guile
-{variant:272}1 Added Passive Skill is Alchemist
-{variant:273}1 Added Passive Skill is Antifreeze
-{variant:274}1 Added Passive Skill is Wizardry
-{variant:275}1 Added Passive Skill is Capacitor
-{variant:276}1 Added Passive Skill is Pure Aptitude
-{variant:277}1 Added Passive Skill is Sage
-{variant:278}1 Added Passive Skill is Insulated
-{variant:279}1 Added Passive Skill is Born of Chaos
-{variant:280}1 Added Passive Skill is Antivenom
-{variant:281}1 Added Passive Skill is Rot-Resistant
-{variant:282}1 Added Passive Skill is Blessed
-{variant:283}1 Added Passive Skill is Student of Decay
-{variant:284}1 Added Passive Skill is Lord of Drought
-{variant:285}1 Added Passive Skill is Blizzard Caller
-{variant:286}1 Added Passive Skill is Tempt the Storm
-{variant:287}1 Added Passive Skill is Misery Everlasting
-{variant:288}1 Added Passive Skill is Exploit Weakness
-{variant:289}1 Added Passive Skill is Self-Control
-{variant:290}1 Added Passive Skill is Uncompromising
-{variant:291}1 Added Passive Skill is Sublime Form
-{variant:292}1 Added Passive Skill is Mortifying Aspect
-{variant:293}1 Added Passive Skill is Frantic Aspect
-{variant:294}1 Added Passive Skill is Introspection
-{variant:295}1 Added Passive Skill is Hound's Mark
-{variant:296}1 Added Passive Skill is Doedre's Gluttony
-{variant:297}1 Added Passive Skill is Doedre's Apathy
-{variant:298}1 Added Passive Skill is Master of the Maelstrom
-{variant:299}1 Added Passive Skill is Aggressive Defence
+{variant:141}1 Added Passive Skill is Improvisor
+{variant:142}1 Added Passive Skill is Insatiable Killer
+{variant:143}1 Added Passive Skill is Inspired Oppression
+{variant:144}1 Added Passive Skill is Insulated
+{variant:145}1 Added Passive Skill is Intensity
+{variant:146}1 Added Passive Skill is Introspection
+{variant:147}1 Added Passive Skill is Invigorating Portents
+{variant:148}1 Added Passive Skill is Iron Breaker
+{variant:149}1 Added Passive Skill is Lasting Impression
+{variant:150}1 Added Passive Skill is Lead By Example
+{variant:151}1 Added Passive Skill is Life from Death
+{variant:152}1 Added Passive Skill is Liquid Inspiration
+{variant:153}1 Added Passive Skill is Lord of Drought
+{variant:154}1 Added Passive Skill is Low Tolerance
+{variant:155}1 Added Passive Skill is Mage Bane
+{variant:156}1 Added Passive Skill is Mage Hunter
+{variant:157}1 Added Passive Skill is Magnifier
+{variant:158}1 Added Passive Skill is Martial Mastery
+{variant:159}1 Added Passive Skill is Martial Momentum
+{variant:160}1 Added Passive Skill is Martial Prowess
+{variant:161}1 Added Passive Skill is Master of Command
+{variant:162}1 Added Passive Skill is Master of Fear
+{variant:163}1 Added Passive Skill is Master of Fire
+{variant:164}1 Added Passive Skill is Master of the Maelstrom
+{variant:165}1 Added Passive Skill is Master the Fundamentals
+{variant:166}1 Added Passive Skill is Mender's Wellspring
+{variant:167}1 Added Passive Skill is Militarism
+{variant:168}1 Added Passive Skill is Mindfulness
+{variant:169}1 Added Passive Skill is Misery Everlasting
+{variant:170}1 Added Passive Skill is Mob Mentality
+{variant:171}1 Added Passive Skill is Molten One's Mark
+{variant:172}1 Added Passive Skill is Mortifying Aspect
+{variant:173}1 Added Passive Skill is Mystical Ward
+{variant:174}1 Added Passive Skill is Natural Vigour
+{variant:175}1 Added Passive Skill is No Witnesses
+{variant:176}1 Added Passive Skill is Non-Flammable
+{variant:177}1 Added Passive Skill is Numbing Elixir
+{variant:178}1 Added Passive Skill is One with the Shield
+{variant:179}1 Added Passive Skill is Openness
+{variant:180}1 Added Passive Skill is Opportunistic Fusilade
+{variant:181}1 Added Passive Skill is Overlord
+{variant:182}1 Added Passive Skill is Overshock
+{variant:183}1 Added Passive Skill is Overwhelming Malice
+{variant:184}1 Added Passive Skill is Paralysis
+{variant:185}1 Added Passive Skill is Peace Amidst Chaos
+{variant:186}1 Added Passive Skill is Peak Vigour
+{variant:187}1 Added Passive Skill is Phlebotomist
+{variant:188}1 Added Passive Skill is Powerful Assault
+{variant:189}1 Added Passive Skill is Powerful Ward
+{variant:190}1 Added Passive Skill is Practiced Caster
+{variant:191}1 Added Passive Skill is Precise Focus
+{variant:192}1 Added Passive Skill is Precise Retaliation
+{variant:193}1 Added Passive Skill is Pressure Points
+{variant:194}1 Added Passive Skill is Primordial Bond
+{variant:195}1 Added Passive Skill is Prismatic Carapace
+{variant:196}1 Added Passive Skill is Prismatic Dance
+{variant:197}1 Added Passive Skill is Prismatic Heart
+{variant:198}1 Added Passive Skill is Prodigious Defence
+{variant:199}1 Added Passive Skill is Provocateur
+{variant:200}1 Added Passive Skill is Pure Agony
+{variant:201}1 Added Passive Skill is Pure Aptitude
+{variant:202}1 Added Passive Skill is Pure Guile
+{variant:203}1 Added Passive Skill is Pure Might
+{variant:204}1 Added Passive Skill is Purposeful Harbinger
+{variant:205}1 Added Passive Skill is Quick Getaway
+{variant:206}1 Added Passive Skill is Quick and Deadly
+{variant:207}1 Added Passive Skill is Rapid Infusion
+{variant:208}1 Added Passive Skill is Rattling Bellow
+{variant:209}1 Added Passive Skill is Raze and Pillage
+{variant:210}1 Added Passive Skill is Readiness
+{variant:211}1 Added Passive Skill is Remarkable
+{variant:212}1 Added Passive Skill is Rend
+{variant:213}1 Added Passive Skill is Renewal
+{variant:214}1 Added Passive Skill is Repeater
+{variant:215}1 Added Passive Skill is Replenishing Presence
+{variant:216}1 Added Passive Skill is Righteous Path
+{variant:217}1 Added Passive Skill is Riot Queller
+{variant:218}1 Added Passive Skill is Rot-Resistant
+{variant:219}1 Added Passive Skill is Rote Reinforcement
+{variant:220}1 Added Passive Skill is Rotten Claws
+{variant:221}1 Added Passive Skill is Run Through
+{variant:222}1 Added Passive Skill is Sadist
+{variant:223}1 Added Passive Skill is Sage
+{variant:224}1 Added Passive Skill is Sap Psyche
+{variant:225}1 Added Passive Skill is Savage Response
+{variant:226}1 Added Passive Skill is Savour the Moment
+{variant:227}1 Added Passive Skill is Scintillating Idea
+{variant:228}1 Added Passive Skill is Seal Mender
+{variant:229}1 Added Passive Skill is Second Skin
+{variant:230}1 Added Passive Skill is Seeker Runes
+{variant:231}1 Added Passive Skill is Self-Control
+{variant:232}1 Added Passive Skill is Self-Fulfilling Prophecy
+{variant:233}1 Added Passive Skill is Septic Spells
+{variant:234}1 Added Passive Skill is Set and Forget
+{variant:235}1 Added Passive Skill is Shifting Shadow
+{variant:236}1 Added Passive Skill is Shrieking Bolts
+{variant:237}1 Added Passive Skill is Skeletal Atrophy
+{variant:238}1 Added Passive Skill is Skullbreaker
+{variant:239}1 Added Passive Skill is Sleepless Sentries
+{variant:240}1 Added Passive Skill is Smite the Weak
+{variant:241}1 Added Passive Skill is Smoking Remains
+{variant:242}1 Added Passive Skill is Snaring Spirits
+{variant:243}1 Added Passive Skill is Snowstorm
+{variant:244}1 Added Passive Skill is Special Reserve
+{variant:245}1 Added Passive Skill is Spiked Concoction
+{variant:246}1 Added Passive Skill is Spiteful Presence
+{variant:247}1 Added Passive Skill is Spring Back
+{variant:248}1 Added Passive Skill is Steady Torment
+{variant:249}1 Added Passive Skill is Stoic Focus
+{variant:250}1 Added Passive Skill is Storm Drinker
+{variant:251}1 Added Passive Skill is Storm's Hand
+{variant:252}1 Added Passive Skill is Stormrider
+{variant:253}1 Added Passive Skill is Streamlined
+{variant:254}1 Added Passive Skill is Strike Leader
+{variant:255}1 Added Passive Skill is Stubborn Student
+{variant:256}1 Added Passive Skill is Student of Decay
+{variant:257}1 Added Passive Skill is Sublime Form
+{variant:258}1 Added Passive Skill is Sublime Sensation
+{variant:259}1 Added Passive Skill is Supercharge
+{variant:260}1 Added Passive Skill is Surefooted Striker
+{variant:261}1 Added Passive Skill is Surging Vitality
+{variant:262}1 Added Passive Skill is Surprise Sabotage
+{variant:263}1 Added Passive Skill is Tempered Arrowheads
+{variant:264}1 Added Passive Skill is Tempt the Storm
+{variant:265}1 Added Passive Skill is Thaumophage
+{variant:266}1 Added Passive Skill is Thunderstruck
+{variant:267}1 Added Passive Skill is Titanic Swings
+{variant:268}1 Added Passive Skill is Touch of Cruelty
+{variant:269}1 Added Passive Skill is Towering Threat
+{variant:270}1 Added Passive Skill is Uncompromising
+{variant:271}1 Added Passive Skill is Unholy Grace
+{variant:272}1 Added Passive Skill is Unspeakable Gifts
+{variant:273}1 Added Passive Skill is Untouchable
+{variant:274}1 Added Passive Skill is Unwavering Focus
+{variant:275}1 Added Passive Skill is Unwaveringly Evil
+{variant:276}1 Added Passive Skill is Vast Power
+{variant:277}1 Added Passive Skill is Veteran Defender
+{variant:278}1 Added Passive Skill is Vicious Bite
+{variant:279}1 Added Passive Skill is Vicious Guard
+{variant:280}1 Added Passive Skill is Vicious Skewering
+{variant:281}1 Added Passive Skill is Victim Maker
+{variant:282}1 Added Passive Skill is Vile Reinvigoration
+{variant:283}1 Added Passive Skill is Vital Focus
+{variant:284}1 Added Passive Skill is Vivid Hues
+{variant:285}1 Added Passive Skill is Volatile Presence
+{variant:286}1 Added Passive Skill is Wall of Muscle
+{variant:287}1 Added Passive Skill is Warning Call
+{variant:288}1 Added Passive Skill is Wasting Affliction
+{variant:289}1 Added Passive Skill is Weight Advantage
+{variant:290}1 Added Passive Skill is Wicked Pall
+{variant:291}1 Added Passive Skill is Widespread Destruction
+{variant:292}1 Added Passive Skill is Will Shaper
+{variant:293}1 Added Passive Skill is Wind-up
+{variant:294}1 Added Passive Skill is Winter Prowler
+{variant:295}1 Added Passive Skill is Wish for Death
+{variant:296}1 Added Passive Skill is Wizardry
+{variant:297}1 Added Passive Skill is Wound Aggravation
+{variant:298}1 Added Passive Skill is Wrapped in Flame
 ]],
 [[
 Precursor's Emblem
@@ -3184,10 +3182,10 @@ Has Alt Variant Two: true
 Has Alt Variant Three: true
 LevelReq: 49
 Implicits: 7
-Selected Variant: 1
-Selected Alt Variant: 48
-Selected Alt Variant Two: 51
-Selected Alt Variant Three: 61
+Selected Variant: 2
+Selected Alt Variant: 27
+Selected Alt Variant Two: 29
+Selected Alt Variant Three: 41
 Variant: Topaz Ring
 Variant: Sapphire Ring
 Variant: Ruby Ring
@@ -3195,63 +3193,63 @@ Variant: Two-Stone Ring (Cold/Lightning)
 Variant: Two-Stone Ring (Fire/Lightning)
 Variant: Two-Stone Ring (Fire/Cold)
 Variant: Prismatic Ring
-Variant: Power - Power Charge Duration
-Variant: Power - Power Charge On Kill
-Variant: Power - Movement Velocity Per Power Charge
-Variant: Power - Life Regeneration Per Power Charge
-Variant: Power - Damage Per Power Charge
-Variant: Power - Added Lightning Damage Per Power Charge
-Variant: Power - Block Chance Per Power Charge
-Variant: Power - Dodge Chance Per Power Charge
-Variant: Power - Lightning Damage Added As Chaos
-Variant: Power - ES Per Power Charge
-Variant: Power - Chance To Gain Maximum Power Charges
-Variant: Power - Power Charge On Crit
-Variant: Power - Attack And Cast Speed Per Power Charge
-Variant: Power - Crit Strike Mult Per Power Charge
-Variant: Power - Phys Damage Reduction Per Power Charge
-Variant: Power - Maximum Power Charges
-Variant: Power - Arcane Surge On Hit Power Charges
-Variant: Power - Additional Curse Power Charges
-Variant: Power - Mind Over Matter Power Charges
-Variant: Endurance - Endurance Charge Duration
-Variant: Endurance - Endurance Charge On Kill
-Variant: Endurance - Movement Velocity Per Endurance Charge
-Variant: Endurance - Life Regeneration Per Endurance Charge
-Variant: Endurance - Damage Per Endurance Charge
-Variant: Endurance - Added Fire Damage Per Endurance Charge
-Variant: Endurance - Block Chance Per Endurance Charge
-Variant: Endurance - Dodge Chance Per Endurance Charge
+Variant: Endurance - +1 Max
+Variant: Endurance - Added Fire Damage Per
+Variant: Endurance - Armour Per
+Variant: Endurance - Attack And Cast Speed Per
+Variant: Endurance - Block Chance Per
+Variant: Endurance - Cannot Be Stunned
+Variant: Endurance - Chance To Gain Max
+Variant: Endurance - Chaos Resistance Per
+Variant: Endurance - Crit Strike Chance Per
+Variant: Endurance - Damage Per
+Variant: Endurance - Dodge Chance Per
+Variant: Endurance - Duration
 Variant: Endurance - Fire Damage Added As Chaos
-Variant: Endurance - Armour Per Endurance Charge
-Variant: Endurance - Chance To Gain Maximum Endurance Charges
-Variant: Endurance - Endurance Charge If Hit Recently
-Variant: Endurance - Attack And Cast Speed Per Endurance Charge
-Variant: Endurance - Crit Strike Chance Per Endurance Charge
-Variant: Endurance - Chaos Resistance Per Endurance Charge
-Variant: Endurance - Maximum Endurance Charges
-Variant: Endurance - Intimidate On Hit Endurance Charges
-Variant: Endurance - Cannot Be Stunned Endurance Charges
-Variant: Endurance - Vaal Pact Endurance Charges
-Variant: Frenzy - Frenzy Charge Duration
-Variant: Frenzy - Frenzy Charge On Kill
-Variant: Frenzy - Movement Velocity Per Frenzy Charge
-Variant: Frenzy - Life Regeneration Per Frenzy Charge
-Variant: Frenzy - Damage Per Frenzy Charge
-Variant: Frenzy - Added Cold Damage Per Frenzy Charge
-Variant: Frenzy - Block Chance Per Frenzy Charge
-Variant: Frenzy - Dodge Chance Per Frenzy Charge
+Variant: Endurance - If Hit Recently
+Variant: Endurance - Intimidate On Hit
+Variant: Endurance - Life Regeneration Per
+Variant: Endurance - Movement Velocity Per
+Variant: Endurance - On Kill
+Variant: Endurance - Vaal Pact
+Variant: Frenzy - +1 Max
+Variant: Frenzy - Accuracy Rating Per
+Variant: Frenzy - Added Cold Damage Per
+Variant: Frenzy - Block Chance Per
+Variant: Frenzy - Chance To Gain Max
 Variant: Frenzy - Cold Damage Added As Chaos
-Variant: Frenzy - Evasion Per Frenzy Charge
-Variant: Frenzy - Chance To Gain Maximum Frenzy Charges
-Variant: Frenzy - Frenzy Charge On Hit
-Variant: Frenzy - Accuracy Rating Per Frenzy Charge
-Variant: Frenzy - Crit Strike Chance Per Frenzy Charge
-Variant: Frenzy - Phys Damage Reduction Per Frenzy Charge
-Variant: Frenzy - Maximum Frenzy Charges
-Variant: Frenzy - Onslaught On Hit Frenzy Charges
-Variant: Frenzy - Flask Charge On Crit Frenzy Charges
-Variant: Frenzy - Iron Reflexes Frenzy Charges
+Variant: Frenzy - Crit Strike Chance Per
+Variant: Frenzy - Damage Per
+Variant: Frenzy - Dodge Chance Per
+Variant: Frenzy - Duration
+Variant: Frenzy - Evasion Per
+Variant: Frenzy - Flask On Crit
+Variant: Frenzy - Iron Reflexes
+Variant: Frenzy - Life Regeneration Per
+Variant: Frenzy - Movement Velocity Per
+Variant: Frenzy - On Hit
+Variant: Frenzy - On Kill
+Variant: Frenzy - Onslaught On Hit
+Variant: Frenzy - Phys Damage Reduction Per
+Variant: Power - +1 Max
+Variant: Power - Added Lightning Damage Per
+Variant: Power - Additional Curse
+Variant: Power - Arcane Surge On Hit
+Variant: Power - Attack And Cast Speed Per
+Variant: Power - Block Chance Per
+Variant: Power - Chance To Gain Max
+Variant: Power - Crit Strike Mult Per
+Variant: Power - Damage Per
+Variant: Power - Dodge Chance Per
+Variant: Power - Duration
+Variant: Power - ES Per
+Variant: Power - Life Regeneration Per
+Variant: Power - Lightning Damage Added As Chaos
+Variant: Power - Mind Over Matter
+Variant: Power - Movement Velocity Per
+Variant: Power - On Crit
+Variant: Power - On Kill
+Variant: Power - Phys Damage Reduction Per
 {tags:jewellery_resistance}{variant:1}+(20-30)% to Lightning Resistance
 {tags:jewellery_resistance}{variant:2}+(20-30)% to Cold Resistance
 {tags:jewellery_resistance}{variant:3}+(20-30)% to Fire Resistance
@@ -3262,70 +3260,70 @@ Variant: Frenzy - Iron Reflexes Frenzy Charges
 {tags:jewellery_attribute}{variant:1}+20 to Intelligence
 {tags:jewellery_attribute}{variant:2}+20 to Dexterity
 {tags:jewellery_attribute}{variant:3}+20 to Strength
-{tags:jewellery_attribute}{variant:4}+20 to Strength and Intelligence
-{tags:jewellery_attribute}{variant:5}+20 to Dexterity and Intelligence
+{tags:jewellery_attribute}{variant:4}+20 to Dexterity and Intelligence
+{tags:jewellery_attribute}{variant:5}+20 to Strength and Intelligence
 {tags:jewellery_attribute}{variant:6}+20 to Strength and Dexterity
 {tags:jewellery_attribute}{variant:7}+20 to all Attributes
 {tags:jewellery_defense}5% increased maximum Energy Shield
 {tags:life}5% increased maximum Life
-{variant:8}(20-40)% increased Power Charge Duration
-{variant:9}10% chance to gain a Power Charge on Kill
-{variant:10}1% increased Movement Speed per Power Charge
-{variant:11}Regenerate 0.3% of Life per second per Power Charge
-{variant:12}5% increased Damage per Power Charge
-{variant:13}(1-2) to (18-20) Lightning Damage per Power Charge
-{variant:14}+1% Chance to Block Attack Damage per Power Charge
-{variant:15}+1% chance to Suppress Spell Damage per Power Charge
-{variant:16}Gain 1% of Lightning Damage as Extra Chaos Damage per Power Charge
-{variant:17}3% increased Energy Shield per Power Charge
-{variant:18}15% chance that if you would gain Power Charges, you instead gain up to
-{variant:18}your maximum number of Power Charges
-{variant:19}20% chance to gain a Power Charge on Critical Strike
-{variant:20}1% increased Attack and Cast Speed per Power Charge
-{variant:21}+3% to Critical Strike Multiplier per Power Charge
-{variant:22}1% additional Physical Damage Reduction per Power Charge
-{variant:23}+1 to Maximum Power Charges
-{variant:24}Gain Arcane Surge on Hit with Spells while at maximum Power Charges
-{variant:25}You can apply an additional Curse while at maximum Power Charges
-{variant:26}You have Mind over Matter while at maximum Power Charges
-{variant:27}(20-40)% increased Endurance Charge Duration
-{variant:28}10% chance to gain an Endurance Charge on Kill
-{variant:29}1% increased Movement Speed per Endurance Charge
-{variant:30}Regenerate 0.3% of Life per second per Endurance Charge
-{variant:31}5% increased Damage per Endurance Charge
-{variant:32}(7-9) to (13-14) Fire Damage per Endurance Charge
-{variant:33}+1% Chance to Block Attack Damage per Endurance Charge
-{variant:34}+1% chance to Suppress Spell Damage per Endurance Charge
-{variant:35}Gain 1% of Fire Damage as Extra Chaos Damage per Endurance Charge
-{variant:36}6% increased Armour per Endurance Charge
-{variant:37}15% chance that if you would gain Endurance Charges, you instead gain up to maximum Endurance Charges
-{variant:38}Gain 1 Endurance Charge every second if you've been Hit Recently
-{variant:39}1% increased Attack and Cast Speed per Endurance Charge
-{variant:40}6% increased Critical Strike Chance per Endurance Charge
-{variant:41}+4% to Chaos Resistance per Endurance Charge
-{variant:42}+1 to Maximum Endurance Charges
-{variant:43}Intimidate Enemies for 4 seconds on Hit with Attacks while at maximum Endurance Charges
-{variant:44}You cannot be Stunned while at maximum Endurance Charges
-{variant:45}You have Vaal Pact while at maximum Endurance Charges
-{variant:46}(20-40)% increased Frenzy Charge Duration
-{variant:47}10% chance to gain a Frenzy Charge on Kill
-{variant:48}1% increased Movement Speed per Frenzy Charge
-{variant:49}Regenerate 0.3% of Life per second per Frenzy Charge
-{variant:50}5% increased Damage per Frenzy Charge
-{variant:51}(6-8) to (12-13) Added Cold Damage per Frenzy Charge
-{variant:52}+1% Chance to Block Attack Damage per Frenzy Charge
-{variant:53}+1% chance to Suppress Spell Damage per Frenzy Charge
-{variant:54}Gain 1% of Cold Damage as Extra Chaos Damage per Frenzy Charge
-{variant:55}8% increased Evasion Rating per Frenzy Charge
-{variant:56}15% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges
-{variant:57}10% chance to gain a Frenzy Charge on Hit
-{variant:58}10% increased Accuracy Rating per Frenzy Charge
-{variant:59}6% increased Critical Strike Chance per Frenzy Charge
-{variant:60}1% additional Physical Damage Reduction per Frenzy Charge
-{variant:61}+1 to Maximum Frenzy Charges
-{variant:62}Gain Onslaught for 4 seconds on Hit while at maximum Frenzy Charges
-{variant:63}Gain a Flask Charge when you deal a Critical Strike while at maximum Frenzy Charges
-{variant:64}You have Iron Reflexes while at maximum Frenzy Charges
+{variant:8}+1 to Maximum Endurance Charges
+{variant:9}(7-9) to (13-14) Fire Damage per Endurance Charge
+{variant:10}6% increased Armour per Endurance Charge
+{variant:11}1% increased Attack and Cast Speed per Endurance Charge
+{variant:12}+1% Chance to Block Attack Damage per Endurance Charge
+{variant:13}You cannot be Stunned while at maximum Endurance Charges
+{variant:14}15% chance that if you would gain Endurance Charges, you instead gain up to maximum Endurance Charges
+{variant:15}+4% to Chaos Resistance per Endurance Charge
+{variant:16}6% increased Critical Strike Chance per Endurance Charge
+{variant:17}5% increased Damage per Endurance Charge
+{variant:18}+1% chance to Suppress Spell Damage per Endurance Charge
+{variant:19}(20-40)% increased Endurance Charge Duration
+{variant:20}Gain 1% of Fire Damage as Extra Chaos Damage per Endurance Charge
+{variant:21}Gain 1 Endurance Charge every second if you've been Hit Recently
+{variant:22}Intimidate Enemies for 4 seconds on Hit with Attacks while at maximum Endurance Charges
+{variant:23}Regenerate 0.3% of Life per second per Endurance Charge
+{variant:24}1% increased Movement Speed per Endurance Charge
+{variant:25}10% chance to gain an Endurance Charge on Kill
+{variant:26}You have Vaal Pact while at maximum Endurance Charges
+{variant:27}+1 to Maximum Frenzy Charges
+{variant:28}10% increased Accuracy Rating per Frenzy Charge
+{variant:29}(6-8) to (12-13) Added Cold Damage per Frenzy Charge
+{variant:30}+1% Chance to Block Attack Damage per Frenzy Charge
+{variant:31}15% chance that if you would gain Frenzy Charges, you instead gain up to your maximum number of Frenzy Charges
+{variant:32}Gain 1% of Cold Damage as Extra Chaos Damage per Frenzy Charge
+{variant:33}6% increased Critical Strike Chance per Frenzy Charge
+{variant:34}5% increased Damage per Frenzy Charge
+{variant:35}+1% chance to Suppress Spell Damage per Frenzy Charge
+{variant:36}(20-40)% increased Frenzy Charge Duration
+{variant:37}8% increased Evasion Rating per Frenzy Charge
+{variant:38}Gain a Flask Charge when you deal a Critical Strike while at maximum Frenzy Charges
+{variant:39}You have Iron Reflexes while at maximum Frenzy Charges
+{variant:40}Regenerate 0.3% of Life per second per Frenzy Charge
+{variant:41}1% increased Movement Speed per Frenzy Charge
+{variant:42}10% chance to gain a Frenzy Charge on Hit
+{variant:43}10% chance to gain a Frenzy Charge on Kill
+{variant:44}Gain Onslaught for 4 seconds on Hit while at maximum Frenzy Charges
+{variant:45}1% additional Physical Damage Reduction per Frenzy Charge
+{variant:46}+1 to Maximum Power Charges
+{variant:47}(1-2) to (18-20) Lightning Damage per Power Charge
+{variant:48}You can apply an additional Curse while at maximum Power Charges
+{variant:49}Gain Arcane Surge on Hit with Spells while at maximum Power Charges
+{variant:50}1% increased Attack and Cast Speed per Power Charge
+{variant:51}+1% Chance to Block Attack Damage per Power Charge
+{variant:52}15% chance that if you would gain Power Charges, you instead gain up to
+{variant:52}your maximum number of Power Charges
+{variant:53}+3% to Critical Strike Multiplier per Power Charge
+{variant:54}5% increased Damage per Power Charge
+{variant:55}+1% chance to Suppress Spell Damage per Power Charge
+{variant:56}(20-40)% increased Power Charge Duration
+{variant:57}3% increased Energy Shield per Power Charge
+{variant:58}Regenerate 0.3% of Life per second per Power Charge
+{variant:59}Gain 1% of Lightning Damage as Extra Chaos Damage per Power Charge
+{variant:60}You have Mind over Matter while at maximum Power Charges
+{variant:61}1% increased Movement Speed per Power Charge
+{variant:62}20% chance to gain a Power Charge on Critical Strike
+{variant:63}10% chance to gain a Power Charge on Kill
+{variant:64}1% additional Physical Damage Reduction per Power Charge
 ]],
 [[
 The Balance of Terror

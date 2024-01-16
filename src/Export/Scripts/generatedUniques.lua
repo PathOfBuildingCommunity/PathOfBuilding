@@ -97,6 +97,10 @@ local excludedItemKeystones = {
 	"Necromantic Aegis", -- to prevent infinite loop
 }
 
+local excludedPassiveSkillPatterns = {
+	"_notable_whispers_of_death",
+}
+
 local typos = {
 	["OnHIt"] = "OnHit",
 	["LIfe"] = "Life",
@@ -389,6 +393,14 @@ table.insert(replicaForbiddenShako, "+(25-30) to all Attributes\n")
 -- Megalomaniac
 local notables = tableFromDat("PassiveTreeExpansionSpecialSkills",
 	function(skill) return skill.Node.Notable end)
+table.sort(notables, function(a, b) return a.Node.Name < b.Node.Name end)
+for index, notable in ipairs(notables) do
+	for _, pattern in ipairs(excludedPassiveSkillPatterns) do
+		if notable.Node.Id:match(pattern) then
+			table.remove(notables, index)
+		end
+	end
+end
 
 local megalomaniac = {[[
 Megalomaniac
@@ -412,12 +424,26 @@ end
 
 -- Precursors Emblem
 local precursorsMods = { }
-precursorsMods["Power"] = tableFromDat("Mods", 
-	function(mod) return mod.Id:match("^ChargeBonus") and mod.Type.Id:match("PowerCharge") end)
 precursorsMods["Endurance"] = tableFromDat("Mods", 
 	function(mod) return mod.Id:match("^ChargeBonus") and mod.Type.Id:match("EnduranceCharge") end)
 precursorsMods["Frenzy"] = tableFromDat("Mods", 
 	function(mod) return mod.Id:match("^ChargeBonus") and mod.Type.Id:match("FrenzyCharge") end)
+precursorsMods["Power"] = tableFromDat("Mods", 
+	function(mod) return mod.Id:match("^ChargeBonus") and mod.Type.Id:match("PowerCharge") end)
+local parsePrecursorsModName = function(name) return abbreviateModId(name):
+	gsub("ChargeBonus", ""):
+	gsub("Endurance", ""):
+	gsub("Power", ""):
+	gsub("Frenzy", ""):
+	gsub("Charges?", ""):
+	gsub("[%u]", " %1"):
+	gsub("Gain Maximum", "Gain Max"):
+	gsub("Maximum", "+1 Max"):
+	gsub("E S", "ES"):
+	gsub("_", "") end
+for _, chargeType in pairs({"Endurance", "Frenzy", "Power"}) do
+	table.sort(precursorsMods[chargeType], function(a, b) return parsePrecursorsModName(a.Id) < parsePrecursorsModName(b.Id) end)
+end
 
 local precursorsEmblem = {[[
 Precursor's Emblem
@@ -435,10 +461,10 @@ Has Alt Variant Two: true
 Has Alt Variant Three: true
 LevelReq: 49
 Implicits: 7
-Selected Variant: 1
-Selected Alt Variant: 48
-Selected Alt Variant Two: 51
-Selected Alt Variant Three: 61
+Selected Variant: 2
+Selected Alt Variant: 27
+Selected Alt Variant Two: 29
+Selected Alt Variant Three: 41
 Variant: Topaz Ring
 Variant: Sapphire Ring
 Variant: Ruby Ring
@@ -447,10 +473,10 @@ Variant: Two-Stone Ring (Fire/Lightning)
 Variant: Two-Stone Ring (Fire/Cold)
 Variant: Prismatic Ring
 ]]}
-for type, mods in pairs(precursorsMods) do
-	for _, mod in ipairs(mods) do
-		local variantName = abbreviateModId(mod.Id):gsub("ChargeBonus", ""):gsub("[%u]", " %1"):gsub("E S", "ES"):gsub("_", "")
-		table.insert(precursorsEmblem, "Variant: "..type.." -"..variantName.."\n")
+for _, chargeType in pairs({"Endurance", "Frenzy", "Power"}) do
+	for _, mod in ipairs(precursorsMods[chargeType]) do
+		local variantName = parsePrecursorsModName(mod.Id)
+		table.insert(precursorsEmblem, "Variant: "..chargeType.." -"..variantName.."\n")
 	end
 end
 table.insert(precursorsEmblem,[[
@@ -464,16 +490,16 @@ table.insert(precursorsEmblem,[[
 {tags:jewellery_attribute}{variant:1}+20 to Intelligence
 {tags:jewellery_attribute}{variant:2}+20 to Dexterity
 {tags:jewellery_attribute}{variant:3}+20 to Strength
-{tags:jewellery_attribute}{variant:4}+20 to Strength and Intelligence
-{tags:jewellery_attribute}{variant:5}+20 to Dexterity and Intelligence
+{tags:jewellery_attribute}{variant:4}+20 to Dexterity and Intelligence
+{tags:jewellery_attribute}{variant:5}+20 to Strength and Intelligence
 {tags:jewellery_attribute}{variant:6}+20 to Strength and Dexterity
 {tags:jewellery_attribute}{variant:7}+20 to all Attributes
 {tags:jewellery_defense}5% increased maximum Energy Shield
 {tags:life}5% increased maximum Life
 ]])
 local indexCounter = 8
-for type, mods in pairs(precursorsMods) do
-	for index, mod in ipairs(mods) do
+for _, chargeType in pairs({"Endurance", "Frenzy", "Power"}) do
+	for index, mod in ipairs(precursorsMods[chargeType]) do
 		local stats, orders = describeMod(mod)
 		for _, stat in ipairs(stats) do
 			table.insert(precursorsEmblem, "{variant:"..indexCounter.."}"..stat.."\n")
