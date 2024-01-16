@@ -3463,7 +3463,7 @@ return {
 		},
 		[8]={
 			list=false,
-			name="",
+			name="Armour",
 			refTo="",
 			type="Int",
 			width=70
@@ -3477,10 +3477,10 @@ return {
 		},
 		[10]={
 			list=false,
-			name="",
+			name="MinionDamage",
 			refTo="",
 			type="Float",
-			width=70
+			width=100
 		},
 		[11]={
 			list=false,
@@ -3519,10 +3519,10 @@ return {
 		},
 		[16]={
 			list=false,
-			name="Armour",
+			name="AilmentThreshold",
 			refTo="",
 			type="Int",
-			width=70
+			width=110
 		}
 	},
 	deliriumstashtablayout={
@@ -7628,38 +7628,38 @@ return {
 		},
 		[23]={
 			list=false,
-			name="",
+			name="MinAgroRange",
 			refTo="",
 			type="Int",
-			width=50
+			width=100
 		},
 		[24]={
 			list=false,
-			name="",
+			name="MaxAgroRange",
 			refTo="",
 			type="Int",
-			width=50
+			width=100
 		},
 		[25]={
 			list=false,
-			name="",
+			name="SporlightColour1",
 			refTo="",
 			type="Int",
-			width=50
+			width=100
 		},
 		[26]={
 			list=false,
-			name="CriticalStrikeChance",
+			name="SporlightColour2",
 			refTo="",
 			type="Int",
-			width=120
+			width=100
 		},
 		[27]={
 			list=false,
-			name="",
+			name="SporlightColour3",
 			refTo="",
 			type="Int",
-			width=50
+			width=100
 		},
 		[28]={
 			list=true,
