@@ -88,13 +88,17 @@ end
 
 -- Exception tables
 local excludedKeystones = {
-	"Phase Acrobatics", -- removed from game
-	"Mortal Conviction", -- removed from game
+	"Phase Acrobatics", 	-- removed from game
+	"Mortal Conviction", 	-- removed from game
+	"DAMAGE FROM MANA", 	-- strange entry in dat file
+	"POWER CHARGE", 		-- strange entry in dat file
+	"Vaal Carnage",			-- not in game
+	"Vaal Dominion",		-- not in game
 }
 
 local excludedItemKeystones = {
-	"Chaos Inoculation", -- to prevent infinite loop
-	"Necromantic Aegis", -- to prevent infinite loop
+	"Chaos Inoculation", 	-- to prevent infinite loop
+	"Necromantic Aegis", 	-- to prevent infinite loop
 }
 
 local typos = {
@@ -589,7 +593,10 @@ end
 
 -- Impossible Escape
 local impossibleEscapeKeystones = tableFromDat("PassiveSkills",
-	function(passive) return passive.Keystone and passive.FlavourText ~= "" and not passive.Id:match("_keystone_") and not isValueInArray(excludedItemKeystones, passive.Name) end)
+	function(passive) return passive.Keystone 
+		and not passive.Id:match("^%a+_keystone_") -- exclude cluster jewel keystones
+		and not isValueInArray(excludedKeystones, passive.Name) end)
+table.sort(impossibleEscapeKeystones, function(a, b) return a.Name < b.Name end)
 
 local impossibleEscape = {[[
 Impossible Escape
@@ -611,7 +618,11 @@ table.insert(impossibleEscape, "Corrupted\n")
 
 -- Skin of the Lords
 local skinOfTheLordsKeystones = tableFromDat("PassiveSkills",
-	function(passive) return passive.Keystone and passive.FlavourText ~= "" and not passive.Id:match("_keystone_") and not isValueInArray(excludedKeystones, passive.Name) and not isValueInArray(excludedItemKeystones, passive.Name) end)
+	function(passive) return passive.Keystone 
+		and not passive.Id:match("^%a+_keystone_") -- exclude unique cluster jewel keystones
+		and not isValueInArray(excludedKeystones, passive.Name) 
+		and not isValueInArray(excludedItemKeystones, passive.Name) end)
+table.sort(skinOfTheLordsKeystones, function(a, b) return a.Name < b.Name end)
 
 local skinOfTheLords = {[[
 Skin of the Lords
@@ -644,8 +655,8 @@ Source: Drops from unique{The Elder} (Uber Uber) or unique{The Shaper} (Uber)
 Limited to: 1
 ]]}
 for _, mod in ipairs(sublimeVisionMods) do
-	local variantName = mod.Id:gsub("SublimeVision", "")
-	table.insert(sublimeVision, "Variant: "..variantName.."\n")
+	local variantName = mod.Id:gsub("SublimeVision", ""):gsub("%u", " %1")
+	table.insert(sublimeVision, "Variant:"..variantName.."\n")
 end
 for index, mod in ipairs(sublimeVisionMods) do
 	local stats, order = describeMod(mod)
@@ -657,6 +668,19 @@ end
 -- Vorana's March
 local voranasMarchMods = tableFromDat("Mods",
 	function(mod) return mod.Family[1].Id == "ArbalestBonus" end)
+local parseVoranasMarchModName = function(name)
+	return abbreviateModId(fixTypos(name)):
+	gsub("SummonArbalist", ""):
+	gsub("[%u%d]", " %1"):
+	gsub("_", ""):
+	gsub("Percent To ", ""):
+	gsub("Chance To ", ""):
+	gsub("Targets To ", ""):
+	gsub("[fF]or 4 ?[Ss]econds On Hit", ""):
+	gsub(" Percent", ""):
+	gsub("Number Of ", "")
+end
+table.sort(voranasMarchMods, function(a, b) return parseVoranasMarchModName(a.Id) < parseVoranasMarchModName(b.Id) end)
 
 local voranasMarch = {[[
 Vorana's March
@@ -674,7 +698,7 @@ Selected Alt Variant Three: 13
 -- Blank variant to account for changes made in 3.20.1
 table.insert(voranasMarch, "Variant: None\n")
 for _, mod in ipairs(voranasMarchMods) do
-	local variantName = abbreviateModId(fixTypos(mod.Id)):gsub("SummonArbalist", ""):gsub("[%u%d]", " %1"):gsub("_", ""):gsub("Percent To ", ""):gsub("Chance To ", ""):gsub("Targets To ", ""):gsub("[fF]or 4 ?[Ss]econds On Hit", ""):gsub(" Percent", ""):gsub("Number Of ", "")
+	local variantName = parseVoranasMarchModName(mod.Id)
 	table.insert(voranasMarch, "Variant:"..variantName.."\n")
 end
 table.insert(voranasMarch, [[
@@ -762,6 +786,7 @@ local watchersEyeLegacyMods = {
 	["MalevolenceColdDamageOverTimeMultiplier"] = { },
 	["MalevolenceChaosNonAilmentDamageOverTimeMultiplier"] = { },
 }
+table.sort(watchersEyeMods, function(a, b) return a.Id < b.Id end)
 
 local watchersEye = {[[
 Watcher's Eye

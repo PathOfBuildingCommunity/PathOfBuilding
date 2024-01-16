@@ -4331,91 +4331,93 @@ League: Sentinel
 Source: Drops from unique{The Maven}
 Limited to: 1
 Radius: Small
-Variant: Minion Instability
-Variant: Conduit
 Variant: Acrobatics
-Variant: Iron Reflexes
-Variant: Resolute Technique
-Variant: Unwavering Stance
-Variant: Eldritch Battery
-Variant: Blood Magic
-Variant: Pain Attunement
-Variant: Elemental Equilibrium
-Variant: Iron Grip
-Variant: Point Blank
-Variant: Arrow Dancing
-Variant: Phase Acrobatics
 Variant: Ancestral Bond
-Variant: Ghost Reaver
-Variant: Vaal Pact
-Variant: Zealot's Oath
+Variant: Arrow Dancing
 Variant: Avatar of Fire
-Variant: Mind Over Matter
-Variant: Elemental Overload
-Variant: Crimson Dance
-Variant: Runebinder
-Variant: Wicked Ward
-Variant: Mortal Conviction
+Variant: Blood Magic
 Variant: Call to Arms
-Variant: Eternal Youth
-Variant: Glancing Blows
-Variant: Wind Dancer
-Variant: The Agnostic
-Variant: Supreme Ego
-Variant: Imbalanced Guard
-Variant: The Impaler
-Variant: Hex Master
-Variant: Magebane
-Variant: Iron Will
-Variant: Solipsism
-Variant: Ghost Dance
+Variant: Chaos Inoculation
+Variant: Conduit
+Variant: Crimson Dance
 Variant: Divine Shield
-Variant: Versatile Combatant
+Variant: Eldritch Battery
+Variant: Elemental Equilibrium
+Variant: Elemental Overload
+Variant: Eternal Youth
+Variant: Ghost Dance
+Variant: Ghost Reaver
+Variant: Glancing Blows
+Variant: Hex Master
+Variant: Imbalanced Guard
+Variant: Iron Grip
+Variant: Iron Reflexes
+Variant: Iron Will
 Variant: Lethe Shade
+Variant: Magebane
+Variant: Mind Over Matter
+Variant: Minion Instability
+Variant: Necromantic Aegis
+Variant: Pain Attunement
+Variant: Perfect Agony
+Variant: Point Blank
 Variant: Precise Technique
+Variant: Resolute Technique
+Variant: Runebinder
+Variant: Solipsism
+Variant: Supreme Ego
+Variant: The Agnostic
+Variant: The Impaler
+Variant: Unwavering Stance
+Variant: Vaal Pact
+Variant: Versatile Combatant
+Variant: Wicked Ward
+Variant: Wind Dancer
+Variant: Zealot's Oath
 Variant: Everything (QoL Test Variant)
-{variant:1,43}Passives in radius of Minion Instability can be allocated without being connected to your tree
-{variant:2,43}Passives in radius of Conduit can be allocated without being connected to your tree
-{variant:3,43}Passives in radius of Acrobatics can be allocated without being connected to your tree
-{variant:4,43}Passives in radius of Iron Reflexes can be allocated without being connected to your tree
-{variant:5,43}Passives in radius of Resolute Technique can be allocated without being connected to your tree
-{variant:6,43}Passives in radius of Unwavering Stance can be allocated without being connected to your tree
-{variant:7,43}Passives in radius of Eldritch Battery can be allocated without being connected to your tree
-{variant:8,43}Passives in radius of Blood Magic can be allocated without being connected to your tree
-{variant:9,43}Passives in radius of Pain Attunement can be allocated without being connected to your tree
-{variant:10,43}Passives in radius of Elemental Equilibrium can be allocated without being connected to your tree
-{variant:11,43}Passives in radius of Iron Grip can be allocated without being connected to your tree
-{variant:12,43}Passives in radius of Point Blank can be allocated without being connected to your tree
-{variant:13,43}Passives in radius of Arrow Dancing can be allocated without being connected to your tree
-{variant:14,43}Passives in radius of Phase Acrobatics can be allocated without being connected to your tree
-{variant:15,43}Passives in radius of Ancestral Bond can be allocated without being connected to your tree
-{variant:16,43}Passives in radius of Ghost Reaver can be allocated without being connected to your tree
-{variant:17,43}Passives in radius of Vaal Pact can be allocated without being connected to your tree
-{variant:18,43}Passives in radius of Zealot's Oath can be allocated without being connected to your tree
-{variant:19,43}Passives in radius of Avatar of Fire can be allocated without being connected to your tree
-{variant:20,43}Passives in radius of Mind Over Matter can be allocated without being connected to your tree
-{variant:21,43}Passives in radius of Elemental Overload can be allocated without being connected to your tree
-{variant:22,43}Passives in radius of Crimson Dance can be allocated without being connected to your tree
-{variant:23,43}Passives in radius of Runebinder can be allocated without being connected to your tree
-{variant:24,43}Passives in radius of Wicked Ward can be allocated without being connected to your tree
-{variant:25,43}Passives in radius of Mortal Conviction can be allocated without being connected to your tree
-{variant:26,43}Passives in radius of Call to Arms can be allocated without being connected to your tree
-{variant:27,43}Passives in radius of Eternal Youth can be allocated without being connected to your tree
-{variant:28,43}Passives in radius of Glancing Blows can be allocated without being connected to your tree
-{variant:29,43}Passives in radius of Wind Dancer can be allocated without being connected to your tree
-{variant:30,43}Passives in radius of The Agnostic can be allocated without being connected to your tree
-{variant:31,43}Passives in radius of Supreme Ego can be allocated without being connected to your tree
-{variant:32,43}Passives in radius of Imbalanced Guard can be allocated without being connected to your tree
-{variant:33,43}Passives in radius of The Impaler can be allocated without being connected to your tree
-{variant:34,43}Passives in radius of Hex Master can be allocated without being connected to your tree
-{variant:35,43}Passives in radius of Magebane can be allocated without being connected to your tree
-{variant:36,43}Passives in radius of Iron Will can be allocated without being connected to your tree
-{variant:37,43}Passives in radius of Solipsism can be allocated without being connected to your tree
-{variant:38,43}Passives in radius of Ghost Dance can be allocated without being connected to your tree
-{variant:39,43}Passives in radius of Divine Shield can be allocated without being connected to your tree
-{variant:40,43}Passives in radius of Versatile Combatant can be allocated without being connected to your tree
-{variant:41,43}Passives in radius of Lethe Shade can be allocated without being connected to your tree
-{variant:42,43}Passives in radius of Precise Technique can be allocated without being connected to your tree
+{variant:1,44}Passives in radius of Acrobatics can be allocated without being connected to your tree
+{variant:2,44}Passives in radius of Ancestral Bond can be allocated without being connected to your tree
+{variant:3,44}Passives in radius of Arrow Dancing can be allocated without being connected to your tree
+{variant:4,44}Passives in radius of Avatar of Fire can be allocated without being connected to your tree
+{variant:5,44}Passives in radius of Blood Magic can be allocated without being connected to your tree
+{variant:6,44}Passives in radius of Call to Arms can be allocated without being connected to your tree
+{variant:7,44}Passives in radius of Chaos Inoculation can be allocated without being connected to your tree
+{variant:8,44}Passives in radius of Conduit can be allocated without being connected to your tree
+{variant:9,44}Passives in radius of Crimson Dance can be allocated without being connected to your tree
+{variant:10,44}Passives in radius of Divine Shield can be allocated without being connected to your tree
+{variant:11,44}Passives in radius of Eldritch Battery can be allocated without being connected to your tree
+{variant:12,44}Passives in radius of Elemental Equilibrium can be allocated without being connected to your tree
+{variant:13,44}Passives in radius of Elemental Overload can be allocated without being connected to your tree
+{variant:14,44}Passives in radius of Eternal Youth can be allocated without being connected to your tree
+{variant:15,44}Passives in radius of Ghost Dance can be allocated without being connected to your tree
+{variant:16,44}Passives in radius of Ghost Reaver can be allocated without being connected to your tree
+{variant:17,44}Passives in radius of Glancing Blows can be allocated without being connected to your tree
+{variant:18,44}Passives in radius of Hex Master can be allocated without being connected to your tree
+{variant:19,44}Passives in radius of Imbalanced Guard can be allocated without being connected to your tree
+{variant:20,44}Passives in radius of Iron Grip can be allocated without being connected to your tree
+{variant:21,44}Passives in radius of Iron Reflexes can be allocated without being connected to your tree
+{variant:22,44}Passives in radius of Iron Will can be allocated without being connected to your tree
+{variant:23,44}Passives in radius of Lethe Shade can be allocated without being connected to your tree
+{variant:24,44}Passives in radius of Magebane can be allocated without being connected to your tree
+{variant:25,44}Passives in radius of Mind Over Matter can be allocated without being connected to your tree
+{variant:26,44}Passives in radius of Minion Instability can be allocated without being connected to your tree
+{variant:27,44}Passives in radius of Necromantic Aegis can be allocated without being connected to your tree
+{variant:28,44}Passives in radius of Pain Attunement can be allocated without being connected to your tree
+{variant:29,44}Passives in radius of Perfect Agony can be allocated without being connected to your tree
+{variant:30,44}Passives in radius of Point Blank can be allocated without being connected to your tree
+{variant:31,44}Passives in radius of Precise Technique can be allocated without being connected to your tree
+{variant:32,44}Passives in radius of Resolute Technique can be allocated without being connected to your tree
+{variant:33,44}Passives in radius of Runebinder can be allocated without being connected to your tree
+{variant:34,44}Passives in radius of Solipsism can be allocated without being connected to your tree
+{variant:35,44}Passives in radius of Supreme Ego can be allocated without being connected to your tree
+{variant:36,44}Passives in radius of The Agnostic can be allocated without being connected to your tree
+{variant:37,44}Passives in radius of The Impaler can be allocated without being connected to your tree
+{variant:38,44}Passives in radius of Unwavering Stance can be allocated without being connected to your tree
+{variant:39,44}Passives in radius of Vaal Pact can be allocated without being connected to your tree
+{variant:40,44}Passives in radius of Versatile Combatant can be allocated without being connected to your tree
+{variant:41,44}Passives in radius of Wicked Ward can be allocated without being connected to your tree
+{variant:42,44}Passives in radius of Wind Dancer can be allocated without being connected to your tree
+{variant:43,44}Passives in radius of Zealot's Oath can be allocated without being connected to your tree
 Corrupted
 ]],
 [[
@@ -4423,90 +4425,92 @@ Skin of the Lords
 Simple Robe
 League: Breach
 Source: Upgraded from unique{Skin of the Loyal} using currency{Blessing of Chayula}
-Variant: Minion Instability
-Variant: Conduit
 Variant: Acrobatics
-Variant: Iron Reflexes
-Variant: Resolute Technique
-Variant: Unwavering Stance
-Variant: Eldritch Battery
-Variant: Blood Magic
-Variant: Pain Attunement
-Variant: Elemental Equilibrium
-Variant: Iron Grip
-Variant: Point Blank
-Variant: Arrow Dancing
 Variant: Ancestral Bond
-Variant: Ghost Reaver
-Variant: Vaal Pact
-Variant: Zealot's Oath
+Variant: Arrow Dancing
 Variant: Avatar of Fire
-Variant: Mind Over Matter
-Variant: Elemental Overload
-Variant: Crimson Dance
-Variant: Runebinder
-Variant: Wicked Ward
+Variant: Blood Magic
 Variant: Call to Arms
-Variant: Eternal Youth
-Variant: Glancing Blows
-Variant: Wind Dancer
-Variant: The Agnostic
-Variant: Supreme Ego
-Variant: Imbalanced Guard
-Variant: The Impaler
-Variant: Hex Master
-Variant: Magebane
-Variant: Iron Will
-Variant: Solipsism
-Variant: Ghost Dance
+Variant: Conduit
+Variant: Crimson Dance
 Variant: Divine Shield
-Variant: Versatile Combatant
+Variant: Eldritch Battery
+Variant: Elemental Equilibrium
+Variant: Elemental Overload
+Variant: Eternal Youth
+Variant: Ghost Dance
+Variant: Ghost Reaver
+Variant: Glancing Blows
+Variant: Hex Master
+Variant: Imbalanced Guard
+Variant: Iron Grip
+Variant: Iron Reflexes
+Variant: Iron Will
 Variant: Lethe Shade
+Variant: Magebane
+Variant: Mind Over Matter
+Variant: Minion Instability
+Variant: Pain Attunement
+Variant: Perfect Agony
+Variant: Point Blank
 Variant: Precise Technique
+Variant: Resolute Technique
+Variant: Runebinder
+Variant: Solipsism
+Variant: Supreme Ego
+Variant: The Agnostic
+Variant: The Impaler
+Variant: Unwavering Stance
+Variant: Vaal Pact
+Variant: Versatile Combatant
+Variant: Wicked Ward
+Variant: Wind Dancer
+Variant: Zealot's Oath
 Sockets cannot be modified
 +2 to Level of Socketed Gems
 100% increased Global Defences
 You can only Socket Corrupted Gems in this item
-{variant:1}Minion Instability
-{variant:2}Conduit
-{variant:3}Acrobatics
-{variant:4}Iron Reflexes
-{variant:5}Resolute Technique
-{variant:6}Unwavering Stance
-{variant:7}Eldritch Battery
-{variant:8}Blood Magic
-{variant:9}Pain Attunement
-{variant:10}Elemental Equilibrium
-{variant:11}Iron Grip
-{variant:12}Point Blank
-{variant:13}Arrow Dancing
-{variant:14}Ancestral Bond
+{variant:1}Acrobatics
+{variant:2}Ancestral Bond
+{variant:3}Arrow Dancing
+{variant:4}Avatar of Fire
+{variant:5}Blood Magic
+{variant:6}Call to Arms
+{variant:7}Conduit
+{variant:8}Crimson Dance
+{variant:9}Divine Shield
+{variant:10}Eldritch Battery
+{variant:11}Elemental Equilibrium
+{variant:12}Elemental Overload
+{variant:13}Eternal Youth
+{variant:14}Ghost Dance
 {variant:15}Ghost Reaver
-{variant:16}Vaal Pact
-{variant:17}Zealot's Oath
-{variant:18}Avatar of Fire
-{variant:19}Mind Over Matter
-{variant:20}Elemental Overload
-{variant:21}Crimson Dance
-{variant:22}Runebinder
-{variant:23}Wicked Ward
-{variant:24}Call to Arms
-{variant:25}Eternal Youth
-{variant:26}Glancing Blows
-{variant:27}Wind Dancer
-{variant:28}The Agnostic
-{variant:29}Supreme Ego
-{variant:30}Imbalanced Guard
-{variant:31}The Impaler
-{variant:32}Hex Master
-{variant:33}Magebane
-{variant:34}Iron Will
-{variant:35}Solipsism
-{variant:36}Ghost Dance
-{variant:37}Divine Shield
+{variant:16}Glancing Blows
+{variant:17}Hex Master
+{variant:18}Imbalanced Guard
+{variant:19}Iron Grip
+{variant:20}Iron Reflexes
+{variant:21}Iron Will
+{variant:22}Lethe Shade
+{variant:23}Magebane
+{variant:24}Mind Over Matter
+{variant:25}Minion Instability
+{variant:26}Pain Attunement
+{variant:27}Perfect Agony
+{variant:28}Point Blank
+{variant:29}Precise Technique
+{variant:30}Resolute Technique
+{variant:31}Runebinder
+{variant:32}Solipsism
+{variant:33}Supreme Ego
+{variant:34}The Agnostic
+{variant:35}The Impaler
+{variant:36}Unwavering Stance
+{variant:37}Vaal Pact
 {variant:38}Versatile Combatant
-{variant:39}Lethe Shade
-{variant:40}Precise Technique
+{variant:39}Wicked Ward
+{variant:40}Wind Dancer
+{variant:41}Zealot's Oath
 ]],
 [[
 Sublime Vision
@@ -4524,10 +4528,10 @@ Variant: Hatred
 Variant: Malevolence
 Variant: Precision
 Variant: Pride
-Variant: PurityOfElements
-Variant: PurityOfIce
-Variant: PurityOfLightning
-Variant: PurityOfFire
+Variant: Purity Of Elements
+Variant: Purity Of Ice
+Variant: Purity Of Lightning
+Variant: Purity Of Fire
 Variant: Vitality
 Variant: Wrath
 Variant: Zealotry
@@ -4597,64 +4601,64 @@ Selected Alt Variant: 10
 Selected Alt Variant Two: 11
 Selected Alt Variant Three: 13
 Variant: None
-Variant: Arbalists Allowed
 Variant: Additional Projectiles
+Variant: Arbalists Allowed
 Variant: Attack Speed
-Variant: Pierce
-Variant: Projectiles Fork
-Variant: Chains
-Variant: Splits
-Variant: Deal Double Damage
-Variant: Maim
-Variant: Intimidate 
-Variant: Unnerve 
-Variant: Inflict Fire Exposure On Hit
-Variant: Inflict Cold Exposure On Hit
-Variant: Inflict Lightning Exposure On Hit
-Variant: Crush On Hit
-Variant: Phys Damage Convert To Fire
-Variant: Phys Damage Convert To Cold
-Variant: Phys Damage Convert To Lightning
-Variant: Phys Damage Add As Fire
-Variant: Phys Damage Add As Cold
-Variant: Phys Damage Add As Lightning
 Variant: Bleed
-Variant: Poison
+Variant: Chains
+Variant: Crush On Hit
+Variant: Deal Double Damage
 Variant: Ignite Freeze Shock
+Variant: Inflict Cold Exposure On Hit
+Variant: Inflict Fire Exposure On Hit
+Variant: Inflict Lightning Exposure On Hit
+Variant: Intimidate 
+Variant: Maim
+Variant: Phys Damage Add As Cold
+Variant: Phys Damage Add As Fire
+Variant: Phys Damage Add As Lightning
+Variant: Phys Damage Convert To Cold
+Variant: Phys Damage Convert To Fire
+Variant: Phys Damage Convert To Lightning
+Variant: Pierce
+Variant: Poison
+Variant: Projectiles Fork
+Variant: Splits
+Variant: Unnerve 
 Requires Level 69, 46 Str, 46 Dex, 46 Int
 Has no Sockets
 Triggers Level 20 Summon Arbalists when Equipped
 25% increased Movement Speed
-{variant:2}+1 to number of Summoned Arbalists
-{variant:3}Summoned Arbalists fire (2-4) additional Projectiles
+{variant:2}Summoned Arbalists fire (2-4) additional Projectiles
+{variant:3}+1 to number of Summoned Arbalists
 {variant:4}Summoned Arbalists have (30-40)% increased Attack Speed
-{variant:5}Summoned Arbalists' Projectiles Pierce (2-4) additional Targets
-{variant:6}Summoned Arbalists' Projectiles Fork
-{variant:7}Summoned Arbalists' Projectiles Chain +2 times
-{variant:8}Summoned Arbalists' Projectiles Split into 3
-{variant:9}Summoned Arbalists have (25-35)% chance to deal Double Damage
-{variant:10}Summoned Arbalists have (20-30)% chance to Maim for 4 seconds on Hit
-{variant:11}Summoned Arbalists have (20-30)% chance to Intimidate for 4 seconds on Hit
-{variant:12}Summoned Arbalists have (20-30)% chance to Unnerve for 4 seconds on Hit
-{variant:13}Summoned Arbalists have (10-20)% chance to inflict Fire Exposure on Hit
-{variant:14}Summoned Arbalists have (10-20)% chance to inflict Cold Exposure on Hit
-{variant:15}Summoned Arbalists have (10-20)% chance to inflict Lightning Exposure on Hit
-{variant:16}Summoned Arbalists have (10-20)% chance to Crush on Hit
-{variant:17}Summoned Arbalists Convert 100% of Physical Damage to Fire Damage
-{variant:17}Summoned Arbalists have (10-20)% chance to Ignite
+{variant:5}Summoned Arbalists' Attacks have (40-60)% chance to inflict Bleeding
+{variant:6}Summoned Arbalists' Projectiles Chain +2 times
+{variant:7}Summoned Arbalists have (10-20)% chance to Crush on Hit
+{variant:8}Summoned Arbalists have (25-35)% chance to deal Double Damage
+{variant:9}Summoned Arbalists have (15-25)% chance to Freeze, Shock, and Ignite
+{variant:10}Summoned Arbalists have (10-20)% chance to inflict Cold Exposure on Hit
+{variant:11}Summoned Arbalists have (10-20)% chance to inflict Fire Exposure on Hit
+{variant:12}Summoned Arbalists have (10-20)% chance to inflict Lightning Exposure on Hit
+{variant:13}Summoned Arbalists have (20-30)% chance to Intimidate for 4 seconds on Hit
+{variant:14}Summoned Arbalists have (20-30)% chance to Maim for 4 seconds on Hit
+{variant:15}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Cold Damage
+{variant:15}Summoned Arbalists have 20% chance to inflict Cold Exposure on Hit
+{variant:16}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Fire Damage
+{variant:16}Summoned Arbalists have 20% chance to inflict Fire Exposure on Hit
+{variant:17}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Lightning Damage
+{variant:17}Summoned Arbalists have 20% chance to inflict Lightning Exposure on Hit
 {variant:18}Summoned Arbalists Convert 100% of Physical Damage to Cold Damage
 {variant:18}Summoned Arbalists have (10-20)% chance to Freeze
-{variant:19}Summoned Arbalists Convert 100% of Physical Damage to Lightning Damage
-{variant:19}Summoned Arbalists have (10-20)% chance to Shock
-{variant:20}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Fire Damage
-{variant:20}Summoned Arbalists have 20% chance to inflict Fire Exposure on Hit
-{variant:21}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Cold Damage
-{variant:21}Summoned Arbalists have 20% chance to inflict Cold Exposure on Hit
-{variant:22}Summoned Arbalists gain (30-40)% of Physical Damage as Extra Lightning Damage
-{variant:22}Summoned Arbalists have 20% chance to inflict Lightning Exposure on Hit
-{variant:23}Summoned Arbalists' Attacks have (40-60)% chance to inflict Bleeding
-{variant:24}Summoned Arbalists have (40-60)% chance to Poison
-{variant:25}Summoned Arbalists have (15-25)% chance to Freeze, Shock, and Ignite
+{variant:19}Summoned Arbalists Convert 100% of Physical Damage to Fire Damage
+{variant:19}Summoned Arbalists have (10-20)% chance to Ignite
+{variant:20}Summoned Arbalists Convert 100% of Physical Damage to Lightning Damage
+{variant:20}Summoned Arbalists have (10-20)% chance to Shock
+{variant:21}Summoned Arbalists' Projectiles Pierce (2-4) additional Targets
+{variant:22}Summoned Arbalists have (40-60)% chance to Poison
+{variant:23}Summoned Arbalists' Projectiles Fork
+{variant:24}Summoned Arbalists' Projectiles Split into 3
+{variant:25}Summoned Arbalists have (20-30)% chance to Unnerve for 4 seconds on Hit
 ]],
 [[
 Watcher's Eye
@@ -4666,211 +4670,211 @@ Selected Variant: 5
 Selected Alt Variant: 30
 Selected Alt Variant Two: 1
 Variant: None
-Variant: Determination: Phys Damage Reduction
-Variant: Determination: Additional Block
-Variant: Determination: Unaffected By Vulnerability
-Variant: Determination: Red. Extra Damage From Crits
-Variant: Determination: Red. Reflected Phys Damage
-Variant: Determination: Additional Armour
-Variant: Grace: Additional Chance To Evade
-Variant: Grace: Chance to Suppress Spells
-Variant: Grace: Unaffected By Enfeeble
-Variant: Grace: Inc Movement Speed
-Variant: Grace: Blind Enemies When Hit
-Variant: Discipline: ES Regen
-Variant: Discipline: Additional Spell Block
-Variant: Discipline: Faster Start Of Recharge
-Variant: Discipline: ES Per Hit
-Variant: Discipline: ES Recovery Rate (Pre 3.12.0)
-Variant: Discipline: ES Recovery Rate
-Variant: Wrath: Lightning Penetration
-Variant: Wrath: Lightning Damage Mana Leech (Pre 3.8.0)
-Variant: Wrath: Lightning Damage ES Leech
-Variant: Wrath: Phys Added As Lightning
-Variant: Wrath: Phys Converted To Lightning
-Variant: Wrath: Inc Lightning Damage
-Variant: Wrath: Inc Crit Strike Chance
-Variant: Anger: Fire Penetration
 Variant: Anger: Fire Damage Life Leech
+Variant: Anger: Fire Penetration
+Variant: Anger: Inc Crit Strike Mult
+Variant: Anger: Inc Fire Damage
 Variant: Anger: Phys Added As Fire
 Variant: Anger: Phys Converted To Fire
-Variant: Anger: Inc Fire Damage
-Variant: Anger: Inc Crit Strike Mult
-Variant: Hatred: Cold Penetration
-Variant: Hatred: Additional Crit Strike Chance
-Variant: Hatred: Added Cold Damage
-Variant: Hatred: Phys Converted To Cold
-Variant: Hatred: Inc Cold Damage
-Variant: Vitality: Damage Life Leech (Pre 3.12.0)
-Variant: Vitality: Damage Life Leech
-Variant: Vitality: Flat Life Regen (Pre 3.12.0)
-Variant: Vitality: Percent Life Regen
-Variant: Vitality: Life Recovery Rate (Pre 3.12.0)
-Variant: Vitality: Life Recovery Rate
-Variant: Vitality: Life Gain Per Hit
-Variant: Vitality: Life Recovery From Flasks
-Variant: Clarity: Red. Mana Cost (Pre 3.8.0)
-Variant: Clarity: Red. Mana Cost Non Channelled
 Variant: Clarity: Damage Taken From Mana Before Life
-Variant: Clarity: Recover Mana On Skill Use
+Variant: Clarity: Damage Taken Gained As Mana
 Variant: Clarity: Mana Added As ES (Pre 3.12.0)
 Variant: Clarity: Mana Added As ES
 Variant: Clarity: Mana Recovery Rate (Pre 3.12.0)
 Variant: Clarity: Mana Recovery Rate
-Variant: Clarity: Damage Taken Gained As Mana
+Variant: Clarity: Recover Mana On Skill Use
+Variant: Clarity: Red. Mana Cost (Pre 3.8.0)
+Variant: Clarity: Red. Mana Cost Non Channelled
+Variant: Determination: Additional Armour
+Variant: Determination: Additional Block
+Variant: Determination: Phys Damage Reduction
+Variant: Determination: Red. Extra Damage From Crits
+Variant: Determination: Red. Reflected Phys Damage
+Variant: Determination: Unaffected By Vulnerability
+Variant: Discipline: Additional Spell Block
+Variant: Discipline: ES Per Hit
+Variant: Discipline: ES Recovery Rate (Pre 3.12.0)
+Variant: Discipline: ES Recovery Rate
+Variant: Discipline: ES Regen
+Variant: Discipline: Faster Start Of Recharge
+Variant: Grace: Additional Chance To Evade
+Variant: Grace: Blind Enemies When Hit
+Variant: Grace: Chance to Suppress Spells
+Variant: Grace: Inc Movement Speed
+Variant: Grace: Unaffected By Enfeeble
 Variant: Haste: Chance to Suppress Spells
+Variant: Haste: Cooldown Recovery For Movement Skills
+Variant: Haste: Debuffs Expire Faster
 Variant: Haste: Gain Onslaught On Kill
 Variant: Haste: Gain Phasing
 Variant: Haste: Unaffected By Temporal Chains
-Variant: Haste: Debuffs Expire Faster
-Variant: Haste: Cooldown Recovery For Movement Skills
-Variant: Purity Of Fire: Take Phys As Fire
-Variant: Purity Of Fire: Immune To Ignite
-Variant: Purity Of Fire: Unaffected By Burning Ground
-Variant: Purity Of Fire: Unaffected By Flammability
-Variant: Purity Of Ice: Take Phys As Ice
-Variant: Purity Of Ice: Immune To Freeze
-Variant: Purity Of Ice: Unaffected By Chilled Ground
-Variant: Purity Of Ice: Unaffected By Frostbite
-Variant: Purity Of Lightning: Take Phys As Lightning
-Variant: Purity Of Lightning: Immune To Shock
-Variant: Purity Of Lightning: Unaffected By Shocked Ground
-Variant: Purity Of Lightning: Unaffected By Conductivity
-Variant: Purity Of Elements: Take Phys As Fire
-Variant: Purity Of Elements: Take Phys As Cold
-Variant: Purity Of Elements: Take Phys As Lightning
-Variant: Purity Of Elements: Unaffected By Ele Weakness
-Variant: Purity Of Elements: Red. Reflected Ele Damage
-Variant: Purity Of Elements: Chaos Resistance
-Variant: Precision: Inc Crit Strike Mult (Pre 3.12.0)
-Variant: Precision: Inc Crit Strike Mult
-Variant: Precision: Inc Attack Damage
-Variant: Precision: Flask Charge On Crit
-Variant: Precision: Inc Attack Speed
-Variant: Precision: Cannot Be Blinded
-Variant: Pride: Chance For Double Damage
-Variant: Pride: Intimidate On Hit
-Variant: Pride: Inc Phys Damage
-Variant: Pride: Chance To Impale
-Variant: Pride: Impale Additional Hits
-Variant: Malevolence: Life And ES Recovery Rate (Pre 3.12.0)
-Variant: Malevolence: Life And ES Recovery Rate
-Variant: Malevolence: Unaffected By Poison
-Variant: Malevolence: Unaffected By Bleeding
-Variant: Malevolence: Your Ailments Deal Damage Faster
+Variant: Hatred: Added Cold Damage
+Variant: Hatred: Additional Crit Strike Chance
+Variant: Hatred: Cold Penetration
+Variant: Hatred: Inc Cold Damage
+Variant: Hatred: Phys Converted To Cold
 Variant: Malevolence: Damage Over Time Mult (Pre 3.8.0)
 Variant: Malevolence: Damage Over Time Mult
-Variant: Zealotry: Crit Strikes Penetrates Ele Resistances
+Variant: Malevolence: Life And ES Recovery Rate (Pre 3.12.0)
+Variant: Malevolence: Life And ES Recovery Rate
+Variant: Malevolence: Unaffected By Bleeding
+Variant: Malevolence: Unaffected By Poison
+Variant: Malevolence: Your Ailments Deal Damage Faster
+Variant: Precision: Cannot Be Blinded
+Variant: Precision: Flask Charge On Crit
+Variant: Precision: Inc Attack Damage
+Variant: Precision: Inc Attack Speed
+Variant: Precision: Inc Crit Strike Mult (Pre 3.12.0)
+Variant: Precision: Inc Crit Strike Mult
+Variant: Pride: Chance For Double Damage
+Variant: Pride: Chance To Impale
+Variant: Pride: Impale Additional Hits
+Variant: Pride: Inc Phys Damage
+Variant: Pride: Intimidate On Hit
+Variant: Purity Of Elements: Chaos Resistance
+Variant: Purity Of Elements: Red. Reflected Ele Damage
+Variant: Purity Of Elements: Take Phys As Cold
+Variant: Purity Of Elements: Take Phys As Fire
+Variant: Purity Of Elements: Take Phys As Lightning
+Variant: Purity Of Elements: Unaffected By Ele Weakness
+Variant: Purity Of Fire: Immune To Ignite
+Variant: Purity Of Fire: Take Phys As Fire
+Variant: Purity Of Fire: Unaffected By Burning Ground
+Variant: Purity Of Fire: Unaffected By Flammability
+Variant: Purity Of Ice: Immune To Freeze
+Variant: Purity Of Ice: Take Phys As Ice
+Variant: Purity Of Ice: Unaffected By Chilled Ground
+Variant: Purity Of Ice: Unaffected By Frostbite
+Variant: Purity Of Lightning: Immune To Shock
+Variant: Purity Of Lightning: Take Phys As Lightning
+Variant: Purity Of Lightning: Unaffected By Conductivity
+Variant: Purity Of Lightning: Unaffected By Shocked Ground
+Variant: Vitality: Damage Life Leech (Pre 3.12.0)
+Variant: Vitality: Damage Life Leech
+Variant: Vitality: Flat Life Regen (Pre 3.12.0)
+Variant: Vitality: Life Gain Per Hit
+Variant: Vitality: Life Recovery From Flasks
+Variant: Vitality: Life Recovery Rate (Pre 3.12.0)
+Variant: Vitality: Life Recovery Rate
+Variant: Vitality: Percent Life Regen
+Variant: Wrath: Inc Crit Strike Chance
+Variant: Wrath: Inc Lightning Damage
+Variant: Wrath: Lightning Damage ES Leech
+Variant: Wrath: Lightning Damage Mana Leech (Pre 3.8.0)
+Variant: Wrath: Lightning Penetration
+Variant: Wrath: Phys Added As Lightning
+Variant: Wrath: Phys Converted To Lightning
 Variant: Zealotry: Cast Speed
 Variant: Zealotry: Consecrated Ground Effect Lingers For Ms After Leaving The Area
 Variant: Zealotry: Consecrated Ground Enemy Damage Taken
+Variant: Zealotry: Crit Strike Chance Against Enemies On Consecrated Ground
+Variant: Zealotry: Crit Strikes Penetrates Ele Resistances
 Variant: Zealotry: Gain Arcane Surge For 4 Seconds When You Create Consecrated Ground
 Variant: Zealotry: Maximum ES Per Second To Maximum ES Leech Rate
-Variant: Zealotry: Crit Strike Chance Against Enemies On Consecrated Ground
 Limited to: 1
 (4-6)% increased maximum Energy Shield
 (4-6)% increased maximum Life
 (4-6)% increased maximum Mana
-{variant:2}(5-8)% additional Physical Damage Reduction while affected by Determination
-{variant:3}+(5-8)% Chance to Block Attack Damage while affected by Determination
-{variant:4}Unaffected by Vulnerability while affected by Determination
-{variant:5}You take (40-60)% reduced Extra Damage from Critical Strikes while affected by Determination
-{variant:6}(40-50)% reduced Reflected Physical Damage taken while affected by Determination
-{variant:7}+(600-1000) to Armour while affected by Determination
-{variant:8}+(5-8)% chance to Evade Attack Hits while affected by Grace
-{variant:9}+(12-15)% chance to Suppress Spell Damage while affected by Grace
-{variant:10}Unaffected by Enfeeble while affected by Grace
-{variant:11}(10-15)% increased Movement Speed while affected by Grace
-{variant:12}(30-50)% chance to Blind Enemies which Hit you while affected by Grace
-{variant:13}Regenerate (1.5-2.5)% of Energy Shield per Second while affected by Discipline
-{variant:14}+(5-8)% Chance to Block Spell Damage while affected by Discipline
-{variant:15}(30-40)% faster start of Energy Shield Recharge while affected by Discipline
-{variant:16}Gain (20-30) Energy Shield per Enemy Hit while affected by Discipline
-{variant:17}(20-30)% increased Energy Shield Recovery Rate while affected by Discipline
-{variant:18}(10-15)% increased Energy Shield Recovery Rate while affected by Discipline
-{variant:19}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
-{variant:20}(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath
-{variant:21}(1-1.5)% of Lightning Damage is Leeched as Energy Shield while affected by Wrath
-{variant:22}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
-{variant:23}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
-{variant:24}(40-60)% increased Lightning Damage while affected by Wrath
-{variant:25}(70-100)% increased Critical Strike Chance while affected by Wrath
-{variant:26}Damage Penetrates (10-15)% Fire Resistance while affected by Anger
-{variant:27}(1-1.5)% of Fire Damage Leeched as Life while affected by Anger
-{variant:28}Gain (15-25)% of Physical Damage as Extra Fire Damage while affected by Anger
-{variant:29}(25-40)% of Physical Damage Converted to Fire Damage while affected by Anger
-{variant:30}(40-60)% increased Fire Damage while affected by Anger
-{variant:31}+(30-50)% to Critical Strike Multiplier while affected by Anger
-{variant:32}Damage Penetrates (10-15)% Cold Resistance while affected by Hatred
-{variant:33}+(1.2-1.8)% to Critical Strike Chance while affected by Hatred
-{variant:34}Adds (58-70) to (88-104) Cold Damage while affected by Hatred
-{variant:35}(25-40)% of Physical Damage Converted to Cold Damage while affected by Hatred
-{variant:36}(40-60)% increased Cold Damage while affected by Hatred
-{variant:37}(1-1.5)% of Damage leeched as Life while affected by Vitality
-{variant:38}(0.8-1.2)% of Damage leeched as Life while affected by Vitality
-{variant:39}Regenerate (100-140) Life per Second while affected by Vitality
-{variant:40}Regenerate (1-1.5)% of Life per second while affected by Vitality
-{variant:41}(20-30)% increased Life Recovery Rate while affected by Vitality
-{variant:42}(10-15)% increased Life Recovery Rate while affected by Vitality
-{variant:43}Gain (20-30) Life per Enemy Hit while affected by Vitality
-{variant:44}(50-70)% increased Life Recovery from Flasks while affected by Vitality
-{variant:45}-(10-5) to Total Mana Cost of Skills while affected by Clarity
-{variant:46}Non-Channelling Skills have -(10-5) to Total Mana Cost while affected by Clarity
-{variant:47}(6-10)% of Damage taken from Mana before Life while affected by Clarity
-{variant:48}(10-15)% chance to Recover 10% of Mana when you use a Skill while affected by Clarity
-{variant:49}Gain (12-18)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity
-{variant:50}Gain (6-10)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity
-{variant:51}(20-30)% increased Mana Recovery Rate while affected by Clarity
-{variant:52}(10-15)% increased Mana Recovery Rate while affected by Clarity
-{variant:53}(15-20)% of Damage taken while affected by Clarity Recouped as Mana
-{variant:54}+(5-8)% chance to Suppress Spell Damage while affected by Haste
-{variant:55}You gain Onslaught for 4 seconds on Kill while affected by Haste
-{variant:56}You have Phasing while affected by Haste
-{variant:57}Unaffected by Temporal Chains while affected by Haste
-{variant:58}Debuffs on you expire (15-20)% faster while affected by Haste
-{variant:59}(30-50)% increased Cooldown Recovery Rate of Movement Skills used while affected by Haste
-{variant:60}(6-10)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire
-{variant:61}Immune to Ignite while affected by Purity of Fire
-{variant:62}Unaffected by Burning Ground while affected by Purity of Fire
-{variant:63}Unaffected by Flammability while affected by Purity of Fire
-{variant:64}(6-10)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice
-{variant:65}Immune to Freeze while affected by Purity of Ice
-{variant:66}Unaffected by Chilled Ground while affected by Purity of Ice
-{variant:67}Unaffected by Frostbite while affected by Purity of Ice
-{variant:68}(6-10)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning
-{variant:69}Immune to Shock while affected by Purity of Lightning
-{variant:70}Unaffected by Shocked Ground while affected by Purity of Lightning
-{variant:71}Unaffected by Conductivity while affected by Purity of Lightning
-{variant:72}(8-12)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements
-{variant:73}(8-12)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements
-{variant:74}(8-12)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements
-{variant:75}Unaffected by Elemental Weakness while affected by Purity of Elements
-{variant:76}(40-50)% reduced Reflected Elemental Damage taken while affected by Purity of Elements
-{variant:77}+(30-50)% to Chaos Resistance while affected by Purity of Elements
-{variant:78}+(30-50)% to Critical Strike Multiplier while affected by Precision
-{variant:79}+(20-30)% to Critical Strike Multiplier while affected by Precision
-{variant:80}(40-60)% increased Attack Damage while affected by Precision
-{variant:81}Gain a Flask Charge when you deal a Critical Strike while affected by Precision
-{variant:82}(10-15)% increased Attack Speed while affected by Precision
-{variant:83}Cannot be Blinded while affected by Precision
-{variant:84}(8-12)% chance to deal Double Damage while using Pride
-{variant:85}Your Hits Intimidate Enemies for 4 seconds while you are using Pride
-{variant:86}(40-60)% increased Physical Damage while using Pride
-{variant:87}25% chance to Impale Enemies on Hit with Attacks while using Pride
-{variant:88}Impales you inflict last 2 additional Hits while using Pride
-{variant:89}(15-20)% increased Recovery rate of Life and Energy Shield while affected by Malevolence
-{variant:90}(8-12)% increased Recovery rate of Life and Energy Shield while affected by Malevolence
-{variant:91}Unaffected by Poison while affected by Malevolence
-{variant:92}Unaffected by Bleeding while affected by Malevolence
-{variant:93}Damaging Ailments you inflict deal Damage (10-15)% faster while affected by Malevolence
-{variant:94}+(36-44)% to Damage over Time Multiplier while affected by Malevolence
-{variant:95}+(18-22)% to Damage over Time Multiplier while affected by Malevolence
-{variant:96}Critical Strikes Penetrate (8-10)% of Enemy Elemental Resistances while affected by Zealotry
-{variant:97}(10-15)% increased Cast Speed while affected by Zealotry
-{variant:98}Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds
-{variant:99}Consecrated Ground you create while affected by Zealotry causes enemies to take (8-10)% increased Damage
-{variant:100}Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry
-{variant:101}30% increased Maximum total Energy Shield Recovery per second from Leech while affected by Zealotry
-{variant:102}(100-120)% increased Critical Strike Chance against Enemies on Consecrated Ground while affected by Zealotry
+{variant:2}(1-1.5)% of Fire Damage Leeched as Life while affected by Anger
+{variant:3}Damage Penetrates (10-15)% Fire Resistance while affected by Anger
+{variant:4}+(30-50)% to Critical Strike Multiplier while affected by Anger
+{variant:5}(40-60)% increased Fire Damage while affected by Anger
+{variant:6}Gain (15-25)% of Physical Damage as Extra Fire Damage while affected by Anger
+{variant:7}(25-40)% of Physical Damage Converted to Fire Damage while affected by Anger
+{variant:8}(6-10)% of Damage taken from Mana before Life while affected by Clarity
+{variant:9}(15-20)% of Damage taken while affected by Clarity Recouped as Mana
+{variant:10}Gain (12-18)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity
+{variant:11}Gain (6-10)% of Maximum Mana as Extra Maximum Energy Shield while affected by Clarity
+{variant:12}(20-30)% increased Mana Recovery Rate while affected by Clarity
+{variant:13}(10-15)% increased Mana Recovery Rate while affected by Clarity
+{variant:14}(10-15)% chance to Recover 10% of Mana when you use a Skill while affected by Clarity
+{variant:15}-(10-5) to Total Mana Cost of Skills while affected by Clarity
+{variant:16}Non-Channelling Skills have -(10-5) to Total Mana Cost while affected by Clarity
+{variant:17}+(600-1000) to Armour while affected by Determination
+{variant:18}+(5-8)% Chance to Block Attack Damage while affected by Determination
+{variant:19}(5-8)% additional Physical Damage Reduction while affected by Determination
+{variant:20}You take (40-60)% reduced Extra Damage from Critical Strikes while affected by Determination
+{variant:21}(40-50)% reduced Reflected Physical Damage taken while affected by Determination
+{variant:22}Unaffected by Vulnerability while affected by Determination
+{variant:23}+(5-8)% Chance to Block Spell Damage while affected by Discipline
+{variant:24}Gain (20-30) Energy Shield per Enemy Hit while affected by Discipline
+{variant:25}(20-30)% increased Energy Shield Recovery Rate while affected by Discipline
+{variant:26}(10-15)% increased Energy Shield Recovery Rate while affected by Discipline
+{variant:27}Regenerate (1.5-2.5)% of Energy Shield per Second while affected by Discipline
+{variant:28}(30-40)% faster start of Energy Shield Recharge while affected by Discipline
+{variant:29}+(5-8)% chance to Evade Attack Hits while affected by Grace
+{variant:30}(30-50)% chance to Blind Enemies which Hit you while affected by Grace
+{variant:31}+(12-15)% chance to Suppress Spell Damage while affected by Grace
+{variant:32}(10-15)% increased Movement Speed while affected by Grace
+{variant:33}Unaffected by Enfeeble while affected by Grace
+{variant:34}+(5-8)% chance to Suppress Spell Damage while affected by Haste
+{variant:35}(30-50)% increased Cooldown Recovery Rate of Movement Skills used while affected by Haste
+{variant:36}Debuffs on you expire (15-20)% faster while affected by Haste
+{variant:37}You gain Onslaught for 4 seconds on Kill while affected by Haste
+{variant:38}You have Phasing while affected by Haste
+{variant:39}Unaffected by Temporal Chains while affected by Haste
+{variant:40}Adds (58-70) to (88-104) Cold Damage while affected by Hatred
+{variant:41}+(1.2-1.8)% to Critical Strike Chance while affected by Hatred
+{variant:42}Damage Penetrates (10-15)% Cold Resistance while affected by Hatred
+{variant:43}(40-60)% increased Cold Damage while affected by Hatred
+{variant:44}(25-40)% of Physical Damage Converted to Cold Damage while affected by Hatred
+{variant:45}+(36-44)% to Damage over Time Multiplier while affected by Malevolence
+{variant:46}+(18-22)% to Damage over Time Multiplier while affected by Malevolence
+{variant:47}(15-20)% increased Recovery rate of Life and Energy Shield while affected by Malevolence
+{variant:48}(8-12)% increased Recovery rate of Life and Energy Shield while affected by Malevolence
+{variant:49}Unaffected by Bleeding while affected by Malevolence
+{variant:50}Unaffected by Poison while affected by Malevolence
+{variant:51}Damaging Ailments you inflict deal Damage (10-15)% faster while affected by Malevolence
+{variant:52}Cannot be Blinded while affected by Precision
+{variant:53}Gain a Flask Charge when you deal a Critical Strike while affected by Precision
+{variant:54}(40-60)% increased Attack Damage while affected by Precision
+{variant:55}(10-15)% increased Attack Speed while affected by Precision
+{variant:56}+(30-50)% to Critical Strike Multiplier while affected by Precision
+{variant:57}+(20-30)% to Critical Strike Multiplier while affected by Precision
+{variant:58}(8-12)% chance to deal Double Damage while using Pride
+{variant:59}25% chance to Impale Enemies on Hit with Attacks while using Pride
+{variant:60}Impales you inflict last 2 additional Hits while using Pride
+{variant:61}(40-60)% increased Physical Damage while using Pride
+{variant:62}Your Hits Intimidate Enemies for 4 seconds while you are using Pride
+{variant:63}+(30-50)% to Chaos Resistance while affected by Purity of Elements
+{variant:64}(40-50)% reduced Reflected Elemental Damage taken while affected by Purity of Elements
+{variant:65}(8-12)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Elements
+{variant:66}(8-12)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Elements
+{variant:67}(8-12)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Elements
+{variant:68}Unaffected by Elemental Weakness while affected by Purity of Elements
+{variant:69}Immune to Ignite while affected by Purity of Fire
+{variant:70}(6-10)% of Physical Damage from Hits taken as Fire Damage while affected by Purity of Fire
+{variant:71}Unaffected by Burning Ground while affected by Purity of Fire
+{variant:72}Unaffected by Flammability while affected by Purity of Fire
+{variant:73}Immune to Freeze while affected by Purity of Ice
+{variant:74}(6-10)% of Physical Damage from Hits taken as Cold Damage while affected by Purity of Ice
+{variant:75}Unaffected by Chilled Ground while affected by Purity of Ice
+{variant:76}Unaffected by Frostbite while affected by Purity of Ice
+{variant:77}Immune to Shock while affected by Purity of Lightning
+{variant:78}(6-10)% of Physical Damage from Hits taken as Lightning Damage while affected by Purity of Lightning
+{variant:79}Unaffected by Conductivity while affected by Purity of Lightning
+{variant:80}Unaffected by Shocked Ground while affected by Purity of Lightning
+{variant:81}(1-1.5)% of Damage leeched as Life while affected by Vitality
+{variant:82}(0.8-1.2)% of Damage leeched as Life while affected by Vitality
+{variant:83}Regenerate (100-140) Life per Second while affected by Vitality
+{variant:84}Gain (20-30) Life per Enemy Hit while affected by Vitality
+{variant:85}(50-70)% increased Life Recovery from Flasks while affected by Vitality
+{variant:86}(20-30)% increased Life Recovery Rate while affected by Vitality
+{variant:87}(10-15)% increased Life Recovery Rate while affected by Vitality
+{variant:88}Regenerate (1-1.5)% of Life per second while affected by Vitality
+{variant:89}(70-100)% increased Critical Strike Chance while affected by Wrath
+{variant:90}(40-60)% increased Lightning Damage while affected by Wrath
+{variant:91}(1-1.5)% of Lightning Damage is Leeched as Energy Shield while affected by Wrath
+{variant:92}(1-1.5)% of Lightning Damage is Leeched as Mana while affected by Wrath
+{variant:93}Damage Penetrates (10-15)% Lightning Resistance while affected by Wrath
+{variant:94}Gain (15-25)% of Physical Damage as Extra Lightning Damage while affected by Wrath
+{variant:95}(25-40)% of Physical Damage Converted to Lightning Damage while affected by Wrath
+{variant:96}(10-15)% increased Cast Speed while affected by Zealotry
+{variant:97}Effects of Consecrated Ground you create while affected by Zealotry Linger for 2 seconds
+{variant:98}Consecrated Ground you create while affected by Zealotry causes enemies to take (8-10)% increased Damage
+{variant:99}(100-120)% increased Critical Strike Chance against Enemies on Consecrated Ground while affected by Zealotry
+{variant:100}Critical Strikes Penetrate (8-10)% of Enemy Elemental Resistances while affected by Zealotry
+{variant:101}Gain Arcane Surge for 4 seconds when you create Consecrated Ground while affected by Zealotry
+{variant:102}30% increased Maximum total Energy Shield Recovery per second from Leech while affected by Zealotry
 ]],
 }
