@@ -383,558 +383,558 @@ Replica Dragonfang's Flight
 Onyx Amulet
 Variant: Pre 3.23.0
 Variant: Current
-Variant: Fireball
-Variant: Ice Nova
-Variant: Leap Slam
-Variant: Sweep
-Variant: Ground Slam
-Variant: Cleave
-Variant: Shield Charge
-Variant: Enduring Cry
-Variant: Double Strike
-Variant: Elemental Hit
-Variant: Immortal Call
-Variant: Dual Strike
-Variant: Whirling Blades
-Variant: Frenzy
-Variant: Cold Snap
-Variant: Raise Zombie
-Variant: Detonate Dead
-Variant: Caustic Arrow
-Variant: Creeping Frost
-Variant: Ice Shot
-Variant: Static Strike
-Variant: Split Arrow
-Variant: Blood Rage
-Variant: Righteous Fire
-Variant: Discharge
-Variant: Flicker Strike
-Variant: Spark
-Variant: Ice Spear
-Variant: Raise Spectre
-Variant: Infernal Blow
-Variant: Glacial Hammer
-Variant: Frost Wall
-Variant: Freezing Pulse
-Variant: Shock Nova
-Variant: Viper Strike
-Variant: Phase Run
-Variant: Explosive Arrow
-Variant: Temporal Chains
-Variant: Elemental Weakness
-Variant: Warlord's Mark
-Variant: Punishment
-Variant: Enfeeble
-Variant: Assassin's Mark
-Variant: Sniper's Mark
-Variant: Despair
-Variant: Lightning Warp
-Variant: Summon Skeletons
-Variant: Riposte
-Variant: Vengeance
-Variant: Reckoning
-Variant: Heavy Strike
-Variant: Dominating Blow
-Variant: Rain of Arrows
-Variant: Firestorm
-Variant: Lightning Strike
-Variant: Tempest Shield
-Variant: Molten Shell
-Variant: Power Siphon
-Variant: Puncture
-Variant: Lightning Arrow
-Variant: Arc
-Variant: Haste
-Variant: Purity of Elements
-Variant: Vitality
-Variant: Discipline
-Variant: Grace
-Variant: Determination
+Variant: Absolution
+Variant: Alchemist's Mark
+Variant: Ambush
+Variant: Ancestral Cry
+Variant: Ancestral Protector
+Variant: Ancestral Warchief
 Variant: Anger
-Variant: Hatred
-Variant: Wrath
-Variant: Burning Arrow
-Variant: Clarity
-Variant: Shockwave Totem
-Variant: Rejuvenation Totem
-Variant: Conversion Trap
-Variant: Bear Trap
-Variant: Fire Trap
-Variant: Decoy Totem
-Variant: Devouring Totem
-Variant: Ethereal Knives
-Variant: Arctic Armour
-Variant: Holy Flame Totem
-Variant: Flammability
-Variant: Frostbite
-Variant: Conductivity
-Variant: Incinerate
-Variant: Cyclone
-Variant: Searing Bond
-Variant: Reave
-Variant: Lightning Trap
-Variant: Pyroclast Mine
-Variant: Smoke Mine
-Variant: Icicle Mine
-Variant: Stormblast Mine
 Variant: Animate Guardian
-Variant: Spectral Throw
 Variant: Animate Weapon
+Variant: Arc
+Variant: Arcane Cloak
+Variant: Arcanist Brand
+Variant: Arctic Armour
+Variant: Armageddon Brand
+Variant: Artillery Ballista
+Variant: Assassin's Mark
+Variant: Ball Lightning
+Variant: Bane
+Variant: Barrage
+Variant: Battlemage's Cry
+Variant: Bear Trap
+Variant: Berserk
+Variant: Blade Blast
+Variant: Blade Flurry
+Variant: Blade Trap
+Variant: Blade Vortex
+Variant: Bladefall
+Variant: Bladestorm
+Variant: Blast Rain
+Variant: Blazing Salvo
+Variant: Blight
+Variant: Blink Arrow
+Variant: Blood Rage
+Variant: Blood and Sand
+Variant: Bodyswap
+Variant: Bone Offering
+Variant: Boneshatter
+Variant: Brand Recall
+Variant: Burning Arrow
+Variant: Caustic Arrow
+Variant: Chain Hook
+Variant: Charged Dash
+Variant: Clarity
+Variant: Cleave
+Variant: Cobra Lash
+Variant: Cold Snap
+Variant: Conductivity
+Variant: Consecrated Path
+Variant: Contagion
+Variant: Conversion Trap
+Variant: Convocation
+Variant: Corrupting Fever
+Variant: Crackling Lance
+Variant: Creeping Frost
+Variant: Cremation
+Variant: Cyclone
+Variant: Dark Pact
+Variant: Dash
+Variant: Decoy Totem
+Variant: Defiance Banner
+Variant: Desecrate
+Variant: Despair
+Variant: Destructive Link
+Variant: Determination
+Variant: Detonate Dead
+Variant: Devouring Totem
+Variant: Discharge
+Variant: Discipline
+Variant: Divine Ire
+Variant: Dominating Blow
+Variant: Double Strike
+Variant: Dread Banner
+Variant: Dual Strike
+Variant: Earthquake
+Variant: Earthshatter
+Variant: Elemental Hit
+Variant: Elemental Weakness
+Variant: Enduring Cry
+Variant: Energy Blade
+Variant: Enfeeble
+Variant: Ensnaring Arrow
+Variant: Essence Drain
+Variant: Ethereal Knives
+Variant: Explosive Arrow
+Variant: Explosive Concoction
+Variant: Explosive Trap
+Variant: Exsanguinate
+Variant: Eye of Winter
+Variant: Fire Trap
+Variant: Fireball
+Variant: Firestorm
+Variant: Flame Dash
+Variant: Flame Link
+Variant: Flame Surge
+Variant: Flame Wall
+Variant: Flameblast
+Variant: Flamethrower Trap
+Variant: Flammability
+Variant: Flesh Offering
+Variant: Flesh and Stone
+Variant: Flicker Strike
+Variant: Forbidden Rite
+Variant: Freezing Pulse
+Variant: Frenzy
+Variant: Frost Blades
+Variant: Frost Bomb
+Variant: Frost Shield
+Variant: Frost Wall
+Variant: Frostbite
+Variant: Frostblink
+Variant: Frostbolt
+Variant: Frozen Legion
+Variant: Galvanic Arrow
+Variant: Galvanic Field
+Variant: General's Cry
+Variant: Glacial Cascade
+Variant: Glacial Hammer
+Variant: Grace
+Variant: Ground Slam
+Variant: Haste
+Variant: Hatred
+Variant: Heavy Strike
+Variant: Herald of Agony
+Variant: Herald of Ash
+Variant: Herald of Ice
+Variant: Herald of Purity
+Variant: Herald of Thunder
+Variant: Hexblast
+Variant: Holy Flame Totem
+Variant: Hydrosphere
+Variant: Ice Crash
+Variant: Ice Nova
+Variant: Ice Shot
+Variant: Ice Spear
+Variant: Ice Trap
+Variant: Icicle Mine
+Variant: Immortal Call
+Variant: Incinerate
+Variant: Infernal Blow
+Variant: Infernal Cry
+Variant: Intimidating Cry
+Variant: Intuitive Link
+Variant: Kinetic Blast
+Variant: Kinetic Bolt
+Variant: Lacerate
+Variant: Lancing Steel
+Variant: Leap Slam
+Variant: Lightning Arrow
+Variant: Lightning Conduit
+Variant: Lightning Spire Trap
+Variant: Lightning Strike
+Variant: Lightning Tendrils
+Variant: Lightning Trap
+Variant: Lightning Warp
+Variant: Malevolence
+Variant: Manabond
+Variant: Mirror Arrow
+Variant: Molten Shell
+Variant: Molten Strike
+Variant: Orb of Storms
+Variant: Penance Brand
+Variant: Perforate
+Variant: Pestilent Strike
+Variant: Petrified Blood
+Variant: Phase Run
+Variant: Plague Bearer
+Variant: Poacher's Mark
+Variant: Poisonous Concoction
+Variant: Power Siphon
+Variant: Precision
+Variant: Pride
+Variant: Protective Link
+Variant: Puncture
+Variant: Punishment
+Variant: Purifying Flame
+Variant: Purity of Elements
 Variant: Purity of Fire
 Variant: Purity of Ice
 Variant: Purity of Lightning
-Variant: Storm Call
-Variant: Flameblast
-Variant: Barrage
-Variant: Ball Lightning
-Variant: Summon Raging Spirit
-Variant: Flame Surge
-Variant: Desecrate
-Variant: Flesh Offering
-Variant: Bone Offering
-Variant: Glacial Cascade
-Variant: Convocation
-Variant: Molten Strike
-Variant: Tornado Shot
-Variant: Herald of Ash
-Variant: Herald of Ice
-Variant: Herald of Thunder
-Variant: Poacher's Mark
-Variant: Lightning Tendrils
-Variant: Mirror Arrow
-Variant: Blink Arrow
-Variant: Kinetic Blast
-Variant: Summon Chaos Golem
-Variant: Summon Ice Golem
-Variant: Summon Flame Golem
-Variant: Summon Lightning Golem
-Variant: Ice Crash
-Variant: Rallying Cry
-Variant: Infernal Cry
-Variant: Vigilant Strike
-Variant: Rolling Magma
-Variant: Flame Dash
-Variant: Frost Blades
-Variant: Wild Strike
-Variant: Galvanic Arrow
-Variant: Blast Rain
-Variant: Bladefall
-Variant: Siege Ballista
-Variant: Blade Vortex
-Variant: Contagion
-Variant: Wither
-Variant: Essence Drain
-Variant: Ice Trap
-Variant: Orb of Storms
-Variant: Frost Bomb
-Variant: Summon Stone Golem
-Variant: Earthquake
-Variant: Snipe
-Variant: Sunder
-Variant: Ancestral Protector
-Variant: Ancestral Warchief
-Variant: Lacerate
-Variant: Spirit Offering
-Variant: Frostbolt
-Variant: Vortex
-Variant: Blight
-Variant: Scorching Ray
-Variant: Blade Flurry
-Variant: Charged Dash
-Variant: Dark Pact
-Variant: Storm Burst
-Variant: Cremation
-Variant: Bodyswap
-Variant: Volatile Dead
-Variant: Unearth
-Variant: Explosive Trap
-Variant: Siphoning Trap
-Variant: Flamethrower Trap
-Variant: Lightning Spire Trap
-Variant: Seismic Trap
-Variant: Vulnerability
-Variant: Tectonic Slam
-Variant: Spectral Shield Throw
-Variant: Herald of Purity
-Variant: Herald of Agony
-Variant: Consecrated Path
-Variant: Smite
-Variant: Scourge Arrow
-Variant: Toxic Rain
-Variant: Summon Holy Relic
-Variant: Winter Orb
-Variant: Storm Brand
-Variant: Armageddon Brand
-Variant: Brand Recall
-Variant: War Banner
-Variant: Dread Banner
-Variant: Shattering Steel
-Variant: Lancing Steel
-Variant: Purifying Flame
-Variant: Soulrend
-Variant: Bane
-Variant: Divine Ire
-Variant: Wave of Conviction
-Variant: Zealotry
-Variant: Malevolence
-Variant: Precision
-Variant: Steelskin
-Variant: Dash
-Variant: Bladestorm
-Variant: Blood and Sand
-Variant: Berserk
-Variant: Perforate
-Variant: Chain Hook
-Variant: Frostblink
-Variant: Flesh and Stone
-Variant: Pride
-Variant: Cobra Lash
-Variant: Withering Step
-Variant: Venom Gyre
-Variant: Summon Skitterbots
-Variant: Plague Bearer
-Variant: Pestilent Strike
-Variant: Summon Carrion Golem
-Variant: Artillery Ballista
-Variant: Shrapnel Ballista
-Variant: Ensnaring Arrow
-Variant: Stormbind
-Variant: Blade Blast
-Variant: Spellslinger
-Variant: Kinetic Bolt
-Variant: Arcane Cloak
-Variant: Intimidating Cry
-Variant: Ancestral Cry
-Variant: Seismic Cry
-Variant: General's Cry
-Variant: Arcanist Brand
-Variant: Penance Brand
-Variant: Wintertide Brand
-Variant: Earthshatter
-Variant: Sigil of Power
-Variant: Splitting Steel
-Variant: Flame Wall
-Variant: Blazing Salvo
-Variant: Crackling Lance
-Variant: Void Sphere
-Variant: Frost Shield
-Variant: Hydrosphere
-Variant: Hexblast
-Variant: Exsanguinate
-Variant: Corrupting Fever
-Variant: Petrified Blood
-Variant: Reap
-Variant: Defiance Banner
-Variant: Storm Rain
+Variant: Pyroclast Mine
 Variant: Rage Vortex
+Variant: Rain of Arrows
+Variant: Raise Spectre
+Variant: Raise Zombie
+Variant: Rallying Cry
+Variant: Reap
+Variant: Reave
+Variant: Reckoning
+Variant: Rejuvenation Totem
+Variant: Righteous Fire
+Variant: Riposte
+Variant: Rolling Magma
+Variant: Scorching Ray
+Variant: Scourge Arrow
+Variant: Searing Bond
+Variant: Seismic Cry
+Variant: Seismic Trap
+Variant: Shattering Steel
+Variant: Shield Charge
 Variant: Shield Crush
-Variant: Summon Reaper
-Variant: Boneshatter
-Variant: Ambush
-Variant: Voltaxic Burst
-Variant: Battlemage's Cry
-Variant: Absolution
-Variant: Eye of Winter
-Variant: Spectral Helix
-Variant: Forbidden Rite
-Variant: Blade Trap
-Variant: Manabond
-Variant: Explosive Concoction
-Variant: Poisonous Concoction
-Variant: Temporal Rift
-Variant: Energy Blade
-Variant: Tornado
+Variant: Shock Nova
+Variant: Shockwave Totem
+Variant: Shrapnel Ballista
+Variant: Siege Ballista
+Variant: Sigil of Power
+Variant: Siphoning Trap
+Variant: Smite
+Variant: Smoke Mine
+Variant: Snipe
+Variant: Sniper's Mark
 Variant: Soul Link
-Variant: Flame Link
-Variant: Intuitive Link
-Variant: Protective Link
+Variant: Soulrend
+Variant: Spark
+Variant: Spectral Helix
+Variant: Spectral Shield Throw
+Variant: Spectral Throw
+Variant: Spellslinger
+Variant: Spirit Offering
+Variant: Split Arrow
+Variant: Splitting Steel
+Variant: Static Strike
+Variant: Steelskin
+Variant: Storm Brand
+Variant: Storm Burst
+Variant: Storm Call
+Variant: Storm Rain
+Variant: Stormbind
+Variant: Stormblast Mine
+Variant: Summon Carrion Golem
+Variant: Summon Chaos Golem
+Variant: Summon Flame Golem
+Variant: Summon Holy Relic
+Variant: Summon Ice Golem
+Variant: Summon Lightning Golem
+Variant: Summon Raging Spirit
+Variant: Summon Reaper
+Variant: Summon Skeletons
+Variant: Summon Skitterbots
+Variant: Summon Stone Golem
+Variant: Sunder
+Variant: Sweep
+Variant: Tectonic Slam
+Variant: Tempest Shield
+Variant: Temporal Chains
+Variant: Temporal Rift
+Variant: Tornado
+Variant: Tornado Shot
+Variant: Toxic Rain
+Variant: Unearth
 Variant: Vampiric Link
-Variant: Destructive Link
-Variant: Galvanic Field
-Variant: Lightning Conduit
-Variant: Alchemist's Mark
-Variant: Frozen Legion
+Variant: Vengeance
+Variant: Venom Gyre
+Variant: Vigilant Strike
+Variant: Viper Strike
+Variant: Vitality
+Variant: Void Sphere
+Variant: Volatile Dead
 Variant: Volcanic Fissure
+Variant: Voltaxic Burst
+Variant: Vortex
+Variant: Vulnerability
+Variant: War Banner
+Variant: Warlord's Mark
+Variant: Wave of Conviction
+Variant: Whirling Blades
+Variant: Wild Strike
+Variant: Winter Orb
+Variant: Wintertide Brand
+Variant: Wither
+Variant: Withering Step
+Variant: Wrath
+Variant: Zealotry
 Has Alt Variant: true
 Selected Variant: 2
-Selected Alt Variant: 3
+Selected Alt Variant: 215
 LevelReq: 56
 Implicits: 1
 {tags: jewellery_attribute}+(10-16) to all Attributes
 {variant:1}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
 {variant:2}{tags:jewellery_resistance}+(5-10)% to all Elemental Resistances
-{variant:2}+3 to Level of all Fireball Gems
-{variant:3}+3 to Level of all Ice Nova Gems
-{variant:4}+3 to Level of all Leap Slam Gems
-{variant:5}+3 to Level of all Sweep Gems
-{variant:6}+3 to Level of all Ground Slam Gems
-{variant:7}+3 to Level of all Cleave Gems
-{variant:8}+3 to Level of all Shield Charge Gems
-{variant:9}+3 to Level of all Enduring Cry Gems
-{variant:10}+3 to Level of all Double Strike Gems
-{variant:11}+3 to Level of all Elemental Hit Gems
-{variant:12}+3 to Level of all Immortal Call Gems
-{variant:13}+3 to Level of all Dual Strike Gems
-{variant:14}+3 to Level of all Whirling Blades Gems
-{variant:15}+3 to Level of all Frenzy Gems
-{variant:16}+3 to Level of all Cold Snap Gems
-{variant:17}+3 to Level of all Raise Zombie Gems
-{variant:18}+3 to Level of all Detonate Dead Gems
-{variant:19}+3 to Level of all Caustic Arrow Gems
-{variant:20}+3 to Level of all Creeping Frost Gems
-{variant:21}+3 to Level of all Ice Shot Gems
-{variant:22}+3 to Level of all Static Strike Gems
-{variant:23}+3 to Level of all Split Arrow Gems
-{variant:24}+3 to Level of all Blood Rage Gems
-{variant:25}+3 to Level of all Righteous Fire Gems
-{variant:26}+3 to Level of all Discharge Gems
-{variant:27}+3 to Level of all Flicker Strike Gems
-{variant:28}+3 to Level of all Spark Gems
-{variant:29}+3 to Level of all Ice Spear Gems
-{variant:30}+3 to Level of all Raise Spectre Gems
-{variant:31}+3 to Level of all Infernal Blow Gems
-{variant:32}+3 to Level of all Glacial Hammer Gems
-{variant:33}+3 to Level of all Frost Wall Gems
-{variant:34}+3 to Level of all Freezing Pulse Gems
-{variant:35}+3 to Level of all Shock Nova Gems
-{variant:36}+3 to Level of all Viper Strike Gems
-{variant:37}+3 to Level of all Phase Run Gems
-{variant:38}+3 to Level of all Explosive Arrow Gems
-{variant:39}+3 to Level of all Temporal Chains Gems
-{variant:40}+3 to Level of all Elemental Weakness Gems
-{variant:41}+3 to Level of all Warlord's Mark Gems
-{variant:42}+3 to Level of all Punishment Gems
-{variant:43}+3 to Level of all Enfeeble Gems
-{variant:44}+3 to Level of all Assassin's Mark Gems
-{variant:45}+3 to Level of all Sniper's Mark Gems
-{variant:46}+3 to Level of all Despair Gems
-{variant:47}+3 to Level of all Lightning Warp Gems
-{variant:48}+3 to Level of all Summon Skeletons Gems
-{variant:49}+3 to Level of all Riposte Gems
-{variant:50}+3 to Level of all Vengeance Gems
-{variant:51}+3 to Level of all Reckoning Gems
-{variant:52}+3 to Level of all Heavy Strike Gems
-{variant:53}+3 to Level of all Dominating Blow Gems
-{variant:54}+3 to Level of all Rain of Arrows Gems
-{variant:55}+3 to Level of all Firestorm Gems
-{variant:56}+3 to Level of all Lightning Strike Gems
-{variant:57}+3 to Level of all Tempest Shield Gems
-{variant:58}+3 to Level of all Molten Shell Gems
-{variant:59}+3 to Level of all Power Siphon Gems
-{variant:60}+3 to Level of all Puncture Gems
-{variant:61}+3 to Level of all Lightning Arrow Gems
-{variant:62}+3 to Level of all Arc Gems
-{variant:63}+3 to Level of all Haste Gems
-{variant:64}+3 to Level of all Purity of Elements Gems
-{variant:65}+3 to Level of all Vitality Gems
-{variant:66}+3 to Level of all Discipline Gems
-{variant:67}+3 to Level of all Grace Gems
-{variant:68}+3 to Level of all Determination Gems
-{variant:69}+3 to Level of all Anger Gems
-{variant:70}+3 to Level of all Hatred Gems
-{variant:71}+3 to Level of all Wrath Gems
-{variant:72}+3 to Level of all Burning Arrow Gems
-{variant:73}+3 to Level of all Clarity Gems
-{variant:74}+3 to Level of all Shockwave Totem Gems
-{variant:75}+3 to Level of all Rejuvenation Totem Gems
-{variant:76}+3 to Level of all Conversion Trap Gems
-{variant:77}+3 to Level of all Bear Trap Gems
-{variant:78}+3 to Level of all Fire Trap Gems
-{variant:79}+3 to Level of all Decoy Totem Gems
-{variant:80}+3 to Level of all Devouring Totem Gems
-{variant:81}+3 to Level of all Ethereal Knives Gems
-{variant:82}+3 to Level of all Arctic Armour Gems
-{variant:83}+3 to Level of all Holy Flame Totem Gems
-{variant:84}+3 to Level of all Flammability Gems
-{variant:85}+3 to Level of all Frostbite Gems
-{variant:86}+3 to Level of all Conductivity Gems
-{variant:87}+3 to Level of all Incinerate Gems
-{variant:88}+3 to Level of all Cyclone Gems
-{variant:89}+3 to Level of all Searing Bond Gems
-{variant:90}+3 to Level of all Reave Gems
-{variant:91}+3 to Level of all Lightning Trap Gems
-{variant:92}+3 to Level of all Pyroclast Mine Gems
-{variant:93}+3 to Level of all Smoke Mine Gems
-{variant:94}+3 to Level of all Icicle Mine Gems
-{variant:95}+3 to Level of all Stormblast Mine Gems
-{variant:96}+3 to Level of all Animate Guardian Gems
-{variant:97}+3 to Level of all Spectral Throw Gems
-{variant:98}+3 to Level of all Animate Weapon Gems
-{variant:99}+3 to Level of all Purity of Fire Gems
-{variant:100}+3 to Level of all Purity of Ice Gems
-{variant:101}+3 to Level of all Purity of Lightning Gems
-{variant:102}+3 to Level of all Storm Call Gems
-{variant:103}+3 to Level of all Flameblast Gems
-{variant:104}+3 to Level of all Barrage Gems
-{variant:105}+3 to Level of all Ball Lightning Gems
-{variant:106}+3 to Level of all Summon Raging Spirit Gems
-{variant:107}+3 to Level of all Flame Surge Gems
-{variant:108}+3 to Level of all Desecrate Gems
-{variant:109}+3 to Level of all Flesh Offering Gems
-{variant:110}+3 to Level of all Bone Offering Gems
-{variant:111}+3 to Level of all Glacial Cascade Gems
-{variant:112}+3 to Level of all Convocation Gems
-{variant:113}+3 to Level of all Molten Strike Gems
-{variant:114}+3 to Level of all Tornado Shot Gems
-{variant:115}+3 to Level of all Herald of Ash Gems
-{variant:116}+3 to Level of all Herald of Ice Gems
-{variant:117}+3 to Level of all Herald of Thunder Gems
-{variant:118}+3 to Level of all Poacher's Mark Gems
-{variant:119}+3 to Level of all Lightning Tendrils Gems
-{variant:120}+3 to Level of all Mirror Arrow Gems
-{variant:121}+3 to Level of all Blink Arrow Gems
-{variant:122}+3 to Level of all Kinetic Blast Gems
-{variant:123}+3 to Level of all Summon Chaos Golem Gems
-{variant:124}+3 to Level of all Summon Ice Golem Gems
-{variant:125}+3 to Level of all Summon Flame Golem Gems
-{variant:126}+3 to Level of all Summon Lightning Golem Gems
-{variant:127}+3 to Level of all Ice Crash Gems
-{variant:128}+3 to Level of all Rallying Cry Gems
-{variant:129}+3 to Level of all Infernal Cry Gems
-{variant:130}+3 to Level of all Vigilant Strike Gems
-{variant:131}+3 to Level of all Rolling Magma Gems
-{variant:132}+3 to Level of all Flame Dash Gems
-{variant:133}+3 to Level of all Frost Blades Gems
-{variant:134}+3 to Level of all Wild Strike Gems
-{variant:135}+3 to Level of all Galvanic Arrow Gems
-{variant:136}+3 to Level of all Blast Rain Gems
-{variant:137}+3 to Level of all Bladefall Gems
-{variant:138}+3 to Level of all Siege Ballista Gems
-{variant:139}+3 to Level of all Blade Vortex Gems
-{variant:140}+3 to Level of all Contagion Gems
-{variant:141}+3 to Level of all Wither Gems
-{variant:142}+3 to Level of all Essence Drain Gems
-{variant:143}+3 to Level of all Ice Trap Gems
-{variant:144}+3 to Level of all Orb of Storms Gems
-{variant:145}+3 to Level of all Frost Bomb Gems
-{variant:146}+3 to Level of all Summon Stone Golem Gems
-{variant:147}+3 to Level of all Earthquake Gems
-{variant:148}+3 to Level of all Snipe Gems
-{variant:149}+3 to Level of all Sunder Gems
-{variant:150}+3 to Level of all Ancestral Protector Gems
-{variant:151}+3 to Level of all Ancestral Warchief Gems
-{variant:152}+3 to Level of all Lacerate Gems
-{variant:153}+3 to Level of all Spirit Offering Gems
-{variant:154}+3 to Level of all Frostbolt Gems
-{variant:155}+3 to Level of all Vortex Gems
-{variant:156}+3 to Level of all Blight Gems
-{variant:157}+3 to Level of all Scorching Ray Gems
-{variant:158}+3 to Level of all Blade Flurry Gems
-{variant:159}+3 to Level of all Charged Dash Gems
-{variant:160}+3 to Level of all Dark Pact Gems
-{variant:161}+3 to Level of all Storm Burst Gems
-{variant:162}+3 to Level of all Cremation Gems
-{variant:163}+3 to Level of all Bodyswap Gems
-{variant:164}+3 to Level of all Volatile Dead Gems
-{variant:165}+3 to Level of all Unearth Gems
-{variant:166}+3 to Level of all Explosive Trap Gems
-{variant:167}+3 to Level of all Siphoning Trap Gems
-{variant:168}+3 to Level of all Flamethrower Trap Gems
-{variant:169}+3 to Level of all Lightning Spire Trap Gems
-{variant:170}+3 to Level of all Seismic Trap Gems
-{variant:171}+3 to Level of all Vulnerability Gems
-{variant:172}+3 to Level of all Tectonic Slam Gems
-{variant:173}+3 to Level of all Spectral Shield Throw Gems
-{variant:174}+3 to Level of all Herald of Purity Gems
-{variant:175}+3 to Level of all Herald of Agony Gems
-{variant:176}+3 to Level of all Consecrated Path Gems
-{variant:177}+3 to Level of all Smite Gems
-{variant:178}+3 to Level of all Scourge Arrow Gems
-{variant:179}+3 to Level of all Toxic Rain Gems
-{variant:180}+3 to Level of all Summon Holy Relic Gems
-{variant:181}+3 to Level of all Winter Orb Gems
-{variant:182}+3 to Level of all Storm Brand Gems
-{variant:183}+3 to Level of all Armageddon Brand Gems
-{variant:184}+3 to Level of all Brand Recall Gems
-{variant:185}+3 to Level of all War Banner Gems
-{variant:186}+3 to Level of all Dread Banner Gems
-{variant:187}+3 to Level of all Shattering Steel Gems
-{variant:188}+3 to Level of all Lancing Steel Gems
-{variant:189}+3 to Level of all Purifying Flame Gems
-{variant:190}+3 to Level of all Soulrend Gems
-{variant:191}+3 to Level of all Bane Gems
-{variant:192}+3 to Level of all Divine Ire Gems
-{variant:193}+3 to Level of all Wave of Conviction Gems
-{variant:194}+3 to Level of all Zealotry Gems
-{variant:195}+3 to Level of all Malevolence Gems
-{variant:196}+3 to Level of all Precision Gems
-{variant:197}+3 to Level of all Steelskin Gems
-{variant:198}+3 to Level of all Dash Gems
-{variant:199}+3 to Level of all Bladestorm Gems
-{variant:200}+3 to Level of all Blood and Sand Gems
-{variant:201}+3 to Level of all Berserk Gems
-{variant:202}+3 to Level of all Perforate Gems
-{variant:203}+3 to Level of all Chain Hook Gems
-{variant:204}+3 to Level of all Frostblink Gems
-{variant:205}+3 to Level of all Flesh and Stone Gems
-{variant:206}+3 to Level of all Pride Gems
-{variant:207}+3 to Level of all Cobra Lash Gems
-{variant:208}+3 to Level of all Withering Step Gems
-{variant:209}+3 to Level of all Venom Gyre Gems
-{variant:210}+3 to Level of all Summon Skitterbots Gems
-{variant:211}+3 to Level of all Plague Bearer Gems
-{variant:212}+3 to Level of all Pestilent Strike Gems
-{variant:213}+3 to Level of all Summon Carrion Golem Gems
-{variant:214}+3 to Level of all Artillery Ballista Gems
-{variant:215}+3 to Level of all Shrapnel Ballista Gems
-{variant:216}+3 to Level of all Ensnaring Arrow Gems
-{variant:217}+3 to Level of all Stormbind Gems
-{variant:218}+3 to Level of all Blade Blast Gems
+{variant:3}+3 to Level of all Absolution Gems
+{variant:4}+3 to Level of all Alchemist's Mark Gems
+{variant:5}+3 to Level of all Ambush Gems
+{variant:6}+3 to Level of all Ancestral Cry Gems
+{variant:7}+3 to Level of all Ancestral Protector Gems
+{variant:8}+3 to Level of all Ancestral Warchief Gems
+{variant:9}+3 to Level of all Anger Gems
+{variant:10}+3 to Level of all Animate Guardian Gems
+{variant:11}+3 to Level of all Animate Weapon Gems
+{variant:12}+3 to Level of all Arc Gems
+{variant:13}+3 to Level of all Arcane Cloak Gems
+{variant:14}+3 to Level of all Arcanist Brand Gems
+{variant:15}+3 to Level of all Arctic Armour Gems
+{variant:16}+3 to Level of all Armageddon Brand Gems
+{variant:17}+3 to Level of all Artillery Ballista Gems
+{variant:18}+3 to Level of all Assassin's Mark Gems
+{variant:19}+3 to Level of all Ball Lightning Gems
+{variant:20}+3 to Level of all Bane Gems
+{variant:21}+3 to Level of all Barrage Gems
+{variant:22}+3 to Level of all Battlemage's Cry Gems
+{variant:23}+3 to Level of all Bear Trap Gems
+{variant:24}+3 to Level of all Berserk Gems
+{variant:25}+3 to Level of all Blade Blast Gems
+{variant:26}+3 to Level of all Blade Flurry Gems
+{variant:27}+3 to Level of all Blade Trap Gems
+{variant:28}+3 to Level of all Blade Vortex Gems
+{variant:29}+3 to Level of all Bladefall Gems
+{variant:30}+3 to Level of all Bladestorm Gems
+{variant:31}+3 to Level of all Blast Rain Gems
+{variant:32}+3 to Level of all Blazing Salvo Gems
+{variant:33}+3 to Level of all Blight Gems
+{variant:34}+3 to Level of all Blink Arrow Gems
+{variant:35}+3 to Level of all Blood Rage Gems
+{variant:36}+3 to Level of all Blood and Sand Gems
+{variant:37}+3 to Level of all Bodyswap Gems
+{variant:38}+3 to Level of all Bone Offering Gems
+{variant:39}+3 to Level of all Boneshatter Gems
+{variant:40}+3 to Level of all Brand Recall Gems
+{variant:41}+3 to Level of all Burning Arrow Gems
+{variant:42}+3 to Level of all Caustic Arrow Gems
+{variant:43}+3 to Level of all Chain Hook Gems
+{variant:44}+3 to Level of all Charged Dash Gems
+{variant:45}+3 to Level of all Clarity Gems
+{variant:46}+3 to Level of all Cleave Gems
+{variant:47}+3 to Level of all Cobra Lash Gems
+{variant:48}+3 to Level of all Cold Snap Gems
+{variant:49}+3 to Level of all Conductivity Gems
+{variant:50}+3 to Level of all Consecrated Path Gems
+{variant:51}+3 to Level of all Contagion Gems
+{variant:52}+3 to Level of all Conversion Trap Gems
+{variant:53}+3 to Level of all Convocation Gems
+{variant:54}+3 to Level of all Corrupting Fever Gems
+{variant:55}+3 to Level of all Crackling Lance Gems
+{variant:56}+3 to Level of all Creeping Frost Gems
+{variant:57}+3 to Level of all Cremation Gems
+{variant:58}+3 to Level of all Cyclone Gems
+{variant:59}+3 to Level of all Dark Pact Gems
+{variant:60}+3 to Level of all Dash Gems
+{variant:61}+3 to Level of all Decoy Totem Gems
+{variant:62}+3 to Level of all Defiance Banner Gems
+{variant:63}+3 to Level of all Desecrate Gems
+{variant:64}+3 to Level of all Despair Gems
+{variant:65}+3 to Level of all Destructive Link Gems
+{variant:66}+3 to Level of all Determination Gems
+{variant:67}+3 to Level of all Detonate Dead Gems
+{variant:68}+3 to Level of all Devouring Totem Gems
+{variant:69}+3 to Level of all Discharge Gems
+{variant:70}+3 to Level of all Discipline Gems
+{variant:71}+3 to Level of all Divine Ire Gems
+{variant:72}+3 to Level of all Dominating Blow Gems
+{variant:73}+3 to Level of all Double Strike Gems
+{variant:74}+3 to Level of all Dread Banner Gems
+{variant:75}+3 to Level of all Dual Strike Gems
+{variant:76}+3 to Level of all Earthquake Gems
+{variant:77}+3 to Level of all Earthshatter Gems
+{variant:78}+3 to Level of all Elemental Hit Gems
+{variant:79}+3 to Level of all Elemental Weakness Gems
+{variant:80}+3 to Level of all Enduring Cry Gems
+{variant:81}+3 to Level of all Energy Blade Gems
+{variant:82}+3 to Level of all Enfeeble Gems
+{variant:83}+3 to Level of all Ensnaring Arrow Gems
+{variant:84}+3 to Level of all Essence Drain Gems
+{variant:85}+3 to Level of all Ethereal Knives Gems
+{variant:86}+3 to Level of all Explosive Arrow Gems
+{variant:87}+3 to Level of all Explosive Concoction Gems
+{variant:88}+3 to Level of all Explosive Trap Gems
+{variant:89}+3 to Level of all Exsanguinate Gems
+{variant:90}+3 to Level of all Eye of Winter Gems
+{variant:91}+3 to Level of all Fire Trap Gems
+{variant:92}+3 to Level of all Fireball Gems
+{variant:93}+3 to Level of all Firestorm Gems
+{variant:94}+3 to Level of all Flame Dash Gems
+{variant:95}+3 to Level of all Flame Link Gems
+{variant:96}+3 to Level of all Flame Surge Gems
+{variant:97}+3 to Level of all Flame Wall Gems
+{variant:98}+3 to Level of all Flameblast Gems
+{variant:99}+3 to Level of all Flamethrower Trap Gems
+{variant:100}+3 to Level of all Flammability Gems
+{variant:101}+3 to Level of all Flesh Offering Gems
+{variant:102}+3 to Level of all Flesh and Stone Gems
+{variant:103}+3 to Level of all Flicker Strike Gems
+{variant:104}+3 to Level of all Forbidden Rite Gems
+{variant:105}+3 to Level of all Freezing Pulse Gems
+{variant:106}+3 to Level of all Frenzy Gems
+{variant:107}+3 to Level of all Frost Blades Gems
+{variant:108}+3 to Level of all Frost Bomb Gems
+{variant:109}+3 to Level of all Frost Shield Gems
+{variant:110}+3 to Level of all Frost Wall Gems
+{variant:111}+3 to Level of all Frostbite Gems
+{variant:112}+3 to Level of all Frostblink Gems
+{variant:113}+3 to Level of all Frostbolt Gems
+{variant:114}+3 to Level of all Frozen Legion Gems
+{variant:115}+3 to Level of all Galvanic Arrow Gems
+{variant:116}+3 to Level of all Galvanic Field Gems
+{variant:117}+3 to Level of all General's Cry Gems
+{variant:118}+3 to Level of all Glacial Cascade Gems
+{variant:119}+3 to Level of all Glacial Hammer Gems
+{variant:120}+3 to Level of all Grace Gems
+{variant:121}+3 to Level of all Ground Slam Gems
+{variant:122}+3 to Level of all Haste Gems
+{variant:123}+3 to Level of all Hatred Gems
+{variant:124}+3 to Level of all Heavy Strike Gems
+{variant:125}+3 to Level of all Herald of Agony Gems
+{variant:126}+3 to Level of all Herald of Ash Gems
+{variant:127}+3 to Level of all Herald of Ice Gems
+{variant:128}+3 to Level of all Herald of Purity Gems
+{variant:129}+3 to Level of all Herald of Thunder Gems
+{variant:130}+3 to Level of all Hexblast Gems
+{variant:131}+3 to Level of all Holy Flame Totem Gems
+{variant:132}+3 to Level of all Hydrosphere Gems
+{variant:133}+3 to Level of all Ice Crash Gems
+{variant:134}+3 to Level of all Ice Nova Gems
+{variant:135}+3 to Level of all Ice Shot Gems
+{variant:136}+3 to Level of all Ice Spear Gems
+{variant:137}+3 to Level of all Ice Trap Gems
+{variant:138}+3 to Level of all Icicle Mine Gems
+{variant:139}+3 to Level of all Immortal Call Gems
+{variant:140}+3 to Level of all Incinerate Gems
+{variant:141}+3 to Level of all Infernal Blow Gems
+{variant:142}+3 to Level of all Infernal Cry Gems
+{variant:143}+3 to Level of all Intimidating Cry Gems
+{variant:144}+3 to Level of all Intuitive Link Gems
+{variant:145}+3 to Level of all Kinetic Blast Gems
+{variant:146}+3 to Level of all Kinetic Bolt Gems
+{variant:147}+3 to Level of all Lacerate Gems
+{variant:148}+3 to Level of all Lancing Steel Gems
+{variant:149}+3 to Level of all Leap Slam Gems
+{variant:150}+3 to Level of all Lightning Arrow Gems
+{variant:151}+3 to Level of all Lightning Conduit Gems
+{variant:152}+3 to Level of all Lightning Spire Trap Gems
+{variant:153}+3 to Level of all Lightning Strike Gems
+{variant:154}+3 to Level of all Lightning Tendrils Gems
+{variant:155}+3 to Level of all Lightning Trap Gems
+{variant:156}+3 to Level of all Lightning Warp Gems
+{variant:157}+3 to Level of all Malevolence Gems
+{variant:158}+3 to Level of all Manabond Gems
+{variant:159}+3 to Level of all Mirror Arrow Gems
+{variant:160}+3 to Level of all Molten Shell Gems
+{variant:161}+3 to Level of all Molten Strike Gems
+{variant:162}+3 to Level of all Orb of Storms Gems
+{variant:163}+3 to Level of all Penance Brand Gems
+{variant:164}+3 to Level of all Perforate Gems
+{variant:165}+3 to Level of all Pestilent Strike Gems
+{variant:166}+3 to Level of all Petrified Blood Gems
+{variant:167}+3 to Level of all Phase Run Gems
+{variant:168}+3 to Level of all Plague Bearer Gems
+{variant:169}+3 to Level of all Poacher's Mark Gems
+{variant:170}+3 to Level of all Poisonous Concoction Gems
+{variant:171}+3 to Level of all Power Siphon Gems
+{variant:172}+3 to Level of all Precision Gems
+{variant:173}+3 to Level of all Pride Gems
+{variant:174}+3 to Level of all Protective Link Gems
+{variant:175}+3 to Level of all Puncture Gems
+{variant:176}+3 to Level of all Punishment Gems
+{variant:177}+3 to Level of all Purifying Flame Gems
+{variant:178}+3 to Level of all Purity of Elements Gems
+{variant:179}+3 to Level of all Purity of Fire Gems
+{variant:180}+3 to Level of all Purity of Ice Gems
+{variant:181}+3 to Level of all Purity of Lightning Gems
+{variant:182}+3 to Level of all Pyroclast Mine Gems
+{variant:183}+3 to Level of all Rage Vortex Gems
+{variant:184}+3 to Level of all Rain of Arrows Gems
+{variant:185}+3 to Level of all Raise Spectre Gems
+{variant:186}+3 to Level of all Raise Zombie Gems
+{variant:187}+3 to Level of all Rallying Cry Gems
+{variant:188}+3 to Level of all Reap Gems
+{variant:189}+3 to Level of all Reave Gems
+{variant:190}+3 to Level of all Reckoning Gems
+{variant:191}+3 to Level of all Rejuvenation Totem Gems
+{variant:192}+3 to Level of all Righteous Fire Gems
+{variant:193}+3 to Level of all Riposte Gems
+{variant:194}+3 to Level of all Rolling Magma Gems
+{variant:195}+3 to Level of all Scorching Ray Gems
+{variant:196}+3 to Level of all Scourge Arrow Gems
+{variant:197}+3 to Level of all Searing Bond Gems
+{variant:198}+3 to Level of all Seismic Cry Gems
+{variant:199}+3 to Level of all Seismic Trap Gems
+{variant:200}+3 to Level of all Shattering Steel Gems
+{variant:201}+3 to Level of all Shield Charge Gems
+{variant:202}+3 to Level of all Shield Crush Gems
+{variant:203}+3 to Level of all Shock Nova Gems
+{variant:204}+3 to Level of all Shockwave Totem Gems
+{variant:205}+3 to Level of all Shrapnel Ballista Gems
+{variant:206}+3 to Level of all Siege Ballista Gems
+{variant:207}+3 to Level of all Sigil of Power Gems
+{variant:208}+3 to Level of all Siphoning Trap Gems
+{variant:209}+3 to Level of all Smite Gems
+{variant:210}+3 to Level of all Smoke Mine Gems
+{variant:211}+3 to Level of all Snipe Gems
+{variant:212}+3 to Level of all Sniper's Mark Gems
+{variant:213}+3 to Level of all Soul Link Gems
+{variant:214}+3 to Level of all Soulrend Gems
+{variant:215}+3 to Level of all Spark Gems
+{variant:216}+3 to Level of all Spectral Helix Gems
+{variant:217}+3 to Level of all Spectral Shield Throw Gems
+{variant:218}+3 to Level of all Spectral Throw Gems
 {variant:219}+3 to Level of all Spellslinger Gems
-{variant:220}+3 to Level of all Kinetic Bolt Gems
-{variant:221}+3 to Level of all Arcane Cloak Gems
-{variant:222}+3 to Level of all Intimidating Cry Gems
-{variant:223}+3 to Level of all Ancestral Cry Gems
-{variant:224}+3 to Level of all Seismic Cry Gems
-{variant:225}+3 to Level of all General's Cry Gems
-{variant:226}+3 to Level of all Arcanist Brand Gems
-{variant:227}+3 to Level of all Penance Brand Gems
-{variant:228}+3 to Level of all Wintertide Brand Gems
-{variant:229}+3 to Level of all Earthshatter Gems
-{variant:230}+3 to Level of all Sigil of Power Gems
-{variant:231}+3 to Level of all Splitting Steel Gems
-{variant:232}+3 to Level of all Flame Wall Gems
-{variant:233}+3 to Level of all Blazing Salvo Gems
-{variant:234}+3 to Level of all Crackling Lance Gems
-{variant:235}+3 to Level of all Void Sphere Gems
-{variant:236}+3 to Level of all Frost Shield Gems
-{variant:237}+3 to Level of all Hydrosphere Gems
-{variant:238}+3 to Level of all Hexblast Gems
-{variant:239}+3 to Level of all Exsanguinate Gems
-{variant:240}+3 to Level of all Corrupting Fever Gems
-{variant:241}+3 to Level of all Petrified Blood Gems
-{variant:242}+3 to Level of all Reap Gems
-{variant:243}+3 to Level of all Defiance Banner Gems
-{variant:244}+3 to Level of all Storm Rain Gems
-{variant:245}+3 to Level of all Rage Vortex Gems
-{variant:246}+3 to Level of all Shield Crush Gems
-{variant:247}+3 to Level of all Summon Reaper Gems
-{variant:248}+3 to Level of all Boneshatter Gems
-{variant:249}+3 to Level of all Ambush Gems
-{variant:250}+3 to Level of all Voltaxic Burst Gems
-{variant:251}+3 to Level of all Battlemage's Cry Gems
-{variant:252}+3 to Level of all Absolution Gems
-{variant:253}+3 to Level of all Eye of Winter Gems
-{variant:254}+3 to Level of all Spectral Helix Gems
-{variant:255}+3 to Level of all Forbidden Rite Gems
-{variant:256}+3 to Level of all Blade Trap Gems
-{variant:257}+3 to Level of all Manabond Gems
-{variant:258}+3 to Level of all Explosive Concoction Gems
-{variant:259}+3 to Level of all Poisonous Concoction Gems
-{variant:260}+3 to Level of all Temporal Rift Gems
-{variant:261}+3 to Level of all Energy Blade Gems
-{variant:262}+3 to Level of all Tornado Gems
-{variant:263}+3 to Level of all Soul Link Gems
-{variant:264}+3 to Level of all Flame Link Gems
-{variant:265}+3 to Level of all Intuitive Link Gems
-{variant:266}+3 to Level of all Protective Link Gems
-{variant:267}+3 to Level of all Vampiric Link Gems
-{variant:268}+3 to Level of all Destructive Link Gems
-{variant:269}+3 to Level of all Galvanic Field Gems
-{variant:270}+3 to Level of all Lightning Conduit Gems
-{variant:271}+3 to Level of all Alchemist's Mark Gems
-{variant:272}+3 to Level of all Frozen Legion Gems
-{variant:273}+3 to Level of all Volcanic Fissure Gems
+{variant:220}+3 to Level of all Spirit Offering Gems
+{variant:221}+3 to Level of all Split Arrow Gems
+{variant:222}+3 to Level of all Splitting Steel Gems
+{variant:223}+3 to Level of all Static Strike Gems
+{variant:224}+3 to Level of all Steelskin Gems
+{variant:225}+3 to Level of all Storm Brand Gems
+{variant:226}+3 to Level of all Storm Burst Gems
+{variant:227}+3 to Level of all Storm Call Gems
+{variant:228}+3 to Level of all Storm Rain Gems
+{variant:229}+3 to Level of all Stormbind Gems
+{variant:230}+3 to Level of all Stormblast Mine Gems
+{variant:231}+3 to Level of all Summon Carrion Golem Gems
+{variant:232}+3 to Level of all Summon Chaos Golem Gems
+{variant:233}+3 to Level of all Summon Flame Golem Gems
+{variant:234}+3 to Level of all Summon Holy Relic Gems
+{variant:235}+3 to Level of all Summon Ice Golem Gems
+{variant:236}+3 to Level of all Summon Lightning Golem Gems
+{variant:237}+3 to Level of all Summon Raging Spirit Gems
+{variant:238}+3 to Level of all Summon Reaper Gems
+{variant:239}+3 to Level of all Summon Skeletons Gems
+{variant:240}+3 to Level of all Summon Skitterbots Gems
+{variant:241}+3 to Level of all Summon Stone Golem Gems
+{variant:242}+3 to Level of all Sunder Gems
+{variant:243}+3 to Level of all Sweep Gems
+{variant:244}+3 to Level of all Tectonic Slam Gems
+{variant:245}+3 to Level of all Tempest Shield Gems
+{variant:246}+3 to Level of all Temporal Chains Gems
+{variant:247}+3 to Level of all Temporal Rift Gems
+{variant:248}+3 to Level of all Tornado Gems
+{variant:249}+3 to Level of all Tornado Shot Gems
+{variant:250}+3 to Level of all Toxic Rain Gems
+{variant:251}+3 to Level of all Unearth Gems
+{variant:252}+3 to Level of all Vampiric Link Gems
+{variant:253}+3 to Level of all Vengeance Gems
+{variant:254}+3 to Level of all Venom Gyre Gems
+{variant:255}+3 to Level of all Vigilant Strike Gems
+{variant:256}+3 to Level of all Viper Strike Gems
+{variant:257}+3 to Level of all Vitality Gems
+{variant:258}+3 to Level of all Void Sphere Gems
+{variant:259}+3 to Level of all Volatile Dead Gems
+{variant:260}+3 to Level of all Volcanic Fissure Gems
+{variant:261}+3 to Level of all Voltaxic Burst Gems
+{variant:262}+3 to Level of all Vortex Gems
+{variant:263}+3 to Level of all Vulnerability Gems
+{variant:264}+3 to Level of all War Banner Gems
+{variant:265}+3 to Level of all Warlord's Mark Gems
+{variant:266}+3 to Level of all Wave of Conviction Gems
+{variant:267}+3 to Level of all Whirling Blades Gems
+{variant:268}+3 to Level of all Wild Strike Gems
+{variant:269}+3 to Level of all Winter Orb Gems
+{variant:270}+3 to Level of all Wintertide Brand Gems
+{variant:271}+3 to Level of all Wither Gems
+{variant:272}+3 to Level of all Withering Step Gems
+{variant:273}+3 to Level of all Wrath Gems
+{variant:274}+3 to Level of all Zealotry Gems
 {variant:1}(10-15)% increased Reservation Efficiency of Skills
 {variant:2}(5-10)% increased Reservation Efficiency of Skills
 {variant:1}Items and Gems have (10-15)% reduced Attribute Requirements
@@ -950,297 +950,297 @@ Source: Drops from unique{King of the Mist}
 Has Alt Variant: true
 Has Alt Variant Two: true
 Has Alt Variant Three: true
-Selected Variant: 82
-Selected Alt Variant: 104
-Selected Alt Variant Two: 106
+Selected Variant: 1
+Selected Alt Variant: 25
+Selected Alt Variant Two: 66
 Selected Alt Variant Three: 125
-Variant: Movement Speed Cannot Be Below Base
-Variant: Armour Applies To Ele Damage
-Variant: Endurance Charge On Stun
-Variant: Area Of Effect Per Endurance Charge
-Variant: Endurance Charge When Hit
-Variant: Chaos Resistance Per Endurance Charge
-Variant: Life Regeneration Rate
-Variant: Totem Taunt Enemies When Summoned
-Variant: Totem Recoup
-Variant: Fire Explode
-Variant: Ash On Hitting Rare Unique Enemy
-Variant: Strength Percent
-Variant: Maximum Fire Damage Resistance
-Variant: Ignite Duration On Self
-Variant: Stun Immune With 25 Rage
-Variant: Added Phys Damage If Crit Recently
-Variant: Maximum Rage
-Variant: Warcries Grant Rage
-Variant: Leech Percent Is Instant
-Variant: Leech If Killed Recently
-Variant: Corpse Explode On Warcry
-Variant: Stun Immune While Fortified
-Variant: Taunt On Hit Chance
-Variant: Banners No Reservation
-Variant: Recover Banner Stages On Placing Banner
-Variant: Gain Adrenaline On Reaching Low Life
-Variant: Impale Lasts For Extra Hits
-Variant: Fortify On Melee Hit Chance
-Variant: Bleed Explode
-Variant: Blind On Hit Vs Bleeding Enemies
-Variant: Maim On Hit Vs Blinded Enemies
-Variant: Stun Immune Against Blocked Hits
-Variant: Maximum Block
-Variant: Overwhelm If Blocked In Past 20 Seconds
-Variant: Armour And Evasion Per Block
-Variant: Attack Block
-Variant: Attack Speed On Killing Rare Unique
-Variant: Phys Reflect Immune
-Variant: Stun Immune While Leeching
-Variant: Unaffected By Bleeding While Leeching
-Variant: Overkill Leech
-Variant: Maximum Amount Per Life Leech
-Variant: Area Of Effect If Killed Recently
-Variant: Culling Strike
-Variant: Strength And Intelligence
-Variant: Crit Strikes Non Damaging Ailment Effect
-Variant: Consecrated Ground Linger Duration
-Variant: Consecrated Ground Damage Taken
-Variant: Ele Penetration
-Variant: Consecrated Ground Vs Rare Unique
-Variant: Crit Strike Chance If Not Crit Recently
-Variant: Damage Removed From Mana Before Life
-Variant: Mana Reservation Efficiency
-Variant: Mana To Add As Extra ES
-Variant: Arcane Surge On Hit
-Variant: Non Damaging Ailment Effect On Self With Arcane Surge
-Variant: Damage Removed From Totem Life Before Self
-Variant: Minimum Endurance And Power Charges
-Variant: Chance To Summon Two Totems
-Variant: Block Chance If Attacked Recently
-Variant: Spell Block Chance If Cast Spell Recently
-Variant: Remove Curses And Ailments Every 10seconds
-Variant: Reserved Mana Granted As Armour
-Variant: Enemies In Link Beam Cannot Inflict Ele Ailments
-Variant: Life Regeneration For A Second Every 10 Seconds
-Variant: Nearby Enemies Cannot Gain Charges
-Variant: Nearby Allies Have Onslaught If You Have At Least 5 Nearby
-Variant: Exposure Extra Resistance
-Variant: All Damage Can Ignite
-Variant: Shock Minimum Damage Increase
-Variant: Chill Minimum Slow
-Variant: Golem Buff Effect
-Variant: Ignite Freeze Shock Chance
-Variant: Ele Reflect Immune
-Variant: Ignore Hexproof Enemies
-Variant: Chaos Explode
-Variant: Area Of Effect Per Power Charge
-Variant: Curse Effect
-Variant: Nearby Enemies Are Chilled
-Variant: ES Regeneration
-Variant: Spell Hinder On Hit Chance
-Variant: Minion Unholy Might Chance
-Variant: Offering Effect
-Variant: Regenerate Mana On Consume Corpse
-Variant: Regenerate ES On Consume Corpse
-Variant: Ele Resistances For Aura Affected Allies
-Variant: Minion Phys Damage Based Off Helmet ES
-Variant: Corpse Life
-Variant: Minion Phys Damage Reduction
-Variant: Power Charge On Crit Strike
-Variant: Crit Strike Mult Per Power Charge
-Variant: Additional Crit Strike Chance At Maximum Power Charges
-Variant: Crit Strikes Have Culling Strike
-Variant: Crit Strike Chance Against Full Life Enemies
-Variant: Crit Strike Damage Cannot Be Reflected
-Variant: Elusive Effect
-Variant: No Extra Damage From Crit Strikes If Elusive
-Variant: Poison Duration Per Poison Applied Recently
-Variant: Cannot Be Blinded
-Variant: Blind On Hit Chance
-Variant: Mine Aura Effect
-Variant: Take Half Area Damage Chance
-Variant: Chance For 150% Area Damage
-Variant: Cooldown Recovery Rate
-Variant: Chance To Throw 4 Additional Traps
-Variant: Crit Vs Burning And Shocked Enemies
-Variant: Charge Duration
-Variant: Life Mana ES On Kill
-Variant: Chance For ES Recharge On Suppress
-Variant: Chance For 25% Non Chaos To Add As Chaos Damage
-Variant: Evasion Per ES On Helmet
-Variant: Spell Damage Suppressed On Full ES
-Variant: ES Leech
-Variant: Recover 10 Percent Mana On Skill Use Chance
-Variant: No Barrage Spread
-Variant: Mark Effect
-Variant: Projectile Chain From Terrain Chance
-Variant: Additional Projectiles
-Variant: Mirage Archer Duration
-Variant: Projectile Damage With Distance Travelled
-Variant: Life On Hit Vs Bleeding Enemies
-Variant: Accuracy If Crit In Last 8 Seconds
-Variant: Onslaught Effect
-Variant: Phasing On Kill Chance
-Variant: Spell Suppression Chance
-Variant: Avoid Ele Ailments Chance While Phasing
-Variant: Onslaught On Kill Chance
-Variant: Evasion Rating Per Frenzy Charge
-Variant: Movement Speed Per Frenzy Charge
-Variant: Frenzy On Hit Chance
-Variant: Flask Charges Every 3 Seconds
-Variant: Remove Bleed On Flask Use
-Variant: Magic Utility Flask Effect
-Variant: Withered On Hit Chance
-Variant: Recover Life On Flask Use
-Variant: Withered Effect
-Variant: Flask Charges Gained From Enemies With Ailments
-Variant: Phys Damage As Random Element
+Variant: (Assassin) Additional Crit Strike Chance At Maximum Power Charges
+Variant: (Assassin) Crit Strike Chance Against Full Life Enemies
+Variant: (Assassin) Crit Strike Damage Cannot Be Reflected
+Variant: (Assassin) Crit Strike Mult Per Power Charge
+Variant: (Assassin) Crit Strikes Have Culling Strike
+Variant: (Assassin) Elusive Effect
+Variant: (Assassin) No Extra Damage From Crit Strikes If Elusive
+Variant: (Assassin) Poison Duration Per Poison Applied Recently
+Variant: (Assassin) Power Charge On Crit Strike
+Variant: (Berserker) Added Phys Damage If Crit Recently
+Variant: (Berserker) Corpse Explode On Warcry
+Variant: (Berserker) Leech If Killed Recently
+Variant: (Berserker) Leech Percent Is Instant
+Variant: (Berserker) Maximum Rage
+Variant: (Berserker) Stun Immune With 25 Rage
+Variant: (Berserker) Warcries Grant Rage
+Variant: (Champion) Banners No Reservation
+Variant: (Champion) Fortify On Melee Hit Chance
+Variant: (Champion) Gain Adrenaline On Reaching Low Life
+Variant: (Champion) Impale Lasts For Extra Hits
+Variant: (Champion) Recover Banner Stages On Placing Banner
+Variant: (Champion) Stun Immune While Fortified
+Variant: (Champion) Taunt On Hit Chance
+Variant: (Chieftain) Ash On Hitting Rare Unique Enemy
+Variant: (Chieftain) Fire Explode
+Variant: (Chieftain) Ignite Duration On Self
+Variant: (Chieftain) Maximum Fire Damage Resistance
+Variant: (Chieftain) Strength Percent
+Variant: (Chieftain) Totem Recoup
+Variant: (Chieftain) Totem Taunt Enemies When Summoned
+Variant: (Deadeye) Accuracy If Crit In Last 8 Seconds
+Variant: (Deadeye) Additional Projectiles
+Variant: (Deadeye) Life On Hit Vs Bleeding Enemies
+Variant: (Deadeye) Mark Effect
+Variant: (Deadeye) Mirage Archer Duration
+Variant: (Deadeye) No Barrage Spread
+Variant: (Deadeye) Projectile Chain From Terrain Chance
+Variant: (Deadeye) Projectile Damage With Distance Travelled
+Variant: (Elementalist) All Damage Can Ignite
+Variant: (Elementalist) Chill Minimum Slow
+Variant: (Elementalist) Ele Reflect Immune
+Variant: (Elementalist) Exposure Extra Resistance
+Variant: (Elementalist) Golem Buff Effect
+Variant: (Elementalist) Ignite Freeze Shock Chance
+Variant: (Elementalist) Shock Minimum Damage Increase
+Variant: (Gladiator) Armour And Evasion Per Block
+Variant: (Gladiator) Attack Block
+Variant: (Gladiator) Bleed Explode
+Variant: (Gladiator) Blind On Hit Vs Bleeding Enemies
+Variant: (Gladiator) Maim On Hit Vs Blinded Enemies
+Variant: (Gladiator) Maximum Block
+Variant: (Gladiator) Overwhelm If Blocked In Past 20 Seconds
+Variant: (Gladiator) Stun Immune Against Blocked Hits
+Variant: (Guardian) Block Chance If Attacked Recently
+Variant: (Guardian) Enemies In Link Beam Cannot Inflict Ele Ailments
+Variant: (Guardian) Life Regeneration For A Second Every 10 Seconds
+Variant: (Guardian) Nearby Allies Have Onslaught If You Have At Least 5 Nearby
+Variant: (Guardian) Nearby Enemies Cannot Gain Charges
+Variant: (Guardian) Remove Curses And Ailments Every 10seconds
+Variant: (Guardian) Reserved Mana Granted As Armour
+Variant: (Guardian) Spell Block Chance If Cast Spell Recently
+Variant: (Hierophant) Arcane Surge On Hit
+Variant: (Hierophant) Chance To Summon Two Totems
+Variant: (Hierophant) Damage Removed From Mana Before Life
+Variant: (Hierophant) Damage Removed From Totem Life Before Self
+Variant: (Hierophant) Mana Reservation Efficiency
+Variant: (Hierophant) Mana To Add As Extra ES
+Variant: (Hierophant) Minimum Endurance And Power Charges
+Variant: (Hierophant) Non Damaging Ailment Effect On Self With Arcane Surge
+Variant: (Inquisitor) Consecrated Ground Damage Taken
+Variant: (Inquisitor) Consecrated Ground Linger Duration
+Variant: (Inquisitor) Consecrated Ground Vs Rare Unique
+Variant: (Inquisitor) Crit Strike Chance If Not Crit Recently
+Variant: (Inquisitor) Crit Strikes Non Damaging Ailment Effect
+Variant: (Inquisitor) Ele Penetration
+Variant: (Inquisitor) Strength And Intelligence
+Variant: (Juggernaut) Area Of Effect Per Endurance Charge
+Variant: (Juggernaut) Armour Applies To Ele Damage
+Variant: (Juggernaut) Chaos Resistance Per Endurance Charge
+Variant: (Juggernaut) Endurance Charge On Stun
+Variant: (Juggernaut) Endurance Charge When Hit
+Variant: (Juggernaut) Life Regeneration Rate
+Variant: (Juggernaut) Movement Speed Cannot Be Below Base
+Variant: (Necromancer) Corpse Life
+Variant: (Necromancer) Ele Resistances For Aura Affected Allies
+Variant: (Necromancer) Minion Phys Damage Based Off Helmet ES
+Variant: (Necromancer) Minion Phys Damage Reduction
+Variant: (Necromancer) Minion Unholy Might Chance
+Variant: (Necromancer) Offering Effect
+Variant: (Necromancer) Regenerate ES On Consume Corpse
+Variant: (Necromancer) Regenerate Mana On Consume Corpse
+Variant: (Occultist) Area Of Effect Per Power Charge
+Variant: (Occultist) Chaos Explode
+Variant: (Occultist) Curse Effect
+Variant: (Occultist) ES Regeneration
+Variant: (Occultist) Ignore Hexproof Enemies
+Variant: (Occultist) Nearby Enemies Are Chilled
+Variant: (Occultist) Spell Hinder On Hit Chance
+Variant: (Pathfinder) Flask Charges Every 3 Seconds
+Variant: (Pathfinder) Flask Charges Gained From Enemies With Ailments
+Variant: (Pathfinder) Magic Utility Flask Effect
+Variant: (Pathfinder) Phys Damage As Random Element
+Variant: (Pathfinder) Recover Life On Flask Use
+Variant: (Pathfinder) Remove Bleed On Flask Use
+Variant: (Pathfinder) Withered Effect
+Variant: (Pathfinder) Withered On Hit Chance
+Variant: (Raider) Avoid Ele Ailments Chance While Phasing
+Variant: (Raider) Evasion Rating Per Frenzy Charge
+Variant: (Raider) Frenzy On Hit Chance
+Variant: (Raider) Movement Speed Per Frenzy Charge
+Variant: (Raider) Onslaught Effect
+Variant: (Raider) Onslaught On Kill Chance
+Variant: (Raider) Phasing On Kill Chance
+Variant: (Raider) Spell Suppression Chance
+Variant: (Saboteur) Blind On Hit Chance
+Variant: (Saboteur) Cannot Be Blinded
+Variant: (Saboteur) Chance For 150% Area Damage
+Variant: (Saboteur) Chance To Throw 4 Additional Traps
+Variant: (Saboteur) Cooldown Recovery Rate
+Variant: (Saboteur) Crit Vs Burning And Shocked Enemies
+Variant: (Saboteur) Mine Aura Effect
+Variant: (Saboteur) Take Half Area Damage Chance
+Variant: (Slayer) Area Of Effect If Killed Recently
+Variant: (Slayer) Attack Speed On Killing Rare Unique
+Variant: (Slayer) Culling Strike
+Variant: (Slayer) Maximum Amount Per Life Leech
+Variant: (Slayer) Overkill Leech
+Variant: (Slayer) Phys Reflect Immune
+Variant: (Slayer) Stun Immune While Leeching
+Variant: (Slayer) Unaffected By Bleeding While Leeching
+Variant: (Trickster) Chance For 25% Non Chaos To Add As Chaos Damage
+Variant: (Trickster) Chance For ES Recharge On Suppress
+Variant: (Trickster) Charge Duration
+Variant: (Trickster) ES Leech
+Variant: (Trickster) Evasion Per ES On Helmet
+Variant: (Trickster) Life Mana ES On Kill
+Variant: (Trickster) Recover 10 Percent Mana On Skill Use Chance
+Variant: (Trickster) Spell Damage Suppressed On Full ES
 Limited to: 1
 Requirements:
 Level: 48
 Item Level: 86
-{variant:1}Movement Speed cannot be modified to below base value
-{variant:2}3% of Armour applies to Fire, Cold and Lightning Damage taken from Hits
-{variant:3}(20-30)% chance to gain an Endurance Charge when you Stun an Enemy
-{variant:4}(5-6)% increased Area of Effect per Endurance Charge
-{variant:5}(20-30)% chance to gain an Endurance Charge when you are Hit
-{variant:6}+(4-5)% to Chaos Resistance per Endurance Charge
-{variant:7}(16-20)% increased Life Regeneration rate
-{variant:8}Totems Taunt Enemies around them for 2 seconds when Summoned
-{variant:9}Recoup (8-12)% of Damage Taken by your Totems as Life
-{variant:10}Enemies you or your Totems Kill have 1% chance to Explode, dealing 500% of their maximum Life as Fire Damage
-{variant:11}(11-20)% chance to Cover Rare or Unique Enemies in Ash for 10 Seconds on Hit
-{variant:12}(6-8)% increased Strength
-{variant:13}+2% to maximum Fire Resistance
-{variant:14}(31-50)% reduced Ignite Duration on you
+{variant:1}+(0.6-1)% Critical Strike Chance while at maximum Power Charges
+{variant:2}(130-160)% increased Critical Strike Chance against Enemies on Full Life
+{variant:3}Damage from your Critical Strikes cannot be Reflected
+{variant:4}+(4-5)% to Critical Strike Multiplier per Power Charge
+{variant:5}Critical Strikes have Culling Strike
+{variant:6}(16-25)% increased Elusive Effect
+{variant:7}You take no Extra Damage from Critical Strikes while Elusive
+{variant:8}3% increased Poison Duration for each Poison you have inflicted Recently, up to a maximum of 100%
+{variant:9}(16-25)% chance to gain a Power Charge on Critical Strike
+{variant:10}Adds (8-12) to (18-22) Physical Damage if you've dealt a Critical Strike Recently
+{variant:11}Nearby corpses Explode when you Warcry, dealing (5-6)% of their Life as Physical Damage
+{variant:12}2% of Attack Damage Leeched as Life and Mana if you've Killed Recently
+{variant:13}(6-8)% of Leech is Instant
+{variant:14}+(4-5) to Maximum Rage
 {variant:15}Cannot be Stunned while you have at least 25 Rage
-{variant:16}Adds (8-12) to (18-22) Physical Damage if you've dealt a Critical Strike Recently
-{variant:17}+(4-5) to Maximum Rage
-{variant:18}Warcries grant (4-5) Rage per 5 Power if you have less than 25 Rage
-{variant:19}(6-8)% of Leech is Instant
-{variant:20}2% of Attack Damage Leeched as Life and Mana if you've Killed Recently
-{variant:21}Nearby corpses Explode when you Warcry, dealing (5-6)% of their Life as Physical Damage
+{variant:16}Warcries grant (4-5) Rage per 5 Power if you have less than 25 Rage
+{variant:17}Banner Skills have no Reservation
+{variant:18}Melee Hits have (11-20)% chance to Fortify
+{variant:19}Gain Adrenaline for 4 seconds when you reach Low Life
+{variant:20}Impales you inflict last 1 additional Hit
+{variant:21}When you create a Banner, it gains (16-25)% of the Stages of your placed Banner
 {variant:22}Cannot be Stunned while Fortified
 {variant:23}(20-30)% chance to Taunt on Hit
-{variant:24}Banner Skills have no Reservation
-{variant:25}When you create a Banner, it gains (16-25)% of the Stages of your placed Banner
-{variant:26}Gain Adrenaline for 4 seconds when you reach Low Life
-{variant:27}Impales you inflict last 1 additional Hit
-{variant:28}Melee Hits have (11-20)% chance to Fortify
-{variant:29}Bleeding Enemies you Kill Explode, dealing (4-5)% of
-{variant:29}their Maximum Life as Physical Damage
-{variant:30}Attack Hits against Bleeding Enemies have (20-30)% chance to Blind
-{variant:31}Attack Hits against Blinded Enemies have (20-30)% chance to Maim
-{variant:32}Cannot be Stunned by Hits you Block
-{variant:33}+3% to maximum Chance to Block Attack Damage
-{variant:34}Hits ignore Enemy Monster Physical Damage Reduction if you've Blocked in the past 20 seconds
-{variant:35}+(5-6) to Armour and Evasion Rating per 1% Chance to Block Attack Damage
-{variant:36}+(5-6)% Chance to Block Attack Damage
-{variant:37}Gain (8-12)% increased Attack Speed for 20 seconds when you Kill a Rare or Unique Enemy
-{variant:38}Cannot take Reflected Physical Damage
-{variant:39}Cannot be Stunned while Leeching
-{variant:40}You are Unaffected by Bleeding while Leeching
-{variant:41}(8-12)% of Overkill Damage is Leeched as Life
-{variant:42}(21-30)% increased Maximum Recovery per Life Leech
-{variant:43}(8-12)% increased Area of Effect if you've Killed Recently
-{variant:44}Culling Strike
-{variant:45}+(31-40) to Strength and Intelligence
-{variant:46}(31-40)% increased Effect of non-Damaging Ailments you inflict with Critical Strikes
-{variant:47}Effects of Consecrated Ground you create Linger for 2 seconds
-{variant:48}Consecrated Ground you create applies (7-10)% increased Damage taken to Enemies
-{variant:49}Damage Penetrates (5-6)% of Enemy Elemental Resistances
-{variant:50}(20-30)% chance to create Consecrated Ground when you Hit a Rare or Unique Enemy, lasting 8 seconds
-{variant:51}(71-100)% increased Critical Strike Chance if you haven't dealt a Critical Strike Recently
-{variant:52}3% of Damage is taken from Mana before Life
-{variant:53}(8-12)% increased Mana Reservation Efficiency of Skills
-{variant:54}Gain (4-5)% of Maximum Mana as Extra Maximum Energy Shield
-{variant:55}Gain Arcane Surge when you or your Totems Hit an Enemy with a Spell
-{variant:56}Non-Damaging Ailments have (31-40)% reduced Effect on you while you have Arcane Surge
-{variant:57}3% of Damage from Hits is taken from your nearest Totem's Life before you
-{variant:58}+1 to Minimum Endurance Charges
-{variant:58}+1 to Minimum Power Charges
-{variant:59}Skills that would Summon a Totem have (31-50)% chance to Summon two Totems instead
-{variant:60}If you've Attacked Recently, you and nearby Allies have +(6-8)% Chance to Block Attack Damage
+{variant:24}(11-20)% chance to Cover Rare or Unique Enemies in Ash for 10 Seconds on Hit
+{variant:25}Enemies you or your Totems Kill have 1% chance to Explode, dealing 500% of their maximum Life as Fire Damage
+{variant:26}(31-50)% reduced Ignite Duration on you
+{variant:27}+2% to maximum Fire Resistance
+{variant:28}(6-8)% increased Strength
+{variant:29}Recoup (8-12)% of Damage Taken by your Totems as Life
+{variant:30}Totems Taunt Enemies around them for 2 seconds when Summoned
+{variant:31}(14-20)% increased Accuracy Rating if you've dealt a Critical Strike in the past 8 seconds
+{variant:32}Skills fire an additional Projectile
+{variant:33}Gain (11-20) Life per Bleeding Enemy Hit
+{variant:34}(16-25)% increased Effect of your Marks
+{variant:35}(51-100)% increased Mirage Archer Duration
+{variant:36}Projectile Barrages have no spread
+{variant:37}Projectiles have (14-20)% chance to be able to Chain when colliding with terrain
+{variant:38}Projectiles gain Damage as they travel farther, dealing up
+{variant:38}to (41-60)% increased Damage with Hits to targets
+{variant:39}All Damage can Ignite
+{variant:40}Chills from your Hits always reduce Action Speed by at least (5-6)%
+{variant:41}Cannot take Reflected Elemental Damage
+{variant:42}Exposure you inflict applies an extra -(7-6)% to the affected Resistance
+{variant:43}(21-35)% increased Effect of Buffs granted by your Golems
+{variant:44}(16-25)% chance to Freeze, Shock and Ignite
+{variant:45}Shocks from your Hits always increase Damage taken by at least (8-10)%
+{variant:46}+(5-6) to Armour and Evasion Rating per 1% Chance to Block Attack Damage
+{variant:47}+(5-6)% Chance to Block Attack Damage
+{variant:48}Bleeding Enemies you Kill Explode, dealing (4-5)% of
+{variant:48}their Maximum Life as Physical Damage
+{variant:49}Attack Hits against Bleeding Enemies have (20-30)% chance to Blind
+{variant:50}Attack Hits against Blinded Enemies have (20-30)% chance to Maim
+{variant:51}+3% to maximum Chance to Block Attack Damage
+{variant:52}Hits ignore Enemy Monster Physical Damage Reduction if you've Blocked in the past 20 seconds
+{variant:53}Cannot be Stunned by Hits you Block
+{variant:54}If you've Attacked Recently, you and nearby Allies have +(6-8)% Chance to Block Attack Damage
+{variant:55}Enemies in your Link Beams cannot apply Elemental Ailments
+{variant:56}Every 4 seconds, Regenerate 20% of Life over one second
+{variant:57}While there are at least five nearby Allies, you and nearby Allies have Onslaught
+{variant:58}Nearby Enemies cannot gain Power, Frenzy or Endurance Charges
+{variant:59}Every 4 seconds, remove Curses and Elemental Ailments from you
+{variant:60}Grants Armour equal to (5-6)% of your Reserved Mana to you and nearby Allies
 {variant:61}If you've Cast a Spell Recently, you and nearby Allies have +(6-8)% Chance to Block Spell Damage
-{variant:62}Every 4 seconds, remove Curses and Elemental Ailments from you
-{variant:63}Grants Armour equal to (5-6)% of your Reserved Mana to you and nearby Allies
-{variant:64}Enemies in your Link Beams cannot apply Elemental Ailments
-{variant:65}Every 4 seconds, Regenerate 20% of Life over one second
-{variant:66}Nearby Enemies cannot gain Power, Frenzy or Endurance Charges
-{variant:67}While there are at least five nearby Allies, you and nearby Allies have Onslaught
-{variant:68}Exposure you inflict applies an extra -(7-6)% to the affected Resistance
-{variant:69}All Damage can Ignite
-{variant:70}Shocks from your Hits always increase Damage taken by at least (8-10)%
-{variant:71}Chills from your Hits always reduce Action Speed by at least (5-6)%
-{variant:72}(21-35)% increased Effect of Buffs granted by your Golems
-{variant:73}(16-25)% chance to Freeze, Shock and Ignite
-{variant:74}Cannot take Reflected Elemental Damage
-{variant:75}Your Hexes can affect Hexproof Enemies
-{variant:76}Cursed Enemies you or your Minions Kill have a (11-15)% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage
-{variant:77}4% increased Area of Effect per Power Charge
-{variant:78}(6-8)% increased Effect of your Curses
-{variant:79}Nearby Enemies are Chilled
-{variant:80}Regenerate (2-3)% of Energy Shield per second
-{variant:81}(20-30)% chance to Hinder Enemies on Hit with Spells
-{variant:82}Minions have (20-30)% chance to gain Unholy Might for 4 seconds on Kill
-{variant:83}Your Offerings have (21-30)% increased Effect on you
-{variant:84}Regenerate (4-5)% of Mana over 2 seconds when you Consume a corpse
-{variant:85}Regenerate (4-5)% of Energy Shield over 2 seconds when you Consume a corpse
-{variant:86}You and nearby Allies have +(15-20)% to Elemental Resistances
-{variant:87}Minions gain Added Physical Damage equal to (6-10)% of Maximum Energy Shield on your Equipped Helmet
-{variant:88}Corpses you Spawn have (11-20)% increased Maximum Life
-{variant:89}Minions have (9-12)% additional Physical Damage Reduction
-{variant:90}(16-25)% chance to gain a Power Charge on Critical Strike
-{variant:91}+(4-5)% to Critical Strike Multiplier per Power Charge
-{variant:92}+(0.6-1)% Critical Strike Chance while at maximum Power Charges
-{variant:93}Critical Strikes have Culling Strike
-{variant:94}(130-160)% increased Critical Strike Chance against Enemies on Full Life
-{variant:95}Damage from your Critical Strikes cannot be Reflected
-{variant:96}(16-25)% increased Elusive Effect
-{variant:97}You take no Extra Damage from Critical Strikes while Elusive
-{variant:98}3% increased Poison Duration for each Poison you have inflicted Recently, up to a maximum of 100%
-{variant:99}Cannot be Blinded
-{variant:100}(11-15)% Global chance to Blind Enemies on hit
-{variant:101}(31-50)% increased Effect of Auras from Mines
-{variant:102}(7-10)% chance to take 50% less Area Damage from Hits
-{variant:103}Hits have (7-10)% chance to deal 50% more Area Damage
-{variant:104}(9-12)% increased Cooldown Recovery Rate
-{variant:105}(4-5)% chance to throw up to 4 additional Traps
-{variant:106}+(16-25)% to Critical Strike Multiplier against Burning Enemies
-{variant:106}(31-50)% increased Critical Strike Chance against Shocked Enemies
-{variant:107}(61-100)% increased Charge Duration
-{variant:108}Recover 2% of Life on Kill
-{variant:108}Recover 2% of Energy Shield on Kill
-{variant:108}Recover 2% of Mana on Kill
-{variant:109}(9-12)% chance for Energy Shield Recharge to start when you Suppress Spell Damage
-{variant:110}(17-23)% chance to gain 25% of Non-Chaos Damage with Hits as Extra Chaos Damage
-{variant:111}+(3-4) to Evasion Rating per 1 Maximum Energy Shield on Equipped Helmet
-{variant:112}Prevent +(5-6)% of Suppressed Spell Damage while on Full Energy Shield
-{variant:113}(1.1-2)% of Damage Leeched as Energy Shield
-{variant:114}(7-10)% chance to Recover 10% of Mana when you use a Skill
-{variant:115}Projectile Barrages have no spread
-{variant:116}(16-25)% increased Effect of your Marks
-{variant:117}Projectiles have (14-20)% chance to be able to Chain when colliding with terrain
-{variant:118}Skills fire an additional Projectile
-{variant:119}(51-100)% increased Mirage Archer Duration
-{variant:120}Projectiles gain Damage as they travel farther, dealing up
-{variant:120}to (41-60)% increased Damage with Hits to targets
-{variant:121}Gain (11-20) Life per Bleeding Enemy Hit
-{variant:122}(14-20)% increased Accuracy Rating if you've dealt a Critical Strike in the past 8 seconds
-{variant:123}(26-40)% increased Effect of Onslaught on you
-{variant:124}(16-25)% chance to gain Phasing for 4 seconds on Kill
-{variant:125}+(10-15)% chance to Suppress Spell Damage
-{variant:126}(16-25)% chance to Avoid Elemental Ailments while Phasing
-{variant:127}(16-25)% chance to gain Onslaught for 4 seconds on Kill
-{variant:128}(6-9)% increased Evasion Rating per Frenzy Charge
-{variant:129}2% increased Movement Speed per Frenzy Charge
-{variant:130}(6-8)% chance to gain a Frenzy Charge on Hit
-{variant:131}Flasks gain a Charge every 3 seconds
-{variant:132}Removes Bleeding when you use a Flask
-{variant:133}Magic Utility Flasks applied to you have (11-15)% increased Effect
-{variant:134}(11-15)% chance to inflict Withered for 2 seconds on Hit
-{variant:135}Recover (4-5)% of Life when you use a Flask
-{variant:136}(14-20)% increased Effect of Withered
-{variant:137}Enemies you Kill that are affected by Elemental Ailments
-{variant:137}grant (26-40)% increased Flask Charges
-{variant:138}Gain (9-12)% of Physical Damage as Extra Damage of a random Element
+{variant:62}Gain Arcane Surge when you or your Totems Hit an Enemy with a Spell
+{variant:63}Skills that would Summon a Totem have (31-50)% chance to Summon two Totems instead
+{variant:64}3% of Damage is taken from Mana before Life
+{variant:65}3% of Damage from Hits is taken from your nearest Totem's Life before you
+{variant:66}(8-12)% increased Mana Reservation Efficiency of Skills
+{variant:67}Gain (4-5)% of Maximum Mana as Extra Maximum Energy Shield
+{variant:68}+1 to Minimum Endurance Charges
+{variant:68}+1 to Minimum Power Charges
+{variant:69}Non-Damaging Ailments have (31-40)% reduced Effect on you while you have Arcane Surge
+{variant:70}Consecrated Ground you create applies (7-10)% increased Damage taken to Enemies
+{variant:71}Effects of Consecrated Ground you create Linger for 2 seconds
+{variant:72}(20-30)% chance to create Consecrated Ground when you Hit a Rare or Unique Enemy, lasting 8 seconds
+{variant:73}(71-100)% increased Critical Strike Chance if you haven't dealt a Critical Strike Recently
+{variant:74}(31-40)% increased Effect of non-Damaging Ailments you inflict with Critical Strikes
+{variant:75}Damage Penetrates (5-6)% of Enemy Elemental Resistances
+{variant:76}+(31-40) to Strength and Intelligence
+{variant:77}(5-6)% increased Area of Effect per Endurance Charge
+{variant:78}3% of Armour applies to Fire, Cold and Lightning Damage taken from Hits
+{variant:79}+(4-5)% to Chaos Resistance per Endurance Charge
+{variant:80}(20-30)% chance to gain an Endurance Charge when you Stun an Enemy
+{variant:81}(20-30)% chance to gain an Endurance Charge when you are Hit
+{variant:82}(16-20)% increased Life Regeneration rate
+{variant:83}Movement Speed cannot be modified to below base value
+{variant:84}Corpses you Spawn have (11-20)% increased Maximum Life
+{variant:85}You and nearby Allies have +(15-20)% to Elemental Resistances
+{variant:86}Minions gain Added Physical Damage equal to (6-10)% of Maximum Energy Shield on your Equipped Helmet
+{variant:87}Minions have (9-12)% additional Physical Damage Reduction
+{variant:88}Minions have (20-30)% chance to gain Unholy Might for 4 seconds on Kill
+{variant:89}Your Offerings have (21-30)% increased Effect on you
+{variant:90}Regenerate (4-5)% of Energy Shield over 2 seconds when you Consume a corpse
+{variant:91}Regenerate (4-5)% of Mana over 2 seconds when you Consume a corpse
+{variant:92}4% increased Area of Effect per Power Charge
+{variant:93}Cursed Enemies you or your Minions Kill have a (11-15)% chance to Explode, dealing a quarter of their maximum Life as Chaos Damage
+{variant:94}(6-8)% increased Effect of your Curses
+{variant:95}Regenerate (2-3)% of Energy Shield per second
+{variant:96}Your Hexes can affect Hexproof Enemies
+{variant:97}Nearby Enemies are Chilled
+{variant:98}(20-30)% chance to Hinder Enemies on Hit with Spells
+{variant:99}Flasks gain a Charge every 3 seconds
+{variant:100}Enemies you Kill that are affected by Elemental Ailments
+{variant:100}grant (26-40)% increased Flask Charges
+{variant:101}Magic Utility Flasks applied to you have (11-15)% increased Effect
+{variant:102}Gain (9-12)% of Physical Damage as Extra Damage of a random Element
+{variant:103}Recover (4-5)% of Life when you use a Flask
+{variant:104}Removes Bleeding when you use a Flask
+{variant:105}(14-20)% increased Effect of Withered
+{variant:106}(11-15)% chance to inflict Withered for 2 seconds on Hit
+{variant:107}(16-25)% chance to Avoid Elemental Ailments while Phasing
+{variant:108}(6-9)% increased Evasion Rating per Frenzy Charge
+{variant:109}(6-8)% chance to gain a Frenzy Charge on Hit
+{variant:110}2% increased Movement Speed per Frenzy Charge
+{variant:111}(26-40)% increased Effect of Onslaught on you
+{variant:112}(16-25)% chance to gain Onslaught for 4 seconds on Kill
+{variant:113}(16-25)% chance to gain Phasing for 4 seconds on Kill
+{variant:114}+(10-15)% chance to Suppress Spell Damage
+{variant:115}(11-15)% Global chance to Blind Enemies on hit
+{variant:116}Cannot be Blinded
+{variant:117}Hits have (7-10)% chance to deal 50% more Area Damage
+{variant:118}(4-5)% chance to throw up to 4 additional Traps
+{variant:119}(9-12)% increased Cooldown Recovery Rate
+{variant:120}+(16-25)% to Critical Strike Multiplier against Burning Enemies
+{variant:120}(31-50)% increased Critical Strike Chance against Shocked Enemies
+{variant:121}(31-50)% increased Effect of Auras from Mines
+{variant:122}(7-10)% chance to take 50% less Area Damage from Hits
+{variant:123}(8-12)% increased Area of Effect if you've Killed Recently
+{variant:124}Gain (8-12)% increased Attack Speed for 20 seconds when you Kill a Rare or Unique Enemy
+{variant:125}Culling Strike
+{variant:126}(21-30)% increased Maximum Recovery per Life Leech
+{variant:127}(8-12)% of Overkill Damage is Leeched as Life
+{variant:128}Cannot take Reflected Physical Damage
+{variant:129}Cannot be Stunned while Leeching
+{variant:130}You are Unaffected by Bleeding while Leeching
+{variant:131}(17-23)% chance to gain 25% of Non-Chaos Damage with Hits as Extra Chaos Damage
+{variant:132}(9-12)% chance for Energy Shield Recharge to start when you Suppress Spell Damage
+{variant:133}(61-100)% increased Charge Duration
+{variant:134}(1.1-2)% of Damage Leeched as Energy Shield
+{variant:135}+(3-4) to Evasion Rating per 1 Maximum Energy Shield on Equipped Helmet
+{variant:136}Recover 2% of Life on Kill
+{variant:136}Recover 2% of Energy Shield on Kill
+{variant:136}Recover 2% of Mana on Kill
+{variant:137}(7-10)% chance to Recover 10% of Mana when you use a Skill
+{variant:138}Prevent +(5-6)% of Suppressed Spell Damage while on Full Energy Shield
 ]],
 [[
 Forbidden Shako

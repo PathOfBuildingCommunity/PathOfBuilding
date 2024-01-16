@@ -262,6 +262,7 @@ end
 
 -- Replica Dragonfang's Flight
 local indexableSkillGems = tableFromDat("IndexableSkillGems")
+table.sort(indexableSkillGems, function(a, b) return a.Skill < b.Skill end)
 
 local replicaDragonfangsFlight = {[[
 Replica Dragonfang's Flight
@@ -275,14 +276,14 @@ end
 table.insert(replicaDragonfangsFlight, [[
 Has Alt Variant: true
 Selected Variant: 2
-Selected Alt Variant: 3
+Selected Alt Variant: 215
 LevelReq: 56
 Implicits: 1
 {tags: jewellery_attribute}+(10-16) to all Attributes
 {variant:1}{tags:jewellery_resistance}+(10-15)% to all Elemental Resistances
 {variant:2}{tags:jewellery_resistance}+(5-10)% to all Elemental Resistances
 ]])
-local indexOffset = 1
+local indexOffset = 2
 for index, skill in ipairs(indexableSkillGems) do
     table.insert(replicaDragonfangsFlight, '{variant:'..index + indexOffset..'}+3 to Level of all '..skill.Skill..' Gems\n')
 end
@@ -296,6 +297,22 @@ table.insert(replicaDragonfangsFlight, [[
 -- That Which Was Taken
 local charmMods = tableFromDat("Mods",
 	function(mod) return mod.Domain == 35 and not mod.Id:match("1$") end)
+local parseCharmModName = function(id) return abbreviateModId(fixTypos(id)):gsub("AnimalCharm", ""):gsub("2$", ""):gsub("[%u]", " %1"):gsub("[%d]+", " %1"):gsub("E S", "ES") end
+local getCharmModAscendancy = function(mod)
+	if mod.GenerationType == 1 then
+		return mod.Name:match("(%a+)'s")
+	else
+		return mod.Name:match("of the (%a+)")
+	end
+end
+local charmModSortFunction = function(a, b)
+	if getCharmModAscendancy(a) ~= getCharmModAscendancy(b) then
+		return getCharmModAscendancy(a) < getCharmModAscendancy(b)
+	else 
+		return parseCharmModName(a.Id) < parseCharmModName(b.Id)
+	end
+end
+table.sort(charmMods, charmModSortFunction)
 
 local thatWhichWasTaken = {[[
 Item Class: Jewels
@@ -307,14 +324,15 @@ Source: Drops from unique{King of the Mist}
 Has Alt Variant: true
 Has Alt Variant Two: true
 Has Alt Variant Three: true
-Selected Variant: 82
-Selected Alt Variant: 104
-Selected Alt Variant Two: 106
+Selected Variant: 1
+Selected Alt Variant: 25
+Selected Alt Variant Two: 66
 Selected Alt Variant Three: 125
 ]]}
 for _, mod in ipairs(charmMods) do
-	local variantName = abbreviateModId(fixTypos(mod.Id)):gsub("AnimalCharm", ""):gsub("2$", ""):gsub("[%u]", " %1"):gsub("[%d]+", " %1"):gsub("E S", "ES")
-	table.insert(thatWhichWasTaken, "Variant:"..variantName.."\n")
+	local ascendancy = getCharmModAscendancy(mod)
+	local variantName = "("..ascendancy..")"..parseCharmModName(mod.Id)
+	table.insert(thatWhichWasTaken, "Variant: "..variantName.."\n")
 end
 table.insert(thatWhichWasTaken, [[
 Limited to: 1
