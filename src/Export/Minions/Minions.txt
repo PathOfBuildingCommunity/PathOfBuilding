@@ -37,7 +37,7 @@ local minions, mod = ...
 #mod mod("Condition:FullLife", "FLAG", true)
 #emit
 
-#monster Metadata/Monsters/Lion/SummonedSpectralWolf SummonedSpectralWolf
+#monster Metadata/Monsters/SummonedWolf/SummonedWolf SummonedSpectralWolf
 #limit ActiveWolfLimit
 #emit
 
