@@ -3449,7 +3449,7 @@ return {
 		},
 		[6]={
 			list=false,
-			name="",
+			name="XP",
 			refTo="",
 			type="Int",
 			width=70
@@ -3470,10 +3470,10 @@ return {
 		},
 		[9]={
 			list=false,
-			name="",
+			name="ResistancePart",
 			refTo="",
 			type="Int",
-			width=70
+			width=100
 		},
 		[10]={
 			list=false,
@@ -3484,38 +3484,38 @@ return {
 		},
 		[11]={
 			list=false,
-			name="",
+			name="AltLife1",
 			refTo="",
 			type="Int",
 			width=70
 		},
 		[12]={
 			list=false,
-			name="",
+			name="AltDamage1",
 			refTo="",
 			type="Float",
-			width=70
+			width=80
 		},
 		[13]={
 			list=false,
-			name="",
+			name="AltDamage2",
 			refTo="",
 			type="Float",
-			width=70
+			width=80
 		},
 		[14]={
 			list=false,
-			name="",
+			name="AltLife2",
 			refTo="",
 			type="Int",
 			width=70
 		},
 		[15]={
 			list=false,
-			name="",
+			name="UnusedEvasion",
 			refTo="",
 			type="Int",
-			width=70
+			width=100
 		},
 		[16]={
 			list=false,
@@ -6417,63 +6417,63 @@ return {
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=70
 		},
 		[5]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=70
 		},
 		[6]={
 			list=false,
 			name="",
 			refTo="",
 			type="Int",
-			width=150
+			width=70
 		},
 		[7]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=70
 		},
 		[8]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=70
 		},
 		[9]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=70
 		},
 		[10]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=70
 		},
 		[11]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=70
 		},
 		[12]={
 			list=false,
 			name="",
 			refTo="",
 			type="Bool",
-			width=150
+			width=70
 		}
 	},
 	miniqueststates={
@@ -7451,24 +7451,24 @@ return {
 		},
 		[9]={
 			list=false,
-			name="",
+			name="AltLife1",
 			refTo="",
 			type="Bool",
 			width=50
 		},
 		[10]={
 			list=false,
-			name="",
+			name="AltLife2",
 			refTo="",
 			type="Bool",
 			width=50
 		},
 		[11]={
 			list=false,
-			name="",
+			name="NotAffectBaseAttackDamage",
 			refTo="",
 			type="Bool",
-			width=50
+			width=180
 		}
 	},
 	monstervarieties={
