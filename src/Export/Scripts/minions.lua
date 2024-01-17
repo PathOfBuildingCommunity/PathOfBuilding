@@ -137,7 +137,16 @@ directiveTable.emit = function(state, args, out)
 			end
 		end
 	end
+	if monsterVariety.Type.BaseDamageIgnoresAttackSpeed then
+		out:write('\tbaseDamageIgnoresAttackSpeed = true,\n')
+	end
 	out:write('\tlife = ', (monsterVariety.LifeMultiplier/100), ',\n')
+	if monsterVariety.Type.AltLife1 then
+		out:write('\tlifeScaling = "AltLife1",\n')
+	end
+	if monsterVariety.Type.AltLife2 then
+		out:write('\tlifeScaling = "AltLife2",\n')
+	end
 	if monsterVariety.Type.EnergyShield ~= 0 then
 		out:write('\tenergyShield = ', (0.4 * monsterVariety.Type.EnergyShield / 100), ',\n')
 	end

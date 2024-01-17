@@ -4,6 +4,8 @@ out:write('local data = ...\n')
 local evasion = ""
 local accuracy = ""
 local life = ""
+local altLife1 = ""
+local altLife2 = ""
 local allyLife = ""
 local allyDamage = ""
 local damage = ""
@@ -13,6 +15,8 @@ for stats in dat("DefaultMonsterStats"):Rows() do
 	evasion = evasion .. stats.Evasion .. ", "
 	accuracy = accuracy .. stats.Accuracy .. ", "
 	life = life .. stats.MonsterLife .. ", "
+	altLife1 = altLife1 .. stats.AltLife1 .. ", "
+	altLife2 = altLife2 .. stats.AltLife2 .. ", "
 	allyLife = allyLife .. stats.MinionLife .. ", "
 	damage = damage .. stats.Damage .. ", "
 	allyDamage = allyDamage .. stats.MinionDamage .. ", "
@@ -23,6 +27,8 @@ out:write('-- From DefaultMonsterStats.dat\n')
 out:write('data.monsterEvasionTable = { '..evasion..'}\n')
 out:write('data.monsterAccuracyTable = { '..accuracy..'}\n')
 out:write('data.monsterLifeTable = { '..life..'}\n')
+out:write('data.monsterLifeTable2 = { '..altLife1..'}\n')
+out:write('data.monsterLifeTable3 = { '..altLife2..'}\n')
 out:write('data.monsterAllyLifeTable = { '..allyLife..'}\n')
 out:write('data.monsterDamageTable = { '..damage..'}\n')
 out:write('data.minionDamageTable = { '..allyDamage..'}\n')
