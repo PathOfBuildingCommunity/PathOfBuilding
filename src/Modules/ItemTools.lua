@@ -153,3 +153,64 @@ itemLib.wiki = {
 	end,
 	triggered = false
 }
+
+itemLib.catalysts = {
+	{
+		name = "Abrasive",
+		type = "Attack Modifiers",
+		tags = { "attack" },
+	},
+	{
+		name = "Accelerating",
+		type = "Speed Modifiers",
+		tags = { "speed" },
+	},
+	{
+		name = "Fertile",
+		type = "Life and Mana Modifiers",
+		tags = { "life", "mana", "resource" },
+	},
+	{
+		name = "Imbued",
+		type = "Caster Modifiers",
+		tags = { "caster" }
+	},
+	{
+		name = "Intrinsic",
+		type = "Attribute Modifiers",
+		tags = { "jewellery_attribute", "attribute" },
+	},
+	{
+		name = "Noxious",
+		type = "Physical and Chaos Damage Modifiers",
+		tags = { "physical_damage", "chaos_damage" },
+	},
+	{
+		name = "Prismatic",
+		type = "Resistance Modifiers",
+		tags = { "jewellery_resistance", "resistance" },
+	},
+	{
+		name = "Tempering",
+		type = "Defense Modifiers",
+		tags = { "jewellery_defense", "defences" },
+	},
+	{
+		name = "Turbulent",
+		type = "Elemental Modifiers",
+		tags = { "jewellery_elemental", "elemental_damage" },
+	},
+	{
+		name = "Unstable",
+		type = "Critical Modifiers",
+		tags = { "critical" },
+	},
+}
+
+itemLib.getCatalystId = function(key, val)
+	for id, catalyst in ipairs(itemLib.catalysts) do
+		if val == catalyst[key] then
+			return id
+		end
+	end
+end
