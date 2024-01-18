@@ -810,8 +810,13 @@ function ImportTabClass:ImportItem(itemData, slotName)
 	end
 	if itemData.properties then
 		for _, property in pairs(itemData.properties) do
-			if property.name == "Quality" then
-				item.quality = tonumber(property.values[1][1]:match("%d+"))
+			if property.name:match("^Quality") then
+				if property.name == "Quality" then 
+					item.quality = tonumber(property.values[1][1]:match("%d+"))
+				else
+					item.catalyst = 6
+					item.catalystQuality = tonumber(property.values[1][1]:match("%d+"))
+				end
 			elseif property.name == "Radius" then
 				item.jewelRadiusLabel = property.values[1][1]
 			elseif property.name == "Limited to" then
