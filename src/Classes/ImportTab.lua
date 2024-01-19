@@ -720,6 +720,7 @@ end
 
 local rarityMap = { [0] = "NORMAL", "MAGIC", "RARE", "UNIQUE", [9] = "RELIC", [10] = "RELIC" }
 local slotMap = { ["Weapon"] = "Weapon 1", ["Offhand"] = "Weapon 2", ["Weapon2"] = "Weapon 1 Swap", ["Offhand2"] = "Weapon 2 Swap", ["Helm"] = "Helmet", ["BodyArmour"] = "Body Armour", ["Gloves"] = "Gloves", ["Boots"] = "Boots", ["Amulet"] = "Amulet", ["Ring"] = "Ring 1", ["Ring2"] = "Ring 2", ["Belt"] = "Belt" }
+local catalysts = itemLib.catalysts
 
 function ImportTabClass:ImportItem(itemData, slotName)
 	if not slotName then
@@ -899,7 +900,16 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		for _, line in ipairs(itemData.implicitMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
-				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { } })
+				local modTags = modLib.getModTagsFromModList(modList)
+				if item.catalyst and item.catalyst > 0  and modTags then
+					local catalystTags = catalysts[item.catalyst].tags
+					for _, tag in ipairs(modTags) do
+						if isValueInArray(catalystTags, tag) then
+							line = line:gsub("(%d+)", function(num) return math.ceil(num / (1 + item.catalystQuality / 100)) end)
+						end
+					end
+				end
+				t_insert(item.implicitModLines, { line = line, extra = extra, mods = modList or { }, modTags = modTags })
 			end
 		end
 	end
@@ -907,7 +917,16 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		for _, line in ipairs(itemData.fracturedMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
-				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, fractured = true })
+				local modTags = modLib.getModTagsFromModList(modList)
+				if item.catalyst and item.catalyst > 0  and modTags then
+					local catalystTags = catalysts[item.catalyst].tags
+					for _, tag in ipairs(modTags) do
+						if isValueInArray(catalystTags, tag) then
+							line = line:gsub("(%d+)", function(num) return math.ceil(num / (1 + item.catalystQuality / 100)) end)
+						end
+					end
+				end
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, modTags = modTags, fractured = true })
 			end
 		end
 	end
@@ -915,7 +934,16 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		for _, line in ipairs(itemData.explicitMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
-				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { } })
+				local modTags = modLib.getModTagsFromModList(modList)
+				if item.catalyst and item.catalyst > 0  and modTags then
+					local catalystTags = catalysts[item.catalyst].tags
+					for _, tag in ipairs(modTags) do
+						if isValueInArray(catalystTags, tag) then
+							line = line:gsub("(%d+)", function(num) return math.ceil(num / (1 + item.catalystQuality / 100)) end)
+						end
+					end
+				end
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, modTags = modTags })
 			end
 		end
 	end
@@ -931,7 +959,16 @@ function ImportTabClass:ImportItem(itemData, slotName)
 		for _, line in ipairs(itemData.craftedMods) do
 			for line in line:gmatch("[^\n]+") do
 				local modList, extra = modLib.parseMod(line)
-				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, crafted = true })
+				local modTags = modLib.getModTagsFromModList(modList)
+				if item.catalyst and item.catalyst > 0  and modTags then
+					local catalystTags = catalysts[item.catalyst].tags
+					for _, tag in ipairs(modTags) do
+						if isValueInArray(catalystTags, tag) then
+							line = line:gsub("(%d+)", function(num) return math.ceil(num / (1 + item.catalystQuality / 100)) end)
+						end
+					end
+				end
+				t_insert(item.explicitModLines, { line = line, extra = extra, mods = modList or { }, modTags = modTags, crafted = true })
 			end
 		end
 	end
