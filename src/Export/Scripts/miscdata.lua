@@ -35,6 +35,13 @@ out:write('data.minionDamageTable = { '..allyDamage..'}\n')
 out:write('data.monsterArmourTable = { '..armour..'}\n')
 out:write('data.monsterAilmentThresholdTable = { '..ailmentThreshold..'}\n')
 
+out:write('-- From GameConstants.dat\n')
+out:write('data.gameConstants = {\n')
+for row in dat("GameConstants"):Rows() do
+	out:write('\t["' .. row.Id .. '"] = ' .. row.Value / row.Divisor .. ',\n')
+end
+out:write('}\n')
+
 local totemMult = ""
 local keys = { }
 for var in dat("SkillTotemVariations"):Rows() do
