@@ -59,6 +59,8 @@ local ItemsTabClass = newClass("ItemsTab", "UndoHandler", "ControlHost", "Contro
 	self.items = { }
 	self.itemOrderList = { }
 
+	self.showStatDifferences = true
+
 	-- PoB Trader class initialization
 	self.tradeQuery = new("TradeQuery", self)
 
@@ -1172,6 +1174,9 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 					self:SelectControl(self.controls.uniqueDB.controls.search)
 					self.controls.selectDB.selIndex = 1
 				end
+			elseif event.key == "d" and IsKeyDown("CTRL") then
+				self.showStatDifferences = not self.showStatDifferences
+				self.build.buildFlag = true
 			end
 		end
 	end
@@ -3115,6 +3120,12 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 		tooltip:AddLine(16, colorCodes.CRAFTED.."Synthesised Item")
 	end
 	tooltip:AddSeparator(10)
+
+	if not self.showStatDifferences then
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
+		return
+	end
 
 	-- Special fields for database items
 	if dbMode then
