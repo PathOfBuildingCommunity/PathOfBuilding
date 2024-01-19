@@ -241,3 +241,9 @@ function ItemListClass:OnHoverKeyUp(key)
 		end
 	end
 end
+
+function ItemListClass:GetRowIcon(column, index, itemId)
+	local item = self.itemsTab.items[itemId]
+	local slotName = item:GetPrimarySlot()
+	return icons.getIconForSlot(slotName)
+end

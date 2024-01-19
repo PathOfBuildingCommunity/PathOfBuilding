@@ -6,24 +6,6 @@
 local ipairs = ipairs
 local t_insert = table.insert
 local t_remove = table.remove
-local slot_map = {
-	["Weapon 1"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon.png" },
-	["Weapon 2"] 		= { icon = NewImageHandle(), path = "Assets/icon_weapon_2.png" },
-	["Weapon 1 Swap"] 	= { icon = NewImageHandle(), path = "Assets/icon_weapon_swap.png" },
-	["Weapon 2 Swap"] 	= { icon = NewImageHandle(), path = "Assets/icon_weapon_2_swap.png" },
-	["Bow"] 			= { icon = NewImageHandle(), path = "Assets/icon_bow.png" },
-	["Quiver"] 			= { icon = NewImageHandle(), path = "Assets/icon_quiver.png" },
-	["Shield"] 			= { icon = NewImageHandle(), path = "Assets/icon_shield.png" },
-	["Shield Swap"] 	= { icon = NewImageHandle(), path = "Assets/icon_shield_swap.png" },
-	["Helmet"] 			= { icon = NewImageHandle(), path = "Assets/icon_helmet.png" },
-	["Body Armour"] 	= { icon = NewImageHandle(), path = "Assets/icon_body_armour.png" },
-	["Gloves"] 			= { icon = NewImageHandle(), path = "Assets/icon_gloves.png" },
-	["Boots"] 			= { icon = NewImageHandle(), path = "Assets/icon_boots.png" },
-	["Amulet"] 			= { icon = NewImageHandle(), path = "Assets/icon_amulet.png" },
-	["Ring 1"] 			= { icon = NewImageHandle(), path = "Assets/icon_ring_left.png" },
-	["Ring 2"] 			= { icon = NewImageHandle(), path = "Assets/icon_ring_right.png" },
-	["Belt"] 			= { icon = NewImageHandle(), path = "Assets/icon_belt.png" },
-}
 
 local SkillListClass = newClass("SkillListControl", "ListControl", function(self, anchor, x, y, width, height, skillsTab)
 	self.ListControl(anchor, x, y, width, height, 16, "VERTICAL", true, skillsTab.socketGroupList)
@@ -62,9 +44,6 @@ local SkillListClass = newClass("SkillListControl", "ListControl", function(self
 		skillsTab.build.buildFlag = true
 		return skillsTab.gemSlots[1].nameSpec
 	end)
-	for k, x in pairs(slot_map) do
-		x.icon:Load(x.path)
-	end
 end)
 
 function SkillListClass:GetRowValue(column, index, socketGroup)
@@ -229,6 +208,6 @@ function SkillListClass:GetRowIcon(column, index, socketGroup)
 		if slot == "Weapon 2 Swap" and (weapon2SwapType == "Quiver" or weapon2SwapType == "Shield") then
 			slot = weapon2SwapType.." Swap"
 		end
-		return slot_map[slot] and slot_map[slot].icon
+		return icons.getIconForSlot(slot)
 	end
 end
