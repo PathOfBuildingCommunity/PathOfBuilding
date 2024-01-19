@@ -20,18 +20,21 @@ for stats in dat("DefaultMonsterStats"):Rows() do
 	allyLife = allyLife .. stats.MinionLife .. ", "
 	damage = damage .. stats.Damage .. ", "
 	allyDamage = allyDamage .. stats.MinionDamage .. ", "
-	armour = armour .. stats.Armour .. ", "
+	--armour = armour .. stats.Armour .. ", " The table here is wrong so we generate it instead
 	ailmentThreshold = ailmentThreshold .. stats.AilmentThreshold .. ", "
 end
+for i = 1, 100 do
+	armour = armour .. math.floor((10 + 2 * i ) * ( ( 1 + dat("GameConstants"):GetRow("Id", "MonsterDamageReductionImprovement").Value / dat("GameConstants"):GetRow("Id", "MonsterDamageReductionImprovement").Divisor / 100 ) ^ i)) .. ", "
+end
 out:write('-- From DefaultMonsterStats.dat\n')
-out:write('data.monsterEvasionTable = { '..evasion..'}\n')
+out:write('data.monsterEvasionTable = { '..evasion..'}\n') --This table is off by about 0.5% in some cases but is quicker than generating the value at runtime
 out:write('data.monsterAccuracyTable = { '..accuracy..'}\n')
 out:write('data.monsterLifeTable = { '..life..'}\n')
 out:write('data.monsterLifeTable2 = { '..altLife1..'}\n')
 out:write('data.monsterLifeTable3 = { '..altLife2..'}\n')
 out:write('data.monsterAllyLifeTable = { '..allyLife..'}\n')
 out:write('data.monsterDamageTable = { '..damage..'}\n')
-out:write('data.minionDamageTable = { '..allyDamage..'}\n')
+out:write('data.monsterAllyDamageTable = { '..allyDamage..'}\n')
 out:write('data.monsterArmourTable = { '..armour..'}\n')
 out:write('data.monsterAilmentThresholdTable = { '..ailmentThreshold..'}\n')
 
