@@ -153,6 +153,9 @@ directiveTable.emit = function(state, args, out)
 	if monsterVariety.Type.Armour ~= 0 then
 		out:write('\tarmour = ', monsterVariety.Type.Armour / 100, ',\n')
 	end
+	if monsterVariety.Type.Evasion ~= 0 then
+		out:write('\tevasion = ', monsterVariety.Type.Evasion / 100, ',\n')
+	end
 	out:write('\tfireResist = ', monsterVariety.Type.Resistances.FireMerciless, ',\n')
 	out:write('\tcoldResist = ', monsterVariety.Type.Resistances.ColdMerciless, ',\n')
 	out:write('\tlightningResist = ', monsterVariety.Type.Resistances.LightningMerciless, ',\n')
