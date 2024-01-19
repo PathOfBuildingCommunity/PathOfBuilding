@@ -210,6 +210,13 @@ local function initStatSortSelectionList(list)
 	})
 end
 
+-- we do not want to overwrite previous list if the new list is the default, e.g. hitting reset multiple times in a row
+local function isSameAsDefaultList(list)
+	return list and #list == 2
+		and list[1].stat == "FullDPS" and list[1].weightMult == 1.0
+		and list[2].stat == "TotalEHP" and list[2].weightMult == 0.5
+end
+
 -- Opens the item pricing popup
 function TradeQueryClass:PriceItem()
 	self.tradeQueryGenerator = new("TradeQueryGenerator", self)
@@ -537,11 +544,16 @@ function TradeQueryClass:SetStatWeights(previousSelectionList)
 		main:ClosePopup()
 	end)
 	controls.reset = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 90, -10, 80, 20, "Reset", function()
-		local previousSelectionList = copyTable(self.statSortSelectionList, true) -- this is so we can revert if user hits Cancel after Reset
+		local previousSelection = { }
+		if isSameAsDefaultList(self.statSortSelectionList) then
+			previousSelection = copyTable(previousSelectionList, true)
+		else
+			previousSelection = copyTable(self.statSortSelectionList, true) -- this is so we can revert if user hits Cancel after Reset
+		end
 		self.statSortSelectionList = { }
 		initStatSortSelectionList(self.statSortSelectionList)
 		main:ClosePopup()
-		self:SetStatWeights(previousSelectionList)
+		self:SetStatWeights(previousSelection)
 	end)
 	main:OpenPopup(420, popupHeight, "Stat Weight Multipliers", controls)
 end
