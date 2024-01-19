@@ -6696,7 +6696,7 @@ return {
 			name="Tags",
 			refTo="Tags",
 			type="Key",
-			width=250
+			width=220
 		},
 		[3]={
 			list=false,
@@ -6713,6 +6713,20 @@ return {
 			width=80
 		},
 		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=80
+		},
+		[7]={
 			list=false,
 			name="",
 			refTo="",
@@ -8586,37 +8600,44 @@ return {
 		},
 		[19]={
 			list=false,
-			name="Unknown1",
-			refTo="",
-			type="Int",
+			name="QuestState1",
+			refTo="QuestStates",
+			type="Key",
 			width=70
 		},
 		[20]={
 			list=false,
-			name="Unknown2",
-			refTo="",
-			type="Int",
-			width=60
+			name="QuestState2",
+			refTo="QuestStates",
+			type="Key",
+			width=70
 		},
 		[21]={
 			list=false,
-			name="Unknown3",
-			refTo="",
-			type="Int",
-			width=60
+			name="QuestState3",
+			refTo="QuestStates",
+			type="Key",
+			width=70
 		},
 		[22]={
 			list=false,
-			name="Unknown4",
-			refTo="",
-			type="Int",
-			width=60
+			name="QuestState4",
+			refTo="QuestStates",
+			type="Key",
+			width=70
 		},
 		[23]={
 			list=false,
 			name="IsDisabled",
 			refTo="",
 			type="Bool",
+			width=150
+		},
+		[24]={
+			list=true,
+			name="AchievementItems",
+			refTo="AchievementItems",
+			type="Key",
 			width=150
 		}
 	},
@@ -8630,28 +8651,28 @@ return {
 			name="Name",
 			refTo="",
 			type="String",
-			width=150
+			width=100
 		},
 		[2]={
 			list=false,
-			name="",
+			name="RingOuter",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[3]={
 			list=false,
-			name="",
+			name="RingInner",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		},
 		[4]={
 			list=false,
-			name="",
+			name="Radius",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
 		}
 	},
 	passivejewelslots={
