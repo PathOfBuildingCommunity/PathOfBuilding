@@ -750,6 +750,34 @@ return {
 	alternatequalitycurrencydecayfactors={
 	},
 	alternatequalitytypes={
+		[1]={
+			list=false,
+			name="QualityMod",
+			refTo="Mods",
+			type="Key",
+			width=190
+		},
+		[2]={
+			list=false,
+			name="Description",
+			refTo="",
+			type="String",
+			width=300
+		},
+		[3]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		}
 	},
 	alternateskilltargetingbehaviours={
 		[1]={
@@ -1235,7 +1263,7 @@ return {
 			width=50
 		},
 		[3]={
-			list=false,
+			list=true,
 			name="Class",
 			refTo="Characters",
 			type="Key",
@@ -1275,6 +1303,34 @@ return {
 			refTo="",
 			type="String",
 			width=480
+		},
+		[9]={
+			list=false,
+			name="PassiveTreeImage",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=70
+		},
+		[12]={
+			list=false,
+			name="BackgroundImage",
+			refTo="",
+			type="String",
+			width=150
 		}
 	},
 	atlasawakeningstats={
@@ -1316,6 +1372,20 @@ return {
 	atlasmemoryline={
 	},
 	atlasmods={
+		[1]={
+			list=false,
+			name="Mod",
+			refTo="Mods",
+			type="Key",
+			width=320
+		},
+		[2]={
+			list=false,
+			name="Tier",
+			refTo="",
+			type="Int",
+			width=70
+		}
 	},
 	atlasmodtiers={
 	},
@@ -1413,6 +1483,92 @@ return {
 			refTo="",
 			type="Int",
 			width=150
+		}
+	},
+	azmeriwoodsdusttype={
+		[1]={
+			list=false,
+			name="AzmeriLeader",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[2]={
+			list=false,
+			name="BaseItemType",
+			refTo="BaseItemTypes",
+			type="Key",
+			width=150
+		},
+		[3]={
+			list=false,
+			name="Name",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[4]={
+			list=false,
+			name="UISymbol",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[5]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[6]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[7]={
+			list=false,
+			name="Stat",
+			refTo="Stats",
+			type="Key",
+			width=250
+		},
+		[8]={
+			list=false,
+			name="UiArt",
+			refTo="",
+			type="String",
+			width=150
+		},
+		[9]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[10]={
+			list=false,
+			name="",
+			refTo="",
+			type="Int",
+			width=50
+		},
+		[11]={
+			list=false,
+			name="",
+			refTo="",
+			type="Key",
+			width=150
+		},
+		[12]={
+			list=false,
+			name="",
+			refTo="",
+			type="String",
+			width=190
 		}
 	},
 	backenderrors={
@@ -3240,6 +3396,20 @@ return {
 			refTo="Stats",
 			type="Key",
 			width=150
+		},
+		[38]={
+			list=false,
+			name="",
+			refTo="",
+			type="Bool",
+			width=150
+		},
+		[39]={
+			list=true,
+			name="",
+			refTo="",
+			type="Key",
+			width=260
 		}
 	},
 	craftingbenchsortcategories={
@@ -3512,7 +3682,7 @@ return {
 		},
 		[15]={
 			list=false,
-			name="UnusedEvasion",
+			name="EvasiveEvasion",
 			refTo="",
 			type="Int",
 			width=100
@@ -4361,14 +4531,21 @@ return {
 			name="Id",
 			refTo="",
 			type="String",
-			width=250
+			width=300
 		},
 		[2]={
 			list=false,
 			name="Value",
 			refTo="",
 			type="Int",
-			width=150
+			width=100
+		},
+		[3]={
+			list=false,
+			name="Divisor",
+			refTo="",
+			type="Int",
+			width=100
 		}
 	},
 	gamelogos={
@@ -7465,7 +7642,7 @@ return {
 		},
 		[11]={
 			list=false,
-			name="NotAffectBaseAttackDamage",
+			name="BaseDamageIgnoresAttackSpeed",
 			refTo="",
 			type="Bool",
 			width=180
