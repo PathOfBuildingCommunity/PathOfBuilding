@@ -632,11 +632,9 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			minion.level = m_min(m_max(minion.level,1),100) 
 			minion.itemList = { }
 			minion.uses = activeGrantedEffect.minionUses
-			minion.lifeTable = isSpectre and ((minion.minionData.lifeScaling == "AltLife1" and env.data.monsterLifeTable2) or (minion.minionData.lifeScaling == "AltLife2" and env.data.monsterLifeTable3) or env.data.monsterLifeTable) or env.data.monsterAllyLifeTable
-			-- the damage fixup stat applies x% less base Attack Damage and x% more base Attack Speed as confirmed by Openarl Jan 4th 2024
-			local fixupMult = minion.minionData.damageFixup or 0
-			local attackTime = minion.minionData.attackTime * (1 / 1 + fixupMult)
-			local damage = (isSpectre and env.data.monsterDamageTable[minion.level] or env.data.minionDamageTable[minion.level]) * minion.minionData.damage * (1 - fixupMult)
+			minion.lifeTable = (minion.minionData.lifeScaling == "AltLife1" and env.data.monsterLifeTable2) or (minion.minionData.lifeScaling == "AltLife2" and env.data.monsterLifeTable3) or (isSpectre and env.data.monsterLifeTable) or env.data.monsterAllyLifeTable
+			local attackTime = minion.minionData.attackTime
+			local damage = (isSpectre and env.data.monsterDamageTable[minion.level] or env.data.monsterAllyDamageTable[minion.level]) * minion.minionData.damage
 			if not minion.minionData.baseDamageIgnoresAttackSpeed then -- minions with this flag do not factor attack time into their base damage
 				 damage = damage * attackTime
 			end
