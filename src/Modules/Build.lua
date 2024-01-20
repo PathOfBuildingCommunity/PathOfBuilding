@@ -383,21 +383,21 @@ function buildMode:Init(dbFileName, buildName, buildXML, convertBuild)
 		{ stat = "Spec:ArmourInc", label = "%Inc Armour from Tree", fmt = "d%%" },
 		{ stat = "PhysicalDamageReduction", label = "Phys. Damage Reduction", fmt = "d%%", condFunc = function() return true end },
 		{ },
-		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%", overCapStat = "BlockChanceOverCap" },
-		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", overCapStat = "SpellBlockChanceOverCap" },
-		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", overCapStat = "AttackDodgeChanceOverCap" },
-		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", overCapStat = "SpellDodgeChanceOverCap" },
-		{ stat = "EffectiveSpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", overCapStat = "SpellSuppressionChanceOverCap" },
+		{ stat = "BlockChance", label = "Block Chance", fmt = "d%%", secondaryDisplay = { stat = "BlockChanceOverCap", fmt = "+%d%%" }},
+		{ stat = "SpellBlockChance", label = "Spell Block Chance", fmt = "d%%", secondaryDisplay = { stat = "SpellBlockChanceOverCap", fmt = "+%d%%" }},
+		{ stat = "AttackDodgeChance", label = "Attack Dodge Chance", fmt = "d%%", secondaryDisplay = { stat = "AttackDodgeChanceOverCap", fmt = "+%d%%" }},
+		{ stat = "SpellDodgeChance", label = "Spell Dodge Chance", fmt = "d%%", secondaryDisplay = { stat = "SpellDodgeChanceOverCap", fmt = "+%d%%" }},
+		{ stat = "EffectiveSpellSuppressionChance", label = "Spell Suppression Chance", fmt = "d%%", secondaryDisplay = { stat = "SpellSuppressionChanceOverCap", fmt = "+%d%%" }},
 		{ },
-		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, condFunc = function() return true end, overCapStat = "FireResistOverCap"},
+		{ stat = "FireResist", label = "Fire Resistance", fmt = "d%%", color = colorCodes.FIRE, secondaryDisplay = { stat = "FireResistTotal", fmt = "%d%%" }},
 		{ stat = "FireResistOverCap", label = "Fire Res. Over Max", fmt = "d%%", hideStat = true },
-		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, condFunc = function() return true end, overCapStat = "ColdResistOverCap" },
+		{ stat = "ColdResist", label = "Cold Resistance", fmt = "d%%", color = colorCodes.COLD, secondaryDisplay = { stat = "ColdResistTotal", fmt = "%d%%" }},
 		{ stat = "ColdResistOverCap", label = "Cold Res. Over Max", fmt = "d%%", hideStat = true },
-		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, condFunc = function() return true end, overCapStat = "LightningResistOverCap" },
+		{ stat = "LightningResist", label = "Lightning Resistance", fmt = "d%%", color = colorCodes.LIGHTNING, secondaryDisplay = { stat = "LightningResistTotal", fmt = "%d%%" }},
 		{ stat = "LightningResistOverCap", label = "Lightning Res. Over Max", fmt = "d%%", hideStat = true },
-		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function(v,o) return not o.ChaosInoculation end, overCapStat = "ChaosResistOverCap" },
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function(v,o) return not o.ChaosInoculation end, secondaryDisplay = { stat = "ChaosResistTotal", fmt = "%d%%"}},
+		{ stat = "ChaosResist", label = "Chaos Resistance", fmt = "d%%", color = colorCodes.CHAOS, condFunc = function(v,o) return o.ChaosInoculation end, secondaryDisplay = { val = "Immune", fmt = "%s"}},
 		{ stat = "ChaosResistOverCap", label = "Chaos Res. Over Max", fmt = "d%%", hideStat = true },
-		{ label = "Chaos Resistance", val = "Immune", labelStat = "ChaosResist", color = colorCodes.CHAOS, condFunc = function(o) return o.ChaosInoculation end },
 		{ },
 		{ stat = "EffectiveMovementSpeedMod", label = "Movement Speed Modifier", fmt = "+d%%", mod = true, condFunc = function() return true end },
 		{ },
@@ -1329,7 +1329,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	end
 end
 
-function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
+function buildMode:FormatStat(statData, statVal, secondaryStat, colorOverride)
 	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = colorOverride or (statVal >= 0 and "^7" or statData.chaosInoc and "^8" or colorCodes.NEGATIVE)
@@ -1341,8 +1341,8 @@ function buildMode:FormatStat(statData, statVal, overCapStatVal, colorOverride)
 	valStr:gsub("%.", main.decimalSeparator)
 	valStr = color .. formatNumSep(valStr)
 
-	if overCapStatVal and overCapStatVal > 0 then
-		valStr = valStr .. "^x808080" .. " (+" .. s_format("%d", overCapStatVal) .. "%)"
+	if secondaryStat then
+		valStr = valStr .. "^x808080" .. " (" .. s_format(secondaryStat.fmt, secondaryStat.val) .. ")"
 	end
 	self.lastShowThousandsSeparators = main.showThousandsSeparators
 	self.lastShowThousandsSeparator = main.thousandsSeparator
@@ -1367,7 +1367,9 @@ function buildMode:AddDisplayStatList(statList, actor)
 					statVal = statVal[statData.childStat]
 				end
 				if statVal and ((statData.condFunc and statData.condFunc(statVal,actor.output)) or (not statData.condFunc and statVal ~= 0)) then
-					local overCapStatVal = actor.output[statData.overCapStat] or nil
+					if statData.secondaryDisplay and statData.secondaryDisplay.stat then
+						statData.secondaryDisplay.val = actor.output[statData.secondaryDisplay.stat] or nil
+					end
 					if statData.stat == "SkillDPS" then
 						labelColor = colorCodes.CUSTOM
 						table.sort(actor.output.SkillDPS, function(a,b) return (a.dps * a.count) > (b.dps * b.count) end)
@@ -1383,7 +1385,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 							t_insert(statBoxList, {
 								height = 16,
 								lhsString,
-								self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count, overCapStatVal),
+								self:FormatStat({fmt = "1.f"}, skillData.dps * skillData.count, statData.secondaryDisplay),
 							})
 							if skillData.skillPart then
 								t_insert(statBoxList, {
@@ -1420,7 +1422,7 @@ function buildMode:AddDisplayStatList(statList, actor)
 						t_insert(statBoxList, {
 							height = 16,
 							labelColor..statData.label..":",
-							self:FormatStat(statData, statVal, overCapStatVal, colorOverride),
+							self:FormatStat(statData, statVal, statData.secondaryDisplay, colorOverride),
 						})
 					end
 				end
