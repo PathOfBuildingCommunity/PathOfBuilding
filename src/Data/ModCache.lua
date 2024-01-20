@@ -7470,7 +7470,7 @@ c["Critical Strike Chance is 30% for Hits with this Weapon"]={{[1]={[1]={type="C
 c["Critical Strike Chance is increased by Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="CritChanceIncreasedByLightningRes",type="FLAG",value=true}},nil}
 c["Critical Strike Chance is increased by Overcapped Lightning Resistance"]={{[1]={flags=0,keywordFlags=0,name="CritChanceIncreasedByOvercappedLightningRes",type="FLAG",value=true}},nil}
 c["Critical Strikes Penetrate 10% of Enemy Elemental Resistances while affected by Zealotry"]={{[1]={[1]={type="Condition",var="CriticalStrike"},[2]={type="Condition",var="AffectedByZealotry"},flags=0,keywordFlags=0,name="ElementalPenetration",type="BASE",value=10}},nil}
-c["Critical Strikes against you do not inherently inflict Elemental Ailments"]={nil,"Critical Strikes  do not inherently inflict Elemental Ailments "}
+c["Critical Strikes against you do not inherently inflict Elemental Ailments"]={{[1]={flags=0,keywordFlags=0,name="CritsOnYouDontAlwaysApplyElementalAilments",type="FLAG",value=true}},nil}
 c["Critical Strikes deal no Damage"]={{[1]={[1]={type="Condition",var="CriticalStrike"},flags=0,keywordFlags=0,name="Damage",type="MORE",value=-100}},nil}
 c["Critical Strikes do not always Freeze"]={{[1]={flags=0,keywordFlags=0,name="CritsDontAlwaysFreeze",type="FLAG",value=true}},nil}
 c["Critical Strikes do not inherently Ignite"]={{[1]={flags=0,keywordFlags=0,name="CritsDontAlwaysIgnite",type="FLAG",value=true}},nil}
