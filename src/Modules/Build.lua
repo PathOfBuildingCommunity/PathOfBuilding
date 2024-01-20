@@ -1329,7 +1329,7 @@ function buildMode:RefreshSkillSelectControls(controls, mainGroup, suffix)
 	end
 end
 
-function buildMode:FormatStat(statData, statVal, secondaryStat, colorOverride)
+function buildMode:FormatStat(statData, statVal, secondaryDisplay, colorOverride)
 	if type(statVal) == "table" then return "" end
 	local val = statVal * ((statData.pc or statData.mod) and 100 or 1) - (statData.mod and 100 or 0)
 	local color = colorOverride or (statVal >= 0 and "^7" or statData.chaosInoc and "^8" or colorCodes.NEGATIVE)
@@ -1341,8 +1341,8 @@ function buildMode:FormatStat(statData, statVal, secondaryStat, colorOverride)
 	valStr:gsub("%.", main.decimalSeparator)
 	valStr = color .. formatNumSep(valStr)
 
-	if secondaryStat then
-		valStr = valStr .. "^x808080" .. " (" .. s_format(secondaryStat.fmt, secondaryStat.val) .. ")"
+	if secondaryDisplay then
+		valStr = valStr .. "^x808080" .. " (" .. s_format(secondaryDisplay.fmt, secondaryDisplay.val) .. ")"
 	end
 	self.lastShowThousandsSeparators = main.showThousandsSeparators
 	self.lastShowThousandsSeparator = main.thousandsSeparator
