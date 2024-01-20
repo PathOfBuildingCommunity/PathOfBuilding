@@ -445,6 +445,13 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 	local skillModList = new("ModList", activeSkill.actor.modDB)
 	activeSkill.skillModList = skillModList
 	activeSkill.baseSkillModList = skillModList
+	
+	-- The damage fixup stat applies x% less base Attack Damage and x% more base Attack Speed as confirmed by Openarl Jan 4th 2024
+	-- Implemented in this manner as the stat exists on the minion not the skills 
+	if activeSkill.actor and activeSkill.actor.minionData and activeSkill.actor.minionData.damageFixup then
+		skillModList:NewMod("Damage", "MORE", -100 * activeSkill.actor.minionData.damageFixup, "Damage Fixup", ModFlag.Attack)
+		skillModList:NewMod("Speed", "MORE", 100 * activeSkill.actor.minionData.damageFixup, "Damage Fixup", ModFlag.Attack)
+	end
 
 	if skillModList:Flag(activeSkill.skillCfg, "DisableSkill") and not skillModList:Flag(activeSkill.skillCfg, "EnableSkill") then
 		skillFlags.disable = true
@@ -632,9 +639,12 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 			minion.level = m_min(m_max(minion.level,1),100) 
 			minion.itemList = { }
 			minion.uses = activeGrantedEffect.minionUses
-			minion.lifeTable = isSpectre and env.data.monsterLifeTable or env.data.monsterAllyLifeTable
-			local attackTime = minion.minionData.attackTime * (1 - (minion.minionData.damageFixup or 0))
-			local damage = env.data.monsterDamageTable[minion.level] * minion.minionData.damage * attackTime
+			minion.lifeTable = (minion.minionData.lifeScaling == "AltLife1" and env.data.monsterLifeTable2) or (minion.minionData.lifeScaling == "AltLife2" and env.data.monsterLifeTable3) or (isSpectre and env.data.monsterLifeTable) or env.data.monsterAllyLifeTable
+			local attackTime = minion.minionData.attackTime
+			local damage = (isSpectre and env.data.monsterDamageTable[minion.level] or env.data.monsterAllyDamageTable[minion.level]) * minion.minionData.damage
+			if not minion.minionData.baseDamageIgnoresAttackSpeed then -- minions with this flag do not factor attack time into their base damage
+				 damage = damage * attackTime
+			end
 			if activeGrantedEffect.minionHasItemSet then
 				if env.mode == "CALCS" and activeSkill == env.player.mainSkill then
 					if not env.build.itemsTab.itemSets[activeEffect.srcInstance.skillMinionItemSetCalcs] then
