@@ -3121,12 +3121,6 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	end
 	tooltip:AddSeparator(10)
 
-	if not self.showStatDifferences then
-		tooltip:AddSeparator(14)
-		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
-		return
-	end
-
 	-- Special fields for database items
 	if dbMode then
 		if item.variantList then
@@ -3378,255 +3372,261 @@ function ItemsTabClass:AddItemTooltip(tooltip, item, slot, dbMode)
 	tooltip:AddSeparator(14)
 
 	-- Stat differences
-	local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
-	if base.flask then
-		-- Special handling for flasks
-		local stats = { }
-		local flaskData = item.flaskData
-		local modDB = self.build.calcsTab.mainEnv.modDB
-		local output = self.build.calcsTab.mainOutput
-		local durInc = modDB:Sum("INC", nil, "FlaskDuration")
-		local effectInc = modDB:Sum("INC", { actor = "player" }, "FlaskEffect")
-		local lifeDur = 0
-		local manaDur = 0
+	if self.showStatDifferences then
+		local calcFunc, calcBase = self.build.calcsTab:GetMiscCalculator()
+		if base.flask then
+			-- Special handling for flasks
+			local stats = { }
+			local flaskData = item.flaskData
+			local modDB = self.build.calcsTab.mainEnv.modDB
+			local output = self.build.calcsTab.mainOutput
+			local durInc = modDB:Sum("INC", nil, "FlaskDuration")
+			local effectInc = modDB:Sum("INC", { actor = "player" }, "FlaskEffect")
+			local lifeDur = 0
+			local manaDur = 0
 
-		if item.rarity == "MAGIC" and not item.base.flask.life and not item.base.flask.mana then
-			effectInc = effectInc + modDB:Sum("INC", { actor = "player" }, "MagicUtilityFlaskEffect")
-		end
+			if item.rarity == "MAGIC" and not item.base.flask.life and not item.base.flask.mana then
+				effectInc = effectInc + modDB:Sum("INC", { actor = "player" }, "MagicUtilityFlaskEffect")
+			end
 
-		if item.base.flask.life or item.base.flask.mana then
-			local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
-			if item.base.flask.life then
-				local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
-				local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
-				local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
-				local instantPerc = flaskData.instantPerc + modDB:Sum("BASE", nil, "LifeFlaskInstantRecovery")
-				local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
-				local base = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100)
-				local grad = base * output.LifeRecoveryRateMod
-				local esGrad = base * output.EnergyShieldRecoveryRateMod
-				lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
+			if item.base.flask.life or item.base.flask.mana then
+				local rateInc = modDB:Sum("INC", nil, "FlaskRecoveryRate")
+				if item.base.flask.life then
+					local lifeInc = modDB:Sum("INC", nil, "FlaskLifeRecovery")
+					local lifeMore = modDB:More(nil, "FlaskLifeRecovery")
+					local lifeRateInc = modDB:Sum("INC", nil, "FlaskLifeRecoveryRate")
+					local instantPerc = flaskData.instantPerc + modDB:Sum("BASE", nil, "LifeFlaskInstantRecovery")
+					local inst = flaskData.lifeBase * instantPerc / 100 * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100)
+					local base = flaskData.lifeBase * (1 - instantPerc / 100) * (1 + lifeInc / 100) * lifeMore * (1 + effectInc / 100) * (1 + durInc / 100)
+					local grad = base * output.LifeRecoveryRateMod
+					local esGrad = base * output.EnergyShieldRecoveryRateMod
+					lifeDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + lifeRateInc / 100)
 
-				-- LocalLifeFlaskAdditionalLifeRecovery flask mods
-				if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then
-					local totalAdditionalAmount = (flaskData.lifeAdditional/100) * flaskData.lifeTotal * output.LifeRecoveryRateMod
-					local additionalGrad = (lifeDur/10) * totalAdditionalAmount
-					local leftoverDur = 10 - lifeDur
-					local leftoverAmount = totalAdditionalAmount - additionalGrad
+					-- LocalLifeFlaskAdditionalLifeRecovery flask mods
+					if flaskData.lifeAdditional > 0 and not self.build.configTab.input.conditionFullLife then
+						local totalAdditionalAmount = (flaskData.lifeAdditional/100) * flaskData.lifeTotal * output.LifeRecoveryRateMod
+						local additionalGrad = (lifeDur/10) * totalAdditionalAmount
+						local leftoverDur = 10 - lifeDur
+						local leftoverAmount = totalAdditionalAmount - additionalGrad
 
-					if inst > 0 then
-						if grad > 0 then
-							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
-									inst + grad + totalAdditionalAmount, inst, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+						if inst > 0 then
+							if grad > 0 then
+								t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
+										inst + grad + totalAdditionalAmount, inst, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+							else
+								lifeDur = 0
+								t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, and an additional ^7%d ^8over ^7%.2fs^8)",
+										inst + totalAdditionalAmount, inst, totalAdditionalAmount, 10))
+							end
 						else
-							lifeDur = 0
-							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, and an additional ^7%d ^8over ^7%.2fs^8)",
-									inst + totalAdditionalAmount, inst, totalAdditionalAmount, 10))
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d ^8over ^7%.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
+							grad + totalAdditionalAmount, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
 						end
 					else
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d ^8over ^7%.2fs^8, and an additional ^7%d ^8over subsequent ^7%.2fs^8)",
-						grad + totalAdditionalAmount, grad + additionalGrad, lifeDur, leftoverAmount, leftoverDur))
+						if inst > 0 and grad > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
+						-- modifiers to recovery amount or duration
+						elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
+							if inst > 0 then
+								lifeDur = 0
+								t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
+							elseif grad > 0 then
+								t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
+							end
+						end
 					end
-				else
-					if inst > 0 and grad > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, lifeDur))
-					-- modifiers to recovery amount or duration
-					elseif inst + grad ~= flaskData.lifeTotal or (inst == 0 and lifeDur ~= flaskData.duration) then
-						if inst > 0 then
-							lifeDur = 0
-							t_insert(stats, s_format("^8Life recovered: ^7%d ^8instantly", inst))
-						elseif grad > 0 then
-							t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", grad, lifeDur))
+					if modDB:Flag(nil, "LifeFlaskAppliesToEnergyShield") then
+						if inst > 0 and esGrad > 0 then
+							t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + esGrad, inst, esGrad, lifeDur))
+						elseif inst > 0 and esGrad == 0 then
+							t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8instantly", inst))
+						elseif inst == 0 and esGrad > 0 then
+							t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8over ^7%.2fs", esGrad, lifeDur))
 						end
 					end
 				end
-				if modDB:Flag(nil, "LifeFlaskAppliesToEnergyShield") then
-					if inst > 0 and esGrad > 0 then
-						t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + esGrad, inst, esGrad, lifeDur))
-					elseif inst > 0 and esGrad == 0 then
-						t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8instantly", inst))
-					elseif inst == 0 and esGrad > 0 then
-						t_insert(stats, s_format("^8Energy Shield recovered: ^7%d ^8over ^7%.2fs", esGrad, lifeDur))
+				if item.base.flask.mana then
+					local manaInc = modDB:Sum("INC", nil, "FlaskManaRecovery")
+					local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
+					local instantPerc = flaskData.instantPerc + modDB:Sum("BASE", nil, "ManaFlaskInstantRecovery")
+					local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
+					local base = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
+					local grad = base * output.ManaRecoveryRateMod
+					local lifeGrad = base * output.LifeRecoveryRateMod
+					manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
+
+					if inst > 0 and grad > 0 then
+						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
+					elseif inst + grad ~= flaskData.manaTotal or (inst == 0 and manaDur ~= flaskData.duration) then
+						if inst > 0 then
+							manaDur = 0
+							t_insert(stats, s_format("^8Mana recovered: ^7%d ^8instantly", inst))
+						elseif grad > 0 then
+							t_insert(stats, s_format("^8Mana recovered: ^7%d ^8over ^7%.2fs", grad, manaDur))
+						end
+					end
+					if modDB:Flag(nil, "ManaFlaskAppliesToLife") then
+						if lifeGrad > 0 then
+							t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", lifeGrad, manaDur))
+						end
 					end
 				end
+			else
+				if durInc ~= 0 then
+					t_insert(stats, s_format("^8Flask effect duration: ^7%.1f0s", flaskData.duration * (1 + durInc / 100)))
+				end
+			end
+			local effectMod = 1 + (flaskData.effectInc + effectInc) / 100
+			if effectMod ~= 1 then
+				t_insert(stats, s_format("^8Flask effect modifier: ^7%+d%%", effectMod * 100 - 100))
+			end
+			local usedInc = modDB:Sum("INC", nil, "FlaskChargesUsed")
+			if usedInc ~= 0 then
+				local used = m_floor(flaskData.chargesUsed * (1 + usedInc / 100))
+				t_insert(stats, s_format("^8Charges used: ^7%d ^8of ^7%d ^8(^7%d ^8uses)", used, flaskData.chargesMax, m_floor(flaskData.chargesMax / used)))
+			end
+			local gainMod = flaskData.gainMod * (1 + modDB:Sum("INC", nil, "FlaskChargesGained") / 100)
+			if gainMod ~= 1 then
+				t_insert(stats, s_format("^8Charge gain modifier: ^7%+d%%", gainMod * 100 - 100))
+			end
+
+			-- charge generation
+			local chargesGenerated = modDB:Sum("BASE", nil, "FlaskChargesGenerated")
+			if item.base.flask.life then
+				chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "LifeFlaskChargesGenerated")
 			end
 			if item.base.flask.mana then
-				local manaInc = modDB:Sum("INC", nil, "FlaskManaRecovery")
-				local manaRateInc = modDB:Sum("INC", nil, "FlaskManaRecoveryRate")
-				local instantPerc = flaskData.instantPerc + modDB:Sum("BASE", nil, "ManaFlaskInstantRecovery")
-				local inst = flaskData.manaBase * instantPerc / 100 * (1 + manaInc / 100) * (1 + effectInc / 100)
-				local base = flaskData.manaBase * (1 - instantPerc / 100) * (1 + manaInc / 100) * (1 + effectInc / 100) * (1 + durInc / 100)
-				local grad = base * output.ManaRecoveryRateMod
-				local lifeGrad = base * output.LifeRecoveryRateMod
-				manaDur = flaskData.duration * (1 + durInc / 100) / (1 + rateInc / 100) / (1 + manaRateInc / 100)
+				chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "ManaFlaskChargesGenerated")
+			end
+			if not item.base.flask.mana and not item.base.flask.life then
+				chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
+			end
 
-				if inst > 0 and grad > 0 then
-					t_insert(stats, s_format("^8Mana recovered: ^7%d ^8(^7%d^8 instantly, plus ^7%d ^8over^7 %.2fs^8)", inst + grad, inst, grad, manaDur))
-				elseif inst + grad ~= flaskData.manaTotal or (inst == 0 and manaDur ~= flaskData.duration) then
-					if inst > 0 then
-						manaDur = 0
-						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8instantly", inst))
-					elseif grad > 0 then
-						t_insert(stats, s_format("^8Mana recovered: ^7%d ^8over ^7%.2fs", grad, manaDur))
+			local chargesGeneratedPerFlask = modDB:Sum("BASE", nil, "FlaskChargesGeneratedPerEmptyFlask")
+			local emptyFlaskSlots = 0
+			for slotName, slot in pairs(self.slots) do
+				if slotName:find("^Flask") ~= nil and slot.selItemId == 0 then
+					emptyFlaskSlots = emptyFlaskSlots + 1
+				end
+			end
+			chargesGeneratedPerFlask = chargesGeneratedPerFlask * emptyFlaskSlots
+			chargesGenerated = chargesGenerated * gainMod
+			chargesGeneratedPerFlask = chargesGeneratedPerFlask * gainMod
+
+			local totalChargesGenerated = chargesGenerated + chargesGeneratedPerFlask
+			if totalChargesGenerated > 0 then
+				t_insert(stats, s_format("^8Charges generated: ^7%.2f^8 per second", totalChargesGenerated))
+			end
+
+			local chanceToNotConsumeCharges = m_min(modDB:Sum("BASE", nil, "FlaskChanceNotConsumeCharges"), 100)
+			if chanceToNotConsumeCharges ~= 0 then
+				t_insert(stats, s_format("^8Chance to not consume charges: ^7%d%%", chanceToNotConsumeCharges))
+			end
+
+			-- flask uptime
+			local hasUptime = not item.base.flask.life and not item.base.flask.mana
+			local flaskDuration = flaskData.duration * (1 + durInc / 100)
+
+			if item.base.flask.life and (flaskData.lifeEffectNotRemoved or modDB:Flag(nil, "LifeFlaskEffectNotRemoved")) then
+				hasUptime = true
+				flaskDuration = lifeDur
+			elseif item.base.flask.mana and (flaskData.manaEffectNotRemoved or modDB:Flag(nil, "ManaFlaskEffectNotRemoved")) then
+				hasUptime = true
+				flaskDuration = manaDur
+			end
+
+			if hasUptime then
+				local flaskChargesUsed = flaskData.chargesUsed * (1 + usedInc / 100)
+				if flaskChargesUsed > 0 and flaskDuration > 0 then
+					local per3Duration = flaskDuration - (flaskDuration % 3)
+					local per5Duration = flaskDuration - (flaskDuration % 5)
+					local minimumChargesGenerated = per3Duration * chargesGenerated + per5Duration * chargesGeneratedPerFlask
+					local percentageMin = m_min(minimumChargesGenerated / flaskChargesUsed * 100, 100)
+					if percentageMin < 100 and chanceToNotConsumeCharges < 100 then
+						local averageChargesGenerated = (chargesGenerated + chargesGeneratedPerFlask) * flaskDuration
+						local averageChargesUsed = flaskChargesUsed * (100 - chanceToNotConsumeCharges) / 100
+						local percentageAvg = m_min(averageChargesGenerated / averageChargesUsed * 100, 100)
+						t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8 average, ^7%d%%^8 minimum", percentageAvg, percentageMin))
+					else
+						t_insert(stats, s_format("^8Flask uptime: ^7100%%^8"))
 					end
 				end
-				if modDB:Flag(nil, "ManaFlaskAppliesToLife") then
-					if lifeGrad > 0 then
-						t_insert(stats, s_format("^8Life recovered: ^7%d ^8over ^7%.2fs", lifeGrad, manaDur))
-					end
+			end
+
+			if stats[1] then
+				tooltip:AddLine(14, "^7Effective flask stats:")
+				for _, stat in ipairs(stats) do
+					tooltip:AddLine(14, stat)
 				end
 			end
-		else
-			if durInc ~= 0 then
-				t_insert(stats, s_format("^8Flask effect duration: ^7%.1f0s", flaskData.duration * (1 + durInc / 100)))
-			end
-		end
-		local effectMod = 1 + (flaskData.effectInc + effectInc) / 100
-		if effectMod ~= 1 then
-			t_insert(stats, s_format("^8Flask effect modifier: ^7%+d%%", effectMod * 100 - 100))
-		end
-		local usedInc = modDB:Sum("INC", nil, "FlaskChargesUsed")
-		if usedInc ~= 0 then
-			local used = m_floor(flaskData.chargesUsed * (1 + usedInc / 100))
-			t_insert(stats, s_format("^8Charges used: ^7%d ^8of ^7%d ^8(^7%d ^8uses)", used, flaskData.chargesMax, m_floor(flaskData.chargesMax / used)))
-		end
-		local gainMod = flaskData.gainMod * (1 + modDB:Sum("INC", nil, "FlaskChargesGained") / 100)
-		if gainMod ~= 1 then
-			t_insert(stats, s_format("^8Charge gain modifier: ^7%+d%%", gainMod * 100 - 100))
-		end
-
-		-- charge generation
-		local chargesGenerated = modDB:Sum("BASE", nil, "FlaskChargesGenerated")
-		if item.base.flask.life then
-			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "LifeFlaskChargesGenerated")
-		end
-		if item.base.flask.mana then
-			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "ManaFlaskChargesGenerated")
-		end
-		if not item.base.flask.mana and not item.base.flask.life then
-			chargesGenerated = chargesGenerated + modDB:Sum("BASE", nil, "UtilityFlaskChargesGenerated")
-		end
-
-		local chargesGeneratedPerFlask = modDB:Sum("BASE", nil, "FlaskChargesGeneratedPerEmptyFlask")
-		local emptyFlaskSlots = 0
-		for slotName, slot in pairs(self.slots) do
-			if slotName:find("^Flask") ~= nil and slot.selItemId == 0 then
-				emptyFlaskSlots = emptyFlaskSlots + 1
-			end
-		end
-		chargesGeneratedPerFlask = chargesGeneratedPerFlask * emptyFlaskSlots
-		chargesGenerated = chargesGenerated * gainMod
-		chargesGeneratedPerFlask = chargesGeneratedPerFlask * gainMod
-
-		local totalChargesGenerated = chargesGenerated + chargesGeneratedPerFlask
-		if totalChargesGenerated > 0 then
-			t_insert(stats, s_format("^8Charges generated: ^7%.2f^8 per second", totalChargesGenerated))
-		end
-
-		local chanceToNotConsumeCharges = m_min(modDB:Sum("BASE", nil, "FlaskChanceNotConsumeCharges"), 100)
-		if chanceToNotConsumeCharges ~= 0 then
-			t_insert(stats, s_format("^8Chance to not consume charges: ^7%d%%", chanceToNotConsumeCharges))
-		end
-
-		-- flask uptime
-		local hasUptime = not item.base.flask.life and not item.base.flask.mana
-		local flaskDuration = flaskData.duration * (1 + durInc / 100)
-
-		if item.base.flask.life and (flaskData.lifeEffectNotRemoved or modDB:Flag(nil, "LifeFlaskEffectNotRemoved")) then
-			hasUptime = true
-			flaskDuration = lifeDur
-		elseif item.base.flask.mana and (flaskData.manaEffectNotRemoved or modDB:Flag(nil, "ManaFlaskEffectNotRemoved")) then
-			hasUptime = true
-			flaskDuration = manaDur
-		end
-
-		if hasUptime then
-			local flaskChargesUsed = flaskData.chargesUsed * (1 + usedInc / 100)
-			if flaskChargesUsed > 0 and flaskDuration > 0 then
-				local per3Duration = flaskDuration - (flaskDuration % 3)
-				local per5Duration = flaskDuration - (flaskDuration % 5)
-				local minimumChargesGenerated = per3Duration * chargesGenerated + per5Duration * chargesGeneratedPerFlask
-				local percentageMin = m_min(minimumChargesGenerated / flaskChargesUsed * 100, 100)
-				if percentageMin < 100 and chanceToNotConsumeCharges < 100 then
-					local averageChargesGenerated = (chargesGenerated + chargesGeneratedPerFlask) * flaskDuration
-					local averageChargesUsed = flaskChargesUsed * (100 - chanceToNotConsumeCharges) / 100
-					local percentageAvg = m_min(averageChargesGenerated / averageChargesUsed * 100, 100)
-					t_insert(stats, s_format("^8Flask uptime: ^7%d%%^8 average, ^7%d%%^8 minimum", percentageAvg, percentageMin))
-				else
-					t_insert(stats, s_format("^8Flask uptime: ^7100%%^8"))
-				end
-			end
-		end
-
-		if stats[1] then
-			tooltip:AddLine(14, "^7Effective flask stats:")
-			for _, stat in ipairs(stats) do
-				tooltip:AddLine(14, stat)
-			end
-		end
-		local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-		GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-		local output = calcFunc({ toggleFlask = item }, {})
-		GlobalCache.useFullDPS = storedGlobalCacheDPSView
-		local header
-		if self.build.calcsTab.mainEnv.flasks[item] then
-			header = "^7Deactivating this flask will give you:"
-		else
-			header = "^7Activating this flask will give you:"
-		end
-		self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
-	else
-		self:UpdateSockets()
-		-- Build sorted list of slots to compare with
-		local compareSlots = { }
-		for slotName, slot in pairs(self.slots) do
-			if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.activeItemSet.useSecondWeaponSet and 2 or 1)) then
-				t_insert(compareSlots, slot)
-			end
-		end
-		table.sort(compareSlots, function(a, b)
-			if a ~= b then
-				if slot == a then
-					return true
-				end
-				if slot == b then
-					return false
-				end
-			end
-			if a.selItemId ~= b.selItemId then
-				if item == self.items[a.selItemId] then
-					return true
-				end
-				if item == self.items[b.selItemId] then
-					return false
-				end
-			end
-			local aNum = tonumber(a.slotName:match("%d+"))
-			local bNum = tonumber(b.slotName:match("%d+"))
-			if aNum and bNum then
-				return aNum < bNum
+			local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+			GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+			local output = calcFunc({ toggleFlask = item }, {})
+			GlobalCache.useFullDPS = storedGlobalCacheDPSView
+			local header
+			if self.build.calcsTab.mainEnv.flasks[item] then
+				header = "^7Deactivating this flask will give you:"
 			else
-				return a.slotName < b.slotName
+				header = "^7Activating this flask will give you:"
 			end
-		end)
-
-		-- Add comparisons for each slot
-		for _, compareSlot in pairs(compareSlots) do
-			if not main.slotOnlyTooltips or (slot and (slot.nodeId == compareSlot.nodeId or slot.slotName == compareSlot.slotName)) or not slot or slot == compareSlot then
-				local selItem = self.items[compareSlot.selItemId]
-				local storedGlobalCacheDPSView = GlobalCache.useFullDPS
-				GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
-				local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil}, {})
-				GlobalCache.useFullDPS = storedGlobalCacheDPSView
-				local header
-				if item == selItem then
-					header = "^7Removing this item from "..compareSlot.label.." will give you:"
-				else
-					header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+			self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+		else
+			self:UpdateSockets()
+			-- Build sorted list of slots to compare with
+			local compareSlots = { }
+			for slotName, slot in pairs(self.slots) do
+				if self:IsItemValidForSlot(item, slotName) and not slot.inactive and (not slot.weaponSet or slot.weaponSet == (self.activeItemSet.useSecondWeaponSet and 2 or 1)) then
+					t_insert(compareSlots, slot)
 				end
-				self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+			end
+			table.sort(compareSlots, function(a, b)
+				if a ~= b then
+					if slot == a then
+						return true
+					end
+					if slot == b then
+						return false
+					end
+				end
+				if a.selItemId ~= b.selItemId then
+					if item == self.items[a.selItemId] then
+						return true
+					end
+					if item == self.items[b.selItemId] then
+						return false
+					end
+				end
+				local aNum = tonumber(a.slotName:match("%d+"))
+				local bNum = tonumber(b.slotName:match("%d+"))
+				if aNum and bNum then
+					return aNum < bNum
+				else
+					return a.slotName < b.slotName
+				end
+			end)
+
+			-- Add comparisons for each slot
+			for _, compareSlot in pairs(compareSlots) do
+				if not main.slotOnlyTooltips or (slot and (slot.nodeId == compareSlot.nodeId or slot.slotName == compareSlot.slotName)) or not slot or slot == compareSlot then
+					local selItem = self.items[compareSlot.selItemId]
+					local storedGlobalCacheDPSView = GlobalCache.useFullDPS
+					GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
+					local output = calcFunc({ repSlotName = compareSlot.slotName, repItem = item ~= selItem and item or nil}, {})
+					GlobalCache.useFullDPS = storedGlobalCacheDPSView
+					local header
+					if item == selItem then
+						header = "^7Removing this item from "..compareSlot.label.." will give you:"
+					else
+						header = string.format("^7Equipping this item in %s will give you:%s", compareSlot.label, selItem and "\n(replacing "..colorCodes[selItem.rarity]..selItem.name.."^7)" or "")
+					end
+					self.build:AddStatComparesToTooltip(tooltip, calcBase, output, header)
+				end
 			end
 		end
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to disable the display of stat differences.")
+	else
+		tooltip:AddSeparator(14)
+		tooltip:AddLine(14, colorCodes.TIP.."Tip: Press Ctrl+D to enable the display of stat differences.")
 	end
 
 	if launch.devModeAlt then
