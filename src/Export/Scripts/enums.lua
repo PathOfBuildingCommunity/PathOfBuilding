@@ -31,20 +31,24 @@ local function writeEnum(filename, enumTable)
     local dataOffset = 4 + (8*size)
     out:write(wnum(size,4))
 
-    local row = 0
+    -- Write fields
     local stringIndex = 8
     for v, s in ipairs(enumTable) do
         out:write(wnum(stringIndex,8))
         local utf16 = convertUTF8to16(s)
         stringIndex = stringIndex + utf16:len() + 2
-        row = row + 1
     end
+
+    -- data offset mark
     for i = 1, 8 do
         out:write(schar(0xBB))
     end
+
+    -- strings in utf16
     for _, s in ipairs(enumTable) do
         out:write(convertUTF8to16(s) .. "\0\0")
     end
+    
     out:close()
     print("Wrote " .. size .. " enum types to " .. filename)
 end
