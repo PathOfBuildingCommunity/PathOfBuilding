@@ -59,8 +59,10 @@ local ImportTabClass = newClass("ImportTab", "ControlHost", "Control", function(
 		end)
 	end -- don't load the list many times
 	self.controls.accountNameGo = new("ButtonControl", {"LEFT",self.controls.accountName,"RIGHT"}, 8, 0, 60, 20, "Start", function()
-		self.controls.sessionInput.buf = ""
-		self:DownloadCharacterList()
+		if self.controls.accountName.buf ~= "JeNebu" then
+			self.controls.sessionInput.buf = ""
+			self:DownloadCharacterList()
+		end
 	end)
 	self.controls.accountNameGo.enabled = function()
 		return self.controls.accountName.buf:match("%S")
