@@ -8719,8 +8719,8 @@ return {
 			width=210
 		},
 		[7]={
-			list=false,
-			name="",
+			list=true,
+			name="StartIndices",
 			refTo="",
 			type="Int",
 			width=150
