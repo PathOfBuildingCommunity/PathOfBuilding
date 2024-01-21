@@ -415,6 +415,16 @@ skills["GuardianSentinelFireAura"] = {
 #flags attack projectile
 #mods
 
+#skill RainOfArrowsCloneShot Rain of Arrow
+#flags attack projectile area
+#baseMod skill("radius", 10)
+#baseMod flag("OneShotProj")
+#mods
+
+#skill ElementalHitCloneShot Elemental Hit
+#flags attack projectile melee area
+#mods
+
 #skill SumonRagingSpiritMelee Melee
 #flags attack melee
 #mods

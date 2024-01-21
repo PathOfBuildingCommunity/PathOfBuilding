@@ -360,6 +360,48 @@ minions["ArrowClone"] = {
 	},
 }
 
+minions["ArrowCloneRoA"] = {
+	name = "Clone",
+	monsterCategory = "Construct",
+	life = 1.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 0.83,
+	attackRange = 6,
+	accuracy = 3.4,
+	skillList = {
+		"RainOfArrowsCloneShot",
+	},
+	modList = {
+		mod("EnergyShield", "BASE", 10, 0, 0), -- MirrorArrowEnergyShield [base_maximum_energy_shield = 10]
+	},
+}
+
+minions["ArrowCloneEle"] = {
+	name = "Clone",
+	monsterCategory = "Construct",
+	life = 1.5,
+	fireResist = 40,
+	coldResist = 40,
+	lightningResist = 40,
+	chaosResist = 20,
+	damage = 1,
+	damageSpread = 0,
+	attackTime = 0.83,
+	attackRange = 6,
+	accuracy = 3.4,
+	skillList = {
+		"ElementalHitCloneShot",
+	},
+	modList = {
+		mod("EnergyShield", "BASE", 10, 0, 0), -- MirrorArrowEnergyShield [base_maximum_energy_shield = 10]
+	},
+}
+
 minions["SpiderMinion"] = {
 	name = "Spider Minion",
 	monsterCategory = "Beast",

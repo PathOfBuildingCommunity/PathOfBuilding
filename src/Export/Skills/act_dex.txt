@@ -525,7 +525,7 @@ local skills, mod, flag, skill = ...
 #skill BlinkArrowAltX
 #flags attack projectile minion duration
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneRoA",
 	},
 #baseMod skill("minionUseBowAndQuiver", true)
 #mods
@@ -533,7 +533,7 @@ local skills, mod, flag, skill = ...
 #skill BlinkArrowAltY
 #flags attack projectile minion duration
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneEle",
 	},
 #baseMod skill("minionUseBowAndQuiver", true)
 #mods
@@ -2047,7 +2047,7 @@ local skills, mod, flag, skill = ...
 #skill MirrorArrowAltX
 #flags attack projectile minion duration
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneRoA",
 	},
 #baseMod skill("minionUseBowAndQuiver", true)
 #mods
@@ -2055,7 +2055,7 @@ local skills, mod, flag, skill = ...
 #skill MirrorArrowAltY
 #flags attack projectile minion duration
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneEle",
 	},
 #baseMod skill("minionUseBowAndQuiver", true)
 #mods
