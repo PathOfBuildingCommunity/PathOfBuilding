@@ -260,6 +260,11 @@ function main:Init()
 		self.controls.rowList:BuildColumns()
 	end) { numberInc = 10 }
 
+	self.controls.enumBase = new("EditControl", {"TOPLEFT",self.controls.colWidth,"BOTTOMLEFT"}, 0, 4, 100, 18, nil, nil, "%D", nil, function(buf)
+		self.curSpecCol.enumBase = tonumber(buf) or 0
+		self.curDatFile:OnSpecChanged()
+	end) { numberInc = 1 }
+
 	self.controls.colDelete = new("ButtonControl", {"BOTTOMRIGHT",self.controls.colName,"TOPRIGHT"}, 0, -4, 18, 18, "x", function()
 		t_remove(self.curDatFile.spec, self.curSpecColIndex)
 		self.curDatFile:OnSpecChanged()
@@ -468,6 +473,7 @@ function main:UpdateCol()
 	self.controls.colRefTo.enabled = self.curDatFile.cols[self.curSpecColIndex].isRef
 	self.controls.colRefTo:SetText(self.curSpecCol.refTo)
 	self.controls.colWidth:SetText(self.curSpecCol.width)
+	self.controls.enumBase:SetText(self.curSpecCol.enumBase or 0)
 	self.controls.rowList:BuildColumns()
 end
 
