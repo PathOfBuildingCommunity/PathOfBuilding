@@ -995,7 +995,7 @@ function ImportTabClass:ImportSocketedItems(item, socketedItems, slotName)
 				normalizedBasename, qualityType  = self.build.skillsTab:GetBaseNameAndQuality(socketedItem.hybrid.baseTypeName, nil)
 				gemId = self.build.data.gemForBaseName[normalizedBasename:lower()]
 				if gemId and socketedItem.hybrid.isVaalGem then
-					gemId = gemId:gsub("SkillGem", "SkillGemVaal")
+					gemId = self.build.data.gemGrantedEffectIdForVaalGemId[self.build.data.gems[gemId].grantedEffectId]
 				end
 			end
 			if gemId then
