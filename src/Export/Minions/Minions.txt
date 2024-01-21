@@ -61,6 +61,12 @@ local minions, mod = ...
 #monster Metadata/Monsters/Clone/MarauderCloneImmobile ArrowClone
 #emit
 
+#monster Metadata/Monsters/Clone/MarauderCloneImmobileRainOfArrows ArrowCloneRoA
+#emit
+
+#monster Metadata/Monsters/Clone/MarauderCloneImmobileElementalShot ArrowCloneEle
+#emit
+
 #monster Metadata/Monsters/SummonedSpider/SummonedSpider SpiderMinion
 #limit ActiveSpiderLimit
 #emit

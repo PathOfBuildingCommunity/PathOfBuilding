@@ -2773,7 +2773,7 @@ skills["BlinkArrowAltX"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneRoA",
 	},
 	baseFlags = {
 		attack = true,
@@ -2857,7 +2857,7 @@ skills["BlinkArrowAltY"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneEle",
 	},
 	baseFlags = {
 		attack = true,
@@ -10148,7 +10148,7 @@ skills["MirrorArrowAltX"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneRoA",
 	},
 	baseFlags = {
 		attack = true,
@@ -10232,7 +10232,7 @@ skills["MirrorArrowAltY"] = {
 	statDescriptionScope = "minion_attack_skill_stat_descriptions",
 	castTime = 1,
 	minionList = {
-		"ArrowClone",
+		"ArrowCloneEle",
 	},
 	baseFlags = {
 		attack = true,
