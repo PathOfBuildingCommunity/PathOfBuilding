@@ -478,9 +478,42 @@ function PassiveSpecClass:EncodeURL(prefix)
 
 	local clusterNodeIds = {}
 	local masteryNodeIds = {}
+	
+	local computeClusterId = function(id, oidx)
+		local socketType = band(b_rshift(id, 11), 3) -- 0 if socketed into large socket, 1 for medium, 2 for small
+		local groupSize = band(b_rshift(id, 4), 3)
+		local largeIndex = band(b_rshift(id, 6), 7)
+		local mediumIndex = band(b_rshift(id, 9), 3)
+		local nodeIndex
+		if socketType == 2 and groupSize > 0 then
+			nodeIndex = ({[0] = 0, 1, 1, 2, 3, 4, 4, 5, 6, 7, 7,  8,  9, 10, 10, 11})[oidx]
+		elseif socketType == 1 and groupSize == 1 then
+			nodeIndex = ({[0] = 0, 0, 0, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5, 5})[oidx] -- index mapping for 2 and 10 are estimated, could not figure out mapping based on testing
+		elseif socketType ~= 2 and groupSize == 0 then
+			nodeIndex = math.floor(oidx/2)
+		else 
+			nodeIndex = oidx
+		end
+		-- Extended hash numbering logic
+		-- TLDR: Depth first numbering using cluster jewel socket indexes
+		-- Starting from the large cluster jewel socket index 0, there are 12 possible nodes, 3 of which can be medium cluster jewel sockets (Voices)
+		-- Then for each possible medium cluster socket there are 6 possible nodes, one of which can be a small cluster jewel socket
+		-- A small cluster jewel socket can have 3 nodes
+		-- 12 + 3 * (6 + 3) = 39 so large cluster jewel sockets start indexing from large index * 39
+		-- Medium cluster jewel sockets start indexing from parent start index + 12 (to account for the 12 possible nodes)
+		-- Small cluster jewel sockets start indexing from parent start index + 6 (to account for the 6 possible nodes)
+		nodeIndex = nodeIndex + largeIndex * 39
+		if socketType > 0 then
+			nodeIndex = nodeIndex + 12 + mediumIndex * 9
+		end
+		if socketType > 1 then
+			nodeIndex = nodeIndex + 6
+		end
+		return nodeIndex
+	end
 
 	for id, node in pairs(self.allocNodes) do
-		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 and nodeCount < 255 then
+		if node.type ~= "ClassStart" and node.type ~= "AscendClassStart" and id < 65536 and nodeCount < 255 and not node.hashId then
 			t_insert(a, m_floor(id / 256))
 			t_insert(a, id % 256)
 			nodeCount = nodeCount + 1
@@ -492,8 +525,8 @@ function PassiveSpecClass:EncodeURL(prefix)
 				t_insert(masteryNodeIds, node.id % 256)
 				masteryCount = masteryCount + 1
 			end
-		elseif id >= 65536 then
-			local clusterId = id - 65536
+		elseif id >= 65536 or node.hashId then
+			local clusterId = computeClusterId(node.hashId or id, node.oidx)
 			t_insert(clusterNodeIds, m_floor(clusterId / 256))
 			t_insert(clusterNodeIds, clusterId % 256)
 			clusterCount = clusterCount + 1
@@ -1369,9 +1402,11 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	-- 4-5: Group size (0-2)
 	-- 6-8: Large index (0-5)
 	-- 9-10: Medium index (0-2)
-	-- 11-15: Unused
+	-- 11-12: Socket type - 0 for large, 1 for medium, or 2 for small
+	-- This is to differentiate between a small/medium cluster jewel socketed into a large/medium/small cluster socket
+	-- 13-15: Unused
 	-- 16: 1 (signal bit, to prevent conflict with node hashes)
-	id = id or 0x10000
+	id = (id and id + 0x00800) or 0x10000 -- Increment the socket type when called with an existing id
 	if expansionJewel.size == 2 then
 		id = id + b_lshift(expansionJewel.index, 6)
 	elseif expansionJewel.size == 1 then
@@ -1556,6 +1591,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 			group = subGraph.group,
 			o = nodeOrbit,
 			oidx = nodeIndex,
+			hashId = nodeId + nodeIndex -- Property used when generating the extended hash for export URL
 		}
 		t_insert(subGraph.nodes, node)
 		indicies[nodeIndex] = node
