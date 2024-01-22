@@ -6780,6 +6780,7 @@ skills["DarkMarionetteExplode"] = {
 	},
 }
 
+--Scorch is not showing up as a config option
 skills["DarkMarionetteExplodePerfect"] = {
 	name = "On Death Explode",
 	hidden = true,
@@ -8606,5 +8607,95 @@ skills["AzmeriBirdGrace"] = {
 	},
 	levels = {
 		[1] = { 1, storedUses = 1, levelRequirement = 29, cooldown = 0.5, statInterpolation = { 3, }, },
+	},
+}
+--skill AzmeriLightningMelee Crashes PoB due to stat interpolation issues
+--flags attack projectile melee
+--mods
+
+skills["AzmeriPhantasmExplode"] = {
+	name = "Explode",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.5899999141693,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 12, statInterpolation = { 3, 3, }, },
+	},
+}
+--Sap is not showing up as a config option
+skills["AzmeriPhantasmExplodeSap"] = {
+	name = "Explode",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.5,
+	statMap = {
+		["chance_to_inflict_sapped_%"] = {
+			mod("EnemySapChance", "BASE", nil),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "chance_to_inflict_sapped_%", 100 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 8, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriPhantasmClarity"] = {
+	name = "Clarity",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 45,
+	incrementalEffectiveness = 0.0070000002160668,
+	description = "Casts an aura that grants mana regeneration to you and your allies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+	},
+	stats = {
+		"base_mana_regeneration_rate_per_minute",
+	},
+	levels = {
+		[1] = { 1, levelRequirement = 1, statInterpolation = { 3, }, },
 	},
 }

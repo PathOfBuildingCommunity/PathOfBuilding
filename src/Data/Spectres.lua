@@ -4345,7 +4345,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_"] = {
 		mod("AllyModifier", "LIST", { mod = mod("MinimumFortification", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })}),
 	},
 }
---Dancing Sword
+-- Dancing Sword
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow"] = {
 	name = "Imperfect Dancing Sword",
 	monsterTags = { "construct", "medium_movement", "not_int", "not_str", },
@@ -4422,7 +4422,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
 	},
 }
 
---Needle Horror
+-- Needle Horror
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow"] = {
 	name = "Imperfect Needle Horror",
 	monsterTags = { "caster", "demon", "flesh_armour", "has_bow", "medium_height", "medium_movement", "not_int", "physical_affinity", "puncturing_weapon", "ranged", "red_blood", "unique_map_boss", },
@@ -4502,7 +4502,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
 	},
 }
 
---Serpent Warrior
+-- Serpent Warrior
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow"] = {
 	name = "Imperfect Serpent Warrior",
 	monsterTags = { "caster", "chaos_affinity", "eldritch", "energy_armour", "exile", "fast_movement", "human", "humanoid", "is_unarmed", "melee", "not_dex", "ranged", "red_blood", "slashing_weapon", },
@@ -4635,7 +4635,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh"] = {
 	},
 }
 
---Pain Artist
+-- Pain Artist
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow"] = {
 	name = "Imperfect Pain Artist",
 	monsterTags = { "animal_claw_weapon", "caster", "demon", "flesh_armour", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", },
@@ -4714,7 +4714,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
 	},
 }
 
---Sawblade Horror
+-- Sawblade Horror
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow"] = {
 	name = "Imperfect Sawblade Horror",
 	monsterTags = { "cleaving_weapon", "demon", "flesh_armour", "has_two_hand_axe", "has_two_handed_melee", "medium_height", "melee", "not_int", "physical_affinity", "red_blood", "slow_movement", "unique_map_boss", },
@@ -4793,7 +4793,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh"] = {
 	},
 }
 
---Restless Knight
+-- Restless Knight
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow"] = {
 	name = "Imperfect Restless Knight",
 	monsterTags = { "bludgeoning_weapon", "caster", "cold_affinity", "has_two_hand_mace", "has_two_handed_melee", "humanoid", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "undead", "very_slow_movement", "ward_armour", },
@@ -4870,7 +4870,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
 	},
 }
 
---Slashing Horror
+-- Slashing Horror
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow"] = {
 	name = "Imperfect Slashing Horror",
 	monsterTags = { "demon", "fire_affinity", "flesh_armour", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "large_height", "medium_movement", "melee", "not_int", "physical_affinity", "red_blood", "slashing_weapon", "unique_map_boss", },
@@ -4957,7 +4957,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
 	},
 }
 
---Druidic Alchemist
+-- Druidic Alchemist
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__"] = {
 	name = "Imperfect Druidic Alchemist",
 	monsterTags = { "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "human", "humanoid", "karui", "light_armour", "medium_height", "medium_movement", "melee", "not_str", "physical_affinity", "red_blood", },
@@ -5043,7 +5043,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
 	},
 }
 
---Escaped Prototype
+-- Escaped Prototype
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow"] = {
 	name = "Imperfect Escaped Prototype",
 	monsterTags = { "animal_claw_weapon", "caster", "construct", "fire_affinity", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", },
@@ -5120,7 +5120,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
 	},
 }
 
---Blasphemer
+-- Blasphemer
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow"] = {
 	name = "Imperfect Blasphemer",
 	monsterTags = { "bones", "caster", "humanoid", "undead", "very_slow_movement", },
@@ -5208,7 +5208,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
 	},
 }
 
---Judgemental Spirit
+-- Judgemental Spirit
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow"] = {
 	name = "Imperfect Judgemental Spirit",
 	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
@@ -5288,7 +5288,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
 	},
 }
 
---Primal Thunderbird
+-- Primal Thunderbird
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
 	name = "Imperfect Primal Thunderbird",
 	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
@@ -5377,6 +5377,79 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
 		"GSAzmeriBirdDashZap",
 		"AzmeriBirdGrace",
 		"AzmeriBirdGraceHardMode",
+	},
+	modList = {
+	},
+}
+
+-- Primal Demiurge
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__"] = {
+	name = "Imperfect Primal Demiurge",
+	monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.5,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"AzmeriPhantasmExplode",
+		"AzmeriLightningMelee",
+		"AzmeriTeleportPhantasm",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid"] = {
+	name = "Primal Demiurge",
+	monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.5,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"AzmeriPhantasmExplode",
+		"AzmeriLightningMelee",
+		"AzmeriTeleportPhantasm",
+		"AzmeriPhantasmClarity",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh"] = {
+	name = "Perfect Primal Demiurge",
+	monsterTags = { "caster", "crusader_monster", "eldritch", "ghost", "ghost_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_height", "medium_movement", "melee", "not_dex", "not_str", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.5,
+	energyShield = 0.4,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.755,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"AzmeriPhantasmExplodeSap",
+		"AzmeriLightningMelee",
+		"AzmeriTeleportPhantasm",
+		"AzmeriPhantasmClarity",
 	},
 	modList = {
 	},

@@ -1367,6 +1367,7 @@ skills["DarkMarionetteExplode"] = {
 	},
 }
 
+--Scorch is not showing up as a config option
 skills["DarkMarionetteExplodePerfect"] = {
 	name = "On Death Explode",
 	hidden = true,
@@ -1770,6 +1771,34 @@ skills["DarkMarionetteExplodePerfect"] = {
 		},
 		["base_evasion_rating"] = {
 			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods
+
+--skill AzmeriLightningMelee Crashes PoB due to stat interpolation issues
+--flags attack projectile melee
+--mods
+
+#skill AzmeriPhantasmExplode Explode
+#flags spell area hit
+#mods
+
+--Sap is not showing up as a config option
+#skill AzmeriPhantasmExplodeSap Explode
+#flags spell area hit
+	statMap = {
+		["chance_to_inflict_sapped_%"] = {
+			mod("EnemySapChance", "BASE", nil),
+		},
+	},
+#mods
+
+#skill AzmeriPhantasmClarity
+#flags spell area aura
+	statMap = {
+		["base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
 		},
 	},
 #mods

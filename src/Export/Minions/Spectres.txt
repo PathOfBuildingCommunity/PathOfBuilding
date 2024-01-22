@@ -269,7 +269,7 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AdmiralHigh_
 #mod mod("AllyModifier", "LIST", { mod = mod("MinimumFortification", "BASE", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PerfectNavalOfficer", unscaleable = true })})
 #emit
---Dancing Sword
+-- Dancing Sword
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordLow
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordMid
 #mod mod("AllyModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
@@ -279,14 +279,14 @@ local minions, mod, flag = ...
 #mod mod("AllyModifier", "LIST", { mod = mod("ImpaleStacksMax", "BASE", 1, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })})
 #emit
 
---Needle Horror
+-- Needle Horror
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonMid
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_
 #mod mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscaleable = true })})
 #emit
 
---Serpent Warrior
+-- Serpent Warrior
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskMid
 #mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
@@ -295,7 +295,7 @@ local minions, mod, flag = ...
 #mod mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") })
 #emit
 
---Pain Artist
+-- Pain Artist
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonMid
 #mod mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })})
@@ -304,17 +304,17 @@ local minions, mod, flag = ...
 #mod mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })})
 #emit
 
---Sawblade Horror
+-- Sawblade Horror
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh
 
---Restless Knight
+-- Restless Knight
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh
 
---Slashing Horror
+-- Slashing Horror
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonMid
 #mod mod("MinionModifier", "LIST", { mod = mod("Damage", "INC", 1, ModFlag.Attack, 0, { type = "Multiplier", actor = "parent", var = "Rage" }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
@@ -328,19 +328,19 @@ local minions, mod, flag = ...
 #mod mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) })
 #emit
 
---Druidic Alchemist
+-- Druidic Alchemist
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverMid
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh
 #mod mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscaleable = true })})
 #emit
 
---Escaped Prototype
+-- Escaped Prototype
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_
 
---Blasphemer
+-- Blasphemer
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
 #mod mod("EnemyCurseLimit", "BASE", 3)
 #emit
@@ -351,12 +351,17 @@ local minions, mod, flag = ...
 #mod mod("EnemyCurseLimit", "BASE", 3)
 #emit
 
---Judgemental Spirit
+-- Judgemental Spirit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh
 
---Primal Thunderbird
+-- Primal Thunderbird
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh
+
+-- Primal Demiurge
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh
