@@ -59,24 +59,6 @@ local itemClassMap = {
 
 local directiveTable = { }
 
--- #buildMonsterCategory
-directiveTable.buildMonsterCategory = function(state, args, out)
-	-- this only run once
-	if state.monsterCategoryDict then
-		return
-	end
-
-	local monsterCategoryTags = dat("corpsetypetags")
-	state.monsterCategoryDict = { }
-	local tagIndex = monsterCategoryTags.colMap["Tag"]
-	local nameIndex = monsterCategoryTags.colMap["Name"]
-	for i=1, monsterCategoryTags.rowCount do
-		local tagString = monsterCategoryTags:ReadCellText(i, tagIndex)
-		local nameString = monsterCategoryTags:ReadCellText(i, nameIndex)
-		state.monsterCategoryDict[tagString] = nameString
-	end
-end
-
 -- #monster <MonsterId> [<Name>] [<ExtraSkills>]
 directiveTable.monster = function(state, args, out)
 	state.varietyId = nil
@@ -118,8 +100,6 @@ end
 
 -- #emit
 directiveTable.emit = function(state, args, out)
-	-- this only run once internally
-	directiveTable.buildMonsterCategory(state, args, out)
 
 	local monsterVariety = dat("MonsterVarieties"):GetRow("Id", state.varietyId)
 	if not monsterVariety then
@@ -128,15 +108,11 @@ directiveTable.emit = function(state, args, out)
 	end
 	out:write('minions["', state.name, '"] = {\n')
 	out:write('\tname = "', monsterVariety.Name, '",\n')
-	if state.monsterCategoryDict then
-		-- identify the monster category base on tags and corpsetypetags.dat
+	out:write('\tmonsterTags = { ')
 		for _, tag in ipairs(monsterVariety.Tags) do
-			if state.monsterCategoryDict[tag.Id] then
-				out:write('\tmonsterCategory = "', state.monsterCategoryDict[tag.Id], '",\n')
-				break
-			end
+			out:write('"',tag.Id, '", ')
 		end
-	end
+	out:write('},\n')
 	if monsterVariety.Type.BaseDamageIgnoresAttackSpeed then
 		out:write('\tbaseDamageIgnoresAttackSpeed = true,\n')
 	end

@@ -778,26 +778,31 @@ function ModStoreClass:EvalMod(mod, cfg)
 			if band(cfg.keywordFlags, tag.keywordFlags) ~= tag.keywordFlags then
 				return
 			end
-		elseif tag.type == "MonsterCategory" then
+		elseif tag.type == "MonsterTag" then
 			-- actor should be a minion to apply
-			if not self.actor or not self.actor.minionData or not self.actor.minionData.monsterCategory then
+			if not self.actor or not self.actor.minionData or not self.actor.minionData.monsterTags then
 				return
 			end
 
 			local match = false
 
 			-- validate for actor and minionData
-			local matchName = self.actor.minionData.monsterCategory
-			matchName = matchName:lower()
-			if tag.monsterCategoryList then
-				for _, name in pairs(tag.monsterCategoryList) do
-					if name:lower() == matchName then
-						match = true
-						break
+			for _, tagList in pairs(self.actor.minionData.monsterTags) do
+				local matchName = tagList
+				matchName = matchName:lower()
+				if tag.monsterTagList then
+					for _, name in pairs(tag.monsterTagList) do
+						if name:lower() == matchName then
+							match = true
+							break
+						end
 					end
+				else
+					match = (tag.monsterTag and tag.monsterTag:lower() == matchName)
 				end
-			else
-				match = (tag.monsterCategory and tag.monsterCategory:lower() == matchName)
+				if match == true then
+					break
+				end
 			end
 			if tag.neg then
 				match = not match

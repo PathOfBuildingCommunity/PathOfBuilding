@@ -578,6 +578,9 @@ return {
 ["active_skill_attack_damage_+%_final_per_endurance_charge"] = {
 	mod("Damage", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "EnduranceCharge" }),
 },
+["attack_damage_+%_per_450_physical_damage_reduction_rating"] = {
+	mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }),
+},
 ["damage_+%_per_frenzy_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },
