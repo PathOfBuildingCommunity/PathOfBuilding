@@ -5454,3 +5454,83 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh"] = {
 	modList = {
 	},
 }
+
+-- Runic Skeleton
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonLow"] = {
+	name = "Imperfect Runic Skeleton",
+	monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.71,
+	armour = 0.8,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 15,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriMegaSkeletonHeavyMelee",
+		"AzmeriMegaSkeletonCleave",
+	},
+	modList = {
+		mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonMid"] = {
+	name = "Runic Skeleton",
+	monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.71,
+	armour = 0.8,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 15,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriMegaSkeletonHeavyMelee",
+		"AzmeriMegaSkeletonCleave",
+	},
+	modList = {
+		mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
+		-- MonsterCrushOnHit [chance_to_crush_on_hit_% = 100]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh"] = {
+	name = "Perfect Runic Skeleton",
+	monsterTags = { "bones", "is_unarmed", "medium_movement", "melee", "metal_armour", "not_dex", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "ward_armour", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.71,
+	armour = 0.8,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 15,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriMegaSkeletonHeavyMelee",
+		"AzmeriMegaSkeletonCleave",
+	},
+	modList = {
+		mod("PhysicalDamage", "INC", 20, 8192, 0, { div = 10, stat = "Str", type = "PerStat" }), -- AzmeriMegaSkeletonWeaponPhysicalDamagePerStrength [physical_weapon_damage_+%_per_10_str = 20]
+		-- MonsterCrushOnHit [chance_to_crush_on_hit_% = 100]
+		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", 5, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PrimalDemiurge", unscaleable = true })}),
+	},
+}

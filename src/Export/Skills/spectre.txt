@@ -1802,3 +1802,11 @@ skills["DarkMarionetteExplodePerfect"] = {
 		},
 	},
 #mods
+
+#skill AzmeriMegaSkeletonHeavyMelee Heavy Melee
+#flags attack projectile melee
+#mods
+
+#skill AzmeriMegaSkeletonCleave Cleave
+#flags attack projectile melee
+#mods

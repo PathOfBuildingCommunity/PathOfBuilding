@@ -830,6 +830,9 @@ return {
 ["active_skill_main_hand_weapon_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "MainHandAttack" }),
 },
+["physical_weapon_damage_+%_per_10_str"] = {
+	mod("PhysicalDamage", "INC", nil, ModFlag.Weapon, 0, { type = "PerStat", stat = "Str", div = 10 }),
+},
 -- PvP Damage
 ["support_makes_skill_mine_pvp_damage_+%_final"] = {
 	mod("PvpDamageMultiplier", "MORE", nil),

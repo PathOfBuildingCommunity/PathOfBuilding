@@ -8699,3 +8699,54 @@ skills["AzmeriPhantasmClarity"] = {
 		[1] = { 1, levelRequirement = 1, statInterpolation = { 3, }, },
 	},
 }
+skills["AzmeriMegaSkeletonHeavyMelee"] = {
+	name = "Heavy Melee",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "melee_range_+", 30 },
+		{ "attack_repeat_offset_left_of_target", 8 },
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.5, storedUses = 1, damageEffectiveness = 1.5, cooldown = 4, levelRequirement = 0, },
+	},
+}
+skills["AzmeriMegaSkeletonCleave"] = {
+	name = "Cleave",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "main_hand_base_maximum_attack_distance", 13 },
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.15, storedUses = 1, damageEffectiveness = 1.15, cooldown = 5, levelRequirement = 0, },
+	},
+}
