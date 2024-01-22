@@ -9062,9 +9062,103 @@ skills["ABTTAzmeriShepherdSpellDamage"] = {
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		buff = true,
+	},
+	stats = {
+		"spell_damage_+%",
+	},
+	levels = {
+		[1] = { 30, levelRequirement = 0, statInterpolation = { 2, }, },
+		[2] = { 150, levelRequirement = 80, statInterpolation = { 2, }, },
+	},
+}
+skills["MonsterViperStrikeAtAnimationSpeed"] = {
+	name = "Viper Strike",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.64999997615814,
+	incrementalEffectiveness = 0.025499999523163,
+	description = "Hits enemies, converting some of your physical damage to chaos damage and inflicting poison which will be affected by modifiers to skill duration. If dual wielding, will strike with both weapons. Requires a claw, dagger or sword.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.DamageOverTime] = true, [SkillType.Chaos] = true, },
+	weaponTypes = {
+		["Claw"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "debuff_skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "physical_damage_%_to_add_as_chaos", 25 },
+		{ "base_chance_to_poison_on_hit_%", 100 },
+		{ "base_skill_effect_duration", 4000 },
+	},
+	stats = {
+		"poison_duration_is_skill_duration",
+		"visual_hit_effect_chaos_is_green",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { levelRequirement = 1, },
+	},
+}
+skills["AzmeriSpiderLeaderMortar"] = {
+	name = "Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "number_of_monsters_to_summon", 1 },
+		{ "alternate_minion", 184 },
+		{ "projectile_minimum_range", 15 },
+		{ "monster_projectile_variation", 1 },
+		{ "projectile_spread_radius", 20 },
+		{ "number_of_additional_projectiles", 3 },
+		{ "active_skill_area_of_effect_radius_+%_final", -35 },
+	},
+	stats = {
+		"spell_minimum_base_chaos_damage",
+		"spell_maximum_base_chaos_damage",
+		"summoned_monsters_are_minions",
+		"summoned_monsters_no_drops_or_experience",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, levelRequirement = 68, cooldown = 5, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["ABTTAzmeriSpiderLeaderAura"] = {
+	name = "Spider Buff",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.0080000003799796,
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
 	statMap = {
-		["spell_damage_+%"] = {
-			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sanguimancer Demon" }),
+		["attack_minimum_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Spider" }),
+		},
+		["attack_maximum_added_chaos_damage"] = {
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Spider" }),
 		},
 	},
 	baseFlags = {
@@ -9073,14 +9167,13 @@ skills["ABTTAzmeriShepherdSpellDamage"] = {
 		buff = true,
 	},
 	baseMods = {
-		skill("buffAllies", true),
 		skill("buffMinions", true),
 	},
 	stats = {
-		"spell_damage_+%",
+		"attack_minimum_added_chaos_damage",
+		"attack_maximum_added_chaos_damage",
 	},
 	levels = {
-		[1] = { 30, levelRequirement = 0, statInterpolation = { 2, }, },
-		[2] = { 150, levelRequirement = 80, statInterpolation = { 2, }, },
+		[1] = { 0.89999997615814, 1.2999999523163, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }

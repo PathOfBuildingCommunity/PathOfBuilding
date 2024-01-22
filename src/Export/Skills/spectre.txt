@@ -1868,3 +1868,24 @@ skills["DarkMarionetteExplodePerfect"] = {
 #skill ABTTAzmeriShepherdSpellDamage Damage Buff
 #flags spell duration buff
 #mods
+
+#skill MonsterViperStrikeAtAnimationSpeed
+#flags attack melee duration
+#mods
+
+#skill AzmeriSpiderLeaderMortar Mortar
+#flags spell projectile
+#mods
+
+#skill ABTTAzmeriSpiderLeaderAura Spider Buff
+#flags spell duration buff
+	statMap = {
+		["attack_minimum_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Spider" }),
+		},
+		["attack_maximum_added_chaos_damage"] = {
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Spider" }),
+		},
+	},
+#baseMod skill("buffMinions", true)
+#mods

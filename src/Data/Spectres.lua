@@ -5798,3 +5798,79 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh"] = {
 	modList = {
 	},
 }
+-- Spider Matriarch
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow"] = {
+	name = "Imperfect Spider Matriarch",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.73,
+	armour = 0.5,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 75,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 13,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrikeAtAnimationSpeed",
+		"AzmeriSpiderLeaderMortar",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid"] = {
+	name = "Spider Matriarch",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.73,
+	armour = 0.5,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 75,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 13,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrikeAtAnimationSpeed",
+		"AzmeriSpiderLeaderMortar",
+		"ABTTAzmeriSpiderLeaderAura",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
+	name = "Perfect Spider Matriarch",
+	monsterTags = { "animal_claw_weapon", "beast", "chaos_affinity", "fast_movement", "flesh_armour", "has_dagger", "has_one_handed_melee", "insect_blood", "melee", "not_int", "physical_affinity", "small_height", "spider", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.73,
+	armour = 0.5,
+	evasion = 0.5,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 75,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 0.945,
+	attackRange = 13,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"MonsterViperStrikeAtAnimationSpeed",
+		"AzmeriSpiderLeaderMortar",
+		"ABTTAzmeriSpiderLeaderAura",
+	},
+	modList = {
+		mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work,
+	},
+}

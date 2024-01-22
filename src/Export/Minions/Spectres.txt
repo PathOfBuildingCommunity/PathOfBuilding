@@ -373,3 +373,9 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh
+-- Spider Matriarch
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_
+#mod mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work
+#emit
