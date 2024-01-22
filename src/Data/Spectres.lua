@@ -4421,7 +4421,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/AnimatedSwordHigh_"] = {
 		mod("AllyModifier", "LIST", { mod = mod("ImpaleStacksMax", "BASE", 1, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "DancingSword", unscaleable = true })}),
 	},
 }
-
 -- Needle Horror
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonLow"] = {
 	name = "Imperfect Needle Horror",
@@ -4501,7 +4500,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BarrageDemonHigh_"] = {
 		mod("PlayerModifier", "LIST", { mod = mod("ImpaleEffect", "INC", 10, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "NeedleHorror", unscaleable = true })}),
 	},
 }
-
 -- Serpent Warrior
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskLow"] = {
 	name = "Imperfect Serpent Warrior",
@@ -4634,7 +4632,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/BasaliskHigh"] = {
 		mod("AllyModifier", "LIST", { mod = flag("Condition:CanWither") }),
 	},
 }
-
 -- Pain Artist
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonLow"] = {
 	name = "Imperfect Pain Artist",
@@ -4713,7 +4710,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CasterDemonHigh"] = {
 		mod("AllyModifier", "LIST", { mod = mod("CritMultiplier", "BASE", 30, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PainArtist", unscaleable = true })}),
 	},
 }
-
 -- Sawblade Horror
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonLow"] = {
 	name = "Imperfect Sawblade Horror",
@@ -4792,7 +4788,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/CycloneDemonHigh"] = {
 		-- MonsterMaimOnHit [global_maim_on_hit = 1]
 	},
 }
-
 -- Restless Knight
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightLow"] = {
 	name = "Imperfect Restless Knight",
@@ -4869,7 +4864,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DeathKnightHigh"] = {
 	modList = {
 	},
 }
-
 -- Slashing Horror
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonLow"] = {
 	name = "Imperfect Slashing Horror",
@@ -4956,7 +4950,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DualstrikeDemonHigh"] = {
 		mod("MinionModifier", "LIST", { mod = mod("MovementSpeed", "INC", 1, 0, 0, { type = "Multiplier", actor = "parent", var = "Rage", div = 5 }, { type = "Multiplier", actor = "parent", var = "RageEffect" }) }),
 	},
 }
-
 -- Druidic Alchemist
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverLow__"] = {
 	name = "Imperfect Druidic Alchemist",
@@ -5042,7 +5035,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlaskloverHigh"] = {
 		mod("PlayerModifier", "LIST", { mod = mod("LifeFlaskChargesGenerated", "BASE", 1/3, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "RestlessKnight", unscaleable = true })}),
 	},
 }
-
 -- Escaped Prototype
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundLow"] = {
 	name = "Imperfect Escaped Prototype",
@@ -5119,7 +5111,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ForgeHoundHigh_"] = {
 	modList = {
 	},
 }
-
 -- Blasphemer
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriLow"] = {
 	name = "Imperfect Blasphemer",
@@ -5207,7 +5198,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
 		mod("EnemyCurseLimit", "BASE", 3),
 	},
 }
-
 -- Judgemental Spirit
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow"] = {
 	name = "Imperfect Judgemental Spirit",
@@ -5287,7 +5277,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
 	modList = {
 	},
 }
-
 -- Primal Thunderbird
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
 	name = "Imperfect Primal Thunderbird",
@@ -5381,7 +5370,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
 	modList = {
 	},
 }
-
 -- Primal Demiurge
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmLow__"] = {
 	name = "Imperfect Primal Demiurge",
@@ -5454,7 +5442,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ManaPhantasmHigh"] = {
 	modList = {
 	},
 }
-
 -- Runic Skeleton
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonLow"] = {
 	name = "Imperfect Runic Skeleton",
@@ -5534,7 +5521,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/MegaSkeletonHigh"] = {
 		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamage", "MORE", 5, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "PrimalDemiurge", unscaleable = true })}),
 	},
 }
-
 -- Warlord
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakLow"] = {
 	name = "Imperfect Warlord",
@@ -5616,7 +5602,6 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh"] = {
 	modList = {
 	},
 }
-
 -- Dark Reaper
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow"] = {
 	name = "Imperfect Dark Reaper",
