@@ -1407,7 +1407,7 @@ skills["DarkMarionetteExplodePerfect"] = {
 #flags spell area duration
 #mods
 
-#skill AvatarWrath
+#skill AzmeriKudukuWrath
 #flags spell aura area
 	statMap = {
 		["attack_minimum_added_lightning_damage"] = {
@@ -1415,6 +1415,9 @@ skills["DarkMarionetteExplodePerfect"] = {
 		},
 		["attack_maximum_added_lightning_damage"] = {
 			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["wrath_aura_spell_lightning_damage_+%_final"] = {
+			mod("LightningDamage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 #baseMod skill("radius", 40)

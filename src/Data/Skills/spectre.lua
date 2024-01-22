@@ -6896,22 +6896,25 @@ skills["AzmeriKudukuWarp"] = {
 		[1] = { 0.5, 1.5, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 2, statInterpolation = { 3, 3, }, },
 	},
 }
-skills["AvatarWrath"] = {
+skills["AzmeriKudukuWrath"] = {
 	name = "Wrath",
 	hidden = true,
 	color = 3,
-	baseEffectiveness = 2.3375000953674,
-	incrementalEffectiveness = 0.035000000149012,
+	baseEffectiveness = 2,
+	incrementalEffectiveness = 0.028500000014901,
 	description = "Casts an aura that adds lightning damage to the attacks of you and your allies, and makes your spells deal more lightning damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "aura_skill_stat_descriptions",
-	castTime = 1.2,
+	castTime = 1,
 	statMap = {
 		["attack_minimum_added_lightning_damage"] = {
 			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 		["attack_maximum_added_lightning_damage"] = {
 			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["wrath_aura_spell_lightning_damage_+%_final"] = {
+			mod("LightningDamage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
 	baseFlags = {
@@ -6923,14 +6926,16 @@ skills["AvatarWrath"] = {
 		skill("radius", 40),
 	},
 	constantStats = {
-		{ "active_skill_area_of_effect_radius_+%_final", 75 },
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+		{ "wrath_aura_spell_lightning_damage_+%_final", 10 },
 	},
 	stats = {
 		"attack_minimum_added_lightning_damage",
 		"attack_maximum_added_lightning_damage",
+		"wrath_aura_spell_lightning_damage_+%_final",
 	},
 	levels = {
-		[1] = { 0.050000000745058, 0.80000001192093, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+		[1] = { 0.050000000745058, 0.80000001192093, 0.025000000372529, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 3, 3, 3, }, },
 	},
 }
 skills["MeleeAtAnimationSpeedCold"] = {
