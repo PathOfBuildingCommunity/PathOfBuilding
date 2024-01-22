@@ -8964,3 +8964,123 @@ skills["GAAzmeriReaperComboWhirl"] = {
 		[1] = { baseMultiplier = 0.6, levelRequirement = 0, },
 	},
 }
+skills["MMSAzmeriShepherdTripleMortar"] = {
+	name = "Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4,
+	incrementalEffectiveness = 0.037500001490116,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		area = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -50 },
+		{ "projectile_spread_radius", 15 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 25 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["MMSAzmeriShepherdVomitMortar"] = {
+	name = "Vomit Mortar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.75,
+	incrementalEffectiveness = 0.037500001490116,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.7,
+	baseFlags = {
+		spell = true,
+		area = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -50 },
+		{ "projectile_spread_radius", 5 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 25 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSAzmeriShepherdBeamNuke"] = {
+	name = "Beam Nuke",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 8,
+	incrementalEffectiveness = 0.043000001460314,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -50 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 25 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, levelRequirement = 1, cooldown = 7, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["ABTTAzmeriShepherdSpellDamage"] = {
+	name = "Damage Buff",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["spell_damage_+%"] = {
+			mod("Damage", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Sanguimancer Demon" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		buff = true,
+	},
+	baseMods = {
+		skill("buffAllies", true),
+		skill("buffMinions", true),
+	},
+	stats = {
+		"spell_damage_+%",
+	},
+	levels = {
+		[1] = { 30, levelRequirement = 0, statInterpolation = { 2, }, },
+		[2] = { 150, levelRequirement = 80, statInterpolation = { 2, }, },
+	},
+}

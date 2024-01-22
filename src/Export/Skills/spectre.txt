@@ -1852,3 +1852,19 @@ skills["DarkMarionetteExplodePerfect"] = {
 #skill GAAzmeriReaperComboWhirl Whirl
 #flags attack area
 #mods
+
+#skill MMSAzmeriShepherdTripleMortar Mortar
+#flags spell area projectile
+#mods
+
+#skill MMSAzmeriShepherdVomitMortar Vomit Mortar
+#flags spell area projectile
+#mods
+
+#skill GSAzmeriShepherdBeamNuke Beam Nuke
+#flags spell area hit
+#mods
+
+#skill ABTTAzmeriShepherdSpellDamage Damage Buff
+#flags spell duration buff
+#mods

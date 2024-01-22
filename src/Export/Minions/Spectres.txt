@@ -369,3 +369,7 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh
 #mod flag("Condition:NoExtraBleedDamageToMovingEnemy"), --This mod is not currently working correctly
 #emit
+-- Sanguimancer Demon
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdMid_
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ShepherdHigh

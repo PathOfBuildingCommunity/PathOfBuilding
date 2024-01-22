@@ -500,6 +500,9 @@ return {
 	{ var = "raiseSpectreEnableSlashingHorrorEnrage", type = "check", label = "Disable Slashing Horror's Enrage:", ifSkill = "AzmeriDualStrikeDemonFireEnrage", apply = function(val, modList, enemyModList)
 		modList:NewMod("SkillData", "LIST", { key = "enable", value = false }, "Config", { type = "SkillId", skillId = "AzmeriDualStrikeDemonFireEnrage" })
 	end },
+	{ var = "raiseSpectreEnableSanguimancerDemonLowLife", type = "check", label = "Sanguimancer Demon not on Low Life:", ifSkill = "ABTTAzmeriShepherdSpellDamage", apply = function(val, modList, enemyModList)
+		modList:NewMod("SkillData", "LIST", { key = "enable", value = false }, "Config", { type = "SkillId", skillId = "ABTTAzmeriShepherdSpellDamage" })
+	end },
 	{ label = "Raise Spiders:", ifSkill = "Raise Spiders" },
 	{ var = "raiseSpidersSpiderCount", type = "count", label = "# of Spiders:", ifSkill = "Raise Spiders", apply = function(val, modList, enemyModList)
 		modList:NewMod("Multiplier:RaisedSpider", "BASE", m_min(val, 20), "Config")
