@@ -1889,3 +1889,9 @@ skills["DarkMarionetteExplodePerfect"] = {
 	},
 #baseMod skill("buffMinions", true)
 #mods
+
+#skill AzmeriZombieCausticGroundWhenHit Caustic Ground
+#flags spell area duration
+#baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsCausticGround")
+#mods

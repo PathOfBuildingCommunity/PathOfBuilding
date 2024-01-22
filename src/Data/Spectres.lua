@@ -5874,3 +5874,70 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_"] = {
 		mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work,
 	},
 }
+-- Meatsack
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow"] = {
+	name = "Imperfect Meatsack",
+	monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 6,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.65,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid"] = {
+	name = "Meatsack",
+	monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 7,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.65,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriZombieCausticGroundWhenHit",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh"] = {
+	name = "Perfect Meatsack",
+	monsterTags = { "cold_affinity", "flesh_armour", "humanoid", "is_unarmed", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "undead", "very_fast_movement", "zombie", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 8,
+	armour = 0.5,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.65,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 11,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriZombieCausticGroundWhenHit",
+	},
+	modList = {
+		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 40, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Meatsack", unscaleable = true })}),
+	},
+}

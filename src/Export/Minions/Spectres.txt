@@ -379,3 +379,9 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SpiderLeaderHigh_
 #mod mod("PlayerModifier", "LIST", { mod = mod("WitherEffect", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "SpiderMatriarch", unscaleable = true })}) --Does not work
 #emit
+-- Meatsack
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh
+#mod mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 40, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Meatsack", unscaleable = true })})
+#emit

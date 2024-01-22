@@ -9177,3 +9177,32 @@ skills["ABTTAzmeriSpiderLeaderAura"] = {
 		[1] = { 0.89999997615814, 1.2999999523163, levelRequirement = 0, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["AzmeriZombieCausticGroundWhenHit"] = {
+	name = "Caustic Ground",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 6.666699886322,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	baseMods = {
+		skill("dotIsArea", true),
+		flag("dotIsCausticGround"),
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 4000 },
+		{ "cast_on_any_damage_taken_%", 100 },
+	},
+	stats = {
+		"base_chaos_damage_to_deal_per_minute",
+	},
+	levels = {
+		[1] = { 50.000001117587, storedUses = 1, levelRequirement = 1, cooldown = 4, statInterpolation = { 3, }, },
+	},
+}
