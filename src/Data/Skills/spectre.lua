@@ -8272,3 +8272,193 @@ skills["AzmeriGeofriSmite"] = {
 		[1] = { 0.10000000149012, 1.8999999761581, damageEffectiveness = 2.5, baseMultiplier = 2.5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["AzmeriGoddessSpiritMortar"] = {
+	name = "Mortar",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 0.91109997034073,
+	incrementalEffectiveness = 0.050999999046326,
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		projectile = true,
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "projectile_spread_radius", 20 },
+		{ "base_cast_speed_+%", -25 },
+		{ "projectile_minimum_range", 15 },
+		{ "ignite_art_variation", 2 },
+		{ "monster_projectile_variation", 1 },
+		{ "base_number_of_projectiles", 5 },
+	},
+	stats = {
+		"spell_minimum_base_fire_damage",
+		"spell_maximum_base_fire_damage",
+		"is_area_damage",
+		"base_is_projectile",
+		"distribute_projectiles_over_contact_points",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 81, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriGoddessOfferingOfJudgement"] = {
+	name = "Fire Pillar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 10,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 6000 },
+	},
+	stats = {
+		"base_fire_damage_to_deal_per_minute",
+		"is_area_damage",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 16.666667039196, storedUses = 1, levelRequirement = 1, cooldown = 5, statInterpolation = { 3, }, },
+	},
+}
+skills["AzmeriGoddessOfferingOfJudgementChaos"] = {
+	name = "Chaos Pillar",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.666699886322,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 6000 },
+	},
+	stats = {
+		"base_chaos_damage_to_deal_per_minute",
+		"is_area_damage",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 16.666667039196, storedUses = 1, levelRequirement = 1, cooldown = 5, statInterpolation = { 3, }, },
+	},
+}
+skills["AzmeriGoddessBeam"] = {
+	name = "Goddess Beam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 10,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		duration = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 3000 },
+	},
+	stats = {
+		"base_fire_damage_to_deal_per_minute",
+		"is_area_damage",
+		"disable_skill_repeats",
+	},
+	levels = {
+		[1] = { 16.666667039196, storedUses = 1, levelRequirement = 68, cooldown = 18, statInterpolation = { 3, }, },
+	},
+}
+skills["ABTTAzmeriGoddessAura"] = {
+	name = "Skeleton Buff",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.0080000003799796,
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["attack_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+		["attack_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+		["attack_minimum_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+		["attack_maximum_added_chaos_damage"] = {
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		duration = true,
+		buff = true,
+	},
+	baseMods = {
+		skill("buffMinions", true),
+	},
+	stats = {
+		"attack_minimum_added_fire_damage",
+		"attack_maximum_added_fire_damage",
+		"attack_minimum_added_chaos_damage",
+		"attack_maximum_added_chaos_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, 0.60000002384186, 1, levelRequirement = 0, statInterpolation = { 3, 3, 3, 3, }, },
+	},
+}
+skills["AzmeriGoddessDiscipline"] = {
+	name = "Discipline",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.0089999996125698,
+	description = "Casts an aura that grants additional energy shield and increased energy shield recharge rate to you and your allies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["energy_shield_recharge_rate_+%"] = {
+			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_energy_shield"] = {
+			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	baseMods = {
+		skill("radius", 40),
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+		{ "energy_shield_recharge_rate_+%", 30 },
+	},
+	stats = {
+		"base_maximum_energy_shield",
+	},
+	levels = {
+		[1] = { 1, storedUses = 1, levelRequirement = 0, cooldown = 0.5, statInterpolation = { 3, }, },
+	},
+}

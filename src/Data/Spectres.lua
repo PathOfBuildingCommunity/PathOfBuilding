@@ -5207,3 +5207,83 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
 		mod("EnemyCurseLimit", "BASE", 3),
 	},
 }
+
+--Escaped Prototype
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow"] = {
+	name = "Imperfect Judgemental Spirit",
+	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.03,
+	energyShield = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"AzmeriGoddessSpiritMortar",
+		"AzmeriGoddessSummonSkeletonGhostflame",
+		"AzmeriGoddessOfferingOfJudgement",
+		"AzmeriGoddessOfferingOfJudgementChaos",
+		"AzmeriGoddessBeam",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid"] = {
+	name = "Judgemental Spirit",
+	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.03,
+	energyShield = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"AzmeriGoddessSpiritMortar",
+		"AzmeriGoddessSummonSkeletonGhostflame",
+		"AzmeriGoddessOfferingOfJudgement",
+		"AzmeriGoddessOfferingOfJudgementChaos",
+		"AzmeriGoddessBeam",
+		"ABTTAzmeriGoddessAura",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
+	name = "Perfect Judgemental Spirit",
+	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 2.03,
+	energyShield = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 12,
+	accuracy = 1,
+	skillList = {
+		"AzmeriGoddessSpiritMortar",
+		"AzmeriGoddessSummonSkeletonGhostflame",
+		"AzmeriGoddessOfferingOfJudgement",
+		"AzmeriGoddessOfferingOfJudgementChaos",
+		"AzmeriGoddessBeam",
+		"ABTTAzmeriGoddessAura",
+		"AzmeriGoddessDiscipline",
+	},
+	modList = {
+	},
+}

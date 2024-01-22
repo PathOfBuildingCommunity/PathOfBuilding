@@ -1692,3 +1692,51 @@ skills["DarkMarionetteExplodePerfect"] = {
 		},
 	},
 #mods
+
+#skill AzmeriGoddessSpiritMortar Mortar
+#flags projectile spell area hit
+#mods
+
+#skill AzmeriGoddessOfferingOfJudgement Fire Pillar
+#flags spell duration area
+#mods
+
+#skill AzmeriGoddessOfferingOfJudgementChaos Chaos Pillar
+#flags spell duration area
+#mods
+
+#skill AzmeriGoddessBeam
+#flags spell duration area
+#mods
+
+#skill ABTTAzmeriGoddessAura Skeleton Buff
+#flags spell duration buff
+	statMap = {
+		["attack_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+		["attack_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+		["attack_minimum_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+		["attack_maximum_added_chaos_damage"] = {
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+	},
+#baseMod skill("buffMinions", true)
+#mods
+
+#skill AzmeriGoddessDiscipline
+#flags spell area aura
+	statMap = {
+		["energy_shield_recharge_rate_+%"] = {
+			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_energy_shield"] = {
+			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods

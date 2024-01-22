@@ -350,3 +350,8 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh # TalismanT1TemporalChains TalismanT2EnfeebleAura TalismanT1Vulnerability
 #mod mod("EnemyCurseLimit", "BASE", 3)
 #emit
+
+--Escaped Prototype
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh
