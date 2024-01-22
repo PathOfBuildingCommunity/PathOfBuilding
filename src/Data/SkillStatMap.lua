@@ -927,6 +927,9 @@ return {
 ["faster_bleed_%"] = {
 	mod("BleedFaster", "INC", nil),
 },
+["bleeding_stacks_up_to_x_times"] = {
+	mod("BleedStacksMax", "OVERRIDE", nil)
+},
 ["base_ailment_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Ailment)
 },

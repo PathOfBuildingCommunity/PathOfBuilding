@@ -1836,3 +1836,19 @@ skills["DarkMarionetteExplodePerfect"] = {
 	},
 #baseMod skill("radius", 40)
 #mods
+
+#skill AzmeriReaperMelee
+#flags attack projectile melee
+#mods
+
+#skill GAAzmeriReaperLacerate Lacerate
+#flags attack area
+#mods
+
+#skill GAAzmeriReaperComboRightSlash Slash
+#flags attack area
+#mods
+
+#skill GAAzmeriReaperComboWhirl Whirl
+#flags attack area
+#mods

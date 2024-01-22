@@ -377,3 +377,10 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh
+
+-- Dark Reaper
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh
+#mod flag("Condition:NoExtraBleedDamageToMovingEnemy"), --This mod is not currently working correctly
+#emit

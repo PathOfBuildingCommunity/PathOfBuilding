@@ -5616,3 +5616,120 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/OakHigh"] = {
 	modList = {
 	},
 }
+
+-- Dark Reaper
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperLow"] = {
+	name = "Imperfect Dark Reaper",
+	monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.88,
+	armour = 0.7,
+	evasion = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.455,
+	attackRange = 18,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	skillList = {
+		"AzmeriReaperMelee",
+		"GAAzmeriReaperLacerate",
+		"GAAzmeriReaperComboLeftSlash",
+		"GAAzmeriReaperComboRightSlash",
+		"GAAzmeriReaperDash",
+		"GAAzmeriReaperDashImpactSlash",
+		"GAAzmeriReaperCycloneImpact",
+		"GAAzmeriReaperComboWhirl",
+		"EAAAzmeriReaperCyclone",
+		"EAAAzmeriReaperDualStrike",
+		"EAAAzmeriReaperComboAttack",
+		"DTTAzmeriReaper",
+	},
+	modList = {
+		mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
+		mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperMid"] = {
+	name = "Dark Reaper",
+	monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.88,
+	armour = 0.7,
+	evasion = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.455,
+	attackRange = 18,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	skillList = {
+		"AzmeriReaperMelee",
+		"GAAzmeriReaperLacerate",
+		"GAAzmeriReaperComboLeftSlash",
+		"GAAzmeriReaperComboRightSlash",
+		"GAAzmeriReaperDash",
+		"GAAzmeriReaperDashImpactSlash",
+		"GAAzmeriReaperCycloneImpact",
+		"GAAzmeriReaperComboWhirl",
+		"EAAAzmeriReaperCyclone",
+		"EAAAzmeriReaperDualStrike",
+		"EAAAzmeriReaperComboAttack",
+		"DTTAzmeriReaper",
+	},
+	modList = {
+		mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
+		mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
+		-- MonsterNearbyEnemyLifeRegenReduced50 [life_mastery_nearby_enemy_life_regeneration_rate_+% = -50]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/ReaperHigh"] = {
+	name = "Perfect Dark Reaper",
+	monsterTags = { "bones", "has_dual_wield_melee", "has_one_hand_sword", "has_one_handed_melee", "humanoid", "melee", "metal_armour", "not_int", "physical_affinity", "skeleton", "slashing_weapon", "undead", "very_slow_movement", "ward_armour", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.88,
+	armour = 0.7,
+	evasion = 0.7,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.455,
+	attackRange = 18,
+	accuracy = 1,
+	weaponType1 = "One Handed Sword",
+	weaponType2 = "One Handed Sword",
+	skillList = {
+		"AzmeriReaperMelee",
+		"GAAzmeriReaperLacerate",
+		"GAAzmeriReaperComboLeftSlash",
+		"GAAzmeriReaperComboRightSlash",
+		"GAAzmeriReaperDash",
+		"GAAzmeriReaperDashImpactSlash",
+		"GAAzmeriReaperCycloneImpact",
+		"GAAzmeriReaperComboWhirl",
+		"EAAAzmeriReaperCyclone",
+		"EAAAzmeriReaperDualStrike",
+		"EAAAzmeriReaperComboAttack",
+		"DTTAzmeriReaper",
+	},
+	modList = {
+		mod("PhysicalDamage", "INC", 0, 0, 0), -- MonsterBleedImplicit [physical_damage_+% = 0]
+		mod("BleedChance", "BASE", 100, 0, 0), -- MonsterBleedImplicit [global_bleed_on_hit = 1]
+		-- MonsterNearbyEnemyLifeRegenReduced50 [life_mastery_nearby_enemy_life_regeneration_rate_+% = -50]
+		mod("BleedStacksMax", "OVERRIDE", 16, 0, 0), -- MonsterBleedingStacksAzmeriReaper [bleeding_stacks_up_to_x_times = 16]
+		flag("Condition:NoExtraBleedDamageToMovingEnemy"), --This mod is not currently working correctly,
+	},
+}

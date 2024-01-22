@@ -8878,3 +8878,89 @@ skills["AzmeriOakVitality"] = {
 		[1] = { 1, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 3, }, },
 	},
 }
+skills["AzmeriReaperMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "base_knockback_speed_+%", 300 },
+		{ "knockback_distance_+%", -50 },
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"global_knockback",
+		"determine_knockback_direction_from_melee_pattern",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.6, levelRequirement = 1, },
+	},
+}
+skills["GAAzmeriReaperLacerate"] = {
+	name = "Lacerate",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.75, levelRequirement = 0, },
+	},
+}
+skills["GAAzmeriReaperComboRightSlash"] = {
+	name = "Slash",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	stats = {
+		"is_area_damage",
+		"global_knockback",
+		"determine_knockback_direction_from_melee_pattern",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.45, levelRequirement = 0, },
+	},
+}
+skills["GAAzmeriReaperComboWhirl"] = {
+	name = "Whirl",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	stats = {
+		"is_area_damage",
+		"global_knockback",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.6, levelRequirement = 0, },
+	},
+}
