@@ -6456,6 +6456,9 @@ skills["AzmeriHailrakeColdResistAura"] = {
 		area = true,
 		aura = true,
 	},
+	baseMods = {
+		skill("radius", 40),
+	},
 	stats = {
 		"base_cold_damage_resistance_%",
 		"base_maximum_cold_damage_resistance_%",
@@ -6633,6 +6636,9 @@ skills["AzmeriFirefuryFireResistAura"] = {
 		area = true,
 		aura = true,
 	},
+	baseMods = {
+		skill("radius", 40),
+	},
 	stats = {
 		"base_fire_damage_resistance_%",
 		"base_maximum_fire_damage_resistance_%",
@@ -6741,6 +6747,9 @@ skills["AzmeriHydraHatred"] = {
 		spell = true,
 		area = true,
 		aura = true,
+	},
+	baseMods = {
+		skill("radius", 40),
 	},
 	constantStats = {
 		{ "physical_damage_%_to_add_as_cold", 30 },
@@ -7113,6 +7122,9 @@ skills["AzmeriAdmiralPrecision"] = {
 		spell = true,
 		area = true,
 		aura = true,
+	},
+	baseMods = {
+		skill("radius", 40),
 	},
 	constantStats = {
 		{ "active_skill_base_radius_+", 50 },
@@ -7767,6 +7779,9 @@ skills["AzmeriCasterDemonSpellDamageAura"] = {
 		spell = true,
 		area = true,
 		aura = true,
+	},
+	baseMods = {
+		skill("radius", 40),
 	},
 	constantStats = {
 		{ "create_consecrated_ground_on_hit_%_vs_rare_or_unique_enemy", 10 },
@@ -8598,6 +8613,9 @@ skills["AzmeriBirdGrace"] = {
 		area = true,
 		aura = true,
 	},
+	baseMods = {
+		skill("radius", 40),
+	},
 	constantStats = {
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
 		{ "grace_aura_evasion_rating_+%_final", 30 },
@@ -8689,6 +8707,9 @@ skills["AzmeriPhantasmClarity"] = {
 		area = true,
 		aura = true,
 	},
+	baseMods = {
+		skill("radius", 40),
+	},
 	constantStats = {
 		{ "active_skill_area_of_effect_radius_+%_final", 50 },
 	},
@@ -8748,5 +8769,112 @@ skills["AzmeriMegaSkeletonCleave"] = {
 	},
 	levels = {
 		[1] = { baseMultiplier = 1.15, storedUses = 1, damageEffectiveness = 1.15, cooldown = 5, levelRequirement = 0, },
+	},
+}
+skills["AzmeriOakSweep"] = {
+	name = "Sweep",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Swings a two handed melee weapon in a circle, knocking back monsters around the character.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Physical] = true, },
+	weaponTypes = {
+		["Two Handed Mace"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.15,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "base_stun_threshold_reduction_+%", 30 },
+		{ "base_stun_duration_+%", 100 },
+	},
+	stats = {
+		"active_skill_physical_damage_+%_final",
+		"is_area_damage",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { 20, levelRequirement = 19, statInterpolation = { 1, }, },
+	},
+}
+skills["AzmeriOakLeapSlam"] = {
+	name = "Leap Slam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.4,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+		movement = true,
+	},
+	constantStats = {
+		{ "active_skill_damage_+%_final", 50 },
+		{ "active_skill_base_area_of_effect_radius", 15 },
+		{ "base_stun_threshold_reduction_+%", 30 },
+		{ "base_stun_duration_+%", 100 },
+	},
+	stats = {
+		"is_area_damage",
+		"cast_time_overrides_attack_duration",
+	},
+	levels = {
+		[1] = { levelRequirement = 2, },
+	},
+}
+skills["AzmeriOakVitality"] = {
+	name = "Vitality",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 315,
+	incrementalEffectiveness = 0.0070000002160668,
+	description = "Casts an aura that grants life regeneration to you and your allies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	baseMods = {
+		skill("radius", 40),
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+	},
+	stats = {
+		"base_life_regeneration_rate_per_minute",
+	},
+	levels = {
+		[1] = { 1, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 3, }, },
 	},
 }

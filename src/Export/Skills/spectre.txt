@@ -1271,6 +1271,7 @@ skills["MonsterVulnerabilityOnHit1"] = {
 			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
+#baseMod skill("radius", 40)
 #mods
 
 #skill AzmeriFireFuryMoltenStrike
@@ -1311,6 +1312,7 @@ skills["MonsterVulnerabilityOnHit1"] = {
 			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
+#baseMod skill("radius", 40)
 #mods
 
 #skill AzmeriHydraDoomArrow Doom Arrow
@@ -1338,6 +1340,7 @@ skills["MonsterVulnerabilityOnHit1"] = {
 			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
+#baseMod skill("radius", 40)
 #mods
 
 skills["DarkMarionetteExplode"] = {
@@ -1458,6 +1461,7 @@ skills["DarkMarionetteExplodePerfect"] = {
 			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
+#baseMod skill("radius", 40)
 #mods
 
 #skill AzmeriSawbladeAnimatedWeaponCyclone
@@ -1569,6 +1573,7 @@ skills["DarkMarionetteExplodePerfect"] = {
 			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
+#baseMod skill("radius", 40)
 #mods
 
 #skill AzmeriCycloneDemonCleave Cleave
@@ -1773,6 +1778,7 @@ skills["DarkMarionetteExplodePerfect"] = {
 			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
 		},
 	},
+#baseMod skill("radius", 40)
 #mods
 
 --skill AzmeriLightningMelee Crashes PoB due to stat interpolation issues
@@ -1801,6 +1807,7 @@ skills["DarkMarionetteExplodePerfect"] = {
 			div = 60,
 		},
 	},
+#baseMod skill("radius", 40)
 #mods
 
 #skill AzmeriMegaSkeletonHeavyMelee Heavy Melee
@@ -1809,4 +1816,23 @@ skills["DarkMarionetteExplodePerfect"] = {
 
 #skill AzmeriMegaSkeletonCleave Cleave
 #flags attack projectile melee
+#mods
+
+#skill AzmeriOakSweep
+#flags attack area melee
+#mods
+
+#skill AzmeriOakLeapSlam
+#flags attack area melee movement
+#mods
+
+#skill AzmeriOakVitality
+#flags spell area aura
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+	},
+#baseMod skill("radius", 40)
 #mods
