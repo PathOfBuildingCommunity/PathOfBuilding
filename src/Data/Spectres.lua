@@ -5208,7 +5208,7 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GeofriHigh"] = {
 	},
 }
 
---Escaped Prototype
+--Judgemental Spirit
 minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow"] = {
 	name = "Imperfect Judgemental Spirit",
 	monsterTags = { "caster", "fire_affinity", "ghost", "ghost_armour", "ghost_blood", "is_unarmed", "large_height", "medium_movement", "non_unique_map_boss", "not_dex", "not_str", "ranged", "undead", },
@@ -5283,6 +5283,100 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh"] = {
 		"AzmeriGoddessBeam",
 		"ABTTAzmeriGoddessAura",
 		"AzmeriGoddessDiscipline",
+	},
+	modList = {
+	},
+}
+
+--Primal Thunderbird
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow"] = {
+	name = "Imperfect Primal Thunderbird",
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.88,
+	energyShield = 0.24,
+	evasion = 0.6,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 14,
+	accuracy = 1,
+	weaponType1 = "Dagger",
+	skillList = {
+		"MeleeAtAnimationSpeedLightning",
+		"AzmeriRavenScreechOfSplendour",
+		"AzmeriRavenDashOfDestruction",
+		"AzmeriBirdBeam",
+		"AzmeriBirdDashGT1",
+		"AzmeriBirdDashGT2",
+		"AzmeriBirdScreech",
+		"GSAzmeriBirdDashZap",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid"] = {
+	name = "Primal Thunderbird",
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.88,
+	energyShield = 0.24,
+	evasion = 0.6,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 14,
+	accuracy = 1,
+	weaponType1 = "Dagger",
+	skillList = {
+		"MeleeAtAnimationSpeedLightning",
+		"AzmeriRavenScreechOfSplendour",
+		"AzmeriRavenDashOfDestruction",
+		"AzmeriBirdBeam",
+		"AzmeriBirdDashGT1",
+		"AzmeriBirdDashGT2",
+		"AzmeriBirdScreechExposure",
+		"GSAzmeriBirdDashZap",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh"] = {
+	name = "Perfect Primal Thunderbird",
+	monsterTags = { "animal_claw_weapon", "avian_beast", "beast", "caster", "flesh_armour", "has_dagger", "has_one_handed_melee", "lightning_affinity", "medium_movement", "melee", "not_str", "red_blood", "small_height", "standalone_map_boss", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.88,
+	energyShield = 0.24,
+	evasion = 0.6,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 75,
+	chaosResist = 0,
+	damage = 1.5,
+	damageSpread = 0.2,
+	attackTime = 1.995,
+	attackRange = 14,
+	accuracy = 1,
+	weaponType1 = "Dagger",
+	skillList = {
+		"MeleeAtAnimationSpeedLightning",
+		"AzmeriRavenScreechOfSplendour",
+		"AzmeriRavenDashOfDestruction",
+		"AzmeriBirdBeam",
+		"AzmeriBirdDashGT1",
+		"AzmeriBirdDashGT2",
+		"AzmeriBirdScreechExposure",
+		"GSAzmeriBirdDashZap",
+		"AzmeriBirdGrace",
+		"AzmeriBirdGraceHardMode",
 	},
 	modList = {
 	},

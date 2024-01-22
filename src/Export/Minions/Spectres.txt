@@ -351,7 +351,12 @@ local minions, mod, flag = ...
 #mod mod("EnemyCurseLimit", "BASE", 3)
 #emit
 
---Escaped Prototype
+--Judgemental Spirit
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/GoddessHigh
+
+--Primal Thunderbird
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/HarvestBirdHigh

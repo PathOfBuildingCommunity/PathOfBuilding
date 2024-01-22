@@ -1740,3 +1740,36 @@ skills["DarkMarionetteExplodePerfect"] = {
 	},
 #baseMod skill("radius", 40)
 #mods
+
+#skill MeleeAtAnimationSpeedLightning
+#flags attack projectile melee
+#mods
+
+#skill AzmeriBirdBeam Beam
+#flags spell hit
+#mods
+
+#skill AzmeriBirdScreechExposure Screech
+#flags spell hit
+	statMap = {
+		["lightning_exposure_on_hit_magnitude"] = {
+			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure" }),
+		},
+	},
+#mods
+
+#skill GSAzmeriBirdDashZap Zap
+#flags spell area hit
+#mods
+
+#skill AzmeriBirdGrace
+#flags spell area aura
+	statMap = {
+		["grace_aura_evasion_rating_+%_final"] = {
+			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_evasion_rating"] = {
+			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods

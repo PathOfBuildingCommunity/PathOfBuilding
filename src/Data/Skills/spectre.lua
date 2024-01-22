@@ -8462,3 +8462,149 @@ skills["AzmeriGoddessDiscipline"] = {
 		[1] = { 1, storedUses = 1, levelRequirement = 0, cooldown = 0.5, statInterpolation = { 3, }, },
 	},
 }
+skills["MeleeAtAnimationSpeedLightning"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_lightning", 75 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+		[2] = { 0, baseMultiplier = 0.75, levelRequirement = 19, statInterpolation = { 2, }, },
+		[3] = { 1, baseMultiplier = 0.75, levelRequirement = 20, statInterpolation = { 2, }, },
+		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
+	},
+}
+skills["AzmeriBirdBeam"] = {
+	name = "Beam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.5,
+	incrementalEffectiveness = 0.045000001788139,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "skill_range_+%", -100 },
+		{ "active_skill_area_of_effect_radius_+%_final", -50 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriBirdScreechExposure"] = {
+	name = "Screech",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.1499999761581,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["lightning_exposure_on_hit_magnitude"] = {
+			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 4000 },
+		{ "lightning_exposure_on_hit_magnitude", -20 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 25, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSAzmeriBirdDashZap"] = {
+	name = "Zap",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.69999998807907, 1.2999999523163, critChance = 15, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriBirdGrace"] = {
+	name = "Grace",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 15,
+	incrementalEffectiveness = 0.025000000372529,
+	description = "Casts an aura that grants evasion to you and your allies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["grace_aura_evasion_rating_+%_final"] = {
+			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_evasion_rating"] = {
+			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+		{ "grace_aura_evasion_rating_+%_final", 30 },
+	},
+	stats = {
+		"base_evasion_rating",
+	},
+	levels = {
+		[1] = { 1, storedUses = 1, levelRequirement = 29, cooldown = 0.5, statInterpolation = { 3, }, },
+	},
+}
