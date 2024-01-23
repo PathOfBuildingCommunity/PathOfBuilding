@@ -10302,9 +10302,10 @@ skills["AzmeriDemonPhysicalDamageAura"] = {
 	statMap = {
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMinEffect" }),
+			--This mod does not work as it it looking at the wrong actor
 		},
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
-			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMaxEffect" }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
 	baseFlags = {
@@ -10451,8 +10452,6 @@ skills["AzmeriGolemLeapSlam"] = {
 		area = true,
 		melee = true,
 		movement = true,
-		Leap = true,
-		Slam = true,
 	},
 	constantStats = {
 		{ "active_skill_damage_+%_final", 100 },

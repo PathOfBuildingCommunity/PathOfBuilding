@@ -2127,9 +2127,10 @@ skills["DarkMarionetteExplodePerfect"] = {
 	statMap = {
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"] = {
 			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMinEffect" }),
+			--This mod does not work as it it looking at the wrong actor
 		},
 		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
-			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMaxEffect" }),
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
 		},
 	},
 #baseMod skill("radius", 40)
@@ -2151,8 +2152,8 @@ skills["DarkMarionetteExplodePerfect"] = {
 #flags spell area hit
 #mods
 
-#skill AzmeriGolemLeapSlam
-#flags attack area melee movement Leap Slam
+#skill AzmeriGolemLeapSlam Leap Slam
+#flags attack area melee movement
 #mods
 
 #skill AzmeriGolemBossWhipLeft Turn Attack
