@@ -645,7 +645,18 @@ local skills, mod, flag, skill = ...
 
 #skill VaalIncursionFirestorm Firestorm
 #flags spell area duration
-#baseMod skill("showAverage", true)
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
+#baseMod skill("radiusLabel", "Fireball explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Fireballs fall:")
 #mods
 
 #skill VaalIncursionSpecialBeamCannonBlood Physical Beam
@@ -1226,15 +1237,18 @@ skills["MonsterVulnerabilityOnHit1"] = {
 
 #skill CrucibleIceStormTrap Ice Storm
 #flags area spell duration
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
-	end,
 	statMap = {
 		["fire_storm_fireball_delay_ms"] = {
-			skill("damageInterval", nil ),
+			skill("hitTimeOverride", nil ),
 			div = 1000,
 		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
 	},
+#baseMod skill("radiusLabel", "Ice explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Ice fall:")
 #mods
 
 #skill MMSPyromaniacIceMortar Ice Mortar
@@ -1282,10 +1296,16 @@ skills["MonsterVulnerabilityOnHit1"] = {
 #flags spell area duration
 	statMap = {
 		["fire_storm_fireball_delay_ms"] = {
-			skill("hitTimeOverride", nil),
+			skill("hitTimeOverride", nil ),
 			div = 1000,
 		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
 	},
+#baseMod skill("radiusLabel", "Fireball explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Fireballs fall:")
 #mods
 
 #skill FemaleCannibalBossFlameDash
@@ -1474,15 +1494,18 @@ skills["DarkMarionetteExplodePerfect"] = {
 
 #skill AzmeriSwordStormCascade Sword Cascade
 #flags spell area triggerable
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
-	end,
 	statMap = {
 		["fire_storm_fireball_delay_ms"] = {
-			skill("damageInterval", nil ),
+			skill("hitTimeOverride", nil ),
 			div = 1000,
 		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
 	},
+#baseMod skill("radiusLabel", "Sword explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Swords fall:")
 #mods
 
 #skill AzmeriBarrageDemonSpineProjectile Spine Projectile
@@ -1495,6 +1518,18 @@ skills["DarkMarionetteExplodePerfect"] = {
 
 #skill AzmeriBarrageDemonSpinestorm
 #flags spell area duration triggerable
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
+#baseMod skill("radiusLabel", "Spine explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Spines fall:")
 #mods
 
 #skill MeleeAtAnimationSpeedChaos
@@ -1976,3 +2011,32 @@ skills["DarkMarionetteExplodePerfect"] = {
 	},
 #baseMod skill("radius", 40)
 #mods
+
+#skill AzmeriOversoulRocksTriggered Rain of Boulders
+#flags spell area
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
+#baseMod skill("radiusLabel", "Rock explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Rocks fall:")
+#mods
+
+#addSkillTypes Attack
+#skill AzmeriOversoulExplosionIgnite Slam
+#flags attack area hit
+#mods
+
+#skill AzmeriOversoulLaserMaxShock Laser
+#flags spell area hit
+#mods
+
+--skill AzmeriOversoulColdSnapTriggered Stat interpolation of 2 with only 1 level is breaking the skill
+--flags spell area duration
+--mods

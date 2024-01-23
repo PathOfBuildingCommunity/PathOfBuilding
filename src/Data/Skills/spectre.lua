@@ -3847,13 +3847,24 @@ skills["VaalIncursionFirestorm"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.2,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 	},
 	baseMods = {
-		skill("showAverage", true),
+		skill("radiusLabel", "Fireball explosion:"),
+		skill("radiusSecondary", 25),
+		skill("radiusSecondaryLabel", "Area in which Fireballs fall:"),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 600 },
@@ -6217,19 +6228,24 @@ skills["CrucibleIceStormTrap"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1.67,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
-	end,
 	statMap = {
 		["fire_storm_fireball_delay_ms"] = {
-			skill("damageInterval", nil ),
+			skill("hitTimeOverride", nil ),
 			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
 		},
 	},
 	baseFlags = {
 		area = true,
 		spell = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radiusLabel", "Ice explosion:"),
+		skill("radiusSecondary", 25),
+		skill("radiusSecondaryLabel", "Area in which Ice fall:"),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 3000 },
@@ -6522,14 +6538,22 @@ skills["FemaleCannibalBossFireStorm"] = {
 	castTime = 1.33,
 	statMap = {
 		["fire_storm_fireball_delay_ms"] = {
-			skill("hitTimeOverride", nil),
+			skill("hitTimeOverride", nil ),
 			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
 		},
 	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
+	},
+	baseMods = {
+		skill("radiusLabel", "Fireball explosion:"),
+		skill("radiusSecondary", 25),
+		skill("radiusSecondaryLabel", "Area in which Fireballs fall:"),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 3000 },
@@ -7219,19 +7243,24 @@ skills["AzmeriSwordStormCascade"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Fire] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 1,
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
-	end,
 	statMap = {
 		["fire_storm_fireball_delay_ms"] = {
-			skill("damageInterval", nil ),
+			skill("hitTimeOverride", nil ),
 			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
 		},
 	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		triggerable = true,
+	},
+	baseMods = {
+		skill("radiusLabel", "Sword explosion:"),
+		skill("radiusSecondary", 25),
+		skill("radiusSecondaryLabel", "Area in which Swords fall:"),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 2000 },
@@ -7318,11 +7347,25 @@ skills["AzmeriBarrageDemonSpinestorm"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.9,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
 	baseFlags = {
 		spell = true,
 		area = true,
 		duration = true,
 		triggerable = true,
+	},
+	baseMods = {
+		skill("radiusLabel", "Spine explosion:"),
+		skill("radiusSecondary", 25),
+		skill("radiusSecondaryLabel", "Area in which Spines fall:"),
 	},
 	constantStats = {
 		{ "base_skill_effect_duration", 4000 },
@@ -9548,3 +9591,111 @@ skills["AzmeriTurtleDetermination"] = {
 		[1] = { 1, storedUses = 1, levelRequirement = 0, cooldown = 0.5, statInterpolation = { 3, }, },
 	},
 }
+skills["AzmeriOversoulRocksTriggered"] = {
+	name = "Rain of Boulders",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.25,
+	incrementalEffectiveness = 0.03999999910593,
+	description = "Flaming bolts rain down over the targeted area. They explode when landing, dealing damage to nearby enemies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+	},
+	baseMods = {
+		skill("radiusLabel", "Rock explosion:"),
+		skill("radiusSecondary", 25),
+		skill("radiusSecondaryLabel", "Area in which Rocks fall:"),
+	},
+	constantStats = {
+		{ "fire_storm_fireball_delay_ms", 300 },
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -25 },
+		{ "firestorm_base_area_of_effect_+%", -50 },
+		{ "base_skill_effect_duration", 900 },
+		{ "active_skill_base_area_of_effect_radius", 10 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.40000000596046, 0.60000002384186, levelRequirement = 23, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriOversoulExplosionIgnite"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.25,
+	baseFlags = {
+		attack = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -25 },
+		{ "spell_maximum_action_distance_+%", -80 },
+		{ "active_skill_ignite_damage_+%_final", 500 },
+		{ "base_chance_to_ignite_%", 50 },
+		{ "ignite_duration_+%", 100 },
+	},
+	stats = {
+		"is_area_damage",
+		"global_cannot_crit",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 2, baseMultiplier = 2, levelRequirement = 23, },
+	},
+}
+skills["AzmeriOversoulLaserMaxShock"] = {
+	name = "Laser",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4.5,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.45,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "skill_repeat_count", 2 },
+		{ "base_chance_to_shock_%", 100 },
+		{ "active_skill_shock_duration_+%_final", 100 },
+		{ "spell_maximum_action_distance_+%", -40 },
+		{ "base_cast_speed_+%", 50 },
+		{ "shock_maximum_magnitude_+", 20 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"active_skill_cast_speed_+%_final",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 1.1000000238419, 1.6000000238419, 15, critChance = 5, levelRequirement = 23, statInterpolation = { 3, 3, 1, }, },
+	},
+}
+--skill AzmeriOversoulColdSnapTriggered Stat interpolation of 2 with only 1 level is breaking the skill
+--flags spell area duration
+--mods

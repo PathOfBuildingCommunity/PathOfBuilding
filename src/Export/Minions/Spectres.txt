@@ -401,3 +401,7 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh
 #mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
 #emit
+-- Shadow Construct
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh
