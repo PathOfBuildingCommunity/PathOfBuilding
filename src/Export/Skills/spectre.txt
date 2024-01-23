@@ -1959,3 +1959,20 @@ skills["DarkMarionetteExplodePerfect"] = {
 	},
 #baseMod skill("radius", 40)
 #mods
+
+#skill ABTTAzmeriTurtleInvulnerability Damage Immunity Buff
+#flags buff duration spell
+#mods
+
+#skill AzmeriTurtleDetermination
+#flags spell area aura
+	statMap = {
+		["determination_aura_armour_+%_final"] = {
+			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_physical_damage_reduction_rating"] = {
+			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods

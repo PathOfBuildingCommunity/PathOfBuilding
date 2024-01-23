@@ -6120,3 +6120,74 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh"] = {
 		-- AzmeriTigerAllyFrenzyOnHit [chance_to_grant_frenzy_charge_to_nearby_allies_on_hit_% = 5]
 	},
 }
+-- Guardian Turtle
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow"] = {
+	name = "Imperfect Guardian Turtle",
+	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 4.88,
+	armour = 3,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 19,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"ABTTAzmeriTurtleInvulnerability",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_"] = {
+	name = "Guardian Turtle",
+	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 4.88,
+	armour = 3,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 19,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"ABTTAzmeriTurtleInvulnerability",
+	},
+	modList = {
+		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })}),
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh"] = {
+	name = "Perfect Guardian Turtle",
+	monsterTags = { "beast", "bludgeoning_weapon", "has_one_hand_mace", "has_one_handed_melee", "light_armour", "medium_height", "melee", "not_dex", "not_int", "physical_affinity", "red_blood", "reptile_beast", "very_slow_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 4.88,
+	armour = 3,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.73,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 19,
+	accuracy = 1,
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"ABTTAzmeriTurtleInvulnerability",
+		"AzmeriTurtleDetermination",
+		"AzmeriTurtleDeterminationHardMode",
+	},
+	modList = {
+		mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })}),
+	},
+}

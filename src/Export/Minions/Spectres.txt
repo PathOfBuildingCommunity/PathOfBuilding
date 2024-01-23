@@ -393,3 +393,11 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh
+-- Guardian Turtle
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleLow
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleMid_
+#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
+#emit
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TurtleHigh
+#mod mod("PlayerModifier", "LIST", { mod = mod("PhysicalDamageReduction", "BASE", 5, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "GuardianTurtle", unscaleable = true })})
+#emit

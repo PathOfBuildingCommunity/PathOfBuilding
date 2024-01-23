@@ -9487,3 +9487,64 @@ skills["AzmeriTigerHaste"] = {
 		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 0.5, },
 	},
 }
+skills["ABTTAzmeriTurtleInvulnerability"] = {
+	name = "Damage Immunity Buff",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Spell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		buff = true,
+		duration = true,
+		spell = true,
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -80 },
+		{ "base_skill_effect_duration", 2000 },
+	},
+	stats = {
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 30, },
+	},
+}
+skills["AzmeriTurtleDetermination"] = {
+	name = "Determination",
+	hidden = true,
+	color = 1,
+	baseEffectiveness = 15,
+	incrementalEffectiveness = 0.025000000372529,
+	description = "Casts an aura that grants armour to you and your allies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["determination_aura_armour_+%_final"] = {
+			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_physical_damage_reduction_rating"] = {
+			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	baseMods = {
+		skill("radius", 40),
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+		{ "determination_aura_armour_+%_final", 30 },
+	},
+	stats = {
+		"base_physical_damage_reduction_rating",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 1, storedUses = 1, levelRequirement = 0, cooldown = 0.5, statInterpolation = { 3, }, },
+	},
+}
