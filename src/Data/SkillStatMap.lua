@@ -581,6 +581,9 @@ return {
 ["attack_damage_+%_per_450_physical_damage_reduction_rating"] = {
 	mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }),
 },
+["attack_damage_+%_per_450_evasion"] = {
+	mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", stat = "Evasion", div = 450 }),
+},
 ["damage_+%_per_frenzy_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
 },

@@ -6023,3 +6023,100 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh"] = {
 		mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
 	},
 }
+-- Forest Tiger
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow"] = {
+	name = "Imperfect Forest Tiger",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.8,
+	armour = 0.6,
+	evasion = 1,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.2,
+	attackRange = 14,
+	accuracy = 1,
+	weaponType1 = "Claw",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriTigerSpiritFangs",
+		"AzmeriTigerSpiritLacerate",
+		"AzmeriTigerSpiritTeleportSlam",
+		"AzmeriStampedeTiger",
+		"EmptyActionSpellAzmeriTigerComboAttack",
+		"AzermiTigerGeometryAttackFront",
+		"AzmeriTigerGeometryAttackStrafe",
+	},
+	modList = {
+		mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Evasion", type = "PerStat" }), -- AzmeriTigerAttackDamagePerEvasion [attack_damage_+%_per_450_evasion = 5]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid"] = {
+	name = "Forest Tiger",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.8,
+	armour = 0.6,
+	evasion = 1,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.2,
+	attackRange = 14,
+	accuracy = 1,
+	weaponType1 = "Claw",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriTigerSpiritFangs",
+		"AzmeriTigerSpiritLacerate",
+		"AzmeriTigerSpiritTeleportSlam",
+		"AzmeriStampedeTiger",
+		"EmptyActionSpellAzmeriTigerComboAttack",
+		"AzermiTigerGeometryAttackFront",
+		"AzmeriTigerGeometryAttackStrafe",
+	},
+	modList = {
+		mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Evasion", type = "PerStat" }), -- AzmeriTigerAttackDamagePerEvasion [attack_damage_+%_per_450_evasion = 5]
+		-- AzmeriTigerAllyFrenzyOnHit [chance_to_grant_frenzy_charge_to_nearby_allies_on_hit_% = 5]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh"] = {
+	name = "Perfect Forest Tiger",
+	monsterTags = { "animal_claw_weapon", "beast", "feline_beast", "has_claw", "has_one_handed_melee", "light_armour", "mammal_beast", "melee", "not_int", "physical_affinity", "red_blood", "small_height", "very_fast_movement", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.8,
+	armour = 0.6,
+	evasion = 1,
+	fireResist = 0,
+	coldResist = 40,
+	lightningResist = 0,
+	chaosResist = 0,
+	damage = 1.8,
+	damageSpread = 0.2,
+	attackTime = 1.2,
+	attackRange = 14,
+	accuracy = 1,
+	weaponType1 = "Claw",
+	skillList = {
+		"MeleeAtAnimationSpeed",
+		"AzmeriTigerSpiritFangs",
+		"AzmeriTigerSpiritLacerate",
+		"AzmeriTigerSpiritTeleportSlam",
+		"AzmeriStampedeTiger",
+		"EmptyActionSpellAzmeriTigerComboAttack",
+		"AzermiTigerGeometryAttackFront",
+		"AzmeriTigerGeometryAttackStrafe",
+		"AzmeriTigerHaste",
+	},
+	modList = {
+		mod("Damage", "INC", 5, 1, 0, { div = 450, stat = "Evasion", type = "PerStat" }), -- AzmeriTigerAttackDamagePerEvasion [attack_damage_+%_per_450_evasion = 5]
+		-- AzmeriTigerAllyFrenzyOnHit [chance_to_grant_frenzy_charge_to_nearby_allies_on_hit_% = 5]
+	},
+}

@@ -9340,3 +9340,150 @@ skills["AzmeriTentacleMinionLightningResistAura"] = {
 		[2] = { 60, 5, 45, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
 	},
 }
+skills["AzmeriTigerSpiritFangs"] = {
+	name = "Bite",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	constantStats = {
+		{ "active_skill_attack_speed_+%_final", -60 },
+		{ "active_skill_damage_+%_final", 20 },
+		{ "active_skill_bleeding_damage_+%_final", 100 },
+	},
+	stats = {
+		"is_area_damage",
+		"global_bleed_on_hit",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 3, },
+	},
+}
+skills["AzmeriTigerSpiritLacerate"] = {
+	name = "lacerate",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_skill_effect_duration", 750 },
+		{ "active_skill_attack_speed_+%_final", -32 },
+		{ "active_skill_damage_+%_final", 20 },
+	},
+	stats = {
+		"is_area_damage",
+		"global_maim_on_hit",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 3, },
+	},
+}
+skills["AzmeriTigerSpiritTeleportSlam"] = {
+	name = "Teleport Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 4.55,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	constantStats = {
+		{ "active_skill_attack_speed_+%_final", 14 },
+		{ "active_skill_damage_+%_final", 100 },
+		{ "active_skill_area_of_effect_radius_+%_final", -33 },
+	},
+	stats = {
+		"is_area_damage",
+		"disable_attack_repeats",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 12, },
+	},
+}
+skills["AzmeriStampedeTiger"] = {
+	name = "Stampede",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "monster_penalty_against_minions_damage_+%_final_vs_player_minions", -65 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.5, storedUses = 1, damageEffectiveness = 0.5, cooldown = 12, levelRequirement = 1, },
+	},
+}
+skills["AzmeriTigerGeometryAttackStrafe"] = {
+	name = "Strafe Attack",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	stats = {
+		"global_bleed_on_hit",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.2, levelRequirement = 0, },
+	},
+}
+skills["AzmeriTigerHaste"] = {
+	name = "Haste",
+	hidden = true,
+	color = 2,
+	description = "Casts an aura that increases the movement speed, attack speed and cast speed of you and your allies.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	baseMods = {
+		skill("radius", 40),
+	},
+	constantStats = {
+		{ "attack_speed_+%_granted_from_skill", 25 },
+		{ "cast_speed_+%_granted_from_skill", 25 },
+		{ "base_movement_velocity_+%", 15 },
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+	},
+	stats = {
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 0.5, },
+	},
+}

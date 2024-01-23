@@ -54,7 +54,10 @@ function MinionListClass:AddValueTooltip(tooltip, index, minionId)
 			tooltip:AddLine(14, s_format("^7Energy Shield: %d%% of base Life", minion.energyShield * 100))
 		end
 		if minion.armour then
-			tooltip:AddLine(14, s_format("^7Armour Multiplier: x%.2f", minion.armour))
+			tooltip:AddLine(14, s_format("^7Armour Multiplier: x%.2f", 1 + minion.armour))
+		end
+		if minion.evasion then
+			tooltip:AddLine(14, s_format("^7Evasion Multiplier: x%.2f", 1 + minion.evasion))
 		end
 		tooltip:AddLine(14, s_format("^7Resistances: %s%d^7/%s%d^7/%s%d^7/%s%d", 
 			colorCodes.FIRE, minion.fireResist, 

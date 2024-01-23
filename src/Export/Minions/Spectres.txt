@@ -389,3 +389,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh
+-- Forest Tiger
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TigerHigh

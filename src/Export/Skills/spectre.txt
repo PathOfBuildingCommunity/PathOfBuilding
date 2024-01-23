@@ -1923,3 +1923,39 @@ skills["DarkMarionetteExplodePerfect"] = {
 		},
 	},
 #mods
+
+#skill AzmeriTigerSpiritFangs Bite
+#flags attack area
+#mods
+
+#skill AzmeriTigerSpiritLacerate lacerate
+#flags attack area
+#mods
+
+#skill AzmeriTigerSpiritTeleportSlam Teleport Slam
+#flags attack area
+#mods
+
+#skill AzmeriStampedeTiger Stampede
+#flags attack
+#mods
+
+#skill AzmeriTigerGeometryAttackStrafe Strafe Attack
+#flags attack
+#mods
+
+#skill AzmeriTigerHaste
+#flags spell area aura
+	statMap = {
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
