@@ -9828,3 +9828,145 @@ skills["AfflictionMinionPhysSlamCircleRectangle"] = {
 		[1] = { baseMultiplier = 1.4, levelRequirement = 0, },
 	},
 }
+skills["GSHeistLightningVolatileExplode"] = {
+	name = "Volatile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 5,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "shock_minimum_damage_taken_increase_%", 20 },
+		{ "shock_art_variation", 5 },
+		{ "base_skill_effect_duration", 2000 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+		"always_shock",
+		"cannot_stun",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["HeistCultistLightningBolt"] = {
+	name = "Lightning Bolt",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.875,
+	incrementalEffectiveness = 0.035000000149012,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "spell_maximum_action_distance_+%", -25 },
+		{ "shock_art_variation", 5 },
+		{ "active_skill_area_of_effect_radius_+%_final", -40 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSHeistLightningWaterfallHit"] = {
+	name = "Waterfall",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.40000000596046,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "shock_art_variation", 5 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.69999998807907, 1.2999999523163, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["MPSHeistCultistStaffProjectileGreen"] = {
+	name = "Green Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.2000000476837,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.166,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 166 },
+		{ "spell_maximum_action_distance_+%", -40 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"maintain_projectile_direction_when_using_contact_position",
+		"visual_hit_effect_chaos_is_green",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, storedUses = 1, levelRequirement = 0, cooldown = 2.2, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSHeistScienceLightningDashImpact"] = {
+	name = "Dash",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5,
+	incrementalEffectiveness = 0.041999999433756,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "shock_minimum_damage_taken_increase_%", 20 },
+		{ "shock_art_variation", 5 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+		"always_shock",
+		"cannot_stun",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}

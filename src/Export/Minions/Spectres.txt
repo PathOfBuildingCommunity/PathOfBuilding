@@ -415,3 +415,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh
+-- Riftcaster
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterLow_
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_

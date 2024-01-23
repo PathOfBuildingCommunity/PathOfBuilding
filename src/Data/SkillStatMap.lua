@@ -1108,6 +1108,9 @@ return {
 ["shock_maximum_magnitude_+"] = {
 	mod("ShockMax", "BASE", nil),
 },
+["shock_minimum_damage_taken_increase_%+"] = {
+	mod("ShockMinimum", "BASE", nil),
+},
 -- Global flags
 ["never_ignite"] = {
 	flag("CannotIgnite"),

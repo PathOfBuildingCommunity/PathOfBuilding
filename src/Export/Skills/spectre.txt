@@ -2061,3 +2061,23 @@ skills["DarkMarionetteExplodePerfect"] = {
 #skill AfflictionMinionPhysSlamCircleRectangle Rectangle
 #flags attack area
 #mods
+
+#skill GSHeistLightningVolatileExplode Volatile
+#flags spell area hit
+#mods
+
+#skill HeistCultistLightningBolt Lightning Bolt
+#flags spell area hit
+#mods
+
+#skill GSHeistLightningWaterfallHit Waterfall
+#flags spell area hit
+#mods
+
+#skill MPSHeistCultistStaffProjectileGreen Green Projectile
+#flags spell projectile
+#mods
+
+#skill GSHeistScienceLightningDashImpact Dash
+#flags spell area hit
+#mods
