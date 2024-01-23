@@ -2081,3 +2081,44 @@ skills["DarkMarionetteExplodePerfect"] = {
 #skill GSHeistScienceLightningDashImpact Dash
 #flags spell area hit
 #mods
+
+#skill AzmeriDemonTeethShot Projectile
+#flags spell projectile
+#mods
+
+#skill GAAzmeriDemonLeapSlamDamage Leap Slam
+#flags attack area
+#mods
+
+#skill GAAzmeriDemonMeleeMiniSlam1 Claw Slam
+#flags attack area
+#mods
+
+#skill MMSAzmeriDemonBloodVomitSmall Small Vomit
+#flags spell projectile hit
+#mods
+
+#skill MMSAzmeriDemonBloodVomitMedium Medium Vomit
+#flags spell projectile hit
+#mods
+
+#skill MMSAzmeriDemonBloodVomitLarge Large Vomit
+#flags spell projectile hit
+#mods
+
+#skill GSAzmeriDemonBossCorruptExplode Corrupted Blood Explode
+#flags spell area hit
+#mods
+
+#skill AzmeriDemonPhysicalDamageAura
+#flags spell area aura
+	statMap = {
+		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMinEffect" }),
+		},
+		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMaxEffect" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods

@@ -419,3 +419,7 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterLow_
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterMid_
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/FlameblasterHigh_
+-- Blood Demon
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh

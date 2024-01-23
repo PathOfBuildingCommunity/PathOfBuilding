@@ -9970,3 +9970,239 @@ skills["GSHeistScienceLightningDashImpact"] = {
 		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
 	},
 }
+skills["AzmeriDemonTeethShot"] = {
+	name = "Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.69999998807907,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 208 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 40 },
+		{ "number_of_projectiles_override", 1 },
+		{ "corrupted_blood_on_hit_%_average_damage_to_deal_per_minute_per_stack", 80 },
+		{ "corrupted_blood_on_hit_duration", 4000 },
+		{ "corrupted_blood_on_hit_num_stacks", 1 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"active_skill_damage_+%_final",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+		"always_pierce",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, -30, critChance = 5, baseMultiplier = 0.7, levelRequirement = 1, statInterpolation = { 3, 3, 2, }, },
+	},
+}
+skills["GAAzmeriDemonLeapSlamDamage"] = {
+	name = "Leap Slam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 40 },
+		{ "corrupted_blood_on_hit_%_average_damage_to_deal_per_minute_per_stack", 80 },
+		{ "corrupted_blood_on_hit_duration", 4000 },
+		{ "corrupted_blood_on_hit_num_stacks", 3 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { -30, damageEffectiveness = 1.3, baseMultiplier = 2, levelRequirement = 1, statInterpolation = { 2, }, },
+	},
+}
+skills["GAAzmeriDemonMeleeMiniSlam1"] = {
+	name = "Claw Slam",
+	hidden = true,
+	color = 4,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_fire", 40 },
+		{ "corrupted_blood_on_hit_%_average_damage_to_deal_per_minute_per_stack", 100 },
+		{ "corrupted_blood_on_hit_duration", 4000 },
+		{ "corrupted_blood_on_hit_num_stacks", 1 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { -30, baseMultiplier = 1.5, levelRequirement = 1, statInterpolation = { 2, }, },
+	},
+}
+skills["MMSAzmeriDemonBloodVomitSmall"] = {
+	name = "Small Vomit",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.1799999475479,
+	incrementalEffectiveness = 0.032000001519918,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "number_of_projectiles_override", 1 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 40 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"always_pierce",
+		"mortar_projectile_scale_animation_speed_instead_of_projectile_speed",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["MMSAzmeriDemonBloodVomitMedium"] = {
+	name = "Medium Vomit",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.3900001049042,
+	incrementalEffectiveness = 0.032000001519918,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "number_of_projectiles_override", 1 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 40 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"always_pierce",
+		"mortar_projectile_scale_animation_speed_instead_of_projectile_speed",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["MMSAzmeriDemonBloodVomitLarge"] = {
+	name = "Large Vomit",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.5,
+	incrementalEffectiveness = 0.032000001519918,
+	description = "Generic monster mortar skill. Like Monster Projectile but has an impact effect.",
+	skillTypes = { [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.5,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "number_of_projectiles_override", 1 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 40 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+		"always_pierce",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSAzmeriDemonBossCorruptExplode"] = {
+	name = "Corrupted Blood Explode",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 0.5, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriDemonPhysicalDamageAura"] = {
+	name = "Pride",
+	hidden = true,
+	color = 1,
+	description = "Casts an aura that causes nearby enemies to take more physical damage.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "aura_skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMinEffect" }),
+		},
+		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMaxEffect" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	baseMods = {
+		skill("radius", 40),
+	},
+	constantStats = {
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+	},
+	stats = {
+		"physical_damage_aura_nearby_enemies_physical_damage_taken_+%",
+		"physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 15, 30, storedUses = 1, levelRequirement = 1, cooldown = 5, statInterpolation = { 2, 2, }, },
+		[2] = { 25, 50, storedUses = 1, levelRequirement = 80, cooldown = 5, statInterpolation = { 2, 2, }, },
+	},
+}
