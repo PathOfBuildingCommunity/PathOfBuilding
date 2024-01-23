@@ -1,19 +1,19 @@
 VERSION[2.39.0][2024/01/23]
-<!-- Release notes generated using configuration in .github/release.yml at dev -->
 
-* Add new 3.23 Spectres (LocalIdentity)
-* Fix longstanding issues with minion stats (more fixes will come in future updates) (LocalIdentity)
+--- New to Path of Building ---
+* Add all new 3.23 Spectres (LocalIdentity)
+* Fix longstanding issues with minion stats (more fixes will come in future updates) (LocalIdentity, ifnjeff)
   * Some Minion Attacks will reduce by 10-30% DPS
   * Life values of some minions will change
   * Spectre DPS values will reduce for some monsters
   * Armour and Evasion values will drastically increase
-* Add support gem DPS sorting for Skills granted by Items (e.g. Arakaali's Fang, Whispering Ice etc.) (Paliak)
+* Add support gem DPS sorting for Skills granted by Items (e.g. Arakaali's Fang, Whispering Ice etc.) (Paliak, sida-wang)
 * Add That Which Was Taken jewel to unique list (justjuangui)
 * Add support for filtering on number of Sockets and Links in Item Trader (Peechey)
 * Add config to set the effect of Ruthless Support (LocalIdentity)
 * Add support for resetting Search Weights in Item Trader (Peechey)
 * Add support for Spectre buffs (justjuangui)
-* Show accuracy above hit chance when using Precise Technique (Peechey)
+* Show Accuracy above Life when using Precise Technique (Peechey)
 * Add support for converting all trees to latest version (Peechey)
 * Add breakdown for Endurance, Frenzy and Power charges (duiker101)
 
@@ -32,9 +32,9 @@ VERSION[2.39.0][2024/01/23]
 --- Fixed Bugs ---
 * Fix Law of the Wilds using the wrong minion data (LocalIdentity)
 * Fix Blink/Mirror Arrow of Bombarding/Prismatic using wrong Minion Skills (LocalIdentity)
-* Fix Cluster Jewel import not allocating nodes correctly by (@sida-wang, @Peechey) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7270, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7221
+* Fix Cluster Jewel import not allocating nodes correctly by (sida-wang, Peechey)
 * Fix importing of Vaal Impurity Skills and Transfigured Vaal Summon Skeletons (sida-wang)
-* Fix mods that apply to skill gems, not applying to their Transfigured versions by (@sida-wang, @Paliak) in https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7126, https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7224
+* Fix mods that apply to skill gems, not applying to their Transfigured versions by (sida-wang, Paliak)
 * Fix loading of Passive Tree dropdown in Items Tab (Peechey)
 * Cap Doom Blast expiration mode and use charge based calcs for skills that ignore tick rate (Paliak)
 * Fix bug where Precursor's Emblem's curse mod was not working (Drox346)
