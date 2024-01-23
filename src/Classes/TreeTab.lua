@@ -128,7 +128,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	self.controls.versionText = new("LabelControl", { "LEFT", self.controls.reset, "RIGHT" }, 8, 0, 0, 16, "Version:")
 	self.controls.versionSelect = new("DropDownControl", { "LEFT", self.controls.versionText, "RIGHT" }, 8, 0, 100, 20, self.treeVersions, function(index, value)
 		if value ~= self.build.spec.treeVersion then
-			self:OpenVersionConvertPopup(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"))
+			self:OpenVersionConvertPopup(value:gsub("[%(%)]", ""):gsub("[%.%s]", "_"), true)
 		end
 	end)
 	self.controls.versionSelect.maxDroppedWidth = 1000
@@ -437,7 +437,12 @@ function TreeTabClass:SetCompareSpec(specId)
 	self.compareSpec = curSpec
 end
 
-function TreeTabClass:ConvertToVersion(version, remove, success)
+function TreeTabClass:ConvertToVersion(version, remove, success, ignoreRuthlessCheck)
+	if not ignoreRuthlessCheck and self.build.spec.treeVersion:match("ruthless") and not version:match("ruthless") then
+		if isValueInTable(treeVersionList, version.."_ruthless") then
+			version = version.."_ruthless"
+		end
+	end
 	local newSpec = new("PassiveSpec", self.build, version)
 	newSpec.title = self.build.spec.title
 	newSpec.jewels = copyTable(self.build.spec.jewels)
@@ -492,16 +497,16 @@ function TreeTabClass:OpenSpecManagePopup()
 	})
 end
 
-function TreeTabClass:OpenVersionConvertPopup(version)
+function TreeTabClass:OpenVersionConvertPopup(version, ignoreRuthlessCheck)
 	local controls = { }
 	controls.warningLabel = new("LabelControl", nil, 0, 20, 0, 16, "^7Warning: some or all of the passives may be de-allocated due to changes in the tree.\n\n" ..
 		"Convert will replace your current tree.\nCopy + Convert will backup your current tree.\n")
 	controls.convert = new("ButtonControl", nil, -125, 105, 100, 20, "Convert", function()
-		self:ConvertToVersion(version, true, false)
+		self:ConvertToVersion(version, true, false, ignoreRuthlessCheck)
 		main:ClosePopup()
 	end)
 	controls.convertCopy = new("ButtonControl", nil, 0, 105, 125, 20, "Copy + Convert", function()
-		self:ConvertToVersion(version, false, false)
+		self:ConvertToVersion(version, false, false, ignoreRuthlessCheck)
 		main:ClosePopup()
 	end)
 	controls.cancel = new("ButtonControl", nil, 125, 105, 100, 20, "Cancel", function()
