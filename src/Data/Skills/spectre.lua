@@ -6842,6 +6842,49 @@ skills["DarkMarionetteExplodePerfect"] = {
 	},
 }
 
+skills["AzmeriArgusMeleeAtAnimationSpeed"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		melee = true,
+		projectile = true,
+	},
+	stats = {
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+		"projectile_uses_contact_position",
+		"use_scaled_contact_offset",
+	},
+	levels = {
+		[1] = { damageEffectiveness = 0.3, baseMultiplier = 0.3, levelRequirement = 1, },
+	},
+}
+skills["GAAzmeriRobotArgusSlam"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.333,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { baseMultiplier = 0.75, storedUses = 1, damageEffectiveness = 0.75, cooldown = 10, levelRequirement = 1, },
+	},
+}
 skills["AzmeriKudukuShockNova"] = {
 	name = "Shock Nova",
 	hidden = true,
@@ -7004,21 +7047,48 @@ skills["MeleeAtAnimationSpeedCold"] = {
 		[4] = { 200, baseMultiplier = 0.75, levelRequirement = 84, statInterpolation = { 2, }, },
 	},
 }
-skills["AzmeriAdmiralDoubleStrike"] = {
+skills["AzmeriAdmiralDoubleStrikeTriggered"] = {
 	name = "Double Strike",
 	hidden = true,
 	color = 4,
-	skillTypes = { [SkillType.Attack] = true, },
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
-	castTime = 1.5,
+	castTime = 1,
 	baseFlags = {
 		attack = true,
 	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 75 },
+	},
 	stats = {
-		"cast_time_overrides_attack_duration",
+		"active_skill_damage_+%_final",
+		"is_area_damage",
 	},
 	levels = {
-		[1] = { attackSpeedMultiplier = -25, storedUses = 1, damageEffectiveness = 1.1, baseMultiplier = 1.1, cooldown = 6, levelRequirement = 0, },
+		[1] = { 0, damageEffectiveness = 0.7, baseMultiplier = 0.7, levelRequirement = 1, statInterpolation = { 2, }, },
+	},
+}
+skills["AzmeriAdmiralDashThrustTriggered"] = {
+	name = "Dash thrust",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_cold", 100 },
+		{ "active_skill_area_of_effect_radius_+%_final", 50 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"is_area_damage",
+		"always_freeze",
+	},
+	levels = {
+		[1] = { 0, levelRequirement = 0, statInterpolation = { 2, }, },
 	},
 }
 skills["AzmeriAdmiralGeyserDamage"] = {
@@ -8670,10 +8740,32 @@ skills["AzmeriBirdGrace"] = {
 		[1] = { 1, storedUses = 1, levelRequirement = 29, cooldown = 0.5, statInterpolation = { 3, }, },
 	},
 }
---skill AzmeriLightningMelee Crashes PoB due to stat interpolation issues
---flags attack projectile melee
---mods
-
+skills["AzmeriLightningMelee"] = {
+	name = "Default Attack",
+	hidden = true,
+	color = 4,
+	description = "Strike your foes down with a powerful blow.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.MirageArcherCanUse] = true, [SkillType.Projectile] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.ProjectilesFromUser] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		projectile = true,
+		melee = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_lightning", 75 },
+	},
+	stats = {
+		"active_skill_damage_+%_final",
+		"skill_can_fire_arrows",
+		"skill_can_fire_wand_projectiles",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { 0, baseMultiplier = 0.75, levelRequirement = 1, statInterpolation = { 2, }, },
+	},
+}
 skills["AzmeriPhantasmExplode"] = {
 	name = "Explode",
 	hidden = true,
@@ -9696,10 +9788,40 @@ skills["AzmeriOversoulLaserMaxShock"] = {
 		[1] = { 1.1000000238419, 1.6000000238419, 15, critChance = 5, levelRequirement = 23, statInterpolation = { 3, 3, 1, }, },
 	},
 }
---skill AzmeriOversoulColdSnapTriggered Stat interpolation of 2 with only 1 level is breaking the skill
---flags spell area duration
---mods
-
+skills["AzmeriOversoulColdSnapTriggered"] = {
+	name = "Cold Snap",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2.75,
+	incrementalEffectiveness = 0.046000000089407,
+	description = "Creates a sudden burst of cold in a targeted area, damaging enemies. Also creates an expanding area which is filled with chilled ground, and deals cold damage over time to enemies. Enemies that die while in the area have a chance to grant Frenzy Charges. The cooldown can be bypassed by expending a Frenzy Charge.",
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.Duration] = true, [SkillType.ChillingArea] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		duration = true,
+	},
+	constantStats = {
+		{ "active_skill_base_area_of_effect_radius", 15 },
+		{ "active_skill_base_secondary_area_of_effect_radius", 15 },
+		{ "active_skill_base_tertiary_area_of_effect_radius", 30 },
+		{ "base_skill_effect_duration", 7000 },
+		{ "active_skill_area_of_effect_radius_+%_final", -50 },
+	},
+	stats = {
+		"spell_minimum_base_cold_damage",
+		"spell_maximum_base_cold_damage",
+		"base_cold_damage_to_deal_per_minute",
+		"active_skill_chill_effect_+%_final",
+		"base_chance_to_freeze_%",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0, 0, 40.000002483527, 200, 0, levelRequirement = 23, statInterpolation = { 3, 3, 3, 2, 2, }, },
+	},
+}
 skills["AzmeriVikingCyclone"] = {
 	name = "Cyclone",
 	hidden = true,

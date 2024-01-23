@@ -1419,6 +1419,14 @@ skills["DarkMarionetteExplodePerfect"] = {
 	},
 }
 
+#skill AzmeriArgusMeleeAtAnimationSpeed
+#flags attack melee projectile
+#mods
+
+#skill GAAzmeriRobotArgusSlam Slam
+#flags attack area
+#mods
+
 #skill AzmeriKudukuShockNova
 #flags spell area
 #mods
@@ -1451,7 +1459,11 @@ skills["DarkMarionetteExplodePerfect"] = {
 #flags attack melee projectile
 #mods
 
-#skill AzmeriAdmiralDoubleStrike Double Strike
+#skill AzmeriAdmiralDoubleStrikeTriggered Double Strike
+#flags attack
+#mods
+
+#skill AzmeriAdmiralDashThrustTriggered Dash thrust
 #flags attack
 #mods
 
@@ -1816,9 +1828,9 @@ skills["DarkMarionetteExplodePerfect"] = {
 #baseMod skill("radius", 40)
 #mods
 
---skill AzmeriLightningMelee Crashes PoB due to stat interpolation issues
---flags attack projectile melee
---mods
+#skill AzmeriLightningMelee
+#flags attack projectile melee
+#mods
 
 #skill AzmeriPhantasmExplode Explode
 #flags spell area hit
@@ -2037,9 +2049,9 @@ skills["DarkMarionetteExplodePerfect"] = {
 #flags spell area hit
 #mods
 
---skill AzmeriOversoulColdSnapTriggered Stat interpolation of 2 with only 1 level is breaking the skill
---flags spell area duration
---mods
+#skill AzmeriOversoulColdSnapTriggered
+#flags spell area duration
+#mods
 
 #skill AzmeriVikingCyclone
 #flags attack area melee movement
