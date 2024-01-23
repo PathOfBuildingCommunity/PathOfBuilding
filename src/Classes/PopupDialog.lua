@@ -75,6 +75,12 @@ function PopupDialogClass:ProcessInput(inputEvents, viewPort)
 					return
 				end
 			end
+		elseif self.scrollBarFunc and event.type == "KeyUp" then
+			if event.key == "WHEELDOWN" then
+				self.controls.scrollBar:Scroll(1)
+			elseif event.key == "WHEELUP" then
+				self.controls.scrollBar:Scroll(-1)
+			end
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
