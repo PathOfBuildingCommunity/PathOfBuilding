@@ -6270,3 +6270,82 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh"] = {
 	modList = {
 	},
 }
+-- Forest Warrior
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingLow"] = {
+	name = "Imperfect Forest Warrior",
+	monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.98,
+	armour = 0.8,
+	evasion = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.95,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeedFire",
+		"AzmeriVikingCyclone",
+		"AzmeriVikingUpheaval",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid"] = {
+	name = "Forest Warrior",
+	monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.98,
+	armour = 0.8,
+	evasion = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.95,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeedFire",
+		"AzmeriVikingCyclone",
+		"AzmeriVikingUpheaval",
+	},
+	modList = {
+		mod("CullPercent", "MAX", 10, 0, 0), -- MonsterCullingStrike [kill_enemy_on_hit_if_under_10%_life = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh"] = {
+	name = "Perfect Forest Warrior",
+	monsterTags = { "cleaving_weapon", "fire_affinity", "flesh_armour", "gladiator", "has_two_hand_axe", "has_two_handed_melee", "humanoid", "large_model", "medium_height", "medium_movement", "melee", "non_unique_map_boss", "not_int", "physical_affinity", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 3.98,
+	armour = 0.8,
+	evasion = 0.4,
+	fireResist = 20,
+	coldResist = 20,
+	lightningResist = 20,
+	chaosResist = 0,
+	damage = 1.95,
+	damageSpread = 0.2,
+	attackTime = 1.65,
+	attackRange = 8,
+	accuracy = 1,
+	weaponType1 = "Two Handed Axe",
+	skillList = {
+		"MeleeAtAnimationSpeedFire",
+		"AzmeriVikingCyclone",
+		"AzmeriVikingUpheaval",
+	},
+	modList = {
+		mod("CullPercent", "MAX", 10, 0, 0), -- MonsterCullingStrike [kill_enemy_on_hit_if_under_10%_life = 1]
+		mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscaleable = true })}),
+	},
+}

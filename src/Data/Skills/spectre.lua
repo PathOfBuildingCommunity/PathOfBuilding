@@ -9699,3 +9699,78 @@ skills["AzmeriOversoulLaserMaxShock"] = {
 --skill AzmeriOversoulColdSnapTriggered Stat interpolation of 2 with only 1 level is breaking the skill
 --flags spell area duration
 --mods
+
+skills["AzmeriVikingCyclone"] = {
+	name = "Cyclone",
+	hidden = true,
+	color = 2,
+	baseEffectiveness = 4.1378002166748,
+	incrementalEffectiveness = 0.050000000745058,
+	description = "Damage enemies around you, then perform a spinning series of attacks as you travel to a target location. Cannot be supported by Ruthless or Multistrike.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, },
+	weaponTypes = {
+		["None"] = true,
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Dagger"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["Claw"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+		movement = true,
+	},
+	baseMods = {
+		skill("dpsMultiplier", 2),
+	},
+	constantStats = {
+		{ "attack_speed_+%", 100 },
+		{ "base_skill_number_of_additional_hits", 1 },
+		{ "cyclone_movement_speed_+%_final", 40 },
+		{ "base_skill_effect_duration", 5000 },
+		{ "cyclone_extra_distance", 30 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
+	},
+	stats = {
+		"cyclone_places_ground_fire_damage_per_minute",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 41.666667597989, levelRequirement = 68, statInterpolation = { 3, }, },
+	},
+}
+skills["AzmeriVikingUpheaval"] = {
+	name = "Sunder",
+	hidden = true,
+	color = 3,
+	baseEffectiveness = 1.6667000055313,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "upheaval_number_of_spikes", 10 },
+		{ "skill_physical_damage_%_to_convert_to_fire", 50 },
+	},
+	stats = {
+		"base_fire_damage_to_deal_per_minute",
+		"global_cannot_crit",
+		"always_ignite",
+	},
+	levels = {
+		[1] = { 33.333334078391, damageEffectiveness = 0.7, baseMultiplier = 0.7, levelRequirement = 66, statInterpolation = { 3, }, },
+	},
+}

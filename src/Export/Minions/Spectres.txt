@@ -405,3 +405,9 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VaalOversoulHigh
+-- Forest Warrior
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh
+#mod mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscaleable = true })})
+#emit

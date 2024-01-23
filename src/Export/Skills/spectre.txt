@@ -2040,3 +2040,12 @@ skills["DarkMarionetteExplodePerfect"] = {
 --skill AzmeriOversoulColdSnapTriggered Stat interpolation of 2 with only 1 level is breaking the skill
 --flags spell area duration
 --mods
+
+#skill AzmeriVikingCyclone
+#flags attack area melee movement
+#baseMod skill("dpsMultiplier", 2)
+#mods
+
+#skill AzmeriVikingUpheaval Sunder
+#flags attack
+#mods
