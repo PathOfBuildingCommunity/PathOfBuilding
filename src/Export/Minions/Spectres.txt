@@ -411,3 +411,7 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh
 #mod mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscaleable = true })})
 #emit
+-- Shadow Berserker
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh

@@ -2049,3 +2049,15 @@ skills["DarkMarionetteExplodePerfect"] = {
 #skill AzmeriVikingUpheaval Sunder
 #flags attack
 #mods
+
+#skill AfflictionMinionPhysSlamCircleSmall Small Circle
+#flags attack area
+#mods
+
+#skill AfflictionMinionPhysSlamCircleBig Big Circle
+#flags attack area
+#mods
+
+#skill AfflictionMinionPhysSlamCircleRectangle Rectangle
+#flags attack area
+#mods

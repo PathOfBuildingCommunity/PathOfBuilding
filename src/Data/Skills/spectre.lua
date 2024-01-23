@@ -9774,3 +9774,57 @@ skills["AzmeriVikingUpheaval"] = {
 		[1] = { 33.333334078391, damageEffectiveness = 0.7, baseMultiplier = 0.7, levelRequirement = 66, statInterpolation = { 3, }, },
 	},
 }
+skills["AfflictionMinionPhysSlamCircleSmall"] = {
+	name = "Small Circle",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.15, levelRequirement = 0, },
+	},
+}
+skills["AfflictionMinionPhysSlamCircleBig"] = {
+	name = "Big Circle",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.33, levelRequirement = 0, },
+	},
+}
+skills["AfflictionMinionPhysSlamCircleRectangle"] = {
+	name = "Rectangle",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { baseMultiplier = 1.4, levelRequirement = 0, },
+	},
+}

@@ -6349,3 +6349,76 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/VikingHigh"] = {
 		mod("AllyModifier", "LIST", { mod = flag("Condition:Onslaught", { type = "GlobalEffect", effectType = "Buff", effectName = "ForestWarrior", unscaleable = true })}),
 	},
 }
+-- Shadow Berserker
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonLow"] = {
+	name = "Imperfect Shadow Berserker",
+	monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
+	life = 2.02,
+	armour = 0.5,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 20,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"EmptyActionAttackAfflictionMinionTripleSlam",
+		"AfflictionMinionPhysSlamCircleSmall",
+		"AfflictionMinionPhysSlamCircleBig",
+		"AfflictionMinionPhysSlamCircleRectangle",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonMid"] = {
+	name = "Shadow Berserker",
+	monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
+	life = 2.02,
+	armour = 0.5,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 20,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"EmptyActionAttackAfflictionMinionTripleSlam",
+		"AfflictionMinionPhysSlamCircleSmall",
+		"AfflictionMinionPhysSlamCircleBig",
+		"AfflictionMinionPhysSlamCircleRectangle",
+	},
+	modList = {
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SlammerDemonHigh"] = {
+	name = "Perfect Shadow Berserker",
+	monsterTags = { "demon", "flesh_armour", "is_unarmed", "medium_movement", "melee", "not_dex", "not_int", "physical_affinity", },
+	life = 2.02,
+	armour = 0.5,
+	fireResist = 35,
+	coldResist = 35,
+	lightningResist = 35,
+	chaosResist = 20,
+	damage = 1.44,
+	damageSpread = 0.2,
+	attackTime = 1.17,
+	attackRange = 14,
+	accuracy = 1,
+	skillList = {
+		"Melee",
+		"EmptyActionAttackAfflictionMinionTripleSlam",
+		"AfflictionMinionPhysSlamCircleSmall",
+		"AfflictionMinionPhysSlamCircleBig",
+		"AfflictionMinionPhysSlamCircleRectangle",
+	},
+	modList = {
+	},
+}
