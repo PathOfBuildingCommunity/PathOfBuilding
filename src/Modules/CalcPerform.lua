@@ -2211,23 +2211,46 @@ function calcs.perform(env, fullDPSSkipEHP)
 							curse.modList:ScaleAddList(buff.modList, (1 + inc / 100) * more)
 							t_insert(minionCurses, curse)
 						end
-					elseif buff.type == "Debuff" then
+					elseif buff.type == "Debuff" or buff.type == "AuraDebuff" then
 						local stackCount
 						if buff.stackVar then
-							stackCount = modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
+							stackCount = skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackVar)
 							if buff.stackLimit then
 								stackCount = m_min(stackCount, buff.stackLimit)
 							elseif buff.stackLimitVar then
-								stackCount = m_min(stackCount, modDB:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
+								stackCount = m_min(stackCount, skillModList:Sum("BASE", skillCfg, "Multiplier:"..buff.stackLimitVar))
 							end
 						else
 							stackCount = activeMinionSkill.skillData.stackCount or 1
 						end
 						if env.mode_effective and stackCount > 0 then
 							activeMinionSkill.debuffSkill = true
+							enemyDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+							modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+							if env.minion and env.minion == activeSkill.minion then
+								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+							end
 							local srcList = new("ModList")
-							srcList:ScaleAddList(buff.modList, stackCount)
-							if activeMinionSkill.skillData.stackCount then
+							local mult = 1
+							if buff.type == "AuraDebuff" then
+								mult = 0
+								if not skillModList:Flag(nil, "SelfAurasOnlyAffectYou") then
+									local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+									local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
+									mult = (1 + inc / 100) * more
+									buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = buff.modList }
+									if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
+										mult = 0
+									end
+								end
+							end
+							if buff.type == "Debuff" then
+								local inc = skillModList:Sum("INC", skillCfg, "DebuffEffect")
+								local more = skillModList:More(skillCfg, "DebuffEffect")
+								mult = (1 + inc / 100) * more
+							end
+							srcList:ScaleAddList(buff.modList, mult * stackCount)
+							if activeMinionSkill.skillData.stackCount or buff.stackVar then
 								srcList:NewMod("Multiplier:"..buff.name.."Stack", "BASE", activeMinionSkill.skillData.stackCount, buff.name)
 							end
 							mergeBuff(srcList, debuffs, buff.name)
