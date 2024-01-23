@@ -42732,7 +42732,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3417711605", 
+				["id"] = "explicit.stat_1211769158", 
 				["text"] = "Damage Penetrates #% Cold Resistance", 
 				["type"] = "explicit", 
 			}, 
@@ -42766,7 +42766,7 @@ return {
 			["specialCaseData"] = {
 			}, 
 			["tradeMod"] = {
-				["id"] = "explicit.stat_3417711605", 
+				["id"] = "explicit.stat_1211769158", 
 				["text"] = "Damage Penetrates #% Cold Resistance", 
 				["type"] = "explicit", 
 			}, 
