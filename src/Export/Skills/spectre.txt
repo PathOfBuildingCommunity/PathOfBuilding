@@ -645,7 +645,18 @@ local skills, mod, flag, skill = ...
 
 #skill VaalIncursionFirestorm Firestorm
 #flags spell area duration
-#baseMod skill("showAverage", true)
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
+#baseMod skill("radiusLabel", "Fireball explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Fireballs fall:")
 #mods
 
 #skill VaalIncursionSpecialBeamCannonBlood Physical Beam
@@ -1226,17 +1237,933 @@ skills["MonsterVulnerabilityOnHit1"] = {
 
 #skill CrucibleIceStormTrap Ice Storm
 #flags area spell duration
-	preDamageFunc = function(activeSkill, output)
-		activeSkill.skillData.hitTimeOverride = activeSkill.skillData.damageInterval
-	end,
 	statMap = {
 		["fire_storm_fireball_delay_ms"] = {
-			skill("damageInterval", nil ),
+			skill("hitTimeOverride", nil ),
 			div = 1000,
 		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
 	},
+#baseMod skill("radiusLabel", "Ice explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Ice fall:")
 #mods
 
 #skill MMSPyromaniacIceMortar Ice Mortar
 #flags area spell projectile
+#mods
+
+#skill AzmeriHailrakeGlacialCascade
+#flags spell area
+#mods
+
+#skill AzmeriHailrakeArcticArmour
+#flags spell duration
+#mods
+
+#skill AzmeriHailrakeGlacialHammer
+#flags attack melee
+#mods
+
+#skill GSAzmeriHailrakeIceNova Ice Nova
+#flags spell area
+#mods
+
+#skill IceCrashAzmeriHailrake
+#flags attack area melee
+#mods
+
+#skill AzmeriHailrakeColdResistAura Purity of Ice
+#flags spell area aura
+	statMap = {
+		["base_cold_damage_resistance_%"] = {
+			mod("ColdResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_cold_damage_resistance_%"] = {
+			mod("ColdResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill AzmeriFireFuryMoltenStrike
+#flags attack projectile area melee
+#mods
+
+#skill FemaleCannibalBossFireStorm
+#flags spell area duration
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
+#baseMod skill("radiusLabel", "Fireball explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Fireballs fall:")
+#mods
+
+#skill FemaleCannibalBossFlameDash
+#flags spell movement duration
+#mods
+
+#skill AzmeriFirefuryCremation
+#flags spell area duration projectile
+	statMap = {
+		["cremation_base_fires_projectile_every_x_ms"] = {
+			skill("hitTimeOverride", nil),
+			div = 1000
+		},
+	},
+#mods
+
+#skill AzmeriFirefuryFireResistAura Purity of Fire
+#flags spell area aura
+	statMap = {
+		["base_fire_damage_resistance_%"] = {
+			mod("FireResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_fire_damage_resistance_%"] = {
+			mod("FireResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill AzmeriHydraDoomArrow Doom Arrow
+#flags attack projectile area
+#mods
+
+#skill AzmeriHydraBarrage Barrage
+#flags attack projectile
+	preDamageFunc = function(activeSkill, output)
+		activeSkill.skillData.dpsMultiplier = output.ProjectileCount
+	end,
+#mods
+
+#skill AzmeriHydraForkArrow Fork Arrow
+#flags attack projectile
+#mods
+
+#skill AzmeriHydraHatred
+#flags spell area aura
+	statMap = {
+		["physical_damage_%_to_add_as_cold"] = {
+			mod("PhysicalDamageGainAsCold", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["hatred_aura_cold_damage_+%_final"] = {
+			mod("ColdDamage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+skills["DarkMarionetteExplode"] = {
+	name = "On Death Explode",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		area = true,
+	},
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	baseMods = {
+		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("PhysicalMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("PhysicalMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("LightningMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("LightningMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("showAverage", true),
+		skill("radius", 22),
+	},
+	stats = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
+
+--Scorch is not showing up as a config option
+skills["DarkMarionetteExplodePerfect"] = {
+	name = "On Death Explode",
+	hidden = true,
+	color = 4,
+	baseFlags = {
+		area = true,
+	},
+	skillTypes = { [SkillType.Damage] = true, [SkillType.Area] = true },
+	baseMods = {
+		skill("FireMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("FireMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("PhysicalMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("PhysicalMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("LightningMin", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		skill("LightningMax", 1, { type = "PerStat", stat = "Life", div = 20 }),
+		mod("EnemyScorchChance", "BASE", 100),
+		skill("showAverage", true),
+		skill("radius", 22),
+	},
+	stats = {
+	},
+	levelMods = {
+	},
+	levels = {
+		[1] = { cost = { } },
+	},
+}
+
+#skill AzmeriArgusMeleeAtAnimationSpeed
+#flags attack melee projectile
+#mods
+
+#skill GAAzmeriRobotArgusSlam Slam
+#flags attack area
+#mods
+
+#skill AzmeriKudukuShockNova
+#flags spell area
+#mods
+
+#skill AzmeriKudukuSparkExtraProj
+#flags spell projectile duration
+#mods
+
+#skill AzmeriKudukuWarp
+#flags spell area duration
+#mods
+
+#skill AzmeriKudukuWrath
+#flags spell aura area
+	statMap = {
+		["attack_minimum_added_lightning_damage"] = {
+			mod("LightningMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_maximum_added_lightning_damage"] = {
+			mod("LightningMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["wrath_aura_spell_lightning_damage_+%_final"] = {
+			mod("LightningDamage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill MeleeAtAnimationSpeedCold
+#flags attack melee projectile
+#mods
+
+#skill AzmeriAdmiralDoubleStrikeTriggered Double Strike
+#flags attack
+#mods
+
+#skill AzmeriAdmiralDashThrustTriggered Dash thrust
+#flags attack
+#mods
+
+#skill AzmeriAdmiralGeyserDamage Geyser Damage
+#flags spell area  hit
+#mods
+
+#skill AzmeriAdmiralTidalWave Tidal Wave
+#flags spell triggerable
+#mods
+
+#skill AzmeriAdmiralDashMortars Dash Mortars
+#flags spell area projectile triggerable
+#mods
+
+#skill GSAzmeriAdmiralCannonball Cannonball
+#flags spell area hit
+#mods
+
+#skill AzmeriAdmiralPrecision
+#flags spell area aura
+	statMap = {
+		["accuracy_rating"] = {
+			mod("Accuracy", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["skill_buff_grants_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill AzmeriSawbladeAnimatedWeaponCyclone
+#flags attack area melee movement
+#mods
+
+#skill AzmeriDoubleSlashAnimatedWeapon
+#flags attack area melee
+#mods
+
+#skill AzmeriSwordStormCascade Sword Cascade
+#flags spell area triggerable
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
+#baseMod skill("radiusLabel", "Sword explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Swords fall:")
+#mods
+
+#skill AzmeriBarrageDemonSpineProjectile Spine Projectile
+#flags attack projectile triggerable
+#mods
+
+#skill AzmeriBarrageDemonRainOfSpines
+#flags attack area projectile triggerable
+#mods
+
+#skill AzmeriBarrageDemonSpinestorm
+#flags spell area duration triggerable
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
+#baseMod skill("radiusLabel", "Spine explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Spines fall:")
+#mods
+
+#skill MeleeAtAnimationSpeedChaos
+#flags attack projectile melee
+#mods
+
+#skill AzmeriBasiliskShoulderMortar Mortar
+#flags spell area projectile triggerable
+#mods
+
+#skill AzmeriBasiliskComboThrust Combo Thrust
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskComboSlam Combo Slam
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskDecapitateRightToLeft Decapitate
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskDecapThrust Decapitate Thrust
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskWyvernFlight Wyvern Flight
+#flags attack projectile triggerable
+#mods
+
+#skill AzmeriBasiliskDualProjectile Dual Projectile
+#flags attack projectile triggerable
+#mods
+
+#skill AzmeriBasiliskDualProjectileImpact Projectile Impact
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskWyvernGroundCollide Ground Slam
+#flags attack area triggerable
+#mods
+
+#skill AzmeriBasiliskShoulderMortar2 Mortar 2
+#flags spell area projectile triggerable
+#mods
+
+#skill ABTTAzmeriBasaliskShroud Poison DoT
+#flags spell buff duration triggerable
+	statMap = {
+		["base_chaos_damage_taken_per_minute"] = {
+			skill("ChaosDot", nil),
+			div = 60,
+		},
+	},
+#mods
+
+#skill AzmeriCasterDemonProjectile Default Attack
+#flags spell projectile triggerable
+#mods
+
+#skill DeceleratingProjectileAzmeriCasterDemon Projectile
+#flags spell projectile triggerable
+#mods
+
+#skill DeceleratingProjectileAzmeriCasterDemonExplode Explode
+#flags spell projectile triggerable hit
+#mods
+
+#skill AzmeriCasterDemonSpellDamageAura
+#flags spell area aura
+	statMap = {
+		["spell_damage_aura_spell_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["spell_critical_strike_chance_+%"] = {
+			mod("CritChance", "INC", nil, ModFlag.Spell, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill AzmeriCycloneDemonCleave Cleave
+#flags attack area melee
+#mods
+
+#skill AzmeriCycloneDemonDesecratedGroundCyclone
+#flags attack area melee movement
+#baseMod mod("CooldownRecovery", "OVERRIDE", 0)
+#mods
+
+#skill GAExpeditionDeathKnightSlam Slam
+#flags attack area triggerable
+#mods
+
+#skill GSExpeditionDeathKnightNova Nova Spell
+#flags spell area triggerable hit
+#mods
+
+#addSkillTypes Buff
+#skill AzmeriDualStrikeDemonFireEnrage Enrage
+#flags spell hit
+	statMap = {
+		["physical_damage_%_to_add_as_fire"] = {
+			mod("PhysicalDamageGainAsFire", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Enrage" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Enrage" }),
+		},
+		["attack_speed_+%"] = {
+			mod("Speed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Enrage" }),
+		},
+		["minimum_fire_damage_to_return_when_hit"] = {
+			mod("FireMin", "BASE", nil),
+		},
+		["maximum_fire_damage_to_return_when_hit"] = {
+			mod("FireMax", "BASE", nil),
+		},
+	},
+#mods
+
+#skill AzmeriDualStrikeDemonDualStrike
+#flags attack melee
+#mods
+
+#addSkillTypes Projectile ProjectilesFromUser
+#skill GSAncestralDruidFlaskExplode Poisonous Concoction
+#flags spell projectile area
+#mods
+
+#skill GAHeistRobotHoundStomp Stomp
+#flags attack area
+#mods
+
+#skill GSRoboHoundBellyDamage Slam
+#flags spell area hit
+#mods
+
+#skill AzmeriGeofriSlam Slam
+#flags attack area
+#mods
+
+#skill TalismanT2EnfeebleAura
+#flags spell curse area duration hex
+	statMap = {
+		["enfeeble_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["enfeeble_damage_+%_vs_rare_or_unique_final"] = {
+			mod("Damage", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+		["accuracy_rating_+%"] = {
+			mod("Accuracy", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#baseMod mod("CooldownRecovery", "OVERRIDE", 15)
+#mods
+
+#skill TalismanT1Vulnerability
+#flags spell curse area duration hex
+	statMap = {
+        ["receive_bleeding_chance_%_when_hit_by_attack"] = {
+            mod("SelfBleedChance", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+        },
+        ["physical_damage_taken_+%"] = {
+            mod("PhysicalDamageTaken", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+        },
+    },
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#baseMod mod("CooldownRecovery", "OVERRIDE", 15)
+#mods
+
+#skill TalismanT1TemporalChains
+#flags spell curse area duration hex
+	statMap = {
+		["temporal_chains_action_speed_+%_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique", neg = true }),
+		},
+		["buff_time_passed_+%_other_than_temporal_chains"] = {
+			mod("BuffExpireFaster", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["temporal_chains_action_speed_+%_vs_rare_or_unique_final"] = {
+			mod("TemporalChainsActionSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Curse" }, { type = "Condition", var = "RareOrUnique" }),
+		},
+	},
+#baseMod skill("debuff", true)
+#baseMod skill("radius", 22)
+#baseMod mod("CooldownRecovery", "OVERRIDE", 15)
+#mods
+
+#skill AzmeriGeofriSmite
+#flags attack melee area duration aura buff
+	statMap = {
+		["minimum_added_lightning_damage_from_skill"] = {
+			mod("LightningMin", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
+		},
+		["maximum_added_lightning_damage_from_skill"] = {
+			mod("LightningMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }, { type = "Condition", neg = true, var = "AffectedByVaalSmite" }),
+		},
+	},
+#mods
+
+#skill AzmeriGoddessSpiritMortar Mortar
+#flags projectile spell area hit
+#mods
+
+#skill AzmeriGoddessOfferingOfJudgement Fire Pillar
+#flags spell duration area
+#mods
+
+#skill AzmeriGoddessOfferingOfJudgementChaos Chaos Pillar
+#flags spell duration area
+#mods
+
+#skill AzmeriGoddessBeam
+#flags spell duration area
+#mods
+
+#skill ABTTAzmeriGoddessAura Skeleton Buff
+#flags spell duration buff
+	statMap = {
+		["attack_minimum_added_fire_damage"] = {
+			mod("FireMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+		["attack_maximum_added_fire_damage"] = {
+			mod("FireMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+		["attack_minimum_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+		["attack_maximum_added_chaos_damage"] = {
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Skeleton" }),
+		},
+	},
+#baseMod skill("buffMinions", true)
+#mods
+
+#skill AzmeriGoddessDiscipline
+#flags spell area aura
+	statMap = {
+		["energy_shield_recharge_rate_+%"] = {
+			mod("EnergyShieldRecharge", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_energy_shield"] = {
+			mod("EnergyShield", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill MeleeAtAnimationSpeedLightning
+#flags attack projectile melee
+#mods
+
+#skill AzmeriBirdBeam Beam
+#flags spell hit
+#mods
+
+#skill AzmeriBirdScreechExposure Screech
+#flags spell hit
+	statMap = {
+		["lightning_exposure_on_hit_magnitude"] = {
+			mod("LightningExposure", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Debuff", effectName = "Lightning Exposure" }),
+		},
+	},
+#mods
+
+#skill GSAzmeriBirdDashZap Zap
+#flags spell area hit
+#mods
+
+#skill AzmeriBirdGrace
+#flags spell area aura
+	statMap = {
+		["grace_aura_evasion_rating_+%_final"] = {
+			mod("Evasion", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_evasion_rating"] = {
+			mod("Evasion", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill AzmeriLightningMelee
+#flags attack projectile melee
+#mods
+
+#skill AzmeriPhantasmExplode Explode
+#flags spell area hit
+#mods
+
+--Sap is not showing up as a config option
+#skill AzmeriPhantasmExplodeSap Explode
+#flags spell area hit
+	statMap = {
+		["chance_to_inflict_sapped_%"] = {
+			mod("EnemySapChance", "BASE", nil),
+		},
+	},
+#mods
+
+#skill AzmeriPhantasmClarity
+#flags spell area aura
+	statMap = {
+		["base_mana_regeneration_rate_per_minute"] = {
+			mod("ManaRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill AzmeriMegaSkeletonHeavyMelee Heavy Melee
+#flags attack projectile melee
+#mods
+
+#skill AzmeriMegaSkeletonCleave Cleave
+#flags attack projectile melee
+#mods
+
+#skill AzmeriOakSweep
+#flags attack area melee
+#mods
+
+#skill AzmeriOakLeapSlam
+#flags attack area melee movement
+#mods
+
+#skill AzmeriOakVitality
+#flags spell area aura
+	statMap = {
+		["base_life_regeneration_rate_per_minute"] = {
+			mod("LifeRegen", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+			div = 60,
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill AzmeriReaperMelee
+#flags attack projectile melee
+#mods
+
+#skill GAAzmeriReaperLacerate Lacerate
+#flags attack area
+#mods
+
+#skill GAAzmeriReaperComboRightSlash Slash
+#flags attack area
+#mods
+
+#skill GAAzmeriReaperComboWhirl Whirl
+#flags attack area
+#mods
+
+#skill MMSAzmeriShepherdTripleMortar Mortar
+#flags spell area projectile
+#mods
+
+#skill MMSAzmeriShepherdVomitMortar Vomit Mortar
+#flags spell area projectile
+#mods
+
+#skill GSAzmeriShepherdBeamNuke Beam Nuke
+#flags spell area hit
+#mods
+
+#skill ABTTAzmeriShepherdSpellDamage Damage Buff
+#flags spell duration buff
+#mods
+
+#skill MonsterViperStrikeAtAnimationSpeed
+#flags attack melee duration
+#mods
+
+#skill AzmeriSpiderLeaderMortar Mortar
+#flags spell projectile
+#mods
+
+#skill ABTTAzmeriSpiderLeaderAura Spider Buff
+#flags spell duration buff
+	statMap = {
+		["attack_minimum_added_chaos_damage"] = {
+			mod("ChaosMin", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Spider" }),
+		},
+		["attack_maximum_added_chaos_damage"] = {
+			mod("ChaosMax", "BASE", nil, 0, KeywordFlag.Attack, { type = "GlobalEffect", effectType = "Buff", effectName = "Judgemental Spirit" }, { type = "MonsterTag", monsterTag = "Spider" }),
+		},
+	},
+#baseMod skill("buffMinions", true)
+#mods
+
+#skill AzmeriZombieCausticGroundWhenHit Caustic Ground
+#flags spell area duration
+#baseMod skill("dotIsArea", true)
+#baseMod flag("dotIsCausticGround")
+#mods
+
+#skill ElderTentacleMinionProjectile Projectile
+#flags spell projectile
+#mods
+
+#skill ElderTentacleMinionProjectileEpic Projectile Large
+#flags spell projectile
+#mods
+
+#skill GSAzmeriTentacleMonsterBeam Beam
+#flags spell projectile hit
+#mods
+
+#skill GSAzmeriTentacleMonsterShockExplode Shock Explode
+#flags spell area hit
+#mods
+
+#skill AzmeriTentacleMinionLightningResistAura Purity of Lightning
+#flags spell area aura
+	statMap = {
+		["base_lightning_damage_resistance_%"] = {
+			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_lightning_damage_resistance_%"] = {
+			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods
+
+#skill AzmeriTigerSpiritFangs Bite
+#flags attack area
+#mods
+
+#skill AzmeriTigerSpiritLacerate lacerate
+#flags attack area
+#mods
+
+#skill AzmeriTigerSpiritTeleportSlam Teleport Slam
+#flags attack area
+#mods
+
+#skill AzmeriStampedeTiger Stampede
+#flags attack
+#mods
+
+#skill AzmeriTigerGeometryAttackStrafe Strafe Attack
+#flags attack
+#mods
+
+#skill AzmeriTigerHaste
+#flags spell area aura
+	statMap = {
+		["cast_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Cast, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["attack_speed_+%_granted_from_skill"] = {
+			mod("Speed", "INC", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_movement_velocity_+%"] = {
+			mod("MovementSpeed", "INC", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill ABTTAzmeriTurtleInvulnerability Damage Immunity Buff
+#flags buff duration spell
+#mods
+
+#skill AzmeriTurtleDetermination
+#flags spell area aura
+	statMap = {
+		["determination_aura_armour_+%_final"] = {
+			mod("Armour", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_physical_damage_reduction_rating"] = {
+			mod("Armour", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill AzmeriOversoulRocksTriggered Rain of Boulders
+#flags spell area
+	statMap = {
+		["fire_storm_fireball_delay_ms"] = {
+			skill("hitTimeOverride", nil ),
+			div = 1000,
+		},
+		["firestorm_base_area_of_effect_+%"] = {
+			mod("AreaOfEffectPrimary", "INC", nil),
+		},
+	},
+#baseMod skill("radiusLabel", "Rock explosion:")
+#baseMod skill("radiusSecondary", 25)
+#baseMod skill("radiusSecondaryLabel", "Area in which Rocks fall:")
+#mods
+
+#addSkillTypes Attack
+#skill AzmeriOversoulExplosionIgnite Slam
+#flags attack area hit
+#mods
+
+#skill AzmeriOversoulLaserMaxShock Laser
+#flags spell area hit
+#mods
+
+#skill AzmeriOversoulColdSnapTriggered
+#flags spell area duration
+#mods
+
+#skill AzmeriVikingCyclone
+#flags attack area melee movement
+#baseMod skill("dpsMultiplier", 2)
+#mods
+
+#skill AzmeriVikingUpheaval Sunder
+#flags attack
+#mods
+
+#skill AfflictionMinionPhysSlamCircleSmall Small Circle
+#flags attack area
+#mods
+
+#skill AfflictionMinionPhysSlamCircleBig Big Circle
+#flags attack area
+#mods
+
+#skill AfflictionMinionPhysSlamCircleRectangle Rectangle
+#flags attack area
+#mods
+
+#skill GSHeistLightningVolatileExplode Volatile
+#flags spell area hit
+#mods
+
+#skill HeistCultistLightningBolt Lightning Bolt
+#flags spell area hit
+#mods
+
+#skill GSHeistLightningWaterfallHit Waterfall
+#flags spell area hit
+#mods
+
+#skill MPSHeistCultistStaffProjectileGreen Green Projectile
+#flags spell projectile
+#mods
+
+#skill GSHeistScienceLightningDashImpact Dash
+#flags spell area hit
+#mods
+
+#skill AzmeriDemonTeethShot Projectile
+#flags spell projectile
+#mods
+
+#skill GAAzmeriDemonLeapSlamDamage Leap Slam
+#flags attack area
+#mods
+
+#skill GAAzmeriDemonMeleeMiniSlam1 Claw Slam
+#flags attack area
+#mods
+
+#skill MMSAzmeriDemonBloodVomitSmall Small Vomit
+#flags spell projectile hit
+#mods
+
+#skill MMSAzmeriDemonBloodVomitMedium Medium Vomit
+#flags spell projectile hit
+#mods
+
+#skill MMSAzmeriDemonBloodVomitLarge Large Vomit
+#flags spell projectile hit
+#mods
+
+#skill GSAzmeriDemonBossCorruptExplode Corrupted Blood Explode
+#flags spell area hit
+#mods
+
+#skill AzmeriDemonPhysicalDamageAura
+#flags spell area aura
+	statMap = {
+		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff", modCond = "PrideMinEffect" }),
+			--This mod does not work as it it looking at the wrong actor
+		},
+		["physical_damage_aura_nearby_enemies_physical_damage_taken_+%_max"] = {
+			mod("PhysicalDamageTaken", "MORE", nil, 0, 0, { type = "GlobalEffect", effectType = "AuraDebuff" }),
+		},
+	},
+#baseMod skill("radius", 40)
+#mods
+
+#skill EmptyActionAttackAzmeriGolemVSlam Slam
+#flags attack
+#mods
+
+#skill AzmeriGolemVTurretProjectile Turret Projectile
+#flags spell projectile hit
+#mods
+
+#skill AzmeriGuardian4Slam Unpowered Slam
+#flags attack area
+#mods
+
+#skill AzmeriGuardian4BeamGun Spinning Beam
+#flags spell area hit
+#mods
+
+#skill AzmeriGolemLeapSlam Leap Slam
+#flags attack area melee movement
+#mods
+
+#skill AzmeriGolemBossWhipLeft Turn Attack
+#flags attack area
+#mods
+
+#skill AzmeriBossShockRifleSingle Lightning Beam
+#flags spell projectile area
+#mods
+
+#skill AzmeriGolemRotateZap Spinning Zap
+#flags spell area hit
 #mods

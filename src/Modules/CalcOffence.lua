@@ -326,7 +326,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	local function calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
-		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect")
+		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectPrimary")
 		output.AreaOfEffectMod = round(round(incArea * moreArea, 10), 2)
 		if skillData.radiusIsWeaponRange then
 			local range = 0
@@ -2898,6 +2898,7 @@ function calcs.offence(env, actor, activeSkill)
 					if skillModList:Flag(skillCfg, "LuckyHits")
 					or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky"))
 					or (pass == 1 and skillModList:Flag(skillCfg, "CritLucky"))
+					or (damageType == "Lightning" and modDB:Flag(nil, "LightningLuckHits"))
 					or ((damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") and skillModList:Flag(skillCfg, "ElementalLuckHits")) then
 						damageTypeLuckyChance = 1
 					else

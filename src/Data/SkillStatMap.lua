@@ -368,6 +368,9 @@ return {
 ["flask_mana_to_recover_+%"] = {
 	mod("FlaskManaRecovery", "INC", nil),
 },
+["flask_effect_+%"] = {
+	mod("FlaskEffect", "INC", nil),
+},
 ["base_chance_to_dodge_%"] = {
 	mod("AttackDodgeChance", "BASE", nil),
 },
@@ -574,6 +577,12 @@ return {
 },
 ["active_skill_attack_damage_+%_final_per_endurance_charge"] = {
 	mod("Damage", "MORE", nil, ModFlag.Attack, 0, { type = "Multiplier", var = "EnduranceCharge" }),
+},
+["attack_damage_+%_per_450_physical_damage_reduction_rating"] = {
+	mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", stat = "Armour", div = 450 }),
+},
+["attack_damage_+%_per_450_evasion"] = {
+	mod("Damage", "INC", nil, ModFlag.Attack, 0, { type = "PerStat", stat = "Evasion", div = 450 }),
 },
 ["damage_+%_per_frenzy_charge"] = {
 	mod("Damage", "INC", nil, 0, 0, { type = "Multiplier", var = "FrenzyCharge" }),
@@ -824,6 +833,9 @@ return {
 ["active_skill_main_hand_weapon_damage_+%_final"] = {
 	mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "MainHandAttack" }),
 },
+["physical_weapon_damage_+%_per_10_str"] = {
+	mod("PhysicalDamage", "INC", nil, ModFlag.Weapon, 0, { type = "PerStat", stat = "Str", div = 10 }),
+},
 -- PvP Damage
 ["support_makes_skill_mine_pvp_damage_+%_final"] = {
 	mod("PvpDamageMultiplier", "MORE", nil),
@@ -918,6 +930,9 @@ return {
 ["faster_bleed_%"] = {
 	mod("BleedFaster", "INC", nil),
 },
+["bleeding_stacks_up_to_x_times"] = {
+	mod("BleedStacksMax", "OVERRIDE", nil)
+},
 ["base_ailment_damage_+%"] = {
 	mod("Damage", "INC", nil, 0, KeywordFlag.Ailment)
 },
@@ -934,8 +949,16 @@ return {
 ["base_chance_to_ignite_%"] = {
 	mod("EnemyIgniteChance", "BASE", nil),
 },
+["always_ignite"] = {
+	mod("EnemyIgniteChance", "BASE", nil),
+	value = 100,
+},
 ["base_chance_to_shock_%"] = {
 	mod("EnemyShockChance", "BASE", nil),
+},
+["always_shock"] = {
+	mod("EnemyShockChance", "BASE", nil),
+	value = 100,
 },
 ["base_chance_to_freeze_%"] = {
 	mod("EnemyFreezeChance", "BASE", nil),
@@ -959,6 +982,9 @@ return {
 	flag("CannotScorch"),
 	flag("CannotBrittle"),
 	flag("CannotSap"),
+},
+["lightning_damage_cannot_shock"] = {
+	flag("LightningCannotShock"),
 },
 ["chill_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
@@ -1020,6 +1046,9 @@ return {
 ["freeze_duration_+%"] = {
 	mod("EnemyFreezeDuration", "INC", nil),
 },
+["active_skill_freeze_duration_+%_final"] = {
+	mod("EnemyFreezeDuration", "MORE", nil),
+},
 ["base_elemental_status_ailment_duration_+%"] = {
 	mod("EnemyElementalAilmentDuration", "INC", nil),
 },
@@ -1078,6 +1107,9 @@ return {
 },
 ["shock_maximum_magnitude_+"] = {
 	mod("ShockMax", "BASE", nil),
+},
+["shock_minimum_damage_taken_increase_%+"] = {
+	mod("ShockMinimum", "BASE", nil),
 },
 -- Global flags
 ["never_ignite"] = {
@@ -1205,6 +1237,9 @@ return {
 },
 ["offering_spells_effect_+%"] = {
 	mod("BuffEffect", "INC", nil),
+},
+["link_buff_effect_on_self_+%"] = {
+	mod("LinkEffectOnSelf", "INC", nil),
 },
 -- Projectiles
 ["base_projectile_speed_+%"] = {

@@ -288,7 +288,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					skillFlags.melee = nil
 				end
 			end
-		elseif skillTypes[SkillType.DualWieldOnly] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or weapon1Info then
+		elseif (skillTypes[SkillType.DualWieldOnly] or skillTypes[SkillType.MainHandOnly] or skillFlags.forceMainHand or weapon1Info) and not activeSkill.summonSkill then
 			-- Skill requires a compatible main hand weapon
 			skillFlags.disable = true
 			activeSkill.disableReason = "Main Hand weapon is not usable with this skill"
@@ -300,7 +300,7 @@ function calcs.buildActiveSkillModList(env, activeSkill)
 					activeSkill.weapon2Flags = weapon2Flags
 					skillFlags.weapon2Attack = true
 				end
-			elseif skillTypes[SkillType.DualWieldOnly] or weapon2Info then
+			elseif (skillTypes[SkillType.DualWieldOnly] or weapon2Info) and not activeSkill.summonSkill then
 				-- Skill requires a compatible off hand weapon
 				skillFlags.disable = true
 				activeSkill.disableReason = activeSkill.disableReason or "Off Hand weapon is not usable with this skill"
