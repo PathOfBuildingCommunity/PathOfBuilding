@@ -143,6 +143,7 @@ local TreeTabClass = newClass("TreeTab", "ControlHost", function(self, build)
 	end, nil, nil, true)
 	self.controls.treeSearch.tooltipText = "Uses Lua pattern matching for complex searches"
 
+	self.tradeLeaguesList = { }
 	-- Find Timeless Jewel Button
 	self.controls.findTimelessJewel = new("ButtonControl", { "LEFT", self.controls.treeSearch, "RIGHT" }, 8, 0, 150, 20, "Find Timeless Jewel", function()
 		self:FindTimelessJewel()
@@ -282,20 +283,11 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	self.viewer.compareSpec = self.isComparing and self.specList[self.activeCompareSpec] or nil
 	self.viewer:Draw(self.build, treeViewPort, inputEvents)
 
-	local newSpecList = { }
+	local newSpecList = self:GetSpecList()
 	self.controls.compareSelect.selIndex = self.activeCompareSpec
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
 	self.controls.compareSelect:SetList(newSpecList)
-
-	self.controls.specSelect.selIndex = self.activeSpec
-	wipeTable(newSpecList)
-	for id, spec in ipairs(self.specList) do
-		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
-	end
-	self.build.itemsTab.controls.specSelect:SetList(copyTable(newSpecList)) -- Update the passive tree dropdown control in itemsTab
 	t_insert(newSpecList, "Manage trees... (ctrl-m)")
+	self.controls.specSelect.selIndex = self.activeSpec
 	self.controls.specSelect:SetList(newSpecList)
 
 	if not self.controls.treeSearch.hasFocus then
@@ -326,6 +318,14 @@ function TreeTabClass:Draw(viewPort, inputEvents)
 	end
 
 	self:DrawControls(viewPort)
+end
+
+function TreeTabClass:GetSpecList()
+	local newSpecList = { }
+	for _, spec in ipairs(self.specList) do
+		t_insert(newSpecList, (spec.treeVersion ~= latestTreeVersion and ("["..treeVersions[spec.treeVersion].display.."] ") or "")..(spec.title or "Default"))
+	end
+	return newSpecList
 end
 
 function TreeTabClass:Load(xml, dbFileName)
@@ -1723,7 +1723,41 @@ function TreeTabClass:FindTimelessJewel()
 
 	controls.searchResultsLabel = new("LabelControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 250, 0, 16, "^7Search Results:")
 	controls.searchResults = new("TimelessJewelListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -450, 275, 438, 200, self.build)
-
+	controls.searchTradeLeagueSelect = new("DropDownControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, -175, -5, 140, 20, nil, function(_, value)
+		self.timelessJewelLeagueSelect = value
+	end)
+	self.tradeQueryRequests = new("TradeQueryRequests")
+	controls.msg = new("LabelControl", nil, -280, 5, 0, 16, "")
+	if #self.tradeLeaguesList > 0 then
+		controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
+	else
+		self.tradeQueryRequests:FetchLeagues("pc", function(leagues, errMsg)
+			if errMsg then
+				controls.msg.label = "^1Error fetching league list, default league will be used\n"..errMsg.."^7"
+				return
+			end
+			local tempLeagueTable = { }
+			for _, league in ipairs(leagues) do
+				if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
+					if not (league:find("Hardcore") or league:find("Ruthless")) then
+						-- set the dynamic, base league name to index 1 to sync league shown in dropdown on load with default/old behavior of copy trade url
+						t_insert(tempLeagueTable, league)
+						for _, val in ipairs(self.tradeLeaguesList) do
+							t_insert(tempLeagueTable, val)
+						end
+						self.tradeLeaguesList = copyTable(tempLeagueTable)
+					else
+						t_insert(self.tradeLeaguesList, league)
+					end
+				end
+			end
+			t_insert(self.tradeLeaguesList, "Standard")
+			t_insert(self.tradeLeaguesList, "Hardcore")
+			t_insert(self.tradeLeaguesList, "Ruthless")
+			t_insert(self.tradeLeaguesList, "Hardcore Ruthless")
+			controls.searchTradeLeagueSelect:SetList(self.tradeLeaguesList)
+		end)
+	end
 	controls.searchTradeButton = new("ButtonControl", { "BOTTOMRIGHT", controls.searchResults, "TOPRIGHT" }, 0, -5, 170, 20, "Copy Trade URL", function()
 		local seedTrades = {}
 		local startRow = controls.searchResults.selIndex or 1
@@ -1806,7 +1840,7 @@ function TreeTabClass:FindTimelessJewel()
 			end
 		end
 
-		Copy("https://www.pathofexile.com/trade/search/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
+		Copy("https://www.pathofexile.com/trade/search/"..(self.timelessJewelLeagueSelect or "").."/?q=" .. (s_gsub(dkjson.encode(search), "[^a-zA-Z0-9]", function(a)
 			return s_format("%%%02X", s_byte(a))
 		end)))
 

@@ -63,6 +63,22 @@ for skill in dat("PassiveTreeExpansionSpecialSkills"):Rows() do
 	end
 end
 out:write('\t},\n')
+out:write('\torbitOffsets = {\n')
+for jewelSlot in dat("PassiveJewelSlots"):Rows() do
+	if jewelSlot.ClusterSize then
+		out:write('\t\t[', jewelSlot.Proxy.PassiveSkillNodeId, '] = {\n')
+		out:write('\t\t\t[0] = ', jewelSlot.StartIndices[1], ',\n')
+		if jewelSlot.StartIndices[2] then
+			out:write('\t\t\t[1] = ', jewelSlot.StartIndices[2], ',\n')
+		end
+		if jewelSlot.StartIndices[3] then
+			out:write('\t\t\t[2] = ', jewelSlot.StartIndices[3], ',\n')
+		end
+		out:write('\t\t},\n')
+	end
+end
+out:write('\t},\n')
+
 
 out:write('}')
 out:close()

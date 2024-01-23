@@ -982,7 +982,7 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill HiddenBlade
-#flags attack projectile
+#flags attack projectile forceMainHand
 	fromItem = true,
 #mods
 

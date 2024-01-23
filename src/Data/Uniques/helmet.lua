@@ -436,6 +436,7 @@ Variant: Focus Spell Trigger Pre 3.16.0
 Variant: Focus Ailment Duration Pre 3.16.0
 Variant: Avoid Elemental Damage Pre 3.16.0
 Variant: Focus Ailment Duration Pre 3.19.0
+Variant: Focus Ailment Duration Pre 3.22.0
 Variant: Fire and Chaos Resistances
 Variant: Cold and Chaos Resistances
 Variant: Lightning and Chaos Resistances
@@ -468,17 +469,18 @@ Eldritch Battery
 {variant:12}{crafted}(81-140)% increased Duration of Ailments you inflict while Focused
 {variant:13}{crafted}(6-9)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
 {variant:14}(161-180)% increased Duration of Ailments you inflict while Focused
-{variant:15}+(16-20)% to Fire and Chaos Resistances
-{variant:16}+(16-20)% to Cold and Chaos Resistances
-{variant:17}+(16-20)% to Lightning and Chaos Resistances
-{variant:18}+(31-35) to Strength and Dexterity
-{variant:19}+(31-35) to Dexterity and Intelligence
-{variant:20}+(31-35) to Strength and Intelligence
-{variant:21}(14-16)% increased Mine Laying Speed
-{variant:22}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
-{variant:22}Focus has (5-8)% increased Cooldown Recovery Rate
-{variant:23}(81-90)% increased Duration of Ailments you inflict while Focused
-{variant:24}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
+{variant:15}(81-90)% increased Duration of Ailments you inflict while Focused
+{variant:16}+(16-20)% to Fire and Chaos Resistances
+{variant:17}+(16-20)% to Cold and Chaos Resistances
+{variant:18}+(16-20)% to Lightning and Chaos Resistances
+{variant:19}+(31-35) to Strength and Dexterity
+{variant:20}+(31-35) to Dexterity and Intelligence
+{variant:21}+(31-35) to Strength and Intelligence
+{variant:22}(14-16)% increased Mine Laying Speed
+{variant:23}Trigger Socketed Spells when you Focus, with a 0.25 second Cooldown
+{variant:23}Focus has (5-8)% increased Cooldown Recovery Rate
+{variant:24}(36-40)% increased Duration of Ailments you inflict while Focused
+{variant:25}(10-12)% chance to Avoid Elemental Damage from Hits during Soul Gain Prevention
 ]],[[
 Wilma's Requital
 Solaris Circlet 

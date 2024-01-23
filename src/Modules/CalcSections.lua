@@ -650,9 +650,9 @@ return {
 	{ label = "Projectile Count", flag = "projectile", { format = "{output:ProjectileCount}", { modName = { "NoAdditionalProjectiles" , "ProjectileCount" }, cfg = "skill" }, }, },
 	{ label = "Pierce Count", haveOutput = "PierceCount", { format = "{output:PierceCountString}", { modName = { "CannotPierce", "PierceCount", "PierceAllTargets" }, cfg = "skill" }, }, },
 	{ label = "Fork Count", haveOutput = "ForkCountMax", { format = "{output:ForkCountString}", { modName = { "CannotFork", "ForkCountMax" }, cfg = "skill" }, }, },
-	{ label = "Max Chain Count", haveOutput = "ChainMax", { format = "{output:ChainMaxString}", { modName = { "CannotChain", "ChainCountMax" }, cfg = "skill" }, }, },
+	{ label = "Max Chain Count", haveOutput = "ChainMax", { format = "{output:ChainMaxString}", { modName = { "CannotChain", "ChainCountMax", "NoAdditionalChains" }, cfg = "skill" }, }, },
 	{ label = "Split Count", haveOutput = "SplitCountString", { format = "{output:SplitCountString}", 
-		{ label = "Player modifiers", modName = { "CannotSplit", "SplitCount", "AdditionalProjectilesAddSplitsInstead" }, cfg = "skill" }, 
+		{ label = "Player modifiers", modName = { "CannotSplit", "SplitCount", "AdditionalProjectilesAddSplitsInstead", "AdditionalChainsAddSplitsInstead" }, cfg = "skill" },
 		{ label = "Enemy modifiers", modName = { "SelfSplitCount" }, enemy = true, cfg = "skill" }, 
 	}, },
 	{ label = "Proj. Speed Mod", flag = "projectile", { format = "x {2:output:ProjectileSpeedMod}",
@@ -1640,6 +1640,30 @@ return {
 		{ label = "Recovery modifiers", modName = "RageRecoveryRate" },
 	}, },
 } }
+} },
+{ 1, "Charges", 3, colorCodes.NORMAL, {{ defaultCollapsed = true, label = "Charges", data = {
+	extra = colorCodes.RAGE.."{0:output:EnduranceCharges}^7, "..colorCodes.EVASION.."{0:output:FrenzyCharges}^7, "..colorCodes.MANA.."{0:output:PowerCharges}",} },
+	{ defaultCollapsed = true, label = "Endurance", haveOutput="UseEnduranceCharges", data = {
+	extra = colorCodes.RAGE.."{0:output:EnduranceCharges} ^7/ "..colorCodes.RAGE.."{0:output:EnduranceChargesMax}",
+		{ label = "Max", { format = "{0:output:EnduranceChargesMax}", { modName = { "EnduranceChargesMax", "PartyMemberMaximumEnduranceChargesEqualToYours" } } }, },
+		{ label = "Current", { format = "{0:output:EnduranceCharges}", { modName = { "EnduranceChargesMin", "HaveMaximumEnduranceCharges" } } }, },
+		{ label = "Spendable", { format = "{0:output:RemovableEnduranceCharges}", }, },
+		{ label = "Duration", { format = "{0:output:EnduranceChargesDuration}s", { modName = { "EnduranceChargesDuration", "ChargeDuration" } } }, },
+	} },
+	{ defaultCollapsed = true, label = "Frenzy", haveOutput="UseFrenzyCharges", data = {
+	extra = colorCodes.EVASION.."{0:output:FrenzyCharges} ^7/ "..colorCodes.EVASION.."{0:output:FrenzyChargesMax}",
+		{ label = "Max", { format = "{0:output:FrenzyChargesMax}", { modName = { "FrenzyChargesMax" } } }, },
+		{ label = "Current", { format = "{0:output:FrenzyCharges}", { modName = { "FrenzyChargesMin", "HaveMaximumFrenzyCharges" } } }, },
+		{ label = "Spendable", { format = "{0:output:RemovableFrenzyCharges}", }, },
+		{ label = "Duration", { format = "{0:output:FrenzyChargesDuration}s", { modName = { "FrenzyChargesDuration", "ChargeDuration" } } }, },
+	} },
+	{ defaultCollapsed = true, label = "Power", haveOutput="UsePowerCharges", data = {
+	extra = colorCodes.MANA.."{0:output:PowerCharges} ^7/ "..colorCodes.MANA.."{0:output:PowerChargesMax}",
+		{ label = "Max", { format = "{0:output:PowerChargesMax}", { modName = { "PowerChargesMax" } } }, },
+		{ label = "Current", { format = "{0:output:PowerCharges}", { modName = { "PowerChargesMin", "HaveMaximumPowerCharges" } } }, },
+		{ label = "Spendable", { format = "{0:output:RemovablePowerCharges}", }, },
+		{ label = "Duration", { format = "{0:output:PowerChargesDuration}s", { modName = { "PowerChargesDuration", "ChargeDuration" } } }, },
+	} },
 } },
 -- misc defense
 { 1, "MiscDefences", 3, colorCodes.DEFENCE, {{ defaultCollapsed = false, label = "Other Defences", data = {

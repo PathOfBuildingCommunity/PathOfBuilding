@@ -559,56 +559,69 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "ItemCondition" then
 			local matches = {}
-			local match = false
-			local searchCond = tag.searchCond
-			local rarityCond = tag.rarityCond
-			local corruptedCond = tag.corruptedCond
-			local allSlots = tag.allSlots
 			local itemSlot = tag.itemSlot:lower():gsub("(%l)(%w*)", function(a,b) return string.upper(a)..b end):gsub('^%s*(.-)%s*$', '%1')
-			local bCheckAllAppropriateSlots = tag.bothSlots
-			local items
-			if allSlots then
+			local items = {}
+			if tag.allSlots then
 				items = self.actor.itemList
 			elseif self.actor.itemList then
-				items = {self.actor.itemList[itemSlot] or (cfg and cfg.item)}
-				if bCheckAllAppropriateSlots then
+				if tag.bothSlots then
 					local itemSlot1 = self.actor.itemList[itemSlot .. " 1"]
 					local itemSlot2 = self.actor.itemList[itemSlot .. " 2"]
 					if itemSlot1 and itemSlot1.name:match("Kalandra's Touch") then itemSlot1 = itemSlot2 end
 					if itemSlot2 and itemSlot2.name:match("Kalandra's Touch") then itemSlot2 = itemSlot1 end
 					if itemSlot1 and itemSlot2 then
-						t_insert(items, itemSlot1)
-						t_insert(items, itemSlot2)
+						items = {[itemSlot .. " 1"] = itemSlot1, [itemSlot .. " 2"] = itemSlot2}
+					end
+				else
+					local item = self.actor.itemList[itemSlot] or (cfg and cfg.item)
+					if item and item.name and item.name:match("Kalandra's Touch") then
+						item = self.actor.itemList[itemSlot:gsub("%d$", {["1"] = "2", ["2"] = "1"})]
+					end
+					items = { [itemSlot] = (item or (cfg and cfg.item)) }
+				end
+			end
+			if tag.searchCond then
+				for slot, item in pairs(items) do
+					if (not tag.allSlots or tag.allSlots and item.type ~= "Jewel") and slot ~= itemSlot or not tag.excludeSelf then
+						t_insert(matches, item:FindModifierSubstring(tag.searchCond:lower(), slot:lower()))
 					end
 				end
 			end
-			if items and #items > 0 or allSlots then
-				if searchCond then
-					for slot, item in pairs(items) do
-						if (not allSlots or allSlots and item.type ~= "Jewel") and slot ~= itemSlot or not tag.excludeSelf then
-							t_insert(matches, item:FindModifierSubstring(searchCond:lower(), itemSlot:lower()))
-						end
-					end
-				end
-				if rarityCond then
-					for _, item in pairs(items) do
-						t_insert(matches, item.rarity == rarityCond)
-					end
-				end
-				if corruptedCond then
-					for _, item in pairs(items) do
-						t_insert(matches, item.corrupted == corruptedCond)
-					end
+			if tag.rarityCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.rarity == tag.rarityCond)
 				end
 			end
+			if tag.corruptedCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.corrupted == tag.corruptedCond)
+				end
+			end
+			if tag.shaperCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.shaper == tag.shaperCond)
+				end
+			end
+			if tag.elderCond then
+				for _, item in pairs(items) do
+					t_insert(matches, item.elder == tag.elderCond)
+				end
+			end
+
+			local hasItems = false
+			for _, item in pairs(items) do
+				hasItems = true
+				break
+			end
+
+			local match = true
 			for _, bool in ipairs(matches) do
-				if bool then
-					match = not tag.neg
+				if bool == (tag.neg or false) then
+					match = false
 					break
 				end
-				match = tag.neg == true
 			end
-			if not match and #matches > 0 then
+			if not match or (not hasItems and not tag.neg) then
 				return
 			end
 		elseif tag.type == "SocketedIn" then
@@ -655,17 +668,31 @@ function ModStoreClass:EvalMod(mod, cfg)
 			end
 		elseif tag.type == "SkillName" then
 			local match = false
-			local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName or "")
-			matchName = matchName:lower()
-			if tag.skillNameList then
-				for _, name in pairs(tag.skillNameList) do
-					if name:lower() == matchName then
-						match = true
-						break
+			if tag.includeTransfigured then
+				local matchGameId = tag.summonSkill and (cfg and calcLib.getGameIdFromGemName(cfg.summonSkillName, true) or "") or (cfg and cfg.skillGem and cfg.skillGem.gameId or "")
+				if tag.skillNameList then
+					for _, name in pairs(tag.skillNameList) do
+						if name and matchGameId == calcLib.getGameIdFromGemName(name, true) then
+							match = true
+							break
+						end
 					end
+				else
+					match = (tag.skillName and matchGameId == calcLib.getGameIdFromGemName(tag.skillName, true))
 				end
 			else
-				match = (tag.skillName and tag.skillName:lower() == matchName)
+				local matchName = tag.summonSkill and (cfg and cfg.summonSkillName or "") or (cfg and cfg.skillName or "")
+				matchName = matchName:lower()
+				if tag.skillNameList then
+					for _, name in pairs(tag.skillNameList) do
+						if name:lower() == matchName then
+							match = true
+							break
+						end
+					end
+				else
+					match = (tag.skillName and tag.skillName:lower() == matchName)
+				end
 			end
 			if tag.neg then
 				match = not match
@@ -749,6 +776,38 @@ function ModStoreClass:EvalMod(mod, cfg)
 				return
 			end
 			if band(cfg.keywordFlags, tag.keywordFlags) ~= tag.keywordFlags then
+				return
+			end
+		elseif tag.type == "MonsterTag" then
+			-- actor should be a minion to apply
+			if not self.actor or not self.actor.minionData or not self.actor.minionData.monsterTags then
+				return
+			end
+
+			local match = false
+
+			-- validate for actor and minionData
+			for _, tagList in pairs(self.actor.minionData.monsterTags) do
+				local matchName = tagList
+				matchName = matchName:lower()
+				if tag.monsterTagList then
+					for _, name in pairs(tag.monsterTagList) do
+						if name:lower() == matchName then
+							match = true
+							break
+						end
+					end
+				else
+					match = (tag.monsterTag and tag.monsterTag:lower() == matchName)
+				end
+				if match == true then
+					break
+				end
+			end
+			if tag.neg then
+				match = not match
+			end
+			if not match then
 				return
 			end
 		end

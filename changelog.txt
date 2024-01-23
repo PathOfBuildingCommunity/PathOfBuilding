@@ -1,3 +1,83 @@
+VERSION[2.38.4][2023/12/20]
+
+--- Fixed Crashes ---
+* Fix occasional crash when loading build on Beta branch (Nostrademous)
+
+VERSION[2.38.3][2023/12/19]
+
+--- Fixed Crashes ---
+* Fix crash when checking the breakdown for Transfigured Eye of Winter and Infernal Blow (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix Oath of the Magi not working for Body Armour slot (sida-wang)
+* Fix Lancing Steel less damage multiplier only applying to Hits (deathbeam)
+
+--- Other Changes ---
+* Update The Adorned to work in Cluster Jewel sockets (LocalIdentity)
+
+
+VERSION[2.38.2][2023/12/19]
+
+--- Fixed Bugs ---
+* Fix Bodyswap of Sacrifice explosion not scaling correctly (LocalIdentity)
+
+
+VERSION[2.38.1][2023/12/18]
+
+--- User Interface ---
+* Fix tooltip for Summon Chaos Golem of the Maelstrom (QuickStick123)
+* Fix Blade Blast of Dagger Detonation having a stages box (LocalIdentity)
+* Fix "Cast on Frostbolt" config not showing for Ice Nova of Frostbolts (LocalIdentity)
+
+--- Fixed Crashes ---
+* Fix crash when importing some builds (Paliak)
+
+--- Fixed Bugs ---
+* Fix Flicker Strike DPS being limited by cooldown (sida-wang)
+* Fix Replica Dragonfang's Flight not affecting Transfigured gems (Paliak)
+* Fix Lacerate of Haemorrhage "more damage with Bleeding" using increased (sida-wang)
+* Fix The Adorned not applying to jewels in outer tree sockets (LocalIdentity)
+* Fix The Adorned applying to abyss jewels in gear (LocalIdentity)
+* Fix Frost Blades of Katabasis DoT not being scaled by area damage (LocalIdentity)
+* Fix Dual Strike of Ambidexterity not using offhand attack time (LocalIdentity)
+* Fix Vaal gems loading incorrect variant after reopening a build (sida-wang)
+* Fix Pyroclast Mine aura not affecting the damage of other skills (sida-wang)
+* Fix gem mods on Forbidden Shako not working correctly with Utula's Hunger (sida-wang)
+* Fix "damage taken by at least x%" Ailment mods not stacking (LocalIdentity)
+
+--- Accuracy Improvements ---
+* Fix Devouring Diadem using legacy Ailment duration mod (sida-wang)
+* Fix Catalysts not working correctly on Replica Dragonfang's Flight (sida-wang)
+* Revert preferred slot for Unseen Strike (Paliak)
+
+
+VERSION[2.38.0][2023/12/18]
+
+--- New to Path of Building ---
+* Add support for new transfigured gems (LocalIdentity, Nostrademous, markoleptic, jopotochny, Lilylicious)
+  * Pretty much every new gem should be supported, with a select few still needing a bit more work
+* Add support for selecting league for Timeless Jewel search (Peechey)
+
+--- Fixed Crashes ---
+* Fix Crash when using the Adorned and items with Abyssal sockets (LocalIdentity)
+
+--- Fixed Bugs ---
+* Fix Tinctures when using Micro-Distillery Belt (Peechey)
+* Fix Lord of Drought increasing curse limit (Paliak)
+* Fix Hidden Blade not using main weapon and its Supports (Paliak)
+* Fix Rigwald's Curse damage conversion with specific Claw mods (Peechey)
+* Fix Ascendancy class not resetting when changing base class (Lilylicious)
+
+--- Accuracy Improvements ---
+* Fix Minion Instability to now use player Summon speed instead of Minion Hit speed (Regisle)
+* Fix Oath of the Maji applying when gear slot is empty (LocalIdentity)
+* Fix Rage not working when using Warlord's Mark (LocalIdentity)
+* Fix Deadly Ailments less hit damage multiplier not working (LocalIdentity)
+* Fix Forbidden Shako and Megalomaniac display error if added from the uniques list (sida-wang)
+
+--- Other changes ---
+* Add additional attributes to save data (asvanberg)
+
 VERSION[2.37.0][2023/12/13]
 
 --- New to Path of Building ---

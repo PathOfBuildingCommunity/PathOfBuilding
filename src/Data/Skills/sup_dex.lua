@@ -1432,6 +1432,9 @@ skills["SupportDeadlyAilments"] = {
 	excludeSkillTypes = { },
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
+		["support_better_ailments_hit_damage_+%_final"] = {
+			mod("Damage", "MORE", nil, ModFlag.Hit),
+		},
 		["support_better_ailments_ailment_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Bleed, KeywordFlag.Poison, KeywordFlag.Ignite)),
 		},
@@ -2062,7 +2065,7 @@ skills["SupportGreaterMultipleProjectilesPlus"] = {
 }
 skills["SupportGreaterVolley"] = {
 	name = "Greater Volley",
-	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects.",
+	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects. Does not support skills that fire projectiles in a spiral.",
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.ProjectilesFromUser, },
@@ -4112,7 +4115,7 @@ skills["SupportVoidManipulationPlus"] = {
 }
 skills["SupportParallelProjectiles"] = {
 	name = "Volley",
-	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects.",
+	description = "Supports skills that fire projectiles from the user. Does not affect projectiles fired from other locations as secondary effects. Does not support skills that fire projectiles in a spiral.",
 	color = 2,
 	support = true,
 	requireSkillTypes = { SkillType.ProjectilesFromUser, },

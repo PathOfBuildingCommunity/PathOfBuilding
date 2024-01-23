@@ -197,6 +197,26 @@ function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp)
 	end
 end
 
+local function initStatSortSelectionList(list)
+	t_insert(list,  {
+		label = "Full DPS",
+		stat = "FullDPS",
+		weightMult = 1.0,
+	})
+	t_insert(list,  {
+		label = "Effective Hit Pool",
+		stat = "TotalEHP",
+		weightMult = 0.5,
+	})
+end
+
+-- we do not want to overwrite previous list if the new list is the default, e.g. hitting reset multiple times in a row
+local function isSameAsDefaultList(list)
+	return list and #list == 2
+		and list[1].stat == "FullDPS" and list[1].weightMult == 1.0
+		and list[2].stat == "TotalEHP" and list[2].weightMult == 0.5
+end
+
 -- Opens the item pricing popup
 function TradeQueryClass:PriceItem()
 	self.tradeQueryGenerator = new("TradeQueryGenerator", self)
@@ -283,16 +303,7 @@ on trade site to work on other leagues and realms)]]
 	-- if the list is nil or empty, set default sorting, otherwise keep whatever was loaded from xml
 	if not self.statSortSelectionList or (#self.statSortSelectionList) == 0 then
 		self.statSortSelectionList = { }
-		t_insert(self.statSortSelectionList,  {
-			label = "Full DPS",
-			stat = "FullDPS",
-			weightMult = 1.0,
-		})
-		t_insert(self.statSortSelectionList,  {
-			label = "Effective Hit Pool",
-			stat = "TotalEHP",
-			weightMult = 0.5,
-		})
+		initStatSortSelectionList(self.statSortSelectionList)
 	end
 	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", self.controls.fetchCountEdit, "BOTTOMRIGHT"}, 0, row_vertical_padding, 150, row_height, "^7Adjust search weights", function()
 		self.itemsTab.modFlag = true
@@ -367,12 +378,14 @@ Highest Weight - Displays the order retrieved from trade]]
 				end
 				local sorted_leagues = { }
 				for _, league in ipairs(leagues) do
-					if league ~= "Standard" and league ~= "Hardcore" then
+					if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
 						t_insert(sorted_leagues, league)
 					end
 				end
 				t_insert(sorted_leagues, "Standard")
 				t_insert(sorted_leagues, "Hardcore")
+				t_insert(sorted_leagues, "Ruthless")
+				t_insert(sorted_leagues, "Hardcore Ruthless")
 				self.allLeagues[self.pbRealm] = sorted_leagues
 				setLeagueDropList()
 			end)
@@ -446,15 +459,14 @@ Highest Weight - Displays the order retrieved from trade]]
 end
 
 -- Popup to set stat weight multipliers for sorting
-function TradeQueryClass:SetStatWeights()
-
+function TradeQueryClass:SetStatWeights(previousSelectionList)
     local controls = { }
     local statList = { }
 	local sliderController = { index = 1 }
     local popupHeight = 285
 	
 	controls.ListControl = new("TradeStatWeightMultiplierListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 45, 400, 200, statList, sliderController)
-	
+
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
 			t_insert(statList, {
@@ -494,7 +506,6 @@ function TradeQueryClass:SetStatWeights()
 	sliderController.SliderLabel = controls.SliderLabel
 	sliderController.Slider = controls.Slider
 	sliderController.SliderValue = controls.SliderValue
-
 	
 	for _, statBase in ipairs(self.statSortSelectionList) do
 		for _, stat in ipairs(statList) do
@@ -508,7 +519,7 @@ function TradeQueryClass:SetStatWeights()
 		end
 	end
 
-	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Save", function()
+	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -90, -10, 80, 20, "Save", function()
 		main:ClosePopup()
 		
 		-- used in ItemsTab to save to xml under TradeSearchWeights node
@@ -526,8 +537,23 @@ function TradeQueryClass:SetStatWeights()
 			self:UpdateControlsWithItems(row_idx)
 		end
     end)
-	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 45, -10, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 0, -10, 80, 20, "Cancel", function()
+		if previousSelectionList and #previousSelectionList > 0 then
+			self.statSortSelectionList = copyTable(previousSelectionList, true)
+		end
 		main:ClosePopup()
+	end)
+	controls.reset = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 90, -10, 80, 20, "Reset", function()
+		local previousSelection = { }
+		if isSameAsDefaultList(self.statSortSelectionList) then
+			previousSelection = copyTable(previousSelectionList, true)
+		else
+			previousSelection = copyTable(self.statSortSelectionList, true) -- this is so we can revert if user hits Cancel after Reset
+		end
+		self.statSortSelectionList = { }
+		initStatSortSelectionList(self.statSortSelectionList)
+		main:ClosePopup()
+		self:SetStatWeights(previousSelection)
 	end)
 	main:OpenPopup(420, popupHeight, "Stat Weight Multipliers", controls)
 end

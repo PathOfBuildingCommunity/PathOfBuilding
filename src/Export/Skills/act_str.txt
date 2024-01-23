@@ -301,9 +301,6 @@ local skills, mod, flag, skill = ...
 			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
 		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			-- Display only
-		},
 		["quality_display_boneshatter_is_gem"] = {
 			-- Display only
 		},
@@ -334,9 +331,6 @@ local skills, mod, flag, skill = ...
 		},
 		["lose_all_trauma_at_X_trauma"] = {
 			mod("Multiplier:TraumaStacksMax", "BASE", nil),
-		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			-- Display only
 		},
 		["quality_display_boneshatter_is_gem"] = {
 			-- Display only
@@ -395,8 +389,8 @@ local skills, mod, flag, skill = ...
 			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" }),
 		},
 		["chain_strike_cone_radius_+_per_x_rage"] = {
-			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 5 }),
-			div = 5,
+			mod("AreaOfEffect", "BASE", nil, 0, 0, { type = "Multiplier", var = "Rage", div = 3 }),
+			div = 3,
 		},
 		["quality_display_chain_hook_is_gem"] = {
 			-- Display only
@@ -412,13 +406,13 @@ local skills, mod, flag, skill = ...
 			skill("radiusExtra", nil, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
 		},
 		["vaal_cleave_executioner_damage_against_enemies_on_low_life_+%"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
 		},
 		["vaal_cleave_executioner_area_of_effect_+%"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
 		},
 	},
-#baseMod mod("CullPercent", "MAX", 10, 0, 0, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } )
+#baseMod mod("CullPercent", "MAX", 10, 0, 0, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } )
 #mods
 
 #skill ConsecratedPath
@@ -642,6 +636,9 @@ local skills, mod, flag, skill = ...
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
 #mods
@@ -663,6 +660,9 @@ local skills, mod, flag, skill = ...
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
 #mods
@@ -683,6 +683,9 @@ local skills, mod, flag, skill = ...
 		},
 		["earthshatter_spike_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
+		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
 		},
 	},
 #baseMod skill("radius", 18, { type = "SkillPart", skillPart = 1 })
@@ -1136,7 +1139,7 @@ local skills, mod, flag, skill = ...
 	preDamageFunc = function(activeSkill, output)
 		local effect = activeSkill.skillModList:Sum("BASE", activeSkill.skillCfg, "DebuffEffect")
 		if activeSkill.skillPart == 2 or activeSkill.skillPart == 3 then
-			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlowofImmolation", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
+			activeSkill.skillModList:NewMod("Damage", "MORE", effect, "Skill:InfernalBlowAltX", 0, { type = "Multiplier", var = "DebuffStack", base = -100 + effect })
 		end
 		if activeSkill.skillPart == 3 then
 			activeSkill.skillData.dpsMultiplier = 1 / 6
@@ -2074,6 +2077,9 @@ local skills, mod, flag, skill = ...
 		},
 		["mana_leech_on_any_damage_when_hit_by_attack_permyriad"] = {
 			mod("SelfDamageManaLeech", "BASE", nil, ModFlag.Attack, 0, { type = "GlobalEffect", effectType = "Curse" }),
+		},
+		["enemy_rage_regeneration_on_stun"] = {
+			flag("Condition:CanGainRage", { type = "GlobalEffect", effectType = "Buff" } ),
 		},
 	},
 #baseMod skill("debuff", true)

@@ -37,7 +37,7 @@ local minions, mod = ...
 #mod mod("Condition:FullLife", "FLAG", true)
 #emit
 
-#monster Metadata/Monsters/Lion/SummonedSpectralWolf SummonedSpectralWolf
+#monster Metadata/Monsters/SummonedWolf/SummonedWolf SummonedSpectralWolf
 #limit ActiveWolfLimit
 #emit
 
@@ -59,6 +59,12 @@ local minions, mod = ...
 #emit
 
 #monster Metadata/Monsters/Clone/MarauderCloneImmobile ArrowClone
+#emit
+
+#monster Metadata/Monsters/Clone/MarauderCloneImmobileRainOfArrows ArrowCloneRoA
+#emit
+
+#monster Metadata/Monsters/Clone/MarauderCloneImmobileElementalShot ArrowCloneEle
 #emit
 
 #monster Metadata/Monsters/SummonedSpider/SummonedSpider SpiderMinion
