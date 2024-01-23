@@ -2244,17 +2244,9 @@ function calcs.perform(env, fullDPSSkipEHP)
 								end
 							end
 							enemyDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-							--[[ if affects allies
-							modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-							if env.minion then
-								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
-							end
-							]]
-							--[[ if it doesnt affect allies 
 							if env.minion and env.minion == activeSkill.minion then
 								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 							end
-							]]
 							if buff.type == "Debuff" then
 								local inc = skillModList:Sum("INC", skillCfg, "DebuffEffect")
 								local more = skillModList:More(skillCfg, "DebuffEffect")
