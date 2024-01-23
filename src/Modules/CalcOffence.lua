@@ -264,7 +264,8 @@ end
 
 function calcSkillCooldown(skillModList, skillCfg, skillData)
 	local cooldownOverride = skillModList:Override(skillCfg, "CooldownRecovery")
-	local cooldown = cooldownOverride or (skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")) / m_max(0, calcLib.mod(skillModList, skillCfg, "CooldownRecovery"))
+	local addedCooldown = skillModList:Sum("BASE", skillCfg, "CooldownRecovery")
+	local cooldown = cooldownOverride or ((skillData.cooldown or 0) + addedCooldown) / m_max(0, calcLib.mod(skillModList, skillCfg, "CooldownRecovery"))
 	-- If a skill can store extra uses and has a cooldown, it doesn't round the cooldown value to server ticks
 	local rounded = false
 	if (skillData.storedUses and skillData.storedUses > 1) or (skillData.VaalStoredUses and skillData.VaalStoredUses > 1) or skillModList:Sum("BASE", skillCfg, "AdditionalCooldownUses") > 0 then
@@ -272,7 +273,7 @@ function calcSkillCooldown(skillModList, skillCfg, skillData)
 	else
 		cooldown = m_ceil(cooldown * data.misc.ServerTickRate) / data.misc.ServerTickRate
 		rounded = true
-		return cooldown, rounded
+		return cooldown, rounded, addedCooldown
 	end
 end
 
@@ -326,7 +327,7 @@ function calcs.offence(env, actor, activeSkill)
 	end
 
 	local function calcAreaOfEffect(skillModList, skillCfg, skillData, skillFlags, output, breakdown)
-		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect")
+		local incArea, moreArea = calcLib.mods(skillModList, skillCfg, "AreaOfEffect", "AreaOfEffectPrimary")
 		output.AreaOfEffectMod = round(round(incArea * moreArea, 10), 2)
 		if skillData.radiusIsWeaponRange then
 			local range = 0
@@ -426,7 +427,7 @@ function calcs.offence(env, actor, activeSkill)
 	if skillCfg.skillCond["SkillIsTriggered"] then
 		skillFlags.triggered = true
 	end
-	skillCfg.skillCond["SkillIsFocused"] = skillData.triggeredByFocus
+	skillCfg.skillCond["SkillIsFocused"] = skillData.chanceToTriggerOnFocus
 	if skillCfg.skillCond["SkillIsFocused"] then
 		skillFlags.focused = true
 	end
@@ -1128,12 +1129,12 @@ function calcs.offence(env, actor, activeSkill)
 			local incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint = calcRadiusBreakpoints(data.misc.TrapTriggerRadiusBase, incArea, moreArea)
 			breakdown.TrapTriggerRadius = breakdown.area(data.misc.TrapTriggerRadiusBase, areaMod, output.TrapTriggerRadius, incAreaBreakpoint, moreAreaBreakpoint, redAreaBreakpoint, lessAreaBreakpoint)
 		end
-	elseif skillData.cooldown then
-		local cooldown, rounded = calcSkillCooldown(skillModList, skillCfg, skillData)
+	elseif skillData.cooldown or skillModList:Sum("BASE", skillCfg, "CooldownRecovery") ~= 0 then
+		local cooldown, rounded, addedCooldown = calcSkillCooldown(skillModList, skillCfg, skillData)
 		output.Cooldown = cooldown
 		if breakdown then
 			breakdown.Cooldown = {
-				s_format("%.2fs ^8(base)", skillData.cooldown + skillModList:Sum("BASE", skillCfg, "CooldownRecovery")),
+				s_format("%.2fs ^8(base)", skillData.cooldown or 0 + addedCooldown),
 				s_format("/ %.2f ^8(increased/reduced cooldown recovery)", 1 + skillModList:Sum("INC", skillCfg, "CooldownRecovery") / 100),
 			}
 			if rounded then
@@ -1248,7 +1249,7 @@ function calcs.offence(env, actor, activeSkill)
 			breakdown.TotemArmour = breakdown.mod(skillModList, skillCfg, "TotemArmour")
 		end
 	end
-	if skillCfg.skillName and skillCfg.skillName:match("Brand") then
+	if skillFlags.brand then
 		output.BrandAttachmentRange = data.misc.BrandAttachmentRangeBase * calcLib.mod(skillModList, skillCfg, "BrandAttachmentRange")
 		output.BrandAttachmentRangeMetre = output.BrandAttachmentRange / 10
 		output.ActiveBrandLimit = skillModList:Sum("BASE", skillCfg, "ActiveBrandLimit")
@@ -1276,63 +1277,6 @@ function calcs.offence(env, actor, activeSkill)
 				s_format("x %.2f ^8(corpse maximum life increases)", output.CorpseLifeInc),
 				s_format(" = %d", output.CorpseLife),
 			}
-		end
-	end
-
-	-- General's Cry
-	if skillData.triggeredByGeneralsCry then
-		local mirageActiveSkill = nil
-
-		-- Find the active General's Cry gem to get active properties
-		for _, skill in ipairs(actor.activeSkillList) do
-			if skill.activeEffect.grantedEffect.name == "General's Cry" and actor.mainSkill.socketGroup.slot == activeSkill.socketGroup.slot then
-				mirageActiveSkill = skill
-				break
-			end
-		end
-
-		if mirageActiveSkill then
-			local cooldown = calcSkillCooldown(mirageActiveSkill.skillModList, mirageActiveSkill.skillCfg, mirageActiveSkill.skillData)
-
-			skillData.triggered = true
-			skillCfg.skillCond["usedByMirage"] = true
-
-			-- Non-channelled skills only attack once, disregard attack rate
-			if not activeSkill.skillTypes[SkillType.Channel] then
-				skillData.timeOverride = 1
-			end
-
-			-- Supported Attacks Count as Exerted
-			for _, value in ipairs(env.modDB:Tabulate("INC", skillCfg, "ExertIncrease")) do
-				local mod = value.mod
-				skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-			end
-			for _, value in ipairs(env.modDB:Tabulate("MORE", skillCfg, "ExertIncrease")) do
-				local mod = value.mod
-				skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-			end
-			for _, value in ipairs(env.modDB:Tabulate("MORE", skillCfg, "ExertAttackIncrease")) do
-				local mod = value.mod
-				skillModList:NewMod("Damage", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-			end
-			for _, value in ipairs(env.modDB:Tabulate("BASE", skillCfg, "ExertDoubleDamageChance")) do
-				local mod = value.mod
-				skillModList:NewMod("DoubleDamageChance", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-			end
-			local maxMirageWarriors = 0
-			for _, value in ipairs(mirageActiveSkill.skillModList:Tabulate("BASE", skillCfg, "GeneralsCryDoubleMaxCount")) do
-				local mod = value.mod
-				skillModList:NewMod("QuantityMultiplier", mod.type, mod.value, mod.source, mod.flags, mod.keywordFlags)
-				maxMirageWarriors = maxMirageWarriors + mod.value
-			end
-			env.player.mainSkill.infoMessage = tostring(maxMirageWarriors) .. " GC Mirage Warriors using " .. activeSkill.activeEffect.grantedEffect.name
-
-			-- Scale dps with GC's cooldown
-			if skillData.dpsMultiplier then
-				skillData.dpsMultiplier = skillData.dpsMultiplier * (1 / cooldown)
-			else
-				skillData.dpsMultiplier = 1 / cooldown
-			end
 		end
 	end
 
@@ -1590,8 +1534,10 @@ function calcs.offence(env, actor, activeSkill)
 				if skillModList:Flag(skillCfg, "CostRageInsteadOfSouls") then -- Hateforge
 					val.baseCost = val.baseCost + costs.Soul.baseCost
 					val.baseCostNoMult = val.baseCostNoMult + costs.Soul.baseCostNoMult
+					val.finalBaseCost = val.finalBaseCost + costs.Soul.finalBaseCost
 					costs.Soul.baseCost = 0
 					costs.Soul.baseCostNoMult = 0
+					costs.Soul.finalBaseCost = 0
 				end
 			end
 		end
@@ -1752,6 +1698,7 @@ function calcs.offence(env, actor, activeSkill)
 	if isAttack then
 		output.MainHand = { }
 		output.OffHand = { }
+		output.PreciseTechnique = env.keystonesAdded["Precise Technique"]
 		local critOverride = skillModList:Override(skillCfg, "WeaponBaseCritChance")
 		if skillFlags.weapon1Attack then
 			if breakdown then
@@ -1785,6 +1732,14 @@ function calcs.offence(env, actor, activeSkill)
 			if skillData.setOffHandPhysicalMin and skillData.setOffHandPhysicalMax then
 				source.PhysicalMin = skillData.setOffHandPhysicalMin
 				source.PhysicalMax = skillData.setOffHandPhysicalMax
+			end
+			if skillData.setOffHandFireMin and skillData.setOffHandFireMax then
+				source.FireMin = skillData.setOffHandFireMin
+				source.FireMax = skillData.setOffHandFireMax
+			end
+			if skillData.setOffHandColdMin and skillData.setOffHandColdMax then
+				source.ColdMin = skillData.setOffHandColdMin
+				source.ColdMax = skillData.setOffHandColdMax
 			end
 			if skillData.attackTime then
 				source.AttackRate = 1000 / skillData.attackTime
@@ -2171,7 +2126,7 @@ function calcs.offence(env, actor, activeSkill)
 			output.HitTime = skillData.hitTimeOverride
 			output.HitSpeed = 1 / output.HitTime
 			--Brands always have hitTimeOverride
-			if skillCfg.skillName and skillCfg.skillName:match("Brand") and not skillModList:Flag(nil, "UnlimitedBrandDuration") then
+			if skillFlags.brand and not skillModList:Flag(nil, "UnlimitedBrandDuration") then
 				output.BrandTicks = m_floor(output.Duration * output.HitSpeed)
 			end
 		elseif skillData.hitTimeMultiplier and output.Time and not skillData.triggeredOnDeath then
@@ -2588,10 +2543,16 @@ function calcs.offence(env, actor, activeSkill)
 		output.FistOfWarHitEffect = 1
 		output.FistOfWarAilmentEffect = 1
 		if env.mode_combat then
+			local ruthlessEffect = env.configInput.ruthlessSupportMode or "AVERAGE"
 			-- Calculate Ruthless Blow chance/multipliers + Fist of War multipliers
 			output.RuthlessBlowMaxCount = skillModList:Sum("BASE", cfg, "RuthlessBlowMaxCount")
-			if output.RuthlessBlowMaxCount > 0 then
-				output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
+			if output.RuthlessBlowMaxCount > 0 and ( not skillCfg.skillCond["usedByMirage"] or (skillData.mirageUses or 0) > output.RuthlessBlowMaxCount ) then
+				if ruthlessEffect == "AVERAGE" then
+					output.RuthlessBlowChance = round(100 / output.RuthlessBlowMaxCount)
+				elseif ruthlessEffect == "MAX" then
+					output.RuthlessBlowChance = 100
+					skillData.dpsMultiplier = skillData.dpsMultiplier / (output.RuthlessBlowMaxCount or 1)
+				end
 			else
 				output.RuthlessBlowChance = 0
 			end
@@ -2938,6 +2899,7 @@ function calcs.offence(env, actor, activeSkill)
 					if skillModList:Flag(skillCfg, "LuckyHits")
 					or (pass == 2 and damageType == "Lightning" and skillModList:Flag(skillCfg, "LightningNoCritLucky"))
 					or (pass == 1 and skillModList:Flag(skillCfg, "CritLucky"))
+					or (damageType == "Lightning" and modDB:Flag(nil, "LightningLuckHits"))
 					or ((damageType == "Lightning" or damageType == "Cold" or damageType == "Fire") and skillModList:Flag(skillCfg, "ElementalLuckHits")) then
 						damageTypeLuckyChance = 1
 					else
@@ -4593,7 +4555,7 @@ function calcs.offence(env, actor, activeSkill)
 
 		-- Calculate non-damaging ailments effect and duration modifiers
 		local isBoss = env.configInput["enemyIsBoss"] ~= "None"
-		local enemyBaseLife = data.monsterLifeTable[env.enemyLevel] * enemyDB:More(nil, "Life")
+		local enemyAilmentThreshold = data.monsterAilmentThresholdTable[env.enemyLevel]
 		local enemyMapLifeMult = 1
 		local enemyMapAilmentMult = 1
 		if env.enemyLevel >= 66 then
@@ -4601,7 +4563,7 @@ function calcs.offence(env, actor, activeSkill)
 			enemyMapAilmentMult = isBoss and data.mapLevelBossAilmentMult[env.enemyLevel] or enemyMapAilmentMult
 		end
 		local enemyTypeMult = isBoss and 7.68 or 1
-		local enemyThreshold = enemyBaseLife * enemyTypeMult * enemyMapLifeMult * enemyMapAilmentMult * enemyDB:More(nil, "AilmentThreshold")
+		local enemyThreshold = enemyAilmentThreshold * enemyTypeMult * enemyMapLifeMult * enemyDB:More(nil, "Life") * enemyMapAilmentMult * enemyDB:More(nil, "AilmentThreshold")
 
 		local ailments = {
 			["Chill"] = {

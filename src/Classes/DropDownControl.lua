@@ -480,7 +480,7 @@ function DropDownClass:CheckDroppedWidth(enable)
 		local dWidth = self.width
 		for _, line in ipairs(self.list) do
 			if type(line) == "table" then
-				line = line.label
+				line = line.label or ""
 			end
 			  -- +10 to stop clipping
 			dWidth = m_max(dWidth, DrawStringWidth(lineHeight, "VAR", line) + 10)

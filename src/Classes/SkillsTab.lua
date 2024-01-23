@@ -1221,7 +1221,7 @@ function SkillsTabClass:AddSocketGroupTooltip(tooltip, socketGroup)
 		end
 	end
 	local showOtherHeader = true
-	for _, gemInstance in ipairs(socketGroup.gemList) do
+	for _, gemInstance in ipairs(socketGroup.displayGemList or socketGroup.gemList) do
 		if not gemShown[gemInstance] then
 			if showOtherHeader then
 				showOtherHeader = false

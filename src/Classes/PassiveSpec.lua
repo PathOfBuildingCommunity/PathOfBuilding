@@ -31,6 +31,7 @@ function PassiveSpecClass:Init(treeVersion, convert)
 	self.treeVersion = treeVersion
 	self.tree = main:LoadTree(treeVersion)
 	self.ignoredNodes = { }
+	self.ignoreAllocatingSubgraph = false
 	local previousTreeNodes = { }
 	if convert then
 		previousTreeNodes = self.build.spec.nodes
@@ -1293,7 +1294,9 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 				if self.allocNodes[node.id] then
 					-- Reserve the allocation in case the node is regenerated
 					self.allocNodes[node.id] = nil
-					t_insert(self.allocSubgraphNodes, node.id)
+					if not self.ignoreAllocatingSubgraph then -- do not carry over alloc nodes, e.g. cluster jewels on Import when Delete Jewel is true
+						t_insert(self.allocSubgraphNodes, node.id)
+					end
 				end
 			end
 		end
@@ -1302,6 +1305,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 		t_remove(subGraph.parentSocket.linked, index)
 	end
 	wipeTable(self.subGraphs)
+	self.ignoreAllocatingSubgraph = false -- reset after subGraph logic
 
 	local importedGroups = { }
 	local importedNodes = { }
@@ -1333,7 +1337,9 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 			node.alloc = true
 			if not self.allocNodes[nodeId] then
 				self.allocNodes[nodeId] = node
-				t_insert(self.allocExtendedNodes, nodeId)
+				if not isValueInArray(self.allocExtendedNodes, nodeId) then
+					t_insert(self.allocExtendedNodes, nodeId)
+				end
 			end
 		end
 	end
@@ -1423,6 +1429,10 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	end
 
 	local function addToAllocatedSubgraphNodes(node)
+		-- Don't add to allocSubgraphNodes if node already exists
+		if isValueInArray(self.allocSubgraphNodes, node.id) then
+			return false
+		end
 		local proxyGroup = matchGroup(expansionJewel.proxy)
 		if proxyGroup then
 			for id, data in pairs(importedNodes) do
@@ -1469,7 +1479,6 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		self.nodes[node.id] = node
 		if addToAllocatedSubgraphNodes(node) then
 			t_insert(self.allocSubgraphNodes, node.id)
-			t_insert(self.allocExtendedNodes, node.id)
 		end
 		return
 	end
@@ -1482,21 +1491,6 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 				return node
 			end
 		end
-	end
-
-	-- Check if we need to downsize the group
-	local groupSize = expansionJewel.size
-	upSize = upSize or 0
-	while clusterJewel.sizeIndex < groupSize do
-		-- Look for the socket with index 1 first (middle socket of large groups), then index 0
-		local socket = findSocket(proxyGroup, 1) or findSocket(proxyGroup, 0)
-		assert(socket, "Downsizing socket not found")
-
-		-- Grab the proxy node/group from the socket
-		proxyNode = self.tree.nodes[tonumber(socket.expansionJewel.proxy)]
-		proxyGroup = proxyNode.group
-		groupSize = socket.expansionJewel.size
-		upSize = upSize + 1
 	end
 
 	-- Initialise orbit flags
@@ -1710,13 +1704,14 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 			return m_floor(srcOidx * destNodesPerOrbit / srcNodesPerOrbit)
 		end
 	end
-	local proxyNodeSkillsPerOrbit = self.tree.skillsPerOrbit[proxyNode.o+1]
-
+	
+	local skillsPerOrbit = self.tree.skillsPerOrbit[clusterJewel.sizeIndex+2]
+	local startOidx = data.clusterJewels.orbitOffsets[proxyNode.id][clusterJewel.sizeIndex]
 	-- Translate oidx positioning to TreeData-relative values
 	for _, node in pairs(indicies) do
-		local proxyNodeOidxRelativeToClusterIndicies = translateOidx(proxyNode.oidx, proxyNodeSkillsPerOrbit, clusterJewel.totalIndicies)
-		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + proxyNodeOidxRelativeToClusterIndicies) % clusterJewel.totalIndicies
-		local correctedNodeOidxRelativeToTreeSkillsPerOrbit = translateOidx(correctedNodeOidxRelativeToClusterIndicies, clusterJewel.totalIndicies, proxyNodeSkillsPerOrbit)
+		local startOidxRelativeToClusterIndicies = translateOidx(startOidx, skillsPerOrbit, clusterJewel.totalIndicies)
+		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + startOidx) % clusterJewel.totalIndicies
+		local correctedNodeOidxRelativeToTreeSkillsPerOrbit = translateOidx(correctedNodeOidxRelativeToClusterIndicies, clusterJewel.totalIndicies, skillsPerOrbit)
 		node.oidx = correctedNodeOidxRelativeToTreeSkillsPerOrbit
 	end
 

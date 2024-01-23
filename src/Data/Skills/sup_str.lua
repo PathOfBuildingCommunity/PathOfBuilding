@@ -2131,16 +2131,17 @@ skills["SupportFlamewood"] = {
 }
 skills["AvengingFlame"] = {
 	name = "Avenging Flame",
+	baseTypeName = "Avenging Flame",
 	color = 1,
 	description = "Launches a fiery projectile high into the air, to drop on a target and deal area damage where it lands.",
-	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SummonsTotem] = true, },
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.ProjectileNumber] = true, [SkillType.ProjectileSpeed] = true, [SkillType.Triggerable] = true, [SkillType.SkillGrantedBySupport] = true, [SkillType.Triggered] = true, [SkillType.InbuiltTrigger] = true, [SkillType.SummonsTotem] = true, [SkillType.Projectile] = true, },
 	statDescriptionScope = "debuff_skill_stat_descriptions",
 	castTime = 1,
 	preDamageFunc = function(activeSkill, output)
 		local uuid = activeSkill.skillData.triggerSourceUUID
 		local cache = uuid and GlobalCache.cachedData["CACHE"][uuid]
 		local totemLife = cache and cache.Env.player.output.TotemLife or 0
-		
+
 		local add = totemLife * activeSkill.skillData.lifeDealtAsFire / 100
 		activeSkill.skillData.FireMax = (activeSkill.skillData.FireMax or 0) + add
 		activeSkill.skillData.FireMin = (activeSkill.skillData.FireMin or 0) + add
@@ -2300,12 +2301,13 @@ skills["SupportFortify"] = {
 }
 skills["SupportGenerosity"] = {
 	name = "Generosity",
-	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems.",
+	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems. Cannot modify the skills of minions.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Aura, },
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AppliesCurse, SkillType.AuraAffectsEnemies, },
+	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
 		["aura_cannot_affect_self"] = {
@@ -2366,12 +2368,13 @@ skills["SupportGenerosity"] = {
 }
 skills["SupportGenerosityPlus"] = {
 	name = "Awakened Generosity",
-	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems.",
+	description = "Supports aura skills that affect you and allies, increasing the aura's effect on allies, but preventing it from affecting you at all. Cannot support curse auras, or other auras that only affect enemies. Cannot support skills used by totems. Cannot modify the skills of minions.",
 	color = 1,
 	support = true,
 	requireSkillTypes = { SkillType.Aura, },
 	addSkillTypes = { },
 	excludeSkillTypes = { SkillType.SummonsTotem, SkillType.AppliesCurse, SkillType.AuraAffectsEnemies, },
+	ignoreMinionTypes = true,
 	plusVersionOf = "SupportGenerosity",
 	statDescriptionScope = "gem_stat_descriptions",
 	statMap = {
@@ -3560,7 +3563,7 @@ skills["SupportMultistrikePlus"] = {
 	},
 	qualityStats = {
 		Default = {
-			{ "melee_physical_damage_+%", 0.5 },
+			{ "melee_damage_+%", 0.5 },
 		},
 	},
 	constantStats = {
@@ -4146,6 +4149,7 @@ skills["SupportBluntWeapon"] = {
 }
 skills["SupportBluntWeaponShockwave"] = {
 	name = "Shockwave",
+	baseTypeName = "Shockwave",
 	color = 1,
 	description = "Deals attack damage in an area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, [SkillType.SkillGrantedBySupport] = true, },
@@ -4383,9 +4387,6 @@ skills["SupportTrauma"] = {
 		},
 		["attack_maximum_added_physical_damage_with_weapons_per_trauma"] = {
 			mod("PhysicalMax", "BASE", nil, bit.bor(ModFlag.Attack, ModFlag.Weapon), 0, { type = "Multiplier", var = "TraumaStacks" })
-		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			mod("TraumaSelfDamageTakenLife", "BASE", nil),
 		},
 		["support_trauma_stun_duration_+%_per_trauma"] = {
 			mod("EnemyStunDuration", "INC", nil, 0, 0, { type = "Multiplier", var = "TraumaStacks" }),

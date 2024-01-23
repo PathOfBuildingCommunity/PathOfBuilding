@@ -81,6 +81,14 @@ end
 -- Common Data --
 -----------------
 
+-- These are semi-structured
+----------------------------------------
+-- Everything not in a later category
+-- Item mods & jewel data
+-- Boss data, skills and minions
+-- Remaining Item Data and uniques
+----------------------------------------
+
 data = { }
 
 data.powerStatList = {
@@ -135,114 +143,89 @@ data.powerStatList = {
 	{ stat="SpellSuppressionChance", label="Spell Suppression Chance" },
 }
 
+data.misc = { -- magic numbers
+	ServerTickTime = 0.033,
+	ServerTickRate = 1 / 0.033,
+	AccuracyPerDexBase = 2,
+	LowPoolThreshold = 0.5,
+	TemporalChainsEffectCap = 75,
+	BuffExpirationSlowCap = 0.25,
+	DamageReductionCap = 90,
+	ResistFloor = -200,
+	MaxResistCap = 90,
+	EvadeChanceCap = 95,
+	DodgeChanceCap = 75,
+	SuppressionChanceCap = 100,
+	SuppressionEffect = 50,
+	AvoidChanceCap = 75,
+	EnergyShieldRechargeBase = 0.33,
+	EnergyShieldRechargeDelay = 2,
+	WardRechargeDelay = 4,
+	Transfiguration = 0.3,
+	EnemyMaxResist = 75,
+	LeechRateBase = 0.02,
+	DotDpsCap = 35791394, -- (2 ^ 31 - 1) / 60 (int max / 60 seconds)
+	BleedPercentBase = 70,
+	BleedDurationBase = 5,
+	PoisonPercentBase = 0.30,
+	PoisonDurationBase = 2,
+	IgnitePercentBase = 0.9,
+	IgniteDurationBase = 4,
+	ImpaleStoredDamageBase = 0.1,
+	TrapTriggerRadiusBase = 10,
+	MineDetonationRadiusBase = 60,
+	MineAuraRadiusBase = 35,
+	BrandAttachmentRangeBase = 30,
+	ProjectileDistanceCap = 150,
+	MinStunChanceNeeded = 20,
+	StunBaseMult = 200,
+	StunBaseDuration = 0.35,
+	StunNotMeleeDamageMult = 0.75,
+	MaxEnemyLevel = 85,
+	maxExperiencePenaltyFreeAreaLevel = 70,
+	experiencePenaltyMultiplier = 0.06,
+	-- Expected values to calculate EHP
+	stdBossDPSMult = 4 / 4.40,
+	pinnacleBossDPSMult = 8 / 4.40,
+	pinnacleBossPen = 15 / 5,
+	uberBossDPSMult = 10 / 4.25,
+	uberBossPen = 40 / 5,
+	-- ehp helper function magic numbers
+	ehpCalcSpeedUp = 8,
+	-- max damage can be increased for more accuracy
+	ehpCalcMaxDamage = 100000000,
+	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values will be underestimated.
+	ehpCalcMaxIterationsToCalc = 50,
+	-- maximum increase for stat weights, only used in trader for now.
+	maxStatIncrease = 2, -- 100% increased
+	-- PvP scaling used for hogm
+	PvpElemental1 = 0.55,
+	PvpElemental2 = 150,
+	PvpNonElemental1 = 0.57,
+	PvpNonElemental2 = 90,
+}
+
 data.skillColorMap = { colorCodes.STRENGTH, colorCodes.DEXTERITY, colorCodes.INTELLIGENCE, colorCodes.NORMAL }
 
-data.setJewelRadiiGlobally = function(treeVersion)
-	local major, minor = treeVersion:match("(%d+)_(%d+)")
-	if tonumber(major) <= 3 and tonumber(minor) <= 15 then
-		data.jewelRadius = data.jewelRadii["3_15"]
-	else
-		data.jewelRadius = data.jewelRadii["3_16"]
-	end
-
-	local maxJewelRadius = 0
-	for _, radiusInfo in ipairs(data.jewelRadius) do
-		radiusInfo.outerSquared = radiusInfo.outer * radiusInfo.outer
-		radiusInfo.innerSquared = radiusInfo.inner * radiusInfo.inner
-
-		if radiusInfo.outer > maxJewelRadius then
-			maxJewelRadius = radiusInfo.outer
+do
+	---@param areaLevel number
+	---@return number
+	local function effectiveMonsterLevel(areaLevel)
+		--- Areas with area level above a certain penalty-free level are considered to have
+		--- a scaling lower effective monster level for experience penalty calculations.
+		if areaLevel <= data.misc.maxExperiencePenaltyFreeAreaLevel then
+			return areaLevel
 		end
+		return areaLevel - triangular(areaLevel - data.misc.maxExperiencePenaltyFreeAreaLevel) * data.misc.experiencePenaltyMultiplier
 	end
-	data.maxJewelRadius = maxJewelRadius
-end
 
-data.jewelRadii = {
-	["3_15"] = {
-		{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
-		{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
-		{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
-
-		{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
-		{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
-		{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
-		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
-		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
-	},
-	["3_16"] = {
-		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
-		{ inner = 0, outer = 1440, col = "^x66FFCC", label = "Medium" },
-		{ inner = 0, outer = 1800, col = "^x2222CC", label = "Large" },
-
-		{ inner = 960, outer = 1320, col = "^xD35400", label = "Variable" },
-		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
-		{ inner = 1680, outer = 2040, col = "^x2222CC", label = "Variable" },
-		{ inner = 2040, outer = 2400, col = "^xC100FF", label = "Variable" },
-		{ inner = 2400, outer = 2880, col = "^x0B9300", label = "Variable" },
-	}
-}
-
-data.jewelRadius = data.setJewelRadiiGlobally(latestTreeVersion)
-
-data.enchantmentSource = {
-	{ name = "ENKINDLING", label = "Enkindling Orb" },
-	{ name = "INSTILLING", label = "Instilling Orb" },
-	{ name = "HEIST", label = "Heist" },
-	{ name = "HARVEST", label = "Harvest" },
-	{ name = "DEDICATION", label = "Dedication to the Goddess" },
-	{ name = "ENDGAME", label = "Eternal Labyrinth" },
-	{ name = "MERCILESS", label = "Merciless Labyrinth" },
-	{ name = "CRUEL", label = "Cruel Labyrinth" },
-	{ name = "NORMAL", label = "Normal Labyrinth" },
-}
-
-local maxPenaltyFreeAreaLevel = 70
-local maxAreaLevel = 87 -- T16 map + side area + three watchstones that grant +1 level
-local penaltyMultiplier = 0.06
-
----@param areaLevel number
----@return number
-local function effectiveMonsterLevel(areaLevel)
-	--- Areas with area level above a certain penalty-free level are considered to have
-	--- a scaling lower effective monster level for experience penalty calculations.
-	if areaLevel <= maxPenaltyFreeAreaLevel then
-		return areaLevel
+	---@type table<number, number>
+	data.monsterExperienceLevelMap = {}
+	-- to max enemy level + 2 to keep functionality the same
+	for i = 1, (data.misc.MaxEnemyLevel + 2) do
+		data.monsterExperienceLevelMap[i] = effectiveMonsterLevel(i)
 	end
-	return areaLevel - triangular(areaLevel - maxPenaltyFreeAreaLevel) * penaltyMultiplier
 end
-
----@type table<number, number>
-data.monsterExperienceLevelMap = {}
-for i = 1, maxAreaLevel do
-	data.monsterExperienceLevelMap[i] = effectiveMonsterLevel(i)
-end
-
-data.weaponTypeInfo = {
-	["None"] = { oneHand = true, melee = true, flag = "Unarmed" },
-	["Bow"] = { oneHand = false, melee = false, flag = "Bow" },
-	["Claw"] = { oneHand = true, melee = true, flag = "Claw" },
-	["Dagger"] = { oneHand = true, melee = true, flag = "Dagger" },
-	["Staff"] = { oneHand = false, melee = true, flag = "Staff" },
-	["Wand"] = { oneHand = true, melee = false, flag = "Wand" },
-	["One Handed Axe"] = { oneHand = true, melee = true, flag = "Axe" },
-	["One Handed Mace"] = { oneHand = true, melee = true, flag = "Mace" },
-	["One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword" },
-	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "Sceptre" },
-	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword", label = "One Handed Sword" },
-	["Fishing Rod"] = { oneHand = false, melee = true, flag = "Fishing" },
-	["Two Handed Axe"] = { oneHand = false, melee = true, flag = "Axe" },
-	["Two Handed Mace"] = { oneHand = false, melee = true, flag = "Mace" },
-	["Two Handed Sword"] = { oneHand = false, melee = true, flag = "Sword" },
-}
-data.unarmedWeaponData = {
-	[0] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Scion
-	[1] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 8 }, -- Marauder
-	[2] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Ranger
-	[3] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Witch
-	[4] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Duelist
-	[5] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Templar
-	[6] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Shadow
-}
 
 data.cursePriority = {
 	["Temporal Chains"] = 1, -- Despair and Elemental Weakness override Temporal Chains.
@@ -456,170 +439,91 @@ data.highPrecisionMods = {
 	}
 }
 
-data.misc = { -- magic numbers
-	ServerTickTime = 0.033,
-	ServerTickRate = 1 / 0.033,
-	TemporalChainsEffectCap = 75,
-	DamageReductionCap = 90,
-	ResistFloor = -200,
-	MaxResistCap = 90,
-	EvadeChanceCap = 95,
-	DodgeChanceCap = 75,
-	SuppressionChanceCap = 100,
-	SuppressionEffect = 50,
-	AvoidChanceCap = 75,
-	EnergyShieldRechargeBase = 0.33,
-	EnergyShieldRechargeDelay = 2,
-	WardRechargeDelay = 4,
-	Transfiguration = 0.3,
-	EnemyMaxResist = 75,
-	LeechRateBase = 0.02,
-	DotDpsCap = 35791394, -- (2 ^ 31 - 1) / 60 (int max / 60 seconds)
-	BleedPercentBase = 70,
-	BleedDurationBase = 5,
-	PoisonPercentBase = 0.30,
-	PoisonDurationBase = 2,
-	IgnitePercentBase = 0.9,
-	IgniteDurationBase = 4,
-	ImpaleStoredDamageBase = 0.1,
-	BuffExpirationSlowCap = 0.25,
-	TrapTriggerRadiusBase = 10,
-	MineDetonationRadiusBase = 60,
-	MineAuraRadiusBase = 35,
-	MaxEnemyLevel = 85,
-	LowPoolThreshold = 0.5,
-	MinStunChanceNeeded = 20,
-	StunBaseMult = 200,
-	StunBaseDuration = 0.35,
-	StunNotMeleeDamageMult = 0.75,
-	AccuracyPerDexBase = 2,
-	BrandAttachmentRangeBase = 30,
-	ProjectileDistanceCap = 150,
-	-- Expected values to calculate EHP
-	stdBossDPSMult = 4 / 4.40,
-	pinnacleBossDPSMult = 8 / 4.40,
-	pinnacleBossPen = 15 / 5,
-	uberBossDPSMult = 10 / 4.25,
-	uberBossPen = 40 / 5,
-	-- ehp helper function magic numbers
-	ehpCalcSpeedUp = 8,
-	-- max damage can be increased for more accuracy
-	ehpCalcMaxDamage = 100000000,
-	-- max iterations can be increased for more accuracy this should be perfectly accurate unless it runs out of iterations and so high eHP values will be underestimated.
-	ehpCalcMaxIterationsToCalc = 50,
-	-- maximum increase for stat weights, only used in trader for now.
-	maxStatIncrease = 2, -- 100% increased
-	-- PvP scaling used for hogm
-	PvpElemental1 = 0.55,
-	PvpElemental2 = 150,
-	PvpNonElemental1 = 0.57,
-	PvpNonElemental2 = 90,
+data.weaponTypeInfo = {
+	["None"] = { oneHand = true, melee = true, flag = "Unarmed" },
+	["Bow"] = { oneHand = false, melee = false, flag = "Bow" },
+	["Claw"] = { oneHand = true, melee = true, flag = "Claw" },
+	["Dagger"] = { oneHand = true, melee = true, flag = "Dagger" },
+	["Staff"] = { oneHand = false, melee = true, flag = "Staff" },
+	["Wand"] = { oneHand = true, melee = false, flag = "Wand" },
+	["One Handed Axe"] = { oneHand = true, melee = true, flag = "Axe" },
+	["One Handed Mace"] = { oneHand = true, melee = true, flag = "Mace" },
+	["One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword" },
+	["Sceptre"] = { oneHand = true, melee = true, flag = "Mace", label = "Sceptre" },
+	["Thrusting One Handed Sword"] = { oneHand = true, melee = true, flag = "Sword", label = "One Handed Sword" },
+	["Fishing Rod"] = { oneHand = false, melee = true, flag = "Fishing" },
+	["Two Handed Axe"] = { oneHand = false, melee = true, flag = "Axe" },
+	["Two Handed Mace"] = { oneHand = false, melee = true, flag = "Mace" },
+	["Two Handed Sword"] = { oneHand = false, melee = true, flag = "Sword" },
+}
+data.unarmedWeaponData = {
+	[0] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Scion
+	[1] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 8 }, -- Marauder
+	[2] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Ranger
+	[3] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Witch
+	[4] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Duelist
+	[5] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 6 }, -- Templar
+	[6] = { type = "None", AttackRate = 1.2, CritChance = 0, PhysicalMin = 2, PhysicalMax = 5 }, -- Shadow
 }
 
-data.casterTagCrucibleUniques = {
-	["Atziri's Rule"] = true,
-	["Cane of Kulemak"] = true,
-	["Cane of Unravelling"] = true,
-	["Cospri's Malice"] = true,
-	["Cybil's Paw"] = true,
-	["Disintegrator"] = true,
-	["Duskdawn"] = true,
-	["Geofri's Devotion"] = true,
-	["Mjolner"] = true,
-	["Pledge of Hands"] = true,
-	["Soulwrest"] = true,
-	["Taryn's Shiver"] = true,
-	["The Rippling Thoughts"] = true,
-	["The Surging Thoughts"] = true,
-	["The Whispering Ice"] = true,
-	["Tremor Rod"] = true,
-	["Xirgil's Crank"] = true,
-}
-data.minionTagCrucibleUniques = {
-	["Arakaali's Fang"] = true,
-	["Ashcaller"] = true,
-	["Chaber Cairn"] = true,
-	["Chober Chaber"] = true,
-	["Clayshaper"] = true,
-	["Earendel's Embrace"] = true,
-	["Femurs of the Saints"] = true,
-	["Jorrhast's Blacksteel"] = true,
-	["Law of the Wilds"] = true,
-	["Midnight Bargain"] = true,
-	["Mon'tregul's Grasp"] = true,
-	["Null's Inclination"] = true,
-	["Queen's Decree"] = true,
-	["Queen's Escape"] = true,
-	["Replica Earendel's Embrace"] = true,
-	["Replica Midnight Bargain"] = true,
-	["Severed in Sleep"] = true,
-	["Soulwrest"] = true,
-	["The Black Cane"] = true,
-	["The Iron Mass"] = true,
-	["The Scourge"] = true,
-	["United in Dream"] = true,
-}
-
--- Load bosses
-do 
-	data.bosses = { }
-	LoadModule("Data/Bosses", data.bosses)
-	
-	local count, uberCount = 0, 0
-	local armourTotal, evasionTotal = 0, 0
-	local uberArmourTotal, uberEvasionTotal = 0, 0
-
-	for _, boss in pairs(data.bosses) do
-		if boss.isUber then
-			uberCount = uberCount + 1
-			uberArmourTotal = uberArmourTotal + boss.armourMult
-			uberEvasionTotal = uberEvasionTotal + boss.evasionMult
-		end
-		count = count + 1
-		armourTotal = armourTotal + boss.armourMult
-		evasionTotal = evasionTotal + boss.evasionMult
+data.setJewelRadiiGlobally = function(treeVersion)
+	local major, minor = treeVersion:match("(%d+)_(%d+)")
+	if tonumber(major) <= 3 and tonumber(minor) <= 15 then
+		data.jewelRadius = data.jewelRadii["3_15"]
+	else
+		data.jewelRadius = data.jewelRadii["3_16"]
 	end
 
-	data.bossStats = {
-		PinnacleArmourMean = 100 + armourTotal / count,
-		PinnacleEvasionMean = 100 + evasionTotal / count,
-		UberArmourMean = 100 + uberArmourTotal / uberCount,
-		UberEvasionMean = 100 + uberEvasionTotal / uberCount
-	}
+	local maxJewelRadius = 0
+	for _, radiusInfo in ipairs(data.jewelRadius) do
+		radiusInfo.outerSquared = radiusInfo.outer * radiusInfo.outer
+		radiusInfo.innerSquared = radiusInfo.inner * radiusInfo.inner
 
-	data.bossSkills, data.bossSkillsList = LoadModule("Data/BossSkills")
-
-	data.enemyIsBossTooltip = [[Bosses' damage is monster damage scaled to an average damage of their attacks
-This is divided by 4.40 to represent 4 damage types + some (40% as much) ^xD02090chaos
-^7Fill in the exact damage numbers if more precision is needed
-
-Bosses' armour and evasion multiplier are calculated using the average of the boss type
-
-Standard Boss adds the following modifiers:
-	+40% to enemy Elemental Resistances
-	+25% to enemy ^xD02090Chaos Resistance
-	^7]]..tostring(m_floor(data.misc.stdBossDPSMult * 100))..[[% of monster Damage of each type
-	]]..tostring(m_floor(data.misc.stdBossDPSMult * 4.4 * 100))..[[% of monster Damage total
-
-Guardian / Pinnacle Boss adds the following modifiers:
-	+50% to enemy Elemental Resistances
-	+30% to enemy ^xD02090Chaos Resistance
-	^7]]..tostring(m_floor(data.bossStats.PinnacleArmourMean))..[[% of monster Armour
-	]]..tostring(m_floor(data.bossStats.PinnacleEvasionMean))..[[% of monster ^x33FF77Evasion
-	^7]]..tostring(m_floor(data.misc.pinnacleBossDPSMult * 100))..[[% of monster Damage of each type
-	]]..tostring(m_floor(data.misc.pinnacleBossDPSMult * 4.4 * 100))..[[% of monster Damage total
-	]]..tostring(data.misc.pinnacleBossPen)..[[% penetration
-
-Uber Pinnacle Boss adds the following modifiers:
-	+50% to enemy Elemental Resistances
-	+30% to enemy ^xD02090Chaos Resistance
-	^7]]..tostring(m_floor(data.bossStats.UberArmourMean))..[[% of monster Armour
-	]]..tostring(m_floor(data.bossStats.UberEvasionMean))..[[% of monster ^x33FF77Evasion
-	^770% less to enemy Damage taken
-	]]..tostring(m_floor(data.misc.uberBossDPSMult * 100))..[[% of monster Damage of each type
-	]]..tostring(m_floor(data.misc.uberBossDPSMult * 4.25 * 100))..[[% of monster Damage total
-	]]..tostring(data.misc.uberBossPen)..[[% penetration]]
+		if radiusInfo.outer > maxJewelRadius then
+			maxJewelRadius = radiusInfo.outer
+		end
+	end
+	data.maxJewelRadius = maxJewelRadius
 end
+
+data.jewelRadii = {
+	["3_15"] = {
+		{ inner = 0, outer = 800, col = "^xBB6600", label = "Small" },
+		{ inner = 0, outer = 1200, col = "^x66FFCC", label = "Medium" },
+		{ inner = 0, outer = 1500, col = "^x2222CC", label = "Large" },
+
+		{ inner = 850, outer = 1100, col = "^xD35400", label = "Variable" },
+		{ inner = 1150, outer = 1400, col = "^x66FFCC", label = "Variable" },
+		{ inner = 1450, outer = 1700, col = "^x2222CC", label = "Variable" },
+		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+		{ inner = 1750, outer = 2000, col = "^xC100FF", label = "Variable" },
+	},
+	["3_16"] = {
+		{ inner = 0, outer = 960, col = "^xBB6600", label = "Small" },
+		{ inner = 0, outer = 1440, col = "^x66FFCC", label = "Medium" },
+		{ inner = 0, outer = 1800, col = "^x2222CC", label = "Large" },
+
+		{ inner = 960, outer = 1320, col = "^xD35400", label = "Variable" },
+		{ inner = 1320, outer = 1680, col = "^x66FFCC", label = "Variable" },
+		{ inner = 1680, outer = 2040, col = "^x2222CC", label = "Variable" },
+		{ inner = 2040, outer = 2400, col = "^xC100FF", label = "Variable" },
+		{ inner = 2400, outer = 2880, col = "^x0B9300", label = "Variable" },
+	}
+}
+
+data.jewelRadius = data.setJewelRadiiGlobally(latestTreeVersion)
+
+data.enchantmentSource = {
+	{ name = "ENKINDLING", label = "Enkindling Orb" },
+	{ name = "INSTILLING", label = "Instilling Orb" },
+	{ name = "HEIST", label = "Heist" },
+	{ name = "HARVEST", label = "Harvest" },
+	{ name = "DEDICATION", label = "Dedication to the Goddess" },
+	{ name = "ENDGAME", label = "Eternal Labyrinth" },
+	{ name = "MERCILESS", label = "Merciless Labyrinth" },
+	{ name = "CRUEL", label = "Cruel Labyrinth" },
+	{ name = "NORMAL", label = "Normal Labyrinth" },
+}
 
 -- Misc data tables
 LoadModule("Data/Misc", data)
@@ -780,6 +684,67 @@ if not data.nodeIDList.size and launch.devMode then
 	-- data.nodeIDList = data.repairLUTs()
 end
 
+-- Load bosses
+do 
+	data.bosses = { }
+	LoadModule("Data/Bosses", data.bosses)
+	
+	local count, uberCount = 0, 0
+	local armourTotal, evasionTotal = 0, 0
+	local uberArmourTotal, uberEvasionTotal = 0, 0
+
+	for _, boss in pairs(data.bosses) do
+		if boss.isUber then
+			uberCount = uberCount + 1
+			uberArmourTotal = uberArmourTotal + boss.armourMult
+			uberEvasionTotal = uberEvasionTotal + boss.evasionMult
+		end
+		count = count + 1
+		armourTotal = armourTotal + boss.armourMult
+		evasionTotal = evasionTotal + boss.evasionMult
+	end
+
+	data.bossStats = {
+		PinnacleArmourMean = 100 + armourTotal / count,
+		PinnacleEvasionMean = 100 + evasionTotal / count,
+		UberArmourMean = 100 + uberArmourTotal / uberCount,
+		UberEvasionMean = 100 + uberEvasionTotal / uberCount
+	}
+
+	data.bossSkills, data.bossSkillsList = LoadModule("Data/BossSkills")
+
+	data.enemyIsBossTooltip = [[Bosses' damage is monster damage scaled to an average damage of their attacks
+This is divided by 4.40 to represent 4 damage types + some (40% as much) ^xD02090chaos
+^7Fill in the exact damage numbers if more precision is needed
+
+Bosses' armour and evasion multiplier are calculated using the average of the boss type
+
+Standard Boss adds the following modifiers:
+	+40% to enemy Elemental Resistances
+	+25% to enemy ^xD02090Chaos Resistance
+	^7]]..tostring(m_floor(data.misc.stdBossDPSMult * 100))..[[% of monster Damage of each type
+	]]..tostring(m_floor(data.misc.stdBossDPSMult * 4.4 * 100))..[[% of monster Damage total
+
+Guardian / Pinnacle Boss adds the following modifiers:
+	+50% to enemy Elemental Resistances
+	+30% to enemy ^xD02090Chaos Resistance
+	^7]]..tostring(m_floor(data.bossStats.PinnacleArmourMean))..[[% of monster Armour
+	]]..tostring(m_floor(data.bossStats.PinnacleEvasionMean))..[[% of monster ^x33FF77Evasion
+	^7]]..tostring(m_floor(data.misc.pinnacleBossDPSMult * 100))..[[% of monster Damage of each type
+	]]..tostring(m_floor(data.misc.pinnacleBossDPSMult * 4.4 * 100))..[[% of monster Damage total
+	]]..tostring(data.misc.pinnacleBossPen)..[[% penetration
+
+Uber Pinnacle Boss adds the following modifiers:
+	+50% to enemy Elemental Resistances
+	+30% to enemy ^xD02090Chaos Resistance
+	^7]]..tostring(m_floor(data.bossStats.UberArmourMean))..[[% of monster Armour
+	]]..tostring(m_floor(data.bossStats.UberEvasionMean))..[[% of monster ^x33FF77Evasion
+	^770% less to enemy Damage taken
+	]]..tostring(m_floor(data.misc.uberBossDPSMult * 100))..[[% of monster Damage of each type
+	]]..tostring(m_floor(data.misc.uberBossDPSMult * 4.25 * 100))..[[% of monster Damage total
+	]]..tostring(data.misc.uberBossPen)..[[% penetration]]
+end
+
 -- Load skills
 data.skills = { }
 data.skillStatMap = LoadModule("Data/SkillStatMap", makeSkillMod, makeFlagMod, makeSkillDataMod)
@@ -838,6 +803,8 @@ data.gems = LoadModule("Data/Gems")
 data.gemForSkill = { }
 data.gemForBaseName = { }
 data.gemsByGameId = { }
+-- Lookup table - [Gem.grantedEffectId] = VaalGemId
+data.gemGrantedEffectIdForVaalGemId = { }
 local function setupGem(gem, gemId)
 	gem.id = gemId
 	gem.grantedEffect = data.skills[gem.grantedEffectId]
@@ -848,7 +815,11 @@ local function setupGem(gem, gemId)
 	if gem.grantedEffect.support and gem.grantedEffectId ~= "SupportBarrage" then
 		baseName = baseName .. " Support"
 	end
-	data.gemForBaseName[baseName] = gemId
+	data.gemForBaseName[baseName:lower()] = gemId
+	-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
+	if gem.baseTypeName and gem.baseTypeName ~= baseName then
+		data.gemForBaseName[gem.baseTypeName:lower()] = gemId
+	end
 	gem.secondaryGrantedEffect = gem.secondaryGrantedEffectId and data.skills[gem.secondaryGrantedEffectId]
 	gem.grantedEffectList = {
 		gem.grantedEffect,
@@ -862,10 +833,15 @@ for gemId, gem in pairs(data.gems) do
     gem.name = sanitiseText(gem.name)
     setupGem(gem, gemId)
     local loc, _ = gemId:find('Vaal')
+	if loc then
+		data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId] = gemId
+	end
     for _, alt in ipairs{"AltX", "AltY"} do
         if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
+			data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId..alt] = gemId..alt
             local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }
-            newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].name
+			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
+            newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].baseTypeName
             newGem.gameId = gem.gameId
             newGem.variantId = gem.variantId..alt
             newGem.grantedEffectId = gem.grantedEffectId
@@ -888,9 +864,9 @@ end
 
 -- Load minions
 data.minions = { }
-LoadModule("Data/Minions", data.minions, makeSkillMod)
+LoadModule("Data/Minions", data.minions, makeSkillMod, makeFlagMod)
 data.spectres = { }
-LoadModule("Data/Spectres", data.spectres, makeSkillMod)
+LoadModule("Data/Spectres", data.spectres, makeSkillMod, makeFlagMod)
 for name, spectre in pairs(data.spectres) do
 	spectre.limit = "ActiveSpectreLimit"
 	data.minions[name] = spectre
@@ -953,6 +929,50 @@ table.sort(data.itemBaseTypeList)
 
 -- Rare templates
 data.rares = LoadModule("Data/Rares")
+
+data.casterTagCrucibleUniques = {
+	["Atziri's Rule"] = true,
+	["Cane of Kulemak"] = true,
+	["Cane of Unravelling"] = true,
+	["Cospri's Malice"] = true,
+	["Cybil's Paw"] = true,
+	["Disintegrator"] = true,
+	["Duskdawn"] = true,
+	["Geofri's Devotion"] = true,
+	["Mjolner"] = true,
+	["Pledge of Hands"] = true,
+	["Soulwrest"] = true,
+	["Taryn's Shiver"] = true,
+	["The Rippling Thoughts"] = true,
+	["The Surging Thoughts"] = true,
+	["The Whispering Ice"] = true,
+	["Tremor Rod"] = true,
+	["Xirgil's Crank"] = true,
+}
+data.minionTagCrucibleUniques = {
+	["Arakaali's Fang"] = true,
+	["Ashcaller"] = true,
+	["Chaber Cairn"] = true,
+	["Chober Chaber"] = true,
+	["Clayshaper"] = true,
+	["Earendel's Embrace"] = true,
+	["Femurs of the Saints"] = true,
+	["Jorrhast's Blacksteel"] = true,
+	["Law of the Wilds"] = true,
+	["Midnight Bargain"] = true,
+	["Mon'tregul's Grasp"] = true,
+	["Null's Inclination"] = true,
+	["Queen's Decree"] = true,
+	["Queen's Escape"] = true,
+	["Replica Earendel's Embrace"] = true,
+	["Replica Midnight Bargain"] = true,
+	["Severed in Sleep"] = true,
+	["Soulwrest"] = true,
+	["The Black Cane"] = true,
+	["The Iron Mass"] = true,
+	["The Scourge"] = true,
+	["United in Dream"] = true,
+}
 
 -- Uniques (loaded after version-specific data because reasons)
 data.uniques = { }

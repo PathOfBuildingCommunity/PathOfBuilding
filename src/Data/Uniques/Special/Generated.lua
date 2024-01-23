@@ -760,3 +760,55 @@ function buildForbidden(classNotables)
 	table.insert(data.uniques.generated, table.concat(forbidden["Flame"], "\n"))
 	table.insert(data.uniques.generated, table.concat(forbidden["Flesh"], "\n"))
 end
+
+-- That Which Was Taken
+local thatWhichWasTaken = {
+[[
+Item Class: Jewels
+Rarity: Unique
+That Which Was Taken
+Crimson Jewel
+League: Affliction
+Has Alt Variant: true
+Has Alt Variant Two: true
+Has Alt Variant Three: true
+Selected Variant: 82
+Selected Alt Variant: 104
+Selected Alt Variant Two: 106
+Selected Alt Variant Three: 125
+Variant: None
+]]
+}
+
+local unsortedCharmsMods = LoadModule("Data/ModJewelCharm")
+local sortedCharmsMods = { }
+
+for modId, mod in pairs(unsortedCharmsMods) do
+	if not modId:match("1$") then
+		table.insert(sortedCharmsMods, modId)
+	end
+end
+table.sort(sortedCharmsMods)
+for _, modId in ipairs(sortedCharmsMods) do
+	local variantName = abbreviateModId(modId):gsub("AnimalCharm", ""):gsub("LIfe", "Life"):gsub("OnHIt", "OnHit"):gsub("2$", ""):gsub("New", ""):gsub("[%u]", " %1"):gsub("[%d]+", " %1"):gsub("_", ""):gsub("E S", "ES")
+	table.insert(thatWhichWasTaken, "Variant:"..variantName)
+end
+
+table.insert(thatWhichWasTaken,
+[[Limited to: 1
+Requirements:
+Level: 48
+Item Level: 86
+]]
+)
+
+local indexCharmMod = 2
+for _, modId in ipairs(sortedCharmsMods) do
+	local mod = unsortedCharmsMods[modId]
+	for i, _ in ipairs(mod) do
+		table.insert(thatWhichWasTaken, "{variant:" .. indexCharmMod .. "}" .. mod[i])
+	end
+	indexCharmMod = indexCharmMod + 1
+end
+
+table.insert(data.uniques.generated, table.concat(thatWhichWasTaken, "\n"))

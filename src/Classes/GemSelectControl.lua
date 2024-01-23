@@ -57,6 +57,51 @@ local GemSelectClass = newClass("GemSelectControl", "EditControl", function(self
 	}
 end)
 
+function GemSelectClass:CalcOutputWithThisGem(calcFunc, gemData, qualityId)
+	local gemList = self.skillsTab.displayGroup.gemList
+	local oldGem
+	if gemList[self.index] then
+		oldGem = copyTable(gemList[self.index], true)
+	else
+		gemList[self.index] = {
+			level = gemData.naturalMaxLevel,
+			qualityId = qualityId,
+			quality = self.skillsTab.defaultGemQuality or 0,
+			count = 1,
+			enabled = true,
+			enableGlobal1 = true,
+			enableGlobal2 = true,
+			gemId = gemData.id,
+			nameSpec = gemData.name,
+			skillId = gemData.grantedEffectId
+		}
+	end
+
+	-- Create gemInstance to represent the hovered gem
+	local gemInstance = gemList[self.index]
+	gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
+	gemInstance.gemData = gemData
+	gemInstance.displayEffect = nil
+	if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
+		gemInstance.qualityId = "Default"
+	end
+	-- Add hovered gem to tooltip
+	self:AddGemTooltip(gemInstance)
+	-- Calculate the impact of using this gem
+	local output = calcFunc({ }, { allocNodes = true, requirementsItems = true })
+	-- Put the original gem back into the list
+	if oldGem then
+		gemInstance.gemData = oldGem.gemData
+		gemInstance.level = oldGem.level
+		gemInstance.displayEffect = oldGem.displayEffect
+	else
+		gemList[self.index] = nil
+		calcFunc({ }, { allocNodes = true, requirementsItems = true })
+	end
+
+	return output, gemInstance
+end
+
 function GemSelectClass:PopulateGemList()
 	wipeTable(self.gems)
 	local showAll = self.skillsTab.showSupportGemTypes == "ALL"
@@ -89,8 +134,8 @@ end
 function GemSelectClass:FilterSupport(gemId, gemData)
 	local showSupportTypes = self.skillsTab.showSupportGemTypes
 	return (not gemData.grantedEffect.support
-		or showSupportTypes == "ALL" 
-		or (showSupportTypes == "NORMAL" and not gemData.grantedEffect.plusVersionOf) 
+		or showSupportTypes == "ALL"
+		or (showSupportTypes == "NORMAL" and not gemData.grantedEffect.plusVersionOf)
 		or (showSupportTypes == "AWAKENED" and gemData.grantedEffect.plusVersionOf))
 		and (self.skillsTab.showAltQualityGems or (not self.skillsTab.showAltQualityGems and self:GetQualityType(gemId) == "Default"))
 end
@@ -204,7 +249,7 @@ function GemSelectClass:UpdateSortCache()
 		return
 	end
 
-	if not sortCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes 
+	if not sortCache or (sortCache.considerAlternates ~= self.skillsTab.showAltQualityGems or sortCache.considerGemType ~= self.skillsTab.showSupportGemTypes
 		or sortCache.defaultQuality ~= self.skillsTab.defaultGemQuality
 		or sortCache.defaultLevel ~= self.skillsTab.defaultGemLevel
 		or (sortCache.characterLevel ~= self.skillsTab.build.characterLevel and self.skillsTab.defaultGemLevel == "characterLevel")) then
@@ -227,6 +272,7 @@ function GemSelectClass:UpdateSortCache()
 		sortType = self.skillsTab.sortGemsByDPSField
 	}
 	self.sortCache = sortCache
+
 	-- Determine supports that affect the active skill
 	if self.skillsTab.displayGroup.displaySkillList and self.skillsTab.displayGroup.displaySkillList[1] then
 		for gemId, gemData in pairs(self.gems) do
@@ -239,7 +285,39 @@ function GemSelectClass:UpdateSortCache()
 				end
 			end
 		end
+	-- No active gem exists in the main socket group so check for item provided skills in matching slots
+	elseif self.skillsTab.displayGroup.slot then
+		for _, group in ipairs(self.skillsTab.socketGroupList) do
+			local matchingItemSkillSlot = group.source and group.slot and self.skillsTab.displayGroup.slot == group.slot and group.displaySkillList and group.displaySkillList[1]
+			if matchingItemSkillSlot then
+				for gemId, gemData in pairs(self.gems) do
+					if gemData.grantedEffect.support then
+						for _, activeSkill in ipairs(group.displaySkillList) do
+							if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+								sortCache.canSupport[gemId] = true
+								break
+							end
+						end
+					end
+				end
+			end
+			for _, crossLinkedSlot in ipairs(group.slot and group.displaySkillList and group.displaySkillList[1] and self.skillsTab.build.calcsTab.mainEnv.crossLinkedSupportGroups[self.skillsTab.displayGroup.slot:gsub(" Swap", "")] or {}) do
+				if crossLinkedSlot == group.slot:gsub(" Swap", "") then
+					for gemId, gemData in pairs(self.gems) do
+						if gemData.grantedEffect.support then
+							for _, activeSkill in ipairs(group.displaySkillList) do
+								if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
+									sortCache.canSupport[gemId] = true
+									break
+								end
+							end
+						end
+					end
+				end
+			end
+		end
 	end
+
 	local dpsField = self.skillsTab.sortGemsByDPSField
 	GlobalCache.useFullDPS = dpsField == "FullDPS"
 	local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
@@ -250,32 +328,7 @@ function GemSelectClass:UpdateSortCache()
 		sortCache.dps[gemId] = baseDPS
 		-- Ignore gems that don't support the active skill
 		if sortCache.canSupport[gemId] or gemData.grantedEffect.hasGlobalEffect then
-			local gemList = self.skillsTab.displayGroup.gemList
-			local oldGem
-			if gemList[self.index] then
-				oldGem = copyTable(gemList[self.index], true)
-			else
-				gemList[self.index] = {
-					level = gemData.naturalMaxLevel,
-					qualityId = self:GetQualityType(gemId),
-					quality = self.skillsTab.defaultGemQuality or 0,
-					enabled = true,
-					enableGlobal1 = true,
-					enableGlobal2 = true
-				}
-			end
-			-- Create gemInstance to represent the hovered gem
-			local gemInstance = gemList[self.index]
-			gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
-			gemInstance.gemData = gemData
-			-- Calculate the impact of using this gem
-			local output = calcFunc({ }, { allocNodes = true, requirementsItems = true })
-			if oldGem then
-				gemInstance.gemData = oldGem.gemData
-				gemInstance.level = oldGem.level
-			else
-				gemList[self.index] = nil
-			end
+			local output = self:CalcOutputWithThisGem(calcFunc, gemData, self:GetQualityType(gemId))
 			-- Check for nil because some fields may not be populated, default to 0
 			sortCache.dps[gemId] = (dpsField == "FullDPS" and output[dpsField] ~= nil and output[dpsField]) or (output.Minion and output.Minion.CombinedDPS) or (output[dpsField] ~= nil and output[dpsField]) or 0
 		end
@@ -314,7 +367,7 @@ function GemSelectClass:UpdateGem(setText, addUndo)
 		self.gemId = nil
 	end
 	self.gemName = self.gemId and self.gems[self.gemId].name or ""
-	if setText then	
+	if setText then
 		self:SetText(self.gemName)
 	end
 	self.gemChangeFunc(self.gemId and self.gemId:gsub("%w+:", ""), self:GetQualityType(self.gemId), addUndo and self.gemName ~= self.initialBuf)
@@ -402,14 +455,9 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			end
 			DrawString(0, y, "LEFT", height - 4, "VAR", gemText)
 			if gemData then
-				if gemData.grantedEffect.support and self.skillsTab.displayGroup.displaySkillList then
-					for _, activeSkill in ipairs(self.skillsTab.displayGroup.displaySkillList) do
-						if calcLib.canGrantedEffectSupportActiveSkill(gemData.grantedEffect, activeSkill) then
-							SetDrawColor(self.sortCache.dpsColor[gemId])
-							main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
-							break
-						end
-					end
+				if gemData.grantedEffect.support and self.sortCache.canSupport[gemId] then
+					SetDrawColor(self.sortCache.dpsColor[gemId])
+					main:DrawCheckMark(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y + (height - 4) / 2, (height - 4) * 0.8)
 				elseif gemData.grantedEffect.hasGlobalEffect then
 					SetDrawColor(self.sortCache.dpsColor[gemId])
 					DrawString(width - 4 - height / 2 - (scrollBar.enabled and 18 or 0), y - 2, "CENTER_X", height, "VAR", "+")
@@ -422,44 +470,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 			local calcFunc, calcBase = self.skillsTab.build.calcsTab:GetMiscCalculator(self.build)
 			if calcFunc then
 				self.tooltip:Clear()
-				local gemList = self.skillsTab.displayGroup.gemList
-				local gemData = self.gems[self.list[self.hoverSel]]
-				local oldGem
-				-- Cache off the current gem in the list, if any
-				if gemList[self.index] then
-					oldGem = copyTable(gemList[self.index], true)
-				else
-					gemList[self.index] = {
-						level = gemData.naturalMaxLevel,
-						qualityId = self:GetQualityType(self.list[self.hoverSel]),
-						quality = self.skillsTab.defaultGemQuality or 0,
-						enabled = true,
-						enableGlobal1 = true,
-						enableGlobal2 = true
-					}
-				end
-				-- Create gemInstance to represent the hovered gem
-				local gemInstance = gemList[self.index]
-				gemInstance.level = self.skillsTab:ProcessGemLevel(gemData)
-				gemInstance.gemData = gemData
-				-- Clear the displayEffect so it only displays the temporary gem instance
-				gemInstance.displayEffect = nil
-				-- Check valid qualityId, set to 'Default' if missing
-				if gemInstance.qualityId == nil or gemInstance.qualityId == "" then
-					gemInstance.qualityId = "Default"
-				end
-				-- Add hovered gem to tooltip
-				self:AddGemTooltip(gemInstance)
-				-- Calculate with the new gem
-				local output = calcFunc({}, { nodeAlloc = true, requirementsItems = true, requirementsGems = true })
-				-- Put the original gem back into the list
-				if oldGem then
-					gemInstance.gemData = oldGem.gemData
-					gemInstance.level = oldGem.level
-					gemInstance.displayEffect = oldGem.displayEffect
-				else
-					gemList[self.index] = nil
-				end
+				local output, gemInstance = self:CalcOutputWithThisGem(calcFunc, self.gems[self.list[self.hoverSel]], self:GetQualityType(self.list[self.hoverSel]))
 				self.tooltip:AddSeparator(10)
 				self.skillsTab.build:AddStatComparesToTooltip(self.tooltip, calcBase, output, "^7Selecting this gem will give you:")
 				self.tooltip:Draw(x, y + height + 2 + (self.hoverSel - 1) * (height - 4) - scrollBar.offset, width, height - 4, viewPort)
@@ -468,7 +479,7 @@ function GemSelectClass:Draw(viewPort, noTooltip)
 		SetDrawLayer(nil, 0)
 	else
 		-- not dropped
-		local hoverControl 
+		local hoverControl
 		if self.skillsTab.selControl and self.skillsTab.selControl._className == "GemSelectControl" then
 			hoverControl = self.skillsTab.selControl
 		else
@@ -537,7 +548,7 @@ function GemSelectClass:AddCommonGemInfo(gemInstance, grantedEffect, addReq, mer
 	local grantedEffectLevel = grantedEffect.levels[displayInstance.level] or { }
 	if addReq then
 		self.tooltip:AddLine(16, string.format("^x7F7F7FLevel: ^7%d%s%s",
-			gemInstance.level, 
+			gemInstance.level,
 			((displayInstance.level > gemInstance.level) and " (" .. colorCodes.MAGIC .. "+" .. (displayInstance.level - gemInstance.level) .. "^7)") or ((displayInstance.level < gemInstance.level) and " (" .. colorCodes.WARNING .. "-" .. (gemInstance.level - displayInstance.level) .. "^7)") or "",
 			(gemInstance.level >= gemInstance.gemData.naturalMaxLevel) and " (Max)" or ""
 		))

@@ -63,9 +63,6 @@ local skills, mod, flag, skill = ...
 #mods
 
 #skill SupportBrandSupport
-	addFlags = {
-		brand = true,
-	},
 	statMap = {
 		["support_brand_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil),
@@ -77,7 +74,6 @@ local skills, mod, flag, skill = ...
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
-	addSkillTypes = { SkillType.Brand, },
 #baseMod skill("triggeredByBrand", true)
 #mods
 
@@ -1193,7 +1189,7 @@ local skills, mod, flag, skill = ...
 		["quality_display_firewall_is_gem"] = {
 			-- Display only
 		},
-		["quality_display_alt_flame_wall_is_gem"] = {
+		["quality_display_wall_length_is_gem"] = {
 			-- Display only
 		},
 	},
@@ -1594,6 +1590,11 @@ local skills, mod, flag, skill = ...
 
 #skill FrostWall
 #flags spell duration
+    statMap = {
+        ["quality_display_wall_length_is_gem"] = {
+			-- Display only
+		},
+	},
 #mods
 
 #skill Frostbite
@@ -1886,9 +1887,6 @@ local skills, mod, flag, skill = ...
 		},
 		["herald_of_thunder_bolt_frequency_+%"] = {
 			mod("HeraldStormFrequency", "INC", nil),
-		},
-		["quality_display_herald_of_thunder_is_gem"] = {
-			-- Display Only
 		},
 	},
 #baseMod skill("radius", 32)
@@ -3654,10 +3652,10 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("BleedChance", "BASE", nil, ModFlag.Attack) })
 		},
 		["active_skill_non_reaper_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 #mods
@@ -3669,10 +3667,10 @@ local skills, mod, flag, skill = ...
 	},
 	statMap = {
 		["active_skill_non_reaper_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 #mods
@@ -3687,10 +3685,10 @@ local skills, mod, flag, skill = ...
 			mod("MinionModifier", "LIST", { mod = mod("BleedChance", "BASE", nil, ModFlag.Attack) })
 		},
 		["active_skill_non_reaper_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 #mods
@@ -3770,7 +3768,7 @@ local skills, mod, flag, skill = ...
 			flag("ShockImmune", { type = "GlobalEffect", effectType = "Buff"}),
 		},
 	},
-#baseMod skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell })
+#baseMod skill("chanceToTriggerCounterattackOnBlock", 100, { type = "SkillType", skillType = SkillType.Spell })
 #mods
 
 #skill BlackHole
@@ -3821,11 +3819,6 @@ local skills, mod, flag, skill = ...
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = output.Cooldown
 	end,
-	statMap = {
-		["active_skill_damage_+%_when_cast_on_frostbolt"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
-		},
-	},
 #baseMod skill("dotIsArea", true)
 #baseMod skill("radiusLabel", "Initial Hit:")
 #baseMod skill("radiusSecondaryLabel", "Ground Degen:")
@@ -3838,7 +3831,7 @@ local skills, mod, flag, skill = ...
 	end,
 	statMap = {
 		["active_skill_if_used_through_frostbolt_damage_+%_final"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 		},
 	},
 #baseMod skill("dotIsArea", true)

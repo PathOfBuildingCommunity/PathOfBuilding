@@ -197,6 +197,26 @@ function TradeQueryClass:PriceBuilderProcessPoENinjaResponse(resp)
 	end
 end
 
+local function initStatSortSelectionList(list)
+	t_insert(list,  {
+		label = "Full DPS",
+		stat = "FullDPS",
+		weightMult = 1.0,
+	})
+	t_insert(list,  {
+		label = "Effective Hit Pool",
+		stat = "TotalEHP",
+		weightMult = 0.5,
+	})
+end
+
+-- we do not want to overwrite previous list if the new list is the default, e.g. hitting reset multiple times in a row
+local function isSameAsDefaultList(list)
+	return list and #list == 2
+		and list[1].stat == "FullDPS" and list[1].weightMult == 1.0
+		and list[2].stat == "TotalEHP" and list[2].weightMult == 0.5
+end
+
 -- Opens the item pricing popup
 function TradeQueryClass:PriceItem()
 	self.tradeQueryGenerator = new("TradeQueryGenerator", self)
@@ -283,16 +303,7 @@ on trade site to work on other leagues and realms)]]
 	-- if the list is nil or empty, set default sorting, otherwise keep whatever was loaded from xml
 	if not self.statSortSelectionList or (#self.statSortSelectionList) == 0 then
 		self.statSortSelectionList = { }
-		t_insert(self.statSortSelectionList,  {
-			label = "Full DPS",
-			stat = "FullDPS",
-			weightMult = 1.0,
-		})
-		t_insert(self.statSortSelectionList,  {
-			label = "Effective Hit Pool",
-			stat = "TotalEHP",
-			weightMult = 0.5,
-		})
+		initStatSortSelectionList(self.statSortSelectionList)
 	end
 	self.controls.StatWeightMultipliersButton = new("ButtonControl", {"TOPRIGHT", self.controls.fetchCountEdit, "BOTTOMRIGHT"}, 0, row_vertical_padding, 150, row_height, "^7Adjust search weights", function()
 		self.itemsTab.modFlag = true
@@ -367,12 +378,14 @@ Highest Weight - Displays the order retrieved from trade]]
 				end
 				local sorted_leagues = { }
 				for _, league in ipairs(leagues) do
-					if league ~= "Standard" and league ~= "Hardcore" then
+					if league ~= "Standard" and  league ~= "Ruthless" and league ~= "Hardcore" and league ~= "Hardcore Ruthless" then
 						t_insert(sorted_leagues, league)
 					end
 				end
 				t_insert(sorted_leagues, "Standard")
 				t_insert(sorted_leagues, "Hardcore")
+				t_insert(sorted_leagues, "Ruthless")
+				t_insert(sorted_leagues, "Hardcore Ruthless")
 				self.allLeagues[self.pbRealm] = sorted_leagues
 				setLeagueDropList()
 			end)
@@ -413,48 +426,87 @@ Highest Weight - Displays the order retrieved from trade]]
 	for _, nodeId in ipairs(activeSocketList) do
 		t_insert(slotTables, { slotName = self.itemsTab.sockets[nodeId].label, nodeId = nodeId })
 	end
-	top_pane_alignment_ref = {"TOPLEFT", self.controls.poesessidButton, "LEFT"}
+
+	self.controls.sectionAnchor = new("LabelControl", { "LEFT", self.controls.poesessidButton, "LEFT" }, 0, 0, 0, 0, "")
+	top_pane_alignment_ref = {"TOPLEFT", self.controls.sectionAnchor, "TOPLEFT"}
+	local scrollBarShown = #activeSocketList > 6 -- clipping start at Socket 7
+	-- dynamically hide rows that are above or below the scrollBar
+	local hideRowFunc = function(self, index)
+		if scrollBarShown then
+			-- 22 items fit in the scrollBar "box" so as the offset moves, we need to dynamically show what is within the boundaries
+			if (index < 23 and (self.controls.scrollBar.offset < ((row_height + row_vertical_padding)*(index-1) + row_vertical_padding))) or
+				(index >= 23 and (self.controls.scrollBar.offset > (row_height + row_vertical_padding)*(index-22))) then
+				return true
+			end
+		else
+			return true
+		end
+		return false
+	end
 	for index, slotTbl in pairs(slotTables) do
 		self.slotTables[index] = slotTbl
 		self:PriceItemRowDisplay(index, top_pane_alignment_ref, row_vertical_padding, row_height)
-		top_pane_alignment_ref = {"TOPLEFT", self.controls["name"..index], "TOPLEFT"}
+		self.controls["name"..index].shown = function()
+			return hideRowFunc(self, index)
+		end
 	end
-	
-	self.controls.otherTradesLabel = new("LabelControl", top_pane_alignment_ref, 0, row_height + row_vertical_padding, 100, 16, "^8Other trades:")
-	top_pane_alignment_ref[2] = self.controls.otherTradesLabel
+
+	self.controls.otherTradesLabel = new("LabelControl", top_pane_alignment_ref, 0, (#slotTables+1)*(row_height + row_vertical_padding), 100, 16, "^8Other trades:")
+	self.controls.otherTradesLabel.shown = function()
+		return hideRowFunc(self, #slotTables+1)
+	end
 	local row_count = #slotTables + 1
 	self.slotTables[row_count] = { slotName = "Megalomaniac", unique = true, alreadyCorrupted = true }
 	self:PriceItemRowDisplay(row_count, top_pane_alignment_ref, row_vertical_padding, row_height)
+	self.controls["name"..row_count].y = self.controls["name"..row_count].y + (row_height + row_vertical_padding) -- Megalomaniac needs to drop an extra row for "Other Trades"
+	self.controls["name"..row_count].shown = function()
+		return hideRowFunc(self, row_count)
+	end
 	row_count = row_count + 1
-	
-	local effective_row_count = row_count + 2 + 2 -- Two top menu rows, two bottom rows
-	local pane_height = (row_height + row_vertical_padding) * effective_row_count + 2 * pane_margins_vertical + row_height / 2
-	local pane_width = 850
-	
+
+	local effective_row_count = row_count - ((scrollBarShown and #activeSocketList >= 4) and #activeSocketList-4 or 0) + 2 + 2 -- Two top menu rows, two bottom rows, 4 sockets overlap the other controls at the bottom of the pane
+	self.effective_rows_height = row_height * (effective_row_count - #activeSocketList + 3 or 0) -- scrollBar height
+	self.pane_height = (row_height + row_vertical_padding) * effective_row_count + 2 * pane_margins_vertical + row_height / 2
+	local pane_width = 850 + (scrollBarShown and 25 or 0)
+
+	self.controls.scrollBar = new("ScrollBarControl", {"TOPRIGHT", self.controls["StatWeightMultipliersButton"],"TOPRIGHT"}, 0, 25, 18, 0, 50, "VERTICAL", false)
+	self.controls.scrollBar.shown = function()
+		return scrollBarShown
+	end
+
 	self.controls.fullPrice = new("LabelControl", {"BOTTOM", nil, "BOTTOM"}, 0, -row_height - pane_margins_vertical - row_vertical_padding, pane_width - 2 * pane_margins_horizontal, row_height, "")
 	GlobalCache.useFullDPS = GlobalCache.numActiveSkillInFullDPS > 0
 	self.controls.close = new("ButtonControl", {"BOTTOM", nil, "BOTTOM"}, 0, -pane_margins_vertical, 90, row_height, "Done", function()
 		GlobalCache.useFullDPS = self.storedGlobalCacheDPSView
 		main:ClosePopup()
+		-- there's a case where if you have a socket(s) allocated, open TradeQuery, close it, dealloc, then open TradeQuery again
+		-- the deallocated socket controls were still showing, so this will give us a clean slate of controls every time
+		wipeTable(self.controls)
 	end)
 
 	self.controls.updateCurrencyConversion = new("ButtonControl", {"BOTTOMLEFT", nil, "BOTTOMLEFT"}, pane_margins_horizontal, -pane_margins_vertical, 240, row_height, "Get Currency Conversion Rates", function()
 		self:PullPoENinjaCurrencyConversion(self.pbLeague)
 	end)
 	self.controls.pbNotice = new("LabelControl",  {"BOTTOMRIGHT", nil, "BOTTOMRIGHT"}, -row_height - pane_margins_vertical - row_vertical_padding, -pane_margins_vertical, 300, row_height, "")
-	main:OpenPopup(pane_width, pane_height, "Trader", self.controls)
+
+	-- used in PopupDialog:Draw()
+	local function scrollBarFunc()
+		self.controls.scrollBar.height = self.pane_height-100
+		self.controls.scrollBar:SetContentDimension(self.pane_height-100, self.effective_rows_height)
+		self.controls.sectionAnchor.y = -self.controls.scrollBar.offset
+	end
+	main:OpenPopup(pane_width, self.pane_height, "Trader", self.controls, nil, nil, "close", scrollBarFunc)
 end
 
 -- Popup to set stat weight multipliers for sorting
-function TradeQueryClass:SetStatWeights()
-
+function TradeQueryClass:SetStatWeights(previousSelectionList)
     local controls = { }
     local statList = { }
 	local sliderController = { index = 1 }
     local popupHeight = 285
 	
 	controls.ListControl = new("TradeStatWeightMultiplierListControl", { "TOPLEFT", nil, "TOPRIGHT" }, -410, 45, 400, 200, statList, sliderController)
-	
+
 	for id, stat in pairs(data.powerStatList) do
 		if not stat.ignoreForItems and stat.label ~= "Name" then
 			t_insert(statList, {
@@ -494,7 +546,6 @@ function TradeQueryClass:SetStatWeights()
 	sliderController.SliderLabel = controls.SliderLabel
 	sliderController.Slider = controls.Slider
 	sliderController.SliderValue = controls.SliderValue
-
 	
 	for _, statBase in ipairs(self.statSortSelectionList) do
 		for _, stat in ipairs(statList) do
@@ -508,7 +559,7 @@ function TradeQueryClass:SetStatWeights()
 		end
 	end
 
-	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -45, -10, 80, 20, "Save", function()
+	controls.finalise = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, -90, -10, 80, 20, "Save", function()
 		main:ClosePopup()
 		
 		-- used in ItemsTab to save to xml under TradeSearchWeights node
@@ -526,12 +577,26 @@ function TradeQueryClass:SetStatWeights()
 			self:UpdateControlsWithItems(row_idx)
 		end
     end)
-	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 45, -10, 80, 20, "Cancel", function()
+	controls.cancel = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 0, -10, 80, 20, "Cancel", function()
+		if previousSelectionList and #previousSelectionList > 0 then
+			self.statSortSelectionList = copyTable(previousSelectionList, true)
+		end
 		main:ClosePopup()
+	end)
+	controls.reset = new("ButtonControl", { "BOTTOM", nil, "BOTTOM" }, 90, -10, 80, 20, "Reset", function()
+		local previousSelection = { }
+		if isSameAsDefaultList(self.statSortSelectionList) then
+			previousSelection = copyTable(previousSelectionList, true)
+		else
+			previousSelection = copyTable(self.statSortSelectionList, true) -- this is so we can revert if user hits Cancel after Reset
+		end
+		self.statSortSelectionList = { }
+		initStatSortSelectionList(self.statSortSelectionList)
+		main:ClosePopup()
+		self:SetStatWeights(previousSelection)
 	end)
 	main:OpenPopup(420, popupHeight, "Stat Weight Multipliers", controls)
 end
-
 
 -- Method to update the Currency Conversion button label
 function TradeQueryClass:SetCurrencyConversionButton()
@@ -784,7 +849,6 @@ function TradeQueryClass:addChaosEquivalentPriceToItems(items)
 	return outputItems
 end
 
-
 -- Method to generate pane elements for each item slot
 function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, row_vertical_padding, row_height)
 	local controls = self.controls
@@ -792,7 +856,7 @@ function TradeQueryClass:PriceItemRowDisplay(row_idx, top_pane_alignment_ref, ro
 	local activeSlotRef = slotTbl.nodeId and self.itemsTab.activeItemSet[slotTbl.nodeId] or self.itemsTab.activeItemSet[slotTbl.slotName]
 	local activeSlot = slotTbl.nodeId and self.itemsTab.sockets[slotTbl.nodeId] or slotTbl.slotName and self.itemsTab.slots[slotTbl.slotName]
 	local nameColor = slotTbl.unique and colorCodes.UNIQUE or "^7"
-	controls["name"..row_idx] = new("LabelControl", top_pane_alignment_ref, 0, row_height + row_vertical_padding, 100, row_height - 4, nameColor..slotTbl.slotName)
+	controls["name"..row_idx] = new("LabelControl", top_pane_alignment_ref, 0, row_idx*(row_height + row_vertical_padding), 100, row_height - 4, nameColor..slotTbl.slotName)
 	controls["bestButton"..row_idx] = new("ButtonControl", { "LEFT", controls["name"..row_idx], "LEFT"}, 100 + 8, 0, 80, row_height, "Find best", function()
 		self.tradeQueryGenerator:RequestQuery(activeSlot, { slotTbl = slotTbl, controls = controls, row_idx = row_idx }, self.statSortSelectionList, function(context, query, errMsg)
 			if errMsg then

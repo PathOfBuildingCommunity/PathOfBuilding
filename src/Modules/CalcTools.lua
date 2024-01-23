@@ -101,7 +101,7 @@ function calcLib.canGrantedEffectSupportActiveSkill(grantedEffect, activeSkill)
 end
 
 -- Check if given gem is of the given type ("all", "strength", "melee", etc)
-function calcLib.gemIsType(gem, type, allowVariants)
+function calcLib.gemIsType(gem, type, includeTransfigured)
 	return (type == "all" or 
 			(type == "elemental" and (gem.tags.fire or gem.tags.cold or gem.tags.lightning)) or 
 			(type == "aoe" and gem.tags.area) or
@@ -110,7 +110,7 @@ function calcLib.gemIsType(gem, type, allowVariants)
 			(type == "non-vaal" and not gem.tags.vaal) or
 			(type == gem.name:lower()) or
 			(type == gem.name:lower():gsub("^vaal ", "")) or
-			(allowVariants and gem.name:lower():match("^" .. type:lower())) or
+			(includeTransfigured and calcLib.isGemIdSame(gem.name, type, true)) or
 			((type ~= "active skill" and type ~= "grants_active_skill" and type ~= "skill") and gem.tags[type]))
 end
 
@@ -174,7 +174,7 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 				-- Effectiveness interpolation
 				if not availableEffectiveness then
 					availableEffectiveness =
-					(3.885209 + 0.360246 * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
+					(data.gameConstants["SkillDamageBaseEffectiveness"] + data.gameConstants["SkillDamageIncrementalEffectiveness"] * (actorLevel - 1)) * (grantedEffect.baseEffectiveness or 1)
 							* (1 + (grantedEffect.incrementalEffectiveness or 0)) ^ (actorLevel - 1)
 				end
 				statValue = round(availableEffectiveness * level[index])
@@ -194,12 +194,16 @@ function calcLib.buildSkillInstanceStats(skillInstance, grantedEffect)
 					end
 				end
 
-				local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
-				local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
-				local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
-				local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
-				local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
-				statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
+				if #orderedLevels > 1 then
+					local nextLevelIndex = m_min(currentLevelIndex + 1, #orderedLevels)
+					local nextReq = grantedEffect.levels[orderedLevels[nextLevelIndex]].levelRequirement
+					local prevReq = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]].levelRequirement
+					local nextStat = grantedEffect.levels[orderedLevels[nextLevelIndex]][index]
+					local prevStat = grantedEffect.levels[orderedLevels[nextLevelIndex - 1]][index]
+					statValue = round(prevStat + (nextStat - prevStat) * (actorLevel - prevReq) / (nextReq - prevReq))
+				else
+					statValue = round(grantedEffect.levels[orderedLevels[currentLevelIndex]][index])
+				end
 			end
 		end
 		stats[stat] = (stats[stat] or 0) + statValue
@@ -232,4 +236,30 @@ function calcLib.getConvertedModTags(mod, multiplier, minionMods)
 		end
 	end
 	return modifiers
+end
+
+--- Get the gameId from the gemName which will be the same as the base gem for transfigured gems
+--- @param gemName string
+--- @param dropVaal boolean
+--- @return string
+function calcLib.getGameIdFromGemName(gemName, dropVaal)
+	if type(gemName) ~= "string" then
+		return
+	end
+	local gemId = data.gemForBaseName[gemName:lower()]
+	if not gemId then return end
+	local gameId = data.gems[gemId].gameId
+	if gameId and dropVaal then gameId = gameId:gsub("SkillGemVaal","SkillGem") end
+	return gameId
+end
+
+--- Use getGameIdFromGemName to get gameId from the gemName and passed in type. Return true if they're the same and not nil
+--- @param gemName string
+--- @param type string
+--- @param dropVaal boolean 
+--- @return boolean
+function calcLib.isGemIdSame(gemName, typeName, dropVaal)
+	local gemNameId = calcLib.getGameIdFromGemName(gemName, dropVaal)
+	local typeId = calcLib.getGameIdFromGemName(typeName, dropVaal)
+	return gemNameId and typeId and gemNameId == typeId
 end

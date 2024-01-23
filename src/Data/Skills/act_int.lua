@@ -8,6 +8,7 @@ local skills, mod, flag, skill = ...
 
 skills["Arc"] = {
 	name = "Arc",
+	baseTypeName = "Arc",
 	color = 3,
 	baseEffectiveness = 1.584900021553,
 	incrementalEffectiveness = 0.039500001817942,
@@ -85,6 +86,7 @@ skills["Arc"] = {
 }
 skills["ArcAltX"] = {
 	name = "Arc of Surging",
+	baseTypeName = "Arc of Surging",
 	color = 3,
 	baseEffectiveness = 3.0499999523163,
 	incrementalEffectiveness = 0.039500001817942,
@@ -157,6 +159,7 @@ skills["ArcAltX"] = {
 }
 skills["ArcAltY"] = {
 	name = "Arc of Oscillating",
+	baseTypeName = "Arc of Oscillating",
 	color = 3,
 	baseEffectiveness = 0.75,
 	incrementalEffectiveness = 0.039500001817942,
@@ -234,6 +237,7 @@ skills["ArcAltY"] = {
 }
 skills["VaalArcChain"] = {
 	name = "Vaal Arc",
+	baseTypeName = "Vaal Arc",
 	color = 3,
 	baseEffectiveness = 4.5599999427795,
 	incrementalEffectiveness = 0.032999999821186,
@@ -318,6 +322,7 @@ skills["VaalArcChain"] = {
 }
 skills["ArcaneCloak"] = {
 	name = "Arcane Cloak",
+	baseTypeName = "Arcane Cloak",
 	color = 3,
 	description = "Spends a portion of your mana to grant a buff that takes some of the damage from hits for you until depleted. The buff grants added lightning damage based on the amount of mana spent by this skill. Shares a cooldown with other Guard skills.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Guard] = true, [SkillType.Lightning] = true, [SkillType.Cooldown] = true, [SkillType.Arcane] = true, },
@@ -403,6 +408,7 @@ skills["ArcaneCloak"] = {
 }
 skills["BrandSupport"] = {
 	name = "Arcanist Brand",
+	baseTypeName = "Arcanist Brand",
 	color = 3,
 	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, triggering linked spells. The brand will detach if the enemy dies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, },
@@ -485,9 +491,6 @@ skills["SupportBrandSupport"] = {
 	isTrigger = true,
 	ignoreMinionTypes = true,
 	statDescriptionScope = "gem_stat_descriptions",
-	addFlags = {
-		brand = true,
-	},
 	statMap = {
 		["support_brand_damage_+%_final"] = {
 			mod("TriggeredDamage", "MORE", nil),
@@ -499,7 +502,6 @@ skills["SupportBrandSupport"] = {
 			mod("TriggeredDamage", "MORE", nil, 0, 0, { type = "Condition", var = "TargetingBrandedEnemy"}),
 		},
 	},
-	addSkillTypes = { SkillType.Brand, },
 	baseMods = {
 		skill("triggeredByBrand", true),
 	},
@@ -564,6 +566,7 @@ skills["SupportBrandSupport"] = {
 }
 skills["ArcticBreath"] = {
 	name = "Creeping Frost",
+	baseTypeName = "Creeping Frost",
 	color = 3,
 	baseEffectiveness = 1.1953999996185,
 	incrementalEffectiveness = 0.047100000083447,
@@ -647,6 +650,7 @@ skills["ArcticBreath"] = {
 }
 skills["CataclysmSigil"] = {
 	name = "Armageddon Brand",
+	baseTypeName = "Armageddon Brand",
 	color = 3,
 	baseEffectiveness = 1.9400000572205,
 	incrementalEffectiveness = 0.044900000095367,
@@ -738,6 +742,7 @@ skills["CataclysmSigil"] = {
 }
 skills["CataclysmSigilAltX"] = {
 	name = "Armageddon Brand of Volatility",
+	baseTypeName = "Armageddon Brand of Volatility",
 	color = 3,
 	baseEffectiveness = 3.5199999809265,
 	incrementalEffectiveness = 0.044900000095367,
@@ -820,6 +825,7 @@ skills["CataclysmSigilAltX"] = {
 }
 skills["CataclysmSigilAltY"] = {
 	name = "Armageddon Brand of Recall",
+	baseTypeName = "Armageddon Brand of Recall",
 	color = 3,
 	baseEffectiveness = 2.8499999046326,
 	incrementalEffectiveness = 0.044900000095367,
@@ -908,6 +914,7 @@ skills["CataclysmSigilAltY"] = {
 }
 skills["AssassinsMark"] = {
 	name = "Assassin's Mark",
+	baseTypeName = "Assassin's Mark",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses a single enemy, making them more vulnerable to Critical Strikes. Killing the cursed enemy will grant life and mana, and a power charge. You can only have one Mark at a time.",
@@ -998,6 +1005,7 @@ skills["AssassinsMark"] = {
 }
 skills["BallLightning"] = {
 	name = "Ball Lightning",
+	baseTypeName = "Ball Lightning",
 	color = 3,
 	baseEffectiveness = 0.56800001859665,
 	incrementalEffectiveness = 0.044300001114607,
@@ -1168,6 +1176,7 @@ skills["BallLightning"] = {
 }
 skills["BallLightningAltX"] = {
 	name = "Ball Lightning of Orbiting",
+	baseTypeName = "Ball Lightning of Orbiting",
 	color = 3,
 	baseEffectiveness = 0.46999999880791,
 	incrementalEffectiveness = 0.044300001114607,
@@ -1288,6 +1297,7 @@ skills["BallLightningAltX"] = {
 }
 skills["BallLightningAltY"] = {
 	name = "Ball Lightning of Static",
+	baseTypeName = "Ball Lightning of Static",
 	color = 3,
 	baseEffectiveness = 0.87000000476837,
 	incrementalEffectiveness = 0.044300001114607,
@@ -1380,6 +1390,7 @@ skills["BallLightningAltY"] = {
 }
 skills["DarkRitual"] = {
 	name = "Bane",
+	baseTypeName = "Bane",
 	color = 3,
 	baseEffectiveness = 4.6849999427795,
 	incrementalEffectiveness = 0.047100000083447,
@@ -1561,6 +1572,7 @@ skills["SupportDarkRitual"] = {
 }
 skills["DarkRitualAltX"] = {
 	name = "Bane of Condemnation",
+	baseTypeName = "Bane of Condemnation",
 	color = 3,
 	baseEffectiveness = 4.6849999427795,
 	incrementalEffectiveness = 0.047100000083447,
@@ -1736,6 +1748,7 @@ skills["SupportDarkRitualAltX"] = {
 }
 skills["Ember"] = {
 	name = "Blazing Salvo",
+	baseTypeName = "Blazing Salvo",
 	color = 3,
 	baseEffectiveness = 0.6952999830246,
 	incrementalEffectiveness = 0.041799999773502,
@@ -1825,6 +1838,7 @@ skills["Ember"] = {
 }
 skills["Blight"] = {
 	name = "Blight",
+	baseTypeName = "Blight",
 	color = 3,
 	baseEffectiveness = 3.6366999149323,
 	incrementalEffectiveness = 0.033599998801947,
@@ -1919,6 +1933,7 @@ skills["Blight"] = {
 }
 skills["BlightAltX"] = {
 	name = "Blight of Contagion",
+	baseTypeName = "Blight of Contagion",
 	color = 3,
 	baseEffectiveness = 7.8400001525879,
 	incrementalEffectiveness = 0.033599998801947,
@@ -2013,6 +2028,7 @@ skills["BlightAltX"] = {
 }
 skills["BlightAltY"] = {
 	name = "Blight of Atrophy",
+	baseTypeName = "Blight of Atrophy",
 	color = 3,
 	baseEffectiveness = 3.6366999149323,
 	incrementalEffectiveness = 0.033599998801947,
@@ -2108,6 +2124,7 @@ skills["BlightAltY"] = {
 }
 skills["VaalBlight"] = {
 	name = "Vaal Blight",
+	baseTypeName = "Vaal Blight",
 	color = 3,
 	baseEffectiveness = 4,
 	incrementalEffectiveness = 0.041400000452995,
@@ -2195,6 +2212,7 @@ skills["VaalBlight"] = {
 }
 skills["CorpseWarp"] = {
 	name = "Bodyswap",
+	baseTypeName = "Bodyswap",
 	color = 3,
 	baseEffectiveness = 0.40259999036789,
 	incrementalEffectiveness = 0.046300001442432,
@@ -2306,6 +2324,7 @@ skills["CorpseWarp"] = {
 }
 skills["CorpseWarpAltX"] = {
 	name = "Bodyswap of Sacrifice",
+	baseTypeName = "Bodyswap of Sacrifice",
 	color = 3,
 	baseEffectiveness = 0.40259999036789,
 	incrementalEffectiveness = 0.046300001442432,
@@ -2426,6 +2445,7 @@ skills["CorpseWarpAltX"] = {
 }
 skills["BoneOffering"] = {
 	name = "Bone Offering",
+	baseTypeName = "Bone Offering",
 	color = 3,
 	description = "Consumes a corpse, granting all of your minions the power to block both attacks and spells. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
@@ -2507,6 +2527,7 @@ skills["BoneOffering"] = {
 }
 skills["SigilRecall"] = {
 	name = "Brand Recall",
+	baseTypeName = "Brand Recall",
 	color = 3,
 	description = "Recall your brands to you, detaching them from enemies and increasing attachment range until they next attach to an enemy. Spends a portion of each recalled brand's cost to cause it to activate.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
@@ -2564,6 +2585,7 @@ skills["SigilRecall"] = {
 }
 skills["Clarity"] = {
 	name = "Clarity",
+	baseTypeName = "Clarity",
 	color = 3,
 	description = "Casts an aura that grants mana regeneration to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -2638,6 +2660,7 @@ skills["Clarity"] = {
 }
 skills["VaalClarity"] = {
 	name = "Vaal Clarity",
+	baseTypeName = "Vaal Clarity",
 	color = 3,
 	description = "Casts a temporary aura that lets you and your allies cast skills without paying their mana costs.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -2717,6 +2740,7 @@ skills["VaalClarity"] = {
 }
 skills["ColdSnap"] = {
 	name = "Cold Snap",
+	baseTypeName = "Cold Snap",
 	color = 3,
 	baseEffectiveness = 2.2339000701904,
 	incrementalEffectiveness = 0.049499999731779,
@@ -2802,6 +2826,7 @@ skills["ColdSnap"] = {
 }
 skills["ColdSnapAltX"] = {
 	name = "Cold Snap of Power",
+	baseTypeName = "Cold Snap of Power",
 	color = 3,
 	baseEffectiveness = 2.2339000701904,
 	incrementalEffectiveness = 0.049499999731779,
@@ -2876,6 +2901,7 @@ skills["ColdSnapAltX"] = {
 }
 skills["VaalColdSnap"] = {
 	name = "Vaal Cold Snap",
+	baseTypeName = "Vaal Cold Snap",
 	color = 3,
 	baseEffectiveness = 3.1500000953674,
 	incrementalEffectiveness = 0.0456000007689,
@@ -2963,6 +2989,7 @@ skills["VaalColdSnap"] = {
 }
 skills["Conductivity"] = {
 	name = "Conductivity",
+	baseTypeName = "Conductivity",
 	color = 3,
 	description = "Curses all targets in an area, lowering their lightning resistance and giving them a chance to be shocked when hit.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
@@ -3050,6 +3077,7 @@ skills["Conductivity"] = {
 }
 skills["Contagion"] = {
 	name = "Contagion",
+	baseTypeName = "Contagion",
 	color = 3,
 	baseEffectiveness = 2.2532999515533,
 	incrementalEffectiveness = 0.037999998778105,
@@ -3125,6 +3153,7 @@ skills["Contagion"] = {
 }
 skills["ContagionAltX"] = {
 	name = "Contagion of Subsiding",
+	baseTypeName = "Contagion of Subsiding",
 	color = 3,
 	baseEffectiveness = 6.5177001953125,
 	incrementalEffectiveness = 0.047499999403954,
@@ -3200,6 +3229,7 @@ skills["ContagionAltX"] = {
 }
 skills["ContagionAltY"] = {
 	name = "Contagion of Transference",
+	baseTypeName = "Contagion of Transference",
 	color = 3,
 	baseEffectiveness = 3.5,
 	incrementalEffectiveness = 0.047499999403954,
@@ -3275,6 +3305,7 @@ skills["ContagionAltY"] = {
 }
 skills["ConversionTrap"] = {
 	name = "Conversion Trap",
+	baseTypeName = "Conversion Trap",
 	color = 3,
 	description = "Throws a trap that, when triggered by an enemy, converts that enemy to your side for a short duration. Does not affect unique monsters or players.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.Mineable] = true, [SkillType.Trapped] = true, [SkillType.Cooldown] = true, },
@@ -3346,6 +3377,7 @@ skills["ConversionTrap"] = {
 }
 skills["Convocation"] = {
 	name = "Convocation",
+	baseTypeName = "Convocation",
 	color = 3,
 	description = "Recalls all minions that are following you to your location, and grants them a temporary life regeneration effect.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Instant] = true, [SkillType.Cooldown] = true, },
@@ -3423,6 +3455,7 @@ skills["Convocation"] = {
 }
 skills["Disintegrate"] = {
 	name = "Crackling Lance",
+	baseTypeName = "Crackling Lance",
 	color = 3,
 	baseEffectiveness = 1.1079000234604,
 	incrementalEffectiveness = 0.049899999052286,
@@ -3510,6 +3543,7 @@ skills["Disintegrate"] = {
 }
 skills["DisintegrateAltX"] = {
 	name = "Crackling Lance of Branching",
+	baseTypeName = "Crackling Lance of Branching",
 	color = 3,
 	baseEffectiveness = 1.75,
 	incrementalEffectiveness = 0.049899999052286,
@@ -3582,6 +3616,7 @@ skills["DisintegrateAltX"] = {
 }
 skills["DisintegrateAltY"] = {
 	name = "Crackling Lance of Disintegration",
+	baseTypeName = "Crackling Lance of Disintegration",
 	color = 3,
 	baseEffectiveness = 2.039999961853,
 	incrementalEffectiveness = 0.049899999052286,
@@ -3655,6 +3690,7 @@ skills["DisintegrateAltY"] = {
 }
 skills["DarkPact"] = {
 	name = "Dark Pact",
+	baseTypeName = "Dark Pact",
 	color = 3,
 	baseEffectiveness = 0.80000001192093,
 	incrementalEffectiveness = 0.037999998778105,
@@ -3769,6 +3805,7 @@ skills["DarkPact"] = {
 }
 skills["Despair"] = {
 	name = "Despair",
+	baseTypeName = "Despair",
 	color = 3,
 	description = "Curses all targets in an area, lowering their chaos resistance.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cascadable] = true, [SkillType.Chaos] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
@@ -3852,6 +3889,7 @@ skills["Despair"] = {
 }
 skills["DestructiveLink"] = {
 	name = "Destructive Link",
+	baseTypeName = "Destructive Link",
 	color = 3,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, they use your main hand critical strike chance. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
@@ -3929,6 +3967,7 @@ skills["DestructiveLink"] = {
 }
 skills["Discharge"] = {
 	name = "Discharge",
+	baseTypeName = "Discharge",
 	color = 3,
 	baseEffectiveness = 3.876699924469,
 	incrementalEffectiveness = 0.035999998450279,
@@ -4005,6 +4044,7 @@ skills["Discharge"] = {
 }
 skills["DischargeAltX"] = {
 	name = "Discharge of Misery",
+	baseTypeName = "Discharge of Misery",
 	color = 3,
 	baseEffectiveness = 1.1799999475479,
 	incrementalEffectiveness = 0.035999998450279,
@@ -4079,6 +4119,7 @@ skills["DischargeAltX"] = {
 }
 skills["Discipline"] = {
 	name = "Discipline",
+	baseTypeName = "Discipline",
 	color = 3,
 	description = "Casts an aura that grants additional energy shield and increased energy shield recharge rate to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -4158,6 +4199,7 @@ skills["Discipline"] = {
 }
 skills["VaalDiscipline"] = {
 	name = "Vaal Discipline",
+	baseTypeName = "Vaal Discipline",
 	color = 3,
 	description = "Casts a temporary aura that prevents energy shield recharge being delayed by damage taken for you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -4236,6 +4278,7 @@ skills["VaalDiscipline"] = {
 }
 skills["DivineTempest"] = {
 	name = "Divine Ire",
+	baseTypeName = "Divine Ire",
 	color = 3,
 	baseEffectiveness = 0.49039998650551,
 	incrementalEffectiveness = 0.04280000180006,
@@ -4343,6 +4386,7 @@ skills["DivineTempest"] = {
 }
 skills["DivineTempestAltX"] = {
 	name = "Divine Ire of Holy Lightning",
+	baseTypeName = "Divine Ire of Holy Lightning",
 	color = 3,
 	baseEffectiveness = 0.65299999713898,
 	incrementalEffectiveness = 0.04280000180006,
@@ -4451,6 +4495,7 @@ skills["DivineTempestAltX"] = {
 }
 skills["DivineTempestAltY"] = {
 	name = "Divine Ire of Disintegration",
+	baseTypeName = "Divine Ire of Disintegration",
 	color = 3,
 	baseEffectiveness = 0.94999998807907,
 	incrementalEffectiveness = 0.04280000180006,
@@ -4554,6 +4599,7 @@ skills["DivineTempestAltY"] = {
 }
 skills["ElementalWeakness"] = {
 	name = "Elemental Weakness",
+	baseTypeName = "Elemental Weakness",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses all targets in an area, lowering their elemental resistances.",
@@ -4636,6 +4682,7 @@ skills["ElementalWeakness"] = {
 }
 skills["EnergyBlade"] = {
 	name = "Energy Blade",
+	baseTypeName = "Energy Blade",
 	color = 3,
 	baseEffectiveness = 1.088700056076,
 	incrementalEffectiveness = 0.020099999383092,
@@ -4741,6 +4788,7 @@ skills["EnergyBlade"] = {
 }
 skills["Enfeeble"] = {
 	name = "Enfeeble",
+	baseTypeName = "Enfeeble",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Curses all targets in an area, reducing their accuracy and making them deal less damage.",
@@ -4827,6 +4875,7 @@ skills["Enfeeble"] = {
 }
 skills["EssenceDrain"] = {
 	name = "Essence Drain",
+	baseTypeName = "Essence Drain",
 	color = 3,
 	baseEffectiveness = 4.0479998588562,
 	incrementalEffectiveness = 0.052700001746416,
@@ -4906,6 +4955,7 @@ skills["EssenceDrain"] = {
 }
 skills["EssenceDrainAltX"] = {
 	name = "Essence Drain of Desperation",
+	baseTypeName = "Essence Drain of Desperation",
 	color = 3,
 	baseEffectiveness = 4.0479998588562,
 	incrementalEffectiveness = 0.052700001746416,
@@ -4986,6 +5036,7 @@ skills["EssenceDrainAltX"] = {
 }
 skills["EssenceDrainAltY"] = {
 	name = "Essence Drain of Wickedness",
+	baseTypeName = "Essence Drain of Wickedness",
 	color = 3,
 	baseEffectiveness = 4.0479998588562,
 	incrementalEffectiveness = 0.052700001746416,
@@ -5066,6 +5117,7 @@ skills["EssenceDrainAltY"] = {
 }
 skills["EyeOfWinter"] = {
 	name = "Eye of Winter",
+	baseTypeName = "Eye of Winter",
 	color = 3,
 	baseEffectiveness = 0.42770001292229,
 	incrementalEffectiveness = 0.047699999064207,
@@ -5156,6 +5208,7 @@ skills["EyeOfWinter"] = {
 }
 skills["EyeOfWinterAltX"] = {
 	name = "Eye of Winter of Finality",
+	baseTypeName = "Eye of Winter of Finality",
 	color = 3,
 	baseEffectiveness = 0.55000001192093,
 	incrementalEffectiveness = 0.047699999064207,
@@ -5246,6 +5299,7 @@ skills["EyeOfWinterAltX"] = {
 }
 skills["EyeOfWinterAltY"] = {
 	name = "Eye of Winter of Transience",
+	baseTypeName = "Eye of Winter of Transience",
 	color = 3,
 	baseEffectiveness = 0.80000001192093,
 	incrementalEffectiveness = 0.047699999064207,
@@ -5337,6 +5391,7 @@ skills["EyeOfWinterAltY"] = {
 }
 skills["Fireball"] = {
 	name = "Fireball",
+	baseTypeName = "Fireball",
 	color = 3,
 	baseEffectiveness = 2.9210000038147,
 	incrementalEffectiveness = 0.047400001436472,
@@ -5418,6 +5473,7 @@ skills["Fireball"] = {
 }
 skills["VaalFireballSpiralNova"] = {
 	name = "Vaal Fireball",
+	baseTypeName = "Vaal Fireball",
 	color = 3,
 	baseEffectiveness = 2.9384000301361,
 	incrementalEffectiveness = 0.041200000792742,
@@ -5502,6 +5558,7 @@ skills["VaalFireballSpiralNova"] = {
 }
 skills["Firestorm"] = {
 	name = "Firestorm",
+	baseTypeName = "Firestorm",
 	color = 3,
 	baseEffectiveness = 0.59009999036789,
 	incrementalEffectiveness = 0.048700001090765,
@@ -5601,6 +5658,7 @@ skills["Firestorm"] = {
 }
 skills["FirestormAltX"] = {
 	name = "Firestorm of Meteors",
+	baseTypeName = "Firestorm of Meteors",
 	color = 3,
 	baseEffectiveness = 2.710000038147,
 	incrementalEffectiveness = 0.048700001090765,
@@ -5671,6 +5729,7 @@ skills["FirestormAltX"] = {
 }
 skills["FirestormAltY"] = {
 	name = "Firestorm of Pelting",
+	baseTypeName = "Firestorm of Pelting",
 	color = 3,
 	baseEffectiveness = 0.89999997615814,
 	incrementalEffectiveness = 0.048700001090765,
@@ -5750,6 +5809,7 @@ skills["FirestormAltY"] = {
 }
 skills["VaalFirestorm"] = {
 	name = "Vaal Firestorm",
+	baseTypeName = "Vaal Firestorm",
 	color = 3,
 	baseEffectiveness = 5.6999998092651,
 	incrementalEffectiveness = 0.048700001090765,
@@ -5841,6 +5901,7 @@ skills["VaalFirestorm"] = {
 }
 skills["FlameDash"] = {
 	name = "Flame Dash",
+	baseTypeName = "Flame Dash",
 	color = 3,
 	baseEffectiveness = 0.82279998064041,
 	incrementalEffectiveness = 0.052799999713898,
@@ -5918,6 +5979,7 @@ skills["FlameDash"] = {
 }
 skills["FlameDashAltY"] = {
 	name = "Flame Dash of Return",
+	baseTypeName = "Flame Dash of Return",
 	color = 3,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.052799999713898,
@@ -5996,6 +6058,7 @@ skills["FlameDashAltY"] = {
 }
 skills["Firewall"] = {
 	name = "Flame Wall",
+	baseTypeName = "Flame Wall",
 	color = 3,
 	baseEffectiveness = 4.3292999267578,
 	incrementalEffectiveness = 0.0625,
@@ -6034,7 +6097,7 @@ skills["Firewall"] = {
 		["quality_display_firewall_is_gem"] = {
 			-- Display only
 		},
-		["quality_display_alt_flame_wall_is_gem"] = {
+		["quality_display_wall_length_is_gem"] = {
 			-- Display only
 		},
 	},
@@ -6069,7 +6132,7 @@ skills["Firewall"] = {
 		"spell_damage_modifiers_apply_to_skill_dot",
 		"console_skill_dont_chase",
 		"quality_display_firewall_is_gem",
-		"quality_display_alt_flame_wall_is_gem",
+		"quality_display_wall_length_is_gem",
 	},
 	levels = {
 		[1] = { 5.0000003104409, 16.666667039196, 3, 5, 1000, 40, 3000, levelRequirement = 4, statInterpolation = { 3, 3, 1, 1, 1, 1, 1, }, cost = { Mana = 4, }, },
@@ -6116,6 +6179,7 @@ skills["Firewall"] = {
 }
 skills["FlameWhip"] = {
 	name = "Flame Surge",
+	baseTypeName = "Flame Surge",
 	color = 3,
 	baseEffectiveness = 2.7952001094818,
 	incrementalEffectiveness = 0.037799999117851,
@@ -6209,6 +6273,7 @@ skills["FlameWhip"] = {
 }
 skills["FlameWhipAltX"] = {
 	name = "Flame Surge of Combusting",
+	baseTypeName = "Flame Surge of Combusting",
 	color = 3,
 	baseEffectiveness = 4.1999998092651,
 	incrementalEffectiveness = 0.037799999117851,
@@ -6297,6 +6362,7 @@ skills["FlameWhipAltX"] = {
 }
 skills["Flameblast"] = {
 	name = "Flameblast",
+	baseTypeName = "Flameblast",
 	color = 3,
 	baseEffectiveness = 0.86769998073578,
 	incrementalEffectiveness = 0.044599998742342,
@@ -6399,6 +6465,7 @@ skills["Flameblast"] = {
 }
 skills["FlameblastAltX"] = {
 	name = "Flameblast of Celerity",
+	baseTypeName = "Flameblast of Celerity",
 	color = 3,
 	baseEffectiveness = 0.94999998807907,
 	incrementalEffectiveness = 0.044599998742342,
@@ -6499,6 +6566,7 @@ skills["FlameblastAltX"] = {
 }
 skills["FlameblastAltY"] = {
 	name = "Flameblast of Contraction",
+	baseTypeName = "Flameblast of Contraction",
 	color = 3,
 	baseEffectiveness = 0.30000001192093,
 	incrementalEffectiveness = 0.044599998742342,
@@ -6604,6 +6672,7 @@ skills["FlameblastAltY"] = {
 }
 skills["VaalFlameblast"] = {
 	name = "Vaal Flameblast",
+	baseTypeName = "Vaal Flameblast",
 	color = 3,
 	baseEffectiveness = 1.1175999641418,
 	incrementalEffectiveness = 0.035199999809265,
@@ -6693,6 +6762,7 @@ skills["VaalFlameblast"] = {
 }
 skills["Flammability"] = {
 	name = "Flammability",
+	baseTypeName = "Flammability",
 	color = 3,
 	description = "Curses all targets in an area, lowering their fire resistance and giving them a chance to be ignited when hit.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
@@ -6780,6 +6850,7 @@ skills["Flammability"] = {
 }
 skills["FleshOffering"] = {
 	name = "Flesh Offering",
+	baseTypeName = "Flesh Offering",
 	color = 3,
 	description = "Consumes a corpse, which temporarily empowers your minions with swiftness. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
@@ -6864,6 +6935,7 @@ skills["FleshOffering"] = {
 }
 skills["ForbiddenRite"] = {
 	name = "Forbidden Rite",
+	baseTypeName = "Forbidden Rite",
 	color = 3,
 	baseEffectiveness = 1.0389000177383,
 	incrementalEffectiveness = 0.045000001788139,
@@ -7020,6 +7092,7 @@ skills["ForbiddenRite"] = {
 }
 skills["ForbiddenRiteAltX"] = {
 	name = "Forbidden Rite of Soul Sacrifice",
+	baseTypeName = "Forbidden Rite of Soul Sacrifice",
 	color = 3,
 	baseEffectiveness = 1.0389000177383,
 	incrementalEffectiveness = 0.045000001788139,
@@ -7162,6 +7235,7 @@ skills["ForbiddenRiteAltX"] = {
 }
 skills["FreezingPulse"] = {
 	name = "Freezing Pulse",
+	baseTypeName = "Freezing Pulse",
 	color = 3,
 	baseEffectiveness = 2.8482000827789,
 	incrementalEffectiveness = 0.046000000089407,
@@ -7238,6 +7312,7 @@ skills["FreezingPulse"] = {
 }
 skills["FrostBomb"] = {
 	name = "Frost Bomb",
+	baseTypeName = "Frost Bomb",
 	color = 3,
 	baseEffectiveness = 1.8422000408173,
 	incrementalEffectiveness = 0.051899999380112,
@@ -7325,6 +7400,7 @@ skills["FrostBomb"] = {
 }
 skills["FrostBombAltX"] = {
 	name = "Frost Bomb of Instability",
+	baseTypeName = "Frost Bomb of Instability",
 	color = 3,
 	baseEffectiveness = 1.5599999427795,
 	incrementalEffectiveness = 0.051899999380112,
@@ -7397,6 +7473,7 @@ skills["FrostBombAltX"] = {
 }
 skills["FrostBombAltY"] = {
 	name = "Frost Bomb of Forthcoming",
+	baseTypeName = "Frost Bomb of Forthcoming",
 	color = 3,
 	baseEffectiveness = 1.8422000408173,
 	incrementalEffectiveness = 0.051899999380112,
@@ -7484,6 +7561,7 @@ skills["FrostBombAltY"] = {
 }
 skills["FrostGlobe"] = {
 	name = "Frost Shield",
+	baseTypeName = "Frost Shield",
 	color = 3,
 	description = "Place a Frost Shield that drains your energy shield for one second or until you run out, gaining stages while this drain occurs. The Frost Shield takes some damage from hits in place of you and allies while in its area. Enemies in the area are Chilled. You can only have one Frost Shield active at once.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, [SkillType.Cold] = true, [SkillType.Totemable] = true, [SkillType.ChillingArea] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.TotemCastsAlone] = true, },
@@ -7581,6 +7659,7 @@ skills["FrostGlobe"] = {
 }
 skills["FrostWall"] = {
 	name = "Frost Wall",
+	baseTypeName = "Frost Wall",
 	color = 3,
 	baseEffectiveness = 2,
 	incrementalEffectiveness = 0.034000001847744,
@@ -7588,6 +7667,11 @@ skills["FrostWall"] = {
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.Cooldown] = true, },
 	statDescriptionScope = "skill_stat_descriptions",
 	castTime = 0.5,
+    statMap = {
+        ["quality_display_wall_length_is_gem"] = {
+			-- Display only
+		},
+	},
 	baseFlags = {
 		spell = true,
 		duration = true,
@@ -7606,6 +7690,7 @@ skills["FrostWall"] = {
 		"base_skill_effect_duration",
 		"wall_maximum_length",
 		"base_skill_show_average_damage_instead_of_dps",
+		"quality_display_wall_length_is_gem",
 	},
 	levels = {
 		[1] = { 0.69999998807907, 1.1000000238419, 3000, 28, storedUses = 3, levelRequirement = 4, cooldown = 3, statInterpolation = { 3, 3, 1, 1, }, cost = { Mana = 9, }, },
@@ -7652,6 +7737,7 @@ skills["FrostWall"] = {
 }
 skills["Frostbite"] = {
 	name = "Frostbite",
+	baseTypeName = "Frostbite",
 	color = 3,
 	description = "Curses all targets in an area, lowering their cold resistance and giving them a chance to be frozen when hit.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Cold] = true, [SkillType.Cascadable] = true, [SkillType.AppliesCurse] = true, [SkillType.CanRapidFire] = true, [SkillType.AreaSpell] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Hex] = true, },
@@ -7739,6 +7825,7 @@ skills["Frostbite"] = {
 }
 skills["IceDash"] = {
 	name = "Frostblink",
+	baseTypeName = "Frostblink",
 	color = 3,
 	baseEffectiveness = 2.0243999958038,
 	incrementalEffectiveness = 0.047499999403954,
@@ -7828,6 +7915,7 @@ skills["IceDash"] = {
 }
 skills["IceDashAltX"] = {
 	name = "Frostblink of Wintry Blast",
+	baseTypeName = "Frostblink of Wintry Blast",
 	color = 3,
 	baseEffectiveness = 2.0243999958038,
 	incrementalEffectiveness = 0.047499999403954,
@@ -7909,6 +7997,7 @@ skills["IceDashAltX"] = {
 }
 skills["FrostBolt"] = {
 	name = "Frostbolt",
+	baseTypeName = "Frostbolt",
 	color = 3,
 	baseEffectiveness = 2.8582999706268,
 	incrementalEffectiveness = 0.0472999997437,
@@ -7976,6 +8065,7 @@ skills["FrostBolt"] = {
 }
 skills["GalvanicField"] = {
 	name = "Galvanic Field",
+	baseTypeName = "Galvanic Field",
 	color = 3,
 	baseEffectiveness = 0.61500000953674,
 	incrementalEffectiveness = 0.051399998366833,
@@ -8093,6 +8183,7 @@ skills["GalvanicField"] = {
 }
 skills["GalvanicFieldAltX"] = {
 	name = "Galvanic Field of Intensity",
+	baseTypeName = "Galvanic Field of Intensity",
 	color = 3,
 	baseEffectiveness = 1.9312000274658,
 	incrementalEffectiveness = 0.051399998366833,
@@ -8202,6 +8293,7 @@ skills["GalvanicFieldAltX"] = {
 }
 skills["GlacialCascade"] = {
 	name = "Glacial Cascade",
+	baseTypeName = "Glacial Cascade",
 	color = 3,
 	baseEffectiveness = 0.57099997997284,
 	incrementalEffectiveness = 0.046399999409914,
@@ -8296,6 +8388,7 @@ skills["GlacialCascade"] = {
 }
 skills["GlacialCascadeAltX"] = {
 	name = "Glacial Cascade of the Fissure",
+	baseTypeName = "Glacial Cascade of the Fissure",
 	color = 3,
 	baseEffectiveness = 1.0800000429153,
 	incrementalEffectiveness = 0.046399999409914,
@@ -8370,6 +8463,7 @@ skills["GlacialCascadeAltX"] = {
 }
 skills["WaterSphere"] = {
 	name = "Hydrosphere",
+	baseTypeName = "Hydrosphere",
 	color = 3,
 	baseEffectiveness = 0.45919999480247,
 	incrementalEffectiveness = 0.057799998670816,
@@ -8493,6 +8587,7 @@ skills["WaterSphere"] = {
 }
 skills["DoomBlast"] = {
 	name = "Hexblast",
+	baseTypeName = "Hexblast",
 	color = 3,
 	baseEffectiveness = 3.0564000606537,
 	incrementalEffectiveness = 0.045499999076128,
@@ -8594,6 +8689,7 @@ skills["DoomBlast"] = {
 }
 skills["DoomBlastAltX"] = {
 	name = "Hexblast of Contradiction",
+	baseTypeName = "Hexblast of Contradiction",
 	color = 3,
 	baseEffectiveness = 3.0564000606537,
 	incrementalEffectiveness = 0.045499999076128,
@@ -8695,6 +8791,7 @@ skills["DoomBlastAltX"] = {
 }
 skills["DoomBlastAltY"] = {
 	name = "Hexblast of Havoc",
+	baseTypeName = "Hexblast of Havoc",
 	color = 3,
 	baseEffectiveness = 2.75,
 	incrementalEffectiveness = 0.045499999076128,
@@ -8775,6 +8872,7 @@ skills["DoomBlastAltY"] = {
 }
 skills["HeraldOfThunder"] = {
 	name = "Herald of Thunder",
+	baseTypeName = "Herald of Thunder",
 	color = 3,
 	baseEffectiveness = 1.375,
 	incrementalEffectiveness = 0.023000000044703,
@@ -8804,9 +8902,6 @@ skills["HeraldOfThunder"] = {
 		},
 		["herald_of_thunder_bolt_frequency_+%"] = {
 			mod("HeraldStormFrequency", "INC", nil),
-		},
-		["quality_display_herald_of_thunder_is_gem"] = {
-			-- Display Only
 		},
 	},
 	baseFlags = {
@@ -8839,7 +8934,6 @@ skills["HeraldOfThunder"] = {
 		"skill_can_add_multiple_charges_per_action",
 		"display_herald_of_thunder_storm",
 		"herald_of_thunder_pvp_scaling_time_uses_bolt_frequency",
-		"quality_display_herald_of_thunder_is_gem",
 	},
 	levels = {
 		[1] = { 0.10000000149012, 0.40000000596046, 0.10000000149012, 0.40000000596046, 1, 31, storedUses = 1, manaReservationPercent = 25, cooldown = 1, levelRequirement = 16, statInterpolation = { 3, 3, 3, 3, 1, 1, }, },
@@ -8886,6 +8980,7 @@ skills["HeraldOfThunder"] = {
 }
 skills["IceNova"] = {
 	name = "Ice Nova",
+	baseTypeName = "Ice Nova",
 	color = 3,
 	baseEffectiveness = 2.2599999904633,
 	incrementalEffectiveness = 0.043600000441074,
@@ -8956,6 +9051,7 @@ skills["IceNova"] = {
 }
 skills["IceNovaAltX"] = {
 	name = "Ice Nova of Frostbolts",
+	baseTypeName = "Ice Nova of Frostbolts",
 	color = 3,
 	baseEffectiveness = 1.3500000238419,
 	incrementalEffectiveness = 0.043600000441074,
@@ -9034,6 +9130,7 @@ skills["IceNovaAltX"] = {
 }
 skills["IceNovaAltY"] = {
 	name = "Ice Nova of Deep Freeze",
+	baseTypeName = "Ice Nova of Deep Freeze",
 	color = 3,
 	baseEffectiveness = 1.4689999818802,
 	incrementalEffectiveness = 0.043600000441074,
@@ -9111,6 +9208,7 @@ skills["IceNovaAltY"] = {
 }
 skills["VaalIceNova"] = {
 	name = "Vaal Ice Nova",
+	baseTypeName = "Vaal Ice Nova",
 	color = 3,
 	baseEffectiveness = 1.7986999750137,
 	incrementalEffectiveness = 0.036400001496077,
@@ -9183,6 +9281,7 @@ skills["VaalIceNova"] = {
 }
 skills["IceSpear"] = {
 	name = "Ice Spear",
+	baseTypeName = "Ice Spear",
 	color = 3,
 	baseEffectiveness = 2.4416000843048,
 	incrementalEffectiveness = 0.034099999815226,
@@ -9290,6 +9389,7 @@ skills["IceSpear"] = {
 }
 skills["IceSpearAltX"] = {
 	name = "Ice Spear of Splitting",
+	baseTypeName = "Ice Spear of Splitting",
 	color = 3,
 	baseEffectiveness = 6.3000001907349,
 	incrementalEffectiveness = 0.034099999815226,
@@ -9390,6 +9490,7 @@ skills["IceSpearAltX"] = {
 }
 skills["ColdProjectileMine"] = {
 	name = "Icicle Mine",
+	baseTypeName = "Icicle Mine",
 	color = 3,
 	baseEffectiveness = 1.6928999423981,
 	incrementalEffectiveness = 0.038100000470877,
@@ -9476,6 +9577,7 @@ skills["ColdProjectileMine"] = {
 }
 skills["ColdProjectileMineAltX"] = {
 	name = "Icicle Mine of Fanning",
+	baseTypeName = "Icicle Mine of Fanning",
 	color = 3,
 	baseEffectiveness = 1.9459999799728,
 	incrementalEffectiveness = 0.038100000470877,
@@ -9561,6 +9663,7 @@ skills["ColdProjectileMineAltX"] = {
 }
 skills["ColdProjectileMineAltY"] = {
 	name = "Icicle Mine of Sabotage",
+	baseTypeName = "Icicle Mine of Sabotage",
 	color = 3,
 	baseEffectiveness = 1.2799999713898,
 	incrementalEffectiveness = 0.038100000470877,
@@ -9647,6 +9750,7 @@ skills["ColdProjectileMineAltY"] = {
 }
 skills["ExpandingFireCone"] = {
 	name = "Incinerate",
+	baseTypeName = "Incinerate",
 	color = 3,
 	baseEffectiveness = 0.28540000319481,
 	incrementalEffectiveness = 0.051300000399351,
@@ -9782,6 +9886,7 @@ skills["ExpandingFireCone"] = {
 }
 skills["ClusterBurst"] = {
 	name = "Kinetic Blast",
+	baseTypeName = "Kinetic Blast",
 	color = 3,
 	description = "Fires a projectile from a Wand that causes a series of small explosions surrounding its point of impact, each damaging enemies caught in the area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Area] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
@@ -9867,6 +9972,7 @@ skills["ClusterBurst"] = {
 }
 skills["KineticBolt"] = {
 	name = "Kinetic Bolt",
+	baseTypeName = "Kinetic Bolt",
 	color = 3,
 	description = "Fire a projectile from your wand that changes direction in a zig-zag pattern at regular intervals or when hitting enemies. Each time it changes direction, a secondary projectile breaks off, flying in the direction it changed away from.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.RangedAttack] = true, [SkillType.Triggerable] = true, },
@@ -9948,6 +10054,7 @@ skills["KineticBolt"] = {
 }
 skills["KineticBoltAltX"] = {
 	name = "Kinetic Bolt of Fragmentation",
+	baseTypeName = "Kinetic Bolt of Fragmentation",
 	color = 3,
 	description = "Fire a projectile from your wand that changes direction in a zig-zag pattern at regular intervals or when hitting enemies. Each time it changes direction, a secondary projectile breaks off, flying in the direction it changed away from. Multiple of these projectiles can hit the same target.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, [SkillType.RangedAttack] = true, [SkillType.Triggerable] = true, },
@@ -10031,6 +10138,7 @@ skills["KineticBoltAltX"] = {
 }
 skills["LightningTowerTrap"] = {
 	name = "Lightning Spire Trap",
+	baseTypeName = "Lightning Spire Trap",
 	color = 3,
 	baseEffectiveness = 0.61379998922348,
 	incrementalEffectiveness = 0.048900000751019,
@@ -10273,6 +10381,7 @@ skills["LightningTowerTrap"] = {
 }
 skills["LightningTowerTrapAltX"] = {
 	name = "Lightning Spire Trap of Zapping",
+	baseTypeName = "Lightning Spire Trap of Zapping",
 	color = 3,
 	baseEffectiveness = 0.75,
 	incrementalEffectiveness = 0.048900000751019,
@@ -10508,6 +10617,7 @@ skills["LightningTowerTrapAltX"] = {
 }
 skills["LightningTowerTrapAltY"] = {
 	name = "Lightning Spire Trap of Overloading",
+	baseTypeName = "Lightning Spire Trap of Overloading",
 	color = 3,
 	baseEffectiveness = 1.25,
 	incrementalEffectiveness = 0.048900000751019,
@@ -10737,6 +10847,7 @@ skills["LightningTowerTrapAltY"] = {
 }
 skills["LightningConduit"] = {
 	name = "Lightning Conduit",
+	baseTypeName = "Lightning Conduit",
 	color = 3,
 	baseEffectiveness = 1.5749000310898,
 	incrementalEffectiveness = 0.041999999433756,
@@ -10819,6 +10930,7 @@ skills["LightningConduit"] = {
 }
 skills["LightningConduitAltX"] = {
 	name = "Lightning Conduit of the Heavens",
+	baseTypeName = "Lightning Conduit of the Heavens",
 	color = 3,
 	baseEffectiveness = 3.0499999523163,
 	incrementalEffectiveness = 0.041999999433756,
@@ -10887,6 +10999,7 @@ skills["LightningConduitAltX"] = {
 }
 skills["LightningTendrilsChannelled"] = {
 	name = "Lightning Tendrils",
+	baseTypeName = "Lightning Tendrils",
 	color = 3,
 	baseEffectiveness = 0.83469998836517,
 	incrementalEffectiveness = 0.051100000739098,
@@ -10977,6 +11090,7 @@ skills["LightningTendrilsChannelled"] = {
 }
 skills["LightningTendrilsChannelledAltX"] = {
 	name = "Lightning Tendrils of Eccentricity",
+	baseTypeName = "Lightning Tendrils of Eccentricity",
 	color = 3,
 	baseEffectiveness = 0.37000000476837,
 	incrementalEffectiveness = 0.051100000739098,
@@ -11073,6 +11187,7 @@ skills["LightningTendrilsChannelledAltX"] = {
 }
 skills["LightningTendrilsChannelledAltY"] = {
 	name = "Lightning Tendrils of Escalation",
+	baseTypeName = "Lightning Tendrils of Escalation",
 	color = 3,
 	baseEffectiveness = 0.95999997854233,
 	incrementalEffectiveness = 0.051100000739098,
@@ -11151,6 +11266,7 @@ skills["LightningTendrilsChannelledAltY"] = {
 }
 skills["LightningTrap"] = {
 	name = "Lightning Trap",
+	baseTypeName = "Lightning Trap",
 	color = 3,
 	baseEffectiveness = 2.4788999557495,
 	incrementalEffectiveness = 0.043200001120567,
@@ -11231,6 +11347,7 @@ skills["LightningTrap"] = {
 }
 skills["LightningTrapAltX"] = {
 	name = "Lightning Trap of Sparking",
+	baseTypeName = "Lightning Trap of Sparking",
 	color = 3,
 	baseEffectiveness = 2.9746999740601,
 	incrementalEffectiveness = 0.043200001120567,
@@ -11313,6 +11430,7 @@ skills["LightningTrapAltX"] = {
 }
 skills["VaalLightningTrap"] = {
 	name = "Vaal Lightning Trap",
+	baseTypeName = "Vaal Lightning Trap",
 	color = 3,
 	baseEffectiveness = 4.6251997947693,
 	incrementalEffectiveness = 0.034400001168251,
@@ -11402,6 +11520,7 @@ skills["VaalLightningTrap"] = {
 }
 skills["LightningWarp"] = {
 	name = "Lightning Warp",
+	baseTypeName = "Lightning Warp",
 	color = 3,
 	baseEffectiveness = 0.94830000400543,
 	incrementalEffectiveness = 0.043299999088049,
@@ -11479,6 +11598,7 @@ skills["LightningWarp"] = {
 }
 skills["VaalLightningWarpInstant"] = {
 	name = "Vaal Lightning Warp",
+	baseTypeName = "Vaal Lightning Warp",
 	color = 3,
 	incrementalEffectiveness = 0.035000000149012,
 	description = "Casts a delayed teleport for nearby enemies to a target destination. When the teleport occurs, lightning damage is dealt to the enemies both before and after they teleport.",
@@ -11554,6 +11674,7 @@ skills["VaalLightningWarpInstant"] = {
 }
 skills["MagmaOrb"] = {
 	name = "Rolling Magma",
+	baseTypeName = "Rolling Magma",
 	color = 3,
 	baseEffectiveness = 2.5980000495911,
 	incrementalEffectiveness = 0.045000001788139,
@@ -11634,6 +11755,7 @@ skills["MagmaOrb"] = {
 }
 skills["DamageOverTimeAura"] = {
 	name = "Malevolence",
+	baseTypeName = "Malevolence",
 	color = 3,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.025000000372529,
@@ -11713,6 +11835,7 @@ skills["DamageOverTimeAura"] = {
 }
 skills["Manabond"] = {
 	name = "Manabond",
+	baseTypeName = "Manabond",
 	color = 3,
 	baseEffectiveness = 1.8538000583649,
 	incrementalEffectiveness = 0.041400000452995,
@@ -11801,6 +11924,7 @@ skills["Manabond"] = {
 }
 skills["OrbOfStorms"] = {
 	name = "Orb of Storms",
+	baseTypeName = "Orb of Storms",
 	color = 3,
 	baseEffectiveness = 0.93900001049042,
 	incrementalEffectiveness = 0.04619999974966,
@@ -11887,6 +12011,7 @@ skills["OrbOfStorms"] = {
 }
 skills["MagmaSigil"] = {
 	name = "Penance Brand",
+	baseTypeName = "Penance Brand",
 	color = 3,
 	baseEffectiveness = 4.731999874115,
 	incrementalEffectiveness = 0.046720001846552,
@@ -11977,10 +12102,11 @@ skills["MagmaSigil"] = {
 }
 skills["MagmaSigilAltX"] = {
 	name = "Penance Brand of Dissipation",
+	baseTypeName = "Penance Brand of Dissipation",
 	color = 3,
 	baseEffectiveness = 0.53680002689362,
 	incrementalEffectiveness = 0.046720001846552,
-	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy and causing a pulse that deals damage to the branded enemy and other nearby enemies. The pulse gains area of effect and damage for each energy on the branded enemy.",
+	description = "Creates a magical brand which can attach to a nearby enemy. It periodically activates while attached, adding energy to the branded enemy and causing a pulse that deals damage to the branded enemy and other nearby enemies. The pulse gains area of effect and damage for each energy on the branded enemy, up to 20. All energy is removed from the enemy when the brand is detached.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Damage] = true, [SkillType.Area] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Triggerable] = true, [SkillType.Multicastable] = true, [SkillType.Brand] = true, [SkillType.AreaSpell] = true, },
 	statDescriptionScope = "brand_skill_stat_descriptions",
 	castTime = 0.75,
@@ -12087,6 +12213,7 @@ skills["MagmaSigilAltX"] = {
 }
 skills["MagmaSigilAltY"] = {
 	name = "Penance Brand of Conduction",
+	baseTypeName = "Penance Brand of Conduction",
 	color = 3,
 	baseEffectiveness = 0.94859999418259,
 	incrementalEffectiveness = 0.046720001846552,
@@ -12175,6 +12302,7 @@ skills["MagmaSigilAltY"] = {
 }
 skills["PowerSiphon"] = {
 	name = "Power Siphon",
+	baseTypeName = "Power Siphon",
 	color = 3,
 	description = "Fires your wand to fire a single projectile each at a number of nearby enemies, granting you a power charge if an enemy is killed by, or soon after, the hit.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
@@ -12258,6 +12386,7 @@ skills["PowerSiphon"] = {
 }
 skills["PowerSiphonAltX"] = {
 	name = "Power Siphon of the Archmage",
+	baseTypeName = "Power Siphon of the Archmage",
 	color = 3,
 	description = "Fires your wand to fire a single projectile each at a number of nearby enemies, granting you a power charge if an enemy is killed by, or soon after, the hit.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, },
@@ -12337,6 +12466,7 @@ skills["PowerSiphonAltX"] = {
 }
 skills["VaalPowerSiphon"] = {
 	name = "Vaal Power Siphon",
+	baseTypeName = "Vaal Power Siphon",
 	color = 3,
 	description = "Fires your wand simultaneously at all nearby enemies, culling those close to death and granting you a power charge for each. Cannot be supported by Volley.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.RangedAttack] = true, [SkillType.Projectile] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Vaal] = true, [SkillType.ProjectilesNotFromUser] = true, },
@@ -12423,6 +12553,7 @@ skills["VaalPowerSiphon"] = {
 }
 skills["Sanctify"] = {
 	name = "Purifying Flame",
+	baseTypeName = "Purifying Flame",
 	color = 3,
 	baseEffectiveness = 2.4525001049042,
 	incrementalEffectiveness = 0.046799998730421,
@@ -12523,6 +12654,7 @@ skills["Sanctify"] = {
 }
 skills["SanctifyAltX"] = {
 	name = "Purifying Flame of Revelations",
+	baseTypeName = "Purifying Flame of Revelations",
 	color = 3,
 	baseEffectiveness = 1.5940999984741,
 	incrementalEffectiveness = 0.046799998730421,
@@ -12622,6 +12754,7 @@ skills["SanctifyAltX"] = {
 }
 skills["Purity"] = {
 	name = "Purity of Elements",
+	baseTypeName = "Purity of Elements",
 	color = 3,
 	description = "Casts an aura that grants elemental resistances and elemental ailment immunity to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -12699,6 +12832,7 @@ skills["Purity"] = {
 }
 skills["LightningResistAura"] = {
 	name = "Purity of Lightning",
+	baseTypeName = "Purity of Lightning",
 	color = 3,
 	description = "Casts an aura that grants lightning resistance to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -12776,6 +12910,7 @@ skills["LightningResistAura"] = {
 }
 skills["LightningImpurity"] = {
 	name = "Vaal Impurity of Lightning",
+	baseTypeName = "Vaal Impurity of Lightning",
 	color = 3,
 	description = "Casts an aura that reduces lightning damage taken and provides shock immunity to you and nearby allies, and makes hits against nearby enemies ignore their lightning resistance. ",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -12860,6 +12995,7 @@ skills["LightningImpurity"] = {
 }
 skills["MortarBarrageMine"] = {
 	name = "Pyroclast Mine",
+	baseTypeName = "Pyroclast Mine",
 	color = 3,
 	baseEffectiveness = 0.90490001440048,
 	incrementalEffectiveness = 0.036100000143051,
@@ -12966,6 +13102,7 @@ skills["MortarBarrageMine"] = {
 }
 skills["MortarBarrageMineAltX"] = {
 	name = "Pyroclast Mine of Sabotage",
+	baseTypeName = "Pyroclast Mine of Sabotage",
 	color = 3,
 	baseEffectiveness = 0.23499999940395,
 	incrementalEffectiveness = 0.036100000143051,
@@ -13072,6 +13209,7 @@ skills["MortarBarrageMineAltX"] = {
 }
 skills["RaiseSpectre"] = {
 	name = "Raise Spectre",
+	baseTypeName = "Raise Spectre",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a spectral version of a defeated foe as a minion to fight for you in battle.",
@@ -13157,6 +13295,7 @@ skills["RaiseSpectre"] = {
 }
 skills["RaiseSpectreAltX"] = {
 	name = "Raise Spectre of Transience",
+	baseTypeName = "Raise Spectre of Transience",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a spectral version of a defeated foe as a temporary minion to fight for you in battle for a duration.",
@@ -13247,6 +13386,7 @@ skills["RaiseSpectreAltX"] = {
 }
 skills["RaiseZombie"] = {
 	name = "Raise Zombie",
+	baseTypeName = "Raise Zombie",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee strike.",
@@ -13327,6 +13467,7 @@ skills["RaiseZombie"] = {
 }
 skills["RaiseZombieAltX"] = {
 	name = "Raise Zombie of Slamming",
+	baseTypeName = "Raise Zombie of Slamming",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises a zombie minion from a corpse, which will follow you and attack enemies with a melee strike and an area of effect slam which cannot be evaded.",
@@ -13415,6 +13556,7 @@ skills["RaiseZombieAltX"] = {
 }
 skills["RaiseZombieAltY"] = {
 	name = "Raise Zombie of Falling",
+	baseTypeName = "Raise Zombie of Falling",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Raises necromantic energies into the sky above a targeted location, where they coalese into a zombie minion. The minion then attacks by falling to the ground, causing an impact that deals damage in an area and kills the zombie.",
@@ -13502,6 +13644,7 @@ skills["RaiseZombieAltY"] = {
 }
 skills["RighteousFire"] = {
 	name = "Righteous Fire",
+	baseTypeName = "Righteous Fire",
 	color = 3,
 	baseEffectiveness = 1.6399999856949,
 	incrementalEffectiveness = 0.057300001382828,
@@ -13608,6 +13751,7 @@ skills["RighteousFire"] = {
 }
 skills["RighteousFireAltX"] = {
 	name = "Righteous Fire of Arcane Devotion",
+	baseTypeName = "Righteous Fire of Arcane Devotion",
 	color = 3,
 	baseEffectiveness = 1.6399999856949,
 	incrementalEffectiveness = 0.057300001382828,
@@ -13694,6 +13838,7 @@ skills["RighteousFireAltX"] = {
 }
 skills["VaalRighteousFire"] = {
 	name = "Vaal Righteous Fire",
+	baseTypeName = "Vaal Righteous Fire",
 	color = 3,
 	description = "Sacrifices a portion of your Life and Energy Shield to engulf you in magical fire that rapidly burns nearby enemies for a duration. Your spell damage is increased while under this effect.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.CausesBurning] = true, [SkillType.DamageOverTime] = true, [SkillType.Fire] = true, [SkillType.Totemable] = true, [SkillType.Vaal] = true, [SkillType.Duration] = true, [SkillType.AreaSpell] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -13787,6 +13932,7 @@ skills["VaalRighteousFire"] = {
 }
 skills["FireBeam"] = {
 	name = "Scorching Ray",
+	baseTypeName = "Scorching Ray",
 	color = 3,
 	baseEffectiveness = 3.6275000572205,
 	incrementalEffectiveness = 0.048900000751019,
@@ -13887,6 +14033,7 @@ skills["FireBeam"] = {
 }
 skills["FireBeamAltX"] = {
 	name = "Scorching Ray of Immolation",
+	baseTypeName = "Scorching Ray of Immolation",
 	color = 3,
 	baseEffectiveness = 8.8000001907349,
 	incrementalEffectiveness = 0.048900000751019,
@@ -13983,6 +14130,7 @@ skills["FireBeamAltX"] = {
 }
 skills["ShockNova"] = {
 	name = "Shock Nova",
+	baseTypeName = "Shock Nova",
 	color = 3,
 	baseEffectiveness = 1.3489999771118,
 	incrementalEffectiveness = 0.049300000071526,
@@ -14069,6 +14217,7 @@ skills["ShockNova"] = {
 }
 skills["CircleOfPower"] = {
 	name = "Sigil of Power",
+	baseTypeName = "Sigil of Power",
 	color = 3,
 	baseEffectiveness = 0.38400000333786,
 	incrementalEffectiveness = 0.028000000864267,
@@ -14170,6 +14319,7 @@ skills["CircleOfPower"] = {
 }
 skills["IceSiphonTrap"] = {
 	name = "Siphoning Trap",
+	baseTypeName = "Siphoning Trap",
 	color = 3,
 	baseEffectiveness = 5.9548997879028,
 	incrementalEffectiveness = 0.041000001132488,
@@ -14267,6 +14417,7 @@ skills["IceSiphonTrap"] = {
 }
 skills["Soulrend"] = {
 	name = "Soulrend",
+	baseTypeName = "Soulrend",
 	color = 3,
 	baseEffectiveness = 4.2814998626709,
 	incrementalEffectiveness = 0.056699998676777,
@@ -14346,6 +14497,7 @@ skills["Soulrend"] = {
 }
 skills["SoulrendAltX"] = {
 	name = "Soulrend of Reaping",
+	baseTypeName = "Soulrend of Reaping",
 	color = 3,
 	baseEffectiveness = 8.6300001144409,
 	incrementalEffectiveness = 0.056699998676777,
@@ -14419,6 +14571,7 @@ skills["SoulrendAltX"] = {
 }
 skills["SoulrendAltY"] = {
 	name = "Soulrend of the Spiral",
+	baseTypeName = "Soulrend of the Spiral",
 	color = 3,
 	baseEffectiveness = 4.2814998626709,
 	incrementalEffectiveness = 0.056699998676777,
@@ -14500,6 +14653,7 @@ skills["SoulrendAltY"] = {
 }
 skills["Spark"] = {
 	name = "Spark",
+	baseTypeName = "Spark",
 	color = 3,
 	baseEffectiveness = 3.8399000167847,
 	incrementalEffectiveness = 0.033100001513958,
@@ -14572,6 +14726,7 @@ skills["Spark"] = {
 }
 skills["SparkAltX"] = {
 	name = "Spark of the Nova",
+	baseTypeName = "Spark of the Nova",
 	color = 3,
 	baseEffectiveness = 4.0900001525879,
 	incrementalEffectiveness = 0.033100001513958,
@@ -14646,6 +14801,7 @@ skills["SparkAltX"] = {
 }
 skills["SparkAltY"] = {
 	name = "Spark of Unpredictability",
+	baseTypeName = "Spark of Unpredictability",
 	color = 3,
 	baseEffectiveness = 3.2999999523163,
 	incrementalEffectiveness = 0.033100001513958,
@@ -14718,6 +14874,7 @@ skills["SparkAltY"] = {
 }
 skills["VaalSparkSpiralNova"] = {
 	name = "Vaal Spark",
+	baseTypeName = "Vaal Spark",
 	color = 3,
 	baseEffectiveness = 1.4524999856949,
 	incrementalEffectiveness = 0.02559999935329,
@@ -14792,6 +14949,7 @@ skills["VaalSparkSpiralNova"] = {
 }
 skills["Spellslinger"] = {
 	name = "Spellslinger",
+	baseTypeName = "Spellslinger",
 	color = 3,
 	description = "Reserves mana based on the supported spells to cause those spells to trigger when you fire projectiles from a wand attack.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
@@ -14945,6 +15103,7 @@ skills["SupportSpellslinger"] = {
 }
 skills["SoulLink"] = {
 	name = "Soul Link",
+	baseTypeName = "Soul Link",
 	color = 3,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, your Energy Shield will intercept some of the damage they would take. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
@@ -15024,6 +15183,7 @@ skills["SoulLink"] = {
 }
 skills["SpiritOffering"] = {
 	name = "Spirit Offering",
+	baseTypeName = "Spirit Offering",
 	color = 3,
 	description = "Consumes a corpse, granting increased critical strike chance and additional critical strike multiplier to your minions. The skill consumes other nearby corpses, increasing the duration for each corpse consumed.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Triggerable] = true, [SkillType.Minion] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Totemable] = true, },
@@ -15104,6 +15264,7 @@ skills["SpiritOffering"] = {
 }
 skills["ConduitSigil"] = {
 	name = "Storm Brand",
+	baseTypeName = "Storm Brand",
 	color = 3,
 	baseEffectiveness = 0.41819998621941,
 	incrementalEffectiveness = 0.040399998426437,
@@ -15197,6 +15358,7 @@ skills["ConduitSigil"] = {
 }
 skills["ConduitSigilAltX"] = {
 	name = "Storm Brand of Indecision",
+	baseTypeName = "Storm Brand of Indecision",
 	color = 3,
 	baseEffectiveness = 1.0349999666214,
 	incrementalEffectiveness = 0.040399998426437,
@@ -15290,6 +15452,7 @@ skills["ConduitSigilAltX"] = {
 }
 skills["LightningExplosionMine"] = {
 	name = "Stormblast Mine",
+	baseTypeName = "Stormblast Mine",
 	color = 3,
 	baseEffectiveness = 1.3094999790192,
 	incrementalEffectiveness = 0.043999999761581,
@@ -15378,6 +15541,7 @@ skills["LightningExplosionMine"] = {
 }
 skills["Stormbind"] = {
 	name = "Stormbind",
+	baseTypeName = "Stormbind",
 	color = 3,
 	baseEffectiveness = 1.6692999601364,
 	incrementalEffectiveness = 0.043200001120567,
@@ -15498,6 +15662,7 @@ skills["Stormbind"] = {
 }
 skills["RuneBlast"] = {
 	name = "Rune Blast",
+	baseTypeName = "Rune Blast",
 	color = 3,
 	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.Arcane] = true, },
@@ -15558,6 +15723,7 @@ skills["RuneBlast"] = {
 }
 skills["StormbindAltX"] = {
 	name = "Stormbind of Teleportation",
+	baseTypeName = "Stormbind of Teleportation",
 	color = 3,
 	baseEffectiveness = 1.6692999601364,
 	incrementalEffectiveness = 0.043200001120567,
@@ -15677,7 +15843,8 @@ skills["StormbindAltX"] = {
 	},
 }
 skills["RuneBlastAltX"] = {
-	name = "Stormbind of Teleportation",
+	name = "Rune Blast of Teleportation",
+	baseTypeName = "Rune Blast of Teleportation",
 	color = 3,
 	description = "Channel to improve runes placed by Stormbind based on the mana you spend channelling this skill. Release to detonate the targeted rune, which will cause other runes to detonate in a chain reaction. Detonation can teleport you to the targeted Rune.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Channel] = true, [SkillType.Arcane] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Blink] = true, },
@@ -15740,6 +15907,7 @@ skills["RuneBlastAltX"] = {
 }
 skills["StormBurstNew"] = {
 	name = "Storm Burst",
+	baseTypeName = "Storm Burst",
 	color = 3,
 	baseEffectiveness = 0.58840000629425,
 	incrementalEffectiveness = 0.037200000137091,
@@ -15846,6 +16014,7 @@ skills["StormBurstNew"] = {
 }
 skills["StormCall"] = {
 	name = "Storm Call",
+	baseTypeName = "Storm Call",
 	color = 3,
 	baseEffectiveness = 2.4012999534607,
 	incrementalEffectiveness = 0.044100001454353,
@@ -15926,6 +16095,7 @@ skills["StormCall"] = {
 }
 skills["VaalStormCall"] = {
 	name = "Vaal Storm Call",
+	baseTypeName = "Vaal Storm Call",
 	color = 3,
 	baseEffectiveness = 2.6089999675751,
 	incrementalEffectiveness = 0.033500000834465,
@@ -16007,6 +16177,7 @@ skills["VaalStormCall"] = {
 }
 skills["SummonBoneGolem"] = {
 	name = "Summon Carrion Golem",
+	baseTypeName = "Summon Carrion Golem",
 	color = 3,
 	baseEffectiveness = 0.28000000119209,
 	incrementalEffectiveness = 0.020999999716878,
@@ -16105,6 +16276,7 @@ skills["SummonBoneGolem"] = {
 }
 skills["SummonBoneGolemAltX"] = {
 	name = "Summon Carrion Golem of Hordes",
+	baseTypeName = "Summon Carrion Golem of Hordes",
 	color = 3,
 	baseEffectiveness = 0.28000000119209,
 	incrementalEffectiveness = 0.020999999716878,
@@ -16186,6 +16358,7 @@ skills["SummonBoneGolemAltX"] = {
 }
 skills["SummonBoneGolemAltY"] = {
 	name = "Summon Carrion Golem of Scavenging",
+	baseTypeName = "Summon Carrion Golem of Scavenging",
 	color = 3,
 	baseEffectiveness = 0.28000000119209,
 	incrementalEffectiveness = 0.020999999716878,
@@ -16278,6 +16451,7 @@ skills["SummonBoneGolemAltY"] = {
 }
 skills["SummonChaosGolem"] = {
 	name = "Summon Chaos Golem",
+	baseTypeName = "Summon Chaos Golem",
 	color = 3,
 	description = "Summons a Chaos Golem that grants you Physical Damage Reduction. The Chaos Golem can cast a damage over time Chaos aura and a cascade of Chaos spikes in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16362,6 +16536,7 @@ skills["SummonChaosGolem"] = {
 }
 skills["SummonChaosGolemAltX"] = {
 	name = "Summon Chaos Golem of Hordes",
+	baseTypeName = "Summon Chaos Golem of Hordes",
 	color = 3,
 	description = "Summons a Chaos Golem. The Chaos Golem can cast a damage over time Chaos aura and a cascade of Chaos spikes in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16441,6 +16616,7 @@ skills["SummonChaosGolemAltX"] = {
 }
 skills["SummonChaosGolemAltY"] = {
 	name = "Summon Chaos Golem of the Maelström",
+	baseTypeName = "Summon Chaos Golem of the Maelström",
 	color = 3,
 	description = "Summons a Chaos Golem. The Chaos Golem can cast a powerful damage over time Chaos aura that Withers enemies in addition to its melee attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Chaos] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16521,6 +16697,7 @@ skills["SummonChaosGolemAltY"] = {
 }
 skills["SummonRelic"] = {
 	name = "Summon Holy Relic",
+	baseTypeName = "Summon Holy Relic",
 	color = 3,
 	description = "Summon a Holy Relic that stays near you. When you hit an enemy with an attack, the Holy Relic triggers a nova spell, with a very short cooldown, that deals physical damage to enemies and grants life regeneration to allies. This life regeneration is higher when applied to minions.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16609,6 +16786,7 @@ skills["SummonRelic"] = {
 }
 skills["SummonLightningGolem"] = {
 	name = "Summon Lightning Golem",
+	baseTypeName = "Summon Lightning Golem",
 	color = 3,
 	description = "Summons a Lightning Golem that grants you increased Attack and Cast speed. The Lightning Golem fires a projectile spell, creates orbs of Lightning that zap nearby enemies, and casts a temporary aura that grants added Lightning Damage to spells and attacks used by the Golem and its nearby allies.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16693,6 +16871,7 @@ skills["SummonLightningGolem"] = {
 }
 skills["SummonLightningGolemAltX"] = {
 	name = "Summon Lightning Golem of Hordes",
+	baseTypeName = "Summon Lightning Golem of Hordes",
 	color = 3,
 	description = "Summons a Lightning Golem. The Lightning Golem fires a projectile spell, creates orbs of Lightning that zap nearby enemies, and casts a temporary aura that grants added Lightning Damage to spells and attacks used by the Golem and its nearby allies.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Lightning] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16772,6 +16951,7 @@ skills["SummonLightningGolemAltX"] = {
 }
 skills["SummonRagingSpirit"] = {
 	name = "Summon Raging Spirit",
+	baseTypeName = "Summon Raging Spirit",
 	color = 3,
 	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly, converting all its physical damage to fire. Enemies will not directly engage these spirits, and can pass through them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
@@ -16845,6 +17025,7 @@ skills["SummonRagingSpirit"] = {
 }
 skills["SummonRagingSpiritAltX"] = {
 	name = "Summon Raging Spirit of Enormity",
+	baseTypeName = "Summon Raging Spirit of Enormity",
 	color = 3,
 	description = "Summons a short-lived flaming skull that rushes at nearby enemies and attacks them rapidly, converting all its physical damage to fire. Enemies will not directly engage these spirits, and can pass through them.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Trappable] = true, [SkillType.Totemable] = true, [SkillType.Mineable] = true, [SkillType.Multicastable] = true, [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.CanRapidFire] = true, [SkillType.CreatesMinion] = true, },
@@ -16921,6 +17102,7 @@ skills["SummonRagingSpiritAltX"] = {
 }
 skills["SummonReaper"] = {
 	name = "Summon Reaper",
+	baseTypeName = "Summon Reaper",
 	color = 3,
 	description = "Summons a powerful Reaper which uses a variety of slashing area attacks. The Reaper's presence weakens your other minions, and it will consume them to temporarily empower and heal itself. Using this skill while the Reaper is already summoned causes it to dash to the targeted location and perform a powerful attack.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Physical] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -16935,10 +17117,10 @@ skills["SummonReaper"] = {
 			mod("MinionModifier", "LIST", { mod = mod("BleedChance", "BASE", nil, ModFlag.Attack) })
 		},
 		["active_skill_non_reaper_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -17007,6 +17189,7 @@ skills["SummonReaper"] = {
 }
 skills["SummonReaperAltX"] = {
 	name = "Summon Reaper of Revenants",
+	baseTypeName = "Summon Reaper of Revenants",
 	color = 3,
 	description = "Summons a Reaper which uses a variety of slashing area attacks. The presence of any Reapers weakens your other non-Reaper minions, and Reapers will consume them to temporarily empower and heal themselves.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.CreatesMinion] = true, [SkillType.Multicastable] = true, [SkillType.CanRapidFire] = true, },
@@ -17018,10 +17201,10 @@ skills["SummonReaperAltX"] = {
 	},
 	statMap = {
 		["active_skill_non_reaper_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -17090,6 +17273,7 @@ skills["SummonReaperAltX"] = {
 }
 skills["SummonReaperAltY"] = {
 	name = "Summon Reaper of Eviscerating",
+	baseTypeName = "Summon Reaper of Eviscerating",
 	color = 3,
 	description = "Summons a powerful Reaper which passively follows you without attacking enemies. The Reaper's presence weakens your other minions, and it will consume them to temporarily empower and heal itself. Using this skill while the Reaper is already summoned causes it to dash to the targeted location and perform a powerful attack. Cannot be triggered, supported by Spell Echo or Unleash, or used by Totems, Traps, or Mines. ",
 	skillTypes = { [SkillType.Physical] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Spell] = true, [SkillType.CreatesMinion] = true, },
@@ -17104,10 +17288,10 @@ skills["SummonReaperAltY"] = {
 			mod("MinionModifier", "LIST", { mod = mod("BleedChance", "BASE", nil, ModFlag.Attack) })
 		},
 		["active_skill_non_reaper_minion_damage_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Damage", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 		["active_skill_non_reaper_minion_maximum_life_+%_final"] = {
-			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
+			mod("MinionModifier", "LIST", { mod = mod("Life", "MORE", nil) }, 0, 0, { type = "SkillName", skillName = "Summon Reaper", includeTransfigured = true, neg = true }, { type = "GlobalEffect", effectType = "Buff", unscalable = true }),
 		},
 	},
 	baseFlags = {
@@ -17177,6 +17361,7 @@ skills["SummonReaperAltY"] = {
 }
 skills["SummonSkeletons"] = {
 	name = "Summon Skeletons",
+	baseTypeName = "Summon Skeletons",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summon Skeleton Warrior minions at the targeted location. They use a melee attack and die after a duration. If made aggressive, Skeleton Warriors will also dash towards nearby enemies.",
@@ -17258,6 +17443,7 @@ skills["SummonSkeletons"] = {
 }
 skills["SummonSkeletonsAltX"] = {
 	name = "Summon Skeletons of Archers",
+	baseTypeName = "Summon Skeletons of Archery",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summon Skeleton Archer minions at the targeted location. They fire arrows and die after a duration.",
@@ -17338,6 +17524,7 @@ skills["SummonSkeletonsAltX"] = {
 }
 skills["SummonSkeletonsAltY"] = {
 	name = "Summon Skeletons of Mages",
+	baseTypeName = "Summon Skeletons of Sorcery",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summon Skeleton Mage minions of random elemental types at the targeted location. They cast projectile spells based on their element, and die after a duration.",
@@ -17418,6 +17605,7 @@ skills["SummonSkeletonsAltY"] = {
 }
 skills["VaalSummonSkeletons"] = {
 	name = "Vaal Summon Skeletons",
+	baseTypeName = "Vaal Summon Skeletons",
 	color = 3,
 	baseEffectiveness = 0,
 	description = "Summons an army of skeletal soldiers, archers and mages, led by a powerful general.",
@@ -17505,6 +17693,7 @@ skills["VaalSummonSkeletons"] = {
 }
 skills["Skitterbots"] = {
 	name = "Summon Skitterbots",
+	baseTypeName = "Summon Skitterbots",
 	color = 3,
 	description = "Summon a Chilling Skitterbot and a Shocking Skitterbot, which will trigger your traps and detonate your mines. Mines detonated by Skitterbots will re-arm and can then be detonated again. The Skitterbots grant you more trap and mine damage, and cannot be targeted or damaged.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.Minion] = true, [SkillType.CreatesMinion] = true, [SkillType.MinionsAreUndamageable] = true, [SkillType.HasReservation] = true, [SkillType.Cold] = true, [SkillType.Lightning] = true, [SkillType.NonHitChill] = true, [SkillType.ElementalStatus] = true, [SkillType.Area] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.AuraNotOnCaster] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -17589,6 +17778,7 @@ skills["Skitterbots"] = {
 }
 skills["TempestShield"] = {
 	name = "Tempest Shield",
+	baseTypeName = "Tempest Shield",
 	color = 3,
 	baseEffectiveness = 4.6932997703552,
 	incrementalEffectiveness = 0.038199998438358,
@@ -17610,7 +17800,7 @@ skills["TempestShield"] = {
 		chaining = true,
 	},
 	baseMods = {
-		skill("triggerCounterAttack", 100, { type = "SkillType", skillType = SkillType.Spell }),
+		skill("chanceToTriggerCounterattackOnBlock", 100, { type = "SkillType", skillType = SkillType.Spell }),
 	},
 	qualityStats = {
 		Default = {
@@ -17674,6 +17864,7 @@ skills["TempestShield"] = {
 }
 skills["BlackHole"] = {
 	name = "Void Sphere",
+	baseTypeName = "Void Sphere",
 	color = 3,
 	baseEffectiveness = 0.35989999771118,
 	incrementalEffectiveness = 0.055500000715256,
@@ -17759,6 +17950,7 @@ skills["BlackHole"] = {
 }
 skills["BlackHoleAltX"] = {
 	name = "Void Sphere of Rending",
+	baseTypeName = "Void Sphere of Rending",
 	color = 3,
 	baseEffectiveness = 0.89999997615814,
 	incrementalEffectiveness = 0.055500000715256,
@@ -17844,6 +18036,7 @@ skills["BlackHoleAltX"] = {
 }
 skills["VoltaxicBurst"] = {
 	name = "Voltaxic Burst",
+	baseTypeName = "Voltaxic Burst",
 	color = 3,
 	baseEffectiveness = 2.3076000213623,
 	incrementalEffectiveness = 0.043999999761581,
@@ -17936,6 +18129,7 @@ skills["VoltaxicBurst"] = {
 }
 skills["FrostBoltNova"] = {
 	name = "Vortex",
+	baseTypeName = "Vortex",
 	color = 3,
 	baseEffectiveness = 1.2086000442505,
 	incrementalEffectiveness = 0.049499999731779,
@@ -17946,11 +18140,6 @@ skills["FrostBoltNova"] = {
 	preDamageFunc = function(activeSkill, output)
 		activeSkill.skillData.hitTimeOverride = output.Cooldown
 	end,
-	statMap = {
-		["active_skill_damage_+%_when_cast_on_frostbolt"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
-		},
-	},
 	baseFlags = {
 		spell = true,
 		area = true,
@@ -18024,6 +18213,7 @@ skills["FrostBoltNova"] = {
 }
 skills["FrostBoltNovaAltX"] = {
 	name = "Vortex of Projection",
+	baseTypeName = "Vortex of Projection",
 	color = 3,
 	baseEffectiveness = 1.2086000442505,
 	incrementalEffectiveness = 0.049499999731779,
@@ -18036,7 +18226,7 @@ skills["FrostBoltNovaAltX"] = {
 	end,
 	statMap = {
 		["active_skill_if_used_through_frostbolt_damage_+%_final"] = {
-			mod("Damage", "INC", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
+			mod("Damage", "MORE", nil, 0, 0, { type = "Condition", var = "CastOnFrostbolt" }),
 		},
 	},
 	baseFlags = {
@@ -18116,6 +18306,7 @@ skills["FrostBoltNovaAltX"] = {
 }
 skills["Purge"] = {
 	name = "Wave of Conviction",
+	baseTypeName = "Wave of Conviction",
 	color = 3,
 	baseEffectiveness = 2.2590000629425,
 	incrementalEffectiveness = 0.049699999392033,
@@ -18204,6 +18395,7 @@ skills["Purge"] = {
 }
 skills["FrostFury"] = {
 	name = "Winter Orb",
+	baseTypeName = "Winter Orb",
 	color = 3,
 	baseEffectiveness = 1.0566999912262,
 	incrementalEffectiveness = 0.035500001162291,
@@ -18333,6 +18525,7 @@ skills["FrostFury"] = {
 }
 skills["ImmolationSigil"] = {
 	name = "Wintertide Brand",
+	baseTypeName = "Wintertide Brand",
 	color = 3,
 	baseEffectiveness = 4.5808000564575,
 	incrementalEffectiveness = 0.028899999335408,
@@ -18435,6 +18628,7 @@ skills["ImmolationSigil"] = {
 }
 skills["Wither"] = {
 	name = "Wither",
+	baseTypeName = "Wither",
 	color = 3,
 	description = "Casts a debilitating debuff on enemies in an area, hindering their movement and also inflicts the Withered debuff, which increases the Chaos Damage they take and can stack up to 15 times.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, [SkillType.Chaos] = true, [SkillType.Channel] = true, [SkillType.AreaSpell] = true, },
@@ -18522,6 +18716,7 @@ skills["Wither"] = {
 }
 skills["Wrath"] = {
 	name = "Wrath",
+	baseTypeName = "Wrath",
 	color = 3,
 	baseEffectiveness = 2.25,
 	incrementalEffectiveness = 0.023000000044703,
@@ -18605,6 +18800,7 @@ skills["Wrath"] = {
 }
 skills["SpellDamageAura"] = {
 	name = "Zealotry",
+	baseTypeName = "Zealotry",
 	color = 3,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.025000000372529,

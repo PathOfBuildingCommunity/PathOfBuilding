@@ -347,7 +347,7 @@ end
 directiveTable.skills.boss = function(state, args, out)
 	local displayName, monsterId, earlierUber, mapBoss = args:match("(%w+) (.+) (%w+) (%w+)")
 	local bossData = dat("MonsterVarieties"):GetRow("Id", monsterId)
-	state.boss = { displayName = displayName, damageRange = bossData.Type.DamageSpread, damageMult = bossData.DamageMultiplier, critChance = m_ceil(bossData.CriticalStrikeChance / 100) }
+	state.boss = { displayName = displayName, damageRange = bossData.Type.DamageSpread, damageMult = bossData.DamageMultiplier, critChance = 5 }
 	if earlierUber == "true" then
 		state.boss.earlierUber = true
 	end

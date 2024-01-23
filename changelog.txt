@@ -1,3 +1,66 @@
+VERSION[2.39.0][2024/01/23]
+
+--- New to Path of Building ---
+* Add all new 3.23 Spectres (LocalIdentity)
+* Fix longstanding issues with minion stats (more fixes will come in future updates) (LocalIdentity, ifnjeff)
+  * Some Minion Attacks will reduce by 10-30% DPS
+  * Life values of some minions will change
+  * Spectre DPS values will reduce for some monsters
+  * Armour and Evasion values will drastically increase
+* Add support gem DPS sorting for Skills granted by Items (e.g. Arakaali's Fang, Whispering Ice etc.) (Paliak, sida-wang)
+* Add That Which Was Taken jewel to unique list (justjuangui)
+* Add support for filtering on number of Sockets and Links in Item Trader (Peechey)
+* Add config to set the effect of Ruthless Support (LocalIdentity)
+* Add support for resetting Search Weights in Item Trader (Peechey)
+* Add support for Spectre buffs (justjuangui)
+* Show Accuracy above Life when using Precise Technique (Peechey)
+* Add support for converting all trees to latest version (Peechey)
+* Add breakdown for Endurance, Frenzy and Power charges (duiker101)
+
+--- Fixed Crashes ---
+* Fix Crash on Beta branch when using trade search (secondfry)
+* Fix Crash on clicking "Show All Configurations" in new build (Paliak)
+* Fix Crash when skills granting buffs that rely on buffs are disabled (Paliak)
+
+--- User Interface ---
+* Sort the Calculations Tab breakdown lists by value (duiker101)
+* Add scrollbar to Item Trader when large number of sockets are allocated (Peechey)
+* Fix Boneshatter missing self damage breakdown (Paliak)
+* Fix Rage Cost of Vaal Skills not displaying correctly for Hateforge (sida-wang)
+* Fix Powerful/Frenzied Faith displaying incorrectly in the Timeless Jewel search (sida-wang)
+
+--- Fixed Bugs ---
+* Fix Law of the Wilds using the wrong minion data (LocalIdentity)
+* Fix Blink/Mirror Arrow of Bombarding/Prismatic using wrong Minion Skills (LocalIdentity)
+* Fix Cluster Jewel import not allocating nodes correctly by (sida-wang, Peechey)
+* Fix importing of Vaal Impurity Skills and Transfigured Vaal Summon Skeletons (sida-wang)
+* Fix mods that apply to skill gems, not applying to their Transfigured versions by (sida-wang, Paliak)
+* Fix loading of Passive Tree dropdown in Items Tab (Peechey)
+* Cap Doom Blast expiration mode and use charge based calcs for skills that ignore tick rate (Paliak)
+* Fix bug where Precursor's Emblem's curse mod was not working (Drox346)
+* Fix Flask effect increasing the Culling strike threshold from Voranas Preparation (Paliak)
+* Fix Ngamahu, Flame's Advance adding Strength to Unique jewels (Paliak)
+* Fix Vortex of Projection damage when cast on Frostbolt from increased to more (sida-wang)
+* Fix Brand duration incorrectly affecting Duration of skills cast by Arcanist Brand (Paliak)
+* Fix Trigger rate calculations when dual wielding 1h weapons (Paliak)
+* Fixes Effective Trigger rate not accounting for Evasion roll for on Crit Triggers (Paliak)
+* Fix Ruthless Support applying to Tawhoa's Chosen (Paliak)
+* Fix Inspiration Charges not applying to Minion Skills (sida-wang)
+* Fix skill effect duration from buffs not applying to Earthquake of Amplification Aftershock (sida-wang)
+* Fix Poison Duration from Charms stacking with Noxious Strike (sida-wang)
+* Fix Base Damage from Transfigured shield skills not being applied (sida-wang)
+* Fix added Cooldown and added Cast Time not working correctly (Paliak)
+* Fix Kalandra's Touch not adding to influenced items multiplier (Paliak)
+* Fix resistance calculations when using Glimpse of Chaos and Chieftain Tasalio node (sida-wang)
+* Fix Oath of the Maji not stacking with Juggernaut's Unbreakable (wkingston1248)
+
+--- Accuracy Improvements ---
+* Fix mod parsing for Militant Faith Cloistered Notable (Peechey)
+* Fix incorrect base Mana cost of Toxic Rain with Mirage Archer (Paliak)
+* Fix Unnatural Instinct incorrectly working with Pure Talent (Paliak)
+* Fix Stun and Block Duration not rounding to server ticks (LocalIdentity)
+
+
 VERSION[2.38.4][2023/12/20]
 
 --- Fixed Crashes ---

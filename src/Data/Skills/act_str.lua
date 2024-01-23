@@ -8,6 +8,7 @@ local skills, mod, flag, skill = ...
 
 skills["Absolution"] = {
 	name = "Absolution",
+	baseTypeName = "Absolution",
 	color = 1,
 	baseEffectiveness = 2.0517001152039,
 	incrementalEffectiveness = 0.043200001120567,
@@ -100,6 +101,7 @@ skills["Absolution"] = {
 }
 skills["AbsolutionAltX"] = {
 	name = "Absolution of Inspiring",
+	baseTypeName = "Absolution of Inspiring",
 	color = 1,
 	baseEffectiveness = 2.0517001152039,
 	incrementalEffectiveness = 0.043200001120567,
@@ -193,6 +195,7 @@ skills["AbsolutionAltX"] = {
 }
 skills["VaalAbsolution"] = {
 	name = "Vaal Absolution",
+	baseTypeName = "Vaal Absolution",
 	color = 1,
 	description = "Causes one of your existing Sentinels of Absolution to Ascend, becoming more powerful, gaining new spells, and overriding its duration, while maintaining its other bonuses, including from support gems. If you cannot have more Ascended Sentinels of Absolution, an existing one will be refreshed instead.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Physical] = true, [SkillType.Lightning] = true, [SkillType.Vaal] = true, },
@@ -272,6 +275,7 @@ skills["VaalAbsolution"] = {
 }
 skills["InfernalCryOnHitExplosion"] = {
 	name = "Combust",
+	baseTypeName = "Combust",
 	color = 1,
 	description = "Deals attack damage in an area.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Triggerable] = true, [SkillType.Triggered] = true, [SkillType.Melee] = true, [SkillType.InbuiltTrigger] = true, },
@@ -359,6 +363,7 @@ skills["InfernalCryOnHitExplosion"] = {
 }
 skills["TotemMelee"] = {
 	name = "Ancestral Protector",
+	baseTypeName = "Ancestral Protector",
 	color = 1,
 	description = "Summons an Ancestor Totem which attacks enemies with melee strikes while you're near it. Being near it grants you more attack speed. Requires a Melee Weapon or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.SummonsTotem] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, },
@@ -456,6 +461,7 @@ skills["TotemMelee"] = {
 }
 skills["AncestralCry"] = {
 	name = "Ancestral Cry",
+	baseTypeName = "Ancestral Cry",
 	color = 1,
 	description = "Performs a warcry, taunting all nearby enemies to attack the user and exerting subsequent strike attacks. Grants a buff which gives you bonus armour and melee range.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
@@ -550,6 +556,7 @@ skills["AncestralCry"] = {
 }
 skills["AncestorTotemSlam"] = {
 	name = "Ancestral Warchief",
+	baseTypeName = "Ancestral Warchief",
 	color = 1,
 	description = "Summons an Ancestor Totem which attacks enemies with a powerful slam while you're near it. Being near it grants you more melee damage. Requires a Melee Weapon or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.SummonsTotem] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Slam] = true, [SkillType.Multistrikeable] = true, },
@@ -649,6 +656,7 @@ skills["AncestorTotemSlam"] = {
 }
 skills["VaalAncestralWarchief"] = {
 	name = "Vaal Ancestral Warchief",
+	baseTypeName = "Vaal Ancestral Warchief",
 	color = 1,
 	description = "Summons an Ancestor Totem which attacks enemies with a powerful cascading slam while you're near it. If the enemies are far away, it will leap toward them as it slams. Being near it grants you more melee damage. Requires a Melee Weapon or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.SummonsTotem] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Vaal] = true, },
@@ -751,6 +759,7 @@ skills["VaalAncestralWarchief"] = {
 }
 skills["Anger"] = {
 	name = "Anger",
+	baseTypeName = "Anger",
 	color = 1,
 	baseEffectiveness = 2.25,
 	incrementalEffectiveness = 0.023000000044703,
@@ -838,6 +847,7 @@ skills["Anger"] = {
 }
 skills["AnimateArmour"] = {
 	name = "Animate Guardian",
+	baseTypeName = "Animate Guardian",
 	color = 1,
 	description = "Animates a melee weapon or armour, attaching it to an invisible Guardian that fights by your side. Animating multiple items attaches them to the same Guardian. You cannot animate unidentified items. Cannot be used by Traps or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, },
@@ -922,6 +932,7 @@ skills["AnimateArmour"] = {
 }
 skills["AnimateArmourAltX"] = {
 	name = "Animate Guardian of Smiting",
+	baseTypeName = "Animate Guardian of Smiting",
 	color = 1,
 	description = "Animates a melee weapon or armour, attaching it to an invisible Guardian that fights by your side using Smite of Divine Judgement, ignoring weapon restrictions. Animating multiple items attaches them to the same Guardian. You cannot animate unidentified items. Cannot be used by Traps or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Totemable] = true, [SkillType.Triggerable] = true, [SkillType.CreatesMinion] = true, [SkillType.Lightning] = true, },
@@ -1006,6 +1017,7 @@ skills["AnimateArmourAltX"] = {
 }
 skills["BattlemagesCry"] = {
 	name = "Battlemage's Cry",
+	baseTypeName = "Battlemage's Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Grants a buff which boosts critical strike chance and allows attacks to benefit from increases to spell damage.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
@@ -1169,6 +1181,7 @@ skills["BattlemagesCrySupport"] = {
 }
 skills["Berserk"] = {
 	name = "Berserk",
+	baseTypeName = "Berserk",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Consumes Rage at an accelerating rate to provide a powerful buff, granting more attack damage, attack speed, movement speed, and less damage taken.",
@@ -1256,6 +1269,7 @@ skills["Berserk"] = {
 }
 skills["Bladestorm"] = {
 	name = "Bladestorm",
+	baseTypeName = "Bladestorm",
 	color = 1,
 	description = "Perform a spinning attack, damaging enemies around you and creating a bladestorm matching your stance. The bladestorm repeatedly damages enemies, based on your weapon damage and attack time, for a duration. Blood bladestorms are stationary and cause Bleeding, while Sand bladestorms move slowly forwards and Blind enemies. Requires a Sword or Axe. You are in Blood Stance by default.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, },
@@ -1365,6 +1379,7 @@ skills["Bladestorm"] = {
 }
 skills["BladestormAltX"] = {
 	name = "Bladestorm of Uncertainty",
+	baseTypeName = "Bladestorm of Uncertainty",
 	color = 1,
 	description = "Perform a spinning attack, damaging enemies around you and creating a random bladestorm. The bladestorm repeatedly damages enemies, based on your weapon damage and attack time, for a duration. Blood bladestorms are stationary and cause Bleeding, while Sand bladestorms move slowly forwards and Blind enemies. Requires a Sword or Axe.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, },
@@ -1475,6 +1490,7 @@ skills["BladestormAltX"] = {
 }
 skills["BloodSandStance"] = {
 	name = "Blood and Sand",
+	baseTypeName = "Blood and Sand",
 	color = 1,
 	description = "Casts a buff that grants different bonuses to melee skills depending on your stance. Using the skill again alternates between Blood Stance and Sand Stance.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.Stance] = true, },
@@ -1544,6 +1560,7 @@ skills["BloodSandStance"] = {
 }
 skills["Boneshatter"] = {
 	name = "Boneshatter",
+	baseTypeName = "Boneshatter",
 	color = 1,
 	baseEffectiveness = 0.18279999494553,
 	incrementalEffectiveness = 0.053700000047684,
@@ -1576,9 +1593,6 @@ skills["Boneshatter"] = {
 		["boneshatter_trauma_base_duration_ms"] = {
 			mod("TraumaDuration", "BASE", nil),
 			div = 1000,
-		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			-- Display only
 		},
 		["quality_display_boneshatter_is_gem"] = {
 			-- Display only
@@ -1656,6 +1670,7 @@ skills["Boneshatter"] = {
 }
 skills["BoneshatterAltX"] = {
 	name = "Boneshatter of Complex Trauma",
+	baseTypeName = "Boneshatter of Complex Trauma",
 	color = 1,
 	baseEffectiveness = 0.18279999494553,
 	incrementalEffectiveness = 0.053700000047684,
@@ -1691,9 +1706,6 @@ skills["BoneshatterAltX"] = {
 		},
 		["lose_all_trauma_at_X_trauma"] = {
 			mod("Multiplier:TraumaStacksMax", "BASE", nil),
-		},
-		["trauma_strike_self_damage_per_trauma"] = {
-			-- Display only
 		},
 		["quality_display_boneshatter_is_gem"] = {
 			-- Display only
@@ -1772,6 +1784,7 @@ skills["BoneshatterAltX"] = {
 }
 skills["BoneshatterAltY"] = {
 	name = "Boneshatter of Carnage",
+	baseTypeName = "Boneshatter of Carnage",
 	color = 1,
 	baseEffectiveness = 0.18279999494553,
 	incrementalEffectiveness = 0.053700000047684,
@@ -1865,6 +1878,7 @@ skills["BoneshatterAltY"] = {
 }
 skills["ChainStrike"] = {
 	name = "Chain Hook",
+	baseTypeName = "Chain Hook",
 	color = 1,
 	description = "When used at range, throws out a chain, pulling you to the enemy hit dealing damage in an area behind them. When close to the enemy, just causes the area damage directly. Requires a One Handed Mace, Sceptre, Sword or Axe.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Damage] = true, [SkillType.Movement] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, },
@@ -1955,6 +1969,7 @@ skills["ChainStrike"] = {
 }
 skills["Cleave"] = {
 	name = "Cleave",
+	baseTypeName = "Cleave",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -2043,6 +2058,7 @@ skills["Cleave"] = {
 }
 skills["CleaveAltX"] = {
 	name = "Cleave of Rage",
+	baseTypeName = "Cleave of Rage",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -2136,6 +2152,7 @@ skills["CleaveAltX"] = {
 }
 skills["VaalCleave"] = {
 	name = "Vaal Cleave",
+	baseTypeName = "Vaal Cleave",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -2155,10 +2172,10 @@ skills["VaalCleave"] = {
 			skill("radiusExtra", nil, { type = "Multiplier", var = "NearbyEnemies", limit = 10, limitTotal = true })
 		},
 		["vaal_cleave_executioner_damage_against_enemies_on_low_life_+%"] = {
-			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+			mod("Damage", "MORE", nil, 0, bit.bor(KeywordFlag.Hit, KeywordFlag.Ailment), { type = "ActorCondition", actor = "enemy", var = "LowLife" }, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
 		},
 		["vaal_cleave_executioner_area_of_effect_+%"] = {
-			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
 		},
 	},
 	baseFlags = {
@@ -2168,7 +2185,7 @@ skills["VaalCleave"] = {
 		melee = true,
 	},
 	baseMods = {
-		mod("CullPercent", "MAX", 10, 0, 0, { type = "SkillName", skillNameList = { "Cleave", "Cleave of Rage" } }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
+		mod("CullPercent", "MAX", 10, 0, 0, { type = "SkillName", skillName = "Cleave", includeTransfigured = true }, { type = "GlobalEffect", effectType = "Buff", effectName = "Vaal Cleave", unscalable = true } ),
 	},
 	qualityStats = {
 		Default = {
@@ -2241,6 +2258,7 @@ skills["VaalCleave"] = {
 }
 skills["ConsecratedPath"] = {
 	name = "Consecrated Path",
+	baseTypeName = "Consecrated Path",
 	color = 1,
 	description = "Slams the ground at a targeted location. If an enemy is near where you target, you'll teleport to it from a short distance away, slam, and create an area of consecrated ground. Can't be supported by Multistrike, and requires a Sword, Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Melee] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Fire] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
@@ -2336,6 +2354,7 @@ skills["ConsecratedPath"] = {
 }
 skills["ConsecratedPathAltX"] = {
 	name = "Consecrated Path of Endurance",
+	baseTypeName = "Consecrated Path of Endurance",
 	color = 1,
 	description = "Slams the ground at a targeted location. If an enemy is near where you target, you'll teleport to it from a short distance away, slam, and create an area of consecrated ground. The cooldown can be bypassed by expending an Endurance Charge. Can't be supported by Multistrike, and requires a Sword, Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Melee] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Movement] = true, [SkillType.Triggerable] = true, [SkillType.Damage] = true, [SkillType.Duration] = true, [SkillType.Fire] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, [SkillType.Cooldown] = true, },
@@ -2434,6 +2453,7 @@ skills["ConsecratedPathAltX"] = {
 }
 skills["CorruptingFever"] = {
 	name = "Corrupting Fever",
+	baseTypeName = "Corrupting Fever",
 	color = 1,
 	baseEffectiveness = 0.362399995327,
 	incrementalEffectiveness = 0.050000000745058,
@@ -2509,6 +2529,7 @@ skills["CorruptingFever"] = {
 }
 skills["DecoyTotem"] = {
 	name = "Decoy Totem",
+	baseTypeName = "Decoy Totem",
 	color = 1,
 	description = "Summons a totem that taunts nearby monsters to attack it.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.Area] = true, [SkillType.SummonsTotem] = true, [SkillType.Multicastable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
@@ -2586,6 +2607,7 @@ skills["DecoyTotem"] = {
 }
 skills["DefianceBanner"] = {
 	name = "Defiance Banner",
+	baseTypeName = "Defiance Banner",
 	color = 1,
 	description = "Casting once reserves mana to carry a banner which increases the armour and evasion of nearby allies, and reduces the critical strike chance of nearby enemies. Gains stages over time while carrying the banner near enemies. Casting the skill again places the banner, ending the mana reservation. Once placed, it becomes more powerful for each stage gained. You cannot have multiple banners at the same time.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.HasReservation] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.Physical] = true, [SkillType.Banner] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -2674,6 +2696,7 @@ skills["DefianceBanner"] = {
 }
 skills["Determination"] = {
 	name = "Determination",
+	baseTypeName = "Determination",
 	color = 1,
 	description = "Casts an aura that grants armour to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -2751,6 +2774,7 @@ skills["Determination"] = {
 }
 skills["DevouringTotem"] = {
 	name = "Devouring Totem",
+	baseTypeName = "Devouring Totem",
 	color = 1,
 	baseEffectiveness = 0.69999998807907,
 	incrementalEffectiveness = 0.029999999329448,
@@ -2834,6 +2858,7 @@ skills["DevouringTotem"] = {
 }
 skills["DominatingBlow"] = {
 	name = "Dominating Blow",
+	baseTypeName = "Dominating Blow",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Attacks enemies with a melee strike, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed and a Sentinel of Dominance with the same rarity, prefix and suffix modifiers will be summoned for a longer secondary duration.",
@@ -2927,6 +2952,7 @@ skills["DominatingBlow"] = {
 }
 skills["DominatingBlowAltX"] = {
 	name = "Dominating Blow of Inspiring",
+	baseTypeName = "Dominating Blow of Inspiring",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Attacks enemies with a melee strike, applying a debuff for a short duration. If a non-unique enemy dies while affected by the debuff, the enemy's corpse will be consumed and a Sentinel of Dominance with the same rarity, prefix and suffix modifiers will be summoned for a longer secondary duration.",
@@ -3021,6 +3047,7 @@ skills["DominatingBlowAltX"] = {
 }
 skills["VaalDomination"] = {
 	name = "Vaal Domination",
+	baseTypeName = "Vaal Domination",
 	color = 1,
 	description = "This spell causes one of your existing Sentinels of Dominance to Ascend, becoming more powerful, gaining new attacks, and overriding its duration, while maintaining its monster modifiers and other bonuses, including from support gems. If you cannot have more Ascended Sentinels of Dominance, an existing one will be refreshed instead.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Minion] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, },
@@ -3100,6 +3127,7 @@ skills["VaalDomination"] = {
 }
 skills["PuresteelBanner"] = {
 	name = "Dread Banner",
+	baseTypeName = "Dread Banner",
 	color = 1,
 	description = "Casting once reserves mana to carry a banner which makes nearby allies inflict impale with attacks, and lessens the accuracy of nearby enemies. Gain stages by impaling enemies while carrying the banner. Casting the skill again places the banner, ending the mana reservation. Once placed, it becomes more powerful for each stage gained. You cannot have multiple banners at the same time.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.HasReservation] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.Physical] = true, [SkillType.Banner] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -3187,6 +3215,7 @@ skills["PuresteelBanner"] = {
 }
 skills["Earthquake"] = {
 	name = "Earthquake",
+	baseTypeName = "Earthquake",
 	color = 1,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -3294,6 +3323,7 @@ skills["Earthquake"] = {
 }
 skills["EarthquakeAltX"] = {
 	name = "Earthquake of Amplification",
+	baseTypeName = "Earthquake of Amplification",
 	color = 1,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -3401,6 +3431,7 @@ skills["EarthquakeAltX"] = {
 }
 skills["VaalEarthquake"] = {
 	name = "Vaal Earthquake",
+	baseTypeName = "Vaal Earthquake",
 	color = 1,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -3508,6 +3539,7 @@ skills["VaalEarthquake"] = {
 }
 skills["SpikeSlam"] = {
 	name = "Earthshatter",
+	baseTypeName = "Earthshatter",
 	color = 1,
 	description = "Slam the ground, sending out rectangular fissures that deal area damage to enemies and thrust a spike from the ground when they end. Warcries or other Slam Attacks performed by you or allied players near any spike will cause them to shatter, damaging surrounding enemies. Works with Maces, Sceptres, Axes, Staves and Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Slam] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, },
@@ -3540,6 +3572,9 @@ skills["SpikeSlam"] = {
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3567,6 +3602,7 @@ skills["SpikeSlam"] = {
 		"is_area_damage",
 		"quality_display_spike_slam_is_gem",
 		"quality_display_max_spikes_is_gem",
+		"quality_display_earthshatter_spike_damage_is_gem",
 	},
 	levels = {
 		[1] = { 0, attackSpeedMultiplier = -20, baseMultiplier = 1.25, damageEffectiveness = 1.25, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 8, }, },
@@ -3613,6 +3649,7 @@ skills["SpikeSlam"] = {
 }
 skills["SpikeSlamAltX"] = {
 	name = "Earthshatter of Fragility",
+	baseTypeName = "Earthshatter of Fragility",
 	color = 1,
 	description = "Slam the ground, sending out rectangular fissures that deal area damage to enemies and thrust a spike from the ground when they end. The spikes shatter after a duration, damaging surrounding enemies. Works with Maces, Sceptres, Axes, Staves and Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Slam] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, },
@@ -3642,6 +3679,9 @@ skills["SpikeSlamAltX"] = {
 		["spike_slam_spike_damage_+%_final"] = {
 			mod("Damage", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3669,6 +3709,7 @@ skills["SpikeSlamAltX"] = {
 		"is_area_damage",
 		"quality_display_spike_slam_is_gem",
 		"quality_display_max_spikes_is_gem",
+		"quality_display_earthshatter_spike_damage_is_gem",
 	},
 	levels = {
 		[1] = { 0, attackSpeedMultiplier = -20, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 8, }, },
@@ -3715,6 +3756,7 @@ skills["SpikeSlamAltX"] = {
 }
 skills["SpikeSlamAltY"] = {
 	name = "Earthshatter of Prominence",
+	baseTypeName = "Earthshatter of Prominence",
 	color = 1,
 	description = "Slam the ground, sending out a rectangular fissure that deals area damage to enemies and thrusts a large spike from the ground where it ends. Warcries or other Slam Attacks performed by you or allied players near the spike will cause it to shatter, damaging surrounding enemies. Works with Maces, Sceptres, Axes, Staves and Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Slam] = true, [SkillType.Multistrikeable] = true, [SkillType.Duration] = true, [SkillType.Totemable] = true, },
@@ -3744,6 +3786,9 @@ skills["SpikeSlamAltY"] = {
 		["earthshatter_spike_area_of_effect_+%_final"] = {
 			mod("AreaOfEffect", "MORE", nil, 0, 0, { type = "SkillPart", skillPart = 2 }),
 		},
+		["quality_display_earthshatter_spike_damage_is_gem"] = {
+			-- Display only
+		},
 	},
 	baseFlags = {
 		attack = true,
@@ -3768,7 +3813,9 @@ skills["SpikeSlamAltY"] = {
 	stats = {
 		"earthshatter_spike_area_of_effect_+%_final",
 		"is_area_damage",
+		"quality_display_spike_slam_is_gem",
 		"quality_display_max_spikes_is_gem",
+		"quality_display_earthshatter_spike_damage_is_gem",
 	},
 	levels = {
 		[1] = { 100, attackSpeedMultiplier = -20, baseMultiplier = 1.1, damageEffectiveness = 1.1, levelRequirement = 12, statInterpolation = { 1, }, cost = { Mana = 8, }, },
@@ -3815,6 +3862,7 @@ skills["SpikeSlamAltY"] = {
 }
 skills["EnduringCry"] = {
 	name = "Enduring Cry",
+	baseTypeName = "Enduring Cry",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Performs a warcry, taunting all nearby enemies to attack the user and granting endurance charges. Gives a brief burst of life regeneration, as well as a buff which grants resistances and physical damage reduction based on your endurance charges.",
@@ -3905,6 +3953,7 @@ skills["EnduringCry"] = {
 }
 skills["Exsanguinate"] = {
 	name = "Exsanguinate",
+	baseTypeName = "Exsanguinate",
 	color = 1,
 	baseEffectiveness = 1.5195000171661,
 	incrementalEffectiveness = 0.052499998360872,
@@ -3991,6 +4040,7 @@ skills["Exsanguinate"] = {
 }
 skills["ExsanguinateAltX"] = {
 	name = "Exsanguinate of Transmission",
+	baseTypeName = "Exsanguinate of Transmission",
 	color = 1,
 	baseEffectiveness = 1.5195000171661,
 	incrementalEffectiveness = 0.052499998360872,
@@ -4080,6 +4130,7 @@ skills["ExsanguinateAltX"] = {
 }
 skills["FlameLink"] = {
 	name = "Flame Link",
+	baseTypeName = "Flame Link",
 	color = 1,
 	baseEffectiveness = 0.52499997615814,
 	incrementalEffectiveness = 0.039000000804663,
@@ -4163,6 +4214,7 @@ skills["FlameLink"] = {
 }
 skills["BloodSandArmour"] = {
 	name = "Flesh and Stone",
+	baseTypeName = "Flesh and Stone",
 	color = 1,
 	description = "Casts an aura that affects you and nearby enemies differently depending on your stance. Using the skill again alternates between Blood Stance and Sand Stance.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Aura] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.Instant] = true, [SkillType.HasReservation] = true, [SkillType.AppliesMaim] = true, [SkillType.Area] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, [SkillType.Stance] = true, },
@@ -4242,6 +4294,7 @@ skills["BloodSandArmour"] = {
 }
 skills["FrozenLegion"] = {
 	name = "Frozen Legion",
+	baseTypeName = "Frozen Legion",
 	color = 1,
 	description = "This spell consumes multiple cooldown uses to summon icy Statues in a ring. Each Statue uses your Frozen Sweep attack once before vanishing. Requires an Axe, Mace, Sceptre, or Staff. This skill cannot be triggered, supported by Spell Echo or Unleash, or used by Totems, Traps, or Mines. ",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Cooldown] = true, [SkillType.Cold] = true, },
@@ -4314,6 +4367,7 @@ skills["FrozenLegion"] = {
 }
 skills["FrozenLegionAltX"] = {
 	name = "Frozen Legion of Rallying",
+	baseTypeName = "Frozen Legion of Rallying",
 	color = 1,
 	description = "This spell consumes multiple cooldown uses to summon icy Statues in a ring. Each Statue uses your Frozen Sweep attack once before vanishing. Requires an Axe, Mace, Sceptre, or Staff. This skill cannot be triggered, supported by Spell Echo or Unleash, or used by Totems, Traps, or Mines. ",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Cooldown] = true, [SkillType.Cold] = true, },
@@ -4386,6 +4440,7 @@ skills["FrozenLegionAltX"] = {
 }
 skills["FrozenSweep"] = {
 	name = "Frozen Sweep",
+	baseTypeName = "Frozen Sweep",
 	color = 1,
 	description = "This attack is used by your Statues to deal damage in an area around them while stepping forward. This skill cannot repeat and can only be used by Statues from Frozen Legion.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Cold] = true, [SkillType.NonRepeatable] = true, [SkillType.OtherThingUsesSkill] = true, [SkillType.OwnerCannotUse] = true, },
@@ -4507,7 +4562,8 @@ skills["FrozenSweep"] = {
 	},
 }
 skills["FrozenSweepAltX"] = {
-	name = "Frozen Legion of Rallying",
+	name = "Frozen Sweep",
+	baseTypeName = "Frozen Sweep",
 	color = 1,
 	description = "This attack is used by your Statues to deal damage in an area around them while stepping forward. This skill cannot repeat and can only be used by Statues from Frozen Legion.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Cold] = true, [SkillType.NonRepeatable] = true, [SkillType.OtherThingUsesSkill] = true, [SkillType.OwnerCannotUse] = true, },
@@ -4625,6 +4681,7 @@ skills["FrozenSweepAltX"] = {
 }
 skills["GeneralsCry"] = {
 	name = "General's Cry",
+	baseTypeName = "General's Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user, and summoning Mirage Warriors from nearby corpses. The Mirage Warriors each use a linked attack skill once before dissipating.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
@@ -4783,6 +4840,7 @@ skills["GeneralsCrySupport"] = {
 }
 skills["GlacialHammer"] = {
 	name = "Glacial Hammer",
+	baseTypeName = "Glacial Hammer",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -4870,6 +4928,7 @@ skills["GlacialHammer"] = {
 }
 skills["GlacialHammerAltX"] = {
 	name = "Glacial Hammer of Shattering",
+	baseTypeName = "Glacial Hammer of Shattering",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -4948,6 +5007,7 @@ skills["GlacialHammerAltX"] = {
 }
 skills["VaalGlacialHammer"] = {
 	name = "Vaal Glacial Hammer",
+	baseTypeName = "Vaal Glacial Hammer",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -5036,6 +5096,7 @@ skills["VaalGlacialHammer"] = {
 }
 skills["GroundSlam"] = {
 	name = "Ground Slam",
+	baseTypeName = "Ground Slam",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -5128,6 +5189,7 @@ skills["GroundSlam"] = {
 }
 skills["GroundSlamAltX"] = {
 	name = "Ground Slam of Earthshaking",
+	baseTypeName = "Ground Slam of Earthshaking",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -5216,6 +5278,7 @@ skills["GroundSlamAltX"] = {
 }
 skills["VaalGroundSlam"] = {
 	name = "Vaal Ground Slam",
+	baseTypeName = "Vaal Ground Slam",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -5314,6 +5377,7 @@ skills["VaalGroundSlam"] = {
 }
 skills["HeavyStrike"] = {
 	name = "Heavy Strike",
+	baseTypeName = "Heavy Strike",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Attacks enemies with a forceful blow, knocking them back. Requires a Mace, Sceptre, Axe, Sword or Two-Handed Weapon.",
@@ -5398,6 +5462,7 @@ skills["HeavyStrike"] = {
 }
 skills["HeraldOfAsh"] = {
 	name = "Herald of Ash",
+	baseTypeName = "Herald of Ash",
 	color = 1,
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.032699998468161,
@@ -5494,6 +5559,7 @@ skills["HeraldOfAsh"] = {
 }
 skills["HeraldOfPurity"] = {
 	name = "Herald of Purity",
+	baseTypeName = "Herald of Purity",
 	color = 1,
 	baseEffectiveness = 0.31700000166893,
 	incrementalEffectiveness = 0.01799999922514,
@@ -5581,6 +5647,7 @@ skills["HeraldOfPurity"] = {
 }
 skills["FlameTotem"] = {
 	name = "Holy Flame Totem",
+	baseTypeName = "Holy Flame Totem",
 	color = 1,
 	baseEffectiveness = 0.74919998645782,
 	incrementalEffectiveness = 0.032200001180172,
@@ -5667,6 +5734,7 @@ skills["FlameTotem"] = {
 }
 skills["FlameTotemAltX"] = {
 	name = "Holy Flame Totem of Ire",
+	baseTypeName = "Holy Flame Totem of Ire",
 	color = 1,
 	baseEffectiveness = 0.74919998645782,
 	incrementalEffectiveness = 0.032200001180172,
@@ -5750,6 +5818,7 @@ skills["FlameTotemAltX"] = {
 }
 skills["IceCrash"] = {
 	name = "Ice Crash",
+	baseTypeName = "Ice Crash",
 	color = 1,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -5864,6 +5933,7 @@ skills["IceCrash"] = {
 }
 skills["IceCrashAltX"] = {
 	name = "Ice Crash of Cadence",
+	baseTypeName = "Ice Crash of Cadence",
 	color = 1,
 	baseEffectiveness = 1.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -5951,6 +6021,7 @@ skills["IceCrashAltX"] = {
 }
 skills["ImmortalCall"] = {
 	name = "Immortal Call",
+	baseTypeName = "Immortal Call",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Take less Physical and Elemental Damage for a short time. Consumes up to 5 Endurance Charges to lengthen the buff and further lessen Physical Damage taken. Shares a cooldown with other Guard skills.",
@@ -6038,6 +6109,7 @@ skills["ImmortalCall"] = {
 }
 skills["VaalImmortalCall"] = {
 	name = "Vaal Immortal Call",
+	baseTypeName = "Vaal Immortal Call",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Discharges Endurance Charges, making the character unable to die or gain Vaal souls for a short time, proportional to how many endurance charges were expended.",
@@ -6111,6 +6183,7 @@ skills["VaalImmortalCall"] = {
 }
 skills["AbyssalCry"] = {
 	name = "Infernal Cry",
+	baseTypeName = "Infernal Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Covers enemies in ash, causing them to move slower and take increased fire damage. Affected enemies explode when they die, dealing fire damage in an area.",
 	skillTypes = { [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Fire] = true, [SkillType.Damage] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
@@ -6205,6 +6278,7 @@ skills["AbyssalCry"] = {
 }
 skills["InfernalBlow"] = {
 	name = "Infernal Blow",
+	baseTypeName = "Infernal Blow",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -6336,6 +6410,7 @@ skills["InfernalBlow"] = {
 }
 skills["InfernalBlowAltX"] = {
 	name = "Infernal Blow of Immolation",
+	baseTypeName = "Infernal Blow of Immolation",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -6457,6 +6532,7 @@ skills["InfernalBlowAltX"] = {
 }
 skills["IntimidatingCry"] = {
 	name = "Intimidating Cry",
+	baseTypeName = "Intimidating Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Grants a buff which lowers the effect of enemy physical damage reduction against your hits.",
 	skillTypes = { [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, [SkillType.Physical] = true, },
@@ -6546,6 +6622,7 @@ skills["IntimidatingCry"] = {
 }
 skills["LeapSlam"] = {
 	name = "Leap Slam",
+	baseTypeName = "Leap Slam",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
@@ -6628,6 +6705,7 @@ skills["LeapSlam"] = {
 }
 skills["LeapSlamAltX"] = {
 	name = "Leap Slam of Groundbreaking",
+	baseTypeName = "Leap Slam of Groundbreaking",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Jump a short distance through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
@@ -6709,6 +6787,7 @@ skills["LeapSlamAltX"] = {
 }
 skills["MoltenShell"] = {
 	name = "Molten Shell",
+	baseTypeName = "Molten Shell",
 	color = 1,
 	baseEffectiveness = 9.6499996185303,
 	incrementalEffectiveness = 0.016499999910593,
@@ -6812,6 +6891,7 @@ skills["MoltenShell"] = {
 }
 skills["VaalMoltenShell"] = {
 	name = "Vaal Molten Shell",
+	baseTypeName = "Vaal Molten Shell",
 	color = 1,
 	baseEffectiveness = 9.6499996185303,
 	incrementalEffectiveness = 0.016499999910593,
@@ -6913,6 +6993,7 @@ skills["VaalMoltenShell"] = {
 }
 skills["MoltenStrike"] = {
 	name = "Molten Strike",
+	baseTypeName = "Molten Strike",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7030,6 +7111,7 @@ skills["MoltenStrike"] = {
 }
 skills["MoltenStrikeAltX"] = {
 	name = "Molten Strike of the Zenith",
+	baseTypeName = "Molten Strike of the Zenith",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7152,6 +7234,7 @@ skills["MoltenStrikeAltX"] = {
 }
 skills["VaalMoltenStrike"] = {
 	name = "Vaal Molten Strike",
+	baseTypeName = "Vaal Molten Strike",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7276,6 +7359,7 @@ skills["VaalMoltenStrike"] = {
 }
 skills["BloodSpears"] = {
 	name = "Perforate",
+	baseTypeName = "Perforate",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7377,6 +7461,7 @@ skills["BloodSpears"] = {
 }
 skills["BloodSpearsAltX"] = {
 	name = "Perforate of Duality",
+	baseTypeName = "Perforate of Duality",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7482,6 +7567,7 @@ skills["BloodSpearsAltX"] = {
 }
 skills["BloodSpearsAltY"] = {
 	name = "Perforate of Bloodshed",
+	baseTypeName = "Perforate of Bloodshed",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -7580,6 +7666,7 @@ skills["BloodSpearsAltY"] = {
 }
 skills["PetrifiedBlood"] = {
 	name = "Petrified Blood",
+	baseTypeName = "Petrified Blood",
 	color = 1,
 	description = "Applies a buff that protects the lower half of your life, preventing some of the immediate life loss when damaged by hits and applying the loss over time instead. Your life cannot be raised above low life other than by flasks, and while above low life, skills will cost life as well as mana.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.HasReservation] = true, [SkillType.Cooldown] = true, },
@@ -7659,6 +7746,7 @@ skills["PetrifiedBlood"] = {
 }
 skills["PhysicalDamageAura"] = {
 	name = "Pride",
+	baseTypeName = "Pride",
 	color = 1,
 	description = "Casts an aura that causes nearby enemies to take more physical damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.Physical] = true, [SkillType.AuraAffectsEnemies] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -7736,6 +7824,7 @@ skills["PhysicalDamageAura"] = {
 }
 skills["ProtectiveLink"] = {
 	name = "Protective Link",
+	baseTypeName = "Protective Link",
 	color = 1,
 	description = "Targets an allied player to apply a buff which links you to them for a duration. While linked, they copy your block chance and recover life when they block. If the target dies while linked, you will also die. This skill cannot be triggered, or used by Totems, Traps, or Mines.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Duration] = true, [SkillType.Link] = true, },
@@ -7811,6 +7900,7 @@ skills["ProtectiveLink"] = {
 }
 skills["Punishment"] = {
 	name = "Punishment",
+	baseTypeName = "Punishment",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Curses all targets in an area, causing them to be debilitated when they hit enemies and increasing damage they take while on low life.",
@@ -7894,6 +7984,7 @@ skills["Punishment"] = {
 }
 skills["FireResistAura"] = {
 	name = "Purity of Fire",
+	baseTypeName = "Purity of Fire",
 	color = 1,
 	description = "Casts an aura that grants fire resistance to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Fire] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -7971,6 +8062,7 @@ skills["FireResistAura"] = {
 }
 skills["FireImpurity"] = {
 	name = "Vaal Impurity of Fire",
+	baseTypeName = "Vaal Impurity of Fire",
 	color = 1,
 	description = "Casts an aura that reduces fire damage taken and provides ignite immunity to you and nearby allies, and makes hits against nearby enemies ignore their fire resistance. ",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Totemable] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Duration] = true, [SkillType.Vaal] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.Fire] = true, [SkillType.Instant] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -8055,6 +8147,7 @@ skills["FireImpurity"] = {
 }
 skills["RageVortex"] = {
 	name = "Rage Vortex",
+	baseTypeName = "Rage Vortex",
 	color = 1,
 	description = "Spin with a sword or axe to deal damage in an area around you. Sacrifices some rage to send a ragestorm forward. While enemies are inside it, the ragestorm will slow its movement and repeatedly deal attack damage based on your attack speed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Multistrikeable] = true, },
@@ -8172,6 +8265,7 @@ skills["RageVortex"] = {
 }
 skills["RageVortexAltX"] = {
 	name = "Rage Vortex of Berserking",
+	baseTypeName = "Rage Vortex of Berserking",
 	color = 1,
 	description = "Spin with a sword or axe to deal damage in an area around you. If you have at least 10 rage, create a ragestorm attached to you that repeatedly deals attack damage to enemies inside based on your attack speed. The ragestorm consumes rage at an accelerating rate, and ends if you run out.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, },
@@ -8265,6 +8359,7 @@ skills["RageVortexAltX"] = {
 }
 skills["RallyingCry"] = {
 	name = "Rallying Cry",
+	baseTypeName = "Rallying Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent attacks. Gives nearby Allies a buff based on the damage of your weapon.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
@@ -8362,6 +8457,7 @@ skills["RallyingCry"] = {
 }
 skills["Reckoning"] = {
 	name = "Reckoning",
+	baseTypeName = "Reckoning",
 	color = 1,
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -8448,6 +8544,7 @@ skills["Reckoning"] = {
 }
 skills["RejuvenationTotem"] = {
 	name = "Rejuvenation Totem",
+	baseTypeName = "Rejuvenation Totem",
 	color = 1,
 	description = "Summons a totem that has an aura which regenerates life for you and your nearby allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.TotemCastsWhenNotDetached] = true, },
@@ -8531,6 +8628,7 @@ skills["RejuvenationTotem"] = {
 }
 skills["VaalRejuvenationTotem"] = {
 	name = "Vaal Rejuvenation Totem",
+	baseTypeName = "Vaal Rejuvenation Totem",
 	color = 1,
 	description = "Summons a totem that has an aura which regenerates life for you and your nearby allies. When things affected by the aura are hit, the totem's life is removed instead for some of the damage.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Trappable] = true, [SkillType.Mineable] = true, [SkillType.SummonsTotem] = true, [SkillType.Aura] = true, [SkillType.AreaSpell] = true, [SkillType.TotemCastsWhenNotDetached] = true, [SkillType.Vaal] = true, },
@@ -8623,6 +8721,7 @@ skills["VaalRejuvenationTotem"] = {
 }
 skills["SearingBond"] = {
 	name = "Searing Bond",
+	baseTypeName = "Searing Bond",
 	color = 1,
 	baseEffectiveness = 7.5956997871399,
 	incrementalEffectiveness = 0.062199998646975,
@@ -8697,6 +8796,7 @@ skills["SearingBond"] = {
 }
 skills["SeismicCry"] = {
 	name = "Seismic Cry",
+	baseTypeName = "Seismic Cry",
 	color = 1,
 	description = "Performs a warcry, taunting nearby enemies to attack the user and exerting subsequent slam attacks. Grants a buff which makes it easier for you to stun enemies.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Warcry] = true, [SkillType.Cooldown] = true, },
@@ -8791,6 +8891,7 @@ skills["SeismicCry"] = {
 }
 skills["NewShieldCharge"] = {
 	name = "Shield Charge",
+	baseTypeName = "Shield Charge",
 	color = 1,
 	baseEffectiveness = 1.7799999713898,
 	incrementalEffectiveness = 0.017300000414252,
@@ -8877,6 +8978,7 @@ skills["NewShieldCharge"] = {
 }
 skills["ShieldCrush"] = {
 	name = "Shield Crush",
+	baseTypeName = "Shield Crush",
 	color = 1,
 	baseEffectiveness = 1.2081999778748,
 	incrementalEffectiveness = 0.026799999177456,
@@ -8967,6 +9069,7 @@ skills["ShieldCrush"] = {
 }
 skills["ShieldCrushAltX"] = {
 	name = "Shield Crush of the Chieftain",
+	baseTypeName = "Shield Crush of the Chieftain",
 	color = 1,
 	baseEffectiveness = 1.5599999427795,
 	incrementalEffectiveness = 0.026799999177456,
@@ -9057,6 +9160,7 @@ skills["ShieldCrushAltX"] = {
 }
 skills["ShockwaveTotem"] = {
 	name = "Shockwave Totem",
+	baseTypeName = "Shockwave Totem",
 	color = 1,
 	baseEffectiveness = 1.0778000354767,
 	incrementalEffectiveness = 0.043600000441074,
@@ -9134,6 +9238,7 @@ skills["ShockwaveTotem"] = {
 }
 skills["Smite"] = {
 	name = "Smite",
+	baseTypeName = "Smite",
 	color = 1,
 	baseEffectiveness = 0.60000002384186,
 	incrementalEffectiveness = 0.028000000864267,
@@ -9259,6 +9364,7 @@ skills["Smite"] = {
 }
 skills["SmiteAltX"] = {
 	name = "Smite of Divine Judgement",
+	baseTypeName = "Smite of Divine Judgement",
 	color = 1,
 	description = "Performs a melee attack, and causes lightning to strike nearby enemies, dealing damage in an area. Each target can only be hit once by this skill. Requires a Sword, Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Melee] = true, [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Damage] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Lightning] = true, },
@@ -9355,6 +9461,7 @@ skills["SmiteAltX"] = {
 }
 skills["VaalSmite"] = {
 	name = "Vaal Smite",
+	baseTypeName = "Vaal Smite",
 	color = 1,
 	baseEffectiveness = 0.89999997615814,
 	incrementalEffectiveness = 0.028000000864267,
@@ -9480,6 +9587,7 @@ skills["VaalSmite"] = {
 }
 skills["StaticStrike"] = {
 	name = "Static Strike",
+	baseTypeName = "Static Strike",
 	color = 1,
 	description = "Attack with a melee weapon, gaining static energy for a duration if you hit an enemy. While you have static energy, you'll frequently hit a number of nearby enemies with beams, dealing attack damage.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Area] = true, [SkillType.Duration] = true, [SkillType.Lightning] = true, [SkillType.Chains] = true, },
@@ -9593,6 +9701,7 @@ skills["StaticStrike"] = {
 }
 skills["QuickGuard"] = {
 	name = "Steelskin",
+	baseTypeName = "Steelskin",
 	color = 1,
 	baseEffectiveness = 10,
 	incrementalEffectiveness = 0.029999999329448,
@@ -9675,6 +9784,7 @@ skills["QuickGuard"] = {
 }
 skills["Bloodreap"] = {
 	name = "Reap",
+	baseTypeName = "Reap",
 	color = 1,
 	baseEffectiveness = 1.405699968338,
 	incrementalEffectiveness = 0.05009999871254,
@@ -9771,6 +9881,7 @@ skills["Bloodreap"] = {
 }
 skills["VaalReap"] = {
 	name = "Vaal Reap",
+	baseTypeName = "Vaal Reap",
 	color = 1,
 	baseEffectiveness = 2.811399936676,
 	incrementalEffectiveness = 0.05009999871254,
@@ -9866,6 +9977,7 @@ skills["VaalReap"] = {
 }
 skills["SummonFireGolem"] = {
 	name = "Summon Flame Golem",
+	baseTypeName = "Summon Flame Golem",
 	color = 1,
 	description = "Summons a Flame Golem that grants you increased Damage. The Flame Golem can cast a fire spray, a wave of fire damage, and an explosive arcing projectile.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -9950,6 +10062,7 @@ skills["SummonFireGolem"] = {
 }
 skills["SummonFireGolemAltX"] = {
 	name = "Summon Flame Golem of Hordes",
+	baseTypeName = "Summon Flame Golem of Hordes",
 	color = 1,
 	description = "Summons a Flame Golem. The Flame Golem can cast a fire spray, a wave of fire damage, and an explosive arcing projectile.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -10029,6 +10142,7 @@ skills["SummonFireGolemAltX"] = {
 }
 skills["SummonFireGolemAltY"] = {
 	name = "Summon Flame Golem of the Meteor",
+	baseTypeName = "Summon Flame Golem of the Meteor",
 	color = 1,
 	description = "Summons a Flame Golem. When summoned, the Flame Golem attacks by falling from the sky, dealing fire damage in an area and leaving burning ground around the impact. After landing, it can cast a fire spray and a wave of fire damage.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Fire] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -10111,6 +10225,7 @@ skills["SummonFireGolemAltY"] = {
 }
 skills["SummonRockGolem"] = {
 	name = "Summon Stone Golem",
+	baseTypeName = "Summon Stone Golem",
 	color = 1,
 	description = "Summons a Stone Golem that grants you life regeneration. In addition to its melee attack, the Stone Golem uses a rolling charge and a powerful slam that can taunt enemies.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.Physical] = true, [SkillType.CreatesMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -10196,6 +10311,7 @@ skills["SummonRockGolem"] = {
 }
 skills["SummonRockGolemAltX"] = {
 	name = "Summon Stone Golem of Hordes",
+	baseTypeName = "Summon Stone Golem of Hordes",
 	color = 1,
 	description = "Summons a Stone Golem. In addition to its melee attack, the Stone Golem uses a rolling charge and a powerful slam that can taunt enemies.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.Physical] = true, [SkillType.CreatesMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -10275,6 +10391,7 @@ skills["SummonRockGolemAltX"] = {
 }
 skills["SummonRockGolemAltY"] = {
 	name = "Summon Stone Golem of Safeguarding",
+	baseTypeName = "Summon Stone Golem of Safeguarding",
 	color = 1,
 	description = "Summons a Stone Golem that takes a portion of the melee damage you recieve from enemy hits from its life before yours. In addition to its melee attack, the Stone Golem uses a rolling charge and a powerful slam that can taunt enemies.",
 	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Mineable] = true, [SkillType.Minion] = true, [SkillType.MinionsCanExplode] = true, [SkillType.Multicastable] = true, [SkillType.Spell] = true, [SkillType.Totemable] = true, [SkillType.Trappable] = true, [SkillType.Golem] = true, [SkillType.Physical] = true, [SkillType.CreatesMinion] = true, [SkillType.CreatesMinion] = true, [SkillType.Cooldown] = true, },
@@ -10356,6 +10473,7 @@ skills["SummonRockGolemAltY"] = {
 }
 skills["NewSunder"] = {
 	name = "Sunder",
+	baseTypeName = "Sunder",
 	color = 1,
 	description = "Slams the ground, creating a slow wave of churning terrain that damages enemies in a sequence of areas in front of you. A number of enemies hit by the wave will release a shockwave, damaging other enemies around them. Using the skill again will stop the previous wave. Requires a Mace, Sceptre, Axe, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
@@ -10465,6 +10583,7 @@ skills["NewSunder"] = {
 }
 skills["NewSunderAltX"] = {
 	name = "Sunder of Earthbreaking",
+	baseTypeName = "Sunder of Earthbreaking",
 	color = 1,
 	description = "Slams the ground, creating a wave of churning terrain that damages enemies in a sequence of areas in front of you. A number of enemies hit by the wave will release a shockwave, damaging other enemies around them. Requires a Mace, Sceptre, Axe, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
@@ -10565,6 +10684,7 @@ skills["NewSunderAltX"] = {
 }
 skills["Sweep"] = {
 	name = "Sweep",
+	baseTypeName = "Sweep",
 	color = 1,
 	baseEffectiveness = 0.6700000166893,
 	incrementalEffectiveness = 0.023299999535084,
@@ -10644,6 +10764,7 @@ skills["Sweep"] = {
 }
 skills["EnduranceChargeSlam"] = {
 	name = "Tectonic Slam",
+	baseTypeName = "Tectonic Slam",
 	color = 1,
 	description = "Slam the ground, unleashing a fiery fissure in front of you, dealing area damage and randomly releasing a number of smaller fissures branching off from it. Consume an Endurance Charge every third time you slam the ground with this skill. Requires a Mace, Sceptre, Sword, Axe, Staff, or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Fire] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
@@ -10733,6 +10854,7 @@ skills["EnduranceChargeSlam"] = {
 }
 skills["EnduranceChargeSlamAltX"] = {
 	name = "Tectonic Slam of Cataclysm",
+	baseTypeName = "Tectonic Slam of Cataclysm",
 	color = 1,
 	description = "Slam the ground, consuming all Endurance Charges and unleashing a fiery fissure in front of you, dealing area damage and randomly releasing a number of smaller fissures branching off from it. Requires a Mace, Sceptre, Sword, Axe, Staff, or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Multistrikeable] = true, [SkillType.Melee] = true, [SkillType.Fire] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
@@ -10833,6 +10955,7 @@ skills["EnduranceChargeSlamAltX"] = {
 }
 skills["Vengeance"] = {
 	name = "Vengeance",
+	baseTypeName = "Vengeance",
 	color = 1,
 	baseEffectiveness = 0.5,
 	incrementalEffectiveness = 0.023299999535084,
@@ -10918,6 +11041,7 @@ skills["Vengeance"] = {
 }
 skills["VigilantStrike"] = {
 	name = "Vigilant Strike",
+	baseTypeName = "Vigilant Strike",
 	color = 1,
 	description = "Attacks enemies with a powerful melee strike which grants Fortification, reducing damage you take from hits. The cooldown can be bypassed by expending an Endurance Charge. Requires a Melee Weapon.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Buff] = true, [SkillType.Melee] = true, [SkillType.Multistrikeable] = true, [SkillType.MeleeSingleTarget] = true, [SkillType.ThresholdJewelArea] = true, [SkillType.Cooldown] = true, },
@@ -10996,6 +11120,7 @@ skills["VigilantStrike"] = {
 }
 skills["Vitality"] = {
 	name = "Vitality",
+	baseTypeName = "Vitality",
 	color = 1,
 	description = "Casts an aura that grants life regeneration to you and your allies.",
 	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.CanHaveBlessing] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
@@ -11070,6 +11195,7 @@ skills["Vitality"] = {
 }
 skills["VolcanicFissure"] = {
 	name = "Volcanic Fissure",
+	baseTypeName = "Volcanic Fissure",
 	color = 1,
 	description = "Slam the ground, creating a winding fissure that deals area damage while travelling outwards. When it reaches the target location it erupts, releasing a burst of molten projectiles. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Slam] = true, [SkillType.Fire] = true, [SkillType.Multistrikeable] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Totemable] = true, },
@@ -11172,6 +11298,7 @@ skills["VolcanicFissure"] = {
 }
 skills["VolcanicFissureAltX"] = {
 	name = "Volcanic Fissure of Snaking",
+	baseTypeName = "Volcanic Fissure of Snaking",
 	color = 1,
 	description = "Slam the ground, creating a winding fissure that deals area damage while travelling outwards. When it reaches the target location it erupts dealing damage in an area. After erupting, the fissure continues moving towards enemies to cause further eruptions. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Slam] = true, [SkillType.Fire] = true, [SkillType.Multistrikeable] = true, [SkillType.Totemable] = true, },
@@ -11250,6 +11377,7 @@ skills["VolcanicFissureAltX"] = {
 }
 skills["VaalVolcanicFissure"] = {
 	name = "Vaal Volcanic Fissure",
+	baseTypeName = "Vaal Volcanic Fissure",
 	color = 1,
 	description = "Slam the ground, creating a winding fissure that deals area damage while travelling outwards. When it reaches the target location it erupts, releasing a burst of molten projectiles. After erupting, the fissure continues moving towards enemies to cause further eruptions. Requires an Axe, Mace, Sceptre, Staff or Unarmed.",
 	skillTypes = { [SkillType.Attack] = true, [SkillType.Projectile] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Slam] = true, [SkillType.Fire] = true, [SkillType.RangedAttack] = true, [SkillType.ProjectilesNotFromUser] = true, [SkillType.Totemable] = true, [SkillType.Vaal] = true, },
@@ -11349,6 +11477,7 @@ skills["VaalVolcanicFissure"] = {
 }
 skills["Vulnerability"] = {
 	name = "Vulnerability",
+	baseTypeName = "Vulnerability",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Curse all targets in an area, causing them to take increased physical damage. Attacks against the cursed enemies have a chance to inflict bleeding.",
@@ -11436,6 +11565,7 @@ skills["Vulnerability"] = {
 }
 skills["WarlordsMark"] = {
 	name = "Warlord's Mark",
+	baseTypeName = "Warlord's Mark",
 	color = 1,
 	baseEffectiveness = 0,
 	description = "Curses a single enemy, giving a chance to double the duration of stuns on them. Attacking the cursed enemy will leech life and mana, stunning them will grant rage, and killing it will grant an endurance charge. You can only have one Mark at a time.",
@@ -11525,6 +11655,7 @@ skills["WarlordsMark"] = {
 }
 skills["BloodstainedBanner"] = {
 	name = "War Banner",
+	baseTypeName = "War Banner",
 	color = 1,
 	description = "Casting once reserves mana to carry a banner which increases the accuracy of nearby allies, and physical damage taken by nearby enemies. Gain stages by killing enemies while carrying the banner. Casting the skill again places the banner, ending the mana reservation. Once placed, it becomes more powerful for each stage gained. You cannot have multiple banners at the same time.",
 	skillTypes = { [SkillType.Buff] = true, [SkillType.Area] = true, [SkillType.Spell] = true, [SkillType.Duration] = true, [SkillType.HasReservation] = true, [SkillType.Aura] = true, [SkillType.Instant] = true, [SkillType.AreaSpell] = true, [SkillType.AuraDuration] = true, [SkillType.Physical] = true, [SkillType.Banner] = true, [SkillType.InstantNoRepeatWhenHeld] = true, [SkillType.InstantShiftAttackForLeftMouse] = true, [SkillType.Cooldown] = true, },
