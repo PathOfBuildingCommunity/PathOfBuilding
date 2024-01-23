@@ -10328,3 +10328,221 @@ skills["AzmeriDemonPhysicalDamageAura"] = {
 		[2] = { 25, 50, storedUses = 1, levelRequirement = 80, cooldown = 5, statInterpolation = { 2, 2, }, },
 	},
 }
+skills["EmptyActionAttackAzmeriGolemVSlam"] = {
+	name = "Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.17,
+	baseFlags = {
+		attack = true,
+	},
+	constantStats = {
+		{ "main_hand_base_maximum_attack_distance", 50 },
+		{ "active_skill_attack_speed_+%_final", -25 },
+	},
+	stats = {
+		"skill_cannot_be_stunned",
+		"skill_cannot_be_knocked_back",
+		"skill_cannot_be_interrupted",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 0, cooldown = 15, },
+	},
+}
+skills["AzmeriGolemVTurretProjectile"] = {
+	name = "Turret Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 2,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "number_of_projectiles_override", 1 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriGuardian4Slam"] = {
+	name = "Unpowered Slam",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	constantStats = {
+		{ "active_skill_damage_+%_final", 85 },
+		{ "active_skill_attack_speed_+%_final", -25 },
+	},
+	stats = {
+		"is_area_damage",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["AzmeriGuardian4BeamGun"] = {
+	name = "Spinning Beam",
+	hidden = true,
+	color = 4,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"is_area_damage",
+		"cannot_stun",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriGolemLeapSlam"] = {
+	name = "Leap Slam",
+	hidden = true,
+	color = 4,
+	description = "Jump through the air, damaging and knocking back enemies with your weapon where you land. Enemies you would land on are pushed out of the way. Requires an Axe, Mace, Sceptre, Sword or Staff. Cannot be supported by Multistrike.",
+	skillTypes = { [SkillType.Attack] = true, [SkillType.Area] = true, [SkillType.Melee] = true, [SkillType.Movement] = true, [SkillType.Travel] = true, [SkillType.Slam] = true, [SkillType.Totemable] = true, },
+	weaponTypes = {
+		["One Handed Mace"] = true,
+		["Sceptre"] = true,
+		["Thrusting One Handed Sword"] = true,
+		["Two Handed Sword"] = true,
+		["Staff"] = true,
+		["Two Handed Axe"] = true,
+		["Two Handed Mace"] = true,
+		["One Handed Axe"] = true,
+		["One Handed Sword"] = true,
+	},
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.33,
+	baseFlags = {
+		attack = true,
+		area = true,
+		melee = true,
+		movement = true,
+		Leap = true,
+		Slam = true,
+	},
+	constantStats = {
+		{ "active_skill_damage_+%_final", 100 },
+		{ "active_skill_area_of_effect_radius_+%_final", 75 },
+		{ "active_skill_base_area_of_effect_radius", 15 },
+	},
+	stats = {
+		"is_area_damage",
+		"action_attack_or_cast_time_uses_animation_length",
+	},
+	levels = {
+		[1] = { storedUses = 1, levelRequirement = 1, cooldown = 7, },
+	},
+}
+skills["AzmeriGolemBossWhipLeft"] = {
+	name = "Turn Attack",
+	hidden = true,
+	color = 4,
+	skillTypes = { [SkillType.Triggerable] = true, [SkillType.Attack] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		attack = true,
+		area = true,
+	},
+	constantStats = {
+		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+		{ "active_skill_damage_+%_final", 120 },
+		{ "active_skill_attack_speed_+%_final", -25 },
+	},
+	stats = {
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { levelRequirement = 0, },
+	},
+}
+skills["AzmeriBossShockRifleSingle"] = {
+	name = "Lightning Beam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 0.40000000596046,
+	incrementalEffectiveness = 0.03999999910593,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.Damage] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 2.5,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		area = true,
+	},
+	constantStats = {
+		{ "base_projectile_speed_+%", 50 },
+		{ "skill_physical_damage_%_to_convert_to_lightning", 50 },
+		{ "active_skill_projectile_damage_+%_final", 625 },
+	},
+	stats = {
+		"spell_minimum_base_physical_damage",
+		"spell_maximum_base_physical_damage",
+		"projectile_uses_contact_position",
+		"is_area_damage",
+		"skill_cannot_be_interrupted",
+		"skill_cannot_be_stunned",
+		"base_is_projectile",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, storedUses = 1, levelRequirement = 0, cooldown = 6, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriGolemRotateZap"] = {
+	name = "Spinning Zap",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5,
+	incrementalEffectiveness = 0.050000000745058,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+		"cannot_stun",
+	},
+	levels = {
+		[1] = { 0.80000001192093, 1.2000000476837, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}

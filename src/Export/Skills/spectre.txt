@@ -2134,3 +2134,35 @@ skills["DarkMarionetteExplodePerfect"] = {
 	},
 #baseMod skill("radius", 40)
 #mods
+
+#skill EmptyActionAttackAzmeriGolemVSlam Slam
+#flags attack
+#mods
+
+#skill AzmeriGolemVTurretProjectile Turret Projectile
+#flags spell projectile hit
+#mods
+
+#skill AzmeriGuardian4Slam Unpowered Slam
+#flags attack area
+#mods
+
+#skill AzmeriGuardian4BeamGun Spinning Beam
+#flags spell area hit
+#mods
+
+#skill AzmeriGolemLeapSlam
+#flags attack area melee movement Leap Slam
+#mods
+
+#skill AzmeriGolemBossWhipLeft Turn Attack
+#flags attack area
+#mods
+
+#skill AzmeriBossShockRifleSingle Lightning Beam
+#flags spell projectile area
+#mods
+
+#skill AzmeriGolemRotateZap Spinning Zap
+#flags spell area hit
+#mods

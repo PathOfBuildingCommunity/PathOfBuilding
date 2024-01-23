@@ -423,3 +423,9 @@ local minions, mod, flag = ...
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossLow
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossMid
 #spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/DemonBossHigh
+-- Half-remembered Goliath
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemMid
+#monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/SynthesisGolemHigh
+#mod mod("PlayerModifier", "LIST", { mod = mod("Duration", "INC", 20, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "HalfRememberedGoliath", unscaleable = true })})
+#emit

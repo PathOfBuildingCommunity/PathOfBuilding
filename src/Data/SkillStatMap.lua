@@ -1238,6 +1238,9 @@ return {
 ["offering_spells_effect_+%"] = {
 	mod("BuffEffect", "INC", nil),
 },
+["link_buff_effect_on_self_+%"] = {
+	mod("LinkEffectOnSelf", "INC", nil),
+},
 -- Projectiles
 ["base_projectile_speed_+%"] = {
 	mod("ProjectileSpeed", "INC", nil),
