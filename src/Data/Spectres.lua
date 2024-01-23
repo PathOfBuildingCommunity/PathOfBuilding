@@ -5941,3 +5941,85 @@ minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh"] = {
 		mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 40, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Meatsack", unscaleable = true })}),
 	},
 }
+-- Eldritch Eye
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow"] = {
+	name = "Imperfect Eldritch Eye",
+	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.5,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"ElderTentacleMinionProjectile",
+		"ElderTentacleMinionProjectileEpic",
+		"GSAzmeriTentacleMonsterChannel",
+		"GSAzmeriTentacleMonsterBeam",
+		"ABTTAzmeriTentacleMinionStormBarrier",
+	},
+	modList = {
+		mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid"] = {
+	name = "Eldritch Eye",
+	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.5,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"ElderTentacleMinionProjectile",
+		"ElderTentacleMinionProjectileEpic",
+		"GSAzmeriTentacleMonsterChannel",
+		"GSAzmeriTentacleMonsterBeam",
+		"ABTTAzmeriTentacleMinionStormBarrier",
+		"GSAzmeriTentacleMonsterShockExplode",
+	},
+	modList = {
+		mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
+	},
+}
+minions["Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh"] = {
+	name = "Perfect Eldritch Eye",
+	monsterTags = { "caster", "construct", "elder_monster", "eldritch", "extra_large_height", "flesh_armour", "influence_monster", "is_unarmed", "lightning_affinity", "medium_movement", "not_dex", "not_str", "ranged", "red_blood", },
+	baseDamageIgnoresAttackSpeed = true,
+	life = 1.5,
+	energyShield = 0.2,
+	fireResist = 0,
+	coldResist = 0,
+	lightningResist = 40,
+	chaosResist = 0,
+	damage = 1.25,
+	damageSpread = 0.2,
+	attackTime = 1.5,
+	attackRange = 9,
+	accuracy = 1,
+	skillList = {
+		"ElderTentacleMinionProjectile",
+		"ElderTentacleMinionProjectileEpic",
+		"GSAzmeriTentacleMonsterChannel",
+		"GSAzmeriTentacleMonsterBeam",
+		"ABTTAzmeriTentacleMinionStormBarrier",
+		"GSAzmeriTentacleMonsterShockExplode",
+		"AzmeriTentacleMinionLightningResistAura",
+	},
+	modList = {
+		mod("LightningCannotShock", "FLAG", 1, 0, 0), -- MonsterCannotShock [lightning_damage_cannot_shock = 1]
+	},
+}

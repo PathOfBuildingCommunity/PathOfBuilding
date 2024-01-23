@@ -9206,3 +9206,137 @@ skills["AzmeriZombieCausticGroundWhenHit"] = {
 		[1] = { 50.000001117587, storedUses = 1, levelRequirement = 1, cooldown = 4, statInterpolation = { 3, }, },
 	},
 }
+skills["ElderTentacleMinionProjectile"] = {
+	name = "Projectile",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 3.75,
+	incrementalEffectiveness = 0.029999999329448,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1.17,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 44 },
+		{ "skill_visual_scale_+%", 50 },
+		{ "base_chance_to_shock_%", 60 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["ElderTentacleMinionProjectileEpic"] = {
+	name = "Projectile Large",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 6.5,
+	incrementalEffectiveness = 0.051249999552965,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Projectile] = true, [SkillType.ProjectilesFromUser] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 3,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+	},
+	constantStats = {
+		{ "monster_projectile_variation", 48 },
+		{ "skill_visual_scale_+%", 100 },
+		{ "base_chance_to_shock_%", 100 },
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"base_is_projectile",
+		"projectile_uses_contact_position",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, storedUses = 1, levelRequirement = 68, cooldown = 5, statInterpolation = { 3, 3, }, },
+		[2] = { 0.5, 1.5, critChance = 5, storedUses = 1, levelRequirement = 82, cooldown = 5, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSAzmeriTentacleMonsterBeam"] = {
+	name = "Beam",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 1.5,
+	incrementalEffectiveness = 0.033500000834465,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		projectile = true,
+		hit = true,
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, levelRequirement = 0, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["GSAzmeriTentacleMonsterShockExplode"] = {
+	name = "Shock Explode",
+	hidden = true,
+	color = 4,
+	baseEffectiveness = 4,
+	incrementalEffectiveness = 0.037500001490116,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Triggerable] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	baseFlags = {
+		spell = true,
+		area = true,
+		hit = true,
+	},
+	stats = {
+		"spell_minimum_base_lightning_damage",
+		"spell_maximum_base_lightning_damage",
+		"is_area_damage",
+	},
+	levels = {
+		[1] = { 0.5, 1.5, critChance = 5, storedUses = 1, levelRequirement = 0, cooldown = 0.1, statInterpolation = { 3, 3, }, },
+	},
+}
+skills["AzmeriTentacleMinionLightningResistAura"] = {
+	name = "Purity of Lightning",
+	hidden = true,
+	color = 3,
+	skillTypes = { [SkillType.Spell] = true, [SkillType.Area] = true, [SkillType.Buff] = true, [SkillType.HasReservation] = true, [SkillType.TotemCastsAlone] = true, [SkillType.Totemable] = true, [SkillType.Aura] = true, [SkillType.Lightning] = true, [SkillType.Instant] = true, [SkillType.Triggerable] = true, [SkillType.AreaSpell] = true, [SkillType.Cooldown] = true, },
+	statDescriptionScope = "skill_stat_descriptions",
+	castTime = 1,
+	statMap = {
+		["base_lightning_damage_resistance_%"] = {
+			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_lightning_damage_resistance_%"] = {
+			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+	baseFlags = {
+		spell = true,
+		area = true,
+		aura = true,
+	},
+	stats = {
+		"base_lightning_damage_resistance_%",
+		"base_maximum_lightning_damage_resistance_%",
+		"active_skill_base_radius_+",
+		"base_deal_no_damage",
+	},
+	levels = {
+		[1] = { 20, 0, 20, storedUses = 1, levelRequirement = 1, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+		[2] = { 60, 5, 45, storedUses = 1, levelRequirement = 80, cooldown = 0.5, statInterpolation = { 2, 2, 2, }, },
+	},
+}

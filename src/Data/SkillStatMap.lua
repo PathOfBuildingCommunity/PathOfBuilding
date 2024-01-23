@@ -980,6 +980,9 @@ return {
 	flag("CannotBrittle"),
 	flag("CannotSap"),
 },
+["lightning_damage_cannot_shock"] = {
+	flag("LightningCannotShock"),
+},
 ["chill_effect_+%"] = {
 	mod("EnemyChillEffect", "INC", nil),
 },

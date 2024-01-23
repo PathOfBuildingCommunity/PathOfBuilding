@@ -1895,3 +1895,31 @@ skills["DarkMarionetteExplodePerfect"] = {
 #baseMod skill("dotIsArea", true)
 #baseMod flag("dotIsCausticGround")
 #mods
+
+#skill ElderTentacleMinionProjectile Projectile
+#flags spell projectile
+#mods
+
+#skill ElderTentacleMinionProjectileEpic Projectile Large
+#flags spell projectile
+#mods
+
+#skill GSAzmeriTentacleMonsterBeam Beam
+#flags spell projectile hit
+#mods
+
+#skill GSAzmeriTentacleMonsterShockExplode Shock Explode
+#flags spell area hit
+#mods
+
+#skill AzmeriTentacleMinionLightningResistAura Purity of Lightning
+#flags spell area aura
+	statMap = {
+		["base_lightning_damage_resistance_%"] = {
+			mod("LightningResist", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+		["base_maximum_lightning_damage_resistance_%"] = {
+			mod("LightningResistMax", "BASE", nil, 0, 0, { type = "GlobalEffect", effectType = "Aura" }),
+		},
+	},
+#mods

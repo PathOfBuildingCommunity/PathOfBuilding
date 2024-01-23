@@ -385,3 +385,7 @@ local minions, mod, flag = ...
 #monster Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TankyZombieHigh
 #mod mod("MinionModifier", "LIST", { mod = mod("Life", "INC", 40, 0, 0, { type = "GlobalEffect", effectType = "Buff", effectName = "Meatsack", unscaleable = true })})
 #emit
+-- Eldritch Eye
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionLow
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionMid
+#spectre Metadata/Monsters/LeagueAzmeri/SpecialCorpses/TentacleMinionHigh
