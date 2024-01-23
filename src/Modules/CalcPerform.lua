@@ -2226,10 +2226,17 @@ function calcs.perform(env, fullDPSSkipEHP)
 						if env.mode_effective and stackCount > 0 then
 							activeMinionSkill.debuffSkill = true
 							enemyDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+							--[[ if affects allies
 							modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+							if env.minion then
+								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
+							end
+							]]
+							--[[ if it doesnt affect allies 
 							if env.minion and env.minion == activeSkill.minion then
 								env.minion.modDB.conditions["AffectedBy"..buff.name:gsub(" ","")] = true
 							end
+							]]
 							local srcList = new("ModList")
 							local mult = 1
 							if buff.type == "AuraDebuff" then
@@ -2238,8 +2245,12 @@ function calcs.perform(env, fullDPSSkipEHP)
 									local inc = skillModList:Sum("INC", skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 									local more = skillModList:More(skillCfg, "AuraEffect", "BuffEffect", "DebuffEffect")
 									mult = (1 + inc / 100) * more
-									buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = buff.modList }
-									if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
+									if not enemyDB.conditions["AffectedBy"..buff.name:gsub(" ","")] then
+										buffExports["Aura"][buff.name..(buffExports["Aura"][buff.name] and "_Debuff" or "")] = { effectMult = mult, modList = buff.modList }
+										if allyBuffs["AuraDebuff"] and allyBuffs["AuraDebuff"][buff.name] and allyBuffs["AuraDebuff"][buff.name].effectMult / 100 > mult then
+											mult = 0
+										end
+									else
 										mult = 0
 									end
 								end
