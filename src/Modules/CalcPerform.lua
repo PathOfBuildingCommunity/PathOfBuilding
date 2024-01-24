@@ -1657,17 +1657,6 @@ function calcs.perform(env, fullDPSSkipEHP)
 				end
 			end
 		end
-		--if breakdown and breakdown["ReqOmni"] then
-		--	table.sort(breakdown["ReqOmni"].rowList, function(a, b)
-		--		if a.reqNum ~= b.reqNum then
-		--			return a.reqNum > b.reqNum
-		--		elseif a.source ~= b.source then
-		--			return a.source < b.source
-		--		else
-		--			return a.sourceName < b.sourceName
-		--		end
-		--	end)
-		--end
 	end
 
 	-- Calculate number of active heralds
