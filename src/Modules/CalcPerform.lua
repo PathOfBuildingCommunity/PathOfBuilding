@@ -1629,8 +1629,7 @@ function calcs.perform(env, fullDPSSkipEHP)
 					out = m_max(out, req)
 					if breakdown then
 						local row = {
-							req = req > output[breakdownAttr] and colorCodes.NEGATIVE..req or req,
-							reqNum = req,
+							req = req,
 							source = reqSource.source,
 						}
 						if reqSource.source == "Item" then
@@ -1658,17 +1657,17 @@ function calcs.perform(env, fullDPSSkipEHP)
 				end
 			end
 		end
-		if breakdown and breakdown["ReqOmni"] then
-			table.sort(breakdown["ReqOmni"].rowList, function(a, b)
-				if a.reqNum ~= b.reqNum then
-					return a.reqNum > b.reqNum
-				elseif a.source ~= b.source then
-					return a.source < b.source
-				else
-					return a.sourceName < b.sourceName
-				end
-			end)
-		end
+		--if breakdown and breakdown["ReqOmni"] then
+		--	table.sort(breakdown["ReqOmni"].rowList, function(a, b)
+		--		if a.reqNum ~= b.reqNum then
+		--			return a.reqNum > b.reqNum
+		--		elseif a.source ~= b.source then
+		--			return a.source < b.source
+		--		else
+		--			return a.sourceName < b.sourceName
+		--		end
+		--	end)
+		--end
 	end
 
 	-- Calculate number of active heralds
