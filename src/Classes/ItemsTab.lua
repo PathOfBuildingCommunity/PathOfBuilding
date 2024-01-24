@@ -1143,7 +1143,7 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 	self.x = self.x - self.controls.scrollBarH.offset
 	self.y = self.y - self.controls.scrollBarV.offset
 	
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then	
 			if event.key == "v" and IsKeyDown("CTRL") then
 				local newItem = Paste()
@@ -1176,15 +1176,15 @@ function ItemsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" or event.key == "PAGEDOWN" then
+			if self.controls.scrollBarV:IsScrollDownKey(event.key) then
 				if self.controls.scrollBarV:IsMouseOver() or not self.controls.scrollBarH:IsShown() then
 					self.controls.scrollBarV:Scroll(1)
 				else
 					self.controls.scrollBarH:Scroll(1)
 				end
-			elseif event.key == "WHEELUP" or event.key == "PAGEUP" then
+			elseif self.controls.scrollBarV:IsScrollUpKey(event.key) then
 				if self.controls.scrollBarV:IsMouseOver() or not self.controls.scrollBarH:IsShown() then
 					self.controls.scrollBarV:Scroll(-1)
 				else

@@ -742,9 +742,9 @@ function CalcBreakdownClass:OnKeyUp(key)
 	if not self:IsShown() or not self:IsEnabled() then
 		return
 	end
-	if key == "WHEELDOWN" then
+	if self.controls.scrollBar:IsScrollDownKey(key) then
 		self.controls.scrollBar:Scroll(1)
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBar:IsScrollUpKey(key) then
 		self.controls.scrollBar:Scroll(-1)
 	end
 	return self

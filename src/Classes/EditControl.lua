@@ -711,7 +711,7 @@ function EditClass:OnKeyUp(key)
 				end
 			end
 		end
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBarV:IsScrollUpKey(key) then
 		if ctrl and self.allowZoom then
 			self:ZoomText("+")
 		elseif self.controls.scrollBarV.enabled then
@@ -719,7 +719,7 @@ function EditClass:OnKeyUp(key)
 		else
 			self.controls.scrollBarH:Scroll(-1)
 		end
-	elseif key == "WHEELDOWN" then
+	elseif self.controls.scrollBarV:IsScrollDownKey(key) then
 		if ctrl and self.allowZoom then
 			self:ZoomText("-")
 		elseif self.controls.scrollBarV.enabled then
