@@ -1,5 +1,25 @@
 # Changelog
 
+## [v2.39.1](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.39.1) (2024/01/24)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.39.0...v2.39.1)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Crashes
+* Fix crash when opening old builds by reverting Cluster Jewel import fix
+- Fix crash when hovering attribute requirements [\#7302](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7302) ([Wires77](https://github.com/Wires77))
+
+### User Interface
+- Fix breakdown sorting for unrelated stats [\#7303](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7303) ([Wires77](https://github.com/Wires77))
+- Fix charge duration not displaying in breakdown [\#7296](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7296) ([Wires77](https://github.com/Wires77))
+
+### Fixed Bugs
+- Fix mods not applying to Vaal gems correctly [\#7300](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7300) ([sida-wang](https://github.com/sida-wang))
+
+
+
 ## [v2.39.0](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.39.0) (2024/01/23)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.38.4...v2.39.0)

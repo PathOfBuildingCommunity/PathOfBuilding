@@ -805,6 +805,7 @@ data.gemForBaseName = { }
 data.gemsByGameId = { }
 -- Lookup table - [Gem.grantedEffectId] = VaalGemId
 data.gemGrantedEffectIdForVaalGemId = { }
+data.gemVaalGemIdForBaseGemId = { }
 local function setupGem(gem, gemId)
 	gem.id = gemId
 	gem.grantedEffect = data.skills[gem.grantedEffectId]
@@ -835,10 +836,17 @@ for gemId, gem in pairs(data.gems) do
     local loc, _ = gemId:find('Vaal')
 	if loc then
 		data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId] = gemId
+		for otherGemId, otherGem in pairs(data.gems) do
+			if otherGem.grantedEffectId == gem.secondaryGrantedEffectId then
+				data.gemVaalGemIdForBaseGemId[gemId] = otherGemId 
+				break
+			end
+		end
 	end
     for _, alt in ipairs{"AltX", "AltY"} do
         if loc and data.skills[gem.secondaryGrantedEffectId..alt] then
 			data.gemGrantedEffectIdForVaalGemId[gem.secondaryGrantedEffectId..alt] = gemId..alt
+			data.gemVaalGemIdForBaseGemId[gemId..alt] = data.gemVaalGemIdForBaseGemId[gemId]..alt
             local newGem = { name, gameId, variantId, grantedEffectId, secondaryGrantedEffectId, vaalGem, tags = {}, tagString, reqStr, reqDex, reqInt, naturalMaxLevel }
 			-- Hybrid gems (e.g. Vaal gems) use the display name of the active skill e.g. Vaal Summon Skeletons of Sorcery
             newGem.name = "Vaal " .. data.skills[gem.secondaryGrantedEffectId..alt].baseTypeName

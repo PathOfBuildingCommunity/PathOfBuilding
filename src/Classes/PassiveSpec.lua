@@ -1337,9 +1337,7 @@ function PassiveSpecClass:BuildClusterJewelGraphs()
 			node.alloc = true
 			if not self.allocNodes[nodeId] then
 				self.allocNodes[nodeId] = node
-				if not isValueInArray(self.allocExtendedNodes, nodeId) then
-					t_insert(self.allocExtendedNodes, nodeId)
-				end
+				t_insert(self.allocExtendedNodes, nodeId)
 			end
 		end
 	end
@@ -1429,10 +1427,6 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 	end
 
 	local function addToAllocatedSubgraphNodes(node)
-		-- Don't add to allocSubgraphNodes if node already exists
-		if isValueInArray(self.allocSubgraphNodes, node.id) then
-			return false
-		end
 		local proxyGroup = matchGroup(expansionJewel.proxy)
 		if proxyGroup then
 			for id, data in pairs(importedNodes) do
@@ -1479,6 +1473,7 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 		self.nodes[node.id] = node
 		if addToAllocatedSubgraphNodes(node) then
 			t_insert(self.allocSubgraphNodes, node.id)
+			t_insert(self.allocExtendedNodes, node.id)
 		end
 		return
 	end
@@ -1491,6 +1486,21 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 				return node
 			end
 		end
+	end
+
+	-- Check if we need to downsize the group
+	local groupSize = expansionJewel.size
+	upSize = upSize or 0
+	while clusterJewel.sizeIndex < groupSize do
+		-- Look for the socket with index 1 first (middle socket of large groups), then index 0
+		local socket = findSocket(proxyGroup, 1) or findSocket(proxyGroup, 0)
+		assert(socket, "Downsizing socket not found")
+
+		-- Grab the proxy node/group from the socket
+		proxyNode = self.tree.nodes[tonumber(socket.expansionJewel.proxy)]
+		proxyGroup = proxyNode.group
+		groupSize = socket.expansionJewel.size
+		upSize = upSize + 1
 	end
 
 	-- Initialise orbit flags
@@ -1704,14 +1714,13 @@ function PassiveSpecClass:BuildSubgraph(jewel, parentSocket, id, upSize, importe
 			return m_floor(srcOidx * destNodesPerOrbit / srcNodesPerOrbit)
 		end
 	end
-	
-	local skillsPerOrbit = self.tree.skillsPerOrbit[clusterJewel.sizeIndex+2]
-	local startOidx = data.clusterJewels.orbitOffsets[proxyNode.id][clusterJewel.sizeIndex]
+	local proxyNodeSkillsPerOrbit = self.tree.skillsPerOrbit[proxyNode.o+1]
+
 	-- Translate oidx positioning to TreeData-relative values
 	for _, node in pairs(indicies) do
-		local startOidxRelativeToClusterIndicies = translateOidx(startOidx, skillsPerOrbit, clusterJewel.totalIndicies)
-		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + startOidx) % clusterJewel.totalIndicies
-		local correctedNodeOidxRelativeToTreeSkillsPerOrbit = translateOidx(correctedNodeOidxRelativeToClusterIndicies, clusterJewel.totalIndicies, skillsPerOrbit)
+		local proxyNodeOidxRelativeToClusterIndicies = translateOidx(proxyNode.oidx, proxyNodeSkillsPerOrbit, clusterJewel.totalIndicies)
+		local correctedNodeOidxRelativeToClusterIndicies = (node.oidx + proxyNodeOidxRelativeToClusterIndicies) % clusterJewel.totalIndicies
+		local correctedNodeOidxRelativeToTreeSkillsPerOrbit = translateOidx(correctedNodeOidxRelativeToClusterIndicies, clusterJewel.totalIndicies, proxyNodeSkillsPerOrbit)
 		node.oidx = correctedNodeOidxRelativeToTreeSkillsPerOrbit
 	end
 

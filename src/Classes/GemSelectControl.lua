@@ -747,9 +747,9 @@ function GemSelectClass:OnKeyDown(key, doubleClick)
 			self.selIndex = self.initialIndex
 			self:UpdateGem(false,true)
 			return
-		elseif key == "WHEELUP" then
+		elseif self.controls.scrollBar:IsScrollUpKey(key) then
 			self.controls.scrollBar:Scroll(-1)
-		elseif key == "WHEELDOWN" then
+		elseif self.controls.scrollBar:IsScrollDownKey(key) then
 			self.controls.scrollBar:Scroll(1)
 		elseif key == "DOWN" then
 			if self.selIndex < #self.list and not self.noMatches then

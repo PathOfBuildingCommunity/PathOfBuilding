@@ -1,3 +1,17 @@
+VERSION[2.39.1][2024/01/24]
+
+--- Fixed Crashes ---
+* Fix crash when opening old builds by reverting Cluster Jewel import fix
+* Fix crash when hovering attribute requirements (Wires77)
+
+--- User Interface ---
+* Fix breakdown sorting for unrelated stats (Wires77)
+* Fix charge duration not displaying in breakdown (Wires77)
+
+--- Fixed Bugs ---
+* Fix mods not applying to Vaal gems correctly (sida-wang)
+
+
 VERSION[2.39.0][2024/01/23]
 
 --- New to Path of Building ---

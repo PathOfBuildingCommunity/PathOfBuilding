@@ -304,7 +304,7 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		section:UpdatePos()
 	end
 
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyDown" then
 			if event.key == "z" and IsKeyDown("CTRL") then
 				self:Undo()
@@ -316,11 +316,11 @@ function CalcsTabClass:Draw(viewPort, inputEvents)
 		end
 	end
 	self:ProcessControlsInput(inputEvents, viewPort)
-	for id, event in ipairs(inputEvents) do
+	for _, event in ipairs(inputEvents) do
 		if event.type == "KeyUp" then
-			if event.key == "WHEELDOWN" then
+			if self.controls.scrollBar:IsScrollDownKey(event.key) then
 				self.controls.scrollBar:Scroll(1)
-			elseif event.key == "WHEELUP" then
+			elseif self.controls.scrollBar:IsScrollUpKey(event.key) then
 				self.controls.scrollBar:Scroll(-1)
 			end
 		end

@@ -428,7 +428,7 @@ function DropDownClass:OnKeyUp(key)
 			self:SetSel(math.floor((cursorY - dropY + self.controls.scrollBar.offset) / (height - 4)) + 1)
 			self.dropped = false
 		end
-	elseif key == "WHEELDOWN" then
+	elseif self.controls.scrollBar:IsScrollDownKey(key) then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(1)
 		else
@@ -439,7 +439,7 @@ function DropDownClass:OnKeyUp(key)
 		self:SetSel(self:ListIndexToDropIndex(self.selIndex, 0) + 1)
 		self:ScrollSelIntoView()
 		return self
-	elseif key == "WHEELUP" then
+	elseif self.controls.scrollBar:IsScrollUpKey(key) then
 		if self.dropped and self.controls.scrollBar.enabled then
 			self.controls.scrollBar:Scroll(-1)
 		else
