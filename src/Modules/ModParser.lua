@@ -2248,7 +2248,7 @@ local specialModList = {
 	["non%-unique jewels cause small and notable passive skills in a (%a+) radius to also grant %+(%d+) to (%a+)"] = function(_, radius, val, attr) return {
 		mod("ExtraJewelFunc", "LIST", {radius = (radius:gsub("^%l", string.upper)), type = "Other", func = function(node, out, data)
 		if node and (node.type == "Notable" or node.type == "Normal") then
-			out:NewMod(firstToUpper(attr):match("^%a%l%l"), "BASE", val, data.modSource)
+			out:NewMod(firstToUpper(attr):match("^%a%l%l"), "BASE", tonumber(val), data.modSource)
 		end
 	end}, {type = "ItemCondition", itemSlot = "{SlotName}", rarityCond = "UNIQUE", neg = true}),
 	} end,
