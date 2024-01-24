@@ -312,6 +312,10 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 				return a.mod.type < b.mod.type
 			end
 		end)
+	else -- Sort modifiers by value
+		table.sort(rowList, function(a, b)
+			return a.value > b.value
+		end)
 	end
 
 	local sourceTotals = { }
