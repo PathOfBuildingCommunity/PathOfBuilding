@@ -1013,6 +1013,9 @@ function ItemsTabClass:Load(xml, dbFileName)
 		self.itemSetOrderList[1] = 1
 	end
 	self:SetActiveItemSet(tonumber(xml.attrib.activeItemSet) or 1)
+	if xml.attrib.showStatDifferences then
+		self.showStatDifferences = xml.attrib.showStatDifferences == "true"
+	end
 	self:ResetUndo()
 end
 
@@ -1020,6 +1023,7 @@ function ItemsTabClass:Save(xml)
 	xml.attrib = {
 		activeItemSet = tostring(self.activeItemSetId),
 		useSecondWeaponSet = tostring(self.activeItemSet.useSecondWeaponSet),
+		showStatDifferences = tostring(self.showStatDifferences),
 	}
 	for _, id in ipairs(self.itemOrderList) do
 		local item = self.items[id]
