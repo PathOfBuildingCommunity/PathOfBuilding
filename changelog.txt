@@ -1,3 +1,10 @@
+VERSION[2.39.2][2024/01/25]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix crash when using opening wiki for skills granted by items (Peechey)
+* Fix crash when hovering over some breakdowns (LocalIdentity)
+
+
 VERSION[2.39.1][2024/01/24]
 
 --- Fixed Crashes ---
