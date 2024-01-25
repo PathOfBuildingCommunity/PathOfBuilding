@@ -603,6 +603,9 @@ data.itemTagSpecialExclusionPattern = {
 			"Life From You",
 			"^Socketed Gems are Supported by Level"
 		},
+		["boots"] = {
+			"Enemy's Life", -- Legacy of Fury
+		},
 	},
 	["evasion"] = {
 		["ring"] = {
