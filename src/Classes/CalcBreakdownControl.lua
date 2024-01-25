@@ -307,7 +307,7 @@ function CalcBreakdownClass:AddModSection(sectionData, modList)
 		-- Sort modifiers by type
 		table.sort(rowList, function(a, b)
 			if a.mod.type == b.mod.type then
-				return a.mod.name > b.mod.name or a.mod.name == b.mod.name and a.value > b.value
+				return a.mod.name > b.mod.name or (a.mod.name == b.mod.name and type(a.value) == "number" and type(b.value) == "number") and a.value > b.value
 			else
 				return a.mod.type < b.mod.type
 			end
