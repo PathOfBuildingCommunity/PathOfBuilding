@@ -171,7 +171,8 @@ function SkillListClass:OnHoverKeyUp(key)
 			-- Get the first gem in the group
 			local gem = item.gemList[1]
 			if gem then
-				itemLib.wiki.openGem(gem.gemData)
+				-- either the skill is from a gem or granted from an item/passive
+				itemLib.wiki.openGem(gem.gemData or gem.grantedEffect.name)
 			end
 		elseif key == "RIGHTBUTTON" then
 			if IsKeyDown("CTRL") then
