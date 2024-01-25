@@ -129,10 +129,14 @@ end
 itemLib.wiki = {
 	key = "F1",
 	openGem = function(gemData)
-		local name = gemData.name;
-
-		if gemData.tags.support then
-			name = name .. " Support"
+		local name
+		if gemData.name then -- skill
+			name = gemData.name
+			if gemData.tags.support then
+				name = name .. " Support"
+			end
+		else -- grantedEffect from item/passive
+			name = gemData;
 		end
 
 		itemLib.wiki.open(name)
