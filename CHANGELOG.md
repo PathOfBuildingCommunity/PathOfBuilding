@@ -9,9 +9,8 @@
 ## What's Changed
 ### Fixed Crashes
 - Fix crash when using opening wiki for skills granted by items [\#7309](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7309) ([Peechey](https://github.com/Peechey))
-- Fix crash when hovering over some breakdowns [\#7311](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7311) ([LocalIdentity](https://github.com/LocalIdentity))
-### Other changes
 - Fix crash when mousing over strength breakdown when using Flame's Advance [\#7308](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7308) ([Paliak](https://github.com/Paliak))
+- Fix crash when hovering over some breakdowns [\#7311](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7311) ([LocalIdentity](https://github.com/LocalIdentity))
 
 
 
