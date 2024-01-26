@@ -1,5 +1,21 @@
 # Changelog
 
+## [v2.39.3](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.39.3) (2024/01/26)
+
+[Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.39.2...v2.39.3)
+
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+## What's Changed
+### Fixed Crashes
+- Fix crash when sorting gems on a disabled socket group [\#7317](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7317) ([Paliak](https://github.com/Paliak))
+- Fix crash when hovering over Buffs section [\#7315](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7315) ([Wires77](https://github.com/Wires77))
+
+### Fixed Bugs
+- Fix Utula's Hunger not working with Soultether, Legacy of Fury and Exarch Helmet implicit [\#7313](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7313) ([Peechey](https://github.com/Peechey))
+
+
+
 ## [v2.39.2](https://github.com/PathOfBuildingCommunity/PathOfBuilding/tree/v2.39.2) (2024/01/25)
 
 [Full Changelog](https://github.com/PathOfBuildingCommunity/PathOfBuilding/compare/v2.39.1...v2.39.2)
