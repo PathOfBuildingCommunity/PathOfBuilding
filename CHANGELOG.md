@@ -9,7 +9,8 @@
 ## What's Changed
 ### Fixed Crashes
 - Fix crash when sorting gems on a disabled socket group [\#7317](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7317) ([Paliak](https://github.com/Paliak))
-- Fix bug comparing non-number types in the Calcs tab [\#7315](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7315) ([Wires77](https://github.com/Wires77))
+- Fix crash when hovering over Buffs section [\#7315](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7315) ([Wires77](https://github.com/Wires77))
+
 ### Fixed Bugs
 - Fix Utula's Hunger not working with Soultether, Legacy of Fury and Exarch Helmet implicit [\#7313](https://github.com/PathOfBuildingCommunity/PathOfBuilding/pull/7313) ([Peechey](https://github.com/Peechey))
 
