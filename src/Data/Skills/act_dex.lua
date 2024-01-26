@@ -6417,7 +6417,7 @@ skills["ShrapnelTrap"] = {
 			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
 		end
 		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
-		local waveRadius = output.AreaOfEffectRadiusTertiary
+		local waveRadius = output.AreaOfEffectRadiusSecondary
 		local fullRadius = output.AreaOfEffectRadius
 		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
 		output.OverlapChance = overlapChance * 100
@@ -6578,7 +6578,7 @@ skills["ShrapnelTrapAltX"] = {
 			return math.min(damagingAreaRadius * damagingAreaRadius / (areaSpreadRadius * areaSpreadRadius), 1)
 		end
 		local enemyRadius = skillModList:Override(skillCfg, "EnemyRadius") or skillModList:Sum("BASE", skillCfg, "EnemyRadius")
-		local waveRadius = output.AreaOfEffectRadiusTertiary
+		local waveRadius = output.AreaOfEffectRadiusSecondary
 		local fullRadius = output.AreaOfEffectRadius
 		local overlapChance = hitChance(enemyRadius, waveRadius, fullRadius)
 		output.OverlapChance = overlapChance * 100
