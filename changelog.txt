@@ -1,3 +1,10 @@
+VERSION[2.39.3][2024/01/26]
+<!-- Release notes generated using configuration in .github/release.yml at dev -->
+
+* Fix crash when sorting gems on a disabled socket group (Paliak)
+* Fix bug comparing non-number types in the Calcs tab (Wires77)
+
+
 VERSION[2.39.2][2024/01/25]
 
 --- Fixed Crashes ---
