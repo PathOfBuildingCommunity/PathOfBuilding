@@ -603,6 +603,15 @@ data.itemTagSpecialExclusionPattern = {
 			"Life From You",
 			"^Socketed Gems are Supported by Level"
 		},
+		["boots"] = {
+			"Enemy's Life", -- Legacy of Fury
+		},
+		["belt"] = {
+			"Life as Extra Maximum Energy Shield", -- Soul Tether
+		},
+		["helmet"] = {
+			"Recouped as Life", -- Flame Exarch
+		},
 	},
 	["evasion"] = {
 		["ring"] = {

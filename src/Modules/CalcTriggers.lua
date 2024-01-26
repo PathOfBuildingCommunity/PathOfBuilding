@@ -528,11 +528,12 @@ local function defaultTriggerHandler(env, config)
 
 			-- Handling for mana spending rate for Manaforged Arrows Support
 			if actor.mainSkill.skillData.triggeredByManaforged and trigRate > 0 then
+				local mode = env.mode == "CALCS" and "CALCS" or "MAIN"
 				local triggeredUUID = cacheSkillUUID(actor.mainSkill, env)
-				if not GlobalCache.cachedData["CACHE"][triggeredUUID] then
-					calcs.buildActiveSkill(env, "CACHE", actor.mainSkill, {[triggeredUUID] = true})
+				if not GlobalCache.cachedData[mode][triggeredUUID] then
+					calcs.buildActiveSkill(env, mode, actor.mainSkill, {[triggeredUUID] = true})
 				end
-				local triggeredManaCost = GlobalCache.cachedData["CACHE"][triggeredUUID].Env.player.output.ManaCost or 0
+				local triggeredManaCost = GlobalCache.cachedData[mode][triggeredUUID].Env.player.output.ManaCost or 0
 				if triggeredManaCost > 0 then
 					local manaSpentThreshold = triggeredManaCost * actor.mainSkill.skillData.ManaForgedArrowsPercentThreshold
 					local sourceManaCost = GlobalCache.cachedData["CACHE"][uuid].Env.player.output.ManaCost or 0
