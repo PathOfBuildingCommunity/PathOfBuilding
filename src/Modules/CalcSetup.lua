@@ -1253,7 +1253,7 @@ function calcs.initEnv(build, mode, override, specEnv)
 		end
 
 		-- Determine main skill group
-		if env.mode == "CALCS" or env.mode == "CACHE" then
+		if env.mode == "CALCS" then
 			env.calcsInput.skill_number = m_min(m_max(#build.skillsTab.socketGroupList, 1), env.calcsInput.skill_number or 1)
 			env.mainSocketGroup = env.calcsInput.skill_number
 		else
